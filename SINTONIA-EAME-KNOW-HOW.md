@@ -5313,3 +5313,138 @@ deixa ver que existiu, nem por que deixou de existir.
 O que esta prova continua a **não** provar: produção, e READY. Ela começa no
 bruto já preservado e acaba na ADMISSION. `REQUEST`, `ORCHESTRATOR` e
 `EXECUTOR` continuam por observar.
+
+---
+
+# §69 · O SKIP QUE PARECIA UM PASS
+
+A missão §68 fechou `G-E2E-01` com 25/25 verdes e uma mutação de 9 mutantes
+sem sobreviventes. A prova estava boa. Faltava-lhe uma linha, e a linha estava
+a saltar.
+
+## 69.1 · ONDE O BURACO ESTAVA
+
+A prova de **valor** — ler `raw_asset` e comparar a fonte que aterrou com o
+canário declarado em `system-map/data/estradas-it.model.json` — vivia em
+`tests/test_a_prova_e2e_segue_a_producao.py`. Ela lia uma tabela que o módulo
+ao lado tinha acabado de limpar:
+
+```
+tests/test_m2_rota_forward.py   tearDownClass  →  delete from raw_asset
+tests/test_a_prova_e2e...       depois         →  tabela vazia → skipTest
+```
+
+A `tearDownClass` está **certa**: uma suite que suja o banco parte quem correr
+a seguir (foi assim que nasceram os 40 erros de chave estrangeira de §61). O
+erro não era limpar. Era pôr a pergunta num sítio onde a resposta já não
+existe.
+
+```
+    SKIP != PASS.
+    UM SUMÁRIO VERDE COM `skipped=1` NÃO DIZ QUAL PROVA NÃO CORREU.
+```
+
+E a lei já estava escrita — em `provas/os_portoes_da_collection.py`, por mim,
+na missão anterior: `PORQUE_SALTA_SEM_BANCO: "SKIP != PASS"`. Escrevi a lei
+para o caso de não haver banco, e não a apliquei ao caso de não haver linhas.
+
+## 69.2 · O QUE O BURACO DEIXAVA PASSAR — MEDIDO
+
+Com a prova a saltar, apliquei o mutante «trocar `SOURCE_ID` por slug» e
+perguntei **quais** provas morriam:
+
+```
+FAIL  test_a_fonte_declarada_nao_e_o_slug         ← texto
+FAIL  test_o_fixture_declara_a_fonte_do_canario   ← texto
+      (nenhuma leitura do banco)
+```
+
+Duas guardas de **texto**, e mais nada. E `test_mesmo_SOURCE_ID_e_ROUTE_CLASS`
+— que lê o banco — **não** reprovou: ela lê `etapa_da_corrida`, cujo
+`source_id` vem da unidade, não da ficha. O que aterra em `raw_asset` não
+tinha leitor nenhum.
+
+Por isso o mutante que importa é este, e ele é de **produção**:
+
+```
+coleta/ingresso.py:   "SOURCE_ID": f.SOURCE_ID   →   "SOURCE_ID": "NAO SEI"
+```
+
+O fixture continua a declarar `IT-T2-002`. Todas as guardas de texto passam —
+o texto está certo. A fonte é largada entre o fixture e a linha. É a família
+exacta do `READER_GAP` de §60, e a prova restaurada não a via.
+
+```
+    UMA GUARDA DE TEXTO CONFERE O QUE ESTÁ ESCRITO.
+    SÓ UMA LEITURA DO BANCO CONFERE O QUE ATERROU.
+```
+
+## 69.3 · A CORREÇÃO — A PROVA MUDA-SE, A REGRA NÃO
+
+A prova de valor mudou-se para `M2_TravessiaUnica`, que corre a travessia e
+pergunta ao banco **antes** de limpar. Ela salta só quando não há PostgreSQL
+descartável nenhum — o caso honesto, e o mesmo `skipUnless` da classe `Base`.
+
+No ficheiro de guardas ficou uma **sentinela**, não uma cópia:
+
+```
+alguém lê `public.raw_asset` e compara com o CANARIO   → tem de existir
+e essa prova não chama `skipTest`                       → tem de ser verdade
+```
+
+A segunda é a que fecha o círculo: ela impede que a prova volte a
+auto-salvar-se com um `skipTest`.
+
+## 69.4 · A GUARDA QUE NÃO TINHA QUEM A CONFERISSE
+
+Um mutante sobreviveu e ensinou o resto. A guarda do `G-E2E-01` estava escrita
+a direito dentro da asserção:
+
+```python
+self.assertIn("_ing.para_o_dono_do_raw(ficha, {})", s, "...")
+```
+
+Enfraquecer a agulha para `assertIn("x", s + "x")` não parte nada. A guarda
+passa a dizer sim a tudo, e ninguém repara — porque só há uma pergunta, e a
+resposta certa continua a ser sim.
+
+```
+    UMA REGRA QUE SÓ SABE DIZER «SIM» AO FICHEIRO REAL
+    NÃO DISTINGUE UMA GUARDA QUE MORDE DE UMA QUE JÁ NÃO MORDE.
+    O «NÃO» É QUE PROVA A MORDIDA.
+```
+
+A regra saiu para uma função e ganhou dois exemplos sintéticos: um que ela tem
+de aceitar, e um escrito à mão que ela tem de recusar. O mesmo mutante passa a
+reprovar o exemplo negativo.
+
+Isto não é regresso infinito. A meta-guarda não confere a guarda: ela dá-lhe
+um **caso** em que a resposta certa é «não», e um caso é conferível.
+
+## 69.5 · E A MEDIÇÃO QUE MEDIU A SUJEIRA OUTRA VEZ
+
+A regressão desta janela acusou **14 falhas novas** em dois módulos. Ambos
+passavam sozinhos, na mesma árvore limpa, no mesmo HEAD. A suite tinha corrido
+ao mesmo tempo que a mutação, que reescreve ficheiros no sítio.
+
+É a terceira vez na Collection. §63 foi resíduo da sonda anterior; aqui foi
+concorrência — a mesma lei, outra porta:
+
+```
+    UMA MEDIÇÃO NÃO PODE CORRER AO LADO DE QUEM MEXE NO QUE ELA MEDE.
+```
+
+Antes de reportar qualquer falha nova: reproduzir o módulo sozinho. Se ele
+passa, a falha não é dele — é da janela.
+
+## 69.6 · CONSEQUÊNCIA
+
+```
+MUTANTES  9 → 11 · SURVIVORS 0
+NOVOS     10 · o INGRESSO larga a fonte a caminho do RAW
+          11 · a prova de VALOR volta a saltar-se a si própria
+```
+
+Os dois novos morrem, e são exactamente os que passavam inteiros antes desta
+correção. `G-E2E-01` continua fechado — e agora fechado por uma prova que
+corre, e não por uma que salta.
