@@ -5068,3 +5068,141 @@ segundo.
 Fica escrita, em vez de improvisada, a única coisa que exige contrato novo:
 **não há como perguntar se uma RUN está viva**. Enquanto não houver, `rodando`
 numa execução morta é a verdade que a casa consegue dizer.
+
+---
+
+# §67 · UMA INFRAESTRUTURA COMUM NÃO É PROVADA POR UM ÚNICO ADAPTER USANDO-A
+
+**Missão:** `C10.6C — CONVERGÊNCIA DO RUNTIME DURÁVEL DO SINTONIA SCRAP`
+**HEAD final:** `66e41b9c`
+**Tocado:** `coleta/scrap_executor.py` · `coleta/scrap_registo.py` ·
+`coleta/coleta_checkpoint.py` · `coleta/adaptador_instagram.py` ·
+`medidas/rastro_da_coleta.py`
+
+## 67.1 · O QUÊ
+
+A `§66` fechou o estado durável na cadeia de Reel. Esta missão perguntou de quem
+ele era, e a resposta foi medida:
+
+```
+WIRED_CAPABILITIES = 13 · COM DURABILIDADE = 3 · SEM = 10
+C10_6C_RUNTIME_CONVERGENCE = BLOCKED_ARCHITECTURE_DECISION
+```
+
+O runtime comum foi construído, está no boundary certo e está provado em três
+classes de execução. O que bloqueia são **15 invocações vivas de workflow** que
+correm as implementações e nunca tocam no executor.
+
+## 67.2 · A PERGUNTA QUE UMA MISSÃO SÓ FAZ DEPOIS DE TER SUCESSO
+
+A `§66` foi um PASS. Fez tudo certo: donos chamados, nada duplicado, mutações a
+zero. E pôs a durabilidade **dentro do adaptador do Instagram**, porque era ali
+que o trabalho estava.
+
+    UMA INFRAESTRUTURA COMUM NÃO É PROVADA POR UM ÚNICO ADAPTER USANDO-A.
+
+A lição não é que a `§66` errou — é que **provar uma coisa num sítio não diz de
+quem ela é**. A pergunta «isto é comum?» tem de ser feita depois, e tem de ser
+feita com um censo, não com uma impressão.
+
+## 67.3 · ALCANCE NÃO É USO
+
+O primeiro censo desta missão caminhou o fecho transitivo dos `import` e disse
+que o YouTube tinha durabilidade. Tinha `import coleta_checkpoint` — para dois
+ajudantes de identidade. Nunca chamou o driver.
+
+    UMA SONDA QUE MEDE ALCANCE TRANSITIVO MEDE O QUE PODE, NÃO O QUE FAZ.
+
+A medição certa é por CHAMADA, e com o nome da função. É a irmã da lei que a
+`§62` escreveu para os censos de texto: alcance, citação e chamada são três
+coisas, e só a última é uma aresta.
+
+## 67.4 · O BOUNDARY É O PONTO MAIS ALTO QUE NÃO INVENTA
+
+Cinco critérios decidiram, e o quinto foi o que desenhou o código: o boundary
+não pode registar etapa que nunca ocorreu. `scrap_executor.COLLECT` não sabe se
+houve `FETCH` — logo não o escreve. Escreve **uma** etapa: o `CHECK` que ele
+próprio atravessa.
+
+    NÃO SE FABRICA ETAPA. QUEM NÃO ATRAVESSOU NÃO RELATA.
+
+O que desce para quem sabe reportar é um **relator**, e só para quem o declara na
+assinatura. Um executor que só funcionasse com implementações instrumentadas já
+não seria o executor de todas.
+
+## 67.5 · TRÊS COISAS DIFERENTES, E SÓ UMA É SEMPRE VERDADE
+
+```
+RUN_REQUIRED          toda execução real existiu
+STAGE_TRACE_REQUIRED  toda etapa atravessada deixa rasto
+CHECKPOINT_REQUIRED   só quando há unidade retomável
+```
+
+«Resolver um canal pelo nome» ou resolveu ou não resolveu. Dar-lhe checkpoint
+para o painel dizer `CHECKPOINT = YES` trancá-la-ia para sempre com
+`JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES` na segunda vez que alguém a pedisse.
+
+    FABRICAR RETOMADA ONDE NÃO HÁ NADA A RETOMAR NÃO AUMENTA COBERTURA.
+    TRANCA A PORTA.
+
+Quem declara a unidade é o adapter, porque é a única coisa que só ele sabe dizer.
+Quem não declara não ganha checkpoint — e isso é uma resposta, não um
+esquecimento.
+
+## 67.6 · UM PORTÃO QUE RECUSA NÃO FALHOU
+
+O `CHECK` fecha em `SKIPPED`, não em `FAIL`. `FAIL` diria que o próprio CHECK
+rebentou; o que houve foi ele correr, medir e responder «não dá».
+
+E o schema já o sabia: `falha_tem_codigo` exige `diagnostic_code` em toda linha
+`FAIL`, e `leis/diagnostico.py` não tem código para `CHECK`. **Não tem porque
+`CHECK` não falha.** A ausência no registry era a lei escrita onde ninguém tinha
+lido.
+
+    QUANDO UMA TRAVA DO BANCO RECUSA, LEIA-A ANTES DE A CONTORNAR:
+    ÀS VEZES ELA ESTÁ A DIZER QUE O SEU VOCABULÁRIO É QUE ESTÁ ERRADO.
+
+## 67.7 · A PROVA DE QUE É COMUM É PARTIR-SE IGUAL
+
+Três classes de execução — mídia por `executa`, API por `rota`, JSON por `rota` —
+mortas no mesmo ponto com `os._exit(97)`. As três deixaram exactamente a mesma
+forma: `RUN=rodando`, `CHECK/PASS`, checkpoint só onde havia unidade.
+
+    A PROVA DE QUE A INFRAESTRUTURA É COMUM É ELA PARTIR-SE IGUAL EM TODAS.
+
+Um teste de sucesso mostra que funciona nas três. Um teste de **morte** mostra
+que é a mesma coisa nas três.
+
+## 67.8 · QUATRO MUTANTES, E A REGRA QUE ELES ENSINARAM
+
+Quatro sobreviveram à primeira bateria. Um deles — sobrescrever a tentativa
+anterior — sobreviveu porque eu corria só a prova da missão nova.
+
+    UMA MISSÃO NOVA NÃO DISPENSA A PROVA DA ANTERIOR.
+    A BATERIA DE MUTAÇÃO TEM DE EXIGIR TODAS AS PROVAS QUE JÁ EXISTEM.
+
+Os outros três pagaram sentinelas que faltavam: a ordem entre abrir a etapa e
+fazer o trabalho, o ramo de excepção que não pode fechar como sucesso, e a regra
+de que só capacidade **wired** declara unidade.
+
+## 67.9 · UM ZERO SÓ VALE SE A SONDA ESTIVER A OLHAR PARA O SÍTIO
+
+O ataque que devia encontrar os bypasses procurou **adapters** nos workflows e
+achou zero. Os workflows não chamam adapters: chamam as **implementações**.
+
+    UM ZERO SÓ VALE SE A SONDA ESTIVER A OLHAR PARA O SÍTIO.
+
+Corrigido, encontrou 19 menções; separando invocação de verificação de presença —
+a disciplina que a `§62` já tinha escrito — ficaram **15 portas reais**.
+
+## 67.10 · CONSEQUÊNCIA
+
+O runtime durável comum existe, está provado, e não precisa de migration nenhuma.
+A convergência não fecha porque 15 fases operacionais entrariam por outro sítio,
+e mudá-las muda a superfície operacional inteira da casa.
+
+    QUANDO O QUE FALTA É UMA DECISÃO DE GENTE, O VEREDITO É BLOQUEADO —
+    NÃO PARCIAL, E MUITO MENOS PASSA.
+
+Arredondar isso para `PASS` porque «o código está pronto» seria dizer que o
+sistema converge quando quinze portas dizem que não.
