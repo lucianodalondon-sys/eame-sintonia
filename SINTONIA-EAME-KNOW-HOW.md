@@ -8598,3 +8598,202 @@ gerador, versiona cada input e sabe dizer se ainda vale. E as três populações
 ```
     UM VIZINHO DA COLETA NÃO VIRA MEMBRO DA COLETA.
 ```
+
+---
+
+# §89 · UMA TRADUÇÃO E UMA COMPRA DECIDEM AUTORIZAÇÃO, E NENHUMA DAS DUAS PARECE UMA DECISÃO
+
+**Missão:** `LINKEDIN-BUILD-01` + `LINKEDIN-POLICY-01`
+**Linha:** `claude/festive-fermi-1k2mf5` · **HEAD final:** `ab115d23`
+**Tocado:** `coleta/scrap_capacidades.py` · `coleta/adaptador_linkedin.py` ·
+`docs/sintonia-scrap/LINKEDIN-POLICY-01-ROTAS-AUTORIZAVEIS.md` ·
+`docs/sintonia-scrap/LINKEDIN-ROUTE-MATRIX-V1.json`
+
+A `§84.4` já tinha escrito `PROVIDER REACHED != CAPABILITY DELIVERED` — chegar
+ao fornecedor não é ele entregar. Esta secção acrescenta as duas perguntas que
+vêm **antes** dessa, e que são de autorização e não de capacidade: *quem decide
+qual permissão é consultada?* e *pagar muda a resposta?*
+
+As duas leis abaixo têm a mesma forma perigosa: a decisão acontece num sítio que
+ninguém lê como sítio de decisão. Uma vive num campo de tradução; a outra, numa
+fatura.
+
+## 89.1 · O QUE MUDOU — UM CAMPO DE TRADUÇÃO CONCEDIA UMA PERMISSÃO
+
+`coleta/scrap_capacidades.py` traduz o vocabulário fino das capacidades
+(`linkedin.recent.discovery`) para o vocabulário grosso da política
+(`DISCOVER_ACCOUNT`). O campo existe para que os dois vocabulários coexistam sem
+que um se imponha ao outro, e foi escrito como conveniência de nomenclatura.
+
+Medido: `linkedin.recent.discovery` — **as publicações recentes da página de
+empresa** — traduzia para `DISCOVER_ACCOUNT`. E
+`social_matriz.decisao('LINKEDIN','DISCOVER_ACCOUNT')` devolve **`ALLOWED`**.
+
+A única rota debaixo daquela permissão é
+`descoberta-indireta:site-da-organizacao`: ler o site **da própria organização**
+para lhe achar o endereço. A própria matriz escreve o limite ao lado — «Guarda
+`DISCOVERY_SOURCE`, `DISCOVERED_URL`, `TARGET_TYPE`, `DISCOVERED_AT`, e **nunca
+conteúdo de post fabricado**».
+
+```
+    «AS PUBLICAÇÕES DA PÁGINA» E «O ENDEREÇO DA CONTA» SÃO DOIS ACTOS, E A
+    TRADUÇÃO FAZIA O PRIMEIRO PEDIR EMPRESTADA A PERMISSÃO DO SEGUNDO.
+```
+
+## 89.2 · POR QUE ISTO NÃO REBENTOU, E POR QUE ISSO É O PIOR DA HISTÓRIA
+
+Nenhuma linha de código explorava o defeito, por uma razão acidental: nenhuma
+das sete capacidades de LinkedIn tinha rota ligada. A porta estava destrancada
+por dentro de uma casa vazia.
+
+Um erro de tipo rebenta. Um erro de nome rebenta. Um erro de **tradução de
+permissão** não rebenta — ele responde `ALLOWED` e a execução segue em frente.
+
+```
+    UMA TRADUÇÃO ERRADA NÃO FALHA. ELA AUTORIZA.
+    TRANSLATION IS AUTHORIZATION.
+```
+
+E há uma segunda propriedade que só se vê depois: enquanto duas capacidades
+apontassem para a mesma capacidade grossa, `cap.pela_matriz()` devolveria a
+primeira que encontrasse. **O dono de uma permissão seria decidido por ordem de
+dicionário.**
+
+## 89.3 · PROVA
+
+```
+ANTES   cap.pela_matriz('LINKEDIN','DISCOVER_ACCOUNT') -> linkedin.recent.discovery
+        mz.decisao('LINKEDIN','DISCOVER_ACCOUNT')       -> ALLOWED
+DEPOIS  cap.pela_matriz('LINKEDIN','DISCOVER_ACCOUNT') -> linkedin.identity.discovery
+        donos declarados de DISCOVER_ACCOUNT no LINKEDIN -> 1
+```
+
+Corrigido em `a418f040`. O desenho não é novo: o Facebook já tinha
+`facebook.identity.discovery` a apontar para `DISCOVER_ACCOUNT`, e o LinkedIn
+passou a ter o mesmo. A correcção **retira** uma permissão que estava concedida
+pelo nome errado — não abre nenhuma.
+
+## 89.4 · CONSEQUÊNCIA DA PRIMEIRA LEI
+
+O campo que traduz entre dois vocabulários de capacidade **é uma superfície de
+permissão**, não um apelido e não canalização neutra.
+
+```
+    TODA TRADUÇÃO QUE MUDA A POLÍTICA CONSULTADA É UMA DECISÃO DE AUTORIZAÇÃO,
+    E PRECISA DE PROVA E DE SENTINELA PRÓPRIAS.
+```
+
+Na prática, três obrigações:
+
+1. mudar o campo de tradução entra na revisão de **política**, não só na de código;
+2. cada capacidade grossa tem **um** dono declarado por plataforma, e isso
+   confere-se — um segundo dono é uma permissão decidida por ordem alfabética;
+3. um teste que leia a tradução e a decisão **juntas**, porque separadas as duas
+   estão sempre certas.
+
+## 89.5 · O QUE MUDOU — E A SEGUNDA PERGUNTA: PAGAR AUTORIZA?
+
+A `LINKEDIN_LOCAL_FIRST` terminou em `PARTIAL` com uma pergunta aberta: para
+conteúdo de terceiro no LinkedIn não há rota livre permitida — **comprar de um
+fornecedor pago torna a aquisição autorizada?**
+
+A resposta não veio da plataforma-alvo. Veio do contrato do próprio fornecedor.
+`docs.apify.com/legal/general-terms-and-conditions`, em vigor **2026-07-09**,
+lido em 2026-09-12:
+
+> **§6.2** — «You must use the Services to process only the Customer Data that
+> **you are authorized to access**…»
+
+> **§11.1** — «Should you use the Services or Actors to extract Customer Data
+> from **unauthorized sources**, **you shall be responsible** for compensating
+> any damages incurred by and/or any claims of the affected third parties.»
+
+> **§11.1** — «You agree to **indemnify, defend and hold us … harmless**…»
+
+```
+    O FORNECEDOR NÃO ASSUME A AUTORIZAÇÃO. DEVOLVE-A AO CLIENTE, POR ESCRITO,
+    NO CONTRATO QUE SE ASSINA AO PAGAR.
+```
+
+## 89.6 · POR QUÊ, E ONDE ESTÁ A TENTAÇÃO
+
+A tentação é estrutural e não é preguiça: o roteador escolhe a rota mais barata
+**capaz**, e um Actor pago é, quase sempre, capaz. Se «capaz» fosse o único
+eixo, uma rota directa recusada seria automaticamente substituída por uma rota
+paga que faz a mesma coisa — e o relatório diria `OK`.
+
+```
+    PAID PROVIDER IS NOT A POLICY OVERRIDE.
+    Preço e terceirização respondem CAPACIDADE. Nunca respondem PERMISSÃO.
+```
+
+E a pergunta certa sobre um fornecedor não é quanto custa nem quantos o usam. É
+**qual é o mecanismo dele e qual é a base contratual dele** — porque um
+fornecedor que apenas encapsula a técnica que a casa recusou é a mesma técnica
+com uma fatura à frente.
+
+## 89.7 · PROVA
+
+Da `LINKEDIN-POLICY-01`, oito rotas inventariadas e sete fornecedores censados:
+
+```
+CLASSE A · rota de fornecedor aceitável           0
+CLASSE B · contrato/mecanismo insuficientes       4   mecanismo = UNKNOWN
+CLASSE C · incompatível com a política            2
+```
+
+Os dois da classe C caíram **pelo que dizem de si próprios**, não pela loja onde
+vivem: um pede os **nossos** cookies de sessão — é a rota autenticada comprada,
+com a nossa credencial; o outro declara «Google-based search» — é a rota de
+índice comprada, e o §8.2(4) do User Agreement nomeia «search tools» ao lado de
+«data aggregators or brokers».
+
+```
+    ACTOR != LEGAL/POLICY STATUS. Nenhum caiu por ser Apify, e nenhum subiu por
+    ser barato.
+```
+
+E a sentinela, que corre nos **dois** sentidos:
+
+```
+    MECANISMO DESCONHECIDO NÃO É PROIBIDO AUTOMATICAMENTE,
+    E NÃO É PERMITIDO AUTOMATICAMENTE.  É `REQUIRES_HUMAN_DECISION`.
+```
+
+## 89.8 · CONSEQUÊNCIA DA SEGUNDA LEI
+
+Se uma rota directa está `NOT_ALLOWED`, o roteador **não pode** seleccionar
+sozinho um Actor pago que faça o mesmo. Um fornecedor só é rota distinta quando
+tem **contrato, mecanismo e procedência próprios** — e isso prova-se, não se
+presume por ele existir e aceitar dinheiro.
+
+```
+    SE O PROVIDER APENAS ENCAPSULA A TÉCNICA RECUSADA, SEM BASE CONTRATUAL
+    PRÓPRIA, ENTÃO  PAID_ROUTE != ALLOWED.
+```
+
+Três consequências operacionais:
+
+1. a decisão de rota paga precisa do **motivo canónico** e, agora, também da
+   **classe do fornecedor** — A, B ou C;
+2. quando o único caminho para um campo é uma rota que a política recusa, o
+   resultado é `BLOCKED_NO_PERMITTED_ROUTE`, **nunca** «precisa de dinheiro»;
+3. ler os termos do fornecedor é um passo **grátis** que vem antes do gasto —
+   irmão do `inputSchema` da `COL-LAW-018`. E ele pode falhar: o fornecedor cujos
+   dados esta casa possui devolveu **HTTP 403** aos seus próprios termos, deste
+   IP, nas duas tentativas. Isso é um `UNKNOWN` material, não um detalhe.
+
+## 89.9 · E A LEI QUE JÁ EXISTIA GANHOU UM IRMÃO MAIS VELHO
+
+A `§84.4` diz que chegar ao fornecedor não é ele entregar. A `§89` diz que pagar
+ao fornecedor não é ter permissão. Juntas, e na ordem em que se perguntam:
+
+```
+    PODEMOS?          →  política e procedência do fornecedor   (§89)
+    ELE CONSEGUE?     →  capacidade                             (§84.4)
+    ELE ENTREGOU?     →  o payload, contado campo a campo       (§84.4)
+```
+
+Três perguntas, três respostas independentes. Um relatório que colapse duas
+delas está a dizer a verdade sobre uma e a enganar sobre a outra — que foi
+exactamente o defeito que a `§84.4` nasceu para nomear.
