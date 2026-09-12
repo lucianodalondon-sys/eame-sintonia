@@ -244,6 +244,7 @@
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+      "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
       "data/derivados/texto/RAW-0c2723e66201f966.txt",
@@ -1437,6 +1438,7 @@
       "system-map/scripts/pente_fino_da_coleta.py",
       "system-map/scripts/publicar_no_deploy.mjs",
       "system-map/scripts/recall_da_porta_it.py",
+      "system-map/scripts/reconciliacao_do_universo.py",
       "system-map/scripts/relatorio_do_fluxo.py",
       "system-map/scripts/scan_casco.py",
       "system-map/scripts/scan_repo.py",
@@ -1445,6 +1447,7 @@
       "system-map/scripts/verificar_deploy.py",
       "system-map/tests/test_freshness.mjs",
       "system-map/tests/test_impressao_da_arvore.py",
+      "system-map/tests/test_reconciliacao_do_universo.py",
       "system-map/tests/test_system_map.py",
       "system-map/tests/verificar_a_tela.mjs"
     ],
@@ -1943,9 +1946,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "7b38306dd2e78d3501e49b1fe2d497d38a9a5df6",
-    "GENERATED_AT": "2026-09-12T11:51:09+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d46ba2ee90615b9fbf164c974a94e248222c117b57aa5b84c4c18cf3dae90e90"
+    "HEAD": "a9b13c3fee8a5127b968193afa59ed7f50cc0635",
+    "GENERATED_AT": "2026-09-12T11:52:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8540ce036b0916bd556c1cb6db310a3c4b5066bc97789b479a56dc0bde91800a"
   },
   "FAMILIES": [
     {
@@ -6160,6 +6163,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-RECONCILIACAO-UNIVERSO",
         "C-TESTES"
       ],
       "paises": {},
@@ -6221,7 +6225,9 @@
       "inbound": [
         "C-CI-MAPA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-RECONCILIACAO-UNIVERSO"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -6841,7 +6847,9 @@
       "inbound": [
         "C-CI-MAPA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-RECONCILIACAO-UNIVERSO"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -9289,7 +9297,8 @@
         "C-MAPA-DEPLOY"
       ],
       "outbound": [
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-RECONCILIACAO-UNIVERSO"
       ],
       "paises": {},
       "paises_dado": {},
@@ -10361,6 +10370,7 @@
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
         "C-PROVA-MAPA-NAO-MENTE",
+        "C-RECONCILIACAO-UNIVERSO",
         "C-TESTES"
       ],
       "paises": {},
@@ -10469,7 +10479,8 @@
       "outbound": [
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-RECONCILIACAO-UNIVERSO"
       ],
       "paises": {},
       "paises_dado": {
@@ -10526,10 +10537,11 @@
       "files": [
         "system-map/tests/test_freshness.mjs",
         "system-map/tests/test_impressao_da_arvore.py",
+        "system-map/tests/test_reconciliacao_do_universo.py",
         "system-map/tests/test_system_map.py",
         "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -10550,7 +10562,8 @@
         "C-MAPA-VALIDADOR",
         "C-PADRAO-COLETA",
         "C-PROCEDENCIA",
-        "C-PROVA-MAPA-NAO-MENTE"
+        "C-PROVA-MAPA-NAO-MENTE",
+        "C-RECONCILIACAO-UNIVERSO"
       ],
       "outbound": [
         "C-PROVA-COLETA"
@@ -10562,13 +10575,14 @@
         "papel": "NAO SEI",
         "listas": [
           "CATEGORIAS_CONHECIDAS",
+          "OBRIGATORIO",
           "PARTES_ESPERADAS",
           "SUSPEITO",
           "_ESPINHA"
         ],
-        "palavras": 39,
+        "palavras": 45,
         "por_lingua": {},
-        "sem_marca_de_lingua": 39,
+        "sem_marca_de_lingua": 45,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12458,6 +12472,7 @@
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-RECONCILIACAO-UNIVERSO",
         "C-TESTES"
       ],
       "paises": {},
@@ -12969,7 +12984,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⇄",
       "views": [
         "audit",
@@ -12977,22 +12992,56 @@
       ],
       "lane": "official",
       "family": "F-GOVERNANCA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add system-map/scripts/reconciliacao_do_universo.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "system-map/scripts/reconciliacao_do_universo.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
-      "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "produces": [
+        "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json"
+      ],
+      "inbound": [
+        "C-CENSO-CARDS-SENSORES",
+        "C-CENSO-COLETA",
+        "C-CENSO-TOPOLOGIA",
+        "C-IMPRESSAO-DA-ARVORE",
+        "C-MAPA-GERADOR",
+        "C-MAPA-SCAN",
+        "C-PROVA-MAPA-NAO-MENTE"
+      ],
+      "outbound": [
+        "C-MAPA-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MOTIVO_POR_TERRITORIO"
+        ],
+        "palavras": 45,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 45,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 20850,
       "y": 4224
     },
@@ -19605,6 +19654,29 @@
     },
     {
       "from": "C-CENSO-CARDS-SENSORES",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo dos cards e dos sensores alimenta Reconciliacao do universo do mapa. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 259,
+          "snippet": "matriz = ler(RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\")"
+        },
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 428,
+          "snippet": "\"OWNER\": \"system-map/scripts/censo_cards_sensores.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-CENSO-CARDS-SENSORES",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -19625,6 +19697,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-COLETA",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da coleta alimenta Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 444,
+          "snippet": "\"OWNER\": \"system-map/scripts/censo_da_coleta.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-CENSO-CONGELAMENTO",
@@ -19861,6 +19951,42 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-TOPOLOGIA",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da topologia da coleta tem o seu codigo importado por Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 81,
+          "snippet": "from censo_da_topologia import LADO_DA_COLETA           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-CENSO-TOPOLOGIA",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da topologia da coleta alimenta Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 274,
+          "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"), \"--json\"],"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-CI-COLETA",
@@ -20364,7 +20490,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 3 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -20380,6 +20506,11 @@
           "file": ".github/workflows/system-map.yml",
           "line": 313,
           "snippet": "run: python3 system-map/tests/test_impressao_da_arvore.py"
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 331,
+          "snippet": "run: python3 system-map/tests/test_reconciliacao_do_universo.py"
         }
       ],
       "categoria": "PROOF"
@@ -24106,6 +24237,24 @@
       "categoria": "CODE"
     },
     {
+      "from": "C-IMPRESSAO-DA-ARVORE",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Impressao da arvore-fonte tem o seu codigo importado por Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 79,
+          "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
       "from": "C-INGRESSO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
@@ -25350,7 +25499,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 5 linhas de codigo.",
+      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_freshness.mjs",
@@ -25361,6 +25510,11 @@
           "file": "system-map/tests/test_impressao_da_arvore.py",
           "line": 184,
           "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
+        },
+        {
+          "file": "system-map/tests/test_reconciliacao_do_universo.py",
+          "line": 160,
+          "snippet": "MAPJS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
@@ -25592,6 +25746,24 @@
     },
     {
       "from": "C-MAPA-GERADOR",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map alimenta Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 203,
+          "snippet": "\"OWNER\": \"system-map/scripts/generate_system_map.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-GERADOR",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -25683,6 +25855,42 @@
           "file": "system-map/scripts/validate_system_map.py",
           "line": 143,
           "snippet": "for script in (\"scan_repo.py\", \"scan_sources.py\", \"scan_casco.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-SCAN",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map tem o seu codigo importado por Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 80,
+          "snippet": "from pente_fino_da_coleta import ZONAS as PENTE_ZONAS   # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-MAPA-SCAN",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map alimenta Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 217,
+          "snippet": "\"OWNER\": \"system-map/scripts/pente_fino_da_coleta.py\","
         }
       ],
       "categoria": "READ"
@@ -27867,6 +28075,24 @@
     },
     {
       "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 195,
+          "snippet": "\"OWNER\": \"system-map/data/architecture.declared.json\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -28237,6 +28463,24 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 311,
           "snippet": "from receitas import EXECUTORES"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RECONCILIACAO-UNIVERSO",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Reconciliacao do universo do mapa alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_reconciliacao_do_universo.py",
+          "line": 34,
+          "snippet": "ARTEFATO = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json\""
         }
       ],
       "categoria": "PROOF"
@@ -31896,15 +32140,15 @@
   "COUNTS": {
     "components": 160,
     "components_proven": 59,
-    "components_pending": 94,
+    "components_pending": 95,
     "components_broken": 0,
-    "components_unknown": 7,
-    "edges": 649,
-    "edges_proven": 647,
+    "components_unknown": 6,
+    "edges": 659,
+    "edges_proven": 657,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1495,
-    "files_covered": 737,
+    "files_tracked": 1498,
+    "files_covered": 740,
     "files_code_unclaimed": 0
   }
 }

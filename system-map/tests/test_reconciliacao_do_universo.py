@@ -170,10 +170,32 @@ AGORA = regerar()
 
 
 def sem_carimbo(d):
+    """O conteudo, sem as chaves que carregam um SHA de commit.
+
+    A lista NAO esta escrita aqui: vem do proprio artefato
+    (`CARIMBOS_NAO_COMPARAVEIS`), para nao existirem duas listas. Uma
+    segunda lista divergiria no dia em que alguem acrescentasse um carimbo
+    de um lado so — e a prova passaria a ignorar conteudo a serio, ou a
+    reprovar por uma diferenca que nao e conteudo nenhum.
+    """
+    chaves = set(d.get("CARIMBOS_NAO_COMPARAVEIS") or [])
+
+    def limpar(o):
+        if isinstance(o, dict):
+            return {k: limpar(v) for k, v in o.items() if k not in chaves}
+        if isinstance(o, list):
+            return [limpar(v) for v in o]
+        return o
+
     d = json.loads(json.dumps(d))
     d.pop("PROVENANCE", None)
-    return json.dumps(d, ensure_ascii=False, sort_keys=True)
+    return json.dumps(limpar(d), ensure_ascii=False, sort_keys=True)
 
+
+prova("o_artefato_declara_os_proprios_carimbos",
+      bool(COMMITADO.get("CARIMBOS_NAO_COMPARAVEIS")),
+      "sem esta lista, a prova anti-drift nao sabe o que e carimbo e o que e "
+      "conteudo — e passaria a reprovar a cada commit, por nada")
 
 prova("a_reconciliacao_commitada_e_a_desta_arvore",
       sem_carimbo(COMMITADO) == sem_carimbo(AGORA),

@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "7b38306dd2e78d3501e49b1fe2d497d38a9a5df6",
-    "GENERATED_AT": "2026-09-12T11:51:09+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d46ba2ee90615b9fbf164c974a94e248222c117b57aa5b84c4c18cf3dae90e90"
+    "HEAD": "a9b13c3fee8a5127b968193afa59ed7f50cc0635",
+    "GENERATED_AT": "2026-09-12T11:52:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8540ce036b0916bd556c1cb6db310a3c4b5066bc97789b479a56dc0bde91800a"
   },
   "FILES": [
     {
@@ -1558,6 +1558,13 @@
     {
       "path": "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "sha": "b1f60f02e33d4c71c1eef14f823517d0b9e970f0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "sha": "8e5abffcb26f19592f9938ac5e1b195edbe44727",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -9613,6 +9620,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/scripts/reconciliacao_do_universo.py",
+      "sha": "1766668b76c605f2a9eed4d3eb9ce5afe750f6d2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/relatorio_do_fluxo.py",
       "sha": "36cf983f3e15b901d90f7e04727b98c4a5ffa68a",
       "ext": ".py",
@@ -9664,6 +9678,13 @@
     {
       "path": "system-map/tests/test_impressao_da_arvore.py",
       "sha": "9c9525c4af939f2a946d659c279d622608b3ae0f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/tests/test_reconciliacao_do_universo.py",
+      "sha": "b7ec45edcf573fd556c229d87ba39924801d4f4a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11639,6 +11660,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 313,
         "snippet": "run: python3 system-map/tests/test_impressao_da_arvore.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_reconciliacao_do_universo.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 331,
+        "snippet": "run: python3 system-map/tests/test_reconciliacao_do_universo.py"
       }
     },
     {
@@ -31827,6 +31859,138 @@
       }
     },
     {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 259,
+        "snippet": "matriz = ler(RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 76,
+        "snippet": "SAIDA = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 748,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 195,
+        "snippet": "\"OWNER\": \"system-map/data/architecture.declared.json\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/censo_cards_sensores.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 428,
+        "snippet": "\"OWNER\": \"system-map/scripts/censo_cards_sensores.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/censo_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 444,
+        "snippet": "\"OWNER\": \"system-map/scripts/censo_da_coleta.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/censo_da_topologia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 81,
+        "snippet": "from censo_da_topologia import LADO_DA_COLETA           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/censo_da_topologia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 274,
+        "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"), \"--json\"],"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 203,
+        "snippet": "\"OWNER\": \"system-map/scripts/generate_system_map.py\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/impressao_da_arvore.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 79,
+        "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/pente_fino_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 80,
+        "snippet": "from pente_fino_da_coleta import ZONAS as PENTE_ZONAS   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/reconciliacao_do_universo.py",
+      "to_file": "system-map/scripts/pente_fino_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/reconciliacao_do_universo.py",
+        "line": 217,
+        "snippet": "\"OWNER\": \"system-map/scripts/pente_fino_da_coleta.py\","
+      }
+    },
+    {
       "from_file": "system-map/scripts/relatorio_do_fluxo.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -32231,6 +32395,28 @@
         "file": "system-map/tests/test_impressao_da_arvore.py",
         "line": 219,
         "snippet": "for intruso in (\"test_system_map.py\", \"test_freshness.mjs\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
+      "to_file": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_reconciliacao_do_universo.py",
+        "line": 34,
+        "snippet": "ARTEFATO = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
+      "to_file": "system-map/app/map.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_reconciliacao_do_universo.py",
+        "line": 160,
+        "snippet": "MAPJS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -39687,10 +39873,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1495,
-    "files_readable": 577,
-    "files_code_dir": 622,
-    "file_edges": 2612,
+    "files_tracked": 1498,
+    "files_readable": 579,
+    "files_code_dir": 624,
+    "file_edges": 2627,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

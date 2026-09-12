@@ -82,6 +82,28 @@ from censo_da_topologia import LADO_DA_COLETA           # noqa: E402
 
 NAO_SEI = "NAO SEI"
 
+# ─────────────────────────────────────────────────────────────────────────
+# OS CAMPOS QUE CARREGAM UM SHA DE COMMIT — E POR QUE ESTAO NOMEADOS AQUI.
+#
+# Esta reconciliacao diz, sobre os outros, que um SHA de commit nao serve de
+# prova de frescura. Ela nao pode escapar a propria lei: um SHA dentro deste
+# artefato muda a cada commit, e por isso o ficheiro commitado NUNCA poderia
+# ser igual ao que a arvore produz — a prova anti-drift reprovaria sempre, e
+# quem a lesse aprenderia a ignora-la.
+#
+#     UMA PROVA QUE REPROVA SEMPRE NAO E UMA PROVA. E UM RUIDO.
+#
+# Entao os SHAs ficam, porque quem le quer saber de que corrida veio o numero,
+# e ficam NOMEADOS: a comparacao anti-drift retira exactamente estas chaves, e
+# o que sobra e conteudo. A identidade verificavel viaja ao lado, em
+# MEASURED_TREE — a impressao da arvore, que nao muda por se guardar o mapa.
+# ─────────────────────────────────────────────────────────────────────────
+CARIMBOS_NAO_COMPARAVEIS = [
+    "MEASURED_HEAD",
+    "FROM_WHICH_HEAD",
+    "GENERATED_AT",
+]
+
 
 def git(*args: str) -> str:
     return subprocess.run(["git", "-C", str(RAIZ), *args],
@@ -307,8 +329,10 @@ def medir(com_topologia: bool) -> dict:
                     "a tupla estatica do pente fino nao o conhece."),
                 "MECANICA": "territory=%s nao esta em pente_fino_da_coleta.ZONAS" % t,
             }),
-            "MEASURED_HEAD": cabeca["HEAD"],
+            # A IDENTIDADE DA MEDICAO E A ARVORE, NAO O COMMIT. O SHA viaja
+            # ao lado, nomeado como carimbo, e nao entra na comparacao.
             "MEASURED_TREE": impressao,
+            "MEASURED_HEAD": cabeca["HEAD"],
         })
     cartoes.sort(key=lambda c: c["CARD_ID"])
 
@@ -590,6 +614,7 @@ def medir(com_topologia: bool) -> dict:
             "Nao decide arquitetura: observa as lentes que ja existem.",
         ],
         "PROVENANCE": cabeca,
+        "CARIMBOS_NAO_COMPARAVEIS": CARIMBOS_NAO_COMPARAVEIS,
         "CARD_SPECIES": especies(S, declarada, matriz, pente),
         "UNIVERSOS": universos,
         "LENTES": lentes,
