@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-canonical-trial-c10-7",
-    "HEAD": "01efc8a05d672fbcc78e032d8af1fbf3664d7e60",
-    "GENERATED_AT": "2026-09-12T11:52:39+00:00",
+    "HEAD": "65e82962fd26ead3a71b9201eb7e78ec7f0293ba",
+    "GENERATED_AT": "2026-09-12T12:24:17+00:00",
     "SOURCE_TREE_FINGERPRINT": "8934cca35c643713679f977660a72495dc2b44447cc0bf431bf845da4c7b7eeb"
   },
   "FILES": [
@@ -5245,6 +5245,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
+      "sha": "df71104b7d2d3ce1b45230a04eee0a205d8a2163",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -8059,6 +8066,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/ensaio_canonico_de_capacidade.py",
+      "sha": "14b93216c3a94b6035e0324e1b8da41fd1280c5b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/es/freeze_es.py",
       "sha": "6e653cdade470d3f2f769a5cec74ebe2c2d7c460",
       "ext": ".py",
@@ -9944,6 +9958,13 @@
     {
       "path": "tests/test_c10_6e_runtime_pago.py",
       "sha": "1f11972273c3a151b9c4b5e12d47534abff19de9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_7_ensaio_canonico.py",
+      "sha": "a6916bf69d2d60e78d56d495d1d1cd80b4eb055e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -26446,6 +26467,105 @@
       }
     },
     {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 38,
+        "snippet": "import scrap_capacidades as cap     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 115,
+        "snippet": "io.open(os.path.join(RAIZ, 'coleta', 'scrap_capacidades.py'),"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 39,
+        "snippet": "import scrap_executor as sx         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 252,
+        "snippet": "arv = ast.parse(io.open(os.path.join(RAIZ, 'coleta', 'scrap_executor.py'),"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 40,
+        "snippet": "import scrap_http as http           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 41,
+        "snippet": "import scrap_registo as reg         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 42,
+        "snippet": "import social_envelope as env       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 44,
+        "snippet": "import social_rotas as sr           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_canonico_de_capacidade.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_canonico_de_capacidade.py",
+        "line": 43,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/es/freeze_es.py",
       "to_file": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "type": "READS",
@@ -32196,6 +32316,105 @@
         "file": "tests/test_c10_6e_runtime_pago.py",
         "line": 164,
         "snippet": "t = _codigo('orquestrador/orquestrador.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 38,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 39,
+        "snippet": "import scrap_executor as sx        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 91,
+        "snippet": "arv = ast.parse(_fonte('coleta/scrap_executor.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 181,
+        "snippet": "import scrap_http as http"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 40,
+        "snippet": "import scrap_registo as reg        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 248,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 42,
+        "snippet": "import social_rotas as sr          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 232,
+        "snippet": "doc = _fonte('docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_7_ensaio_canonico.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_7_ensaio_canonico.py",
+        "line": 41,
+        "snippet": "import social_matriz as mz         # noqa: E402"
       }
     },
     {
@@ -39367,10 +39586,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1501,
-    "files_readable": 579,
-    "files_code_dir": 626,
-    "file_edges": 2581,
+    "files_tracked": 1504,
+    "files_readable": 581,
+    "files_code_dir": 628,
+    "file_edges": 2599,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
