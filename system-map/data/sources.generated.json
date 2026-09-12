@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "3fc3d1a9e1dddaa253fe718179f62a8a21ddaff9",
+    "HEAD": "644220495721eb7b77d5ac31265757f1b193a989",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4324,6 +4324,23 @@
       ]
     },
     {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 113
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 197
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 249
+        }
+      ]
+    },
+    {
       "endpoint": "https://publications.europa.eu/webapi",
       "usado_por": [
         {
@@ -4439,6 +4456,19 @@
         {
           "file": "tests/test_c10_8ar_orcamento_de_rede.py",
           "line": 207
+        }
+      ]
+    },
+    {
+      "endpoint": "https://public.api.bsky.app/xrpc",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 105
+        },
+        {
+          "file": "provas/_rc01_mundo_falso.py",
+          "line": 111
         }
       ]
     },
@@ -4664,6 +4694,19 @@
       ]
     },
     {
+      "endpoint": "https://youtu.be/X'",
+      "usado_por": [
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 142
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 154
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -4738,38 +4781,11 @@
       ]
     },
     {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 105
-        }
-      ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 113
-        }
-      ]
-    },
-    {
       "endpoint": "https://t.me/s",
       "usado_por": [
         {
           "file": "coleta/adaptador_aberto.py",
           "line": 148
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/%s'",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 157
         }
       ]
     }

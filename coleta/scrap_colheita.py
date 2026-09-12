@@ -92,6 +92,46 @@ FASES = {
     'janela':         ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'tudo'}),
     'janela-perfis':  ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'perfis'}),
     'janela-objetos': ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'objetos'}),
+    # ── O CANARIO DA RELEASE V1 ────────────────────────────────────────────
+    # As tres fases acima correm `instagram.profile.discovery`, que a
+    # `scrap_capacidades.py` declara `PARTIAL` e `LOCAL/DATACENTER_BLOCKED`:
+    # ela precisa de maquina residencial e nao corre de um datacenter. Medido,
+    # nao presumido — e por isso a unica fase que o caminho canonico sabia
+    # pedir era uma que este ambiente nao consegue executar.
+    #
+    #     UMA ARVORE QUE SO SABE PEDIR O QUE NAO CONSEGUE CORRER
+    #     NAO SE CONSEGUE PROVAR A CORRER.
+    #
+    # `bluesky.author.incremental` e o oposto em todos os eixos que a escolha
+    # do canario pesa: `PROVEN` com trial ao vivo citado, `ONLINE`, gratuita,
+    # sem credencial, sem navegador autenticado e sem fornecedor pago. O
+    # adaptador, o registo da rota e a linha da matriz ja existiam todos antes
+    # desta missao — o que faltava era a fase que os pede.
+    #
+    #     ISTO NAO ABRE PLATAFORMA NENHUMA. A PLATAFORMA JA ESTAVA ABERTA;
+    #     O QUE NAO EXISTIA ERA A ARESTA DO PEDIDO ATE ELA.
+    'canario-bluesky': ('BLUESKY', 'bluesky.author.incremental', {'limit': 1}),
+}
+
+#: Que filtros NOMEADOS cada fase aceita, e so ela. O orquestrador traduz
+#: `filtros_nomeados` da receita em `--nome=valor`, e sem uma lista por fase um
+#: nome que a rota nao conhece chega la dentro e morre no `**_` do adaptador,
+#: em silencio, com a corrida a dar verde.
+#:
+#:     UM ARGUMENTO QUE A ROTA ENGOLE SEM USAR NAO E OPCIONAL: E UMA ARMADILHA.
+#:
+#: Entao um nome fora da lista da fase RECUSA a corrida, e diz qual era a lista.
+#: Fail closed: o silencio nao autoriza.
+NOMEADOS = {
+    'janela':          ('teto',),
+    'janela-perfis':   ('teto',),
+    'janela-objetos':  ('teto',),
+    # `handle` e o ENDERECO da observacao, e nunca a identidade da fonte. Ele
+    # diz A QUE CONTA se vai bater; `--fonte` diz DE QUE FONTE PROVADA o
+    # pedido fala. Sao dois campos porque sao duas coisas.
+    #
+    #     HANDLE NAO E SOURCE_ID. Derivar um do outro seria fabricar identidade.
+    'canario-bluesky': ('handle',),
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.
@@ -223,12 +263,22 @@ def escrever(envelope, raiz=RAIZ):
 def main(argv=None):
     args = list(argv if argv is not None else sys.argv[1:])
     run_id = fonte = None
+    nomeados = {}
     resto = []
     for a in args:
         if a.startswith('--run-id='):
             run_id = a.split('=', 1)[1].strip()
         elif a.startswith('--fonte='):
             fonte = a.split('=', 1)[1].strip() or None
+        elif a.startswith('--') and '=' in a:
+            # Um filtro nomeado qualquer. Nao se julga aqui se ele serve: a
+            # fase ainda nao esta escolhida, e julgar antes de saber a fase
+            # seria julgar contra a lista errada. Vazio = nao foi dado, e isso
+            # e um valor (o teto vazio quer dizer «sem teto»).
+            k, v = a[2:].split('=', 1)
+            v = v.strip()
+            if v:
+                nomeados[k.strip().replace('-', '_')] = v
         else:
             resto.append(a)
     # Os filtros chegam POSICIONAIS, sem nome: e assim que o orquestrador
@@ -244,13 +294,28 @@ def main(argv=None):
         print('FASE_DESCONHECIDA=%s · as que existem: %s'
               % (fase, ', '.join(sorted(FASES))))
         return 2
+    # ── AGORA SIM: A FASE ESTA ESCOLHIDA, E A LISTA DELA E QUE JULGA ───────
+    aceites = NOMEADOS.get(fase, ())
+    sobra = sorted(k for k in nomeados if k not in aceites)
+    if sobra:
+        print('FILTRO_NAO_ACEITE_NESTA_FASE=%s · a fase «%s» aceita: %s'
+              % (', '.join(sobra), fase, ', '.join(aceites) or 'nenhum'))
+        return 2
+    falta = sorted(k for k in aceites if k not in nomeados and k != 'teto')
+    if falta:
+        # Um alvo em falta NAO se inventa a partir da fonte nem do nome da
+        # fase. Sem ele nao ha a que bater, e isso diz-se antes de a corrida
+        # comecar — e nao depois, com zero objetos e uma razao adivinhada.
+        print('FILTRO_EM_FALTA=%s · a fase «%s» precisa dele para saber a que '
+              'conta bater, e o adapter nao o deriva de --fonte' % (', '.join(falta), fase))
+        return 2
     if not run_id:
         # Cunhar um aqui daria DUAS corridas canônicas para o mesmo acto.
         print('SEM_RUN_ID=o orquestrador é quem cunha a corrida; este adapter '
               'não a inventa')
         return 2
 
-    envelope = colher(fase, run_id=run_id, fonte=fonte)
+    envelope = colher(fase, run_id=run_id, fonte=fonte, **nomeados)
     caminho = escrever(envelope)
     mal = rc.conferir(envelope, RAIZ)
 
@@ -258,6 +323,9 @@ def main(argv=None):
     print('  fase          %s' % fase)
     print('  run_id        %s' % run_id)
     print('  source_id     %s' % (fonte or rc.NAO_SEI))
+    for k in sorted(aceites):
+        print('  %-13s %s' % (k, nomeados.get(k) or ('sem teto' if k == 'teto'
+                                                     else rc.NAO_SEI)))
     print('  colheita      %d' % len(envelope['COLHEITA']))
     print('  suporte       %d' % len(envelope['SUPORTE']))
     print('  envelope      %s' % os.path.relpath(caminho, RAIZ))

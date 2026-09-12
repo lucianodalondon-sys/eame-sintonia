@@ -163,16 +163,37 @@ EXECUTORES = {
         # A ORDEM E A LINHA DE COMANDO. O orquestrador acrescenta os valores
         # por esta ordem, sem nomes — como ja faz para o `comunicacao-publica`.
         "argumentos_de_filtros": ["fase", "fonte"],
-        "serve_fases": ["janela", "janela-perfis", "janela-objetos"],
+        # O TETO DE OBJETOS da janela. Ele existia no disparador desde sempre e
+        # a SCRAP-FLOW-01 perdeu-o ao migrar: `social_scrap.py coletar FASE
+        # $TETO` passava-o posicionalmente, e o pedido nao o levava.
+        #
+        #     MIGRAR UM CAMINHO E MUDAR POR ONDE ELE PASSA,
+        #     NAO O QUE ELE LEVA.
+        #
+        # Ele desce como FILTRO nomeado, e nao como posicional: um terceiro
+        # argumento sem nome seria indistinguivel da fonte no dia em que
+        # alguem omitisse uma delas.
+        # `handle` junta-se ao `teto` porque o canario da Release V1 precisa
+        # de saber A QUE CONTA bate. Ele NAO e a fonte: `--fonte` continua a
+        # descer o SOURCE_ID provado, e `coleta/scrap_colheita.py::NOMEADOS`
+        # declara, por fase, qual dos dois ela aceita — um nome fora da lista
+        # da fase recusa a corrida em vez de morrer no `**_` do adaptador.
+        #
+        #     HANDLE NAO E SOURCE_ID.
+        "filtros_nomeados": ["teto", "handle"],
+        "serve_fases": ["janela", "janela-perfis", "janela-objetos",
+                        "canario-bluesky"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.
         "envelope_em": "data/colheita/scrap/ENVELOPE.json",
         "larga_em": ["data/colheita/scrap/"],
-        "rotas": ["Instagram"],
+        "rotas": ["Instagram", "Bluesky"],
         "o_que_traz": "a janela publica da conta — o perfil e os objetos que "
                       "ela publicou — pelo executor canonico do SCRAP, com "
-                      "RAW preservado antes de qualquer normalizacao",
+                      "RAW preservado antes de qualquer normalizacao; e, na "
+                      "fase `canario-bluesky`, a cronologia publica de uma "
+                      "conta Bluesky pela AppView aberta, sem credencial",
         "custo": "gratuito",
     }],
 }

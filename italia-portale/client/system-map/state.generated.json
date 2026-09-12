@@ -799,6 +799,8 @@
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
       "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
+      "docs/sintonia-scrap/SCRAP-OWNER-01-AUTORIZACAO-CONVERGIDA.md",
+      "docs/sintonia-scrap/SCRAP-RC-01-RELEASE-CANDIDATE-V1.md",
       "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md"
     ],
     "ferramentas": [
@@ -1212,6 +1214,7 @@
       "provas/_c108a_ensaio_a_seco.json",
       "provas/_c108a_ultima_corrida.json",
       "provas/_flow01_janela_falsa.py",
+      "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_rota_m2_atravessa.py",
@@ -1224,6 +1227,7 @@
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/ensaio_canonico_de_capacidade.py",
+      "provas/entradas_do_scrap_v1.py",
       "provas/es/freeze_es.py",
       "provas/especie_do_texto_auditoria.py",
       "provas/fluxo_no_seco.py",
@@ -1234,8 +1238,10 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/mutacao_da_autorizacao.py",
+      "provas/mutacao_da_release_v1.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/nenhuma_compra_sem_autorizacao.py",
+      "provas/o_canario_do_scrap_v1.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
@@ -1254,6 +1260,7 @@
       "provas/rastro_no_postgres.py",
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
+      "provas/red_team_da_release_v1.py",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
@@ -1261,6 +1268,7 @@
       "provas/runtime_comum_no_postgres.py",
       "provas/runtime_pago_no_postgres.py",
       "provas/social_persistencia_no_postgres.py",
+      "provas/superficie_do_scrap_v1.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_golden_path_pdf.py",
       "provas/testa_rota_italia.py",
@@ -1591,6 +1599,7 @@
       "tests/test_route_membership.py",
       "tests/test_scrap_convergencia.py",
       "tests/test_scrap_flow01_caminho_canonico.py",
+      "tests/test_scrap_rc01_release_candidate.py",
       "tests/test_scrap_sr02_autorizacao_de_gasto.py",
       "tests/test_security_drift_db.py",
       "tests/test_security_ratchet.py",
@@ -1990,10 +1999,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-spend-auth-owner-01",
-    "HEAD": "3fc3d1a9e1dddaa253fe718179f62a8a21ddaff9",
-    "GENERATED_AT": "2026-09-12T21:57:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3d2ba727f15fa07b62b39bc31a211134a928226e6b49dcf334fbe24ff01f8389"
+    "BRANCH": "claude/sintonia-scrap-release-candidate-v1",
+    "HEAD": "644220495721eb7b77d5ac31265757f1b193a989",
+    "GENERATED_AT": "2026-09-12T22:04:15+00:00",
+    "SOURCE_TREE_FINGERPRINT": "0c05aeec60e21f51a5b544e762a9125f5695d36d73f37951921c71e2251a2a5f"
   },
   "FAMILIES": [
     {
@@ -2062,7 +2071,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 63
+      "count": 64
     },
     {
       "id": "F-ENTREGA",
@@ -2432,7 +2441,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 47
+      "count": 48
     }
   ],
   "DEPARTMENTS": {
@@ -5985,6 +5994,7 @@
         "C-COLETA-BASE",
         "C-PROVA-COLETA",
         "C-SCRAP-SOCIAL",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -10979,6 +10989,7 @@
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -11398,6 +11409,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-RECEITAS",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -12211,13 +12223,16 @@
         "provas/_c106b_filho.py",
         "provas/_c106c_filho.py",
         "provas/_flow01_janela_falsa.py",
+        "provas/_rc01_mundo_falso.py",
         "provas/auditoria_live.sh",
         "provas/bluesky_trial_ao_vivo.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
         "provas/mutacao_da_autorizacao.py",
+        "provas/mutacao_da_release_v1.py",
         "provas/mutacao_do_fluxo_canonico.py",
         "provas/nenhuma_compra_sem_autorizacao.py",
+        "provas/o_canario_do_scrap_v1.py",
         "provas/o_fluxo_canonico_do_scrap.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/orcamento_de_rede.py",
@@ -12231,6 +12246,7 @@
         "provas/rastro_no_postgres.py",
         "provas/raw_entre_jobs.py",
         "provas/readback_022_live.sh",
+        "provas/red_team_da_release_v1.py",
         "provas/run_duravel_no_postgres.py",
         "provas/runtime_comum_no_postgres.py",
         "provas/runtime_pago_no_postgres.py",
@@ -12239,7 +12255,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 30,
+      "file_count": 34,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12284,6 +12300,7 @@
         "C-SENSOR-COLETA",
         "C-SINTONIA-SCRAP",
         "C-SUPABASE",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES",
         "C-TRANSCRICAO"
       ],
@@ -12313,6 +12330,7 @@
           "COLS_RUN",
           "COLUNA_DO_DESTINO",
           "ENTRADA",
+          "FEED",
           "FIXTURES",
           "IMPLEMENTACOES",
           "ITENS",
@@ -12327,9 +12345,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 374,
+        "palavras": 434,
         "por_lingua": {},
-        "sem_marca_de_lingua": 374,
+        "sem_marca_de_lingua": 434,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13197,6 +13215,7 @@
         "C-ESTRADAS-IT",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -13225,9 +13244,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 99,
+        "palavras": 104,
         "por_lingua": {},
-        "sem_marca_de_lingua": 99,
+        "sem_marca_de_lingua": 104,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13979,6 +13998,7 @@
       "outbound": [
         "C-PROVA-COLETA",
         "C-RECEITAS",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -13990,11 +14010,12 @@
         "papel": "NAO SEI",
         "listas": [
           "DO_SCRAP_PARA_A_PORTA",
-          "FASES"
+          "FASES",
+          "NOMEADOS"
         ],
-        "palavras": 27,
+        "palavras": 39,
         "por_lingua": {},
-        "sem_marca_de_lingua": 27,
+        "sem_marca_de_lingua": 39,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14170,6 +14191,7 @@
         "C-ROTA-M2",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES",
         "C-TRANSCRICAO"
       ],
@@ -14325,6 +14347,7 @@
         "C-ROTA-M2",
         "C-SCRAP-COLHEITA",
         "C-SENSOR-COLETA",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
       ],
       "paises": {},
@@ -14873,6 +14896,59 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 8240,
       "y": 1648
+    },
+    {
+      "id": "C-SUPERFICIE-SCRAP-V1",
+      "name": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete»",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Mede no RUNTIME cada capacidade declarada e classifica-a em quatro estados operacionais, que sao quatro respostas diferentes e nunca se achatam numa. READY: declarada, politica permite, aresta existe, implementacao existe, contrato de retorno conhecido, guardas presentes — e ha prova bastante para prometer execucao. READY_PENDING_CREDENTIAL: a engenharia esta completa e o primeiro ponto de quebra e uma credencial externa. FAIL_CLOSED: politica ou contrato nao autorizam, ou nao ha rota ligada — e isto e um estado VALIDO, nao um defeito. NOT_IN_V1: capacidade conhecida e deliberadamente fora da superficie operacional desta release. UNKNOWN fica UNKNOWN: nao se promove a READY nem se rebaixa a BLOCKED. Mede tambem quem pode disparar a V1 e por onde ele passa — entrypoint canonico, bypass, ou legado fora da release.",
+      "why_here": "SUPPORTED != TODO O MUNDO. READY != TODAS AS CAPACIDADES EXISTEM. FAIL_CLOSED E UM ESTADO VALIDO. O que nao pode existir e uma capacidade que diz BLOCKED e um fallback escondido que executa — e medir isso exige perguntar ao runtime, nunca a uma lista escrita a mao. UMA SUPERFICIE ESCRITA A MAO E A MEMORIA DE QUEM A ESCREVEU: a primeira versao desta prova nomeava quatro plataformas a mao e deixava o TELEGRAM de fora, com capacidade PROVEN, rota ligada, politica ALLOWED e custo zero. E o classificador adivinhava o vocabulario do CHECK em vez de ler o campo `CAN` dele, e por isso cinco capacidades a funcionar apareciam fechadas — UMA SONDA QUE ADIVINHA O VOCABULARIO DE OUTRO DONO MEDE O QUE ELA IMAGINOU QUE ELE DIRIA. A classificacao dos entrypoints segue a mesma regra e pela mesma razao: LEGACY EXISTS != ACTIVE V1 ENTRYPOINT, e decide-se pela capacidade que o ramo consegue por a correr, seguindo a cadeia declarada de receita e de tabela de fases — nunca pelo nome do ramo, porque duas portas com o mesmo nome nao sao a mesma porta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/entradas_do_scrap_v1.py",
+        "provas/superficie_do_scrap_v1.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AUTORIZACAO-DE-GASTO",
+        "C-ORQUESTRADOR",
+        "C-PEDIDO",
+        "C-RECEITAS",
+        "C-SCRAP-COLHEITA",
+        "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL"
+      ],
+      "outbound": [
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 5190
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -16049,6 +16125,7 @@
         "tests/test_route_membership.py",
         "tests/test_scrap_convergencia.py",
         "tests/test_scrap_flow01_caminho_canonico.py",
+        "tests/test_scrap_rc01_release_candidate.py",
         "tests/test_scrap_sr02_autorizacao_de_gasto.py",
         "tests/test_security_drift_db.py",
         "tests/test_security_ratchet.py",
@@ -16068,7 +16145,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 113,
+      "file_count": 114,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16177,6 +16254,7 @@
         "C-SINTONIA-SCRAP",
         "C-SMOKE-GPU-ASR",
         "C-SUPABASE",
+        "C-SUPERFICIE-SCRAP-V1",
         "C-TRANSCRICAO",
         "C-V21-COMERCIAL",
         "C-V21-CONTRATO",
@@ -16316,7 +16394,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -17679,7 +17757,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-spend-auth-owner-01"
+        "branch claude/sintonia-scrap-release-candidate-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19615,12 +19693,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/nenhuma_compra_sem_autorizacao.py",
           "line": 49,
           "snippet": "import autorizacao_de_gasto as az   # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 57,
+          "snippet": "import autorizacao_de_gasto as az                    # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19633,11 +19716,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
           "line": 29,
+          "snippet": "LEI = 'leis/autorizacao_de_gasto.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 33,
           "snippet": "LEI = 'leis/autorizacao_de_gasto.py'"
         }
       ],
@@ -19668,13 +19756,31 @@
     },
     {
       "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/superficie_do_scrap_v1.py",
+          "line": 29,
+          "snippet": "import autorizacao_de_gasto as ag                                 # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -19695,6 +19801,11 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 22,
           "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 194,
+          "snippet": "import autorizacao_de_gasto as az"
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
@@ -21658,7 +21769,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -21691,6 +21802,11 @@
           "snippet": "import coletor as ct             # noqa: E402"
         },
         {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 58,
+          "snippet": "import coletor as ct                                 # noqa: E402"
+        },
+        {
           "file": "provas/run_duravel_no_postgres.py",
           "line": 57,
           "snippet": "import coleta_checkpoint as ck"
@@ -21721,11 +21837,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
           "line": 30,
+          "snippet": "DONO = 'coleta/coletor.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 36,
           "snippet": "DONO = 'coleta/coletor.py'"
         },
         {
@@ -23013,7 +23134,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 186,
+          "line": 207,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -24914,7 +25035,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 186,
+          "line": 194,
           "snippet": "if [ ! -f data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json ]; then"
         }
       ],
@@ -26095,7 +26216,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 188,
+          "line": 209,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -26829,8 +26950,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 125,
+          "snippet": "import orquestrador as orq, pedido as pd"
+        },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 53,
@@ -26897,6 +27023,24 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 75,
+          "snippet": "ORQUESTRADOR = 'orquestrador/orquestrador.py'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26931,7 +27075,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
@@ -26951,6 +27095,11 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 95,
+          "snippet": "self.assertIn('orquestrador/orquestrador.py', ramo)"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 269,
           "snippet": "self.assertIn('orquestrador/orquestrador.py', ramo)"
         }
       ],
@@ -27174,8 +27323,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 51,
+          "snippet": "import pedido as pd                 # noqa: E402"
+        },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 54,
@@ -27209,13 +27363,31 @@
     },
     {
       "from": "C-PEDIDO",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 238,
+          "snippet": "import pedido as _pd"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PEDIDO",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -27230,6 +27402,11 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 25,
+          "snippet": "import pedido as pd                                               # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 35,
           "snippet": "import pedido as pd                                               # noqa: E402"
         }
       ],
@@ -28269,12 +28446,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 184,
+          "line": 205,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 190,
+          "line": 211,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -28590,7 +28767,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -28611,6 +28788,11 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 344,
           "snippet": "import o_fluxo_canonico_do_scrap as prova"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 33,
+          "snippet": "import _rc01_mundo_falso as mundo                                 # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29188,8 +29370,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 52,
+          "snippet": "import receitas as rec              # noqa: E402"
+        },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 55,
@@ -29211,12 +29398,35 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A receita da coleta alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 40,
+          "snippet": "REC = 'pedido/receitas.py'"
+        },
         {
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 26,
           "snippet": "REC = 'pedido/receitas.py'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RECEITAS",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 64,
+          "snippet": "import receitas as rec                     # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29229,7 +29439,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -29249,6 +29459,11 @@
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 26,
+          "snippet": "import receitas as rec                                            # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 36,
           "snippet": "import receitas as rec                                            # noqa: E402"
         }
       ],
@@ -29493,12 +29708,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/nenhuma_compra_sem_autorizacao.py",
           "line": 111,
           "snippet": "import relevancia_da_fonte as rel"
+        },
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 53,
+          "snippet": "import relevancia_da_fonte as rl    # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 61,
+          "snippet": "import relevancia_da_fonte as rel                    # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29511,11 +29736,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
           "line": 31,
+          "snippet": "REL = 'leis/relevancia_da_fonte.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 34,
           "snippet": "REL = 'leis/relevancia_da_fonte.py'"
         }
       ],
@@ -29529,12 +29759,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
           "line": 24,
           "snippet": "import relevancia_da_fonte as rel   # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 37,
+          "snippet": "import relevancia_da_fonte as rl                                  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29583,12 +29818,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 54,
+          "snippet": "import retorno_da_coleta as rc      # noqa: E402"
+        },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 56,
           "snippet": "import retorno_da_coleta as rc      # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 203,
+          "snippet": "import retorno_da_coleta as rc"
         }
       ],
       "categoria": "PROOF"
@@ -29637,11 +29882,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 27,
+          "snippet": "import retorno_da_coleta as rc                                    # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 38,
           "snippet": "import retorno_da_coleta as rc                                    # noqa: E402"
         }
       ],
@@ -29945,12 +30195,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 56,
+          "snippet": "import scrap_colheita as sc         # noqa: E402"
+        },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 57,
           "snippet": "import scrap_colheita as sc         # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 204,
+          "snippet": "import scrap_colheita as sc"
         }
       ],
       "categoria": "PROOF"
@@ -29963,12 +30223,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 35,
+          "snippet": "ADP = 'coleta/scrap_colheita.py'"
+        },
         {
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 28,
           "snippet": "ADP = 'coleta/scrap_colheita.py'"
+        },
+        {
+          "file": "provas/o_canario_do_scrap_v1.py",
+          "line": 237,
+          "snippet": "diz(recibo.get('ACTOR') == 'coleta/scrap_colheita.py',"
         },
         {
           "file": "provas/o_fluxo_canonico_do_scrap.py",
@@ -29998,17 +30268,58 @@
     },
     {
       "from": "C-SCRAP-COLHEITA",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 217,
+          "snippet": "import scrap_colheita as _sc"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 216,
+          "snippet": "if rel.endswith('scrap_colheita.py'):"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 28,
+          "snippet": "import scrap_colheita as sc                                       # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 40,
           "snippet": "import scrap_colheita as sc                                       # noqa: E402"
         }
       ],
@@ -30452,7 +30763,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -30480,6 +30791,11 @@
           "snippet": "import social_matriz as mz       # noqa: E402"
         },
         {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 280,
+          "snippet": "import falhas as fx"
+        },
+        {
           "file": "provas/run_duravel_no_postgres.py",
           "line": 58,
           "snippet": "import falhas as fx"
@@ -30505,8 +30821,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 108,
+          "snippet": "('M9 · a política aceita rota NÃO permitida', 'leis/social_matriz.py',"
+        },
         {
           "file": "provas/raw_entre_jobs.py",
           "line": 133,
@@ -30670,13 +30991,31 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/superficie_do_scrap_v1.py",
+          "line": 33,
+          "snippet": "import social_matriz as mz                                        # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 45 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -30981,7 +31320,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 40 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 45 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -31054,7 +31393,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 13 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -31077,6 +31416,26 @@
           "snippet": "('M16 · a rota gratuita passa a exigir autorizacao de gasto', 'coleta/scrap_executor.py',"
         },
         {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 37,
+          "snippet": "EXE = 'coleta/scrap_executor.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 38,
+          "snippet": "ROT = 'coleta/social_rotas.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 93,
+          "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 171,
+          "snippet": "'coleta/social_envelope.py',"
+        },
+        {
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 53,
           "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',"
@@ -31095,26 +31454,6 @@
           "file": "provas/orcamento_de_rede.py",
           "line": 265,
           "snippet": "'coleta/scrap_http.py'):"
-        },
-        {
-          "file": "provas/portas_canonicas_no_postgres.py",
-          "line": 44,
-          "snippet": "'youtube_oficial.py')"
-        },
-        {
-          "file": "provas/portas_canonicas_no_postgres.py",
-          "line": 101,
-          "snippet": "alvo_ok = 'social_scrap.py' in cmds and 'coletar' in cmds"
-        },
-        {
-          "file": "provas/primeira_rota_paga.py",
-          "line": 309,
-          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/adaptador_youtube.py'), encoding='utf-8').read()"
-        },
-        {
-          "file": "provas/raw_entre_jobs.py",
-          "line": 35,
-          "snippet": "'coleta/social_scrap.py',"
         }
       ],
       "categoria": "PROOF"
@@ -31198,13 +31537,69 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 5 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 65,
+          "snippet": "import scrap_capacidades as cap            # noqa: E402"
+        },
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 198,
+          "snippet": "import social_scrap as _ss"
+        },
+        {
+          "file": "provas/superficie_do_scrap_v1.py",
+          "line": 30,
+          "snippet": "import scrap_capacidades as cap                                   # noqa: E402"
+        },
+        {
+          "file": "provas/superficie_do_scrap_v1.py",
+          "line": 31,
+          "snippet": "import scrap_executor as sx                                       # noqa: E402"
+        },
+        {
+          "file": "provas/superficie_do_scrap_v1.py",
+          "line": 32,
+          "snippet": "import scrap_registo as reg                                       # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-SUPERFICIE-SCRAP-V1",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/entradas_do_scrap_v1.py",
+          "line": 220,
+          "snippet": "if rel.endswith('social_scrap.py'):"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 109 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 113 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -31277,7 +31672,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 63 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 64 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -31558,12 +31953,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 174,
+          "line": 182,
           "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 250,
+          "line": 258,
           "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
         }
       ],
@@ -31581,7 +31976,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 177,
+          "line": 185,
           "snippet": "coleta/coletor.py; do"
         }
       ],
@@ -31599,22 +31994,22 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 171,
+          "line": 179,
           "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 171,
+          "line": 179,
           "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 172,
+          "line": 180,
           "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 172,
+          "line": 180,
           "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
         }
       ],
@@ -31632,12 +32027,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 174,
+          "line": 182,
           "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 175,
+          "line": 183,
           "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
         }
       ],
@@ -31655,12 +32050,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 173,
+          "line": 181,
           "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 173,
+          "line": 181,
           "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
         }
       ],
@@ -31678,7 +32073,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 317,
+          "line": 325,
           "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\"
         }
       ],
@@ -31692,8 +32087,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 32,
+          "snippet": "WF = '.github/workflows/sintonia-scrap.yml'"
+        },
         {
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 25,
@@ -31719,12 +32119,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 176,
+          "line": 184,
           "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 176,
+          "line": 184,
           "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
         }
       ],
@@ -31738,7 +32138,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -31764,6 +32164,11 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 30,
           "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 68,
+          "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
         }
       ],
       "categoria": "PROOF"
@@ -31780,7 +32185,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 175,
+          "line": 183,
           "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
         }
       ],
@@ -32353,6 +32758,88 @@
           "file": "tests/test_calendario_temporal.py",
           "line": 305,
           "snippet": "m = sql('008_verificacao_pos_aplicacao.sql')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SUPERFICIE-SCRAP-V1",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 59,
+          "snippet": "import entradas_do_scrap_v1 as ent                   # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 66,
+          "snippet": "import superficie_do_scrap_v1 as sup                 # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SUPERFICIE-SCRAP-V1",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 39,
+          "snippet": "SUP = 'provas/superficie_do_scrap_v1.py'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SUPERFICIE-SCRAP-V1",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 34,
+          "snippet": "import entradas_do_scrap_v1 as ent                                # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 43,
+          "snippet": "import superficie_do_scrap_v1 as sup                              # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SUPERFICIE-SCRAP-V1",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 132,
+          "snippet": "codigo = _fonte('provas/superficie_do_scrap_v1.py')"
         }
       ],
       "categoria": "PROOF"
@@ -34062,7 +34549,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 775,
+  "UNCLAIMED_FILES_COUNT": 777,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -34225,17 +34712,17 @@
     ]
   },
   "COUNTS": {
-    "components": 168,
+    "components": 169,
     "components_proven": 52,
-    "components_pending": 110,
+    "components_pending": 111,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 711,
-    "edges_proven": 708,
+    "edges": 724,
+    "edges_proven": 721,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1543,
-    "files_covered": 768,
+    "files_tracked": 1552,
+    "files_covered": 775,
     "files_code_unclaimed": 0
   }
 }

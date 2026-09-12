@@ -1851,13 +1851,16 @@
     "provas/_c106b_filho.py",
     "provas/_c106c_filho.py",
     "provas/_flow01_janela_falsa.py",
+    "provas/_rc01_mundo_falso.py",
     "provas/auditoria_live.sh",
     "provas/bluesky_trial_ao_vivo.py",
     "provas/derived_artifact_no_postgres.py",
     "provas/ensaio_canonico_de_capacidade.py",
     "provas/mutacao_da_autorizacao.py",
+    "provas/mutacao_da_release_v1.py",
     "provas/mutacao_do_fluxo_canonico.py",
     "provas/nenhuma_compra_sem_autorizacao.py",
+    "provas/o_canario_do_scrap_v1.py",
     "provas/o_fluxo_canonico_do_scrap.py",
     "provas/objeto_e_observacao_no_postgres.py",
     "provas/orcamento_de_rede.py",
@@ -1871,6 +1874,7 @@
     "provas/rastro_no_postgres.py",
     "provas/raw_entre_jobs.py",
     "provas/readback_022_live.sh",
+    "provas/red_team_da_release_v1.py",
     "provas/run_duravel_no_postgres.py",
     "provas/runtime_comum_no_postgres.py",
     "provas/runtime_pago_no_postgres.py",
@@ -2248,6 +2252,26 @@
    ],
    "files": [
     "leis/relevancia_da_fonte.py"
+   ],
+   "views": [
+    "acervo",
+    "audit"
+   ]
+  },
+  {
+   "id": "C-SUPERFICIE-SCRAP-V1",
+   "name": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete»",
+   "territory": "Z-PROVA",
+   "kind": "test",
+   "icon": "◎",
+   "what": "Mede no RUNTIME cada capacidade declarada e classifica-a em quatro estados operacionais, que sao quatro respostas diferentes e nunca se achatam numa. READY: declarada, politica permite, aresta existe, implementacao existe, contrato de retorno conhecido, guardas presentes — e ha prova bastante para prometer execucao. READY_PENDING_CREDENTIAL: a engenharia esta completa e o primeiro ponto de quebra e uma credencial externa. FAIL_CLOSED: politica ou contrato nao autorizam, ou nao ha rota ligada — e isto e um estado VALIDO, nao um defeito. NOT_IN_V1: capacidade conhecida e deliberadamente fora da superficie operacional desta release. UNKNOWN fica UNKNOWN: nao se promove a READY nem se rebaixa a BLOCKED. Mede tambem quem pode disparar a V1 e por onde ele passa — entrypoint canonico, bypass, ou legado fora da release.",
+   "why_here": "SUPPORTED != TODO O MUNDO. READY != TODAS AS CAPACIDADES EXISTEM. FAIL_CLOSED E UM ESTADO VALIDO. O que nao pode existir e uma capacidade que diz BLOCKED e um fallback escondido que executa — e medir isso exige perguntar ao runtime, nunca a uma lista escrita a mao. UMA SUPERFICIE ESCRITA A MAO E A MEMORIA DE QUEM A ESCREVEU: a primeira versao desta prova nomeava quatro plataformas a mao e deixava o TELEGRAM de fora, com capacidade PROVEN, rota ligada, politica ALLOWED e custo zero. E o classificador adivinhava o vocabulario do CHECK em vez de ler o campo `CAN` dele, e por isso cinco capacidades a funcionar apareciam fechadas — UMA SONDA QUE ADIVINHA O VOCABULARIO DE OUTRO DONO MEDE O QUE ELA IMAGINOU QUE ELE DIRIA. A classificacao dos entrypoints segue a mesma regra e pela mesma razao: LEGACY EXISTS != ACTIVE V1 ENTRYPOINT, e decide-se pela capacidade que o ramo consegue por a correr, seguindo a cadeia declarada de receita e de tabela de fases — nunca pelo nome do ramo, porque duas portas com o mesmo nome nao sao a mesma porta.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/superficie_do_scrap_v1.py",
+    "provas/entradas_do_scrap_v1.py"
    ],
    "views": [
     "acervo",

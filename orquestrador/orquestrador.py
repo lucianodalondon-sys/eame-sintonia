@@ -344,6 +344,15 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # continua a ser chamado com exactamente os mesmos argumentos de antes —
     # acrescentar isto a todos mudaria a linha de comando de quatro executores
     # que nunca a pediram.
+    # ── OS FILTROS NOMEADOS ───────────────────────────────────────────────
+    # `argumentos_de_filtros` manda valores POSICIONAIS, pela ordem. Um filtro
+    # opcional nao cabe la: omiti-lo faz o seguinte ocupar o lugar dele.
+    #
+    #     UM ARGUMENTO OPCIONAL SEM NOME NAO E OPCIONAL: E UMA ARMADILHA.
+    for nome in e.get("filtros_nomeados") or []:
+        v = valores.get(nome)
+        if v not in (None, ""):
+            comando.append("--%s=%s" % (nome, v))
     if e.get("recebe_run_id"):
         comando.append("--run-id=%s" % run_id)
     inicio = agora()

@@ -71,6 +71,10 @@ on:
           - janela         # rota pública pelo navegador: perfis + objetos
           - janela-perfis  # só a camada de perfil
           - janela-objetos # só a camada de objeto
+          # O CANÁRIO DA RELEASE V1. Rota gratuita, permitida, sem credencial,
+          # sem navegador autenticado e sem fornecedor pago — escolhida para
+          # provar a MÁQUINA, e não a plataforma mais importante.
+          - canario-bluesky # cronologia pública de UMA conta Bluesky
           # `transcrever` e `transcrever-alvos` foram APOSENTADAS na C10.4C.
           # A fala de Reel tem um dono só, e ele pede áudio — nunca o vídeo
           # inteiro. Ver `docs/sintonia-scrap/C10-4C-APOSENTAR-A-ROTA-LEGADA.md`.
@@ -119,6 +123,10 @@ on:
         type: string
       conta:
         description: 'só para `diario` — limitar a uma conta. Vazio = todas as que vencem.'
+        required: false
+        type: string
+      handle:
+        description: 'só para `canario-bluesky` — a conta Bluesky a observar (ex.: nome.bsky.social). NÃO é o SOURCE_ID.'
         required: false
         type: string
       orcamento_h:
@@ -318,7 +326,31 @@ jobs:
                 "colete concorrentes" \
                 --filtro fase="${{ inputs.fase }}" \
                 --filtro pais=IT \
-                --filtro fonte="${{ inputs.fonte }}" ;;
+                --filtro fonte="${{ inputs.fonte }}" \
+                --filtro teto="${{ inputs.teto }}" ;;
+
+            # ── O CANÁRIO DA RELEASE V1 ──────────────────────────────────
+            # Ramo PRÓPRIO, e não mais um nome no `case` de cima, porque ele
+            # leva um filtro que a janela não leva: `handle`, o endereço da
+            # conta. Enfiá-lo no ramo da janela mandaria um argumento que a
+            # rota do Instagram não conhece.
+            #
+            # `handle` é o ENDEREÇO; `fonte` é a IDENTIDADE PROVADA. Quem
+            # dispara nomeia os dois, e nenhum se deriva do outro.
+            #
+            #     HANDLE NÃO É SOURCE_ID.
+            #
+            # Mesma entrada canônica do ramo acima: o disparador diz a
+            # INTENÇÃO, e o orquestrador é que escolhe o executor, cunha o
+            # RUN_ID e leva a colheita à porta. O ator, a rota e o provider
+            # continuam a não aparecer aqui.
+            canario-bluesky)
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="${{ inputs.fonte }}" \
+                --filtro handle="${{ inputs.handle }}" ;;
 
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e
