@@ -520,6 +520,45 @@ executor -> router -> adaptador_linkedin -> rota livre permitida
 Nenhum segundo runtime foi criado. O adaptador nao chama provider, nao abre
 socket e nao decide permissao — le a decisao do dono dela.
 
+Cadeia corrida inteira:
+
+```
+generate_system_map.py        MAPA=OK · pecas=163 · ligacoes=675 · 753/1526
+validate_system_map.py        SYSTEM_MAP_CHECK=PASS
+test_system_map.py            TESTES_SYSTEM_MAP=PASS
+test_freshness.mjs            TESTES_FRESCURA=PASS · 49 provas
+test_impressao_da_arvore.py   **FAIL · 1 reprovada (herdada)**
+publicar_no_deploy.mjs        DEPLOY_METADATA=OK · MESMA_ARVORE=SIM · PERTENCE=SIM
+impressao --conferir-carimbo  IMPRESSAO_DO_CARIMBO=IGUAL, sobre 1 680 fontes
+```
+
+### O `P9` apanhou-me, e apanhou bem
+
+A primeira validacao reprovou com
+`P9_CODIGO_DECLARADO: provas/linkedin_local_first.py` — codigo novo sem peca no
+mapa. Declarado em `architecture.declared.json`, na mesma peca onde a C10.8B
+declarou a dela.
+
+    UMA PROVA NOVA QUE O MAPA NAO CONHECE E ARQUITETURA INVISIVEL. O portao
+    disse-o antes de eu ter de descobrir.
+
+### E uma reprovacao que continua herdada
+
+```
+nenhum_passo_e_engolido_pelo_erro_do_anterior
+  passos sem `if: !cancelled()`:
+    mapa: 1 · regerar o mapa a partir desta arvore
+    mapa: 1b · o censo da topologia da coleta
+    coleta: 4k · a lingua e a mesma no contrato, no ...
+    coleta: 4l · a telemetria distingue NAO CORREU d...
+```
+
+A mesma reprovacao, com os mesmos quatro passos, foi medida numa worktree limpa
+de `532e3bed` na LINKEDIN-DEEP-01, e esta missao **nao toca num unico ficheiro
+`.github/`**. Nao foi consertada aqui de proposito: consertar um workflow e
+alteracao de infraestrutura, fora do escopo declarado. Fica registada pela
+segunda vez, com o mesmo nome.
+
 ---
 
 ## O · WHAT CHANGED
