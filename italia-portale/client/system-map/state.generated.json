@@ -763,6 +763,7 @@
       "docs/sintonia-scrap/C10-2-ORIGEM-NA-ADMISSION.md",
       "docs/sintonia-scrap/C10-3-PLATAFORMA-NAO-E-LOCALIZACAO.md",
       "docs/sintonia-scrap/C10-4-INSTAGRAM-ROUTE-GATE.md",
+      "docs/sintonia-scrap/C10-4B-UM-CAMINHO-SO.md",
       "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
       "docs/sintonia-scrap/C10-5D-DECISAO-DO-INSTAGRAM.md",
       "docs/sintonia-scrap/C10-6-CRASH-RETRY-PERSISTENCIA.md",
@@ -1465,6 +1466,7 @@
       "tests/test_c10_2_origin_gate.py",
       "tests/test_c10_3_location.py",
       "tests/test_c10_4_route_gate.py",
+      "tests/test_c10_4b_um_caminho_so.py",
       "tests/test_c10_5_collection_flow.py",
       "tests/test_c10_5d_decisao_instagram.py",
       "tests/test_c10_6_crash_retry.py",
@@ -1929,10 +1931,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-crash-retry-c10-6",
-    "HEAD": "2d3464deb3bba7fca3bb1384f6f637fc1626516e",
-    "GENERATED_AT": "2026-09-12T00:33:33+00:00",
-    "SOURCE_TREE_FINGERPRINT": "80b3919396550b9a8727ade2499f827636ad5ad3002513769709d3444717536b"
+    "BRANCH": "claude/sintonia-scrap-instagram-single-path-c10-4b",
+    "HEAD": "65c3be381b47bf306f32cfd97175f4bbdaf1ee3c",
+    "GENERATED_AT": "2026-09-12T01:32:09+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ff40c1b101e76fc50153045764b87b774774febbfcd714e37efc2e55558aa289"
   },
   "FAMILIES": [
     {
@@ -14128,6 +14130,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-NAVEGADOR",
+        "C-TESTES",
         "C-TRANSCRICAO"
       ],
       "paises": {},
@@ -15503,6 +15506,7 @@
         "tests/test_c10_2_origin_gate.py",
         "tests/test_c10_3_location.py",
         "tests/test_c10_4_route_gate.py",
+        "tests/test_c10_4b_um_caminho_so.py",
         "tests/test_c10_5_collection_flow.py",
         "tests/test_c10_5d_decisao_instagram.py",
         "tests/test_c10_6_crash_retry.py",
@@ -15587,7 +15591,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 96,
+      "file_count": 97,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15686,6 +15690,7 @@
         "C-SCRAP-SOCIAL",
         "C-SECURITY-CHECK",
         "C-SENSOR-COLETA",
+        "C-SINTONIA-SCRAP",
         "C-SMOKE-GPU-ASR",
         "C-SUPABASE",
         "C-TRANSCRICAO",
@@ -17183,7 +17188,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-crash-retry-c10-6"
+        "branch claude/sintonia-scrap-instagram-single-path-c10-4b"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21174,7 +21179,7 @@
       "evidence": [
         {
           "file": "ferramentas/instagram_transcrever.py",
-          "line": 191,
+          "line": 237,
           "snippet": "import instagram_janela as ij"
         }
       ],
@@ -21281,8 +21286,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 115,
+          "snippet": "for rel in ('coleta/adaptador_instagram.py', 'coleta/comunicacao_coleta.py'):"
+        },
         {
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 41,
@@ -25596,7 +25606,7 @@
       "evidence": [
         {
           "file": "ferramentas/instagram_transcrever.py",
-          "line": 190,
+          "line": 236,
           "snippet": "import cdp"
         }
       ],
@@ -28928,12 +28938,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 29 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 30 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
           "line": 56,
           "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 48,
+          "snippet": "import social_matriz as mz              # noqa: E402"
         },
         {
           "file": "tests/test_c10_5_collection_flow.py",
@@ -28984,11 +28999,6 @@
           "file": "tests/test_falhas.py",
           "line": 18,
           "snippet": "import falhas                      # noqa: E402"
-        },
-        {
-          "file": "tests/test_falhas.py",
-          "line": 95,
-          "snippet": "import social_matriz as mz"
         }
       ],
       "categoria": "PROOF"
@@ -29049,8 +29059,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A fala vira texto, sem fatura. Provado por 2 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por A fala vira texto, sem fatura. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "ferramentas/instagram_transcrever.py",
+          "line": 63,
+          "snippet": "import social_matriz as mz  # noqa: E402 — a política de rota, dono único"
+        },
         {
           "file": "ferramentas/reel_transcricao.py",
           "line": 94,
@@ -29259,7 +29274,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 58 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 60 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -29292,6 +29307,16 @@
           "snippet": "import adaptador_instagram as ai    # noqa: E402"
         },
         {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 136,
+          "snippet": "import scrap_registo as reg"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 137,
+          "snippet": "import scrap_capacidades as cap"
+        },
+        {
           "file": "tests/test_c10_5_collection_flow.py",
           "line": 51,
           "snippet": "import scrap_capacidades as cap     # noqa: E402"
@@ -29310,16 +29335,6 @@
           "file": "tests/test_c10_5d_decisao_instagram.py",
           "line": 48,
           "snippet": "import scrap_capacidades as cap     # noqa: E402"
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 49,
-          "snippet": "import scrap_fornecedores as forn   # noqa: E402"
-        },
-        {
-          "file": "tests/test_c10_5d_decisao_instagram.py",
-          "line": 52,
-          "snippet": "import adaptador_instagram as ai    # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29332,7 +29347,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 35 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 36 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -29343,6 +29358,11 @@
           "file": "tests/test_c10_4_route_gate.py",
           "line": 301,
           "snippet": "arvore = ast.parse(_fonte('coleta/adaptador_instagram.py'))"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 115,
+          "snippet": "for rel in ('coleta/adaptador_instagram.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
           "file": "tests/test_c10_5_collection_flow.py",
@@ -29388,11 +29408,6 @@
           "file": "tests/test_c2_youtube_oficial.py",
           "line": 90,
           "snippet": "'coleta/social_rotas.py')"
-        },
-        {
-          "file": "tests/test_c3_youtube_cutover.py",
-          "line": 234,
-          "snippet": "self.assertIn('REQUEST_REGION_CODE', _fonte('coleta/youtube_oficial.py'))"
         }
       ],
       "categoria": "PROOF"
@@ -29667,6 +29682,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 54,
+          "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-SINTONIA-SCRAP",
@@ -30781,7 +30814,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 22 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -30797,6 +30830,16 @@
           "file": "tests/test_c10_4_route_gate.py",
           "line": 62,
           "snippet": "import reel_transcricao as rt       # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 49,
+          "snippet": "import reel_transcricao as rt           # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 50,
+          "snippet": "import instagram_transcrever as velho   # noqa: E402"
         },
         {
           "file": "tests/test_c10_5_collection_flow.py",
@@ -30832,16 +30875,6 @@
           "file": "tests/test_c10_audio_only.py",
           "line": 40,
           "snippet": "import reel_transcricao as rt    # noqa: E402"
-        },
-        {
-          "file": "tests/test_c4_gpu_local.py",
-          "line": 27,
-          "snippet": "import fala_local as fl                                        # noqa: E402"
-        },
-        {
-          "file": "tests/test_c4b_gpu_execucao.py",
-          "line": 32,
-          "snippet": "import fala_local as fl             # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -30854,7 +30887,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 22 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -30870,6 +30903,21 @@
           "file": "tests/test_c10_4_route_gate.py",
           "line": 491,
           "snippet": "self.assertEqual(medida.get('ASR_OWNER'), 'ferramentas/fala_local.py')"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 52,
+          "snippet": "NOVA_REL = 'ferramentas/reel_transcricao.py'"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 53,
+          "snippet": "VELHA_REL = 'ferramentas/instagram_transcrever.py'"
+        },
+        {
+          "file": "tests/test_c10_4b_um_caminho_so.py",
+          "line": 230,
+          "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])"
         },
         {
           "file": "tests/test_c10_5_collection_flow.py",
@@ -30900,21 +30948,6 @@
           "file": "tests/test_c10_audio_only.py",
           "line": 374,
           "snippet": "with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),"
-        },
-        {
-          "file": "tests/test_c4_gpu_local.py",
-          "line": 30,
-          "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
-        },
-        {
-          "file": "tests/test_c4_gpu_local.py",
-          "line": 33,
-          "snippet": "CHAMADORES = ('ferramentas/instagram_transcrever.py',"
-        },
-        {
-          "file": "tests/test_c4_gpu_local.py",
-          "line": 34,
-          "snippet": "'ferramentas/youtube_transcrever.py',"
         }
       ],
       "categoria": "PROOF"
@@ -31903,7 +31936,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 754,
+  "UNCLAIMED_FILES_COUNT": 755,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32071,12 +32104,12 @@
     "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 656,
-    "edges_proven": 653,
+    "edges": 657,
+    "edges_proven": 654,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1482,
-    "files_covered": 728,
+    "files_tracked": 1484,
+    "files_covered": 729,
     "files_code_unclaimed": 0
   }
 }

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-crash-retry-c10-6",
-    "HEAD": "2d3464deb3bba7fca3bb1384f6f637fc1626516e",
-    "GENERATED_AT": "2026-09-12T00:33:33+00:00",
-    "SOURCE_TREE_FINGERPRINT": "80b3919396550b9a8727ade2499f827636ad5ad3002513769709d3444717536b"
+    "BRANCH": "claude/sintonia-scrap-instagram-single-path-c10-4b",
+    "HEAD": "65c3be381b47bf306f32cfd97175f4bbdaf1ee3c",
+    "GENERATED_AT": "2026-09-12T01:32:09+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ff40c1b101e76fc50153045764b87b774774febbfcd714e37efc2e55558aa289"
   },
   "FILES": [
     {
@@ -5182,6 +5182,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-4B-UM-CAMINHO-SO.md",
+      "sha": "971f4b8cd181bedafd930443adec18ccd41c24b1",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md",
       "sha": "90fcbc7a1e5d5b33c070d34bdb780a759485ca79",
       "ext": ".md",
@@ -5330,7 +5337,7 @@
     },
     {
       "path": "ferramentas/instagram_transcrever.py",
-      "sha": "8c6656427b15aad27e81bc3d3e26a55764514dc2",
+      "sha": "fd3a563a9ec1f65087b4dba05e0ae930566f794e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9795,6 +9802,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c10_4b_um_caminho_so.py",
+      "sha": "87c585c8ec8f1d6f716212eb65a5c3f0d409b5df",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c10_5_collection_flow.py",
       "sha": "175feae40a78b07e9626cddb7de246f0da350233",
       "ext": ".py",
@@ -13856,7 +13870,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/instagram_transcrever.py",
-        "line": 191,
+        "line": 237,
         "snippet": "import instagram_janela as ij"
       }
     },
@@ -13867,7 +13881,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "ferramentas/instagram_transcrever.py",
-        "line": 190,
+        "line": 236,
         "snippet": "import cdp"
       }
     },
@@ -13880,6 +13894,17 @@
         "file": "ferramentas/instagram_transcrever.py",
         "line": 62,
         "snippet": "import fala_local as fl  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "ferramentas/instagram_transcrever.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "ferramentas/instagram_transcrever.py",
+        "line": 63,
+        "snippet": "import social_matriz as mz  # noqa: E402 — a política de rota, dono único"
       }
     },
     {
@@ -30515,6 +30540,127 @@
       }
     },
     {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 54,
+        "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 115,
+        "snippet": "for rel in ('coleta/adaptador_instagram.py', 'coleta/comunicacao_coleta.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 115,
+        "snippet": "for rel in ('coleta/adaptador_instagram.py', 'coleta/comunicacao_coleta.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 137,
+        "snippet": "import scrap_capacidades as cap"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 136,
+        "snippet": "import scrap_registo as reg"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 230,
+        "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 50,
+        "snippet": "import instagram_transcrever as velho   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 53,
+        "snippet": "VELHA_REL = 'ferramentas/instagram_transcrever.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 49,
+        "snippet": "import reel_transcricao as rt           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 52,
+        "snippet": "NOVA_REL = 'ferramentas/reel_transcricao.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4b_um_caminho_so.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_4b_um_caminho_so.py",
+        "line": 48,
+        "snippet": "import social_matriz as mz              # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c10_5_collection_flow.py",
       "to_file": "coleta/adaptador_instagram.py",
       "type": "IMPORTS",
@@ -37969,10 +38115,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1482,
-    "files_readable": 566,
-    "files_code_dir": 613,
-    "file_edges": 2466,
+    "files_tracked": 1484,
+    "files_readable": 567,
+    "files_code_dir": 614,
+    "file_edges": 2478,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
