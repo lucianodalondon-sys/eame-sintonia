@@ -7042,3 +7042,222 @@ MÍNIMO     [G1] — quatro planos por afirmação + ASSERTION_SUPPORTED
 Fica por saber que afirmação cada uma das 37 linhas emprestadas realmente
 sustenta, e `ROLE` continua por atribuir nas 160 entidades. `G0` sozinho nunca
 autorizou `DEGRADED`, e a DAG previu isso antes de a medição o confirmar.
+
+---
+
+# §80 · UM TETO COBRADO NA PRIMITIVA NÃO VÊ QUEM SAI POR UM SUBPROCESSO
+
+**Missão:** `C10.8A-F — O TETO DE GASTO`
+**HEAD final:** `532e3bed`
+**Tocado:** `coleta/coletor.py` · `coleta/scrap_executor.py` ·
+`coleta/social_rotas.py` · `coleta/scrap_fornecedores.py` · `leis/falhas.py` ·
+`provas/orcamento_financeiro.py`
+
+A `§77` fechou o teto de ACESSOS e deixou escrito, como incógnita, que um
+caminho que abrisse ligação por uma primitiva fora de `urlopen` e
+`create_connection` escaparia. A incógnita não era futura: já existia, e é a
+porta paga.
+
+## 80.1 · O MESMO CENSO, A RESPOSTA OPOSTA — E ISSO É O MÉTODO A FUNCIONAR
+
+A `§77` diz que o dono do conceito e o ponto de cobrança não têm de ser a mesma
+linha. Aplicada ao dinheiro, a mesma disciplina deu o contrário:
+
+```
+rede      25 funções abrem ligação   → dono em `scrap_http`, cobrança nas primitivas
+dinheiro   1 POST compromete gasto   → dono e cobrança no mesmo ficheiro
+```
+
+Trinta e cinco capacidades declaradas, três com rota paga por omissão, **zero**
+com adaptador. O único sítio que compromete dinheiro é o `POST` dentro de
+`coletor.executar`.
+
+```
+    ONE CONCEPT → ONE OWNER. QUANDO HÁ UMA SÓ PORTA, O DONO ESTÁ NELA.
+```
+
+A lição não é «o dono fica sempre longe do ponto de cobrança», nem sempre perto.
+É que a **forma vem do censo**, e um censo feito outra vez pode devolver outra
+forma sem que nenhuma das duas esteja errada.
+
+## 80.2 · O BURACO QUE O SEGUNDO TETO REVELOU NO PRIMEIRO
+
+A matriz dos dois gates tinha quatro casos. O segundo saiu vermelho à primeira:
+
+```
+NETWORK = 0 · FINANCIAL = 1.00 → o provider FOI CHAMADO
+```
+
+O teto de rede cobra onde a ligação abre — `urllib.request.urlopen` e
+`socket.create_connection`. A porta paga não passa por nenhuma das duas: ela
+lança um processo `curl`.
+
+```
+    UM TETO COBRADO NA PRIMITIVA NÃO VÊ QUEM SAI POR UM SUBPROCESSO.
+```
+
+E o censo das vinte e cinco portas não mentiu — ele contou **funções de Python
+que abrem ligação**, e essa contagem estava certa para o universo que declarou.
+O que faltava era o universo incluir quem sai por fora da linguagem.
+
+```
+    UM CENSO ESTÁ CERTO DENTRO DO UNIVERSO QUE DECLARA.
+    QUEM SAI POR FORA DA LINGUAGEM SAI POR FORA DO CENSO.
+```
+
+O conserto manteve o dono: `coletor` não conta nada, **pede** autorização a
+`scrap_http` antes de cada `subprocess.run`. Um saldo de rede copiado para o
+coletor seria um segundo contador, e dois contadores da mesma coisa divergem
+sempre.
+
+## 80.3 · O QUE NÃO SE CONSEGUE LER NÃO VOLTA AO BOLSO
+
+O dinheiro tem um intervalo que a rede não tem: entre comprometer e saber quanto
+custou. Três eixos, e o do meio é onde o dinheiro fica sem dono:
+
+```
+AUTHORIZED   o que esta execução pode comprometer
+COMMITTED    reservado por uma chamada em curso, ainda sem custo lido
+ACTUAL       o que ela custou — lido, e não liquidado
+```
+
+Um POST que cai no transporte pode ter nascido do outro lado. Devolver a reserva
+faria a chamada seguinte gastar outra vez o que talvez já tenha saído.
+
+```
+    UNKNOWN COST != ZERO COST.
+    POTENTIAL COMMITMENT != NOTHING HAPPENED.
+    UMA RESERVA QUE NINGUÉM LIQUIDOU NÃO VOLTA AO BOLSO.
+```
+
+Só voltam ao saldo os casos com **prova** de que nada correu: a plataforma
+respondeu recusa sem criar execução, e o teto de rede recusou antes do POST.
+«Não encontrei execução nenhuma» é uma leitura, não uma prova.
+
+E há um quarto valor que já existia nesta casa e não podia ser colapsado:
+`READ_NOT_SETTLED`. O custo lido não é o custo pago — esta casa anunciou US$0,90
+e pagou US$5,04.
+
+```
+    READ COST != SETTLED COST.
+```
+
+## 80.4 · UM TETO POR CHAMADA NÃO É UM TETO DA CORRIDA
+
+`maxTotalChargeUsd` já era usado, e parecia proteção. Ele limita **cada**
+execução da Apify, nunca a soma delas: `instagram_coleta` declara US$0,50 por
+conta em quatro fases, e cem contas são US$50,00 de exposição sem que nenhum
+número acima de 0,20 apareça em lado nenhum.
+
+```
+    PROVIDER CAP != EXECUTION BUDGET.
+    PROVIDER CAP <= EXECUTION REMAINING.
+```
+
+O cap que o chamador pede passou a ser **rebaixado** ao saldo, nunca elevado. E
+quem não pede cap nenhum recebe o saldo inteiro como trava: duas das três portas
+pagas desta casa chamavam sem trava alguma, e uma delas em ciclo sobre as chaves
+do pool.
+
+Detalhe que evita uma classe inteira de defeito: o saldo vive em **micro-dólares
+inteiros**. Cem reservas de US$0,01 fecham exactamente em US$1,00, e um teto que
+erra na sexta casa decimal é um teto que às vezes deixa passar.
+
+## 80.5 · O FAKE TEM DE SER SEMPRE A CAMADA MAIS FUNDA
+
+Três vezes na mesma missão, e sempre a mesma forma:
+
+- trocar `_curl` inteiro punha o falso **acima** do gate de rede — e o caso
+  `NETWORK = 0` passava a verde por o gate ter desaparecido, não por funcionar;
+- trocar `http.buscar` punha o falso **acima** de onde um mutante metia
+  cobrança — e esse mutante sobreviveu;
+- abrir o orçamento e **só depois** instalar o falso substituía o próprio
+  contador, porque o orçamento embrulha a primitiva no momento em que entra.
+
+```
+    UM FAKE ACIMA DO GATE MEDE O FAKE.
+    UM FAKE INSTALADO DEPOIS DO TETO SUBSTITUI O CONTADOR.
+```
+
+A regra que fica: o falso entra no ponto mais fundo que existir — o
+`subprocess.run`, a primitiva — e entra **antes** de qualquer teto. E quando a
+medição puder ser feita sem falso nenhum, faz-se sem: reprocessar bytes
+preservados com os dois tetos a zero prova mais do que qualquer substituição,
+porque qualquer socket ou qualquer reserva levantaria.
+
+## 80.6 · SONDAS QUE MEDEM A PALAVRA, OUTRA VEZ, DE DUAS MANEIRAS NOVAS
+
+A `§75.3` já ensinou que uma sentinela que procura a palavra não mede o que ela
+faz. Esta missão produziu duas variantes que aquela frase não cobria:
+
+```
+    UMA SONDA QUE PROCURA A PALAVRA ENCONTRA A FRASE QUE DIZ QUE ELA NÃO EXISTE.
+```
+
+A sonda do paralelismo procurou `threading` nos ficheiros e acusou o comentário
+que eu próprio tinha escrito a dizer que não havia paralelismo. E, quando passou
+a ler a árvore, acusou o `import threading` do próprio orçamento — que usa
+`Lock` e `local`, nenhum dos quais arranca coisa nenhuma.
+
+```
+    IMPORTAR `threading` NÃO É CORRER EM PARALELO.
+    MEDE-SE QUEM ARRANCA, NÃO QUEM IMPORTA.
+```
+
+A segunda: a sonda do «quem faz POST» acusou `adaptador_aberto.py`, onde `POST`
+é o **grão do conteúdo** — um post do Mastodon — e não um método HTTP.
+
+```
+    O VALOR SEM O NOME DO CAMPO É OUTRA COISA.
+```
+
+## 80.7 · TERCEIRA VEZ, E A LIÇÃO JÁ ESTAVA ESCRITA
+
+A `§75.1` apanhou um túnel caído a sair como `ROUTE_NOT_ALLOWED`. A `§77.5`
+apanhou a recusa do teto de rede a sair como `BLOCKED`, e escreveu a regra: uma
+recusa nossa atravessa os `except` largos inteira. Agora, o `except Exception`
+de `coletor.executar` vestia a recusa dos dois tetos de `STATUS: FAILED` — um
+manifesto a dizer que a Apify falhou sem a Apify ter sido chamada.
+
+```
+    UM `except Exception` LARGO NÃO DISTINGUE QUEM DISSE NÃO.
+```
+
+A regra estava escrita e não tinha sido aplicada **na porta que ainda não tinha
+recusa nenhuma para deixar passar**. É a `§76.4` outra vez, por outro lado:
+
+```
+    UMA REGRA APLICADA ONDE A RECUSA NASCEU E NÃO ONDE ELA PASSA
+    ESTÁ APLICADA A MEIO.
+```
+
+A partir daqui: quando um dono ganha uma recusa própria, cada `except` largo no
+caminho dela é um sítio a rever — e não só o do ficheiro que a levantou.
+
+## 80.8 · REUSAR O VOCABULÁRIO REVELA O QUE FALTAVA NELE
+
+`leis/falhas.py` já tinha `BUDGET_EXHAUSTED` — «teto NOSSO», `NO_RETRY`. O teto
+financeiro entrou lá como alias em vez de nascer estado novo. E foi ao fazê-lo
+que se viu que `NETWORK_BUDGET_EXHAUSTED`, da missão anterior, **não tinha
+alias**: passado ao tradutor, virava `UNKNOWN_ERROR`.
+
+Não dava erro porque nunca lá chegava — o embrulho do executor constrói o próprio
+trace.
+
+```
+    UM ESTADO QUE NUNCA CHEGA AO TRADUTOR ESCONDE QUE NÃO TEM TRADUÇÃO.
+```
+
+## 80.9 · CONSEQUÊNCIA
+
+```
+FINANCIAL_BUDGET   por execução · 7 conceitos · micro-dólares inteiros
+CHARGING_POINT     o POST, dentro do dono do dinheiro
+GATES              financeiro primeiro; quem é recusado pelo dinheiro não gasta acesso
+TRIAL              rota paga sem teto declarado não começa
+ATAQUES 30 · MUTANTES 16 · SOBREVIVENTES 0 · rede real 0 · custo real 0
+```
+
+Fica por saber o comportamento sob retentativa real — o ciclo continua a não
+existir — e o custo de `x.discovery`, que nunca correu. E fica escrito que a
+recomendação de valor não é autorização: quem autoriza dinheiro é gente.
