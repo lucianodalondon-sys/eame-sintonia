@@ -1,0 +1,1926 @@
+{
+  "SCHEMA": "sintonia.system-map.revisao-da-evidencia/1",
+  "O_QUE_ISTO_E": [
+    "A revisao das arestas tocadas por evidencia partilhada, uma a uma.",
+    "Nenhuma decisao entra aqui sem WHY.",
+    "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
+  ],
+  "PROVENANCE": {
+    "HEAD": "07ac873b9b1c9fe14726a74b6514fb63407cec38",
+    "BRANCH": "claude/dazzling-cerf-27a7v2",
+    "GENERATED_AT": "2026-09-12T15:53:30+00:00",
+    "SOURCE_TREE_FINGERPRINT": "05618ff444a801e32af59a9c5102a0b34427744a950c40ebfabbcce2dd546fa7"
+  },
+  "CARIMBOS_NAO_COMPARAVEIS": [
+    "HEAD",
+    "GENERATED_AT",
+    "SOURCE_TREE_FINGERPRINT"
+  ],
+  "BLOCOS_NAO_COMPARAVEIS": [
+    "PROVENANCE"
+  ],
+  "RESUMO": {
+    "ARESTAS_TOTAL": 665,
+    "LINHAS_PARTILHADAS": 55,
+    "LINHAS_PARTILHADAS_ENTRE_TIPOS": 37,
+    "ARESTAS_REVISTAS": 52,
+    "SUPPORTED": 30,
+    "AMBIGUOUS": 7,
+    "UNSUPPORTED": 15,
+    "SEM_PORQUE": [],
+    "POR_DECISAO_E_TIPO": {
+      "AMBIGUOUS·READS": 7,
+      "SUPPORTED·IMPORTS": 10,
+      "SUPPORTED·READS": 18,
+      "SUPPORTED·RUNS": 2,
+      "UNSUPPORTED·ABRE_O_CANAL": 3,
+      "UNSUPPORTED·ENTREGA_A_LISTA": 4,
+      "UNSUPPORTED·FEEDS": 8
+    }
+  },
+  "SENTINELA_APIFY": [
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-FACEBOOK",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "DECISION": "UNSUPPORTED",
+      "CODE_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-INSTAGRAM",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "DECISION": "UNSUPPORTED",
+      "CODE_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-LINKEDIN",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "DECISION": "UNSUPPORTED",
+      "CODE_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--IMPORTS-->C-COLETA-PUBLICA",
+      "RELATION_TYPE": "IMPORTS",
+      "DECISION": "SUPPORTED",
+      "CODE_AFTER": "YES",
+      "PROVEN_AFTER": "YES",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    }
+  ],
+  "ARESTAS": [
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-FACEBOOK",
+      "FROM": "C-APIFY-POOL",
+      "TO": "V-FACEBOOK",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-INSTAGRAM",
+      "FROM": "C-APIFY-POOL",
+      "TO": "V-INSTAGRAM",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--ABRE_O_CANAL-->V-LINKEDIN",
+      "FROM": "C-APIFY-POOL",
+      "TO": "V-LINKEDIN",
+      "RELATION_TYPE": "ABRE_O_CANAL",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ABRE_O_CANAL` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-APIFY-POOL--IMPORTS-->C-COLETA-PUBLICA",
+      "FROM": "C-APIFY-POOL",
+      "TO": "C-COLETA-PUBLICA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 57,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 142,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-APIFY-POOL--IMPORTS-->C-COLETA-PUBLICA",
+        "FROM": "C-APIFY-POOL",
+        "TO": "C-COLETA-PUBLICA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ARTEFACTO-V21--FEEDS-->C-TELA-MEETING",
+      "FROM": "C-ARTEFACTO-V21",
+      "TO": "C-TELA-MEETING",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/case.spec.json",
+          "line": 4,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-ARTEFACTO-V21--FEEDS-->C-TELA-SCIENCE",
+      "FROM": "C-ARTEFACTO-V21",
+      "TO": "C-TELA-SCIENCE",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/science.spec.json",
+          "line": 4,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-ARTEFACTO-V21--FEEDS-->C-TELA-WINDOWS",
+      "FROM": "C-ARTEFACTO-V21",
+      "TO": "C-TELA-WINDOWS",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/windows.spec.json",
+          "line": 5,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-AUDIT-MARCA",
+      "FROM": "C-ARTEFACTO-V21",
+      "TO": "C-AUDIT-MARCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 39,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ARTEFACTO-V21--READS-->C-AUDIT-MARCA",
+        "FROM": "C-ARTEFACTO-V21",
+        "TO": "C-AUDIT-MARCA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AS-FONTES--ENTREGA_A_LISTA-->V-FACEBOOK",
+      "FROM": "C-AS-FONTES",
+      "TO": "V-FACEBOOK",
+      "RELATION_TYPE": "ENTREGA_A_LISTA",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ENTREGA_A_LISTA` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-AS-FONTES--ENTREGA_A_LISTA-->V-INSTAGRAM",
+      "FROM": "C-AS-FONTES",
+      "TO": "V-INSTAGRAM",
+      "RELATION_TYPE": "ENTREGA_A_LISTA",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ENTREGA_A_LISTA` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-AS-FONTES--ENTREGA_A_LISTA-->V-LINKEDIN",
+      "FROM": "C-AS-FONTES",
+      "TO": "V-LINKEDIN",
+      "RELATION_TYPE": "ENTREGA_A_LISTA",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ENTREGA_A_LISTA` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-AS-FONTES--ENTREGA_A_LISTA-->V-YOUTUBE",
+      "FROM": "C-AS-FONTES",
+      "TO": "V-YOUTUBE",
+      "RELATION_TYPE": "ENTREGA_A_LISTA",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "line": 1,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`ENTREGA_A_LISTA` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-BLOCOS--IMPORTS-->C-AUDIT-GERAL",
+      "FROM": "C-AUDIT-BLOCOS",
+      "TO": "C-AUDIT-GERAL",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/splice.mjs",
+          "line": 18,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-BLOCOS--IMPORTS-->C-AUDIT-GERAL",
+        "FROM": "C-AUDIT-BLOCOS",
+        "TO": "C-AUDIT-GERAL",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-BLOCOS--READS-->C-AUDIT-GERAL",
+      "FROM": "C-AUDIT-BLOCOS",
+      "TO": "C-AUDIT-GERAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/splice.mjs",
+          "line": 18,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-GERAL--IMPORTS-->C-PORTAO-BUILD",
+      "FROM": "C-AUDIT-GERAL",
+      "TO": "C-PORTAO-BUILD",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 32,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 38,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-GERAL--IMPORTS-->C-PORTAO-BUILD",
+        "FROM": "C-AUDIT-GERAL",
+        "TO": "C-PORTAO-BUILD",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-GERAL--READS-->C-PORTAO-BUILD",
+      "FROM": "C-AUDIT-GERAL",
+      "TO": "C-PORTAO-BUILD",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 32,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casa-gate.mjs",
+          "line": 38,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-BLOCOS",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-BLOCOS",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks.mjs",
+          "line": 6,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-BLOCOS",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-AUDIT-BLOCOS",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-CASCO",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/casco/censo-demo.mjs",
+          "line": 4,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/censo-precedenza.mjs",
+          "line": 1,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/demo-visibile.mjs",
+          "line": 13,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/due-mappe.mjs",
+          "line": 2,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/falso-zero.mjs",
+          "line": 2,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/fase4-inventario.mjs",
+          "line": 6,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-collegate.mjs",
+          "line": 2,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-divario.mjs",
+          "line": 2,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/fuga-tsr.mjs",
+          "line": 2,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/mappa-azioni.mjs",
+          "line": 3,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 8,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 11,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-CASCO",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-AUDIT-CASCO",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-GERAL",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-GERAL",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 12,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 13,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 27,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 33,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 34,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 31,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 32,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/build-v21.mjs",
+          "line": 34,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 52,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 12,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-GERAL",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-AUDIT-GERAL",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-MARCA",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-MARCA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/adama-product-claim.mjs",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/brandwell.mjs",
+          "line": 18,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-AUDIT-MARCA",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-AUDIT-MARCA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PORTAO-BUILD",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-PORTAO-BUILD",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 29,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-AUDIT-HARNESS--IMPORTS-->C-PORTAO-BUILD",
+        "FROM": "C-AUDIT-HARNESS",
+        "TO": "C-PORTAO-BUILD",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-AUDIT-BLOCOS",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-BLOCOS",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks.mjs",
+          "line": 6,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-AUDIT-CASCO",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-CASCO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/casco/censo-demo.mjs",
+          "line": 4,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/censo-precedenza.mjs",
+          "line": 1,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/demo-visibile.mjs",
+          "line": 13,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/due-mappe.mjs",
+          "line": 2,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/falso-zero.mjs",
+          "line": 2,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/fase4-inventario.mjs",
+          "line": 6,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-collegate.mjs",
+          "line": 2,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/fonti-divario.mjs",
+          "line": 2,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/fuga-tsr.mjs",
+          "line": 2,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/mappa-azioni.mjs",
+          "line": 3,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 8,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/casco/quarantatre.mjs",
+          "line": 11,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-AUDIT-GERAL",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-GERAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 12,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/acceptance.mjs",
+          "line": 13,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 27,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/action-map-consistency.mjs",
+          "line": 28,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 33,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/browser-deep.mjs",
+          "line": 34,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 31,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/browser.mjs",
+          "line": 32,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/build-v21.mjs",
+          "line": 34,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 52,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/cadeia-de-familias.mjs",
+          "line": 53,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 12,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-AUDIT-MARCA",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-AUDIT-MARCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/adama-product-claim.mjs",
+          "line": 25,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/brandwell.mjs",
+          "line": 18,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-AUDIT-HARNESS--READS-->C-PORTAO-BUILD",
+      "FROM": "C-AUDIT-HARNESS",
+      "TO": "C-PORTAO-BUILD",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 28,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/ingestion-provenance.mjs",
+          "line": 29,
+          "SUPPORTS": "AMBIGUOUS"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "AMBIGUOUS",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado."
+    },
+    {
+      "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
+      "FROM": "C-BIBLIA",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 699,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 44,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 47,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-BIBLIA--READS-->C-PROVA-COLETA",
+        "FROM": "C-BIBLIA",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
+      "FROM": "C-CI-PERSIST",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_armazem_italiano.py",
+          "line": 207,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_identidade_do_artefato.py",
+          "line": 247,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 339,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 340,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 341,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 356,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 329,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
+        "FROM": "C-CI-PERSIST",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-CI-REGRESSAO--READS-->C-TESTES",
+      "FROM": "C-CI-REGRESSAO",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 341,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CI-REGRESSAO--READS-->C-TESTES",
+        "FROM": "C-CI-REGRESSAO",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
+      "FROM": "C-DONO-DA-ESCRITA",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 235,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_porta_de_producao.py",
+          "line": 241,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_preservar_coleta.py",
+          "line": 189,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 516,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 516,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 361,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_raw_observation_id_volta.py",
+          "line": 361,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
+        "FROM": "C-DONO-DA-ESCRITA",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ESTRADA-PDF--READS-->C-TESTES",
+      "FROM": "C-ESTRADA-PDF",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_integracao_biblia.py",
+          "line": 158,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 202,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_red_team_estrada.py",
+          "line": 143,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ESTRADA-PDF--READS-->C-TESTES",
+        "FROM": "C-ESTRADA-PDF",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 38,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
+      "FROM": "C-IT-CONTRATOS",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "coleta/italy_pilot_collect.mjs",
+          "line": 38,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 30,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
+        "FROM": "C-IT-CONTRATOS",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
+      "FROM": "C-MAPA-SCAN",
+      "TO": "C-MAPA-GERADOR",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 4050,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 4050,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
+        "FROM": "C-MAPA-SCAN",
+        "TO": "C-MAPA-GERADOR",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-VALIDADOR",
+      "FROM": "C-MAPA-SCAN",
+      "TO": "C-MAPA-VALIDADOR",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 143,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 143,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/scripts/validate_system_map.py",
+          "line": 143,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-VALIDADOR",
+        "FROM": "C-MAPA-SCAN",
+        "TO": "C-MAPA-VALIDADOR",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-COLETA",
+      "FROM": "C-MAPA-TESTES",
+      "TO": "C-PROVA-COLETA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "provas/medir_admission_t3_atual.py",
+          "line": 699,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "provas/testa_coleta_canonica.py",
+          "line": 146,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-MAPA-TESTES--READS-->C-PROVA-COLETA",
+        "FROM": "C-MAPA-TESTES",
+        "TO": "C-PROVA-COLETA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_estagio_atravessa_a_fronteira.py",
+          "line": 239,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_italia_na_porta_canonica.py",
+          "line": 163,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_lingua_da_porta.py",
+          "line": 202,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_medir_admission_t3_atual.py",
+          "line": 56,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_runtime_so_deixa_passar_colheita.py",
+          "line": 229,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--READS-->C-TESTES",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-DADOS--FEEDS-->C-TELA-ARCHIVE",
+      "FROM": "C-PORTAL-DADOS",
+      "TO": "C-TELA-ARCHIVE",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/archive.spec.json",
+          "line": 5,
+          "SUPPORTS": "NO"
+        },
+        {
+          "file": "italia-portale/audit/blocks/archive.spec.json",
+          "line": 4,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-DADOS--FEEDS-->C-TELA-MEETING",
+      "FROM": "C-PORTAL-DADOS",
+      "TO": "C-TELA-MEETING",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/case.spec.json",
+          "line": 5,
+          "SUPPORTS": "NO"
+        },
+        {
+          "file": "italia-portale/audit/blocks/case.spec.json",
+          "line": 4,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-DADOS--FEEDS-->C-TELA-SCIENCE",
+      "FROM": "C-PORTAL-DADOS",
+      "TO": "C-TELA-SCIENCE",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/science.spec.json",
+          "line": 4,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-DADOS--FEEDS-->C-TELA-WINDOWS",
+      "FROM": "C-PORTAL-DADOS",
+      "TO": "C-TELA-WINDOWS",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/windows.spec.json",
+          "line": 5,
+          "SUPPORTS": "NO"
+        },
+        {
+          "file": "italia-portale/audit/blocks/windows.spec.json",
+          "line": 4,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-MARCA",
+      "FROM": "C-PORTAL-DADOS",
+      "TO": "C-AUDIT-MARCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 39,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 40,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 40,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 41,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PORTAL-DADOS--READS-->C-AUDIT-MARCA",
+        "FROM": "C-PORTAL-DADOS",
+        "TO": "C-AUDIT-MARCA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-MODELO--FEEDS-->C-TELA-ARCHIVE",
+      "FROM": "C-PORTAL-MODELO",
+      "TO": "C-TELA-ARCHIVE",
+      "RELATION_TYPE": "FEEDS",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/blocks/archive.spec.json",
+          "line": 5,
+          "SUPPORTS": "NO"
+        }
+      ],
+      "ASSERTION_SUPPORTED": null,
+      "DECISION": "UNSUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "UNKNOWN",
+      "PROVEN_PLANE_AFTER": null,
+      "WHY": "`FEEDS` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao."
+    },
+    {
+      "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-MARCA",
+      "FROM": "C-PORTAL-MODELO",
+      "TO": "C-AUDIT-MARCA",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/adama-relevance-gate.mjs",
+          "line": 40,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PORTAL-MODELO--READS-->C-AUDIT-MARCA",
+        "FROM": "C-PORTAL-MODELO",
+        "TO": "C-AUDIT-MARCA",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PORTAO-BUILD--IMPORTS-->C-AUDIT-GERAL",
+      "FROM": "C-PORTAO-BUILD",
+      "TO": "C-AUDIT-GERAL",
+      "RELATION_TYPE": "IMPORTS",
+      "RAW_TYPE_MEDIDO": "IMPORTS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 13,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/snapshot-failure.mjs",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 21,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PORTAO-BUILD--IMPORTS-->C-AUDIT-GERAL",
+        "FROM": "C-PORTAO-BUILD",
+        "TO": "C-AUDIT-GERAL",
+        "RELATION_TYPE": "IMPORTS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-PORTAO-BUILD--READS-->C-AUDIT-GERAL",
+      "FROM": "C-PORTAO-BUILD",
+      "TO": "C-AUDIT-GERAL",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/audit/checks.mjs",
+          "line": 13,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/deploy-surface.mjs",
+          "line": 102,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/negative-control.mjs",
+          "line": 146,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/audit/snapshot-failure.mjs",
+          "line": 24,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 21,
+          "SUPPORTS": "AMBIGUOUS"
+        },
+        {
+          "file": "italia-portale/audit/stale-generator-gate.mjs",
+          "line": 115,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-PORTAO-BUILD--READS-->C-AUDIT-GERAL",
+        "FROM": "C-PORTAO-BUILD",
+        "TO": "C-AUDIT-GERAL",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-TESTES",
+      "FROM": "C-SCRAP-GUARDA",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_security_secret_shapes.py",
+          "line": 22,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 24,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 25,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 397,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-TESTES",
+        "FROM": "C-SCRAP-GUARDA",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+      "FROM": "C-SCRAP-ROTA",
+      "TO": "C-SCRAP-GUARDA",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 107,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
+        "FROM": "C-SCRAP-ROTA",
+        "TO": "C-SCRAP-GUARDA",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-SOCIAL",
+      "FROM": "C-SCRAP-ROTA",
+      "TO": "C-SCRAP-SOCIAL",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 107,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 108,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-SOCIAL",
+        "FROM": "C-SCRAP-ROTA",
+        "TO": "C-SCRAP-SOCIAL",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
+      "FROM": "C-SCRAP-SOCIAL",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_autoridade_da_fonte.py",
+          "line": 145,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_politica_da_coleta.py",
+          "line": 210,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 26,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 27,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 28,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_social_sessao.py",
+          "line": 29,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 215,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_youtube_antidrift.py",
+          "line": 298,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 397,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_youtube_piloto.py",
+          "line": 398,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",
+        "FROM": "C-SCRAP-SOCIAL",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SECURITY-CHECK--READS-->C-TESTES",
+      "FROM": "C-SECURITY-CHECK",
+      "TO": "C-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_security_ratchet.py",
+          "line": 21,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_security_ratchet.py",
+          "line": 30,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "tests/test_security_ratchet.py",
+          "line": 30,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SECURITY-CHECK--READS-->C-TESTES",
+        "FROM": "C-SECURITY-CHECK",
+        "TO": "C-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-V21-FONTES--READS-->C-PORTAL-MODELO",
+      "FROM": "C-V21-FONTES",
+      "TO": "C-PORTAL-MODELO",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "italia-portale/client/italy-v21.js",
+          "line": 5,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "italia-portale/client/italy-v21.js",
+          "line": 5,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-V21-FONTES--READS-->C-PORTAL-MODELO",
+        "FROM": "C-V21-FONTES",
+        "TO": "C-PORTAL-MODELO",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    }
+  ]
+}

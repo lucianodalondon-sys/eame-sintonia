@@ -2785,6 +2785,24 @@
    ]
   },
   {
+   "id": "C-REVISAO-DA-EVIDENCIA",
+   "name": "Revisao da evidencia emprestada",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Enumera, aresta a aresta, as ligacoes tocadas por uma linha de evidencia partilhada, e diz para cada uma se a evidencia SUSTENTA a afirmacao publicada, se e AMBIGUA, ou se NAO a sustenta — sempre com o porque escrito ao lado.",
+   "why_here": "Uma linha nao prova duas afirmacoes diferentes so por estar perto das duas. Medido: 37 linhas sustentavam relacoes de tipos diferentes, em 52 arestas, e um `import apify_pool` servia de prova a tres afirmacoes de abertura de canal. Uma decisao sem porque nao e uma decisao: e uma escolha que ninguem pode discutir depois.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/revisao_da_evidencia.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-DERIVA-DA-BASE",
    "name": "A deriva entre o repositorio e a base viva",
    "territory": "Z-PROVA",

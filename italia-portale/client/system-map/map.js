@@ -448,13 +448,34 @@ function openDetail(id) {
   const entra = edges.filter(e => e.to === id), sai = edges.filter(e => e.from === id);
   const negocio = (S.BUSINESS_EDGES || []).filter(b => b.from === id);
 
+  /* OS QUATRO PLANOS, LADO A LADO — e nunca um só rótulo por cima deles.
+     A seta dizia «provado por 1 linha de código» e a tela mostrava-a igual a
+     uma travessia observada. São duas coisas, e a diferença é o trabalho todo:
+
+         ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+
+     Aqui `PROVEN` vem sempre acompanhado do PLANO em que está provado, e
+     `UNKNOWN` fica escrito como UNKNOWN — nunca arredondado para verde. */
+  const plano = v => v === 'YES' ? 'ok' : (v === 'NO' ? 'não' : '⚪ NÃO SEI');
+  const planos = e => `<div class="planos">`
+    + `DECLARED ${plano(e.DECLARED)} · CODE ${plano(e.CODE)} · `
+    + `OBSERVED ${plano(e.OBSERVED)} · PROVEN ${plano(e.PROVEN)}`
+    + (e.PROVEN_PLANE ? ` <b>(no plano ${esc(e.PROVEN_PLANE)})</b>` : '')
+    + `</div>`;
+  /* Uma linha que NÃO sustenta esta afirmação continua à vista, e rotulada —
+     escondê-la deixaria a aresta a parecer sem prova nenhuma, quando o que há
+     é prova de outra coisa. */
+  const marcaDaProva = v => v.SUPPORTS === 'YES' ? ''
+    : (v.SUPPORTS === 'AMBIGUOUS' ? ' ⚪ não decide esta afirmação'
+                                  : ' ⚪ não sustenta esta afirmação');
   const lig = (arr, dir) => arr.length ? arr.map(e => {
     const outro = nodeById[dir === 'in' ? e.from : e.to];
     return `<div class="file"><b>${esc(outro?.name || '?')}</b> · ${esc(e.type)}<br>
-      ${esc(e.reason)}${e.evidence?.length
-        ? '<br>' + e.evidence.slice(0, 3).map(v => esc(v.file + ':' + v.line)).join('<br>')
-        : '<br>⚪ NÃO SEI — declarada, não provada'}</div>`;
-  }).join('') : '<div class="tags"><span class="tag">nenhuma ligação provada</span></div>';
+      ${esc(e.reason)}${planos(e)}${e.evidence?.length
+        ? e.evidence.slice(0, 3).map(v =>
+            esc(v.file + ':' + v.line) + esc(marcaDaProva(v))).join('<br>')
+        : '⚪ NÃO SEI — declarada, não provada'}</div>`;
+  }).join('') : '<div class="tags"><span class="tag">nenhuma ligação medida</span></div>';
 
   detail.innerHTML = `
     <div class="detailHead">

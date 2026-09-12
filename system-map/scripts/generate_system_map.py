@@ -2586,6 +2586,196 @@ def papel_de_cada_regua(nos: list, G: dict, dono: dict) -> None:
         n["rule_role_evidence"] = porque
 
 
+# ═════════════════════════════════════════════════════════════════════════════
+# OS QUATRO PLANOS, E A EVIDENCIA LIGADA A AFIRMACAO CERTA — G1 do contrato.
+#
+# O mapa media bem e publicava a palavra errada. `status = PROVEN` saia em 659
+# arestas e 59 pecas apoiado SO em analise estatica, e a razao escrita dizia-o:
+# «provado por 1 linha de codigo». Isso prova que o codigo CONSEGUE. Nao prova
+# que ACONTECEU.
+#
+#     ANALISE ESTATICA PROVA CAN DO. SO TELEMETRIA PROVA DID DO.
+#
+#     DECLARED  →  CODE  →  OBSERVED  →  PROVEN
+#     nenhuma seta destas e automatica.
+#
+# E O SEGUNDO DEFEITO ERA PIOR, PORQUE NAO ERA VOCABULARIO. Uma linha
+# sustentava afirmacoes que ela nao prova:
+#
+#     coleta/comunicacao_coleta.py:57
+#       import apify_pool as ap
+#     sustentava  C-APIFY-POOL → C-COMUNICACAO  IMPORTS       ← prova
+#     e tambem    C-APIFY-POOL → V-FACEBOOK     ABRE_O_CANAL  ← nao prova
+#
+#     UMA LINHA NAO PROVA DUAS AFIRMACOES DIFERENTES
+#     SO POR ESTAR PERTO DAS DUAS.
+#
+# Por isso cada evidencia passa a dizer QUE AFIRMACAO sustenta, e o plano de
+# cada aresta e calculado a partir disso — nunca da existencia da linha.
+# ═════════════════════════════════════════════════════════════════════════════
+SIM, NAO, NAO_SEI = "YES", "NO", "UNKNOWN"
+
+# Os tipos de relacao que um medidor emite, e o que a linha dele prova.
+# `scan_repo.py` e o medidor; o contrato §6.1 e quem os declara.
+TIPOS_MEDIDOS = {"READS", "IMPORTS", "RUNS", "WRITES"}
+
+
+def _linha(ev: dict) -> tuple:
+    return (ev.get("file"), ev.get("line"))
+
+
+def ligar_evidencia_a_afirmacao(ligacoes: dict) -> None:
+    """Cada evidencia diz que AFIRMACAO sustenta — e algumas nao sustentam nenhuma.
+
+    Tres casos, e os tres foram MEDIDOS nesta arvore, nao imaginados:
+
+    1 · RELACAO MEDIDA, LINHA SO DELA.  A linha prova a afirmacao. `SUPPORTS=YES`.
+
+    2 · ROTULO NARRATIVO.  `ABRE_O_CANAL`, `FEEDS`, `PRODUZ`, `VIAJA_POR` e os
+        outros nao tem medidor: nascem de `architecture.declared.json`, e o
+        `raw_type` deles e nulo. Uma linha de codigo ao lado nao os prova.
+        `SUPPORTS=NO` — e a aresta fica `DECLARED=YES`, `CODE=UNKNOWN`.
+
+    3 · A MESMA LINHA MEDIDA DUAS VEZES, POR DUAS PERGUNTAS.
+        `scan_repo.py` emite `IMPORTS` pelo casador de imports, e emite tambem
+        `READS artefacto` pelo casador de LITERAIS — que encontra `'./lang.mjs'`
+        dentro de `import { X } from './lang.mjs'` e nao consegue distinguir um
+        especificador de modulo de um caminho de dado.
+
+            UM `import` NAO E UMA LEITURA DE ARTEFACTO.
+
+        Medido: 36 linhas, todas `.mjs`, todas com as duas arestas entre o MESMO
+        par. O `IMPORTS` fica; o `READS` que so tem essa linha fica `AMBIGUOUS`.
+        Nao se conserta o scanner aqui — o mapa OBSERVA. Diz-se o que a
+        evidencia sustenta, e o plano cai para `UNKNOWN`.
+    """
+    # onde e que cada linha aparece, e com que tipo de relacao
+    tipos_da_linha: dict[tuple, set] = {}
+    for lig in ligacoes.values():
+        for ev in lig.get("evidence", []):
+            tipos_da_linha.setdefault(_linha(ev), set()).add(lig["type"])
+
+    for lig in ligacoes.values():
+        tipo, medido = lig["type"], lig.get("raw_type")
+        afirmacao = {
+            "EDGE_ID": f'{lig["from"]}--{tipo}-->{lig["to"]}',
+            "FROM": lig["from"], "TO": lig["to"],
+            "RELATION_TYPE": tipo, "PLANE": "CODE",
+        }
+        for ev in lig.get("evidence", []):
+            outros = tipos_da_linha.get(_linha(ev), set()) - {tipo}
+            if medido is None or tipo not in TIPOS_MEDIDOS:
+                apoia, porque = NAO, (
+                    f"`{tipo}` e rotulo narrativo declarado, sem medidor que o "
+                    f"emita. Uma linha de codigo ao lado nao prova esta relacao.")
+            elif tipo == "READS" and "IMPORTS" in outros:
+                apoia, porque = "AMBIGUOUS", (
+                    "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um "
+                    "`import`, e o casador de literais nao distingue um "
+                    "especificador de modulo de um caminho de dado.")
+            else:
+                apoia, porque = SIM, (
+                    f"linha medida por `scan_repo.py` como `{medido}`, que e a "
+                    f"relacao publicada.")
+            ev["ASSERTION_SUPPORTED"] = afirmacao if apoia == SIM else None
+            ev["SUPPORTS"] = apoia
+            ev["WHY"] = porque
+            ev.setdefault("EVIDENCE_TYPE", "STATIC_CODE_ANALYSIS")
+            # LIMITATIONS e obrigatorio pelo contrato §7, e nao pode ser vazio.
+            # Aqui escreve-se o limite DESTA classe, que e sempre o mesmo: ela
+            # nunca diz que alguma coisa correu.
+            ev.setdefault("LIMITATIONS",
+                          "analise estatica: prova CODE. Nao prova OBSERVED nem "
+                          "comportamento em producao.")
+
+
+def observado_em_runtime(raiz) -> dict:
+    """O que o ledger de execucao diz ter CORRIDO — e so ele.
+
+    `provas-de-execucao.json` continua a ser o dono da observacao de executores,
+    e esta funcao le-o. Nao se cria um segundo registo de runtime: um segundo
+    dono da mesma pergunta diverge no dia em que um deles medir outra vez.
+
+        NENHUM TESTE, IMPORT OU WORKFLOW ENTRA AQUI.
+        Existir quem mande correr nao e ter corrido.
+    """
+    f = raiz / "system-map" / "data" / "provas-de-execucao.json"
+    if not f.exists():
+        return {}
+    P = json.loads(f.read_text(encoding="utf-8"))
+    fora = {}
+    for caminho, ficha in (P.get("PROVADOS") or {}).items():
+        fora[caminho] = {
+            "RUN_ID": ficha.get("SOURCE_ID") or NAO_SEI,
+            "OBSERVED_AT": NAO_SEI,
+            "ENVIRONMENT": {
+                "REDE": ficha.get("REDE"), "PAGO": ficha.get("PAGO"),
+                "PRODUCAO": ficha.get("PRODUCAO"),
+                "BANCO": (ficha.get("FORWARD") or {}).get("BANCO", NAO_SEI),
+            },
+            "EXECUTION_MODE": ficha.get("EXECUTION_MODE", NAO_SEI),
+            "STAGES": ficha.get("ETAPAS_OBSERVADAS", []),
+            "PROVA": ficha.get("PROVA", NAO_SEI),
+        }
+    return fora
+
+
+def os_quatro_planos(ligacoes: dict, nos: list, raiz) -> None:
+    """Publica DECLARED / CODE / OBSERVED / PROVEN em cada aresta e cada peca.
+
+    E `PROVEN_PLANE` ao lado, porque «provado» sozinho nao diz provado DE QUE:
+
+        CODE_PROVEN != FLOW_PROVEN.
+
+    Nao e um quinto plano — e o OBJECTO do quarto, como o contrato §13 pede.
+    """
+    ligar_evidencia_a_afirmacao(ligacoes)
+    runtime = observado_em_runtime(raiz)
+
+    for lig in ligacoes.values():
+        apoiadas = [ev for ev in lig.get("evidence", [])
+                    if ev.get("SUPPORTS") == SIM]
+        declarada = bool(lig.get("declared_reason")) or lig.get("kind") == "expected"
+
+        lig["DECLARED"] = SIM if declarada else NAO_SEI
+        # CODE nasce de evidencia que sustenta ESTA afirmacao. Sem ela, NAO_SEI —
+        # e nunca NAO: nao ter prova nao e ter prova de que nao existe.
+        lig["CODE"] = SIM if apoiadas else NAO_SEI
+        # Nenhuma aresta tem hoje evidencia de corrida: o ledger observa
+        # FICHEIROS de executor, nao pares de cartoes. Dizer o contrario seria
+        # inventar a travessia.
+        lig["OBSERVED"] = NAO_SEI
+        lig["PROVEN"] = SIM if apoiadas else NAO_SEI
+        lig["PROVEN_PLANE"] = "CODE" if apoiadas else None
+        # O `status` LEGADO passa a ser DERIVADO, e nao mais uma segunda opiniao.
+        # Ele existia antes dos planos e continua porque a tela e tres censos o
+        # leem; o que muda e que deixou de poder contradize-los.
+        #
+        #     UM CAMPO QUE SOBREVIVE A REFORMA TEM DE PASSAR A DERIVAR DELA,
+        #     SENAO A REFORMA GANHOU UM CONCORRENTE EM VEZ DE UM DONO.
+        #
+        # `PROVEN=YES` -> `PROVEN`; o resto -> `UNKNOWN`. Uma aresta `expected`
+        # nunca tem evidencia que a sustente, logo continua `UNKNOWN` e a prova
+        # P7 do validador continua a morder.
+        lig["status"] = "PROVEN" if apoiadas else "UNKNOWN"
+        lig["STATUS_LEGACY_NOTA"] = (
+            "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por "
+            "compatibilidade. A fonte de verdade sao os quatro planos.")
+
+    ficheiros_observados = set(runtime)
+    for n in nos:
+        seus = [f for f in n.get("files", []) if f in ficheiros_observados]
+        n["DECLARED"] = SIM
+        n["CODE"] = SIM if n.get("files") else NAO_SEI
+        n["OBSERVED"] = SIM if seus else NAO_SEI
+        n["OBSERVED_EVIDENCE"] = [{"FILE": f, **runtime[f]} for f in seus]
+        # A peca esta provada como EXISTENCIA/IMPLEMENTACAO quando ha ficheiro
+        # medido; a corrida e outra pergunta, e tem o seu proprio plano.
+        n["PROVEN"] = SIM if n.get("files") else NAO_SEI
+        n["PROVEN_PLANE"] = ("OBSERVED" if seus else
+                             ("CODE" if n.get("files") else None))
+
+
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
     """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
     direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
@@ -3776,6 +3966,11 @@ def main_uma_vez(stamp: bool) -> int:
     papel_de_cada_regua(nos, G, dono)
 
     desvios = desvios_do_controlo(ligacoes, nos)
+
+    # G1 · cada afirmacao passa a viver no seu plano, e cada evidencia passa a
+    # dizer que afirmacao sustenta. Corre ANTES de desenhar porque `desenhar()`
+    # so mexe em geometria — os planos sao conteudo.
+    os_quatro_planos(ligacoes, nos, RAIZ)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])

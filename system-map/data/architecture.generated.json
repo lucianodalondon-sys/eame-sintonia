@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "ef864c51c8030ad60b5772034dccfa3d238e4e47",
-    "GENERATED_AT": "2026-09-12T13:24:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d57387321c178eab3927039d85fb4b231498d911bc6ac60e99fa57ba7153fdd1"
+    "HEAD": "07ac873b9b1c9fe14726a74b6514fb63407cec38",
+    "GENERATED_AT": "2026-09-12T14:43:24+00:00",
+    "SOURCE_TREE_FINGERPRINT": "05618ff444a801e32af59a9c5102a0b34427744a950c40ebfabbcce2dd546fa7"
   },
   "FILES": [
     {
@@ -150,7 +150,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "4cdb532d3e12fd577a6c3d695bebe9a8f3a71891",
+      "sha": "5415ddce5a8dd33bd9fa50099c988ba5febb8384",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1563,8 +1563,15 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+      "sha": "3f2a3a39fef5340baae67833be3a828c291acd97",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "3580c15c0eb17840213743af588ffa1771b28948",
+      "sha": "ee388f1c114f6a2c3e2f5940a25d5dc4566974c7",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4315,7 +4322,7 @@
     },
     {
       "path": "docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md",
-      "sha": "d8b682a3e067dfc689c23cd5aa173f8ab13216e1",
+      "sha": "ff6da2123fd8a1c5aa0244ba4369cb57687bd767",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9425,14 +9432,14 @@
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "f8915ee634ed27281157a3ba36607c0ee5c9c443",
+      "sha": "ec50973bb60464fd0a157124b0e9621ce05f2f83",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "8612c8ef69db4834803b97c3453abd8298bb0d98",
+      "sha": "46dc9e878f5e654a22b5aaf3dc026cea76a7788c",
       "ext": ".js",
       "readable": true,
       "code_dir": true
@@ -9446,7 +9453,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "dec37a01fbcd210afe6912bc0dbfa852efe46c93",
+      "sha": "f0980c3490bf77443b4637d1c1fe47ccd3c2457c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9481,7 +9488,7 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "c753c406bb78f8ddb7a7a75b6b688b6d7496acf7",
+      "sha": "6ef50e9ea0a650be061b7458784c64891f72bda1",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9586,7 +9593,7 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "41c780f6dd8673cb026b0294d3eb6bc8cb376c89",
+      "sha": "c2fea5f0874a09e91ac223d091a3f6412a801307",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9641,6 +9648,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/scripts/revisao_da_evidencia.py",
+      "sha": "0119c06509a8e6b051e17f51c7826e5c68b6f133",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/scan_casco.py",
       "sha": "ff41767da8af0d50f153179d517e6cabd636c014",
       "ext": ".py",
@@ -9685,6 +9699,13 @@
     {
       "path": "system-map/tests/test_impressao_da_arvore.py",
       "sha": "9c9525c4af939f2a946d659c279d622608b3ae0f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/tests/test_quatro_planos.py",
+      "sha": "654b854780bf845b60e1717222711faa064d4825",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11269,7 +11290,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 461,
+        "line": 476,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -11280,7 +11301,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 576,
+        "line": 591,
         "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
       }
     },
@@ -11291,7 +11312,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 544,
+        "line": 559,
         "snippet": "run: python3 provas/fluxo_no_seco.py"
       }
     },
@@ -11302,7 +11323,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 562,
+        "line": 577,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -11313,7 +11334,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 556,
+        "line": 571,
         "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py"
       }
     },
@@ -11324,7 +11345,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 573,
+        "line": 588,
         "snippet": "run: python3 provas/o_executor_conta_se.py"
       }
     },
@@ -11335,7 +11356,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 550,
+        "line": 565,
         "snippet": "run: python3 provas/o_mapa_nao_mente.py"
       }
     },
@@ -11346,7 +11367,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 541,
+        "line": 556,
         "snippet": "run: python3 provas/paridade_da_lingua.py"
       }
     },
@@ -11357,7 +11378,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 468,
+        "line": 483,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -11368,7 +11389,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 547,
+        "line": 562,
         "snippet": "run: python3 provas/testa_golden_path_pdf.py"
       }
     },
@@ -11379,7 +11400,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 475,
+        "line": 490,
         "snippet": "run: python3 provas/valida_biblia.py"
       }
     },
@@ -11390,7 +11411,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 379,
+        "line": 394,
         "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")"
       }
     },
@@ -11577,7 +11598,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 393,
+        "line": 408,
         "snippet": "node system-map/scripts/publicar_no_deploy.mjs"
       }
     },
@@ -11671,6 +11692,17 @@
     },
     {
       "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_quatro_planos.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 346,
+        "snippet": "run: python3 system-map/tests/test_quatro_planos.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
       "to_file": "system-map/tests/test_reconciliacao_do_universo.py",
       "type": "RUNS",
       "payload": "execucao",
@@ -11698,7 +11730,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 499,
+        "line": 514,
         "snippet": "run: python3 tests/test_armazem_italiano.py"
       }
     },
@@ -11709,7 +11741,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 482,
+        "line": 497,
         "snippet": "python3 tests/test_biblia.py"
       }
     },
@@ -11720,7 +11752,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 492,
+        "line": 507,
         "snippet": "run: python3 tests/test_identidade_do_artefato.py"
       }
     },
@@ -11731,7 +11763,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 483,
+        "line": 498,
         "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
@@ -11742,7 +11774,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 484,
+        "line": 499,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
@@ -11753,7 +11785,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 527,
+        "line": 542,
         "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
@@ -11764,7 +11796,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 506,
+        "line": 521,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
@@ -11775,7 +11807,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 514,
+        "line": 529,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
@@ -11786,7 +11818,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 521,
+        "line": 536,
         "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
@@ -11797,7 +11829,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 485,
+        "line": 500,
         "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },
@@ -31575,7 +31607,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3000,
+        "line": 3190,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
       }
     },
@@ -31630,7 +31662,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2978,
+        "line": 3168,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -31641,7 +31673,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2759,
+        "line": 2949,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -31652,7 +31684,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2761,
+        "line": 2951,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -31696,7 +31728,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3179,
+        "line": 3369,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -31707,7 +31739,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3181,
+        "line": 3371,
         "snippet": "destino.write_text(chr(10).join(L), encoding=\"utf-8\")"
       }
     },
@@ -31740,7 +31772,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3842,
+        "line": 4037,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -31757,12 +31789,23 @@
     },
     {
       "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 2702,
+        "snippet": "f = raiz / \"system-map\" / \"data\" / \"provas-de-execucao.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
       "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3220,
+        "line": 3410,
         "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
       }
     },
@@ -31773,7 +31816,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3855,
+        "line": 4050,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -31784,7 +31827,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 3855,
+        "line": 4050,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -31795,7 +31838,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2940,
+        "line": 3130,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -32050,6 +32093,50 @@
         "file": "system-map/scripts/relatorio_do_fluxo.py",
         "line": 41,
         "snippet": "import telemetria as t  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/revisao_da_evidencia.py",
+      "to_file": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/revisao_da_evidencia.py",
+        "line": 40,
+        "snippet": "SAIDA = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/revisao_da_evidencia.py",
+      "to_file": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/revisao_da_evidencia.py",
+        "line": 141,
+        "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/revisao_da_evidencia.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/revisao_da_evidencia.py",
+        "line": 46,
+        "snippet": "from generate_system_map import TIPOS_MEDIDOS     # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/revisao_da_evidencia.py",
+      "to_file": "system-map/scripts/impressao_da_arvore.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/revisao_da_evidencia.py",
+        "line": 43,
+        "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402"
       }
     },
     {
@@ -32413,6 +32500,28 @@
         "file": "system-map/tests/test_impressao_da_arvore.py",
         "line": 219,
         "snippet": "for intruso in (\"test_system_map.py\", \"test_freshness.mjs\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_quatro_planos.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_quatro_planos.py",
+        "line": 192,
+        "snippet": "(\"coleta/comunicacao_coleta.py\", 57) in partilhada,"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_quatro_planos.py",
+      "to_file": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_quatro_planos.py",
+        "line": 35,
+        "snippet": "REVISAO = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json\""
       }
     },
     {
@@ -39913,10 +40022,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1499,
-    "files_readable": 579,
-    "files_code_dir": 624,
-    "file_edges": 2630,
+    "files_tracked": 1502,
+    "files_readable": 581,
+    "files_code_dir": 626,
+    "file_edges": 2638,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

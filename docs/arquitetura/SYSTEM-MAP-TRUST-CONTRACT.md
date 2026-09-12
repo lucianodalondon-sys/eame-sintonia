@@ -3,10 +3,10 @@
 ```
 MISSAO        C-DESIGN-SYSTEM-MAP-TRUST-CONTRACT-V1
 BRANCH        claude/dazzling-cerf-27a7v2
-BASE MEDIDA   ef864c51 → G0 implementado
+BASE MEDIDA   07ac873b → G0 e G1 implementados
 DATA          2026-09-12
-ESTADO        CONTRATO · G0 fechado (C6); G1 por fazer
-VEREDITO      CURRENT_SYSTEM_MAP_TRUST = FAIL  ·  C4 e C4b, §25
+ESTADO        CONTRATO · G0 fechou C6; G1 fechou C4 e C4b
+VEREDITO      CURRENT_SYSTEM_MAP_TRUST = DEGRADED  ·  nenhuma condição de FAIL
 ```
 
 > Este documento é **contrato, não implementação**. Ele diz o que o System Map
@@ -305,11 +305,20 @@ diferentes.
 | `RUNS` | 64 | `CODE` (que existe quem mande correr, não que tenha corrido) |
 | `WRITES` | 14 | `CODE` |
 
-**Declarados sem tipo medido** (40 arestas, `raw_type = null`): `PRODUZ`,
-`ABRE_O_CANAL`, `FEEDS`, `ENTREGA_A_LISTA`, `DERIVA_TEXTO`, `DERIVA_TEXTO_A_MAO`,
-`ALIMENTA`, `VIAJA_POR`. São **rótulos narrativos de declaração**, e o contrato
-classifica-os assim: `DECLARED=YES`, `CODE=UNKNOWN` até alguém os normalizar num
-tipo medido.
+**Sem tipo medido** (40 arestas, `raw_type = null`): `PRODUZ`, `ABRE_O_CANAL`,
+`FEEDS`, `ENTREGA_A_LISTA`, `DERIVA_TEXTO`, `DERIVA_TEXTO_A_MAO`, `ALIMENTA`,
+`VIAJA_POR`. `CODE = UNKNOWN` até alguém os normalizar num tipo medido: uma linha
+de código ao lado não prova a relação.
+
+> **Correção obrigada pela implementação de `G1`.** Esta secção chamava-lhes
+> «rótulos narrativos **de declaração**» e dava-lhes `DECLARED = YES`. Medido: só
+> **2 das 40** vêm de `architecture.declared.json`; as outras **38 são inferidas
+> pelo próprio gerador** a partir de factos de ficheiro. O gerador observa, não
+> declara arquitetura — logo `DECLARED = UNKNOWN` para elas.
+>
+> **INFERIDO PELO OBSERVADOR NÃO É DECLARADO PELA AUTORIDADE.** Estas 38 arestas
+> são o caso mais honesto e mais desconfortável do mapa: ele desenha-as e não as
+> consegue provar em plano nenhum — e agora diz isso.
 
 **Reservados, proibidos até haver evidência:** `CALLS`, `PRODUCES`, `DERIVES`,
 `PERSISTS`, `ADMITS`, `CONSUMES`, `TESTS`, `PROVES`. Criar o tipo antes da medição
@@ -1038,7 +1047,7 @@ este contrato usa como exemplo de boa prática.
 | C1 | contradição publicada sem conflito declarado | **NÃO** | nenhum campo de conflito é publicado, e nenhuma afirmação contradiz outra. As 2 arestas não-`PROVEN` são `UNKNOWN` com razão escrita | — |
 | C2 | contagem irreconciliável | **NÃO** | `65 == 48 + 17`; `COUNT == len(MEMBERS)` em todos os universos; zero membros do pente fora da vista | — |
 | C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | `STALE = []`; os 4 `UNVERIFIABLE` estão rotulados, e a prova `4m` reprova se algum disser `CURRENT` | — |
-| C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **SIM** | 658 arestas e 59 nós dizem `PROVEN` sobre evidência estática; 0 têm evidência de runtime | G1 |
+| C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **NÃO — fechada por `G1`** | cada aresta e cada peça publica `DECLARED/CODE/OBSERVED/PROVEN`; `PROVEN` traz sempre `PROVEN_PLANE`, e nenhuma diz `OBSERVED` sem corrida | ~~G1~~ feito |
 | C5 | auto-prova | **NÃO** | o validador corre o gerador como subprocesso e compara com o que está no disco; não partilha estado. Ver a limitação em §16.6 | — |
 | C6 | contagem publicada sem espécie ou sem universo | **NÃO — fechada por `G0`** | **13 de 13 superfícies publicam `ENTITY_SPECIES`** (6 universos, 7 lentes), com dono único e prova executável | ~~G0~~ feito |
 | C7 | exclusão sem razão | **NÃO** | 17 de 17 têm `REASON`, `OWNER` e `INTENTIONAL` | — |
@@ -1047,7 +1056,7 @@ E a causa da §7.1, que não é uma das sete mas aciona C4 por outro caminho:
 
 | | | | | |
 |---|---|---|---|---|
-| C4b | evidência que não sustenta a afirmação que lhe está ligada | **SIM** | 37 linhas sustentam `RELATION_TYPE` diferentes, em 52 arestas | G1 |
+| C4b | evidência que não sustenta a afirmação que lhe está ligada | **NÃO — fechada por `G1`** | as 52 arestas revistas uma a uma: 30 `SUPPORTED`, 7 `AMBIGUOUS`, 15 `UNSUPPORTED`, cada uma com `WHY` | ~~G1~~ feito |
 
 ### 25.2 · As três causas
 
@@ -1063,19 +1072,26 @@ ele apanhou-se a si mesmo.
 vocabulário, determinismo e — onde há membros — a semântica, cruzando cada
 espécie com o artefacto de **outro** dono. Dez mutantes, zero sobreviventes.
 
-**CAUSA 1 · a palavra promete o plano seguinte.** 658 arestas e 59 nós publicam
-`status = PROVEN` apoiados só em análise estática. As razões que o mapa escreve
-dizem-no: *«Provado por 1 linha de codigo»*, *«outra peca importa isto»*. Todas
-provam `CODE`.
+**CAUSA 1 · a palavra prometia o plano seguinte. FECHADA por `G1`.** 659 arestas e
+59 peças publicavam `status = PROVEN` apoiadas só em análise estática. Hoje cada
+afirmação vive no seu plano, e `status` é **derivado e deprecado**: ele não pode
+contradizer `PROVEN`, e a prova reprova se contradisser.
 
-Das 40 arestas **sem tipo medido**, **38 também dizem `PROVEN`**: aí a promoção
-parte de `DECLARED` e salta dois planos de uma vez.
+```
+antes   659 arestas  status = PROVEN     (uma palavra para quatro perguntas)
+depois  614 CODE=YES · 47 CODE=UNKNOWN · 661 OBSERVED=UNKNOWN
+        e PROVEN traz sempre o PLANO em que está provado
+```
 
-E `OBSERVED` não está apenas ausente: **é irrepresentável.** O esquema de aresta
-não tem `RUN_ID`, `OBSERVED_AT` nem `ENVIRONMENT`.
+**CAUSA 2 · a evidência estava ligada à afirmação errada. FECHADA por `G1`.**
+As 52 arestas foram revistas uma a uma em
+[`SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json`](../../data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json),
+e nenhuma decisão entrou sem `WHY`.
 
-**CAUSA 2 · a evidência está ligada à afirmação errada.** 37 linhas, 52 arestas.
-O caso literal está na §7.1.
+E `OBSERVED` deixou de ser irrepresentável: as peças trazem `OBSERVED_EVIDENCE`
+com `RUN_ID`, `ENVIRONMENT` e `EXECUTION_MODE`, lidos de
+`provas-de-execucao.json` — que continua a ser o dono único da observação.
+**Duas peças de 160 estão observadas.** É pouco, e é verdade.
 
 ### 25.3 · O TESTE CONCRETO — as quatro arestas, depois de G1 parcial
 
@@ -1147,17 +1163,22 @@ honesto do trabalho que já era necessário.
 
 ```
 CAUSE_0  (C6)  contagem sem ENTITY_SPECIES              ← FECHADA por G0
-  → REQUIRED_GAPS = [G0]                                   FEITO
-  → TRUST_STATE_AFTER (só G0) = FAIL      medido: C4 e C4b continuam acionadas
+CAUSE_1  (C4)  PROVEN/CODE sem evidência da classe      ← FECHADA por G1
+CAUSE_2  (C4b) evidência ligada à afirmação errada      ← FECHADA por G1
 
-CAUSE_1  (C4)  PROVEN/CODE afirmado sem evidência da classe própria
-CAUSE_2  (C4b) evidência ligada à afirmação errada
-  → REQUIRED_GAPS = [G1]                  (G1 já contém o antigo 8b)
-  → TRUST_STATE_AFTER (só G1) = FAIL      antes de G0; hoje seria DEGRADED
-
-MINIMUM_GAPS_TO_LEAVE_FAIL = [G1]         (era [G0, G1]; G0 está feito)
-TRUST_STATE_AFTER([G1]) = DEGRADED
+MINIMUM_GAPS_TO_LEAVE_FAIL = []           todas fechadas
+TRUST_STATE_AFTER([G0, G1]) = DEGRADED    medido, não previsto
 ```
+
+**A DAG previu isto duas vezes e acertou as duas.** Previu que `G0` sozinho
+deixaria `FAIL` — deixou. Previu que `[G0, G1]` daria `DEGRADED` — deu, e por
+nenhuma condição de `FAIL` restante, não por arredondamento.
+
+Uma condição chegou a acender no caminho: `C3`, quando o artefacto novo da
+revisão passou a carregar a impressão da árvore sem estar excluído dela. Não foi
+decisão nova: o critério — **um ficheiro que carrega a impressão não pode estar
+dentro dela** — já estava escrito, e só o número de ficheiros que o cumprem
+mudou.
 
 > **A previsão da DAG foi conferida contra a realidade, e bateu.** Ela dizia que
 > `G0` sozinho deixaria o mapa em `FAIL`. Medido depois de `G0`:
@@ -1187,7 +1208,7 @@ impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
 | # | gap | fecha | depende de |
 |---|---|---|---|
 | ~~**G0**~~ | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | ✅ **FEITO** |
-| **G1** | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | nada |
+| ~~**G1**~~ | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | ✅ **FEITO** |
 | G2 | persistir o censo da topologia como artefacto | dívida | nada |
 | G3 | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | nada |
 | G4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | G3 |
@@ -1202,8 +1223,8 @@ impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
 | G13 | painel de auto-observabilidade (§17) | dívida | G0–G12 |
 
 ```
-SAIR DE FAIL      [G1]              G0 feito; a lista é a dos gaps QUE FALTAM
-CHEGAR A PASS     G1..G13, e só quando nenhuma dívida ficar por rotular
+SAIR DE FAIL      []                G0 e G1 feitos; o mapa já saiu
+CHEGAR A PASS     G2..G13, e só quando nenhuma dívida ficar por rotular
 ```
 
 A lista da §26.4 é a **DAG completa**, e mantém `G0` riscado em vez de o apagar:

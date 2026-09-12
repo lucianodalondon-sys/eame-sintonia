@@ -330,6 +330,21 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_reconciliacao_do_universo.py
 
+      # OS QUATRO PLANOS, E A EVIDÊNCIA LIGADA À AFIRMAÇÃO CERTA.
+      # 659 arestas diziam `PROVEN` apoiadas só em análise estática, e 52 tinham
+      # a evidência ligada a uma afirmação que ela não sustenta — um `import` a
+      # provar que uma ferramenta abre o Facebook.
+      #
+      #     ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+      #
+      # Esta prova reprova se algum plano subir sem evidência da sua classe, se
+      # uma evidência deixar de dizer que afirmação sustenta, se `UNKNOWN` virar
+      # `NO`, ou se o caso APIFY — a sentinela — voltar a usar o import como
+      # prova de abertura de canal.
+      - name: 4n · cada afirmação no seu plano, cada prova na sua afirmação
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_quatro_planos.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |
