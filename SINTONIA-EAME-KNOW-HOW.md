@@ -9052,3 +9052,222 @@ Fica por saber se alguém vai precisar do histórico **por item** — quais
 observações foram reaproveitadas em qual passagem. Hoje não há necessidade
 provada, e por isso não se constrói. Se aparecer, o sítio já está escolhido: é
 ao lado da passagem, e não dentro da aresta.
+
+---
+
+# §91 · QUATRO TETOS RESPONDIAM «QUANTO», E NENHUM RESPONDIA «QUEM DISSE QUE SIM»
+
+**Missão:** `SCRAP-SR-02 — NENHUMA COMPRA SEM AUTORIZAÇÃO`
+**Tocado:** `leis/autorizacao_de_gasto.py` (novo) · `coleta/coletor.py` ·
+`coleta/scrap_executor.py` · `regras/sensor_coleta.py`
+**Gasto:** `APIFY_RUNS = 0 · START_POSTS = 0 · PAID_USD = 0`
+
+A `§80` deu à casa um teto de dinheiro. A `§81`, a certeza de que a chave
+chega. A `§89` mostrou que uma tradução concede permissão. Esta secção é a
+pergunta que faltava, e ela vinha antes de todas.
+
+## 91.1 · O SISTEMA SABIA QUANTO PODIA GASTAR E NÃO SABIA SE DEVIA
+
+Medido antes desta missão: uma única primitiva capaz de criar execução paga
+(`coletor.executar`, o POST), quatro chamadores dela, e três a saltar o
+roteador. Em volta dela, quatro portões a funcionar bem:
+
+```
+teto financeiro    responde  «quanto cabe?»
+teto de rede       responde  «quantas idas restam?»
+política da rota   responde  «este caminho é permitido?»
+cap do provider    responde  «no máximo quanto, do lado de lá?»
+```
+
+Nenhum respondia à pergunta anterior a todas as quatro.
+
+```
+    ALGUÉM AUTORIZOU ESTA COMPRA?
+
+    CREDENTIAL_PRESENT != SPEND_AUTHORIZED
+    ROUTE_ALLOWED      != SPEND_AUTHORIZED
+    BUDGET_PRESENT     != SPEND_AUTHORIZED
+    TOKEN_OWNER        != SPEND_OWNER
+```
+
+Um sistema que sabe exactamente quanto pode gastar sem saber se devia gastar
+gasta com **precisão contabilística em coisas que ninguém pediu**. É a forma
+mais cara de rigor que existe: todos os números batem certo, e a pergunta que
+importava nunca foi feita.
+
+## 91.2 · UMA GUARDA QUE VIVE NUM CAMINHO GUARDA UM CAMINHO
+
+Havia a tentação de pôr a verificação no roteador — é lá que a coleta canónica
+passa. Mas três dos quatro chamadores não passam pelo roteador; foi por isso
+que a `§83` já tinha encontrado bypasses.
+
+```
+    UMA GUARDA QUE VIVE NUM CAMINHO GUARDA UM CAMINHO.
+    UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS.
+```
+
+A guarda foi para dentro da função onde o POST nasce, e o seu parâmetro nasce
+`None`:
+
+```
+    FAIL CLOSED. O SILÊNCIO NÃO AUTORIZA.
+```
+
+O efeito é o que se quer de uma lei: um chamador novo, escrito daqui a um ano
+por quem nunca leu isto, **não compra** — em vez de comprar por omissão. Três
+chamadores existentes deixaram de conseguir comprar no mesmo instante, e isso
+não é um estrago: é o resultado. Eles esperam que alguém diga para que fonte e
+que propósito cada um compra.
+
+## 91.3 · O GUARDA CONFERE O BILHETE. NÃO É O DONO DO ESPECTÁCULO
+
+A decisão de relevância vive noutra linhagem, com dono próprio. A tentação
+seguinte era trazê-la para dentro — «é só importar a lei». Não se importou.
+
+```
+    SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER.
+```
+
+A guarda recebe o veredito e valida-o. Não lê o livro, não classifica fonte,
+não interpreta palavra-chave, não fabrica `SOURCE_ID`. Se o fizesse, a casa
+passava a ter duas verdades sobre relevância, e a segunda envelhecia calada.
+
+E houve uma terceira tentação, mais subtil: ler o estado e **reaplicar a tabela
+do portão**. Isso seria a mesma lei escrita duas vezes, e a cópia daria
+respostas antigas no dia em que o original mudasse. O que se fez foi o oposto,
+e é a parte reutilizável desta secção:
+
+```
+    EXIGE-SE A ÚNICA COMBINAÇÃO QUE NÃO TEM LEITURA DUPLA —
+    VEREDITO = AUTORIZA **E** ESTADO = SIM — E RECUSA-SE TUDO O RESTO,
+    INCLUSIVE O QUE UMA VERSÃO FUTURA DO DONO VIESSE A AUTORIZAR.
+```
+
+Errar para o lado do «não compra» custa uma linha a alguém. Errar para o outro
+custa dinheiro que ninguém pediu. Quando um contrato atravessa uma fronteira de
+propriedade, o lado que **obedece** deve ser mais estreito que o lado que
+**decide**.
+
+E as ausências não se achatam. `NAO_AVALIADA`, `NAO_SEI`, `ERRO` e `NAO` dão
+todas zero POST — e chegam com quatro nomes diferentes. Dizer `NOT_RELEVANT` a
+uma fonte que ninguém abriu seria inventar um julgamento.
+
+```
+    FALTA DE AUTORIZAÇÃO É FALTA DE AUTORIZAÇÃO.
+```
+
+## 91.4 · O CICLO IMPOSSÍVEL, E OS DOIS MODOS QUE O PARTEM
+
+Um portão de relevância sem escape fecha um ciclo:
+
+```
+    PARA PROVAR QUE A FONTE SERVE É PRECISO OBSERVÁ-LA,
+    E PARA A OBSERVAR SERIA PRECISO ELA JÁ SERVIR.
+```
+
+Daí três modos e não um:
+
+```
+NORMAL   colher a sério            exige SOURCE_RELEVANCE = SIM para o PAR
+PROBE    «esta candidata merece?»  arranca de NAO_AVALIADA, com limites
+TRIAL    «esta ROTA consegue?»     mede a rota, não a fonte
+```
+
+O preço de escapar ao portão é ser **finito em tudo**: corridas, POSTs,
+dólares, itens, rede. Um limite em falta é um limite infinito. E o escape não
+paga a si próprio de volta:
+
+```
+    PROBE != DECISION. Quem escreve no livro é o dono do livro.
+```
+
+O eixo do modo mudou de casa por causa disto, e a razão é de propriedade: o
+modo existe para dizer **que prova é precisa antes de comprar**, e isso é uma
+pergunta de autorização, não de execução.
+
+## 91.5 · UMA TROCA DE TRANSPORTE LEVA AS LEIS QUE MORAVAM NO TRANSPORTE
+
+O achado que não estava no guião, e o mais silencioso de todos.
+
+`regras/sensor_coleta.py` substitui `coletor._curl` **no import**, por um
+transporte urllib. A troca é legítima: o proxy deste ambiente derruba conexões
+e urllib sobrevive onde o subprocesso não sobrevive.
+
+O que ela levava consigo não era. Duas leis moravam **dentro** do `_curl`
+antigo:
+
+```
+o teto de rede         a reserva por ida vivia lá (§80)
+o POST vai UMA vez     porque repetir um POST é comprar de novo
+```
+
+O transporte novo não reservava nada e repetia quatro vezes, qualquer método —
+incluindo o POST que cria a execução paga. Bastava `import sensor_coleta` em
+qualquer ponto do processo para as duas desaparecerem da única porta que gasta
+dinheiro, **para toda a gente**.
+
+```
+    UMA TROCA DE TRANSPORTE LEVA COM ELA AS LEIS QUE MORAVAM NO TRANSPORTE.
+    REPETIR UM GET É BARATO. REPETIR UM POST É COMPRAR DE NOVO.
+```
+
+E o `maxTotalChargeUsd` não cobria o buraco: ele limita **cada** execução,
+nunca a soma das execuções que ninguém sabe que existem.
+
+A generalização, que vale muito para lá deste ficheiro: **uma lei que mora
+dentro de uma implementação viaja com ela**. Quando algo é substituível em
+runtime, o que lá vive tem de ser ou uma lei explícita que o substituto herda,
+ou uma sentinela que reprove o substituto que não a cumpra. O conserto aqui foi
+os dois: as leis voltaram, e `coletor._CURL_DA_CASA` passou a guardar o
+transporte original **com nome**, para que a troca deixe de ser invisível.
+
+## 91.6 · DOIS FICHEIROS COM O MESMO NOME DE MÓDULO SÃO DOIS DONOS DO MESMO NOME
+
+A prova desta missão chamou-se `provas/autorizacao_de_gasto.py` durante meia
+hora, e partiu 45 sentinelas de uma vez. As gavetas desta casa estão todas no
+mesmo caminho de importação: `leis/` e `provas/` são irmãs para o `import`.
+Como a prova importava `coletor`, e `coletor` importa a lei, Python devolvia-lhe
+a **própria prova a meio de nascer**.
+
+```
+    ONE CONCEPT → ONE OWNER, NA FORMA MAIS LITERAL QUE ELA TEM:
+    DOIS FICHEIROS COM O MESMO NOME DE MÓDULO SÃO DOIS DONOS DO MESMO NOME,
+    E QUEM IMPORTA RECEBE O QUE A ORDEM DO CAMINHO DECIDIR.
+```
+
+## 91.7 · E AS SONDAS QUE LIAM A PROSA, OUTRA VEZ
+
+Duas sentinelas acusaram **comentários**: uma procurava a palavra «relevância»
+no executor e encontrou a frase que explica que o executor não julga
+relevância; outra procurava «VEREDITO» nos workflows e encontrou o comentário
+do mapa a falar dos vereditos das suas provas.
+
+```
+    UMA SONDA QUE LÊ A PROSA ENCONTRA A FRASE QUE EXPLICA A REGRA
+    E CHAMA-LHE VIOLAÇÃO DA REGRA.
+```
+
+É a terceira missão seguida com esta família (`§87.6` é a irmã sobre estado
+global). E o conserto certo nunca é apagar a palavra do comentário: é medir a
+**árvore**. Proibir o nome nunca impediu ninguém de escrever
+`import relevancia_da_fonte` e chamar `portao()`. A sentinela saiu mais forte
+do que entrou.
+
+## 91.8 · CONSEQUÊNCIA
+
+```
+PAID_CREATION_PRIMITIVES        1  (era 1, e continua — não se criou porta)
+CALLERS DA PRIMITIVA            4  · 1 passa autorização, 3 deixaram de comprar
+CAN_SPEND_WITHOUT_AUTH   4  ->  0
+ATAQUES 48 · MUTANTES 23 · SOBREVIVENTES 0 · NEW_FAILURES 0
+APIFY_RUNS 0 · START_POSTS 0 · PAID_USD 0
+```
+
+Fica por fazer, e é dívida explícita: a `SR-01` declarou
+`BIBLE_CHANGE_REQUIRED = YES`, e esta missão **não** tocou na Bíblia. E os três
+chamadores que deixaram de comprar continuam à espera de que alguém diga para
+que fonte e que propósito cada um compra — a resposta vive no livro da `SR-01`,
+e não nesta linhagem.
+
+    SPEND ENFORCEMENT resolvido != CANONICAL ORCHESTRATION resolvida.
+    MODULE CAN'T SPEND != FLOW IS CANONICAL.
