@@ -445,6 +445,23 @@ gerado por `system-map/scripts/reconciliacao_do_universo.py` e provado por
 `MAP RULES CHECK`. **O JSON é o dono das contagens; markdown nenhum as
 reescreve** — inclusive este.
 
+### O que esta secção ainda não responde
+
+Ela diz **quantos** e **de que universo**. Não diz **com que evidência** nem
+**com que grau de certeza** — e um número reconciliável pode continuar a ser um
+número em que não se deve acreditar.
+
+Essa é outra pergunta, e tem contrato próprio:
+[`docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md)
+— os quatro planos `DECLARED · CODE · OBSERVED · PROVEN`, o modelo de evidência,
+os seis relógios de frescura e os estados `PASS · DEGRADED · FAIL · UNKNOWN`.
+
+> **ANÁLISE ESTÁTICA PROVA `CAN DO`. SÓ TELEMETRIA PROVA `DID DO`.**
+>
+> Medido em `c828d1ac`: 658 arestas e 59 peças publicam `status = PROVEN` apoiadas
+> só em análise estática. A medição está certa em todas; a palavra é que promete
+> o plano seguinte. **`MAP VALID ≠ MAP CURRENT ≠ MAP TRUSTWORTHY`.**
+
 ### Duas zonas com o mesmo nome são duas contagens que parecem uma
 
 `Z-GUARDA` chama-se «A SALA DE ESPERA» e está em `F-COLETA`. `Z-ESPERA` chama-se
@@ -747,6 +764,10 @@ O mapa é mais um consumidor destas leis, não uma exceção a elas:
   palavra sem uma relação explícita entre elas;
 - família não é território, e trocar uma pela outra numa lente move números sem
   mover peças;
+- `DECLARED` não vira `CODE`, `CODE` não vira `OBSERVED`, `OBSERVED` não vira
+  `PROVEN` — cada plano precisa da evidência da sua própria classe;
+- confiança no mapa não é saúde do sistema, e um mapa confiável que mostra a
+  Collection vermelha é um mapa a funcionar;
 - código não é deformado para deixar o mapa verde.
 
 ---
@@ -759,6 +780,7 @@ O mapa é mais um consumidor destas leis, não uma exceção a elas:
 | [`CLAUDE.md`](CLAUDE.md) | instruções permanentes do projeto; aponta para aqui |
 | [`README.md`](README.md) | método e estados de evidência; aponta agentes para aqui |
 | [`system-map/README.md`](system-map/README.md) | como o mapa funciona por dentro |
+| [`docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md) | **dono do modelo de confiança**: evidência, planos de prova e TRUST |
 
 **Um dono. Múltiplos ponteiros.** Não copie esta lei para outro ficheiro: uma
 lei em dois sítios diverge, e a partir daí nenhuma das duas vale.
