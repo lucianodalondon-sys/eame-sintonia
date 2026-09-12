@@ -783,6 +783,7 @@
       "docs/sintonia-scrap/C10-8A-R-NETWORK-BUDGET.md",
       "docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md",
       "docs/sintonia-scrap/C10-8B-PRIMEIRA-ROTA-PAGA-CANONICA.md",
+      "docs/sintonia-scrap/C10-8B-R-RAW-ENTRE-JOBS.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
@@ -1239,6 +1240,7 @@
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_rota_paga.py",
       "provas/rastro_no_postgres.py",
+      "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
@@ -1510,6 +1512,7 @@
       "tests/test_c10_8af_orcamento_financeiro.py",
       "tests/test_c10_8ar_orcamento_de_rede.py",
       "tests/test_c10_8b_live_disparador.py",
+      "tests/test_c10_8b_r_raw_entre_jobs.py",
       "tests/test_c10_8b_rota_paga_canonica.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
@@ -1973,9 +1976,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
-    "HEAD": "415c59cb9a734c3498b3eb5fb82b9b417f4779c0",
-    "GENERATED_AT": "2026-09-12T17:03:14+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ce8c002f2bfb0318dee0d1a2161c10197daa50dfa4cfc6d4ce301ef12e50dc48"
+    "HEAD": "cdcc26082b6d1a641dad9b1673ae160ffe2305f0",
+    "GENERATED_AT": "2026-09-12T17:21:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9d59c5b566516190fb38aa67ba498fdfb295bd5b237d3d901b9fec8bb56813f4"
   },
   "FAMILIES": [
     {
@@ -12119,6 +12122,7 @@
         "provas/preservar_coleta_no_postgres.py",
         "provas/primeira_rota_paga.py",
         "provas/rastro_no_postgres.py",
+        "provas/raw_entre_jobs.py",
         "provas/readback_022_live.sh",
         "provas/run_duravel_no_postgres.py",
         "provas/runtime_comum_no_postgres.py",
@@ -12128,7 +12132,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 23,
+      "file_count": 24,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12162,6 +12166,7 @@
         "C-PEDIDO",
         "C-RASTRO",
         "C-RECEITAS",
+        "C-SCRAP-EVIDENCIA",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
@@ -12200,6 +12205,7 @@
           "IMPLEMENTACOES",
           "LOCAL",
           "MIGRATIONS",
+          "MUTACOES",
           "RESPOSTA_MASTODON",
           "SENTINELAS_MEDIDAS",
           "_GAVETAS_IT",
@@ -12207,9 +12213,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 210,
+        "palavras": 241,
         "por_lingua": {},
-        "sem_marca_de_lingua": 210,
+        "sem_marca_de_lingua": 241,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13743,7 +13749,9 @@
       "produces": [],
       "inbound": [],
       "outbound": [
-        "C-SCRAP-SOCIAL"
+        "C-PROVA-COLETA",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -15685,6 +15693,7 @@
         "tests/test_c10_8af_orcamento_financeiro.py",
         "tests/test_c10_8ar_orcamento_de_rede.py",
         "tests/test_c10_8b_live_disparador.py",
+        "tests/test_c10_8b_r_raw_entre_jobs.py",
         "tests/test_c10_8b_rota_paga_canonica.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
@@ -15767,7 +15776,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 109,
+      "file_count": 110,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15862,6 +15871,7 @@
         "C-ROTA-M2",
         "C-ROTULOS",
         "C-SAUDE-FONTE",
+        "C-SCRAP-EVIDENCIA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
@@ -21238,7 +21248,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
@@ -21249,6 +21259,11 @@
           "file": "provas/primeira_rota_paga.py",
           "line": 221,
           "snippet": "diz(med.get('IMPLEMENTACAO') == 'coleta/coletor.py',"
+        },
+        {
+          "file": "provas/raw_entre_jobs.py",
+          "line": 109,
+          "snippet": "'coleta/coletor.py',"
         }
       ],
       "categoria": "PROOF"
@@ -21477,7 +21492,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21493,6 +21508,11 @@
           "file": "tests/test_c10_8b_live_disparador.py",
           "line": 114,
           "snippet": "for proibido in ('coletor.py', 'adaptador_youtube', 'instagram_coleta',"
+        },
+        {
+          "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+          "line": 339,
+          "snippet": "no = _funcao('coleta/coletor.py', 'executar')"
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
@@ -29092,6 +29112,24 @@
     },
     {
       "from": "C-SCRAP-EVIDENCIA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP evidencia entre jobs · o bruto pago atravessa, ou nao atravessa alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/raw_entre_jobs.py",
+          "line": 121,
+          "snippet": "'.github/workflows/scrap-evidencia.yml',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-EVIDENCIA",
       "to": "C-SCRAP-SOCIAL",
       "type": "RUNS",
       "payload": "execucao",
@@ -29107,6 +29145,24 @@
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SCRAP-EVIDENCIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP evidencia entre jobs · o bruto pago atravessa, ou nao atravessa alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+          "line": 34,
+          "snippet": "WORKFLOW = '.github/workflows/scrap-evidencia.yml'"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-SCRAP-GUARDA",
@@ -29521,6 +29577,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/raw_entre_jobs.py",
+          "line": 133,
+          "snippet": "'leis/social_matriz.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -29680,7 +29754,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 43 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -30058,7 +30132,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -30104,6 +30178,16 @@
           "file": "provas/primeira_rota_paga.py",
           "line": 309,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/adaptador_youtube.py'), encoding='utf-8').read()"
+        },
+        {
+          "file": "provas/raw_entre_jobs.py",
+          "line": 35,
+          "snippet": "'coleta/social_scrap.py',"
+        },
+        {
+          "file": "provas/raw_entre_jobs.py",
+          "line": 115,
+          "snippet": "'coleta/social_envelope.py',"
         }
       ],
       "categoria": "PROOF"
@@ -30170,7 +30254,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 103 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 105 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -30243,7 +30327,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 56 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 58 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -32949,7 +33033,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 772,
+  "UNCLAIMED_FILES_COUNT": 773,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33117,12 +33201,12 @@
     "components_pending": 105,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 678,
-    "edges_proven": 675,
+    "edges": 681,
+    "edges_proven": 678,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1525,
-    "files_covered": 753,
+    "files_tracked": 1528,
+    "files_covered": 755,
     "files_code_unclaimed": 0
   }
 }
