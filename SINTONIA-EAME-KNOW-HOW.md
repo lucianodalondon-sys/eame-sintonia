@@ -7743,3 +7743,150 @@ a verdade que ele antes escondia atrás da palavra `PROVEN`.
 Fica por saber o comportamento de `OBSERVED` quando houver travessia observada
 por par de cartões: hoje o ledger observa **ficheiros de executor**, não arestas,
 e duas peças de 160 estão observadas.
+
+---
+
+# §84 · UM BRUTO QUE NÃO SOBREVIVE AO JOB SEGUINTE É UM BRUTO QUE NÃO EXISTE
+
+**Missão:** `C10.8B-LIVE — A PRIMEIRA ROTA PAGA REAL`
+**Corrida:** `sintonia-scrap` run 34705103759 · `SINTONIA-EAME-LOCAL-2`
+**Gasto:** autorizado US$0,10 · lido US$0,00 · liquidado UNKNOWN
+
+A `§81` fechou a pergunta da credencial. Esta missão atravessou a porta e pagou
+— e o que se aprendeu está do outro lado dela.
+
+## 84.1 · O SEGREDO CHEGOU, E ISSO ERA MESMO A ÚNICA COISA QUE FALTAVA
+
+```
+    SECRET EXISTS != SECRET REACHES PROCESS.
+```
+
+A `§81` deixou isso escrito como hipótese. Confirmou-se: a mesma árvore, a mesma
+cadeia, o mesmo alvo — num job do workflow, `CHECK.CAN = True` e a corrida
+aconteceu em 37 segundos. Nenhuma linha de coleta mudou entre um caso e o outro.
+
+E o censo dos workflows trouxe uma segunda metade que não estava à vista: **todos**
+os que recebem a chave paga correm em runner self-hosted. Três despachos
+anteriores tinham ficado 24 horas na fila e sido cancelados por não haver
+runner.
+
+```
+    UM WORKFLOW QUE NINGUÉM EXECUTA É UM WORKFLOW QUE NINGUÉM TESTOU.
+```
+
+## 84.2 · A GUARDA QUE APONTAVA PARA A MORADA ANTIGA
+
+O primeiro passo do workflow verificava dez ficheiros em `scripts/` — uma pasta
+**vazia** desde a reorganização. Ela reprovava toda a gente, sempre, com a frase
+de quem despachou contra o ref errado.
+
+```
+    UMA GUARDA QUE APONTA PARA A MORADA ANTIGA RECUSA A CASA CERTA.
+    E DIZ A CULPA DE OUTRA PESSOA AO FAZÊ-LO.
+```
+
+Ninguém a viu falhar porque ninguém corria o workflow; e ninguém corria o
+workflow, em parte, porque ele falhava. Uma guarda só se prova a deixar passar
+quem deve passar.
+
+## 84.3 · O TETO NÃO PODE VIVER NO DISPARADOR
+
+O workflow ganhou **uma linha de menu e um ramo**. O ator, o alvo, o modo, o
+motivo e os dois tetos ficaram numa tabela em Python versionado.
+
+```
+    UM TETO QUE VIVE NO DISPARADOR É UM TETO QUE QUEM DISPARA ESCOLHE.
+```
+
+É a `§77` outra vez, uma camada acima: lá o teto vivia num script de prova, aqui
+viveria num campo de formulário. Em ambos os casos ele deixa de ser uma lei da
+casa e passa a ser uma opção de quem carrega no botão. Um teto que se lê num
+commit é um teto que alguém reviu.
+
+## 84.4 · CHEGAR AO PROVIDER NÃO É ENTREGAR
+
+A corrida foi impecável no que se podia medir: um POST, cap US$0,10, `SUCCEEDED`,
+três idas à rede de um teto de cinco, RAW escrito e relido com SHA igual. E o
+objeto voltou **sem transcrição**.
+
+```
+    PROVIDER REACHED != CAPABILITY DELIVERED.
+```
+
+Toda a maquinaria de gasto e de rede funcionou. A capacidade não foi entregue.
+São duas afirmações independentes, e um relatório que só publicasse a primeira
+estaria a dizer a verdade e a enganar.
+
+Por isso a rota ficou `PARTIAL`, e não `PROVED` nem `POSSIBLE_NOT_PROVED`: já não
+é verdade que não se saiba se ela corre — ela correu; e não é verdade que
+entregue.
+
+```
+    PARTIAL SEM O LIMITE ESCRITO É `PROVED` COM OUTRO NOME.
+```
+
+## 84.5 · E OS BYTES QUE RESPONDERIAM JÁ NÃO EXISTIAM
+
+O bruto tinha 59.743 bytes, o que não é o tamanho de uma resposta vazia. Duas
+hipóteses, e só os bytes as separam: o ator mudou o esquema de **saída**, ou o
+vídeo deixou de ter legenda.
+
+```
+    UM OBJETO VAZIO NÃO DIZ SE A FONTE CALOU OU SE O CAMPO MUDOU DE NOME.
+```
+
+Reler não custa nada — os bytes já estavam pagos e estavam na máquina.
+
+```
+    RELER O QUE JÁ SE PAGOU NÃO É PAGAR OUTRA VEZ.
+```
+
+Só que não estavam. `.gitignore` ignora `data/samples/**/*.gz`, e
+`actions/checkout` limpa o que o `.gitignore` ignora. O bruto foi escrito,
+relido e assinado dentro do mesmo processo — e apagado pelo checkout do job
+seguinte.
+
+```
+    RAW CAPTURADO NO PROCESSO
+      != RAW QUE SOBREVIVE AO JOB
+      != RAW DEVOLVIDO AO REPOSITÓRIO
+      != PRESERVAÇÃO FORWARD CANÔNICA.
+```
+
+Quatro estados que cabiam todos na palavra «preservado» — e o manifesto desta
+casa diz `PRESERVED` para o primeiro. Fica explicado, de passagem, por que os
+brutos das corridas do SENSOR aparecem como preservados e não estão em lado
+nenhum: nunca estiveram.
+
+O `SHA-256` sobrevive no registo e não resolve para ficheiro nenhum. É uma
+impressão digital de uma coisa que já não existe — útil se alguém trouxer os
+bytes, inútil para a pergunta de hoje.
+
+## 84.6 · O CONSERTO É A FORMA, E NÃO OUTRA COMPRA
+
+Não se comprou outra vez. O registo passou a guardar a **FORMA** do bruto — as
+chaves de cada item, o tipo, o tamanho e se está vazio — no mesmo processo em
+que os bytes ainda existem.
+
+```
+    QUANDO OS BYTES NÃO PODEM VIAJAR, VIAJA A FORMA.
+```
+
+É barato, cabe num JSON, e responde no registo à pergunta que custou uma corrida
+paga para ficar por responder. A regra geral: tudo o que só existe **dentro** do
+processo que o produziu tem de sair de lá em forma legível antes de o processo
+acabar — porque o que fica para trás não fica.
+
+## 84.7 · CONSEQUÊNCIA
+
+```
+apify:transcricao   POSSIBLE_NOT_PROVED → PARTIAL, com artefato citado
+POLICY              CONDICIONAL, intocada · CLASSE APIFY, intocada
+CAPACIDADE          PROVEN, intocada
+PROVIDER_RUNS 1 · START_POSTS 1 · AUTORIZADO 0.10 · LIDO 0.00 · LIQUIDADO UNKNOWN
+ATAQUES 33 · MUTANTES 18 · SOBREVIVENTES 0
+```
+
+Fica por saber por que o objeto veio vazio, e isso é dinheiro que ninguém
+autorizou ainda. Uma rota `PARTIAL` é uma rota que corre e gasta: promovê-la
+exige uma corrida que entregue.
