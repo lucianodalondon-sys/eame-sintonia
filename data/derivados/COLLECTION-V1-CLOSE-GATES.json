@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28",
+  "MEASURED_HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
   "FRESCURA": {
-    "IMPRESSAO_DOS_DONOS": "936a7d7b7dea7b0a0a9efdfe749d98ac36e3303b05f32072da15f353411a0629",
+    "IMPRESSAO_DOS_DONOS": "25f24604d914aa5725184b506c9bb2178537a295bfd2ec5037453f04cde93b3f",
     "DONOS_DA_MEDICAO": [
       "provas/os_portoes_da_collection.py",
       "docs/biblia/leis.json",
@@ -121,11 +121,13 @@
     {
       "EDGE": "STORAGE -> DERIVED",
       "TIPO": "WIRING_GAP",
-      "O_QUE_FALTA": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION: a chamada a derivacao nao esta ligada",
-      "A_CAPACIDADE_EXISTE": "YES",
-      "PROVA": "provas/o_pedido_atravessa.py::D1 — a MESMA observacao daquela corrida derivou com PASS quando `derivacao_forward` foi chamada explicitamente",
-      "QUEM_RESOLVE": "codigo — uma ligacao, no orquestrador",
-      "NAO_CORRIGIDO_NESTA_MISSAO": "ligar so esta move o buraco uma aresta para a frente: a seguinte nao tem dono"
+      "ESTADO": "FECHADO em C-WIRE-STORAGE-TO-DERIVED-IN-CANONICAL-E2E-V1",
+      "O_QUE_FALTAVA": "a rota do orquestrador ia de RAW/STORAGE direto a ADMISSION: a chamada a derivacao nao estava ligada",
+      "A_CAPACIDADE_EXISTE": "YES — e era so isso que faltava",
+      "COMO_FECHOU": "a porta passou a devolver as observacoes que o banco CONFIRMOU, com o endereco do byte de cada uma, e o orquestrador entrega-as ao runner canonico `coleta/derivacao_forward.py`",
+      "PROVA": "provas/o_pedido_atravessa.py — a MESMA corrida escreve `derived_artifact` com pai real e deixa passagem DERIVED com edge_from=RAW",
+      "QUEM_RESOLVEU": "codigo — uma ligacao, no orquestrador",
+      "O_QUE_ISTO_NAO_FECHOU": "a estrada. O primeiro edge perdido passou a ser DERIVED -> STRUCTURED, que e o achado seguinte e e de outra especie."
     },
     {
       "EDGE": "DERIVED -> STRUCTURED",
@@ -434,14 +436,16 @@
     }
   ],
   "MINIMUM_MISSION_DAG": [],
-  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 0,
+  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": "UNKNOWN",
+  "NEXT_KNOWN_MISSION": "fechar DERIVED -> STRUCTURED. Ela NAO e uma missao de codigo: `public.conteudo` exige `canal_id` e esse dono de identidade nao existe. Primeiro alguem decide de quem ele e; so depois ha o que implementar — e pode decompor-se em mais do que uma missao.",
+  "ZERO_BLOCKERS_NAO_E_ZERO_TRABALHO": "a fila minima conta BLOCKERS ABERTOS, e ela esta vazia. O que falta para o core fechar nao e um buraco declarado: e uma propriedade por provar, e ela nao se conta em missoes enquanto depender de uma decisao que ninguem tomou.",
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
   "COLLECTION_CORE_CLOSE": {
     "VEREDICTO": "FAIL",
     "CANONICAL_E2E": "NOT_PROVEN",
     "CANONICAL_E2E_SAME_STORY": "FAIL",
-    "PORQUE_A_HISTORIA": "a mesma historia parou em `STORAGE -> DERIVED` — medido em provas/o_pedido_atravessa.py",
+    "PORQUE_A_HISTORIA": "a mesma historia parou em `DERIVED -> STRUCTURED` — medido em provas/o_pedido_atravessa.py",
     "IDENTITY": "PROVEN",
     "PROVENANCE": "PROVEN",
     "RAW": "PROVEN",
@@ -457,7 +461,7 @@
     "OBSERVABILITY": "INSUFFICIENT",
     "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
     "BLOQUEADO_POR": [],
-    "PORQUE_FALHA": "a mesma historia parou em `STORAGE -> DERIVED` — medido em provas/o_pedido_atravessa.py",
+    "PORQUE_FALHA": "a mesma historia parou em `DERIVED -> STRUCTURED` — medido em provas/o_pedido_atravessa.py",
     "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. E ONZE ETAPAS QUE JA CORRERAM NAO SAO UMA ESTRADA: o veredicto exige a MESMA historia, de ponta a ponta, e nao a soma de metades provadas em rotas diferentes.",
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
   },

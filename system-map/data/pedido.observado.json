@@ -1,5 +1,5 @@
 {
-  "RUN_ID": "IT-T2-2026-09-12-153350",
+  "RUN_ID": "IT-T2-2026-09-12-164429",
   "ESTRADA": {
     "REQUEST": {
       "OBSERVED": true,
@@ -11,11 +11,11 @@
     },
     "EXECUTOR": {
       "OBSERVED": true,
-      "EVIDENCE": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-153350 · versao=91514740 · colheita=4"
+      "EVIDENCE": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-164429 · versao=91514740 · colheita=4"
     },
     "RUN": {
       "OBSERVED": true,
-      "EVIDENCE": "collection_run: ['IT-T2-2026-09-12-153350', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
+      "EVIDENCE": "collection_run: ['IT-T2-2026-09-12-164429', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
     },
     "RAW": {
       "OBSERVED": true,
@@ -26,8 +26,8 @@
       "EVIDENCE": "storage_object ligados a esta corrida: 4"
     },
     "DERIVED": {
-      "OBSERVED": false,
-      "EVIDENCE": "derived_artifact desta corrida: 0"
+      "OBSERVED": true,
+      "EVIDENCE": "derived_artifact desta corrida: 4"
     },
     "STRUCTURED": {
       "OBSERVED": false,
@@ -46,7 +46,7 @@
       "EVIDENCE": "ficheiros na sala DEPOIS: nenhum"
     }
   },
-  "FIRST_LOST_EDGE": "STORAGE -> DERIVED",
+  "FIRST_LOST_EDGE": "DERIVED -> STRUCTURED",
   "ETAPAS_DEPOIS_DO_BURACO": [
     "ADMISSION"
   ],

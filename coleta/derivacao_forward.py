@@ -223,7 +223,7 @@ def _porta(resultado: dict) -> str:
 
 def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
            source_id=None, route_class_id=None, relogio=None, derivar=None,
-           tentativa=0) -> dict:
+           tentativa=None) -> dict:
     """Deriva N unidades forward e conta-se ao rastro. Devolve o recibo.
 
     `unidades`   [{"RAW_ASSET_ID": <id real no banco>, "PDF": <caminho>}, ...]
@@ -235,6 +235,15 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
     `source_id` / `route_class_id`
                  a identidade da unidade. `None` é resposta legítima e é a
                  resposta CERTA quando não se pode provar qual é.
+
+    `tentativa`  `None` quer dizer «pergunta ao dono». Ela estava FIXA EM
+                 ZERO, e uma segunda derivação da mesma corrida colidia na
+                 chave `(run_id, etapa, tentativa)` — a passagem da segunda
+                 perdia-se, e o erro do banco subia com o tipo do erro do
+                 fluxo. Quem sabe responder é `rastro.proxima_tentativa`, que
+                 é dono da tabela; aqui não se conta nada.
+
+                     A PERGUNTA SOBRE UMA TABELA É DE QUEM É DONO DELA.
 
     ⚠️ A DERIVAÇÃO ACONTECE PRIMEIRO, E O RASTRO DEPOIS. Se fosse ao contrário,
     uma falha a escrever telemetria podia impedir uma derivação de acontecer — e
@@ -325,7 +334,11 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
 
     # ── A PASSAGEM, PELO DONO CANÓNICO ──────────────────────────────────────
     # Nada de SQL aqui. `medidas/rastro_da_coleta.py` é quem escreve; esta peça
-    # só lhe diz o que aconteceu, na língua que ele fala.
+    # só lhe diz o que aconteceu, na língua que ele fala — e é também a ele que
+    # se pergunta em que tentativa vai esta corrida.
+    if tentativa is None:
+        tentativa = rastro.proxima_tentativa(banco_do_rastro, run_id, "DERIVED")
+
     linha = rastro.registrar(
         banco_do_rastro,
         run_id=run_id, etapa="DERIVED", edge_from="RAW", tentativa=tentativa,

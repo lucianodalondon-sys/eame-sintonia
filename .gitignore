@@ -97,3 +97,9 @@ data/colheita/
 #     UMA MEDICAO QUE DEIXA ACERVO NA ARVORE
 #     FAZ A MEDICAO SEGUINTE MEDIR O RESIDUO DESTA.
 XX/
+# E O MESMO, DO OUTRO LADO DA PONTE. Desde que a rota do pedido passou a
+# derivar, `guarda/preservar_derivado.py` escreve o texto extraido em
+# `<PAIS>/derivados/...` — e o pais sai `NAO_SEI` porque `raw_asset` nao tem
+# coluna de pais para o provar. O dono do derivado esta certo em nao inferir;
+# o efeito e que toda medicao canonica deixa uma pasta `NAO_SEI/` na arvore.
+NAO_SEI/

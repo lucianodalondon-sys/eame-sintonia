@@ -606,6 +606,42 @@ def dag():
     return []
 
 
+# A PROXIMA MISSAO CONHECIDA — nomeada, e nao contada.
+PROXIMA_CONHECIDA = (
+    "fechar DERIVED -> STRUCTURED. Ela NAO e uma missao de codigo: "
+    "`public.conteudo` exige `canal_id` e esse dono de identidade nao existe. "
+    "Primeiro alguem decide de quem ele e; so depois ha o que implementar — e "
+    "pode decompor-se em mais do que uma missao.")
+
+
+def missoes_que_faltam(core):
+    """Quantas missoes faltam para o core fechar — ou `UNKNOWN`, com razao.
+
+    ⚠️ ISTO PUBLICAVA `0` AO LADO DE `COLLECTION_CORE_CLOSE = FAIL`.
+    O numero era `len(dag())`, e a fila esta mesmo vazia: nao ha BLOCKER
+    ABERTO nenhum. So que zero missoes ao lado de um veredicto negativo le-se
+    como «nao falta nada», e falta.
+
+        ZERO BLOCKERS != ZERO TRABALHO.
+        UMA FILA VAZIA MEDE A FILA, E NAO O CAMINHO.
+
+    E a resposta honesta nao e um numero maior inventado: o que falta depende
+    de uma DECISAO de arquitetura — quem e o dono de `canal_id` — e uma
+    decisao por tomar pode dar uma missao ou quatro. Contar agora seria
+    feeling com cara de DAG, que e exactamente o que
+    `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY` ja recusa fazer ao lado.
+
+        UNKNOWN HONESTO > NUMERO BONITO.
+
+    Com a fila NAO vazia o numero volta a ser dela: cada blocker aberto e
+    pelo menos uma missao, e isso e um piso medido.
+    """
+    fila = len(dag())
+    if fila:
+        return fila
+    return 0 if core["VEREDICTO"] == "PASS" else "UNKNOWN"
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # 6 · RED TEAM
 # ══════════════════════════════════════════════════════════════════════════
@@ -873,17 +909,27 @@ def medir():
             OrderedDict([
                 ("EDGE", "STORAGE -> DERIVED"),
                 ("TIPO", "WIRING_GAP"),
-                ("O_QUE_FALTA", "a rota do orquestrador vai de RAW/STORAGE "
-                                "direto a ADMISSION: a chamada a derivacao "
-                                "nao esta ligada"),
-                ("A_CAPACIDADE_EXISTE", "YES"),
-                ("PROVA", "provas/o_pedido_atravessa.py::D1 — a MESMA "
-                          "observacao daquela corrida derivou com PASS quando "
-                          "`derivacao_forward` foi chamada explicitamente"),
-                ("QUEM_RESOLVE", "codigo — uma ligacao, no orquestrador"),
-                ("NAO_CORRIGIDO_NESTA_MISSAO",
-                 "ligar so esta move o buraco uma aresta para a frente: a "
-                 "seguinte nao tem dono"),
+                ("ESTADO", "FECHADO em C-WIRE-STORAGE-TO-DERIVED-"
+                           "IN-CANONICAL-E2E-V1"),
+                ("O_QUE_FALTAVA", "a rota do orquestrador ia de RAW/STORAGE "
+                                  "direto a ADMISSION: a chamada a derivacao "
+                                  "nao estava ligada"),
+                ("A_CAPACIDADE_EXISTE", "YES — e era so isso que faltava"),
+                ("COMO_FECHOU", "a porta passou a devolver as observacoes que "
+                                "o banco CONFIRMOU, com o endereco do byte de "
+                                "cada uma, e o orquestrador entrega-as ao "
+                                "runner canonico `coleta/derivacao_forward.py`"),
+                ("PROVA", "provas/o_pedido_atravessa.py — a MESMA corrida "
+                          "escreve `derived_artifact` com pai real e deixa "
+                          "passagem DERIVED com edge_from=RAW"),
+                ("QUEM_RESOLVEU", "codigo — uma ligacao, no orquestrador"),
+                # ⚠️ O BURACO ANDOU UMA ARESTA PARA A FRENTE, E ISSO ESTAVA
+                # PREVISTO E ESCRITO ANTES DE SE LIGAR. Fechar uma ligacao nao
+                # fecha a estrada; fecha uma ligacao.
+                ("O_QUE_ISTO_NAO_FECHOU",
+                 "a estrada. O primeiro edge perdido passou a ser "
+                 "DERIVED -> STRUCTURED, que e o achado seguinte e e de "
+                 "outra especie."),
             ]),
             OrderedDict([
                 ("EDGE", "DERIVED -> STRUCTURED"),
@@ -948,7 +994,13 @@ def medir():
         ("ROOT_CAUSES", rcs),
         ("MISSOES_JA_FECHADAS", FEITAS),
         ("MINIMUM_MISSION_DAG", dag()),
-        ("MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE", len(dag())),
+        ("MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE", missoes_que_faltam(core)),
+        ("NEXT_KNOWN_MISSION", PROXIMA_CONHECIDA),
+        ("ZERO_BLOCKERS_NAO_E_ZERO_TRABALHO", (
+            "a fila minima conta BLOCKERS ABERTOS, e ela esta vazia. O que "
+            "falta para o core fechar nao e um buraco declarado: e uma "
+            "propriedade por provar, e ela nao se conta em missoes enquanto "
+            "depender de uma decisao que ninguem tomou.")),
         ("MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY", "UNKNOWN"),
         ("PORQUE_O_SEGUNDO_E_UNKNOWN", (
             "depende de quantas capacidades do SCRAP a coleta grande exige, "

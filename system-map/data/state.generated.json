@@ -1469,6 +1469,7 @@
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
+      "tests/test_a_ponte_do_derived.py",
       "tests/test_a_prova_e2e_segue_a_producao.py",
       "tests/test_a_regra_de_t2.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -1954,10 +1955,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/prove-canonical-e2e-from-request-v1",
-    "HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28",
-    "GENERATED_AT": "2026-09-12T15:46:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5c0e79849d0227447e84d1c305be6e197739ca4434ebe00b76647f24fc283363"
+    "BRANCH": "claude/wire-storage-to-derived-canonical-e2e-v1",
+    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
+    "GENERATED_AT": "2026-09-12T15:51:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "07bdf97e600819f5706c4de7fbab4087a27739b8506b62d31c2b604ac9cb656c"
   },
   "FAMILIES": [
     {
@@ -8076,6 +8077,7 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
+        "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -9368,6 +9370,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -10847,6 +10850,7 @@
         "C-ADMISSAO",
         "C-CI-COLETA",
         "C-CONTRATO-DE-RETORNO",
+        "C-DERIVACAO-FORWARD",
         "C-INGRESSO",
         "C-PEDIDO",
         "C-PROCEDENCIA",
@@ -12178,7 +12182,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "provas/os_portoes_da_collection.py",
-            "line": 968,
+            "line": 1020,
             "snippet": "escreve em caminho"
           }
         }
@@ -12594,6 +12598,7 @@
         "C-COLETA-BASE",
         "C-DERIVACAO-FORWARD",
         "C-DONO-DA-ESCRITA",
+        "C-INGRESSO",
         "C-IT-COLETA",
         "C-ORQUESTRADOR",
         "C-PEDIDO",
@@ -15714,6 +15719,7 @@
       "files": [
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
+        "tests/test_a_ponte_do_derived.py",
         "tests/test_a_prova_e2e_segue_a_producao.py",
         "tests/test_a_regra_de_t2.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -15819,7 +15825,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 106,
+      "file_count": 107,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17399,7 +17405,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/prove-canonical-e2e-from-request-v1"
+        "branch claude/wire-storage-to-derived-canonical-e2e-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17899,7 +17905,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 47,
+          "line": 48,
           "snippet": "import admissao                                     # noqa: E402"
         }
       ],
@@ -17917,7 +17923,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 141,
+          "line": 142,
           "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
         }
       ],
@@ -21546,7 +21552,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 48,
+          "line": 49,
           "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
         }
       ],
@@ -22106,7 +22112,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 57,
+          "line": 58,
           "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)"
         }
       ],
@@ -22716,6 +22722,24 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 57,
+          "snippet": "import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -22753,20 +22777,20 @@
     {
       "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira forward da derivação tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "reason": "A fronteira forward da derivação alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 308,
-          "snippet": "import derivacao_forward as fwd"
+          "line": 568,
+          "snippet": "\"coleta/derivacao_forward.py\")"
         }
       ],
-      "categoria": "CODE"
+      "categoria": "READ"
     },
     {
       "from": "C-DERIVACAO-FORWARD",
@@ -22812,8 +22836,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 29,
+          "snippet": "import derivacao_forward as deriv    # noqa: E402"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 29,
@@ -23223,8 +23252,8 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 309,
-          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
+          "line": 523,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira as _AM"
         }
       ],
       "categoria": "CODE"
@@ -23309,8 +23338,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 30,
+          "snippet": "from guarda.preservar_coleta import (Armazem, ArmazemLocal,  # noqa: E402"
+        },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 202,
@@ -23365,11 +23399,6 @@
           "file": "tests/test_preservar_derivado.py",
           "line": 33,
           "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel  # noqa: E402"
-        },
-        {
-          "file": "tests/test_preservar_derivado.py",
-          "line": 34,
-          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, sha256  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -24908,6 +24937,42 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 522,
+          "snippet": "import ingresso as ing_"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 567,
+          "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24932,8 +24997,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 28,
+          "snippet": "import ingresso as ing               # noqa: E402"
+        },
         {
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 249,
@@ -24970,8 +25040,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 151,
+          "snippet": "chamadas = _chamadas(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))"
+        },
         {
           "file": "tests/test_lingua_da_porta.py",
           "line": 254,
@@ -25302,7 +25377,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 178,
+          "line": 179,
           "snippet": "recibo.get(\"ACTOR\") == \"coleta/italy_executor.py\""
         }
       ],
@@ -26855,11 +26930,29 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 157,
+          "line": 158,
           "snippet": "import orquestrador as orq"
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 567,
+          "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-ORQUESTRADOR",
@@ -26887,8 +26980,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 181,
+          "snippet": "import orquestrador as orq"
+        },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 295,
@@ -26925,8 +27023,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 33,
+          "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+        },
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
           "line": 23,
@@ -27154,7 +27257,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 51,
+          "line": 52,
           "snippet": "from pedido import Pedido                           # noqa: E402"
         }
       ],
@@ -28458,7 +28561,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 109,
+          "line": 110,
           "snippet": "\"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -28775,7 +28878,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 695,
+          "line": 731,
           "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
         }
       ],
@@ -29105,8 +29208,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 315,
+          "snippet": "import rastro_da_coleta as rastro"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 32,
@@ -29805,7 +29913,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 58,
+          "line": 59,
           "snippet": "import sala_de_espera as espera        # noqa: E402"
         }
       ],
@@ -29841,7 +29949,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 49,
+          "line": 50,
           "snippet": "import sala_de_espera as espera                     # noqa: E402"
         }
       ],
@@ -30623,7 +30731,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 50,
+          "line": 51,
           "snippet": "import social_persistencia as sp                    # noqa: E402"
         }
       ],
@@ -33110,12 +33218,12 @@
     "components_pending": 99,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 695,
-    "edges_proven": 693,
+    "edges": 699,
+    "edges_proven": 697,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1507,
-    "files_covered": 747,
+    "files_tracked": 1508,
+    "files_covered": 748,
     "files_code_unclaimed": 0
   }
 }

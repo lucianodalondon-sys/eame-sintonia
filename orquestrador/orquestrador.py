@@ -54,6 +54,7 @@ from receitas import resolver, Plano  # noqa: E402
 import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
+import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
 import sala_de_espera as espera        # noqa: E402
 
@@ -157,7 +158,7 @@ def a_colheita(e: dict, run_id: str = "") -> tuple[list, str]:
 
 
 def pela_entrada(itens: list, recibo: dict, memoria=None,
-                 banco_do_rastro=None) -> dict:
+                 banco_do_rastro=None, armazem=None) -> dict:
     """Leva a colheita a PORTA DE ENTRADA da coleta, que a preserva como RAW.
 
     Ela nao julga nada: quem julga e a admissao, logo a seguir. Aqui responde-se
@@ -184,7 +185,12 @@ def pela_entrada(itens: list, recibo: dict, memoria=None,
     Continua a ser opcional de verdade: sem banco ligado, `memoria=None`, e a
     preservacao em disco acontece na mesma.
     """
-    armazem = ing.ArmazemLocal(RAIZ)
+    # ⚠️ O ARMAZEM PASSOU A PODER VIR DE FORA, E A RAZAO E A DERIVACAO.
+    # Quem preserva o bruto e quem escreve o derivado tem de ser o MESMO
+    # armazem: sao dois bytes da mesma corrida, e dois armazens dariam ao
+    # derivado uma morada que o bruto nao conhece. Sem ninguem o passar,
+    # continua a nascer aqui exactamente como nascia.
+    armazem = armazem if armazem is not None else ing.ArmazemLocal(RAIZ)
     r = ing.receber(itens, corrida=recibo, armazem=armazem, memoria=memoria,
                     raiz=str(RAIZ), banco_do_rastro=banco_do_rastro)
     bruto = r.get("RAW") or {}
@@ -200,6 +206,21 @@ def pela_entrada(itens: list, recibo: dict, memoria=None,
         # A unidade vai junto agora. Quem a monta continua a ser o dono da
         # fronteira: `coleta/ingresso.py::unidade_para_a_porta`.
         "PARA_A_PORTA": r.get("PARA_A_PORTA") or [],
+        # ⚠️ E A MESMA COISA OUTRA VEZ, PARA A OUTRA ETAPA. `PARA_A_PORTA`
+        # nasceu porque contar os aceites nao era guarda-los; isto nasce pela
+        # razao gemea, um degrau a frente: o `recibo` do RAW trazia o
+        # `RAW_OBSERVATION_ID` e o endereco de cada byte, e esta funcao
+        # deitava-o fora ao devolver so `PRESERVADOS`. Sem eles, quem quisesse
+        # derivar tinha de ir procurar os ficheiros ao disco — e procurar por
+        # caminho e o que faz um derivado nascer com o pai errado.
+        #
+        #     CONTAR UMA COISA NAO E GUARDA-LA.
+        "PARA_A_DERIVACAO": r.get("PARA_A_DERIVACAO") or [],
+        "SEM_BYTES_PARA_DERIVAR": r.get("SEM_BYTES_PARA_DERIVAR") or [],
+        # A fonte que o COLETOR declarou, apurada uma vez pela porta. Ela vem
+        # por aqui para a derivacao nao a inferir do caminho — que e de onde
+        # ela nunca pode vir.
+        "FONTE_PROVADA": r.get("FONTE_PROVADA"),
         "PRESERVADOS": len(r["ACEITES"]),
         "RECUSADOS": len(r["RECUSAS"]),
         "PORQUE_RECUSADOS": [x["PORQUE"] for x in r["RECUSAS"]],
@@ -221,6 +242,76 @@ def pela_entrada(itens: list, recibo: dict, memoria=None,
         # olhou e nao havia. Nao se olhou.
         "BANCO": (bruto.get("MEMORIA") or {}).get("COMO_FOI_MEDIDO",
                                                   "NAO MEDIDO — sem banco ligado"),
+    }
+
+
+def pela_derivacao(unidades: list, *, run_id: str, armazem, memoria,
+                   banco_do_rastro=None, source_id=None,
+                   route_class_id=None) -> dict:
+    """Leva as observacoes preservadas ao RUNNER CANONICO do DERIVED.
+
+    ⚠️ ESTA FUNCAO NAO DERIVA NADA, E ISSO NAO E MODESTIA: E A LEI.
+
+        CONTROL PLANE != DATA PLANE.  (COL-LAW-012)
+
+    Ela nao abre um PDF, nao extrai texto, nao escreve `derived_artifact`, nao
+    escreve `etapa_da_corrida` e nao calcula linhagem. Tudo isso ja tem dono:
+
+        coleta/executor_texto_de_pdf.py   produz o texto (e nao conhece banco)
+        coleta/derivacao_forward.py       o RUNNER: transporta a identidade
+        guarda/preservar_derivado.py      escreve `derived_artifact`
+        medidas/rastro_da_coleta.py       escreve a passagem DERIVED
+
+    O que faltava nao era nenhum deles: era a CHAMADA. Medido em
+    `provas/o_pedido_atravessa.py`, um pedido real chegava a STORAGE e parava
+    ali — com a derivacao a funcionar, a um `import` de distancia, sem ninguem
+    a invocar.
+
+        CAPABILITY EXISTS != EDGE EXISTS.
+        UMA CAPACIDADE QUE NINGUEM CHAMA NAO E UMA ETAPA DA ESTRADA.
+
+    ⚠️ E ELA NAO ESCOLHE O QUE DERIVA. As `unidades` vem da porta, ja
+    filtradas por quem tem esse direito: sao as observacoes que o BANCO
+    confirmou nesta corrida. Deixar o orquestrador escolher — por nome, por
+    pasta, pelo primeiro ficheiro que aparecesse — seria o control plane a
+    decidir linhagem, que e a maneira mais silenciosa de um derivado nascer
+    filho de outro bruto.
+
+    `route_class_id` vai como vier, e hoje vem `None`: nenhuma peca entre o
+    Pedido e a corrida declara classe de rota. Escrever `RC-1` aqui porque o
+    canario de hoje e RC-1 seria fabricar identidade a partir do caso da vez.
+
+        UNKNOWN HONESTO > ID INVENTADO.
+    """
+    if not unidades:
+        # NAO CORREU != CORREU E NAO DEU NADA. Sem observacao preservada nao
+        # ha sujeito, e inventar uma chamada vazia poria uma passagem DERIVED
+        # no rastro a dizer que a etapa correu.
+        return {"CHAMADO": False, "PORQUE": "nenhuma observacao preservada "
+                                            "nesta corrida para derivar",
+                "UNIDADES": 0}
+    recibo = deriv.correr(unidades, banco_do_rastro=banco_do_rastro,
+                          run_id=run_id, armazem=armazem, memoria=memoria,
+                          source_id=source_id, route_class_id=route_class_id)
+    return {
+        "CHAMADO": True,
+        "UNIDADES": len(unidades),
+        "RUNNER": recibo.get("FRONTEIRA"),
+        "RUN_ID": recibo.get("RUN_ID"),
+        "SOURCE_ID": recibo.get("SOURCE_ID"),
+        "ROUTE_CLASS_ID": recibo.get("ROUTE_CLASS_ID"),
+        "ESTADO_DA_ETAPA": recibo.get("ESTADO_DA_ETAPA"),
+        "BALDES": recibo.get("BALDES"),
+        "SAIRAM": recibo.get("SAIRAM"),
+        "RASTRO": ("EMITIDO" if recibo.get("RASTRO") not in (None, "NAO_EMITIDO")
+                   else "NAO_EMITIDO"),
+        # Os derivados desta passagem, com o pai REAL de cada um. Nao e
+        # decoracao do recibo: e o que permite a quem audita perguntar ao
+        # banco se aquela linha tem mesmo aquele pai.
+        "DERIVADOS": [{"RAW_ASSET_ID": r.get("RAW_ASSET_ID"),
+                       "PORTA": r.get("PORTA"),
+                       "STORAGE_PATH": r.get("STORAGE_PATH")}
+                      for r in (recibo.get("RESULTADOS") or [])],
     }
 
 
@@ -449,9 +540,33 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # A porta responde «posso preservar esta observacao como RAW?». A admissao,
     # logo a seguir, responde outra pergunta: «isto pode entrar no universo?».
     # Sao duas perguntas, e agora sao duas etapas.
+    # ⚠️ O ARMAZEM NASCE AQUI, E UM SO SERVE AS DUAS ETAPAS. O bruto e o
+    # derivado sao dois bytes da mesma corrida; dois armazens dariam ao
+    # derivado uma morada que o bruto nao conhece.
+    armazem = ing.ArmazemLocal(RAIZ)
     if itens and (so_a_porta or not seco):
         recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria,
-                                          banco_do_rastro=banco_do_rastro)
+                                          banco_do_rastro=banco_do_rastro,
+                                          armazem=armazem)
+
+    # ── E O QUE FOI PRESERVADO ATRAVESSA PARA O DERIVED ────────────────────
+    # ⚠️ ATE AQUI A ESTRADA PARTIA-SE NESTE PONTO EXACTO. Medido em
+    # `provas/o_pedido_atravessa.py`: RAW aterrava, STORAGE ligava, e a
+    # corrida seguia direita para a ADMISSAO — que recebia um documento sem
+    # texto e respondia `NAO SEI`, com razao, porque ninguem o tinha derivado.
+    #
+    #     UMA ETAPA QUE CORRE DEPOIS DO BURACO NAO FECHA O BURACO.
+    #
+    # A ordem e a que a estrada canonica declara, e nao a que era comoda:
+    # RAW -> STORAGE -> DERIVED, e so entao o resto.
+    if itens and (so_a_porta or not seco):
+        entrada = recibo["INGRESSO"]
+        recibo["DERIVACAO"] = pela_derivacao(
+            entrada.get("PARA_A_DERIVACAO") or [],
+            run_id=recibo["RUN_ID"], armazem=armazem, memoria=memoria,
+            banco_do_rastro=banco_do_rastro,
+            source_id=entrada.get("FONTE_PROVADA"))
+
     if itens and (so_a_porta or not seco):
         # A PORTA JULGA O QUE A FRONTEIRA ACEITOU, e nao o que o executor
         # largou. Sao a mesma observacao — mas so uma delas traz o estagio que

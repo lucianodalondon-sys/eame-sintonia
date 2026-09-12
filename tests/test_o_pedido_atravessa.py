@@ -57,6 +57,56 @@ class AProvaComecaNoBotao(unittest.TestCase):
         self.assertEqual(set(), proibidas & _chamadas(PROVA),
                          "a prova passou a comecar pelo meio")
 
+    def test_e_NAO_deriva_a_mao_para_a_estrada_ficar_bonita(self):
+        """⚠️ ISTO JÁ ESTEVE LÁ, E ERA LEGÍTIMO.
+
+        Enquanto a aresta `STORAGE -> DERIVED` não existia, `D1` chamava
+        `derivacao_forward.correr()` à mão para separar «o DERIVED não sabe»
+        de «ninguém o chama» — um diagnóstico de CAPACIDADE, e não de estrada.
+
+        Depois de a rota passar a chamar, a mesma linha muda de espécie: ela
+        deixa de diagnosticar e passa a PRODUZIR o resultado que a prova
+        depois vai medir.
+
+            UMA PROVA QUE PRODUZ O QUE MEDE NÃO MEDE NADA.
+
+        E a chamada manual trazia um `glob` atrás, que emparelhava o primeiro
+        ficheiro da pasta com a primeira linha da tabela — a heurística que a
+        produção tem proibida, ensinada pela própria prova.
+
+        ⚠️ E ISTO LIA-SE PRIMEIRO COM `assertNotIn("derivacao_forward.correr(",
+        fonte)` — E MORDIA ESTE PRÓPRIO PARÁGRAFO, que tem de nomear a chamada
+        para explicar por que ela saiu. É a segunda vez na mesma linha de
+        missões que uma guarda de texto confunde a regra com o exemplo dela.
+
+            LER O FICHEIRO NÃO É LER O CÓDIGO.
+        """
+        modulos = {"fwd", "deriv", "derivacao_forward"}
+        manuais = []
+        for no in ast.walk(ast.parse(_fonte(PROVA))):
+            if not isinstance(no, ast.Call):
+                continue
+            f = no.func
+            if (isinstance(f, ast.Attribute)
+                    and getattr(f.value, "id", None) in modulos):
+                manuais.append("%s.%s()" % (f.value.id, f.attr))
+        self.assertEqual([], manuais,
+                         "a prova voltou a derivar a mao: %s" % manuais)
+        # ⚠️ E A PROIBICAO E DO `glob`, E NAO DE OLHAR PARA O DISCO.
+        # A primeira versao disto bania tambem `listdir` — e a prova lista a
+        # Sala de Espera de proposito, para conferir que ela comeca e acaba
+        # vazia. Listar um DESTINO para o MEDIR nao e a mesma coisa que
+        # procurar bytes para os DERIVAR.
+        #
+        #     VARRER PARA ENCONTRAR O QUE DERIVAR  ->  linhagem por acaso
+        #     LISTAR PARA MEDIR O QUE CHEGOU       ->  medicao
+        #
+        # Uma guarda larga de mais reprova o uso legitimo, e quem a herdar
+        # aprende a desliga-la — que e pior do que nao a ter.
+        for varredura in ("glob", "iglob"):
+            self.assertNotIn(varredura, _chamadas(PROVA),
+                             "a prova voltou a procurar bytes por caminho")
+
     def test_e_nao_abre_a_corrida_a_mao(self):
         s = _fonte(PROVA).lower()
         self.assertNotIn("insert into public.collection_run", s)

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/prove-canonical-e2e-from-request-v1",
-    "HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28",
-    "GENERATED_AT": "2026-09-12T15:46:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5c0e79849d0227447e84d1c305be6e197739ca4434ebe00b76647f24fc283363"
+    "BRANCH": "claude/wire-storage-to-derived-canonical-e2e-v1",
+    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
+    "GENERATED_AT": "2026-09-12T15:51:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "07bdf97e600819f5706c4de7fbab4087a27739b8506b62d31c2b604ac9cb656c"
   },
   "FILES": [
     {
@@ -157,7 +157,7 @@
     },
     {
       "path": ".gitignore",
-      "sha": "7c9f953443af9b2796eada623a9a1ef485cd3c5c",
+      "sha": "224aad5e68cc477340808dd1e95366498e61fe34",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -1179,7 +1179,7 @@
     },
     {
       "path": "coleta/derivacao_forward.py",
-      "sha": "69c87bc83d4a4a7550a7bfbdbc9d1a3d55102b62",
+      "sha": "3ab0b4d13c33371b701595536d17ccfc9764f538",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1242,7 +1242,7 @@
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "edf7b218ac806c0ab0a7b9d111161c83c85d9509",
+      "sha": "9c588f3fe091261d2ce8a327fe12678ad272ed48",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1522,7 +1522,7 @@
     },
     {
       "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
-      "sha": "39e9ea717f6c4162f6d25f9b12a19cb7c8ba1f6a",
+      "sha": "8cbbd1f7b9db1aa5baaf004ff4208566c8fd9295",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4672,7 +4672,7 @@
     },
     {
       "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
-      "sha": "fb4bafefa1626ccb7ce22355d80b29091df482c6",
+      "sha": "c62c71c492fb343e2d898713ac7ddcdf3e7fbaf4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5442,7 +5442,7 @@
     },
     {
       "path": "guarda/preservar_coleta.py",
-      "sha": "cdd65bcefb6d27ad03579414854276317774d02e",
+      "sha": "4180cd764f2ba5f8fd5f6ebcfd92ca914bdbf8f6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7689,7 +7689,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "b9643d138158113512d29026ccd833017fcbb8f3",
+      "sha": "6adba683afdf758235181ea80d593d30e7061bd3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8137,7 +8137,7 @@
     },
     {
       "path": "provas/o_pedido_atravessa.py",
-      "sha": "bcb1bf60774a3f28421afa7af18cf2b2e731d488",
+      "sha": "7cfd7b44c44043a7fa5837caccb2a275d517aff3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8158,7 +8158,7 @@
     },
     {
       "path": "provas/os_portoes_da_collection.py",
-      "sha": "070144a7436c73cbd4d47f98cf8792abbd015940",
+      "sha": "a54d6216b6b972c4e4dd9751929beaba94e97bb5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9502,7 +9502,7 @@
     },
     {
       "path": "system-map/data/pedido.observado.json",
-      "sha": "2932874298d5abf1a343c03e1940489ce98c76cf",
+      "sha": "cddcbe18fed555eb7a3bac7e5af211138cc27787",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9820,6 +9820,13 @@
       "sha": "19c5f7fb716ae3199e5e04b5e6eaf29129e3157f",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_ponte_do_derived.py",
+      "sha": "fd48bbceb9d2208dbccb3067e7f3b524f6760666",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -10237,7 +10244,7 @@
     },
     {
       "path": "tests/test_o_pedido_atravessa.py",
-      "sha": "86adcf8adac5ce82f01cf45dbc571dcf1ccdf274",
+      "sha": "d8a3480d2776f025b5baff59531c51e297da65d7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10321,7 +10328,7 @@
     },
     {
       "path": "tests/test_preservar_coleta.py",
-      "sha": "df9d9eac3bd9826b7b8559924aa74a17337695eb",
+      "sha": "4ca21d4d829fbd4e1590d4a690dedba012f836ac",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -23975,8 +23982,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 58,
+        "line": 59,
         "snippet": "import sala_de_espera as espera        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 57,
+        "snippet": "import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED"
       }
     },
     {
@@ -23997,7 +24015,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 57,
+        "line": 58,
         "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)"
       }
     },
@@ -29277,7 +29295,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 45,
+        "line": 46,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -29288,7 +29306,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 47,
+        "line": 48,
         "snippet": "import admissao                                     # noqa: E402"
       }
     },
@@ -29299,7 +29317,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 49,
+        "line": 50,
         "snippet": "import sala_de_espera as espera                     # noqa: E402"
       }
     },
@@ -29310,19 +29328,41 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 48,
+        "line": 49,
         "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
       }
     },
     {
       "from_file": "provas/o_pedido_atravessa.py",
       "to_file": "coleta/derivacao_forward.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_atravessa.py",
+        "line": 568,
+        "snippet": "\"coleta/derivacao_forward.py\")"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_atravessa.py",
+      "to_file": "coleta/ingresso.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 308,
-        "snippet": "import derivacao_forward as fwd"
+        "line": 522,
+        "snippet": "import ingresso as ing_"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_atravessa.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_atravessa.py",
+        "line": 567,
+        "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
       }
     },
     {
@@ -29332,7 +29372,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 178,
+        "line": 179,
         "snippet": "recibo.get(\"ACTOR\") == \"coleta/italy_executor.py\""
       }
     },
@@ -29343,7 +29383,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 50,
+        "line": 51,
         "snippet": "import social_persistencia as sp                    # noqa: E402"
       }
     },
@@ -29354,7 +29394,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 141,
+        "line": 142,
         "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
       }
     },
@@ -29365,8 +29405,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 309,
-        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
+        "line": 523,
+        "snippet": "from guarda.preservar_coleta import ArmazemDeMentira as _AM"
       }
     },
     {
@@ -29376,8 +29416,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 157,
+        "line": 158,
         "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_atravessa.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_atravessa.py",
+        "line": 567,
+        "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
       }
     },
     {
@@ -29387,7 +29438,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 51,
+        "line": 52,
         "snippet": "from pedido import Pedido                           # noqa: E402"
       }
     },
@@ -29398,7 +29449,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 109,
+        "line": 110,
         "snippet": "\"preservar_coleta_no_postgres.py\"))"
       }
     },
@@ -29409,7 +29460,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 420,
+        "line": 612,
         "snippet": "\"pedido.observado.json\"), \"w\","
       }
     },
@@ -29728,7 +29779,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 695,
+        "line": 731,
         "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
       }
     },
@@ -29739,7 +29790,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 686,
+        "line": 722,
         "snippet": "caminho = os.path.join(RAIZ, \"system-map\", \"data\", \"pedido.observado.json\")"
       }
     },
@@ -33195,6 +33246,94 @@
         "file": "tests/fixtures/ARESTAS/owner_indireto.py",
         "line": 2,
         "snippet": "from ajudante import persistir"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 27,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 29,
+        "snippet": "import derivacao_forward as deriv    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 28,
+        "snippet": "import ingresso as ing               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 151,
+        "snippet": "chamadas = _chamadas(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 30,
+        "snippet": "from guarda.preservar_coleta import (Armazem, ArmazemLocal,  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 315,
+        "snippet": "import rastro_da_coleta as rastro"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 181,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "tests/test_a_ponte_do_derived.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_ponte_do_derived.py",
+        "line": 33,
+        "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
       }
     },
     {
@@ -37329,7 +37468,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_pedido_atravessa.py",
-        "line": 237,
+        "line": 287,
         "snippet": "\"os_portoes_da_collection.py\"))"
       }
     },
@@ -37340,7 +37479,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_o_pedido_atravessa.py",
-        "line": 247,
+        "line": 297,
         "snippet": "\"pedido.observado.json\")"
       }
     },
@@ -40497,7 +40636,7 @@
     "provas/os_portoes_da_collection.py": [
       {
         "pasta": "system-map",
-        "line": 968,
+        "line": 1020,
         "constante": "caminho"
       }
     ],
@@ -40636,10 +40775,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1507,
-    "files_readable": 586,
-    "files_code_dir": 632,
-    "file_edges": 2690,
+    "files_tracked": 1508,
+    "files_readable": 587,
+    "files_code_dir": 633,
+    "file_edges": 2702,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },

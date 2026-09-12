@@ -200,10 +200,32 @@ class OQueEsteDonoNuncaFaz(unittest.TestCase):
             self.assertNotIn(inventada, fonte)
 
     def test_nao_sabe_apagar_do_armazem(self):
-        """A porta do armazém tem três métodos, e nenhum é «remover»."""
+        """A porta do armazém tem quatro métodos, e nenhum é «remover».
+
+        A lista é EXATA de propósito: quem acrescentar um método à porta tem
+        de vir aqui dizer porquê. Uma porta que cresce sem passar por este
+        recenseamento é uma porta que ninguém sabe quão larga ficou.
+
+        ⚠️ O QUARTO CHEGOU EM `C-WIRE-STORAGE-TO-DERIVED`, e não é uma
+        pergunta nova: `caminho_local` é a mesma pergunta do `ler`, feita por
+        quem não pode receber bytes. Uma ferramenta externa — `pdftotext` —
+        recebe um CAMINHO e abre-o ela própria. Sem isto, quem manda derivar
+        reconstruía o caminho por fora, juntando a raiz ao `storage_path`, e a
+        regra de endereçamento passava a viver em dois sítios.
+
+            DOIS DONOS DO MESMO ENDEREÇO SÃO DOIS ENDEREÇOS,
+            E UM DELES VAI ESCREVER FORA DO ARMAZÉM.
+
+        E continua a não haver «remover»: se a memória falhar depois do envio,
+        apagar o byte para fingir atomicidade destruiria a única evidência que
+        sobrou.
+        """
         from guarda import preservar_coleta as pc
         metodos = [m for m in dir(pc.Armazem) if not m.startswith("_")]
-        self.assertEqual(sorted(metodos), ["enviar", "existe", "ler"])
+        self.assertEqual(sorted(metodos),
+                         ["caminho_local", "enviar", "existe", "ler"])
+        for apagar in ("remover", "apagar", "delete", "unlink", "drop"):
+            self.assertNotIn(apagar, metodos)
 
     def test_a_porta_do_banco_sabe_ler(self):
         """E a porta do banco tem de saber LER — sem leitura não há

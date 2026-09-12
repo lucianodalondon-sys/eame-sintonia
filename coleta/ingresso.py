@@ -224,6 +224,72 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
     return para_a_porta(fora)
 
 
+# ── A OBSERVACAO PRESERVADA, NA LINGUA DE QUEM A VAI DERIVAR ───────────────
+# ⚠️ ESTA TRADUCAO E A PONTE QUE FALTAVA, E A SUA AUSENCIA ERA O BURACO.
+#
+# Medido em `provas/o_pedido_atravessa.py`: um pedido real atravessava
+# REQUEST -> ORCHESTRATOR -> EXECUTOR -> RUN -> RAW -> STORAGE e parava. Nao
+# por falta de CAPACIDADE — `derivacao_forward.correr()` existe, corre, e
+# derivava com PASS quando alguem o chamava a mao — mas por falta de LIGACAO:
+# ninguem lhe entregava as observacoes daquela corrida.
+#
+#     CAPABILITY EXISTS != EDGE EXISTS.
+#
+# E ha uma maneira errada de a construir, que a prova diagnostica usou de
+# proposito e que NAO pode atravessar para a producao: procurar um PDF no
+# disco por `glob` e emparelha-lo com o primeiro `raw_asset`. Isso prova que a
+# ferramenta funciona; nao prova que AQUELA observacao derivou.
+#
+#     PATH != IDENTITY.
+#     O PRIMEIRO FICHEIRO DA PASTA NAO E O FILHO DA PRIMEIRA LINHA.
+#
+# Por isso o par (observacao, bytes) sai inteiro da LINHAGEM canonica, que ja
+# existia e que ninguem percorria:
+#
+#     raw_asset.id              a identidade da observacao  (RAW_OBSERVATION_ID)
+#     raw_asset.storage_object_id -> storage_object.storage_path
+#                               o endereco fisico daquele byte
+#
+# Nenhum dos dois e inventado aqui, e nenhum e derivado do outro.
+DERIVACAO_SEM_BYTES_LOCAIS = "DERIVACAO_SEM_BYTES_LOCAIS"
+
+
+def unidades_para_a_derivacao(recibo, armazem) -> tuple:
+    """As observacoes DESTA passagem, com o endereco dos bytes delas.
+
+    Devolve `(unidades, sem_bytes)`. Uma unidade e o que
+    `derivacao_forward.correr()` pede, e nada mais:
+
+        {"RAW_ASSET_ID": <int, o id real no banco>, "PDF": <caminho absoluto>}
+
+    ⚠️ SO ENTRA QUEM O BANCO CONFIRMOU. `RAW_OBSERVATIONS` sao as linhas que
+    `preservar()` leu DE VOLTA depois de escrever, e so as desta corrida — a
+    lista ja nasce filtrada pelo dono dela. Quem foi recusado na porta nunca
+    chegou a `raw_asset` e por isso nao pode aparecer aqui:
+
+        RECUSA NA PORTA -> NAO HA OBSERVACAO -> NAO HA O QUE DERIVAR.
+
+    ⚠️ E QUEM NAO TEM BYTES ALCANCAVEIS NAO VIRA UNIDADE, e tambem nao
+    desaparece: sai em `sem_bytes`, com o endereco que nao respondeu. Fabricar
+    um caminho para a lista ficar completa seria entregar ao executor um
+    ficheiro que nao existe e chamar ERROR ao que foi invencao nossa.
+
+        AUSENCIA DE BYTES E AUSENCIA. ELA DIZ-SE, NAO SE PREENCHE.
+    """
+    unidades, sem_bytes = [], []
+    for o in (recibo or {}).get("RAW_OBSERVATIONS") or []:
+        caminho = o.get("STORAGE_PATH")
+        local = armazem.caminho_local(caminho) if caminho else None
+        if not local:
+            sem_bytes.append({"RAW_ASSET_ID": o.get("RAW_OBSERVATION_ID"),
+                              "STORAGE_PATH": caminho,
+                              "PORQUE": DERIVACAO_SEM_BYTES_LOCAIS})
+            continue
+        unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
+                         "PDF": local})
+    return unidades, sem_bytes
+
+
 def _bytes_do_item(item: dict) -> bytes:
     """A observacao, como bytes, sem normalizar nada.
 
@@ -718,15 +784,37 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
     # sobre isso (`G-TEL-01`), e esta missao nao lhe inventa politica nova:
     # inventar uma politica calada faria uma falha de telemetria passar por
     # falha de RAW — e elas nao sao a mesma coisa.
+    # ⚠️ A FONTE APURA-SE UMA VEZ, E AS DUAS ETAPAS USAM A MESMA.
+    # Ela ja era calculada aqui para a passagem RAW. A derivacao precisa da
+    # mesma resposta, e recalcula-la la fora seria uma segunda leitura da
+    # mesma pergunta — que e como duas etapas da MESMA corrida acabam a
+    # declarar fontes diferentes.
+    fonte = _fonte_provada(para_o_raw)
+
     trilho = "NAO_EMITIDO"
     if banco_do_rastro is not None:
         trilho = falar_do_raw(
             banco_do_rastro, recibo=recibo, corrida=corrida,
             entrada=len(itens), recusas_da_porta=len(recusas),
-            source_id=_fonte_provada(para_o_raw))
+            source_id=fonte)
+
+    # ── E AS MESMAS OBSERVACOES, NA LINGUA DE QUEM AS VAI DERIVAR ───────
+    # ⚠️ ISTO SAI DO `recibo`, E NAO DA LISTA DE ACEITES. Um aceite e uma
+    # ficha que passou o contrato; uma observacao e uma LINHA QUE O BANCO
+    # CONFIRMOU. Entre as duas ha uma escrita que pode falhar, e derivar a
+    # partir da primeira seria derivar o que talvez nao exista.
+    #
+    #     ACEITE NA PORTA != OBSERVACAO NO BANCO.
+    #
+    # Sem banco, `preservar()` nao devolve `RAW_OBSERVATIONS` e a lista sai
+    # vazia — que e a verdade: nao ha observacao canonica para derivar.
+    para_derivar, sem_bytes = unidades_para_a_derivacao(recibo, armazem)
 
     # `PARA_A_PORTA` sao os MESMOS aceites, com o conteudo intacto e o estagio
     # preservado. Nao e um terceiro objecto: e a unidade aceite, na lingua de
     # quem a vai julgar. Quem foi recusado nao aparece aqui.
     return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo,
-            "RASTRO": trilho, "PARA_A_PORTA": para_a_porta_}
+            "RASTRO": trilho, "PARA_A_PORTA": para_a_porta_,
+            "PARA_A_DERIVACAO": para_derivar,
+            "SEM_BYTES_PARA_DERIVAR": sem_bytes,
+            "FONTE_PROVADA": fonte}

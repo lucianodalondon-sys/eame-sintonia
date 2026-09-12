@@ -33,6 +33,7 @@ O livro append-only e o armazem do coletor ficam num `ITALY_OPS_ROOT`
 descartavel, e a Sala de Espera numa morada descartavel. Uma medicao que suja
 a arvore e uma medicao que a proxima vai medir.
 """
+import ast
 import io
 import json
 import os
@@ -300,28 +301,110 @@ def main():
          if perdido else "REQUEST -> SALA DE ESPERA")
 
     # ═══════════════════════════════════════════════════════════════════
-    # A CAUSA DO BURACO — medida, e nao afirmada
+    # A LINHAGEM DO DERIVADO — de quem ele e filho, medido no banco
     # ═══════════════════════════════════════════════════════════════════
-    # Duas perguntas diferentes, e as respostas classificam o gap:
-    #   · o DERIVED nao corre porque NAO SABE, ou porque NINGUEM O CHAMA?
-    #   · e o STRUCTURED, logo a seguir, o que e que lhe falta?
-    import derivacao_forward as fwd
-    from guarda.preservar_coleta import ArmazemDeMentira
-    import glob
-    pdfs = sorted(glob.glob(os.path.join(
-        ops, "data", "collection-store", "italy", "**", "*.pdf"),
-        recursive=True))
-    alcancavel, porque_d = False, "nao havia bruto desta corrida para tentar"
-    if brutos and pdfs:
-        r_d = fwd.correr([{"RAW_ASSET_ID": int(brutos[0][0]), "PDF": pdfs[0]}],
-                         banco_do_rastro=sql, run_id=run_id,
-                         armazem=ArmazemDeMentira(), memoria=_memoria(url),
-                         source_id="IT-T2-002")
-        alcancavel = r_d.get("ESTADO_DA_ETAPA") == "PASS"
-        porque_d = "%s · %s" % (r_d.get("ESTADO_DA_ETAPA"),
-                                {k: v for k, v in r_d["BALDES"].items() if v})
-    caso("D1_o_DERIVED_E_alcancavel_a_partir_deste_MESMO_bruto", alcancavel,
-         "%s — logo o buraco e de LIGACAO, e nao de capacidade" % porque_d)
+    # ⚠️ AQUI VIVIA `D1`, E ELE FOI REMOVIDO PORQUE A PERGUNTA MORREU.
+    #
+    # `D1` chamava `derivacao_forward.correr()` A MAO, com um PDF encontrado
+    # por `glob` e emparelhado com `brutos[0]`, para responder «o DERIVED e
+    # ALCANCAVEL a partir deste bruto?». Fazia sentido enquanto a aresta nao
+    # existia: separava «nao sabe» de «ninguem chama». Agora a rota chama, e a
+    # resposta esta na estrada — um diagnostico que repete o que a estrada ja
+    # provou nao acrescenta prova nenhuma.
+    #
+    # E o `glob` tinha de sair por si so. Ele emparelhava O PRIMEIRO FICHEIRO
+    # DA PASTA com A PRIMEIRA LINHA DA TABELA, e as duas ordens nao tem razao
+    # nenhuma para coincidir:
+    #
+    #     PATH != IDENTITY.
+    #     O PRIMEIRO FICHEIRO DA PASTA NAO E O FILHO DA PRIMEIRA LINHA.
+    #
+    # Uma prova que usa a heuristica que a producao tem proibida ensina a
+    # heuristica. No lugar dela ficam perguntas ao BANCO sobre a linhagem que
+    # a corrida realmente escreveu.
+    filhos = sql.executa(
+        "select d.id, d.raw_asset_id, r.run_id, d.parent_sha256, r.sha256"
+        " from public.derived_artifact d"
+        " join public.raw_asset r on r.id = d.raw_asset_id"
+        " where r.run_id = '%s' order by d.id" % run_id)
+    caso("D1_cada_DERIVADO_tem_pai_REAL_e_o_pai_e_DESTA_corrida",
+         bool(filhos) and all(x[2] == run_id for x in filhos),
+         "%d derivados · corridas dos pais: %s"
+         % (len(filhos), sorted({x[2] for x in filhos}) or "nenhuma"))
+
+    # ⚠️ E O PAI CERTO, E NAO SO «UM PAI DESTA CORRIDA».
+    # Quatro observacoes e quatro derivados podem estar todos ligados a
+    # corrida certa e na mesma trocados entre si — que e exactamente o que o
+    # `glob` produzia. O `parent_sha256` e escrito pelo dono do derivado a
+    # partir dos BYTES que ele derivou; se ele bate certo com o `sha256` da
+    # observacao que o banco diz ser o pai, entao o par (bruto, bytes) veio
+    # inteiro da linhagem, e nao de duas listas ordenadas por acaso.
+    #
+    #     MESMA CORRIDA != MESMO PAI.
+    caso("D1b_o_pai_declarado_e_o_dono_dos_BYTES_que_foram_derivados",
+         bool(filhos) and all(x[3] == x[4] for x in filhos),
+         "pares (parent_sha256 == sha256 do pai): %d de %d"
+         % (sum(1 for x in filhos if x[3] == x[4]), len(filhos)))
+
+    # ⚠️ E UM POR OBSERVACAO, sem uma observacao a ficar com dois nem uma a
+    # ficar sem nenhum. O grao desta unidade forward e 1:1 e quem o declara e
+    # o runner; aqui so se confere que a corrida o cumpriu.
+    pais = [int(x[1]) for x in filhos]
+    caso("D1c_cada_observacao_desta_corrida_deu_UM_derivado",
+         sorted(pais) == sorted(int(b[0]) for b in brutos)
+         and len(set(pais)) == len(pais),
+         "%d derivados para %d observacoes · pais distintos: %d"
+         % (len(filhos), len(brutos), len(set(pais))))
+
+    # ⚠️ E A ETAPA FALOU NESTA CORRIDA, e nao noutra. Um `derived_artifact`
+    # sem passagem no rastro seria uma etapa que aconteceu as escondidas.
+    passagem_d = [x for x in sql.executa(
+        "select etapa::text, estado::text, edge_from::text, passed, reused,"
+        " source_id, coalesce(route_class_id, '<NULL>')"
+        " from public.etapa_da_corrida where run_id = '%s'"
+        " and etapa = 'DERIVED' order by tentativa" % run_id)]
+    caso("D1d_a_etapa_DERIVED_deixou_rasto_NESTA_corrida_vindo_do_RAW",
+         bool(passagem_d) and passagem_d[0][2] == "RAW"
+         and passagem_d[0][1] in ("PASS", "PARTIAL"),
+         "DERIVED %s · edge_from=%s · passed=%s · source_id=%s"
+         % (passagem_d[0][1], passagem_d[0][2], passagem_d[0][3],
+            passagem_d[0][5]) if passagem_d else "nenhuma passagem DERIVED")
+
+    # ⚠️ E FALOU UMA VEZ, E NAO DUAS. Duas linhas DERIVED para uma passagem
+    # fariam a mesma etapa contar-se duas vezes, e quem somasse `passed` leria
+    # o dobro do que aconteceu. A chave `(run_id, etapa, tentativa)` existe
+    # para isso, e aqui confere-se que a rota nao a contornou.
+    #
+    #     CONTAR DUAS VEZES O MESMO TRABALHO E INVENTAR TRABALHO.
+    caso("D1g_a_etapa_DERIVED_falou_UMA_vez_nesta_passagem",
+         len(passagem_d) == 1,
+         "linhas DERIVED desta corrida: %d" % len(passagem_d))
+
+    # ⚠️ E A FONTE NAO FOI FABRICADA PARA A PASSAGEM FICAR BONITA.
+    # Ela vem do coletor, apurada UMA vez pela porta, e e a mesma que a etapa
+    # RAW declarou. Duas etapas da mesma corrida com fontes diferentes seriam
+    # duas corridas com o mesmo nome.
+    fonte_raw = sql.executa(
+        "select source_id from public.etapa_da_corrida where run_id = '%s'"
+        " and etapa = 'RAW'" % run_id)
+    caso("D1e_a_fonte_do_DERIVED_e_a_MESMA_do_RAW_e_veio_do_coletor",
+         bool(passagem_d) and bool(fonte_raw)
+         and passagem_d[0][5] == fonte_raw[0][0] == "IT-T2-002",
+         "RAW=%s · DERIVED=%s"
+         % (fonte_raw[0][0] if fonte_raw else "-",
+            passagem_d[0][5] if passagem_d else "-"))
+
+    # ⚠️ E A CLASSE DE ROTA NAO FOI INVENTADA. Nenhuma peca entre o Pedido e a
+    # corrida declara `ROUTE_CLASS_ID`; a resposta honesta e NULL. Escrever
+    # `RC-1` porque o canario de hoje e RC-1 seria fabricar identidade a
+    # partir do caso da vez, e e por isso que isto se mede em vez de se
+    # assumir.
+    #
+    #     UNKNOWN HONESTO > ID INVENTADO.
+    caso("D1f_a_ROUTE_CLASS_nao_foi_fabricada_quando_ninguem_a_prova",
+         bool(passagem_d) and passagem_d[0][6] == "<NULL>",
+         "route_class_id na passagem DERIVED: %s"
+         % (passagem_d[0][6] if passagem_d else "-"))
 
     # ⚠️ E A ETAPA SEGUINTE NAO E DA MESMA ESPECIE DE BURACO.
     # `public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal`
@@ -388,6 +471,115 @@ def main():
          not uma_corrida_so(int(duas[0][0])),
          "corridas distintas depois de uma segunda corrida REAL: %s — e a"
          " regra que diz «uma so» tem de reprovar aqui" % duas[0][0])
+
+    # ⚠️ N6 · A SEGUNDA CORRIDA DERIVOU OS MESMOS BYTES, E NAO DUPLICOU.
+    # Os mesmos quatro boletins, colhidos outra vez, sao QUATRO OBSERVACOES
+    # NOVAS — `raw_asset` distintos, porque observar duas vezes e observar
+    # duas vezes. Mas os BYTES sao os mesmos, e `derivacao_e_unica_por_regua`
+    # e UNIQUE em `(parent_sha256, kind, producer, producer_version,
+    # parameters_hash, serie_posicao)`: o derivado reencontra-se em vez de
+    # nascer outra vez.
+    #
+    #     REUSED != NOT_RUN. A etapa correu, e o resultado ja existia.
+    #
+    # Isto e o contrato do dono do derivado, e esta missao NAO o redefine.
+    passagens_2 = sql.executa(
+        "select run_id, estado::text, passed, reused from"
+        " public.etapa_da_corrida where etapa = 'DERIVED'"
+        " and run_id <> '%s' order by id" % run_id)
+    caso("N6_a_SEGUNDA_corrida_derivou_e_REAPROVEITOU_sem_duplicar",
+         bool(passagens_2) and passagens_2[0][1] == "PASS"
+         and int(passagens_2[0][3]) > 0 and int(passagens_2[0][2]) == 0,
+         "DERIVED da 2a corrida: %s · passed=%s reused=%s"
+         % (passagens_2[0][1], passagens_2[0][2], passagens_2[0][3])
+         if passagens_2 else "a segunda corrida nao emitiu DERIVED")
+
+    # ⚠️ N7 · E O SHA COLAPSA OS PAIS — MEDIDO, E DECLARADO COMO ACHADO.
+    # A regua de unicidade do derivado e sobre os BYTES do pai, e nao sobre a
+    # OBSERVACAO. Duas observacoes distintas dos mesmos bytes partilham UM
+    # derivado, e esse derivado nomeia como pai so UMA delas — a primeira.
+    #
+    #     O GRAO DO DERIVADO E POR BYTES DO PAI, E NAO POR OBSERVACAO.
+    #
+    # Isto NAO se conserta aqui: mudar a regua de unicidade e mexer no
+    # contrato do dono do derivado, e esta missao mede a cardinalidade em vez
+    # de a redefinir. Fica escrito para nao ser descoberto por acidente:
+    # uma corrida cujos bytes JA foram derivados antes nao tem
+    # `derived_artifact` proprio, mesmo tendo a etapa DERIVED corrido.
+    total_derivados = sql.executa("select count(*) from public.derived_artifact")
+    caso("N7_o_sha_do_pai_COLAPSA_as_observacoes_e_isso_esta_medido",
+         int(total_derivados[0][0]) == len(brutos),
+         "%s derivados no banco para %d observacoes em 2 corridas — o grao e"
+         " por BYTES do pai, e nao por observacao"
+         % (total_derivados[0][0], int(duas[0][0]) * len(brutos)))
+
+    # ⚠️ N8 · QUEM A PORTA RECUSA NAO CHEGA A DERIVACAO.
+    # A lista de unidades sai de `RAW_OBSERVATIONS` — linhas que o banco
+    # confirmou — e nao dos itens que o executor largou. Um item recusado na
+    # porta nunca vira observacao, e por isso nao tem como virar unidade.
+    #
+    #     RECUSA NA PORTA -> NAO HA OBSERVACAO -> NAO HA O QUE DERIVAR.
+    import ingresso as ing_
+    from guarda.preservar_coleta import ArmazemDeMentira as _AM
+    vazias, _ = ing_.unidades_para_a_derivacao(
+        {"RAW_OBSERVATIONS": []}, ing_.ArmazemLocal(RAIZ))
+    caso("N8_uma_passagem_sem_observacao_confirmada_nao_produz_unidade",
+         vazias == [],
+         "unidades para derivar quando o banco nao confirmou nada: %d"
+         % len(vazias))
+
+    # ⚠️ N9 · UM ENDERECO QUE NAO RESPONDE NAO VIRA CAMINHO INVENTADO.
+    # O armazem responde `None` quando o byte nao esta la, e a observacao sai
+    # em `sem_bytes` com o endereco que falhou — em vez de entrar na lista com
+    # um caminho construido a mao que o executor iria abrir e nao encontrar.
+    #
+    #     AUSENCIA DE BYTES E AUSENCIA. ELA DIZ-SE, NAO SE PREENCHE.
+    fantasma = {"RAW_OBSERVATIONS": [
+        {"RAW_OBSERVATION_ID": 99, "RUN_ID": run_id,
+         "STORAGE_PATH": "XX/nao-existe/DOCUMENT/nunca-aterrou.pdf",
+         "SHA256": "0" * 64}]}
+    u_f, sem_f = ing_.unidades_para_a_derivacao(fantasma,
+                                                ing_.ArmazemLocal(RAIZ))
+    caso("N9_endereco_que_nao_responde_nao_vira_caminho_fabricado",
+         u_f == [] and len(sem_f) == 1
+         and sem_f[0]["PORQUE"] == ing_.DERIVACAO_SEM_BYTES_LOCAIS,
+         "unidades=%d · sem_bytes=%s"
+         % (len(u_f), [x["PORQUE"] for x in sem_f]))
+
+    # ⚠️ N10 · E UM ARMAZEM QUE NAO E DISCO DIZ QUE NAO TEM CAMINHO.
+    # `ArmazemDeMentira` guarda bytes num dicionario, e um armazem de objetos
+    # remoto tambem nao tem ficheiro local. Os dois respondem `None`, e a
+    # unidade nao se faz — que e melhor do que um caminho que parece bom.
+    u_m, sem_m = ing_.unidades_para_a_derivacao(fantasma, _AM())
+    caso("N10_um_armazem_sem_disco_nao_inventa_caminho_local",
+         u_m == [] and len(sem_m) == 1,
+         "armazem de memoria: unidades=%d · sem_bytes=%d"
+         % (len(u_m), len(sem_m)))
+
+    # ⚠️ N11 · E A HEURISTICA DE CAMINHO NAO EXISTE NA PRODUCAO.
+    # Isto le o CODIGO, e nao o comportamento: um `glob`, um `listdir` ou um
+    # `*.pdf` dentro da rota do pedido seria a porta de entrada do defeito que
+    # esta missao existe para nao cometer — emparelhar o primeiro ficheiro da
+    # pasta com a primeira linha da tabela.
+    #
+    #     UMA REGRA QUE SO VIVE NA CABECA DE QUEM ESCREVEU
+    #     E UMA REGRA QUE O PROXIMO NAO HERDA.
+    producao = ("orquestrador/orquestrador.py", "coleta/ingresso.py",
+                "coleta/derivacao_forward.py")
+    achados = []
+    for rel in producao:
+        with io.open(os.path.join(RAIZ, rel), encoding="utf-8") as fh:
+            arvore = ast.parse(fh.read())
+        for no in ast.walk(arvore):
+            if isinstance(no, ast.Call):
+                alvo = no.func
+                nome = (alvo.attr if isinstance(alvo, ast.Attribute)
+                        else getattr(alvo, "id", ""))
+                if nome in ("glob", "iglob", "listdir", "walk", "scandir"):
+                    achados.append("%s: %s()" % (rel, nome))
+    caso("N11_a_rota_do_pedido_nao_procura_ficheiros_por_caminho",
+         not achados,
+         "varrimentos de disco na rota: %s" % (achados or "nenhum"))
 
     print("=" * 70)
     print("  A ESTRADA, ETAPA A ETAPA")

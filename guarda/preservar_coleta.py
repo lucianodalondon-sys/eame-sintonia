@@ -182,6 +182,42 @@ class Armazem:
     def ler(self, caminho: str) -> bytes:
         raise NotImplementedError
 
+    def caminho_local(self, caminho: str) -> str:
+        """ONDE, NESTE DISCO, ESTAO OS BYTES DESTE ENDERECO — ou `None`.
+
+        ⚠️ ESTA NAO E UMA QUARTA PERGUNTA SOBRE O ARMAZEM: E A MESMA
+        PERGUNTA DO `ler`, FEITA POR QUEM NAO PODE RECEBER OS BYTES.
+
+        Uma ferramenta externa — `pdftotext`, por exemplo — nao recebe um
+        `bytes`: recebe um CAMINHO e abre-o ela propria. Quem manda derivar
+        tem entao duas saidas, e uma delas e pior:
+
+            1. perguntar ao armazem ONDE o byte esta          (isto)
+            2. copiar o byte para um sitio temporario         (uma segunda
+               copia do bruto, que ninguem preserva e que
+               passa a existir sem dono)
+
+        E ha uma terceira, que e a que esta funcao existe para impedir:
+        deixar quem chama RECONSTRUIR o caminho por fora, juntando a raiz
+        ao `storage_path`. Isso poria a regra de enderecamento — a raiz, a
+        travessia com `..`, o separador — em DOIS sitios.
+
+            DOIS DONOS DO MESMO ENDERECO SAO DOIS ENDERECOS,
+            E UM DELES VAI ESCREVER FORA DO ARMAZEM.
+
+        `None` e resposta legitima e e a resposta CERTA de qualquer armazem
+        que nao seja disco: um armazem de objetos remoto NAO tem caminho
+        local, e inventar um ficheiro temporario aqui para poder devolver
+        uma string seria responder a pergunta errada. Quem receber `None`
+        sabe exactamente o que aconteceu — e nao fica com um caminho que
+        parece bom e aponta para nada.
+
+        NAO e identidade, e nao vira identidade: continua a ser um ENDERECO.
+
+            ENDERECO FISICO != IDENTIDADE DA OBSERVACAO
+        """
+        return None
+
 
 class Memoria:
     """A porta do banco. Escreve, e sobretudo **deixa ler de volta**.
@@ -302,6 +338,17 @@ class ArmazemLocal(Armazem):
     def ler(self, caminho):
         with open(self._abs(caminho), "rb") as fh:
             return fh.read()
+
+    def caminho_local(self, caminho):
+        """O caminho, pelo MESMO `_abs` que escreve — e so se o byte la esta.
+
+        Passa pelo `_abs` de proposito: a travessia com `..` e recusada aqui
+        pela mesma linha que a recusa no `enviar`. E confere que o ficheiro
+        existe, porque devolver o caminho de um byte que nao aterrou seria
+        entregar um endereco que nao responde.
+        """
+        alvo = self._abs(caminho)
+        return alvo if os.path.isfile(alvo) else None
 
 
 class ArmazemDeMentira(Armazem):

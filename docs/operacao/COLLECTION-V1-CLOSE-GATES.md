@@ -12,7 +12,7 @@ BIG_COLLECTION_READY  = FAIL
 BLOCKERS            = 0
 NON_BLOCKING_DEBT   = 5
 ROOT_CAUSES         = 4
-MISSÕES ATÉ FECHAR  = 0
+MISSÕES ATÉ FECHAR  = UNKNOWN
 ```
 
 Este veredito não vem da média das 105 leis. Vem das propriedades que a
@@ -54,8 +54,9 @@ Todas as onze etapas já atravessaram. **E isso não é a estrada.**
 > **DUAS METADES PROVADAS NÃO SÃO UMA ESTRADA PROVADA.**
 > **ONZE ETAPAS QUE JÁ CORRERAM NÃO SÃO UMA HISTÓRIA.**
 
-Elas atravessam em **duas rotas diferentes**. A do pedido vai de RAW/STORAGE
-directo à ADMISSION; a rota forward faz DERIVED e STRUCTURED, mas entra pelo
+Elas atravessam em **duas rotas diferentes** — cada vez menos, e ainda duas.
+A do pedido já leva RAW, STORAGE e agora DERIVED na mesma corrida; o STRUCTURED
+e o que vem depois continuam a atravessar só na rota forward, que entra pelo
 RAW e não pelo pedido. Por isso o portão deixou de somar `YES` e passou a
 exigir a **mesma história**, medida por quem aperta o botão no pedido.
 
@@ -75,39 +76,72 @@ CANONICAL_E2E_SAME_STORY  = FAIL
 
 > **ZERO BLOCKERS ≠ CORE FECHADO.**
 
-A mesma história parou em `STORAGE -> DERIVED`, medido em
+A mesma história parou em `DERIVED -> STRUCTURED`, medido em
 [`provas/o_pedido_atravessa.py`](../../provas/o_pedido_atravessa.py).
 
 ## Onde a estrada se parte, e são dois achados
 
-Um pedido real atravessou `REQUEST → ORCHESTRATOR → EXECUTOR → RUN → RAW →
-STORAGE` numa história só, com o executor a ir à fonte real. E parou.
+Um pedido real atravessa `REQUEST → ORCHESTRATOR → EXECUTOR → RUN → RAW →
+STORAGE → DERIVED` numa história só, com o executor a ir à fonte real. E para.
 
 ```
-LAST_PROVEN_STAGE   = STORAGE
-FIRST_LOST_EDGE     = STORAGE -> DERIVED
-NEXT_EXPECTED_STAGE = DERIVED
+LAST_PROVEN_STAGE   = DERIVED
+FIRST_LOST_EDGE     = DERIVED -> STRUCTURED
+NEXT_EXPECTED_STAGE = STRUCTURED
 ```
 
-A ADMISSION corre **depois** do buraco e responde `NAO_SEI`, com razão: o
-documento chega sem texto porque ninguém o derivou. Uma etapa que corre depois
-do buraco não prova a estrada.
+A ADMISSION corre **depois** do buraco. Uma etapa que corre depois do buraco não
+prova a estrada.
 
-Os dois achados são de **espécies diferentes**, e não se misturam — um
-resolve-se com código, o outro com uma decisão.
+Os dois achados eram de **espécies diferentes**, e não se misturaram — um
+resolvia-se com código, o outro com uma decisão. O primeiro fechou.
 
-| aresta | tipo | quem resolve |
-|---|---|---|
-| `STORAGE -> DERIVED` | `WIRING_GAP` | codigo — uma ligacao, no orquestrador |
-| `DERIVED -> STRUCTURED` | `CONTRACT_OWNER_GAP` | gente — e uma decisao de arquitetura |
+| aresta | tipo | quem resolve | estado |
+|---|---|---|---|
+| `STORAGE -> DERIVED` | `WIRING_GAP` | código | **FECHADO** |
+| `DERIVED -> STRUCTURED` | `CONTRACT_OWNER_GAP` | gente | **ABERTO** |
 
-**`STORAGE -> DERIVED` — WIRING_GAP.**
-Porquê: a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION: a chamada a derivacao nao esta ligada
-Prova: provas/o_pedido_atravessa.py::D1 — a MESMA observacao daquela corrida derivou com PASS quando `derivacao_forward` foi chamada explicitamente
+**`STORAGE -> DERIVED` — WIRING_GAP, fechado.**
+A capacidade existia e ninguém a chamava. A porta passou a devolver as
+observações que o banco **confirmou**, cada uma com o endereço do byte dela, e o
+orquestrador entrega-as ao runner canónico da derivação. A mesma corrida escreve
+`derived_artifact` com pai real e deixa passagem `DERIVED` com `edge_from=RAW`.
 
-**`DERIVED -> STRUCTURED` — CONTRACT_OWNER_GAP.**
-Porquê: `public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa quando ele nao existe
-Prova: provas/o_pedido_atravessa.py::D2 — a recusa diz, por escrito, QUEM_RESOLVE = «um dono de identidade, fora do executor de coleta», e esse dono nao esta provado hoje
+> **CAPABILITY EXISTS ≠ EDGE EXISTS.**
+> Uma capacidade que ninguém chama não é uma etapa da estrada.
+
+O par (observação, bytes) sai inteiro da linhagem — `raw_asset.id` e o
+`storage_path` do objeto ligado a ela. Não há ficheiro procurado no disco:
+emparelhar o primeiro ficheiro da pasta com a primeira linha da tabela dá um
+derivado com o pai errado, e `PATH ≠ IDENTITY`.
+
+E fechar uma ligação não fecha a estrada: fecha uma ligação. O primeiro buraco
+andou uma aresta para a frente, o que estava previsto e escrito antes de se
+ligar.
+
+**`DERIVED -> STRUCTURED` — CONTRACT_OWNER_GAP, aberto.**
+`public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa
+quando ele não existe — dizendo, por escrito, que quem resolve é «um dono de
+identidade, fora do executor de coleta». Esse dono não existe hoje. Não é uma
+chamada em falta: é um contrato sem dono, e inventar-lhe um seria fabricar
+identidade de canal sem ninguém ter decidido de quem ela é.
+
+### O que o fecho desta ligação revelou, e não consertou
+
+O grão do derivado é por **bytes do pai**, e não por observação:
+`derivacao_e_unica_por_regua` é `UNIQUE` sobre `parent_sha256`. Duas observações
+distintas dos mesmos bytes — o mesmo boletim colhido em duas corridas —
+partilham **um** `derived_artifact`, e esse artefato nomeia como pai só a
+primeira delas.
+
+Medido: segunda corrida, quatro observações novas, `DERIVED PASS` com
+`reused=4` e zero linhas novas. `REUSED ≠ NOT_RUN`: a etapa correu e o
+resultado já existia.
+
+Fica escrito porque tem consequência: uma corrida cujos bytes já foram
+derivados antes não tem `derived_artifact` próprio, mesmo tendo a etapa
+corrido. Mudar isso é mexer na régua de unicidade do dono do derivado, e esta
+medição mede a cardinalidade em vez de a redefinir.
 
 ## Os que já fecharam
 
@@ -139,7 +173,8 @@ etapa não conta.
 > UMA ETAPA MUDA PODE ESTAR A CORRER.
 > `MUDA != PARADA` — e esse é o problema.
 
-`READY` continua muda porque ninguém a produz: é `G-READY-01`, e não este eixo.
+As cinco falam. A tabela diz **quem sabe falar**, e não **quem falou nesta corrida** — são duas perguntas, e a segunda mede-se na estrada,
+acima. Nesta corrida do pedido falaram duas: `RAW` e `DERIVED`.
 
 ## A dívida que não bloqueia
 
@@ -185,16 +220,33 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 | `C-RESTORE-CANONICAL-E2E-PROOF-V1` | `G-E2E-01` |
 | `C-MAKE-RAW-OBSERVABLE-V1` | `G-RAW-01` |
 | `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` | `G-READY-01` · `G-READY-02` |
+| `C-WIRE-STORAGE-TO-DERIVED-IN-CANONICAL-E2E-V1` | a aresta `STORAGE -> DERIVED` |
 
 ## A fila mínima
 
-**1. `C-CLOSE-THE-READY-EDGE-V1`**
+**Vazia.** E uma fila vazia mede a fila, não o caminho.
 
-> uma unidade que a porta admite chega a READY e pousa na sala de espera, na mesma corrida?
+```
+MINIMUM_MISSION_DAG                       []
+MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE UNKNOWN
+```
 
-é a única que resta, e a única com decisão de contrato por tomar — onde a unidade pronta pousa
+> **ZERO BLOCKERS ≠ ZERO TRABALHO.**
 
-`MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`. depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.
+A fila conta **blockers abertos**, e não há nenhum. O que falta para o core
+fechar não é um buraco declarado: é uma propriedade por provar. E o número não
+é zero — zero ao lado de um veredito `FAIL` lê-se como «não falta nada», e
+falta.
+
+Também não é um número maior inventado. A próxima coisa conhecida é fechar
+`DERIVED -> STRUCTURED`, e ela **não é uma missão de código**: primeiro alguém
+decide de quem é o `canal_id`; só depois há o que implementar — e isso pode
+decompor-se em mais do que uma missão. Contar agora seria feeling com cara de
+DAG.
+
+`MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`, pela mesma disciplina:
+depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda não
+foi medido.
 
 ## O que ficou `UNKNOWN`
 
