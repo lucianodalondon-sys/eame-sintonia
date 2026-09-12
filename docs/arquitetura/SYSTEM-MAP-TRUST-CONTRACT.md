@@ -295,6 +295,36 @@ afirmações **apenas quando `ASSERTION_SUPPORTED` o disser explicitamente para
 cada uma**. Emprestar evidência entre afirmações é o mecanismo pelo qual `CODE`
 vira `OBSERVED` sem que ninguém decida.
 
+### 7.1 · O EMPRÉSTIMO DE EVIDÊNCIA, MEDIDO
+
+> **UMA LINHA NÃO PROVA DUAS AFIRMAÇÕES DIFERENTES SÓ POR ESTAR PERTO DAS DUAS.**
+
+Medido em `c828d1ac`, sobre 1160 linhas de evidência distintas:
+
+| | |
+|---|---|
+| linhas usadas por mais de uma aresta | 55 |
+| arestas envolvidas | 52 de 660 |
+| linhas que sustentam `RELATION_TYPE` **diferentes** | 37 |
+
+O caso mais claro, e ele é literal:
+
+```
+coleta/comunicacao_coleta.py:57
+  import apify_pool as ap        # noqa: E402 — dono único da rotação de chave
+
+sustenta, ao mesmo tempo:
+  C-APIFY-POOL → C-COMUNICACAO   IMPORTS        ← isto, a linha prova
+  C-APIFY-POOL → V-FACEBOOK      ABRE_O_CANAL   ← isto, não prova
+  C-APIFY-POOL → V-INSTAGRAM     ABRE_O_CANAL   ← isto, não prova
+  C-APIFY-POOL → V-LINKEDIN      ABRE_O_CANAL   ← isto, não prova
+```
+
+Um `import` prova que o módulo é importado. Não prova que ele abre o Facebook,
+nem o Instagram, nem o LinkedIn — e muito menos prova as três coisas com a mesma
+linha. Sob este contrato, `ASSERTION_SUPPORTED` teria de dizer, para cada uma,
+que afirmação a linha sustenta; e para três delas não diria nada.
+
 ---
 
 ## 8 · HIERARQUIA DE EVIDÊNCIA — NÃO É UMA ESCADA
@@ -847,6 +877,7 @@ Vinte ataques. Cada um tem de produzir resultado inequívoco.
 | 12 | contagem hardcoded no frontend | sem `WHO_COMPUTES`/`MEMBERS` → não publicável; `FAIL` |
 | 13 | scanner vê docstring e conclui aresta | `STATIC_CODE_ANALYSIS` sem `AST` tem `LIMITATIONS`; menção não é referência |
 | 14 | aresta inferida de nome de ficheiro | não é classe de evidência. Rejeitada |
+| 14b | **uma linha de evidência sustenta duas afirmações diferentes** | **medido: 37 linhas, 52 arestas.** `ASSERTION_SUPPORTED` por afirmação (§7.1); sem ele, `FAIL` |
 | 15 | vizinho da topologia tomado por membro | §22. Universo distinto; `FAIL` se somado |
 | 16 | instrumento de medição tomado por componente de runtime | `ROLE=MEASUREMENT_INSTRUMENT`; fora do denominador de cobertura (§17.1) |
 | 17 | UI fresca sobre evidência velha | frescura é por evidência, não da página. `DEGRADED` ou `FAIL` |
@@ -867,7 +898,9 @@ anterior:
 CURRENT_SYSTEM_MAP_TRUST = FAIL
 ```
 
-**A causa é uma, nomeável e limitada:**
+**São duas causas, ambas nomeáveis e limitadas.**
+
+### Causa 1 · a palavra promete o plano seguinte
 
 > O mapa publica `status = PROVEN` em **658 arestas** e **59 nós** apoiado
 > exclusivamente em análise estática.
@@ -878,24 +911,46 @@ As razões que o próprio mapa escreve dizem-no: *«Provado por 1 linha de codig
 runtime.** Os únicos 2 caminhos com prova de execução vivem noutro ficheiro e não
 alimentam `status`.
 
-Isto aciona a condição de `FAIL` da §16.3: *«`OBSERVED` ou `PROVEN` afirmado sem
+Pior do que a promoção a partir de `CODE`: das 40 arestas **sem tipo medido** —
+rótulos narrativos de declaração — **38 também publicam `PROVEN`**. Aí a promoção
+parte de `DECLARED`, e salta dois planos de uma vez.
+
+E `OBSERVED` não está apenas ausente: **é irrepresentável.** O esquema de aresta
+não tem campo de `RUN_ID`, `OBSERVED_AT` nem `ENVIRONMENT`. Não há onde escrever
+uma observação, mesmo que alguém a medisse.
+
+### Causa 2 · uma linha de evidência sustenta afirmações que ela não prova
+
+Medido: **37 linhas** sustentam `RELATION_TYPE` diferentes, em **52 arestas**. O
+caso literal está na §7.1 — um `import` a sustentar três afirmações de abertura
+de canal.
+
+Cada causa, sozinha, aciona a §16.3: *«`OBSERVED` ou `PROVEN` afirmado sem
 evidência da classe própria»*.
 
 **O que NÃO é a causa, e é preciso dizer:**
 
-- A evidência não foi falsificada. Cada aresta aponta ficheiro e linha reais.
-- A medição não está errada. O que está errado é a **palavra publicada** sobre ela.
+- Nada foi falsificado. Todas as 1160 linhas de evidência apontam ficheiro e
+  linha reais, e o texto de cada `reason` descreve honestamente o que mediu.
 - As contagens reconciliam. `65 = 48 + 17`, `COUNT == len(MEMBERS)`, toda exclusão
   tem razão e dono.
 - A frescura do servido é medida e não mente: `UNVERIFIABLE` nunca vira `CURRENT`.
+- O mapa não está a esconder nada. Está a **prometer de mais** sobre o que mostra.
 
-Por isso o `FAIL` é **barato de fechar**: é uma colisão de vocabulário, não um
-buraco de medição. Renomear `status: PROVEN` → `CODE` nas arestas e nós, e abrir
-os quatro planos como campos separados, move o mapa de `FAIL` para `DEGRADED` sem
-medir uma única coisa nova.
+**As duas causas têm preços diferentes, e isso importa para quem as vai fechar.**
 
-Sem essa correção, e só com ela feita, o mapa ficaria em `DEGRADED` — não `PASS` —
-porque continuam declarados:
+A Causa 1 é uma colisão de vocabulário: as 658 medições estão certas, e só a
+palavra publicada sobre elas promete o plano seguinte. Renomear `status: PROVEN`
+→ `CODE` e abrir os quatro planos como campos separados fecha-a **sem medir uma
+única coisa nova**.
+
+A Causa 2 **não** é vocabulário: em 52 arestas a evidência está ligada à afirmação
+errada, e nenhum renomear conserta isso. Fechá-la exige rever, uma a uma, que
+afirmação cada linha sustenta — e aceitar que algumas ficarão sem evidência, ou
+seja, `UNKNOWN`. **São 52 de 660: caro por aresta, barato no total.**
+
+Com as duas fechadas, o mapa fica em `DEGRADED` — não `PASS` — porque continuam
+declaradas estas dívidas:
 
 | dívida | medida |
 |---|---|
@@ -905,6 +960,8 @@ porque continuam declarados:
 | violação de `ONE CHAIN OWNER` | 13 scripts fora do manifesto |
 | entidades com `ROLE` atribuído | 0 de 160 |
 | cobertura de runtime | 2 de 57 |
+| arestas com evidência emprestada | 52 de 660 |
+| arestas onde `OBSERVED` é sequer representável | 0 de 660 |
 
 ---
 
@@ -922,6 +979,7 @@ Ordenados pela **menor dependência arquitetural**. Nenhum é executado nesta mi
 | 6 | ordenar a cadeia por `INPUTS` e fechar a lei do ciclo atrasado (§9.2) | 4, 5 | cadeia |
 | 7 | atribuir `ROLE` às 160 entidades | 1 | medição + decisão humana |
 | 8 | pente fino por `ROLE` em vez de tupla de territórios | 7 | pente fino + reconciliação |
+| 8b | `ASSERTION_SUPPORTED` por evidência, e desfazer os 37 empréstimos | 1 | gerador |
 | 9 | `LIMITATIONS` obrigatório em toda evidência publicada | 1 | gerador |
 | 10 | modelo de conflito publicado | 1, 9 | gerador + tela |
 | 11 | `RUNTIME_COVERAGE` com denominador por `ROLE` | 7 | censo |
