@@ -1,7 +1,9 @@
-name: KNOW-HOW delta de foco (one-shot)
+name: KNOW-HOW delta 94 one-shot
 
-on:
+'on':
   push:
+    branches:
+      - main
     paths:
       - '.github/workflows/know-how-delta-once.yml'
 
@@ -9,27 +11,46 @@ permissions:
   contents: write
 
 jobs:
-  apply-delta:
+  apply:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout know-how canônico
+      - name: Checkout branch canônica do know-how
         uses: actions/checkout@v4
         with:
           ref: claude/sintonia-eame-know-how-v1
           fetch-depth: 0
 
-      - name: Aplicar §94 uma única vez
+      - name: Aplicar delta 94
         shell: bash
         run: |
           set -euo pipefail
           FILE='SINTONIA-EAME-KNOW-HOW.md'
           MARKER='# §94 · FUNDAÇÃO NÃO É DESTINO: MISSÃO TEM OBJETIVO, ENTREGA E PARA'
+
           git fetch origin claude/sintonia-eame-know-how-v1
-          git reset --hard origin/claude/sintonia-eame-know-how-v1
+          git checkout -B claude/sintonia-eame-know-how-v1 origin/claude/sintonia-eame-know-how-v1
+
           if grep -Fq "$MARKER" "$FILE"; then
             echo 'DELTA_ALREADY_PRESENT=YES'
             exit 0
           fi
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('SINTONIA-EAME-KNOW-HOW.md')
+          s = p.read_text(encoding='utf-8')
+          lines = s.splitlines()
+          out = []
+          for line in lines:
+              if line.startswith('**Última atualização material:**'):
+                  out.append('**Última atualização material:** 2026-09-12 — §94: foco e encerramento passam a ser requisito de engenharia; achado não bloqueante não abre frente automaticamente.')
+              elif line.startswith('**Próxima missão autorizada:**'):
+                  out.append('**Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.')
+              else:
+                  out.append(line)
+          p.write_text('\n'.join(out) + '\n', encoding='utf-8')
+          PY
+
           cat >> "$FILE" <<'EOF'
 
 ---
@@ -43,7 +64,7 @@ jobs:
 
 O SINTONIA passa a tratar **foco e encerramento como requisito de engenharia**. Toda missão precisa nascer com um objetivo principal, critério de PASS, escopo, não-objetivos e HARD STOP. Ela vai até esse objetivo, prova, entrega e para.
 
-```
+```text
 MISSÃO TEM UM OBJETIVO.
 VAI ATÉ ELE.
 PROVA.
@@ -53,7 +74,7 @@ PARA.
 
 Achado novo não vira automaticamente nova frente. Só entra na missão corrente quando for **BLOCKER_DO_OBJETIVO**. Defeito não bloqueante, melhoria, generalização, limpeza ou dívida descoberta são registrados e ficam para decisão posterior.
 
-```
+```text
 ACHADO != CONVOCAÇÃO
 MELHORIA != BLOCKER
 PASS_DA_MISSÃO != PERFEIÇÃO_DO_SISTEMA
@@ -80,7 +101,7 @@ Esta secção **não duplica o texto normativo**. O owner da regra continua `CLA
 
 Antes de abrir qualquer missão nova, a pergunta obrigatória é:
 
-```
+```text
 ISTO IMPEDE O OBJETIVO ATUAL DE FUNCIONAR OU DE SER PROVADO?
 ```
 
@@ -93,7 +114,7 @@ Fundação deve ter critério explícito de encerramento. Legado não utilizado 
 
 Hierarquia operacional:
 
-```
+```text
 SEGURANÇA / LEI / CONTRATO
         ↓
 OBJETIVO DA MISSÃO
@@ -107,13 +128,14 @@ MELHORIA / LIMPEZA / GENERALIZAÇÃO
 
 Regra final:
 
-```
+```text
 O SINTONIA NÃO OTIMIZA PARA TER MAIS MISSÕES.
 OTIMIZA PARA FUNCIONAR COM PROVA.
 ```
 EOF
+
           git add "$FILE"
           git config user.name 'sintonia-know-how-bot'
           git config user.email 'sintonia-know-how-bot@users.noreply.github.com'
-          git commit -m 'know-how §94: fundação não é destino; missão entrega e para'
+          git commit -m 'know-how §94: missão entrega e para'
           git push origin HEAD:claude/sintonia-eame-know-how-v1
