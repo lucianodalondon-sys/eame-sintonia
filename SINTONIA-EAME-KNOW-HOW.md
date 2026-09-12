@@ -4357,3 +4357,102 @@ O defeito tem **dois donos diferentes**, e uma correcção só serve metade:
 não houve corrida forward, e previsão não é medição.
 
 Nada foi consertado. `MEASURE != FIX`.
+
+---
+
+# §61 · A FONTE ATRAVESSA — E TRÊS MUTANTES QUE ENSINARAM A TESTAR
+
+**Missão:** `C-FIX-SOURCE-ID-READER-GAP-V1`
+**HEAD final:** `95b72b86`
+**Tocado:** `coleta/italy_executor.py` · `coleta/executor_texto_de_pdf.py`
+
+## 61.1 · O QUÊ
+
+O `READER_GAP` dos 7, medido no `§60`, está fechado no forward. Os 13
+`OUT_OF_FLOW` continuam intocados.
+
+```
+FORWARD_EXECUTED    = YES
+SOURCE_ID_PRESERVED = YES
+```
+
+## 61.2 · POR QUÊ — A CORREÇÃO FOI PARA O DONO
+
+O recibo da coleta já tinha dono: `coleta/italy_executor.py` escreve-o e lê-o
+por corrida. A pergunta nova vive lá. Não há segundo livro, não há índice
+paralelo de identidade, e `raw_do_disco` **não mudou uma linha** — a lei que o
+proíbe de adivinhar pelo nome continua de pé.
+
+    O DEFEITO NÃO ERA UMA LEI ERRADA.
+    ERA UMA PERGUNTA QUE NINGUÉM FAZIA.
+
+## 61.3 · PROVA — A CHAVE É O CONTEÚDO, E ISSO FOI MEDIDO
+
+```
+RAW_SHA256 presente .... 144 de 144
+RAW_PATH presente ......  35 de 144
+e um dos RAW_PATH é `C:/ea...`, absoluto e de outra máquina
+```
+
+Juntar por caminho responderia «não sei» a três quartos do livro.
+
+    O SHA É A CHAVE QUE ACHA A LINHA.
+    A FONTE VEM DO CAMPO QUE O COLETOR ESCREVEU NELA.
+
+**O caminho não ganhou voto.** O brief admitia detectar conflito entre caminho
+e livro. Não foi implementado na coleta, de propósito: para discordar do
+caminho é preciso lê-lo, e ler o caminho para extrair identidade é o padrão
+proibido. Não há desempate porque não há empate.
+
+## 61.4 · TRÊS MUTANTES, TRÊS LIÇÕES DE COMO TESTAR
+
+**O arnês de mutação mentia.** Um mutante compila o `.pyc`; a restauração
+devolve o `.py`; o interpretador seguinte serve o bytecode do mutante. Medido:
+a suíte «restaurada» falhou 4 testes com os ficheiros já corrigidos.
+
+    UM ARNÊS DE MUTAÇÃO COM CACHE
+    MEDE O QUE ESTEVE LÁ, E NÃO O QUE ESTÁ.
+
+**Código sem costura não se testa.** Duas mutações sobreviveram — «não passar a
+fonte ao bruto» e «passar o PAÍS em vez da fonte» — porque a ligação vivia
+solta dentro do ciclo, e a única porta de entrada era uma corrida completa do
+executor.
+
+    CÓDIGO SEM COSTURA NÃO É CÓDIGO SIMPLES:
+    É CÓDIGO QUE SÓ SE PODE TESTAR POR INTEIRO, OU NÃO SE TESTA.
+
+Extraídas `fonte_para_o_bruto` e `registar_achado`, os dois mutantes morreram.
+
+**Um ramo sem dados reais fica por testar.** A contagem do conflito sobreviveu
+porque o corpus de hoje tem **zero** conteúdos com duas fontes.
+
+    UM RAMO QUE SÓ OS DADOS DE AMANHÃ EXERCITAM
+    FICA POR TESTAR ATÉ AMANHÃ — E AÍ É TARDE.
+
+13 mutantes, 0 sobreviventes.
+
+## 61.5 · E UM DEFEITO DA PRÓPRIA PROVA
+
+A prova forward entregava à porta apenas `DO_COLETOR`, deixando de fora
+`DA_FICHA_PARA_A_PORTA`, onde vive `ARTIFACT_TYPE`. Sem ele a porta cai em
+`ESTAGIO_DESCONHECIDO` e pergunta o tempo de um facto que ainda não foi
+extraído — uma régua que a produção não usa ali.
+
+    UMA PROVA QUE ENTREGA MENOS DO QUE A PRODUÇÃO ENTREGA
+    MEDE UM CAMINHO QUE NINGUÉM PERCORRE.
+
+Corrigida, os positivos chegam a `pertence ao universo`.
+
+## 61.6 · CONSEQUÊNCIA
+
+No corpus de hoje, 12 dos 49 PDF italianos passam a nascer com fonte provada.
+Os outros 37 continuam `NÃO SEI`, e é o que se espera: entraram por fora do
+pipeline, e `COL-LAW-045` diz que coleta manual também entra pelo contrato.
+
+O executor passou a contar as três respostas do livro no recibo.
+
+    UMA CONSULTA QUE NINGUÉM CONTA
+    É INDISTINGUÍVEL DE UMA CONSULTA QUE NÃO ACONTECE.
+
+Sem backfill, sem migration, sem identidade inventada. `admissao.py`,
+`ingresso.py` e `leis/artefato.py` com zero linhas de diff.
