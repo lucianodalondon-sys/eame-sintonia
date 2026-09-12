@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "c97bf62d6106bd9fe7b757cd89b0f55bf392ed0f",
+    "HEAD": "3d4dd165cddd60c7377b8aeb054dfb347e9d79c7",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -36,7 +36,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 402,
+      "linhas": 544,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -57,7 +57,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [],
-      "citado_por": [],
+      "citado_por": [
+        "coleta/social_scrap.py"
+      ],
       "no_ci": false
     },
     {
@@ -1841,7 +1843,7 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 410,
+      "linhas": 448,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1866,7 +1868,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 2018,
+      "linhas": 2138,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1886,7 +1888,8 @@
       "escreve_ficheiro": true,
       "chamado_por": [],
       "citado_por": [
-        "coleta/social_envelope.py"
+        "coleta/social_envelope.py",
+        "pedido/receitas.py"
       ],
       "no_ci": true
     },
@@ -2625,7 +2628,7 @@
     "ficheiros_de_codigo": 118,
     "pontos_de_entrada": 87,
     "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 47,
+    "sem_chamador_e_fora_do_ci": 46,
     "sem_aresta_medida_e_fora_do_ci": 64,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 69,
@@ -2749,7 +2752,6 @@
       "guarda/portas_live.py"
     ],
     "orfaos": [
-      "pedido/receitas.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",

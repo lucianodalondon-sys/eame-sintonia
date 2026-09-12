@@ -170,7 +170,12 @@ _TABELA = [
     _e('BUDGET_EXHAUSTED', ROUTE, True, UNAVAILABLE, False, False,
        ['BUDGET_EXHAUSTED', 'PAID_ROUTE_REFUSED', 'JA_CONCLUIDO',
         'NETWORK_BUDGET_EXHAUSTED', 'FINANCIAL_BUDGET_EXHAUSTED',
-        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET'],
+        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET',
+        # A SCRAP-SR-02 fechou a porta da compra; a SCRAP-FLOW-01 mediu que a
+        # recusa dela chegava ao rasto como `UNKNOWN_ERROR`. «A missao nao
+        # autorizou pagar» ja estava escrito na descricao desta familia — o que
+        # faltava era o alias que o proprio comentario abaixo manda escrever.
+        'SPEND_NOT_AUTHORIZED'],
        'teto NOSSO: gasto, ACESSOS, itens, ou a missão não autorizou pagar. Trocar '
        'de chave não resolve — a recusa é da casa, não da plataforma. A fonte não '
        'tem nada a ver com isso. Os dois tetos da C10.8A-R/C10.8A-F entram aqui '

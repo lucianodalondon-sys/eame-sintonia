@@ -9369,3 +9369,243 @@ fechado: continuam a existir caminhos antigos que não passam pelo orquestrador.
 
 Declarar o segundo porque se conseguiu o primeiro seria trocar a pergunta pela
 que já tem resposta.
+
+# §93 · UM MÓDULO QUE NÃO CONSEGUE GASTAR AINDA NÃO É UM CAMINHO QUE PASSA PELA CASA
+
+> **Missão:** SCRAP-FLOW-01 · migrar **um** caminho operacional real para
+> `ENTRYPOINT → REQUEST → ORCHESTRATOR → SCRAP EXECUTOR`, e prová-lo ponta a
+> ponta sem rede real e sem gasto real.
+>
+> ```
+> MODULE CAN'T SPEND  !=  FLOW IS CANONICAL.
+> ```
+
+A §92 fechou a porta do dinheiro e disse, no fim, o que **não** tinha fechado:
+os caminhos antigos continuavam a saltar o orquestrador, e apenas já não
+conseguiam comprar. Esta secção é o que se aprendeu a fechar o primeiro deles.
+
+## 93.1 · ATRAVESSAR O SUBSISTEMA NÃO É ATRAVESSAR A CASA
+
+O repositório já tinha um censo honesto de desvios — e ele media o boundary
+**de baixo**: que fases chegam a `scrap_executor.COLLECT`. Quatro não chegavam,
+e diziam-no em voz alta.
+
+O que ninguém tinha medido era o boundary **de cima**. E aí a conta era outra:
+*todas* as fases que adquirem e chegam ao `COLLECT` continuavam a nascer sem
+pedido, sem plano, sem portão de relevância da fonte, sem corrida cunhada antes
+do facto, sem recibo, sem ingresso e sem admissão.
+
+```
+    UMA FASE PODE TER PORTÃO DE ROTA, TETO DE REDE, TETO DE GASTO E GUARDA DE
+    COMPRA — E MESMO ASSIM NÃO PASSAR PELA CASA.
+
+    ATRAVESSA O SCRAP  !=  ATRAVESSA A CASA.
+```
+
+Um censo de desvios que não diz **a que altura** está o boundary mede a porta
+errada com toda a honestidade do mundo.
+
+## 93.2 · UMA LEI QUE SE CUMPRE PORQUE SÓ HÁ UM CANDIDATO NÃO ESTÁ A SER CUMPRIDA
+
+`leis/gestao_da_coleta.py` escreve, desde que existe:
+
+```
+ORQUESTRADOR_DECIDE = ('COMO', 'QUAL_ROTA', 'QUAL_EXECUTOR')
+```
+
+E durante todo esse tempo `QUAL_EXECUTOR` **não era uma decisão: era o índice
+zero.** O plano perguntava a relevância sobre `execs[0]`; o controlo corria
+`executores[0]`. Duas linhas, em dois ficheiros, a decidir a mesma coisa por
+acidente — e a coincidirem só enquanto cada alvo tivesse um executor.
+
+O próprio registo documentava a consequência, e resignava-se a ela: «um segundo
+registo aqui nunca seria aberto e ficaria a mentir nesta lista».
+
+```
+    UMA LEI QUE SE CUMPRE PORQUE SÓ HÁ UM CANDIDATO NÃO ESTÁ A SER CUMPRIDA:
+    ESTÁ POR TESTAR.
+```
+
+Quando a escolha ganhou dono, duas coisas ficaram verdadeiras de uma vez: o
+pedido passou a poder nomear, e o portão passou a julgar **quem vai correr**.
+
+```
+    JULGAR UM E CORRER OUTRO É PIOR DO QUE NÃO JULGAR NADA.
+```
+
+E a regra da escolha precisa de uma metade que quase se esquece: um executor
+que declara o seu selector **nunca** pode ser escolhido por omissão. Se pudesse,
+acrescentar uma linha nova à lista mudava calado o caminho de todos os pedidos
+que já existiam.
+
+```
+    QUEM PEDE NOMEIA. QUEM NÃO NOMEIA LEVA O DE SEMPRE.
+```
+
+## 93.3 · UM PROXY QUE ACERTA POR ACIDENTE É UM PROXY QUE VAI FALHAR NO SEGUNDO CASO
+
+O plano decidia se havia par (fonte, propósito) para o portão julgar olhando
+para outra coisa: se `fonte` estava na lista de filtros que viram **argumento de
+linha de comando**.
+
+Isso acertava — porque o único executor que aceitava fonte também a passava na
+linha. Duas perguntas diferentes com a mesma resposta, por coincidência de
+amostra de um.
+
+```
+    QUEM O PORTÃO JULGA  !=  O QUE A LINHA DE COMANDO LEVA.
+```
+
+O segundo caso partiu as duas ao mesmo tempo: uma rota que colhe de uma fonte
+só e **não** a recebe como argumento posicional ficava invisível ao portão; e se
+alguém a acrescentasse à lista para a tornar visível, o valor entrava como
+terceiro argumento e era lido como **teto**.
+
+## 93.4 · UMA ENTRADA QUE SÓ SE LÊ DO DISCO OBRIGA A PROVA A ESCREVER NO DISCO
+
+O livro de relevância pertence a um dono externo, e o plano só o lê. Só que o
+lia de um caminho fixo — e a consequência era que **nenhuma prova conseguia
+exercitar o efeito do portão sem escrever no livro da casa**.
+
+Tornar a entrada explícita (`livro=None` continua a ser «o livro desta casa»)
+não move a lei nem a copia. Dar a entrada ao dono da lei não é decidir por ele.
+
+```
+    TORNAR UMA ENTRADA EXPLÍCITA NÃO É TIRAR PODER AO DONO DELA.
+    É PARAR DE OBRIGAR QUEM O PROVA A MENTIR-LHE.
+```
+
+## 93.5 · O FAKE TEM DE SER A CAMADA MAIS FUNDA — E A MAIS FUNDA PODE SER UM BINÁRIO
+
+A casa já tinha escrito, noutra prova: **um fake acima do gate mede o fake**.
+Esta missão descobriu a versão dura dessa lei: o executor canónico corre num
+**subprocesso**, e um fake instalado no processo que chama não o alcança.
+
+A saída não foi criar uma costura de teste no código de produção — foi descer
+mais um andar. O cliente HTTP desta casa, na rota paga, é o binário `curl`. Um
+`curl` falso à frente no `PATH` é o mundo, não é nosso:
+
+```
+    O `PATH` É O MUNDO. TROCAR O QUE ESTÁ NELE NÃO É FALSIFICAR A CASA.
+```
+
+E ele traz um bónus que nenhum monkeypatch traz: cada invocação fica escrita num
+ficheiro, e a contagem de POST passa a ser **medida na camada mais funda** em
+vez de deduzida do que o runtime disse que fez.
+
+## 93.6 · UMA PROVA QUE ATRAVESSA A CADEIA INTEIRA ESCREVE ONDE A CADEIA INTEIRA ESCREVE
+
+A prova positiva correu, passou — e deixou **três decisões falsas no livro de
+decisões desta casa** e reescreveu o registo de uma corrida paga REAL.
+
+Não havia bug nenhum. A cadeia inteira inclui o ingresso e a porta de admissão,
+e uma prova que atravessa a cadeia inteira escreve onde a cadeia inteira escreve.
+
+```
+    UMA PROVA QUE DEIXA OBSERVAÇÃO FALSA NO LIVRO DA CASA
+    NÃO PROVOU A CASA: CONTAMINOU-A.
+```
+
+O mundo pode ser falso. O que ele escreve nos livros reais não pode ficar — e o
+«não pode ficar» tem de ser **conferido byte a byte**, não prometido. Inclusive
+o ficheiro que o `.gitignore` ignora: é precisamente esse que passaria
+despercebido para sempre.
+
+## 93.7 · TRÊS DONOS PODEM DIZER NÃO, E O RASTO TEM DE DIZER QUAL
+
+A negativa da autorização passou na parte que conta — zero POST saiu — e
+reprovou na outra: a recusa chegava ao rasto como `UNKNOWN_ERROR`.
+
+O mesmo nome que um extrator partido, um `TypeError` da casa ou um adaptador a
+rebentar. E a casa já tinha escrito a lei **duas vezes**, uma delas dentro da
+própria família de falhas que devia ter acolhido esta recusa.
+
+```
+    UM `except Exception` LARGO NÃO DISTINGUE QUEM DISSE NÃO.
+```
+
+A lição não é «faltou um alias». É que uma guarda nova nasce **fora** do
+vocabulário de falhas da casa, e ninguém repara enquanto ninguém a provar — a
+guarda funciona, recusa certo, e mente sobre quem recusou.
+
+```
+    UMA GUARDA QUE RECUSA CERTO E SE NOMEIA MAL É INDISTINGUÍVEL DE UM DEFEITO.
+    PROVAR A NEGATIVA NÃO É PROVAR QUE PARA: É PROVAR QUE SE EXPLICA.
+```
+
+E há um terceiro andar: o vocabulário fechado traduz o nome exacto para a
+família e guarda o original — o desenho certo. Mas durante todo esse tempo o
+nome original **não era impresso por lado nenhum**, e num runner a saída *é* o
+registo.
+
+```
+    COLAPSAR OS TRÊS DONOS NUMA FAMÍLIA FAZ O RASTO MENTIR
+    SOBRE QUAL DELES PAROU A EXECUÇÃO.
+```
+
+## 93.8 · O FLUXO CANÓNICO NÃO PARTE UMA FASE: FAZ-LHE A PERGUNTA QUE O DESVIO NÃO FAZIA
+
+Migrada, a única fase paga desta casa **deixou de correr**: `BARRADO_NA_RELEVANCIA`.
+
+O alvo sentinela dela é um vídeo de um canal que não tem ficha nenhuma nas 77
+fontes. Com rota paga e sem fonte nomeada, o portão responde `EXIGE_AVALIACAO` —
+e nada corre, e nada custa.
+
+Havia duas formas fáceis de contornar, e ambas seriam mentira:
+
+- escrever um `source_id` no registo do executor, para o portão ter o que julgar
+  → **fabricar procedência**: o portão julgaria uma fonte que a rota não visita;
+- escrever um veredito no livro → avaliar uma fonte que a missão não foi
+  encarregada de avaliar.
+
+```
+    NÃO SE NOMEIA UMA FONTE PARA O PORTÃO TER O QUE JULGAR.
+```
+
+E a leitura certa do resultado:
+
+```
+    O FLUXO CANÓNICO NÃO PARTIU A FASE.
+    ELE FEZ-LHE A PERGUNTA QUE O DESVIO NÃO FAZIA.
+```
+
+Uma migração que faz um caminho parar **é um resultado**, e não uma falha da
+migração — desde que o motivo esteja escrito, seja verdadeiro, e a decisão que
+falta seja de quem a tem de tomar.
+
+## 93.9 · UMA PROVA QUE APONTA PARA A PORTA ANTIGA RECUSA A CASA CERTA
+
+Duas provas desta casa quebraram, e nenhuma por defeito:
+
+- uma exigia que a fase paga entrasse por `social_scrap.py coletar` — a porta
+  canónica **da altura em que foi escrita**;
+- outra guardava que nenhum executor passasse a receber a corrida sem a pedir, e
+  fazia-o com uma **excepção única escrita à mão**.
+
+Nenhuma delas foi enfraquecida. A primeira subiu com a porta — e a lista de
+motores proibidos **ganhou um nome**, o do executor que o disparador deixou de
+ter de conhecer. A segunda trocou a excepção por uma lista declarada, e passou a
+exigir também o inverso: quem está na lista **tem** de pedir a corrida.
+
+```
+    UMA PROVA QUE APONTA PARA A MORADA ANTIGA RECUSA A CASA CERTA.
+    ACTUALIZAR O ALVO DE UMA PROVA NÃO É AFROUXÁ-LA — DESDE QUE O QUE ELA
+    GUARDA FIQUE MAIS APERTADO, E NÃO MENOS.
+```
+
+## 93.10 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Um caminho canónico não é **o** fluxo canónico. As fases da janela continuam a
+saltar o orquestrador, e isso está medido, não escondido. E a fase migrada está
+canónica **e** barrada ao mesmo tempo — as duas coisas são verdade, e nenhuma
+paga pela outra.
+
+```
+    CANONICAL_ORCHESTRATION(um caminho) = PASS
+    não é
+    CANONICAL_ORCHESTRATION(o fluxo)    = PASS.
+```
+
+O que mudou, e vale para o próximo: a escolha do executor tem dono, o livro é
+uma entrada que se diz, e a corrida declara o que produziu. O segundo caminho
+custa menos do que este — e é essa a única promessa que esta secção faz.

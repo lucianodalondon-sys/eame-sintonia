@@ -105,13 +105,33 @@ class ODisparadorNaoEOMotor(unittest.TestCase):
                              % proibido)
 
     def test_3_a_fase_paga_entra_pela_porta_canonica(self):
+        """A PORTA CANÓNICA SUBIU UM ANDAR, E ESTA PROVA SUBIU COM ELA.
+
+        Quando a C10.8B-LIVE a escreveu, a porta canónica desta fase era
+        `coleta/social_scrap.py coletar` — ela atravessava
+        `scrap_executor.COLLECT`, e isso era o mais alto que havia.
+
+        A SCRAP-FLOW-01 mediu que isso não bastava: atravessar o SCRAP não é
+        atravessar a CASA. Sem pedido, sem plano, sem portão de relevância da
+        fonte, sem corrida cunhada antes do facto, sem recibo e sem ingresso.
+
+            MODULE CAN'T SPEND != FLOW IS CANONICAL.
+
+        Agora a porta é o orquestrador — e o disparador deixou de conhecer a
+        linha de comando do executor, que é o que ele nunca devia ter sabido.
+        A regra que esta prova guarda NÃO foi enfraquecida: ela aponta para uma
+        porta mais alta, e a lista de motores proibidos GANHOU um nome.
+        """
         fonte = _fonte(WORKFLOW)
         bloco = fonte.split('%s)' % FASE, 1)
         self.assertEqual(len(bloco), 2, 'a fase paga saiu do disparador')
         corpo = bloco[1].split(';;', 1)[0]
-        self.assertIn('coleta/social_scrap.py', corpo)
-        self.assertIn('coletar %s' % FASE, corpo)
-        for proibido in ('coletor.py', 'adaptador_youtube', 'instagram_coleta',
+        self.assertIn('orquestrador/orquestrador.py', corpo,
+                      'a fase paga deixou de entrar pelo orquestrador')
+        self.assertIn('--filtro fase=%s' % FASE, corpo,
+                      'o disparador deixou de dizer AO PEDIDO qual e a fase')
+        for proibido in ('coleta/social_scrap.py', 'coletor.py',
+                         'adaptador_youtube', 'instagram_coleta',
                          'sensor_coleta'):
             self.assertNotIn(proibido, corpo,
                              'a fase paga passou a chamar um motor directo')

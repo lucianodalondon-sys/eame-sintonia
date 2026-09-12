@@ -180,10 +180,24 @@ class OCaminhoEstaLigado(CasoB1):
         self.assertEqual(r.returncode, 2)
         self.assertIn("NAO cunha corrida", r.stderr)
 
+    #: OS EXECUTORES QUE PEDEM A CORRIDA — declarados aqui, um a um.
+    #:
+    #: `recebe_run_id` e OPT-IN, e o que esta prova guarda e que ele continue a
+    #: se-lo: um executor que NAO pediu a corrida tem de continuar a ser chamado
+    #: exactamente com os mesmos argumentos de antes. A lista nao e uma isencao
+    #: — e o sitio onde uma adesao nova tem de ser ESCRITA para passar.
+    #:
+    #:     UMA LISTA QUE SE ESCREVE A MAO E UMA ADESAO QUE NAO ACONTECE SOZINHA.
+    PEDEM_A_CORRIDA = ("italia-recorrente",      # T-04, a Italia recorrente
+                       "scrap-yt-legenda-paga")  # SCRAP-FLOW-01, a rota paga
+
     def test_6_nenhum_executor_antigo_mudou_de_linha_de_comando(self):
         for universo, lista in EXECUTORES.items():
             for e in lista:
-                if e["id"] == "italia-recorrente":
+                if e["id"] in self.PEDEM_A_CORRIDA:
+                    self.assertTrue(e.get("recebe_run_id"),
+                                    "%s/%s esta na lista e nao pede a corrida"
+                                    % (universo, e["id"]))
                     continue
                 self.assertNotIn("recebe_run_id", e,
                                  "%s/%s passou a receber corrida sem a pedir"

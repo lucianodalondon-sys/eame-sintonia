@@ -317,9 +317,16 @@ def guardar_recibo(recibo: dict) -> None:
 
 
 def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
-           so_a_porta: bool = False, memoria=None, banco_do_rastro=None) -> dict:
-    """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha."""
-    plano = resolver(p)
+           so_a_porta: bool = False, memoria=None, banco_do_rastro=None,
+           livro=None) -> dict:
+    """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha.
+
+    `livro` e o livro de relevancia da fonte, que pertence a um dono EXTERNO
+    (`leis/relevancia_da_fonte.py`). `None` = o livro desta casa, que e o que
+    a producao usa. Passa-lo e dar a ENTRADA ao dono da lei; a decisao continua
+    a ser dele, e este ficheiro continua a obedece-la sem a copiar.
+    """
+    plano = resolver(p, livro=livro)
 
     if so_plano or not plano.da_para_correr:
         return {
@@ -373,7 +380,14 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             "_plano": plano,
         }
 
-    e = plano.executores[0]
+    # ── QUEM CORRE E O QUE O PLANO ESCOLHEU ─────────────────────────────────
+    # ⚠️ AQUI ESTAVA `plano.executores[0]`, e `receitas.resolver` perguntava a
+    # relevancia sobre `execs[0]`. Eram DUAS linhas a decidir a mesma coisa, em
+    # dois ficheiros, e so coincidiam enquanto cada alvo tivesse um executor so.
+    #
+    #     ONE CONCEPT -> ONE OWNER. Quem escolhe e `receitas.escolher`, e ele
+    #     escolhe UMA vez. Este ficheiro le a escolha; nao a refaz.
+    e = plano.escolhido
     caminho = e["roda"][0]
 
     # ── A CORRIDA NASCE AQUI, ANTES DE QUALQUER COISA CORRER ────────────────

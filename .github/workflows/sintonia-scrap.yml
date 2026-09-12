@@ -341,9 +341,49 @@ jobs:
             #     WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR DE COLETA.
             #     E UM TETO QUE VIVE NO DISPARADOR É UM TETO QUE QUEM DISPARA
             #     ESCOLHE.
+            #
+            # ── E ELA ENTRA PELO ORQUESTRADOR, DESDE A SCRAP-FLOW-01 ──────
+            # Ate aqui esta linha corria `coleta/social_scrap.py coletar` DIRETO.
+            # Isso atravessava o `scrap_executor.COLLECT` — e mais nada:
+            #
+            #     DISPARADOR -> SCRAP EXECUTOR
+            #
+            # Sem PEDIDO, sem plano, sem portao de relevancia da fonte, sem
+            # RUN_ID cunhado antes da corrida, sem recibo, sem ingresso e sem
+            # admissao. A SCRAP-SR-02 tinha fechado a porta do DINHEIRO; o
+            # CAMINHO continuava por fora.
+            #
+            #     MODULE CAN'T SPEND != FLOW IS CANONICAL.
+            #
+            # Agora:
+            #
+            #     DISPARADOR -> PEDIDO -> ORQUESTRADOR -> SCRAP EXECUTOR
+            #
+            # ⚠️ E ISSO TEM UMA CONSEQUENCIA MEDIDA, QUE NAO SE ESCONDE AQUI.
+            # O alvo sentinela desta fase e um video do canal «Coldiretti
+            # Emilia Romagna», que NAO tem ficha nas 77 fontes desta casa. Com
+            # rota paga e sem fonte nomeada, o portao de relevancia responde
+            # `EXIGE_AVALIACAO` e o orquestrador devolve `BARRADO_NA_RELEVANCIA`
+            # com codigo 3: nada corre, nada custa.
+            #
+            #     O FLUXO CANONICO NAO PARTIU ESTA FASE. ELE FEZ-LHE A
+            #     PERGUNTA QUE O DESVIO NAO FAZIA.
+            #
+            # Para ela voltar a correr falta uma decisao humana: levantar a
+            # ficha da fonte e avaliar a relevancia dela. Ate la, o disparador
+            # diz isso em voz alta em vez de comprar em silencio.
             yt-legenda-paga)
-              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \
-                coletar yt-legenda-paga ;;
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" --filtro fase=yt-legenda-paga
+              rc=$?
+              if [ "$rc" = "3" ]; then
+                echo "BARRADO_NA_RELEVANCIA=YES"
+                echo "  Nada correu e nada custou. Isto NAO e uma falha do"
+                echo "  disparador nem da rota: e uma decisao desta casa,"
+                echo "  tomada antes de gastar, e ela tem nome proprio."
+                echo "  Ver o recibo acima para a fonte e o estado dela."
+              fi
+              exit $rc ;;
 
             # ── NÃO É COLLECTION · CONTINUA COMO ESTAVA ──────────────────
             # Medido, não suposto. Nenhuma destas adquire nada de plataforma:

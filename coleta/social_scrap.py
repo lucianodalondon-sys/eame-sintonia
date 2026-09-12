@@ -1598,6 +1598,84 @@ FASES_PAGAS = {
 }
 
 
+#: ONDE A CORRIDA DECLARA O QUE PRODUZIU — a unica origem legitima de COLHEITA.
+#:
+#: `leis/retorno_da_coleta.py` (COL-LAW-505) recusa que uma declaracao escrita
+#: na RECEITA diga «aqui ha colheita»: a receita e escrita ANTES da corrida e
+#: envelhece sozinha. So a corrida pode declarar colheita, e e aqui que ela o
+#: faz. O caminho e o mesmo que `pedido/receitas.py` declara em `retorno`.
+RETORNO_DA_CORRIDA = os.path.join('data', 'colheita', 'scrap', 'RETORNO.json')
+
+
+def _declarar_o_retorno(fase, corrida, objetos, trace, *, raiz=None):
+    """Escreve o ENVELOPE desta corrida. → o caminho escrito.
+
+    O QUE ESTA FUNCAO RECUSA FAZER
+    ------------------------------
+    Ela nao classifica, nao deduz e nao promove. A especie de cada unidade e
+    `COLHEITA` porque estes objectos SAO o que a corrida foi buscar — e o
+    estado do payload nao e afirmado: e MEDIDO por
+    `retorno_da_coleta.estado_do_payload`, que olha para a arvore.
+
+        QUEM DECLARA O CAMINHO NAO CONFIRMA OS BYTES. Quem confirma e quem olha.
+
+    ⚠️ O `SOURCE_ID` DE CADA UNIDADE NAO E INVENTADO AQUI. Ele e o que o
+    registo desta fase ja declarava antes desta missao — `SCRAP-<GAVETA>/<fase>`
+    — e nao e nenhuma das 77 fontes em ficha desta casa. Escrever aqui uma das
+    77 seria atribuir a uma fonte avaliada material que veio de outro sitio.
+    """
+    import retorno_da_coleta as rdc
+    raiz = raiz or RAIZ
+    estado = 'SUCCESS' if trace.get('RESULT') == 'OK' else (
+        'PARTIAL' if objetos else 'FAILED')
+    erros = []
+    if estado != 'SUCCESS':
+        erros.append('%s: %s' % (trace.get('RESULT') or 'UNKNOWN',
+                                 str(trace.get('ERROR') or
+                                     trace.get('NATIVE_REASON') or '')[:300]))
+    med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
+    onde = med.get('SCRAP_RAW_REFERENCE') or trace.get('SCRAP_RAW_REFERENCE')
+    colheita = []
+    for o in (objetos or []):
+        colheita.append({
+            'ESPECIE': rdc.COLHEITA,
+            'SOURCE_ID': 'SCRAP-YOUTUBE/%s' % fase,
+            # O identificador e o da PLATAFORMA. Tirar um do sha ou do caminho
+            # seria fabricar — e `conferir_unidade` sabe reconhecer isso.
+            'DOCUMENT_ID': str(o.get('NATIVE_ID') or rdc.NAO_SEI),
+            'RUN_ID': str(corrida),
+            'URL': o.get('URL'),
+            'PAYLOAD': {'ESTADO': rdc.estado_do_payload(onde, raiz),
+                        'ONDE': onde},
+        })
+    envelope = {
+        'RUN_ID': str(corrida),
+        'EXECUTOR_ID': 'scrap-%s' % fase,
+        'EXECUTOR_VERSION': '%s@%s' % (scrap_versao()[0], scrap_versao()[1]),
+        'ESTADO': estado,
+        'COLHEITA': colheita,
+        'SUPORTE': [],
+        'ERROS': erros,
+    }
+    if estado == 'SUCCESS' and not colheita:
+        # ZERO LEGITIMO NAO E FALHA, e diz-se porque. Sem esta linha, um zero
+        # honesto e um zero por defeito lem-se igual.
+        envelope['PORQUE_ZERO_COLHEITA'] = (
+            'a corrida terminou em %s e nao trouxe objecto nenhum'
+            % trace.get('RESULT'))
+    alvo = os.path.join(raiz, RETORNO_DA_CORRIDA)
+    os.makedirs(os.path.dirname(alvo), exist_ok=True)
+    with open(alvo, 'w', encoding='utf-8') as f:
+        json.dump(envelope, f, ensure_ascii=False, indent=1, sort_keys=True)
+    return alvo
+
+
+def scrap_versao():
+    """(EXECUTOR_ID, EXECUTOR_VERSION) do SCRAP — lidos de quem os declara."""
+    import scrap_executor as scrap
+    return scrap.EXECUTOR_ID, scrap.EXECUTOR_VERSION
+
+
 def _banco_se_houver():
     """O dono da durabilidade, se houver DSN. `None` NÃO é falha.
 
@@ -1882,6 +1960,24 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
     print('  rota        %s' % (trace.get('ROTA_ESCOLHIDA') or trace.get('ROUTE') or '—'))
     print('  executor    %s' % trace.get('EXECUTOR_ID'))
     print('  run durável %s' % trace.get('RUN_STATE_PERSISTED', 'NOT_REQUESTED'))
+    # ── QUAL DOS DONOS DISSE NÃO — na saída, e não só num objecto ────────────
+    # `leis/falhas.py` tem vocabulário FECHADO, e `social_rotas.selar` traduz o
+    # estado para a família e guarda o nome exacto em `ESTADO_ORIGINAL`. Isso é
+    # o desenho certo — e durante todo esse tempo o nome exacto NÃO era
+    # impresso por lado nenhum. Num runner, a saída É o registo: quem lesse
+    # `BUDGET_EXHAUSTED` não tinha como saber se acabou o tecto de gasto, se
+    # acabou o de acessos, ou se faltava autorização para comprar.
+    #
+    #     COLAPSAR OS TRÊS DONOS NUMA FAMÍLIA FAZ O RASTO MENTIR
+    #     SOBRE QUAL DELES PAROU A EXECUÇÃO.
+    _rr = trace.get('ROUTER_RECORD') or {}
+    if _rr.get('ESTADO_ORIGINAL'):
+        print('  recusa      %s   (família canónica: %s)'
+              % (_rr['ESTADO_ORIGINAL'], _rr.get('ESTADO')))
+    if _rr.get('AUTORIZACAO_DO_GASTO'):
+        v = _rr['AUTORIZACAO_DO_GASTO']
+        print('  veredito    %s · %s' % (v.get('VEREDITO'),
+                                         str(v.get('PORQUE'))[:120]))
     if paga is not None:
         # O que uma fase paga TEM de publicar, mesmo quando nao gastou nada.
         # Um relatorio que so fala de dinheiro quando houve dinheiro obriga
@@ -1904,6 +2000,15 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
             if campo in med:
                 print('  %-34s %s' % (campo, med[campo]))
         _registar_fase_paga(fase, paga, corrida, objetos, trace)
+    # ── A CORRIDA DECLARA O QUE PRODUZIU, E ISSO E O QUE ATRAVESSA ──────────
+    # Sem esta linha o executor largava ficheiros e ninguem ia buscar: o
+    # orquestrador corria-o, procurava o `retorno` declarado na receita, nao o
+    # encontrava, e escrevia no recibo que a colheita nao foi encontrada.
+    #
+    #     LARGAR NAO E ENTREGAR. SO COLHEITA DECLARADA ATRAVESSA. (COL-LAW-505)
+    onde = _declarar_o_retorno(fase, corrida, objetos, trace)
+    print('\n  RETORNO DECLARADO   %s'
+          % os.path.relpath(onde, RAIZ).replace(os.sep, '/'))
     estado = trace.get('RESULT')
     if estado in ('ROUTE_NOT_ALLOWED', 'AUTOMATION_NOT_ALLOWED'):
         print('\n  A POLÍTICA RECUSOU, E ISSO É UM RESULTADO — não um erro desta CLI.')
@@ -1952,7 +2057,11 @@ def _avisar_se_salta_o_boundary(cmd):
 
 
 def main():
-    args = sys.argv[1:]
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    #: As opcoes longas, lidas UMA vez. Os argumentos posicionais deixam de as
+    #: ver — antes, um `--run-id=X` entrava em `args[2]` e era lido como TETO.
+    opcoes = dict(a[2:].split('=', 1) for a in sys.argv[1:]
+                  if a.startswith('--') and '=' in a)
     cmd = args[0] if args else 'censo'
     _avisar_se_salta_o_boundary(cmd)
     if cmd == 'censo':
@@ -1999,11 +2108,22 @@ def main():
         # Leitura de ficheiro local. Nao adquire, nao gasta e nao toca rede.
         return bruto(args[1] if len(args) > 1 else None)
     elif cmd == 'coletar':
-        # `coletar <fase> [teto]` — a entrada que os workflows usam.
+        # `coletar <fase> [teto]` — a entrada que o ORQUESTRADOR usa.
+        #
+        # ── O `--run-id` E DE QUEM CUNHOU A CORRIDA ──────────────────────────
+        # `coletar` ja sabia receber `run_id`, e NADA lho passava: a CLI
+        # cunhava um por execucao e dizia-o. Enquanto o unico chamador era o
+        # workflow, isso era honesto. Com o orquestrador a chamar, deixou de
+        # ser: ele cunha a corrida ANTES de qualquer coisa correr, e uma
+        # corrida com dois nomes nao se consegue juntar depois.
+        #
+        #     PROVENIENCIA E PROSPECTIVA. Duas corridas para um facto so
+        #     nao e redundancia: e perder o facto.
         if len(args) < 2:
-            print('uso: coletar <fase> [teto]')
+            print('uso: coletar <fase> [teto] [--run-id=<id>]')
             return 2
         return coletar(args[1], teto=args[2] if len(args) > 2 else None,
+                       run_id=opcoes.get('run-id'),
                        banco=_banco_se_houver())
     elif cmd == 'guarda':
         import social_guarda

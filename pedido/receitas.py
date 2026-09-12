@@ -141,6 +141,17 @@ EXECUTORES = {
         "larga_em": ["data/colheita/italia/"],
         # precedente: o T9 ja traduz filtros do pedido em argumentos do executor.
         "argumentos_de_filtros": ["fonte"],
+        # ACEITAR UMA FONTE NAO E PASSA-LA NA LINHA DE COMANDO. Ate a
+        # SCRAP-FLOW-01, `fonte_nomeada` deduzia uma coisa da outra — e a
+        # deducao valia aqui por acidente: este executor faz as duas. Um
+        # executor que colhe de UMA fonte sem a receber como argumento
+        # posicional era invisivel ao portao, e um que recebesse `fonte` como
+        # terceiro argumento de linha entregava-o a quem espera um teto.
+        #
+        #     QUEM O PORTAO JULGA  !=  O QUE A LINHA DE COMANDO LEVA.
+        #
+        # Declarado, nao deduzido. O comportamento deste executor nao muda.
+        "aceita_fonte": True,
         # A A5.2 autorizou UMA fonte para o primeiro corte. O coletor sabe
         # percorrer sete; registar as sete de uma vez seria prometer o que nao
         # foi provado por aqui.
@@ -187,6 +198,59 @@ EXECUTORES = {
                       "FALA do video, num campo separado da legenda",
         "custo": "pago quando passa pela rota Apify; `transcrever` custa zero "
                  "dolares e paga-se em tempo de maquina",
+    }, {
+        # ── A FASE PAGA DO SCRAP, TRAZIDA PARA DENTRO DO FLUXO CANONICO ──────
+        # Ate a SCRAP-FLOW-01 esta fase era despachada assim, pelo workflow:
+        #
+        #     sintonia-scrap.yml  ->  coleta/social_scrap.py coletar yt-legenda-paga
+        #
+        # Isso atravessava o `scrap_executor.COLLECT` — e mais nada. Sem
+        # PEDIDO, sem plano, sem portao de relevancia, sem RUN_ID cunhado antes
+        # da corrida, sem recibo, sem ingresso e sem admissao. A SCRAP-SR-02
+        # tinha fechado a porta do DINHEIRO; o CAMINHO continuava por fora.
+        #
+        #     MODULE CAN'T SPEND  !=  FLOW IS CANONICAL.
+        #
+        # ⚠️ ESTA LINHA NAO DECLARA FONTE, E ISSO NAO E ESQUECIMENTO.
+        # O alvo sentinela desta fase — o video `EAkcA_2FDN8` — e do canal
+        # «Coldiretti Emilia Romagna», e esse canal NAO tem ficha nenhuma nas
+        # 77 fontes desta casa. Escrever aqui um `source_id` para o portao ter
+        # o que julgar seria fabricar procedencia: o portao julgaria uma fonte
+        # que esta rota nao visita.
+        #
+        #     NAO SE NOMEIA UMA FONTE PARA O PORTAO TER O QUE JULGAR.
+        #
+        # A consequencia esta medida e e dura: com rota paga e sem fonte
+        # nomeada, `leis/relevancia_da_fonte.py` devolve `EXIGE_AVALIACAO` e o
+        # orquestrador responde `BARRADO_NA_RELEVANCIA`. Esta fase, pelo
+        # caminho canonico, NAO CORRE — e nao corre por uma razao que o
+        # caminho antigo nunca chegou a perguntar.
+        #
+        #     O FLUXO CANONICO NAO PARTIU ESTA FASE. ELE FEZ-LHE A PERGUNTA
+        #     QUE O DESVIO NAO FAZIA.
+        #
+        # Para ela voltar a correr falta uma decisao humana que nao e desta
+        # missao: levantar a ficha da fonte e avaliar a relevancia dela.
+        "id": "scrap-yt-legenda-paga",
+        # A CORRIDA DECLARA O QUE PRODUZIU — e e por isso que ha `ENVELOPE` e
+        # nao `LEGADO`. `leis/retorno_da_coleta.py` so deixa COLHEITA entrar no
+        # ingresso vinda de uma declaracao de corrida.
+        "retorno": {"ENVELOPE": "data/colheita/scrap/RETORNO.json"},
+        "roda": ["coleta/social_scrap.py", "coletar"],
+        # O PEDIDO ESCOLHE ESTE EXECUTOR. Sem isto, `T9` tinha dois registos e
+        # o segundo nunca abria — o orquestrador corria sempre o primeiro, e
+        # esta linha ficava a mentir na lista.
+        "pedido_pede": {"fase": "yt-legenda-paga"},
+        "argumentos_de_filtros": ["fase"],
+        # A fase e a mesma chave que a escolhe: ela nao se escreve duas vezes.
+        "recebe_run_id": True,
+        "aceita_fonte": True,
+        "larga_em": ["data/samples/SCRAP-YOUTUBE", "data/colheita/scrap/"],
+        "rotas": ["Apify"],
+        "o_que_traz": "a legenda nativa de um video do YouTube pela rota paga "
+                      "`apify:transcricao`, com o SHA-256 do bruto que a "
+                      "corrida capturou",
+        "custo": "pago: a rota apify:transcricao compra a execucao ao provider",
     }],
 }
 
@@ -227,6 +291,48 @@ def _sabe_o_caminho(f: dict) -> bool:
     return bool(m) and "NAO SEI" not in m.upper() and "NÃO SEI" not in m.upper()
 
 
+# ── QUAL EXECUTOR, DE ENTRE OS DO ALVO — E QUEM DECIDE ISSO ────────────────
+# `leis/gestao_da_coleta.py` escreve, desde que existe:
+#
+#     ORQUESTRADOR_DECIDE = ('COMO', 'QUAL_ROTA', 'QUAL_EXECUTOR')
+#
+# E durante todo esse tempo `QUAL_EXECUTOR` nao era uma decisao: era o indice
+# zero. `resolver` perguntava a relevancia sobre `execs[0]` e `correr` corria
+# `executores[0]` — duas linhas, em dois ficheiros, a decidir a mesma coisa
+# por acidente. O registo de T9 chegou a documentar a consequencia: «um segundo
+# registo em T9 nunca seria aberto e ficaria a mentir nesta lista».
+#
+#     UMA LEI QUE SE CUMPRE PORQUE SO HA UM CANDIDATO NAO ESTA A SER CUMPRIDA.
+#
+# A escolha passa a ter dono, e o dono e UM: esta funcao. Quem escolhe e quem
+# julga a relevancia passam a olhar para o MESMO executor — antes, bastava um
+# segundo registo para o portao julgar um e a corrida correr outro.
+def escolher(execs: list, p: Pedido):
+    """→ o executor que este pedido pede, ou `None` quando nao ha nenhum.
+
+    A regra tem duas linhas e nenhuma excecao:
+
+        1 · o PRIMEIRO executor cujo `pedido_pede` casa com os filtros do pedido;
+        2 · senao, o primeiro que NAO declara `pedido_pede`.
+
+    Um executor com `pedido_pede` NUNCA e escolhido por omissao. Se pudesse
+    ser, acrescentar uma linha nova a lista mudava calada o caminho de todos os
+    pedidos que ja existiam — e e exactamente isso que o indice zero fazia ao
+    contrario.
+
+        QUEM PEDE NOMEIA. QUEM NAO NOMEIA LEVA O DE SEMPRE.
+    """
+    for e in execs or []:
+        pede = e.get("pedido_pede")
+        if pede and all(str(p.filtros.get(k) or "") == str(v)
+                        for k, v in pede.items()):
+            return e
+    for e in execs or []:
+        if not e.get("pedido_pede"):
+            return e
+    return None
+
+
 def fonte_nomeada(executor: dict, p: Pedido):
     """→ o SOURCE_ID que ESTE plano vai buscar, ou None quando nao nomeia nenhum.
 
@@ -239,7 +345,7 @@ def fonte_nomeada(executor: dict, p: Pedido):
     `None`: o portao julgaria uma fonte que o executor talvez nem visite, e um
     `SIM` nela abriria a porta as outras sete.
     """
-    if "fonte" not in (executor.get("argumentos_de_filtros") or []):
+    if not executor.get("aceita_fonte"):
         return None
     valores = {**(executor.get("filtros_por_omissao") or {}), **p.filtros}
     v = str(valores.get("fonte") or "").strip()
@@ -262,6 +368,10 @@ class Plano:
     # `leis/relevancia_da_fonte.py`, e nao esta copiada aqui — uma lei em dois
     # sitios diverge, e a partir dai nenhuma das duas vale.
     relevancia: dict = field(default_factory=dict)
+    # O EXECUTOR ESCOLHIDO, decidido UMA vez por `escolher()`. Quem corre le
+    # este campo; ninguem volta a escolher a jusante. Duas escolhas do mesmo
+    # executor sao duas decisoes, e a segunda nao sabe o que a primeira julgou.
+    escolhido: dict | None = None
 
     @property
     def da_para_correr(self) -> bool:
@@ -315,7 +425,15 @@ class Plano:
         if self.executores:
             L.append("  quem vai correr:")
             for e in self.executores:
-                L.append(f"      {e['id']}  ->  {' '.join(e['roda'])}")
+                # ⚠️ SO UM CORRE, E ISSO LE-SE. Antes esta lista mostrava todos
+                # os registos do alvo como se todos corressem — e o que corria
+                # era sempre o primeiro. Quem lia o plano nao tinha como saber.
+                marca = "  <- ESTE" if e is self.escolhido else ""
+                pede = e.get("pedido_pede")
+                L.append(f"      {e['id']}  ->  {' '.join(e['roda'])}{marca}")
+                if pede:
+                    L.append(f"          so quando o pedido pede: "
+                             + " · ".join(f"{k}={v}" for k, v in pede.items()))
                 L.append(f"          traz: {e['o_que_traz']}")
                 L.append(f"          rota: {', '.join(e['rotas'])} · {e['custo']}")
             if self.bloqueia_a_corrida:
@@ -336,8 +454,23 @@ class Plano:
         return "\n".join(L)
 
 
-def resolver(p: Pedido) -> Plano:
-    """Do pedido ao caminho. Tudo medido do atlas; nada adivinhado."""
+def resolver(p: Pedido, *, livro=None) -> Plano:
+    """Do pedido ao caminho. Tudo medido do atlas; nada adivinhado.
+
+    `livro` E UMA ENTRADA, E PASSOU A DIZER-SE
+    ------------------------------------------
+    O livro de relevancia da fonte pertence a um dono EXTERNO ao SCRAP —
+    `leis/relevancia_da_fonte.py` — e este ficheiro so o LE e o entrega ao
+    portao. Ate a SCRAP-FLOW-01 ele era lido de um caminho fixo no disco, e a
+    consequencia era que nenhuma prova conseguia exercitar o efeito do portao
+    sobre o plano sem escrever no livro DESTA casa.
+
+        UMA ENTRADA QUE SO SE LE DO DISCO OBRIGA A PROVA A ESCREVER NO DISCO.
+
+    `None` continua a ser «le o livro desta casa», que e o que a producao faz.
+    Quem passa um livro esta a dar a ENTRADA ao dono da lei — nao a decidir por
+    ele. A regra, essa, continua onde sempre esteve, e nao esta copiada aqui.
+    """
     pais = (p.filtros.get("pais") or "").upper()
     tema = (p.filtros.get("tema") or "").lower()
 
@@ -376,12 +509,20 @@ def resolver(p: Pedido) -> Plano:
     # A pergunta e feita aqui porque e aqui que o pedido vira fonte e
     # executor — mas a RESPOSTA e do dono da lei, e quem OBEDECE e o
     # orquestrador, que e quem gasta.
+    # ⚠️ O PORTAO JULGA O EXECUTOR QUE VAI CORRER, e nao o primeiro da lista.
+    # Enquanto era `execs[0]`, bastava um segundo registo no alvo para o portao
+    # julgar um executor e a corrida correr outro — e o veredito escrito no
+    # recibo seria sobre uma rota que ninguem percorreu.
+    #
+    #     JULGAR UM E CORRER OUTRO E PIOR DO QUE NAO JULGAR NADA.
+    escolhido = escolher(execs, p)
     relevancia = {}
-    if execs:
-        e = execs[0]
+    if escolhido is not None:
         relevancia = rel.portao(
-            fonte_nomeada(e, p), p.alvo, rel.ler_livro(str(RAIZ)),
-            custo=e.get("custo"), acionamento=p.acionamento, escopo=p.escopo)
+            fonte_nomeada(escolhido, p), p.alvo,
+            rel.ler_livro(str(RAIZ)) if livro is None else list(livro),
+            custo=escolhido.get("custo"), acionamento=p.acionamento,
+            escopo=p.escopo)
 
     return Plano(
         pedido=p,
@@ -389,6 +530,7 @@ def resolver(p: Pedido) -> Plano:
         com_caminho=com,
         sem_caminho=sem,
         executores=execs,
+        escolhido=escolhido,
         relevancia=relevancia,
         saida_esperada=(f"itens de «{p.assunto}» com procedencia, tempo do fato e "
                         f"lugar do fato carimbados, prontos para a porta de admissao"),

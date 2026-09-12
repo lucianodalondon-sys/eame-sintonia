@@ -58,7 +58,12 @@ MUTACOES = (
         'NOME': 'o plano deixa de consultar o portao',
         'FICHEIRO': PLANO,
         'O_QUE_AFROUXA': 'o veredito nunca chega a quem gasta',
-        'ONDE': '    relevancia = {}\n    if execs:',
+        # A ancora seguiu o codigo: a SCRAP-FLOW-01 deu dono a escolha do
+        # executor, e o plano passou a consultar o portao sobre o executor
+        # ESCOLHIDO em vez de sobre `execs[0]`. Uma ancora que fica na morada
+        # antiga nao mata mutante nenhum — deixa de se aplicar, e esta suite
+        # conta isso como SOBREVIVENTE, que e o que ela deve fazer.
+        'ONDE': '    relevancia = {}\n    if escolhido is not None:',
         'PARA': '    relevancia = {}\n    if False:  # mutante',
     },
     # ── inverter UNKNOWN ────────────────────────────────────────────────

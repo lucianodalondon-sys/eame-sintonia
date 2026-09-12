@@ -283,6 +283,28 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         # mais uma ida», a outra diz «nao cabe mais exposicao». Colapsa-las faria
         # o rasto mentir sobre qual dos dois tetos parou a execucao.
         raise
+    except _GastoNaoAutorizado() as e:
+        # ── A RECUSA DA COMPRA TEM NOME, E NAO E `UNKNOWN_ERROR` ────────────
+        # ⚠️ MEDIDO PELA SCRAP-FLOW-01: ate aqui, a guarda da SCRAP-SR-02
+        # recusava a compra e a excecao dela caia no balde generico la em
+        # baixo. O rasto dizia `UNKNOWN_ERROR` — exactamente o mesmo que um
+        # extrator partido ou um `TypeError` desta casa.
+        #
+        #     UM `except Exception` LARGO NAO DISTINGUE QUEM DISSE NAO.
+        #
+        # E a consequencia nao era cosmetica: `leis/falhas.py` ja escreve, na
+        # propria familia `BUDGET_EXHAUSTED`, que os tetos entraram la «porque
+        # sem alias eles caiam em UNKNOWN_ERROR, que e o balde de "ninguem sabe
+        # o que houve"». Faltar a autorizacao E dessa familia — recusa NOSSA,
+        # NO_RETRY, e a fonte nao tem nada a ver com isso — e por isso ganha
+        # alias em vez de estado novo.
+        #
+        # O VEREDITO SOBE INTEIRO. Quem audita precisa de ler O QUE faltava, e
+        # nao so que faltou alguma coisa.
+        registro['ESTADO'] = 'SPEND_NOT_AUTHORIZED'
+        registro['AUTORIZACAO_DO_GASTO'] = getattr(e, 'veredito', None)
+        registro['ERRO'] = ss.redigir(str(e))
+        return [], registro
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
         registro['ERRO'] = ss.redigir(str(e))
@@ -375,6 +397,22 @@ def _custo_da_medida(registro):
         if registro.get('ACTUAL_COST_USD') is not None:
             registro['COST_USD'] = registro['ACTUAL_COST_USD']
     return registro
+
+
+def _GastoNaoAutorizado():
+    """O tipo da recusa da COMPRA, pedido a quem o declara. → tuplo de tipos.
+
+    Preguicoso de proposito, como `coletor._recusas_nossas()`: este ficheiro
+    despacha rotas gratuitas que nunca tocam em dinheiro, e obriga-las a
+    carregar a lei do gasto para se importarem seria pagar por uma porta que
+    elas nao usam. Sem a lei no caminho, o tuplo fica vazio e nada casa —
+    e a excecao segue para o balde de sempre, como seguia antes.
+    """
+    try:
+        import autorizacao_de_gasto as _ag
+        return (_ag.GastoNaoAutorizado,)
+    except ImportError:                                       # pragma: no cover
+        return ()
 
 
 def executar(**kwargs):
