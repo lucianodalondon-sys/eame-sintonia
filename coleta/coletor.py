@@ -274,7 +274,7 @@ class OrcamentoFinanceiro(object):
     def esgotado(self):
         return self.exposto_micros >= self.limite_micros
 
-    def reservar(self, *, pedido=None, ator=None, rota=None, motivo=None):
+    def reservar(self, *, pedido=None, ator=None, rota=None, missao=None):
         """Compromete dinheiro ANTES de o provider ser chamado. → `Reserva`.
 
         `pedido` é o teto que o chamador queria mandar ao provider. Ele é
@@ -286,8 +286,13 @@ class OrcamentoFinanceiro(object):
         trava do lado do provider é exposição sem fim, e um orçamento declarado
         não pode permitir isso.
         """
+        # `MISSAO` e nao `MOTIVO_PAGO`: o que chega aqui e a missao que chamou.
+        # O motivo canonico do gasto e do ROTEADOR, que e quem o valida contra
+        # `MOTIVOS_PAGOS`, e ele viaja no registo dele.
+        #
+        #     UM CAMPO COM O NOME DE OUTRA COISA MENTE SEM NINGUEM MENTIR.
         registo = {'PROVIDER': 'APIFY', 'ACTOR': ator, 'ROUTE': rota,
-                   'MOTIVO_PAGO': motivo, 'PROVIDER_SIDE_CAP': None,
+                   'MISSAO': missao, 'PROVIDER_SIDE_CAP': None,
                    'OUTCOME': None, 'COST_STATE': CUSTO_NAO_CORRIDO,
                    'ACTUAL_COST_USD': None}
         with self._trava:
@@ -568,7 +573,7 @@ def _requisicoes_falhadas(loja_kv, *, token):
 
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
              source_version, evidence_path, wait=280, salvar_raw=True,
-             teto_usd=None, build=None):
+             teto_usd=None, build=None, rota=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
 
     `token` nunca entra no manifesto: ele só existe no cabeçalho da chamada.
@@ -597,7 +602,7 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     reserva = None
     if orcamento is not None:
         reserva = orcamento.reservar(pedido=teto_usd, ator=actor,
-                                     rota=evidence_path, motivo=mission)
+                                     rota=rota or evidence_path, missao=mission)
         teto_usd = reserva.cap
     try:
         params = ['waitForFinish=%d' % min(int(wait), ESPERA_MAXIMA_DA_PLATAFORMA)]

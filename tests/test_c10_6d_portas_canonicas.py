@@ -44,6 +44,28 @@ import social_matriz as mz        # noqa: E402
 import scrap_registo as reg       # noqa: E402
 import social_scrap as ss         # noqa: E402
 
+
+def setUpModule():
+    """Esta bateria corre TODAS as fases canônicas, e uma delas é PAGA.
+
+    `coletar` grava o registo da fase paga no acervo. Correr a tabela inteira
+    aqui deixaria um artefacto de teste dentro de `data/samples/` — e um
+    artefacto de teste no acervo é um facto que ninguém colheu.
+
+        UMA SUITE QUE DEIXA FICHEIRO NO ACERVO INVENTA EVIDÊNCIA.
+    """
+    import shutil
+    import tempfile
+    setUpModule.antes = ss.GAVETA_PAGA
+    setUpModule.temp = tempfile.mkdtemp(prefix='t-c106d-')
+    ss.GAVETA_PAGA = setUpModule.temp
+    setUpModule.limpar = shutil.rmtree
+
+
+def tearDownModule():
+    setUpModule.limpar(setUpModule.temp, ignore_errors=True)
+    ss.GAVETA_PAGA = setUpModule.antes
+
 reg.carregar_adaptadores()
 
 WF = '.github/workflows/sintonia-scrap.yml'
