@@ -241,6 +241,24 @@ prova("nenhum_territorio_novo_caiu_fora_em_silencio", not orfaos,
       f"Ou eles pertencem ao pente fino (e a tupla esta estreita), ou a "
       f"exclusao precisa de uma regra semantica escrita — nao de um silencio.")
 
+# O CASO QUE PARECE ESTE E NAO E: o territorio ESTA na tupla e o cartao nao
+# esta no pente fino. Descoberto por ataque — injectar um cartao em `Z-ACOES`
+# e o pente fino nao o viu; correr a cadeia outra vez, sem mexer em mais nada,
+# e ele apareceu (48 -> 49). A cadeia le `state.generated.json` no passo 5 e
+# escreve-o no passo 7.
+#
+#     DIAGNOSTICAR A DOENCA ERRADA COM CONFIANCA MANDA A PROXIMA PESSOA
+#     ALARGAR UM FILTRO QUE NAO TEM DEFEITO NENHUM.
+atrasados = [c["CARD_ID"] for c in cartoes
+             if not c["IN_PENTE_FINE"]
+             and (c.get("WHY_EXCLUDED") or {}).get("EXCLUSION_REASON")
+             == "PENTE_FINO_MEDIU_OUTRO_CONJUNTO_DE_NOS"]
+prova("o_pente_fino_mediu_o_mesmo_conjunto_de_nos_que_a_tela", not atrasados,
+      f"cartoes cujo territorio ESTA na tupla e que o pente fino nao viu: "
+      f"{atrasados}. Isto nao e filtro estreito: e ordem da cadeia. Conserto "
+      f"imediato: correr REGERAR outra vez. Conserto real: o pente fino nao "
+      f"pode ler o estado antes de o gerador o escrever.")
+
 # ── 8 · A MESMA PALAVRA NAO PODE SER DUAS ESPECIES SEM RELACAO ──────────────
 especies = {e["NAME"]: e for e in COMMITADO["CARD_SPECIES"]}
 prova("as_especies_de_card_estao_todas_declaradas",

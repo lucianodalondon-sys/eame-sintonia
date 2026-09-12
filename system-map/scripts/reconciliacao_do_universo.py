@@ -178,6 +178,52 @@ MOTIVO_POR_TERRITORIO = {
 }
 
 
+def razao_da_exclusao(t: str, motivo: dict | None) -> dict:
+    """POR QUE ESTE CARTAO NAO ESTA NO PENTE FINO — e ha TRES causas, nao uma.
+
+    A terceira foi descoberta por ataque, e parecia a segunda.
+
+        O TERRITORIO ESTA NA TUPLA E O CARTAO NAO ESTA NO PENTE FINO.
+
+    Medido: injectou-se um cartao em `Z-ACOES` — territorio que a tupla CONHECE
+    — e o pente fino nao o viu. Correr a cadeia UMA SEGUNDA VEZ, sem mexer em
+    mais nada, e ele aparece: 48 -> 49. A causa e a ORDEM da cadeia:
+    `pente_fino_da_coleta.py` LE `state.generated.json` no passo 5, e
+    `generate_system_map.py` ESCREVE-O no passo 7.
+
+        O PENTE FINO MEDE SEMPRE O CONJUNTO DE NOS DA CORRIDA ANTERIOR.
+
+    Chamar a isto «territorio fora da tupla» seria diagnosticar a doenca errada
+    com confianca — e mandar a proxima pessoa alargar um filtro que nao tem
+    defeito nenhum.
+    """
+    if t in PENTE_ZONAS:
+        return {
+            "EXCLUSION_REASON": "PENTE_FINO_MEDIU_OUTRO_CONJUNTO_DE_NOS",
+            "EXCLUSION_OWNER": "system-map/scripts/CADEIA-DO-MAPA.json · REGERAR",
+            "EXCLUSION_INTENTIONAL": "NO",
+            "PORQUE": "o territorio ESTA na tupla do pente fino. O cartao falta "
+                      "porque o pente fino le `state.generated.json` antes de o "
+                      "gerador o escrever, e por isso mede o conjunto de nos da "
+                      "corrida anterior. Correr a cadeia outra vez apanha-o.",
+            "MECANICA": "territory=%s esta em ZONAS, e o id nao esta em "
+                        "pente-fino.generated.json · PECAS[]" % t,
+        }
+    return {
+        "EXCLUSION_REASON": (motivo or {}).get(
+            "EXCLUSION_REASON", "TERRITORIO_FORA_DA_TUPLA_SEM_MOTIVO_ESCRITO"),
+        "EXCLUSION_OWNER": (motivo or {}).get(
+            "EXCLUSION_OWNER", "pente_fino_da_coleta.ZONAS"),
+        "EXCLUSION_INTENTIONAL": (motivo or {}).get(
+            "EXCLUSION_INTENTIONAL", "UNKNOWN"),
+        "PORQUE": (motivo or {}).get(
+            "PORQUE",
+            "territorio novo: entrou no mapa e a tupla estatica do pente fino "
+            "nao o conhece. Expandir o sistema encolheu a auditoria."),
+        "MECANICA": "territory=%s nao esta em pente_fino_da_coleta.ZONAS" % t,
+    }
+
+
 def especies(S, declarada, matriz, pente):
     """AS ESPECIES DE «CARD» QUE ESTE REPOSITORIO USA — e o que cada uma conta.
 
@@ -316,19 +362,7 @@ def medir(com_topologia: bool) -> dict:
             "WHY_INCLUDED": (
                 "territory=%s esta em pente_fino_da_coleta.ZONAS" % t if dentro
                 else None),
-            "WHY_EXCLUDED": (None if dentro else {
-                "EXCLUSION_REASON": (motivo or {}).get(
-                    "EXCLUSION_REASON", "TERRITORIO_FORA_DA_TUPLA_SEM_MOTIVO_ESCRITO"),
-                "EXCLUSION_OWNER": (motivo or {}).get(
-                    "EXCLUSION_OWNER", "pente_fino_da_coleta.ZONAS"),
-                "EXCLUSION_INTENTIONAL": (motivo or {}).get(
-                    "EXCLUSION_INTENTIONAL", "UNKNOWN"),
-                "PORQUE": (motivo or {}).get(
-                    "PORQUE",
-                    "territorio novo: entrou no mapa depois desta reconciliacao e "
-                    "a tupla estatica do pente fino nao o conhece."),
-                "MECANICA": "territory=%s nao esta em pente_fino_da_coleta.ZONAS" % t,
-            }),
+            "WHY_EXCLUDED": (None if dentro else razao_da_exclusao(t, motivo)),
             # A IDENTIDADE DA MEDICAO E A ARVORE, NAO O COMMIT. O SHA viaja
             # ao lado, nomeado como carimbo, e nao entra na comparacao.
             "MEASURED_TREE": impressao,
@@ -689,6 +723,26 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica) -> list:
             "PORQUE_IMPORTA": "expandir o mapa passou a encolher a auditoria, sem "
                               "uma queixa.",
             "OWNER": "system-map/scripts/pente_fino_da_coleta.py · ZONAS",
+            "ESTA_MISSAO_CORRIGE": False,
+        })
+
+    # ── 3b · O PENTE FINO MEDIU OUTRO CONJUNTO DE NOS ────────────────────
+    atrasados = sorted(c["CARD_ID"] for c in excluidos
+                       if c["WHY_EXCLUDED"]["EXCLUSION_REASON"]
+                       == "PENTE_FINO_MEDIU_OUTRO_CONJUNTO_DE_NOS")
+    if atrasados:
+        a.append({
+            "ACHADO": "PENTE_FINO_UMA_CORRIDA_ATRASADO",
+            "GRAVIDADE": "ALTA",
+            "O_QUE": "cartoes em territorio que a tupla CONHECE e que o pente fino "
+                     "nao viu: %s" % ", ".join(atrasados),
+            "PORQUE_IMPORTA": "`CADEIA-DO-MAPA.json` poe `pente_fino_da_coleta.py` "
+                              "(passo 5, LE state.generated.json) antes de "
+                              "`generate_system_map.py` (passo 7, ESCREVE-O). O "
+                              "pente fino mede o conjunto de nos da corrida "
+                              "anterior — e em regime parado ninguem repara, "
+                              "porque o conjunto raramente muda.",
+            "OWNER": "system-map/scripts/CADEIA-DO-MAPA.json · REGERAR",
             "ESTA_MISSAO_CORRIGE": False,
         })
 
