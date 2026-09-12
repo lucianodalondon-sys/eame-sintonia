@@ -8832,40 +8832,94 @@ L · LINHAGEM   esta observação participou deste derivado?
 E · EXECUÇÃO   em que passagem isso aconteceu, e com que resultado?
 ```
 
-O teste não é filosófico. **Contam-se as duas coisas nos mesmos casos reais.**
-Se os números andarem sempre juntos, é um conceito só. Se divergirem, são dois.
+> ⚠️ **CORRECÇÃO, E ELA É A LIÇÃO MAIOR DESTA SECÇÃO.**
+> A primeira versão desta `§90.1` dizia «contam-se as duas coisas nos mesmos
+> casos reais» e mostrava **1 aresta contra 6 eventos**. Os dois números não
+> mediam o mesmo conjunto: o `1` excluía o caso 3 — justamente o que cria a
+> segunda aresta — e o `6` incluía as passagens do arranque e do diagnóstico,
+> que não pertencem a caso nenhum.
+>
+> A conclusão estava certa. A prova que a sustentava, não.
+>
+> ```
+>     DOIS NÚMEROS SÓ SE COMPARAM SE MEDIREM O MESMO CONJUNTO.
+>     UM RACIOCÍNIO CERTO APOIADO NUM NÚMERO ERRADO
+>     É UM RACIOCÍNIO POR CONFIRMAR — E PARECE PROVADO.
+> ```
+>
+> Uma razão entre dois contadores é a forma mais convincente de errar, porque
+> o leitor confere a divisão e nunca as populações.
+
+Os quatro casos, cada um com o que ele próprio tocou:
 
 ```
-caso 1  RUN A, RAW A -> X                 arestas 1   eventos 1
-caso 2  retry na MESMA corrida            arestas +0  eventos +1
-caso 3  RUN B, RAW B, mesmos bytes        arestas +1  eventos +1
-caso 4  rederivar RAW A noutra corrida    arestas +0  eventos +1
-                                          ─────────   ─────────
-                                          1           6
+caso 1  RUN A, raw 1 -> derivado 3        aresta 1→3   NOVA    PASSED
+caso 2  retry na MESMA corrida            aresta 1→3   a mesma REUSED
+caso 3  RUN B, raw 5, mesmos bytes        aresta 5→3   NOVA    REUSED
+caso 4  rederivar raw 1 noutra corrida    aresta 1→3   a mesma REUSED
 ```
 
-Seis passagens tocaram **uma** aresta. A divergência não é de escala: é de
-espécie, e é ela que decide o desenho.
+E os contadores, **cada um com o universo no próprio nome**:
 
 ```
-    PARA SABER SE SÃO DOIS CONCEITOS, CONTE OS DOIS NOS MESMOS CASOS.
-    DOIS NÚMEROS QUE NÃO SE EXPLICAM UM AO OUTRO SÃO DUAS COISAS.
+MATERIAL_EDGES_ALL_FOUR_CASES              2   as arestas distintas dos casos 1-4
+PASSAGES_TOUCHING_ORIGINAL_EDGE            3   casos 1, 2 e 4, todos sobre 1→3
+DERIVED_STAGE_PASSAGES_TOTAL_IN_SCENARIO   6   TODAS as passagens do cenário,
+                                               arranque e diagnóstico incluídos
+```
+
+A separação dos conceitos não sai de dividir um pelo outro. Sai de **duas
+propriedades**, cada uma medida dentro do seu próprio universo:
+
+```
+P1   a MESMA aresta 1→3 foi tocada por 3 passagens      → PASSAGEM ≠ ARESTA
+P2   o caso 3 criou a aresta 5→3 sobre o MESMO derivado,
+     e `derived_artifact` ficou em 4 → 4                 → ARESTA ≠ DERIVADO
+```
+
+Duas propriedades chegam. E a regra que fica é mais útil do que a conclusão:
+
+```
+    PARA SABER SE SÃO DOIS CONCEITOS, PROCURE UM CASO ONDE UM MUDA
+    E O OUTRO NÃO — E NÃO UMA RAZÃO ENTRE DOIS TOTAIS.
+
+    UM CONTADOR SEM UNIVERSO NO NOME É UM CONVITE À COMPARAÇÃO ERRADA.
 ```
 
 ## 90.2 · DOIS CONCEITOS NÃO SÃO DUAS TABELAS NOVAS
 
 O reflexo, depois de provar que são dois, é criar dois donos. Estava errado: o
-conceito de execução **já tem casa** — `etapa_da_corrida`, uma linha por
+conceito de **passagem** já tem casa — `etapa_da_corrida`, uma linha por
 `(run_id, etapa, tentativa)`.
 
 ```
     DOIS CONCEITOS, DOIS DONOS — E SÓ UM DELES PRECISA DE NASCER.
 ```
 
-O limite dessa casa fica **declarado e não consertado**: ela conta por passagem
-e não nomeia itens. Nenhuma necessidade provada exige resolver isso hoje — e a
-pergunta que o motivava («esta observação foi processada?») passa a ter resposta
-pela **existência da aresta**, sem histórico por item.
+⚠️ **E aqui escrevi uma segunda imprecição, corrigida depois:** dizer que «o
+evento de execução já tem dono» apaga uma distinção que a medição obriga a
+fazer. São **três** coisas, e não duas:
+
+```
+MATERIAL LINEAGE   dono NOVO, e é o que falta
+PASSAGE EVENT      dono EXISTENTE — etapa_da_corrida, em agregado
+ITEM EXECUTION     SEM dono de persistência — medido, e não suposto
+```
+
+O balde guarda **quantos** itens foram reaproveitados, e nunca **quais**. Numa
+passagem mista (`{ERROR: 1, REUSED: 1}`) nada no estado persistido separa as
+duas observações.
+
+```
+    CONTAGEM POR PASSAGEM ≠ RESULTADO POR ITEM.
+    NÃO SE CONSTRÓI POR ANTECIPAÇÃO —
+    E TAMBÉM NÃO SE DIZ QUE JÁ EXISTE O QUE NÃO EXISTE.
+```
+
+Continua a não se construir a tabela por item — mas por **outra razão**: não
+porque já exista, e sim porque nenhuma necessidade provada a exige. A pergunta
+que a motivava («esta observação foi processada?») passa a ter resposta pela
+**existência da aresta**, sem histórico por item.
 
 ## 90.3 · A SENTINELA: A CORRIDA QUE DERIVA PODE NÃO SER A QUE CAPTUROU
 
@@ -8939,8 +8993,10 @@ corrida      a `022` recusou uma RUN própria para a derivação, e a `024` recu
 Escrevi um teste que reprovava se a ADR contivesse «em aberto». Ele reprovou —
 na nota que **explica** que a pergunta *estava* em aberto e foi fechada.
 
-É a terceira vez nesta linha de missões (`§85`, e duas vezes aqui). O padrão já
-não é acidente:
+É a terceira vez nesta linha de missões (`§85`, e duas vezes aqui) — e houve uma
+**quarta** na correcção desta própria secção: um `assertNotIn` do nome de um
+contador removido reprovou no comentário que explica **que ele foi removido**.
+O padrão já não é acidente:
 
 ```
     UMA GUARDA DE TEXTO NÃO DISTINGUE A REGRA DO EXEMPLO DELA.
