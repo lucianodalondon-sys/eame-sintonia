@@ -5639,3 +5639,138 @@ O veredito ficou `PARTIAL_CAPABILITY_GAPS` e não `PASS`, porque dois buracos
 continuam abertos e ambos estão nomeados com o que seria preciso para os
 fechar. Arredondar qualquer um deles para verde teria custado a única coisa que
 estas missões produzem.
+
+---
+
+# §71 · A MATRIZ DECLARA A ESCADA. O ROTEADOR SÓ SABE SUBIR O PRIMEIRO DEGRAU
+
+**Missão:** `C10.6E — PREP DO RUNTIME PAGO`
+**HEAD final:** `01efc8a0`
+**Tocado:** `coleta/comunicacao_coleta.py` (e mais nada de código)
+
+## 71.1 · O QUÊ
+
+A C10.6D deixou um segundo runtime de Collection nomeado. A C10.6E foi
+convergi-lo e mediu que não dá — por uma razão que não é falta de política nem
+falta de vontade.
+
+A matriz declara uma **escada** de rotas por capacidade. Para
+`INSTAGRAM/FETCH_POST` ela declara a rota grátis (que ela própria diz cobrir «os
+12 mais recentes») e a rota paga, e escreve ao lado o motivo canônico de subir:
+`FREE_ROUTE_INSUFFICIENT_CAPABILITY`. O roteador já tem o portão do gasto, com
+vocabulário fechado.
+
+O que não existe é a forma de pedir o degrau. `decisao()` e `_rota_padrao()`
+devolvem **uma** rota — a primeira viável — e `executar()` não aceita `rota=`.
+
+```
+    A MATRIZ DECLARA A ESCADA. O ROTEADOR SÓ SABE SUBIR O PRIMEIRO DEGRAU.
+```
+
+Converger hoje trocaria, em silêncio, uma janela de 30 dias por 12 itens.
+
+```
+    UM CAMINHO QUE MUDA O QUE COLHE NÃO É O MESMO CAMINHO.
+```
+
+## 71.2 · O PORTÃO NÃO É O SELETOR
+
+`permitir_pago=True` mais um motivo do vocabulário canônico **não** faz a rota
+paga ser escolhida. Ele autoriza gasto na rota que já tinha sido escolhida.
+Medido nas duas plataformas: com e sem autorização, a rota é a mesma, e o
+`MOTIVO_PAGO` nem chega a ser gravado.
+
+```
+    UM PORTÃO DECIDE SE PASSA. UM SELETOR DECIDE POR ONDE.
+    QUEM OS CONFUNDE AUTORIZA UM GASTO E ACHA QUE ESCOLHEU UMA ROTA.
+```
+
+Isto vale para qualquer casa com escada declarada: o campo que diz «pode gastar»
+e o campo que diz «vai por aqui» são dois, e ter só o primeiro faz a escada
+inteira parecer inalcançável sem que ninguém perceba porquê.
+
+## 71.3 · DERIVAR O QUE NÃO FOI DECLARADO É FABRICAR
+
+O censo encontrou quatro donos da identidade do fornecedor: a matriz e três
+tabelas `ATORES` em código. A matriz diz `apify:instagram-scraper`; as tabelas
+dizem `apify~instagram-scraper`.
+
+Era tentador derivar uma da outra trocando `:` por `~` e declarar um dono só.
+Seria inventar uma regra que ninguém escreveu — o nome na matriz é um **rótulo
+de política**, o outro é um **identificador de execução**, e a semelhança é
+coincidência de quem escolheu os nomes.
+
+```
+    DERIVAR O QUE NÃO FOI DECLARADO É FABRICAR, NÃO É NORMALIZAR.
+```
+
+O que se pode fazer sem inventar é **amarrar**: cada ator declara qual rota da
+matriz cumpre, e uma conferência recusa quando a matriz deixa de a declarar ou
+quando ela deixa de ser paga. Duas cópias amarradas continuam a ser duas — mas
+deixam de poder divergir em silêncio, que era o defeito real.
+
+## 71.4 · DOIS MUTANTES MAUS, E COMO SE RECONHECEM
+
+Quatro sobreviventes na primeira volta. Dois eram das sentinelas e dois eram das
+próprias mutações — e distinguir os casos é o trabalho.
+
+**O mutante que não muda nada.** Acrescentar uma chave `_MUTANTE: None` a uma
+plataforma da matriz não altera decisão nenhuma. Ele sobrevive por não ser uma
+mutação.
+
+```
+    UMA MUTAÇÃO QUE NÃO MUDA O QUE O CÓDIGO FAZ NÃO PROVA NADA.
+```
+
+**O mutante que só tira metade do fecho.** O portão do gasto tem dois guardas
+seguidos: `not permitir_pago` e `motivo_pago not in MOTIVOS_PAGOS`. Tirar o
+primeiro deixa o segundo a recusar na mesma, porque `motivo_pago` continua
+`None`. O mutante sobrevive por a mutação ser incompleta.
+
+```
+    UM PORTÃO COM DOIS FERROLHOS SÓ ABRE QUANDO SE TIRAM OS DOIS.
+```
+
+Antes de acusar a sentinela, rodar o mutante à mão e ver se o comportamento
+mudou. Nos dois casos não tinha mudado.
+
+## 71.5 · A SONDA QUE ACUSA O DONO
+
+O ataque «LinkedIn usa HarvestAPI escondido» varria todos os módulos à procura
+de `harvestapi`, e acusou `leis/social_matriz.py` — que nomeia o ator porque é
+ele que o **proíbe**.
+
+```
+    UMA SONDA QUE PROCURA O DONO NA LISTA DOS SUSPEITOS ACUSA O DONO.
+```
+
+O dono da lei sai da população, e entra um controlo positivo: se a sonda deixar
+de ver **qualquer** utilizador do ator, é ela que se partiu.
+
+## 71.6 · O QUE SE ENTREGA QUANDO NÃO SE PODE CONVERGIR
+
+O veredito foi `BLOCKED_CONTRACT_GAP`, e um veredito bloqueado só vale se
+entregar três coisas: onde exatamente o caminho para, o que falta para não
+parar, e o preço de continuar sem isso.
+
+O caminho antigo ficou — a política permite-o e pará-lo por decisão própria
+fecharia uma coleta autorizada. O que deixou de existir foi o silêncio: a fase
+diz que não atravessa a casa, que rota usa, qual seria a canônica e o que falta.
+
+```
+    UM DESVIO DECLARADO É UMA MEDIÇÃO. UM DESVIO CALADO É UM BURACO.
+```
+
+## 71.7 · CONSEQUÊNCIA
+
+```
+PAID_ROUTE_REACHABLE  = NO      (medido, não suposto)
+PROVIDER_IDENTITY_OWNERS 4 → 4, mas 3 amarrados e conferidos
+RUN_ID_MINTERS = 3              escrito, não corrigido: exige a convergência antes
+MUTANTES 12 · SURVIVORS 0 · ATAQUES 33 · NEW_FAILURES 0
+APIFY_RUNS 0 · COST_USD 0 · LIVE_TOUCHED NO
+```
+
+```
+    CAN DO != DID DO.
+```
