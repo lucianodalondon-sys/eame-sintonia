@@ -60,6 +60,7 @@ import os
 import shutil
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -187,6 +188,57 @@ def extrair(pdf: Path) -> tuple[str, str, str, dict]:
 #
 # Nunca misturados. O executor continua a NÃO conhecer banco: ele produz o
 # texto, e quem persiste é o dono.
+
+
+def fonte_para_o_bruto(pai, raiz):
+    """Pergunta a fonte ao livro e carimba-a no bruto. Devolve (bruto, achado).
+
+    ⚠️ ISTO E UMA FUNCAO E NAO DUAS LINHAS DENTRO DO CICLO POR UMA RAZAO
+    MEDIDA: enquanto viveu la dentro, DUAS mutacoes sobreviveram a suite
+    inteira — «nao passar a fonte ao bruto» e «passar o PAIS em vez da
+    fonte». Nenhum teste lhe chegava, porque a unica porta de entrada era uma
+    corrida completa do executor.
+
+        CODIGO SEM COSTURA NAO E CODIGO SIMPLES:
+        E CODIGO QUE SO SE PODE TESTAR POR INTEIRO, OU NAO SE TESTA.
+
+    O que ela NAO faz: nao le o caminho, nao le o nome, nao deduz do sha. O
+    sha e a chave que acha a linha; a fonte vem do CAMPO que o coletor
+    escreveu nela.
+    """
+    from coleta import italy_executor as ixec   # noqa: E402 (a gaveta resolve)
+    achado = ixec.fonte_do_conteudo(pai.SHA256, raiz=raiz)
+    if achado["SOURCE_ID"]:
+        # So a fonte. Nao se toca em mais nada da ficha: o resto ja estava
+        # certo, e uma correcao que mexe ao lado e duas correcoes.
+        pai = replace(pai, SOURCE_ID=achado["SOURCE_ID"])
+    return pai, achado
+
+
+def registar_achado(achado, caminho, conta, erros):
+    """Escreve no recibo o que o livro respondeu. Tres respostas, tres contas.
+
+    ⚠️ SEPARADO DO CICLO PORQUE O CONFLITO NAO TEM DADOS REAIS. O corpus de
+    hoje tem ZERO conteudos com duas fontes, e por isso uma mutacao que
+    deixava de contar o conflito SOBREVIVEU a suite inteira: nenhum teste
+    conseguia chegar a esse ramo sem uma corrida completa do executor.
+
+        UM RAMO QUE SO OS DADOS DE AMANHA EXERCITAM
+        FICA POR TESTAR ATE AMANHA — E AI E TARDE.
+
+    DUAS FONTES PARA O MESMO CONTEUDO NAO SE DESEMPATAM EM SILENCIO: o
+    conflito e um ERRO do recibo, e nao um «sem fonte» discreto.
+    """
+    if achado["SOURCE_ID"]:
+        conta["RAW_COM_FONTE_DO_LIVRO"] += 1
+    elif achado["CONFLITO"]:
+        conta["RAW_FONTE_EM_CONFLITO"] += 1
+        erros.append({"PDF": caminho,
+                      "ERRO": "o livro da %s para este conteudo"
+                              % achado["CONFLITO"]})
+    else:
+        conta["RAW_SEM_FONTE_NO_LIVRO"] += 1
+    return conta
 
 
 def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None) -> dict:
@@ -436,7 +488,11 @@ def correr(seco: bool = False, run_id: str = "", rastro=None,
              "RAW_COPIAS_REPETIDAS": 0,
              "TEXT_LAYER_PRESENT": 0, "NEEDS_OCR": 0,
              "EXTRACTION_ERROR": 0, "RAW_UNKNOWN": 0,
-             "DERIVED_EMITTED": 0, "DERIVED_LANDED": 0, "JA_EXISTIA": 0}
+             "DERIVED_EMITTED": 0, "DERIVED_LANDED": 0, "JA_EXISTIA": 0,
+             # O que o livro da coleta respondeu sobre cada bruto. Contado, e
+             # nao presumido: «zero com fonte» tem de ser visivel.
+             "RAW_COM_FONTE_DO_LIVRO": 0, "RAW_SEM_FONTE_NO_LIVRO": 0,
+             "RAW_FONTE_EM_CONFLITO": 0}
     novos, erros = [], []
 
     # O ARTEFATO É O CONTEÚDO, NÃO O CAMINHO.
@@ -452,10 +508,25 @@ def correr(seco: bool = False, run_id: str = "", rastro=None,
     # como o que são: duas cópias da mesma coisa.
     #
     #     DUAS CÓPIAS DO MESMO FICHEIRO NÃO SÃO DOIS DOCUMENTOS.
+    # ⚠️ A FONTE NAO SE DEDUZ AQUI — PERGUNTA-SE A QUEM A ESCREVEU.
+    # Este executor refazia o bruto a partir do ficheiro no disco e mais nada,
+    # e `raw_do_disco` recusa-se — bem — a ler o nome do ficheiro para
+    # adivinhar de onde ele veio. O resultado medido em
+    # `C-MEASURE-SOURCE-ID-WIRING-GAP-V1`: SETE documentos cuja fonte estava
+    # ESCRITA no recibo da coleta chegavam a porta como «NAO SEI».
+    #
+    #     NAO FOI APAGADO. NUNCA FOI CONSULTADO.
+    #
+    # `italy_executor.fonte_do_conteudo` e o dono do livro a responder sobre o
+    # proprio livro: junta pelo sha256 dos BYTES que temos na mao e devolve o
+    # CAMPO `SOURCE_ID` que o coletor escreveu. Sem livro, sem fonte: fica
+    # «NAO SEI», que continua a ser a resposta honesta.
     por_conteudo: dict = {}
     for pdf in os_pdf_italianos():
         conta["RAW_INPUT"] += 1
         pai = art.raw_do_disco(str(pdf), str(RAIZ), COUNTRY_SCOPE="IT")
+        pai, achado = fonte_para_o_bruto(pai, str(RAIZ))
+        registar_achado(achado, pdf.relative_to(RAIZ).as_posix(), conta, erros)
         if pai.SHA256 in por_conteudo:
             por_conteudo[pai.SHA256][1].append(
                 pdf.relative_to(RAIZ).as_posix())
@@ -582,6 +653,15 @@ if __name__ == "__main__":
     print("  com camada de texto ....... %d" % c["TEXT_LAYER_PRESENT"])
     print("  precisam de OCR ........... %d" % c["NEEDS_OCR"])
     print("  erro tecnico .............. %d" % c["EXTRACTION_ERROR"])
+    # ⚠️ ESTES TRES NUMEROS TEM DE SER VISIVEIS. Um executor que passasse a
+    # perguntar a fonte ao livro e recebesse zero respostas ficaria EXACTAMENTE
+    # igual ao que nao pergunta nada — e o relatorio nao daria por isso.
+    #
+    #     UMA CONSULTA QUE NINGUEM CONTA
+    #     E INDISTINGUIVEL DE UMA CONSULTA QUE NAO ACONTECE.
+    print("  fonte vinda do livro ...... %d" % c["RAW_COM_FONTE_DO_LIVRO"])
+    print("  sem fonte no livro ........ %d" % c["RAW_SEM_FONTE_NO_LIVRO"])
+    print("  fonte em CONFLITO ......... %d" % c["RAW_FONTE_EM_CONFLITO"])
     print("  ja tinham sido feitos ..... %d" % c["JA_EXISTIA"])
     print("  textos emitidos ........... %d" % c["DERIVED_EMITTED"])
     print("  textos guardados .......... %d" % c["DERIVED_LANDED"])

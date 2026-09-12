@@ -72,6 +72,10 @@ sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho
 
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno, COL-LAW-505
+# O dono unico da regra «isto e uma afirmacao ou uma confissao de
+# ignorancia?». Reescreve-la aqui criaria um segundo dono, e dois donos
+# de uma regra divergem em silencio.
+from coleta import ingresso as ing  # noqa: E402
 
 # ONDE O COLETOR ESCREVE O LIVRO. Nao e configuracao nova: `ITALY_OPS_ROOT` ja
 # e a raiz que o coletor italiano le ha muito, e ler o livro noutro sitio que
@@ -210,6 +214,85 @@ def observacoes_da_corrida(run_id: str, raiz: str = None) -> list:
             if isinstance(o, dict) and o.get("RUN_ID") == run_id:
                 fora.append(o)
     return fora
+
+
+def fonte_do_conteudo(sha256: str, raiz: str = None) -> dict:
+    """Que fonte o LIVRO registou para ESTE conteudo. Nada mais.
+
+    O livro e o dono da resposta, e por isso a pergunta faz-se aqui. Nao ha um
+    segundo livro, nao ha indice paralelo de identidade, e esta funcao nao
+    deduz coisa nenhuma: ela LE o que o coletor escreveu.
+
+    PORQUE A CHAVE E O CONTEUDO, E NAO O CAMINHO
+    ---------------------------------------------
+    MEDIDO no livro de hoje, 144 observacoes:
+
+        RAW_SHA256 presente .... 144 de 144
+        RAW_PATH presente ......  35 de 144
+        e um dos RAW_PATH e `C:/ea...` — absoluto, de outra maquina
+
+    Juntar por caminho responderia «nao sei» a tres quartos do livro e mentiria
+    no resto. O sha256 identifica os BYTES que se tem na mao, e os bytes sao a
+    unica coisa que quem refaz o bruto tem com certeza.
+
+        ⚠️ ISTO NAO E DERIVAR A FONTE DO SHA.
+        O sha e a CHAVE para achar a linha; a fonte vem do CAMPO `SOURCE_ID`
+        que o coletor escreveu nessa linha. Se o livro nao tiver a linha, a
+        resposta e «nao sei» — nunca o sha, nunca o caminho, nunca o nome.
+
+    DUAS FONTES PARA O MESMO CONTEUDO NAO SE DESEMPATAM AQUI
+    --------------------------------------------------------
+    Se o livro registou o mesmo conteudo sob fontes DIFERENTES, esta funcao
+    NAO escolhe: devolve o conflito e nenhuma fonte.
+
+        ESCOLHER EM SILENCIO ENTRE DUAS VERDADES
+        E FABRICAR UMA TERCEIRA.
+
+    Devolve sempre um dicionario, e `SOURCE_ID` e `None` quando nao ha
+    resposta provada.
+    """
+    vazio = {"SOURCE_ID": None, "OBSERVACOES": 0, "CONFLITO": [],
+             "PORQUE": "o livro nao tem observacao deste conteudo"}
+    if not sha256 or not isinstance(sha256, str):
+        return dict(vazio, PORQUE="sem sha256 nao ha o que procurar")
+    p = os.path.join(raiz or OPS_ROOT, LIVRO)
+    if not os.path.isfile(p):
+        return dict(vazio, PORQUE="o livro nao existe neste sitio")
+
+    fontes, quantas = set(), 0
+    with open(p, encoding="utf-8") as fh:
+        for linha in fh:
+            linha = linha.strip()
+            if not linha:
+                continue
+            try:
+                o = json.loads(linha)
+            except json.JSONDecodeError:
+                continue          # uma linha partida nao apaga as outras
+            if not isinstance(o, dict) or o.get("RAW_SHA256") != sha256:
+                continue
+            quantas += 1
+            v = o.get("SOURCE_ID")
+            # ⚠️ UMA SENTINELA NAO E UMA FONTE. `'NAO SEI'` e uma string
+            # VERDADEIRA em Python, e um `if v:` ingenuo promove-a a
+            # identidade. O dono desta regra e `ingresso.NAO_E_AFIRMACAO`.
+            if v not in ing.NAO_E_AFIRMACAO and v != "NÃO SEI":
+                fontes.add(v)
+
+    if not fontes:
+        return dict(vazio, OBSERVACOES=quantas,
+                    PORQUE=("o livro viu este conteudo %d vez(es) e nao "
+                            "declarou fonte provada em nenhuma" % quantas
+                            if quantas else vazio["PORQUE"]))
+    if len(fontes) > 1:
+        return {"SOURCE_ID": None, "OBSERVACOES": quantas,
+                "CONFLITO": sorted(fontes),
+                "PORQUE": ("o livro registou este mesmo conteudo sob %d "
+                           "fontes diferentes; desempatar aqui seria "
+                           "inventar" % len(fontes))}
+    return {"SOURCE_ID": fontes.pop(), "OBSERVACOES": quantas, "CONFLITO": [],
+            "PORQUE": "campo SOURCE_ID do livro, em %d observacao(oes) "
+                      "concordantes" % quantas}
 
 
 def largar(itens: list, raiz: str = RAIZ) -> str:
