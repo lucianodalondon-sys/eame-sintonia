@@ -5774,3 +5774,176 @@ APIFY_RUNS 0 · COST_USD 0 · LIVE_TOUCHED NO
 ```
     CAN DO != DID DO.
 ```
+
+---
+
+# §72 · UMA ETAPA MUDA NÃO SE DISTINGUE DE UMA QUE NÃO CORREU
+
+`G-RAW-01` dizia: «a etapa RAW corre e não fala». Fechá-lo parecia ser
+acrescentar uma chamada. Foi — e o que se aprendeu não estava na chamada.
+
+## 72.1 · NÃO FALTAVA DONO. FALTAVA UMA CORRELAÇÃO
+
+A primeira pergunta da missão era se isto exigia um sistema novo de
+observabilidade. Medido, não exigia nada disso:
+
+```
+medidas/rastro_da_coleta.py      o dono do rastro    JÁ EXISTIA
+telemetria.ETAPAS_DA_COLETA      já continha `RAW`
+diagnostico.da_etapa('RAW', …)   já devolvia RAW_PERSISTENCE_FAILED
+```
+
+Estava tudo escrito menos a linha. O que faltava era **uma** coisa: a
+passagem sabia nomear a corrida (`run_id`) e a fonte (`source_id`), e não
+sabia nomear a **observação** que tinha produzido.
+
+Isso é uma coluna na tabela canónica, não um livro ao lado.
+
+```
+    DOIS DONOS DA MESMA PERGUNTA
+    SÃO DUAS RESPOSTAS À ESPERA DE DIVERGIR.
+```
+
+A migration 028 acrescenta `etapa_da_corrida.raw_asset_id`, NULLABLE, com
+uma trava que só deixa a etapa `RAW` preenchê-la: apontar para o artefato de
+outra etapa é assinar o trabalho dela.
+
+## 72.2 · A FRONTEIRA JÁ TINHA SÍTIO, E NÃO ERA O DONO DO RAW
+
+O gate nomeava `guarda/preservar_coleta.py` como owner. Mas esse ficheiro
+nunca abre ligação — é isso que permite prová-lo contra banco descartável. A
+peça que fala pelo DERIVED é `coleta/derivacao_forward.py`, uma **fronteira**
+que traduz o recibo do dono para a língua do rastro.
+
+A fronteira equivalente do RAW já existia: `coleta/ingresso.py`, que
+`provas/o_encanamento_tem_uma_porta.py` prova ser o único chamador de
+`preservar()` na casa. Foi lá, e não inventou módulo nenhum.
+
+E fala **depois**:
+
+```
+RAW PERSISTE → o banco devolve o id → a telemetria conta a passagem
+```
+
+Emitir antes do INSERT dá um sucesso sem sujeito, e um rastro de sucesso que
+aponta para nada é pior do que rastro nenhum — porque parece medido.
+
+## 72.3 · TRÊS DEFEITOS QUE SÓ A MEDIÇÃO VIU
+
+**A mesma observação caía em dois baldes.** Num reencontro, a linha
+reaproveitada aparece em `RAW_OBSERVATIONS` *e* em `REUSED_METADATA`. Somar
+as duas dava `accounted = 2` para uma entrada de 1, e o banco devolvia
+`unaccounted_input = -1`: um buraco **negativo**, inventado pela contagem.
+
+**`"   "` passava por fonte.** `preservar_coleta._identifica` já o recusava —
+«veio vazio, com espaço a fingir conteúdo». A fronteira não. Duas regras
+iguais escritas de maneiras diferentes são duas regras à espera de discordar.
+
+**O censo da observabilidade era uma lista à mão.** `["DERIVED","STRUCTURED",
+"ADMISSION"]` escrito a direito, com `["RAW"]` ao lado. No dia em que a etapa
+RAW passasse a falar, ele continuaria a dizer que não falava — sem erro
+nenhum.
+
+```
+    UM CENSO ESCRITO À MÃO MEDE QUEM O ESCREVEU.
+```
+
+Agora é AST sobre o código de produção: quem chama `rastro.registrar`, e com
+que `etapa=`.
+
+## 72.4 · RECUSAR NÃO É FALHAR
+
+O primeiro desenho marcava `FAIL` sempre que nada aterrava. Medido contra uma
+colheita sem fonte provada, isso dava uma etapa avariada onde havia uma
+colheita recusada — e mandava o operador consertar a peça errada.
+
+`rota_forward_documento` já tinha decidido isto no STRUCTURED: «NÃO é erro
+nosso: é o item». Quatro estados, e nenhum colapsa:
+
+```
+NOT_RUN   nem chegou a ser tentada      (nada sobreviveu ao contrato da porta)
+PASS      correu — mesmo que tenha recusado tudo, com `rejected` a contar
+FAIL      tentou persistir e não conseguiu
+REUSED    reencontrou, e não observou de novo
+```
+
+## 72.5 · UMA PROVA QUE REBENTA NÃO DÁ VEREDITO
+
+Cinco mutantes — um caminho dentro do `raw_asset_id`, um `run_id` sem
+corrida, o rastro a falar antes de persistir — faziam a prova levantar a
+meio. O veredito saía `?`, e o harness contou-os como **sobreviventes**.
+
+```
+    UMA PROVA QUE NÃO CONSEGUE DIZER `FAIL`
+    NÃO ESTÁ A APROVAR: ESTÁ A CALAR-SE.
+```
+
+É o irmão do `SKIP != PASS` de §69, por outra porta: ali a prova saltava, aqui
+morria. As duas leem-se de longe como se nada tivesse acontecido.
+
+## 72.6 · E A GUARDA QUE NÃO VIA O QUE PROIBIA
+
+`tests/test_raw_observation_id_volta` protege uma lei boa: a porta transporta
+o que o dono devolveu, não fala com o banco. Ela lia o código por `_codigo()`,
+que **apaga as strings** — e SQL vive dentro de strings.
+
+Posto de propósito um `memoria.aplicar("select 1 from public.raw_asset")`
+dentro da porta, ela deixou passar sem uma queixa. O que ela apanhava era o
+*token* `raw_asset_id`, que é o nome de uma coluna e não uma conversa.
+
+```
+    UMA GUARDA QUE LÊ O CÓDIGO SEM AS STRINGS
+    NÃO VÊ O SQL, QUE É EXACTAMENTE ONDE ELE MORA.
+```
+
+Passou a ler por AST: vê as strings e não vê os comentários — que é a divisão
+certa, porque a prosa pode nomear a tabela e o código não pode falar com ela.
+Conferida com o defeito posto: morde. Retirado: passa.
+
+E a consulta saiu da porta para `rastro.proxima_tentativa()`, onde já devia
+estar: a pergunta é sobre `etapa_da_corrida`.
+
+## 72.7 · UM ERRO MEU, REGISTADO COMO TAL
+
+A meio da missão corri `git checkout -- .` com trabalho **não commitado** e
+revertei todas as alterações em ficheiros rastreados. Sobreviveram os três
+ficheiros novos, por serem untracked. Refiz tudo.
+
+O gesto vinha da missão anterior, onde ele é o passo final **legítimo** da
+cadeia do mapa — mas lá corre *depois* do commit.
+
+```
+    O MESMO COMANDO É HIGIENE DEPOIS DO COMMIT
+    E DESTRUIÇÃO ANTES DELE.
+```
+
+Regra que fica: commitar antes de limpar; e, numa missão longa, commitar o
+trabalho verde assim que ele está verde, em vez de o acumular na árvore.
+
+## 72.8 · E A CADEIA DO MAPA MEDE O ÍNDICE
+
+Corri a cadeia antes do `git add`, e os três ficheiros novos ainda não
+estavam no índice. O mapa nasceu a medir 1495 ficheiros quando a árvore já
+tinha 1498, e o validador apanhou-o. A ordem é:
+
+```
+git add  →  correr a cadeia  →  git add  →  commit  →  validar
+```
+
+## 72.9 · CONSEQUÊNCIA
+
+```
+ETAPAS_QUE_FALAM  RAW · DERIVED · STRUCTURED · ADMISSION   (era 3)
+ETAPAS_MUDAS      READY                                     (é G-READY-01)
+BLOCKERS          3 → 2
+FILA              1. C-CLOSE-THE-READY-EDGE-V1
+MUTAÇÃO           14 mutantes · 0 sobreviventes
+```
+
+`G-TEL-01` continua dívida declarada, e de propósito: a política para quando
+a **própria telemetria** falha foi MEDIDA e preservada — a exceção sobe, e o
+bruto preservado fica. Inventar política nova aqui faria uma falha de
+telemetria passar por falha de RAW, e elas não são a mesma coisa.
+
+O que isto continua a **não** provar: produção, e READY. A estrada continua a
+acabar na ADMISSION.
