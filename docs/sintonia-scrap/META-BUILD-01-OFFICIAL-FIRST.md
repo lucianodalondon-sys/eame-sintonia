@@ -572,6 +572,108 @@ no primeiro probe — e é para isso que o probe serve.
 
 ---
 
+## T · A SEGUNDA VOLTA — O DEFEITO QUE A PRÓPRIA PROVA ENCONTROU
+
+A retomada mandou provar que *«uma rota `ALLOWED` mas sem credencial retorna
+estado de credencial/readiness, e NÃO chama Apify»*. Fui medir, e a medição
+encontrou um defeito meu.
+
+### O que estava errado
+
+```
+sr._executar(platform='META', capability='SEARCH_ADS')
+  →  ESTADO = ROUTE_NOT_ALLOWED
+  →  IDAS À REDE = 1   ·   https://graph.facebook.com/robots.txt
+```
+
+Duas coisas erradas numa só chamada:
+
+1. **saiu para a rede real**, a um host da plataforma, por uma rota que não
+   tinha como ser executada;
+2. devolveu `ROUTE_NOT_ALLOWED` — «eu podia e decidi não» — quando a verdade
+   era «falta-me a chave».
+
+```
+NÃO SE BATE À PORTA DE QUEM NÃO SE TEM CHAVE.
+```
+
+### ⚠️ E ISSO CUSTOU UMA REQUISIÇÃO REAL A UM HOST DA META
+
+Registado sem arredondar, porque esta casa já pagou para aprender que uma
+missão que mede o próprio excesso e se dá `PASS` transforma o portão num
+comentário:
+
+```
+META_REAL_REQUEST_ATTEMPTS (nesta sessão) = 1
+  host      graph.facebook.com/robots.txt
+  quando    ao medir o comportamento da rota, ANTES de existir a trava
+  resposta  robots.txt ilegível — nenhuma permissão foi afirmada
+  API       nenhuma chamada · credencial NENHUMA · dados NENHUNS · custo 0
+```
+
+Não foi chamada de API, não usou credencial e não trouxe dado. Foi o portão de
+transporte a fazer o que faz sempre: ler o `robots.txt` do host antes de
+qualquer pedido. Mas a rota **não devia ter chegado ao portão de transporte**, e
+é isso que a trava corrige.
+
+```
+DEPOIS DA TRAVA: IDAS À REDE = 0, medido com o boundary instrumentado.
+```
+
+### As três vezes que pus a trava no sítio errado
+
+| tentativa | o que li | o que partiu | a lição |
+|---|---|---|---|
+| **1ª** | `escolhida['ESTADO']` da matriz | três provas do YouTube | `ESTADO DECLARADO NA MATRIZ != CREDENCIAL PRESENTE NO AMBIENTE` — o YouTube lê a chave do ambiente e pode tê-la com a matriz a dizer que falta |
+| **2ª** | a sonda, mas **antes** da trava do gasto | a prova de que rota paga sem motivo é recusada | `RECUSAR GASTAR NÃO DEPENDE DO AMBIENTE. FALTAR A CHAVE DEPENDE.` A recusa mais forte fala primeiro |
+| **3ª** | a sonda vetava o **ensaio** | a lei da C10.7 | `UM ENSAIO QUE SÓ PODE CORRER QUANDO JÁ SE SABE O RESULTADO NÃO É UM ENSAIO` |
+
+A terceira foi a mais instrutiva. O ensaio existe **para descobrir**, e
+«descobri que me falta a chave» **é uma medição** — custa zero e não toca na
+rede. Em modo `NORMAL` a sonda continua a vetar, e tem de continuar: ali a
+pergunta é «posso colher agora?», e a resposta é não.
+
+### O dono certo já existia
+
+`scrap_registo` tem a **sonda gratuita** — *«lê configuração, nunca chama
+rota»* — e o `CHECK` já a consultava. A trava passou a perguntar-lhe em vez de
+interpretar a matriz. Capacidade sem sonda não é barrada: quem não declarou como
+se mede não passa a ser medido por palpite meu.
+
+```
+ONE CONCEPT → ONE OWNER. A pergunta «tenho a chave?» já tinha dono.
+```
+
+### E a prova do caminho canônico foi corrigida, não removida
+
+Ela afirmava que o `COLLECT` devolvia três objetos. Depois da trava devolve
+**zero**, e está certo: a rota está `CREDENTIAL_MISSING` e a trava para antes do
+adaptador.
+
+```
+UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR É UMA PROVA DO DEFEITO.
+```
+
+A fiação até ao adaptador passou a provar-se pelo **registo**, que é o dono do
+mapa `PLATAFORMA/CAPACIDADE → ADAPTADOR` — e o documento diz, onde antes não
+dizia, que isso **não** é a prova do caminho inteiro.
+
+### O estado final das duas capacidades
+
+```
+meta.ads.search              NORMAL = CAPABILITY_STATE_PROMISES_NOTHING
+                             TRIAL  = TRIAL_ELIGIBLE
+                             READY  = ZERO_DOLLAR_BUT_CREDENTIAL_GATED
+meta.branded_content.search  idem
+```
+
+```
+ATAQUES 42 · MUTANTES 12 · SURVIVORS 0
+NEW_FAILURES 0 — baseline 97/109 com 12 falhas, depois 97/109 com AS MESMAS 12
+```
+
+---
+
 ## S · VEREDITO
 
 ```
@@ -587,8 +689,9 @@ BRANDED != ORGANIC  = provado
 DELTA               = representado e provado offline
 CREDENCIAL != DINHEIRO = separados, 9 rotas trancadas a custo zero
 APIFY DEFAULT       = NAO
-ATAQUES 35 · MUTANTES 12 · SURVIVORS 0 · NEW_FAILURES 0
-META_REQUESTS 0 · APIFY_RUNS 0 · COST_USD 0
+ATAQUES 42 · MUTANTES 12 · SURVIVORS 0 · NEW_FAILURES 0
+APIFY_RUNS 0 · PAID_RUNS 0 · COST_USD 0
+META_REAL_REQUEST_ATTEMPTS = 1 (robots.txt, antes da trava; zero depois dela)
 ```
 
 ```
