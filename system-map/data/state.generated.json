@@ -1945,10 +1945,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-operational-entrypoints-c10-6d",
-    "HEAD": "38794025f85d6d0184a09b750102e7563ae95564",
-    "GENERATED_AT": "2026-09-12T11:20:20+00:00",
-    "SOURCE_TREE_FINGERPRINT": "06ed6ab1da248a66652cb629a5cc505903360758730885184c1b522b4944f20f"
+    "BRANCH": "claude/sintonia-scrap-paid-runtime-prep-c10-6e",
+    "HEAD": "1149e2b164dc6744ec8fbb08e6d89b92f0eb313a",
+    "GENERATED_AT": "2026-09-12T11:21:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "be74eaddf98372ccf451d19eacb67b7125bd5152c0a94a004c19cf937632c1c3"
   },
   "FAMILIES": [
     {
@@ -7392,15 +7392,16 @@
           "FONTES_DE_TEXTO",
           "LUGARES",
           "PROBLEMAS",
+          "ROTA_DECLARADA_DO_ATOR",
           "TIPOS"
         ],
-        "palavras": 213,
+        "palavras": 222,
         "por_lingua": {
           "IT": 10,
           "ES": 7,
           "FR": 5
         },
-        "sem_marca_de_lingua": 191,
+        "sem_marca_de_lingua": 200,
         "de_outro_pais": 12,
         "de_outro_pais_quais": {
           "ES": 7,
@@ -16745,7 +16746,7 @@
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:240"
+        "prova: coleta/comunicacao_coleta.py:118"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -17045,7 +17046,7 @@
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
         "acoes da coleta que nomeiam este canal: 2",
-        "prova: coleta/comunicacao_coleta.py:187",
+        "prova: coleta/comunicacao_coleta.py:117",
         "prova: coleta/instagram_coleta.py:73"
       ],
       "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
@@ -17259,7 +17260,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-operational-entrypoints-c10-6d"
+        "branch claude/sintonia-scrap-paid-runtime-prep-c10-6e"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17844,7 +17845,7 @@
         },
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 183,
+          "line": 240,
           "snippet": "import contrato_ator as ca"
         }
       ],
@@ -24037,7 +24038,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 127,
+          "line": 184,
           "snippet": "with open(LOTE, encoding='utf-8') as f:"
         },
         {
@@ -29567,7 +29568,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 462,
+          "line": 519,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -31144,7 +31145,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 637,
+          "line": 731,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -32124,8 +32125,8 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 240,
-          "snippet": "if plataforma == 'FACEBOOK':"
+          "line": 118,
+          "snippet": "'FACEBOOK': ('FETCH_POST', 'apify:facebook'),"
         }
       ],
       "categoria": "DATA"
@@ -32260,8 +32261,8 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 187,
-          "snippet": "exemplo = {'ACCOUNT_URL': 'https://www.instagram.com/exemplo/',"
+          "line": 117,
+          "snippet": "'INSTAGRAM': ('FETCH_POST', 'apify:instagram-scraper'),"
         }
       ],
       "categoria": "DATA"

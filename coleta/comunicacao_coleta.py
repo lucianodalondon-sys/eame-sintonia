@@ -93,6 +93,63 @@ ATORES = {
     'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),
 }
 
+# ── A QUE ROTA DECLARADA CADA ATOR CORRESPONDE ──────────────────────────────
+# A C10.6E censou a identidade do fornecedor e encontrou QUATRO donos: a matriz,
+# que declara `apify:instagram-scraper` como rota de `INSTAGRAM/FETCH_POST`, e
+# tres tabelas `ATORES` em codigo — esta, a do `instagram_coleta.py` e a do
+# `sensor_coleta.py`.
+#
+#     UM OWNER COM DUAS COPIAS DA MESMA ORDEM JA E DOIS.
+#
+# O nome da ROTA na matriz e um ROTULO de politica; o `apify~...` e um
+# IDENTIFICADOR de execucao. Sao coisas diferentes e nao se derivam uma da
+# outra — derivar por troca de `:` para `~` seria inventar uma regra que
+# ninguem escreveu, e inventar regra e pior do que duplicar.
+#
+#     DERIVAR O QUE NAO FOI DECLARADO E FABRICAR, NAO E NORMALIZAR.
+#
+# O que se pode fazer sem inventar nada e AMARRAR as duas: cada ator declara
+# QUAL rota da matriz ele cumpre, e `conferir_atores()` recusa se a matriz
+# deixar de declarar essa rota, ou se ela deixar de ser paga. Duas copias
+# amarradas ainda sao duas — mas deixam de poder divergir em silencio, que era
+# o defeito real.
+ROTA_DECLARADA_DO_ATOR = {
+    'INSTAGRAM': ('FETCH_POST', 'apify:instagram-scraper'),
+    'FACEBOOK': ('FETCH_POST', 'apify:facebook'),
+    'LINKEDIN': ('FETCH_POST', 'apify:harvestapi~linkedin-*'),
+}
+
+#: As classes de rota que custam dinheiro. Quem decide e a matriz.
+CLASSES_PAGAS = ('APIFY', 'OFFICIAL_API_PAID')
+
+
+def conferir_atores():
+    """Cada ator desta tabela ainda corresponde a uma rota PAGA declarada?
+
+    → lista de divergencias. Vazia quer dizer que as duas copias concordam.
+    """
+    fora = []
+    for plataforma, (capacidade, rotulo) in sorted(ROTA_DECLARADA_DO_ATOR.items()):
+        if plataforma not in ATORES:
+            fora.append('%s tem rota declarada e nao tem ator' % plataforma)
+            continue
+        rotas = (mz.MATRIZ.get(plataforma) or {}).get(capacidade) or []
+        achada = next((x for x in rotas if x['ROTA'] == rotulo), None)
+        if achada is None:
+            fora.append('%s/%s: a matriz ja nao declara a rota %r que o ator %r '
+                        'cumpre' % (plataforma, capacidade, rotulo,
+                                    ATORES[plataforma][0]))
+            continue
+        if achada['CLASSE'] not in CLASSES_PAGAS:
+            fora.append('%s/%s: a rota %r deixou de ser paga (classe %s) e o ator '
+                        'continua aqui' % (plataforma, capacidade, rotulo,
+                                           achada['CLASSE']))
+    for plataforma in sorted(ATORES):
+        if plataforma not in ROTA_DECLARADA_DO_ATOR:
+            fora.append('%s tem ator e nao diz que rota declarada ele cumpre'
+                        % plataforma)
+    return fora
+
 # ── A TABELA QUE SUBSTITUI O ATOR, E POR QUE ELA E DE CAPACIDADE ─────────────
 # Uma plataforma que esta aqui NAO passa pela porta paga. Ela pede uma
 # capacidade ao executor do SCRAP, e o SCRAP resolve a rota.
@@ -547,6 +604,43 @@ def fase_posts(plataforma):
         print('  porque    %s' % d['PORQUE'])
         print('  APIFY_RUNS=0 · COST_USD=0 — nada saiu desta máquina.')
         print('  A política é dona da rota. Esta fase NÃO improvisa a volta.')
+        return None
+
+    # ── ESTE E O SEGUNDO RUNTIME, E ELE DIZ QUE E ───────────────────────────
+    # A C10.6E mediu por que a convergencia nao acontece aqui hoje. Nao e por
+    # falta de politica: a matriz DECLARA a rota paga para as duas plataformas e
+    # ate escreve o motivo canonico de subir para ela. E o roteador que nao tem
+    # como receber «preciso do degrau de cima»:
+    #
+    #     A MATRIZ DECLARA A ESCADA. O ROTEADOR SO SABE SUBIR O PRIMEIRO DEGRAU.
+    #
+    # `mz.decisao()` devolve UMA rota — a primeira viavel. Para o Instagram essa
+    # e a gratuita `instagram_janela.py:embed`, que a propria matriz diz cobrir
+    # «os 12 mais recentes». Mandar esta fase por COLLECT hoje trocaria, em
+    # silencio, uma janela de 30 dias por 12 itens — e chamar isso de
+    # convergencia seria falsificar equivalencia.
+    #
+    #     UM CAMINHO QUE MUDA O QUE COLHE NAO E O MESMO CAMINHO.
+    #
+    # Entao o caminho antigo fica. O que NAO fica e o silencio: quem correr esta
+    # fase le, na saida, que ela nao atravessa a casa e o que falta para que
+    # atravesse.
+    #
+    #     UM DESVIO DECLARADO E UMA MEDICAO. UM DESVIO CALADO E UM BURACO.
+    print('SEGUNDO_RUNTIME=%s/FETCH_POST' % plataforma)
+    print('  Esta fase NAO atravessa `scrap_executor.COLLECT`.')
+    print('  rota em uso     %s (ator %s)'
+          % (ROTA_DECLARADA_DO_ATOR[plataforma][1], ATORES[plataforma][0]))
+    print('  rota canonica   %s' % (d['ROTA'],))
+    print('  FALTA           o roteador nao sabe pedir um DEGRAU da escada, e')
+    print('                  nao ha adaptador ligado a %s/FETCH_POST.' % plataforma)
+    print('  LIVE_PROOF_REQUIRED=YES · ver docs/sintonia-scrap/C10-6E-*.md')
+    divergentes = conferir_atores()
+    if divergentes:
+        print('ATOR_DIVERGE_DA_MATRIZ=YES')
+        for x in divergentes:
+            print('  %s' % x)
+        print('  APIFY_RUNS=0 · COST_USD=0 — nada saiu desta maquina.')
         return None
 
     ator, _ = ATORES[plataforma]
