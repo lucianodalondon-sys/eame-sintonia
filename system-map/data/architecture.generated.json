@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "e50717e656d82411a8ecb609b68ed2d1b9e8d561",
-    "GENERATED_AT": "2026-09-12T15:55:43+00:00",
+    "HEAD": "ca3048c790c356ec973be3481ab636e204ab218e",
+    "GENERATED_AT": "2026-09-12T17:19:21+00:00",
     "SOURCE_TREE_FINGERPRINT": "a4e45db1cfc3f59613d08062648a099b49e6cb6606c3dd8b4eb7917222983d5e"
   },
   "FILES": [
@@ -1564,14 +1564,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "51d9a82d2d8a8d8b757375c92388ebbbdddbc969",
+      "sha": "d65c6008bd9694d5feb14b527625658c0f37c5a6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "6c82b56645ebb15e4dde05509a476376302eb3c8",
+      "sha": "64a9aefe5a02819bba69bfde576a6c2a7abdb975",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -9725,6 +9725,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/tests/test_topologia_persistida.py",
+      "sha": "a5ce388857f05bfd04846bd512362612a2e3f0e3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/tests/verificar_a_tela.mjs",
       "sha": "41fcb4d55c704f5882daef3eb5544408e96ad958",
       "ext": ".mjs",
@@ -11721,6 +11728,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 300,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_topologia_persistida.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 366,
+        "snippet": "run: python3 system-map/tests/test_topologia_persistida.py"
       }
     },
     {
@@ -32800,6 +32818,50 @@
       }
     },
     {
+      "from_file": "system-map/tests/test_topologia_persistida.py",
+      "to_file": ".github/workflows/system-map.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_topologia_persistida.py",
+        "line": 50,
+        "snippet": "WORKFLOW = RAIZ / \".github\" / \"workflows\" / \"system-map.yml\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_topologia_persistida.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_topologia_persistida.py",
+        "line": 49,
+        "snippet": "CADEIA = json.loads((SCRIPTS / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_topologia_persistida.py",
+      "to_file": "system-map/scripts/censo_da_topologia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_topologia_persistida.py",
+        "line": 115,
+        "snippet": "return subprocess.run([sys.executable, \"system-map/scripts/censo_da_topologia.py\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_topologia_persistida.py",
+      "to_file": "system-map/scripts/censo_da_topologia.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_topologia_persistida.py",
+        "line": 443,
+        "snippet": "fonte.write_text(original + \"\\n# uma fonte que mudou depois da medicao\\n\","
+      }
+    },
+    {
       "from_file": "tests/es/test_adama_es_gate.py",
       "to_file": "data/samples/ADAMA-ES-HANDOFF-GATE-V1.json",
       "type": "READS",
@@ -40033,10 +40095,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1502,
-    "files_readable": 581,
-    "files_code_dir": 626,
-    "file_edges": 2639,
+    "files_tracked": 1503,
+    "files_readable": 582,
+    "files_code_dir": 627,
+    "file_edges": 2644,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

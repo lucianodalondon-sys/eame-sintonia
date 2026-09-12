@@ -1453,6 +1453,7 @@
       "system-map/tests/test_quatro_planos.py",
       "system-map/tests/test_reconciliacao_do_universo.py",
       "system-map/tests/test_system_map.py",
+      "system-map/tests/test_topologia_persistida.py",
       "system-map/tests/verificar_a_tela.mjs"
     ],
     "tests": [
@@ -1950,8 +1951,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "e50717e656d82411a8ecb609b68ed2d1b9e8d561",
-    "GENERATED_AT": "2026-09-12T15:55:43+00:00",
+    "HEAD": "ca3048c790c356ec973be3481ab636e204ab218e",
+    "GENERATED_AT": "2026-09-12T17:19:21+00:00",
     "SOURCE_TREE_FINGERPRINT": "a4e45db1cfc3f59613d08062648a099b49e6cb6606c3dd8b4eb7917222983d5e"
   },
   "FAMILIES": [
@@ -7026,9 +7027,11 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
-        "C-IMPRESSAO-DA-ARVORE"
+        "C-IMPRESSAO-DA-ARVORE",
+        "C-MAPA-TESTES"
       ],
       "outbound": [
+        "C-MAPA-TESTES",
         "C-RECONCILIACAO-UNIVERSO"
       ],
       "paises": {},
@@ -11067,9 +11070,10 @@
         "system-map/tests/test_quatro_planos.py",
         "system-map/tests/test_reconciliacao_do_universo.py",
         "system-map/tests/test_system_map.py",
+        "system-map/tests/test_topologia_persistida.py",
         "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11081,6 +11085,7 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CENSO-CARDS-SENSORES",
+        "C-CENSO-TOPOLOGIA",
         "C-CI-MAPA",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
@@ -11096,6 +11101,7 @@
         "C-REVISAO-DA-EVIDENCIA"
       ],
       "outbound": [
+        "C-CENSO-TOPOLOGIA",
         "C-PROVA-COLETA"
       ],
       "paises": {},
@@ -11128,6 +11134,12 @@
         {
           "onde": "GIT",
           "file": "AGENTS.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "system-map/scripts/censo_da_topologia.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -24280,6 +24292,41 @@
     },
     {
       "from": "C-CENSO-TOPOLOGIA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da topologia da coleta alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_topologia_persistida.py",
+          "line": 115,
+          "snippet": "return subprocess.run([sys.executable, \"system-map/scripts/censo_da_topologia.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-MAPA-TESTES",
+            "FROM": "C-CENSO-TOPOLOGIA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-TOPOLOGIA",
       "to": "C-RECONCILIACAO-UNIVERSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25312,7 +25359,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
+      "reason": "Workflow do System Map alimenta Testes do System Map. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_impressao_da_arvore.py",
@@ -25345,6 +25392,22 @@
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_topologia_persistida.py",
+          "line": 50,
+          "snippet": "WORKFLOW = RAIZ / \".github\" / \"workflows\" / \"system-map.yml\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--READS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
@@ -25363,7 +25426,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 5 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -25433,6 +25496,22 @@
           "file": ".github/workflows/system-map.yml",
           "line": 346,
           "snippet": "run: python3 system-map/tests/test_quatro_planos.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 366,
+          "snippet": "run: python3 system-map/tests/test_topologia_persistida.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
             "FROM": "C-CI-MAPA",
@@ -36478,7 +36557,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Publicador do System Map no deploy alimenta Testes do System Map. Provado por 4 linhas de codigo.",
+      "reason": "Publicador do System Map no deploy alimenta Testes do System Map. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_impressao_da_arvore.py",
@@ -36532,6 +36611,22 @@
           "file": "system-map/tests/test_system_map.py",
           "line": 814,
           "snippet": "PUB = RAIZ / \"system-map\" / \"scripts\" / \"publicar_no_deploy.mjs\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_topologia_persistida.py",
+          "line": 49,
+          "snippet": "CADEIA = json.loads((SCRIPTS / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
             "FROM": "C-MAPA-DEPLOY",
@@ -37129,6 +37224,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-CENSO-TOPOLOGIA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map escreve em Censo da topologia da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_topologia_persistida.py",
+          "line": 443,
+          "snippet": "fonte.write_text(original + \"\\n# uma fonte que mudou depois da medicao\\n\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-CENSO-TOPOLOGIA",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -50506,12 +50636,12 @@
     "components_pending": 96,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 666,
-    "edges_proven": 619,
+    "edges": 668,
+    "edges_proven": 621,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1502,
-    "files_covered": 743,
+    "files_tracked": 1503,
+    "files_covered": 744,
     "files_code_unclaimed": 0
   }
 }
