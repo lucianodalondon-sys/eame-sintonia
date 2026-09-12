@@ -170,12 +170,17 @@ _TABELA = [
     _e('BUDGET_EXHAUSTED', ROUTE, True, UNAVAILABLE, False, False,
        ['BUDGET_EXHAUSTED', 'PAID_ROUTE_REFUSED', 'JA_CONCLUIDO',
         'NETWORK_BUDGET_EXHAUSTED', 'FINANCIAL_BUDGET_EXHAUSTED',
-        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET'],
+        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET', 'SPEND_NOT_AUTHORIZED'],
        'teto NOSSO: gasto, ACESSOS, itens, ou a missão não autorizou pagar. Trocar '
        'de chave não resolve — a recusa é da casa, não da plataforma. A fonte não '
        'tem nada a ver com isso. Os dois tetos da C10.8A-R/C10.8A-F entram aqui '
        'porque são a mesma família — recusa nossa, NO_RETRY — e porque sem alias '
-       'eles caíam em UNKNOWN_ERROR, que é o balde de «ninguém sabe o que houve».'),
+       'eles caíam em UNKNOWN_ERROR, que é o balde de «ninguém sabe o que houve». '
+       'E `SPEND_NOT_AUTHORIZED` (SCRAP-CV-01) entra aqui pela mesma porta: a '
+       'compra que ninguém autorizou é recusa NOSSA e NO_RETRY. Ela é um estado '
+       'SEPARADO dos dois tetos de propósito — esgotar saldo e não ter quem '
+       'responda pela conta pedem coisas diferentes de quem lê o rasto — mas a '
+       'recuperação é a mesma: repetir não resolve, e trocar de chave menos ainda.'),
 
     # ── A ROTA FALHOU (a fonte continua sã) ────────────────────────────────
     _e('AUTH_EXPIRED', ROUTE, True, UNHEALTHY, True, False,

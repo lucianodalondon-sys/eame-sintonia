@@ -22,6 +22,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 
+import autorizacao_de_gasto as ag                                 # noqa: E402
 import coletor as ct                                              # noqa: E402
 import scrap_executor as sx                                       # noqa: E402
 import scrap_http as http                                         # noqa: E402
@@ -82,12 +83,42 @@ class _Cenario(object):
     def __init__(self, guiao, *, teto_da_rota=None):
         self.falso, self.teto_da_rota = _Falso(guiao), teto_da_rota
 
+    def autorizacao(self):
+        """A autorizacao humana DESTE ensaio. Uma por chamada paga.
+
+        ⚠️ ACRESCENTADA NA CV-01. Esta suite mede o teto de DINHEIRO, e continua
+        a medi-lo; mas desde a convergencia nenhuma compra atravessa
+        `coletor.executar` sem alguem que responda por ela. Sem isto, todos os
+        cenarios morriam no portao errado — `AUTORIZACAO_AUSENTE` antes de o
+        teto de gasto chegar a ser exercido — e a suite mediria a guarda em vez
+        do orcamento.
+
+        O motivo e `TRIAL_DE_CAPACIDADE` porque e o que isto e: um ensaio de
+        ROTA contra um fornecedor falso. Nao e coleta de fonte nenhuma, e
+        chamar-lhe coleta seria exactamente o disfarce que a guarda existe para
+        impedir.
+
+        E o limite humano acompanha o orcamento que o teste declarou:
+
+            FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.max_usd
+        """
+        orc = ct.orcamento_financeiro_actual()
+        limite = (orc.autorizado if orc is not None else 1.00) or 0.01
+        return ag.autorizar(
+            motivo=ag.TRIAL_DE_CAPACIDADE, proposito='C10-8A-F',
+            max_execucoes=1, max_usd=limite,
+            quem_autorizou='a sentinela C10.8A-F',
+            porque='medir o teto de gasto contra um fornecedor falso',
+            condicao_de_paragem='um POST por chamada da rota')
+
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
         itens, man = ct.executar(
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='teste',
             source_version='teste', evidence_path='data/samples/t.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
+            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
+            autorizacao=self.autorizacao(), proposito='C10-8A-F',
+            motivo_do_gasto=ag.TRIAL_DE_CAPACIDADE)
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
@@ -100,12 +131,23 @@ class _Cenario(object):
     def __enter__(self):
         self._run = ct.subprocess.run
         ct.subprocess.run = self.falso
+        # ⚠️ E A PORTA TEM DE SER A PORTA — SCRAP-CV-01.
+        # `regras/sensor_coleta.py` troca `coletor._curl` no CORPO do modulo:
+        # basta alguem importa-lo para o transporte da unica porta paga mudar no
+        # processo inteiro. Com ele trocado, fingir o `subprocess` deixa de
+        # fingir alguma coisa — o pedido sai por `urllib` e vai MESMO a rede, e
+        # a promessa `NETWORK_REAL = 0` desta suite deixa de valer.
+        #
+        #     UM FAKE QUE JA NAO ESTA NO CAMINHO NAO E UM FAKE.
+        self._curl = ct._curl
+        ct._curl = ct._CURL_ORIGINAL
         self._antes = dict(reg._MAPA[(PLAT, CAPAC)])
         reg._MAPA[(PLAT, CAPAC)] = dict(self._antes, ROTA=self.rota)
         return self
 
     def __exit__(self, *a):
         ct.subprocess.run = self._run
+        ct._curl = self._curl
         reg._MAPA[(PLAT, CAPAC)] = self._antes
         return False
 
@@ -416,11 +458,47 @@ class UmEnsaioPagoSemTetoNaoComeca(unittest.TestCase):
         saidas, falso, _o = _colher(gasto=1.00, guiao=(0.10,), modo=sx.TRIAL)
         self.assertEqual(len(falso.posts), 1)
 
-    def test_28_em_NORMAL_o_caminho_historico_nao_muda(self):
+    def test_28_em_NORMAL_sem_ledger_ja_nao_se_compra(self):
+        """MUDANCA DE COMPORTAMENTO DECLARADA — SCRAP-CV-01.
+
+        ⚠️ ATE A CV-01 ESTA SENTINELA AFIRMAVA O CONTRARIO. Chamava-se
+        `test_28_em_NORMAL_o_caminho_historico_nao_muda` e exigia UM POST: em
+        modo NORMAL, sem orcamento financeiro declarado, a rota paga corria na
+        mesma e nenhum `maxTotalChargeUsd` ia ao fornecedor. Era deliberado, e
+        era coerente com a C10.8A-F isolada: aquela missao instalava um teto,
+        nao fechava a porta de quem nao instalasse nenhum.
+
+        A SR-02 trouxe a outra metade — quem autoriza, e ate que limite humano.
+        E a CV-01 mediu o que acontecia quando as duas metades se juntavam sem
+        um ledger no meio:
+
+            autorizacao: max_execucoes = 2 · max_usd = 1.00
+            duas chamadas com teto_usd = 1.00 cada
+            -> EXPOSICAO REPRESENTADA = 2.00
+
+        Sem alguem a somar, o limite humano renascia inteiro a cada POST. Um
+        dolar autorizado pagava dois. Entao o ledger deixou de ser opcional:
+
+            SEM_LEDGER_NAO_GASTEI.
+
+        O caminho historico MUDOU, e muda aqui em vez de mudar em silencio.
+        """
         saidas, falso, _o = _colher(gasto=None, guiao=(0.10,), modo=sx.NORMAL)
-        self.assertEqual(len(falso.posts), 1)
-        self.assertIsNone(falso.posts[0],
-                          'sem teto declarado passou a ir maxTotalChargeUsd')
+        self.assertEqual(falso.posts, [], 'comprou sem ledger nenhum')
+        t = saidas[0][1]
+        self.assertEqual(t.get('RESULT'), 'SPEND_NOT_AUTHORIZED')
+        # ⚠️ E a recusa NAO se veste de nenhuma das outras. Em especial nao se
+        # veste de transporte: `TRANSIENT_NETWORK_ERROR` pede `WAIT`, e quem le
+        # `WAIT` volta a chamar — e a segunda chamada seria uma compra.
+        for errado in ('TRANSIENT_NETWORK_ERROR', 'FINANCIAL_BUDGET_EXHAUSTED',
+                       'NETWORK_BUDGET_EXHAUSTED', 'SOURCE_UNAVAILABLE',
+                       'UNKNOWN_ERROR'):
+            self.assertNotEqual(t.get('RESULT'), errado)
+        import falhas
+        self.assertEqual(falhas.recuperacao(
+            falhas.traduzir('SPEND_NOT_AUTHORIZED')), 'NO_RETRY')
+        self.assertIn('SEM_AUTORIZACAO_NAO_GASTEI',
+                      str(t.get('SPEND_AUTHORIZATION_ERROR')))
 
     def test_29_rota_gratuita_em_TRIAL_nao_exige_teto(self):
         with ct.orcamento_financeiro(0):

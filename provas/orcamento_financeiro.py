@@ -35,6 +35,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 
+import autorizacao_de_gasto as ag  # noqa: E402 — a guarda, so o tipo e a porta
 import coletor as ct              # noqa: E402  — o dono do dinheiro
 import scrap_executor as sx       # noqa: E402
 import scrap_registo as reg       # noqa: E402
@@ -123,13 +124,37 @@ class Cenario(object):
         self.teto_da_rota = teto_da_rota
         self.achar_orfa = achar_orfa
 
+    def autorizacao(self):
+        """A autorizacao humana desta PROVA. Acrescentada na SCRAP-CV-01.
+
+        ⚠️ Desde a convergencia nenhuma compra atravessa `coletor.executar` sem
+        alguem que responda por ela. Sem isto a prova morria no portao errado —
+        `AUTORIZACAO_AUSENTE` antes de o teto de gasto ser exercido — e passaria
+        a medir a guarda em vez do orcamento.
+
+        Motivo `TRIAL_DE_CAPACIDADE` porque e o que isto e: um ensaio de ROTA
+        contra um fornecedor falso, e nao coleta de fonte nenhuma. E o limite
+        humano acompanha o orcamento declarado:
+
+            FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.max_usd
+        """
+        orc = ct.orcamento_financeiro_actual()
+        return ag.autorizar(
+            motivo=ag.TRIAL_DE_CAPACIDADE, proposito='C10-8A-F',
+            max_execucoes=1, max_usd=(orc.autorizado if orc is not None else 1.00) or 0.01,
+            quem_autorizou='a prova C10.8A-F',
+            porque='medir o teto de gasto contra um fornecedor falso',
+            condicao_de_paragem='um POST por chamada da rota')
+
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
         """A rota paga. Ela chama o `coletor.executar` REAL."""
         itens, man = ct.executar(
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='prova',
             source_version='prova', evidence_path='data/samples/prova.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
+            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
+            autorizacao=self.autorizacao(), proposito='C10-8A-F',
+            motivo_do_gasto=ag.TRIAL_DE_CAPACIDADE)
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
@@ -143,6 +168,16 @@ class Cenario(object):
     def __enter__(self):
         self._run = ct.subprocess.run
         ct.subprocess.run = self.falso
+        # ⚠️ E A PORTA TEM DE SER A PORTA — SCRAP-CV-01.
+        # `regras/sensor_coleta.py` troca `coletor._curl` no CORPO do modulo:
+        # basta alguem importa-lo para o transporte da unica porta paga mudar no
+        # processo inteiro. Com ele trocado, fingir o `subprocess` deixa de
+        # fingir alguma coisa — o pedido sai por `urllib` e vai MESMO a rede, e
+        # a promessa `NETWORK_REAL = 0` desta suite deixa de valer.
+        #
+        #     UM FAKE QUE JA NAO ESTA NO CAMINHO NAO E UM FAKE.
+        self._curl = ct._curl
+        ct._curl = ct._CURL_ORIGINAL
         if self.achar_orfa:
             ct._ultima_execucao = lambda actor, **k: {
                 'id': 'orfa-1', 'status': 'SUCCEEDED', 'usageTotalUsd': 0.12,
@@ -157,6 +192,7 @@ class Cenario(object):
 
     def __exit__(self, *a):
         ct.subprocess.run = self._run
+        ct._curl = self._curl
         if self.achar_orfa:
             ct._ultima_execucao = _ULTIMA_REAL
         reg._MAPA[(PLAT, CAPAC)] = self._antes
@@ -554,9 +590,21 @@ _o, trace = saidas[0]
 diz('FINANCIAL_BUDGET_AUTHORIZED_USD' not in trace,
     'nenhum campo de orcamento nasce sozinho',
     [c for c in trace if c.startswith('FINANCIAL_BUDGET')])
-diz(len(falso.posts) == 1 and falso.posts[0][1] is None,
-    'e o caminho historico continua exactamente como estava',
-    'maxTotalChargeUsd nao enviado')
+# ⚠️ MUDANCA DE COMPORTAMENTO DECLARADA — SCRAP-CV-01.
+# Esta linha exigia UM POST: sem orcamento declarado, a rota paga corria na
+# mesma e nenhum `maxTotalChargeUsd` ia ao fornecedor. Era coerente com a
+# C10.8A-F isolada — aquela missao instalava um teto, nao fechava a porta a
+# quem nao instalasse nenhum.
+#
+# A CV-01 mediu o que isso custava depois de a SR-02 trazer o limite humano:
+# sem ninguem a somar, `max_usd` renascia inteiro a cada POST, e um dolar
+# autorizado pagava dois. O ledger deixou de ser opcional.
+#
+#     SEM_LEDGER_NAO_GASTEI.
+diz(falso.posts == [], 'sem ledger nenhum, nao se compra', falso.posts)
+diz(trace.get('RESULT') == 'SPEND_NOT_AUTHORIZED',
+    'e a recusa tem nome proprio — nem teto, nem transporte',
+    trace.get('RESULT'))
 
 print('\n' + '=' * 88)
 print('NETWORK_REAL      = 0   (provider falso em todos os casos)')

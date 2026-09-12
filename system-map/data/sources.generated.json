@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "7df9565f5a28b47b6a04239034d1f47ccf105e7d",
+    "HEAD": "532e3bed6f8345cc380dcfacd7c2d1560878079b",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4187,6 +4187,35 @@
       ]
     },
     {
+      "endpoint": "https://api.apify.com/v2",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 227
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 26
+        },
+        {
+          "file": "provas/corrigir_custo.py",
+          "line": 44
+        },
+        {
+          "file": "provas/red_team_da_convergencia.py",
+          "line": 609
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 32
+        },
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 658
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4208,27 +4237,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.apify.com/v2",
-      "usado_por": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 227
-        },
-        {
-          "file": "ferramentas/contrato_ator.py",
-          "line": 26
-        },
-        {
-          "file": "provas/corrigir_custo.py",
-          "line": 44
-        },
-        {
-          "file": "superficie/rede.py",
-          "line": 32
         }
       ]
     },
@@ -4424,7 +4432,7 @@
       "usado_por": [
         {
           "file": "coleta/coletor.py",
-          "line": 79
+          "line": 90
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4467,7 +4475,7 @@
         },
         {
           "file": "regras/sensor_coleta.py",
-          "line": 746
+          "line": 788
         }
       ]
     },

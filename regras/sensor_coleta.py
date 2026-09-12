@@ -315,16 +315,37 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
     if dados is not None:
         cab['Content-Type'] = 'application/json'
     ultimo = ''
-    for n in range(4):
+    # ── E ESTE TRANSPORTE TAMBEM PAGA O TETO DE ACESSOS ──────────────────────
+    # ⚠️ ACRESCENTADO NA SCRAP-CV-01, e por um buraco medido. `coletor._curl`
+    # pede autorizacao ao dono da rede antes de cada ida; esta substituicao NAO
+    # pedia. Trocar o transporte passou a trocar tambem a politica — a mesma
+    # coleta, pela mesma porta, gastava acessos que nenhum teto contava.
+    #
+    #     TROCAR O TRANSPORTE NAO PODE TROCAR QUEM CONTA AS IDAS.
+    #
+    # O dono do conceito «rede» continua a ser `scrap_http`. Aqui nao se conta
+    # nada: pergunta-se a quem conta, exactamente como a porta original faz.
+    vezes = 1 if metodo.upper() in ('POST', 'PUT', 'PATCH', 'DELETE') else 4
+    for n in range(vezes):
         req = urllib.request.Request(url, data=dados, headers=cab, method=metodo)
+        _rede = coletor._orcamento_de_rede()
+        _registo = None
+        if _rede is not None:
+            import scrap_http as _http
+            _registo = _rede.reservar(
+                _http.PEDIDO_ROTA if n == 0 else _http.PEDIDO_RETENTATIVA, url)
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 bruto = r.read().decode('utf-8', 'replace')
+            if _registo is not None:
+                _registo['OUTCOME'] = 'OK'
             if not bruto.strip():
                 ultimo = 'corpo vazio'
             else:
                 return json.loads(bruto)
         except urllib.error.HTTPError as e:
+            if _registo is not None:
+                _registo['OUTCOME'] = 'HTTP_%d' % e.code
             corpo_erro = ''
             try:
                 corpo_erro = e.read().decode('utf-8', 'replace')
@@ -347,10 +368,22 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
                                    % (e.code, ap.redigir(detalhe)[:300]))
             ultimo = 'HTTP %d' % e.code
         except Exception as e:                                # noqa: BLE001
+            if _registo is not None:
+                _registo['OUTCOME'] = type(e).__name__
             ultimo = ap.redigir('%s: %s' % (type(e).__name__, e))[:160]
-        if n < 3:
+        if n < vezes - 1:
             time.sleep(2 ** n)
-    raise RuntimeError('transporte falhou apos 4 tentativas: %s' % ultimo)
+    # ⚠️ E O POST VAI UMA VEZ SO, como na porta original. Repetir um POST que
+    # talvez tenha chegado nao e repetir um pedido perdido: e acender uma
+    # segunda execucao paga, e a primeira fica orfa a gastar.
+    #
+    #     REPETIR UM GET E BARATO. REPETIR UM POST E COMPRAR DE NOVO.
+    if vezes == 1:
+        raise coletor.PostTalvezCriado(
+            'o %s caiu no transporte e NAO foi repetido: %s. A execucao pode ter '
+            'nascido do outro lado — repetir seria pagar duas vezes.'
+            % (metodo, ultimo))
+    raise RuntimeError('transporte falhou apos %d tentativas: %s' % (vezes, ultimo))
 
 
 coletor._curl = _curl_robusto          # a porta continua a mesma; o transporte, não
@@ -526,7 +559,8 @@ def _rodar_scrap(capacidade, *, run_id, platform, country, query, lote, **pedido
     return itens, man, 0
 
 
-def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, lote):
+def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, lote,
+           autorizacao=None):
     """Roda pelo coletor, trocando de chave só quando a CHAVE é o problema.
 
     Começa na posição deslocada do lote para os dois runners não baterem juntos na mesma.
@@ -546,7 +580,15 @@ def _rodar(actor, entrada, *, run_id, platform, country, query, evidence_path, l
             actor, entrada, token=chaves[idx], run_id='%s-p%d' % (run_id, pos),
             platform=platform, country=country, mission=MISSION, query=query,
             source_version='captura de %s' % coletor.agora()[:10],
-            evidence_path=evidence_path)
+            evidence_path=evidence_path,
+            # A AUTORIZAÇÃO ATRAVESSA; ELA NÃO NASCE AQUI.
+            # Um adaptador que fabricasse a própria autorização estaria a
+            # assinar o seu próprio cheque. ADAPTER NÃO ASSINA AUTORIZAÇÃO.
+            autorizacao=autorizacao,
+            proposito=getattr(autorizacao, 'proposito', None),
+            source_id=getattr(autorizacao, 'source_id', None),
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None),
+            teto_usd=getattr(autorizacao, 'max_usd', None))
         man['TOKEN_POSITION_USED'] = pos
         man['RUNNER_NAME'] = RUNNER
         estado = ap.classificar(

@@ -1,0 +1,218 @@
+{
+ "CONTRATO": "MUTACAO_CONVERGENCIA/v1",
+ "MUTANTES": 30,
+ "MORTOS": 30,
+ "SURVIVORS": 0,
+ "LINHAS": [
+  {
+   "ID": "M01",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a guarda deixa de exigir o ledger",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M02",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a relacao entre limite humano e ledger inverte-se",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M03",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a conferencia deixa de olhar para as execucoes restantes",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M04",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "consumir deixa de gastar a unidade",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M05",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "consumir aceita autorizacao esgotada",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M06",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a guarda deixa de conferir o MOTIVO do gasto",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M07",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a guarda deixa de conferir o PROPOSITO",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "red_team_da_convergencia.py"
+  },
+  {
+   "ID": "M08",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a guarda deixa de conferir a FONTE",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "red_team_da_convergencia.py"
+  },
+  {
+   "ID": "M09",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "coleta normal volta a poder ser cheque em branco",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "red_team_da_convergencia.py"
+  },
+  {
+   "ID": "M10",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a coleta normal deixa de perguntar ao dono da relevancia",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M11",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "o selo deixa de ser conferido no nascimento",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "red_team_da_convergencia.py"
+  },
+  {
+   "ID": "M12",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a conferencia aceita qualquer objecto",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M13",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a conferencia autoriza tudo na primeira linha",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M14",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "a porta paga nunca conta a execucao gasta",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M15",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "a guarda passa a receber sempre None em vez do ledger",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M16",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "o teto do fornecedor deixa de ser rebaixado ao saldo",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M17",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "custo desconhecido volta a devolver o dinheiro ao saldo",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M18",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "a reserva deixa de rebaixar o pedido ao que resta",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M19",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "o POST volta a ser retentado",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M20",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "a recusa desta casa volta a vestir-se de falha da fonte",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M21",
+   "FICHEIRO": "regras/sensor_coleta.py",
+   "MUTACAO": "o transporte substituto deixa de pagar o teto de acessos",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M22",
+   "FICHEIRO": "regras/sensor_coleta.py",
+   "MUTACAO": "o transporte substituto volta a repetir o POST",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M23",
+   "FICHEIRO": "regras/sensor_coleta.py",
+   "MUTACAO": "a queda do POST volta a ser uma falha qualquer",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M27",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "a rede recusa e a execucao autorizada nao volta",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M28",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "a execucao volta mesmo quando o POST talvez tenha saido",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M29",
+   "FICHEIRO": "coleta/coletor.py",
+   "MUTACAO": "o POST deixa de marcar que foi tentado",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M30",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "devolver aceita uma autorizacao que nao foi concedida",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M24",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "a recusa de gasto volta a ser um OSError",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M25",
+   "FICHEIRO": "coleta/social_rotas.py",
+   "MUTACAO": "a rota deixa de deixar passar a recusa de autorizacao",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  },
+  {
+   "ID": "M26",
+   "FICHEIRO": "leis/autorizacao_de_gasto.py",
+   "MUTACAO": "copiar uma autorizacao volta a valer",
+   "VEREDITO": "MORTO",
+   "MORTO_POR": "pytest"
+  }
+ ]
+}

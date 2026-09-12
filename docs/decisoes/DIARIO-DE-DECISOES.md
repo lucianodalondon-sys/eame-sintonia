@@ -1204,3 +1204,299 @@ nenhuma.
 **SUPOSIÇÃO NÃO ASSUMIDA:** não se decide aqui que a política determinística é
 suficiente para sempre. Decide-se que ela **basta para fechar**, desde que
 produza os dados que uma política melhor precisaria para ser comparada com ela.
+
+---
+
+> **Entrada de linhagem.** As duas decisões abaixo nasceram na linha
+> `claude/magical-ptolemy-bonfgd` (missões SR-01 e SCRAP-SR-02) e chegam aqui com
+> o código que elas decidem — `leis/relevancia_da_fonte.py` e
+> `leis/autorizacao_de_gasto.py`. Nada mais daquela linhagem foi trazido: uma
+> decisão sem o código que a executa é um papel, e o código sem a decisão é um
+> órfão.
+---
+
+### D-041 — O portão de relevância da fonte, antes do gasto
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** Rastreado o caminho real `pedido → receitas.resolver →
+  orquestrador.correr → subprocess`, medido em plano seco e sem gastar:
+
+  ```
+  FIRST_PRE_SPEND_RELEVANCE_GATE = NONE
+  ```
+
+  O único requisito para uma corrida acontecer era existir uma linha no dicionário
+  `EXECUTORES` daquele território. As fontes filtradas pelo planeador nem entravam
+  na decisão. Medido sobre as 77 fichas do cadastro único: **54 podiam disparar
+  coleta** e **8 podiam correr rota paga** — as oito de T9, todas com
+  `verdict = NÃO SEI` e `access_method = NÃO SEI`, contra um executor que declara
+  `custo: "pago quando passa pela rota Apify"`. **Zero** fontes tinham decisão
+  explícita de relevância, e `SOURCE_RELEVANCE` não tinha dono em toda a árvore.
+
+- **Decisão:** Criado `leis/relevancia_da_fonte.py` como **dono único** da pergunta
+  «esta fonte vale ser acompanhada PARA ESTE PROPÓSITO?». A decisão é do par
+  `(SOURCE_ID, PROPOSITO)` — nunca da fonte sozinha. O eixo semântico é o que já
+  existe (`admissao/admissao.py::RESULTADOS`, COL-LAW-038), **importado e não
+  copiado**, mais um sexto estado que não é resultado: `NAO_AVALIADA`.
+
+  O portão devolve três vereditos — `AUTORIZA` · `BARRA` · `EXIGE_AVALIACAO` — e
+  guarda o **gasto**, não a observação (COL-LAW-018 uma camada acima). Três formas
+  de gastar fecham a porta quando a resposta não é `SIM`: rota paga (e «NÃO SEI»
+  conta como paga), acionamento `AGENDADO`, escopo `TOTAL`.
+
+  `pedido/receitas.py::resolver` pergunta; `orquestrador/orquestrador.py::correr`
+  obedece, com estado próprio `BARRADO_NA_RELEVANCIA` e `exit 3`. A regra não está
+  copiada em nenhum dos dois.
+
+  `candidatas/prova_barata.py` é a saída do impasse: observa uma fonte sem lhe
+  fazer coleta, com teto duro, sem rede no degrau 0, e com `DECISAO = NAO_TOMADA`
+  sempre — `'NAO_TOMADA'` não pertence a `RESULTADOS`, por construção.
+
+- **Motivo:** O objetivo não é ranking de fontes. É impedir
+  `FONTE DESCOBERTA → COLETA CARA → MUITOS BYTES → depois descobrimos que ela quase
+  nunca servia`. E impedir o contrário com a mesma força:
+
+  ```
+  NAO_AVALIADA ≠ NAO_SEI ≠ ERRO ≠ NAO
+  ```
+
+  Uma só delas é um julgamento; as outras três são confissões, e uma confissão não
+  autoriza gasto nem o condena. Um booleano obrigaria «não sei» a escolher um lado,
+  e o lado que ele escolheria seria sempre o «não».
+
+- **Consequência:**
+  - As 8 fontes que podiam gastar dinheiro sem avaliação passaram a **0**.
+  - Coleta recorrente e coleta total sobre fonte não avaliada passaram a **0**.
+  - 46 fontes de rota gratuita continuam observáveis **à mão e pontualmente** sem
+    decisão — por desenho, com o estado escrito em cada recibo. É a prova barata,
+    não coleta normal, e o gap está nomeado em vez de escondido.
+  - **Nenhuma decisão foi portada do atlas.** `GREEN → SIM` promoveria 17 fontes
+    por convenção de cor e deixaria de fora 4 que o próprio atlas declara
+    relevantes: o `YELLOW` é definido como «fonte real e **relevante**, mas com
+    atrito de acesso/licença/automação». Logo o verde não está a medir relevância.
+
+    ```
+    VERDICT_DO_ATLAS  = EIXO_MISTURADO
+    PORTADAS_DO_ATLAS = 0
+    UMA COR NÃO É UMA DECISÃO. PINTAR NÃO É AVALIAR.
+    ```
+
+  - **Corrigida uma deriva que tornava a fila de candidatas invisível.**
+    `candidatas/fonte_nova.py` escrevia em `data/samples/FONTES-CANDIDATAS.json` —
+    ficheiro que nem existe — enquanto a COL-LAW-053, o `AGENTS.md`, o
+    `scan_sources.py` e o índice de fontes apontavam todos para `candidatas/`.
+    O degrau 1 da escada estava a receber candidatas fora do alcance do mapa, do
+    censo e da lei.
+
+  ```
+  BIBLE_CHANGE_REQUIRED    = YES   (emenda nomeada, NÃO escrita nesta missão)
+  CONTRACT_CHANGE_REQUIRED = YES   (contrato novo, dono único)
+  ```
+
+  A Bíblia precisa de uma lei que hoje não tem: *nenhuma fonte gasta antes de
+  provar que serve para o propósito pedido*. A COL-LAW-053 desenha a escada de
+  quatro degraus e a COL-LAW-018 manda o portão grátis vir antes do gasto, mas
+  nenhuma das duas exige a decisão. Escrever a emenda é ato constitucional —
+  numeração, tabela de história, conformidade — e fica **declarado aqui em vez de
+  feito às pressas no fim de outra missão**.
+
+- **O QUE ESTA DECISÃO NÃO FECHA, e está medido:** o portão vive no caminho
+  **canónico**, e esse caminho não é o único até ao dinheiro.
+
+  ```
+  ENTRYPOINTS DE COLETA COM `__main__` QUE VAO A REDE   40
+  DESTES, QUE TOCAM APIFY                               32
+  DESTES, QUE CONSULTAM O PORTAO DE RELEVANCIA           0
+  WORKFLOWS QUE CORREM ROTA PAGA SEM O ORQUESTRADOR      4 de 5
+  ```
+
+  `coleta/comunicacao_coleta.py` tem `__main__` próprio e importa `apify_pool`.
+  Pôr o portão dentro de cada um dos 32 seria copiar a lei 32 vezes — o defeito
+  que esta própria decisão existe para evitar. O sítio onde uma trava se escreve
+  uma vez e vale para os trinta e dois é o dono da chave, `apify_pool`, por onde
+  todos têm de passar para gastar. Fica **declarado como próximo passo mínimo, e
+  não iniciado**.
+
+      UM PORTÃO NA PORTA DA FRENTE NÃO FECHA TRINTA E DUAS PORTAS DAS TRASEIRAS.
+
+  Por isso o veredito da missão é `PARTIAL`, e não `PASS`.
+
+- **Quem decidiu:** missão SR-01. Relatório completo, com o rastreio, o censo, os
+  27 ataques e os 20 mutantes, em
+  [`docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md`](../operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md).
+
+    UMA DECISÃO QUE A PORTA NÃO CONHECE NÃO É UMA DECISÃO.
+
+---
+
+### D-042 — A guarda do gasto pago, e a correção de um número da D-041
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** Rastreado o caminho do dinheiro seguindo o **grafo de importações**,
+  não a menção textual, e varrendo seis primitivas de rede — não a palavra «apify»:
+
+  ```
+  FICHEIROS_VARRIDOS           264
+  MENCIONAM_APIFY               52
+  PAID_CREATION_PRIMITIVES       1    coleta/coletor.py :: executar
+  PODEM_CRIAR_EXECUCAO_PAGA      6
+  ```
+
+  Há **uma** ocorrência de `POST /v2/acts/{ator}/runs` em toda a casa, e para a
+  atravessar bastava ter um token na mão.
+
+- **⚠️ CORREÇÃO DA D-041.** A SR-01 escreveu «32 entrypoints que tocam Apify» e
+  usou esse número para baixar o próprio veredito a `PARTIAL`. A frase era
+  literalmente verdadeira, e respondia a «quantos ficheiros mencionam a
+  plataforma e vão à rede». **Essa não é a pergunta do dinheiro:**
+
+  ```
+  GET  /v2/acts/{ator}        lê o contrato do ator. Zero dólares.
+  POST /v2/acts/{ator}/runs   ACENDE UMA EXECUÇÃO. Só isto custa.
+  ```
+
+  Medido: **47 dos 52** só lêem. O buraco era real — nenhum dos que podiam
+  comprar consultava a relevância — mas tinha **5 portas, não 32**.
+
+      TOCAR NA APIFY NÃO É COMPRAR NA APIFY.
+
+  A medição independente confirma-a: o `C10-8A-F-FINANCIAL-BUDGET.md`, escrito no
+  ramo do SCRAP sem conhecimento desta missão, mediu a mesma ocorrência única.
+
+- **Decisão:** Criado `leis/autorizacao_de_gasto.py`, dono único da pergunta
+  «esta compra está autorizada?». `coleta/coletor.py::executar` passa a exigir
+  uma `Autorizacao` selada — que **só** `autorizar()` consegue emitir — e a
+  consumir uma execução por POST.
+
+  Três motivos de gasto, e nenhum se disfarça do outro:
+
+  ```
+  COLETA_NORMAL_DA_FONTE        exige relevância provada do par (FONTE, PROPÓSITO)
+  PROVA_DE_RELEVANCIA_DA_FONTE  NÃO exige — exige autorização humana e tetos duros
+  TRIAL_DE_CAPACIDADE           mede o caminho, não a fonte; tetos e assinatura
+  ```
+
+- **Motivo:** `CREDENTIAL != AUTHORIZATION`. Ter a chave era, na prática, ter a
+  autorização. E o probe existe para quebrar um ciclo que trancaria a casa: para
+  gastar é preciso ser relevante; para provar que é relevante é preciso observar;
+  para observar é preciso gastar.
+
+- **Consequência:**
+  - Entrypoints que podiam comprar sem autorização: **5 → 0**.
+  - A guarda vive em `executar()`, **não** no transporte: `regras/sensor_coleta.py`
+    substitui `coletor._curl` por urllib, e uma guarda no transporte teria sido
+    trocada junto com ele.
+  - `apify_pool` continua só dono da chave; `coletor` continua sem opinião sobre
+    a fonte. Há teste para as duas coisas.
+  - **Nenhuma coleta normal paga consegue correr hoje**, porque as 77 fontes
+    continuam sem decisão de relevância. Isso é a porta a funcionar, não a porta
+    partida — mas o passo em falta é humano.
+  - Fica aberto: `MODULE CAN'T SPEND != FLOW IS CANONICAL`. Três dos quatro
+    workflows que alcançam criação paga continuam a saltar o orquestrador, e com
+    ele a admissão, a proveniência e o `RUN-MANIFEST`. Esta missão fechou o
+    **dinheiro**, não a orquestração.
+
+  ```
+  BIBLE_CHANGE_REQUIRED    = NÃO nesta missão (a D-041 já nomeou a emenda em falta)
+  CONTRACT_CHANGE_REQUIRED = SIM (contrato novo, dono único)
+  ```
+
+- **Quem decidiu:** missão SCRAP-SR-02. Relatório em
+  [`docs/operacao/AUTORIZACAO-DE-GASTO-V1.md`](../operacao/AUTORIZACAO-DE-GASTO-V1.md).
+
+      UMA CHAVE NO PROCESSO NÃO É AUTORIZAÇÃO PARA GASTAR.
+
+---
+
+### D-043 — As duas leis do gasto passam a ser uma linha só
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** A SR-02 (`leis/autorizacao_de_gasto.py`) e a C10.8A-F
+  (`OrcamentoFinanceiro`, em `coleta/coletor.py`) nasceram em branches
+  diferentes, cada uma provada sozinha, e as duas falavam do mesmo dólar. A
+  SR-02 respondia **quem, por quê e para quê** pode gastar; a C10.8A-F
+  respondia **até quanto** esta execução pode gastar. Nenhuma das duas
+  conhecia a outra.
+
+- **Decisão.** As duas convergem numa linha técnica única, **sem colapsar
+  nenhuma**. A guarda de autorização passa a exigir a RELAÇÃO entre o limite
+  humano e o ledger operacional, e mais nada:
+
+  ```
+  FINANCIAL_BUDGET.AUTHORIZED  <=  AUTORIZACAO.max_usd
+  ```
+
+  Ela recebe um NÚMERO, compara, e continua sem saber quanto já se gastou,
+  quanto está reservado e quanto resta.
+
+      SPEND_AUTHORIZATION != FINANCIAL_BUDGET.
+      LIMITE HUMANO != LEDGER OPERACIONAL.
+
+- **O defeito, reproduzido antes de corrigido.** Uma autorização de
+  `max_execucoes = 2 · max_usd = 1.00` aceitava duas chamadas com teto de 1,00
+  cada: exposição representada de 2,00 sob um limite humano de 1,00. A
+  autorização conferia o teto de CADA chamada e só decrementava execuções.
+
+      CADA POST GANHAVA O LIMITE INTEIRO OUTRA VEZ.
+
+  O conserto **não** foi dar um ledger à autorização — duas peças a somar o
+  mesmo dinheiro divergem na terceira chamada. A reprodução continua viva em
+  `tests/test_cv01_convergencia.py::ODefeitoDoMaxUsd`.
+
+- **⚠️ MUDANÇA DE COMPORTAMENTO DECLARADA.** Em modo NORMAL, sem orçamento
+  financeiro declarado, a rota paga **deixa de correr**: `SEM_LEDGER_NÃO_GASTEI`,
+  `RESULT = SPEND_NOT_AUTHORIZED`, zero POST. A posição anterior
+  («o caminho histórico não muda») era coerente com a C10.8A-F isolada e deixou
+  de o ser quando o limite humano chegou — sem alguém a somar, ele renasce
+  inteiro a cada POST. As duas sentinelas que a afirmavam foram **reescritas com
+  a razão ao lado**, não apagadas.
+
+- **⚠️ TRÊS ACHADOS QUE NÃO ESTAVAM NO ENUNCIADO.** A convergência encontrou-os
+  ao medir, e os três estão consertados nesta missão:
+
+  1. **A recusa de gasto pedia para ser repetida.** `GastoRecusado` herdava de
+     `PermissionError`, logo de `OSError`, e subia pelo executor como
+     `TRANSIENT_NETWORK_ERROR` — cuja recuperação canônica é `WAIT`. Quem lê
+     `WAIT` chama outra vez, e a chamada seguinte é uma compra. Agora é
+     `RuntimeError`, com estado canônico próprio `SPEND_NOT_AUTHORIZED`
+     (família `BUDGET_EXHAUSTED`, `NO_RETRY`).
+
+         SALDO ESGOTADO != NINGUÉM AUTORIZOU.
+
+  2. **Um import reescrevia a porta paga para o processo inteiro.**
+     `regras/sensor_coleta.py` faz `coletor._curl = _curl_robusto` no corpo do
+     módulo. Com o transporte trocado, três harnesses que prometem
+     `NETWORK_REAL = 0` deixavam de fingir coisa nenhuma — o pedido saía por
+     `urllib` e ia mesmo à rede. Mitigado com `coletor._CURL_ORIGINAL`; a troca
+     em si continua, e desfazê-la é outra missão.
+
+  3. **O transporte trocado comprava até quatro vezes.** `coletor._curl` deixou
+     de repetir POST em 2026-09-02 com a razão escrita; a substituição do sensor
+     ficou com o comportamento anterior — até 4 tentativas, para qualquer
+     método. O mesmo POST, pela mesma porta, até 4 execuções pagas, e as três
+     primeiras órfãs. `maxTotalChargeUsd` não protege disto: ele limita cada
+     execução, nunca a soma das que ninguém sabe que existem.
+
+         REPETIR UM GET É BARATO. REPETIR UM POST É COMPRAR DE NOVO.
+
+- **E uma lei nova sobre a própria autorização.** `dataclasses.replace` e
+  `copy.deepcopy` copiavam o selo e devolviam uma autorização válida — com a
+  contagem a zero de brinde. O que vale passou a ser a IDENTIDADE da instância
+  concedida, não a forma do objeto.
+
+      DUAS AUTORIZAÇÕES IGUAIS NÃO SÃO A MESMA AUTORIZAÇÃO.
+      COPIAR UMA AUTORIZAÇÃO NÃO É RECEBER UMA AUTORIZAÇÃO.
+
+- **O que esta missão NÃO fez, e não fez de propósito:** não executou fornecedor
+  pago, não rodou a C10.8B, não reavaliou as 77 fontes, não migrou os quatro
+  workflows que chamam a porta paga pelo próprio pé, não mexeu na Bíblia e não
+  fez merge geral das duas linhagens.
+
+  ```
+  NETWORK_REAL = 0 · APIFY_REAL_RUNS = 0 · PAID_REAL_RUNS = 0 · REAL_COST_USD = 0
+  ```
+
+- **Quem decidiu:** missão SCRAP-CV-01. Relatório em
+  [`docs/operacao/CONVERGENCIA-DO-CONTROLE-DE-GASTO-V1.md`](../operacao/CONVERGENCIA-DO-CONTROLE-DE-GASTO-V1.md).
+
+      UM LIMITE QUE RENASCE A CADA COMPRA NÃO É UM LIMITE.

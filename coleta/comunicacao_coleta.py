@@ -558,7 +558,15 @@ def _colher_pelo_scrap(plataforma, contas, dias):
     return itens, mans
 
 
-def fase_posts(plataforma):
+def fase_posts(plataforma, autorizacao=None):
+    """⚠️ `autorizacao` NAO NASCE AQUI, E ESSE E O PONTO.
+
+    Um adaptador que fabricasse a propria autorizacao estaria a assinar o seu
+    proprio cheque. Ela vem de cima — de `leis/autorizacao_de_gasto.autorizar()`
+    — e este ficheiro so a transporta ate a porta que gasta.
+
+        ADAPTER NAO ASSINA AUTORIZACAO.
+    """
     contas = contas_autorizadas(plataforma)
     if not contas:
         print('nenhuma conta AUTORIZADA em %s. Isto é ausência de conta provada '
@@ -682,7 +690,13 @@ def fase_posts(plataforma):
             country=conta['COUNTRY'], mission=MISSION,
             query=conta['ACCOUNT_URL'],
             source_version='captura de %s' % coletor.agora()[:10],
-            evidence_path=evidencia)
+            evidence_path=evidencia,
+            # A AUTORIZACAO ATRAVESSA; ELA NAO NASCE AQUI.
+            autorizacao=autorizacao,
+            proposito=getattr(autorizacao, 'proposito', None),
+            source_id=getattr(autorizacao, 'source_id', None),
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None),
+            teto_usd=getattr(autorizacao, 'max_usd', None))
         # A rota paga DECLARA que foi paga. Antes ninguem precisava: tudo era
         # pago. Agora que ha duas, quem nao se declara obriga o contador a
         # adivinhar — e adivinhar aqui e escrever «Apify» por habito.

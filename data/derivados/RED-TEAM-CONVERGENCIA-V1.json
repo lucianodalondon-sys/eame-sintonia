@@ -1,0 +1,255 @@
+{
+ "CONTRATO": "RED_TEAM_CONVERGENCIA/v1",
+ "ATAQUES": 35,
+ "MORRERAM": 35,
+ "ATAQUE_VIVO": 0,
+ "PAID_REAL_RUNS": 0,
+ "REAL_COST_USD": 0,
+ "LINHAS": [
+  {
+   "ID": "RT01",
+   "ATAQUE": "comprar sem autorizacao nenhuma",
+   "LEI": "CREDENTIAL != AUTHORIZATION",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_AUSENTE"
+  },
+  {
+   "ID": "RT02",
+   "ATAQUE": "construir a Autorizacao a mao, sem passar por autorizar()",
+   "LEI": "UMA AUTORIZACAO QUE O CHAMADOR ESCREVE NAO E UMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida"
+  },
+  {
+   "ID": "RT03",
+   "ATAQUE": "dataclasses.replace numa autorizacao valida para inflar o teto",
+   "LEI": "DUAS AUTORIZACOES IGUAIS NAO SAO A MESMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_FABRICADA"
+  },
+  {
+   "ID": "RT04",
+   "ATAQUE": "copy.deepcopy da autorizacao ja gasta, para a repor a zero",
+   "LEI": "ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_FABRICADA"
+  },
+  {
+   "ID": "RT05",
+   "ATAQUE": "um dicionario com as chaves certas, passado como autorizacao",
+   "LEI": "UMA AUTORIZACAO QUE O CHAMADOR ESCREVE NAO E UMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_FABRICADA"
+  },
+  {
+   "ID": "RT06",
+   "ATAQUE": "um objecto que IMITA a interface da autorizacao (duck typing)",
+   "LEI": "UMA AUTORIZACAO QUE O CHAMADOR ESCREVE NAO E UMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_FABRICADA"
+  },
+  {
+   "ID": "RT07",
+   "ATAQUE": "autorizacao de TRIAL usada para uma COLETA_NORMAL",
+   "LEI": "TRIAL != COLLECTION",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_NAO_COBRE_ESTE_MOTIVO"
+  },
+  {
+   "ID": "RT08",
+   "ATAQUE": "autorizacao de T3 a comprar em T9",
+   "LEI": "A DECISAO E DO PAR (FONTE, PROPOSITO)",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_NAO_COBRE_ESTE_PROPOSITO"
+  },
+  {
+   "ID": "RT09",
+   "ATAQUE": "autorizacao da fonte A usada para comprar da fonte B",
+   "LEI": "A DECISAO DE UMA FONTE NAO FALA PELAS OUTRAS",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_NAO_COBRE_ESTA_FONTE"
+  },
+  {
+   "ID": "RT10",
+   "ATAQUE": "gastar duas vezes uma autorizacao de uma execucao",
+   "LEI": "UMA AUTORIZACAO DE UMA EXECUCAO NAO PAGA DUAS",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · AUTORIZACAO_ESGOTADA"
+  },
+  {
+   "ID": "RT11",
+   "ATAQUE": "quatro chaves do cofre a renovar a mesma autorizacao",
+   "LEI": "ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "POSTS = 1 com 4 chaves"
+  },
+  {
+   "ID": "RT12",
+   "ATAQUE": "coleta normal sem teto de dolares — o cheque em branco",
+   "LEI": "GASTO SEM TETO E CHEQUE EM BRANCO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida · SEM_TETO_DE_DOLARES"
+  },
+  {
+   "ID": "RT13",
+   "ATAQUE": "trial sem quem responda pela conta",
+   "LEI": "QUEM NAO PROVA QUE A FONTE SERVE PROVA QUEM PAGA",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida · SEM_AUTORIZACAO_HUMANA"
+  },
+  {
+   "ID": "RT14",
+   "ATAQUE": "trial sem condicao de paragem",
+   "LEI": "O QUE NAO SABE PARAR NAO SABE QUANTO VAI CUSTAR",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida · SEM_CONDICAO_DE_PARAGEM"
+  },
+  {
+   "ID": "RT15",
+   "ATAQUE": "inventar um quarto motivo de gasto",
+   "LEI": "O VOCABULARIO DOS MOTIVOS E FECHADO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida · MOTIVO_DESCONHECIDO"
+  },
+  {
+   "ID": "RT16",
+   "ATAQUE": "coletar de uma fonte que ninguem avaliou",
+   "LEI": "AUSENCIA DE AVALIACAO NAO E AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida · RELEVANCIA_NAO_AUTORIZA"
+  },
+  {
+   "ID": "RT17",
+   "ATAQUE": "passar uma URL como identidade da fonte",
+   "LEI": "URL NAO E IDENTIDADE DE FONTE",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "SourceIdInvalido"
+  },
+  {
+   "ID": "RT18",
+   "ATAQUE": "um SIM em T3 a pagar uma coleta em T9",
+   "LEI": "A DECISAO E DO PAR (FONTE, PROPOSITO)",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AutorizacaoInvalida · RELEVANCIA_NAO_AUTORIZA"
+  },
+  {
+   "ID": "RT19",
+   "ATAQUE": "ler a recusa por falta de autorizacao como «a fonte nao serve»",
+   "LEI": "AUTHORIZATION_MISSING != NOT_RELEVANT",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "estado na recusa: True"
+  },
+  {
+   "ID": "RT20",
+   "ATAQUE": "um probe pago a promover a fonte a relevante",
+   "LEI": "PROBE != RELEVANCE DECISION",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "estado depois do probe pago: NAO_AVALIADA · linhas no livro: 0"
+  },
+  {
+   "ID": "RT21",
+   "ATAQUE": "comprar sem declarar orcamento financeiro nenhum",
+   "LEI": "SEM_LEDGER_NAO_GASTEI",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · SEM_LEDGER_NAO_GASTEI"
+  },
+  {
+   "ID": "RT22",
+   "ATAQUE": "declarar um orcamento maior do que o limite humano",
+   "LEI": "FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.max_usd",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "GastoRecusado · ORCAMENTO_ACIMA_DO_AUTORIZADO"
+  },
+  {
+   "ID": "RT23",
+   "ATAQUE": "duas execucoes a renovar o limite humano inteiro — O DEFEITO",
+   "LEI": "CADA POST NAO GANHA O LIMITE INTEIRO OUTRA VEZ",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "EXPOSICAO = 1.0000 com max_usd = 1.00"
+  },
+  {
+   "ID": "RT24",
+   "ATAQUE": "pedir ao fornecedor um teto maior do que o saldo que resta",
+   "LEI": "PROVIDER CAP <= EXECUTION REMAINING",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "tetos enviados = [1.0, 0.2]"
+  },
+  {
+   "ID": "RT25",
+   "ATAQUE": "custo que a plataforma nao reportou, lido como custo zero",
+   "LEI": "UNKNOWN COST != ZERO COST",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "DESCONHECIDO = 0.5000 · RESTANTE = 0.5000"
+  },
+  {
+   "ID": "RT26",
+   "ATAQUE": "abrir um segundo orcamento aninhado para ganhar saldo novo",
+   "LEI": "SPEND_AUTHORIZATION != FINANCIAL_BUDGET",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "causa = AUTORIZACAO_ESGOTADA · POSTS = 1"
+  },
+  {
+   "ID": "RT27",
+   "ATAQUE": "gastar com o teto de ACESSOS esgotado",
+   "LEI": "FINANCIAL_BUDGET != NETWORK_BUDGET",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "POSTS = 0 · RESTANTE = 0.1000 · AUTH_GASTAS = 0"
+  },
+  {
+   "ID": "RT28",
+   "ATAQUE": "a recusa desta casa vestida de falha da fonte no manifesto",
+   "LEI": "UM except LARGO NAO DISTINGUE QUEM DISSE NAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "SemOrcamentoDeRede propagou"
+  },
+  {
+   "ID": "RT29",
+   "ATAQUE": "o dono da execucao paga a ganhar opiniao sobre a fonte",
+   "LEI": "SOURCE RELEVANCE OWNER != SPEND ENFORCER",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "modulos que o coletor importou: ['autorizacao_de_gasto']"
+  },
+  {
+   "ID": "RT30",
+   "ATAQUE": "a guarda de gasto a ganhar um ledger proprio",
+   "LEI": "LIMITE HUMANO != LEDGER OPERACIONAL",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "a guarda expoe: nada de ledger"
+  },
+  {
+   "ID": "RT31",
+   "ATAQUE": "o fornecedor cobra ACIMA do teto e isso passa por sucesso",
+   "LEI": "UMA TRAVA QUE NAO TRAVOU TEM DE APARECER COMO TAL",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "OUTCOMES = ['PROVIDER_EXCEEDED_CAP']"
+  },
+  {
+   "ID": "RT32",
+   "ATAQUE": "importar o sensor troca o transporte e a ida deixa de ser contada",
+   "LEI": "TROCAR O TRANSPORTE NAO PODE TROCAR QUEM CONTA AS IDAS",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "idas que escaparam ao teto: 0"
+  },
+  {
+   "ID": "RT33",
+   "ATAQUE": "o transporte substituto repete o POST e compra quatro vezes",
+   "LEI": "REPETIR UM GET E BARATO. REPETIR UM POST E COMPRAR DE NOVO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "POSTs enviados = 1"
+  },
+  {
+   "ID": "RT34",
+   "ATAQUE": "a rede recusa e mesmo assim queima uma execucao autorizada",
+   "LEI": "UM POST QUE NAO SAIU NAO GASTA UMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AUTH_GASTAS = 0 · POSTS = 0"
+  },
+  {
+   "ID": "RT35",
+   "ATAQUE": "devolver a execucao quando o POST TALVEZ tenha saido",
+   "LEI": "AUSENCIA DE NOTICIA NAO E PROVA DE AUSENCIA DE COMPRA",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AUTH_GASTAS = 1 · DESCONHECIDO = 0.2000"
+  }
+ ]
+}

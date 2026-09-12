@@ -402,6 +402,16 @@ def _com_teto_de_gasto(fn):
     @functools.wraps(fn)
     def embrulho(*a, teto_de_gasto=None, **k):
         import coletor as _ct
+        # So o TIPO da recusa, e nada mais. Este ficheiro nao concede
+        # autorizacao nenhuma, nao pergunta se uma fonte serve para um
+        # proposito e nao abre livro nenhum: isso tem dono em `leis/`, e nao e
+        # aqui. O que ele precisa e de distinguir esta recusa das outras duas
+        # para lhe dar o nome certo no rasto.
+        #
+        # ⚠️ E o `import` fica DENTRO da funcao, como os outros dois desta
+        # fronteira: ler o tipo de uma excecao no momento de a apanhar nao
+        # aproxima este ficheiro de decidir nada.
+        import autorizacao_de_gasto as _ag
 
         def guardado(orcamento):
             try:
@@ -414,8 +424,33 @@ def _com_teto_de_gasto(fn):
                                 'FINANCIAL_BUDGET_ERROR')
                 trace.update(orcamento.para_o_rasto())
                 return [], trace
+            except _ag.GastoRecusado as e:
+                # ── A TERCEIRA RECUSA, E ELA NAO E NENHUMA DAS OUTRAS DUAS ──
+                # SALDO ESGOTADO != NINGUEM AUTORIZOU.
+                # Havia dinheiro e havia rede; o que faltou foi alguem que
+                # respondesse pela compra. Chamar a isto
+                # `FINANCIAL_BUDGET_EXHAUSTED` mandaria procurar saldo que ja
+                # existe, e apagaria a unica pergunta que importa: quem
+                # autorizou?
+                trace = _recusa(k, 'SPEND_NOT_AUTHORIZED', str(e),
+                                'SPEND_AUTHORIZATION_ERROR')
+                trace.update(orcamento.para_o_rasto())
+                return [], trace
             trace.update(orcamento.para_o_rasto())
             return objetos, trace
+
+        def sem_orcamento():
+            """Sem ledger instalado — e a recusa continua a ter de ter nome.
+
+            Este e o caminho em que a guarda diz `SEM_LEDGER_NAO_GASTEI`. Sem
+            este `except`, a recusa subia crua e o executor classificava-a pelo
+            balde do transporte.
+            """
+            try:
+                return fn(*a, **k)
+            except _ag.GastoRecusado as e:
+                return [], _recusa(k, 'SPEND_NOT_AUTHORIZED', str(e),
+                                   'SPEND_AUTHORIZATION_ERROR')
 
         if teto_de_gasto is None:
             # Ninguem declarou AQUI. Mas pode haver um orcamento instalado por
@@ -424,7 +459,7 @@ def _com_teto_de_gasto(fn):
             # recusasse quando esta fronteira o instalou deixaria a recusa
             # subir como EXCECAO nesse caso, e recusa e resultado de medicao.
             herdado = _ct.orcamento_financeiro_actual()
-            return guardado(herdado) if herdado is not None else fn(*a, **k)
+            return guardado(herdado) if herdado is not None else sem_orcamento()
         with _ct.orcamento_financeiro(teto_de_gasto) as orcamento:
             return guardado(orcamento)
     return embrulho

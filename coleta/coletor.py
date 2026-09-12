@@ -74,6 +74,17 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import proveniencia as pv  # noqa: E402
+# ⚠️ A GUARDA DO GASTO, E SO ELA. Este ficheiro NAO importa
+# `relevancia_da_fonte`: se importasse, o dono da execucao paga ganhava uma
+# opiniao sobre a fonte, e a relevancia passava a ter dois donos.
+#
+#     SOURCE RELEVANCE OWNER != SPEND ENFORCER != FINANCIAL LEDGER.
+#
+# Sao tres perguntas e tres donos: `leis/relevancia_da_fonte.py` responde «a
+# fonte serve?», `leis/autorizacao_de_gasto.py` responde «esta compra esta
+# autorizada?», e o `OrcamentoFinanceiro` aqui abaixo responde «quanto ainda
+# cabe?». `tests/test_cv01_convergencia.py` reprova se se misturarem.
+import autorizacao_de_gasto as ag  # noqa: E402
 
 RAW_DIR = os.path.join(ROOT, 'data', 'samples', 'raw-paid')
 API = 'https://api.apify.com/v2'
@@ -485,6 +496,21 @@ def _curl(url, *, token, metodo='GET', corpo=None, timeout=300, tentativas=4):
     raise RuntimeError('curl falhou apos %d tentativas: %s' % (vezes, ultimo))
 
 
+#: ⚠️ O TRANSPORTE DESTA PORTA E SUBSTITUIVEL, E ISSO E UM FACTO MEDIDO.
+#: `regras/sensor_coleta.py` faz `coletor._curl = _curl_robusto` NO CORPO DO
+#: MODULO: quem importar aquele ficheiro — um teste, um censo, um import
+#: transitivo — troca o transporte da unica porta paga desta casa para o
+#: processo inteiro, sem o pedir e sem dar por isso.
+#:
+#:     UM IMPORT QUE REESCREVE A PORTA PAGA E UMA DECISAO QUE NINGUEM TOMOU.
+#:
+#: Medido na CV-01: com o transporte trocado, uma prova que finge o `subprocess`
+#: deixa de fingir coisa nenhuma — o pedido sai por `urllib` e vai mesmo a rede.
+#: Enquanto a troca existir, esta referencia e o que permite a quem mede repor a
+#: porta no estado em que ela nasceu, e provar que e ELA que esta a ser medida.
+_CURL_ORIGINAL = _curl
+
+
 def _ultima_execucao(actor, *, token, desde):
     """A execucao mais recente DESTE ator. Serve para ADOTAR um POST que talvez tenha nascido.
 
@@ -568,7 +594,8 @@ def _requisicoes_falhadas(loja_kv, *, token):
 
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
              source_version, evidence_path, wait=280, salvar_raw=True,
-             teto_usd=None, build=None):
+             teto_usd=None, build=None, autorizacao=None, source_id=None,
+             proposito=None, motivo_do_gasto=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
 
     `token` nunca entra no manifesto: ele só existe no cabeçalho da chamada.
@@ -590,15 +617,52 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         PROVIDER CAP != EXECUTION BUDGET.
     """
     started = agora()
-    # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
-    # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
-    # ela que decide o `maxTotalChargeUsd` que vai na query.
+    # ══════════════════════════════════════════════════════════════════════
+    # A ORDEM DOS PORTÕES, E POR QUE É ESTA
+    # ══════════════════════════════════════════════════════════════════════
+    #     1 · AUTORIZAÇÃO   custa zero. Quem pode comprar, e por quê.
+    #     2 · DINHEIRO      compromete saldo. Quanto ainda cabe.
+    #     3 · CONSUMO       a compra fica comprometida: gasta-se a execução.
+    #     4 · REDE          cobrada dentro de `_curl`, pelo dono dela.
+    #     5 · POST          o provider.
+    #
+    # A autorização vem primeiro porque é o gate BARATO: conferir não abre
+    # ligação, não reserva dinheiro e não escreve nada. Reservar dólares para
+    # uma compra que a autorização vai recusar deixaria saldo comprometido por
+    # uma corrida que nunca existiu.
+    #
+    #     UM GATE BARATO CORRE PRIMEIRO, E NÃO QUEIMA NADA AO RECUSAR.
+    #
+    # E o CONSUMO da autorização vem DEPOIS do dinheiro, não antes. Na SR-02 a
+    # unidade era gasta na conferência, e uma corrida barrada por falta de saldo
+    # queimava uma execução autorizada para um POST que nunca saiu.
+    #
+    #     POST QUE NÃO SAIU != POST QUE SAIU.
+    #
+    # Fora do `try` de propósito: uma recusa nossa NÃO é uma corrida que falhou.
+    # Deixá-la cair no `except` produziria um manifesto de execução para uma
+    # execução que nunca existiu, com `STATUS: FAILED` — e isso leria-se como
+    # «a Apify recusou», quando quem recusou fomos nós.
     orcamento = orcamento_financeiro_actual()
+    recibo_da_autorizacao = ag.conferir(
+        autorizacao,
+        motivo=motivo_do_gasto or ag.COLETA_NORMAL,
+        proposito=proposito,
+        source_id=source_id,
+        # O NÚMERO, não o ledger. A guarda compara o limite humano com o que
+        # esta execução declarou poder comprometer, e não sabe mais nada sobre
+        # dinheiro — contar é trabalho do `OrcamentoFinanceiro`.
+        orcamento_autorizado=(orcamento.autorizado if orcamento is not None else None))
     reserva = None
     if orcamento is not None:
         reserva = orcamento.reservar(pedido=teto_usd, ator=actor,
                                      rota=evidence_path, motivo=mission)
         teto_usd = reserva.cap
+    # A compra está comprometida: há autorização e há saldo reservado.
+    recibo_da_autorizacao = dict(ag.consumir(autorizacao),
+                                 VEREDITO=recibo_da_autorizacao['VEREDITO'],
+                                 ORCAMENTO_AUTORIZADO=recibo_da_autorizacao[
+                                     'ORCAMENTO_AUTORIZADO'])
     try:
         params = ['waitForFinish=%d' % min(int(wait), ESPERA_MAXIMA_DA_PLATAFORMA)]
         if teto_usd is not None:
@@ -606,11 +670,18 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         if build:
             params.append('build=%s' % build)
         adotada = 'NO'
+        # ⚠️ ESTA BANDEIRA SEPARA DUAS COISAS QUE PARECEM UMA SO: a chamada que
+        # morreu ANTES de sair, e a chamada que saiu. Enquanto ela for False, ha
+        # PROVA de que nenhum pedido chegou ao fornecedor — e so com essa prova
+        # se devolve dinheiro ou execucao autorizada.
+        post_tentado = False
         try:
             run = _curl('%s/acts/%s/runs?%s' % (API, actor, '&'.join(params)),
                         token=token, metodo='POST', corpo=entrada,
                         timeout=ESPERA_MAXIMA_DA_PLATAFORMA + 40)
+            post_tentado = True
         except PostTalvezCriado as e:
+            post_tentado = True                 # pode ter chegado: nao se devolve
             # O pedido pode ter chegado. ADOTAR a execução que nasceu é a única saída que
             # não paga duas vezes — e se não nasceu nenhuma, a falha continua sendo falha.
             achada = _ultima_execucao(actor, token=token, desde=started)
@@ -703,8 +774,25 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         # E se o teto de REDE recusou, o POST provadamente nao saiu: o dinheiro
         # reservado volta inteiro. Este e o outro caso — com prova — em que ele
         # volta.
-        if reserva is not None and not reserva.fechada:
-            reserva.anular('REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT')
+        if not post_tentado:
+            if reserva is not None and not reserva.fechada:
+                reserva.anular('REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT')
+            # ── E A EXECUCAO AUTORIZADA VOLTA TAMBEM ──────────────────────
+            # ⚠️ MEDIDO NA CV-01 pelo red team. A unidade e consumida no
+            # momento do COMPROMISSO, que e imediatamente antes do POST — e o
+            # teto de ACESSOS recusa DENTRO do transporte, depois disso. Sem
+            # esta linha, uma autorizacao de uma execucao morria por uma compra
+            # que provadamente nunca foi tentada, e alguem tinha de a conceder
+            # outra vez para o mesmo trabalho.
+            #
+            #     UM POST QUE NAO SAIU NAO GASTA UMA AUTORIZACAO.
+            if autorizacao is not None:
+                recibo_da_autorizacao = dict(
+                    ag.devolver(autorizacao,
+                                'REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT'),
+                    VEREDITO=recibo_da_autorizacao['VEREDITO'],
+                    ORCAMENTO_AUTORIZADO=recibo_da_autorizacao[
+                        'ORCAMENTO_AUTORIZADO'])
         raise
     except Exception as e:                                   # falha é estado, não zero
         d, dataset, itens = {}, None, []
@@ -765,6 +853,10 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     manifesto['REQUESTS_FAILED'] = falhadas
     manifesto['REQUESTS_FINISHED'] = terminadas
     manifesto['MAX_TOTAL_CHARGE_USD'] = teto_usd if teto_usd is not None else pv.NOT_PRESERVED
+    # QUEM RESPONDE POR ESTA COMPRA, escrito na própria corrida. Sem isto, daqui
+    # a três meses ninguém consegue dizer sob que autorização aquele dólar saiu
+    # — e uma autorização que não deixa rasto é indistinguível de nenhuma.
+    manifesto['AUTORIZACAO_DE_GASTO'] = recibo_da_autorizacao
     manifesto['BUILD_PINNED'] = build or pv.NOT_PRESERVED
     # O custo lido AGORA vem 0 enquanto a Apify não fecha a conta da execução. Já custou
     # 5,6x uma vez (US$0,90 anunciados, US$5,04 reais). Ele fica gravado, mas ROTULADO:

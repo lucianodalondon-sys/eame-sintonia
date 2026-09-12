@@ -274,8 +274,16 @@ def _portao_da_fase_anterior(fase):
     return True, ''
 
 
-def _rodar(fase, entrada, *, run_id, conta, evidencia):
-    """Uma execução paga, pela porta única, com teto e build fixos."""
+def _rodar(fase, entrada, *, run_id, conta, evidencia, autorizacao=None):
+    """Uma execução paga, pela porta única, com teto e build fixos.
+
+    ⚠️ O LOOP DE ROTAÇÃO É ONDE UMA AUTORIZAÇÃO PAGARIA N. Ele percorre o pool
+    inteiro e chama a porta paga a cada posição: com cinco chaves no cofre, uma
+    autorização de uma execução compraria cinco. Por isso a autorização é
+    CONSUMIDA a cada compra comprometida, e a sexta recusa.
+
+        ROTAÇÃO DE CHAVE NÃO É NOVA AUTORIZAÇÃO.
+    """
     ator, build = ATORES[fase]
     chaves = ap.pool()
     if not chaves:
@@ -287,7 +295,14 @@ def _rodar(fase, entrada, *, run_id, conta, evidencia):
             platform='INSTAGRAM', country=(conta or {}).get('COUNTRY', 'MULTI'),
             mission=MISSION, query=(conta or {}).get('ACCOUNT_URL', run_id),
             source_version='build %s, captura de %s' % (build, coletor.agora()[:10]),
-            evidence_path=evidencia, teto_usd=TETO[fase], build=build)
+            evidence_path=evidencia, teto_usd=TETO[fase], build=build,
+            # A AUTORIZAÇÃO ATRAVESSA; ELA NÃO NASCE AQUI.
+            # Um adaptador que fabricasse a própria autorização estaria a
+            # assinar o seu próprio cheque. ADAPTER NÃO ASSINA AUTORIZAÇÃO.
+            autorizacao=autorizacao,
+            proposito=getattr(autorizacao, 'proposito', None),
+            source_id=getattr(autorizacao, 'source_id', None),
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None))
         man['TOKEN_POSITION_USED'] = pos
         man['RUNNER_NAME'] = RUNNER
         man['FASE'] = fase

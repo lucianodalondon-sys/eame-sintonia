@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21495,
-    "h": 5682
+    "h": 6004
   },
   "INVENTORY": {
     ".claude": [
@@ -246,6 +246,8 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/MUTACAO-CONVERGENCIA-V1.json",
+      "data/derivados/RED-TEAM-CONVERGENCIA-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
@@ -683,16 +685,19 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/know-how/PARA-O-KNOW-HOW-CONVERGENCIA-DO-GASTO.md",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
       "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
+      "docs/operacao/AUTORIZACAO-DE-GASTO-V1.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "docs/operacao/CONVERGENCIA-DO-CONTROLE-DE-GASTO-V1.md",
       "docs/operacao/ENCANAMENTO-DA-COLETA.md",
       "docs/operacao/ESTADO-DA-FUNDACAO-DA-COLETA.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
@@ -712,6 +717,7 @@
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
       "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
+      "docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
@@ -1086,6 +1092,7 @@
       "leis/aprender_com_a_fonte.py",
       "leis/artefato.py",
       "leis/auditoria_regua_comercial.py",
+      "leis/autorizacao_de_gasto.py",
       "leis/calendario_handoff.py",
       "leis/data_clock.py",
       "leis/diagnostico.py",
@@ -1097,6 +1104,7 @@
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
+      "leis/relevancia_da_fonte.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
       "leis/v21_carimbar_origem.py",
@@ -1221,6 +1229,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/mutacao_da_convergencia.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
@@ -1235,6 +1244,7 @@
       "provas/preservar_coleta_no_postgres.py",
       "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
+      "provas/red_team_da_convergencia.py",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
@@ -1523,6 +1533,7 @@
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
+      "tests/test_cv01_convergencia.py",
       "tests/test_estradas_it.py",
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
@@ -1965,10 +1976,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-financial-budget-c10-8af",
-    "HEAD": "7df9565f5a28b47b6a04239034d1f47ccf105e7d",
-    "GENERATED_AT": "2026-09-12T14:42:16+00:00",
-    "SOURCE_TREE_FINGERPRINT": "30240a67f93dc09540db5f33830b1c948449301f0d909f072decc2ae324cc34c"
+    "BRANCH": "claude/sintonia-scrap-paid-controls-convergence-cv01",
+    "HEAD": "532e3bed6f8345cc380dcfacd7c2d1560878079b",
+    "GENERATED_AT": "2026-09-12T14:43:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5f56cd217d136fe701da53bedf2225a73c1c46ff6bd538e3bbf6927aa50e0dd8"
   },
   "FAMILIES": [
     {
@@ -1978,7 +1989,7 @@
       "x": 260,
       "y": 60,
       "w": 11725,
-      "h": 5362,
+      "h": 5684,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -2004,7 +2015,7 @@
       "x": 12205,
       "y": 60,
       "w": 485,
-      "h": 5362,
+      "h": 5684,
       "zones": [
         "Z-ESPERA"
       ],
@@ -2017,7 +2028,7 @@
       "x": 12910,
       "y": 60,
       "w": 1605,
-      "h": 5362,
+      "h": 5684,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE"
@@ -2032,12 +2043,12 @@
       "x": 18385,
       "y": 60,
       "w": 2850,
-      "h": 5362,
+      "h": 5684,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 60
+      "count": 64
     },
     {
       "id": "F-ENTREGA",
@@ -2046,7 +2057,7 @@
       "x": 14735,
       "y": 60,
       "w": 3430,
-      "h": 5362,
+      "h": 5684,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -2068,7 +2079,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 1
     },
     {
@@ -2082,7 +2093,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 1
     },
     {
@@ -2097,7 +2108,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 2
     },
     {
@@ -2112,7 +2123,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 1
     },
     {
@@ -2127,7 +2138,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 2
     },
     {
@@ -2142,7 +2153,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 2
     },
     {
@@ -2156,7 +2167,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 2
     },
     {
@@ -2170,7 +2181,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 5
     },
     {
@@ -2186,7 +2197,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 4
     },
     {
@@ -2202,7 +2213,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 5192,
+      "h": 5514,
       "count": 14
     },
     {
@@ -2218,7 +2229,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 5192,
+      "h": 5514,
       "count": 13
     },
     {
@@ -2234,7 +2245,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 5
     },
     {
@@ -2249,7 +2260,7 @@
       "x": 10420,
       "y": 190,
       "w": 820,
-      "h": 5192,
+      "h": 5514,
       "count": 11
     },
     {
@@ -2264,7 +2275,7 @@
       "x": 11540,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 1
     },
     {
@@ -2279,7 +2290,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 1
     },
     {
@@ -2295,7 +2306,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 5192,
+      "h": 5514,
       "count": 8
     },
     {
@@ -2311,7 +2322,7 @@
       "x": 14070,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 4
     },
     {
@@ -2327,7 +2338,7 @@
       "x": 14775,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 3
     },
     {
@@ -2343,7 +2354,7 @@
       "x": 15480,
       "y": 190,
       "w": 820,
-      "h": 5192,
+      "h": 5514,
       "count": 7
     },
     {
@@ -2359,7 +2370,7 @@
       "x": 16600,
       "y": 190,
       "w": 405,
-      "h": 5192,
+      "h": 5514,
       "count": 5
     },
     {
@@ -2374,7 +2385,7 @@
       "x": 17305,
       "y": 190,
       "w": 820,
-      "h": 5192,
+      "h": 5514,
       "count": 11
     },
     {
@@ -2390,8 +2401,8 @@
       "x": 18425,
       "y": 190,
       "w": 1235,
-      "h": 5192,
-      "count": 13
+      "h": 5514,
+      "count": 15
     },
     {
       "id": "Z-PROVA",
@@ -2406,8 +2417,8 @@
       "x": 19960,
       "y": 190,
       "w": 1235,
-      "h": 5192,
-      "count": 47
+      "h": 5514,
+      "count": 49
     }
   ],
   "DEPARTMENTS": {
@@ -2678,6 +2689,7 @@
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-READY",
         "C-RECALL-PORTA-IT",
+        "C-RELEVANCIA-FONTE",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -2753,7 +2765,8 @@
       "inbound": [
         "C-CI-COLETA",
         "C-SCRAP-LEIS",
-        "C-SINTONIA-SCRAP"
+        "C-SINTONIA-SCRAP",
+        "C-TESTES"
       ],
       "outbound": [
         "C-COLETA-BASE",
@@ -5904,6 +5917,71 @@
       "y": 1004
     },
     {
+      "id": "C-AUTORIZACAO-DE-GASTO",
+      "name": "A guarda do gasto pago",
+      "territory": "Z-REGUAS",
+      "kind": "gate",
+      "what": "Confere, antes do POST que acende a execucao paga, que existe uma autorizacao valida para ESTA compra: este motivo, este proposito, esta fonte, este limite humano. Tres motivos — COLETA_NORMAL_DA_FONTE, PROVA_DE_RELEVANCIA_DA_FONTE e TRIAL_DE_CAPACIDADE — e so o primeiro passa pelo portao de relevancia. Ela conta EXECUCOES, nunca dolares: sobre dinheiro exige uma unica relacao, FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.max_usd.",
+      "why_here": "MEDIDO: ha UMA primitiva que cria execucao paga em toda a casa (`coleta/coletor.py::executar`, o POST /v2/acts/{ator}/runs), e para a atravessar bastava ter um token na mao — de modo que ter a credencial era, na pratica, ter a autorizacao. CREDENTIAL != AUTHORIZATION. Esta peca NAO julga fonte e NAO soma dinheiro: pergunta ao dono da relevancia, compara com o numero que o ledger declarou, e obedece aos dois. Dar-lhe um ledger proprio criaria duas pecas a contar o mesmo dolar, e duas pecas que contam o mesmo divergem na terceira chamada. SPEND_AUTHORIZATION != FINANCIAL_BUDGET. E a autorizacao gasta-se a cada execucao, porque ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⛔",
+      "views": [
+        "audit",
+        "collection-strategy",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/autorizacao_de_gasto.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-RELEVANCIA-FONTE"
+      ],
+      "outbound": [
+        "C-COLETA-BASE",
+        "C-MUTACAO-CONVERGENCIA",
+        "C-PROVA-COLETA",
+        "C-RED-TEAM-CONVERGENCIA",
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAUSAS",
+          "LEIS"
+        ],
+        "palavras": 29,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 29,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
+      "y": 360
+    },
+    {
       "id": "C-BANCO-NO-SECO",
       "name": "O banco a seco",
       "territory": "Z-MEDIDAS",
@@ -7229,6 +7307,7 @@
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-PROCEDENCIA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL"
@@ -7236,10 +7315,12 @@
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
+        "C-MUTACAO-CONVERGENCIA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
+        "C-RED-TEAM-CONVERGENCIA",
         "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
         "C-TESTES"
@@ -7287,7 +7368,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -7302,9 +7383,11 @@
         "coleta/instagram_pessoal.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/instagram_coleta.py"
+      ],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
@@ -7570,7 +7653,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 360
     },
     {
@@ -7715,8 +7798,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 360
+      "x": 18485,
+      "y": 682
     },
     {
       "id": "C-CORPUS",
@@ -7941,7 +8024,7 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "escreve data/samples/DATA-CLOCK-manifest.json, e quem le nao esta na esteira: C-REGRA-COLETA, C-SAUDE-FONTE, C-TESTES",
-      "x": 18485,
+      "x": 18900,
       "y": 682
     },
     {
@@ -8188,7 +8271,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 682
     },
     {
@@ -8653,8 +8736,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 682
+      "x": 18485,
+      "y": 1004
     },
     {
       "id": "C-EXECUTOR-TEXTO-PDF",
@@ -9035,7 +9118,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 18900,
       "y": 1004
     },
     {
@@ -10169,7 +10252,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 1004
     },
     {
@@ -10235,8 +10318,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 1004
+      "x": 18485,
+      "y": 1326
     },
     {
       "id": "C-MAPA-APP",
@@ -10755,6 +10838,64 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 20850,
       "y": 2936
+    },
+    {
+      "id": "C-MUTACAO-CONVERGENCIA",
+      "name": "A mutacao da convergencia do gasto",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Estraga as duas leis do gasto e o transporte que as serve, de 30 maneiras nomeadas, e pergunta se alguma prova cai. Repoe cada ficheiro byte a byte com conferencia de sha256, e conta ancora nao-unica como SOBREVIVEU — um mutante que nao chegou a nascer nao prova defesa nenhuma.",
+      "why_here": "Uma suite verde nao prova que a lei esta viva: prova que a suite corre. UM MUTANTE QUE SOBREVIVE E UMA LINHA QUE NINGUEM ESTA A MEDIR — e a primeira corrida desta prova deixou seis vivos, entre eles um que aceitava autorizacao forjada depois de ja ter comprometido dinheiro.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊛",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/mutacao_da_convergencia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AUTORIZACAO-DE-GASTO",
+        "C-COLETA-BASE",
+        "C-RED-TEAM-CONVERGENCIA",
+        "C-SCRAP-SOCIAL",
+        "C-SENSOR-COLETA",
+        "C-TESTES"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MUTANTES"
+        ],
+        "palavras": 57,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 57,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20020,
+      "y": 3258
     },
     {
       "id": "C-NAVEGADOR",
@@ -11384,7 +11525,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 18900,
       "y": 1326
     },
     {
@@ -11907,7 +12048,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3258
     },
     {
@@ -11950,7 +12091,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3258
     },
     {
@@ -12001,8 +12142,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3258
+      "x": 20020,
+      "y": 3580
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -12069,7 +12210,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 3580
     },
     {
@@ -12127,6 +12268,7 @@
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
@@ -12204,7 +12346,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3580
     },
     {
@@ -12260,8 +12402,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3580
+      "x": 20020,
+      "y": 3902
     },
     {
       "id": "C-PROVA-ENCANAMENTO",
@@ -12306,7 +12448,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 3902
     },
     {
@@ -12353,7 +12495,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12429,8 +12571,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -12495,7 +12637,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12552,7 +12694,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12642,8 +12784,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -12713,7 +12855,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -12766,7 +12908,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -12841,7 +12983,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18900,
+      "x": 19315,
       "y": 1326
     },
     {
@@ -13016,8 +13158,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-RECEITAS",
@@ -13162,7 +13304,75 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
+      "y": 4868
+    },
+    {
+      "id": "C-RED-TEAM-CONVERGENCIA",
+      "name": "O red team da convergencia do gasto",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Tenta COMPRAR de 35 maneiras nomeadas, atravessando a linha onde as tres guardas se encontram: a autorizacao, o teto de gasto e o teto de acessos. Cada ataque declara o que teria de acontecer para ele morrer, e um ataque que rebenta de outra maneira conta como ATAQUE_VIVO — nunca como defesa.",
+      "why_here": "Duas leis que passaram em separado nao provam nada juntas. E uma excecao que ninguem previu nao e um portao: e uma surpresa. Tres dos ataques desta lista encontraram buracos reais que nenhuma suite tinha visto — a execucao autorizada queimada por uma compra que a rede recusou antes do socket, a autorizacao copiavel por `dataclasses.replace`, e o fornecedor que cobra acima do teto a passar por sucesso. O fornecedor e falso so na fronteira externa: NETWORK_REAL = 0, APIFY_REAL_RUNS = 0, REAL_COST_USD = 0.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊗",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/red_team_da_convergencia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [
+        "data/derivados/RED-TEAM-CONVERGENCIA-V1.json"
+      ],
+      "inbound": [
+        "C-AUTORIZACAO-DE-GASTO",
+        "C-COLETA-BASE",
+        "C-RELEVANCIA-FONTE",
+        "C-SCRAP-SOCIAL",
+        "C-SENSOR-COLETA"
+      ],
+      "outbound": [
+        "C-MUTACAO-CONVERGENCIA"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/derivados",
+          "prova": {
+            "file": "provas/red_team_da_convergencia.py",
+            "line": 706,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/RED-TEAM-CONVERGENCIA-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 20850,
       "y": 4868
     },
     {
@@ -13304,8 +13514,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -13463,8 +13673,69 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
       "rule_role_evidence": "escreve data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json, e C-ROTULOS — peca da esteira — le isso",
-      "x": 19315,
-      "y": 1326
+      "x": 18485,
+      "y": 1648
+    },
+    {
+      "id": "C-RELEVANCIA-FONTE",
+      "name": "O portao de relevancia da fonte",
+      "territory": "Z-REGUAS",
+      "kind": "gate",
+      "what": "Decide, por par (FONTE, PROPOSITO), se esta fonte vale ser acompanhada para este universo — e barra o GASTO quando a resposta nao e SIM. Cinco resultados (SIM · NAO · NAO_SEI · NAO_SE_APLICA · ERRO), mais NAO_AVALIADA, que nao e um resultado porque ninguem olhou. Tres vereditos: AUTORIZA · BARRA · EXIGE_AVALIACAO.",
+      "why_here": "FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> subprocess sem que nada perguntasse se a fonte servia: o unico requisito para correr era existir linha em EXECUTORES. MEDIDO: 54 das 77 fontes podiam disparar coleta e 8 podiam correr rota paga com verdict = NAO SEI. E NAO_AVALIADA nao e NAO_SEI nao e ERRO nao e NAO — uma so delas e um julgamento; as outras tres sao confissoes, e uma confissao nao autoriza gasto nem o condena.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊘",
+      "views": [
+        "audit",
+        "collection-strategy",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/relevancia_da_fonte.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO"
+      ],
+      "outbound": [
+        "C-AUTORIZACAO-DE-GASTO",
+        "C-RED-TEAM-CONVERGENCIA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_DECISAO"
+        ],
+        "palavras": 9,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 9,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
+      "y": 1648
     },
     {
       "id": "C-ROTA-M2",
@@ -13839,9 +14110,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 483,
+        "palavras": 484,
         "por_lingua": {},
-        "sem_marca_de_lingua": 483,
+        "sem_marca_de_lingua": 484,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13852,7 +14123,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18485,
+      "x": 19315,
       "y": 1648
     },
     {
@@ -13949,6 +14220,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-AUTORIZACAO-DE-GASTO",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
@@ -13965,8 +14237,10 @@
       "outbound": [
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
+        "C-MUTACAO-CONVERGENCIA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-RED-TEAM-CONVERGENCIA",
         "C-ROTA-M2",
         "C-SENSOR-COLETA",
         "C-TESTES"
@@ -14097,8 +14371,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4868
+      "x": 20435,
+      "y": 5190
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -14141,7 +14415,9 @@
       ],
       "outbound": [
         "C-CENSO-SEMANTICO-IT",
+        "C-MUTACAO-CONVERGENCIA",
         "C-PROVA-COLETA",
+        "C-RED-TEAM-CONVERGENCIA",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -14176,7 +14452,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_coleta.py",
-            "line": 370,
+            "line": 403,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -14394,7 +14670,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -15637,6 +15913,7 @@
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
+        "tests/test_cv01_convergencia.py",
         "tests/test_estradas_it.py",
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
@@ -15699,7 +15976,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 107,
+      "file_count": 108,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15725,6 +16002,7 @@
         "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
         "C-CADEIA-V21",
@@ -15791,6 +16069,7 @@
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
+        "C-RELEVANCIA-FONTE",
         "C-ROTA-M2",
         "C-ROTULOS",
         "C-SAUDE-FONTE",
@@ -15811,6 +16090,7 @@
       ],
       "outbound": [
         "C-ADMISSAO",
+        "C-APIFY-POOL",
         "C-ASK-SINTONIA",
         "C-AUDIT-GERAL",
         "C-CENSO-CONGELAMENTO",
@@ -15818,6 +16098,7 @@
         "C-CICATRIZES-BR",
         "C-ESTRADAS-IT",
         "C-MAPA-GERADOR",
+        "C-MUTACAO-CONVERGENCIA",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-PROVA-COLETA",
@@ -15939,8 +16220,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
-      "y": 5190
+      "x": 20020,
+      "y": 5512
     },
     {
       "id": "C-TRANSCRICAO",
@@ -17301,7 +17582,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-financial-budget-c10-8af"
+        "branch claude/sintonia-scrap-paid-controls-convergence-cv01"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17755,6 +18036,24 @@
           "file": "system-map/scripts/recall_da_porta_it.py",
           "line": 43,
           "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-RELEVANCIA-FONTE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por O portao de relevancia da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/relevancia_da_fonte.py",
+          "line": 122,
+          "snippet": "from admissao import (  # noqa: E402"
         }
       ],
       "categoria": "CODE"
@@ -19128,6 +19427,124 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda do gasto pago tem o seu codigo importado por O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 87,
+          "snippet": "import autorizacao_de_gasto as ag  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-MUTACAO-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda do gasto pago alimenta A mutacao da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 38,
+          "snippet": "GUARDA = os.path.join(RAIZ, 'leis', 'autorizacao_de_gasto.py')"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda do gasto pago tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 38,
+          "snippet": "import autorizacao_de_gasto as ag  # noqa: E402 — a guarda, so o tipo e a porta"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-RED-TEAM-CONVERGENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda do gasto pago tem o seu codigo importado por O red team da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia.py",
+          "line": 46,
+          "snippet": "import autorizacao_de_gasto as ag   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda do gasto pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/scrap_executor.py",
+          "line": 414,
+          "snippet": "import autorizacao_de_gasto as _ag"
+        },
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 62,
+          "snippet": "import autorizacao_de_gasto as _ag  # noqa: E402  — so o TIPO da recusa"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A guarda do gasto pago tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 25,
+          "snippet": "import autorizacao_de_gasto as ag                                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 35,
+          "snippet": "import autorizacao_de_gasto as ag   # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-BANCO-NO-SECO",
@@ -21059,6 +21476,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-MUTACAO-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar alimenta A mutacao da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 39,
+          "snippet": "COLETOR = os.path.join(RAIZ, 'coleta', 'coletor.py')"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21079,7 +21514,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 38,
+          "line": 39,
           "snippet": "import coletor as ct              # noqa: E402  — o dono do dinheiro"
         },
         {
@@ -21122,7 +21557,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 202,
+          "line": 238,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
         }
       ],
@@ -21184,6 +21619,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-RED-TEAM-CONVERGENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por O red team da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia.py",
+          "line": 48,
+          "snippet": "import coletor                      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-SCRAP-SOCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21199,7 +21652,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 552,
+          "line": 587,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
@@ -21232,7 +21685,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 767,
+          "line": 802,
           "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
         }
       ],
@@ -21264,7 +21717,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21278,13 +21731,18 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 25,
+          "line": 26,
           "snippet": "import coletor as ct                                              # noqa: E402"
         },
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 37,
+          "snippet": "import coletor                      # noqa: E402"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -21332,7 +21790,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21341,8 +21799,13 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 332,
+          "line": 374,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
+        },
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 713,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -21364,7 +21827,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 442,
+          "line": 478,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -21512,7 +21975,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 332,
+          "line": 374,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         }
       ],
@@ -21548,7 +22011,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 443,
+          "line": 479,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         }
       ],
@@ -21665,7 +22128,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 333,
+          "line": 375,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -21870,7 +22333,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 780,
+          "line": 815,
           "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
         }
       ],
@@ -22297,7 +22760,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 360,
+          "line": 393,
           "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
         }
       ],
@@ -25845,7 +26308,7 @@
       "evidence": [
         {
           "file": "coleta/instagram_coleta.py",
-          "line": 556,
+          "line": 571,
           "snippet": "import corrigir_custo as cc"
         }
       ],
@@ -27861,7 +28324,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 558,
+          "line": 636,
           "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
         },
         {
@@ -28464,6 +28927,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-RED-TEAM-CONVERGENCIA",
+      "to": "C-MUTACAO-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O red team da convergencia do gasto alimenta A mutacao da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 203,
+          "snippet": "[sys.executable, 'provas/red_team_da_convergencia.py'],"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
       "from": "C-REGRA-COLETA",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -28657,6 +29138,78 @@
         }
       ],
       "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-AUTORIZACAO-DE-GASTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por A guarda do gasto pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/autorizacao_de_gasto.py",
+          "line": 136,
+          "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-RED-TEAM-CONVERGENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por O red team da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia.py",
+          "line": 47,
+          "snippet": "import relevancia_da_fonte as rel   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 36,
+          "snippet": "import relevancia_da_fonte as rel   # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 773,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-ROTA-M2",
@@ -29310,7 +29863,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 41,
+          "line": 42,
           "snippet": "import social_matriz as mz        # noqa: E402"
         },
         {
@@ -29430,7 +29983,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 481,
+          "line": 516,
           "snippet": "import falhas as fx"
         },
         {
@@ -29497,7 +30050,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 41 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 42 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29765,7 +30318,7 @@
       "evidence": [
         {
           "file": "coleta/coletor.py",
-          "line": 362,
+          "line": 373,
           "snippet": "import scrap_http as _http"
         }
       ],
@@ -29788,6 +30341,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-MUTACAO-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A mutacao da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 41,
+          "snippet": "ROTAS = os.path.join(RAIZ, 'coleta', 'social_rotas.py')"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-SCRAP-SOCIAL",
@@ -29935,6 +30506,24 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-RED-TEAM-CONVERGENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O red team da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia.py",
+          "line": 49,
+          "snippet": "import scrap_http                   # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -29959,11 +30548,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 492,
+          "line": 334,
+          "snippet": "import scrap_http as _http"
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 525,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -29977,7 +30571,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 95 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 97 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -30181,6 +30775,24 @@
     },
     {
       "from": "C-SENSOR-COLETA",
+      "to": "C-MUTACAO-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta A mutacao da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 40,
+          "snippet": "SENSOR = os.path.join(RAIZ, 'regras', 'sensor_coleta.py')"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -30209,7 +30821,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 443,
+          "line": 479,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -30219,6 +30831,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-RED-TEAM-CONVERGENCIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por O red team da convergencia do gasto. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia.py",
+          "line": 597,
+          "snippet": "import sensor_coleta"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-SENSOR-COLETA",
@@ -30246,7 +30876,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -30262,6 +30892,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 109,
           "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 636,
+          "snippet": "import sensor_coleta"
         }
       ],
       "categoria": "PROOF"
@@ -30278,7 +30913,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 333,
+          "line": 375,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -31105,6 +31740,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-APIFY-POOL",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Apify — a rota paga. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_cv01_convergencia.py",
+          "line": 718,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'ferramentas', 'apify_pool.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-ASK-SINTONIA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -31235,6 +31888,29 @@
           "file": "system-map/scripts/generate_system_map.py",
           "line": 2921,
           "snippet": "vj = RAIZ / \"vercel.json\""
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-MUTACAO-CONVERGENCIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta A mutacao da convergencia do gasto. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 201,
+          "snippet": "[sys.executable, '-m', 'pytest', 'tests/test_cv01_convergencia.py',"
+        },
+        {
+          "file": "provas/mutacao_da_convergencia.py",
+          "line": 202,
+          "snippet": "'tests/test_c10_8af_orcamento_financeiro.py', '-q', '-p', 'no:cacheprovider'],"
         }
       ],
       "categoria": "PROOF"
@@ -31405,7 +32081,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 731,
+          "line": 745,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -32690,7 +33366,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 769,
+  "UNCLAIMED_FILES_COUNT": 774,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32853,17 +33529,17 @@
     ]
   },
   "COUNTS": {
-    "components": 163,
-    "components_proven": 53,
-    "components_pending": 104,
+    "components": 167,
+    "components_proven": 52,
+    "components_pending": 109,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 673,
-    "edges_proven": 670,
+    "edges": 693,
+    "edges_proven": 690,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1518,
-    "files_covered": 749,
+    "files_tracked": 1529,
+    "files_covered": 755,
     "files_code_unclaimed": 0
   }
 }

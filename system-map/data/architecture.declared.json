@@ -2967,6 +2967,80 @@
    "files": [
     "provas/instagram_audio_only.py"
    ]
+  },
+  {
+   "id": "C-RELEVANCIA-FONTE",
+   "name": "O portao de relevancia da fonte",
+   "territory": "Z-REGUAS",
+   "kind": "gate",
+   "icon": "⊘",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "files": [
+    "leis/relevancia_da_fonte.py"
+   ],
+   "what": "Decide, por par (FONTE, PROPOSITO), se esta fonte vale ser acompanhada para este universo — e barra o GASTO quando a resposta nao e SIM. Cinco resultados (SIM · NAO · NAO_SEI · NAO_SE_APLICA · ERRO), mais NAO_AVALIADA, que nao e um resultado porque ninguem olhou. Tres vereditos: AUTORIZA · BARRA · EXIGE_AVALIACAO.",
+   "why_here": "FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> subprocess sem que nada perguntasse se a fonte servia: o unico requisito para correr era existir linha em EXECUTORES. MEDIDO: 54 das 77 fontes podiam disparar coleta e 8 podiam correr rota paga com verdict = NAO SEI. E NAO_AVALIADA nao e NAO_SEI nao e ERRO nao e NAO — uma so delas e um julgamento; as outras tres sao confissoes, e uma confissao nao autoriza gasto nem o condena."
+  },
+  {
+   "id": "C-AUTORIZACAO-DE-GASTO",
+   "name": "A guarda do gasto pago",
+   "territory": "Z-REGUAS",
+   "kind": "gate",
+   "icon": "⛔",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "files": [
+    "leis/autorizacao_de_gasto.py"
+   ],
+   "what": "Confere, antes do POST que acende a execucao paga, que existe uma autorizacao valida para ESTA compra: este motivo, este proposito, esta fonte, este limite humano. Tres motivos — COLETA_NORMAL_DA_FONTE, PROVA_DE_RELEVANCIA_DA_FONTE e TRIAL_DE_CAPACIDADE — e so o primeiro passa pelo portao de relevancia. Ela conta EXECUCOES, nunca dolares: sobre dinheiro exige uma unica relacao, FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.max_usd.",
+   "why_here": "MEDIDO: ha UMA primitiva que cria execucao paga em toda a casa (`coleta/coletor.py::executar`, o POST /v2/acts/{ator}/runs), e para a atravessar bastava ter um token na mao — de modo que ter a credencial era, na pratica, ter a autorizacao. CREDENTIAL != AUTHORIZATION. Esta peca NAO julga fonte e NAO soma dinheiro: pergunta ao dono da relevancia, compara com o numero que o ledger declarou, e obedece aos dois. Dar-lhe um ledger proprio criaria duas pecas a contar o mesmo dolar, e duas pecas que contam o mesmo divergem na terceira chamada. SPEND_AUTHORIZATION != FINANCIAL_BUDGET. E a autorizacao gasta-se a cada execucao, porque ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO."
+  },
+  {
+   "id": "C-RED-TEAM-CONVERGENCIA",
+   "name": "O red team da convergencia do gasto",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊗",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit"
+   ],
+   "files": [
+    "provas/red_team_da_convergencia.py"
+   ],
+   "what": "Tenta COMPRAR de 35 maneiras nomeadas, atravessando a linha onde as tres guardas se encontram: a autorizacao, o teto de gasto e o teto de acessos. Cada ataque declara o que teria de acontecer para ele morrer, e um ataque que rebenta de outra maneira conta como ATAQUE_VIVO — nunca como defesa.",
+   "why_here": "Duas leis que passaram em separado nao provam nada juntas. E uma excecao que ninguem previu nao e um portao: e uma surpresa. Tres dos ataques desta lista encontraram buracos reais que nenhuma suite tinha visto — a execucao autorizada queimada por uma compra que a rede recusou antes do socket, a autorizacao copiavel por `dataclasses.replace`, e o fornecedor que cobra acima do teto a passar por sucesso. O fornecedor e falso so na fronteira externa: NETWORK_REAL = 0, APIFY_REAL_RUNS = 0, REAL_COST_USD = 0."
+  },
+  {
+   "id": "C-MUTACAO-CONVERGENCIA",
+   "name": "A mutacao da convergencia do gasto",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊛",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit"
+   ],
+   "files": [
+    "provas/mutacao_da_convergencia.py"
+   ],
+   "what": "Estraga as duas leis do gasto e o transporte que as serve, de 30 maneiras nomeadas, e pergunta se alguma prova cai. Repoe cada ficheiro byte a byte com conferencia de sha256, e conta ancora nao-unica como SOBREVIVEU — um mutante que nao chegou a nascer nao prova defesa nenhuma.",
+   "why_here": "Uma suite verde nao prova que a lei esta viva: prova que a suite corre. UM MUTANTE QUE SOBREVIVE E UMA LINHA QUE NINGUEM ESTA A MEDIR — e a primeira corrida desta prova deixou seis vivos, entre eles um que aceitava autorizacao forjada depois de ja ter comprometido dinheiro."
   }
  ],
  "BUSINESS_EDGES": [
