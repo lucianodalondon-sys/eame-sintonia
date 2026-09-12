@@ -8410,3 +8410,147 @@ Os 59.743 bytes da `§84` não voltam. Continua por saber por que aquele objeto
 veio vazio, e continua a ser dinheiro que ninguém autorizou. O que mudou é que o
 próximo bruto pago que alguém precise de reler **vai lá estar** — durante trinta
 dias, e a contagem está escrita ao lado dos bytes.
+
+---
+
+# §88 · A VERSÃO DE UMA ENTRADA GERADA NÃO É O SEU CONTEÚDO: É A ÁRVORE QUE ELA MEDIU
+
+**Missão:** `C-SYSTEM-MAP-G2-PERSIST-TOPOLOGY-CENSUS-V1`
+**Linha:** `claude/dazzling-cerf-27a7v2` · **HEAD final:** `896e9bc1`
+**Tocado:** `system-map/scripts/censo_da_topologia.py` ·
+`system-map/tests/test_topologia_persistida.py` ·
+`system-map/scripts/reconciliacao_do_universo.py` ·
+`system-map/scripts/CADEIA-DO-MAPA.json` · `.github/workflows/system-map.yml` ·
+`docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md`
+
+A `§82` já tinha escrito que um artefato desactualizado é um artefato falso, e
+que a pergunta certa não é «que commit?» mas «que ficheiros decidem isto?». Esta
+secção é o que aconteceu ao aplicar essa lei a um censo cujas **entradas são
+elas próprias artefatos gerados** — e as duas armadilhas que só aparecem aí.
+
+## 88.1 · O QUE MUDOU
+
+O censo da topologia publicava dezassete números — entre eles `111`, `65`, `590`
+— e não escrevia ficheiro nenhum. O número entrava em documentação escrita à mão,
+que é a definição de segundo dono.
+
+```
+    STDOUT NÃO É MEMÓRIA DURÁVEL.
+```
+
+Ele passou a escrever `system-map/data/topologia.generated.json`: as três
+populações enumeradas membro a membro, a regra de entrada de cada uma, as arestas
+no modelo dos quatro planos, e a proveniência com a versão de cada input que leu.
+
+## 88.2 · A ARMADILHA DE HASHAR O CONTEÚDO DE UMA ENTRADA GERADA
+
+A primeira versão versionava cada input pelo `sha256` do ficheiro. É o que a
+`§82` ensina, e para uma **fonte** está certo.
+
+Para uma **entrada gerada** está errado, e o erro só aparece no CI. Os dois
+`.generated.json` que este censo lê são reescritos a cada corrida da cadeia, e
+carregam `HEAD` e `GENERATED_AT` no carimbo. Regerar o mapa **sem mudar uma
+linha da árvore** move o conteúdo deles — logo movia a versão, logo o artefato
+nascia `STALE` em toda a corrida.
+
+```
+    UM ALARME QUE TOCA SEMPRE NÃO É UM ALARME: É UM RUÍDO QUE SE APRENDE A
+    IGNORAR.
+```
+
+A versão certa de uma entrada gerada é a **impressão da árvore que ela carimba**.
+Ela responde «que fontes mediste?», que é a pergunta de que a frescura precisa, e
+fica quieta quando só o relógio andou.
+
+```
+FONTE            versão = SHA do blob que o git guardaria
+ENTRADA GERADA   versão = SOURCE_TREE_FINGERPRINT que ela própria carimba
+```
+
+## 88.3 · DUAS PERGUNTAS SOBRE O MESMO FICHEIRO PRECISAM DE DOIS NÚMEROS
+
+O artefato começou com um `SEMANTIC_HASH` só, a servir duas perguntas. Medido na
+primeira corrida a sério: editar **um comentário** noutro ficheiro fez a
+auto-observabilidade publicar `TOPOLOGY_COUNTS_REPRODUCIBLE = NO`. Nenhuma
+contagem tinha mudado.
+
+A causa é que as duas perguntas têm sensibilidades opostas:
+
+| número | pergunta | tem de mudar quando |
+|---|---|---|
+| `MEASUREMENT_HASH` | as contagens reproduzem-se? | o grafo medido muda — **e só** |
+| `SEMANTIC_HASH` | o ficheiro é o que o gerador escreveu? | **qualquer** campo não volátil muda |
+
+O segundo tem de incluir a proveniência, senão adulterar um carimbo passa
+despercebido. O primeiro tem de a excluir, senão grita a cada commit.
+
+```
+    UM NÚMERO QUE RESPONDE A DUAS PERGUNTAS RESPONDE MAL ÀS DUAS.
+```
+
+## 88.4 · O TERCEIRO RELÓGIO: QUEM SÓ SE COMPARA CONSIGO NUNCA SE DESCOBRE VELHO
+
+Dois relógios — «a árvore mudou?» e «alguma entrada mudou?» — comparam o
+artefato **consigo mesmo no tempo**. Os dois diziam `CURRENT` num artefato
+gerado sobre um `state.generated.json` de três árvores atrás: ninguém tinha
+mexido em nada **desde** que ele correu.
+
+```
+    REGERAR SOBRE UMA ENTRADA VELHA NÃO TORNA A ENTRADA NOVA:
+    TORNA A MENTIRA MAIS RECENTE.
+```
+
+O terceiro relógio pergunta outra coisa: **cada entrada gerada mediu esta
+árvore?** Quando não mediu, o veredito é `STALE` com motivo `STALE_BY_CYCLE` —
+a lei do ciclo atrasado do contrato de confiança, aplicada a um artefato.
+
+Ele **nomeia** e não repara: ordenar a cadeia pelos `INPUTS` declarados é outro
+trabalho, e um censo que reordenasse a cadeia deixava de ser um censo.
+
+## 88.5 · A PROVA, E O QUE ELA MEDIU
+
+`test_topologia_persistida.py` — 83 provas — não lê o artefato à procura de
+confirmação: regenera, adultera e compara. Cada guarda é mordida com o defeito
+que devia apanhar (contagem sem membros, vizinho contado como coleta, aresta
+duplicada, texto reescrito à mão), e as três populações são **recontadas a
+partir do estado**, não lidas do próprio ficheiro.
+
+```
+    CONFERIR UM ARTEFATO CONTRA ELE PRÓPRIO NÃO É CONFERIR NADA.
+```
+
+E a frescura não é lida no artefato: um ficheiro não se declara actual a si
+mesmo. Quem responde `CURRENT · STALE · UNVERIFIABLE · UNKNOWN` é outro processo,
+contra a árvore de agora.
+
+## 88.6 · TRÊS ALARMES QUE SÓ SE TESTAM JUNTOS SÃO UM ALARME SÓ
+
+Dezassete mutantes, zero sobreviventes — mas dois deles só morreram depois de a
+mutação encontrar um buraco que eu não tinha visto.
+
+Apagar o relógio da árvore **não reprovava nada**. Apagar o das entradas
+**também não**. A razão é que todas as provas de frescura corriam sobre uma
+árvore mexida, e numa árvore mexida os três relógios tocam ao mesmo tempo: os
+outros dois tapavam o buraco e a prova dizia `PASS` sobre uma guarda que já não
+existia.
+
+```
+    UMA GUARDA QUE SÓ É TESTADA JUNTO COM AS OUTRAS
+    NÃO FOI TESTADA: FOI ACOMPANHADA.
+```
+
+A correcção foi morder cada relógio **sozinho**, mexendo só no carimbo que ele
+lê. E o arnês de mutação tinha o seu próprio defeito: ao mutar uma fonte, ele
+movia a árvore e deixava o relógio do ciclo aceso em todas as corridas. Um arnês
+que deixa um alarme sempre ligado não testa os outros.
+
+## 88.7 · CONSEQUÊNCIA
+
+Qualquer contagem de topologia publicada pode agora ser auditada depois: o número
+aponta para o artefato, o artefato enumera os membros, declara a regra, nomeia o
+gerador, versiona cada input e sabe dizer se ainda vale. E as três populações
+— coleta, vizinhos de fronteira, união — deixaram de caber na mesma palavra.
+
+```
+    UM VIZINHO DA COLETA NÃO VIRA MEMBRO DA COLETA.
+```
