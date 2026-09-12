@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-bluesky-live-trial-c10-8a",
-    "HEAD": "f40bfe065a8570cc6ceeed05b4fec42d915c5476",
-    "GENERATED_AT": "2026-09-12T12:53:41+00:00",
+    "HEAD": "0572cf5b3e109018a85a348e670c79a6155bff7a",
+    "GENERATED_AT": "2026-09-12T13:02:32+00:00",
     "SOURCE_TREE_FINGERPRINT": "de49fdb8ca32dad6997353fe2d1c387b7bc07798265ee6f7dcca9af110f83eb9"
   },
   "FILES": [
@@ -8021,6 +8021,13 @@
       "sha": "4b2983bf279c31b3afbf83f037b5cbd347757bce",
       "ext": ".py",
       "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_c108a_ensaio_a_seco.json",
+      "sha": "0a1419d4d4bd55e0daa5d9943ab6159db0761cb2",
+      "ext": ".json",
+      "readable": false,
       "code_dir": true
     },
     {
@@ -26484,6 +26491,17 @@
     },
     {
       "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "provas/_c108a_ensaio_a_seco.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 281,
+        "snippet": "nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
       "to_file": "provas/_c108a_ultima_corrida.json",
       "type": "READS",
       "payload": "artefacto",
@@ -39899,10 +39917,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1511,
+    "files_tracked": 1512,
     "files_readable": 583,
-    "files_code_dir": 631,
-    "file_edges": 2623,
+    "files_code_dir": 632,
+    "file_edges": 2624,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
