@@ -352,7 +352,60 @@ class ACorridaItalianaInteira(CasoB1):
         # por dentro — e um teste que proibisse a palavra proibiria a
         # explicacao junto com o defeito.
         self.assertNotIn("RAW_OBSERVATIONS", _codigo("coleta/ingresso.py"))
-        self.assertNotIn("raw_asset", _codigo("coleta/ingresso.py"))
+
+        # ⚠️ ESTA GUARDA PASSOU A NOMEAR O QUE PROTEGE.
+        # Ela proibia o TOKEN `raw_asset` em qualquer sitio do codigo da porta,
+        # e em C-MAKE-RAW-OBSERVABLE-V1 reprovou por uma razao que nao e a
+        # dela: a porta passou a contar a passagem do RAW ao dono do rastro, e
+        # o argumento que leva a correlacao chama-se `raw_asset_id` — o nome
+        # da COLUNA de `etapa_da_corrida`, nao uma conversa com `raw_asset`.
+        #
+        #     PROIBIR A PALAVRA PROIBE A EXPLICACAO JUNTO COM O DEFEITO —
+        #     E PROIBIR O NOME DA COLUNA PROIBE A CORRELACAO JUNTO COM ELE.
+        #
+        # O que a porta nao pode fazer e FALAR com o banco. Entao e isso que
+        # se mede: zero SQL, e `raw_asset` so como o nome do argumento.
+        # ⚠️ E ELA LE-SE POR AST, NAO POR `_codigo`.
+        # MEDIDO: `_codigo()` APAGA as strings, e SQL vive dentro de strings.
+        # A primeira versao desta guarda procurava `select ` no texto sem
+        # strings — e deixou passar, sem uma queixa, um
+        # `memoria.aplicar("select 1 from public.raw_asset")` posto de
+        # proposito para a testar.
+        #
+        #     UMA GUARDA QUE LE O CODIGO SEM AS STRINGS
+        #     NAO VE O SQL, QUE E EXACTAMENTE ONDE ELE MORA.
+        #
+        # A AST ve as strings e nao ve os comentarios — que e a divisao certa:
+        # a prosa pode nomear a tabela, e o codigo nao pode falar com ela.
+        import ast
+        arv = ast.parse(io.open(os.path.join(RAIZ, "coleta", "ingresso.py"),
+                                encoding="utf-8").read())
+        docs = set()
+        for no in ast.walk(arv):
+            if isinstance(no, (ast.Module, ast.FunctionDef, ast.ClassDef)):
+                d = ast.get_docstring(no, clean=False)
+                if d:
+                    docs.add(d)
+        verbos = ("select ", "insert into", "update ", "delete from")
+        for no in ast.walk(arv):
+            if not isinstance(no, ast.Constant):
+                continue
+            if not isinstance(no.value, str) or no.value in docs:
+                continue
+            baixo = no.value.lower()
+            self.assertNotIn("public.raw_asset", baixo,
+                             "a porta fala com `raw_asset` na linha %d"
+                             % no.lineno)
+            if "raw_asset" in baixo:
+                for verbo in verbos:
+                    self.assertNotIn(verbo, baixo,
+                                     "SQL sobre `raw_asset` dentro da porta,"
+                                     " linha %d" % no.lineno)
+        sobras = [p for p in _codigo("coleta/ingresso.py").split()
+                  if "raw_asset" in p and p != "raw_asset_id"]
+        self.assertEqual([], sobras,
+                         "a porta nomeia `raw_asset` fora do argumento de"
+                         " correlacao: %s" % sobras)
 
     def test_15_o_B4_nao_tocou_no_esquema_nem_chamou_o_T32(self):
         alvo = os.path.join(RAIZ, "supabase", "migrations")

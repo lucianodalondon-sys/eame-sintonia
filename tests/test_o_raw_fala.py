@@ -162,6 +162,24 @@ class AContaFecha(unittest.TestCase):
         self.assertEqual(1, b["passed"])
         self.assertEqual(0, b["reused"])
 
+    def test_reaproveitadas_a_MAIS_nao_fazem_um_balde_negativo(self):
+        """⚠️ O MUTANTE QUE SOBREVIVEU: `min(reaproveitadas, confirmadas)`.
+
+        Tirando o `min`, os casos normais nao mudam — `confirmadas` e sempre
+        >= `reaproveitadas` quando o dono responde direito. So um recibo em
+        que o reaproveitamento EXCEDE o confirmado o denuncia, e e por isso
+        que a guarda anterior o deixava passar.
+
+            UM LIMITE SO ESTA TESTADO SE ALGUM CASO O ULTRAPASSAR.
+        """
+        b = self._baldes(confirmadas=1, reused=3, entrada=1)
+        self.assertGreaterEqual(b["passed"], 0,
+                                "`passed` saiu negativo: a conta inverteu-se")
+        self.assertLessEqual(b["reused"], 1,
+                             "reaproveitou mais do que existe confirmado")
+        for nome, v in b.items():
+            self.assertGreaterEqual(v, 0, "balde negativo em %s" % nome)
+
     def test_a_conta_fecha_em_todos_os_arranjos(self):
         for conf, reu, rec, porta, ent in ((1, 0, 0, 0, 1), (1, 1, 0, 0, 1),
                                            (0, 0, 1, 0, 1), (0, 0, 0, 1, 1),
@@ -249,6 +267,33 @@ class OGapFechouEFicouNaLista(unittest.TestCase):
         self.assertIn("RAW", obs["ETAPAS_QUE_FALAM"])
         self.assertNotIn("RAW", obs["ETAPAS_MUDAS"])
         self.assertIn("AST", obs["COMO_FOI_MEDIDO"])
+
+    def test_o_medidor_IGNORA_uma_chamada_que_nao_e_do_dono_do_rastro(self):
+        """⚠️ O SEGUNDO MUTANTE QUE SOBREVIVEU: tirar o filtro pelo nome.
+
+        Sem ele, o medidor conta QUALQUER chamada com `etapa=` — e nas pastas
+        reais o resultado nao muda, porque nao ha nenhuma. So um exemplo
+        sintetico com um impostor ao lado o denuncia.
+        """
+        import importlib.util as u
+        import shutil
+        import tempfile
+        sp = u.spec_from_file_location(
+            "portoes", os.path.join(RAIZ, "provas",
+                                    "os_portoes_da_collection.py"))
+        m = u.module_from_spec(sp)
+        sp.loader.exec_module(m)
+        tmp = tempfile.mkdtemp(prefix="obs-")
+        self.addCleanup(shutil.rmtree, tmp, True)
+        io.open(os.path.join(tmp, "falso.py"), "w", encoding="utf-8").write(
+            "# uma etapa READY nomeada num comentario nao e uma chamada\n"
+            "outra_coisa.guardar(etapa='READY')\n"
+            "rastro.registrar(banco, etapa='RAW', estado='PASS')\n")
+        faladas = m._etapas_emitidas([tmp])
+        self.assertIn("RAW", faladas)
+        self.assertNotIn("READY", faladas,
+                         "o medidor contou uma chamada que nao e do dono do"
+                         " rastro")
 
     def test_e_o_medidor_le_chamadas_e_nao_comentarios(self):
         """Um comentario que nomeie uma etapa nao e uma chamada (§60)."""

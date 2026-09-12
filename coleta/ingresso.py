@@ -590,26 +590,6 @@ def _a_observacao_desta_passagem(recibo):
     return obs[0]["RAW_OBSERVATION_ID"]
 
 
-def _proxima_tentativa(banco, run_id):
-    """A tentativa seguinte desta etapa nesta corrida.
-
-    ⚠️ FIXAR `tentativa=0` FARIA A SEGUNDA PASSAGEM COLIDIR na chave
-    `(run_id, etapa, tentativa)` — e o erro do banco subiria com o mesmo tipo
-    do erro do fluxo. `rota_forward_documento` já resolveu isto no STRUCTURED,
-    e a etapa RAW não tem razão nenhuma para o resolver de outra maneira.
-
-    E a linha anterior FICA. Apagar a tentativa que falhou apagaria a evidência
-    daquilo que se está a tentar consertar.
-    """
-    try:
-        r = banco.executa(
-            "select coalesce(max(tentativa), -1) from public.etapa_da_corrida"
-            " where run_id = %s and etapa = 'RAW'" % rastro._lit(run_id))
-        return int(r[0][0]) + 1
-    except Exception:                                        # noqa: BLE001
-        return 0
-
-
 def falar_do_raw(banco, *, recibo, corrida, entrada, recusas_da_porta,
                  source_id=None, route_class_id=None, tentativa=None):
     """A passagem pela etapa RAW, escrita pelo dono canónico do rastro.
@@ -624,7 +604,10 @@ def falar_do_raw(banco, *, recibo, corrida, entrada, recusas_da_porta,
     falhou correu. Colapsar as duas manda o operador ao sítio errado.
     """
     if tentativa is None:
-        tentativa = _proxima_tentativa(banco, corrida["RUN_ID"])
+        # ⚠️ A PERGUNTA E SOBRE `etapa_da_corrida`, E ELA E DO DONO DELA.
+        # Aqui vivia uma copia da consulta, e uma porta com SQL la dentro e um
+        # segundo dono a nascer.
+        tentativa = rastro.proxima_tentativa(banco, corrida["RUN_ID"], "RAW")
 
     if recibo is None:
         # Nada a preservar: nenhum artefato sobreviveu ao contrato da porta.

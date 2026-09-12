@@ -9,10 +9,10 @@ cada uma com a sua prova.
 COLLECTION_CORE_CLOSE = FAIL
 BIG_COLLECTION_READY  = FAIL
 
-BLOCKERS            = 3
+BLOCKERS            = 2
 NON_BLOCKING_DEBT   = 5
 ROOT_CAUSES         = 4
-MISSÕES ATÉ FECHAR  = 2
+MISSÕES ATÉ FECHAR  = 1
 ```
 
 Este veredito não vem da média das 105 leis. Vem das propriedades que a
@@ -28,7 +28,7 @@ coleta grande precisa de ter, e cada falha aponta a propriedade que falta.
 > UMA LEI `PARTIAL` PODE NÃO BLOQUEAR NADA,  
 > E UMA LEI PEQUENA PODE BLOQUEAR TUDO.
 
-Medido: **48 leis `PARTIAL`** e **3 blockers**. Nenhum blocker foi derivado
+Medido: **48 leis `PARTIAL`** e **2 blockers**. Nenhum blocker foi derivado
 do estado de lei.
 
 ## A estrada canónica
@@ -60,7 +60,6 @@ Sem banco ela **salta**, e isso é honesto: `SKIP != PASS`.
 |---|---|---|---|
 | `G-READY-01` | CRITICAL | READY nao e produzido por nenhuma rota | `LEVAR_ATE_READY` |
 | `G-READY-02` | CRITICAL | a sala de espera nao tem armazenamento | `LEVAR_A_SALA_DE_ESPERA` |
-| `G-RAW-01` | HIGH | a etapa RAW corre e nao fala | `RECONCILIAR, MEDIR_PERDA_ERRO_CUSTO` |
 
 ## Os que já fecharam
 
@@ -71,6 +70,26 @@ existiu, nem por que deixou de existir.
 |---|---|
 | `G-E2E-01` | 25 de 25 passam contra PostgreSQL 16 com as migrations 001..027, e a prova da rota devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem |
 | `G-RUN-01` | a fronteira traduz a ausencia para a palavra que o dono de CADA campo entende; `NOT_PRESERVED` continua a valer nos outros |
+| `G-RAW-01` | a etapa RAW deixa passagem em `etapa_da_corrida`, e a passagem nomeia a observação que produziu (`raw_asset_id`, migration 028) |
+
+## Quem fala, medido
+
+| etapa | fala? |
+|---|---|
+| `RAW` | **SIM** |
+| `DERIVED` | **SIM** |
+| `STRUCTURED` | **SIM** |
+| `ADMISSION` | **SIM** |
+| `READY` | não |
+
+Não é uma lista escrita à mão: vem de AST sobre o código de produção — quem
+chama `rastro.registrar`, e com que `etapa=`. Um comentário que nomeie uma
+etapa não conta.
+
+> UMA ETAPA MUDA PODE ESTAR A CORRER.
+> `MUDA != PARADA` — e esse é o problema.
+
+`READY` continua muda porque ninguém a produz: é `G-READY-01`, e não este eixo.
 
 ## A dívida que não bloqueia
 
@@ -114,20 +133,15 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 |---|---|
 | `C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1` | `G-RUN-01` |
 | `C-RESTORE-CANONICAL-E2E-PROOF-V1` | `G-E2E-01` |
+| `C-MAKE-RAW-OBSERVABLE-V1` | `G-RAW-01` |
 
 ## A fila mínima
 
-**1. `C-MAKE-RAW-OBSERVABLE-V1`**
-
-> a etapa RAW passa a deixar passagem observavel, como DERIVED, STRUCTURED e ADMISSION ja deixam?
-
-nao depende de nada em aberto, e sem ela a aresta RAW->DERIVED continua sem os dois topos — numa coleta grande, uma etapa muda nao se distingue de uma que nao correu
-
-**2. `C-CLOSE-THE-READY-EDGE-V1`**
+**1. `C-CLOSE-THE-READY-EDGE-V1`**
 
 > uma unidade que a porta admite chega a READY e pousa na sala de espera, na mesma corrida?
 
-e a unica com decisao de contrato por tomar — onde a unidade pronta pousa
+é a única que resta, e a única com decisão de contrato por tomar — onde a unidade pronta pousa
 
 `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`. depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.
 

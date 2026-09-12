@@ -177,12 +177,21 @@ ETAPAS_DA_ESTRADA = ("RAW", "DERIVED", "STRUCTURED", "ADMISSION", "READY")
 ONDE_SE_FALA = ("coleta", "guarda", "admissao", "medidas", "orquestrador")
 
 
-def _etapas_emitidas():
-    """As etapas que o codigo de PRODUCAO conta ao rastro, lidas por AST."""
+def _etapas_emitidas(raizes=None):
+    """As etapas que o codigo de PRODUCAO conta ao rastro, lidas por AST.
+
+    `raizes` existe para esta funcao poder ser medida A ELA PROPRIA: sem isso
+    ela so sabe responder sobre as pastas reais, e um teste nao consegue
+    apresentar-lhe uma chamada que ela DEVE ignorar.
+
+        UMA REGRA QUE SO SABE RESPONDER SOBRE O CASO REAL
+        NAO TEM COMO PROVAR QUE RECUSA O CASO FALSO.
+    """
     import ast
     faladas = set()
-    for pasta in ONDE_SE_FALA:
-        raiz = os.path.join(RAIZ, pasta)
+    for pasta in (raizes if raizes is not None else
+                  [os.path.join(RAIZ, x) for x in ONDE_SE_FALA]):
+        raiz = pasta
         if not os.path.isdir(raiz):
             continue
         for base, _dirs, ficheiros in os.walk(raiz):
@@ -210,8 +219,8 @@ def _etapas_emitidas():
     return faladas
 
 
-def observabilidade():
-    faladas = _etapas_emitidas()
+def observabilidade(raizes=None):
+    faladas = _etapas_emitidas(raizes)
     fala = [e for e in ETAPAS_DA_ESTRADA if e in faladas]
     muda = [e for e in ETAPAS_DA_ESTRADA if e not in faladas]
     return OrderedDict([

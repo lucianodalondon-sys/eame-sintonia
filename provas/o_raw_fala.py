@@ -78,6 +78,43 @@ MIGRATIONS = _cadeia_de_migrations()
 fora = []
 
 
+REBENTOU = []
+
+
+def porta(itens, **kw):
+    """`ing.receber`, e a excecao vira MEDICAO em vez de matar a prova.
+
+    ⚠️ MEDIDO NA MUTACAO: cinco mutantes — o `raw_asset_id` com um caminho
+    dentro, um `run_id` sem corrida, o rastro a falar antes de persistir —
+    faziam o banco recusar, a excecao subia daqui e a prova morria a meio.
+    Ela nao reprovava: CALAVA-SE. E um `?` no lugar do veredito le-se, de
+    longe, como se nada tivesse acontecido.
+
+        UMA PROVA QUE NAO CONSEGUE DIZER `FAIL`
+        NAO ESTA A APROVAR: ESTA A CALAR-SE.
+
+    O que rebentou fica registado e reprova no fim, com o nome de quem foi.
+    """
+    try:
+        return ing.receber(itens, **kw)
+    except Exception as erro:                                # noqa: BLE001
+        REBENTOU.append("%s: %s" % (kw.get("corrida", {}).get("RUN_ID", "?"),
+                                    str(erro)[:140]))
+        return {"RAW": None, "RECUSAS": [], "ACEITES": []}
+
+
+def _inteiro(v):
+    """O valor como inteiro, ou `None` — e nunca uma excecao.
+
+    Uma prova que levanta a meio nao reprova: cala-se. E um silencio no meio
+    de uma medicao le-se como aprovacao de tudo o que vinha a seguir.
+    """
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return None
+
+
 def caso(nome, condicao, detalhe=""):
     fora.append((nome, bool(condicao), detalhe))
 
@@ -176,9 +213,15 @@ def main():
     item = {"SOURCE_ID": FONTE,
             "SOURCE_URL": "https://www.arpa.veneto.it/%s" % os.path.basename(pdf),
             "STORAGE_LOCATION": rel}
-    r = ing.receber([dict(item)],
-                    corrida=corrida(), armazem=ing.ArmazemLocal(RAIZ),
-                    memoria=banco, raiz=RAIZ, banco_do_rastro=sql)
+    # ⚠️ A PASSAGEM PODE REBENTAR, E ISSO E UMA MEDICAO — NAO UM ACIDENTE.
+    # MEDIDO na mutacao: um `raw_asset_id` com um caminho dentro, ou um
+    # `run_id` sem corrida, fazem o banco recusar e a excecao sobe. Se ela
+    # subisse daqui, a prova morria sem veredito — e um mutante que faz a
+    # prova rebentar passaria por sobrevivente.
+    r = porta([dict(item)],
+              corrida=corrida(), armazem=ing.ArmazemLocal(RAIZ),
+              memoria=banco, raiz=RAIZ, banco_do_rastro=sql)
+    r = r or {"RAW": None}
 
     obs = (r["RAW"] or {}).get("RAW_OBSERVATIONS") or []
     raw_id = obs[0]["RAW_OBSERVATION_ID"] if len(obs) == 1 else None
@@ -192,16 +235,27 @@ def main():
     trilhos = linhas_raw(sql, RUN)
     caso("R2_a_etapa_RAW_deixou_linha",
          len(trilhos) == 1, "linhas de RAW nesta corrida: %d" % len(trilhos))
-    t = trilhos[0] if trilhos else ["", "", "", "", "", "", "", "", "", "",
-                                    "", "", "", ""]
+    # ⚠️ UMA PROVA QUE REBENTA NAO DA VEREDITO, E `?` NAO E `FAIL`.
+    # MEDIDO na mutacao: quatro mutantes — a porta cala-se, o rastro usa
+    # outro RUN_ID, o rastro fala antes de persistir, o storage_path vira
+    # identidade — faziam esta prova levantar `ValueError` a meio, e ela
+    # morria sem dizer nada. O mutante passava por SOBREVIVENTE.
+    #
+    #     UMA PROVA QUE NAO CONSEGUE DIZER `FAIL`
+    #     NAO ESTA A APROVAR: ESTA A CALAR-SE.
+    #
+    # `<VAZIO>` e a ausencia com nome, e ela reprova como qualquer outro
+    # valor errado — sem interromper as perguntas que vem a seguir.
+    t = trilhos[0] if trilhos else ["<VAZIO>"] * 14
     caso("R3_a_linha_aponta_para_ESTA_observacao",
-         t[2] != "<NULL>" and raw_id is not None and int(t[2]) == raw_id,
+         _inteiro(t[2]) is not None and raw_id is not None
+         and _inteiro(t[2]) == raw_id,
          "etapa_da_corrida.raw_asset_id=%s · raw_asset.id=%s" % (t[2], raw_id))
     caso("R4_a_linha_e_da_MESMA_corrida",
          len(no_banco) == 1 and no_banco[0][1] == RUN,
          "run_id=%s nas duas casas" % RUN)
     caso("R5_o_estado_e_PASS_e_a_conta_fecha",
-         t[1] == "PASS" and int(t[12] or 0) == 0,
+         t[1] == "PASS" and _inteiro(t[12]) == 0,
          "estado=%s · unaccounted_input=%s" % (t[1], t[12]))
     caso("R6_a_fonte_e_a_declarada_e_nao_uma_inferida",
          t[3] == FONTE and no_banco[0][2] == FONTE,
@@ -246,7 +300,7 @@ def main():
     # A · RAW falha ANTES de persistir → nao pode haver rastro de sucesso.
     run_a = RUN + "-A"
     abrir_corrida(sql, run_a)
-    r_a = ing.receber([dict(item)],
+    r_a = porta([dict(item)],
                       corrida=corrida(run_a), armazem=ing.ArmazemLocal(RAIZ),
                       memoria=None, raiz=RAIZ, banco_do_rastro=sql)
     t_a = linhas_raw(sql, run_a)
@@ -263,7 +317,7 @@ def main():
     # segundo caso CORREU. Confundi-los daria NOT_RUN a uma etapa que correu.
     run_b = RUN + "-B"
     abrir_corrida(sql, run_b)
-    ing.receber([{}], corrida=corrida(run_b),
+    porta([{}], corrida=corrida(run_b),
                 armazem=ing.ArmazemLocal(RAIZ), memoria=banco, raiz=RAIZ,
                 banco_do_rastro=sql)
     t_b = linhas_raw(sql, run_b)
@@ -281,13 +335,13 @@ def main():
     #     UMA BANCADA QUE ESCREVE O QUE O DONO ESCREVERIA
     #     MEDE A BANCADA.
     run_b2 = RUN + "-B2"
-    ing.receber([{"STORAGE_LOCATION": rel}], corrida=corrida(run_b2),
+    porta([{"STORAGE_LOCATION": rel}], corrida=corrida(run_b2),
                 armazem=ing.ArmazemLocal(RAIZ), memoria=banco, raiz=RAIZ,
                 banco_do_rastro=sql)
     t_b2 = linhas_raw(sql, run_b2)
     caso("N_B2_recusar_nao_e_falhar_e_a_recusa_conta_se",
-         len(t_b2) == 1 and t_b2[0][1] == "PASS" and int(t_b2[0][7]) == 1
-         and t_b2[0][2] == "<NULL>" and int(t_b2[0][12] or 0) == 0,
+         len(t_b2) == 1 and t_b2[0][1] == "PASS" and _inteiro(t_b2[0][7]) == 1
+         and t_b2[0][2] == "<NULL>" and _inteiro(t_b2[0][12]) == 0,
          "estado=%s · rejected=%s · sem observacao nomeada"
          % (t_b2[0][1] if t_b2 else "?", t_b2[0][7] if t_b2 else "?"))
 
@@ -337,14 +391,14 @@ def main():
 
     # RETRY · a MESMA corrida outra vez. A linha anterior FICA, e a nova nasce
     # noutra tentativa. Apagar a que falhou apagaria a evidencia do conserto.
-    ing.receber([dict(item)],
+    porta([dict(item)],
                 corrida=corrida(), armazem=ing.ArmazemLocal(RAIZ),
                 memoria=banco, raiz=RAIZ, banco_do_rastro=sql)
     t_r = sql.executa(
         "select tentativa, estado, reused, passed from public.etapa_da_corrida"
         " where run_id = '%s' and etapa = 'RAW' order by tentativa" % RUN)
     caso("Y1_o_retry_nao_apaga_a_tentativa_anterior",
-         len(t_r) == 2 and [int(x[0]) for x in t_r] == [0, 1],
+         len(t_r) == 2 and [_inteiro(x[0]) for x in t_r] == [0, 1],
          "tentativas na mesma corrida: %s" % [x[0] for x in t_r])
     # ⚠️ O RASTRO REFLETE O DONO — NAO REDESENHA A IDEMPOTENCIA.
     # Esta prova nao decide se um retry devia reutilizar: ela confere que o
@@ -356,19 +410,20 @@ def main():
         " from public.etapa_da_corrida"
         " where run_id = '%s' and etapa = 'RAW' order by tentativa" % RUN)
     caso("Y2_o_reencontro_conta_se_como_REUSED_e_nao_como_PASSED_novo",
-         len(conta) == 2 and int(conta[1][2]) == 1 and int(conta[1][1]) == 0,
+         len(conta) == 2 and _inteiro(conta[1][2]) == 1
+         and _inteiro(conta[1][1]) == 0,
          "tentativa 1: reused=%s passed=%s"
          % (conta[1][2] if len(conta) > 1 else "?",
             conta[1][1] if len(conta) > 1 else "?"))
     caso("Y2b_e_nenhuma_tentativa_abre_buraco_na_conta",
-         all(int(x[3] or 0) == 0 for x in conta),
+         bool(conta) and all(_inteiro(x[3]) == 0 for x in conta),
          "unaccounted_input por tentativa: %s" % [x[3] for x in conta])
 
     # NOVA CORRIDA, MESMOS BYTES · o contrato da fase 10 (migration 027) diz
     # que isto e uma OBSERVACAO NOVA. Os dois rastros tem de apontar para
     # observacoes DISTINTAS — o mesmo byte visto duas vezes sao dois factos.
     run_n = RUN + "-N"
-    ing.receber([dict(item)],
+    porta([dict(item)],
                 corrida=corrida(run_n, "2026-09-09T00:00:00Z"),
                 armazem=ing.ArmazemLocal(RAIZ), memoria=banco, raiz=RAIZ,
                 banco_do_rastro=sql)
@@ -381,7 +436,7 @@ def main():
         "select count(distinct sha256), count(distinct id)"
         " from public.raw_asset where run_id in ('%s','%s')" % (RUN, run_n))
     caso("Y4_e_os_bytes_sao_os_MESMOS_e_isso_nao_as_junta",
-         int(shas[0][0]) == 1 and int(shas[0][1]) == 2,
+         _inteiro(shas[0][0]) == 1 and _inteiro(shas[0][1]) == 2,
          "sha256 distintos=%s · observacoes=%s — SHA IDENTIFICA BYTES,"
          " NAO OBSERVACAO" % (shas[0][0], shas[0][1]))
 
@@ -403,8 +458,11 @@ def main():
     caso("T1_a_falha_do_rastro_SOBE_como_ja_subia", subiu,
          "politica ATUAL preservada · G-TEL-01 continua divida declarada")
     caso("T2_e_o_bruto_preservado_FICA",
-         int(ficou[0][0]) == 1,
+         _inteiro(ficou[0][0]) == 1,
          "falha de telemetria != falha de RAW: a observacao nao se apaga")
+
+    caso("Z_nenhuma_passagem_rebentou_a_meio_da_medicao", not REBENTOU,
+         "; ".join(REBENTOU) or "todas as passagens deram veredito")
 
     print("=" * 70)
     for nome, ok, detalhe in fora:

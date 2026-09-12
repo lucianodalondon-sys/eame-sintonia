@@ -52,6 +52,12 @@
 --
 --     ON DELETE CASCADE porque a linha do rastro fala DAQUELA observação: se
 --     a observação desaparecer, a passagem que a nomeia deixa de ter sujeito.
+--
+-- NAO EXECUTADA EM PRODUCAO. Aplicada e conferida num PostgreSQL 16
+-- descartavel, sobre a cadeia canonica inteira lida do disco (001..028, com a
+-- 008 a verificar no fim), por `provas/o_raw_fala.py` e
+-- `provas/a_rota_m2_atravessa.py`. Aplicar em producao continua a ser
+-- trabalho de outra missao, com autorizacao propria.
 -- ═══════════════════════════════════════════════════════════════════════
 
 alter table public.etapa_da_corrida
