@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-12 — §97: um limite conferido contra um ledger que muda não foi conferido; uma autorização vale por identidade, não por forma.
+**Última atualização material:** 2026-09-12 — §98: um portão que só se alcança com inventário não é um portão de política; um redirecionamento é um pedido novo.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -10274,3 +10274,287 @@ porque cada metade, sozinha, passava.
   porta de todos no corpo de um import — é que não.
 - A relevância de fonte continua a viver noutra linhagem. Esta linha recebe o
   veredito dela e obedece; nenhuma das 77 fontes foi avaliada.
+
+---
+
+# §98 · UM PORTÃO QUE SÓ SE ALCANÇA COM INVENTÁRIO NÃO É UM PORTÃO DE POLÍTICA
+
+**Missão:** `LINKEDIN-OP-01` · **Linha:** `claude/sintonia-scrap-linkedin-operational-close-v1`
+**Base:** `claude/sintonia-scrap-canonical-flow-f01` (`84422284`)
+**Tocado:** `coleta/adaptador_linkedin.py` · `coleta/comunicacao_coleta.py` ·
+`coleta/scrap_capacidades.py` · `coleta/scrap_colheita.py` · `coleta/scrap_http.py` ·
+`pedido/receitas.py` · `docs/sintonia-scrap/LINKEDIN-OP-01-OPERACIONAL-V1.md`
+
+A missão era ligar a única capacidade LinkedIn que a política permite e fechar o
+resto. O que se aprendeu não foi sobre o LinkedIn: foi sobre **portões que
+existem, funcionam, e nunca são alcançados** — e sobre proibições que se
+confirmam pedindo licença a quem se quer evitar.
+
+## 98.1 · O PORTÃO ESTAVA LÁ, CERTO, E ATRÁS DE UMA PERGUNTA DE STOCK
+
+`coleta/comunicacao_coleta.py::fase_posts()` já consultava `leis/social_matriz.py`
+antes de qualquer rota paga. A `C10.6D` pôs a pergunta lá, e ela está correta.
+
+Mas vinha **depois** de `contas_autorizadas()`. Para o LinkedIn, que não tem conta
+autorizada nesta casa, a função voltava `None` a dizer *«nenhuma conta
+AUTORIZADA»* — e a resposta sobre **permissão** nunca era alcançada. Medido: a
+política só respondia quando se injetava uma conta à mão.
+
+```
+    AUSÊNCIA DE CONTA NÃO É ROTA NÃO PERMITIDA.
+    UM PORTÃO QUE SÓ SE ALCANÇA COM INVENTÁRIO NÃO É UM PORTÃO DE POLÍTICA.
+```
+
+O defeito não era a ausência da pergunta — era a **ordem**. E ordem é difícil de
+ver, porque o resultado observável era o certo: `None`, nada comprado. Dois factos
+diferentes a produzir a mesma saída, e a casa a ler o mais tranquilizador.
+
+O risco era prospectivo e silencioso: no dia em que alguém cadastrasse uma conta
+LinkedIn, a proteção passava a depender de um gate que **ninguém tinha visto
+responder**. Uma trava nunca exercida é uma trava suposta.
+
+```
+    DOIS MOTIVOS PARA O MESMO `None` NÃO SÃO O MESMO MOTIVO.
+    QUANDO A SAÍDA COINCIDE, SÓ A ORDEM DIZ QUEM RECUSOU.
+```
+
+A pergunta subiu, e **não mudou de dono**. Ela continua a ser `social_matriz` a
+responder — só deixou de estar atrás de uma pergunta de inventário. O que a fez
+não virar um `if plataforma == 'LINKEDIN'` foi a regra que a casa já tinha: quem
+tem capacidade canônica não passa pelo gate de `FETCH_POST`, porque a rota dela
+não é essa. Gatear por nome desligaria o YouTube.
+
+### E tirar a plataforma da tabela apagava a recusa
+
+O ator pago do LinkedIn saiu de `ATORES`. Mas `_PLATAFORMAS()` é construído a
+partir dessa tabela — e sem ele o LinkedIn desaparecia do CLI, levando a recusa
+consigo.
+
+```
+    UMA RECUSA QUE NÃO SE ALCANÇA NÃO É UMA RECUSA: É UM SILÊNCIO.
+```
+
+Então nasceu uma **terceira** resposta à pergunta «esta plataforma passa por esta
+fase?»: passa, e sai recusada pela política. Uma tabela, não um `if`.
+
+## 98.2 · UM REDIRECIONAMENTO É UM PEDIDO NOVO
+
+A rota permitida lê o site **da própria organização** e extrai dali o endereço que
+a organização publicou. Medido: passar-lhe `site_url = linkedin.com` fazia-a **ir
+ao linkedin.com** e devolver identidade com `RESULT = OK`.
+
+Havia defesa em produção — `scrap_http.buscar` chama `permitido()`, que lê o
+robots do host. Ela não serve, por duas razões:
+
+1. ela **pergunta ao LinkedIn** se pode ler o LinkedIn, e a pergunta é ela mesma
+   um pedido ao host que se quer evitar;
+2. o parâmetro `transporte` — que existe para os testes e chega pelo `**extra` do
+   `COLLECT` — passa por fora dela.
+
+```
+    UMA PROIBIÇÃO QUE SE CONFIRMA PELA REDE DEPENDE DA REDE.
+    UMA PROIBIÇÃO QUE PERGUNTA AO PROIBIDO NÃO CHEGOU A ZERO PEDIDOS.
+```
+
+Quando a política já é estática, a recusa tem de ser estática.
+
+### E o portão julgava só o primeiro endereço
+
+`urlopen` segue 301/302 em silêncio. Um site com `Location: linkedin.com` levava o
+pedido ao host proibido sem ninguém perguntar nada.
+
+```
+    UM PORTÃO QUE JULGA SÓ O PRIMEIRO ENDEREÇO NÃO JULGA O PEDIDO.
+    UM REDIRECIONAMENTO É UM PEDIDO NOVO, E PEDE LICENÇA OUTRA VEZ.
+```
+
+Isto vive no dono do **transporte**, e não no adaptador: «o portão vale em cada
+salto» é uma propriedade do transporte, e uma cópia da regra dentro de um
+adaptador seria a regra a valer numa rota e a faltar em todas as outras. A **lista
+de hosts** vem de quem a declara; o **ponto de cobrança** é do transporte. Dois
+papéis da mesma trava, e nenhum copia o outro.
+
+Uma nota de implementação que custou uma correção: a primeira versão abriu o
+opener por fora (`_ABRIDOR.open(...)`). Funcionava — e passava por fora do teto de
+rede da `§77`/`§80`, que cobra em `urllib.request.urlopen`. Instalar o opener
+mantém `urlopen` como a única porta.
+
+```
+    UM CONSERTO QUE CONTORNA UM TETO NÃO É UM CONSERTO.
+```
+
+### E pela terceira vez na mesma cadeia
+
+O `except Exception` de `buscar()` traduzia a recusa do **nosso** portão para
+`RotaBloqueada`, que quer dizer «a plataforma nos impediu». O ficheiro já tinha
+esse aviso escrito duas vezes, sobre a queda do túnel (`§80`) e sobre o teto.
+
+```
+    QUEM DISSE NÃO TEM NOME, E O NOME NÃO SE TROCA A CAMINHO DE CIMA.
+```
+
+Três ocorrências da mesma família no mesmo `try` dizem que o defeito não é
+distração: é a forma. Um `except Exception` num sítio onde recusas próprias
+sobem vai reetiquetá-las, sempre, e a cada nova recusa que alguém acrescentar.
+
+## 98.3 · UM CAMPO DE TRADUÇÃO EMPRESTAVA UMA PERMISSÃO — OUTRA VEZ
+
+A `§89.1` mediu isto no `scrap_capacidades`: um campo de tradução concedia uma
+permissão. Aconteceu de novo, no mesmo campo, noutra linha.
+
+`linkedin.recent.discovery` significa **as publicações recentes da página de
+empresa**. Era ela quem traduzia para `DISCOVER_ACCOUNT` — cuja única rota
+permitida lê o site de terceiro e devolve um **handle**. Logo
+`pela_matriz('LINKEDIN','DISCOVER_ACCOUNT')` devolvia a capacidade de
+**conteúdo**: o roteador que pedia identidade encontrava posts.
+
+```
+    IDENTITY != CONTENT, NA CAMADA DE TRADUÇÃO.
+```
+
+Nenhum código explorava a porta, porque nenhuma das sete capacidades tinha rota.
+**A porta estava destrancada por dentro** — e é esse o estado mais perigoso, porque
+não produz sintoma até alguém ligar a primeira rota.
+
+### E quatro capacidades PROVEN prometiam sem poder cumprir
+
+Encontrado por uma sentinela desta missão, não por leitura: quatro capacidades de
+conteúdo estavam `PROVEN` — provadas por uma rota que a política hoje proíbe — e
+`promete_resultado()` respondia **SIM** para capacidade **sem rota ligada**.
+
+```
+    TECHNICALLY_PROVEN_HISTORY != CURRENT_ALLOWED_ROUTE.
+    UM ESTADO PROVADO POR UMA ROTA PROIBIDA PROMETE O QUE NÃO SE PODE CUMPRIR.
+```
+
+`BLOCKED` é literalmente «existe, não dá para usar agora (quota, teto, **termo**)».
+O termo é o do LinkedIn, e a história técnica não se perde: vive no relatório do
+censo, com os 372 posts e as datas. O que não fica é a promessa operacional.
+
+## 98.4 · CADA FASE PASSOU A DIZER QUE ESPÉCIE PRODUZ
+
+A `leis/retorno_da_coleta.py` nasceu a dizer que o «em que forma» **não tinha
+campo nenhum, nem enum, nem guarda**, e mediu o preço: 253 itens de falsa
+colheita, cento por cento.
+
+A capacidade desta missão devolve um **endereço de conta** — que é a definição
+literal de `CATALOG` naquela lei: «inventário de entidades de onde se PODE
+coletar». E `ENTRAM_NO_INGRESSO = (COLHEITA,)`.
+
+```
+    UM ENDEREÇO DE CONTA NÃO É UMA OBSERVAÇÃO DELA.
+    CATÁLOGO NÃO ATRAVESSA A PORTA — E O TERMINAL DELE TAMBÉM É CANÓNICO.
+```
+
+O contrato já recusava por construção. O que faltava era a **fase dizer**. O campo
+entrou em `FASES`, obrigatório, e **sem valor por omissão**:
+
+```
+    UMA ESPÉCIE POR OMISSÃO É UMA DECISÃO QUE NINGUÉM TOMOU.
+```
+
+A lição de método é a que a missão recebeu por escrito e confirmou lendo: **não
+empurrar um objeto para a Admissão só para completar uma seta.** Primeiro ler qual
+espécie a capacidade realmente produz; depois ligar a mangueira.
+
+## 98.5 · UM POSICIONAL NUMA LISTA COM BURACOS NÃO TEM POSIÇÃO
+
+O orquestrador traduz filtros em argumentos de linha de comando, e só acrescenta o
+valor **quando ele existe** (`if v:`). Então a posição de um argumento depende de
+quais os anteriores estarem preenchidos.
+
+Ler `resto[1]` como fonte e `resto[2]` como site punha o **site** no lugar da
+**fonte** sempre que a fonte faltava — que foi exatamente o caso do pedido real
+desta missão.
+
+```
+    UM ARGUMENTO POSICIONAL NUMA LISTA COM BURACOS NÃO TEM POSIÇÃO.
+```
+
+O que os distingue é a **forma**, e a regra que os distingue já era lei desta
+casa: `SOURCE_ID != URL`. Um `SOURCE_ID` nunca tem esquema; um endereço tem
+sempre. Classificar pela forma não fabrica identidade — recusa-se a fazê-lo.
+
+## 98.6 · TRANCADO, E NÃO PELO DONO CERTO
+
+O achado que a missão não pediu, e o risco mais alto que ela deixa escrito.
+
+`regras/sensor_coleta.py` configura **quatro** atores HarvestAPI LinkedIn e
+`grep -c social_matriz` naquele ficheiro dá **zero**: a política nunca é
+consultada ali, e `_rodar()` leva um identificador de ator direto à porta paga.
+
+Medido com chave no pool — para que a falta de token não se confunda com uma
+trava, que é precisamente o que o censo já tinha registado como `FIRST_BREAK` —
+quem o barra é `SemAutorizacaoDeGasto`, a guarda de gasto da `SCRAP-SR-02`:
+
+```
+    «Ter chave, teto e rota permitida não é ter autorização» · POSTS = 0
+```
+
+O caminho **está** fechado. E está fechado pelo dono do **gasto**, não pelo dono da
+**política**.
+
+```
+    UM CAMINHO QUE NÃO PERGUNTA À POLÍTICA NÃO É PROTEGIDO PELA POLÍTICA.
+    TRANCADO != TRANCADO PELO DONO CERTO.
+```
+
+A diferença é prospectiva: uma autorização de gasto concedida ali abriria quatro
+atores LinkedIn sem a política ser perguntada uma vez. Ficou registado com
+sentinela — para que a tranca não se perca em silêncio — e **não consertado**,
+porque tornar aquele ficheiro inteiro consciente de política era expandir.
+
+## 98.7 · IRMÃ DA §95: A RECUSA QUE CHEGA PRIMEIRO É A QUE SE LÊ
+
+A `§95` mediu guardas presas ao **estado de hoje**. Esta é a mesma família por
+outra ponta: uma sentinela presa a uma **razão de recusa**.
+
+Ela exigia `DECLARED_WITHOUT_ROUTE` — «está declarada e não tem rota». Depois de a
+capacidade descer para `BLOCKED`, o portão passou a responder
+`CAPABILITY_STATE_PROMISES_NOTHING`, que vem **antes**: o estado recusa sozinho,
+sem a pergunta da rota chegar a ser feita. A sentinela reprovou o dia em que a
+casa ficou **mais estrita**.
+
+```
+    DUAS RECUSAS NÃO SÃO A MESMA RECUSA, E A QUE CHEGA PRIMEIRO É A QUE SE LÊ.
+    PRENDER A MAIS TARDIA REPROVA O PROGRESSO, COMO PRENDER O ESTADO DE HOJE.
+```
+
+O conserto não é aceitar qualquer coisa: é guardar o que a sentinela **queria**
+guardar — não há caminho executável — e aceitar as duas recusas, nunca um `OK`.
+
+## 98.8 · E DUAS DE MÉTODO, CURTAS
+
+**Uma aresta declarada que duplica uma provada.** Declarei
+`C-SCRAP-COLHEITA → C-SCRAP-SOCIAL` e ela nasceu `UNKNOWN`: o scanner já provava a
+relação na direção contrária.
+
+```
+    UMA ARESTA DECLARADA QUE DUPLICA UMA PROVADA NÃO ACRESCENTA UMA LIGAÇÃO:
+    PÕE UM «NÃO SEI» AO LADO DE UM «SIM» SOBRE O MESMO FACTO.
+```
+
+A distinção que a missão pedia ao mapa foi para a **descrição da peça** que
+carrega a fase — e a ausência de seta para conteúdo ficou escrita como
+declaração, porque desenhar a seta faria o mapa prometer um caminho proibido.
+
+**Um CLI sem falso injetado vai à rede.** Três execuções reais aconteceram numa
+missão que planeava uma; a primeira foi por correr o executor pela linha de
+comando para ver se a fase estava ligada. Zero dólares e zero pedidos ao LinkedIn
+— mas as três deixaram bruto na árvore, e três suites de higiene do acervo
+reprovaram, corretamente.
+
+```
+    CORRER O CLI É CORRER A ROTA.
+    E TRÊS CÓPIAS DA MESMA PÁGINA NÃO SÃO TRÊS PROVAS.
+```
+
+## 98.9 · O QUE FICA POR SABER
+
+- **A profundidade da descoberta indireta não está medida.** Uma sentinela de
+  sete respondeu com handle. Quantas organizações do acervo publicam o seu é
+  `NOT_MEASURED`, e medi-lo é uma passagem por sites de terceiros.
+- **`PUBLICADO PELA ORGANIZAÇÃO != VERIFICADO`.** A rota devolve o que o site
+  publica; que o handle seja da organização certa não é verificável por ela.
+- **O que fazer com o catálogo** é decisão de quem coordena. Ele é candidato, e
+  quem o recebe é o contrato de candidatas — não esta missão.
