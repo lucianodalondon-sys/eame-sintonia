@@ -205,7 +205,12 @@ def carregar_adaptadores():
     ganha um conflito. Aqui o conflito rebenta, que e o que se quer.
     """
     modulos = ('adaptador_instagram', 'adaptador_linkedin', 'adaptador_youtube',
-               'adaptador_x', 'adaptador_facebook', 'adaptador_aberto')
+               'adaptador_x', 'adaptador_facebook', 'adaptador_aberto',
+               # A superficie de transparencia da Meta — Ad Library e Branded
+               # Content. Entra aqui, na lista explicita, como todos os outros:
+               # nao ha runtime proprio, nao ha orquestrador proprio, e o
+               # caminho ate ele e o mesmo de qualquer plataforma desta casa.
+               'adaptador_meta')
     for m in modulos:
         __import__(m)
     return modulos

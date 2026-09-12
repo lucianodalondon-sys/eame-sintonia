@@ -125,8 +125,34 @@ _CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'
 _RE = 'docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md'
 _MZ = 'leis/social_matriz.py'
 _C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'
+_MD = 'docs/sintonia-scrap/META-DEEP-STUDY-V1.md'
 
 DECLARADAS = {
+    # ── META · A SUPERFÍCIE DE TRANSPARÊNCIA, E ELA NÃO É UM GUARDA-CHUVA ─
+    #
+    # `META` aqui NÃO é «a família Meta». Instagram, Facebook e Threads continuam
+    # a ser plataformas com identidade própria nesta lista, e nada deles se move
+    # para debaixo deste nome.
+    #
+    #     META = A SUPERFÍCIE DE TRANSPARÊNCIA PÚBLICA (Ad Library e Branded
+    #     Content Search). É onde o objeto VIVE, não onde ele APARECE.
+    #
+    # Um anúncio da Ad Library aparece em Facebook, Instagram, Threads ou nas
+    # quatro ao mesmo tempo — `publisher_platforms` é um CAMPO dele. Declará-lo
+    # como observação de Instagram seria mentir sobre metade dos casos, e
+    # declará-lo como de Facebook seria mentir sobre a outra metade.
+    #
+    #     ONDE O OBJETO APARECE É UM CAMPO. ONDE ELE VIVE É A PLATAFORMA.
+    #
+    # As duas nascem `NOT_EXECUTED`, e isso é o estado certo: existe rota oficial
+    # documentada, existe adaptador, e NINGUÉM A CORREU. `NOT_EXECUTED` não
+    # promete resultado — o `CHECK` recusa-as, e é para recusar mesmo.
+    #
+    #     ROTA DECLARADA != ROTA OBSERVADA. E um adaptador não promove nada.
+    'meta.ads.search': ('META', NOT_EXECUTED, ONLINE, None, _MD, 'SEARCH_ADS'),
+    'meta.branded_content.search': ('META', NOT_EXECUTED, ONLINE, None, _MD,
+                                    'SEARCH_BRANDED_CONTENT'),
+
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
     'instagram.reel.capture': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
     'instagram.reel.audio': ('INSTAGRAM', PROVEN, EITHER, None, _RE, None),
@@ -205,6 +231,65 @@ DECLARADAS = {
                                    'INCREMENTAL'),
     'telegram.channel.incremental': ('TELEGRAM', PROVEN, ONLINE, None, _MZ, 'INCREMENTAL'),
 }
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O ESCOPO DA PROVA — UM ESTADO DIZ QUE CONSEGUIMOS, NÃO QUANTAS VEZES
+# ══════════════════════════════════════════════════════════════════════════
+# `PROVEN` responde «correu, com comando registado e saída guardada». Ele NÃO
+# responde «em quantos casos», e essa segunda pergunta é a que uma casa com
+# pressa responde sozinha.
+#
+# O caso que obrigou a escrever isto é `instagram.reel.audio`. A C10 provou
+# aquisição só-áudio num Reel: `-f bestaudio` escolheu uma representação DASH de
+# áudio e `VIDEO_BYTES_DOWNLOADED = 0`. A prova é real e NÃO é rebaixada aqui.
+#
+# O que a META-DEEP-01 mediu é que existem itens do MESMO Instagram cuja tabela
+# de formatos não tem nenhuma linha `audio only` — só DASH de vídeo e MP4
+# muxado. Nesses, extrair áudio é demux LOCAL, e não poupança de rede.
+#
+#     AUDIO-ONLY É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA.
+#     UM REEL NÃO É UM LOTE.
+#
+# Por isso o escopo da prova viaja ao lado do estado, em vez de ser deduzido
+# dele. Quem lê `PROVEN` e quer generalizar tem de passar por aqui primeiro.
+ESCOPO_ITEM = 'PER_ITEM'          # medido num item; não se estende ao lote
+ESCOPO_ROTA = 'PER_ROUTE'         # medido na rota; vale para o que ela serve
+ESCOPO_PLATAFORMA = 'PER_PLATFORM'  # medido e válido para a plataforma
+
+#: capacidade -> (ESCOPO, o que a prova cobre EXACTAMENTE)
+#: Ausência daqui significa `PER_ROUTE`, que é o padrão desta casa: uma rota
+#: medida vale para o que aquela rota serve. Só se escreve linha aqui quando o
+#: escopo é MAIS ESTREITO do que isso.
+ESCOPO_DA_PROVA = {
+    'instagram.reel.audio': (
+        ESCOPO_ITEM,
+        'UM Reel (C-FanW_CYMz), cuja manifesto DASH expôs faixa de áudio separada. '
+        'Itens sem essa faixa existem e foram medidos por terceiros. A prova de que '
+        'ESTE item poupa banda NÃO prova que o Instagram poupa banda.'),
+    'instagram.reel.capture': (
+        ESCOPO_ITEM,
+        'a mesma cadeia, no mesmo Reel. Oito Reels no disco ao todo — nao um lote.'),
+}
+
+
+def escopo(nome):
+    """→ (ESCOPO, explicação). Capacidade sem linha própria é `PER_ROUTE`."""
+    return ESCOPO_DA_PROVA.get(
+        nome, (ESCOPO_ROTA, 'medido na rota; vale para o que essa rota serve'))
+
+
+def pode_generalizar(nome, para):
+    """Esta prova estende-se a `para` ∈ ITEM · ROUTE · PLATFORM?
+
+    É a função que diz NÃO a «o Instagram suporta áudio-only». Ela existe para
+    ser chamada por quem escreve relatório, não por quem colhe.
+    """
+    ordem = {ESCOPO_ITEM: 0, ESCOPO_ROTA: 1, ESCOPO_PLATAFORMA: 2}
+    pedido = {'ITEM': 0, 'ROUTE': 1, 'PLATFORM': 2}.get(str(para).upper())
+    if pedido is None:
+        raise CapacidadeInvalida('escopo pedido fora do vocabulario: %r' % para)
+    return ordem[escopo(nome)[0]] >= pedido
 
 
 # ══════════════════════════════════════════════════════════════════════════

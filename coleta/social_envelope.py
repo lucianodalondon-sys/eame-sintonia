@@ -120,7 +120,30 @@ GAPS = (
      "SCRAP SUCCESS != ADMITTED EVIDENCE."),
 )
 
-CONTENT_TYPES = ('VIDEO', 'POST', 'PROFILE', 'CHANNEL', 'COMMENT', 'ARTICLE', 'DISCOVERY')
+# ── DUAS ESPÉCIES QUE NÃO SÃO `POST`, E CUSTA CARO COLAPSÁ-LAS ────────────
+#
+# `ADVERTISEMENT` e `BRANDED_CONTENT` entraram na META-CLOSE-AND-BUILD-01.
+# Antes delas, a única palavra disponível para o que a Meta Ad Library e o
+# `branded_content_search` devolvem era `POST` — e usá-la teria apagado, na
+# origem, a distinção que a camada de cima mais precisa:
+#
+#     UM ANÚNCIO É CONTEÚDO QUE ALGUÉM PAGOU PARA DISTRIBUIR.
+#     UM POST ORGÂNICO É CONTEÚDO QUE ALGUÉM PUBLICOU.
+#     SOMÁ-LOS DÁ UM NÚMERO QUE NÃO É NEM UM NEM OUTRO.
+#
+# E `BRANDED_CONTENT` não é nenhum dos dois: é um post orgânico de um CRIADOR
+# que declara parceria paga com uma MARCA. O autor e o pagador são pessoas
+# diferentes, e é exactamente isso que o `branded_content_search` devolve.
+#
+#     BRAND_PARTNER != POST_AUTHOR.
+#
+# Nenhuma das duas descreve desempenho. Um anúncio observado não diz venda, não
+# diz participação de mercado e não diz sucesso de campanha — diz que existiu,
+# quando, com que texto e em que superfícies.
+#
+#     META AD != SALES. META AD != MARKET SHARE. META AD != CAMPAIGN SUCCESS.
+CONTENT_TYPES = ('VIDEO', 'POST', 'PROFILE', 'CHANNEL', 'COMMENT', 'ARTICLE', 'DISCOVERY',
+                 'ADVERTISEMENT', 'BRANDED_CONTENT')
 
 # `UNKNOWN` é o valor de partida dos dois campos que a casa mais erra quando
 # tem pressa. Nenhum deles é preenchido por inferência de texto.

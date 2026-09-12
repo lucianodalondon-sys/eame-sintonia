@@ -144,10 +144,25 @@ ESTADOS = ('PROVED', 'PARTIAL', 'POSSIBLE_NOT_PROVED', 'BLOCKED',
 MOTIVOS_PAGOS = ('FREE_ROUTE_UNAVAILABLE', 'FREE_ROUTE_INSUFFICIENT_CAPABILITY',
                  'FREE_ROUTE_UNHEALTHY', 'AUTHORIZATION_BLOCK', 'ROUTE_NOT_ALLOWED')
 
+# ── DUAS PALAVRAS NOVAS, E A AUSÊNCIA DELAS ERA O ACHADO DA META-DEEP-01 ──
+#
+# Esta tupla tinha doze palavras e NENHUMA nomeava anúncio. Uma rota que não tem
+# nome não pode ser declarada `BLOCKED` — não chega a ser perguntada. Foi assim
+# que a maior rota oficial, gratuita e permitida da família Meta ficou fora do
+# repositório sem que nenhum portão reclamasse.
+#
+#     AUSENTE NÃO É UM ESTADO DE CAPACIDADE. É A FALTA DE UM.
+#
+# `SEARCH_ADS` e `SEARCH_BRANDED_CONTENT` são capacidades PRÓPRIAS, e não
+# variantes de `FETCH_POST`. Reusar `FETCH_POST` teria sido mais curto e teria
+# colapsado, no vocabulário, as duas distinções que a camada de cima mais precisa:
+#
+#     ADVERTISEMENT != ORGANIC_POST      BRANDED_CONTENT != ORGANIC_POST
 CAPACIDADES = (
     'DISCOVER_ACCOUNT', 'DISCOVER_POST', 'SEARCH_KEYWORD', 'SEARCH_HASHTAG',
     'FETCH_PROFILE', 'FETCH_POST', 'FETCH_VIDEO_METADATA', 'FETCH_VIDEO_BYTES',
     'FETCH_COMMENTS', 'FETCH_METRICS', 'FETCH_TRANSCRIPT', 'INCREMENTAL',
+    'SEARCH_ADS', 'SEARCH_BRANDED_CONTENT',
 )
 
 
@@ -344,6 +359,40 @@ MATRIZ = {
         ],
     },
 
+    'META': {
+        '_NOTA': ('A SUPERFÍCIE DE TRANSPARÊNCIA PÚBLICA DA META — Ad Library e Branded '
+                  'Content Search. NÃO é guarda-chuva de Instagram/Facebook/Threads: as '
+                  'três continuam com identidade própria. Aqui vivem os objetos que a '
+                  'Meta publica DE PROPÓSITO para serem lidos, e que aparecem em várias '
+                  'plataformas ao mesmo tempo. Medido na META-DEEP-01, 2026-09-12, contra '
+                  'documentação primária. NENHUMA das duas foi executada.'),
+        'SEARCH_ADS': [
+            r('graph:/ads_archive', 'OFFICIAL_API_FREE', 'CONDICIONAL',
+              'CREDENTIAL_MISSING', 'zero dólar; o preço é confirmação de identidade',
+              'ad_reached_countries é OBRIGATÓRIO e IT está no enum. search_page_ids '
+              'aceita até DEZ page ids; search_terms no máximo 100 caracteres e SEM '
+              'tradução — para a Itália, consultar em italiano. ad_active_status tem '
+              'default ACTIVE, e o default molda o corpus em silêncio. JANELA COMERCIAL '
+              'NA UE: 1 ANO da última impressão — não são os 7 anos do corpus político. '
+              'Fora da UE/UK só volta anúncio político. Rate limit: erro 613 existe, o '
+              'número NÃO está documentado.',
+              'https://developers.facebook.com/docs/graph-api/reference/ads_archive/'),
+        ],
+        'SEARCH_BRANDED_CONTENT': [
+            r('graph:/branded_content_search', 'OFFICIAL_API_FREE', 'CONDICIONAL',
+              'CREDENTIAL_MISSING', 'zero dólar; AUTH NÃO DOCUMENTADA pela Meta',
+              'Busca pelo lado da MARCA: «Search for an Instagram account that posted '
+              'branded content OR WAS A BRAND PARTNER». creation_date_min e '
+              'creation_date_max são obrigatórios; ig_username OU page_url. Devolve '
+              'creator, partners, type, creation_date e url — e NÃO devolve legenda, '
+              'mídia, país nem métricas. Piso 2023-08-17; tecto «currently available», '
+              'logo Story patrocinado é praticamente invisível retroactivamente. NÃO '
+              'cobre Threads. A página do nó não lista token nem permissão: a AUTH é '
+              'pergunta de probe, não de opinião.',
+              'https://developers.facebook.com/docs/graph-api/reference/branded_content_search/'),
+        ],
+    },
+
     'THREADS': {
         '_NOTA': ('Surpresa boa da pesquisa: a Meta publica um endpoint de busca por '
                   'palavra-chave em conteúdo público de terceiros. É o único da família '
@@ -452,18 +501,69 @@ MATRIZ = {
               'o que está recusado é SAIR para buscar mídia nova.',
               'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),
         ],
+        # ── CORRIGIDO NA META-CLOSE-AND-BUILD-01 · 2026-09-12 ────────────────
+        # A linha anterior dizia, em claro: «a rota grátis dá o NÚMERO de
+        # comentários, nunca o TEXTO» — e citava como evidência
+        # `scripts/instagram_janela.py`, que **não existe** (o ficheiro vive em
+        # `coleta/`). Aberto o ficheiro certo, ele mede o contrário:
+        #
+        #     «MEDIDO em 7 posts das 5 contas do lote, deslogado: 18 de 31
+        #      comentários declarados saíram COM TEXTO — 58%.»
+        #
+        # A CORREÇÃO TEM DUAS METADES, E NENHUMA REVOGA A OUTRA:
+        #
+        #     COMMENT_COUNT != COMMENT_TEXT  —  continua verdade.
+        #     18/31 TAMBÉM NÃO É 31/31       —  e por isso nada vira PROVED.
+        #
+        # O motivo canônico muda de sítio: não é que a rota grátis NÃO SAIBA
+        # (`FREE_ROUTE_INSUFFICIENT_CAPABILITY`), é que ela NÃO É PERMITIDA
+        # (`ROUTE_NOT_ALLOWED`) — `instagram.com/robots.txt` responde
+        # `Disallow: /` e os ToS §3.2 dizem que estar deslogado não é defesa.
+        #
+        #     «A ROTA NÃO SABE» E «A ROTA NÃO PODE» SÃO MOTIVOS DIFERENTES,
+        #     E SÓ UM DELES SE RESOLVE COM DINHEIRO.
         'FETCH_COMMENTS': [
-            r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
-              'O ÚNICO buraco real medido: a rota grátis dá o NÚMERO de comentários, nunca '
-              'o TEXTO. Motivo canônico: FREE_ROUTE_INSUFFICIENT_CAPABILITY.',
-              'scripts/instagram_janela.py'),
+            # A rota grátis fica REGISTADA e NÃO VIÁVEL. `PERMITIDA = NAO` e
+            # `ROUTE_NOT_ALLOWED` mantêm-na fora de `_rota_padrao`, portanto
+            # esta linha NÃO muda a decisão de rota — só impede que a medição
+            # desapareça outra vez.
+            r('instagram_janela.py:JS_COMENTARIOS', 'PUBLIC_BROWSER', 'NAO',
+              'ROUTE_NOT_ALLOWED', 'zero',
+              'MEDIDO NESTA CASA, deslogado: 18 de 31 comentários declarados saíram COM '
+              'TEXTO (58%) em 7 posts de 5 contas. PARCIAL, nunca total — e recusada por '
+              'POLÍTICA, não por incapacidade. Ver META-DEEP-STUDY-V1.md, Parte 12.',
+              'coleta/instagram_janela.py'),
+            # ⚠️ `PROVED` REBAIXADO. O censo de actors mediu ZERO runs deste actor
+            # na história desta casa, e o único RAW pago de Instagram que existe
+            # tem `commentsCount` a somar 31 e **zero** comentários em 60 de 60
+            # itens. Um `PROVED` sem artefato é uma promessa.
+            r('apify:comments', 'APIFY', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED', 'por item',
+              'A rota oficial para TEXTO de comentário de terceiro NÃO EXISTE em nenhum '
+              'nível de aprovação — a edge exige token de quem criou a mídia. Logo o '
+              'motivo canônico é FREE_ROUTE_UNAVAILABLE, e não '
+              'FREE_ROUTE_INSUFFICIENT_CAPABILITY. Zero runs registados nesta casa.',
+              'docs/sintonia-scrap/META-DEEP-STUDY-V1.md'),
         ],
         'FETCH_POST': [
             r('instagram_janela.py:embed', 'PUBLIC_BROWSER', 'CONDICIONAL', 'PROVED', 'zero',
               'cobre os 12 mais recentes', 'scripts/instagram_janela.py'),
-            r('apify:instagram-scraper', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
-              'O SEGUNDO buraco: qualquer coisa ALÉM dos 12 itens mais recentes. Motivo '
-              'canônico: FREE_ROUTE_INSUFFICIENT_CAPABILITY.', 'scripts/instagram_janela.py'),
+            # ⚠️ `PROVED` REBAIXADO na META-CLOSE-AND-BUILD-01. Zero runs deste
+            # actor na história desta casa, e a evidência citada era
+            # `scripts/instagram_janela.py` — um caminho que não existe, e que
+            # mesmo existindo seria o ficheiro da rota GRÁTIS.
+            #
+            #     UM `PROVED` QUE CITA O FICHEIRO DA OUTRA ROTA NÃO PROVA ESTA.
+            #
+            # E o «12» ganhou corroboração externa: um actor pago declara o
+            # mesmo tecto («Latest 12 posts»), o que empurra o limite para o
+            # lado da plataforma — não para o lado da nossa rota.
+            r('apify:instagram-scraper', 'APIFY', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED',
+              'por item',
+              'Qualquer coisa além dos 12 itens mais recentes. A rota oficial '
+              '`business_discovery` não declara tecto de profundidade — o buraco pode não '
+              'existir. Motivo canônico enquanto não houver medição: '
+              'FREE_ROUTE_INSUFFICIENT_CAPABILITY.',
+              'docs/sintonia-scrap/META-DEEP-STUDY-V1.md'),
         ],
     },
 
@@ -714,6 +814,96 @@ def decisao(platform, capability):
     return veredicto
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# PRONTIDÃO — DINHEIRO E CREDENCIAL SÃO DOIS EIXOS, E `ALLOWED` NÃO É NENHUM
+# ══════════════════════════════════════════════════════════════════════════
+# `decisao()` responde «esta porta é PERMITIDA?» e responde bem. O que ela NÃO
+# responde — e ninguém reparou até a META-DEEP-01 — é «esta porta ABRE HOJE?».
+#
+# Medido nesta própria matriz: `META/SEARCH_ADS` devolve `DECISAO = ALLOWED` com
+# `ESTADO = CREDENTIAL_MISSING`. As duas frases estão certas. Lidas juntas por
+# quem tem pressa, dizem «pode ir» sobre uma porta que não abre.
+#
+#     ROUTE ALLOWED != ROUTE EXECUTABLE NOW.
+#
+# E o mesmo vale pelo lado do dinheiro. A META-DEEP-01 contou SETE observações
+# de concorrente que custam ZERO DÓLARES e estão todas fechadas por App Review,
+# verificação de negócio ou confirmação de identidade.
+#
+#     USD_COST = 0 NÃO SIGNIFICA EXECUTÁVEL. E é mais perigoso que um preço
+#     alto, porque o número zero convida a chamar-lhe «grátis» e a dá-la por
+#     pronta. Uma rota gratuita e fechada é tão inalcançável hoje quanto uma de
+#     mil dólares.
+#
+# Por isso são CINCO eixos, e nenhum é sinónimo do outro:
+#
+#     FINANCIAL_COST      quanto custa em dólar
+#     ACCESS_CREDENTIAL   falta-nos chave?
+#     APP_REVIEW          falta-nos aprovação de terceiro?
+#     PERMISSION          a plataforma deixa?
+#     POLICY              esta casa deixa?
+#
+# Esta função NÃO decide nada e NÃO escreve nada na matriz: lê o que já está
+# escrito e recusa-se a colapsar os cinco numa palavra só.
+ZERO_DOLAR_MAS_TRANCADA = 'ZERO_DOLLAR_BUT_CREDENTIAL_GATED'
+EXECUTAVEL_AGORA = 'READY_NOW'
+NAO_EXECUTAVEL = 'NOT_EXECUTABLE'
+PRONTIDAO_DESCONHECIDA = 'UNKNOWN'
+
+#: Estados que dizem, em claro, que falta uma CHAVE — não capacidade, não dinheiro.
+FALTA_CREDENCIAL = ('CREDENTIAL_MISSING', 'REQUIRES_AUTHORIZATION',
+                    'REQUIRES_OWNER_PERMISSION')
+
+
+def prontidao(platform, capability):
+    """Esta porta ABRE HOJE? → dicionário com os cinco eixos separados.
+
+    NUNCA devolve `READY_NOW` por a rota custar zero. Custo é um eixo; chave é
+    outro; aprovação de terceiro é outro. Quem junta os três escreve `FREE` e
+    descobre o erro no dia da coleta.
+    """
+    d = decisao(platform, capability)
+    rota = (MATRIZ.get((platform or '').upper()) or {}).get((capability or '').upper())
+    escolhida = _rota_padrao(rota) if rota else None
+    fora = {
+        'PLATFORM': d['PLATFORM'], 'CAPABILITY': d['CAPABILITY'],
+        'POLICY_DECISION': d['DECISAO'],
+        'PERMISSION': d['PERMITIDA'],
+        'ROUTE_STATE': d['ESTADO'],
+        'FINANCIAL_COST': escolhida['CUSTO'] if escolhida else None,
+        'ACCESS_CREDENTIAL': None,
+        'APP_REVIEW': None,
+        'PRONTIDAO': PRONTIDAO_DESCONHECIDA,
+        'PORQUE': None,
+    }
+    if escolhida is None:
+        fora['PRONTIDAO'] = NAO_EXECUTAVEL
+        fora['PORQUE'] = d['PORQUE']
+        return fora
+    # A APROVAÇÃO DE TERCEIRO NÃO SE DEDUZ DO ESTADO: ela está escrita na nota
+    # da rota, que é onde a medição a pôs. Deduzi-la seria inventá-la.
+    nota = (escolhida.get('NOTA') or '')
+    fora['APP_REVIEW'] = ('REQUIRED' if ('App Review' in nota or 'app review' in nota
+                                         or 'PPCA' in nota or 'PPMA' in nota)
+                          else 'NOT_DOCUMENTED')
+    falta = escolhida['ESTADO'] in FALTA_CREDENCIAL
+    fora['ACCESS_CREDENTIAL'] = 'MISSING' if falta else 'NOT_REQUIRED_OR_HELD'
+    gratis = str(escolhida['CUSTO'] or '').strip().lower().startswith('zero')
+    if falta:
+        fora['PRONTIDAO'] = ZERO_DOLAR_MAS_TRANCADA if gratis else NAO_EXECUTAVEL
+        fora['PORQUE'] = ('custa %s e falta a chave: ESTADO=%s. Zero dólar não abre '
+                          'porta.' % (escolhida['CUSTO'], escolhida['ESTADO']))
+        return fora
+    if escolhida['ESTADO'] == 'PROVED':
+        fora['PRONTIDAO'] = EXECUTAVEL_AGORA
+        fora['PORQUE'] = 'rota permitida, com credencial, e já correu'
+        return fora
+    fora['PRONTIDAO'] = PRONTIDAO_DESCONHECIDA
+    fora['PORQUE'] = ('rota permitida e sem falta de credencial declarada, mas o '
+                      'estado é %s — ninguém a correu.' % escolhida['ESTADO'])
+    return fora
+
+
 def _rota_padrao(rotas):
     """A rota DEFAULT: PERMITIDA primeiro, BARATA depois, PROVADA por último.
 
@@ -797,6 +987,29 @@ def _quebrar(texto, larg):
     return saida
 
 
+def _motivo_do_gasto(rotas, plat):
+    """O motivo canônico, LIDO das rotas declaradas — nunca deduzido da plataforma.
+
+    A ordem das perguntas é a que separa os casos, e ela importa:
+
+        1. existe rota livre e ela é RECUSADA POR POLÍTICA?   ROUTE_NOT_ALLOWED
+        2. existe rota livre e falta-lhe CHAVE?               AUTHORIZATION_BLOCK
+        3. não existe rota livre nenhuma?                     FREE_ROUTE_UNAVAILABLE
+        4. existe, abre, e não chega?      FREE_ROUTE_INSUFFICIENT_CAPABILITY
+
+    O quarto é o único que o dinheiro resolve. Os três primeiros são
+    autorização — e comprar autorização não é comprar capacidade.
+    """
+    livres = [x for x in rotas if x['CLASSE'] != 'APIFY']
+    if not livres:
+        return 'FREE_ROUTE_UNAVAILABLE'
+    if all(x['ESTADO'] == 'ROUTE_NOT_ALLOWED' or x['PERMITIDA'] == 'NAO' for x in livres):
+        return 'ROUTE_NOT_ALLOWED'
+    if any(x['ESTADO'] in FALTA_CREDENCIAL for x in livres):
+        return 'AUTHORIZATION_BLOCK'
+    return 'FREE_ROUTE_INSUFFICIENT_CAPABILITY'
+
+
 def gap_apify():
     """Onde a Apify continua sendo a rota padrão — e com que motivo canônico."""
     linhas = []
@@ -807,9 +1020,16 @@ def gap_apify():
             d = _rota_padrao(rotas)
             tem_apify = any(x['CLASSE'] == 'APIFY' for x in rotas)
             if d and d['CLASSE'] == 'APIFY':
-                motivo = ('ROUTE_NOT_ALLOWED' if plat == 'YOUTUBE'
-                          else 'AUTHORIZATION_BLOCK' if plat == 'FACEBOOK'
-                          else 'FREE_ROUTE_INSUFFICIENT_CAPABILITY')
+                # O MOTIVO NÃO SE DEDUZ DA PLATAFORMA. Deduzi-lo foi como
+                # `INSTAGRAM/FETCH_COMMENTS` ganhou
+                # `FREE_ROUTE_INSUFFICIENT_CAPABILITY` — «a rota grátis não
+                # sabe» — quando a medição desta casa mostra que ela sabe (18
+                # de 31, 58%) e o que a barra é POLÍTICA.
+                #
+                #     O MOTIVO CERTO ESTÁ ESCRITO NA ROTA, NÃO NO NOME DA
+                #     PLATAFORMA. Quem o deduz acerta por acaso e erra em
+                #     silêncio.
+                motivo = _motivo_do_gasto(rotas, plat)
                 linhas.append((plat, cap, 'APIFY NECESSÁRIA', motivo))
             elif d is None:
                 # Nem livre, nem paga, nem Apify: a capacidade não tem rota permitida.
@@ -818,7 +1038,27 @@ def gap_apify():
                 linhas.append((plat, cap, 'SEM ROTA PERMITIDA',
                                'nenhuma rota permitida, Apify inclusive'))
             elif tem_apify:
-                linhas.append((plat, cap, 'APIFY DISPENSÁVEL', 'rota livre cobre: %s' % d['ROTA']))
+                # ── CORRIGIDO NA META-CLOSE-AND-BUILD-01 ──────────────────────
+                # Esta linha dizia «APIFY DISPENSÁVEL · rota livre cobre: X» sem
+                # nunca perguntar se X ABRE. Medido: `FACEBOOK/FETCH_POST`
+                # declarava a Apify dispensável citando `graph:/{page-id}/posts`,
+                # que está `CREDENTIAL_MISSING` e exige PPCA — App Review mais
+                # verificação de negócio. A casa não a tem.
+                #
+                #     UMA ROTA QUE NÃO ABRE NÃO COBRE NADA.
+                #     OFFICIAL API EXISTS != PERMISSION GRANTED.
+                #
+                # O validador desta casa afirmava exactamente o erro que ele
+                # existe para apanhar. Agora ele pergunta à `prontidao()`, que
+                # separa dinheiro de credencial, e diz qual dos dois falta.
+                pr = prontidao(plat, cap)
+                if pr['ACCESS_CREDENTIAL'] == 'MISSING':
+                    linhas.append((plat, cap, 'ROTA LIVRE TRANCADA',
+                                   '%s existe e NÃO abre: %s · %s'
+                                   % (d['ROTA'], d['ESTADO'], pr['PRONTIDAO'])))
+                else:
+                    linhas.append((plat, cap, 'APIFY DISPENSÁVEL',
+                                   'rota livre cobre: %s' % d['ROTA']))
     return linhas
 
 
