@@ -77,8 +77,27 @@ QUE JÁ NÃO EXISTE.
 
 ```
 HEAD_BEFORE    = b7f96ef1b9cf1f5838db3687b6ecd30a9aebfd9a  (§85)
-HEAD_AFTER     = a §86 desta missão
+HEAD_AFTER     = 9bdcff05b… (§88, o ramo canônico andou)  +  §89 desta missão
 KNOW_HOW_DELTA = ATUALIZADO
+```
+
+### E a secção mudou de número, porque o número já tinha dono
+
+Esta missão escreveu a sua lei como `§86`. Enquanto ela corria, o ramo canônico
+escreveu **a sua própria `§86`** — sobre linhagem de observação, outra coisa — e
+seguiu para `§87` e `§88`.
+
+```
+NÃO ERA CONTEÚDO DUPLICADO. ERA NÚMERO DUPLICADO, QUE É PIOR:
+duas secções diferentes a atender pelo mesmo nome.
+```
+
+As duas medições são válidas e não se sobrepõem. O número canônico ficou com
+quem chegou primeiro ao ficheiro; a desta missão renumerou para **`§89`**, com
+as subsecções junto.
+
+```
+QUEM CHEGA DEPOIS AO FICHEIRO DE OUTRO NÃO LEVA O NÚMERO QUE JÁ ESTAVA LÁ.
 ```
 
 O estudo fechou com `KNOW_HOW_DELTA = NENHUM` porque o ficheiro canônico não
@@ -485,7 +504,7 @@ de nomes, não de número.
 7  dois `PROVED` sem run foram rebaixados
 8  o contrato de janela nasceu, fechado, e provado com delta offline
 9  `ESCOPO_DA_PROVA` cercou a generalização sem tocar na prova
-10 a §86 entrou no know-how canônico, que passou a viver nesta linhagem
+10 a §89 entrou no know-how canônico, que passou a viver nesta linhagem
 ```
 
 ## O · QUAL A PROVA

@@ -287,8 +287,33 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
     if sonda is not None:
         ok, porque_nao = sonda()
         if not ok:
+            # ── E O ENSAIO NAO E VETADO PELA SONDA ────────────────────────────
+            # A C10.7 escreveu que toda capacidade COM ROTA que nao promete
+            # resultado tem de entrar em ensaio. A sonda vetava isso, e o veto
+            # partia a lei — medido na META-CLOSE-AND-BUILD-01, quando as duas
+            # capacidades novas da Meta cairam fora do ciclo.
+            #
+            # O veto estava errado pela raiz: o ensaio existe PARA DESCOBRIR, e
+            # «descobri que me falta a chave» E UMA MEDICAO. Ela custa zero, nao
+            # toca na rede (o roteador tem a sua propria trava) e e exactamente
+            # o que um ensaio deve poder concluir.
+            #
+            #     UM ENSAIO QUE SO PODE CORRER QUANDO JA SE SABE O RESULTADO
+            #     NAO E UM ENSAIO.
+            #
+            # Em modo NORMAL a sonda continua a vetar, e tem de continuar: ali a
+            # pergunta e «posso colher agora?», e a resposta e nao.
             veredicto['STATE'] = porque_nao or 'CREDENTIAL_MISSING'
             veredicto['WHY'] = ('a rota existe e a configuracao dela nao esta completa neste ambiente')
+            veredicto['ACCESS_CREDENTIAL'] = 'MISSING'
+            if modo != TRIAL or promete:
+                return veredicto
+            veredicto['CAN'] = True
+            veredicto['TRIAL_ELIGIBLE'] = True
+            veredicto['PRODUCTION_READY'] = False
+            veredicto['STATE'] = ELEGIVEL_PARA_ENSAIO
+            veredicto['WHY'] = ('sem credencial neste ambiente, e ELEGIVEL para ensaio: '
+                                'descobrir que falta a chave e uma medicao, e custa zero')
             return veredicto
     veredicto['CAN'] = True
     veredicto['PRODUCTION_READY'] = promete

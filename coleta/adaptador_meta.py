@@ -346,6 +346,36 @@ def branded_search(*, run_id, country_scope='IT', medida=None, etapa=None,
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# A SONDA GRATUITA — «consigo chegar lá AGORA?», sem gastar nada
+# ══════════════════════════════════════════════════════════════════════════
+# Ela lê configuração e NUNCA chama rota. É do adaptador porque só ele sabe o
+# que a sua plataforma precisa ter em mãos.
+#
+# A Ad Library não se abre com uma chave de API: a Meta exige CONFIRMAÇÃO DE
+# IDENTIDADE do utilizador, um app, e um token gerado a partir disso. E a
+# página do nó `branded_content_search` não documenta sequer QUE token aceita.
+#
+#     O PREÇO DESTAS DUAS ROTAS NÃO É DINHEIRO. É IDENTIDADE CONFIRMADA.
+#
+# Enquanto não houver variável de ambiente com esse token, a resposta honesta é
+# `CREDENTIAL_MISSING` — e é ela que impede o roteador de sair para a rede por
+# uma porta que não abre.
+#
+# A sonda NUNCA devolve o valor do segredo. Devolve `(bool, estado)`.
+TOKEN_ENV = 'META_GRAPH_TOKEN'
+
+
+def credencial_presente():
+    """Há token da Graph API neste ambiente? Zero rede, zero dólar, zero segredo."""
+    return bool(os.environ.get(TOKEN_ENV, '').strip())
+
+
+def pronto_para_graph(**_):
+    """→ (consigo?, estado). O estado é escrito aqui, nunca derivado do segredo."""
+    return (credencial_presente(), 'CREDENTIAL_MISSING')
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # O QUE ESTE ADAPTADOR DECLARA
 # ══════════════════════════════════════════════════════════════════════════
 # As duas têm `rota`, e não `executa`: a matriz conhece-as, logo elas entram
@@ -358,9 +388,9 @@ def branded_search(*, run_id, country_scope='IT', medida=None, etapa=None,
 #
 #     UM ADAPTADOR PODE EXISTIR SEM PROMETER. Não pode é existir prometendo.
 reg.registar(PLATAFORMA, 'meta.ads.search', adaptador=NOME,
-             rota=ads_search,
+             rota=ads_search, pronto=pronto_para_graph,
              nota='Ad Library oficial; zero dolar e credencial em falta. '
                   'Janela comercial UE = 1 ano da ultima impressao.')
 reg.registar(PLATAFORMA, 'meta.branded_content.search', adaptador=NOME,
-             rota=branded_search,
+             rota=branded_search, pronto=pronto_para_graph,
              nota='parceria paga pelo lado da marca; AUTH nao documentada pela Meta')

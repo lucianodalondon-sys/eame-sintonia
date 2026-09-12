@@ -60,7 +60,7 @@ def ataque(n, titulo, condicao, detalhe=''):
 
 
 # ══════════════════════════════════════════════════════════════════════════
-print('\nRED TEAM · 30 ataques + 5 do caminho canonico\n' + '-' * 70)
+print('\nRED TEAM · 30 ataques + 5 do caminho canonico + 5 da credencial\n' + '-' * 70)
 
 # 1 · zero dollar vira READY
 p = mz.prontidao('META', 'SEARCH_ADS')
@@ -278,24 +278,96 @@ try:
 finally:
     http.buscar = _orig
 
-ataque(31, 'o pedido atravessa o EXECUTOR canonico, nao um runtime proprio',
-       len(objs) == 3 and trace.get('RESULT') == 'OK'
+# ⚠️ CORRIGIDO DEPOIS DE ESCREVER A TRAVA DA CREDENCIAL.
+# Este bloco afirmava que o `COLLECT` devolvia tres objetos. Depois da trava,
+# devolve ZERO — e esta certo: a rota esta `CREDENTIAL_MISSING`, e a trava para
+# antes do adaptador. A prova antiga so passava porque a casa ainda saia para a
+# rede por uma porta que nao tinha chave.
+#
+#     UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR E UMA PROVA DO DEFEITO.
+ataque(31, 'o COLLECT canonico chega ao roteador e para na trava da credencial',
+       len(objs) == 0 and trace.get('RESULT') == 'CREDENTIAL_MISSING'
        and trace.get('EXECUTOR_ID') is not None,
-       str(trace.get('RESULT')))
-ataque(32, 'um TRIAL que devolve objetos NAO promove a capacidade',
+       '%s objetos · RESULT=%s' % (len(objs), trace.get('RESULT')))
+ataque(32, 'um TRIAL nao promove a capacidade, mesmo parando na trava',
        trace['CAPABILITY_STATE_BEFORE'] == cap.NOT_EXECUTED
        and trace['CAPABILITY_STATE_AFTER'] == cap.NOT_EXECUTED,
        '%s -> %s' % (trace['CAPABILITY_STATE_BEFORE'], trace['CAPABILITY_STATE_AFTER']))
-ataque(33, 'a URL chamada e a oficial da Ad Library, com o pais obrigatorio',
-       _chamadas and _chamadas[0].startswith('https://graph.facebook.com/')
-       and 'ads_archive' in _chamadas[0] and 'ad_reached_countries' in _chamadas[0],
-       _chamadas[0][:80] if _chamadas else 'nenhuma')
-ataque(34, 'nenhum ficheiro `meta_*runtime*` ou `meta_executor` foi criado',
+ataque(33, 'a trava para ANTES do adaptador: zero chamadas de transporte',
+       len(_chamadas) == 0, 'chamadas: %d' % len(_chamadas))
+
+# A FIACAO ATE AO ADAPTADOR PROVA-SE PELO REGISTO, que e o dono do mapa
+# PLATAFORMA/CAPACIDADE -> ADAPTADOR. Isto NAO atravessa a politica, e por isso
+# nao e — nem se diz que e — a prova do caminho inteiro.
+#
+#     OFFLINE_PROVEN != LIVE_PROVEN. E fiacao provada != rota autorizada.
+_rota = reg.rota_de('META', 'meta.ads.search')
+_t = transporte('ads-run1.json')
+_objs2 = _rota(run_id='FIACAO', paises=['IT'], page_ids=['1741459832625091'],
+               transporte=_t)
+ataque(34, 'o registo leva a META/meta.ads.search ate ao adaptador certo',
+       _rota is not None and len(_objs2) == 3
+       and all(o['CONTENT_TYPE'] == 'ADVERTISEMENT' for o in _objs2),
+       '%d objetos' % len(_objs2))
+ataque(35, 'a URL que o adaptador monta e a oficial, com o pais obrigatorio',
+       _t.chamadas and _t.chamadas[0].startswith('https://graph.facebook.com/')
+       and 'ads_archive' in _t.chamadas[0]
+       and 'ad_reached_countries' in _t.chamadas[0],
+       _t.chamadas[0][:70] if _t.chamadas else 'nenhuma')
+ataque(41, 'nenhum ficheiro `meta_*` de runtime foi criado',
        not [f for f in os.listdir(os.path.join(RAIZ, 'coleta'))
             if f.startswith('meta_') and f.endswith('.py')],
        'coleta/ limpo')
-ataque(35, 'o custo do caminho canonico e zero',
-       float(trace.get('COST_USD') or 0) == 0.0, str(trace.get('COST_USD')))
+ataque(42, 'o custo do caminho canonico e zero',
+       float(trace.get('COST_USD') or 0) == 0.0
+       and sum(o['COST_USD'] for o in _objs2) == 0.0,
+       str(trace.get('COST_USD')))
+
+
+# ══════════════════════════════════════════════════════════════════════════
+print('\nA TRAVA DA CREDENCIAL · nao se bate a porta sem chave\n' + '-' * 70)
+# Medido: pedir META/SEARCH_ADS chegava ao portao de TRANSPORTE e saia para
+# `graph.facebook.com/robots.txt` — uma ida a rede REAL por uma rota que nao
+# tinha como ser executada. E devolvia `ROUTE_NOT_ALLOWED`, que diz «eu podia e
+# decidi nao», quando a verdade era «falta-me a chave».
+import social_rotas as sr  # noqa: E402
+
+_pedidos = []
+_orig_open = http.urllib.request.urlopen
+
+
+def _espiao(req, *a, **k):
+    _pedidos.append(req.get_full_url() if hasattr(req, 'get_full_url') else str(req))
+    raise RuntimeError('rede bloqueada pela prova')
+
+
+http.urllib.request.urlopen = _espiao
+try:
+    _objs, _reg = sr._executar(platform='META', capability='SEARCH_ADS',
+                               run_id='PROVA-CREDENCIAL')
+finally:
+    http.urllib.request.urlopen = _orig_open
+
+ataque(36, 'rota ALLOWED sem credencial devolve estado de CREDENCIAL, nao ROUTE_NOT_ALLOWED',
+       _reg['ESTADO'] == 'CREDENTIAL_MISSING'
+       and _reg.get('READINESS') == mz.ZERO_DOLAR_MAS_TRANCADA,
+       '%s / %s' % (_reg['ESTADO'], _reg.get('READINESS')))
+ataque(37, 'a trava da credencial NAO gasta uma unica requisicao de rede',
+       len(_pedidos) == 0, 'idas tentadas: %d %s' % (len(_pedidos), _pedidos[:2]))
+ataque(38, 'falta de credencial NAO procura rota paga nem chama Apify',
+       _reg['CLASSE_DA_ROTA'] != 'APIFY' and _reg['MOTIVO_PAGO'] is None
+       and float(_reg['COST_USD']) == 0.0,
+       '%s / %s' % (_reg['CLASSE_DA_ROTA'], _reg['MOTIVO_PAGO']))
+
+# ── APIFY SO ONDE HA GAP RESIDUAL EXPLICITO ───────────────────────────────
+_gap = {(a, b): (c, d) for a, b, c, d in mz.gap_apify()}
+_necessarias = [k for k, v in _gap.items() if v[0] == 'APIFY NECESSÁRIA']
+_meta_apify = [k for k in _necessarias if k[0] == 'META']
+ataque(39, 'nenhuma capacidade META declara Apify necessaria',
+       not _meta_apify, str(_meta_apify))
+ataque(40, 'toda Apify NECESSARIA carrega um motivo canonico do vocabulario fechado',
+       all(_gap[k][1] in mz.MOTIVOS_PAGOS for k in _necessarias),
+       str([(k, _gap[k][1]) for k in _necessarias]))
 
 
 # ══════════════════════════════════════════════════════════════════════════

@@ -52,7 +52,8 @@ RAIZ = os.path.dirname(HERE)
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import social_envelope as env      # noqa: E402
-import social_matriz as mz         # noqa: E402
+import social_matriz as mz
+import scrap_capacidades as cap_mod         # noqa: E402
 import falhas                      # noqa: E402  — a lingua unica do erro
 import social_sessao as ss         # noqa: E402  — LOCAL_SESSION e rota, nao motor
 import scrap_http as http          # noqa: E402  — o portao e a busca
@@ -168,6 +169,7 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
 
     registro['AUTH_MODE'] = mz.auth_mode(escolhida)
 
+
     # ── A TRAVA DA SESSÃO ────────────────────────────────────────────────────
     # Estar logado não autoriza automatizar. A pergunta é sobre o CONTRATO com
     # a plataforma e sobre DE QUEM É a conta alvo — nunca sobre o que a máquina
@@ -202,6 +204,60 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
                                 'Aceitos: %s' % (motivo_pago, ', '.join(mz.MOTIVOS_PAGOS)))
             return [], registro
         registro['MOTIVO_PAGO'] = motivo_pago
+
+    # ⚠️ E ELA VEM DEPOIS DA TRAVA DO GASTO, DE PROPOSITO.
+    # A primeira colocacao desta trava foi ANTES, e partiu a prova de que uma
+    # rota paga sem motivo declarado e recusada: ela respondia «falta a chave»
+    # onde a casa queria dizer «nao autorizei gastar».
+    #
+    #     RECUSAR GASTAR NAO DEPENDE DO AMBIENTE. FALTAR A CHAVE DEPENDE.
+    #     A recusa mais forte fala primeiro.
+    # ── A TRAVA DA CREDENCIAL — ANTES DE TOCAR NA REDE, DEPOIS DO GASTO ──────
+    # Medido na META-CLOSE-AND-BUILD-01: pedir `META/SEARCH_ADS` — que está
+    # `ALLOWED` e `CREDENTIAL_MISSING` — chegava ao portão de transporte e saía
+    # para `graph.facebook.com/robots.txt`. Uma ida à rede REAL, a um host da
+    # plataforma, por uma rota que não tinha como ser executada.
+    #
+    #     NÃO SE BATE À PORTA DE QUEM NÃO SE TEM CHAVE.
+    #
+    # E o estado que voltava era `ROUTE_NOT_ALLOWED` — «eu podia e decidi não».
+    # A verdade era «falta-me a chave», e esta casa já tinha a lei escrita:
+    #
+    #     «EU NÃO QUIS» E «NÃO ME DEIXAM» NÃO SE ESCREVEM COM A MESMA PALAVRA.
+    #
+    # ⚠️ QUEM RESPONDE NÃO É A MATRIZ. É A SONDA DO ADAPTADOR.
+    #
+    # A primeira versão desta trava leu `escolhida['ESTADO']` e partiu três
+    # provas do YouTube. O erro foi de DONO: `CREDENTIAL_MISSING` na matriz é
+    # uma DECLARAÇÃO datada, não um facto de tempo de execução — o YouTube lê a
+    # chave do ambiente e pode tê-la mesmo com a matriz a dizer que falta.
+    #
+    #     ESTADO DECLARADO NA MATRIZ != CREDENCIAL PRESENTE NO AMBIENTE.
+    #
+    # `scrap_registo` já tem o dono certo, e `CHECK` já o consulta: a sonda
+    # gratuita, que «lê configuração, nunca chama rota». A trava pergunta-lhe.
+    # Capacidade sem sonda não é barrada — quem não declarou como se mede não
+    # passa a ser medido por palpite meu.
+    _pontuada = cap_mod.pela_matriz(plat, cap)
+    _sonda = reg.sonda_de(plat, _pontuada) if _pontuada else None
+    if _sonda is not None:
+        _ok, _porque = _sonda()
+        if not _ok:
+            pr = mz.prontidao(plat, cap)
+            registro['ESTADO'] = _porque or 'CREDENTIAL_MISSING'
+            registro['READINESS'] = pr['PRONTIDAO']
+            registro['ACCESS_CREDENTIAL'] = pr['ACCESS_CREDENTIAL']
+            registro['APP_REVIEW'] = pr['APP_REVIEW']
+            registro['FINANCIAL_COST'] = pr['FINANCIAL_COST']
+            # E o que ela NÃO faz é igualmente lei: não procura rota paga, não
+            # chama Apify, não «tenta a seguir».
+            #
+            #     CREDENTIAL_MISSING != PAID_REQUIRED.
+            registro['ERRO'] = ('a sonda do adaptador diz que a configuracao nao esta '
+                                'completa neste ambiente. Zero requisicoes feitas, e '
+                                'NENHUMA rota paga foi procurada — falta de credencial '
+                                'nao e buraco de capacidade.')
+            return [], registro
 
     fn = _rota_executavel(plat, cap)
     if fn is None:
