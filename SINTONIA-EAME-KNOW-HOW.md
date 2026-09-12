@@ -6236,3 +6236,148 @@ Nenhuma migration criada. Nenhuma tabela criada. Nada fechado.
 O que fica é a pergunta, posta de maneira que custe pouco a responder: **onde
 pousa a unidade pronta da rota forward?** Respondida essa, o resto é a chamada
 que já estava à espera.
+
+---
+
+# §75 · UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU
+
+**Missão:** `C10.8A — PRIMEIRO TRIAL AO VIVO (BLUESKY)`
+**HEAD final:** `509d2b59`
+**Tocado:** `coleta/scrap_http.py` · `coleta/social_rotas.py` ·
+`coleta/scrap_capacidades.py` (promoção, em commit próprio)
+
+## 75.1 · O ACHADO QUE SÓ APARECE AO VIVO
+
+A C10.7 provou o ensaio canônico com fornecedor falso e passou. A primeira
+corrida real, contra o Bluesky, falhou — e falhou de uma maneira que nenhuma
+fixture teria produzido.
+
+O túnel morreu a meio da leitura do `robots.txt`. O portão tinha três
+respostas — `LIDO`, `AUSENTE`, `ILEGIVEL` — e um `except Exception` varria para
+`ILEGIVEL` tanto «o host respondeu uma coisa que não sei ler» como «o host não
+respondeu de todo». `permitido()` traduz `ILEGIVEL` para `False`, e o roteador
+traduz isso para `ROUTE_NOT_ALLOWED`.
+
+O `robots.txt` daquele host, lido logo a seguir, diz `Allow: /` e escreve, por
+extenso, que rastrear a API pública é permitido.
+
+```
+    UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU.
+```
+
+A recusa em si estava certa: não se afirma permissão que não se leu. O que
+estava errado era o **nome** dela, e o nome é o que a casa obedece:
+
+```
+ROUTE_NOT_ALLOWED        recuperação = NO_RETRY
+TRANSIENT_NETWORK_ERROR  recuperação = WAIT
+```
+
+Chamar a segunda pela primeira ensina a casa a desistir de uma porta aberta —
+e a desistir em silêncio, porque `NO_RETRY` não reclama.
+
+A correção tem duas metades, e a segunda esquece-se: um estado próprio para «não
+consegui ler», **e** não memorizar esse estado. Guardar «indisponível» em cache
+faria um soluço de rede virar proibição permanente até ao fim do processo.
+
+## 75.2 · O QUE UMA PROVA AO VIVO CUSTA QUANDO A SONDA ESTÁ ERRADA
+
+O briefing fixou o teto em duas requisições. Foram sete, em quatro tentativas.
+Três excessos foram defeitos da minha própria sonda, não da ferramenta:
+
+- ela assumiu que `RAW_REFERENCE` era uma string, e rebentou com `TypeError`
+  **depois** de a chamada real ter corrido e trazido o objeto;
+- o ensaio a seco, feito a seguir para validar, escreveu por cima do registo da
+  corrida real.
+
+```
+    UMA PROVA QUE SÓ SE TESTA AO VIVO TESTA-SE À CUSTA DO HOST.
+    UM ENSAIO A SECO QUE ESCREVE POR CIMA DA CORRIDA REAL APAGA A PROVA.
+    UMA SONDA QUE ASSUME A FORMA DO CAMPO MEDE A ASSUNÇÃO.
+```
+
+A regra que saiu daí, e que vale para qualquer prova que vá tocar em algo caro:
+**ela tem de ter um modo que corra o corpo inteiro contra bytes preservados,
+com a rede trancada, antes de haver um único pedido.** E o registo da corrida
+real escreve-se **antes** de qualquer asserção poder rebentar.
+
+```
+    UMA CHAMADA REAL QUE NÃO DEIXOU REGISTO CUSTOU A REDE E NÃO COMPROU NADA.
+```
+
+## 75.3 · O TETO CONTA TUDO O QUE SAI
+
+O portão do `robots.txt` é uma ida à rede como qualquer outra. Não contá-lo para
+o teto seria a mesma contabilidade que esta casa recusa noutros sítios.
+
+```
+    UM PEDIDO QUE NÃO CONTA PARA O TETO CONTA PARA O HOST.
+    UM TETO QUE NÃO RECUSA NÃO É UM TETO.
+```
+
+O teto foi implementado a embrulhar o transporte: a requisição seguinte ao teto
+**levanta**. E isso teve de ganhar sentinela de comportamento, porque a
+primeira que existia procurava a palavra `TetoEstourado` no ficheiro — e um
+`if False:` à frente do `raise` deixa a palavra lá.
+
+```
+    UMA SENTINELA QUE PROCURA A PALAVRA NÃO MEDE O QUE ELA FAZ.
+```
+
+## 75.4 · QUEM PROMOVE É A EVIDÊNCIA, LIDA
+
+O `TRIAL` correu, trouxe um objeto real e **não** promoveu nada: o ficheiro da
+declaração foi comparado por SHA antes e depois, e o trace carrega
+`BEFORE == AFTER`. A promoção de `NOT_EXECUTED` para `PROVEN` foi um commit
+separado, depois de a evidência existir e poder ser lida.
+
+```
+    TRIAL PASSADO NÃO PROMOVE. QUEM PROMOVE É A EVIDÊNCIA, LIDA.
+```
+
+E a prova citada na declaração passou a apontar para o artefato da corrida **ao
+vivo** — não para a matriz, nem para a prova offline da missão anterior. Uma
+capacidade promovida que cita uma fixture está a dizer que correu quando não
+correu.
+
+## 75.5 · A PROVA QUE FALHA POR TER FUNCIONADO
+
+Depois da promoção, a prova ficou vermelha. Ela exigia `NOT_EXECUTED` como
+pré-condição — o estado que ela própria fez mudar.
+
+```
+    UMA PROVA QUE EXIGE O ESTADO DE ONTEM FALHA POR TER SIDO BEM-SUCEDIDA.
+```
+
+Uma prova de trânsito de estado não pode exigir o estado de partida para
+sempre. O que ela mede a partir daí é a **coerência**: ou a capacidade ainda não
+promete e o `CHECK` normal recusa, ou ela já promete e a prova citada aponta
+para o artefato desta corrida. O momento histórico guarda-se num artefato, que
+é onde um momento se guarda.
+
+## 75.6 · O ALVO TAMBÉM SE PROVA
+
+Um alvo escolhido na internet é um alvo que ninguém pode discutir depois. O
+desta corrida veio do RAW preservado de uma descoberta canônica anterior,
+commitado, com o termo que a própria casa declara. Sete contas voltaram; usou-se
+a única com nome de organização.
+
+```
+    UMA SENTINELA NÃO DEVE SER A CONTA PESSOAL DE NINGUÉM.
+```
+
+## 75.7 · CONSEQUÊNCIA
+
+```
+bluesky.author.incremental   NOT_EXECUTED → PROVEN
+2 requisições · 1 objeto · 2 555 bytes de RAW com SHA · COST_USD = 0
+MUTANTES 10 · SURVIVORS 0 · ATAQUES 24 · rede no red team = 0
+```
+
+E o que `PROVEN` **não** afirma: um objeto, uma conta, `limit=1`. Não se mediu
+volume, paginação, janela nem `429`. `PROVEN` nesta casa quer dizer «correu e
+ficou registado».
+
+```
+    CAN DO != DID DO.
+```
