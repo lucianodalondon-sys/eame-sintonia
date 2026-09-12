@@ -79,6 +79,40 @@ def morde(nome, doc, estragar, queixa_esperada):
           "esperava uma queixa com %r; vieram: %s" % (queixa_esperada, queixas[:4]))
 
 
+def onde_diverge(a, b, limite=6):
+    """QUE CAMPO MUDOU — porque «a medicao mudou» nao diz onde procurar.
+
+    ⚠️ UMA PROVA QUE SO DIZ «DIFERENTE» MANDA A PROXIMA PESSOA PROCURAR
+    NUM FICHEIRO DE 700 KB. Ela sabe a resposta; so nao a estava a dizer.
+    """
+    fora = []
+    for bloco in CENSO.BLOCOS_MEDIDOS:
+        x, y = a.get(bloco), b.get(bloco)
+        if x == y:
+            continue
+        if bloco == "FICHAS":
+            fx = {f["CARD_ID"]: f for f in x or []}
+            fy = {f["CARD_ID"]: f for f in y or []}
+            for card in sorted(set(fx) | set(fy)):
+                for campo in sorted(set(fx.get(card, {})) | set(fy.get(card, {}))):
+                    if fx.get(card, {}).get(campo) != fy.get(card, {}).get(campo):
+                        fora.append("FICHAS[%s].%s: %r != %r"
+                                    % (card, campo,
+                                       fx.get(card, {}).get(campo),
+                                       fy.get(card, {}).get(campo)))
+                        if len(fora) >= limite:
+                            return fora
+        elif isinstance(x, dict) and isinstance(y, dict):
+            for k in sorted(set(x) | set(y)):
+                if x.get(k) != y.get(k):
+                    fora.append("%s.%s: %r != %r" % (bloco, k, x.get(k), y.get(k)))
+                    if len(fora) >= limite:
+                        return fora
+        else:
+            fora.append("%s difere" % bloco)
+    return fora
+
+
 def clone():
     """UM CLONE DA ARVORE QUE VAI SER COMMITADA, NAO DA QUE JA FOI.
 
@@ -349,7 +383,8 @@ prova("o_censo_corre", r.returncode == 0, r.stderr[-300:])
 if r.returncode == 0:
     saida = json.loads(r.stdout)
     prova("o_stdout_mede_o_mesmo_que_o_ficheiro",
-          CENSO.hash_da_medicao(saida) == P.get("MEASUREMENT_HASH"))
+          CENSO.hash_da_medicao(saida) == P.get("MEASUREMENT_HASH"),
+          onde_diverge(COMMITADO, saida))
     prova("o_stdout_traz_o_artefacto_inteiro",
           set(saida) == set(COMMITADO), sorted(set(saida) ^ set(COMMITADO)))
     prova("nao_escrever_nao_escreve",
@@ -360,7 +395,8 @@ if r.returncode == 0:
 if r.returncode == 0:
     prova("o_artefato_commitado_e_o_que_esta_arvore_mede_hoje",
           CENSO.hash_da_medicao(json.loads(r.stdout)) == P.get("MEASUREMENT_HASH"),
-          "corra: py system-map/scripts/censo_da_topologia.py")
+          "corra: py system-map/scripts/censo_da_topologia.py · "
+          + str(onde_diverge(COMMITADO, json.loads(r.stdout))))
 
 # ── #15 · A PERSISTENCIA TEM DE ESTAR GARANTIDA POR ALGUEM ──────────────
 # O artefacto so continua a existir porque alguma corrida o refaz. Se o passo do
@@ -405,7 +441,8 @@ try:
         prova("a_medicao_e_a_mesma_noutra_pasta",
               json.loads(x1.stdout)["PROVENANCE"]["MEASUREMENT_HASH"]
               == P.get("MEASUREMENT_HASH"),
-              "a medicao mudou so por a arvore estar noutro sitio")
+              "a medicao mudou so por a arvore estar noutro sitio: "
+              + str(onde_diverge(COMMITADO, json.loads(x1.stdout))))
 
     # F · determinismo: duas corridas, a mesma arvore, o mesmo conteudo
     x2 = correr(c, "--json")

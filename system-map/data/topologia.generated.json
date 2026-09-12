@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-12T17:23:31+00:00",
-  "HEAD": "ca3048c790c356ec973be3481ab636e204ab218e",
+  "GENERATED_AT": "2026-09-12T17:36:16+00:00",
+  "HEAD": "896e9bc14bd09f4dab3deebedf0183d34e3a50ce",
   "BRANCH": "claude/dazzling-cerf-27a7v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a4e45db1cfc3f59613d08062648a099b49e6cb6606c3dd8b4eb7917222983d5e",
+  "SOURCE_TREE_FINGERPRINT": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72",
   "FICHEIROS_NA_IMPRESSAO": 1655,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1735,14 +1735,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a4e45db1cfc3f59613d08062648a099b49e6cb6606c3dd8b4eb7917222983d5e",
+    "VERSAO": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a4e45db1cfc3f59613d08062648a099b49e6cb6606c3dd8b4eb7917222983d5e",
+    "VERSAO": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -1910,7 +1910,7 @@
    {
     "PATH": "system-map/tests/test_topologia_persistida.py",
     "PAPEL": "FONTE",
-    "VERSAO": "a5ce388857f05bfd04846bd512362612a2e3f0e3",
+    "VERSAO": "b9fb7db03a7d5564860322b1e4c33fcf5a56200b",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2665,7 +2665,7 @@
    }
   ],
   "INPUTS_COUNT": 375,
-  "INPUTS_DIGEST": "6e5436cd452409500c8c640436f660497a71ba1b4442a934121de9e066bb98f8",
+  "INPUTS_DIGEST": "a4480dcc8406fe36f9f5838a590f1c26c0992d6fee674a77e5605c71e63e7c75",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2693,8 +2693,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "abfce9b2f2c8db15648724c17fc2cef61ba0360d2c408ca3cd2f0287fc0ee386",
-  "SEMANTIC_HASH": "73822609355b8db87b410716c7d29810e6393a7f6ded80e5fa60d76bbc3e2c2b"
+  "MEASUREMENT_HASH": "4a043378ff80efcb74f0ad95eb8e9a7cef9cf81031ac4cb092ecd329147fc41d",
+  "SEMANTIC_HASH": "e789797acad51875cf80979eb727793c665efecae2b430f1c47905ca901785ab"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5560,7 +5560,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 115,
+      "LINHA": 149,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-MAPA-TESTES",
@@ -13072,7 +13072,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 443,
+      "LINHA": 480,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
