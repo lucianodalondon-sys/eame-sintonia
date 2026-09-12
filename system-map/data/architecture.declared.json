@@ -2767,6 +2767,24 @@
    ]
   },
   {
+   "id": "C-RECONCILIACAO-UNIVERSO",
+   "name": "Reconciliacao do universo do mapa",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⇄",
+   "what": "Declara cada universo que o mapa publica — regra de entrada, regra de saida, pai, arvore medida e membros — e enumera CARTAO A CARTAO em que lente cada um entra. Fecha a aritmetica do universo visual: incluidos no pente fino MAIS excluidos com motivo tem de dar exactamente o total desenhado, e nenhum cartao pode desaparecer entre duas lentes.",
+   "why_here": "Tres contagens chamavam-se «os cartoes da coleta» e contavam coisas diferentes: 65 pela FAMILIA, 48 pelo TERRITORIO, 111 pela familia mais o fecho por aresta. Nenhuma era falsa e nenhuma era comparavel, porque nenhuma declarava o proprio universo. UMA FERRAMENTA DE OBSERVABILIDADE NAO E COERENTE PORQUE CADA CENSO ESTA CERTO — E COERENTE QUANDO OS CENSOS RECONCILIAM OS PROPRIOS UNIVERSOS. Ele OBSERVA: nao move cartao de familia, nao alarga filtro nenhum e nao cria aresta.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/reconciliacao_do_universo.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-DERIVA-DA-BASE",
    "name": "A deriva entre o repositorio e a base viva",
    "territory": "Z-PROVA",

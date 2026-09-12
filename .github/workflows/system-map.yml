@@ -312,6 +312,24 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_impressao_da_arvore.py
 
+      # OS NÚMEROS DO MAPA TÊM DE SE ENCONTRAR, E NÃO SÓ DE ESTAR CERTOS.
+      # Três contagens chamavam-se «os cartões da coleta» e contavam populações
+      # diferentes — 65 pela FAMÍLIA, 48 pelo TERRITÓRIO, 111 pela família mais
+      # o fecho por aresta. Nenhuma era falsa; nenhuma declarava o seu universo,
+      # e por isso nenhuma era comparável com a do lado.
+      #
+      #     UMA FERRAMENTA DE OBSERVABILIDADE NÃO É COERENTE PORQUE CADA CENSO
+      #     ESTÁ CERTO. É COERENTE QUANDO OS CENSOS RECONCILIAM OS UNIVERSOS.
+      #
+      # Esta prova regenera a reconciliação e compara com a commitada: se uma
+      # lente mudar de população e ninguém reconciliar as exclusões, ela reprova
+      # aqui. E reprova também no caso que a motivou — um território novo na
+      # coleta que o filtro estático do pente fino não conhece e que sairia da
+      # auditoria sem uma queixa.
+      - name: 4m · os universos do mapa reconciliam-se
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_reconciliacao_do_universo.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |
