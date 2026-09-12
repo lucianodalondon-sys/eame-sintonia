@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "1f81eb6c41ee27287eb4b796e7c6227241e413da",
-    "GENERATED_AT": "2026-09-12T13:05:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b1d1158773e817eec08da832df4c1284c7254974f7d6524c7e9baf828942621e"
+    "HEAD": "ef864c51c8030ad60b5772034dccfa3d238e4e47",
+    "GENERATED_AT": "2026-09-12T13:24:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d57387321c178eab3927039d85fb4b231498d911bc6ac60e99fa57ba7153fdd1"
   },
   "FILES": [
     {
@@ -1564,7 +1564,7 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "155e7d73509afb4b8221900737ecbcd6473672a8",
+      "sha": "3580c15c0eb17840213743af588ffa1771b28948",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4315,7 +4315,7 @@
     },
     {
       "path": "docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md",
-      "sha": "467b2b8f68e9b42de304639a23a0c4e1c5120763",
+      "sha": "d8b682a3e067dfc689c23cd5aa173f8ab13216e1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9628,7 +9628,7 @@
     },
     {
       "path": "system-map/scripts/reconciliacao_do_universo.py",
-      "sha": "79d1d793514eee47d105645d13492aef119a26b7",
+      "sha": "6d810257150f2cd2c3ba5dbb85a93e60d0a73a84",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9691,7 +9691,7 @@
     },
     {
       "path": "system-map/tests/test_reconciliacao_do_universo.py",
-      "sha": "9c0174574ee4af70456f364041b12eb814760cd3",
+      "sha": "dcb7aa6d89a8022e7fd6f381c7937bdb41c636dd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31872,7 +31872,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 346,
+        "line": 464,
         "snippet": "matriz = ler(RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\")"
       }
     },
@@ -31894,7 +31894,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 899,
+        "line": 1027,
         "snippet": "SAIDA.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
       }
     },
@@ -31905,7 +31905,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 564,
+        "line": 689,
         "snippet": "\"FROM_WHICH_FILE\": \"system-map/app/map.js\","
       }
     },
@@ -31916,7 +31916,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 282,
+        "line": 375,
         "snippet": "\"OWNER\": \"system-map/data/architecture.declared.json\","
       }
     },
@@ -31927,7 +31927,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 503,
+        "line": 628,
         "snippet": "\"OWNER\": \"system-map/scripts/censo_cards_sensores.py\","
       }
     },
@@ -31938,7 +31938,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 519,
+        "line": 435,
         "snippet": "\"OWNER\": \"system-map/scripts/censo_da_coleta.py\","
       }
     },
@@ -31960,7 +31960,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 361,
+        "line": 486,
         "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"), \"--json\"],"
       }
     },
@@ -31971,7 +31971,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 290,
+        "line": 384,
         "snippet": "\"OWNER\": \"system-map/scripts/generate_system_map.py\","
       }
     },
@@ -32004,7 +32004,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/reconciliacao_do_universo.py",
-        "line": 304,
+        "line": 399,
         "snippet": "\"OWNER\": \"system-map/scripts/pente_fino_da_coleta.py\","
       }
     },
@@ -32417,6 +32417,17 @@
     },
     {
       "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_reconciliacao_do_universo.py",
+        "line": 263,
+        "snippet": "MATRIZ_F = RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
       "to_file": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -32433,8 +32444,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_reconciliacao_do_universo.py",
-        "line": 183,
+        "line": 429,
         "snippet": "MAPJS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_reconciliacao_do_universo.py",
+        "line": 267,
+        "snippet": "DECLARADA = json.loads((RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\")"
       }
     },
     {
@@ -39894,7 +39916,7 @@
     "files_tracked": 1499,
     "files_readable": 579,
     "files_code_dir": 624,
-    "file_edges": 2628,
+    "file_edges": 2630,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

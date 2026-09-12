@@ -83,6 +83,98 @@ from censo_da_topologia import LADO_DA_COLETA           # noqa: E402
 NAO_SEI = "NAO SEI"
 
 # ─────────────────────────────────────────────────────────────────────────
+# A ESPECIE DE CADA SUPERFICIE DE CONTAGEM — G0 do contrato de confianca.
+#
+# «65 cartoes» nao e auditavel. `65 SYSTEM_MAP_VISUAL_CARD` e.
+#
+#     ENTITY_SPECIES RESPONDE A UMA PERGUNTA SO:
+#     O QUE E CADA MEMBRO DESTA CONTAGEM?
+#
+# Ela NAO responde como o cartao e desenhado, em que territorio vive, que
+# familia tem, que papel cumpre, que evidencia o sustenta, nem se esta provado.
+# Cada uma dessas e outra coluna, com outro dono:
+#
+#     ENTITY_SPECIES != ROLE != TERRITORY != FAMILY != EVIDENCE_CLASS != TRUST
+#
+# O VOCABULARIO E FECHADO e vive em `docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md`
+# §5. Ele nao e reescrito aqui: `ESPECIES_VALIDAS` e derivada da tabela que
+# `especies()` ja constroi, para nao existirem duas listas de nomes.
+#
+# E O MAPEAMENTO VIVE NUM SITIO SO. Escrever `ENTITY_SPECIES` a mao dentro de
+# cada um dos treze blocos criaria treze donos do mesmo facto, e bastava um
+# deles divergir para a contagem voltar a nao dizer o que conta. Aqui ele e
+# declarado uma vez e CARIMBADO por `carimbar_especies()`, que RECUSA uma
+# superficie que a tabela nao conheca — porque uma superficie nova que entra
+# em silencio e exactamente o defeito que o G0 veio fechar.
+# ─────────────────────────────────────────────────────────────────────────
+ESPECIE_DA_SUPERFICIE = {
+    # ── UNIVERSOS ────────────────────────────────────────────────────────
+    "SYSTEM_MAP_NODE_UNIVERSE":               "SYSTEM_MAP_VISUAL_CARD",
+    "SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE": "SYSTEM_MAP_VISUAL_CARD",
+    # O pente fino nao conta «cartoes»: conta as pecas a que ele faz as quatro
+    # perguntas. Os membros sao os MESMOS objectos do universo pai, e a especie
+    # e outra porque a pergunta e outra.
+    "PENTE_FINO_UNIVERSE":                    "COLLECTION_INTERNAL_PIECE",
+    "TOPOLOGY_CENSUS_UNIVERSE":               "SYSTEM_MAP_VISUAL_CARD",
+    "CASCO_TOOL_CARD_UNIVERSE":               "PORTAL_TOOL_CARD",
+    # ⚠️ ESTA CONTA FICHEIROS, E NAO CARTOES — e por isso e que ela obrigou o
+    # contrato a declarar uma especie que nao e de cartao (§5.3). Dizer-lhe
+    # UNKNOWN seria mentir para o outro lado: sabe-se exactamente o que sao.
+    "COLLECTION_CODE_FILE_UNIVERSE":          "COLLECTION_CODE_FILE",
+    # ── LENTES ───────────────────────────────────────────────────────────
+    "FRONTEND_FAMILY_COUNTER":                "SYSTEM_MAP_VISUAL_CARD",
+    "FRONTEND_DEFAULT_VIEW_DRAWN":            "SYSTEM_MAP_VISUAL_CARD",
+    "PENTE_FINO":                             "COLLECTION_INTERNAL_PIECE",
+    "CENSO_DA_TOPOLOGIA":                     "SYSTEM_MAP_VISUAL_CARD",
+    "CENSO_DA_COLETA":                        "COLLECTION_CODE_FILE",
+    "CENSO_CARDS_SENSORES":                   "PORTAL_TOOL_CARD",
+    "STATE_COUNTS":                           "SYSTEM_MAP_VISUAL_CARD",
+}
+
+
+def validar_vocabulario(mapeamento: dict, validas: set) -> None:
+    """O mapeamento so pode apontar nomes que a tabela das especies declara.
+
+    ⚠️ ESTA GUARDA SOBREVIVEU A MUTACAO NA PRIMEIRA RONDA, e por uma razao que
+    vale a pena escrever: ela estava INLINE em `medir()`, onde nada a podia
+    chamar com um defeito na mao. Desligar o `if` nao mudava nada, porque nesta
+    arvore nao ha nome invalido nenhum para ela apanhar.
+
+        UMA GUARDA QUE SO CORRE SOBRE DADOS SAOS NUNCA FOI TESTADA.
+
+    Sendo funcao, `test_reconciliacao_do_universo.py` corre-a contra um nome
+    inventado e exige que ela recuse.
+    """
+    fora = sorted(set(mapeamento.values()) - set(validas))
+    if fora:
+        raise SystemExit(
+            "ESPECIE_FORA_DO_VOCABULARIO=%s · o mapeamento aponta um nome que a "
+            "tabela de especies nao declara." % ", ".join(fora))
+
+
+def carimbar_especies(universos: dict, lentes: list) -> None:
+    """Poe `ENTITY_SPECIES` em cada superficie, a partir do dono unico.
+
+    Recusa em vez de omitir. Uma superficie que a tabela nao conheca para a
+    cadeia aqui, com o nome dela na mensagem — e nao sai um artefacto com uma
+    contagem muda la dentro.
+
+        UMA CONTAGEM QUE NAO DIZ O QUE CONTA E UM NUMERO, NAO UMA MEDICAO.
+    """
+    orfas = ([k for k in universos if k not in ESPECIE_DA_SUPERFICIE]
+             + [l["LENS_ID"] for l in lentes
+                if l["LENS_ID"] not in ESPECIE_DA_SUPERFICIE])
+    if orfas:
+        raise SystemExit(
+            "SUPERFICIE_SEM_ESPECIE=%s · acrescente-a a ESPECIE_DA_SUPERFICIE "
+            "em reconciliacao_do_universo.py, com a especie do contrato §5."
+            % ", ".join(sorted(orfas)))
+    for nome, u in universos.items():
+        u["ENTITY_SPECIES"] = ESPECIE_DA_SUPERFICIE[nome]
+    for l in lentes:
+        l["ENTITY_SPECIES"] = ESPECIE_DA_SUPERFICIE[l["LENS_ID"]]
+
+# ─────────────────────────────────────────────────────────────────────────
 # A REGRA DA VISTA PADRAO — CITADA DO BROWSER, NAO REESCRITA AQUI.
 #
 # A faixa conta 65 e a tela desenha 64: um cartao com bandeira que nao e de
@@ -265,7 +357,7 @@ def razao_da_exclusao(t: str, motivo: dict | None) -> dict:
     }
 
 
-def especies(S, declarada, matriz, pente):
+def especies(S, declarada, matriz, pente, coleta):
     """AS ESPECIES DE «CARD» QUE ESTE REPOSITORIO USA — e o que cada uma conta.
 
     Nao se inventa especie: cada uma aqui tem dono, ficheiro e sitio onde
@@ -278,6 +370,7 @@ def especies(S, declarada, matriz, pente):
     nomes_casco = {c["NOME"] for c in (matriz or {}).get("CARDS", [])}
     return [
         {
+            "E_ESPECIE_DE_CARTAO": True,
             "NAME": "ARCHITECTURE_NODE",
             "OWNER": "system-map/data/architecture.declared.json",
             "DEFINITION": "peca DECLARADA a mao por gente, com id, territorio e porque.",
@@ -286,6 +379,7 @@ def especies(S, declarada, matriz, pente):
             "COUNT": len(declarada["COMPONENTS"]),
         },
         {
+            "E_ESPECIE_DE_CARTAO": True,
             "NAME": "SYSTEM_MAP_VISUAL_CARD",
             "OWNER": "system-map/scripts/generate_system_map.py",
             "DEFINITION": "o rectangulo que a tela desenha. E o ARCHITECTURE_NODE "
@@ -300,6 +394,7 @@ def especies(S, declarada, matriz, pente):
                 - {c["id"] for c in declarada["COMPONENTS"]}),
         },
         {
+            "E_ESPECIE_DE_CARTAO": True,
             "NAME": "COLLECTION_INTERNAL_PIECE",
             "OWNER": "system-map/scripts/pente_fino_da_coleta.py",
             "DEFINITION": "SYSTEM_MAP_VISUAL_CARD cujo TERRITORIO esta na tupla ZONAS "
@@ -310,6 +405,7 @@ def especies(S, declarada, matriz, pente):
             "RELACAO_COM_VISUAL_CARD": "SUBSET",
         },
         {
+            "E_ESPECIE_DE_CARTAO": True,
             "NAME": "PORTAL_TOOL_CARD",
             "OWNER": "system-map/scripts/censo_cards_sensores.py (via scan_casco.py)",
             "DEFINITION": "uma das ferramentas do portal italiano. A palavra «card» "
@@ -326,6 +422,28 @@ def especies(S, declarada, matriz, pente):
             "INTERSECCAO_COM_A_COLETA": 0,
         },
         {
+            # ⚠️ ESTA NAO E UMA ESPECIE DE CARTAO, E ISSO E O PONTO.
+            # A §5 do contrato respondia «o que quer dizer CARD». So que o
+            # `ENTITY_SPECIES` e exigido a TODA superficie de contagem, e uma
+            # delas conta FICHEIROS. Sem esta linha, a unica saida honesta seria
+            # UNKNOWN — e UNKNOWN aqui seria mentir para o outro lado: sabe-se
+            # exactamente o que estes membros sao, e quem os mede.
+            #
+            #     NAO SABER E UM ESTADO. FINGIR QUE NAO SE SABE E OUTRO.
+            "NAME": "COLLECTION_CODE_FILE",
+            "E_ESPECIE_DE_CARTAO": False,
+            "OWNER": "system-map/scripts/censo_da_coleta.py",
+            "DEFINITION": "ficheiro de codigo numa das gavetas da coleta. Um "
+                          "cartao pode ter zero ou muitos destes; nao se somam.",
+            "SOURCE": "system-map/data/censo-da-coleta.generated.json · FICHEIROS[]",
+            "WHERE_DISPLAYED": "nenhures na tela.",
+            "COUNT": (coleta or {}).get("RESUMO", {}).get("ficheiros_de_codigo", 0),
+            "RELACAO_COM_VISUAL_CARD": "UNIDADE DIFERENTE — nao ha subconjunto "
+                                       "nem sobreposicao possivel entre um "
+                                       "ficheiro e um cartao.",
+        },
+        {
+            "E_ESPECIE_DE_CARTAO": True,
             "NAME": "VISUAL_ONLY_BLOCK",
             "OWNER": "system-map/scripts/generate_system_map.py · desenhar()",
             "DEFINITION": "rectangulo de FAMILIA ou de ZONA. Nao e peca: e o fundo "
@@ -344,6 +462,13 @@ def medir(com_topologia: bool) -> dict:
     pente = ler(DADOS / "pente-fino.generated.json")
     coleta = ler(DADOS / "censo-da-coleta.generated.json")
     matriz = ler(RAIZ / "data" / "derivados" / "MATRIZ-CARDS-SENSORES-V1.json")
+
+    # O VOCABULARIO SAI DA TABELA DAS ESPECIES, e nao de uma segunda lista de
+    # nomes ao lado dela. Duas listas divergem no dia em que alguem acrescenta
+    # uma especie de um lado so — e a validacao passaria a aprovar um nome que
+    # a tabela ja nao conhece, ou a reprovar um que ela conhece.
+    ESPECIES = especies(S, declarada, matriz, pente, coleta)
+    validar_vocabulario(ESPECIE_DA_SUPERFICIE, {e["NAME"] for e in ESPECIES})
 
     nos = {n["id"]: n for n in S["NODES"]}
     terr = {t["id"]: t for t in S["TERRITORIES"]}
@@ -711,6 +836,9 @@ def medir(com_topologia: bool) -> dict:
             len(visual) == len(incluidos) + len(excluidos) and not orfaos_do_pente),
     }
 
+    # G0 · toda superficie passa a dizer o que conta, a partir do dono unico.
+    carimbar_especies(universos, lentes)
+
     achados = achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
                     lentes)
 
@@ -724,7 +852,7 @@ def medir(com_topologia: bool) -> dict:
         "PROVENANCE": cabeca,
         "CARIMBOS_NAO_COMPARAVEIS": CARIMBOS_NAO_COMPARAVEIS,
         "BLOCOS_NAO_COMPARAVEIS": BLOCOS_NAO_COMPARAVEIS,
-        "CARD_SPECIES": especies(S, declarada, matriz, pente),
+        "CARD_SPECIES": ESPECIES,
         "UNIVERSOS": universos,
         "LENTES": lentes,
         "ARITMETICA": aritmetica,
@@ -905,13 +1033,21 @@ def main() -> int:
     print("  ARVORE        %s" % d["PROVENANCE"]["SOURCE_TREE_FINGERPRINT"][:16])
     print("  MAPA E DESTA ARVORE?  %s" % d["FRESCURA"]["MAPA_E_DESTA_ARVORE"])
     print()
-    print("  AS ESPECIES QUE SE CHAMAM «CARD»:")
+    print("  AS ESPECIES (· = nao e especie de cartao):")
     for e in d["CARD_SPECIES"]:
-        print("    %5s  %-26s %s" % (e["COUNT"], e["NAME"], e["OWNER"][:44]))
+        print("    %5s %s %-26s %s" % (e["COUNT"],
+                                       " " if e["E_ESPECIE_DE_CARTAO"] else "·",
+                                       e["NAME"], e["OWNER"][:42]))
     print()
-    print("  OS UNIVERSOS:")
+    print("  OS UNIVERSOS — cada contagem diz o que conta:")
     for k, u in d["UNIVERSOS"].items():
-        print("    %5s  %-42s pai=%s" % (u["COUNT"], k, u["PARENT_UNIVERSE_ID"]))
+        print("    %5s  %-26s %-40s pai=%s"
+              % (u["COUNT"], u["ENTITY_SPECIES"], k, u["PARENT_UNIVERSE_ID"]))
+    print()
+    print("  AS LENTES:")
+    for l in d["LENTES"]:
+        print("    %5s  %-26s %s"
+              % (l["MEMBER_COUNT"], l["ENTITY_SPECIES"], l["LENS_ID"]))
     print()
     print("  A ARITMETICA:")
     print("    VISUAL_TOTAL          %s" % ar["VISUAL_TOTAL"])

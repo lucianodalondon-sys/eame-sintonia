@@ -1947,9 +1947,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "1f81eb6c41ee27287eb4b796e7c6227241e413da",
-    "GENERATED_AT": "2026-09-12T13:05:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b1d1158773e817eec08da832df4c1284c7254974f7d6524c7e9baf828942621e"
+    "HEAD": "ef864c51c8030ad60b5772034dccfa3d238e4e47",
+    "GENERATED_AT": "2026-09-12T13:24:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d57387321c178eab3927039d85fb4b231498d911bc6ac60e99fa57ba7153fdd1"
   },
   "FAMILIES": [
     {
@@ -6163,6 +6163,7 @@
         "C-CENSO-EXECUTORES"
       ],
       "outbound": [
+        "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-RECONCILIACAO-UNIVERSO",
         "C-TESTES"
@@ -10554,6 +10555,7 @@
       ],
       "inbound": [
         "C-AS-FONTES",
+        "C-CENSO-CARDS-SENSORES",
         "C-CI-MAPA",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
@@ -10577,14 +10579,16 @@
         "papel": "NAO SEI",
         "listas": [
           "CATEGORIAS_CONHECIDAS",
+          "DONO_DA_ESPECIE",
           "OBRIGATORIO",
           "PARTES_ESPERADAS",
+          "SUPERFICIES",
           "SUSPEITO",
           "_ESPINHA"
         ],
-        "palavras": 45,
+        "palavras": 59,
         "por_lingua": {},
-        "sem_marca_de_lingua": 45,
+        "sem_marca_de_lingua": 59,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13023,11 +13027,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ESPECIE_DA_SUPERFICIE",
           "MOTIVO_POR_TERRITORIO"
         ],
-        "palavras": 45,
+        "palavras": 71,
         "por_lingua": {},
-        "sem_marca_de_lingua": 45,
+        "sem_marca_de_lingua": 71,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -19639,6 +19644,24 @@
     },
     {
       "from": "C-CENSO-CARDS-SENSORES",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo dos cards e dos sensores alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_reconciliacao_do_universo.py",
+          "line": 263,
+          "snippet": "MATRIZ_F = RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\""
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CENSO-CARDS-SENSORES",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -19667,12 +19690,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 346,
+          "line": 464,
           "snippet": "matriz = ler(RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\")"
         },
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 503,
+          "line": 628,
           "snippet": "\"OWNER\": \"system-map/scripts/censo_cards_sensores.py\","
         }
       ],
@@ -19713,7 +19736,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 519,
+          "line": 435,
           "snippet": "\"OWNER\": \"system-map/scripts/censo_da_coleta.py\","
         }
       ],
@@ -19985,7 +20008,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 361,
+          "line": 486,
           "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"), \"--json\"],"
         }
       ],
@@ -25516,7 +25539,7 @@
         },
         {
           "file": "system-map/tests/test_reconciliacao_do_universo.py",
-          "line": 183,
+          "line": 429,
           "snippet": "MAPJS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
@@ -25549,7 +25572,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 564,
+          "line": 689,
           "snippet": "\"FROM_WHICH_FILE\": \"system-map/app/map.js\","
         }
       ],
@@ -25777,7 +25800,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 290,
+          "line": 384,
           "snippet": "\"OWNER\": \"system-map/scripts/generate_system_map.py\","
         }
       ],
@@ -25910,7 +25933,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 304,
+          "line": 399,
           "snippet": "\"OWNER\": \"system-map/scripts/pente_fino_da_coleta.py\","
         }
       ],
@@ -28066,8 +28089,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que o mapa não mente sobre existência alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_reconciliacao_do_universo.py",
+          "line": 267,
+          "snippet": "DECLARADA = json.loads((RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\")"
+        },
         {
           "file": "system-map/tests/test_system_map.py",
           "line": 34,
@@ -28106,7 +28134,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 282,
+          "line": 375,
           "snippet": "\"OWNER\": \"system-map/data/architecture.declared.json\","
         }
       ],
@@ -32164,8 +32192,8 @@
     "components_pending": 95,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 660,
-    "edges_proven": 658,
+    "edges": 661,
+    "edges_proven": 659,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1499,

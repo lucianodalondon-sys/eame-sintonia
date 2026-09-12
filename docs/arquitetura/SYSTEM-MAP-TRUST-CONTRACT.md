@@ -3,10 +3,10 @@
 ```
 MISSAO        C-DESIGN-SYSTEM-MAP-TRUST-CONTRACT-V1
 BRANCH        claude/dazzling-cerf-27a7v2
-BASE MEDIDA   1f81eb6c  (system-map, reconciliação)
+BASE MEDIDA   ef864c51 → G0 implementado
 DATA          2026-09-12
-ESTADO        CONTRATO — nenhuma implementação nesta missão
-VEREDITO      CURRENT_SYSTEM_MAP_TRUST = FAIL  ·  três causas, §25
+ESTADO        CONTRATO · G0 fechado (C6); G1 por fazer
+VEREDITO      CURRENT_SYSTEM_MAP_TRUST = FAIL  ·  C4 e C4b, §25
 ```
 
 > Este documento é **contrato, não implementação**. Ele diz o que o System Map
@@ -42,8 +42,8 @@ python3 system-map/tests/test_reconciliacao_do_universo.py
 | executores com prova de execução | 2 de 57 | `provas-de-execucao.json · PROVADOS` |
 | linhas de evidência distintas | 1160 | `EDGES[].evidence[]` |
 | linhas emprestadas entre afirmações | 37, em 52 arestas | idem |
-| universos que declaram `ENTITY_SPECIES` | **0 de 6** | `SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json` |
-| lentes que declaram `ENTITY_SPECIES` | **0 de 7** | idem |
+| universos que declaram `ENTITY_SPECIES` | **6 de 6** (era 0) | `SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json` |
+| lentes que declaram `ENTITY_SPECIES` | **7 de 7** (era 0) | idem |
 
 E o CI real, lido da API do GitHub no mesmo HEAD (`run 34695710151`):
 
@@ -237,6 +237,38 @@ mas também não é uma espécie visual nova — é um **papel**.
 
 `«65 cards»` é uma frase ilegal sob este contrato. Legal é:
 `65 SYSTEM_MAP_VISUAL_CARD em SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE, regra family ∈ {F-COLETA, F-ESPERA}`.
+
+Implementado em `G0`: o dono do mapeamento superfície → espécie é
+`reconciliacao_do_universo.ESPECIE_DA_SUPERFICIE`, num sítio só, e
+`carimbar_especies()` **recusa** uma superfície que a tabela não conheça em vez
+de a deixar sair muda.
+
+### 5.3 · A espécie que **não** é de cartão
+
+A §5 respondia «o que quer dizer *card*». Implementar `G0` mostrou que ela
+respondia a menos do que o contrato exige: `ENTITY_SPECIES` é obrigatório em
+**toda** superfície de contagem, e uma delas conta **ficheiros**.
+
+```
+COLLECTION_CODE_FILE_UNIVERSE   102 membros   UNIDADE: FICHEIRO, NÃO CARTÃO
+```
+
+Com as cinco espécies de cartão e mais nada, a única saída seria
+`ENTITY_SPECIES = UNKNOWN`. E isso seria mentir para o outro lado: sabe-se
+exatamente o que estes 102 membros são, quem os mede e onde estão medidos.
+
+> **NÃO SABER É UM ESTADO. FINGIR QUE NÃO SE SABE É OUTRO.**
+
+| `ENTITY_SPECIES` | é de cartão? | o que conta | contagem | dono |
+|---|---|---|---|---|
+| `COLLECTION_CODE_FILE` | **não** | ficheiro de código numa gaveta da coleta | 102 | `censo_da_coleta.py` |
+
+Não há subconjunto nem sobreposição possível entre um ficheiro e um cartão: um
+cartão pode ter zero ou muitos ficheiros. **São unidades diferentes, e por isso
+nunca se somam.**
+
+Cada espécie passa a publicar `E_ESPECIE_DE_CARTAO`, para que a distinção seja um
+campo e não um comentário.
 
 ---
 
@@ -1008,7 +1040,7 @@ este contrato usa como exemplo de boa prática.
 | C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | `STALE = []`; os 4 `UNVERIFIABLE` estão rotulados, e a prova `4m` reprova se algum disser `CURRENT` | — |
 | C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **SIM** | 658 arestas e 59 nós dizem `PROVEN` sobre evidência estática; 0 têm evidência de runtime | G1 |
 | C5 | auto-prova | **NÃO** | o validador corre o gerador como subprocesso e compara com o que está no disco; não partilha estado. Ver a limitação em §16.6 | — |
-| C6 | contagem publicada sem espécie ou sem universo | **SIM** | **0 de 6 universos e 0 de 7 lentes publicam `ENTITY_SPECIES`.** A §12.1 exige-o e a §5.2 proíbe a contagem sem ele | G0 |
+| C6 | contagem publicada sem espécie ou sem universo | **NÃO — fechada por `G0`** | **13 de 13 superfícies publicam `ENTITY_SPECIES`** (6 universos, 7 lentes), com dono único e prova executável | ~~G0~~ feito |
 | C7 | exclusão sem razão | **NÃO** | 17 de 17 têm `REASON`, `OWNER` e `INTENTIONAL` | — |
 
 E a causa da §7.1, que não é uma das sete mas aciona C4 por outro caminho:
@@ -1019,11 +1051,17 @@ E a causa da §7.1, que não é uma das sete mas aciona C4 por outro caminho:
 
 ### 25.2 · As três causas
 
-**CAUSA 0 · a contagem não diz de que espécie é.** Os seis universos e as sete
-lentes publicam `COUNT` e `MEMBERS` sem `ENTITY_SPECIES`. A prosa de
-`UNIVERSE_DEFINITION` descreve o que conta, mas nenhuma máquina consegue juntar a
-contagem à espécie. É a mais barata das três e é do próprio artefacto desta
-missão — o contrato apanhou-se a si mesmo.
+**CAUSA 0 · a contagem não dizia de que espécie era. FECHADA.** Os seis universos
+e as sete lentes publicavam `COUNT` e `MEMBERS` sem `ENTITY_SPECIES`: a prosa
+descrevia o que se contava, e nenhuma máquina conseguia juntar a contagem à
+espécie. Era a mais barata das três e era do próprio artefacto deste contrato —
+ele apanhou-se a si mesmo.
+
+`G0` fechou-a. O mapeamento superfície → espécie vive num sítio só
+(`reconciliacao_do_universo.ESPECIE_DA_SUPERFICIE`), `carimbar_especies()`
+**recusa** uma superfície que a tabela não conheça, e a prova verifica presença,
+vocabulário, determinismo e — onde há membros — a semântica, cruzando cada
+espécie com o artefacto de **outro** dono. Dez mutantes, zero sobreviventes.
 
 **CAUSA 1 · a palavra promete o plano seguinte.** 658 arestas e 59 nós publicam
 `status = PROVEN` apoiados só em análise estática. As razões que o mapa escreve
@@ -1108,18 +1146,24 @@ honesto do trabalho que já era necessário.
 ### 26.3 · `FAIL_CAUSE → REQUIRED_GAPS → TRUST_STATE_AFTER`
 
 ```
-CAUSE_0  (C6)  contagem sem ENTITY_SPECIES
-  → REQUIRED_GAPS = [G0]
-  → TRUST_STATE_AFTER (só G0) = FAIL      C4 continua acionada
+CAUSE_0  (C6)  contagem sem ENTITY_SPECIES              ← FECHADA por G0
+  → REQUIRED_GAPS = [G0]                                   FEITO
+  → TRUST_STATE_AFTER (só G0) = FAIL      medido: C4 e C4b continuam acionadas
 
 CAUSE_1  (C4)  PROVEN/CODE afirmado sem evidência da classe própria
 CAUSE_2  (C4b) evidência ligada à afirmação errada
   → REQUIRED_GAPS = [G1]                  (G1 já contém o antigo 8b)
-  → TRUST_STATE_AFTER (só G1) = FAIL      C6 continua acionada
+  → TRUST_STATE_AFTER (só G1) = FAIL      antes de G0; hoje seria DEGRADED
 
-MINIMUM_GAPS_TO_LEAVE_FAIL = [G0, G1]
-TRUST_STATE_AFTER([G0, G1]) = DEGRADED
+MINIMUM_GAPS_TO_LEAVE_FAIL = [G1]         (era [G0, G1]; G0 está feito)
+TRUST_STATE_AFTER([G1]) = DEGRADED
 ```
+
+> **A previsão da DAG foi conferida contra a realidade, e bateu.** Ela dizia que
+> `G0` sozinho deixaria o mapa em `FAIL`. Medido depois de `G0`:
+> `C6 = FALSE`, `C4 = TRUE`, `C4b = TRUE`, `TRUST = FAIL`.
+> Uma roadmap que prevê o estado errado é pior do que nenhuma; esta previu o
+> certo, e por isso o `G1` que ela nomeia a seguir merece confiança.
 
 `DEGRADED` e não `PASS`, porque continuam declaradas, **rotuladas**, estas
 dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
@@ -1142,7 +1186,7 @@ impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
 
 | # | gap | fecha | depende de |
 |---|---|---|---|
-| **G0** | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | nada |
+| ~~**G0**~~ | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | ✅ **FEITO** |
 | **G1** | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | nada |
 | G2 | persistir o censo da topologia como artefacto | dívida | nada |
 | G3 | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | nada |
@@ -1158,9 +1202,14 @@ impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
 | G13 | painel de auto-observabilidade (§17) | dívida | G0–G12 |
 
 ```
-SAIR DE FAIL      [G0, G1]
-CHEGAR A PASS     G0..G13, e só quando nenhuma dívida ficar por rotular
+SAIR DE FAIL      [G1]              G0 feito; a lista é a dos gaps QUE FALTAM
+CHEGAR A PASS     G1..G13, e só quando nenhuma dívida ficar por rotular
 ```
+
+A lista da §26.4 é a **DAG completa**, e mantém `G0` riscado em vez de o apagar:
+um gap que some não deixa ver que existiu, nem por que deixou de existir.
+`MINIMUM_GAPS_TO_LEAVE_FAIL` é outra coisa — é a lista do que **ainda falta**
+para sair do estado atual, e por isso ela encolhe quando um gap fecha.
 
 ### 26.5 · RED TEAM DA ROADMAP
 

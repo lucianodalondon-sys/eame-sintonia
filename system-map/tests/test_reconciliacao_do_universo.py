@@ -173,6 +173,252 @@ for lente in COMMITADO["LENTES"]:
           lente["PARENT_UNIVERSE"] in COMMITADO["UNIVERSOS"],
           f"{lente['PARENT_UNIVERSE']} nao e um universo declarado")
 
+# ── 4b · G0 · TODA CONTAGEM DIZ O QUE CONTA ─────────────────────────────────
+# «65 cartoes» nao e auditavel. `65 SYSTEM_MAP_VISUAL_CARD` e.
+#
+#     UMA CONTAGEM QUE NAO DIZ O QUE CONTA E UM NUMERO, NAO UMA MEDICAO.
+#
+# Esta prova nao confia na tabela do gerador: ela verifica a PRESENCA, o
+# VOCABULARIO, o DETERMINISMO e — onde ha membros — a SEMANTICA, cruzando cada
+# especie com o artefacto de OUTRO dono que a define. Confiar na mesma tabela
+# que escreveu o campo seria o gerador a aprovar-se a si proprio.
+VOCABULARIO = {e["NAME"] for e in COMMITADO["CARD_SPECIES"]}
+prova("o_vocabulario_de_especies_nao_esta_vazio", bool(VOCABULARIO))
+
+SUPERFICIES = ([(k, "UNIVERSE", u) for k, u in COMMITADO["UNIVERSOS"].items()]
+               + [(l["LENS_ID"], "LENS", l) for l in COMMITADO["LENTES"]])
+prova("toda_superficie_de_contagem_foi_enumerada",
+      len(SUPERFICIES) == len(COMMITADO["UNIVERSOS"]) + len(COMMITADO["LENTES"])
+      and len(SUPERFICIES) > 0,
+      f"{len(SUPERFICIES)} superficies")
+
+# AS REGRAS SAO FUNCOES DE PROPOSITO, E NAO CONDICOES ESCRITAS DENTRO DA
+# ASERCAO. Uma regra escrita a direito no `prova(...)` so sabe dizer SIM aos
+# dados reais: se alguem a afrouxar, nada a contradiz, porque nada a viola hoje.
+#
+#     UMA GUARDA QUE NUNCA VIU UM DEFEITO NAO E UMA GUARDA: E UMA FRASE.
+#
+# Isoladas, as mesmas regras respondem tambem NAO — e a §4c corre-as contra um
+# defeito posto de proposito.
+def tem_especie(s):
+    return bool(s.get("ENTITY_SPECIES"))
+
+
+def especie_nao_vazia(s):
+    e = s.get("ENTITY_SPECIES")
+    return isinstance(e, str) and e.strip() != ""
+
+
+def especie_no_vocabulario(s, vocab):
+    return s.get("ENTITY_SPECIES") in vocab
+
+
+def conta_os_membros_que_lista(s):
+    n = s.get("COUNT", s.get("MEMBER_COUNT"))
+    return "MEMBERS" not in s or n == len(s["MEMBERS"])
+
+
+def membros_fora_da_especie(s, donos):
+    """Os membros que o dono da especie declarada nao conhece."""
+    esp, membros = s.get("ENTITY_SPECIES"), s.get("MEMBERS")
+    if membros is None or esp not in donos:
+        return []
+    return sorted(set(membros) - donos[esp])
+
+
+def especie_e_a_mais_apertada(s, donos):
+    membros = s.get("MEMBERS")
+    if membros is None:
+        return True
+    exactos = [e for e, d in donos.items() if set(membros) == d]
+    return not exactos or s.get("ENTITY_SPECIES") in exactos
+
+
+for sid, kind, s in SUPERFICIES:
+    esp = s.get("ENTITY_SPECIES")
+    prova(f"superficie_declara_especie[{kind}:{sid}]", tem_especie(s),
+          "contagem publicada sem ENTITY_SPECIES — §5.2 do contrato proibe-o")
+    prova(f"especie_nao_e_vazia[{kind}:{sid}]", especie_nao_vazia(s), f"{esp!r}")
+    prova(f"especie_esta_no_vocabulario[{kind}:{sid}]",
+          especie_no_vocabulario(s, VOCABULARIO),
+          f"{esp!r} nao e uma das {sorted(VOCABULARIO)}")
+
+# A ESPECIE E A MESMA DOS DOIS LADOS. Uma lente e o seu universo podem contar
+# especies diferentes — o pente fino conta COLLECTION_INTERNAL_PIECE dentro de
+# um universo de SYSTEM_MAP_VISUAL_CARD —, e por isso isto NAO e uma prova de
+# igualdade: e a prova de que o mapeamento e DETERMINISTICO, ou seja, que o
+# mesmo SURFACE_ID nunca recebe duas especies.
+por_id = {}
+for sid, kind, s in SUPERFICIES:
+    por_id.setdefault(sid, set()).add(s.get("ENTITY_SPECIES"))
+ambiguas = {k: v for k, v in por_id.items() if len(v) > 1}
+prova("o_mapeamento_superficie_para_especie_e_deterministico", not ambiguas,
+      f"{ambiguas}")
+
+# ── 4c · A SEMANTICA, CRUZADA COM QUEM E DONO DA ESPECIE ────────────────────
+# Cada especie tem um dono NOUTRO ficheiro. Se uma superficie diz
+# SYSTEM_MAP_VISUAL_CARD, os membros dela tem de ser nos do mapa; se diz
+# COLLECTION_INTERNAL_PIECE, tem de estar no pente fino. Trocar duas especies
+# validas entre si e apanhado aqui, e nao pelo enum.
+MATRIZ_F = RAIZ / "data" / "derivados" / "MATRIZ-CARDS-SENSORES-V1.json"
+CENSO_F = RAIZ / "system-map" / "data" / "censo-da-coleta.generated.json"
+MATRIZ = json.loads(MATRIZ_F.read_text(encoding="utf-8")) if MATRIZ_F.exists() else {}
+CENSO = json.loads(CENSO_F.read_text(encoding="utf-8")) if CENSO_F.exists() else {}
+DECLARADA = json.loads((RAIZ / "system-map" / "data" / "architecture.declared.json")
+                       .read_text(encoding="utf-8"))
+
+DONO_DA_ESPECIE = {
+    "SYSTEM_MAP_VISUAL_CARD": {n["id"] for n in S["NODES"]},
+    "COLLECTION_INTERNAL_PIECE": {p_["id"] for p_ in PENTE["PECAS"]},
+    "PORTAL_TOOL_CARD": {c["CARD_ID"] for c in MATRIZ.get("CARDS", [])},
+    "ARCHITECTURE_NODE": {c["id"] for c in DECLARADA["COMPONENTS"]},
+}
+validadas = 0
+for sid, kind, s in SUPERFICIES:
+    esp, membros = s.get("ENTITY_SPECIES"), s.get("MEMBERS")
+    if membros is None or esp not in DONO_DA_ESPECIE:
+        continue
+    validadas += 1
+    fora = membros_fora_da_especie(s, DONO_DA_ESPECIE)
+    prova(f"membros_sao_mesmo_da_especie_declarada[{kind}:{sid}]", not fora,
+          f"especie={esp} · {len(fora)} membro(s) que o dono dessa especie nao "
+          f"conhece: {fora[:5]}")
+# ⚠️ «OS MEMBROS PERTENCEM A ESPECIE» E MAIS FRACO DO QUE PARECE, E O RED TEAM
+# APANHOU-ME NISSO. Trocar `PENTE_FINO_UNIVERSE` de COLLECTION_INTERNAL_PIECE
+# para SYSTEM_MAP_VISUAL_CARD passava: os 48 membros SAO todos nos do mapa. O
+# mutante morria so pela prova anti-drift, e essa cairia no dia em que alguem
+# trocasse tambem a tabela do gerador.
+#
+#     PERTENCER A ESPECIE LARGA NAO E SER DA ESPECIE LARGA.
+#
+# Quando os membros de uma superficie sao EXACTAMENTE o conjunto de um dono,
+# a especie dela e a desse dono — e nao a de um dono maior que tambem os
+# contenha. Medido: nenhum par de especies tem conjunto identico, logo a regra
+# nao tem empate para resolver.
+for sid, kind, s in SUPERFICIES:
+    membros = s.get("MEMBERS")
+    if membros is None:
+        continue
+    exactos = [e for e, dono in DONO_DA_ESPECIE.items() if set(membros) == dono]
+    if not exactos:
+        continue
+    prova(f"a_especie_e_a_mais_apertada_que_os_membros_permitem[{kind}:{sid}]",
+          especie_e_a_mais_apertada(s, DONO_DA_ESPECIE),
+          f"os membros sao exactamente {exactos}, e a superficie diz "
+          f"{s.get('ENTITY_SPECIES')} — uma especie que os CONTEM nao e a "
+          f"especie que eles SAO")
+
+prova("a_semantica_foi_cruzada_em_pelo_menos_uma_superficie", validadas > 0,
+      "nenhuma superficie tinha MEMBERS e especie com dono — a prova acima "
+      "passaria por vacuidade")
+
+# A especie que conta FICHEIROS nao tem MEMBERS publicados; cruza-se pela
+# contagem do dono dela. Nao e a mesma forca, e por isso esta noutra prova.
+for sid, kind, s in SUPERFICIES:
+    if s.get("ENTITY_SPECIES") != "COLLECTION_CODE_FILE":
+        continue
+    n = s.get("COUNT", s.get("MEMBER_COUNT"))
+    prova(f"contagem_de_ficheiros_bate_com_o_censo[{kind}:{sid}]",
+          n == CENSO.get("RESUMO", {}).get("ficheiros_de_codigo"),
+          f"{n} != {CENSO.get('RESUMO', {}).get('ficheiros_de_codigo')}")
+
+# ── 4d · AS GUARDAS MORDEM — conferidas com o defeito posto de proposito ────
+# A mutacao apanhou-me aqui, e tinha razao. Desligar o `if orfas:` do gerador,
+# ou a validacao do vocabulario, ou qualquer uma das regras acima, NAO mudava
+# nada: elas nunca tinham visto um defeito, porque nesta arvore nao ha nenhum.
+#
+#     UM MUTANTE QUE SOBREVIVE PORQUE NAO HA O QUE APANHAR
+#     NAO PROVA QUE A GUARDA FUNCIONA. PROVA QUE NINGUEM A TESTOU.
+#
+# Aqui cada guarda recebe um defeito fabricado e tem de o recusar. A partir de
+# agora, afrouxar qualquer uma delas reprova nesta seccao — mesmo com a arvore
+# inteiramente sa.
+MAU_SEM_ESPECIE = {"COUNT": 1, "MEMBERS": ["X"]}
+MAU_ESPECIE_VAZIA = {"ENTITY_SPECIES": "   ", "COUNT": 1, "MEMBERS": ["X"]}
+MAU_FORA_DO_VOCAB = {"ENTITY_SPECIES": "CARTAO_MAGICO", "COUNT": 1, "MEMBERS": ["X"]}
+MAU_CONTAGEM = {"ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD", "COUNT": 9,
+                "MEMBERS": ["X"]}
+
+prova("a_guarda_da_presenca_morde", not tem_especie(MAU_SEM_ESPECIE))
+prova("a_guarda_da_presenca_aceita_o_bom",
+      tem_especie({"ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD"}))
+prova("a_guarda_do_vazio_morde", not especie_nao_vazia(MAU_ESPECIE_VAZIA))
+prova("a_guarda_do_vocabulario_morde",
+      not especie_no_vocabulario(MAU_FORA_DO_VOCAB, VOCABULARIO))
+prova("a_guarda_do_vocabulario_aceita_o_bom",
+      especie_no_vocabulario({"ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD"},
+                             VOCABULARIO))
+prova("a_guarda_de_COUNT_igual_MEMBERS_morde",
+      not conta_os_membros_que_lista(MAU_CONTAGEM))
+prova("a_guarda_de_COUNT_igual_MEMBERS_aceita_o_bom",
+      conta_os_membros_que_lista({"COUNT": 1, "MEMBERS": ["X"]}))
+
+# A ESPECIE MAIS APERTADA, com o defeito que o red team usou: os membros sao
+# EXACTAMENTE o conjunto do pente fino, e a superficie diz a especie larga.
+PENTE_IDS = {p_["id"] for p_ in PENTE["PECAS"]}
+prova("a_guarda_da_especie_mais_apertada_morde",
+      not especie_e_a_mais_apertada(
+          {"ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD",
+           "MEMBERS": sorted(PENTE_IDS)}, DONO_DA_ESPECIE))
+prova("a_guarda_da_especie_mais_apertada_aceita_o_bom",
+      especie_e_a_mais_apertada(
+          {"ENTITY_SPECIES": "COLLECTION_INTERNAL_PIECE",
+           "MEMBERS": sorted(PENTE_IDS)}, DONO_DA_ESPECIE))
+
+# A SEMANTICA CRUZADA, mordida: membros do casco declarados como cartoes do
+# mapa. Sem isto, apagar a comparacao passava despercebido — sobreviveu a
+# mutacao exactamente assim.
+prova("a_guarda_da_semantica_cruzada_morde",
+      bool(membros_fora_da_especie(
+          {"ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD",
+           "MEMBERS": ["ferramenta-que-nao-e-no", "outra-que-nao-e-no"]},
+          DONO_DA_ESPECIE)))
+prova("a_guarda_da_semantica_cruzada_aceita_o_bom",
+      not membros_fora_da_especie(
+          {"ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD",
+           "MEMBERS": sorted(DONO_DA_ESPECIE["SYSTEM_MAP_VISUAL_CARD"])[:3]},
+          DONO_DA_ESPECIE))
+
+# A GUARDA DO VOCABULARIO DO GERADOR — outra, noutro ficheiro, e que tambem
+# sobreviveu a mutacao enquanto estava inline.
+try:
+    RECONCILIACAO.validar_vocabulario({"X": "CARTAO_MAGICO"},
+                                      {"SYSTEM_MAP_VISUAL_CARD"})
+    _vocab_parou = False
+except SystemExit as e:
+    _vocab_parou = "CARTAO_MAGICO" in str(e)
+prova("o_gerador_recusa_especie_fora_do_vocabulario", _vocab_parou)
+RECONCILIACAO.validar_vocabulario({"X": "SYSTEM_MAP_VISUAL_CARD"},
+                                  {"SYSTEM_MAP_VISUAL_CARD"})
+prova("o_gerador_aceita_o_vocabulario_bom", True)
+
+# E A RECUSA DO GERADOR, que e outra guarda e vive noutro ficheiro: uma
+# superficie que o dono unico nao conheca tem de PARAR a geracao, nao sair
+# calada la dentro.
+try:
+    RECONCILIACAO.carimbar_especies({"UNIVERSO_QUE_NINGUEM_DECLAROU": {}}, [])
+    _parou = False
+except SystemExit as e:
+    _parou = "UNIVERSO_QUE_NINGUEM_DECLAROU" in str(e)
+prova("o_gerador_recusa_superficie_que_a_tabela_nao_conhece", _parou,
+      "carimbar_especies deixou passar uma superficie sem especie declarada")
+
+try:
+    RECONCILIACAO.carimbar_especies(
+        {"SYSTEM_MAP_NODE_UNIVERSE": {}},
+        [{"LENS_ID": "LENTE_QUE_NINGUEM_DECLAROU"}])
+    _parou_lente = False
+except SystemExit as e:
+    _parou_lente = "LENTE_QUE_NINGUEM_DECLAROU" in str(e)
+prova("o_gerador_recusa_lente_que_a_tabela_nao_conhece", _parou_lente)
+
+# e aceita o que conhece, senao a prova de cima passaria por recusar tudo
+_ok_u, _ok_l = {"SYSTEM_MAP_NODE_UNIVERSE": {}}, [{"LENS_ID": "PENTE_FINO"}]
+RECONCILIACAO.carimbar_especies(_ok_u, _ok_l)
+prova("o_gerador_carimba_o_que_conhece",
+      _ok_u["SYSTEM_MAP_NODE_UNIVERSE"]["ENTITY_SPECIES"] == "SYSTEM_MAP_VISUAL_CARD"
+      and _ok_l[0]["ENTITY_SPECIES"] == "COLLECTION_INTERNAL_PIECE")
+
 # ── 5 · O CONTADOR DA TELA TEM DONO, E NAO E UM NUMERO ESCRITO A MAO ─────────
 fam = {f["id"]: f for f in S["FAMILIES"]}
 lente_tela = next(x for x in COMMITADO["LENTES"] if x["LENS_ID"] == "FRONTEND_FAMILY_COUNTER")
