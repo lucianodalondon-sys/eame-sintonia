@@ -65,6 +65,29 @@ class RotaBloqueada(RuntimeError):
     """A plataforma nos impediu. Diferente de não permitida."""
 
 
+class PortaoIndisponivel(RuntimeError):
+    """Não deu para LER o robots.txt — o transporte caiu antes da resposta.
+
+    ⚠️ ISTO NÃO É UMA RECUSA, E ATÉ A C10.8A ERA REPORTADO COMO UMA.
+
+    O portão tinha três respostas: `LIDO`, `AUSENTE` e `ILEGIVEL`. Um
+    `Connection reset by peer` a meio do túnel caía em `ILEGIVEL`, que
+    `permitido()` traduz para `False` — e o roteador, para `ROUTE_NOT_ALLOWED`.
+
+    Medido ao vivo: `public.api.bsky.app/robots.txt` responde `200` com
+    `Allow: /` e um comentário que diz, por escrito, «Crawling the public parts
+    of the API is allowed». O trilho canônico dizia `ROUTE_NOT_ALLOWED` sobre
+    uma rota que a plataforma autoriza em voz alta.
+
+        UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU.
+
+    A recusa continua a acontecer — não se afirma permissão que não se leu. O
+    que muda é o NOME dela: `TRANSIENT_NETWORK_ERROR` pede `WAIT`,
+    `ROUTE_NOT_ALLOWED` pede `NO_RETRY`. Chamar a primeira pela segunda ensina
+    a casa a desistir de uma porta que está aberta.
+    """
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # O PORTÃO
 # ══════════════════════════════════════════════════════════════════════════
@@ -82,6 +105,14 @@ def permitido(url):
     rp, estado = _ROBOTS[base]
     if estado == 'AUSENTE':
         return True, 'host não publica robots.txt (permissivo por omissão)'
+    if estado == 'INDISPONIVEL':
+        # Não esquecer o insucesso: uma tentativa seguinte pode ler o robots, e
+        # guardar «indisponível» para sempre transformaria um soluço de rede
+        # numa proibição permanente em memória.
+        _ROBOTS.pop(base, None)
+        raise PortaoIndisponivel(
+            'não deu para LER o robots.txt de %s: o transporte caiu antes da '
+            'resposta. Isto não é uma recusa do host.' % base)
     if estado == 'ILEGIVEL':
         return False, 'robots.txt ilegível deste host — não afirmamos permissão que não lemos'
     ok = rp.can_fetch(AGENTE, url)
@@ -97,9 +128,15 @@ def _carregar_robots(base):
         with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
             corpo = f.read().decode('utf-8', 'replace')
     except urllib.error.HTTPError as e:
+        # O host RESPONDEU. 404/410 é «não publico regra»; o resto é uma
+        # resposta que não sabemos ler. Nos dois casos houve conversa.
         if e.code in (404, 410):
             return rp, 'AUSENTE'
         return rp, 'ILEGIVEL'
+    except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+        # O host NÃO respondeu. Não há robots para julgar, e não há recusa
+        # nenhuma para registar.
+        return rp, 'INDISPONIVEL'
     except Exception:
         return rp, 'ILEGIVEL'
     # Um host que devolve HTML no lugar do robots não está publicando regra:
@@ -111,7 +148,12 @@ def _carregar_robots(base):
 
 
 def buscar(url, *, aceitar_json=True):
-    """GET com o portão na frente. Nenhuma rota escapa dele."""
+    """GET com o portão na frente. Nenhuma rota escapa dele.
+
+    `PortaoIndisponivel` sobe, não é apanhada: ela é o único caso em que o
+    portão não conseguiu JULGAR. Transformá-la aqui numa recusa seria repetir
+    o defeito que a C10.8A mediu ao vivo.
+    """
     ok, motivo = permitido(url)
     if not ok:
         raise RotaNaoPermitida('%s · %s' % (motivo, url))

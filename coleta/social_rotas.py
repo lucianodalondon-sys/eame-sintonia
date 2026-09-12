@@ -67,6 +67,7 @@ TIMEOUT = http.TIMEOUT
 PAUSA_ENTRE_CHAMADAS = http.PAUSA_ENTRE_CHAMADAS
 RotaNaoPermitida = http.RotaNaoPermitida
 RotaBloqueada = http.RotaBloqueada
+PortaoIndisponivel = http.PortaoIndisponivel
 _EstadoDaApi = http.EstadoDaApi
 permitido = http.permitido
 _get = http.buscar
@@ -218,8 +219,17 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['ESTADO'] = falhas.classificar(http=e.code)
         registro['ERRO'] = ss.redigir('HTTP %s: %s' % (e.code, e))
         return [], registro
-    except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as e:
+    except (PortaoIndisponivel, urllib.error.URLError, TimeoutError,
+            ConnectionError, OSError) as e:
         # Transporte caiu. NÃO é rota morta e NÃO é fonte vazia.
+        #
+        # `PortaoIndisponivel` entra AQUI, e não no balde genérico, porque ela
+        # é exatamente isto: o portão não conseguiu LER o robots.txt. A C10.8A
+        # mediu ao vivo o que custava a diferença — um túnel que caiu fazia o
+        # trilho dizer `ROUTE_NOT_ALLOWED` sobre uma rota cujo host responde
+        # `Allow: /`.
+        #
+        #     UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU.
         registro['ESTADO'] = 'TRANSIENT_NETWORK_ERROR'
         registro['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))
         return [], registro
