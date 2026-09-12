@@ -88,6 +88,8 @@ RECUSAS = (SEM_CORRIDA, SEM_CONTEUDO, CONTRATO_QUEBRADO)
 
 # Os campos que o coletor PODE declarar e que a porta transporta sem tocar.
 # Nao ha valor por omissao nenhum aqui: o que o coletor nao disser fica NAO SEI.
+NAO_SEI_ID = "NAO SEI"
+
 DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "SOURCE_LOCATION", "FACT_LOCATION", "ITEM_LANGUAGE",
               "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT",
@@ -269,6 +271,19 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
                 "RAW": None}
 
     aceites, recusas, bytes_por_caminho, para_o_raw = [], [], {}, []
+    # ── O QUE SAI DAQUI NAO E O QUE ENTROU ────────────────────────────────
+    # Ate a SCRAP-FLOW-01 esta funcao devolvia CONTAGENS, e quem chamava
+    # mandava a admissao a lista ORIGINAL. A observacao era julgada sem
+    # carregar nada do que esta porta tinha acabado de provar sobre ela — o
+    # `ARTIFACT_ID`, o `sha256`, o sitio onde o byte ficou.
+    #
+    #     UM ESTAGIO QUE NAO ATRAVESSA A FRONTEIRA NAO ACONTECEU
+    #     PARA QUEM ESTA DO OUTRO LADO.
+    #
+    # `ENTRADOS` sao os mesmos itens, com o que se provou carimbado ao lado.
+    # Nada e substituido e nada e inventado: a observacao original viaja
+    # inteira, e o que se acrescenta traz o nome de quem o provou.
+    entrados = []
     for i, item in enumerate(itens):
         if not isinstance(item, dict) or not item:
             recusas.append({"INDICE": i, "PORQUE": SEM_CONTEUDO,
@@ -286,10 +301,25 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
             else _bytes_do_item(item))
         aceites.append(f)
         para_o_raw.append(para_o_dono_do_raw(f, item))
+        entrados.append(dict(item, INGRESSO={
+            "ARTIFACT_ID": f.ARTIFACT_ID,
+            "ARTIFACT_TYPE": f.ARTIFACT_TYPE,
+            "SHA256": f.SHA256,
+            "STORAGE_LOCATION": f.STORAGE_LOCATION,
+            "BYTES": f.BYTES,
+            "PRESERVADO_POR": "coleta/ingresso.py",
+            # `RAW_OBSERVATION_ID` NAO se escreve aqui. Ele e `raw_asset.id`, e
+            # quem o cunha e o banco. Derivar do sha ou do caminho seria dar-lhe
+            # um nome que nao e o dele.
+            #
+            #     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
+            "RAW_OBSERVATION_ID": NAO_SEI_ID,
+        }))
 
     recibo = None
     if para_o_raw:
         recibo = preservar(_corrida_completa(corrida), para_o_raw, armazem,
                            lambda o: bytes_por_caminho[o["SHA256"]],
                            memoria=memoria)
-    return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo}
+    return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo,
+            "ENTRADOS": entrados}

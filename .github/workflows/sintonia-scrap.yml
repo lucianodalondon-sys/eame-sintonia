@@ -45,6 +45,20 @@ name: sintonia-scrap
 on:
   workflow_dispatch:
     inputs:
+      # ── A FONTE DESCE COM O PEDIDO, E NAO SOBE DA OBSERVACAO ──────────
+      # O SCRAP observa PLATAFORMAS; a porta da coleta fala em FONTES. Sem o
+      # `SOURCE_ID` do atlas vindo daqui, o adapter declara ZERO colheita e
+      # escreve porque — em vez de inventar uma fonte a partir da URL.
+      #
+      #     URL NAO E SOURCE_ID.
+      #
+      # Vazio e um valor legitimo: quer dizer «nao nomeei fonte», e a resposta
+      # a isso e zero colheita, nao uma fonte adivinhada.
+      fonte:
+        description: 'SOURCE_ID do atlas (vazio = sem colheita, so suporte)'
+        required: false
+        default: ''
+        type: string
       fase:
         description: 'qual fase rodar'
         required: true
@@ -283,9 +297,28 @@ jobs:
             #
             # A implementação é a MESMA e escreve os MESMOS ficheiros. O que
             # muda é o caminho até ela.
+            #
+            # ── E DESDE A SCRAP-FLOW-01 ELA ENTRA PELO ORQUESTRADOR ──────
+            # `coleta/social_scrap.py coletar` chegava ao `COLLECT` e parava
+            # ali: o que a corrida colhia nunca via `coleta/ingresso.py`, e
+            # portanto nunca chegava a admissao. A porta existia, o executor
+            # existia, e entre os dois nao havia aresta nenhuma.
+            #
+            #     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+            #
+            # O que o disparador diz agora e uma INTENCAO — «colete
+            # concorrentes», com fase e fonte — e quem escolhe o executor, cunha
+            # o RUN_ID, le o retorno declarado e leva a colheita a porta e o
+            # orquestrador canonico. O ator, a rota e o provider continuam a
+            # nao aparecer aqui.
+            #
+            #     WORKFLOW E DISPARADOR. WORKFLOW NAO E MOTOR DE COLETA.
             janela|janela-perfis|janela-objetos)
-              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \
-                coletar "${{ inputs.fase }}" $TETO ;;
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="${{ inputs.fonte }}" ;;
 
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e

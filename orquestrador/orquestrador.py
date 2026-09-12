@@ -54,12 +54,15 @@ from receitas import resolver, Plano  # noqa: E402
 import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
+import retorno_da_coleta as rc  # noqa: E402  — COL-LAW-505, a especie do retorno
+
+NAO_SEI = "NAO SEI"
 
 PRONTOS = RAIZ / "data" / "samples" / "PRONTO-PARA-INTELIGENCIA"
 
 
-def a_colheita(e: dict) -> tuple[list, str]:
-    """O que o executor largou — e, quando nao largou nada, PORQUE.
+def a_colheita(e: dict, run_id: str = "") -> tuple[list, str]:
+    """O que o executor DECLAROU ter colhido — e, quando nao declarou, PORQUE.
 
     Esta funcao existe por causa de uma pergunta simples que nao tinha resposta:
     «o que o YouTube colhe vai para onde?». Ia para uma pasta que ninguem lia, e
@@ -69,11 +72,32 @@ def a_colheita(e: dict) -> tuple[list, str]:
         UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA.
         E UMA PAREDE COM MACANETA.
 
-    Aqui a colheita e lida e levada a porta. Quando o sitio declarado nao existe,
-    isso nao e um erro a esconder: e o facto mais util que a corrida produziu, e
-    sai escrito no recibo.
+    ⚠️ E ATE A SCRAP-FLOW-01 ELA ADIVINHAVA. A regra era «uma lista, ou o
+    primeiro campo do ficheiro que seja lista de fichas» — e com ela entravam
+    pela porta um manifesto de 163 descarregamentos, catalogos de contas e
+    ordens de execucao, todos como se fossem material observado.
+
+        UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA
+        NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR.
+
+    `COL-LAW-505` (`leis/retorno_da_coleta.py`) da nome as especies, e so
+    `COLHEITA` atravessa. Quem declara envelope e lido; quem nao declara entra
+    pela ponte do legado, que POR CONSTRUCAO so consegue declarar suporte.
+
+        O QUE NAO SE DECLAROU NAO ENTRA.
     """
-    itens, notas = [], []
+    envelope = _envelope_declarado(e, run_id)
+    if envelope is not None:
+        mal = rc.conferir(envelope, str(RAIZ))
+        itens = rc.so_o_que_entra(envelope)
+        notas = []
+        if envelope.get("PORQUE_ZERO_COLHEITA") and not itens:
+            notas.append(envelope["PORQUE_ZERO_COLHEITA"])
+        notas += ["CONTRATO: %s" % m for m in mal]
+        # Um envelope que quebra o contrato NAO entrega: a recusa e o resultado.
+        return ([] if mal else itens), " · ".join(notas)
+
+    itens, notas, achado = [], [], []
     for onde in e.get("larga_em") or []:
         alvo = RAIZ / onde
         if not alvo.exists():
@@ -88,7 +112,21 @@ def a_colheita(e: dict) -> tuple[list, str]:
             except (json.JSONDecodeError, OSError) as ex:
                 notas.append(f"«{f.name}» nao deu para ler: {type(ex).__name__}")
                 continue
-            # uma lista, ou o primeiro campo do ficheiro que seja lista de fichas
+            # ── AQUI AINDA SE ADIVINHA, E AGORA ISSO DIZ-SE ────────────
+            # Esta e a heuristica antiga: «uma lista, ou o primeiro campo do
+            # ficheiro que seja lista de fichas». Ela e a razao de um manifesto
+            # de 163 descarregamentos ter entrado como material observado.
+            #
+            #     UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA
+            #     NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR.
+            #
+            # Ela NAO foi apagada, e a razao e de ambito: quatro executores
+            # desta casa entregam colheita real por aqui, e cala-los de uma vez
+            # seria migrar cinco caminhos numa missao que migra UM. O que
+            # mudou e que a adivinhacao deixou de ser silenciosa: sai contada
+            # no recibo, com o nome dela.
+            #
+            #     UMA DIVIDA MEDIDA E UMA DIVIDA. UMA DIVIDA CALADA E UM BUG.
             lista = d if isinstance(d, list) else next(
                 (v for v in d.values() if isinstance(v, list) and v
                  and isinstance(v[0], dict)), [])
@@ -96,7 +134,37 @@ def a_colheita(e: dict) -> tuple[list, str]:
                 if isinstance(x, dict):
                     x.setdefault("_de", f.relative_to(RAIZ).as_posix())
                     itens.append(x)
+            if lista:
+                achado.append("«%s»: %d" % (f.name, len(lista)))
+    if achado:
+        notas.append(
+            "RETORNO_ADIVINHADO (o executor «%s» nao declara envelope de "
+            "retorno · COL-LAW-505): %s"
+            % (e.get("id", "?"), " · ".join(achado)))
     return itens, " · ".join(notas)
+
+
+def _envelope_declarado(e: dict, run_id: str):
+    """→ o envelope que o executor escreveu, ou `None` se ele nao declara.
+
+    O caminho vive na receita (`envelope_em`), como `larga_em` — e por a mesma
+    razao: e o executor que sabe onde larga, e nao esta funcao.
+    """
+    onde = e.get("envelope_em")
+    if not onde:
+        return None
+    alvo = RAIZ / onde
+    if not alvo.exists():
+        return rc.envelope_de_quem_nao_declarou(
+            run_id or NAO_SEI, e.get("id", "?"), e.get("versao", NAO_SEI),
+            "o executor declara envelope em «%s» e nao ha nada la. Ou nunca "
+            "correu aqui, ou o que ele escreveu nunca foi guardado." % onde)
+    try:
+        return json.loads(alvo.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as ex:
+        return rc.envelope_de_quem_nao_declarou(
+            run_id or NAO_SEI, e.get("id", "?"), e.get("versao", NAO_SEI),
+            "o envelope «%s» nao deu para ler: %s" % (onde, type(ex).__name__))
 
 
 def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
@@ -131,6 +199,9 @@ def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
                     raiz=str(RAIZ))
     bruto = r.get("RAW") or {}
     return {
+        # Os itens COMO SAIRAM DA PORTA — com o que ela provou carimbado. Quem
+        # julga a seguir recebe estes, e nao os originais.
+        "ENTRADOS": r.get("ENTRADOS") or [],
         "PRESERVADOS": len(r["ACEITES"]),
         "RECUSADOS": len(r["RECUSAS"]),
         "PORQUE_RECUSADOS": [x["PORQUE"] for x in r["RECUSAS"]],
@@ -166,7 +237,17 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
     conta: dict = {}
     for d in decisoes:
         conta[d.resultado] = conta.get(d.resultado, 0) + 1
+    # ── QUANTOS DOS JULGADOS TRAZIAM O CARIMBO DA PORTA ────────────────────
+    # Sem este numero, mandar a lista ORIGINAL a admissao em vez da que saiu do
+    # ingresso e uma troca invisivel: as duas tem o mesmo tamanho, os mesmos
+    # campos e o mesmo aspecto no recibo. A diferenca e exactamente o que a
+    # porta provou — e e isso que se conta aqui.
+    #
+    #     UMA TROCA QUE NAO MUDA NENHUM NUMERO NAO SE CONSEGUE VIGIAR.
+    carimbados = sum(1 for x in itens
+                     if isinstance(x, dict) and x.get("INGRESSO"))
     return {"itens": len(itens), "por_resultado": conta, "prontos": len(aceites),
+            "COM_CARIMBO_DA_PORTA": carimbados,
             "ficheiro": (PRONTOS / f"{run_id}.json").relative_to(RAIZ).as_posix()
                         if aceites else ""}
 
@@ -326,9 +407,12 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # O caminho so esta fechado aqui. Antes desta parte, o executor corria,
     # largava o que trouxe numa pasta, e ninguem ia buscar: a peneira existia e
     # nada passava por ela.
-    itens, notas = a_colheita(e)
+    itens, notas = a_colheita(e, run_id)
     recibo["COLHEITA_ENCONTRADA"] = len(itens)
     recibo["COLHEITA_NAO_ENCONTRADA"] = notas
+    # DECLARADO ou ADIVINHADO — e a diferenca vai no recibo, sempre. Um numero
+    # que nao diz como foi obtido e um numero que ninguem consegue discutir.
+    recibo["RETORNO_DECLARADO"] = "SIM" if e.get("envelope_em") else "NAO"
 
     # ── E A COLHEITA ENTRA PELA PORTA, ANTES DE ALGUEM A JULGAR ─────────────
     # ⚠️ ATE AQUI, O QUE O EXECUTOR LARGAVA IA DIRECTO A ADMISSAO. A etapa RAW
@@ -343,9 +427,23 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # Sao duas perguntas, e agora sao duas etapas.
     if itens and (so_a_porta or not seco):
         recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria)
-    if itens and (so_a_porta or not seco):
-        r = pela_porta(itens, p.alvo, recibo["RUN_ID"])
+    # ── E QUEM VAI A ADMISSAO E QUEM SAIU DA PORTA ─────────────────────────
+    # ⚠️ AQUI IA `itens` — a lista ORIGINAL, a mesma que entrara. A observacao
+    # era julgada sem levar nada do que a porta acabara de provar sobre ela.
+    #
+    #     O ITEM QUE SAI DO INGRESSO NAO E O ITEM QUE ENTROU,
+    #     E MANDAR O ORIGINAL A ADMISSAO E FAZER A PORTA NAO TER ACONTECIDO.
+    #
+    # Os recusados na porta NAO seguem: recusa na porta e um estado, e um item
+    # que nao se conseguiu preservar nao tem o que ser julgado.
+    entrados = (recibo.get("INGRESSO") or {}).get("ENTRADOS") or []
+    a_julgar = entrados if entrados else itens
+    if a_julgar and (so_a_porta or not seco):
+        r = pela_porta(a_julgar, p.alvo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r
+        # A lista sai do recibo depois de julgada: ela ja cumpriu o seu papel, e
+        # um recibo que carrega todas as observacoes deixa de ser um recibo.
+        (recibo.get("INGRESSO") or {}).pop("ENTRADOS", None)
         recibo["ITEM_COUNT_RAW"] = r["itens"]
         recibo["ITEM_COUNT_NORMALIZED"] = r["prontos"]
         recibo["ESTADO_DOS_ITENS"] = ("PRONTO_PARA_INTELIGENCIA" if r["prontos"]

@@ -127,14 +127,32 @@ def _por_fase():
 
 class NenhumaFaseDeCollectionChamaImplementacao(unittest.TestCase):
 
+    #: A ENTRADA CANÔNICA MUDOU DE ANDAR NA SCRAP-FLOW-01, E SUBIU.
+    #:
+    #: A C10.6D fez estas fases pararem de correr a implementação direta e
+    #: passarem por `social_scrap.py coletar` — que atravessa o `COLLECT`. Era
+    #: canônico para o SCRAP, e era tudo o que existia na altura.
+    #:
+    #: Só que o caminho acabava ali: o que a corrida colhia nunca via
+    #: `coleta/ingresso.py`, e portanto nunca chegava à admissão. A porta
+    #: estava construída e ninguém entregava nela.
+    #:
+    #:     ENTRAR PELO EXECUTOR NÃO É ENTRAR PELA COLLECTION.
+    #:
+    #: Agora entram pelo orquestrador canônico, que escolhe o executor, cunha o
+    #: `RUN_ID`, lê o retorno DECLARADO e leva a colheita à porta. As duas
+    #: portas são canônicas; esta é a de cima, e a lei da C10.6D continua
+    #: inteira: a implementação continua a não correr direto.
+    ENTRADAS_CANONICAS = ('social_scrap.py', 'orquestrador/orquestrador.py')
+
     def test_1_as_fases_canonicas_entram_pela_entrada_canonica(self):
         por = _por_fase()
         for f in CANONICAS:
             with self.subTest(fase=f):
                 cmds = ' '.join(por.get(f) or [])
-                self.assertIn('social_scrap.py', cmds,
-                              '%s deixou de entrar pela entrada canônica' % f)
-                self.assertIn('coletar', cmds)
+                self.assertTrue(
+                    any(e in cmds for e in self.ENTRADAS_CANONICAS),
+                    '%s deixou de entrar pela entrada canônica' % f)
                 for i in IMPLEMENTACOES:
                     self.assertNotIn(i, cmds,
                                      '%s voltou a correr %s direto' % (f, i))

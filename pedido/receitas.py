@@ -114,6 +114,7 @@ EXECUTORES = {
     }],
     "T9": [{
         "id": "comunicacao-publica",
+        "serve_fases": ["contratos", "posts", "transcrever"],
         "roda": ["coleta/comunicacao_coleta.py"],
         # O executor precisa de saber a fase e a plataforma, e essas vem do
         # pedido — nao de quem o chama. Declarar aqui QUE filtros viram
@@ -137,6 +138,42 @@ EXECUTORES = {
                       "FALA do video, num campo separado da legenda",
         "custo": "pago quando passa pela rota Apify; `transcrever` custa zero "
                  "dolares e paga-se em tempo de maquina",
+    }, {
+        # ── A FRENTE DE AQUISICAO CANONICA, E POR QUE ELA VEM PRIMEIRO ──────
+        # O SCRAP e o executor canonico de aquisicao desta casa: tem portao
+        # (`CHECK`), roteador, teto de rede, teto de gasto, guarda de
+        # autorizacao e preservacao de RAW. Ate a SCRAP-FLOW-01 nenhum
+        # `COLLECTION_REQUEST` conseguia chegar a ele — o disparador ia direto
+        # a `coleta/social_scrap.py` e o que se colhia nunca via a porta.
+        #
+        #     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+        #
+        # Ele fica em SEGUNDO de proposito: o pedido que nao nomeia fase
+        # continua a abrir exactamente o executor que abria antes desta
+        # missao. `serve_fases` e que o promove, e so para as fases dele.
+        # Antes, a lista era lida so no primeiro item — e o comentario do
+        # `comunicacao-publica` ja avisava que um segundo registo «nunca seria
+        # aberto e ficaria a mentir nesta lista». Deixou de ficar.
+        "id": "scrap-colheita",
+        "roda": ["coleta/scrap_colheita.py"],
+        "recebe_run_id": True,
+        # A fonte DESCE COM O PEDIDO. O SCRAP observa PLATAFORMAS e a porta
+        # fala em FONTES; sem o SOURCE_ID vindo daqui, o adapter declara zero
+        # colheita e escreve porque. URL NAO E SOURCE_ID.
+        # A ORDEM E A LINHA DE COMANDO. O orquestrador acrescenta os valores
+        # por esta ordem, sem nomes — como ja faz para o `comunicacao-publica`.
+        "argumentos_de_filtros": ["fase", "fonte"],
+        "serve_fases": ["janela", "janela-perfis", "janela-objetos"],
+        "filtros_por_omissao": {},
+        # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
+        # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.
+        "envelope_em": "data/colheita/scrap/ENVELOPE.json",
+        "larga_em": ["data/colheita/scrap/"],
+        "rotas": ["Instagram"],
+        "o_que_traz": "a janela publica da conta — o perfil e os objetos que "
+                      "ela publicou — pelo executor canonico do SCRAP, com "
+                      "RAW preservado antes de qualquer normalizacao",
+        "custo": "gratuito",
     }],
 }
 
@@ -251,7 +288,21 @@ def resolver(p: Pedido) -> Plano:
 
     com = [f for f in do_assunto if _sabe_o_caminho(f)]
     sem = [f for f in do_assunto if not _sabe_o_caminho(f)]
-    execs = EXECUTORES.get(p.alvo, [])
+
+    # ── QUEM ATENDE A FASE PEDIDA VEM PRIMEIRO ──────────────────────────────
+    # O orquestrador abre apenas `executores[0]`. Enquanto a ordem fosse fixa,
+    # um segundo executor no mesmo alvo nunca era aberto — e o proprio registo
+    # do `comunicacao-publica` dizia isso, por escrito, como defeito conhecido.
+    #
+    #     UMA LISTA CUJO SEGUNDO ITEM NUNCA E LIDO NAO E UMA LISTA:
+    #     E UM ITEM E UMA MENTIRA.
+    #
+    # Nao ha adivinhacao: quem nao declara `serve_fases` serve tudo, como
+    # sempre serviu, e a ordem entre iguais nao muda.
+    execs = list(EXECUTORES.get(p.alvo, []))
+    fase = str(p.filtros.get("fase") or "").strip()
+    if fase:
+        execs.sort(key=lambda e: 0 if fase in (e.get("serve_fases") or [fase]) else 1)
 
     return Plano(
         pedido=p,

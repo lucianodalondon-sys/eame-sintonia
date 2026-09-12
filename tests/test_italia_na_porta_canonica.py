@@ -180,10 +180,23 @@ class OCaminhoEstaLigado(CasoB1):
         self.assertEqual(r.returncode, 2)
         self.assertIn("NAO cunha corrida", r.stderr)
 
+    #: Quem PEDE a corrida, e desde quando. `recebe_run_id` e opt-in, e a lei
+    #: que esta sentinela guarda e «ninguem passa a recebe-la sem a pedir».
+    #:
+    #: ⚠️ A LISTA CRESCEU NA SCRAP-FLOW-01, E CRESCER NAO E O MESMO QUE MUDAR.
+    #: `scrap-colheita` nasce com o campo declarado, e nasce por causa dele: o
+    #: adapter do SCRAP NAO pode cunhar corrida, ou a corrida do orquestrador e
+    #: a da coleta eram duas. Um executor ANTIGO que ganhasse o campo em
+    #: silencio e que era o defeito — e continua a ser reprovado.
+    #:
+    #:     UM EXECUTOR NOVO QUE PEDE A CORRIDA NAO E UM EXECUTOR ANTIGO
+    #:     QUE PASSOU A RECEBE-LA.
+    PEDEM_A_CORRIDA = ("italia-recorrente", "scrap-colheita")
+
     def test_6_nenhum_executor_antigo_mudou_de_linha_de_comando(self):
         for universo, lista in EXECUTORES.items():
             for e in lista:
-                if e["id"] == "italia-recorrente":
+                if e["id"] in self.PEDEM_A_CORRIDA:
                     continue
                 self.assertNotIn("recebe_run_id", e,
                                  "%s/%s passou a receber corrida sem a pedir"
