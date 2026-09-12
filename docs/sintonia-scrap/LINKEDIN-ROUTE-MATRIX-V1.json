@@ -1097,7 +1097,8 @@
     "TERMS_STATUS": "fora do §8.2 — nao e 'the Services'",
     "ROBOTS_STATUS": "n/a",
     "CURRENT_SINTONIA_POLICY": "ALLOWED",
-    "HUMAN_DECISION_NEEDED": false
+    "HUMAN_DECISION_NEEDED": false,
+    "OPERATIONAL_DECISION_POLICY_01": "ALLOWED_NOW"
    },
    {
     "ROUTE": "article.link ja preservado",
@@ -1107,7 +1108,8 @@
     "ROBOTS_STATUS": "n/a",
     "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
     "HUMAN_DECISION_NEEDED": true,
-    "RISK": "BAIXO"
+    "RISK": "BAIXO",
+    "OPERATIONAL_DECISION_POLICY_01": "ALLOWED_NOW (dentro da R7)"
    },
    {
     "ROUTE": "company page publica",
@@ -1116,7 +1118,8 @@
     "TERMS_STATUS": "§8.2(1)",
     "ROBOTS_STATUS": "DISALLOW_ALL",
     "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "NOT_ALLOWED · PENDING_HUMAN_DECISION"
    },
    {
     "ROUTE": "post direto por URL",
@@ -1125,7 +1128,8 @@
     "TERMS_STATUS": "§8.2(1)",
     "ROBOTS_STATUS": "DISALLOW_ALL",
     "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "NOT_ALLOWED · PENDING_HUMAN_DECISION"
    },
    {
     "ROUTE": "asset de midia em licdn.com",
@@ -1134,7 +1138,8 @@
     "TERMS_STATUS": "§8.2(1)+(4)",
     "ROBOTS_STATUS": "NOT_MEASURED",
     "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "BLOCKED_EXPIRED"
    },
    {
     "ROUTE": "legenda SRT nativa",
@@ -1143,7 +1148,8 @@
     "TERMS_STATUS": "§8.2(1)+(4)",
     "ROBOTS_STATUS": "NOT_MEASURED",
     "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "NOT_ALLOWED · nenhum fornecedor a entrega"
    },
    {
     "ROUTE": "Ad Library",
@@ -1152,7 +1158,8 @@
     "TERMS_STATUS": "§8.2 sem excecao escrita para esta superficie",
     "ROBOTS_STATUS": "NOT_MEASURED",
     "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "PENDING_HUMAN_DECISION"
    },
    {
     "ROUTE": "indice de busca (Google/Bing)",
@@ -1161,7 +1168,8 @@
     "TERMS_STATUS": "§8.2(4) nomeia 'search tools'",
     "ROBOTS_STATUS": "n/a",
     "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "descoberta PENDING_HUMAN_DECISION · substituto de conteudo NOT_ALLOWED"
    },
    {
     "ROUTE": "Actors Apify (todos)",
@@ -1170,7 +1178,8 @@
     "TERMS_STATUS": "§8.2(4) nomeia 'data aggregators or brokers'",
     "ROBOTS_STATUS": "n/a",
     "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
-    "HUMAN_DECISION_NEEDED": true
+    "HUMAN_DECISION_NEEDED": true,
+    "OPERATIONAL_DECISION_POLICY_01": "NOT_ALLOWED · classe B ou C, nenhum A"
    },
    {
     "ROUTE": "Community Management API",
@@ -1180,7 +1189,8 @@
     "ROBOTS_STATUS": "n/a",
     "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
     "HUMAN_DECISION_NEEDED": false,
-    "WHY": "nao serve o caso de uso — le a Pagina que a casa administra"
+    "WHY": "nao serve o caso de uso — le a Pagina que a casa administra",
+    "OPERATIONAL_DECISION_POLICY_01": "NOT_ALLOWED · nao serve o caso de uso"
    },
    {
     "ROUTE": "Voyager",
@@ -1189,7 +1199,8 @@
     "TERMS_STATUS": "§8.2(1)+(3)",
     "ROBOTS_STATUS": "DISALLOW_ALL",
     "CURRENT_SINTONIA_POLICY": "proibido por §23 da casa",
-    "HUMAN_DECISION_NEEDED": false
+    "HUMAN_DECISION_NEEDED": false,
+    "OPERATIONAL_DECISION_POLICY_01": "NOT_ALLOWED · quatro razoes independentes"
    }
   ],
   "CHANGED_BY_THIS_MISSION": false
@@ -2190,5 +2201,286 @@
   "ONE_LINE": "O LinkedIn continua a ser util para saber QUEM E e nao para saber O QUE DISSE — mas metade do que a casa julgava nao ter, ela ja tinha comprado, preservado e deitado fora na normalizacao; e a profundidade historica que ela declarava UNKNOWN ja lhe tinha sido entregue, oito anos e sete meses dela, na pagina 1.",
   "CHEAPEST_ROUTE_FOUND": "nao e uma rota. E um ficheiro .gz que esta no disco desde 29 de agosto.",
   "HARD_STOP": true
+ },
+ "OPERATIONAL_DECISION": {
+  "DECIDED_BY": "LINKEDIN-POLICY-01",
+  "DECIDED_AT": "2026-09-12",
+  "DOCUMENT": "docs/sintonia-scrap/LINKEDIN-POLICY-01-ROTAS-AUTORIZAVEIS.md",
+  "VERDICT": "PASS_NO_CONTENT_ROUTE_ALLOWED + PENDING_HUMAN_DECISION em 3 rotas",
+  "NOTE": "Decisao OPERACIONAL de engenharia, nao parecer juridico. NAO altera leis/social_matriz.py e NAO altera estado de capacidade nenhum.",
+  "POLICY_FILE_CHANGED": {
+   "BY_THIS_MISSION": false,
+   "IN_THIS_TREE": true,
+   "WHO": "a fusao da C10.8B-LIVE",
+   "WHAT": "acrescentou PARTIAL ao vocabulario ESTADOS e reclassificou apify:transcricao (rota do YOUTUBE)",
+   "LINKEDIN_LINES_TOUCHED": 0,
+   "MEASURED": "git diff b47295f6 HEAD -- leis/social_matriz.py -> 19 insercoes, 3 remocoes",
+   "UNTOUCHED_BY_THIS_MISSION": [
+    "coleta/scrap_capacidades.py",
+    "coleta/adaptador_linkedin.py",
+    "coleta/social_rotas.py"
+   ]
+  },
+  "CAPABILITY_STATE_CHANGED": false,
+  "VOCABULARY": [
+   "ALLOWED_NOW",
+   "NOT_ALLOWED",
+   "BLOCKED_EXPIRED",
+   "PENDING_HUMAN_DECISION"
+  ],
+  "ROUTES": {
+   "R1_OFF_LINKEDIN_IDENTITY_DISCOVERY": {
+    "DECISION": "ALLOWED_NOW",
+    "WHY": "nao le conteudo do LinkedIn; le o site da propria organizacao. §8.2(4) alcanca 'the Services' e terceiros como search tools/aggregators/brokers — o site da empresa nao e nenhum dos tres",
+    "LIMIT": "devolve HANDLE, nunca publicacoes; cobertura 1 de 2 alcancaveis de 7 sentinelas",
+    "OWNER": "linkedin.identity.discovery"
+   },
+   "R2_LINKEDIN_OFFICIAL_API": {
+    "DECISION": "NOT_ALLOWED",
+    "WHY": "nao serve o caso de uso: r_organization_social exige papel ADMINISTRATOR/DSC/CONTENT_ADMIN na organizacao-alvo; r_member_social e restrita a approved users",
+    "CLASSIFICATION": "ROTA DE PAGINA PROPRIA — nao e rota caríssima nem falta pedir: nao existe para terceiro",
+    "PRICE_DOES_NOT_HELP": "MDP ~US$699/mes e acordos US$50k-300k/ano (relato de terceiros) nao acrescentam leitura de organizacao de terceiro"
+   },
+   "R3_PUBLIC_UNAUTHENTICATED_LINKEDIN": {
+    "DECISION": "NOT_ALLOWED",
+    "PENDING_HUMAN_DECISION": true,
+    "FOUR_AXES": {
+     "PUBLICLY_VIEWABLE": "YES",
+     "ROBOTS_ALLOWED": "NO",
+     "TERMS_ALLOWED": "NO",
+     "SINTONIA_POLICY_ALLOWED": "NO"
+    },
+    "WHY": "tres dos quatro eixos dizem NO, e o eixo que diz YES — a pagina abre — e o unico que nao decide nada",
+    "CONTEXT_NOT_PERMISSION": "jurisprudencia citada pela comunidade (hiQ, Van Buren, Meta v. Bright Data) poe leitura publica deslogada em terreno mais firme; e contexto, nao licenca"
+   },
+   "R4_AUTHENTICATED_VOYAGER": {
+    "DECISION": "NOT_ALLOWED",
+    "PENDING_HUMAN_DECISION": false,
+    "THREE_REASONS": [
+     "exige sessao autenticada e social_rotas declara que nao faz login nem manda cookie",
+     "API interna sem contrato",
+     "§8.2 proibe 'override any security feature or bypass or circumvent any access controls'"
+    ],
+    "FOURTH_REASON": "e exactamente a fronteira onde os fornecedores perdem — ver PROVIDER_PRECEDENT"
+   },
+   "R5_SEARCH_ENGINE_INDEX": {
+    "DECISION_SPLIT": true,
+    "SEARCH_DISCOVERY_ALLOWED": "PENDING_HUMAN_DECISION",
+    "SEARCH_CONTENT_SUBSTITUTE_ALLOWED": "NOT_ALLOWED",
+    "WHY_SUBSTITUTE_NO": "um snippet e truncado, sem data exacta, sem metricas, sem autor estruturado e sem midia. Tratar snippet como conteudo colhido escreveria no artefato um post que nunca existiu naquela forma",
+    "WHY_DISCOVERY_PENDING": "§8.2(4) nomeia 'search tools' em claro; e a R1 ja cobre a necessidade de descoberta sem esse conflito"
+   },
+   "R6_EXTERNAL_PAID_PROVIDER": {
+    "DECISION": "NOT_ALLOWED",
+    "PENDING_HUMAN_DECISION": true,
+    "DECISIVE_EVIDENCE": "o contrato do proprio fornecedor devolve a autorizacao ao cliente",
+    "CLASS_A_PROVIDER_ROUTE_ACCEPTABLE": [],
+    "CLASS_B_REQUIRES_HUMAN_DECISION": [
+     "harvestapi/*",
+     "apimaestro/*",
+     "supreme_coder/linkedin-post",
+     "silva95gustavo/linkedin-ad-library-scraper"
+    ],
+    "CLASS_C_NOT_ACCEPTABLE": [
+     {
+      "PROVIDER": "capable_cauldron/linkedin-comment-scraper",
+      "WHY": "exige cookies de sessao exportados — e a R4 comprada com a NOSSA credencial",
+      "MECHANISM": "AUTHENTICATED_SESSION (DOCUMENTED)"
+     },
+     {
+      "PROVIDER": "s-r/free-linkedin-company-finder",
+      "WHY": "declara 'Google-based search' — e a R5 comprada, e §8.2(4) nomeia a tecnica",
+      "MECHANISM": "SEARCH_ENGINE_INDEX (DOCUMENTED)"
+     }
+    ],
+    "PROVIDER_TERMS_READABLE": {
+     "apify_platform": "YES, lido 2026-09-12",
+     "harvestapi": "NO — HTTP 403 a este IP",
+     "apimaestro": "NAO LIDO",
+     "supreme_coder": "NAO LIDO"
+    },
+    "MATERIAL_GAP": "a casa possui 472 posts e 202 perfis de um fornecedor cujos termos nao conseguiu ler nesta medicao"
+   },
+   "R7_PREVIOUSLY_ACQUIRED_RAW_REPROCESSING": {
+    "DECISION": "ALLOWED_NOW",
+    "WHY": "REPROCESSAR O JA ADQUIRIDO != FAZER NOVA AQUISICAO. A mesma lei foi escrita independentemente pela C10.8B-LIVE: 'RELER O QUE JA SE PAGOU NAO E PAGAR OUTRA VEZ'",
+    "WHAT_IT_AUTHORIZES": [
+     "texto",
+     "autor",
+     "data exacta",
+     "likes",
+     "shares",
+     "contagem de comentarios",
+     "agregados de tipo de reacao (449 de 472)",
+     "enderecos de video (56)",
+     "enderecos de documento + transcriptManifestUrl (20)",
+     "links externos (93)",
+     "imagens"
+    ],
+    "WHAT_IT_DOES_NOT_AUTHORIZE": "ir buscar os bytes que esses enderecos apontam — essa e a R8"
+   },
+   "R8_DIRECT_MEDIA_ASSET_IN_VALID_RAW": {
+    "DECISION": "BLOCKED_EXPIRED",
+    "NOT_THE_SAME_AS": "NOT_ALLOWED — um bilhete fora da validade nao e uma porta fechada pela plataforma",
+    "TWO_INDEPENDENT_REASONS": [
+     "os enderecos assinados expiraram: e=1788580800 (video, 2026-09-05T04:00:00Z) e e=1788998400 (manifesto de documento)",
+     "dms.licdn.com e media.licdn.com sao hosts DISTINTOS e o robots deles NUNCA foi medido; a casa assume o do linkedin.com, e assuncao nao e medicao"
+    ],
+    "LAW": "URL EM RAW ANTIGO NAO E AUTORIZACAO PERMANENTE"
+   }
+  },
+  "ALLOWED_NOW": [
+   "identity discovery off-LinkedIn (R1)",
+   "reprocessar RAW ja adquirido (R7)",
+   "metadata de documento a partir do RAW (20 itens, com transcript URL)",
+   "metadata de video a partir do RAW (56 itens)",
+   "agregados de reacao ja no RAW (449 itens)",
+   "links externos ja no RAW (93 itens) como descoberta de fonte",
+   "processamento local de PDF — CONDICIONADO a bytes obtidos por rota permitida",
+   "ASR local — CONDICIONADO a bytes obtidos por rota permitida"
+  ],
+  "ALLOWED_NOW_CONDITION": "LOCAL DERIVATION != ACQUISITION PERMISSION. Para o LinkedIn, hoje, nao existem bytes obtidos por rota permitida.",
+  "BLOCKED_NOW": [
+   "texto de comentario",
+   "lista de quem reagiu (e nao se deve pedir)",
+   "bytes de video",
+   "bytes de documento",
+   "legenda nativa",
+   "duracao de video",
+   "listagem de posts alem do RAW existente",
+   "profundidade historica nova"
+  ],
+  "BYPASS_SENTINEL": {
+   "RULE": "SE DIRECT_ROUTE = NOT_ALLOWED E o provider apenas encapsula a MESMA tecnica sem alteracao de base contratual nem de proveniencia, ENTAO PAID_ROUTE != ALLOWED",
+   "RESULTS": [
+    {
+     "PROVIDER": "capable_cauldron",
+     "ENCAPSULATES": "R4 com a NOSSA credencial",
+     "OWN_CONTRACTUAL_BASIS": false,
+     "VERDICT": "BYPASS COMPRADO -> NOT_ALLOWED"
+    },
+    {
+     "PROVIDER": "s-r",
+     "ENCAPSULATES": "R5",
+     "OWN_CONTRACTUAL_BASIS": false,
+     "VERDICT": "BYPASS COMPRADO -> NOT_ALLOWED"
+    },
+    {
+     "PROVIDER": "harvestapi/apimaestro/supreme_coder",
+     "ENCAPSULATES": "UNKNOWN — pode ser R3, pode ser R4",
+     "OWN_CONTRACTUAL_BASIS": "NAO ESTABELECIDA",
+     "VERDICT": "NAO SE PODE AFIRMAR QUE NAO E BYPASS -> classe B"
+    },
+    {
+     "PROVIDER": "silva95gustavo",
+     "ENCAPSULATES": "superficie que a plataforma publica para ser lida",
+     "OWN_CONTRACTUAL_BASIS": "NAO ESTABELECIDA",
+     "VERDICT": "rota DISTINTA -> decisao humana propria"
+    }
+   ],
+   "BOTH_DIRECTIONS": "mecanismo desconhecido NAO e proibido automaticamente e NAO e permitido automaticamente. E REQUIRES_HUMAN_DECISION."
+  },
+  "HUMAN_DECISION_REQUIRED": [
+   {
+    "ID": 1,
+    "ROUTE": "R3 public unauthenticated LinkedIn",
+    "WHAT_DATA": "texto, data, metricas, endereco de midia; 10-13 posts por pagina",
+    "WHOSE_DATA": "organizacoes concorrentes, e incidentalmente pessoas",
+    "AUTH": "nenhuma",
+    "COST_MODEL": "US$ 0 + manutencao quando o HTML mudar",
+    "RISK": "robots Disallow:/ para o nosso agente; §8.2(1); HTTP 999 apos ~50-60 pedidos anonimos/15min (relato de comunidade)",
+    "WHY_NEEDED": "unica rota tecnicamente PROVADA que alcanca conteudo recente sem intermediario e sem dinheiro",
+    "ALTERNATIVE": "nenhuma para conteudo; para identidade a R1 cobre",
+    "STATE": "PENDING_HUMAN_DECISION"
+   },
+   {
+    "ID": 2,
+    "ROUTE": "R6 external paid provider (classe B)",
+    "WHAT_DATA": "posts publicos de organizacoes; e DADO PESSOAL se se pedir perfis",
+    "WHOSE_DATA": "concorrentes, e pessoas no caso dos perfis",
+    "AUTH": "token do fornecedor; nenhum login nosso",
+    "COST_MODEL": "US$1,50/1000 posts e US$2,00/1000 comentarios (tabela 2026-09-12); US$4,033/1000 perfis (MEDIDO). READ COST != SETTLED COST",
+    "RISK": [
+     "§8.2(4) alcanca dado obtido through third parties (data aggregators or brokers)",
+     "Apify GTC §6.2 e §11.1 devolvem a autorizacao E a indemnizacao ao cliente",
+     "mecanismo dos tres e UNKNOWN",
+     "termos do fornecedor que a casa ja usou nao sao legiveis deste ambiente (403)",
+     "precedente: o maior fornecedor do sector foi processado em Jan 2025 e desligou-se em 04 Jul 2025"
+    ],
+    "WHY_NEEDED": "unica rota que ja entregou profundidade historica (2018-01-09 a 2026-08-28) e unico caminho para texto de comentario",
+    "ALTERNATIVE": "reprocessar o RAW existente (R7) — cobre o passado ja comprado, nada de novo",
+    "STATE": "PENDING_HUMAN_DECISION"
+   },
+   {
+    "ID": 3,
+    "ROUTE": "Ad Library",
+    "WHAT_DATA": "anunciante, criativo, datas, CTA, pais, FAIXA de impressoes, segmentacao EEE",
+    "WHOSE_DATA": "organizacoes anunciantes; sem dado pessoal",
+    "AUTH": "nenhuma",
+    "COST_MODEL": "US$ 0; nao ha API, so UI",
+    "RISK": "o robots desta rota NUNCA FOI MEDIDO e o §8.2 nao abre excepcao escrita para ela; cobertura desde 2023-06-01, 1 ano apos a ultima impressao",
+    "WHY_NEEDED": "e a comunicacao PAGA do concorrente, eixo nunca considerado, numa superficie que a plataforma publica para ser lida",
+    "ALTERNATIVE": "nenhuma; responde a outra pergunta e nao substitui organico",
+    "NOTE": "decidir exige 1 pedido ao robots; esta missao declarou zero e nao o fez",
+    "STATE": "PENDING_HUMAN_DECISION"
+   }
+  ],
+  "PROVIDER_CONTRACT_EVIDENCE": {
+   "SOURCE": "https://docs.apify.com/legal/general-terms-and-conditions",
+   "EFFECTIVE": "2026-07-09",
+   "READ_AT": "2026-09-12",
+   "EVIDENCE_CLASS": "PRIMARY",
+   "QUOTES": [
+    {
+     "SECTION": "6.2",
+     "TEXT": "You must use the Services to process only the Customer Data that you are authorized to access and that is in compliance with all applicable laws and regulations."
+    },
+    {
+     "SECTION": "11.1",
+     "TEXT": "Should you use the Services or Actors to extract Customer Data from unauthorized sources, you shall be responsible for compensating any damages incurred by and/or any claims of the affected third parties."
+    },
+    {
+     "SECTION": "11.1",
+     "TEXT": "You agree to indemnify, defend and hold us ... harmless from and against any third-party claim ... arising out of ... your publication or use of any Actors."
+    },
+    {
+     "SECTION": "10.1-10.2",
+     "TEXT": "sem garantia de que 'any Customer Data will be accurate or reliable'; sem responsabilidade por 'changes to third-party websites'"
+    }
+   ],
+   "CONCLUSION": "O FORNECEDOR NAO ASSUME A AUTORIZACAO. ELE DEVOLVE-A AO CLIENTE, POR ESCRITO, NO CONTRATO QUE SE ASSINA AO PAGAR."
+  },
+  "PROVIDER_PRECEDENT": {
+   "PRIMARY_SOURCE": "https://nubela.co/blog/goodbye-proxycurl/ — o proprio anuncio de encerramento, 04 Jul 2025",
+   "LAWSUIT_FILED": "Janeiro de 2025, por LinkedIn contra Proxycurl (citado pelo proprio)",
+   "SHUTDOWN": "04 Jul 2025",
+   "STATED_REASON_NOT_MERITS": [
+    "American Rule: 'even if we were to win the lawsuit, we would not be able to claim legal fees'",
+    "'LinkedIn, owned by Microsoft, has more or less an unlimited war chest'"
+   ],
+   "SECONDARY_ONLY": "alegacao de centenas de milhares de contas falsas, N.D. Cal., seis fundamentos — NAO confirmado por fonte primaria",
+   "SELF_CORRECTION": "o primeiro resumo de busca datou os dois factos em 2026. Duas verificacoes contra as paginas citadas nao reproduziram a alegacao, e a fonte primaria da 2025. UM RESUMO DE BUSCA NAO E EVIDENCIA ATE ALGUEM ABRIR A FONTE.",
+   "OPERATIONAL_CONSEQUENCE": "um fornecedor cujo MECANISMO e UNKNOWN e um fornecedor sobre o qual a casa nao consegue dizer de que lado daquela linha ele esta"
+  },
+  "LAWS_FOR_KNOW_HOW": [
+   {
+    "LAW": "TRANSLATION IS AUTHORIZATION",
+    "PROOF": "cap.pela_matriz('LINKEDIN','DISCOVER_ACCOUNT') devolvia linkedin.recent.discovery; corrigido em a418f040",
+    "CONSEQUENCE": "uma traducao errada NAO REBENTA — ela AUTORIZA"
+   },
+   {
+    "LAW": "PAID PROVIDER IS NOT A POLICY OVERRIDE",
+    "PROOF": "Apify GTC §6.2 e §11.1, em vigor 2026-07-09",
+    "CONSEQUENCE": "o fornecedor resolve CAPACIDADE, nunca PERMISSAO. E o corolario da C10.8B-LIVE: PROVIDER REACHED != CAPABILITY DELIVERED"
+   }
+  ],
+  "HOUSE_AUTHORITIES_APPLIED": [
+   "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md: PUBLICO != LICITO DE PROCESSAR · DISPONIVEL != AUTORIZADO · COLETADO TECNICAMENTE != CONFORME JURIDICAMENTE; PERSONAL_SCORING = PROHIBITED_FOR_CURRENT_PILOT; EMAIL/PHONE/PRIVATE_CONTACT = OUT_OF_SCOPE",
+   "BIBLIA COL-LAW-018: CONTRACT_MATCH != USEFUL_DATA; o portao gratis vem antes do gasto",
+   "BIBLIA COL-LAW-019: Apify e rota paga de escalada, e a corrida tem de explicar por que pagou",
+   "D-016 (precedente de rota: portal recusa robo -> usar agregador oficial e preservar o link de volta)",
+   "D-019 (precedente estrutural: a porta abre e a chave nao existe -> DEMOTED)"
+  ],
+  "D013_CORRECTION": "o briefing citou D-013 como decisao de LinkedIn. D-013 e 'Inventario de populacao que muda e derivado, e numero corrente tem dono'. NAO existe decisao de LinkedIn no DIARIO-DE-DECISOES; os precedentes reais sao D-016 e D-019."
  }
 }
