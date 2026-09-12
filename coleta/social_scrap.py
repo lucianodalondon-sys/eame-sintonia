@@ -224,7 +224,9 @@ def video():
               % (plat, descobre, meta, midia, trans, (d['ROTA'] if d else 'nenhuma')[:32]))
     print('\n  TRANSCRIÇÃO — a ordem é sempre a mesma, e ela já existe nesta casa:')
     print('    1. legenda pública        → só YouTube tem, e SÓ para o dono do vídeo')
-    print('    2. faster-whisper local   → scripts/instagram_transcrever.py, custo ZERO dólar')
+    # Isto é instrução OPERACIONAL: quem a lê vai correr o que ela nomeia.
+    # Até a C10.4C nomeava a rota de vídeo inteiro, que hoje está aposentada.
+    print('    2. faster-whisper local   → ferramentas/reel_transcricao.py (audio-only), custo ZERO dólar')
     print('    3. transcrição paga       → último, com motivo canônico declarado')
     print('\n  O buraco honesto: para vídeo de canal de TERCEIRO no YouTube não existe')
     print('  rota permitida até o áudio. Sem áudio, o Whisper local não tem o que fazer.')
