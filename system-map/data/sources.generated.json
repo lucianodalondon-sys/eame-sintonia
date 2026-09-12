@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
+    "HEAD": "b44aa60ec71fa020449a08e4d5b3c8b3c3f59f77",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -2949,7 +2949,9 @@
       ],
       "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
-      "regista_descarte": []
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/comunicacao_medir.py",
@@ -4232,6 +4234,31 @@
       ]
     },
     {
+      "endpoint": "https://www.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 753
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 266
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 383
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 339
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 42
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/watch?v=%s'",
       "usado_por": [
         {
@@ -4286,7 +4313,7 @@
       "usado_por": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 227
+          "line": 263
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4664,6 +4691,32 @@
       ]
     },
     {
+      "endpoint": "https://it.linkedin.com/in",
+      "usado_por": [
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 267
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 340
+        }
+      ]
+    },
+    {
+      "endpoint": "https://twitter.com/x",
+      "usado_por": [
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 268
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 396
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -4745,33 +4798,6 @@
           "line": 105
         }
       ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 113
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/s",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 148
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/%s'",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 157
-        }
-      ]
     }
   ],
   "COUNTS": {
@@ -4796,7 +4822,7 @@
     "coletores_com_data": 17,
     "coletores_com_lugar": 31,
     "coletores_que_separam_fonte_do_fato": 20,
-    "coletores_que_registam_descarte": 14,
+    "coletores_que_registam_descarte": 15,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

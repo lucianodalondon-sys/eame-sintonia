@@ -621,6 +621,7 @@
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__77ae30349938860b.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
+      "data/samples/SOCIAL-IT/raw-free/LINKEDIN/identidade-https---imagelinenetwork.com__9e40b34272e2139f.txt",
       "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "data/samples/SPAIN-HERO-CASES-V1.json",
       "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
@@ -786,6 +787,7 @@
       "docs/sintonia-scrap/C10-8B-PRIMEIRA-ROTA-PAGA-CANONICA.md",
       "docs/sintonia-scrap/C10-8B-R-RAW-ENTRE-JOBS.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
+      "docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md",
       "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
@@ -798,6 +800,11 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md",
+      "docs/sintonia-scrap/LINKEDIN-DEEP-STUDY-V1.md",
+      "docs/sintonia-scrap/LINKEDIN-POLICY-01-ROTAS-AUTORIZAVEIS.md",
+      "docs/sintonia-scrap/LINKEDIN-ROUTE-MATRIX-V1.json",
+      "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
       "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md"
     ],
     "ferramentas": [
@@ -1231,6 +1238,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/linkedin_local_first.py",
       "provas/mutacao_da_autorizacao.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/nenhuma_compra_sem_autorizacao.py",
@@ -1557,6 +1565,8 @@
       "tests/test_integracao_biblia.py",
       "tests/test_italia_na_porta_canonica.py",
       "tests/test_lingua_unica.py",
+      "tests/test_linkedin_build_01_local_first.py",
+      "tests/test_linkedin_op_01_operacional.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_m2_aresta_observada.py",
       "tests/test_m2_rota_forward.py",
@@ -1987,10 +1997,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-canonical-flow-f01",
-    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
-    "GENERATED_AT": "2026-09-12T20:03:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3aa952d401fd9419c8a9cdec98e6fd397ad04d3cc968746e230e54540184fa8e"
+    "BRANCH": "claude/sintonia-scrap-linkedin-operational-close-v1",
+    "HEAD": "b44aa60ec71fa020449a08e4d5b3c8b3c3f59f77",
+    "GENERATED_AT": "2026-09-12T22:42:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d3aaa9ad3bd7e13d710e6ae711a3f78535a8a35d9283e1f1b0080e1dc80c108d"
   },
   "FAMILIES": [
     {
@@ -4905,7 +4915,9 @@
           ],
           "separa_fonte_do_fato": true,
           "leis_que_obedece": [],
-          "regista_descarte": []
+          "regista_descarte": [
+            "RECUSAD"
+          ]
         },
         {
           "ficheiro": "coleta/comunicacao_medir.py",
@@ -7525,13 +7537,13 @@
           "ROTA_DECLARADA_DO_ATOR",
           "TIPOS"
         ],
-        "palavras": 222,
+        "palavras": 216,
         "por_lingua": {
           "IT": 10,
           "ES": 7,
           "FR": 5
         },
-        "sem_marca_de_lingua": 200,
+        "sem_marca_de_lingua": 194,
         "de_outro_pais": 12,
         "de_outro_pais_quais": {
           "ES": 7,
@@ -12206,6 +12218,7 @@
         "provas/bluesky_trial_ao_vivo.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
+        "provas/linkedin_local_first.py",
         "provas/mutacao_da_autorizacao.py",
         "provas/mutacao_do_fluxo_canonico.py",
         "provas/nenhuma_compra_sem_autorizacao.py",
@@ -12230,7 +12243,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 30,
+      "file_count": 31,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12288,7 +12301,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ESPANHA": 1
+        "ESPANHA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -12303,6 +12316,7 @@
           "COLS_RUN",
           "COLUNA_DO_DESTINO",
           "ENTRADA",
+          "ESPERADO",
           "FIXTURES",
           "IMPLEMENTACOES",
           "ITENS",
@@ -12317,9 +12331,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 358,
+        "palavras": 366,
         "por_lingua": {},
-        "sem_marca_de_lingua": 358,
+        "sem_marca_de_lingua": 366,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13215,9 +13229,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 99,
+        "palavras": 102,
         "por_lingua": {},
-        "sem_marca_de_lingua": 99,
+        "sem_marca_de_lingua": 102,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13879,7 +13893,7 @@
       "name": "O adapter do SCRAP para a porta canonica · a aresta que faltava",
       "territory": "Z-ACOES",
       "kind": "engine",
-      "what": "Recebe uma fase ja decidida e o RUN_ID que o orquestrador cunhou, chama `scrap_executor.COLLECT` UMA vez, e declara o que voltou num envelope COL-LAW-505: o que e colheita, o que e suporte, e porque houve zero quando houve zero. Traduz o envelope do SCRAP para a lingua de `coleta/ingresso.py` — e so traduz.",
+      "what": "Recebe uma fase ja decidida e o RUN_ID que o orquestrador cunhou, chama `scrap_executor.COLLECT` UMA vez, e declara o que voltou num envelope COL-LAW-505: o que e colheita, o que e suporte, e porque houve zero quando houve zero. Traduz o envelope do SCRAP para a lingua de `coleta/ingresso.py` — e so traduz. E CADA FASE DECLARA A ESPECIE QUE PRODUZ (LINKEDIN-OP-01): o campo que o contrato de retorno nasceu a dizer que nao existia, agora obrigatorio e sem valor por omissao, porque uma especie por omissao e uma decisao que ninguem tomou. Quatro fases: tres de janela do Instagram, que produzem COLHEITA, e `identidade-linkedin`, que produz CATALOG. LINKEDIN IDENTITY DISCOVERY = WIRED e OBSERVED: um pedido real atravessou REQUEST -> receita -> orquestrador -> esta peca -> roteador -> `descoberta-indireta:site-da-organizacao` e trouxe o endereco LinkedIn que a organizacao publica no site DELA — 2 pedidos HTTP, ambos ao site da organizacao, LINKEDIN_HTTP_REQUESTS = 0, COST_USD = 0. LINKEDIN CONTENT = ROUTE_NOT_ALLOWED, e por isso NAO ha fase nenhuma para ele: `LINKEDIN/FETCH_POST` tem duas rotas declaradas e as duas estao PERMITIDA = NAO. A ausencia da fase e a declaracao — uma fase para conteudo faria esta peca prometer um caminho que a politica proibe. E o CATALOG nao atravessa a Admissao: `ENTRAM_NO_INGRESSO = (COLHEITA,)`, entao o terminal canonico desta especie e o envelope, e nao a Sala de Espera.",
       "why_here": "Medido antes da SCRAP-FLOW-01: `orquestrador/orquestrador.py` era o dono unico da orquestracao, `coleta/scrap_executor.py` era o executor canonico do SCRAP, e A ARESTA ENTRE OS DOIS NAO EXISTIA. Nenhum COLLECTION_REQUEST conseguia chegar ao SCRAP; o disparador ia direto a `coleta/social_scrap.py`, corria o `COLLECT` e parava ali — o que a corrida colhia nunca via a porta da coleta, e portanto nunca chegava a admissao. MODULE EXISTS != EDGE EXISTS != FLOW EXISTS. Este cartao e a aresta, e NAO e um segundo orquestrador: nao decide missao, fonte, rota nem ator. E o que ele nao pode fazer esta escrito no proprio ficheiro: cunhar RUN_ID (ou a corrida do orquestrador e a da coleta eram duas), inventar SOURCE_ID, fabricar DOCUMENT_ID ou derivar RAW_OBSERVATION_ID. Medido tambem: o SCRAP nao conhece SOURCE_ID — o envelope canonico tem PLATFORM, SOURCE_ACCOUNT, NATIVE_ID e URL, e nenhum e uma fonte provada. Por isso a fonte DESCE COM O PEDIDO; sem ela, zero colheita e o porque por escrito. URL NAO E SOURCE_ID.",
       "departments": [
         "ENGENHARIA"
@@ -13921,9 +13935,9 @@
           "DO_SCRAP_PARA_A_PORTA",
           "FASES"
         ],
-        "palavras": 27,
+        "palavras": 30,
         "por_lingua": {},
-        "sem_marca_de_lingua": 27,
+        "sem_marca_de_lingua": 30,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14267,11 +14281,17 @@
           "ALVOS",
           "ALVOS_YOUTUBE_IT",
           "ALVO_OFICIAL",
+          "BANDEIRAS",
+          "CAMPOS_DA_LISTAGEM",
+          "CAMPOS_DE_ENRIQUECIMENTO",
           "CONTENT_TYPES",
           "DECLARADAS",
           "FASES_CANONICAS",
           "FASES_PAGAS",
           "FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY",
+          "HOSTS_QUE_ESTA_ROTA_NUNCA_VISITA",
+          "JANELA",
+          "ONDE_SE_OBTEM",
           "PLATAFORMA_NO_BANCO",
           "POR_CLASSE",
           "PROIBIDO_NA_EVIDENCIA",
@@ -14279,11 +14299,11 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 244,
+        "palavras": 331,
         "por_lingua": {
           "PT": 1
         },
-        "sem_marca_de_lingua": 243,
+        "sem_marca_de_lingua": 330,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15946,6 +15966,8 @@
         "tests/test_integracao_biblia.py",
         "tests/test_italia_na_porta_canonica.py",
         "tests/test_lingua_unica.py",
+        "tests/test_linkedin_build_01_local_first.py",
+        "tests/test_linkedin_op_01_operacional.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_m2_aresta_observada.py",
         "tests/test_m2_rota_forward.py",
@@ -15996,7 +16018,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 112,
+      "file_count": 114,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17092,7 +17114,7 @@
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:118"
+        "prova: coleta/comunicacao_coleta.py:133"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -17392,7 +17414,7 @@
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
         "acoes da coleta que nomeiam este canal: 2",
-        "prova: coleta/comunicacao_coleta.py:117",
+        "prova: coleta/comunicacao_coleta.py:132",
         "prova: coleta/instagram_coleta.py:73"
       ],
       "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
@@ -17474,7 +17496,7 @@
         "contas publicas mapeadas neste canal: 6",
         "dessas, autorizadas a coletar: 0",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:93"
+        "prova: coleta/comunicacao_coleta.py:198"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -17606,7 +17628,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-canonical-flow-f01"
+        "branch claude/sintonia-scrap-linkedin-operational-close-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18191,7 +18213,7 @@
         },
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 240,
+          "line": 276,
           "snippet": "import contrato_ator as ca"
         }
       ],
@@ -18277,7 +18299,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Apify — a rota paga tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Apify — a rota paga tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8b_live_disparador.py",
@@ -18298,6 +18320,11 @@
           "file": "tests/test_falhas.py",
           "line": 19,
           "snippet": "import apify_pool as ap            # noqa: E402"
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 290,
+          "snippet": "import apify_pool as ap"
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
@@ -19601,12 +19628,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
           "line": 25,
           "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 313,
+          "snippet": "import autorizacao_de_gasto as ag"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -21824,7 +21856,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21857,6 +21889,11 @@
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
         },
         {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 289,
+          "snippet": "import coletor as ct"
+        },
+        {
           "file": "tests/test_m2_rota_forward.py",
           "line": 19,
           "snippet": "import coleta_checkpoint as cc        # noqa: E402"
@@ -21880,11 +21917,6 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 253,
           "snippet": "import coletor as ct"
-        },
-        {
-          "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 29,
-          "snippet": "import coletor as ct                                              # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -22198,7 +22230,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
@@ -22219,6 +22251,11 @@
           "file": "tests/test_comunicacao.py",
           "line": 27,
           "snippet": "import comunicacao_classificar as cl      # noqa: E402"
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 29,
+          "snippet": "import comunicacao_coleta as cc                                   # noqa: E402"
         },
         {
           "file": "tests/test_reel_transcricao.py",
@@ -22915,7 +22952,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 186,
+          "line": 197,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -24775,7 +24812,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 184,
+          "line": 220,
           "snippet": "with open(LOTE, encoding='utf-8') as f:"
         },
         {
@@ -25034,7 +25071,7 @@
       "evidence": [
         {
           "file": "tests/test_c8_convergencia.py",
-          "line": 261,
+          "line": 278,
           "snippet": "'coleta/ingresso.py', 'orquestrador/', 'supabase/',"
         },
         {
@@ -25997,7 +26034,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 188,
+          "line": 199,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -26833,7 +26870,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
@@ -26849,6 +26886,11 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 163,
           "snippet": "fonte = io.open(os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\"),"
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 353,
+          "snippet": "'orquestrador/orquestrador.py'):"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -28171,12 +28213,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 184,
+          "line": 195,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 190,
+          "line": 201,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -29152,6 +29194,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-RECEITAS",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 352,
+          "snippet": "for ficheiro in ('coleta/scrap_colheita.py', 'pedido/receitas.py',"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-RECORRENCIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -29444,8 +29504,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 30,
+          "snippet": "import retorno_da_coleta as rc                                    # noqa: E402"
+        },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 27,
@@ -29466,7 +29531,7 @@
       "evidence": [
         {
           "file": "tests/test_c8_convergencia.py",
-          "line": 262,
+          "line": 279,
           "snippet": "'leis/retorno_da_coleta.py'],"
         }
       ],
@@ -29811,8 +29876,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 32,
+          "snippet": "import scrap_colheita as sc                                       # noqa: E402"
+        },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 28,
@@ -29829,8 +29899,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 352,
+          "snippet": "for ficheiro in ('coleta/scrap_colheita.py', 'pedido/receitas.py',"
+        },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 115,
@@ -30259,7 +30334,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -30270,6 +30345,11 @@
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 43,
           "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 37,
+          "snippet": "import social_matriz as mz         # noqa: E402"
         },
         {
           "file": "provas/orcamento_financeiro.py",
@@ -30402,12 +30482,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 9 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 48,
           "snippet": "import social_matriz as mz           # noqa: E402 — DONO da decisao de rota"
+        },
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 562,
+          "snippet": "import social_matriz as mz"
         },
         {
           "file": "coleta/scrap_executor.py",
@@ -30483,7 +30568,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 46 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -30774,7 +30859,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 519,
+          "line": 559,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -30788,7 +30873,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 40 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 45 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -31011,7 +31096,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 109 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 120 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -31084,7 +31169,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 63 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 64 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -31280,7 +31365,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -31296,6 +31381,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 109,
           "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 305,
+          "snippet": "import sensor_coleta as sensor"
         }
       ],
       "categoria": "PROOF"
@@ -31308,7 +31398,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
@@ -31334,6 +31424,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 72,
           "snippet": "arvore = ast.parse(_fonte('regras/sensor_coleta.py'))"
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 308,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'regras/sensor_coleta.py'),"
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
@@ -32538,7 +32633,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 731,
+          "line": 806,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -33518,7 +33613,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 118,
+          "line": 133,
           "snippet": "'FACEBOOK': ('FETCH_POST', 'apify:facebook'),"
         }
       ],
@@ -33620,7 +33715,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_http.py",
-          "line": 46,
+          "line": 48,
           "snippet": "import urllib.request"
         }
       ],
@@ -33654,7 +33749,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 117,
+          "line": 132,
           "snippet": "'INSTAGRAM': ('FETCH_POST', 'apify:instagram-scraper'),"
         }
       ],
@@ -33671,8 +33766,8 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 93,
-          "snippet": "'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),"
+          "line": 198,
+          "snippet": "'LINKEDIN': 'FETCH_POST · as duas rotas declaradas estao PERMITIDA = NAO',"
         }
       ],
       "categoria": "DATA"
@@ -33823,7 +33918,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 774,
+  "UNCLAIMED_FILES_COUNT": 781,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33991,12 +34086,12 @@
     "components_pending": 108,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 704,
-    "edges_proven": 701,
+    "edges": 705,
+    "edges_proven": 702,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1540,
-    "files_covered": 766,
+    "files_tracked": 1550,
+    "files_covered": 769,
     "files_code_unclaimed": 0
   }
 }
