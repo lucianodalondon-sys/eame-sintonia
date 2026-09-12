@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/remeasure-collection-v1-close-gates",
-    "HEAD": "abbd1a0e7ea4ef4bbd9a616f9e21f1ada88f9074",
-    "GENERATED_AT": "2026-09-12T04:48:06+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d325b4ad6387b606a79a5ae204fd5b0c5e31e20de11a5fec8525d70ccdc72791"
+    "BRANCH": "claude/fix-absence-vocabulary-run-seam-v1",
+    "HEAD": "7d7efebfee2eaeae076c02721ef3a2f2e343d433",
+    "GENERATED_AT": "2026-09-12T05:01:31+00:00",
+    "SOURCE_TREE_FINGERPRINT": "871011fd4637ad6cd3a28174fb573747d8fa3c15c8f8efdb0c133cf82f5b511b"
   },
   "FILES": [
     {
@@ -1235,7 +1235,7 @@
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "cd7004e9ee1fd0f632a15d063d0fe164c13e7cff",
+      "sha": "00c7be35dae06d4ee10d8ae4131ff9edacc55523",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9823,6 +9823,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_ausencia_na_fronteira_da_corrida.py",
+      "sha": "0b9f69cfbe4e9c2714e240c68eb5af6859212647",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_autoridade_da_fonte.py",
       "sha": "0ccd7b84c8cdd704ca39b8bc6a406a8254083085",
       "ext": ".py",
@@ -9999,7 +10006,7 @@
     },
     {
       "path": "tests/test_gate_de_aceitacao_tematica.py",
-      "sha": "9b99045a516be0c360dbae07556bc4282daeb6a0",
+      "sha": "0bd30a101760f805e0ba8e62eb519e2e43c68927",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -32924,6 +32931,50 @@
       }
     },
     {
+      "from_file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+        "line": 19,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+        "line": 111,
+        "snippet": "from guarda.preservar_coleta import preservar, ArmazemDeMentira"
+      }
+    },
+    {
+      "from_file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+        "line": 108,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+      "to_file": "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+        "line": 30,
+        "snippet": "with open(MIGRATION, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "tests/test_autoridade_da_fonte.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -39574,10 +39625,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1493,
-    "files_readable": 575,
-    "files_code_dir": 620,
-    "file_edges": 2603,
+    "files_tracked": 1494,
+    "files_readable": 576,
+    "files_code_dir": 621,
+    "file_edges": 2607,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

@@ -1469,6 +1469,7 @@
       "tests/test_aprender_com_a_fonte.py",
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
+      "tests/test_ausencia_na_fronteira_da_corrida.py",
       "tests/test_autoridade_da_fonte.py",
       "tests/test_biblia.py",
       "tests/test_calendario_temporal.py",
@@ -1940,10 +1941,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/remeasure-collection-v1-close-gates",
-    "HEAD": "abbd1a0e7ea4ef4bbd9a616f9e21f1ada88f9074",
-    "GENERATED_AT": "2026-09-12T04:48:06+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d325b4ad6387b606a79a5ae204fd5b0c5e31e20de11a5fec8525d70ccdc72791"
+    "BRANCH": "claude/fix-absence-vocabulary-run-seam-v1",
+    "HEAD": "7d7efebfee2eaeae076c02721ef3a2f2e343d433",
+    "GENERATED_AT": "2026-09-12T05:01:31+00:00",
+    "SOURCE_TREE_FINGERPRINT": "871011fd4637ad6cd3a28174fb573747d8fa3c15c8f8efdb0c133cf82f5b511b"
   },
   "FAMILIES": [
     {
@@ -15375,6 +15376,7 @@
         "tests/test_aprender_com_a_fonte.py",
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
+        "tests/test_ausencia_na_fronteira_da_corrida.py",
         "tests/test_autoridade_da_fonte.py",
         "tests/test_biblia.py",
         "tests/test_calendario_temporal.py",
@@ -15466,7 +15468,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 100,
+      "file_count": 101,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17041,7 +17043,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/remeasure-collection-v1-close-gates"
+        "branch claude/fix-absence-vocabulary-run-seam-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22584,8 +22586,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 12 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+          "line": 111,
+          "snippet": "from guarda.preservar_coleta import preservar, ArmazemDeMentira"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 34,
@@ -22640,11 +22647,6 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 45,
           "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel    # noqa: E402"
-        },
-        {
-          "file": "tests/test_raw_observation_id_volta.py",
-          "line": 244,
-          "snippet": "from guarda.portas_live import MemoriaSupabase"
         }
       ],
       "categoria": "PROOF"
@@ -27627,7 +27629,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 27 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 28 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27648,6 +27650,11 @@
           "file": "tests/test_amostragem_neutra_t3.py",
           "line": 26,
           "snippet": "\"amostra_t3\", os.path.join(RAIZ, \"provas\", \"amostragem_neutra_t3.py\"))"
+        },
+        {
+          "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+          "line": 108,
+          "snippet": "\"preservar_coleta_no_postgres.py\"))"
         },
         {
           "file": "tests/test_candidatos_tematicos.py",
@@ -27683,11 +27690,6 @@
           "file": "tests/test_fonte_atravessa.py",
           "line": 29,
           "snippet": "\"a_fonte_atravessa_ate_a_porta.py\"))"
-        },
-        {
-          "file": "tests/test_gate_de_aceitacao_tematica.py",
-          "line": 29,
-          "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -30228,7 +30230,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -30271,6 +30273,11 @@
           "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\"))"
         },
         {
+          "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+          "line": 30,
+          "snippet": "with open(MIGRATION, encoding=\"utf-8\") as f:"
+        },
+        {
           "file": "tests/test_calendario_temporal.py",
           "line": 51,
           "snippet": "self.m010 = sql('010_calendario_agronomico.sql')"
@@ -30284,11 +30291,6 @@
           "file": "tests/test_calendario_temporal.py",
           "line": 76,
           "snippet": "m012 = sql('012_contexto_temporal_do_caso.sql')"
-        },
-        {
-          "file": "tests/test_calendario_temporal.py",
-          "line": 305,
-          "snippet": "m = sql('008_verificacao_pos_aplicacao.sql')"
         }
       ],
       "categoria": "PROOF"
@@ -31856,8 +31858,8 @@
     "edges_proven": 647,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1493,
-    "files_covered": 735,
+    "files_tracked": 1494,
+    "files_covered": 736,
     "files_code_unclaimed": 0
   }
 }

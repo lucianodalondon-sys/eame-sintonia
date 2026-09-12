@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "abbd1a0e7ea4ef4bbd9a616f9e21f1ada88f9074",
+    "HEAD": "7d7efebfee2eaeae076c02721ef3a2f2e343d433",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4552,6 +4552,19 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.invalido/x.pdf",
+      "usado_por": [
+        {
+          "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+          "line": 130
+        },
+        {
+          "file": "tests/test_legado_fora_do_fluxo.py",
+          "line": 124
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/exemplo",
       "usado_por": [
         {
@@ -4647,15 +4660,6 @@
         {
           "file": "coleta/social_rotas.py",
           "line": 252
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/%s'",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 261
         }
       ]
     }
