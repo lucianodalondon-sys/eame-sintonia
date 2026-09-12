@@ -8797,3 +8797,172 @@ ao fornecedor não é ter permissão. Juntas, e na ordem em que se perguntam:
 Três perguntas, três respostas independentes. Um relatório que colapse duas
 delas está a dizer a verdade sobre uma e a enganar sobre a outra — que foi
 exactamente o defeito que a `§84.4` nasceu para nomear.
+
+---
+
+# §90 · ESCOLHER A CHAVE ANTES DO CONCEITO É DECIDIR A FORMA SEM SABER O QUE SE GUARDA
+
+**Missão:** `C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1` (decisão, sem implementação)
+**HEAD final:** `0a2992c4`
+**Decisão:** [`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md)
+**Medição:** `provas/a_linhagem_do_reaproveitamento.py`
+
+A `§86` mediu o buraco e recomendou uma tabela. E a recomendação saiu
+contraditória: dizia que o grão era `(observação, derivado, passagem)` e que a
+identidade incluía `run_id` — e três parágrafos abaixo dizia que a entrada do
+`run_id` na chave estava **em aberto**.
+
+Escrevi as duas coisas no mesmo documento, no mesmo dia, sem dar por isso.
+
+```
+    O ERRO NÃO FOI DE REDAÇÃO.
+    FOI TER ESCOLHIDO A CHAVE ANTES DO CONCEITO.
+```
+
+Uma chave é uma resposta à pergunta «o que é que duas linhas iguais
+significariam?». Sem saber o que a tabela representa, essa pergunta não tem
+resposta — e o que sai é uma chave plausível com uma dúvida pendurada.
+
+## 90.1 · A PERGUNTA QUE SEPARA, E COMO SE MEDE
+
+Duas perguntas parecidas, e não são a mesma:
+
+```
+L · LINHAGEM   esta observação participou deste derivado?
+E · EXECUÇÃO   em que passagem isso aconteceu, e com que resultado?
+```
+
+O teste não é filosófico. **Contam-se as duas coisas nos mesmos casos reais.**
+Se os números andarem sempre juntos, é um conceito só. Se divergirem, são dois.
+
+```
+caso 1  RUN A, RAW A -> X                 arestas 1   eventos 1
+caso 2  retry na MESMA corrida            arestas +0  eventos +1
+caso 3  RUN B, RAW B, mesmos bytes        arestas +1  eventos +1
+caso 4  rederivar RAW A noutra corrida    arestas +0  eventos +1
+                                          ─────────   ─────────
+                                          1           6
+```
+
+Seis passagens tocaram **uma** aresta. A divergência não é de escala: é de
+espécie, e é ela que decide o desenho.
+
+```
+    PARA SABER SE SÃO DOIS CONCEITOS, CONTE OS DOIS NOS MESMOS CASOS.
+    DOIS NÚMEROS QUE NÃO SE EXPLICAM UM AO OUTRO SÃO DUAS COISAS.
+```
+
+## 90.2 · DOIS CONCEITOS NÃO SÃO DUAS TABELAS NOVAS
+
+O reflexo, depois de provar que são dois, é criar dois donos. Estava errado: o
+conceito de execução **já tem casa** — `etapa_da_corrida`, uma linha por
+`(run_id, etapa, tentativa)`.
+
+```
+    DOIS CONCEITOS, DOIS DONOS — E SÓ UM DELES PRECISA DE NASCER.
+```
+
+O limite dessa casa fica **declarado e não consertado**: ela conta por passagem
+e não nomeia itens. Nenhuma necessidade provada exige resolver isso hoje — e a
+pergunta que o motivava («esta observação foi processada?») passa a ter resposta
+pela **existência da aresta**, sem histórico por item.
+
+## 90.3 · A SENTINELA: A CORRIDA QUE DERIVA PODE NÃO SER A QUE CAPTUROU
+
+O caso 4 é o que fecha a decisão. Derivei outra vez uma observação da corrida A,
+numa passagem que pertence à corrida B — e **o banco aceitou**.
+`etapa_da_corrida.run_id` exige que a corrida exista, não que seja a que
+capturou.
+
+Com `run_id` na chave da aresta, o mesmo facto material teria duas linhas. E há
+uma pergunta que essa chave nem consegue formular:
+
+```
+    QUAL run? A QUE CAPTUROU, OU A DA PASSAGEM QUE DERIVOU?
+```
+
+```
+    UMA CHAVE QUE NÃO SABE RESPONDER «QUAL DOS DOIS?»
+    NÃO É UMA IDENTIDADE: É UMA AMBIGUIDADE COM ÍNDICE.
+```
+
+O `run_id` fica, mas como **proveniência**: a corrida da passagem em que a
+aresta foi vista pela primeira vez. E o nome tem de dizer isso, porque um
+`run_id` seco seria lido como «a corrida desta aresta», que não existe.
+
+## 90.4 · O QUE MUDA A CADA PASSAGEM NÃO PERTENCE À RELAÇÃO
+
+A mesma aresta teve `INSERTED` na primeira passagem e `REUSED` nas duas
+seguintes. O facto material não mudou; o resultado mudou três vezes.
+
+```
+    UMA RELAÇÃO QUE SE REESCREVE A CADA PASSAGEM NÃO É UMA RELAÇÃO.
+```
+
+E a casa já tinha a regra escrita, na `024`: `STAGE STATE != ITEM DESTINATION`.
+Uma etapa não é «reaproveitada» — um item é. O mesmo vale para o tempo: o
+carimbo da relação diz **primeira vez**, e os outros dois tempos já têm dono
+(`derived_at` do artefato, `comecou_em` da passagem).
+
+A regra geral, para o próximo desenho:
+
+```
+    ANTES DE PÔR UM CAMPO NUMA RELAÇÃO, PERGUNTE:
+    ELE MUDA SE A MESMA COISA ACONTECER OUTRA VEZ?
+    SE MUDA, ELE É DO EVENTO, E NÃO DA RELAÇÃO.
+```
+
+## 90.5 · AS CONVENÇÕES ESTAVAM NO ESQUEMA, E BASTOU MEDI-LAS
+
+Três respostas que eu ia justificar por preferência já estavam escritas, e
+mediram-se em vez de se argumentarem:
+
+```
+apagamento   material RESTRICT, telemetria CASCADE
+             (raw_asset→collection_run, derived_artifact→raw_asset: RESTRICT;
+              etapa_da_corrida→ambos: CASCADE)
+
+tentativa    fora da identidade — `raw_asset.attempts` já é «TELEMETRIA, e fora
+             da chave de idempotência»
+
+corrida      a `022` recusou uma RUN própria para a derivação, e a `024` recusou
+             um `flow_run` paralelo: «duas corridas divergem na primeira pressa»
+```
+
+```
+    UMA CONVENÇÃO MEDIDA NO ESQUEMA VALE MAIS
+    DO QUE UMA PREFERÊNCIA DEFENDIDA NUMA ADR.
+```
+
+## 90.6 · A TERCEIRA GUARDA DE TEXTO A MORDER A PRÓPRIA EXPLICAÇÃO
+
+Escrevi um teste que reprovava se a ADR contivesse «em aberto». Ele reprovou —
+na nota que **explica** que a pergunta *estava* em aberto e foi fechada.
+
+É a terceira vez nesta linha de missões (`§85`, e duas vezes aqui). O padrão já
+não é acidente:
+
+```
+    UMA GUARDA DE TEXTO NÃO DISTINGUE A REGRA DO EXEMPLO DELA.
+    UMA GUARDA LÊ O QUE A DECISÃO **DIZ**, E NÃO O FICHEIRO INTEIRO.
+```
+
+A versão que ficou confere **campo a campo**, com vocabulário fechado:
+`PARTICIPATION_CONCEPT`, `RUN_ID_IN_MATERIAL_LINEAGE_KEY`, `ATTEMPT_IN_KEY`,
+`RUN_ID_AS_PROVENANCE`, `INSERTED_REUSED_BELONGS_TO`. Se um deles voltar a
+`UNKNOWN`, a guarda morde — e morde a coisa certa.
+
+E houve uma quarta, da espécie oposta: uma guarda que exigia o estado
+`RECOMENDADO` reprovou quando a ADR passou a `DECIDIDO`.
+
+```
+    UMA GUARDA QUE PRENDE O ESTADO ERRADO
+    REPROVA O PROGRESSO E DEIXA PASSAR O DEFEITO.
+```
+
+## 90.7 · O QUE FICA POR SABER
+
+Fica por saber se alguém vai precisar do histórico **por item** — quais
+observações foram reaproveitadas em qual passagem. Hoje não há necessidade
+provada, e por isso não se constrói. Se aparecer, o sítio já está escolhido: é
+ao lado da passagem, e não dentro da aresta.
