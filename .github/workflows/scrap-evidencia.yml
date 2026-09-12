@@ -1,0 +1,118 @@
+# ═══════════════════════════════════════════════════════════════════════
+# SINTONIA SCRAP — a evidência atravessa a fronteira do job, ou não atravessa
+#
+# POR QUE ESTE WORKFLOW EXISTE
+# ------------------------------
+# A C10.8B-LIVE pagou por 59.743 bytes de RAW. Eles foram escritos, relidos e
+# assinados dentro do mesmo processo — e o job seguinte não os encontrou. O
+# `.gitignore` ignora `data/samples/**/*.gz`, e o `actions/checkout` limpa o que
+# o `.gitignore` ignora.
+#
+#     RAW CAPTURADO NO PROCESSO
+#       != RAW QUE SOBREVIVE AO JOB
+#       != RAW DEVOLVIDO PARA INVESTIGAÇÃO
+#       != PRESERVAÇÃO FORWARD CANÔNICA.
+#
+# Este workflow prova o TERCEIRO, e só ele. Dois jobs, duas máquinas, um
+# artefato no meio.
+#
+#     GUARDAR SEM NUNCA TER IDO BUSCAR NÃO É GUARDAR. É ESPERAR.
+#
+# O QUE ELE NÃO É
+# -----------------
+#     WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE.
+#
+# A retenção é de 30 dias e está declarada no manifesto de cada pacote. Isto
+# fecha investigação entre jobs; não substitui o dono forward.
+#
+# CUSTO
+# -----
+# Zero. Runner da nuvem, sem `APIFY_TOKEN_POOL`, sem provider, sem rede de
+# aquisição. Os bytes vêm do acervo versionado desta casa.
+# ═══════════════════════════════════════════════════════════════════════
+name: scrap-evidencia
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scrap-evidencia-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  # ── JOB A · produz o RAW desta corrida e publica o pacote ──────────────
+  produzir:
+    runs-on: ubuntu-latest
+    outputs:
+      run_id: ${{ steps.publicar.outputs.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · o RAW desta corrida, escrito, relido e assinado
+        id: publicar
+        run: |
+          RUN_ID="SCRAP-EVID-${{ github.run_id }}"
+          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
+          PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \
+            evidencia-publicar "$RUN_ID"
+
+      # `if-no-files-found: error` porque um upload que não sobe nada é FALHA,
+      # não aviso. A mesma escolha já está em `scrap-social.yml`, onde
+      # `if-no-files-found: warn` deixava o passo VERDE com zero ficheiros e o
+      # estado virava PILOT_PROOF sem prova nenhuma.
+      #
+      #     UPLOAD STEP SUCCESS != ARTIFACT EXISTS.
+      - name: 2 · o pacote atravessa
+        id: subir
+        uses: actions/upload-artifact@v4
+        with:
+          name: scrap-evidencia-SCRAP-EVID-${{ github.run_id }}
+          path: .tmp/scrap-evidencia/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: 3 · o que a transferência diz de si própria
+        run: |
+          echo "EVIDENCE_TRANSFER_OUTCOME=${{ steps.subir.outcome }}"
+          echo "EVIDENCE_ARTIFACT_ID=${{ steps.subir.outputs.artifact-id }}"
+          if [ -z "${{ steps.subir.outputs.artifact-id }}" ]; then
+            echo "EVIDENCE_TRANSFERRED=NO · o Actions nao devolveu artifact-id"
+            exit 1
+          fi
+          echo "EVIDENCE_TRANSFERRED=YES"
+
+  # ── JOB B · outra máquina, checkout limpo, recupera pelo RUN_ID ────────
+  recuperar:
+    needs: produzir
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # A fronteira é aqui. Esta máquina nunca viu o ficheiro do job A: ele
+      # nasceu numa pasta que o `.gitignore` ignora, e o checkout traz só o que
+      # está versionado.
+      - name: 1 · esta máquina tem o RAW do job A?
+        run: |
+          RUN_ID="${{ needs.produzir.outputs.run_id }}"
+          if ls data/samples/SOCIAL-IT/raw-free/YOUTUBE/"$RUN_ID"* >/dev/null 2>&1; then
+            echo "WORKSPACE_RAW_BEFORE=PRESENT · a fronteira nao existe"
+            exit 1
+          fi
+          echo "WORKSPACE_RAW_BEFORE=ABSENT"
+
+      # Pelo NOME da corrida, e não «o último». Um pacote de outra corrida com o
+      # mesmo formato pareceria este.
+      - name: 2 · recuperar o pacote pelo RUN_ID
+        uses: actions/download-artifact@v4
+        with:
+          name: scrap-evidencia-${{ needs.produzir.outputs.run_id }}
+          path: .tmp/recuperado/
+
+      - name: 3 · SHA recalculado, e reprocessamento sem rede
+        run: |
+          PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \
+            evidencia-recuperar "${{ needs.produzir.outputs.run_id }}" \
+            .tmp/recuperado/
