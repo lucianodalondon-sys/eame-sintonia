@@ -7610,3 +7610,136 @@ A lista é hoje um acordo escrito, e não uma guarda que morde — ao contrário
 E fica por saber se há outros campos voláteis dentro dos donos: encontrei
 `PROVENANCE.HEAD` porque ele partiu à primeira volta, e não porque alguém
 tenha feito o censo do que lá muda sozinho.
+
+---
+
+# §83 · UMA LINHA DE CÓDIGO PROVA QUE ALGO CONSEGUE, NÃO QUE ALGO ACONTECEU
+
+**Missão:** `C-SYSTEM-MAP-G1-FOUR-PLANES-AND-EVIDENCE-BINDING-V1`
+**Linha:** `claude/dazzling-cerf-27a7v2` · **HEAD final:** `e50717e6`
+**Tocado:** `system-map/scripts/generate_system_map.py` ·
+`system-map/scripts/revisao_da_evidencia.py` ·
+`system-map/tests/test_quatro_planos.py` · `system-map/app/map.js` ·
+`docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md`
+
+`§79` registou que o mapa media bem e publicava a palavra errada. Esta secção é
+o que foi preciso para ele parar de a publicar.
+
+## 83.1 · O QUE MUDOU
+
+Cada afirmação do mapa passou a viver em quatro planos separados, e cada
+evidência passou a dizer **que afirmação sustenta**.
+
+```
+antes   659 arestas e 59 peças:  status = PROVEN
+        uma palavra a responder por quatro perguntas
+
+depois  DECLARED · CODE · OBSERVED · PROVEN, cada um YES|NO|UNKNOWN
+        614 CODE=YES · 47 CODE=UNKNOWN · 661 OBSERVED=UNKNOWN
+        e PROVEN traz sempre o PLANO em que está provado
+```
+
+```
+    ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+    DECLARED → CODE → OBSERVED → PROVEN: nenhuma seta é automática.
+```
+
+## 83.2 · POR QUÊ
+
+Porque as duas falhas eram a mesma correcção vista de dois lados, e separá-las
+teria deixado o mapa a mentir por metade:
+
+- rotular os planos **sem** ligar a evidência à afirmação deixava 52 arestas com
+  `CODE=YES` apoiado numa linha que não as prova;
+- ligar a evidência **sem** rotular os planos deixava 659 arestas a dizer
+  `PROVEN` sobre evidência de código.
+
+Nenhuma das duas, sozinha, tirava o mapa de `FAIL`.
+
+## 83.3 · PROVA — E O CASO QUE SÓ APARECEU AO IMPLEMENTAR
+
+A sentinela conhecida ficou fixada como caso de teste:
+
+```
+C-APIFY-POOL → C-COLETA-PUBLICA  IMPORTS       CODE = YES      (plano CODE)
+C-APIFY-POOL → V-FACEBOOK        ABRE_O_CANAL  CODE = UNKNOWN
+C-APIFY-POOL → V-INSTAGRAM       ABRE_O_CANAL  CODE = UNKNOWN
+C-APIFY-POOL → V-LINKEDIN        ABRE_O_CANAL  CODE = UNKNOWN
+```
+
+E apareceu um terceiro caso que ninguém tinha nomeado: **a mesma linha medida
+duas vezes, por duas perguntas**. O scanner emite `IMPORTS` pelo casador de
+imports e emite também `READS artefacto` pelo casador de **literais**, que
+encontra `'./lang.mjs'` dentro de `import { X } from './lang.mjs'` e não
+distingue um especificador de módulo de um caminho de dado. Trinta e seis linhas,
+todas `.mjs`.
+
+```
+    UM `import` NÃO É UMA LEITURA DE ARTEFACTO.
+```
+
+O scanner não foi corrigido — o mapa **observa**. Diz-se o que a evidência
+sustenta, e o plano cai para `UNKNOWN`.
+
+As 52 arestas foram revistas uma a uma, com o porquê ao lado: 30 `SUPPORTED`,
+7 `AMBIGUOUS`, 15 `UNSUPPORTED`. Nenhuma decisão entrou sem `WHY`.
+
+```
+    NO != UNKNOWN. Onde a evidência não sustenta a afirmação, o plano cai
+    para UNKNOWN — nunca para NO. Falta de prova não é prova de ausência.
+```
+
+## 83.4 · INFERIDO PELO OBSERVADOR NÃO É DECLARADO PELA AUTORIDADE
+
+O contrato chamava aos 40 rótulos sem tipo medido «rótulos narrativos **de
+declaração**» e dava-lhes `DECLARED = YES`. Medido: só **duas** vêm de
+`architecture.declared.json`. As outras **38 são inferidas pelo próprio gerador**
+a partir de factos de ficheiro.
+
+São o caso mais desconfortável do mapa: ele desenha-as e não as consegue provar
+em plano nenhum. Agora diz isso, em vez de lhes emprestar uma autoridade que
+elas não têm.
+
+## 83.5 · UM CAMPO QUE SOBREVIVE À REFORMA TEM DE PASSAR A DERIVAR DELA
+
+`status` ficou, porque a tela e três censos o leem. O que mudou é que deixou de
+ser uma segunda opinião: é derivado de `PROVEN`, está marcado `DEPRECATED`, e a
+prova reprova se contradisser os planos.
+
+```
+    UM CAMPO LEGADO QUE NÃO DERIVA DA REFORMA
+    NÃO É COMPATIBILIDADE: É UM CONCORRENTE.
+```
+
+## 83.6 · UM TOTAL QUE VEM DA MESMA LISTA QUE ELE CONTA NUNCA ACUSA UMA FALTA
+
+Três mutantes sobreviveram à primeira ronda, todos guardas que nunca tinham visto
+um defeito. Um deles apanhou um erro a sério: a prova conferia a cobertura da
+revisão **comparando-a consigo própria** — `ARESTAS_REVISTAS == len(ARESTAS)` —
+e as duas encolhem juntas quando alguém deixa uma aresta de fora.
+
+Conferida contra o **estado**, ela acusou de imediato uma aresta em falta: a do
+próprio APIFY. A revisão corria antes da última passagem da cadeia e media o
+conjunto da corrida anterior — a mesma dívida do ciclo atrasado, noutro sítio.
+
+```
+    UMA COBERTURA CONFERIDA CONTRA A PRÓPRIA LISTA MEDE ZERO.
+```
+
+## 83.7 · CONSEQUÊNCIA
+
+```
+C1..C7    todas FALSE
+TRUST     DEGRADED — medido, não forçado, e previsto pela DAG antes de o ser
+RED TEAM  12 ataques · 0 sobreviventes
+MUTAÇÃO   14 mutantes · 0 sobreviventes
+```
+
+`CAN DO` e `DID DO` passam a coexistir sem promoção automática. O mapa saiu de
+`FAIL` não por ter provado mais, mas por ter passado a dizer com precisão o que
+sabe e o que não sabe — e **661 arestas dizem agora `OBSERVED = UNKNOWN`**, que é
+a verdade que ele antes escondia atrás da palavra `PROVEN`.
+
+Fica por saber o comportamento de `OBSERVED` quando houver travessia observada
+por par de cartões: hoje o ledger observa **ficheiros de executor**, não arestas,
+e duas peças de 160 estão observadas.
