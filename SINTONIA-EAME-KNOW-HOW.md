@@ -6119,3 +6119,120 @@ verdade, porque o que se provou foi o caminho, com fornecedor falso.
 ```
     CAN DO != DID DO.
 ```
+
+---
+
+# §74 · UMA MORADA ESCOLHIDA EM SILÊNCIO É UMA QUE NINGUÉM PODE DISCUTIR DEPOIS
+
+A missão `C-CLOSE-THE-READY-EDGE-V1` pedia para fechar os dois últimos
+blockers da Collection. Ela mediu, encontrou uma decisão por tomar, e parou.
+Isto é o registo de por que parar foi o trabalho, e não a falta dele.
+
+## 74.1 · O QUE NÃO FALTAVA
+
+```
+CONTRATO   COL-LAW-043, 11 campos fixos
+DONO       admissao.pronto_para_inteligencia(), e é o ÚNICO construtor
+ENTRADA    `item` + `Decisao` — e `rota_forward_documento.admitir()` já os
+           tem em mãos, montados, no sítio certo
+```
+
+`G-READY-01` («READY não é produzido por nenhuma rota») não precisa de
+contrato novo nem de tradutor novo. A ligação que falta é **uma chamada**.
+
+## 74.2 · O QUE FALTAVA ERA UMA MORADA, E A LEI NÃO ESCOLHE
+
+```
+COL-LAW-043   fixa os 11 campos · CALA-SE sobre onde a unidade pousa
+COL-LAW-044   ONDE ESTÁ: Supabase · git · data/raw · data/samples
+```
+
+A lei lista ficheiro **e** banco como armazenamento legítimo. Não há contrato
+para consultar: há uma escolha por fazer.
+
+## 74.3 · A CORREÇÃO QUE MUDOU A DECISÃO A MEIO
+
+Eu ia declarar que a morada declarada no mapa — `data/samples/
+PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json` — «não tem escritor».
+
+**Tem.** `orquestrador/orquestrador.py` decide, escreve o livro da porta,
+chama o dono do READY por cada `SIM` e grava o ficheiro da corrida. A pasta
+não existe porque nenhuma corrida daquele caminho produziu aceites.
+
+```
+    DESTINO VAZIO != DESTINO SEM DONO.
+```
+
+Isto não é um detalhe: muda a decisão. A saída «ficheiro» deixa de ser
+hipótese e passa a ser implementação existente — e «criar uma tabela ao lado»
+passa a ser um **segundo dono da mesma espera**, que é precisamente o que
+`ONE CONCEPT → ONE OWNER` proíbe.
+
+## 74.4 · AS DUAS SAÍDAS, E POR QUE NENHUMA É ÓBVIA
+
+**(A) a rota forward usa a morada que já existe.** Um dono, zero migrations,
+`G-READY-01` fecha por uma chamada. Mas a espera continua em ficheiro: sem
+chave estrangeira, sem unicidade, sem transação. A missão pedia concorrência
+e crash/retry **provados em PostgreSQL** — e com ficheiro não se provam.
+
+**(B) a sala de espera ganha tabela (migration 029).** Suporta unicidade e
+concorrência reais, e põe a espera ao lado das outras etapas. Mas passam a
+existir duas moradas para a mesma espera, e retirar a do orquestrador muda um
+caminho que não é destes dois blockers. E há um segundo fio: a decisão de
+admissão **não tem linha nenhuma** — o dono escreve num livro JSON e `Decisao`
+não carrega surrogate. Ou READY se liga a ela por chave natural, ou a
+ADMISSION ganha armazenamento, e isso é `G-ADM-01`: dívida de **outro** portão.
+
+```
+    DUAS SAÍDAS LEGÍTIMAS COM CONSEQUÊNCIAS DIFERENTES
+    NÃO SÃO UM DETALHE DE IMPLEMENTAÇÃO. SÃO UMA DECISÃO.
+```
+
+E o repositório já tinha dito isto, antes da missão, em
+`provas/a_fronteira_da_coleta.py`: «São duas coisas, e ligá-las é uma DECISÃO
+DE ARQUITETURA — não um remendo de código.»
+
+## 74.5 · DUAS LIÇÕES, E AS DUAS SÃO A MESMA
+
+Ambas nasceram de eu ler **texto** onde a pergunta era de **estrutura**.
+
+**Procurar a palavra acusou o inocente.** A medição procurava a string
+`PRONTO_PARA_INTELIGENCIA` nos ficheiros e concluiu que o orquestrador era um
+segundo construtor do registo READY. Ele escreve aquele texto como `ESTADO` de
+um recibo, e **chama** o dono.
+
+```
+    MENCIONAR UM CONTRATO NÃO É IMPLEMENTÁ-LO.
+    E A DIFERENÇA SÓ SE VÊ NA ESTRUTURA, NUNCA NO TEXTO.
+```
+
+Por AST — quem devolve um dicionário com os 11 campos da lei — o orquestrador
+sai da lista sozinho. É a mesma família do defeito de §60 e do medidor de §72.
+
+**E a medição aceitava casos que não comparavam nada.** Dois mutantes
+sobreviveram trocando a condição de um caso por `True`, ou por
+`True or <a condição>`. Nada reprovava, porque a resposta certa já era «sim».
+
+```
+    UM CASO QUE PASSA MESMO SEM COMPARAR NADA
+    NÃO É UMA MEDIÇÃO: É UMA AFIRMAÇÃO.
+```
+
+A guarda que fecha isto não confere o valor de cada caso — confere que cada um
+ainda **faz uma pergunta**: nenhuma condição é constante, e nenhuma começa por
+uma constante que a curto-circuite. É finita, e mata as duas formas.
+
+## 74.6 · CONSEQUÊNCIA
+
+```
+G-READY-01  BLOCKER  (remedido neste HEAD)
+G-READY-02  BLOCKER  (remedido neste HEAD)
+COLLECTION_CORE_CLOSE = FAIL · 1 missão até fechar
+MUTAÇÃO  6 mutantes · 0 sobreviventes
+```
+
+Nenhuma migration criada. Nenhuma tabela criada. Nada fechado.
+
+O que fica é a pergunta, posta de maneira que custe pouco a responder: **onde
+pousa a unidade pronta da rota forward?** Respondida essa, o resto é a chamada
+que já estava à espera.
