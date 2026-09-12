@@ -367,6 +367,56 @@ class NemPelaPortaDosFundos(unittest.TestCase):
         self.assertNotIn('instagram_transcrever', modulo or '')
 
 
+class OMapaNaoDeclaraUmaArestaQueNaoExiste(unittest.TestCase):
+    """O censo da coleta contava PROSA como chamada.
+
+    Com a rota aposentada, o censo declarou que ela chamava
+    `reel_transcricao`, `adaptador_instagram` e `youtube_transcrever`, e que
+    dois deles corriam no CI. Nada disso era verdade: a fonte de todas essas
+    arestas era o docstring que EXPLICA a aposentadoria e o comentário do
+    workflow que a anuncia. Um módulo que importa `sys` e mais nada não chama
+    ninguém.
+
+        UM NOME DENTRO DE UMA FRASE NÃO É UM ARGV.
+
+    O censo passa a separar `chamado_por` de `citado_por`. A citação continua
+    registada — uma instrução operacional escrita num documento É uma porta, e
+    esta missão fechou cinco delas — mas deixou de se disfarçar de aresta.
+    """
+
+    CENSO = 'system-map/data/censo-da-coleta.generated.json'
+
+    def _ficha(self, caminho):
+        import json
+        d = json.loads(_fonte(self.CENSO))
+        por = {x['ficheiro']: x for x in d['FICHEIROS']}
+        self.assertIn(caminho, por, 'o censo deixou de ver %s' % caminho)
+        return por[caminho]
+
+    def test_14_o_censo_nao_declara_a_aposentada_a_chamar_ninguem(self):
+        ficha = self._ficha(VELHA_REL)
+        self.assertEqual(ficha['chamado_por'], [])
+        self.assertFalse(ficha['sai_para_fora'],
+                         'o censo ainda diz que a rota aposentada sai para fora')
+        self.assertFalse(ficha['no_ci'],
+                         'o censo ainda diz que a rota aposentada corre no CI')
+        # a aresta caiu, a citacao ficou: fala_local nomeia-a na sua prosa de
+        # proveniencia, e isso e um facto sobre o repositorio
+        self.assertIn('citado_por', ficha, 'o censo perdeu a coluna da citacao')
+
+    def test_15_e_o_censo_continua_a_ver_as_arestas_que_existem(self):
+        """Controlo positivo: cortar prosa nao pode cortar codigo."""
+        asr = self._ficha('ferramentas/fala_local.py')
+        self.assertIn(CANONICO, asr['chamado_por'],
+                      'o censo deixou de ver quem IMPORTA o reconhecedor')
+        janela = self._ficha(JANELA_REL)
+        self.assertTrue(janela['chamado_por'],
+                        'o censo deixou de ver quem chama a janela')
+        self.assertTrue(janela['no_ci'],
+                        'o censo deixou de ver a janela no CI — ela continua '
+                        'a ser uma fase do workflow')
+
+
 class AJanelaFicouDePe(unittest.TestCase):
 
     def test_10_a_janela_nao_transcreve_e_continua_oferecida(self):
