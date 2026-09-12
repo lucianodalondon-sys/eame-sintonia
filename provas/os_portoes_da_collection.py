@@ -764,16 +764,49 @@ DONOS_DA_MEDICAO = (
 )
 
 
+def _substancia(caminho):
+    """O que o dono DIZ, sem o carimbo de QUANDO foi feito.
+
+    ⚠️ A PRIMEIRA VERSAO DISTO SOMAVA OS BYTES, E MORREU NA PRIMEIRA VOLTA.
+
+    `buracos.generated.json` guarda um `PROVENANCE.HEAD` — o commit em que o
+    censo correu. Esse campo muda a CADA commit, sem que uma virgula do censo
+    mude. Uma impressao que o inclui muda sempre, e uma impressao que muda
+    sempre nao responde a pergunta para que foi feita:
+
+        UMA IMPRESSAO QUE NUNCA COINCIDE NAO DIZ «ESTA VELHO».
+        NAO DIZ NADA.
+
+    E era a doenca do `MEASURED_HEAD` outra vez, um andar abaixo: um carimbo
+    de commit dentro de um ficheiro a contaminar quem o le.
+
+    So `PROVENANCE.HEAD` sai. `MEDIDO_POR` fica: trocar quem mede E uma
+    mudanca de substancia, e tem de gritar.
+    """
+    with open(caminho, "rb") as f:
+        cru = f.read()
+    if not caminho.endswith(".json"):
+        return cru
+    try:
+        d = json.loads(cru.decode("utf-8"))
+    except ValueError:
+        return cru
+    if isinstance(d, dict) and isinstance(d.get("PROVENANCE"), dict):
+        d["PROVENANCE"] = OrderedDict(
+            (k, v) for k, v in sorted(d["PROVENANCE"].items())
+            if k != "HEAD")
+    return json.dumps(d, sort_keys=True, ensure_ascii=False).encode("utf-8")
+
+
 def impressao_dos_donos():
-    """O sha256 do conteudo de quem decide este resultado."""
+    """O sha256 da SUBSTANCIA de quem decide este resultado."""
     import hashlib
     h = hashlib.sha256()
     for rel in DONOS_DA_MEDICAO:
         caminho = os.path.join(RAIZ, rel)
         h.update(rel.encode("utf-8"))
         if os.path.isfile(caminho):
-            with open(caminho, "rb") as f:
-                h.update(f.read())
+            h.update(_substancia(caminho))
         else:
             h.update(b"<AUSENTE>")
     return h.hexdigest()
@@ -802,6 +835,10 @@ def medir():
         ("FRESCURA", OrderedDict([
             ("IMPRESSAO_DOS_DONOS", impressao_dos_donos()),
             ("DONOS_DA_MEDICAO", list(DONOS_DA_MEDICAO)),
+            ("O_QUE_A_IMPRESSAO_IGNORA", (
+                "`PROVENANCE.HEAD` de um dono gerado. Esse campo muda a cada "
+                "commit sem que o conteudo mude, e uma impressao que nunca "
+                "coincide nao diz «esta velho»: nao diz nada.")),
             ("O_QUE_O_CARIMBO_NAO_DIZ", (
                 "`MEASURED_HEAD` e o HEAD do instante da medicao, e o ficheiro "
                 "que o guarda entra no commit SEGUINTE — nunca pode nomear o "
