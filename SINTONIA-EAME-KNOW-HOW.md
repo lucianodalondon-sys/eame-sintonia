@@ -4627,3 +4627,100 @@ velho; a decisão não. Mexer na matriz é missão da matriz.
 
     O NOME DE UMA ROTA NA MATRIZ NÃO É A ROTA.
     MAS UM NOME VELHO NUM DONO DE DECISÃO É DÍVIDA, NÃO DETALHE.
+
+---
+
+# §63 · OS TREZE FICAM: PRESERVADOS, E FORA DA COLLECTION
+
+**Missão:** `C-DECIDE-OUT-OF-FLOW-LEGACY-DECISION-V1`
+**HEAD final:** `465e318a`
+**Dono novo:** `provas/o_legado_fora_do_fluxo.py`
+
+## 63.1 · O QUÊ
+
+```
+LEGACY_KEEP_OUT_OF_FLOW = 13
+```
+
+Os treze corpos históricos de T3 que têm bytes e não têm observação de coleta
+ficam preservados como evidência e fora da Collection operacional.
+
+    PRESERVAR NÃO É ADMITIR.
+    São duas perguntas, e nenhuma disposição manda apagar corpo nenhum.
+
+## 63.2 · POR QUÊ — A DISTINÇÃO QUE DECIDIU TUDO
+
+```
+CONTENT_PROVES_PUBLISHER != ACQUISITION_PROVENANCE_PROVEN
+```
+
+**Sete dos treze** dizem quem os publicou, dentro do próprio texto. **Nenhum**
+diz que esta cópia foi adquirida dali, por quem, quando ou como.
+
+É por aqui que um sistema honesto se perde: a evidência de publicação é forte,
+está no documento, e não é a evidência que falta.
+
+## 63.3 · PROVA — E NÃO FOI POR FALTA DE ALTERNATIVA
+
+| alternativa | por que não |
+|---|---|
+| `CANONICAL_EQUIVALENT_ALREADY_EXISTS` | 0 de 13 têm bytes iguais a uma observação canónica |
+| `RECOLLECT_FROM_SOURCE` | exigiria o endereço **deste** documento, que viveria na observação que falta |
+| `LEGACY_IMPORT_WITH_CURRENT_PROVENANCE` | o contrato não separa a proveniência da importação atual da aquisição histórica |
+| `UNRESOLVED` | os corpos existem e a evidência chega para classificar |
+
+A sonda externa tocou o sítio de cada fonte: quatro respondem, cinco não.
+Isso mede a instituição, não o ficheiro.
+
+    SABER ONDE FICA A BIBLIOTECA
+    NÃO É SABER QUE LIVRO SE FOI LÁ BUSCAR.
+
+## 63.4 · O ESTUDO EXTERNO — TRÊS FAMÍLIAS
+
+| sistema | achado |
+|---|---|
+| W3C PROV-DM | uma entidade pode ser afirmada **sem** `wasGeneratedBy`; a atribuição aplica-se «quando a actividade não é conhecida» |
+| Archivematica | material transferido fica em **backlog**: guardado, avaliável, e explicitamente ainda não um AIP |
+| Apache Beam | sem tempo do evento atribui-se um **sentinela**, nunca um valor inventado |
+
+**Convergem** em preservar o corpo, registar o evento de custódia actual, e
+nunca fabricar a aquisição original.
+
+**Divergem** no resto, e a divergência é a parte útil: o arquivo **admite** o
+objecto porque a função dele é a custódia; o sistema de dados **mantém-no
+fora** da semântica operacional porque as contas a jusante dependem da
+proveniência.
+
+A Collection não é um arquivo de custódia. Por isso vale a postura dos dois
+lados: guardar como o arquivo guarda, e manter fora como o sistema de dados
+mantém.
+
+## 63.5 · CONSEQUÊNCIA — UMA PERGUNTA SEM DONO
+
+```
+EXISTING_CONTRACT_SUFFICIENT = PARTIAL
+BIBLE_CHANGE_REQUIRED        = NO
+CONTRACT_CHANGE_REQUIRED     = YES
+```
+
+Qual é o estado canónico de um **corpo que existe** e cuja **aquisição nunca
+foi registada**? `raw_asset.identity_state` tem três estados e os **três**
+pressupõem uma linha em `raw_asset`. `LEGACY_PRE_IDEMPOTENCY` é para
+observações que já lá estavam no corte; estes treze não estão no corte, estão
+antes da porta.
+
+    UM ESTADO PARA LINHAS NÃO CLASSIFICA QUEM NÃO TEM LINHA.
+
+**A Bíblia não muda.** Nenhuma lei existente está errada. `COL-LAW-045` obriga
+a coleta manual a entrar pelo contrato, e não diz nada sobre quem entrou
+**antes** dela existir. Falta um estado, não uma lei.
+
+## 63.6 · E UM DEFEITO DO PRÓPRIO ARNÊS
+
+Dois dos meus mutantes não mutavam: `[] or [...]` devolve a lista, e
+`[][:0] + [...]` devolve a lista. Apareciam no relatório como sobreviventes.
+
+    UM MUTANTE QUE NÃO MUTA NÃO É UM SOBREVIVENTE:
+    É UMA PERGUNTA QUE NUNCA FOI FEITA.
+
+Corrigidos: 12 mutantes, 0 sobreviventes.
