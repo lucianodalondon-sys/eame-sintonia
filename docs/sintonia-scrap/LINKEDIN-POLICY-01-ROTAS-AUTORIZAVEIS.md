@@ -611,30 +611,39 @@ O ficheiro canónico vive em `origin/claude/sintonia-eame-know-how-v1`, hoje em
 cá criaria a segunda cópia de uma lei, que é exactamente o que a casa proíbe.
 
 ```
-KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA · 2 leis novas
-DESTINO        = origin/claude/sintonia-eame-know-how-v1 · §86 (a seguir a §85.7)
-JA REGISTADO   = `PROVIDER REACHED != CAPABILITY DELIVERED` (§ da C10.8B-LIVE,
-                 linha 7813) — **NÃO duplicar**
+KNOW_HOW_DELTA = **APLICADO** pela LINKEDIN-POLICY-CLOSE
+DESTINO        = origin/claude/sintonia-eame-know-how-v1 · **§89**
+HEAD_BEFORE    = 9bdcff05
+HEAD_AFTER     = 977b7336
+JA REGISTADO   = `PROVIDER REACHED != CAPABILITY DELIVERED` em **§84.4** —
+                 **NÃO duplicado**
 ```
 
-### ⚠️ E uma dívida que esta missão tem de nomear
+### A dívida que esta linha tinha, e que deixou de existir
 
-Medido nos artefatos desta pasta: **três missões seguidas de LinkedIn declararam
-`KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA` e nenhuma foi aplicada.**
+Medido antes de a pagar: **três missões seguidas de LinkedIn declararam
+`KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA` e nenhuma tinha sido aplicada.**
 
 ```
-LINKEDIN-DEEP-STUDY-V1.md            ATUALIZAÇÃO NECESSÁRIA   não aplicada
-LINKEDIN-BUILD-01-LOCAL-FIRST.md     ATUALIZACAO NECESSARIA   não aplicada
-LINKEDIN-POLICY-01 (esta)            ATUALIZAÇÃO NECESSÁRIA   não aplicada
+LINKEDIN-DEEP-STUDY-V1.md            declarou   ·  não aplicou
+LINKEDIN-BUILD-01-LOCAL-FIRST.md     declarou   ·  não aplicou
+LINKEDIN-POLICY-01 (esta)            declarou   ·  não aplicou
+LINKEDIN-POLICY-CLOSE                            ·  **APLICOU · §89**
 ```
 
     UM DELTA DECLARADO TRÊS VEZES E NUNCA APLICADO NÃO É UM AVISO. É UMA LEI
     QUE NÃO EXISTE, COM TRÊS DOCUMENTOS A DIZER QUE DEVIA EXISTIR.
 
-Por isso o texto abaixo vai **pronto a colar**, com o número de secção e a forma
-que o ficheiro usa — para que aplicar deixe de exigir reescrever.
+E a razão pela qual as três primeiras não o aplicaram era real e não era
+preguiça: o ficheiro **não vive nesta linha**, e copiá-lo para cá criaria a
+segunda cópia de uma lei. O que faltava era ir escrever no ramo que é dono dele
+— o que a `LINKEDIN-POLICY-CLOSE` fez, numa worktree própria, sem tocar código
+funcional nenhum.
 
-### Lei 1 — `TRANSLATION IS AUTHORIZATION`
+    A LEI VIVE ONDE O DONO DELA VIVE. DECLARAR O DELTA NO DOCUMENTO CERTO E
+    NUNCA ATRAVESSAR A FRONTEIRA É DEIXAR A LEI DO LADO DE FORA.
+
+### Lei 1 — `TRANSLATION IS AUTHORIZATION`  ·  **REGISTADA em §89.1–89.4**
 
 ```
 O QUE        o campo que traduz entre dois vocabulários de capacidade é uma
@@ -648,7 +657,7 @@ CONSEQUÊNCIA uma tradução errada NÃO REBENTA — ela AUTORIZA. E por isso o 
              de tradução entra na revisão de política, não só na de código.
 ```
 
-### Lei 2 — `PAID PROVIDER IS NOT A POLICY OVERRIDE`
+### Lei 2 — `PAID PROVIDER IS NOT A POLICY OVERRIDE`  ·  **REGISTADA em §89.5–89.8**
 
 ```
 O QUE        comprar de um fornecedor não transfere a questão da autorização
