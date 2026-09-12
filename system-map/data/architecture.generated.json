@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "693e2118e3ba4a6a75e0e2587b74316db6146196",
-    "GENERATED_AT": "2026-09-12T18:29:43+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f65f3d1cd82f2a238f736a8903978a9f60f82ef53f44da1240519f1767c91d09"
+    "HEAD": "36a7abadfa75f057f895820eb214d4c3507dbe04",
+    "GENERATED_AT": "2026-09-12T19:26:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "00210cf723005c5ca731d9fd24712f017b5d2df6ca467856434a1b4116bf22a7"
   },
   "FILES": [
     {
@@ -5448,6 +5448,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/SCRAP-SR-02-NENHUMA-COMPRA-SEM-AUTORIZACAO.md",
+      "sha": "38651242c00b481975d139d85f91b922eb0d6994",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "ferramentas/apify_pool.py",
       "sha": "ae8f12d5ac931b41d0d205e0d12c6b6b00831025",
       "ext": ".py",
@@ -10671,7 +10678,7 @@
     },
     {
       "path": "tests/test_sr02_autorizacao_de_gasto.py",
-      "sha": "10e33121c67468e85a73804a1928f5ea63ad46ef",
+      "sha": "fc4304947c18452c89442676b75ec147cd09f43f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -40531,7 +40538,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_sr02_autorizacao_de_gasto.py",
-        "line": 441,
+        "line": 534,
         "snippet": "import admissao"
       }
     },
@@ -40610,6 +40617,17 @@
         "file": "tests/test_sr02_autorizacao_de_gasto.py",
         "line": 153,
         "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "tests/test_sr02_autorizacao_de_gasto.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_sr02_autorizacao_de_gasto.py",
+        "line": 465,
+        "snippet": "self.assertIn('regras/sensor_coleta.py', trocam, sorted(trocam))"
       }
     },
     {
@@ -41786,10 +41804,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1537,
+    "files_tracked": 1538,
     "files_readable": 598,
     "files_code_dir": 647,
-    "file_edges": 2778,
+    "file_edges": 2779,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

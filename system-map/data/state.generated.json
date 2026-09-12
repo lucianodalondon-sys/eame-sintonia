@@ -800,7 +800,8 @@
       "docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md",
       "docs/sintonia-scrap/LINKEDIN-DEEP-STUDY-V1.md",
       "docs/sintonia-scrap/LINKEDIN-POLICY-01-ROTAS-AUTORIZAVEIS.md",
-      "docs/sintonia-scrap/LINKEDIN-ROUTE-MATRIX-V1.json"
+      "docs/sintonia-scrap/LINKEDIN-ROUTE-MATRIX-V1.json",
+      "docs/sintonia-scrap/SCRAP-SR-02-NENHUMA-COMPRA-SEM-AUTORIZACAO.md"
     ],
     "ferramentas": [
       "ferramentas/apify_pool.py",
@@ -1985,9 +1986,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "693e2118e3ba4a6a75e0e2587b74316db6146196",
-    "GENERATED_AT": "2026-09-12T18:29:43+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f65f3d1cd82f2a238f736a8903978a9f60f82ef53f44da1240519f1767c91d09"
+    "HEAD": "36a7abadfa75f057f895820eb214d4c3507dbe04",
+    "GENERATED_AT": "2026-09-12T19:26:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "00210cf723005c5ca731d9fd24712f017b5d2df6ca467856434a1b4116bf22a7"
   },
   "FAMILIES": [
     {
@@ -17965,7 +17966,7 @@
         },
         {
           "file": "tests/test_sr02_autorizacao_de_gasto.py",
-          "line": 441,
+          "line": 534,
           "snippet": "import admissao"
         }
       ],
@@ -30813,7 +30814,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
@@ -30839,6 +30840,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 72,
           "snippet": "arvore = ast.parse(_fonte('regras/sensor_coleta.py'))"
+        },
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 465,
+          "snippet": "self.assertIn('regras/sensor_coleta.py', trocam, sorted(trocam))"
         }
       ],
       "categoria": "PROOF"
@@ -33295,7 +33301,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 777,
+  "UNCLAIMED_FILES_COUNT": 778,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33467,7 +33473,7 @@
     "edges_proven": 684,
     "edges_unknown": 4,
     "business_edges": 4,
-    "files_tracked": 1537,
+    "files_tracked": 1538,
     "files_covered": 760,
     "files_code_unclaimed": 0
   }
