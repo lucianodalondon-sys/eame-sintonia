@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
-    "HEAD": "28abe6f4d14a550db0ce57f05561ef93042ca21a",
-    "GENERATED_AT": "2026-09-12T19:14:14+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1206d53370c92683a0eb2ac6a1dfafe7f7f50e4b7fd45d5c08120ae8ff073f5a"
+    "BRANCH": "claude/sintonia-scrap-canonical-flow-f01",
+    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
+    "GENERATED_AT": "2026-09-12T20:03:45+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3aa952d401fd9419c8a9cdec98e6fd397ad04d3cc968746e230e54540184fa8e"
   },
   "FILES": [
     {
@@ -122,7 +122,7 @@
     },
     {
       "path": ".github/workflows/sintonia-scrap.yml",
-      "sha": "3f040d360607f97f1c285888d88ee42ee19677db",
+      "sha": "b5ba9410be2c7eca532454dffbf9f4594c8cf972",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -234,7 +234,7 @@
     },
     {
       "path": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "sha": "9f5fceae14abb8c47b12a466c818aa2e0f8684c4",
+      "sha": "7920d25f0cd27605c4ba748a92f5101dab41f7c4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1298,7 +1298,7 @@
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "eb7fa43e1c9ab37dba600edfb71db5bc644a7783",
+      "sha": "40d8fa62babce4a61a1569384ad492f5f4104df0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1425,6 +1425,13 @@
     {
       "path": "coleta/scrap_capacidades.py",
       "sha": "5e1f28b6b5b9ead72c2565316e46f8fbd36a884d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/scrap_colheita.py",
+      "sha": "1b84e42791ca29232c63e98f89da243418755748",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4329,7 +4336,7 @@
     },
     {
       "path": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-      "sha": "2b2af824df36036d47c9f56f0a6d74821533d41f",
+      "sha": "80cce71bf92c02ba95948e3ac585979fd3340411",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4595,7 +4602,7 @@
     },
     {
       "path": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "sha": "89dae70417b486ae15cfe4fc5070857aaff44b61",
+      "sha": "f770ad3fa6749b9bddcc1a7601d95626b67d6f6c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4966,21 +4973,21 @@
     },
     {
       "path": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "sha": "b5b62e20a87957a18735b105b4c353b7ad05ed75",
+      "sha": "c370d5b0f792abe39e5f433b1a668f3fbe181458",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "sha": "37e27a6dbe0d1598b019b234b4ed3870df94aaa8",
+      "sha": "310e7842362e612c9d87b5c395c928111a67935f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "sha": "53fed1a13bfb633454c174fea0f566c90186b351",
+      "sha": "e330b41e723f9529d256bde0bfadb9b37c9d31b7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5008,7 +5015,7 @@
     },
     {
       "path": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "sha": "7a84c4827e64a9ac9b43e7a65318baef72288adf",
+      "sha": "eb48d4ffb457846265f30a812acc2b74d0e181c6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5134,7 +5141,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "sha": "ca786b57aad081ccec1a5ba44460a60d46214bdb",
+      "sha": "7933478737ed417e9051411a01ee2a5a8ebf4b24",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5415,6 +5422,13 @@
     {
       "path": "docs/sintonia-scrap/ESTADO-REAL-V1.md",
       "sha": "3f4589aab7f72cbcc279a5f5422bf58fac34f0a7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md",
+      "sha": "f0bf81d5dded9a01195b5e6bba9ff7a7f2172b10",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7478,6 +7492,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/retorno_da_coleta.py",
+      "sha": "4453b738a918b0677dfff5b00d3068a90ad4b2ef",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/social_matriz.py",
       "sha": "ae297ae2057c484f0df033ce654beec459b7bf43",
       "ext": ".py",
@@ -7885,7 +7906,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "79d03d7dbee721d785333d3b6e057e34fce92b61",
+      "sha": "63f0d9a40b7d02a78645f402b49c4cc21b237d7e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8025,7 +8046,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "f5e709682fc56f48d3df81834fe3512d5f723944",
+      "sha": "d097fc15de8b50e65530936d924c72290a8e39b6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8091,6 +8112,13 @@
       "sha": "29b5a9ab328c592959d3a356152dd20dc7a5a367",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/_flow01_janela_falsa.py",
+      "sha": "9221cd113485daf2a377bbdf3a0112355b00c1e2",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -8248,6 +8276,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/mutacao_do_fluxo_canonico.py",
+      "sha": "2fe73210a92c7a776bb321632f59b3d4c938846b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/nenhuma_compra_sem_autorizacao.py",
       "sha": "8d5100a42fb6c8b787925f5fb796c9d3bd0112d1",
       "ext": ".py",
@@ -8271,6 +8306,13 @@
     {
       "path": "provas/o_executor_conta_se.py",
       "sha": "c9001d3d61238395cde46c6acd98f926f3a8b0e1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/o_fluxo_canonico_do_scrap.py",
+      "sha": "066354d11ba3e86cc541d28121fad4bcde93b115",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9642,7 +9684,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "faf4126c0d5042a848ce2eb42a6d97f7d3de34ec",
+      "sha": "544bd23bfc1b5863e90118fede5e249c70380f28",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10104,7 +10146,7 @@
     },
     {
       "path": "tests/test_c10_6d_portas_canonicas.py",
-      "sha": "ca13f332fc9ddbf6e422d7c7a106044527cc4751",
+      "sha": "545e0d52107fa88373631de616d91fb3387130ab",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10384,7 +10426,7 @@
     },
     {
       "path": "tests/test_italia_na_porta_canonica.py",
-      "sha": "823ab145535195dfa37fee11a939bec11dc47576",
+      "sha": "f69bdb0ad3befb6618db37780bba9e26be40d51c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10602,6 +10644,13 @@
     {
       "path": "tests/test_scrap_convergencia.py",
       "sha": "cbd3352612f14ab0a07b7af544c2ee61c8d87abd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_scrap_flow01_caminho_canonico.py",
+      "sha": "f1bd9c19cae21cd4a2169aaf15642d9d5d92bc4b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11353,7 +11402,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 163,
+        "line": 177,
         "snippet": "coleta/coletor.py; do"
       }
     },
@@ -11364,7 +11413,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 157,
+        "line": 171,
         "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
       }
     },
@@ -11375,7 +11424,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 158,
+        "line": 172,
         "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
       }
     },
@@ -11386,7 +11435,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 157,
+        "line": 171,
         "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
       }
     },
@@ -11397,7 +11446,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 158,
+        "line": 172,
         "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
       }
     },
@@ -11408,7 +11457,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 162,
+        "line": 176,
         "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
       }
     },
@@ -11419,7 +11468,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 162,
+        "line": 176,
         "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
       }
     },
@@ -11430,7 +11479,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 160,
+        "line": 174,
         "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
       }
     },
@@ -11441,7 +11490,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 161,
+        "line": 175,
         "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
       }
     },
@@ -11452,7 +11501,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 172,
+        "line": 186,
         "snippet": "if [ ! -f data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json ]; then"
       }
     },
@@ -11463,7 +11512,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 236,
+        "line": 250,
         "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
       }
     },
@@ -11474,7 +11523,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 159,
+        "line": 173,
         "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
       }
     },
@@ -11485,7 +11534,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 160,
+        "line": 174,
         "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
       }
     },
@@ -11496,7 +11545,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 159,
+        "line": 173,
         "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
       }
     },
@@ -11507,8 +11556,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 161,
+        "line": 175,
         "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/sintonia-scrap.yml",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "line": 317,
+        "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\"
       }
     },
     {
@@ -13797,6 +13857,28 @@
         "file": "coleta/scrap_capacidades.py",
         "line": 126,
         "snippet": "_MZ = 'leis/social_matriz.py'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_colheita.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_colheita.py",
+        "line": 79,
+        "snippet": "import scrap_executor as sx                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_colheita.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_colheita.py",
+        "line": 78,
+        "snippet": "import retorno_da_coleta as rc                                    # noqa: E402"
       }
     },
     {
@@ -23910,6 +23992,17 @@
     },
     {
       "from_file": "orquestrador/orquestrador.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 57,
+        "snippet": "import retorno_da_coleta as rc  # noqa: E402  — COL-LAW-505, a especie do retorno"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
       "to_file": "pedido/pedido.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25983,7 +26076,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 117,
+        "line": 118,
         "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
       }
     },
@@ -26033,6 +26126,17 @@
     },
     {
       "from_file": "pedido/receitas.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 158,
+        "snippet": "\"roda\": [\"coleta/scrap_colheita.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
       "to_file": "data/samples/RESEARCHER-CORPUS-EAME-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -26049,7 +26153,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 153,
+        "line": 190,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -26060,7 +26164,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 149,
+        "line": 186,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -26071,7 +26175,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 151,
+        "line": 188,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -26093,7 +26197,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 147,
+        "line": 184,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -27418,6 +27522,94 @@
       }
     },
     {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 25,
+        "snippet": "WF = '.github/workflows/sintonia-scrap.yml'"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 30,
+        "snippet": "DONO = 'coleta/coletor.py'"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 29,
+        "snippet": "ING = 'coleta/ingresso.py'"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 28,
+        "snippet": "ADP = 'coleta/scrap_colheita.py'"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 53,
+        "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 70,
+        "snippet": "('M6 · o suporte passa a atravessar a porta', 'leis/retorno_da_coleta.py',"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 27,
+        "snippet": "ORQ = 'orquestrador/orquestrador.py'"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_do_fluxo_canonico.py",
+      "to_file": "pedido/receitas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_do_fluxo_canonico.py",
+        "line": 26,
+        "snippet": "REC = 'pedido/receitas.py'"
+      }
+    },
+    {
       "from_file": "provas/nenhuma_compra_sem_autorizacao.py",
       "to_file": "coleta/coletor.py",
       "type": "IMPORTS",
@@ -27580,6 +27772,94 @@
         "file": "provas/o_executor_conta_se.py",
         "line": 37,
         "snippet": "import rastro_da_coleta as rastro   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 93,
+        "snippet": "shutil.copy2(SHIM, os.path.join(destino, 'coleta', 'instagram_janela.py'))"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 57,
+        "snippet": "import scrap_colheita as sc         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 160,
+        "snippet": "diz(e['roda'] == ['coleta/scrap_colheita.py'],"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 56,
+        "snippet": "import retorno_da_coleta as rc      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 53,
+        "snippet": "import orquestrador as orq          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 54,
+        "snippet": "import pedido as pd                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 55,
+        "snippet": "import receitas as rec              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "to_file": "provas/_flow01_janela_falsa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_fluxo_canonico_do_scrap.py",
+        "line": 70,
+        "snippet": "SHIM = os.path.join(RAIZ, 'provas', '_flow01_janela_falsa.py')"
       }
     },
     {
@@ -33122,7 +33402,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_6d_portas_canonicas.py",
-        "line": 380,
+        "line": 398,
         "snippet": "arv = ast.parse(_fonte('coleta/adaptador_instagram.py'))"
       }
     },
@@ -33133,7 +33413,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_6d_portas_canonicas.py",
-        "line": 418,
+        "line": 436,
         "snippet": "import comunicacao_coleta as cc"
       }
     },
@@ -33144,7 +33424,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_6d_portas_canonicas.py",
-        "line": 452,
+        "line": 470,
         "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))"
       }
     },
@@ -33155,7 +33435,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_6d_portas_canonicas.py",
-        "line": 167,
+        "line": 185,
         "snippet": "for i in IMPLEMENTACOES + ('instagram_coleta.py',):"
       }
     },
@@ -33188,7 +33468,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_6d_portas_canonicas.py",
-        "line": 220,
+        "line": 238,
         "snippet": "import scrap_executor as sx"
       }
     },
@@ -33221,8 +33501,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_6d_portas_canonicas.py",
-        "line": 135,
-        "snippet": "self.assertIn('social_scrap.py', cmds,"
+        "line": 146,
+        "snippet": "ENTRADAS_CANONICAS = ('social_scrap.py', 'orquestrador/orquestrador.py')"
       }
     },
     {
@@ -33289,6 +33569,17 @@
         "file": "tests/test_c10_6d_portas_canonicas.py",
         "line": 43,
         "snippet": "import social_matriz as mz        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 146,
+        "snippet": "ENTRADAS_CANONICAS = ('social_scrap.py', 'orquestrador/orquestrador.py')"
       }
     },
     {
@@ -35500,6 +35791,17 @@
         "file": "tests/test_c8_convergencia.py",
         "line": 33,
         "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c8_convergencia.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c8_convergencia.py",
+        "line": 262,
+        "snippet": "'leis/retorno_da_coleta.py'],"
       }
     },
     {
@@ -39958,6 +40260,215 @@
       }
     },
     {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 30,
+        "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 253,
+        "snippet": "import coletor as ct"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 239,
+        "snippet": "no = _funcao('coleta/coletor.py', 'executar')"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 23,
+        "snippet": "import ingresso as ing                                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 215,
+        "snippet": "codigo = _fonte('coleta/ingresso.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 282,
+        "snippet": "self.assertIn(\"'coleta', 'instagram_janela.py'\", prova)"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 28,
+        "snippet": "import scrap_colheita as sc                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 115,
+        "snippet": "self.assertEqual(e['roda'], ['coleta/scrap_colheita.py'])"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 294,
+        "snippet": "for rel in ('coleta/scrap_colheita.py', 'coleta/scrap_executor.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 254,
+        "snippet": "import scrap_http as http"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 96,
+        "snippet": "self.assertNotIn('social_scrap.py', ramo,"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 22,
+        "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 27,
+        "snippet": "import retorno_da_coleta as rc                                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 24,
+        "snippet": "import orquestrador as orq                                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 95,
+        "snippet": "self.assertIn('orquestrador/orquestrador.py', ramo)"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 25,
+        "snippet": "import pedido as pd                                               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 26,
+        "snippet": "import receitas as rec                                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 340,
+        "snippet": "import o_fluxo_canonico_do_scrap as prova"
+      }
+    },
+    {
+      "from_file": "tests/test_scrap_flow01_caminho_canonico.py",
+      "to_file": "provas/o_fluxo_canonico_do_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_scrap_flow01_caminho_canonico.py",
+        "line": 281,
+        "snippet": "prova = _fonte('provas/o_fluxo_canonico_do_scrap.py')"
+      }
+    },
+    {
       "from_file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
       "to_file": "coleta/adaptador_youtube.py",
       "type": "READS",
@@ -41615,10 +42126,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1533,
-    "files_readable": 598,
-    "files_code_dir": 647,
-    "file_edges": 2765,
+    "files_tracked": 1540,
+    "files_readable": 604,
+    "files_code_dir": 653,
+    "file_edges": 2807,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

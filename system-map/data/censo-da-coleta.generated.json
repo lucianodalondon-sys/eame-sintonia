@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "28abe6f4d14a550db0ce57f05561ef93042ca21a",
+    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -36,7 +36,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 271,
+      "linhas": 322,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1203,7 +1203,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 296,
+      "linhas": 326,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1216,6 +1216,7 @@
       "chamado_por": [],
       "citado_por": [
         "coleta/italy_executor.py",
+        "coleta/scrap_colheita.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -1335,6 +1336,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [],
       "citado_por": [
+        "coleta/scrap_colheita.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -1587,6 +1589,27 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/scrap_colheita.py",
+      "gaveta": "coleta",
+      "linhas": 273,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "INSTAGRAM"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "citado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/scrap_executor.py",
       "gaveta": "coleta",
       "linhas": 843,
@@ -1609,11 +1632,13 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/comunicacao_coleta.py",
+        "coleta/scrap_colheita.py",
         "coleta/social_scrap.py",
         "regras/sensor_coleta.py"
       ],
       "citado_por": [
-        "coleta/adaptador_instagram.py"
+        "coleta/adaptador_instagram.py",
+        "coleta/scrap_colheita.py"
       ],
       "no_ci": true
     },
@@ -1752,6 +1777,7 @@
         "coleta/youtube_oficial.py"
       ],
       "citado_por": [
+        "coleta/scrap_colheita.py",
         "ferramentas/reel_transcricao.py"
       ],
       "no_ci": true
@@ -1828,7 +1854,9 @@
       "escreve_ficheiro": true,
       "chamado_por": [],
       "citado_por": [
-        "coleta/social_envelope.py"
+        "coleta/scrap_colheita.py",
+        "coleta/social_envelope.py",
+        "pedido/receitas.py"
       ],
       "no_ci": true
     },
@@ -2543,13 +2571,13 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 115,
-    "pontos_de_entrada": 85,
+    "ficheiros_de_codigo": 116,
+    "pontos_de_entrada": 86,
     "executores_que_saem_para_fora": 22,
     "sem_chamador_e_fora_do_ci": 46,
-    "sem_aresta_medida_e_fora_do_ci": 63,
+    "sem_aresta_medida_e_fora_do_ci": 64,
     "gravam_no_banco": 3,
-    "escrevem_ficheiro": 67,
+    "escrevem_ficheiro": 68,
     "deitam_fora_alguma_coisa": 29,
     "deitam_fora_SEM_escrever_o_motivo": 2,
     "ficheiros_com_decisao_escondida": 3,
@@ -2614,6 +2642,7 @@
       "coleta/rota_forward_documento.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
+      "coleta/scrap_colheita.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/social_persistencia.py",
       "coleta/social_scrap.py",
@@ -2764,6 +2793,7 @@
       "coleta/ropf_pre_requisito.py",
       "coleta/rotulos_baixar.py",
       "coleta/rotulos_ler.py",
+      "coleta/scrap_colheita.py",
       "coleta/sensor_canal_identidade.py",
       "coleta/speaker_identidade.py",
       "coleta/speaker_universo.py",

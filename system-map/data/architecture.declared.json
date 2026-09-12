@@ -845,6 +845,25 @@
    "icon": "⚙"
   },
   {
+   "id": "C-SCRAP-COLHEITA",
+   "name": "O adapter do SCRAP para a porta canonica · a aresta que faltava",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "⇥",
+   "what": "Recebe uma fase ja decidida e o RUN_ID que o orquestrador cunhou, chama `scrap_executor.COLLECT` UMA vez, e declara o que voltou num envelope COL-LAW-505: o que e colheita, o que e suporte, e porque houve zero quando houve zero. Traduz o envelope do SCRAP para a lingua de `coleta/ingresso.py` — e so traduz.",
+   "why_here": "Medido antes da SCRAP-FLOW-01: `orquestrador/orquestrador.py` era o dono unico da orquestracao, `coleta/scrap_executor.py` era o executor canonico do SCRAP, e A ARESTA ENTRE OS DOIS NAO EXISTIA. Nenhum COLLECTION_REQUEST conseguia chegar ao SCRAP; o disparador ia direto a `coleta/social_scrap.py`, corria o `COLLECT` e parava ali — o que a corrida colhia nunca via a porta da coleta, e portanto nunca chegava a admissao. MODULE EXISTS != EDGE EXISTS != FLOW EXISTS. Este cartao e a aresta, e NAO e um segundo orquestrador: nao decide missao, fonte, rota nem ator. E o que ele nao pode fazer esta escrito no proprio ficheiro: cunhar RUN_ID (ou a corrida do orquestrador e a da coleta eram duas), inventar SOURCE_ID, fabricar DOCUMENT_ID ou derivar RAW_OBSERVATION_ID. Medido tambem: o SCRAP nao conhece SOURCE_ID — o envelope canonico tem PLATFORM, SOURCE_ACCOUNT, NATIVE_ID e URL, e nenhum e uma fonte provada. Por isso a fonte DESCE COM O PEDIDO; sem ela, zero colheita e o porque por escrito. URL NAO E SOURCE_ID.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/scrap_colheita.py"
+   ],
+   "views": [
+    "acervo",
+    "infra"
+   ]
+  },
+  {
    "id": "C-FONTES-EU",
    "name": "Ler as bases oficiais da Europa",
    "territory": "Z-ACOES",
@@ -1831,12 +1850,15 @@
    "files": [
     "provas/_c106b_filho.py",
     "provas/_c106c_filho.py",
+    "provas/_flow01_janela_falsa.py",
     "provas/auditoria_live.sh",
     "provas/bluesky_trial_ao_vivo.py",
     "provas/derived_artifact_no_postgres.py",
     "provas/ensaio_canonico_de_capacidade.py",
     "provas/mutacao_da_autorizacao.py",
+    "provas/mutacao_do_fluxo_canonico.py",
     "provas/nenhuma_compra_sem_autorizacao.py",
+    "provas/o_fluxo_canonico_do_scrap.py",
     "provas/objeto_e_observacao_no_postgres.py",
     "provas/orcamento_de_rede.py",
     "provas/orcamento_financeiro.py",
@@ -2173,6 +2195,25 @@
     "leis/falhas.py",
     "leis/fundacao_da_coleta.py",
     "leis/social_matriz.py"
+   ]
+  },
+  {
+   "id": "C-RETORNO-DA-COLETA",
+   "name": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⌬",
+   "what": "COL-LAW-505. Da nome as especies do que uma corrida devolve — COLHEITA, MANIFEST, CATALOG, RUN_RECEIPT, PLAN, UNKNOWN — e so a primeira atravessa a porta da coleta. Confere cada unidade: SOURCE_ID provado e nunca fabricado, DOCUMENT_ID que pode faltar mas nao pode ser inventado, payload com estado MEDIDO e nao declarado. Quem nao declarou envelope entra pela ponte do legado, que por construcao so consegue declarar SUPORTE.",
+   "why_here": "`COL-LAW-013` escreveu a pergunta «onde larguei, E EM QUE FORMA» e nunca respondeu a segunda metade: o «onde» tem campo desde sempre (`larga_em`), o «em que forma» vivia em prosa livre que nenhum codigo le. O preco esta medido: `orquestrador/orquestrador.py::a_colheita` usava uma heuristica generica — «uma lista, ou o primeiro campo do ficheiro que seja lista de fichas» — e com ela entraram na cadeia, como se fossem material observado, um manifesto de 163 descarregamentos, catalogos de contas e ordens de execucao. UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR. E o contraexemplo que fecha o assunto: um ficheiro com contentor de colheita VAZIO era saltado por estar vazio, e a heuristica agarrava a lista de catalogo ao lado. O INDICE DE UMA COLHEITA NAO E A COLHEITA: E UM RECIBO, E UM RECIBO NAO SE ADMITE, LE-SE. Este ficheiro chegou da linhagem SR-01 byte a byte, e nao foi reescrito: duas copias da mesma lei sao duas leis, e a segunda envelhece calada.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/retorno_da_coleta.py"
+   ],
+   "views": [
+    "acervo",
+    "audit"
    ]
   },
   {

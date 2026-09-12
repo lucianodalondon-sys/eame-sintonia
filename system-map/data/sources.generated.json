@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "28abe6f4d14a550db0ce57f05561ef93042ca21a",
+    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3231,6 +3231,20 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/scrap_colheita.py",
+      "como_se_chama": "coleta/scrap_colheita.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/scrap_http.py",
       "como_se_chama": "",
       "carimba_data": [],
@@ -4189,6 +4203,35 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 336
+        },
+        {
+          "file": "provas/_flow01_janela_falsa.py",
+          "line": 21
+        },
+        {
+          "file": "tests/test_scrap_flow01_caminho_canonico.py",
+          "line": 196
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/watch?v=%s'",
       "usado_por": [
         {
@@ -4277,27 +4320,6 @@
         {
           "file": "coleta/universo_ciencia_it.py",
           "line": 51
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/p",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
-        },
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 673
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 336
         }
       ]
     },
@@ -4685,7 +4707,7 @@
       "usado_por": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 423
+          "line": 441
         },
         {
           "file": "tests/test_c10_6e_runtime_pago.py",
@@ -4770,11 +4792,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 47,
+    "coletores": 48,
     "coletores_com_data": 17,
-    "coletores_com_lugar": 30,
+    "coletores_com_lugar": 31,
     "coletores_que_separam_fonte_do_fato": 20,
-    "coletores_que_registam_descarte": 13,
+    "coletores_que_registam_descarte": 14,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

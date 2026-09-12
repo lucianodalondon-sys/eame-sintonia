@@ -255,9 +255,26 @@ class T5OQueEstaMissaoNaoPodiaTocar(unittest.TestCase):
         for chave in ('YOUTUBE_DATA_API_KEY', 'APIFY_TOKEN', 'APIFY_API'):
             self.assertNotIn(chave, t)
 
+    #: O INTERVALO DA C8, E NAO «DESDE A C8 ATE HOJE».
+    #:
+    #: ⚠️ ESTA SENTINELA MEDIA `base..HEAD`, E ISSO E OUTRA PERGUNTA.
+    #: Ela existe para provar que A CONVERGENCIA nao tocou na Collection — e
+    #: media, na verdade, que NINGUEM lhe tinha tocado desde a C8. Passou
+    #: durante meses porque de facto ninguem lhe tocou; reprovou na primeira
+    #: missao que lhe tocou de proposito, com autorizacao e provas (a
+    #: SCRAP-FLOW-01, que ligou o SCRAP ao orquestrador).
+    #:
+    #:     UMA SENTINELA QUE TERMINA EM `HEAD` NAO GUARDA UMA MISSAO:
+    #:     GUARDA O FUTURO INTEIRO, E CHAMA-LHE A MISSAO.
+    #:
+    #: Os dois extremos passam a estar presos. O que a C8 fez continua medido
+    #: para sempre; o que as missoes seguintes fizerem e problema delas.
+    C8_BASE = '6ea058d3'
+    C8_FINAL = 'e63c4682'
+
     def test_rt14_a_collection_nao_foi_tocada(self):
-        base = '6ea058d3'
-        r = subprocess.run(['git', 'diff', '--name-only', base, 'HEAD', '--',
+        r = subprocess.run(['git', 'diff', '--name-only',
+                            self.C8_BASE, self.C8_FINAL, '--',
                             'coleta/ingresso.py', 'orquestrador/', 'supabase/',
                             'leis/retorno_da_coleta.py'],
                            cwd=RAIZ, capture_output=True, text=True)
