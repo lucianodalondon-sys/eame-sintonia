@@ -117,6 +117,7 @@ from __future__ import annotations
 
 import os
 import sys
+import weakref
 
 _AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(_AQUI)
@@ -210,6 +211,19 @@ SOURCE_ID_E_URL = 'URL_IS_NOT_A_SOURCE_ID'
 LIMITE_AUSENTE = 'HUMAN_AUTHORIZATION_LIMIT_MISSING'
 CONTRATO_ERRADO = 'AUTHORIZATION_CONTRACT_MISMATCH'
 
+#: ── OS CINCO ESTADOS QUE A SCRAP-CV-02 TROUXE ──────────────────────────────
+#: Todos eles sao `SPEND_NOT_AUTHORIZED` para quem le o rasto: a compra nao
+#: tinha quem respondesse por ela. A CAUSA fica na mensagem e no atributo
+#: `causa`, porque juntar «ninguem autorizou» com «a fonte nao serve» inventaria
+#: um julgamento que ninguem fez.
+#:
+#:     SALDO ESGOTADO != NINGUEM AUTORIZOU.
+SEM_LEDGER = 'SPEND_WITHOUT_FINANCIAL_LEDGER'
+ORCAMENTO_ACIMA = 'FINANCIAL_BUDGET_ABOVE_HUMAN_LIMIT'
+NAO_CONCEDIDA = 'AUTHORIZATION_NOT_GRANTED_HERE'
+ESGOTADA = 'AUTHORIZATION_EXHAUSTED'
+IMUTAVEL = 'AUTHORIZATION_IS_IMMUTABLE'
+
 #: O que cada estado da relevância vira, quando barra. Um mapa de NOMES, não
 #: uma regra: a decisão de barrar já foi tomada acima.
 _NOME_DA_AUSENCIA = {
@@ -219,6 +233,141 @@ _NOME_DA_AUSENCIA = {
     NAO_SEI: RELEVANCIA_INCERTA,
     ERRO: RELEVANCIA_COM_ERRO,
 }
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A IDENTIDADE DA AUTORIZAÇÃO — UM FORMULÁRIO NÃO É UMA AUTORIZAÇÃO
+# ══════════════════════════════════════════════════════════════════════════
+# ⚠️ ACRESCENTADO NA SCRAP-CV-02, e por medição, não por gosto. Até aqui a
+# autorização era um `dict` qualquer: bastava escrever
+#
+#     {'VEREDITO': 'AUTORIZA', 'ESTADO_DA_RELEVANCIA': 'SIM', ...}
+#
+# para comprar. Medido nesta árvore, antes desta secção:
+#
+#     AUTHORIZATION_COPY_ACCEPTED = 1
+#
+# Um `copy.deepcopy` da autorização de outra compra passava inteiro, e um
+# dicionário escrito à mão também.
+#
+#     UMA AUTORIZAÇÃO QUE O CHAMADOR ESCREVE É UM CAMPO DE FORMULÁRIO.
+#     COPIAR UMA AUTORIZAÇÃO NÃO É RECEBER UMA AUTORIZAÇÃO.
+#
+# O que passa a valer não é a FORMA do objecto: é a IDENTIDADE da instância que
+# saiu de `conceder()`. Um direito de gastar não é um valor, é um
+# acontecimento — e dois acontecimentos com os mesmos campos não são o mesmo.
+#
+#     DUAS AUTORIZAÇÕES IGUAIS NÃO SÃO A MESMA AUTORIZAÇÃO.
+#
+# Ela continua a ser um `dict` por herança, e isso é deliberado: quem já a LÊ
+# (`autorizacao.get('MAX_USD')`) continua a ler. O que muda é quem a ESCREVE.
+# ⚠️ UM `WeakSet` NAO SERVE AQUI, e a razao e do Python: um `dict` (e as suas
+# subclasses) nao e hashable, porque a igualdade dele e por VALOR. Forcar um
+# `__hash__` de identidade poria a classe a violar o contrato hash/eq.
+#
+# Entao o registo e por `id()`, com referencia fraca ao objecto. E fail-closed:
+# se o objecto morreu e o `id` foi reaproveitado, a consulta devolve OUTRO
+# objecto (ou nada) e a comparacao por identidade recusa.
+_CONCEDIDAS = weakref.WeakValueDictionary()
+
+
+class Autorizacao(dict):
+    """O direito de acender N execuções pagas, para um fim declarado.
+
+    Não se constrói à mão: `conceder()` é a única porta. E não se altera depois
+    de concedida — mudar `MAX_USD` a seguir à conferência seria trazer um
+    bilhete e entrar com outro.
+
+        UMA AUTORIZAÇÃO QUE MUDA DEPOIS DE CONFERIDA NÃO FOI CONFERIDA.
+    """
+
+    def __init__(self, *a, **k):
+        super().__init__(*a, **k)
+        self._selada = False
+        self._gastas = 0
+        #: O LEDGER CONTRA O QUAL ESTE LIMITE HUMANO FOI CONFERIDO.
+        #: Nao e um saldo e nao e uma soma: e um NOME, e serve so para dizer
+        #: «ainda e a mesma execucao». Ver `pode_comprar`.
+        self._ledger = None
+
+    # ── depois de selada, é só de leitura ───────────────────────────────────
+    def _recusar_escrita(self, *a, **k):
+        raise SemAutorizacaoDeGasto(
+            'uma autorização concedida não se altera. O que se quer mudar '
+            'pede-se outra vez a quem autoriza.', estado=IMUTAVEL)
+
+    def __setitem__(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().__setitem__(*a, **k)
+
+    def __delitem__(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().__delitem__(*a, **k)
+
+    def update(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().update(*a, **k)
+
+    def pop(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().pop(*a, **k)
+
+    def popitem(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().popitem(*a, **k)
+
+    def clear(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().clear(*a, **k)
+
+    def setdefault(self, *a, **k):
+        if getattr(self, '_selada', False):
+            self._recusar_escrita()
+        return super().setdefault(*a, **k)
+
+    @property
+    def restantes(self):
+        """Quantas execuções pagas esta autorização ainda cobre."""
+        teto = self.get('MAX_PROVIDER_RUNS')
+        if teto is None:
+            return 0
+        return max(0, int(teto) - self._gastas)
+
+
+def conceder(autorizacao=None, **campos) -> Autorizacao:
+    """A ÚNICA porta que transforma campos num direito de gastar.
+
+    → uma `Autorizacao` selada, registada por identidade. Aceita o dicionário
+    do portão de relevância (`relevancia_da_fonte.portao()`) ou os campos de
+    uma autorização humana de PROBE/TRIAL.
+
+    ⚠️ ELA NÃO DECIDE NADA. Não lê o livro de relevância, não classifica fonte
+    e não inventa limite nenhum: recebe o que já foi decidido e dá-lhe
+    identidade. Quem decide relevância é o dono dela; quem decide limites é
+    gente.
+
+        O GUARDA CONFERE O BILHETE. QUEM O EMITE NÃO É ELE.
+    """
+    base = dict(autorizacao or {})
+    base.update(campos)
+    nova = Autorizacao(base)
+    nova._selada = True
+    _CONCEDIDAS[id(nova)] = nova
+    return nova
+
+
+def _foi_concedida(autorizacao) -> bool:
+    """→ True só para a instância que saiu de `conceder()`. Cópia não conta."""
+    try:
+        return _CONCEDIDAS.get(id(autorizacao)) is autorizacao
+    except TypeError:                                        # pragma: no cover
+        return False
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -293,7 +442,7 @@ def _conferir_limites(autorizacao, modo):
 # A GUARDA
 # ══════════════════════════════════════════════════════════════════════════
 def pode_comprar(*, modo, autorizacao, source_id=None, proposito=None,
-                 ator=None):
+                 ator=None, orcamento_autorizado=None, ledger=None):
     """A GUARDA COMUM. → o recibo da autorização, ou levanta.
 
     Chamada IMEDIATAMENTE antes do POST que cria a execução paga, em
@@ -308,6 +457,24 @@ def pode_comprar(*, modo, autorizacao, source_id=None, proposito=None,
     omissão.
 
         FAIL CLOSED. O SILÊNCIO NÃO AUTORIZA.
+
+    ⚠️ E ELA NÃO CONSOME NADA — SCRAP-CV-02.
+    Conferir é de graça; comprar não é. Um gate barato que gastasse a unidade
+    ao recusar queimaria uma execução autorizada por uma compra que o gate
+    seguinte ainda pode barrar. Quem gasta a unidade é `consumir()`, e só no
+    momento em que a compra fica comprometida.
+
+        UM GATE BARATO CORRE PRIMEIRO, E NÃO QUEIMA NADA AO RECUSAR.
+
+    ⚠️ `orcamento_autorizado` É UM NÚMERO, NÃO UM LEDGER — SCRAP-CV-02.
+    É quanto a execução declarou poder comprometer ao todo, lido do
+    `OrcamentoFinanceiro` pelo chamador. Esta lei compara-o com o limite humano
+    e mais nada: quanto já se gastou, quanto está reservado e quanto resta são
+    perguntas do ledger, e duas peças a somar o mesmo dólar divergem na terceira
+    chamada.
+
+        FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD
+        LIMITE HUMANO != LEDGER OPERACIONAL
     """
     if modo not in MODOS:
         raise SemAutorizacaoDeGasto(
@@ -318,6 +485,127 @@ def pode_comprar(*, modo, autorizacao, source_id=None, proposito=None,
             'nenhuma autorização de gasto chegou a esta compra (modo %s, ator '
             '%s). Ter chave, teto e rota permitida não é ter autorização.'
             % (modo, ator), estado=SEM_AUTORIZACAO, modo=modo)
+    # ── E ELA TEM DE TER SIDO CONCEDIDA AQUI ────────────────────────────────
+    # Um `dict` com as chaves certas é um formulário preenchido. Uma cópia de
+    # uma autorização verdadeira é o mesmo formulário, com melhor caligrafia.
+    if not isinstance(autorizacao, Autorizacao) or not _foi_concedida(autorizacao):
+        raise SemAutorizacaoDeGasto(
+            'esta autorização não saiu de `conceder()` (modo %s, ator %s). '
+            'Copiar uma autorização não é recebê-la.' % (modo, ator),
+            estado=SEM_AUTORIZACAO, modo=modo)
+
+    # ── O LEDGER, E A RELAÇÃO COM O LIMITE HUMANO ───────────────────────────
+    # ⚠️ MEDIDO NESTA ÁRVORE, e reproduzido antes de corrigido:
+    #
+    #     autorização: MAX_PROVIDER_RUNS = 2 · MAX_USD = 1.00
+    #     duas execuções, cada uma a declarar orçamento de 1.00
+    #     -> EXPOSIÇÃO REPRESENTADA = 2.00
+    #
+    # O limite humano era conferido por presença e por sinal, nunca contra o
+    # que a execução declarava poder comprometer. Cada compra ganhava o limite
+    # inteiro outra vez.
+    #
+    #     UM LIMITE QUE RENASCE A CADA COMPRA NÃO É UM LIMITE.
+    teto_humano = autorizacao.get('MAX_USD')
+    if teto_humano is None:
+        raise SemAutorizacaoDeGasto(
+            'a autorização não traz MAX_USD. Um limite em falta é um limite '
+            'infinito, e isso não é um limite.', estado=LIMITE_AUSENTE,
+            modo=modo)
+    # ⚠️ ZERO NÃO É «SEM TETO»; É «NÃO PODE» — e isso já tinha nome nesta lei.
+    # Recusar um `MAX_USD = 0` pela comparação com o ledger daria a resposta
+    # certa com o nome errado, e um nome errado no rasto manda procurar o
+    # problema no sítio errado.
+    try:
+        if float(teto_humano) <= 0:
+            raise SemAutorizacaoDeGasto(
+                'o limite «MAX_USD» é %s — isso não autoriza nada.'
+                % teto_humano, estado=LIMITE_AUSENTE, modo=modo)
+    except (TypeError, ValueError):
+        raise SemAutorizacaoDeGasto(
+            'o limite «MAX_USD» não é um número: %r' % teto_humano,
+            estado=LIMITE_AUSENTE, modo=modo)
+    if orcamento_autorizado is None:
+        raise SemAutorizacaoDeGasto(
+            'esta execução não declarou orçamento financeiro. Sem um ledger '
+            'que some o que já foi comprometido, o limite humano renasce '
+            'inteiro a cada POST — e duas execuções de um dólar gastam dois.',
+            estado=SEM_AUTORIZACAO, modo=modo)
+    try:
+        declarado, humano = float(orcamento_autorizado), float(teto_humano)
+    except (TypeError, ValueError):
+        raise SemAutorizacaoDeGasto(
+            'orçamento ou limite humano não numérico: %r / %r'
+            % (orcamento_autorizado, teto_humano), estado=LIMITE_AUSENTE,
+            modo=modo)
+    if declarado > humano + 1e-9:
+        raise SemAutorizacaoDeGasto(
+            'o orçamento declarado para esta execução (%.4f) é maior do que o '
+            'limite que a pessoa concedeu (%.4f).' % (declarado, humano),
+            estado=SEM_AUTORIZACAO, modo=modo)
+
+    # ── E TEM DE SER SEMPRE O MESMO LEDGER ──────────────────────────────────
+    # ⚠️ MEDIDO PELO RED TEAM DA SCRAP-CV-02, e era o defeito outra vez, um
+    # andar acima:
+    #
+    #     autorização: MAX_PROVIDER_RUNS = 2 · MAX_USD = 1.00
+    #     DUAS execuções, cada uma a abrir o SEU orçamento de 1.00
+    #     cada compra custa 0.60 -> EXPOSIÇÃO TOTAL = 1.20
+    #
+    # Cada orçamento sozinho cabia no limite humano. O que não cabia era a
+    # soma — e conferir o limite contra um ledger que muda a meio é o mesmo que
+    # não o conferir.
+    #
+    #     UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NÃO FOI CONFERIDO.
+    #
+    # A saída NÃO é dar um saldo a esta lei: continuaria a haver duas peças a
+    # somar o mesmo dólar. O que ela guarda é um NOME — a identidade do ledger
+    # contra o qual o limite foi conferido da primeira vez.
+    #
+    #     UM NOME NÃO É UMA SOMA.
+    #
+    # Uma autorização vale dentro de UMA execução. Para outra execução, pede-se
+    # outra vez — que é exactamente o que uma pessoa entende por autorizar.
+    if ledger is not None:
+        if autorizacao._ledger is None:
+            autorizacao._ledger = ledger
+        elif autorizacao._ledger != ledger:
+            raise SemAutorizacaoDeGasto(
+                'esta autorização já foi conferida contra outro orçamento. O '
+                'limite humano de %.4f vale dentro de UMA execução; para outra '
+                'pede-se outra vez.' % humano,
+                estado=SEM_AUTORIZACAO, modo=modo)
+
+    # ── E QUANTAS EXECUÇÕES, TAMBÉM EM NORMAL ───────────────────────────────
+    # ⚠️ MEDIDO: com `MAX_PROVIDER_RUNS = 2` e cinco chaves no cofre, saíram
+    # CINCO POSTs. O limite existia no papel e ninguém o contava, porque nada
+    # gastava a unidade. `ferramentas/apify_pool.py` rotaciona a chave e retoma
+    # a mesma corrida; `regras/sensor_coleta.py` percorre o pool inteiro.
+    #
+    #     ROTAÇÃO DE CHAVE NÃO É NOVA AUTORIZAÇÃO.
+    corridas = autorizacao.get('MAX_PROVIDER_RUNS')
+    if corridas is None:
+        raise SemAutorizacaoDeGasto(
+            'a autorização não diz quantas execuções pagas cobre. Sem esse '
+            'número, uma autorização paga tantas quantas houver chaves.',
+            estado=LIMITE_AUSENTE, modo=modo)
+    # ⚠️ E ZERO AQUI TAMBÉM NÃO É «SEM TETO». «Nunca foram concedidas» e «já
+    # foram todas usadas» são duas coisas, e só a segunda é esgotamento.
+    try:
+        if float(corridas) <= 0:
+            raise SemAutorizacaoDeGasto(
+                'o limite «MAX_PROVIDER_RUNS» é %s — isso não autoriza nada.'
+                % corridas, estado=LIMITE_AUSENTE, modo=modo)
+    except (TypeError, ValueError):
+        raise SemAutorizacaoDeGasto(
+            'o limite «MAX_PROVIDER_RUNS» não é um número: %r' % corridas,
+            estado=LIMITE_AUSENTE, modo=modo)
+    if autorizacao.restantes <= 0:
+        raise SemAutorizacaoDeGasto(
+            'as execuções autorizadas já foram usadas (%s de %s). Rotação de '
+            'chave não é nova autorização.'
+            % (autorizacao._gastas, autorizacao.get('MAX_PROVIDER_RUNS')),
+            estado=SEM_AUTORIZACAO, modo=modo)
 
     if modo in MODOS_DE_MEDIDA:
         # ── PROBE e TRIAL: quem autoriza é GENTE, e traz os limites ────────
@@ -394,6 +682,58 @@ def pode_comprar(*, modo, autorizacao, source_id=None, proposito=None,
     }
 
 
+def consumir(autorizacao):
+    """Gasta UMA execução da autorização. → o recibo do consumo.
+
+    ⚠️ SEPARADA DE `pode_comprar()` DE PROPÓSITO — SCRAP-CV-02.
+
+        POST QUE NÃO SAIU != POST QUE SAIU.
+
+    Chama-se no momento do COMPROMISSO: depois de o dinheiro estar reservado,
+    imediatamente antes do POST. Gastá-la na conferência — que corre antes do
+    orçamento e antes da rede — queimaria uma execução autorizada por uma
+    compra que uma trava seguinte ainda vai recusar.
+    """
+    if not isinstance(autorizacao, Autorizacao) or not _foi_concedida(autorizacao):
+        raise SemAutorizacaoDeGasto(
+            'só se consome uma autorização que saiu de `conceder()`.',
+            estado=SEM_AUTORIZACAO)
+    if autorizacao.restantes <= 0:
+        raise SemAutorizacaoDeGasto(
+            'as execuções autorizadas já foram usadas. Rotação de chave não é '
+            'nova autorização.', estado=SEM_AUTORIZACAO)
+    autorizacao._gastas += 1
+    return {'EXECUCOES_GASTAS': autorizacao._gastas,
+            'MAX_PROVIDER_RUNS': autorizacao.get('MAX_PROVIDER_RUNS'),
+            'RESTANTES': autorizacao.restantes}
+
+
+def devolver(autorizacao, porque):
+    """Devolve UMA execução. SÓ com prova de que o POST não saiu.
+
+    ⚠️ A PORTA ESTREITA, e é estreita de propósito. É a irmã de
+    `Reserva.anular()` no ledger: existe para o único caso em que há PROVA de
+    que nada foi comprado — o teto de acessos recusou antes do socket, e a
+    chamada morreu deste lado.
+
+        AUSÊNCIA DE NOTÍCIA NÃO É PROVA DE AUSÊNCIA DE COMPRA.
+
+    `PostTalvezCriado` — o transporte que caiu no meio do POST — NÃO passa por
+    aqui: ali o pedido pode ter chegado, e devolver a unidade autorizaria uma
+    segunda compra por cima de uma primeira que talvez exista.
+    """
+    if not isinstance(autorizacao, Autorizacao) or not _foi_concedida(autorizacao):
+        raise SemAutorizacaoDeGasto(
+            'só se devolve a uma autorização que saiu de `conceder()`.',
+            estado=SEM_AUTORIZACAO)
+    if autorizacao._gastas <= 0:
+        return {'EXECUCOES_GASTAS': 0, 'RESTANTES': autorizacao.restantes}
+    autorizacao._gastas -= 1
+    return {'EXECUCOES_GASTAS': autorizacao._gastas,
+            'RESTANTES': autorizacao.restantes,
+            'EXECUCAO_DEVOLVIDA': porque}
+
+
 #: O que esta lei NUNCA cria. Escrito para a pressa do mês que vem.
 NAO_CRIAR = ('LIVRO_DE_RELEVANCIA_LOCAL', 'CLASSIFICADOR_DE_FONTE',
              'SOURCE_ID_FABRICADO', 'AUTORIZACAO_POR_OMISSAO',
@@ -410,6 +750,17 @@ LEIS = (
     'PROBE != DECISION',
     'UM LIMITE EM FALTA E UM LIMITE INFINITO',
     'FAIL CLOSED — O SILENCIO NAO AUTORIZA',
+    'UMA AUTORIZACAO QUE O CHAMADOR ESCREVE E UM CAMPO DE FORMULARIO',
+    'COPIAR UMA AUTORIZACAO NAO E RECEBER UMA AUTORIZACAO',
+    'DUAS AUTORIZACOES IGUAIS NAO SAO A MESMA AUTORIZACAO',
+    'UMA AUTORIZACAO QUE MUDA DEPOIS DE CONFERIDA NAO FOI CONFERIDA',
+    'LIMITE HUMANO != LEDGER OPERACIONAL',
+    'FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD',
+    'UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NAO FOI CONFERIDO',
+    'UM NOME NAO E UMA SOMA',
+    'ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO',
+    'POST QUE NAO SAIU != POST QUE SAIU',
+    'UM GATE BARATO CORRE PRIMEIRO, E NAO QUEIMA NADA AO RECUSAR',
 )
 
 

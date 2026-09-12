@@ -94,9 +94,28 @@ class _Cenario(object):
     #:
     #: `TRIAL` e o modo certo: nada aqui colhe a serio, e nenhuma destas
     #: chamadas quer perguntar pela relevancia de fonte nenhuma.
-    AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8A-F, gasto falso',
-                   'MAX_PROVIDER_RUNS': 99, 'MAX_START_POSTS': 99,
-                   'MAX_USD': 99.0}
+    CAMPOS = {'AUTORIZACAO_HUMANA': 'bateria C10.8A-F, gasto falso',
+              'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1}
+
+    def autorizacao(self):
+        """Uma autorizacao CONCEDIDA, uma por chamada paga — SCRAP-CV-02.
+
+        ⚠️ ERA UM DICIONARIO DE MODULO, PARTILHADO, COM `MAX_USD = 99`. Duas
+        coisas mudaram e as duas sao deliberadas:
+
+        · a autorizacao passou a GASTAR-SE a cada compra, entao uma constante
+          partilhada por toda a suite esgotava-se a meio. Concede-se uma por
+          chamada, que e o que acontece na vida real;
+
+        · `MAX_USD` acompanha o orcamento que o teste declarou, em vez de um 99
+          que passa por cima de qualquer limite. Um limite humano folgado
+          desliga a relacao que esta suite existe para nao contradizer:
+
+              FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD
+        """
+        orc = ct.orcamento_financeiro_actual()
+        limite = (orc.autorizado if orc is not None else 1.00) or 0.01
+        return az.conceder(self.CAMPOS, MAX_USD=limite)
 
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
         itens, man = ct.executar(
@@ -104,7 +123,7 @@ class _Cenario(object):
             country=country_scope, mission='C10-8A-F', query='teste',
             source_version='teste', evidence_path='data/samples/t.json',
             wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
-            modo=az.TRIAL, autorizacao=self.AUTORIZACAO)
+            modo=az.TRIAL, autorizacao=self.autorizacao())
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
@@ -439,11 +458,45 @@ class UmEnsaioPagoSemTetoNaoComeca(unittest.TestCase):
         saidas, falso, _o = _colher(gasto=1.00, guiao=(0.10,), modo=sx.TRIAL)
         self.assertEqual(len(falso.posts), 1)
 
-    def test_28_em_NORMAL_o_caminho_historico_nao_muda(self):
+    def test_28_em_NORMAL_sem_ledger_ja_nao_se_compra(self):
+        """MUDANCA DE COMPORTAMENTO DECLARADA — SCRAP-CV-02.
+
+        ⚠️ ATE AQUI ESTA SENTINELA AFIRMAVA O CONTRARIO. Chamava-se
+        `test_28_em_NORMAL_o_caminho_historico_nao_muda` e exigia UM POST: em
+        modo NORMAL, sem orcamento financeiro declarado, a rota paga corria na
+        mesma e nenhum `maxTotalChargeUsd` ia ao fornecedor. Era deliberado, e
+        era coerente com a C10.8A-F isolada — aquela missao instalava um teto,
+        nao fechava a porta a quem nao instalasse nenhum.
+
+        A guarda de autorizacao trouxe a outra metade: quem autoriza, e ate que
+        limite humano. E a CV-02 mediu o que acontecia quando as duas metades se
+        juntavam sem ledger no meio, nesta arvore e antes do conserto:
+
+            autorizacao: MAX_PROVIDER_RUNS = 2 · MAX_USD = 1.00
+            duas execucoes, cada uma a declarar orcamento de 1.00
+            -> EXPOSICAO REPRESENTADA = 2.00
+
+        Sem alguem a somar, o limite humano renascia inteiro a cada POST. Um
+        dolar autorizado pagava dois. Entao o ledger deixou de ser opcional.
+
+        O caminho historico MUDOU, e muda aqui em vez de mudar em silencio.
+        """
         saidas, falso, _o = _colher(gasto=None, guiao=(0.10,), modo=sx.NORMAL)
-        self.assertEqual(len(falso.posts), 1)
-        self.assertIsNone(falso.posts[0],
-                          'sem teto declarado passou a ir maxTotalChargeUsd')
+        self.assertEqual(falso.posts, [], 'comprou sem ledger nenhum')
+        t = saidas[0][1]
+        self.assertEqual(t.get('RESULT'), 'SPEND_NOT_AUTHORIZED')
+        # ⚠️ E a recusa NAO se veste de nenhuma das outras. Em especial nao se
+        # veste de transporte: `TRANSIENT_NETWORK_ERROR` pede `WAIT`, e quem le
+        # `WAIT` volta a chamar — e a segunda chamada seria uma compra.
+        for errado in ('TRANSIENT_NETWORK_ERROR', 'FINANCIAL_BUDGET_EXHAUSTED',
+                       'NETWORK_BUDGET_EXHAUSTED', 'SOURCE_UNAVAILABLE',
+                       'UNKNOWN_ERROR'):
+            self.assertNotEqual(t.get('RESULT'), errado)
+        import falhas
+        self.assertEqual(falhas.recuperacao(
+            falhas.traduzir('SPEND_NOT_AUTHORIZED')), 'NO_RETRY')
+        # E o rasto continua a nao inventar orcamento nenhum: nao houve ledger.
+        self.assertNotIn('FINANCIAL_BUDGET_AUTHORIZED_USD', t)
 
     def test_29_rota_gratuita_em_TRIAL_nao_exige_teto(self):
         with ct.orcamento_financeiro(0):

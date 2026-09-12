@@ -1204,3 +1204,104 @@ nenhuma.
 **SUPOSIÇÃO NÃO ASSUMIDA:** não se decide aqui que a política determinística é
 suficiente para sempre. Decide-se que ela **basta para fechar**, desde que
 produza os dados que uma política melhor precisaria para ser comparada com ela.
+
+---
+
+### D-040 — O fluxo canónico e o controlo de gasto passam a ser uma linha só
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** Duas linhas, cada uma verde sozinha. A `SCRAP-FLOW-01` tinha o
+  fluxo operacional a atravessar o orquestrador canónico, com a guarda de
+  autorização da SR-02 já dentro. A `SCRAP-CV-01` tinha as garantias
+  financeiras provadas noutra linhagem. Nenhuma das duas conhecia a outra.
+
+- **Base escolhida por medição, não por recência.** A partir do `merge-base`
+  comum (`532e3bed`, o HEAD da C10.8A-F), a linha do fluxo trazia 18 commits e a
+  do gasto trazia 1. Porta-se o delta pequeno para a base grande.
+
+  ```
+  BASE_VERDICT = FLOW-01
+  ```
+
+  E a implementação da guarda que fica é a da FLOW-01 — `pode_comprar`, com
+  `NORMAL · PROBE · TRIAL` — porque é a que já está ligada ao fluxo. Não se
+  trocou uma semântica por outra: acrescentaram-se-lhe as garantias que a outra
+  linha tinha provado.
+
+      ONE CONCEPT → ONE OWNER. E O OWNER É O QUE JÁ ESTÁ LIGADO AO FLUXO.
+
+- **O que a base deixava passar, reproduzido antes de corrigido.**
+
+  ```
+  DEFECT_REPRODUCED              = YES   exposição 2.00 sob limite humano 1.00
+  NORMAL_WITHOUT_LEDGER_POSTS    = 1     comprava sem ledger nenhum
+  AUTHORIZATION_COPY_ACCEPTED    = 1     um deepcopy comprava
+  ROTAÇÃO                        = 5 POSTs com MAX_PROVIDER_RUNS = 2
+  RESULT da compra não autorizada = UNKNOWN_ERROR
+  ```
+
+- **Decisão.** A guarda passa a exigir a RELAÇÃO com o ledger, e mais nada
+  sobre dinheiro:
+
+  ```
+  FINANCIAL_BUDGET.AUTHORIZED  <=  AUTORIZACAO.MAX_USD
+  ```
+
+  E `MAX_USD` e `MAX_PROVIDER_RUNS` passam a ser obrigatórios também em
+  `NORMAL`. Conferir deixa de consumir: a unidade gasta-se no momento do
+  compromisso, e volta quando há PROVA de que o POST não saiu.
+
+      LIMITE HUMANO != LEDGER OPERACIONAL.
+      POST QUE NÃO SAIU != POST QUE SAIU.
+
+- **⚠️ E UMA DESCOBERTA QUE NÃO ESTAVA NO ENUNCIADO.** Com a relação instalada,
+  o red team voltou a rebentar o limite: duas execuções, cada uma a abrir o SEU
+  orçamento de 1,00, com compras de 0,60 — exposição total de 1,20. Cada
+  orçamento cabia; a soma não.
+
+      UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NÃO FOI CONFERIDO.
+
+  A saída não foi dar um saldo à lei — seria repor o defeito que a relação
+  acabara de evitar. Ela guarda um NOME: a identidade do orçamento contra o qual
+  o limite foi conferido da primeira vez, e recusa uma segunda execução sob
+  outro.
+
+      UM NOME NÃO É UMA SOMA.
+
+- **E a autorização deixa de ser um formulário.** Era um `dict`; um dicionário
+  com as chaves certas comprava, e uma cópia de outra compra também. Passa a
+  valer por IDENTIDADE, e fica selada contra escrita depois de concedida.
+
+      COPIAR UMA AUTORIZAÇÃO NÃO É RECEBER UMA AUTORIZAÇÃO.
+      UMA AUTORIZAÇÃO QUE MUDA DEPOIS DE CONFERIDA NÃO FOI CONFERIDA.
+
+- **E a recusa ganha nome.** `SPEND_NOT_AUTHORIZED`, família
+  `BUDGET_EXHAUSTED`, `NO_RETRY`. As ausências da relevância mantêm cada uma o
+  seu nome. `social_rotas` deixa passar as três recusas em vez de duas.
+
+      SALDO ESGOTADO != NINGUÉM AUTORIZOU.
+
+- **⚠️ MUDANÇA DE COMPORTAMENTO DECLARADA.** Em `NORMAL`, sem orçamento
+  financeiro declarado, a rota paga deixa de correr: zero POST,
+  `RESULT = SPEND_NOT_AUTHORIZED`. Duas sentinelas afirmavam o contrário e foram
+  reescritas com a razão ao lado, não apagadas.
+
+- **E duas provas do controlo de gasto estavam vermelhas na base**, pela mesma
+  razão: a guarda tinha chegado àquela linha e elas continuavam a chamar a porta
+  paga sem trazer autorização. Ficaram verdes.
+
+      DUAS LINHAS PARCIALMENTE CORRECTAS NÃO SÃO UM FLUXO.
+
+- **O que esta missão NÃO fez, e não fez de propósito:** não executou fornecedor
+  pago, não rodou a C10.8B, não reavaliou as 77 fontes, não migrou nenhum outro
+  workflow, não mexeu na Bíblia, não reabriu a `COL-LAW-505` e não fez merge
+  repo-wide entre as linhagens.
+
+  ```
+  REAL_NETWORK = 0 · APIFY_REAL_RUNS = 0 · PAID_REAL_RUNS = 0 · REAL_COST_USD = 0
+  ```
+
+- **Quem decidiu:** missão SCRAP-CV-02. Relatório em
+  [`docs/operacao/CONVERGENCIA-DO-FLUXO-PAGO-V1.md`](../operacao/CONVERGENCIA-DO-FLUXO-PAGO-V1.md).
+
+      UM LIMITE QUE RENASCE A CADA EXECUÇÃO NÃO É UM LIMITE.

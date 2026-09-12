@@ -3051,6 +3051,24 @@
    "files": [
     "provas/instagram_audio_only.py"
    ]
+  },
+  {
+   "id": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+   "name": "O red team da convergencia do fluxo pago",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "⊗",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit"
+   ],
+   "files": [
+    "provas/red_team_da_convergencia_do_fluxo.py"
+   ],
+   "what": "Tenta COMPRAR de quinze maneiras nomeadas, atravessando a linha onde o fluxo canonico e o controlo de gasto se encontram: forjar a autorizacao, copia-la, emenda-la depois de concedida, somar dois orcamentos sob o mesmo limite humano, apanhar a recusa como erro de rede, transformar a recusa em WAIT, trocar o transporte, repetir o POST pago, chamar a porta paga fora do roteador, colher sem ledger, e devolver a unidade autorizada sem prova de que o POST nao saiu.",
+   "why_here": "Duas linhas que passaram em separado nao provam nada juntas. E uma excecao que ninguem previu nao e um portao: e uma surpresa — por isso um ataque que rebenta de outra maneira conta como ATAQUE_VIVO, e uma recusa pelo motivo errado nao conta como defesa. Foi este red team que encontrou o segundo andar do defeito do dolar: com a relacao FINANCIAL_BUDGET.AUTHORIZED <= MAX_USD ja instalada, duas execucoes a abrir cada uma o SEU orcamento de 1.00 chegavam a 1.20 de exposicao. UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NAO FOI CONFERIDO. O fornecedor e falso so na fronteira externa: NETWORK_REAL = 0, APIFY_REAL_RUNS = 0, REAL_COST_USD = 0."
   }
  ],
  "BUSINESS_EDGES": [

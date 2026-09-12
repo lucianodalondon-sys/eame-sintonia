@@ -21,6 +21,7 @@ for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 
 import adaptador_youtube as ay                                    # noqa: E402
+import autorizacao_de_gasto as az                                 # noqa: E402
 import apify_pool as ap                                           # noqa: E402
 import coletor as ct                                              # noqa: E402
 import scrap_capacidades as cap                                   # noqa: E402
@@ -131,14 +132,25 @@ class _Cenario(object):
 #:
 #:     UM AJUDANTE DE TESTE QUE COMPRA SEM AUTORIZACAO
 #:     PROVA UM SISTEMA QUE NAO E ESTE.
-AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8B, provider falso',
-               'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
-               'MAX_USD': TETO_USD}
+CAMPOS_DA_AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8B, provider falso',
+                         'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
+                         'MAX_USD': TETO_USD}
+
+#: ⚠️ E UMA AUTORIZACAO NOVA POR CORRIDA — SCRAP-CV-02.
+#: Era um dicionario de modulo, partilhado por toda a bateria. Desde que a
+#: autorizacao se GASTA a cada compra comprometida, uma constante partilhada
+#: esgotava-se na segunda prova — e a vida real e mesmo assim: quem autoriza
+#: autoriza N execucoes, e a N+1 pede-se outra vez.
+#:
+#:     ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO.
+_POR_CONCEDER = object()
 
 
 def _colher(falso, *, gasto=TETO_USD, rede=TETO_REDE, com_chave=True,
             permitir_pago=True, motivo=MOTIVO, modo=sx.TRIAL, video=ALVO,
-            autorizacao=AUTORIZACAO):
+            autorizacao=_POR_CONCEDER):
+    if autorizacao is _POR_CONCEDER:
+        autorizacao = az.conceder(CAMPOS_DA_AUTORIZACAO)
     with _Cenario(falso, com_chave=com_chave):
         pedido = dict(platform=PLAT, capability=CAPAC, run_id='t-c108b',
                       modo=modo, permitir_pago=permitir_pago, motivo_pago=motivo,

@@ -248,6 +248,7 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/RED-TEAM-CONVERGENCIA-FLUXO-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
@@ -696,6 +697,7 @@
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "docs/operacao/CONVERGENCIA-DO-FLUXO-PAGO-V1.md",
       "docs/operacao/ENCANAMENTO-DA-COLETA.md",
       "docs/operacao/ESTADO-DA-FUNDACAO-DA-COLETA.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
@@ -798,6 +800,7 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
       "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md"
     ],
     "ferramentas": [
@@ -1252,6 +1255,7 @@
       "provas/rastro_no_postgres.py",
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
+      "provas/red_team_da_convergencia_do_fluxo.py",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
@@ -1543,6 +1547,7 @@
       "tests/test_competitor_layer.py",
       "tests/test_completude_oportunidade.py",
       "tests/test_comunicacao.py",
+      "tests/test_cv02_convergencia_do_fluxo_pago.py",
       "tests/test_estradas_it.py",
       "tests/test_evidence.py",
       "tests/test_evolucao.py",
@@ -1987,10 +1992,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-canonical-flow-f01",
-    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
-    "GENERATED_AT": "2026-09-12T20:03:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3aa952d401fd9419c8a9cdec98e6fd397ad04d3cc968746e230e54540184fa8e"
+    "BRANCH": "claude/sintonia-scrap-paid-flow-convergence-cv02",
+    "HEAD": "84422284eeac731e3fe44ed236f63b91570e194f",
+    "GENERATED_AT": "2026-09-12T20:13:52+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1eaec94e2b393b01e40cbc4d79991b727f0901bf0817d4086f0d886f41aa9a6b"
   },
   "FAMILIES": [
     {
@@ -2059,7 +2064,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 62
+      "count": 63
     },
     {
       "id": "F-ENTREGA",
@@ -2429,7 +2434,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 47
+      "count": 48
     }
   ],
   "DEPARTMENTS": {
@@ -5976,6 +5981,7 @@
       "outbound": [
         "C-COLETA-BASE",
         "C-PROVA-COLETA",
+        "C-RED-TEAM-CONVERGENCIA-FLUXO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -5989,9 +5995,9 @@
           "LEIS",
           "NAO_CRIAR"
         ],
-        "palavras": 19,
+        "palavras": 23,
         "por_lingua": {},
-        "sem_marca_de_lingua": 19,
+        "sem_marca_de_lingua": 23,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7344,6 +7350,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
+        "C-RED-TEAM-CONVERGENCIA-FLUXO",
         "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
         "C-TESTES"
@@ -12296,6 +12303,7 @@
         "listas": [
           "ARRANCAM",
           "BLOQUEADAS",
+          "CAMPOS_DA_AUTORIZACAO",
           "CASOS",
           "COLS_DER",
           "COLS_OBJ",
@@ -12317,9 +12325,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 358,
+        "palavras": 371,
         "por_lingua": {},
-        "sem_marca_de_lingua": 358,
+        "sem_marca_de_lingua": 371,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13291,6 +13299,84 @@
       "y": 4868
     },
     {
+      "id": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+      "name": "O red team da convergencia do fluxo pago",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Tenta COMPRAR de quinze maneiras nomeadas, atravessando a linha onde o fluxo canonico e o controlo de gasto se encontram: forjar a autorizacao, copia-la, emenda-la depois de concedida, somar dois orcamentos sob o mesmo limite humano, apanhar a recusa como erro de rede, transformar a recusa em WAIT, trocar o transporte, repetir o POST pago, chamar a porta paga fora do roteador, colher sem ledger, e devolver a unidade autorizada sem prova de que o POST nao saiu.",
+      "why_here": "Duas linhas que passaram em separado nao provam nada juntas. E uma excecao que ninguem previu nao e um portao: e uma surpresa — por isso um ataque que rebenta de outra maneira conta como ATAQUE_VIVO, e uma recusa pelo motivo errado nao conta como defesa. Foi este red team que encontrou o segundo andar do defeito do dolar: com a relacao FINANCIAL_BUDGET.AUTHORIZED <= MAX_USD ja instalada, duas execucoes a abrir cada uma o SEU orcamento de 1.00 chegavam a 1.20 de exposicao. UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NAO FOI CONFERIDO. O fornecedor e falso so na fronteira externa: NETWORK_REAL = 0, APIFY_REAL_RUNS = 0, REAL_COST_USD = 0.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊗",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/red_team_da_convergencia_do_fluxo.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [
+        "data/derivados/RED-TEAM-CONVERGENCIA-FLUXO-V1.json"
+      ],
+      "inbound": [
+        "C-AUTORIZACAO-DE-GASTO",
+        "C-COLETA-BASE",
+        "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
+        "C-SENSOR-COLETA"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_NORMAL",
+          "CAMPOS_TRIAL"
+        ],
+        "palavras": 19,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 19,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/derivados",
+          "prova": {
+            "file": "provas/red_team_da_convergencia_do_fluxo.py",
+            "line": 475,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/RED-TEAM-CONVERGENCIA-FLUXO-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 20435,
+      "y": 4868
+    },
+    {
       "id": "C-REGRA-COLETA",
       "name": "A regra de coleta externa",
       "territory": "Z-MEDIDAS",
@@ -13429,7 +13515,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -14096,6 +14182,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-RASTRO",
+        "C-RED-TEAM-CONVERGENCIA-FLUXO",
         "C-ROTA-M2",
         "C-SCRAP-GUARDA",
         "C-SCRAP-SOCIAL",
@@ -14120,9 +14207,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 484,
+        "palavras": 500,
         "por_lingua": {},
-        "sem_marca_de_lingua": 484,
+        "sem_marca_de_lingua": 500,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14251,6 +14338,7 @@
         "C-COLETA-PUBLICA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-RED-TEAM-CONVERGENCIA-FLUXO",
         "C-ROTA-M2",
         "C-SCRAP-COLHEITA",
         "C-SENSOR-COLETA",
@@ -14296,7 +14384,7 @@
         {
           "onde": "SUPABASE",
           "file": "coleta/social_scrap.py",
-          "line": 1614,
+          "line": 1615,
           "snippet": "dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
         }
       ],
@@ -14386,8 +14474,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -14431,6 +14519,7 @@
       "outbound": [
         "C-CENSO-SEMANTICO-IT",
         "C-PROVA-COLETA",
+        "C-RED-TEAM-CONVERGENCIA-FLUXO",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
       ],
@@ -14686,7 +14775,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5190
     },
     {
@@ -15932,6 +16021,7 @@
         "tests/test_competitor_layer.py",
         "tests/test_completude_oportunidade.py",
         "tests/test_comunicacao.py",
+        "tests/test_cv02_convergencia_do_fluxo_pago.py",
         "tests/test_estradas_it.py",
         "tests/test_evidence.py",
         "tests/test_evolucao.py",
@@ -15996,7 +16086,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 112,
+      "file_count": 113,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16141,13 +16231,15 @@
         "listas": [
           "ADAPTERS",
           "ANTES_DO_B2",
-          "AUTORIZACAO",
           "BINDINGS",
           "BLOQUEADAS",
           "CADEIA",
           "CAMINHOS_DE_INTELIGENCIA",
+          "CAMPOS_DA_AUTORIZACAO",
           "CAMPOS_DA_REGRA",
           "CAMPOS_DOC_DA_REGRA",
+          "CAMPOS_NORMAL",
+          "CAMPOS_TRIAL",
           "CATALOGO",
           "COMPLETA",
           "CONTRATO",
@@ -16184,12 +16276,12 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 562,
+        "palavras": 571,
         "por_lingua": {
           "FR": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 558,
+        "sem_marca_de_lingua": 567,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -16243,7 +16335,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -17606,7 +17698,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-canonical-flow-f01"
+        "branch claude/sintonia-scrap-paid-flow-convergence-cv02"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18227,7 +18319,7 @@
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 152,
+          "line": 163,
           "snippet": "('M16 · o pool de chaves passa a decidir gasto', 'ferramentas/apify_pool.py',"
         }
       ],
@@ -18286,7 +18378,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 24,
+          "line": 25,
           "snippet": "import apify_pool as ap                                           # noqa: E402"
         },
         {
@@ -18301,7 +18393,7 @@
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 166,
+          "line": 212,
           "snippet": "import apify_pool as ap"
         }
       ],
@@ -18319,7 +18411,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 272,
+          "line": 325,
           "snippet": "'ferramentas/apify_pool.py', 'coleta/social_rotas.py',"
         }
       ],
@@ -19547,12 +19639,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/nenhuma_compra_sem_autorizacao.py",
           "line": 49,
           "snippet": "import autorizacao_de_gasto as az   # noqa: E402"
+        },
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 38,
+          "snippet": "import autorizacao_de_gasto as az  # noqa: E402 — a porta que CONCEDE"
+        },
+        {
+          "file": "provas/primeira_rota_paga.py",
+          "line": 41,
+          "snippet": "import autorizacao_de_gasto as az  # noqa: E402 — a porta que CONCEDE"
         }
       ],
       "categoria": "PROOF"
@@ -19569,11 +19671,29 @@
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 32,
+          "line": 37,
           "snippet": "LEI = 'leis/autorizacao_de_gasto.py'"
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por O red team da convergencia do fluxo pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia_do_fluxo.py",
+          "line": 43,
+          "snippet": "import autorizacao_de_gasto as az   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-AUTORIZACAO-DE-GASTO",
@@ -19583,12 +19703,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
           "line": 142,
           "snippet": "from autorizacao_de_gasto import (  # noqa: E402"
+        },
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 62,
+          "snippet": "import autorizacao_de_gasto as _az  # noqa: E402  — so o TIPO da recusa"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 55,
+          "snippet": "import autorizacao_de_gasto as _az  # noqa: E402 — a porta que CONCEDE"
         }
       ],
       "categoria": "RULE"
@@ -19601,12 +19731,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
           "line": 25,
           "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 24,
+          "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_cv02_convergencia_do_fluxo_pago.py",
+          "line": 41,
+          "snippet": "import autorizacao_de_gasto as az   # noqa: E402"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -19633,7 +19773,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 391,
+          "line": 444,
           "snippet": "fonte = _fonte('leis/autorizacao_de_gasto.py')"
         }
       ],
@@ -21594,7 +21734,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 38,
+          "line": 39,
           "snippet": "import coletor as ct              # noqa: E402  — o dono do dinheiro"
         },
         {
@@ -21604,7 +21744,7 @@
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 41,
+          "line": 42,
           "snippet": "import coletor as ct             # noqa: E402"
         },
         {
@@ -21642,7 +21782,7 @@
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 33,
+          "line": 38,
           "snippet": "DONO = 'coleta/coletor.py'"
         },
         {
@@ -21652,12 +21792,12 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 208,
+          "line": 232,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 221,
+          "line": 251,
           "snippet": "diz(med.get('IMPLEMENTACAO') == 'coleta/coletor.py',"
         },
         {
@@ -21729,6 +21869,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por O red team da convergencia do fluxo pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia_do_fluxo.py",
+          "line": 44,
+          "snippet": "import coletor as ct                # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-SCRAP-SOCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21749,7 +21907,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 571,
+          "line": 607,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
@@ -21759,12 +21917,12 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1617,
+          "line": 1618,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1651,
+          "line": 1652,
           "snippet": "import coletor as _ct"
         },
         {
@@ -21792,7 +21950,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 798,
+          "line": 834,
           "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
         }
       ],
@@ -21824,7 +21982,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21848,13 +22006,18 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 25,
+          "line": 26,
           "snippet": "import coletor as ct                                              # noqa: E402"
         },
         {
           "file": "tests/test_coleta_resiliente.py",
           "line": 20,
           "snippet": "import coleta_checkpoint as C    # noqa: E402"
+        },
+        {
+          "file": "tests/test_cv02_convergencia_do_fluxo_pago.py",
+          "line": 42,
+          "snippet": "import coletor as ct                # noqa: E402"
         },
         {
           "file": "tests/test_m2_rota_forward.py",
@@ -21880,11 +22043,6 @@
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
           "line": 253,
           "snippet": "import coletor as ct"
-        },
-        {
-          "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 29,
-          "snippet": "import coletor as ct                                              # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21906,7 +22064,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 355,
+          "line": 374,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -21921,7 +22079,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 238,
+          "line": 250,
           "snippet": "self.assertEqual(med.get('IMPLEMENTACAO'), 'coleta/coletor.py')"
         },
         {
@@ -21931,7 +22089,7 @@
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 271,
+          "line": 324,
           "snippet": "ONDE = ('coleta/adaptador_youtube.py', 'coleta/coletor.py',"
         },
         {
@@ -21959,7 +22117,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 455,
+          "line": 479,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -22107,7 +22265,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 355,
+          "line": 374,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -22148,7 +22306,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 456,
+          "line": 480,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         }
       ],
@@ -22184,7 +22342,7 @@
       "evidence": [
         {
           "file": "coleta/social_scrap.py",
-          "line": 1395,
+          "line": 1396,
           "snippet": "import comunicacao_coleta as cc"
         }
       ],
@@ -22265,7 +22423,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 356,
+          "line": 375,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -22470,7 +22628,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 811,
+          "line": 847,
           "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
         }
       ],
@@ -25034,7 +25192,7 @@
       "evidence": [
         {
           "file": "tests/test_c8_convergencia.py",
-          "line": 261,
+          "line": 278,
           "snippet": "'coleta/ingresso.py', 'orquestrador/', 'supabase/',"
         },
         {
@@ -28529,7 +28687,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 606,
+          "line": 659,
           "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
         },
         {
@@ -28539,7 +28697,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 567,
+          "line": 579,
           "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')"
         },
         {
@@ -29466,7 +29624,7 @@
       "evidence": [
         {
           "file": "tests/test_c8_convergencia.py",
-          "line": 262,
+          "line": 279,
           "snippet": "'leis/retorno_da_coleta.py'],"
         }
       ],
@@ -29933,7 +30091,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 2001,
+          "line": 2011,
           "snippet": "import social_guarda"
         }
       ],
@@ -30273,7 +30431,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 41,
+          "line": 42,
           "snippet": "import social_matriz as mz        # noqa: E402"
         },
         {
@@ -30283,7 +30441,7 @@
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 46,
+          "line": 47,
           "snippet": "import social_matriz as mz       # noqa: E402"
         },
         {
@@ -30360,6 +30518,24 @@
     },
     {
       "from": "C-SCRAP-LEIS",
+      "to": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por O red team da convergencia do fluxo pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia_do_fluxo.py",
+          "line": 45,
+          "snippet": "import falhas                       # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -30416,7 +30592,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 500,
+          "line": 536,
           "snippet": "import falhas as fx"
         },
         {
@@ -30483,7 +30659,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 45 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -30756,7 +30932,7 @@
         },
         {
           "file": "coleta/coletor.py",
-          "line": 790,
+          "line": 843,
           "snippet": "import social_envelope as _env"
         }
       ],
@@ -30880,7 +31056,7 @@
         },
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 34,
+          "line": 39,
           "snippet": "EXEC = 'coleta/scrap_executor.py'"
         },
         {
@@ -30915,7 +31091,7 @@
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 309,
+          "line": 339,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/adaptador_youtube.py'), encoding='utf-8').read()"
         },
         {
@@ -30940,6 +31116,24 @@
           "file": "provas/a_rota_m2_atravessa.py",
           "line": 73,
           "snippet": "import social_persistencia as sp          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O red team da convergencia do fluxo pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia_do_fluxo.py",
+          "line": 46,
+          "snippet": "import scrap_http as http           # noqa: E402"
         }
       ],
       "categoria": "CODE"
@@ -31011,7 +31205,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 109 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 111 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -31243,7 +31437,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 456,
+          "line": 480,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -31253,6 +31447,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SENSOR-COLETA",
+      "to": "C-RED-TEAM-CONVERGENCIA-FLUXO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por O red team da convergencia do fluxo pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_convergencia_do_fluxo.py",
+          "line": 302,
+          "snippet": "import sensor_coleta                                        # noqa: F401"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-SENSOR-COLETA",
@@ -31266,7 +31478,7 @@
       "evidence": [
         {
           "file": "coleta/social_scrap.py",
-          "line": 1396,
+          "line": 1397,
           "snippet": "import sensor_coleta as sc"
         }
       ],
@@ -31280,7 +31492,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -31296,6 +31508,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 109,
           "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_cv02_convergencia_do_fluxo_pago.py",
+          "line": 479,
+          "snippet": "import sensor_coleta"
         }
       ],
       "categoria": "PROOF"
@@ -31312,7 +31529,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 356,
+          "line": 375,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -31337,7 +31554,7 @@
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 569,
+          "line": 623,
           "snippet": "self.assertEqual(trocas, [('regras/sensor_coleta.py', '_curl_robusto')],"
         }
       ],
@@ -33823,7 +34040,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 774,
+  "UNCLAIMED_FILES_COUNT": 776,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33986,17 +34203,17 @@
     ]
   },
   "COUNTS": {
-    "components": 167,
+    "components": 168,
     "components_proven": 53,
-    "components_pending": 108,
+    "components_pending": 109,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 704,
-    "edges_proven": 701,
+    "edges": 709,
+    "edges_proven": 706,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1540,
-    "files_covered": 766,
+    "files_tracked": 1545,
+    "files_covered": 769,
     "files_code_unclaimed": 0
   }
 }

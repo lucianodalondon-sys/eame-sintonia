@@ -38,6 +38,7 @@ for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
 
 import adaptador_youtube as ay   # noqa: E402
 import apify_pool as ap          # noqa: E402
+import autorizacao_de_gasto as az  # noqa: E402 — a porta que CONCEDE
 import coletor as ct             # noqa: E402
 import scrap_capacidades as cap  # noqa: E402
 import scrap_executor as sx      # noqa: E402
@@ -170,7 +171,14 @@ diz(cap.estado(CAPAC) == 'PROVEN', 'CAPABILITY_STATE = PROVEN', cap.estado(CAPAC
 diz(grossa == 'FETCH_TRANSCRIPT', 'MATRIX_CAPABILITY = FETCH_TRANSCRIPT', grossa)
 diz(paga['CLASSE'] == 'APIFY', 'ROUTE_CLASS = APIFY', paga['CLASSE'])
 diz(paga['PERMITIDA'] == 'CONDICIONAL', 'POLICY = CONDICIONAL', paga['PERMITIDA'])
-diz(paga['ESTADO'] == 'POSSIBLE_NOT_PROVED', 'ROUTE_STATE antes', paga['ESTADO'])
+# ⚠️ `PARTIAL` E NAO `POSSIBLE_NOT_PROVED` — e a mudanca e da propria linhagem
+# desta prova, nao da SCRAP-CV-02: o commit «a rota paga correu, e nao entregou
+# — apify:transcricao vira PARTIAL» moveu o estado e esta linha ficou a afirmar
+# o retrato anterior. Uma prova que descreve o estado de ontem descreve outro
+# sistema.
+#
+#     O ESTADO DE UMA ROTA E MEDIDO, E O QUE FOI MEDIDO MUDOU.
+diz(paga['ESTADO'] == 'PARTIAL', 'ROUTE_STATE antes', paga['ESTADO'])
 diz(mz._rota_padrao(rotas)['ROTA'] == ay.ROTA_TRANSCRICAO,
     'e ela e a rota PADRAO — as tres livres estao NAO', paga['ROTA'])
 diz(MOTIVO in mz.MOTIVOS_PAGOS, 'PAID_REASON pertence ao vocabulario', MOTIVO)
@@ -187,13 +195,35 @@ diz(h.get('APIFY_ACTOR') == ay.ATOR_TRANSCRICAO, 'e do MESMO ator',
 diz(len(h.get('TRANSCRIPT') or '') > 1000, 'com texto historico preservado',
     '%d chars' % len(h.get('TRANSCRIPT') or ''))
 
+#: A AUTORIZACAO DESTA PROVA — SCRAP-CV-02.
+#:
+#: ⚠️ ESTA PROVA ESTAVA VERMELHA NA BRANCH DE ORIGEM, e nao por culpa desta
+#: missao: a guarda de autorizacao chegou a esta linha e o ficheiro continuou a
+#: chamar `COLLECT` sem trazer autorizacao nenhuma.
+#:
+#:     DUAS LINHAS PARCIALMENTE CORRECTAS NAO SAO UM FLUXO.
+#:
+#: `TRIAL` e o modo certo: nada aqui colhe a serio, e o limite humano acompanha
+#: o orcamento que a prova declara.
+#:
+#:     FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD
+CAMPOS_DA_AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'prova C10.8B, provider falso',
+                         'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
+                         'MAX_USD': TETO_USD}
+
+
+def autorizacao():
+    """Uma autorizacao NOVA por corrida — ela gasta-se a cada compra."""
+    return az.conceder(CAMPOS_DA_AUTORIZACAO)
+
+
 # ══ A CREDENCIAL E UM PORTAO, E ELE VEM ANTES DO DINHEIRO ═════════════════
 print('\n── sem chave paga, nada e comprometido ──')
 with Cenario(FalsaApify(texto='x'), com_chave=False) as c:
     with ct.orcamento_financeiro(TETO_USD) as orc:
         objetos, trace = sx.COLLECT(
             platform=PLAT, capability=CAPAC, run_id='c108b-sem-chave',
-            modo=sx.TRIAL, permitir_pago=True, motivo_pago=MOTIVO,
+            modo=sx.TRIAL, permitir_pago=True, motivo_pago=MOTIVO, autorizacao=autorizacao(),
             video_id=ALVO, teto_de_rede=TETO_REDE)
 diz(c.falso.posts == [], 'nenhum POST chegou ao provider', len(c.falso.posts))
 diz(trace.get('RESULT') == 'CREDENTIAL_MISSING',
@@ -208,7 +238,7 @@ with Cenario(falso):
     with ct.orcamento_financeiro(TETO_USD) as orc:
         objetos, trace = sx.COLLECT(
             platform=PLAT, capability=CAPAC, run_id='c108b-a-seco',
-            modo=sx.TRIAL, permitir_pago=True, motivo_pago=MOTIVO,
+            modo=sx.TRIAL, permitir_pago=True, motivo_pago=MOTIVO, autorizacao=autorizacao(),
             video_id=ALVO, teto_de_gasto=None, teto_de_rede=TETO_REDE)
 diz(trace.get('RESULT') == 'OK', 'EXECUTOR_REACHED · RESULT', trace.get('RESULT'))
 diz(trace.get('ROUTE') == ay.ROTA_TRANSCRICAO, 'ROUTER_REACHED · ROTA escolhida',
@@ -262,7 +292,7 @@ with Cenario(lento):
     with ct.orcamento_financeiro(TETO_USD):
         _o, t_lento = sx.COLLECT(
             platform=PLAT, capability=CAPAC, run_id='c108b-lento', modo=sx.TRIAL,
-            permitir_pago=True, motivo_pago=MOTIVO, video_id=ALVO,
+            permitir_pago=True, motivo_pago=MOTIVO, autorizacao=autorizacao(), video_id=ALVO,
             teto_de_rede=TETO_REDE)
 diz(len(lento.polls) <= 1, 'no maximo UMA consulta, porque `wait` e 60',
     len(lento.polls))
@@ -330,6 +360,7 @@ with Cenario(seco):
     with ct.orcamento_financeiro(0.0) as orc0:
         _o, t0 = sx.COLLECT(platform=PLAT, capability=CAPAC, run_id='c108b-zero',
                             modo=sx.TRIAL, permitir_pago=True, motivo_pago=MOTIVO,
+                            autorizacao=autorizacao(),
                             video_id=ALVO, teto_de_rede=TETO_REDE)
 diz(seco.posts == [], 'com saldo zero, nenhum POST sai', len(seco.posts))
 diz(t0.get('RESULT') == 'FINANCIAL_BUDGET_EXHAUSTED', 'e o estado di-lo',
@@ -341,6 +372,7 @@ with Cenario(sem_motivo):
         _o, tm = sx.COLLECT(platform=PLAT, capability=CAPAC, run_id='c108b-motivo',
                             modo=sx.TRIAL, permitir_pago=True,
                             motivo_pago='a Apify ja estava configurada',
+                            autorizacao=autorizacao(),
                             video_id=ALVO, teto_de_rede=TETO_REDE)
 diz(sem_motivo.posts == [], 'motivo fora do vocabulario nao compra nada',
     len(sem_motivo.posts))
@@ -351,6 +383,7 @@ with Cenario(sem_auth):
         _o, ta = sx.COLLECT(platform=PLAT, capability=CAPAC, run_id='c108b-auth',
                             modo=sx.TRIAL, permitir_pago=False,
                             motivo_pago=MOTIVO, video_id=ALVO,
+                            autorizacao=autorizacao(),
                             teto_de_rede=TETO_REDE)
 diz(sem_auth.posts == [], 'e sem `permitir_pago` tambem nao', len(sem_auth.posts))
 
@@ -358,6 +391,7 @@ sem_teto = FalsaApify(texto=real['transcript'])
 with Cenario(sem_teto):
     _o, ts = sx.COLLECT(platform=PLAT, capability=CAPAC, run_id='c108b-sem-teto',
                         modo=sx.TRIAL, permitir_pago=True, motivo_pago=MOTIVO,
+                        autorizacao=autorizacao(),
                         video_id=ALVO, teto_de_rede=TETO_REDE)
 diz(sem_teto.posts == [], 'NO FINANCIAL LIMIT -> NO PAID TRIAL', len(sem_teto.posts))
 diz(ts.get('RESULT') == 'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET', 'com nome proprio',

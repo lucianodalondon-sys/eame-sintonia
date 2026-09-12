@@ -93,12 +93,15 @@ MUTACOES = [
      '            "RAW_OBSERVATION_ID": f.STORAGE_LOCATION,',
      'RAW_OBSERVATION_ID = raw_asset.id'),
 
+    # ⚠️ ANCORA REESCRITA NA SCRAP-CV-02: a chamada da guarda passou a levar
+    # `orcamento_autorizado`. Uma ancora que nao bate nao produz mutante, e
+    # esta prova conta isso como SOBREVIVEU — que e o comportamento certo.
+    #
+    #     UM MUTANTE QUE NAO NASCEU NAO PROVA DEFESA NENHUMA.
     ('M11 · a guarda de gasto sai da primitiva', DONO,
-     '    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n'
-     '                             source_id=source_id, proposito=proposito,\n'
-     '                             ator=actor)',
+     '    recibo = az.pode_comprar(\n        modo=modo, autorizacao=autorizacao, source_id=source_id,\n        proposito=proposito, ator=actor,\n        orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                              else None),\n        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n        # e a MESMA execucao: um limite humano conferido contra um orcamento e\n        # gasto noutro nao foi conferido contra nenhum.\n        #\n        #     UM NOME NAO E UMA SOMA.\n        ledger=(id(orcamento) if orcamento is not None else None))\n',
      "    recibo = {'CAN_START_PAID_EXECUTION': True, 'MODE': modo,\n"
-     "              'BASIS': 'NENHUMA', 'PROMOTES_RELEVANCE': False}",
+     "              'BASIS': 'NENHUMA', 'PROMOTES_RELEVANCE': False}\n",
      'os controlos de gasto continuam no caminho'),
 
     ('M12 · o adapter passa a autorizar gasto sozinho', ADP,

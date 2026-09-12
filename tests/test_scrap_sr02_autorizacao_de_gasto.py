@@ -47,17 +47,63 @@ def _funcao(rel, nome):
     raise AssertionError('%s não tem %s' % (rel, nome))
 
 
+#: O ORCAMENTO QUE ESTA BATERIA DECLARA, e ele bate certo com o limite humano.
+#:
+#: ⚠️ ERA 1.0 CONTRA UM `MAX_USD` DE 0.10 — SCRAP-CV-02. Passava porque
+#: ninguem comparava os dois. Desde que a lei exige
+#:
+#:     FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD
+#:
+#: um harness com orcamento acima do limite humano seria recusado por esse
+#: motivo, e todas as provas desta bateria passariam a medir o motivo errado.
+#:
+#:     UMA RECUSA PELO MOTIVO ERRADO NAO E UMA DEFESA. E UM ACIDENTE.
+TETO_HUMANO_USD = 0.10
+
+#: Os CAMPOS de uma autorizacao NORMAL — o que o portao de relevancia devolve,
+#: mais os dois limites que a lei passou a exigir tambem em NORMAL.
+CAMPOS_NORMAL = {'VERSAO_DO_PORTAO': '1', 'CONTRATO': 'RELEVANCIA_DA_FONTE/v1',
+                 'DECISAO': {'EVIDENCIA': {'F': 'LIVRO'}},
+                 'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
+                 'MAX_USD': TETO_HUMANO_USD}
+
+
+def campos_sim(sid=FONTE, prop=PROP):
+    """Os campos do veredito que o dono da relevância devolveria. Construídos
+    AQUI — e é essa a prova de que esta linhagem não o calcula."""
+    return dict(CAMPOS_NORMAL, VEREDITO=az.AUTORIZA, SOURCE_ID=sid,
+                PROPOSITO=prop, ESTADO_DA_RELEVANCIA=az.SIM)
+
+
 def sim(sid=FONTE, prop=PROP):
-    """O veredito que o dono da relevância devolveria. Construído AQUI —
-    e é essa a prova de que esta linhagem não o calcula."""
-    return {'VEREDITO': az.AUTORIZA, 'SOURCE_ID': sid, 'PROPOSITO': prop,
-            'ESTADO_DA_RELEVANCIA': az.SIM, 'VERSAO_DO_PORTAO': '1',
-            'CONTRATO': 'RELEVANCIA_DA_FONTE/v1',
-            'DECISAO': {'EVIDENCIA': {'F': 'LIVRO'}}}
+    """A autorização CONCEDIDA para esse veredito — SCRAP-CV-02.
+
+    ⚠️ ANTES DEVOLVIA O DICIONÁRIO CRU, e o dicionário cru comprava. Medido
+    nesta árvore antes desta missão: `AUTHORIZATION_COPY_ACCEPTED = 1`.
+
+        UMA AUTORIZAÇÃO QUE O CHAMADOR ESCREVE É UM CAMPO DE FORMULÁRIO.
+    """
+    return az.conceder(campos_sim(sid, prop))
+
+
+def variar(campos, **mudancas):
+    """Uma autorização CONCEDIDA com os campos alterados.
+
+    Serve às provas que atacam um campo específico: sem isto elas passariam a
+    ser recusadas por «não foi concedida» em vez de pelo defeito que atacam.
+
+        UMA RECUSA PELO MOTIVO ERRADO NÃO É UMA DEFESA. É UM ACIDENTE.
+    """
+    return az.conceder(dict(campos, **mudancas))
+
+
+def sem_campo(campos, *fora):
+    """Uma autorização CONCEDIDA à qual falta um campo, de propósito."""
+    return az.conceder({k: v for k, v in campos.items() if k not in fora})
 
 
 LIMITES = {'AUTORIZACAO_HUMANA': 'bateria SR-02', 'MAX_PROVIDER_RUNS': 1,
-           'MAX_START_POSTS': 1, 'MAX_USD': 0.10}
+           'MAX_START_POSTS': 1, 'MAX_USD': TETO_HUMANO_USD}
 LIMITES_PROBE = dict(LIMITES, MAX_ITEMS=10)
 
 
@@ -104,7 +150,7 @@ def comprar(**kw):
     subprocess.run = falsa
     ct._curl = ct._CURL_DA_CASA
     try:
-        with http.orcamento_de_rede(5), ct.orcamento_financeiro(1.0):
+        with http.orcamento_de_rede(5), ct.orcamento_financeiro(TETO_HUMANO_USD):
             ct.executar(ATOR, {'q': 1}, token='FALSO', run_id='t-sr02',
                         platform='YOUTUBE', country='IT', mission='SR-02',
                         query='q', source_version='v', evidence_path='/dev/null',
@@ -184,7 +230,13 @@ class TerNaoEPoder(_SemCompra):
         subprocess.run = falsa
         ct._curl = ct._CURL_DA_CASA
         try:
-            with http.orcamento_de_rede(0):
+            # ⚠️ O ORCAMENTO FINANCEIRO ENTROU AQUI — SCRAP-CV-02. Sem ele, a
+            # guarda recusa por falta de ledger e esta prova mediria o portao
+            # errado: o que ela existe para medir e que um SIM da relevancia
+            # ainda atravessa o teto de ACESSOS.
+            #
+            #     UMA RECUSA PELO MOTIVO ERRADO NAO E UMA DEFESA.
+            with http.orcamento_de_rede(0), ct.orcamento_financeiro(TETO_HUMANO_USD):
                 with self.assertRaises(http.SemOrcamentoDeRede):
                     ct.executar(ATOR, {'q': 1}, token='F', run_id='t',
                                 platform='YOUTUBE', country='IT', mission='m',
@@ -213,8 +265,8 @@ class AsAusenciasNaoViramSim(_SemCompra):
 
     def _com(self, estado_rel, veredito=az.EXIGE_AVALIACAO):
         return dict(modo=az.NORMAL, source_id=FONTE, proposito=PROP,
-                    autorizacao=dict(sim(), VEREDITO=veredito,
-                                     ESTADO_DA_RELEVANCIA=estado_rel))
+                    autorizacao=variar(campos_sim(), VEREDITO=veredito,
+                                       ESTADO_DA_RELEVANCIA=estado_rel))
 
     def test_rt09_autorizacao_sem_proposito_no_pedido(self):
         self.nada(az.PROPOSITO_ERRADO, modo=az.NORMAL, autorizacao=sim(),
@@ -250,15 +302,16 @@ class AsAusenciasNaoViramSim(_SemCompra):
         """O ataque mais fino: carimbar AUTORIZA sobre NAO_AVALIADA."""
         self.nada(az.RELEVANCIA_POR_AVALIAR, modo=az.NORMAL, source_id=FONTE,
                   proposito=PROP,
-                  autorizacao=dict(sim(), ESTADO_DA_RELEVANCIA=az.NAO_AVALIADA))
+                  autorizacao=variar(campos_sim(),
+                                     ESTADO_DA_RELEVANCIA=az.NAO_AVALIADA))
 
     def test_rt15_estado_sim_com_veredito_que_nao_autoriza(self):
         self.nada(modo=az.NORMAL, source_id=FONTE, proposito=PROP,
-                  autorizacao=dict(sim(), VEREDITO=az.BARRA))
+                  autorizacao=variar(campos_sim(), VEREDITO=az.BARRA))
 
     def test_rt16_autorizacao_sem_os_campos_do_contrato(self):
         for campo in az.CAMPOS_DA_AUTORIZACAO:
-            magra = {k: v for k, v in sim().items() if k != campo}
+            magra = sem_campo(campos_sim(), campo)
             self.nada(az.CONTRATO_ERRADO, modo=az.NORMAL, autorizacao=magra,
                       source_id=FONTE, proposito=PROP)
 
@@ -351,41 +404,41 @@ class NinguemSeAutorizaASiProprio(unittest.TestCase):
 class OProbeELimitado(_SemCompra):
 
     def test_rt23_probe_autorizado_corre_uma_vez(self):
-        posts, estado = comprar(modo=az.PROBE, autorizacao=LIMITES_PROBE)
+        posts, estado = comprar(modo=az.PROBE,
+                                autorizacao=az.conceder(LIMITES_PROBE))
         self.assertEqual((posts, estado), (1, 'EXECUTOU'))
 
     def test_rt24_probe_sem_autorizacao_humana(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items()
-                 if k != 'AUTORIZACAO_HUMANA'}
+        magro = sem_campo(LIMITES_PROBE, 'AUTORIZACAO_HUMANA')
         self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
 
     def test_rt25_probe_sem_max_usd(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items() if k != 'MAX_USD'}
+        magro = sem_campo(LIMITES_PROBE, 'MAX_USD')
         self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
 
     def test_rt26_probe_sem_max_provider_runs(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items()
-                 if k != 'MAX_PROVIDER_RUNS'}
+        magro = sem_campo(LIMITES_PROBE, 'MAX_PROVIDER_RUNS')
         self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
 
     def test_rt27_probe_sem_max_items(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items() if k != 'MAX_ITEMS'}
+        magro = sem_campo(LIMITES_PROBE, 'MAX_ITEMS')
         self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
 
     def test_rt27b_probe_sem_max_start_posts(self):
-        magro = {k: v for k, v in LIMITES_PROBE.items()
-                 if k != 'MAX_START_POSTS'}
+        magro = sem_campo(LIMITES_PROBE, 'MAX_START_POSTS')
         self.nada(az.LIMITE_AUSENTE, modo=az.PROBE, autorizacao=magro)
 
     def test_rt28_limite_zero_nao_e_ilimitado(self):
         """Zero não é «sem teto». É «não pode»."""
         for campo in ('MAX_USD', 'MAX_PROVIDER_RUNS', 'MAX_ITEMS'):
             self.nada(az.LIMITE_AUSENTE, modo=az.PROBE,
-                      autorizacao=dict(LIMITES_PROBE, **{campo: 0}))
+                      autorizacao=variar(LIMITES_PROBE, **{campo: 0}))
 
     def test_rt29_probe_nao_promove_relevancia(self):
         """PROBE != DECISION. Quem escreve no livro é o dono do livro."""
-        recibo = az.pode_comprar(modo=az.PROBE, autorizacao=LIMITES_PROBE)
+        recibo = az.pode_comprar(modo=az.PROBE,
+                                 autorizacao=az.conceder(LIMITES_PROBE),
+                                 orcamento_autorizado=TETO_HUMANO_USD)
         self.assertIs(recibo['PROMOTES_RELEVANCE'], False)
         self.assertIs(recibo['SOURCE_RELEVANCE_CONSULTED'], False)
         fonte = _fonte('leis/autorizacao_de_gasto.py')
@@ -418,7 +471,8 @@ class NormalNaoSeVesteDeOutraCoisa(_SemCompra):
                   source_id=FONTE, proposito=PROP)
 
     def test_rt33_modo_inventado_nao_passa(self):
-        self.nada(az.SEM_AUTORIZACAO, modo='LIVRE', autorizacao=LIMITES)
+        self.nada(az.SEM_AUTORIZACAO, modo='LIVRE',
+                  autorizacao=az.conceder(LIMITES))
 
     def test_rt34_trial_sem_autorizacao_humana(self):
         self.nada(az.SEM_AUTORIZACAO, modo=az.TRIAL, autorizacao=None)
@@ -503,7 +557,7 @@ class AsPortasTraseiras(unittest.TestCase):
         subprocess.run = falsa
         ct._curl = ct._CURL_DA_CASA
         try:
-            with http.orcamento_de_rede(5), ct.orcamento_financeiro(1.0):
+            with http.orcamento_de_rede(5), ct.orcamento_financeiro(TETO_HUMANO_USD):
                 _i, man = ct.executar(
                     ATOR, {'q': 1}, token='F', run_id='t', platform='YOUTUBE',
                     country='IT', mission='m', query='q', source_version='v',

@@ -52,6 +52,7 @@ import social_matriz as mz         # noqa: E402
 import social_rotas as sr          # noqa: E402
 import social_sessao as ss
 import falhas         # noqa: E402
+import autorizacao_de_gasto as _az  # noqa: E402 — a porta que CONCEDE
 
 LEDGER = 'LEDGER-SOCIAL-IT.json'
 
@@ -1839,7 +1840,16 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
                    # A autorização desce pelo mesmo caminho de todo o resto —
                    # `COLLECT` -> roteador -> adaptador -> `coletor`. Ela não
                    # atalha, e é por isso que quem a salta não compra.
-                   'autorizacao': paga['AUTORIZACAO_DE_GASTO']})
+                   #
+                   # ⚠️ E ela é CONCEDIDA aqui, não escrita — SCRAP-CV-02. O
+                   # dicionário acima são os CAMPOS que a pessoa autorizou;
+                   # `conceder()` transforma-os no direito de gastar, com
+                   # identidade própria. Sem esse passo, qualquer dicionário
+                   # com as mesmas chaves comprava.
+                   #
+                   #     UMA AUTORIZAÇÃO QUE O CHAMADOR ESCREVE
+                   #     É UM CAMPO DE FORMULÁRIO.
+                   'autorizacao': _az.conceder(paga['AUTORIZACAO_DE_GASTO'])})
     # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
     # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
     # proveniência; declará-lo é o contrário disso.

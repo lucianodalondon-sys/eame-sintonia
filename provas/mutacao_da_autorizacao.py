@@ -27,7 +27,12 @@ import tempfile
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BATERIAS = ('tests.test_scrap_sr02_autorizacao_de_gasto',
             'tests.test_c10_8b_rota_paga_canonica',
-            'tests.test_c10_8af_orcamento_financeiro')
+            'tests.test_c10_8af_orcamento_financeiro',
+            # A bateria da convergencia entra aqui, e nao noutro ficheiro: os
+            # mutantes da guarda tem UM dono, e e este.
+            #
+            #     ONE CONCEPT -> ONE OWNER.
+            'tests.test_cv02_convergencia_do_fluxo_pago')
 
 LEI = 'leis/autorizacao_de_gasto.py'
 DONO = 'coleta/coletor.py'
@@ -36,11 +41,9 @@ EXEC = 'coleta/scrap_executor.py'
 #: (nome, ficheiro, velho, novo, a garantia que isto parte)
 MUTACOES = [
     ('M1 · a guarda desaparece da primitiva', DONO,
-     "    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n"
-     "                             source_id=source_id, proposito=proposito,\n"
-     "                             ator=actor)",
+     '    recibo = az.pode_comprar(\n        modo=modo, autorizacao=autorizacao, source_id=source_id,\n        proposito=proposito, ator=actor,\n        orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                              else None),\n        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n        # e a MESMA execucao: um limite humano conferido contra um orcamento e\n        # gasto noutro nao foi conferido contra nenhum.\n        #\n        #     UM NOME NAO E UMA SOMA.\n        ledger=(id(orcamento) if orcamento is not None else None))\n',
      "    recibo = {'CAN_START_PAID_EXECUTION': True, 'MODE': modo,\n"
-     "              'BASIS': 'NENHUMA', 'PROMOTES_RELEVANCE': False}",
+     "              'BASIS': 'NENHUMA', 'PROMOTES_RELEVANCE': False}\n",
      'nenhuma compra sem autorizacao'),
 
     ('M2 · NAO_AVALIADA passa a comprar', LEI,
@@ -78,21 +81,26 @@ MUTACOES = [
      'URL nao e SOURCE_ID'),
 
     ('M8 · a chave substitui a autorizacao', DONO,
-     "    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n"
-     "                             source_id=source_id, proposito=proposito,\n"
-     "                             ator=actor)",
+     '    recibo = az.pode_comprar(\n        modo=modo, autorizacao=autorizacao, source_id=source_id,\n        proposito=proposito, ator=actor,\n        orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                              else None),\n        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n        # e a MESMA execucao: um limite humano conferido contra um orcamento e\n        # gasto noutro nao foi conferido contra nenhum.\n        #\n        #     UM NOME NAO E UMA SOMA.\n        ledger=(id(orcamento) if orcamento is not None else None))\n',
      "    if token:\n"
      "        recibo = {'CAN_START_PAID_EXECUTION': True, 'MODE': modo,\n"
      "                  'BASIS': 'TOKEN', 'PROMOTES_RELEVANCE': False}\n"
      "    else:\n"
-     "        recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n"
-     "                                 source_id=source_id, proposito=proposito,\n"
-     "                                 ator=actor)",
+     '        recibo = az.pode_comprar(\n            modo=modo, autorizacao=autorizacao, source_id=source_id,\n            proposito=proposito, ator=actor,\n            orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                                  else None),\n            # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n            # e a MESMA execucao: um limite humano conferido contra um orcamento e\n            # gasto noutro nao foi conferido contra nenhum.\n            #\n            #     UM NOME NAO E UMA SOMA.\n            ledger=(id(orcamento) if orcamento is not None else None))\n',
      'TOKEN_OWNER != SPEND_OWNER'),
 
+    # ⚠️ ESTE MUTANTE MUDOU DE FORMA NA SCRAP-CV-02. Ele apagava so o `if` da
+    # presenca — e desde que existe a conferencia de IDENTIDADE logo a seguir,
+    # apagar so a presenca ja nao abre a porta: o mutante sobrevivia por nao
+    # mudar comportamento nenhum.
+    #
+    #     UM MUTANTE QUE NAO MUDA O COMPORTAMENTO NAO MEDE SENTINELA NENHUMA.
+    #
+    # A garantia que ele existe para partir e «qualquer coisa presente compra»,
+    # e para a partir e preciso apagar as DUAS conferencias.
     ('M9 · o orcamento substitui a autorizacao', LEI,
-     "    if not isinstance(autorizacao, dict) or not autorizacao:",
-     "    if False:",
+     "    if not isinstance(autorizacao, dict) or not autorizacao:\n        raise SemAutorizacaoDeGasto(\n            'nenhuma autorização de gasto chegou a esta compra (modo %s, ator '\n            '%s). Ter chave, teto e rota permitida não é ter autorização.'\n            % (modo, ator), estado=SEM_AUTORIZACAO, modo=modo)\n    # ── E ELA TEM DE TER SIDO CONCEDIDA AQUI ────────────────────────────────\n    # Um `dict` com as chaves certas é um formulário preenchido. Uma cópia de\n    # uma autorização verdadeira é o mesmo formulário, com melhor caligrafia.\n    if not isinstance(autorizacao, Autorizacao) or not _foi_concedida(autorizacao):\n        raise SemAutorizacaoDeGasto(\n            'esta autorização não saiu de `conceder()` (modo %s, ator %s). '\n            'Copiar uma autorização não é recebê-la.' % (modo, ator),\n            estado=SEM_AUTORIZACAO, modo=modo)\n",
+     '',
      'BUDGET_PRESENT != SPEND_AUTHORIZED'),
 
     ('M10 · qualquer veredito serve desde que exista', LEI,
@@ -128,12 +136,15 @@ MUTACOES = [
     # Este APAGA a chamada (o M1 substitui-a por um recibo falso). Dois sitios
     # de edicao diferentes para a mesma garantia — e o M15b, abaixo, e o unico
     # que mede a ORDEM sem mexer na existencia.
+    # ⚠️ ANCORAS REESCRITAS NA SCRAP-CV-02: a chamada da guarda passou a levar
+    # `orcamento_autorizado`, e as ancoras antigas deixaram de bater. Uma ancora
+    # que nao bate nao produz mutante nenhum — e esta prova conta isso como
+    # SOBREVIVEU, que e o comportamento certo.
+    #
+    #     UM MUTANTE QUE NAO NASCEU NAO PROVA DEFESA NENHUMA.
     ('M15 · a chamada da guarda e apagada da primitiva', DONO,
-     "    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n"
-     "                             source_id=source_id, proposito=proposito,\n"
-     "                             ator=actor)\n"
-     "    # ── O GATE FINANCEIRO VEM ANTES DO POST ",
-     "    # ── O GATE FINANCEIRO VEM ANTES DO POST ",
+     '    recibo = az.pode_comprar(\n        modo=modo, autorizacao=autorizacao, source_id=source_id,\n        proposito=proposito, ator=actor,\n        orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                              else None),\n        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n        # e a MESMA execucao: um limite humano conferido contra um orcamento e\n        # gasto noutro nao foi conferido contra nenhum.\n        #\n        #     UM NOME NAO E UMA SOMA.\n        ledger=(id(orcamento) if orcamento is not None else None))\n',
+     '',
      'a guarda vem antes da reserva'),
 
     # A guarda continua LA — so troca de lugar com a reserva. Um mutante que a
@@ -145,8 +156,8 @@ MUTACOES = [
     #
     #     UM MUTANTE QUE NAO MUDA O COMPORTAMENTO NAO MEDE SENTINELA NENHUMA.
     ('M15b · a guarda corre, mas depois de o dinheiro estar reservado', DONO,
-     '    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n                             source_id=source_id, proposito=proposito,\n                             ator=actor)\n    # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────\n    # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é\n    # ela que decide o `maxTotalChargeUsd` que vai na query.\n    orcamento = orcamento_financeiro_actual()\n    reserva = None\n    if orcamento is not None:\n        reserva = orcamento.reservar(pedido=teto_usd, ator=actor,\n                                     rota=rota or evidence_path, missao=mission)\n        teto_usd = reserva.cap',
-     '    # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────\n    # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é\n    # ela que decide o `maxTotalChargeUsd` que vai na query.\n    orcamento = orcamento_financeiro_actual()\n    reserva = None\n    if orcamento is not None:\n        reserva = orcamento.reservar(pedido=teto_usd, ator=actor,\n                                     rota=rota or evidence_path, missao=mission)\n        teto_usd = reserva.cap\n    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,\n                             source_id=source_id, proposito=proposito,\n                             ator=actor)',
+     '    recibo = az.pode_comprar(\n        modo=modo, autorizacao=autorizacao, source_id=source_id,\n        proposito=proposito, ator=actor,\n        orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                              else None),\n        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n        # e a MESMA execucao: um limite humano conferido contra um orcamento e\n        # gasto noutro nao foi conferido contra nenhum.\n        #\n        #     UM NOME NAO E UMA SOMA.\n        ledger=(id(orcamento) if orcamento is not None else None))\n    # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────\n    # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é\n    # ela que decide o `maxTotalChargeUsd` que vai na query.\n    reserva = None\n    if orcamento is not None:\n        reserva = orcamento.reservar(pedido=teto_usd, ator=actor,\n                                     rota=rota or evidence_path, missao=mission)\n        teto_usd = reserva.cap\n',
+     '    # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────\n    # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é\n    # ela que decide o `maxTotalChargeUsd` que vai na query.\n    reserva = None\n    if orcamento is not None:\n        reserva = orcamento.reservar(pedido=teto_usd, ator=actor,\n                                     rota=rota or evidence_path, missao=mission)\n        teto_usd = reserva.cap\n    recibo = az.pode_comprar(\n        modo=modo, autorizacao=autorizacao, source_id=source_id,\n        proposito=proposito, ator=actor,\n        orcamento_autorizado=(orcamento.autorizado if orcamento is not None\n                              else None),\n        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda\n        # e a MESMA execucao: um limite humano conferido contra um orcamento e\n        # gasto noutro nao foi conferido contra nenhum.\n        #\n        #     UM NOME NAO E UMA SOMA.\n        ledger=(id(orcamento) if orcamento is not None else None))\n',
      'uma reserva que ninguem liquidou nao volta ao bolso'),
 
     ('M16 · o pool de chaves passa a decidir gasto', 'ferramentas/apify_pool.py',
@@ -190,6 +201,54 @@ MUTACOES = [
      "        open('LIVRO').read()\n"
      "    if modo in MODOS_DE_MEDIDA:",
      'o spend boundary nao abre o livro'),
+    # ══════════════════════════════════════════════════════════════════════
+    # OS MUTANTES DA CONVERGENCIA — SCRAP-CV-02
+    # ══════════════════════════════════════════════════════════════════════
+    ('M23 · a identidade da autorizacao deixa de ser conferida', LEI,
+     "    if not isinstance(autorizacao, Autorizacao) or not _foi_concedida(autorizacao):\n        raise SemAutorizacaoDeGasto(\n            'esta autorização não saiu de `conceder()` (modo %s, ator %s). '\n            'Copiar uma autorização não é recebê-la.' % (modo, ator),\n            estado=SEM_AUTORIZACAO, modo=modo)\n",
+     '',
+     'um dicionario escrito a mao nao compra'),
+
+    ('M24 · o limite humano deixa de ser comparado com o ledger', LEI,
+     '    if declarado > humano + 1e-9:\n',
+     "    if False:\n",
+     'FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD'),
+
+    ('M25 · NORMAL volta a comprar sem ledger declarado', LEI,
+     '    if orcamento_autorizado is None:\n',
+     "    if False:\n",
+     'sem ledger nao se compra'),
+
+    ('M26 · a autorizacao passa a valer em qualquer ledger', LEI,
+     '    if ledger is not None:\n        if autorizacao._ledger is None:\n            autorizacao._ledger = ledger\n        elif autorizacao._ledger != ledger:\n',
+     "    if False:\n"
+     "        if autorizacao._ledger is None:\n"
+     "            autorizacao._ledger = ledger\n"
+     "        elif autorizacao._ledger != ledger:\n",
+     'um limite conferido contra um ledger que muda nao foi conferido'),
+
+    ('M27 · a recusa de gasto volta a ser um OSError', LEI,
+     'class SemAutorizacaoDeGasto(RuntimeError):\n',
+     "class SemAutorizacaoDeGasto(PermissionError):\n",
+     'SPEND_NOT_AUTHORIZED != NETWORK_ERROR'),
+
+    ('M28 · a autorizacao volta a poder ser emendada depois de concedida', LEI,
+     "    def __setitem__(self, *a, **k):\n        if getattr(self, '_selada', False):\n            self._recusar_escrita()\n",
+     "    def __setitem__(self, *a, **k):\n"
+     "        if False:\n"
+     "            self._recusar_escrita()\n",
+     'uma autorizacao que muda depois de conferida nao foi conferida'),
+
+    ('M29 · a unidade e consumida na conferencia, antes do dinheiro', DONO,
+     '    recibo = dict(recibo, CONSUMO=az.consumir(autorizacao))\n',
+     "",
+     'um gate barato nao queima nada ao recusar'),
+
+    ('M30 · a unidade volta mesmo quando o POST talvez tenha saido', DONO,
+     '        if not post_tentado:\n',
+     "        if True:\n",
+     'ausencia de noticia nao e prova de ausencia de compra'),
+
 ]
 
 

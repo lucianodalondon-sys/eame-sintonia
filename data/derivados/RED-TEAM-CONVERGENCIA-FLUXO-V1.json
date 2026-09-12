@@ -1,0 +1,115 @@
+{
+ "CONTRATO": "RED_TEAM_CONVERGENCIA_FLUXO/v1",
+ "ATAQUES": 15,
+ "MORRERAM": 15,
+ "ATAQUE_VIVO": 0,
+ "PAID_REAL_RUNS": 0,
+ "REAL_COST_USD": 0,
+ "LINHAS": [
+  {
+   "ID": "RT01",
+   "ATAQUE": "reconstruir a autorizacao pela classe, com os mesmos campos",
+   "LEI": "UMA AUTORIZACAO QUE O CHAMADOR ESCREVE E UM CAMPO DE FORMULARIO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "SemAutorizacaoDeGasto · SPEND_NOT_AUTHORIZED"
+  },
+  {
+   "ID": "RT02",
+   "ATAQUE": "copy.copy de uma autorizacao valida",
+   "LEI": "COPIAR UMA AUTORIZACAO NAO E RECEBER UMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "a copia nem se consegue construir (selada)"
+  },
+  {
+   "ID": "RT03",
+   "ATAQUE": "copy.deepcopy de uma autorizacao ja gasta, para a repor",
+   "LEI": "COPIAR UMA AUTORIZACAO NAO E RECEBER UMA AUTORIZACAO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "a copia nem se consegue construir (selada)"
+  },
+  {
+   "ID": "RT04",
+   "ATAQUE": "mudar MAX_USD depois de a autorizacao ser concedida",
+   "LEI": "UMA AUTORIZACAO QUE MUDA DEPOIS DE CONFERIDA NAO FOI CONFERIDA",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "escritas que passaram: nenhuma"
+  },
+  {
+   "ID": "RT05",
+   "ATAQUE": "duas chamadas cujo teto somado passa o limite humano",
+   "LEI": "FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "EXPOSICAO = 0.6000 sob MAX_USD = 1.00 · compras = 1"
+  },
+  {
+   "ID": "RT06",
+   "ATAQUE": "apanhar a recusa de gasto com `except OSError`",
+   "LEI": "SPEND_NOT_AUTHORIZED != NETWORK_ERROR",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "OSError=False · RuntimeError=True"
+  },
+  {
+   "ID": "RT07",
+   "ATAQUE": "transformar a recusa de gasto em WAIT",
+   "LEI": "SPEND_NOT_AUTHORIZED = NO_RETRY",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "estados que pediriam retry: nenhum"
+  },
+  {
+   "ID": "RT08",
+   "ATAQUE": "importar sensor_coleta antes da prova, para a rede ficar real",
+   "LEI": "UM FAKE QUE JA NAO ESTA NO CAMINHO NAO E UM FAKE",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "POSTS no fake = 1 · idas reais = 0"
+  },
+  {
+   "ID": "RT09",
+   "ATAQUE": "substituir `_curl` por um transporte sem teto de rede",
+   "LEI": "TROCAR O TRANSPORTE NAO PODE TROCAR QUEM CONTA AS IDAS",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "idas que escaparam ao teto: 0"
+  },
+  {
+   "ID": "RT10",
+   "ATAQUE": "fazer o transporte substituto repetir o POST",
+   "LEI": "REPETIR UM GET E BARATO. REPETIR UM POST E COMPRAR DE NOVO",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "POSTs enviados = 1"
+  },
+  {
+   "ID": "RT11",
+   "ATAQUE": "chamar a primitiva paga fora do roteador, sem autorizacao",
+   "LEI": "UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS OS CAMINHOS",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "SemAutorizacaoDeGasto · SPEND_NOT_AUTHORIZED"
+  },
+  {
+   "ID": "RT12",
+   "ATAQUE": "colher em NORMAL sem ledger declarado",
+   "LEI": "SEM LEDGER NAO SE COMPRA",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "SemAutorizacaoDeGasto · SPEND_NOT_AUTHORIZED"
+  },
+  {
+   "ID": "RT13",
+   "ATAQUE": "emendar a autorizacao entre a conferencia e o POST",
+   "LEI": "UMA AUTORIZACAO QUE MUDA DEPOIS DE CONFERIDA NAO FOI CONFERIDA",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "teto enviado = [0.1] · MAX_USD = 0.1"
+  },
+  {
+   "ID": "RT14",
+   "ATAQUE": "queimar a unidade antes de o orcamento recusar",
+   "LEI": "UM GATE BARATO CORRE PRIMEIRO, E NAO QUEIMA NADA AO RECUSAR",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AUTH_GASTAS = 0 · POSTS = 0"
+  },
+  {
+   "ID": "RT15",
+   "ATAQUE": "devolver a unidade depois de um POST que talvez tenha saido",
+   "LEI": "AUSENCIA DE NOTICIA NAO E PROVA DE AUSENCIA DE COMPRA",
+   "VEREDITO": "MORREU",
+   "OBSERVADO": "AUTH_GASTAS = 1 · DESCONHECIDO = 0.2000"
+  }
+ ]
+}

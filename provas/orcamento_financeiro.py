@@ -35,6 +35,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 
+import autorizacao_de_gasto as az  # noqa: E402 — a porta que CONCEDE
 import coletor as ct              # noqa: E402  — o dono do dinheiro
 import scrap_executor as sx       # noqa: E402
 import scrap_registo as reg       # noqa: E402
@@ -123,13 +124,36 @@ class Cenario(object):
         self.teto_da_rota = teto_da_rota
         self.achar_orfa = achar_orfa
 
+    CAMPOS = {'AUTORIZACAO_HUMANA': 'prova C10.8A-F, fornecedor falso',
+              'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1}
+
+    def autorizacao(self):
+        """A autorizacao humana desta PROVA — SCRAP-CV-02.
+
+        ⚠️ ESTA PROVA ESTAVA VERMELHA NA BRANCH DE ORIGEM, e nao por culpa
+        desta missao: a guarda de autorizacao chegou a linha FLOW-01 e este
+        ficheiro continuou a chamar `coletor.executar` sem trazer autorizacao
+        nenhuma. Media o teto de gasto e morria no portao anterior.
+
+            DUAS LINHAS PARCIALMENTE CORRECTAS NAO SAO UM FLUXO.
+
+        O motivo e `TRIAL` porque e o que isto e: um ensaio de ROTA contra um
+        fornecedor falso. E o limite humano acompanha o orcamento declarado:
+
+            FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD
+        """
+        orc = ct.orcamento_financeiro_actual()
+        limite = (orc.autorizado if orc is not None else 1.00) or 0.01
+        return az.conceder(self.CAMPOS, MAX_USD=limite)
+
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
         """A rota paga. Ela chama o `coletor.executar` REAL."""
         itens, man = ct.executar(
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='prova',
             source_version='prova', evidence_path='data/samples/prova.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
+            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
+            modo=az.TRIAL, autorizacao=self.autorizacao())
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
@@ -555,7 +579,11 @@ for campo in ('FINANCIAL_BUDGET_AUTHORIZED_USD', 'FINANCIAL_BUDGET_COMMITTED_USD
               'FINANCIAL_CALLS_REFUSED', 'FINANCIAL_ATTEMPTS'):
     diz(campo in trace, campo, trace.get(campo))
 t = (trace['FINANCIAL_ATTEMPTS'] or [{}])[0]
-for campo in ('PROVIDER', 'ACTOR', 'MOTIVO_PAGO', 'PROVIDER_SIDE_CAP',
+# ⚠️ `MISSAO` E NAO `MOTIVO_PAGO` — o dono do ledger renomeou o campo
+# (`coleta/coletor.py::reservar`, «o que chega aqui e a missao que chamou») e
+# esta linha ficou a perguntar pelo nome antigo. Achado na SCRAP-CV-02, e nao
+# causado por ela.
+for campo in ('PROVIDER', 'ACTOR', 'MISSAO', 'PROVIDER_SIDE_CAP',
               'OUTCOME', 'COST_STATE', 'ACTUAL_COST_USD'):
     diz(campo in t, 'tentativa · %s' % campo, t.get(campo))
 diz('TOKEN' not in json.dumps(trace) and 'TOKEN-FALSO' not in json.dumps(trace),
@@ -567,9 +595,20 @@ _o, trace = saidas[0]
 diz('FINANCIAL_BUDGET_AUTHORIZED_USD' not in trace,
     'nenhum campo de orcamento nasce sozinho',
     [c for c in trace if c.startswith('FINANCIAL_BUDGET')])
-diz(len(falso.posts) == 1 and falso.posts[0][1] is None,
-    'e o caminho historico continua exactamente como estava',
-    'maxTotalChargeUsd nao enviado')
+# ⚠️ MUDANCA DE COMPORTAMENTO DECLARADA — SCRAP-CV-02.
+# Esta linha exigia UM POST: sem orcamento declarado, a rota paga corria na
+# mesma. Era coerente com a C10.8A-F isolada — aquela missao instalava um teto,
+# nao fechava a porta a quem nao instalasse nenhum.
+#
+# A CV-02 mediu o que isso custava depois de a guarda trazer o limite humano:
+# sem ninguem a somar, `MAX_USD` renascia inteiro a cada POST, e um dolar
+# autorizado pagava dois. O ledger deixou de ser opcional.
+#
+#     SEM LEDGER NAO SE COMPRA.
+diz(falso.posts == [], 'sem ledger nenhum, nao se compra', falso.posts)
+diz(trace.get('RESULT') == 'SPEND_NOT_AUTHORIZED',
+    'e a recusa tem nome proprio — nem teto, nem transporte',
+    trace.get('RESULT'))
 
 print('\n' + '=' * 88)
 print('NETWORK_REAL      = 0   (provider falso em todos os casos)')

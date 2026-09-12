@@ -170,12 +170,28 @@ _TABELA = [
     _e('BUDGET_EXHAUSTED', ROUTE, True, UNAVAILABLE, False, False,
        ['BUDGET_EXHAUSTED', 'PAID_ROUTE_REFUSED', 'JA_CONCLUIDO',
         'NETWORK_BUDGET_EXHAUSTED', 'FINANCIAL_BUDGET_EXHAUSTED',
-        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET'],
+        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET',
+        # ── SCRAP-CV-02 · as recusas da guarda de autorizacao ──────────────
+        'SPEND_NOT_AUTHORIZED', 'SPEND_WITHOUT_FINANCIAL_LEDGER',
+        'FINANCIAL_BUDGET_ABOVE_HUMAN_LIMIT', 'AUTHORIZATION_NOT_GRANTED_HERE',
+        'AUTHORIZATION_EXHAUSTED', 'AUTHORIZATION_IS_IMMUTABLE',
+        'AUTHORIZATION_FOR_ANOTHER_SOURCE', 'AUTHORIZATION_FOR_ANOTHER_PURPOSE',
+        'AUTHORIZATION_CONTRACT_MISMATCH', 'HUMAN_AUTHORIZATION_LIMIT_MISSING',
+        'SOURCE_ID_MISSING', 'URL_IS_NOT_A_SOURCE_ID',
+        'SOURCE_NOT_RELEVANT_FOR_PURPOSE', 'SOURCE_RELEVANCE_NOT_EVALUATED',
+        'SOURCE_RELEVANCE_UNKNOWN', 'SOURCE_RELEVANCE_EVALUATION_ERROR'],
        'teto NOSSO: gasto, ACESSOS, itens, ou a missão não autorizou pagar. Trocar '
        'de chave não resolve — a recusa é da casa, não da plataforma. A fonte não '
        'tem nada a ver com isso. Os dois tetos da C10.8A-R/C10.8A-F entram aqui '
        'porque são a mesma família — recusa nossa, NO_RETRY — e porque sem alias '
-       'eles caíam em UNKNOWN_ERROR, que é o balde de «ninguém sabe o que houve».'),
+       'eles caíam em UNKNOWN_ERROR, que é o balde de «ninguém sabe o que houve». '
+       'E as recusas da GUARDA DE AUTORIZAÇÃO (SCRAP-CV-02) entram pela mesma '
+       'porta e pela mesma razão medida: sem alias, uma compra que ninguém '
+       'autorizou lia-se como UNKNOWN_ERROR. Elas mantêm nomes SEPARADOS de '
+       'propósito — «ninguém autorizou», «não há ledger», «a fonte não serve» e '
+       '«ninguém avaliou a fonte» pedem coisas diferentes de quem lê o rasto, e '
+       'achatá-las inventaria um julgamento que ninguém fez. O que partilham é a '
+       'recuperação: repetir não resolve, e trocar de chave menos ainda.'),
 
     # ── A ROTA FALHOU (a fonte continua sã) ────────────────────────────────
     _e('AUTH_EXPIRED', ROUTE, True, UNHEALTHY, True, False,

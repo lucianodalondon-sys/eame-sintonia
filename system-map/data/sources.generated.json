@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
+    "HEAD": "84422284eeac731e3fe44ed236f63b91570e194f",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4203,6 +4203,35 @@
       ]
     },
     {
+      "endpoint": "https://api.apify.com/v2",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 227
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 26
+        },
+        {
+          "file": "provas/corrigir_custo.py",
+          "line": 44
+        },
+        {
+          "file": "provas/red_team_da_convergencia_do_fluxo.py",
+          "line": 338
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 32
+        },
+        {
+          "file": "tests/test_cv02_convergencia_do_fluxo_pago.py",
+          "line": 523
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -4244,7 +4273,7 @@
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 57
+          "line": 58
         },
         {
           "file": "tests/test_c10_8b_live_disparador.py",
@@ -4252,7 +4281,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 36
+          "line": 37
         }
       ]
     },
@@ -4278,27 +4307,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.apify.com/v2",
-      "usado_por": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 227
-        },
-        {
-          "file": "ferramentas/contrato_ator.py",
-          "line": 26
-        },
-        {
-          "file": "provas/corrigir_custo.py",
-          "line": 44
-        },
-        {
-          "file": "superficie/rede.py",
-          "line": 32
         }
       ]
     },

@@ -112,7 +112,36 @@ def autorizacao_sim(sid=FONTE, prop=PROPOSITO):
     return {'VEREDITO': az.AUTORIZA, 'SOURCE_ID': sid, 'PROPOSITO': prop,
             'ESTADO_DA_RELEVANCIA': az.SIM, 'VERSAO_DO_PORTAO': '1',
             'CONTRATO': 'RELEVANCIA_DA_FONTE/v1',
-            'DECISAO': {'EVIDENCIA': {'FICHEIRO': 'LIVRO-DE-RELEVANCIA'}}}
+            'DECISAO': {'EVIDENCIA': {'FICHEIRO': 'LIVRO-DE-RELEVANCIA'}},
+            # ⚠️ OS DOIS LIMITES ENTRARAM NA SCRAP-CV-02, e tambem em NORMAL.
+            # Uma coleta normal sem teto de dolares e sem teto de execucoes e
+            # um cheque em branco — e o motivo do gasto nao muda isso.
+            'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1, 'MAX_USD': TETO_USD}
+
+
+def conceder(campos, **mudancas):
+    """Os campos viram um DIREITO de gastar — SCRAP-CV-02.
+
+    ⚠️ ANTES O DICIONARIO IA CRU, e o dicionario cru comprava. Medido nesta
+    arvore antes desta missao: `AUTHORIZATION_COPY_ACCEPTED = 1`.
+
+        UMA AUTORIZACAO QUE O CHAMADOR ESCREVE E UM CAMPO DE FORMULARIO.
+    """
+    return az.conceder(dict(campos, **mudancas))
+
+
+def sem_campo(campos, *fora):
+    """Uma autorizacao CONCEDIDA a que falta um campo, de proposito.
+
+    As provas que atacam um campo precisam de continuar a ser recusadas POR
+    ESSE campo. Uma recusa pelo motivo errado nao e uma defesa.
+    """
+    return az.conceder({k: v for k, v in campos.items() if k not in fora})
+
+
+#: O orcamento que esta prova declara — e ele bate certo com o limite humano.
+#: Desde a SCRAP-CV-02, `FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD`.
+TETO_USD = 0.10
 
 
 def correr(**kw):
@@ -121,7 +150,7 @@ def correr(**kw):
     real = subprocess.run
     subprocess.run = falsa
     try:
-        with http.orcamento_de_rede(5), ct.orcamento_financeiro(0.10):
+        with http.orcamento_de_rede(5), ct.orcamento_financeiro(TETO_USD):
             ct.executar(ATOR, {'videoUrl': 'https://youtu.be/X'},
                         token='FALSO', run_id='PROVA-SR02',
                         platform='YOUTUBE', country='IT', mission='SR-02',
@@ -144,14 +173,14 @@ def main():
     print('\n1 · NORMAL COLLECTION — oito casos, pelo caminho real')
     casos = [
         ('N1 SIM · fonte A · T3',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(),
+         dict(modo=az.NORMAL, autorizacao=conceder(autorizacao_sim()),
               source_id=FONTE, proposito=PROPOSITO), 1),
         ('N2 SIM T3 usado em T9',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(),
+         dict(modo=az.NORMAL, autorizacao=conceder(autorizacao_sim()),
               source_id=FONTE, proposito='T9'), 0),
         ('N3 NAO',
          dict(modo=az.NORMAL, source_id=FONTE, proposito=PROPOSITO,
-              autorizacao=dict(autorizacao_sim(), VEREDITO=az.BARRA,
+              autorizacao=conceder(autorizacao_sim(), VEREDITO=az.BARRA,
                                ESTADO_DA_RELEVANCIA=az.NAO)), 0),
         ('N4 NAO_SEI',
          dict(modo=az.NORMAL, source_id=FONTE, proposito=PROPOSITO,
@@ -166,7 +195,7 @@ def main():
               autorizacao=dict(autorizacao_sim(), VEREDITO=az.EXIGE_AVALIACAO,
                                ESTADO_DA_RELEVANCIA=az.NAO_AVALIADA)), 0),
         ('N7 autorização da fonte A, compra da fonte B',
-         dict(modo=az.NORMAL, autorizacao=autorizacao_sim(),
+         dict(modo=az.NORMAL, autorizacao=conceder(autorizacao_sim()),
               source_id='IT-T3-999', proposito=PROPOSITO), 0),
         ('N8 URL no lugar de SOURCE_ID',
          dict(modo=az.NORMAL, autorizacao=autorizacao_sim(sid='https://a.it'),
@@ -183,11 +212,12 @@ def main():
     print('\n3 · SOURCE EVALUATION PROBE — candidata NAO_AVALIADA')
     probe = {'AUTORIZACAO_HUMANA': 'SR-02 · prova offline',
              'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
-             'MAX_USD': 0.05, 'MAX_ITEMS': 10}
-    posts, estado = correr(modo=az.PROBE, autorizacao=probe)
+             'MAX_USD': TETO_USD, 'MAX_ITEMS': 10}
+    posts, estado = correr(modo=az.PROBE, autorizacao=conceder(probe))
     diz(posts == 1, 'probe autorizado chega ao provider falso',
         'POSTS=%d · %s' % (posts, estado))
-    recibo = az.pode_comprar(modo=az.PROBE, autorizacao=probe)
+    recibo = az.pode_comprar(modo=az.PROBE, autorizacao=conceder(probe),
+                             orcamento_autorizado=TETO_USD)
     diz(recibo['PROMOTES_RELEVANCE'] is False,
         'probe NÃO promove relevância', 'PROMOTES_RELEVANCE=%s'
         % recibo['PROMOTES_RELEVANCE'])
@@ -195,14 +225,14 @@ def main():
         'probe não consulta relevância nenhuma', 'é essa a razão de existir')
     for falta in ('MAX_USD', 'MAX_PROVIDER_RUNS', 'MAX_START_POSTS',
                   'MAX_ITEMS', 'AUTORIZACAO_HUMANA'):
-        magro = {k: v for k, v in probe.items() if k != falta}
+        magro = sem_campo(probe, falta)
         posts, estado = correr(modo=az.PROBE, autorizacao=magro)
         diz(posts == 0, 'probe sem %s' % falta, 'POSTS=%d · %s' % (posts, estado))
 
     print('\n4 · CAPABILITY TRIAL — o que a C10.8B já usava')
     trial = {'AUTORIZACAO_HUMANA': 'C10.8B-LIVE', 'MAX_PROVIDER_RUNS': 1,
              'MAX_START_POSTS': 1, 'MAX_USD': 0.10}
-    posts, estado = correr(modo=az.TRIAL, autorizacao=trial)
+    posts, estado = correr(modo=az.TRIAL, autorizacao=conceder(trial))
     diz(posts == 1, 'trial autorizado continua a correr',
         'POSTS=%d · %s' % (posts, estado))
     posts, estado = correr(modo=az.TRIAL, autorizacao=None)
@@ -212,11 +242,11 @@ def main():
     # O ataque: uma coleta normal sem «sim» que troca o modo para escapar. Ela
     # só escapa se conseguir tambem trazer a autorizacao humana — e essa e
     # exactamente a coisa que ela nao tem.
-    posts, estado = correr(modo=az.TRIAL, autorizacao=autorizacao_sim(),
+    posts, estado = correr(modo=az.TRIAL, autorizacao=conceder(autorizacao_sim()),
                            source_id=FONTE, proposito=PROPOSITO)
     diz(posts == 0, 'NORMAL→TRIAL com veredito de relevância no lugar dos limites',
         'POSTS=%d · %s' % (posts, estado))
-    posts, estado = correr(modo=az.PROBE, autorizacao=autorizacao_sim(),
+    posts, estado = correr(modo=az.PROBE, autorizacao=conceder(autorizacao_sim()),
                            source_id=FONTE, proposito=PROPOSITO)
     diz(posts == 0, 'NORMAL→PROBE com veredito no lugar dos limites',
         'POSTS=%d · %s' % (posts, estado))

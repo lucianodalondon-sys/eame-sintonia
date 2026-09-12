@@ -510,6 +510,16 @@ def _curl(url, *, token, metodo='GET', corpo=None, timeout=300, tentativas=4):
 #: Medido na SCRAP-SR-02: a substituicao tinha levado embora o teto de rede e a
 #: regra de que o POST vai uma vez so. Com este nome, quem audita consegue
 #: perguntar «este e o transporte da casa?» e quem testa consegue repo-lo.
+#:
+#: ⚠️ E ELE E O QUE SALVA AS PROVAS OFFLINE — medido na SCRAP-CV-02. Um harness
+#: que finge o `subprocess` deixa de fingir coisa nenhuma quando o transporte e
+#: `urllib`: o pedido sai e vai MESMO a rede, e a promessa `NETWORK_REAL = 0`
+#: passa a depender de ninguem ter importado `sensor_coleta` antes.
+#:
+#:     UM FAKE QUE JA NAO ESTA NO CAMINHO NAO E UM FAKE. E UM ADORNO.
+#:
+#: Repor a porta original nao e mockar um owner: e desfazer o mock de outra
+#: pessoa, para que o que se mede seja o que se diz que se mede.
 _CURL_DA_CASA = _curl
 
 
@@ -635,18 +645,41 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     # E ela vem ANTES da reserva financeira de propósito. Reservar primeiro
     # comprometeria dinheiro por uma compra que nunca devia ter sido pensada —
     # e uma reserva que ninguém liquidou não volta ao bolso.
-    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,
-                             source_id=source_id, proposito=proposito,
-                             ator=actor)
+    # ── O NÚMERO DO LEDGER VIAJA COM A PERGUNTA — SCRAP-CV-02 ─────────────
+    # A guarda compara o limite humano com o que ESTA execução declarou poder
+    # comprometer ao todo. Ela recebe o NÚMERO, nunca o ledger: contar dólares
+    # gastos, reservados e desconhecidos é trabalho do `OrcamentoFinanceiro`, e
+    # duas peças a somar o mesmo dólar divergem na terceira chamada.
+    #
+    #     FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD
+    #     LIMITE HUMANO != LEDGER OPERACIONAL
+    orcamento = orcamento_financeiro_actual()
+    recibo = az.pode_comprar(
+        modo=modo, autorizacao=autorizacao, source_id=source_id,
+        proposito=proposito, ator=actor,
+        orcamento_autorizado=(orcamento.autorizado if orcamento is not None
+                              else None),
+        # ⚠️ O NOME DO LEDGER, e nada mais. A guarda usa-o para saber se ainda
+        # e a MESMA execucao: um limite humano conferido contra um orcamento e
+        # gasto noutro nao foi conferido contra nenhum.
+        #
+        #     UM NOME NAO E UMA SOMA.
+        ledger=(id(orcamento) if orcamento is not None else None))
     # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
     # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
     # ela que decide o `maxTotalChargeUsd` que vai na query.
-    orcamento = orcamento_financeiro_actual()
     reserva = None
     if orcamento is not None:
         reserva = orcamento.reservar(pedido=teto_usd, ator=actor,
                                      rota=rota or evidence_path, missao=mission)
         teto_usd = reserva.cap
+    # ── E SÓ AGORA A UNIDADE SE GASTA — SCRAP-CV-02 ───────────────────────────
+    # A compra está comprometida: há autorização e há saldo reservado. Gastá-la
+    # na conferência, que corre antes do dinheiro, queimaria uma execução
+    # autorizada por uma compra que o orçamento ainda podia recusar.
+    #
+    #     POST QUE NÃO SAIU != POST QUE SAIU.
+    recibo = dict(recibo, CONSUMO=az.consumir(autorizacao))
     try:
         params = ['waitForFinish=%d' % min(int(wait), ESPERA_MAXIMA_DA_PLATAFORMA)]
         if teto_usd is not None:
@@ -654,11 +687,18 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         if build:
             params.append('build=%s' % build)
         adotada = 'NO'
+        # ⚠️ ESTA BANDEIRA SEPARA DUAS COISAS QUE PARECEM UMA SÓ: a chamada que
+        # morreu ANTES de sair, e a chamada que saiu. Enquanto ela for False há
+        # PROVA de que nenhum pedido chegou ao fornecedor — e só com essa prova
+        # se devolve dinheiro ou execução autorizada.
+        post_tentado = False
         try:
             run = _curl('%s/acts/%s/runs?%s' % (API, actor, '&'.join(params)),
                         token=token, metodo='POST', corpo=entrada,
                         timeout=ESPERA_MAXIMA_DA_PLATAFORMA + 40)
+            post_tentado = True
         except PostTalvezCriado as e:
+            post_tentado = True                 # pode ter chegado: não se devolve
             # O pedido pode ter chegado. ADOTAR a execução que nasceu é a única saída que
             # não paga duas vezes — e se não nasceu nenhuma, a falha continua sendo falha.
             achada = _ultima_execucao(actor, token=token, desde=started)
@@ -751,8 +791,21 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         # E se o teto de REDE recusou, o POST provadamente nao saiu: o dinheiro
         # reservado volta inteiro. Este e o outro caso — com prova — em que ele
         # volta.
-        if reserva is not None and not reserva.fechada:
-            reserva.anular('REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT')
+        if not post_tentado:
+            if reserva is not None and not reserva.fechada:
+                reserva.anular('REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT')
+            # ── E A EXECUÇÃO AUTORIZADA VOLTA TAMBÉM — SCRAP-CV-02 ─────────
+            # A unidade é consumida no momento do COMPROMISSO, que é
+            # imediatamente antes do POST — e o teto de ACESSOS recusa DENTRO
+            # do transporte, depois disso. Sem esta linha, uma autorização de
+            # uma execução morria por uma compra que provadamente nunca foi
+            # tentada, e alguém tinha de a conceder outra vez para o mesmo
+            # trabalho.
+            #
+            #     UM POST QUE NÃO SAIU NÃO GASTA UMA AUTORIZAÇÃO.
+            if autorizacao is not None:
+                recibo = dict(recibo, CONSUMO=az.devolver(
+                    autorizacao, 'REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT'))
         raise
     except Exception as e:                                   # falha é estado, não zero
         d, dataset, itens = {}, None, []
