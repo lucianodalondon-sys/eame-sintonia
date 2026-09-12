@@ -140,6 +140,29 @@ for nome, u in COMMITADO["UNIVERSOS"].items():
               u["COUNT"] == len(u["MEMBERS"]),
               f"COUNT={u['COUNT']} MEMBERS={len(u['MEMBERS'])}")
 
+# UM CARTAO VISUAL SEM NO REAL SERIA UM DESENHO COM CONTAGEM.
+# A tela nao tem lista propria de rectangulos: ela desenha `NODES[]`. Esta
+# prova impede que a reconciliacao invente um membro que a tela nao tem —
+# inclusive por engano, ao ler um artefato mais velho do que o estado.
+NOS = {n["id"] for n in S["NODES"]}
+for nome, u in COMMITADO["UNIVERSOS"].items():
+    if u.get("DIMENSAO") in ("FICHEIRO", "FERRAMENTA_DO_PORTAL"):
+        continue  # nao contam nos; contam ficheiros e ferramentas do portal
+    fantasmas = sorted(set(u.get("MEMBERS") or []) - NOS)
+    prova(f"nenhum_membro_sem_no_real[{nome}]", not fantasmas, f"{fantasmas[:5]}")
+prova("todo_cartao_da_reconciliacao_e_um_no_do_mapa",
+      not (set(ids) - NOS), f"{sorted(set(ids) - NOS)[:5]}")
+
+# UM CARTAO EM DUAS VISTAS CONTINUA A SER UM CARTAO.
+multivista = [c["CARD_ID"] for c in cartoes if len(c.get("VIEWS") or []) > 1]
+prova("ha_cartoes_em_mais_de_uma_vista_para_esta_prova_nao_ser_vazia",
+      bool(multivista), "nenhum cartao em duas vistas — a prova seguinte nao mede nada")
+prova("cartao_em_duas_vistas_conta_uma_vez",
+      len(set(multivista)) == len(multivista)
+      and sum(1 for c in cartoes if c["CARD_ID"] in set(multivista)) == len(set(multivista)),
+      f"{len(multivista)} em varias vistas, "
+      f"{sum(1 for c in cartoes if c['CARD_ID'] in set(multivista))} linhas")
+
 for lente in COMMITADO["LENTES"]:
     faltam = [k for k in ("LENS_ID", "PARENT_UNIVERSE", "MEMBER_COUNT",
                           "INCLUSION_RULE", "EXCLUSION_RULE", "WHO_COMPUTES",
