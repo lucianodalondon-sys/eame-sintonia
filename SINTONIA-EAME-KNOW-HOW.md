@@ -9740,3 +9740,138 @@ Regra final:
 O SINTONIA NÃO OTIMIZA PARA TER MAIS MISSÕES.
 OTIMIZA PARA FUNCIONAR COM PROVA.
 ```
+
+---
+
+# §95 · UMA GUARDA PRESA AO ESTADO DE HOJE REPROVA O PROGRESSO DE AMANHÃ
+
+**Missão:** `C-COLLECTION-V1-OPERATIONAL-CLOSE`
+**HEAD final:** `bd5ad9c0`
+**Tocado:** `supabase/migrations/029` · `guarda/preservar_derivado.py` ·
+`coleta/executor_texto_de_pdf.py` · `coleta/derivacao_forward.py` · três testes
+
+A decisão da `§86`/`§90` foi implementada: a participação
+`(observação, derivado)` passou a ter tabela, dono e prova. E o que se aprendeu
+não foi sobre linhagem — foi sobre **as guardas que escrevi para a proteger**.
+
+## 95.1 · TRÊS GUARDAS REPROVARAM NO PROGRESSO, E NENHUMA NUM DEFEITO
+
+```
+test_nenhuma_migration_nova_entrou       exigia que a última fosse a 028
+test_e_nao_escreve_relacao_nenhuma       exigia que o writer não escrevesse
+test_nao_ha_migration_029_nesta_missao   exigia que a 029 não existisse
+```
+
+As três estavam **certas no dia em que nasceram**. As duas primeiras diziam
+«esta missão mediu e não implementou», e a terceira usava o número da próxima
+migration como atalho para «ninguém escolheu a morada da Sala de Espera por
+baixo».
+
+Nenhuma delas apanhou um defeito. Todas apanharam a missão seguinte a fazer o
+que estava decidido.
+
+```
+    UMA GUARDA QUE PRENDE O ESTADO ERRADO
+    REPROVA O PROGRESSO E DEIXA PASSAR O DEFEITO.
+```
+
+A terceira é a mais instrutiva, porque nem sequer era sobre o assunto dela: a
+`029` nasceu para a **linhagem da derivação**, e fez reprovar a guarda da
+**Sala de Espera**.
+
+```
+    UM NÚMERO DE MIGRATION NÃO É UMA PROPRIEDADE.
+    PRENDER A GUARDA AO NÚMERO SEGUINTE FAZ O VIZINHO REPROVAR.
+```
+
+A pergunta a fazer antes de escrever uma guarda de estado: **o que é que isto
+protege quando o trabalho avançar?** Se a resposta for «nada, ela só diz onde
+parámos», então ela é um marcador, e um marcador com cara de teste será lido
+como lei pela próxima pessoa.
+
+O conserto não foi apagá-las. Foi virá-las para a propriedade que sobrevive:
+a migration existe **e cumpre a decisão campo a campo**; o writer escreve a
+aresta **nos três pontos em que ela é real e em mais nenhum**; nenhuma
+migration — seja qual for o número — **dá casa em SQL** à Sala de Espera.
+
+## 95.2 · A CONTAGEM DAS GUARDAS DE TEXTO CHEGOU A SETE
+
+`§90.6` contava quatro. Esta missão acrescentou três, todas iguais:
+
+```
+assertNotIn("bigserial", sql)   reprovou no comentário que explica
+                                por que não há surrogate
+assertNotIn("inserted", sql)    reprovou no comentário que explica
+                                por que o resultado ficou de fora
+"insert" not in corpo_da_funcao reprovou na docstring que diz
+                                «Não há `insert` nesta função de propósito»
+```
+
+Sete vezes o mesmo erro, em sete sítios, ao longo de quatro missões. Já não é
+distração: é a forma por omissão de escrever uma guarda, e ela está errada.
+
+```
+    UMA GUARDA LÊ O QUE O FICHEIRO FAZ, E NÃO O QUE ELE EXPLICA.
+```
+
+Para Python isso é o **AST**. Para SQL, é o texto **sem as linhas `--`**. E há
+um segundo grau do mesmo erro: uma guarda larga de mais acusa o vizinho —
+perguntar «há `create table` e há a palavra `ready` algures no ficheiro?»
+acusou a `024`, que cria `etapa_da_corrida` e menciona `ready` noutro contexto.
+O que se olha é o **nome da tabela criada**.
+
+## 95.3 · TRANSPORTAR NÃO É CONHECER
+
+O dono do derivado passou a precisar da corrida da passagem. O caminho óbvio
+era acrescentar `run_id` ao executor — e o executor tem, escrito na própria
+docstring, que **não sabe o que é uma corrida**:
+
+> Ele não sabe — e não deve saber — o que é uma corrida, um `run_id`, um
+> `source_id` ou uma tabela de rastro.
+
+Essa regra não é decorativa: é o que impede um executor de declarar uma
+linhagem que não pode provar. Quebrá-la para poupar um parâmetro teria sido
+pagar a doutrina para não pensar.
+
+O que atravessa é um **envelope opaco**, com um nome que não é `run_id`, e que
+o executor não abre.
+
+```
+    O EXECUTOR PRODUZ O QUE SÓ ELE SABE.
+    TRANSPORTAR NÃO É CONHECER.
+```
+
+E a guarda disso lê-se por AST: o parâmetro existe, o nome `run_id` **não**
+aparece na assinatura, e não há um `Subscript` sobre o envelope. Se um dia ele
+o abrir, o teste cai.
+
+## 95.4 · «NÃO TEM DONO» É QUASE SEMPRE LARGO DE MAIS
+
+A `§86.7` já tinha corrigido isto uma vez para o `canal_id`. Voltou a
+confirmar-se ao medir o bloqueio do STRUCTURED:
+
+```
+SCHEMA OWNER       EXISTE   origem e canal, migration 002
+RUNTIME RESOLVER   EXISTE   canal_canonico lê, e nunca cria
+RUNTIME CREATOR    NÃO      nenhum ficheiro de produção cria canal
+```
+
+E a medição encontrou mais do que se procurava: não falta só o canal.
+`conteudo.content_id` está comentado como «id da plataforma (video_id,
+post_id)» e `canal.channel_id` como «o id da plataforma, NUNCA o nome». Um
+boletim em PDF no sítio de uma agência regional não tem nenhum dos dois.
+
+```
+    A TABELA PRESSUPÕE UMA PLATAFORMA QUE EMITA IDENTIFICADORES.
+    UMA FONTE DOCUMENTAL NÃO É UMA.
+```
+
+Isso muda a pergunta que vai a decisão. Não é «qual é o `channel_id` da
+ARPAV?» — é «o que é um canal, quando a fonte não é uma plataforma?». A
+primeira pede um valor; a segunda pede um significado, e só a segunda é
+honesta.
+
+```
+    ANTES DE PEDIR UM VALOR A ALGUÉM,
+    VERIFIQUE SE O QUE FALTA É O VALOR OU O CONCEITO.
+```
