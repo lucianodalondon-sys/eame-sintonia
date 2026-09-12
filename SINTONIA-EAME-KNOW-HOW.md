@@ -5947,3 +5947,175 @@ telemetria passar por falha de RAW, e elas não são a mesma coisa.
 
 O que isto continua a **não** provar: produção, e READY. A estrada continua a
 acabar na ADMISSION.
+
+---
+
+# §73 · UMA FERRAMENTA QUE RECUSA TUDO O QUE AINDA NÃO PROVOU FAZ NASCER TODA CAPACIDADE NOVA FORA DELA
+
+**Missão:** `C10.7 — ENSAIO CANÔNICO DE CAPACIDADE`
+**HEAD final:** `27ceddcf`
+**Tocado:** `coleta/scrap_executor.py` (e mais nada de código)
+
+## 73.1 · O CICLO, E POR QUE ELE SE FECHA SOZINHO
+
+O SCRAP tinha uma regra certa: uma capacidade que nunca foi provada não promete
+resultado, e o `CHECK` recusa-a. Isso protege a produção de adaptadores que
+existem e fingem.
+
+Só que a regra, sozinha, fecha um ciclo:
+
+```
+NOT_EXECUTED
+  → o CHECK recusa
+  → para deixar de o ser, tem de correr uma vez
+  → corre por um script lateral
+  → alguém «integra»
+  → nasce um bypass.
+```
+
+Não é um risco teórico, e é isso que torna a lei útil. Duas capacidades estavam
+presas nele com adaptador ligado e política permitida. E o script lateral já
+existia: o `piloto` do `social_scrap.py`, que uma missão anterior mediu a chamar
+o roteador sem passar pelo boundary, **é** o produto deste ciclo.
+
+```
+    TODA REGRA QUE SÓ SABE DIZER «AINDA NÃO» PRECISA DE UM CAMINHO
+    CANÓNICO PARA DEIXAR DE O DIZER. SENÃO ALGUÉM ABRE UM.
+```
+
+## 73.2 · A CURA É UM TERCEIRO EIXO, NÃO UMA EXCEÇÃO
+
+A tentação é uma flag de exceção — `allow_unproven`, `force`, `override`. Todas
+elas têm o mesmo defeito: são uma autorização, e uma autorização acaba
+concedida por conveniência.
+
+O que faltava não era permissão, era uma **pergunta diferente**:
+
+```
+NORMAL   «vou colher, e espero resultado»
+TRIAL    «vou MEDIR se consigo, e NÃO espero resultado»
+```
+
+E a regra que mantém isto honesto é uma só:
+
+```
+    A ÚNICA DIFERENÇA ENTRE OS DOIS MODOS É O PORTÃO EPISTEMOLÓGICO.
+```
+
+Política, roteamento, adaptador, fornecedor, gasto e taxonomia de falha são os
+mesmos objetos, chamados pelas mesmas linhas. No dia em que o modo decidir uma
+segunda coisa — uma rota, um fornecedor, um gasto — deixou de ser um modo e
+passou a ser um segundo runtime. Uma sentinela lê todas as comparações com o
+modo e recusa que apareça `ROTA`, `provider`, `pago` ou `CLASSE` ao lado.
+
+## 73.3 · DUAS PERGUNTAS NÃO PODEM DAR A MESMA RESPOSTA
+
+O `CHECK` devolvia `CAN`. Com dois modos, `CAN = True` passaria a querer dizer
+duas coisas conforme quem perguntou — e quem lê o veredicto não sabe quem
+perguntou.
+
+```
+PRODUCTION_READY   dá para colher a sério, com direito a esperar objeto
+TRIAL_ELIGIBLE     dá para medir uma vez, sem direito a esperar nada
+```
+
+Os dois vêm **sempre**, nos dois modos.
+
+```
+    UM `CAN = True` QUE NÃO DIGA QUAL DOS DOIS
+    MENTE PARA METADE DE QUEM O LÊ.
+```
+
+E o padrão do parâmetro é o modo restritivo. Uma assinatura cujo default é o
+modo permissivo é um atalho com outro nome, e há uma sentinela que lê a árvore
+sintática para o garantir.
+
+## 73.4 · UM ENSAIO QUE PROMOVE ESTADO É UMA MEDIÇÃO QUE SE AUTO-ASSINA
+
+O ponto mais fácil de errar. O ensaio corre, devolve objetos, e é tentador
+escrever `PROVEN` ali mesmo — afinal funcionou.
+
+```
+    TRIAL PASSADO != CAPACIDADE PROVADA.
+    OFFLINE FIXTURE PASSADO != CAPACIDADE PROVADA AO VIVO.
+```
+
+Promover exige prova definida, artefato, evidência observada e um commit que se
+lê. Três provas de que não promoveu, e a terceira é a que viaja:
+
+- o ficheiro da declaração comparado por SHA antes e depois;
+- uma sentinela que recusa que o executor ganhe sequer **como** escrever
+  (`open(`, `write_text`, `json.dump`);
+- `CAPABILITY_STATE_BEFORE == CAPABILITY_STATE_AFTER` **dentro do trace** — a
+  prova dentro do próprio artefato, onde quem o ler daqui a um ano a encontra.
+
+## 73.5 · MOCKAR O RUNTIME PROVA O MOCK
+
+Para provar que o ensaio atravessa a casa toda, substituiu-se **um** objeto: a
+chamada externa do fornecedor. Executor, roteador, registo e adaptador correram
+a sério, com as linhas de produção.
+
+```
+    MOCKAR O RUNTIME PROVA O MOCK. MOCKAR A PORTA EXTERNA PROVA O RUNTIME.
+```
+
+E a prova conta quem foi tocado — roteador, adaptador, fornecedor falso — em vez
+de assumir que foram. Uma prova que não conta as passagens prova que não rebentou.
+
+## 73.6 · UM ESTADO QUE DIZ DUAS COISAS NÃO PODE SER LIDO COMO SE DISSESSE UMA
+
+`BLOCKED` ficou de fora do ensaio, e a razão não é cautela: é um achado.
+
+A prova que escreve `BLOCKED` numa capacidade desta casa mediu **uma rota**, a
+partir de **um host**, e arruma-se numa tabela intitulada «o que só o runner
+local pode fechar». A política, ao lado, declara a mesma capacidade permitida
+por duas **outras** rotas.
+
+```
+    `BLOCKED` NA CAPACIDADE ESTÁ A DESCREVER UMA ROTA NUM AMBIENTE.
+```
+
+Registado como `CAPABILITY_ROUTE_STATE_CONFLATION = YES` e **não corrigido**:
+separar os eixos muda a declaração de cinco capacidades e é ato de quem mede.
+O que se fez foi impedir que o ensaio leia o estado misturado como se estivesse
+limpo. Corrigir de passagem seria reescrever medição por lógica.
+
+## 73.7 · E O DEFEITO QUE SÓ APARECE QUANDO SE MEXE
+
+Ao expor os eixos na introspecção, apareceu que `CAPABILITIES()` respondia
+`HAS_ROUTE` perguntando só por um dos dois papéis que um adaptador pode ter
+(`executa=`, mas não `rota=`). Onze das catorze capacidades ligadas apareciam
+sem rota — enquanto o `CHECK`, na linha ao lado, dizia que podiam colher agora.
+
+```
+    DUAS RESPOSTAS PARA A MESMA PERGUNTA SÃO DOIS DONOS.
+```
+
+A função existia e era do registo. Passou a delegar. 11 divergências → 0.
+
+## 73.8 · UMA SONDA QUE MEDE FICHEIROS NÃO VÊ UMA FUNÇÃO
+
+O ataque que procura scripts laterais media por ficheiro: excluía um módulo
+inteiro por ele importar o executor nalgum sítio, e acusava o próprio executor,
+que não se importa a si mesmo. Medido por **função**, passou a ver o `piloto` —
+o lateral real que existe, e que esta missão estava proibida de resolver.
+
+```
+    UMA SONDA QUE MEDE FICHEIROS NÃO VÊ UMA FUNÇÃO.
+```
+
+## 73.9 · CONSEQUÊNCIA
+
+```
+FOUND_EXISTING_MECHANISM = NO   (procurado por 14 palavras antes de criar)
+PRODUCTION_BEHAVIOR_CHANGED = NO
+STATE_PROMOTED = NO · NETWORK_REAL = 0 · PAID_RUNS = 0
+MUTANTES 10 · SURVIVORS 0 · ATAQUES 28 · NEW_FAILURES 0
+```
+
+Duas capacidades deixaram de estar presas e continuam `NOT_EXECUTED` — que é a
+verdade, porque o que se provou foi o caminho, com fornecedor falso.
+
+```
+    CAN DO != DID DO.
+```
