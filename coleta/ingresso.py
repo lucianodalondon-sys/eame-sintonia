@@ -76,6 +76,12 @@ import _gavetas  # noqa: E402,F401
 
 import artefato as art                                    # noqa: E402
 from guarda.preservar_coleta import ArmazemLocal, preservar  # noqa: E402
+# ⚠️ O DONO DO RASTRO, E NAO UMA SEGUNDA TELEMETRIA.
+# `medidas/rastro_da_coleta.py` ja escreve as passagens de DERIVED, STRUCTURED
+# e ADMISSION. A etapa RAW estava no vocabulario (`telemetria.ETAPAS_DA_COLETA`)
+# e era muda. Esta porta passa a contar-lhe a passagem na MESMA lingua.
+import rastro_da_coleta as rastro                           # noqa: E402
+import diagnostico as dg                                    # noqa: E402
 
 # O que a porta recusa, com nome. Cada um destes e uma RECUSA da porta — nunca
 # um ERRO da coleta, e nunca uma REJEICAO da admissao, que e outra pergunta.
@@ -486,13 +492,205 @@ def para_o_dono_do_raw(f: art.Artefato, item: dict) -> dict:
     }
 
 
+# ═════════════════════════════════════════════════════════════════════════
+# A FRONTEIRA FORWARD DO RAW — quem leva o que a porta sabe até ao rastro
+# ═════════════════════════════════════════════════════════════════════════
+# Esta peça é para o RAW o que `coleta/derivacao_forward.py` é para o DERIVED:
+# ela não escreve SQL, não é dona da observação e não é dona do rastro. Ela
+# traduz o recibo de `preservar()` para a língua de `rastro_da_coleta`.
+#
+#     COLETOR OBSERVA · PORTA PRESERVA · RASTRO CONTA
+#
+# ⚠️ E ELA FALA DEPOIS, NUNCA ANTES.
+# O `RAW_OBSERVATION_ID` só existe porque o banco devolveu uma linha. Emitir a
+# passagem antes do INSERT daria um sucesso sem sujeito — e um rastro de
+# sucesso que aponta para nada é pior do que rastro nenhum, porque parece
+# medido.
+
+GRAO_ENTRADA_RAW = "artefato observado"
+GRAO_SAIDA_RAW = "observacao bruta"
+
+
+def _fonte_provada(para_o_raw):
+    """A fonte da passagem, e só quando ela é UMA e está provada.
+
+    ⚠️ ISTO NAO INFERE NADA. Não lê o caminho, não lê o nome da pasta, não lê
+    o slug e não lê o sha. Lê o `SOURCE_ID` que o coletor declarou, e só o
+    aceita se ele identificar de facto:
+
+        None / "" / "   " / "NAO SEI" / "NAO_SE_APLICA"  →  ausência, e NULL
+
+    ⚠️ `"   "` NAO ESTA EM `NAO_E_AFIRMACAO`, E PASSAVA POR FONTE.
+    `preservar_coleta._identifica` já o recusava — «veio vazio, com espaço a
+    fingir conteúdo». A fronteira tem de recusar o mesmo, ou a linha do rastro
+    fica com uma fonte que o dono do RAW nunca aceitaria.
+
+        DOIS SITIOS COM A MESMA REGRA ESCRITA DE MANEIRAS DIFERENTES
+        SAO DUAS REGRAS A ESPERA DE DISCORDAR.
+
+    E se a mesma passagem trouxer DUAS fontes diferentes, também fica NULL:
+    escolher uma delas faria a passagem falar por uma fonte que só trouxe
+    metade do trabalho.
+
+        UNKNOWN HONESTO > ID INVENTADO.
+    """
+    fontes = set()
+    for a in para_o_raw:
+        v = a.get("SOURCE_ID")
+        if isinstance(v, str):
+            v = v.strip()
+        if v in NAO_E_AFIRMACAO:
+            continue
+        fontes.add(v)
+    return fontes.pop() if len(fontes) == 1 else None
+
+
+def _baldes_do_raw(recibo, recusas_da_porta, entrada):
+    """Onde cada item terminou. A conta tem de fechar, e é o banco que confere.
+
+        NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM.
+        E OBRIGATORIO QUE 100% TENHA EXPLICACAO.
+
+    ⚠️ A MESMA OBSERVACAO NAO CAI EM DOIS BALDES, E ELA ESTAVA A CAIR.
+    `RAW_OBSERVATIONS` são as observações confirmadas DESTA corrida — e num
+    reencontro a linha reaproveitada aparece nas duas listas. Somar as duas
+    dava `accounted = 2` para uma entrada de 1, e o banco devolvia
+    `unaccounted_input = -1`: um buraco NEGATIVO, inventado pela contagem.
+
+        REAPROVEITADA E CONFIRMADA SAO A MESMA LINHA VISTA DE DOIS LADOS.
+
+    `unknown` não é enchimento: é o resto medido — o que entrou, não foi
+    recusado e não apareceu confirmado no banco. Chamar-lhe `passed` faria a
+    perda diluir-se num número de sucesso.
+    """
+    confirmadas = len(recibo.get("RAW_OBSERVATIONS") or [])
+    reaproveitadas = (recibo.get("JA_EXISTIA_NO_BANCO") or {}).get(
+        "REUSED_METADATA") or 0
+    reaproveitadas = min(reaproveitadas, confirmadas)
+    recusadas = recusas_da_porta + len(recibo.get("RECUSADOS_SEM_IDENTIDADE") or [])
+    novas = confirmadas - reaproveitadas
+    resto = entrada - novas - reaproveitadas - recusadas
+    return {"passed": novas, "reused": reaproveitadas,
+            "rejected": recusadas, "unknown": max(resto, 0)}
+
+
+def _a_observacao_desta_passagem(recibo):
+    """O alvo da linha — e só quando ela produziu EXATAMENTE uma.
+
+    Com N > 1 a passagem não tem uma observação: tem N. Escolher a primeira
+    seria escolher ao acaso com cara de determinismo, e as contagens já dizem
+    a verdade. Com zero, não há sujeito nenhum.
+
+        UM ID EMPRESTADO NAO E UM ID ERRADO. E UMA OBSERVACAO A FAZER-SE
+        PASSAR POR OUTRA.
+    """
+    obs = recibo.get("RAW_OBSERVATIONS") or []
+    if len(obs) != 1:
+        return None
+    return obs[0]["RAW_OBSERVATION_ID"]
+
+
+def _proxima_tentativa(banco, run_id):
+    """A tentativa seguinte desta etapa nesta corrida.
+
+    ⚠️ FIXAR `tentativa=0` FARIA A SEGUNDA PASSAGEM COLIDIR na chave
+    `(run_id, etapa, tentativa)` — e o erro do banco subiria com o mesmo tipo
+    do erro do fluxo. `rota_forward_documento` já resolveu isto no STRUCTURED,
+    e a etapa RAW não tem razão nenhuma para o resolver de outra maneira.
+
+    E a linha anterior FICA. Apagar a tentativa que falhou apagaria a evidência
+    daquilo que se está a tentar consertar.
+    """
+    try:
+        r = banco.executa(
+            "select coalesce(max(tentativa), -1) from public.etapa_da_corrida"
+            " where run_id = %s and etapa = 'RAW'" % rastro._lit(run_id))
+        return int(r[0][0]) + 1
+    except Exception:                                        # noqa: BLE001
+        return 0
+
+
+def falar_do_raw(banco, *, recibo, corrida, entrada, recusas_da_porta,
+                 source_id=None, route_class_id=None, tentativa=None):
+    """A passagem pela etapa RAW, escrita pelo dono canónico do rastro.
+
+    `recibo` é o que `preservar()` devolveu — ou `None`, quando a porta não
+    chegou a preservar nada. Os dois casos são diferentes e nenhum é silêncio:
+
+        recibo None   a etapa NAO CORREU  → NOT_RUN
+        recibo com    a etapa correu      → PASS / PARTIAL / FAIL
+
+    ⚠️ NOT_RUN != FAIL. Uma etapa que não correu não falhou, e uma etapa que
+    falhou correu. Colapsar as duas manda o operador ao sítio errado.
+    """
+    if tentativa is None:
+        tentativa = _proxima_tentativa(banco, corrida["RUN_ID"])
+
+    if recibo is None:
+        # Nada a preservar: nenhum artefato sobreviveu ao contrato da porta.
+        # A etapa não correu, e dizê-lo é a única coisa honesta a dizer.
+        return rastro.registrar(
+            banco, run_id=corrida["RUN_ID"], etapa="RAW", estado="NOT_RUN",
+            tentativa=tentativa, source_id=source_id,
+            route_class_id=route_class_id,
+            input_grain=GRAO_ENTRADA_RAW, input_count=entrada,
+            output_grain=GRAO_SAIDA_RAW, output_count=0,
+            cardinalidade="1:1",
+            rejected=recusas_da_porta,
+            not_run=max(entrada - recusas_da_porta, 0))
+
+    baldes = _baldes_do_raw(recibo, recusas_da_porta, entrada)
+    confirmadas = baldes["passed"]
+    pendencia = recibo.get("PENDENCIA")
+    erro = (recibo.get("MEMORIA") or {}).get("ERRO")
+    # ⚠️ RECUSAR NAO E FALHAR, E A ETAPA NAO ASSINA O DEFEITO DO ITEM.
+    # `rota_forward_documento` já decidiu isto no STRUCTURED: um item que não
+    # cumpre a pré-condição da cadeia sai `rejected` com a etapa em PASS —
+    # «NAO e erro nosso: e o item». Uma colheita inteira sem fonte provada é
+    # uma colheita recusada, e não uma etapa avariada. Marcá-la FAIL mandava
+    # o operador consertar o coletor de bruto em vez do coletor da fonte.
+    tentadas = entrada - baldes["rejected"]
+    if erro or (tentadas > 0 and confirmadas + baldes["reused"] == 0):
+        estado, canonico = "FAIL", "UNKNOWN_ERROR"
+    elif tentadas == 0:
+        estado, canonico = "PASS", None
+    elif pendencia == "PRESERVED_AND_REGISTERED" and not baldes["unknown"]:
+        estado, canonico = "PASS", None
+    else:
+        estado, canonico = "PARTIAL", "ITEM_ERROR"
+
+    return rastro.registrar(
+        banco, run_id=corrida["RUN_ID"], etapa="RAW", estado=estado,
+        tentativa=tentativa, source_id=source_id,
+        route_class_id=route_class_id,
+        input_grain=GRAO_ENTRADA_RAW, input_count=entrada,
+        output_grain=GRAO_SAIDA_RAW,
+        # As observações que esta passagem deixou de pé: as novas mais as
+        # reaproveitadas. NÃO se soma `confirmadas` outra vez — ela já é a
+        # soma das duas.
+        output_count=baldes["passed"] + baldes["reused"],
+        cardinalidade="1:1",
+        passed=baldes["passed"], rejected=baldes["rejected"],
+        unknown=baldes["unknown"], reused=baldes["reused"],
+        canonical_state=canonico,
+        diagnostic_code=(dg.RAW_PERSISTENCE_FAILED if estado == "FAIL" else None),
+        error_message=erro if estado == "FAIL" else None,
+        # A OBSERVACAO, quando esta passagem produziu exatamente uma.
+        raw_asset_id=_a_observacao_desta_passagem(recibo))
+
+
 def receber(itens: list, *, corrida: dict, armazem, memoria=None,
-            raiz: str = RAIZ) -> dict:
+            raiz: str = RAIZ, banco_do_rastro=None) -> dict:
     """A porta. Devolve o que entrou, o que foi recusado, e o recibo do RAW.
 
     NAO levanta por item mau: um item que quebra o contrato e uma RECUSA com
     nome, e a corrida continua. Rebentar aqui faria uma observacao estragada
     apagar todas as outras da mesma colheita.
+
+    `banco_do_rastro` e onde a passagem pela etapa RAW e escrita, ou `None`
+    para nao emitir — a mesma forma que `derivacao_forward.correr()` usa.
+    Sem banco nao ha rastro, e nao se fabrica um ficheiro ao lado para o
+    substituir: AUSENCIA DE RASTRO E AUSENCIA, e ela diz-se com `NAO_EMITIDO`.
     """
     if not corrida.get("RUN_ID"):
         # Sem corrida nao ha procedencia, e sem procedencia nao ha RAW
@@ -528,8 +726,24 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
         recibo = preservar(_corrida_completa(corrida), para_o_raw, armazem,
                            lambda o: bytes_por_caminho[o["SHA256"]],
                            memoria=memoria)
+    # ── A PASSAGEM, DEPOIS DE A OBSERVACAO EXISTIR ──────────────────────
+    # ⚠️ A ORDEM E A PROVA. `preservar()` ja correu, ja leu de volta e ja
+    # devolveu os ids REAIS. So agora a etapa tem o que contar. Trocar estas
+    # duas linhas de sitio escreveria um sucesso antes de haver sujeito.
+    #
+    # A excecao do rastro SOBE, e nao e apanhada aqui. Ha divida declarada
+    # sobre isso (`G-TEL-01`), e esta missao nao lhe inventa politica nova:
+    # inventar uma politica calada faria uma falha de telemetria passar por
+    # falha de RAW — e elas nao sao a mesma coisa.
+    trilho = "NAO_EMITIDO"
+    if banco_do_rastro is not None:
+        trilho = falar_do_raw(
+            banco_do_rastro, recibo=recibo, corrida=corrida,
+            entrada=len(itens), recusas_da_porta=len(recusas),
+            source_id=_fonte_provada(para_o_raw))
+
     # `PARA_A_PORTA` sao os MESMOS aceites, com o conteudo intacto e o estagio
     # preservado. Nao e um terceiro objecto: e a unidade aceite, na lingua de
     # quem a vai julgar. Quem foi recusado nao aparece aqui.
     return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo,
-            "PARA_A_PORTA": para_a_porta_}
+            "RASTRO": trilho, "PARA_A_PORTA": para_a_porta_}

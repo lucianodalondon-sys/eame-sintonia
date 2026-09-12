@@ -8,13 +8,13 @@
     "isso que este ficheiro nao e um registo."
   ],
   "PROVENANCE": {
-    "HEAD": "d8c21d4a0d8fee1bf932ce1fd63365c8a92c410d",
+    "HEAD": "a93acfdff0f79f7c80d24888278eec7003387242",
     "MEDIDO_POR": "censo_dos_buracos.py"
   },
   "COUNTS": {
-    "buracos": 11,
-    "nomes_distintos": 10,
-    "em_codigo": 8,
+    "buracos": 10,
+    "nomes_distintos": 9,
+    "em_codigo": 7,
     "em_provas": 3,
     "faltas_medidas": 5
   },
@@ -24,7 +24,6 @@
     "GAP_DECLARADO",
     "LINEAGE_PROOF_GAP",
     "LIVE_HEAD_LOOKUP_NEEDS_SERVER_SIDE_READONLY_PROXY",
-    "RAW_FORWARD_NAO_EMITE",
     "READY_NAO_TEM_DONO",
     "SCRAP_RAW_NAO_RECEBIDO",
     "STRUCTURED_SEM_DONO_LIGADO",
@@ -105,13 +104,6 @@
       "LINHA": 64,
       "FORMA": "tuplo GAPS",
       "O_QUE_FALTA": "A tela pergunta ao GitHub qual e a cabeca da linha, e essa chamada tem de partir do browser SEM CREDENCIAL. Foi medido o que se conseguiu medir: o repositorio e publico (`private: false`) e `api.github.com` devolve `Access-Control-Allow-Origin: *`. O que NAO se conseguiu medir e a chamada ANONIMA: todo o HTTPS do contentor onde isto foi feito atravessa um proxy que injecta autenticacao, e a resposta ao browser real veio com `x-ratelimit-limit: 5000` — o limite de quem se identifica, nunca os 60 de quem nao se identifica. REPO PUBLICO E CORS ABERTO NAO SAO O MESMO QUE PEDIDO ANONIMO ACEITE. A arquitetura nao fica insegura por isto: falhando a chamada, a frescura cai para UNKNOWN e a tela fica BRANCA com o motivo. Fecha-se de duas maneiras — abrindo o preview numa rede sem proxy, ou pondo uma funcao server-side READ-ONLY a fazer a consulta. NENHUMA das duas foi feita aqui, e credencial no browser nao e uma terceira."
-    },
-    {
-      "NOME": "RAW_FORWARD_NAO_EMITE",
-      "ONDE": "coleta/derivacao_forward.py",
-      "LINHA": 153,
-      "FORMA": "tuplo GAPS",
-      "O_QUE_FALTA": "guarda/preservar_coleta.py escreve `raw_asset` e nao emite rastro. A etapa RAW existe, tem dono e corre — e e muda. Esta fronteira NAO fala por ela."
     },
     {
       "NOME": "READY_NAO_TEM_DONO",

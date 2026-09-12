@@ -84,6 +84,7 @@ def _lit(v):
 # ═════════════════════════════════════════════════════════════════════════
 def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
               source_id=None, route_class_id=None, decision_id=None,
+              raw_asset_id=None,
               input_grain=None, input_count=None,
               output_grain=None, output_count=None, cardinalidade=None,
               passed=0, rejected=0, error=0, not_run=0, unknown=0, reused=0,
@@ -120,8 +121,17 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
     if output_count is not None and not output_grain:
         raise ValueError('%s: ha contagem de saida sem GRAO declarado.' % etapa)
 
+    # ⚠️ SO O RAW NOMEIA A OBSERVACAO, e o banco tem a mesma trava (028).
+    # Uma linha de DERIVED que apontasse para `raw_asset` estaria a assinar o
+    # trabalho da etapa anterior. Recusar aqui da o nome antes de o banco dar
+    # um erro de constraint.
+    if raw_asset_id is not None and etapa != 'RAW':
+        raise ValueError('so a etapa RAW nomeia a observacao: %s pediu '
+                         'raw_asset_id=%r' % (etapa, raw_asset_id))
+
     colunas = {
         'run_id': run_id, 'decision_id': decision_id, 'source_id': source_id,
+        'raw_asset_id': raw_asset_id,
         'route_class_id': route_class_id, 'etapa': etapa, 'edge_from': edge_from,
         'tentativa': tentativa, 'input_grain': input_grain,
         'input_count': input_count, 'output_grain': output_grain,

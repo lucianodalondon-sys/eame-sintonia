@@ -73,6 +73,7 @@ import rota_forward_documento as m2      # noqa: E402
 import social_persistencia as sp          # noqa: E402
 import telemetria as tel                 # noqa: E402
 from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402
+from coleta import ingresso as ing        # noqa: E402
 from guarda import preservar_derivado as pd   # noqa: E402
 
 # ── A CADEIA DE MIGRATIONS VEM DO DISCO, E NAO DE UMA LISTA ────────────────
@@ -358,6 +359,18 @@ def main():
          recibo_raw["PENDENCIA"] == "PRESERVED_AND_REGISTERED" and raw_id > 0,
          "raw_asset_id=%d, por guarda/preservar_coleta.py" % raw_id)
 
+    # ── E A ETAPA RAW CONTA-SE, PELA MESMA FRONTEIRA QUE A PRODUCAO USA ──
+    # ⚠️ ISTO NAO E UM RASTRO ESCRITO A MAO PELA PROVA. E a funcao que
+    # `coleta/ingresso.receber()` chama em producao, com o recibo REAL que
+    # `preservar()` acabou de devolver. Uma prova que emitisse um rastro que a
+    # producao nunca emite estaria a medir a prova.
+    #
+    #     ATE AQUI A ARESTA `RAW -> DERIVED` ESTAVA DECLARADA E SEM TOPO:
+    #     `DERIVED` dizia vir de `RAW`, e `RAW` nao tinha linha nenhuma.
+    ing.falar_do_raw(sql, recibo=recibo_raw, corrida=corrida, entrada=1,
+                     recusas_da_porta=0, source_id=fonte_provavel,
+                     route_class_id=rota_provavel)
+
     # ── DERIVED, na MESMA corrida ────────────────────────────────────────
     print("\nA ROTA, NUMA CORRIDA SO")
     r_der = fwd.correr([{"RAW_ASSET_ID": raw_id, "PDF": pdf}],
@@ -490,27 +503,33 @@ def main():
     # ⚠️ E O QUE SOBRA DE DECLARADO TEM DE SER EXATAMENTE O GAP JA CONHECIDO.
     #
     # Esta prova apanhou uma aresta a mais do que eu esperava — `RAW -> DERIVED`
-    # — e ela esta CERTA a apanha-la. `coleta/derivacao_forward.py` emite
-    # `DERIVED` com `edge_from='RAW'` e NAO emite `RAW`, de propósito: quem
-    # escreve `raw_asset` e `guarda/preservar_coleta.py`, e ler a linha de
-    # outro nao e ter corrido a etapa dele. O gap ja estava declarado em prosa
-    # desde O9R (`RAW_FORWARD_NAO_EMITE`); o que muda agora e que ele passou a
-    # ser VISIVEL NO RASTRO, e nao so num comentario.
+    # ⚠️ AQUI ESTAVA O GAP `RAW_FORWARD_NAO_EMITE`, E ELE FECHOU.
+    # Ate C-MAKE-RAW-OBSERVABLE-V1, `DERIVED` declarava `edge_from='RAW'` e
+    # `RAW` nao tinha linha nenhuma: a seta estava desenhada dos dois lados e
+    # so um lado existia. A prova exigia que a lista de arestas sem topo fosse
+    # EXATAMENTE `{("RAW","DERIVED")}` — o buraco visivel na medicao.
     #
-    #     UM BURACO QUE APARECE NA MEDICAO E DIVIDA.
-    #     UM BURACO QUE SO APARECE NO COMENTARIO E ESQUECIMENTO COM DATA.
+    # Agora a etapa RAW conta-se, pela fronteira que a producao usa, e a lista
+    # esvaziou-se. O que era «exatamente este buraco» passa a ser «nenhum».
     #
-    # A prova nao o perdoa em silencio: ela exige que a lista de arestas sem
-    # topo seja EXATAMENTE esta. Uma segunda aresta declarada e nao percorrida
-    # reprova aqui, no dia em que nascer.
-    esperadas_sem_topo = {("RAW", "DERIVED")}
-    caso("A9_o_unico_declarado_sem_topo_e_o_gap_ja_conhecido",
-         visto["ARESTAS_DECLARADAS_SEM_TOPO"] == esperadas_sem_topo,
-         "sem topo: %s · e RAW_FORWARD_NAO_EMITE e gap declarado do O9R"
+    #     UM BURACO QUE FECHA NAO SE APAGA DA PROVA:
+    #     A PROVA PASSA A EXIGIR QUE ELE CONTINUE FECHADO.
+    #
+    # E a exigencia ficou MAIS forte, nao menos: qualquer aresta declarada e
+    # nao percorrida reprova aqui, no dia em que nascer.
+    caso("A9_nenhuma_aresta_ficou_declarada_sem_topo",
+         visto["ARESTAS_DECLARADAS_SEM_TOPO"] == set(),
+         "sem topo: %s · a aresta RAW->DERIVED tem os dois lados"
          % sorted(visto["ARESTAS_DECLARADAS_SEM_TOPO"]))
-    caso("A9b_o_gap_do_RAW_continua_declarado_pelo_dono_da_fronteira",
-         "RAW_FORWARD_NAO_EMITE" in [g[0] for g in fwd.GAPS],
-         "quem emite DERIVED diz, por escrito, que nao fala pelo RAW")
+    caso("A9b_a_etapa_RAW_deixou_passagem_nesta_MESMA_corrida",
+         "RAW" in visto["ETAPAS"],
+         "etapas observadas na rota: %s" % sorted(visto["ETAPAS"]))
+    caso("A9c_e_a_passagem_do_RAW_aponta_para_a_observacao_desta_corrida",
+         str(banco._valor(
+             "select coalesce(raw_asset_id::text,'<NULL>') from"
+             " public.etapa_da_corrida where run_id = '%s' and etapa = 'RAW'"
+             % RUN)) == str(raw_id),
+         "etapa_da_corrida.raw_asset_id = raw_asset.id = %s" % raw_id)
 
     integ = rastro.integridade(passagens)
     caso("A10_a_conta_fecha_em_todas_as_etapas",

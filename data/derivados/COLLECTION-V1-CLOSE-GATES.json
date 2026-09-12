@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "5fbfb3ff0692871ac023a6eca649ac8a90369834",
+  "MEASURED_HEAD": "a93acfdff0f79f7c80d24888278eec7003387242",
   "BIBLE_VERSION": "V1.4",
   "LAW_TOTAL": 105,
   "IMPLEMENTATION_STATE": {
@@ -127,13 +127,16 @@
   },
   "OBSERVABILITY": {
     "ETAPAS_QUE_FALAM": [
+      "RAW",
       "DERIVED",
       "STRUCTURED",
       "ADMISSION"
     ],
     "ETAPAS_MUDAS": [
-      "RAW"
+      "READY"
     ],
+    "COMO_FOI_MEDIDO": "AST sobre coleta, guarda, admissao, medidas, orquestrador: quem chama `rastro.registrar` e com que `etapa=`. Um comentario que nomeie uma etapa nao conta.",
+    "O_QUE_MUDO_NAO_QUER_DIZER": "uma etapa muda pode estar a correr. MUDA != PARADA — e esse e o problema",
     "COST": "NOT_INSTRUMENTED",
     "O_QUE_NOT_INSTRUMENTED_NAO_E": "nao e zero"
   },
@@ -201,14 +204,14 @@
     {
       "GAP_ID": "G-RAW-01",
       "CONCEPT": "a etapa RAW corre e nao fala",
-      "OWNER": "guarda/preservar_coleta.py",
-      "CURRENT_STATE": "escreve `raw_asset` e nao emite rastro",
+      "OWNER": "coleta/ingresso.py (fronteira) + guarda/preservar_coleta.py (dono)",
+      "CURRENT_STATE": "a etapa RAW deixa passagem em `etapa_da_corrida`, e a passagem nomeia a observacao que produziu (`raw_asset_id`, migration 028)",
       "EXPECTED_STATE": "a etapa deixa passagem observavel como as outras tres",
-      "PROOF": "buracos.generated.json::RAW_FORWARD_NAO_EMITE",
+      "PROOF": "provas/o_raw_fala.py — 24 casos, PostgreSQL 16 descartavel; e provas/a_rota_m2_atravessa.py exige a aresta RAW->DERIVED com os DOIS topos na mesma corrida",
       "SEVERITY": "HIGH",
-      "CLOSE_GATE": "BLOCKER",
-      "WHY": "impede RECONCILIAR e MEDIR_PERDA_ERRO_CUSTO. Numa coleta grande, uma etapa muda nao se distingue de uma etapa que nao correu.",
-      "MINIMUM_FIX": "emitir rastro na etapa RAW, como DERIVED/STRUCTURED/ADMISSION ja fazem"
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia RECONCILIAR e MEDIR_PERDA_ERRO_CUSTO. Agora RAW_EXECUTED, RAW_NOT_RUN, RAW_ERROR e RAW_REUSED distinguem-se no rastro.",
+      "MINIMUM_FIX": "—"
     },
     {
       "GAP_ID": "G-STRUCT-01",
@@ -295,8 +298,7 @@
   },
   "BLOCKERS": [
     "G-READY-01",
-    "G-READY-02",
-    "G-RAW-01"
+    "G-READY-02"
   ],
   "NON_BLOCKING_DEBT": [
     "G-STRUCT-01",
@@ -375,26 +377,36 @@
         "G-RAW-01"
       ],
       "PORQUE_NAO_FECHOU_TUDO": "RC-C tinha dois sintomas. A prova voltou a correr; a etapa RAW continua muda, e isso e missao propria."
+    },
+    {
+      "ID": "C-MAKE-RAW-OBSERVABLE-V1",
+      "ROOT_CAUSE": "RC-C",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-RAW-01"
+      ],
+      "COMO": "sem segundo livro: o dono do rastro ja existia (`medidas/rastro_da_coleta.py`) e o vocabulario ja tinha RAW. Faltava UMA correlacao, e ela entrou como coluna na tabela canonica — `etapa_da_corrida.raw_asset_id`, 028",
+      "NAO_FECHOU": [
+        "G-TEL-01"
+      ],
+      "PORQUE_NAO_FECHOU_TUDO": "a politica para quando a propria telemetria falha foi MEDIDA e preservada — a excecao sobe, e o bruto preservado fica. Inventar politica nova aqui faria falha de telemetria passar por falha de RAW, e elas nao sao a mesma coisa."
     }
   ],
   "MINIMUM_MISSION_DAG": [
     {
       "MISSION": 1,
-      "ID": "C-MAKE-RAW-OBSERVABLE-V1",
-      "ROOT_CAUSE": "RC-C",
-      "O_QUE_DA_CAUSA_JA_FECHOU": "G-E2E-01",
-      "QUESTION": "a etapa RAW passa a deixar passagem observavel, como DERIVED, STRUCTURED e ADMISSION ja deixam?",
-      "PORQUE_PRIMEIRO": "nao depende de nada em aberto, e sem ela a aresta RAW->DERIVED continua sem os dois topos — numa coleta grande, uma etapa muda nao se distingue de uma que nao correu"
-    },
-    {
-      "MISSION": 2,
       "ID": "C-CLOSE-THE-READY-EDGE-V1",
       "ROOT_CAUSE": "RC-A",
+      "O_QUE_DA_FILA_JA_FECHOU": [
+        "G-E2E-01",
+        "G-RUN-01",
+        "G-RAW-01"
+      ],
       "QUESTION": "uma unidade que a porta admite chega a READY e pousa na sala de espera, na mesma corrida?",
-      "PORQUE_ULTIMO": "e a unica com decisao de contrato por tomar — onde a unidade pronta pousa"
+      "PORQUE_UNICA": "e a unica que resta, e a unica com decisao de contrato por tomar — onde a unidade pronta pousa"
     }
   ],
-  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 2,
+  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 1,
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
   "COLLECTION_CORE_CLOSE": {
@@ -416,8 +428,7 @@
     "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
     "BLOQUEADO_POR": [
       "G-READY-01",
-      "G-READY-02",
-      "G-RAW-01"
+      "G-READY-02"
     ],
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
   },
@@ -498,7 +509,7 @@
     },
     {
       "PROVA": "15 · PARTIAL virado blocker automaticamente",
-      "ACHADO": "48 leis estao PARTIAL e ha 3 blockers. Nenhum blocker foi derivado do estado de lei.",
+      "ACHADO": "48 leis estao PARTIAL e ha 2 blockers. Nenhum blocker foi derivado do estado de lei.",
       "VEREDITO": "GUARDADO"
     },
     {

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "d8c21d4a0d8fee1bf932ce1fd63365c8a92c410d",
+    "HEAD": "a93acfdff0f79f7c80d24888278eec7003387242",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -754,7 +754,7 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 351,
+      "linhas": 361,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -765,6 +765,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/ingresso.py",
         "coleta/rota_forward_documento.py"
       ],
       "no_ci": true
@@ -927,7 +928,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 536,
+      "linhas": 750,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],

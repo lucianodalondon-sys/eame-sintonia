@@ -2604,6 +2604,25 @@
    ]
   },
   {
+   "id": "C-PROVA-O-RAW-FALA",
+   "name": "A prova de que a etapa RAW deixou de ser muda",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre uma observação real pela porta de produção (`coleta/ingresso.receber`) contra PostgreSQL 16 descartável, e pergunta AO BANCO: a etapa RAW deixou passagem em `etapa_da_corrida`, e essa passagem aponta para a observação que produziu (`raw_asset_id`). Mede também o que não pode acontecer — falha antes de persistir não dá rastro de sucesso, o que não correu diz NOT_RUN e não FAIL, recusar não é falhar, a fonte não se infere do caminho nem do sha, e um reencontro conta-se REUSED sem abrir buraco na contabilidade.",
+   "why_here": "Uma etapa que persiste mas não emite rastro existe no banco e NÃO EXISTE PARA A RECONCILIAÇÃO OPERACIONAL. Numa coleta grande, RAW_EXECUTED, RAW_NOT_RUN, RAW_ERROR, RAW_LOST e RAW_REUSED tinham todos o mesmo aspeto: nenhum. E a aresta RAW→DERIVED estava declarada pelo lado de baixo e sem topo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_raw_fala.py"
+   ],
+   "views": [
+    "audit",
+    "trace"
+   ]
+  },
+  {
    "id": "C-PROVA-ROTA-M2-ATRAVESSA",
    "name": "A prova de que a rota da M2 atravessa",
    "territory": "Z-PROVA",

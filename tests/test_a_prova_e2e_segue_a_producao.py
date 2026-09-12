@@ -208,12 +208,24 @@ class OEscopoDaProvaEstaDeclarado(unittest.TestCase):
             self.assertIn(etapa, s)
         self.assertNotIn("END_TO_END do pedido", s)
 
-    def test_o_gap_do_raw_continua_declarado_e_nao_foi_fechado_de_lado(self):
-        """`G-RAW-01` e o blocker seguinte, e nao desta missao."""
+    def test_o_gap_do_raw_fechou_e_nao_voltou_a_ser_declarado(self):
+        """⚠️ ESTE TESTE MUDOU DE LADO, E ISSO E O NORMAL.
+
+        Ate C-MAKE-RAW-OBSERVABLE-V1 ele exigia que `RAW_FORWARD_NAO_EMITE`
+        CONTINUASSE declarado — «o gap do RAW desapareceu sem missao que o
+        fechasse». A missao veio, e o gap fechou.
+
+            UM TESTE QUE SO ESTA CERTO ENQUANTO NADA AVANCA
+            E UM TESTE QUE MEDE O PRIMEIRO DIA.
+
+        Agora ele exige o contrario: quem o re-declarar tem de o fazer com uma
+        medicao, e nao por copia de um texto velho.
+        """
         from coleta import derivacao_forward as df
         nomes = {g[0] for g in df.GAPS}
-        self.assertIn("RAW_FORWARD_NAO_EMITE", nomes,
-                      "o gap do RAW desapareceu sem missao que o fechasse")
+        self.assertNotIn("RAW_FORWARD_NAO_EMITE", nomes,
+                         "o gap do RAW voltou a ser declarado depois de"
+                         " `provas/o_raw_fala.py` o provar fechado")
 
 
 class AFonteQueATERRAEACANONICA(unittest.TestCase):

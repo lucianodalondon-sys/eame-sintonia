@@ -31,6 +31,7 @@ implementada na Italia, e isso e uma DECLARACAO — nao e prova de execucao. Por
 isso ele viaja com o nome do que e (`DECLARED_BY_BIBLE`) e nunca e promovido a
 observacao. O eixo que decide o fecho e o outro, e esse e medido.
 """
+import io
 import json
 import os
 import subprocess
@@ -159,6 +160,73 @@ def cadeia_canonica():
 # ══════════════════════════════════════════════════════════════════════════
 # 3 · A PROVA E2E CORRE HOJE?
 # ══════════════════════════════════════════════════════════════════════════
+# ═════════════════════════════════════════════════════════════════════════
+# QUEM FALA, MEDIDO — e nao uma lista escrita a mao
+# ═════════════════════════════════════════════════════════════════════════
+# ⚠️ AQUI ESTAVA `["DERIVED","STRUCTURED","ADMISSION"]` ESCRITO A DIREITO, e
+# `["RAW"]` ao lado. Era uma lista a mao a fazer de medicao: no dia em que a
+# etapa RAW passasse a falar, ela continuaria a dizer que nao falava — sem
+# erro nenhum, porque uma lista a mao nao tem como discordar de si propria.
+#
+#     UM CENSO ESCRITO A MAO MEDE QUEM O ESCREVEU.
+#
+# Agora a pergunta faz-se ao CODIGO: quem chama o dono do rastro, e com que
+# etapa. A leitura e por AST e nao por `grep` — um comentario que nomeie uma
+# etapa nao e uma chamada, e ja houve um defeito desta familia (§60).
+ETAPAS_DA_ESTRADA = ("RAW", "DERIVED", "STRUCTURED", "ADMISSION", "READY")
+ONDE_SE_FALA = ("coleta", "guarda", "admissao", "medidas", "orquestrador")
+
+
+def _etapas_emitidas():
+    """As etapas que o codigo de PRODUCAO conta ao rastro, lidas por AST."""
+    import ast
+    faladas = set()
+    for pasta in ONDE_SE_FALA:
+        raiz = os.path.join(RAIZ, pasta)
+        if not os.path.isdir(raiz):
+            continue
+        for base, _dirs, ficheiros in os.walk(raiz):
+            if "__pycache__" in base:
+                continue
+            for f in sorted(ficheiros):
+                if not f.endswith(".py"):
+                    continue
+                with io.open(os.path.join(base, f), encoding="utf-8") as fh:
+                    try:
+                        arv = ast.parse(fh.read())
+                    except SyntaxError:
+                        continue
+                for no in ast.walk(arv):
+                    if not isinstance(no, ast.Call):
+                        continue
+                    if getattr(no.func, "attr", None) != "registrar":
+                        continue
+                    for kw in no.keywords:
+                        if kw.arg != "etapa":
+                            continue
+                        if isinstance(kw.value, ast.Constant) and isinstance(
+                                kw.value.value, str):
+                            faladas.add(kw.value.value)
+    return faladas
+
+
+def observabilidade():
+    faladas = _etapas_emitidas()
+    fala = [e for e in ETAPAS_DA_ESTRADA if e in faladas]
+    muda = [e for e in ETAPAS_DA_ESTRADA if e not in faladas]
+    return OrderedDict([
+        ("ETAPAS_QUE_FALAM", fala),
+        ("ETAPAS_MUDAS", muda),
+        ("COMO_FOI_MEDIDO", ("AST sobre %s: quem chama `rastro.registrar` e "
+                             "com que `etapa=`. Um comentario que nomeie uma "
+                             "etapa nao conta." % ", ".join(ONDE_SE_FALA))),
+        ("O_QUE_MUDO_NAO_QUER_DIZER", ("uma etapa muda pode estar a correr. "
+                                       "MUDA != PARADA — e esse e o problema")),
+        ("COST", "NOT_INSTRUMENTED"),
+        ("O_QUE_NOT_INSTRUMENTED_NAO_E", "nao e zero"),
+    ])
+
+
 def prova_e2e_corre():
     """⚠️ UMA PROVA QUE NAO CORRE NAO PROVA NADA HOJE.
 
@@ -269,16 +337,20 @@ def gaps():
       "lesse o recibo.",
       "—")
 
+    # ⚠️ FECHADO em C-MAKE-RAW-OBSERVABLE-V1. Fica na lista com o estado
+    # novo: um gap que some nao deixa ver que existiu, nem por que deixou.
     G("G-RAW-01", "a etapa RAW corre e nao fala",
-      "guarda/preservar_coleta.py",
-      "escreve `raw_asset` e nao emite rastro",
+      "coleta/ingresso.py (fronteira) + guarda/preservar_coleta.py (dono)",
+      "a etapa RAW deixa passagem em `etapa_da_corrida`, e a passagem nomeia "
+      "a observacao que produziu (`raw_asset_id`, migration 028)",
       "a etapa deixa passagem observavel como as outras tres",
-      "buracos.generated.json::RAW_FORWARD_NAO_EMITE",
-      "HIGH", BLOCKER,
-      "impede RECONCILIAR e MEDIR_PERDA_ERRO_CUSTO. Numa coleta grande, uma "
-      "etapa muda nao se distingue de uma etapa que nao correu.",
-      "emitir rastro na etapa RAW, como DERIVED/STRUCTURED/ADMISSION ja "
-      "fazem")
+      "provas/o_raw_fala.py — 24 casos, PostgreSQL 16 descartavel; e "
+      "provas/a_rota_m2_atravessa.py exige a aresta RAW->DERIVED com os DOIS "
+      "topos na mesma corrida",
+      "HIGH", FECHADO,
+      "impedia RECONCILIAR e MEDIR_PERDA_ERRO_CUSTO. Agora RAW_EXECUTED, "
+      "RAW_NOT_RUN, RAW_ERROR e RAW_REUSED distinguem-se no rastro.",
+      "—")
 
     G("G-STRUCT-01", "STRUCTURED tem codigo que nunca correu nesta cadeia",
       "guarda/importar_italia.py",
@@ -432,6 +504,22 @@ FEITAS = [
             "RC-C tinha dois sintomas. A prova voltou a correr; a etapa RAW "
             "continua muda, e isso e missao propria.")),
     ]),
+    OrderedDict([
+        ("ID", "C-MAKE-RAW-OBSERVABLE-V1"),
+        ("ROOT_CAUSE", "RC-C"),
+        ("ESTADO", FECHADO),
+        ("FECHOU", ["G-RAW-01"]),
+        ("COMO", ("sem segundo livro: o dono do rastro ja existia "
+                  "(`medidas/rastro_da_coleta.py`) e o vocabulario ja tinha "
+                  "RAW. Faltava UMA correlacao, e ela entrou como coluna na "
+                  "tabela canonica — `etapa_da_corrida.raw_asset_id`, 028")),
+        ("NAO_FECHOU", ["G-TEL-01"]),
+        ("PORQUE_NAO_FECHOU_TUDO", (
+            "a politica para quando a propria telemetria falha foi MEDIDA e "
+            "preservada — a excecao sobe, e o bruto preservado fica. Inventar "
+            "politica nova aqui faria falha de telemetria passar por falha de "
+            "RAW, e elas nao sao a mesma coisa.")),
+    ]),
 ]
 
 
@@ -440,24 +528,14 @@ def dag():
     return [
         OrderedDict([
             ("MISSION", 1),
-            ("ID", "C-MAKE-RAW-OBSERVABLE-V1"),
-            ("ROOT_CAUSE", "RC-C"),
-            ("O_QUE_DA_CAUSA_JA_FECHOU", "G-E2E-01"),
-            ("QUESTION", ("a etapa RAW passa a deixar passagem observavel, "
-                          "como DERIVED, STRUCTURED e ADMISSION ja deixam?")),
-            ("PORQUE_PRIMEIRO", ("nao depende de nada em aberto, e sem ela a "
-                                 "aresta RAW->DERIVED continua sem os dois "
-                                 "topos — numa coleta grande, uma etapa muda "
-                                 "nao se distingue de uma que nao correu")),
-        ]),
-        OrderedDict([
-            ("MISSION", 2),
             ("ID", "C-CLOSE-THE-READY-EDGE-V1"),
             ("ROOT_CAUSE", "RC-A"),
+            ("O_QUE_DA_FILA_JA_FECHOU", ["G-E2E-01", "G-RUN-01", "G-RAW-01"]),
             ("QUESTION", ("uma unidade que a porta admite chega a READY e "
                           "pousa na sala de espera, na mesma corrida?")),
-            ("PORQUE_ULTIMO", ("e a unica com decisao de contrato por tomar — "
-                               "onde a unidade pronta pousa")),
+            ("PORQUE_UNICA", ("e a unica que resta, e a unica com decisao de "
+                              "contrato por tomar — onde a unidade pronta "
+                              "pousa")),
         ]),
     ]
 
@@ -617,12 +695,7 @@ def medir():
             ("STORAGE_PATH_USED_AS_IDENTITY", "NO — a 027 tirou a trava e pos "
                                               "chave sobre storage_object_id"),
         ])),
-        ("OBSERVABILITY", OrderedDict([
-            ("ETAPAS_QUE_FALAM", ["DERIVED", "STRUCTURED", "ADMISSION"]),
-            ("ETAPAS_MUDAS", ["RAW"]),
-            ("COST", "NOT_INSTRUMENTED"),
-            ("O_QUE_NOT_INSTRUMENTED_NAO_E", "nao e zero"),
-        ])),
+        ("OBSERVABILITY", observabilidade()),
         ("LEGACY_13", OrderedDict([
             ("DISPOSICAO", "LEGACY_KEEP_OUT_OF_FLOW"),
             ("LEGACY_STATE_OWNER", "NAO ATRIBUIDO"),
