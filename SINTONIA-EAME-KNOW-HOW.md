@@ -7261,3 +7261,200 @@ ATAQUES 30 · MUTANTES 16 · SOBREVIVENTES 0 · rede real 0 · custo real 0
 Fica por saber o comportamento sob retentativa real — o ciclo continua a não
 existir — e o custo de `x.discovery`, que nunca correu. E fica escrito que a
 recomendação de valor não é autorização: quem autoriza dinheiro é gente.
+
+---
+
+# §81 · UMA CHAVE NO COFRE NÃO É UMA CHAVE NO PROCESSO
+
+**Missão:** `C10.8B — A PRIMEIRA ROTA PAGA CANÔNICA`
+**HEAD final:** *ver o documento da missão*
+**Tocado:** `coleta/adaptador_youtube.py` · `coleta/coletor.py` ·
+`coleta/social_rotas.py` · `provas/primeira_rota_paga.py`
+
+A `§80` fechou o teto de gasto. Esta missão tinha autorização humana de US$0,10
+para o primeiro gasto real — e não gastou. O que se aprendeu foi o caminho até
+ao portão, e o portão.
+
+## 81.1 · A PERGUNTA NÃO ERA A DA CAPACIDADE
+
+`youtube.native_caption` já estava `PROVEN`. A rota paga que a serve estava
+`POSSIBLE_NOT_PROVED`. São duas perguntas, e a primeira não responde pela
+segunda:
+
+```
+    CAPABILITY PROVEN != PAID ROUTE PROVEN.
+    ROUTE ALLOWED != ROUTE EXECUTED.
+```
+
+Uma capacidade diz «esta casa consegue». Uma rota diz «por esta porta, com este
+fornecedor, a este preço». Promover a capacidade nunca provou a porta — e ir
+buscar a capacidade para dizer que a rota está provada seria escrever a
+conclusão antes da medição.
+
+## 81.2 · O PORTÃO QUE PAROU A MISSÃO, E POR QUE ELE ESTÁ CERTO
+
+`APIFY_TOKEN_POOL` vive nos *Secrets* do GitHub e é injectado pelos workflows.
+Numa sessão que corre fora do workflow, ele não existe.
+
+```
+    A CHAVE EXISTIR NO COFRE NÃO É A CHAVE CHEGAR AO PROCESSO.
+```
+
+E deste lado do processo, «não temos credencial» e «a ligação do segredo está
+partida» são indistinguíveis. A sonda diz só o que consegue provar —
+`CREDENTIAL_MISSING NESTE AMBIENTE` — e quem distingue é o workflow. Essa
+distinção já estava escrita no adaptador do YouTube para a chave da API oficial;
+o que faltava era aplicá-la à chave **paga**, que tem outro dono.
+
+A recusa é canônica, e é a única desta cadeia que pede gente:
+`HUMAN_PROVISION_CREDENTIAL`.
+
+## 81.3 · DOIS PORTÕES, E CADA UM TEM DE SEGURAR SOZINHO
+
+A credencial é lida em dois sítios: a sonda gratuita do `CHECK`, e a própria
+rota antes de chamar o dono pago. Parece redundância, e um mutante mostrou que
+não é: removendo o portão de dentro da rota, a bateria continuava verde —
+porque o `CHECK` recusava primeiro e o segundo portão nunca era exercido.
+
+```
+    UM PORTÃO QUE SÓ FUNCIONA PORQUE OUTRO O PRECEDE NÃO É UM PORTÃO.
+    É UMA LINHA QUE NINGUÉM MEDE.
+```
+
+A sentinela que faltava desliga o primeiro portão de propósito e mede o segundo
+sozinho. Vale para qualquer defesa em profundidade desta casa: se as duas
+camadas nunca são medidas em separado, existe uma só.
+
+## 81.4 · ROTAÇÃO DE CHAVE É UMA SEGUNDA COMPRA
+
+`apify_pool` roda chaves quando uma esgota, e isso nasceu certo: numa rota
+gratuita, rodar é resiliência. Numa rota **paga**, cada volta do ciclo é um novo
+`POST` de criação de execução.
+
+```
+    ROTAÇÃO DE CHAVE É UMA SEGUNDA COMPRA.
+```
+
+E é pior do que parece, porque o ciclo existente roda quando a primeira chamada
+falha — que é exactamente quando não se sabe se a primeira compra aconteceu. A
+rota paga desta missão usa a primeira posição e para. Um mecanismo de
+resiliência herdado de um contexto gratuito tem de ser relido antes de atravessar
+para um contexto pago.
+
+## 81.5 · O QUE TORNA UM TETO DE REDE FINITO É UM `wait`
+
+O teto de acessos de uma corrida paga não é um número escolhido. Ele sai da
+leitura do dono:
+
+```
+1   POST que cria a execução
+≤1  consulta ao estado, só se não terminal aos 60 s
+1   leitura do dataset
+2   leituras do armazém de chave-valor
+```
+
+A plataforma concede 60 s no próprio POST. Tudo acima disso vira **consulta**, e
+cada consulta é uma ida à rede: com `wait=120` seriam até treze.
+
+```
+    UM `wait` MAIOR NÃO É MAIS PACIÊNCIA. É MAIS IDAS À REDE.
+```
+
+Quem quiser um teto de rede pequeno paga em certeza, e quem quiser certeza paga
+em idas. A escolha é declarada, não herdada — e o retrato de uma corrida que não
+terminou sai marcado como parcial em vez de ser comprado outra vez.
+
+## 81.6 · UMA COMPRA DUVIDOSA LIDA COMO «NÃO CORREU»
+
+O red team encontrou o pior estado possível a ler-se como o melhor. Um POST que
+cai no transporte pode ter criado execução paga; o orçamento sabia disso e
+segurava o dinheiro em `UNKNOWN`. O **rastro** dizia `NOT_RUN`.
+
+```
+    NOT_RUN != UNKNOWN.
+    UMA COMPRA DUVIDOSA NÃO É UMA COMPRA QUE NÃO HOUVE.
+```
+
+Duas metades do mesmo defeito, e nenhuma delas se vê sozinha:
+
+- a reserva só era anexada ao manifesto quando fechava **no fim**; no caminho em
+  que fechava antes — justamente o ambíguo — o manifesto não dizia nada;
+- o roteador só levantava o custo do balde no caminho de **sucesso**, e uma rota
+  que falhou pode ter gastado na mesma.
+
+```
+    UMA RESERVA QUE NÃO SOBE AO MANIFESTO DEIXA O RASTO DIZER «NÃO CORREU».
+    O CAMINHO DE FALHA TAMBÉM TEM DE CARREGAR O QUE SE GASTOU.
+```
+
+A `§80` provou que o orçamento guarda a verdade. Esta missão mostrou que guardar
+a verdade e **dizê-la** são dois trabalhos.
+
+## 81.7 · DUAS SENTINELAS QUE ERAM FOTOGRAFIAS
+
+Duas medições viraram testes e, com o tempo, pareciam leis:
+
+```
+C10.8A-F  «nenhuma capacidade de rota paga tem adaptador»
+C2        «a legenda continua declarada SEM rota»
+```
+
+As duas estavam certas quando foram escritas. As duas reprovaram no dia em que
+esta casa ligou a rota paga **de propósito**, com autorização humana e teto
+declarado.
+
+```
+    UM CENSO QUE VIRA LEI TRANCA A PORTA QUE ELE SÓ MEDIU.
+```
+
+Nenhuma foi apagada. As duas passaram a guardar o que continua a valer — a lista
+de rotas pagas ligadas é fechada e nomeada, e cada uma tem sonda gratuita — e
+dizem no corpo por que mudaram. É a `§76.5` outra vez, e vale a pena tê-la
+escrita duas vezes: um teste que muda de lado com a razão à vista é saúde; um
+teste apagado é história perdida.
+
+## 81.8 · O CONTRATO DO FORNECEDOR ENVELHECE
+
+O ator de transcrição aceitava `videoUrls`, uma lista. Hoje exige `videoUrl`, no
+singular. Quem descobriu não foi documentação — foi a recusa da própria
+plataforma, `HTTP 400 invalid-input`, e só porque a mensagem chegou **inteira**
+ao manifesto.
+
+```
+    ENTRADA PROVADA ONTEM != ENTRADA VÁLIDA HOJE.
+```
+
+E o esquema de saída desta missão não veio de documentação nenhuma: veio dos
+bytes preservados de uma corrida anterior do mesmo ator. Um acervo de RAW não
+serve só para auditar o passado — é a única leitura de contrato que não custa
+dinheiro.
+
+## 81.9 · E O QUE O FORNECEDOR NÃO DECLARA
+
+O ator devolve `{url, transcript, chars}`. Não diz a língua, não devolve marcas
+de tempo, e não diz se o texto é a legenda publicada ou um reconhecimento de fala
+que ele próprio fez.
+
+```
+    CAPTION != TRANSCRIPT != ASR.
+    O QUE O PROVIDER NÃO DECLARA, A CASA NÃO INVENTA.
+```
+
+O campo ficou `NOT_DECLARED_BY_PROVIDER`. Chamar-lhe `TRANSCRIPT` seria afirmar
+uma origem que ninguém mediu — e seria um número com cara de medida, que é o
+erro que a `§79` já catalogou noutro sítio.
+
+## 81.10 · CONSEQUÊNCIA
+
+```
+ROTA         apify:transcricao — ligada, gateada, e ainda POSSIBLE_NOT_PROVED
+WIRING       executor → router → adapter → dono pago, sem bypass, provado offline
+TETOS        rede 5 · dinheiro 0.10 · ambos activos e medidos
+GASTO        US$ 0,00 — READY_TO_SPEND = NO, e o motivo tem nome canônico
+ATAQUES 34 · MUTANTES 16 · SOBREVIVENTES 0
+```
+
+A ligação está construída e nunca correu contra o fornecedor real. O ensaio
+offline mede o **nosso** lado do contrato; o lado do ator só se mede a gastar. E
+uma autorização de dinheiro que não foi usada continua inteira — não caduca, e
+não se transforma em permissão para tentar outra coisa.
