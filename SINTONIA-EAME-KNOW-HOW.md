@@ -6709,3 +6709,158 @@ MUTANTES 12 · SURVIVORS 0 · ATAQUES 28 · rede real 0 · COST_USD 0
 Fica por saber o comportamento sob retentativa real, porque o ciclo não existe;
 e fica por saber se algum caminho futuro abrirá ligação por uma primitiva que
 não seja nenhuma das duas. Hoje as vinte e cinco portas usam uma delas.
+
+---
+
+# §78 · DUAS METADES PROVADAS NÃO SÃO UMA ESTRADA PROVADA
+
+A pergunta era uma só: um pedido canónico atravessa hoje a máquina real, de
+`REQUEST` a `SALA DE ESPERA`, numa mesma história? A resposta é **não**, e
+agora sabe-se onde e porquê.
+
+## 78.1 · O BOTÃO FOI APERTADO NO SÍTIO CERTO
+
+Todas as provas anteriores começavam no meio: no `raw_asset` já preservado, ou
+chamando `atravessar()` directamente.
+
+```
+    UMA PROVA QUE COMEÇA PELO MEIO NÃO PROVA A ESTRADA:
+    PROVA O PEDAÇO POR ONDE ELA COMEÇOU.
+```
+
+`provas/o_pedido_atravessa.py` entra por `orquestrador.correr(Pedido)` — o
+único ponto de entrada canónico — e o executor é o **real**, a ir à fonte
+**real**. Um executor de mentira provaria o orquestrador, não a aquisição.
+
+O livro append-only, o livro da porta e a Sala de Espera ficam em moradas
+descartáveis (`ITALY_OPS_ROOT`, `admissao.LIVRO`, `espera.MORADA`).
+
+## 78.2 · A CABEÇA DA ESTRADA ATRAVESSA
+
+Isto foi a surpresa boa, e estava listada como o défice:
+
+```
+REQUEST        Pedido T2 · fonte IT-T2-002
+ORCHESTRATOR   receita `italia-recorrente` · RUN_ID cunhado antes de correr
+EXECUTOR       coleta/italy_executor.py na ARPAV real · 4 itens
+RUN            collection_run = 1 · concluída
+RAW            raw_asset = 4, todas desta corrida
+STORAGE        4 storage_object ligados às 4 observações
+```
+
+`CAN DO ≠ DID DO` fica provado do lado bom: não é que os módulos existam — é
+que o comando foi lançado, a versão do executor é o commit que lhe tocou, e a
+colheita que ele largou está no banco.
+
+## 78.3 · E PARTE-SE NO MEIO
+
+```
+FIRST_LOST_EDGE = STORAGE -> DERIVED
+```
+
+A rota do orquestrador vai de RAW/STORAGE **directo** à ADMISSION. A ADMISSION
+corre — e responde `NAO_SEI` nos quatro, com razão: o item chega **sem texto**,
+porque ninguém o derivou.
+
+```
+    UMA ETAPA QUE CORRE DEPOIS DO BURACO NÃO PROVA A ESTRADA:
+    A HISTÓRIA JÁ ESTAVA PARTIDA ANTES DELA.
+```
+
+E a primeira versão da minha própria prova errou aqui: guardava a última etapa
+observada da lista **inteira**, e dizia `ADMISSION -> DERIVED` — uma aresta ao
+contrário, que mandaria procurar o defeito a jusante de onde ele está. O
+primeiro buraco é o que explica os seguintes.
+
+## 78.4 · E SÃO DUAS ESPÉCIES DE BURACO, NÃO UMA
+
+Medido, e não deduzido:
+
+- **`STORAGE → DERIVED` é ligação.** Corri `derivacao_forward` sobre o **mesmo**
+  `raw_asset` daquela corrida: `PASS`. A capacidade existe; falta a chamada.
+- **`DERIVED → STRUCTURED` é contrato sem dono.** `public.conteudo` exige
+  `canal_id`, e `social_persistencia.exigir_canal` recusa dizendo, por escrito,
+  que quem o resolve é «um dono de identidade, fora do executor de coleta».
+  Esse dono **não existe**.
+
+Por isso a missão parou de corrigir: a primeira é pequena, a segunda é decisão
+de arquitectura. Ligar a primeira sem resolver a segunda moveria o buraco uma
+aresta para a frente e chamar-lhe-ia progresso.
+
+## 78.5 · O PORTÃO QUASE FECHOU POR UMA SOMA
+
+Quando a cabeça da estrada passou a atravessar, as **onze** etapas ficaram
+`FLOW_EXECUTED = YES` e `COLLECTION_CORE_CLOSE` deu **PASS**.
+
+Era falso. As etapas atravessam em **duas estradas diferentes**: a do pedido
+vai de RAW/STORAGE à ADMISSION; a forward faz DERIVED/STRUCTURED entrando pelo
+RAW.
+
+```
+    DUAS METADES PROVADAS NÃO SÃO UMA ESTRADA PROVADA.
+    ONZE ETAPAS QUE JÁ CORRERAM NÃO SÃO UMA HISTÓRIA.
+```
+
+O portão passou a exigir a **mesma história**, lida da medição que aperta o
+botão no pedido — e diz onde ela parou. `NOT_MEASURED` conta como não-passa.
+
+## 78.6 · E A MEDIÇÃO DEIXOU ACERVO NA ÁRVORE
+
+Três sujidades, todas minhas, e todas com lei já escrita:
+
+- quatro PDFs numa pasta `XX/` — a raiz que `ArmazemLocal` usa sem armazém
+  próprio — **commitados** como se fossem acervo;
+- dezasseis decisões de T2 no livro **real** da porta, também commitadas. Quem
+  as apanhou foi um teste que já existia: «apareceu decisão de T2 no livro. T2
+  não tem regra escrita»;
+- e o livro descartável, quando o isolei, ficou **dentro** da sala — e passou a
+  contar como ficheiro da espera.
+
+```
+    UMA MEDIÇÃO QUE SUJA A ÁRVORE
+    É UMA MEDIÇÃO QUE A PRÓXIMA VAI MEDIR.
+```
+
+Toda prova que escreve tem de declarar as suas três moradas descartáveis antes
+de correr: onde o coletor larga, onde a porta escreve o livro, onde a espera
+pousa.
+
+## 78.7 · E DOIS MUTANTES ENSINARAM O QUE FALTAVA
+
+Seis sobreviveram na primeira ronda. Cinco eram casos que passam sem comparar
+nada — a guarda de `§74.5`, que eu tinha escrito e **não apliquei aqui**. O
+sexto foi um limiar que nenhum caso ultrapassava: `== 1` trocado por `>= 1`
+num banco com **uma** corrida.
+
+```
+    UM LIMIAR SÓ ESTÁ TESTADO SE ALGUM CASO CAIR POR BAIXO DELE.
+```
+
+A regra da mesma história saiu para uma função usada duas vezes, e o caso
+negativo corre uma **segunda corrida real**. Tentei primeiro inserir a linha à
+mão e o banco recusou-a por falta de identidade — e estava certo:
+
+```
+    UMA BANCADA QUE FABRICA IDENTIDADE MEDE A FÁBRICA.
+```
+
+## 78.8 · CONSEQUÊNCIA
+
+```
+CANONICAL_E2E          FAIL
+FIRST_LOST_EDGE        STORAGE -> DERIVED
+ROOT_CAUSE             FUNCTIONAL_GAP (ligação) + CONTRACT_GAP (dono do canal)
+COLLECTION_CORE_CLOSE  FAIL, por medição e não por contagem
+MUTAÇÃO                10 mutantes · 0 sobreviventes
+```
+
+E uma correcção entrou, a única que era pequena, local e inequívoca: a corrida
+canónica corria e **não deixava rasto nenhum** — 4 linhas em `raw_asset`, zero
+em `etapa_da_corrida`. A etapa RAW já sabia falar; quem a chamava é que não lhe
+dava onde. É a mesma família do defeito da `memoria`, na **mesma função**, com
+o aviso já escrito à vista.
+
+```
+    UM PARÂMETRO OPCIONAL QUE NINGUÉM CONSEGUE PASSAR
+    NÃO É OPCIONAL: É INEXISTENTE.
+```
