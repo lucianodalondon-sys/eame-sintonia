@@ -455,8 +455,28 @@ class T15HistoriaPreservada(unittest.TestCase):
 class T16TranscriptNaoFoiResolvido(unittest.TestCase):
     """A chave existir nao prova que legenda de terceiro funciona."""
 
-    def test_a_legenda_continua_declarada_sem_rota(self):
-        self.assertFalse(reg.tem_caminho('YOUTUBE', 'youtube.native_caption'))
+    def test_a_legenda_tem_rota_paga_e_ela_e_gateada(self):
+        """Esta sentinela mudou de lado na C10.8B, e a razão fica à vista.
+
+        Quando foi escrita, media um facto: a legenda estava declarada e **sem
+        rota** — as três rotas livres da matriz estão `PERMITIDA = NAO`, e a
+        paga não tinha adaptador. A C10.8B ligou a paga de propósito, com
+        autorização humana e teto declarado.
+
+            DECLARAR SEM ROTA ERA UM ESTADO, NÃO UMA LEI.
+
+        O que continua a valer, e é o que ela guarda agora: a rota existe, é a
+        PAGA, e tem sonda GRATUITA de prontidão — sem a qual o `CHECK` deixaria
+        de poder recusar antes de o dinheiro ser consultado.
+        """
+        self.assertTrue(reg.tem_caminho('YOUTUBE', 'youtube.native_caption'),
+                        'a rota paga da legenda desapareceu do registo')
+        r = reg.registados()[('YOUTUBE', 'youtube.native_caption')]
+        self.assertIsNotNone(r['PRONTO'],
+                             'a rota paga ficou sem sonda gratuita')
+        self.assertIsNone(r['EXECUTA'],
+                          'a legenda paga passou a montar o proprio trace, '
+                          'saltando o roteador que mede a trava do gasto')
 
     def test_a_rota_padrao_de_transcript_continua_sendo_paga(self):
         import social_matriz as mz

@@ -33,6 +33,7 @@ import _gavetas  # noqa: E402,F401
 import scrap_http as http     # noqa: E402
 import scrap_fornecedores as forn  # noqa: E402
 import scrap_registo as reg   # noqa: E402
+import social_envelope as env  # noqa: E402  — o envelope canonico
 
 NOME = 'adaptador_youtube'
 PLATAFORMA = 'YOUTUBE'
@@ -316,6 +317,183 @@ def resolver_canal(*, account_url, run_id, country_scope='IT', **kw):
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# A LEGENDA PAGA — O ADAPTADOR SABE YOUTUBE, QUEM PAGA E O COLETOR
+# ══════════════════════════════════════════════════════════════════════════
+# A matriz declara `apify:transcricao` como a UNICA rota restante para legenda
+# de canal de terceiro: `captions.download` exige ser dono do video,
+# `captions.list` exige autorizacao, e `timedtext` sem assinatura devolve corpo
+# vazio. Nenhuma delas e uma rota que esta casa possa andar.
+#
+# TRES PAPEIS, E ELES NAO SE MISTURAM
+# -------------------------------------
+#     ADAPTER   sabe o que e um video do YouTube e como se le uma legenda
+#     PROVIDER  e a Apify, e quem fala com ela e `coleta/coletor.py`
+#     ROUTER    decide se a rota paga esta autorizada e com que motivo
+#
+#     ADAPTER != PROVIDER != EXECUTION ENVIRONMENT.
+#
+# Por isso esta funcao NAO conhece `api.apify.com`, nao monta cabecalho, nao le
+# `usageTotalUsd` e nao sabe o que e `maxTotalChargeUsd`. Ela monta a entrada do
+# ator, chama o dono pago, e traduz a saida para o envelope canonico.
+#
+# O CONTRATO DA ENTRADA MUDOU, E A CASA MEDIU ISSO
+# --------------------------------------------------
+# `videoUrls` (plural, uma lista) foi o que rodou em Espanha e esta no
+# RUN-MANIFEST. Hoje o ator exige `videoUrl` no SINGULAR — e quem descobriu
+# isso foi a propria recusa da API, `HTTP 400 invalid-input`, gravada inteira no
+# manifesto por `regras/sensor_coleta.py`.
+#
+#     ENTRADA PROVADA ONTEM != ENTRADA VALIDA HOJE.
+#
+# UMA CHAVE, E NAO A ROTACAO
+# ----------------------------
+# `apify_pool` roda chaves quando uma esgota. Rodar aqui seria um SEGUNDO POST
+# de criacao de execucao — e um segundo POST e uma segunda execucao paga, mesmo
+# que a primeira nao tenha devolvido `run_id`.
+#
+#     ROTACAO DE CHAVE E UMA SEGUNDA COMPRA.
+#
+# Entao esta rota usa a primeira posicao e para. Quem quiser rotacao numa rota
+# paga tem de declarar quantas compras autoriza, e isso e decisao de gente.
+ATOR_TRANSCRICAO = 'pintostudio~youtube-transcript-scraper'
+ROTA_TRANSCRICAO = 'apify:transcricao'
+
+#: O que o ator devolve, medido nos bytes preservados de
+#: `data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz`:
+#: uma lista de `{url, transcript, chars}`. Sem campo de lingua, sem marcas de
+#: tempo e sem dizer se o texto veio da legenda do YouTube ou de um ASR dele.
+#:
+#:     O QUE O PROVIDER NAO DECLARA, A CASA NAO INVENTA.
+CAMPOS_DO_ATOR = ('url', 'transcript', 'chars')
+
+#: A especie do texto. O ator nao a declara, e chamar-lhe `TRANSCRIPT` seria
+#: afirmar uma origem que ninguem mediu.
+#:
+#:     CAPTION != TRANSCRIPT != ASR.
+ESPECIE_NAO_DECLARADA = 'NOT_DECLARED_BY_PROVIDER'
+
+
+def _url_de_video(video_url=None, video_id=None):
+    """→ a URL `watch?v=` do alvo. Uma so, e nunca uma lista."""
+    if video_url:
+        return video_url
+    if not video_id:
+        raise ValueError('a legenda paga precisa de `video_url` ou `video_id`')
+    return 'https://www.youtube.com/watch?v=%s' % video_id
+
+
+def _id_do_video(url):
+    m = re.search(r'[?&]v=([A-Za-z0-9_-]{6,})', url or '')
+    return m.group(1) if m else None
+
+
+def credencial_paga_presente():
+    """→ (ha chave?, estado). Le o ambiente pelo dono unico. Zero rede, zero dolar.
+
+    Nunca devolve a chave, nem o tamanho, nem um prefixo dela. Um comprimento
+    com prefixo e meio segredo, e meio segredo num log e um segredo num log.
+    """
+    import apify_pool as ap
+    return (bool(ap.pool()), 'CREDENTIAL_MISSING')
+
+
+def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
+                         video_id=None, medida=None, teto_usd=None, **_):
+    """A rota paga da legenda. → lista de envelopes canonicos.
+
+    O `teto_usd` por omissao e `None` DE PROPOSITO: quem decide o teto do lado
+    do provider e o orcamento financeiro desta execucao, que o rebaixa ao saldo
+    que resta. Um numero escrito aqui seria um segundo dono do dinheiro.
+
+        PROVIDER CAP <= EXECUTION REMAINING.
+    """
+    import apify_pool as ap
+    import coletor as ct
+    url = _url_de_video(video_url, video_id)
+
+    # ── A CREDENCIAL E UM PORTAO, E ELE VEM ANTES DO DINHEIRO ──────────────
+    # Sem chave nao ha compra nenhuma para autorizar. Levantar aqui faz a
+    # recusa chegar ao roteador como ESTADO — `CREDENTIAL_MISSING`, cuja
+    # recuperacao canonica e `HUMAN_PROVISION_CREDENTIAL` — em vez de morrer
+    # como excecao de um `except` largo.
+    chaves = ap.pool()
+    if not chaves:
+        raise http.EstadoDaApi({
+            'STATE': 'CREDENTIAL_MISSING',
+            'NATIVE_REASON': 'APIFY_TOKEN_POOL vazio neste ambiente',
+            'RECOVERY_ACTION': 'HUMAN_PROVISION_CREDENTIAL'})
+
+    itens, man = ct.executar(
+        ATOR_TRANSCRICAO, {'videoUrl': url},
+        token=chaves[0],                      # a primeira, e so ela — ver acima
+        run_id=run_id, platform=PLATAFORMA, country=country_scope,
+        mission='C10-8B', query=url,
+        source_version='ator %s, captura de %s' % (ATOR_TRANSCRICAO,
+                                                   ct.agora()[:10]),
+        evidence_path='data/samples/SCRAP-YOUTUBE/LEGENDA-PAGA.json',
+        # ── O `wait` E O QUE DECIDE O TETO DE REDE DESTA ROTA ──────────────
+        # A plataforma concede 60 s no proprio POST. Tudo acima disso vira
+        # CONSULTA, e cada consulta e uma ida a rede. Com `wait=60` o resto e
+        # zero e ha no maximo UMA consulta; com 120 haveria ate treze.
+        #
+        #     UM `wait` MAIOR NAO E MAIS PACIENCIA. E MAIS IDAS A REDE.
+        #
+        # As corridas historicas deste ator terminaram em segundos, entao 60 s
+        # cobrem o caso medido — e se nao cobrirem, o retrato sai marcado como
+        # `PARTIAL_RUN_WAS_NOT_TERMINAL`, que e a verdade, e NAO se compra
+        # outra vez.
+        wait=60, teto_usd=teto_usd)
+
+    # ── A MEDIDA SOBE PELO BALDE, QUE E O CANAL QUE JA EXISTE ──────────────
+    # O roteador nao sabe o preco de uma chamada; quem sabe e quem a fez. E o
+    # que sobe e o que o dono do dinheiro escreveu, nao um numero deste
+    # ficheiro.
+    if medida is not None:
+        r = man.get('FINANCIAL_RESERVATION') or {}
+        medida['IMPLEMENTACAO'] = 'coleta/coletor.py'
+        medida['ROUTE_CLASS'] = 'APIFY'
+        medida['APIFY_RUNS'] = 1
+        medida['PROVIDER_RUN_ID'] = man.get('RUN_ID')
+        medida['PROVIDER_STATUS'] = man.get('PLATFORM_STATUS')
+        medida['SCRAP_RAW_REFERENCE'] = man.get('RAW_EVIDENCE_PATH')
+        medida['SCRAP_RAW_STATE'] = man.get('RAW_EVIDENCE_STATE')
+        medida['SCRAP_RAW_SHA256'] = man.get('RAW_SHA256')
+        medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
+        medida['ACTUAL_COST_USD'] = r.get('ACTUAL_COST_USD')
+        medida['PROVIDER_SIDE_CAP_USD'] = r.get('PROVIDER_SIDE_CAP')
+        medida['FINANCIAL_RESERVATION'] = r
+
+    if man.get('STATUS') == 'FAILED':
+        # Falha da rota e ESTADO, e o estado tem o nome que a plataforma deu.
+        raise http.EstadoDaApi({
+            'STATE': 'ROUTE_UNAVAILABLE',
+            'NATIVE_REASON': str(man.get('ERROR'))[:200],
+            'RECOVERY_ACTION': 'NEEDS_HUMAN_FIX'})
+
+    saida = []
+    for it in (itens or []):
+        if not isinstance(it, dict):
+            continue
+        texto = it.get('transcript')
+        alvo = it.get('url') or url
+        saida.append(env.envelope(
+            platform=PLATAFORMA, native_id=_id_do_video(alvo) or alvo, url=alvo,
+            content_type='VIDEO', route=ROTA_TRANSCRICAO,
+            executor='adaptador_youtube.youtube_legenda_paga',
+            run_id=run_id, country_scope=country_scope,
+            # O ator nao devolve lingua. Deixar `None` faz o envelope escrever
+            # o desconhecido dele, que e o unico valor honesto aqui.
+            language=None, text=texto or None,
+            raw_reference=man.get('RAW_EVIDENCE_PATH'),
+            raw={'CHARS': it.get('chars'),
+                 'TRANSCRIPT_PRESENT': bool(texto),
+                 'SPECIES': ESPECIE_NAO_DECLARADA,
+                 'TIMESTAMPS': False,
+                 'PROVIDER': 'APIFY', 'ACTOR': ATOR_TRANSCRICAO}))
+    return saida
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # A SONDA — de graca, e sem nunca tocar no valor
 # ══════════════════════════════════════════════════════════════════════════
 # `CHECK` pergunta «consigo chegar la agora, sem gastar?». Para uma rota oficial
@@ -361,6 +539,9 @@ reg.registar(PLATAFORMA, 'youtube.comments', adaptador=NOME,
              pronto=pronto_para_api, rota=youtube_comentarios,
              nota='comentario desativado sobe como estado proprio, nunca como ZERO_RESULTS')
 reg.registar(PLATAFORMA, 'youtube.native_caption', adaptador=NOME,
-             nota='captions.download exige ser dono do video; a rota grata do yt-dlp nao esta classificada na matriz')
+             pronto=credencial_paga_presente, rota=youtube_legenda_paga,
+             nota='ROTA PAGA: captions.download exige ser dono do video e captions.list '
+                  'exige autorizacao, entao a matriz deixa `apify:transcricao` como unica. '
+                  'A sonda le a chave paga e nao a do YouTube — sao dois donos diferentes.')
 reg.registar(PLATAFORMA, 'youtube.media', adaptador=NOME,
              nota='403 de IP de datacenter; so o runner local pode fechar esta medicao')

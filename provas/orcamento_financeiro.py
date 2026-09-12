@@ -152,7 +152,13 @@ class Cenario(object):
         # registo recusa um segundo dono — e bem — entao a prova nao finge ser
         # outro adaptador: ela empresta a funcao e devolve-a intacta.
         self._antes = dict(reg._MAPA[(PLAT, CAPAC)])
-        reg._MAPA[(PLAT, CAPAC)] = dict(self._antes, ROTA=self.rota)
+        # A sonda de prontidao tambem e emprestada. Desde a C10.8B esta
+        # capacidade tem uma rota paga REAL, com sonda que le a credencial —
+        # e sem chave no ambiente o `CHECK` recusa antes de o orcamento
+        # chegar a ser consultado. Esta bateria mede o TETO, nao a credencial.
+        #
+        #     QUEM EMPRESTA O LUGAR EMPRESTA-O INTEIRO.
+        reg._MAPA[(PLAT, CAPAC)] = dict(self._antes, ROTA=self.rota, PRONTO=None)
         return self
 
     def __exit__(self, *a):
@@ -214,9 +220,16 @@ for nome, d in sorted(sx.cap.DECLARADAS.items()):
         pagas.append((nome, bool(reg.rota_de(d[0], nome))))
 diz(True, 'capacidades com rota paga por omissao', '%d de %d declaradas'
     % (len(pagas), len(sx.cap.DECLARADAS)))
-diz(sum(1 for _n, tem in pagas if tem) == 0,
-    'e nenhuma delas tem adaptador — a rota paga nao e alcancavel hoje',
-    '%d com adaptador' % sum(1 for _n, tem in pagas if tem))
+# A C10.8A-F mediu ZERO com adaptador, e essa era a foto daquele dia. A C10.8B
+# ligou uma de proposito, com autorizacao humana e teto declarado. O que esta
+# prova guarda a partir daqui e a lista FECHADA — uma segunda a nascer em
+# silencio acusa aqui na mesma.
+#
+#     UM CENSO QUE VIRA LEI TRANCA A PORTA QUE ELE SO MEDIU.
+LIGADAS = {'youtube.native_caption'}
+diz({n for n, tem in pagas if tem} == LIGADAS,
+    'as rotas pagas ligadas sao exactamente as declaradas',
+    sorted(n for n, tem in pagas if tem) or 'nenhuma')
 
 # ══ F0 · LIMITE ZERO ══════════════════════════════════════════════════════
 print('\n── F0 · limite 0: o provider nao e chamado ──')

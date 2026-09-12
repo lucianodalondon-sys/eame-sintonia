@@ -786,9 +786,18 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     #
     # Uma reserva que chegasse aqui por fechar seria dinheiro sem dono, então o
     # caminho por omissão é o conservador: sem número lido, fica `UNKNOWN`.
-    if reserva is not None and not reserva.fechada:
-        lido = d.get('usageTotalUsd') if isinstance(d, dict) else None
-        reserva.liquidar(lido if isinstance(lido, (int, float)) else None)
+    if reserva is not None:
+        if not reserva.fechada:
+            lido = d.get('usageTotalUsd') if isinstance(d, dict) else None
+            reserva.liquidar(lido if isinstance(lido, (int, float)) else None)
+        # E ela sobe para o manifesto ESTEJA ELA FECHADA OU NAO. A versao
+        # anterior so a anexava quando fechava AQUI — e o caso em que ela fecha
+        # antes e justamente o pior de todos: o POST caiu no transporte, o
+        # dinheiro ficou em UNKNOWN, e o manifesto nao dizia nada. Quem lesse
+        # via `NOT_RUN`, que e a unica coisa que aquele momento nao foi.
+        #
+        #     UMA RESERVA QUE NAO SOBE AO MANIFESTO DEIXA O RASTO DIZER
+        #     «NAO CORREU» SOBRE UMA COMPRA QUE TALVEZ TENHA ACONTECIDO.
         manifesto['FINANCIAL_RESERVATION'] = dict(reserva.registo)
 
     pv.checar_token(manifesto)

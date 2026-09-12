@@ -101,7 +101,13 @@ class _Cenario(object):
         self._run = ct.subprocess.run
         ct.subprocess.run = self.falso
         self._antes = dict(reg._MAPA[(PLAT, CAPAC)])
-        reg._MAPA[(PLAT, CAPAC)] = dict(self._antes, ROTA=self.rota)
+        # A sonda de prontidao tambem e emprestada. Desde a C10.8B esta
+        # capacidade tem uma rota paga REAL, com sonda que le a credencial —
+        # e sem chave no ambiente o `CHECK` recusa antes de o orcamento
+        # chegar a ser consultado. Esta bateria mede o TETO, nao a credencial.
+        #
+        #     QUEM EMPRESTA O LUGAR EMPRESTA-O INTEIRO.
+        reg._MAPA[(PLAT, CAPAC)] = dict(self._antes, ROTA=self.rota, PRONTO=None)
         return self
 
     def __exit__(self, *a):
@@ -541,18 +547,37 @@ class OCensoQueDecidiuODono(unittest.TestCase):
                          'nasceu uma segunda porta que compromete dinheiro: %s'
                          % sorted(set(achados)))
 
-    def test_39_nenhuma_capacidade_paga_tem_adaptador_hoje(self):
+    def test_39_toda_rota_paga_com_adaptador_e_nomeada_e_tem_sonda(self):
+        """Esta sentinela mudou de lado na C10.8B, e a razão fica à vista.
+
+        Quando foi escrita, media um CENSO: nenhuma capacidade de rota paga
+        tinha adaptador, e por isso a rota paga não era alcançável. A C10.8B
+        ligou uma — `youtube.native_caption` → `apify:transcricao` — de
+        propósito, com autorização humana e teto declarado.
+
+            UM CENSO QUE VIRA LEI TRANCA A PORTA QUE ELE SÓ MEDIU.
+
+        O que continua a valer, e é o que ela guarda agora: a lista é FECHADA e
+        nomeada, e toda rota paga ligada tem sonda GRATUITA de prontidão. Uma
+        segunda a nascer em silêncio reprova aqui na mesma.
+        """
         import scrap_capacidades as cap
-        com = []
+        LIGADAS = {'youtube.native_caption': 'C10.8B'}
+        com = {}
         for nome, d in cap.DECLARADAS.items():
             rotas = (mz.MATRIZ.get(d[0]) or {}).get(cap.da_matriz(nome))
             esc = mz._rota_padrao(rotas) if rotas else None
             if (esc and esc['CLASSE'] in ('APIFY', 'OFFICIAL_API_PAID')
                     and reg.rota_de(d[0], nome)):
-                com.append(nome)
-        self.assertEqual(com, [],
-                         'uma rota paga ganhou adaptador sem passar pela C10.8B: %s'
-                         % com)
+                com[nome] = reg.registados()[(d[0], nome)]
+        self.assertEqual(sorted(com), sorted(LIGADAS),
+                         'a lista de rotas pagas ligadas mudou sem missão que a '
+                         'declare: %s' % sorted(com))
+        for nome, r in com.items():
+            self.assertIsNotNone(
+                r['PRONTO'],
+                '%s ficou sem sonda gratuita: o CHECK deixaria de poder recusar '
+                'antes de o dinheiro ser consultado' % nome)
 
     def test_40_a_prova_usa_o_contrato_real_e_nao_um_teto_proprio(self):
         fonte = _fonte('provas/orcamento_financeiro.py')
