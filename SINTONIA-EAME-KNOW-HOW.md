@@ -4831,3 +4831,82 @@ O teste conferia `LAW_TOTAL == 105` e o mutante satisfazia-o.
 
 Morto com um registo alterado para sete leis, exigindo que o total o siga.
 12 mutantes, 0 sobreviventes.
+
+---
+
+# §65 · A CONFISSÃO TEM DE CABER NA COLUNA QUE A RECEBE
+
+**Missão:** `C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1`
+**HEAD final:** `5fbfb3ff`
+**Tocado:** `coleta/ingresso.py::_corrida_completa`
+
+## 65.1 · O QUÊ
+
+O primeiro blocker da DAG do `§64` está fechado. Uma corrida que não declara o
+seu país volta a aterrar o bruto.
+
+```
+antes:  corrida sem país  →  raw_asset = 0 · RUN_STATE = PARTIAL
+depois: corrida sem país  →  raw_asset = 1 · RUN_STATE = COMPLETE
+```
+
+## 65.2 · POR QUÊ
+
+`_corrida_completa` preenchia todo campo em falta com `NOT_PRESERVED`. Mas
+`collection_run.source_country` não é texto: é o enum `pais`, e o vocabulário
+dele é `ES/FR/IT/PT/EU/BR/OTHER/NAO_SEI`.
+
+    UMA CONFISSÃO QUE A COLUNA RECUSA
+    NÃO É UMA CONFISSÃO: É UMA PERDA.
+
+E a perda era silenciosa para quem não lesse o recibo: o bruto não aterrava e a
+corrida ficava `PARTIAL`.
+
+É a **mesma família** do defeito do `SOURCE_ID` no `§60`: um valor honesto de um
+lado que o outro lado não aceita.
+
+## 65.3 · PROVA — E O QUE NÃO SE FEZ
+
+Três casos contra PostgreSQL real, e não comparação de strings. A string
+`NOT_PRESERVED` é perfeitamente válida em Python; quem a recusou foi o banco.
+
+**O centro da correcção é o que ela NÃO fez.** Não se colapsaram os dois
+conceitos. `NOT_PRESERVED != NÃO SEI` continua a valer e continua a ser o que os
+outros campos recebem. Trocar a palavra em todo o lado faria o teste passar e
+apagaria a diferença entre «não guardei» e «não sei».
+
+O que a tabela nova diz é outra coisa: **qual das duas palavras o dono de cada
+campo entende**.
+
+    QUEM MANDA NO VOCABULÁRIO DA AUSÊNCIA
+    É O DONO DA COLUNA, E NÃO A FRONTEIRA.
+
+A palavra não foi escolhida por gosto: `pais` já declara `NAO_SEI` como o seu
+próprio default desde a migration `001`. O autor do esquema já tinha decidido o
+que é um país não declarado.
+
+6 mutantes, 0 sobreviventes. O mutante que mais interessa é o segundo: colapsar
+`AUSENCIA_PADRAO` em `NAO_SEI` faria os três casos aterrarem e morre na mesma,
+porque há teste a exigir que os dois campos confessem com palavras diferentes.
+
+## 65.4 · UM SUSTO QUE ERA MEU
+
+`test_social_persistencia_pg` deu 40 erros de chave estrangeira, e eu quase os
+registei como achado pré-existente. Era resíduo das minhas próprias sondas no
+banco descartável: recriado limpo, passa.
+
+    UMA MEDIÇÃO FEITA EM CIMA DA SUJEIRA DA MEDIÇÃO ANTERIOR
+    MEDE A SUJEIRA.
+
+## 65.5 · CONSEQUÊNCIA
+
+`test_m2_rota_forward` continua a falhar 21, com o mesmo erro de fixture sem
+`SOURCE_ID`. Isso é `RC-C`, a missão 2 da DAG, e não esta.
+
+A ordem da fila confirmou-se na prática: esta era a que não dependia de nada, e
+qualquer prova E2E nova teria batido neste enum antes de chegar ao resto.
+
+```
+COLLECTION_CORE_CLOSE  continua FAIL
+BLOCKERS               5 → 4
+```
