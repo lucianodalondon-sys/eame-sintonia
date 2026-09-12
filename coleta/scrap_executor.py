@@ -182,29 +182,216 @@ def CHECK(plataforma, capacidade, *, ambiente=None):
     return veredicto
 
 
-def COLLECT(*, platform, capability, run_id, scope='PONTUAL', **kwargs):
+# ══════════════════════════════════════════════════════════════════════════
+# A DURABILIDADE É DAQUI, E NÃO DE CADA ADAPTADOR
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.6B provou o estado durável na cadeia de Reel — e provou-o LÁ: o
+# adaptador do Instagram abria a RUN, ligava o checkpoint e passava o relator.
+# A C10.6C mediu o que isso significava para as outras doze capacidades wired:
+#
+#     WIRED_CAPABILITIES = 13 · COM DURABILIDADE = 3 · SEM = 10
+#
+#     UMA INFRAESTRUTURA COMUM NÃO É PROVADA POR UM ÚNICO ADAPTER USANDO-A.
+#
+# O ponto mais alto que conhece a execução REAL e não inventa semântica de
+# plataforma é este. `COLLECT` é por onde toda capacidade passa: ele mede o
+# `CHECK`, decide se há caminho, e despacha. O que ele NÃO sabe é o que cada
+# plataforma faz lá dentro — e por isso não é ele que nomeia os degraus delas.
+#
+# O QUE ESTE FICHEIRO PASSA A FAZER, E SÓ ISSO
+# ----------------------------------------------
+#     abre a RUN            antes de qualquer trabalho, quando há banco
+#     abre o CHECKPOINT     só quando o adaptador declara unidade de trabalho
+#     escreve a etapa CHECK que ele PRÓPRIO atravessou — não a de ninguém
+#     entrega o RELATOR     a quem souber usá-lo
+#     fecha a RUN           com o estado que mediu
+#
+# O que ele nunca faz: nomear uma etapa que não correu aqui.
+#
+#     NÃO SE FABRICA ETAPA. QUEM NÃO ATRAVESSOU NÃO RELATA.
+#
+# Sem `banco`, tudo corre exactamente como antes. Um executor que só funcionasse
+# com Postgres seria um executor novo.
+def _aceita(fn, nome):
+    """A função aceita este parâmetro? Medido na assinatura, nunca suposto."""
+    import inspect
+    try:
+        sig = inspect.signature(fn)
+    except (TypeError, ValueError):
+        return False
+    if any(p.kind is inspect.Parameter.VAR_KEYWORD for p in sig.parameters.values()):
+        return True
+    return nome in sig.parameters
+
+
+def _estado_da_corrida(objetos, trace, ck):
+    """O status canônico desta execução, lido do que voltou.
+
+    `vazia` não é `falhou`: uma busca que correu e não achou nada correu.
+    A precedência é a da migration 001 — `falhou > vazia > parcial > concluida`.
+    """
+    import falhas as fx
+    # ⚠️ O VEREDITO DA UNIDADE, QUANDO O ADAPTADOR O SABE DIZER, VENCE.
+    # Um objeto ter voltado nao quer dizer que a unidade ficou feita — o Reel
+    # pode trazer midia e nao trazer texto. Este ficheiro nao sabe ler
+    # `TRANSCRIPT_STATE`, e adivinhar seria inventar semantica de plataforma.
+    canonico = (trace or {}).get('CANONICAL_STATE')
+    if canonico:
+        if canonico not in fx.ESTADOS:
+            raise ValueError('o adaptador devolveu um estado que `leis/falhas.py` '
+                             'nao declara: %r' % canonico)
+        if fx.e_falha(canonico):
+            return ck.CORRIDA_PARCIAL if objetos else ck.CORRIDA_FALHOU
+        if canonico in ('ZERO_RESULTS', 'NOT_APPLICABLE'):
+            return ck.CORRIDA_VAZIA
+        return ck.CORRIDA_CONCLUIDA if objetos else ck.CORRIDA_VAZIA
+    estado = (trace or {}).get('RESULT') or (trace or {}).get('RESULTADO')
+    if estado in ('OK', 'PROVED', None) or not estado:
+        return ck.CORRIDA_CONCLUIDA if objetos else ck.CORRIDA_VAZIA
+    if estado in fx.ESTADOS and not fx.e_falha(estado):
+        return ck.CORRIDA_CONCLUIDA if objetos else ck.CORRIDA_VAZIA
+    return ck.CORRIDA_PARCIAL if objetos else ck.CORRIDA_FALHOU
+
+
+def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
+            **kwargs):
     """Vai buscar. → (objetos, trace). NUNCA levanta por rota recusada.
 
     Recusa e bloqueio sao RESULTADO DE MEDICAO, nao ausencia de resultado — e
     por isso descem como estado, com trace, e nao como excecao.
+
+    `banco` liga a durabilidade comum: RUN prospectiva, checkpoint quando a
+    capacidade tem unidade retomável, e rastro de etapa. Sem ele, nada muda.
     """
     if scope not in ESCOPOS:
         raise ValueError('escopo fora de COL-LAW-016: %r. Os tres sao %s'
                          % (scope, ', '.join(ESCOPOS)))
+    plat = (platform or '').upper()
+    registo = reg.adaptador_de(plat, capability)
+    execucao = relator = None
+    if banco is not None:
+        import coleta_checkpoint as ck
+        # ── A UNIDADE VEM DO ADAPTADOR, QUE E QUEM SABE O QUE ELA E ────────
+        # Este ficheiro nao sabe o que e uma unidade de trabalho do Instagram
+        # nem do YouTube. Perguntar e a unica forma de nao inventar.
+        unidade = None
+        decl = (registo or {}).get('UNIDADE')
+        if decl is not None:
+            unidade = decl(**kwargs)
+        execucao, porque = ck.abrir_execucao(
+            banco, run_id=run_id, platform=plat, actor=EXECUTOR_ID,
+            actor_version=EXECUTOR_VERSION, unidade=unidade)
+        if execucao is None:
+            # O checkpoint recusou. NAO houve execucao — e dizer que houve, e
+            # que ela falhou, seria inventar uma corrida que ninguem correu.
+            trace = forn.Percurso(capability).selar(resultado=porque)
+            trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'RUN_ID': run_id,
+                          'SCOPE': scope, 'CHECKPOINT_STATE': porque,
+                          'RUN_STATE_PERSISTED': 'NOT_STARTED'})
+            return [], trace
+        relator = execucao.relator
+
+    # ── A ETAPA `CHECK` E DESTE FICHEIRO, PORQUE E AQUI QUE ELA CORRE ──────
+    linha = relator.abrir('CHECK') if relator is not None else None
     pronto = CHECK(platform, capability)
+    if relator is not None:
+        # ⚠️ UM PORTÃO QUE RECUSA NÃO FALHOU. ELE FEZ O SEU TRABALHO.
+        # `FAIL` aqui diria que o próprio CHECK rebentou. O que aconteceu foi
+        # outra coisa: ele correu, mediu, e a resposta foi «não dá». O
+        # vocabulário já tem a palavra para isso — `SKIPPED` é «decidido não
+        # correr, com razão escrita», e a razão vai escrita ao lado.
+        #
+        # E há uma prova disso no próprio schema: `falha_tem_codigo` exige
+        # `diagnostic_code` em toda linha `FAIL`, e o registry de
+        # `leis/diagnostico.py` não tem código para `CHECK`. Não tem porque
+        # `CHECK` não falha — ele responde.
+        relator.fechar(linha, 'PASS' if pronto['CAN'] else 'SKIPPED',
+                       passed=1 if pronto['CAN'] else 0,
+                       not_run=0 if pronto['CAN'] else 1,
+                       output_grain='CAPABILITY', output_count=1,
+                       cardinalidade='1:1',
+                       canonical_state=(None if pronto['CAN']
+                                        else _canonico(pronto['STATE'])),
+                       error_message=None if pronto['CAN'] else pronto['STATE'])
     if not pronto['CAN']:
         percurso = forn.Percurso(capability)
         trace = percurso.selar(resultado=pronto['STATE'])
         trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'RUN_ID': run_id,
                       'SCOPE': scope, 'CHECK': pronto})
+        if execucao is not None:
+            import coleta_checkpoint as ck
+            import falhas as fx
+            # «NÃO TENHO CREDENCIAL» É FALHA. «ESTA ROTA NÃO É PERMITIDA» NÃO É:
+            # é a política a funcionar, e uma corrida que a respeitou não falhou.
+            canon = _canonico(pronto['STATE'])
+            falhou = fx.e_falha(canon) if canon in fx.ESTADOS else True
+            execucao.falhar_checkpoint('CHECK/%s' % pronto['STATE'])
+            execucao.fechar(ck.CORRIDA_FALHOU if falhou else ck.CORRIDA_VAZIA,
+                            error='CHECK: %s' % pronto['STATE'])
+            trace['RUN_STATE_PERSISTED'] = 'YES'
+            trace['RUN_STATUS'] = (ck.CORRIDA_FALHOU if falhou
+                                   else ck.CORRIDA_VAZIA)
         return [], trace
-    plat = (platform or '').upper()
     executa = reg.executor_de(plat, capability)
+    if relator is not None:
+        # O relator so desce para quem o saiba receber. Enfia-lo num chamador
+        # que nao o declara seria `TypeError` — e um executor que so funciona
+        # com implementacoes instrumentadas ja nao e o executor de todas.
+        alvo = executa or _rota_para(plat, capability)
+        if alvo is not None and _aceita(alvo, 'etapa'):
+            kwargs = dict(kwargs, etapa=relator)
+    try:
+        objetos, trace = _despachar(plat, capability, run_id, executa, kwargs)
+    except Exception as e:                                        # noqa: BLE001
+        if execucao is not None:
+            import coleta_checkpoint as ck
+            for l_, nome_, _t in list(relator.abertas):
+                relator.fechar(l_, 'FAIL', canonical_state='UNKNOWN_ERROR',
+                               error_class=type(e).__name__, error_message=str(e))
+            execucao.falhar_checkpoint('%s: %s' % (type(e).__name__, e))
+            execucao.fechar(ck.CORRIDA_FALHOU, error='%s: %s' % (type(e).__name__, e))
+        raise
+    trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'EXECUTOR_VERSION': EXECUTOR_VERSION,
+                  'RUN_ID': run_id, 'SCOPE': scope, 'CHECK': pronto})
+    forn.conferir(trace)
+    if execucao is not None:
+        import coleta_checkpoint as ck
+        estado = _estado_da_corrida(objetos, trace, ck)
+        # ── PERSIST FIRST, THEN ADVANCE CHECKPOINT ──────────────────────────
+        if estado in (ck.CORRIDA_CONCLUIDA, ck.CORRIDA_VAZIA):
+            trace['CHECKPOINT_ADVANCE'] = execucao.avancar(
+                itens=len(objetos or []), unidade=str(kwargs.get('ident')
+                                                      or capability))
+        else:
+            execucao.falhar_checkpoint(str(trace.get('RESULT') or estado))
+        execucao.fechar(estado, item_count_raw=len(objetos or []))
+        trace.update({'RUN_STATE_PERSISTED': 'YES',
+                      'CHECKPOINT_ID': execucao.checkpoint_id,
+                      'RUN_STATUS': estado})
+    return objetos, trace
+
+
+def _canonico(estado):
+    """O estado do `CHECK` na língua de `leis/falhas.py`, ou None.
+
+    Nem todo estado de prontidão é uma falha canônica — e traduzir à força
+    poria um nome que o dono nunca declarou dentro do rastro.
+    """
+    import falhas as fx
+    return estado if estado in fx.ESTADOS else 'ROUTE_UNAVAILABLE'
+
+
+def _rota_para(plat, capability):
+    r = reg.adaptador_de(plat, capability)
+    return (r or {}).get('ROTA')
+
+
+def _despachar(plat, capability, run_id, executa, kwargs):
     if executa is not None:
         # Capacidade que a matriz de rotas nao conhece — a cadeia de Reel e a
         # unica hoje. Ela monta o proprio trace porque nao ha porta a medir.
-        objetos, trace = executa(run_id=run_id, **kwargs)
-    else:
+        return executa(run_id=run_id, **kwargs)
+    if True:
         # O CAMINHO CANONICO. Passa pelo roteador, e o roteador mede o portao
         # do `robots`, a trava da sessao e a trava do gasto ANTES de chamar
         # qualquer coisa. Saltar isto para «ir direto a API» seria mais curto
@@ -214,11 +401,7 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', **kwargs):
         grossa = cap.da_matriz(capability)
         objetos, registo = sr.executar(platform=plat, capability=grossa,
                                        run_id=run_id, **kwargs)
-        trace = forn.do_registo(capability, registo)
-    trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'EXECUTOR_VERSION': EXECUTOR_VERSION,
-                  'RUN_ID': run_id, 'SCOPE': scope, 'CHECK': pronto})
-    forn.conferir(trace)
-    return objetos, trace
+        return objetos, forn.do_registo(capability, registo)
 
 
 def STATE(plataforma=None):

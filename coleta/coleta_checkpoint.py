@@ -783,3 +783,104 @@ def avancar_checkpoint(banco, *, checkpoint_id, itens=0, unidade=None):
         "where id = %d and estado <> 'CONCLUIDO' returning unidades_feitas::text"
         % (int(itens or 0), _lit(unidade), int(checkpoint_id)))
     return AVANCOU if (r and r[0] and r[0][0]) else JA_AVANCADO
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A EXECUÇÃO DURÁVEL SEM UNIDADE RETOMÁVEL — E POR QUE ELA PRECISA DE EXISTIR
+# ══════════════════════════════════════════════════════════════════════════
+# `executar_unidade_duravel` exige uma UNIDADE DE TRABALHO: um `target` e uma
+# `entrada` que identifiquem o que se está a fazer, para que outra execução
+# possa retomá-lo. Nem toda capacidade tem isso.
+#
+#     «RESOLVER UM CANAL PELO NOME» NÃO TEM METADE FEITA.
+#     OU RESOLVEU, OU NÃO RESOLVEU.
+#
+# Criar um checkpoint para uma operação atómica só para poder dizer
+# `CHECKPOINT = YES` seria fabricar retomada onde não há nada a retomar — e um
+# checkpoint `CONCLUIDO` numa operação que se deve poder repetir trancá-la-ia
+# para sempre com `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES`.
+#
+#     TRÊS COISAS DIFERENTES, E SÓ A PRIMEIRA É SEMPRE VERDADE:
+#         RUN_REQUIRED            toda execução real existiu
+#         STAGE_TRACE_REQUIRED    toda etapa atravessada deixa rasto
+#         CHECKPOINT_REQUIRED     só quando há unidade retomável
+class Execucao:
+    """Uma execução durável aberta: a RUN existe, e há por onde relatar.
+
+    Devolvida por `abrir_execucao`. `fechar()` fecha a RUN com o estado que o
+    chamador mediu — e nunca com `rodando`, que é o estado de quem está de pé.
+    """
+
+    def __init__(self, banco, *, run_id, checkpoint_id=None, relator=None,
+                 input_hash=None):
+        self.banco, self.run_id = banco, run_id
+        self.checkpoint_id, self.input_hash = checkpoint_id, input_hash
+        self.relator = relator
+        self.fechada = False
+
+    def fechar(self, status, **kw):
+        if self.fechada:
+            return
+        fechar_corrida(self.banco, run_id=self.run_id, status=status, **kw)
+        self.fechada = True
+
+    def avancar(self, *, itens=0, unidade=None):
+        """Só faz sentido quando há checkpoint. Sem ele, não há o que avançar."""
+        if self.checkpoint_id is None:
+            return None
+        return avancar_checkpoint(self.banco, checkpoint_id=self.checkpoint_id,
+                                  itens=itens, unidade=unidade)
+
+    def falhar_checkpoint(self, motivo):
+        if self.checkpoint_id is None:
+            return
+        self.banco.executa(
+            "update public.checkpoint_coleta set estado='PARCIAL', motivo=%s, "
+            "updated_at=now() where id=%d"
+            % (_lit(str(motivo)[:400]), int(self.checkpoint_id)))
+
+
+def abrir_execucao(banco, *, run_id, platform, actor, unidade=None,
+                   actor_version=None, source_country='NAO_SEI',
+                   rule_version='v1', mission=None, pais='NAO_SEI',
+                   source_id=None, route_class_id=None, policy_version=None):
+    """A RUN existe ANTES do trabalho. O checkpoint, só se houver unidade.
+
+    `unidade` é `(target, entrada, campos_da_identidade)` — o que só o dono da
+    plataforma sabe dizer. `None` significa «esta operação não tem metade
+    feita», e não «esqueci-me».
+
+    Devolve `(Execucao, porque)`. `porque` só não é None quando o checkpoint
+    RECUSOU — e aí a `Execucao` vem sem RUN, porque não houve execução nenhuma.
+
+        UMA RECUSA DE CHECKPOINT NÃO É UMA EXECUÇÃO QUE FALHOU.
+        É UMA EXECUÇÃO QUE NÃO COMEÇOU.
+    """
+    cid = h = None
+    if unidade is not None:
+        target, entrada, campos = unidade
+        ok, ruins = identidade_valida(campos)
+        if not ok:
+            return None, ('IDENTIDADE_INVALIDA: %s' % ruins)
+        h = abrir(banco, target=target, entrada=entrada, actor=actor,
+                  platform=platform, pais=pais, unidades_totais=1,
+                  rule_version=rule_version)
+        pode, porque, cid, _ = pode_gastar(banco, target, h)
+        if not pode:
+            return None, porque
+        banco.executa("update public.checkpoint_coleta set estado='EM_CURSO', "
+                      "updated_at=now() where id=%d" % int(cid))
+
+    abrir_corrida(banco, run_id=run_id, platform=platform, actor=actor,
+                  actor_version=actor_version, source_country=source_country,
+                  rule_version=rule_version, mission=mission, checkpoint_id=cid,
+                  entrada=(unidade[1] if unidade is not None else None))
+    if cid is not None:
+        ligar_ao_checkpoint(banco, run_id=run_id, checkpoint_id=cid)
+
+    relator = RelatorDeEtapas(banco, run_id=run_id, checkpoint_id=cid,
+                              actor=actor, actor_version=actor_version,
+                              source_id=source_id, route_class_id=route_class_id,
+                              policy_version=policy_version)
+    return Execucao(banco, run_id=run_id, checkpoint_id=cid, relator=relator,
+                    input_hash=h), None

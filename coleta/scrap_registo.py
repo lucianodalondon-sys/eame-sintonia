@@ -68,7 +68,7 @@ _MAPA = {}
 
 
 def registar(plataforma, capacidade, *, adaptador, executa=None, rota=None,
-             pronto=None, nota=None):
+             pronto=None, nota=None, unidade=None):
     """Poe um adaptador no mapa. Sem `executa` nem `rota` e uma declaracao honesta.
 
     Um adaptador que declara a capacidade e nao tem rota devolve o estado
@@ -89,6 +89,21 @@ def registar(plataforma, capacidade, *, adaptador, executa=None, rota=None,
         A CADEIA DE REEL TEM `executa`. AS QUATRO DO YOUTUBE TEM `rota`.
         Nenhuma tem as duas: isso seria dois caminhos para o mesmo pedido,
         e o segundo caminho e sempre o que ninguem mede.
+
+    A UNIDADE DE TRABALHO, E POR QUE ELA E OPCIONAL
+    ------------------------------------------------
+        unidade   `unidade(**kwargs) -> (target, entrada, campos)` ou None.
+                  So o dono da plataforma sabe dizer o que e uma unidade
+                  retomavel dela. Quem nao declara nao ganha checkpoint — e
+                  isso e uma resposta, nao um esquecimento.
+
+    Nem toda capacidade tem metade feita. «Resolver um canal pelo nome» ou
+    resolveu ou nao resolveu, e um checkpoint `CONCLUIDO` numa operacao que se
+    deve poder repetir trancava-a para sempre com
+    `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES`.
+
+        FABRICAR RETOMADA ONDE NAO HA NADA A RETOMAR
+        NAO AUMENTA COBERTURA. TRANCA A PORTA.
     """
     if executa is not None and rota is not None:
         raise RegistoDuplicado(
@@ -120,6 +135,9 @@ def registar(plataforma, capacidade, *, adaptador, executa=None, rota=None,
         # nada: le configuracao, nunca chama rota. E do adaptador porque so
         # ele sabe o que a sua plataforma precisa ter em maos.
         'PRONTO': pronto,
+        # A unidade de trabalho desta capacidade, quando ela tem uma. `None` e
+        # a declaracao honesta de que esta operacao nao e retomavel por metades.
+        'UNIDADE': unidade,
         'CAPABILITY_STATE': cap.estado(capacidade),
         'EXECUTION_TARGET': alvo,
         'WHY_LOCAL': porque,

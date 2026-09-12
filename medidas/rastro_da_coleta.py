@@ -299,6 +299,22 @@ def fechar_etapa(banco, *, linha_id, estado, etapa=None, duracao_ms=None,
     sets = ["estado = %s::etapa_estado" % _lit(estado),
             "terminou_em = now()"]
     sets += ['%s = %s' % (k, _lit(v)) for k, v in campos.items() if v is not None]
+    # ⚠️ UMA ETAPA QUE FECHA EM `FAIL` TEM DE DIZER ONDE FOI PARAR O QUE ENTROU.
+    # Medido na C10.6C: o ramo de excecao fechava a etapa aberta em `FAIL` com o
+    # erro e o codigo certos — e sem tocar em balde nenhum. A linha ficava com
+    # entrada 1 e destino zero, e `unaccounted_input` acusava.
+    #
+    #     NAO E OBRIGATORIO QUE 100% CHEGUE AO FIM.
+    #     E OBRIGATORIO QUE 100% TENHA EXPLICACAO.
+    #
+    # O numero NAO e adivinhado: le-se da propria linha. O que entrou e nao foi
+    # a lado nenhum foi-se em erro, porque a etapa falhou.
+    if estado == FAIL and not any(
+            campos.get(k) for k in ('passed', 'rejected', 'error_count',
+                                    'not_run_count', 'unknown_count', 'reused')):
+        sets.append('error_count = greatest(coalesce(input_count, 0)'
+                    ' - (passed + rejected + error_count + not_run_count'
+                    ' + unknown_count + reused), 0)')
     linhas = banco.executa(
         "update public.etapa_da_corrida set %s where id = %d"
         " returning accounted_input::text, unaccounted_input::text,"
