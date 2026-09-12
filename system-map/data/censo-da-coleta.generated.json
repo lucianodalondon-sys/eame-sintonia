@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "4b9a362f2ffaee5d945d88c142466c36094316e9",
+    "HEAD": "370c1f6b9408071f4d412f606c10dfab08711850",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -636,7 +636,7 @@
         "ferramentas/fala_local.py",
         "ferramentas/instagram_transcrever.py"
       ],
-      "no_ci": true
+      "no_ci": false
     },
     {
       "ficheiro": "coleta/adaptador_aberto.py",
@@ -682,7 +682,7 @@
     {
       "ficheiro": "coleta/adaptador_instagram.py",
       "gaveta": "coleta",
-      "linhas": 330,
+      "linhas": 450,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -821,6 +821,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/scrap_executor.py",
+        "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
       ],
       "citado_por": [
@@ -889,7 +890,7 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "gaveta": "coleta",
-      "linhas": 636,
+      "linhas": 664,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1273,13 +1274,15 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_instagram.py",
         "coleta/instagram_coleta.py",
         "coleta/instagram_diario.py"
       ],
       "citado_por": [
+        "coleta/adaptador_instagram.py",
         "ferramentas/instagram_transcrever.py"
       ],
-      "no_ci": true
+      "no_ci": false
     },
     {
       "ficheiro": "coleta/instagram_pessoal.py",
@@ -1784,7 +1787,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 1232,
+      "linhas": 1377,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1800,7 +1803,7 @@
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
-      "grava_no_banco": false,
+      "grava_no_banco": true,
       "escreve_ficheiro": false,
       "chamado_por": [],
       "citado_por": [
@@ -1913,7 +1916,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [],
       "citado_por": [],
-      "no_ci": true
+      "no_ci": false
     },
     {
       "ficheiro": "coleta/youtube_oficial.py",
@@ -2519,9 +2522,9 @@
     "ficheiros_de_codigo": 115,
     "pontos_de_entrada": 85,
     "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 46,
-    "sem_aresta_medida_e_fora_do_ci": 63,
-    "gravam_no_banco": 2,
+    "sem_chamador_e_fora_do_ci": 47,
+    "sem_aresta_medida_e_fora_do_ci": 65,
+    "gravam_no_banco": 3,
     "escrevem_ficheiro": 66,
     "deitam_fora_alguma_coisa": 29,
     "deitam_fora_SEM_escrever_o_motivo": 2,
@@ -2680,6 +2683,7 @@
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
+      "coleta/youtube_janela.py",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
       "regras/rotulos_censo.py",
@@ -2710,6 +2714,7 @@
       "ferramentas/instagram_transcrever.py",
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
+      "ferramentas/youtube_transcrever.py",
       "coleta/adaptador_aberto.py",
       "coleta/adaptador_facebook.py",
       "coleta/adaptador_instagram.py",
@@ -2742,6 +2747,7 @@
       "coleta/speaker_universo.py",
       "coleta/texto_fonte.py",
       "coleta/universo_ciencia_it.py",
+      "coleta/youtube_janela.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
       "regras/italy_pilot_guards.mjs",

@@ -1942,10 +1942,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-durable-runtime-convergence-c10-6c",
-    "HEAD": "66e41b9c0582df1d0fed8632b06f541e78dcaa2b",
-    "GENERATED_AT": "2026-09-12T06:02:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f6a9d245241066697d90b40a234fe2cf317b73322a4f96b24222cbb5359521f3"
+    "BRANCH": "claude/sintonia-scrap-operational-entrypoints-c10-6d",
+    "HEAD": "370c1f6b9408071f4d412f606c10dfab08711850",
+    "GENERATED_AT": "2026-09-12T06:03:52+00:00",
+    "SOURCE_TREE_FINGERPRINT": "06ed6ab1da248a66652cb629a5cc505903360758730885184c1b522b4944f20f"
   },
   "FAMILIES": [
     {
@@ -7361,6 +7361,7 @@
         "C-CI-COLETA",
         "C-COLETA-BASE",
         "C-IDENTIDADE",
+        "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
         "C-TRANSCRICAO",
         "V-FACEBOOK",
@@ -13742,7 +13743,7 @@
       ],
       "file_count": 3,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-APIFY-POOL, C-CENSO-OBSERVABILIDADE, C-CONTRATO-TELEMETRIA, C-DERIVACAO-FORWARD.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-APIFY-POOL, C-CENSO-OBSERVABILIDADE, C-COLETA-PUBLICA, C-CONTRATO-TELEMETRIA.  Mas ha 3 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -13752,6 +13753,7 @@
         "C-APIFY-POOL",
         "C-CENSO-CONGELAMENTO",
         "C-CENSO-OBSERVABILIDADE",
+        "C-COLETA-PUBLICA",
         "C-CONTRATO-TELEMETRIA",
         "C-DERIVACAO-FORWARD",
         "C-DIAGNOSTICO",
@@ -13903,6 +13905,7 @@
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
         "C-SENSOR-COLETA",
+        "C-SINTONIA-SCRAP",
         "C-TRANSCRICAO",
         "V-HTTP",
         "V-YOUTUBE"
@@ -13928,23 +13931,34 @@
           "ALVO_OFICIAL",
           "CONTENT_TYPES",
           "DECLARADAS",
+          "FASES_CANONICAS",
+          "FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY",
           "PLATAFORMA_NO_BANCO",
           "POR_CLASSE",
           "RAZOES",
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 199,
+        "palavras": 219,
         "por_lingua": {},
-        "sem_marca_de_lingua": 199,
+        "sem_marca_de_lingua": 219,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "SUPABASE"
+      ],
+      "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": "coleta/social_scrap.py",
+          "line": 1239,
+          "snippet": "dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
       "x": 7120,
       "y": 1648
     },
@@ -14160,8 +14174,8 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-NAVEGADOR",
-        "C-TESTES",
-        "C-TRANSCRICAO"
+        "C-SCRAP-SOCIAL",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -14179,7 +14193,7 @@
         "valida": false,
         "e_workflow": true,
         "executa": false,
-        "executores_que_chama": 15
+        "executores_que_chama": 9
       },
       "nivel": "PRINCIPAL",
       "salta_o_orquestrador": true,
@@ -15892,7 +15906,7 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "ferramentas/instagram_transcrever.py",
         "ferramentas/youtube_transcrever.py"
@@ -15900,8 +15914,7 @@
       "produces": [],
       "inbound": [
         "C-CONTRATO-ARTEFATO",
-        "C-SCRAP-LEIS",
-        "C-SINTONIA-SCRAP"
+        "C-SCRAP-LEIS"
       ],
       "outbound": [
         "C-CENSO-DERIVACOES",
@@ -16709,7 +16722,7 @@
         "contas publicas mapeadas neste canal: 17",
         "dessas, autorizadas a coletar: 10",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:238"
+        "prova: coleta/comunicacao_coleta.py:240"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -17009,7 +17022,7 @@
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
         "acoes da coleta que nomeiam este canal: 2",
-        "prova: coleta/comunicacao_coleta.py:185",
+        "prova: coleta/comunicacao_coleta.py:187",
         "prova: coleta/instagram_coleta.py:73"
       ],
       "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
@@ -17091,7 +17104,7 @@
         "contas publicas mapeadas neste canal: 6",
         "dessas, autorizadas a coletar: 0",
         "acoes da coleta que nomeiam este canal: 1",
-        "prova: coleta/comunicacao_coleta.py:91"
+        "prova: coleta/comunicacao_coleta.py:93"
       ],
       "status_reason": "1 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -17223,7 +17236,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-durable-runtime-convergence-c10-6c"
+        "branch claude/sintonia-scrap-operational-entrypoints-c10-6d"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17808,7 +17821,7 @@
         },
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 181,
+          "line": 183,
           "snippet": "import contrato_ator as ca"
         }
       ],
@@ -21074,11 +21087,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
           "line": 273,
+          "snippet": "import coleta_checkpoint as ck"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 1242,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
@@ -21255,8 +21273,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 372,
+          "snippet": "import instagram_janela as ij"
+        },
         {
           "file": "coleta/social_persistencia.py",
           "line": 59,
@@ -21264,6 +21287,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-INSTAGRAM",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o Instagram alimenta SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 411,
+          "snippet": "medida['IMPLEMENTACAO'] = 'coleta/instagram_janela.py'"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-COLETA-INSTAGRAM",
@@ -23884,7 +23925,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 125,
+          "line": 127,
           "snippet": "with open(LOTE, encoding='utf-8') as f:"
         },
         {
@@ -28636,7 +28677,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1223,
+          "line": 1368,
           "snippet": "import social_guarda"
         }
       ],
@@ -28796,6 +28837,24 @@
           "file": "system-map/scripts/censo_da_observabilidade.py",
           "line": 52,
           "snippet": "import fundacao_da_coleta as fdc    # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-COLETA-PUBLICA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Colher o que o concorrente publica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 60,
+          "snippet": "import social_matriz as mz     # noqa: E402  — DONO da política de rota"
         }
       ],
       "categoria": "RULE"
@@ -29378,7 +29437,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 460,
+          "line": 462,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -29553,12 +29612,12 @@
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 230,
+          "line": 246,
           "snippet": "import scrap_registo as reg"
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 352,
+          "line": 368,
           "snippet": "import scrap_capacidades as cap"
         },
         {
@@ -29582,7 +29641,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 42 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 43 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -29601,22 +29660,27 @@
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 238,
+          "line": 203,
+          "snippet": "self.assertIn('coleta/social_scrap.py', vivo,"
+        },
+        {
+          "file": "tests/test_c10_4c_rota_aposentada.py",
+          "line": 254,
           "snippet": "for rel in ('coleta/scrap_executor.py', 'coleta/social_rotas.py'):"
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 238,
+          "line": 254,
           "snippet": "for rel in ('coleta/scrap_executor.py', 'coleta/social_rotas.py'):"
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 309,
+          "line": 325,
           "snippet": "CADEIA = ('ferramentas/reel_transcricao.py', 'coleta/adaptador_instagram.py',"
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 311,
+          "line": 327,
           "snippet": "'coleta/scrap_registo.py', 'ferramentas/fala_local.py',"
         },
         {
@@ -29638,11 +29702,6 @@
           "file": "tests/test_c10_5d_decisao_instagram.py",
           "line": 348,
           "snippet": "for ficheiro in ('coleta/adaptador_instagram.py',"
-        },
-        {
-          "file": "tests/test_c10_6b_run_duravel.py",
-          "line": 76,
-          "snippet": "for rel in ('ferramentas/reel_transcricao.py', 'coleta/adaptador_instagram.py'):"
         }
       ],
       "categoria": "PROOF"
@@ -29852,7 +29911,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Colher o Instagram. Provado por 4 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Colher o Instagram. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
@@ -29861,18 +29920,13 @@
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 235,
-          "snippet": "janela)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py tudo    $TETO ;;"
+          "line": 330,
+          "snippet": "diario-fila)     PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py fila ;;"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 253,
-          "snippet": "diario)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py rodar   $CONTA ;;"
-        },
-        {
-          "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 264,
-          "snippet": "*)               PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
+          "line": 336,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
         }
       ],
       "categoria": "CONTROL"
@@ -29885,16 +29939,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Colher o YouTube. Provado por 2 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Colher o YouTube. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 257,
-          "snippet": "yt-canais)       PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py canais ;;"
-        },
-        {
-          "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 260,
+          "line": 333,
           "snippet": "yt-relevancia)   PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py tudo ;;"
         }
       ],
@@ -29914,6 +29963,24 @@
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 175,
           "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/navegador.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/sintonia-scrap.yml",
+          "line": 268,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \\"
         }
       ],
       "categoria": "CONTROL"
@@ -29940,24 +30007,6 @@
         }
       ],
       "categoria": "PROOF"
-    },
-    {
-      "from": "C-SINTONIA-SCRAP",
-      "to": "C-TRANSCRICAO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar A fala vira texto, sem fatura. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 262,
-          "snippet": "yt-alvos)        PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;"
-        }
-      ],
-      "categoria": "CONTROL"
     },
     {
       "from": "C-SITE-INGEST",
@@ -30914,7 +30963,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 609,
+          "line": 637,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -31122,7 +31171,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 30 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 29 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -31166,12 +31215,7 @@
         },
         {
           "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 192,
-          "snippet": "self.assertIn('ferramentas/youtube_transcrever.py', vivo)"
-        },
-        {
-          "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 311,
+          "line": 327,
           "snippet": "'coleta/scrap_registo.py', 'ferramentas/fala_local.py',"
         },
         {
@@ -31183,6 +31227,11 @@
           "file": "tests/test_c10_5d_decisao_instagram.py",
           "line": 264,
           "snippet": "self.assertEqual(donos, ['ferramentas/fala_local.py'])"
+        },
+        {
+          "file": "tests/test_c10_5d_decisao_instagram.py",
+          "line": 349,
+          "snippet": "'ferramentas/reel_transcricao.py',"
         }
       ],
       "categoria": "PROOF"
@@ -31866,7 +31915,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 238,
+          "line": 240,
           "snippet": "if plataforma == 'FACEBOOK':"
         }
       ],
@@ -32002,7 +32051,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 185,
+          "line": 187,
           "snippet": "exemplo = {'ACCOUNT_URL': 'https://www.instagram.com/exemplo/',"
         }
       ],
@@ -32019,7 +32068,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 91,
+          "line": 93,
           "snippet": "'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),"
         }
       ],
@@ -32339,8 +32388,8 @@
     "components_pending": 104,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 661,
-    "edges_proven": 658,
+    "edges": 663,
+    "edges_proven": 660,
     "edges_unknown": 3,
     "business_edges": 4,
     "files_tracked": 1495,

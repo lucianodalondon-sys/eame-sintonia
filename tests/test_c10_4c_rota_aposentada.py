@@ -185,11 +185,27 @@ class AsPortasEstaoFechadas(unittest.TestCase):
         self.assertTrue(any('instagram_transcrever.py' in ln for ln in vivas),
                         'o filtro engoliu uma CHAMADA viva — seria uma sonda cega')
         self.assertTrue(any('instagram_janela.py' in ln for ln in vivas))
-        # e no workflow real ele deixa as chamadas vivas de pe
+        # ── E NO WORKFLOW REAL, OS DOIS LADOS ────────────────────────────
+        # As ancoras anteriores eram `coleta/instagram_janela.py` e
+        # `ferramentas/youtube_transcrever.py`, as duas chamadas vivas da
+        # C10.4C. A C10.6D tirou ambas do workflow — a janela passou a entrar
+        # por `social_scrap.py coletar` e a transcricao do YouTube passou a
+        # `recusar`. Uma ancora que deixou de existir faz o controlo positivo
+        # falhar sem que nada esteja errado.
+        #
+        #     UM CONTROLO ANCORADO NUMA LINHA QUE A CASA APAGOU MEDE A ANCORA.
+        #
+        # A ancora certa nao e uma chamada especifica: e o PAR. O filtro tem de
+        # deixar passar o comando que existe hoje e cortar a prosa que fala
+        # dele — se ele cortasse os dois, a sonda seria cega e diria «limpo».
         vivo = '\n'.join(ln for c in _comandos_do_workflow()
                           for ln in _linhas_vivas(c))
-        self.assertIn('coleta/instagram_janela.py', vivo)
-        self.assertIn('ferramentas/youtube_transcrever.py', vivo)
+        self.assertIn('coleta/social_scrap.py', vivo,
+                      'o filtro engoliu a chamada canonica que o workflow corre')
+        self.assertIn('recusar', vivo,
+                      'o filtro engoliu a funcao de recusa, que e comando vivo')
+        self.assertNotIn('COLETAR != ADMITIR', vivo,
+                         'o filtro deixou passar prosa de comentario')
 
     def test_2c_a_fase_e_escolha_fechada_nao_texto_livre(self):
         """Se `fase` fosse texto livre, tirar a opcao nao fecharia a porta.

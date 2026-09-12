@@ -327,3 +327,123 @@ reg.registar(PLATAFORMA, 'instagram.story.transcribe', adaptador=NOME,
 assert not cap.existe('instagram.native_caption'), (
     'o Instagram nao serve legenda nativa; declarar isso seria prometer o que '
     'a plataforma nao tem')
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A JANELA PÚBLICA — A ROTA QUE A MATRIZ NOMEIA E NINGUÉM TINHA LIGADO
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.6D mediu as portas operacionais e encontrou isto:
+#
+#     leis/social_matriz.py  INSTAGRAM/INCREMENTAL
+#         ROTA      instagram_janela.py:grade
+#         CLASSE    PUBLIC_BROWSER · AUTH_MODE PUBLIC
+#         PERMITIDA CONDICIONAL · ESTADO PROVED
+#
+# A matriz nomeia o ficheiro, declara a classe, e diz que a rota é permitida. E
+# durante todo esse tempo `coleta/instagram_janela.py` foi corrido **direto pelo
+# workflow**, sem nunca perguntar nada a ninguém — nem à matriz, nem ao portão,
+# nem ao registo. Não havia rota registada para a capacidade.
+#
+#     UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+#
+# O QUE ESTA LIGAÇÃO É, E O QUE ELA NÃO É
+# -----------------------------------------
+# Não é um coletor novo. Não é uma rota nova. Não é uma decisão de política. É a
+# implementação que já existia, medida e nomeada, a passar a atender pelo nome
+# canônico — `CAPABILITY_REGISTRATION_ONLY`.
+#
+# O que ela produz continua idêntico: `instagram_janela` escreve os MESMOS
+# ficheiros, na MESMA gaveta, com a MESMA forma. O que muda é o caminho até ela:
+#
+#     ANTES   workflow -> instagram_janela.py
+#     DEPOIS  workflow -> entrada canônica -> COLLECT -> CHECK -> roteador
+#             (portão · sessão · gasto) -> este adaptador -> instagram_janela.py
+#
+#     REWIRE NÃO PODE APAGAR LINEAGE. O QUE ELA ESCREVIA, CONTINUA A ESCREVER.
+def _itens_da_gaveta(nome):
+    """Os objetos que a janela acabou de gravar. → lista, sempre.
+
+    Lê-se de volta o que ela ESCREVEU, em vez de a obrigar a devolver: a função
+    dela é um comando de linha, e mudar-lhe a assinatura para caber aqui seria
+    mexer na implementação para a fazer parecer uma rota.
+
+        LER O QUE FOI PERSISTIDO É MAIS HONESTO QUE ACREDITAR NO QUE FOI DITO.
+    """
+    import instagram_janela as ij
+    d = ij._ler(nome) or {}
+    return list(d.get('ITEMS') or [])
+
+
+def _janela(qual, *, run_id, country_scope=None, medida=None, etapa=None,
+            teto=None, **_):
+    """A rota `PUBLIC_BROWSER` da janela. `qual` ∈ `perfis` · `objetos`."""
+    import instagram_janela as ij
+    rel = None
+    if etapa is not None:
+        rel = etapa.abrir('DISCOVER', input_grain='ACCOUNT',
+                          input_count=len(ij.contas()))
+    # ⚠️ QUEM ABRE UMA ETAPA TEM DE A FECHAR, MESMO A REBENTAR.
+    # `social_rotas.executar` APANHA a excecao e devolve um registo — a excecao
+    # nunca sobe ate ao boundary, e o ramo `except` dele nunca corre. Sem isto,
+    # uma falha da implementacao deixava `DISCOVER` em `RUNNING` para sempre.
+    #
+    #     SO A MORTE DE PROCESSO TEM O DIREITO DE DEIXAR UMA ETAPA ABERTA.
+    #     UM PROCESSO VIVO QUE A DEIXA ESTA A MENTIR.
+    try:
+        codigo = ij.perfis() if qual == 'perfis' else ij.objetos(
+            int(teto) if teto not in (None, '', '0') else None)
+    except Exception as e:                                        # noqa: BLE001
+        if etapa is not None:
+            etapa.fechar(rel, 'FAIL', error=1, canonical_state='UNKNOWN_ERROR',
+                         error_class=type(e).__name__, error_message=str(e))
+        raise
+    itens = _itens_da_gaveta('PERFIS.json' if qual == 'perfis' else 'OBJETOS.json')
+    if etapa is not None:
+        etapa.fechar(rel, 'PASS' if codigo == 0 else 'FAIL',
+                     passed=len(itens) if codigo == 0 else 0,
+                     error=0 if codigo == 0 else 1,
+                     output_grain='PROFILE' if qual == 'perfis' else 'POST',
+                     output_count=len(itens), cardinalidade='1:N',
+                     canonical_state=None if codigo == 0 else 'ROUTE_UNAVAILABLE',
+                     last_good_artifact=('%s/%s' % (ij.SAIDA.split('samples/')[-1],
+                                                    qual) if codigo == 0 else None))
+    if medida is not None:
+        medida['IMPLEMENTACAO'] = 'coleta/instagram_janela.py'
+        medida['ROUTE_CLASS'] = 'PUBLIC_BROWSER'
+        medida['APIFY_RUNS'] = 0
+        medida['COST_USD'] = 0
+    return itens
+
+
+#: AS DUAS CAMADAS SAO A MESMA CAPACIDADE, E A MATRIZ DIZ ISSO.
+#: `INSTAGRAM/INCREMENTAL` tem UMA rota — `instagram_janela.py:grade` — e a grade
+#: e perfil e objeto. Registar duas capacidades para as duas camadas daria dois
+#: nomes ao mesmo acto, e a casa ja pagou por isso na C10.4B.
+#:
+#:     DUAS CAMADAS DE UMA ROTA NAO SAO DUAS ROTAS.
+CAMADAS_DA_JANELA = ('perfis', 'objetos', 'tudo')
+
+
+def janela(*, run_id, camada='tudo', **kw):
+    """`INCREMENTAL` — a janela publica do Instagram, por camada.
+
+    `camada` ∈ `perfis` (bio, seguidores, denominador, a grade) · `objetos`
+    (data, legenda inteira, curtidas, vídeo) · `tudo` (as duas, na ordem — e a
+    ordem é lei: objeto precisa do perfil que o listou).
+    """
+    if camada not in CAMADAS_DA_JANELA:
+        raise ValueError('camada fora do vocabulario da janela: %r. As tres sao %s'
+                         % (camada, ', '.join(CAMADAS_DA_JANELA)))
+    if camada != 'tudo':
+        return _janela(camada, run_id=run_id, **kw)
+    fora = _janela('perfis', run_id=run_id, **kw)
+    return fora + _janela('objetos', run_id=run_id, **kw)
+
+
+# A capacidade já estava DECLARADA e sem rota. Registá-la não muda o que ela é —
+# muda por onde se chega a ela.
+reg.registar(PLATAFORMA, 'instagram.profile.discovery', adaptador=NOME,
+             rota=janela,
+             nota='PUBLIC_BROWSER, a rota que a matriz nomeia em '
+                  'INSTAGRAM/INCREMENTAL; a implementacao ja existia e nunca '
+                  'tinha sido ligada ao registo')

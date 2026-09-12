@@ -56,6 +56,8 @@ sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import apify_pool as ap        # noqa: E402  — dono único da rotação de chave
 import coletor                 # noqa: E402  — porta única das rotas pagas
+sys.path.insert(0, os.path.join(ROOT, 'leis'))
+import social_matriz as mz     # noqa: E402  — DONO da política de rota
 
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 SAIDA = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM')
@@ -520,6 +522,32 @@ def fase_posts(plataforma):
              'UNITS_PENDING': [], 'STATE': 'DONE', 'DUPLICATES_REMOVED': 0}
         ampliou = 'NO'
         return _gravar_posts(plataforma, contas, janela, r, mans, ampliou)
+
+    # ── A POLÍTICA É PERGUNTADA ANTES DE HAVER ROTA PAGA ────────────────────
+    # A C10.6D censou as portas operacionais e mediu que NENHUMA implementação
+    # chamada direto por workflow perguntava nada a `leis/social_matriz.py`.
+    #
+    #     UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+    #
+    # Aqui isso doía especificamente: `LINKEDIN/FETCH_POST` está
+    # `ROUTE_NOT_ALLOWED` nas DUAS rotas declaradas — a Community Management
+    # API e o ator pago `harvestapi~linkedin-*` — e este ficheiro corria o ator
+    # pago na mesma, porque ele FUNCIONA.
+    #
+    #     UMA ROTA QUE FUNCIONA NÃO É UMA ROTA PERMITIDA.
+    #
+    # A pergunta fica ANTES de `ATORES[...]`, e não depois: perguntar com o ator
+    # já escolhido é conferir o bilhete depois da viagem. E `NOT_DECLARED`
+    # também não passa: não declarado não é proibido, mas para uma rota que
+    # GASTA também não é permissão. Quem quiser abrir declara na matriz.
+    d = mz.decisao(plataforma, 'FETCH_POST')
+    if d['DECISAO'] != mz.PERMITIDA_SIM:
+        print('ROTA_NAO_AUTORIZADA=%s/FETCH_POST' % plataforma)
+        print('  decisao   %s' % d['DECISAO'])
+        print('  porque    %s' % d['PORQUE'])
+        print('  APIFY_RUNS=0 · COST_USD=0 — nada saiu desta máquina.')
+        print('  A política é dona da rota. Esta fase NÃO improvisa a volta.')
+        return None
 
     ator, _ = ATORES[plataforma]
 

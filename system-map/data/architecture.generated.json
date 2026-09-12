@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-durable-runtime-convergence-c10-6c",
-    "HEAD": "66e41b9c0582df1d0fed8632b06f541e78dcaa2b",
-    "GENERATED_AT": "2026-09-12T06:02:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f6a9d245241066697d90b40a234fe2cf317b73322a4f96b24222cbb5359521f3"
+    "BRANCH": "claude/sintonia-scrap-operational-entrypoints-c10-6d",
+    "HEAD": "370c1f6b9408071f4d412f606c10dfab08711850",
+    "GENERATED_AT": "2026-09-12T06:03:52+00:00",
+    "SOURCE_TREE_FINGERPRINT": "06ed6ab1da248a66652cb629a5cc505903360758730885184c1b522b4944f20f"
   },
   "FILES": [
     {
@@ -115,7 +115,7 @@
     },
     {
       "path": ".github/workflows/sintonia-scrap.yml",
-      "sha": "2ccbd929a900b32b75c071e40a3f5f6597560ab0",
+      "sha": "7da8a7e9e69edc957fce9c9a9df91fa85d27e85b",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1130,7 +1130,7 @@
     },
     {
       "path": "coleta/adaptador_instagram.py",
-      "sha": "b24a22ebe30bf704f51f9b85802c013e3a09ca0e",
+      "sha": "b82c889f24615cc6545c03b400cb748c18d91fdb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1193,7 +1193,7 @@
     },
     {
       "path": "coleta/comunicacao_coleta.py",
-      "sha": "968ebb7477c9223be624d6f7b362bc5024f9dfba",
+      "sha": "06cd614e652a9edb76673f476d29dc2fd852eafd",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1480,7 +1480,7 @@
     },
     {
       "path": "coleta/social_scrap.py",
-      "sha": "3a2cd63e9ef4c7f11c960afa123b80a68587199d",
+      "sha": "235a90f70c28abf471364bf4afc44d7cf719a693",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9446,7 +9446,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "913f047b659e418400d4ee40d0db330a70e907d4",
+      "sha": "98fb00b43a7e23f2a61c84affea8c7af1019ef91",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9866,7 +9866,7 @@
     },
     {
       "path": "tests/test_c10_4c_rota_aposentada.py",
-      "sha": "033fd69e8e0a76676be9253538fa2d8f8b749b2d",
+      "sha": "54ac75c1613fcfe043e59d60f9e504fa002eae28",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11076,8 +11076,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 264,
-        "snippet": "*)               PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
+        "line": 336,
+        "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/instagram_coleta.py \"${{ inputs.fase }}\" ;;"
       }
     },
     {
@@ -11087,19 +11087,8 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 253,
-        "snippet": "diario)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py rodar   $CONTA ;;"
-      }
-    },
-    {
-      "from_file": ".github/workflows/sintonia-scrap.yml",
-      "to_file": "coleta/instagram_janela.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 235,
-        "snippet": "janela)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py tudo    $TETO ;;"
+        "line": 330,
+        "snippet": "diario-fila)     PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py fila ;;"
       }
     },
     {
@@ -11115,13 +11104,13 @@
     },
     {
       "from_file": ".github/workflows/sintonia-scrap.yml",
-      "to_file": "coleta/youtube_janela.py",
+      "to_file": "coleta/social_scrap.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 257,
-        "snippet": "yt-canais)       PYTHONIOENCODING=utf-8 $PY coleta/youtube_janela.py canais ;;"
+        "line": 268,
+        "snippet": "PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \\"
       }
     },
     {
@@ -11131,7 +11120,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 260,
+        "line": 333,
         "snippet": "yt-relevancia)   PYTHONIOENCODING=utf-8 $PY coleta/youtube_relevancia.py tudo ;;"
       }
     },
@@ -11166,17 +11155,6 @@
         "file": ".github/workflows/sintonia-scrap.yml",
         "line": 175,
         "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/navegador.py"
-      }
-    },
-    {
-      "from_file": ".github/workflows/sintonia-scrap.yml",
-      "to_file": "ferramentas/youtube_transcrever.py",
-      "type": "RUNS",
-      "payload": "execucao",
-      "evidence": {
-        "file": ".github/workflows/sintonia-scrap.yml",
-        "line": 262,
-        "snippet": "yt-alvos)        PYTHONIOENCODING=utf-8 $PY ferramentas/youtube_transcrever.py alvos ;;"
       }
     },
     {
@@ -11973,6 +11951,28 @@
     },
     {
       "from_file": "coleta/adaptador_instagram.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_instagram.py",
+        "line": 372,
+        "snippet": "import instagram_janela as ij"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_instagram.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/adaptador_instagram.py",
+        "line": 411,
+        "snippet": "medida['IMPLEMENTACAO'] = 'coleta/instagram_janela.py'"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_instagram.py",
       "to_file": "coleta/scrap_capacidades.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -12253,7 +12253,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
-        "line": 460,
+        "line": 462,
         "snippet": "import scrap_executor as scrap"
       }
     },
@@ -12264,7 +12264,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
-        "line": 125,
+        "line": 127,
         "snippet": "with open(LOTE, encoding='utf-8') as f:"
       }
     },
@@ -12286,7 +12286,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
-        "line": 181,
+        "line": 183,
         "snippet": "import contrato_ator as ca"
       }
     },
@@ -12297,8 +12297,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/comunicacao_coleta.py",
-        "line": 609,
+        "line": 637,
         "snippet": "import reel_transcricao as rt"
+      }
+    },
+    {
+      "from_file": "coleta/comunicacao_coleta.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/comunicacao_coleta.py",
+        "line": 60,
+        "snippet": "import social_matriz as mz     # noqa: E402  — DONO da política de rota"
       }
     },
     {
@@ -13623,6 +13634,17 @@
     },
     {
       "from_file": "coleta/social_scrap.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 1242,
+        "snippet": "import coleta_checkpoint as ck"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
       "to_file": "coleta/comunicacao_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -13705,7 +13727,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1223,
+        "line": 1368,
         "snippet": "import social_guarda"
       }
     },
@@ -30964,7 +30986,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 309,
+        "line": 325,
         "snippet": "CADEIA = ('ferramentas/reel_transcricao.py', 'coleta/adaptador_instagram.py',"
       }
     },
@@ -30986,7 +31008,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 352,
+        "line": 368,
         "snippet": "import scrap_capacidades as cap"
       }
     },
@@ -30997,7 +31019,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 238,
+        "line": 254,
         "snippet": "for rel in ('coleta/scrap_executor.py', 'coleta/social_rotas.py'):"
       }
     },
@@ -31008,7 +31030,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 230,
+        "line": 246,
         "snippet": "import scrap_registo as reg"
       }
     },
@@ -31019,7 +31041,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 311,
+        "line": 327,
         "snippet": "'coleta/scrap_registo.py', 'ferramentas/fala_local.py',"
       }
     },
@@ -31030,8 +31052,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 238,
+        "line": 254,
         "snippet": "for rel in ('coleta/scrap_executor.py', 'coleta/social_rotas.py'):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_4c_rota_aposentada.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_4c_rota_aposentada.py",
+        "line": 203,
+        "snippet": "self.assertIn('coleta/social_scrap.py', vivo,"
       }
     },
     {
@@ -31041,7 +31074,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 311,
+        "line": 327,
         "snippet": "'coleta/scrap_registo.py', 'ferramentas/fala_local.py',"
       }
     },
@@ -31076,17 +31109,6 @@
         "file": "tests/test_c10_4c_rota_aposentada.py",
         "line": 53,
         "snippet": "CANONICO = 'ferramentas/reel_transcricao.py'"
-      }
-    },
-    {
-      "from_file": "tests/test_c10_4c_rota_aposentada.py",
-      "to_file": "ferramentas/youtube_transcrever.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_c10_4c_rota_aposentada.py",
-        "line": 192,
-        "snippet": "self.assertIn('ferramentas/youtube_transcrever.py', vivo)"
       }
     },
     {
@@ -38778,7 +38800,7 @@
     "files_tracked": 1495,
     "files_readable": 575,
     "files_code_dir": 622,
-    "file_edges": 2531,
+    "file_edges": 2533,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

@@ -1189,9 +1189,147 @@ def cutover_prova():
     return 0 if todos_oficiais else 1
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# A ENTRADA OPERACIONAL CANÔNICA — UMA CLI FINA, NÃO UM MOTOR NOVO
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.6C encontrou o boundary comum e provou-o. A C10.6D mediu quem passa por
+# ele: as fases de `sintonia-scrap.yml` corriam as IMPLEMENTAÇÕES diretamente —
+# `instagram_janela.py`, `youtube_janela.py`, `youtube_transcrever.py` — e
+# **nenhuma delas importa `social_matriz`**. Seis portas de produção, e nenhuma
+# perguntava à dona da decisão se podia.
+#
+#     UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+#
+# WORKFLOW É DISPARADOR, NÃO MOTOR
+# ----------------------------------
+# Um workflow diz O QUE quer. Não escolhe provedor, não escolhe rota, não decide
+# política. Esta função é a tradução mínima entre as duas coisas:
+#
+#     parsear o pedido → montar o pedido canônico → chamar o dono
+#
+# E mais nada. Nenhuma lógica de plataforma vive aqui: o mapa de fase para
+# capacidade é uma tabela, e o que cada capacidade faz é assunto do adaptador.
+#
+#     CLI != OWNER. UMA CLI QUE DECIDE ALGUMA COISA JÁ É UM SEGUNDO MOTOR.
+#
+# O QUE NÃO ESTÁ NESTA TABELA NÃO ENTRA POR AQUI
+# ------------------------------------------------
+# Uma fase que não tem rota canônica NÃO ganha uma entrada aqui para «fazer a
+# convergência passar». Ela fica de fora, e o workflow recusa — que é o que a
+# C10.6D decidiu para as quatro fases do YouTube e as quatro pagas do Instagram.
+#
+#     FABRICAR CAPACIDADE PARA BAIXAR O NÚMERO DE BYPASSES É MENTIR COM MÉTRICA.
+#: fase do workflow → (plataforma, capacidade, argumentos fixos da fase)
+FASES_CANONICAS = {
+    'janela':         ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'tudo'}),
+    'janela-perfis':  ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'perfis'}),
+    'janela-objetos': ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'objetos'}),
+}
+
+
+def _banco_se_houver():
+    """O dono da durabilidade, se houver DSN. `None` NÃO é falha.
+
+    Sem banco a coleta corre e não alega retomada — exactamente o que
+    `youtube_oficial.checkpoint_disponivel` já decidiu para o YouTube. O que não
+    se faz é abrir um segundo dono durável em JSON porque o primeiro não estava.
+
+        SEM CHECKPOINT NÃO SE INVENTA CHECKPOINT. DIZ-SE QUE NÃO HÁ.
+    """
+    dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()
+    if not dsn:
+        return None
+    import coleta_checkpoint as ck
+    return ck.Banco(dsn)
+
+
+def coletar(fase, *, teto=None, run_id=None, banco=None):
+    """A entrada operacional. → código de saída.
+
+    Não sabe o que é um Reel, um canal ou uma grade. Sabe traduzir uma fase num
+    pedido e entregá-lo ao executor.
+    """
+    import scrap_executor as scrap
+    if fase not in FASES_CANONICAS:
+        print('FASE_SEM_ROTA_CANONICA=%s' % fase)
+        print('  Esta fase não tem capacidade registada com rota. Ela NÃO corre')
+        print('  por aqui, e NÃO deve correr a implementação directamente.')
+        print('  As fases com rota canônica: %s'
+              % ', '.join(sorted(FASES_CANONICAS)))
+        return 2
+    plataforma, capacidade, fixos = FASES_CANONICAS[fase]
+    kw = dict(fixos)
+    if teto not in (None, '', '0'):
+        kw['teto'] = teto
+    # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
+    # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
+    # proveniência; declará-lo é o contrário disso.
+    corrida = run_id or ('SCRAP-%s-%s' % (fase, time.strftime('%Y%m%dT%H%M%SZ',
+                                                              time.gmtime())))
+    print('PEDIDO CANONICO')
+    print('  fase        %s' % fase)
+    print('  plataforma  %s' % plataforma)
+    print('  capacidade  %s' % capacidade)
+    print('  run_id      %s' % corrida)
+    objetos, trace = scrap.COLLECT(platform=plataforma, capability=capacidade,
+                                   run_id=corrida, banco=banco, **kw)
+    print('\nRESULTADO')
+    print('  objetos     %d' % len(objetos or []))
+    print('  resultado   %s' % trace.get('RESULT'))
+    print('  rota        %s' % (trace.get('ROTA_ESCOLHIDA') or trace.get('ROUTE') or '—'))
+    print('  executor    %s' % trace.get('EXECUTOR_ID'))
+    print('  run durável %s' % trace.get('RUN_STATE_PERSISTED', 'NOT_REQUESTED'))
+    estado = trace.get('RESULT')
+    if estado in ('ROUTE_NOT_ALLOWED', 'AUTOMATION_NOT_ALLOWED'):
+        print('\n  A POLÍTICA RECUSOU, E ISSO É UM RESULTADO — não um erro desta CLI.')
+        return 3
+    return 0 if objetos else 1
+
+
+#: As fases desta CLI que ADQUIREM e que NÃO atravessam `scrap_executor.COLLECT`.
+#:
+#: A C10.6D mediu o alcance de cada fase por CHAMADA — não por import, que já
+#: mentiu uma vez nesta casa. Das 16 fases, 3 chegam ao boundary e 13 não; de
+#: entre as 13, estas quatro adquirem, e as outras nove leem o que já está cá
+#: dentro ou imprimem política.
+#:
+#: E NÃO se converteram, de propósito. `youtube` existe para medir a API
+#: DIRETAMENTE, e `youtube-oficial` existe para medir a MESMA API pelo
+#: executor. O par é a medição: fazer as duas entrarem pela mesma porta apagava
+#: exactamente a pergunta que elas respondem —
+#:
+#:     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+#:
+#: O que se corrigiu foi o silêncio. Uma fase que salta o boundary passa a
+#: DIZÊ-LO na saída, para que ninguém a leia como porta de produção:
+#:
+#:     UM DESVIO DECLARADO É UMA MEDIÇÃO. UM DESVIO CALADO É UM BURACO.
+FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY = {
+    'youtube': 'mede a YouTube Data API DIRETO; o par canonico e `youtube-oficial`',
+    'youtube-piloto': 'piloto real sobre a mesma estrada direta',
+    'youtube-piloto-oneshot': 'o mesmo piloto, uma volta so',
+    'piloto': 'prova adversarial CONTRA o roteador, incluindo rotas que devem recusar',
+}
+
+
+def _avisar_se_salta_o_boundary(cmd):
+    """Diz, na saida, que esta fase nao atravessa a casa. → True se saltou."""
+    porque = FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY.get(cmd)
+    if not porque:
+        return False
+    print('DESVIO_DECLARADO=%s' % cmd)
+    print('  Esta fase ADQUIRE e NAO atravessa `scrap_executor.COLLECT`.')
+    print('  PORQUE: %s' % porque)
+    print('  Sem RUN duravel, sem rasto de etapa, sem checkpoint. E medicao,')
+    print('  nao e porta de producao — e esta linha existe para que ninguem a')
+    print('  confunda com uma.')
+    return True
+
+
 def main():
     args = sys.argv[1:]
     cmd = args[0] if args else 'censo'
+    _avisar_se_salta_o_boundary(cmd)
     if cmd == 'censo':
         mz.main()
     elif cmd == 'gap':
@@ -1219,6 +1357,13 @@ def main():
         return youtube_piloto(ONE_SHOT)
     elif cmd == 'authmodes':
         authmodes()
+    elif cmd == 'coletar':
+        # `coletar <fase> [teto]` — a entrada que os workflows usam.
+        if len(args) < 2:
+            print('uso: coletar <fase> [teto]')
+            return 2
+        return coletar(args[1], teto=args[2] if len(args) > 2 else None,
+                       banco=_banco_se_houver())
     elif cmd == 'guarda':
         import social_guarda
         sys.exit(social_guarda.main())
