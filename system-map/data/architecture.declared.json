@@ -1829,30 +1829,33 @@
     "ENGENHARIA"
    ],
    "files": [
-    "provas/auditoria_live.sh",
-    "provas/derived_artifact_no_postgres.py",
-    "provas/objeto_e_observacao_no_postgres.py",
-    "provas/preflight_022_live.sh",
-    "provas/preservar_coleta_no_postgres.py",
-    "provas/rastro_no_postgres.py",
-    "provas/run_duravel_no_postgres.py",
     "provas/_c106b_filho.py",
-    "provas/runtime_comum_no_postgres.py",
     "provas/_c106c_filho.py",
-    "provas/portas_canonicas_no_postgres.py",
-    "provas/runtime_pago_no_postgres.py",
-    "provas/ensaio_canonico_de_capacidade.py",
+    "provas/auditoria_live.sh",
     "provas/bluesky_trial_ao_vivo.py",
+    "provas/derived_artifact_no_postgres.py",
+    "provas/ensaio_canonico_de_capacidade.py",
+    "provas/mutacao_da_autorizacao.py",
+    "provas/nenhuma_compra_sem_autorizacao.py",
+    "provas/objeto_e_observacao_no_postgres.py",
     "provas/orcamento_de_rede.py",
     "provas/orcamento_financeiro.py",
+    "provas/paridade_da_lingua.py",
+    "provas/portas_canonicas_no_postgres.py",
+    "provas/preflight_022_live.sh",
+    "provas/preservar_coleta_no_postgres.py",
     "provas/primeira_rota_paga.py",
+    "provas/quem_pode_comprar.py",
+    "provas/rastro_no_postgres.py",
     "provas/raw_entre_jobs.py",
     "provas/readback_022_live.sh",
+    "provas/run_duravel_no_postgres.py",
+    "provas/runtime_comum_no_postgres.py",
+    "provas/runtime_pago_no_postgres.py",
     "provas/social_persistencia_no_postgres.py",
     "provas/testa_coleta_canonica.py",
     "provas/testa_golden_path_pdf.py",
-    "provas/trava_de_drift_de_migration.sh",
-    "provas/paridade_da_lingua.py"
+    "provas/trava_de_drift_de_migration.sh"
    ],
    "views": [
     "audit"
@@ -2170,6 +2173,25 @@
     "leis/falhas.py",
     "leis/fundacao_da_coleta.py",
     "leis/social_matriz.py"
+   ]
+  },
+  {
+   "id": "C-AUTORIZACAO-DE-GASTO",
+   "name": "A autorizacao de gasto · a guarda antes do POST pago",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⛋",
+   "what": "Responde a UMA pergunta: «alguem permitiu ESTA compra, e permitiu para ISTO?». Valida a autorizacao que RECEBE — nunca a calcula. Tres modos: NORMAL exige SOURCE_RELEVANCE = SIM para o mesmo par (fonte, proposito); PROBE e TRIAL exigem autorizacao humana com limites finitos de corridas, POSTs, dolares e itens. E o dono das tres palavras do eixo do MODO, porque o modo diz que prova e precisa trazer antes de comprar.",
+   "why_here": "Medido na SCRAP-SR-02: existia UMA primitiva capaz de criar execucao paga (`coleta/coletor.py::executar`, o POST) e QUATRO chamadores dela, tres dos quais saltavam o roteador. Havia teto de dinheiro, teto de rede, politica de rota e cap do lado do provider — e nenhum deles respondia a pergunta anterior a todas: ALGUEM AUTORIZOU? Um sistema que sabe exactamente quanto pode gastar sem saber se devia gastar gasta com precisao contabilistica em coisas que ninguem pediu. CREDENTIAL_PRESENT != SPEND_AUTHORIZED · ROUTE_ALLOWED != SPEND_AUTHORIZED · BUDGET_PRESENT != SPEND_AUTHORIZED · TOKEN_OWNER != SPEND_OWNER. E o que este cartao NAO e importa tanto quanto o que ele e: SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER. O dono da relevancia da fonte vive em `leis/relevancia_da_fonte.py`, noutra linhagem (SR-01); esta guarda nao le o LIVRO, nao classifica fonte, nao interpreta palavra-chave, nao decide SIM/NAO e nao fabrica SOURCE_ID. O GUARDA CONFERE O BILHETE; ELE NAO E O DONO DO ESPECTACULO. A guarda e chamada dentro da primitiva e nao num caminho, porque uma guarda que vive num caminho guarda um caminho; e o seu default e recusar — FAIL CLOSED, O SILENCIO NAO AUTORIZA.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/autorizacao_de_gasto.py"
+   ],
+   "views": [
+    "acervo",
+    "audit"
    ]
   },
   {
