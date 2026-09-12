@@ -1,0 +1,80 @@
+{
+ "ACTUAL_COST_USD": 0.0,
+ "AUTORIZACAO": "C10.8B-LIVE · autorização humana explícita · US$0,10 no total da missão · 1 provider run · 1 POST de criação",
+ "CANONICAL_FORWARD_PRESERVATION": "NO",
+ "CAPTURED_AT": "2026-09-12T16:25:36Z",
+ "COST_STATE": "READ_NOT_SETTLED",
+ "FINANCIAL_ATTEMPTS": [
+  {
+   "ACTOR": "pintostudio~youtube-transcript-scraper",
+   "ACTUAL_COST_USD": 0.0,
+   "COST_STATE": "READ_NOT_SETTLED",
+   "MISSAO": "C10-8B",
+   "OUTCOME": "CLOSED_WITH_READ_COST",
+   "PROVIDER": "APIFY",
+   "PROVIDER_SIDE_CAP": 0.1,
+   "ROUTE": "apify:transcricao"
+  }
+ ],
+ "FINANCIAL_BUDGET_ACTUAL_USD": 0.0,
+ "FINANCIAL_BUDGET_AUTHORIZED_USD": 0.1,
+ "FINANCIAL_BUDGET_COMMITTED_USD": 0.0,
+ "FINANCIAL_BUDGET_REMAINING_USD": 0.1,
+ "FINANCIAL_BUDGET_UNKNOWN_USD": 0.0,
+ "FINANCIAL_CALLS_REFUSED": 0,
+ "ITEMS": [
+  {
+   "CHARS": null,
+   "LANGUAGE": "UNKNOWN",
+   "NATIVE_ID": "EAkcA_2FDN8",
+   "SPECIES": "NOT_DECLARED_BY_PROVIDER",
+   "TEXT_HEAD": null,
+   "TIMESTAMPS": false,
+   "TRANSCRIPT_PRESENT": false,
+   "URL": "https://www.youtube.com/watch?v=EAkcA_2FDN8"
+  }
+ ],
+ "MISSION": "C10.8B-LIVE",
+ "MOTIVO_PAGO": "ROUTE_NOT_ALLOWED",
+ "NETWORK_ATTEMPTS": [
+  {
+   "COUNTED": true,
+   "OUTCOME": "OK",
+   "TARGET": "api.apify.com",
+   "TYPE": "ROUTE"
+  },
+  {
+   "COUNTED": true,
+   "OUTCOME": "OK",
+   "TARGET": "api.apify.com",
+   "TYPE": "ROUTE"
+  },
+  {
+   "COUNTED": true,
+   "OUTCOME": "OK",
+   "TARGET": "api.apify.com",
+   "TYPE": "ROUTE"
+  }
+ ],
+ "NETWORK_BUDGET_LIMIT": 5,
+ "NETWORK_REQUESTS_USED": 3,
+ "OBJETOS": 1,
+ "PAID_PROVIDER_USED": true,
+ "PROVIDER_RUN_ID": "SCRAP-yt-legenda-paga-20260912T162500Z",
+ "PROVIDER_STATUS": "SUCCEEDED",
+ "PROVIDER_USED": "APIFY",
+ "RESULT": "OK",
+ "ROUTE": "apify:transcricao",
+ "ROUTE_CLASS": "APIFY",
+ "RUN_ID": "SCRAP-yt-legenda-paga-20260912T162500Z",
+ "SCRAP_RAW_BYTES": 59743,
+ "SCRAP_RAW_CAPTURED_ON_RUNNER": "PRESERVED",
+ "SCRAP_RAW_READ_BACK": "YES",
+ "SCRAP_RAW_REFERENCE": "C:\\actions-runner-eame-2\\_work\\eame-sintonia\\eame-sintonia\\data\\samples\\raw-paid\\SCRAP-yt-legenda-paga-20260912T162500Z.raw.json.gz",
+ "SCRAP_RAW_RETURNED_TO_REPO": "NO",
+ "SCRAP_RAW_SHA256": "00e97ecb8d292da4857355c415b47d6e71ce9d9c11ac702e2067fbb83cab2a38",
+ "SCRAP_RAW_SHA256_READ_BACK": "00e97ecb8d292da4857355c415b47d6e71ce9d9c11ac702e2067fbb83cab2a38",
+ "SCRAP_RAW_WHY_NOT_RETURNED": ".gitignore ignora data/samples/**/*.gz — o bruto fica na máquina que colheu",
+ "SETTLED_COST_USD": "UNKNOWN",
+ "SOURCE_ID": "SCRAP-YOUTUBE/yt-legenda-paga"
+}

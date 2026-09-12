@@ -1224,6 +1224,39 @@ FASES_CANONICAS = {
     'janela':         ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'tudo'}),
     'janela-perfis':  ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'perfis'}),
     'janela-objetos': ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'objetos'}),
+    # ── A ÚNICA FASE PAGA DESTA CLI ──────────────────────────────────────────
+    # Ela é canônica como as outras: entra pelo `COLLECT` e por mais nada. O que
+    # a distingue vive em `FASES_PAGAS`, logo abaixo.
+    'yt-legenda-paga': ('YOUTUBE', 'youtube.native_caption',
+                        {'video_id': 'EAkcA_2FDN8'}),
+}
+
+#: O QUE TORNA UMA FASE PAGA, DECLARADO AQUI E NÃO NO WORKFLOW
+#: ------------------------------------------------------------
+#: O workflow diz um nome de fase. Tudo o resto — a autorização, o motivo, o
+#: teto de dinheiro e o teto de acessos — vive em Python versionado, que se lê
+#: num commit e não se muda num campo de formulário.
+#:
+#:     UM TETO QUE VIVE NO DISPARADOR É UM TETO QUE QUEM DISPARA ESCOLHE.
+#:
+#: A C10.8A-R já pagou por um teto que vivia fora do runtime. Um teto que vive
+#: no YAML do workflow é a mesma família: quem despacha escolheria o número.
+#:
+#: O `TETO_DE_REDE` não é um palpite: foi medido na C10.8B contra a API falsa —
+#: 1 POST de criação, até uma consulta de estado, 1 leitura do dataset e 2 do
+#: armazém de chave-valor.
+FASES_PAGAS = {
+    'yt-legenda-paga': {
+        'MODO': 'TRIAL',
+        'MOTIVO_PAGO': 'ROUTE_NOT_ALLOWED',
+        'TETO_DE_GASTO_USD': 0.10,
+        'TETO_DE_REDE': 5,
+        'AUTORIZACAO': ('C10.8B-LIVE · autorização humana explícita · US$0,10 no '
+                        'total da missão · 1 provider run · 1 POST de criação'),
+        'ALVO_PORQUE': ('sentinela do acervo: SENSOR-TR-B-3-p3, mesmo ator, '
+                        'transcrição histórica preservada em '
+                        'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),
+    },
 }
 
 
@@ -1241,6 +1274,194 @@ def _banco_se_houver():
         return None
     import coleta_checkpoint as ck
     return ck.Banco(dsn)
+
+
+#: Onde uma fase paga deixa o registo dela. O RAW em si fica onde o dono o
+#: escreveu; o que volta ao repositório é o RECORD.
+GAVETA_PAGA = os.path.join('data', 'samples', 'SCRAP-YOUTUBE')
+
+
+def _registar_fase_paga(fase, paga, corrida, objetos, trace):
+    """Grava o registo REDIGIDO da corrida paga. → o caminho, ou None.
+
+    POR QUE O RAW NÃO VOLTA, E POR QUE ISSO SE ESCREVE
+    ----------------------------------------------------
+    `coletor.executar` grava o bruto em `data/samples/raw-paid/*.raw.json.gz`, e
+    o `.gitignore` desta casa ignora `data/samples/**/*.gz`. Numa corrida de
+    runner, o bruto existe na máquina e NÃO volta ao repositório — e chamar a
+    isso «preservado» sem dizer onde seria a mesma confusão que a casa já
+    nomeou noutro sítio.
+
+        RAW CAPTURADO NO RUNNER != RAW DEVOLVIDO AO REPOSITÓRIO
+        != PRESERVAÇÃO FORWARD CANÔNICA.
+
+    Três estados, três campos. O SHA-256 viaja mesmo quando os bytes não
+    viajam: é ele que permite reconhecer os bytes se alguém os trouxer depois.
+    """
+    import hashlib
+    med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
+    caminho_raw = med.get('SCRAP_RAW_REFERENCE')
+    lido, bytes_lidos, sha_lido, forma = 'NO', None, None, None
+    # O manifesto guarda o caminho CANÔNICO. Quem sabe onde os bytes foram
+    # parar é o dono do bruto — e numa prova a seco a gaveta dele é outra.
+    # Reler pelo caminho escrito mediria a gaveta, e não os bytes.
+    if caminho_raw:
+        import coletor as _ct
+        caminho_raw = os.path.join(_ct.RAW_DIR, os.path.basename(caminho_raw))
+    if caminho_raw and os.path.exists(caminho_raw):
+        with open(caminho_raw, 'rb') as f:
+            bruto = f.read()
+        bytes_lidos = len(bruto)
+        import gzip as _gz
+        import json as _json
+        try:
+            itens = _json.loads(_gz.decompress(bruto).decode('utf-8'))
+            sha_lido = hashlib.sha256(_json.dumps(
+                itens, ensure_ascii=False, sort_keys=True).encode('utf-8')).hexdigest()
+            lido = 'YES'
+            # ── A FORMA DO BRUTO VIAJA MESMO QUE OS BYTES NÃO VIAGEM ──────
+            # A C10.8B-LIVE pagou por 59.743 bytes e o objeto veio sem
+            # transcrição. Para saber se o ator mudou de esquema ou se o vídeo
+            # deixou de ter legenda, era preciso reler os bytes — e eles já não
+            # existiam: `actions/checkout` limpa o que o `.gitignore` ignora.
+            #
+            #     RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB.
+            #
+            # A forma é barata, cabe no registo e responde à pergunta sem
+            # comprar outra vez.
+            forma = []
+            for it in (itens if isinstance(itens, list) else [itens])[:3]:
+                if not isinstance(it, dict):
+                    forma.append({'TIPO': type(it).__name__})
+                    continue
+                forma.append({k: {
+                    'TIPO': type(v).__name__,
+                    'TAMANHO': (len(v) if isinstance(v, (str, list, dict))
+                                else None),
+                    'VAZIO': (v is None or v == '' or v == [] or v == {}),
+                } for k, v in sorted(it.items())})
+        except Exception:                                         # noqa: BLE001
+            lido = 'UNREADABLE'
+    registo = {
+        'SOURCE_ID': 'SCRAP-YOUTUBE/%s' % fase,
+        'MISSION': 'C10.8B-LIVE',
+        'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+        'RUN_ID': corrida,
+        'AUTORIZACAO': paga['AUTORIZACAO'],
+        'RESULT': trace.get('RESULT'),
+        'ROUTE': trace.get('ROUTE'),
+        'ROUTE_CLASS': trace.get('ROUTE_CLASS'),
+        'PROVIDER_USED': trace.get('PROVIDER_USED'),
+        'PAID_PROVIDER_USED': trace.get('PAID_PROVIDER_USED'),
+        'MOTIVO_PAGO': (trace.get('ROUTER_RECORD') or {}).get('MOTIVO_PAGO'),
+        'PROVIDER_RUN_ID': med.get('PROVIDER_RUN_ID'),
+        'PROVIDER_STATUS': med.get('PROVIDER_STATUS'),
+        'OBJETOS': len(objetos or []),
+        'COST_STATE': trace.get('COST_STATE'),
+        'ACTUAL_COST_USD': trace.get('ACTUAL_COST_USD'),
+        'SETTLED_COST_USD': 'UNKNOWN',
+        'SCRAP_RAW_CAPTURED_ON_RUNNER': med.get('SCRAP_RAW_STATE') or 'NOT_RUN',
+        'SCRAP_RAW_REFERENCE': caminho_raw,
+        'SCRAP_RAW_SHA256': med.get('SCRAP_RAW_SHA256'),
+        'SCRAP_RAW_READ_BACK': lido,
+        'SCRAP_RAW_BYTES': bytes_lidos,
+        'SCRAP_RAW_SHA256_READ_BACK': sha_lido,
+        'SCRAP_RAW_ITEM_SHAPE': forma,
+        'SCRAP_RAW_RETURNED_TO_REPO': 'NO',
+        'SCRAP_RAW_WHY_NOT_RETURNED': ('.gitignore ignora data/samples/**/*.gz — '
+                                       'o bruto fica na máquina que colheu'),
+        'CANONICAL_FORWARD_PRESERVATION': 'NO',
+    }
+    for campo in ('FINANCIAL_BUDGET_AUTHORIZED_USD', 'FINANCIAL_BUDGET_COMMITTED_USD',
+                  'FINANCIAL_BUDGET_ACTUAL_USD', 'FINANCIAL_BUDGET_UNKNOWN_USD',
+                  'FINANCIAL_BUDGET_REMAINING_USD', 'FINANCIAL_CALLS_REFUSED',
+                  'NETWORK_BUDGET_LIMIT', 'NETWORK_REQUESTS_USED'):
+        registo[campo] = trace.get(campo)
+    registo['FINANCIAL_ATTEMPTS'] = trace.get('FINANCIAL_ATTEMPTS')
+    registo['NETWORK_ATTEMPTS'] = trace.get('NETWORK_ATTEMPTS')
+    registo['ITEMS'] = [{
+        'NATIVE_ID': o.get('NATIVE_ID'), 'URL': o.get('URL'),
+        'LANGUAGE': o.get('LANGUAGE'), 'CHARS': (o.get('RAW') or {}).get('CHARS'),
+        'SPECIES': (o.get('RAW') or {}).get('SPECIES'),
+        'TIMESTAMPS': (o.get('RAW') or {}).get('TIMESTAMPS'),
+        'TRANSCRIPT_PRESENT': (o.get('RAW') or {}).get('TRANSCRIPT_PRESENT'),
+        'TEXT_HEAD': (o.get('TEXT') or '')[:400] or None,
+    } for o in (objetos or [])]
+    os.makedirs(GAVETA_PAGA, exist_ok=True)
+    alvo = os.path.join(GAVETA_PAGA, '%s.json' % fase)
+    texto = json.dumps(registo, ensure_ascii=False, indent=1, sort_keys=True)
+    # Um registo de corrida paga NUNCA leva credencial. A trava é aqui, e não
+    # na esperança de que nada a tenha posto no rasto.
+    if 'apify_api_' in texto:
+        raise RuntimeError('o registo da fase paga levava credencial — abortado')
+    with open(alvo, 'w', encoding='utf-8') as f:
+        f.write(texto + '\n')
+    print('\n  REGISTO     %s' % alvo)
+    return alvo
+
+
+def bruto(run_id=None):
+    """Lê o BRUTO já pago e diz que FORMA ele tem. Zero rede, zero dólar.
+
+    POR QUE ISTO EXISTE, E POR QUE NÃO É UMA SEGUNDA COMPRA
+    --------------------------------------------------------
+    A corrida real da C10.8B-LIVE trouxe um objeto SEM transcrição nos campos
+    que o adaptador lê — `transcript` e `chars`. O bruto tem 59.743 bytes, o
+    que não é o tamanho de uma resposta vazia. Ou o ator mudou o esquema de
+    SAÍDA, ou o vídeo deixou de ter legenda: são duas conclusões diferentes e
+    só os bytes as separam.
+
+        UM OBJETO VAZIO NÃO DIZ SE A FONTE CALOU OU SE O CAMPO MUDOU DE NOME.
+
+    Estes bytes já foram pagos. Lê-los é o contrário de comprar outra vez — é
+    usar o que se comprou em vez de deitar fora e repetir.
+
+        RELER O QUE JÁ SE PAGOU NÃO É PAGAR OUTRA VEZ.
+
+    Esta função não importa o coletor, não abre socket e não conhece provider.
+    """
+    import gzip
+    gaveta = os.path.join('data', 'samples', 'raw-paid')
+    if not os.path.isdir(gaveta):
+        print('SEM_GAVETA=%s' % gaveta)
+        return 1
+    # O run_id vem do REGISTO da corrida, e não de «o último ficheiro da
+    # pasta». A gaveta guarda brutos de várias missões, e escolher pelo nome
+    # mais recente leria o bruto de outra corrida com a cara desta.
+    #
+    #     «O ÚLTIMO DA PASTA» NÃO É «O DESTA CORRIDA».
+    if run_id is None:
+        registo = os.path.join(GAVETA_PAGA, 'yt-legenda-paga.json')
+        if os.path.exists(registo):
+            with open(registo, encoding='utf-8') as f:
+                run_id = json.load(f).get('RUN_ID')
+            print('RUN_ID_DO_REGISTO=%s' % run_id)
+    nomes = sorted(n for n in os.listdir(gaveta) if n.endswith('.raw.json.gz')
+                   and (run_id is None or n.startswith(run_id)))
+    if not nomes:
+        print('SEM_BRUTO_DESTA_CORRIDA=%s · gaveta com %d ficheiro(s)'
+              % (run_id, len(os.listdir(gaveta))))
+        return 1
+    alvo = os.path.join(gaveta, nomes[-1])
+    with open(alvo, 'rb') as f:
+        comprimido = f.read()
+    itens = json.loads(gzip.decompress(comprimido).decode('utf-8'))
+    print('BRUTO         %s' % nomes[-1])
+    print('BYTES_GZ      %d' % len(comprimido))
+    print('ITENS         %d' % (len(itens) if isinstance(itens, list) else 1))
+    if isinstance(itens, list) and itens and isinstance(itens[0], dict):
+        it = itens[0]
+        print('CHAVES        %s' % sorted(it))
+        for k in sorted(it):
+            v = it[k]
+            forma = type(v).__name__
+            tam = len(v) if isinstance(v, (str, list, dict)) else ''
+            amostra = str(v)[:120].replace('\n', ' ')
+            print('  %-22s %-6s %-7s %s' % (k, forma, tam, amostra))
+    else:
+        print('FORMA         %s' % type(itens).__name__)
+        print('AMOSTRA       %s' % str(itens)[:300])
+    return 0
 
 
 def coletar(fase, *, teto=None, run_id=None, banco=None):
@@ -1261,6 +1482,18 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
     kw = dict(fixos)
     if teto not in (None, '', '0'):
         kw['teto'] = teto
+    # ── UMA FASE PAGA LEVA OS DOIS TETOS, E ELES VÊM DA TABELA ───────────────
+    # Nem desta função, nem do workflow, nem de uma variável de ambiente: da
+    # declaração versionada da fase. E quem RECUSA continua a ser o `CHECK`
+    # dentro do `COLLECT` — esta CLI imprime o estado, não decide por ele.
+    #
+    #     O PORTÃO É DE QUEM JÁ O TEM. IMPRIMIR NÃO É DECIDIR.
+    paga = FASES_PAGAS.get(fase)
+    if paga is not None:
+        kw.update({'modo': paga['MODO'], 'permitir_pago': True,
+                   'motivo_pago': paga['MOTIVO_PAGO'],
+                   'teto_de_gasto': paga['TETO_DE_GASTO_USD'],
+                   'teto_de_rede': paga['TETO_DE_REDE']})
     # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
     # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
     # proveniência; declará-lo é o contrário disso.
@@ -1271,6 +1504,20 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
     print('  plataforma  %s' % plataforma)
     print('  capacidade  %s' % capacidade)
     print('  run_id      %s' % corrida)
+    if paga is not None:
+        pronto = scrap.CHECK(plataforma, capacidade, modo=paga['MODO'])
+        print('\nESTADO ANTES DO GASTO')
+        print('  autorizacao        %s' % paga['AUTORIZACAO'])
+        print('  alvo               %s' % fixos)
+        print('  alvo porque        %s' % paga['ALVO_PORQUE'])
+        print('  motivo pago        %s' % paga['MOTIVO_PAGO'])
+        print('  teto de gasto USD  %s' % paga['TETO_DE_GASTO_USD'])
+        print('  teto de rede       %s' % paga['TETO_DE_REDE'])
+        print('  capability state   %s' % pronto.get('CAPABILITY_STATE'))
+        print('  CHECK.CAN          %s' % pronto.get('CAN'))
+        print('  CHECK.STATE        %s' % pronto.get('STATE'))
+        print('  READY_TO_SPEND     %s' % ('YES' if pronto.get('CAN') else 'NO'))
+        print('  (quem recusa e o CHECK, dentro do COLLECT — nao esta impressao)')
     objetos, trace = scrap.COLLECT(platform=plataforma, capability=capacidade,
                                    run_id=corrida, banco=banco, **kw)
     print('\nRESULTADO')
@@ -1279,6 +1526,28 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
     print('  rota        %s' % (trace.get('ROTA_ESCOLHIDA') or trace.get('ROUTE') or '—'))
     print('  executor    %s' % trace.get('EXECUTOR_ID'))
     print('  run durável %s' % trace.get('RUN_STATE_PERSISTED', 'NOT_REQUESTED'))
+    if paga is not None:
+        # O que uma fase paga TEM de publicar, mesmo quando nao gastou nada.
+        # Um relatorio que so fala de dinheiro quando houve dinheiro obriga
+        # quem le a deduzir o zero pela ausencia — e ausencia nao e valor.
+        print('\nDINHEIRO E REDE')
+        for campo in ('FINANCIAL_BUDGET_AUTHORIZED_USD',
+                      'FINANCIAL_BUDGET_COMMITTED_USD',
+                      'FINANCIAL_BUDGET_ACTUAL_USD',
+                      'FINANCIAL_BUDGET_UNKNOWN_USD',
+                      'FINANCIAL_BUDGET_REMAINING_USD',
+                      'FINANCIAL_CALLS_REFUSED', 'COST_STATE',
+                      'NETWORK_BUDGET_LIMIT', 'NETWORK_REQUESTS_USED'):
+            print('  %-34s %s' % (campo, trace.get(campo)))
+        for t in (trace.get('FINANCIAL_ATTEMPTS') or []):
+            print('  tentativa  %s' % {k: v for k, v in t.items()
+                                       if k != 'ROUTE'})
+        med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
+        for campo in ('PROVIDER_RUN_ID', 'PROVIDER_STATUS', 'SCRAP_RAW_REFERENCE',
+                      'SCRAP_RAW_STATE', 'SCRAP_RAW_SHA256'):
+            if campo in med:
+                print('  %-34s %s' % (campo, med[campo]))
+        _registar_fase_paga(fase, paga, corrida, objetos, trace)
     estado = trace.get('RESULT')
     if estado in ('ROUTE_NOT_ALLOWED', 'AUTOMATION_NOT_ALLOWED'):
         print('\n  A POLÍTICA RECUSOU, E ISSO É UM RESULTADO — não um erro desta CLI.')
@@ -1357,6 +1626,9 @@ def main():
         return youtube_piloto(ONE_SHOT)
     elif cmd == 'authmodes':
         authmodes()
+    elif cmd == 'bruto':
+        # Leitura de ficheiro local. Nao adquire, nao gasta e nao toca rede.
+        return bruto(args[1] if len(args) > 1 else None)
     elif cmd == 'coletar':
         # `coletar <fase> [teto]` — a entrada que os workflows usam.
         if len(args) < 2:

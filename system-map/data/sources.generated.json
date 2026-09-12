@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "62e5bf5622539696c06fe161de9d4144b4d0ebf3",
+    "HEAD": "3c417267c5b21d73b3748d9eb6c2064f7bc7ac9c",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3269,7 +3269,9 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "como_se_chama": "scripts/social_scrap.py censo",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "SOURCE_LOCATION"
@@ -4187,6 +4189,31 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/watch?v=%s'",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 382
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 447
+        },
+        {
+          "file": "provas/primeira_rota_paga.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_c10_8b_live_disparador.py",
+          "line": 248
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 36
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4208,27 +4235,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.youtube.com/watch?v=%s'",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_youtube.py",
-          "line": 382
-        },
-        {
-          "file": "coleta/youtube_oficial.py",
-          "line": 447
-        },
-        {
-          "file": "provas/primeira_rota_paga.py",
-          "line": 57
-        },
-        {
-          "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 36
         }
       ]
     },
@@ -4553,7 +4559,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 471
+          "line": 487
         }
       ]
     },
@@ -4566,7 +4572,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 342
+          "line": 358
         }
       ]
     },
@@ -4579,7 +4585,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 190
+          "line": 201
         }
       ]
     },
@@ -4679,7 +4685,7 @@
       "usado_por": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 401
+          "line": 423
         },
         {
           "file": "tests/test_c10_6e_runtime_pago.py",
@@ -4765,7 +4771,7 @@
     "endpoints": 40,
     "candidates": 0,
     "coletores": 47,
-    "coletores_com_data": 16,
+    "coletores_com_data": 17,
     "coletores_com_lugar": 30,
     "coletores_que_separam_fonte_do_fato": 20,
     "coletores_que_registam_descarte": 13,

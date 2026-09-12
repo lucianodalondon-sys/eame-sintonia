@@ -124,7 +124,18 @@ def auth_mode(rota):
 # alguém der uma autorização, enquanto o outro depende de terceiros.
 #
 #     «EU NÃO QUIS» E «NÃO ME DEIXAM» NÃO SE ESCREVEM COM A MESMA PALAVRA.
-ESTADOS = ('PROVED', 'POSSIBLE_NOT_PROVED', 'BLOCKED',
+# `PARTIAL` entrou na C10.8B-LIVE, e entrou DECLARADO. A rota `apify:transcricao`
+# correu de ponta a ponta pelo caminho canônico — executor, roteador, adaptador,
+# dono pago — com 1 POST, cap US$0,10 e `SUCCEEDED`, e o objeto voltou sem a
+# carga da capacidade. Nem `PROVED` (não entregou) nem `POSSIBLE_NOT_PROVED`
+# (já não é verdade que não se saiba se corre).
+#
+#     PROVIDER REACHED != CAPABILITY DELIVERED.
+#
+# A lista continua FECHADA, e continua a ser conferida por `test_c5`. Estender
+# um vocabulário fechado é uma decisão que se escreve; deixá-lo aberto para não
+# ter de a escrever é que seria o atalho.
+ESTADOS = ('PROVED', 'PARTIAL', 'POSSIBLE_NOT_PROVED', 'BLOCKED',
            'ROUTE_NOT_ALLOWED', 'REQUIRES_OWNER_PERMISSION', 'REQUIRES_AUTHORIZATION',
            'CREDENTIAL_MISSING', 'NOT_APPLICABLE', 'UNKNOWN')
 
@@ -244,9 +255,14 @@ MATRIZ = {
               'assinatura devolve corpo vazio.',
               'https://www.youtube.com/t/terms · https://www.youtube.com/robots.txt · '
               'https://developers.google.com/youtube/terms/developer-policies'),
-            r('apify:transcricao', 'APIFY', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED', 'por minuto',
+            r('apify:transcricao', 'APIFY', 'CONDICIONAL', 'PARTIAL', 'por minuto',
               'ÚNICA rota restante para legenda de canal de terceiro. Motivo canônico: '
-              'ROUTE_NOT_ALLOWED nas rotas livres.', None),
+              'ROUTE_NOT_ALLOWED nas rotas livres. PARTIAL e nao PROVED: a C10.8B-LIVE '
+              'correu-a de ponta a ponta pelo caminho canonico — executor, roteador, '
+              'adaptador, dono pago — com 1 POST, cap US$0,10 e status SUCCEEDED, e o '
+              'objeto voltou SEM transcricao nos campos que o adaptador le. '
+              'PROVIDER REACHED != CAPABILITY DELIVERED.',
+              'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),
         ],
     },
 
