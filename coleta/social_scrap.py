@@ -1378,6 +1378,70 @@ def _registar_fase_paga(fase, paga, corrida, objetos, trace):
     return alvo
 
 
+def bruto(run_id=None):
+    """Lê o BRUTO já pago e diz que FORMA ele tem. Zero rede, zero dólar.
+
+    POR QUE ISTO EXISTE, E POR QUE NÃO É UMA SEGUNDA COMPRA
+    --------------------------------------------------------
+    A corrida real da C10.8B-LIVE trouxe um objeto SEM transcrição nos campos
+    que o adaptador lê — `transcript` e `chars`. O bruto tem 59.743 bytes, o
+    que não é o tamanho de uma resposta vazia. Ou o ator mudou o esquema de
+    SAÍDA, ou o vídeo deixou de ter legenda: são duas conclusões diferentes e
+    só os bytes as separam.
+
+        UM OBJETO VAZIO NÃO DIZ SE A FONTE CALOU OU SE O CAMPO MUDOU DE NOME.
+
+    Estes bytes já foram pagos. Lê-los é o contrário de comprar outra vez — é
+    usar o que se comprou em vez de deitar fora e repetir.
+
+        RELER O QUE JÁ SE PAGOU NÃO É PAGAR OUTRA VEZ.
+
+    Esta função não importa o coletor, não abre socket e não conhece provider.
+    """
+    import gzip
+    gaveta = os.path.join('data', 'samples', 'raw-paid')
+    if not os.path.isdir(gaveta):
+        print('SEM_GAVETA=%s' % gaveta)
+        return 1
+    # O run_id vem do REGISTO da corrida, e não de «o último ficheiro da
+    # pasta». A gaveta guarda brutos de várias missões, e escolher pelo nome
+    # mais recente leria o bruto de outra corrida com a cara desta.
+    #
+    #     «O ÚLTIMO DA PASTA» NÃO É «O DESTA CORRIDA».
+    if run_id is None:
+        registo = os.path.join(GAVETA_PAGA, 'yt-legenda-paga.json')
+        if os.path.exists(registo):
+            with open(registo, encoding='utf-8') as f:
+                run_id = json.load(f).get('RUN_ID')
+            print('RUN_ID_DO_REGISTO=%s' % run_id)
+    nomes = sorted(n for n in os.listdir(gaveta) if n.endswith('.raw.json.gz')
+                   and (run_id is None or n.startswith(run_id)))
+    if not nomes:
+        print('SEM_BRUTO_DESTA_CORRIDA=%s · gaveta com %d ficheiro(s)'
+              % (run_id, len(os.listdir(gaveta))))
+        return 1
+    alvo = os.path.join(gaveta, nomes[-1])
+    with open(alvo, 'rb') as f:
+        comprimido = f.read()
+    itens = json.loads(gzip.decompress(comprimido).decode('utf-8'))
+    print('BRUTO         %s' % nomes[-1])
+    print('BYTES_GZ      %d' % len(comprimido))
+    print('ITENS         %d' % (len(itens) if isinstance(itens, list) else 1))
+    if isinstance(itens, list) and itens and isinstance(itens[0], dict):
+        it = itens[0]
+        print('CHAVES        %s' % sorted(it))
+        for k in sorted(it):
+            v = it[k]
+            forma = type(v).__name__
+            tam = len(v) if isinstance(v, (str, list, dict)) else ''
+            amostra = str(v)[:120].replace('\n', ' ')
+            print('  %-22s %-6s %-7s %s' % (k, forma, tam, amostra))
+    else:
+        print('FORMA         %s' % type(itens).__name__)
+        print('AMOSTRA       %s' % str(itens)[:300])
+    return 0
+
+
 def coletar(fase, *, teto=None, run_id=None, banco=None):
     """A entrada operacional. → código de saída.
 
@@ -1540,6 +1604,9 @@ def main():
         return youtube_piloto(ONE_SHOT)
     elif cmd == 'authmodes':
         authmodes()
+    elif cmd == 'bruto':
+        # Leitura de ficheiro local. Nao adquire, nao gasta e nao toca rede.
+        return bruto(args[1] if len(args) > 1 else None)
     elif cmd == 'coletar':
         # `coletar <fase> [teto]` — a entrada que os workflows usam.
         if len(args) < 2:

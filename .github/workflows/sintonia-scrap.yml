@@ -66,6 +66,9 @@ on:
           - semaforo       # a grade de cobertura
           - liquidar       # o custo REAL das fases pagas, depois
           - portao-pessoal # o portão de dado pessoal está aberto? por quê?
+          # Lê o BRUTO já pago e diz que forma ele tem. Nenhuma rede, nenhum
+          # provider, nenhum dólar — é `cat` sobre bytes que já são nossos.
+          - yt-legenda-bruto # que forma tem o bruto que a corrida paga trouxe
           # ── PAGAS ──────────────────────────────────────────────────
           - bio            # teste de fumaça de ~1 centavo
           - posts          # um run por conta
@@ -359,6 +362,8 @@ jobs:
             # faria o número passar e poria juízo temático dentro da coleta.
             #
             #     COLETAR != ADMITIR != JULGAR.
+            yt-legenda-bruto)
+              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py bruto ;;
             diario-fila)     PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py fila ;;
             diario-noticia)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_diario.py noticia ;;
             portao-pessoal)  PYTHONIOENCODING=utf-8 $PY coleta/instagram_pessoal.py estado ;;
