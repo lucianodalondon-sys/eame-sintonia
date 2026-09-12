@@ -8628,140 +8628,6 @@ gerador, versiona cada input e sabe dizer se ainda vale. E as três populações
 ```
     UM VIZINHO DA COLETA NÃO VIRA MEMBRO DA COLETA.
 
-# §89 · UMA ROTA OFICIAL QUE NINGUÉM MODELOU NÃO ESTÁ BLOQUEADA: ESTÁ POR OLHAR
-
-> **Fonte:** `docs/sintonia-scrap/META-DEEP-STUDY-V1.md`,
-> `META-ROUTE-MATRIX-V1.json`, `META-COMPETITOR-COVERAGE-V1.md`.
-> Medido em 2026-09-12 · `META_PLATFORM_PROBES = 0` · `APIFY_RUNS = 0` · `COST_USD = 0`.
-
-A `§83` escreveu que uma linha de código prova que algo *consegue*, não que algo
-*aconteceu*. Esta secção acrescenta o degrau anterior, e ele é mais barato de
-errar: **antes de perguntar se a casa consegue, alguém tem de ter perguntado se
-a rota existe.**
-
-O estudo varreu a família Meta inteira e encontrou a maior rota oficial,
-gratuita e permitida para observar concorrentes — a **Meta Ad Library** — sem
-uma única ocorrência no repositório. Não bloqueada. Não recusada. Não medida e
-reprovada. **Ausente.** O mesmo para o *Branded Content Search*.
-
-```
-    AUSENTE NÃO É UM ESTADO DE CAPACIDADE. É A FALTA DE UM.
-    E o vocabulário fechado não avisa: `social_matriz.CAPACIDADES` tem doze
-    palavras e nenhuma delas nomeia «anúncio». Uma rota que não tem nome não
-    pode ser declarada `BLOCKED` — nem sequer chega a ser perguntada.
-```
-
-## 89.1 · OFFICIAL-FIRST MUDA O PAPEL DA APIFY, E NÃO O PREÇO DELA
-
-**O QUE MUDOU.** Onde existe rota oficial e gratuita, a Apify deixa de ser
-candidata a motor e passa a ser cobertura de **buraco residual**.
-
-**POR QUÊ.** Sete actors de Ad Library vendem, entre US$ 0,55 e US$ 17,00 por
-mil, a leitura de uma fonte cuja API oficial custa zero e cobre a Itália. O que
-eles dão a mais é o criativo em pixels, arrancado da página de *snapshot* —
-rota que documentação nenhuma garante.
-
-**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 19 e Parte 28; `gap_apify()` medido no
-próprio repositório.
-
-**CONSEQUÊNCIA.** Comprar por item o que a rota oficial entrega de graça é pagar
-pela diferença entre não ter credencial e ter. O motivo canónico de gasto passa
-a ter de distinguir isso — e a casa já tem as duas palavras:
-`FREE_ROUTE_UNAVAILABLE` ≠ `AUTHORIZATION_BLOCK`.
-
-## 89.2 · JANELA CURTA TORNA O DELTA UMA NECESSIDADE DE PRESERVAÇÃO
-
-**O QUE MUDOU.** O delta deixa de ser optimização de custo e passa a ser a única
-forma de a casa ter histórico.
-
-**POR QUÊ.** A janela comercial da Ad Library na UE é de **um ano a contar da
-última impressão** — não de sete, que é a janela do corpus político. O que não
-for colhido enquanto está lá desaparece e não volta.
-
-**PROVA.** `META-DEEP-STUDY-V1.md` §5: `COMMERCIAL_EU_HISTORY = 1 ANO a contar
-da última impressão`, citado da documentação primária da Meta.
-
-**CONSEQUÊNCIA.**
-
-```
-    NÃO HÁ CATÁLOGO ANTIGO A RECUPERAR. Colheita rolante, nunca consulta
-    retrospectiva. E como a Meta não emite sinal de remoção, «sumiu do
-    resultado» tem quatro causas possíveis e só uma delas é «o anúncio parou».
-```
-
-## 89.3 · A CASA DECLAROU UM BURACO PAGO CITANDO O FICHEIRO QUE O DESMENTE
-
-**O QUE MUDOU.** `INSTAGRAM/FETCH_COMMENTS` era a única linha da Meta a dizer
-«APIFY NECESSÁRIA», com o motivo `FREE_ROUTE_INSUFFICIENT_CAPABILITY` — «a rota
-grátis dá o NÚMERO, nunca o TEXTO».
-
-**POR QUÊ ESTAVA ERRADO.** O ficheiro citado como evidência mede o contrário.
-`coleta/instagram_janela.py` regista, em comentário de código: *«MEDIDO em 7
-posts das 5 contas do lote, deslogado: 18 de 31 comentários declarados saíram
-COM TEXTO — 58%.»*
-
-**PROVA.** O código, e o RAW pago em `ES-T8-003-instagram-hashtags.raw.json.gz`:
-`commentsCount` soma 31 e `latestComments` traz **zero** comentários em 60 de 60
-itens — a rota paga entregou a contagem e não o texto.
-
-**CONSEQUÊNCIA, E ELA TEM DUAS METADES QUE NÃO SE ANULAM.**
-
-```
-    COMMENT_COUNT != COMMENT_TEXT — continua verdade.
-    E 18/31 TAMBÉM NÃO É 31/31.
-```
-
-Uma medição parcial não promove a rota grátis a suficiente, e não autoriza
-declarar a paga necessária universalmente. O estado honesto é **parcial**, e o
-motivo do gasto muda de «a rota grátis não sabe» para «a rota grátis não é
-permitida» — que é uma frase sobre autorização, não sobre capacidade.
-
-## 89.4 · `AUDIO_ONLY` É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA
-
-**O QUE MUDOU.** A `C10` provou aquisição só-áudio num Reel: `-f bestaudio`
-seleccionou uma representação DASH de áudio, `VIDEO_BYTES_DOWNLOADED = 0`. Essa
-prova **continua de pé** e não é rebaixada aqui.
-
-**POR QUÊ PRECISA DE CERCA.** Evidência pública de terceiros mostra itens do
-mesmo Instagram cuja tabela de formatos não tem **nenhuma** linha `audio only` —
-só DASH de vídeo e MP4 muxado. Nesses, extrair áudio é *demux local*, não
-poupança de rede.
-
-**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 13, com os dois sentidos medidos.
-
-**CONSEQUÊNCIA.**
-
-```
-    A ÚNICA PROVA FIÁVEL É A TABELA DE FORMATOS DAQUELE ITEM.
-    UM REEL NÃO É UM LOTE. Orçar banda com «Reel = ~200 KB de áudio» é
-    generalizar uma medição de um caso para uma plataforma inteira.
-```
-
-## 89.5 · A LIÇÃO TRANSVERSAL: DINHEIRO E CREDENCIAL SÃO EIXOS DIFERENTES
-
-Sete das nove observações que um concorrente completo exigiria custam **zero
-dólares**. As sete estão fechadas — por App Review, verificação de negócio ou
-confirmação de identidade.
-
-```
-    USD_COST = 0  NÃO SIGNIFICA  EXECUTÁVEL AGORA.
-    Uma rota que custa zero e exige aprovação que a casa não tem é tão
-    inalcançável hoje quanto uma que custasse mil — e mais perigosa, porque
-    o número zero convida a chamar-lhe «grátis» e a dá-la por pronta.
-```
-
-## 89.6 · O QUE ESTA SECÇÃO NÃO AFIRMA
-
-Nenhuma rota Meta foi executada. Nenhuma foi promovida a `PROVED`. Nenhuma
-política mudou por causa deste estudo. O que ele entrega é o mapa — e a
-distinção entre não conseguir e não ter olhado.
-
-```
-    CAN DO ≠ MAY DO ≠ DID DO ≠ EVER ASKED.
-```
-
----
-
 # §89 · UMA TRADUÇÃO E UMA COMPRA DECIDEM AUTORIZAÇÃO, E NENHUMA DAS DUAS PARECE UMA DECISÃO
 
 **Missão:** `LINKEDIN-BUILD-01` + `LINKEDIN-POLICY-01`
@@ -9183,3 +9049,323 @@ Fica por saber se alguém vai precisar do histórico **por item** — quais
 observações foram reaproveitadas em qual passagem. Hoje não há necessidade
 provada, e por isso não se constrói. Se aparecer, o sítio já está escolhido: é
 ao lado da passagem, e não dentro da aresta.
+
+
+# §91 · UMA ROTA OFICIAL QUE NINGUÉM MODELOU NÃO ESTÁ BLOQUEADA: ESTÁ POR OLHAR
+
+> **Fonte:** `docs/sintonia-scrap/META-DEEP-STUDY-V1.md`,
+> `META-ROUTE-MATRIX-V1.json`, `META-COMPETITOR-COVERAGE-V1.md`.
+> Medido em 2026-09-12 · `META_PLATFORM_PROBES = 0` · `APIFY_RUNS = 0` · `COST_USD = 0`.
+
+A `§83` escreveu que uma linha de código prova que algo *consegue*, não que algo
+*aconteceu*. Esta secção acrescenta o degrau anterior, e ele é mais barato de
+errar: **antes de perguntar se a casa consegue, alguém tem de ter perguntado se
+a rota existe.**
+
+O estudo varreu a família Meta inteira e encontrou a maior rota oficial,
+gratuita e permitida para observar concorrentes — a **Meta Ad Library** — sem
+uma única ocorrência no repositório. Não bloqueada. Não recusada. Não medida e
+reprovada. **Ausente.** O mesmo para o *Branded Content Search*.
+
+```
+    AUSENTE NÃO É UM ESTADO DE CAPACIDADE. É A FALTA DE UM.
+    E o vocabulário fechado não avisa: `social_matriz.CAPACIDADES` tem doze
+    palavras e nenhuma delas nomeia «anúncio». Uma rota que não tem nome não
+    pode ser declarada `BLOCKED` — nem sequer chega a ser perguntada.
+```
+
+## 91.1 · OFFICIAL-FIRST MUDA O PAPEL DA APIFY, E NÃO O PREÇO DELA
+
+**O QUE MUDOU.** Onde existe rota oficial e gratuita, a Apify deixa de ser
+candidata a motor e passa a ser cobertura de **buraco residual**.
+
+**POR QUÊ.** Sete actors de Ad Library vendem, entre US$ 0,55 e US$ 17,00 por
+mil, a leitura de uma fonte cuja API oficial custa zero e cobre a Itália. O que
+eles dão a mais é o criativo em pixels, arrancado da página de *snapshot* —
+rota que documentação nenhuma garante.
+
+**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 19 e Parte 28; `gap_apify()` medido no
+próprio repositório.
+
+**CONSEQUÊNCIA.** Comprar por item o que a rota oficial entrega de graça é pagar
+pela diferença entre não ter credencial e ter. O motivo canónico de gasto passa
+a ter de distinguir isso — e a casa já tem as duas palavras:
+`FREE_ROUTE_UNAVAILABLE` ≠ `AUTHORIZATION_BLOCK`.
+
+## 91.2 · JANELA CURTA TORNA O DELTA UMA NECESSIDADE DE PRESERVAÇÃO
+
+**O QUE MUDOU.** O delta deixa de ser optimização de custo e passa a ser a única
+forma de a casa ter histórico.
+
+**POR QUÊ.** A janela comercial da Ad Library na UE é de **um ano a contar da
+última impressão** — não de sete, que é a janela do corpus político. O que não
+for colhido enquanto está lá desaparece e não volta.
+
+**PROVA.** `META-DEEP-STUDY-V1.md` §5: `COMMERCIAL_EU_HISTORY = 1 ANO a contar
+da última impressão`, citado da documentação primária da Meta.
+
+**CONSEQUÊNCIA.**
+
+```
+    NÃO HÁ CATÁLOGO ANTIGO A RECUPERAR. Colheita rolante, nunca consulta
+    retrospectiva. E como a Meta não emite sinal de remoção, «sumiu do
+    resultado» tem quatro causas possíveis e só uma delas é «o anúncio parou».
+```
+
+## 91.3 · A CASA DECLAROU UM BURACO PAGO CITANDO O FICHEIRO QUE O DESMENTE
+
+**O QUE MUDOU.** `INSTAGRAM/FETCH_COMMENTS` era a única linha da Meta a dizer
+«APIFY NECESSÁRIA», com o motivo `FREE_ROUTE_INSUFFICIENT_CAPABILITY` — «a rota
+grátis dá o NÚMERO, nunca o TEXTO».
+
+**POR QUÊ ESTAVA ERRADO.** O ficheiro citado como evidência mede o contrário.
+`coleta/instagram_janela.py` regista, em comentário de código: *«MEDIDO em 7
+posts das 5 contas do lote, deslogado: 18 de 31 comentários declarados saíram
+COM TEXTO — 58%.»*
+
+**PROVA.** O código, e o RAW pago em `ES-T8-003-instagram-hashtags.raw.json.gz`:
+`commentsCount` soma 31 e `latestComments` traz **zero** comentários em 60 de 60
+itens — a rota paga entregou a contagem e não o texto.
+
+**CONSEQUÊNCIA, E ELA TEM DUAS METADES QUE NÃO SE ANULAM.**
+
+```
+    COMMENT_COUNT != COMMENT_TEXT — continua verdade.
+    E 18/31 TAMBÉM NÃO É 31/31.
+```
+
+Uma medição parcial não promove a rota grátis a suficiente, e não autoriza
+declarar a paga necessária universalmente. O estado honesto é **parcial**, e o
+motivo do gasto muda de «a rota grátis não sabe» para «a rota grátis não é
+permitida» — que é uma frase sobre autorização, não sobre capacidade.
+
+## 91.4 · `AUDIO_ONLY` É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA
+
+**O QUE MUDOU.** A `C10` provou aquisição só-áudio num Reel: `-f bestaudio`
+seleccionou uma representação DASH de áudio, `VIDEO_BYTES_DOWNLOADED = 0`. Essa
+prova **continua de pé** e não é rebaixada aqui.
+
+**POR QUÊ PRECISA DE CERCA.** Evidência pública de terceiros mostra itens do
+mesmo Instagram cuja tabela de formatos não tem **nenhuma** linha `audio only` —
+só DASH de vídeo e MP4 muxado. Nesses, extrair áudio é *demux local*, não
+poupança de rede.
+
+**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 13, com os dois sentidos medidos.
+
+**CONSEQUÊNCIA.**
+
+```
+    A ÚNICA PROVA FIÁVEL É A TABELA DE FORMATOS DAQUELE ITEM.
+    UM REEL NÃO É UM LOTE. Orçar banda com «Reel = ~200 KB de áudio» é
+    generalizar uma medição de um caso para uma plataforma inteira.
+```
+
+## 91.5 · A LIÇÃO TRANSVERSAL: DINHEIRO E CREDENCIAL SÃO EIXOS DIFERENTES
+
+Sete das nove observações que um concorrente completo exigiria custam **zero
+dólares**. As sete estão fechadas — por App Review, verificação de negócio ou
+confirmação de identidade.
+
+```
+    USD_COST = 0  NÃO SIGNIFICA  EXECUTÁVEL AGORA.
+    Uma rota que custa zero e exige aprovação que a casa não tem é tão
+    inalcançável hoje quanto uma que custasse mil — e mais perigosa, porque
+    o número zero convida a chamar-lhe «grátis» e a dá-la por pronta.
+```
+
+## 91.6 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Nenhuma rota Meta foi executada. Nenhuma foi promovida a `PROVED`. Nenhuma
+política mudou por causa deste estudo. O que ele entrega é o mapa — e a
+distinção entre não conseguir e não ter olhado.
+
+```
+    CAN DO ≠ MAY DO ≠ DID DO ≠ EVER ASKED.
+```
+
+---
+
+---
+
+# §92 · UMA PORTA ÚNICA É A MELHOR NOTÍCIA QUE UMA TRAVA PODE RECEBER
+
+**Missão:** `SCRAP-SR-02` · **Linha:** `claude/wonderful-hamilton-m50ahv`
+**Tocado:** `leis/autorizacao_de_gasto.py` (novo) · `coleta/coletor.py` ·
+`coleta/social_scrap.py` · `coleta/adaptador_youtube.py`
+**Medido:** `APIFY_REAL_RUNS = 0` · `META_REAL_REQUESTS = 0` · `COST_USD = 0`
+
+A `§89` escreveu que uma tradução e uma compra podem conceder autorização sem
+parecerem decisões. Esta secção vem do lado oposto: o que acontece quando se
+procura **onde** a autorização deveria ser exigida, e se descobre que o sítio é
+um só.
+
+## 92.1 · O CENSO DEU UM NÚMERO MELHOR DO QUE O ESPERADO, E ISSO MUDA A ESTRATÉGIA
+
+Varridas todas as formas de iniciar execução paga — `urlopen`, `requests`,
+`curl` por subprocess, `http.client`, `aiohttp`, `httpx`, SDK, workflows:
+
+```
+PRIMITIVA QUE CRIA COMPRA = UMA
+coleta/coletor.py:executar → _curl(POST /acts/{actor}/runs)
+```
+
+Sete módulos de produção chamavam-na. Vários outros ficheiros falam com a Apify
+— e **nenhum deles compra**: fazem `GET`.
+
+```
+    UMA PORTA ÚNICA É A MELHOR NOTÍCIA POSSÍVEL PARA QUEM VAI PÔR UMA TRAVA.
+    Copiar a lei para os sete chamadores daria SETE LEIS, e a oitava porta
+    nasceria sem nenhuma.
+```
+
+O reflexo errado é distribuir a guarda por todos os caminhos que *parecem*
+gastar. O certo é medir **onde o dinheiro nasce** — normalmente um sítio — e pôr
+a trava lá. A diferença é entre uma lei e um enxame de cópias que divergem.
+
+## 92.2 · TER A CHAVE NÃO É TER LICENÇA
+
+Medido: `ferramentas/apify_pool.py` é dono do token, do pool, da rotação e da
+redação. **Cria zero compras.**
+
+```
+    TOKEN_OWNER != SPEND_OWNER.
+```
+
+A confusão é natural e cara: quem guarda a chave parece o dono da porta. Mas a
+chave abre; quem decide se se entra é outro. Um sistema que peça autorização a
+quem guarda o token pede-a a quem não a pode dar — e recebe sempre sim, porque
+a chave está sempre lá.
+
+E o mesmo vale por cima: **ter orçamento não é estar autorizado a gastar.**
+
+```
+    BUDGET_PRESENT != SPEND_AUTHORIZED.
+    ROUTE_ALLOWED  != SPEND_AUTHORIZED.
+```
+
+## 92.3 · QUEM GUARDA O GASTO NÃO PODE SER QUEM JULGA A FONTE
+
+A tentação, ao escrever a trava, é ela própria ler o livro e decidir. Seria
+menos código e teria feito do SCRAP um juiz de fontes.
+
+```
+    SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER.
+```
+
+A guarda pergunta ao dono — `leis/relevancia_da_fonte.py` — e **obedece**. Não
+reescreveu `portao()`, não reescreveu os cinco resultados, não reescreveu
+`conferir_source_id`. Um segundo contrato teria divergido do primeiro na
+primeira correcção que só um deles recebesse.
+
+E as recusas não se colapsam:
+
+```
+    SEM_AUTORIZAÇÃO           falta nossa
+    BARRADO_PELA_RELEVÂNCIA   decisão sobre o mundo
+    EXIGE_AVALIAÇÃO           confissão: ninguém olhou
+```
+
+Um relatório que junte os três diz que a fonte é má quando o que houve foi
+esquecimento.
+
+## 92.4 · TRÊS PROPÓSITOS, E A PORTA DE UM NÃO ABRE A DO OUTRO
+
+```
+    NORMAL_COLLECTION != SOURCE_EVALUATION_PROBE != CAPABILITY_TRIAL
+```
+
+Os três gastam. Os três precisam de autorização. Mas de autorizações
+**diferentes**, e é por isso que são três:
+
+- a colheita normal precisa do veredito do dono da relevância;
+- o probe existe **precisamente para o caso em que esse veredito ainda não
+  existe** — logo não o pode exigir. O que exige em troca é mão humana e tectos;
+- o ensaio não é sobre a fonte de todo: é sobre a máquina.
+
+A porta que não pode abrir é a terceira para a primeira. Um pedido de colheita
+que se declare `CAPABILITY_TRIAL` para fugir à relevância é a forma mais barata
+de contornar tudo — e por isso a recusa tem nome próprio: **se a execução nomeia
+a fonte, não é ensaio.**
+
+E o probe mede, mas não carimba:
+
+```
+    PROBE != DECISION. Quem mede não escreve no livro.
+```
+
+## 92.5 · UM TECTO PELA METADE É UM TECTO QUE NÃO EXISTE
+
+Probe e ensaio exigem **quatro** tectos mais condição de paragem mais mão
+humana. Faltar **um** chega para recusar.
+
+A razão é aritmética: um limite de execuções sem limite de dólares não limita
+dólares. Aceitar três dos quatro seria deixar aberta exactamente a dimensão que
+ninguém declarou — e será sempre a que sangra.
+
+E `MAX_USD = 0` não é um tecto generoso: é uma proibição escrita com o
+vocabulário de um limite. A guarda recusa-o como recusa a ausência.
+
+## 92.6 · A ORDEM É CONTRATO, E RESERVAR JÁ É DISPOR
+
+A guarda corre **antes** da reserva financeira. Não por elegância:
+
+```
+    RESERVAR DINHEIRO QUE NÃO SE ESTÁ AUTORIZADO A GASTAR JÁ É DISPOR DELE.
+    O saldo fica comprometido, e o próximo pedido legítimo encontra menos do
+    que havia.
+```
+
+```
+    UMA RECUSA DE GASTO NÃO PRECISA DE ORÇAMENTO PARA ACONTECER.
+```
+
+É o irmão da lei que a missão anterior pagou para aprender — *não se bate à
+porta de quem não se tem chave*. As duas dizem a mesma coisa sobre ordem: **um
+portão que corre tarde consome o recurso que existia para proteger.**
+
+## 92.7 · TRADUZIR UMA DECLARAÇÃO NÃO É FABRICAR UMA
+
+A CLI paga precisava de uma autorização. Havia duas formas de lha dar, e só uma
+é honesta.
+
+A tabela `FASES_PAGAS` já existia: versionada, revista, commitada, com a
+autorização humana escrita ao lado dos tectos. A CLI **traduz** essa declaração
+para o contrato que a guarda lê.
+
+```
+    TRADUZIR UMA DECLARAÇÃO EXISTENTE NÃO É FABRICAR UMA.
+    Fabricar seria escrever a autorização no momento do gasto, a partir do
+    próprio pedido — e aí quem gasta assinaria por si.
+```
+
+O mesmo princípio governa o adaptador: ele **passa** a autorização e não a
+constrói.
+
+```
+    QUEM GASTA NÃO ASSINA A PRÓPRIA AUTORIZAÇÃO.
+```
+
+## 92.8 · TRÊS PROVAS QUEBRARAM, E NENHUMA FOI ENFRAQUECIDA
+
+`C10.8A-F`, `C10.8B` e `C10.8B-LIVE` passaram a falhar no momento em que a
+trava entrou — porque compravam sem autorização, que era exactamente o defeito.
+
+A saída fácil era afrouxar a trava para elas. A saída certa foi reconhecer o que
+elas são — **ensaios de capacidade**, com actor falso, alvo fixo e transporte
+falso — e dar-lhes a autorização que a lei desenhou para esse caso.
+
+```
+    UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR É UMA PROVA DO DEFEITO.
+```
+
+## 92.9 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+O dinheiro ficou protegido. Isso **não** quer dizer que o fluxo canónico esteja
+fechado: continuam a existir caminhos antigos que não passam pelo orquestrador.
+
+```
+    SPEND_ENFORCEMENT = PASS   não é   CANONICAL_ORCHESTRATION = PASS.
+```
+
+Declarar o segundo porque se conseguiu o primeiro seria trocar a pergunta pela
+que já tem resposta.
