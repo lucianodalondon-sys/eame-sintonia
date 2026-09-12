@@ -1,6 +1,6 @@
 {
-  "RUN_A": "IT-T2-2026-09-12-180544",
-  "RUN_B": "IT-T2-2026-09-12-180551",
+  "RUN_A": "IT-T2-2026-09-12-183613",
+  "RUN_B": "IT-T2-2026-09-12-183622",
   "RAW_A": [
     1,
     2,
@@ -35,11 +35,66 @@
   "DURABLE_EDGE_A_TO_X": "YES",
   "DURABLE_EDGE_B_TO_X": "NO",
   "DERIVED_REUSE_LINEAGE": "GAP_CONFIRMED",
-  "ARESTAS_MATERIAIS_DISTINTAS": 1,
-  "EVENTOS_DE_EXECUCAO_DERIVED": 6,
-  "ARESTA_TOCADA_POR_VARIAS_PASSAGENS": [
-    "1->3"
+  "CASOS": [
+    {
+      "CASE_ID": "CASE_1",
+      "RUN_ID": "IT-T2-2026-09-12-183613",
+      "RAW_ASSET_ID": 1,
+      "DERIVED_ARTIFACT_ID": 3,
+      "MATERIAL_EDGE": "1->3",
+      "MATERIAL_EDGE_NEW": "YES",
+      "STAGE_PASSAGE_TENTATIVA": 0,
+      "ITEM_RESULT": "PASSED",
+      "PERSISTED_WHERE": "derived_artifact.raw_asset_id (testemunha)"
+    },
+    {
+      "CASE_ID": "CASE_2",
+      "RUN_ID": "IT-T2-2026-09-12-183613",
+      "RAW_ASSET_ID": 1,
+      "DERIVED_ARTIFACT_ID": 3,
+      "MATERIAL_EDGE": "1->3",
+      "MATERIAL_EDGE_NEW": "NO",
+      "STAGE_PASSAGE_TENTATIVA": 1,
+      "ITEM_RESULT": "REUSED",
+      "PERSISTED_WHERE": "em lado nenhum"
+    },
+    {
+      "CASE_ID": "CASE_3",
+      "RUN_ID": "IT-T2-2026-09-12-183622",
+      "RAW_ASSET_ID": 5,
+      "DERIVED_ARTIFACT_ID": 3,
+      "MATERIAL_EDGE": "5->3",
+      "MATERIAL_EDGE_NEW": "YES",
+      "STAGE_PASSAGE_TENTATIVA": 2,
+      "ITEM_RESULT": "REUSED",
+      "PERSISTED_WHERE": "em lado nenhum"
+    },
+    {
+      "CASE_ID": "CASE_4",
+      "RUN_ID": "IT-T2-2026-09-12-183622",
+      "RAW_ASSET_ID": 1,
+      "DERIVED_ARTIFACT_ID": 3,
+      "MATERIAL_EDGE": "1->3",
+      "MATERIAL_EDGE_NEW": "NO",
+      "STAGE_PASSAGE_TENTATIVA": 3,
+      "ITEM_RESULT": "REUSED",
+      "PERSISTED_WHERE": "em lado nenhum"
+    }
   ],
+  "MATERIAL_EDGES_ALL_FOUR_CASES": 2,
+  "PASSAGES_TOUCHING_ORIGINAL_EDGE": 3,
+  "DERIVED_STAGE_PASSAGES_TOTAL_IN_SCENARIO": 6,
+  "O_QUE_O_TERCEIRO_INCLUI": "todas as passagens DERIVED das duas corridas — as da rota, a do diagnostico misto e as dos casos 2, 3 e 4. NAO se compara com os outros dois: mede outra populacao.",
+  "P1_MESMA_ARESTA_VARIAS_PASSAGENS": true,
+  "P2_NOVA_ARESTA_SEM_NOVO_DERIVADO": true,
+  "ARESTA_ORIGINAL": "1->3",
+  "ARESTA_IRMA": "5->3",
   "O_RESULTADO_MUDA_SEM_A_ARESTA_MUDAR": "YES",
+  "RESULTADOS_DA_ARESTA_ORIGINAL": [
+    "PASSED",
+    "REUSED",
+    "REUSED"
+  ],
+  "ITEM_EXECUTION_RESULT_PERSISTENCE": "NOT_IMPLEMENTED",
   "A_CORRIDA_QUE_DERIVA_PODE_NAO_SER_A_QUE_CAPTUROU": "YES"
 }

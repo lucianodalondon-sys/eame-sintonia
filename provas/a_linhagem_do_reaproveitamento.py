@@ -328,106 +328,196 @@ def main():
          "guarda/preservar_derivado.py devolve os dois lados no REUSED — e nao "
          "escreve nenhum")
 
-    # ═══════════════════════════════════════════════════════════════════
-    # OS QUATRO CASOS — e a pergunta que os separa
-    # ═══════════════════════════════════════════════════════════════════
-    # ⚠️ CADA CASO RESPONDE DUAS PERGUNTAS, E ELAS NAO SAO A MESMA:
+    # ══════════════════════════════════════════════════════════════════
+    # OS QUATRO CASOS, UM A UM — e cada contador com o seu universo dito
+    # ══════════════════════════════════════════════════════════════════
+    # ⚠️ A PRIMEIRA VERSAO DISTO COMPAROU DOIS CONJUNTOS DIFERENTES.
     #
-    #     L · LINHAGEM   esta observacao participou deste derivado?
-    #     E · EXECUCAO   em que passagem isso aconteceu?
+    # De um lado somava as arestas dos casos 1, 2 e 4 — e DEIXAVA DE FORA o
+    # caso 3, que e justamente o que cria a segunda aresta. Do outro somava
+    # TODAS as passagens DERIVED das duas corridas, incluindo as do arranque e
+    # a do diagnostico misto. Saiu «1 contra 6», e os dois numeros nao contavam
+    # a mesma populacao.
     #
-    # Se as duas contagens andarem SEMPRE juntas, sao um conceito so e uma
-    # tabela chega. Se divergirem em algum caso, sao dois — e nesse caso
-    # meter as duas na mesma linha faz uma delas mentir.
+    #     DOIS NUMEROS SO SE COMPARAM SE MEDIREM O MESMO CONJUNTO.
+    #     UM RACIOCINIO CERTO APOIADO NUM NUMERO ERRADO
+    #     E UM RACIOCINIO POR CONFIRMAR.
     #
-    #     ONE CONCEPT -> ONE OWNER.
+    # A conclusao continuou a valer — mas por outra prova, e nao por aquela.
+    # Agora cada contador diz de onde vem, e a separacao dos conceitos sai de
+    # DUAS propriedades, medidas cada uma no seu proprio universo:
+    #
+    #     P1  a MESMA aresta e tocada por MAIS DE UMA passagem
+    #     P2  uma NOVA observacao dos mesmos bytes cria uma NOVA aresta
+    #         SEM criar um novo `derived_artifact`
+    from collections import OrderedDict
     from guarda.preservar_coleta import ArmazemLocal as _AL
     caminho_de = lambda rid: os.path.join(RAIZ, sql.executa(
         "select o.storage_path from public.storage_object o"
         " join public.raw_asset r on r.storage_object_id = o.id"
         " where r.id = %s" % rid)[0][0])
 
-    def pares_do_recibo(r):
-        """As arestas (observacao, derivado) que ESTA passagem tocou."""
-        fora_ = set()
+    def aresta_do_recibo(r):
+        """A UNICA aresta (observacao, derivado) que esta passagem tocou."""
         for x in (r.get("RESULTADOS") or []):
             linha = x.get("LINHA") or {}
             if linha.get("id"):
-                fora_.add((int(x["RAW_ASSET_ID"]), int(linha["id"])))
-        return fora_
+                return (int(x["RAW_ASSET_ID"]), int(linha["id"]))
+        return None
 
-    def eventos(run):
+    def ultima_tentativa(run):
+        """A tentativa da linha DERIVED que a chamada acabou de escrever."""
+        linhas = sql.executa(
+            "select tentativa from public.etapa_da_corrida"
+            " where run_id = '%s' and etapa = 'DERIVED'"
+            " order by tentativa desc limit 1" % run)
+        return int(linhas[0][0]) if linhas else None
+
+    def passagens_derived(run):
         return len(sql.executa(
-            "select 1 from public.etapa_da_corrida where run_id = '%s'"
-            " and etapa = 'DERIVED'" % run))
+            "select 1 from public.etapa_da_corrida"
+            " where run_id = '%s' and etapa = 'DERIVED'" % run))
 
     a1 = sorted(ids_a)[0]
-    par_original = (a1, int([d for d in derivados
-                             if int(d[1]) == a1][0][0]))
+    x1 = int([d for d in derivados if int(d[1]) == a1][0][0])
+    aresta_original = (a1, x1)
+    casos_medidos = []
+
+    def registar(cid, run, aresta, nova, resultado, onde, tent):
+        casos_medidos.append(OrderedDict([
+            ("CASE_ID", cid), ("RUN_ID", run),
+            ("RAW_ASSET_ID", aresta[0]), ("DERIVED_ARTIFACT_ID", aresta[1]),
+            ("MATERIAL_EDGE", "%d->%d" % aresta),
+            ("MATERIAL_EDGE_NEW", nova),
+            ("STAGE_PASSAGE_TENTATIVA", tent),
+            ("ITEM_RESULT", resultado),
+            ("PERSISTED_WHERE", onde),
+        ]))
+
+    # CASO 1 · a passagem da ROTA de A, na unidade (a1 -> x1). Ela derivou
+    # quatro unidades de uma vez; a que se acompanha aqui e esta.
+    porta_1 = [d["PORTA"] for d in
+               ((rec_a.get("DERIVACAO") or {}).get("DERIVADOS") or [])
+               if int(d["RAW_ASSET_ID"]) == a1]
+    # ⚠️ E ESTA E A UNICA ARESTA DO CENARIO QUE FICA ESCRITA — e nao porque
+    # alguem a tenha registado: e subproduto da coluna TESTEMUNHA de
+    # `derived_artifact`, que guarda de QUAL COPIA se leu. A PRIMEIRA aresta de
+    # cada derivado sobrevive por acidente de desenho; as outras nao sobrevivem.
+    registar("CASE_1", run_a, aresta_original, "YES",
+             porta_1[0] if porta_1 else "?",
+             "derived_artifact.raw_asset_id (testemunha)", 0)
 
     # CASO 2 · a MESMA corrida, a MESMA observacao, outra vez.
     c2 = fwd.correr([{"RAW_ASSET_ID": a1, "PDF": caminho_de(a1)}],
                     banco_do_rastro=sql, run_id=run_a, armazem=_AL(RAIZ),
                     memoria=_memoria(url), source_id="IT-T2-002")
-    caso("G2_retry_na_MESMA_corrida_nao_cria_linhagem_nova",
-         pares_do_recibo(c2) == {par_original}
+    registar("CASE_2", run_a, aresta_do_recibo(c2), "NO",
+             "REUSED" if c2["BALDES"]["REUSED"] else "?",
+             "em lado nenhum", ultima_tentativa(run_a))
+    caso("G2_retry_na_MESMA_corrida_nao_cria_aresta_nova",
+         aresta_do_recibo(c2) == aresta_original
          and c2["BALDES"]["REUSED"] == 1,
-         "aresta tocada: %s · baldes %s · eventos DERIVED na corrida A: %d"
-         % (sorted(pares_do_recibo(c2)),
-            {k: v for k, v in c2["BALDES"].items() if v}, eventos(run_a)))
+         "aresta tocada: %s (a mesma) · tentativa=%s"
+         % (aresta_do_recibo(c2), ultima_tentativa(run_a)))
 
     # CASO 3 · outra corrida, OUTRA observacao, os MESMOS bytes.
     b1 = sorted(ids_b)[0]
+    derivados_antes = int(sql.executa(
+        "select count(*) from public.derived_artifact")[0][0])
     c3 = fwd.correr([{"RAW_ASSET_ID": b1, "PDF": caminho_de(b1)}],
                     banco_do_rastro=sql, run_id=run_b, armazem=_AL(RAIZ),
                     memoria=_memoria(url), source_id="IT-T2-002")
-    par_irmao = pares_do_recibo(c3)
-    caso("G3_outra_observacao_dos_MESMOS_bytes_toca_o_MESMO_derivado",
-         len(par_irmao) == 1
-         and list(par_irmao)[0][1] == par_original[1]
-         and list(par_irmao)[0][0] != par_original[0],
-         "aresta tocada: %s — derivado igual, observacao diferente"
-         % sorted(par_irmao))
+    aresta_irma = aresta_do_recibo(c3)
+    derivados_depois = int(sql.executa(
+        "select count(*) from public.derived_artifact")[0][0])
+    registar("CASE_3", run_b, aresta_irma, "YES",
+             "REUSED" if c3["BALDES"]["REUSED"] else "?",
+             "em lado nenhum", ultima_tentativa(run_b))
 
-    # CASO 4 · A SENTINELA. A observacao de A, derivada OUTRA VEZ, mais tarde,
-    # numa passagem que pertence a OUTRA corrida.
+    # CASO 4 · a observacao de A, derivada OUTRA VEZ, numa passagem que
+    # pertence a OUTRA corrida.
     #
     # ⚠️ E O BANCO ACEITA. `etapa_da_corrida.run_id` so exige que a corrida
-    # EXISTA — nao exige que ela seja a corrida que capturou a observacao. Esta
-    # e a lei que a missao anterior ja tinha escrito, agora executavel:
+    # EXISTA — nao exige que seja a corrida que capturou a observacao.
     #
     #     A CORRIDA QUE CAPTUROU NAO E NECESSARIAMENTE A QUE DERIVOU.
     c4 = fwd.correr([{"RAW_ASSET_ID": a1, "PDF": caminho_de(a1)}],
                     banco_do_rastro=sql, run_id=run_b, armazem=_AL(RAIZ),
                     memoria=_memoria(url), source_id="IT-T2-002")
-    caso("G4_rederivar_mais_tarde_noutra_corrida_NAO_muda_a_linhagem",
-         pares_do_recibo(c4) == {par_original},
-         "aresta tocada: %s — a MESMA de A, escrita numa passagem de B"
-         % sorted(pares_do_recibo(c4)))
+    registar("CASE_4", run_b, aresta_do_recibo(c4), "NO",
+             "REUSED" if c4["BALDES"]["REUSED"] else "?",
+             "em lado nenhum", ultima_tentativa(run_b))
+    caso("G4_rederivar_noutra_corrida_NAO_muda_a_aresta",
+         aresta_do_recibo(c4) == aresta_original,
+         "aresta tocada: %s — a MESMA de A, numa passagem da corrida B"
+         % (aresta_do_recibo(c4),))
 
-    # ── E AGORA A CONTA QUE DECIDE O CONCEITO ───────────────────────────
-    # Quantas arestas MATERIAIS distintas foram tocadas pelos casos 1, 2 e 4?
-    # E quantos EVENTOS de execucao eles produziram?
-    arestas = {par_original} | pares_do_recibo(c2) | pares_do_recibo(c4)
-    eventos_totais = eventos(run_a) + eventos(run_b)
-    caso("G5_as_duas_contagens_DIVERGEM_e_por_isso_sao_dois_conceitos",
-         len(arestas) < eventos_totais,
-         "a mesma aresta %s foi tocada por 3 passagens · arestas distintas=%d "
-         "· eventos DERIVED no banco=%d — um numero nao explica o outro"
-         % (sorted(arestas), len(arestas), eventos_totais))
+    # ── OS TRES CONTADORES, CADA UM COM O SEU UNIVERSO ──────────────────
+    arestas_dos_quatro = {(c["RAW_ASSET_ID"], c["DERIVED_ARTIFACT_ID"])
+                          for c in casos_medidos}
+    passagens_da_aresta = sum(
+        1 for c in casos_medidos
+        if (c["RAW_ASSET_ID"], c["DERIVED_ARTIFACT_ID"]) == aresta_original)
+    passagens_do_cenario = passagens_derived(run_a) + passagens_derived(run_b)
+
+    # P1 · A MESMA ARESTA, VARIAS PASSAGENS. Universo: os quatro casos, e
+    # dentro deles os que tocam `aresta_original`.
+    caso("G5a_a_MESMA_aresta_e_tocada_por_MAIS_DE_UMA_passagem",
+         passagens_da_aresta > 1,
+         "a aresta %s foi tocada por %d das %d passagens dos quatro casos — "
+         "logo PASSAGEM != ARESTA"
+         % (aresta_original, passagens_da_aresta, len(casos_medidos)))
+
+    # P2 · NOVA OBSERVACAO, NOVA ARESTA, ZERO DERIVADOS NOVOS. Universo: o
+    # caso 3 sozinho, com a contagem de `derived_artifact` antes e depois.
+    caso("G5b_nova_observacao_dos_mesmos_bytes_cria_aresta_sem_criar_derivado",
+         aresta_irma is not None and aresta_irma != aresta_original
+         and aresta_irma[1] == aresta_original[1]
+         and derivados_antes == derivados_depois,
+         "aresta nova %s sobre o MESMO derivado %d · derived_artifact %d -> %d "
+         "— logo ARESTA != DERIVADO"
+         % (aresta_irma, aresta_original[1], derivados_antes, derivados_depois))
+
+    # E os tres numeros ficam ditos com o nome do conjunto que mediram, para
+    # ninguem voltar a compara-los aos pares.
+    caso("G5c_cada_contador_declara_o_seu_universo",
+         len(arestas_dos_quatro) == 2 and passagens_da_aresta == 3
+         and passagens_do_cenario > len(casos_medidos),
+         "arestas nos 4 casos=%d · passagens sobre a aresta original=%d · "
+         "passagens DERIVED no cenario inteiro=%d (inclui arranque e "
+         "diagnostico) — TRES universos, e nao um"
+         % (len(arestas_dos_quatro), passagens_da_aresta,
+            passagens_do_cenario))
 
     # ⚠️ E O RESULTADO MUDA SEM A ARESTA MUDAR.
-    # A primeira passagem sobre (A, X) deu INSERTED; a segunda e a terceira
-    # deram REUSED. Guardar INSERTED/REUSED na aresta obrigaria a reescreve-la
-    # a cada passagem — e uma relacao que se reescreve nao e uma relacao.
-    #
-    #     INSERTED/REUSED E DESTINO DE ITEM NUMA PASSAGEM,
-    #     E NAO PROPRIEDADE DA LINHAGEM.
+    resultados_da_original = [
+        c["ITEM_RESULT"] for c in casos_medidos
+        if (c["RAW_ASSET_ID"], c["DERIVED_ARTIFACT_ID"]) == aresta_original]
     caso("G6_o_resultado_muda_sem_a_aresta_mudar",
-         c2["BALDES"]["REUSED"] == 1 and c4["BALDES"]["REUSED"] == 1
-         and len(arestas) == 1,
-         "a aresta %s teve INSERTED na 1a passagem e REUSED nas seguintes"
-         % sorted(arestas))
+         len(set(resultados_da_original)) > 1,
+         "a aresta %s teve %s nas tres passagens que a tocaram"
+         % (aresta_original, resultados_da_original))
+
+    # ⚠️ E O RESULTADO POR ITEM NAO ESTA GUARDADO EM LADO NENHUM.
+    # `etapa_da_corrida` guarda BALDES: QUANTOS foram reaproveitados, e nao
+    # QUAIS. Dizer que `REUSED` «ja mora nos baldes» e dizer de mais — o balde
+    # guarda o NUMERO, e o numero nao nomeia ninguem.
+    #
+    #     CONTAGEM POR PASSAGEM != RESULTADO POR ITEM.
+    onde_o_resultado_mora = {c["PERSISTED_WHERE"] for c in casos_medidos[1:]}
+    caso("G7_o_resultado_POR_ITEM_nao_tem_dono_duravel",
+         onde_o_resultado_mora == {"em lado nenhum"},
+         "o destino de cada item nas passagens 2-4 esta guardado em: %s"
+         % sorted(onde_o_resultado_mora))
+
+    print()
+    print("  OS QUATRO CASOS, UM A UM")
+    for c in casos_medidos:
+        print("    %-7s run=…%s raw=%-3d der=%-3d %-8s nova=%-3s tent=%s  %s"
+              % (c["CASE_ID"], c["RUN_ID"][-6:], c["RAW_ASSET_ID"],
+                 c["DERIVED_ARTIFACT_ID"], c["ITEM_RESULT"],
+                 c["MATERIAL_EDGE_NEW"], c["STAGE_PASSAGE_TENTATIVA"],
+                 c["PERSISTED_WHERE"]))
 
     persistido = bool(achou_b)
     veredito = "ALREADY_PROVEN" if persistido else "GAP_CONFIRMED"
@@ -450,13 +540,32 @@ def main():
         "DURABLE_EDGE_B_TO_X": "YES" if persistido else "NO",
         "DERIVED_REUSE_LINEAGE": veredito,
         # ── O QUE DECIDE O GRAO DA PARTICIPACAO ─────────────────────────
-        # As duas contagens, lado a lado. Se andassem sempre juntas seriam um
-        # conceito so; divergem, e por isso sao dois.
-        "ARESTAS_MATERIAIS_DISTINTAS": len(arestas),
-        "EVENTOS_DE_EXECUCAO_DERIVED": eventos_totais,
-        "ARESTA_TOCADA_POR_VARIAS_PASSAGENS": sorted(
-            "%d->%d" % par for par in arestas),
+        # ⚠️ CADA NOME DIZ O UNIVERSO QUE MEDIU, e por isso nenhum se compara
+        # com o do lado sem se pensar. `ARESTAS_MATERIAIS_DISTINTAS` saiu daqui:
+        # ele contava so os casos 1, 2 e 4 e chamava-se «distintas», o que
+        # convidava a ler «de todos os casos».
+        #
+        #     UM CONTADOR SEM UNIVERSO NO NOME E UM CONVITE A COMPARACAO ERRADA.
+        "CASOS": casos_medidos,
+        "MATERIAL_EDGES_ALL_FOUR_CASES": len(arestas_dos_quatro),
+        "PASSAGES_TOUCHING_ORIGINAL_EDGE": passagens_da_aresta,
+        "DERIVED_STAGE_PASSAGES_TOTAL_IN_SCENARIO": passagens_do_cenario,
+        "O_QUE_O_TERCEIRO_INCLUI": (
+            "todas as passagens DERIVED das duas corridas — as da rota, a do "
+            "diagnostico misto e as dos casos 2, 3 e 4. NAO se compara com os "
+            "outros dois: mede outra populacao."),
+        # As duas propriedades que separam os conceitos, cada uma no seu
+        # universo. Sao estas que sustentam a decisao — e nao a razao entre
+        # dois contadores de conjuntos diferentes.
+        "P1_MESMA_ARESTA_VARIAS_PASSAGENS": passagens_da_aresta > 1,
+        "P2_NOVA_ARESTA_SEM_NOVO_DERIVADO": (
+            derivados_antes == derivados_depois
+            and aresta_irma != aresta_original),
+        "ARESTA_ORIGINAL": "%d->%d" % aresta_original,
+        "ARESTA_IRMA": ("%d->%d" % aresta_irma) if aresta_irma else None,
         "O_RESULTADO_MUDA_SEM_A_ARESTA_MUDAR": "YES",
+        "RESULTADOS_DA_ARESTA_ORIGINAL": resultados_da_original,
+        "ITEM_EXECUTION_RESULT_PERSISTENCE": "NOT_IMPLEMENTED",
         "A_CORRIDA_QUE_DERIVA_PODE_NAO_SER_A_QUE_CAPTUROU": "YES",
     }, io.open(os.path.join(RAIZ, "system-map", "data",
                             "linhagem.observada.json"), "w",

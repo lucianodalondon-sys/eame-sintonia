@@ -32,6 +32,33 @@ def _fonte(caminho):
         return f.read()
 
 
+def _campo(texto, nome):
+    """O valor de um campo `NOME = VALOR`, seja qual for o espaçamento."""
+    for linha in texto.splitlines():
+        if linha.strip().startswith(nome):
+            return linha.split("=", 1)[1].strip().split()[0]
+    return None
+
+
+def _chaves_do_artefato(caminho):
+    """As chaves do dicionário que a prova escreve em JSON, lidas por AST.
+
+    ⚠️ PELA QUARTA VEZ NESTA LINHA DE MISSÕES, UMA GUARDA DE TEXTO MORDEU A
+    PRÓPRIA EXPLICAÇÃO. `assertNotIn("ARESTAS_MATERIAIS_DISTINTAS", fonte)`
+    reprovou no comentário que diz **que esse nome foi removido** — e o
+    comentário tem de o nomear para explicar o que mudou.
+
+        UMA GUARDA LÊ O CÓDIGO, E NÃO O FICHEIRO.
+    """
+    for no in ast.walk(ast.parse(_fonte(caminho))):
+        if (isinstance(no, ast.Call)
+                and getattr(no.func, "attr", None) == "dump"
+                and no.args and isinstance(no.args[0], ast.Dict)):
+            return {k.value for k in no.args[0].keys
+                    if isinstance(k, ast.Constant)}
+    return set()
+
+
 def _casos(caminho):
     """As chamadas a `caso(...)`, lidas por AST."""
     fora = []
@@ -221,10 +248,35 @@ class ADecisaoDoGraoNaoSeContradiz(unittest.TestCase):
             self.assertIn(pergunta, bloco,
                           "7.10 deixou de responder %s" % pergunta)
 
-    def test_o_resultado_e_o_tempo_nao_moram_na_aresta(self):
+    def test_o_resultado_nao_mora_na_aresta_e_nao_se_finge_guardado(self):
+        """Duas afirmações, e a segunda foi acrescentada depois de a primeira
+        versão exagerar.
+
+        O conceito do resultado é do evento de execução — isso estava certo.
+        O que estava errado era dizer que ele «já mora nos baldes»: o balde
+        guarda **quantos**, e não **quais**.
+
+            CONTAGEM POR PASSAGEM ≠ RESULTADO POR ITEM.
+        """
         s = _fonte(ADR)
-        self.assertIn("INSERTED_REUSED_BELONGS_TO = EXECUTION_EVENT", s)
-        self.assertIn("RUN_ID_AS_PROVENANCE = YES", s)
+        self.assertEqual(_campo(s, "INSERTED_REUSED_BELONGS_TO"),
+                         "EXECUTION_EVENT")
+        self.assertEqual(_campo(s, "ITEM_EXECUTION_RESULT_PERSISTENCE"),
+                         "NOT_IMPLEMENTED")
+        self.assertNotIn("já mora nos baldes", s)
+
+    def test_os_campos_da_corrida_e_do_tempo_estao_fechados(self):
+        """A migration não pode ter de escolher nulabilidade, alvo de chave
+        estrangeira nem política de apagamento."""
+        s = _fonte(ADR)
+        for esperado in ("FIRST_SEEN_DERIVATION_RUN_ID", "FIRST_SEEN_AT",
+                         "public.collection_run(run_id)",
+                         "NULLABLE         NO"):
+            self.assertIn(esperado, s, "ficou por fechar: %s" % esperado)
+        # as três ligações, e nenhuma por decidir
+        ligacoes = s[s.index("As três ligações"):]
+        ligacoes = ligacoes[:ligacoes.index("```", ligacoes.index("```") + 3)]
+        self.assertEqual(ligacoes.count("RESTRICT"), 3)
 
 
 class OsQuatroCasosCorrem(unittest.TestCase):
@@ -233,22 +285,56 @@ class OsQuatroCasosCorrem(unittest.TestCase):
     def test_a_prova_tem_os_quatro_casos(self):
         nomes = [n.args[0].value for n in _casos(PROVA)
                  if isinstance(n.args[0], ast.Constant)]
-        for g in ("G2_retry", "G3_outra_observacao", "G4_rederivar",
-                  "G5_as_duas_contagens", "G6_o_resultado_muda"):
+        for g in ("G2_retry", "G4_rederivar", "G5a_a_MESMA_aresta",
+                  "G5b_nova_observacao", "G5c_cada_contador",
+                  "G6_o_resultado_muda", "G7_o_resultado_POR_ITEM"):
             self.assertTrue(any(n.startswith(g) for n in nomes),
                             "caso em falta: %s" % g)
 
-    def test_o_caso_que_separa_os_conceitos_compara_as_DUAS_contagens(self):
-        """G5 é o que decide. Se ele deixasse de comparar arestas com eventos,
-        a conclusão «são dois conceitos» ficaria sem prova."""
+    def test_a_separacao_sai_de_DUAS_propriedades_e_nao_de_uma_razao(self):
+        """⚠️ A PRIMEIRA VERSÃO COMPARAVA DOIS CONJUNTOS DIFERENTES.
+
+        `G5` dividia as arestas dos casos 1, 2 e 4 — sem o caso 3, que é
+        justamente o que cria a segunda aresta — pelas passagens DERIVED de
+        TODAS as corridas, incluindo arranque e diagnóstico.
+
+            DOIS NÚMEROS SÓ SE COMPARAM SE MEDIREM O MESMO CONJUNTO.
+
+        No lugar dele ficaram duas propriedades, cada uma no seu universo:
+        a mesma aresta tocada por várias passagens, e uma aresta nova sem
+        derivado novo. Esta guarda garante que continuam a ser duas, e que
+        nenhuma volta a dividir populações diferentes.
+        """
+        condicoes = {}
         for no in _casos(PROVA):
-            if (isinstance(no.args[0], ast.Constant)
-                    and no.args[0].value.startswith("G5_")):
-                dump = ast.dump(no.args[1])
-                self.assertIn("arestas", dump)
-                self.assertIn("eventos_totais", dump)
-                return
-        self.fail("G5 desapareceu")
+            if isinstance(no.args[0], ast.Constant):
+                condicoes[no.args[0].value] = ast.dump(no.args[1])
+        p1 = [c for n, c in condicoes.items() if n.startswith("G5a_")]
+        p2 = [c for n, c in condicoes.items() if n.startswith("G5b_")]
+        self.assertEqual(len(p1), 1, "a propriedade P1 desapareceu")
+        self.assertEqual(len(p2), 1, "a propriedade P2 desapareceu")
+        # P1 fala só de passagens sobre a MESMA aresta
+        self.assertIn("passagens_da_aresta", p1[0])
+        # P2 fala só do caso 3 e da contagem de derivados antes/depois
+        self.assertIn("derivados_antes", p2[0])
+        self.assertIn("derivados_depois", p2[0])
+        # e nenhuma das duas mistura o contador do cenario inteiro
+        for cond in p1 + p2:
+            self.assertNotIn("passagens_do_cenario", cond,
+                             "uma propriedade voltou a misturar universos")
+
+    def test_os_tres_contadores_ficam_declarados_com_o_seu_universo(self):
+        nomes = [n.args[0].value for n in _casos(PROVA)
+                 if isinstance(n.args[0], ast.Constant)]
+        self.assertTrue(any(n.startswith("G5c_") for n in nomes))
+        chaves = _chaves_do_artefato(PROVA)
+        for campo in ("MATERIAL_EDGES_ALL_FOUR_CASES",
+                      "PASSAGES_TOUCHING_ORIGINAL_EDGE",
+                      "DERIVED_STAGE_PASSAGES_TOTAL_IN_SCENARIO"):
+            self.assertIn(campo, chaves, "contador em falta: %s" % campo)
+        self.assertNotIn("ARESTAS_MATERIAIS_DISTINTAS", chaves,
+                         "o nome sem universo voltou ao artefato")
+        self.assertIn("ITEM_EXECUTION_RESULT_PERSISTENCE", chaves)
 
 
 class OFalsoAmigoFicaNomeado(unittest.TestCase):

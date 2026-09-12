@@ -224,7 +224,7 @@ camada FIELD/SCIENCE/VOICE/...). Nada disso é `raw_asset` nem
 | IDENTITY | `(raw_asset_id, derived_artifact_id)` | inclui `run_id` e `tentativa` | material sem run; passagem já tem chave | `(run_id, etapa, tentativa)` |
 | RUN_ROLE | proveniência | identidade | proveniência de um lado, identidade do outro | identidade |
 | ATTEMPT_ROLE | ausente | identidade | ausente no material | identidade |
-| RESULT_ROLE | ausente | atributo da linha | só do lado da execução | baldes agregados |
+| RESULT_ROLE | ausente (e hoje sem dono durável) | atributo da linha | só do lado da execução | só baldes: quantos, nunca quais |
 | TIME_ROLE | primeira vez | hora do evento | um de cada | hora da passagem |
 | RETRY | não cria linha | **cria linha** | material não, execução sim | cria linha |
 | REPROCESS | não cria linha | **cria linha** | material não, execução sim | cria linha |
@@ -269,6 +269,18 @@ execução fica onde já mora.
 
 ### 7.1 · SÃO DOIS CONCEITOS, E ISSO FOI MEDIDO
 
+> ⚠️ **A PRIMEIRA VERSÃO DESTA SECÇÃO COMPAROU DOIS CONJUNTOS DIFERENTES.**
+> Dizia «1 aresta contra 6 eventos» — e a primeira contagem excluía o caso 3,
+> que é justamente o que cria a segunda aresta, enquanto a segunda incluía as
+> passagens do arranque e do diagnóstico. A conclusão continua a valer; o
+> número que a sustentava, não.
+>
+> ```
+>     DOIS NÚMEROS SÓ SE COMPARAM SE MEDIREM O MESMO CONJUNTO.
+>     UM RACIOCÍNIO CERTO APOIADO NUM NÚMERO ERRADO
+>     É UM RACIOCÍNIO POR CONFIRMAR.
+> ```
+
 Duas perguntas parecidas que não são a mesma:
 
 ```
@@ -276,25 +288,47 @@ L · LINHAGEM   esta observação participou deste derivado?
 E · EXECUÇÃO   em que passagem isso aconteceu, e com que resultado?
 ```
 
-Se as duas contagens andassem sempre juntas, seriam um conceito só e uma
-tabela chegaria. Medido em `provas/a_linhagem_do_reaproveitamento.py`, com os
-quatro casos:
+**Os quatro casos, um a um**, medidos em
+`provas/a_linhagem_do_reaproveitamento.py` contra a rota real:
 
-| caso | o que aconteceu | arestas | eventos |
-|---|---|---|---|
-| 1 · `RUN A` → `RAW A` → `X` | `INSERTED` | 1 | 1 |
-| 2 · retry na **mesma** corrida | `REUSED`, aresta `(1,3)` outra vez | +0 | +1 |
-| 3 · `RUN B`, `RAW B`, mesmos bytes | `REUSED`, aresta `(5,3)` — **outra** aresta | +1 | +1 |
-| 4 · rederivar `RAW A` numa passagem de **outra** corrida | `REUSED`, aresta `(1,3)` outra vez | +0 | +1 |
+| caso | corrida | raw | derivado | aresta | nova? | tentativa | resultado | persistido onde |
+|---|---|---|---|---|---|---|---|---|
+| 1 | A | 1 | 3 | `1→3` | **SIM** | 0 | `PASSED` | `derived_artifact.raw_asset_id` |
+| 2 | A | 1 | 3 | `1→3` | não | 1 | `REUSED` | **em lado nenhum** |
+| 3 | B | 5 | 3 | `5→3` | **SIM** | 2 | `REUSED` | **em lado nenhum** |
+| 4 | B | 1 | 3 | `1→3` | não | 3 | `REUSED` | **em lado nenhum** |
+
+⚠️ A única aresta do cenário que fica escrita é a do caso 1 — e **não porque
+alguém a registou**. É subproduto da coluna testemunha de `derived_artifact`,
+que guarda de qual cópia se leu. A primeira aresta de cada derivado sobrevive
+por acidente de desenho; as outras não sobrevivem de todo.
+
+**Os três contadores, cada um com o seu universo:**
 
 ```
-ARESTAS MATERIAIS DISTINTAS   1
-EVENTOS DE EXECUCAO DERIVED   6
+MATERIAL_EDGES_ALL_FOUR_CASES              2   as arestas distintas dos casos 1-4
+PASSAGES_TOUCHING_ORIGINAL_EDGE            3   casos 1, 2 e 4 — todos sobre 1→3
+DERIVED_STAGE_PASSAGES_TOTAL_IN_SCENARIO   6   TODAS as passagens DERIVED do
+                                               cenário, incluindo as duas da rota
+                                               e a do diagnóstico misto
 ```
 
-Um número não explica o outro, e a divergência não é de escala: é de
-**espécie**. A mesma aresta `(1,3)` foi tocada por três passagens, e nenhuma
-delas mudou o facto material.
+O terceiro **não se compara** com os outros dois: mede outra população.
+
+**E a separação dos conceitos sai de duas propriedades**, cada uma medida no
+seu próprio universo:
+
+```
+P1   a MESMA aresta 1→3 foi tocada por 3 passagens
+     →  PASSAGEM ≠ ARESTA
+
+P2   o caso 3 criou a aresta NOVA 5→3 sobre o MESMO derivado 3,
+     e `derived_artifact` ficou em 4 → 4
+     →  ARESTA ≠ DERIVADO
+```
+
+Duas propriedades chegam, e nenhuma delas precisa de dividir contadores de
+conjuntos diferentes.
 
 ```
     PARTICIPATION_CONCEPT = TWO_DISTINCT_CONCEPTS
@@ -307,21 +341,27 @@ execução **já tem dono**: `public.etapa_da_corrida`, da `024`, onde uma linha
 uma passagem `(run_id, etapa, tentativa)`.
 
 ```
-MATERIAL LINEAGE   dono NOVO, e é o que falta
-EXECUTION EVENT    dono EXISTENTE — etapa_da_corrida
+MATERIAL LINEAGE     dono NOVO, e é o que falta
+PASSAGE EVENT        dono EXISTENTE — etapa_da_corrida
+ITEM EXECUTION       SEM dono de persistência, e fica assim (7.5)
 ```
 
-Criar uma segunda tabela de execução por item seria repetir a semântica que a
-`024` já possui. O limite dela está medido e fica **declarado, não consertado**:
-ela conta por passagem e não nomeia itens, e num resultado misto
-(`{ERROR: 1, REUSED: 1}`) não há por onde saber qual foi qual. Nenhuma
-necessidade provada exige hoje resolver isso — e a pergunta que a motivou
-(«esta observação foi processada ou não?») passa a ter resposta pela **existência
-da aresta**.
+⚠️ **E são três linhas, e não duas.** Dizer que «o evento de execução já tem
+dono» apaga a distinção que a própria medição obriga a fazer: a `024` é dona da
+**passagem**, e ninguém é dono do **destino de cada item dentro dela**.
+
+Criar uma tabela de execução por item não seria repetir a `024` — seria
+acrescentar granularidade que ela não tem. Não se faz **por outra razão**:
+nenhuma necessidade provada a exige hoje, e a pergunta que a motivava («esta
+observação foi processada ou não?») passa a ter resposta pela **existência da
+aresta**, sem precisar de saber em que passagem.
 
 ```
+    NÃO SE CONSTRÓI POR ANTECIPAÇÃO —
+    E TAMBÉM NÃO SE DIZ QUE JÁ EXISTE O QUE NÃO EXISTE.
+
     DOIS CONCEITOS != DUAS TABELAS NOVAS.
-    UM DELES JÁ TEM CASA.
+    UM DELES JÁ TEM CASA — E UM TERCEIRO NÃO TEM, E DIZ-SE.
 ```
 
 ### 7.3 · A IDENTIDADE, E POR QUE O `run_id` FICA DE FORA
@@ -374,22 +414,81 @@ Sem prova da corrida da passagem, recusa-se a linha — nunca se preenche com a
 do pai. Hoje isso é sempre possível: `derivacao_forward.correr()` exige `run_id`
 como parâmetro obrigatório, sem valor por omissão.
 
-### 7.5 · `INSERTED` / `REUSED` NÃO É DA ARESTA
+**O campo, fechado para a migration:**
 
 ```
-INSERTED_REUSED_BELONGS_TO = EXECUTION_EVENT
+FIELD_SEMANTICS  FIRST_SEEN_DERIVATION_RUN_ID
+                 a corrida da PASSAGEM em que esta aresta foi vista pela
+                 primeira vez. Não é a corrida que capturou a observação,
+                 e não se reescreve nas passagens seguintes.
+
+NULLABLE         NO
+                 porque toda passagem de derivação nomeia uma corrida — o
+                 parâmetro é obrigatório no runner. `NOT NULL` é a forma de
+                 a recusa de 7.4 ser executada pelo banco em vez de
+                 depender de quem escreve.
+
+FK_TARGET        public.collection_run(run_id)
+                 o dono das corridas, medido. Não nasce corrida nova para a
+                 derivação: a `022` recusou uma RUN própria e a `024`
+                 recusou um `flow_run` paralelo.
+
+ON_DELETE        RESTRICT
+                 pela convenção de 7.8. É a mesma forma de
+                 `raw_asset.run_id → collection_run`, que também é uma
+                 linha material a nomear a sua corrida.
 ```
 
-Medido: a aresta `(1,3)` teve `INSERTED` na primeira passagem e `REUSED` nas
-duas seguintes. O facto material não mudou; o resultado mudou três vezes.
+### 7.5 · `INSERTED` / `REUSED` NÃO É DA ARESTA — E TAMBÉM NÃO ESTÁ GUARDADO
+
+```
+INSERTED_REUSED_BELONGS_TO       = EXECUTION_EVENT   (o conceito)
+ITEM_EXECUTION_RESULT_PERSISTENCE = NOT_IMPLEMENTED  (o estado de hoje)
+```
+
+Medido: a aresta `1→3` teve `PASSED` na primeira passagem e `REUSED` nas duas
+seguintes. O facto material não mudou; o resultado mudou.
 
 ```
     UMA RELAÇÃO QUE SE REESCREVE A CADA PASSAGEM NÃO É UMA RELAÇÃO.
 ```
 
 E a casa já tinha a regra, na `024`: `STAGE STATE != ITEM DESTINATION`. Uma
-etapa não é «reaproveitada» — um item é. Os destinos de item vivem nos baldes
-da contabilidade da passagem, e é lá que `REUSED` já mora.
+etapa não é «reaproveitada» — um item é.
+
+> ⚠️ **A VERSÃO ANTERIOR DESTA SECÇÃO DIZIA QUE `REUSED` «JÁ MORA NOS BALDES».**
+> Isso é dizer de mais, e a própria medição desmente-o. O balde guarda
+> **quantos** foram reaproveitados, e não **quais**. Numa passagem mista
+> (`{ERROR: 1, REUSED: 1}`) não há por onde saber qual observação foi qual.
+>
+> ```
+>     CONTAGEM POR PASSAGEM ≠ RESULTADO POR ITEM.
+> ```
+
+São **duas coisas com nomes parecidos**, e só uma tem dono:
+
+```
+PASSAGE_EVENT             o que aconteceu numa passagem, em agregado
+  owner                   public.etapa_da_corrida  (024)
+  grão                    (run_id, etapa, tentativa)
+  guarda                  baldes: passed, reused, rejected, error, ...
+  NÃO guarda              que ITEM caiu em que balde
+
+ITEM_EXECUTION_RESULT     o destino de UM item numa passagem
+  owner conceptual        o evento de execução
+  owner de persistência    NENHUM — medido, e não suposto
+```
+
+**Isto não abre uma tabela.** Nenhuma necessidade provada exige hoje o
+histórico por item, e a pergunta que o motivava — «esta observação foi
+processada?» — passa a ter resposta pela **existência da aresta**, sem precisar
+de saber em que passagem. Fica declarado como limite conhecido, e não
+consertado.
+
+```
+    DECLARAR O LIMITE NÃO É ABRIR TRABALHO.
+    ESCONDE-LO É QUE FAZ A MISSÃO SEGUINTE DESCOBRI-LO SOZINHA.
+```
 
 ### 7.6 · O TEMPO
 
@@ -403,6 +502,26 @@ Os outros dois tempos já têm dono: `derived_artifact.derived_at` é do artefat
 e `etapa_da_corrida.comecou_em` é da passagem. Um campo temporal de **evento**
 dentro de uma relação estável, sem dizer o que significa, é a maneira mais
 silenciosa de a relação passar a ser lida como histórico.
+
+**O campo, fechado para a migration:**
+
+```
+FIELD_SEMANTICS  FIRST_SEEN_AT
+                 o instante da PRIMEIRA PERSISTÊNCIA desta linha.
+
+NULLABLE         NO, com `default now()`
+```
+
+⚠️ E aqui o `default now()` é legítimo, ao contrário do que a `022` avisa
+sobre `derived_at`. Lá o `NOT NULL` provava que havia uma data e **não** provava
+que ela tinha sido medida em vez de copiada do pai. Aqui a data **é** o momento
+da escrita — o relógio do banco no `insert` é exactamente a coisa que se quer
+registar, e não uma aproximação dela.
+
+```
+    UM `default now()` MENTE QUANDO A COLUNA FALA DE OUTRO MOMENTO.
+    AQUI ELA FALA DESTE.
+```
 
 ### 7.7 · O DONO DA ESCRITA
 
@@ -445,6 +564,18 @@ etapa_da_corrida -> raw_asset         CASCADE
 A aresta é material, logo restringe. Apagar uma observação que participou de
 uma derivação tem de doer — proveniência não desaparece em silêncio.
 
+**As três ligações da tabela nova, todas decididas:**
+
+```
+raw_asset_id                 → public.raw_asset(id)            RESTRICT
+derived_artifact_id          → public.derived_artifact(id)     RESTRICT
+first_seen_derivation_run_id → public.collection_run(run_id)   RESTRICT
+```
+
+A terceira não fica de fora por ser «só proveniência»: uma corrida que alguma
+aresta nomeia como primeira vez é parte do registo material dela, e apagá-la em
+cascata deixaria a aresta a dizer que foi vista pela primeira vez em lado nenhum.
+
 ### 7.9 · O QUE A IMPLEMENTAÇÃO NÃO VAI CONSEGUIR
 
 ```
@@ -470,15 +601,30 @@ GRÃO          uma linha por (observação, derivado)
 IDENTIDADE    (raw_asset_id, derived_artifact_id)
 RUN           proveniência, fora da chave, da passagem e nunca herdada
 TENTATIVA     não entra — é chave da passagem
-RESULTADO     não entra — é destino de item, e já mora nos baldes
-TEMPO         um carimbo de primeira vez, e nada mais
+RESULTADO     não entra — é destino de item; e hoje o destino POR ITEM
+              não está guardado em lado nenhum (7.5)
+TEMPO         FIRST_SEEN_AT, `not null default now()` — o instante da
+              primeira persistência desta linha, e nada mais (7.6)
 RETRY         não cria linha; a existente fica
 REPROCESSO    não cria linha; a existente fica
 CONCORRÊNCIA  a chave natural resolve, com `on conflict do nothing`
-DELETE        RESTRICT dos dois lados
+DELETE        RESTRICT nas TRÊS ligações (7.8)
 BACKFILL      nenhum
 MIGRATION     aditiva — tabela nova, nenhuma coluna alterada
 ```
+
+**As colunas, sem nada por decidir:**
+
+| coluna | tipo | nulo? | referência | ao apagar |
+|---|---|---|---|---|
+| `raw_asset_id` | `bigint` | não | `raw_asset(id)` | `RESTRICT` |
+| `derived_artifact_id` | `bigint` | não | `derived_artifact(id)` | `RESTRICT` |
+| `first_seen_derivation_run_id` | `text` | não | `collection_run(run_id)` | `RESTRICT` |
+| `first_seen_at` | `timestamptz` | não, `default now()` | — | — |
+
+Chave primária: `(raw_asset_id, derived_artifact_id)`. Sem surrogate — não há
+segunda chave a proteger, e um `bigserial` por hábito seria um identificador que
+ninguém cita.
 
 Nenhuma destas perguntas volta a abrir-se na missão que escrever a migration.
 
@@ -493,7 +639,7 @@ Vinte ataques à decisão de 7. Onde diz **medido**, há caso a correr em
 | 2 | duas corridas colapsadas quando o objetivo era histórico | o histórico fica em `etapa_da_corrida`, que **não** colapsa: 6 eventos para 1 aresta |
 | 3 | retry virar linhagem nova | **medido** · G2: retry na mesma corrida, `+0` arestas |
 | 4 | retry desaparecer quando o objetivo era histórico | não desaparece: cada retry é uma linha em `(run_id, etapa, tentativa)` |
-| 5 | `INSERTED`/`REUSED` guardado no conceito errado | **medido** · G6: a mesma aresta teve os dois. Fica na passagem |
+| 5 | `INSERTED`/`REUSED` guardado no conceito errado | **medido** · G6: a aresta `1→3` teve `PASSED` e depois `REUSED`. O conceito é do evento — e hoje não está guardado por item em lado nenhum (G7) |
 | 6 | carimbo do evento guardado como se fosse da relação | 7.6 · um só carimbo, e o nome diz «primeira vez» |
 | 7 | `raw_asset.run_id` herdado como corrida da derivação | **medido** · G4: podem ser diferentes. Herdar é proibido em 7.4 |
 | 8 | `collection_run` esticada para semântica que não tem | a `022` já recusou: «esticar `collection_run` para algo que não é coleta seria pior do que não ter nada» |
