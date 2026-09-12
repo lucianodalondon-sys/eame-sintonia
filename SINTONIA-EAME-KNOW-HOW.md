@@ -10558,3 +10558,186 @@ reprovaram, corretamente.
   publica; que o handle seja da organização certa não é verificável por ela.
 - **O que fazer com o catálogo** é decisão de quem coordena. Ele é candidato, e
   quem o recebe é o contrato de candidatas — não esta missão.
+
+---
+
+# §99 · DUAS LISTAS CERTAS QUE NÃO SE CRUZAM BLOQUEIAM TANTO COMO UMA PEÇA EM FALTA
+
+**Missão:** `C-COLLECTION-V1-FINAL-OPERATIONAL-CERTIFICATION` — certificar a
+Collection V1 como máquina operacional completa, excluindo só o SCRAP.
+**Branch:** `claude/collection-v1-operational-close`
+**Data:** 2026-09-12
+
+A missão pedia uma frase de fecho e proibia escrevê-la sem prova. Encontrou-se
+o contrário do esperado, e a parte durável é **como** se encontrou.
+
+## 99.1 · UMA PERGUNTA SEM RESPOSTA PODE ESTAR MAL POSTA, E NÃO POR RESPONDER
+
+A `§95` fechou com uma pergunta escrita para gente:
+
+```
+De quem é o `canal` de uma agência pública que publica boletins em PDF no
+seu próprio sítio, e o que serve de `channel_id`?
+```
+
+Três opções ficaram em cima da mesa, todas consistentes com o modelo, e a
+recomendação foi «nenhuma com evidência suficiente». Isso estava certo — e
+estava incompleto. A pergunta assumia que a coisa existe e só falta descobrir
+de quem é.
+
+Não existe. `canal.channel_id` está comentado como «o id da plataforma, NUNCA o
+nome» e `conteudo.content_id` como «id da plataforma (video_id, post_id)».
+Nenhuma plataforma emitiu identificador nenhum para aquele PDF. A pergunta
+pedia o nome de uma coisa que não tem nome porque não tem existência.
+
+    UMA PERGUNTA QUE NÃO SE CONSEGUE RESPONDER DURANTE UMA MISSÃO INTEIRA
+    MERECE UMA MEDIÇÃO DE SI PRÓPRIA ANTES DE MAIS UMA TENTATIVA.
+
+O sinal que a denuncia: **as três opções falhavam pelo mesmo motivo.** Quando
+opções desenhadas para serem diferentes partilham a causa de falha, a causa
+está acima delas — está na pergunta.
+
+## 99.2 · ONE CONCEPT → ONE OWNER NÃO É ONE TABLE FOR EVERY TYPE OF CONTENT
+
+A lei que esta casa repete mais foi a que quase produziu o erro. Ler
+`ONE CONCEPT → ONE OWNER` como «há uma tabela de conteúdo, logo todo o conteúdo
+vai lá» leva direto a fabricar um `channel_id` para caber.
+
+São duas leituras, e só uma é a lei:
+
+```
+CERTO   um conceito tem um dono — e «conteúdo de plataforma» e «documento
+        não-plataforma» são DOIS conceitos, com duas identidades diferentes
+ERRADO  uma tabela por família de coisa, e o que não couber que se adapte
+```
+
+A saída foi separar, não afrouxar: `public.documento_estruturado`
+(migration 030), com chave `derived_artifact_id` — o documento é o registo
+estruturado **daquele** derivado. `public.conteudo` ficou intacta, e o criador
+de identidade de `canal` continua a **não existir**.
+
+    UM CONCEITO DEIXAR DE PRECISAR DE UM DONO
+    NÃO É O MESMO QUE ESSE DONO PASSAR A EXISTIR.
+
+Conteúdo de plataforma continua a esbarrar na mesma falta. O gap mudou de nome
+para dizer isso: era «STRUCTURED tem código que nunca correu», passou a
+«STRUCTURED atravessa numa classe, e não nas duas».
+
+## 99.3 · A ESPÉCIE NOVA: TUDO EXISTE E NADA PASSA
+
+Fechada a aresta, o buraco andou — e chegou a um sítio que esta casa ainda não
+tinha visto. Em `ADMISSION -> READY` **não falta peça nenhuma**. A porta existe,
+julga os quatro itens, responde, e responde **certo**:
+
+```
+universos com regra de admissão escrita      T3 · T4 · T7 · T9
+universos cujo executor declara colheita     T2
+interseção                                   VAZIA
+```
+
+`COL-LAW-505` manda que só colheita entre no ingresso. `COL-LAW-502` manda que a
+porta pergunte pela regra do universo. As duas leis cumpridas, ao mesmo tempo,
+com estas duas listas, dão zero.
+
+    FALTA DE PEÇA != PEÇAS QUE NÃO SE CRUZAM.
+
+E as duas corrigem-se de maneiras opostas: a primeira construindo, a segunda
+decidindo. Juntá-las debaixo do mesmo nome («falta fechar a aresta») faria a
+segunda parecer trabalho de código, e ela não é. Foi por isso que a causa-raiz
+antiga `RC-A` ganhou um campo `NAO_CONFUNDIR_COM`: o nome dela voltou a
+descrever o presente, por **outro** motivo, e ler isso como «RC-A reabriu»
+mandaria alguém reconstruir peças que já correm.
+
+    INFRAESTRUTURA FUNCIONA != HÁ CASO ADMISSÍVEL NO CORPUS.
+
+## 99.4 · UMA FRASE DE FECHO É UMA AUTORIZAÇÃO, E NÃO SE ARREDONDA
+
+A missão mandava o red team **tentar** produzir
+`ONLY_REMAINING_DEPENDENCY_IS_SCRAP = YES` e **falhar**. Tentou, e falhou — e o
+motivo da falha é a parte transferível.
+
+A armadilha não é mentir. É um raciocínio que parece sólido:
+
+```
+o SCRAP não está integrado          VERDADE
+o SCRAP é preciso antes da coleta   VERDADE
+logo: «só falta o SCRAP»            FALSO
+```
+
+O teste decisivo não é «o SCRAP está integrado?». É **«o buraco que está lá
+seria tapado por integrar o SCRAP?»** Um buraco na porta de admissão não seria.
+O SCRAP não escreve regra temática nem muda o que a porta pergunta.
+
+Isto importa porque uma frase de fecho **autoriza alguém a começar outra coisa**.
+«Só falta o SCRAP» faz uma pessoa abrir a integração do SCRAP — e, sendo falso,
+ela integra o SCRAP e o buraco continua lá, agora com mais uma peça por cima.
+
+Por isso as duas frases saem **calculadas** da mesma medição que faz o veredito,
+e uma guarda garante que nenhum `"YES"` vive fora de uma condição dentro da
+função que as produz.
+
+## 99.5 · A GUARDA DE TEXTO MORDEU A REGRA OUTRA VEZ — E A CORREÇÃO JÁ TEM NOME
+
+A guarda escrita para isso nasceu a procurar `", "YES"` na linha. Reprovou
+`"YES" if pronto else "NO"`, que é exactamente a forma certa.
+
+É a mesma família da `§95.4` (sete guardas a morder a prosa que explicava a
+regra delas) e da `§86.7`. A correção é sempre a mesma e já não precisa de ser
+descoberta: **AST em vez de texto**. A pergunta passou a ser estrutural — todo
+`"YES"` dentro da função tem de viver dentro de uma condição. Um `"YES"` solto é
+uma afirmação; um `"YES"` num `if` é um cálculo.
+
+    PROCURAR O TEXTO DA REGRA NÃO É MEDIR A REGRA.
+
+## 99.6 · TRÊS LISTAS ESCRITAS À MÃO ENVELHECERAM NA MESMA SEMANA
+
+O censo dos portões declarava, em Python literal, qual etapa atravessava em que
+rota. Dizia «`DERIVED` e `STRUCTURED` só atravessam na rota forward» e
+«`FIRST_LOST_EDGE = STORAGE -> DERIVED`» muito depois de as duas coisas terem
+deixado de ser verdade. Ninguém mentiu: a fronteira **anda** a cada missão, e a
+lista não anda com ela.
+
+```
+ANTES  so_na_rota_forward = {"DERIVED", "STRUCTURED"}   # escrito à mão
+DEPOIS lido de system-map/data/pedido.observado.json    # escrito por quem mede
+```
+
+    O CENSO NÃO DECIDE ONDE A ESTRADA PARA. ELE LÊ QUEM MEDIU.
+
+Na mesma varrida caiu `MIGRATION_IN_GIT = 27`, com três migrations já entradas.
+Passou a contar `git ls-files` — o **índice**, e não a pasta, porque um ficheiro
+por commitar ainda não está em git e dizer que está é a mesma mentira com outra
+roupa.
+
+E a consequência de leitura: onze `fluxo=YES` numa coluna só leem-se como «a
+estrada atravessa». A coluna «pelo pedido» passou a ir ao lado, sempre, com a
+frase do buraco por baixo. `FLOW_EXECUTED = YES` com
+`ATRAVESSA_PELO_PEDIDO = NO` não é contradição: é a distinção inteira.
+
+## 99.7 · A MESMA DISCIPLINA APLICADA AOS TESTES DA PRÓPRIA MISSÃO
+
+A `§95` registou três guardas que prendiam o estado de ontem e reprovavam o
+progresso. Aconteceu de novo, em menor escala, e desta vez foi apanhado antes:
+a docstring de um teste nomeava o buraco de então. Um teste que nomeia o buraco
+de hoje falha no dia em que ele se fechar — que é o dia errado para um teste
+falhar.
+
+    UM TESTE QUE SÓ ESTÁ CERTO ENQUANTO NADA AVANÇA
+    É UM TESTE QUE MEDE O PRIMEIRO DIA.
+
+Mesma correção do resto da secção: o teste guarda a **propriedade** (o portão
+exige a mesma história, e não a soma de `YES`), e lê o buraco de quem o mediu.
+
+## 99.8 · O QUE FICA POR SABER
+
+- `ADMISSION -> READY` continua aberto e é decisão de gente: escrever regra
+  temática para `T2`, ou pôr colheita canónica num universo que já tem regra.
+  Recomendada a primeira, com razão medida — `T2` é o único universo cujo
+  executor já vai à fonte real e já declara colheita.
+- A classe PLATAFORMA de STRUCTURED continua a esperar por um dono de identidade
+  de canal. Não nasceu aqui, e não devia.
+- Migration 030 **não foi aplicada em produção**. Medida contra descartável.
+- Nenhum caso legitimamente admissível existe no corpus de hoje. Isso é um
+  facto sobre o corpus, e não sobre a máquina — e a missão proibiu, por escrito,
+  afrouxar a regra até um caso passar. Tinha razão: o veredito que saísse daí
+  mediria a regra nova, e não a máquina.
