@@ -575,17 +575,28 @@ prova("a_identidade_do_card_do_portal_esta_provada_e_nao_assumida",
       especies["PORTAL_TOOL_CARD"]["PROVA_DE_IDENTIDADE"] == "NOMES_IGUAIS",
       "os 11 cards do casco deixaram de bater, por nome, com os 11 nos de Z-TELAS")
 
-# ── 9 · FRESCURA: NAO SEI NAO PODE PARECER CURRENT ──────────────────────────
+# ── 9 · FRESCURA: NENHUM CARIMBO VIRA CURRENT POR SIMPATIA ──────────────────
 # Um carimbo de SHA de commit nunca pode ser verificado: o ficheiro commitado
 # nao nomeia o commit que o contem. Dizer CURRENT a partir dele seria inventar.
+#
+# ⚠️ DEPOIS DO G3 JA NAO HA NENHUM ARTEFATO ASSIM NESTA ARVORE, e uma guarda sem
+# nada para apanhar e uma frase. Por isso ela deixou de ser «se o carimbo for NAO
+# SEI» e passou a ser a lei inteira: quem nao carimba nao pode ser actual, E quem
+# carimba OUTRA arvore tambem nao.
+AGORA = COMMITADO["FRESCURA"]["IMPRESSAO_DA_ARVORE_AGORA"]
 for f in COMMITADO["FRESCURA"]["ARTEFATOS"]:
     prova(f"frescura_tem_veredito_conhecido[{f['ARTEFATO']}]",
-          f["ESTADO"] in ("CURRENT", "STALE", "UNVERIFIABLE"),
+          f["ESTADO"] in ("CURRENT", "STALE", "UNVERIFIABLE", "UNKNOWN"),
           f"{f['ESTADO']}")
     if f["IMPRESSAO_CARIMBADA"] == "NAO SEI":
         prova(f"carimbo_sem_impressao_nunca_diz_CURRENT[{f['ARTEFATO']}]",
               f["ESTADO"] == "UNVERIFIABLE",
               "artefato sem SOURCE_TREE_FINGERPRINT nao pode ser dado por actual")
+    elif f["ESTADO"] == "CURRENT":
+        prova(f"quem_diz_CURRENT_carimba_ESTA_arvore[{f['ARTEFATO']}]",
+              f["IMPRESSAO_CARIMBADA"] == AGORA,
+              "carimba %s e esta arvore e %s" % (f["IMPRESSAO_CARIMBADA"][:12],
+                                                 AGORA[:12]))
 
 # ── 10 · MUTACAO: MEXER NA RECONCILIACAO TEM DE REPROVAR ────────────────────
 # SURVIVORS = 0. Cada mutante abaixo e uma maneira conhecida de a reconciliacao
@@ -614,9 +625,12 @@ def mutar(nome, transformar, esperado):
         quebrou.append("territorio inexistente")
     if [c for c in cs if c["FAMILY"] not in LADO_DA_COLETA]:
         quebrou.append("familia fora do universo")
+    agora = d["FRESCURA"]["IMPRESSAO_DA_ARVORE_AGORA"]
     for f in d["FRESCURA"]["ARTEFATOS"]:
         if f["IMPRESSAO_CARIMBADA"] == "NAO SEI" and f["ESTADO"] != "UNVERIFIABLE":
-            quebrou.append("stale dado por actual")
+            quebrou.append("carimbo ausente dado por aferivel")
+        if f["ESTADO"] == "CURRENT" and f["IMPRESSAO_CARIMBADA"] != agora:
+            quebrou.append("arvore diferente dada por actual")
     prova(f"mutante_morre[{nome}]", bool(quebrou) is esperado,
           f"esperado quebrar={esperado}, quebrou={quebrou}")
 
@@ -651,11 +665,12 @@ def apagar_razao(d):
 
 
 def forjar_stale_como_actual(d):
+    """Um artefacto que mediu OUTRA arvore, apresentado como actual."""
     for f in d["FRESCURA"]["ARTEFATOS"]:
-        if f["IMPRESSAO_CARIMBADA"] == "NAO SEI":
-            f["ESTADO"] = "CURRENT"
+        if f["ESTADO"] == "CURRENT":
+            f["IMPRESSAO_CARIMBADA"] = "0" * 64
             return
-    raise AssertionError("nenhum carimbo nao verificavel para mutar")
+    raise AssertionError("nenhum artefato CURRENT para mutar")
 
 
 def mudar_o_total_mantendo_membros(d):

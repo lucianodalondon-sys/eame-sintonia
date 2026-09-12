@@ -1950,10 +1950,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-g2b-deterministic-cli-doc-v1",
-    "HEAD": "b3b8ab46dbd87a8363f201868dd53aee0f51661f",
-    "GENERATED_AT": "2026-09-12T17:57:16+00:00",
-    "SOURCE_TREE_FINGERPRINT": "225a45d1010830b91e223ac7ba7c9bcd8d1d8bd8d5e3525c7a923be4dc4d62db"
+    "BRANCH": "claude/system-map-g3-tree-fingerprint-v1",
+    "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
+    "GENERATED_AT": "2026-09-12T18:39:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5"
   },
   "FAMILIES": [
     {
@@ -6272,7 +6272,8 @@
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json"
       ],
       "inbound": [
-        "C-CENSO-EXECUTORES"
+        "C-CENSO-EXECUTORES",
+        "C-IMPRESSAO-DA-ARVORE"
       ],
       "outbound": [
         "C-MAPA-TESTES",
@@ -6289,7 +6290,7 @@
           "pasta": "data/derivados",
           "prova": {
             "file": "system-map/scripts/censo_cards_sensores.py",
-            "line": 358,
+            "line": 382,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -6326,7 +6327,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -6338,12 +6339,15 @@
         "system-map/scripts/censo_da_coleta.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/censo_da_coleta.py"
+      ],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA"
+        "C-CI-MAPA",
+        "C-IMPRESSAO-DA-ARVORE"
       ],
       "outbound": [
         "C-RECONCILIACAO-UNIVERSO"
@@ -9714,6 +9718,8 @@
         "C-MAPA-DEPLOY"
       ],
       "outbound": [
+        "C-CENSO-CARDS-SENSORES",
+        "C-CENSO-COLETA",
         "C-CENSO-TOPOLOGIA",
         "C-MAPA-SCAN",
         "C-RECONCILIACAO-UNIVERSO",
@@ -10981,8 +10987,9 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
+        "system-map/scripts/pente_fino_da_coleta.py",
         "system-map/scripts/scan_repo.py",
         "system-map/scripts/scan_sources.py"
       ],
@@ -18282,7 +18289,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-g2b-deterministic-cli-doc-v1"
+        "branch claude/system-map-g3-tree-fingerprint-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20640,7 +20647,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 47,
+          "line": 49,
           "snippet": "ATLAS = \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-SCAN",
@@ -20656,7 +20663,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 48,
+          "line": 50,
           "snippet": "CONTRATOS = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-SCAN",
@@ -20672,7 +20679,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 320,
+          "line": 322,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-SCAN",
@@ -23890,7 +23897,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_cards_sensores.py",
-          "line": 138,
+          "line": 140,
           "snippet": "provas = ler(\"provas-de-execucao.json\")[\"PROVADOS\"]",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-EXECUTORES--READS-->C-CENSO-CARDS-SENSORES",
@@ -25126,7 +25133,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 579,
+          "line": 598,
           "snippet": "run: python3 provas/fluxo_no_seco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-FLUXO-NO-SECO",
@@ -25212,7 +25219,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 428,
+          "line": 447,
           "snippet": "node system-map/scripts/publicar_no_deploy.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-DEPLOY",
@@ -25582,7 +25589,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 496,
+          "line": 515,
           "snippet": "run: python3 medidas/padrao_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PADRAO-COLETA",
@@ -25617,7 +25624,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 510,
+          "line": 529,
           "snippet": "run: python3 provas/valida_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-BIBLIA",
@@ -25652,7 +25659,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 503,
+          "line": 522,
           "snippet": "run: python3 provas/testa_coleta_canonica.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25668,7 +25675,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 576,
+          "line": 595,
           "snippet": "run: python3 provas/paridade_da_lingua.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25684,7 +25691,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 582,
+          "line": 601,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -25719,7 +25726,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 597,
+          "line": 616,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-DEDUPE",
@@ -25754,7 +25761,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 591,
+          "line": 610,
           "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-ENCANAMENTO",
@@ -25789,7 +25796,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 608,
+          "line": 627,
           "snippet": "run: python3 provas/o_executor_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-EXECUTOR-CONTA",
@@ -25824,7 +25831,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 611,
+          "line": 630,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-FRONTEIRA",
@@ -25859,7 +25866,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 585,
+          "line": 604,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-MAPA-NAO-MENTE",
@@ -25964,7 +25971,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 517,
+          "line": 536,
           "snippet": "python3 tests/test_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25980,7 +25987,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 518,
+          "line": 537,
           "snippet": "python3 tests/test_integracao_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -25996,7 +26003,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 519,
+          "line": 538,
           "snippet": "python3 tests/test_observabilidade_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26012,7 +26019,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 520,
+          "line": 539,
           "snippet": "python3 tests/test_red_team_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26028,7 +26035,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 527,
+          "line": 546,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26044,7 +26051,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 534,
+          "line": 553,
           "snippet": "run: python3 tests/test_armazem_italiano.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26060,7 +26067,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 541,
+          "line": 560,
           "snippet": "run: python3 tests/test_preservar_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26076,7 +26083,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 549,
+          "line": 568,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26092,7 +26099,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 556,
+          "line": 575,
           "snippet": "run: python3 tests/test_preservar_derivado.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -26108,7 +26115,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 562,
+          "line": 581,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -33532,6 +33539,76 @@
     },
     {
       "from": "C-IMPRESSAO-DA-ARVORE",
+      "to": "C-CENSO-CARDS-SENSORES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Impressao da arvore-fonte tem o seu codigo importado por Censo dos cards e dos sensores. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_cards_sensores.py",
+          "line": 44,
+          "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-CENSO-CARDS-SENSORES",
+            "FROM": "C-IMPRESSAO-DA-ARVORE",
+            "TO": "C-CENSO-CARDS-SENSORES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IMPRESSAO-DA-ARVORE",
+      "to": "C-CENSO-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Impressao da arvore-fonte tem o seu codigo importado por Censo da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_da_coleta.py",
+          "line": 50,
+          "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-CENSO-COLETA",
+            "FROM": "C-IMPRESSAO-DA-ARVORE",
+            "TO": "C-CENSO-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IMPRESSAO-DA-ARVORE",
       "to": "C-CENSO-TOPOLOGIA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -33573,12 +33650,44 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Impressao da arvore-fonte tem o seu codigo importado por Scanner do System Map. Provado por 1 linha de codigo.",
+      "reason": "Impressao da arvore-fonte tem o seu codigo importado por Scanner do System Map. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/scripts/pente_fino_da_coleta.py",
+          "line": 38,
+          "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-MAPA-SCAN",
+            "FROM": "C-IMPRESSAO-DA-ARVORE",
+            "TO": "C-MAPA-SCAN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/scripts/scan_repo.py",
           "line": 40,
           "snippet": "import impressao_da_arvore  # noqa: E402  o dono unico da impressao das fontes",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-MAPA-SCAN",
+            "FROM": "C-IMPRESSAO-DA-ARVORE",
+            "TO": "C-MAPA-SCAN",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/scripts/scan_sources.py",
+          "line": 46,
+          "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-MAPA-SCAN",
             "FROM": "C-IMPRESSAO-DA-ARVORE",
@@ -34335,7 +34444,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 194,
+          "line": 196,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-SCAN",
@@ -35487,7 +35596,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 519,
+          "line": 521,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MAPA-SCAN",
@@ -35503,7 +35612,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 520,
+          "line": 522,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MAPA-SCAN",
@@ -36458,7 +36567,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 414,
+          "line": 433,
           "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-CI-MAPA",
@@ -36493,7 +36602,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/impressao_da_arvore.py",
-          "line": 71,
+          "line": 72,
           "snippet": "CADEIA = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-IMPRESSAO-DA-ARVORE",
@@ -37245,7 +37354,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_topologia_persistida.py",
-          "line": 705,
+          "line": 728,
           "snippet": "fonte.write_text(original + \"\\n# uma fonte que mudou depois da medicao\\n\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
@@ -38863,7 +38972,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 369,
+          "line": 371,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
@@ -38879,7 +38988,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 398,
+          "line": 400,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
@@ -40726,7 +40835,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 429,
+          "line": 431,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-MAPA-SCAN",
@@ -50669,12 +50778,12 @@
   },
   "COUNTS": {
     "components": 161,
-    "components_proven": 59,
-    "components_pending": 96,
+    "components_proven": 58,
+    "components_pending": 97,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 669,
-    "edges_proven": 622,
+    "edges": 671,
+    "edges_proven": 624,
     "edges_unknown": 47,
     "business_edges": 4,
     "files_tracked": 1503,

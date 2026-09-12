@@ -687,16 +687,39 @@ try:
 
     # I · uma entrada noutra versao torna o artefacto STALE
     #     Duas entradas, dois caminhos diferentes ate ao mesmo veredito.
+    #
+    # ⚠️ O MOTIVO AQUI E `ENTRADA_MUDOU`, E NAO `STALE_BY_CYCLE` — a diferenca
+    # importa. Mexer na entrada DEPOIS da medicao diz «o mundo andou desde que
+    # mediste». O ciclo atrasado diz outra coisa: «ja quando mediste, o que leste
+    # tinha medido outra arvore». Os dois dao STALE por razoes que nao se
+    # confundem, e chamar-lhes o mesmo nome tirava a unica informacao util.
     alvo = c / "system-map" / "data" / "state.generated.json"
     guardado = alvo.read_text(encoding="utf-8")      # lido ANTES de mutar
     d = json.loads(guardado)
     d["PROVENANCE"]["SOURCE_TREE_FINGERPRINT"] = "f" * 64
     alvo.write_text(json.dumps(d, ensure_ascii=False), encoding="utf-8")
     depois = frescura_ali(c)
-    prova("entrada_gerada_noutra_arvore_torna_o_artefato_stale",
-          depois["VEREDITO"] == "STALE" and depois.get("MOTIVO") == "STALE_BY_CYCLE",
+    prova("uma_entrada_gerada_mexida_depois_torna_o_artefato_stale",
+          depois["VEREDITO"] == "STALE" and depois.get("MOTIVO") == "ENTRADA_MUDOU",
           depois)
     alvo.write_text(guardado, encoding="utf-8")
+
+    # E O CICLO ATRASADO, ESSE, MEDE-SE COMO ELE ACONTECE: mexe-se numa FONTE e
+    # corre-se SO o censo. Ele carimba a arvore nova; o estado que ele leu ainda
+    # carimba a velha. Foi assim que o defeito nasceu, e e assim que se apanha.
+    fonte_do_ciclo = c / "AGENTS.md"
+    guardado_fonte = fonte_do_ciclo.read_text(encoding="utf-8")   # ANTES de mutar
+    fonte_do_ciclo.write_text(guardado_fonte + "\n<!-- ciclo -->\n", encoding="utf-8")
+    correr(c, "--json")
+    ciclo = frescura_ali(c)
+    prova("medir_sobre_uma_geracao_anterior_da_stale_by_cycle",
+          ciclo["VEREDITO"] == "STALE" and ciclo.get("MOTIVO") == "STALE_BY_CYCLE",
+          ciclo)
+    prova("e_o_veredito_nomeia_a_entrada_atrasada",
+          "system-map/data/state.generated.json"
+          in (ciclo.get("ENTRADAS_GERADAS_DE_OUTRA_ARVORE") or []), ciclo)
+    fonte_do_ciclo.write_text(guardado_fonte, encoding="utf-8")
+    correr(c, "--json")
     prova("reposta_a_entrada_o_artefato_volta_a_current",
           frescura_ali(c)["VEREDITO"] == "CURRENT")
 

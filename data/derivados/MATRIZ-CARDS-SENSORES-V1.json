@@ -2,7 +2,79 @@
   "SCHEMA": "sintonia.censo-cards-sensores/1",
   "O_QUE_ISTO_E": "A matriz CARD x SENSOR do SINTONIA, montada a partir dos censos que ja existem. Nenhum numero e medido aqui: cada um tem dono noutro ficheiro, e este junta-os para fazer a pergunta que nenhum deles fazia sozinho.",
   "PROVENANCE": {
-    "HEAD": "a93acfdff0f79f7c80d24888278eec7003387242",
+    "GENERATED_BY": "system-map/scripts/censo_cards_sensores.py",
+    "GENERATED_AT": "2026-09-12T20:09:52+00:00",
+    "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
+    "HEAD_VERIFICAVEL": false,
+    "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
+    "SOURCE_TREE_FINGERPRINT": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5",
+    "FICHEIROS_NA_IMPRESSAO": 1655,
+    "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
+    "INPUTS": [
+      {
+        "PATH": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "6fcbb799a06216fdd4cb8efae3ee4c4f85530f2a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "ler() · json"
+      },
+      {
+        "PATH": "system-map/data/casco.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/congelamento.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/executores.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/fluxo.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "DERIVADO_SEM_CARIMBO",
+        "COMO_SE_MEDE": "constante: este artefacto gerado ainda nao carimba impressao, logo nao consegue dizer que arvore mediu",
+        "LIDO_POR": "ler() · json",
+        "CARIMBO_EM_FALTA": true
+      },
+      {
+        "PATH": "system-map/data/fronteira.observada.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "cac31446df16d82befbbea4af560d310635379a0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "ler() · json"
+      },
+      {
+        "PATH": "system-map/data/provas-de-execucao.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "24b2389839918ca4e8181ecdf3e45bf3ef0b1868",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "ler() · json"
+      },
+      {
+        "PATH": "system-map/data/sources.generated.json",
+        "PAPEL": "GERADO",
+        "VERSAO": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5",
+        "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
+        "LIDO_POR": "ler() · json"
+      }
+    ],
+    "INPUTS_COUNT": 8,
+    "INPUTS_DIGEST": "d1d065d266b7ea21d7d2e76f3e329cf0ba4540b8f76e27ba2446ae83a3c622a8",
+    "INPUTS_AUSENTES": [],
     "LIDO_DE": [
       "casco.generated.json",
       "executores.generated.json",
@@ -12,6 +84,13 @@
       "congelamento.generated.json",
       "provas-de-execucao.json",
       "SYSTEM-MAP-COLLECTION-ISSUES.json"
+    ],
+    "INPUTS_NAO_ENUMERAVEIS": [
+      {
+        "O_QUE": "a varredura `grep -rIl` de `quem_escreve_cada_camada()`",
+        "PORQUE": "o conjunto de ficheiros que ela toca depende da arvore e nao esta escrito no codigo: nao ha lista para carimbar",
+        "FICA_COBERTO_POR": "SOURCE_TREE_FINGERPRINT — ela so ve ficheiros de fonte, e todos entram na impressao"
+      }
     ]
   },
   "CONTAGENS": {
@@ -28,13 +107,13 @@
     },
     "SENSORES_TOTAL": 58,
     "SENSORES_POR_INSTRUMENTACAO": {
-      "NOT_INSTRUMENTED": 53,
+      "NOT_INSTRUMENTED": 54,
       "PARTIAL": 1,
       "INSTRUMENTED": 2,
-      "NOT_APPLICABLE": 2
+      "NOT_APPLICABLE": 1
     },
     "SENSORES_COM_CORRIDA_PROVADA": 2,
-    "SENSORES_QUE_CORREM_OFFLINE": 32,
+    "SENSORES_QUE_CORREM_OFFLINE": 34,
     "FONTES_NO_ATLAS": 23,
     "FONTES_COM_CONTRATO": 5,
     "FONTES_JA_COLETADAS": 4,
@@ -56,7 +135,7 @@
       "IT-T3-010": 2,
       "IT-T4-001": 2
     },
-    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 73,
+    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 72,
     "CAMADAS_DO_PORTAL": 15,
     "CAMADAS_COM_GERADOR": 5,
     "ARESTAS_POR_CLASSE": {
@@ -80,7 +159,7 @@
     {
       "PROVA": "CORRE",
       "PERGUNTA": "e chamavel sem rede, sem pago, sem producao?",
-      "SENSORES": 32,
+      "SENSORES": 34,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
@@ -710,6 +789,28 @@
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
+      "SENSOR_ID": "coleta/ingresso.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
       "SENSOR_ID": "coleta/instagram_coleta.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -780,6 +881,28 @@
       "GAVETA": "coleta",
       "PAPEIS": [
         "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/italy_executor.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
       ],
       "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
@@ -1336,7 +1459,7 @@
       "PAPEIS": [
         "PRESERVATION_OWNER"
       ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
       "CORRE_OFFLINE": true,
       "REDE": false,
@@ -1441,51 +1564,7 @@
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
-      "SENSOR_ID": "ferramentas/apify_contrato.py",
-      "GAVETA": "ferramentas",
-      "PAPEIS": [
-        "ADAPTER"
-      ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
-      "EXISTE": true,
-      "CORRE_OFFLINE": false,
-      "REDE": false,
-      "PAGO": true,
-      "PRODUCAO": false,
-      "RODOU_COM_PROVA": false,
-      "PRODUZIU": [],
-      "PROVA": null,
-      "MODO": null,
-      "TEM_PORTA": true,
-      "USA_CONTRATO_ARTEFATO": false,
-      "USA_TELEMETRIA": false,
-      "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
-    },
-    {
       "SENSOR_ID": "ferramentas/apify_pool.py",
-      "GAVETA": "ferramentas",
-      "PAPEIS": [
-        "ADAPTER"
-      ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
-      "EXISTE": true,
-      "CORRE_OFFLINE": false,
-      "REDE": false,
-      "PAGO": true,
-      "PRODUCAO": false,
-      "RODOU_COM_PROVA": false,
-      "PRODUZIU": [],
-      "PROVA": null,
-      "MODO": null,
-      "TEM_PORTA": true,
-      "USA_CONTRATO_ARTEFATO": false,
-      "USA_TELEMETRIA": false,
-      "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
-    },
-    {
-      "SENSOR_ID": "ferramentas/apify_recuperar.py",
       "GAVETA": "ferramentas",
       "PAPEIS": [
         "ADAPTER"
@@ -1538,7 +1617,7 @@
       "EXISTE": true,
       "CORRE_OFFLINE": false,
       "REDE": true,
-      "PAGO": false,
+      "PAGO": true,
       "PRODUCAO": false,
       "RODOU_COM_PROVA": false,
       "PRODUZIU": [],

@@ -42,6 +42,8 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import impressao_da_arvore as IMPRESSAO          # noqa: E402
 SAIDA = RAIZ / "system-map" / "data" / "sources.generated.json"
 
 ATLAS = "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -747,7 +749,21 @@ def main() -> int:
 
     dados = {
         "SCHEMA": "sintonia.system-map.sources/1",
-        "PROVENANCE": {"HEAD": head, "ATLAS": ATLAS, "CONTRATOS": CONTRATOS},
+        # O CARIMBO QUE SE CONSEGUE CONFERIR — e a lista do que este scanner
+        # ABRE de facto. Nenhuma delas e gerada pela cadeia: sao todas fonte, e
+        # por isso a versao de cada uma e o SHA do blob que o git guardaria.
+        "PROVENANCE": dict(
+            IMPRESSAO.carimbo("system-map/scripts/scan_sources.py", [
+                (ATLAS, IMPRESSAO.FONTE, "as_fontes() · linhas()"),
+                (CONTRATOS, IMPRESSAO.FONTE, "os_contratos() · linhas()"),
+                (MASTER_IT, IMPRESSAO.FONTE, "o_master_italiano() · json"),
+                (CONTAS, IMPRESSAO.FONTE, "as_contas() · json"),
+                (FILA, IMPRESSAO.FONTE, "a_fila() · json"),
+                (MANIFESTO, IMPRESSAO.FONTE, "o_manifesto() · json"),
+                (LEDGER_IT, IMPRESSAO.FONTE, "o_registo_italiano() · ndjson"),
+                (RUNS_IT, IMPRESSAO.FONTE, "o_registo_italiano() · ndjson"),
+            ]),
+            ATLAS=ATLAS, CONTRATOS=CONTRATOS),
         "SOURCES": fontes,
         "CITADAS_SEM_FICHA": so_em_tabela,
         "MASTER_ITALIANO": master,

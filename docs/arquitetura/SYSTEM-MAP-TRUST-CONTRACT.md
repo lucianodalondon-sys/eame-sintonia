@@ -3,10 +3,10 @@
 ```
 MISSAO        C-DESIGN-SYSTEM-MAP-TRUST-CONTRACT-V1
 BRANCH        claude/dazzling-cerf-27a7v2
-BASE MEDIDA   07ac873b → G0, G1 e G2 implementados
+BASE MEDIDA   07ac873b → G0, G1, G2 e G3 implementados
 DATA          2026-09-12
 ESTADO        CONTRATO · G0 fechou C6; G1 fechou C4 e C4b; G2 pagou a dívida
-              da topologia sem artefacto
+              da topologia sem artefacto; G3 fechou os quatro UNVERIFIABLE
 VEREDITO      CURRENT_SYSTEM_MAP_TRUST = DEGRADED  ·  nenhuma condição de FAIL
 ```
 
@@ -432,16 +432,26 @@ Regenerar o mapa hoje **não torna atual** uma execução de terça-feira.
 Estados: `CURRENT` · `STALE` · `UNVERIFIABLE` · `UNKNOWN`.
 
 **`UNVERIFIABLE` é obrigatório** e não é sinónimo de `UNKNOWN`: diz que o carimbo
-existe mas **não pode ser verificado por construção**. Medido nesta árvore: quatro
-artefactos carimbam apenas SHA de commit, e um ficheiro commitado nunca nomeia o
-commit que o contém — o carimbo nasce a apontar para o anterior.
+existe mas **não pode ser verificado por construção**. Medido: quatro artefactos
+carimbavam apenas SHA de commit, e um ficheiro commitado nunca nomeia o commit que
+o contém — o carimbo nasce a apontar para o anterior.
 
 ```
-sources.generated.json          UNVERIFIABLE
-pente-fino.generated.json       UNVERIFIABLE
-censo-da-coleta.generated.json  UNVERIFIABLE
-MATRIZ-CARDS-SENSORES-V1.json   UNVERIFIABLE
+sources.generated.json          UNVERIFIABLE  →  aferível (G3)
+pente-fino.generated.json       UNVERIFIABLE  →  aferível (G3)
+censo-da-coleta.generated.json  UNVERIFIABLE  →  aferível (G3)
+MATRIZ-CARDS-SENSORES-V1.json   UNVERIFIABLE  →  aferível (G3)
 ```
+
+**Pago pelo `G3`.** A causa foi reproduzida antes de corrigida: em seis commits
+seguidos, nos três que a cadeia regera, o `PROVENANCE.HEAD` aponta sempre para o
+commit **anterior**. Os quatro passaram a carimbar `SOURCE_TREE_FINGERPRINT` e as
+versões das entradas que leram, pelo algoritmo que já existia — nenhum segundo
+algoritmo nasceu. O `HEAD` fica, porque diz **quando**, agora acompanhado de
+`HEAD_VERIFICAVEL = false` e da razão.
+
+O estado `UNVERIFIABLE` continua a existir e continua obrigatório: ele é o que
+`frescura_do_carimbo()` devolve a quem não carimba impressão nenhuma.
 
 > **AUSÊNCIA DE PROVA DE STALENESS NÃO É PROVA DE CURRENT.**
 > (já é lei em `AGENTS.md`; aplica-se a cada um dos seis relógios)
@@ -466,16 +476,24 @@ fino conhece, e o pente fino não o viu. Correr a cadeia **uma segunda vez**, se
 mexer em mais nada: 48 → 49. A causa é a ordem — o pente fino lê
 `state.generated.json` no passo 5 e o gerador escreve-o no passo 7.
 
-O que **deveria** acontecer (não implementado nesta missão):
+O que deveria acontecer, e onde está cada parte:
 
-1. cada artefacto declara os seus `INPUTS` (§13);
-2. cada artefacto carimba a versão de cada input que leu;
-3. se um input carimbado não é o output atual do seu produtor, o artefacto é
-   `STALE_BY_CYCLE`, nunca `CURRENT`;
-4. a cadeia é ordenada topologicamente pelos `INPUTS` declarados, e não à mão.
+| | o que é | estado |
+|---|---|---|
+| 1 | cada artefacto declara os seus `INPUTS` (§13) | **feito** no `G2`/`G3`, para os cinco artefactos que carimbam |
+| 2 | cada artefacto carimba a versão de cada input que leu | **feito** |
+| 3 | input de outra geração ⇒ `STALE_BY_CYCLE`, nunca `CURRENT` | **feito** |
+| 4 | a cadeia ordenada pelos `INPUTS` declarados, e não à mão | **`G6`**, por fazer |
 
-Até isso existir, a reconciliação **nomeia** o caso com razão própria
-(`PENTE_FINO_MEDIU_OUTRO_CONJUNTO_DE_NOS`) e não o confunde com filtro estreito.
+O relógio **nomeia** e não repara. A pergunta que ele faz é *«que árvore media
+esta entrada quando eu a li?»* — comparada com a árvore que o próprio artefacto
+diz ter medido, e não com o que está no disco agora. A diferença foi medida: a
+primeira versão perguntava pelo estado actual do disco e por isso **não via** o
+caso que existe para ver, porque a cadeia já tinha reescrito a entrada.
+
+Medido hoje: uma passagem da cadeia depois de uma fonte mudar deixa
+`pente-fino.generated.json` em `STALE_BY_CYCLE`, e são precisas **duas** para ele
+ficar em dia. Esse é o preço do `G6`, e está à vista em vez de arredondado.
 
 ---
 
@@ -1245,7 +1263,7 @@ dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 | dívida | medida |
 |---|---|
 | exclusões com `INTENTIONAL=UNKNOWN` | 12 |
-| artefactos `UNVERIFIABLE` | 4 |
+| artefactos `UNVERIFIABLE` | 0 (eram 4, fechados pelo `G3`) |
 | censos que publicam número sem persistir | 0 (era 1, fechado pelo `G2`) |
 | violação de `ONE CHAIN OWNER` | 13 scripts fora do manifesto |
 | entidades com `ROLE` atribuído | 0 de 160 |
@@ -1266,7 +1284,7 @@ que fecha uma dívida não promove nada, e foi por isso que ele não entrou no m
 | ~~**G0**~~ | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | ✅ **FEITO** |
 | ~~**G1**~~ | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | ✅ **FEITO** |
 | ~~**G2**~~ | persistir o censo da topologia como artefacto | dívida | ✅ **FEITO** (dívida do `G2B` fechada, §13.3) |
-| G3 | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | nada |
+| ~~**G3**~~ | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | ✅ **FEITO** |
 | G4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | G3 |
 | G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | G4 |
 | G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | G4, G5 |
@@ -1280,7 +1298,7 @@ que fecha uma dívida não promove nada, e foi por isso que ele não entrou no m
 
 ```
 SAIR DE FAIL      []                G0 e G1 feitos; o mapa já saiu
-CHEGAR A PASS     G3..G13, e só quando nenhuma dívida ficar por rotular
+CHEGAR A PASS     G4..G13, e só quando nenhuma dívida ficar por rotular
 ```
 
 A lista da §26.4 é a **DAG completa**, e mantém `G0` riscado em vez de o apagar:

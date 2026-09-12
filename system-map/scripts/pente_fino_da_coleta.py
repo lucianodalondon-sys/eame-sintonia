@@ -34,6 +34,8 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import impressao_da_arvore as IMPRESSAO          # noqa: E402
 ESTADO = RAIZ / "system-map" / "data" / "state.generated.json"
 SAIDA = RAIZ / "system-map" / "data" / "pente-fino.generated.json"
 
@@ -47,12 +49,22 @@ PORQUE_VAZIO = re.compile(
     r"^(existe|serve|e |é |para |usado|utilizado)\b.{0,40}$", re.I)
 
 
-def workflows() -> str:
+def os_workflows() -> list[str]:
+    """QUE FICHEIROS O `workflows()` ABRE — a lista, e nao o texto colado.
+
+    Ela existe para o carimbo poder declarar as entradas reais deste censo em
+    vez de as adivinhar. Uma proveniencia adivinhada e pior do que nenhuma:
+    parece que alguem conferiu.
+    """
     d = RAIZ / ".github" / "workflows"
     if not d.is_dir():
-        return ""
-    return "".join(p.read_text(encoding="utf-8", errors="replace")
-                   for p in sorted(d.glob("*.yml")))
+        return []
+    return sorted(p.relative_to(RAIZ).as_posix() for p in d.glob("*.yml"))
+
+
+def workflows() -> str:
+    return "".join((RAIZ / w).read_text(encoding="utf-8", errors="replace")
+                   for w in os_workflows())
 
 
 def medir() -> dict:
@@ -96,9 +108,18 @@ def medir() -> dict:
 
     return {
         "SCHEMA": "sintonia.pente-fino-da-coleta/1",
-        "PROVENANCE": {"HEAD": subprocess.run(
-            ["git", "-C", str(RAIZ), "rev-parse", "HEAD"],
-            capture_output=True, text=True).stdout.strip()},
+        # ⚠️ `state.generated.json` E UMA ENTRADA GERADA, E ELA VEM DA CORRIDA
+        # ANTERIOR: nesta cadeia o pente fino corre no passo 5 e o gerador do
+        # estado no passo 7. O carimbo nao esconde isso — declara-o, e o relogio
+        # do ciclo atrasado ha-de dizer STALE_BY_CYCLE enquanto for verdade.
+        #
+        #     UM CARIMBO VERIFICAVEL NAO PAGA UMA DIVIDA DE ORDEM.
+        "PROVENANCE": IMPRESSAO.carimbo(
+            "system-map/scripts/pente_fino_da_coleta.py",
+            [("system-map/data/state.generated.json", IMPRESSAO.GERADO,
+              "medir() · json"),]
+            + [(w, IMPRESSAO.FONTE, "workflows() · read_text")
+               for w in sorted(os_workflows())]),
         "PECAS": fichas,
         "RESUMO": {
             "pecas_da_coleta": len(fichas),

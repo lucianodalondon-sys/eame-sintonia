@@ -1,7 +1,733 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "b3b8ab46dbd87a8363f201868dd53aee0f51661f",
+    "GENERATED_BY": "system-map/scripts/censo_da_coleta.py",
+    "GENERATED_AT": "2026-09-12T20:10:33+00:00",
+    "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
+    "HEAD_VERIFICAVEL": false,
+    "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
+    "SOURCE_TREE_FINGERPRINT": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5",
+    "FICHEIROS_NA_IMPRESSAO": 1655,
+    "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
+    "INPUTS": [
+      {
+        "PATH": "admissao/admissao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "5fc2df96604c7bbbb6d113d59ade4b8497e63e9d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/fonte_nova.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9a96acc19f31d08a1aebca168fcc0380268c46c9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/italy_fill_manifests.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "ffa51a075f620037661662daba0dfe9a12b637e7",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/italy_fill_manifests_browser.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "c2f0ca08f5f5408db7a1945e0d02f2ea6997b803",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/italy_fix_semantics.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "c693f1082a418418d16a83cf9f9a375451266019",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/italy_profiles.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "445164345e6aa765e10fc1a9bf87639365da383f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/italy_update_master_browser.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "ec5f5c5ebcea8f4ab9b5255d5d72039d467eab40",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "candidatas/italy_write_matrix.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "3e64e612d2b80748c5e9d65d2c432deb70bc3161",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/agrifood_ue.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fe26635e77232549b7c0b65996590ebccf3ea97a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/cellar.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "150f34ad949acc35661264d9e114058fc1506b71",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/coleta_checkpoint.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "18217020ae76fb647651a1cd85cdb4469bd2c468",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/coletor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f3abb53d9f75f02e3060c7187b2a191b3296e781",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/comunicacao_classificar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "3c1d6af0ab7aca36b38615b64c7eb1ee32457559",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/comunicacao_coleta.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e13c01805ce58ae4f5cb2dd69f48a9dac27e5526",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/comunicacao_medir.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "eda976cee16adac1dd8485837df599671c1248c0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/corpus_pesquisador.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "782195bb69f038c09746f9d93538ac56df553347",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/cruzar_regua_rotulo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "353de8af0005e8dc180c0131a79ab6cb4cd56727",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/denominaciones.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4d16c905bf5e083c7c1a664c6b7b31b59ee1e51e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/derivacao_forward.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "16d558066cfde0ab440d02734cc3440c6d1f0cec",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/ephy.sh",
+        "PAPEL": "FONTE",
+        "VERSAO": "7f226e19c715e62bdbec3058c39356649afc7dc5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/eppo_gd.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "bdebec8e0ed7549a6174e06432d559cf60bc1ee9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/es/corpus_es.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "71b0ef71396766fc1660b662f7c1c31637187638",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/eu_substancia_adama_it.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "93600f2cc5f920838d750aa57675b22329583dd0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/executor_texto_de_pdf.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "981f87a5b66c262a7ea151e83b8cf68aae5121c3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/filas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/gire_mapas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4a54507d756ae72eaf0442c37717ed190eaaad95",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/golden_path_pdf.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "5000ead3427aca2bdc1c418ce05b5d51acc01aaf",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/ingresso.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "00c7be35dae06d4ee10d8ae4131ff9edacc55523",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/instagram_coleta.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4672abd66ebf1dea06863ca4bffaf88369eb1544",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/instagram_diario.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1c929dd7bd7227b6b6f8ff0212d870e2ceab310c",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/instagram_janela.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0b89f4e2ddd937fab12c1a52a4abdcdd08ab2c97",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/instagram_pessoal.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "957774eff46891cbf73b0f57bc3ea0273f074370",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/italy_executor.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e19d91a55c0e6869f9115a7110e845b49339229c",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/italy_find_docs.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "dc23a5c5efab88225f510b58970568f66bdb69f6",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/italy_pilot_collect.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "e9980f36313c236dd2faa676a3b0ad7701994df8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/italy_probe.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "e86f2017f2a8d87168d3c3ffdbde559ab6d7d074",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/italy_recurrent_collect.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "cda974c0e8d4f390cca4d4024f5c03e71e24e4eb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/mapa_regfi.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "700246eeb5f5705e8a7456893fa22bac1416d2c5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/pdf_text.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "88b6b6d24e4f58a1948a390a0d72d4a21efa495c",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/preservar_pdf.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "af5efc50628d60d4958c57220d34e03408d67553",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/regulatorio_importar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0b3ef5130d3bd3355c208eb7d0572022414535a1",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/ropf_pre_requisito.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9e12db2b075779f9cb91f107d40eb53723332308",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/rota_forward_documento.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "9be59bb4388d6f9d65bdbb563e3144adc07fab60",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/rotulos_baixar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "aba8a506f4e2837a1f27e53952ec4ad8bc9edadb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/rotulos_ler.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "55336ae99e341e8b2f89b7a48a63cee2e309c11d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/sensor_canal_identidade.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "025065240dc3d51d7fd2069cad101a8caa9f0a26",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/social_envelope.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "196819855d39293a0d647cd5f563c92e24bb175f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/social_persistencia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "682f888100e0b3f3635ce20891f47782db14cdf2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/social_rotas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "63ceeea016b65a78528727c547ca53428b3c6a6e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/social_scrap.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "615169a015779739c5ff073bae6b40a7948f8759",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/speaker_identidade.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "650544a132429f9942578f40631c4fbb9029254d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/speaker_universo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a8b3143a3825c3716071a1c52a7d69984e0f97b8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/texto_fonte.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6181dd80bb943829ceeec0ef583763ed8edf0884",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/universo_ciencia_it.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "8ade2b98a6d08ed0a7f9665b8ad99032dfce93a7",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/youtube_janela.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "799d36f9f1e35bbe3b9e1348416c4a9bfd2dc053",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/youtube_oficial.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b63c524d73aa5084037dd584c383b215d40b8a10",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "coleta/youtube_relevancia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "95f7077a66ff3982976d6697232435ab8886d950",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/apify_pool.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ae8f12d5ac931b41d0d205e0d12c6b6b00831025",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/cdp.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "41e8859018030289384dbcc57f0c428b2a7ed980",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/contrato_ator.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "aae0c5d013b5512c8a0c862278ef91b7fc86ead0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/html_text.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "68d594d0ddab390834943caf08f1206c68dcb547",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/instagram_transcrever.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "108f8d14a52324e395a47fc9d094bd8cd33f9af3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/italy_extract_fields.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "00faf5a979beb1d74960d3dbb2111aebf537245a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/navegador.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "3db1f62a4e99cef50c8fd1e7ba15e1e7722224d2",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/ods_peek.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "c9ae639b7bb399e36adc8dbf7a599ee56bf5b833",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/pdf_peek.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "8bf939a51b4307b39bf0af5296b0a51e339e9164",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "ferramentas/youtube_transcrever.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ef47ea13f6d1fea264d283ee8b6824c50a777a1a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_catalogo_ler.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "fdb84d6323ba7a85117f49ac051daeb37f3c5fd5",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_catalogo_montar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6cdf2f0363c1c3b3c405ec221797c9004ad32796",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_eu.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0c20516dedec3feee45b64c166f971299e6210cd",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_frac.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "27e504ebb70a54fd864c2b0f83f16e8e1bdeaa97",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_gaps.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6d9f000b542aec4a904857dc8787abd65ee3d4fb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_intelligence.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "d281a6fd1de8d9ceb67295468b39db66cabf93bf",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_labels.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "87db0859ef4007449c4ecda1ae46eb662d234594",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_moa.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "0032c45d1f76387b055d331ba7027d575f500016",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "fontes/adama_it_qa.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "ce6ff9b883c40d75f95c72237f45f8626a834c10",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/catalogo_importar.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "21614cbd570ef1034d9994c02e39ef039be1b7e7",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/es/adama_es_gate.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "81395ee5b97a6a23438440bbfe21739f55f3c762",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/es/adama_es_import_rules.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "cb99445ccbe61a4ec53f019064ac6c29cb2413f1",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/importar_italia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f3fa576094ddfce98bc4d244c791085feb5fbc35",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/italy_preserve.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "1f85713ec766389071fd94ceaa09f5cc4848787d",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/memoria_descartavel.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6fbde7363d48ba2150acbacee5f5c2d0a39291ef",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/portas_live.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "8f3b4b2dbf4a2b4d1618357715ab4edc6626fea1",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/preservar_coleta.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "cdd65bcefb6d27ad03579414854276317774d02e",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/preservar_derivado.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "b1a0f91d148cf5026d4c4f732074c0e850c21a23",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/social_guarda.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "842c7a0bcc601bf4430f4986c9fa37524be430a9",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/social_sessao.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "a55f10a8ec1da51c6f7b5bf253bd9fce6c317aa0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "guarda/sql_conferir.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "4e8fcc8432225e17a461f0de03f427f6ec1145d0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "pedido/pedido.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "783852b225b497ca118f1f250f650123d1f81df0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "pedido/receitas.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "7f40bfcb43d4c71c20cc568bedbce97ecc4207e6",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/comunicacao_identidade.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "94c42ae11e5f4d2880ddbb71b2f36fc1d12a9160",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/comunicacao_lote.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "1aed0cecdff1f7a2ac42451eea43e87ba82b655f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/comunicacao_universo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6c25a78aa4314def6ee4354b0f5329f3d9cce622",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/italy_contract_test.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "593d2c51c898ba6b811b4d61b2bae46fe00b670f",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/italy_contracts.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "ae6fc38c114ed3b996021f6f120632a234c8a533",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/italy_pilot_guards.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "b1a1e27587938b7c23b24f0a90bd4846b2b17afe",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/italy_scheduling_guards.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "8cea2854f0470892f5b08051a76303a5336fc548",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/italy_source_health.mjs",
+        "PAPEL": "FONTE",
+        "VERSAO": "c3ecad25f05f09c596c54c6eb0d9a0445bfa5618",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/proveniencia.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "e89461aba7ba11e8196213586d72515f00b915b3",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/rotulos_censo.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "f5caa7816711270b5813e9b1a23ee87920e20825",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/sensor_coleta.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      },
+      {
+        "PATH": "regras/sensor_medir.py",
+        "PAPEL": "FONTE",
+        "VERSAO": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "medir() · read_text"
+      }
+    ],
+    "INPUTS_COUNT": 102,
+    "INPUTS_DIGEST": "053eceb42241f21f5d7c66ac920e071383f930776689dc0aa74775dbc53248d2",
+    "INPUTS_AUSENTES": [],
     "GAVETAS": [
       "pedido",
       "candidatas",

@@ -521,39 +521,22 @@ def entradas(fichas):
             if c.endswith(('.py', '.mjs', '.js')) and os.path.isfile(os.path.join(RAIZ, c)):
                 fontes.add(c)
 
-    itens, ausentes = [], []
-    for caminho, lido_por in gerados:
-        p = os.path.join(RAIZ, caminho)
-        if not os.path.isfile(p):
-            ausentes.append(caminho)
-            continue
-        try:
-            prov = (json.load(open(p, encoding='utf-8')).get('PROVENANCE') or {})
-        except (OSError, ValueError):
-            prov = {}
-        itens.append({
-            'PATH': caminho, 'PAPEL': 'GERADO',
-            'VERSAO': prov.get('SOURCE_TREE_FINGERPRINT') or NAO_SEI,
-            'COMO_SE_MEDE': 'SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba',
-            'LIDO_POR': lido_por,
-        })
-    presentes = sorted(f for f in fontes if os.path.isfile(os.path.join(RAIZ, f)))
-    ausentes += sorted(f for f in fontes if not os.path.isfile(os.path.join(RAIZ, f)))
-    for caminho, sha in zip(presentes, IMPRESSAO.sha_do_disco(presentes)):
-        itens.append({
-            'PATH': caminho, 'PAPEL': 'FONTE', 'VERSAO': sha,
-            'COMO_SE_MEDE': 'SHA do blob que o git guardaria deste caminho',
-            'LIDO_POR': ('alcancaveis_do_runtime() · open'
-                         if caminho.startswith(('.github/workflows/', 'motor/', 'provas/'))
-                         else 'escreve_le() · open'),
-        })
-    itens.sort(key=lambda x: x['PATH'])
-    return itens, sorted(set(ausentes))
+    # ⚠️ A REGRA DA VERSAO TEM UM DONO, E ELE NAO E ESTE FICHEIRO.
+    # Ela nasceu aqui, no G2, e foi promovida a `impressao_da_arvore` quando
+    # quatro outros geradores precisaram dela. Reescreve-la aqui seria ter duas
+    # copias da mesma lei — e duas copias divergem no dia em que uma aprende algo.
+    lidas = [(c, IMPRESSAO.GERADO, lido_por) for c, lido_por in gerados] + [
+        (c, IMPRESSAO.FONTE,
+         'alcancaveis_do_runtime() · open'
+         if c.startswith(('.github/workflows/', 'motor/', 'provas/'))
+         else 'escreve_le() · open')
+        for c in sorted(fontes)]
+    return IMPRESSAO.versoes(lidas)
 
 
 def selo_das_entradas(itens):
     """UMA FORMULA DE SELAGEM SO. A de `impressao_da_arvore`, sem copia."""
-    return IMPRESSAO._selar(['%s %s' % (i['VERSAO'], i['PATH']) for i in itens])
+    return IMPRESSAO.selar_entradas(itens)
 
 
 # O QUE FOI MEDIDO, SEM UMA PALAVRA SOBRE QUEM MEDIU OU QUANDO.
@@ -930,112 +913,23 @@ def conferir(doc):
 def frescura(doc=None):
     """CURRENT · STALE · UNVERIFIABLE · UNKNOWN — e quem pergunta nao e quem escreveu.
 
-    Tres relogios, nunca um:
+    O VEREDITO NAO SE CALCULA AQUI. Os tres relogios — a arvore, as entradas
+    declaradas e o ciclo atrasado — tem um dono so, `impressao_da_arvore`, e ele
+    responde por este artefacto como responde pelos outros. Esta funcao e a porta:
+    ela sabe ONDE mora o artefacto e o que dizer quando ele nao existe.
 
-        A ARVORE     a impressao das FONTES mudou desde que isto foi medido?
-        AS ENTRADAS  algum input declarado esta noutra versao?
-        O CICLO      alguma entrada gerada mediu uma arvore que nao e esta?
-
-    Os tres sao precisos porque nenhum ve o do outro: os `.generated.json` que
-    este censo le estao FORA da impressao da arvore (senao ela perseguia o
-    proprio rabo), a varredura `grep` esta fora dos INPUTS, e os dois primeiros
-    comparam o artefacto consigo mesmo — nunca com quem o alimentou.
+        UM ARTEFACTO NAO SE DECLARA ACTUAL A SI PROPRIO.
     """
     if doc is None:
         if not os.path.isfile(SAIDA):
-            return {'VEREDITO': 'UNKNOWN',
+            return {'VEREDITO': 'UNKNOWN', 'MOTIVO': 'SEM_ARTEFACTO',
                     'PORQUE': 'nao existe artefacto em %s' % _rel(SAIDA)}
         try:
             doc = json.load(open(SAIDA, encoding='utf-8'))
         except (OSError, ValueError) as x:
-            return {'VEREDITO': 'UNVERIFIABLE',
+            return {'VEREDITO': 'UNVERIFIABLE', 'MOTIVO': 'ARTEFACTO_ILEGIVEL',
                     'PORQUE': 'artefacto ilegivel: %s' % x}
-    p = doc.get('PROVENANCE') or {}
-    declarados = p.get('INPUTS') or []
-    if not declarados:
-        return {'VEREDITO': 'UNVERIFIABLE', 'PORQUE': 'o artefacto nao declara INPUTS'}
-
-    agora, _, _ = IMPRESSAO.do_disco()
-    caminhos = [i['PATH'] for i in declarados]
-    sumidos = [c for c in caminhos if not os.path.isfile(os.path.join(RAIZ, c))]
-    if sumidos:
-        return {'VEREDITO': 'UNVERIFIABLE',
-                'PORQUE': 'entradas declaradas que ja nao existem: %s' % sumidos[:5],
-                'IMPRESSAO_AGORA': agora}
-
-    fontes = [i['PATH'] for i in declarados if i.get('PAPEL') == 'FONTE']
-    shas = dict(zip(fontes, IMPRESSAO.sha_do_disco(fontes))) if fontes else {}
-    hoje, nao_sei = [], []
-    for i in declarados:
-        if i.get('PAPEL') == 'FONTE':
-            v = shas.get(i['PATH'], NAO_SEI)
-        else:
-            try:
-                prov = (json.load(open(os.path.join(RAIZ, i['PATH']), encoding='utf-8'))
-                        .get('PROVENANCE') or {})
-            except (OSError, ValueError):
-                prov = {}
-            v = prov.get('SOURCE_TREE_FINGERPRINT') or NAO_SEI
-        if v == NAO_SEI:
-            nao_sei.append(i['PATH'])
-        hoje.append({'PATH': i['PATH'], 'VERSAO': v})
-    if nao_sei:
-        return {'VEREDITO': 'UNVERIFIABLE',
-                'PORQUE': 'entradas sem versao aferivel: %s' % nao_sei[:5],
-                'IMPRESSAO_AGORA': agora}
-
-    selo_agora = selo_das_entradas(hoje)
-    mexidas = [i['PATH'] for i, j in zip(declarados, hoje)
-               if i.get('VERSAO') != j['VERSAO']]
-    arvore_bate = agora == p.get('SOURCE_TREE_FINGERPRINT')
-    entradas_batem = selo_agora == p.get('INPUTS_DIGEST')
-
-    # ── O TERCEIRO RELOGIO: A LEI DO CICLO ATRASADO (contrato §9.2) ──────
-    #
-    #     NENHUM ARTEFACTO E `CURRENT` SE MEDIU O OUTPUT DA GERACAO ANTERIOR
-    #     ENQUANTO A SUA SEMANTICA DIZ QUE REPRESENTA A ACTUAL.
-    #
-    # Os dois relogios de cima comparam este artefacto CONSIGO MESMO no tempo:
-    # se ninguem mexeu em nada desde que ele correu, os dois dizem CURRENT — e
-    # dizem-no mesmo que ele tenha medido um `state.generated.json` de ha tres
-    # arvores atras. Regerar este censo sobre uma entrada velha nao torna a
-    # entrada nova; torna a mentira mais recente.
-    #
-    # A pergunta que falta e outra: CADA ENTRADA GERADA MEDIU ESTA ARVORE?
-    # O produtor dela carimba a impressao que mediu; se essa impressao nao e a
-    # de agora, este censo leu o output da corrida anterior.
-    #
-    # E DE PROPOSITO QUE ISTO NAO REPARA NADA. O censo nao regenera a cadeia,
-    # nao reordena passos e nao esconde o caso: nomeia-o. Ordenar a cadeia pelos
-    # INPUTS declarados e o G5, e nao e trabalho desta missao.
-    ciclo = [j['PATH'] for i, j in zip(declarados, hoje)
-             if i.get('PAPEL') == 'GERADO' and j['VERSAO'] != agora]
-
-    atual = arvore_bate and entradas_batem and not ciclo
-    if atual:
-        motivo, porque = 'CURRENT', 'a arvore e as entradas sao as que foram medidas'
-    elif ciclo:
-        motivo = 'STALE_BY_CYCLE'
-        porque = ('entrada gerada que nao mediu esta arvore: %s' % ciclo[:5])
-    else:
-        motivo = 'ARVORE_MUDOU' if not arvore_bate else 'ENTRADA_MUDOU'
-        porque = ('mudou %s%s%s desde a medicao'
-                  % ('a arvore' if not arvore_bate else '',
-                     ' e ' if not arvore_bate and not entradas_batem else '',
-                     'alguma entrada' if not entradas_batem else ''))
-    return {
-        'VEREDITO': 'CURRENT' if atual else 'STALE',
-        'MOTIVO': motivo,
-        'ARVORE_BATE': arvore_bate,
-        'ENTRADAS_BATEM': entradas_batem,
-        'ENTRADAS_GERADAS_DE_OUTRA_ARVORE': ciclo,
-        'IMPRESSAO_CARIMBADA': p.get('SOURCE_TREE_FINGERPRINT'),
-        'IMPRESSAO_AGORA': agora,
-        'INPUTS_DIGEST_CARIMBADO': p.get('INPUTS_DIGEST'),
-        'INPUTS_DIGEST_AGORA': selo_agora,
-        'ENTRADAS_QUE_MUDARAM': mexidas[:10],
-        'PORQUE': porque,
-    }
+    return IMPRESSAO.frescura_do_carimbo(doc.get('PROVENANCE') or {})
 
 
 def _rel(caminho):

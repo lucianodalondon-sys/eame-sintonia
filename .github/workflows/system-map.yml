@@ -365,6 +365,25 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_topologia_persistida.py
 
+      # QUATRO ARTEFATOS CARIMBAVAM UM SHA DE COMMIT E MAIS NADA.
+      # Medido em seis commits seguidos: o carimbo aponta sempre para o commit
+      # ANTERIOR. Não é desleixo — é impossível por construção, porque o ficheiro
+      # entra no commit que ele teria de nomear.
+      #
+      #     UM FICHEIRO COMMITADO NUNCA NOMEIA O COMMIT QUE O CONTÉM.
+      #
+      # Agora os quatro carimbam a impressão da árvore-fonte e as versões das
+      # entradas que leram. Esta prova recalcula a impressão pela OUTRA leitura
+      # (a do índice), confere que escrever o carimbo não move a impressão, mexe
+      # numa fonte e exige STALE, e corre os quatro geradores num segundo sistema
+      # de ficheiros para a ordem do disco não voltar a decidir nada.
+      #
+      # Ela exige também que o pente fino NÃO fique verde: ele lê o estado da
+      # geração anterior, e um carimbo verificável não paga uma dívida de ordem.
+      - name: 4p · os quatro artefactos dizem que árvore mediram, e dá para conferir
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_impressao_verificavel.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |

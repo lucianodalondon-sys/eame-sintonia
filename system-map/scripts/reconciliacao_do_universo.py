@@ -809,7 +809,8 @@ def medir(com_topologia: bool) -> dict:
     frescura = {"IMPRESSAO_DA_ARVORE_AGORA": impressao,
                 "CARIMBO_DO_MAPA": carimbo_do_mapa,
                 "MAPA_E_DESTA_ARVORE": carimbo_do_mapa == impressao,
-                "ARTEFATOS": [], "STALE": [], "NAO_VERIFICAVEL": []}
+                "ARTEFATOS": [], "STALE": [], "CICLO_ATRASADO": [],
+                "NAO_VERIFICAVEL": []}
     # ⚠️ O TERCEIRO ELEMENTO E O DOCUMENTO JA LIDO, QUANDO EXISTE UM.
     # O censo da topologia foi corrido acima e reescreveu o proprio artefacto; ler
     # o disco AQUI perguntaria a um ficheiro acabado de escrever se ele e recente.
@@ -825,27 +826,32 @@ def medir(com_topologia: bool) -> dict:
              RAIZ / "data" / "derivados" / "MATRIZ-CARDS-SENSORES-V1.json", None)):
         d = (ja_lido if ja_lido is not None else ler(caminho)) or {}
         prov = d.get("PROVENANCE") or {}
-        impressao_dele = prov.get("SOURCE_TREE_FINGERPRINT")
-        head_dele = prov.get("HEAD", NAO_SEI)
-        if impressao_dele:
-            estado = "CURRENT" if impressao_dele == impressao else "STALE"
-        else:
-            # Um SHA de commit nao serve de prova: ele nasce a apontar para o
-            # commit anterior. Dizer CURRENT a partir dele seria inventar.
-            estado = "UNVERIFIABLE"
-        ficha = {"ARTEFATO": nome, "HEAD_CARIMBADO": head_dele,
-                 "IMPRESSAO_CARIMBADA": impressao_dele or NAO_SEI,
-                 "ESTADO": estado,
-                 "PORQUE": ("carimba SOURCE_TREE_FINGERPRINT, e ele bate com esta arvore"
-                            if estado == "CURRENT" else
-                            "carimba SOURCE_TREE_FINGERPRINT, e ele NAO bate com esta arvore"
-                            if estado == "STALE" else
-                            "so carimba SHA de commit — impossivel de verificar por "
-                            "construcao: um ficheiro commitado nunca nomeia o commit "
-                            "que o contem")}
+        # ⚠️ O VEREDITO NAO E CALCULADO AQUI. Ele tem um dono — `impressao_da_arvore`
+        # — e tres relogios: a arvore, as entradas declaradas, e o ciclo atrasado.
+        # Escrever a comparacao outra vez neste ficheiro criava um segundo dono da
+        # frescura, e dois donos divergem no dia em que um deles aprende algo.
+        v = IMPRESSAO.frescura_do_carimbo(prov)
+        estado, motivo = v["VEREDITO"], v.get("MOTIVO", NAO_SEI)
+        ficha = {"ARTEFATO": nome, "HEAD_CARIMBADO": prov.get("HEAD", NAO_SEI),
+                 "IMPRESSAO_CARIMBADA": prov.get("SOURCE_TREE_FINGERPRINT", NAO_SEI),
+                 "ESTADO": estado, "MOTIVO": motivo,
+                 # ⚠️ ISTO FICA A VISTA MESMO QUANDO O VEREDITO E CURRENT.
+                 # Um artefacto que le a saida de outro so esta em dia por sorte
+                 # de ordem: basta uma fonte mudar para ele medir a geracao
+                 # anterior. A divida e da ORDEM DA CADEIA, e nao desaparece por
+                 # a corrida de hoje ter calhado bem.
+                 "ENTRADAS_GERADAS": sorted(
+                     i["PATH"] for i in (prov.get("INPUTS") or [])
+                     if i.get("PAPEL") == "GERADO"),
+                 "ENTRADAS_GERADAS_DE_OUTRA_ARVORE":
+                     v.get("ENTRADAS_GERADAS_DE_OUTRA_ARVORE") or [],
+                 "ENTRADAS_SEM_CARIMBO": v.get("ENTRADAS_SEM_CARIMBO") or [],
+                 "PORQUE": v.get("PORQUE", NAO_SEI)}
         frescura["ARTEFATOS"].append(ficha)
         if estado == "STALE":
             frescura["STALE"].append(nome)
+            if motivo == "STALE_BY_CYCLE":
+                frescura["CICLO_ATRASADO"].append(nome)
         elif estado == "UNVERIFIABLE":
             frescura["NAO_VERIFICAVEL"].append(nome)
 
@@ -1026,12 +1032,29 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
             "OWNER": "cada gerador · PROVENANCE",
             "ESTA_MISSAO_CORRIGE": False,
         })
-    if frescura["STALE"]:
+    # ── 4b · A DIVIDA DE ORDEM, QUE NAO E A MESMA COISA ──────────────────
+    # Um artefato pode carimbar ESTA arvore e mesmo assim ter lido a saida da
+    # geracao anterior. Chamar-lhe «medido noutra arvore» seria dizer a coisa
+    # errada sobre um defeito verdadeiro.
+    if frescura["CICLO_ATRASADO"]:
+        a.append({
+            "ACHADO": "ARTEFATO_LEU_A_GERACAO_ANTERIOR",
+            "GRAVIDADE": "ALTA",
+            "O_QUE": "%s carimbam esta arvore mas leram uma entrada gerada que "
+                     "mediu outra." % ", ".join(frescura["CICLO_ATRASADO"]),
+            "PORQUE_IMPORTA": "regerar sobre uma entrada velha nao torna a entrada "
+                              "nova: torna a mentira mais recente. A ordem da cadeia "
+                              "e que decide isto, e ela nao foi mexida aqui.",
+            "OWNER": "system-map/scripts/CADEIA-DO-MAPA.json · a ordem dos passos",
+            "ESTA_MISSAO_CORRIGE": False,
+        })
+    so_arvore = [n for n in frescura["STALE"] if n not in frescura["CICLO_ATRASADO"]]
+    if so_arvore:
         a.append({
             "ACHADO": "ARTEFATO_MEDIDO_NOUTRA_ARVORE",
             "GRAVIDADE": "ALTA",
             "O_QUE": "%s tem impressao de arvore diferente desta."
-                     % ", ".join(frescura["STALE"]),
+                     % ", ".join(so_arvore),
             "PORQUE_IMPORTA": "dois censos lado a lado que mediram arvores diferentes "
                               "nao sao contemporaneos, e a tela nao dizia isso.",
             "OWNER": "a cadeia do mapa",

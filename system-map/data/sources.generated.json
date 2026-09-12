@@ -1,7 +1,75 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "b3b8ab46dbd87a8363f201868dd53aee0f51661f",
+    "GENERATED_BY": "system-map/scripts/scan_sources.py",
+    "GENERATED_AT": "2026-09-12T20:11:00+00:00",
+    "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
+    "HEAD_VERIFICAVEL": false,
+    "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
+    "SOURCE_TREE_FINGERPRINT": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5",
+    "FICHEIROS_NA_IMPRESSAO": 1655,
+    "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
+    "INPUTS": [
+      {
+        "PATH": "candidatas/FONTES-CANDIDATAS.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "ef5d20af7253dd06350a414a81f37e8327d5b83a",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "a_fila() · json"
+      },
+      {
+        "PATH": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "o_master_italiano() · json"
+      },
+      {
+        "PATH": "data/collection-ledger/italy/observations.ndjson",
+        "PAPEL": "FONTE",
+        "VERSAO": "c6750b2d1039a302cb88cf5ab4aa47ce2550d794",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "o_registo_italiano() · ndjson"
+      },
+      {
+        "PATH": "data/collection-ledger/italy/runs.ndjson",
+        "PAPEL": "FONTE",
+        "VERSAO": "8ef7ad2f772c2baa8c78b7e1a3c116bca19e45fb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "o_registo_italiano() · ndjson"
+      },
+      {
+        "PATH": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "1f6cbc6703b4fbf3093851713893a723005d38c8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "as_contas() · json"
+      },
+      {
+        "PATH": "data/samples/RUN-MANIFEST.json",
+        "PAPEL": "FONTE",
+        "VERSAO": "384667c538de66c8224aee0bbd3994c227a8a5fb",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "o_manifesto() · json"
+      },
+      {
+        "PATH": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "PAPEL": "FONTE",
+        "VERSAO": "508a4ca1853fbd3917dde501625980cc01b6e3d6",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "as_fontes() · linhas()"
+      },
+      {
+        "PATH": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+        "PAPEL": "FONTE",
+        "VERSAO": "1aa96613c29fefeba47732f5f501b10ad679eaf8",
+        "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+        "LIDO_POR": "os_contratos() · linhas()"
+      }
+    ],
+    "INPUTS_COUNT": 8,
+    "INPUTS_DIGEST": "856c140b3464c799ea5c2b5eceedf27d883d72a5d85a04d4d1557a44051bdb82",
+    "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
