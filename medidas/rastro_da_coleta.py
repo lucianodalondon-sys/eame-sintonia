@@ -138,8 +138,13 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
         'checkpoint_before': checkpoint_before, 'checkpoint_after': checkpoint_after,
     }
     nomes = [k for k, v in colunas.items() if v is not None]
+    # ⚠️ CAMPO FINAL VAZIO SOME NO RECORTE DO `psql`, e a casa ja pagou por
+    # isso uma vez — `coleta_checkpoint.pode_gastar` carrega o aviso no corpo.
+    # `diagnostic_code` e nulo em toda passagem que NAO falhou, que sao quase
+    # todas. Em vez de contar colunas, devolve-se um marcador que nunca e vazio.
     sql = ("insert into public.etapa_da_corrida (%s) values (%s)"
-           " returning accounted_input, unaccounted_input, estado, diagnostic_code"
+           " returning accounted_input::text, unaccounted_input::text,"
+           " estado::text, coalesce(diagnostic_code,'-')"
            % (', '.join(nomes),
               ', '.join(_lit(colunas[k]) if k != 'estado' and k != 'etapa'
                         and k != 'edge_from'
@@ -149,7 +154,8 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
     linha = banco.executa(sql)[0]
     return {'ACCOUNTED_INPUT': int(linha[0]) if linha[0] else 0,
             'UNACCOUNTED_INPUT': int(linha[1]) if linha[1] else 0,
-            'ESTADO': linha[2], 'DIAGNOSTIC_CODE': linha[3] or None}
+            'ESTADO': linha[2],
+            'DIAGNOSTIC_CODE': None if linha[3] == '-' else linha[3]}
 
 
 def _uma_linha(texto):
@@ -174,6 +180,162 @@ def _redigir(msg):
         return _uma_linha(ss.redigir(str(msg)))[:400]
     except Exception:                                        # noqa: BLE001
         return _uma_linha(msg)[:400]
+
+
+# ═════════════════════════════════════════════════════════════════════════
+# A ETAPA QUE AINDA NAO ACABOU — E POR QUE ELA PRECISA DE EXISTIR NO BANCO
+# ═════════════════════════════════════════════════════════════════════════
+# `registrar()` escreve a passagem DEPOIS de ela acontecer, com o estado final.
+# E a forma certa para quem chega ao fim, e nao serve para quem nao chega:
+#
+#     UM PROCESSO QUE MORRE A MEIO DE UMA ETAPA NAO ESCREVE LINHA NENHUMA,
+#     E O PROCESSO SEGUINTE NAO TEM COMO SABER QUE ELA COMECOU.
+#
+# `RUNNING` ja estava no vocabulario de `leis/telemetria.py` desde sempre — e
+# nao havia writer que o soubesse escrever. Um estado que nenhum escritor
+# escreve e um estado que so existe no papel.
+#
+# Entao a etapa passa a poder ser escrita em DOIS tempos, e a linha e a MESMA:
+#
+#     abrir_etapa()   INSERT com RUNNING e `comecou_em`. Antes do trabalho.
+#     fechar_etapa()  UPDATE da mesma linha para PASS/FAIL/PARTIAL/...
+#
+# A chave `(run_id, etapa, tentativa)` continua UNICA: nao nascem duas linhas,
+# e a tentativa anterior nunca e sobrescrita porque a tentativa MUDA.
+#
+#     UMA LINHA POR TENTATIVA — E ELA COMECA A EXISTIR QUANDO O TRABALHO COMECA,
+#     NAO QUANDO ELE ACABA.
+#
+# Quem morre entre as duas deixa a linha em `RUNNING` com `terminou_em` nulo.
+# Isso NAO diz «esta a correr agora» — diz «comecou e ninguem a fechou», que e
+# exactamente a evidencia que o processo seguinte precisa de ler.
+def proxima_tentativa(banco, *, run_id, etapa):
+    """A proxima tentativa desta etapa nesta corrida. Medida, nunca fixa.
+
+    `tentativa=0` fixo faz a segunda passagem colidir na chave — e a linha que
+    se perde e sempre a da falha, que e a que alguem ia procurar.
+    """
+    try:
+        r = banco.executa(
+            "select coalesce(max(tentativa), -1) from public.etapa_da_corrida"
+            " where run_id = %s and etapa = %s" % (_lit(run_id), _lit(etapa)))
+        return int(r[0][0]) + 1
+    except Exception:                                             # noqa: BLE001
+        return 0
+
+
+def abrir_etapa(banco, *, run_id, etapa, tentativa, edge_from=None,
+                source_id=None, route_class_id=None, actor=None,
+                actor_version=None, policy_version=None,
+                input_grain=None, input_count=None,
+                checkpoint_before=None, last_good_artifact=None):
+    """A etapa comeca a existir no banco ANTES de o trabalho comecar.
+
+    Devolve o `id` da linha. O estado e `RUNNING` e `terminou_em` fica nulo —
+    e e essa combinacao que testemunha uma morte de processo.
+    """
+    assert etapa in ETAPAS, 'etapa fora do vocabulario: %s' % etapa
+    if input_count is not None and not input_grain:
+        raise ValueError('%s: ha contagem de entrada sem GRAO declarado.' % etapa)
+    colunas = {
+        'run_id': run_id, 'etapa': etapa, 'edge_from': edge_from,
+        'tentativa': tentativa, 'estado': RUNNING,
+        'source_id': source_id, 'route_class_id': route_class_id,
+        'actor': actor, 'actor_version': actor_version,
+        'policy_version': policy_version,
+        'input_grain': input_grain, 'input_count': input_count,
+        'checkpoint_before': checkpoint_before,
+        'last_good_artifact': last_good_artifact,
+    }
+    nomes = [k for k, v in colunas.items() if v is not None]
+    sql = ("insert into public.etapa_da_corrida (%s) values (%s) returning id"
+           % (', '.join(nomes),
+              ', '.join(_lit(colunas[k]) if k not in ('estado', 'etapa', 'edge_from')
+                        else "%s::%s" % (_lit(colunas[k]),
+                                         'etapa_estado' if k == 'estado'
+                                         else 'etapa_da_coleta')
+                        for k in nomes)))
+    return int(banco.executa(sql)[0][0])
+
+
+def fechar_etapa(banco, *, linha_id, estado, etapa=None, duracao_ms=None,
+                 output_grain=None, output_count=None, cardinalidade=None,
+                 passed=None, rejected=None, error=None, not_run=None,
+                 unknown=None, reused=None, custo_usd=None,
+                 diagnostic_code=None, canonical_state=None, error_class=None,
+                 error_message=None, http_status=None,
+                 last_good_artifact=None, checkpoint_after=None):
+    """A MESMA linha passa de `RUNNING` ao estado final. Nunca nasce outra.
+
+    As mesmas travas de `registrar()` valem aqui, e pelo mesmo motivo: o
+    vocabulario tem dono, e o writer nao e ele.
+    """
+    assert estado in ESTADOS, 'estado fora do vocabulario: %s' % estado
+    if estado == FAIL and not diagnostic_code:
+        if etapa is None:
+            etapa = banco.executa("select etapa::text from public.etapa_da_corrida"
+                                  " where id = %d" % int(linha_id))[0][0]
+        diagnostic_code = dg.da_etapa(etapa, canonical_state)
+    if diagnostic_code:
+        assert dg.valido(diagnostic_code), 'codigo fora do registry: %s' % diagnostic_code
+    if canonical_state is not None:
+        assert canonical_state in falhas.ESTADOS, (
+            'estado canonico fora de falhas.py: %s' % canonical_state)
+    if output_count is not None and not output_grain:
+        raise ValueError('ha contagem de saida sem GRAO declarado.')
+
+    campos = {
+        'output_grain': output_grain, 'output_count': output_count,
+        'cardinalidade': cardinalidade, 'passed': passed, 'rejected': rejected,
+        'error_count': error, 'not_run_count': not_run,
+        'unknown_count': unknown, 'reused': reused,
+        'custo_usd': custo_usd, 'duracao_ms': duracao_ms,
+        'diagnostic_code': diagnostic_code, 'canonical_state': canonical_state,
+        'error_class': error_class,
+        'error_message_redacted': _redigir(error_message),
+        'http_status': http_status, 'last_good_artifact': last_good_artifact,
+        'checkpoint_after': checkpoint_after,
+    }
+    sets = ["estado = %s::etapa_estado" % _lit(estado),
+            "terminou_em = now()"]
+    sets += ['%s = %s' % (k, _lit(v)) for k, v in campos.items() if v is not None]
+    linhas = banco.executa(
+        "update public.etapa_da_corrida set %s where id = %d"
+        " returning accounted_input::text, unaccounted_input::text,"
+        " estado::text, coalesce(diagnostic_code,'-')"
+        % (', '.join(sets), int(linha_id)))
+    # Zero linhas aqui significa que o `id` nao existe — e isso e defeito de
+    # quem chamou, nao um resultado. Dizer o `id` poupa a proxima meia hora.
+    if not linhas or not linhas[0] or len(linhas[0]) < 4:
+        raise LookupError('etapa_da_corrida id=%s nao fechou: a linha nao existe '
+                          'ou o banco devolveu menos colunas do que as pedidas'
+                          % linha_id)
+    linha = linhas[0]
+    return {'ACCOUNTED_INPUT': int(linha[0]) if linha[0] else 0,
+            'UNACCOUNTED_INPUT': int(linha[1]) if linha[1] else 0,
+            'ESTADO': linha[2],
+            'DIAGNOSTIC_CODE': None if linha[3] == '-' else linha[3]}
+
+
+def etapas_penduradas(banco, *, run_id=None):
+    """As etapas que COMECARAM e ninguem fechou. A testemunha da morte.
+
+    Nao afirma que o processo morreu — afirma que a linha abriu e nao fechou,
+    que e o facto. Quem decide o que isso significa e quem le, com o resto do
+    estado duravel na mao.
+    """
+    onde = ("where estado = 'RUNNING'::etapa_estado and terminou_em is null"
+            + (" and run_id = %s" % _lit(run_id) if run_id else ""))
+    linhas = banco.executa(
+        "select run_id, etapa::text, tentativa::text,"
+        " coalesce(last_good_artifact,'-'), coalesce(checkpoint_before,'-'),"
+        " coalesce(actor,'-'), comecou_em::text"
+        " from public.etapa_da_corrida %s order by run_id, id" % onde)
+    return [{'RUN_ID': l[0], 'ETAPA': l[1], 'TENTATIVA': int(l[2]),
+             'LAST_GOOD_ARTIFACT': None if l[3] == '-' else l[3],
+             'CHECKPOINT_BEFORE': None if l[4] == '-' else l[4],
+             'ACTOR': None if l[5] == '-' else l[5], 'COMECOU_EM': l[6]}
+            for l in linhas if l and l[0]]
 
 
 # ═════════════════════════════════════════════════════════════════════════
