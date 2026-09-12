@@ -9834,3 +9834,210 @@ O que a segunda rota provou, e a primeira não podia provar sozinha: **o caminho
 canónico não depende de haver uma compra.** O portão continua a ser consultado, a
 política continua soberana, o teto de acessos continua dono do seu eixo — e
 nenhum deles precisou de um dólar para funcionar.
+
+# §95 · UMA SONDA QUE CONFIRMA UM SEGREDO NÃO PROVA QUE ELE É USADO
+
+> **Missão:** META-OP-01 · fechar a superfície oficial da Meta — Ad Library e
+> Branded Content — para uso da Collection.
+>
+> ```
+> TOKEN_PRESENT != TOKEN_SENT.
+> PUBLIC_WEB_HTTP != OFFICIAL_API_HTTP.
+> PAGE_ID != SOURCE_ID.
+> 401/403 != ZERO_RESULTS.
+> ```
+>
+> ⚠️ **NUMERAÇÃO.** Medido outra vez: o ramo canónico do know-how
+> (`claude/sintonia-eame-know-how-v1` @ `37733a8f`) tem §92, §93, §94, §95 e §96
+> **todos diferentes** dos desta linha. Já são quatro números em colisão, e a
+> §94 desta linha avisou que seriam mais. Não se resolve por memória de quem
+> escreve.
+
+## 95.1 · O DEFEITO QUE UMA SONDA VERDE ESCONDE
+
+`META_GRAPH_TOKEN` aparecia numa linha só do repositório inteiro: a constante
+que a **sonda** lê para responder «tenho credencial?». As duas rotas oficiais
+montavam a URL, chamavam o transporte, e a requisição sairia **anónima**.
+
+A sonda dizia SIM. O `CHECK` dizia que dava. O mapa dizia `WIRED`. E não havia
+autenticação nenhuma.
+
+```
+    UMA SONDA QUE CONFIRMA A PRESENÇA DE UM SEGREDO NÃO PROVA QUE ELE É USADO.
+    PROVA QUE ELE EXISTE — E ESSAS SÃO DUAS PERGUNTAS.
+```
+
+É a mesma família de defeito que a §93 encontrou na guarda do gasto e a §94 na
+recusa da fonte: **a peça existia, o campo estava publicado, e ninguém o
+ligava**. Três missões, três formas do mesmo erro — e nenhuma delas apareceria
+num teste de «a peça existe?».
+
+```
+    DECLARED != REGISTERED != WIRED != AUTENTICADO != EXECUTADO.
+    E CADA SETA DESSAS PRECISA DA SUA PRÓPRIA PROVA.
+```
+
+## 95.2 · O SEGREDO NÃO PODE ESTAR ONDE O RASTO PASSA
+
+Um token pode viajar de duas formas oficiais: na query string ou em cabeçalho.
+As duas funcionam. Só uma sobrevive ao resto da casa.
+
+Uma URL viaja para o rasto, para o log, para a excepção, para o manifesto e para
+o artefato que vai ao Git. Um cabeçalho não viaja para nenhum deles.
+
+```
+    TOKEN NA URL É UM SEGREDO COM PASSAPORTE.
+```
+
+E há a metade que quase escapa: **o segredo que vem de fora**. A Ad Library
+devolve um `ad_snapshot_url` com o token embutido, e o envelope guardava o item
+inteiro. Uma redacção que só protege o que nós escrevemos não protege contra o
+que nos é entregue.
+
+```
+    O SEGREDO QUE VEM DE FORA TAMBÉM É UM SEGREDO.
+```
+
+E a redacção **diz-se**: escreve-se uma palavra que se procura num ficheiro e
+num teste, em vez de apagar em silêncio. Um campo que desaparece sem explicação
+lê-se como um campo que a fonte não deu.
+
+## 95.3 · UM PORTÃO FEITO PARA CRAWLER APLICADO A UMA API PROTEGE OUTRA COISA
+
+O transporte da web pública lê o `robots.txt` do host antes de tudo — e é isso
+que um agente que percorre páginas públicas deve fazer. As rotas oficiais da
+Meta usavam-no.
+
+A pergunta não se respondeu por opinião: respondeu-se pelo **contrato que já
+existia**. A matriz desta casa já declara `OFFICIAL_API_FREE` como classe
+separada; e a única rota dessa classe ligada antes desta **nunca** consultou
+`robots.txt`.
+
+```
+    robots.txt GOVERNA QUEM PERCORRE, NÃO QUEM TEM CONTRATO.
+```
+
+Três consequências, e nenhuma é conveniência: um cliente autenticado não é um
+crawler; ler o `robots.txt` de uma API é uma ida à rede que ninguém pediu — e
+num probe de UMA requisição é a requisição toda; e o transporte público **não
+sabe levar credencial**, o que empurraria o token para a URL.
+
+E o que separa isto de um afrouxamento é o nome:
+
+```
+    UM SEGUNDO TRANSPORTE COM NOME E DONO NÃO É UM BYPASS.
+    UM BYPASS É UMA EXCEPÇÃO DENTRO DO PRIMEIRO.
+```
+
+O portão das rotas web não enfraqueceu — e isso **mediu-se**, na mesma prova,
+vendo-o ir buscar o `robots.txt` de um host público enquanto a API oficial não o
+buscava.
+
+## 95.4 · «NÃO ME DEIXARAM VER» NÃO É «NÃO HAVIA NADA PARA VER»
+
+O transporte público traduz qualquer erro de HTTP em «a plataforma
+impediu-nos». Um 401 não é isso: é a nossa credencial a não servir. E o pior
+colapso possível é o outro:
+
+```
+    401/403 NÃO É ZERO. NUNCA FOI.
+    UMA RECUSA DE AUTORIZAÇÃO ACONTECEU AO PEDIDO.
+    ZERO É UMA MEDIÇÃO SOBRE A FONTE.
+```
+
+Juntar os dois faz a **fonte levar a culpa pela credencial** — e três meses
+depois alguém lê «esta empresa não anuncia» onde a verdade era «não nos deixaram
+perguntar».
+
+E, mais uma vez, a palavra certa já existia e não tinha família:
+`AUTHORIZATION_BLOCK` — usada pelo estudo e pela matriz — caía no balde de
+«ninguém sabe o que houve». Um 403 é o contrário de não se saber.
+
+```
+    TER A CHAVE NÃO É TER LICENÇA. E AS DUAS AUSÊNCIAS TÊM CURAS DIFERENTES:
+    UMA ROTACIONA-SE, A OUTRA PEDE-SE A UMA PESSOA.
+```
+
+## 95.5 · UMA CAPACIDADE QUE SÓ CORRE DEPOIS DE PROVADA NUNCA CHEGA A SER PROVADA
+
+O `CHECK` recusa, em modo normal, toda capacidade que ainda não promete
+resultado — e faz bem. Sozinho, isso fecha um ciclo.
+
+A saída já estava escrita há missões (o ENSAIO), e o que faltava era alguém
+**declarar** que estas rotas entram por ali. A declaração é versionada, tem
+motivo escrito, e traz **todos os limites do ensaio num sítio só**: tecto de
+acessos, tecto de itens, janela de tempo.
+
+```
+    UM ENSAIO DECLARA OS SEUS LIMITES NUM SÍTIO SÓ.
+    TRIAL_ELIGIBLE != PRODUCTION_READY. TRIAL PASSADO != CAPACIDADE PROVADA.
+```
+
+### 95.5.1 · E o que se traduz não pode morar na tabela do que se entrega
+
+A tabela das fases diz **o que chega ao executor**, chave a chave, e há prova
+desta casa que o exige. Pôr lá um «30 dias» que vira duas datas pelo caminho é
+exactamente uma reescrita — e a prova apanhou-a à primeira.
+
+```
+    UM PEDIDO REESCRITO EM SILÊNCIO É UM PEDIDO QUE NINGUÉM FEZ.
+    O QUE SE TRADUZ NÃO PODE MORAR NA TABELA DO QUE SE ENTREGA.
+```
+
+## 95.6 · UMA CREDENCIAL DE PROVA COM ALCANCE A MAIS APAGA AS PROVAS QUE MEDEM A AUSÊNCIA DELA
+
+Fechar a porta da credencial partiu uma suíte inteira, que chamava as rotas com
+transporte falso. A saída fácil era abrir uma excepção para quem injecta o
+transporte — e isso faria da costura de teste um **bypass de credencial**.
+
+```
+    UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR É UMA PROVA DO DEFEITO.
+```
+
+A saída certa foi dar-lhe um token obviamente falso. E a primeira tentativa
+deu-o ao **módulo inteiro** — o que fez três ataques ficarem verdes tendo
+deixado de medir: eram exactamente os que mediam o que acontece **sem**
+credencial.
+
+```
+    UMA CREDENCIAL DE PROVA COM ALCANCE MAIOR DO QUE A CHAMADA
+    APAGA AS PROVAS QUE MEDEM A AUSÊNCIA DELA.
+```
+
+Uma suíte que fica verde por ter parado de perguntar é pior do que uma suíte
+vermelha.
+
+## 95.7 · IDENTIDADE NA PLATAFORMA NÃO É FICHA NESTA CASA
+
+O alvo destas rotas é um `page_id` ou um `ig_username`. Nenhum deles é um
+`SOURCE_ID`: as fichas que esta casa tem para os mesmos concorrentes descrevem
+o **site institucional** deles, não a página. Promover o identificador externo a
+fonte faria material de uma superfície entrar por uma ficha que fala de outra.
+
+```
+    PAGE_ID != SOURCE_ID.
+    IDENTIDADE NA PLATAFORMA != FICHA NESTA CASA.
+```
+
+Os dois viajam, e viajam **separados**: a origem é a do nó que produziu, e o
+identificador da plataforma fica no RAW com o nome que tem. É a terceira missão
+seguida a chegar à mesma conclusão por caminhos diferentes — e à mesma dívida:
+**o alvo da rota não tem ficha, e levantá-la é decisão de gente.**
+
+## 95.8 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Nada aqui foi provado ao vivo. `META_GRAPH_TOKEN` está ausente nesta máquina, e
+esta missão não o procurou. A forma de autenticação escolhida é a oficial e a
+que não vaza — mas que **esta** conta, **este** app e **este** nó a aceitem é
+coisa que só o probe real responde.
+
+```
+    IMPLEMENTATION_READY = PASS  não é  LIVE_PROVEN = YES.
+    READY_PENDING_CREDENTIAL não é PRODUCTION_PROVEN.
+```
+
+E as duas capacidades continuam `NOT_EXECUTED`, porque é o que elas são:
+
+```
+    NUNCA SE PROMOVE UM ESTADO POR EXISTIR CÓDIGO PARA ELE.
+```

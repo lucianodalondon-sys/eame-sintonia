@@ -159,8 +159,25 @@ _TABELA = [
        'o contrato proíbe automatizar esta capacidade por esta rota. Recusa por '
        'termo não depende de ter ferramenta instalada.'),
     _e('CREDENTIAL_MISSING', ROUTE, True, UNAVAILABLE, False, False,
-       ['CREDENTIAL_MISSING', 'SESSION_MISSING', 'LOGIN_REQUIRED'],
-       'falta chave, token ou sessão. A rota está viva; nós é que não temos como entrar.'),
+       ['CREDENTIAL_MISSING', 'SESSION_MISSING', 'LOGIN_REQUIRED',
+        # ── TER A CHAVE NÃO É TER LICENÇA ──────────────────────────────────
+        # A META-OP-01 mediu que `AUTHORIZATION_BLOCK` — a palavra que a
+        # META-DEEP-01 e `leis/social_matriz.py` já usavam — não estava neste
+        # vocabulário, e caía em `UNKNOWN_ERROR`: o balde de «ninguém sabe o
+        # que houve». Um 403 da Ad Library é o contrário de não se saber: é a
+        # plataforma a dizer, com todas as letras, que a autorização não foi
+        # concedida.
+        #
+        # Entra AQUI e não numa família nova porque a recuperação é a mesma —
+        # `HUMAN_PROVISION_CREDENTIAL`, alguém tem de ir buscar o que falta —
+        # e porque a rota continua viva e a FONTE continua sã. O que os separa
+        # (chave em falta vs. licença em falta) não se perde: `selar()` guarda
+        # o nome exacto em `ESTADO_ORIGINAL`, e `social_matriz.prontidao()`
+        # continua a publicar os eixos `ACCESS_CREDENTIAL`, `APP_REVIEW` e
+        # `PERMISSION` em separado.
+        'AUTHORIZATION_BLOCK', 'PERMISSION_MISSING'],
+       'falta chave, token, sessão OU a licença de a usar. A rota está viva; nós '
+       'é que não temos como entrar.'),
     _e('QUOTA_EXHAUSTED', ROUTE, True, UNAVAILABLE, True, False,
        ['QUOTA_EXHAUSTED', 'TOKEN_EXHAUSTED'],
        'a cota DESTA credencial acabou. Rotaciona: outra chave do pool, ou outro '

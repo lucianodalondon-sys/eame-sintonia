@@ -309,6 +309,43 @@ EXECUTORES = {
         # `leis/relevancia_da_fonte.py` declara. Escrever «gratis» ou «zero
         # dolares» aqui abriria GASTO_DINHEIRO e barrava a corrida.
         "custo": "gratuito",
+    }, {
+        # ── A SUPERFICIE DE TRANSPARENCIA DA META, PELO FLUXO CANONICO ───────
+        # Duas rotas OFICIAIS, GRATUITAS, e que NAO sao o Instagram nem o
+        # Facebook: sao o que a Meta publica DE PROPOSITO para ser lido.
+        #
+        #     META != INSTAGRAM != FACEBOOK != THREADS.
+        #     ADVERTISEMENT != ORGANIC_POST.
+        #     BRANDED_CONTENT != ORGANIC_POST.
+        #
+        # ⚠️ ELAS NAO ACEITAM FONTE, PELA MESMA RAZAO DA JANELA.
+        # O alvo e um `page_id` ou um `ig_username` — identidade da CONTA na
+        # plataforma. As oito fontes de T9 desta casa sao `type: site
+        # institucional`: o SITE da empresa, nao a pagina dela. Nomear uma
+        # delas aqui atribuiria anuncios a uma ficha que fala de outra coisa.
+        #
+        #     PAGE_ID != SOURCE_ID.
+        #
+        # Rota GRATUITA e sem fonte nomeada: o portao responde
+        # `EXIGE_AVALIACAO` e NAO barra — nao ha gasto aberto para guardar.
+        # O que barra esta rota hoje e outra coisa, e ela tem nome proprio:
+        # `CREDENTIAL_MISSING`, levantado pelo adaptador ANTES de qualquer ida
+        # a rede.
+        "id": "scrap-meta",
+        "retorno": {"ENVELOPE": "data/colheita/scrap/RETORNO.json"},
+        "roda": ["coleta/social_scrap.py", "coletar"],
+        "pedido_pede": {"fase": ["meta-ads", "meta-branded"]},
+        "argumentos_de_filtros": ["fase"],
+        "recebe_run_id": True,
+        "aceita_fonte": False,
+        "larga_em": ["data/colheita/scrap/"],
+        "rotas": ["Meta Ad Library", "Meta Branded Content Search"],
+        "o_que_traz": "o anuncio que o concorrente publicou (Ad Library) e a "
+                      "parceria paga em que a marca dele aparece (Branded "
+                      "Content), pela API oficial e sem pagar nada",
+        # ZERO DOLAR. O preco destas duas e confirmacao de identidade, e isso
+        # nao e dinheiro — e por isso `gratuito` e a palavra certa.
+        "custo": "gratuito",
     }],
 }
 

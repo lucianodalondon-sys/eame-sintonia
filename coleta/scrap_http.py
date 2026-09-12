@@ -40,6 +40,7 @@ escapar de bloqueio, nao finge ser navegador de gente. Quando a plataforma diz
 nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato — nunca uma
 tentativa mais esperta.
 """
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -186,6 +187,166 @@ def buscar(url, *, aceitar_json=True):
     finally:
         time.sleep(PAUSA_ENTRE_CHAMADAS)
     return corpo
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O SEGUNDO TRANSPORTE — E ELE NÃO É UM BYPASS DO PRIMEIRO
+# ══════════════════════════════════════════════════════════════════════════
+#     PUBLIC_WEB_HTTP  !=  OFFICIAL_API_HTTP
+#
+# `buscar()` é o transporte da WEB PÚBLICA: ele lê o `robots.txt` do host antes
+# de qualquer coisa, porque é isso que um agente que percorre páginas públicas
+# deve fazer. Esse portão NÃO enfraquece aqui, e nenhuma rota web deixa de
+# passar por ele.
+#
+# Uma API OFICIAL é outra coisa, e a diferença não é de opinião — está na
+# própria matriz desta casa, que declara `OFFICIAL_API_FREE` como CLASSE
+# separada de `DIRECT_HTTP` e `PUBLIC_BROWSER`. E já havia precedente medido:
+# `coleta/youtube_oficial.py::_http` — a única rota `OFFICIAL_API_FREE` ligada
+# antes desta — nunca consultou `robots.txt`, e fez a própria tradução de erro
+# em vez de colapsar tudo em «a plataforma bloqueou».
+#
+# Três razões, e nenhuma delas é conveniência:
+#
+#   1 · `robots.txt` governa QUEM PERCORRE, não quem tem contrato. Um cliente
+#       de API autenticado não é um crawler: ele identifica-se, traz uma
+#       credencial, e a permissão dele vive no contrato da plataforma — que é
+#       o que `leis/social_matriz.py` declara em `PERMITIDA`.
+#
+#   2 · LER O `robots.txt` DE UMA API É UMA IDA À REDE QUE NINGUÉM PEDIU. Num
+#       probe com teto de UMA requisição, o portão gastaria a requisição toda
+#       antes de a API ser sequer chamada.
+#
+#   3 · `buscar()` não sabe levar credencial. Ele monta `User-Agent` e
+#       `Accept`, e mais nada — não há por onde passar um token sem o pôr na
+#       URL, que é exactamente o sítio onde ele não pode estar.
+#
+#     UM PORTÃO FEITO PARA CRAWLER APLICADO A UMA API NÃO PROTEGE MAIS:
+#     PROTEGE OUTRA COISA, E COBRA UMA IDA À REDE POR ISSO.
+#
+# O que NÃO muda: o teto de acessos continua a cobrar esta porta (ela abre um
+# `urlopen` como qualquer outra), a política continua a decidir se a rota pode
+# ser percorrida (`social_matriz`), e o portão da relevância continua antes de
+# tudo. Este ficheiro trocou de portão, não os dispensou.
+
+#: A forma oficial de levar o token, e a única que esta casa usa.
+#:
+#: ⚠️ NUNCA NA URL. A própria META-DEEP-01 mediu porquê, e escreveu-o sobre o
+#: `ad_snapshot_url`: «UM `ad_snapshot_url` CARREGA UM TOKEN. GUARDÁ-LO NUM
+#: ARTEFATO É GUARDAR UMA CREDENCIAL NUM FICHEIRO QUE VAI PARA O GIT.»
+#:
+#: Uma URL viaja para o rasto, para o log, para a excepção e para o manifesto.
+#: Um cabeçalho não viaja para nenhum deles.
+#:
+#:     TOKEN NA URL É UM SEGREDO COM PASSAPORTE.
+CABECALHO_DE_AUTORIZACAO = 'Authorization'
+ESQUEMA_DE_AUTORIZACAO = 'Bearer'
+
+#: Nomes de parâmetro que NUNCA podem sair daqui com valor. A lista é curta e
+#: explícita: uma expressão genérica apanharia campos legítimos pelo caminho.
+PARAMETROS_SECRETOS = ('access_token', 'client_secret', 'appsecret_proof',
+                       'key', 'api_key')
+
+#: O que se escreve no lugar do valor. Não é `***`: é uma palavra que se pode
+#: procurar num ficheiro e num teste.
+REDIGIDO = 'REDACTED'
+
+
+def sem_segredo(texto):
+    """Devolve o texto com TODO parâmetro secreto redigido. → str.
+
+    Defensivo de propósito. Esta casa não põe token em URL nenhuma — mas a
+    Meta põe, no `ad_snapshot_url` que ELA devolve, e esse valor entra por aqui
+    vindo de fora. Uma redacção que só protege o que nós escrevemos não protege
+    contra o que nos é entregue.
+
+        O SEGREDO QUE VEM DE FORA TAMBÉM É UM SEGREDO.
+    """
+    t = str(texto)
+    for nome in PARAMETROS_SECRETOS:
+        t = re.sub(r'(?i)(\b%s=)[^&\s"\'<>]+' % re.escape(nome),
+                   r'\g<1>' + REDIGIDO, t)
+    return t
+
+
+#: O QUE CADA CÓDIGO HTTP QUER DIZER, NA LÍNGUA ÚNICA DESTA CASA.
+#:
+#: ⚠️ E O QUE NENHUM DELES QUER DIZER É `ZERO_RESULTS`. Uma recusa de
+#: autorização é uma coisa que aconteceu ao PEDIDO; zero é uma coisa medida
+#: sobre a FONTE. Colapsar os dois faz «não me deixaram ver» ler-se como «não
+#: havia nada para ver» — e a fonte leva a culpa pela credencial.
+#:
+#:     401/403 NÃO É ZERO. NUNCA FOI.
+ESTADO_POR_HTTP = {
+    400: 'PERMANENT_HTTP_ERROR',   # pedido malformado — defeito NOSSO
+    401: 'AUTH_EXPIRED',           # a credencial não vale
+    403: 'AUTHORIZATION_BLOCK',    # a credencial vale e NÃO autoriza isto
+    404: 'SOURCE_GONE',
+    429: 'RATE_LIMITED',
+}
+#: 5xx é da plataforma, e é retentável. Não se enumera um a um.
+ESTADO_5XX = 'SOURCE_UNAVAILABLE'
+
+
+def _estado_do_codigo(codigo):
+    if codigo in ESTADO_POR_HTTP:
+        return ESTADO_POR_HTTP[codigo]
+    if 500 <= int(codigo) < 600:
+        return ESTADO_5XX
+    return 'PERMANENT_HTTP_ERROR'
+
+
+def buscar_api_oficial(url, *, token=None, agente=AGENTE, timeout=TIMEOUT,
+                       tipo=None):
+    """GET a uma API OFICIAL. → corpo em texto. Levanta `EstadoDaApi` no erro.
+
+    O token, quando existe, viaja em CABEÇALHO — nunca na URL. E nada do que
+    sai daqui em excepção, mensagem ou rasto carrega segredo: a URL é redigida
+    ANTES de entrar em qualquer texto.
+
+        TOKEN_PRESENT != TOKEN_SENT.
+        E TOKEN_SENT != TOKEN_ESCRITO ALGURES.
+
+    Erro de HTTP não vira `RotaBloqueada` aqui. `RotaBloqueada` quer dizer «a
+    plataforma impediu-nos tecnicamente», e um 401 não é isso: é a nossa
+    credencial a não servir. Sobe `EstadoDaApi`, que é o canal que o roteador
+    já sabe ler sem reinterpretar.
+    """
+    # O tipo do pedido resolve-se AQUI, e não na assinatura: os nomes dos
+    # baldes do teto de acessos nascem mais abaixo neste ficheiro, e uma
+    # omissão avaliada na importação leria um nome que ainda não existe.
+    tipo = tipo or PEDIDO_ROTA
+    cabecas = {'User-Agent': agente, 'Accept': 'application/json'}
+    if token:
+        cabecas[CABECALHO_DE_AUTORIZACAO] = '%s %s' % (ESQUEMA_DE_AUTORIZACAO,
+                                                       token)
+    req = urllib.request.Request(url, headers=cabecas)
+    req.tipo_de_pedido = tipo
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as f:
+            return f.read().decode('utf-8', 'replace')
+    except urllib.error.HTTPError as e:
+        # A API RESPONDEU, e o que ela disse é o resultado. Ler o corpo é
+        # legítimo e é a única forma de saber a razão nativa — mas ele também
+        # é redigido antes de viajar.
+        try:
+            corpo = e.read().decode('utf-8', 'replace')[:400]
+        except Exception:                                      # noqa: BLE001
+            corpo = ''
+        raise EstadoDaApi({
+            'STATE': _estado_do_codigo(e.code),
+            'NATIVE_REASON': sem_segredo('HTTP %s · %s' % (e.code, corpo)),
+            'RECOVERY_ACTION': None})
+    except SemOrcamentoDeRede:
+        # A recusa do teto é NOSSA e sobe inteira, como em `buscar()`.
+        raise
+    except Exception as e:                                     # noqa: BLE001
+        raise EstadoDaApi({
+            'STATE': 'TRANSIENT_NETWORK_ERROR',
+            'NATIVE_REASON': sem_segredo('%s: %s' % (type(e).__name__, e)),
+            'RECOVERY_ACTION': None})
+    finally:
+        time.sleep(PAUSA_ENTRE_CHAMADAS)
 
 
 # ══════════════════════════════════════════════════════════════════════════

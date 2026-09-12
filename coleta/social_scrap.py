@@ -1554,7 +1554,48 @@ FASES_CANONICAS = {
     # a distingue vive em `FASES_PAGAS`, logo abaixo.
     'yt-legenda-paga': ('YOUTUBE', 'youtube.native_caption',
                         {'video_id': 'EAkcA_2FDN8'}),
+    # ── A SUPERFÍCIE DE TRANSPARÊNCIA DA META ───────────────────────────────
+    # Duas rotas OFICIAIS e GRATUITAS. Zero dólar, zero provider, zero Apify —
+    # o preço delas é CONFIRMAÇÃO DE IDENTIDADE, e isso não se paga em dinheiro.
+    #
+    #     META != INSTAGRAM != FACEBOOK != THREADS.
+    #     ADVERTISEMENT != ORGANIC_POST.  BRANDED_CONTENT != ORGANIC_POST.
+    #
+    # Os alvos são as SENTINELAS da META-DEEP-01, revalidadas contra o lote
+    # congelado nesta missão:
+    #   `1741459832625091`  →  BASF IT, o id que vive no `ACCOUNT_URL` do lote
+    #   `bayer_italia`      →  BAYER IT, o handle do lote
+    #
+    # ⚠️ NENHUM DOS DOIS É UM `SOURCE_ID`. São identidades da CONTA na
+    # plataforma, e o adaptador guarda-as no RAW com o nome que têm.
+    #
+    # ⚠️ E A JANELA NÃO ESTÁ AQUI, DE PROPÓSITO.
+    # Esta tabela diz o que CHEGA ao `COLLECT`, chave a chave e sem retoque —
+    # e há prova desta casa que o exige. Os LIMITES DO ENSAIO (tecto de
+    # acessos, tecto de itens, janela de tempo) vivem em `FASES_DE_ENSAIO`,
+    # que é quem os declara todos num sítio só.
+    #
+    #     UM PEDIDO REESCRITO EM SILÊNCIO É UM PEDIDO QUE NINGUÉM FEZ.
+    'meta-ads': ('META', 'meta.ads.search',
+                 {'paises': ['IT'], 'page_ids': ['1741459832625091']}),
+    'meta-branded': ('META', 'meta.branded_content.search',
+                     {'ig_username': 'bayer_italia'}),
 }
+
+#: A JANELA DE DIAS DESTA FASE, TRADUZIDA NA HORA — e dito que foi aqui.
+#:
+#: `adaptador_meta` RECUSA-SE a inventar um default para `creation_date_min` e
+#: `creation_date_max`, e faz bem: os dois são obrigatórios na Meta, e um
+#: default escondido produziria «uma janela que ninguém escolheu». Quem escolhe
+#: é a fase, aqui, numa declaração versionada — e o número de dias lê-se num
+#: commit, não num formulário.
+#:
+#:     UMA JANELA ESCOLHIDA PELA FASE NÃO É UMA JANELA INVENTADA PELA ROTA.
+def _janela_de_dias(dias):
+    import datetime
+    hoje = datetime.datetime.now(datetime.timezone.utc).date()
+    return {'SINCE': str(hoje - datetime.timedelta(days=int(dias))),
+            'UNTIL': str(hoje)}
 
 #: O QUE TORNA UMA FASE PAGA, DECLARADO AQUI E NÃO NO WORKFLOW
 #: ------------------------------------------------------------
@@ -1709,6 +1750,60 @@ def scrap_versao():
     """(EXECUTOR_ID, EXECUTOR_VERSION) do SCRAP — lidos de quem os declara."""
     import scrap_executor as scrap
     return scrap.EXECUTOR_ID, scrap.EXECUTOR_VERSION
+
+
+#: AS FASES QUE CORREM COMO **ENSAIO**, E POR QUÊ — declaradas, não deduzidas.
+#:
+#: Uma capacidade `NOT_EXECUTED` não promete resultado, e o `CHECK` recusa-a em
+#: modo NORMAL com `CAPABILITY_STATE_PROMISES_NOTHING`. Isso é o desenho, e é
+#: correcto — mas sozinho fecha um ciclo:
+#:
+#:     UMA CAPACIDADE QUE SÓ PODE CORRER DEPOIS DE PROVADA
+#:     NUNCA CHEGA A SER PROVADA.
+#:
+#: A C10.7 já tinha escrito a saída — o ENSAIO — e a META-CLOSE-AND-BUILD-01 já
+#: tinha medido que ele vale mesmo sem credencial: «descobrir que falta a chave
+#: é uma medição». Esta tabela é quem DECLARA que estas fases entram por ali.
+#:
+#: ⚠️ E ENSAIO NÃO É PROMOÇÃO. Um ensaio que devolve objetos não promove estado
+#: nenhum: quem promove `NOT_EXECUTED` para `PROVEN` é gente, com prova citada,
+#: num commit que se lê.
+#:
+#:     TRIAL_ELIGIBLE != PRODUCTION_READY.  TRIAL PASSADO != CAPACIDADE PROVADA.
+#:
+#: O TECTO DE ACESSOS VIVE AQUI, e é UM. A META-DEEP-01 desenhou os dois probes
+#: com uma requisição cada, sem paginação — e um tecto que vive na tabela
+#: versionada não é um tecto que quem despacha escolhe.
+FASES_DE_ENSAIO = {
+    'meta-ads': {
+        'TETO_DE_REDE': 1,
+        'MAX_ITEMS': 5,
+        'PORQUE': ('meta.ads.search esta NOT_EXECUTED: nunca correu ao vivo. O '
+                   'ensaio mede UMA requisicao a Ad Library oficial — zero '
+                   'dolar, zero provider, zero paginacao.'),
+    },
+    'meta-branded': {
+        'TETO_DE_REDE': 1,
+        'PORQUE': ('meta.branded_content.search esta NOT_EXECUTED, e a propria '
+                   'Meta NAO documenta que token este no aceita. O ensaio '
+                   'existe para descobrir isso com UMA requisicao.'),
+        # ── A JANELA DESTA FASE, EM DIAS, E ELA NÃO É UM ARGUMENTO ───────────
+        # `creation_date_min` e `creation_date_max` são OBRIGATÓRIOS na Meta, e
+        # `adaptador_meta` RECUSA-SE a inventar um default — faz bem: um default
+        # escondido produziria «uma janela que ninguém escolheu».
+        #
+        # Quem escolhe é a fase, aqui, numa declaração versionada. E ela vive
+        # NESTA tabela e não em `FASES_CANONICAS` por uma razão medida: aquela
+        # tabela diz o que CHEGA ao `COLLECT`, chave a chave, e há prova desta
+        # casa que o exige — `UM PEDIDO REESCRITO EM SILÊNCIO É UM PEDIDO QUE
+        # NINGUÉM FEZ`. Um número de dias que vira duas datas pelo caminho é
+        # exactamente uma reescrita.
+        #
+        #     O QUE SE TRADUZ NÃO PODE MORAR NA TABELA DO QUE SE ENTREGA.
+        'JANELA_DIAS': 30,
+        'MAX_ITEMS': 5,
+    },
+}
 
 
 def _banco_se_houver():
@@ -1943,6 +2038,7 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
         return 2
     plataforma, capacidade, fixos = FASES_CANONICAS[fase]
     kw = dict(fixos)
+
     if teto not in (None, '', '0'):
         kw['teto'] = teto
     # ── UMA FASE PAGA LEVA OS DOIS TETOS, E ELES VÊM DA TABELA ───────────────
@@ -1951,6 +2047,26 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
     # dentro do `COLLECT` — esta CLI imprime o estado, não decide por ele.
     #
     #     O PORTÃO É DE QUEM JÁ O TEM. IMPRIMIR NÃO É DECIDIR.
+    # ── UMA FASE DE ENSAIO LEVA O MODO E O TECTO DE ACESSOS, E SÓ ISSO ──────
+    # Nem autorização de gasto, nem tecto financeiro, nem motivo pago: esta rota
+    # não compra nada, e exigir-lhe a papelada da compra faria uma rota gratuita
+    # pagar o preço de uma paga.
+    #
+    #     FREE_ROUTE != NO_GATES.  MAS TAMBÉM != PAID_ROUTE_PAPERWORK.
+    ensaio = FASES_DE_ENSAIO.get(fase)
+    if ensaio is not None:
+        kw.update({'modo': scrap.TRIAL, 'teto_de_rede': ensaio['TETO_DE_REDE']})
+        # ── OS LIMITES DO ENSAIO, MONTADOS DE UM SÍTIO SÓ ───────────────
+        # A fase que declara DIAS entrega DATAS. Traduzir uma declaração
+        # existente não é fabricar uma — fabricar seria a rota escolher a
+        # janela por si.
+        janela = {}
+        if ensaio.get('MAX_ITEMS'):
+            janela['MAX_ITEMS'] = ensaio['MAX_ITEMS']
+        if ensaio.get('JANELA_DIAS'):
+            janela.update(_janela_de_dias(ensaio['JANELA_DIAS']))
+        if janela:
+            kw['janela'] = janela
     paga = FASES_PAGAS.get(fase)
     if paga is not None:
         kw.update({'modo': paga['MODO'], 'permitir_pago': True,
@@ -1982,6 +2098,10 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
                                                               time.gmtime())))
     print('PEDIDO CANONICO')
     print('  fase        %s' % fase)
+    if ensaio is not None:
+        print('  modo        ENSAIO (TRIAL) — a capacidade ainda nao promete')
+        print('  porque      %s' % ensaio['PORQUE'])
+        print('  teto rede   %s  (sem paginacao)' % ensaio['TETO_DE_REDE'])
     print('  plataforma  %s' % plataforma)
     print('  capacidade  %s' % capacidade)
     print('  run_id      %s' % corrida)

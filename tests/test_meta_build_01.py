@@ -32,6 +32,44 @@ FIX = os.path.join(AQUI, 'fixtures', 'META-BUILD-01')
 FALHAS = []
 ATAQUES = 0
 
+#: ⚠️ ESTA SUÍTE QUEBROU NA META-OP-01, E NÃO FOI ENFRAQUECIDA.
+#:
+#: A META-OP-01 mediu que `META_GRAPH_TOKEN` era LIDO pela sonda e nunca
+#: ENVIADO — e fechou a porta: `adaptador_meta` recusa-se a construir uma
+#: requisição sem credencial, ANTES de qualquer ida à rede. Estas provas
+#: chamam as duas rotas com um transporte falso, e passaram a bater nessa
+#: porta.
+#:
+#: A saída fácil era abrir uma excepção para quem injecta `transporte` — e isso
+#: transformaria a costura da prova num BYPASS de credencial, que é exactamente
+#: o buraco que o red team desta casa caça.
+#:
+#:     UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR É UMA PROVA DO DEFEITO.
+#:
+#: A saída certa é esta: a prova declara um token OBVIAMENTE falso, e diz que o
+#: inventou. Nenhum segredo desta máquina é lido, e nenhuma requisição sai.
+#: E ELE É DADO CHAMADA A CHAMADA, NUNCA AO MÓDULO INTEIRO.
+#: Três ataques desta suíte medem exactamente o CONTRÁRIO — o que acontece SEM
+#: credencial. Pôr o token no ambiente do módulo apagava os três em silêncio, e
+#: a suíte passaria a verde tendo deixado de medir o que mais importa.
+#:
+#:     UMA CREDENCIAL DE PROVA COM ALCANCE MAIOR DO QUE A CHAMADA
+#:     APAGA AS PROVAS QUE MEDEM A AUSÊNCIA DELA.
+TOKEN_DA_PROVA = 'fake~token-inventado-por-esta-suite'
+
+
+def com_token(fn, *a, **k):
+    """Corre `fn` com um token INVENTADO no ambiente, e repõe-no sempre."""
+    antes = os.environ.get(am.TOKEN_ENV)
+    os.environ[am.TOKEN_ENV] = TOKEN_DA_PROVA
+    try:
+        return fn(*a, **k)
+    finally:
+        if antes is None:
+            os.environ.pop(am.TOKEN_ENV, None)
+        else:
+            os.environ[am.TOKEN_ENV] = antes
+
 
 def fixture(nome):
     with open(os.path.join(FIX, nome), encoding='utf-8') as fh:
@@ -81,7 +119,7 @@ ataque(3, 'App Review em falta NAO vira APIFY DISPENSAVEL',
 
 # 4 · Ad Library vira organic collection
 t = transporte('ads-run1.json')
-ads = am.ads_search(run_id='T', paises=['IT'], transporte=t)
+ads = com_token(am.ads_search, run_id='T', paises=['IT'], transporte=t)
 ataque(4, 'anuncio NAO e recolhido como organico',
        all(o['CONTENT_TYPE'] == 'ADVERTISEMENT' for o in ads) and len(ads) == 3,
        str([o['CONTENT_TYPE'] for o in ads]))
@@ -93,7 +131,7 @@ ataque(5, 'ADVERTISEMENT e POST sao especies diferentes no vocabulario',
 
 # 6 · branded content vira qualquer post
 t = transporte('branded-run1.json')
-bcs = am.branded_search(run_id='T', ig_username='bayer_italia',
+bcs = com_token(am.branded_search, run_id='T', ig_username='bayer_italia',
                         janela={'SINCE': '2026-08-01', 'UNTIL': '2026-08-31'},
                         transporte=t)
 ataque(6, 'branded content NAO e POST nem ADVERTISEMENT',
@@ -114,11 +152,11 @@ ataque(8, 'a janela comercial de 1 ANO esta escrita na rota',
 
 # 9 · delta e ignorado
 t1 = transporte('ads-run1.json')
-r1 = am.ads_search(run_id='R1', paises=['IT'], transporte=t1)
+r1 = com_token(am.ads_search, run_id='R1', paises=['IT'], transporte=t1)
 vistos = {o['NATIVE_ID'] for o in r1}
 t2 = transporte('ads-run2.json')
 m2 = {}
-r2 = am.ads_search(run_id='R2', paises=['IT'], janela={'KNOWN_IDS': vistos},
+r2 = com_token(am.ads_search, run_id='R2', paises=['IT'], janela={'KNOWN_IDS': vistos},
                    medida=m2, transporte=t2)
 ataque(9, 'RUN1=A,B,C · RUN2 com KNOWN_IDS devolve so D,E',
        sorted(o['NATIVE_ID'] for o in r1) == ['AD-A', 'AD-B', 'AD-C']
@@ -162,7 +200,7 @@ ataque(15, 'a prova de audio-only continua PROVEN e com escopo PER_ITEM',
 
 # 16 · snapshot URL vira permanent asset
 t = transporte('ads-run1.json')
-a0 = am.ads_search(run_id='T', paises=['IT'], transporte=t)[0]
+a0 = com_token(am.ads_search, run_id='T', paises=['IT'], transporte=t)[0]
 ataque(16, 'o snapshot NAO e tratado como o criativo',
        'ad_snapshot_url' in am.CAMPOS_ANUNCIO
        and not any(c in am.CAMPOS_ANUNCIO for c in ('image_url', 'video_url', 'media')),
@@ -170,7 +208,7 @@ ataque(16, 'o snapshot NAO e tratado como o criativo',
 
 # 17 · missing field vira false
 t = transporte('ads-sem-campos-ue.json')
-magro = am.ads_search(run_id='T', paises=['IT'], transporte=t)[0]
+magro = com_token(am.ads_search, run_id='T', paises=['IT'], transporte=t)[0]
 ataque(17, 'campo ausente vira UNKNOWN, nunca False',
        magro['LANGUAGE'] == env.DESCONHECIDO and magro['LANGUAGE'] is not False,
        repr(magro['LANGUAGE']))
@@ -303,8 +341,8 @@ ataque(33, 'a trava para ANTES do adaptador: zero chamadas de transporte',
 #     OFFLINE_PROVEN != LIVE_PROVEN. E fiacao provada != rota autorizada.
 _rota = reg.rota_de('META', 'meta.ads.search')
 _t = transporte('ads-run1.json')
-_objs2 = _rota(run_id='FIACAO', paises=['IT'], page_ids=['1741459832625091'],
-               transporte=_t)
+_objs2 = com_token(_rota, run_id='FIACAO', paises=['IT'],
+                   page_ids=['1741459832625091'], transporte=_t)
 ataque(34, 'o registo leva a META/meta.ads.search ate ao adaptador certo',
        _rota is not None and len(_objs2) == 3
        and all(o['CONTENT_TYPE'] == 'ADVERTISEMENT' for o in _objs2),
@@ -393,7 +431,7 @@ mutante('M1', 'Apify como rota padrao da Meta',
 
 # M2 delta-off
 t = transporte('ads-run2.json')
-sem_delta = am.ads_search(run_id='M2', paises=['IT'], transporte=t)
+sem_delta = com_token(am.ads_search, run_id='M2', paises=['IT'], transporte=t)
 mutante('M2', 'ignorar KNOWN_IDS devolve tudo outra vez',
         len(sem_delta) == 5 and len(r2) == 2)
 

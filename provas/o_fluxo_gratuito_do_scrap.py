@@ -650,7 +650,19 @@ def p2_relevancia():
     # Para o portão ter par que julgar, esta rota teria de aceitar fonte. Ela
     # NÃO aceita — e é isso que o mutante troca, para perguntar: se aceitasse,
     # um «NÃO» no livro parava a corrida antes do navegador?
-    with Mutante(RECEITAS, '"aceita_fonte": False,', '"aceita_fonte": True,') as m:
+    # ⚠️ A ÂNCORA LEVA CONTEXTO, E ISSO NÃO É ZELO A MAIS.
+    # `"aceita_fonte": False` deixou de ser única quando a META-OP-01 registou a
+    # terceira rota que também não aceita fonte. Uma âncora repetida não muta
+    # nada — e esta prova conta isso como FALHA, que é o que ela deve fazer.
+    #
+    #     UMA ÂNCORA QUE DEIXA DE SER ÚNICA DEIXA DE MEDIR, E NÃO AVISA SOZINHA.
+    with Mutante(RECEITAS,
+                 '"argumentos_de_filtros": ["fase", "teto"],\n'
+                 '        "recebe_run_id": True,\n'
+                 '        "aceita_fonte": False,',
+                 '"argumentos_de_filtros": ["fase", "teto"],\n'
+                 '        "recebe_run_id": True,\n'
+                 '        "aceita_fonte": True,') as m:
         if not m.aplicou:
             return diz(False, 'P2 · âncora do mutante não é única')
         import importlib

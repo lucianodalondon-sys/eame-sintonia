@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "af17f6d998f2e06917968f8045f4b5acd1715326",
+    "HEAD": "c36734edc5bb92aec870061d27c7df7f5e1b0b49",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -36,7 +36,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 652,
+      "linhas": 689,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -752,7 +752,7 @@
     {
       "ficheiro": "coleta/adaptador_meta.py",
       "gaveta": "coleta",
-      "linhas": 397,
+      "linhas": 496,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1703,7 +1703,7 @@
     {
       "ficheiro": "coleta/scrap_http.py",
       "gaveta": "coleta",
-      "linhas": 426,
+      "linhas": 587,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -1869,7 +1869,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 2185,
+      "linhas": 2305,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2023,7 +2023,9 @@
         "coleta/adaptador_youtube.py",
         "coleta/social_scrap.py"
       ],
-      "citado_por": [],
+      "citado_por": [
+        "coleta/scrap_http.py"
+      ],
       "no_ci": true
     },
     {

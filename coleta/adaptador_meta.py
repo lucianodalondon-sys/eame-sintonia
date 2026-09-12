@@ -64,6 +64,25 @@ PLATAFORMA = 'META'
 GRAPH = 'https://graph.facebook.com'
 VERSAO = 'v21.0'
 
+#: A ORIGEM QUE ESTAS DUAS ROTAS DECLARAM, por nó.
+#:
+#: ⚠️ ISTO NÃO É UMA DAS 77 FONTES DESTA CASA, E NÃO É O `page_id` DA META.
+#: `leis/retorno_da_coleta.py` exige que toda unidade colhida diga de onde veio,
+#: e a SCRAP-FLOW-02 escreveu a regra de quem responde: quem PRODUZ declara a
+#: origem, e quem transcreve não inventa nenhuma.
+#:
+#: O `page_id` — `1741459832625091` para a BASF IT — é a identidade da CONTA na
+#: plataforma. Ele viaja no RAW, com o nome que tem, e NÃO se promove a fonte
+#: do SINTONIA: promovê-lo faria um identificador externo passar por uma ficha
+#: que ninguém levantou nem avaliou.
+#:
+#:     PAGE_ID  !=  SOURCE_ID.
+#:     IDENTIDADE NA PLATAFORMA != FICHA NESTA CASA.
+ORIGEM_POR_ROTA = {
+    'graph:/ads_archive': 'META-ADS/ads_archive',
+    'graph:/branded_content_search': 'META-BRANDED/branded_content_search',
+}
+
 # ══════════════════════════════════════════════════════════════════════════
 # O CONTRATO DE JANELA — E ELE É DO CALLER, NÃO NOSSO
 # ══════════════════════════════════════════════════════════════════════════
@@ -155,6 +174,42 @@ SO_POLITICO = ('spend', 'impressions', 'currency', 'estimated_audience_size',
                'demographic_distribution', 'delivery_by_region', 'bylines')
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O TOKEN CHEGA À GRAPH — E ATÉ À META-OP-01 ELE NÃO CHEGAVA
+# ══════════════════════════════════════════════════════════════════════════
+#     TOKEN_PRESENT  !=  TOKEN_SENT.
+#
+# ⚠️ MEDIDO: `META_GRAPH_TOKEN` aparecia numa linha só deste repositório — a
+# constante que a SONDA lê para responder «tenho credencial?». As duas rotas
+# montavam a URL, chamavam `http.buscar(url)` e mais nada. A sonda dizia SIM,
+# a requisição saía ANÓNIMA, e a Meta responderia 400/401 — que, pelo
+# transporte antigo, chegaria ao rasto como `RotaBloqueada`, isto é, «a
+# plataforma impediu-nos».
+#
+#     UMA SONDA QUE CONFIRMA A PRESENÇA DE UM SEGREDO NÃO PROVA QUE ELE É
+#     USADO. PROVA QUE ELE EXISTE — E ESSAS SÃO DUAS PERGUNTAS.
+#
+# E a recusa por falta de credencial acontece AQUI, antes de qualquer ida à
+# rede: sair anónimo para receber um 401 gastaria uma requisição para descobrir
+# uma coisa que já se sabia em memória.
+#
+#     NÃO SE BATE À PORTA DE QUEM NÃO SE TEM CHAVE.
+def _transporte_e_token(transporte=None):
+    """→ (função de transporte, token). Levanta `EstadoDaApi` sem credencial.
+
+    O token NÃO é devolvido a ninguém de fora, não entra em `medida`, não entra
+    no envelope e não entra no rasto: ele vai daqui directamente para o
+    cabeçalho, dentro do transporte.
+    """
+    token = os.environ.get(TOKEN_ENV, '').strip()
+    if not token:
+        raise http.EstadoDaApi({
+            'STATE': 'CREDENTIAL_MISSING',
+            'NATIVE_REASON': '%s ausente neste ambiente' % TOKEN_ENV,
+            'RECOVERY_ACTION': 'HUMAN_PROVISION_CREDENTIAL'})
+    return (transporte or http.buscar_api_oficial), token
+
+
 def _url_ads(*, paises, page_ids=None, termos=None, estado='ACTIVE', janela=None):
     """Monta a consulta. `ad_reached_countries` é obrigatório pela Meta."""
     if not paises:
@@ -184,13 +239,40 @@ def _url_ads(*, paises, page_ids=None, termos=None, estado='ACTIVE', janela=None
     return '%s/%s/ads_archive?%s' % (GRAPH, VERSAO, '&'.join(q))
 
 
+def _sem_snapshot_com_token(item):
+    """O item como veio, com o `ad_snapshot_url` REDIGIDO. → dict novo.
+
+    ⚠️ A META-DEEP-01 PREVIU ESTE VAZAMENTO, E ELE ESTAVA ABERTO.
+    O `ad_snapshot_url` que a Meta devolve traz o token embutido na query
+    string — é um endpoint de RENDERIZAÇÃO, não de dados — e o envelope
+    guardava o item inteiro em `raw`. Guardar isso é guardar uma credencial num
+    ficheiro que vai para o Git:
+
+        UM `ad_snapshot_url` CARREGA UM TOKEN. GUARDÁ-LO NUM ARTEFATO É
+        GUARDAR UMA CREDENCIAL NUM FICHEIRO QUE VAI PARA O GIT.
+
+    O `id` do anúncio fica — é ele que permite reconstruir a URL na hora, com
+    o token de quem a for abrir, sem que ninguém tenha de guardar o nosso.
+    """
+    limpo = dict(item)
+    if limpo.get('ad_snapshot_url'):
+        limpo['ad_snapshot_url'] = http.sem_segredo(limpo['ad_snapshot_url'])
+        limpo['SNAPSHOT_URL_REDACTED'] = (
+            'o valor original carrega um token na query string; guarda-se o '
+            '`id` e reconstroi-se a URL na hora')
+    return limpo
+
+
 def _anuncio(item, *, run_id, country_scope, rota):
     """Um anúncio observado → envelope canônico. Campo ausente vira UNKNOWN."""
     corpos = item.get('ad_creative_bodies') or []
-    return env.envelope(
+    e = env.envelope(
         platform=PLATAFORMA,
         native_id=item.get('id'),
-        url=item.get('ad_snapshot_url') or env.DESCONHECIDO,
+        # A URL do envelope é a do SNAPSHOT, e ela viaja REDIGIDA. Um endereço
+        # que não se pode guardar não é um endereço: é um segredo com forma de
+        # endereço.
+        url=http.sem_segredo(item.get('ad_snapshot_url') or env.DESCONHECIDO),
         # A espécie é ADVERTISEMENT, e não POST. Somar os dois daria um número
         # que não é nem um nem outro.
         content_type='ADVERTISEMENT',
@@ -202,7 +284,13 @@ def _anuncio(item, *, run_id, country_scope, rota):
         # com quebra de linha preserva a contagem; juntar com espaço perdia-a.
         text='\n'.join(corpos) if corpos else None,
         title=(item.get('ad_creative_link_titles') or [None])[0],
-        raw=item)
+        raw=_sem_snapshot_com_token(item))
+    # A ORIGEM DESCE ATÉ À UNIDADE. `leis/retorno_da_coleta.py` recusa colheita
+    # sem fonte, e a SCRAP-FLOW-02 escreveu quem responde: quem produz declara.
+    # Aqui quem produz é este nó, e é o nome dele que viaja — nunca o `page_id`.
+    e['SOURCE_ID'] = ORIGEM_POR_ROTA.get(rota, env.DESCONHECIDO)
+    e['DOCUMENT_ID'] = str(item.get('id') or env.DESCONHECIDO)
+    return e
 
 
 def ads_search(*, run_id, country_scope='IT', medida=None, etapa=None,
@@ -211,14 +299,20 @@ def ads_search(*, run_id, country_scope='IT', medida=None, etapa=None,
     """`SEARCH_ADS` — anúncios públicos de concorrente, pela Ad Library.
 
     `transporte` existe para a prova OFFLINE: é o mesmo contrato de
-    `scrap_http.buscar`, e o padrão continua a ser ele. Um adaptador que só
-    funcionasse com rede real não poderia ser provado sem gastar.
+    `scrap_http.buscar_api_oficial`, e o padrão continua a ser ele. Um
+    adaptador que só funcionasse com rede real não poderia ser provado sem
+    gastar.
+
+    ⚠️ O PADRÃO MUDOU NA META-OP-01, E ESTA LINHA MUDOU COM ELE. Era
+    `scrap_http.buscar` — o transporte da WEB PÚBLICA, que lê `robots.txt` e
+    não sabe levar credencial. Uma frase que descreve o transporte antigo é
+    pior do que nenhuma: ela ensina o contrato errado a quem a lê.
     """
     j = conferir_janela(janela)
-    buscar = transporte or http.buscar
+    buscar, token = _transporte_e_token(transporte)
     url = _url_ads(paises=paises or [country_scope], page_ids=page_ids,
                    termos=termos, estado=estado, janela=j)
-    corpo = buscar(url)
+    corpo = buscar(url, token=token)
     dados = json.loads(corpo) if isinstance(corpo, str) else corpo
     itens = dados.get('data') or []
     # ── A JANELA QUE A FONTE NÃO APLICOU, APLICAMOS NÓS — E DIZEMOS QUAL ────
@@ -271,7 +365,7 @@ def _branded(item, *, run_id, country_scope, rota):
     """Uma parceria observada → envelope. O AUTOR e o PAGADOR são pessoas diferentes."""
     criador = item.get('creator') or {}
     parceiros = item.get('partners') or []
-    return env.envelope(
+    e = env.envelope(
         platform=PLATAFORMA,
         # Não há id próprio no nó: a identidade é o permalink do post.
         native_id=item.get('url') or env.DESCONHECIDO,
@@ -295,6 +389,11 @@ def _branded(item, *, run_id, country_scope, rota):
              # O que a fonte NÃO deu fica dito, para que ninguém leia a ausência
              # como um zero.
              'NOT_RETURNED_BY_SOURCE': list(BRANDED_AUSENTES)})
+    e['SOURCE_ID'] = ORIGEM_POR_ROTA.get(rota, env.DESCONHECIDO)
+    # Não há id próprio neste nó: a identidade É o permalink. Isso é um facto
+    # sobre a fonte, e não uma fabricação — a Meta não devolve outro.
+    e['DOCUMENT_ID'] = str(item.get('url') or env.DESCONHECIDO)
+    return e
 
 
 def branded_search(*, run_id, country_scope='IT', medida=None, etapa=None,
@@ -317,12 +416,12 @@ def branded_search(*, run_id, country_scope='IT', medida=None, etapa=None,
             'creation_date_min e creation_date_max sao OBRIGATORIOS neste no. '
             'Passe SINCE e UNTIL — um default inventado aqui seria uma janela '
             'que ninguem escolheu.')
-    buscar = transporte or http.buscar
+    buscar, token = _transporte_e_token(transporte)
     q = ['creation_date_min=%s' % j['SINCE'], 'creation_date_max=%s' % j['UNTIL'],
          'fields=%s' % ','.join(CAMPOS_BRANDED)]
     q.append('ig_username=%s' % ig_username if ig_username else 'page_url=%s' % page_url)
     url = '%s/%s/branded_content_search?%s' % (GRAPH, VERSAO, '&'.join(q))
-    corpo = buscar(url)
+    corpo = buscar(url, token=token)
     dados = json.loads(corpo) if isinstance(corpo, str) else corpo
     saida, pulados = [], 0
     for it in (dados.get('data') or []):

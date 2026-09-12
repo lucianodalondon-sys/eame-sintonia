@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "af17f6d998f2e06917968f8045f4b5acd1715326",
+    "HEAD": "c36734edc5bb92aec870061d27c7df7f5e1b0b49",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4262,6 +4262,31 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 336
+        },
+        {
+          "file": "provas/a_meta_oficial_autentica.py",
+          "line": 188
+        }
+      ]
+    },
+    {
       "endpoint": "https://api.apify.com/v2",
       "usado_por": [
         {
@@ -4300,27 +4325,6 @@
         {
           "file": "coleta/universo_ciencia_it.py",
           "line": 51
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/p",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
-        },
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 673
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 336
         }
       ]
     },
@@ -4427,6 +4431,23 @@
       ]
     },
     {
+      "endpoint": "https://www.facebook.com/ads",
+      "usado_por": [
+        {
+          "file": "pacote/pacote_camadas2.py",
+          "line": 53
+        },
+        {
+          "file": "provas/a_meta_oficial_autentica.py",
+          "line": 181
+        },
+        {
+          "file": "tests/test_meta_op_01.py",
+          "line": 94
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.tld/x')",
       "usado_por": [
         {
@@ -4440,6 +4461,19 @@
         {
           "file": "tests/test_c10_8ar_orcamento_de_rede.py",
           "line": 207
+        }
+      ]
+    },
+    {
+      "endpoint": "https://graph.facebook.com'",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_meta.py",
+          "line": 64
+        },
+        {
+          "file": "tests/test_meta_op_01.py",
+          "line": 273
         }
       ]
     },
@@ -4765,32 +4799,6 @@
         {
           "file": "tests/test_reel_transcricao.py",
           "line": 89
-        }
-      ]
-    },
-    {
-      "endpoint": "https://x/reel",
-      "usado_por": [
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 149
-        },
-        {
-          "file": "tests/test_c10_audio_only.py",
-          "line": 155
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo/x',",
-      "usado_por": [
-        {
-          "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 440
-        },
-        {
-          "file": "tests/test_c10_6e_runtime_pago.py",
-          "line": 309
         }
       ]
     }
