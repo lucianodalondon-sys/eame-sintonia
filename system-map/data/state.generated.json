@@ -1976,9 +1976,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
-    "HEAD": "cdcc26082b6d1a641dad9b1673ae160ffe2305f0",
-    "GENERATED_AT": "2026-09-12T17:21:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9d59c5b566516190fb38aa67ba498fdfb295bd5b237d3d901b9fec8bb56813f4"
+    "HEAD": "e90451e187cf7680f8df733cfc77e07bb4605def",
+    "GENERATED_AT": "2026-09-12T17:23:52+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f88ab5a4fdbd225df148ae38b3f6ac14830512772939ca0be8172fcaf3efa670"
   },
   "FAMILIES": [
     {
@@ -14062,11 +14062,11 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 239,
+        "palavras": 244,
         "por_lingua": {
           "PT": 1
         },
-        "sem_marca_de_lingua": 238,
+        "sem_marca_de_lingua": 243,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14079,7 +14079,7 @@
         {
           "onde": "SUPABASE",
           "file": "coleta/social_scrap.py",
-          "line": 1597,
+          "line": 1614,
           "snippet": "dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
         }
       ],
@@ -14248,7 +14248,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_coleta.py",
-            "line": 370,
+            "line": 420,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -15918,6 +15918,7 @@
         "listas": [
           "ADAPTERS",
           "ANTES_DO_B2",
+          "AUTORIZACAO",
           "BINDINGS",
           "BLOQUEADAS",
           "CADEIA",
@@ -15958,12 +15959,12 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 542,
+        "palavras": 552,
         "por_lingua": {
           "FR": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 538,
+        "sem_marca_de_lingua": 548,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -21334,17 +21335,17 @@
       "evidence": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 411,
+          "line": 413,
           "snippet": "import coletor as ct"
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 404,
+          "line": 423,
           "snippet": "import coletor as _ct"
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 552,
+          "line": 571,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
@@ -21354,12 +21355,12 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1600,
+          "line": 1617,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1634,
+          "line": 1651,
           "snippet": "import coletor as _ct"
         },
         {
@@ -21382,12 +21383,12 @@
       "evidence": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 456,
+          "line": 468,
           "snippet": "medida['IMPLEMENTACAO'] = 'coleta/coletor.py'"
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 767,
+          "line": 798,
           "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
         }
       ],
@@ -21433,7 +21434,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 25,
+          "line": 26,
           "snippet": "import coletor as ct                                              # noqa: E402"
         },
         {
@@ -21501,7 +21502,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 338,
+          "line": 355,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -21516,7 +21517,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 224,
+          "line": 238,
           "snippet": "self.assertEqual(med.get('IMPLEMENTACAO'), 'coleta/coletor.py')"
         },
         {
@@ -21687,7 +21688,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 338,
+          "line": 355,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         }
       ],
@@ -21840,7 +21841,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 339,
+          "line": 356,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -22045,7 +22046,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 780,
+          "line": 811,
           "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
         }
       ],
@@ -22472,7 +22473,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 360,
+          "line": 410,
           "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
         }
       ],
@@ -28036,7 +28037,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 589,
+          "line": 606,
           "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
         },
         {
@@ -28046,7 +28047,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 553,
+          "line": 567,
           "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')"
         },
         {
@@ -29204,7 +29205,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1978,
+          "line": 2001,
           "snippet": "import social_guarda"
         }
       ],
@@ -29687,7 +29688,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 481,
+          "line": 500,
           "snippet": "import falhas as fx"
         },
         {
@@ -30022,12 +30023,12 @@
       "evidence": [
         {
           "file": "coleta/coletor.py",
-          "line": 367,
+          "line": 375,
           "snippet": "import scrap_http as _http"
         },
         {
           "file": "coleta/coletor.py",
-          "line": 747,
+          "line": 790,
           "snippet": "import social_envelope as _env"
         }
       ],
@@ -30236,11 +30237,16 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Coletor dos sensores tecnicos · canal, video e fala. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 492,
+          "line": 354,
+          "snippet": "import scrap_http as _http"
+        },
+        {
+          "file": "regras/sensor_coleta.py",
+          "line": 542,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -30555,7 +30561,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 339,
+          "line": 356,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {

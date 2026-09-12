@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "cdcc26082b6d1a641dad9b1673ae160ffe2305f0",
+    "HEAD": "e90451e187cf7680f8df733cfc77e07bb4605def",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -748,7 +748,7 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 551,
+      "linhas": 563,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -839,7 +839,7 @@
     {
       "ficheiro": "coleta/coletor.py",
       "gaveta": "coleta",
-      "linhas": 840,
+      "linhas": 889,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1589,7 +1589,7 @@
     {
       "ficheiro": "coleta/scrap_executor.py",
       "gaveta": "coleta",
-      "linhas": 812,
+      "linhas": 843,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1669,7 +1669,8 @@
         "coleta/coletor.py",
         "coleta/scrap_executor.py",
         "coleta/social_rotas.py",
-        "coleta/social_scrap.py"
+        "coleta/social_scrap.py",
+        "regras/sensor_coleta.py"
       ],
       "citado_por": [],
       "no_ci": false
@@ -1807,7 +1808,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 1987,
+      "linhas": 2010,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2210,7 +2211,7 @@
     {
       "ficheiro": "regras/sensor_coleta.py",
       "gaveta": "regras",
-      "linhas": 1170,
+      "linhas": 1220,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2231,7 +2232,8 @@
         "coleta/social_scrap.py"
       ],
       "citado_por": [
-        "coleta/adaptador_youtube.py"
+        "coleta/adaptador_youtube.py",
+        "coleta/coletor.py"
       ],
       "no_ci": true
     },

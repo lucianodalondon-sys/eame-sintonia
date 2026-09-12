@@ -74,6 +74,14 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import proveniencia as pv  # noqa: E402
+# A guarda do gasto. Ela NAO decide relevancia — valida a autorizacao que
+# recebe. O dono da relevancia vive noutra linhagem, e e assim que fica.
+#
+#     SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER.
+import autorizacao_de_gasto as az  # noqa: E402
+#: A recusa da guarda, re-exportada: quem apanha excecoes do coletor nao
+#: tem de saber em que ficheiro ela nasceu.
+SemAutorizacaoDeGasto = az.SemAutorizacaoDeGasto
 
 RAW_DIR = os.path.join(ROOT, 'data', 'samples', 'raw-paid')
 API = 'https://api.apify.com/v2'
@@ -400,9 +408,10 @@ def _recusas_nossas():
     """As excecoes que sao RECUSA DESTA CASA, e nunca resposta da fonte."""
     try:
         import scrap_http as _http
-        return (SemOrcamentoFinanceiro, _http.SemOrcamentoDeRede)
+        return (SemAutorizacaoDeGasto, SemOrcamentoFinanceiro,
+                _http.SemOrcamentoDeRede)
     except ImportError:                                           # pragma: no cover
-        return (SemOrcamentoFinanceiro,)
+        return (SemAutorizacaoDeGasto, SemOrcamentoFinanceiro)
 
 
 class PostTalvezCriado(RuntimeError):
@@ -490,6 +499,20 @@ def _curl(url, *, token, metodo='GET', corpo=None, timeout=300, tentativas=4):
     raise RuntimeError('curl falhou apos %d tentativas: %s' % (vezes, ultimo))
 
 
+#: O TRANSPORTE DESTA CASA, GUARDADO COM NOME.
+#:
+#: `regras/sensor_coleta.py` substitui `_curl` no import, e a troca e legitima:
+#: o proxy deste ambiente derruba conexoes, e urllib sobrevive onde o
+#: subprocesso nao sobrevive. O que NAO e legitimo e a troca ser invisivel.
+#:
+#:     UMA TROCA DE TRANSPORTE LEVA COM ELA AS LEIS QUE MORAVAM NO TRANSPORTE.
+#:
+#: Medido na SCRAP-SR-02: a substituicao tinha levado embora o teto de rede e a
+#: regra de que o POST vai uma vez so. Com este nome, quem audita consegue
+#: perguntar «este e o transporte da casa?» e quem testa consegue repo-lo.
+_CURL_DA_CASA = _curl
+
+
 def _ultima_execucao(actor, *, token, desde):
     """A execucao mais recente DESTE ator. Serve para ADOTAR um POST que talvez tenha nascido.
 
@@ -573,7 +596,9 @@ def _requisicoes_falhadas(loja_kv, *, token):
 
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
              source_version, evidence_path, wait=280, salvar_raw=True,
-             teto_usd=None, build=None, rota=None):
+             teto_usd=None, build=None, rota=None,
+             modo=az.NORMAL, autorizacao=None, source_id=None,
+             proposito=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
 
     `token` nunca entra no manifesto: ele só existe no cabeçalho da chamada.
@@ -595,6 +620,24 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         PROVIDER CAP != EXECUTION BUDGET.
     """
     started = agora()
+    # ── E ANTES DE TUDO: ALGUÉM AUTORIZOU ESTA COMPRA? ────────────────────────
+    # Esta é a linha onde uma corrida paga nasce nesta árvore — a única. Quatro
+    # sítios chamam esta função, e três deles saltam o roteador. Pôr a guarda
+    # num caminho guardaria um caminho; pô-la aqui guarda todos.
+    #
+    #     UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS OS CAMINHOS.
+    #
+    # `autorizacao=None` RECUSA, e é deliberado: um chamador novo que não saiba
+    # desta lei não compra, em vez de comprar por omissão.
+    #
+    #     FAIL CLOSED. O SILÊNCIO NÃO AUTORIZA.
+    #
+    # E ela vem ANTES da reserva financeira de propósito. Reservar primeiro
+    # comprometeria dinheiro por uma compra que nunca devia ter sido pensada —
+    # e uma reserva que ninguém liquidou não volta ao bolso.
+    recibo = az.pode_comprar(modo=modo, autorizacao=autorizacao,
+                             source_id=source_id, proposito=proposito,
+                             ator=actor)
     # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
     # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
     # ela que decide o `maxTotalChargeUsd` que vai na query.
@@ -818,6 +861,12 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         #     UMA RESERVA QUE NAO SOBE AO MANIFESTO DEIXA O RASTO DIZER
         #     «NAO CORREU» SOBRE UMA COMPRA QUE TALVEZ TENHA ACONTECIDO.
         manifesto['FINANCIAL_RESERVATION'] = dict(reserva.registo)
+    # O RECIBO DA AUTORIZACAO viaja com o manifesto. Sem ele, ler o artefato
+    # diria quanto se gastou e nunca quem tinha deixado.
+    #
+    #     CAN DO != DID DO — e um artefato que nao diz quem autorizou
+    #     obriga quem audita a acreditar.
+    manifesto['SPEND_AUTHORIZATION'] = dict(recibo)
 
     pv.checar_token(manifesto)
     return itens, manifesto

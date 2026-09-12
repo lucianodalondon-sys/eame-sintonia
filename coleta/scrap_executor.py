@@ -123,9 +123,25 @@ ENSAIO_RECUSADO = 'TRIAL_REFUSED_BY_CAPABILITY_STATE'
 #     TRIAL NÃO SOBRESCREVE POLICY.
 #     TRIAL NÃO AUTORIZA GASTO.
 #     TRIAL PASSADO != CAPACIDADE PROVADA.
-NORMAL = 'NORMAL'
-TRIAL = 'TRIAL'
-MODOS = (NORMAL, TRIAL)
+#
+# ── E DESDE A SCRAP-SR-02 SÃO TRÊS, COM UM DONO FORA DAQUI ────────────────
+# O terceiro modo é `PROBE` — «esta fonte CANDIDATA merece ser acompanhada?».
+# Ele existe para não fechar o ciclo impossível: para provar que a fonte serve
+# é preciso observá-la, e para a observar seria preciso ela já servir.
+#
+# As três palavras mudaram de casa e a razão é de propriedade, não de gosto: o
+# modo existe para dizer QUE PROVA É PRECISO TRAZER ANTES DE COMPRAR, e isso é
+# uma pergunta de autorização. O dono passou a ser `leis/autorizacao_de_gasto`,
+# e importa-se de lá.
+#
+#     ONE CONCEPT → ONE OWNER. Duas listas com as mesmas palavras
+#     são duas verdades, e a segunda envelhece calada.
+#
+# (E tinha de ser nessa direção: este ficheiro importa `coletor`, e `coletor`
+# importa a lei. Declarar os modos aqui faria um ciclo.)
+from autorizacao_de_gasto import (  # noqa: E402
+    NORMAL, TRIAL, PROBE, MODOS, MODOS_DE_MEDIDA,
+)
 
 #: Os estados que um ensaio NÃO pode medir, e porquê.
 #:
@@ -214,7 +230,7 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
     metade de quem o le.
     """
     if modo not in MODOS:
-        raise ValueError('modo de execucao desconhecido: %r. Os dois sao %s'
+        raise ValueError('modo de execucao desconhecido: %r. Os tres sao %s'
                          % (modo, ', '.join(MODOS)))
     reg.carregar_adaptadores()
     plat = (plataforma or '').upper()
@@ -249,7 +265,10 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
         veredicto['WHY'] = ('estado medido %s. Existir adaptador para ela nao a '
                             'transforma em sucesso.' % estado_medido)
         return veredicto
-    if modo == TRIAL and estado_medido in SEM_ENSAIO:
+    # `PROBE` acompanha `TRIAL` aqui, e por isso os dois estão em
+    # `MODOS_DE_MEDIDA`: nenhum promete resultado, e nenhum pode ler um estado
+    # que diz duas coisas como se dissesse uma.
+    if modo in MODOS_DE_MEDIDA and estado_medido in SEM_ENSAIO:
         veredicto['STATE'] = ENSAIO_RECUSADO
         veredicto['WHY'] = ('estado medido %s. A prova que o escreveu mediu uma '
                             'ROTA num AMBIENTE, e enquanto o estado disser duas '
@@ -528,7 +547,7 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
         raise ValueError('escopo fora de COL-LAW-016: %r. Os tres sao %s'
                          % (scope, ', '.join(ESCOPOS)))
     if modo not in MODOS:
-        raise ValueError('modo de execucao desconhecido: %r. Os dois sao %s'
+        raise ValueError('modo de execucao desconhecido: %r. Os tres sao %s'
                          % (modo, ', '.join(MODOS)))
     # ── O TETO DE ACESSOS EXTERNOS, QUANDO O CHAMADOR DECLARA UM ──────────
     # Sem `teto_de_rede`, nada muda: producao continua exactamente como estava.
@@ -651,6 +670,18 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
         alvo = executa or _rota_para(plat, capability)
         if alvo is not None and _aceita(alvo, 'etapa'):
             kwargs = dict(kwargs, etapa=relator)
+    # ── O MODO DESCE COM O PEDIDO ─────────────────────────────────────────
+    # Ele era consumido aqui e morria aqui. Desde a SCRAP-SR-02 o dono da
+    # compra precisa dele: `NORMAL` exige o «sim» da relevancia, `TRIAL` e
+    # `PROBE` exigem autorizacao humana com limites. Um modo que nao desce faz
+    # o `coletor` assumir `NORMAL` — e assumir o modo mais exigente falha
+    # fechado, que e o lado certo, mas falha por engano em vez de falhar por lei.
+    #
+    #     UM EIXO QUE NAO VIAJA E UM EIXO QUE O ANDAR DE BAIXO ADIVINHA.
+    #
+    # E fica FORA do `if relator`: o modo nao depende de haver banco ligado.
+    # Todas as rotas registadas aceitam `**kwargs` — medido, nao presumido.
+    kwargs = dict(kwargs, modo=modo)
     try:
         objetos, trace = _despachar(plat, capability, run_id, executa, kwargs)
     except Exception as e:                                        # noqa: BLE001

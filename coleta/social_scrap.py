@@ -1570,6 +1570,16 @@ FASES_CANONICAS = {
 #: O `TETO_DE_REDE` não é um palpite: foi medido na C10.8B contra a API falsa —
 #: 1 POST de criação, até uma consulta de estado, 1 leitura do dataset e 2 do
 #: armazém de chave-valor.
+#:
+#: ── E DESDE A SCRAP-SR-02, A AUTORIZAÇÃO É UM OBJETO E NÃO UMA FRASE ──────
+#: `AUTORIZACAO` era prosa: dizia em português que havia autorização humana de
+#: US$0,10, um provider run e um POST. Prosa não trava nada. Os mesmos números
+#: passam a viajar em `AUTORIZACAO_DE_GASTO`, num formato que a guarda em
+#: `leis/autorizacao_de_gasto.py` sabe conferir antes do POST.
+#:
+#:     UM LIMITE ESCRITO EM PROSA É UM LIMITE QUE NINGUÉM CONSEGUE OBEDECER.
+#:
+#: A frase fica, porque ela diz PORQUÊ; o objeto entra, porque ele diz QUANTO.
 FASES_PAGAS = {
     'yt-legenda-paga': {
         'MODO': 'TRIAL',
@@ -1578,6 +1588,13 @@ FASES_PAGAS = {
         'TETO_DE_REDE': 5,
         'AUTORIZACAO': ('C10.8B-LIVE · autorização humana explícita · US$0,10 no '
                         'total da missão · 1 provider run · 1 POST de criação'),
+        'AUTORIZACAO_DE_GASTO': {
+            'AUTORIZACAO_HUMANA': ('C10.8B-LIVE · autorização humana explícita, '
+                                   'registada no briefing da missão'),
+            'MAX_PROVIDER_RUNS': 1,
+            'MAX_START_POSTS': 1,
+            'MAX_USD': 0.10,
+        },
         'ALVO_PORQUE': ('sentinela do acervo: SENSOR-TR-B-3-p3, mesmo ator, '
                         'transcrição histórica preservada em '
                         'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),
@@ -1818,7 +1835,11 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
         kw.update({'modo': paga['MODO'], 'permitir_pago': True,
                    'motivo_pago': paga['MOTIVO_PAGO'],
                    'teto_de_gasto': paga['TETO_DE_GASTO_USD'],
-                   'teto_de_rede': paga['TETO_DE_REDE']})
+                   'teto_de_rede': paga['TETO_DE_REDE'],
+                   # A autorização desce pelo mesmo caminho de todo o resto —
+                   # `COLLECT` -> roteador -> adaptador -> `coletor`. Ela não
+                   # atalha, e é por isso que quem a salta não compra.
+                   'autorizacao': paga['AUTORIZACAO_DE_GASTO']})
     # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
     # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
     # proveniência; declará-lo é o contrário disso.
@@ -1833,6 +1854,8 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
         pronto = scrap.CHECK(plataforma, capacidade, modo=paga['MODO'])
         print('\nESTADO ANTES DO GASTO')
         print('  autorizacao        %s' % paga['AUTORIZACAO'])
+        for campo, valor in sorted(paga['AUTORIZACAO_DE_GASTO'].items()):
+            print('    %-16s %s' % (campo, valor))
         print('  alvo               %s' % fixos)
         print('  alvo porque        %s' % paga['ALVO_PORQUE'])
         print('  motivo pago        %s' % paga['MOTIVO_PAGO'])

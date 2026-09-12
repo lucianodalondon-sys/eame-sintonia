@@ -123,12 +123,26 @@ class _Cenario(object):
         return False
 
 
+#: A AUTORIZACAO DE GASTO DESTA BATERIA, DESDE A SCRAP-SR-02.
+#:
+#: Ela mede a ROTA PAGA, e desde a SR-02 uma rota paga so nasce com alguem a
+#: autoriza-la. Escreve-la aqui e a mesma escolha que a producao faz em
+#: `social_scrap.FASES_PAGAS`: os limites vivem em Python versionado.
+#:
+#:     UM AJUDANTE DE TESTE QUE COMPRA SEM AUTORIZACAO
+#:     PROVA UM SISTEMA QUE NAO E ESTE.
+AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8B, provider falso',
+               'MAX_PROVIDER_RUNS': 1, 'MAX_START_POSTS': 1,
+               'MAX_USD': TETO_USD}
+
+
 def _colher(falso, *, gasto=TETO_USD, rede=TETO_REDE, com_chave=True,
-            permitir_pago=True, motivo=MOTIVO, modo=sx.TRIAL, video=ALVO):
+            permitir_pago=True, motivo=MOTIVO, modo=sx.TRIAL, video=ALVO,
+            autorizacao=AUTORIZACAO):
     with _Cenario(falso, com_chave=com_chave):
         pedido = dict(platform=PLAT, capability=CAPAC, run_id='t-c108b',
                       modo=modo, permitir_pago=permitir_pago, motivo_pago=motivo,
-                      video_id=video)
+                      video_id=video, autorizacao=autorizacao)
         if rede is not None:
             pedido['teto_de_rede'] = rede
         if gasto is None:

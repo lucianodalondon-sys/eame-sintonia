@@ -22,6 +22,7 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 
+import autorizacao_de_gasto as az                                 # noqa: E402
 import coletor as ct                                              # noqa: E402
 import scrap_executor as sx                                       # noqa: E402
 import scrap_http as http                                         # noqa: E402
@@ -82,12 +83,28 @@ class _Cenario(object):
     def __init__(self, guiao, *, teto_da_rota=None):
         self.falso, self.teto_da_rota = _Falso(guiao), teto_da_rota
 
+    #: A AUTORIZACAO DE GASTO DESTA BATERIA, DESDE A SCRAP-SR-02.
+    #:
+    #: Ela existe porque um ajudante de teste que compra sem autorizacao e
+    #: exactamente o buraco que a SR-02 fechou. Esta bateria mede o TETO, e o
+    #: teto so se mede sobre uma compra que alguem deixou acontecer.
+    #:
+    #:     UM AJUDANTE DE TESTE QUE COMPRA SEM AUTORIZACAO
+    #:     PROVA UM SISTEMA QUE NAO E ESTE.
+    #:
+    #: `TRIAL` e o modo certo: nada aqui colhe a serio, e nenhuma destas
+    #: chamadas quer perguntar pela relevancia de fonte nenhuma.
+    AUTORIZACAO = {'AUTORIZACAO_HUMANA': 'bateria C10.8A-F, gasto falso',
+                   'MAX_PROVIDER_RUNS': 99, 'MAX_START_POSTS': 99,
+                   'MAX_USD': 99.0}
+
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
         itens, man = ct.executar(
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='teste',
             source_version='teste', evidence_path='data/samples/t.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
+            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
+            modo=az.TRIAL, autorizacao=self.AUTORIZACAO)
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')

@@ -398,7 +398,9 @@ def credencial_paga_presente():
 
 
 def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
-                         video_id=None, medida=None, teto_usd=None, **_):
+                         video_id=None, medida=None, teto_usd=None,
+                         modo=None, autorizacao=None, source_id=None,
+                         proposito=None, **_):
     """A rota paga da legenda. → lista de envelopes canonicos.
 
     O `teto_usd` por omissao e `None` DE PROPOSITO: quem decide o teto do lado
@@ -428,6 +430,16 @@ def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
         token=chaves[0],                      # a primeira, e so ela — ver acima
         run_id=run_id, platform=PLATAFORMA, country=country_scope,
         mission='C10-8B', query=url,
+        # ── A AUTORIZACAO DESCE, E NAO NASCE AQUI ─────────────────────────
+        # Um adaptador que fabricasse a sua propria autorizacao seria um
+        # adaptador que se autoriza a si proprio a gastar.
+        #
+        #     QUEM PEDE A COMPRA NAO E QUEM A AUTORIZA.
+        #
+        # `modo=None` vira o default do `coletor` (NORMAL), que exige o «sim»
+        # da relevancia. Nunca se inventa TRIAL aqui para atalhar.
+        **({'modo': modo} if modo else {}),
+        autorizacao=autorizacao, source_id=source_id, proposito=proposito,
         source_version='ator %s, captura de %s' % (ATOR_TRANSCRICAO,
                                                    ct.agora()[:10]),
         # A ROTA e o nome que a matriz lhe da. Mandar o caminho da evidencia

@@ -307,7 +307,34 @@ def _curl_compat(url, *, token, timeout=60):
 # manifesto. Só o modo de falar HTTP muda — urllib em vez de subprocesso, sem stdout
 # para se perder, com retentativa em queda de rede e NUNCA em recusa da API.
 # `coletor.py` não é alterado: um 4xx da Apify é resposta, e resposta não se repete.
-def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
+#
+# ⚠️ E DUAS COISAS QUE ESTA TROCA TINHA LEVADO EMBORA — CONSERTO DA SCRAP-SR-02
+# ------------------------------------------------------------------------------
+# Trocar o transporte trocou, sem querer, DUAS leis que viviam dentro do
+# transporte antigo. Medido: basta `import sensor_coleta` em qualquer sítio do
+# processo para as duas desaparecerem da porta paga — para toda a gente.
+#
+#     UMA TROCA DE TRANSPORTE LEVA COM ELA AS LEIS QUE MORAVAM NO TRANSPORTE.
+#
+# 1 · O TETO DE REDE. `coletor._curl` reserva a cada ida (a C10.8A-F pôs lá a
+#     reserva justamente porque um teto cobrado na primitiva não vê quem sai
+#     por um subprocesso). Esta versão não reservava nada, e o teto de acessos
+#     deixava de existir na única porta que gasta dinheiro.
+#
+# 2 · O POST REPETIDO. `coletor._curl` manda POST UMA vez, e o comentário lá
+#     diz porquê, com data: se o POST CHEGOU e só a resposta se perdeu, repetir
+#     não repete um pedido perdido — acende uma SEGUNDA execução paga, órfã,
+#     sem run_id e a gastar. Esta versão repetia quatro vezes, qualquer método.
+#
+#         REPETIR UM GET É BARATO. REPETIR UM POST É COMPRAR DE NOVO.
+#
+#     E o `maxTotalChargeUsd` não protege disto: ele limita CADA execução,
+#     nunca a soma das execuções que ninguém sabe que existem.
+#
+# As duas voltaram para aqui. O que continua diferente do original é só o que
+# esta troca existe para mudar: urllib em vez de subprocesso.
+def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300,
+                  tentativas=4, **_):
     import urllib.error
     import urllib.request
     dados = json.dumps(corpo).encode('utf-8') if corpo is not None else None
@@ -315,11 +342,24 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
     if dados is not None:
         cab['Content-Type'] = 'application/json'
     ultimo = ''
-    for n in range(4):
+    # O método que CRIA coisa do lado de lá vai uma vez, e só uma.
+    vezes = 1 if metodo.upper() in ('POST', 'PUT', 'PATCH', 'DELETE') else tentativas
+    for n in range(vezes):
+        # O dono do conceito «rede» continua a ser `scrap_http`. Este ficheiro
+        # não conta nada: ele PEDE autorização a quem conta — exactamente como
+        # `coletor._curl`, e pelas mesmas linhas.
+        _rede = coletor._orcamento_de_rede()
+        _registo_de_rede = None
+        if _rede is not None:
+            import scrap_http as _http
+            _registo_de_rede = _rede.reservar(
+                _http.PEDIDO_ROTA if n == 0 else _http.PEDIDO_RETENTATIVA, url)
         req = urllib.request.Request(url, data=dados, headers=cab, method=metodo)
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 bruto = r.read().decode('utf-8', 'replace')
+            if _registo_de_rede is not None:
+                _registo_de_rede['OUTCOME'] = 'OK'
             if not bruto.strip():
                 ultimo = 'corpo vazio'
             else:
@@ -348,9 +388,19 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
             ultimo = 'HTTP %d' % e.code
         except Exception as e:                                # noqa: BLE001
             ultimo = ap.redigir('%s: %s' % (type(e).__name__, e))[:160]
-        if n < 3:
+        if _registo_de_rede is not None:
+            _registo_de_rede['OUTCOME'] = ultimo[:40] or 'FALHOU'
+        if n < vezes - 1:
             time.sleep(2 ** n)
-    raise RuntimeError('transporte falhou apos 4 tentativas: %s' % ultimo)
+    if vezes == 1:
+        # Quem chama decide, e `coletor.executar` ADOTA a execucao que possa
+        # ter nascido em vez de acender outra.
+        raise coletor.PostTalvezCriado(
+            'o %s caiu no transporte e NAO foi repetido: %s. A execucao pode '
+            'ter nascido do outro lado — repetir seria pagar duas vezes.'
+            % (metodo, ultimo))
+    raise RuntimeError('transporte falhou apos %d tentativas: %s'
+                       % (vezes, ultimo))
 
 
 coletor._curl = _curl_robusto          # a porta continua a mesma; o transporte, não

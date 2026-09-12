@@ -303,13 +303,73 @@ class UmaExcecaoNuncaFechaComoSucesso(unittest.TestCase):
 
 
 class NadaDeRelevanciaEntrouNoSCRAP(unittest.TestCase):
+    """COLETAR != ADMITIR != JULGAR — e o executor faz o primeiro.
+
+    ⚠️ ESTA SENTINELA MUDOU DE FORMA NA SCRAP-SR-02, E A RAZAO FICA ESCRITA.
+
+    Ela lia o ficheiro INTEIRO a procura da palavra «relevancia», e apanhou um
+    COMENTARIO — a frase que explica por que o modo desce ate ao dono da compra,
+    e que diz, precisamente, que quem julga relevancia NAO e este ficheiro.
+
+        UMA SONDA QUE LE A PROSA ENCONTRA A FRASE QUE EXPLICA A REGRA
+        E CHAMA-LHE VIOLACAO DA REGRA.
+
+    Passou a medir duas coisas mais fortes do que a palavra:
+
+        1. o CODIGO, sem comentarios nem docstrings — onde um nome proibido
+           so aparece se alguem o tiver escrito a serio;
+        2. a ARVORE — nenhum import nem chamada ao dono da relevancia.
+
+    A segunda e a que vale: proibir a palavra nunca impediu ninguem de escrever
+    `import relevancia_da_fonte as r` e chamar `r.portao()`.
+    """
+
+    #: O dono de SOURCE_RELEVANCE vive noutra linhagem (SR-01). O executor nao
+    #: o importa, nao o chama, e nao o reimplementa.
+    DONOS_DA_RELEVANCIA = ('relevancia_da_fonte', 'admissao', 'adama_relevance')
+
+    def _so_codigo(self, fonte):
+        """→ a fonte SEM comentarios nem docstrings."""
+        import io as _io
+        import tokenize
+        fora, anterior = [], tokenize.INDENT
+        for tok in tokenize.generate_tokens(_io.StringIO(fonte).readline):
+            if tok.type == tokenize.COMMENT:
+                continue
+            if (tok.type == tokenize.STRING
+                    and anterior in (tokenize.INDENT, tokenize.NEWLINE,
+                                     tokenize.NL, tokenize.DEDENT)):
+                continue        # docstring: a unica string que nasce sozinha
+            if tok.type not in (tokenize.NL, tokenize.NEWLINE):
+                anterior = tok.type
+            fora.append(tok.string)
+        return '\n'.join(fora)
 
     def test_14_o_boundary_nao_julga_o_item(self):
-        fonte = _fonte('coleta/scrap_executor.py')
+        codigo = self._so_codigo(_fonte('coleta/scrap_executor.py'))
         for proibido in ('SOURCE_SCORE', 'ITEM_RELEVANCE', 'T3_SCORE', 'T5_SCORE',
                          'T9_SCORE', 'relevancia'):
-            self.assertNotIn(proibido, fonte,
-                             'entrou julgamento temático no executor: %s' % proibido)
+            self.assertNotIn(proibido, codigo,
+                             'entrou julgamento tematico no executor: %s' % proibido)
+
+    def test_14b_o_boundary_nao_importa_nem_chama_o_dono_da_relevancia(self):
+        """Proibir a palavra nao impede o import. Esta le a ARVORE."""
+        arv = ast.parse(_fonte('coleta/scrap_executor.py'))
+        for no in ast.walk(arv):
+            if isinstance(no, (ast.Import, ast.ImportFrom)):
+                nomes = ([a.name for a in no.names] if isinstance(no, ast.Import)
+                         else [no.module or ''])
+                for m in nomes:
+                    base = (m or '').split('.')[0]
+                    self.assertNotIn(base, self.DONOS_DA_RELEVANCIA,
+                                     'o executor importou o dono da relevancia: %s' % m)
+            if isinstance(no, ast.Call):
+                alvo = no.func
+                nome = (alvo.attr if isinstance(alvo, ast.Attribute)
+                        else getattr(alvo, 'id', None))
+                self.assertNotIn(nome, ('portao', 'classificar', 'ler_livro',
+                                        'estado_da_relevancia'),
+                                 'o executor passou a julgar relevancia: %s' % nome)
 
 
 if __name__ == '__main__':
