@@ -1,6 +1,6 @@
 # ITALY_COLLECTION_COMPLIANCE_MATRIX — apêndice C da Bíblia
 
-**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.3` · **Data:** 2026-09-07 · **HEAD medido:** `4b3c0d4` (integração)
+**Perfil:** `ITALY_PROFILE_V1` · **Bíblia:** `V1.4` · **Data:** 2026-09-12 · **HEAD medido:** `465e318a` · **LAW_TOTAL:** `105`
 
 > Esta matriz mede a **implementação italiana** contra as 104 leis canônicas. Ela não é a
 > lei: a lei está em [`../../BIBLIA-CANONICA-DA-COLETA.md`](../../BIBLIA-CANONICA-DA-COLETA.md).
@@ -15,14 +15,28 @@ alteradas, medidas nem portadas nesta missão.
 
 ## O PLACAR
 
-| estado | V1 | V1.1 | **V1.3** | |
-|---|---:|---:|---:|---|
-| `IMPLEMENTED` | 21 | 24 | **37** | há código no caminho produtivo e prova executável |
-| `PARTIAL` | 23 | 42 | **47** | existe em parte, ou existe para um caminho e não para os outros |
-| `ABSENT` | 4 | 11 | **18** | é lei, e não há implementação nenhuma |
-| `NOT_APPLICABLE` | 0 | 1 | **2** | a lei não se aplica ao perfil italiano de hoje |
-| `UNKNOWN` | 0 | 0 | **0** | — |
-| **total** | 48 | 78 | **104** | |
+| estado | V1 | V1.1 | V1.3 | **V1.4** | |
+|---|---:|---:|---:|---:|---|
+| `IMPLEMENTED` | 21 | 24 | 37 | **37** | há código no caminho produtivo e prova executável |
+| `PARTIAL` | 23 | 42 | 47 | **48** | existe em parte, ou existe para um caminho e não para os outros |
+| `ABSENT` | 4 | 11 | 18 | **18** | é lei, e não há implementação nenhuma |
+| `NOT_APPLICABLE` | 0 | 1 | 2 | **2** | a lei não se aplica ao perfil italiano de hoje |
+| `UNKNOWN` | 0 | 0 | 0 | **0** | — |
+| **total** | 48 | 78 | 104 | **105** | |
+
+> ⚠️ **ESTE PLACAR É UM EIXO SÓ, E NÃO É O QUE DECIDE O FECHO.**
+> Ele diz se a lei já funciona. Não diz se a falta dela **impede** a coleta
+> grande. O segundo eixo vive em
+> [`../../data/derivados/COLLECTION-V1-CLOSE-GATES.json`](../../data/derivados/COLLECTION-V1-CLOSE-GATES.json)
+> e é **medido**, não declarado.
+>
+> ```
+> UMA LEI PARTIAL PODE NÃO BLOQUEAR NADA,
+> E UMA LEI PEQUENA PODE BLOQUEAR TUDO.
+> ```
+>
+> Medido em 2026-09-12: **48 leis `PARTIAL`** e **5 blockers**. Nenhum blocker
+> foi derivado do estado de lei.
 
 > **DUAS LEIS DESCERAM DE `IMPLEMENTED` PARA `PARTIAL` em 08/09/2026 — e ninguém desfez
 > trabalho nenhum.** A COL-LAW-106 e a COL-LAW-210 tinham sido dadas por cumpridas medindo
