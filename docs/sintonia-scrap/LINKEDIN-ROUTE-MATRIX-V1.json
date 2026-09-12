@@ -1,0 +1,2194 @@
+{
+ "SCHEMA": "sintonia-scrap/linkedin-route-matrix/v1",
+ "STUDY_DATED_AT": "2026-09-12",
+ "HEAD_MEASURED": "532e3bed6f8345cc380dcfacd7c2d1560878079b",
+ "DOCUMENT": "docs/sintonia-scrap/LINKEDIN-DEEP-STUDY-V1.md",
+ "IS_CANONICAL": false,
+ "NOTE": "Fotografia datada. NAO e a matriz canonica. A politica canonica vive em leis/social_matriz.py e NAO foi alterada por esta missao.",
+ "COST_OF_THIS_STUDY": {
+  "LINKEDIN_REAL_REQUESTS": 0,
+  "LICDN_REQUESTS": 0,
+  "APIFY_RUNS": 0,
+  "COST_USD": 0.0,
+  "SOURCES_USED": [
+   "artefatos RAW preservados no disco",
+   "documentacao publica de Actors da Apify",
+   "documentacao oficial Microsoft Learn (li-lms-2026-08)",
+   "repositorios open source",
+   "foruns e blogs tecnicos (evidencia secundaria)"
+  ]
+ },
+ "VOCABULARY": {
+  "TECHNICALLY_POSSIBLE": [
+   "YES",
+   "NO",
+   "UNKNOWN"
+  ],
+  "POLICY_ALLOWED": [
+   "ALLOWED",
+   "ROUTE_NOT_ALLOWED",
+   "NOT_DECLARED",
+   "REQUIRES_HUMAN_DECISION"
+  ],
+  "PROOF": [
+   "PROVEN",
+   "FLOW_OBSERVED",
+   "DOCUMENTED",
+   "INFERRED",
+   "NOT_RUN",
+   "UNKNOWN"
+  ],
+  "PROOF_MEANING": {
+   "PROVEN": "esta casa correu, com comando registado e saida guardada",
+   "FLOW_OBSERVED": "o dado existe em artefato preservado desta casa, mas a capacidade nao esta ligada",
+   "DOCUMENTED": "declarado por documentacao de terceiro; nao verificado aqui",
+   "INFERRED": "deduzido de evidencia indireta",
+   "NOT_RUN": "existe rota tecnica conhecida e esta missao nao a executou",
+   "UNKNOWN": "nao medido"
+  },
+  "COST_STATE": [
+   "MEASURED_BY_THIS_HOUSE",
+   "LIST_PRICE_READ",
+   "NOT_PRESERVED",
+   "ZERO",
+   "UNKNOWN"
+  ]
+ },
+ "CURRENT_CENSUS": {
+  "MEASURED_FROM": "coleta/scrap_capacidades.py + coleta/scrap_registo.py @ HEAD",
+  "DECLARED": 7,
+  "WIRED": 0,
+  "LIVE": 0,
+  "CAPABILITIES": {
+   "linkedin.recent.discovery": {
+    "DECLARED_STATE": "PROVEN",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": true,
+    "MATRIX_DECISION": "ALLOWED",
+    "MATRIX_CAPABILITY": "DISCOVER_ACCOUNT",
+    "OPERATIONAL": "DECLARED_WITHOUT_ROUTE",
+    "PROOF_DOC": "docs/sintonia-scrap/ESTADO-REAL-V1.md"
+   },
+   "linkedin.history.discovery": {
+    "DECLARED_STATE": "UNKNOWN",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": false,
+    "MATRIX_DECISION": "NOT_DECLARED",
+    "MATRIX_CAPABILITY": null,
+    "OPERATIONAL": "PROMISES_NOTHING",
+    "PROOF_DOC": "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md"
+   },
+   "linkedin.direct_post": {
+    "DECLARED_STATE": "PROVEN",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": true,
+    "MATRIX_DECISION": "ROUTE_NOT_ALLOWED",
+    "MATRIX_CAPABILITY": "FETCH_POST",
+    "OPERATIONAL": "DECLARED_WITHOUT_ROUTE",
+    "PROOF_DOC": "docs/sintonia-scrap/ESTADO-REAL-V1.md"
+   },
+   "linkedin.native_video": {
+    "DECLARED_STATE": "PROVEN",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": true,
+    "MATRIX_DECISION": "NOT_DECLARED",
+    "MATRIX_CAPABILITY": null,
+    "OPERATIONAL": "DECLARED_WITHOUT_ROUTE",
+    "PROOF_DOC": "docs/sintonia-scrap/ESTADO-REAL-V1.md"
+   },
+   "linkedin.native_caption": {
+    "DECLARED_STATE": "PROVEN",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": true,
+    "MATRIX_DECISION": "NOT_DECLARED",
+    "MATRIX_CAPABILITY": null,
+    "OPERATIONAL": "DECLARED_WITHOUT_ROUTE",
+    "PROOF_DOC": "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md"
+   },
+   "linkedin.comments": {
+    "DECLARED_STATE": "UNKNOWN",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": false,
+    "MATRIX_DECISION": "NOT_DECLARED",
+    "MATRIX_CAPABILITY": null,
+    "OPERATIONAL": "PROMISES_NOTHING",
+    "PROOF_DOC": "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md"
+   },
+   "linkedin.documents": {
+    "DECLARED_STATE": "NOT_EXECUTED",
+    "REGISTERED": true,
+    "HAS_EXECUTA": false,
+    "HAS_ROUTE": false,
+    "PROMISES_RESULT": false,
+    "MATRIX_DECISION": "NOT_DECLARED",
+    "MATRIX_CAPABILITY": null,
+    "OPERATIONAL": "PROMISES_NOTHING",
+    "PROOF_DOC": "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
+    "CORRECTION_V1": "o ENDERECO do PDF e do manifesto de transcricao foi OBSERVADO em 20 de 472 posts preservados; os BYTES nunca foram pedidos"
+   }
+  }
+ },
+ "PRESERVED_RAW_MEASUREMENT": {
+  "SOURCE_FILES": [
+   "data/samples/raw-paid/ES-T8-002-linkedin-posts-a.raw.json.gz",
+   "data/samples/raw-paid/ES-T8-002-linkedin-posts-b.raw.json.gz"
+  ],
+  "RUN_ID": "ES-T8-002-2026-08-29-a",
+  "ACTOR": "apify/harvestapi~linkedin-post-search",
+  "CAPTURE_DATE": "2026-08-29",
+  "COST_USD": "NOT_PRESERVED",
+  "ITEMS_RAW": 472,
+  "ITEMS_NORMALIZED": 372,
+  "DEDUPE_LOSS": 100,
+  "BYTES_GZ_TOTAL": 474144,
+  "BYTES_PER_POST_GZ": 1005,
+  "BYTES_PER_POST_RAW": 4096,
+  "TOP_LEVEL_FIELDS_RAW": 26,
+  "FIELDS_IN_NORMALIZED": 19,
+  "FIELD_PRESENCE": {
+   "postVideo": 56,
+   "document": 20,
+   "article": 93,
+   "newsletterUrl": 10,
+   "postImages": 472,
+   "engagement.reactions": 449,
+   "repost": 5,
+   "comments_non_empty": 0,
+   "commentIds_non_empty": 0,
+   "reactions_non_empty": 0,
+   "reactionIds_non_empty": 0
+  },
+  "MEDIA_COVERAGE_PCT": {
+   "video": 11.9,
+   "document": 4.2,
+   "article": 19.7,
+   "newsletter": 2.1
+  },
+  "CAPTION_EVIDENCE": {
+   "caption": 0,
+   "srt": 0,
+   "vtt_real": 0,
+   "acs_singleton": 0,
+   "audio": 0,
+   "duration": 0,
+   "NOTE": "subtitle e transcript ocorrem, mas sao article.subtitle (dominio) e document.manifest.transcriptManifestUrl (texto do PDF)"
+  },
+  "ENGAGEMENT": {
+   "likes_sum": 6374,
+   "shares_sum": 712,
+   "comments_count_sum": 335,
+   "posts_with_at_least_one_comment": 95,
+   "comment_TEXT_collected": 0,
+   "reaction_types_observed": {
+    "LIKE": 448,
+    "PRAISE": 106,
+    "INTEREST": 69,
+    "EMPATHY": 50,
+    "APPRECIATION": 31
+   }
+  },
+  "AUTHOR_MIX": {
+   "profile": 237,
+   "company": 235
+  },
+  "HISTORICAL_DEPTH": {
+   "OLDEST": "2018-01-09T10:16:38.800Z",
+   "NEWEST": "2026-08-28T15:00:16.846Z",
+   "SPAN_DAYS": 3153,
+   "SPAN_MONTHS": 103.6,
+   "PAGES_USED": [
+    1
+   ],
+   "SORT_BY": [
+    "date"
+   ],
+   "POSTED_LIMIT": "any",
+   "DISTINCT_SEARCHES": 18,
+   "MAX_PER_SEARCH_OBSERVED": 40
+  },
+  "DELTA_WINDOWS_PCT": {
+   "7d": 3.4,
+   "30d": 12.7,
+   "90d": 37.1,
+   "365d": 95.8
+  },
+  "VIDEO_ASSET": {
+   "FIELDS": [
+    "thumbnailUrl",
+    "videoUrl"
+   ],
+   "RENDITIONS": 1,
+   "RENDITION": "mp4-720p-30fp-crf28",
+   "HOST": "dms.licdn.com",
+   "PATH_SHAPE": "/playlist/vid/v2/<asset>/",
+   "SIGNED_EXPIRY_EPOCH": 1788580800,
+   "SIGNED_EXPIRY_UTC": "2026-09-05T04:00:00Z",
+   "TTL_CLASS": "TEMPORARY",
+   "TTL_DAYS_APPROX": 7,
+   "AUDIO_ONLY": false,
+   "MANIFEST": false,
+   "CAPTION": false,
+   "DURATION": false,
+   "EXPIRED_NOW": true
+  },
+  "DOCUMENT_ASSET": {
+   "FIELDS": [
+    "title",
+    "totalPageCount",
+    "transcribedDocumentUrl",
+    "manifestUrl",
+    "coverPages",
+    "manifest"
+   ],
+   "MANIFEST_FIELDS": [
+    "asset",
+    "transcribedDocumentUrl",
+    "transcriptManifestUrl",
+    "scanRequiredForDownload",
+    "perResolutions"
+   ],
+   "PAGE_COUNTS": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    5,
+    5,
+    7,
+    8,
+    17
+   ],
+   "SIGNED_EXPIRY_OUTER": 1788580800,
+   "SIGNED_EXPIRY_MANIFEST": 1788998400,
+   "SCAN_REQUIRED_FOR_DOWNLOAD": true,
+   "EXPIRED_NOW": true,
+   "LOCAL_TEXT_CHAIN": "coleta/executor_texto_de_pdf.py"
+  },
+  "NORMALIZATION_LOSS": {
+   "SURVIVED_RENAMED": {
+    "content": "TEXT",
+    "id": "EXTERNAL_ID",
+    "linkedinUrl": "URL",
+    "postedAt": "PUBLICATION_DATE",
+    "author": "DECLARED_AUTHOR+AUTHOR_URL",
+    "engagement.likes": "LIKES",
+    "engagement.comments": "COMMENTS_COUNT",
+    "engagement.shares": "SHARES"
+   },
+   "DROPPED_ENTIRELY": [
+    "postVideo",
+    "document",
+    "article",
+    "newsletterTitle",
+    "newsletterUrl",
+    "postImages",
+    "engagement.reactions[]",
+    "repost",
+    "repostId",
+    "shareUrn",
+    "entityId",
+    "query",
+    "socialContent",
+    "contentAttributes",
+    "header",
+    "type"
+   ]
+  }
+ },
+ "PROFILES_RAW_MEASUREMENT": {
+  "SOURCE_FILE": "data/samples/raw-paid/ES-T8-002-linkedin-profiles.raw.json.gz",
+  "ITEMS": 202,
+  "PERSONS": 138,
+  "COMPANY_PAGES": 62,
+  "DISTINCT_FIELDS": 85,
+  "DISCOVERY_ROUTE": {
+   "POST_SEARCH": 115,
+   "TITLE_SEARCH": 87
+  },
+  "PERSONAL_DATA_PRESENT": {
+   "location": 138,
+   "experience": 135,
+   "skills": 121,
+   "education": 118,
+   "connectionsCount": 138,
+   "openToWork_true": 7,
+   "emails_non_empty": 0
+  },
+  "COST_MEASURED_USD": 0.484,
+  "ITEMS_PAID": 120,
+  "USD_PER_1000": 4.033,
+  "GDPR_NOTE": "COMPANY MONITORING != PERSONAL PROFILE COLLECTION. Base legal NAO declarada nesta arvore. Decisao humana, fora desta missao.",
+  "CAPABILITY_DECLARED": false
+ },
+ "PUBLIC_SURFACES": [
+  {
+   "SURFACE": "company_page_landing",
+   "PUBLIC_WITHOUT_LOGIN": "YES",
+   "PROOF": "PROVEN",
+   "PROOF_DATE": "2026-09-08",
+   "FIELDS": [
+    "nome",
+    "descricao",
+    "morada",
+    "n_empregados",
+    "industria",
+    "sede",
+    "ano",
+    "especialidades",
+    "urn:li:activity ids"
+   ],
+   "RECENT_DEPTH": "10-13",
+   "PAGINATION": "NOT_EXPOSED",
+   "MEDIA": "thumbnails",
+   "COMMENTS": "NO",
+   "REACTIONS": "NO",
+   "TIMESTAMP": "RELATIVE",
+   "EXACT_DATE": "NO",
+   "NETWORK_HOSTS": [
+    "linkedin.com"
+   ],
+   "ROBOTS_STATUS": "DISALLOW_ALL",
+   "POLICY_ALLOWED": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "SURFACE": "company_posts_tab",
+   "PUBLIC_WITHOUT_LOGIN": "NO",
+   "PROOF": "PROVEN",
+   "PROOF_DATE": "2026-09-08",
+   "EVIDENCE": "HTTP 302 -> /uas/login",
+   "POLICY_ALLOWED": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "SURFACE": "profile_page_jsonld",
+   "PUBLIC_WITHOUT_LOGIN": "PARTIAL",
+   "PROOF": "DOCUMENTED",
+   "FIELDS": [
+    "Person: name",
+    "location",
+    "roles",
+    "education",
+    "image"
+   ],
+   "NOTE": "authwall apos 2-3 perfis (comunidade); JSON-LD omite campos e exige ler HTML ao lado",
+   "NETWORK_HOSTS": [
+    "linkedin.com"
+   ],
+   "ROBOTS_STATUS": "DISALLOW_ALL",
+   "POLICY_ALLOWED": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "SURFACE": "direct_post_url",
+   "PUBLIC_WITHOUT_LOGIN": "YES",
+   "PROOF": "PROVEN",
+   "PROOF_DATE": "2026-09-08",
+   "FIELDS": [
+    "HTTP 200",
+    "114KB",
+    "<video data-sources>"
+   ],
+   "MEDIA": "YES",
+   "EXACT_DATE": "YES",
+   "NETWORK_HOSTS": [
+    "linkedin.com",
+    "dms.licdn.com"
+   ],
+   "ROBOTS_STATUS": "DISALLOW_ALL",
+   "POLICY_ALLOWED": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "SURFACE": "people_search",
+   "PUBLIC_WITHOUT_LOGIN": "NO",
+   "PROOF": "DOCUMENTED",
+   "EVIDENCE": "redirect /uas/login"
+  },
+  {
+   "SURFACE": "jobs_guest_endpoint",
+   "PUBLIC_WITHOUT_LOGIN": "YES",
+   "PROOF": "DOCUMENTED",
+   "PATH": "/jobs-guest/jobs/api/seeMoreJobPostings/search",
+   "PAGINATION": "?start= offset, 10/pagina",
+   "RELEVANCE_TO_SINTONIA": "NENHUMA — sao vagas, nao comunicacao",
+   "NOTE": "prova de que guest endpoints existem para ALGUMAS superficies"
+  },
+  {
+   "SURFACE": "ad_library",
+   "PUBLIC_WITHOUT_LOGIN": "YES",
+   "PROOF": "DOCUMENTED",
+   "FIELDS": [
+    "anunciante",
+    "criativo",
+    "datas",
+    "CTA",
+    "pais",
+    "faixa de impressoes",
+    "segmentacao EEE (DSA)"
+   ],
+   "COVERAGE_FROM": "2023-06-01",
+   "RETENTION": "1 ano apos a ultima impressao",
+   "API": "NAO EXISTE",
+   "ROBOTS_STATUS": "NOT_MEASURED",
+   "POLICY_ALLOWED": "REQUIRES_HUMAN_DECISION",
+   "NOTE": "superficie de transparencia publicada pelo proprio LinkedIn para o DSA. NOVO EIXO."
+  },
+  {
+   "SURFACE": "refusal_states",
+   "STATES": {
+    "302_uas_login": "AUTHWALL — a porta existe e pede credencial",
+    "HTTP_999": "REFUSAL/FLAG — codigo nao-padrao do proprio LinkedIn; comunidade reporta ~50-60 pedidos anonimos/15min",
+    "404": "HONESTO — o slug nao existe; ja medido por esta casa"
+   },
+   "LAW": "999 nao e recusa de politica e nao e ausencia de dado. E um terceiro estado."
+  }
+ ],
+ "APIFY_ACTORS": {
+  "ENUMERATED": 34,
+  "PRICED_TODAY": 13,
+  "PAID_BY_THIS_HOUSE": 1,
+  "STORE_CHANGE_NOTICE": "Apify bloqueou Actors de aluguer novos em 2026-04-01 e retira o modelo de aluguer em 2026-10-01 (documental)",
+  "ITEMS": [
+   {
+    "ACTOR": "harvestapi/linkedin-company-posts",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 1.50 / 1,000 posts",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "INPUT": [
+     "targetUrls",
+     "maxPosts (0=all)",
+     "postedLimit",
+     "postedLimitDate",
+     "includeQuotePosts",
+     "includeReposts",
+     "scrapeReactions",
+     "maxReactions",
+     "scrapeComments",
+     "maxComments",
+     "commentsPostedLimit"
+    ],
+    "OUTPUT": [
+     "post",
+     "author",
+     "engagement",
+     "images",
+     "videos",
+     "documents with transcription URLs",
+     "reactions",
+     "comments"
+    ],
+    "DEPTH": "maxPosts=0 = tudo",
+    "DELTA_KNOB": "postedLimitDate",
+    "COMMENTS": "evento a parte",
+    "REACTIONS": "evento a parte",
+    "VIDEO": "declarado",
+    "CAPTIONS": "NAO declarado",
+    "DOCUMENTS": "declarado",
+    "USERS": "11229"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-profile-posts",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 1.50 / 1,000 posts",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "DELTA_KNOB": "postedLimitDate",
+    "DEPTH": "maxPosts=0 = tudo",
+    "CAPTIONS": "NAO declarado"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-post-search",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 1.50 / 1,000 posts",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "INPUT": [
+     "searchQueries",
+     "maxPosts (0=all, default 100)",
+     "postedLimit 1h..year",
+     "postedLimitDate",
+     "sortBy relevance|date",
+     "startPage",
+     "scrapePages",
+     "authorUrls",
+     "authorsCompanies",
+     "scrapeReactions",
+     "scrapeComments"
+    ],
+    "DECLARED_CEILING": "400-500 posts por consulta",
+    "DELTA_KNOB": "postedLimitDate",
+    "CAPTIONS": "NAO declarado",
+    "FLOW_OBSERVED_BY_THIS_HOUSE": true,
+    "NOTE": "e o Actor que produziu os 472 posts preservados"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-post-comments",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 2.00 / 1,000 comments",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "OUTPUT": [
+     "comment text",
+     "author",
+     "reply count",
+     "likes",
+     "reaction breakdown",
+     "timestamp"
+    ],
+    "DEPTH": "maxItems=0 = tudo, ate 100 paginas; respostas ate 5/raiz, ilimitadas se pedidas como item"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-post-reactions",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 2.00 / 1,000 reactions",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "RETURNS_PEOPLE": true,
+    "DEPTH": "maxItems=0 ~ 1218",
+    "SINTONIA_VERDICT": "NO-GO — dado pessoal que o negocio nao precisa"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-company",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 3.00 / 1,000 companies",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "OUTPUT": [
+     "website",
+     "employee count",
+     "follower count",
+     "industries",
+     "founding year"
+    ],
+    "POSTS": false
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-profile-scraper",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 4.033 / 1,000 — MEDIDO POR ESTA CASA",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "MEASURED_BY_THIS_HOUSE",
+    "COST_STATE": "MEASURED_BY_THIS_HOUSE",
+    "MEASURED_USD": 0.484,
+    "MEASURED_ITEMS": 120,
+    "MEASURED_AT": "2026-08-29",
+    "MODE": "Profile details no email ($4 per 1k)"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-profile-search",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "UNKNOWN",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "UNKNOWN"
+   },
+   {
+    "ACTOR": "harvestapi/linkedin-company-employees",
+    "DEVELOPER": "HarvestAPI",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "UNKNOWN",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "UNKNOWN"
+   },
+   {
+    "ACTOR": "supreme_coder/linkedin-post",
+    "DEVELOPER": "supreme_coder",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 2.00 / 1,000 posts",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "INFERRED: BROWSER + THIRD_PARTY_API",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "INPUT": [
+     "urls",
+     "limitPerSource",
+     "scrapeUntil",
+     "deepScrape",
+     "fetchDocumentDetails",
+     "numComments",
+     "numLikes",
+     "rawData"
+    ],
+    "DELTA_KNOB": "scrapeUntil",
+    "DOCUMENTS": "fetchDocumentDetails: transcript + imagens de pagina",
+    "MECHANISM_BASIS": "a pagina diz 'hybrid backend routing (API-proxy e browser-proxy)'"
+   },
+   {
+    "ACTOR": "apimaestro/linkedin-company-posts",
+    "DEVELOPER": "API Maestro",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 5.00 / 1,000 results",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "INPUT": [
+     "company_name",
+     "page_number",
+     "limit 1-100",
+     "sort"
+    ],
+    "DELTA_KNOB": null,
+    "NOTE": "sem filtro de data documentado"
+   },
+   {
+    "ACTOR": "apimaestro/linkedin-posts-search-scraper-no-cookies",
+    "DEVELOPER": "API Maestro",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 5.00 / 1,000 results",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "INPUT": [
+     "page_number",
+     "total_posts",
+     "sort_type",
+     "date_filter"
+    ],
+    "DELTA_KNOB": "date_filter"
+   },
+   {
+    "ACTOR": "apimaestro/linkedin-post-reactions",
+    "DEVELOPER": "API Maestro",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 5.00 / 1,000 results",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "RETURNS_PEOPLE": true,
+    "SINTONIA_VERDICT": "NO-GO"
+   },
+   {
+    "ACTOR": "apimaestro/linkedin-post-comments-replies-engagements",
+    "DEVELOPER": "API Maestro",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "UNKNOWN",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "UNKNOWN"
+   },
+   {
+    "ACTOR": "capable_cauldron/linkedin-comment-scraper",
+    "DEVELOPER": "capable_cauldron",
+    "LOGIN_REQUIRED": true,
+    "COOKIES_REQUIRED": true,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 0.001/comentario + US$ 0.01/post",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "AUTHENTICATED_SESSION",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "MECHANISM_BASIS": "a pagina pede cookies exportados via Cookie-Editor",
+    "SINTONIA_VERDICT": "NO-GO — cookie de terceiro, §23 da casa"
+   },
+   {
+    "ACTOR": "bytepulselabs/linkedin-video-downloader",
+    "DEVELOPER": "bytepulselabs",
+    "LOGIN_REQUIRED": null,
+    "COOKIES_REQUIRED": null,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 0.006/arranque + US$ 0.06 por 10 MB",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "OUTPUT": [
+     "videoUrl (MP4 no key-value store)"
+    ],
+    "CAPTIONS": false,
+    "AUDIO_ONLY": false,
+    "DURATION": false,
+    "NOTE": "preco POR BYTE — a unica referencia de custo de banda desta missao"
+   },
+   {
+    "ACTOR": "silva95gustavo/linkedin-ad-library-scraper",
+    "DEVELOPER": "silva95gustavo",
+    "LOGIN_REQUIRED": null,
+    "COOKIES_REQUIRED": null,
+    "PRICE_MODEL": "rental",
+    "PRICE": "teste gratis 300 resultados; aluguer para remover o limite",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "PUBLIC_HTML",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "MECHANISM_BASIS": "a pagina nomeia linkedin.com/ad-library como fonte",
+    "OUTPUT": [
+     "adId",
+     "advertiserName",
+     "body",
+     "clickUrl",
+     "ctas",
+     "format",
+     "impressions",
+     "impressionsPerCountry",
+     "targeting",
+     "availability"
+    ],
+    "WARNING": "modelo de aluguer sai em 2026-10-01"
+   },
+   {
+    "ACTOR": "s-r/free-linkedin-company-finder",
+    "DEVELOPER": "s-r",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "US$ 4.00 / 1,000 li-addresses",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "SEARCH_ENGINE_INDEX",
+    "EVIDENCE_CLASS": "DOCUMENTED",
+    "MECHANISM_BASIS": "a pagina diz 'Google-based search'",
+    "CONTACTS_LINKEDIN": false,
+    "SINTONIA_VERDICT": "NO-GO — §8.2(4) nomeia 'search tools'; NAO e a rota indireta permitida desta casa"
+   },
+   {
+    "ACTOR": "dev_fusion/Linkedin-Profile-Scraper",
+    "DEVELOPER": "dev_fusion",
+    "LOGIN_REQUIRED": false,
+    "COOKIES_REQUIRED": false,
+    "PRICE_MODEL": "per-event",
+    "PRICE": "UNKNOWN",
+    "PRICE_READ_AT": "2026-09-12",
+    "SOURCE_CODE_PUBLIC": false,
+    "IMPLEMENTATION_DISCLOSED": false,
+    "MECHANISM": "UNKNOWN",
+    "EVIDENCE_CLASS": "UNKNOWN",
+    "USERS": "63K"
+   }
+  ],
+  "NOT_PRICED": [
+   "curious_coder/*",
+   "valig/linkedin-jobs-scraper",
+   "worldunboxer/rapid-linkedin-scraper",
+   "caprolok/linkedin-employees-scraper",
+   "anchor/linkedin-profile-enrichment",
+   "scraping_solutions/linkedin-posts-engagers",
+   "code_crafter/leads-finder",
+   "get-leads/linkedin-scraper",
+   "apimaestro/linkedin-profile-posts",
+   "apimaestro/linkedin-batch-profile-posts-scraper",
+   "apimaestro/linkedin-profile-detail",
+   "apimaestro/linkedin-company-detail",
+   "apimaestro/linkedin-jobs-scraper-api",
+   "apimaestro/linkedin-job-detail",
+   "bebity/linkedin-jobs-scraper"
+  ],
+  "MARKETING_WARNING": "11 de 13 dizem 'No cookies or account required'. E uma afirmacao do vendedor sobre a politica de outra empresa: nao e licenca e nao vincula o LinkedIn."
+ },
+ "OPEN_SOURCE": {
+  "REPOS_REVIEWED": 12,
+  "USEFUL_WITHOUT_LOGIN": 2,
+  "CODE_COPIED": false,
+  "ITEMS": [
+   {
+    "REPO": "joeyism/linkedin_scraper",
+    "STARS": 4415,
+    "LAST_UPDATE": "2026-04",
+    "LANGUAGE": "Python/Playwright",
+    "LOGIN": true,
+    "COOKIE": "sessao",
+    "PUBLIC_ONLY": false,
+    "POSTS": true,
+    "COMPANIES": true,
+    "PROFILES": true,
+    "COMMENTS": "UNKNOWN",
+    "MEDIA": false,
+    "CAPTIONS": false,
+    "PAGINATION": "browser",
+    "LICENSE": "UNKNOWN",
+    "USEFUL_IDEA": "modela 'company posts' como entidade propria",
+    "UNSAFE_OR_NOT_ALLOWED_PART": "login automatizado"
+   },
+   {
+    "REPO": "speedyapply/JobSpy",
+    "STARS": 4088,
+    "LAST_UPDATE": "2026-02",
+    "LANGUAGE": "Python",
+    "LOGIN": false,
+    "COOKIE": false,
+    "PUBLIC_ONLY": true,
+    "POSTS": false,
+    "COMPANIES": false,
+    "PROFILES": false,
+    "ENDPOINTS": [
+     "/jobs-guest/jobs/api/seeMoreJobPostings/search"
+    ],
+    "PAGINATION": "?start= offset",
+    "USEFUL_IDEA": "a forma de um guest endpoint que a plataforma abre de proposito e pagina por offset",
+    "UNSAFE_OR_NOT_ALLOWED_PART": null,
+    "RELEVANCE": "BAIXA — so vagas"
+   },
+   {
+    "REPO": "stickerdaniel/linkedin-mcp-server",
+    "STARS": 3115,
+    "LAST_UPDATE": "2026-08",
+    "LANGUAGE": "Python/Patchright",
+    "LOGIN": true,
+    "COOKIE": "sessao",
+    "PUBLIC_ONLY": false,
+    "POSTS": true,
+    "COMPANIES": true,
+    "PROFILES": true,
+    "USEFUL_IDEA": "19 ferramentas separadas por capacidade — o mesmo recorte desta casa",
+    "UNSAFE_OR_NOT_ALLOWED_PART": "browser logado"
+   },
+   {
+    "REPO": "scrapfly/scrapfly-scrapers (linkedin-scraper)",
+    "STARS": 1062,
+    "LAST_UPDATE": "2026-02",
+    "LANGUAGE": "Python",
+    "LOGIN": false,
+    "COOKIE": false,
+    "PUBLIC_ONLY": true,
+    "POSTS": false,
+    "COMPANIES": true,
+    "PROFILES": true,
+    "ENDPOINTS": [
+     "application/ld+json em paginas publicas"
+    ],
+    "MEDIA": false,
+    "CAPTIONS": false,
+    "USEFUL_IDEA": "JSON-LD como superficie estruturada, com a nota honesta de que ele OMITE campos e exige ler o HTML ao lado",
+    "UNSAFE_OR_NOT_ALLOWED_PART": "depende de servico pago de fetch gerido"
+   },
+   {
+    "REPO": "cullenwatson/StaffSpy",
+    "STARS": 324,
+    "LAST_UPDATE": "2025-06",
+    "LANGUAGE": "Python/Selenium",
+    "LOGIN": true,
+    "COOKIE": "sessao",
+    "PUBLIC_ONLY": false,
+    "POSTS": false,
+    "PROFILES": "empregados",
+    "ENDPOINTS": [
+     "voyagerIdentityDashProfiles"
+    ],
+    "USEFUL_IDEA": "nomeia o endpoint Voyager que usa",
+    "UNSAFE_OR_NOT_ALLOWED_PART": "Voyager com sessao"
+   },
+   {
+    "REPO": "tomquirk/linkedin-api e derivados (EseToni/open-linkedin-api, nsandman, alabarga, PipesNBottles/li_scrapi)",
+    "STARS": "UNKNOWN",
+    "LAST_UPDATE": "varios",
+    "LANGUAGE": "Python",
+    "LOGIN": true,
+    "COOKIE": "sessao",
+    "PUBLIC_ONLY": false,
+    "POSTS": true,
+    "COMPANIES": true,
+    "PROFILES": true,
+    "USEFUL_IDEA": "arquitetura do Voyager — vocabulario do que o frontend sabe pedir",
+    "UNSAFE_OR_NOT_ALLOWED_PART": "login de credencial pessoal"
+   },
+   {
+    "REPO": "josephlimtech/linkedin-profile-scraper-api",
+    "STARS": 772,
+    "LAST_UPDATE": "2024-04",
+    "STATUS": "ABANDONADO"
+   },
+   {
+    "REPO": "linkedtales/scrapedin",
+    "STARS": 612,
+    "LAST_UPDATE": "2023-02",
+    "STATUS": "ABANDONADO"
+   }
+  ],
+  "LAW": "as unicas duas familias sem login leem JSON-LD ou um guest endpoint, e NENHUMA das duas alcanca posts de empresa"
+ },
+ "VOYAGER": {
+  "WHAT_EXISTS": {
+   "query_language": "Rest-li (decoration + q=...), conceptualmente proximo de GraphQL",
+   "documented_example": "/voyager/api/organization/companies?decoration=(name,groups*~(...))&q=universalName&universalName=...",
+   "named_by_open_clients": [
+    "voyagerIdentityDashProfiles"
+   ],
+   "vocabulary_present": [
+    "company feed",
+    "profile feed",
+    "post details",
+    "comments",
+    "reactions",
+    "media",
+    "documents",
+    "pagination"
+   ],
+   "endpoints_documented_without_session": 0
+  },
+  "REQUIRES_AUTHENTICATED_SESSION": true,
+  "CAN_BE_USED_CANONICALLY": false,
+  "EXPECTED": "NO",
+  "THREE_INDEPENDENT_REASONS": [
+   "exige sessao autenticada; §23 da casa proibe login e cookie para contornar politica",
+   "API interna sem contrato — muda sem aviso e sem versao",
+   "User Agreement §8.2 proibe 'override any security feature or bypass or circumvent any access controls'"
+  ],
+  "LAW": "ser open source nao torna uma rota permitida. O codigo e aberto; a porta nao e.",
+  "PROBED_BY_THIS_MISSION": false
+ },
+ "OFFICIAL_API": {
+  "DOC_VERSION": "li-lms-2026-08",
+  "DOC_UPDATED_AT": "2026-05-13",
+  "READ_AT": "2026-09-12",
+  "PERMISSIONS": {
+   "r_organization_social": {
+    "READS": "posts, comments e likes de organizacoes",
+    "RESTRICTION": "Restricted to organizations in which the authenticated member has one of the following company page roles: ADMINISTRATOR, DIRECT_SPONSORED_CONTENT_POSTER, CONTENT_ADMIN",
+    "SERVES_THIRD_PARTY_ORG": false
+   },
+   "r_member_social": {
+    "READS": "posts, comments e likes em nome de um membro autenticado",
+    "RESTRICTION": "This permission is restricted and is available to approved users only.",
+    "SERVES_THIRD_PARTY_ORG": false,
+    "CORRECTION_TO_C11": "o C11 escreveu CLOSED / 'not accepting access requests'. A documentacao corrente diz 'restricted ... approved users only'. Mais fraco, mesma conclusao."
+   }
+  },
+  "PAGINATION": {
+   "start": "indice do primeiro item",
+   "count": "max 100",
+   "sortBy": [
+    "LAST_MODIFIED",
+    "CREATED"
+   ]
+  },
+  "VIDEOS_API": {
+   "IS_WRITE_API": true,
+   "PERMISSIONS": [
+    "w_organization_social",
+    "w_member_social",
+    "rw_ads",
+    "r_ads"
+   ],
+   "r_organization_social_present": false,
+   "captions_field": "e a legenda que o proprio parceiro SUBIU (source: USER_PROVIDED, transcriptType: CLOSED_CAPTION, so ingles)",
+   "audio_only": "NAO EXISTE",
+   "downloadUrl": "rendicao de video assinada com downloadUrlExpiresAt"
+  },
+  "VERDICT": "NAO EXISTE, EM NENHUM TIER, ROTA OFICIAL DE LEITURA DO CONTEUDO DE UMA ORGANIZACAO QUE ESTA CASA NAO ADMINISTRA",
+  "LADDER_POSITION_CHANGE": "desceu de 5 para 6 — nao serve o caso de uso"
+ },
+ "POLICY": {
+  "DISCLAIMER": "NAO E PARECER JURIDICO. Factos sobre ficheiros e paginas, cada um na sua linha. Nenhum decide sozinho.",
+  "ROBOTS_TXT": {
+   "HOST": "linkedin.com",
+   "MEASURED_AT": "2026-09-11",
+   "BYTES": 120190,
+   "GROUPS": 77,
+   "NOTICE": "The use of robots or other automated means to access LinkedIn without the express permission of LinkedIn is strictly prohibited.",
+   "USER_AGENT_STAR": "Disallow: /",
+   "LINKEDINBOT": "Allow: /",
+   "STATUS": "DISALLOW_ALL",
+   "REMEASURED_BY_THIS_MISSION": false
+  },
+  "LICDN_ROBOTS": {
+   "HOSTS": [
+    "dms.licdn.com",
+    "media.licdn.com"
+   ],
+   "STATUS": "NEVER_MEASURED",
+   "NOTE": "a casa assume o robots do linkedin.com para estes hosts. Isso e assuncao, nao medicao."
+  },
+  "USER_AGREEMENT_8_2": [
+   "proibe usar software/scripts/robots/crawlers para 'scrape the Services' ou copiar perfis e outros dados",
+   "8.2(4): proibe 'Copy, use, display or distribute any information (including content) obtained from the Services, whether directly or through third parties (such as search tools or data aggregators or brokers), without the consent of the content owner'",
+   "proibe 'override any security feature or bypass or circumvent any access controls or use limits of the Services'"
+  ],
+  "KEY_CONSEQUENCE": "8.2(4) alcanca o intermediario. Apify, HarvestAPI e Google estao todos dentro de 'through third parties'.",
+  "ROUTE_TABLE": [
+   {
+    "ROUTE": "site-da-organizacao (descoberta indireta)",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "PARTIAL",
+    "TERMS_STATUS": "fora do §8.2 — nao e 'the Services'",
+    "ROBOTS_STATUS": "n/a",
+    "CURRENT_SINTONIA_POLICY": "ALLOWED",
+    "HUMAN_DECISION_NEEDED": false
+   },
+   {
+    "ROUTE": "article.link ja preservado",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "FLOW_OBSERVED",
+    "TERMS_STATUS": "dado derivado de colheita ja feita",
+    "ROBOTS_STATUS": "n/a",
+    "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
+    "HUMAN_DECISION_NEEDED": true,
+    "RISK": "BAIXO"
+   },
+   {
+    "ROUTE": "company page publica",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "PROVEN (historico)",
+    "TERMS_STATUS": "§8.2(1)",
+    "ROBOTS_STATUS": "DISALLOW_ALL",
+    "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "post direto por URL",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "PROVEN (historico)",
+    "TERMS_STATUS": "§8.2(1)",
+    "ROBOTS_STATUS": "DISALLOW_ALL",
+    "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "asset de midia em licdn.com",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "PROVEN (historico)",
+    "TERMS_STATUS": "§8.2(1)+(4)",
+    "ROBOTS_STATUS": "NOT_MEASURED",
+    "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "legenda SRT nativa",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "PROVEN (1 amostra, historico)",
+    "TERMS_STATUS": "§8.2(1)+(4)",
+    "ROBOTS_STATUS": "NOT_MEASURED",
+    "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "Ad Library",
+    "TECHNICALLY_POSSIBLE": "UNKNOWN",
+    "PROOF": "DOCUMENTED",
+    "TERMS_STATUS": "§8.2 sem excecao escrita para esta superficie",
+    "ROBOTS_STATUS": "NOT_MEASURED",
+    "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "indice de busca (Google/Bing)",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "DOCUMENTED",
+    "TERMS_STATUS": "§8.2(4) nomeia 'search tools'",
+    "ROBOTS_STATUS": "n/a",
+    "CURRENT_SINTONIA_POLICY": "NOT_DECLARED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "Actors Apify (todos)",
+    "TECHNICALLY_POSSIBLE": "YES",
+    "PROOF": "FLOW_OBSERVED",
+    "TERMS_STATUS": "§8.2(4) nomeia 'data aggregators or brokers'",
+    "ROBOTS_STATUS": "n/a",
+    "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
+    "HUMAN_DECISION_NEEDED": true
+   },
+   {
+    "ROUTE": "Community Management API",
+    "TECHNICALLY_POSSIBLE": "YES (so Pagina propria)",
+    "PROOF": "DOCUMENTED",
+    "TERMS_STATUS": "permitido",
+    "ROBOTS_STATUS": "n/a",
+    "CURRENT_SINTONIA_POLICY": "ROUTE_NOT_ALLOWED",
+    "HUMAN_DECISION_NEEDED": false,
+    "WHY": "nao serve o caso de uso — le a Pagina que a casa administra"
+   },
+   {
+    "ROUTE": "Voyager",
+    "TECHNICALLY_POSSIBLE": "YES (com sessao)",
+    "PROOF": "DOCUMENTED",
+    "TERMS_STATUS": "§8.2(1)+(3)",
+    "ROBOTS_STATUS": "DISALLOW_ALL",
+    "CURRENT_SINTONIA_POLICY": "proibido por §23 da casa",
+    "HUMAN_DECISION_NEEDED": false
+   }
+  ],
+  "CHANGED_BY_THIS_MISSION": false
+ },
+ "VIDEO_AND_SPEECH": {
+  "THREE_INDEPENDENT_OBSERVATIONS": [
+   {
+    "OBSERVER": "esta casa, pagina publica",
+    "DATE": "2026-09-08",
+    "FORMAT": "3 MP4 progressivos (58/125/143 kbps)",
+    "HOST": "dms.licdn.com",
+    "HLS": false,
+    "DASH": false,
+    "TTL_TOKEN": "e=2147483647",
+    "TTL_CLASS": "LONG_LIVED_OBSERVED",
+    "EVIDENCE_CLASS": "PROVEN"
+   },
+   {
+    "OBSERVER": "RAW harvestapi preservado",
+    "DATE": "2026-08-29",
+    "FORMAT": "1 rendicao mp4-720p-30fp-crf28",
+    "HOST": "dms.licdn.com",
+    "PATH": "/playlist/vid/v2/<asset>/",
+    "HLS": false,
+    "DASH": false,
+    "TTL_TOKEN": "e=1788580800",
+    "TTL_UTC": "2026-09-05T04:00:00Z",
+    "TTL_CLASS": "TEMPORARY",
+    "TTL_DAYS": 7,
+    "EVIDENCE_CLASS": "FLOW_OBSERVED",
+    "EXPIRED_NOW": true
+   },
+   {
+    "OBSERVER": "artigo de terceiro (dev.to)",
+    "DATE": "2026",
+    "FORMAT": "HLS .m3u8 mestre + filhos por resolucao, segmentos .ts/.m4s",
+    "TOKENS": "bearer estatico do bundle JS + guest token via activate.json",
+    "EVIDENCE_CLASS": "COMMUNITY_SECONDARY",
+    "ADOPTABLE": false,
+    "WHY_NOT": "extrair token e 'circumvent access controls' — fora da autorizacao"
+   }
+  ],
+  "LAW": "as tres podem estar certas ao mesmo tempo: superficies diferentes servem formas diferentes. E as duas primeiras classes de TTL ja foram vistas na MESMA plataforma, na MESMA semana.",
+  "HARD_CONSEQUENCE": "uma URL de midia do LinkedIn guardada num artefato pode estar morta em 7 dias. Guardar a URL nao e guardar a midia.",
+  "LADDER": [
+   {
+    "STEP": 1,
+    "NAME": "NATIVE_CAPTION",
+    "BYTES": 4283,
+    "MEASURED": true,
+    "MEASURED_AT": "2026-09",
+    "IN_PAID_PAYLOAD": 0,
+    "OF": 472,
+    "ROUTE_STATUS": "ROUTE_NOT_ALLOWED",
+    "NOTE": "o unico degrau que compra FALA sem ASR, e o unico que nenhum fornecedor pago entrega"
+   },
+   {
+    "STEP": 2,
+    "NAME": "AUDIO_ONLY_REPRESENTATION",
+    "EXISTS": "NOT_OBSERVED_IN_ANY_ROUTE",
+    "BYTES": "UNKNOWN"
+   },
+   {
+    "STEP": 3,
+    "NAME": "RANGE_STREAMING",
+    "MEASURED": false,
+    "REASONING": "MP4 progressivo de rendicao unica, sem manifesto e sem indice conhecido: o pior caso aproxima-se do ficheiro inteiro",
+    "NETWORK_SAVING": "NOT_MEASURED — e por isso NAO SE AFIRMA"
+   },
+   {
+    "STEP": 4,
+    "NAME": "FULL_VIDEO",
+    "BYTES": "UNKNOWN — nenhum MP4 do LinkedIn foi baixado, nunca",
+    "THIRD_PARTY_PRICE_REFERENCE": "US$ 0.06 por 10 MB (bytepulselabs)"
+   },
+   {
+    "STEP": 5,
+    "NAME": "LOCAL_ASR",
+    "CHAIN": "fala_local",
+    "WORKS": true,
+    "IS_BOTTLENECK": false
+   }
+  ],
+  "BYTES": {
+   "CAPTION_BYTES": 4283,
+   "AUDIO_BYTES": "UNKNOWN",
+   "VIDEO_BYTES": "UNKNOWN",
+   "MISSING_DENOMINATOR": "sem VIDEO_BYTES, 'a legenda poupa 99%' e uma frase bonita sem conta"
+  },
+  "CAPTION_FIRST": {
+   "CAPTION_PUBLIC": "YES no historico da pagina publica; UNKNOWN hoje",
+   "LOGIN_REQUIRED": false,
+   "SIGNED_URL": true,
+   "TTL": "UNKNOWN — o e= da legenda nao foi registado",
+   "LANGUAGE": "UNKNOWN (1 amostra)",
+   "AUTO_OR_HUMAN": "AUTOMATIC",
+   "AUTO_EVIDENCE": "o endereco: video-auto-caption-srt-acs-singleton",
+   "SRT": true,
+   "WEBVTT": false,
+   "SRT_BYTE_PROOF": "1\\n00:00:00,220 --> 00:00:03,032\\n — numeracao de sequencia e VIRGULA decimal",
+   "BYTES": 4283,
+   "PATTERN_IN_PAID_RAW": 0,
+   "PATTERN_IN_ANY_ACTOR_DOC": 0,
+   "CAPTION_ROUTE_TODAY": "PRECISA MEDIR — e a medicao exige a rota proibida",
+   "LAWS": [
+    "CAPTION != TRANSCRIPT",
+    "AUTOMATIC_CAPTION != MANUAL_CAPTION — mais barata, nao melhor",
+    "o campo `captions` da API oficial e USER_PROVIDED: duas coisas com o mesmo nome"
+   ]
+  },
+  "AUDIO_ONLY": {
+   "IN_PAID_PAYLOAD": false,
+   "IN_OFFICIAL_API": false,
+   "IN_PUBLIC_PAGE": "UNKNOWN — nao sondado",
+   "NETWORK_ACQUISITION": "NOT_OBSERVED_IN_ANY_ROUTE",
+   "NETWORK_SAVING": "NOT_MEASURED",
+   "LAW": "LOCAL AUDIO EXTRACTION != NETWORK AUDIO-ONLY ACQUISITION"
+  },
+  "ASR_BLOCKED_BY_ACQUISITION": true,
+  "ASR_OWNERS": 1,
+  "SPEECH_VERDICT": "o motor de fala desta casa esta bom e continua a nao mover a fala do LinkedIn um milimetro. O gargalo e a porta."
+ },
+ "COMMENTS": {
+  "COMMENTS_PUBLIC": "a CONTAGEM sim; o TEXTO, em rota gratuita: NOT_OBSERVED",
+  "MEASURED_IN_PRESERVED_RAW": {
+   "comment_text_items": 0,
+   "of_posts": 472,
+   "commentIds_non_empty": 0,
+   "count_sum": 335,
+   "posts_with_at_least_one": 95,
+   "pct_with_comments": 20.1
+  },
+  "WHY_ACTORS_DISAGREE": "nao e regiao, nem A/B, nem tipo de post. E MODELO DE PRECO: o campo existe sempre e vem vazio a menos que se pague o evento.",
+  "CONDITIONS": "texto de comentario e evento cobrado a parte em todos os Actors que o entregam",
+  "DEPTH": "maxItems=0 = tudo, ate 100 paginas (tabela); respostas aninhadas ate 5 por raiz, ilimitadas se pedidas como item proprio",
+  "PAGINATION": "maxItems / page_number, conforme o Actor",
+  "LOGIN_REQUIRED": "nao em 3 dos 4 Actors lidos; SIM em capable_cauldron (cookie de sessao)",
+  "CHEAPEST_ROUTE": {
+   "ACTOR": "harvestapi/linkedin-post-comments",
+   "PRICE": "US$ 2.00 / 1,000",
+   "POLICY": "ROUTE_NOT_ALLOWED"
+  },
+  "LAW": "COMMENTS_COUNT = 335 e COMMENTS_TEXT = 0 no MESMO payload. Quem le so a primeira coluna escreve 'temos comentarios'."
+ },
+ "REACTIONS": {
+  "THREE_THINGS": [
+   {
+    "WHAT": "contagem",
+    "PUBLIC": "YES — ja na listagem",
+    "EXTRA_REQUEST": false,
+    "LOGIN": false,
+    "COST": "incluido"
+   },
+   {
+    "WHAT": "agregado por tipo",
+    "PUBLIC": "YES — ja na listagem, 449 de 472",
+    "EXTRA_REQUEST": false,
+    "LOGIN": false,
+    "COST": "incluido"
+   },
+   {
+    "WHAT": "lista de pessoas",
+    "PUBLIC": "por Actor dedicado",
+    "EXTRA_REQUEST": true,
+    "LOGIN": false,
+    "COST": "US$ 2.00-5.00 / 1,000",
+    "SINTONIA_VERDICT": "NO-GO"
+   }
+  ],
+  "TYPES_OBSERVED_FREE": {
+   "LIKE": 448,
+   "PRAISE": 106,
+   "INTEREST": 69,
+   "EMPATHY": 50,
+   "APPRECIATION": 31
+  },
+  "FINDING": "o agregado por tipo — que diz se a comunicacao gerou interesse tecnico ou so cortesia — JA ESTAVA PAGO, JA ESTAVA NO DISCO, e a normalizacao desta casa deitou-o fora",
+  "RULE": "nao se colhe gente quando o negocio precisa de contagem"
+ },
+ "DOCUMENTS": {
+  "OBSERVED_IN_PRESERVED_RAW": 20,
+  "OF": 472,
+  "DIRECT_ASSET": "YES — transcribedDocumentUrl aponta a um PDF (feedshare-document-sanitized-pdf)",
+  "PREVIEW_ONLY": false,
+  "LOGIN_REQUIRED": "nao declarado no payload",
+  "DOWNLOADABLE": "NOT_VERIFIED — scanRequiredForDownload: true, e nenhum byte foi pedido",
+  "PAGES": "2 a 17, declarado por item (mediana ~3)",
+  "TEXT_EXTRACTABLE_LOCAL": "YES — coleta/executor_texto_de_pdf.py e golden_path_pdf.py ja existem e sao o caminho canonico",
+  "ASSET_URLS": [
+   "transcribedDocumentUrl",
+   "manifestUrl",
+   "manifest.transcribedDocumentUrl",
+   "manifest.transcriptManifestUrl",
+   "coverPages[].imageUrls[]",
+   "manifest.perResolutions[].imageManifestUrl"
+  ],
+  "TTL": {
+   "OUTER": 1788580800,
+   "MANIFEST": 1788998400,
+   "BOTH_EXPIRED": true
+  },
+  "FINDING": "um post de carrossel do LinkedIn e, estruturalmente, um PDF COM TEXTO — e esta casa tem um executor de texto de PDF maduro",
+  "CORRECTION": "'nunca tentado' era verdade sobre a REDE. Nao era verdade sobre o DISCO: o endereco do PDF estava guardado ha 15 dias.",
+  "LIMIT": "as URLs preservadas expiraram. Saber que o campo existe nao e ter o ficheiro."
+ },
+ "DISCOVERY_OFF_LINKEDIN": [
+  {
+   "ROUTE": "site oficial da organizacao",
+   "TECHNICALLY_USEFUL": true,
+   "CURRENT_POLICY": "ALLOWED",
+   "STATE": "POSSIBLE_NOT_PROVED / PARTIAL",
+   "NEEDS_HUMAN_DECISION": false,
+   "MEASURED_BY_C11": "1 de 2 alcancaveis, de 7 sentinelas; 5 falhas foram WAF/ligacao do site de terceiro, NAO do LinkedIn"
+  },
+  {
+   "ROUTE": "article.link nos posts ja preservados",
+   "TECHNICALLY_USEFUL": true,
+   "COUNT": 93,
+   "CURRENT_POLICY": "NOT_DECLARED",
+   "NEEDS_HUMAN_DECISION": true,
+   "COST": "ZERO",
+   "NOTE": "descoberta de fonte JA PAGA, JA NO DISCO, e nunca usada"
+  },
+  {
+   "ROUTE": "sitemaps / RSS / press releases da organizacao",
+   "TECHNICALLY_USEFUL": true,
+   "CURRENT_POLICY": "fora da matriz do LinkedIn — e web aberta",
+   "NEEDS_HUMAN_DECISION": false
+  },
+  {
+   "ROUTE": "Google/Bing/outros indices",
+   "TECHNICALLY_USEFUL": true,
+   "CURRENT_POLICY": "CONFLITO — §8.2(4) nomeia 'search tools'",
+   "NEEDS_HUMAN_DECISION": true
+  },
+  {
+   "ROUTE": "s-r/free-linkedin-company-finder (US$ 4/1000)",
+   "TECHNICALLY_USEFUL": true,
+   "MECHANISM": "SEARCH_ENGINE_INDEX (a pagina diz 'Google-based search')",
+   "CURRENT_POLICY": "mesmo conflito",
+   "NEEDS_HUMAN_DECISION": true,
+   "WARNING": "NAO e a rota indireta que esta casa permite. A permitida le o site da organizacao; este pergunta ao Google."
+  },
+  {
+   "ROUTE": "reposts noutras plataformas",
+   "TECHNICALLY_USEFUL": true,
+   "CURRENT_POLICY": "a plataforma de destino decide",
+   "NEEDS_HUMAN_DECISION": false
+  }
+ ],
+ "RECENT_POSTS_ROUTES": [
+  {
+   "PATH": "company page publica",
+   "REQUESTS_PER_COMPANY": 1,
+   "POSTS_PER_REQUEST": "10-13",
+   "BYTES_PER_COMPANY": 395126,
+   "BYTES_MEASURED": true,
+   "USD_PER_1000_POSTS": 0.0,
+   "POLICY": "DISALLOW_ALL / NOT_RUN"
+  },
+  {
+   "PATH": "post direto por URL",
+   "REQUESTS_PER_COMPANY": "1 por post",
+   "POSTS_PER_REQUEST": 1,
+   "BYTES_PER_COMPANY": "≈114 KB (o documento da casa cita '114 KB', nao o numero exato de bytes)",
+   "BYTES_MEASURED": "APPROXIMATE_AS_CITED",
+   "USD_PER_1000_POSTS": 0.0,
+   "POLICY": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "PATH": "indice de busca",
+   "REQUESTS_PER_COMPANY": "UNKNOWN",
+   "POSTS_PER_REQUEST": "UNKNOWN",
+   "BYTES_PER_COMPANY": "UNKNOWN",
+   "USD_PER_1000_POSTS": 0.0,
+   "POLICY": "REQUIRES_HUMAN_DECISION"
+  },
+  {
+   "PATH": "harvestapi/linkedin-company-posts",
+   "REQUESTS_PER_COMPANY": "1 run",
+   "POSTS_PER_REQUEST": "ate maxPosts",
+   "BYTES_PER_POST_GZ": 1005,
+   "BYTES_MEASURED": true,
+   "USD_PER_1000_POSTS": 1.5,
+   "PRICE_CLASS": "LIST_PRICE_READ",
+   "POLICY": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "PATH": "apimaestro/linkedin-company-posts",
+   "REQUESTS_PER_COMPANY": "1 run",
+   "POSTS_PER_REQUEST": "100/pagina",
+   "BYTES_PER_POST_GZ": "UNKNOWN",
+   "USD_PER_1000_POSTS": 5.0,
+   "PRICE_CLASS": "LIST_PRICE_READ",
+   "POLICY": "ROUTE_NOT_ALLOWED"
+  }
+ ],
+ "DEPTH": {
+  "HOUSE_BELIEF_BEFORE": "linkedin.history.discovery = UNKNOWN porque 'Show more' nao expoe URL",
+  "WHAT_WAS_TRUE": "isso e verdade da PAGINA DE EMPRESA",
+  "WHAT_WAS_MISSED": "o eixo que a casa JA PAGOU e outro, e alcancou 8 anos e 7 meses",
+  "SOURCES": [
+   {
+    "DEPTH_SOURCE": "company page landing",
+    "PAGINATION_MECHANISM": "nenhum exposto — teto 10-13",
+    "LOGIN_REQUIRED": false,
+    "PAID_REQUIRED": false,
+    "INDEX_BASED": false,
+    "REAL_LINKEDIN_REQUEST": true
+   },
+   {
+    "DEPTH_SOURCE": "busca por palavra-chave, paga",
+    "PAGINATION_MECHANISM": "page + sortBy + postedLimit + postedLimitDate; teto declarado 400-500/consulta",
+    "LOGIN_REQUIRED": "nao (declarado)",
+    "PAID_REQUIRED": true,
+    "INDEX_BASED": "UNKNOWN",
+    "REAL_LINKEDIN_REQUEST": "UNKNOWN (black-box)",
+    "MEASURED_SPAN": "2018-01-09 -> 2026-08-28 = 3153 dias, na pagina 1"
+   },
+   {
+    "DEPTH_SOURCE": "Posts API oficial",
+    "PAGINATION_MECHANISM": "start + count (max 100) + sortBy",
+    "LOGIN_REQUIRED": true,
+    "PAID_REQUIRED": true,
+    "INDEX_BASED": false,
+    "REAL_LINKEDIN_REQUEST": true,
+    "LIMIT": "so de organizacao que a casa administra"
+   },
+   {
+    "DEPTH_SOURCE": "Voyager",
+    "PAGINATION_MECHANISM": "cursor interno",
+    "LOGIN_REQUIRED": true,
+    "PAID_REQUIRED": false,
+    "INDEX_BASED": false,
+    "REAL_LINKEDIN_REQUEST": true
+   }
+  ],
+  "LAW": "RECENT e HISTORY nao sao o mesmo eixo em rotas diferentes. Sao eixos diferentes, e a casa mediu um e concluiu sobre o outro.",
+  "CAVEAT": "a busca por palavra-chave cobre um TERMO, nao uma EMPRESA. Eixo de tema != eixo de autor, e nao se substituem."
+ },
+ "DELTA_FIRST": {
+  "KNOBS_DOCUMENTED": [
+   {
+    "KNOB": "postedLimitDate",
+    "ACTORS": [
+     "harvestapi/linkedin-company-posts",
+     "harvestapi/linkedin-profile-posts",
+     "harvestapi/linkedin-post-search"
+    ],
+    "WHAT": "ISO date ou timestamp — so o que e posterior"
+   },
+   {
+    "KNOB": "postedLimit",
+    "ACTORS": [
+     "harvestapi/*"
+    ],
+    "VALUES": [
+     "1h",
+     "24h",
+     "week",
+     "month",
+     "3months",
+     "6months",
+     "year"
+    ]
+   },
+   {
+    "KNOB": "scrapeUntil",
+    "ACTORS": [
+     "supreme_coder/linkedin-post"
+    ],
+    "WHAT": "data; so posts mais novos"
+   },
+   {
+    "KNOB": "date_filter",
+    "ACTORS": [
+     "apimaestro/linkedin-posts-search-scraper-no-cookies"
+    ]
+   },
+   {
+    "KNOB": "startPage/scrapePages",
+    "ACTORS": [
+     "harvestapi/linkedin-post-search"
+    ]
+   },
+   {
+    "KNOB": null,
+    "ACTORS": [
+     "apimaestro/linkedin-company-posts"
+    ],
+    "WHAT": "nenhum filtro de data documentado"
+   }
+  ],
+  "CHECKPOINT_FIELDS_ALREADY_IN_PAYLOAD": {
+   "postedAt.timestamp": "epoch ms, 472/472 -> lastSeenTimestamp",
+   "id / entityId": "o activity id, 472/472 -> lastSeenPost",
+   "shareUrn": "urn:li:share:..., 472/472 -> identidade estavel"
+  },
+  "SAVING_MEASURED_PCT": {
+   "7d": 3.4,
+   "30d": 12.7,
+   "90d": 37.1,
+   "365d": 95.8
+  },
+  "INVERSE_READING": "95,8% dos posts cabem em um ano. Repetir sem postedLimitDate e pagar de novo pelo que ja esta no disco.",
+  "SCOPE": "o checkpoint e conceito de FORA do adapter. O que este estudo diz e so que o SCRAP tem de conseguir RECEBER uma janela. Nada aqui redesenha a Collection."
+ },
+ "ENRICHMENT_ON_DEMAND": {
+  "PHASE_A": {
+   "NAME": "listagem barata",
+   "PRICE": "US$ 1.50 / 1,000 (tabela)",
+   "FREE_FIELDS": [
+    "texto",
+    "autor",
+    "data exata",
+    "likes",
+    "shares",
+    "CONTAGEM de comentarios",
+    "TIPOS de reacao",
+    "URL de video",
+    "URL de PDF",
+    "link externo",
+    "imagens"
+   ]
+  },
+  "PHASE_B": {
+   "NAME": "so o item selecionado",
+   "SELECTIVITY": {
+    "comentarios": {
+     "eligible": 95,
+     "of": 472,
+     "pct": 20.1
+    },
+    "video": {
+     "eligible": 56,
+     "of": 472,
+     "pct": 11.9
+    },
+    "documento": {
+     "eligible": 20,
+     "of": 472,
+     "pct": 4.2
+    }
+   }
+  },
+  "KEY_INSIGHT": "o campo engagement.comments vem GRATIS na listagem e diz, antes de qualquer gasto, quais dos 472 posts tem comentarios. Pedir texto para os 472 e pagar 377 perguntas cuja resposta ja se sabe vazia.",
+  "COST_SCENARIOS_USD": {
+   "todos_os_335_comentarios": 0.67,
+   "top_50_posts (290 = 87%)": 0.58,
+   "top_20_posts (240 = 72%)": 0.48
+  },
+  "SCOPE": "o SCRAP nao decide relevancia. Respeita ENRICH_THIS_ITEM vindo de fora."
+ },
+ "ACQUISITION_LADDER": [
+  {
+   "STEP": 0,
+   "NAME": "O QUE JA ESTA NO DISCO E NINGUEM LEU",
+   "COST": "ZERO",
+   "POLICY": "nenhuma — o dado ja foi colhido",
+   "RISK": "ZERO",
+   "CONTENTS": [
+    "56 URLs de video",
+    "20 PDFs com manifesto de transcricao",
+    "93 links externos",
+    "449 agregados de tipo de reacao"
+   ],
+   "NOTE": "degrau que NAO existia no enunciado, e e o mais barato de todos"
+  },
+  {
+   "STEP": 1,
+   "NAME": "OFF_LINKEDIN_DISCOVERY",
+   "ROUTE": "site da propria organizacao",
+   "POLICY": "ALLOWED",
+   "LIMIT": "devolve o handle, nao as publicacoes"
+  },
+  {
+   "STEP": 2,
+   "NAME": "PUBLIC_NO_LOGIN_SURFACE",
+   "ROUTE": "company page rasa + post direto",
+   "TECHNICAL": "PROVEN",
+   "POLICY": "ROUTE_NOT_ALLOWED",
+   "BLOCKER": "decisao humana"
+  },
+  {
+   "STEP": 3,
+   "NAME": "PUBLIC_MEDIA_CAPTION_ASSET",
+   "ROUTE": "legenda SRT nativa",
+   "WHY_HERE": "e o unico degrau que compra FALA sem ASR — e o unico que nenhum fornecedor pago entrega"
+  },
+  {
+   "STEP": 4,
+   "NAME": "LOCAL_PROCESSING",
+   "CHAINS": [
+    "coleta/executor_texto_de_pdf.py",
+    "fala_local"
+   ],
+   "STATUS": "existem, funcionam, e nenhum e o gargalo"
+  },
+  {
+   "STEP": 5,
+   "NAME": "PAID_PROVIDER_FOR_GAP_ONLY_WITH_WINDOW",
+   "ROUTE": "listagem US$ 1.50/1000 com postedLimitDate + enriquecimento so do item selecionado",
+   "POLICY": "ROUTE_NOT_ALLOWED"
+  },
+  {
+   "STEP": 6,
+   "NAME": "OFFICIAL_API",
+   "MOVED_FROM": 5,
+   "MOVED_TO": 6,
+   "WHY": "NAO serve este caso de uso em tier nenhum. Manter alto seria fingir que ha um degrau ali."
+  },
+  {
+   "STEP": 7,
+   "NAME": "BLOCKED",
+   "WHAT": "fala de video de terceiro",
+   "WHY": "nenhuma rota, permitida ou nao, a entrega hoje"
+  }
+ ],
+ "APIFY_ELIMINATION": {
+  "CURRENT_PAID_NEED": "0 hoje — a politica declara FETCH_POST fora e o portao recusa. Nao ha dependencia paga ATIVA do LinkedIn.",
+  "FREE_REPLACEABLE": [
+   "identidade de organizacao (site proprio)",
+   "links externos (ja no disco)",
+   "tipos de reacao (ja no disco)",
+   "URLs de video e de PDF (ja no disco)"
+  ],
+  "LOCAL_REPLACEABLE": [
+   "texto de documento/carrossel (PDF -> texto)",
+   "fala, SE alguma vez houver audio"
+  ],
+  "PAID_ONLY": [
+   "historia profunda por palavra-chave",
+   "texto de comentarios",
+   "listagem de posts de empresa alem dos 10-13",
+   "lista de quem reagiu — E ESTA NAO SE DEVE COMPRAR"
+  ],
+  "BLOCKED": [
+   "fala de video de terceiro, em qualquer rota"
+  ],
+  "UNKNOWN": [
+   "Ad Library",
+   "robots do licdn.com",
+   "TTL real da legenda",
+   "bytes de um MP4",
+   "se a legenda ainda e servida"
+  ],
+  "ESTIMATED_CURRENT_MONTHLY_COST_USD": 0.0,
+  "COST_MEASURED_NOT_ESTIMATED": true,
+  "ESTIMATED_AFTER_OPTIMIZATION": "NOT_APPLICABLE enquanto for zero",
+  "SAVING_PERCENT": "UNKNOWN",
+  "WHY_UNKNOWN": "dizer outra coisa seria inventar uma poupanca sobre um gasto que nao existe",
+  "HISTORICAL_REFERENCE": {
+   "PROVEN_SPEND_USD": 0.484,
+   "ITEMS": 120,
+   "RUNS_WITH_COST_NOT_PRESERVED": 3,
+   "COST_STATE_WARNING": "COST_USD = 0 com COST_STATE = NOT_RESETTLED_RUN_NOT_LISTED nao e 'foi gratis'. E 'ninguem acertou a conta'."
+  },
+  "VERDICT": "ja esta tudo eliminado, e com ele a capacidade. O problema desta plataforma nao e custo. E autorizacao."
+ },
+ "PROBES_NEEDED": [
+  {
+   "PROBE": "PROBE_1",
+   "TARGET": "linkedin.com/robots.txt",
+   "REQUESTS": 1,
+   "COST_USD": 0.0,
+   "WHAT_IT_PROVES": "se ha grupo ou Allow: especifico para /ad-library, e se o texto de 2026-09-11 ainda vale",
+   "EXECUTED": false,
+   "BLOCKER": "a missao declarou zero pedidos reais"
+  },
+  {
+   "PROBE": "PROBE_2",
+   "TARGET": [
+    "dms.licdn.com/robots.txt",
+    "media.licdn.com/robots.txt"
+   ],
+   "REQUESTS": 2,
+   "COST_USD": 0.0,
+   "WHAT_IT_PROVES": "o licdn.com e host distinto e NUNCA foi medido; a casa assume o robots do linkedin.com para ele",
+   "EXECUTED": false
+  },
+  {
+   "PROBE": "PROBE_3",
+   "TARGET": "1 post publico de video ja conhecido",
+   "REQUESTS": 2,
+   "COST_USD": 0.0,
+   "WHAT_IT_PROVES": "CAPTION_ROUTE_TODAY, o TTL real do e= da legenda, e se acs-singleton sobreviveu",
+   "EXECUTED": false,
+   "BLOCKER": "exige a rota que a politica declara fora — DECISAO HUMANA"
+  },
+  {
+   "PROBE": "PROBE_4",
+   "TARGET": "1 asset MP4, so cabecalho (HEAD ou Range de 1 byte)",
+   "REQUESTS": 1,
+   "COST_USD": 0.0,
+   "WHAT_IT_PROVES": "VIDEO_BYTES — o denominador que falta a escada inteira",
+   "EXECUTED": false,
+   "BLOCKER": "idem PROBE_3"
+  },
+  {
+   "PROBE": "PROBE_5",
+   "TARGET": "harvestapi/linkedin-company-posts, 1 empresa, maxPosts=10",
+   "REQUESTS": "1 run",
+   "COST_USD": 0.015,
+   "WHAT_IT_PROVES": "se o payload de COMPANY-POSTS traz os mesmos postVideo/document que POST-SEARCH traz — e se traz LEGENDA",
+   "EXECUTED": false,
+   "BLOCKER": "rota paga, ROUTE_NOT_ALLOWED — DECISAO HUMANA + dinheiro"
+  },
+  {
+   "PROBE": "PROBE_6",
+   "TARGET": "1 transcribedDocumentUrl NOVO (os preservados expiraram)",
+   "REQUESTS": 1,
+   "COST_USD": 0.0,
+   "WHAT_IT_PROVES": "se scanRequiredForDownload: true impede o download por HTTP simples, e se feedshare-document-transcript devolve texto utilizavel",
+   "EXECUTED": false
+  }
+ ],
+ "PROBES_TOTAL": {
+  "EXECUTED": 0,
+  "REQUESTS_IF_ALL_AUTHORIZED": 7,
+  "COST_USD_IF_ALL_AUTHORIZED": 0.015
+ },
+ "BACKLOG": {
+  "P0": [
+   {
+    "ID": "P0.1",
+    "CAPABILITY": "preservar o RAW na normalizacao",
+    "CURRENT": "26 campos -> 19; 7 conceitos perdidos",
+    "CANDIDATE_ROUTE": "mudar so a normalizacao, sobre o .gz que ja existe",
+    "EXPECTED_VALUE": "recupera video, documento, artigo e tipos de reacao SEM REDE",
+    "EXPECTED_COST": "US$ 0",
+    "IMPLEMENTATION_SIZE": "pequeno",
+    "POLICY": "nenhuma — o dado ja foi colhido",
+    "PROOF_NEEDED": null
+   },
+   {
+    "ID": "P0.2",
+    "CAPABILITY": "trazer o C11 para a linha do SCRAP",
+    "CURRENT": "orfao em 1 ramo (675b749b)",
+    "CANDIDATE_ROUTE": "git",
+    "EXPECTED_VALUE": "impede a proxima missao de refazer 710 linhas",
+    "EXPECTED_COST": "US$ 0",
+    "IMPLEMENTATION_SIZE": "trivial",
+    "POLICY": "nenhuma",
+    "PROOF_NEEDED": null
+   },
+   {
+    "ID": "P0.3",
+    "CAPABILITY": "corrigir o achado de video do C11",
+    "CURRENT": "'o provider nao detecta video' — FALSO",
+    "CANDIDATE_ROUTE": "este documento",
+    "EXPECTED_VALUE": "impede uma decisao errada de politica",
+    "EXPECTED_COST": "US$ 0",
+    "IMPLEMENTATION_SIZE": "feito aqui",
+    "POLICY": "nenhuma",
+    "PROOF_NEEDED": "feita"
+   },
+   {
+    "ID": "P0.4",
+    "CAPABILITY": "linkedin.documents: NOT_EXECUTED -> o estado real",
+    "CURRENT": "'nunca tentado'",
+    "CANDIDATE_ROUTE": "declarar que o ENDERECO foi observado e os bytes nao",
+    "EXPECTED_VALUE": "honestidade de censo",
+    "EXPECTED_COST": "US$ 0",
+    "IMPLEMENTATION_SIZE": "pequeno",
+    "POLICY": "nenhuma",
+    "PROOF_NEEDED": "feita"
+   },
+   {
+    "ID": "P0.5",
+    "CAPABILITY": "article.link como descoberta de fonte",
+    "CURRENT": "93 links parados",
+    "CANDIDATE_ROUTE": "rota de web aberta que a casa ja tem",
+    "EXPECTED_VALUE": "93 fontes candidatas gratis",
+    "EXPECTED_COST": "US$ 0",
+    "IMPLEMENTATION_SIZE": "pequeno",
+    "POLICY": "fora do §8.2",
+    "PROOF_NEEDED": null
+   }
+  ],
+  "P1": [
+   {
+    "ID": "P1.1",
+    "WHAT": "PROBE_2 — robots do licdn.com",
+    "BLOCKER": "2 pedidos, decisao de executar"
+   },
+   {
+    "ID": "P1.2",
+    "WHAT": "PROBE_1 — robots e Ad Library",
+    "BLOCKER": "1 pedido"
+   },
+   {
+    "ID": "P1.3",
+    "WHAT": "declarar a Ad Library na matriz com o veredito que a medicao der",
+    "BLOCKER": "precisa de P1.2"
+   },
+   {
+    "ID": "P1.4",
+    "WHAT": "PROBE_4 — VIDEO_BYTES, o denominador que falta",
+    "BLOCKER": "decisao de politica"
+   },
+   {
+    "ID": "P1.5",
+    "WHAT": "PROBE_3 — a legenda ainda existe?",
+    "BLOCKER": "decisao de politica"
+   },
+   {
+    "ID": "P1.6",
+    "WHAT": "capacidade de JANELA (postedLimitDate) no pedido do SCRAP",
+    "BLOCKER": "desenho; NAO redesenha a Collection"
+   }
+  ],
+  "P2": [
+   {
+    "ID": "P2.1",
+    "WHAT": "linkedin.reactions.aggregate como capacidade declarada propria — vem gratis na listagem"
+   },
+   {
+    "ID": "P2.2",
+    "WHAT": "medir quantas organizacoes seguidas publicam o handle no proprio site (C11 mediu 1 de 2 alcancaveis, de 7)"
+   },
+   {
+    "ID": "P2.3",
+    "WHAT": "ligar executor_texto_de_pdf.py a um document do LinkedIn, quando houver bytes"
+   }
+  ],
+  "NO_GO": [
+   {
+    "WHAT": "Voyager, em qualquer forma",
+    "WHY": "exige sessao; §8.2(3); §23 da casa; API interna sem contrato"
+   },
+   {
+    "WHAT": "cookies de terceiro (capable_cauldron)",
+    "WHY": "pede cookie de sessao; §23"
+   },
+   {
+    "WHAT": "lista de pessoas que reagiram",
+    "WHY": "dado pessoal que o negocio nao precisa; custa 2-5x mais que a contagem, que ja vem gratis"
+   },
+   {
+    "WHAT": "coleta massiva de perfis pessoais",
+    "WHY": "138 pessoas ja no disco sem base legal declarada; nao aumentar"
+   },
+   {
+    "WHAT": "s-r/free-linkedin-company-finder e qualquer descoberta por indice",
+    "WHY": "§8.2(4) nomeia 'search tools' em claro"
+   },
+   {
+    "WHAT": "stealth, rotacao de proxy, derrotar anti-bot",
+    "WHY": "fora da autorizacao, e fora do que social_rotas faz por desenho"
+   }
+  ]
+ },
+ "RED_TEAM": {
+  "ATTACKS_FROM_BRIEF": 20,
+  "CAUGHT": 11,
+  "RESISTED": 9,
+  "SELF_ATTACKS_ADDED": 3,
+  "ITEMS": [
+   {
+    "N": 1,
+    "ATTACK": "Actor diz no-login mas o codigo nao prova",
+    "RESULT": "CAUGHT",
+    "HOW": "11 de 13 dizem-no; SOURCE_CODE_PUBLIC=NAO nos 34; fica DOCUMENTED, nunca PROVEN"
+   },
+   {
+    "N": 2,
+    "ATTACK": "marketing vira evidencia",
+    "RESULT": "CAUGHT",
+    "HOW": "'without violating platform policies' e frase do vendedor sobre politica de outra empresa"
+   },
+   {
+    "N": 3,
+    "ATTACK": "rota publica vira permitida",
+    "RESULT": "RESISTED",
+    "HOW": "PUBLIC_WITHOUT_LOGIN e POLICY_ALLOWED em colunas distintas"
+   },
+   {
+    "N": 4,
+    "ATTACK": "historico vira current",
+    "RESULT": "CAUGHT",
+    "HOW": "legenda e URLs de midia marcadas 'historico'; as URLs preservadas EXPIRARAM"
+   },
+   {
+    "N": 5,
+    "ATTACK": "Voyager vira canonico por ser open source",
+    "RESULT": "RESISTED",
+    "HOW": "CAN_BE_USED_CANONICALLY=NO, tres razoes independentes"
+   },
+   {
+    "N": 6,
+    "ATTACK": "search index vira conteudo do LinkedIn",
+    "RESULT": "CAUGHT",
+    "HOW": "free-linkedin-company-finder usa Google, logo NAO e a rota permitida"
+   },
+   {
+    "N": 7,
+    "ATTACK": "caption vira transcript",
+    "RESULT": "RESISTED"
+   },
+   {
+    "N": 8,
+    "ATTACK": "SRT automatica vira legenda humana",
+    "RESULT": "RESISTED",
+    "HOW": "acs-singleton no endereco; e o campo captions da API oficial e USER_PROVIDED"
+   },
+   {
+    "N": 9,
+    "ATTACK": "audio local vira audio-only de rede",
+    "RESULT": "RESISTED"
+   },
+   {
+    "N": 10,
+    "ATTACK": "Range chamado barato sem medir bytes",
+    "RESULT": "CAUGHT",
+    "HOW": "AUDIO_ONLY_NETWORK_SAVING=NOT_MEASURED e VIDEO_BYTES=UNKNOWN"
+   },
+   {
+    "N": 11,
+    "ATTACK": "comments count vira comments text",
+    "RESULT": "CAUGHT",
+    "HOW": "335 de contagem, 0 de texto, no mesmo payload"
+   },
+   {
+    "N": 12,
+    "ATTACK": "recent posts vira history",
+    "RESULT": "CAUGHT",
+    "HOW": "a casa tinha o erro INVERSO: mediu a pagina rasa e concluiu que nao ha historia, tendo 8a7m no disco"
+   },
+   {
+    "N": 13,
+    "ATTACK": "profile route vira company route",
+    "RESULT": "CAUGHT",
+    "HOW": "138 pessoas e 62 empresas contadas em separado, com nota de GDPR"
+   },
+   {
+    "N": 14,
+    "ATTACK": "preco sem timestamp vira preco atual",
+    "RESULT": "CAUGHT",
+    "HOW": "cada preco carrega 'tabela 2026-09-12' ou 'MEDIDO'; e a Apify retira o aluguer em 2026-10-01"
+   },
+   {
+    "N": 15,
+    "ATTACK": "custo por resultado ignora compute/proxy",
+    "RESULT": "CAUGHT",
+    "HOW": "modelo per-event; bytepulselabs cobra por arranque e por 10 MB"
+   },
+   {
+    "N": 16,
+    "ATTACK": "zero resultado vira bloqueio",
+    "RESULT": "RESISTED",
+    "HOW": "o 404 do LinkedIn ja foi medido honesto"
+   },
+   {
+    "N": 17,
+    "ATTACK": "authwall vira ausencia de dado",
+    "RESULT": "RESISTED",
+    "HOW": "302 -> /uas/login em linha propria"
+   },
+   {
+    "N": 18,
+    "ATTACK": "999 vira recusa de politica",
+    "RESULT": "CAUGHT",
+    "HOW": "tres estados nomeados e separados"
+   },
+   {
+    "N": 19,
+    "ATTACK": "CDN asset vira prova de permissao",
+    "RESULT": "CAUGHT",
+    "HOW": "'Visible to anyone on or off LinkedIn' em 472/472 e declaracao de VISIBILIDADE, nao de autorizacao de automacao"
+   },
+   {
+    "N": 20,
+    "ATTACK": "User Agreement tratado como parecer final",
+    "RESULT": "RESISTED",
+    "HOW": "ressalva no topo; cada eixo numa linha"
+   },
+   {
+    "N": 21,
+    "ATTACK": "o achado do RAW vira capacidade",
+    "RESULT": "CAUGHT (self)",
+    "HOW": "ter o endereco do MP4 nao e ter o MP4, e as URLs EXPIRARAM. FLOW_OBSERVED != WIRED != ALLOWED"
+   },
+   {
+    "N": 22,
+    "ATTACK": "corrigir o C11 vira desqualificar o C11",
+    "RESULT": "CAUGHT (self)",
+    "HOW": "o metodo dele (contar campos, nao ler folhetos) e o que tornou este achado possivel; errou o ficheiro, nao o metodo"
+   },
+   {
+    "N": 23,
+    "ATTACK": "o censo do C11 tratado como o censo da casa",
+    "RESULT": "CAUGHT (self)",
+    "HOW": "ele nao esta na linha do SCRAP; quem le o HEAD nao o ve"
+   }
+  ]
+ },
+ "DELIVERY_SUMMARY": {
+  "A_CURRENT_SCRAP": {
+   "DECLARED_CAPABILITIES": 7,
+   "WIRED_CAPABILITIES": 0,
+   "LIVE_CAPABILITIES": 0
+  },
+  "M_WHAT_CHANGED": [
+   "o RAW preservado foi aberto pela primeira vez — e desmente o C11 no video",
+   "linkedin.documents deixa de ser 'nunca tentado' sobre o endereco",
+   "a profundidade historica deixa de ser UNKNOWN: 8 anos e 7 meses, medidos",
+   "o conflito de runtime do C11 esta FECHADO no HEAD",
+   "o C11 esta orfao da linha do SCRAP, e isso e um facto novo",
+   "a API oficial desce na escada, por nao servir o caso de uso",
+   "a Ad Library entra como eixo que a casa nunca considerou"
+  ],
+  "N_WHAT_IS_PROVEN": [
+   "7 declaradas, 0 ligadas, 0 vivas (corrido no HEAD)",
+   "o portao recusa LINKEDIN/FETCH_POST antes de gastar (corrido no HEAD)",
+   "472 posts RAW: 56 com video, 20 com documento, 93 com artigo",
+   "0 de 472 com legenda, audio ou duracao",
+   "0 de 472 com texto de comentario; 335 de contagem",
+   "449 de 472 com agregado de tipo de reacao",
+   "janela 2018-01-09 -> 2026-08-28, na pagina 1 de 18 buscas",
+   "1005 B por post, comprimido",
+   "US$ 0,4840 e o unico custo de LinkedIn comprovado desta casa",
+   "a normalizacao perde 7 conceitos inteiros"
+  ],
+  "O_WHAT_REMAINS_UNKNOWN": [
+   "o robots do linkedin.com HOJE (medido em 2026-09-11, nao remedido)",
+   "o robots do licdn.com — NUNCA medido",
+   "a Ad Library: robots, formato, estabilidade",
+   "se a legenda SRT ainda e servida, e com que TTL",
+   "VIDEO_BYTES — nenhum MP4 do LinkedIn foi baixado, nunca",
+   "se company-posts traz os mesmos campos de midia que post-search",
+   "se scanRequiredForDownload impede o download do PDF",
+   "o custo real das 3 corridas com COST_USD = NOT_PRESERVED",
+   "o mecanismo de 16 dos 19 Actors com preco conhecido",
+   "a base legal dos 138 perfis pessoais preservados"
+  ],
+  "P_KNOW_HOW_DELTA": "ATUALIZACAO NECESSARIA",
+  "KNOW_HOW_LOCATION": "SINTONIA-EAME-KNOW-HOW.md vive em origin/claude/sintonia-eame-know-how-v1, NAO na linha do SCRAP. Esta missao nao lhe toca.",
+  "KNOW_HOW_ITEMS": [
+   {
+    "WHAT": "medir o artefato NORMALIZADO e atribuir a falta ao FORNECEDOR",
+    "WHY": "o C11 contou 19 campos no normalizado e concluiu que o provider nao devolve midia. O RAW ao lado tinha 26 campos, 56 videos e 20 documentos.",
+    "PROOF": "data/samples/raw-paid/ES-T8-002-linkedin-posts-{a,b}.raw.json.gz",
+    "CONSEQUENCE": "antes de declarar que uma fonte NAO devolve um campo, abrir o BRUTO. PROVIDER_GAP != NORMALIZATION_GAP."
+   },
+   {
+    "WHAT": "um censo que nao esta na linha canonica e um censo que a proxima missao refaz do zero",
+    "WHY": "o C11 (710 linhas, LinkedIn) ficou num ramo que nao atravessou; o C12 (X) atravessou",
+    "CONSEQUENCE": "medir custa; perder a medicao custa duas vezes."
+   }
+  ]
+ },
+ "ARCHAEOLOGY": {
+  "C11_CENSUS": {
+   "FILE": "docs/sintonia-scrap/C11-LINKEDIN-CAPABILITY-DEEP-CENSUS.md",
+   "LINES": 710,
+   "LIVES_IN": "origin/claude/sintonia-scrap-linkedin-deep-census-c11",
+   "COMMIT": "675b749b0473243b641f8224b8785d11dc54bb3e",
+   "DIVERGED_AT": "231ffa2c07fd500ae663d2f1a8e38417976370e1",
+   "CONTAINED_IN_SCRAP_HEAD": false,
+   "SIBLING_C12_CONTAINED": true,
+   "CONSEQUENCE": "quem ler docs/sintonia-scrap/ no HEAD ve o censo do X e NAO ve o do LinkedIn"
+  },
+  "C11_RUNTIME_CONFLICT": {
+   "STATUS": "FECHADO NO HEAD",
+   "WAS": "fase_posts('LINKEDIN') -> ATORES['LINKEDIN'] -> executar_com_pool, alcancavel com um token",
+   "NOW": "mz.decisao(plataforma,'FETCH_POST') e perguntado ANTES de ATORES[...]; devolve ROUTE_NOT_ALLOWED e imprime APIFY_RUNS=0 COST_USD=0",
+   "FILE": "coleta/comunicacao_coleta.py"
+  },
+  "C11_CORRECTIONS_BY_THIS_STUDY": [
+   {
+    "C11_SAID": "o provider que esta casa rodou nao detecta video",
+    "CORRECTED_TO": "detecta, e entrega o endereco em 56 de 472",
+    "WHY_C11_ERRED": "mediu o ficheiro NORMALIZADO, nao o RAW"
+   },
+   {
+    "C11_SAID": "r_member_social esta CLOSED, 'not accepting access requests'",
+    "CORRECTED_TO": "a documentacao corrente diz 'restricted ... available to approved users only'",
+    "IMPACT": "mais fraco, mesma conclusao"
+   },
+   {
+    "C11_SAID": "linkedin.documents nunca tentado",
+    "CORRECTED_TO": "os ENDERECOS (PDF, manifesto, transcricao) foram observados em 20 de 472; os BYTES nunca foram pedidos"
+   },
+   {
+    "C11_SAID": "ONE_NEXT_LINKEDIN_GAP = resolver o conflito de politica ATORES x social_matriz",
+    "CORRECTED_TO": "resolvido no HEAD. O gap seguinte e P0.1: preservar o RAW na normalizacao."
+   }
+  ],
+  "C11_CONFIRMED_BY_THIS_STUDY": [
+   "IDENTITY != CONTENT",
+   "ASR_BLOCKED_BY_ACQUISITION = YES",
+   "nao existe rota oficial de leitura de conteudo de organizacao que a casa nao administra",
+   "a legenda automatica e ASR de outra casa: mais barata, nao melhor",
+   "a API oficial de video e de ESCRITA e o campo captions e USER_PROVIDED"
+  ]
+ },
+ "CLOSING": {
+  "ONE_LINE": "O LinkedIn continua a ser util para saber QUEM E e nao para saber O QUE DISSE — mas metade do que a casa julgava nao ter, ela ja tinha comprado, preservado e deitado fora na normalizacao; e a profundidade historica que ela declarava UNKNOWN ja lhe tinha sido entregue, oito anos e sete meses dela, na pagina 1.",
+  "CHEAPEST_ROUTE_FOUND": "nao e uma rota. E um ficheiro .gz que esta no disco desde 29 de agosto.",
+  "HARD_STOP": true
+ }
+}
