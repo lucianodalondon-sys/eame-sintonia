@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — o estágio deixou de se perder entre a fronteira e a porta (secção 49; `FACT_TIME` não era o bloqueio).  
+**Última atualização material:** 2026-09-12 — a `SCRAP-SR-02` correu em duas linhas paralelas, e a segunda acrescentou o que a primeira não viu (secção 91.9; depender do dono não é ser o dono).  
 **Próxima missão autorizada:** `T2` não tem regra escrita em `PERGUNTAS_DO_UNIVERSO` — medir antes de escrever.
 
 ---
@@ -9271,3 +9271,152 @@ e não nesta linhagem.
 
     SPEND ENFORCEMENT resolvido != CANONICAL ORCHESTRATION resolvida.
     MODULE CAN'T SPEND != FLOW IS CANONICAL.
+
+## 91.9 · A SEGUNDA LINHA DA MESMA MISSÃO, E O QUE ELA ACRESCENTA
+
+A `SCRAP-SR-02` foi executada **duas vezes, em paralelo**, por linhas que não se
+viram: a de cima e a de `claude/festive-fermi-1k2mf5` (HEAD `736844ee`, artefacto
+`docs/sintonia-scrap/SCRAP-SR-02-NENHUMA-COMPRA-SEM-AUTORIZACAO.md`). As duas
+chegaram à mesma arquitectura — guarda na primitiva, três modos, fail closed — por
+caminhos independentes, o que é a melhor confirmação que a secção acima podia ter.
+
+E as duas não estão reconciliadas. Isso é dívida explícita, e fica escrito aqui
+porque o sítio de a esconder seria o silêncio.
+
+O que a segunda linha traz e não está acima:
+
+### 91.9.1 · O DONO PODE ESTAR AUSENTE DA ÁRVORE, E ISSO TEM DE TER NOME
+
+A `91.3` diz `SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER`, e que a lei do dono não
+se importou para dentro. A segunda linha tropeçou um passo antes: tentou trazer o
+**ficheiro** do dono, porque ele vive noutra linhagem e **não está na árvore**. Os
+testes todos passaram, e estava errado.
+
+```
+    DEPENDER DO DONO != SER O DONO.
+    COPIAR O DONO PARA DENTRO DE CASA CRIA UM SEGUNDO DONO,
+    E O SEGUNDO DONO ENVELHECE CALADO.
+```
+
+Quem apanhou não foi uma revisão: foi o **validador do System Map**, com
+`P9_CODIGO_DECLARADO` a perguntar de que peça era aquele ficheiro. A resposta
+verdadeira — «de outra linhagem» — não é coisa que um ramo possa declarar. Uma
+regra escrita para manter o mapa honesto apanhou um defeito de arquitectura que
+nada no código teria apanhado.
+
+O que ficou é uma dependência que **fecha por ausência**, com recusa própria:
+
+```
+    SEM O DONO DA RELEVÂNCIA, NENHUMA COLHEITA COM FONTE É AUTORIZÁVEL.
+    FECHAR POR AUSÊNCIA É MAIS TRAVA, NÃO MENOS.
+```
+
+E a recusa chama-se `DONO_DA_RELEVANCIA_AUSENTE`, e não `RELEVANCE_RESULT_AUSENTE`:
+
+```
+    UMA RECUSA QUE DIZ «FALTA O DADO» QUANDO FALTA A LEI
+    ESCONDE UM FACTO DE ARQUITECTURA ATRÁS DE UM FACTO DE DADOS.
+```
+
+Quem lesse o rasto iria procurar a decisão em vez de procurar o ficheiro. E o
+`CAPABILITY_TRIAL`, que não julga fonte, continua a funcionar — é por isso que as
+sentinelas da casa ainda atravessam a porta paga contra um provider falso.
+
+**E as provas não podem copiar o dono pela janela.** Um substituto de teste com as
+palavras **verdadeiras** do dono é a mesma cópia com outro nome. O substituto que
+ficou tem palavras de propósito diferentes (`SERVE_SUB`, `AUTORIZA_SUB`), e o rasto
+imprime `RELEVANCE_RESULT = SERVE_SUB` — a feiúra é o ponto: vê-se que é
+substituto.
+
+```
+    O QUE UM SUBSTITUTO PROVA É A LIGAÇÃO, NUNCA A LISTA.
+```
+
+### 91.9.2 · A METADE DA `91.5` QUE NÃO SE HERDA
+
+A `91.5` diz que o transporte novo «não reservava nada» no teto de rede. A segunda
+linha mediu isso **antes** de copiar a reserva para lá, e foi bom tê-lo medido:
+
+```
+coletor._curl   sai por subprocess  →  o teto NÃO vê (§80)  →  reserva explícita
+_curl_robusto   sai por urlopen     →  o teto VÊ            →  não reserva
+```
+
+`scrap_http.orcamento_de_rede` cobra exactamente em `urlopen`. Copiar a reserva
+para o substituto contava a mesma ida **duas vezes** — medido, `orc.usados = 2`
+para um único POST — e um teto que se esgota ao dobro da velocidade recusa coleta
+legítima com o nome errado.
+
+```
+    O QUE O SUBSTITUTO HERDA É O EFEITO, NÃO A LINHA.
+    COPIAR A TRAVA SEM VER ONDE ELA JÁ MORDE COBRA DUAS VEZES.
+```
+
+A lei da `91.5` mantém-se inteira — a do POST era real e custava dinheiro. O que
+esta metade acrescenta é que «herdar as leis do transporte» se verifica **medindo o
+efeito**, nunca conferindo se a linha está lá.
+
+### 91.9.3 · E A `91.7` OUTRA VEZ, NA MESMA SESSÃO QUE A ESCREVEU
+
+A `91.7` diz que uma sonda que lê a prosa encontra a frase que explica a regra e
+chama-lhe violação. A segunda linha escreveu essa lei e **caiu nela a seguir**: a
+sentinela que devia provar «o substituto não repete o POST» conferia se a palavra
+`'POST'` aparecia no corpo da função, e **passava com a lei removida** — a palavra
+continuava lá, noutra linha, no `raise PostTalvezCriado`.
+
+```
+    UMA SENTINELA QUE LÊ O TEXTO ENCONTRA A PALAVRA, NÃO A DECISÃO.
+    UMA SENTINELA QUE NUNCA SE VIU REPROVAR NÃO ESTÁ PROVADA: ESTÁ SUPOSTA.
+```
+
+O conserto é medir **comportamento**: chamar o transporte com a rede em baixo e
+**contar as idas**. Quatro mutações aplicadas à árvore (uma segunda porta, um
+transporte que também cria, o POST a repetir outra vez, a reserva duplicada) fizeram
+cada sentinela reprovar antes de alguém confiar nela. Duas famílias irmãs da mesma
+lição: a `91.7` é sobre o que a sonda **lê**; esta é sobre o que ela **mede**.
+
+E a variante mais fina, do lado oposto — uma sentinela que apanhou
+`medidas/portao.py` por guardar `'POST /acts/{actor}/runs?waitForFinish'` como
+**rótulo** de relatório, com `{actor}` nunca formatado:
+
+```
+    NOMEAR O ENDEREÇO NÃO É PEDI-LO.
+    GREP CONTA TEXTO. AST CONTA CÓDIGO.
+```
+
+### 91.9.4 · UMA BASELINE MEDIDA NOUTRO SÍTIO NÃO É A BASELINE
+
+Erro de método, e ele quase produziu uma mentira simpática — vale para qualquer
+missão futura desta casa.
+
+A baseline da regressão foi medida numa **worktree** em `/tmp` e deu `95/14`.
+Depois da missão: `98/12`. Lido de frente, isso diz «fechei o buraco *e* curei dois
+testes». Não curou nada. Duas das «14» falhavam **por ser uma worktree**:
+
+- um teste compara caminhos, e a worktree é mais funda: o bruto escapava do
+  redireccionamento com `../../../../../`;
+- outro pergunta se o alvo é um «branch vivo», e a worktree está em
+  **detached HEAD**.
+
+Três corridas de cada lado: determinístico, não intermitente. Medido outra vez no
+**mesmo directório, no mesmo ramo, com `git stash`** — baseline verdadeira `97/12`,
+depois `98/12`, e as doze falhas são as mesmas doze, nome por nome.
+
+```
+    UMA BASELINE MEDIDA NOUTRO SÍTIO NÃO É A BASELINE.
+    UMA WORKTREE MUDA O CAMINHO E A CABEÇA, E ALGUNS TESTES MEDEM OS DOIS.
+    COMPARAR CONTAGENS ESCONDE O QUE COMPARAR NOMES MOSTRA.
+```
+
+A regra que fica: comparar regressão por **nome de ficheiro**, nunca por total. Um
+`98/12` contra um `95/14` parece progresso em dois sítios e era ruído num só.
+
+### 91.9.5 · E UM DIFF DE TRÊS ITENS COM 3.618 LINHAS
+
+A primeira edição do `architecture.declared.json` foi feita reserializando o JSON,
+e produziu 3.618 inserções e 3.590 remoções para acrescentar uma peça, uma aresta e
+um ficheiro. Revertida e refeita cirurgicamente: 29 inserções.
+
+```
+    UM DIFF QUE NINGUÉM CONSEGUE LER NÃO FOI REVISTO: FOI ACEITE.
+```
