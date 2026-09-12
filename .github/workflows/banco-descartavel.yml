@@ -44,6 +44,10 @@ on:
       - 'coleta/coleta_checkpoint.py'
       - 'provas/run_duravel_no_postgres.py'
       - 'provas/_c106b_filho.py'
+      - 'provas/runtime_comum_no_postgres.py'
+      - 'provas/_c106c_filho.py'
+      - 'coleta/scrap_executor.py'
+      - 'coleta/scrap_registo.py'
       - 'provas/rastro_no_postgres.py'
       - 'provas/social_persistencia_no_postgres.py'
       - 'coleta/social_persistencia.py'
@@ -281,6 +285,21 @@ jobs:
         run: python3 provas/run_duravel_no_postgres.py
         env:
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ⚠️ TRES CLASSES DE EXECUCAO, UM BOUNDARY SO. E as tres a morrerem no
+      # mesmo ponto, para se ver se se partem da MESMA maneira.
+      #
+      #     A PROVA DE QUE A INFRAESTRUTURA E COMUM E ELA PARTIR-SE IGUAL
+      #     EM TODAS.
+      #
+      # Nenhuma toca a rede: o transporte inteiro e fixture, e `permitido`
+      # tambem — ele le `robots.txt` VIVO, e ler robots e sair.
+      - name: 2k · a durabilidade e do runtime comum (C10.6C)
+        run: python3 provas/runtime_comum_no_postgres.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          YOUTUBE_DATA_API_KEY: FIXTURE
+          C106C_RONDAS: '10'
 
       # Sem banco: le migrations e codigo, e confronta cada `on conflict`
       # com a chave unica que o sustenta. `if: always()` porque a pergunta
