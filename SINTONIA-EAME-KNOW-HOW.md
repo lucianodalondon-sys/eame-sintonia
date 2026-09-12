@@ -8078,7 +8078,527 @@ como o `XX/` que a `§78` pagou para descobrir.
 
 ---
 
-# §86 · UMA ROTA OFICIAL QUE NINGUÉM MODELOU NÃO ESTÁ BLOQUEADA: ESTÁ POR OLHAR
+# §86 · REUSO POR CONTEÚDO NÃO PRESERVA, SOZINHO, LINHAGEM POR OBSERVAÇÃO
+
+**Missão:** `C-DECIDE-DERIVED-REUSE-LINEAGE-V1` (medição + contrato)
+**HEAD final:** `397ee92a`
+**Decisão:** [`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md)
+**Medição:** `provas/a_linhagem_do_reaproveitamento.py`
+
+A `§85` ligou `STORAGE -> DERIVED` e, ao ligar, mostrou que duas observações dos
+mesmos bytes partilham **um** `derived_artifact`. Esta mediu até ao fim o que
+isso custa — e nada foi implementado.
+
+O grão do derivado está certo e não se reabre: a migration `022` decidiu
+`CONTEÚDO POR RECEITA` com a razão escrita. Duas capturas são dois factos sobre
+o mundo; a nossa ferramenta sobre estes bytes com esta régua dá **um** resultado.
+
+O que não se sustenta é a frase que ela deixou ao lado.
+
+## 86.1 · A CONSULTA QUE «RESOLVE» RESPONDE A OUTRA PERGUNTA
+
+A `022` escreveu que nenhuma procedência se perde, porque as irmãs se encontram
+com `select * from raw_asset where sha256 = <parent_sha256>`.
+
+```
+essa consulta responde   que observações TÊM os mesmos bytes
+a pergunta era           que observações PASSARAM por esta derivação
+```
+
+Medido: para o derivado `1` ela devolve `[3, 7]`, e as duas chegam **iguais**.
+Uma foi lida e derivada. A outra pode ter sido derivada e reaproveitada, ou pode
+nunca ter sido processada. A consulta não as separa — e não é defeito dela, é a
+pergunta que é outra.
+
+```
+    CAN INFER ≠ OBSERVED EDGE.
+    TER OS MESMOS BYTES NÃO É TER PARTICIPADO DA MESMA EXECUÇÃO.
+```
+
+A lição maior é sobre a forma do argumento, e não sobre esta tabela: **uma
+justificação de esquema que termina numa consulta possível está a provar
+alcançabilidade, não registo.** Vale a pena reler assim todas as outras.
+
+## 86.2 · PROCURAR O DONO NA MINHA MEMÓRIA NÃO É PROCURAR
+
+A primeira tentação foi responder «não existe owner» depois de olhar para três
+tabelas de que me lembrava. Isso mede a memória de quem procurou.
+
+Quem sabe que colunas apontam para cada tabela é o catálogo do Postgres:
+
+```sql
+select conrelid::regclass, confrelid::regclass
+  from pg_constraint
+ where contype = 'f'
+   and confrelid in ('public.raw_asset'::regclass,
+                     'public.derived_artifact'::regclass)
+```
+
+Resultado: **dez** tabelas apontam para `raw_asset`; **nenhuma tabela do esquema
+inteiro** aponta para `derived_artifact`. Não há ponte porque não há nada do
+outro lado da ponte — e isso é uma afirmação medida, não uma impressão.
+
+E apanhou um **falso amigo** que eu teria citado como resposta:
+`public.derivacao_observacao`, da migration `005`. O nome bate. A camada não:
+ela liga `derivacao` (uma *conclusão analítica*, com pergunta, resposta e
+limitação) a `observacao` (um *facto medido com denominador*). Nada disso é
+`raw_asset` nem `derived_artifact`.
+
+```
+    DOIS NOMES IGUAIS EM CAMADAS DIFERENTES SÃO DOIS CONCEITOS.
+    USAR UM PELO OUTRO PORQUE O NOME BATE É O PIOR TIPO DE REUSO.
+```
+
+## 86.3 · A ARITMÉTICA DA CORRIDA HOMOGÉNEA NÃO É UMA ARESTA
+
+O ledger da corrida B diz `input_count=4` e `reused=4`. Daí **deduz-se** que as
+quatro observações foram reaproveitadas — e a dedução parece prova.
+
+Ela funciona só porque todos os itens caíram no mesmo balde. Medido no caso
+misto: a mesma passagem devolveu `{ERROR: 1, REUSED: 1}` para duas observações,
+e a linha guarda os números, não os nomes. As duas leituras possíveis são
+simétricas.
+
+```
+    CONTAGEM POR ETAPA ≠ DESTINO POR ITEM.
+    UMA DEDUÇÃO QUE SÓ FUNCIONA NO CASO UNIFORME
+    NÃO É UM REGISTO: É UMA COINCIDÊNCIA DE FORMATO.
+```
+
+Para medir isto foi preciso **construir** a passagem mista chamando o runner
+directamente — a fonte real só entrega PDFs. E isso tem de vir com a razão
+escrita ao lado: a pergunta aqui não é sobre a estrada (essa começa no botão e
+mede-se noutra prova), é sobre **o que o ledger consegue exprimir**. Esperar que
+a fonte um dia varie seria não medir.
+
+## 86.4 · O ACHADO: O RUNTIME CALCULA A ARESTA E DEITA-A FORA
+
+`guarda/preservar_derivado.py`, no reencontro, devolve os **dois lados**:
+
+```
+TESTEMUNHA_NO_BANCO       o raw_asset que a linha existente nomeia   (A)
+TESTEMUNHA_DESTA_CHAMADA  o raw_asset que esta passagem trouxe        (B)
+```
+
+Distingue os dois casos de reencontro por escrito, em prosa, na explicação que
+devolve. E não persiste nenhum.
+
+```
+    RUNTIME SABE ≠ O SISTEMA GUARDA.
+    O QUE MORRE COM O PROCESSO NÃO É LINHAGEM.
+```
+
+Não faltava descobrir a aresta. Ela é calculada, nomeada, e perdida — que é uma
+categoria de defeito diferente de «não sabemos», e muito mais barata de
+consertar. Vale procurá-la noutros sítios: **onde é que este sistema já sabe
+alguma coisa e só não a escreve?**
+
+## 86.5 · A ASSIMETRIA DA LEI, VISTA AGORA COM NOME
+
+`COL-LAW-008` diz que todo derivado deve responder `DERIVED_FROM`. Singular, e
+cumprida: o derivado sabe de qual cópia nasceu, e o banco trava isso com uma
+chave estrangeira **composta** sobre `(raw_asset_id, parent_sha256)` — o pai por
+id e o pai por sha têm de ser o mesmo pai.
+
+A lei nunca exigiu a recíproca: que cada observação saiba em que derivação
+participou. Enquanto uma observação tinha no máximo um derivado, as duas
+perguntas tinham a mesma resposta por acidente. O reuso separou-as.
+
+```
+    UMA LEI CUMPRIDA NUM SENTIDO NÃO ESTÁ CUMPRIDA NOS DOIS.
+```
+
+## 86.6 · E O PASSADO NÃO SE PREENCHE
+
+A recomendação é aditiva — uma relação de **participação**, uma linha por
+(observação, derivado, passagem), com dono no writer que já decide o reencontro.
+Mas o histórico não tem cura:
+
+```
+    PREENCHER O PASSADO POR INFERÊNCIA
+    É FABRICAR A EVIDÊNCIA QUE FALTAVA.
+```
+
+Uma migration que populasse a tabela por `sha256` escreveria como facto
+exactamente aquilo que esta medição prova não ser sabido. O que se declara é o
+começo; o que é anterior fica `UNKNOWN`, que é a verdade.
+
+## 86.7 · «NÃO EXISTE» ERA LARGO DE MAIS — O CASO DO `canal_id`
+
+A `§85` escreveu que o dono da identidade de canal «não existe». A medição
+obriga a ser mais preciso, e a correcção é reutilizável:
+
+```
+SCHEMA OWNER                     EXISTE   origem · canal, migration 002
+RUNTIME RESOLVER (ler + recusar) EXISTE   social_persistencia.exigir_canal
+RUNTIME OWNER (decidir + criar)  NÃO      só testes e provas inserem
+```
+
+Três coisas diferentes debaixo da palavra «owner». Dizer que não existe owner
+quando duas das três existem manda a missão seguinte construir o que já está
+construído.
+
+```
+    ANTES DE DIZER QUE ALGO NÃO TEM DONO,
+    DIGA QUAL DOS DONOS É QUE FALTA.
+```
+
+---
+
+# §87 · METADE DE UM MECANISMO NÃO É UM MECANISMO A METADE: É NENHUM
+
+**Missão:** `C10.8B-R — RAW PAGO NÃO MORRE NO CHECKOUT`
+**Corrida:** `scrap-evidencia` run 34707069109 · dois runners, `ubuntu-latest`
+**Gasto:** `APIFY_RUNS = 0 · PROVIDER_START_POSTS = 0 · PAID_USD = 0`
+
+A `§84` descobriu que o bruto pago não sobrevivia ao job seguinte, e consertou a
+**forma**. Esta missão foi buscar os **bytes** — e o que se aprendeu está quase
+todo no caminho até lá, não no destino.
+
+## 87.1 · A CASA JÁ SABIA SUBIR. NUNCA TINHA IDO BUSCAR
+
+A busca pelo dono, antes de escrever qualquer linha, deu um resultado partido ao
+meio:
+
+```
+actions/upload-artifact    vivo, com lei própria    scrap-social.yml
+actions/download-artifact  ZERO workflows
+```
+
+Havia um dono do inventário com SHA, havia retenção declarada, havia até a lei
+`UPLOAD STEP SUCCESS != ARTIFACT EXISTS` escrita à mão porque um passo verde com
+zero ficheiros já tinha custado uma prova. Faltava a volta.
+
+```
+    GUARDAR SEM NUNCA TER IDO BUSCAR NÃO É GUARDAR. É ESPERAR.
+```
+
+Um mecanismo de transporte que nunca foi exercido nos dois sentidos é um
+mecanismo não testado que **parece** testado, porque metade dele tem provas.
+Vale para artefatos, para backups, para exports e para qualquer coisa que se
+escreva com a intenção de um dia se ler.
+
+## 87.2 · O BRUTO MAIS CARO DA CASA ERA O ÚNICO INVISÍVEL
+
+O `coletor` — a porta paga — grava o bruto com gzip e SHA próprios. É o dono
+daquele formato e, com razão, não passa pelo `guardar_raw` genérico. Só que
+quem embala a evidência lê o inventário da corrida, e o inventário só conhece
+quem passou pelo caminho genérico.
+
+```
+    O QUE O INVENTÁRIO NÃO VÊ NÃO ATRAVESSA A FRONTEIRA DO JOB.
+```
+
+O resultado é perverso e silencioso: os brutos **gratuitos** viajavam, e o único
+que custou dinheiro ficava para trás. Ninguém escreveu essa regra; ela emergiu
+de um dono legítimo ter um formato legítimo próprio.
+
+A lição não é «centralizar tudo num dono». É que **um dono especializado tem de
+se anunciar ao inventário** — a especialização é sobre o FORMATO, nunca sobre a
+existência.
+
+## 87.3 · UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER
+
+O pacote recusa-se a levar seis formas de credencial. A primeira versão da sonda
+lia os bytes do ficheiro e procurava os termos.
+
+O bruto pago nasce **comprimido**. Um token dentro do gzip passaria inteiro — e
+a sonda diria «limpo», com toda a confiança, sobre bytes que nunca leu.
+
+```
+    UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER.
+```
+
+O conserto foi olhar as duas formas. E a segunda metade importa tanto quanto a
+primeira: um gzip **ilegível** devolve `GZIP_ILEGIVEL`, e não «limpo». Falhar a
+ler não é a mesma coisa que ler e não encontrar — é a `§80` outra vez, noutra
+roupa: `UNKNOWN != ZERO`.
+
+A generalização: qualquer verificação sobre conteúdo tem de declarar o que
+**não conseguiu inspeccionar**, ou o seu verde é sobre a sua própria cegueira.
+
+## 87.4 · E A RECUSA NÃO PODE APAGAR A COISA QUE ELA PROTEGE
+
+Havia um atalho óbvio: encontrar o segredo e redigi-lo, deixando o pacote
+passar. É exactamente o que não se pode fazer.
+
+```
+    MELHOR FALHAR ALTO DO QUE REDIGIR EM SILÊNCIO:
+    APAGAR EVIDÊNCIA PARA O PACOTE PASSAR DESTRÓI A COISA
+    QUE O PACOTE EXISTE PARA GUARDAR.
+```
+
+Um RAW redigido é um RAW que já não é RAW, e ninguém a jusante saberia disso. A
+recusa levanta, e nada é escrito — nem pacote meio feito.
+
+## 87.5 · UM WORKFLOW SÓ SE PROVA NO RAMO ONDE FOI ESCRITO
+
+Medido duas vezes, com o ficheiro já no remoto:
+
+```
+POST …/workflows/scrap-evidencia.yml/dispatches → 404 Not Found
+```
+
+`workflow_dispatch` só é disparável quando o ficheiro já vive no **ramo padrão**.
+Um workflow novo, escrito num ramo de missão, não existe para a API que o
+dispararia.
+
+```
+    UM WORKFLOW QUE SÓ O RAMO PADRÃO PODE DISPARAR
+    NÃO PROVA NADA NO RAMO ONDE O MECANISMO FOI ESCRITO.
+```
+
+Junta-se à `§84.1`, e as duas juntas dizem a mesma coisa por dois caminhos: um
+workflow que ninguém executa é um workflow que ninguém testou — e às vezes a
+razão por que ninguém o executa é que **ainda não pode ser executado**. O
+conserto foi um `push` com filtro de caminhos: quando o mecanismo muda, ele
+volta a provar-se, no ramo onde está a ser construído.
+
+## 87.6 · UMA SENTINELA QUE LÊ ESTADO GLOBAL MEDE QUEM CORREU ANTES DELA
+
+Uma das quarenta sentinelas passava sozinha e ficava vermelha na suíte inteira.
+Ela lia uma variável de módulo viva — e outra bateria redirecciona essa mesma
+variável de propósito, para o bruto de teste não cair no acervo.
+
+```
+    UMA SONDA QUE LÊ ESTADO GLOBAL MEDE QUEM CORREU ANTES DELA.
+```
+
+É prima da `§77` (`um fake acima do gate mede o fake`) e da armadilha da sonda
+que lê a própria prosa — três formas da mesma coisa: **a sonda tem de medir a
+declaração, não o ambiente em que calhou correr**. Passou a ler o ficheiro que
+declara a gaveta.
+
+## 87.7 · UM MECANISMO TEMPORÁRIO QUE NÃO DIZ O PRAZO PASSA POR PERMANENTE
+
+O pacote funciona. É por isso que ele tem de dizer, dentro de si, o que não é:
+
+```
+EVIDENCE_CLASS                   DIAGNOSTIC_JOB_TO_JOB
+EVIDENCE_RETENTION               TEMPORARY · 30 dias
+CANONICAL_FORWARD_PRESERVATION   NO
+```
+
+```
+    WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE.
+    PRESERVAÇÃO COM PRAZO É PRESERVAÇÃO COM PRAZO, E NÃO PRESERVAÇÃO.
+```
+
+Sem estas linhas, a missão seguinte encontra um transporte que funciona, conclui
+que a preservação está resolvida, e o dono forward nunca é construído. Um
+mecanismo que resolve 30 dias e não o declara **adia para sempre** o que resolve
+o resto — e faz isso parecendo progresso.
+
+A recuperação é pela identidade da corrida, e só por ela: não há volta que
+escolha «o último artefato», porque um pacote de outra corrida com a mesma cara
+não é este pacote. E o SHA do manifesto nunca é aceite sozinho — ele é uma
+afirmação do pacote sobre si próprio; o recalculado é a medição.
+
+## 87.8 · CONSEQUÊNCIA
+
+```
+JOB_A_ARTIFACT_ID    10302640238 · 228.283 + 719.722 bytes assinados
+JOB_B_LOCAL_BEFORE   ABSENT   (runner distinto, checkout limpo)
+JOB_B_RECOVERED      YES · SHA_MATCH YES · REPROCESS_ITEMS 20
+REDE NO REPROCESSO   0 · PROVIDER_CALLS 0
+ATAQUES 40 · MUTANTES 14 · SOBREVIVENTES 0
+apify:transcricao    PARTIAL, intocada — nada correu no provider
+CANONICAL_FORWARD_PRESERVATION = NO, por escrito, em cada pacote
+```
+
+Os 59.743 bytes da `§84` não voltam. Continua por saber por que aquele objeto
+veio vazio, e continua a ser dinheiro que ninguém autorizou. O que mudou é que o
+próximo bruto pago que alguém precise de reler **vai lá estar** — durante trinta
+dias, e a contagem está escrita ao lado dos bytes.
+
+---
+
+# §88 · A VERSÃO DE UMA ENTRADA GERADA NÃO É O SEU CONTEÚDO: É A ÁRVORE QUE ELA MEDIU
+
+**Missão:** `C-SYSTEM-MAP-G2-PERSIST-TOPOLOGY-CENSUS-V1`
+**Linha:** `claude/dazzling-cerf-27a7v2` · **HEAD final:** `896e9bc1`
+**Tocado:** `system-map/scripts/censo_da_topologia.py` ·
+`system-map/tests/test_topologia_persistida.py` ·
+`system-map/scripts/reconciliacao_do_universo.py` ·
+`system-map/scripts/CADEIA-DO-MAPA.json` · `.github/workflows/system-map.yml` ·
+`docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md`
+
+A `§82` já tinha escrito que um artefato desactualizado é um artefato falso, e
+que a pergunta certa não é «que commit?» mas «que ficheiros decidem isto?». Esta
+secção é o que aconteceu ao aplicar essa lei a um censo cujas **entradas são
+elas próprias artefatos gerados** — e as duas armadilhas que só aparecem aí.
+
+## 88.1 · O QUE MUDOU
+
+O censo da topologia publicava dezassete números — entre eles `111`, `65`, `590`
+— e não escrevia ficheiro nenhum. O número entrava em documentação escrita à mão,
+que é a definição de segundo dono.
+
+```
+    STDOUT NÃO É MEMÓRIA DURÁVEL.
+```
+
+Ele passou a escrever `system-map/data/topologia.generated.json`: as três
+populações enumeradas membro a membro, a regra de entrada de cada uma, as arestas
+no modelo dos quatro planos, e a proveniência com a versão de cada input que leu.
+
+## 88.2 · A ARMADILHA DE HASHAR O CONTEÚDO DE UMA ENTRADA GERADA
+
+A primeira versão versionava cada input pelo `sha256` do ficheiro. É o que a
+`§82` ensina, e para uma **fonte** está certo.
+
+Para uma **entrada gerada** está errado, e o erro só aparece no CI. Os dois
+`.generated.json` que este censo lê são reescritos a cada corrida da cadeia, e
+carregam `HEAD` e `GENERATED_AT` no carimbo. Regerar o mapa **sem mudar uma
+linha da árvore** move o conteúdo deles — logo movia a versão, logo o artefato
+nascia `STALE` em toda a corrida.
+
+```
+    UM ALARME QUE TOCA SEMPRE NÃO É UM ALARME: É UM RUÍDO QUE SE APRENDE A
+    IGNORAR.
+```
+
+A versão certa de uma entrada gerada é a **impressão da árvore que ela carimba**.
+Ela responde «que fontes mediste?», que é a pergunta de que a frescura precisa, e
+fica quieta quando só o relógio andou.
+
+```
+FONTE            versão = SHA do blob que o git guardaria
+ENTRADA GERADA   versão = SOURCE_TREE_FINGERPRINT que ela própria carimba
+```
+
+## 88.3 · DUAS PERGUNTAS SOBRE O MESMO FICHEIRO PRECISAM DE DOIS NÚMEROS
+
+O artefato começou com um `SEMANTIC_HASH` só, a servir duas perguntas. Medido na
+primeira corrida a sério: editar **um comentário** noutro ficheiro fez a
+auto-observabilidade publicar `TOPOLOGY_COUNTS_REPRODUCIBLE = NO`. Nenhuma
+contagem tinha mudado.
+
+A causa é que as duas perguntas têm sensibilidades opostas:
+
+| número | pergunta | tem de mudar quando |
+|---|---|---|
+| `MEASUREMENT_HASH` | as contagens reproduzem-se? | o grafo medido muda — **e só** |
+| `SEMANTIC_HASH` | o ficheiro é o que o gerador escreveu? | **qualquer** campo não volátil muda |
+
+O segundo tem de incluir a proveniência, senão adulterar um carimbo passa
+despercebido. O primeiro tem de a excluir, senão grita a cada commit.
+
+```
+    UM NÚMERO QUE RESPONDE A DUAS PERGUNTAS RESPONDE MAL ÀS DUAS.
+```
+
+## 88.4 · O TERCEIRO RELÓGIO: QUEM SÓ SE COMPARA CONSIGO NUNCA SE DESCOBRE VELHO
+
+Dois relógios — «a árvore mudou?» e «alguma entrada mudou?» — comparam o
+artefato **consigo mesmo no tempo**. Os dois diziam `CURRENT` num artefato
+gerado sobre um `state.generated.json` de três árvores atrás: ninguém tinha
+mexido em nada **desde** que ele correu.
+
+```
+    REGERAR SOBRE UMA ENTRADA VELHA NÃO TORNA A ENTRADA NOVA:
+    TORNA A MENTIRA MAIS RECENTE.
+```
+
+O terceiro relógio pergunta outra coisa: **cada entrada gerada mediu esta
+árvore?** Quando não mediu, o veredito é `STALE` com motivo `STALE_BY_CYCLE` —
+a lei do ciclo atrasado do contrato de confiança, aplicada a um artefato.
+
+Ele **nomeia** e não repara: ordenar a cadeia pelos `INPUTS` declarados é outro
+trabalho, e um censo que reordenasse a cadeia deixava de ser um censo.
+
+## 88.5 · A PROVA, E O QUE ELA MEDIU
+
+`test_topologia_persistida.py` — 83 provas — não lê o artefato à procura de
+confirmação: regenera, adultera e compara. Cada guarda é mordida com o defeito
+que devia apanhar (contagem sem membros, vizinho contado como coleta, aresta
+duplicada, texto reescrito à mão), e as três populações são **recontadas a
+partir do estado**, não lidas do próprio ficheiro.
+
+```
+    CONFERIR UM ARTEFATO CONTRA ELE PRÓPRIO NÃO É CONFERIR NADA.
+```
+
+E a frescura não é lida no artefato: um ficheiro não se declara actual a si
+mesmo. Quem responde `CURRENT · STALE · UNVERIFIABLE · UNKNOWN` é outro processo,
+contra a árvore de agora.
+
+## 88.6 · TRÊS ALARMES QUE SÓ SE TESTAM JUNTOS SÃO UM ALARME SÓ
+
+Dezassete mutantes, zero sobreviventes — mas dois deles só morreram depois de a
+mutação encontrar um buraco que eu não tinha visto.
+
+Apagar o relógio da árvore **não reprovava nada**. Apagar o das entradas
+**também não**. A razão é que todas as provas de frescura corriam sobre uma
+árvore mexida, e numa árvore mexida os três relógios tocam ao mesmo tempo: os
+outros dois tapavam o buraco e a prova dizia `PASS` sobre uma guarda que já não
+existia.
+
+```
+    UMA GUARDA QUE SÓ É TESTADA JUNTO COM AS OUTRAS
+    NÃO FOI TESTADA: FOI ACOMPANHADA.
+```
+
+A correcção foi morder cada relógio **sozinho**, mexendo só no carimbo que ele
+lê. E o arnês de mutação tinha o seu próprio defeito: ao mutar uma fonte, ele
+movia a árvore e deixava o relógio do ciclo aceso em todas as corridas. Um arnês
+que deixa um alarme sempre ligado não testa os outros.
+
+## 88.7 · PERSISTIR UMA MEDIÇÃO É O QUE DESCOBRE QUE ELA NUNCA FOI REPRODUTÍVEL
+
+O passo novo do CI reprovou, e a razão não era do artefato: era do censo, e
+estava lá desde sempre. `DOCUMENTADO_COMO_CLI` divergiu em **seis cartões** entre
+a mesma árvore medida aqui e no GitHub Actions.
+
+```
+C-CADEIA-V21      CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md  ·  HANDOFF-V2-PAUSE.md
+C-IT-CONTRATOS    BIBLIA-CANONICA-DA-COLETA.md            ·  ITALY-SOURCE-CONTRACT-MATRIX-V1.md
+C-MAPA-GERADOR    system-map/README.md                    ·  regras/LEIA-ANTES-DE-COLETAR.md
+C-ORQUESTRADOR    BIBLIA-CANONICA-DA-COLETA.md            ·  (vazio)
+C-PACOTE-CAMADAS  HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md   ·  PROMPT-PARA-NOVA-CONTA-CLAUDE.md
+C-PROCEDENCIA     HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md   ·  PROMPT-PARA-NOVA-CONTA-CLAUDE.md
+```
+
+A função para no primeiro `.md` que casa e só vê as primeiras 20 linhas do
+`grep` — e a ordem do `grep` é do sistema de ficheiros, não do código. O caso
+`C-ORQUESTRADOR` é o mais duro: o tecto cortou as 31 linhas **antes** da que
+casava, e o campo saiu vazio. Ele nem sequer responde «está documentado?».
+
+Enquanto o número só passava pelo terminal, ninguém tinha como reparar. **Foi o
+artefato que o denunciou**, e foi preciso o CI — outra máquina, outra ordem — para
+ele aparecer. Duas árvores no mesmo disco tinham dado igual.
+
+```
+    UM CAMPO QUE NÃO SE CONSEGUE REPRODUZIR NÃO PODE SER PROVA DE DRIFT.
+```
+
+A saída não foi consertar a função — isso é mudar a semântica da medição, e era
+outro trabalho. Foi **declarar**: o campo sai do `MEASUREMENT_HASH` com o motivo
+carimbado ao lado, continua publicado cartão a cartão, e continua coberto pelo
+`SEMANTIC_HASH` contra adulteração. O que deixou de valer foi a promessa que ele
+nunca conseguiu cumprir.
+
+```
+    ESCONDER UM CAMPO INSTÁVEL DENTRO DE UM HASH ESTÁVEL
+    É TRANSFORMAR UMA MEDIÇÃO FRACA NUM VEREDITO FORTE.
+```
+
+E uma lista de exclusão que cresce sem prova é um silenciador: os três nomes
+estão fixados na prova, o artefato tem de os declarar com motivo, o campo tem de
+continuar publicado, e adulterá-lo tem de continuar a reprovar. Acrescentar um
+quarto obriga a mexer na prova — e mexer na prova obriga a escrever porquê.
+
+## 88.8 · CONSEQUÊNCIA
+
+Qualquer contagem de topologia publicada pode agora ser auditada depois: o número
+aponta para o artefato, o artefato enumera os membros, declara a regra, nomeia o
+gerador, versiona cada input e sabe dizer se ainda vale. E as três populações
+— coleta, vizinhos de fronteira, união — deixaram de caber na mesma palavra.
+
+```
+    UM VIZINHO DA COLETA NÃO VIRA MEMBRO DA COLETA.
+
+# §89 · UMA ROTA OFICIAL QUE NINGUÉM MODELOU NÃO ESTÁ BLOQUEADA: ESTÁ POR OLHAR
 
 > **Fonte:** `docs/sintonia-scrap/META-DEEP-STUDY-V1.md`,
 > `META-ROUTE-MATRIX-V1.json`, `META-COMPETITOR-COVERAGE-V1.md`.
@@ -8101,7 +8621,7 @@ reprovada. **Ausente.** O mesmo para o *Branded Content Search*.
     pode ser declarada `BLOCKED` — nem sequer chega a ser perguntada.
 ```
 
-## 86.1 · OFFICIAL-FIRST MUDA O PAPEL DA APIFY, E NÃO O PREÇO DELA
+## 89.1 · OFFICIAL-FIRST MUDA O PAPEL DA APIFY, E NÃO O PREÇO DELA
 
 **O QUE MUDOU.** Onde existe rota oficial e gratuita, a Apify deixa de ser
 candidata a motor e passa a ser cobertura de **buraco residual**.
@@ -8119,7 +8639,7 @@ pela diferença entre não ter credencial e ter. O motivo canónico de gasto pas
 a ter de distinguir isso — e a casa já tem as duas palavras:
 `FREE_ROUTE_UNAVAILABLE` ≠ `AUTHORIZATION_BLOCK`.
 
-## 86.2 · JANELA CURTA TORNA O DELTA UMA NECESSIDADE DE PRESERVAÇÃO
+## 89.2 · JANELA CURTA TORNA O DELTA UMA NECESSIDADE DE PRESERVAÇÃO
 
 **O QUE MUDOU.** O delta deixa de ser optimização de custo e passa a ser a única
 forma de a casa ter histórico.
@@ -8139,7 +8659,7 @@ da última impressão`, citado da documentação primária da Meta.
     resultado» tem quatro causas possíveis e só uma delas é «o anúncio parou».
 ```
 
-## 86.3 · A CASA DECLAROU UM BURACO PAGO CITANDO O FICHEIRO QUE O DESMENTE
+## 89.3 · A CASA DECLAROU UM BURACO PAGO CITANDO O FICHEIRO QUE O DESMENTE
 
 **O QUE MUDOU.** `INSTAGRAM/FETCH_COMMENTS` era a única linha da Meta a dizer
 «APIFY NECESSÁRIA», com o motivo `FREE_ROUTE_INSUFFICIENT_CAPABILITY` — «a rota
@@ -8166,7 +8686,7 @@ declarar a paga necessária universalmente. O estado honesto é **parcial**, e o
 motivo do gasto muda de «a rota grátis não sabe» para «a rota grátis não é
 permitida» — que é uma frase sobre autorização, não sobre capacidade.
 
-## 86.4 · `AUDIO_ONLY` É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA
+## 89.4 · `AUDIO_ONLY` É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA
 
 **O QUE MUDOU.** A `C10` provou aquisição só-áudio num Reel: `-f bestaudio`
 seleccionou uma representação DASH de áudio, `VIDEO_BYTES_DOWNLOADED = 0`. Essa
@@ -8187,7 +8707,7 @@ poupança de rede.
     generalizar uma medição de um caso para uma plataforma inteira.
 ```
 
-## 86.5 · A LIÇÃO TRANSVERSAL: DINHEIRO E CREDENCIAL SÃO EIXOS DIFERENTES
+## 89.5 · A LIÇÃO TRANSVERSAL: DINHEIRO E CREDENCIAL SÃO EIXOS DIFERENTES
 
 Sete das nove observações que um concorrente completo exigiria custam **zero
 dólares**. As sete estão fechadas — por App Review, verificação de negócio ou
@@ -8200,7 +8720,7 @@ confirmação de identidade.
     o número zero convida a chamar-lhe «grátis» e a dá-la por pronta.
 ```
 
-## 86.6 · O QUE ESTA SECÇÃO NÃO AFIRMA
+## 89.6 · O QUE ESTA SECÇÃO NÃO AFIRMA
 
 Nenhuma rota Meta foi executada. Nenhuma foi promovida a `PROVED`. Nenhuma
 política mudou por causa deste estudo. O que ele entrega é o mapa — e a
