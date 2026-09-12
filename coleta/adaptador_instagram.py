@@ -102,7 +102,8 @@ def _recusa(decisao):
 
 
 def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
-                  midia_url=None, midia_ficheiro=None, guardar=True, **_):
+                  midia_url=None, midia_ficheiro=None, guardar=True,
+                  oficina=None, **_):
     """Um Reel, ponta a ponta. → (objetos, trace).
 
     Delega a cadeia ja provada. NAO a reimplementa: a cadeia tem 47 testes e
@@ -143,7 +144,8 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
     # inteira sem escrever no disco da casa. Nao e um modo de producao.
     registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
                                   midia_ficheiro=midia_ficheiro,
-                                  modelo=model_hint, guardar=guardar)
+                                  modelo=model_hint, guardar=guardar,
+                                  oficina=oficina)
     trace = forn.de_degraus('instagram.reel.transcribe',
                             registo.get('CAPTURE_ATTEMPTS'),
                             resultado=registo.get('MEDIA_STATE'))

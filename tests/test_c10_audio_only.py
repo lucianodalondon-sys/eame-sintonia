@@ -361,27 +361,37 @@ class UmDonoSo(unittest.TestCase):
                             donos.add(os.path.relpath(caminho, RAIZ))
         self.assertEqual(donos, {os.path.join('ferramentas', 'fala_local.py')}, donos)
 
-    def test_a_cadeia_nao_ganhou_um_segundo_descarregador(self):
-        # `midia_por_ytdlp` continua a ser o unico sitio que chama o yt-dlp para
-        # trazer bytes. Um segundo seria um segundo sitio onde esquecer o seletor.
+    def test_a_cadeia_so_tem_uma_saida_para_a_rede(self):
+        """Um sitio so chama o `yt-dlp`, e quem monta o pedido de MIDIA e um so.
+
+        ATE A C10.6 o `_ytdlp` era chamado de dois lacos iguais, um em cada
+        funcao. A C10.6 juntou-os em `_laco_do_ytdlp`, que e onde a pergunta
+        «repetir adianta?» passou a ser feita.
+
+            UMA SAIDA SO E UM PORTAO SO. DUAS SAIDAS SAO DUAS OPORTUNIDADES DE
+            ESQUECER O SELETOR — E A C8 EXISTE POR CAUSA DE UMA DELAS.
+        """
         with io.open(os.path.join(RAIZ, 'ferramentas', 'reel_transcricao.py'),
                      encoding='utf-8') as fh:
-            fonte = fh.read()
-        arvore = ast.parse(fonte)
-        com_o = []
-        for no in ast.walk(arvore):
-            if not isinstance(no, ast.Call):
-                continue
-            nome = getattr(no.func, 'id', None)
-            if nome != '_ytdlp':
-                continue
-            pai = [a for a in ast.walk(arvore)
-                   if isinstance(a, ast.FunctionDef) and no in ast.walk(a)]
-            for f in pai:
-                if any(isinstance(x, ast.Constant) and x.value == '-o'
-                       for x in ast.walk(no)):
-                    com_o.append(f.name)
-        self.assertEqual(sorted(set(com_o)), ['midia_por_ytdlp'], sorted(set(com_o)))
+            arvore = ast.parse(fh.read())
+
+        def dono(no):
+            for f in ast.walk(arvore):
+                if isinstance(f, ast.FunctionDef) and no in ast.walk(f):
+                    return f.name
+            return None
+
+        chamam = sorted({dono(n) for n in ast.walk(arvore)
+                         if isinstance(n, ast.Call)
+                         and getattr(n.func, 'id', None) == '_ytdlp'})
+        self.assertEqual(chamam, ['_laco_do_ytdlp'],
+                         'nasceu uma segunda saida para a rede: %s' % chamam)
+
+        # e quem monta o argv com `-o` — o pedido de MIDIA — continua a ser um so
+        monta = sorted({dono(n) for n in ast.walk(arvore)
+                        if isinstance(n, ast.Constant) and n.value == '-o'})
+        self.assertEqual(monta, ['midia_por_ytdlp'],
+                         'o pedido de midia passou a ser montado em %s' % monta)
 
 
 class NadaDeApify(unittest.TestCase):

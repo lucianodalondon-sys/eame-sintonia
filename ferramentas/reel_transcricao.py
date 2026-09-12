@@ -74,10 +74,13 @@ acima; esta gaveta entrega evidência, não veredito.
 """
 from __future__ import annotations
 
+import fcntl
 import json
 import os
 import re
 import sys
+import tempfile
+import time
 import urllib.error
 import urllib.request
 
@@ -89,6 +92,7 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import artefato as art          # noqa: E402 — o contrato de artefato, dono único
 import fala_local as fl         # noqa: E402 — o reconhecedor, dono único
 import social_matriz as mz      # noqa: E402 — a política de rota, dono único
+import falhas as fx            # noqa: E402 — a língua única do erro, dono único
 
 VERSAO = '1.0.0'
 PIPELINE = 'REEL-TRANSCRICAO-V1'
@@ -404,7 +408,58 @@ def _ytdlp(args, timeout=300):
         return _R()
 
 
-def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN):
+def _laco_do_ytdlp(argv, *, tentativas, timeout, achou, relato):
+    """O laco que PERGUNTA antes de repetir. → (achado, estado, ultimo_erro).
+
+    Ate a C10.6 este laco repetia `YTDLP_TENTATIVAS` vezes o que quer que
+    tivesse falhado. Medido: um `403` permanente levava quatro tentativas, e um
+    `404` tambem — contra a classificacao que a propria casa ja tinha escrita em
+    `leis/falhas.py`, onde os dois sao `retentavel=False`.
+
+        QUATRO TENTATIVAS SOBRE UM NAO DEFINITIVO NAO SAO PERSISTENCIA.
+        SAO MARTELADAS, E `COL-LAW-026` EXISTE PARA AS IMPEDIR.
+
+    Agora quem responde «repetir adianta?» e o dono da taxonomia, e o laco
+    obedece. O historico sobe inteiro em `relato`: quantas tentativas houve, o
+    que a fonte disse de ultimo, como isso se chama nesta casa, e se ela pediu
+    tempo.
+    """
+    teto = tentativas or YTDLP_TENTATIVAS
+    estado, ultimo, r = 'UNKNOWN_ERROR', '', None
+    relato.update({'ATTEMPTS': 0, 'ATTEMPT_LIMIT': teto, 'LAST_ERROR': NOT_KNOWN,
+                   'LAST_ERROR_STATE': NOT_KNOWN, 'RETRY_AFTER': NAO_SEI,
+                   'RETRY_EXHAUSTED': False, 'STOPPED_BECAUSE': NOT_KNOWN,
+                   'WAITED_SECONDS': []})
+    for n in range(teto):
+        relato['ATTEMPTS'] = n + 1
+        r = _ytdlp(argv, timeout=timeout)
+        achado = achou(r)
+        if achado is not None:
+            relato['STOPPED_BECAUSE'] = 'OK'
+            return achado, 'OK', ''
+        ultimo = ((r.stderr or '').strip().splitlines() or [''])[-1]
+        estado = estado_do_ytdlp(ultimo)
+        relato['LAST_ERROR'] = ultimo[:200] or NOT_KNOWN
+        relato['LAST_ERROR_STATE'] = estado
+        relato['RETRY_AFTER'] = retry_after_do_ytdlp(ultimo)
+        if not fx.retentavel(estado):
+            relato['STOPPED_BECAUSE'] = 'NAO_RETENTAVEL'
+            return None, estado, ultimo
+        if n + 1 >= teto:
+            break
+        # A PLATAFORMA MANDA NO RELOGIO QUANDO ELA O DIZ. Quando nao diz, a
+        # espera e a desta casa, limitada e declarada.
+        pedido = relato['RETRY_AFTER']
+        espera = pedido if isinstance(pedido, int) else ESPERA_ENTRE_TENTATIVAS[
+            min(n, len(ESPERA_ENTRE_TENTATIVAS) - 1)]
+        relato['WAITED_SECONDS'].append(espera)
+        _dormir(espera)
+    relato['RETRY_EXHAUSTED'] = True
+    relato['STOPPED_BECAUSE'] = 'TENTATIVAS_ESGOTADAS'
+    return None, estado, ultimo
+
+
+def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN, relato=None):
     """Os METADADOS da publicação, de graça, sem baixar o vídeo. → (dict, motivo).
 
     Isto é a segunda perna do pedido — «coletar metadados» — e ela é separada do
@@ -425,15 +480,19 @@ def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN):
     decisao = politica_da_aquisicao(plataforma)
     if decisao['DECISAO'] != mz.PERMITIDA_SIM:
         return None, '%s: %s' % (decisao['DECISAO'], decisao['PORQUE'])
-    for _ in range(tentativas or YTDLP_TENTATIVAS):
-        r = _ytdlp(['-J', url])
-        if r.returncode == 0 and (r.stdout or '').strip() not in ('', 'null'):
-            try:
-                d = json.loads(r.stdout)
-            except ValueError:
-                continue
-            if not d:
-                continue
+    def _leu(r):
+        if r.returncode != 0 or (r.stdout or '').strip() in ('', 'null'):
+            return None
+        try:
+            d = json.loads(r.stdout)
+        except ValueError:
+            return None
+        return d or None
+
+    relato = {} if relato is None else relato
+    d, estado, ultimo = _laco_do_ytdlp(['-J', url], tentativas=tentativas,
+                                       timeout=300, achou=_leu, relato=relato)
+    if d is not None:
             return {
                 'POST_ID': d.get('id') or NOT_KNOWN,
                 'TITLE': d.get('title') or NOT_KNOWN,
@@ -451,9 +510,14 @@ def metadados_ytdlp(url, tentativas=None, *, plataforma=NOT_KNOWN):
                 'LIKE_COUNT': d.get('like_count') if d.get('like_count') is not None else NOT_KNOWN,
                 'METADATA_PROVIDER': CAPTURA_YTDLP,
             }, None
-        erro = (r.stderr or '').strip().splitlines()[-1:] or ['']
-    return None, ('YTDLP_SEM_METADADOS apos %d tentativas: %s'
-                  % (tentativas or YTDLP_TENTATIVAS, erro[0][:200]))
+    # ── O ERRO FINAL NAO SOME ────────────────────────────────────────────────
+    # Quantas tentativas houve, o que a fonte disse por ultimo, como isso se
+    # chama nesta casa e por que se parou. Um `None` sem testemunha apagaria a
+    # diferenca entre «tentei quatro vezes» e «nem cheguei a tentar».
+    return None, ('%s apos %d/%d tentativa(s): %s'
+                  % (relato.get('LAST_ERROR_STATE') or 'YTDLP_SEM_METADADOS',
+                     relato.get('ATTEMPTS', 0), relato.get('ATTEMPT_LIMIT', 0),
+                     (relato.get('LAST_ERROR') or NOT_KNOWN)))
 
 
 def _iso_de_epoch(ts):
@@ -469,6 +533,71 @@ def _iso_de_data(d):
         return None
     d = str(d)
     return '%s-%s-%s' % (d[:4], d[4:6], d[6:])
+
+
+#: QUANTO SE ESPERA ENTRE TENTATIVAS, EM SEGUNDOS. Limitado de proposito.
+#: Sob teste o relogio e trocado e o valor observado; em producao dorme mesmo.
+ESPERA_ENTRE_TENTATIVAS = (2, 8, 30)
+
+
+def _dormir(segundos):
+    """O relogio desta cadeia, num sitio so, para que o teste o possa trocar."""
+    time.sleep(segundos)
+
+
+#: O QUE O `yt-dlp` DIZ, NA LINGUA QUE ESTA CASA JA TINHA.
+#
+# O vocabulario NAO nasce aqui: nasce em `leis/falhas.py`, que e o dono unico da
+# taxonomia e da pergunta «repetir adianta?». O que nasce aqui e a TRADUCAO do
+# que ESTE provedor escreve — e isso pertence a quem o chama.
+#
+#     UM SEGUNDO DONO DA TAXONOMIA SERIA UMA SEGUNDA RESPOSTA PARA
+#     «ISTO REPETE-SE?», E A SEGUNDA DIVERGE NA PRIMEIRA PRESSA.
+_LEITURA_DO_YTDLP = (
+    ('429', 'RATE_LIMITED'),
+    ('too many requests', 'RATE_LIMITED'),
+    ('403', 'BLOCKED'),
+    ('forbidden', 'BLOCKED'),
+    ('sign in to confirm', 'BLOCKED'),
+    ('login required', 'AUTH_EXPIRED'),
+    ('404', 'SOURCE_GONE'),
+    ('410', 'SOURCE_GONE'),
+    ('video unavailable', 'SOURCE_GONE'),
+    ('has been removed', 'SOURCE_GONE'),
+    ('500', 'SOURCE_UNAVAILABLE'),
+    ('502', 'SOURCE_UNAVAILABLE'),
+    ('503', 'SOURCE_UNAVAILABLE'),
+    ('timed out', 'TRANSIENT_NETWORK_ERROR'),
+    ('timeout', 'TRANSIENT_NETWORK_ERROR'),
+    ('connection reset', 'TRANSIENT_NETWORK_ERROR'),
+    ('temporary failure in name resolution', 'TRANSIENT_NETWORK_ERROR'),
+    ('empty media response', 'TRANSIENT_NETWORK_ERROR'),
+    ('requested format is not available', 'ITEM_ERROR'),
+)
+
+
+def estado_do_ytdlp(stderr):
+    """→ o nome canonico do estado, na lingua de `leis/falhas.py`.
+
+    Nao conhecer o erro devolve `UNKNOWN_ERROR`, que o dono classifica como NAO
+    retentavel. E deliberado: repetir o que nao se entendeu e martelar no
+    escuro, e `COL-LAW-026` existe para impedir exactamente isso.
+    """
+    t = (stderr or '').lower()
+    for marca, canonico in _LEITURA_DO_YTDLP:
+        if marca in t:
+            return canonico
+    return 'UNKNOWN_ERROR'
+
+
+def retry_after_do_ytdlp(stderr):
+    """O `Retry-After` que a plataforma pediu, se ela o disse. → segundos ou NAO_SEI.
+
+    Ausencia e medida, nao zero: `NAO SEI` diz «ela nao pediu tempo nenhum», e
+    `0` diria «ela pediu zero». Sao coisas diferentes.
+    """
+    m = re.search(r'retry[- ]after[:=\s]+(\d+)', (stderr or ''), re.I)
+    return int(m.group(1)) if m else NAO_SEI
 
 
 #: O ACTO QUE ESTA CADEIA EXECUTA, NA LINGUA DA MATRIZ.
@@ -506,7 +635,7 @@ def politica_da_aquisicao(plataforma):
 
 
 def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO,
-                    plataforma=NOT_KNOWN):
+                    plataforma=NOT_KNOWN, relato=None):
     """Baixa a mídia pública pelo endereço DIRETO. → (caminho, motivo).
 
     A rota do PERFIL está fechada a esta máquina (302 para login, 429 no extractor).
@@ -533,22 +662,25 @@ def midia_por_ytdlp(url, alvo, tentativas=None, *, kind=MIDIA_AUDIO,
     modelo_saida = os.path.splitext(alvo)[0] + '.%(ext)s'
     os.makedirs(os.path.dirname(os.path.abspath(alvo)) or '.', exist_ok=True)
     seletor = ['-f', SELETOR_SO_AUDIO] if kind == MIDIA_AUDIO else []
-    erro = ['']
-    for _ in range(tentativas or YTDLP_TENTATIVAS):
-        r = _ytdlp(seletor + ['-o', modelo_saida, url], timeout=600)
-        achado = _achar_saida(alvo, kind=kind)
-        if achado:
-            if kind == MIDIA_AUDIO:
-                # A CONFERENCIA E QUE DECIDE, NAO A BANDEIRA. Ver `SELETOR_SO_AUDIO`.
-                limpo, porque = fl.so_audio(achado)
-                if not limpo:
-                    return None, 'MEDIA_KIND_MISMATCH: pediu-se audio e %s' % porque
-            return achado, None
-        erro = (r.stderr or '').strip().splitlines()[-1:] or ['']
-    fim = erro[0][:200] if erro and erro[0] else NOT_KNOWN
-    if kind == MIDIA_AUDIO and 'format is not available' in fim.lower():
+    relato = {} if relato is None else relato
+    achado, _estado, _ultimo = _laco_do_ytdlp(
+        seletor + ['-o', modelo_saida, url], tentativas=tentativas, timeout=600,
+        achou=lambda r: _achar_saida(alvo, kind=kind), relato=relato)
+    if achado:
+        if kind == MIDIA_AUDIO:
+            # A CONFERENCIA E QUE DECIDE, NAO A BANDEIRA. Ver `SELETOR_SO_AUDIO`.
+            limpo, porque = fl.so_audio(achado)
+            if not limpo:
+                return None, 'MEDIA_KIND_MISMATCH: pediu-se audio e %s' % porque
+        return achado, None
+    fim = relato.get('LAST_ERROR') or NOT_KNOWN
+    if kind == MIDIA_AUDIO and 'format is not available' in str(fim).lower():
         return None, 'AUDIO_ONLY_UNAVAILABLE: %s' % fim
-    return None, 'YTDLP_SEM_MIDIA: %s' % fim
+    # O ESTADO CANONICO VEM A FRENTE, e depois a contagem. Quem le sabe logo se
+    # aquilo se repete ou nao — sem ter de interpretar a frase da plataforma.
+    return None, ('YTDLP_SEM_MIDIA[%s] apos %d/%d tentativa(s): %s'
+                  % (relato.get('LAST_ERROR_STATE') or NOT_KNOWN,
+                     relato.get('ATTEMPTS', 0), relato.get('ATTEMPT_LIMIT', 0), fim))
 
 
 #: As extensoes por ordem de PREFERENCIA, e a ordem depende do que se pediu.
@@ -578,7 +710,7 @@ def _achar_saida(alvo, *, kind=None):
 
 
 def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
-                kind=MIDIA_AUDIO, midia_url_kind=None):
+                kind=MIDIA_AUDIO, midia_url_kind=None, oficina=None):
     """Põe os bytes no disco. → (caminho, provedor, estado, motivo, degraus).
 
     A ORDEM É DECLARADA, E CADA DEGRAU DIZ O SEU NOME. Nada de cair para a rota
@@ -600,7 +732,16 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
     post_id = ident.get('POST_ID') or NOT_KNOWN
     seguro = re.sub(r'[^A-Za-z0-9_.-]', '_', post_id)
     ext_alvo = '.m4a' if kind == MIDIA_AUDIO else '.mp4'
-    alvo = os.path.join(MIDIA, '%s%s' % (seguro, ext_alvo))
+    # ── A GAVETA E A OFICINA SAO DOIS SITIOS ─────────────────────────────────
+    # LER o que ja esta preservado e sempre da gaveta da casa: reuso e leitura,
+    # e nenhuma corrida — nem de teste — deve deixar de encontrar o que ja se
+    # pagou. ESCREVER bytes novos vai para a oficina, que por omissao E a
+    # gaveta e que uma corrida descartavel troca por um sitio seu.
+    #
+    #     UMA CORRIDA QUE NAO GUARDA NAO PODE SUJAR A GAVETA DE QUEM GUARDA.
+    nome = '%s%s' % (seguro, ext_alvo)
+    alvo_gaveta = os.path.join(MIDIA, nome)
+    alvo = os.path.join(oficina or MIDIA, nome)
     degraus = []
 
     if midia_ficheiro:
@@ -613,7 +754,8 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
                         'WHY': 'ficheiro entregue por quem chamou'})
         return midia_ficheiro, CAPTURA_FORNECIDA, MEDIA_OK, None, degraus
 
-    ja = _achar_saida(alvo, kind=kind)
+    ja = _achar_saida(alvo_gaveta, kind=kind) or (
+        _achar_saida(alvo, kind=kind) if alvo != alvo_gaveta else None)
     if ja:
         # Já cá está. Rebaixar seria pagar duas vezes pelo mesmo byte — e, na rota
         # paga, pagar mesmo.
@@ -672,8 +814,10 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
                         'MEDIA_KIND': kind, 'WHY': decisao_aq['PORQUE']})
         return None, CAPTURA_YTDLP, decisao_aq['DECISAO'], decisao_aq['PORQUE'], degraus
     if ident.get('SOURCE_URL') not in (None, '', NOT_KNOWN) and ytdlp_disponivel():
+        relato_ytdlp = {}
         p, motivo = midia_por_ytdlp(ident['SOURCE_URL'], alvo, tentativas, kind=kind,
-                                    plataforma=ident.get('PLATFORM', NOT_KNOWN))
+                                    plataforma=ident.get('PLATFORM', NOT_KNOWN),
+                                    relato=relato_ytdlp)
         degraus.append({'PROVIDER': CAPTURA_YTDLP,
                         'RESULT': MEDIA_OK if p else (
                             MEDIA_SEM_AUDIO_SO
@@ -686,6 +830,18 @@ def obter_midia(ident, *, midia_url=None, midia_ficheiro=None, tentativas=None,
                             if str(motivo).startswith(mz.NAO_DECLARADA)
                             else MEDIA_FALHOU),
                         'MEDIA_KIND': kind,
+                        # O HISTORICO DA TENTATIVA SOBE COM O DEGRAU. Sem isto,
+                        # «falhou» e «falhou quatro vezes, e a fonte pediu 7s»
+                        # ficariam com a mesma cara no artefato.
+                        'ATTEMPTS': relato_ytdlp.get('ATTEMPTS', 0),
+                        'ATTEMPT_LIMIT': relato_ytdlp.get('ATTEMPT_LIMIT', 0),
+                        'LAST_ERROR': relato_ytdlp.get('LAST_ERROR', NOT_KNOWN),
+                        'LAST_ERROR_STATE': relato_ytdlp.get('LAST_ERROR_STATE', NOT_KNOWN),
+                        'RETRY_AFTER': relato_ytdlp.get('RETRY_AFTER', NAO_SEI),
+                        'RETRY_EXHAUSTED': relato_ytdlp.get('RETRY_EXHAUSTED', False),
+                        'RETRYABLE': fx.retentavel(
+                            relato_ytdlp.get('LAST_ERROR_STATE') or 'UNKNOWN_ERROR'),
+                        'STOPPED_BECAUSE': relato_ytdlp.get('STOPPED_BECAUSE', NOT_KNOWN),
                         'WHY': motivo or 'baixou %d bytes' % os.path.getsize(p)})
         if p:
             return p, CAPTURA_YTDLP, MEDIA_OK, None, degraus
@@ -851,7 +1007,7 @@ def _ou(v, alt):
 
 def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
                      idioma=None, modelo=None, transcript_da_fonte=None,
-                     guardar=True, midia_url_kind=None):
+                     guardar=True, midia_url_kind=None, oficina=None):
     """A cadeia inteira, para UMA publicação. → o registo, sempre.
 
     Devolve registo mesmo quando falha — porque «não tentei», «tentei e o endereço
@@ -921,10 +1077,27 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
     # ninguem vai olhar e adquirir o que nao se precisa.
     #
     #     PIXELS_NEEDED = NO  ->  VIDEO_DOWNLOAD = PROIBIDO.
+    # ── ONDE ESTA CORRIDA TRABALHA ───────────────────────────────────────────
+    # `guardar=False` sempre significou «nao publiques a entrega». Nao dizia
+    # nada sobre o INTERMEDIO, e por isso o WAV caia na gaveta da casa mesmo
+    # numa corrida que jurava nao guardar nada. A C10.5D mediu-o; a C10.6
+    # precisa disso resolvido antes de injectar crashes, ou cada teste sujaria
+    # o bruto real.
+    #
+    #     `guardar=False` COBRE A ENTREGA. A OFICINA TEM DE SER DITA.
+    #
+    # Quem nao diz nada e guarda, trabalha na gaveta — o comportamento de
+    # sempre. Quem nao guarda, trabalha num sitio descartavel, e o caminho dele
+    # sobe no registo para que quem chamou o possa limpar.
+    oficina_da_corrida = oficina or (MIDIA if guardar else tempfile.mkdtemp(
+        prefix='reel-oficina-'))
+    base['OFICINA'] = oficina_da_corrida
+    base['OFICINA_E_A_GAVETA'] = oficina_da_corrida == MIDIA
     caminho, capture, estado, motivo, degraus = obter_midia(
         ident, midia_url=midia_url or ident.get('MEDIA_URL'),
         midia_ficheiro=midia_ficheiro,
-        kind=MIDIA_AUDIO, midia_url_kind=midia_url_kind)
+        kind=MIDIA_AUDIO, midia_url_kind=midia_url_kind,
+        oficina=oficina_da_corrida)
     base['CAPTURE_ATTEMPTS'] = degraus
     base['MEDIA_KIND_REQUESTED'] = MIDIA_AUDIO
     if not caminho:
@@ -969,7 +1142,10 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
                      media_kind=kind_usado)
 
     # ── DEGRAU 4 · O ÁUDIO (meio de trabalho, não artefato) ─────────────────
-    wav = os.path.join(MIDIA, os.path.splitext(os.path.basename(caminho))[0] + '.wav')
+    # O WAV E INTERMEDIO: e trabalho, nao entrega. Vai para a oficina.
+    os.makedirs(oficina_da_corrida, exist_ok=True)
+    wav = os.path.join(oficina_da_corrida,
+                       os.path.splitext(os.path.basename(caminho))[0] + '.wav')
     wav, porque = fl.extrair_audio(caminho, wav)
     if not wav:
         base.update({
@@ -1137,6 +1313,29 @@ def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):
     retry não duplicar: os mesmos bytes têm o mesmo nome próprio."""
     os.makedirs(SAIDA, exist_ok=True)
     caminho = os.path.join(SAIDA, nome)
+    # ── LER-ALTERAR-ESCREVER COM DOIS PROCESSOS PERDE UMA OBSERVACAO ─────────
+    # Medido na C10.6: dois processos a fechar o mesmo lote ao mesmo tempo, seis
+    # vezes, e em DUAS delas o `RUN_IDS_SEEN` ficou so com um dos dois. O
+    # ficheiro nao corrompia — apenas o ultimo a escrever apagava a fusao do
+    # outro, e a observacao perdida nao deixava rasto nenhum.
+    #
+    #     UMA OBSERVACAO QUE ACONTECEU E DESAPARECEU E PIOR QUE UM ERRO:
+    #     UM ERRO DEIXA TESTEMUNHA.
+    #
+    # O conserto e o minimo que fecha a corrida: um cadeado consultivo em volta
+    # do ciclo inteiro, e a troca final por `os.replace`, que e atomica. Sem
+    # fila, sem agendador, sem banco.
+    cadeado = open(caminho + '.lock', 'a+')
+    try:
+        fcntl.flock(cadeado, fcntl.LOCK_EX)
+        return _gravar_lote_travado(registos, caminho)
+    finally:
+        fcntl.flock(cadeado, fcntl.LOCK_UN)
+        cadeado.close()
+
+
+def _gravar_lote_travado(registos, caminho):
+    """O ciclo ler-alterar-escrever, com o cadeado ja na mao de quem chama."""
     antigos = {}
     if os.path.exists(caminho):
         with open(caminho, encoding='utf-8') as f:
@@ -1173,8 +1372,11 @@ def gravar_lote(registos, nome='TRANSCRICOES-REEL.json'):
                 'Um derivado sem PARENT_ARTIFACT_ID nao entra aqui.'),
         'ITEMS': itens,
     }
-    with open(caminho, 'w', encoding='utf-8') as f:
+    # ESCRITA ATOMICA: quem ler a meio le a versao inteira anterior, nunca meia.
+    provisorio = caminho + '.parcial'
+    with open(provisorio, 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
+    os.replace(provisorio, caminho)
     return caminho, corpo
 
 

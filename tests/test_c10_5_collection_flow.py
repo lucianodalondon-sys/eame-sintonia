@@ -294,19 +294,38 @@ class ACollectionNaoTemPortaDeServico(unittest.TestCase):
         # Nao se exige que cada chamador pergunte: exige-se que NINGUEM chegue
         # ao socket sem a pergunta. Por isso o portao esta em `midia_por_ytdlp`,
         # e por isso este teste mede o ponto de saida e nao os chamadores.
+        # A C10.6 juntou os dois lacos de tentativa num so, `_laco_do_ytdlp`, e
+        # com isso a SAIDA para a rede passou a ter um unico sitio. O portao
+        # nao mudou de regra: mudou de vizinho. O que este teste exige e que
+        # TODA funcao que chega a essa saida pergunte ANTES de la chegar.
         arv = ast.parse(_fonte('ferramentas/reel_transcricao.py'))
-        fn = next(n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)
-                  and n.name == 'midia_por_ytdlp')
-        pergunta = [n.lineno for n in ast.walk(fn) if isinstance(n, ast.Call)
-                    and (getattr(n.func, 'attr', None)
-                         or getattr(n.func, 'id', None)) == 'politica_da_aquisicao']
-        saida = [n.lineno for n in ast.walk(fn) if isinstance(n, ast.Call)
-                 and (getattr(n.func, 'attr', None)
-                      or getattr(n.func, 'id', None)) == '_ytdlp']
-        self.assertTrue(pergunta, 'o portao saiu de `midia_por_ytdlp`')
-        self.assertTrue(saida, 'a saida para a rede mudou de sitio; o portao ficou para tras')
-        self.assertLess(min(pergunta), min(saida),
-                        'a pergunta corre depois da saida para a rede')
+
+        def dono(no):
+            for f in ast.walk(arv):
+                if isinstance(f, ast.FunctionDef) and no in ast.walk(f):
+                    return f
+            return None
+
+        saidas = {dono(n).name for n in ast.walk(arv) if isinstance(n, ast.Call)
+                  and (getattr(n.func, 'attr', None)
+                       or getattr(n.func, 'id', None)) == '_ytdlp'}
+        self.assertEqual(saidas, {'_laco_do_ytdlp'},
+                         'a saida para a rede espalhou-se: %s' % sorted(saidas))
+
+        # e as duas portas que usam esse laco perguntam antes de o chamar
+        for nome in ('midia_por_ytdlp', 'metadados_ytdlp'):
+            fn = next(n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)
+                      and n.name == nome)
+            pergunta = [n.lineno for n in ast.walk(fn) if isinstance(n, ast.Call)
+                        and (getattr(n.func, 'attr', None)
+                             or getattr(n.func, 'id', None)) == 'politica_da_aquisicao']
+            chamada = [n.lineno for n in ast.walk(fn) if isinstance(n, ast.Call)
+                       and (getattr(n.func, 'attr', None)
+                            or getattr(n.func, 'id', None)) == '_laco_do_ytdlp']
+            self.assertTrue(pergunta, 'o portao saiu de `%s`' % nome)
+            self.assertTrue(chamada, '`%s` deixou de usar o laco unico' % nome)
+            self.assertLess(min(pergunta), min(chamada),
+                            '%s: a pergunta corre depois da saida para a rede' % nome)
 
     def test_o_nome_da_capacidade_tem_um_dono_so(self):
         import adaptador_instagram as ai
