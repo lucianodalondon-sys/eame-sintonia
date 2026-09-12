@@ -29,11 +29,34 @@
 # -----
 # Zero. Runner da nuvem, sem `APIFY_TOKEN_POOL`, sem provider, sem rede de
 # aquisição. Os bytes vêm do acervo versionado desta casa.
+#
+# POR QUE ELE TAMBEM CORRE NO `push`
+# ------------------------------------
+# Medido nesta missao, duas vezes, com o ficheiro ja no remoto:
+#
+#     POST .../workflows/scrap-evidencia.yml/dispatches -> 404 Not Found
+#
+# `workflow_dispatch` so e disparavel quando o ficheiro ja vive no ramo
+# padrao. Este nasceu num ramo de missao, e por isso nao existe para a API.
+#
+#     UM WORKFLOW QUE SO O RAMO PADRAO PODE DISPARAR NAO PROVA NADA NO RAMO
+#     ONDE O MECANISMO FOI ESCRITO.
+#
+# O `push` com filtro de caminhos resolve isso sem inventar segundo mecanismo:
+# quando o mecanismo da evidencia muda, ele volta a provar-se. O
+# `workflow_dispatch` fica, e passa a servir assim que este ficheiro chegar ao
+# ramo padrao.
 # ═══════════════════════════════════════════════════════════════════════
 name: scrap-evidencia
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/scrap-evidencia.yml'
+      - 'coleta/social_scrap.py'
+      - 'coleta/social_envelope.py'
+      - 'coleta/coletor.py'
 
 permissions:
   contents: read
