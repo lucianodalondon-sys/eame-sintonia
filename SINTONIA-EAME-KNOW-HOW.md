@@ -8588,7 +8588,37 @@ estão fixados na prova, o artefato tem de os declarar com motivo, o campo tem d
 continuar publicado, e adulterá-lo tem de continuar a reprovar. Acrescentar um
 quarto obriga a mexer na prova — e mexer na prova obriga a escrever porquê.
 
-## 88.8 · CONSEQUÊNCIA
+## 88.8 · A DÍVIDA FOI FECHADA, E O QUE FALTAVA ERA AO TESTE
+
+A `88.7` acaba em «declarar». A missão seguinte fechou a causa, e o caminho até
+lá vale uma linha que não está em mais lado nenhum.
+
+Para consertar era preciso primeiro **reproduzir**, e reproduzir não deu com dois
+clones: no mesmo `ext4` o `readdir` devolve os nomes pela mesma ordem, os dois
+clones concordavam, e a prova passava com o defeito na mão. O que separou os dois
+resultados foi o **sistema de ficheiros**: `tmpfs` devolve por ordem de criação.
+Mesma árvore git, outro disco, dez cartões diferentes.
+
+```
+    UMA PROVA DE DETERMINISMO QUE SÓ SE CORRE NUM DISCO MEDE O DISCO.
+```
+
+Isto é geral e barato: onde uma medição toca o sistema de ficheiros, a segunda
+árvore da prova tem de estar noutro sistema de ficheiros, e há sempre um à mão.
+
+A correcção em si não teve nada de esperto — teve de deixar de perguntar ao
+disco. A lista de documentos passou a vir de `git ls-files`, ordenada; o tecto
+das 20 linhas saiu; e a resposta passou a ser **todos** os documentos que casam,
+não o primeiro. Ler os 287 documentos inteiros custa 14 milissegundos e
+substitui 358 varreduras do repositório: o caminho determinístico era também o
+mais barato, e a única razão para não o ter feito antes era não ter perguntado.
+
+```
+    LER TUDO UMA VEZ BATE PROCURAR MUITAS — E AINDA POR CIMA DÁ SEMPRE
+    A MESMA RESPOSTA.
+```
+
+## 88.9 · CONSEQUÊNCIA
 
 Qualquer contagem de topologia publicada pode agora ser auditada depois: o número
 aponta para o artefato, o artefato enumera os membros, declara a regra, nomeia o
