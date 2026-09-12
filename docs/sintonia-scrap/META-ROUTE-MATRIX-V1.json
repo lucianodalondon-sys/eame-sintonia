@@ -1,0 +1,944 @@
+{
+  "DOCUMENT": "META-ROUTE-MATRIX-V1",
+  "MEASURED_AT": "2026-09-12",
+  "MISSION": "META-DEEP-01",
+  "SOURCE_BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
+  "SOURCE_HEAD": "5bcc44f54afefba44bfef9d6b1d2cd713b33f369",
+  "META_PLATFORM_PROBES": 0,
+  "APIFY_RUNS": 0,
+  "PAID_RUNS": 0,
+  "COST_USD": 0,
+  "IS_LAW": false,
+  "NOT_A_LAW_BECAUSE": "Este ficheiro e MEDICAO, nao politica. Quem decide rota e leis/social_matriz.py, e esta missao NAO o tocou. Promover qualquer linha daqui para la e acto de gente, com commit que se le.",
+  "VOCABULARY": {
+    "CLASS": [
+      "OFFICIAL_API_FREE",
+      "OFFICIAL_API_PAID",
+      "PUBLIC_NATIVE",
+      "DIRECT_HTTP",
+      "PUBLIC_BROWSER",
+      "LOCAL_EXECUTOR",
+      "LOCAL_SESSION",
+      "APIFY",
+      "NONE"
+    ],
+    "AUTH": [
+      "NONE",
+      "APP_TOKEN",
+      "IDENTITY_CONFIRMED",
+      "APP_REVIEW",
+      "APP_REVIEW_PLUS_BUSINESS_VERIFICATION",
+      "OWNER_ONLY",
+      "NOT_DOCUMENTED"
+    ],
+    "ALLOWED": [
+      "YES",
+      "NO",
+      "CONDITIONAL",
+      "NOT_DOCUMENTED"
+    ],
+    "STATE": [
+      "PROVED",
+      "CREDENTIAL_MISSING",
+      "ROUTE_NOT_ALLOWED",
+      "BLOCKED",
+      "NOT_DOCUMENTED",
+      "DOES_NOT_EXIST",
+      "POSSIBLE_NOT_PROVED",
+      "UNKNOWN"
+    ],
+    "CURRENT_SCRAP": [
+      "DECLARED",
+      "REGISTERED",
+      "WIRED_ROUTE",
+      "WIRED_EXECUTA",
+      "NO_PATH",
+      "ABSENT"
+    ]
+  },
+  "CURRENT_SCRAP_CENSUS": {
+    "MEASURED_BY": "scrap_capacidades + scrap_registo + scrap_executor.CHECK, zero rede",
+    "INSTAGRAM": {
+      "DECLARED": 7,
+      "REGISTERED": 7,
+      "WIRED": 4,
+      "WIRED_WITH_GATE": 2,
+      "WIRED_WITHOUT_GATE": 2,
+      "NO_PATH": 3
+    },
+    "FACEBOOK": {
+      "DECLARED": 4,
+      "REGISTERED": 4,
+      "WIRED": 0,
+      "NO_PATH": 4
+    },
+    "THREADS": {
+      "DECLARED": 0,
+      "REGISTERED": 0,
+      "WIRED": 0,
+      "POLICY_LINES_IN_MATRIX": 2,
+      "NOTE": "politica sem capacidade — a inversao exacta do X na C12"
+    },
+    "ADS": {
+      "DECLARED": 0,
+      "REGISTERED": 0,
+      "WIRED": 0,
+      "VOCABULARY_EXISTS": false,
+      "NOTE": "nenhuma das 12 capacidades grossas de social_matriz nomeia anuncio"
+    },
+    "BRANDED_CONTENT": {
+      "DECLARED": 0,
+      "REGISTERED": 0,
+      "WIRED": 0,
+      "VOCABULARY_EXISTS": false
+    },
+    "OBJECTS_PRESERVED": {
+      "INSTAGRAM_FILES": 5,
+      "FACEBOOK_FILES": 3,
+      "THREADS_FILES": 0,
+      "REELS_TRANSCRIBED": 4
+    },
+    "PAID_RUNS_IN_HISTORY": {
+      "COUNT": 1,
+      "ACTOR": "apify/instagram-hashtag-scraper",
+      "ITEMS_RAW": 60,
+      "ITEMS_NORMALIZED": 0,
+      "COST_USD": "NOT_PRESERVED",
+      "COMMENTS_COUNT_SUM": 31,
+      "COMMENT_TEXTS": 0,
+      "PAID_PARTNERSHIP_TRUE": 0,
+      "REELS": 0
+    }
+  },
+  "ADS": {
+    "_NOTE": "A maior rota oficial, gratuita e permitida da familia Meta para observar concorrente. NAO EXISTE neste repositorio.",
+    "SEARCH_ADS_BY_PAGE": [
+      {
+        "ROUTE": "graph:/ads_archive?search_page_ids=[...]",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "IDENTITY_CONFIRMED",
+        "ALLOWED": "YES",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "LIMITS": {
+          "PAGE_IDS_PER_QUERY": 10,
+          "REQUIRED_PARAM": "ad_reached_countries",
+          "PAGINATION": "cursor (paging.cursors.before/after)",
+          "LIMIT_PARAM_DOCUMENTED": false,
+          "LIMIT_OBSERVED_IN_OFFICIAL_SAMPLE": 25,
+          "RATE_LIMIT": "NOT_DOCUMENTED — erro 613 existe, o numero nao"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/ads_archive/",
+        "NOTE": "ate DEZ page ids por consulta. ad_reached_countries e OBRIGATORIO; IT esta no enum."
+      }
+    ],
+    "SEARCH_ADS_BY_ADVERTISER": [
+      {
+        "ROUTE": "graph:/ads_archive?search_terms=...",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "IDENTITY_CONFIRMED",
+        "ALLOWED": "YES",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/ads_archive/",
+        "NOTE": "maximo 100 caracteres. «we do not translate your keyword searches» — para Italia, consultar EM ITALIANO. search_type: KEYWORD_UNORDERED | KEYWORD_EXACT_PHRASE"
+      }
+    ],
+    "AD_FIELDS_COMMERCIAL_EU": {
+      "_SCOPE": "anuncio COMERCIAL que entregou na UE/Italia",
+      "HISTORY_WINDOW": "1 ANO a contar da ultima impressao",
+      "DEFAULT_FIELDS": [
+        "ad_delivery_start_time",
+        "ad_delivery_stop_time",
+        "ad_snapshot_url",
+        "page_id"
+      ],
+      "AVAILABLE": {
+        "id": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT",
+          "NOTE": "o nome canonico e `id`. NAO existe campo `ad_archive_id` na doc"
+        },
+        "page_id": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT"
+        },
+        "page_name": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT"
+        },
+        "ad_creative_bodies": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT_LIST",
+          "NOTE": "lista — um por cartao de carrossel"
+        },
+        "ad_creative_link_titles": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT_LIST"
+        },
+        "ad_creative_link_descriptions": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT_LIST"
+        },
+        "ad_creative_link_captions": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT_LIST"
+        },
+        "ad_snapshot_url": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "URL",
+          "WARNING": "endpoint de RENDERIZACAO com TOKEN embutido na query string. NAO e o criativo. NAO persistir como veio."
+        },
+        "ad_delivery_start_time": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT"
+        },
+        "ad_delivery_stop_time": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT",
+          "NOTE": "pode vir VAZIO — o anuncio ainda corre"
+        },
+        "ad_creation_time": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "EXACT",
+          "NOTE": "«This is not the same time as when the ad ran»"
+        },
+        "publisher_platforms": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "ENUM_LIST",
+          "ENUM": [
+            "FACEBOOK",
+            "INSTAGRAM",
+            "AUDIENCE_NETWORK",
+            "MESSENGER",
+            "WHATSAPP",
+            "OCULUS",
+            "THREADS",
+            "STREAMING_SERVICES"
+          ]
+        },
+        "languages": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": false,
+          "KIND": "ISO_639_1_LIST"
+        },
+        "eu_total_reach": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": true,
+          "KIND": "EXACT_INT",
+          "NOTE": "inteiro estimado, NAO e faixa"
+        },
+        "beneficiary_payers": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": true,
+          "KIND": "STRUCT",
+          "SUBFIELDS": [
+            "beneficiary",
+            "payer",
+            "current"
+          ]
+        },
+        "total_reach_by_location": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": "EU_BR_UK",
+          "KIND": "EXACT_INT"
+        },
+        "target_ages": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": "UK_AND_EU",
+          "KIND": "EXACT_BOUNDS"
+        },
+        "target_gender": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": "UK_AND_EU",
+          "KIND": "ENUM"
+        },
+        "target_locations": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": "UK_AND_EU",
+          "KIND": "STRUCT",
+          "SUBFIELDS": [
+            "name",
+            "type",
+            "excluded",
+            "num_obfuscated"
+          ]
+        },
+        "age_country_gender_reach_breakdown": {
+          "AVAILABLE": "YES",
+          "EU_ONLY": "UK_AND_EU",
+          "KIND": "EXACT_INT_COUNTS",
+          "NOTE": "a unica contagem exacta de audiencia que a Meta publica"
+        }
+      },
+      "NEVER_FOR_COMMERCIAL": {
+        "impressions": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS",
+          "KIND": "RANGE"
+        },
+        "spend": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS",
+          "KIND": "RANGE"
+        },
+        "currency": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS"
+        },
+        "estimated_audience_size": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS",
+          "KIND": "RANGE"
+        },
+        "demographic_distribution": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS",
+          "KIND": "PERCENT"
+        },
+        "delivery_by_region": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS",
+          "KIND": "PERCENT"
+        },
+        "bylines": {
+          "AVAILABLE": "NO",
+          "FOR_WHICH_AD_TYPES": "POLITICAL_AND_ISSUE_ADS"
+        },
+        "_LAW": "A META NUNCA PUBLICA GASTO COMERCIAL. Em lado nenhum, em pais nenhum."
+      }
+    },
+    "FETCH_AD_CREATIVE_ASSET": [
+      {
+        "ROUTE": "graph:/ads_archive fields de midia",
+        "CLASS": "NONE",
+        "AUTH": "NOT_DOCUMENTED",
+        "ALLOWED": "NO",
+        "STATE": "DOES_NOT_EXIST",
+        "COST": "n/a",
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/archived-ad/",
+        "NOTE": "os 28 campos documentados NAO incluem nenhum endereco de imagem ou video"
+      },
+      {
+        "ROUTE": "ad_snapshot_url renderizado por navegador",
+        "CLASS": "PUBLIC_BROWSER",
+        "AUTH": "APP_TOKEN",
+        "ALLOWED": "NO",
+        "STATE": "ROUTE_NOT_ALLOWED",
+        "COST": "tempo de maquina",
+        "EVIDENCE": "https://www.facebook.com/ads/library/api/",
+        "NOTE": "«you cannot currently download a batch of archived ads». Rota usada por AdDownloader (Selenium) e por yt-dlp facebook:ads (JSON embutido). NENHUMA e campo documentado. NO-GO nesta casa."
+      }
+    ],
+    "PAID_ALTERNATIVES": {
+      "ACTORS_REVIEWED": 7,
+      "PRICE_RANGE_USD_PER_1000": [
+        0.55,
+        17.0
+      ],
+      "PRICE_READ_AT": "2026-09-12",
+      "COMMENTS_OR_REACTIONS": "NENHUM dos 7 devolve — limite ESTRUTURAL da Ad Library",
+      "VERDICT": "GAP PAGO = NENHUM. A rota oficial e gratuita e cobre a Italia."
+    }
+  },
+  "BRANDED_CONTENT": {
+    "_NOTE": "O achado da missao. API publica, busca pelo lado da MARCA.",
+    "SEARCH_PARTNERSHIPS": [
+      {
+        "ROUTE": "graph:/branded_content_search",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "NOT_DOCUMENTED",
+        "ALLOWED": "NOT_DOCUMENTED",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "FIELDS": [
+          "creation_date",
+          "creator{id,name,url}",
+          "partners[]{id,name,url}",
+          "type",
+          "url"
+        ],
+        "LIMITS": {
+          "REQUIRED": [
+            "creation_date_min",
+            "creation_date_max"
+          ],
+          "ONE_OF": [
+            "ig_username",
+            "page_url"
+          ],
+          "HISTORY_FLOOR": "2023-08-17",
+          "HISTORY_CEILING": "apenas conteudo «currently available»",
+          "COVERS": [
+            "FACEBOOK_POST",
+            "INSTAGRAM_POST",
+            "INSTAGRAM_STORY",
+            "INSTAGRAM_REEL"
+          ],
+          "DOES_NOT_COVER": [
+            "THREADS"
+          ],
+          "DOES_NOT_RETURN": [
+            "caption",
+            "media",
+            "country",
+            "metrics",
+            "spend"
+          ],
+          "OPERATIONS": "apenas leitura"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/branded_content_search/",
+        "NOTE": "«Search for an Instagram account that posted branded content OR WAS A BRAND PARTNER» — e essa oracao e o que o torna ferramenta de concorrencia."
+      }
+    ],
+    "_STORY_WARNING": "Story patrocinado expira em 24 h e o indice so guarda o que esta no ar. Logo e praticamente INVISIVEL retroactivamente — o delta e obrigatorio."
+  },
+  "THREADS": {
+    "_NOTE": "12 permissoes threads_*, TODAS com App Review. Sem review a API devolve apenas @meta, @threads, @instagram e @facebook.",
+    "FETCH_PROFILE": [
+      {
+        "ROUTE": "threads:/profile_lookup?username=...",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "FIELDS": [
+          "username",
+          "name",
+          "profile_picture_url",
+          "biography",
+          "follower_count",
+          "is_verified",
+          "likes_count",
+          "quotes_count",
+          "reposts_count",
+          "views_count"
+        ],
+        "LIMITS": {
+          "RATE": "1 000 pedidos / 24 h rolantes",
+          "METRICS_WINDOW": "ULTIMOS 7 DIAS — nao e historico",
+          "MIN_FOLLOWERS": 100
+        },
+        "EVIDENCE": "https://developers.facebook.com/documentation/threads/threads-profiles",
+        "NOTE": "permissao threads_profile_discovery. So perfis publicos com >=100 seguidores."
+      }
+    ],
+    "INCREMENTAL": [
+      {
+        "ROUTE": "threads:/profile_posts?username=...",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "LIMITS": {
+          "RATE": "1 000 pedidos / 24 h (partilhado com profile_lookup)",
+          "PAGE_SIZE": 100,
+          "MIN_FOLLOWERS": 100
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/threads/threads-media",
+        "NOTE": "a porta mais valiosa do Threads para concorrencia: feed publico de terceiro, paginado"
+      }
+    ],
+    "SEARCH_KEYWORD": [
+      {
+        "ROUTE": "threads:/keyword_search",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "LIMITS": {
+          "RATE": "2 200 consultas / 24 h rolantes, POR UTILIZADOR",
+          "PAGE_SIZE_DEFAULT": 25,
+          "PAGE_SIZE_MAX": 100,
+          "SINCE_FLOOR": "1688540400 (2023-07-05, o dia zero do Threads)",
+          "FILTERS": [
+            "author_username",
+            "media_type",
+            "since",
+            "until",
+            "search_type TOP|RECENT",
+            "search_mode KEYWORD|TAG"
+          ],
+          "CENSORED": "keywords «sensitive or offensive» devolvem array vazio"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/threads/keyword-search/",
+        "NOTE": "sem review busca SO os posts do proprio utilizador. O campo `owner` e EXCLUIDO."
+      }
+    ],
+    "FETCH_COMMENTS": [
+      {
+        "ROUTE": "threads:/{media-id}/replies sobre media de TERCEIRO",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW",
+        "ALLOWED": "NOT_DOCUMENTED",
+        "STATE": "NOT_DOCUMENTED",
+        "COST": "US$ 0",
+        "EVIDENCE": "https://developers.facebook.com/documentation/threads/reference/reply-management",
+        "NOTE": "threads_read_replies = «read replies to A USER'S thread». A doc de moderacao e toda sobre «users' own Threads». NAO DOCUMENTADO nao e NAO. PROBE_5."
+      }
+    ],
+    "PAID_GAP": {
+      "ACTORS_CITED_IN_REPO": 0,
+      "VERDICT": "NENHUM",
+      "WHY": "pagar actor de Threads seria comprar a volta a uma APROVACAO, nao a uma capacidade em falta"
+    }
+  },
+  "INSTAGRAM": {
+    "FETCH_PROFILE": [
+      {
+        "ROUTE": "graph:business_discovery",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "FIELDS": [
+          "biography",
+          "followers_count",
+          "id",
+          "media_count",
+          "username",
+          "website"
+        ],
+        "LIMITS": {
+          "MY_ACCOUNT": "Business ou Creator, ligada a Pagina, com papel na Pagina",
+          "PERMISSIONS": [
+            "instagram_basic",
+            "instagram_manage_insights",
+            "pages_read_engagement"
+          ],
+          "TARGET": "tem de ser Business ou Creator; conta pessoal nao e acessivel",
+          "AGE_GATED": "nao devolve",
+          "NOT_MARKED_PUBLIC": [
+            "follows_count",
+            "name",
+            "profile_picture_url"
+          ],
+          "RATE": "Platform Rate Limit: 200 x numero de utilizadores por HORA"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/business_discovery/",
+        "NOTE": "NAO exige Instagram Public Content Access — essa feature cobre so os 4 endpoints de hashtag"
+      },
+      {
+        "ROUTE": "instagram_janela.py:embed (rota desta casa)",
+        "CLASS": "PUBLIC_BROWSER",
+        "AUTH": "NONE",
+        "ALLOWED": "NO",
+        "STATE": "ROUTE_NOT_ALLOWED",
+        "COST": "US$ 0",
+        "EVIDENCE": "docs/sintonia-scrap/C10-5D-DECISAO-DO-INSTAGRAM.md",
+        "NOTE": "PROVED aqui. Recusada por politica: robots.txt Disallow:/ e ToS §3.2, que diz que estar deslogado NAO e defesa."
+      },
+      {
+        "ROUTE": "graph:/instagram_oembed (SEM TOKEN desde 2026-06-15)",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "NONE",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "NOT_DOCUMENTED",
+        "COST": "US$ 0",
+        "EVIDENCE": "https://github.com/facebook/meta-embeds-for-wordpress",
+        "NOTE": "so POST UNICO publico. Devolve HTML de embed, nao dado estruturado. PROBE_7."
+      }
+    ],
+    "INCREMENTAL": [
+      {
+        "ROUTE": "graph:business_discovery{media{...}}",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "FIELDS": [
+          "caption",
+          "timestamp",
+          "like_count",
+          "comments_count",
+          "media_type",
+          "media_product_type",
+          "media_url",
+          "permalink",
+          "shortcode",
+          "thumbnail_url",
+          "media_audio_type",
+          "view_count"
+        ],
+        "LIMITS": {
+          "DEPTH": "NOT_DOCUMENTED — nenhum tecto publicado",
+          "PAGINATION": "cursor manual: «you will have to use the before and after cursors»",
+          "like_count": "OMITIDO DO JSON se o dono escondeu curtidas — nao e zero, nao e null",
+          "view_count": "EXCLUSIVO do Business Discovery. A melhor metrica de Reel de terceiro",
+          "NOT_AVAILABLE": [
+            "shares_count",
+            "saved_count"
+          ],
+          "children": "NOT_DOCUMENTED sob business_discovery"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/instagram-platform/reference/instagram-media/"
+      },
+      {
+        "ROUTE": "instagram_janela.py:grade",
+        "CLASS": "PUBLIC_BROWSER",
+        "AUTH": "NONE",
+        "ALLOWED": "NO",
+        "STATE": "ROUTE_NOT_ALLOWED",
+        "COST": "US$ 0",
+        "EVIDENCE": "coleta/instagram_janela.py",
+        "NOTE": "TECTO MEDIDO: 12 itens. Corroborado por tecto declarado de actor pago («Latest 12 posts»). Rota recusada por politica."
+      }
+    ],
+    "FETCH_COMMENTS": [
+      {
+        "ROUTE": "graph:/{ig-media-id}/comments",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "OWNER_ONLY",
+        "ALLOWED": "NO",
+        "STATE": "DOES_NOT_EXIST",
+        "COST": "n/a",
+        "EVIDENCE": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-media/comments",
+        "NOTE": "«An access token from a User who created the IG Media object». NAO HA ROTA OFICIAL PARA TEXTO DE COMENTARIO DE TERCEIRO, EM NENHUM NIVEL."
+      },
+      {
+        "ROUTE": "instagram_janela.py:JS_COMENTARIOS",
+        "CLASS": "PUBLIC_BROWSER",
+        "AUTH": "NONE",
+        "ALLOWED": "NO",
+        "STATE": "ROUTE_NOT_ALLOWED",
+        "COST": "US$ 0",
+        "EVIDENCE": "coleta/instagram_janela.py",
+        "NOTE": "MEDIDO NESTA CASA: 18 de 31 comentarios com TEXTO — 58%, deslogado, 7 posts. CONTRADIZ a nota da matriz que diz «nunca o TEXTO». Recusada por politica, nao por incapacidade."
+      },
+      {
+        "ROUTE": "apify:instagram-comment-scraper",
+        "CLASS": "APIFY",
+        "AUTH": "NONE",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "POSSIBLE_NOT_PROVED",
+        "COST": "US$ 1,90 / 1 000 (lido 2026-09-12)",
+        "EVIDENCE": "https://apify.com/apify/instagram-comment-scraper",
+        "NOTE": "O UNICO gap pago REAL do Instagram. Motivo canonico correcto: FREE_ROUTE_UNAVAILABLE, nao FREE_ROUTE_INSUFFICIENT_CAPABILITY. Plano gratuito: UMA pagina, ~15 comentarios."
+      }
+    ],
+    "SEARCH_HASHTAG": [
+      {
+        "ROUTE": "graph:/ig_hashtag_search",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW_PLUS_BUSINESS_VERIFICATION",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "LIMITS": {
+          "HASHTAGS": "30 unicas por conta em janela ROLANTE de 7 dias",
+          "NO_STORIES": true,
+          "NO_EMOJI": true,
+          "MAX_MEDIA_PER_QUERY": "NOT_DOCUMENTED"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/hashtag-search/",
+        "NOTE": "exige Instagram Public Content Access"
+      }
+    ],
+    "STORIES": [
+      {
+        "ROUTE": "graph:/{ig-user-id}/stories de TERCEIRO",
+        "CLASS": "NONE",
+        "AUTH": "OWNER_ONLY",
+        "ALLOWED": "NO",
+        "STATE": "DOES_NOT_EXIST",
+        "COST": "n/a",
+        "EVIDENCE": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/reference/ig-user/stories/",
+        "NOTE": "sem parametro de username; sem equivalente ao business_discovery. A busca por hashtag exclui Stories por escrito. BLOCKED em todos os niveis."
+      }
+    ],
+    "FETCH_TRANSCRIPT": [
+      {
+        "ROUTE": "NATIVE_CAPTION",
+        "CLASS": "NONE",
+        "AUTH": "NONE",
+        "ALLOWED": "NO",
+        "STATE": "DOES_NOT_EXIST",
+        "COST": "n/a",
+        "EVIDENCE": "https://github.com/yt-dlp/yt-dlp/issues/15874",
+        "NOTE": "O INSTAGRAM NAO SERVE FAIXA DE LEGENDA. As «AI captions» sao renderizadas no player, nao servidas como track. Logo aqui o ASR e indispensavel."
+      },
+      {
+        "ROUTE": "ASR local sobre audio ja preservado",
+        "CLASS": "LOCAL_EXECUTOR",
+        "AUTH": "NONE",
+        "ALLOWED": "YES",
+        "STATE": "PROVED",
+        "COST": "tempo de maquina",
+        "EVIDENCE": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
+        "NOTE": "REUSAR != ADQUIRIR. O reprocessamento e permitido; sair para buscar midia nova, nao."
+      }
+    ]
+  },
+  "FACEBOOK": {
+    "_PPCA_VS_PPMA": {
+      "PPMA": "o PERFIL da Pagina (about, fan_count, website, verification_status) + /pages/search",
+      "PPCA": "PPMA + o CONTEUDO: /page/feed, /page-post, /page-post/comments",
+      "BOTH_REQUIRE": "App Review + Business Verification",
+      "DOC_SAYS": "PPMA «is superseded by the Page Public Content Access (PPCA) feature»",
+      "CONCLUSION": "para concorrencia, pedir PPMA sozinho nao tem razao de ser"
+    },
+    "DISCOVER_ACCOUNT": [
+      {
+        "ROUTE": "graph:/pages/search",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW_PLUS_BUSINESS_VERIFICATION",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "FIELDS": [
+          "id",
+          "name",
+          "location",
+          "link",
+          "is_eligible_for_branded_content",
+          "is_unclaimed",
+          "verification_status"
+        ],
+        "EVIDENCE": "https://developers.facebook.com/docs/pages/searching/",
+        "NOTE": "a doc nomeia explicitamente: «An App access token with the Page Public Content Access feature ... searching Pages to conduct competitve analysis» [sic]"
+      }
+    ],
+    "FETCH_POST": [
+      {
+        "ROUTE": "graph:/{page-id}/feed",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW_PLUS_BUSINESS_VERIFICATION",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "LIMITS": {
+          "HISTORY": "~600 publicacoes RANQUEADAS por ano",
+          "PAGE_SIZE_MAX": 100,
+          "PAGINATION": "cursor before/after",
+          "RATE_REMEDY": "a doc manda usar token de SYSTEM USER — a Pagina do concorrente nao gera Engaged User para o nosso app"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/page/feed/",
+        "NOTE": "a edge CANONICA. `/posts` ja nao tem pagina de referencia propria."
+      },
+      {
+        "ROUTE": "apify:facebook-posts-scraper",
+        "CLASS": "APIFY",
+        "AUTH": "NONE",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "POSSIBLE_NOT_PROVED",
+        "COST": "desde US$ 2,00 / 1 000 (lido 2026-09-12)",
+        "EVIDENCE": "https://apify.com/apify/facebook-posts-scraper",
+        "NOTE": "motivo canonico enquanto o App Review nao sair: AUTHORIZATION_BLOCK"
+      }
+    ],
+    "FETCH_COMMENTS": [
+      {
+        "ROUTE": "graph:/{page-post-id}/comments",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW_PLUS_BUSINESS_VERIFICATION",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "NOT_DOCUMENTED",
+        "COST": "US$ 0",
+        "LIMITS": {
+          "ID_REMOVED_UNDER_PPCA": true,
+          "OTHER_USERS_PROFILE_INFO": "nao devolvido sem autorizacao dos proprios"
+        },
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/comment/",
+        "NOTE": "DOCUMENTADO-AMBIGUO: `message`, `from` e `created_time` NAO constam da tabela de campos do no Comment. E o `id` e REMOVIDO para apps com PPCA. PROBE_6."
+      },
+      {
+        "ROUTE": "apify:facebook-comments-scraper",
+        "CLASS": "APIFY",
+        "AUTH": "NONE",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "POSSIBLE_NOT_PROVED",
+        "COST": "US$ 1,40 / 1 000 (lido 2026-09-12)",
+        "EVIDENCE": "https://apify.com/apify/facebook-comments-scraper"
+      }
+    ],
+    "FETCH_VIDEO_METADATA": [
+      {
+        "ROUTE": "graph:/{page-id}/videos",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "APP_REVIEW_PLUS_BUSINESS_VERIFICATION",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "CREDENTIAL_MISSING",
+        "COST": "US$ 0",
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/page/"
+      }
+    ],
+    "FETCH_REELS": [
+      {
+        "ROUTE": "graph:/{page-id}/video_reels",
+        "CLASS": "NONE",
+        "AUTH": "NONE",
+        "ALLOWED": "NO",
+        "STATE": "DOES_NOT_EXIST",
+        "COST": "n/a",
+        "EVIDENCE": "https://developers.facebook.com/docs/graph-api/reference/page/video_reels/",
+        "NOTE": "na seccao Reading: «You can't perform this operation on this endpoint.» E a referencia de page-post: «This endpoint does not return Reels.» SEM ROTA EM NENHUM NIVEL."
+      },
+      {
+        "ROUTE": "apify:facebook-reels-scraper",
+        "CLASS": "APIFY",
+        "AUTH": "NONE",
+        "ALLOWED": "CONDITIONAL",
+        "STATE": "POSSIBLE_NOT_PROVED",
+        "COST": "desde US$ 3,16 / 1 000 (lido 2026-09-12)",
+        "EVIDENCE": "https://apify.com/apify/facebook-reels-scraper",
+        "NOTE": "gap pago REAL: a rota oficial nao existe"
+      }
+    ],
+    "FETCH_TRANSCRIPT": [
+      {
+        "ROUTE": "legenda NATIVA do Facebook (SRT)",
+        "CLASS": "OFFICIAL_API_FREE",
+        "AUTH": "NOT_DOCUMENTED",
+        "ALLOWED": "NOT_DOCUMENTED",
+        "STATE": "NOT_DOCUMENTED",
+        "COST": "US$ 0",
+        "EVIDENCE": "https://github.com/yt-dlp/yt-dlp/pull/8296",
+        "NOTE": "O FACEBOOK SERVE LEGENDA. Formato SRT. E o JSON separa AUTOMATICA de HUMANA pelo campo `localized_creation_method`. Isto evita ASR inteiro — mas a rota medida por terceiros e a pagina publica, nao a Graph API. PROBE."
+      }
+    ]
+  },
+  "MEDIA_AND_AUDIO": {
+    "_LAW": "AUDIO-ONLY PELA REDE E PROPRIEDADE DO POST, NAO DA PLATAFORMA.",
+    "PROOF_OF_SEPARATE_AUDIO": [
+      {
+        "PLATFORM": "FACEBOOK",
+        "EVIDENCE": "yt-dlp #10532: linha `m4a audio only ... DASH audio, m4a_dash`, ~231,41 KiB contra ~3,95 MiB do video 720p"
+      },
+      {
+        "PLATFORM": "INSTAGRAM",
+        "EVIDENCE": "yt-dlp #10415: formato seleccionado `dash-1150901429362791v+dash-838880814305817ad`"
+      },
+      {
+        "PLATFORM": "FACEBOOK",
+        "EVIDENCE": "gallery-dl localiza a BaseURL do audio pelo elemento AudioChannelConfiguration do MPD"
+      },
+      {
+        "PLATFORM": "INSTAGRAM",
+        "EVIDENCE": "esta casa, C10: -f bestaudio -> dash-...a, VIDEO_BYTES_DOWNLOADED = 0, 362 479 bytes m4a"
+      }
+    ],
+    "COUNTER_EXAMPLE": {
+      "PLATFORM": "INSTAGRAM",
+      "EVIDENCE": "yt-dlp #12394 (2025-02-17, fechado): cinco formatos, ZERO linhas `audio only`. O unico caminho para som e um MP4 muxado.",
+      "MEANING": "nesse item, -x e DEMUX LOCAL, nao download de audio"
+    },
+    "ONLY_RELIABLE_TEST": "a linha `audio only` na tabela de formatos DAQUELE item",
+    "NATIVE_CAPTION": {
+      "FACEBOOK": "SIM — SRT, com auto/manual separadas por `localized_creation_method`",
+      "INSTAGRAM": "NAO — nenhuma faixa (yt-dlp #15874)",
+      "THREADS": "NOT_DOCUMENTED",
+      "AD_LIBRARY": "NAO — os 28 campos nao tem midia"
+    },
+    "MEDIA_URL_TTL": {
+      "VALUE": "NAO SEI",
+      "WHAT_IS_KNOWN": "a expiracao vem no parametro `oe`, timestamp Unix em hexadecimal",
+      "ONLY_BOUND_FOUND": "menos de duas semanas (relato de comunidade, 2026-01-05)",
+      "ENGINEERING_ANSWER": "LER o `oe`, nunca decorar uma constante"
+    }
+  },
+  "DELTA_CONTRACT": {
+    "_STATE_TODAY": "o cano TRANSPORTA qualquer parametro (COLLECT -> **kwargs -> rota). O VOCABULARIO NAO EXISTE: 0 ocorrencias de SINCE/LAST_SEEN_ID/LAST_SEEN_TIME/KNOWN_IDS/MAX_ITEMS em .py",
+    "_WHY_MANDATORY": "a janela comercial da Ad Library e de UM ANO e nao ha cursor de «mudou desde». Delta deixa de ser optimizacao e vira requisito.",
+    "PROPOSED_VOCABULARY": {
+      "SINCE": "ISO-8601 UTC. E um PEDIDO, nao uma garantia.",
+      "LAST_SEEN_ID": "o id externo mais recente JA SALVO por esta casa",
+      "LAST_SEEN_TIME": "o carimbo desse id — porque ha plataforma que pagina por cursor e plataforma que pagina por data",
+      "KNOWN_IDS": "conjunto de ids ja persistidos. Enchido por coleta_checkpoint.conteudo_persistido, NUNCA pelo caller a mao",
+      "MAX_ITEMS": "tecto duro. E de PROTECCAO, nao de amostragem."
+    },
+    "REQUIRED_TRACE_FIELDS": {
+      "WINDOW_ENFORCED_BY": "SOURCE | LOCAL — senao «5 objetos» nao se distingue de «5 objetos novos»",
+      "KNOWN_IDS_SOURCE": "DB | CALLER | NOT_ASKED — conjunto vazio nao e «nada conhecido», e indistinguivel de «nao perguntei»",
+      "TRUNCATED_BY_MAX_ITEMS": "bool + o cursor onde parou"
+    },
+    "PRIMITIVES_ALREADY_IN_HOUSE": {
+      "coleta_checkpoint.conteudo_persistido": "a resposta canonica de KNOWN_IDS",
+      "pode_gastar -> retomar_de": "o cursor de retomada da unidade de trabalho"
+    },
+    "ABSENCE_IS_AMBIGUOUS": [
+      "o anuncio parou — facto do mundo",
+      "a query mudou — facto nosso",
+      "a rota falhou — SOURCE FAILURE != ZERO",
+      "o tecto cortou a pagina — TRUNCATED_BY_MAX_ITEMS",
+      "a API devolveu [] para pagina com anuncios visiveis na UI — observado pela comunidade"
+    ]
+  },
+  "ENRICH_CONTRACT": {
+    "_STATE_TODAY": "NAO EXISTE verbo ENRICH. Verbos publicos: CAPABILITIES, CHECK, COLLECT, STATE, OUTPUT, TRACE. COLLECT e tudo-ou-nada por capacidade.",
+    "CHEAP_LISTING": [
+      "external_id",
+      "text",
+      "published_at",
+      "url",
+      "media_type",
+      "basic_metrics"
+    ],
+    "EXPENSIVE_ENRICHMENT": [
+      "comment_text",
+      "video_bytes",
+      "asr_transcript",
+      "documents",
+      "reaction_detail",
+      "ad_creative_asset"
+    ],
+    "LAW": "SCRAP NAO DECIDE RELEVANCIA. QUEM PEDE ENRICH_ITEM E O CALLER."
+  },
+  "NO_GO": [
+    {
+      "ROUTE": "endpoint interno do Instagram (i.instagram.com, /api/v1, graphql/query)",
+      "WHY": "lei desta casa em coleta/story_local.py + ToS §3.2"
+    },
+    {
+      "ROUTE": "sessao logada contra terceiro",
+      "WHY": "LOCAL_SESSION contra TERCEIRO = NOT_USABLE, lei desta casa"
+    },
+    {
+      "ROUTE": "actors que declaram stealth, fingerprint ou rotacao de proxy residencial",
+      "WHY": "os tres estao na lista de NAO autorizados desta missao. Comprar o resultado nao autoriza a tecnica."
+    },
+    {
+      "ROUTE": "Selenium sobre ad_snapshot_url para arrancar o criativo",
+      "WHY": "«you cannot currently download a batch of archived ads» — a propria Meta"
+    },
+    {
+      "ROUTE": "metatargetr e scrapfly-scrapers como dependencia",
+      "WHY": "declaram evasao de anti-bot no README"
+    },
+    {
+      "ROUTE": "clientes nao-oficiais de Threads",
+      "WHY": "os tres foram desligados pelos autores apos contacto da Meta, set-out/2023"
+    },
+    {
+      "ROUTE": "persistir ad_snapshot_url como veio",
+      "WHY": "carrega token na query string — e guardar credencial num ficheiro que vai para o git"
+    }
+  ],
+  "LAWS_THIS_STUDY_MEASURED": [
+    "A JANELA COMERCIAL DA AD LIBRARY NA UE E DE UM ANO, NAO DE SETE.",
+    "A META NUNCA PUBLICA GASTO COMERCIAL, EM PAIS NENHUM.",
+    "ad_snapshot_url E UM ENDPOINT DE RENDERIZACAO COM TOKEN, NAO O CRIATIVO.",
+    "AUDIO-ONLY PELA REDE E PROPRIEDADE DO POST, NAO DA PLATAFORMA.",
+    "O FACEBOOK SERVE LEGENDA E SEPARA AUTOMATICA DE HUMANA. O INSTAGRAM NAO SERVE NENHUMA.",
+    "NAO HA ROTA OFICIAL PARA TEXTO DE COMENTARIO DE TERCEIRO NO INSTAGRAM.",
+    "MODO DE DESENVOLVIMENTO NUNCA ALCANCA UM CONCORRENTE.",
+    "ESTAR DESLOGADO NAO E DEFESA — ToS da Meta, §3.2, por escrito.",
+    "UMA ROTA PAGA DECLARADA PROVED SEM UM UNICO RUN E UMA PROMESSA, NAO UMA MEDICAO."
+  ]
+}
