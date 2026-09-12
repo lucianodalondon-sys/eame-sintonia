@@ -83,6 +83,25 @@ from censo_da_topologia import LADO_DA_COLETA           # noqa: E402
 NAO_SEI = "NAO SEI"
 
 # ─────────────────────────────────────────────────────────────────────────
+# A REGRA DA VISTA PADRAO — CITADA DO BROWSER, NAO REESCRITA AQUI.
+#
+# A faixa conta 65 e a tela desenha 64: um cartao com bandeira que nao e de
+# Italia nem TRANSVERSAL nao e desenhado na vista padrao. As duas coisas estao
+# certas e nao sao a mesma, e a diferenca nunca estava escrita em lado nenhum.
+#
+#     CONTADO PELA FAIXA  !=  DESENHADO NA TELA.
+#
+# A regra e do `map.js`, e continua a ser. O que esta aqui e a CITACAO literal
+# da linha, e `test_reconciliacao_do_universo.py` reprova se ela deixar de
+# existir no ficheiro de onde saiu — uma regra copiada que ninguem confere
+# envelhece em silencio, e a partir dai descreve uma tela que ja nao existe.
+# ─────────────────────────────────────────────────────────────────────────
+REGRA_DA_VISTA_PADRAO = (
+    "&& n.pais && n.pais !== 'ITALIA' && n.pais !== 'TRANSVERSAL') return false;")
+REGRA_DA_VISTA_PADRAO_VEM_DE = "system-map/app/map.js · activeView()"
+PAISES_QUE_A_VISTA_PADRAO_DESENHA = ("ITALIA", "TRANSVERSAL")
+
+# ─────────────────────────────────────────────────────────────────────────
 # OS CAMPOS QUE CARREGAM UM SHA DE COMMIT — E POR QUE ESTAO NOMEADOS AQUI.
 #
 # Esta reconciliacao diz, sobre os outros, que um SHA de commit nao serve de
@@ -488,6 +507,11 @@ def medir(com_topologia: bool) -> dict:
         "UNIDADE": "FICHEIRO, NAO CARTAO",
     }
 
+    # O QUE A VISTA PADRAO DESENHA DE FACTO — a regra e citada, nao inventada.
+    desenhados = [i for i in visual
+                  if not nos[i].get("pais")
+                  or nos[i]["pais"] in PAISES_QUE_A_VISTA_PADRAO_DESENHA]
+
     # ── AS LENTES ────────────────────────────────────────────────────────
     lentes = [
         {
@@ -504,6 +528,33 @@ def medir(com_topologia: bool) -> dict:
             "WHERE_DISPLAYED": "system-map/app/map.js:88 — «${f.count} peças»",
             "HARDCODED": False,
             "VALORES": {f: fam[f]["count"] for f in LADO_DA_COLETA if f in fam},
+        },
+        {
+            "LENS_ID": "FRONTEND_DEFAULT_VIEW_DRAWN",
+            "PARENT_UNIVERSE": "SYSTEM_MAP_COLLECTION_WAITING_UNIVERSE",
+            "MEMBER_COUNT": len(desenhados),
+            "DIMENSAO": "PAIS",
+            "INCLUSION_RULE": "sem bandeira, ou bandeira em %s"
+                              % (list(PAISES_QUE_A_VISTA_PADRAO_DESENHA),),
+            "EXCLUSION_RULE": "bandeira de outro pais — a vista padrao nao o "
+                              "desenha, e a faixa conta-o na mesma.",
+            "WHO_COMPUTES": "o browser, em tempo de render",
+            "FROM_WHICH_FILE": "system-map/app/map.js",
+            "FROM_WHICH_FIELD": "activeView() · n.pais",
+            "FROM_WHICH_HEAD": (S.get("PROVENANCE") or {}).get("HEAD", NAO_SEI),
+            "WHERE_DISPLAYED": "os rectangulos que aparecem; e o contador kNodes",
+            "HARDCODED": False,
+            "REGRA_CITADA": REGRA_DA_VISTA_PADRAO,
+            "REGRA_VEM_DE": REGRA_DA_VISTA_PADRAO_VEM_DE,
+            "CONTADO_PELA_FAIXA": len(visual),
+            "DESENHADO_NA_TELA": len(desenhados),
+            "ESCONDIDOS_PELA_VISTA_PADRAO": [
+                {"CARD_ID": i, "PAIS": nos[i].get("pais"),
+                 "TERRITORY": nos[i]["territory"], "NAME": nos[i]["name"]}
+                for i in visual if i not in set(desenhados)],
+            "NOTA": "ORFAO NA VISTA != ORFAO NO GRAFO. Um cartao escondido por "
+                    "bandeira continua a existir, continua a ser auditado pelo "
+                    "pente fino e continua a ser contado pela faixa.",
         },
         {
             "LENS_ID": "PENTE_FINO",
@@ -638,7 +689,8 @@ def medir(com_topologia: bool) -> dict:
             len(visual) == len(incluidos) + len(excluidos) and not orfaos_do_pente),
     }
 
-    achados = achar(S, terr, nos, visual, excluidos, frescura, aritmetica)
+    achados = achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
+                    lentes)
 
     return {
         "SCHEMA": "sintonia.system-map.reconciliacao-do-universo/1",
@@ -663,7 +715,8 @@ def medir(com_topologia: bool) -> dict:
     }
 
 
-def achar(S, terr, nos, visual, excluidos, frescura, aritmetica) -> list:
+def achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
+          lentes) -> list:
     """O QUE A RECONCILIACAO ENCONTROU — medido, nao opinado.
 
     Um achado aqui nao manda consertar nada. Ele nomeia uma coisa que a
@@ -769,6 +822,27 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica) -> list:
             "PORQUE_IMPORTA": "dois censos lado a lado que mediram arvores diferentes "
                               "nao sao contemporaneos, e a tela nao dizia isso.",
             "OWNER": "a cadeia do mapa",
+            "ESTA_MISSAO_CORRIGE": False,
+        })
+
+    # ── 4b · A FAIXA CONTA O QUE A TELA NAO DESENHA ──────────────────────
+    lente = next((x for x in lentes if x["LENS_ID"] == "FRONTEND_DEFAULT_VIEW_DRAWN"),
+                 None)
+    if lente and lente["ESCONDIDOS_PELA_VISTA_PADRAO"]:
+        a.append({
+            "ACHADO": "A_FAIXA_CONTA_O_QUE_A_VISTA_PADRAO_NAO_DESENHA",
+            "GRAVIDADE": "MEDIA",
+            "O_QUE": "a faixa publica %d pecas e a vista padrao desenha %d. "
+                     "Escondido(s) por bandeira: %s"
+                     % (lente["CONTADO_PELA_FAIXA"], lente["DESENHADO_NA_TELA"],
+                        ", ".join("%s (%s)" % (e["CARD_ID"], e["PAIS"])
+                                  for e in lente["ESCONDIDOS_PELA_VISTA_PADRAO"])),
+            "PORQUE_IMPORTA": "quem conta os rectangulos no ecra e quem le o numero "
+                              "da faixa obtem respostas diferentes, e a tela nao "
+                              "diz qual das duas esta a responder a que pergunta. "
+                              "Nao e defeito de nenhuma das duas: e a falta da "
+                              "relacao entre elas.",
+            "OWNER": "system-map/app/map.js · activeView() e desenhar()",
             "ESTA_MISSAO_CORRIGE": False,
         })
 

@@ -1946,9 +1946,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "33c34abd7ea68f003d31e50cd0e5c6ec9026674a",
-    "GENERATED_AT": "2026-09-12T11:56:36+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4eb07f56fcc0bf5a0627320922ed65ed263fcd3b0e1139eb16ae6176b8a3c3d5"
+    "HEAD": "3f3717a41b568e7e942ff8068c394278e1f89b0d",
+    "GENERATED_AT": "2026-09-12T12:04:20+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ca2c76d38eb3533694e9ad68641207d089aaa45fc9582b03f88fcaf9e03b6b9f"
   },
   "FAMILIES": [
     {
@@ -10244,6 +10244,7 @@
       "inbound": [],
       "outbound": [
         "C-MAPA-TESTES",
+        "C-RECONCILIACAO-UNIVERSO",
         "C-TESTES"
       ],
       "paises": {},
@@ -13007,6 +13008,7 @@
         "C-CENSO-COLETA",
         "C-CENSO-TOPOLOGIA",
         "C-IMPRESSAO-DA-ARVORE",
+        "C-MAPA-APP",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-PROVA-MAPA-NAO-MENTE"
@@ -19664,12 +19666,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 305,
+          "line": 324,
           "snippet": "matriz = ler(RAIZ / \"data\" / \"derivados\" / \"MATRIZ-CARDS-SENSORES-V1.json\")"
         },
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 462,
+          "line": 481,
           "snippet": "\"OWNER\": \"system-map/scripts/censo_cards_sensores.py\","
         }
       ],
@@ -19710,7 +19712,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 478,
+          "line": 497,
           "snippet": "\"OWNER\": \"system-map/scripts/censo_da_coleta.py\","
         }
       ],
@@ -19982,7 +19984,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 320,
+          "line": 339,
           "snippet": "r = subprocess.run([sys.executable, str(AQUI / \"censo_da_topologia.py\"), \"--json\"],"
         }
       ],
@@ -25536,6 +25538,24 @@
     },
     {
       "from": "C-MAPA-APP",
+      "to": "C-RECONCILIACAO-UNIVERSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Interface do System Map alimenta Reconciliacao do universo do mapa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/reconciliacao_do_universo.py",
+          "line": 542,
+          "snippet": "\"FROM_WHICH_FILE\": \"system-map/app/map.js\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-MAPA-APP",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
@@ -25756,7 +25776,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 249,
+          "line": 268,
           "snippet": "\"OWNER\": \"system-map/scripts/generate_system_map.py\","
         }
       ],
@@ -25889,7 +25909,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 263,
+          "line": 282,
           "snippet": "\"OWNER\": \"system-map/scripts/pente_fino_da_coleta.py\","
         }
       ],
@@ -28085,7 +28105,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/reconciliacao_do_universo.py",
-          "line": 241,
+          "line": 260,
           "snippet": "\"OWNER\": \"system-map/data/architecture.declared.json\","
         }
       ],
@@ -32143,8 +32163,8 @@
     "components_pending": 95,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 659,
-    "edges_proven": 657,
+    "edges": 660,
+    "edges_proven": 658,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1498,

@@ -163,6 +163,35 @@ prova("a_tela_le_o_campo_que_a_reconciliacao_nomeia",
       "map.js deixou de mostrar f.count — a lente aponta para um campo que "
       "ja nao e o que a tela le")
 
+# A REGRA DA VISTA PADRAO E CITADA DO BROWSER — e uma citacao que ninguem
+# confere envelhece em silencio, e a partir dai descreve uma tela que ja nao
+# existe. Se `map.js` mudar a regra, esta prova reprova e obriga a
+# reconciliacao a acompanhar.
+lente_vista = next((x for x in COMMITADO["LENTES"]
+                    if x["LENS_ID"] == "FRONTEND_DEFAULT_VIEW_DRAWN"), None)
+prova("a_lente_da_vista_padrao_existe", lente_vista is not None)
+if lente_vista:
+    prova("a_regra_citada_da_vista_padrao_ainda_esta_no_mapjs",
+          lente_vista["REGRA_CITADA"] in MAPJS,
+          "a linha citada saiu de map.js — a reconciliacao passou a descrever "
+          "uma tela que ja nao existe")
+    # CONTADO PELA FAIXA != DESENHADO NA TELA, e a diferenca tem de estar
+    # enumerada peca a peca. Um numero sem os nomes nao se confere.
+    prova("a_diferenca_entre_contado_e_desenhado_esta_enumerada",
+          lente_vista["CONTADO_PELA_FAIXA"] - lente_vista["DESENHADO_NA_TELA"]
+          == len(lente_vista["ESCONDIDOS_PELA_VISTA_PADRAO"]),
+          f"faixa={lente_vista['CONTADO_PELA_FAIXA']} "
+          f"tela={lente_vista['DESENHADO_NA_TELA']} "
+          f"listados={len(lente_vista['ESCONDIDOS_PELA_VISTA_PADRAO'])}")
+    prova("todo_escondido_pela_vista_diz_a_bandeira_que_o_esconde",
+          all(e.get("PAIS") for e in lente_vista["ESCONDIDOS_PELA_VISTA_PADRAO"]))
+    # ORFAO NA VISTA != ORFAO NO GRAFO: esconder por bandeira nao tira o cartao
+    # do universo nem da auditoria.
+    escondidos = {e["CARD_ID"] for e in lente_vista["ESCONDIDOS_PELA_VISTA_PADRAO"]}
+    prova("cartao_escondido_pela_vista_continua_no_universo",
+          escondidos <= {c["CARD_ID"] for c in cartoes},
+          f"{escondidos - {c['CARD_ID'] for c in cartoes}}")
+
 # ── 6 · ANTI-DRIFT: O ARTEFATO COMMITADO E O DESTA ARVORE ───────────────────
 # Sem isto, o pente fino podia mudar de populacao e a reconciliacao continuar a
 # publicar a populacao anterior — exactamente o defeito que ela veio fechar.
