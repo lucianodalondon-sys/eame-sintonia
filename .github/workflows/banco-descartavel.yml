@@ -41,6 +41,9 @@ on:
       - 'supabase/migrations/025_*.sql'
       - 'provas/objeto_e_observacao_no_postgres.py'
       - 'medidas/rastro_da_coleta.py'
+      - 'coleta/coleta_checkpoint.py'
+      - 'provas/run_duravel_no_postgres.py'
+      - 'provas/_c106b_filho.py'
       - 'provas/rastro_no_postgres.py'
       - 'provas/social_persistencia_no_postgres.py'
       - 'coleta/social_persistencia.py'
@@ -259,6 +262,23 @@ jobs:
       # falta desaparece. Quem a fizer «passar» inventando um dono partiu-a.
       - name: 2h · a autoridade da fonte, medida — e o que medir nao escreve
         run: python3 provas/a_autoridade_da_fonte.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ⚠️ ESTE PASSO MATA PROCESSOS DE PROPOSITO, E E ESSE O ASSUNTO.
+      # `os._exit(97)` em cinco pontos da cadeia duravel, e um processo NOVO com
+      # ligacao NOVA a perguntar ao banco o que aconteceu. Uma excecao nao serve:
+      # excecao tem `finally`, e `finally` e exactamente o que uma morte de
+      # processo nao executa.
+      #
+      #     PROCESS DEATH != EXCEPTION.
+      #     PROCESS_CRASH != LOST_COLLECTION.
+      #
+      # Nao toca plataforma nenhuma: o trabalho e local e declara o que fez. O
+      # que se mede e a DURABILIDADE — exigir rede para provar que se sobrevive
+      # a um crash seria medir a rede.
+      - name: 2j · o RUN sobrevive ao processo (C10.6B)
+        run: python3 provas/run_duravel_no_postgres.py
         env:
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
 
