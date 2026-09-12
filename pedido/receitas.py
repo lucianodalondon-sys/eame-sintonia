@@ -251,6 +251,64 @@ EXECUTORES = {
                       "`apify:transcricao`, com o SHA-256 do bruto que a "
                       "corrida capturou",
         "custo": "pago: a rota apify:transcricao compra a execucao ao provider",
+    }, {
+        # ── A SEGUNDA ROTA PELO FLUXO CANONICO, E ELA E GRATUITA ─────────────
+        # A SCRAP-FLOW-01 provou o caminho com uma COMPRA. Ficou por responder
+        # se ele servia a uma aquisicao que nao compra nada:
+        #
+        #     FREE != CANONICAL.  ROUTE WORKS != FLOW WORKS.
+        #
+        # `janela` era o UNICO entrypoint gratuito desta linha que ADQUIRE em
+        # operacao — os outros gratuitos ou ja sao canonicos (T9/posts/YOUTUBE
+        # entra por `comunicacao-publica`), ou sao MEDICOES declaradas cuja
+        # conversao apagaria o que elas medem (`piloto`, `youtube`,
+        # `youtube-piloto`, `cutover`, `youtube-oficial`), ou sao recusadas no
+        # proprio disparador.
+        #
+        # ⚠️ E ELA NAO ACEITA FONTE, TAMBEM DE PROPOSITO.
+        # As contas de Instagram do lote congelado NAO tem ficha nas 77 fontes
+        # desta casa. As oito fontes de T9 que existem sao `type: site
+        # institucional` — o SITE da empresa, e nao a conta dela. Nomear
+        # `IT-T9-001` aqui atribuiria material do Instagram a uma fonte cuja
+        # ficha diz outra coisa.
+        #
+        #     URL NAO E SOURCE_ID. E UMA CONTA NAO E O SITE DA EMPRESA.
+        #
+        # Sem fonte nomeada e com rota GRATUITA, o portao responde
+        # `EXIGE_AVALIACAO` e NAO bloqueia — porque nao ha gasto aberto para
+        # guardar. O veredito fica escrito no recibo, e a corrida passa.
+        #
+        #     O PORTAO GUARDA O GASTO, NAO A OBSERVACAO.  (COL-LAW-018)
+        "id": "scrap-janela",
+        "retorno": {"ENVELOPE": "data/colheita/scrap/RETORNO.json"},
+        "roda": ["coleta/social_scrap.py", "coletar"],
+        # As TRES camadas sao UMA rota. Ver `_casa`.
+        "pedido_pede": {"fase": ["janela", "janela-perfis", "janela-objetos"]},
+        # A ORDEM E A LINHA DE COMANDO: `coletar <fase> [teto]`.
+        #
+        # ⚠️ E `teto` AQUI NAO E DINHEIRO NEM ACESSOS. A SCRAP-FLOW-01 escreveu
+        # que «um tecto que vive no disparador e um tecto que quem dispara
+        # escolhe» — e escreveu-o sobre os DOIS tectos que guardam a casa: o de
+        # gasto e o de rede. Esses continuam na tabela versionada, e nenhum
+        # deles passa por aqui.
+        #
+        # Este `teto` diz QUANTOS OBJECTOS POR CONTA a janela le. E ESCOPO, e
+        # escopo e do pedido — quem pede ja o escolhia antes desta migracao, e
+        # continua a escolhe-lo, agora por onde se pede.
+        #
+        #     TECTO QUE GUARDA A CASA != LIMITE DO QUE SE PEDIU.
+        "argumentos_de_filtros": ["fase", "teto"],
+        "recebe_run_id": True,
+        "aceita_fonte": False,
+        "larga_em": ["data/samples/INSTAGRAM-JANELA", "data/colheita/scrap/"],
+        "rotas": ["Instagram"],
+        "o_que_traz": "a janela publica das contas do lote congelado — o perfil "
+                      "(bio, seguidores, a grade) e os objectos que ela lista — "
+                      "pela rota PUBLIC_BROWSER, deslogado e sem pagar nada",
+        # ⚠️ A PALAVRA IMPORTA: `custo_e_gratuito` compara com o literal que
+        # `leis/relevancia_da_fonte.py` declara. Escrever «gratis» ou «zero
+        # dolares» aqui abriria GASTO_DINHEIRO e barrava a corrida.
+        "custo": "gratuito",
     }],
 }
 
@@ -307,6 +365,25 @@ def _sabe_o_caminho(f: dict) -> bool:
 # A escolha passa a ter dono, e o dono e UM: esta funcao. Quem escolhe e quem
 # julga a relevancia passam a olhar para o MESMO executor — antes, bastava um
 # segundo registo para o portao julgar um e a corrida correr outro.
+def _casa(pedido_diz, declarado) -> bool:
+    """Este valor do pedido satisfaz o que o executor declarou?
+
+    UM valor exige igualdade. UMA COLECAO exige pertenca — e existe porque uma
+    capacidade pode ter mais do que um nome de fase sem por isso ser mais do que
+    uma capacidade: `janela`, `janela-perfis` e `janela-objetos` sao TRES nomes
+    de UMA rota, e `adaptador_instagram` ja escreve isso por extenso:
+
+        DUAS CAMADAS DE UMA ROTA NAO SAO DUAS ROTAS.
+
+    Registar tres executores para as tres camadas daria tres donos ao mesmo
+    acto — e a casa ja pagou por isso na C10.4B.
+    """
+    dito = str(pedido_diz or "")
+    if isinstance(declarado, (list, tuple, set, frozenset)):
+        return dito in {str(v) for v in declarado}
+    return dito == str(declarado)
+
+
 def escolher(execs: list, p: Pedido):
     """→ o executor que este pedido pede, ou `None` quando nao ha nenhum.
 
@@ -314,6 +391,11 @@ def escolher(execs: list, p: Pedido):
 
         1 · o PRIMEIRO executor cujo `pedido_pede` casa com os filtros do pedido;
         2 · senao, o primeiro que NAO declara `pedido_pede`.
+
+    «Casa» le-se em `_casa`: um valor exige igualdade, uma coleccao exige
+    pertenca. A ORDEM DA LISTA NAO DECIDE NADA quando os selectores nao se
+    sobrepoem — e dois selectores que se sobrepoem sao um defeito de
+    declaracao, nao uma regra de desempate a inventar aqui.
 
     Um executor com `pedido_pede` NUNCA e escolhido por omissao. Se pudesse
     ser, acrescentar uma linha nova a lista mudava calada o caminho de todos os
@@ -324,8 +406,7 @@ def escolher(execs: list, p: Pedido):
     """
     for e in execs or []:
         pede = e.get("pedido_pede")
-        if pede and all(str(p.filtros.get(k) or "") == str(v)
-                        for k, v in pede.items()):
+        if pede and all(_casa(p.filtros.get(k), v) for k, v in pede.items()):
             return e
     for e in execs or []:
         if not e.get("pedido_pede"):
@@ -389,6 +470,33 @@ class Plano:
     def bloqueia_a_corrida(self) -> bool:
         """→ True quando ha gasto aberto e a relevancia nao o autoriza."""
         return bool(self.relevancia.get("BLOQUEIA_A_CORRIDA"))
+
+    @property
+    def barra_a_observacao(self) -> bool:
+        """→ True quando a fonte foi EXPLICITAMENTE recusada — mesmo de graca.
+
+        ⚠️ ISTO NAO ESTAVA A SER OBEDECIDO, e a SCRAP-FLOW-02 mediu-o.
+        `leis/relevancia_da_fonte.py` escreve a tabela da regra por extenso:
+
+            NAO            -> BARRA           em todas — inclusive na rota de graca
+            NAO_SE_APLICA  -> BARRA           a pergunta nao faz sentido para o par
+
+        e publica `PODE_OBSERVAR_BARATO` exactamente para dizer isso. Só que
+        quem corre lia apenas `BLOQUEIA_A_CORRIDA`, e esse campo é
+        `bool(gastos) and not pode_gastar` — numa rota GRATUITA nao ha gastos
+        abertos, logo ele e sempre `False`.
+
+        Resultado medido: uma fonte que alguem abriu, olhou e RECUSOU continuava
+        a ser observada, desde que a rota nao custasse dinheiro.
+
+            «NAO SERVE» NAO E «NAO SERVE SE FOR CARO».
+
+        O portao guarda o GASTO — e essa lei continua inteira: `EXIGE_AVALIACAO`
+        numa rota gratuita continua a deixar observar. O que ele TAMBEM guarda,
+        e sempre guardou no papel, e a recusa EXPLICITA. Sao dois campos porque
+        sao duas perguntas, e agora as duas sao lidas.
+        """
+        return self.relevancia.get("PODE_OBSERVAR_BARATO") is False
 
     def porque_nao(self) -> str:
         if self.executores:

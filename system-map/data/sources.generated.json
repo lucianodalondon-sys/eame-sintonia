@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "3d4dd165cddd60c7377b8aeb054dfb347e9d79c7",
+    "HEAD": "af17f6d998f2e06917968f8045f4b5acd1715326",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4730,6 +4730,19 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/basf_agroes",
+      "usado_por": [
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 447
+        },
+        {
+          "file": "tests/test_scrap_flow_02.py",
+          "line": 180
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.invalido/x.pdf",
       "usado_por": [
         {
@@ -4773,24 +4786,11 @@
       "usado_por": [
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
-          "line": 423
+          "line": 440
         },
         {
           "file": "tests/test_c10_6e_runtime_pago.py",
           "line": 309
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.tld/x'))",
-      "usado_por": [
-        {
-          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
-          "line": 339
-        },
-        {
-          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
-          "line": 222
         }
       ]
     }

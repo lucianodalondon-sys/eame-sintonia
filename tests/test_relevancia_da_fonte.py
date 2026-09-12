@@ -549,6 +549,47 @@ class OPortaoEstaNoCaminhoReal(unittest.TestCase):
         self.assertEqual(0, recibo['COST_USD'])
         self.assertEqual('NAO_CORREU', recibo['ESTADO_DOS_ITENS'])
 
+    def test_um_nao_explicito_barra_ate_a_rota_gratuita(self):
+        """⚠️ MEDIDO PELA SCRAP-FLOW-02, E ELE ESTAVA A PASSAR.
+
+        A tabela desta lei escreve-se assim, e sempre se escreveu:
+
+            NAO            -> BARRA   em todas — inclusive na rota de graca
+            NAO_SE_APLICA  -> BARRA   a pergunta nao faz sentido para o par
+
+        e `portao()` publica `PODE_OBSERVAR_BARATO` exactamente para o dizer. So
+        que quem corria lia apenas `BLOQUEIA_A_CORRIDA`, que e
+        `bool(gastos) and not pode_gastar` — e numa rota GRATUITA nao ha gastos
+        abertos, logo ele e sempre `False`.
+
+        Resultado: uma fonte que alguem abriu, olhou e RECUSOU continuava a ser
+        observada, desde que a rota nao custasse dinheiro.
+
+            «NAO SERVE» NAO E «NAO SERVE SE FOR CARO».
+        """
+        # A ROTA TEM DE SER GRATUITA **E** NOMEAR UMA FONTE — senao nao ha par
+        # para o portao julgar. `italia-recorrente` e as duas coisas: custo
+        # `gratuito`, e `IT-T2-002` por omissao.
+        self._com_livro([decisao('IT-T2-002', 'T2', rel.NAO)])
+        plano = receitas.resolver(Pedido(alvo='T2'))
+        self.assertEqual('IT-T2-002', plano.relevancia['SOURCE_ID'])
+        self.assertEqual([], plano.relevancia['FORMAS_DE_GASTO_ABERTAS'],
+                         'esta prova so vale sobre uma rota que NAO gasta')
+        self.assertFalse(plano.bloqueia_a_corrida,
+                         'sem gasto aberto, o campo do gasto nao barra — e e '
+                         'por isso que o outro campo tem de existir')
+        self.assertTrue(plano.barra_a_observacao,
+                        'um NAO explicito tem de barrar tambem a observacao')
+
+    def test_o_orquestrador_obedece_a_recusa_explicita(self):
+        """E quem corre tem de OBEDECER o campo — publicar nao e obedecer."""
+        self._com_livro([decisao('IT-T2-002', 'T2', rel.NAO)])
+        recibo = orq.correr(Pedido(alvo='T2'))
+        self.assertEqual('BARRADO_NA_RELEVANCIA', recibo['STATUS'],
+                         'a rota gratuita correu sobre uma fonte RECUSADA')
+        self.assertEqual(rel.BARRA, recibo['RELEVANCIA_DA_FONTE']['VEREDITO'])
+        self.assertEqual(0, recibo['COST_USD'])
+
     def test_barrado_nao_e_erro_nem_falta_de_caminho(self):
         self._com_livro([])
         recibo = orq.correr(Pedido(alvo='T9'))

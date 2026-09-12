@@ -1619,10 +1619,19 @@ def _declarar_o_retorno(fase, corrida, objetos, trace, *, raiz=None):
 
         QUEM DECLARA O CAMINHO NAO CONFIRMA OS BYTES. Quem confirma e quem olha.
 
-    ⚠️ O `SOURCE_ID` DE CADA UNIDADE NAO E INVENTADO AQUI. Ele e o que o
-    registo desta fase ja declarava antes desta missao — `SCRAP-<GAVETA>/<fase>`
-    — e nao e nenhuma das 77 fontes em ficha desta casa. Escrever aqui uma das
-    77 seria atribuir a uma fonte avaliada material que veio de outro sitio.
+    ⚠️ O `SOURCE_ID` DE CADA UNIDADE NAO E INVENTADO AQUI, E JA NAO E DEDUZIDO
+    DA FASE. Ate a SCRAP-FLOW-02 ele era `SCRAP-YOUTUBE/<fase>`, escrito neste
+    ficheiro — e isso so era verdade para a unica fase que existia. Com uma
+    segunda rota, a mesma linha teria posto `SCRAP-YOUTUBE` em cima de material
+    do Instagram.
+
+        UM LITERAL QUE ACERTA PORQUE SO HA UM CASO E UM LITERAL QUE VAI MENTIR.
+
+    Agora cada unidade TRAZ a sua origem. Quem a carimba e quem sabe: o
+    adaptador, que leu o artefato e copiou o `SOURCE_ID` que o proprio artefato
+    declara. Aqui so se le — e a ausencia declara-se, nunca se preenche.
+
+        QUEM PRODUZ DIZ DE ONDE VEIO. QUEM DECLARA SO TRANSCREVE.
     """
     import retorno_da_coleta as rdc
     raiz = raiz or RAIZ
@@ -1635,14 +1644,30 @@ def _declarar_o_retorno(fase, corrida, objetos, trace, *, raiz=None):
                                      trace.get('NATIVE_REASON') or '')[:300]))
     med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
     onde = med.get('SCRAP_RAW_REFERENCE') or trace.get('SCRAP_RAW_REFERENCE')
-    colheita = []
+    # A ORIGEM DE QUEM NAO A TRAZ, E SO QUANDO ESTE FICHEIRO A DECLARA.
+    # A fase paga escreve o proprio artefato (`_registar_fase_paga`), e e esse
+    # artefato que declara de onde o material veio. Uma fase cujo artefato
+    # pertence a outro dono — `janela` escreve-o em `instagram_janela` — NAO
+    # recebe origem daqui: quem sabe e quem escreveu, e ele ja a carimbou.
+    origem_da_fase = (origem_do_registo_pago(fase) if fase in FASES_PAGAS
+                      else None)
+    colheita, sem_origem = [], 0
     for o in (objetos or []):
+        origem = str(o.get('SOURCE_ID') or origem_da_fase or '').strip()
+        if not origem:
+            # ⚠️ UMA UNIDADE SEM ORIGEM NAO ATRAVESSA, E NAO GANHA UMA AQUI.
+            # `retorno_da_coleta.conferir_unidade` recusa-a — e recusar o
+            # envelope INTEIRO por causa dela deitava fora as que vinham bem.
+            # Ela fica de fora, e o numero fica escrito.
+            sem_origem += 1
+            continue
         colheita.append({
             'ESPECIE': rdc.COLHEITA,
-            'SOURCE_ID': 'SCRAP-YOUTUBE/%s' % fase,
+            'SOURCE_ID': origem,
             # O identificador e o da PLATAFORMA. Tirar um do sha ou do caminho
             # seria fabricar — e `conferir_unidade` sabe reconhecer isso.
-            'DOCUMENT_ID': str(o.get('NATIVE_ID') or rdc.NAO_SEI),
+            'DOCUMENT_ID': str(o.get('DOCUMENT_ID') or o.get('NATIVE_ID')
+                               or rdc.NAO_SEI),
             'RUN_ID': str(corrida),
             'URL': o.get('URL'),
             'PAYLOAD': {'ESTADO': rdc.estado_do_payload(onde, raiz),
@@ -1657,12 +1682,22 @@ def _declarar_o_retorno(fase, corrida, objetos, trace, *, raiz=None):
         'SUPORTE': [],
         'ERROS': erros,
     }
+    if sem_origem:
+        # O que NAO atravessou, e porque. Um envelope que so conta o que passou
+        # obriga quem le a descobrir o buraco pela subtraccao.
+        envelope['UNIDADES_SEM_ORIGEM'] = sem_origem
+        envelope['PORQUE_FICARAM_DE_FORA'] = (
+            '%d objecto(s) chegaram sem SOURCE_ID. Sem fonte provada a unidade '
+            'nao e observacao, e candidata — e nao se inventa uma fonte para '
+            'ela poder viajar.' % sem_origem)
     if estado == 'SUCCESS' and not colheita:
         # ZERO LEGITIMO NAO E FALHA, e diz-se porque. Sem esta linha, um zero
         # honesto e um zero por defeito lem-se igual.
         envelope['PORQUE_ZERO_COLHEITA'] = (
-            'a corrida terminou em %s e nao trouxe objecto nenhum'
-            % trace.get('RESULT'))
+            ('a corrida trouxe %d objecto(s) e nenhum declarou de onde veio'
+             % sem_origem) if sem_origem else
+            ('a corrida terminou em %s e nao trouxe objecto nenhum'
+             % trace.get('RESULT')))
     alvo = os.path.join(raiz, RETORNO_DA_CORRIDA)
     os.makedirs(os.path.dirname(alvo), exist_ok=True)
     with open(alvo, 'w', encoding='utf-8') as f:
@@ -1695,6 +1730,18 @@ def _banco_se_houver():
 #: Onde uma fase paga deixa o registo dela. O RAW em si fica onde o dono o
 #: escreveu; o que volta ao repositório é o RECORD.
 GAVETA_PAGA = os.path.join('data', 'samples', 'SCRAP-YOUTUBE')
+
+
+def origem_do_registo_pago(fase):
+    """O `SOURCE_ID` que o registo DESTA fase declara. Escrito num sitio so.
+
+    ⚠️ ESTE LITERAL EXISTIA EM DOIS SITIOS. `_registar_fase_paga` escrevia-o no
+    artefato e `_declarar_o_retorno` escrevia-o outra vez em cada unidade — e
+    os dois so coincidiam porque ninguem tinha mexido em nenhum.
+
+        DOIS SITIOS COM O MESMO LITERAL SAO DUAS VERDADES A ESPERA DE DIVERGIR.
+    """
+    return '%s/%s' % (os.path.basename(GAVETA_PAGA), fase)
 
 
 def _registar_fase_paga(fase, paga, corrida, objetos, trace):
@@ -1759,7 +1806,7 @@ def _registar_fase_paga(fase, paga, corrida, objetos, trace):
         except Exception:                                         # noqa: BLE001
             lido = 'UNREADABLE'
     registo = {
-        'SOURCE_ID': 'SCRAP-YOUTUBE/%s' % fase,
+        'SOURCE_ID': origem_do_registo_pago(fase),
         'MISSION': 'C10.8B-LIVE',
         'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
         'RUN_ID': corrida,

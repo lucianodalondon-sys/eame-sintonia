@@ -128,14 +128,31 @@ def _por_fase():
 class NenhumaFaseDeCollectionChamaImplementacao(unittest.TestCase):
 
     def test_1_as_fases_canonicas_entram_pela_entrada_canonica(self):
+        """A PORTA CANÔNICA SUBIU UM ANDAR, E ESTA PROVA SUBIU COM ELA.
+
+        Quando a C10.6D a escreveu, a porta canônica destas fases era
+        `coleta/social_scrap.py coletar`: elas atravessavam
+        `scrap_executor.COLLECT`, e isso era o mais alto que havia.
+
+        A SCRAP-FLOW-02 mediu que não bastava — atravessar o SCRAP não é
+        atravessar a CASA. Sem pedido, sem plano, sem portão de relevância da
+        fonte, sem corrida cunhada antes do facto, sem recibo e sem ingresso.
+
+            FREE != CANONICAL.  ROUTE WORKS != FLOW WORKS.
+
+        A regra que esta prova guarda NÃO foi enfraquecida: ela aponta para uma
+        porta MAIS ALTA, e a lista de implementações proibidas ganhou um nome —
+        o da própria CLI, que o disparador deixou de ter de conhecer.
+        """
         por = _por_fase()
         for f in CANONICAS:
             with self.subTest(fase=f):
                 cmds = ' '.join(por.get(f) or [])
-                self.assertIn('social_scrap.py', cmds,
+                self.assertIn('orquestrador/orquestrador.py', cmds,
                               '%s deixou de entrar pela entrada canônica' % f)
-                self.assertIn('coletar', cmds)
-                for i in IMPLEMENTACOES:
+                self.assertIn('--filtro fase=', cmds,
+                              '%s deixou de dizer AO PEDIDO qual é a fase' % f)
+                for i in IMPLEMENTACOES + ('social_scrap.py',):
                     self.assertNotIn(i, cmds,
                                      '%s voltou a correr %s direto' % (f, i))
 

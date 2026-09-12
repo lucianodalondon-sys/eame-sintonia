@@ -360,6 +360,17 @@ assert not cap.existe('instagram.native_caption'), (
 #             (portão · sessão · gasto) -> este adaptador -> instagram_janela.py
 #
 #     REWIRE NÃO PODE APAGAR LINEAGE. O QUE ELA ESCREVIA, CONTINUA A ESCREVER.
+#: DE ONDE SAI A IDENTIDADE DE CADA ITEM DESTA JANELA, por artefato.
+#:
+#: Não é uma invenção deste ficheiro: são os campos que `instagram_janela`
+#: JÁ escreve em cada registo. O perfil é identificado pela conta; o objeto,
+#: pelo código que o Instagram lhe deu. Nenhum dos dois sai de um sha nem de
+#: um caminho — e `retorno_da_coleta._fabricado` sabe reconhecer os que saem.
+#:
+#:     O IDENTIFICADOR É DA PLATAFORMA. DERIVÁ-LO É FABRICÁ-LO.
+IDENTIDADE_NA_GAVETA = ('OBJECT_ID', 'ACCOUNT_HANDLE')
+
+
 def _itens_da_gaveta(nome):
     """Os objetos que a janela acabou de gravar. → lista, sempre.
 
@@ -368,10 +379,32 @@ def _itens_da_gaveta(nome):
     mexer na implementação para a fazer parecer uma rota.
 
         LER O QUE FOI PERSISTIDO É MAIS HONESTO QUE ACREDITAR NO QUE FOI DITO.
+
+    ⚠️ E CADA ITEM SAI DAQUI A DIZER DE ONDE VEIO.
+    O artefato declara o `SOURCE_ID` dele — `INSTAGRAM-JANELA/PERFIS`,
+    `INSTAGRAM-JANELA/OBJETOS` — e até à SCRAP-FLOW-02 essa declaração ficava
+    no cabeçalho e nunca descia aos itens. Quem os recebia depois não tinha
+    como saber de qual dos dois artefatos cada um tinha vindo, e a lei do
+    retorno recusa unidade sem fonte.
+
+        COPIAR O QUE O ARTEFATO DECLARA NÃO É INVENTAR UMA FONTE.
+        INVENTAR SERIA ESCREVER AQUI UMA DAS 77 — e nenhuma destas contas
+        tem ficha: as oito fontes de T9 são o SITE da empresa, não a conta.
     """
     import instagram_janela as ij
     d = ij._ler(nome) or {}
-    return list(d.get('ITEMS') or [])
+    origem = str(d.get('SOURCE_ID') or '').strip()
+    saida = []
+    for it in (d.get('ITEMS') or []):
+        novo = dict(it)
+        if origem:
+            novo['SOURCE_ID'] = origem
+        for campo in IDENTIDADE_NA_GAVETA:
+            if str(it.get(campo) or '').strip():
+                novo['DOCUMENT_ID'] = str(it[campo]).strip()
+                break
+        saida.append(novo)
+    return saida
 
 
 def _janela(qual, *, run_id, country_scope=None, medida=None, etapa=None,

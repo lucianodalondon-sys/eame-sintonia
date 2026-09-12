@@ -9609,3 +9609,228 @@ paga pela outra.
 O que mudou, e vale para o próximo: a escolha do executor tem dono, o livro é
 uma entrada que se diz, e a corrida declara o que produziu. O segundo caminho
 custa menos do que este — e é essa a única promessa que esta secção faz.
+
+# §94 · UMA ROTA QUE NÃO COMPRA NADA AINDA TEM DE OBEDECER A TUDO
+
+> **Missão:** SCRAP-FLOW-02 · migrar **uma** rota GRATUITA real para
+> `ENTRYPOINT → REQUEST → ORCHESTRATOR → SCRAP EXECUTOR`, e prová-la ponta a
+> ponta sem rede real.
+>
+> ```
+> FREE != CANONICAL.  ROUTE WORKS != FLOW WORKS.  FREE_ROUTE != NO_GATES.
+> ```
+>
+> ⚠️ **NUMERAÇÃO.** Medido nesta missão: o ramo canónico do know-how
+> (`claude/sintonia-eame-know-how-v1` @ `72c59dbe`) tem §91, §92 e §93
+> **diferentes** dos §91, §92 e §93 desta linha. Três colisões, três missões
+> seguidas. Esta secção leva o número seguinte **desta** linha, e o aviso fica
+> escrito porque a memória de quem escreve não é o sítio para o resolver:
+>
+> ```
+> UM CONTADOR PARTILHADO DE QUE NINGUÉM É DONO
+> NÃO É UM CONTADOR: SÃO TRÊS CONTADORES COM O MESMO NOME.
+> ```
+
+A §93 provou o caminho canónico com uma **compra**, e deixou a pergunta seguinte
+por responder. Esta secção é o que se aprendeu a responder-lhe.
+
+## 94.1 · O CENSO TEM DE DISTINGUIR UMA PORTA DE PRODUÇÃO DE UMA MEDIÇÃO
+
+O primeiro instinto foi escolher a rota pelo que o relatório anterior tinha
+citado. O censo mostrou porque isso estaria errado — e mostrou algo melhor: das
+seis candidatas gratuitas, **uma** era operação e **cinco** eram medições
+declaradas.
+
+E as medições diziam-no por escrito, ao lado de si próprias: existem aos PARES
+para se poder comparar a estrada direta com a estrada pelo executor. Convertê-las
+apagaria exactamente a pergunta que elas respondem.
+
+```
+    MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+
+    CONVERTER UMA MEDIÇÃO EM PORTA DE PRODUÇÃO NÃO FECHA UM DESVIO:
+    APAGA O INSTRUMENTO QUE MEDIA O DESVIO.
+```
+
+Um censo de bypasses que conta medições como buracos produz um número que
+melhora quando a casa fica mais cega.
+
+## 94.2 · «NÃO SERVE» NÃO É «NÃO SERVE SE FOR CARO»
+
+A negativa da relevância reprovou à primeira, e o que ela mostrou é a forma mais
+cara de defeito que este repositório já viu três vezes: **a lei estava escrita,
+o campo estava publicado, e ninguém o lia.**
+
+O dono da lei escrevia a tabela por extenso — `NAO -> BARRA em todas, inclusive
+na rota de graça` — e publicava um campo próprio para isso. Quem corria lia só o
+outro campo, o do gasto. E esse, numa rota gratuita, é **sempre falso por
+construção**: `bool(gastos) and not pode_gastar`, com `gastos == []`.
+
+Resultado medido: uma fonte que alguém abriu, olhou e **recusou** continuava a
+ser observada — desde que a rota não custasse dinheiro.
+
+```
+    UM CAMPO PUBLICADO QUE NINGUÉM LÊ É UMA LEI QUE NÃO EXISTE.
+    E UM BOOLEANO QUE É SEMPRE FALSO NUMA METADE DOS CASOS
+    NÃO ESTÁ A GUARDAR ESSA METADE.
+```
+
+A cura foi no **obediente**, nunca na lei: quem corre passou a ler os dois
+campos. E a outra metade fica intacta de propósito — `EXIGE_AVALIACAO` numa rota
+gratuita continua a deixar observar, porque o portão guarda o gasto. São duas
+perguntas, e agora as duas são feitas.
+
+E há um remate que quase escapou: a guarda nova precisa de um caso onde a rota
+seja **gratuita E nomeie uma fonte**. Na rota migrada isso não existe — ela não
+aceita fonte, de propósito. O guarda teve de ir viver onde o caso existe.
+
+```
+    UMA GUARDA ESCRITA SOBRE UM CASO IMPOSSÍVEL PASSA SEMPRE,
+    E NÃO GUARDA NADA.
+```
+
+## 94.3 · UM LITERAL QUE ACERTA PORQUE SÓ HÁ UM CASO É UM LITERAL QUE VAI MENTIR
+
+A missão anterior escrevia a origem de cada unidade colhida como
+`SCRAP-<GAVETA>/<fase>`, numa linha só. Estava certo — e estava certo **apenas
+enquanto houvesse uma fase**. A segunda rota teria carimbado a gaveta do YouTube
+em cima de material do Instagram, sem erro nenhum e sem teste nenhum a reprovar.
+
+```
+    UM LITERAL QUE ACERTA PORQUE SÓ HÁ UM CASO
+    É UM LITERAL QUE VAI MENTIR NO SEGUNDO.
+```
+
+A saída não foi uma tabela de casos: foi mudar **quem responde**. Cada unidade
+passou a trazer a origem, carimbada por quem sabe — o adaptador, que leu o
+artefato e copiou o `SOURCE_ID` que o próprio artefato já declarava.
+
+```
+    QUEM PRODUZ DIZ DE ONDE VEIO. QUEM DECLARA SÓ TRANSCREVE.
+    COPIAR O QUE O ARTEFATO DECLARA NÃO É INVENTAR UMA FONTE.
+```
+
+E quem chega sem origem **não recebe uma**: fica de fora, e o número fica escrito
+no envelope. Inventar uma fonte para a unidade poder viajar seria trocar um
+buraco visível por um dado falso.
+
+## 94.4 · O FAKE TEM DE SER O MUNDO, E O MUNDO ÀS VEZES É UM SOCKET
+
+A §93 desceu até ao binário `curl` porque o executor corre num subprocesso e um
+monkeypatch não atravessa processos. Esta missão encontrou a versão seguinte do
+mesmo problema: a rota gratuita fala com um **navegador**, e um navegador não é
+um binário que se chama — é uma porta que se ocupa.
+
+A saída foi escrever um servidor que fala DevTools em `127.0.0.1`: handshake de
+WebSocket, enquadramento, e as cinco chamadas que o cliente desta casa faz. O
+cliente real fala com ele sem saber a diferença — e, enquanto ele escuta, quem
+sobe o navegador encontra a porta ocupada e **não abre nada**.
+
+```
+    O `PATH` É O MUNDO. A PORTA TAMBÉM É.
+    TROCAR O QUE ATENDE NUM SOCKET NÃO É FALSIFICAR A CASA.
+```
+
+E há um bónus que nenhum monkeypatch dá: o servidor **regista cada pedido**. As
+provas negativas deixam de perguntar ao runtime se ele tocou no mundo — elas
+perguntam **ao mundo** se foi tocado.
+
+```
+    UMA NEGATIVA QUE ACREDITA NO RUNTIME MEDE O RUNTIME.
+    UMA NEGATIVA QUE CONTA OS PEDIDOS NA PONTA MEDE O QUE ACONTECEU.
+```
+
+## 94.5 · O QUE UMA PROVA APAGA TEM DE SER CONFERIDO, NÃO PROMETIDO
+
+A §93 aprendeu que uma prova que atravessa a cadeia inteira escreve onde a cadeia
+inteira escreve. Esta missão aprendeu a metade seguinte: **a lista do que limpar
+não se adivinha — mede-se**.
+
+A rota gratuita não escreve só ficheiros: cria **pastas** que podem não existir
+antes. Repor um ficheiro que existia é fácil; reconhecer que uma pasta inteira
+não existia é outra pergunta, e é preciso fazê-la **antes**.
+
+E a conferência final não pode ser «eu reponho no `finally`»: tem de ser comparar
+o conteúdo no fim, byte a byte, e reprovar a prova se não bater.
+
+```
+    REPOR É UMA PROMESSA. CONFERIR É UMA MEDIÇÃO.
+```
+
+## 94.6 · ONDE A SUJIDADE APARECE NÃO É QUEM A FEZ
+
+O fecho anterior sinalizou que «alguns testes desta casa escrevem nos livros
+reais», e nomeou os testes da Itália. Esta missão mediu, **teste a teste**,
+comparando o estado da árvore antes e depois de cada um dos 142 e repondo-a entre
+eles. O resultado corrigiu a atribuição: **nenhum teste suja**. Quem suja é uma
+PROVA — a de mutação do portão, que corre o orquestrador real por subprocesso
+vinte e duas vezes seguidas, e o orquestrador real atravessa o ingresso e a porta
+de admissão.
+
+A atribuição errada tinha a forma mais comum que há: eu tinha corrido as duas
+coisas antes de olhar.
+
+```
+    ONDE A SUJIDADE APARECE NÃO É QUEM A FEZ.
+    ATRIBUIR SEM ISOLAR É ADIVINHAR COM CARA DE MEDIÇÃO.
+```
+
+E medir não é consertar:
+
+```
+    MEDIR UMA DÍVIDA É TRABALHO DESTA MISSÃO.
+    PAGAR A DÍVIDA DE OUTRA É TROCAR DE MISSÃO A MEIO.
+```
+
+O que a missão deve é deixar a dívida **nomeada**, com caminho e dono, e provar
+que o que ela própria acrescentou não a aumenta.
+
+### 94.6.1 · E a ferramenta que mede pode apagar o que se está a escrever
+
+O medidor deste censo repõe a árvore entre testes — `git checkout -- .` — e isso
+apaga **trabalho por versionar** que esteja em curso. Aconteceu: uma secção
+inteira deste ficheiro desapareceu a meio da medição, sem erro nenhum.
+
+```
+    UMA FERRAMENTA QUE REPÕE A ÁRVORE NÃO DISTINGUE
+    SUJIDADE DE TRABALHO QUE AINDA NÃO FOI GUARDADO.
+```
+
+Quem corre uma medição destas guarda primeiro. É barato, e a alternativa é
+reescrever de memória aquilo que já se tinha pensado uma vez.
+
+## 94.7 · DUAS LINHAS PODEM RESPONDER À MESMA PERGUNTA, E NENHUMA SABE DA OUTRA
+
+O `git fetch` desta missão trouxe um ramo que implementa **a mesma missão
+anterior**, sobre **a mesma rota que esta migrou**, com um mecanismo diferente
+para cada decisão — outro nome para o selector, outro caminho para o envelope,
+outro ficheiro a adaptar o SCRAP à porta, e o **mesmo nome de ficheiro** para a
+prova.
+
+Não houve defeito em nenhum dos dois lados. Houve duas linhas a correr a mesma
+lei sem se conhecerem.
+
+```
+    DUAS IMPLEMENTAÇÕES DA MESMA LEI NÃO SE RESOLVEM POR MÉRITO TÉCNICO:
+    RESOLVEM-SE POR ALGUÉM DECIDIR QUAL É A LEI.
+```
+
+O que uma missão pode fazer sozinha é **medir e dizer** — os dois heads, a tabela
+das divergências, e o que colide. Fundir por iniciativa própria seria tomar uma
+decisão de arquitetura como efeito colateral de uma migração.
+
+## 94.8 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Duas rotas canónicas não são **o** fluxo canónico. As medições declaradas
+continuam por fora, e isso é de propósito. E a rota gratuita continua a depender
+do ambiente: sem navegador ela recusa — com nome próprio, o que é o desenho, e
+não um conserto pendente.
+
+```
+    CANONICAL_ORCHESTRATION(duas rotas) != CANONICAL_ORCHESTRATION(o fluxo).
+```
+
+O que a segunda rota provou, e a primeira não podia provar sozinha: **o caminho
+canónico não depende de haver uma compra.** O portão continua a ser consultado, a
+política continua soberana, o teto de acessos continua dono do seu eixo — e
+nenhum deles precisou de um dólar para funcionar.

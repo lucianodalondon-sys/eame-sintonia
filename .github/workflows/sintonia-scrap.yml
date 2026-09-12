@@ -283,9 +283,34 @@ jobs:
             #
             # A implementação é a MESMA e escreve os MESMOS ficheiros. O que
             # muda é o caminho até ela.
+            #
+            # ── E ELA ENTRA PELO ORQUESTRADOR, DESDE A SCRAP-FLOW-02 ──────
+            # A SCRAP-FLOW-01 levou a fase PAGA ao fluxo canônico e deixou
+            # escrito o que ficava por fechar: estas três continuavam a saltar
+            # o orquestrador. Elas atravessavam o `scrap_executor.COLLECT` — e
+            # mais nada.
+            #
+            #     FREE != CANONICAL.  ROUTE WORKS != FLOW WORKS.
+            #
+            # Agora:
+            #
+            #     DISPARADOR -> PEDIDO -> ORQUESTRADOR -> COLLECT -> envelope
+            #                -> ingresso -> recibo
+            #
+            # A ROTA É GRATUITA, E CONTINUA A OBEDECER. O portão de relevância
+            # é consultado e responde `EXIGE_AVALIACAO` — e NÃO barra, porque
+            # não há gasto aberto para guardar:
+            #
+            #     O PORTÃO GUARDA O GASTO, NÃO A OBSERVAÇÃO.  (COL-LAW-018)
+            #
+            # O teto de objetos continua a ser o que era, e continua a vir de
+            # quem despacha: ele não é dinheiro nem acessos — é quantos itens
+            # por conta a janela lê. Ele desce pelo PEDIDO, como a fase.
             janela|janela-perfis|janela-objetos)
-              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \
-                coletar "${{ inputs.fase }}" $TETO ;;
+              args="--filtro fase=${{ inputs.fase }}"
+              [ -n "$TETO" ] && args="$args --filtro teto=$TETO"
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" $args ;;
 
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e

@@ -48,11 +48,37 @@ SONDA = os.path.join('candidatas', 'prova_barata.py')
 MUTACOES = (
     # ── remover o portao do caminho ─────────────────────────────────────
     {
+        # A ancora seguiu o codigo: a SCRAP-FLOW-02 mediu que o orquestrador
+        # lia so metade do veredito — `BLOQUEIA_A_CORRIDA` e sempre falso numa
+        # rota gratuita — e passou a ler as duas metades. Uma ancora que fica
+        # na morada antiga nao mata mutante nenhum: deixa de se aplicar, e esta
+        # suite conta isso como SOBREVIVENTE, que e o que ela deve fazer.
         'NOME': 'remover o portao do orquestrador',
         'FICHEIRO': CONTROLO,
         'O_QUE_AFROUXA': 'a corrida passa a nunca ser barrada antes do gasto',
-        'ONDE': '    if plano.bloqueia_a_corrida:',
+        'ONDE': '    if plano.bloqueia_a_corrida or plano.barra_a_observacao:',
         'PARA': '    if False:  # mutante',
+    },
+    {
+        # A METADE NOVA, SOZINHA. Ela e exactamente o defeito que a
+        # SCRAP-FLOW-02 encontrou: com so o primeiro campo lido, uma fonte
+        # RECUSADA continuava a ser observada desde que a rota fosse de graca.
+        #
+        #     «NAO SERVE» NAO E «NAO SERVE SE FOR CARO».
+        'NOME': 'o orquestrador volta a ler so o campo do gasto',
+        'FICHEIRO': CONTROLO,
+        'O_QUE_AFROUXA': 'uma fonte com NAO explicito volta a ser observada '
+                         'de graca',
+        'ONDE': '    if plano.bloqueia_a_corrida or plano.barra_a_observacao:',
+        'PARA': '    if plano.bloqueia_a_corrida:  # mutante',
+    },
+    {
+        'NOME': 'o plano deixa de publicar a recusa explicita',
+        'FICHEIRO': PLANO,
+        'O_QUE_AFROUXA': 'quem obedece deixa de ter como saber que a fonte '
+                         'foi recusada',
+        'ONDE': '        return self.relevancia.get("PODE_OBSERVAR_BARATO") is False',
+        'PARA': '        return False  # mutante',
     },
     {
         'NOME': 'o plano deixa de consultar o portao',

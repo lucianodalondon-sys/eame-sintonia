@@ -305,6 +305,21 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         registro['AUTORIZACAO_DO_GASTO'] = getattr(e, 'veredito', None)
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
+    except _SemNavegador() as e:
+        # ── A FERRAMENTA NÃO ESTÁ LÁ, E ISSO TEM NOME DESDE SEMPRE ─────────
+        # ⚠️ MEDIDO PELA SCRAP-FLOW-02: sem Chrome nesta máquina, `cdp.subir`
+        # levantava, a excepção caía no balde genérico e o rasto dizia
+        # `UNKNOWN_ERROR` — o mesmo que um extractor partido.
+        #
+        # E `leis/falhas.py` já escrevia a família certa, com este alias lá
+        # dentro: «a nossa ferramenta não está lá — Chrome não subiu. NADA FOI
+        # MEDIDO SOBRE A FONTE.» Faltava alguém dizer o nome.
+        #
+        #     UM `except Exception` LARGO NÃO DISTINGUE QUEM DISSE NÃO.
+        #     E UMA FALHA NOSSA COM CARA DE DESCONHECIDA VAI PARAR À FONTE.
+        registro['ESTADO'] = 'BROWSER_NOT_REACHED'
+        registro['ERRO'] = ss.redigir('%s: %s' % (type(e).__name__, e))
+        return [], registro
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
         registro['ERRO'] = ss.redigir(str(e))
@@ -397,6 +412,19 @@ def _custo_da_medida(registro):
         if registro.get('ACTUAL_COST_USD') is not None:
             registro['COST_USD'] = registro['ACTUAL_COST_USD']
     return registro
+
+
+def _SemNavegador():
+    """O tipo de «a minha ponta nao abriu». → tuplo de tipos.
+
+    Preguicoso pela mesma razao de `_GastoNaoAutorizado`: as rotas que nao
+    sobem navegador nao tem de carregar o cliente CDP para se importarem.
+    """
+    try:
+        import cdp as _cdp
+        return (_cdp.Erro,)
+    except ImportError:                                       # pragma: no cover
+        return ()
 
 
 def _GastoNaoAutorizado():

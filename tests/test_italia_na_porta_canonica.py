@@ -188,8 +188,9 @@ class OCaminhoEstaLigado(CasoB1):
     #: — e o sitio onde uma adesao nova tem de ser ESCRITA para passar.
     #:
     #:     UMA LISTA QUE SE ESCREVE A MAO E UMA ADESAO QUE NAO ACONTECE SOZINHA.
-    PEDEM_A_CORRIDA = ("italia-recorrente",      # T-04, a Italia recorrente
-                       "scrap-yt-legenda-paga")  # SCRAP-FLOW-01, a rota paga
+    PEDEM_A_CORRIDA = ("italia-recorrente",       # T-04, a Italia recorrente
+                       "scrap-yt-legenda-paga",   # SCRAP-FLOW-01, a rota paga
+                       "scrap-janela")            # SCRAP-FLOW-02, a rota gratis
 
     def test_6_nenhum_executor_antigo_mudou_de_linha_de_comando(self):
         for universo, lista in EXECUTORES.items():

@@ -359,7 +359,18 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     #
     # A REGRA NAO ESTA COPIADA AQUI. Quem decide e
     # `leis/relevancia_da_fonte.py`; este ficheiro obedece e escreve porque.
-    if plano.bloqueia_a_corrida:
+    # ── E A RECUSA EXPLICITA BARRA MESMO QUANDO NAO HA GASTO ────────────────
+    # ⚠️ ATE A SCRAP-FLOW-02, SO O PRIMEIRO CAMPO ERA LIDO. `BLOQUEIA_A_CORRIDA`
+    # e `bool(gastos) and not pode_gastar` — numa rota gratuita nao ha gastos
+    # abertos, e por isso ele nunca era `True`. Uma fonte que alguem abriu,
+    # olhou e RECUSOU continuava a ser observada, desde que fosse de graca.
+    #
+    #     «NAO SERVE» NAO E «NAO SERVE SE FOR CARO».
+    #
+    # A regra continua a ser do dono da lei, que ja a escrevia por extenso e ja
+    # publicava `PODE_OBSERVAR_BARATO`. O que mudou e que este ficheiro passou
+    # a obedece-la.
+    if plano.bloqueia_a_corrida or plano.barra_a_observacao:
         r = plano.relevancia
         return {
             "RUN_ID": novo_run_id(p),
