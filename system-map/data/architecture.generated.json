@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/out-of-flow-legacy-decision-v1",
-    "HEAD": "e6940ea8e0c804523bf7fcaee90bd8be63984d38",
-    "GENERATED_AT": "2026-09-12T02:40:23+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b43a5932be3a23186953da6d4a9c378ccd0aa34f9577b8038c14aa2c792180b9"
+    "BRANCH": "claude/remeasure-collection-v1-close-gates",
+    "HEAD": "abbd1a0e7ea4ef4bbd9a616f9e21f1ada88f9074",
+    "GENERATED_AT": "2026-09-12T04:48:06+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d325b4ad6387b606a79a5ae204fd5b0c5e31e20de11a5fec8525d70ccdc72791"
   },
   "FILES": [
     {
@@ -1509,6 +1509,13 @@
     {
       "path": "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
       "sha": "be8d103ed28a87259d2cf50f32efbadbb41721a6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
+      "sha": "286d50649de5f3ac063a13a5aeaab27e088306a5",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4315,7 +4322,7 @@
     },
     {
       "path": "docs/biblia/CONFORMIDADE-ITALIA.md",
-      "sha": "381fa5d7b3575ad709a1965f0a29f0ebf7ffcbcb",
+      "sha": "01e96abd17a72e179b3febdb7cf771bb7240dfb1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4645,6 +4652,13 @@
     {
       "path": "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "sha": "f49a940e8f3a939390e84ccb8117bc87946745a1",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
+      "sha": "65d439a5ecfac5e755d170758580b719fbc3f3b3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8101,6 +8115,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/os_portoes_da_collection.py",
+      "sha": "49df8ad46c4f1eaa84fe25a2abd26a517d27a8a1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/pacote_de_revisao_t3.py",
       "sha": "b20c4b87c9a09eb22f7fced8f02eb036bbca6c48",
       "ext": ".py",
@@ -9411,7 +9432,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "35f38a5dea83c6bf38537d5d06a777ec93c8072f",
+      "sha": "3bb60c3449781dd6ce26c1d293ecbae7a12c7c77",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10182,6 +10203,13 @@
     {
       "path": "tests/test_portao.py",
       "sha": "a8544ae2e330301b29d402928515f8fcfe110ebd",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_portoes_da_collection.py",
+      "sha": "5204eea04cd0613ef700b6dcc815bc74a4fa77d3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28947,6 +28975,160 @@
       }
     },
     {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 42,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 281,
+        "snippet": "\"admissao/admissao.py\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 292,
+        "snippet": "\"coleta/derivacao_forward.py\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 110,
+        "snippet": "forward = ex[\"PROVADOS\"][\"coleta/rota_forward_documento.py\"][\"FORWARD\"]"
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "data/derivados/BENCHMARK-TEMATICO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 307,
+        "snippet": "\"data/derivados/BENCHMARK-TEMATICO-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 48,
+        "snippet": "SAIDA = \"data/derivados/COLLECTION-V1-CLOSE-GATES.json\""
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 320,
+        "snippet": "\"data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 47,
+        "snippet": "MATRIZ = \"docs/biblia/CONFORMIDADE-ITALIA.md\""
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "docs/biblia/leis.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 44,
+        "snippet": "LEIS = \"docs/biblia/leis.json\""
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "guarda/importar_italia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 269,
+        "snippet": "\"guarda/importar_italia.py\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 258,
+        "snippet": "\"guarda/preservar_coleta.py\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "provas/gate_de_aceitacao_tematica.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 304,
+        "snippet": "\"provas/gate_de_aceitacao_tematica.py\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 46,
+        "snippet": "EXECUCAO = \"system-map/data/provas-de-execucao.json\""
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "tests/test_m2_rota_forward.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 178,
+        "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
+      }
+    },
+    {
       "from_file": "provas/pacote_de_revisao_t3.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -36834,6 +37016,50 @@
       }
     },
     {
+      "from_file": "tests/test_portoes_da_collection.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_portoes_da_collection.py",
+        "line": 16,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_portoes_da_collection.py",
+      "to_file": "docs/biblia/CONFORMIDADE-ITALIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_portoes_da_collection.py",
+        "line": 239,
+        "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_portoes_da_collection.py",
+      "to_file": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_portoes_da_collection.py",
+        "line": 219,
+        "snippet": "\"COLLECTION-V1-CLOSE-GATES.md\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_portoes_da_collection.py",
+      "to_file": "provas/os_portoes_da_collection.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_portoes_da_collection.py",
+        "line": 19,
+        "snippet": "\"portoes_t\", os.path.join(RAIZ, \"provas\", \"os_portoes_da_collection.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_portoes_eame.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -39348,10 +39574,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1489,
-    "files_readable": 573,
-    "files_code_dir": 618,
-    "file_edges": 2585,
+    "files_tracked": 1493,
+    "files_readable": 575,
+    "files_code_dir": 620,
+    "file_edges": 2603,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

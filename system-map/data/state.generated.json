@@ -237,6 +237,7 @@
       "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "data/derivados/BENCHMARK-TEMATICO-V1.json",
       "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+      "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
       "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
@@ -687,6 +688,7 @@
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
+      "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATO-DE-RETORNO-DO-EXECUTOR-V1.md",
       "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
@@ -1207,6 +1209,7 @@
       "provas/o_legado_fora_do_fluxo.py",
       "provas/o_mapa_nao_mente.py",
       "provas/objeto_e_observacao_no_postgres.py",
+      "provas/os_portoes_da_collection.py",
       "provas/pacote_de_revisao_t3.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
@@ -1521,6 +1524,7 @@
       "tests/test_politica_da_coleta.py",
       "tests/test_porta_de_producao.py",
       "tests/test_portao.py",
+      "tests/test_portoes_da_collection.py",
       "tests/test_portoes_eame.py",
       "tests/test_preservar_coleta.py",
       "tests/test_preservar_coleta_no_banco.py",
@@ -1936,10 +1940,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/out-of-flow-legacy-decision-v1",
-    "HEAD": "e6940ea8e0c804523bf7fcaee90bd8be63984d38",
-    "GENERATED_AT": "2026-09-12T02:40:23+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b43a5932be3a23186953da6d4a9c378ccd0aa34f9577b8038c14aa2c792180b9"
+    "BRANCH": "claude/remeasure-collection-v1-close-gates",
+    "HEAD": "abbd1a0e7ea4ef4bbd9a616f9e21f1ada88f9074",
+    "GENERATED_AT": "2026-09-12T04:48:06+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d325b4ad6387b606a79a5ae204fd5b0c5e31e20de11a5fec8525d70ccdc72791"
   },
   "FAMILIES": [
     {
@@ -6584,6 +6588,7 @@
       "outbound": [
         "C-CENSO-CARDS-SENSORES",
         "C-CENSO-DOS-BURACOS",
+        "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
@@ -8046,6 +8051,7 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
@@ -9203,6 +9209,7 @@
       ],
       "outbound": [
         "C-CENSO-ARMAZEM-IT",
+        "C-PROVA-COLETA",
         "C-SUPABASE",
         "C-TESTES"
       ],
@@ -11968,6 +11975,7 @@
         "provas/o_corte_de_cr1.py",
         "provas/o_legado_fora_do_fluxo.py",
         "provas/objeto_e_observacao_no_postgres.py",
+        "provas/os_portoes_da_collection.py",
         "provas/pacote_de_revisao_t3.py",
         "provas/paridade_da_lingua.py",
         "provas/preflight_022_live.sh",
@@ -11982,7 +11990,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 33,
+      "file_count": 34,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11998,17 +12006,20 @@
         "C-BIBLIA",
         "C-CADEIA-V21",
         "C-CENSO-CARDS-SENSORES",
+        "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-DE-RETORNO",
         "C-CONTRATO-TELEMETRIA",
+        "C-DERIVACAO-FORWARD",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-IMPORTAR",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
@@ -12066,6 +12077,7 @@
           "ENTRADAS_PERMITIDAS",
           "ENTRADAS_PROIBIDAS",
           "ESTUDO_EXTERNO",
+          "ETAPAS",
           "EVIDENCIA_QUE_VIAJA",
           "FAMILIAS_EXCLUIDAS",
           "FONTE_DO_POSITIVO",
@@ -12076,6 +12088,7 @@
           "NEGACOES",
           "PROIBIDOS_NA_FILA_CEGA",
           "PROIBIDOS_NO_HTML",
+          "PROPRIEDADES",
           "PUBLICADOR",
           "PUBLICADOR_POR_CAMINHO",
           "RAZOES",
@@ -12088,11 +12101,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 864,
+        "palavras": 885,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 862,
+        "sem_marca_de_lingua": 883,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15417,6 +15430,7 @@
         "tests/test_politica_da_coleta.py",
         "tests/test_porta_de_producao.py",
         "tests/test_portao.py",
+        "tests/test_portoes_da_collection.py",
         "tests/test_portoes_eame.py",
         "tests/test_preservar_coleta.py",
         "tests/test_preservar_coleta_no_banco.py",
@@ -15452,7 +15466,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 99,
+      "file_count": 100,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17027,7 +17041,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/out-of-flow-legacy-decision-v1"
+        "branch claude/remeasure-collection-v1-close-gates"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17454,7 +17468,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
@@ -17465,6 +17479,11 @@
           "file": "provas/medir_admission_t3_atual.py",
           "line": 68,
           "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO = {\","
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 281,
+          "snippet": "\"admissao/admissao.py\","
         },
         {
           "file": "provas/pacote_de_revisao_t3.py",
@@ -19126,12 +19145,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 699,
           "snippet": "\"BIBLIA-CANONICA-DA-COLETA.md\", \"README.md\", \"AGENTS.md\","
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 44,
+          "snippet": "LEIS = \"docs/biblia/leis.json\""
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 47,
+          "snippet": "MATRIZ = \"docs/biblia/CONFORMIDADE-ITALIA.md\""
         }
       ],
       "categoria": "PROOF"
@@ -19162,7 +19191,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_biblia.py",
@@ -19208,6 +19237,11 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 264,
           "snippet": "conf = ler(os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md'))"
+        },
+        {
+          "file": "tests/test_portoes_da_collection.py",
+          "line": 239,
+          "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -19649,6 +19683,24 @@
         }
       ],
       "categoria": "RULE"
+    },
+    {
+      "from": "C-CENSO-EXECUTORES",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo dos executores — caminhos, papeis e cobertura alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 46,
+          "snippet": "EXECUCAO = \"system-map/data/provas-de-execucao.json\""
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CENSO-EXECUTORES",
@@ -22047,6 +22099,24 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 292,
+          "snippet": "\"coleta/derivacao_forward.py\","
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22432,12 +22502,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
           "line": 742,
           "snippet": "fonte_do_writer = open(os.path.join(RAIZ, \"guarda\", \"preservar_coleta.py\"),"
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 258,
+          "snippet": "\"guarda/preservar_coleta.py\","
         }
       ],
       "categoria": "PROOF"
@@ -23915,6 +23990,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-IMPORTAR",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Levar o dado para o banco alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 269,
+          "snippet": "\"guarda/importar_italia.py\","
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IMPORTAR",
@@ -27534,7 +27627,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 26 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 27 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -28322,12 +28415,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 76,
           "snippet": "(\"coleta/rota_forward_documento.py\","
+        },
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 110,
+          "snippet": "forward = ex[\"PROVADOS\"][\"coleta/rota_forward_documento.py\"][\"FORWARD\"]"
         }
       ],
       "categoria": "PROOF"
@@ -30457,6 +30555,24 @@
     {
       "from": "C-TESTES",
       "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 178,
+          "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-PROVA-COLETA",
       "type": "WRITES",
       "payload": "artefacto",
       "raw_type": "WRITES",
@@ -31568,7 +31684,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 756,
+  "UNCLAIMED_FILES_COUNT": 758,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31736,12 +31852,12 @@
     "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 645,
-    "edges_proven": 643,
+    "edges": 649,
+    "edges_proven": 647,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1489,
-    "files_covered": 733,
+    "files_tracked": 1493,
+    "files_covered": 735,
     "files_code_unclaimed": 0
   }
 }
