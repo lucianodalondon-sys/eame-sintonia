@@ -4724,3 +4724,110 @@ Dois dos meus mutantes não mutavam: `[] or [...]` devolve a lista, e
     É UMA PERGUNTA QUE NUNCA FOI FEITA.
 
 Corrigidos: 12 mutantes, 0 sobreviventes.
+
+---
+
+# §64 · CINCO BLOCKERS, E NENHUM DELES VEM DO PLACAR
+
+**Missão:** `C-REMEASURE-COLLECTION-V1-CLOSE-GATES`
+**HEAD final:** `be1f42eb`
+**Dono novo:** `provas/os_portoes_da_collection.py`
+
+## 64.1 · O QUÊ
+
+```
+COLLECTION_CORE_CLOSE = FAIL
+BIG_COLLECTION_READY  = FAIL
+
+BLOCKERS          5
+DÍVIDA QUE NÃO BLOQUEIA  5
+CAUSAS-RAIZ       4
+MISSÕES ATÉ FECHAR  3
+```
+
+## 64.2 · POR QUÊ — DOIS EIXOS QUE NÃO SE INFEREM
+
+A matriz de conformidade tinha um eixo só: a lei já funciona? Faltava o outro:
+a falta dela **impede** a coleta grande?
+
+| eixo | natureza | fonte |
+|---|---|---|
+| `IMPLEMENTATION_STATE` | declarado pela Bíblia | `docs/biblia/leis.json` |
+| `CLOSE_GATE` | **medido** | esta missão |
+
+Medido: **48 leis `PARTIAL`** e **5 blockers**. Nenhum blocker foi derivado do
+estado de lei.
+
+    UMA LEI PARTIAL PODE NÃO BLOQUEAR NADA,
+    E UMA LEI PEQUENA PODE BLOQUEAR TUDO.
+
+Inferir um eixo do outro produz uma fila de missões que trabalha no que é fácil
+de medir em vez do que está a travar.
+
+## 64.3 · PROVA — DOIS ACHADOS QUE SÓ APARECERAM POR CORRER
+
+Levantei um PostgreSQL 16 descartável, apliquei as 27 migrations, e a
+verificação `008` da própria casa passou. Depois:
+
+```
+corrida COMPLETA  →  raw_asset = 1 · RUN_STATE = COMPLETE
+corrida sem país  →  raw_asset = 0 · enum `pais` recusa NOT_PRESERVED
+```
+
+**A prova da estrada canónica não corre neste HEAD.**
+`test_m2_rota_forward` salta 22 de 25 sem banco, e com banco falha 21. O
+fixture escreve a ficha do armazém com `SOURCE_SLUG` e **sem** `SOURCE_ID`, e
+desde a B5B o escritor recusa observação sem fonte real.
+
+    A ESTRADA ESTÁ BOA E O RETRATO DELA ESTÁ VELHO.
+    Mas um retrato velho não prova a estrada de hoje.
+
+O defeito é o **inverso** do clássico: não é uma prova que usa dados que a
+produção nunca entrega — é uma prova que entrega **menos** do que a produção
+entrega. `ingresso.para_o_dono_do_raw` já carrega `SOURCE_ID`.
+
+**Duas línguas para a ausência colidem no banco.** `_corrida_completa` preenche
+campo em falta com `NOT_PRESERVED`; o enum `pais` só aceita
+`ES/FR/IT/PT/EU/BR/OTHER/NAO_SEI`. Sem `SOURCE_COUNTRY` o bruto não aterra e a
+corrida fica `PARTIAL`, em silêncio para quem não lê o recibo.
+
+É a **mesma família** do defeito do `SOURCE_ID` no `§60`: um valor honesto de um
+lado que o outro lado não aceita.
+
+## 64.4 · O QUE CUSTOU A CLASSIFICAR
+
+O mecanismo temático falhar o portão é `HIGH` e **não** bloqueia. A função da
+coleta grande é **adquirir e preservar**; admitir bem é a etapa seguinte, e a
+Admission já produz decisão auditável com `NÃO SEI` de primeira classe. Bloqueia
+o universo T3, e não a máquina.
+
+Os 13 legados também não bloqueiam: estão fora por decisão, e o que entra pela
+frente não passa por aquele estado.
+
+E o inverso também foi guardado: `G-READY-01` continua `CRITICAL/BLOCKER`
+embora exista um CLI que produz READY à mão.
+
+    UM CLI NÃO É UMA ROTA.
+
+## 64.5 · CONSEQUÊNCIA — A FILA MÍNIMA
+
+| # | missão | causa-raiz |
+|---|---|---|
+| 1 | `C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1` | RC-B, sem dependência |
+| 2 | `C-RESTORE-CANONICAL-E2E-PROOF-V1` | RC-C, depende de RC-B |
+| 3 | `C-CLOSE-THE-READY-EDGE-V1` | RC-A |
+
+`MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`: depende de quantas
+capacidades do SCRAP a coleta grande exige, e isso ainda não foi medido. Contar
+agora seria feeling com cara de DAG.
+
+## 64.6 · E UM MUTANTE QUE ENSINOU A CONFERIR
+
+O último sobrevivente foi o total das leis escrito à mão: `return d, L, 105`.
+O teste conferia `LAW_TOTAL == 105` e o mutante satisfazia-o.
+
+    UM NÚMERO CONFERIDO CONTRA ELE PRÓPRIO
+    NÃO É UMA CONFERÊNCIA: É UM ECO.
+
+Morto com um registo alterado para sete leis, exigindo que o total o siga.
+12 mutantes, 0 sobreviventes.
