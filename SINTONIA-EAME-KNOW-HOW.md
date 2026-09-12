@@ -9420,3 +9420,164 @@ um ficheiro. Revertida e refeita cirurgicamente: 29 inserções.
 ```
     UM DIFF QUE NINGUÉM CONSEGUE LER NÃO FOI REVISTO: FOI ACEITE.
 ```
+
+---
+
+# §92 · LER A ÁRVORE PROVA QUE A PEÇA EXISTE. SÓ CORRER PROVA QUE A ARESTA EXISTE
+
+**Missão:** `SCRAP-FLOW-01 — UM FLUXO OPERACIONAL REAL PELO ORQUESTRADOR`
+**Tocado:** `coleta/scrap_colheita.py` (novo) · `leis/retorno_da_coleta.py`
+(portado) · `orquestrador/orquestrador.py` · `coleta/ingresso.py` ·
+`pedido/receitas.py` · `.github/workflows/sintonia-scrap.yml`
+**Gasto:** `REAL_NETWORK = 0 · META_REQUESTS = 0 · APIFY_RUNS = 0 · COST_USD = 0`
+
+A `§91` fechou o dinheiro e deixou escrita a diferença que faltava:
+`MODULE CAN'T SPEND != FLOW IS CANONICAL`. Esta secção é o outro lado dela — e
+o que se aprendeu foi mais sobre COMO SE PROVA um fluxo do que sobre o fluxo.
+
+## 92.1 · OITO MUTANTES SOBREVIVERAM, E TODOS PELA MESMA RAZÃO
+
+A bateria tinha vinte e duas sentinelas verdes. A mutação matou dez de dezoito
+e deixou oito de pé — e os oito partiam o caminho de forma óbvia: tirar o
+executor do registo, deixar o adapter cunhar a própria corrida, repor a
+heurística, mandar à admissão o item de antes da porta.
+
+Nenhum deles mudava uma linha que as sondas olhassem. Todas liam a **árvore**:
+imports, chamadas, campos, nomes.
+
+```
+    LER A ÁRVORE PROVA QUE A PEÇA EXISTE.
+    SÓ CORRER PROVA QUE A ARESTA EXISTE.
+```
+
+É a `MODULE EXISTS != EDGE EXISTS != FLOW EXISTS` aplicada às **sentinelas**, e
+não ao código. Uma bateria inteira de análise estática prova que as peças estão
+lá e não prova que elas se falam. O conserto foi uma classe que corre o caminho
+todo — numa cópia da árvore, com um só ficheiro falso — e afirma sobre o
+RESULTADO. Os oito morreram.
+
+E o inverso também é verdade e vale dizer: as sondas de árvore continuam a
+apanhar o que as de execução não apanham (o disparador a ganhar o nome do ator,
+um classificador temático a entrar no coletor). São duas famílias, e nenhuma
+substitui a outra.
+
+## 92.2 · A IDENTIDADE DESCE COM O PEDIDO. NUNCA SOBE DA OBSERVAÇÃO
+
+O SCRAP não conhece `SOURCE_ID`, e não é distração: o envelope canónico tem
+`PLATFORM`, `SOURCE_ACCOUNT`, `NATIVE_ID` e `URL` — quatro campos verdadeiros,
+e nenhum deles é uma fonte provada. A porta da coleta, do outro lado, fala em
+FONTES do atlas.
+
+A saída fácil era derivar: a conta vira fonte, o domínio vira fonte, o slug
+vira fonte. Todas fabricam identidade, e uma identidade fabricada não rebenta —
+ela responde, e a observação errada fica ligada à fonte errada para sempre.
+
+```
+    URL NÃO É SOURCE_ID. HANDLE NÃO É SOURCE_ID. PLATAFORMA NÃO É FONTE.
+    A IDENTIDADE DESCE COM O PEDIDO, E NUNCA SOBE DA OBSERVAÇÃO.
+```
+
+É a mesma forma da `§91`: lá, a autorização de gasto chegava de fora com
+`SOURCE_ID` e `PROPOSITO`; aqui, a fonte chega de fora com o pedido. Quem
+observa não é quem sabe de quem observou. Sem a fonte, o executor declara **zero
+colheita e escreve porquê** — o que não é uma falha, é a resposta certa.
+
+## 92.3 · UMA TROCA QUE NÃO MUDA NENHUM NÚMERO NÃO SE CONSEGUE VIGIAR
+
+Medido: o orquestrador fazia `pela_entrada(itens)` e a seguir `pela_porta(itens)`
+— **a mesma lista**. O ingresso preservava a observação, cunhava-lhe ficha,
+`sha256` e sítio no armazém, devolvia CONTAGENS, e o que ia a julgamento era o
+item original.
+
+```
+    O ITEM QUE SAI DO INGRESSO NÃO É O ITEM QUE ENTROU,
+    E MANDAR O ORIGINAL À ADMISSÃO É FAZER A PORTA NÃO TER ACONTECIDO.
+```
+
+O que torna este defeito perigoso não é o erro: é a **invisibilidade**. As duas
+listas têm o mesmo tamanho, os mesmos campos e o mesmo aspecto no recibo.
+Trocar uma pela outra não mexe em número nenhum, e por isso nenhuma sentinela
+de contagem alguma vez a apanharia — o mutante que refazia a troca sobreviveu à
+primeira volta exactamente por isso.
+
+```
+    UMA TROCA QUE NÃO MUDA NENHUM NÚMERO NÃO SE CONSEGUE VIGIAR.
+```
+
+A regra geral: quando a correcção é invisível nos números existentes, **o
+conserto inclui criar o número**. Aqui foi `COM_CARIMBO_DA_PORTA` — quantos dos
+julgados traziam a prova do ingresso. Sem ele, a lei ficava escrita e
+indefensável.
+
+## 92.4 · UM MUTANTE QUE NÃO MUDA O COMPORTAMENTO NÃO MEDE SENTINELA NENHUMA
+
+Dois dos sobreviventes eram culpa da prova, e não do código: um renomeava o
+`id` de um executor (que continuava a correr, só com outro nome) e o outro
+acrescentava um `if x else []` a uma expressão onde `x` é sempre verdadeiro.
+
+```
+    UM MUTANTE QUE NÃO MUDA O COMPORTAMENTO NÃO MEDE SENTINELA NENHUMA —
+    E CONTA-SE COMO SOBREVIVENTE, QUE É O PIOR DOS DOIS ENGANOS.
+```
+
+Ele acusa a bateria de um buraco que não existe, e a pressa seguinte escreve
+uma sentinela para o tapar. Um sobrevivente obriga sempre a duas perguntas, por
+esta ordem: *o mutante muda mesmo o comportamento?* e só depois *falta uma
+sentinela?*
+
+## 92.5 · CALAR QUATRO CAMINHOS PARA CORRIGIR UM NÃO É CORRIGIR
+
+O contrato de retorno diz que só `COLHEITA` atravessa, e a árvore tinha uma
+heurística a adivinhar: «uma lista, ou o primeiro campo do ficheiro que seja
+lista de fichas». Aplicá-lo inteiro, de uma vez, foi o primeiro impulso — e
+partiu oito sentinelas: quatro executores entregavam colheita real por ali.
+
+A escolha certa não foi nenhum dos dois extremos. A heurística sobrevive para
+quem ainda não declara envelope, e **deixou de ser silenciosa**: sai contada no
+recibo, e um campo diz sempre qual das duas leituras foi usada.
+
+```
+    UMA DÍVIDA MEDIDA É UMA DÍVIDA. UMA DÍVIDA CALADA É UM BUG.
+```
+
+Uma missão que migra um caminho não pode calar cinco para o número fechar. O
+que ela pode — e deve — é deixar os outros quatro **visíveis e contados**, para
+que a missão seguinte saiba exactamente o que herda.
+
+## 92.6 · DUAS LINHAGENS ESCREVERAM A MESMA LEI, E NENHUMA SABE DA OUTRA
+
+Medido nesta missão, e não resolvido nela: `leis/autorizacao_de_gasto.py` existe
+nas DUAS linhagens da SR-02, com bytes diferentes (20.572 e 18.236), escrito
+duas vezes por duas frentes que não se viram.
+
+```
+    ONE CONCEPT → ONE OWNER É UMA LEI DE REPOSITÓRIO,
+    E UM REPOSITÓRIO COM RAMOS LONGOS TEM MAIS DO QUE UM PRESENTE.
+```
+
+O portado nesta missão foi o oposto disso, de propósito: `retorno_da_coleta.py`
+veio **byte a byte**, sem uma linha reescrita. Duas cópias da mesma lei são duas
+leis, e a segunda aprende a responder o que a primeira recusa. Quando um
+contrato atravessa a fronteira entre ramos, ou se copia exactamente ou se deixa
+onde está.
+
+## 92.7 · CONSEQUÊNCIA
+
+```
+ENTRYPOINT MIGRADO        1  (sintonia-scrap.yml · fase janela)
+CAMINHO PROVADO           request -> orquestrador -> COLLECT -> router ->
+                          adapter -> provider -> RAW -> envelope -> ingresso
+                          -> admissao
+SELECTED_DIRECT_BYPASS    NO
+OUTROS BYPASSES           continuam, medidos e nomeados
+ATAQUES 31 · MUTANTES 18 · SOBREVIVENTES 0 · NEW_FAILURES 0
+REAL_NETWORK 0 · META_REQUESTS 0 · APIFY_RUNS 0 · COST_USD 0
+```
+
+E a distinção que fica, porque ela não se resolveu e não deve parecer resolvida:
+
+```
+    SPEND ENFORCEMENT resolvido != CANONICAL ORCHESTRATION resolvida.
+    MODULE CAN'T SPEND != FLOW IS CANONICAL — e agora UM fluxo é canónico,
+    o que é diferente de o sistema o ser.
+```
