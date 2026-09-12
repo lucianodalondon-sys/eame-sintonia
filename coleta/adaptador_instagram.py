@@ -134,63 +134,28 @@ def unidade_de_trabalho(ident):
              'CAPABILITY': CAPACIDADE_NA_MATRIZ})
 
 
-def _com_durabilidade(banco, *, rt, ident, run_id, midia_url, midia_ficheiro,
-                      model_hint, guardar, oficina):
-    """A mesma cadeia, com RUN, checkpoint e rastro duráveis à volta dela.
+def unidade_do_pedido(*, url=None, ident=None, **_):
+    """A unidade de trabalho que o EXECUTOR pergunta. → (target, entrada, campos).
 
-    O registo devolvido é o MESMO que a cadeia devolve sem banco — mais os três
-    números que só existem porque houve banco. Um caminho instrumentado que
-    devolvesse outra coisa faria a prova medir a instrumentação.
+    Quem chama `COLLECT` traz um `url` ou um `ident`. Só este ficheiro sabe que
+    a unidade retomável de um pedido de Reel é o Reel — nem a corrida, nem a
+    conta, nem o dia.
+
+        A UNIDADE DE TRABALHO É A ÚNICA COISA QUE SÓ O DONO DA PLATAFORMA
+        PODE DIZER. O RESTO DA DURABILIDADE É DA CASA.
     """
-    import coleta_checkpoint as ck
-    target, entrada = unidade_de_trabalho(ident)
-
-    def trabalho(relator, contexto):
-        registo = rt.transcrever_reel(
-            ident, run_id=run_id, midia_url=midia_url,
-            midia_ficheiro=midia_ficheiro, modelo=model_hint,
-            guardar=guardar, oficina=oficina, etapa=relator)
-        # ⚠️ `PERSISTIU` É O QUE FICOU NO DISCO, NÃO O QUE A CADEIA DEVOLVEU.
-        # Um `TRANSCRIPT_TEXT` em memória com `guardar=False` não é um item
-        # persistido, e contá-lo faria o checkpoint andar sobre nada.
-        #
-        #     SEEN != PERSISTED.
-        salvos = 1 if registo.get('DERIVED') else 0
-        # ⚠️ «OUVI E NÃO HAVIA FALA» NÃO É FALHA DA UNIDADE.
-        # `REQUESTED_EMPTY` é o reconhecedor a dizer que correu e o áudio não
-        # tinha voz. A unidade FOI feita; ela é que veio vazia — e o enum
-        # `run_status` tem `vazia` exactamente por isso, ao lado de `falhou`.
-        #
-        #     ZERO_RESULTS É UM RESULTADO. `falhou` SERIA UMA MENTIRA BARATA.
-        estado = registo.get('TRANSCRIPT_STATE')
-        falhou = (estado not in ('OK', 'REQUESTED_EMPTY')) or not registo.get('RAW')
-        return {'REGISTO': registo, 'PERSISTIU': salvos, 'FALHOU': falhou,
-                'PORQUE': ('%s/%s' % (registo.get('MEDIA_STATE'), estado))}
-
-    r = ck.executar_unidade_duravel(
-        banco, run_id=run_id, target=target, entrada=entrada, actor=NOME,
-        platform=PLATAFORMA, trabalho=trabalho,
-        campos_da_identidade=CAMPOS_DA_IDENTIDADE,
-        unidade=entrada['EXTERNAL_ID'], policy_version=str(politica().get('ESTADO')))
-    registo = r.get('REGISTO')
-    if registo is None:
-        # O checkpoint recusou antes de qualquer trabalho. Isso NÃO é falha da
-        # cadeia — é a trava a funcionar, e ela tem nome próprio.
-        return {'REEL': dict(ident), 'MEDIA_STATE': r.get('STATE'),
-                'TRANSCRIPT_STATE': 'NAO_PEDIDO',
-                'CHECKPOINT_STATE': r.get('STATE'),
-                'CHECKPOINT_ID': r.get('CHECKPOINT_ID'),
-                'RUN_ID': r.get('RUN_ID'), 'RAW': None, 'DERIVED': None,
-                'WHY': r.get('PORQUE')}
-    registo['CHECKPOINT_ID'] = r.get('CHECKPOINT_ID')
-    registo['CHECKPOINT_INPUT_HASH'] = r.get('INPUT_HASH')
-    registo['RUN_STATE_PERSISTED'] = 'YES'
-    return registo
+    if ident is None:
+        if not url:
+            return None
+        import reel_transcricao as rt
+        ident = rt.identidade_do_url(url)
+    alvo, entrada = unidade_de_trabalho(ident)
+    return alvo, entrada, CAMPOS_DA_IDENTIDADE
 
 
 def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
                   midia_url=None, midia_ficheiro=None, guardar=True,
-                  oficina=None, banco=None, **_):
+                  oficina=None, etapa=None, **_):
     """Um Reel, ponta a ponta. → (objetos, trace).
 
     Delega a cadeia ja provada. NAO a reimplementa: a cadeia tem 47 testes e
@@ -229,21 +194,36 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
         ident = rt.identidade_do_url(url)
     # `guardar=False` existe para a prova de fiacao: atravessar a cadeia
     # inteira sem escrever no disco da casa. Nao e um modo de producao.
-    if banco is not None:
-        registo = _com_durabilidade(
-            banco, rt=rt, ident=ident, run_id=run_id, midia_url=midia_url,
-            midia_ficheiro=midia_ficheiro, model_hint=model_hint,
-            guardar=guardar, oficina=oficina)
-    else:
-        registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
-                                      midia_ficheiro=midia_ficheiro,
-                                      modelo=model_hint, guardar=guardar,
-                                      oficina=oficina)
+    # ⚠️ A DURABILIDADE NÃO MORA AQUI, E NA C10.6B MORAVA.
+    # Este adaptador abria a RUN, ligava o checkpoint e fechava os dois. Funcionava
+    # — e era a prova de que a infraestrutura comum NÃO era comum: as outras dez
+    # capacidades wired da casa não tinham nada disso.
+    #
+    #     UMA INFRAESTRUTURA COMUM NÃO É PROVADA POR UM ÚNICO ADAPTER USANDO-A.
+    #
+    # A C10.6C levou-a para `coleta/scrap_executor.py`, que é o ponto mais alto
+    # que conhece a execução real sem inventar semântica de plataforma. O que
+    # ficou deste lado é a única coisa que só este ficheiro sabe dizer:
+    # `unidade_do_pedido`, e o `etapa=` que a cadeia usa para relatar.
+    registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
+                                  midia_ficheiro=midia_ficheiro,
+                                  modelo=model_hint, guardar=guardar,
+                                  oficina=oficina, etapa=etapa)
     trace = forn.de_degraus('instagram.reel.transcribe',
                             registo.get('CAPTURE_ATTEMPTS'),
                             resultado=registo.get('MEDIA_STATE'))
     trace['ASR_MODEL_HINT'] = model_hint
     trace['ASR_OWNER'] = 'ferramentas/fala_local.py'
+    # ── O VEREDITO DA UNIDADE SOBE NA LÍNGUA DE `leis/falhas.py` ────────────
+    # Um objeto ter voltado não quer dizer que a unidade ficou feita: o Reel
+    # pode ter mídia e não ter texto. Quem sabe ler `TRANSCRIPT_STATE` é este
+    # ficheiro — e quem decide o estado da corrida é o executor, que não o sabe
+    # ler. Então o veredito sobe pelo trace, com a palavra do DONO do
+    # vocabulário, nunca com uma inventada aqui.
+    #
+    #     «OUVI E NÃO HAVIA FALA» É `ZERO_RESULTS`, E ISSO É UM RESULTADO.
+    #     «NÃO CONSEGUI OUVIR» É OUTRA COISA, E TEM OUTRO NOME.
+    trace['CANONICAL_STATE'] = _veredito_da_unidade(registo)
     # A DECISAO SOBE SEMPRE, TENHA ELA BARRADO OU NAO. Quem le o trace precisa
     # de saber que politica estava em vigor quando aquilo correu — um artefato
     # que so menciona a lei quando ela recusa nao deixa auditar o que passou.
@@ -251,7 +231,22 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
     return [registo], trace
 
 
-def reel_transcrever(*, run_id, country_scope=None, medida=None, **kw):
+def _veredito_da_unidade(registo):
+    """O estado canônico desta unidade de trabalho. → nome de `leis/falhas.py`."""
+    estado = registo.get('TRANSCRIPT_STATE')
+    if estado == 'OK' and registo.get('RAW'):
+        return 'OK'
+    if estado == 'OK':
+        # Houve texto e ele não ficou ancorado num pai preservado.
+        return 'PARTIAL_RESULTS'
+    if estado == 'REQUESTED_EMPTY':
+        return 'ZERO_RESULTS'
+    if estado in ('NAO_PEDIDO', 'NOT_ATTEMPTED'):
+        return 'NOT_APPLICABLE'
+    return 'ITEM_ERROR'
+
+
+def reel_transcrever(*, run_id, country_scope=None, medida=None, etapa=None, **kw):
     """A rota CRUA, que `social_rotas` despacha depois de medir o portao.
 
     Devolve a lista de objetos — o trace nasce do registo que o roteador sela.
@@ -269,7 +264,7 @@ def reel_transcrever(*, run_id, country_scope=None, medida=None, **kw):
 
         O TRACE QUE NOMEIA O FICHEIRO ERRADO MENTE COM PRECISAO DE RELOJOEIRO.
     """
-    objetos, trace = capturar_reel(run_id=run_id, **kw)
+    objetos, trace = capturar_reel(run_id=run_id, etapa=etapa, **kw)
     if medida is not None:
         medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'
         medida['ASR_OWNER'] = 'ferramentas/fala_local.py'
@@ -287,10 +282,21 @@ def reel_transcrever(*, run_id, country_scope=None, medida=None, **kw):
 # ══════════════════════════════════════════════════════════════════════════
 # Tres capacidades com rota, quatro sem. As quatro sem rota NAO devolvem
 # sucesso vazio: o executor le o estado medido e responde com ele.
+# ⚠️ AS TRES DECLARAM A MESMA UNIDADE DE TRABALHO, E E A MESMA MESMO.
+# `capture`, `audio` e `transcribe` são três pedidos sobre O MESMO Reel. A
+# unidade retomável é o Reel — não o pedido, não a corrida, não o dia.
+#
+# Isto tem uma consequência que é desenho e não acidente: pedir `capture` e
+# depois `transcribe` do mesmo Reel encontra O MESMO checkpoint, e o segundo
+# pedido leva `JA_CONCLUIDO_NAO_PAGAR_DUAS_VEZES` se o primeiro concluiu.
+#
+#     A UNIDADE DE TRABALHO E O QUE SE FEZ, NAO O NOME PELO QUAL SE PEDIU.
 reg.registar(PLATAFORMA, 'instagram.reel.capture', adaptador=NOME,
+             unidade=unidade_do_pedido,
              executa=capturar_reel,
              nota='mesma cadeia da transcricao; a captura e o primeiro degrau')
 reg.registar(PLATAFORMA, 'instagram.reel.audio', adaptador=NOME,
+             unidade=unidade_do_pedido,
              executa=capturar_reel,
              nota='FFmpeg extrai do video ja preservado; faixa m4a poupa 7,58x de banda')
 # A UNICA DAS TRES COM `rota`, E E DE PROPOSITO.
@@ -304,6 +310,7 @@ reg.registar(PLATAFORMA, 'instagram.reel.audio', adaptador=NOME,
 # Agora conhece esta. Deixar `executa` aqui seria manter aberta, ao lado do
 # portao, a porta que existia por nao haver portao.
 reg.registar(PLATAFORMA, 'instagram.reel.transcribe', adaptador=NOME,
+             unidade=unidade_do_pedido,
              rota=reel_transcrever,
              nota='o unico caminho onde o ASR proprio e indispensavel; '
                   'atravessa INSTAGRAM/FETCH_TRANSCRIPT no dono da politica')
