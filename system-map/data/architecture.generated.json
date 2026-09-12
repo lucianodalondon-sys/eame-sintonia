@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-canonical-trial-c10-7",
-    "HEAD": "ed257337cde0a0ef26f73491549638df861d79ca",
-    "GENERATED_AT": "2026-09-12T12:24:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8934cca35c643713679f977660a72495dc2b44447cc0bf431bf845da4c7b7eeb"
+    "BRANCH": "claude/sintonia-scrap-bluesky-live-trial-c10-8a",
+    "HEAD": "f40bfe065a8570cc6ceeed05b4fec42d915c5476",
+    "GENERATED_AT": "2026-09-12T12:53:41+00:00",
+    "SOURCE_TREE_FINGERPRINT": "de49fdb8ca32dad6997353fe2d1c387b7bc07798265ee6f7dcca9af110f83eb9"
   },
   "FILES": [
     {
@@ -1417,7 +1417,7 @@
     },
     {
       "path": "coleta/scrap_capacidades.py",
-      "sha": "610197376355378a74709d512c45752e38e9ac1f",
+      "sha": "5e1f28b6b5b9ead72c2565316e46f8fbd36a884d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1438,7 +1438,7 @@
     },
     {
       "path": "coleta/scrap_http.py",
-      "sha": "72780ea340ac41923aa98121f0601fc875a537c6",
+      "sha": "9f131ce0368c0fcdf57dbe7b620b5d7c13906744",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1473,7 +1473,7 @@
     },
     {
       "path": "coleta/social_rotas.py",
-      "sha": "439ce7e9004616697f44c7ed093a6c0ab7728530",
+      "sha": "3619a26ddc1da4295781f0cc6e5e9eda8c9536b7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4160,6 +4160,27 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
+      "sha": "61b7afaf51e1782cf23e6b4138c116965f40810d",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__77ae30349938860b.txt",
+      "sha": "7da15d4a9d6ce6f8258ad5c1f6af361a5ec9d810",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
+      "sha": "54db0248c94a0eaf10d419d1cac440850c5b462d",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "sha": "39facad66d67a5b3b620435937a5e03ed99b1dc9",
       "ext": ".json",
@@ -5247,6 +5268,13 @@
     {
       "path": "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
       "sha": "df71104b7d2d3ce1b45230a04eee0a205d8a2163",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
+      "sha": "0b3e666202d4bfa7e12d7d226782e25f1194863e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7996,6 +8024,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/_c108a_ultima_corrida.json",
+      "sha": "29b5a9ab328c592959d3a356152dd20dc7a5a367",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_autoridade_da_fonte.py",
       "sha": "6eb469aae612e69fe43a9f02a094324b3a2516ff",
       "ext": ".py",
@@ -8034,6 +8069,13 @@
       "path": "provas/auditoria_live.sh",
       "sha": "fd45c1c15751ff4ef3d7fcbdef0a5462a698cfd8",
       "ext": ".sh",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/bluesky_trial_ao_vivo.py",
+      "sha": "5f23403109daa71bead25730104b9bda240b0aa8",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -9488,7 +9530,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "26a81a3658c02bcb999f58e7c9d05bbc0cae70a2",
+      "sha": "0a0b5b9790277826422b501955ddf7ed6ee9dbbb",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9965,6 +10007,13 @@
     {
       "path": "tests/test_c10_7_ensaio_canonico.py",
       "sha": "a6916bf69d2d60e78d56d495d1d1cd80b4eb055e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "sha": "a77a052c8c208ac71299d718efa980a68b0fa075",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13374,6 +13423,17 @@
         "file": "coleta/scrap_capacidades.py",
         "line": 121,
         "snippet": "_B = 'docs/sintonia-scrap/BENCHMARK-V1-FINAL.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 204,
+        "snippet": "'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',"
       }
     },
     {
@@ -26335,6 +26395,105 @@
       }
     },
     {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 40,
+        "snippet": "import scrap_capacidades as cap     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 135,
+        "snippet": "return _sha(os.path.join(RAIZ, 'coleta', 'scrap_capacidades.py'))"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 41,
+        "snippet": "import scrap_executor as sx         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 159,
+        "snippet": "import scrap_http as http"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 42,
+        "snippet": "import scrap_registo as reg         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 43,
+        "snippet": "import social_envelope as env       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 158,
+        "snippet": "import social_rotas as sr                                 # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 44,
+        "snippet": "import social_matriz as mz          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/bluesky_trial_ao_vivo.py",
+      "to_file": "provas/_c108a_ultima_corrida.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/bluesky_trial_ao_vivo.py",
+        "line": 281,
+        "snippet": "nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'"
+      }
+    },
+    {
       "from_file": "provas/chain.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -32415,6 +32574,160 @@
         "file": "tests/test_c10_7_ensaio_canonico.py",
         "line": 41,
         "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/adaptador_aberto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 406,
+        "snippet": "fonte = _fonte('coleta/adaptador_aberto.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 38,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 39,
+        "snippet": "import scrap_executor as sx        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 240,
+        "snippet": "texto = _fonte('coleta/scrap_executor.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 40,
+        "snippet": "import scrap_http as http          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 41,
+        "snippet": "import scrap_registo as reg        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 429,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 43,
+        "snippet": "import social_rotas as sr          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 49,
+        "snippet": "'authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 37,
+        "snippet": "import falhas as fx                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 42,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "provas/_c108a_ultima_corrida.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 50,
+        "snippet": "CORRIDA = 'provas/_c108a_ultima_corrida.json'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "provas/bluesky_trial_ao_vivo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 308,
+        "snippet": "import bluesky_trial_ao_vivo as bt"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "to_file": "provas/bluesky_trial_ao_vivo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "line": 379,
+        "snippet": "fonte = _fonte('provas/bluesky_trial_ao_vivo.py')"
       }
     },
     {
@@ -39586,10 +39899,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1504,
-    "files_readable": 581,
-    "files_code_dir": 628,
-    "file_edges": 2599,
+    "files_tracked": 1511,
+    "files_readable": 583,
+    "files_code_dir": 631,
+    "file_edges": 2623,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

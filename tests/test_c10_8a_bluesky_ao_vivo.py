@@ -292,5 +292,153 @@ class APoliticaEOCustoNaoMudaram(unittest.TestCase):
                          'o trial promoveu estado durante a execucao')
 
 
+class OTetoDePedidosMorde(unittest.TestCase):
+    """UM TETO QUE NAO RECUSA NAO E UM TETO.
+
+    A primeira bateria de mutacao provou a necessidade: pondo `if False:` a
+    frente do `raise`, o teto deixava de recusar e nenhuma sentinela reparava —
+    porque a unica que olhava para ele procurava a PALAVRA `TetoEstourado` no
+    ficheiro, e a palavra continuava la.
+
+        UMA SENTINELA QUE PROCURA A PALAVRA NAO MEDE O QUE ELA FAZ.
+    """
+
+    def setUp(self):
+        sys.path.insert(0, os.path.join(RAIZ, 'provas'))
+        import bluesky_trial_ao_vivo as bt
+        self.bt = bt
+        bt.PEDIDOS[:] = []
+
+    def tearDown(self):
+        self.bt.PEDIDOS[:] = []
+
+    def test_18_o_pedido_a_seguir_ao_teto_levanta(self):
+        bt = self.bt
+        import urllib.request
+
+        class _Resposta(object):
+            status = 200
+
+            def read(self):
+                return b'{}'
+
+            def close(self):
+                pass
+
+        original = urllib.request.urlopen
+        urllib.request.urlopen = lambda *a, **k: _Resposta()
+        try:
+            devolvido = bt._contar_e_limitar()
+            try:
+                for _ in range(bt.MAX_PEDIDOS):
+                    urllib.request.urlopen(
+                        urllib.request.Request('https://exemplo.tld/x')).read()
+                self.assertEqual(len(bt.PEDIDOS), bt.MAX_PEDIDOS)
+                with self.assertRaises(bt.TetoEstourado):
+                    urllib.request.urlopen(
+                        urllib.request.Request('https://exemplo.tld/x'))
+            finally:
+                urllib.request.urlopen = devolvido
+        finally:
+            urllib.request.urlopen = original
+
+    def test_19_o_teto_conta_e_mede_cada_pedido(self):
+        """Um contador que nao guarda status nem bytes nao serve de registo."""
+        bt = self.bt
+        import urllib.request
+
+        class _Resposta(object):
+            status = 200
+
+            def read(self):
+                return b'{"feed": []}'
+
+            def close(self):
+                pass
+
+        original = urllib.request.urlopen
+        urllib.request.urlopen = lambda *a, **k: _Resposta()
+        try:
+            devolvido = bt._contar_e_limitar()
+            try:
+                urllib.request.urlopen(
+                    urllib.request.Request('https://exemplo.tld/y')).read()
+            finally:
+                urllib.request.urlopen = devolvido
+        finally:
+            urllib.request.urlopen = original
+        self.assertEqual(len(bt.PEDIDOS), 1)
+        p = bt.PEDIDOS[0]
+        self.assertEqual(p['STATUS'], 200)
+        self.assertEqual(p['BYTES'], 12)
+        self.assertIsNotNone(p['MS'])
+        self.assertIn('exemplo.tld', p['URL'])
+
+    def test_20_a_prova_entra_pelo_executor_e_nao_pela_rota(self):
+        """M1: uma prova que chama a rota direto prova a rota, nao a casa."""
+        fonte = _fonte('provas/bluesky_trial_ao_vivo.py')
+        arv = ast.parse(fonte)
+        chamadas = set()
+        for n in ast.walk(arv):
+            if not isinstance(n, ast.Call):
+                continue
+            f = n.func
+            alvo = getattr(f, 'attr', None)
+            dono = getattr(getattr(f, 'value', None), 'id', None)
+            if alvo:
+                chamadas.add('%s.%s' % (dono, alvo) if dono else alvo)
+        self.assertIn('sx.COLLECT', chamadas,
+                      'a prova deixou de entrar pelo executor')
+        for proibido in ('sr.executar', 'sr._executar', 'http.buscar'):
+            self.assertNotIn(proibido, chamadas,
+                             'a prova passou a chamar %s direto' % proibido)
+        # o reprocessamento CHAMA a rota de proposito: e outro acto, e esta
+        # dentro de `reprocessar`, que nao usa rede.
+        fn = next(n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)
+                  and n.name == 'reprocessar')
+        self.assertTrue(any(isinstance(c, ast.Call) for c in ast.walk(fn)))
+
+
+class OLugarDoFatoNaoVemDoEscopo(unittest.TestCase):
+    """M5: `source_location=country_scope` em QUALQUER rota é a mesma mentira."""
+
+    def test_21_nenhuma_rota_aberta_passa_o_escopo_como_lugar(self):
+        fonte = _fonte('coleta/adaptador_aberto.py')
+        arv = ast.parse(fonte)
+        medidas = 0
+        for fn in [n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)]:
+            for c in ast.walk(fn):
+                if not isinstance(c, ast.Call):
+                    continue
+                if getattr(c.func, 'attr', None) != 'envelope':
+                    continue
+                medidas += 1
+                for kw in c.keywords:
+                    if kw.arg != 'source_location':
+                        continue
+                    self.assertNotEqual(
+                        getattr(kw.value, 'id', None), 'country_scope',
+                        '%s passa o escopo da busca como lugar do facto'
+                        % fn.name)
+        self.assertGreaterEqual(medidas, 4,
+                                'a sonda nao viu envelopes que cheguem')
+
+    def test_22_o_envelope_recusa_o_escopo_como_lugar(self):
+        """Controlo positivo: se alguem o passar, o objeto fica diferente —
+        e por isso a sentinela acima tem o que medir."""
+        import social_envelope as env
+        com = env.envelope(platform='BLUESKY', native_id='a', url='u',
+                           content_type='POST', route='r', executor='e',
+                           run_id='x', country_scope='IT',
+                           source_location='IT')
+        sem = env.envelope(platform='BLUESKY', native_id='a', url='u',
+                           content_type='POST', route='r', executor='e',
+                           run_id='x', country_scope='IT')
+        self.assertNotEqual(com['SOURCE_LOCATION'], sem['SOURCE_LOCATION'],
+                            'passar `source_location` deixou de mudar o objeto; '
+                            'a sentinela do teste anterior mede o nada')
+        self.assertEqual(sem['SOURCE_LOCATION'], 'UNKNOWN')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

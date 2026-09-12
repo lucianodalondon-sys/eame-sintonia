@@ -178,205 +178,236 @@ if '--reprocessar' in sys.argv:
     print(json.dumps(objetos[0] if objetos else {}, ensure_ascii=False, indent=1))
     raise SystemExit(0)
 
-# ── O ENSAIO A SECO DESTA PROVA, CONTRA OS BYTES QUE JA TEMOS ─────────────
-# ⚠️ A PRIMEIRA VOLTA DESTA PROVA REBENTOU NUMA SONDA DEPOIS DA CHAMADA REAL.
-# A rede foi gasta e o registo perdeu-se por um `TypeError` meu. Uma prova que
-# so se descobre partida DEPOIS de sair a rede cobra a rede pelo meu erro.
-#
-#     UMA PROVA QUE SO SE TESTA AO VIVO TESTA-SE A CUSTA DO HOST.
-#
-# `--a-seco <raw>` corre o corpo INTEIRO contra bytes preservados, com a rede
-# trancada. Serve para validar as assercoes antes de haver um unico pedido.
-A_SECO = None
-if '--a-seco' in sys.argv:
-    A_SECO = sys.argv[sys.argv.index('--a-seco') + 1]
-    import socket as _socket
-    _corpo_preservado = io.open(os.path.join(RAIZ, A_SECO), encoding='utf-8').read()
-    import scrap_http as _http
-    _http.buscar = lambda *a, **k: _corpo_preservado
-    _original_socket = _socket.socket
-
-    class _Trancado(_original_socket):
-        def __init__(s, *a, **k):
-            raise RuntimeError('SAIDA DE REDE no ensaio a seco')
-    _socket.socket = _Trancado
-    MAX_PEDIDOS = 99   # o teto nao e o que este modo mede
-
-print('=' * 88)
-print('C10.8A · O PRIMEIRO TRIAL AO VIVO DO SINTONIA SCRAP%s'
-      % ('  [ENSAIO A SECO]' if A_SECO else ''))
-print('=' * 88)
-
-# ══ ANTES ═════════════════════════════════════════════════════════════════
-print('\n── o estado ANTES, medido sem rede ──')
-estado_antes = cap.estado(CAPACIDADE)
-sha_antes = _sha_da_declaracao()
-decisao = mz.decisao(PLATAFORMA, cap.da_matriz(CAPACIDADE))
-normal = sx.CHECK(PLATAFORMA, CAPACIDADE)
-ensaio = sx.CHECK(PLATAFORMA, CAPACIDADE, modo=sx.TRIAL)
-diz(estado_antes == 'NOT_EXECUTED', 'CAPABILITY_STATE', estado_antes)
-diz(decisao['DECISAO'] == mz.PERMITIDA_SIM, 'POLICY', decisao['DECISAO'])
-diz(decisao['CLASSE'] == 'PUBLIC_NATIVE', 'a rota nao e paga', decisao['CLASSE'])
-diz(reg.sonda_de(PLATAFORMA, CAPACIDADE) is None, 'CREDENTIAL_REQUIRED = NO',
-    'sem sonda de credencial')
-diz(not normal['CAN'], 'CHECK NORMAL recusa', normal['STATE'])
-diz(ensaio['CAN'] and ensaio['STATE'] == sx.ELEGIVEL_PARA_ENSAIO,
-    'CHECK TRIAL aceita', ensaio['STATE'])
-print('  · alvo      %s' % ALVO)
-print('  · origem    %s' % ALVO_ORIGEM)
-print('  · SHA antes %s' % sha_antes[:16])
-
-# ══ A CHAMADA REAL ════════════════════════════════════════════════════════
-print('\n── a chamada REAL, pelo caminho canonico ──')
-print('  · teto de pedidos   %d (o portao do robots.txt conta)' % MAX_PEDIDOS)
-quando = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
-urlopen_real = _contar_e_limitar()
-try:
-    objetos, trace = sx.COLLECT(platform=PLATAFORMA, capability=CAPACIDADE,
-                                run_id='C108A-TRIAL', modo=sx.TRIAL,
-                                handle=ALVO, limit=TETO, country_scope=ESCOPO)
-finally:
-    urllib.request.urlopen = urlopen_real
-
-# ⚠️ O ARTEFATO E ESCRITO ANTES DE QUALQUER ASSERCAO PODER REBENTAR.
-# A primeira volta desta prova rebentou numa sonda DEPOIS de a chamada real ter
-# corrido — e o registo do que aconteceu na rede perdeu-se com ela.
-#
-#     UMA CHAMADA REAL QUE NAO DEIXOU REGISTO CUSTOU A REDE E NAO COMPROU NADA.
-def _guardar():
-    # ⚠️ O ENSAIO A SECO NAO ESCREVE POR CIMA DO REGISTO DA CORRIDA REAL.
-    # Escreveu uma vez, e apagou a unica coisa que a rede tinha comprado.
+if __name__ == '__main__':
+    # ── ESTE FICHEIRO E IMPORTAVEL, E ISSO E PROPOSITADO ──────────────────────
+    # O teto de pedidos e uma peca de comportamento, e uma peca de comportamento
+    # precisa de sentinela. Enquanto o corpo corria no import, a unica forma de o
+    # «testar» era procurar a palavra `TetoEstourado` no ficheiro — e um mutante que
+    # poe `if False:` a frente do `raise` passa nesse teste.
     #
-    #     UM ENSAIO A SECO QUE ESCREVE POR CIMA DA CORRIDA REAL APAGA A PROVA.
-    nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'
-    io.open(os.path.join(RAIZ, 'provas', nome), 'w',
-            encoding='utf-8').write(json.dumps(
-                {'QUANDO': quando, 'ALVO': ALVO, 'ALVO_ORIGEM': ALVO_ORIGEM,
-                 'MODO_DA_PROVA': 'A_SECO' if A_SECO else 'AO_VIVO',
-                 'TETO_DE_PEDIDOS': MAX_PEDIDOS, 'PEDIDOS': PEDIDOS,
-                 'OBJETOS': len(objetos),
-                 'TRACE': {k: v for k, v in trace.items() if k != 'CHECK'},
-                 'ENVELOPE': objetos[0] if objetos else None},
-                ensure_ascii=False, indent=1))
+    #     UMA SENTINELA QUE PROCURA A PALAVRA NAO MEDE O QUE ELA FAZ.
+    #
+    # Com o corpo debaixo de `__main__`, `_contar_e_limitar` importa-se e mede-se.
+    # ── O ENSAIO A SECO DESTA PROVA, CONTRA OS BYTES QUE JA TEMOS ─────────────
+    # ⚠️ A PRIMEIRA VOLTA DESTA PROVA REBENTOU NUMA SONDA DEPOIS DA CHAMADA REAL.
+    # A rede foi gasta e o registo perdeu-se por um `TypeError` meu. Uma prova que
+    # so se descobre partida DEPOIS de sair a rede cobra a rede pelo meu erro.
+    #
+    #     UMA PROVA QUE SO SE TESTA AO VIVO TESTA-SE A CUSTA DO HOST.
+    #
+    # `--a-seco <raw>` corre o corpo INTEIRO contra bytes preservados, com a rede
+    # trancada. Serve para validar as assercoes antes de haver um unico pedido.
+    A_SECO = None
+    if '--a-seco' in sys.argv:
+        A_SECO = sys.argv[sys.argv.index('--a-seco') + 1]
+        import socket as _socket
+        _corpo_preservado = io.open(os.path.join(RAIZ, A_SECO), encoding='utf-8').read()
+        import scrap_http as _http
+        _http.buscar = lambda *a, **k: _corpo_preservado
+        _original_socket = _socket.socket
+
+        class _Trancado(_original_socket):
+            def __init__(s, *a, **k):
+                raise RuntimeError('SAIDA DE REDE no ensaio a seco')
+        _socket.socket = _Trancado
+        MAX_PEDIDOS = 99   # o teto nao e o que este modo mede
+
+    print('=' * 88)
+    print('C10.8A · O PRIMEIRO TRIAL AO VIVO DO SINTONIA SCRAP%s'
+          % ('  [ENSAIO A SECO]' if A_SECO else ''))
+    print('=' * 88)
+
+    # ══ ANTES ═════════════════════════════════════════════════════════════════
+    print('\n── o estado ANTES, medido sem rede ──')
+    estado_antes = cap.estado(CAPACIDADE)
+    sha_antes = _sha_da_declaracao()
+    decisao = mz.decisao(PLATAFORMA, cap.da_matriz(CAPACIDADE))
+    normal = sx.CHECK(PLATAFORMA, CAPACIDADE)
+    ensaio = sx.CHECK(PLATAFORMA, CAPACIDADE, modo=sx.TRIAL)
+    # ⚠️ ESTA PROVA NAO PODE EXIGIR O ESTADO DE ONTEM.
+    # Ela correu com a capacidade em `NOT_EXECUTED` e, por ter corrido, a
+    # evidencia promoveu-a. Exigir `NOT_EXECUTED` para sempre fa-la-ia falhar
+    # exactamente por ter funcionado.
+    #
+    #     UMA PROVA QUE EXIGE O ESTADO DE ONTEM FALHA POR TER SIDO BEM-SUCEDIDA.
+    #
+    # O que ela mede agora e a COERENCIA entre o estado e a prova citada: ou a
+    # capacidade ainda nao promete e o `CHECK` normal recusa, ou ela ja promete e
+    # a prova aponta para o artefato desta corrida. O momento historico fica em
+    # `_c108a_ultima_corrida.json`, que e onde um momento se guarda.
+    prometia = cap.promete_resultado(CAPACIDADE)
+    diz(estado_antes in ('NOT_EXECUTED', 'PROVEN', 'PARTIAL'),
+        'CAPABILITY_STATE', estado_antes)
+    if prometia:
+        diz('C10-8A' in (cap.prova(CAPACIDADE) or ''),
+            'ja promete, e a prova aponta para esta corrida',
+            cap.prova(CAPACIDADE))
+    diz(decisao['DECISAO'] == mz.PERMITIDA_SIM, 'POLICY', decisao['DECISAO'])
+    diz(decisao['CLASSE'] == 'PUBLIC_NATIVE', 'a rota nao e paga', decisao['CLASSE'])
+    diz(reg.sonda_de(PLATAFORMA, CAPACIDADE) is None, 'CREDENTIAL_REQUIRED = NO',
+        'sem sonda de credencial')
+    diz(normal['CAN'] == prometia,
+        'CHECK NORMAL responde pelo estado medido',
+        '%s (promete=%s)' % (normal['STATE'], prometia))
+    diz(ensaio['CAN'], 'CHECK TRIAL aceita', ensaio['STATE'])
+    diz(ensaio['STATE'] == (sx.PODE if prometia else sx.ELEGIVEL_PARA_ENSAIO),
+        'e diz QUAL das duas coisas', ensaio['STATE'])
+    print('  · alvo      %s' % ALVO)
+    print('  · origem    %s' % ALVO_ORIGEM)
+    print('  · SHA antes %s' % sha_antes[:16])
+
+    # ══ A CHAMADA REAL ════════════════════════════════════════════════════════
+    print('\n── a chamada REAL, pelo caminho canonico ──')
+    print('  · teto de pedidos   %d (o portao do robots.txt conta)' % MAX_PEDIDOS)
+    quando = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+    urlopen_real = _contar_e_limitar()
+    try:
+        objetos, trace = sx.COLLECT(platform=PLATAFORMA, capability=CAPACIDADE,
+                                    run_id='C108A-TRIAL', modo=sx.TRIAL,
+                                    handle=ALVO, limit=TETO, country_scope=ESCOPO)
+    finally:
+        urllib.request.urlopen = urlopen_real
+
+    # ⚠️ O ARTEFATO E ESCRITO ANTES DE QUALQUER ASSERCAO PODER REBENTAR.
+    # A primeira volta desta prova rebentou numa sonda DEPOIS de a chamada real ter
+    # corrido — e o registo do que aconteceu na rede perdeu-se com ela.
+    #
+    #     UMA CHAMADA REAL QUE NAO DEIXOU REGISTO CUSTOU A REDE E NAO COMPROU NADA.
+    def _guardar():
+        # ⚠️ O ENSAIO A SECO NAO ESCREVE POR CIMA DO REGISTO DA CORRIDA REAL.
+        # Escreveu uma vez, e apagou a unica coisa que a rede tinha comprado.
+        #
+        #     UM ENSAIO A SECO QUE ESCREVE POR CIMA DA CORRIDA REAL APAGA A PROVA.
+        nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'
+        io.open(os.path.join(RAIZ, 'provas', nome), 'w',
+                encoding='utf-8').write(json.dumps(
+                    {'QUANDO': quando, 'ALVO': ALVO, 'ALVO_ORIGEM': ALVO_ORIGEM,
+                     'MODO_DA_PROVA': 'A_SECO' if A_SECO else 'AO_VIVO',
+                     'TETO_DE_PEDIDOS': MAX_PEDIDOS, 'PEDIDOS': PEDIDOS,
+                     'OBJETOS': len(objetos),
+                     'TRACE': {k: v for k, v in trace.items() if k != 'CHECK'},
+                     'ENVELOPE': objetos[0] if objetos else None},
+                    ensure_ascii=False, indent=1))
 
 
-_guardar()
-print('  · quando            %s' % quando)
-for i, p in enumerate(PEDIDOS, 1):
-    print('  · pedido %d          %s' % (i, p['URL'][:70]))
-    print('      status=%s bytes=%s ms=%s%s'
-          % (p['STATUS'], p['BYTES'], p['MS'],
-             ' ERRO=%s' % p['ERRO'] if p['ERRO'] else ''))
-diz(len(PEDIDOS) <= MAX_PEDIDOS, 'HTTP_REQUESTS dentro do teto',
-    '%d de %d' % (len(PEDIDOS), MAX_PEDIDOS))
-diz(A_SECO is not None or any(p['STATUS'] == 200 for p in PEDIDOS),
-    'a fonte respondeu 200', str([p['STATUS'] for p in PEDIDOS]) or 'a seco')
-diz(bool(objetos), 'OBJECT_COUNT >= 1', str(len(objetos)))
-diz(trace.get('RESULT') not in (None, 'ZERO_RESULTS'),
-    'o resultado nao e ZERO_RESULTS', str(trace.get('RESULT')))
+    _guardar()
+    print('  · quando            %s' % quando)
+    for i, p in enumerate(PEDIDOS, 1):
+        print('  · pedido %d          %s' % (i, p['URL'][:70]))
+        print('      status=%s bytes=%s ms=%s%s'
+              % (p['STATUS'], p['BYTES'], p['MS'],
+                 ' ERRO=%s' % p['ERRO'] if p['ERRO'] else ''))
+    diz(len(PEDIDOS) <= MAX_PEDIDOS, 'HTTP_REQUESTS dentro do teto',
+        '%d de %d' % (len(PEDIDOS), MAX_PEDIDOS))
+    diz(A_SECO is not None or any(p['STATUS'] == 200 for p in PEDIDOS),
+        'a fonte respondeu 200', str([p['STATUS'] for p in PEDIDOS]) or 'a seco')
+    diz(bool(objetos), 'OBJECT_COUNT >= 1', str(len(objetos)))
+    diz(trace.get('RESULT') not in (None, 'ZERO_RESULTS'),
+        'o resultado nao e ZERO_RESULTS', str(trace.get('RESULT')))
 
-# ══ O TRACE ═══════════════════════════════════════════════════════════════
-print('\n── o trace ──')
-for chave in ('EXECUTION_MODE', 'CAPABILITY_STATE_BEFORE',
-              'CAPABILITY_STATE_AFTER', 'RESULT', 'ROUTE', 'ROUTE_CLASS',
-              'AUTH_MODE', 'PROVIDER_REQUESTED', 'PROVIDER_USED',
-              'WHY_FALLBACK', 'PAID_PROVIDER_USED', 'COST_USD',
-              'EXECUTOR_ID'):
-    print('  · %-26s %s' % (chave, trace.get(chave)))
-diz(trace.get('EXECUTION_MODE') == sx.TRIAL, 'EXECUTION_MODE = TRIAL',
-    str(trace.get('EXECUTION_MODE')))
-diz(trace.get('CAPABILITY_STATE_BEFORE') == 'NOT_EXECUTED',
-    'CAPABILITY_STATE_BEFORE', str(trace.get('CAPABILITY_STATE_BEFORE')))
-diz(trace.get('CAPABILITY_STATE_AFTER') == estado_antes,
-    'CAPABILITY_STATE_AFTER inalterado durante o trial',
-    str(trace.get('CAPABILITY_STATE_AFTER')))
-diz(float(trace.get('COST_USD') or 0) == 0.0, 'COST_USD = 0 (a matriz declara zero)',
-    str(trace.get('COST_USD')))
-diz(trace.get('PAID_PROVIDER_USED') is False, 'PAID_PROVIDER_USED = False',
-    str(trace.get('PAID_PROVIDER_USED')))
-diz('getAuthorFeed' in str(trace.get('ROUTE')), 'ROUTE e a rota real',
-    str(trace.get('ROUTE')))
-diz(trace.get('ROUTE_CLASS') == 'PUBLIC_NATIVE', 'ROUTE_CLASS',
-    str(trace.get('ROUTE_CLASS')))
-diz(trace.get('PROVIDER_USED') == trace.get('PROVIDER_REQUESTED')
-    or trace.get('WHY_FALLBACK'), 'nao houve fallback silencioso',
-    '%s → %s' % (trace.get('PROVIDER_REQUESTED'), trace.get('PROVIDER_USED')))
+    # ══ O TRACE ═══════════════════════════════════════════════════════════════
+    print('\n── o trace ──')
+    for chave in ('EXECUTION_MODE', 'CAPABILITY_STATE_BEFORE',
+                  'CAPABILITY_STATE_AFTER', 'RESULT', 'ROUTE', 'ROUTE_CLASS',
+                  'AUTH_MODE', 'PROVIDER_REQUESTED', 'PROVIDER_USED',
+                  'WHY_FALLBACK', 'PAID_PROVIDER_USED', 'COST_USD',
+                  'EXECUTOR_ID'):
+        print('  · %-26s %s' % (chave, trace.get(chave)))
+    diz(trace.get('EXECUTION_MODE') == sx.TRIAL, 'EXECUTION_MODE = TRIAL',
+        str(trace.get('EXECUTION_MODE')))
+    diz(trace.get('CAPABILITY_STATE_BEFORE') == estado_antes,
+        'CAPABILITY_STATE_BEFORE e o estado medido antes',
+        str(trace.get('CAPABILITY_STATE_BEFORE')))
+    diz(trace.get('CAPABILITY_STATE_AFTER') == estado_antes,
+        'CAPABILITY_STATE_AFTER inalterado durante o trial',
+        str(trace.get('CAPABILITY_STATE_AFTER')))
+    diz(float(trace.get('COST_USD') or 0) == 0.0, 'COST_USD = 0 (a matriz declara zero)',
+        str(trace.get('COST_USD')))
+    diz(trace.get('PAID_PROVIDER_USED') is False, 'PAID_PROVIDER_USED = False',
+        str(trace.get('PAID_PROVIDER_USED')))
+    diz('getAuthorFeed' in str(trace.get('ROUTE')), 'ROUTE e a rota real',
+        str(trace.get('ROUTE')))
+    diz(trace.get('ROUTE_CLASS') == 'PUBLIC_NATIVE', 'ROUTE_CLASS',
+        str(trace.get('ROUTE_CLASS')))
+    diz(trace.get('PROVIDER_USED') == trace.get('PROVIDER_REQUESTED')
+        or trace.get('WHY_FALLBACK'), 'nao houve fallback silencioso',
+        '%s → %s' % (trace.get('PROVIDER_REQUESTED'), trace.get('PROVIDER_USED')))
 
-# ══ NAO PROMOVEU ══════════════════════════════════════════════════════════
-print('\n── o trial nao promoveu nada ──')
-diz(cap.estado(CAPACIDADE) == estado_antes, 'CAPABILITY_STATE continua',
-    cap.estado(CAPACIDADE))
-diz(_sha_da_declaracao() == sha_antes, 'o ficheiro da declaracao nao mudou',
-    _sha_da_declaracao()[:16])
+    # ══ NAO PROMOVEU ══════════════════════════════════════════════════════════
+    print('\n── o trial nao promoveu nada ──')
+    diz(cap.estado(CAPACIDADE) == estado_antes, 'CAPABILITY_STATE continua',
+        cap.estado(CAPACIDADE))
+    diz(_sha_da_declaracao() == sha_antes, 'o ficheiro da declaracao nao mudou',
+        _sha_da_declaracao()[:16])
 
-# ══ RAW PRIMEIRO ══════════════════════════════════════════════════════════
-print('\n── o RAW, lido de volta do disco ──')
-# ⚠️ `RAW_REFERENCE` NAO E UM CAMINHO. E um dicionario com PATH, SHA256,
-# BYTES e o estado de PRESERVACAO — e a primeira versao desta sonda tratou-o
-# como string e rebentou DEPOIS de a chamada real ja ter corrido.
-#
-#     UMA SONDA QUE ASSUME A FORMA DO CAMPO MEDE A ASSUNCAO.
-ref = (objetos[0].get('RAW_REFERENCE') if objetos else None) or {}
-caminho = os.path.join(RAIZ, ref['PATH']) if ref.get('PATH') else None
-print('  · PATH              %s' % ref.get('PATH'))
-print('  · SHA256            %s' % ref.get('SHA256'))
-print('  · BYTES             %s' % ref.get('BYTES'))
-print('  · PRESERVATION      %s' % ref.get('PRESERVATION'))
-diz(bool(caminho) and os.path.exists(caminho), 'o RAW existe no disco',
-    ('%d bytes' % os.path.getsize(caminho)) if caminho
-    and os.path.exists(caminho) else 'ausente')
-if caminho and os.path.exists(caminho):
-    bruto = io.open(caminho, encoding='utf-8').read()
-    diz(_sha(caminho) == ref.get('SHA256'),
-        'o SHA do disco bate com o declarado no envelope', _sha(caminho)[:24])
-    feed = json.loads(bruto).get('feed') or []
-    diz(len(feed) >= 1, 'o RAW contem o feed da fonte', '%d itens' % len(feed))
-    diz(len(feed) == len(objetos), 'um objeto por item do RAW',
-        '%d raw / %d objetos' % (len(feed), len(objetos)))
+    # ══ RAW PRIMEIRO ══════════════════════════════════════════════════════════
+    print('\n── o RAW, lido de volta do disco ──')
+    # ⚠️ `RAW_REFERENCE` NAO E UM CAMINHO. E um dicionario com PATH, SHA256,
+    # BYTES e o estado de PRESERVACAO — e a primeira versao desta sonda tratou-o
+    # como string e rebentou DEPOIS de a chamada real ja ter corrido.
+    #
+    #     UMA SONDA QUE ASSUME A FORMA DO CAMPO MEDE A ASSUNCAO.
+    ref = (objetos[0].get('RAW_REFERENCE') if objetos else None) or {}
+    caminho = os.path.join(RAIZ, ref['PATH']) if ref.get('PATH') else None
+    print('  · PATH              %s' % ref.get('PATH'))
+    print('  · SHA256            %s' % ref.get('SHA256'))
+    print('  · BYTES             %s' % ref.get('BYTES'))
+    print('  · PRESERVATION      %s' % ref.get('PRESERVATION'))
+    diz(bool(caminho) and os.path.exists(caminho), 'o RAW existe no disco',
+        ('%d bytes' % os.path.getsize(caminho)) if caminho
+        and os.path.exists(caminho) else 'ausente')
+    if caminho and os.path.exists(caminho):
+        bruto = io.open(caminho, encoding='utf-8').read()
+        diz(_sha(caminho) == ref.get('SHA256'),
+            'o SHA do disco bate com o declarado no envelope', _sha(caminho)[:24])
+        feed = json.loads(bruto).get('feed') or []
+        diz(len(feed) >= 1, 'o RAW contem o feed da fonte', '%d itens' % len(feed))
+        diz(len(feed) == len(objetos), 'um objeto por item do RAW',
+            '%d raw / %d objetos' % (len(feed), len(objetos)))
 
-# ══ O ENVELOPE ════════════════════════════════════════════════════════════
-if objetos:
-    print('\n── o envelope de UM objeto ──')
-    o = objetos[0]
-    for chave in ('PLATFORM', 'NATIVE_ID', 'URL', 'CONTENT_TYPE', 'ROUTE',
-                  'RUN_ID', 'COUNTRY_SCOPE', 'SOURCE_ACCOUNT', 'PUBLISHED_AT',
-                  'LANGUAGE', 'SOURCE_LOCATION', 'RAW_REFERENCE'):
-        print('  · %-18s %s' % (chave, str(o.get(chave))[:64]))
-    diz(o.get('PLATFORM') == 'BLUESKY', 'PLATFORM', o.get('PLATFORM'))
-    diz(str(o.get('NATIVE_ID') or '').startswith('at://'),
-        'NATIVE_ID e a URI real do post', str(o.get('NATIVE_ID'))[:40])
-    diz(o.get('CONTENT_TYPE') == 'POST', 'CONTENT_TYPE', o.get('CONTENT_TYPE'))
-    diz('getAuthorFeed' in str(o.get('ROUTE')), 'ROUTE e a rota real',
-        o.get('ROUTE'))
-    diz(o.get('RUN_ID') == 'C108A-TRIAL', 'RUN_ID e o da execucao',
-        o.get('RUN_ID'))
-    diz(o.get('COUNTRY_SCOPE') == ESCOPO, 'COUNTRY_SCOPE e o pedido',
-        o.get('COUNTRY_SCOPE'))
-    diz(o.get('SOURCE_ACCOUNT') == ALVO, 'SOURCE_ACCOUNT veio da fonte',
-        o.get('SOURCE_ACCOUNT'))
-    diz(bool(o.get('PUBLISHED_AT')), 'PUBLISHED_AT veio da fonte',
-        o.get('PUBLISHED_AT'))
-    # ⚠️ SOURCE_LOCATION NAO E COUNTRY_SCOPE. Um e onde eu PROCUREI; o outro e
-    # de onde a coisa E. Confundi-los faz o escopo da busca virar facto.
-    diz(o.get('SOURCE_LOCATION') != ESCOPO or o.get('SOURCE_LOCATION') is None,
-        'SOURCE_LOCATION nao foi fabricado a partir do escopo',
-        str(o.get('SOURCE_LOCATION')))
-    diz(o.get('NATIVE_ID') != o.get('URL'), 'NATIVE_ID != URL',
-        'sao dois campos')
+    # ══ O ENVELOPE ════════════════════════════════════════════════════════════
+    if objetos:
+        print('\n── o envelope de UM objeto ──')
+        o = objetos[0]
+        for chave in ('PLATFORM', 'NATIVE_ID', 'URL', 'CONTENT_TYPE', 'ROUTE',
+                      'RUN_ID', 'COUNTRY_SCOPE', 'SOURCE_ACCOUNT', 'PUBLISHED_AT',
+                      'LANGUAGE', 'SOURCE_LOCATION', 'RAW_REFERENCE'):
+            print('  · %-18s %s' % (chave, str(o.get(chave))[:64]))
+        diz(o.get('PLATFORM') == 'BLUESKY', 'PLATFORM', o.get('PLATFORM'))
+        diz(str(o.get('NATIVE_ID') or '').startswith('at://'),
+            'NATIVE_ID e a URI real do post', str(o.get('NATIVE_ID'))[:40])
+        diz(o.get('CONTENT_TYPE') == 'POST', 'CONTENT_TYPE', o.get('CONTENT_TYPE'))
+        diz('getAuthorFeed' in str(o.get('ROUTE')), 'ROUTE e a rota real',
+            o.get('ROUTE'))
+        diz(o.get('RUN_ID') == 'C108A-TRIAL', 'RUN_ID e o da execucao',
+            o.get('RUN_ID'))
+        diz(o.get('COUNTRY_SCOPE') == ESCOPO, 'COUNTRY_SCOPE e o pedido',
+            o.get('COUNTRY_SCOPE'))
+        diz(o.get('SOURCE_ACCOUNT') == ALVO, 'SOURCE_ACCOUNT veio da fonte',
+            o.get('SOURCE_ACCOUNT'))
+        diz(bool(o.get('PUBLISHED_AT')), 'PUBLISHED_AT veio da fonte',
+            o.get('PUBLISHED_AT'))
+        # ⚠️ SOURCE_LOCATION NAO E COUNTRY_SCOPE. Um e onde eu PROCUREI; o outro e
+        # de onde a coisa E. Confundi-los faz o escopo da busca virar facto.
+        diz(o.get('SOURCE_LOCATION') != ESCOPO or o.get('SOURCE_LOCATION') is None,
+            'SOURCE_LOCATION nao foi fabricado a partir do escopo',
+            str(o.get('SOURCE_LOCATION')))
+        diz(o.get('NATIVE_ID') != o.get('URL'), 'NATIVE_ID != URL',
+            'sao dois campos')
 
-print('\n' + '=' * 88)
-print('TARGET_HANDLE     = %s' % ALVO)
-print('HTTP_REQUESTS     = %d  (teto %s, portao do robots incluido)'
-      % (len(PEDIDOS), 'n/a a seco' if A_SECO else MAX_PEDIDOS))
-# Nao dizer «YES» por habito: no ensaio a seco a rede esteve TRANCADA, e um
-# relatorio que diz o contrario e uma prova que mente sobre si propria.
-print('NETWORK_REAL      = %s' % ('NO (ensaio a seco)' if A_SECO else 'YES'))
-print('CREDENTIALS       = 0')
-print('PAID_RUNS         = 0')
-print('COST_USD          = %s' % trace.get('COST_USD'))
-print('OBJECT_COUNT      = %d' % len(objetos))
-print('STATE_PROMOTED_DURING_TRIAL = NO')
-print('BLUESKY_TRIAL=%s' % ('PASS' if not FALHAS else 'FAIL'))
-for f in FALHAS:
-    print('  falhou: %s' % f)
-raise SystemExit(0 if not FALHAS else 1)
+    print('\n' + '=' * 88)
+    print('TARGET_HANDLE     = %s' % ALVO)
+    print('HTTP_REQUESTS     = %d  (teto %s, portao do robots incluido)'
+          % (len(PEDIDOS), 'n/a a seco' if A_SECO else MAX_PEDIDOS))
+    # Nao dizer «YES» por habito: no ensaio a seco a rede esteve TRANCADA, e um
+    # relatorio que diz o contrario e uma prova que mente sobre si propria.
+    print('NETWORK_REAL      = %s' % ('NO (ensaio a seco)' if A_SECO else 'YES'))
+    print('CREDENTIALS       = 0')
+    print('PAID_RUNS         = 0')
+    print('COST_USD          = %s' % trace.get('COST_USD'))
+    print('OBJECT_COUNT      = %d' % len(objetos))
+    print('STATE_PROMOTED_DURING_TRIAL = NO')
+    print('BLUESKY_TRIAL=%s' % ('PASS' if not FALHAS else 'FAIL'))
+    for f in FALHAS:
+        print('  falhou: %s' % f)
+    raise SystemExit(0 if not FALHAS else 1)

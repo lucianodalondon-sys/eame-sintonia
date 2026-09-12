@@ -615,6 +615,9 @@
       "data/samples/SENSOR-PILOT/VIDEOS-E.json",
       "data/samples/SLICE-PLASVI-vertical.json",
       "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+      "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
+      "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__77ae30349938860b.txt",
+      "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
       "data/samples/SPAIN-DEMO-CONTENT-V1.json",
       "data/samples/SPAIN-HERO-CASES-V1.json",
       "data/samples/SPAIN-RADAR-DO-FUTURO-V1.json",
@@ -773,6 +776,7 @@
       "docs/sintonia-scrap/C10-6D-PORTAS-OPERACIONAIS-CANONICAS.md",
       "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
       "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
+      "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
@@ -1192,12 +1196,14 @@
     "provas": [
       "provas/_c106b_filho.py",
       "provas/_c106c_filho.py",
+      "provas/_c108a_ultima_corrida.json",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/asr_banco.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
+      "provas/bluesky_trial_ao_vivo.py",
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
@@ -1490,6 +1496,7 @@
       "tests/test_c10_6d_portas_canonicas.py",
       "tests/test_c10_6e_runtime_pago.py",
       "tests/test_c10_7_ensaio_canonico.py",
+      "tests/test_c10_8a_bluesky_ao_vivo.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
       "tests/test_c2_youtube_oficial.py",
@@ -1951,10 +1958,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-canonical-trial-c10-7",
-    "HEAD": "ed257337cde0a0ef26f73491549638df861d79ca",
-    "GENERATED_AT": "2026-09-12T12:24:59+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8934cca35c643713679f977660a72495dc2b44447cc0bf431bf845da4c7b7eeb"
+    "BRANCH": "claude/sintonia-scrap-bluesky-live-trial-c10-8a",
+    "HEAD": "f40bfe065a8570cc6ceeed05b4fec42d915c5476",
+    "GENERATED_AT": "2026-09-12T12:53:41+00:00",
+    "SOURCE_TREE_FINGERPRINT": "de49fdb8ca32dad6997353fe2d1c387b7bc07798265ee6f7dcca9af110f83eb9"
   },
   "FAMILIES": [
     {
@@ -12075,6 +12082,7 @@
         "provas/_c106b_filho.py",
         "provas/_c106c_filho.py",
         "provas/auditoria_live.sh",
+        "provas/bluesky_trial_ao_vivo.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
         "provas/objeto_e_observacao_no_postgres.py",
@@ -12092,7 +12100,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 19,
+      "file_count": 20,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15589,6 +15597,7 @@
         "tests/test_c10_6d_portas_canonicas.py",
         "tests/test_c10_6e_runtime_pago.py",
         "tests/test_c10_7_ensaio_canonico.py",
+        "tests/test_c10_8a_bluesky_ao_vivo.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
         "tests/test_c2_youtube_oficial.py",
@@ -15670,7 +15679,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 104,
+      "file_count": 105,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17272,7 +17281,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-canonical-trial-c10-7"
+        "branch claude/sintonia-scrap-bluesky-live-trial-c10-8a"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -27724,8 +27733,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 308,
+          "snippet": "import bluesky_trial_ao_vivo as bt"
+        },
         {
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 251,
@@ -27742,8 +27756,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 379,
+          "snippet": "fonte = _fonte('provas/bluesky_trial_ao_vivo.py')"
+        },
         {
           "file": "tests/test_execucao_standalone.py",
           "line": 32,
@@ -29171,8 +29190,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 44,
+          "snippet": "import social_matriz as mz          # noqa: E402"
+        },
         {
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 43,
@@ -29362,7 +29386,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 37 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 39 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29644,7 +29668,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 20 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 26 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -29672,39 +29696,39 @@
           "snippet": "import youtube_oficial as yt"
         },
         {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 38,
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 40,
           "snippet": "import scrap_capacidades as cap     # noqa: E402"
         },
         {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 39,
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 41,
           "snippet": "import scrap_executor as sx         # noqa: E402"
         },
         {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 40,
-          "snippet": "import scrap_http as http           # noqa: E402"
-        },
-        {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 41,
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 42,
           "snippet": "import scrap_registo as reg         # noqa: E402"
         },
         {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 42,
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 43,
           "snippet": "import social_envelope as env       # noqa: E402"
         },
         {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 44,
-          "snippet": "import social_rotas as sr           # noqa: E402"
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 158,
+          "snippet": "import social_rotas as sr                                 # noqa: F401"
         },
         {
-          "file": "provas/portas_canonicas_no_postgres.py",
-          "line": 146,
-          "snippet": "import social_scrap as ss"
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 159,
+          "snippet": "import scrap_http as http"
+        },
+        {
+          "file": "provas/ensaio_canonico_de_capacidade.py",
+          "line": 38,
+          "snippet": "import scrap_capacidades as cap     # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29717,8 +29741,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/bluesky_trial_ao_vivo.py",
+          "line": 135,
+          "snippet": "return _sha(os.path.join(RAIZ, 'coleta', 'scrap_capacidades.py'))"
+        },
         {
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 115,
@@ -29804,7 +29833,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 79 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 85 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -29877,7 +29906,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 48 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 50 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -32507,7 +32536,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 761,
+  "UNCLAIMED_FILES_COUNT": 766,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32679,8 +32708,8 @@
     "edges_proven": 667,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1504,
-    "files_covered": 743,
+    "files_tracked": 1511,
+    "files_covered": 745,
     "files_code_unclaimed": 0
   }
 }
