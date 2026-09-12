@@ -5448,3 +5448,194 @@ NOVOS     10 · o INGRESSO larga a fonte a caminho do RAW
 Os dois novos morrem, e são exactamente os que passavam inteiros antes desta
 correção. `G-E2E-01` continua fechado — e agora fechado por uma prova que
 corre, e não por uma que salta.
+
+---
+
+# §70 · UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO
+
+**Missão:** `C10.6D — PORTAS OPERACIONAIS CANÔNICAS`
+**HEAD final:** `1149e2b1`
+**Tocado:** `.github/workflows/sintonia-scrap.yml` · `coleta/social_scrap.py` ·
+`coleta/adaptador_instagram.py` · `coleta/comunicacao_coleta.py`
+
+## 70.1 · O QUÊ
+
+A C10.6C encontrou o boundary durável comum e mediu 15 portas que o
+contornavam. A C10.6D foi medir quem essas portas eram — e a coisa que decidiu
+tudo não era o número.
+
+```
+NENHUMA das seis implementações que os workflows corriam direto
+importa `leis/social_matriz.py`.
+```
+
+Seis portas de produção, e nenhuma perguntava à dona da decisão se podia.
+Quando a pergunta finalmente foi feita, a resposta foi **não** em quatro casos.
+O pior: `yt-legendas` corria `_timedtext`, que a matriz declara
+`ROUTE_NOT_ALLOWED` desde a C5 — por ToS, por `Disallow: /api/` e pelas
+Developer Policies.
+
+```
+    UMA ROTA QUE FUNCIONA NÃO É UMA ROTA PERMITIDA.
+```
+
+## 70.2 · O CENSO TEVE DE SER REFEITO QUATRO VEZES, E AS TRÊS PRIMEIRAS MEDIRAM A SONDA
+
+Esta é a parte reutilizável. Um censo de portas erra de três maneiras
+diferentes, e cada uma parece um resultado.
+
+**Primeira: filtrar por diretório.** O censo só olhava para `coleta/`,
+`ferramentas/` e `admissao/`, e por isso não via `orquestrador/orquestrador.py`
+— que é exactamente uma porta de Collection, e a única que sobrou no fim.
+
+```
+    UM CENSO QUE DECIDE A ESPÉCIE PELO DIRETÓRIO MEDE A ÁRVORE, NÃO A CASA.
+```
+
+**Segunda: classificar o módulo.** `instagram_coleta.py` faz cinco coisas:
+`contratos` lê o schema do ator com `APIFY_RUNS = 0`, `liquidar` lê a fatura
+depois, e `bio`/`posts`/`reels`/`comentarios` gastam. Classificar o módulo
+contava duas ferramentas de leitura como aquisição paga.
+
+```
+    UM MÓDULO QUE FAZ CINCO COISAS TEM CINCO ESPÉCIES,
+    E O CENSO MEDE A QUE FOI PEDIDA.
+```
+
+**Terceira: ler só a primeira etiqueta de um ramo.** O ramo
+`contratos|plano|semaforo|liquidar)` tem quatro fases e um comando só,
+`... "${{ inputs.fase }}"`. Guardar só `contratos` fazia o censo perguntar a
+espécie de uma fase e responder pelas outras três.
+
+Só a quarta volta mede a casa. `LIVE_INVOCATIONS 109 → 101`,
+`COLLECTION_DIRECT_BYPASSES 7 → 0`.
+
+## 70.3 · UMA SONDA SEM FRONTEIRA À ESQUERDA
+
+O red team deu 16 achados na primeira volta. Doze eram da sonda, e oito eram a
+mesma linha.
+
+`instagram_coleta.py` **acaba** em `py`. A expressão
+
+```python
+re.search(r'(?:\$PY|python3?|py)\s+\S*' + re.escape(alvo), linha)
+```
+
+casa dentro de `for f in instagram_coleta.py instagram_janela.py`, porque o
+`py` do fim de um nome de ficheiro serve de interpretador para o nome seguinte.
+
+```
+    UMA SONDA SEM FRONTEIRA À ESQUERDA
+    VÊ UM INTERPRETADOR NO FIM DE UM NOME DE FICHEIRO.
+```
+
+A correção é `(?:^|[\s;|&(`])` antes do interpretador — e o controlo positivo é
+a verificação de presença: a sonda TEM de a encontrar, e TEM de não a contar.
+
+Outros quatro achados liam **menção** como **invocação**: dois ficheiros que
+apenas imprimem o próprio nome numa linha de `uso:`, e uma CLI que imprime o
+caminho da cadeia de fala numa mensagem de ajuda.
+
+```
+    MENÇÃO NÃO É INVOCAÇÃO.
+```
+
+## 70.4 · A BATERIA DE MUTAÇÃO QUE MEDIU O MUTANTE ANTERIOR
+
+M7 sobreviveu. A sentinela matava-o quando corrida à mão, com o mesmo comando,
+na mesma árvore. Duas horas de suspeita sobre o código, e o defeito estava no
+`pyc`.
+
+O bytecode valida por `(mtime, tamanho)` do ficheiro fonte. A linha que M6
+acrescenta e a linha que M7 acrescenta têm **exactamente** o mesmo comprimento:
+
+```python
+"    'contratos':      ('INSTAGRAM', 'instagram.profile.discovery', ...)"
+"    'yt-relevancia':  ('INSTAGRAM', 'instagram.profile.discovery', ...)"
+```
+
+Escritas no mesmo segundo, o mutante M7 correu contra o bytecode compilado para
+M6 — e M6 já tinha sido morto por outra sentinela, noutro ficheiro.
+
+```
+    UMA BATERIA QUE MEDE O MUTANTE ERRADO NÃO MEDE NADA.
+```
+
+Duas correções, e ambas devem ficar em qualquer bateria futura desta casa:
+apagar `__pycache__` antes de cada volta, e `troca()` confirmar por leitura que
+a mutação chegou ao disco.
+
+## 70.5 · O GRAFO INDEXADO POR NOME JUNTA DOIS DONOS
+
+Para responder «esta fase da CLI chega ao boundary?», a primeira sonda montou
+um grafo de chamadas indexado por **nome de função**. Ela disse que `censo`
+alcançava `COLLECT`.
+
+Não alcança. `censo` chama `mz.main()` — o `main` do `social_matriz`. E há
+`main` em quase todo o ficheiro desta casa, incluindo o do próprio
+`social_scrap`, que chega mesmo a `COLLECT`.
+
+```
+    UM GRAFO INDEXADO POR NOME JUNTA DOIS DONOS COM O MESMO NOME.
+```
+
+Cada nó passou a ser `(MÓDULO, FUNÇÃO)`, com `alias.f()` resolvido pelo import.
+O resultado honesto: das 16 fases, **3** alcançam o boundary e **13** não.
+
+## 70.6 · O DESVIO DECLARADO
+
+Das 13 que não alcançam, nove não adquirem nada — leem o acervo ou imprimem
+política. Quatro adquirem: `youtube`, `youtube-piloto`,
+`youtube-piloto-oneshot` e `piloto`.
+
+Não foram convertidas, e isso não é preguiça. `youtube` existe para medir a API
+**diretamente** e `youtube-oficial` existe para medir a **mesma** API pelo
+executor. O par É a medição: fazer as duas entrarem pela mesma porta apagava
+exactamente a pergunta que elas respondem —
+
+```
+    MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+```
+
+O que se corrigiu foi o silêncio. Cada uma passa a imprimir
+`DESVIO_DECLARADO=<fase>` com o motivo, para que ninguém a leia como porta de
+produção.
+
+```
+    UM DESVIO DECLARADO É UMA MEDIÇÃO. UM DESVIO CALADO É UM BURACO.
+```
+
+## 70.7 · E O QUE NÃO SE FEZ, QUE É METADE DO TRABALHO
+
+`yt-relevancia` pergunta «vale a pena esta fonte?». Havia uma forma trivial de
+fazer o número de bypasses cair de uma vez: pô-la na tabela de fases canônicas.
+Ela correria, o censo diria zero, e juízo temático passaria a viver dentro da
+coleta.
+
+```
+    COLETAR != ADMITIR != JULGAR.
+    FABRICAR CAPACIDADE PARA BAIXAR O NÚMERO DE BYPASSES É MENTIR COM MÉTRICA.
+```
+
+Nove fases ficaram de fora de propósito, cada uma com a espécie escrita ao lado.
+E as que não podem correr **recusam alto**, com o motivo — não desaparecem:
+
+```
+    BLOCKED != RETIRED.
+```
+
+## 70.8 · CONSEQUÊNCIA
+
+```
+COLLECTION_DIRECT_BYPASSES   7 → 0
+COLLECTION_SECOND_RUNTIME    1 → 1   (nomeado: o orquestrador, com recibo próprio)
+MUTANTES 13 · SURVIVORS 0
+ATAQUES  32 · POSITIVE_FINDINGS 0
+NEW_FAILURES 0 · SYSTEM_MAP_CHECK PASS
+NETWORK_REAL 0 · APIFY_RUNS 0 · COST_USD 0
+```
+
+O veredito ficou `PARTIAL_CAPABILITY_GAPS` e não `PASS`, porque dois buracos
+continuam abertos e ambos estão nomeados com o que seria preciso para os
+fechar. Arredondar qualquer um deles para verde teria custado a única coisa que
+estas missões produzem.
