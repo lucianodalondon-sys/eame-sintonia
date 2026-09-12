@@ -240,6 +240,7 @@
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
       "data/derivados/texto/RAW-0c2723e66201f966.txt",
@@ -716,6 +717,7 @@
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
+      "docs/operacao/SOURCE-ID-WIRING-GAP-V1.md",
       "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
       "docs/operacao/T3-HUMAN-QUALITY-GATE-PTBR-V1.html",
       "docs/operacao/T3-HUMAN-REVIEW-PTBR-V1.html",
@@ -1190,6 +1192,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/medir_admission_t3_atual.py",
+      "provas/medir_source_id_wiring_gap.py",
       "provas/mutacao_do_gate.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
@@ -1530,6 +1533,7 @@
       "tests/test_security_secret_shapes.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
+      "tests/test_source_id_wiring_gap.py",
       "tests/test_telemetria.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
@@ -1924,10 +1928,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/thematic-candidates-v1",
-    "HEAD": "d18d6f0651ace3f47221c6cf204e0317ca5afeda",
-    "GENERATED_AT": "2026-09-11T21:32:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1875cd70cbdbebf3ada228179e478f0474b9c3ff45e8c7ace4be11b881f7f827"
+    "BRANCH": "claude/source-id-wiring-gap-v1",
+    "HEAD": "1d0975fd1ab82bf9c649492160fddc6ce2316431",
+    "GENERATED_AT": "2026-09-12T01:32:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "66554ab0e5fa4257f6b8a2a86d2604286926dae061ec84e9173b00e43464e115"
   },
   "FAMILIES": [
     {
@@ -9717,6 +9721,7 @@
         "C-IT-CONTRATOS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA",
+        "C-PROVA-COLETA",
         "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
@@ -11949,6 +11954,7 @@
         "provas/gate_de_aceitacao_tematica.py",
         "provas/implementacoes_candidatas.py",
         "provas/medir_admission_t3_atual.py",
+        "provas/medir_source_id_wiring_gap.py",
         "provas/mutacao_do_gate.py",
         "provas/o_corte_de_cr1.py",
         "provas/objeto_e_observacao_no_postgres.py",
@@ -11966,7 +11972,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 30,
+      "file_count": 31,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11995,6 +12001,7 @@
         "C-EXECUTOR-TEXTO-PDF",
         "C-INGRESSO",
         "C-IT-COLETA",
+        "C-IT-PRESERVAR",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
@@ -15418,6 +15425,7 @@
         "tests/test_security_secret_shapes.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
+        "tests/test_source_id_wiring_gap.py",
         "tests/test_telemetria.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
@@ -15432,7 +15440,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 96,
+      "file_count": 97,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17007,7 +17015,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/thematic-candidates-v1"
+        "branch claude/source-id-wiring-gap-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17361,7 +17369,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
@@ -17396,6 +17404,11 @@
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 56,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/medir_source_id_wiring_gap.py",
+          "line": 34,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -23216,7 +23229,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
@@ -23247,6 +23260,16 @@
           "file": "provas/medir_admission_t3_atual.py",
           "line": 60,
           "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+        },
+        {
+          "file": "provas/medir_source_id_wiring_gap.py",
+          "line": 39,
+          "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+        },
+        {
+          "file": "provas/medir_source_id_wiring_gap.py",
+          "line": 409,
+          "snippet": "with open(alvo, encoding=\"utf-8\") as f:"
         },
         {
           "file": "provas/testa_golden_path_pdf.py",
@@ -24836,6 +24859,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/medir_source_id_wiring_gap.py",
+          "line": 40,
+          "snippet": "LEDGER = \"data/collection-ledger/italy/observations.ndjson\""
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-IT-PRESERVAR",
@@ -27476,7 +27517,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 23 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 24 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -29948,7 +29989,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 19 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
@@ -30006,9 +30047,9 @@
           "snippet": "\"026_a_observacao_ganha_identidade.sql\","
         },
         {
-          "file": "provas/objeto_e_observacao_no_postgres.py",
-          "line": 57,
-          "snippet": "MIGRACOES = [\"001_fundacao_geografia_e_proveniencia.sql\","
+          "file": "provas/medir_source_id_wiring_gap.py",
+          "line": 348,
+          "snippet": "with open(mig, encoding=\"utf-8\") as f:"
         }
       ],
       "categoria": "PROOF"
@@ -31510,7 +31551,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 750,
+  "UNCLAIMED_FILES_COUNT": 752,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31678,12 +31719,12 @@
     "components_pending": 94,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 644,
-    "edges_proven": 642,
+    "edges": 645,
+    "edges_proven": 643,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1477,
-    "files_covered": 727,
+    "files_tracked": 1481,
+    "files_covered": 729,
     "files_code_unclaimed": 0
   }
 }

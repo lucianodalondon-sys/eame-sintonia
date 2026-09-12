@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/thematic-candidates-v1",
-    "HEAD": "d18d6f0651ace3f47221c6cf204e0317ca5afeda",
-    "GENERATED_AT": "2026-09-11T21:32:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1875cd70cbdbebf3ada228179e478f0474b9c3ff45e8c7ace4be11b881f7f827"
+    "BRANCH": "claude/source-id-wiring-gap-v1",
+    "HEAD": "1d0975fd1ab82bf9c649492160fddc6ce2316431",
+    "GENERATED_AT": "2026-09-12T01:32:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "66554ab0e5fa4257f6b8a2a86d2604286926dae061ec84e9173b00e43464e115"
   },
   "FILES": [
     {
@@ -1530,6 +1530,13 @@
     {
       "path": "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "sha": "c6e594b879e293487c8e87d3ad47c881414d78f4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+      "sha": "b1f60f02e33d4c71c1eef14f823517d0b9e970f0",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4853,6 +4860,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/SOURCE-ID-WIRING-GAP-V1.md",
+      "sha": "f7977fdc4cb1484a7b6e5ea6cb1a91a930166ac9",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
       "sha": "f3421f45cff6357a4c7f7bd63381acb866bba063",
       "ext": ".md",
@@ -7982,6 +7996,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/medir_source_id_wiring_gap.py",
+      "sha": "3de53563d19d96db77ef99af6a3ef8d0b9ac94db",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/mutacao_do_gate.py",
       "sha": "59820eddeda377bf803cbdbf159a077bb6a3ab9f",
       "ext": ".py",
@@ -9348,7 +9369,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "f8902efecf45d590a793c34052ffce9d0b472668",
+      "sha": "376c0f930618a0e9ba384f2942d29e6b5d3584ed",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10245,6 +10266,13 @@
     {
       "path": "tests/test_social_sessao.py",
       "sha": "86b0b36807a00122bb55f2de7a16aa7cbd40d327",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_source_id_wiring_gap.py",
+      "sha": "d2ddc6ef7a2d923f98b852b186b78f1a04228ebf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28170,6 +28198,105 @@
       }
     },
     {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 33,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 34,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 409,
+        "snippet": "with open(alvo, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 40,
+        "snippet": "LEDGER = \"data/collection-ledger/italy/observations.ndjson\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 37,
+        "snippet": "ALCANCE = \"data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 39,
+        "snippet": "REGISTO = \"data/derivados/REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 41,
+        "snippet": "SAIDA = \"data/derivados/SOURCE-ID-WIRING-GAP-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "data/samples/T3-GROUND-TRUTH-EVAL-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 38,
+        "snippet": "GABARITO = \"data/samples/T3-GROUND-TRUTH-EVAL-V1.json\""
+      }
+    },
+    {
+      "from_file": "provas/medir_source_id_wiring_gap.py",
+      "to_file": "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/medir_source_id_wiring_gap.py",
+        "line": 348,
+        "snippet": "with open(mig, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
       "from_file": "provas/mutacao_do_gate.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -37762,6 +37889,28 @@
       }
     },
     {
+      "from_file": "tests/test_source_id_wiring_gap.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_source_id_wiring_gap.py",
+        "line": 18,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_source_id_wiring_gap.py",
+      "to_file": "provas/medir_source_id_wiring_gap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_source_id_wiring_gap.py",
+        "line": 22,
+        "snippet": "\"wiring_t\", os.path.join(RAIZ, \"provas\", \"medir_source_id_wiring_gap.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_telemetria.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -39011,10 +39160,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1477,
-    "files_readable": 567,
-    "files_code_dir": 612,
-    "file_edges": 2562,
+    "files_tracked": 1481,
+    "files_readable": 569,
+    "files_code_dir": 614,
+    "file_edges": 2573,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
