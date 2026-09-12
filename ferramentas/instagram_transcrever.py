@@ -60,6 +60,41 @@ import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 # so importa `os`, `re` e `time` no topo — a biblioteca pesada continua a
 # entrar tarde, dentro das funcoes dele.
 import fala_local as fl  # noqa: E402
+import social_matriz as mz  # noqa: E402 — a política de rota, dono único
+
+#: O ACTO QUE ESTE FICHEIRO EXECUTA, NA LÍNGUA DA MATRIZ.
+#: O mesmo que a cadeia nova pergunta. Uma decisão, todas as portas.
+CAPACIDADE_NA_MATRIZ = 'FETCH_TRANSCRIPT'
+PLATAFORMA = 'INSTAGRAM'
+
+
+def politica_da_aquisicao():
+    """A lei responde ANTES de o socket abrir. Zero rede, zero custo.
+
+    POR QUE ISTO ESTÁ AQUI, NUM FICHEIRO QUE NINGUÉM IMPORTA
+    ----------------------------------------------------------
+    A C10.4B mediu quem alcança esta implementação. Pelo pedido canônico —
+    executor, roteador, portão, adaptador — NINGUÉM: a armadilha ficou muda nas
+    seis entradas. Mas há uma porta que nenhum `import` mostra:
+
+        .github/workflows/sintonia-scrap.yml
+            fase=transcrever  ->  instagram_transcrever.py rodar
+
+    É `workflow_dispatch`. Não é teste, não é histórico, não é comentário: é
+    despacho de produção, e o ficheiro que ele corre baixa o MP4 INTEIRO da CDN
+    da Meta e só depois deita a imagem fora.
+
+        UMA PORTA QUE NENHUM IMPORT MOSTRA CONTINUA A SER UMA PORTA.
+
+    E, até aqui, essa porta não perguntava nada a ninguém. A decisão humana da
+    C10.5D — `INSTAGRAM_REMOTE_ACQUISITION = NOT_ALLOWED` — não a alcançava.
+
+        UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+
+    Isto NÃO altera política nenhuma: lê a que já está escrita, no mesmo dono
+    que a cadeia nova lê.
+    """
+    return mz.decisao(PLATAFORMA, CAPACIDADE_NA_MATRIZ)
 
 # As bibliotecas pesadas vivem FORA do repositório. A memória desta casa registra o
 # acidente: `pip` sem `--target` criou `C:\eame-sintonia\Scripts`, e apagar `Scripts`
@@ -179,6 +214,10 @@ def fase_alvos():
 
 # ─────────────────────────────────────────────────────────────────────── o trabalho
 def _baixar(url, destino):
+    # O PORTÃO, ANTES DO SOCKET. Mesma pergunta, mesmo dono, mesma resposta.
+    decisao = politica_da_aquisicao()
+    if decisao['DECISAO'] != mz.PERMITIDA_SIM:
+        raise PermissionError('%s: %s' % (decisao['DECISAO'], decisao['PORQUE']))
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
     with urllib.request.urlopen(req, timeout=120) as r, open(destino, 'wb') as f:
         f.write(r.read())
@@ -186,7 +225,14 @@ def _baixar(url, destino):
 
 
 def _url_nova(shortcode):
-    """Relê o embed para pegar uma URL de MP4 viva. Grátis, e é o conserto do vencimento."""
+    """Relê o embed para pegar uma URL de MP4 viva. Grátis, e é o conserto do vencimento.
+
+    GRÁTIS NÃO É PERMITIDO. Abrir o embed é tocar a plataforma — sobe navegador,
+    gasta pedido e aparece no log do host. O portão vem antes.
+    """
+    decisao = politica_da_aquisicao()
+    if decisao['DECISAO'] != mz.PERMITIDA_SIM:
+        raise PermissionError('%s: %s' % (decisao['DECISAO'], decisao['PORQUE']))
     import cdp
     import instagram_janela as ij
     try:
