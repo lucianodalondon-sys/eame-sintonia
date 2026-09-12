@@ -77,6 +77,24 @@ def produzidos():
     return list(_PRODUZIDOS)
 
 
+def registar_produzido(caminho):
+    """Anota um RAW que ESTE processo escreveu por fora de `guardar_raw`.
+
+    `coleta/coletor.py` grava o bruto pago com gzip e SHA próprios — ele é o
+    dono daquele formato e não passa por aqui. Só que o inventário da corrida
+    lê `produzidos()`, e o que não está nesta lista é invisível para quem
+    empacota a evidência.
+
+        O QUE O INVENTÁRIO NÃO VÊ NÃO ATRAVESSA A FRONTEIRA DO JOB.
+
+    Isto NÃO copia, não comprime e não decide nada: só diz «este ficheiro saiu
+    desta corrida».
+    """
+    if caminho and caminho not in _PRODUZIDOS:
+        _PRODUZIDOS.append(caminho)
+    return caminho
+
+
 def esquecer_produzidos():
     """So para teste: devolve o processo ao estado de quem nao colheu nada."""
     del _PRODUZIDOS[:]

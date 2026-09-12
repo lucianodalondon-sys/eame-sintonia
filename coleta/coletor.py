@@ -734,6 +734,20 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
             json.dump(itens, f, ensure_ascii=False)          # RAW gravado ANTES de normalizar
         raw_path = 'data/samples/raw-paid/' + nome
         raw_state = 'PRESERVED'
+        # ── O BRUTO PAGO ENTRA NO INVENTARIO DA CORRIDA ───────────────────
+        # Ele e gravado aqui, com gzip e SHA proprios — este ficheiro e o dono
+        # desse formato. Mas quem empacota a evidencia para atravessar a
+        # fronteira do job le `social_envelope.produzidos()`, e ate a C10.8B-R
+        # o bruto pago nao estava la. Resultado medido na C10.8B-LIVE: 59.743
+        # bytes escritos, relidos, assinados — e apagados pelo checkout
+        # seguinte, sem ninguem os ter visto.
+        #
+        #     O QUE O INVENTARIO NAO VE NAO ATRAVESSA A FRONTEIRA DO JOB.
+        try:
+            import social_envelope as _env
+            _env.registar_produzido(os.path.join(RAW_DIR, nome))
+        except ImportError:                                       # pragma: no cover
+            pass
 
     manifesto = pv.novo_run(
         run_id, PLATFORM=platform, ACTOR=actor,

@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/wonderful-hamilton-m50ahv",
-    "HEAD": "d08ca38296959995e690bf7277fe5e755eb57665",
-    "GENERATED_AT": "2026-09-12T17:12:47+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3ff88860d122a3145b4271b96df2a1382d526e85724a3f381e48cd05d0e4a830"
+    "HEAD": "c708787031162ba37c3bb66b10afa1720151bb1a",
+    "GENERATED_AT": "2026-09-12T17:13:13+00:00",
+    "SOURCE_TREE_FINGERPRINT": "63cfc6444502687454ab6f23f1f0d8647b8131136fafba6a46f18eda8ca85ff1"
   },
   "FILES": [
     {
@@ -95,6 +95,13 @@
     {
       "path": ".github/workflows/rls-censo-metadados.yml",
       "sha": "f7d6d3294902ba5127a653b296369bdf06e21933",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/scrap-evidencia.yml",
+      "sha": "bbf512189bae338badb51633625fb4a8127b8ad1",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1200,7 +1207,7 @@
     },
     {
       "path": "coleta/coletor.py",
-      "sha": "b22081cb493a381fd037d793be71ed1304839507",
+      "sha": "e2b3cea5af56c95dc57802fd13774dcd6e1c6cf9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1480,7 +1487,7 @@
     },
     {
       "path": "coleta/social_envelope.py",
-      "sha": "d2cc6e163b9f605d4e6ffd732de1a1c70aa8c052",
+      "sha": "c24729885eb1a754755de303db4d0adbe961dbf1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1501,7 +1508,7 @@
     },
     {
       "path": "coleta/social_scrap.py",
-      "sha": "cab18ab0e06cc47c3440675f613c0c2b889df9c5",
+      "sha": "ab30ef54f5ce9f962f24bc3972a6daa3130bd5ec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5343,6 +5350,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-8B-R-RAW-ENTRE-JOBS.md",
+      "sha": "18564753fe23c1a177b1562e67ec9a756b9ac855",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -8472,6 +8486,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/raw_entre_jobs.py",
+      "sha": "5c2df3b1a177cca7750421e663db89f9c31b0f68",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/readback_022_live.sh",
       "sha": "c1ac05ce1e6f69eec128842b245d2606bb231903",
       "ext": ".sh",
@@ -9747,7 +9768,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ee410c0363077251a19932f3ac289a264f813105",
+      "sha": "08be5804a604ba8412a20e36916986da1e080048",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10287,6 +10308,13 @@
     {
       "path": "tests/test_c10_8b_live_disparador.py",
       "sha": "76c68acdf2ea387fd7eedf1c8b3cea9794b5c7e6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "sha": "5666d300b1e170f118fe25be660ce931c5e686a6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11389,6 +11417,17 @@
         "file": ".github/workflows/rls-censo-metadados.yml",
         "line": 72,
         "snippet": "run: python3 provas/rls_censo_portao.py provas/rls_censo_metadados.sql"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-evidencia.yml",
+      "to_file": "coleta/social_scrap.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-evidencia.yml",
+        "line": 82,
+        "snippet": "PYTHONIOENCODING=utf-8 python3 coleta/social_scrap.py \\"
       }
     },
     {
@@ -12775,6 +12814,17 @@
         "file": "coleta/coletor.py",
         "line": 367,
         "snippet": "import scrap_http as _http"
+      }
+    },
+    {
+      "from_file": "coleta/coletor.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/coletor.py",
+        "line": 747,
+        "snippet": "import social_envelope as _env"
       }
     },
     {
@@ -14280,7 +14330,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1275,
+        "line": 1600,
         "snippet": "import coleta_checkpoint as ck"
       }
     },
@@ -14291,7 +14341,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1309,
+        "line": 1634,
         "snippet": "import coletor as _ct"
       }
     },
@@ -14302,7 +14352,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1070,
+        "line": 1395,
         "snippet": "import comunicacao_coleta as cc"
       }
     },
@@ -14313,7 +14363,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 876,
+        "line": 1201,
         "snippet": "import scrap_executor as scrap"
       }
     },
@@ -14324,8 +14374,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 877,
+        "line": 1202,
         "snippet": "import scrap_fornecedores as forn"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 874,
+        "snippet": "import scrap_http as http"
       }
     },
     {
@@ -14368,7 +14429,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1436,
+        "line": 1761,
         "snippet": "with open(registo, encoding='utf-8') as f:"
       }
     },
@@ -14379,7 +14440,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1258,
+        "line": 1583,
         "snippet": "'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),"
       }
     },
@@ -14401,7 +14462,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1640,
+        "line": 1978,
         "snippet": "import social_guarda"
       }
     },
@@ -14414,6 +14475,17 @@
         "file": "coleta/social_scrap.py",
         "line": 53,
         "snippet": "import social_sessao as ss"
+      }
+    },
+    {
+      "from_file": "coleta/social_scrap.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/social_scrap.py",
+        "line": 775,
+        "snippet": "with open(caminho_man, encoding='utf-8') as f:"
       }
     },
     {
@@ -14445,7 +14517,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/social_scrap.py",
-        "line": 1071,
+        "line": 1396,
         "snippet": "import sensor_coleta as sc"
       }
     },
@@ -28497,6 +28569,61 @@
       }
     },
     {
+      "from_file": "provas/raw_entre_jobs.py",
+      "to_file": ".github/workflows/scrap-evidencia.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/raw_entre_jobs.py",
+        "line": 121,
+        "snippet": "'.github/workflows/scrap-evidencia.yml',"
+      }
+    },
+    {
+      "from_file": "provas/raw_entre_jobs.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/raw_entre_jobs.py",
+        "line": 109,
+        "snippet": "'coleta/coletor.py',"
+      }
+    },
+    {
+      "from_file": "provas/raw_entre_jobs.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/raw_entre_jobs.py",
+        "line": 115,
+        "snippet": "'coleta/social_envelope.py',"
+      }
+    },
+    {
+      "from_file": "provas/raw_entre_jobs.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/raw_entre_jobs.py",
+        "line": 35,
+        "snippet": "'coleta/social_scrap.py',"
+      }
+    },
+    {
+      "from_file": "provas/raw_entre_jobs.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/raw_entre_jobs.py",
+        "line": 133,
+        "snippet": "'leis/social_matriz.py',"
+      }
+    },
+    {
       "from_file": "provas/reel_fala_qualidade.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -34016,6 +34143,94 @@
         "file": "tests/test_c10_8b_live_disparador.py",
         "line": 240,
         "snippet": "import test_c10_8b_rota_paga_canonica as T"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": ".github/workflows/scrap-evidencia.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 34,
+        "snippet": "WORKFLOW = '.github/workflows/scrap-evidencia.yml'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 339,
+        "snippet": "no = _funcao('coleta/coletor.py', 'executar')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 30,
+        "snippet": "import social_envelope as env                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 348,
+        "snippet": "no = _funcao('coleta/social_envelope.py', 'registar_produzido')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 32,
+        "snippet": "import social_scrap as ss                                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 135,
+        "snippet": "no = _funcao('coleta/social_scrap.py', 'evidencia_recuperar')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "handoff/paused-v2/MANIFESTO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 151,
+        "snippet": "man = os.path.join(self.gaveta, RUN, 'MANIFESTO.json')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_r_raw_entre_jobs.py",
+        "line": 31,
+        "snippet": "import social_matriz as mz                                        # noqa: E402"
       }
     },
     {
@@ -41495,10 +41710,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1552,
-    "files_readable": 592,
-    "files_code_dir": 646,
-    "file_edges": 2742,
+    "files_tracked": 1556,
+    "files_readable": 595,
+    "files_code_dir": 649,
+    "file_edges": 2759,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
