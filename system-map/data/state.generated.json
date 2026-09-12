@@ -237,6 +237,7 @@
       "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "data/derivados/BENCHMARK-TEMATICO-V1.json",
       "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+      "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -694,6 +695,7 @@
       "docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md",
       "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/FONTE-ATRAVESSA-FORWARD-V1.md",
       "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
       "docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md",
       "docs/operacao/IDEIAS-E-PENDENCIAS.md",
@@ -1168,6 +1170,7 @@
     "provas": [
       "provas/a_autoridade_da_fonte.py",
       "provas/a_fase_10_entra_no_acervo.py",
+      "provas/a_fonte_atravessa_ate_a_porta.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_lei_da_fase_10.py",
       "provas/a_regra_de_t2.py",
@@ -1481,6 +1484,7 @@
       "tests/test_execucao_standalone.py",
       "tests/test_falhas.py",
       "tests/test_fechar_ground_truth_t3.py",
+      "tests/test_fonte_atravessa.py",
       "tests/test_forward_instrumentado.py",
       "tests/test_fronteira_mede_producao.py",
       "tests/test_fundacao_da_coleta.py",
@@ -1928,10 +1932,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-id-wiring-gap-v1",
-    "HEAD": "1d0975fd1ab82bf9c649492160fddc6ce2316431",
-    "GENERATED_AT": "2026-09-12T01:32:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "66554ab0e5fa4257f6b8a2a86d2604286926dae061ec84e9173b00e43464e115"
+    "BRANCH": "claude/fix-source-id-reader-gap-v1",
+    "HEAD": "91514740e5acbfdef02dea3175daac81bc11f049",
+    "GENERATED_AT": "2026-09-12T01:59:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "778785d793b71600fd5c650024ceaa7fbdba83baab1a0181b1fc805f4f5873ac"
   },
   "FAMILIES": [
     {
@@ -11941,6 +11945,7 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/a_fase_10_entra_no_acervo.py",
+        "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_lei_da_fase_10.py",
         "provas/a_regra_de_t2.py",
         "provas/alcance_da_pergunta_tematica.py",
@@ -11972,7 +11977,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 31,
+      "file_count": 32,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15373,6 +15378,7 @@
         "tests/test_execucao_standalone.py",
         "tests/test_falhas.py",
         "tests/test_fechar_ground_truth_t3.py",
+        "tests/test_fonte_atravessa.py",
         "tests/test_forward_instrumentado.py",
         "tests/test_fronteira_mede_producao.py",
         "tests/test_fundacao_da_coleta.py",
@@ -15440,7 +15446,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 97,
+      "file_count": 98,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17015,7 +17021,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/source-id-wiring-gap-v1"
+        "branch claude/fix-source-id-reader-gap-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17369,8 +17375,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 13 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+          "line": 30,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
         {
           "file": "provas/a_regra_de_t2.py",
           "line": 39,
@@ -17424,11 +17435,6 @@
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 34,
-          "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "provas/testa_golden_path_pdf.py",
-          "line": 24,
           "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
@@ -17577,7 +17583,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -17610,6 +17616,11 @@
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
+          "file": "tests/test_fonte_atravessa.py",
+          "line": 22,
+          "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
           "file": "tests/test_fronteira_mede_producao.py",
           "line": 138,
           "snippet": "import admissao"
@@ -17633,11 +17644,6 @@
           "file": "tests/test_medir_admission_t3_atual.py",
           "line": 26,
           "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "tests/test_pacote_de_revisao_t3.py",
-          "line": 194,
-          "snippet": "import admissao as adm"
         }
       ],
       "categoria": "PROOF"
@@ -21330,7 +21336,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 68,
+          "line": 69,
           "snippet": "import artefato as art  # noqa: E402"
         }
       ],
@@ -22645,7 +22651,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 204,
+          "line": 256,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
         }
       ],
@@ -24772,7 +24778,7 @@
       "evidence": [
         {
           "file": "coleta/italy_executor.py",
-          "line": 83,
+          "line": 87,
           "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
         }
       ],
@@ -27517,7 +27523,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27570,14 +27576,14 @@
           "snippet": "\"censo_corpus_rotulado_admission.py\"))"
         },
         {
-          "file": "tests/test_gate_de_aceitacao_tematica.py",
+          "file": "tests/test_fonte_atravessa.py",
           "line": 29,
-          "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
+          "snippet": "\"a_fonte_atravessa_ate_a_porta.py\"))"
         },
         {
           "file": "tests/test_gate_de_aceitacao_tematica.py",
-          "line": 534,
-          "snippet": "\"mut_t\", os.path.join(RAIZ, \"provas\", \"mutacao_do_gate.py\"))"
+          "line": 29,
+          "snippet": "\"gate_t\", os.path.join(RAIZ, \"provas\", \"gate_de_aceitacao_tematica.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -27820,7 +27826,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 285,
+          "line": 337,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
         }
       ],
@@ -31551,7 +31557,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 752,
+  "UNCLAIMED_FILES_COUNT": 754,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -31723,8 +31729,8 @@
     "edges_proven": 643,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1481,
-    "files_covered": 729,
+    "files_tracked": 1485,
+    "files_covered": 731,
     "files_code_unclaimed": 0
   }
 }

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/source-id-wiring-gap-v1",
-    "HEAD": "1d0975fd1ab82bf9c649492160fddc6ce2316431",
-    "GENERATED_AT": "2026-09-12T01:32:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "66554ab0e5fa4257f6b8a2a86d2604286926dae061ec84e9173b00e43464e115"
+    "BRANCH": "claude/fix-source-id-reader-gap-v1",
+    "HEAD": "91514740e5acbfdef02dea3175daac81bc11f049",
+    "GENERATED_AT": "2026-09-12T01:59:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "778785d793b71600fd5c650024ceaa7fbdba83baab1a0181b1fc805f4f5873ac"
   },
   "FILES": [
     {
@@ -1207,7 +1207,7 @@
     },
     {
       "path": "coleta/executor_texto_de_pdf.py",
-      "sha": "ab7f0b86f3b1759dacfc672254b9f810d7fb43cd",
+      "sha": "981f87a5b66c262a7ea151e83b8cf68aae5121c3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1270,7 +1270,7 @@
     },
     {
       "path": "coleta/italy_executor.py",
-      "sha": "4b0e6b22838dc59bb41dc65c77d7d59660730562",
+      "sha": "e19d91a55c0e6869f9115a7110e845b49339229c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1509,6 +1509,13 @@
     {
       "path": "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
       "sha": "be8d103ed28a87259d2cf50f32efbadbb41721a6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
+      "sha": "68365d3e08135296ff37307f521cb94ff194fa30",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4699,6 +4706,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/FONTE-ATRAVESSA-FORWARD-V1.md",
+      "sha": "13421797e19bf201965cc1147b897741b18ce677",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md",
       "sha": "de479d316b95cfd9553345818a2ba8c09ab8cc84",
       "ext": ".md",
@@ -7828,6 +7842,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_fonte_atravessa_ate_a_porta.py",
+      "sha": "0ef434c8dfc5834eaeab8f57988aefd4de972ab9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_fronteira_da_coleta.py",
       "sha": "dfa5e2acdc51a12a2e23946d1837bbc77c09e7a4",
       "ext": ".py",
@@ -9369,7 +9390,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "376c0f930618a0e9ba384f2942d29e6b5d3584ed",
+      "sha": "b1ef7f6fb9c8f2e6249b454d43adeb26027b303c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9902,6 +9923,13 @@
     {
       "path": "tests/test_fechar_ground_truth_t3.py",
       "sha": "b23dd7f9a37f6137ed7b48958ab76731a63b4e8d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_fonte_atravessa.py",
+      "sha": "12c8ca7387efa32b4cbdf3b58b60181b950744a4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12144,7 +12172,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 67,
+        "line": 68,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -12155,7 +12183,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 97,
+        "line": 98,
         "snippet": "REGISTO = RAIZ / \"data\" / \"derivados\" / \"REGISTO-DE-ARTEFATOS.json\""
       }
     },
@@ -12166,7 +12194,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 526,
+        "line": 597,
         "snippet": "REGISTO.write_text(json.dumps(ja, ensure_ascii=False, indent=1) + \"\\n\","
       }
     },
@@ -12177,7 +12205,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 204,
+        "line": 256,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -12188,7 +12216,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 68,
+        "line": 69,
         "snippet": "import artefato as art  # noqa: E402"
       }
     },
@@ -12199,7 +12227,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_texto_de_pdf.py",
-        "line": 285,
+        "line": 337,
         "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
       }
     },
@@ -12529,7 +12557,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 82,
+        "line": 86,
         "snippet": "COLETOR = os.path.join(\"coleta\", \"italy_pilot_collect.mjs\")"
       }
     },
@@ -12540,7 +12568,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/italy_executor.py",
-        "line": 83,
+        "line": 87,
         "snippet": "LIVRO = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"observations.ndjson\")"
       }
     },
@@ -26460,6 +26488,39 @@
       }
     },
     {
+      "from_file": "provas/a_fonte_atravessa_ate_a_porta.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+        "line": 29,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_atravessa_ate_a_porta.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+        "line": 30,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_fonte_atravessa_ate_a_porta.py",
+      "to_file": "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+        "line": 35,
+        "snippet": "SAIDA = \"data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json\""
+      }
+    },
+    {
       "from_file": "provas/a_fronteira_da_coleta.py",
       "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
       "type": "READS",
@@ -34105,6 +34166,39 @@
       }
     },
     {
+      "from_file": "tests/test_fonte_atravessa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fonte_atravessa.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_fonte_atravessa.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_fonte_atravessa.py",
+        "line": 22,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_fonte_atravessa.py",
+      "to_file": "provas/a_fonte_atravessa_ate_a_porta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_fonte_atravessa.py",
+        "line": 29,
+        "snippet": "\"a_fonte_atravessa_ate_a_porta.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_forward_instrumentado.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -39160,10 +39254,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1481,
-    "files_readable": 569,
-    "files_code_dir": 614,
-    "file_edges": 2573,
+    "files_tracked": 1485,
+    "files_readable": 571,
+    "files_code_dir": 616,
+    "file_edges": 2579,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
