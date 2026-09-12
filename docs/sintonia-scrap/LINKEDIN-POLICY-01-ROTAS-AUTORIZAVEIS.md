@@ -594,6 +594,13 @@ que apontavam para lá, que foram deliberadamente não seguidos.
 | 26 | **resumo de busca vira facto datado** | **apanhado, e foi real** — Proxycurl datado em 2026 no primeiro resumo; a fonte primária diz 2025 |
 | 27 | **D-013 citado como decisão de LinkedIn** | **apanhado** — D-013 é «inventário de população que muda é derivado». Não existe decisão de LinkedIn no diário; os precedentes reais são **D-016** (portal recusa robô → usar agregador oficial) e **D-019** (a porta abre e a chave não existe → DEMOTED) |
 | 28 | **reverter uma regeração porque a anterior era só rótulo** | **apanhado, e foi real** — a fusão trouxe 5 ficheiros, o mapa contava 1 524 contra 1 529, e o carimbo disse `DIFERENTE`. Corrigido com uma regeração a sério |
+| 29 | **correr o último passo da cadeia e chamar-lhe a cadeia** | **apanhado, e foi real, duas vezes** — `CADEIA-DO-MAPA.json → REGERAR` tem **sete** passos: seis scanners e o gerador. Eu corria só `generate_system_map.py`. O mapa saía montado sobre medições velhas dos scanners, o `validate` passava, e o carimbo dizia `DIFERENTE` **com a árvore limpa**. Corrigido correndo os sete. *CORRER O ÚLTIMO PASSO DE UMA CADEIA NÃO É CORRER A CADEIA.* |
+
+    O 29 é o mais instrutivo dos três, porque o portão funcionou e eu não o
+    acreditei. Ele disse `DIFERENTE` sobre uma árvore que o `git status` dizia
+    limpa, e a minha primeira reacção nas duas vezes foi tratá-lo como ruído do
+    SHA auto-referencial. Era um facto, e a causa estava escrita num ficheiro
+    da casa que eu não tinha aberto.
 
 ---
 
