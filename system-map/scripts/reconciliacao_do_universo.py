@@ -1019,9 +1019,26 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
         })
 
     # ── 4 · FRESCURA QUE NAO SE CONSEGUE VERIFICAR ───────────────────────
+    # OS ACHADOS QUE NASCEM DA FRESCURA DIZEM-NO, E A RAZAO E ANTI-DRIFT.
+    #
+    # O artefato ja declara `FRESCURA` em BLOCOS_NAO_COMPARAVEIS: dois censos
+    # da MESMA arvore, gerados em pontos diferentes do ciclo, tem frescuras
+    # legitimamente diferentes. Mas o achado DERIVADO dela vivia em ACHADOS,
+    # que e conteudo comparavel — e a prova anti-drift reprovava por uma
+    # diferenca que o proprio artefato tinha declarado nao ser conteudo.
+    # Medido: commitado dizia ARTEFATO_LEU_A_GERACAO_ANTERIOR e o CI, que
+    # regenera depois de UMA passagem da cadeia, dizia ARTEFATO_MEDIDO_NOUTRA_ARVORE.
+    #
+    #     DECLARAR QUE UM BLOCO NAO E COMPARAVEL E DEIXAR O QUE DELE DERIVA
+    #     DENTRO DO QUE SE COMPARA E DECLARAR METADE.
+    #
+    # `DERIVADO_DE` nao esconde nada: o achado continua na tela e no relatorio.
+    # Ele sai apenas da COMPARACAO, e sai pela lista que ja existe — nao por uma
+    # segunda lista, que divergiria no dia em que alguem so mexesse numa.
     if frescura["NAO_VERIFICAVEL"]:
         a.append({
             "ACHADO": "CARIMBO_DE_FRESCURA_IMPOSSIVEL_DE_VERIFICAR",
+            "DERIVADO_DE": "FRESCURA",
             "GRAVIDADE": "MEDIA",
             "O_QUE": "%s carimbam SHA de commit e nada mais."
                      % ", ".join(frescura["NAO_VERIFICAVEL"]),
@@ -1039,6 +1056,7 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
     if frescura["CICLO_ATRASADO"]:
         a.append({
             "ACHADO": "ARTEFATO_LEU_A_GERACAO_ANTERIOR",
+            "DERIVADO_DE": "FRESCURA",
             "GRAVIDADE": "ALTA",
             "O_QUE": "%s carimbam esta arvore mas leram uma entrada gerada que "
                      "mediu outra." % ", ".join(frescura["CICLO_ATRASADO"]),
@@ -1052,6 +1070,7 @@ def achar(S, terr, nos, visual, excluidos, frescura, aritmetica,
     if so_arvore:
         a.append({
             "ACHADO": "ARTEFATO_MEDIDO_NOUTRA_ARVORE",
+            "DERIVADO_DE": "FRESCURA",
             "GRAVIDADE": "ALTA",
             "O_QUE": "%s tem impressao de arvore diferente desta."
                      % ", ".join(so_arvore),

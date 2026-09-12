@@ -483,7 +483,19 @@ def sem_carimbo(d):
         if isinstance(o, dict):
             return {k: limpar(v) for k, v in o.items() if k not in chaves}
         if isinstance(o, list):
-            return [limpar(v) for v in o]
+            # E UM ACHADO QUE DERIVA DE UM BLOCO NAO COMPARAVEL TAMBEM NAO E
+            # COMPARAVEL. Ele vivia em ACHADOS — conteudo — enquanto nascia da
+            # FRESCURA, que o proprio artefato declara nao comparavel. Duas
+            # geracoes da MESMA arvore em pontos diferentes do ciclo davam
+            # achados de frescura diferentes, e a prova reprovava por uma
+            # diferenca que nao era conteudo nenhum.
+            #
+            #     DECLARAR QUE UM BLOCO NAO E COMPARAVEL E DEIXAR O QUE DELE
+            #     DERIVA DENTRO DO QUE SE COMPARA E DECLARAR METADE.
+            #
+            # A lista continua a ser UMA: a mesma `BLOCOS_NAO_COMPARAVEIS`.
+            return [limpar(v) for v in o
+                    if not (isinstance(v, dict) and v.get("DERIVADO_DE") in blocos)]
         return o
 
     d = json.loads(json.dumps(d))
@@ -502,6 +514,37 @@ prova("a_reconciliacao_commitada_e_a_desta_arvore",
       sem_carimbo(COMMITADO) == sem_carimbo(AGORA),
       "regerar mudou a reconciliacao. Conserto: "
       "py system-map/scripts/reconciliacao_do_universo.py && git add data/derivados")
+
+# E A EXCLUSAO TEM DE SER ESTREITA. Se ela apagasse achados a serio, a prova
+# anti-drift ficava a passar sempre — que e o pior resultado possivel para uma
+# guarda. Tres mordidas, sobre a estrutura em memoria, sem tocar no disco:
+_frescura = [x for x in AGORA["ACHADOS"] if x.get("DERIVADO_DE") == "FRESCURA"]
+_estruturais = [x for x in AGORA["ACHADOS"] if not x.get("DERIVADO_DE")]
+prova("os_achados_de_frescura_dizem_de_onde_nascem",
+      all(x["DERIVADO_DE"] in (COMMITADO.get("BLOCOS_NAO_COMPARAVEIS") or [])
+          for x in _frescura),
+      f"{[x['ACHADO'] for x in _frescura]} — DERIVADO_DE tem de nomear um bloco "
+      f"que o artefato ja declarou nao comparavel")
+prova("ha_achados_estruturais_para_esta_prova_nao_ser_vazia", bool(_estruturais),
+      "sem achado estrutural nenhum, a mordida seguinte nao mede nada")
+
+_mexido = json.loads(json.dumps(AGORA))
+for _x in _mexido["ACHADOS"]:
+    if not _x.get("DERIVADO_DE"):
+        _x["O_QUE"] = "ALGUEM MEXEU AQUI"
+        break
+prova("a_guarda_anti_drift_ainda_morde_num_achado_a_serio",
+      sem_carimbo(_mexido) != sem_carimbo(AGORA),
+      "a exclusao por DERIVADO_DE nao pode apagar achado que e conteudo")
+
+_so_frescura = json.loads(json.dumps(AGORA))
+for _x in _so_frescura["ACHADOS"]:
+    if _x.get("DERIVADO_DE") == "FRESCURA":
+        _x["O_QUE"] = "OUTRO PONTO DO CICLO"
+prova("a_guarda_anti_drift_ignora_o_ponto_do_ciclo",
+      not _frescura or sem_carimbo(_so_frescura) == sem_carimbo(AGORA),
+      "dois censos da mesma arvore em pontos diferentes do ciclo tem frescuras "
+      "legitimamente diferentes, e isso nao e drift")
 
 # A TELA PUBLICA UM NUMERO E A RECONCILIACAO CONHECE OUTRO — o caso que a
 # missao pediu para apanhar: frontend diz 62, reconciliacao conhece 61 ou 63.
