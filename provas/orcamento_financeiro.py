@@ -115,6 +115,25 @@ class FalsoApify(object):
         return Resultado(json.dumps({'data': {}}))
 
 
+# ── ESTA SUITE COMPRA CONTRA UM PROVIDER FALSO, E DECLARA-O ────────────────
+# A SCRAP-SR-02 poe uma guarda no unico sitio que cria execucao paga. Esta suite
+# atravessa esse sitio, entao ela precisa de uma autorizacao — e a que lhe serve
+# e a que ela ja era na verdade: um ENSAIO DE CAPACIDADE, com alvo fixo, tetos
+# declarados e assinatura.
+#
+#     DECLARAR A AUTORIZACAO QUE O TESTE SEMPRE ASSUMIU NAO E ENFRAQUECE-LO.
+#     FABRICAR UM ATALHO PARA A GUARDA E QUE SERIA.
+#
+# Nao ha bandeira, variavel de ambiente nem modo de teste que desligue a guarda —
+# `tests/test_sr02_autorizacao_de_gasto.py` tem uma sentinela que o exige.
+def _ensaio(posts=1):
+    import autorizacao_de_gasto as _ag
+    return _ag.Autorizacao(
+        MODO=_ag.TRIAL, ALVO='C10.8A-F · orcamento financeiro',
+        HUMAN_AUTHORIZATION='suite de sentinelas · provider falso · zero dolar',
+        MAX_PROVIDER_RUNS=posts, MAX_START_POSTS=posts, MAX_USD=99.0, MAX_ITEMS=10 ** 6)
+
+
 class Cenario(object):
     """Instala o provider falso e a rota paga, e desfaz tudo à saída."""
 
@@ -125,11 +144,13 @@ class Cenario(object):
 
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
         """A rota paga. Ela chama o `coletor.executar` REAL."""
-        itens, man = ct.executar(
-            ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
-            country=country_scope, mission='C10-8A-F', query='prova',
-            source_version='prova', evidence_path='data/samples/prova.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
+        import autorizacao_de_gasto as _ag
+        with _ag.autorizacao(_ensaio(1)):
+            itens, man = ct.executar(
+                ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
+                country=country_scope, mission='C10-8A-F', query='prova',
+                source_version='prova', evidence_path='data/samples/prova.json',
+                wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')
@@ -329,6 +350,7 @@ CORPO = open(BRUTO, encoding='utf-8').read()
 
 
 import urllib.request                                              # noqa: E402
+
 
 ROBOTS = '# Hello Friends!\nUser-agent: *\nAllow: /\n'
 

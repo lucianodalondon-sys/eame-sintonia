@@ -30,6 +30,25 @@ import social_envelope as env                                     # noqa: E402
 import social_matriz as mz                                        # noqa: E402
 reg.carregar_adaptadores()
 
+# ── ESTA SUITE COMPRA CONTRA UM PROVIDER FALSO, E DECLARA-O ────────────────
+# A SCRAP-SR-02 poe uma guarda no unico sitio que cria execucao paga. Esta suite
+# atravessa esse sitio, entao ela precisa de uma autorizacao — e a que lhe serve
+# e a que ela ja era na verdade: um ENSAIO DE CAPACIDADE, com alvo fixo, tetos
+# declarados e assinatura.
+#
+#     DECLARAR A AUTORIZACAO QUE O TESTE SEMPRE ASSUMIU NAO E ENFRAQUECE-LO.
+#     FABRICAR UM ATALHO PARA A GUARDA E QUE SERIA.
+#
+# Nao ha bandeira, variavel de ambiente nem modo de teste que desligue a guarda —
+# `tests/test_sr02_autorizacao_de_gasto.py` tem uma sentinela que o exige.
+def _ensaio(posts=1):
+    import autorizacao_de_gasto as _ag
+    return _ag.Autorizacao(
+        MODO=_ag.TRIAL, ALVO='C10.8A-F · orcamento financeiro',
+        HUMAN_AUTHORIZATION='suite de sentinelas · provider falso · zero dolar',
+        MAX_PROVIDER_RUNS=posts, MAX_START_POSTS=posts, MAX_USD=99.0, MAX_ITEMS=10 ** 6)
+
+
 PLAT, CAPAC = 'YOUTUBE', 'youtube.native_caption'
 ATOR = 'fake~ator-pago-do-teste'
 MOTIVO = 'FREE_ROUTE_UNAVAILABLE'
@@ -83,7 +102,8 @@ class _Cenario(object):
         self.falso, self.teto_da_rota = _Falso(guiao), teto_da_rota
 
     def rota(self, *, run_id, country_scope='IT', medida=None, **k):
-        itens, man = ct.executar(
+        with __import__("autorizacao_de_gasto").autorizacao(_ensaio(1)):
+            itens, man = ct.executar(
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='teste',
             source_version='teste', evidence_path='data/samples/t.json',

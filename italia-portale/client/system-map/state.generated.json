@@ -1095,6 +1095,7 @@
       "leis/aprender_com_a_fonte.py",
       "leis/artefato.py",
       "leis/auditoria_regua_comercial.py",
+      "leis/autorizacao_de_gasto.py",
       "leis/calendario_handoff.py",
       "leis/data_clock.py",
       "leis/diagnostico.py",
@@ -1231,6 +1232,7 @@
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
       "provas/linkedin_local_first.py",
+      "provas/nenhuma_compra_sem_autorizacao.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
@@ -1588,6 +1590,7 @@
       "tests/test_security_secret_shapes.py",
       "tests/test_social_persistencia_pg.py",
       "tests/test_social_sessao.py",
+      "tests/test_sr02_autorizacao_de_gasto.py",
       "tests/test_telemetria.py",
       "tests/test_thread_parcial.py",
       "tests/test_trava_da_inteligencia.py",
@@ -1982,9 +1985,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "67b30bcaa531277bced35f62548494f60f07ce76",
-    "GENERATED_AT": "2026-09-12T18:19:33+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e98f295a62f70f78cbf9be7aea23f9627a64e221e055696ef75802166aafc92b"
+    "HEAD": "693e2118e3ba4a6a75e0e2587b74316db6146196",
+    "GENERATED_AT": "2026-09-12T18:29:43+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f65f3d1cd82f2a238f736a8903978a9f60f82ef53f44da1240519f1767c91d09"
   },
   "FAMILIES": [
     {
@@ -2053,7 +2056,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 60
+      "count": 61
     },
     {
       "id": "F-ENTREGA",
@@ -2407,7 +2410,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 13
+      "count": 14
     },
     {
       "id": "Z-PROVA",
@@ -5924,6 +5927,66 @@
       "y": 1004
     },
     {
+      "id": "C-AUTORIZACAO-DE-GASTO",
+      "name": "A autorizacao de gasto — nenhuma compra sem ela",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "A guarda do unico sitio da casa que cria execucao paga. Ela nao calcula relevancia: VERIFICA que uma autorizacao explicita veio junto, que ela e do PAR exacto (fonte, proposito) que se vai colher, que os tetos declarados nela cobrem esta chamada, e que o modo e um dos tres — NORMAL_COLLECTION, SOURCE_EVALUATION_PROBE ou CAPABILITY_TRIAL. Quinze recusas, cada uma com o seu nome, porque NOT_RELEVANT para tudo transformaria varias ausencias diferentes num julgamento que ninguem fez.",
+      "why_here": "Antes desta lei a casa tinha seis workflows com token e trinta e dois scripts capazes de chegar a porta paga, e nenhum deles precisava de autorizacao para criar uma execucao: bastava o token estar presente e o orcamento ter saldo. Mas TOKEN_PRESENT != SPEND_AUTHORIZED e BUDGET_PRESENT != SPEND_AUTHORIZED — um orcamento diz QUANTO se pode gastar, nunca SE este gasto foi autorizado. Ela vive aqui, e nao no orquestrador, porque a trava tem de estar no sitio que CRIA a compra e nao no sitio que pede: `coleta/coletor.py` carrega o unico `metodo=POST` da arvore, e uma guarda ali fecha as trinta e duas portas de uma vez — SPEND ENFORCEMENT != CANONICAL ORCHESTRATION. O eixo da relevancia vem do dono dele (leis/relevancia_da_fonte.py, SR-01, noutro ramo) e NAO e copiado para ca: enquanto esse dono nao estiver nesta arvore os dois modos que julgam fonte recusam com DONO_DA_RELEVANCIA_AUSENTE, porque DEPENDER DO DONO != SER O DONO e fechar por ausencia e mais trava, nao menos.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/autorizacao_de_gasto.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-COLETA-BASE",
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "LEIS",
+          "NAO_CRIAR"
+        ],
+        "palavras": 13,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 13,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
+      "y": 360
+    },
+    {
       "id": "C-BANCO-NO-SECO",
       "name": "O banco a seco",
       "territory": "Z-MEDIDAS",
@@ -7249,6 +7312,7 @@
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-PROCEDENCIA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
@@ -7591,7 +7655,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 360
     },
     {
@@ -7736,8 +7800,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 360
+      "x": 18485,
+      "y": 682
     },
     {
       "id": "C-CORPUS",
@@ -7962,7 +8026,7 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "escreve data/samples/DATA-CLOCK-manifest.json, e quem le nao esta na esteira: C-REGRA-COLETA, C-SAUDE-FONTE, C-TESTES",
-      "x": 18485,
+      "x": 18900,
       "y": 682
     },
     {
@@ -8209,7 +8273,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 682
     },
     {
@@ -8674,8 +8738,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 682
+      "x": 18485,
+      "y": 1004
     },
     {
       "id": "C-EXECUTOR-TEXTO-PDF",
@@ -9056,7 +9120,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 18900,
       "y": 1004
     },
     {
@@ -10190,7 +10254,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 1004
     },
     {
@@ -10256,8 +10320,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 19315,
-      "y": 1004
+      "x": 18485,
+      "y": 1326
     },
     {
       "id": "C-MAPA-APP",
@@ -11405,7 +11469,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18485,
+      "x": 18900,
       "y": 1326
     },
     {
@@ -12120,6 +12184,7 @@
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
         "provas/linkedin_local_first.py",
+        "provas/nenhuma_compra_sem_autorizacao.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/orcamento_de_rede.py",
         "provas/orcamento_financeiro.py",
@@ -12139,7 +12204,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 25,
+      "file_count": 26,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12152,6 +12217,7 @@
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-APIFY-POOL",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
@@ -12869,7 +12935,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18900,
+      "x": 19315,
       "y": 1326
     },
     {
@@ -13491,8 +13557,8 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "rule_role": "STAMPS",
       "rule_role_evidence": "escreve data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json, e C-ROTULOS — peca da esteira — le isso",
-      "x": 19315,
-      "y": 1326
+      "x": 18485,
+      "y": 1648
     },
     {
       "id": "C-ROTA-M2",
@@ -13926,7 +13992,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18485,
+      "x": 18900,
       "y": 1648
     },
     {
@@ -15777,6 +15843,7 @@
         "tests/test_security_secret_shapes.py",
         "tests/test_social_persistencia_pg.py",
         "tests/test_social_sessao.py",
+        "tests/test_sr02_autorizacao_de_gasto.py",
         "tests/test_telemetria.py",
         "tests/test_thread_parcial.py",
         "tests/test_trava_da_inteligencia.py",
@@ -15790,7 +15857,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 111,
+      "file_count": 112,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15816,6 +15883,7 @@
         "C-APRENDER-COM-A-FONTE",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-BANCO-NO-SECO",
         "C-BIBLIA",
         "C-CADEIA-V21",
@@ -17878,7 +17946,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_2_origin_gate.py",
@@ -17894,6 +17962,11 @@
           "file": "tests/test_red_team_estrada.py",
           "line": 28,
           "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 441,
+          "snippet": "import admissao"
         }
       ],
       "categoria": "PROOF"
@@ -18051,7 +18124,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_8b_live_disparador.py",
-          "line": 252,
+          "line": 273,
           "snippet": "import apify_pool as ap"
         },
         {
@@ -18068,6 +18141,24 @@
           "file": "tests/test_falhas.py",
           "line": 19,
           "snippet": "import apify_pool as ap            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-APIFY-POOL",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Apify — a rota paga alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 212,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'ferramentas/apify_pool.py'), encoding='utf-8').read()"
         }
       ],
       "categoria": "PROOF"
@@ -19267,6 +19358,121 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto — nenhuma compra sem ela tem o seu codigo importado por O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 624,
+          "snippet": "import autorizacao_de_gasto as ag"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto — nenhuma compra sem ela tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 77,
+          "snippet": "import autorizacao_de_gasto as ag      # noqa: E402"
+        },
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 130,
+          "snippet": "import autorizacao_de_gasto as _ag"
+        },
+        {
+          "file": "provas/primeira_rota_paga.py",
+          "line": 147,
+          "snippet": "import autorizacao_de_gasto as _ag"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto — nenhuma compra sem ela alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 258,
+          "snippet": "_fonte_lei = open(os.path.join(RAIZ, 'leis/autorizacao_de_gasto.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto — nenhuma compra sem ela tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 45,
+          "snippet": "import autorizacao_de_gasto as _ag"
+        },
+        {
+          "file": "tests/test_c10_8b_live_disparador.py",
+          "line": 41,
+          "snippet": "import autorizacao_de_gasto as _ag"
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 137,
+          "snippet": "import autorizacao_de_gasto as _ag"
+        },
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 76,
+          "snippet": "import autorizacao_de_gasto as ag                                 # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-AUTORIZACAO-DE-GASTO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A autorizacao de gasto — nenhuma compra sem ela alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 272,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis/autorizacao_de_gasto.py'),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-BANCO-NO-SECO",
@@ -21162,6 +21368,18 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-AUTORIZACAO-DE-GASTO",
+      "type": "CONSULTA",
+      "reason": "O `coletor.executar` chama `autorizacao_de_gasto.exigir` como PRIMEIRO acto, antes da reserva financeira e antes do POST que cria a execucao. A ORDEM e a prova: uma guarda consultada depois da compra nao e uma guarda, e uma consultada depois da reserva ja comprometeu saldo por uma compra que ninguem autorizou.  ⚪ NAO SEI: isto foi declarado por gente, e o scanner nao achou nenhuma linha de codigo que prove.",
+      "declared_by": "missao SCRAP-SR-02",
+      "declared_at": "2026-09-12",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "evidence": [],
+      "categoria": "UNKNOWN"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-COLETA-INSTAGRAM",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21204,7 +21422,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 9 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -21215,6 +21433,11 @@
           "file": "provas/_c106c_filho.py",
           "line": 24,
           "snippet": "import coleta_checkpoint as ck   # noqa: E402"
+        },
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 38,
+          "snippet": "import coletor as ct                   # noqa: E402"
         },
         {
           "file": "provas/orcamento_financeiro.py",
@@ -21262,16 +21485,21 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 147,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/coletor.py'), encoding='utf-8').read()"
+        },
+        {
           "file": "provas/orcamento_financeiro.py",
-          "line": 208,
+          "line": 229,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 221,
+          "line": 245,
           "snippet": "diz(med.get('IMPLEMENTACAO') == 'coleta/coletor.py',"
         },
         {
@@ -21433,7 +21661,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21491,9 +21719,9 @@
           "snippet": "import coleta_checkpoint as cc          # noqa: E402"
         },
         {
-          "file": "tests/test_youtube_antidrift.py",
-          "line": 183,
-          "snippet": "import coleta_checkpoint as cc"
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 77,
+          "snippet": "import coletor as ct                                              # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21506,7 +21734,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21515,12 +21743,12 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 338,
+          "line": 358,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
           "file": "tests/test_c10_8b_live_disparador.py",
-          "line": 114,
+          "line": 132,
           "snippet": "for proibido in ('coletor.py', 'adaptador_youtube', 'instagram_coleta',"
         },
         {
@@ -21530,8 +21758,13 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 224,
+          "line": 238,
           "snippet": "self.assertEqual(med.get('IMPLEMENTACAO'), 'coleta/coletor.py')"
+        },
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 218,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/coletor.py'), encoding='utf-8').read()"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -21553,7 +21786,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 455,
+          "line": 477,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -21701,7 +21934,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 338,
+          "line": 358,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         }
       ],
@@ -21737,7 +21970,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 456,
+          "line": 478,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         }
       ],
@@ -21854,7 +22087,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 339,
+          "line": 359,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -28050,7 +28283,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 589,
+          "line": 609,
           "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
         },
         {
@@ -28060,7 +28293,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 553,
+          "line": 567,
           "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')"
         },
         {
@@ -29778,7 +30011,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 45 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 46 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -30051,7 +30284,7 @@
         },
         {
           "file": "coleta/coletor.py",
-          "line": 747,
+          "line": 776,
           "snippet": "import social_envelope as _env"
         }
       ],
@@ -30083,7 +30316,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 44 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 45 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -30156,7 +30389,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -30172,6 +30405,11 @@
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 252,
           "snippet": "arv = ast.parse(io.open(os.path.join(RAIZ, 'coleta', 'scrap_executor.py'),"
+        },
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 322,
+          "snippet": "os.path.join(RAIZ, 'coleta/scrap_executor.py'), encoding='utf-8').read(),"
         },
         {
           "file": "provas/orcamento_de_rede.py",
@@ -30200,7 +30438,7 @@
         },
         {
           "file": "provas/primeira_rota_paga.py",
-          "line": 309,
+          "line": 333,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/adaptador_youtube.py'), encoding='utf-8').read()"
         },
         {
@@ -30278,7 +30516,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 110 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 111 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -30510,7 +30748,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 456,
+          "line": 478,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -30579,7 +30817,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 339,
+          "line": 359,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -30793,7 +31031,7 @@
         },
         {
           "file": "tests/test_c10_8b_live_disparador.py",
-          "line": 30,
+          "line": 48,
           "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
         }
       ],
@@ -33220,17 +33458,17 @@
     ]
   },
   "COUNTS": {
-    "components": 164,
+    "components": 165,
     "components_proven": 53,
-    "components_pending": 105,
+    "components_pending": 106,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 681,
-    "edges_proven": 678,
-    "edges_unknown": 3,
+    "edges": 688,
+    "edges_proven": 684,
+    "edges_unknown": 4,
     "business_edges": 4,
-    "files_tracked": 1534,
-    "files_covered": 757,
+    "files_tracked": 1537,
+    "files_covered": 760,
     "files_code_unclaimed": 0
   }
 }

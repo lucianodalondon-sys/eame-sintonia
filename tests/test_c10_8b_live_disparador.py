@@ -27,6 +27,24 @@ import social_scrap as ss                                         # noqa: E402
 reg.carregar_adaptadores()
 
 FASE = 'yt-legenda-paga'
+
+# ── ESTA SUITE ATRAVESSA A PORTA PAGA, E DECLARA A AUTORIZACAO ─────────────
+# A SCRAP-SR-02 fechou a criacao de execucao paga atras de uma guarda. Esta
+# suite corre `social_scrap.coletar` — um caminho de PRODUCAO — contra um
+# provider falso. O caminho de producao NAO fabrica autorizacao nenhuma, e e
+# assim que tem de ser:
+#
+#     UM SCRIPT QUE ASSINA A PROPRIA AUTORIZACAO NAO E UM SCRIPT AUTORIZADO.
+#
+# Quem assina e quem mede. Aqui, a suite.
+def _ensaio_pago(posts=4):
+    import autorizacao_de_gasto as _ag
+    return _ag.Autorizacao(
+        MODO=_ag.TRIAL, ALVO='C10.8B-LIVE · disparador · %s' % FASE,
+        HUMAN_AUTHORIZATION='suite C10.8B-LIVE · provider falso · zero dolar',
+        MAX_PROVIDER_RUNS=posts, MAX_START_POSTS=posts, MAX_USD=99.0,
+        MAX_ITEMS=10 ** 6)
+
 WORKFLOW = '.github/workflows/sintonia-scrap.yml'
 ALVO = 'EAkcA_2FDN8'
 
@@ -205,7 +223,8 @@ class OComandoDoWorkflowAtravessaOBoundary(unittest.TestCase):
         real = sx.COLLECT
         sx.COLLECT = lambda **k: (pedidos.append(k), ([], {'RESULT': 'OK'}))[1]
         try:
-            ss.coletar(FASE, banco=None)
+            with __import__("autorizacao_de_gasto").autorizacao(_ensaio_pago()):
+                ss.coletar(FASE, banco=None)
         finally:
             sx.COLLECT = real
         self.assertEqual(len(pedidos), 1)
@@ -228,7 +247,8 @@ class OComandoDoWorkflowAtravessaOBoundary(unittest.TestCase):
             pedidos = []
             sx.COLLECT = lambda **k: (pedidos.append(k), ([], {'RESULT': 'OK'}))[1]
             try:
-                ss.coletar(fase, banco=None)
+                with __import__("autorizacao_de_gasto").autorizacao(_ensaio_pago()):
+                    ss.coletar(fase, banco=None)
             finally:
                 sx.COLLECT = real
             with self.subTest(fase=fase):
@@ -239,7 +259,8 @@ class OComandoDoWorkflowAtravessaOBoundary(unittest.TestCase):
         """O caminho REAL do workflow, com só a API do provider falsa."""
         import test_c10_8b_rota_paga_canonica as T
         f = T._Falsa(texto=T._texto_real())
-        with T._Cenario(f):
+        with __import__("autorizacao_de_gasto").autorizacao(_ensaio_pago()), \
+                T._Cenario(f):
             saida = ss.coletar(FASE, banco=None)
         self.assertEqual(len(f.posts), 1, 'o comando do workflow nao fez UM POST')
         self.assertIsNotNone(f.posts[0]['cap'])
@@ -256,7 +277,8 @@ class OComandoDoWorkflowAtravessaOBoundary(unittest.TestCase):
         ap.pool = lambda env=None: []
         try:
             with T._Cenario(f, com_chave=False):
-                ss.coletar(FASE, banco=None)
+                with __import__("autorizacao_de_gasto").autorizacao(_ensaio_pago()):
+                    ss.coletar(FASE, banco=None)
         finally:
             ap.pool = antes
         self.assertEqual(f.posts, [], 'o comando comprou sem credencial')
@@ -269,7 +291,8 @@ class ORegistoQueVoltaAoRepositorio(unittest.TestCase):
         import test_c10_8b_rota_paga_canonica as T
         f = T._Falsa(texto=T._texto_real())
         with T._Cenario(f):
-            ss.coletar(FASE, banco=None)
+            with __import__("autorizacao_de_gasto").autorizacao(_ensaio_pago()):
+                ss.coletar(FASE, banco=None)
         with io.open(os.path.join(ss.GAVETA_PAGA, '%s.json' % FASE),
                      encoding='utf-8') as fh:
             return json.load(fh), f

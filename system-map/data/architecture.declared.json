@@ -1853,7 +1853,8 @@
     "provas/testa_coleta_canonica.py",
     "provas/testa_golden_path_pdf.py",
     "provas/trava_de_drift_de_migration.sh",
-    "provas/paridade_da_lingua.py"
+    "provas/paridade_da_lingua.py",
+    "provas/nenhuma_compra_sem_autorizacao.py"
    ],
    "views": [
     "audit"
@@ -2989,6 +2990,25 @@
    "files": [
     "provas/instagram_audio_only.py"
    ]
+  },
+  {
+   "id": "C-AUTORIZACAO-DE-GASTO",
+   "name": "A autorizacao de gasto — nenhuma compra sem ela",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "\u2696",
+   "views": [
+    "audit",
+    "acervo"
+   ],
+   "what": "A guarda do unico sitio da casa que cria execucao paga. Ela nao calcula relevancia: VERIFICA que uma autorizacao explicita veio junto, que ela e do PAR exacto (fonte, proposito) que se vai colher, que os tetos declarados nela cobrem esta chamada, e que o modo e um dos tres — NORMAL_COLLECTION, SOURCE_EVALUATION_PROBE ou CAPABILITY_TRIAL. Quinze recusas, cada uma com o seu nome, porque NOT_RELEVANT para tudo transformaria varias ausencias diferentes num julgamento que ninguem fez.",
+   "why_here": "Antes desta lei a casa tinha seis workflows com token e trinta e dois scripts capazes de chegar a porta paga, e nenhum deles precisava de autorizacao para criar uma execucao: bastava o token estar presente e o orcamento ter saldo. Mas TOKEN_PRESENT != SPEND_AUTHORIZED e BUDGET_PRESENT != SPEND_AUTHORIZED — um orcamento diz QUANTO se pode gastar, nunca SE este gasto foi autorizado. Ela vive aqui, e nao no orquestrador, porque a trava tem de estar no sitio que CRIA a compra e nao no sitio que pede: `coleta/coletor.py` carrega o unico `metodo=POST` da arvore, e uma guarda ali fecha as trinta e duas portas de uma vez — SPEND ENFORCEMENT != CANONICAL ORCHESTRATION. O eixo da relevancia vem do dono dele (leis/relevancia_da_fonte.py, SR-01, noutro ramo) e NAO e copiado para ca: enquanto esse dono nao estiver nesta arvore os dois modos que julgam fonte recusam com DONO_DA_RELEVANCIA_AUSENTE, porque DEPENDER DO DONO != SER O DONO e fechar por ausencia e mais trava, nao menos.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/autorizacao_de_gasto.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
@@ -3044,6 +3064,14 @@
    "to": "C-SCRAP-SOCIAL",
    "type": "ALIMENTA",
    "reason": "O orquestrador canonico escolhe o executor; o SINTONIA SCRAP e um deles, e esta ABAIXO dele. COL-LAW-011: um unico dono da orquestracao. A ligacao esta DECLARADA e nao provada de proposito — a convergencia C1 desenhou o contrato de executor e NAO encanou a Collection. Enquanto nao houver linha de codigo que a prove, ela vale NAO SEI, que e o estado certo para o que ainda nao foi ligado."
+  },
+  {
+   "from": "C-COLETA-BASE",
+   "to": "C-AUTORIZACAO-DE-GASTO",
+   "type": "CONSULTA",
+   "reason": "O `coletor.executar` chama `autorizacao_de_gasto.exigir` como PRIMEIRO acto, antes da reserva financeira e antes do POST que cria a execucao. A ORDEM e a prova: uma guarda consultada depois da compra nao e uma guarda, e uma consultada depois da reserva ja comprometeu saldo por uma compra que ninguem autorizou.",
+   "declared_by": "missao SCRAP-SR-02",
+   "declared_at": "2026-09-12"
   }
  ],
  "DECLARED_BLOBS": {

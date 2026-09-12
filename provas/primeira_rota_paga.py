@@ -132,6 +132,26 @@ class FalsaApify(object):
         return Resultado(json.dumps({'data': {}}))
 
 
+# ── ESTA PROVA ATRAVESSA A PORTA PAGA, E DECLARA A AUTORIZACAO ─────────────
+# A SCRAP-SR-02 poe uma guarda no unico sitio que cria execucao paga. Esta prova
+# atravessa esse sitio contra um provider FALSO, entao precisa de autorizacao —
+# e a que lhe serve e a que ela sempre foi: um ENSAIO DE CAPACIDADE, com alvo
+# fixo, UM POST no teto e assinatura.
+#
+#     DECLARAR A AUTORIZACAO QUE A PROVA SEMPRE ASSUMIU NAO E ENFRAQUECE-LA.
+#     UM TETO DE UM POST NA PROPRIA AUTORIZACAO E MAIS TRAVA, NAO MENOS.
+#
+# Nao ha bandeira nem variavel de ambiente que desligue a guarda — a sentinela
+# em `tests/test_sr02_autorizacao_de_gasto.py` exige-o.
+def _ensaio(posts=1):
+    import autorizacao_de_gasto as _ag
+    return _ag.Autorizacao(
+        MODO=_ag.TRIAL, ALVO='C10.8B · %s · video %s' % (CAPAC, ALVO),
+        HUMAN_AUTHORIZATION='prova offline · provider falso · zero dolar',
+        MAX_PROVIDER_RUNS=posts, MAX_START_POSTS=posts, MAX_USD=TETO_USD,
+        MAX_ITEMS=10 ** 6)
+
+
 class Cenario(object):
     """Instala o falso e uma chave de mentira. Desfaz tudo à saída."""
 
@@ -139,6 +159,9 @@ class Cenario(object):
         self.falso, self.com_chave = falso, com_chave
 
     def __enter__(self):
+        import autorizacao_de_gasto as _ag
+        self._auth = _ag.autorizacao(_ensaio(1))
+        self._auth.__enter__()
         self._run, self._pool = ct.subprocess.run, ap.pool
         ct.subprocess.run = self.falso
         if self.com_chave:
@@ -153,6 +176,7 @@ class Cenario(object):
         ct.subprocess.run, ap.pool = self._run, self._pool
         shutil.rmtree(ct.RAW_DIR, ignore_errors=True)
         ct.RAW_DIR = self._gaveta
+        self._auth.__exit__(None, None, None)
         return False
 
 

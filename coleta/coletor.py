@@ -572,6 +572,7 @@ def _requisicoes_falhadas(loja_kv, *, token):
 
 
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
+             source_id=None, proposito=None,
              source_version, evidence_path, wait=280, salvar_raw=True,
              teto_usd=None, build=None, rota=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
@@ -595,6 +596,34 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         PROVIDER CAP != EXECUTION BUDGET.
     """
     started = agora()
+    # ── A AUTORIZACAO VEM ANTES DO DINHEIRO ───────────────────────────────────
+    # Esta é a primeira linha que corre, e é de propósito. As cinco travas que já
+    # existiam respondem QUANTO se pode gastar; nenhuma respondia SE se pode.
+    #
+    #     TER TETO NÃO É TER PERMISSÃO.
+    #
+    # Ela vem antes da reserva porque reservar dinheiro para uma compra não
+    # autorizada já é comprometer o orçamento de uma coisa que não vai acontecer
+    # — e o estado `UNKNOWN` que sobra depois é indistinguível de uma compra que
+    # talvez tenha nascido.
+    #
+    # `SemAutorizacaoDeGasto` SOBE. Traduzi-la aqui para um manifesto de falha
+    # faria a casa dizer que o provider recusou quando fomos nós — o mesmo
+    # defeito que a C10.8A mediu ao vivo com o portão do robots.
+    #
+    #     RECUSA NOSSA NÃO É RECUSA DA PLATAFORMA.
+    # ── O IMPORT E TARDIO, E POR UMA RAZAO MEDIDA ─────────────────────────
+    # A guarda le o vocabulario da relevancia, que o le da `admissao`, e a cadeia
+    # fecha um ciclo de volta a este ficheiro. Um import no topo produzia
+    # `partially initialized module` em seis suites de uma vez.
+    #
+    #     UM CICLO DE IMPORT NAO E UM DEFEITO DA GUARDA. E O SITIO ERRADO PARA
+    #     A CHAMAR.
+    #
+    # Este ficheiro ja usa este mesmo desenho para `social_envelope`, adiante.
+    import autorizacao_de_gasto as ag
+    permissao = ag.exigir(actor=actor, source_id=source_id, proposito=proposito,
+                          teto_usd=teto_usd)
     # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
     # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
     # ela que decide o `maxTotalChargeUsd` que vai na query.
@@ -785,6 +814,28 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     manifesto['REQUESTS_FINISHED'] = terminadas
     manifesto['MAX_TOTAL_CHARGE_USD'] = teto_usd if teto_usd is not None else pv.NOT_PRESERVED
     manifesto['BUILD_PINNED'] = build or pv.NOT_PRESERVED
+    # ── A AUTORIZACAO VIAJA COM O MANIFESTO ───────────────────────────────
+    # Sem isto, uma compra autorizada e uma compra sem autorizacao produziriam
+    # rastos identicos, e a unica prova de que a guarda correu seria a ausencia
+    # de uma excecao — que nao se le num artefato.
+    #
+    #     UMA GUARDA QUE NAO DEIXA MARCA NO RASTO E UMA GUARDA QUE NINGUEM
+    #     CONSEGUE AUDITAR DEPOIS.
+    manifesto['SPEND_AUTHORIZATION'] = {
+        'CONTRATO': permissao.get('CONTRATO'),
+        'MODO': permissao.get('MODO'),
+        'SOURCE_ID': permissao.get('SOURCE_ID'),
+        'PROPOSITO': permissao.get('PROPOSITO'),
+        'RELEVANCE_RESULT': permissao.get('RELEVANCE_RESULT'),
+        'RELEVANCE_VERDICT': permissao.get('RELEVANCE_VERDICT'),
+        'DECISION_VERSION': permissao.get('DECISION_VERSION'),
+        'EVIDENCE_REFERENCE': permissao.get('EVIDENCE_REFERENCE'),
+        'HUMAN_AUTHORIZATION': permissao.get('HUMAN_AUTHORIZATION'),
+        'ALVO': permissao.get('ALVO'),
+        'POSTS_USED': permissao.get('POSTS_USED'),
+        'MAX_START_POSTS': permissao.get('MAX_START_POSTS'),
+        'MAX_USD': permissao.get('MAX_USD'),
+    }
     # O custo lido AGORA vem 0 enquanto a Apify não fecha a conta da execução. Já custou
     # 5,6x uma vez (US$0,90 anunciados, US$5,04 reais). Ele fica gravado, mas ROTULADO:
     # quem publicar número sem liquidar está publicando o número errado.

@@ -125,7 +125,21 @@ class _Cenario(object):
 
 def _colher(falso, *, gasto=TETO_USD, rede=TETO_REDE, com_chave=True,
             permitir_pago=True, motivo=MOTIVO, modo=sx.TRIAL, video=ALVO):
-    with _Cenario(falso, com_chave=com_chave):
+    # ── ESTA SUITE COMPRA CONTRA UM PROVIDER FALSO, E DECLARA-O ───────────
+    # A SCRAP-SR-02 poe uma guarda no unico sitio que cria execucao paga. Esta
+    # suite atravessa esse sitio, e a autorizacao que lhe serve e a que ela ja
+    # era: um ENSAIO DE CAPACIDADE, com alvo fixo, tetos e assinatura.
+    #
+    #     DECLARAR A AUTORIZACAO QUE O TESTE SEMPRE ASSUMIU NAO E ENFRAQUECE-LO.
+    #
+    # E ela NAO e o `sx.TRIAL` do executor: aquele e o eixo epistemologico e
+    # continua a nao autorizar gasto nenhum.
+    import autorizacao_de_gasto as _ag
+    _auth = _ag.Autorizacao(
+        MODO=_ag.TRIAL, ALVO='apify:transcricao · %s' % CAPAC,
+        HUMAN_AUTHORIZATION='suite C10.8B · provider falso · zero dolar',
+        MAX_PROVIDER_RUNS=4, MAX_START_POSTS=4, MAX_USD=99.0, MAX_ITEMS=10 ** 6)
+    with _ag.autorizacao(_auth), _Cenario(falso, com_chave=com_chave):
         pedido = dict(platform=PLAT, capability=CAPAC, run_id='t-c108b',
                       modo=modo, permitir_pago=permitir_pago, motivo_pago=motivo,
                       video_id=video)
