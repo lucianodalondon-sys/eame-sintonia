@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-operational-entrypoints-c10-6d",
-    "HEAD": "370c1f6b9408071f4d412f606c10dfab08711850",
-    "GENERATED_AT": "2026-09-12T06:03:52+00:00",
+    "HEAD": "a5346dfdcd7e94456df1771c9e8a21cdb9b5c268",
+    "GENERATED_AT": "2026-09-12T11:19:26+00:00",
     "SOURCE_TREE_FINGERPRINT": "06ed6ab1da248a66652cb629a5cc505903360758730885184c1b522b4944f20f"
   },
   "FILES": [
@@ -5231,6 +5231,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-6D-PORTAS-OPERACIONAIS-CANONICAS.md",
+      "sha": "eea6a93188c27cc3b530c2482bf75ee9130a2842",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -8157,6 +8164,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/portas_canonicas_no_postgres.py",
+      "sha": "6fd0ff6c4beaae3d9584bb43a90e52e9ac3c1818",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/preflight_022_live.sh",
       "sha": "1d8900d3eb82b3f8cc1110219fd062f5ed99c68c",
       "ext": ".sh",
@@ -9902,6 +9916,13 @@
     {
       "path": "tests/test_c10_6c_runtime_comum.py",
       "sha": "d5da8482afa525c7ce0026564e59e44d8b300db0",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_6d_portas_canonicas.py",
+      "sha": "46a123229432d0f3b1af4b86cc3e2f8ccc046df6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27064,6 +27085,138 @@
       }
     },
     {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 33,
+        "snippet": "WF = '.github/workflows/sintonia-scrap.yml'"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 144,
+        "snippet": "import coleta_checkpoint as ck"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/instagram_diario.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 41,
+        "snippet": "IMPLEMENTACOES = ('instagram_janela.py', 'instagram_diario.py',"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 41,
+        "snippet": "IMPLEMENTACOES = ('instagram_janela.py', 'instagram_diario.py',"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 146,
+        "snippet": "import social_scrap as ss"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 101,
+        "snippet": "alvo_ok = 'social_scrap.py' in cmds and 'coletar' in cmds"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/youtube_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 42,
+        "snippet": "'youtube_janela.py', 'youtube_transcrever.py',"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 44,
+        "snippet": "'youtube_oficial.py')"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "ferramentas/cdp.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 145,
+        "snippet": "import cdp"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 43,
+        "snippet": "'instagram_transcrever.py', 'reel_transcricao.py',"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 43,
+        "snippet": "'instagram_transcrever.py', 'reel_transcricao.py',"
+      }
+    },
+    {
+      "from_file": "provas/portas_canonicas_no_postgres.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/portas_canonicas_no_postgres.py",
+        "line": 42,
+        "snippet": "'youtube_janela.py', 'youtube_transcrever.py',"
+      }
+    },
+    {
       "from_file": "provas/preflight_022_live.sh",
       "to_file": "motor/cadeia_canonica.sh",
       "type": "RUNS",
@@ -31626,6 +31779,193 @@
         "file": "tests/test_c10_6c_runtime_comum.py",
         "line": 48,
         "snippet": "import rastro_da_coleta as rastro  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": ".github/workflows/sintonia-scrap.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 49,
+        "snippet": "WF = '.github/workflows/sintonia-scrap.yml'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 358,
+        "snippet": "arv = ast.parse(_fonte('coleta/adaptador_instagram.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 396,
+        "snippet": "import comunicacao_coleta as cc"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 430,
+        "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/instagram_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 145,
+        "snippet": "for i in IMPLEMENTACOES + ('instagram_coleta.py',):"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/instagram_diario.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 52,
+        "snippet": "IMPLEMENTACOES = ('instagram_janela.py', 'instagram_diario.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/instagram_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 52,
+        "snippet": "IMPLEMENTACOES = ('instagram_janela.py', 'instagram_diario.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 198,
+        "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 44,
+        "snippet": "import scrap_registo as reg       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 45,
+        "snippet": "import social_scrap as ss         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/social_scrap.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 113,
+        "snippet": "self.assertIn('social_scrap.py', cmds,"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/youtube_janela.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 53,
+        "snippet": "'youtube_janela.py', 'youtube_transcrever.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 55,
+        "snippet": "'youtube_oficial.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "ferramentas/instagram_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 54,
+        "snippet": "'instagram_transcrever.py', 'reel_transcricao.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "ferramentas/reel_transcricao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 54,
+        "snippet": "'instagram_transcrever.py', 'reel_transcricao.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "ferramentas/youtube_transcrever.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 53,
+        "snippet": "'youtube_janela.py', 'youtube_transcrever.py',"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6d_portas_canonicas.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6d_portas_canonicas.py",
+        "line": 43,
+        "snippet": "import social_matriz as mz        # noqa: E402"
       }
     },
     {
@@ -38797,10 +39137,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1495,
-    "files_readable": 575,
-    "files_code_dir": 622,
-    "file_edges": 2533,
+    "files_tracked": 1498,
+    "files_readable": 577,
+    "files_code_dir": 624,
+    "file_edges": 2562,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },
