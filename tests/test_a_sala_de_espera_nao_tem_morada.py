@@ -98,19 +98,44 @@ class DestinoVazioNaoEDestinoSemDono(unittest.TestCase):
         DESTINO VAZIO != DESTINO SEM DONO.
     """
 
-    def test_o_escritor_da_morada_declarada_existe_e_esta_inteiro(self):
+    def test_o_escritor_da_morada_declarada_MUDOU_DE_CASA(self):
+        """⚠️ ESTE TESTE MUDOU DE LADO, E ELE PROPRIO EXPLICA PORQUE.
+
+        Quando foi escrito, ele guardava um facto verdadeiro: o orquestrador
+        decidia, admitia e GRAVAVA o ficheiro da corrida. Era essa medicao que
+        mostrava que a morada tinha dono — `DESTINO VAZIO != DESTINO SEM DONO`.
+
+        `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` nao lhe tirou a razao:
+        mudou a escrita de casa. A COL-LAW-012 separa control plane de data
+        plane, e a escrita estava do lado errado.
+
+            UM TESTE QUE SO ESTA CERTO ENQUANTO NADA AVANCA
+            E UM TESTE QUE MEDE O PRIMEIRO DIA.
+
+        O que ele guarda agora e o mesmo facto, no dono certo: o caminho que
+        produz READY continua inteiro — decide, admite, e POUSA.
+        """
         s = _fonte(ORQ)
-        for pedaco in ('PRONTOS / f"{run_id}.json"', ".write_text(",
-                       "adm.pronto_para_inteligencia(x, d)", "adm.escrever("):
+        for pedaco in ("adm.pronto_para_inteligencia(x, d)", "adm.escrever(",
+                       "espera.pousar("):
             with self.subTest(pedaco=pedaco):
                 self.assertIn(pedaco, s,
-                              "o caminho que JA produz READY perdeu uma peca")
+                              "o caminho que produz READY perdeu uma peca")
+        self.assertNotIn(".write_text(", s,
+                         "a escrita voltou para o control plane")
+        dono = _fonte(os.path.join(RAIZ, "admissao", "sala_de_espera.py"))
+        self.assertIn("PRONTO-PARA-INTELIGENCIA", dono,
+                      "a morada perdeu o dono")
 
     def test_e_a_medicao_diz_isso_e_nao_o_contrario(self):
         s = _fonte(MEDICAO)
         self.assertIn("DESTINO VAZIO != DESTINO SEM DONO", s)
         self.assertNotIn("S5_e_ninguem_escreve_nela", s,
                          "a medicao voltou a afirmar que ninguem escreve")
+        # A medicao continua a valer como HISTORIA: ela e o retrato do dia em
+        # que a decisao foi posta. Nao se reescreve um retrato para ele
+        # parecer a fotografia de hoje.
+        self.assertIn("A DECISAO QUE FALTA", s)
 
 
 class AMedicaoNaoFechaNada(unittest.TestCase):

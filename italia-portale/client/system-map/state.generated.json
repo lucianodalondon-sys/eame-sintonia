@@ -1952,9 +1952,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/close-ready-with-canonical-waiting-room-v1",
-    "HEAD": "bad49037c2e406ff6fdfa3bcf62f1ae8dbdc01c8",
-    "GENERATED_AT": "2026-09-12T13:23:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b5b3c7a59316d3817fd843701a2d59cf26942a79c65d2e1a496690aa0f411608"
+    "HEAD": "66a1392ce6ab2d6ff65fc0db890b400eebc774b0",
+    "GENERATED_AT": "2026-09-12T13:24:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a54925657c7192f153d9ae6e967085deac559ce2ec4bd61890d0e0cdfe9fba3c"
   },
   "FAMILIES": [
     {
@@ -19538,7 +19538,7 @@
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 193,
+          "line": 218,
           "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))"
         },
         {
@@ -28248,7 +28248,7 @@
       "evidence": [
         {
           "file": "provas/a_unidade_pousa_na_espera.py",
-          "line": 359,
+          "line": 380,
           "snippet": "\"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -29559,7 +29559,7 @@
       "evidence": [
         {
           "file": "provas/a_unidade_pousa_na_espera.py",
-          "line": 298,
+          "line": 315,
           "snippet": "os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
         }
       ],
@@ -29609,8 +29609,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+          "line": 126,
+          "snippet": "dono = _fonte(os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
+        },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 29,

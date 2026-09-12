@@ -268,6 +268,23 @@ def medir(url, sala):
     # ═══════════════════════════════════════════════════════════════════
     print("\nO QUE UM FICHEIRO EXIGE")
 
+    # ⚠️ SEM UNIDADE POUSADA NAO HA O QUE CONFERIR — E ISSO REPROVA, NAO
+    # REBENTA. MEDIDO na mutacao: quatro mutantes que impediam a unidade de
+    # pousar faziam esta prova levantar `KeyError` a meio, e ela morria sem
+    # veredito. Um `?` no lugar do `FAIL` le-se, de longe, como se nada
+    # tivesse acontecido.
+    #
+    #     UMA PROVA QUE NAO CONSEGUE DIZER `FAIL`
+    #     NAO ESTA A APROVAR: ESTA A CALAR-SE.
+    if not existe or not (corpo.get("ITENS") or []):
+        for nome in ("R1_o_retry_com_o_MESMO_conteudo_diz_REUSED",
+                     "R2_e_nao_mexe_no_ficheiro",
+                     "C1_a_mesma_corrida_com_OUTRA_historia_e_conflito",
+                     "C2_e_o_ficheiro_anterior_fica_INTACTO",
+                     "X1_um_crash_ANTES_da_troca_deixa_o_anterior_valido"):
+            caso(nome, False, "a unidade nao pousou: nao ha o que conferir")
+        return _fechar()
+
     # RETRY · a mesma corrida com o mesmo conteudo nao duplica.
     antes = _fonte_do_ficheiro(caminho)
     de_novo = espera.pousar(RUN, corpo["ITENS"])
@@ -338,6 +355,10 @@ def medir(url, sala):
          int(n_not_run[0][0]) == 4,
          "%s passagens de READY em NOT_RUN" % n_not_run[0][0])
 
+    return _fechar()
+
+
+def _fechar():
     print("=" * 70)
     for nome, ok, detalhe in fora:
         print("  %-4s %-54s %s" % ("PASS" if ok else "FALHA", nome, detalhe))

@@ -305,9 +305,14 @@ class OGapFechouEFicouNaLista(unittest.TestCase):
         sp.loader.exec_module(m)
         self.assertIn("ast", _fonte(os.path.join(
             RAIZ, "provas", "os_portoes_da_collection.py")))
-        self.assertNotIn("READY", m.observabilidade()["ETAPAS_QUE_FALAM"],
-                         "READY nao e emitido por ninguem, e o medidor"
-                         " diz que e")
+        # ⚠️ ATE `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` esta linha
+        # exigia que READY NAO falasse — e estava certa: ninguem o emitia.
+        # A rota forward passou a emiti-lo, e o medidor passou a dize-lo.
+        # O que este teste guarda e o MEDIDOR, e nao a lista de ontem.
+        self.assertIn("READY", m.observabilidade()["ETAPAS_QUE_FALAM"],
+                      "a etapa READY deixou de falar")
+        self.assertEqual([], m.observabilidade()["ETAPAS_MUDAS"],
+                         "nasceu uma etapa muda na estrada")
 
 
 if __name__ == "__main__":

@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/close-ready-with-canonical-waiting-room-v1",
-    "HEAD": "bad49037c2e406ff6fdfa3bcf62f1ae8dbdc01c8",
-    "GENERATED_AT": "2026-09-12T13:23:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b5b3c7a59316d3817fd843701a2d59cf26942a79c65d2e1a496690aa0f411608"
+    "HEAD": "66a1392ce6ab2d6ff65fc0db890b400eebc774b0",
+    "GENERATED_AT": "2026-09-12T13:24:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a54925657c7192f153d9ae6e967085deac559ce2ec4bd61890d0e0cdfe9fba3c"
   },
   "FILES": [
     {
@@ -7927,7 +7927,7 @@
     },
     {
       "path": "provas/a_unidade_pousa_na_espera.py",
-      "sha": "6e91a9438260a0496fe74e5cf2b93c615895dfd3",
+      "sha": "97dea65e7b6088ddc308f3808e2397216633ece0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9824,7 +9824,7 @@
     },
     {
       "path": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-      "sha": "daa6274210d7d61823aecf7c992536a398c82b71",
+      "sha": "4d7ec6079db36368bb277f5fc403823bc9b24bc9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10223,7 +10223,7 @@
     },
     {
       "path": "tests/test_o_raw_fala.py",
-      "sha": "3de64c2c350d59676c70a0c359a045ef2b4a0ba8",
+      "sha": "fd81cbf354d6f9964c13213d9ff5446545b1cbb0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27694,7 +27694,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_unidade_pousa_na_espera.py",
-        "line": 298,
+        "line": 315,
         "snippet": "os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
       }
     },
@@ -27771,7 +27771,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_unidade_pousa_na_espera.py",
-        "line": 359,
+        "line": 380,
         "snippet": "\"preservar_coleta_no_postgres.py\"))"
       }
     },
@@ -33095,7 +33095,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-        "line": 193,
+        "line": 218,
         "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))"
       }
     },
@@ -33119,6 +33119,17 @@
         "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "line": 20,
         "snippet": "import admissao                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "line": 126,
+        "snippet": "dono = _fonte(os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
       }
     },
     {
@@ -40369,7 +40380,7 @@
     "files_tracked": 1504,
     "files_readable": 584,
     "files_code_dir": 629,
-    "file_edges": 2668,
+    "file_edges": 2669,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
