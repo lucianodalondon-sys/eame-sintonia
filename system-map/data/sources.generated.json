@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "36a7abadfa75f057f895820eb214d4c3507dbe04",
+    "HEAD": "408b065972d9be40f5afcf15818686a57265332c",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4214,6 +4214,31 @@
       ]
     },
     {
+      "endpoint": "https://api.apify.com/v2",
+      "usado_por": [
+        {
+          "file": "coleta/comunicacao_coleta.py",
+          "line": 227
+        },
+        {
+          "file": "ferramentas/contrato_ator.py",
+          "line": 26
+        },
+        {
+          "file": "provas/corrigir_custo.py",
+          "line": 44
+        },
+        {
+          "file": "superficie/rede.py",
+          "line": 32
+        },
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 511
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4235,27 +4260,6 @@
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
           "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.apify.com/v2",
-      "usado_por": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 227
-        },
-        {
-          "file": "ferramentas/contrato_ator.py",
-          "line": 26
-        },
-        {
-          "file": "provas/corrigir_custo.py",
-          "line": 44
-        },
-        {
-          "file": "superficie/rede.py",
-          "line": 32
         }
       ]
     },
@@ -4511,7 +4515,7 @@
         },
         {
           "file": "regras/sensor_coleta.py",
-          "line": 746
+          "line": 799
         }
       ]
     },

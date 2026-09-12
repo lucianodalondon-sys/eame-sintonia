@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "36a7abadfa75f057f895820eb214d4c3507dbe04",
-    "GENERATED_AT": "2026-09-12T19:26:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "00210cf723005c5ca731d9fd24712f017b5d2df6ca467856434a1b4116bf22a7"
+    "HEAD": "408b065972d9be40f5afcf15818686a57265332c",
+    "GENERATED_AT": "2026-09-12T19:28:01+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6c27900026c2bd7a8390bba24eb42b47a1c020b1bf8dddb9903999b6103cec40"
   },
   "FILES": [
     {
@@ -5449,7 +5449,7 @@
     },
     {
       "path": "docs/sintonia-scrap/SCRAP-SR-02-NENHUMA-COMPRA-SEM-AUTORIZACAO.md",
-      "sha": "38651242c00b481975d139d85f91b922eb0d6994",
+      "sha": "5a1df9b37cacbc0b63c03e4169a370483e6f8263",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8571,7 +8571,7 @@
     },
     {
       "path": "regras/sensor_coleta.py",
-      "sha": "22351a5ba7687b876be6e43799737924e3c406a6",
+      "sha": "aef1e995002d895664cec464913c9f58a0da5586",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10678,7 +10678,7 @@
     },
     {
       "path": "tests/test_sr02_autorizacao_de_gasto.py",
-      "sha": "fc4304947c18452c89442676b75ec147cd09f43f",
+      "sha": "c0b90db906eeb7d75cdb51f3d218018ce9807042",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29648,7 +29648,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "regras/sensor_coleta.py",
-        "line": 492,
+        "line": 545,
         "snippet": "import scrap_executor as scrap"
       }
     },
@@ -29659,7 +29659,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_coleta.py",
-        "line": 360,
+        "line": 413,
         "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
       }
     },
@@ -40538,7 +40538,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_sr02_autorizacao_de_gasto.py",
-        "line": 534,
+        "line": 636,
         "snippet": "import admissao"
       }
     },
@@ -40617,6 +40617,17 @@
         "file": "tests/test_sr02_autorizacao_de_gasto.py",
         "line": 153,
         "snippet": "import social_matriz as mz"
+      }
+    },
+    {
+      "from_file": "tests/test_sr02_autorizacao_de_gasto.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_sr02_autorizacao_de_gasto.py",
+        "line": 509,
+        "snippet": "import sensor_coleta as sensor"
       }
     },
     {
@@ -41714,7 +41725,7 @@
     "regras/sensor_coleta.py": [
       {
         "pasta": "data/samples/SENSOR-PILOT",
-        "line": 370,
+        "line": 423,
         "constante": "SAIDA"
       }
     ],
@@ -41807,7 +41818,7 @@
     "files_tracked": 1538,
     "files_readable": 598,
     "files_code_dir": 647,
-    "file_edges": 2779,
+    "file_edges": 2780,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

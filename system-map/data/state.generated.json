@@ -1986,9 +1986,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "36a7abadfa75f057f895820eb214d4c3507dbe04",
-    "GENERATED_AT": "2026-09-12T19:26:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "00210cf723005c5ca731d9fd24712f017b5d2df6ca467856434a1b4116bf22a7"
+    "HEAD": "408b065972d9be40f5afcf15818686a57265332c",
+    "GENERATED_AT": "2026-09-12T19:28:01+00:00",
+    "SOURCE_TREE_FINGERPRINT": "6c27900026c2bd7a8390bba24eb42b47a1c020b1bf8dddb9903999b6103cec40"
   },
   "FAMILIES": [
     {
@@ -14328,7 +14328,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_coleta.py",
-            "line": 370,
+            "line": 423,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -17966,7 +17966,7 @@
         },
         {
           "file": "tests/test_sr02_autorizacao_de_gasto.py",
-          "line": 534,
+          "line": 636,
           "snippet": "import admissao"
         }
       ],
@@ -22720,7 +22720,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 360,
+          "line": 413,
           "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
         }
       ],
@@ -30503,7 +30503,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 492,
+          "line": 545,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -30786,7 +30786,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -30802,6 +30802,11 @@
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 109,
           "snippet": "import sensor_coleta as sc                              # noqa: PLC0415"
+        },
+        {
+          "file": "tests/test_sr02_autorizacao_de_gasto.py",
+          "line": 509,
+          "snippet": "import sensor_coleta as sensor"
         }
       ],
       "categoria": "PROOF"

@@ -308,6 +308,46 @@ def _curl_compat(url, *, token, timeout=60):
 # para se perder, com retentativa em queda de rede e NUNCA em recusa da API.
 # `coletor.py` não é alterado: um 4xx da Apify é resposta, e resposta não se repete.
 def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
+    # ── UMA TROCA DE TRANSPORTE LEVA AS LEIS QUE MORAVAM NO TRANSPORTE ────────
+    # Esta funcao substitui `coletor._curl` no import, e a troca e legitima: o
+    # proxy deste ambiente derruba conexoes e o urllib sobrevive onde o
+    # subprocesso nao sobrevive. O que ela NAO pode levar consigo sao as duas
+    # leis que moravam dentro do `_curl` da casa:
+    #
+    #     1. POST VAI UMA VEZ. A versao anterior desta funcao repetia QUALQUER
+    #        metodo quatro vezes — inclusive o POST que cria a execucao paga. Se
+    #        o POST chegou a Apify e so a RESPOSTA se perdeu na volta, repetir
+    #        nao reenvia um pedido perdido: acende uma SEGUNDA execucao paga, orfa,
+    #        sem run_id, sem manifesto e a gastar. Com quatro tentativas, ate
+    #        quatro execucoes por chamada — e a SCRAP-SR-02 autoriza UMA.
+    #
+    #            REPETIR UM GET E BARATO. REPETIR UM POST E COMPRAR DE NOVO.
+    #
+    #        E o `maxTotalChargeUsd` nao cobre isto: ele limita CADA execucao,
+    #        nunca a soma das execucoes que ninguem sabe que existem.
+    #
+    # Bastava um `import sensor_coleta` em qualquer ponto do processo para essa lei
+    # desaparecer da unica porta que gasta dinheiro, para toda a gente — e uma
+    # autorizacao de UM POST virava ate quatro execucoes pagas.
+    #
+    #     UMA LEI QUE MORA DENTRO DE UMA IMPLEMENTACAO VIAJA COM ELA.
+    #
+    # E UMA LEI QUE NAO SE HERDA: A RESERVA DE REDE
+    # ----------------------------------------------
+    # O `_curl` da casa RESERVA explicitamente no teto de rede, e esta funcao NAO
+    # o faz — de proposito. O `_curl` reserva porque sai por um SUBPROCESSO
+    # (`curl`), e a §80 mediu que «um teto cobrado na primitiva nao ve quem sai por
+    # um subprocesso». Esta funcao sai por `urllib.request.urlopen`, que e
+    # exactamente a primitiva onde `scrap_http.orcamento_de_rede` cobra. Copiar a
+    # reserva para ca contaria a MESMA ida duas vezes — medido: `orc.usados = 2`
+    # para um unico POST — e um teto que se esgota ao dobro da velocidade recusa
+    # coletas legitimas com o nome errado.
+    #
+    #     O QUE O SUBSTITUTO HERDA E O EFEITO, NAO A LINHA.
+    #     COPIAR A TRAVA SEM VER ONDE ELA JA MORDE COBRA DUAS VEZES.
+    #
+    # `tests/test_sr02_autorizacao_de_gasto.py` tem uma sentinela que mede as duas
+    # coisas por COMPORTAMENTO: um POST vai uma vez, e uma ida conta uma vez.
     import urllib.error
     import urllib.request
     dados = json.dumps(corpo).encode('utf-8') if corpo is not None else None
@@ -315,14 +355,20 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
     if dados is not None:
         cab['Content-Type'] = 'application/json'
     ultimo = ''
-    for n in range(4):
+    vezes = 1 if metodo.upper() in ('POST', 'PUT', 'PATCH', 'DELETE') else 4
+    for n in range(vezes):
+        _registo_de_rede = None
         req = urllib.request.Request(url, data=dados, headers=cab, method=metodo)
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 bruto = r.read().decode('utf-8', 'replace')
             if not bruto.strip():
                 ultimo = 'corpo vazio'
+                if _registo_de_rede is not None:
+                    _registo_de_rede['OUTCOME'] = 'CORPO_VAZIO'
             else:
+                if _registo_de_rede is not None:
+                    _registo_de_rede['OUTCOME'] = 'OK'
                 return json.loads(bruto)
         except urllib.error.HTTPError as e:
             corpo_erro = ''
@@ -348,9 +394,16 @@ def _curl_robusto(url, *, token, metodo='GET', corpo=None, timeout=300, **_):
             ultimo = 'HTTP %d' % e.code
         except Exception as e:                                # noqa: BLE001
             ultimo = ap.redigir('%s: %s' % (type(e).__name__, e))[:160]
-        if n < 3:
+        if _registo_de_rede is not None and not _registo_de_rede.get('OUTCOME'):
+            _registo_de_rede['OUTCOME'] = 'FALHOU'
+        if n < vezes - 1:
             time.sleep(2 ** n)
-    raise RuntimeError('transporte falhou apos 4 tentativas: %s' % ultimo)
+    # Num POST, `vezes` e 1: nao houve retentativa, e quem chama tem de saber que
+    # a execucao PODE ter nascido do outro lado — nunca acender outra.
+    if metodo.upper() == 'POST':
+        raise coletor.PostTalvezCriado(
+            'transporte caiu no POST; a execucao pode ter nascido: %s' % ultimo)
+    raise RuntimeError('transporte falhou apos %d tentativa(s): %s' % (vezes, ultimo))
 
 
 coletor._curl = _curl_robusto          # a porta continua a mesma; o transporte, não

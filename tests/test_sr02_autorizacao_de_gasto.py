@@ -464,6 +464,108 @@ class NenhumaPortaLateral(Base):
         # mede algo que acontece, e nao uma hipotese.
         self.assertIn('regras/sensor_coleta.py', trocam, sorted(trocam))
 
+    def test_43_44_um_transporte_substituto_carrega_as_leis_do_transporte(self):
+        """Quem substitui `coletor._curl` herda as leis que moravam dentro dele.
+
+        Buraco REAL nesta arvore, nao hipotese. `regras/sensor_coleta.py` instala
+        um transporte urllib em `coletor._curl` — troca legitima, porque o proxy
+        deste ambiente derruba conexoes e o urllib sobrevive onde o subprocesso
+        nao sobrevive. Mas o substituto repetia QUALQUER metodo quatro vezes,
+        incluindo o POST que CRIA a execucao paga. Se o POST chegou a Apify e so
+        a resposta se perdeu na volta, repetir nao reenvia um pedido perdido:
+        acende uma segunda execucao paga, orfa, sem run_id e a gastar. Bastava um
+        `import sensor_coleta` em qualquer ponto do processo para a autorizacao
+        desta missao — que autoriza UM POST — virar ate quatro execucoes pagas.
+
+            REPETIR UM GET E BARATO. REPETIR UM POST E COMPRAR DE NOVO.
+            UMA LEI QUE MORA DENTRO DE UMA IMPLEMENTACAO VIAJA COM ELA.
+
+        E `maxTotalChargeUsd` nao cobre isto: ele limita CADA execucao, nunca a
+        soma das execucoes que ninguem sabe que existem.
+
+        MEDE-SE O COMPORTAMENTO, E NAO O TEXTO
+        ---------------------------------------
+        A primeira versao desta sentinela conferia se a palavra `'POST'` aparecia
+        no corpo da funcao, e PASSAVA com a lei removida: a palavra continuava la,
+        noutra linha. Duas mutacoes provaram-no antes de alguem confiar nela.
+
+            UMA SENTINELA QUE LE O TEXTO ENCONTRA A PALAVRA, NAO A DECISAO.
+
+        E CORRE NUM PROCESSO PROPRIO, por duas razoes que sao a mesma:
+        importar `sensor_coleta` TROCA `coletor._curl` para todo o processo — e
+        essa e precisamente a coisa que se esta a medir. Medi-la aqui dentro
+        contaminaria as outras sentinelas desta suite, e os enderecos de criacao
+        de corrida que ela precisa de usar seriam contados por `test_41` como uma
+        segunda porta. O subprocesso isola as duas coisas por construcao.
+        """
+        import subprocess
+        import tempfile
+        guiao = r'''
+import os, sys
+RAIZ = sys.argv[1]
+for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', 'regras', ''):
+    sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
+import coletor as ct, scrap_http as http, urllib.request
+import sensor_coleta as sensor
+assert ct._curl is sensor._curl_robusto, "o substituto nao esta instalado"
+ALVO = "https://api.apify.com/v2/" + "acts/a~b/" + "runs?waitForFinish=60"
+LEITURA = "https://api.apify.com/v2/" + "acts/a~b"
+idas = []
+def cai(req, timeout=None):
+    idas.append(getattr(req, "method", None) or req.get_method())
+    raise OSError("o tunel caiu a meio da troca")
+urllib.request.urlopen = cai
+# LEI 1 · um POST vai UMA vez, e quem chama recebe PostTalvezCriado.
+try:
+    ct._curl(ALVO, token="FAKE", metodo="POST", corpo={})
+    print("ERRO: o POST nao levantou")
+except ct.PostTalvezCriado:
+    pass
+except Exception as e:
+    print("ERRO: levantou %s em vez de PostTalvezCriado" % type(e).__name__)
+print("POSTS=%d" % len(idas))
+# E um GET continua retentado: a lei nao e «nunca repetir».
+idas.clear()
+try:
+    ct._curl(LEITURA, token="FAKE")
+except Exception:
+    pass
+print("GETS=%d" % len(idas))
+# LEI 2 · a ida conta UMA vez no teto de rede — nem zero, nem duas.
+idas.clear()
+with http.orcamento_de_rede(3) as orc:
+    try:
+        ct._curl(ALVO, token="FAKE", metodo="POST", corpo={})
+    except ct.PostTalvezCriado:
+        pass
+    print("REDE=%d" % orc.usados)
+'''
+        with tempfile.NamedTemporaryFile('w', suffix='.py', delete=False,
+                                         encoding='utf-8') as fh:
+            fh.write(guiao)
+            caminho = fh.name
+        try:
+            r = subprocess.run([sys.executable, caminho, RAIZ],
+                               capture_output=True, text=True, timeout=180)
+        finally:
+            os.unlink(caminho)
+        saida = r.stdout + r.stderr
+        self.assertNotIn('ERRO:', saida, saida)
+        self.assertIn('POSTS=1', saida,
+                      'o POST saiu mais de uma vez: REPETIR UM POST E COMPRAR DE '
+                      'NOVO\n%s' % saida)
+        # O GET continua a repetir: a lei distingue metodo, nao proibe retentativa.
+        self.assertRegex(saida, r'GETS=[2-9]', saida)
+        # E a mesma ida nao e cobrada duas vezes. O `_curl` da casa reserva
+        # explicitamente porque sai por SUBPROCESSO, que o teto nao ve (§80);
+        # este sai por `urlopen`, que e onde o teto cobra. Copiar a reserva para
+        # ca contava a ida duas vezes, e um teto que se esgota ao dobro recusa
+        # coleta legitima com o nome errado.
+        #
+        #     O QUE O SUBSTITUTO HERDA E O EFEITO, NAO A LINHA.
+        self.assertIn('REDE=1', saida,
+                      'a ida nao contou exactamente UMA vez no teto de rede\n%s' % saida)
+
     def test_36_37_a_guarda_nao_tem_porta_de_teste(self):
         """Nenhum atalho de teste, ambiente ou bandeira desliga a guarda."""
         fonte = open(os.path.join(RAIZ, 'leis/autorizacao_de_gasto.py'),

@@ -342,12 +342,12 @@ provider e a trava de retentativa: todos correm a sério.
 
 ### `tests/test_sr02_autorizacao_de_gasto.py`
 
-**48 testes · 46 PASS · 2 skip declarados (`COM_O_DONO`) · 0 FAIL**
+**49 testes · 47 PASS · 2 skip declarados (`COM_O_DONO`) · 0 FAIL**
 
-- **ataques A1–A42**, os quarenta e dois presentes e nenhum em falta;
+- **ataques A1–A44**, os quarenta e quatro presentes e nenhum em falta;
 - **7 ataques extra** sem número;
-- **mutantes M1–M18** dentro da suite, mais **M19 e M20** aplicados à mão à
-  árvore para provar que A41 e A42 mordem: **`SURVIVORS = 0` nos vinte**.
+- **mutantes M1–M18** dentro da suite, mais **M19–M22** aplicados à mão à árvore
+  para provar que A41–A44 mordem: **`SURVIVORS = 0` nos vinte e dois**.
 
 Cada ataque mede **POSTS**, nunca a mensagem de erro. Zero POST é a única prova
 — uma recusa que devolve o texto certo e faz o POST não recusou nada.
@@ -359,10 +359,11 @@ a arquitetura desta missão precisa. Medido: `regras/sensor_coleta.py` fala HTTP
 com a Apify passando `method=metodo` — uma **variável** — e o sentinela era
 **cego** a ele.
 
-Ali não havia buraco: aquele ficheiro troca o *transporte*
-(`coletor._curl = _curl_robusto`) e a corrida continua a ser criada por
-`coletor.executar`, que consulta a guarda. Mas o sentinela não sabia disso.
-Passava por sorte, e um sentinela que passa por sorte reprova quando calha.
+A primeira leitura desta missão concluiu «ali não há buraco»: o ficheiro troca o
+*transporte* e a corrida continua a nascer em `coletor.executar`, que consulta a
+guarda. **Essa conclusão estava errada**, e a secção G conta o resto — o
+substituto repetia o POST. O sentinela passava por sorte, e um sentinela que passa
+por sorte reprova quando calha.
 
 ```
     CONTAR O LITERAL NÃO É CONTAR QUEM CRIA.
@@ -404,7 +405,93 @@ que também cria → A42 reprovou. Revertidas, as duas voltam a verde.
 
 ---
 
-## G · REGRESSÃO — E A BASELINE QUE MENTIU
+## G · O BURACO QUE FALTAVA: UMA TROCA DE TRANSPORTE LEVA AS LEIS DO TRANSPORTE
+
+Este é o achado mais sério da missão, e ele **não** foi encontrado por mim: uma
+linha paralela da mesma missão escreveu-o no know-how, e ao lê-lo verifiquei que
+a minha própria conclusão anterior — «ali não havia buraco» — estava errada.
+
+`regras/sensor_coleta.py` faz, **no import**, `coletor._curl = _curl_robusto`. A
+troca é legítima: o proxy deste ambiente derruba conexões e o urllib sobrevive
+onde o subprocesso não sobrevive. O que ela levava consigo não era.
+
+O `_curl` da casa carrega uma lei de 2026-09-02 escrita na própria docstring:
+
+```python
+vezes = 1 if metodo.upper() in ('POST', 'PUT', 'PATCH', 'DELETE') else tentativas
+```
+
+O substituto fazia `for n in range(4)` para **qualquer** método. Medido: um POST
+que caia no túnel saía **quatro vezes**.
+
+```
+    REPETIR UM GET É BARATO. REPETIR UM POST É COMPRAR DE NOVO.
+```
+
+Se o POST chegou à Apify e só a *resposta* se perdeu na volta, a retentativa não
+reenvia um pedido perdido: acende uma **segunda execução paga**, órfã — sem
+`run_id`, sem manifesto, sem custo rastreado, e a gastar. E `maxTotalChargeUsd`
+não cobre isto: ele limita **cada** execução, nunca a soma das execuções que
+ninguém sabe que existem.
+
+O efeito sobre esta missão é directo e grave: a guarda autoriza **um** POST,
+`consumir()` conta **um**, e o transporte emitia até quatro. Bastava um
+`import sensor_coleta` em qualquer ponto do processo para isso valer **para toda a
+gente**.
+
+```
+    UMA LEI QUE MORA DENTRO DE UMA IMPLEMENTAÇÃO VIAJA COM ELA.
+```
+
+Consertado: o substituto passou a distinguir o método e a levantar
+`PostTalvezCriado` — a excepção que a casa já tinha para «o POST pode ter nascido»
+— em vez de acender outra.
+
+### E a metade que NÃO se herda
+
+A diagnose paralela dizia também que o substituto «não reservava nada no teto de
+rede». Literalmente verdade, e sem consequência — **medi-o antes de copiar a
+reserva para lá, e foi bom tê-lo medido**:
+
+| transporte | sai por | o teto vê? | precisa reservar? |
+|---|---|---|---|
+| `coletor._curl` | `subprocess` → `curl` | **não** (§80) | **sim**, explicitamente |
+| `_curl_robusto` | `urllib.request.urlopen` | **sim** | **não** |
+
+`scrap_http.orcamento_de_rede` cobra exactamente em `urlopen`. Copiar a reserva
+para o substituto contava a mesma ida **duas vezes** — medido, `orc.usados = 2`
+para um único POST. E um teto que se esgota ao dobro da velocidade recusa coleta
+legítima com o nome errado.
+
+```
+    O QUE O SUBSTITUTO HERDA É O EFEITO, NÃO A LINHA.
+    COPIAR A TRAVA SEM VER ONDE ELA JÁ MORDE COBRA DUAS VEZES.
+```
+
+### A sentinela, e a segunda vez que caí no mesmo erro
+
+A1–A44 fecham isto — mas a primeira versão de A43/A44 conferia se a palavra
+`'POST'` aparecia no corpo da função. Ela **passava com a lei removida**: a
+palavra continuava lá, noutra linha, no `raise PostTalvezCriado`.
+
+Foi exactamente o erro sobre o qual eu tinha acabado de escrever uma lei, cometido
+na mesma sessão.
+
+```
+    UMA SENTINELA QUE LÊ O TEXTO ENCONTRA A PALAVRA, NÃO A DECISÃO.
+```
+
+A versão que ficou mede **comportamento**, num subprocesso — porque importar
+`sensor_coleta` troca `coletor._curl` para o processo inteiro, que é precisamente
+a coisa medida. Verificada por mutação, com os números à vista:
+
+| mutação | resultado |
+|---|---|
+| M21 · o substituto volta a repetir qualquer método | `POSTS=4` → reprova |
+| M22 · o substituto volta a reservar também | `REDE=2` → reprova |
+| revertidas | 49 PASS |
+
+## H · REGRESSÃO — E A BASELINE QUE MENTIU
 
 **`NEW_FAILURES = 0`**, e as falhas são **as mesmas 12, nome por nome**.
 
@@ -438,7 +525,7 @@ que estava a mentir.
 
 ---
 
-## H · O SYSTEM MAP
+## I · O SYSTEM MAP
 
 Cadeia lida de `system-map/scripts/CADEIA-DO-MAPA.json` — **7 passos `REGERAR` +
 1 `VALIDAR`**, todos corridos. `SYSTEM_MAP_CHECK = PASS`, 22 provas verdes,
@@ -466,7 +553,7 @@ reproduz-se igual na baseline, e esta missão não toca nesse ficheiro.
 
 ---
 
-## I · A BÍBLIA
+## J · A BÍBLIA
 
 ```
 BIBLE_CHANGE_REQUIRED_FROM_SR01 = YES
@@ -488,7 +575,7 @@ O que a Bíblia terá de absorver, quando for a hora:
 
 ---
 
-## J · O QUE FICA POR SABER
+## K · O QUE FICA POR SABER
 
 - **A orquestração canónica continua por arrumar.** Quinze ficheiros importam o
   `coletor` e oito chamam a porta paga directamente, sem passar pelo
@@ -500,6 +587,10 @@ O que a Bíblia terá de absorver, quando for a hora:
 - **Dois testes estão em `skip` declarado.** Eles não provam nada hoje, e dizem-no.
 - **`test_impressao_da_arvore.py` continua com 1 FAIL herdada** — dela é o
   workflow, não esta missão.
+- **Uma linha paralela desta mesma missão existe, com outra implementação.** Ela
+  tocou `coleta/scrap_executor.py` e `regras/sensor_coleta.py`, moveu o eixo do
+  modo de casa, e encontrou o buraco do transporte que esta linha não encontrou.
+  As duas não estão reconciliadas, e isso é dívida explícita, não detalhe.
 - **A guarda vale o que vale a invariante «um só criador».** Ela está agora medida
   pelo critério certo (A41, A42) e verificada por mutação, mas continua a ser uma
   afirmação sobre a **forma** do código: um caminho que criasse corrida por
