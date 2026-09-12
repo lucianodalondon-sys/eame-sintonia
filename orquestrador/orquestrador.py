@@ -156,7 +156,8 @@ def a_colheita(e: dict, run_id: str = "") -> tuple[list, str]:
     return rdc.so_o_que_entra(envelope), notas
 
 
-def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
+def pela_entrada(itens: list, recibo: dict, memoria=None,
+                 banco_do_rastro=None) -> dict:
     """Leva a colheita a PORTA DE ENTRADA da coleta, que a preserva como RAW.
 
     Ela nao julga nada: quem julga e a admissao, logo a seguir. Aqui responde-se
@@ -185,7 +186,7 @@ def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
     """
     armazem = ing.ArmazemLocal(RAIZ)
     r = ing.receber(itens, corrida=recibo, armazem=armazem, memoria=memoria,
-                    raiz=str(RAIZ))
+                    raiz=str(RAIZ), banco_do_rastro=banco_do_rastro)
     bruto = r.get("RAW") or {}
     return {
         # ⚠️ ISTO DEVOLVIA SO A CONTAGEM, e a unidade canonica morria aqui.
@@ -203,6 +204,19 @@ def pela_entrada(itens: list, recibo: dict, memoria=None) -> dict:
         "RECUSADOS": len(r["RECUSAS"]),
         "PORQUE_RECUSADOS": [x["PORQUE"] for x in r["RECUSAS"]],
         "RUN_STATE": bruto.get("RUN_STATE", "NAO_CORREU"),
+        # ⚠️ A CORRIDA CANONICA CORRIA E NAO DEIXAVA RASTO NENHUM.
+        # MEDIDO em C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1: um pedido real
+        # atravessou ate a ADMISSION, escreveu 4 linhas em `raw_asset` — e
+        # `etapa_da_corrida` ficou com ZERO. A etapa RAW ja sabia falar desde
+        # `C-MAKE-RAW-OBSERVABLE-V1`; quem a chamava e que nao lhe dava onde.
+        #
+        #     UM PARAMETRO OPCIONAL QUE NINGUEM CONSEGUE PASSAR
+        #     NAO E OPCIONAL: E INEXISTENTE.
+        #
+        # E a mesma familia do defeito da `memoria`, oito linhas acima, no
+        # mesmo ficheiro e na mesma funcao. Duas vezes o mesmo, e a segunda
+        # depois de a primeira estar escrita a vista.
+        "RASTRO": r.get("RASTRO", "NAO_EMITIDO"),
         # O banco NAO foi medido nesta corrida, e dizer 0 seria dizer que se
         # olhou e nao havia. Nao se olhou.
         "BANCO": (bruto.get("MEMORIA") or {}).get("COMO_FOI_MEDIDO",
@@ -303,7 +317,7 @@ def guardar_recibo(recibo: dict) -> None:
 
 
 def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
-           so_a_porta: bool = False, memoria=None) -> dict:
+           so_a_porta: bool = False, memoria=None, banco_do_rastro=None) -> dict:
     """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha."""
     plano = resolver(p)
 
@@ -436,7 +450,8 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # logo a seguir, responde outra pergunta: «isto pode entrar no universo?».
     # Sao duas perguntas, e agora sao duas etapas.
     if itens and (so_a_porta or not seco):
-        recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria)
+        recibo["INGRESSO"] = pela_entrada(itens, recibo, memoria=memoria,
+                                          banco_do_rastro=banco_do_rastro)
     if itens and (so_a_porta or not seco):
         # A PORTA JULGA O QUE A FRONTEIRA ACEITOU, e nao o que o executor
         # largou. Sao a mesma observacao — mas so uma delas traz o estagio que

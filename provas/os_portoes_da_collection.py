@@ -123,9 +123,30 @@ def cadeia_canonica():
     # RAW passa a contar como FLOW_EXECUTED, e com a condicao escrita ao lado.
     medido_agora = {"RAW_OBSERVATION", "STORAGE_OBJECT"}
 
+    # ⚠️ DUAS ESTRADAS CHEGAM A ADMISSION, E SO UMA VEM DO PEDIDO.
+    # MEDIDO: `orquestrador.correr()` vai de RAW/STORAGE DIRECTO a ADMISSION;
+    # `rota_forward_documento.atravessar()` faz DERIVED -> STRUCTURED ->
+    # ADMISSION -> READY mas entra no RAW, e nao no pedido. As duas provas
+    # existem, e nenhuma delas e a estrada inteira.
+    #
+    #     DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA.
+    #
+    # Entao estas duas etapas atravessam NA ROTA FORWARD e NAO na rota do
+    # pedido, e o censo diz as duas coisas em vez de escolher a que soa melhor.
+    so_na_rota_forward = {"DERIVED", "STRUCTURED"}
+
     fora = OrderedDict()
     for e in ETAPAS:
-        if e in observadas:
+        if e in so_na_rota_forward:
+            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                       "FLOW_EXECUTED": "YES",
+                       "PROOF": ("atravessa em provas/a_unidade_pousa_na_"
+                                 "espera.py, entrando pelo RAW"),
+                       "NAO_ATRAVESSA_PELO_PEDIDO": (
+                           "a rota do orquestrador vai de RAW/STORAGE direto "
+                           "a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED,"
+                           " medido em provas/o_pedido_atravessa.py")}
+        elif e in observadas:
             fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
                        "FLOW_EXECUTED": "YES",
                        "PROOF": ("ledger de execucao: %s, sobre PostgreSQL "
@@ -155,11 +176,21 @@ def cadeia_canonica():
                                         "Intelligence. PRODUTOR existe; "
                                         "consumidor e outra missao.")}
         else:
-            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "UNKNOWN",
-                       "FLOW_EXECUTED": "NO",
-                       "PROOF": ("nenhuma corrida canonica observada nesta "
-                                 "etapa; o ledger so prova DERIVED, "
-                                 "STRUCTURED e ADMISSION")}
+            # ⚠️ MEDIDO em C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1: a cabeca da
+            # estrada JA ATRAVESSA. Um `Pedido` real entrou por
+            # `orquestrador.correr()`, o orquestrador resolveu a receita e
+            # cunhou a corrida, o executor REAL foi a fonte REAL e trouxe 4
+            # itens, e a corrida existe em `collection_run`.
+            #
+            # O que NAO atravessa e o meio: a rota do orquestrador vai de
+            # RAW/STORAGE direto a ADMISSION, sem passar por DERIVED nem
+            # STRUCTURED. Isso esta na etapa DERIVED, e nao aqui.
+            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                       "FLOW_EXECUTED": "YES",
+                       "PROOF": ("provas/o_pedido_atravessa.py: pedido T2 "
+                                 "real -> receita `italia-recorrente` -> "
+                                 "`coleta/italy_executor.py` na fonte real -> "
+                                 "collection_run, numa historia so")}
     return fora, forward
 
 
@@ -637,12 +668,43 @@ def red_team(gs, cadeia, est):
 # ══════════════════════════════════════════════════════════════════════════
 # 7 · OS DOIS PORTOES
 # ══════════════════════════════════════════════════════════════════════════
+def uma_historia_so():
+    """A estrada atravessada por UM pedido, e nao onze etapas que ja correram.
+
+    ⚠️ ESTE PORTAO QUASE PASSOU POR UMA SOMA.
+    Quando a cabeca da estrada passou a atravessar, todas as onze etapas
+    ficaram `FLOW_EXECUTED = YES` — e `all(...)` deu PASS. Mas as etapas
+    atravessam em DUAS estradas diferentes: a do pedido vai de RAW/STORAGE
+    direto a ADMISSION, e a forward faz DERIVED/STRUCTURED entrando pelo RAW.
+
+        DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA.
+
+    Entao a pergunta deixa de ser «cada etapa ja correu?» e passa a ser «a
+    MESMA historia atravessou?». A resposta vem da medicao que aperta o botao
+    no pedido, e nao desta funcao.
+    """
+    caminho = os.path.join(RAIZ, "system-map", "data", "pedido.observado.json")
+    if not os.path.isfile(caminho):
+        return "NOT_MEASURED", ("provas/o_pedido_atravessa.py nunca correu "
+                                "neste HEAD — e NOT_MEASURED != PASS")
+    with io.open(caminho, encoding="utf-8") as f:
+        d = json.load(f)
+    if d.get("CANONICAL_E2E") == "PASS":
+        return "PASS", "um pedido atravessou de REQUEST a SALA DE ESPERA"
+    return "FAIL", ("a mesma historia parou em `%s` — medido em "
+                    "provas/o_pedido_atravessa.py" % d.get("FIRST_LOST_EDGE"))
+
+
 def portoes(cadeia, gs):
     bloqueios = [g["GAP_ID"] for g in gs if g["CLOSE_GATE"] == BLOCKER]
-    e2e = all(cadeia[e]["FLOW_EXECUTED"] == "YES" for e in ETAPAS)
+    historia, porque_historia = uma_historia_so()
+    e2e = (all(cadeia[e]["FLOW_EXECUTED"] == "YES" for e in ETAPAS)
+           and historia == "PASS")
     core = OrderedDict([
         ("VEREDICTO", "PASS" if (e2e and not bloqueios) else "FAIL"),
         ("CANONICAL_E2E", "PROVEN" if e2e else "NOT_PROVEN"),
+        ("CANONICAL_E2E_SAME_STORY", historia),
+        ("PORQUE_A_HISTORIA", porque_historia),
         ("IDENTITY", "PROVEN"),
         ("PROVENANCE", "PROVEN"),
         ("RAW", "PROVEN"),
@@ -659,14 +721,12 @@ def portoes(cadeia, gs):
         ("NO_UNAUTHORIZED_INTELLIGENCE_BYPASS", "YES"),
         ("BLOQUEADO_POR", bloqueios),
         ("PORQUE_FALHA", (
-            "os blockers acabaram; o que falta e a CABECA da estrada. "
-            "REQUEST, ORCHESTRATOR, EXECUTOR e RUN continuam sem corrida "
-            "observada, e por isso CANONICAL_E2E nao esta provado."
-            if not bloqueios and not e2e else
+            porque_historia if not bloqueios and not e2e else
             "bloqueado por: %s" % (bloqueios or "—"))),
         ("ZERO_BLOCKERS_NAO_E_PASS", (
-            "ZERO BLOCKERS != CORE FECHADO. O veredicto vem das PROPRIEDADES, "
-            "e uma delas — a travessia inteira — continua por observar.")),
+            "ZERO BLOCKERS != CORE FECHADO. E ONZE ETAPAS QUE JA CORRERAM NAO "
+            "SAO UMA ESTRADA: o veredicto exige a MESMA historia, de ponta a "
+            "ponta, e nao a soma de metades provadas em rotas diferentes.")),
         ("NAO_E_PERCENTAGEM", (
             "este veredicto nao vem da media das leis. Vem das propriedades "
             "que a coleta grande precisa de ter, e cada FAIL aponta a "

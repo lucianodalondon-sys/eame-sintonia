@@ -145,14 +145,42 @@ class ModuloNaoEFluxo(unittest.TestCase):
                 self.assertEqual(v["EDGE_EXISTS"], "YES",
                                  "%s atravessa sem aresta declarada" % e)
 
-    def test_o_portao_so_fecha_com_a_estrada_inteira(self):
+    def test_o_portao_so_fecha_com_UMA_HISTORIA_e_nao_com_a_soma(self):
+        """⚠️ ESTE TESTE MUDOU DE LADO, E A RAZAO E A PARTE QUE IMPORTA.
+
+        Ele exigia que alguma etapa tivesse `FLOW_EXECUTED = NO` para o portao
+        estar FAIL. Em `C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1` a cabeca da
+        estrada passou a atravessar, todas as onze etapas ficaram `YES` — e o
+        portao deu PASS por uma SOMA.
+
+        Era falso: as etapas atravessam em DUAS estradas. A do pedido vai de
+        RAW/STORAGE direto a ADMISSION; a forward faz DERIVED/STRUCTURED
+        entrando pelo RAW.
+
+            DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA.
+
+        Agora o portao exige a MESMA historia, medida por quem aperta o botao
+        no pedido — e este teste guarda isso, e nao a contagem de `YES`.
+        """
         a = _art()
         c = a["COLLECTION_CORE_CLOSE"]
-        inteira = all(v["FLOW_EXECUTED"] == "YES"
-                      for v in a["CANONICAL_E2E"].values())
-        self.assertFalse(inteira)
-        self.assertEqual(c["VEREDICTO"], "FAIL")
-        self.assertEqual(c["CANONICAL_E2E"], "NOT_PROVEN")
+        self.assertIn(c["CANONICAL_E2E_SAME_STORY"],
+                      ("PASS", "FAIL", "NOT_MEASURED"))
+        if c["CANONICAL_E2E_SAME_STORY"] != "PASS":
+            self.assertEqual(c["VEREDICTO"], "FAIL")
+            self.assertEqual(c["CANONICAL_E2E"], "NOT_PROVEN")
+            self.assertTrue(c["PORQUE_A_HISTORIA"],
+                            "o portao falha sem dizer onde a historia parou")
+
+    def test_e_a_soma_das_etapas_NAO_basta_para_fechar(self):
+        """A guarda do defeito que quase passou: onze `YES` nao sao PASS."""
+        a = _art()
+        soma = all(v["FLOW_EXECUTED"] == "YES"
+                   for v in a["CANONICAL_E2E"].values())
+        if soma and a["COLLECTION_CORE_CLOSE"][
+                "CANONICAL_E2E_SAME_STORY"] != "PASS":
+            self.assertEqual(a["COLLECTION_CORE_CLOSE"]["VEREDICTO"], "FAIL",
+                             "o portao fechou pela soma das etapas")
 
 
 class OQueNaoSeSabeFicaUnknown(unittest.TestCase):

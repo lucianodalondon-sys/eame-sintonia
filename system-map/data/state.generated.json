@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21495,
-    "h": 5360
+    "h": 5682
   },
   "INVENTORY": {
     ".claude": [
@@ -1212,6 +1212,7 @@
       "provas/o_forward_conta_se.py",
       "provas/o_legado_fora_do_fluxo.py",
       "provas/o_mapa_nao_mente.py",
+      "provas/o_pedido_atravessa.py",
       "provas/o_raw_fala.py",
       "provas/objeto_e_observacao_no_postgres.py",
       "provas/os_portoes_da_collection.py",
@@ -1420,6 +1421,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
       "system-map/data/fronteira.observada.json",
+      "system-map/data/pedido.observado.json",
       "system-map/data/provas-de-execucao.json",
       "system-map/data/rota-m2.observada.json",
       "system-map/scripts/CADEIA-DO-MAPA.json",
@@ -1526,6 +1528,7 @@
       "tests/test_navegador.py",
       "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
+      "tests/test_o_pedido_atravessa.py",
       "tests/test_o_raw_fala.py",
       "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
@@ -1951,10 +1954,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/close-ready-with-canonical-waiting-room-v1",
-    "HEAD": "66a1392ce6ab2d6ff65fc0db890b400eebc774b0",
-    "GENERATED_AT": "2026-09-12T13:24:23+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a54925657c7192f153d9ae6e967085deac559ce2ec4bd61890d0e0cdfe9fba3c"
+    "BRANCH": "claude/prove-canonical-e2e-from-request-v1",
+    "HEAD": "e1b166d0d880f6b24f71ab8e2137b4ecd351d882",
+    "GENERATED_AT": "2026-09-12T13:34:32+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5a32848768b6760711211807458d827316c0f96fa3f2ef0b1b3d67c4eec17943"
   },
   "FAMILIES": [
     {
@@ -1964,7 +1967,7 @@
       "x": 260,
       "y": 60,
       "w": 11725,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -1990,7 +1993,7 @@
       "x": 12205,
       "y": 60,
       "w": 485,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-ESPERA"
       ],
@@ -2003,7 +2006,7 @@
       "x": 12910,
       "y": 60,
       "w": 1605,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE"
@@ -2018,12 +2021,12 @@
       "x": 18385,
       "y": 60,
       "w": 2850,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 59
+      "count": 60
     },
     {
       "id": "F-ENTREGA",
@@ -2032,7 +2035,7 @@
       "x": 14735,
       "y": 60,
       "w": 3430,
-      "h": 5040,
+      "h": 5362,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -2054,7 +2057,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2068,7 +2071,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2083,7 +2086,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2098,7 +2101,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2113,7 +2116,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2128,7 +2131,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2142,7 +2145,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2156,7 +2159,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2172,7 +2175,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 4
     },
     {
@@ -2188,7 +2191,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 14
     },
     {
@@ -2204,7 +2207,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 13
     },
     {
@@ -2220,7 +2223,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2235,7 +2238,7 @@
       "x": 10420,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 11
     },
     {
@@ -2250,7 +2253,7 @@
       "x": 11540,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 2
     },
     {
@@ -2265,7 +2268,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 1
     },
     {
@@ -2281,7 +2284,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 8
     },
     {
@@ -2297,7 +2300,7 @@
       "x": 14070,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 4
     },
     {
@@ -2313,7 +2316,7 @@
       "x": 14775,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 3
     },
     {
@@ -2329,7 +2332,7 @@
       "x": 15480,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 7
     },
     {
@@ -2345,7 +2348,7 @@
       "x": 16600,
       "y": 190,
       "w": 405,
-      "h": 4870,
+      "h": 5192,
       "count": 5
     },
     {
@@ -2360,7 +2363,7 @@
       "x": 17305,
       "y": 190,
       "w": 820,
-      "h": 4870,
+      "h": 5192,
       "count": 11
     },
     {
@@ -2376,7 +2379,7 @@
       "x": 18425,
       "y": 190,
       "w": 1235,
-      "h": 4870,
+      "h": 5192,
       "count": 14
     },
     {
@@ -2392,8 +2395,8 @@
       "x": 19960,
       "y": 190,
       "w": 1235,
-      "h": 4870,
-      "count": 45
+      "h": 5192,
+      "count": 46
     }
   ],
   "DEPARTMENTS": {
@@ -2660,6 +2663,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -7236,6 +7240,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -8073,6 +8078,7 @@
       "outbound": [
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -8271,6 +8277,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -9511,6 +9518,7 @@
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-PROVA-COLETA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-RECEITAS",
@@ -10849,6 +10857,7 @@
         "C-ESTRADAS-IT",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-TESTES"
       ],
@@ -11264,6 +11273,7 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -12056,6 +12066,7 @@
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-RASTRO",
         "C-RECEITAS",
         "C-ROTA-M2",
@@ -12071,6 +12082,7 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -12160,6 +12172,14 @@
             "file": "provas/mutacao_do_gate.py",
             "line": 196,
             "snippet": "escreve em DONO"
+          }
+        },
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "provas/os_portoes_da_collection.py",
+            "line": 849,
+            "snippet": "escreve em caminho"
           }
         }
       ],
@@ -12542,6 +12562,74 @@
       "y": 3902
     },
     {
+      "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "name": "A prova de ate onde um pedido atravessa",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Aperta o botao no unico ponto de entrada canonico —  com um  — e pergunta ao banco e ao disco o que aquela corrida deixou, etapa a etapa. O executor e o REAL, a ir a fonte REAL; o livro append-only e a Sala de Espera ficam em moradas descartaveis. Depois nomeia o PRIMEIRO edge perdido, e diz quais etapas correram DEPOIS do buraco — porque essas correram e nao provam a estrada.",
+      "why_here": "UMA PROVA QUE COMECA PELO MEIO NAO PROVA A ESTRADA: prova o pedaco por onde comecou. E duas metades provadas em rotas diferentes nao sao uma estrada provada — o veredito exige a MESMA historia.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊢",
+      "views": [
+        "audit",
+        "infra",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/o_pedido_atravessa.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-COLETA-BASE",
+        "C-DERIVACAO-FORWARD",
+        "C-DONO-DA-ESCRITA",
+        "C-IT-COLETA",
+        "C-ORQUESTRADOR",
+        "C-PEDIDO",
+        "C-PROVA-COLETA",
+        "C-SALA-DE-ESPERA",
+        "C-SCRAP-SOCIAL"
+      ],
+      "outbound": [
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ESTRADA"
+        ],
+        "palavras": 11,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 11,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20850,
+      "y": 3902
+    },
+    {
       "id": "C-PROVA-O-RAW-FALA",
       "name": "A prova de que a etapa RAW deixou de ser muda",
       "territory": "Z-PROVA",
@@ -12590,8 +12678,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -12651,7 +12739,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12710,7 +12798,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12763,8 +12851,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -12826,7 +12914,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -13077,7 +13165,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13225,8 +13313,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-REGRA-COLETA",
@@ -13367,7 +13455,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -13754,6 +13842,7 @@
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -14064,6 +14153,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -14181,7 +14271,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -15683,6 +15773,7 @@
         "tests/test_navegador.py",
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
+        "tests/test_o_pedido_atravessa.py",
         "tests/test_o_raw_fala.py",
         "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
@@ -15728,7 +15819,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 105,
+      "file_count": 106,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15815,6 +15906,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -15964,8 +16056,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-TRANSCRICAO",
@@ -17307,7 +17399,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/close-ready-with-canonical-waiting-room-v1"
+        "branch claude/prove-canonical-e2e-from-request-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17748,7 +17840,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 386,
+          "line": 417,
           "snippet": "\"admissao/admissao.py\","
         },
         {
@@ -17794,6 +17886,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 47,
+          "snippet": "import admissao                                     # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-ADMISSAO",
@@ -19588,7 +19698,7 @@
         },
         {
           "file": "tests/test_portoes_da_collection.py",
-          "line": 297,
+          "line": 325,
           "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
         }
       ],
@@ -21408,6 +21518,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 48,
+          "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-PROVA-O-RAW-FALA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22236,7 +22364,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
@@ -22262,6 +22390,11 @@
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 27,
           "snippet": "import telemetria as tel            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o_pedido_atravessa.py",
+          "line": 20,
+          "snippet": "import telemetria as tel             # noqa: E402"
         },
         {
           "file": "tests/test_o_raw_fala.py",
@@ -22575,7 +22708,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 397,
+          "line": 428,
           "snippet": "\"coleta/derivacao_forward.py\","
         }
       ],
@@ -22595,6 +22728,24 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 69,
           "snippet": "import derivacao_forward as fwd         # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 275,
+          "snippet": "import derivacao_forward as fwd"
         }
       ],
       "categoria": "CODE"
@@ -22995,7 +23146,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 484,
+          "line": 515,
           "snippet": "\"guarda/preservar_coleta.py\"),"
         }
       ],
@@ -23038,6 +23189,24 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 75,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 276,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
         }
       ],
       "categoria": "CODE"
@@ -24551,7 +24720,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 374,
+          "line": 405,
           "snippet": "\"guarda/importar_italia.py\","
         }
       ],
@@ -25102,6 +25271,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 145,
+          "snippet": "recibo.get(\"ACTOR\") == \"coleta/italy_executor.py\""
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-IT-COLETA",
@@ -26640,6 +26827,24 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 124,
+          "snippet": "import orquestrador as orq"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
       "type": "READS",
       "payload": "artefacto",
@@ -26702,7 +26907,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -26733,6 +26938,11 @@
           "file": "tests/test_medir_admission_t3_atual.py",
           "line": 56,
           "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", ficheiros)"
+        },
+        {
+          "file": "tests/test_o_pedido_atravessa.py",
+          "line": 23,
+          "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
         },
         {
           "file": "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -26913,6 +27123,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-PEDIDO",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O pedido de coleta tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 51,
+          "snippet": "from pedido import Pedido                           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-PEDIDO",
@@ -28202,6 +28430,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 93,
+          "snippet": "\"preservar_coleta_no_postgres.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-O-RAW-FALA",
       "type": "READS",
       "payload": "artefacto",
@@ -28495,6 +28741,42 @@
           "file": "tests/test_mapa_nao_mente.py",
           "line": 52,
           "snippet": "{\"COMPONENTS\": [{\"id\": \"X\", \"files\": [\"provas/o_mapa_nao_mente.py\"]}]},"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de ate onde um pedido atravessa alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 695,
+          "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de ate onde um pedido atravessa alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_pedido_atravessa.py",
+          "line": 22,
+          "snippet": "PROVA = os.path.join(RAIZ, \"provas\", \"o_pedido_atravessa.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -29523,11 +29805,29 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 316,
+          "line": 347,
           "snippet": "\"admissao/sala_de_espera.py\","
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 49,
+          "snippet": "import sala_de_espera as espera                     # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-SALA-DE-ESPERA",
@@ -30292,6 +30592,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 50,
+          "snippet": "import social_persistencia as sp                    # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-SCRAP-SOCIAL",
@@ -31494,7 +31812,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 264,
+          "line": 295,
           "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
         }
       ],
@@ -32614,7 +32932,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 759,
+  "UNCLAIMED_FILES_COUNT": 760,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32769,17 +33087,17 @@
     ]
   },
   "COUNTS": {
-    "components": 163,
+    "components": 164,
     "components_proven": 59,
-    "components_pending": 98,
+    "components_pending": 99,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 682,
-    "edges_proven": 680,
+    "edges": 694,
+    "edges_proven": 692,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1504,
-    "files_covered": 745,
+    "files_tracked": 1507,
+    "files_covered": 747,
     "files_code_unclaimed": 0
   }
 }

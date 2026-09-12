@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "4690cca42cb150be38ec2f38cf13a521181b5133",
+  "MEASURED_HEAD": "e1b166d0d880f6b24f71ab8e2137b4ecd351d882",
   "BIBLE_VERSION": "V1.4",
   "LAW_TOTAL": 105,
   "IMPLEMENTATION_STATE": {
@@ -35,27 +35,27 @@
   "CANONICAL_E2E": {
     "REQUEST": {
       "MODULE_EXISTS": "YES",
-      "EDGE_EXISTS": "UNKNOWN",
-      "FLOW_EXECUTED": "NO",
-      "PROOF": "nenhuma corrida canonica observada nesta etapa; o ledger so prova DERIVED, STRUCTURED e ADMISSION"
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
     },
     "ORCHESTRATOR": {
       "MODULE_EXISTS": "YES",
-      "EDGE_EXISTS": "UNKNOWN",
-      "FLOW_EXECUTED": "NO",
-      "PROOF": "nenhuma corrida canonica observada nesta etapa; o ledger so prova DERIVED, STRUCTURED e ADMISSION"
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
     },
     "EXECUTOR": {
       "MODULE_EXISTS": "YES",
-      "EDGE_EXISTS": "UNKNOWN",
-      "FLOW_EXECUTED": "NO",
-      "PROOF": "nenhuma corrida canonica observada nesta etapa; o ledger so prova DERIVED, STRUCTURED e ADMISSION"
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
     },
     "RUN": {
       "MODULE_EXISTS": "YES",
-      "EDGE_EXISTS": "UNKNOWN",
-      "FLOW_EXECUTED": "NO",
-      "PROOF": "nenhuma corrida canonica observada nesta etapa; o ledger so prova DERIVED, STRUCTURED e ADMISSION"
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
     },
     "RAW_OBSERVATION": {
       "MODULE_EXISTS": "YES",
@@ -75,13 +75,15 @@
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel"
+      "PROOF": "atravessa em provas/a_unidade_pousa_na_espera.py, entrando pelo RAW",
+      "NAO_ATRAVESSA_PELO_PEDIDO": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED, medido em provas/o_pedido_atravessa.py"
     },
     "STRUCTURED": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel"
+      "PROOF": "atravessa em provas/a_unidade_pousa_na_espera.py, entrando pelo RAW",
+      "NAO_ATRAVESSA_PELO_PEDIDO": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED, medido em provas/o_pedido_atravessa.py"
     },
     "ADMISSION": {
       "MODULE_EXISTS": "YES",
@@ -407,6 +409,8 @@
   "COLLECTION_CORE_CLOSE": {
     "VEREDICTO": "FAIL",
     "CANONICAL_E2E": "NOT_PROVEN",
+    "CANONICAL_E2E_SAME_STORY": "FAIL",
+    "PORQUE_A_HISTORIA": "a mesma historia parou em `STORAGE -> DERIVED` — medido em provas/o_pedido_atravessa.py",
     "IDENTITY": "PROVEN",
     "PROVENANCE": "PROVEN",
     "RAW": "PROVEN",
@@ -422,8 +426,8 @@
     "OBSERVABILITY": "INSUFFICIENT",
     "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
     "BLOQUEADO_POR": [],
-    "PORQUE_FALHA": "os blockers acabaram; o que falta e a CABECA da estrada. REQUEST, ORCHESTRATOR, EXECUTOR e RUN continuam sem corrida observada, e por isso CANONICAL_E2E nao esta provado.",
-    "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. O veredicto vem das PROPRIEDADES, e uma delas — a travessia inteira — continua por observar.",
+    "PORQUE_FALHA": "a mesma historia parou em `STORAGE -> DERIVED` — medido em provas/o_pedido_atravessa.py",
+    "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. E ONZE ETAPAS QUE JA CORRERAM NAO SAO UMA ESTRADA: o veredicto exige a MESMA historia, de ponta a ponta, e nao a soma de metades provadas em rotas diferentes.",
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
   },
   "BIG_COLLECTION_READY": {
