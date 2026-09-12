@@ -7458,3 +7458,117 @@ A ligação está construída e nunca correu contra o fornecedor real. O ensaio
 offline mede o **nosso** lado do contrato; o lado do ator só se mede a gastar. E
 uma autorização de dinheiro que não foi usada continua inteira — não caduca, e
 não se transforma em permissão para tentar outra coisa.
+
+---
+
+# §82 · UM ARTEFATO DESACTUALIZADO NÃO É UM ARTEFATO ANTIGO: É UM ARTEFATO FALSO
+
+**Missão:** `C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1 — correcção de drift`
+**HEAD final:** `3b53ef0c`
+**Tocado:** `provas/os_portoes_da_collection.py` ·
+`docs/operacao/COLLECTION-V1-CLOSE-GATES.md` ·
+`data/derivados/COLLECTION-V1-CLOSE-GATES.json`
+
+A `§78` provou que um pedido canónico atravessa `REQUEST → ORCHESTRATOR →
+EXECUTOR → RUN → RAW → STORAGE` numa história só, e pára. Os artefatos de
+fechamento não souberam disso: continuaram a dizer `FLOW_EXECUTED = NO` nas
+quatro primeiras etapas e a chamar muda uma `READY` que já emite rasto.
+
+O erro não foi medir mal. Foi medir e não voltar a escrever.
+
+```
+    QUEM NÃO REESCREVE O RETRATO DEPOIS DE MEDIR
+    NÃO FICA COM UM RETRATO VELHO: FICA COM UM RETRATO QUE MENTE.
+```
+
+## 82.1 · UM CARIMBO DE COMMIT NUM FICHEIRO COMMITADO NASCE SEMPRE ATRASADO
+
+O artefato carimbava `MEASURED_HEAD`. Estava dois commits atrás, e não por
+descuido: **é impossível por construção.** O ficheiro que guarda o carimbo entra
+no commit seguinte, logo ele nunca pode nomear o commit que o contém.
+
+```
+    A PERGUNTA NÃO É «QUE COMMIT?». É «QUE FICHEIROS DECIDEM ISTO?».
+```
+
+A `CADEIA-DO-MAPA.json` já tinha aprendido isto para a árvore inteira, com a
+`IMPRESSAO_DA_ARVORE`. Aqui aplica-se ao mesmo problema à escala de uma medição:
+`DONOS_DA_MEDICAO` nomeia os quatro ficheiros que decidem o resultado, e
+`IMPRESSAO_DOS_DONOS` é o `sha256` do conteúdo deles.
+
+```
+DONOS_DA_MEDICAO = provas/os_portoes_da_collection.py
+                   docs/biblia/leis.json
+                   system-map/data/buracos.generated.json
+                   system-map/data/pedido.observado.json
+```
+
+Se eles não mudaram, a medição continua a valer por mais commits que passem. Se
+mudaram, mudou por commits nenhuns. O carimbo de commit fica — ele diz **quando**
+— mas quem quer saber se o retrato ainda vale compara a impressão.
+
+## 82.2 · O MARKDOWN COPIAVA O NÚMERO, E POR ISSO ENVELHECIA SOZINHO
+
+A primeira correcção que escrevi foi pôr a impressão nova no documento. Uma
+medição depois, o documento já tinha a impressão errada — a mesma doença, num
+sítio novo.
+
+```
+    DOIS DONOS DE UM NÚMERO SÃO DUAS VERDADES,
+    E A PARTIR DAÍ NENHUMA DAS DUAS VALE.
+```
+
+A guarda `ODocumentoNaoEDonoDosNumeros` já dizia, em `tests/`, que o JSON é o
+dono e o Markdown explica. Eu tinha-a lido e mesmo assim copiei o número. A
+correcção final tira os dois números do documento e deixa lá o comando que os lê
+do artefato. Um documento que **ensina onde está o número** não envelhece; um que
+o **repete** envelhece a cada medição.
+
+## 82.3 · DOIS ACHADOS NA MESMA ESTRADA PODEM SER DE ESPÉCIES DIFERENTES
+
+A estrada parte-se em `STORAGE -> DERIVED` e volta a partir-se em
+`DERIVED -> STRUCTURED`. A tentação é escrever «faltam duas ligações».
+
+```
+STORAGE  -> DERIVED     WIRING_GAP           resolve-se com CÓDIGO
+DERIVED  -> STRUCTURED  CONTRACT_OWNER_GAP   resolve-se com GENTE
+```
+
+O primeiro é uma chamada que não está ligada, e a prova mostra a **mesma**
+observação a derivar com `PASS` quando `derivacao_forward` é chamada à mão:
+a capacidade existe, falta o fio. O segundo é `public.conteudo` a exigir
+`canal_id`, e a recusa diz por escrito quem resolve — «um dono de identidade,
+fora do executor de coleta». Esse dono não existe hoje, e inventá-lo é uma
+decisão de arquitetura, não uma ligação.
+
+```
+    MISTURAR OS DOIS PRODUZ UM PLANO QUE NINGUÉM CONSEGUE EXECUTAR:
+    METADE DELE ESPERA POR UMA REUNIÃO.
+```
+
+## 82.4 · O QUE NÃO SE MEXEU, E NÃO SE MEXEU DE PROPÓSITO
+
+```
+CANONICAL_E2E         = FAIL
+COLLECTION_CORE_CLOSE = FAIL
+FIRST_LOST_EDGE       = STORAGE -> DERIVED
+```
+
+Nenhum buraco foi tapado nesta passagem. Corrigir o retrato e tapar o buraco na
+mesma missão é a maneira mais limpa de nunca se saber qual dos dois produziu o
+verde.
+
+```
+    MEASURE != FIX. E A ORDEM IMPORTA:
+    UM RETRATO FALSO TAPADO É UM BURACO QUE DESAPARECE SEM SER CONSERTADO.
+```
+
+A prova voltou a correr num banco descartável e deu o mesmo veredito — só o
+`RUN_ID` mudou. Uma medição que não se repete não é uma medição: é uma anedota.
+
+## 82.5 · O QUE FICA POR SABER
+
+Fica por saber se a `IMPRESSAO_DOS_DONOS` tem os donos certos: ela mede quatro
+ficheiros, e nada hoje reprova quem acrescentar um quinto decisor sem o declarar.
+A lista é hoje um acordo escrito, e não uma guarda que morde — ao contrário da
+`EXCLUIDO` da cadeia do mapa, que `test_impressao_da_arvore.py` confere.
