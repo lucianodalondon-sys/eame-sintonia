@@ -372,9 +372,23 @@ class AIdentidadeNaoEConteudo(unittest.TestCase):
         self.assertIsNone(cap.da_matriz('linkedin.recent.discovery'))
 
     def test_recent_discovery_nao_tem_mais_rota_permitida(self):
-        """Retirar a traducao FECHA uma porta; nao abre nenhuma."""
-        self.assertEqual(sx.CHECK('LINKEDIN', 'linkedin.recent.discovery')['STATE'],
-                         sx.SEM_ROTA)
+        """Retirar a traducao FECHA uma porta; nao abre nenhuma.
+
+        A LINKEDIN-OP-01 mudou a RAZAO da recusa, e para uma mais forte. Aqui
+        esperava-se `DECLARED_WITHOUT_ROUTE` — «esta declarada e nao tem rota».
+        Depois de a capacidade descer de PROVEN para BLOCKED, o portao responde
+        `CAPABILITY_STATE_PROMISES_NOTHING`, que vem ANTES: o estado da
+        capacidade recusa sozinho, sem a pergunta da rota chegar a ser feita.
+
+            DUAS RECUSAS NAO SAO A MESMA RECUSA, E A QUE CHEGA PRIMEIRO E A QUE
+            SE LE. Prender a mais tardia faria esta sentinela reprovar o dia em
+            que a casa passasse a recusar mais cedo — que foi exactamente hoje.
+
+        O que a sentinela guarda nao muda: nao ha caminho executavel. Guarda-se
+        isso, e aceitam-se as duas recusas — nunca um OK.
+        """
+        estado = sx.CHECK('LINKEDIN', 'linkedin.recent.discovery')['STATE']
+        self.assertIn(estado, (sx.SEM_ROTA, sx.SEM_PROMESSA), estado)
         self.assertNotIn(('LINKEDIN', 'linkedin.recent.discovery'), reg.executaveis())
 
     def test_nao_confunde_outros_hosts(self):
