@@ -1950,10 +1950,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "7fca351451e80ee8bb5cb18317158cf764c55b16",
-    "GENERATED_AT": "2026-09-12T17:47:21+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab"
+    "BRANCH": "claude/system-map-g2b-deterministic-cli-doc-v1",
+    "HEAD": "b3b8ab46dbd87a8363f201868dd53aee0f51661f",
+    "GENERATED_AT": "2026-09-12T17:57:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "225a45d1010830b91e223ac7ba7c9bcd8d1d8bd8d5e3525c7a923be4dc4d62db"
   },
   "FAMILIES": [
     {
@@ -7040,12 +7040,11 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "BLOCOS_MEDIDOS",
-          "CAMPOS_NAO_REPRODUZIVEIS"
+          "BLOCOS_MEDIDOS"
         ],
-        "palavras": 12,
+        "palavras": 7,
         "por_lingua": {},
-        "sem_marca_de_lingua": 12,
+        "sem_marca_de_lingua": 7,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11095,6 +11094,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-VALIDADOR",
+        "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
         "C-PROCEDENCIA",
         "C-PROVA-MAPA-NAO-MENTE",
@@ -11113,7 +11113,6 @@
         "listas": [
           "CATEGORIAS_CONHECIDAS",
           "DONO_DA_ESPECIE",
-          "ESPERADO_FORA",
           "LINHA",
           "OBRIGATORIO",
           "PARTES_ESPERADAS",
@@ -11121,9 +11120,9 @@
           "SUSPEITO",
           "_ESPINHA"
         ],
-        "palavras": 69,
+        "palavras": 64,
         "por_lingua": {},
-        "sem_marca_de_lingua": 69,
+        "sem_marca_de_lingua": 64,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11406,6 +11405,7 @@
       ],
       "outbound": [
         "C-ESTRADAS-IT",
+        "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-TESTES"
@@ -18282,7 +18282,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/dazzling-cerf-27a7v2"
+        "branch claude/system-map-g2b-deterministic-cli-doc-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -24304,7 +24304,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_topologia_persistida.py",
-          "line": 149,
+          "line": 184,
           "snippet": "return subprocess.run([sys.executable, \"system-map/scripts/censo_da_topologia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-MAPA-TESTES",
@@ -25397,7 +25397,7 @@
         },
         {
           "file": "system-map/tests/test_topologia_persistida.py",
-          "line": 50,
+          "line": 51,
           "snippet": "WORKFLOW = RAIZ / \".github\" / \"workflows\" / \"system-map.yml\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--READS-->C-MAPA-TESTES",
@@ -33542,7 +33542,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_da_topologia.py",
-          "line": 389,
+          "line": 480,
           "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IMPRESSAO-DA-ARVORE--IMPORTS-->C-CENSO-TOPOLOGIA",
@@ -36627,7 +36627,7 @@
         },
         {
           "file": "system-map/tests/test_topologia_persistida.py",
-          "line": 49,
+          "line": 50,
           "snippet": "CADEIA = json.loads((SCRIPTS / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
@@ -37245,7 +37245,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_topologia_persistida.py",
-          "line": 521,
+          "line": 705,
           "snippet": "fonte.write_text(original + \"\\n# uma fonte que mudou depois da medicao\\n\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
@@ -37939,6 +37939,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_topologia_persistida.py",
+          "line": 466,
+          "snippet": "ALVO = \"orquestrador/orquestrador.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-TESTES",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -50638,8 +50673,8 @@
     "components_pending": 96,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 668,
-    "edges_proven": 621,
+    "edges": 669,
+    "edges_proven": 622,
     "edges_unknown": 47,
     "business_edges": 4,
     "files_tracked": 1503,

@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-12T17:54:30+00:00",
-  "HEAD": "7fca351451e80ee8bb5cb18317158cf764c55b16",
-  "BRANCH": "claude/dazzling-cerf-27a7v2",
+  "GENERATED_AT": "2026-09-12T18:36:35+00:00",
+  "HEAD": "b3b8ab46dbd87a8363f201868dd53aee0f51661f",
+  "BRANCH": "claude/system-map-g2b-deterministic-cli-doc-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab",
+  "SOURCE_TREE_FINGERPRINT": "225a45d1010830b91e223ac7ba7c9bcd8d1d8bd8d5e3525c7a923be4dc4d62db",
   "FICHEIROS_NA_IMPRESSAO": 1655,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1735,14 +1735,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab",
+    "VERSAO": "225a45d1010830b91e223ac7ba7c9bcd8d1d8bd8d5e3525c7a923be4dc4d62db",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab",
+    "VERSAO": "225a45d1010830b91e223ac7ba7c9bcd8d1d8bd8d5e3525c7a923be4dc4d62db",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -1910,7 +1910,7 @@
    {
     "PATH": "system-map/tests/test_topologia_persistida.py",
     "PAPEL": "FONTE",
-    "VERSAO": "3a3045615c3b1fe3dfe03bd35fdcd2c267124dfd",
+    "VERSAO": "7058c57acaa56f7e7b029a146e89ae9dbdafaa45",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2665,7 +2665,7 @@
    }
   ],
   "INPUTS_COUNT": 375,
-  "INPUTS_DIGEST": "397bfe362a2a38231456d182795515e91823b48259b5d11e141bbb47ba32e6ed",
+  "INPUTS_DIGEST": "759c3f832bee7a21c2fe839b89fef05467a0ee215d328bc27c5753545ba7031a",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2689,22 +2689,17 @@
    "RESUMO",
    "FICHAS"
   ],
-  "CAMPOS_FORA_DO_MEASUREMENT_HASH": {
-   "FICHAS": [
-    "DOCUMENTADO_COMO_CLI"
-   ],
-   "RESUMO": [
-    "SO_CLI_DOCUMENTADO",
-    "NINGUEM_CORRE"
-   ]
-  },
-  "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "medido: a mesma arvore, medida aqui e no CI, deu seis cartoes diferentes em DOCUMENTADO_COMO_CLI. `documentado_como_cli()` para no primeiro `.md` que casa e so ve as primeiras 20 linhas do grep, e a ordem do grep e do sistema de ficheiros. O campo continua publicado e coberto por SEMANTIC_HASH; o que ele nao consegue sustentar e a pergunta «reproduz-se noutra maquina?».",
+  "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
+  "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
+  "DOCUMENTOS_LIDOS": 287,
+  "DOCUMENTOS_AUSENTES_DO_DISCO": [],
+  "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "b208097d8eff1074b6ea11793c1c9a3842b8bde929c0308dee023867f7f40d88",
-  "SEMANTIC_HASH": "1ef5e29700d6b3097a663a02810d77394d758e6c230a44c99e7abedf890d032c"
+  "MEASUREMENT_HASH": "94056733b54ec9505f52d2f2d0e10837247f283e99a4e48e61e55e222bdbf893",
+  "SEMANTIC_HASH": "44df90c38c4c27a806a036487c9fb44a48f264abc6fbdf40d52e5a34e71ef2f7"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5570,7 +5565,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 149,
+      "LINHA": 184,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-TOPOLOGIA--READS-->C-MAPA-TESTES",
@@ -5764,7 +5759,7 @@
      },
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 50,
+      "LINHA": 51,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-MAPA--READS-->C-MAPA-TESTES",
@@ -12702,7 +12697,7 @@
      },
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 49,
+      "LINHA": 50,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
@@ -13082,7 +13077,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 521,
+      "LINHA": 705,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
@@ -13548,6 +13543,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-ESTRADAS-IT",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-TESTES",
+    "FROM": "C-ORQUESTRADOR",
+    "TO": "C-MAPA-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
+      "LINHA": 466,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -19637,12 +19654,12 @@
     ]
    }
   ],
-  "COUNT": 592
+  "COUNT": 593
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 111,
   "CARTOES_AUDITADOS": 111,
-  "ARESTAS_RELACIONADAS": 592,
+  "ARESTAS_RELACIONADAS": 593,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -19919,7 +19936,7 @@
    "CODE": 66,
    "CONTROL": 63,
    "DATA": 25,
-   "PROOF": 206,
+   "PROOF": 207,
    "READ": 128,
    "RULE": 97,
    "WRITE": 7
@@ -20275,7 +20292,6 @@
     "provas/medir_admission_t3_atual.py",
     "provas/os_portoes_da_collection.py",
     "provas/valida_biblia.py",
-    "system-map/scripts/censo_da_topologia.py",
     "tests/test_biblia.py",
     "tests/test_integracao_biblia.py",
     "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -20327,6 +20343,9 @@
     "tests/test_prioridade_comercial.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "HANDOFF-BUILD-DA-REUNIAO.md",
+    "HANDOFF-V2-PAUSE.md",
+    "docs/design/ITALY-V2.1-README-FIRST.md",
     "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md"
    ],
    "E_ENTRYPOINT": true,
@@ -22087,7 +22106,8 @@
     "tests/test_alvo_estruturado_resolvido.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "BIBLIA-CANONICA-DA-COLETA.md"
+    "BIBLIA-CANONICA-DA-COLETA.md",
+    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -22275,6 +22295,7 @@
     "provas/o_dedupe_tem_constraint.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "HANDOFF-BUILD-DA-REUNIAO.md",
     "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md"
    ],
    "E_ENTRYPOINT": false,
@@ -22403,6 +22424,14 @@
     "tests/test_observabilidade_estrada.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    ".github/copilot-instructions.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "docs/fontes/INDICE-DE-FONTES.md",
+    "docs/operacao/MODELO-DAS-CONEXOES.md",
+    "guarda/es/workflows/LEIA.md",
+    "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
+    "regras/LEIA-ANTES-DE-COLETAR.md",
     "system-map/README.md"
    ],
    "E_ENTRYPOINT": true,
@@ -22513,7 +22542,9 @@
    ],
    "DOCUMENTADO_COMO_CLI": [
     "AGENTS.md",
+    "BIBLIA-CANONICA-DA-COLETA.md",
     "docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md",
+    "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
     "system-map/README.md"
    ],
    "E_ENTRYPOINT": true,
@@ -22526,7 +22557,7 @@
     "pathlib",
     "pente_fino_da_coleta"
    ],
-   "ENTRAM": 17,
+   "ENTRAM": 18,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
@@ -22631,9 +22662,11 @@
     "provas/medir_admission_t3_atual.py",
     "provas/o_encanamento_tem_uma_porta.py",
     "provas/testa_golden_path_pdf.py",
+    "system-map/scripts/censo_da_topologia.py",
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/scan_repo.py",
     "system-map/tests/test_system_map.py",
+    "system-map/tests/test_topologia_persistida.py",
     "tests/test_estagio_atravessa_a_fronteira.py",
     "tests/test_italia_na_porta_canonica.py",
     "tests/test_lingua_da_porta.py",
@@ -22655,7 +22688,7 @@
     "receitas"
    ],
    "ENTRAM": 7,
-   "SAEM": 6,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -22700,7 +22733,8 @@
     "tests/test_metricas.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md"
+    "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+    "PROMPT-PARA-NOVA-CONTA-CLAUDE.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -22747,6 +22781,8 @@
     "tests/test_observabilidade_estrada.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "BIBLIA-CANONICA-DA-COLETA.md",
+    "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
     "regras/LEIA-ANTES-DE-COLETAR.md"
    ],
    "E_ENTRYPOINT": true,
@@ -22859,6 +22895,8 @@
     "system-map/scripts/scan_sources.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
+    "AGENTS.md",
+    "docs/fontes/INDICE-DE-FONTES.md",
     "regras/LEIA-ANTES-DE-COLETAR.md"
    ],
    "E_ENTRYPOINT": false,
@@ -22900,7 +22938,8 @@
     "tests/test_retorno_da_coleta.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md"
+    "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+    "PROMPT-PARA-NOVA-CONTA-CLAUDE.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": true,
@@ -22976,7 +23015,8 @@
    "CHAMADORES_DE_RUNTIME": [],
    "SO_MEDEM_ESTE": [],
    "DOCUMENTADO_COMO_CLI": [
-    "BIBLIA-CANONICA-DA-COLETA.md"
+    "BIBLIA-CANONICA-DA-COLETA.md",
+    "docs/biblia/CONFORMIDADE-ITALIA.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
@@ -23097,6 +23137,7 @@
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
     "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
+    "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
     "docs/operacao/MEDICAO-DA-REGRA-T2.md",
     "docs/operacao/T3-SAMPLING-FRAME-V1.md"
    ],
@@ -23605,7 +23646,10 @@
     "tests/test_coleta_externa.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "BIBLIA-CANONICA-DA-COLETA.md"
+    "BIBLIA-CANONICA-DA-COLETA.md",
+    "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+    "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+    "medidas/PORTOES-DE-COLETA-10B.md"
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
@@ -23844,7 +23888,8 @@
     "tests/test_youtube_piloto.py"
    ],
    "DOCUMENTADO_COMO_CLI": [
-    "security/INCIDENTE.md"
+    "security/INCIDENTE.md",
+    "security/PARA-QUEM-DESENVOLVE.md"
    ],
    "E_ENTRYPOINT": true,
    "ALCANCADO_POR_CORRIDA": true,
@@ -24803,9 +24848,9 @@
   "A FRESCURA DESTE FICHEIRO NAO SE LE NELE. Um artefacto nao se declara actual a si proprio (§13.1). Quem responde CURRENT/STALE e `frescura()`, corrida por outro processo contra a arvore de agora.",
   "INPUTS SO CONHECE O QUE O CODIGO ABRE POR CAMINHO. A varredura `grep` nao e enumeravel e fica coberta pela impressao da arvore, nao por INPUTS_DIGEST.",
   "UMA ENTRADA GERADA EDITADA A MAO SEM REGERAR NAO MOVE A VERSAO DELA: a versao e a impressao que ela carimba. Quem apanha esse caso e a P1 do validador, que regenera e compara — nao este ficheiro.",
-  "DOCUMENTADO_COMO_CLI NAO E REPRODUZIVEL ENTRE MAQUINAS, E ISSO FOI MEDIDO NO CI. `documentado_como_cli()` para no primeiro `.md` que casa e so ve as primeiras 20 linhas do `grep`; 15 ficheiros desta arvore tem mais do que um documento e SEIS batem no tecto. A mesma arvore medida aqui e no GitHub Actions deu seis cartoes diferentes, e num deles (C-ORQUESTRADOR) o tecto cortou antes da linha que casava e o campo saiu VAZIO. O campo fica publicado e fora do MEASUREMENT_HASH, com o motivo em PROVENANCE.CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE.",
-  "NEM SIM NEM NAO: O CAMPO ACIMA NAO RESPONDE SEQUER «ESTA DOCUMENTADO?» COM SEGURANCA. O caso C-ORQUESTRADOR prova-o. Corrigir isso e mudar a semantica do censo, e nao foi trabalho desta missao — foi declarado.",
-  "A VARREDURA `head -60` DE `chamadores()` NAO FOI VISTA A CORTAR: zero ficheiros de cartao desta arvore chegam a 60 linhas. O risco existe e nao se manifestou; `test_topologia_persistida.py` volta a compara-lo a cada corrida, aqui e no CI.",
+  "DOCUMENTADO_COMO_CLI SO VE DOCUMENTOS RASTREADOS. Um `.md` por commitar nao conta, de proposito: a garantia desta medicao e «a mesma arvore GIT da a mesma resposta», e deixa-la depender de trabalho solto quebrava-a. Medido nesta arvore: 287 `.md` rastreados, zero por rastrear e zero ignorados — o conjunto e o mesmo que a versao anterior via, logo a mudanca de fonte nao mudou quem entra na conta.",
+  "ELE LISTA TODOS OS DOCUMENTOS QUE CASAM, E NAO UM. A versao anterior parava no primeiro e o «primeiro» era o que o disco devolvesse primeiro. A pergunta nao mudou — «ha documentacao que ensine a correr isto?» — mudou a testemunha: era uma a esmo, passou a ser a lista.",
+  "A VARREDURA `head -60` DE `chamadores()` CONTINUA A SER UM `grep -r`, e e a ultima parte desta medicao que depende do disco. Ela nao foi vista a divergir: os resultados dela sao CONJUNTOS ordenados, e zero ficheiros de cartao desta arvore chegam as 60 linhas. Medido em duas arvores do mesmo commit, uma em ext4 e outra em tmpfs: identica. O risco e latente e esta declarado; a prova volta a compara-lo a cada corrida, e em duas arvores.",
   "STALE_BY_CYCLE E NOMEADO, NAO REPARADO. Se uma entrada gerada mediu outra arvore, `frescura()` recusa dizer CURRENT e diz qual — mas nao reordena a cadeia nem regenera nada. Ordenar a cadeia pelos INPUTS declarados e o G5, e nao foi feito aqui."
  ]
 }

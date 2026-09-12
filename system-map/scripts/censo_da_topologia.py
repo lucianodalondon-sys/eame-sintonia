@@ -120,6 +120,100 @@ def chamadores(ficheiros):
     return sorted(runtime), sorted(medem)
 
 
+# ─────────────────────────────────────────────────────────────────────────
+# OS DOCUMENTOS DESTA ARVORE — PEDIDOS AO GIT, E NAO AO SISTEMA DE FICHEIROS
+#
+#     A ORDEM EM QUE UM DISCO DEVOLVE NOMES NAO E UMA REGRA SEMANTICA.
+#
+# ⚠️ A VERSAO ANTERIOR PERGUNTAVA AO `grep -r` E FICAVA COM O PRIMEIRO QUE
+# APARECESSE. Medido em duas arvores do MESMO commit (a mesma `tree` do git,
+# dafbd4e1), uma em ext4 e outra em tmpfs: DEZ cartoes com resposta diferente, e
+# dois deles a dizer que NAO estavam documentados quando estavam. A causa e que
+# `grep -r` percorre por `readdir`, cuja ordem e do sistema de ficheiros, e o
+# `head -20` cortava as 31 linhas do `orquestrador` antes da unica que casava.
+#
+#     MESMA ARVORE GIT, OUTRA ORDEM DE DISCO, OUTRA RESPOSTA
+#     NAO E UMA MEDICAO: E UMA SORTE.
+#
+# Agora a lista de documentos vem de `git ls-files` — que ordena — e e ordenada
+# outra vez aqui, de proposito: depender da ordem de saida de outra ferramenta
+# seria trocar um dono de ordem por outro.
+#
+# SO O QUE ESTA RASTREADO CONTA. Um `.md` por commitar nao faz parte da arvore a
+# que a pergunta se refere, e deixa-la depender dele quebrava a propria garantia
+# desta correcao: a mesma arvore GIT tem de dar a mesma resposta. Medido nesta
+# arvore: 287 `.md` rastreados, ZERO por rastrear e ZERO ignorados — logo o
+# conjunto e exactamente o que o `grep` via, e a mudanca de fonte nao muda quem
+# entra na conta.
+# ─────────────────────────────────────────────────────────────────────────
+DOCUMENTOS_AUSENTES_DO_DISCO: list = []
+_DOCUMENTOS = None
+
+
+def documentos_da_arvore(recarregar=False):
+    """OS `.md` RASTREADOS, POR ORDEM LEXICAL, LIDOS UMA VEZ SO.
+
+    Ler 287 ficheiros custa 14 milissegundos — medido, nao estimado. A versao
+    anterior lancava um `grep -r` sobre o repositorio inteiro POR CADA ficheiro
+    de cartao: 358 varreduras para responder a uma pergunta que cabe numa
+    leitura.
+
+        ENGENHARIA ANTES DE MICRO-OTIMIZACAO — e a leitura inteira e mais
+        barata do que a busca repetida que ela substitui.
+
+    Um ficheiro rastreado que falta ao disco NAO e saltado em silencio: fica em
+    `DOCUMENTOS_AUSENTES_DO_DISCO`, e o artefacto declara-o.
+    """
+    global _DOCUMENTOS
+    if _DOCUMENTOS is not None and not recarregar:
+        return _DOCUMENTOS
+    del DOCUMENTOS_AUSENTES_DO_DISCO[:]
+    docs = []
+    for nome in sorted(n for n in git('ls-files').splitlines() if n.endswith('.md')):
+        caminho = os.path.join(RAIZ, nome)
+        if not os.path.isfile(caminho):
+            DOCUMENTOS_AUSENTES_DO_DISCO.append(nome)
+            continue
+        with open(caminho, encoding='utf-8', errors='ignore') as fh:
+            docs.append((nome, fh.read().splitlines()))
+    _DOCUMENTOS = docs
+    return _DOCUMENTOS
+
+
+# A REGRA DO QUE CONTA COMO «ENSINA UM HUMANO A CORRER ISTO».
+# Ela NAO mudou nesta missao: continua a exigir um lancador (`python`, `py`,
+# `node`, `bash`, `./`) seguido do nome do ficheiro. Uma mencao narrativa ao
+# nome — «o `orquestrador.py` decide a rota» — nao e uma instrucao, e continua
+# a nao contar.
+LANCADORES = r'(python3?|py|node|bash|\./)'
+
+
+def documenta_como_cli(ficheiro, documentos):
+    """QUE DOCUMENTOS ENSINAM A CORRER ESTE FICHEIRO. Funcao pura, sem disco.
+
+    Recebe a lista de documentos ja lida e devolve TODOS os que casam, ordenados.
+    Nao para no primeiro: parar no primeiro obriga alguem a decidir qual e «o
+    primeiro», e a unica resposta que o codigo tinha para isso era «aquele que o
+    disco devolveu primeiro».
+
+        SE A PERGUNTA E «HA DOCUMENTACAO?», A RESPOSTA HONESTA E A LISTA TODA.
+
+    A ordem de entrada NAO pode mudar a saida — e e por isso que a saida e
+    ordenada aqui e nao herdada de quem chamou.
+    """
+    padrao = re.compile(LANCADORES + r'\s+\S*' + re.escape(os.path.basename(ficheiro)))
+    achados = set()
+    for caminho, linhas in documentos:
+        for linha in linhas:
+            # A linha tem de citar o CAMINHO INTEIRO (era o `-F` do grep) e
+            # mostrar o lancador ao lado do nome. As duas condicoes, na MESMA
+            # linha, como antes.
+            if ficheiro in linha and padrao.search(linha):
+                achados.add(caminho)
+                break
+    return sorted(achados)
+
+
 def documentado_como_cli(ficheiros):
     """Um humano corre isto, e esta escrito num documento.
 
@@ -130,16 +224,13 @@ def documentado_como_cli(ficheiros):
         NENHUM CHAMADOR != NINGUEM CORRE.
         MAS CLI DOCUMENTADO != PORTAO QUE CORRE SOZINHO.
     """
-    fora = []
+    docs = documentos_da_arvore()
+    fora = set()
     for f in ficheiros:
         if not f.endswith(('.py', '.mjs', '.sh')):
             continue
-        for l in _sh("grep -rn --include=*.md -F %s . 2>/dev/null | head -20"
-                     % json.dumps(f)):
-            if re.search(r'(python3?|py|node|bash|\./)\s+\S*' + re.escape(os.path.basename(f)), l):
-                fora.append(l.split(':', 1)[0].lstrip('./'))
-                break
-    return sorted(set(fora))
+        fora.update(documenta_como_cli(f, docs))
+    return sorted(fora)
 
 
 def escreve_le(ficheiros):
@@ -481,62 +572,30 @@ BLOCOS_MEDIDOS = ('UNIVERSE', 'BOUNDARY_NEIGHBORS', 'EXPANDED', 'ARITMETICA',
                   'EDGES', 'RESUMO', 'FICHAS')
 
 # ─────────────────────────────────────────────────────────────────────────
-# O QUE ESTA MEDICAO NAO CONSEGUE PROMETER — DECLARADO, NAO ESCONDIDO
+# NADA FICA DE FORA DESTA CONTA — E ISSO NEM SEMPRE FOI VERDADE
 #
-#     UM CAMPO QUE NAO SE CONSEGUE REPRODUZIR NAO PODE SER PROVA DE DRIFT.
+# O G2 tirou `DOCUMENTADO_COMO_CLI` (e os dois campos do RESUMO que dele
+# derivam) desta conta, porque o campo nao se reproduzia entre maquinas. Era a
+# saida honesta para uma medicao que nao cumpria o que prometia — e era uma
+# divida, nao uma solucao:
 #
-# ⚠️ ISTO FOI MEDIDO NO CI, E NAO DEDUZIDO. A mesma arvore, medida aqui e no
-# GitHub Actions, deu SEIS cartoes diferentes — todos no mesmo campo:
+#     UM CAMPO PUBLICADO QUE NAO ENTRA NA PROVA SEMANTICA
+#     E UM CAMPO QUE NINGUEM ESTA A GUARDAR.
 #
-#     C-CADEIA-V21      ['italia-portale/CHECKPOINT-...md']  vs  ['HANDOFF-V2-PAUSE.md']
-#     C-IT-CONTRATOS    ['BIBLIA-CANONICA-DA-COLETA.md']     vs  ['docs/fontes/ITALY-...md']
-#     C-MAPA-GERADOR    ['system-map/README.md']             vs  ['regras/LEIA-ANTES-...md']
-#     C-ORQUESTRADOR    ['BIBLIA-CANONICA-DA-COLETA.md']     vs  []
-#     C-PACOTE-CAMADAS  ['HANDOFF-CONTA-...md']              vs  ['PROMPT-PARA-...md']
-#     C-PROCEDENCIA     ['HANDOFF-CONTA-...md']              vs  ['PROMPT-PARA-...md']
+# O G2B fechou a divida na origem: a lista de documentos passou a vir de
+# `git ls-files`, ordenada, lida inteira, e o campo passou a trazer TODOS os
+# documentos que casam. Medido em duas arvores do mesmo commit, uma em ext4 e
+# outra em tmpfs: DEZ cartoes divergiam antes, ZERO divergem depois.
 #
-# A causa esta em `documentado_como_cli()`: ele PARA no primeiro `.md` que casa
-# e so olha para as primeiras 20 linhas do `grep`. Quinze ficheiros desta arvore
-# tem mais do que um documento a documenta-los e seis batem no tecto de 20 — e
-# qual deles fica registado depende da ordem em que o sistema de ficheiros
-# devolve os nomes. O caso `C-ORQUESTRADOR` e o mais duro: no CI o tecto cortou
-# as 31 linhas antes da que casava, e o campo saiu VAZIO.
-#
-# ESTA MISSAO NAO CONSERTA ISSO. Mudar a funcao e mudar a semantica do censo, e
-# isso foi explicitamente deixado de fora. O que ela faz e a unica coisa honesta
-# que lhe resta: declarar que este campo nao entra na conta da reproducibilidade,
-# com o motivo escrito ao lado — e deixar o defeito a vista em LIMITATIONS.
-#
-#     ESCONDER UM CAMPO INSTAVEL DENTRO DE UM HASH ESTAVEL
-#     E TRANSFORMAR UMA MEDICAO FRACA NUM VEREDITO FORTE.
-#
-# `SEMANTIC_HASH` continua a cobri-lo: adultera-lo a mao continua a ser apanhado.
-# O que deixa de o cobrir e a pergunta «as contagens reproduzem-se noutra
-# maquina?», porque a resposta honesta para este campo e NAO.
-CAMPOS_NAO_REPRODUZIVEIS = {
-    'FICHAS': ('DOCUMENTADO_COMO_CLI',),
-    # Estes dois derivam do campo de cima: quem entra em `SO_CLI_DOCUMENTADO` e
-    # quem sobra para `NINGUEM_CORRE` muda com ele. Medido nesta arvore os seis
-    # cartoes divergentes nao mexem nestas listas, mas herdar a fraqueza sem a
-    # declarar seria deixar a instabilidade entrar por uma porta lateral.
-    'RESUMO': ('SO_CLI_DOCUMENTADO', 'NINGUEM_CORRE'),
-}
-
-
-def _sem_os_nao_reproduziveis(doc):
-    d = {k: json.loads(json.dumps(doc.get(k), ensure_ascii=False))
-         for k in BLOCOS_MEDIDOS}
-    for campo in CAMPOS_NAO_REPRODUZIVEIS['RESUMO']:
-        (d.get('RESUMO') or {}).pop(campo, None)
-    for ficha in (d.get('FICHAS') or []):
-        for campo in CAMPOS_NAO_REPRODUZIVEIS['FICHAS']:
-            ficha.pop(campo, None)
-    return d
+# A excepcao foi REMOVIDA, e nao alargada. Fica declarada aqui vazia de
+# proposito: uma lista de exclusao que desaparece do codigo volta a nascer no
+# dia em que alguem tiver pressa.
+CAMPOS_NAO_REPRODUZIVEIS: dict = {}
 
 
 def hash_da_medicao(doc):
     return hashlib.sha256(json.dumps(
-        _sem_os_nao_reproduziveis(doc),
+        {k: doc.get(k) for k in BLOCOS_MEDIDOS},
         sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
 
 
@@ -644,12 +703,14 @@ def serializar(med):
                 bloco: list(campos)
                 for bloco, campos in CAMPOS_NAO_REPRODUZIVEIS.items()},
             'CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE': (
-                'medido: a mesma arvore, medida aqui e no CI, deu seis cartoes '
-                'diferentes em DOCUMENTADO_COMO_CLI. `documentado_como_cli()` para '
-                'no primeiro `.md` que casa e so ve as primeiras 20 linhas do grep, '
-                'e a ordem do grep e do sistema de ficheiros. O campo continua '
-                'publicado e coberto por SEMANTIC_HASH; o que ele nao consegue '
-                'sustentar e a pergunta «reproduz-se noutra maquina?».'),
+                'nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos '
+                'do RESUMO que dele derivam, por a medicao depender da ordem do '
+                'sistema de ficheiros; o G2B fechou essa dependencia na origem e a '
+                'excepcao foi removida. Todo campo medido entra nesta conta.'),
+            'DOCUMENTOS_LIDOS': len(documentos_da_arvore()),
+            'DOCUMENTOS_AUSENTES_DO_DISCO': list(DOCUMENTOS_AUSENTES_DO_DISCO),
+            'FONTE_DOS_DOCUMENTOS': ('git ls-files · so o que esta rastreado · '
+                                     'ordem lexical'),
             'DEPENDENCIES': [i['PATH'] for i in itens if i['PAPEL'] == 'GERADO'],
         },
         'UNIVERSE': {
@@ -729,21 +790,23 @@ def serializar(med):
             # Persistir uma medicao obriga a perguntar se ela e reproduzivel, e a
             # pergunta encontrou isto. Corrigi-lo seria mudar a semantica do censo,
             # e isso nao era trabalho desta missao — declara-lo e.
-            'DOCUMENTADO_COMO_CLI NAO E REPRODUZIVEL ENTRE MAQUINAS, E ISSO FOI '
-            'MEDIDO NO CI. `documentado_como_cli()` para no primeiro `.md` que casa '
-            'e so ve as primeiras 20 linhas do `grep`; 15 ficheiros desta arvore tem '
-            'mais do que um documento e SEIS batem no tecto. A mesma arvore medida '
-            'aqui e no GitHub Actions deu seis cartoes diferentes, e num deles '
-            '(C-ORQUESTRADOR) o tecto cortou antes da linha que casava e o campo '
-            'saiu VAZIO. O campo fica publicado e fora do MEASUREMENT_HASH, com o '
-            'motivo em PROVENANCE.CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE.',
-            'NEM SIM NEM NAO: O CAMPO ACIMA NAO RESPONDE SEQUER «ESTA DOCUMENTADO?» '
-            'COM SEGURANCA. O caso C-ORQUESTRADOR prova-o. Corrigir isso e mudar a '
-            'semantica do censo, e nao foi trabalho desta missao — foi declarado.',
-            'A VARREDURA `head -60` DE `chamadores()` NAO FOI VISTA A CORTAR: zero '
-            'ficheiros de cartao desta arvore chegam a 60 linhas. O risco existe e '
-            'nao se manifestou; `test_topologia_persistida.py` volta a compara-lo a '
-            'cada corrida, aqui e no CI.',
+            'DOCUMENTADO_COMO_CLI SO VE DOCUMENTOS RASTREADOS. Um `.md` por '
+            'commitar nao conta, de proposito: a garantia desta medicao e «a mesma '
+            'arvore GIT da a mesma resposta», e deixa-la depender de trabalho solto '
+            'quebrava-a. Medido nesta arvore: 287 `.md` rastreados, zero por '
+            'rastrear e zero ignorados — o conjunto e o mesmo que a versao anterior '
+            'via, logo a mudanca de fonte nao mudou quem entra na conta.',
+            'ELE LISTA TODOS OS DOCUMENTOS QUE CASAM, E NAO UM. A versao anterior '
+            'parava no primeiro e o «primeiro» era o que o disco devolvesse '
+            'primeiro. A pergunta nao mudou — «ha documentacao que ensine a correr '
+            'isto?» — mudou a testemunha: era uma a esmo, passou a ser a lista.',
+            'A VARREDURA `head -60` DE `chamadores()` CONTINUA A SER UM `grep -r`, '
+            'e e a ultima parte desta medicao que depende do disco. Ela nao foi '
+            'vista a divergir: os resultados dela sao CONJUNTOS ordenados, e zero '
+            'ficheiros de cartao desta arvore chegam as 60 linhas. Medido em duas '
+            'arvores do mesmo commit, uma em ext4 e outra em tmpfs: identica. O '
+            'risco e latente e esta declarado; a prova volta a compara-lo a cada '
+            'corrida, e em duas arvores.',
             'STALE_BY_CYCLE E NOMEADO, NAO REPARADO. Se uma entrada gerada mediu '
             'outra arvore, `frescura()` recusa dizer CURRENT e diz qual — mas nao '
             'reordena a cadeia nem regenera nada. Ordenar a cadeia pelos INPUTS '

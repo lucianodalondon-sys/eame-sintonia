@@ -659,6 +659,32 @@ outro processo. A medição fica com dois números, porque são duas perguntas:
 Usar um só para as duas responde mal às duas: o segundo move-se em cada commit
 que toque a árvore, e diria «as contagens mudaram» por causa de um comentário.
 
+### 13.3 · A dívida que o `G2` abriu, e o `G2B` fechou
+
+O `G2` deixou **um campo publicado fora do `MEASUREMENT_HASH`**:
+`DOCUMENTADO_COMO_CLI`, e os dois campos do `RESUMO` que dele derivam. A razão era
+honesta e medida: a mesma árvore, medida em duas máquinas, dava respostas
+diferentes, porque a varredura perguntava ao `grep -r` e ficava com o primeiro
+resultado que o disco devolvesse.
+
+> **Um campo publicado que não entra na prova semântica é um campo que ninguém
+> está a guardar.**
+
+O `G2B` fechou a causa em vez de a contornar: a lista de documentos passou a vir
+de `git ls-files`, ordenada e lida inteira, e o campo passou a trazer **todos** os
+documentos que casam em vez de um à sorte. Medido em duas árvores do mesmo commit
+(mesma `tree`), uma em `ext4` e outra em `tmpfs`:
+
+| | antes | depois |
+|---|---|---|
+| cartões com resposta diferente | 10 | 0 |
+| `MEASUREMENT_HASH` igual | (o campo estava fora) | sim |
+| `SEMANTIC_HASH` igual | não | sim |
+
+A exceção foi **removida**, não alargada, e o artefacto declara-a vazia de
+propósito: uma lista de exclusão que desaparece do código volta a nascer no dia
+em que alguém tiver pressa.
+
 ---
 
 ## 14 · CADEIA — UM DONO SÓ
@@ -1239,7 +1265,7 @@ que fecha uma dívida não promove nada, e foi por isso que ele não entrou no m
 |---|---|---|---|
 | ~~**G0**~~ | `ENTITY_SPECIES` em cada universo e cada lente | **C6 · FAIL** | ✅ **FEITO** |
 | ~~**G1**~~ | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | ✅ **FEITO** |
-| ~~**G2**~~ | persistir o censo da topologia como artefacto | dívida | ✅ **FEITO** |
+| ~~**G2**~~ | persistir o censo da topologia como artefacto | dívida | ✅ **FEITO** (dívida do `G2B` fechada, §13.3) |
 | G3 | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | nada |
 | G4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | G3 |
 | G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | G4 |

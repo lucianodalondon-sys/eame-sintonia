@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "7fca351451e80ee8bb5cb18317158cf764c55b16",
-    "GENERATED_AT": "2026-09-12T17:47:21+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab"
+    "BRANCH": "claude/system-map-g2b-deterministic-cli-doc-v1",
+    "HEAD": "b3b8ab46dbd87a8363f201868dd53aee0f51661f",
+    "GENERATED_AT": "2026-09-12T17:57:16+00:00",
+    "SOURCE_TREE_FINGERPRINT": "225a45d1010830b91e223ac7ba7c9bcd8d1d8bd8d5e3525c7a923be4dc4d62db"
   },
   "FILES": [
     {
@@ -1564,14 +1564,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "dcf814cc86b178d2789837b83a5f83dbcc436374",
+      "sha": "f3d71763a16497c35071eb74b1c0718709b467ee",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "57e59e1e974a940383673dec170c22359d8f2dc1",
+      "sha": "b726f7805cfd7573124111786456266a373a2524",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4322,7 +4322,7 @@
     },
     {
       "path": "docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md",
-      "sha": "2aaaddb4dfa8486c03a8d38412c26c6bfca27f16",
+      "sha": "c0b64e1cb8f2b8bee1317e7eee8cacb98de7ac2f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9516,7 +9516,7 @@
     },
     {
       "path": "system-map/scripts/censo_da_topologia.py",
-      "sha": "f0c9bc98593a255d1494a5c44ea0e3bf6441246f",
+      "sha": "48a2e92d8dc1dbd4ecbbbd6483797f047c93c0e9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9726,7 +9726,7 @@
     },
     {
       "path": "system-map/tests/test_topologia_persistida.py",
-      "sha": "3a3045615c3b1fe3dfe03bd35fdcd2c267124dfd",
+      "sha": "7058c57acaa56f7e7b029a146e89ae9dbdafaa45",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -31163,7 +31163,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/censo_da_topologia.py",
-        "line": 389,
+        "line": 480,
         "snippet": "import impressao_da_arvore as IMPRESSAO          # noqa: E402"
       }
     },
@@ -32824,8 +32824,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_topologia_persistida.py",
-        "line": 50,
+        "line": 51,
         "snippet": "WORKFLOW = RAIZ / \".github\" / \"workflows\" / \"system-map.yml\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_topologia_persistida.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_topologia_persistida.py",
+        "line": 466,
+        "snippet": "ALVO = \"orquestrador/orquestrador.py\""
       }
     },
     {
@@ -32835,7 +32846,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_topologia_persistida.py",
-        "line": 49,
+        "line": 50,
         "snippet": "CADEIA = json.loads((SCRIPTS / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
       }
     },
@@ -32846,7 +32857,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_topologia_persistida.py",
-        "line": 149,
+        "line": 184,
         "snippet": "return subprocess.run([sys.executable, \"system-map/scripts/censo_da_topologia.py\","
       }
     },
@@ -32857,7 +32868,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_topologia_persistida.py",
-        "line": 521,
+        "line": 705,
         "snippet": "fonte.write_text(original + \"\\n# uma fonte que mudou depois da medicao\\n\","
       }
     },
@@ -40098,7 +40109,7 @@
     "files_tracked": 1503,
     "files_readable": 582,
     "files_code_dir": 627,
-    "file_edges": 2644,
+    "file_edges": 2645,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },
