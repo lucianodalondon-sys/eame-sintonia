@@ -6510,3 +6510,202 @@ O backend não está fechado para sempre: `WAITING_ROOM_V1_BACKEND = FILESYSTEM`
 `BACKEND_CHANGE_ALLOWED_LATER = YES`. A `COL-LAW-044` garante que trocar o meio
 não redefine o estado — e porque o dono é um só, a troca é uma mudança dentro
 de `admissao/sala_de_espera.py`, e não uma reescrita de quem o chama.
+
+---
+
+# §77 · UM TETO QUE VIVE NA PROVA MEDE A PROVA
+
+**Missão:** `C10.8A-R — O TETO DE ACESSOS EXTERNOS`
+**HEAD final:** `9c720dfe`
+**Tocado:** `coleta/scrap_http.py` · `coleta/scrap_executor.py` ·
+`coleta/social_rotas.py` · `provas/orcamento_de_rede.py` ·
+`provas/bluesky_trial_ao_vivo.py`
+
+`§75` registou a cicatriz: a C10.8A declarou duas requisições e fez sete. O que
+essa secção ainda não podia dizer é **por que** o teto não segurou, e o que foi
+preciso para que segure.
+
+## 77.1 · A MISSÃO QUE MEDIU O PRÓPRIO EXCESSO E SE DEU PASS
+
+O teto existia. Vivia numa constante de um script de prova, e a prova rebentou a
+meio e teve de ser repetida — o teto repetiu-se com ela, zerado. Nenhuma
+requisição foi recusada por ele, porque ele nunca teve como recusar nada.
+
+```
+    UM TETO QUE VIVE NA PROVA MEDE A PROVA.
+    DECLARED BUDGET != ENFORCED BUDGET.
+```
+
+E o veredito da missão, escrito por mim, contou as sete idas no corpo do
+documento e assinou `PASS_PROVEN` no topo.
+
+```
+    UMA MISSÃO QUE MEDE O PRÓPRIO EXCESSO E SE DÁ PASS
+    TRANSFORMOU O GATE NUM COMENTÁRIO.
+```
+
+A correcção tem duas metades, e trocar uma pela outra estraga as duas. O
+veredito da missão passou a `FAIL`. A capacidade **não** foi rebaixada: houve
+rede real, `HTTP 200`, objeto real, RAW com SHA lido de volta. E a contagem das
+sete idas ficou onde estava, no §11 do documento antigo.
+
+```
+    MISSÃO FALHOU O PROTOCOLO != CAPACIDADE NÃO FOI PROVADA.
+    CORRIGIR O VEREDITO NÃO É APAGAR O FACTO.
+```
+
+Reescrever o documento para o excesso desaparecer teria feito a única coisa pior
+do que o excesso: destruir a medição que o revelou.
+
+## 77.2 · O CENSO DECIDE ONDE O TETO VIVE — NÃO O ORGANOGRAMA
+
+O sítio óbvio para contar era `scrap_http.buscar`: é o transporte **nomeado**
+desta casa. O censo mediu por onde as catorze capacidades ligadas saem de
+verdade, e o óbvio estava errado:
+
+```
+scrap_http.buscar          5 capacidades
+reel_transcricao.baixar    3      ← não passa por lá
+cdp.abas / cdp._handshake  1      ← não passa por lá
+youtube_oficial._http      5      ← não passa por lá
+25 funções da casa abrem ligação directamente
+```
+
+```
+    UM TETO QUE COBRE METADE DAS PORTAS NÃO É UM TETO. É UMA SUGESTÃO.
+```
+
+O único sítio que **todas** atravessam são duas primitivas do Python:
+`urllib.request.urlopen` e `socket.create_connection`. É aí que se cobra.
+
+O dono do conceito continua a ser `coleta/scrap_http.py` — isso é `ONE CONCEPT →
+ONE OWNER` e não se negoceia. Mas o dono do conceito e o ponto de cobrança não
+têm de ser a mesma linha de código:
+
+```
+    QUEM É DONO DA IDEIA DECLARA-A.
+    QUEM VÊ A LIGAÇÃO ABRIR É QUEM A COBRA.
+```
+
+Há uma armadilha nessa escolha: um `urlopen` chama `create_connection` por
+baixo. Sem profundidade de reentrância, **uma** ida à rede é cobrada **duas**
+vezes, e o teto fecha a meio de um pedido legítimo. Um contador colocado numa
+primitiva tem de saber que a outra está por baixo dele.
+
+## 77.3 · O CONTADOR É DA EXECUÇÃO, NÃO DO PROCESSO
+
+Um contador global de processo faz a segunda execução herdar a despesa da
+primeira, e faz um teste envenenar o seguinte. O orçamento vive em
+`threading.local`, nasce no `with` e morre nele.
+
+```
+    UM ORÇAMENTO DE PROCESSO PAGA A CONTA DE OUTRA EXECUÇÃO.
+```
+
+E sem `teto_de_rede` nada acontece: produção corre exactamente como antes, e o
+rasto não inventa números de um teto que ninguém pediu. Um mecanismo novo que
+muda o comportamento de quem não o pediu é uma mudança escondida numa
+ferramenta.
+
+## 77.4 · OS DOIS EIXOS DA RETENTATIVA
+
+`leis/falhas.py` responde a uma pergunta, e só a uma:
+
+```
+    FAILURE POLICY decide se a retentativa ADIANTA.
+    NETWORK BUDGET decide se a retentativa CABE.
+```
+
+São perguntas diferentes, e uma não responde pela outra: um `WAIT` de uma falha
+transitória continua a ser o conselho certo com o teto a zero — e continua a não
+poder acontecer.
+
+A medição honesta é que **não existe ciclo de retentativa nenhum no SCRAP**.
+`RECOVERY_ACTION` é escrito e não é lido por ninguém no caminho de aquisição.
+
+```
+    UMA POLÍTICA QUE NINGUÉM EXECUTA NÃO É UM COMPORTAMENTO.
+```
+
+Por isso o eixo da retentativa está provado como **contrato**, e o documento
+di-lo por extenso, em vez de exibir uma tabela de retentativas que na verdade
+mede chamadas ordinárias. Quando alguém escrever o ciclo, os dois têm de dizer
+sim antes do socket.
+
+O mesmo vale para o outro par, que a C10.8B vai precisar:
+
+```
+    GRÁTIS EM DÓLAR != GRÁTIS EM REQUESTS.
+    PAID BUDGET != NETWORK BUDGET.
+```
+
+`permitir_pago=True` com motivo canônico não aumenta o teto de rede — medido. E
+a classe do orçamento não conhece a palavra `USD`.
+
+## 77.5 · SEGUNDA VEZ: A NOSSA RECUSA VESTIDA DE RECUSA DA FONTE
+
+Assim que o teto passou a levantar, a recusa dele apareceu no executor como
+`BLOCKED`. O `except Exception` de `buscar` traduzia tudo para `RotaBloqueada`.
+
+```
+    ESGOTAR O ORÇAMENTO NÃO É A PLATAFORMA IMPEDIR.
+```
+
+`§75.1` conta a primeira ocorrência: um túnel caído a sair como
+`ROUTE_NOT_ALLOWED`. Esta é a mesma família, do outro lado — lá era a rede a
+levar a culpa da política, aqui é a fonte a levar a culpa da nossa própria
+decisão. Duas vezes na mesma cadeia chega para ser lei:
+
+```
+    UM `except Exception` LARGO NÃO DISTINGUE QUEM DISSE NÃO.
+```
+
+O padrão que sai daqui: **uma recusa nossa atravessa os `except` largos inteira**.
+Ela é relançada antes de qualquer tradução, em cada camada que a apanhe, e chega
+com nome próprio — `NETWORK_BUDGET_EXHAUSTED`, não `BLOCKED`.
+
+E a recusa fica no rasto como tentativa, com `COUNTED = False` e
+`OUTCOME = REFUSED_BY_BUDGET`. Recusar em silêncio faria a execução parecer que
+nunca quis sair.
+
+## 77.6 · MUDAR O SÍTIO DO CORPO MUDA O QUE AS SENTINELAS VEEM
+
+Para embrulhar o `COLLECT` no orçamento, a primeira tentativa partiu-o em
+`COLLECT` + `_collect`. Comportamento idêntico, quatro sentinelas da C10.6C a
+vermelho: elas lêem o **corpo** da fronteira para provar que a ordem das etapas
+não mudou, e o corpo tinha mudado de casa.
+
+```
+    UMA REFATORAÇÃO QUE MUDA O SÍTIO DO CORPO
+    MUDA O QUE AS SENTINELAS VEEM.
+```
+
+As sentinelas estavam certas e o refactor é que estava errado. Um decorador
+(`@_com_teto_de_rede`) faz o mesmo trabalho e deixa o corpo onde estava. Onde
+existem sentinelas estruturais, a forma do ficheiro é interface — e move-se com
+a mesma cerimónia que uma assinatura pública.
+
+## 77.7 · E A PROVA MEDE-SE CONTRA UM CONTADOR QUE NÃO É O DELA
+
+```
+    UM TETO QUE SE MEDE A SI PRÓPRIO MEDE O ESPELHO.
+```
+
+O transporte falso entra **por baixo** do teto e conta o que realmente saiu pelo
+socket. O número do runtime é comparado com o número do transporte. E o harness
+da C10.8A passou a declarar `teto_de_rede=MAX_PEDIDOS` ao `COLLECT`: o contador
+local dele deixou de ser o teto e passou a ser o conferente.
+
+## 77.8 · CONSEQUÊNCIA
+
+```
+C10.8A  PASS_PROVEN → FAIL          (as 7 idas continuam escritas)
+bluesky.author.incremental          PROVEN, intocado
+teto    urlopen + create_connection · por execução · gate antes do socket
+NETWORK_CALL_N_PLUS_1 = 0
+MUTANTES 12 · SURVIVORS 0 · ATAQUES 28 · rede real 0 · COST_USD 0
+```
+
+Fica por saber o comportamento sob retentativa real, porque o ciclo não existe;
+e fica por saber se algum caminho futuro abrirá ligação por uma primitiva que
+não seja nenhuma das duas. Hoje as vinte e cinco portas usam uma delas.
