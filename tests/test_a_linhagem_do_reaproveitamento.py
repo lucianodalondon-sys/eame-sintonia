@@ -136,9 +136,20 @@ class EstaMissaoNaoImplementa(unittest.TestCase):
                          "esta missao acrescentou migration, e era de decidir")
 
     def test_a_ADR_declara_que_nao_foi_implementada(self):
-        s = _fonte(ADR)
-        self.assertIn("RECOMENDADO, NÃO IMPLEMENTADO", s)
-        self.assertIn("MIGRATION_REQUIRED       = YES", s)
+        """⚠️ ISTO EXIGIA A PALAVRA `RECOMENDADO`, E ELA MUDOU COM RAZÃO.
+
+        A ADR passou de «recomendado» a «decidido» quando
+        `C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1` fechou o conceito e a
+        identidade. A guarda reprovou — e o que ela protege não é a palavra
+        que mudou: é a que **não pode** mudar enquanto não houver migration.
+
+            UMA GUARDA QUE PRENDE O ESTADO ERRADO
+            REPROVA O PROGRESSO E DEIXA PASSAR O DEFEITO.
+        """
+        cabecalho = _fonte(ADR).split("---", 1)[0]
+        self.assertIn("NÃO IMPLEMENTADO", cabecalho)
+        self.assertNotIn("IMPLEMENTADO\n", cabecalho.replace(
+            "NÃO IMPLEMENTADO", ""))
 
     def test_a_prova_nao_escreve_no_esquema(self):
         """Ela constrói estado pela rota real e por `derivacao_forward`. Não
@@ -148,6 +159,96 @@ class EstaMissaoNaoImplementa(unittest.TestCase):
                          "insert into public.derived_artifact",
                          "insert into public.raw_asset"):
             self.assertNotIn(proibido, s)
+
+
+class ADecisaoDoGraoNaoSeContradiz(unittest.TestCase):
+    """⚠️ A VERSÃO ANTERIOR DESTA ADR DIZIA DUAS COISAS SOBRE A MESMA CHAVE.
+
+    O grão incluía «passagem» e a identidade incluía `run_id`; três parágrafos
+    abaixo, a entrada do `run_id` na chave estava «em ABERTO». Duas respostas
+    para a mesma pergunta, e por isso nenhuma valia.
+
+        ESCOLHER A CHAVE ANTES DO CONCEITO
+        É DECIDIR A FORMA ANTES DE SABER O QUE SE ESTÁ A GUARDAR.
+    """
+
+    def test_a_chave_natural_e_declarada_UMA_vez_e_sem_run(self):
+        s = _fonte(ADR)
+        self.assertIn(
+            "MATERIAL_LINEAGE_NATURAL_KEY = (raw_asset_id, derived_artifact_id)",
+            s)
+        self.assertIn("RUN_ID_IN_MATERIAL_LINEAGE_KEY = NO", s)
+        self.assertNotIn("(raw_asset_id, derived_artifact_id, run_id)", s)
+
+    def test_cada_campo_da_decisao_tem_valor_fechado(self):
+        """A missão do grão existe para fechar. Se um campo voltar a `UNKNOWN`
+        ou a «em aberto», quem implementar tem de decidir outra vez.
+
+        ⚠️ ISTO PROCURAVA A PALAVRA «em aberto» NO FICHEIRO INTEIRO, E MORDIA
+        A NOTA QUE EXPLICA A CONTRADIÇÃO ANTIGA — ela tem de dizer que a
+        pergunta *estava* em aberto para contar o que se corrigiu. É a
+        terceira guarda de texto desta linha de missões a confundir a regra
+        com o exemplo dela.
+
+            UMA GUARDA LÊ O QUE A DECISÃO **DIZ**, E NÃO O FICHEIRO INTEIRO.
+
+        Agora confere-se campo a campo, e cada um tem de trazer um valor do
+        vocabulário fechado.
+        """
+        s = _fonte(ADR)
+        fechados = {
+            "PARTICIPATION_CONCEPT": ("TWO_DISTINCT_CONCEPTS",),
+            "RUN_ID_IN_MATERIAL_LINEAGE_KEY": ("NO",),
+            "ATTEMPT_IN_KEY": ("NOT_APPLICABLE",),
+            "RUN_ID_AS_PROVENANCE": ("YES",),
+            "INSERTED_REUSED_BELONGS_TO": ("EXECUTION_EVENT",),
+        }
+        for campo, aceites in fechados.items():
+            achados = [l for l in s.splitlines() if l.strip().startswith(campo)]
+            self.assertTrue(achados, "o campo %s saiu da ADR" % campo)
+            for linha in achados:
+                valor = linha.split("=", 1)[1].strip().split()[0]
+                self.assertIn(valor, aceites,
+                              "%s voltou a ficar sem resposta: %s"
+                              % (campo, linha.strip()))
+
+    def test_as_dez_perguntas_ficam_respondidas_num_sitio_so(self):
+        bloco = _fonte(ADR)
+        bloco = bloco[bloco.index("7.10"):]
+        for pergunta in ("CONCEITO", "GRÃO", "IDENTIDADE", "RUN", "TENTATIVA",
+                         "RESULTADO", "TEMPO", "RETRY", "REPROCESSO",
+                         "DELETE", "BACKFILL", "MIGRATION"):
+            self.assertIn(pergunta, bloco,
+                          "7.10 deixou de responder %s" % pergunta)
+
+    def test_o_resultado_e_o_tempo_nao_moram_na_aresta(self):
+        s = _fonte(ADR)
+        self.assertIn("INSERTED_REUSED_BELONGS_TO = EXECUTION_EVENT", s)
+        self.assertIn("RUN_ID_AS_PROVENANCE = YES", s)
+
+
+class OsQuatroCasosCorrem(unittest.TestCase):
+    """A decisão do grão sai da medição, e não do argumento."""
+
+    def test_a_prova_tem_os_quatro_casos(self):
+        nomes = [n.args[0].value for n in _casos(PROVA)
+                 if isinstance(n.args[0], ast.Constant)]
+        for g in ("G2_retry", "G3_outra_observacao", "G4_rederivar",
+                  "G5_as_duas_contagens", "G6_o_resultado_muda"):
+            self.assertTrue(any(n.startswith(g) for n in nomes),
+                            "caso em falta: %s" % g)
+
+    def test_o_caso_que_separa_os_conceitos_compara_as_DUAS_contagens(self):
+        """G5 é o que decide. Se ele deixasse de comparar arestas com eventos,
+        a conclusão «são dois conceitos» ficaria sem prova."""
+        for no in _casos(PROVA):
+            if (isinstance(no.args[0], ast.Constant)
+                    and no.args[0].value.startswith("G5_")):
+                dump = ast.dump(no.args[1])
+                self.assertIn("arestas", dump)
+                self.assertIn("eventos_totais", dump)
+                return
+        self.fail("G5 desapareceu")
 
 
 class OFalsoAmigoFicaNomeado(unittest.TestCase):

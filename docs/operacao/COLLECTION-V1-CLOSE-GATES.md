@@ -162,7 +162,15 @@ nenhum.
 
 > **RUNTIME SABE ≠ O SISTEMA GUARDA.**
 
-A decisão recomendada, com dono e grão explícitos e por implementar, está em
+E a decisão está fechada: a participação é uma **relação material**, com grão
+`(observação, derivado)` e sem a corrida na chave — medido em quatro casos, onde
+uma aresta foi tocada por seis passagens sem nunca mudar.
+
+> **DOIS CONCEITOS, DOIS DONOS — E SÓ UM DELES PRECISA DE NASCER.**
+> A execução já tem casa em `etapa_da_corrida`.
+
+Continua **por implementar**, e o que fica escrito é para que a migration não
+tenha de decidir mais nada:
 [`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](../decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md).
 A medição corre em
 [`provas/a_linhagem_do_reaproveitamento.py`](../../provas/a_linhagem_do_reaproveitamento.py).

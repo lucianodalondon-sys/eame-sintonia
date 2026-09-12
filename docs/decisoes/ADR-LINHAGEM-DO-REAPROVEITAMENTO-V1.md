@@ -1,12 +1,16 @@
 # ADR — A PARTICIPAÇÃO NUMA DERIVAÇÃO PRECISA DE LINHA PRÓPRIA
 
-**Data:** 2026-09-12 · **Estado:** RECOMENDADO, NÃO IMPLEMENTADO
-**Missão:** `C-DECIDE-DERIVED-REUSE-LINEAGE-V1`
+**Data:** 2026-09-12 · **Estado:** DECIDIDO, NÃO IMPLEMENTADO
+**Missões:** `C-DECIDE-DERIVED-REUSE-LINEAGE-V1` (mediu o buraco) ·
+`C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1` (fechou o conceito e a identidade)
 **Medição:** [`provas/a_linhagem_do_reaproveitamento.py`](../../provas/a_linhagem_do_reaproveitamento.py)
 **Artefato:** `system-map/data/linhagem.observada.json`
 
-> Esta missão é de **medição + contrato**. Nada foi implementado: não há
-> migration nova, não há tabela nova, não há coluna nova.
+> Nada foi implementado: não há migration nova, não há tabela nova, não há
+> coluna nova, e nenhum writer produtivo mudou.
+>
+> O que mudou é que **já não falta decidir nada** para a escrever — a
+> secção 7.10 lista as dez perguntas fechadas.
 
 ---
 
@@ -135,7 +139,10 @@ DURABLE_EDGE_B_TO_X   = NO
 
 ---
 
-## 6 · AS OPÇÕES, MEDIDAS
+## 6 · AS OPÇÕES DO OBJETO MATERIAL, MEDIDAS
+
+> Primeira pergunta: **duplica-se o derivado por observação?**
+> A segunda — que grão tem a relação — está na secção 6B.
 
 ### A · um `derived_artifact` por observação
 
@@ -162,9 +169,9 @@ defeito.
 | | |
 |---|---|
 | OWNER | `guarda/preservar_derivado.py` — já calcula os dois lados |
-| GRAIN | **uma linha por participação**: (observação, derivado, passagem) |
-| IDENTITY | chave natural `(raw_asset_id, derived_artifact_id, run_id)` — sem surrogate |
-| PROVENANCE | `run_id` referencia `collection_run`, `NOT NULL`, e o resultado (`INSERTED`/`REUSED`) fica na linha |
+| GRAIN | **uma linha por participação material**: (observação, derivado) |
+| IDENTITY | chave natural `(raw_asset_id, derived_artifact_id)` — sem surrogate |
+| PROVENANCE | a corrida da passagem que a viu primeiro, **fora da chave**; o resultado não mora aqui — ver 7.5 |
 | RETRY | idempotente por `on conflict do nothing` sobre a chave natural |
 | REUSE | é exactamente o caso que ela existe para registar |
 | CONCURRENCY | a chave única resolve a corrida, como já faz `REUSED_AFTER_RACE` |
@@ -204,57 +211,304 @@ camada FIELD/SCIENCE/VOICE/...). Nada disso é `raw_asset` nem
 
 ---
 
-## 7 · A RECOMENDAÇÃO
+## 6B · AS OPÇÕES DO GRÃO DA PARTICIPAÇÃO
+
+> Segunda pergunta, e é a desta missão: **o que a relação representa?**
+> As opções são comparadas contra os quatro casos medidos em 7.1.
+
+| | **A** só linhagem | **B** só execução | **C** dois conceitos | **D** estrutura existente |
+|---|---|---|---|---|
+| CONCEPT | facto material | evento de passagem | os dois, separados | reusar o que há |
+| OWNER | writer do derivado | runner / ledger | writer + `etapa_da_corrida` | `etapa_da_corrida` |
+| GRAIN | (observação, derivado) | (observação, derivado, run, tentativa) | material + passagem | passagem |
+| IDENTITY | `(raw_asset_id, derived_artifact_id)` | inclui `run_id` e `tentativa` | material sem run; passagem já tem chave | `(run_id, etapa, tentativa)` |
+| RUN_ROLE | proveniência | identidade | proveniência de um lado, identidade do outro | identidade |
+| ATTEMPT_ROLE | ausente | identidade | ausente no material | identidade |
+| RESULT_ROLE | ausente | atributo da linha | só do lado da execução | baldes agregados |
+| TIME_ROLE | primeira vez | hora do evento | um de cada | hora da passagem |
+| RETRY | não cria linha | **cria linha** | material não, execução sim | cria linha |
+| REPROCESS | não cria linha | **cria linha** | material não, execução sim | cria linha |
+| CONCURRENCY | chave natural + `do nothing` | idem | idem | `UNIQUE` já existente |
+| LINEAGE_PROOF | **sim** | sim, mas diluída em N linhas por passagem | **sim** | **não** |
+| EXECUTION_PROOF | não (fica com a `024`) | sim | sim | sim, agregada |
+| OVERLAP_WITH_ETAPA | nenhum | **alto** — repete a semântica da `024` | nenhum no material | é ela própria |
+| MIGRATION_IMPACT | 1 tabela aditiva | 1 tabela aditiva | **2 tabelas** | 0, mas não responde |
+| LAW_COMPATIBILITY | `COL-LAW-008` reforçada | colide com `STAGE STATE != ITEM DESTINATION` | ok | não responde a pergunta |
+
+**D cai primeiro,** e por medição: a `028` põe um `check` que só deixa
+`etapa_da_corrida.raw_asset_id` ser preenchido na etapa `RAW`. Não é uma ponte
+por acaso — é uma ponte deliberadamente fechada. E o grão dela é a passagem:
+não tem onde pôr N pares.
+
+**B cai a seguir.** Uma linha por passagem e por item repete o que a `024` já
+possui, e mistura as duas perguntas na mesma chave. Quem quisesse saber se a
+observação participou teria de varrer o histórico de execuções — e a resposta
+mudaria de forma consoante o número de retries.
+
+**C é o conceito certo e o desenho errado para hoje.** Os dois conceitos existem
+(7.1), mas um deles **já tem dono**. Criar as duas tabelas seria construir por
+antecipação a que falta necessidade provada (7.2).
+
+**A é a escolhida** — uma tabela nova para o conceito que não tem casa, e a
+execução fica onde já mora.
 
 ```
-RECOMMENDED_ARCHITECTURE = B
-RECOMMENDED_OWNER        = guarda/preservar_derivado.py
-RECOMMENDED_GRAIN        = uma linha por (observação, derivado, passagem)
-MIGRATION_REQUIRED       = YES — aditiva, e de outra missão
+    DOIS CONCEITOS, DOIS DONOS — E SÓ UM DELES PRECISA DE NASCER.
 ```
 
-**Por que o dono é o writer, e não o runner.** Os dois candidatos sabem alguma
-coisa, e só um sabe a coisa certa. `coleta/derivacao_forward.py` tem o `run_id`
-e vê o resultado. `guarda/preservar_derivado.py` é quem **decide** se houve
-reencontro, contra que linha existente, e já calcula `TESTEMUNHA_NO_BANCO` e
-`TESTEMUNHA_DESTA_CHAMADA`. Pôr a escrita no runner faria uma segunda peça
-deduzir o que a primeira decidiu.
+---
+
+## 7 · A DECISÃO
+
+> **Estado desta secção:** DECIDIDA em `C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1`.
+> A versão anterior dizia, ao mesmo tempo, que o grão incluía a passagem
+> **e** que a entrada do `run_id` na chave estava em aberto. Eram duas
+> respostas para a mesma pergunta, e por isso nenhuma valia.
+>
+> O erro não foi de redação. Foi ter escolhido **a chave antes do conceito**.
+
+### 7.1 · SÃO DOIS CONCEITOS, E ISSO FOI MEDIDO
+
+Duas perguntas parecidas que não são a mesma:
+
+```
+L · LINHAGEM   esta observação participou deste derivado?
+E · EXECUÇÃO   em que passagem isso aconteceu, e com que resultado?
+```
+
+Se as duas contagens andassem sempre juntas, seriam um conceito só e uma
+tabela chegaria. Medido em `provas/a_linhagem_do_reaproveitamento.py`, com os
+quatro casos:
+
+| caso | o que aconteceu | arestas | eventos |
+|---|---|---|---|
+| 1 · `RUN A` → `RAW A` → `X` | `INSERTED` | 1 | 1 |
+| 2 · retry na **mesma** corrida | `REUSED`, aresta `(1,3)` outra vez | +0 | +1 |
+| 3 · `RUN B`, `RAW B`, mesmos bytes | `REUSED`, aresta `(5,3)` — **outra** aresta | +1 | +1 |
+| 4 · rederivar `RAW A` numa passagem de **outra** corrida | `REUSED`, aresta `(1,3)` outra vez | +0 | +1 |
+
+```
+ARESTAS MATERIAIS DISTINTAS   1
+EVENTOS DE EXECUCAO DERIVED   6
+```
+
+Um número não explica o outro, e a divergência não é de escala: é de
+**espécie**. A mesma aresta `(1,3)` foi tocada por três passagens, e nenhuma
+delas mudou o facto material.
+
+```
+    PARTICIPATION_CONCEPT = TWO_DISTINCT_CONCEPTS
+```
+
+### 7.2 · MAS SÓ NASCE **UM** DONO NOVO
+
+Dois conceitos não são automaticamente duas tabelas novas. O conceito de
+execução **já tem dono**: `public.etapa_da_corrida`, da `024`, onde uma linha é
+uma passagem `(run_id, etapa, tentativa)`.
+
+```
+MATERIAL LINEAGE   dono NOVO, e é o que falta
+EXECUTION EVENT    dono EXISTENTE — etapa_da_corrida
+```
+
+Criar uma segunda tabela de execução por item seria repetir a semântica que a
+`024` já possui. O limite dela está medido e fica **declarado, não consertado**:
+ela conta por passagem e não nomeia itens, e num resultado misto
+(`{ERROR: 1, REUSED: 1}`) não há por onde saber qual foi qual. Nenhuma
+necessidade provada exige hoje resolver isso — e a pergunta que a motivou
+(«esta observação foi processada ou não?») passa a ter resposta pela **existência
+da aresta**.
+
+```
+    DOIS CONCEITOS != DUAS TABELAS NOVAS.
+    UM DELES JÁ TEM CASA.
+```
+
+### 7.3 · A IDENTIDADE, E POR QUE O `run_id` FICA DE FORA
+
+```
+MATERIAL_LINEAGE_NATURAL_KEY = (raw_asset_id, derived_artifact_id)
+RUN_ID_IN_MATERIAL_LINEAGE_KEY = NO
+ATTEMPT_IN_KEY = NOT_APPLICABLE
+```
+
+**Prova do `NO`:** os casos 2 e 4. A mesma aresta `(1,3)` foi estabelecida numa
+passagem da corrida A e re-tocada numa passagem da corrida B. Com o `run_id` na
+chave, o mesmo facto material teria **duas linhas** — e a segunda seria uma
+linhagem nova inventada por uma execução repetida.
+
+E há uma pergunta que a chave com `run_id` nem consegue formular: **qual** run?
+A que capturou a observação, ou a da passagem que derivou? O caso 4 mostra que
+podem ser diferentes, e que o banco aceita as duas.
+
+```
+    UMA CHAVE QUE NÃO SABE RESPONDER «QUAL DOS DOIS?»
+    NÃO É UMA IDENTIDADE: É UMA AMBIGUIDADE COM ÍNDICE.
+```
+
+**Prova do `NOT_APPLICABLE` da tentativa:** o caso 2 é um retry, e não produziu
+aresta nova. A tentativa já é chave **da passagem**, em
+`UNIQUE (run_id, etapa, tentativa)`. E a casa já decidiu isto uma vez, um andar
+abaixo: `raw_asset.attempts` é «TELEMETRIA, e fora da chave de idempotência».
+
+### 7.4 · O `run_id` COMO PROVENIÊNCIA, E SÓ ISSO
+
+```
+RUN_ID_AS_PROVENANCE = YES  —  um campo, fora da chave
+```
+
+A aresta carrega **a corrida da passagem em que foi vista pela primeira vez**.
+Não é identidade, não se reescreve nas passagens seguintes, e o nome tem de
+dizer isso — um `run_id` seco seria lido como «a corrida desta aresta», que não
+existe.
+
+⚠️ **E não se herda.** `raw_asset.run_id` é a corrida que **capturou**; a aresta
+precisa da corrida que **derivou**. Copiar uma para a outra por conveniência
+escreveria como facto uma coisa que o caso 4 mostra ser falsa.
+
+```
+    A CORRIDA QUE CAPTUROU NÃO É NECESSARIAMENTE A QUE DERIVOU.
+```
+
+Sem prova da corrida da passagem, recusa-se a linha — nunca se preenche com a
+do pai. Hoje isso é sempre possível: `derivacao_forward.correr()` exige `run_id`
+como parâmetro obrigatório, sem valor por omissão.
+
+### 7.5 · `INSERTED` / `REUSED` NÃO É DA ARESTA
+
+```
+INSERTED_REUSED_BELONGS_TO = EXECUTION_EVENT
+```
+
+Medido: a aresta `(1,3)` teve `INSERTED` na primeira passagem e `REUSED` nas
+duas seguintes. O facto material não mudou; o resultado mudou três vezes.
+
+```
+    UMA RELAÇÃO QUE SE REESCREVE A CADA PASSAGEM NÃO É UMA RELAÇÃO.
+```
+
+E a casa já tinha a regra, na `024`: `STAGE STATE != ITEM DESTINATION`. Uma
+etapa não é «reaproveitada» — um item é. Os destinos de item vivem nos baldes
+da contabilidade da passagem, e é lá que `REUSED` já mora.
+
+### 7.6 · O TEMPO
+
+```
+TIME_SEMANTICS = um só carimbo, e ele diz QUANDO A ARESTA FOI VISTA PELA
+                 PRIMEIRA VEZ — nunca quando a derivação aconteceu, nunca
+                 quando a passagem correu
+```
+
+Os outros dois tempos já têm dono: `derived_artifact.derived_at` é do artefato,
+e `etapa_da_corrida.comecou_em` é da passagem. Um campo temporal de **evento**
+dentro de uma relação estável, sem dizer o que significa, é a maneira mais
+silenciosa de a relação passar a ser lida como histórico.
+
+### 7.7 · O DONO DA ESCRITA
+
+```
+RECOMMENDED_OWNER = guarda/preservar_derivado.py
+```
+
+Os dois candidatos sabem alguma coisa, e só um sabe a coisa certa.
+`coleta/derivacao_forward.py` tem o `run_id` e vê o resultado.
+`guarda/preservar_derivado.py` **decide** se houve reencontro, contra que linha
+existente, e já calcula `TESTEMUNHA_NO_BANCO` e `TESTEMUNHA_DESTA_CHAMADA` — os
+dois lados da aresta. Pôr a escrita no runner faria uma segunda peça deduzir o
+que a primeira decidiu.
 
 ```
     ONE CONCEPT → ONE OWNER.
     QUEM DECIDE A ARESTA É QUEM A ESCREVE.
 ```
 
-### 7.1 · A sub-decisão que fica aberta, e não se resolve aqui
+O writer passa a precisar do `run_id` da passagem — parâmetro novo, e é a
+única mudança de contrato que esta decisão exige.
 
-O writer **não recebe `run_id` hoje**. A missão que implementar tem de escolher:
+### 7.8 · O APAGAMENTO
 
-- passar `run_id` ao writer, mantendo-o dono da aresta; **ou**
-- provar que a participação não precisa da corrida, e então a chave natural é
-  só `(raw_asset_id, derived_artifact_id)`.
+```
+DELETE_POLICY = RESTRICT dos dois lados
+```
 
-A recomendação é a primeira — uma participação sem corrida não diz **quando**
-aconteceu, e a mesma observação pode ser reprocessada mais tarde. Mas isso é
-uma decisão de contrato, e esta missão não a toma por antecipação.
+Não é preferência: é a convenção **medida** no esquema. As ligações materiais
+restringem e a telemetria cascateia:
 
-⚠️ **E o `run_id` não se fabrica.** Se ele não chegar ao writer, a resposta é
-recusar a linha, nunca inventá-la a partir de `raw_asset.run_id` — a corrida
-que *observou* não é necessariamente a corrida que *derivou*.
+```
+raw_asset        -> collection_run    RESTRICT
+derived_artifact -> raw_asset         RESTRICT
+raw_asset        -> storage_object    RESTRICT
+etapa_da_corrida -> collection_run    CASCADE
+etapa_da_corrida -> raw_asset         CASCADE
+```
 
-### 7.2 · O que a implementação não vai conseguir
+A aresta é material, logo restringe. Apagar uma observação que participou de
+uma derivação tem de doer — proveniência não desaparece em silêncio.
 
-**Não há backfill possível** para as participações que já aconteceram. A aresta
-nunca foi escrita, e a inferência por SHA não distingue quem participou de quem
-apenas tem os mesmos bytes. Uma migration que preenchesse a tabela por SHA
-escreveria como facto exactamente aquilo que esta ADR mede como não sabido.
+### 7.9 · O QUE A IMPLEMENTAÇÃO NÃO VAI CONSEGUIR
+
+```
+BACKFILL_POLICY = NENHUM. Histórico sem aresta fica UNKNOWN.
+```
+
+A aresta nunca foi escrita, e a inferência por `sha256` não distingue quem
+participou de quem apenas tem os mesmos bytes.
 
 ```
     PREENCHER O PASSADO POR INFERÊNCIA
     É FABRICAR A EVIDÊNCIA QUE FALTAVA.
 ```
 
-O que se pode declarar é o começo: a relação vale a partir da migration, e o
-que é anterior fica `UNKNOWN` — que é a verdade.
+A relação vale a partir da migration. O que é anterior fica `UNKNOWN`, que é a
+verdade.
+
+### 7.10 · O QUE FICA FECHADO PARA QUEM IMPLEMENTAR
+
+```
+CONCEITO      relação material de participação
+GRÃO          uma linha por (observação, derivado)
+IDENTIDADE    (raw_asset_id, derived_artifact_id)
+RUN           proveniência, fora da chave, da passagem e nunca herdada
+TENTATIVA     não entra — é chave da passagem
+RESULTADO     não entra — é destino de item, e já mora nos baldes
+TEMPO         um carimbo de primeira vez, e nada mais
+RETRY         não cria linha; a existente fica
+REPROCESSO    não cria linha; a existente fica
+CONCORRÊNCIA  a chave natural resolve, com `on conflict do nothing`
+DELETE        RESTRICT dos dois lados
+BACKFILL      nenhum
+MIGRATION     aditiva — tabela nova, nenhuma coluna alterada
+```
+
+Nenhuma destas perguntas volta a abrir-se na missão que escrever a migration.
+
+## 7B · RED TEAM DO GRÃO
+
+Vinte ataques à decisão de 7. Onde diz **medido**, há caso a correr em
+`provas/a_linhagem_do_reaproveitamento.py`.
+
+| # | ataque | veredito |
+|---|---|---|
+| 1 | mesma linhagem duplicada só porque houve corrida nova | **medido** · G4: aresta `(1,3)` re-tocada numa passagem de B, e continua uma |
+| 2 | duas corridas colapsadas quando o objetivo era histórico | o histórico fica em `etapa_da_corrida`, que **não** colapsa: 6 eventos para 1 aresta |
+| 3 | retry virar linhagem nova | **medido** · G2: retry na mesma corrida, `+0` arestas |
+| 4 | retry desaparecer quando o objetivo era histórico | não desaparece: cada retry é uma linha em `(run_id, etapa, tentativa)` |
+| 5 | `INSERTED`/`REUSED` guardado no conceito errado | **medido** · G6: a mesma aresta teve os dois. Fica na passagem |
+| 6 | carimbo do evento guardado como se fosse da relação | 7.6 · um só carimbo, e o nome diz «primeira vez» |
+| 7 | `raw_asset.run_id` herdado como corrida da derivação | **medido** · G4: podem ser diferentes. Herdar é proibido em 7.4 |
+| 8 | `collection_run` esticada para semântica que não tem | a `022` já recusou: «esticar `collection_run` para algo que não é coleta seria pior do que não ter nada» |
+| 9 | um `flow_run` paralelo | a `024` já recusou: «duas corridas divergem na primeira pressa» |
+| 10 | tabela nova duplicar `etapa_da_corrida` | 6B · é exactamente por isso que a opção B cai |
+| 11 | `etapa_da_corrida` usada como linhagem material | **medido** · D2: a `028` fecha `raw_asset_id` fora da etapa RAW |
+| 12 | SHA usado como participação | **medido** · C: a consulta devolve `[3, 7]` e não as separa |
+| 13 | mesma observação + nova versão do produtor | **outra** receita → **outro** `derived_artifact` → **outra** aresta. A `022` põe `producer_version` na identidade |
+| 14 | mesma observação + mesma receita em nova execução | **medido** · G4: mesma aresta, novo evento |
+| 15 | duas observações + mesmo conteúdo na **mesma** corrida | duas arestas, um derivado — a chave é por observação, e `raw_asset` distingue-as |
+| 16 | duas observações + mesmo conteúdo em corridas diferentes | **medido** · G3: aresta `(5,3)` nasce ao lado de `(1,3)` |
+| 17 | tentativa ignorada num modelo que diz representar passagem | o modelo material **não** representa passagem; quem a representa já tem a tentativa na chave |
+| 18 | tentativa incluída num modelo que diz representar linhagem estável | 7.3 · fica de fora, com o precedente de `raw_asset.attempts` |
+| 19 | backfill por inferência | 7.9 · proibido, e o histórico fica `UNKNOWN` |
+| 20 | delete apagar proveniência | 7.8 · `RESTRICT` dos dois lados, pela convenção medida no esquema |
 
 ---
 

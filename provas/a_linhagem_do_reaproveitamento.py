@@ -328,6 +328,107 @@ def main():
          "guarda/preservar_derivado.py devolve os dois lados no REUSED — e nao "
          "escreve nenhum")
 
+    # ═══════════════════════════════════════════════════════════════════
+    # OS QUATRO CASOS — e a pergunta que os separa
+    # ═══════════════════════════════════════════════════════════════════
+    # ⚠️ CADA CASO RESPONDE DUAS PERGUNTAS, E ELAS NAO SAO A MESMA:
+    #
+    #     L · LINHAGEM   esta observacao participou deste derivado?
+    #     E · EXECUCAO   em que passagem isso aconteceu?
+    #
+    # Se as duas contagens andarem SEMPRE juntas, sao um conceito so e uma
+    # tabela chega. Se divergirem em algum caso, sao dois — e nesse caso
+    # meter as duas na mesma linha faz uma delas mentir.
+    #
+    #     ONE CONCEPT -> ONE OWNER.
+    from guarda.preservar_coleta import ArmazemLocal as _AL
+    caminho_de = lambda rid: os.path.join(RAIZ, sql.executa(
+        "select o.storage_path from public.storage_object o"
+        " join public.raw_asset r on r.storage_object_id = o.id"
+        " where r.id = %s" % rid)[0][0])
+
+    def pares_do_recibo(r):
+        """As arestas (observacao, derivado) que ESTA passagem tocou."""
+        fora_ = set()
+        for x in (r.get("RESULTADOS") or []):
+            linha = x.get("LINHA") or {}
+            if linha.get("id"):
+                fora_.add((int(x["RAW_ASSET_ID"]), int(linha["id"])))
+        return fora_
+
+    def eventos(run):
+        return len(sql.executa(
+            "select 1 from public.etapa_da_corrida where run_id = '%s'"
+            " and etapa = 'DERIVED'" % run))
+
+    a1 = sorted(ids_a)[0]
+    par_original = (a1, int([d for d in derivados
+                             if int(d[1]) == a1][0][0]))
+
+    # CASO 2 · a MESMA corrida, a MESMA observacao, outra vez.
+    c2 = fwd.correr([{"RAW_ASSET_ID": a1, "PDF": caminho_de(a1)}],
+                    banco_do_rastro=sql, run_id=run_a, armazem=_AL(RAIZ),
+                    memoria=_memoria(url), source_id="IT-T2-002")
+    caso("G2_retry_na_MESMA_corrida_nao_cria_linhagem_nova",
+         pares_do_recibo(c2) == {par_original}
+         and c2["BALDES"]["REUSED"] == 1,
+         "aresta tocada: %s · baldes %s · eventos DERIVED na corrida A: %d"
+         % (sorted(pares_do_recibo(c2)),
+            {k: v for k, v in c2["BALDES"].items() if v}, eventos(run_a)))
+
+    # CASO 3 · outra corrida, OUTRA observacao, os MESMOS bytes.
+    b1 = sorted(ids_b)[0]
+    c3 = fwd.correr([{"RAW_ASSET_ID": b1, "PDF": caminho_de(b1)}],
+                    banco_do_rastro=sql, run_id=run_b, armazem=_AL(RAIZ),
+                    memoria=_memoria(url), source_id="IT-T2-002")
+    par_irmao = pares_do_recibo(c3)
+    caso("G3_outra_observacao_dos_MESMOS_bytes_toca_o_MESMO_derivado",
+         len(par_irmao) == 1
+         and list(par_irmao)[0][1] == par_original[1]
+         and list(par_irmao)[0][0] != par_original[0],
+         "aresta tocada: %s — derivado igual, observacao diferente"
+         % sorted(par_irmao))
+
+    # CASO 4 · A SENTINELA. A observacao de A, derivada OUTRA VEZ, mais tarde,
+    # numa passagem que pertence a OUTRA corrida.
+    #
+    # ⚠️ E O BANCO ACEITA. `etapa_da_corrida.run_id` so exige que a corrida
+    # EXISTA — nao exige que ela seja a corrida que capturou a observacao. Esta
+    # e a lei que a missao anterior ja tinha escrito, agora executavel:
+    #
+    #     A CORRIDA QUE CAPTUROU NAO E NECESSARIAMENTE A QUE DERIVOU.
+    c4 = fwd.correr([{"RAW_ASSET_ID": a1, "PDF": caminho_de(a1)}],
+                    banco_do_rastro=sql, run_id=run_b, armazem=_AL(RAIZ),
+                    memoria=_memoria(url), source_id="IT-T2-002")
+    caso("G4_rederivar_mais_tarde_noutra_corrida_NAO_muda_a_linhagem",
+         pares_do_recibo(c4) == {par_original},
+         "aresta tocada: %s — a MESMA de A, escrita numa passagem de B"
+         % sorted(pares_do_recibo(c4)))
+
+    # ── E AGORA A CONTA QUE DECIDE O CONCEITO ───────────────────────────
+    # Quantas arestas MATERIAIS distintas foram tocadas pelos casos 1, 2 e 4?
+    # E quantos EVENTOS de execucao eles produziram?
+    arestas = {par_original} | pares_do_recibo(c2) | pares_do_recibo(c4)
+    eventos_totais = eventos(run_a) + eventos(run_b)
+    caso("G5_as_duas_contagens_DIVERGEM_e_por_isso_sao_dois_conceitos",
+         len(arestas) < eventos_totais,
+         "a mesma aresta %s foi tocada por 3 passagens · arestas distintas=%d "
+         "· eventos DERIVED no banco=%d — um numero nao explica o outro"
+         % (sorted(arestas), len(arestas), eventos_totais))
+
+    # ⚠️ E O RESULTADO MUDA SEM A ARESTA MUDAR.
+    # A primeira passagem sobre (A, X) deu INSERTED; a segunda e a terceira
+    # deram REUSED. Guardar INSERTED/REUSED na aresta obrigaria a reescreve-la
+    # a cada passagem — e uma relacao que se reescreve nao e uma relacao.
+    #
+    #     INSERTED/REUSED E DESTINO DE ITEM NUMA PASSAGEM,
+    #     E NAO PROPRIEDADE DA LINHAGEM.
+    caso("G6_o_resultado_muda_sem_a_aresta_mudar",
+         c2["BALDES"]["REUSED"] == 1 and c4["BALDES"]["REUSED"] == 1
+         and len(arestas) == 1,
+         "a aresta %s teve INSERTED na 1a passagem e REUSED nas seguintes"
+         % sorted(arestas))
+
     persistido = bool(achou_b)
     veredito = "ALREADY_PROVEN" if persistido else "GAP_CONFIRMED"
 
@@ -348,6 +449,15 @@ def main():
         "DURABLE_EDGE_A_TO_X": "YES",
         "DURABLE_EDGE_B_TO_X": "YES" if persistido else "NO",
         "DERIVED_REUSE_LINEAGE": veredito,
+        # ── O QUE DECIDE O GRAO DA PARTICIPACAO ─────────────────────────
+        # As duas contagens, lado a lado. Se andassem sempre juntas seriam um
+        # conceito so; divergem, e por isso sao dois.
+        "ARESTAS_MATERIAIS_DISTINTAS": len(arestas),
+        "EVENTOS_DE_EXECUCAO_DERIVED": eventos_totais,
+        "ARESTA_TOCADA_POR_VARIAS_PASSAGENS": sorted(
+            "%d->%d" % par for par in arestas),
+        "O_RESULTADO_MUDA_SEM_A_ARESTA_MUDAR": "YES",
+        "A_CORRIDA_QUE_DERIVA_PODE_NAO_SER_A_QUE_CAPTUROU": "YES",
     }, io.open(os.path.join(RAIZ, "system-map", "data",
                             "linhagem.observada.json"), "w",
                encoding="utf-8"), indent=2, ensure_ascii=False)
