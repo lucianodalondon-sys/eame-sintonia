@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "3c417267c5b21d73b3748d9eb6c2064f7bc7ac9c",
+    "HEAD": "6ac9f08c6c447f518adf423f1b8353016f9e4c6b",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -726,6 +726,28 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/adaptador_meta.py",
+      "gaveta": "coleta",
+      "linhas": 367,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM"
+      ],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "citado_por": [],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/adaptador_x.py",
       "gaveta": "coleta",
       "linhas": 58,
@@ -829,6 +851,7 @@
       ],
       "citado_por": [
         "coleta/adaptador_instagram.py",
+        "coleta/adaptador_meta.py",
         "coleta/scrap_executor.py",
         "coleta/social_persistencia.py",
         "coleta/social_scrap.py",
@@ -1559,7 +1582,7 @@
     {
       "ficheiro": "coleta/scrap_capacidades.py",
       "gaveta": "coleta",
-      "linhas": 325,
+      "linhas": 410,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1664,6 +1687,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/adaptador_aberto.py",
+        "coleta/adaptador_meta.py",
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
         "coleta/scrap_executor.py",
@@ -1675,7 +1699,7 @@
     {
       "ficheiro": "coleta/scrap_registo.py",
       "gaveta": "coleta",
-      "linhas": 212,
+      "linhas": 217,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1695,6 +1719,7 @@
         "coleta/adaptador_facebook.py",
         "coleta/adaptador_instagram.py",
         "coleta/adaptador_linkedin.py",
+        "coleta/adaptador_meta.py",
         "coleta/adaptador_x.py",
         "coleta/adaptador_youtube.py",
         "coleta/scrap_executor.py",
@@ -1727,7 +1752,7 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 266,
+      "linhas": 289,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1742,6 +1767,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/adaptador_aberto.py",
+        "coleta/adaptador_meta.py",
         "coleta/adaptador_youtube.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
@@ -2538,11 +2564,11 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 115,
+    "ficheiros_de_codigo": 116,
     "pontos_de_entrada": 85,
     "executores_que_saem_para_fora": 22,
-    "sem_chamador_e_fora_do_ci": 46,
-    "sem_aresta_medida_e_fora_do_ci": 63,
+    "sem_chamador_e_fora_do_ci": 47,
+    "sem_aresta_medida_e_fora_do_ci": 64,
     "gravam_no_banco": 3,
     "escrevem_ficheiro": 67,
     "deitam_fora_alguma_coisa": 29,
@@ -2682,6 +2708,7 @@
       "coleta/adaptador_aberto.py",
       "coleta/adaptador_facebook.py",
       "coleta/adaptador_linkedin.py",
+      "coleta/adaptador_meta.py",
       "coleta/adaptador_x.py",
       "coleta/adaptador_youtube.py",
       "coleta/agrifood_ue.py",
@@ -2736,6 +2763,7 @@
       "coleta/adaptador_facebook.py",
       "coleta/adaptador_instagram.py",
       "coleta/adaptador_linkedin.py",
+      "coleta/adaptador_meta.py",
       "coleta/adaptador_x.py",
       "coleta/adaptador_youtube.py",
       "coleta/agrifood_ue.py",

@@ -17,6 +17,7 @@
       "CASCO-CLIENT-DEMO.md",
       "CLAUDE.md",
       "DEPOIS-DO-PORTAL.md",
+      "HANDOFF-ATUAL-SINTONIA-EAME.md",
       "HANDOFF-BUILD-DA-REUNIAO.md",
       "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "HANDOFF-V2-PAUSE.json",
@@ -24,6 +25,7 @@
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
+      "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
       "package.json",
       "vercel.json"
@@ -182,6 +184,7 @@
       "coleta/adaptador_facebook.py",
       "coleta/adaptador_instagram.py",
       "coleta/adaptador_linkedin.py",
+      "coleta/adaptador_meta.py",
       "coleta/adaptador_x.py",
       "coleta/adaptador_youtube.py",
       "coleta/agrifood_ue.py",
@@ -660,6 +663,7 @@
       "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
       "docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md",
       "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "docs/decisoes/ORDEM-DO-PROJETO-COLETA-INTELIGENCIA-CASCO-2026-09-11.md",
       "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md",
       "docs/descoberta/FREEZE-DA-BASE-DO-PILOTO.md",
       "docs/descoberta/LACUNAS-E-VEREDITO-MISSAO-03.md",
@@ -795,6 +799,7 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/META-BUILD-01-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/META-COMPETITOR-COVERAGE-V1.md",
       "docs/sintonia-scrap/META-DEEP-STUDY-V1.md",
       "docs/sintonia-scrap/META-ROUTE-MATRIX-V1.json"
@@ -1086,6 +1091,22 @@
       "italia-portale/client/upstream/IT-TOP3-SENSORES-V1.json",
       "italia-portale/client/upstream/UPSTREAM-PINS.json",
       "italia-portale/client/vercel.json"
+    ],
+    "know-how": [
+      "know-how/architecture/C-PLAN-A2-GENERIC-TRAVERSAL.md",
+      "know-how/architecture/C-PLAN-A3-REVIEW.md",
+      "know-how/architecture/C-PLAN-A3-STRUCTURED-BY-SPECIES.md",
+      "know-how/architecture/COLLECTION-TARGET-ARCHITECTURE-V1-REVIEW.md",
+      "know-how/architecture/COLLECTION-TARGET-ARCHITECTURE-V1.md",
+      "know-how/census/COLLECTION-CARD-AUDIT-REGISTRY.md",
+      "know-how/census/LOTE-08-MEASUREMENT-LAYER.md",
+      "know-how/census/LOTE-09-DOCUMENT-CORPUS-SEMANTICS.md",
+      "know-how/census/LOTE-10-DECLARED-CLOSURE.md",
+      "know-how/census/SYNTHETIC-CENSUS-FINAL-CLOSURE.md",
+      "know-how/daily/2026-09-10-lote-07.md",
+      "know-how/daily/2026-09-10.md",
+      "know-how/daily/2026-09-11.md",
+      "know-how/daily/2026-09-12.md"
     ],
     "leis": [
       "leis/adama_relevance.py",
@@ -1482,6 +1503,11 @@
       "tests/fixtures/ARESTAS/codigo_real.py",
       "tests/fixtures/ARESTAS/owner_indireto.py",
       "tests/fixtures/ARESTAS/so_comentario.py",
+      "tests/fixtures/META-BUILD-01/ads-run1.json",
+      "tests/fixtures/META-BUILD-01/ads-run2.json",
+      "tests/fixtures/META-BUILD-01/ads-sem-campos-ue.json",
+      "tests/fixtures/META-BUILD-01/branded-run1.json",
+      "tests/fixtures/META-BUILD-01/branded-run2.json",
       "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
@@ -1550,6 +1576,7 @@
       "tests/test_m2_aresta_observada.py",
       "tests/test_m2_rota_forward.py",
       "tests/test_mapa_nao_mente.py",
+      "tests/test_meta_build_01.py",
       "tests/test_metricas.py",
       "tests/test_migrations.py",
       "tests/test_navegador.py",
@@ -1651,16 +1678,16 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "17 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "titulo": "18 coletores gravam registo sem data nem lugar.",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: adaptador_meta.py · coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
+        "coleta/adaptador_meta.py",
         "coleta/coletor.py",
         "coleta/cruzar_regua_rotulo.py",
         "coleta/denominaciones.py",
         "coleta/eppo_gd.py",
-        "coleta/executor_texto_de_pdf.py",
-        "coleta/filas.py"
+        "coleta/executor_texto_de_pdf.py"
       ]
     }
   ],
@@ -1975,9 +2002,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/wonderful-hamilton-m50ahv",
-    "HEAD": "3c417267c5b21d73b3748d9eb6c2064f7bc7ac9c",
-    "GENERATED_AT": "2026-09-12T16:30:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "6462a964b5d97984d0012b6153225d350947a0ebc4e68eecbc73196cf1c99859"
+    "HEAD": "6ac9f08c6c447f518adf423f1b8353016f9e4c6b",
+    "GENERATED_AT": "2026-09-12T17:11:48+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3ff88860d122a3145b4271b96df2a1382d526e85724a3f381e48cd05d0e4a830"
   },
   "FAMILIES": [
     {
@@ -4827,6 +4854,17 @@
         "sobrou_total": 3006
       },
       "memoria": [
+        {
+          "ficheiro": "coleta/adaptador_meta.py",
+          "como_se_chama": "",
+          "carimba_data": [],
+          "carimba_lugar": [],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": [
+            "RECUSAD"
+          ]
+        },
         {
           "ficheiro": "coleta/agrifood_ue.py",
           "como_se_chama": "coleta/agrifood_ue.py cereal/prices IT 2024 2025 2026",
@@ -13855,9 +13893,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 484,
+        "palavras": 502,
         "por_lingua": {},
-        "sem_marca_de_lingua": 484,
+        "sem_marca_de_lingua": 502,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14010,11 +14048,11 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 233,
+        "palavras": 241,
         "por_lingua": {
           "PT": 1
         },
-        "sem_marca_de_lingua": 232,
+        "sem_marca_de_lingua": 240,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15679,6 +15717,7 @@
         "tests/test_m2_aresta_observada.py",
         "tests/test_m2_rota_forward.py",
         "tests/test_mapa_nao_mente.py",
+        "tests/test_meta_build_01.py",
         "tests/test_metricas.py",
         "tests/test_migrations.py",
         "tests/test_navegador.py",
@@ -15723,7 +15762,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 109,
+      "file_count": 110,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15738,6 +15777,7 @@
         "tests/test_proveniencia.py"
       ],
       "produces": [
+        "coleta/adaptador_meta.py",
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md",
         "vercel.json"
@@ -15957,7 +15997,7 @@
         },
         {
           "onde": "GIT",
-          "file": "data/samples/SPAIN-HERO-CASES-V1.json",
+          "file": "coleta/adaptador_meta.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -21521,7 +21561,7 @@
       "evidence": [
         {
           "file": "leis/social_matriz.py",
-          "line": 406,
+          "line": 455,
           "snippet": "'scripts/instagram_janela.py'),"
         }
       ],
@@ -29618,7 +29658,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 43 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 44 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29844,7 +29884,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "SCRAP rota e sessao · o despachador (auth_mode) alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c2_youtube_oficial.py",
@@ -29860,6 +29900,11 @@
           "file": "tests/test_c8_convergencia.py",
           "line": 34,
           "snippet": "WORKFLOW = '.github/workflows/scrap-social.yml'"
+        },
+        {
+          "file": "tests/test_meta_build_01.py",
+          "line": 222,
+          "snippet": "texto_wf = open(wf, encoding='utf-8').read() if os.path.exists(wf) else ''"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -30103,8 +30148,23 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 103 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 111 linhas de codigo.",
       "evidence": [
+        {
+          "file": "coleta/adaptador_meta.py",
+          "line": 55,
+          "snippet": "import scrap_http as http      # noqa: E402"
+        },
+        {
+          "file": "coleta/adaptador_meta.py",
+          "line": 56,
+          "snippet": "import scrap_registo as reg    # noqa: E402"
+        },
+        {
+          "file": "coleta/adaptador_meta.py",
+          "line": 57,
+          "snippet": "import social_envelope as env  # noqa: E402"
+        },
         {
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 144,
@@ -30149,21 +30209,6 @@
           "file": "tests/test_c10_4c_rota_aposentada.py",
           "line": 246,
           "snippet": "import scrap_registo as reg"
-        },
-        {
-          "file": "tests/test_c10_4c_rota_aposentada.py",
-          "line": 368,
-          "snippet": "import scrap_capacidades as cap"
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 51,
-          "snippet": "import scrap_capacidades as cap     # noqa: E402"
-        },
-        {
-          "file": "tests/test_c10_5_collection_flow.py",
-          "line": 52,
-          "snippet": "import scrap_http as http           # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -32882,7 +32927,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 775,
+  "UNCLAIMED_FILES_COUNT": 798,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33054,8 +33099,8 @@
     "edges_proven": 674,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1527,
-    "files_covered": 752,
+    "files_tracked": 1552,
+    "files_covered": 754,
     "files_code_unclaimed": 0
   }
 }
