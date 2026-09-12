@@ -174,7 +174,8 @@
       "candidatas/italy_fix_semantics.mjs",
       "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
-      "candidatas/italy_write_matrix.mjs"
+      "candidatas/italy_write_matrix.mjs",
+      "candidatas/prova_barata.py"
     ],
     "coleta": [
       "coleta/agrifood_ue.py",
@@ -238,11 +239,13 @@
       "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "data/derivados/BENCHMARK-TEMATICO-V1.json",
       "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+      "data/derivados/CENSO-RELEVANCIA-DE-FONTE-V1.json",
       "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
       "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "data/derivados/RED-TEAM-RELEVANCIA-DE-FONTE-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
@@ -718,6 +721,7 @@
       "docs/operacao/P-011-DADO-OPERACIONAL-NO-GIT.md",
       "docs/operacao/POLITICA-DOS-DOIS-ARMAZENS.md",
       "docs/operacao/PONTE-OBSERVACAO-UNIDADE.md",
+      "docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
@@ -1074,6 +1078,7 @@
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
+      "leis/relevancia_da_fonte.py",
       "leis/retorno_da_coleta.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
@@ -1190,6 +1195,7 @@
       "provas/benchmark_tematico.py",
       "provas/candidatos_tematicos.py",
       "provas/censo_corpus_rotulado_admission.py",
+      "provas/censo_de_relevancia_das_fontes.py",
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
@@ -1205,6 +1211,7 @@
       "provas/medir_admission_t3_atual.py",
       "provas/medir_source_id_wiring_gap.py",
       "provas/mutacao_do_gate.py",
+      "provas/mutacao_do_portao_de_relevancia.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
@@ -1223,6 +1230,7 @@
       "provas/qualidade_t3.py",
       "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
+      "provas/red_team_da_relevancia_da_fonte.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
       "provas/so_a_colheita_atravessa.py",
@@ -1551,6 +1559,7 @@
       "tests/test_raw_observation_id_volta.py",
       "tests/test_red_team_estrada.py",
       "tests/test_relatorio_do_fluxo.py",
+      "tests/test_relevancia_da_fonte.py",
       "tests/test_retorno_da_coleta.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -1954,10 +1963,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/prove-canonical-e2e-from-request-v1",
-    "HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28",
-    "GENERATED_AT": "2026-09-12T15:46:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5c0e79849d0227447e84d1c305be6e197739ca4434ebe00b76647f24fc283363"
+    "BRANCH": "claude/magical-ptolemy-bonfgd",
+    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
+    "GENERATED_AT": "2026-09-12T15:51:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "d87dd2d98f763d3ba554544ead85dfc53543101899a16618aea3ab88a0042cb4"
   },
   "FAMILIES": [
     {
@@ -1984,7 +1993,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 65
+      "count": 66
     },
     {
       "id": "F-ESPERA",
@@ -2026,7 +2035,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 60
+      "count": 61
     },
     {
       "id": "F-ENTREGA",
@@ -2117,7 +2126,7 @@
       "y": 190,
       "w": 405,
       "h": 5192,
-      "count": 2
+      "count": 3
     },
     {
       "id": "Z-FONTES",
@@ -2380,7 +2389,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 14
+      "count": 15
     },
     {
       "id": "Z-PROVA",
@@ -2669,6 +2678,7 @@
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-READY",
         "C-RECALL-PORTA-IT",
+        "C-RELEVANCIA-FONTE",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -10502,7 +10512,8 @@
       "outbound": [
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
@@ -11349,6 +11360,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -11404,12 +11416,16 @@
       ],
       "file_count": 2,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "candidatas/fonte_nova.py"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-PROVA-COLETA",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11907,6 +11923,52 @@
       "y": 2936
     },
     {
+      "id": "C-PROVA-BARATA",
+      "name": "A prova barata de uma fonte",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "what": "Olha para uma fonte SEM lhe fazer uma coleta: primeiro o acervo que esta casa ja guardou dela (zero rede, teto de 3 unidades), e so depois uma sonda limitada. Produz uma OBSERVACAO com DECISAO = NAO_TOMADA.",
+      "why_here": "O portao recusa gasto sobre fonte nao avaliada, e avaliar exige olhar. Sem uma forma barata de olhar, o portao seria uma porta trancada com a chave do lado de dentro. E a prova NAO decide: transformar «a amostra que consegui apanhar» em «o que a fonte e» faria a primeira amostra magra condenar a fonte com ar de medicao. PROVA_BARATA_NUNCA_PAGA = True.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◌",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "candidatas/prova_barata.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-RELEVANCIA-FONTE"
+      ],
+      "outbound": [
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 3180,
+      "y": 1004
+    },
+    {
       "id": "C-PROVA-BIBLIA",
       "name": "O validador da Bíblia",
       "territory": "Z-PROVA",
@@ -12004,6 +12066,7 @@
         "provas/benchmark_tematico.py",
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
+        "provas/censo_de_relevancia_das_fontes.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/fechar_ground_truth_t3.py",
         "provas/gate_de_aceitacao_tematica.py",
@@ -12011,6 +12074,7 @@
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/mutacao_do_gate.py",
+        "provas/mutacao_do_portao_de_relevancia.py",
         "provas/o_corte_de_cr1.py",
         "provas/o_legado_fora_do_fluxo.py",
         "provas/objeto_e_observacao_no_postgres.py",
@@ -12022,6 +12086,7 @@
         "provas/qualidade_t3.py",
         "provas/rastro_no_postgres.py",
         "provas/readback_022_live.sh",
+        "provas/red_team_da_relevancia_da_fonte.py",
         "provas/so_a_colheita_atravessa.py",
         "provas/social_persistencia_no_postgres.py",
         "provas/testa_coleta_canonica.py",
@@ -12029,7 +12094,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 34,
+      "file_count": 37,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12038,7 +12103,9 @@
         "provas/preservar_coleta_no_postgres.py",
         "provas/testa_coleta_canonica.py"
       ],
-      "produces": [],
+      "produces": [
+        "data/derivados/RED-TEAM-RELEVANCIA-DE-FONTE-V1.json"
+      ],
       "inbound": [
         "C-ADAMA-ES",
         "C-ADMISSAO",
@@ -12066,9 +12133,13 @@
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
+        "C-POLITICA-COLETA",
+        "C-PORTA-FONTE",
+        "C-PROVA-BARATA",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-RASTRO",
         "C-RECEITAS",
+        "C-RELEVANCIA-FONTE",
         "C-ROTA-M2",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-LEIS",
@@ -12143,16 +12214,17 @@
           "SENTINELAS_MEDIDAS",
           "SE_DECLARAM",
           "STATUS_PROIBIDO",
+          "VERDICT_DO_ATLAS_MISTURA",
           "_GAVETAS_IT",
           "_OUTROS",
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 927,
+        "palavras": 1085,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 925,
+        "sem_marca_de_lingua": 1083,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12181,12 +12253,26 @@
             "line": 968,
             "snippet": "escreve em caminho"
           }
+        },
+        {
+          "pasta": "data/derivados",
+          "prova": {
+            "file": "provas/red_team_da_relevancia_da_fonte.py",
+            "line": 414,
+            "snippet": "escreve em saida"
+          }
         }
       ],
       "destino": [
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/RED-TEAM-RELEVANCIA-DE-FONTE-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "provas/gate_de_aceitacao_tematica.py",
@@ -13207,6 +13293,7 @@
         "C-LUGAR-COLETA",
         "C-PEDIDO",
         "C-PROCEDENCIA",
+        "C-RELEVANCIA-FONTE",
         "C-ROTULOS"
       ],
       "outbound": [
@@ -13615,6 +13702,68 @@
       "rule_role": "STAMPS",
       "rule_role_evidence": "escreve data/samples/AUDITORIA-SOMBRA/AUDITORIA-REGUA-COMERCIAL-37.json, e C-ROTULOS — peca da esteira — le isso",
       "x": 18485,
+      "y": 1648
+    },
+    {
+      "id": "C-RELEVANCIA-FONTE",
+      "name": "O portao de relevancia da fonte",
+      "territory": "Z-REGUAS",
+      "kind": "gate",
+      "what": "Decide, por par (FONTE, PROPOSITO), se esta fonte vale ser acompanhada para este universo — e barra o GASTO quando a resposta nao e SIM. Cinco resultados (SIM · NAO · NAO_SEI · NAO_SE_APLICA · ERRO), mais NAO_AVALIADA, que nao e um resultado porque ninguem olhou. Tres vereditos: AUTORIZA · BARRA · EXIGE_AVALIACAO.",
+      "why_here": "FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> subprocess sem que nada perguntasse se a fonte servia: o unico requisito para correr era existir linha em EXECUTORES. MEDIDO: 54 das 77 fontes podiam disparar coleta e 8 podiam correr rota paga com verdict = NAO SEI. E NAO_AVALIADA nao e NAO_SEI nao e ERRO nao e NAO — uma so delas e um julgamento; as outras tres sao confissoes, e uma confissao nao autoriza gasto nem o condena.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊘",
+      "views": [
+        "audit",
+        "collection-strategy",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/relevancia_da_fonte.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO"
+      ],
+      "outbound": [
+        "C-PROVA-BARATA",
+        "C-PROVA-COLETA",
+        "C-RECEITAS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_DECISAO"
+        ],
+        "palavras": 9,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 9,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
       "y": 1648
     },
     {
@@ -14060,7 +14209,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 18900,
+      "x": 19315,
       "y": 1648
     },
     {
@@ -15796,6 +15945,7 @@
         "tests/test_raw_observation_id_volta.py",
         "tests/test_red_team_estrada.py",
         "tests/test_relatorio_do_fluxo.py",
+        "tests/test_relevancia_da_fonte.py",
         "tests/test_retorno_da_coleta.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -15819,7 +15969,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 106,
+      "file_count": 107,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15893,6 +16043,7 @@
         "C-LUGAR-COLETA",
         "C-MAPA-APP",
         "C-MAPA-GERADOR",
+        "C-MAPA-SCAN",
         "C-MAPA-VALIDADOR",
         "C-MEDICAO",
         "C-NAVEGADOR",
@@ -15900,9 +16051,11 @@
         "C-PACOTE-CAMADAS",
         "C-PEDIDO",
         "C-POLITICA-COLETA",
+        "C-PORTA-FONTE",
         "C-PORTAL-MODELO",
         "C-PROCEDENCIA",
         "C-PROVA-AUTORIDADE-FONTE",
+        "C-PROVA-BARATA",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
@@ -15915,6 +16068,7 @@
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
+        "C-RELEVANCIA-FONTE",
         "C-ROTA-M2",
         "C-ROTULOS",
         "C-SALA-DE-ESPERA",
@@ -15992,11 +16146,11 @@
           "SINTETICOS",
           "_GAVETA_DE"
         ],
-        "palavras": 483,
+        "palavras": 484,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 481,
+        "sem_marca_de_lingua": 482,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17399,7 +17553,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/prove-canonical-e2e-from-request-v1"
+        "branch claude/magical-ptolemy-bonfgd"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18037,6 +18191,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-RELEVANCIA-FONTE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por O portao de relevancia da fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/relevancia_da_fonte.py",
+          "line": 122,
+          "snippet": "from admissao import (  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18061,7 +18233,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -18792,7 +18964,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 161,
+          "line": 162,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
         }
       ],
@@ -18824,7 +18996,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "AS FONTES alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -18835,6 +19007,11 @@
           "file": "tests/test_competitor_layer.py",
           "line": 334,
           "snippet": "t = doc('fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 347,
+          "snippet": "'ATLAS-DE-FONTES-EAME.md'),"
         },
         {
           "file": "tests/test_retorno_da_coleta.py",
@@ -19662,7 +19839,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -19718,6 +19895,11 @@
           "file": "tests/test_portoes_da_collection.py",
           "line": 325,
           "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 316,
+          "snippet": "biblia = open(os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md'),"
         }
       ],
       "categoria": "PROOF"
@@ -21852,7 +22034,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 166,
+          "line": 167,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
         }
       ],
@@ -22531,12 +22713,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 85,
+          "line": 86,
           "snippet": "\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\": \"CATALOG\"}},"
         },
         {
           "file": "pedido/receitas.py",
-          "line": 86,
+          "line": 87,
           "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
         }
       ],
@@ -22572,7 +22754,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 187,
+          "line": 188,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -24330,7 +24512,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 117,
+          "line": 118,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
         }
       ],
@@ -24638,12 +24820,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 162,
+          "line": 163,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 163,
+          "line": 164,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
         }
       ],
@@ -25356,7 +25538,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 135,
+          "line": 136,
           "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
         }
       ],
@@ -26065,7 +26247,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 189,
+          "line": 190,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -26440,6 +26622,24 @@
       "categoria": "READ"
     },
     {
+      "from": "C-MAPA-SCAN",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 315,
+          "snippet": "'scan_sources.py'), encoding='utf-8').read()"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-MAPA-TESTES",
       "to": "C-PROVA-COLETA",
       "type": "READS",
@@ -26782,12 +26982,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 60,
           "snippet": "import orquestrador as orq  # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 35,
+          "snippet": "import orquestrador as orq               # noqa: E402"
         },
         {
           "file": "provas/so_a_colheita_atravessa.py",
@@ -26810,12 +27015,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 74,
           "snippet": "(\"orquestrador/orquestrador.py\", \"adm.decidir(x, universo, corrida=run_id)\","
+        },
+        {
+          "file": "provas/mutacao_do_portao_de_relevancia.py",
+          "line": 41,
+          "snippet": "CONTROLO = os.path.join('orquestrador', 'orquestrador.py')"
+        },
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 267,
+          "snippet": "r = subprocess.run([sys.executable, 'orquestrador/orquestrador.py',"
         },
         {
           "file": "provas/testa_golden_path_pdf.py",
@@ -26887,7 +27102,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
@@ -26908,6 +27123,11 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 310,
           "snippet": "import orquestrador as orq"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 25,
+          "snippet": "import orquestrador as orq             # noqa: E402"
         },
         {
           "file": "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -27132,8 +27352,18 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/censo_de_relevancia_das_fontes.py",
+          "line": 62,
+          "snippet": "from pedido import ALVOS            # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 38,
+          "snippet": "from pedido import Pedido                # noqa: E402"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 31,
@@ -27186,7 +27416,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
@@ -27197,6 +27427,29 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 54,
           "snippet": "from pedido import de_uma_frase            # noqa: E402"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 26,
+          "snippet": "from pedido import Pedido              # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-POLITICA-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica da coleta — o que colher, quando, e se ja temos tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 336,
+          "snippet": "import politica_da_coleta as pol"
         }
       ],
       "categoria": "PROOF"
@@ -27264,6 +27517,60 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 224,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'candidatas', 'fonte_nova.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 289,
+          "snippet": "import fonte_nova"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 290,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'candidatas', 'fonte_nova.py'),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-PORTAL-CASCO",
@@ -28199,12 +28506,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 185,
+          "line": 186,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 191,
+          "line": 192,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -28329,6 +28636,60 @@
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 32,
           "snippet": "import a_autoridade_da_fonte as au  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-BARATA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova barata de uma fonte tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 36,
+          "snippet": "import prova_barata                      # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-BARATA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova barata de uma fonte alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_do_portao_de_relevancia.py",
+          "line": 42,
+          "snippet": "SONDA = os.path.join('candidatas', 'prova_barata.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-BARATA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova barata de uma fonte tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 298,
+          "snippet": "import prova_barata"
         }
       ],
       "categoria": "PROOF"
@@ -28526,12 +28887,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 269,
           "snippet": "import preservar_coleta_no_postgres as pg"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 336,
+          "snippet": "import censo_de_relevancia_das_fontes as censo"
         }
       ],
       "categoria": "PROOF"
@@ -28588,7 +28954,7 @@
         },
         {
           "file": "tests/test_execucao_standalone.py",
-          "line": 32,
+          "line": 33,
           "snippet": "'provas/paridade_da_lingua.py',"
         },
         {
@@ -29209,12 +29575,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/censo_de_relevancia_das_fontes.py",
+          "line": 61,
+          "snippet": "from receitas import EXECUTORES     # noqa: E402 — quem a casa sabe correr"
+        },
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 59,
           "snippet": "import receitas  # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 34,
+          "snippet": "import receitas                          # noqa: E402"
         },
         {
           "file": "provas/so_a_colheita_atravessa.py",
@@ -29231,13 +29607,31 @@
     },
     {
       "from": "C-RECEITAS",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_do_portao_de_relevancia.py",
+          "line": 40,
+          "snippet": "PLANO = os.path.join('pedido', 'receitas.py')"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RECEITAS",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
@@ -29248,6 +29642,11 @@
           "file": "tests/test_raw_observation_id_volta.py",
           "line": 311,
           "snippet": "from receitas import EXECUTORES"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 24,
+          "snippet": "import receitas                        # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -29466,6 +29865,129 @@
       "categoria": "RULE"
     },
     {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-PROVA-BARATA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por A prova barata de uma fonte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/prova_barata.py",
+          "line": 78,
+          "snippet": "import relevancia_da_fonte as rel  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/censo_de_relevancia_das_fontes.py",
+          "line": 60,
+          "snippet": "import relevancia_da_fonte as rel   # noqa: E402"
+        },
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 33,
+          "snippet": "import relevancia_da_fonte as rel        # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_do_portao_de_relevancia.py",
+          "line": 39,
+          "snippet": "LEI = os.path.join('leis', 'relevancia_da_fonte.py')"
+        },
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 326,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-RECEITAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 47,
+          "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — o portao antes do gasto"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 22,
+          "snippet": "import relevancia_da_fonte as rel      # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O portao de relevancia da fonte alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_execucao_standalone.py",
+          "line": 32,
+          "snippet": "'leis/relevancia_da_fonte.py',"
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 621,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-ROTA-M2",
       "to": "C-PROVA-COLETA",
       "type": "READS",
@@ -29682,12 +30204,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 103,
+          "line": 104,
           "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},"
         },
         {
           "file": "pedido/receitas.py",
-          "line": 104,
+          "line": 105,
           "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
         }
       ],
@@ -32950,7 +33472,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 760,
+  "UNCLAIMED_FILES_COUNT": 762,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33105,17 +33627,17 @@
     ]
   },
   "COUNTS": {
-    "components": 164,
+    "components": 166,
     "components_proven": 59,
-    "components_pending": 99,
+    "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 695,
-    "edges_proven": 693,
+    "edges": 711,
+    "edges_proven": 709,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1507,
-    "files_covered": 747,
+    "files_tracked": 1516,
+    "files_covered": 754,
     "files_code_unclaimed": 0
   }
 }

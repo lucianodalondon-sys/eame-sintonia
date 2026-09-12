@@ -1833,7 +1833,7 @@
     "provas/derived_artifact_no_postgres.py",
     "provas/o_corte_de_cr1.py",
     "provas/objeto_e_observacao_no_postgres.py",
-    "provas/a_regra_de_t2.py", "provas/censo_corpus_rotulado_admission.py", "provas/amostragem_neutra_t3.py", "provas/ui_revisao_t3_ptbr.py", "provas/pacote_de_revisao_t3.py", "provas/qualidade_t3.py", "provas/fechar_ground_truth_t3.py", "provas/medir_admission_t3_atual.py", "provas/gate_de_aceitacao_tematica.py", "provas/candidatos_tematicos.py", "provas/implementacoes_candidatas.py", "provas/benchmark_tematico.py", "provas/alcance_da_pergunta_tematica.py", "provas/medir_source_id_wiring_gap.py", "provas/a_fonte_atravessa_ate_a_porta.py", "provas/o_legado_fora_do_fluxo.py", "provas/os_portoes_da_collection.py", "provas/mutacao_do_gate.py", "provas/paridade_da_lingua.py",
+    "provas/a_regra_de_t2.py", "provas/censo_corpus_rotulado_admission.py", "provas/amostragem_neutra_t3.py", "provas/ui_revisao_t3_ptbr.py", "provas/pacote_de_revisao_t3.py", "provas/qualidade_t3.py", "provas/fechar_ground_truth_t3.py", "provas/medir_admission_t3_atual.py", "provas/gate_de_aceitacao_tematica.py", "provas/candidatos_tematicos.py", "provas/implementacoes_candidatas.py", "provas/benchmark_tematico.py", "provas/alcance_da_pergunta_tematica.py", "provas/medir_source_id_wiring_gap.py", "provas/a_fonte_atravessa_ate_a_porta.py", "provas/o_legado_fora_do_fluxo.py", "provas/os_portoes_da_collection.py", "provas/mutacao_do_gate.py", "provas/paridade_da_lingua.py", "provas/censo_de_relevancia_das_fontes.py", "provas/red_team_da_relevancia_da_fonte.py", "provas/mutacao_do_portao_de_relevancia.py",
     "provas/preflight_022_live.sh",
     "provas/preservar_coleta_no_postgres.py",
     "provas/rastro_no_postgres.py",
@@ -2961,6 +2961,43 @@
    ],
    "what": "Corre em cada push, offline, em cerca de quarenta segundos. Pergunta uma coisa so: esta mudanca piorou a seguranca? A divida herdada fica visivel e nao bloqueia; uma exposicao nova bloqueia e diz o ficheiro e o campo, nunca o valor. Traz o dono da fronteira publicada, que calcula o que o deploy serve a partir do vercel.json e do .vercelignore — 87 ficheiros, 30,4 MB.",
    "why_here": "A fundacao de seguranca media o sistema e nao o vigiava, e um validador que ninguem corre nao e um portao. Fica ao lado dos outros portoes de CI e separado deles de proposito: quando dois portoes partilham resultado, o vermelho de um esconde o verde do outro e ninguem sabe qual reprovou."
+  },
+  {
+   "id": "C-RELEVANCIA-FONTE",
+   "name": "O portao de relevancia da fonte",
+   "territory": "Z-REGUAS",
+   "kind": "gate",
+   "icon": "⊘",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "files": [
+    "leis/relevancia_da_fonte.py"
+   ],
+   "what": "Decide, por par (FONTE, PROPOSITO), se esta fonte vale ser acompanhada para este universo — e barra o GASTO quando a resposta nao e SIM. Cinco resultados (SIM · NAO · NAO_SEI · NAO_SE_APLICA · ERRO), mais NAO_AVALIADA, que nao e um resultado porque ninguem olhou. Tres vereditos: AUTORIZA · BARRA · EXIGE_AVALIACAO.",
+   "why_here": "FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> subprocess sem que nada perguntasse se a fonte servia: o unico requisito para correr era existir linha em EXECUTORES. MEDIDO: 54 das 77 fontes podiam disparar coleta e 8 podiam correr rota paga com verdict = NAO SEI. E NAO_AVALIADA nao e NAO_SEI nao e ERRO nao e NAO — uma so delas e um julgamento; as outras tres sao confissoes, e uma confissao nao autoriza gasto nem o condena."
+  },
+  {
+   "id": "C-PROVA-BARATA",
+   "name": "A prova barata de uma fonte",
+   "territory": "Z-CANDIDATAS",
+   "kind": "engine",
+   "icon": "◌",
+   "departments": [
+    "INTELIGENCIA"
+   ],
+   "views": [
+    "acervo"
+   ],
+   "files": [
+    "candidatas/prova_barata.py"
+   ],
+   "what": "Olha para uma fonte SEM lhe fazer uma coleta: primeiro o acervo que esta casa ja guardou dela (zero rede, teto de 3 unidades), e so depois uma sonda limitada. Produz uma OBSERVACAO com DECISAO = NAO_TOMADA.",
+   "why_here": "O portao recusa gasto sobre fonte nao avaliada, e avaliar exige olhar. Sem uma forma barata de olhar, o portao seria uma porta trancada com a chave do lado de dentro. E a prova NAO decide: transformar «a amostra que consegui apanhar» em «o que a fonte e» faria a primeira amostra magra condenar a fonte com ar de medicao. PROVA_BARATA_NUNCA_PAGA = True."
   }
  ],
  "BUSINESS_EDGES": [

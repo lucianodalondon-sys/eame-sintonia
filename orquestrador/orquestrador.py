@@ -330,7 +330,46 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             "COUNTRY": p.filtros.get("pais", "NAO SEI"),
             "FONTES_DO_ASSUNTO": len(plano.fontes_do_assunto),
             "FONTES_SEM_CAMINHO": len(plano.sem_caminho),
+            "RELEVANCIA_DA_FONTE": plano.relevancia,
             "ERROR": "" if so_plano else plano.porque_nao(),
+            "_plano": plano,
+        }
+
+    # ── O PORTAO DE RELEVANCIA DA FONTE, ANTES DE QUALQUER GASTO ────────────
+    # ⚠️ ESTE E O PONTO ONDE NAO HAVIA PORTAO NENHUM. Tres linhas abaixo
+    # comeca o `subprocess.run` que vai a rede, e a rota de T9 declara-se
+    # «pago quando passa pela rota Apify». Ate aqui, uma fonte cuja relevancia
+    # ninguem tinha avaliado chegava a esse subprocesso sem que nada no
+    # caminho perguntasse se ela servia.
+    #
+    #     UMA DECISAO QUE A PORTA NAO CONHECE NAO E UMA DECISAO.
+    #
+    # E o portao guarda o GASTO, nao a observacao (COL-LAW-018): com rota
+    # gratuita, acionamento manual e escopo pontual, `EXIGE_AVALIACAO` deixa
+    # passar e fica escrito no recibo. O que ele fecha e a rota paga, a coleta
+    # recorrente e a coleta total sobre fonte que ninguem avaliou — e fecha
+    # sempre, em qualquer rota, a fonte que alguem avaliou e recusou.
+    #
+    # A REGRA NAO ESTA COPIADA AQUI. Quem decide e
+    # `leis/relevancia_da_fonte.py`; este ficheiro obedece e escreve porque.
+    if plano.bloqueia_a_corrida:
+        r = plano.relevancia
+        return {
+            "RUN_ID": novo_run_id(p),
+            # NAO e `FAILED`, e NAO e `SEM_CAMINHO`. Uma recusa de portao nao
+            # e uma corrida que rebentou nem um caminho que falta: e uma
+            # decisao desta casa, tomada antes de gastar, e tem nome proprio.
+            "STATUS": "BARRADO_NA_RELEVANCIA",
+            "PEDIDO": p.para_json(),
+            "MISSION": p.assunto,
+            "COUNTRY": p.filtros.get("pais", "NAO SEI"),
+            "FONTES_DO_ASSUNTO": len(plano.fontes_do_assunto),
+            "FONTES_SEM_CAMINHO": len(plano.sem_caminho),
+            "RELEVANCIA_DA_FONTE": r,
+            # Nada correu, logo nada custou. Zero MEDIDO, nao «NAO SEI».
+            "COST_USD": 0,
+            "ESTADO_DOS_ITENS": "NAO_CORREU",
+            "ERROR": r["PORQUE"],
             "_plano": plano,
         }
 
@@ -416,6 +455,11 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
         "ESTADO_DOS_ITENS": COLHIDO if codigo == 0 else ERRO,
         "FONTES_DO_ASSUNTO": len(plano.fontes_do_assunto),
         "FONTES_SEM_CAMINHO": len(plano.sem_caminho),
+        # O PORTAO DEIXOU PASSAR, E ISSO TAMBEM FICA ESCRITO. Um recibo que so
+        # registasse as recusas nao permitiria perguntar, daqui a tres meses,
+        # sob que estado de relevancia cada corrida aconteceu — e e essa a
+        # pergunta que o censo desta missao existe para responder.
+        "RELEVANCIA_DA_FONTE": plano.relevancia,
         "SAIDA": saida.strip()[-1500:],
         "_plano": plano,
     }
@@ -497,6 +541,15 @@ def main() -> int:
     if recibo["STATUS"] == "SEM_CAMINHO":
         print(f"NAO CORREU · {recibo['ERROR']}")
         return 1
+    if recibo["STATUS"] == "BARRADO_NA_RELEVANCIA":
+        r = recibo["RELEVANCIA_DA_FONTE"]
+        print(f"BARRADO NO PORTAO DE RELEVANCIA DA FONTE · nada correu, nada custou")
+        print(f"  fonte     : {r['SOURCE_ID'] or 'NENHUMA — o plano nao a nomeia'}")
+        print(f"  proposito : {r['PROPOSITO']}")
+        print(f"  estado    : {r['ESTADO_DA_RELEVANCIA']}")
+        print(f"  gasto     : {' · '.join(r['FORMAS_DE_GASTO_ABERTAS'])}")
+        print(f"  porque    : {r['PORQUE']}")
+        return 3
 
     if not seco:
         guardar_recibo({k: v for k, v in recibo.items() if k != "SAIDA"})

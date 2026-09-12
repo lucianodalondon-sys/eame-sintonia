@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28",
+    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -35,7 +35,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 309,
+      "linhas": 391,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -49,7 +49,9 @@
       ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
+      "decisoes_escondidas": [
+        "if self.relevan"
+      ],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [],
@@ -58,7 +60,7 @@
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 213,
+      "linhas": 227,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -73,7 +75,9 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": true,
-      "chamado_por": [],
+      "chamado_por": [
+        "candidatas/prova_barata.py"
+      ],
       "no_ci": false
     },
     {
@@ -161,6 +165,22 @@
       "gaveta": "candidatas",
       "linhas": 75,
       "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/prova_barata.py",
+      "gaveta": "candidatas",
+      "linhas": 295,
+      "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
       "ferramentas": [],
@@ -2061,22 +2081,23 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 103,
-    "pontos_de_entrada": 84,
+    "ficheiros_de_codigo": 104,
+    "pontos_de_entrada": 85,
     "executores_que_saem_para_fora": 21,
     "sem_chamador_e_fora_do_ci": 42,
     "gravam_no_banco": 1,
-    "escrevem_ficheiro": 67,
+    "escrevem_ficheiro": 68,
     "deitam_fora_alguma_coisa": 26,
     "deitam_fora_SEM_escrever_o_motivo": 1,
-    "ficheiros_com_decisao_escondida": 2,
-    "decisoes_escondidas_ao_todo": 2
+    "ficheiros_com_decisao_escondida": 3,
+    "decisoes_escondidas_ao_todo": 3
   },
   "LISTAS": {
     "pontos_de_entrada": [
       "pedido/pedido.py",
       "pedido/receitas.py",
       "candidatas/fonte_nova.py",
+      "candidatas/prova_barata.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
       "fontes/adama_it_eu.py",
@@ -2184,13 +2205,13 @@
     ],
     "orfaos": [
       "pedido/receitas.py",
-      "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
       "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
+      "candidatas/prova_barata.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
       "fontes/adama_it_gaps.py",
@@ -2230,6 +2251,12 @@
       "coleta/ropf_pre_requisito.py"
     ],
     "decisoes_escondidas": [
+      {
+        "ficheiro": "pedido/receitas.py",
+        "linhas": [
+          "if self.relevan"
+        ]
+      },
       {
         "ficheiro": "coleta/instagram_diario.py",
         "linhas": [

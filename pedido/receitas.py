@@ -44,6 +44,7 @@ sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho de importacao
 
 from pedido import Pedido, ALVOS  # noqa: E402
+import relevancia_da_fonte as rel  # noqa: E402 — o portao antes do gasto
 
 FONTES_MEDIDAS = RAIZ / "system-map" / "data" / "sources.generated.json"
 
@@ -202,9 +203,36 @@ def _fontes() -> list:
 
 
 def _sabe_o_caminho(f: dict) -> bool:
-    """A ficha diz COMO se chega la? «NAO SEI» nao conta como caminho."""
+    """A ficha diz COMO se chega la? «NAO SEI» nao conta como caminho.
+
+    ⚠️ ISTO E ACESSO, E ACESSO NAO E RELEVANCIA. Uma fonte com caminho escrito
+    pode nao servir para nada, e uma fonte bloqueada pode ser a mais relevante
+    que ha. As duas perguntas correm lado a lado neste ficheiro, e nenhuma
+    responde pela outra:
+
+        ACCESSIBLE != RELEVANT · BLOCKED != IRRELEVANT
+    """
     m = str(f.get("access_method") or "").strip()
     return bool(m) and "NAO SEI" not in m.upper() and "NÃO SEI" not in m.upper()
+
+
+def fonte_nomeada(executor: dict, p: Pedido):
+    """→ o SOURCE_ID que ESTE plano vai buscar, ou None quando nao nomeia nenhum.
+
+    Um executor de territorio corre sobre o assunto inteiro; so alguns aceitam
+    o filtro `fonte`, e so esses tem um par (fonte, proposito) para julgar.
+
+        NAO SE AUTORIZA GASTO SOBRE UMA FONTE QUE O PLANO NAO NOMEIA.
+
+    Devolver a primeira fonte da lista do assunto seria pior do que devolver
+    `None`: o portao julgaria uma fonte que o executor talvez nem visite, e um
+    `SIM` nela abriria a porta as outras sete.
+    """
+    if "fonte" not in (executor.get("argumentos_de_filtros") or []):
+        return None
+    valores = {**(executor.get("filtros_por_omissao") or {}), **p.filtros}
+    v = str(valores.get("fonte") or "").strip()
+    return v or None
 
 
 @dataclass
@@ -218,10 +246,28 @@ class Plano:
     executores: list = field(default_factory=list)
     contratos: tuple = CONTRATOS_OBRIGATORIOS
     saida_esperada: str = ""
+    # O VEREDITO DO PORTAO DE RELEVANCIA, do dono dele. Este ficheiro nao o
+    # calcula: pergunta, transporta e mostra. A regra vive em
+    # `leis/relevancia_da_fonte.py`, e nao esta copiada aqui — uma lei em dois
+    # sitios diverge, e a partir dai nenhuma das duas vale.
+    relevancia: dict = field(default_factory=dict)
 
     @property
     def da_para_correr(self) -> bool:
+        """HA CAMINHO? Continua a ser so isto — e de proposito.
+
+        ⚠️ O PORTAO DE RELEVANCIA NAO ENTRA AQUI. Achatar «nao ha executor» e
+        «a fonte nao foi avaliada» num booleano so daria a mesma resposta a
+        duas perguntas diferentes, e quem lesse `SEM_CAMINHO` nunca saberia
+        qual das duas tinha acontecido. O gasto e barrado noutro campo, com o
+        seu proprio nome: `bloqueia_a_corrida`.
+        """
         return bool(self.executores)
+
+    @property
+    def bloqueia_a_corrida(self) -> bool:
+        """→ True quando ha gasto aberto e a relevancia nao o autoriza."""
+        return bool(self.relevancia.get("BLOQUEIA_A_CORRIDA"))
 
     def porque_nao(self) -> str:
         if self.executores:
@@ -245,12 +291,28 @@ class Plano:
                               for x in self.sem_caminho[:6])
             L.append(f"      ({nomes}{' ...' if len(self.sem_caminho) > 6 else ''})")
         L.append("")
+        if self.relevancia:
+            r = self.relevancia
+            L.append("  portao de relevancia da fonte (antes do gasto):")
+            L.append(f"      fonte nomeada pelo plano : {r['SOURCE_ID'] or 'NENHUMA'}")
+            L.append(f"      relevancia para {r['PROPOSITO']:<8s} : {r['ESTADO_DA_RELEVANCIA']}")
+            L.append(f"      veredito                 : {r['VEREDITO']}")
+            gastos = r["FORMAS_DE_GASTO_ABERTAS"]
+            L.append(f"      formas de gasto abertas  : "
+                     f"{' · '.join(gastos) if gastos else 'nenhuma (observacao barata)'}")
+            L.append("")
         if self.executores:
             L.append("  quem vai correr:")
             for e in self.executores:
                 L.append(f"      {e['id']}  ->  {' '.join(e['roda'])}")
                 L.append(f"          traz: {e['o_que_traz']}")
                 L.append(f"          rota: {', '.join(e['rotas'])} · {e['custo']}")
+            if self.bloqueia_a_corrida:
+                # A CORRIDA ESTA BARRADA, e o plano di-lo no sitio onde alguem
+                # o leria — nao so no recibo, depois de nada ter acontecido.
+                L.append("")
+                L.append(f"  GASTO BARRADO PELO PORTAO DE RELEVANCIA:")
+                L.append(f"      {self.relevancia['PORQUE']}")
         else:
             L.append(f"  NAO DA PARA CORRER: {self.porque_nao()}")
         L.append("")
@@ -291,12 +353,32 @@ def resolver(p: Pedido) -> Plano:
     sem = [f for f in do_assunto if not _sabe_o_caminho(f)]
     execs = EXECUTORES.get(p.alvo, [])
 
+    # ── O PORTAO DE RELEVANCIA, ANTES DO GASTO ──────────────────────────────
+    # ⚠️ ATE AQUI, O UNICO REQUISITO PARA CORRER ERA EXISTIR UMA LINHA EM
+    # `EXECUTORES`. Medido: as oito fontes de T9 tem `verdict = NAO SEI`, o
+    # executor de T9 declara `custo = «pago quando passa pela rota Apify»`, e o
+    # plano dizia «quem vai correr: comunicacao-publica» sem que ninguem
+    # tivesse perguntado se alguma delas servia.
+    #
+    #     FIRST_PRE_SPEND_RELEVANCE_GATE = NONE.
+    #
+    # A pergunta e feita aqui porque e aqui que o pedido vira fonte e
+    # executor — mas a RESPOSTA e do dono da lei, e quem OBEDECE e o
+    # orquestrador, que e quem gasta.
+    relevancia = {}
+    if execs:
+        e = execs[0]
+        relevancia = rel.portao(
+            fonte_nomeada(e, p), p.alvo, rel.ler_livro(str(RAIZ)),
+            custo=e.get("custo"), acionamento=p.acionamento, escopo=p.escopo)
+
     return Plano(
         pedido=p,
         fontes_do_assunto=do_assunto,
         com_caminho=com,
         sem_caminho=sem,
         executores=execs,
+        relevancia=relevancia,
         saida_esperada=(f"itens de «{p.assunto}» com procedencia, tempo do fato e "
                         f"lugar do fato carimbados, prontos para a porta de admissao"),
     )

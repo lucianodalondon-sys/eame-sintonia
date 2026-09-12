@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28"
+    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec"
   },
   "PECAS": [
     {
@@ -39,6 +39,18 @@
       "respostas": 1,
       "ficheiros": 20,
       "estado": "gray"
+    },
+    {
+      "id": "C-PORTA-FONTE",
+      "nome": "A porta de entrada de fonte nova",
+      "zona": "· de onde vem uma fonte",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 2,
+      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -137,21 +149,21 @@
       "estado": "yellow"
     },
     {
-      "id": "C-PORTA-FONTE",
-      "nome": "A porta de entrada de fonte nova",
-      "zona": "· de onde vem uma fonte",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 2,
-      "estado": "yellow"
-    },
-    {
       "id": "C-ESTRADA-PDF",
       "nome": "A primeira estrada · PDF até à porta",
       "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PROVA-BARATA",
+      "nome": "A prova barata de uma fonte",
+      "zona": "· de onde vem uma fonte",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -594,10 +606,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 49,
+    "pecas_da_coleta": 50,
     "respondem_as_quatro": 21,
     "respondem_a_tres": 19,
-    "respondem_a_duas": 6,
+    "respondem_a_duas": 7,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

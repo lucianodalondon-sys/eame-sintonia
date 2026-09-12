@@ -1461,3 +1461,96 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
 
     UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
     NÃO ESTÁ A GUARDAR LIMIAR NENHUM.
+
+---
+
+### D-041 — O portão de relevância da fonte, antes do gasto
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** Rastreado o caminho real `pedido → receitas.resolver →
+  orquestrador.correr → subprocess`, medido em plano seco e sem gastar:
+
+  ```
+  FIRST_PRE_SPEND_RELEVANCE_GATE = NONE
+  ```
+
+  O único requisito para uma corrida acontecer era existir uma linha no dicionário
+  `EXECUTORES` daquele território. As fontes filtradas pelo planeador nem entravam
+  na decisão. Medido sobre as 77 fichas do cadastro único: **54 podiam disparar
+  coleta** e **8 podiam correr rota paga** — as oito de T9, todas com
+  `verdict = NÃO SEI` e `access_method = NÃO SEI`, contra um executor que declara
+  `custo: "pago quando passa pela rota Apify"`. **Zero** fontes tinham decisão
+  explícita de relevância, e `SOURCE_RELEVANCE` não tinha dono em toda a árvore.
+
+- **Decisão:** Criado `leis/relevancia_da_fonte.py` como **dono único** da pergunta
+  «esta fonte vale ser acompanhada PARA ESTE PROPÓSITO?». A decisão é do par
+  `(SOURCE_ID, PROPOSITO)` — nunca da fonte sozinha. O eixo semântico é o que já
+  existe (`admissao/admissao.py::RESULTADOS`, COL-LAW-038), **importado e não
+  copiado**, mais um sexto estado que não é resultado: `NAO_AVALIADA`.
+
+  O portão devolve três vereditos — `AUTORIZA` · `BARRA` · `EXIGE_AVALIACAO` — e
+  guarda o **gasto**, não a observação (COL-LAW-018 uma camada acima). Três formas
+  de gastar fecham a porta quando a resposta não é `SIM`: rota paga (e «NÃO SEI»
+  conta como paga), acionamento `AGENDADO`, escopo `TOTAL`.
+
+  `pedido/receitas.py::resolver` pergunta; `orquestrador/orquestrador.py::correr`
+  obedece, com estado próprio `BARRADO_NA_RELEVANCIA` e `exit 3`. A regra não está
+  copiada em nenhum dos dois.
+
+  `candidatas/prova_barata.py` é a saída do impasse: observa uma fonte sem lhe
+  fazer coleta, com teto duro, sem rede no degrau 0, e com `DECISAO = NAO_TOMADA`
+  sempre — `'NAO_TOMADA'` não pertence a `RESULTADOS`, por construção.
+
+- **Motivo:** O objetivo não é ranking de fontes. É impedir
+  `FONTE DESCOBERTA → COLETA CARA → MUITOS BYTES → depois descobrimos que ela quase
+  nunca servia`. E impedir o contrário com a mesma força:
+
+  ```
+  NAO_AVALIADA ≠ NAO_SEI ≠ ERRO ≠ NAO
+  ```
+
+  Uma só delas é um julgamento; as outras três são confissões, e uma confissão não
+  autoriza gasto nem o condena. Um booleano obrigaria «não sei» a escolher um lado,
+  e o lado que ele escolheria seria sempre o «não».
+
+- **Consequência:**
+  - As 8 fontes que podiam gastar dinheiro sem avaliação passaram a **0**.
+  - Coleta recorrente e coleta total sobre fonte não avaliada passaram a **0**.
+  - 46 fontes de rota gratuita continuam observáveis **à mão e pontualmente** sem
+    decisão — por desenho, com o estado escrito em cada recibo. É a prova barata,
+    não coleta normal, e o gap está nomeado em vez de escondido.
+  - **Nenhuma decisão foi portada do atlas.** `GREEN → SIM` promoveria 17 fontes
+    por convenção de cor e deixaria de fora 4 que o próprio atlas declara
+    relevantes: o `YELLOW` é definido como «fonte real e **relevante**, mas com
+    atrito de acesso/licença/automação». Logo o verde não está a medir relevância.
+
+    ```
+    VERDICT_DO_ATLAS  = EIXO_MISTURADO
+    PORTADAS_DO_ATLAS = 0
+    UMA COR NÃO É UMA DECISÃO. PINTAR NÃO É AVALIAR.
+    ```
+
+  - **Corrigida uma deriva que tornava a fila de candidatas invisível.**
+    `candidatas/fonte_nova.py` escrevia em `data/samples/FONTES-CANDIDATAS.json` —
+    ficheiro que nem existe — enquanto a COL-LAW-053, o `AGENTS.md`, o
+    `scan_sources.py` e o índice de fontes apontavam todos para `candidatas/`.
+    O degrau 1 da escada estava a receber candidatas fora do alcance do mapa, do
+    censo e da lei.
+
+  ```
+  BIBLE_CHANGE_REQUIRED    = YES   (emenda nomeada, NÃO escrita nesta missão)
+  CONTRACT_CHANGE_REQUIRED = YES   (contrato novo, dono único)
+  ```
+
+  A Bíblia precisa de uma lei que hoje não tem: *nenhuma fonte gasta antes de
+  provar que serve para o propósito pedido*. A COL-LAW-053 desenha a escada de
+  quatro degraus e a COL-LAW-018 manda o portão grátis vir antes do gasto, mas
+  nenhuma das duas exige a decisão. Escrever a emenda é ato constitucional —
+  numeração, tabela de história, conformidade — e fica **declarado aqui em vez de
+  feito às pressas no fim de outra missão**.
+
+- **Quem decidiu:** missão SR-01. Relatório completo, com o rastreio, o censo, os
+  27 ataques e os 20 mutantes, em
+  [`docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md`](../operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md).
+
+    UMA DECISÃO QUE A PORTA NÃO CONHECE NÃO É UMA DECISÃO.
