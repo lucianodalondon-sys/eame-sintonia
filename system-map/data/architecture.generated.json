@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/restore-canonical-e2e-proof-v1",
-    "HEAD": "5fbfb3ff0692871ac023a6eca649ac8a90369834",
-    "GENERATED_AT": "2026-09-12T05:02:02+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8b1cbf6fa164dc7ca6ceee1455657b752c0ba1fb53f5587b1a24d0642b3ee010"
+    "HEAD": "d8c21d4a0d8fee1bf932ce1fd63365c8a92c410d",
+    "GENERATED_AT": "2026-09-12T10:46:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "64ff738682ff2e7706dee8f647da26ec9cf85cb03f177f3e755f6a1f7a3e42c0"
   },
   "FILES": [
     {
@@ -7899,7 +7899,7 @@
     },
     {
       "path": "provas/a_rota_m2_atravessa.py",
-      "sha": "b60f97f83c72bbf6e09c7ea2e491cc7988113aca",
+      "sha": "b3709f940d9559a76ab226b8789ee9ce8016ba82",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9768,7 +9768,7 @@
     },
     {
       "path": "tests/test_a_prova_e2e_segue_a_producao.py",
-      "sha": "3c3eed8eccdf31c087d6760d61f9831a5db31bc2",
+      "sha": "490034bf410a1bbb76549694887a8ed5189c6191",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10111,7 +10111,7 @@
     },
     {
       "path": "tests/test_m2_rota_forward.py",
-      "sha": "69bfee6ca6bf275b502af44344b5d059cfba13a0",
+      "sha": "0b3cf6a2f090bcad417dd059744ca02450d27ec4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27334,7 +27334,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 469,
+        "line": 471,
         "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
       }
     },
@@ -32581,7 +32581,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-        "line": 23,
+        "line": 24,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -32592,7 +32592,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-        "line": 28,
+        "line": 29,
         "snippet": "PROVA_ROTA = os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\")"
       }
     },
@@ -32603,7 +32603,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-        "line": 194,
+        "line": 232,
         "snippet": "MODELO = os.path.join(RAIZ, \"system-map\", \"data\", \"estradas-it.model.json\")"
       }
     },
@@ -32614,7 +32614,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-        "line": 27,
+        "line": 28,
         "snippet": "PROVA_E2E = os.path.join(RAIZ, \"tests\", \"test_m2_rota_forward.py\")"
       }
     },
@@ -35639,7 +35639,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 455,
+        "line": 482,
         "snippet": "import derivacao_forward as fwd"
       }
     },
@@ -35672,7 +35672,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 674,
+        "line": 701,
         "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
       }
     },
@@ -35744,12 +35744,23 @@
     },
     {
       "from_file": "tests/test_m2_rota_forward.py",
+      "to_file": "system-map/data/estradas-it.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_m2_rota_forward.py",
+        "line": 463,
+        "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "tests/test_m2_rota_forward.py",
       "to_file": "system-map/data/provas-de-execucao.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 672,
+        "line": 699,
         "snippet": "'provas-de-execucao.json'),"
       }
     },
@@ -39679,7 +39690,7 @@
     "files_tracked": 1495,
     "files_readable": 577,
     "files_code_dir": 622,
-    "file_edges": 2611,
+    "file_edges": 2612,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

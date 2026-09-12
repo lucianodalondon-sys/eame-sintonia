@@ -12,6 +12,7 @@ conferida por ninguem.
 """
 import hashlib
 import importlib.util
+import io
 import os
 import re
 import sys
@@ -42,15 +43,52 @@ def _um_pdf():
     raise AssertionError("nenhum PDF real no armazem de IT-T2-002")
 
 
+# ⚠️ UMA GUARDA ESCRITA DENTRO DO `assertIn` NAO TEM QUEM A CONFIRA.
+#
+# MEDIDO: enfraquecer a agulha (`assertIn("x", s + "x")`) nao partia nada — o
+# mutante sobrevivia. A regra escrita a direito dentro da asercao so sabe
+# responder sobre o ficheiro real, e um SIM sozinho nao distingue uma guarda
+# que morde de uma que ja nao morde.
+#
+# Isolada, a regra responde a DUAS perguntas: SIM ao ficheiro real, e NAO a um
+# exemplo escrito a mao. Enfraquece-la passa a partir a segunda.
+def _fixture_fala_pelo_tradutor(texto):
+    """A regra do `G-E2E-01`, isolada para poder ser ela propria conferida."""
+    return ("_ing.para_o_dono_do_raw(ficha, {})" in texto
+            and "'SOURCE_SLUG': 'IT-T2-002'" not in texto)
+
+
+# Dois exemplos sinteticos: um que a regra tem de aceitar, e um que ela tem de
+# recusar. Sao curtos de proposito — nao sao o ficheiro, sao a regra.
+_EXEMPLO_BOM = """
+        ficha = _art.raw_do_disco(caminho, RAIZ, SOURCE_ID='IT-T2-002')
+        art = _ing.para_o_dono_do_raw(ficha, {})
+"""
+_EXEMPLO_A_MAO = """
+        art = {'SOURCE_SLUG': 'IT-T2-002', 'SHA256': sha256(dados),
+               'BYTES': len(dados), 'MEDIA_TYPE': 'application/pdf'}
+"""
+
+
 class OFixtureFalaPeloTradutorDaProducao(unittest.TestCase):
     """O defeito `G-E2E-01`, guardado para nao voltar."""
 
     def test_o_fixture_nao_escreve_a_ficha_do_armazem_a_mao(self):
-        s = _fonte(PROVA_E2E)
-        self.assertIn("_ing.para_o_dono_do_raw(ficha, {})", s,
-                      "a prova voltou a imitar a lingua do armazem")
-        self.assertNotIn("'SOURCE_SLUG': 'IT-T2-002'", s,
-                         "voltou o dicionario escrito a mao")
+        self.assertTrue(_fixture_fala_pelo_tradutor(_fonte(PROVA_E2E)),
+                        "a prova voltou a imitar a lingua do armazem")
+
+    def test_e_a_regra_RECUSA_a_ficha_escrita_a_mao(self):
+        """⚠️ SO O NAO PROVA QUE A GUARDA MORDE. O SIM sozinho nao prova."""
+        self.assertFalse(_fixture_fala_pelo_tradutor(_EXEMPLO_A_MAO),
+                         "a regra aceita um dicionario escrito a mao:"
+                         " ela deixou de morder")
+        self.assertFalse(
+            _fixture_fala_pelo_tradutor(_EXEMPLO_A_MAO + _EXEMPLO_BOM),
+            "chamar o tradutor nao apaga o dicionario a mao ao lado")
+
+    def test_e_ACEITA_a_ficha_que_vem_do_dono(self):
+        self.assertTrue(_fixture_fala_pelo_tradutor(_EXEMPLO_BOM),
+                        "a regra recusa a forma correta: ela morde a mais")
 
     def test_o_tradutor_carrega_a_fonte_que_o_writer_exige(self):
         """A razao pela qual o fixture antigo reprovava a estrada."""
@@ -267,29 +305,55 @@ class AFonteQueATERRAEACANONICA(unittest.TestCase):
                                 "ha uma guarda a procurar a string vazia")
 
 
-DSN = os.environ.get("BANCO_DESCARTAVEL_URL") or ""
+# ⚠️ A PROVA DE VALOR NAO VIVE AQUI — E ELA NAO PODE SALTAR.
+#
+# Havia aqui uma prova que lia `raw_asset` e comparava a fonte aterrada com o
+# canario. Ela SALTAVA em todas as corridas: a `tearDownClass` de
+# `tests/test_m2_rota_forward.py` limpa o banco ao sair, entao este modulo
+# encontrava a tabela vazia e chamava `skipTest`. Um SKIP verde parece um PASS
+# no sumario, e nao e um: SKIP != PASS.
+#
+# A prova mudou-se para onde as linhas existem — `M2_TravessiaUnica`, no
+# ficheiro acima, que corre a travessia e pergunta ao banco ANTES de limpar.
+# Aqui fica so a guarda de que ela continua la: um dono, e uma sentinela que
+# nao o deixa desaparecer em silencio.
 
 
-@unittest.skipUnless(DSN, "sem PostgreSQL descartavel")
-class AFonteCHEGAAOBANCOINTEIRA(unittest.TestCase):
-    """A prova que nenhum teste de string faz: ler do banco o que aterrou."""
+class AProvaDEVALORCONTINUANOSITIOCERTO(unittest.TestCase):
+    """Quem apagar a leitura do banco tem de o fazer com esta a gritar."""
 
-    def test_o_source_id_no_raw_asset_e_o_do_canario(self):
-        import json
-        import subprocess
-        with open(os.path.join(RAIZ, "system-map", "data",
-                               "estradas-it.model.json"), encoding="utf-8") as f:
-            canario = json.load(f)["CANARIO"]["SOURCE_ID"]
-        r = subprocess.run(
-            ["psql", DSN, "-tA", "-c",
-             "select distinct source_id from public.raw_asset"],
-            capture_output=True, text=True)
-        fontes = [x for x in (r.stdout or "").split() if x]
-        if not fontes:
-            self.skipTest("nenhuma observacao no banco: corra a prova antes")
-        self.assertEqual(set(fontes), {canario},
-                         "aterrou uma fonte que nao e a do canario: %s"
-                         % fontes)
+    ALVO = os.path.join(RAIZ, "tests", "test_m2_rota_forward.py")
+
+    def _corpo_da_prova_de_valor(self):
+        import ast
+        arv = ast.parse(io.open(self.ALVO, encoding="utf-8").read())
+        for no in ast.walk(arv):
+            if not isinstance(no, ast.FunctionDef):
+                continue
+            if not no.name.startswith("test_"):
+                continue
+            texto = ast.dump(no)
+            if "public.raw_asset" in texto and "CANARIO" in texto:
+                return no
+        return None
+
+    def test_alguem_le_o_raw_asset_e_compara_com_o_canario(self):
+        no = self._corpo_da_prova_de_valor()
+        self.assertIsNotNone(
+            no, "nenhuma prova le `public.raw_asset` e compara com o CANARIO:"
+                " sobrou so guarda de texto, e defeito que da outro VALOR"
+                " passa por ela")
+
+    def test_e_ela_nao_salta_quando_a_tabela_esta_vazia(self):
+        """SKIP != PASS. Uma prova que se auto-salta nao prova nada."""
+        import ast
+        no = self._corpo_da_prova_de_valor()
+        self.assertIsNotNone(no, "nao ha prova de valor para conferir")
+        for dentro in ast.walk(no):
+            if isinstance(dentro, ast.Call) and getattr(
+                    dentro.func, "attr", None) == "skipTest":
+                self.fail("a prova de valor chama skipTest: ela volta a"
+                          " saltar em silencio")
 
 
 if __name__ == "__main__":

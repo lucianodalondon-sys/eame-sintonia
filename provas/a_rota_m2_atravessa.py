@@ -299,7 +299,9 @@ def main():
             "pdftotext ausente: sem ele o executor devolve FERRAMENTA_AUSENTE "
             "para tudo, e esta prova mediria a maquina, e nao a rota.")
 
-    print("MIGRATIONS — a cadeia canonica, ate a 026")
+    # ⚠️ O ROTULO VEM DA CADEIA, E NAO DE UMA MEMORIA. Escrito a mao,
+    # ele dizia "ate a 026" enquanto a cadeia ja ia na 027.
+    print("MIGRATIONS — a cadeia canonica, ate a %s" % MIGRATIONS[-1])
     caso("A1_a_cadeia_aplica_num_postgres_real",
          aplicar_migrations(url) == len(MIGRATIONS),
          "%d migrations em PostgreSQL 16" % len(MIGRATIONS))

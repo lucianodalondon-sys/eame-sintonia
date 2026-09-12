@@ -442,6 +442,33 @@ class M2_TravessiaUnica(Base):
             " where run_id = '%s' and etapa = 'READY'" % self.RUN)
         self.assertEqual('0', n[0][0], 'ADMISSION PASS virou READY PASS')
 
+    def test_o_SOURCE_ID_que_ATERRA_no_raw_e_o_do_canario(self):
+        """⚠️ VALOR, E NAO ESTRUTURA: LER DO BANCO A FONTE QUE FICOU.
+
+        Um defeito que devolve o valor CERTO so a estrutura denuncia. Um que
+        devolve OUTRO valor so o banco denuncia — e nenhum teste de texto o
+        apanha. Esta pergunta ao `raw_asset` qual fonte aterrou, e compara-a
+        com o canario declarado em `system-map/data/estradas-it.model.json`.
+
+        A comparacao e contra uma fonte de FORA deste ficheiro. Um numero
+        conferido contra ele proprio nao e uma conferencia: e um eco.
+
+        ⚠️ ESTA PROVA VIVE AQUI, E NAO NO FICHEIRO DE GUARDAS, PORQUE E AQUI
+        QUE AS LINHAS EXISTEM. A `tearDownClass` limpa o banco ao sair, entao
+        uma prova noutro modulo encontrava a tabela vazia e SALTAVA — em
+        silencio, em todas as corridas. SKIP != PASS.
+        """
+        self._correr()
+        with open(os.path.join(RAIZ, 'system-map', 'data',
+                               'estradas-it.model.json'), encoding='utf-8') as f:
+            canario = json.load(f)['CANARIO']['SOURCE_ID']
+        fontes = self.banco.executa(
+            "select distinct coalesce(source_id,'<NULL>')"
+            " from public.raw_asset where run_id like '%s%%'" % self.PREFIXO)
+        self.assertEqual([[canario]], [list(x) for x in fontes],
+                         'aterrou no raw_asset uma fonte que nao e a do'
+                         ' canario declarado')
+
     def test_se_a_derivacao_nao_entregar_a_cadeia_para_em_DERIVED(self):
         """A cadeia diz a verdade sobre onde parou — nao inventa STRUCTURED."""
         raw_id, pdf, armazem, memoria = self._bruto_real(self.RUN)

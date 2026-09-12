@@ -1943,9 +1943,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/restore-canonical-e2e-proof-v1",
-    "HEAD": "5fbfb3ff0692871ac023a6eca649ac8a90369834",
-    "GENERATED_AT": "2026-09-12T05:02:02+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8b1cbf6fa164dc7ca6ceee1455657b752c0ba1fb53f5587b1a24d0642b3ee010"
+    "HEAD": "d8c21d4a0d8fee1bf932ce1fd63365c8a92c410d",
+    "GENERATED_AT": "2026-09-12T10:46:36+00:00",
+    "SOURCE_TREE_FINGERPRINT": "64ff738682ff2e7706dee8f647da26ec9cf85cb03f177f3e755f6a1f7a3e42c0"
   },
   "FAMILIES": [
     {
@@ -19736,7 +19736,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 672,
+          "line": 699,
           "snippet": "'provas-de-execucao.json'),"
         },
         {
@@ -22180,7 +22180,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 455,
+          "line": 482,
           "snippet": "import derivacao_forward as fwd"
         }
       ],
@@ -23001,11 +23001,11 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O censo das classes de estrada da coleta italiana alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O censo das classes de estrada da coleta italiana alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-          "line": 194,
+          "line": 232,
           "snippet": "MODELO = os.path.join(RAIZ, \"system-map\", \"data\", \"estradas-it.model.json\")"
         },
         {
@@ -23032,6 +23032,11 @@
           "file": "tests/test_estradas_it.py",
           "line": 50,
           "snippet": "with open(MODELO, encoding='utf-8') as f:"
+        },
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 463,
+          "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:"
         },
         {
           "file": "tests/test_route_membership.py",
@@ -27875,7 +27880,7 @@
       "evidence": [
         {
           "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-          "line": 28,
+          "line": 29,
           "snippet": "PROVA_ROTA = os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\")"
         },
         {
@@ -28464,7 +28469,7 @@
       "evidence": [
         {
           "file": "provas/a_rota_m2_atravessa.py",
-          "line": 469,
+          "line": 471,
           "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
         }
       ],
@@ -28510,7 +28515,7 @@
         },
         {
           "file": "tests/test_m2_rota_forward.py",
-          "line": 674,
+          "line": 701,
           "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
         },
         {
