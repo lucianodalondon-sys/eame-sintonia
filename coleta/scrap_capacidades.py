@@ -125,6 +125,7 @@ _CE = 'docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md'
 _RE = 'docs/operacao/O-REEL-DEIXA-DE-SER-MUDO.md'
 _MZ = 'leis/social_matriz.py'
 _C3 = 'docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md'
+_LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'
 
 DECLARADAS = {
     # ── INSTAGRAM ─────────────────────────────────────────────────────────
@@ -144,7 +145,41 @@ DECLARADAS = {
     # ── LINKEDIN ──────────────────────────────────────────────────────────
     # A janela recente esta PROVEN e e RASA. Sao dois factos, e o segundo nao
     # revoga o primeiro: `LINKEDIN_DISCOVERY = BLOCKED` foi erro ja corrigido.
-    'linkedin.recent.discovery': ('LINKEDIN', PROVEN, ONLINE, None, _ER, 'DISCOVER_ACCOUNT'),
+    #
+    # ⚠️ A TRADUCAO DE `linkedin.recent.discovery` FOI RETIRADA NA LINKEDIN-BUILD-01.
+    # Ela dizia `DISCOVER_ACCOUNT`, e `mz.decisao('LINKEDIN','DISCOVER_ACCOUNT')`
+    # devolve ALLOWED — mas a unica rota debaixo dessa permissao e
+    # `descoberta-indireta:site-da-organizacao`, que le o site da PROPRIA
+    # organizacao e devolve um HANDLE. A propria matriz escreve o limite: «nunca
+    # conteudo de post fabricado».
+    #
+    #     «AS PUBLICACOES RECENTES DA PAGINA» E «O ENDERECO DA CONTA» SAO DOIS
+    #     ACTOS, E A TRADUCAO FAZIA O PRIMEIRO PEDIR EMPRESTADA A PERMISSAO DO
+    #     SEGUNDO.   `IDENTITY != CONTENT`, na camada de traducao.
+    #
+    # Nenhum codigo explorava isto, porque nenhuma das sete tinha rota. A porta
+    # estava destrancada por dentro. Retirar a traducao NAO abre rota nenhuma —
+    # retira uma que estava aberta pelo nome errado, e devolve a permissao ao
+    # dono que faz exactamente aquilo: `linkedin.identity.discovery`.
+    'linkedin.recent.discovery': ('LINKEDIN', PROVEN, ONLINE, None, _ER, None),
+    # A DONA DA PERMISSAO DE `DISCOVER_ACCOUNT` NO LINKEDIN, pelo mesmo desenho
+    # que o Facebook ja usa em `facebook.identity.discovery`.
+    #
+    # PARTIAL, e o teto esta medido: das sete sentinelas da C11, duas
+    # responderam e uma publicava o handle. As outras cinco falharam no WAF ou
+    # na ligacao do SITE DE TERCEIRO — nenhuma falha e do LinkedIn. E o que ela
+    # devolve e o endereco, nunca as publicacoes.
+    'linkedin.identity.discovery': ('LINKEDIN', PARTIAL, EITHER, None, _LB, 'DISCOVER_ACCOUNT'),
+    # UNKNOWN fala da PAGINA DE EMPRESA — «Show more» nao expoe URL de pagina
+    # seguinte. NAO fala do eixo de busca por palavra-chave: o bruto preservado
+    # mostra 472 posts entre 2018-01-09 e 2026-08-28, na pagina 1, por rota que
+    # a matriz declara `ROUTE_NOT_ALLOWED`.
+    #
+    #     DOIS EIXOS DE PROFUNDIDADE, E SO UM ESTA MEDIDO COMO DESCONHECIDO.
+    #
+    # O estado NAO muda aqui: uma rota proibida nao promove capacidade nenhuma,
+    # e separar os dois eixos em duas capacidades criaria uma segunda sem rota
+    # permitida. A decisao e de quem coordena — ver LINKEDIN-BUILD-01.
     'linkedin.history.discovery': ('LINKEDIN', UNKNOWN, AMBIENTE_DESCONHECIDO, None, _B, None),
     'linkedin.direct_post': ('LINKEDIN', PROVEN, ONLINE, None, _ER, 'FETCH_POST'),
     'linkedin.native_video': ('LINKEDIN', PROVEN, ONLINE, None, _ER, None),

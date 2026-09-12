@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "65fdbc7cf185269ad06609bbef2dd411fe8f252c",
-    "GENERATED_AT": "2026-09-12T16:24:31+00:00",
-    "SOURCE_TREE_FINGERPRINT": "527f7c55e6e590fbafce8e1f5186900bc3059b16812b3754d5c82a1c9d19c5e4"
+    "HEAD": "ed2adb3c8d2d3b59fa4464e3e396473dedac2b4d",
+    "GENERATED_AT": "2026-09-12T16:25:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "49cedca656a0449fa5a652366085197fe6cae85d454d043a553c4d1c70996e93"
   },
   "FILES": [
     {
@@ -1137,7 +1137,7 @@
     },
     {
       "path": "coleta/adaptador_linkedin.py",
-      "sha": "dbf72bbbb1b9f7f85675e6465defb1b9742c7b54",
+      "sha": "424652b154faab8b2cc564a5872575c44e2eb012",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1417,7 +1417,7 @@
     },
     {
       "path": "coleta/scrap_capacidades.py",
-      "sha": "5e1f28b6b5b9ead72c2565316e46f8fbd36a884d",
+      "sha": "268996c9151c6823fe180457d534a5651a45570c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5392,6 +5392,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md",
+      "sha": "5b6f018475dd4375adaca8fc986a8cb1520863fd",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/LINKEDIN-DEEP-STUDY-V1.md",
       "sha": "335579dc952889d5123aeb4d2a0aa430fa10c773",
       "ext": ".md",
@@ -8220,6 +8227,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/linkedin_local_first.py",
+      "sha": "af97e2cbcbbe18920273bc7bd4e1957f8eb7cfe9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_dedupe_tem_constraint.py",
       "sha": "6f54a6f126e4ac03e7b2f3ebe015ac5cc1ba526b",
       "ext": ".py",
@@ -9593,7 +9607,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ee410c0363077251a19932f3ac289a264f813105",
+      "sha": "42f74cb85f938bef87d644b9f716cab8f9455d9a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10329,6 +10343,13 @@
     {
       "path": "tests/test_lingua_unica.py",
       "sha": "bf1ed77638588a2a63facc60dabbdedb53bdc070",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_linkedin_build_01_local_first.py",
+      "sha": "06bfa0257508408631448125e59ec7e01a68583c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12262,8 +12283,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 40,
+        "line": 106,
         "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_linkedin.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_linkedin.py",
+        "line": 109,
+        "snippet": "import scrap_http as http  # noqa: E402"
       }
     },
     {
@@ -12273,8 +12305,30 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_linkedin.py",
-        "line": 41,
+        "line": 107,
         "snippet": "import scrap_registo as reg  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_linkedin.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_linkedin.py",
+        "line": 108,
+        "snippet": "import social_envelope as env  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_linkedin.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_linkedin.py",
+        "line": 562,
+        "snippet": "import social_matriz as mz"
       }
     },
     {
@@ -13571,7 +13625,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_capacidades.py",
-        "line": 204,
+        "line": 239,
         "snippet": "'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',"
       }
     },
@@ -13606,6 +13660,17 @@
         "file": "coleta/scrap_capacidades.py",
         "line": 123,
         "snippet": "_ER = 'docs/sintonia-scrap/ESTADO-REAL-V1.md'"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_capacidades.py",
+      "to_file": "docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/scrap_capacidades.py",
+        "line": 128,
+        "snippet": "_LB = 'docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md'"
       }
     },
     {
@@ -27106,6 +27171,83 @@
       }
     },
     {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 33,
+        "snippet": "import adaptador_linkedin as li    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 34,
+        "snippet": "import scrap_capacidades as cap    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 35,
+        "snippet": "import scrap_executor as ex        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 36,
+        "snippet": "import scrap_registo as reg        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 38,
+        "snippet": "import social_envelope as env      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "data/samples/ES-T8-002-posts.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 58,
+        "snippet": "NORMALIZADO = 'data/samples/ES-T8-002-posts.json'"
+      }
+    },
+    {
+      "from_file": "provas/linkedin_local_first.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/linkedin_local_first.py",
+        "line": 37,
+        "snippet": "import social_matriz as mz         # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/o_dedupe_tem_constraint.py",
       "to_file": "provas/inventario_esperado.py",
       "type": "IMPORTS",
@@ -36665,6 +36807,83 @@
       }
     },
     {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 21,
+        "snippet": "import adaptador_linkedin as li                                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "coleta/adaptador_linkedin.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 459,
+        "snippet": "arvore = ast.parse(open(caminho, encoding='utf-8').read())"
+      }
+    },
+    {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 22,
+        "snippet": "import scrap_capacidades as cap                                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 23,
+        "snippet": "import scrap_executor as sx                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 24,
+        "snippet": "import scrap_registo as reg                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 26,
+        "snippet": "import social_envelope as env                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_linkedin_build_01_local_first.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_linkedin_build_01_local_first.py",
+        "line": 25,
+        "snippet": "import social_matriz as mz                                        # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_lugar_do_fato.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -40819,10 +41038,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1523,
-    "files_readable": 589,
-    "files_code_dir": 638,
-    "file_edges": 2699,
+    "files_tracked": 1526,
+    "files_readable": 591,
+    "files_code_dir": 640,
+    "file_edges": 2717,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

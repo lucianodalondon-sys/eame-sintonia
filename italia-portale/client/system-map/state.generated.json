@@ -793,6 +793,7 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/LINKEDIN-BUILD-01-LOCAL-FIRST.md",
       "docs/sintonia-scrap/LINKEDIN-DEEP-STUDY-V1.md",
       "docs/sintonia-scrap/LINKEDIN-ROUTE-MATRIX-V1.json"
     ],
@@ -1224,6 +1225,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/linkedin_local_first.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
@@ -1542,6 +1544,7 @@
       "tests/test_integracao_biblia.py",
       "tests/test_italia_na_porta_canonica.py",
       "tests/test_lingua_unica.py",
+      "tests/test_linkedin_build_01_local_first.py",
       "tests/test_lugar_do_fato.py",
       "tests/test_m2_aresta_observada.py",
       "tests/test_m2_rota_forward.py",
@@ -1971,9 +1974,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/festive-fermi-1k2mf5",
-    "HEAD": "65fdbc7cf185269ad06609bbef2dd411fe8f252c",
-    "GENERATED_AT": "2026-09-12T16:24:31+00:00",
-    "SOURCE_TREE_FINGERPRINT": "527f7c55e6e590fbafce8e1f5186900bc3059b16812b3754d5c82a1c9d19c5e4"
+    "HEAD": "ed2adb3c8d2d3b59fa4464e3e396473dedac2b4d",
+    "GENERATED_AT": "2026-09-12T16:25:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "49cedca656a0449fa5a652366085197fe6cae85d454d043a553c4d1c70996e93"
   },
   "FAMILIES": [
     {
@@ -12105,6 +12108,7 @@
         "provas/bluesky_trial_ao_vivo.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
+        "provas/linkedin_local_first.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/orcamento_de_rede.py",
         "provas/orcamento_financeiro.py",
@@ -12123,7 +12127,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 23,
+      "file_count": 24,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12176,7 +12180,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ESPANHA": 1
+        "ESPANHA": 2
       },
       "pais": "TRANSVERSAL",
       "vocabulario": {
@@ -12191,6 +12195,7 @@
           "COLS_RUN",
           "COLUNA_DO_DESTINO",
           "ENTRADA",
+          "ESPERADO",
           "FIXTURES",
           "IMPLEMENTACOES",
           "LOCAL",
@@ -12202,9 +12207,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 210,
+        "palavras": 218,
         "por_lingua": {},
-        "sem_marca_de_lingua": 210,
+        "sem_marca_de_lingua": 218,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13992,19 +13997,24 @@
           "ALVOS",
           "ALVOS_YOUTUBE_IT",
           "ALVO_OFICIAL",
+          "BANDEIRAS",
+          "CAMPOS_DA_LISTAGEM",
+          "CAMPOS_DE_ENRIQUECIMENTO",
           "CONTENT_TYPES",
           "DECLARADAS",
           "FASES_CANONICAS",
           "FASES_QUE_NAO_ATRAVESSAM_O_BOUNDARY",
+          "JANELA",
+          "ONDE_SE_OBTEM",
           "PLATAFORMA_NO_BANCO",
           "POR_CLASSE",
           "RAZOES",
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 219,
+        "palavras": 300,
         "por_lingua": {},
-        "sem_marca_de_lingua": 219,
+        "sem_marca_de_lingua": 300,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15662,6 +15672,7 @@
         "tests/test_integracao_biblia.py",
         "tests/test_italia_na_porta_canonica.py",
         "tests/test_lingua_unica.py",
+        "tests/test_linkedin_build_01_local_first.py",
         "tests/test_lugar_do_fato.py",
         "tests/test_m2_aresta_observada.py",
         "tests/test_m2_rota_forward.py",
@@ -15710,7 +15721,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 108,
+      "file_count": 109,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -29383,7 +29394,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -29394,6 +29405,11 @@
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 43,
           "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 37,
+          "snippet": "import social_matriz as mz         # noqa: E402"
         },
         {
           "file": "provas/orcamento_financeiro.py",
@@ -29508,12 +29524,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 9 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 48,
           "snippet": "import social_matriz as mz           # noqa: E402 — DONO da decisao de rota"
+        },
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 562,
+          "snippet": "import social_matriz as mz"
         },
         {
           "file": "coleta/scrap_executor.py",
@@ -29589,7 +29610,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 42 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 43 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29889,7 +29910,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 39 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 44 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -30074,7 +30095,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 99 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 104 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -30147,7 +30168,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 55 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 56 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -32787,7 +32808,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 772,
+  "UNCLAIMED_FILES_COUNT": 773,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32959,8 +32980,8 @@
     "edges_proven": 672,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1523,
-    "files_covered": 751,
+    "files_tracked": 1526,
+    "files_covered": 753,
     "files_code_unclaimed": 0
   }
 }

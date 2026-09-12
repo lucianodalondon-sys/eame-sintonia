@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "65fdbc7cf185269ad06609bbef2dd411fe8f252c",
+    "HEAD": "ed2adb3c8d2d3b59fa4464e3e396473dedac2b4d",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4398,6 +4398,23 @@
       ]
     },
     {
+      "endpoint": "https://www.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 266
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 383
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 339
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.tld/x')",
       "usado_por": [
         {
@@ -4636,6 +4653,32 @@
       ]
     },
     {
+      "endpoint": "https://it.linkedin.com/in",
+      "usado_por": [
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 267
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 340
+        }
+      ]
+    },
+    {
+      "endpoint": "https://twitter.com/x",
+      "usado_por": [
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 268
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 382
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -4715,33 +4758,6 @@
         {
           "file": "coleta/adaptador_aberto.py",
           "line": 105
-        }
-      ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 113
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/s",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 148
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/%s'",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 157
         }
       ]
     }
