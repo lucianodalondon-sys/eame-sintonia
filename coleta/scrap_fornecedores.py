@@ -112,9 +112,19 @@ def do_registo(capacidade, registo):
     # coisas diferentes, e colapsa-las e a forma mais barata de publicar um
     # palpite com cara de medida.
     medida = (registo or {}).get('MEDIDA') or {}
-    for campo in ('QUOTA_UNITS', 'QUOTA_SEARCH_CALLS'):
+    for campo in ('QUOTA_UNITS', 'QUOTA_SEARCH_CALLS', 'PROVIDER_SIDE_CAP_USD',
+                  'FINANCIAL_RESERVATION'):
         if campo in medida:
             trace[campo] = medida[campo]
+    # ── O EIXO DO CONHECIMENTO DO CUSTO SOBE SEMPRE ──────────────────────────
+    # `COST_USD` ja subia, e sozinho ele nao distingue as tres situacoes. Este
+    # campo distingue-as, e por isso nao tem valor por omissao: quando o
+    # roteador nao correu de todo, ele diz `NOT_RUN` — que e exactamente o que
+    # aconteceu.
+    #
+    #     NOT_RUN != COST 0. UNKNOWN COST != COST 0.
+    trace['COST_STATE'] = (registo or {}).get('COST_STATE', 'NOT_RUN')
+    trace['ACTUAL_COST_USD'] = (registo or {}).get('ACTUAL_COST_USD')
     trace['NATIVE_REASON'] = (registo or {}).get('NATIVE_REASON')
     trace['RECOVERY_ACTION'] = (registo or {}).get('RECOVERY_ACTION')
     trace['FAILURE_LAYER'] = (registo or {}).get('FAILURE_LAYER')
@@ -175,6 +185,14 @@ class Percurso:
                 self.degraus[-1]['RESULT'] if self.degraus else 'NOT_ATTEMPTED'),
             'PROVIDER_STEPS': list(self.degraus),
             'PAID_PROVIDER_USED': usado in PAGOS if usado else False,
+            # ── O QUE SE SABE DO CUSTO COMECA SEMPRE NO MESMO SITIO ──────────
+            # Um trace sem este campo obrigava quem le a deduzir «nao correu»
+            # pela AUSENCIA — e ausencia nao e valor. Todo trace nasce em
+            # `NOT_RUN`; quem correu sobrescreve.
+            #
+            #     NOT_RUN != COST 0.
+            'COST_STATE': 'NOT_RUN',
+            'ACTUAL_COST_USD': None,
         }
         conferir(trace)
         return trace

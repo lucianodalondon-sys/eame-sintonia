@@ -58,6 +58,7 @@ import social_sessao as ss         # noqa: E402  — LOCAL_SESSION e rota, nao m
 import scrap_http as http          # noqa: E402  — o portao e a busca
 import scrap_registo as reg        # noqa: E402  — o mapa, dono unico
 import scrap_capacidades as cap    # noqa: E402  — a declaracao
+import coletor                     # noqa: E402  — o dono do dinheiro
 
 # ── O QUE MUDOU DE SITIO, E CONTINUA A ATENDER PELO NOME ANTIGO ───────────
 # Codigo vivo e testes ja chamam `social_rotas.permitido`. Mudar o ficheiro de
@@ -69,6 +70,11 @@ RotaNaoPermitida = http.RotaNaoPermitida
 RotaBloqueada = http.RotaBloqueada
 PortaoIndisponivel = http.PortaoIndisponivel
 SemOrcamentoDeRede = http.SemOrcamentoDeRede
+#: A recusa do teto de DINHEIRO. Vem do dono do dinheiro, e nao daqui — este
+#: ficheiro autoriza a rota paga, nunca decide ATE QUANTO.
+#:
+#:     PAID_ROUTE_AUTHORIZATION != FINANCIAL_BUDGET.
+SemOrcamentoFinanceiro = coletor.SemOrcamentoFinanceiro
 _EstadoDaApi = http.EstadoDaApi
 permitido = http.permitido
 _get = http.buscar
@@ -118,6 +124,16 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         'ROTA_ESCOLHIDA': None, 'CLASSE_DA_ROTA': None,
         'AUTH_MODE': None, 'ESTADO': None, 'OBJETOS': 0,
         'COST_USD': 0.0, 'ERRO': None, 'MOTIVO_PAGO': None,
+        # ── O QUE SE SABE DO CUSTO, QUE NAO E O CUSTO ────────────────────────
+        # `COST_USD` e um numero e comeca em zero. Um numero sozinho nao
+        # distingue «a rota nao correu» de «a rota correu e foi de graca» de
+        # «a rota correu, era paga, e ninguem conseguiu ler quanto custou».
+        #
+        #     NOT_RUN != 0. UNKNOWN != 0.
+        #
+        # Entao o EIXO do conhecimento e um campo proprio, e comeca no unico
+        # valor que e sempre verdade antes de a rota correr.
+        'COST_STATE': 'NOT_RUN', 'ACTUAL_COST_USD': None,
         # ── O BALDE DA MEDIDA ────────────────────────────────────────────────
         # `COST_USD` ja era o eixo do gasto em dolar. Falta o eixo da QUOTA: uma
         # API oficial e gratuita e NAO e infinita, e quem gasta unidades e a
@@ -199,13 +215,17 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
     try:
         objetos = fn(run_id=run_id, country_scope=country_scope,
                      medida=registro['MEDIDA'], **kwargs)
-    except SemOrcamentoDeRede:
-        # A recusa do TETO sobe inteira ate ao executor, que e quem sabe qual
-        # era o teto. Traduzi-la aqui para um estado de rota faria a casa dizer
-        # que a fonte recusou quando fomos nos.
+    except (SemOrcamentoDeRede, SemOrcamentoFinanceiro):
+        # As recusas dos DOIS TETOS sobem inteiras ate ao executor, que e quem
+        # sabe qual era cada teto. Traduzi-las aqui para um estado de rota faria
+        # a casa dizer que a fonte recusou quando fomos nos.
         #
         #     ESGOTAR O ORCAMENTO NAO E A FONTE ESTAR VAZIA,
         #     E TAMBEM NAO E A PLATAFORMA IMPEDIR.
+        #
+        # E sao DUAS excecoes e nao uma porque sao dois eixos: uma diz «nao cabe
+        # mais uma ida», a outra diz «nao cabe mais exposicao». Colapsa-las faria
+        # o rasto mentir sobre qual dos dois tetos parou a execucao.
         raise
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
@@ -260,6 +280,25 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
 
     registro['ESTADO'] = 'OK' if objetos else 'ZERO_RESULTS'
     registro['OBJETOS'] = len(objetos)
+    # ── A ROTA CORREU. O QUE SE SABE DO CUSTO DELA? ──────────────────────────
+    # Quem sabe o preco da chamada e o dono da chamada, e ele declara-o na
+    # MEDIDA. Este ficheiro nao inventa numero nenhum: ele so sabe a CLASSE, e
+    # a classe responde uma coisa so — se a politica declara a rota gratuita,
+    # entao zero e um facto e nao um palpite.
+    #
+    # Uma rota PAGA que correu e nao declarou custo e o caso perigoso: o numero
+    # existe do lado do provider e nao chegou ca. Isso e `UNKNOWN`, nunca zero.
+    medida = registro.get('MEDIDA') or {}
+    if 'COST_STATE' in medida:
+        registro['COST_STATE'] = medida['COST_STATE']
+        registro['ACTUAL_COST_USD'] = medida.get('ACTUAL_COST_USD')
+    elif escolhida['CLASSE'] in ('APIFY', 'OFFICIAL_API_PAID'):
+        registro['COST_STATE'] = 'UNKNOWN'
+    else:
+        registro['COST_STATE'] = 'FREE_ROUTE_BY_POLICY'
+        registro['ACTUAL_COST_USD'] = 0.0
+    if registro.get('ACTUAL_COST_USD') is not None:
+        registro['COST_USD'] = registro['ACTUAL_COST_USD']
     return objetos, registro
 
 

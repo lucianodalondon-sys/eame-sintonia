@@ -87,6 +87,319 @@ STATUS_TERMINAIS = ('SUCCEEDED', 'FAILED', 'ABORTED', 'TIMED-OUT')
 STATUS_TRANSITORIOS = ('READY', 'RUNNING', 'ABORTING')
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# O ORÇAMENTO FINANCEIRO DESTA EXECUÇÃO
+# ══════════════════════════════════════════════════════════════════════════════
+# A C10.8A-R provou o primeiro teto: quantos ACESSOS uma execução pode fazer. Este
+# é o segundo, e ele é de outra natureza.
+#
+#     REQUEST COUNT != MONEY.
+#
+# Dez chamadas à API oficial do YouTube gastam dez idas à rede e zero dólares. Um
+# único POST que acende um ator da Apify gasta uma ida e compromete dinheiro antes
+# de alguém saber quanto. Os dois eixos medem coisas diferentes e nenhum responde
+# pelo outro:
+#
+#     NETWORK BUDGET decide SE CABE MAIS UMA IDA.
+#     FINANCIAL BUDGET decide SE PODEMOS ASSUMIR MAIS EXPOSIÇÃO FINANCEIRA.
+#
+# POR QUE ELE VIVE AQUI, E NÃO NUM FICHEIRO NOVO
+# ------------------------------------------------
+# O censo da C10.8A-F mediu, e não presumiu: `POST /v2/acts/{ator}/runs` — a linha
+# abaixo, dentro de `executar()` — é o ÚNICO sítio desta casa que compromete
+# dinheiro. As trinta e cinco capacidades declaradas têm três com rota paga por
+# omissão e ZERO com adaptador; `ferramentas/contrato_ator.py` toca a Apify mas só
+# com `GET` sem credencial. Uma porta, e é esta.
+#
+# Por isso, e ao contrário do teto de rede — que tem 25 portas e por isso é
+# declarado em `scrap_http` e cobrado nas primitivas do Python —, aqui o dono do
+# conceito e o ponto de cobrança são o MESMO ficheiro. Não por comodidade: porque
+# a medição disse que só há um.
+#
+#     ONE CONCEPT → ONE OWNER. Quando há uma só porta, o dono está nela.
+#
+# E ele é da EXECUÇÃO, não do processo: duas corridas têm orçamentos distintos, e a
+# segunda não herda a dívida da primeira.
+import contextlib
+import threading
+
+_LOCAL = threading.local()
+
+#: O dinheiro vive em MICRO-DÓLARES INTEIROS por dentro. Somar `float` de dólar
+#: acumula erro, e um teto que erra na sexta casa decimal é um teto que às vezes
+#: deixa passar. A Apify reporta `usageTotalUsd` com essa mesma granularidade.
+MICRO = 1000000
+
+#: O que se SABE do custo de uma chamada. Quatro valores, e nenhum colapsa no
+#: outro:
+#:
+#:     NOT_RUN          != 0 — o provider nunca foi chamado.
+#:     UNKNOWN          != 0 — foi chamado e não conseguimos ler quanto custou.
+#:     READ_NOT_SETTLED      — lemos `usageTotalUsd`, e a Apify ainda não fechou a
+#:                             conta. Esta casa já anunciou US$0,90 e pagou
+#:                             US$5,04 exactamente por publicar este valor como
+#:                             se fosse o final.
+#:     SETTLED               — reconciliado depois. Não acontece aqui; acontece em
+#:                             `provas/corrigir_custo.py`, e é o único definitivo.
+#:
+#: Por isso o eixo `ACTUAL` deste orçamento quer dizer «o que se conseguiu LER»,
+#: nunca «o que se pagou».
+#:
+#:     READ COST != SETTLED COST.
+CUSTO_NAO_CORRIDO = 'NOT_RUN'
+CUSTO_DESCONHECIDO = 'UNKNOWN'
+CUSTO_LIDO = 'READ_NOT_SETTLED'
+CUSTO_LIQUIDADO = 'SETTLED'
+
+
+def _micros(valor):
+    """Dólar → micro-dólar inteiro. `None` continua `None`: ausência não é zero."""
+    if valor is None:
+        return None
+    return int(round(float(valor) * MICRO))
+
+
+def _dolares(micros):
+    return round(micros / float(MICRO), 6)
+
+
+class SemOrcamentoFinanceiro(RuntimeError):
+    """A chamada paga que NÃO acontece. Ela morre antes do provider.
+
+    Não é a fonte a recusar, não é a plataforma a bloquear e não é o teto de rede:
+    é esta casa a cumprir um limite de DINHEIRO que ela própria declarou. Quem a
+    apanhar não pode traduzi-la para `SOURCE_UNAVAILABLE`, `BLOCKED` nem
+    `NETWORK_BUDGET_EXHAUSTED` — são quatro coisas diferentes e só uma aconteceu.
+    """
+
+
+class Reserva(object):
+    """Dinheiro comprometido por UMA chamada, à espera de saber o que custou.
+
+    Ela existe porque `AUTHORIZED`, `COMMITTED` e `ACTUAL` são três eixos, e o
+    intervalo entre o segundo e o terceiro é exactamente onde o dinheiro fica sem
+    dono se ninguém o guardar.
+    """
+
+    def __init__(self, orcamento, cap_micros, registo):
+        self.orcamento = orcamento
+        self.cap_micros = cap_micros
+        self.registo = registo
+        self.fechada = False
+
+    @property
+    def cap(self):
+        """O teto que vai como `maxTotalChargeUsd` — nunca acima do que resta."""
+        return _dolares(self.cap_micros)
+
+    def liquidar(self, custo):
+        """Fecha a reserva com o custo REAL, lido do provider.
+
+        `custo=None` não é zero: é `UNKNOWN`, e `UNKNOWN` não devolve o dinheiro.
+        """
+        return self.orcamento._fechar(self, _micros(custo))
+
+    def desconhecer(self):
+        """O provider pode ter cobrado e não temos como saber. O dinheiro fica fora.
+
+            UM GASTO QUE NÃO SE CONSEGUE LER NÃO É UM GASTO QUE NÃO ACONTECEU.
+        """
+        return self.orcamento._fechar(self, None)
+
+    def anular(self, porque):
+        """A chamada PROVADAMENTE não correu — o provider respondeu «não».
+
+        Só para o caso em que a própria plataforma devolveu recusa SEM criar
+        execução. Usar isto num caso duvidoso seria devolver ao bolso dinheiro
+        que talvez já tenha saído.
+        """
+        return self.orcamento._fechar(self, 0, anulada=porque)
+
+
+class OrcamentoFinanceiro(object):
+    """Quanto dinheiro esta execução ainda pode comprometer.
+
+    Sete conceitos, e eles não se misturam:
+
+        AUTHORIZED  o que a execução foi autorizada a comprometer
+        COMMITTED   reservado por chamadas em curso, ainda sem custo lido
+        ACTUAL      o que chamadas terminadas custaram de verdade
+        UNKNOWN     reservado por chamadas cujo custo nunca se soube
+        REMAINING   AUTHORIZED − (ACTUAL + COMMITTED + UNKNOWN)
+        EXHAUSTED   não resta nada para comprometer
+        REFUSED     quantas chamadas o teto recusou antes do provider
+    """
+
+    def __init__(self, limite):
+        if limite is None or float(limite) < 0:
+            raise ValueError('limite financeiro inválido: %r' % limite)
+        self.limite_micros = _micros(limite)
+        self.gasto_micros = 0
+        self.comprometido_micros = 0
+        self.desconhecido_micros = 0
+        self.recusadas = 0
+        self.tentativas = []
+        # A trava existe para que duas chamadas nunca leiam o mesmo saldo e
+        # comprometam as duas. O runtime de hoje é SERIAL — medido: não há
+        # `threading`, `concurrent.futures` nem `asyncio` em nenhuma das três
+        # portas pagas — mas segurança presumida não é segurança medida.
+        self._trava = threading.Lock()
+
+    # ── os sete conceitos, em dólar ──────────────────────────────────────────
+    @property
+    def autorizado(self):
+        return _dolares(self.limite_micros)
+
+    @property
+    def gasto(self):
+        return _dolares(self.gasto_micros)
+
+    @property
+    def comprometido(self):
+        return _dolares(self.comprometido_micros)
+
+    @property
+    def desconhecido(self):
+        return _dolares(self.desconhecido_micros)
+
+    @property
+    def exposto_micros(self):
+        return self.gasto_micros + self.comprometido_micros + self.desconhecido_micros
+
+    @property
+    def restante(self):
+        return _dolares(max(0, self.limite_micros - self.exposto_micros))
+
+    @property
+    def esgotado(self):
+        return self.exposto_micros >= self.limite_micros
+
+    def reservar(self, *, pedido=None, ator=None, rota=None, motivo=None):
+        """Compromete dinheiro ANTES de o provider ser chamado. → `Reserva`.
+
+        `pedido` é o teto que o chamador queria mandar ao provider. Ele é
+        REBAIXADO ao que resta — nunca o contrário:
+
+            PROVIDER CAP <= EXECUTION REMAINING.
+
+        Sem `pedido`, o teto enviado é o saldo inteiro: uma chamada paga sem
+        trava do lado do provider é exposição sem fim, e um orçamento declarado
+        não pode permitir isso.
+        """
+        registo = {'PROVIDER': 'APIFY', 'ACTOR': ator, 'ROUTE': rota,
+                   'MOTIVO_PAGO': motivo, 'PROVIDER_SIDE_CAP': None,
+                   'OUTCOME': None, 'COST_STATE': CUSTO_NAO_CORRIDO,
+                   'ACTUAL_COST_USD': None}
+        with self._trava:
+            resto = max(0, self.limite_micros - self.exposto_micros)
+            pedido_micros = _micros(pedido)
+            cap = resto if pedido_micros is None else min(pedido_micros, resto)
+            if cap <= 0:
+                self.recusadas += 1
+                registo.update({'OUTCOME': 'REFUSED_BY_FINANCIAL_BUDGET'})
+                self.tentativas.append(registo)
+                raise SemOrcamentoFinanceiro(
+                    'orçamento financeiro esgotado: autorizado US$%s, exposto '
+                    'US$%s (gasto US$%s + comprometido US$%s + desconhecido '
+                    'US$%s), e esta chamada (%s) precisaria de mais.'
+                    % (self.autorizado, _dolares(self.exposto_micros), self.gasto,
+                       self.comprometido, self.desconhecido, ator or rota or '?'))
+            self.comprometido_micros += cap
+            registo['PROVIDER_SIDE_CAP'] = _dolares(cap)
+            registo['OUTCOME'] = 'COMMITTED'
+            self.tentativas.append(registo)
+            return Reserva(self, cap, registo)
+
+    def _fechar(self, reserva, custo_micros, anulada=None):
+        with self._trava:
+            if reserva.fechada:
+                return reserva.registo
+            reserva.fechada = True
+            self.comprometido_micros -= reserva.cap_micros
+            if custo_micros is None:
+                # O dinheiro NÃO volta. Devolvê-lo deixaria a execução seguinte
+                # gastar de novo aquilo que talvez já tenha saído.
+                self.desconhecido_micros += reserva.cap_micros
+                reserva.registo.update({'OUTCOME': 'UNKNOWN_COMMITMENT',
+                                        'COST_STATE': CUSTO_DESCONHECIDO,
+                                        'ACTUAL_COST_USD': None})
+            else:
+                self.gasto_micros += custo_micros
+                reserva.registo.update(
+                    {'OUTCOME': anulada or 'CLOSED_WITH_READ_COST',
+                     'COST_STATE': (CUSTO_NAO_CORRIDO if anulada
+                                    else CUSTO_LIDO),
+                     'ACTUAL_COST_USD': _dolares(custo_micros)})
+                if custo_micros > reserva.cap_micros:
+                    # O provider cobrou acima do teto que lhe foi dado. Isso não
+                    # é sucesso financeiro: é uma trava que não travou, e tem de
+                    # aparecer como tal.
+                    reserva.registo['OUTCOME'] = 'PROVIDER_EXCEEDED_CAP'
+                    reserva.registo['PROVIDER_CAP_BREACH_USD'] = _dolares(
+                        custo_micros - reserva.cap_micros)
+            return reserva.registo
+
+    def para_o_rasto(self):
+        return {
+            'FINANCIAL_BUDGET_AUTHORIZED_USD': self.autorizado,
+            'FINANCIAL_BUDGET_COMMITTED_USD': self.comprometido,
+            'FINANCIAL_BUDGET_ACTUAL_USD': self.gasto,
+            'FINANCIAL_BUDGET_UNKNOWN_USD': self.desconhecido,
+            'FINANCIAL_BUDGET_REMAINING_USD': self.restante,
+            'FINANCIAL_BUDGET_EXHAUSTED': self.esgotado,
+            'FINANCIAL_CALLS_REFUSED': self.recusadas,
+            'FINANCIAL_ATTEMPTS': list(self.tentativas),
+        }
+
+
+def _orcamento_de_rede():
+    """O teto de ACESSOS desta execucao, perguntado ao dono dele.
+
+    Perguntado, e nao guardado: um saldo de rede copiado para ca seria um
+    segundo contador, e dois contadores da mesma coisa divergem sempre.
+    """
+    try:
+        import scrap_http as _http
+    except ImportError:                                           # pragma: no cover
+        return None
+    return _http.orcamento_actual()
+
+
+def orcamento_financeiro_actual():
+    """O orçamento desta execução, ou None quando ninguém declarou um."""
+    return getattr(_LOCAL, 'orcamento', None)
+
+
+@contextlib.contextmanager
+def orcamento_financeiro(limite):
+    """Instala um teto de GASTO para o bloco inteiro.
+
+    Ao contrário do teto de rede, aqui não há primitiva do Python a embrulhar: o
+    ponto onde o dinheiro é comprometido é uma linha desta casa, e é chamada por
+    nome. Um teto que se cobra onde o gasto nasce não precisa de armadilha.
+
+    O objecto pode ser passado em vez do número — é assim que duas linhas de
+    execução partilham o MESMO saldo em vez de cada uma ganhar o seu.
+    """
+    anterior = getattr(_LOCAL, 'orcamento', None)
+    orc = (limite if isinstance(limite, OrcamentoFinanceiro)
+           else OrcamentoFinanceiro(limite))
+    _LOCAL.orcamento = orc
+    try:
+        yield orc
+    finally:
+        _LOCAL.orcamento = anterior
+
+
+def _recusas_nossas():
+    """As excecoes que sao RECUSA DESTA CASA, e nunca resposta da fonte."""
+    try:
+        import scrap_http as _http
+        return (SemOrcamentoFinanceiro, _http.SemOrcamentoDeRede)
+    except ImportError:                                           # pragma: no cover
+        return (SemOrcamentoFinanceiro,)
+
+
 class PostTalvezCriado(RuntimeError):
     """O POST caiu no transporte e NÃO foi repetido — a execução pode existir mesmo assim.
 
@@ -136,7 +449,26 @@ def _curl(url, *, token, metodo='GET', corpo=None, timeout=300, tentativas=4):
     ultimo = ''
     vezes = 1 if metodo.upper() in ('POST', 'PUT', 'PATCH', 'DELETE') else tentativas
     for n in range(vezes):
+        # ── ESTA PORTA TAMBEM CONTA PARA O TETO DE ACESSOS ────────────────────
+        # A C10.8A-R cobrou o teto de rede em `urlopen` e `socket.create_connection`
+        # porque as portas de Python desta casa passam todas por uma das duas.
+        # ESTA nao passa: ela abre um PROCESSO `curl`. Medido na C10.8A-F, e por
+        # isso escrito aqui em vez de presumido la.
+        #
+        #     UM TETO COBRADO NA PRIMITIVA NAO VE QUEM SAI POR UM SUBPROCESSO.
+        #
+        # O dono do conceito «rede» continua a ser `scrap_http`. Este ficheiro
+        # nao conta nada: ele PEDE autorizacao a quem conta.
+        _rede = _orcamento_de_rede()
+        _registo_de_rede = None
+        if _rede is not None:
+            import scrap_http as _http
+            _registo_de_rede = _rede.reservar(
+                _http.PEDIDO_ROTA if n == 0 else _http.PEDIDO_RETENTATIVA, url)
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+        if _registo_de_rede is not None:
+            _registo_de_rede['OUTCOME'] = ('OK' if r.returncode == 0
+                                           else 'CURL_%d' % r.returncode)
         if r.returncode == 0 and (r.stdout or '').strip():
             try:
                 return json.loads(r.stdout)
@@ -248,8 +580,25 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
 
     `teto_usd` vira `&maxTotalChargeUsd=` e `build` vira `&build=`. Os dois são travas do
     lado da plataforma — valem mesmo que este arquivo tenha um defeito.
+
+    QUANDO HÁ ORÇAMENTO FINANCEIRO DECLARADO
+    ------------------------------------------
+    `teto_usd` deixa de ser o que o chamador pediu e passa a ser o que CABE: ele é
+    rebaixado ao saldo que resta, e a chamada que não couber morre aqui, antes do
+    POST. Sem orçamento declarado nada muda — nem o `teto_usd`, nem o manifesto.
+
+        PROVIDER CAP != EXECUTION BUDGET.
     """
     started = agora()
+    # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
+    # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
+    # ela que decide o `maxTotalChargeUsd` que vai na query.
+    orcamento = orcamento_financeiro_actual()
+    reserva = None
+    if orcamento is not None:
+        reserva = orcamento.reservar(pedido=teto_usd, ator=actor,
+                                     rota=evidence_path, motivo=mission)
+        teto_usd = reserva.cap
     try:
         params = ['waitForFinish=%d' % min(int(wait), ESPERA_MAXIMA_DA_PLATAFORMA)]
         if teto_usd is not None:
@@ -266,6 +615,13 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
             # não paga duas vezes — e se não nasceu nenhuma, a falha continua sendo falha.
             achada = _ultima_execucao(actor, token=token, desde=started)
             if not achada:
+                # NÃO se conclui «não gastou». Não ter ACHADO execução é uma
+                # leitura, não uma prova — e o dinheiro que ficou comprometido
+                # continua comprometido.
+                #
+                #     POTENTIAL COMMITMENT != NOTHING HAPPENED.
+                if reserva is not None:
+                    reserva.desconhecer()
                 raise RuntimeError('%s — e nenhuma execução deste ator nasceu depois de %s, '
                                    'então o pedido não chegou.' % (e, started))
             run, adotada = {'data': achada}, 'YES'
@@ -277,6 +633,11 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         # RESPOSTA, e precisa aparecer como tal.
         if run.get('error'):
             e = run['error']
+            # A plataforma RESPONDEU e não criou execução nenhuma. Este é o único
+            # caso em que o dinheiro volta inteiro ao saldo — porque houve prova
+            # de que não houve corrida, e não apenas ausência de notícia.
+            if reserva is not None:
+                reserva.anular('API_REFUSED_NO_RUN_CREATED')
             raise RuntimeError('API recusou: %s — %s' % (e.get('type'), str(e.get('message'))[:300]))
         d = run.get('data') or {}
 
@@ -331,6 +692,20 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         else:
             status = 'SUCCESS'
             erro = ('statusMessage: %s' % msg) if msg else pv.NOT_PRESERVED
+    except _recusas_nossas():
+        # TERCEIRA vez nesta cadeia que um `except` largo veste uma recusa NOSSA
+        # com a roupa da fonte. Um teto que devolve `STATUS: FAILED` faz o
+        # manifesto dizer que a Apify falhou quando fomos nos que nao deixamos
+        # sair.
+        #
+        #     UM `except Exception` LARGO NAO DISTINGUE QUEM DISSE NAO.
+        #
+        # E se o teto de REDE recusou, o POST provadamente nao saiu: o dinheiro
+        # reservado volta inteiro. Este e o outro caso — com prova — em que ele
+        # volta.
+        if reserva is not None and not reserva.fechada:
+            reserva.anular('REFUSED_BY_NETWORK_BUDGET_NO_POST_SENT')
+        raise
     except Exception as e:                                   # falha é estado, não zero
         d, dataset, itens = {}, None, []
         terminal, consultas, adotada = False, 0, 'NO'
@@ -401,6 +776,21 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     # que não acabou. São duas perguntas diferentes e cada uma tem seu campo.
     manifesto['RAW_COMPLETENESS'] = ('RUN_REACHED_TERMINAL_STATUS' if terminal
                                      else 'PARTIAL_RUN_WAS_NOT_TERMINAL')
+
+    # ── A RESERVA FECHA-SE COM O QUE SE CONSEGUIU LER, E SÓ COM ISSO ──────────
+    # `usageTotalUsd` ausente NÃO é gasto zero: é gasto que não se leu. Fechar a
+    # reserva como zero devolveria ao saldo dinheiro que pode ter saído — e a
+    # execução seguinte gastá-lo-ia outra vez.
+    #
+    #     UNKNOWN COST != ZERO COST.
+    #
+    # Uma reserva que chegasse aqui por fechar seria dinheiro sem dono, então o
+    # caminho por omissão é o conservador: sem número lido, fica `UNKNOWN`.
+    if reserva is not None and not reserva.fechada:
+        lido = d.get('usageTotalUsd') if isinstance(d, dict) else None
+        reserva.liquidar(lido if isinstance(lido, (int, float)) else None)
+        manifesto['FINANCIAL_RESERVATION'] = dict(reserva.registo)
+
     pv.checar_token(manifesto)
     return itens, manifesto
 

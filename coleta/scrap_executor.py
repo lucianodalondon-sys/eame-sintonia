@@ -334,16 +334,24 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
 # dolares, e autorizar gasto nao compra pedidos.
 #
 #     PAID BUDGET != NETWORK BUDGET.
+def _recusa(k, resultado, erro, campo):
+    """O trace de uma recusa NOSSA. Ele nao finge que a fonte respondeu."""
+    trace = forn.Percurso(k.get('capability')).selar(resultado=resultado)
+    trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'RUN_ID': k.get('run_id'),
+                  'SCOPE': k.get('scope', 'PONTUAL'),
+                  'EXECUTION_MODE': k.get('modo', NORMAL), campo: erro})
+    return trace
+
+
 def _com_teto_de_rede(fn):
     """Dá a `COLLECT` um `teto_de_rede=` sem lhe tocar no corpo."""
     import functools
 
     @functools.wraps(fn)
     def embrulho(*a, teto_de_rede=None, **k):
-        if teto_de_rede is None:
-            return fn(*a, **k)
         import scrap_http as _http
-        with _http.orcamento_de_rede(teto_de_rede) as orcamento:
+
+        def guardado(orcamento):
             try:
                 objetos, trace = fn(*a, **k)
             except _http.SemOrcamentoDeRede as e:
@@ -352,17 +360,73 @@ def _com_teto_de_rede(fn):
                 #
                 #     ESGOTAR O ORCAMENTO NAO E A FONTE ESTAR VAZIA,
                 #     E TAMBEM NAO E A PLATAFORMA IMPEDIR.
-                trace = forn.Percurso(k.get('capability')).selar(
-                    resultado='NETWORK_BUDGET_EXHAUSTED')
-                trace.update({'EXECUTOR_ID': EXECUTOR_ID,
-                              'RUN_ID': k.get('run_id'),
-                              'SCOPE': k.get('scope', 'PONTUAL'),
-                              'EXECUTION_MODE': k.get('modo', NORMAL),
-                              'NETWORK_BUDGET_ERROR': str(e)})
+                trace = _recusa(k, 'NETWORK_BUDGET_EXHAUSTED', str(e),
+                                'NETWORK_BUDGET_ERROR')
                 trace.update(orcamento.para_o_rasto())
                 return [], trace
             trace.update(orcamento.para_o_rasto())
             return objetos, trace
+
+        if teto_de_rede is None:
+            # Como no teto de gasto: um orcamento instalado por cima governa
+            # esta fronteira na mesma. Um teto que so apanhasse a recusa quando
+            # foi ELE a instala-la deixava-a subir como excecao — e recusa e
+            # resultado de medicao, nunca ausencia de resultado.
+            herdado = _http.orcamento_actual()
+            return guardado(herdado) if herdado is not None else fn(*a, **k)
+        with _http.orcamento_de_rede(teto_de_rede) as orcamento:
+            return guardado(orcamento)
+    return embrulho
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O TETO DE GASTO — O SEGUNDO EIXO, E ELE NAO E O PRIMEIRO
+# ══════════════════════════════════════════════════════════════════════════
+#     REQUEST COUNT != MONEY.
+#
+# Dez chamadas a uma API oficial gratuita gastam dez idas a rede e zero dolares.
+# Um POST que acende um ator pago gasta UMA ida e compromete dinheiro antes de
+# alguem saber quanto. Por isso sao dois tetos, declarados em separado, e
+# nenhum deles responde pelo outro:
+#
+#     NETWORK BUDGET decide SE CABE MAIS UMA IDA.
+#     FINANCIAL BUDGET decide SE PODEMOS ASSUMIR MAIS EXPOSICAO.
+#
+# O dono do dinheiro e `coleta/coletor.py` — a porta unica das rotas pagas, e o
+# unico sitio desta casa onde um POST compromete gasto. Este ficheiro so DECLARA
+# o teto para a execucao; quem o cobra e quem ve o dinheiro sair.
+def _com_teto_de_gasto(fn):
+    """Dá a `COLLECT` um `teto_de_gasto=` sem lhe tocar no corpo."""
+    import functools
+
+    @functools.wraps(fn)
+    def embrulho(*a, teto_de_gasto=None, **k):
+        import coletor as _ct
+
+        def guardado(orcamento):
+            try:
+                objetos, trace = fn(*a, **k)
+            except _ct.SemOrcamentoFinanceiro as e:
+                # Recusa NOSSA, e de dinheiro. Nem `SOURCE_UNAVAILABLE`, nem
+                # `BLOCKED`, nem `NETWORK_BUDGET_EXHAUSTED`: sao quatro coisas
+                # diferentes e so uma aconteceu.
+                trace = _recusa(k, 'FINANCIAL_BUDGET_EXHAUSTED', str(e),
+                                'FINANCIAL_BUDGET_ERROR')
+                trace.update(orcamento.para_o_rasto())
+                return [], trace
+            trace.update(orcamento.para_o_rasto())
+            return objetos, trace
+
+        if teto_de_gasto is None:
+            # Ninguem declarou AQUI. Mas pode haver um orcamento instalado por
+            # cima — varias chamadas dentro da mesma execucao partilham um so
+            # saldo, e e essa a forma canonica de o fazer. Um teto que so
+            # recusasse quando esta fronteira o instalou deixaria a recusa
+            # subir como EXCECAO nesse caso, e recusa e resultado de medicao.
+            herdado = _ct.orcamento_financeiro_actual()
+            return guardado(herdado) if herdado is not None else fn(*a, **k)
+        with _ct.orcamento_financeiro(teto_de_gasto) as orcamento:
+            return guardado(orcamento)
     return embrulho
 
 
@@ -437,6 +501,7 @@ def _estado_da_corrida(objetos, trace, ck):
     return ck.CORRIDA_PARCIAL if objetos else ck.CORRIDA_FALHOU
 
 
+@_com_teto_de_gasto
 @_com_teto_de_rede
 def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
             modo=NORMAL, **kwargs):
@@ -549,6 +614,35 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
             trace['RUN_STATUS'] = (ck.CORRIDA_FALHOU if falhou
                                    else ck.CORRIDA_VAZIA)
         return [], trace
+
+    # ── UM ENSAIO PAGO SEM TETO DE GASTO NAO COMECA ────────────────────────
+    # `permitir_pago` e `motivo_pago` respondem «PODE USAR ROTA PAGA?» e «POR
+    # QUE?». Nenhum dos dois responde «ATE QUANTO?».
+    #
+    #     PAID_ROUTE_AUTHORIZATION != FINANCIAL_BUDGET.
+    #
+    # Em NORMAL nada muda: os caminhos historicos continuam exactamente como
+    # estavam, e quebra-los em silencio seria trocar um buraco por outro. Mas um
+    # TRIAL e a primeira vez que uma capacidade paga corre, e uma primeira vez
+    # sem teto e um default infinito.
+    #
+    #     NO FINANCIAL LIMIT → NO PAID TRIAL.
+    if modo == TRIAL and _porta_paga(plat, capability) and _sem_teto_de_gasto():
+        trace = forn.Percurso(capability).selar(
+            resultado='PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET')
+        trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'RUN_ID': run_id,
+                      'SCOPE': scope, 'CHECK': pronto, 'EXECUTION_MODE': modo,
+                      'PAID_ROUTE_CLASS': _porta_paga(plat, capability),
+                      'CAPABILITY_STATE_BEFORE': pronto['CAPABILITY_STATE'],
+                      'CAPABILITY_STATE_AFTER': pronto['CAPABILITY_STATE']})
+        if execucao is not None:
+            import coleta_checkpoint as ck
+            execucao.falhar_checkpoint('PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET')
+            execucao.fechar(ck.CORRIDA_FALHOU,
+                            error='ensaio de rota paga sem teto de gasto')
+            trace['RUN_STATE_PERSISTED'] = 'YES'
+            trace['RUN_STATUS'] = ck.CORRIDA_FALHOU
+        return [], trace
     executa = reg.executor_de(plat, capability)
     if relator is not None:
         # O relator so desce para quem o saiba receber. Enfia-lo num chamador
@@ -615,6 +709,30 @@ def _canonico(estado):
 def _rota_para(plat, capability):
     r = reg.adaptador_de(plat, capability)
     return (r or {}).get('ROTA')
+
+
+def _porta_paga(plat, capability):
+    """→ a CLASSE da rota padrao se ela custar dinheiro, senao None.
+
+    Quem sabe se uma rota e paga e a matriz, que e a dona da politica. Deduzir
+    pelo NOME da rota — «tem `apify` no nome, logo e paga» — seria escrever a
+    primeira mentira do rasto.
+    """
+    import social_matriz as mz
+    rotas = (mz.MATRIZ.get(plat) or {}).get(cap.da_matriz(capability))
+    escolhida = mz._rota_padrao(rotas) if rotas else None
+    classe = (escolhida or {}).get('CLASSE')
+    return classe if classe in ('APIFY', 'OFFICIAL_API_PAID') else None
+
+
+def _sem_teto_de_gasto():
+    """Ninguem declarou orcamento financeiro para esta execucao?
+
+    A pergunta vai ao DONO DO DINHEIRO. Este ficheiro nao guarda saldo nenhum:
+    guardar aqui uma copia faria dois sitios responderem a mesma pergunta.
+    """
+    import coletor as _ct
+    return _ct.orcamento_financeiro_actual() is None
 
 
 def _despachar(plat, capability, run_id, executa, kwargs):
