@@ -2077,7 +2077,7 @@ outra coisa, e nao se sabe qual ate alguem correr.
 ```
 
 Hipótese a testar, **não** conclusão: `aceites` só enche com `adm.SIM`, e
-`COL-027` mediu que a porta viu 43 textos derivados e devolveu **43 `NÃO_SEI`**
+`COL-027` mediu que a porta viu 43 textos derivados e devolveu **43 `NÃO SEI`**
 por falta de `FACT_TIME`. Se isso se confirmar, a Sala de Espera fica vazia
 mesmo com a cadeia inteira a correr — e o corte seria de **admissibilidade**,
 não de ligação. Não foi provado nesta missão e não pode ser registado como
@@ -3230,7 +3230,7 @@ E JA HA TRES PROVAS DISSO NESTA ARVORE.
 
 A primeira versão do censo procurava o `SOURCE_ID` no **caminho**. Os 43 textos
 derivados chamam-se `RAW-<sha>.txt` e não carregam fonte no nome. Resultado: 43
-dos 46 itens caíram num balde chamado `NAO_SEI`, e a prova respondeu
+dos 46 itens caíram num balde chamado `NAO SEI`, e a prova respondeu
 
 ```
 PUBLISHER_HOLDOUT_POSSIBLE = YES
@@ -3243,10 +3243,10 @@ UM BALDE DE DESCONHECIDOS CONTADO COMO CATEGORIA
 E DIVERSIDADE FABRICADA.
 ```
 
-Foi apanhado por olhar para a linha `publicadores: {'NAO_SEI': 43, ...}` em vez
+Foi apanhado por olhar para a linha `publicadores: {'NAO SEI': 43, ...}` em vez
 de olhar só para o `YES`. Corrigido pela **linhagem** — o registo de artefatos
 diz de que pai cada derivado nasceu, e o caminho do pai diz a fonte — e agora
-`NAO_SEI` não conta como publicador em lado nenhum. 13 publicadores reais.
+`NAO SEI` não conta como publicador em lado nenhum. 13 publicadores reais.
 
 E a mesma armadilha apareceu num segundo sítio: `IT-BOLLETTINI-VPN-2026` é uma
 **pasta** com boletins de quatro regiões, e estava a contar como um publicador.
@@ -4160,7 +4160,7 @@ produção. O gargalo é identidade, não conteúdo — e nenhuma das cinco miss
 anteriores o teria visto, porque todas mediam o classificador.
 
 As classes de paragem nasceram da medição, não de uma taxonomia escrita antes:
-vinte documentos param porque o registo confessa `NÃO_SEI` e a linhagem **sabe**
+vinte documentos param porque o registo confessa `NÃO SEI` e a linhagem **sabe**
 (encanamento perdido), dezasseis porque ninguém sabe (fonte por descobrir), e
 cinco porque não declaram o que são e apanham a régua antiga.
 
@@ -4253,7 +4253,7 @@ documento nenhum.
 ## 60.1 · O QUÊ
 
 Os 20 documentos de T3 em que a linhagem aparentava saber a origem e a Admission
-recebeu `NÃO_SEI`, seguidos aresta a aresta desde a primeira evidência até à porta.
+recebeu `NÃO SEI`, seguidos aresta a aresta desde a primeira evidência até à porta.
 
 ```
 ONE_SINGLE_ROOT_CAUSE = NO
@@ -4314,7 +4314,7 @@ Duas missões estiveram a olhar para o lado errado da cadeia.
 
 ## 60.5 · `SCHEMA EXISTS != WRITER USES IT`
 
-A migration `026` declara `raw_asset.source_id` e os checks recusam `NAO_SEI`
+A migration `026` declara `raw_asset.source_id` e os checks recusam `NAO SEI`
 no estado identificado. `CAN_STORE = YES`. E o registo de artefactos tem 43
 `DERIVED`, **zero `RAW`**, e zero `SOURCE_ID` provado. `WRITER_WRITES = NO`.
 
