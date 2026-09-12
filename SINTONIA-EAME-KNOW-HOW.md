@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-11 — o estágio deixou de se perder entre a fronteira e a porta (secção 49; `FACT_TIME` não era o bloqueio).  
-**Próxima missão autorizada:** `T2` não tem regra escrita em `PERGUNTAS_DO_UNIVERSO` — medir antes de escrever.
+**Última atualização material:** 2026-09-11 — o `SOURCE_ID` foi seguido até ao primeiro ponto de perda (§60), e a ordem do projeto foi fixada: fechar toda a Collection, integrar o SCRAP, fazer coleta grande, só então Intelligence e Casco (§61).  
+**Próxima missão autorizada:** `C-FIX-SOURCE-ID-READER-GAP-V1` — corrigir somente os 7 `READER_GAP` forward; os 13 `OUT_OF_FLOW_EVIDENCE` permanecem legado fora do fluxo, sem backfill.
 
 ---
 
@@ -2077,7 +2077,7 @@ outra coisa, e nao se sabe qual ate alguem correr.
 ```
 
 Hipótese a testar, **não** conclusão: `aceites` só enche com `adm.SIM`, e
-`COL-027` mediu que a porta viu 43 textos derivados e devolveu **43 `NÃO SEI`**
+`COL-027` mediu que a porta viu 43 textos derivados e devolveu **43 `NÃO_SEI`**
 por falta de `FACT_TIME`. Se isso se confirmar, a Sala de Espera fica vazia
 mesmo com a cadeia inteira a correr — e o corte seria de **admissibilidade**,
 não de ligação. Não foi provado nesta missão e não pode ser registado como
@@ -3230,7 +3230,7 @@ E JA HA TRES PROVAS DISSO NESTA ARVORE.
 
 A primeira versão do censo procurava o `SOURCE_ID` no **caminho**. Os 43 textos
 derivados chamam-se `RAW-<sha>.txt` e não carregam fonte no nome. Resultado: 43
-dos 46 itens caíram num balde chamado `NAO SEI`, e a prova respondeu
+dos 46 itens caíram num balde chamado `NAO_SEI`, e a prova respondeu
 
 ```
 PUBLISHER_HOLDOUT_POSSIBLE = YES
@@ -3243,10 +3243,10 @@ UM BALDE DE DESCONHECIDOS CONTADO COMO CATEGORIA
 E DIVERSIDADE FABRICADA.
 ```
 
-Foi apanhado por olhar para a linha `publicadores: {'NAO SEI': 43, ...}` em vez
+Foi apanhado por olhar para a linha `publicadores: {'NAO_SEI': 43, ...}` em vez
 de olhar só para o `YES`. Corrigido pela **linhagem** — o registo de artefatos
 diz de que pai cada derivado nasceu, e o caminho do pai diz a fonte — e agora
-`NAO SEI` não conta como publicador em lado nenhum. 13 publicadores reais.
+`NAO_SEI` não conta como publicador em lado nenhum. 13 publicadores reais.
 
 E a mesma armadilha apareceu num segundo sítio: `IT-BOLLETTINI-VPN-2026` é uma
 **pasta** com boletins de quatro regiões, e estava a contar como um publicador.
@@ -4160,7 +4160,7 @@ produção. O gargalo é identidade, não conteúdo — e nenhuma das cinco miss
 anteriores o teria visto, porque todas mediam o classificador.
 
 As classes de paragem nasceram da medição, não de uma taxonomia escrita antes:
-vinte documentos param porque o registo confessa `NÃO SEI` e a linhagem **sabe**
+vinte documentos param porque o registo confessa `NÃO_SEI` e a linhagem **sabe**
 (encanamento perdido), dezasseis porque ninguém sabe (fonte por descobrir), e
 cinco porque não declaram o que são e apanham a régua antiga.
 
@@ -4253,7 +4253,7 @@ documento nenhum.
 ## 60.1 · O QUÊ
 
 Os 20 documentos de T3 em que a linhagem aparentava saber a origem e a Admission
-recebeu `NÃO SEI`, seguidos aresta a aresta desde a primeira evidência até à porta.
+recebeu `NÃO_SEI`, seguidos aresta a aresta desde a primeira evidência até à porta.
 
 ```
 ONE_SINGLE_ROOT_CAUSE = NO
@@ -4314,7 +4314,7 @@ Duas missões estiveram a olhar para o lado errado da cadeia.
 
 ## 60.5 · `SCHEMA EXISTS != WRITER USES IT`
 
-A migration `026` declara `raw_asset.source_id` e os checks recusam `NAO SEI`
+A migration `026` declara `raw_asset.source_id` e os checks recusam `NAO_SEI`
 no estado identificado. `CAN_STORE = YES`. E o registo de artefactos tem 43
 `DERIVED`, **zero `RAW`**, e zero `SOURCE_ID` provado. `WRITER_WRITES = NO`.
 
@@ -4357,3 +4357,153 @@ O defeito tem **dois donos diferentes**, e uma correcção só serve metade:
 não houve corrida forward, e previsão não é medição.
 
 Nada foi consertado. `MEASURE != FIX`.
+
+---
+
+# §61 · A ORDEM DO PROJETO FICA COLLECTION COMPLETA → COLETA GRANDE → INTELLIGENCE → CASCO
+
+**Decisão do dono do projeto:** 2026-09-11  
+**Registro de decisão:** `docs/decisoes/ORDEM-DO-PROJETO-COLETA-INTELIGENCIA-CASCO-2026-09-11.md`  
+**Commit do registro:** `b44b3f0a8f0efa19c680bdfaa7cda1ba2ad168ee`
+
+## 61.1 · O QUÊ MUDOU
+
+A sequência deixa de ser apenas «réguas → coleta → ferramentas → casco» em sentido abstrato. A ordem operacional fica explicitamente fechada:
+
+```text
+1. FECHAR TODA A COLLECTION
+   - contratos
+   - owners
+   - runtime
+   - identidade/procedência
+   - RAW/DERIVED/STRUCTURED
+   - Admission
+   - READY / Sala de Espera
+   - observabilidade e regressão
+
+2. INTEGRAR O SINTONIA SCRAP
+   - apenas quando a frente paralela fechar
+   - como aquisição especializada dentro da Collection
+   - sem segundo RUN, RAW, SOURCE_ID, DOCUMENT_ID ou Sala de Espera
+
+3. FAZER UMA COLETA GRANDE
+   - sobre as fontes/capacidades aprovadas do escopo vigente
+   - pela máquina já provada
+   - com RUN, custo, procedência, RAW, derivação, Admission e READY auditáveis
+
+4. RECONCILIAR E POPULAR A SALA DE ESPERA
+   - material válido chega a READY
+   - sem consumidor de Intelligence ainda
+   - medir perdas, UNKNOWN, ERROR, REUSED, REJECTED e cobertura real
+
+5. SÓ ENTÃO COMEÇAR INTELLIGENCE
+
+6. DEPOIS INTELLIGENCE TOOLS / VALIDATION
+
+7. CASCO / PORTAL POR ÚLTIMO
+```
+
+## 61.2 · POR QUÊ
+
+Um E2E verde com um único item prova que a estrada existe. **Não prova que a Collection já foi exercitada em escala suficiente para entregar um acervo real à Intelligence.**
+
+A Intelligence não deve nascer sobre fixtures, amostras históricas fora do fluxo ou uma Sala de Espera quase vazia. Primeiro prova-se a máquina; depois usa-se a máquina para formar o acervo; só depois se liga o departamento que interpreta esse acervo.
+
+```text
+E2E PROVADO != COLETA GRANDE CONCLUÍDA
+COLLECTION READY != INTELLIGENCE AUTORIZADA
+```
+
+A coleta grande também **não é laboratório de arquitetura**. Defeitos estruturais conhecidos devem ser fechados antes de gastar escala, rede e APIs.
+
+## 61.3 · O PAPEL DO SINTONIA SCRAP
+
+O SCRAP continua a evoluir **em paralelo** noutra frente para enriquecer capacidade de aquisição e aproveitar horas de máquina.
+
+Isso não altera a arquitetura central:
+
+```text
+SINTONIA SCRAP = FRENTE ESPECIALIZADA DE AQUISIÇÃO
+SINTONIA SCRAP != SEGUNDA COLLECTION
+SINTONIA SCRAP != SEGUNDO ORQUESTRADOR GLOBAL
+SINTONIA SCRAP != SEGUNDO MODELO DE RUN/RAW/IDENTIDADE
+```
+
+Quando fechar, integra-se pelos contratos canónicos existentes. Até lá, esta linha principal continua fechando a Collection sem depender do estado transitório do SCRAP.
+
+## 61.4 · O QUE «COLETA GRANDE» QUER DIZER
+
+Não significa «coletar toda a internet» nem exigir zero `UNKNOWN`.
+
+Significa executar, em escala relevante e auditável, **as fontes e capacidades aprovadas do escopo vigente**, usando a Collection fechada, com limites de custo/volume explícitos e preservando a verdade de cada estado.
+
+A saída da coleta grande deve permitir responder, sem inferência manual:
+
+```text
+quantas corridas?
+quais fontes?
+quais executores?
+quanto custou?
+quantos RAW?
+quantos DERIVED?
+quantos STRUCTURED?
+quantos SIM / NAO / NAO_SEI / NAO_SE_APLICA / ERRO?
+quantos READY?
+o que ficou fora e por quê?
+```
+
+Só depois dessa reconciliação a Intelligence recebe o acervo.
+
+## 61.5 · CORREÇÃO DO §60.7 — OS 13 OUT_OF_FLOW NÃO PEDEM LEI NOVA
+
+O fechamento original do §60 deixou `OUT_OF_FLOW_EVIDENCE` como «decisão de contrato». Relendo a Bíblia, isso é amplo demais e fica **SUPERSEDED por esta subseção**.
+
+A `COL-LAW-045 · COLETA MANUAL OU ASSISTIDA TAMBÉM TEM CONTRATO` já determina que material coletado por pessoa, Claude, navegador assistido ou agente deve entrar pelo mesmo contrato de evidência, preservando `SOURCE`, `RUN/REQUEST`, `ARTIFACT` e `PROVENANCE`.
+
+Logo:
+
+```text
+BIBLE_CHANGE_REQUIRED              = NO
+NEW_CONTRACT_FOR_THE_13_REQUIRED   = NO
+HISTORICAL_BACKFILL                = NO
+FAKE_RUN                            = NO
+SOURCE_ID_FROM_DIRECTORY            = NO
+```
+
+Os 13 corpos históricos são **dívida fora do fluxo**, não uma razão para mudar a constituição. Se forem necessários para o acervo futuro, devem ser recolhidos/reingressados pelo caminho canónico quando houver prova legítima; caso contrário permanecem explicitamente históricos/out-of-flow.
+
+A correção forward continua separada e bounded: os 7 `READER_GAP` são o próximo defeito executável.
+
+## 61.6 · CONSEQUÊNCIA IMEDIATA
+
+O próximo passo permanece:
+
+```text
+C-FIX-SOURCE-ID-READER-GAP-V1
+```
+
+Escopo:
+
+```text
+corrigir somente os 7 READER_GAP forward
+provar SOURCE_ID legítimo atravessando RAW → DERIVED → INGRESS → ADMISSION
+não tocar nos 13 históricos
+não iniciar coleta grande ainda
+não iniciar Intelligence
+não integrar SCRAP antes do fechamento da frente paralela
+não tocar no Casco/Portal
+```
+
+Depois dessa missão, o próximo passo deve ser escolhido pelo estado medido da Collection, sempre preservando a ordem desta seção.
+
+## 61.7 · REGRA DE PROJETO QUE FICA
+
+```text
+PRIMEIRO FECHAR A MÁQUINA.
+DEPOIS USAR A MÁQUINA EM ESCALA.
+DEPOIS DAR O ACERVO À INTELLIGENCE.
+DEPOIS CONSTRUIR AS FERRAMENTAS.
+CASCO POR ÚLTIMO.
+```
+
+**KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA — cumprida nesta seção.**
