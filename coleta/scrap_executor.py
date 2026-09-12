@@ -310,6 +310,63 @@ def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# O TETO DE ACESSOS EXTERNOS — UM EMBRULHO, E NAO UMA SEGUNDA FUNCAO
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.8A declarou `MAX_REAL_HTTP_REQUESTS = 2` e fez sete. O teto existia num
+# script de prova: uma variavel de um processo que morre, a tentar limitar
+# quatro processos.
+#
+#     UM TETO QUE VIVE NA PROVA MEDE A PROVA.
+#     DECLARED BUDGET != ENFORCED BUDGET.
+#
+# Isto e um EMBRULHO e nao uma segunda funcao, e a razao e uma lei desta casa,
+# nao estilo: `COLLECT` e o boundary, e ha sentinelas da C10.6C que leem o CORPO
+# dele para provar que a etapa `CHECK` abre antes do trabalho e que uma excecao
+# fecha a corrida. Partir o corpo para dentro de `_collect` deixava essas
+# sentinelas a medir uma casca — passavam a ler uma funcao que ja nao faz nada.
+#
+#     UMA REFATORACAO QUE MUDA O SITIO DO CORPO MUDA O QUE AS SENTINELAS VEEM.
+#
+# O teto e da EXECUCAO. Duas corridas nao partilham contador, e a segunda nao
+# herda a divida da primeira.
+#
+# E e de REDE, nao de DINHEIRO: uma chamada gratuita gasta um pedido e zero
+# dolares, e autorizar gasto nao compra pedidos.
+#
+#     PAID BUDGET != NETWORK BUDGET.
+def _com_teto_de_rede(fn):
+    """Dá a `COLLECT` um `teto_de_rede=` sem lhe tocar no corpo."""
+    import functools
+
+    @functools.wraps(fn)
+    def embrulho(*a, teto_de_rede=None, **k):
+        if teto_de_rede is None:
+            return fn(*a, **k)
+        import scrap_http as _http
+        with _http.orcamento_de_rede(teto_de_rede) as orcamento:
+            try:
+                objetos, trace = fn(*a, **k)
+            except _http.SemOrcamentoDeRede as e:
+                # A recusa do teto NAO e um resultado da fonte. Ela sobe como
+                # estado proprio, com o rasto do que ja tinha sido gasto.
+                #
+                #     ESGOTAR O ORCAMENTO NAO E A FONTE ESTAR VAZIA,
+                #     E TAMBEM NAO E A PLATAFORMA IMPEDIR.
+                trace = forn.Percurso(k.get('capability')).selar(
+                    resultado='NETWORK_BUDGET_EXHAUSTED')
+                trace.update({'EXECUTOR_ID': EXECUTOR_ID,
+                              'RUN_ID': k.get('run_id'),
+                              'SCOPE': k.get('scope', 'PONTUAL'),
+                              'EXECUTION_MODE': k.get('modo', NORMAL),
+                              'NETWORK_BUDGET_ERROR': str(e)})
+                trace.update(orcamento.para_o_rasto())
+                return [], trace
+            trace.update(orcamento.para_o_rasto())
+            return objetos, trace
+    return embrulho
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # A DURABILIDADE É DAQUI, E NÃO DE CADA ADAPTADOR
 # ══════════════════════════════════════════════════════════════════════════
 # A C10.6B provou o estado durável na cadeia de Reel — e provou-o LÁ: o
@@ -380,6 +437,7 @@ def _estado_da_corrida(objetos, trace, ck):
     return ck.CORRIDA_PARCIAL if objetos else ck.CORRIDA_FALHOU
 
 
+@_com_teto_de_rede
 def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
             modo=NORMAL, **kwargs):
     """Vai buscar. → (objetos, trace). NUNCA levanta por rota recusada.
@@ -407,6 +465,21 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
     if modo not in MODOS:
         raise ValueError('modo de execucao desconhecido: %r. Os dois sao %s'
                          % (modo, ', '.join(MODOS)))
+    # ── O TETO DE ACESSOS EXTERNOS, QUANDO O CHAMADOR DECLARA UM ──────────
+    # Sem `teto_de_rede`, nada muda: producao continua exactamente como estava.
+    # Com ele, a execucao INTEIRA — portao, rota, retentativa, alternativa e
+    # diagnostico — cabe dentro do numero, e a tentativa N+1 morre ANTES do
+    # socket.
+    #
+    #     UM TETO QUE NAO RECUSA NAO E UM TETO.
+    #
+    # E ele e da EXECUCAO, nao do processo: duas corridas nao partilham
+    # contador, e a segunda nao herda a divida da primeira.
+    #
+    # O teto e de REDE e nao de DINHEIRO. Sao dois eixos: uma chamada gratuita
+    # gasta um pedido e zero dolares, e autorizar gasto nao compra pedidos.
+    #
+    #     PAID BUDGET != NETWORK BUDGET.
     plat = (platform or '').upper()
     registo = reg.adaptador_de(plat, capability)
     execucao = relator = None

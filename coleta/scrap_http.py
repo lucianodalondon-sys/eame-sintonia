@@ -125,6 +125,9 @@ def _carregar_robots(base):
     rp = urllib.robotparser.RobotFileParser()
     try:
         req = urllib.request.Request(base + '/robots.txt', headers={'User-Agent': AGENTE})
+        # O pedido diz o que e. Um `UNCLASSIFIED` no rasto seria o portao a nao
+        # se reconhecer a si proprio.
+        req.tipo_de_pedido = PEDIDO_ROBOTS
         with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
             corpo = f.read().decode('utf-8', 'replace')
     except urllib.error.HTTPError as e:
@@ -161,11 +164,23 @@ def buscar(url, *, aceitar_json=True):
         'User-Agent': AGENTE,
         'Accept': 'application/json' if aceitar_json else 'text/html',
     })
+    req.tipo_de_pedido = PEDIDO_ROTA
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as f:
             corpo = f.read().decode('utf-8', 'replace')
     except urllib.error.HTTPError as e:
         raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
+    except SemOrcamentoDeRede:
+        # ⚠️ PELA SEGUNDA VEZ NESTA CADEIA: o `except Exception` ia traduzir uma
+        # recusa NOSSA para `RotaBloqueada`, que quer dizer «a plataforma nos
+        # impediu». Foi assim que a queda do tunel saiu como `ROUTE_NOT_ALLOWED`
+        # na C10.8A, e seria assim que o teto sairia como `BLOCKED`.
+        #
+        #     ESGOTAR O ORCAMENTO NAO E A PLATAFORMA IMPEDIR.
+        #
+        # Um `except Exception` largo nao distingue quem disse nao. Por isso a
+        # recusa do teto passa por cima dele, inteira.
+        raise
     except Exception as e:
         raise RotaBloqueada('%s em %s' % (type(e).__name__, url))
     finally:
@@ -191,6 +206,218 @@ class EstadoDaApi(RuntimeError):
         self.rel = rel
         super().__init__('%s (razao nativa: %s)' % (rel.get('STATE'),
                                                     rel.get('NATIVE_REASON')))
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# O ORÇAMENTO DE REDE — UM TETO QUE RECUSA, E NÃO UM CONTADOR QUE RELATA
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.8A declarou `MAX_REAL_HTTP_REQUESTS = 2` e fez sete. O teto existia —
+# num script de prova, do lado de fora do runtime. Quando a sonda rebentou e
+# foi preciso repetir, o teto repetiu-se com ela, zerado, porque era uma
+# variável de um processo que acabou.
+#
+#     UM TETO QUE VIVE NA PROVA MEDE A PROVA.
+#     DECLARED BUDGET != ENFORCED BUDGET.
+#
+# ONDE ISTO TEM DE VIVER, E POR QUE NÃO É ÓBVIO
+# -----------------------------------------------
+# O censo da C10.8A-R mediu por onde as catorze capacidades ligadas saem para a
+# rede, e são TRÊS portas diferentes:
+#
+#     scrap_http.buscar          5 capacidades (bluesky, mastodon, telegram)
+#     reel_transcricao.baixar    3 capacidades (os Reels) — não passa aqui
+#     cdp.abas / cdp._handshake  1 capacidade (a janela) — não passa aqui
+#
+# Ou seja: este ficheiro é o transporte NOMEADO da casa, e mesmo assim não vê
+# tudo. Um contador em `buscar()` deixaria de fora metade das capacidades, e um
+# teto que só cobre metade das portas não é um teto — é uma sugestão.
+#
+# O único ponto que TODAS atravessam é o transporte do próprio Python. Então o
+# orçamento é declarado aqui, que é o dono do conceito «rede» nesta casa, e é
+# cobrado lá, onde o socket nasce.
+#
+#     ONE CONCEPT → ONE OWNER. O dono é o transporte; o ponto de cobrança é
+#     onde a ligação abre — e as duas coisas não precisam de ser a mesma linha.
+#
+# E ELE É DA EXECUÇÃO, NÃO DO PROCESSO
+# --------------------------------------
+# Duas execuções têm orçamentos distintos. Um contador global de módulo faria a
+# segunda corrida herdar a dívida da primeira — e, pior, faria uma corrida
+# inocente ser recusada por causa de outra.
+import contextlib
+import socket as _socket
+import threading
+
+_LOCAL = threading.local()
+
+#: Os tipos de acesso, para o rasto dizer o que foi gasto em quê. Nenhum deles
+#: é de graça: `ROBOTS` custa uma ida à rede como qualquer outra.
+#:
+#:     GRÁTIS EM DÓLAR != GRÁTIS EM REQUESTS.
+PEDIDO_ROBOTS = 'ROBOTS'
+PEDIDO_ROTA = 'ROUTE'
+PEDIDO_RETENTATIVA = 'RETRY'
+PEDIDO_ALTERNATIVA = 'FALLBACK'
+PEDIDO_DIAGNOSTICO = 'DIAGNOSTIC'
+PEDIDO_DESCONHECIDO = 'UNCLASSIFIED'
+
+
+class SemOrcamentoDeRede(RuntimeError):
+    """A tentativa N+1. Ela NÃO chega ao socket.
+
+    Não é uma falha da fonte nem da rota: é esta casa a cumprir um limite que
+    ela própria declarou. Quem a apanhar não deve traduzi-la para
+    `ZERO_RESULTS` — não houve resultado nenhum, houve uma recusa nossa.
+    """
+
+
+class OrcamentoDeRede(object):
+    """Quantos acessos externos esta execução ainda pode fazer."""
+
+    def __init__(self, limite):
+        if limite is None or int(limite) < 0:
+            raise ValueError('limite de rede inválido: %r' % limite)
+        self.limite = int(limite)
+        self.usados = 0
+        self.recusados = 0
+        self.tentativas = []
+
+    @property
+    def restantes(self):
+        return max(0, self.limite - self.usados)
+
+    @property
+    def esgotado(self):
+        return self.usados >= self.limite
+
+    def reservar(self, tipo, destino):
+        """Pede UMA ida à rede. Levanta ANTES de qualquer socket existir.
+
+            O GATE VEM ANTES DA REDE. Cobrar depois é contar o prejuízo.
+        """
+        registo = {'TYPE': tipo, 'TARGET': _so_o_host(destino),
+                   'COUNTED': True, 'OUTCOME': None}
+        if self.esgotado:
+            self.recusados += 1
+            registo.update({'COUNTED': False, 'OUTCOME': 'REFUSED_BY_BUDGET'})
+            self.tentativas.append(registo)
+            raise SemOrcamentoDeRede(
+                'orçamento de rede esgotado: %d de %d já usados, e este pedido '
+                '(%s → %s) seria o %d.'
+                % (self.usados, self.limite, tipo, registo['TARGET'],
+                   self.usados + 1))
+        self.usados += 1
+        self.tentativas.append(registo)
+        return registo
+
+    def para_o_rasto(self):
+        return {
+            'NETWORK_BUDGET_LIMIT': self.limite,
+            'NETWORK_REQUESTS_USED': self.usados,
+            'NETWORK_REQUESTS_REMAINING': self.restantes,
+            'NETWORK_BUDGET_EXHAUSTED': self.esgotado,
+            'NETWORK_REQUESTS_REFUSED': self.recusados,
+            'NETWORK_ATTEMPTS': list(self.tentativas),
+        }
+
+
+def _so_o_host(destino):
+    """O host, sem caminho e sem query. Uma query pode carregar segredo."""
+    try:
+        texto = destino if isinstance(destino, str) else getattr(
+            destino, 'full_url', str(destino))
+        partes = urllib.parse.urlsplit(texto)
+        return partes.netloc or texto.split('/')[0]
+    except Exception:                                             # noqa: BLE001
+        return 'NAO_SEI'
+
+
+def orcamento_actual():
+    """O orçamento desta execução, ou None quando ninguém declarou um."""
+    return getattr(_LOCAL, 'orcamento', None)
+
+
+def _tipo_por_omissao(destino):
+    """Um pedido que ninguém classificou ainda tem de ser classificado.
+
+    O `robots.txt` reconhece-se pelo caminho, e é o único que se pode adivinhar
+    sem mentir. O resto é `UNCLASSIFIED` — e `UNCLASSIFIED` conta na mesma.
+
+        UM PEDIDO QUE NINGUÉM CLASSIFICOU NÃO É UM PEDIDO QUE NÃO ACONTECEU.
+    """
+    texto = destino if isinstance(destino, str) else getattr(
+        destino, 'full_url', str(destino))
+    return PEDIDO_ROBOTS if texto.endswith('/robots.txt') else PEDIDO_DESCONHECIDO
+
+
+@contextlib.contextmanager
+def orcamento_de_rede(limite, *, tipo_por_omissao=None):
+    """Instala um teto de acessos externos para o bloco inteiro.
+
+    O teto é cobrado no ponto onde a ligação abre — `urllib.request.urlopen` e
+    `socket.create_connection` — porque as três portas de rede desta casa não
+    passam todas por aqui. Cobrar em `buscar()` deixaria de fora os Reels e a
+    janela.
+
+    A re-entrância é contada: um `urlopen` abre um socket por dentro, e isso é
+    UM pedido, não dois.
+    """
+    anterior = getattr(_LOCAL, 'orcamento', None)
+    orcamento = limite if isinstance(limite, OrcamentoDeRede) else OrcamentoDeRede(limite)
+    _LOCAL.orcamento = orcamento
+    urlopen_real = urllib.request.urlopen
+    conectar_real = _socket.create_connection
+
+    def _dentro():
+        return getattr(_LOCAL, 'profundidade', 0) > 0
+
+    @contextlib.contextmanager
+    def _um_nivel():
+        _LOCAL.profundidade = getattr(_LOCAL, 'profundidade', 0) + 1
+        try:
+            yield
+        finally:
+            _LOCAL.profundidade -= 1
+
+    def urlopen_com_teto(req, *a, **k):
+        actual = orcamento_actual()
+        if actual is None or _dentro():
+            return urlopen_real(req, *a, **k)
+        registo = actual.reservar(
+            getattr(req, 'tipo_de_pedido', None)
+            or tipo_por_omissao or _tipo_por_omissao(req), req)
+        with _um_nivel():
+            try:
+                resposta = urlopen_real(req, *a, **k)
+            except Exception as e:                                # noqa: BLE001
+                registo['OUTCOME'] = type(e).__name__
+                raise
+        registo['OUTCOME'] = getattr(resposta, 'status', 'OK')
+        return resposta
+
+    def conectar_com_teto(endereco, *a, **k):
+        actual = orcamento_actual()
+        if actual is None or _dentro():
+            return conectar_real(endereco, *a, **k)
+        alvo = '%s:%s' % endereco if isinstance(endereco, tuple) else str(endereco)
+        registo = actual.reservar(tipo_por_omissao or PEDIDO_DESCONHECIDO, alvo)
+        with _um_nivel():
+            try:
+                ligacao = conectar_real(endereco, *a, **k)
+            except Exception as e:                                # noqa: BLE001
+                registo['OUTCOME'] = type(e).__name__
+                raise
+        registo['OUTCOME'] = 'OK'
+        return ligacao
+
+    urllib.request.urlopen = urlopen_com_teto
+    _socket.create_connection = conectar_com_teto
+    try:
+        yield orcamento
+    finally:
+        urllib.request.urlopen = urlopen_real
+        _socket.create_connection = conectar_real
+        _LOCAL.orcamento = anterior
 
 
 #: Nomes antigos, mantidos porque codigo vivo ja os chama assim.

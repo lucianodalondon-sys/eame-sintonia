@@ -260,10 +260,18 @@ if __name__ == '__main__':
     print('\n── a chamada REAL, pelo caminho canonico ──')
     print('  · teto de pedidos   %d (o portao do robots.txt conta)' % MAX_PEDIDOS)
     quando = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+    # ⚠️ O TETO DEIXOU DE SER DESTA PROVA. Ele era `MAX_PEDIDOS` aqui dentro —
+    # e por isso reiniciou-se a cada volta e nao recusou nada quando a missao
+    # repetiu. Agora quem o cobra e o runtime, por `teto_de_rede=`, e o que
+    # sobra aqui e o CONTADOR INDEPENDENTE que confere o contador dele.
+    #
+    #     UM TETO QUE VIVE NA PROVA MEDE A PROVA.
+    #     E UM TETO QUE SE MEDE A SI PROPRIO MEDE O ESPELHO.
     urlopen_real = _contar_e_limitar()
     try:
         objetos, trace = sx.COLLECT(platform=PLATAFORMA, capability=CAPACIDADE,
                                     run_id='C108A-TRIAL', modo=sx.TRIAL,
+                                    teto_de_rede=MAX_PEDIDOS,
                                     handle=ALVO, limit=TETO, country_scope=ESCOPO)
     finally:
         urllib.request.urlopen = urlopen_real
@@ -299,6 +307,13 @@ if __name__ == '__main__':
                  ' ERRO=%s' % p['ERRO'] if p['ERRO'] else ''))
     diz(len(PEDIDOS) <= MAX_PEDIDOS, 'HTTP_REQUESTS dentro do teto',
         '%d de %d' % (len(PEDIDOS), MAX_PEDIDOS))
+    diz(trace.get('NETWORK_BUDGET_LIMIT') == MAX_PEDIDOS,
+        'o runtime recebeu o teto, e nao so a prova',
+        str(trace.get('NETWORK_BUDGET_LIMIT')))
+    diz(trace.get('NETWORK_REQUESTS_USED') == len(PEDIDOS),
+        'o contador do runtime bate com o contador independente',
+        'runtime=%s prova=%d' % (trace.get('NETWORK_REQUESTS_USED'),
+                                 len(PEDIDOS)))
     diz(A_SECO is not None or any(p['STATUS'] == 200 for p in PEDIDOS),
         'a fonte respondeu 200', str([p['STATUS'] for p in PEDIDOS]) or 'a seco')
     diz(bool(objetos), 'OBJECT_COUNT >= 1', str(len(objetos)))

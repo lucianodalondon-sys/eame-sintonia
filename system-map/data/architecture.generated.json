@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-bluesky-live-trial-c10-8a",
-    "HEAD": "b4a4c71a725f19df6fdedbc71c28c896c2647cc6",
-    "GENERATED_AT": "2026-09-12T13:03:02+00:00",
-    "SOURCE_TREE_FINGERPRINT": "de49fdb8ca32dad6997353fe2d1c387b7bc07798265ee6f7dcca9af110f83eb9"
+    "BRANCH": "claude/sintonia-scrap-trial-network-budget-c10-8ar",
+    "HEAD": "509d2b59d38aa6b7e5707a6bdfc574ff2b9d812b",
+    "GENERATED_AT": "2026-09-12T13:03:45+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e9e45c79700d11f955cdfb28901fe82224db484d5103bd34c6904d4ebad3cf63"
   },
   "FILES": [
     {
@@ -1424,7 +1424,7 @@
     },
     {
       "path": "coleta/scrap_executor.py",
-      "sha": "cf340671099db3337be47f88f491197f3a759628",
+      "sha": "bbf56cb590bd5fc9f8b3c5411fa2140dd2bb3682",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1438,7 +1438,7 @@
     },
     {
       "path": "coleta/scrap_http.py",
-      "sha": "9f131ce0368c0fcdf57dbe7b620b5d7c13906744",
+      "sha": "106dce657e130b0c88a0641dd22aec48d35a822d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1473,7 +1473,7 @@
     },
     {
       "path": "coleta/social_rotas.py",
-      "sha": "3619a26ddc1da4295781f0cc6e5e9eda8c9536b7",
+      "sha": "a8e03c2d011c3d921064d1b069c5e61153226777",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5274,7 +5274,7 @@
     },
     {
       "path": "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
-      "sha": "0b3e666202d4bfa7e12d7d226782e25f1194863e",
+      "sha": "39479306a7eda2dd9cf3fc1cb56221f5e8b22e3f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8025,7 +8025,7 @@
     },
     {
       "path": "provas/_c108a_ensaio_a_seco.json",
-      "sha": "0a1419d4d4bd55e0daa5d9943ab6159db0761cb2",
+      "sha": "fb4879d47c7c446692c1a66a0d3bb03af3d61fdb",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8081,7 +8081,7 @@
     },
     {
       "path": "provas/bluesky_trial_ao_vivo.py",
-      "sha": "5f23403109daa71bead25730104b9bda240b0aa8",
+      "sha": "9c29d83ffa8fefd662c69c23fbfdd3c4fbf70b56",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9537,7 +9537,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "0a0b5b9790277826422b501955ddf7ed6ee9dbbb",
+      "sha": "38f501fc94d027481c7908f752c09d716cf8dc1c",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13505,7 +13505,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 414,
+        "line": 487,
         "snippet": "import coleta_checkpoint as ck"
       }
     },
@@ -13516,7 +13516,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 576,
+        "line": 649,
         "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
       }
     },
@@ -13544,6 +13544,17 @@
     },
     {
       "from_file": "coleta/scrap_executor.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_executor.py",
+        "line": 345,
+        "snippet": "import scrap_http as _http"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_executor.py",
       "to_file": "coleta/scrap_registo.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -13560,7 +13571,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 558,
+        "line": 631,
         "snippet": "import social_rotas as sr"
       }
     },
@@ -13571,7 +13582,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 589,
+        "line": 662,
         "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
       }
     },
@@ -13582,7 +13593,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 360,
+        "line": 417,
         "snippet": "import falhas as fx"
       }
     },
@@ -26496,7 +26507,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/bluesky_trial_ao_vivo.py",
-        "line": 281,
+        "line": 289,
         "snippet": "nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'"
       }
     },
@@ -26507,7 +26518,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/bluesky_trial_ao_vivo.py",
-        "line": 281,
+        "line": 289,
         "snippet": "nome = '_c108a_ensaio_a_seco.json' if A_SECO else '_c108a_ultima_corrida.json'"
       }
     },
@@ -39920,7 +39931,7 @@
     "files_tracked": 1512,
     "files_readable": 583,
     "files_code_dir": 632,
-    "file_edges": 2624,
+    "file_edges": 2625,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

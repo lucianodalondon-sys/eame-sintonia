@@ -68,6 +68,7 @@ PAUSA_ENTRE_CHAMADAS = http.PAUSA_ENTRE_CHAMADAS
 RotaNaoPermitida = http.RotaNaoPermitida
 RotaBloqueada = http.RotaBloqueada
 PortaoIndisponivel = http.PortaoIndisponivel
+SemOrcamentoDeRede = http.SemOrcamentoDeRede
 _EstadoDaApi = http.EstadoDaApi
 permitido = http.permitido
 _get = http.buscar
@@ -198,6 +199,14 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
     try:
         objetos = fn(run_id=run_id, country_scope=country_scope,
                      medida=registro['MEDIDA'], **kwargs)
+    except SemOrcamentoDeRede:
+        # A recusa do TETO sobe inteira ate ao executor, que e quem sabe qual
+        # era o teto. Traduzi-la aqui para um estado de rota faria a casa dizer
+        # que a fonte recusou quando fomos nos.
+        #
+        #     ESGOTAR O ORCAMENTO NAO E A FONTE ESTAR VAZIA,
+        #     E TAMBEM NAO E A PLATAFORMA IMPEDIR.
+        raise
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
         registro['ERRO'] = ss.redigir(str(e))

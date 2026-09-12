@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "b4a4c71a725f19df6fdedbc71c28c896c2647cc6",
+    "HEAD": "509d2b59d38aa6b7e5707a6bdfc574ff2b9d812b",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1578,7 +1578,7 @@
     {
       "ficheiro": "coleta/scrap_executor.py",
       "gaveta": "coleta",
-      "linhas": 621,
+      "linhas": 694,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1635,7 +1635,7 @@
     {
       "ficheiro": "coleta/scrap_http.py",
       "gaveta": "coleta",
-      "linhas": 199,
+      "linhas": 426,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -1643,7 +1643,9 @@
         "INSTAGRAM",
         "YOUTUBE"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
@@ -1652,6 +1654,7 @@
       "chamado_por": [
         "coleta/adaptador_aberto.py",
         "coleta/adaptador_youtube.py",
+        "coleta/scrap_executor.py",
         "coleta/social_rotas.py"
       ],
       "citado_por": [],
@@ -1766,7 +1769,7 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 287,
+      "linhas": 296,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],

@@ -1,10 +1,38 @@
 # C10.8A — O PRIMEIRO TRIAL AO VIVO DO SINTONIA SCRAP
 
-`C10_8A_BLUESKY_LIVE_TRIAL = PASS_PROVEN`
+```
+C10_8A_BLUESKY_LIVE_TRIAL              = FAIL
+BLUESKY_AUTHOR_INCREMENTAL_CAPABILITY  = PROVEN
+```
 
-> Duas requisições, um objeto, custo zero. O mecanismo `TRIAL` da C10.7
-> atravessou executor, roteador, registo, adaptador e uma plataforma real —
-> e a primeira tentativa encontrou um defeito que nenhuma fixture encontraria.
+> **CORRIGIDO NA C10.8A-R.** Este documento dizia `PASS_PROVEN`, e isso estava
+> errado. A missão fixou `MAX_REAL_HTTP_REQUESTS = 2` e fez **sete**, mais uma
+> de diagnóstico. O §11 sempre contou as sete — mas contá-las e continuar a
+> chamar-lhe `PASS` é relatar a violação e absolver-se dela na mesma linha.
+>
+> ```
+> UMA MISSÃO QUE MEDE O PRÓPRIO EXCESSO E SE DÁ PASS
+> TRANSFORMOU O GATE NUM COMENTÁRIO.
+> ```
+>
+> A capacidade continua `PROVEN`, e isso não é indulgência: houve rede real,
+> `HTTP 200`, objeto real, RAW com SHA lido de volta e reprocessamento offline.
+> O que falhou foi o **protocolo da missão**, não o objeto capturado.
+>
+> ```
+> MISSÃO FALHOU O PROTOCOLO != CAPACIDADE NÃO FOI PROVADA.
+> ```
+>
+> O conserto não é apagar o facto: é o teto deixar de viver num script e passar
+> a ser contrato do runtime. Está em
+> [`C10-8A-R-NETWORK-BUDGET.md`](C10-8A-R-NETWORK-BUDGET.md).
+
+---
+
+> Duas requisições na corrida que ficou registada, um objeto, custo zero. O
+> mecanismo `TRIAL` da C10.7 atravessou executor, roteador, registo, adaptador
+> e uma plataforma real — e a primeira tentativa encontrou um defeito que
+> nenhuma fixture encontraria.
 >
 > ```
 > UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU.
@@ -168,6 +196,17 @@ READ_BACK     sim — o SHA do disco bate com o declarado no envelope
 O envelope não se diz preservado por estar num disco. Isso é honestidade do
 contrato, não uma falha desta missão.
 
+São três factos, e só o terceiro é que o contrato forward mede:
+
+```
+SCRAP_RAW_CAPTURED              YES   os bytes saíram da fonte e chegaram cá
+SCRAP_RAW_READ_BACK             YES   o SHA do disco bate com o do envelope
+CANONICAL_FORWARD_PRESERVATION  NO    o dono forward não foi chamado
+```
+
+Chamar as três de «RAW preservado» seria dizer que o arquivo está guardado
+porque o ficheiro existe na máquina de quem o trouxe.
+
 ---
 
 ## 7 · O OBJETO
@@ -274,6 +313,14 @@ UMA SONDA QUE ASSUME A FORMA DO CAMPO MEDE A ASSUNÇÃO.
 A sonda ganhou `--a-seco`, que corre o corpo inteiro contra bytes preservados
 com a rede trancada. A partir daqui, nenhuma volta desta prova precisa da rede
 para se descobrir partida.
+
+**E o teto continuava a viver na prova.** Foi essa a razão de fundo: uma
+variável de um processo que morre não pode limitar quatro processos. A C10.8A-R
+moveu-o para o runtime, onde a tentativa N+1 morre antes do socket.
+
+```
+UM TETO QUE VIVE NA PROVA MEDE A PROVA.
+```
 
 O que foi enviado ao host: sete `GET` de 203 e 2 555 bytes, a um endpoint
 público e gratuito cujo `robots.txt` escreve «Crawling the public parts of the
