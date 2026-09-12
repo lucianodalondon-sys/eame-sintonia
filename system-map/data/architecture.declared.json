@@ -2236,6 +2236,25 @@
    ]
   },
   {
+   "id": "C-RELEVANCIA-DA-FONTE",
+   "name": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?»",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⚖",
+   "what": "Le o LIVRO-DE-RELEVANCIA e responde pelo PAR (fonte, proposito) — nunca pela fonte sozinha. Tres vereditos: AUTORIZA, BARRA, EXIGE_AVALIACAO. Seis estados, e quatro deles sao ausencias que nao se achatam: NAO_AVALIADA (ninguem olhou), NAO_SEI (olhou-se e nao se concluiu), ERRO (a avaliacao rebentou) e NAO (olhou-se e a resposta e nao). Uma so delas e um julgamento; as outras tres sao confissoes.",
+   "why_here": "Medido antes desta lei existir: FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> executor sem que NENHUMA etapa perguntasse se a fonte servia para o assunto pedido. FONTE DESCOBERTA -> COLETA CARA -> MUITOS BYTES -> DEPOIS DESCOBRIMOS QUE ELA QUASE NUNCA SERVIA. Nao e um ranking de fontes: e uma porta antes do gasto. NAO EXISTE `relevante = true` NUMA FONTE — a mesma fonte pode ser ouro para um proposito e ruido para outro, e guardar a relevancia NA fonte faria o segundo proposito receber a resposta do primeiro. Chegou a esta linhagem na SCRAP-OWNER-01, BYTE A BYTE da linha que a escreveu: duas copias da mesma lei sao duas leis, e a segunda aprende a responder o que a primeira recusa. Quem a chama e `leis/autorizacao_de_gasto.py`, e so na COLETA_NORMAL — SOURCE RELEVANCE OWNER != SPEND ENFORCER.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/relevancia_da_fonte.py"
+   ],
+   "views": [
+    "acervo",
+    "audit"
+   ]
+  },
+  {
    "id": "C-SCRAP-GUARDA",
    "name": "A guarda de credencial e de sessao do SCRAP",
    "territory": "Z-GUARDA",

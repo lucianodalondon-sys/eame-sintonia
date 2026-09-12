@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
+    "HEAD": "3fc3d1a9e1dddaa253fe718179f62a8a21ddaff9",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -371,6 +371,7 @@
         "regras/sensor_coleta.py"
       ],
       "citado_por": [
+        "coleta/coletor.py",
         "ferramentas/reel_transcricao.py"
       ],
       "no_ci": true
@@ -748,7 +749,7 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 563,
+      "linhas": 575,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -839,7 +840,7 @@
     {
       "ficheiro": "coleta/coletor.py",
       "gaveta": "coleta",
-      "linhas": 889,
+      "linhas": 944,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -901,7 +902,7 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "gaveta": "coleta",
-      "linhas": 758,
+      "linhas": 775,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -923,6 +924,7 @@
         "coleta/social_scrap.py"
       ],
       "citado_por": [
+        "coleta/coletor.py",
         "ferramentas/contrato_ator.py",
         "ferramentas/reel_transcricao.py",
         "pedido/receitas.py"
@@ -1224,7 +1226,7 @@
     {
       "ficheiro": "coleta/instagram_coleta.py",
       "gaveta": "coleta",
-      "linhas": 675,
+      "linhas": 680,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1834,7 +1836,7 @@
     {
       "ficheiro": "coleta/social_scrap.py",
       "gaveta": "coleta",
-      "linhas": 2010,
+      "linhas": 2039,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2239,7 +2241,7 @@
     {
       "ficheiro": "regras/sensor_coleta.py",
       "gaveta": "regras",
-      "linhas": 1220,
+      "linhas": 1230,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [

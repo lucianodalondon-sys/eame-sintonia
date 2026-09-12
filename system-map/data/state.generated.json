@@ -798,6 +798,7 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
       "docs/sintonia-scrap/SCRAP-SR-02-AUTORIZACAO-DE-GASTO.md"
     ],
     "ferramentas": [
@@ -1105,6 +1106,7 @@
       "leis/lugar_do_fato.py",
       "leis/politica_da_coleta.py",
       "leis/regua_italia.py",
+      "leis/relevancia_da_fonte.py",
       "leis/retorno_da_coleta.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
@@ -1502,6 +1504,7 @@
       "tests/test_arestas.py",
       "tests/test_armazem_italiano.py",
       "tests/test_autoridade_da_fonte.py",
+      "tests/test_autorizacao_de_gasto.py",
       "tests/test_biblia.py",
       "tests/test_c10_1_source_id.py",
       "tests/test_c10_2_origin_gate.py",
@@ -1987,10 +1990,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-canonical-flow-f01",
-    "HEAD": "e3639f195636ffbef84d55f983644cb132ba46c5",
-    "GENERATED_AT": "2026-09-12T20:03:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3aa952d401fd9419c8a9cdec98e6fd397ad04d3cc968746e230e54540184fa8e"
+    "BRANCH": "claude/sintonia-scrap-spend-auth-owner-01",
+    "HEAD": "3fc3d1a9e1dddaa253fe718179f62a8a21ddaff9",
+    "GENERATED_AT": "2026-09-12T21:57:34+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3d2ba727f15fa07b62b39bc31a211134a928226e6b49dcf334fbe24ff01f8389"
   },
   "FAMILIES": [
     {
@@ -2059,7 +2062,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 62
+      "count": 63
     },
     {
       "id": "F-ENTREGA",
@@ -2413,7 +2416,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 15
+      "count": 16
     },
     {
       "id": "Z-PROVA",
@@ -2700,6 +2703,7 @@
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-READY",
         "C-RECALL-PORTA-IT",
+        "C-RELEVANCIA-DA-FONTE",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -2775,7 +2779,8 @@
       "inbound": [
         "C-CI-COLETA",
         "C-SCRAP-LEIS",
-        "C-SINTONIA-SCRAP"
+        "C-SINTONIA-SCRAP",
+        "C-TESTES"
       ],
       "outbound": [
         "C-COLETA-BASE",
@@ -5972,7 +5977,10 @@
       "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-SCRAP-SOCIAL.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-RELEVANCIA-DA-FONTE",
+        "C-TESTES"
+      ],
       "outbound": [
         "C-COLETA-BASE",
         "C-PROVA-COLETA",
@@ -5985,13 +5993,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "CAMPOS_DA_AUTORIZACAO",
-          "LEIS",
-          "NAO_CRIAR"
+          "CAUSAS",
+          "LEIS"
         ],
-        "palavras": 19,
+        "palavras": 24,
         "por_lingua": {},
-        "sem_marca_de_lingua": 19,
+        "sem_marca_de_lingua": 24,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -7391,7 +7398,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -7406,9 +7413,11 @@
         "coleta/instagram_pessoal.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "coleta/instagram_coleta.py"
+      ],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
@@ -12266,6 +12275,7 @@
         "C-PEDIDO",
         "C-RASTRO",
         "C-RECEITAS",
+        "C-RELEVANCIA-DA-FONTE",
         "C-RETORNO-DA-COLETA",
         "C-SCRAP-COLHEITA",
         "C-SCRAP-EVIDENCIA",
@@ -12317,9 +12327,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 358,
+        "palavras": 374,
         "por_lingua": {},
-        "sem_marca_de_lingua": 358,
+        "sem_marca_de_lingua": 374,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13592,6 +13602,67 @@
       "y": 1648
     },
     {
+      "id": "C-RELEVANCIA-DA-FONTE",
+      "name": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?»",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "what": "Le o LIVRO-DE-RELEVANCIA e responde pelo PAR (fonte, proposito) — nunca pela fonte sozinha. Tres vereditos: AUTORIZA, BARRA, EXIGE_AVALIACAO. Seis estados, e quatro deles sao ausencias que nao se achatam: NAO_AVALIADA (ninguem olhou), NAO_SEI (olhou-se e nao se concluiu), ERRO (a avaliacao rebentou) e NAO (olhou-se e a resposta e nao). Uma so delas e um julgamento; as outras tres sao confissoes.",
+      "why_here": "Medido antes desta lei existir: FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> executor sem que NENHUMA etapa perguntasse se a fonte servia para o assunto pedido. FONTE DESCOBERTA -> COLETA CARA -> MUITOS BYTES -> DEPOIS DESCOBRIMOS QUE ELA QUASE NUNCA SERVIA. Nao e um ranking de fontes: e uma porta antes do gasto. NAO EXISTE `relevante = true` NUMA FONTE — a mesma fonte pode ser ouro para um proposito e ruido para outro, e guardar a relevancia NA fonte faria o segundo proposito receber a resposta do primeiro. Chegou a esta linhagem na SCRAP-OWNER-01, BYTE A BYTE da linha que a escreveu: duas copias da mesma lei sao duas leis, e a segunda aprende a responder o que a primeira recusa. Quem a chama e `leis/autorizacao_de_gasto.py`, e so na COLETA_NORMAL — SOURCE RELEVANCE OWNER != SPEND ENFORCER.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "acervo",
+        "audit",
+        "opportunity",
+        "science"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "leis/relevancia_da_fonte.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-AUTORIZACAO-DE-GASTO.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO"
+      ],
+      "outbound": [
+        "C-AUTORIZACAO-DE-GASTO",
+        "C-PROVA-COLETA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_DA_DECISAO"
+        ],
+        "palavras": 9,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 9,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "rule_role": "DECLARES",
+      "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
+      "x": 18900,
+      "y": 1648
+    },
+    {
       "id": "C-RETORNO-DA-COLETA",
       "name": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita",
       "territory": "Z-REGUAS",
@@ -13637,7 +13708,7 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "DECLARES",
       "rule_role_evidence": "nao le nem escreve artefato: enuncia vocabulario ou contrato",
-      "x": 18900,
+      "x": 19315,
       "y": 1648
     },
     {
@@ -14133,8 +14204,8 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "rule_role": "MEASURES",
       "rule_role_evidence": "le artefato e nao escreve nenhum: olha e da nota",
-      "x": 19315,
-      "y": 1648
+      "x": 18485,
+      "y": 1970
     },
     {
       "id": "C-SCRAP-ROTA",
@@ -14279,11 +14350,11 @@
           "TERMOS_IT",
           "_DESCULPAS"
         ],
-        "palavras": 244,
+        "palavras": 249,
         "por_lingua": {
           "PT": 1
         },
-        "sem_marca_de_lingua": 243,
+        "sem_marca_de_lingua": 248,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14296,7 +14367,7 @@
         {
           "onde": "SUPABASE",
           "file": "coleta/social_scrap.py",
-          "line": 1614,
+          "line": 1643,
           "snippet": "dsn = (os.environ.get('SUPABASE_DB_URL') or '').strip()"
         }
       ],
@@ -15891,6 +15962,7 @@
         "tests/test_arestas.py",
         "tests/test_armazem_italiano.py",
         "tests/test_autoridade_da_fonte.py",
+        "tests/test_autorizacao_de_gasto.py",
         "tests/test_biblia.py",
         "tests/test_c10_1_source_id.py",
         "tests/test_c10_2_origin_gate.py",
@@ -15996,7 +16068,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 112,
+      "file_count": 113,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16089,6 +16161,7 @@
         "C-RECORRENCIA",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
+        "C-RELEVANCIA-DA-FONTE",
         "C-RETORNO-DA-COLETA",
         "C-ROTA-M2",
         "C-ROTULOS",
@@ -16112,8 +16185,10 @@
       ],
       "outbound": [
         "C-ADMISSAO",
+        "C-APIFY-POOL",
         "C-ASK-SINTONIA",
         "C-AUDIT-GERAL",
+        "C-AUTORIZACAO-DE-GASTO",
         "C-CENSO-CONGELAMENTO",
         "C-CI-PERSIST",
         "C-CICATRIZES-BR",
@@ -16141,7 +16216,6 @@
         "listas": [
           "ADAPTERS",
           "ANTES_DO_B2",
-          "AUTORIZACAO",
           "BINDINGS",
           "BLOQUEADAS",
           "CADEIA",
@@ -16167,7 +16241,6 @@
           "IMPLEMENTACOES",
           "INSTALADORES",
           "ITEM",
-          "LIMITES",
           "LINHA_BOA",
           "ONDE",
           "PEDIDOS",
@@ -16184,12 +16257,12 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 562,
+        "palavras": 547,
         "por_lingua": {
           "FR": 2,
           "IT": 2
         },
-        "sem_marca_de_lingua": 558,
+        "sem_marca_de_lingua": 543,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -17606,7 +17679,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-canonical-flow-f01"
+        "branch claude/sintonia-scrap-spend-auth-owner-01"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18066,6 +18139,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-RELEVANCIA-DA-FONTE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?». Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/relevancia_da_fonte.py",
+          "line": 122,
+          "snippet": "from admissao import (  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18217,24 +18308,6 @@
     },
     {
       "from": "C-APIFY-POOL",
-      "to": "C-PROVA-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Apify — a rota paga alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/mutacao_da_autorizacao.py",
-          "line": 152,
-          "snippet": "('M16 · o pool de chaves passa a decidir gasto', 'ferramentas/apify_pool.py',"
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-APIFY-POOL",
       "to": "C-SCRAP-SOCIAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -18277,7 +18350,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Apify — a rota paga tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Apify — a rota paga tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8b_live_disparador.py",
@@ -18298,11 +18371,6 @@
           "file": "tests/test_falhas.py",
           "line": 19,
           "snippet": "import apify_pool as ap            # noqa: E402"
-        },
-        {
-          "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 166,
-          "snippet": "import apify_pool as ap"
         }
       ],
       "categoria": "PROOF"
@@ -18319,7 +18387,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 272,
+          "line": 145,
           "snippet": "'ferramentas/apify_pool.py', 'coleta/social_rotas.py',"
         }
       ],
@@ -19569,7 +19637,7 @@
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 32,
+          "line": 29,
           "snippet": "LEI = 'leis/autorizacao_de_gasto.py'"
         }
       ],
@@ -19583,12 +19651,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 1 linha de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
           "line": 142,
           "snippet": "from autorizacao_de_gasto import (  # noqa: E402"
+        },
+        {
+          "file": "coleta/social_scrap.py",
+          "line": 1630,
+          "snippet": "import autorizacao_de_gasto as ag"
         }
       ],
       "categoria": "RULE"
@@ -19601,12 +19674,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 23,
+          "snippet": "import autorizacao_de_gasto as ag   # noqa: E402"
+        },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
           "line": 25,
           "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 141,
+          "snippet": "import autorizacao_de_gasto as ag"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -19615,7 +19698,7 @@
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 28,
+          "line": 42,
           "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
         }
       ],
@@ -19633,8 +19716,8 @@
       "evidence": [
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 391,
-          "snippet": "fonte = _fonte('leis/autorizacao_de_gasto.py')"
+          "line": 498,
+          "snippet": "self.assertEqual(donos, ['leis/autorizacao_de_gasto.py'],"
         }
       ],
       "categoria": "PROOF"
@@ -21642,7 +21725,7 @@
       "evidence": [
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 33,
+          "line": 30,
           "snippet": "DONO = 'coleta/coletor.py'"
         },
         {
@@ -21759,12 +21842,12 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1617,
+          "line": 1646,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 1651,
+          "line": 1680,
           "snippet": "import coletor as _ct"
         },
         {
@@ -21787,7 +21870,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_youtube.py",
-          "line": 468,
+          "line": 480,
           "snippet": "medida['IMPLEMENTACAO'] = 'coleta/coletor.py'"
         },
         {
@@ -21824,8 +21907,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 25,
+          "snippet": "import coletor                      # noqa: E402"
+        },
         {
           "file": "tests/test_c10_6b_run_duravel.py",
           "line": 46,
@@ -21878,13 +21966,8 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 253,
+          "line": 254,
           "snippet": "import coletor as ct"
-        },
-        {
-          "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 29,
-          "snippet": "import coletor as ct                                              # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21897,8 +21980,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 416,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
+        },
         {
           "file": "tests/test_c10_6b_run_duravel.py",
           "line": 63,
@@ -21906,7 +21994,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 355,
+          "line": 382,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -21921,7 +22009,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 238,
+          "line": 250,
           "snippet": "self.assertEqual(med.get('IMPLEMENTACAO'), 'coleta/coletor.py')"
         },
         {
@@ -21931,7 +22019,7 @@
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 271,
+          "line": 144,
           "snippet": "ONDE = ('coleta/adaptador_youtube.py', 'coleta/coletor.py',"
         },
         {
@@ -22060,8 +22148,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 509,
+          "snippet": "import instagram_coleta"
+        },
         {
           "file": "tests/test_c10_4c_janela_preservada.py",
           "line": 43,
@@ -22107,12 +22200,12 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 355,
+          "line": 382,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 282,
+          "line": 286,
           "snippet": "self.assertIn(\"'coleta', 'instagram_janela.py'\", prova)"
         }
       ],
@@ -22198,8 +22291,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 542,
+          "snippet": "import comunicacao_coleta"
+        },
         {
           "file": "tests/test_c10_6d_portas_canonicas.py",
           "line": 436,
@@ -22265,7 +22363,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 356,
+          "line": 383,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -25034,7 +25132,7 @@
       "evidence": [
         {
           "file": "tests/test_c8_convergencia.py",
-          "line": 261,
+          "line": 278,
           "snippet": "'coleta/ingresso.py', 'orquestrador/', 'supabase/',"
         },
         {
@@ -26473,7 +26571,7 @@
       "evidence": [
         {
           "file": "coleta/instagram_coleta.py",
-          "line": 556,
+          "line": 561,
           "snippet": "import corrigir_custo as cc"
         }
       ],
@@ -28492,8 +28590,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 572,
+          "snippet": "import quem_pode_comprar as censo"
+        },
         {
           "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
           "line": 308,
@@ -28506,7 +28609,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 340,
+          "line": 344,
           "snippet": "import o_fluxo_canonico_do_scrap as prova"
         }
       ],
@@ -28529,7 +28632,7 @@
         },
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 606,
+          "line": 652,
           "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
         },
         {
@@ -28539,7 +28642,7 @@
         },
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
-          "line": 567,
+          "line": 579,
           "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')"
         },
         {
@@ -28574,7 +28677,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 281,
+          "line": 285,
           "snippet": "prova = _fonte('provas/o_fluxo_canonico_do_scrap.py')"
         }
       ],
@@ -29365,6 +29468,96 @@
       "categoria": "RULE"
     },
     {
+      "from": "C-RELEVANCIA-DA-FONTE",
+      "to": "C-AUTORIZACAO-DE-GASTO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por A autorizacao de gasto · a guarda antes do POST pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "leis/autorizacao_de_gasto.py",
+          "line": 176,
+          "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-DA-FONTE",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 111,
+          "snippet": "import relevancia_da_fonte as rel"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-DA-FONTE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_autorizacao.py",
+          "line": 31,
+          "snippet": "REL = 'leis/relevancia_da_fonte.py'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-DA-FONTE",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 24,
+          "snippet": "import relevancia_da_fonte as rel   # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA-DA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 438,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-RETORNO-DA-COLETA",
       "to": "C-ORQUESTRADOR",
       "type": "IMPORTS",
@@ -29466,7 +29659,7 @@
       "evidence": [
         {
           "file": "tests/test_c8_convergencia.py",
-          "line": 262,
+          "line": 279,
           "snippet": "'leis/retorno_da_coleta.py'],"
         }
       ],
@@ -29933,7 +30126,7 @@
         },
         {
           "file": "coleta/social_scrap.py",
-          "line": 2001,
+          "line": 2030,
           "snippet": "import social_guarda"
         }
       ],
@@ -30751,12 +30944,12 @@
       "evidence": [
         {
           "file": "coleta/coletor.py",
-          "line": 375,
+          "line": 379,
           "snippet": "import scrap_http as _http"
         },
         {
           "file": "coleta/coletor.py",
-          "line": 790,
+          "line": 844,
           "snippet": "import social_envelope as _env"
         }
       ],
@@ -30880,8 +31073,8 @@
         },
         {
           "file": "provas/mutacao_da_autorizacao.py",
-          "line": 34,
-          "snippet": "EXEC = 'coleta/scrap_executor.py'"
+          "line": 150,
+          "snippet": "('M16 · a rota gratuita passa a exigir autorizacao de gasto', 'coleta/scrap_executor.py',"
         },
         {
           "file": "provas/mutacao_do_fluxo_canonico.py",
@@ -31239,8 +31432,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/mutacao_da_autorizacao.py",
+          "line": 32,
+          "snippet": "SENSOR = 'regras/sensor_coleta.py'"
+        },
         {
           "file": "provas/orcamento_financeiro.py",
           "line": 456,
@@ -31280,8 +31478,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 469,
+          "snippet": "import sensor_coleta"
+        },
         {
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 123,
@@ -31312,7 +31515,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_8af_orcamento_financeiro.py",
-          "line": 356,
+          "line": 383,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -31337,7 +31540,7 @@
         },
         {
           "file": "tests/test_scrap_sr02_autorizacao_de_gasto.py",
-          "line": 569,
+          "line": 361,
           "snippet": "self.assertEqual(trocas, [('regras/sensor_coleta.py', '_curl_robusto')],"
         }
       ],
@@ -32238,6 +32441,24 @@
     },
     {
       "from": "C-TESTES",
+      "to": "C-APIFY-POOL",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em Apify — a rota paga. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 423,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'ferramentas', 'apify_pool.py'),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
       "to": "C-ASK-SINTONIA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -32278,6 +32499,24 @@
           "file": "italia-portale/audit/stale-generator-gate.mjs",
           "line": 149,
           "snippet": "const vercel = JSON.parse(fs.readFileSync(path.join(RAIZ, 'vercel.json'), 'utf8'));"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-TESTES",
+      "to": "C-AUTORIZACAO-DE-GASTO",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Suite de testes escreve em A autorizacao de gasto · a guarda antes do POST pago. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 444,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'autorizacao_de_gasto.py'),"
         }
       ],
       "categoria": "PROOF"
@@ -32538,7 +32777,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 731,
+          "line": 748,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -33823,7 +34062,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 774,
+  "UNCLAIMED_FILES_COUNT": 775,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33986,17 +34225,17 @@
     ]
   },
   "COUNTS": {
-    "components": 167,
-    "components_proven": 53,
-    "components_pending": 108,
+    "components": 168,
+    "components_proven": 52,
+    "components_pending": 110,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 704,
-    "edges_proven": 701,
+    "edges": 711,
+    "edges_proven": 708,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1540,
-    "files_covered": 766,
+    "files_tracked": 1543,
+    "files_covered": 768,
     "files_code_unclaimed": 0
   }
 }
