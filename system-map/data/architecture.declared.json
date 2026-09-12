@@ -2015,6 +2015,25 @@
    ]
   },
   {
+   "id": "C-DONO-DO-DOCUMENTO",
+   "name": "O dono canônico do documento estruturado (OBSERVED)",
+   "territory": "Z-GUARDA",
+   "kind": "engine",
+   "icon": "▤",
+   "what": "Quem escreve na tabela do documento estruturado. Ele possui — e mais ninguém — o texto do documento, o hash desse texto, o SOURCE_ID que a fonte provou, e a decisão de deixar `document_id` em NULL quando ninguém o provou. A chave é o `derived_artifact_id`: o documento é o registo estruturado DAQUELE derivado.",
+   "why_here": "`public.conteudo` é a casa de conteúdo DE PLATAFORMA: `canal.channel_id` é «o id da plataforma, NUNCA o nome» e `conteudo.content_id` é «id da plataforma (video_id, post_id)». Um boletim em PDF de uma agência regional não tem nenhum dos dois, e a pergunta «qual é o canal dele?» não tinha resposta porque ele não tem canal. ONE CONCEPT → ONE OWNER não é ONE TABLE FOR EVERY TYPE OF CONTENT: a classe documental ganhou casa própria (migration 030) em vez de um canal inventado. O dono recusa `document_id` que seja igual ao hash do texto, à URL, ao storage_path, ao sha256 ou ao nome do ficheiro — um hash identifica BYTES e um caminho é uma MORADA, e nenhum dos dois é identidade de documento.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "guarda/preservar_documento.py"
+   ],
+   "views": [
+    "infra",
+    "audit"
+   ]
+  },
+  {
    "id": "C-RECALL-PORTA-IT",
    "name": "Quanto a peneira apanha na Itália",
    "territory": "Z-PROVA",

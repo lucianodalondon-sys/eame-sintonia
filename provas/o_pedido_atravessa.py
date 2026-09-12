@@ -247,10 +247,23 @@ def main():
         " on d.raw_asset_id = r.id where r.run_id = '%s'" % run_id)
     etapa("DERIVED", int(derivados[0][0]) > 0,
           "derived_artifact desta corrida: %s" % derivados[0][0])
+    # ⚠️ O STRUCTURED TEM DOIS DONOS, E CADA UM E DE UMA ESPECIE.
+    # `conteudo` e a casa do que uma PLATAFORMA publica — exige canal, e canal
+    # exige um id que a plataforma tenha emitido. `documento_estruturado`
+    # (migration 030) e a casa do documento NAO-PLATAFORMA. Medir so o
+    # primeiro era medir a casa errada para esta rota.
+    #
+    #     ONE CONCEPT -> ONE OWNER NAO QUER DIZER
+    #     UMA TABELA PARA TODO O TIPO DE CONTEUDO.
     conteudos = sql.executa(
         "select count(*) from public.conteudo where run_id = '%s'" % run_id)
-    etapa("STRUCTURED", int(conteudos[0][0]) > 0,
-          "conteudo desta corrida: %s" % conteudos[0][0])
+    documentos = sql.executa(
+        "select count(*) from public.documento_estruturado"
+        " where run_id = '%s'" % run_id)
+    etapa("STRUCTURED",
+          int(conteudos[0][0]) > 0 or int(documentos[0][0]) > 0,
+          "documento_estruturado: %s · conteudo (plataforma): %s"
+          % (documentos[0][0], conteudos[0][0]))
     adm = recibo.get("ADMISSAO") or {}
     etapa("ADMISSION", bool(adm.get("itens")),
           "a porta julgou %s itens: %s"
@@ -418,6 +431,56 @@ def main():
          (recusa or {}).get("QUEM_RESOLVE", "o canal resolveu-se sozinho?"))
 
     # ═══════════════════════════════════════════════════════════════════
+    # O STRUCTURED DOCUMENTAL — o registo que a rota escreveu
+    # ═══════════════════════════════════════════════════════════════════
+    docs = sql.executa(
+        "select d.derived_artifact_id, d.source_id, d.hash_texto,"
+        " coalesce(d.document_id, '<AUSENTE>'), length(d.texto)"
+        " from public.documento_estruturado d where d.run_id = '%s'"
+        " order by 1" % run_id)
+    caso("E1_o_documento_foi_ESTRUTURADO_nesta_corrida",
+         len(docs) == len(brutos),
+         "%d registos para %d observacoes · chaves %s"
+         % (len(docs), len(brutos), [int(x[0]) for x in docs]))
+
+    caso("E2_e_ele_NAO_fabricou_DOCUMENT_ID",
+         bool(docs) and all(x[3] == "<AUSENTE>" for x in docs),
+         "document_id: %s — a fonte nao o prova, e ausencia e a resposta"
+         % sorted({x[3] for x in docs}))
+
+    caso("E3_a_fonte_do_registo_e_a_PROVADA_e_nao_inferida",
+         bool(docs) and all(x[1] == "IT-T2-002" for x in docs),
+         "source_id nos registos: %s" % sorted({x[1] for x in docs}))
+
+    # ⚠️ E O REGISTO NAO MORA NA CASA DA PLATAFORMA.
+    # `conteudo` exige `canal_id`, e nao ha canal para uma agencia que publica
+    # PDF no sitio dela. O registo documental tem casa propria (030), e a
+    # prova de que ela era necessaria e que a outra continua VAZIA.
+    #
+    #     SOURCE != ENDPOINT != ARTIFACT.
+    caso("E4_nenhum_canal_foi_inventado_para_isto_acontecer",
+         int(sql.executa("select count(*) from public.canal")[0][0]) == 0
+         and int(conteudos[0][0]) == 0,
+         "canais criados: %s · linhas em conteudo: %s"
+         % (sql.executa("select count(*) from public.canal")[0][0],
+            conteudos[0][0]))
+
+    # ⚠️ E A LINHAGEM ATRAVESSA ATE AQUI: do registo estruturado chega-se a
+    # observacao sem inferir por sha nem por caminho.
+    cadeia = sql.executa(
+        "select d.derived_artifact_id, p.raw_asset_id, r.run_id"
+        " from public.documento_estruturado d"
+        " join public.participacao_na_derivacao p"
+        "   on p.derived_artifact_id = d.derived_artifact_id"
+        " join public.raw_asset r on r.id = p.raw_asset_id"
+        " where d.run_id = '%s' order by 1" % run_id)
+    caso("E5_do_registo_chega_se_a_OBSERVACAO_sem_inferir",
+         len(cadeia) == len(brutos)
+         and all(x[2] == run_id for x in cadeia),
+         "%d elos documento->participacao->observacao, todos da corrida"
+         % len(cadeia))
+
+    # ═══════════════════════════════════════════════════════════════════
     # O BLOQUEIO DO STRUCTURED — os TRES donos, contados um a um
     # ═══════════════════════════════════════════════════════════════════
     # ⚠️ «O DONO DO CANAL NAO EXISTE» E LARGO DE MAIS, e mandaria a missao
@@ -494,6 +557,55 @@ def main():
          canais_existentes == 0,
          "canais no banco: %d · a ficha da fonte declara owner textual e URL, "
          "e nenhum dos dois e id de plataforma" % canais_existentes)
+
+    # ═══════════════════════════════════════════════════════════════════
+    # POR QUE A PORTA NAO DIZ SIM — e nao e defeito da porta
+    # ═══════════════════════════════════════════════════════════════════
+    # ⚠️ A PORTA RESPONDEU, E A RESPOSTA E CORRECTA.
+    # Com o documento estruturado a chegar-lhe com texto e com o estagio certo,
+    # ela deixou de dizer «nao ha texto» e passou a dizer, por escrito:
+    #
+    #     «nao ha regra escrita do que conta como «T2».
+    #      Sem regra, esta porta nao inventa uma.»
+    #
+    # Mudar a regra tematica para obter SIM seria fabricar a admissao — e uma
+    # porta que aprende a dizer sim para o exame passar deixa de ser porta.
+    #
+    #     NAO HA CASO ADMISSIVEL != A INFRAESTRUTURA NAO FUNCIONA.
+    import admissao as adm_
+    from receitas import resolver as resolver_
+    com_regra = set(adm_.PERGUNTAS_DO_UNIVERSO)
+    caso("A1_a_porta_recusa_por_FALTA_DE_REGRA_e_di-lo_por_escrito",
+         "T2" not in com_regra
+         and (adm.get("por_resultado") or {}).get("NAO_SE_APLICA"),
+         "universos COM regra escrita: %s · e o alvo desta corrida e T2"
+         % sorted(com_regra))
+
+    # ⚠️ E AQUI ESTA O ACHADO QUE DECIDE A CERTIFICACAO.
+    # Cruzam-se duas listas que ninguem tinha cruzado:
+    #
+    #     quem tem REGRA DE ADMISSAO escrita
+    #     quem tem EXECUTOR que declara COLHEITA canonica (COL-LAW-505)
+    #
+    # Se a intersecao for vazia, nenhum pedido consegue hoje chegar a READY —
+    # e nao por uma etapa partida, mas porque a unica fonte que alimenta a
+    # estrada pertence ao unico universo cuja regra nunca foi escrita.
+    declaram_colheita = set()
+    for alvo in ("T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9"):
+        try:
+            plano = resolver_(Pedido(alvo=alvo, filtros={"pais": "IT"}))
+        except Exception:                                   # noqa: BLE001
+            continue
+        for e in plano.executores:
+            if (e.get("retorno") or {}).get("ENVELOPE"):
+                declaram_colheita.add(alvo)
+    intersecao = com_regra & declaram_colheita
+    caso("A2_nenhum_universo_tem_REGRA_e_COLHEITA_ao_mesmo_tempo",
+         not intersecao,
+         "com regra: %s · com colheita declarada: %s · intersecao: %s — e por "
+         "isso que READY nao e alcancavel hoje por nenhum pedido"
+         % (sorted(com_regra), sorted(declaram_colheita),
+            sorted(intersecao) or "VAZIA"))
 
     # ═══════════════════════════════════════════════════════════════════
     # OS NEGATIVOS — a maquina tambem tem de falhar direito

@@ -15,6 +15,19 @@ ROOT_CAUSES         = 4
 MISSÕES ATÉ FECHAR  = UNKNOWN
 ```
 
+E a certificação que a última missão foi pedir — a Collection V1 como máquina
+operacional completa, **excluindo só o SCRAP**:
+
+```
+COLLECTION_V1_CORE_READY_WITHOUT_SCRAP         = NO
+ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = NO
+```
+
+O segundo é o que surpreende, e está medido: o buraco que resta é
+`ADMISSION -> READY`, e **integrar o SCRAP não o tapa**. O SCRAP continua a ser
+preciso antes da coleta grande — mas não é a única coisa que falta, e dizer que
+é autorizava começar pela peça errada. O porquê está no fim deste documento.
+
 Este veredito não vem da média das 105 leis. Vem das propriedades que a
 coleta grande precisa de ter, e cada falha aponta a propriedade que falta.
 
@@ -33,19 +46,21 @@ do estado de lei.
 
 ## A estrada canónica
 
-| etapa | módulo | aresta | fluxo |
-|---|---|---|---|
-| `REQUEST` | YES | YES | **YES** |
-| `ORCHESTRATOR` | YES | YES | **YES** |
-| `EXECUTOR` | YES | YES | **YES** |
-| `RUN` | YES | YES | **YES** |
-| `RAW_OBSERVATION` | YES | YES | **YES** |
-| `STORAGE_OBJECT` | YES | YES | **YES** |
-| `DERIVED` | YES | YES | **YES** |
-| `STRUCTURED` | YES | YES | **YES** |
-| `ADMISSION` | YES | YES | **YES** |
-| `READY` | YES | YES | **YES** |
-| `WAITING_ROOM` | YES | YES | **YES** |
+Duas colunas, e a segunda é a que responde à pergunta que as pessoas fazem.
+
+| etapa | módulo | aresta | já correu | **pelo pedido** |
+|---|---|---|---|---|
+| `REQUEST` | YES | YES | YES | **SIM** |
+| `ORCHESTRATOR` | YES | YES | YES | **SIM** |
+| `EXECUTOR` | YES | YES | YES | **SIM** |
+| `RUN` | YES | YES | YES | **SIM** |
+| `RAW_OBSERVATION` | YES | YES | YES | **SIM** |
+| `STORAGE_OBJECT` | YES | YES | YES | **SIM** |
+| `DERIVED` | YES | YES | YES | **SIM** |
+| `STRUCTURED` | YES | YES | YES | **SIM** |
+| `ADMISSION` | YES | YES | YES | **SIM** |
+| `READY` | YES | YES | YES | **NÃO** |
+| `WAITING_ROOM` | YES | YES | YES | **NÃO** |
 
 > MÓDULO EXISTE ≠ ARESTA EXISTE ≠ FLUXO EXECUTADO.
 
@@ -54,11 +69,17 @@ Todas as onze etapas já atravessaram. **E isso não é a estrada.**
 > **DUAS METADES PROVADAS NÃO SÃO UMA ESTRADA PROVADA.**
 > **ONZE ETAPAS QUE JÁ CORRERAM NÃO SÃO UMA HISTÓRIA.**
 
-Elas atravessam em **duas rotas diferentes** — cada vez menos, e ainda duas.
-A do pedido já leva RAW, STORAGE e agora DERIVED na mesma corrida; o STRUCTURED
-e o que vem depois continuam a atravessar só na rota forward, que entra pelo
-RAW e não pelo pedido. Por isso o portão deixou de somar `YES` e passou a
-exigir a **mesma história**, medida por quem aperta o botão no pedido.
+**Nove das onze atravessam agora na história do pedido** — de `REQUEST` até
+`ADMISSION`, com o executor a ir à fonte real. As duas últimas atravessam só na
+rota forward, que entra pelo `RAW` e não pelo pedido. Por isso o portão não soma
+`YES`: exige a **mesma história**, medida por quem aperta o botão no pedido.
+
+⚠️ **A coluna «pelo pedido» deixou de ser escrita à mão.** Já esteve escrita, e
+envelheceu três vezes: dizia «`DERIVED` e `STRUCTURED` só atravessam na rota
+forward» muito depois de as duas terem passado a atravessar pelo pedido. Agora é
+lida de `system-map/data/pedido.observado.json`, que é escrito por quem mede.
+
+> **O CENSO NÃO DECIDE ONDE A ESTRADA PARA. ELE LÊ QUEM MEDIU.**
 
 Sem ambiente descartável a medição **não corre**, e isso diz-se: `SKIP != PASS`
 e `NOT_MEASURED != PASS`.
@@ -76,30 +97,33 @@ CANONICAL_E2E_SAME_STORY  = FAIL
 
 > **ZERO BLOCKERS ≠ CORE FECHADO.**
 
-A mesma história parou em `DERIVED -> STRUCTURED`, medido em
+A mesma história parou em `ADMISSION -> READY`, medido em
 [`provas/o_pedido_atravessa.py`](../../provas/o_pedido_atravessa.py).
 
-## Onde a estrada se parte, e são dois achados
+E parou por um motivo que não se parece com nenhum dos anteriores: **não falta
+peça nenhuma.**
+
+## Onde a estrada se parte, e são três achados
 
 Um pedido real atravessa `REQUEST → ORCHESTRATOR → EXECUTOR → RUN → RAW →
-STORAGE → DERIVED` numa história só, com o executor a ir à fonte real. E para.
+STORAGE → DERIVED → STRUCTURED → ADMISSION` numa história só, com o executor a
+ir à fonte real. E para.
 
 ```
-LAST_PROVEN_STAGE   = DERIVED
-FIRST_LOST_EDGE     = DERIVED -> STRUCTURED
-NEXT_EXPECTED_STAGE = STRUCTURED
+LAST_PROVEN_STAGE   = ADMISSION
+FIRST_LOST_EDGE     = ADMISSION -> READY
+NEXT_EXPECTED_STAGE = READY
 ```
 
-A ADMISSION corre **depois** do buraco. Uma etapa que corre depois do buraco não
-prova a estrada.
-
-Os dois achados eram de **espécies diferentes**, e não se misturaram — um
-resolvia-se com código, o outro com uma decisão. O primeiro fechou.
+Os três achados são de **espécies diferentes**, e não se misturaram — um
+resolvia-se com código, o segundo com uma separação, o terceiro não se resolve
+com nenhum dos dois. Os dois primeiros fecharam.
 
 | aresta | tipo | quem resolve | estado |
 |---|---|---|---|
 | `STORAGE -> DERIVED` | `WIRING_GAP` | código | **FECHADO** |
-| `DERIVED -> STRUCTURED` | `CONTRACT_OWNER_GAP` | gente | **ABERTO** |
+| `DERIVED -> STRUCTURED` | `CONTRACT_OWNER_GAP` | gente | **FECHADO** |
+| `ADMISSION -> READY` | `EMPTY_INTERSECTION` | gente | **ABERTO** |
 
 **`STORAGE -> DERIVED` — WIRING_GAP, fechado.**
 A capacidade existia e ninguém a chamava. A porta passou a devolver as
@@ -119,37 +143,86 @@ E fechar uma ligação não fecha a estrada: fecha uma ligação. O primeiro bur
 andou uma aresta para a frente, o que estava previsto e escrito antes de se
 ligar.
 
-**`DERIVED -> STRUCTURED` — CONTRACT_OWNER_GAP, aberto.**
-`public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa
-quando ele não existe — dizendo, por escrito, que quem resolve é «um dono de
-identidade, fora do executor de coleta».
+**`DERIVED -> STRUCTURED` — CONTRACT_OWNER_GAP, fechado por separação.**
 
-⚠️ **E «o dono não existe» era largo de mais.** São **três** donos debaixo
-dessa palavra, e só um falta — medido em `provas/o_pedido_atravessa.py::S1..S4`:
+Esta ficou aberta uma missão inteira à espera de uma decisão de gente, com a
+pergunta escrita no fim deste documento: *de quem é o `canal` de uma agência
+pública que publica boletins em PDF?*
 
-| dono | estado |
+⚠️ **A resposta foi que a pergunta estava mal posta.** Um boletim em PDF **não
+tem canal** — e por isso a pergunta não tinha resposta. `public.conteudo` é a
+casa de conteúdo **de plataforma**: `canal.channel_id` está comentado como «o id
+da plataforma, NUNCA o nome», e `conteudo.content_id` como «id da plataforma
+(video_id, post_id)». A tabela pressupõe uma plataforma que emita
+identificadores, e uma agência regional não é uma.
+
+```
+    ONE CONCEPT → ONE OWNER
+    ≠ ONE TABLE FOR EVERY TYPE OF CONTENT
+```
+
+Foi escolhida a **opção B** das três que estavam em espera: fontes documentais
+não têm canal, e `conteudo` não é a casa delas. A casa nova é
+`public.documento_estruturado` (migration `030`), com um único dono de escrita,
+[`guarda/preservar_documento.py`](../../guarda/preservar_documento.py). A chave é
+`derived_artifact_id`: o documento é o registo estruturado **daquele** derivado.
+
+**O que não foi fabricado, e fica escrito porque é a parte que interessa:**
+
+| valor | estado |
 |---|---|
-| esquema — `origem` e `canal`, migration 002 | **EXISTE** |
-| resolvedor — `canal_canonico` lê e nunca cria | **EXISTE** |
-| criador de identidade — quem decide de quem é o canal | **NÃO EXISTE** |
+| `canal_id` | **não criado** — nenhuma linha nova em `canal` ou `origem` |
+| `channel_id` | **não criado** |
+| `content_id` de plataforma | **não criado** |
+| `document_id` | **`NULL`** — só se escreve quando a fonte o prova |
+
+O `document_id` tem trava no esquema contra o atalho óbvio
+(`document_id <> hash_texto`) e trava no dono contra os outros
+(`hash_texto`, `source_url`, `storage_path`, `sha256`, nome do ficheiro). Um
+hash identifica **bytes**; um caminho é uma **morada**. Nenhum dos dois é a
+identidade que um emissor atribuiu a um documento.
+
+> **SOURCE ≠ ENDPOINT ≠ ARTIFACT ≠ DOCUMENT.**
+
+**E o que continua a não existir:** o criador de identidade de `canal`. Ele
+**não** nasceu aqui. Um documento não-plataforma deixou de precisar dele — o que
+não é a mesma coisa que tê-lo. Conteúdo de plataforma continua a esbarrar nele, e
+é isso que `G-STRUCT-01` passou a nomear.
+
+Medido em `provas/o_pedido_atravessa.py::E1..E5`: o documento fica escrito, sem
+`document_id` inventado, com `SOURCE_ID` provado pela fonte, sem canal nenhum
+criado, e a linhagem anda **documento → participação → observação**.
+
+**`ADMISSION -> READY` — EMPTY_INTERSECTION, aberto.**
+
+Este é o mais raro dos três: **tudo o que ele precisa existe, e ainda assim nada
+passa.** A porta existe, julga os quatro itens e responde. As regras temáticas
+existem. Os executores existem.
 
 ```
-    ANTES DE DIZER QUE ALGO NÃO TEM DONO,
-    DIGA QUAL DOS DONOS É QUE FALTA.
+universos com regra de admissão escrita         T3 · T4 · T7 · T9
+universos cujo executor declara colheita        T2
+interseção                                      VAZIA
 ```
 
-E não é só o canal. `conteudo.content_id` está comentado como «id da
-plataforma (video_id, post_id)», e `canal.channel_id` como «o id da plataforma,
-NUNCA o nome». Um boletim em PDF publicado no sítio de uma agência regional não
-tem nenhum dos dois: **a tabela pressupõe uma plataforma que emita
-identificadores**, e uma fonte documental não é uma.
+A porta responde `NAO_SE_APLICA` aos quatro itens, e diz porquê por escrito:
+«não há regra escrita do que conta como «T2». Sem regra, esta porta não inventa
+uma.» **A recusa está certa.** `COL-LAW-505` manda que só colheita entre no
+ingresso, e `COL-LAW-502` manda que a porta pergunte pela regra do universo. As
+duas leis estão a ser cumpridas.
 
-O que a ficha da fonte prova é um **dono textual** (ARPAV, agência regional do
-Veneto) e uma **URL**. Nenhum dos dois pode virar `channel_id` sem fabricar
-identidade — e fabricar é exactamente o que não se faz aqui.
+> **FALTA DE PEÇA ≠ PEÇAS QUE NÃO SE CRUZAM.**
 
-**Isto é uma decisão de gente, e está em espera.** A pergunta exacta está no
-fim deste documento.
+Não se corrige a construir. Corrige-se a decidir: escrever regra temática para
+`T2`, ou pôr um executor de colheita canónica num universo que já tem regra.
+
+⚠️ **E não é o SCRAP.** O SCRAP não escreve regra temática nem muda o que a
+porta pergunta. Integrá-lo amanhã deixava esta interseção exactamente onde ela
+está. Medido em `provas/o_pedido_atravessa.py::A1, A2`.
+
+⚠️ **E não se corrige afrouxando a regra.** Mudar a regra temática até um caso
+passar é mudar a pergunta para gostar da resposta — e o veredito que saísse daí
+mediria a regra nova, e não a máquina.
 
 ### O que o fecho desta ligação revelou, e não consertou
 
@@ -194,11 +267,35 @@ uma aresta foi tocada por seis passagens sem nunca mudar.
 > **DOIS CONCEITOS, DOIS DONOS — E SÓ UM DELES PRECISA DE NASCER.**
 > A execução já tem casa em `etapa_da_corrida`.
 
-Continua **por implementar**, e o que fica escrito é para que a migration não
-tenha de decidir mais nada:
-[`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](../decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md).
+A decisão está em
+[`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](../decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md),
+e **já foi implementada**: `public.participacao_na_derivacao` (migration `029`),
+com `guarda/preservar_derivado.py` como único dono de escrita. A observação
+declara que participou nos três desfechos — `INSERTED`, `REUSED` e
+`REUSED_AFTER_RACE` — e não em dois deles.
+
+```
+PARTICIPACAO  chave (raw_asset_id, derived_artifact_id)
+              first_seen_derivation_run_id  →  a corrida que VIU primeiro
+```
+
+A corrida fica **fora da chave** e dentro da linha: ela diz *quando se soube*,
+e não *o que é a aresta*. E não é herdada de `raw_asset.run_id` — vem da corrida
+que está a correr, transportada pelo orquestrador como
+`contexto_da_passagem`. O executor continua a não saber o que é uma corrida:
+**transportar não é conhecer**.
+
+Sem corrida na mão, o dono devolve `PARTICIPACAO_SEM_CORRIDA` e não escreve
+linha nenhuma. Histórico anterior a esta migration fica `UNKNOWN`: não houve
+backfill por `parent_sha256`, porque isso escreveria como observado o que foi
+inferido.
+
+> **HISTÓRICO SEM ARESTA = UNKNOWN.**
+
 A medição corre em
-[`provas/a_linhagem_do_reaproveitamento.py`](../../provas/a_linhagem_do_reaproveitamento.py).
+[`provas/a_linhagem_do_reaproveitamento.py`](../../provas/a_linhagem_do_reaproveitamento.py)
+— oito casos, com quatro fios em concorrência a produzirem **uma** linha, e o
+`RESTRICT` a recusar apagar uma observação que participou.
 
 ## Os que já fecharam
 
@@ -230,14 +327,16 @@ etapa não conta.
 > UMA ETAPA MUDA PODE ESTAR A CORRER.
 > `MUDA != PARADA` — e esse é o problema.
 
-As cinco falam. A tabela diz **quem sabe falar**, e não **quem falou nesta corrida** — são duas perguntas, e a segunda mede-se na estrada,
-acima. Nesta corrida do pedido falaram duas: `RAW` e `DERIVED`.
+As cinco falam. A tabela diz **quem sabe falar**, e não **quem falou nesta
+corrida** — são duas perguntas, e a segunda mede-se na estrada, acima. Nesta
+corrida do pedido falaram `RAW`, `DERIVED` e `ADMISSION`; `READY` não falou
+porque não houve `READY`.
 
 ## A dívida que não bloqueia
 
 | id | porque não bloqueia |
 |---|---|
-| `G-STRUCT-01` | o ledger JA prova STRUCTURED na rota forward por coleta/social_persistencia.py. O gap e de COBERTURA por classe, e nao de ausencia de travessia. |
+| `G-STRUCT-01` | STRUCTURED atravessa numa classe e não nas duas: a DOCUMENTAL passa pelo pedido; a PLATAFORMA espera por um dono de identidade de canal, que é da frente social. É dívida de COBERTURA, não de ausência de travessia. |
 | `G-ADM-01` | o ledger prova ADMISSION observada na rota forward, com caminho bom e caminho de falha. A infraestrutura ATRAVESSA; o que falta e a cobertura do tipo `derived_artifact`. |
 | `G-TEL-01` | nao impede executar nem preservar. Impede LER o que aconteceu, e isso e divida de observabilidade, nao de fecho. |
 | `G-TEMA-01` | NAO bloqueia a coleta grande. A funcao da coleta grande e ADQUIRIR e PRESERVAR; admitir bem e a etapa seguinte, e a Admission ja produz decisao auditavel com NAO_SEI de p |
@@ -278,6 +377,10 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 | `C-MAKE-RAW-OBSERVABLE-V1` | `G-RAW-01` |
 | `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` | `G-READY-01` · `G-READY-02` |
 | `C-WIRE-STORAGE-TO-DERIVED-IN-CANONICAL-E2E-V1` | a aresta `STORAGE -> DERIVED` |
+| `C-DECIDE-DERIVED-REUSE-LINEAGE-V1` | mediu `DERIVED_REUSE_LINEAGE = GAP_CONFIRMED` |
+| `C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1` | decidiu o conceito, o grão e a identidade da participação |
+| `C-COLLECTION-V1-OPERATIONAL-CLOSE` | implementou a participação (migration `029`) |
+| `C-COLLECTION-V1-FINAL-OPERATIONAL-CERTIFICATION` | a aresta `DERIVED -> STRUCTURED` (migration `030`) |
 
 ## A fila mínima
 
@@ -296,10 +399,11 @@ fechar não é um buraco declarado: é uma propriedade por provar. E o número n
 falta.
 
 Também não é um número maior inventado. A próxima coisa conhecida é fechar
-`DERIVED -> STRUCTURED`, e ela **não é uma missão de código**: primeiro alguém
-decide de quem é o `canal_id`; só depois há o que implementar — e isso pode
-decompor-se em mais do que uma missão. Contar agora seria feeling com cara de
-DAG.
+`ADMISSION -> READY`, e ela **não é uma missão de código**: a porta existe,
+julga e responde — e responde certo. Primeiro alguém escreve regra temática para
+`T2`, ou põe colheita canónica num universo que já tem regra; só depois há o que
+implementar — e isso pode decompor-se em mais do que uma missão. Contar agora
+seria feeling com cara de DAG.
 
 `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`, pela mesma disciplina:
 depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda não
@@ -344,10 +448,9 @@ py -c "import json;d=json.load(open('data/derivados/COLLECTION-V1-CLOSE-GATES.js
 
 ---
 
-## A PERGUNTA QUE ESTÁ À ESPERA DE GENTE
+## A PERGUNTA QUE ESTAVA À ESPERA DE GENTE — RESPONDIDA
 
-A máquina pára num sítio, e pára por falta de uma decisão — não por falta de
-código.
+Ficou escrita aqui uma missão inteira:
 
 ```
 DECISION_REQUIRED
@@ -356,22 +459,85 @@ boletins em PDF no seu próprio sítio — qual é o `canal` canónico, e o que
 serve de `channel_id`?
 ```
 
-**Por que bloqueia.** `public.conteudo.canal_id` é `not null`. Sem canal não há
-STRUCTURED, e sem STRUCTURED a história pára em DERIVED.
+**A resposta foi «nenhum», e isso não é uma evasiva.** Um boletim em PDF não tem
+canal: `canal.channel_id` é «o id da plataforma, NUNCA o nome», e nenhuma
+plataforma emitiu identificador nenhum para aquele PDF. A pergunta pedia o nome
+de uma coisa que não existe.
 
-**O que o modelo canónico oferece, e só isto:**
+Das três opções que estavam em cima da mesa, ficou a **B** — *fontes documentais
+não têm canal, e `conteudo` deixa de ser a casa delas*. O que a opção B exigia
+foi feito: a casa estruturada de um documento é
+`public.documento_estruturado` (migration `030`), com dono único.
+
+**Por que não a A** (uma pessoa declara e assina um `channel_id`): faria uma
+pessoa escrever, todas as semanas, um identificador de plataforma para fontes
+que não estão em plataforma nenhuma. Um valor assinado continua a ser um valor
+inventado.
+
+**Por que não a C** (`conteudo.canal_id` passa a aceitar ausência): afrouxaria
+uma trava para lá caber uma coisa que não é conteúdo de plataforma. A coluna
+ficava honesta e a tabela ficava com dois significados.
+
+> **ONE CONCEPT → ONE OWNER ≠ ONE TABLE FOR EVERY TYPE OF CONTENT.**
+
+---
+
+## A PERGUNTA QUE ESTÁ À ESPERA DE GENTE
+
+A máquina volta a parar num sítio, e volta a parar por falta de uma decisão —
+não por falta de código. Mas o sítio mudou, e a espécie da falta também.
+
+```
+DECISION_REQUIRED
+Nenhum universo tem, ao mesmo tempo, regra temática escrita E executor de
+colheita canónica. Qual dos dois lados se move?
+```
+
+```
+com regra de admissão escrita      T3 · T4 · T7 · T9
+com colheita canónica declarada    T2
+interseção                         VAZIA
+```
+
+**Por que bloqueia.** A porta pergunta pela regra do universo (`COL-LAW-502`) e
+só deixa entrar colheita (`COL-LAW-505`). Com as duas listas disjuntas, a porta
+responde `NAO_SE_APLICA` a tudo — e responde **certo**. Sem `READY` não há
+unidade na Sala de Espera, e a história pára em `ADMISSION`.
+
+⚠️ **Isto não é infraestrutura partida.** A porta julga, decide e diz porquê. É
+o corpus que não tem, hoje, um caso legitimamente admissível.
+
+> **INFRAESTRUTURA FUNCIONA ≠ HÁ CASO ADMISSÍVEL NO CORPUS.**
+
+**As duas saídas, e só estas:**
 
 | opção | consequência |
 |---|---|
-| **A** · a agência é uma `organizacao`, e o sítio dela é um `canal` de `plataforma='web'`, com um `channel_id` que **uma pessoa declara** e assina como evidência | o modelo fica intacto; alguém passa a ter de declarar o canal de cada fonte documental antes de ela estruturar |
-| **B** · fontes documentais não têm canal, e `conteudo` deixa de ser a casa delas | evita canais inventados; exige decidir qual é a casa estruturada de um documento, e isso é uma migration e um dono novos |
-| **C** · `conteudo.canal_id` passa a aceitar ausência | a coluna passa a dizer `NAO SEI` em vez de mentir; mas `conteudo` foi desenhada com canal obrigatório, e afrouxar uma trava é mudar um contrato |
+| **A** · escrever regra temática para `T2` | a regra que falta nasce onde já há colheita; exige decidir o que conta como «T2», que é a mesma classe de decisão que as outras quatro regras já tomaram |
+| **B** · pôr executor de colheita canónica num universo que já tem regra (`T3`, `T4`, `T7`, `T9`) | reaproveita regra já escrita; exige um executor novo, e é trabalho de aquisição — a mesma família de trabalho que o SCRAP faz |
 
-**O que não se consegue inferir, e por isso não se inventa:** um `channel_id`
-a partir da URL, do domínio, do `SOURCE_ID`, do nome da agência ou de um hash.
-`CHANNEL_ID PROVA O CANAL, NÃO PROVA A ORIGEM` — e nenhum desses valores é um
-identificador que uma plataforma tenha emitido.
+**O que não se faz, e por isso não está na tabela:** afrouxar ou reescrever uma
+regra temática existente para que o corpus de hoje passe. Isso produziria um
+`READY` que mediria a regra nova, e não a máquina.
 
-**Recomendação:** nenhuma com evidência suficiente. As três são consistentes
-com o modelo, e a escolha entre elas é sobre o que o SINTONIA quer que um
-«canal» signifique — que é uma decisão de arquitectura, e não uma medição.
+**Recomendação:** a **A**, e com uma razão medida — `T2` é o único universo cujo
+executor já vai à fonte real e já declara colheita canónica, e a estrada já
+atravessa nove etapas com pedidos `T2`. Escrever a regra de `T2` fecha a última
+aresta sem construir aquisição nova. A **B** é legítima e é mais trabalho.
+
+---
+
+## O que esta certificação NÃO pôde escrever
+
+```
+COLLECTION_V1_CORE_READY_WITHOUT_SCRAP        = NO
+ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = NO
+```
+
+O segundo é o que importa, e é o contrário do que se esperava encontrar. O red
+team tentou produzir `ONLY_REMAINING_DEPENDENCY_IS_SCRAP = YES` e **não
+conseguiu**: o buraco medido é `ADMISSION -> READY`, e o SCRAP não o tapa. Ele
+não escreve regra temática nem muda o que a porta pergunta. Integrá-lo amanhã
+deixava a interseção vazia exactamente onde ela está.
+
+> Uma frase de fecho só se escreve se estiver **provada**. Esta não estava.

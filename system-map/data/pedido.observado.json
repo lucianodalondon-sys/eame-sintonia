@@ -1,5 +1,5 @@
 {
-  "RUN_ID": "IT-T2-2026-09-12-213022",
+  "RUN_ID": "IT-T2-2026-09-12-222641",
   "ESTRADA": {
     "REQUEST": {
       "OBSERVED": true,
@@ -11,11 +11,11 @@
     },
     "EXECUTOR": {
       "OBSERVED": true,
-      "EVIDENCE": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-213022 · versao=91514740 · colheita=4"
+      "EVIDENCE": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-222641 · versao=91514740 · colheita=4"
     },
     "RUN": {
       "OBSERVED": true,
-      "EVIDENCE": "collection_run: ['IT-T2-2026-09-12-213022', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
+      "EVIDENCE": "collection_run: ['IT-T2-2026-09-12-222641', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
     },
     "RAW": {
       "OBSERVED": true,
@@ -30,12 +30,12 @@
       "EVIDENCE": "derived_artifact desta corrida: 4"
     },
     "STRUCTURED": {
-      "OBSERVED": false,
-      "EVIDENCE": "conteudo desta corrida: 0"
+      "OBSERVED": true,
+      "EVIDENCE": "documento_estruturado: 4 · conteudo (plataforma): 0"
     },
     "ADMISSION": {
       "OBSERVED": true,
-      "EVIDENCE": "a porta julgou 4 itens: {'NAO_SEI': 4}"
+      "EVIDENCE": "a porta julgou 4 itens: {'NAO_SE_APLICA': 4}"
     },
     "READY": {
       "OBSERVED": false,
@@ -46,9 +46,7 @@
       "EVIDENCE": "ficheiros na sala DEPOIS: nenhum"
     }
   },
-  "FIRST_LOST_EDGE": "DERIVED -> STRUCTURED",
-  "ETAPAS_DEPOIS_DO_BURACO": [
-    "ADMISSION"
-  ],
+  "FIRST_LOST_EDGE": "ADMISSION -> READY",
+  "ETAPAS_DEPOIS_DO_BURACO": [],
   "CANONICAL_E2E": "FAIL"
 }

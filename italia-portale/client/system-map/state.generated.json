@@ -809,6 +809,7 @@
       "guarda/portas_live.py",
       "guarda/preservar_coleta.py",
       "guarda/preservar_derivado.py",
+      "guarda/preservar_documento.py",
       "guarda/social_guarda.py",
       "guarda/social_sessao.py",
       "guarda/sql_conferir.py"
@@ -1397,6 +1398,7 @@
       "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
       "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
       "supabase/migrations/029_a_observacao_declara_que_participou.sql",
+      "supabase/migrations/030_o_documento_ganha_registo.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1961,9 +1963,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-v1-operational-close",
-    "HEAD": "b1d491e6e44e39d23e9cda026a6d42afec5de35c",
-    "GENERATED_AT": "2026-09-12T18:49:24+00:00",
-    "SOURCE_TREE_FINGERPRINT": "80ebec328bc6f30df41bd280ca9d1eba12a4a5e07a18291390e1e6123df9e57f"
+    "HEAD": "bd5ad9c06c3e1d6cab44f561f7cdaaac3ecebecd",
+    "GENERATED_AT": "2026-09-12T21:56:49+00:00",
+    "SOURCE_TREE_FINGERPRINT": "231579ec96feddcd49186bcee6d5e6b95949b14c176e5b5af076193f4245b6c6"
   },
   "FAMILIES": [
     {
@@ -1990,7 +1992,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 65
+      "count": 66
     },
     {
       "id": "F-ESPERA",
@@ -2214,7 +2216,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 13
+      "count": 14
     },
     {
       "id": "Z-REGRAS",
@@ -8403,6 +8405,62 @@
       "y": 682
     },
     {
+      "id": "C-DONO-DO-DOCUMENTO",
+      "name": "O dono canônico do documento estruturado (OBSERVED)",
+      "territory": "Z-GUARDA",
+      "kind": "engine",
+      "what": "Quem escreve na tabela do documento estruturado. Ele possui — e mais ninguém — o texto do documento, o hash desse texto, o SOURCE_ID que a fonte provou, e a decisão de deixar `document_id` em NULL quando ninguém o provou. A chave é o `derived_artifact_id`: o documento é o registo estruturado DAQUELE derivado.",
+      "why_here": "`public.conteudo` é a casa de conteúdo DE PLATAFORMA: `canal.channel_id` é «o id da plataforma, NUNCA o nome» e `conteudo.content_id` é «id da plataforma (video_id, post_id)». Um boletim em PDF de uma agência regional não tem nenhum dos dois, e a pergunta «qual é o canal dele?» não tinha resposta porque ele não tem canal. ONE CONCEPT → ONE OWNER não é ONE TABLE FOR EVERY TYPE OF CONTENT: a classe documental ganhou casa própria (migration 030) em vez de um canal inventado. O dono recusa `document_id` que seja igual ao hash do texto, à URL, ao storage_path, ao sha256 ou ao nome do ficheiro — um hash identifica BYTES e um caminho é uma MORADA, e nenhum dos dois é identidade de documento.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▤",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "guarda/preservar_documento.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-ORQUESTRADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "NAO_SAO_IDENTIDADE_DE_DOCUMENTO"
+        ],
+        "palavras": 5,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 5,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 8240,
+      "y": 1004
+    },
+    {
       "id": "C-DS-ADAMA",
       "name": "Extrato local do ADAMA Design System",
       "territory": "Z-SUPERFICIE",
@@ -9253,7 +9311,6 @@
       ],
       "outbound": [
         "C-CENSO-ARMAZEM-IT",
-        "C-PROVA-COLETA",
         "C-SUPABASE",
         "C-TESTES"
       ],
@@ -9296,7 +9353,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 8240,
+      "x": 8655,
       "y": 1004
     },
     {
@@ -9745,7 +9802,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8655,
+      "x": 9070,
       "y": 1004
     },
     {
@@ -9804,8 +9861,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9070,
-      "y": 1004
+      "x": 8240,
+      "y": 1326
     },
     {
       "kind": "engine",
@@ -9858,7 +9915,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
+      "x": 8655,
       "y": 1326
     },
     {
@@ -9922,7 +9979,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8655,
+      "x": 9070,
       "y": 1326
     },
     {
@@ -10863,6 +10920,7 @@
         "C-CI-COLETA",
         "C-CONTRATO-DE-RETORNO",
         "C-DERIVACAO-FORWARD",
+        "C-DONO-DO-DOCUMENTO",
         "C-INGRESSO",
         "C-PEDIDO",
         "C-PROCEDENCIA",
@@ -12076,7 +12134,6 @@
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
-        "C-IMPORTAR",
         "C-INGRESSO",
         "C-IT-COLETA",
         "C-IT-PRESERVAR",
@@ -12128,6 +12185,7 @@
           "CANDIDATAS_A",
           "CANDIDATOS",
           "COLS_DER",
+          "COLS_DOC",
           "COLS_OBJ",
           "COLS_RAW",
           "COLS_RUN",
@@ -12167,11 +12225,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 927,
+        "palavras": 934,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 925,
+        "sem_marca_de_lingua": 932,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12197,7 +12255,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "provas/os_portoes_da_collection.py",
-            "line": 1043,
+            "line": 1273,
             "snippet": "escreve em caminho"
           }
         }
@@ -12671,6 +12729,7 @@
         "C-ORQUESTRADOR",
         "C-PEDIDO",
         "C-PROVA-COLETA",
+        "C-RECEITAS",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-SOCIAL"
       ],
@@ -13286,6 +13345,7 @@
         "C-ESTRADAS-IT",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-TESTES"
       ],
       "paises": {},
@@ -14048,8 +14108,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9070,
-      "y": 1326
+      "x": 8240,
+      "y": 1648
     },
     {
       "id": "C-SCRAP-LEIS",
@@ -14651,6 +14711,7 @@
         "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
         "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
         "supabase/migrations/029_a_observacao_declara_que_participou.sql",
+        "supabase/migrations/030_o_documento_ganha_registo.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -14662,9 +14723,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 51,
+      "file_count": 52,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -14704,7 +14765,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
+      "x": 8655,
       "y": 1648
     },
     {
@@ -17918,7 +17979,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 417,
+          "line": 457,
           "snippet": "\"admissao/admissao.py\","
         },
         {
@@ -19830,7 +19891,7 @@
         },
         {
           "file": "tests/test_portoes_da_collection.py",
-          "line": 325,
+          "line": 327,
           "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
         }
       ],
@@ -22238,7 +22299,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 58,
+          "line": 59,
           "snippet": "import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)"
         }
       ],
@@ -22876,7 +22937,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 428,
+          "line": 468,
           "snippet": "\"coleta/derivacao_forward.py\","
         }
       ],
@@ -22930,7 +22991,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 646,
+          "line": 758,
           "snippet": "\"coleta/derivacao_forward.py\")"
         }
       ],
@@ -23337,7 +23398,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 515,
+          "line": 574,
           "snippet": "\"guarda/preservar_coleta.py\"),"
         }
       ],
@@ -23414,7 +23475,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 601,
+          "line": 713,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira as _AM"
         }
       ],
@@ -23730,6 +23791,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-DONO-DO-DOCUMENTO",
+      "to": "C-ORQUESTRADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico do documento estruturado (OBSERVED) alimenta O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 387,
+          "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-DS-ADAMA",
@@ -24947,24 +25026,6 @@
     },
     {
       "from": "C-IMPORTAR",
-      "to": "C-PROVA-COLETA",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Levar o dado para o banco alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "provas/os_portoes_da_collection.py",
-          "line": 405,
-          "snippet": "\"guarda/importar_italia.py\","
-        }
-      ],
-      "categoria": "PROOF"
-    },
-    {
-      "from": "C-IMPORTAR",
       "to": "C-SUPABASE",
       "type": "WRITES",
       "payload": "artefacto",
@@ -25137,7 +25198,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 600,
+          "line": 712,
           "snippet": "import ingresso as ing_"
         }
       ],
@@ -25155,7 +25216,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 645,
+          "line": 757,
           "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
         }
       ],
@@ -27156,7 +27217,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 645,
+          "line": 757,
           "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
         }
       ],
@@ -29140,7 +29201,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 731,
+          "line": 830,
           "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
         }
       ],
@@ -29601,6 +29662,24 @@
     },
     {
       "from": "C-RECEITAS",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A receita da coleta tem o seu codigo importado por A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 576,
+          "snippet": "from receitas import resolver as resolver_"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-RECEITAS",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -29852,7 +29931,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 114,
+          "line": 148,
           "snippet": "forward = ex[\"PROVADOS\"][\"coleta/rota_forward_documento.py\"][\"FORWARD\"]"
         }
       ],
@@ -30175,7 +30254,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 59,
+          "line": 60,
           "snippet": "import sala_de_espera as espera        # noqa: E402"
         }
       ],
@@ -30193,7 +30272,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 347,
+          "line": 376,
           "snippet": "\"admissao/sala_de_espera.py\","
         }
       ],
@@ -31029,7 +31108,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 447,
+          "line": 510,
           "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"social_persistencia.py\"),"
         }
       ],
@@ -32236,7 +32315,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 295,
+          "line": 324,
           "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
         }
       ],
@@ -33511,17 +33590,17 @@
     ]
   },
   "COUNTS": {
-    "components": 165,
+    "components": 166,
     "components_proven": 58,
-    "components_pending": 101,
+    "components_pending": 102,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 711,
-    "edges_proven": 709,
+    "edges": 712,
+    "edges_proven": 710,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1513,
-    "files_covered": 751,
+    "files_tracked": 1515,
+    "files_covered": 753,
     "files_code_unclaimed": 0
   }
 }

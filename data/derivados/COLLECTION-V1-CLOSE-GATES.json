@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "b1d491e6e44e39d23e9cda026a6d42afec5de35c",
+  "MEASURED_HEAD": "bd5ad9c06c3e1d6cab44f561f7cdaaac3ecebecd",
   "FRESCURA": {
-    "IMPRESSAO_DOS_DONOS": "4c90bc80aafe9ee1ab4ac4d777c79a4fc40a490c29e81f0988c25e6fec5d3d06",
+    "IMPRESSAO_DOS_DONOS": "07b054f0cec588933915a0a5ed7c8a5d37a0ed72e03ba7bf3941659f3d4bb143",
     "DONOS_DA_MEDICAO": [
       "provas/os_portoes_da_collection.py",
       "docs/biblia/leis.json",
@@ -48,73 +48,95 @@
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "recibo.PEDIDO = {\"alvo\": \"T2\", \"acionamento\": \"MANUAL\", \"escopo\": \"PONTUAL\", \"filtros\": {\"pais\": \"IT\", \"fonte\": \"IT-T2-002\"}}"
     },
     "ORCHESTRATOR": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "receita resolvida: ACTOR=coleta/italy_executor.py · PLATFORM=HTTP direto · CAPTURE_METHOD=gratuito"
     },
     "EXECUTOR": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-222641 · versao=91514740 · colheita=4"
     },
     "RUN": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "collection_run: ['IT-T2-2026-09-12-222641', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
     },
     "RAW_OBSERVATION": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra migrations 001..027",
-      "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED"
+      "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra a cadeia de migrations em git",
+      "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "raw_asset da corrida: [1, 2, 3, 4]"
     },
     "STORAGE_OBJECT": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra migrations 001..027",
-      "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED"
+      "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra a cadeia de migrations em git",
+      "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "storage_object ligados a esta corrida: 4"
     },
     "DERIVED": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "atravessa em provas/a_unidade_pousa_na_espera.py, entrando pelo RAW",
-      "NAO_ATRAVESSA_PELO_PEDIDO": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED, medido em provas/o_pedido_atravessa.py"
+      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "derived_artifact desta corrida: 4"
     },
     "STRUCTURED": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "atravessa em provas/a_unidade_pousa_na_espera.py, entrando pelo RAW",
-      "NAO_ATRAVESSA_PELO_PEDIDO": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED, medido em provas/o_pedido_atravessa.py"
+      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "documento_estruturado: 4 · conteudo (plataforma): 0"
     },
     "ADMISSION": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
-      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel"
+      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel",
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "a porta julgou 4 itens: {'NAO_SE_APLICA': 4}"
     },
     "READY": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
-      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
+      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao.",
+      "ATRAVESSA_PELO_PEDIDO": "NO",
+      "PROVA_PELO_PEDIDO": "unidades prontas: 0",
+      "FLOW_EXECUTED_MAS": "esta etapa ja correu — na rota forward, que entra pelo RAW. Pelo PEDIDO ela nao atravessa: o buraco esta em `ADMISSION -> READY`. DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA."
     },
     "WAITING_ROOM": {
       "MODULE_EXISTS": "YES",
       "EDGE_EXISTS": "YES",
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
-      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
+      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao.",
+      "ATRAVESSA_PELO_PEDIDO": "NO",
+      "PROVA_PELO_PEDIDO": "ficheiros na sala DEPOIS: nenhum",
+      "FLOW_EXECUTED_MAS": "esta etapa ja correu — na rota forward, que entra pelo RAW. Pelo PEDIDO ela nao atravessa: o buraco esta em `ADMISSION -> READY`. DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA."
     }
   },
   "ACHADOS_DA_ESTRADA": [
@@ -143,7 +165,31 @@
       "E_NAO_E_SO_O_CANAL": "`conteudo.content_id` tambem e «id da plataforma (video_id, post_id)». Um boletim em PDF nao tem nenhum dos dois — a tabela pressupoe uma plataforma que emita identificadores",
       "PROVA": "provas/o_pedido_atravessa.py::D2 — a recusa diz, por escrito, QUEM_RESOLVE = «um dono de identidade, fora do executor de coleta», e esse dono nao esta provado hoje",
       "QUEM_RESOLVE": "gente — e uma decisao de arquitetura",
-      "NAO_CORRIGIDO_NESTA_MISSAO": "criar o owner aqui seria inventar identidade de canal sem ninguem ter decidido de quem ele e"
+      "ESTADO": "FECHADO em C-COLLECTION-V1-FINAL-OPERATIONAL-CERTIFICATION — por SEPARACAO, nao por invencao",
+      "COMO_FECHOU": "migration 030 criou `documento_estruturado`, e `guarda/preservar_documento.py` e o seu unico dono de escrita. A chave e `derived_artifact_id`: o documento e o registo estruturado DAQUELE derivado",
+      "O_QUE_CONTINUA_A_NAO_EXISTIR": "o RUNTIME_IDENTITY_CREATOR de `canal`. Ele nao foi criado, e continua NAO EXISTINDO — um documento nao-plataforma deixou de precisar dele, o que nao e a mesma coisa que te-lo. Conteudo de plataforma continua a esbarrar nele",
+      "O_QUE_NAO_FOI_FABRICADO": [
+        "canal_id",
+        "channel_id",
+        "content_id",
+        "document_id"
+      ],
+      "PROVA_DO_FECHO": "provas/o_pedido_atravessa.py::E1..E5 — o documento fica escrito, sem document_id inventado, com SOURCE_ID provado pela fonte, sem canal nenhum criado, e a linhagem anda documento -> participacao -> observacao",
+      "O_QUE_ISTO_NAO_FECHOU": "a estrada. O primeiro edge perdido passou a ser ADMISSION -> READY, que e o achado seguinte."
+    },
+    {
+      "EDGE": "ADMISSION -> READY",
+      "TIPO": "EMPTY_INTERSECTION",
+      "O_QUE_FALTA": "nada, em pecas. A porta existe, julga, e responde. As regras tematicas existem. Os executores existem. O que falta e um universo que esteja NAS DUAS listas",
+      "A_LISTA_A": "universos com regra de admissao escrita: T3, T4, T7, T9",
+      "A_LISTA_B": "universos cujo executor declara colheita canonica (`retorno.ENVELOPE`): T2",
+      "A_INTERSECAO": "VAZIA",
+      "O_QUE_A_PORTA_RESPONDE": "NAO_SE_APLICA — «nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.» A recusa esta CERTA",
+      "PROVA": "provas/o_pedido_atravessa.py::A1, A2 — A1 mede a recusa, A2 mede as duas listas e a intersecao",
+      "PORQUE_ISTO_NAO_E_INFRAESTRUTURA_PARTIDA": "COL-LAW-505 manda que so colheita entre no ingresso, e COL-LAW-502 manda que a porta pergunte pela regra do universo. As duas leis estao a ser cumpridas. O corpus e que nao tem, hoje, um caso legitimamente admissivel",
+      "QUEM_RESOLVE": "gente — escrever regra tematica para T2, ou por um executor de colheita canonica num universo que ja tem regra",
+      "NAO_CORRIGIDO_NESTA_MISSAO": "alterar regra tematica para produzir SIM seria mudar a pergunta para gostar da resposta. A missao proibiu-o por escrito, e ela tinha razao",
+      "E_NAO_E_O_SCRAP": "o SCRAP nao escreve regra tematica nem muda o que a porta pergunta. Integra-lo amanha nao cruza estas duas listas"
     }
   ],
   "PROVA_E2E_HOJE": {
@@ -157,8 +203,9 @@
     "O_QUE_ISTO_SIGNIFICA_PARA_O_PORTAO": "FLOW_EXECUTED da estrada canonica E observavel neste HEAD"
   },
   "DB_SCHEMA_VS_LIVE": {
-    "MIGRATION_IN_GIT": 27,
-    "MIGRATION_APPLIED_DISPOSABLE": "YES — 001..027, verificacao 008 a passar",
+    "MIGRATION_IN_GIT": 30,
+    "MIGRATION_MAIS_ALTA_EM_GIT": "030_o_documento_ganha_registo.sql",
+    "MIGRATION_APPLIED_DISPOSABLE": "YES — o descartavel leva a cadeia toda que esta em git, e a verificacao 008 passa",
     "MIGRATION_APPLIED_LIVE": "UNKNOWN",
     "PORQUE_UNKNOWN": "producao nao e laboratorio, e nao foi tocada"
   },
@@ -258,15 +305,15 @@
     },
     {
       "GAP_ID": "G-STRUCT-01",
-      "CONCEPT": "STRUCTURED tem codigo que nunca correu nesta cadeia",
-      "OWNER": "guarda/importar_italia.py",
-      "CURRENT_STATE": "STATE=CODE, PROOF_KIND=NENHUMA na classe de rota RC-1",
-      "EXPECTED_STATE": "STRUCTURED observado na estrada canonica por classe de documento",
-      "PROOF": "buracos.generated.json::STRUCTURED_SEM_DONO_LIGADO",
+      "CONCEPT": "STRUCTURED atravessa numa classe, e nao nas duas",
+      "OWNER": "guarda/preservar_documento.py (documental) + coleta/social_persistencia.py (plataforma)",
+      "CURRENT_STATE": "a classe DOCUMENTAL atravessa pelo pedido (`documento_estruturado`, migration 030). A classe PLATAFORMA continua a exigir `canal_id`, e esse dono de identidade nao existe",
+      "EXPECTED_STATE": "STRUCTURED observado na estrada canonica nas DUAS classes",
+      "PROOF": "provas/o_pedido_atravessa.py::E1..E5 para a documental; buracos.generated.json::CHANNEL_IDENTITY_NOT_RESOLVED para a outra",
       "SEVERITY": "MEDIUM",
       "CLOSE_GATE": "NON_BLOCKING_DEBT",
-      "WHY": "o ledger JA prova STRUCTURED na rota forward por coleta/social_persistencia.py. O gap e de COBERTURA por classe, e nao de ausencia de travessia.",
-      "MINIMUM_FIX": "medir cobertura de STRUCTURED por classe de documento antes da coleta grande"
+      "WHY": "o gap e de COBERTURA por classe, e nao de ausencia de travessia. A classe que o corpus de hoje produz (boletim em PDF) ja atravessa; a que falta espera por uma decisao de identidade de canal, que e da frente social e nao desta.",
+      "MINIMUM_FIX": "medir cobertura de STRUCTURED na classe PLATAFORMA quando houver dono de identidade de canal"
     },
     {
       "GAP_ID": "G-ADM-01",
@@ -356,7 +403,9 @@
       ],
       "OWNER": "admissao/admissao.py + quem decidir o destino",
       "DEPENDENCIES": [],
-      "PORQUE_E_UMA_SO": "os dois sao a mesma falta vista de dois lados: nao ha travessia de ADMISSION para READY, e nao ha onde pousar. Consertar so um entrega zero unidades."
+      "PORQUE_E_UMA_SO": "os dois sao a mesma falta vista de dois lados: nao ha travessia de ADMISSION para READY, e nao ha onde pousar. Consertar so um entrega zero unidades.",
+      "ESTADO": "SINTOMAS FECHADOS — G-READY-01 e G-READY-02 fecharam em C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1",
+      "NAO_CONFUNDIR_COM": "o buraco de HOJE em `ADMISSION -> READY`, que e de outra especie: nao falta produtor nem destino — falta um universo que tenha regra tematica escrita E executor de colheita canonica ao mesmo tempo. Esta em ACHADOS_DA_ESTRADA, com TIPO = EMPTY_INTERSECTION"
     },
     {
       "ROOT_CAUSE_ID": "RC-B",
@@ -444,7 +493,7 @@
   ],
   "MINIMUM_MISSION_DAG": [],
   "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": "UNKNOWN",
-  "NEXT_KNOWN_MISSION": "fechar DERIVED -> STRUCTURED. Ela NAO e uma missao de codigo: `public.conteudo` exige `canal_id` e esse dono de identidade nao existe. Primeiro alguem decide de quem ele e; so depois ha o que implementar — e pode decompor-se em mais do que uma missao.",
+  "NEXT_KNOWN_MISSION": "fechar ADMISSION -> READY. Ela NAO e uma missao de codigo: a porta existe, julga e responde, e responde CERTO. O que falta e um universo que esteja nas DUAS listas — os que tem regra de admissao escrita (T3, T4, T7, T9) e os cujo executor declara colheita canonica (T2). A intersecao e VAZIA. Primeiro alguem escreve regra tematica para T2, ou poe colheita canonica num universo que ja tem regra; so depois ha o que implementar.",
   "ZERO_BLOCKERS_NAO_E_ZERO_TRABALHO": "a fila minima conta BLOCKERS ABERTOS, e ela esta vazia. O que falta para o core fechar nao e um buraco declarado: e uma propriedade por provar, e ela nao se conta em missoes enquanto depender de uma decisao que ninguem tomou.",
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
@@ -452,7 +501,7 @@
     "VEREDICTO": "FAIL",
     "CANONICAL_E2E": "NOT_PROVEN",
     "CANONICAL_E2E_SAME_STORY": "FAIL",
-    "PORQUE_A_HISTORIA": "a mesma historia parou em `DERIVED -> STRUCTURED` — medido em provas/o_pedido_atravessa.py",
+    "PORQUE_A_HISTORIA": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
     "IDENTITY": "PROVEN",
     "PROVENANCE": "PROVEN",
     "RAW": "PROVEN",
@@ -468,7 +517,7 @@
     "OBSERVABILITY": "INSUFFICIENT",
     "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
     "BLOQUEADO_POR": [],
-    "PORQUE_FALHA": "a mesma historia parou em `DERIVED -> STRUCTURED` — medido em provas/o_pedido_atravessa.py",
+    "PORQUE_FALHA": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
     "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. E ONZE ETAPAS QUE JA CORRERAM NAO SAO UMA ESTRADA: o veredicto exige a MESMA historia, de ponta a ponta, e nao a soma de metades provadas em rotas diferentes.",
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
   },
@@ -481,6 +530,14 @@
     "OBSERVABILITY_FOR_SCALE": "NO",
     "DISPOSABLE_PREFLIGHT_PROOF": "NO"
   },
+  "CERTIFICACAO_SEM_O_SCRAP": {
+    "COLLECTION_V1_CORE_READY_WITHOUT_SCRAP": "NO",
+    "PORQUE": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
+    "ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP": "NO",
+    "PORQUE_NAO_E_SO_O_SCRAP": "o buraco medido e `ADMISSION -> READY`, e integrar o SCRAP nao o tapa: o SCRAP nao escreve regra tematica nem muda o que a porta pergunta. Continua a ser preciso ANTES da coleta grande — mas nao e a unica coisa que falta, e dizer que e autorizava comecar pela peca errada.",
+    "O_QUE_ISTO_NAO_DIZ": "que a infraestrutura esta partida. Ela nao esta: a porta julga, decide e diz porque. INFRAESTRUTURA FUNCIONA != HA CASO ADMISSIVEL NO CORPUS.",
+    "SCRAP_TOCADO_NESTA_MISSAO": "NO"
+  },
   "RED_TEAM": [
     {
       "PROVA": "1 · lei IMPLEMENTED porque existe ficheiro",
@@ -489,13 +546,13 @@
     },
     {
       "PROVA": "2 · migration LIVE porque esta no Git",
-      "ACHADO": "MIGRATION_IN_GIT = YES (27) · MIGRATION_APPLIED_LIVE = UNKNOWN. Medi contra descartavel, e descartavel nao promove a LIVE.",
+      "ACHADO": "MIGRATION_IN_GIT = 30 · MIGRATION_APPLIED_LIVE = UNKNOWN. Medi contra descartavel, e descartavel nao promove a LIVE.",
       "VEREDITO": "GUARDADO"
     },
     {
       "PROVA": "3 · READY dado por produzido por fixture",
-      "ACHADO": "READY FLOW_EXECUTED = NO. Ha um CLI e uma prova; nenhuma rota.",
-      "VEREDITO": "NAO DERRUBA"
+      "ACHADO": "READY atravessa — na rota forward, que entra pelo RAW. Pelo PEDIDO nao atravessa: ATRAVESSA_PELO_PEDIDO = NO. As duas colunas dizem-se lado a lado, e o portao le a segunda.",
+      "VEREDITO": "GUARDADO"
     },
     {
       "PROVA": "4 · aresta dada por executada por teste de modulo isolado",
@@ -559,7 +616,27 @@
     },
     {
       "PROVA": "17 · blocker critico rebaixado por haver contorno manual",
-      "ACHADO": "G-READY-01 continua CRITICAL/BLOCKER embora exista um CLI que produz READY a mao. UM CLI NAO E UMA ROTA.",
+      "ACHADO": "enquanto G-READY-01 esteve aberto ficou CRITICAL/BLOCKER apesar de existir um CLI que produzia READY a mao. UM CLI NAO E UMA ROTA — e so fechou quando uma ROTA produziu READY.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "18 · «so falta o SCRAP» porque o SCRAP e o unico NAO no quadro",
+      "ACHADO": "TENTEI e NAO CONSEGUI. O buraco medido e `ADMISSION -> READY`, e o SCRAP nao o tapa: ele nao escreve regra tematica nem muda o que a porta pergunta. Integra-lo amanha deixava este buraco onde esta.",
+      "VEREDITO": "FALHOU — e e esse o resultado"
+    },
+    {
+      "PROVA": "19 · ADMISSION = YES lida como «a porta admitiu»",
+      "ACHADO": "a porta JULGOU 4 itens e respondeu NAO_SE_APLICA aos 4. JULGAR != ADMITIR, e `ADMISSION -> READY` e a aresta que falta. Uma etapa que responde nao e uma etapa que deixa passar.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "20 · STRUCTURED fechado lido como STRUCTURED completo",
+      "ACHADO": "fechou para a classe DOCUMENTAL. A classe PLATAFORMA continua a exigir `canal_id`, e esse dono nao nasceu nesta missao. UMA CLASSE ATRAVESSA != TODAS AS CLASSES ATRAVESSAM.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "21 · regra tematica afrouxada para o corpus passar",
+      "ACHADO": "nao foi tocada. Mudar a regra ate um caso passar e mudar a pergunta para gostar da resposta, e o veredicto que sairia dai media a regra nova e nao a maquina.",
       "VEREDITO": "GUARDADO"
     }
   ],

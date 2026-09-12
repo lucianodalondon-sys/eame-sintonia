@@ -55,6 +55,7 @@ import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
 import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED
+from guarda import preservar_documento as pdoc  # noqa: E402 — o dono do STRUCTURED documental
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
 import sala_de_espera as espera        # noqa: E402
 
@@ -312,7 +313,104 @@ def pela_derivacao(unidades: list, *, run_id: str, armazem, memoria,
                        "PORTA": r.get("PORTA"),
                        "STORAGE_PATH": r.get("STORAGE_PATH")}
                       for r in (recibo.get("RESULTADOS") or [])],
+        # ⚠️ E OS RESULTADOS INTEIROS SEGUEM, porque a etapa seguinte precisa
+        # da LINHA do derivado — o `id` e o `storage_path` — e reconstrui-la
+        # do outro lado daria duas versoes do mesmo facto.
+        "RESULTADOS": recibo.get("RESULTADOS") or [],
     }
+
+
+def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
+                      source_id=None) -> dict:
+    """Leva o TEXTO derivado ao dono do documento estruturado.
+
+    ⚠️ ESTA ETAPA NAO ESCREVE NADA, E ISSO E A LEI E NAO MODESTIA.
+
+        CONTROL PLANE != DATA PLANE.  (COL-LAW-012)
+
+    Quem escreve `documento_estruturado` e `guarda/preservar_documento.py`.
+    Aqui le-se o corpo pelo endereco canonico do derivado e entrega-se.
+
+    ⚠️ E O CORPO VEM DO ARMAZEM, PELO `storage_path` DA LINHA DO DERIVADO.
+    Nao se reaproveita o texto que o executor tinha em memoria: o que seguir
+    para a frente tem de ser o que FICOU GUARDADO, ou a estrada estaria a
+    estruturar uma coisa e a ter guardada outra.
+
+        EDGE LABEL != DATA DEPENDENCY.
+
+    ⚠️ E NAO HA CANAL, NEM SE INVENTA UM. Esta rota e documental: a fonte e
+    uma agencia que publica PDF no sitio dela, e nao uma plataforma que emita
+    identificadores. Por isso o dono e `documento_estruturado` e nao
+    `conteudo` — ver a migration 030.
+
+        SOURCE != ENDPOINT != ARTIFACT.
+    """
+    bons = [r for r in (derivacao.get("RESULTADOS") or [])
+            if r.get("PORTA") in ("PASSED", "REUSED") and (r.get("LINHA") or {})]
+    if not bons:
+        # NAO CORREU != CORREU E NAO DEU NADA. Sem derivado nao ha corpo, e
+        # inventar uma passagem vazia poria STRUCTURED no rastro a dizer que a
+        # etapa correu.
+        return {"CHAMADO": False, "UNIDADES": 0,
+                "PORQUE": "nenhum derivado desta corrida para estruturar"}
+
+    feitos, recusados = [], []
+    for r in bons:
+        linha = r["LINHA"]
+        try:
+            corpo = armazem.ler(linha["storage_path"]).decode("utf-8",
+                                                              errors="replace")
+        except Exception as erro:                          # noqa: BLE001
+            recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
+                              "PORQUE": "o corpo nao se leu: %s" % erro})
+            continue
+        recibo = pdoc.preservar_documento(
+            {"derived_artifact_id": linha["id"], "run_id": run_id,
+             "source_id": source_id, "texto": corpo,
+             # ⚠️ `document_id` NAO VAI. A fonte documental nao o prova, e
+             # deriva-lo do caminho ou do hash seria fabricar identidade.
+             # Ausencia e a resposta certa, e o dono guarda NULL.
+             "source_url": r.get("SOURCE_URL")},
+            memoria)
+        if recibo["ESTADO"] in (pdoc.INSERTED, pdoc.REUSED):
+            feitos.append({"RAW_ASSET_ID": r.get("RAW_ASSET_ID"),
+                           "DERIVED_ARTIFACT_ID": linha["id"],
+                           "PARENT_SHA256": linha.get("parent_sha256"),
+                           "ESTADO": recibo["ESTADO"],
+                           "TEXTO": corpo})
+        else:
+            recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
+                              "PORQUE": recibo.get("PORQUE"),
+                              "ESTADO": recibo["ESTADO"]})
+    return {"CHAMADO": True, "UNIDADES": len(bons),
+            "ESTRUTURADOS": feitos, "RECUSADOS": recusados,
+            "DONO": "guarda/preservar_documento.py"}
+
+
+def item_documental_para_a_porta(estruturado, *, source_id):
+    """A unidade STRUCTURED na lingua que a porta le.
+
+    ⚠️ O ESTAGIO VIAJA, E E ELE QUE MUDA A PERGUNTA.
+    `admissao.estagio()` le `artifact_type`: a um DERIVED pergunta-se o que se
+    pergunta a um DOCUMENTO, e nao o tempo do FATO (COL-LAW-502). Sem isto,
+    todo documento chegava como estagio desconhecido e respondia NAO SEI a uma
+    pergunta que nao era a dele.
+
+    ⚠️ E O `id` DO ITEM E O DO NOSSO REGISTO, e nao um DOCUMENT_ID.
+    `documento_estruturado` e chaveada pelo `derived_artifact_id`, e e esse o
+    nome da linha. O nome que o MUNDO deu ao documento continua ausente, e
+    ausente e o que ele e.
+
+        A IDENTIDADE DO NOSSO REGISTO NAO E A IDENTIDADE DO DOCUMENTO.
+        CONFUNDI-LAS E QUE SERIA FABRICAR.
+    """
+    item = ing.para_a_porta({"SOURCE_ID": source_id,
+                             "ARTIFACT_TYPE": "DERIVED",
+                             "PARENT_SHA256": estruturado.get("PARENT_SHA256")})
+    item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
+                 "texto": estruturado["TEXTO"],
+                 "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
+    return item
 
 
 def pela_porta(itens: list, universo: str, run_id: str) -> dict:
@@ -567,11 +665,35 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             banco_do_rastro=banco_do_rastro,
             source_id=entrada.get("FONTE_PROVADA"))
 
+    # ── E O QUE FOI DERIVADO ATRAVESSA PARA O STRUCTURED ──────────────────
+    # ⚠️ ATE AQUI A ESTRADA PARTIA-SE AQUI. O texto era extraido, guardado, e
+    # a corrida seguia para a ADMISSAO com o item da ENTRADA — o documento sem
+    # texto. A porta respondia NAO SEI, com razao.
+    #
+    # O dono deste degrau NAO e `conteudo`: essa e a casa do que uma
+    # PLATAFORMA publica, e exige um canal que uma agencia com um sitio nao
+    # tem. Ver `supabase/migrations/030_o_documento_ganha_registo.sql`.
     if itens and (so_a_porta or not seco):
-        # A PORTA JULGA O QUE A FRONTEIRA ACEITOU, e nao o que o executor
-        # largou. Sao a mesma observacao — mas so uma delas traz o estagio que
-        # o contrato apurou, e so quem passou a fronteira chega aqui.
-        julgar = recibo["INGRESSO"].get("PARA_A_PORTA") or []
+        recibo["ESTRUTURACAO"] = pela_estruturacao(
+            recibo.get("DERIVACAO") or {},
+            run_id=recibo["RUN_ID"], armazem=armazem, memoria=memoria,
+            source_id=(recibo.get("INGRESSO") or {}).get("FONTE_PROVADA"))
+
+    if itens and (so_a_porta or not seco):
+        # ⚠️ A PORTA JULGA O QUE ATRAVESSOU A FRONTEIRA MAIS RECENTE.
+        # Quando houve STRUCTURED, e ele que vai — com o texto que o dono
+        # guardou. Sem STRUCTURED, vai o que a porta de entrada aceitou, que
+        # e o que havia antes desta missao.
+        #
+        #     A ADMISSAO JULGA O ITEM DA FRONTEIRA ANTERIOR,
+        #     E NAO UM ITEM DE TRES ETAPAS ATRAS.
+        estruturados = (recibo.get("ESTRUTURACAO") or {}).get("ESTRUTURADOS")
+        if estruturados:
+            fonte = (recibo.get("INGRESSO") or {}).get("FONTE_PROVADA")
+            julgar = [item_documental_para_a_porta(e, source_id=fonte)
+                      for e in estruturados]
+        else:
+            julgar = recibo["INGRESSO"].get("PARA_A_PORTA") or []
         r = pela_porta(julgar, p.alvo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r
         recibo["ITEM_COUNT_RAW"] = r["itens"]

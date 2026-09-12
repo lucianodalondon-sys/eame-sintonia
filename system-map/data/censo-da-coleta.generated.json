@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "b1d491e6e44e39d23e9cda026a6d42afec5de35c",
+    "HEAD": "bd5ad9c06c3e1d6cab44f561f7cdaaac3ecebecd",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1327,7 +1327,8 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/rota_forward_documento.py",
-        "coleta/social_envelope.py"
+        "coleta/social_envelope.py",
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
     },
@@ -1967,7 +1968,8 @@
         "coleta/social_envelope.py",
         "guarda/catalogo_importar.py",
         "guarda/portas_live.py",
-        "guarda/preservar_derivado.py"
+        "guarda/preservar_derivado.py",
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
     },
@@ -1988,9 +1990,26 @@
         "coleta/derivacao_forward.py",
         "coleta/executor_texto_de_pdf.py",
         "guarda/memoria_descartavel.py",
-        "guarda/portas_live.py"
+        "guarda/portas_live.py",
+        "guarda/preservar_documento.py"
       ],
       "no_ci": true
+    },
+    {
+      "ficheiro": "guarda/preservar_documento.py",
+      "gaveta": "guarda",
+      "linhas": 209,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [],
+      "no_ci": false
     },
     {
       "ficheiro": "guarda/social_guarda.py",
@@ -2061,10 +2080,10 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 103,
+    "ficheiros_de_codigo": 104,
     "pontos_de_entrada": 84,
     "executores_que_saem_para_fora": 21,
-    "sem_chamador_e_fora_do_ci": 42,
+    "sem_chamador_e_fora_do_ci": 43,
     "gravam_no_banco": 1,
     "escrevem_ficheiro": 67,
     "deitam_fora_alguma_coisa": 26,
@@ -2224,6 +2243,7 @@
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
       "guarda/portas_live.py",
+      "guarda/preservar_documento.py",
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [

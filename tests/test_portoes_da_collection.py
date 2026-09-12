@@ -153,9 +153,11 @@ class ModuloNaoEFluxo(unittest.TestCase):
         estrada passou a atravessar, todas as onze etapas ficaram `YES` — e o
         portao deu PASS por uma SOMA.
 
-        Era falso: as etapas atravessam em DUAS estradas. A do pedido vai de
-        RAW/STORAGE direto a ADMISSION; a forward faz DERIVED/STRUCTURED
-        entrando pelo RAW.
+        Era falso: as etapas atravessam em DUAS estradas — a do pedido e a
+        forward, que entra pelo RAW. A fronteira entre elas ANDA a cada
+        missao, e por isso este teste nao a nomeia: nomear o buraco de hoje
+        faria o teste falhar no dia em que ele se fechasse, que e o dia
+        errado para um teste falhar.
 
             DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA.
 
@@ -328,6 +330,98 @@ class ODocumentoNaoEDonoDosNumeros(unittest.TestCase):
         self.assertIn("**LAW_TOTAL:** `105`", m)
         self.assertNotIn("**Bíblia:** `V1.3`", m,
                          "a matriz ainda anuncia a versao antiga")
+
+
+class AFraseDeFechoNaoSeArredonda(unittest.TestCase):
+    """`COLLECTION_V1_CORE_READY_WITHOUT_SCRAP` e
+    `ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP` autorizam alguem a
+    comecar outra coisa. Uma frase dessas tem de ser CALCULADA, e tem de dar
+    NO quando a estrada nao atravessa.
+
+        UMA FRASE DE FECHO E UMA AUTORIZACAO. NAO SE ARREDONDA.
+    """
+
+    def _cert(self, veredicto, porque, buraco):
+        return P.certificacao(
+            {"VEREDICTO": veredicto, "PORQUE_A_HISTORIA": porque}, buraco)
+
+    def test_com_a_historia_a_falhar_as_duas_dizem_no(self):
+        c = self._cert("FAIL", "parou algures", "ADMISSION -> READY")
+        self.assertEqual("NO", c["COLLECTION_V1_CORE_READY_WITHOUT_SCRAP"])
+        self.assertEqual(
+            "NO", c["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
+            "um buraco que o SCRAP nao tapa nao pode dar «so falta o SCRAP»")
+
+    def test_a_segunda_frase_pergunta_QUAL_buraco_e_nao_SE_ha_scrap(self):
+        """⚠️ A ARMADILHA ERA ESTA: «o SCRAP nao esta integrado, logo e ele
+        que falta». Nao e. A pergunta e se o buraco QUE ESTA LA seria tapado
+        por integrar o SCRAP — e um buraco na porta nao seria.
+        """
+        aquisicao = self._cert("FAIL", "parou", "EXECUTOR -> RUN")
+        porta = self._cert("FAIL", "parou", "ADMISSION -> READY")
+        self.assertEqual(
+            "YES",
+            aquisicao["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+        self.assertEqual(
+            "NO", porta["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+
+    def test_sem_medicao_nenhuma_nao_se_certifica(self):
+        """`NOT_MEASURED != PASS`, e tambem nao e «so falta o SCRAP»."""
+        c = self._cert("FAIL", "ninguem mediu", None)
+        self.assertEqual("NO", c["COLLECTION_V1_CORE_READY_WITHOUT_SCRAP"])
+        self.assertEqual(
+            "NO", c["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+
+    def test_o_yes_nao_esta_escrito_a_mao_no_ficheiro(self):
+        """Mutante que isto apanha: `("...", "YES")` fixo, sem condicao.
+
+        ⚠️ A PRIMEIRA VERSAO DISTO ERA UMA GUARDA DE TEXTO, e ela mordeu a
+        propria regra: procurava `", "YES"` na linha e reprovava
+        `"YES" if pronto else "NO"`, que e exactamente a forma CERTA.
+
+            PROCURAR O TEXTO DA REGRA NAO E MEDIR A REGRA.
+
+        Entao a pergunta passa a ser estrutural: todo o `"YES"` dentro de
+        `certificacao` tem de viver dentro de uma condicao. Um `"YES"` solto
+        e uma afirmacao; um `"YES"` num `if` e um calculo.
+        """
+        import ast
+        with open(os.path.join(RAIZ, "provas",
+                               "os_portoes_da_collection.py"),
+                  encoding="utf-8") as f:
+            arvore = ast.parse(f.read())
+        fn = next(n for n in ast.walk(arvore)
+                  if isinstance(n, ast.FunctionDef)
+                  and n.name == "certificacao")
+
+        def sins(no):
+            return [c for c in ast.walk(no)
+                    if isinstance(c, ast.Constant) and c.value == "YES"]
+
+        condicionais = set()
+        for no in ast.walk(fn):
+            if isinstance(no, (ast.IfExp, ast.If)):
+                condicionais.update(id(c) for c in sins(no))
+        soltos = [c.lineno for c in sins(fn) if id(c) not in condicionais]
+        self.assertEqual([], soltos,
+                         "ha «YES» fora de qualquer condicao nas linhas %s: "
+                         "a certificacao passou a afirmar sem calcular"
+                         % soltos)
+        self.assertTrue(sins(fn), "a certificacao deixou de poder dizer YES")
+
+    def test_o_artefato_nao_contradiz_o_veredicto(self):
+        import json
+        caminho = os.path.join(RAIZ, P.SAIDA)
+        if not os.path.isfile(caminho):
+            self.skipTest("o artefato ainda nao foi gerado")
+        with open(caminho, encoding="utf-8") as f:
+            a = json.load(f)
+        c = a["CERTIFICACAO_SEM_O_SCRAP"]
+        esperado = ("YES" if a["COLLECTION_CORE_CLOSE"]["VEREDICTO"] == "PASS"
+                    else "NO")
+        self.assertEqual(esperado,
+                         c["COLLECTION_V1_CORE_READY_WITHOUT_SCRAP"])
+        self.assertEqual("NO", c["SCRAP_TOCADO_NESTA_MISSAO"])
 
 
 if __name__ == "__main__":

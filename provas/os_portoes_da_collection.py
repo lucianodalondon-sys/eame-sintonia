@@ -108,14 +108,49 @@ ETAPAS = ("REQUEST", "ORCHESTRATOR", "EXECUTOR", "RUN", "RAW_OBSERVATION",
           "WAITING_ROOM")
 
 
+# ⚠️ ESTE CENSO JA TEVE TRES LISTAS ESCRITAS A MAO A DIZER QUAL ETAPA
+# ATRAVESSAVA EM QUE ROTA — e as tres envelheceram na mesma semana. Diziam
+# «DERIVED e STRUCTURED so atravessam na rota forward» e «FIRST_LOST_EDGE =
+# STORAGE -> DERIVED» muito depois de as duas coisas terem deixado de ser
+# verdade. Uma lista a mao conta certo no dia em que se escreve.
+#
+#     O CENSO NAO DECIDE ONDE A ESTRADA PARA. ELE LE QUEM MEDIU.
+#
+# Entao a coluna «atravessa pelo PEDIDO» passa a vir de
+# `system-map/data/pedido.observado.json`, que e escrito por quem aperta o
+# botao. Quando o buraco andar, esta funcao anda com ele sem ninguem se
+# lembrar dela.
+PEDIDO_OBSERVADO = "system-map/data/pedido.observado.json"
+
+# Os dois censos nomeiam as mesmas etapas com nomes diferentes. Traduzir e
+# barato; deixar dois vocabularios em contacto sem tradutor e que nao e.
+NOME_NA_MEDICAO = {"RAW_OBSERVATION": "RAW", "STORAGE_OBJECT": "STORAGE"}
+
+
+def _estrada_do_pedido():
+    """O que a medicao do PEDIDO observou, etapa a etapa.
+
+    Devolve `({}, None)` quando ninguem mediu. `NOT_MEASURED != NO`: nao
+    saber se uma etapa atravessa nao e o mesmo que saber que ela nao
+    atravessa, e o censo tem de conseguir dizer a diferenca.
+    """
+    caminho = os.path.join(RAIZ, PEDIDO_OBSERVADO)
+    if not os.path.isfile(caminho):
+        return {}, None
+    with io.open(caminho, encoding="utf-8") as f:
+        d = json.load(f)
+    return d.get("ESTRADA") or {}, d.get("FIRST_LOST_EDGE")
+
+
 def cadeia_canonica():
     """O que o ledger de execucao prova, e o que esta prova mediu agora."""
     ex = _json(EXECUCAO)
     forward = ex["PROVADOS"]["coleta/rota_forward_documento.py"]["FORWARD"]
     observadas = set(forward["ETAPAS_OBSERVADAS"])
+    pedido, primeiro_perdido = _estrada_do_pedido()
 
-    # ⚠️ MEDIDO NESTA MISSAO, contra PostgreSQL 16 descartavel com as
-    # migrations 001..027 aplicadas e a verificacao 008 a passar:
+    # ⚠️ MEDIDO contra PostgreSQL 16 descartavel, com a cadeia de migrations
+    # que esta em git aplicada e a verificacao 008 a passar:
     #
     #     corrida COMPLETA  -> raw_asset = 1 · RUN_STATE = COMPLETE
     #     corrida sem pais  -> raw_asset = 0 · enum `pais` recusa NOT_PRESERVED
@@ -123,74 +158,68 @@ def cadeia_canonica():
     # RAW passa a contar como FLOW_EXECUTED, e com a condicao escrita ao lado.
     medido_agora = {"RAW_OBSERVATION", "STORAGE_OBJECT"}
 
-    # ⚠️ DUAS ESTRADAS CHEGAM A ADMISSION, E SO UMA VEM DO PEDIDO.
-    # MEDIDO: `orquestrador.correr()` vai de RAW/STORAGE DIRECTO a ADMISSION;
-    # `rota_forward_documento.atravessar()` faz DERIVED -> STRUCTURED ->
-    # ADMISSION -> READY mas entra no RAW, e nao no pedido. As duas provas
-    # existem, e nenhuma delas e a estrada inteira.
-    #
-    #     DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA.
-    #
-    # Entao estas duas etapas atravessam NA ROTA FORWARD e NAO na rota do
-    # pedido, e o censo diz as duas coisas em vez de escolher a que soa melhor.
-    so_na_rota_forward = {"DERIVED", "STRUCTURED"}
-
     fora = OrderedDict()
     for e in ETAPAS:
-        if e in so_na_rota_forward:
-            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
-                       "FLOW_EXECUTED": "YES",
-                       "PROOF": ("atravessa em provas/a_unidade_pousa_na_"
-                                 "espera.py, entrando pelo RAW"),
-                       "NAO_ATRAVESSA_PELO_PEDIDO": (
-                           "a rota do orquestrador vai de RAW/STORAGE direto "
-                           "a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED,"
-                           " medido em provas/o_pedido_atravessa.py")}
-        elif e in observadas:
-            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
-                       "FLOW_EXECUTED": "YES",
-                       "PROOF": ("ledger de execucao: %s, sobre PostgreSQL "
-                                 "descartavel" % forward["PROVA"])}
-        elif e in medido_agora:
-            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
-                       "FLOW_EXECUTED": "YES",
-                       "PROOF": ("medido nesta missao: corrida completa "
-                                 "aterra raw_asset=1 contra migrations "
-                                 "001..027"),
-                       "CONDICAO": ("so quando a corrida declara "
-                                    "SOURCE_COUNTRY; sem ele o enum `pais` "
-                                    "recusa a sentinela NOT_PRESERVED")}
-        elif e in ("READY", "WAITING_ROOM"):
-            # ⚠️ FECHADO em C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1.
-            # Ate aqui as duas etapas eram NO/NO: READY tinha dono e contrato
-            # e a rota nao chegava la, e a sala nao tinha morada com dono.
-            # Agora a rota forward produz READY e a unidade POUSA.
-            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
-                       "FLOW_EXECUTED": "YES",
-                       "PROOF": ("provas/a_unidade_pousa_na_espera.py: as "
-                                 "CINCO etapas falam na mesma corrida "
-                                 "(RAW -> DERIVED -> STRUCTURED -> ADMISSION "
-                                 "-> READY) e a unidade aterra na sala, com "
-                                 "escrita atomica e conflito explicito"),
-                       "CONSUMIDORES": ("0 — e e o estado CERTO antes da "
-                                        "Intelligence. PRODUTOR existe; "
-                                        "consumidor e outra missao.")}
+        # ── a coluna que envelhecia: agora e lida, nao declarada ──────────
+        medida = pedido.get(NOME_NA_MEDICAO.get(e, e))
+        if medida is None:
+            pelo_pedido = "NOT_MEASURED"
+            prova_do_pedido = ("provas/o_pedido_atravessa.py nao nomeia esta "
+                               "etapa — e NOT_MEASURED != NO")
         else:
-            # ⚠️ MEDIDO em C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1: a cabeca da
-            # estrada JA ATRAVESSA. Um `Pedido` real entrou por
-            # `orquestrador.correr()`, o orquestrador resolveu a receita e
-            # cunhou a corrida, o executor REAL foi a fonte REAL e trouxe 4
-            # itens, e a corrida existe em `collection_run`.
-            #
-            # O que NAO atravessa e o meio: a rota do orquestrador vai de
-            # RAW/STORAGE direto a ADMISSION, sem passar por DERIVED nem
-            # STRUCTURED. Isso esta na etapa DERIVED, e nao aqui.
-            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
-                       "FLOW_EXECUTED": "YES",
-                       "PROOF": ("provas/o_pedido_atravessa.py: pedido T2 "
-                                 "real -> receita `italia-recorrente` -> "
-                                 "`coleta/italy_executor.py` na fonte real -> "
-                                 "collection_run, numa historia so")}
+            pelo_pedido = "YES" if medida.get("OBSERVED") else "NO"
+            prova_do_pedido = medida.get("EVIDENCE") or "—"
+
+        if e in observadas:
+            base = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                    "FLOW_EXECUTED": "YES",
+                    "PROOF": ("ledger de execucao: %s, sobre PostgreSQL "
+                              "descartavel" % forward["PROVA"])}
+        elif e in medido_agora:
+            base = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                    "FLOW_EXECUTED": "YES",
+                    "PROOF": ("medido nesta missao: corrida completa aterra "
+                              "raw_asset=1 contra a cadeia de migrations em "
+                              "git"),
+                    "CONDICAO": ("so quando a corrida declara SOURCE_COUNTRY; "
+                                 "sem ele o enum `pais` recusa a sentinela "
+                                 "NOT_PRESERVED")}
+        elif e in ("READY", "WAITING_ROOM"):
+            # ⚠️ FECHADO em C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1: a
+            # rota forward produz READY e a unidade POUSA. Isso continua
+            # verdade — e continua a ser uma rota que entra pelo RAW.
+            base = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                    "FLOW_EXECUTED": "YES",
+                    "PROOF": ("provas/a_unidade_pousa_na_espera.py: as CINCO "
+                              "etapas falam na mesma corrida (RAW -> DERIVED "
+                              "-> STRUCTURED -> ADMISSION -> READY) e a "
+                              "unidade aterra na sala, com escrita atomica e "
+                              "conflito explicito"),
+                    "CONSUMIDORES": ("0 — e e o estado CERTO antes da "
+                                     "Intelligence. PRODUTOR existe; "
+                                     "consumidor e outra missao.")}
+        else:
+            base = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                    "FLOW_EXECUTED": "YES",
+                    "PROOF": ("provas/o_pedido_atravessa.py: pedido T2 real "
+                              "-> receita `italia-recorrente` -> "
+                              "`coleta/italy_executor.py` na fonte real -> "
+                              "collection_run, numa historia so")}
+
+        base["ATRAVESSA_PELO_PEDIDO"] = pelo_pedido
+        base["PROVA_PELO_PEDIDO"] = prova_do_pedido
+        if pelo_pedido == "NO":
+            # ⚠️ `FLOW_EXECUTED = YES` com `ATRAVESSA_PELO_PEDIDO = NO` nao e
+            # contradicao: e a distincao inteira. A etapa JA CORREU, noutra
+            # rota, entrando pelo RAW. Ler so a primeira coluna e como somar
+            # metades.
+            base["FLOW_EXECUTED_MAS"] = (
+                "esta etapa ja correu — na rota forward, que entra pelo RAW. "
+                "Pelo PEDIDO ela nao atravessa: %s. "
+                "DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA."
+                % (("o buraco esta em `%s`" % primeiro_perdido)
+                   if primeiro_perdido else "o buraco nao foi nomeado"))
+        fora[e] = base
     return fora, forward
 
 
@@ -401,17 +430,28 @@ def gaps():
       "RAW_NOT_RUN, RAW_ERROR e RAW_REUSED distinguem-se no rastro.",
       "—")
 
-    G("G-STRUCT-01", "STRUCTURED tem codigo que nunca correu nesta cadeia",
-      "guarda/importar_italia.py",
-      "STATE=CODE, PROOF_KIND=NENHUMA na classe de rota RC-1",
-      "STRUCTURED observado na estrada canonica por classe de documento",
-      "buracos.generated.json::STRUCTURED_SEM_DONO_LIGADO",
+    # ⚠️ O NOME DESTE GAP JA FOI «STRUCTURED tem codigo que nunca correu
+    # nesta cadeia», e deixou de ser verdade: o pedido atravessa STRUCTURED
+    # hoje, na classe DOCUMENTAL. O que sobra e outra coisa, e chamar-lhe
+    # pelo nome velho faria uma pessoa procurar um buraco que ja nao existe.
+    #
+    #     UMA CLASSE ATRAVESSA != TODAS AS CLASSES ATRAVESSAM.
+    G("G-STRUCT-01", "STRUCTURED atravessa numa classe, e nao nas duas",
+      "guarda/preservar_documento.py (documental) + "
+      "coleta/social_persistencia.py (plataforma)",
+      "a classe DOCUMENTAL atravessa pelo pedido (`documento_estruturado`, "
+      "migration 030). A classe PLATAFORMA continua a exigir `canal_id`, e "
+      "esse dono de identidade nao existe",
+      "STRUCTURED observado na estrada canonica nas DUAS classes",
+      "provas/o_pedido_atravessa.py::E1..E5 para a documental; "
+      "buracos.generated.json::CHANNEL_IDENTITY_NOT_RESOLVED para a outra",
       "MEDIUM", DEBT,
-      "o ledger JA prova STRUCTURED na rota forward por "
-      "coleta/social_persistencia.py. O gap e de COBERTURA por classe, e nao "
-      "de ausencia de travessia.",
-      "medir cobertura de STRUCTURED por classe de documento antes da coleta "
-      "grande")
+      "o gap e de COBERTURA por classe, e nao de ausencia de travessia. A "
+      "classe que o corpus de hoje produz (boletim em PDF) ja atravessa; a "
+      "que falta espera por uma decisao de identidade de canal, que e da "
+      "frente social e nao desta.",
+      "medir cobertura de STRUCTURED na classe PLATAFORMA quando houver dono "
+      "de identidade de canal")
 
     G("G-ADM-01", "a Admission julga o registo legado e nao o derivado",
       "admissao/admissao.py",
@@ -495,6 +535,25 @@ def causas_raiz(gs):
                 "os dois sao a mesma falta vista de dois lados: nao ha "
                 "travessia de ADMISSION para READY, e nao ha onde pousar. "
                 "Consertar so um entrega zero unidades.")),
+            ("ESTADO", "SINTOMAS FECHADOS — G-READY-01 e G-READY-02 fecharam "
+                       "em C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1"),
+            # ⚠️ O NOME DESTA CAUSA VOLTOU A DESCREVER O PRESENTE, E POR
+            # OUTRO MOTIVO. Ler isso como «RC-A reabriu» seria erro: RC-A era
+            # FALTA DE PECA (nao havia produtor de READY, nem onde pousar), e
+            # as duas pecas existem e correm. O que ha hoje e uma INTERSECAO
+            # VAZIA — todas as pecas existem e nenhuma se cruza.
+            #
+            #     FALTA DE PECA != PECAS QUE NAO SE CRUZAM.
+            #
+            # Sao causas diferentes, e uma corrige-se a construir, a outra a
+            # decidir. Juntar as duas debaixo de «RC-A» faria a segunda
+            # parecer trabalho de codigo, e ela nao e.
+            ("NAO_CONFUNDIR_COM", (
+                "o buraco de HOJE em `ADMISSION -> READY`, que e de outra "
+                "especie: nao falta produtor nem destino — falta um universo "
+                "que tenha regra tematica escrita E executor de colheita "
+                "canonica ao mesmo tempo. Esta em ACHADOS_DA_ESTRADA, com "
+                "TIPO = EMPTY_INTERSECTION")),
         ]),
         OrderedDict([
             ("ROOT_CAUSE_ID", "RC-B"),
@@ -593,8 +652,10 @@ def dag():
     ⚠️ ELA ESVAZIOU-SE, E ISSO NAO E O MESMO QUE FECHAR.
     `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` fechou os dois ultimos
     blockers. O que sobra para `COLLECTION_CORE_CLOSE` nao e um gap: e a
-    CABECA da estrada — REQUEST, ORCHESTRATOR, EXECUTOR e RUN continuam sem
-    corrida observada.
+    MESMA HISTORIA. Nove das onze etapas ja atravessam por um pedido real;
+    a decima nao, e o que a impede nao e peca nenhuma em falta — e duas
+    listas certas que nao se cruzam (`ADMISSION -> READY`, medido em
+    `provas/o_pedido_atravessa.py::A2`).
 
         ZERO BLOCKERS != CORE FECHADO.
 
@@ -608,10 +669,13 @@ def dag():
 
 # A PROXIMA MISSAO CONHECIDA — nomeada, e nao contada.
 PROXIMA_CONHECIDA = (
-    "fechar DERIVED -> STRUCTURED. Ela NAO e uma missao de codigo: "
-    "`public.conteudo` exige `canal_id` e esse dono de identidade nao existe. "
-    "Primeiro alguem decide de quem ele e; so depois ha o que implementar — e "
-    "pode decompor-se em mais do que uma missao.")
+    "fechar ADMISSION -> READY. Ela NAO e uma missao de codigo: a porta "
+    "existe, julga e responde, e responde CERTO. O que falta e um universo "
+    "que esteja nas DUAS listas — os que tem regra de admissao escrita "
+    "(T3, T4, T7, T9) e os cujo executor declara colheita canonica (T2). A "
+    "intersecao e VAZIA. Primeiro alguem escreve regra tematica para T2, ou "
+    "poe colheita canonica num universo que ja tem regra; so depois ha o que "
+    "implementar.")
 
 
 def missoes_que_faltam(core):
@@ -626,8 +690,8 @@ def missoes_que_faltam(core):
         UMA FILA VAZIA MEDE A FILA, E NAO O CAMINHO.
 
     E a resposta honesta nao e um numero maior inventado: o que falta depende
-    de uma DECISAO de arquitetura — quem e o dono de `canal_id` — e uma
-    decisao por tomar pode dar uma missao ou quatro. Contar agora seria
+    de uma DECISAO de arquitetura — que regra tematica escrever, e para que
+    universo — e uma decisao por tomar pode dar uma missao ou quatro. Contar agora seria
     feeling com cara de DAG, que e exactamente o que
     `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY` ja recusa fazer ao lado.
 
@@ -655,11 +719,17 @@ def red_team(gs, cadeia, est):
       "o eixo de implementacao viaja como DECLARED_BY_BIBLE e nunca como "
       "observacao. Nenhum blocker foi derivado dele.", "SEPARADO")
     A("2 · migration LIVE porque esta no Git",
-      "MIGRATION_IN_GIT = YES (27) · MIGRATION_APPLIED_LIVE = UNKNOWN. "
-      "Medi contra descartavel, e descartavel nao promove a LIVE.", "GUARDADO")
+      "MIGRATION_IN_GIT = %d · MIGRATION_APPLIED_LIVE = UNKNOWN. Medi contra "
+      "descartavel, e descartavel nao promove a LIVE."
+      % len(migrations_versionadas()), "GUARDADO")
+    # ⚠️ ESTE ITEM JA DIZIA «READY FLOW_EXECUTED = NO», e deixou de ser
+    # verdade sem ninguem o reescrever. Um red team que descreve um estado
+    # antigo nao ataca nada: da cobertura.
     A("3 · READY dado por produzido por fixture",
-      "READY FLOW_EXECUTED = NO. Ha um CLI e uma prova; nenhuma rota.",
-      "NAO DERRUBA")
+      "READY atravessa — na rota forward, que entra pelo RAW. Pelo PEDIDO "
+      "nao atravessa: ATRAVESSA_PELO_PEDIDO = %s. As duas colunas dizem-se "
+      "lado a lado, e o portao le a segunda."
+      % cadeia["READY"].get("ATRAVESSA_PELO_PEDIDO"), "GUARDADO")
     A("4 · aresta dada por executada por teste de modulo isolado",
       "so conta aresta quando as DUAS pontas deixaram passagem na MESMA "
       "corrida — regra do proprio ledger, nao minha.", "GUARDADO")
@@ -696,8 +766,35 @@ def red_team(gs, cadeia, est):
     A("16 · divida estetica virada blocker",
       "G-TEL-01 e G-STRUCT-01 ficaram DEBT apesar de reais.", "GUARDADO")
     A("17 · blocker critico rebaixado por haver contorno manual",
-      "G-READY-01 continua CRITICAL/BLOCKER embora exista um CLI que produz "
-      "READY a mao. UM CLI NAO E UMA ROTA.", "GUARDADO")
+      "enquanto G-READY-01 esteve aberto ficou CRITICAL/BLOCKER apesar de "
+      "existir um CLI que produzia READY a mao. UM CLI NAO E UMA ROTA — e "
+      "so fechou quando uma ROTA produziu READY.", "GUARDADO")
+
+    # ══════════════════════════════════════════════════════════════════
+    # OS QUATRO ATAQUES DESTA MISSAO
+    # ══════════════════════════════════════════════════════════════════
+    # ⚠️ A MISSAO PEDIU UMA COISA INCOMUM: que o red team TENTASSE produzir
+    # `ONLY_REMAINING_DEPENDENCY_IS_SCRAP = YES` e FALHASSE. Um red team que
+    # so procura o que ja se sabe estar partido nao mede nada; este tinha de
+    # tentar escrever a frase bonita e nao conseguir.
+    pedido, primeiro_perdido = _estrada_do_pedido()
+    A("18 · «so falta o SCRAP» porque o SCRAP e o unico NAO no quadro",
+      "TENTEI e NAO CONSEGUI. O buraco medido e `%s`, e o SCRAP nao o tapa: "
+      "ele nao escreve regra tematica nem muda o que a porta pergunta. "
+      "Integra-lo amanha deixava este buraco onde esta."
+      % (primeiro_perdido or "NAO_MEDIDO"), "FALHOU — e e esse o resultado")
+    A("19 · ADMISSION = YES lida como «a porta admitiu»",
+      "a porta JULGOU 4 itens e respondeu NAO_SE_APLICA aos 4. "
+      "JULGAR != ADMITIR, e `ADMISSION -> READY` e a aresta que falta. Uma "
+      "etapa que responde nao e uma etapa que deixa passar.", "GUARDADO")
+    A("20 · STRUCTURED fechado lido como STRUCTURED completo",
+      "fechou para a classe DOCUMENTAL. A classe PLATAFORMA continua a "
+      "exigir `canal_id`, e esse dono nao nasceu nesta missao. "
+      "UMA CLASSE ATRAVESSA != TODAS AS CLASSES ATRAVESSAM.", "GUARDADO")
+    A("21 · regra tematica afrouxada para o corpus passar",
+      "nao foi tocada. Mudar a regra ate um caso passar e mudar a pergunta "
+      "para gostar da resposta, e o veredicto que sairia dai media a regra "
+      "nova e nao a maquina.", "GUARDADO")
     return p
 
 
@@ -710,8 +807,10 @@ def uma_historia_so():
     ⚠️ ESTE PORTAO QUASE PASSOU POR UMA SOMA.
     Quando a cabeca da estrada passou a atravessar, todas as onze etapas
     ficaram `FLOW_EXECUTED = YES` — e `all(...)` deu PASS. Mas as etapas
-    atravessam em DUAS estradas diferentes: a do pedido vai de RAW/STORAGE
-    direto a ADMISSION, e a forward faz DERIVED/STRUCTURED entrando pelo RAW.
+    atravessam em DUAS estradas diferentes, e a fronteira entre elas ANDA:
+    ja esteve em `STORAGE -> DERIVED`, depois em `DERIVED -> STRUCTURED`, e
+    hoje esta noutro sitio. Por isso esta funcao nao a nomeia — le-a de quem
+    a mediu.
 
         DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA.
 
@@ -729,6 +828,43 @@ def uma_historia_so():
         return "PASS", "um pedido atravessou de REQUEST a SALA DE ESPERA"
     return "FAIL", ("a mesma historia parou em `%s` — medido em "
                     "provas/o_pedido_atravessa.py" % d.get("FIRST_LOST_EDGE"))
+
+
+# ⚠️ DUAS FRASES QUE SO SE ESCREVEM SE ESTIVEREM PROVADAS.
+# A missao que as pediu escreveu-o por extenso, e tinha razao: sao frases que
+# autorizam alguem a comecar outra coisa. «So falta o SCRAP» faz uma pessoa
+# abrir a integracao do SCRAP — e se for falso, ela integra o SCRAP e o
+# buraco continua la, agora com mais uma peca por cima.
+#
+#     UMA FRASE DE FECHO E UMA AUTORIZACAO. NAO SE ARREDONDA.
+#
+# Entao as duas saem CALCULADAS da mesma medicao que faz o veredicto, e
+# nenhuma delas tem literal `YES` escrito neste ficheiro.
+def certificacao(core, primeiro_perdido):
+    pronto = core["VEREDICTO"] == "PASS"
+    # ⚠️ E O TESTE DECISIVO NAO E «o SCRAP esta integrado?». E outro: o buraco
+    # que esta la SERIA TAPADO por integrar o SCRAP? Se nao for, o SCRAP nao e
+    # a dependencia que falta — e a frase bonita e falsa mesmo com o SCRAP
+    # legitimamente por integrar.
+    buraco_e_do_scrap = primeiro_perdido in ("EXECUTOR -> RUN", "RUN -> RAW")
+    return OrderedDict([
+        ("COLLECTION_V1_CORE_READY_WITHOUT_SCRAP", "YES" if pronto else "NO"),
+        ("PORQUE", core["PORQUE_A_HISTORIA"]),
+        ("ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP",
+         "YES" if (pronto or buraco_e_do_scrap) else "NO"),
+        ("PORQUE_NAO_E_SO_O_SCRAP",
+         "—" if (pronto or buraco_e_do_scrap) else
+         ("o buraco medido e `%s`, e integrar o SCRAP nao o tapa: o SCRAP nao "
+          "escreve regra tematica nem muda o que a porta pergunta. Continua a "
+          "ser preciso ANTES da coleta grande — mas nao e a unica coisa que "
+          "falta, e dizer que e autorizava comecar pela peca errada."
+          % (primeiro_perdido or "NAO_MEDIDO"))),
+        ("O_QUE_ISTO_NAO_DIZ",
+         "que a infraestrutura esta partida. Ela nao esta: a porta julga, "
+         "decide e diz porque. INFRAESTRUTURA FUNCIONA != HA CASO ADMISSIVEL "
+         "NO CORPUS."),
+        ("SCRAP_TOCADO_NESTA_MISSAO", "NO"),
+    ])
 
 
 def portoes(cadeia, gs):
@@ -846,6 +982,22 @@ def impressao_dos_donos():
         else:
             h.update(b"<AUSENTE>")
     return h.hexdigest()
+
+
+def migrations_versionadas():
+    """As migrations que o GIT conhece, por ordem.
+
+    Lemos o INDEX e nao a pasta: um ficheiro por commitar ainda nao esta em
+    git, e dizer «esta em git» de uma coisa que nao esta e a mesma mentira
+    que o numero fixo dava, so que mais dificil de apanhar.
+
+        NO DISCO != EM GIT.
+    """
+    r = subprocess.run(["git", "ls-files", "supabase/migrations"],
+                       cwd=RAIZ, capture_output=True, text=True)
+    nomes = [os.path.basename(l) for l in r.stdout.splitlines()
+             if l.endswith(".sql")]
+    return sorted(nomes)
 
 
 def medir():
@@ -966,16 +1118,92 @@ def medir():
                           "fora do executor de coleta», e esse dono nao esta "
                           "provado hoje"),
                 ("QUEM_RESOLVE", "gente — e uma decisao de arquitetura"),
+                # ⚠️ A PERGUNTA ESTAVA MAL POSTA, E FOI ISSO QUE A FECHOU.
+                # «Quem cria a identidade de canal deste boletim?» nao tem
+                # resposta porque um boletim em PDF NAO TEM CANAL. A decisao
+                # de arquitetura nao foi inventar o dono que faltava: foi
+                # reconhecer que `conteudo` e a casa de conteudo DE
+                # PLATAFORMA, e que um documento nao-plataforma precisa da
+                # sua propria casa.
+                #
+                #     ONE CONCEPT -> ONE OWNER
+                #     != ONE TABLE FOR EVERY TYPE OF CONTENT
+                ("ESTADO", "FECHADO em C-COLLECTION-V1-FINAL-OPERATIONAL-"
+                           "CERTIFICATION — por SEPARACAO, nao por invencao"),
+                ("COMO_FECHOU", "migration 030 criou `documento_estruturado`, "
+                                "e `guarda/preservar_documento.py` e o seu "
+                                "unico dono de escrita. A chave e "
+                                "`derived_artifact_id`: o documento e o "
+                                "registo estruturado DAQUELE derivado"),
+                ("O_QUE_CONTINUA_A_NAO_EXISTIR",
+                 "o RUNTIME_IDENTITY_CREATOR de `canal`. Ele nao foi criado, "
+                 "e continua NAO EXISTINDO — um documento nao-plataforma "
+                 "deixou de precisar dele, o que nao e a mesma coisa que "
+                 "te-lo. Conteudo de plataforma continua a esbarrar nele"),
+                ("O_QUE_NAO_FOI_FABRICADO", ["canal_id", "channel_id",
+                                             "content_id", "document_id"]),
+                ("PROVA_DO_FECHO", "provas/o_pedido_atravessa.py::E1..E5 — o "
+                                   "documento fica escrito, sem document_id "
+                                   "inventado, com SOURCE_ID provado pela "
+                                   "fonte, sem canal nenhum criado, e a "
+                                   "linhagem anda documento -> participacao "
+                                   "-> observacao"),
+                ("O_QUE_ISTO_NAO_FECHOU",
+                 "a estrada. O primeiro edge perdido passou a ser "
+                 "ADMISSION -> READY, que e o achado seguinte."),
+            ]),
+            # ⚠️ O TERCEIRO ACHADO NAO E «FALTA CODIGO». E o mais raro dos
+            # tres: TUDO o que ele precisa existe, e ainda assim nada passa.
+            # Duas listas certas que nao se cruzam bloqueiam tanto como uma
+            # peca em falta — e uma leitura distraida da primeira lista diz
+            # «ha regra, logo passa».
+            OrderedDict([
+                ("EDGE", "ADMISSION -> READY"),
+                ("TIPO", "EMPTY_INTERSECTION"),
+                ("O_QUE_FALTA", "nada, em pecas. A porta existe, julga, e "
+                                "responde. As regras tematicas existem. Os "
+                                "executores existem. O que falta e um "
+                                "universo que esteja NAS DUAS listas"),
+                ("A_LISTA_A", "universos com regra de admissao escrita: "
+                              "T3, T4, T7, T9"),
+                ("A_LISTA_B", "universos cujo executor declara colheita "
+                              "canonica (`retorno.ENVELOPE`): T2"),
+                ("A_INTERSECAO", "VAZIA"),
+                ("O_QUE_A_PORTA_RESPONDE", "NAO_SE_APLICA — «nao ha regra "
+                                           "escrita do que conta como «T2». "
+                                           "Sem regra, esta porta nao inventa "
+                                           "uma.» A recusa esta CERTA"),
+                ("PROVA", "provas/o_pedido_atravessa.py::A1, A2 — A1 mede a "
+                          "recusa, A2 mede as duas listas e a intersecao"),
+                ("PORQUE_ISTO_NAO_E_INFRAESTRUTURA_PARTIDA",
+                 "COL-LAW-505 manda que so colheita entre no ingresso, e "
+                 "COL-LAW-502 manda que a porta pergunte pela regra do "
+                 "universo. As duas leis estao a ser cumpridas. O corpus e "
+                 "que nao tem, hoje, um caso legitimamente admissivel"),
+                ("QUEM_RESOLVE", "gente — escrever regra tematica para T2, ou "
+                                 "por um executor de colheita canonica num "
+                                 "universo que ja tem regra"),
                 ("NAO_CORRIGIDO_NESTA_MISSAO",
-                 "criar o owner aqui seria inventar identidade de canal sem "
-                 "ninguem ter decidido de quem ele e"),
+                 "alterar regra tematica para produzir SIM seria mudar a "
+                 "pergunta para gostar da resposta. A missao proibiu-o por "
+                 "escrito, e ela tinha razao"),
+                ("E_NAO_E_O_SCRAP", "o SCRAP nao escreve regra tematica nem "
+                                    "muda o que a porta pergunta. Integra-lo "
+                                    "amanha nao cruza estas duas listas"),
             ]),
         ]),
         ("PROVA_E2E_HOJE", prova_e2e_corre()),
         ("DB_SCHEMA_VS_LIVE", OrderedDict([
-            ("MIGRATION_IN_GIT", 27),
-            ("MIGRATION_APPLIED_DISPOSABLE", "YES — 001..027, verificacao "
-                                             "008 a passar"),
+            # ⚠️ ISTO JA FOI O NUMERO 27, ESCRITO A MAO. Um censo a mao conta
+            # certo no dia em que se escreve e mente em todos os outros: tres
+            # migrations entraram e o numero ficou onde estava. Contar e mais
+            # barato do que lembrar.
+            ("MIGRATION_IN_GIT", len(migrations_versionadas())),
+            ("MIGRATION_MAIS_ALTA_EM_GIT", (migrations_versionadas() or
+                                            ["NENHUMA"])[-1]),
+            ("MIGRATION_APPLIED_DISPOSABLE", "YES — o descartavel leva a "
+                                             "cadeia toda que esta em git, e "
+                                             "a verificacao 008 passa"),
             ("MIGRATION_APPLIED_LIVE", "UNKNOWN"),
             ("PORQUE_UNKNOWN", "producao nao e laboratorio, e nao foi tocada"),
         ])),
@@ -1031,6 +1259,8 @@ def medir():
             "cara de DAG.")),
         ("COLLECTION_CORE_CLOSE", core),
         ("BIG_COLLECTION_READY", grande),
+        ("CERTIFICACAO_SEM_O_SCRAP",
+         certificacao(core, _estrada_do_pedido()[1])),
         ("RED_TEAM", red_team(gs, cadeia, est)),
         ("GENERATED_BY", "provas/os_portoes_da_collection.py"),
     ])
@@ -1049,9 +1279,16 @@ def main():
           % (art["MEASURED_HEAD"][:8], art["BIBLE_VERSION"], art["LAW_TOTAL"]))
     print("  estado declarado: %s" % art["IMPLEMENTATION_STATE"]["CENSO"])
     print("\n  A ESTRADA CANONICA")
+    # ⚠️ ONZE «fluxo=YES» NUMA COLUNA SO LEEM-SE COMO «A ESTRADA ATRAVESSA»,
+    # e nao e o que eles dizem: dizem que cada etapa ja correu, algumas
+    # noutra rota. A coluna do PEDIDO vai ao lado, sempre, porque e ela que
+    # responde a pergunta que as pessoas fazem.
     for e, v in art["CANONICAL_E2E"].items():
-        print("    %-18s modulo=%-3s aresta=%-7s fluxo=%s"
-              % (e, v["MODULE_EXISTS"], v["EDGE_EXISTS"], v["FLOW_EXECUTED"]))
+        print("    %-18s modulo=%-3s aresta=%-7s ja-correu=%-3s "
+              "pelo-pedido=%s"
+              % (e, v["MODULE_EXISTS"], v["EDGE_EXISTS"], v["FLOW_EXECUTED"],
+                 v.get("ATRAVESSA_PELO_PEDIDO", "NOT_MEASURED")))
+    print("    %s" % art["COLLECTION_CORE_CLOSE"]["PORQUE_A_HISTORIA"])
     print("\n  BLOCKERS (%d)" % len(art["BLOCKERS"]))
     for g in art["GAPS"]:
         if g["CLOSE_GATE"] == BLOCKER:
@@ -1072,6 +1309,14 @@ def main():
           % art["BIG_COLLECTION_READY"]["VEREDICTO"])
     print("  missoes ate fechar o core: %s"
           % art["MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE"])
+    c = art["CERTIFICACAO_SEM_O_SCRAP"]
+    print("\n  CERTIFICACAO, SEM CONTAR O SCRAP")
+    print("    CORE_READY_WITHOUT_SCRAP        = %s"
+          % c["COLLECTION_V1_CORE_READY_WITHOUT_SCRAP"])
+    print("    ONLY_REMAINING_DEP_IS_SCRAP     = %s"
+          % c["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+    if c["PORQUE_NAO_E_SO_O_SCRAP"] != "—":
+        print("    %s" % c["PORQUE_NAO_E_SO_O_SCRAP"])
     print("  escrito: %s\n" % SAIDA)
     return 0
 

@@ -337,6 +337,27 @@ class MemoriaPostgres(Memoria):
         return linhas[0] if linhas else None
 
 
+
+    # ── A PORTA DO DOCUMENTO ESTRUTURADO (migration 030) ────────────────
+    COLS_DOC = ("derived_artifact_id", "run_id", "source_id", "hash_texto",
+                "document_id", "source_url", "titulo")
+
+    def documento_do_derivado(self, derived_artifact_id):
+        """A linha que ja estrutura este derivado, ou `None`.
+
+        ⚠️ O `texto` NAO vem. Ele pode ter megabytes, e quem pergunta «ja
+        existe registo para este derivado?» nao precisa do corpo — precisa do
+        `hash_texto`, que e o que o writer compara.
+
+            COMPARAR PELO RESUMO E LER O CORPO SAO DUAS PERGUNTAS.
+        """
+        linhas = self._linhas(
+            "select %s from public.documento_estruturado"
+            " where derived_artifact_id = %d"
+            % (self._select(self.COLS_DOC), int(derived_artifact_id)),
+            self.COLS_DOC)
+        return linhas[0] if linhas else None
+
 # ─────────────────────────────────────────────────────────────────────────
 # OS CENÁRIOS — os mesmos do banco local, contra o motor de verdade
 # ─────────────────────────────────────────────────────────────────────────
