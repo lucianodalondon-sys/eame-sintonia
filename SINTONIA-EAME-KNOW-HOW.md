@@ -7890,3 +7890,188 @@ ATAQUES 33 · MUTANTES 18 · SOBREVIVENTES 0
 Fica por saber por que o objeto veio vazio, e isso é dinheiro que ninguém
 autorizou ainda. Uma rota `PARTIAL` é uma rota que corre e gasta: promovê-la
 exige uma corrida que entregue.
+
+---
+
+# §85 · UMA CAPACIDADE QUE NINGUÉM CHAMA NÃO É UMA ETAPA DA ESTRADA
+
+**Missão:** `C-WIRE-STORAGE-TO-DERIVED-IN-CANONICAL-E2E-V1`
+**HEAD final:** `2bbf25cd`
+**Tocado:** `orquestrador/orquestrador.py` · `coleta/ingresso.py` ·
+`coleta/derivacao_forward.py` · `guarda/preservar_coleta.py` ·
+`provas/o_pedido_atravessa.py`
+
+A `§78` mediu a estrada e encontrou-a partida em `STORAGE -> DERIVED`. A `§82`
+arrumou o retrato e deixou o buraco onde estava. Esta fechou-o — e o achado não
+é o conserto: é o **tamanho** dele.
+
+```
+o que faltava   uma chamada
+o que existia   o executor, o runner, o dono da escrita, o dono do rastro
+```
+
+Quatro peças completas, escritas, testadas, com prova própria a passar. E a
+estrada partida porque nenhuma linha as invocava.
+
+```
+    CAPABILITY EXISTS ≠ EDGE EXISTS.
+    UMA CAPACIDADE QUE NINGUÉM CHAMA NÃO É UMA ETAPA DA ESTRADA.
+```
+
+## 85.1 · A PONTE NÃO ERA A CHAMADA: ERA O QUE ELA TINHA DE LEVAR
+
+A chamada é uma linha. O que custou foi descobrir que **a porta já sabia tudo o
+que a derivação precisa, e deitava fora**.
+
+`ingresso.receber()` devolvia `PRESERVADOS: len(aceites)` — uma contagem. O
+`recibo` que ela tinha em mãos trazia, por observação, o `RAW_OBSERVATION_ID`
+real e o `storage_path` do objeto. Os dois campos que fazem um derivado ter pai.
+
+```
+    CONTAR UMA COISA NÃO É GUARDÁ-LA.
+```
+
+É literalmente o mesmo defeito que `PARA_A_PORTA` fechou um degrau atrás, na
+mesma função, quando o estágio se perdia entre a porta e a admissão. Duas vezes
+o mesmo, e a segunda com a primeira escrita à vista, oito linhas acima.
+
+A lição não é «olhar melhor». É que **uma função que devolve um número em vez do
+objeto apaga a linhagem sem dar erro** — e o erro aparece etapas à frente, com
+outra cara.
+
+## 85.2 · O `GLOB` DA PROVA DIAGNÓSTICA NÃO PODIA ATRAVESSAR PARA A PRODUÇÃO
+
+O `D1` da `§78` respondia «o DERIVED é alcançável a partir deste bruto?». Para
+isso procurava um PDF com `glob` e emparelhava-o com `brutos[0]`.
+
+Como diagnóstico estava certo: separava «não sabe» de «ninguém chama».
+Como costura de produção seria um desastre silencioso.
+
+```
+    PATH ≠ IDENTITY.
+    O PRIMEIRO FICHEIRO DA PASTA NÃO É O FILHO DA PRIMEIRA LINHA.
+```
+
+As duas ordens — a do `sorted(glob(...))` e a do `order by id` — não têm razão
+nenhuma para coincidir. Quatro derivados podiam nascer todos com o pai trocado,
+todos apontando para a corrida certa, e nenhuma conferência de corrida daria por
+isso. Por isso a guarda não pergunta «é da mesma corrida?» mas «o
+`parent_sha256` bate certo com o `sha256` da observação que o banco diz ser o
+pai?».
+
+```
+    MESMA CORRIDA ≠ MESMO PAI.
+```
+
+E o `glob` saiu **também da prova**. Uma prova que usa a heurística que a
+produção tem proibida ensina a heurística a quem a ler a seguir.
+
+## 85.3 · O ARMAZÉM PASSOU A RESPONDER ONDE, PORQUE A FERRAMENTA NÃO RECEBE BYTES
+
+`pdftotext` não aceita um `bytes`: recebe um caminho e abre-o. A porta do
+armazém sabia `ler`, e isso não servia. Havia três saídas e duas eram piores:
+
+```
+1. perguntar ao armazém ONDE está        (a escolhida)
+2. copiar o byte para um sítio temporário (segunda cópia do bruto, sem dono)
+3. juntar a raiz ao storage_path por fora (a regra de endereçamento em dois sítios)
+```
+
+A terceira é a tentadora, porque é uma linha. E é a que põe o guarda do `..` e o
+separador de caminho a viver em dois lugares.
+
+```
+    DOIS DONOS DO MESMO ENDEREÇO SÃO DOIS ENDEREÇOS,
+    E UM DELES VAI ESCREVER FORA DO ARMAZÉM.
+```
+
+`None` ficou como resposta legítima: um armazém de objetos remoto não tem
+caminho local, e inventar-lhe um ficheiro temporário seria responder à pergunta
+errada. Quem recebe `None` não faz a unidade — e sabe porquê.
+
+## 85.4 · DUAS GUARDAS DE TEXTO MORDERAM A PRÓPRIA EXPLICAÇÃO, NA MESMA MISSÃO
+
+```python
+self.assertNotIn("RC-1", fonte(ORQ))                    # falhou
+self.assertNotIn("derivacao_forward.correr(", fonte)    # falhou
+```
+
+As duas reprovaram no parágrafo que **diz para não escrever aquilo**. Um
+comentário que explica uma proibição tem de nomear o que proíbe.
+
+```
+    LER O FICHEIRO NÃO É LER O CÓDIGO.
+    UMA GUARDA DE TEXTO NÃO DISTINGUE A REGRA DO EXEMPLO DELA.
+```
+
+Já estava escrito na `§72`, com o `_codigo()` que arrancava strings. Repeti-o
+duas vezes no mesmo dia. As duas foram substituídas por AST: numa, o que a
+chamada REALMENTE passa e qual é o valor por omissão; noutra, que chamadas
+partem de um módulo com aquele nome.
+
+E houve uma terceira, de espécie oposta — **larga de mais**. Bani `listdir` na
+prova, e a prova lista a Sala de Espera de propósito, para conferir que ela
+começa e acaba vazia.
+
+```
+    VARRER PARA ENCONTRAR O QUE DERIVAR  →  linhagem por acaso
+    LISTAR PARA MEDIR O QUE CHEGOU       →  medição
+```
+
+Uma guarda que reprova o uso legítimo ensina quem a herda a desligá-la — e isso
+é pior do que não a ter.
+
+## 85.5 · O GRÃO DO DERIVADO É POR BYTES DO PAI, E ISSO SÓ SE VÊ DEPOIS DE LIGAR
+
+`derivacao_e_unica_por_regua` é `UNIQUE` sobre `parent_sha256`. Duas observações
+distintas dos mesmos bytes — o mesmo boletim colhido em duas corridas — partilham
+**um** `derived_artifact`, e ele nomeia como pai só a primeira.
+
+```
+segunda corrida   4 observações novas
+                  DERIVED PASS · reused=4 · zero linhas novas
+```
+
+`REUSED ≠ NOT_RUN`: a etapa correu, e o resultado já existia. Mas a consequência
+é maior do que parece — **uma corrida cujos bytes já foram derivados antes não
+tem `derived_artifact` próprio**, mesmo tendo a etapa corrido. Quem medir a
+estrada nessa corrida verá `DERIVED` por atravessar.
+
+Não se consertou: mudar a régua é mexer no contrato do dono do derivado. A
+missão media a cardinalidade, não a redefinia. Mas só se soube porque a ligação
+existiu — **uma cardinalidade declarada num `UNIQUE` não se lê; encontra-se.**
+
+## 85.6 · ZERO BLOCKERS NÃO É ZERO TRABALHO
+
+O documento publicava, lado a lado:
+
+```
+COLLECTION_CORE_CLOSE = FAIL
+MISSÕES ATÉ FECHAR    = 0
+```
+
+O número era `len(dag())`, e a fila está mesmo vazia — não há blocker aberto
+nenhum. O número estava certo sobre a fila e mentia sobre o caminho.
+
+```
+    UMA FILA VAZIA MEDE A FILA, E NÃO O CAMINHO.
+```
+
+A cura não foi um número maior inventado. O que falta depende de uma decisão que
+ninguém tomou — de quem é o `canal_id` — e uma decisão por tomar pode dar uma
+missão ou quatro. Ficou `UNKNOWN`, com a próxima coisa conhecida **nomeada** ao
+lado. É a mesma disciplina que `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY` já
+aplicava a três centímetros dali, e que ninguém tinha estendido ao vizinho.
+
+## 85.7 · O QUE FICA POR SABER
+
+O executor desta rota é de PDF, e as quatro observações do canário são PDFs.
+**Uma rota que misture espécies não foi medida**: uma observação JSON entregue ao
+extractor de PDF sai `ERROR`, e «a ferramenta falhou» é verdade literal — foi a
+nossa ligação que a chamou. Escolher executor por espécie não tem dono hoje, e
+inventar-lhe um seria a missão seguinte a começar sozinha.
+
+E o derivado aterra em `NAO_SEI/derivados/...`, porque `raw_asset` não tem coluna
+de país para o provar. O dono do derivado está certo em não inferir; o efeito é
+que toda medição canónica deixa uma pasta `NAO_SEI/` na árvore — agora ignorada,
+como o `XX/` que a `§78` pagou para descobrir.
