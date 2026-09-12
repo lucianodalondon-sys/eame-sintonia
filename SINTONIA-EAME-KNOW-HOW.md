@@ -6381,3 +6381,132 @@ ficou registado».
 ```
     CAN DO != DID DO.
 ```
+
+---
+
+# §76 · A COLETA ACABA NA SALA DE ESPERA — E A ESCOLHA DA MORADA FOI FEITA
+
+`§74` deixou uma pergunta aberta de propósito: **onde pousa a unidade pronta?**
+A resposta veio de gente, e é a **saída A** — o sistema de ficheiros, na morada
+que já existia. Está versionada em `docs/decisoes/ADR-SALA-DE-ESPERA-V1.md`.
+
+Com ela, `G-READY-01` e `G-READY-02` fecharam. Eram os dois últimos blockers.
+
+## 76.1 · O QUE FALTAVA NÃO ERA O CONTRATO
+
+`admissao.pronto_para_inteligencia()` já era o único construtor, com os 11
+campos da `COL-LAW-043`. Faltavam duas coisas, e nenhuma era o contrato.
+
+**A escrita estava no plano errado.** `orquestrador/orquestrador.py` gravava o
+ficheiro directamente, e a `COL-LAW-012` diz que o orquestrador **controla**,
+não transporta dado. Enquanto a única escrita estivesse no control plane, a
+rota forward não tinha como pousar a unidade sem escrever uma **segunda**.
+
+```
+    ONE CONCEPT → ONE OWNER.
+```
+
+O corpo mudou de casa para `admissao/sala_de_espera.py` — não foi
+reimplementado — e ganhou as travas que um ficheiro exige e que nunca teve:
+escrita atómica por troca (`fsync` e depois `os.replace`), retry idempotente
+(`REUSED`), conflito explícito (`RUN_ID_CONFLICT`, nome que já tinha dono), e
+uma trava **por corrida** — duas corridas diferentes escrevem ao mesmo tempo;
+a mesma, não.
+
+```
+    UMA RUN_ID NÃO PODE CONTAR DUAS HISTÓRIAS.
+```
+
+## 76.2 · E O ESTÁGIO NÃO VIAJAVA ATÉ À PORTA
+
+Este é o achado que fazia `G-READY-01` parecer maior do que era.
+
+A porta pergunta o **estágio** do item (`COL-LAW-502`) e lê-o em
+`artifact_type`. A rota forward só lhe passava `SOURCE_ID` — então todo
+documento chegava como `ESTAGIO_DESCONHECIDO`, e a um desconhecido pergunta-se
+o **tempo do fato**, que um documento não tem.
+
+```
+    36 de 36 documentos reais respondiam NAO_SEI em «tempo do fato».
+    A PORTA ESTAVA CERTA. A PERGUNTA É QUE ERA A ERRADA.
+```
+
+`ingresso.DA_FICHA_PARA_A_PORTA` já declarava os três campos que viajam da
+ficha para a porta. Nada foi inventado: declarou-se o que a rota **já sabia** —
+a unidade que chega à ADMISSION nasceu de um `derived_artifact`. Com o estágio
+a viajar, 29 de 43 textos derivados reais respondem `SIM` em T3.
+
+```
+    UM CAMPO QUE NÃO VIAJA NÃO É UM CAMPO EM FALTA:
+    É UMA RESPOSTA ERRADA DADA COM CONFIANÇA.
+```
+
+É a mesma família do `SOURCE_ID` de `§60`. Duas vezes o mesmo defeito, em dois
+campos diferentes, no mesmo trajecto.
+
+## 76.3 · ZERO BLOCKERS NÃO É CORE FECHADO
+
+Fechados os dois, a fila mínima esvaziou-se. E `COLLECTION_CORE_CLOSE`
+continua **FAIL** — agora por outra razão, e o artefacto passou a dizê-la:
+
+```
+BLOQUEADO_POR = []
+PORQUE        = CANONICAL_E2E não está provado
+```
+
+Não há buraco declarado por tapar. Falta a **cabeça** da estrada: `REQUEST`,
+`ORCHESTRATOR`, `EXECUTOR` e `RUN` continuam sem corrida observada.
+
+```
+    ZERO BLOCKERS ≠ CORE FECHADO.
+    O VEREDITO VEM DAS PROPRIEDADES, E NÃO DA CONTAGEM DE BURACOS.
+```
+
+Uma fila vazia ao lado de um FAIL é o retrato honesto. Inventar uma missão só
+para a fila não ficar vazia seria fabricar dívida; esconder o FAIL seria pior.
+
+## 76.4 · E A LIÇÃO ESCRITA QUE EU NÃO TINHA APLICADO
+
+Quatro mutantes que impediam a unidade de pousar faziam a prova levantar
+`KeyError` a meio, e ela morria sem veredito. É exactamente `§72.5`, escrita
+por mim, duas missões antes.
+
+```
+    UMA LIÇÃO ESCRITA E NÃO APLICADA
+    É O MESMO QUE UMA LIÇÃO NÃO ESCRITA.
+```
+
+A partir daqui, toda prova nova nasce com o fecho defensivo: sem o objecto que
+ela mede, os casos que dependem dele **reprovam com nome** em vez de rebentar.
+
+## 76.5 · DOIS TESTES QUE MUDARAM DE LADO, E É O NORMAL
+
+Ambos estavam certos quando foram escritos:
+
+- um exigia que o **orquestrador** gravasse o ficheiro — era essa medição que
+  provava `DESTINO VAZIO ≠ DESTINO SEM DONO`;
+- outro exigia que `READY` **não** falasse no rastro — ninguém o emitia.
+
+Nenhum foi apagado. Os dois passaram a guardar o mesmo facto no dono novo, e
+dizem no corpo por que mudaram. Um gap que fecha fica na lista com o estado
+novo; um teste que o guardava muda de lado com a razão à vista.
+
+## 76.6 · CONSEQUÊNCIA
+
+```
+G-READY-01   BLOCKER → CLOSED
+G-READY-02   BLOCKER → CLOSED
+BLOCKERS     2 → 0
+ESTRADA      RAW · DERIVED · STRUCTURED · ADMISSION · READY · SALA DE ESPERA
+ETAPAS MUDAS []
+MUTAÇÃO      11 mutantes · 0 sobreviventes
+```
+
+Zero **consumidores** da sala continua a ser o estado certo: a Intelligence é
+outra missão, e criar um consumidor agora só para a sala parecer ligada seria
+ligar uma ponta a nada.
+
+O backend não está fechado para sempre: `WAITING_ROOM_V1_BACKEND = FILESYSTEM`,
+`BACKEND_CHANGE_ALLOWED_LATER = YES`. A `COL-LAW-044` garante que trocar o meio
+não redefine o estado — e porque o dono é um só, a troca é uma mudança dentro
+de `admissao/sala_de_espera.py`, e não uma reescrita de quem o chama.
