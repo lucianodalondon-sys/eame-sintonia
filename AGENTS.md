@@ -39,6 +39,23 @@ pendente, quebrada ou desconhecida.
 **O mapa é derivado do repo. O repo não é derivado do mapa.**
 Nunca no sentido contrário. O mapa não é uma segunda verdade arquitetural.
 
+### ⏸ A FRENTE ESTRUTURAL DO MAPA ESTÁ CONGELADA EM `G3`
+
+```
+SYSTEM_MAP_STRUCTURAL_FREEZE_AFTER = G3
+```
+
+O mapa continua **ativo como instrumento** e **congelado como frente de
+arquitetura**. Regenerar, validar, verificar a frescura e denunciar
+`UNKNOWN`/`STALE`/`FAIL` continua **obrigatório**; o que para é redesenhá-lo.
+
+Não iniciar `G4`–`G13` — eles continuam abertos e por riscar, e **dívida
+conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
+pode e não pode prometer hoje, e o veredito medido
+(`CURRENT_SYSTEM_MAP_TRUST = DEGRADED`) vivem na **§29 do**
+[`SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md).
+Esta lei não os repete — uma lei em dois sítios diverge.
+
 ---
 
 ## 🕐 O MAPA TEM DE PROVAR QUE ESTÁ ATUAL — QUATRO FACTOS, NUNCA UM

@@ -159,6 +159,73 @@ exp = [f"{e['from']}->{e['to']}" for e in E
        if e.get("kind") == "expected" and e["status"] != "UNKNOWN"]
 prova("aresta_declarada_e_nao_provada_continua_NAO_SEI", not exp, f"{exp}")
 
+# ── 6b · A METADE DO MAPA QUE ESTA GUARDA NUNCA TINHA PERCORRIDO ───────────
+# As tres linhas acima iteram `E`. So `E`. A reforma dos quatro planos foi
+# escrita para as arestas e a guarda foi escrita atras dela — e as 161 pecas
+# ficaram fora das duas. Medido no fecho operacional desta frente:
+#
+#     9 pecas com `status = PROVEN` e os QUATRO planos em NAO SEI
+#   100 pecas com `status` amarelo/cinzento e `PROVEN = YES`
+#     0 de 161 pecas com STATUS_LEGACY_NOTA   (672 de 672 arestas tinham)
+#
+#     UMA GUARDA QUE SO PERCORRE METADE DO MAPA NAO PROTEGE METADE DO MAPA:
+#     ELA APENAS NAO SABE O QUE SE PASSA NA OUTRA.
+#
+# A correcao NAO repinta cartao nenhum. Na peca, `status` e outro eixo — a
+# prontidao operacional que `status_reason` explica — e obriga-lo a derivar de
+# `PROVEN` mudaria a cor de 109 cartoes para satisfazer uma regra que foi
+# escrita para arestas. O que se exige e o que o contrato exige: que a
+# contradicao seja DECLARADA e que os quatro planos estejam a VISTA.
+sem_nota = [n["id"] for n in N if "DEPRECATED" not in (n.get("STATUS_LEGACY_NOTA") or "")]
+prova("toda_peca_declara_que_o_status_e_legado", not sem_nota, f"{sem_nota[:5]}")
+prova("a_nota_da_peca_nao_mente_dizendo_que_deriva",
+      all("NAO deriva" in (n.get("STATUS_LEGACY_NOTA") or "") for n in N),
+      "na peca `status` nao deriva de PROVEN — dizer que deriva seria copiar a "
+      "frase da aresta para onde ela e falsa")
+prova("a_nota_da_peca_nomeia_quem_ganha",
+      all(all(pl in (n.get("STATUS_LEGACY_NOTA") or "") for pl in PLANOS) for n in N))
+
+# E a tela tem de MOSTRAR os quatro planos da peca. O backend ja os publicava;
+# o cartao mostrava um rotulo unico por cima deles, que e precisamente o que o
+# comentario do proprio `map.js` proibia em palavras.
+TELA = (RAIZ / "system-map" / "app" / "map.js").read_text(encoding="utf-8")
+cartao = TELA.split("function openDetail(")[1].split("detail.innerHTML")[1]
+prova("a_tela_mostra_os_quatro_planos_da_peca", "${planos(n)}" in cartao,
+      "o cartao da peca tem de chamar planos(n), como a aresta ja chamava")
+prova("a_tela_mostra_a_nota_do_legado_na_peca", "STATUS_LEGACY_NOTA" in cartao)
+prova("o_ajudante_dos_planos_e_um_so",
+      TELA.count("const plano = v =>") == 1 and TELA.count("const planos = e =>") == 1,
+      "duas copias dariam duas telas a divergir")
+
+# A DESAVENCA NAO SE ESCONDE: ela e publicada com os campos da §15 do contrato
+# de confianca — «UM CONFLITO ESCONDIDO E FAIL».
+discordam = [n["id"] for n in N if (n["status"] == "PROVEN") != (n["PROVEN"] == "YES")]
+verdes = [n["id"] for n in N if n["status"] == "PROVEN" and n["PROVEN"] != "YES"]
+CONF = S.get("CONFLITOS") or []
+meu = next((c for c in CONF
+            if c.get("CONFLICT_ID") == "STATUS_LEGADO_VS_QUATRO_PLANOS_NA_PECA"), None)
+prova("o_conflito_do_status_legado_esta_publicado", meu is not None,
+      "a divergencia existe e a §15 manda publica-la, nao escolher em silencio")
+if meu:
+    CAMPOS_DA_15 = ("CONFLICT_ID", "ASSERTION_A", "EVIDENCE_A", "ASSERTION_B",
+                    "EVIDENCE_B", "STATUS", "OWNER", "RESOLUTION")
+    prova("o_conflito_traz_os_campos_da_secao_15",
+          all(meu.get(c) for c in CAMPOS_DA_15),
+          f"{[c for c in CAMPOS_DA_15 if not meu.get(c)]}")
+    prova("o_conflito_nao_escolhe_vencedor_em_silencio",
+          meu["STATUS"] in ("OPEN", "RESOLVED", "ACCEPTED_AS_DIFFERENT_QUESTIONS"))
+    # A CONTAGEM E MEDIDA, NAO ESCRITA A MAO.
+    #     UM CONFLITO CUJA CONTAGEM E UM LITERAL DEIXA DE ACUSAR QUANDO ELA MUDA.
+    prova("a_contagem_do_conflito_bate_com_o_estado",
+          meu["PECAS_EM_DESACORDO"] == len(discordam)
+          and meu["TOTAL_DE_PECAS"] == len(N)
+          and meu["PECAS_VERDES_SEM_PLANO"] == sorted(verdes),
+          f"publicado {meu['PECAS_EM_DESACORDO']}/{meu['TOTAL_DE_PECAS']} · "
+          f"medido {len(discordam)}/{len(N)}")
+    prova("a_desavenca_entre_o_legado_e_os_planos_e_conhecida", True,
+          f"{len(discordam)} de {len(N)} pecas ({len(verdes)} verdes sem plano): "
+          f"declarado, a vista, e com os planos a ganhar sobre EVIDENCIA.")
+
 # ── 7 · A SENTINELA APIFY, FIXADA ──────────────────────────────────────────
 # O caso que deu nome ao defeito. Ele nao pode voltar sem reprovar aqui.
 def aresta(de, para, tipo):
@@ -317,6 +384,60 @@ prova("o_ledger_de_runtime_e_lido_e_nao_esta_vazio", bool(obs),
       "provas-de-execucao.json nao devolveu nenhum executor provado")
 prova("cada_observacao_traz_ambiente_e_modo",
       all("ENVIRONMENT" in v and "EXECUTION_MODE" in v for v in obs.values()))
+
+# ── 10 · AS GUARDAS DA PECA, CORRIDAS CONTRA DEFEITOS FABRICADOS ──────────
+# As seis guardas da §6b nasceram de um defeito real. Antes de as dar por boas,
+# cada uma corre contra a versao do mundo em que o defeito existe.
+#
+#     UMA GUARDA QUE NUNCA VIU UM DEFEITO NAO E UMA GUARDA: E UMA FRASE.
+
+
+def _morde(nome, condicao, porque=""):
+    """A guarda REPROVA o mundo estragado? Entao ela morde."""
+    prova(nome, condicao, porque)
+
+
+NOTA_BOA = N[0]["STATUS_LEGACY_NOTA"]
+
+# m1 · uma peca perde a nota -> a guarda da nota tem de apanhar
+_pecas = [dict(x) for x in N]
+_pecas[3]["STATUS_LEGACY_NOTA"] = ""
+_morde("m1_peca_sem_nota_seria_apanhada",
+       [x["id"] for x in _pecas if "DEPRECATED" not in (x.get("STATUS_LEGACY_NOTA") or "")]
+       == [_pecas[3]["id"]])
+
+# m2 · a nota da aresta copiada para a peca -> mentiria dizendo que deriva
+NOTA_DA_ARESTA = E[0]["STATUS_LEGACY_NOTA"]
+_morde("m2_a_nota_da_aresta_colada_na_peca_seria_apanhada",
+       "NAO deriva" not in NOTA_DA_ARESTA,
+       "a frase da aresta diz «e DERIVADO de PROVEN»; na peca isso e falso")
+
+# m3 · uma nota que nao nomeia os planos -> quem le nao sabe quem ganha
+_morde("m3_nota_sem_os_quatro_planos_seria_apanhada",
+       not all(pl in "DEPRECATED · status e legado." for pl in PLANOS))
+
+# m4 · a tela deixa de chamar planos(n) no cartao da peca
+_cartao_sem = cartao.replace("${planos(n)}", "")
+_morde("m4_tela_sem_os_planos_da_peca_seria_apanhada",
+       "${planos(n)}" not in _cartao_sem)
+
+# m5 · a tela deixa de mostrar a nota
+_morde("m5_tela_sem_a_nota_seria_apanhada",
+       "STATUS_LEGACY_NOTA" not in cartao.replace("STATUS_LEGACY_NOTA", ""))
+
+# m6 · alguem duplica o ajudante em vez de o partilhar -> duas telas a divergir
+_duplicada = TELA + "\nconst plano = v => 'ok';\n"
+_morde("m6_ajudante_duplicado_seria_apanhado",
+       _duplicada.count("const plano = v =>") != 1)
+
+# m7 · A MORDIDA QUE IMPORTA: a guarda VELHA, que so percorria arestas, corrida
+# sobre as pecas desta arvore. Se ela tivesse percorrido as pecas, teria
+# reprovado — e o defeito nao tinha vivido ate ao fecho desta frente.
+_como_a_guarda_velha_fazia = [n["id"] for n in N
+                              if (n["status"] == "PROVEN") != (n["PROVEN"] == "YES")]
+_morde("m7_a_guarda_velha_teria_reprovado_se_tivesse_olhado_para_as_pecas",
+       len(_como_a_guarda_velha_fazia) > 0,
+       f"{len(_como_a_guarda_velha_fazia)} pecas — e ela iterava so `E`")
 
 print()
 print("=" * 70)

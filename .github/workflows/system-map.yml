@@ -95,6 +95,7 @@ jobs:
       # corre em TODO push — e um pulo silencioso tem a cor do verde.
       # Instalar custa segundos; nao instalar custa a confianca nos passos.
       - name: 0 · a ferramenta de texto existe
+        if: '!cancelled()'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y poppler-utils
@@ -121,6 +122,7 @@ jobs:
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
       - name: 1 · regerar o mapa a partir desta árvore
+        if: '!cancelled()'
         run: |
           python3 system-map/scripts/scan_repo.py
           python3 system-map/scripts/scan_sources.py
@@ -170,6 +172,7 @@ jobs:
       # aresta, e porque um cartao esta sozinho. Corre depois do mapa porque
       # le o estado gerado.
       - name: 1b · o censo da topologia da coleta
+        if: '!cancelled()'
         run: python3 system-map/scripts/censo_da_topologia.py
 
       # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
@@ -280,6 +283,7 @@ jobs:
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
       - name: 1 · regerar o mapa a partir desta árvore
+        if: '!cancelled()'
         run: |
           python3 system-map/scripts/scan_repo.py
           python3 system-map/scripts/scan_sources.py
@@ -592,27 +596,33 @@ jobs:
       # A prova disto e o que se encontrou ao liga-las: `fluxo_no_seco`
       # estava VERMELHA, com dois defeitos reais e antigos la dentro.
       - name: 4k · a lingua e a mesma no contrato, no storage e no scanner
+        if: '!cancelled()'
         run: python3 provas/paridade_da_lingua.py
 
       - name: 4l · a telemetria distingue NAO CORREU de FALHOU, e a conta fecha
+        if: '!cancelled()'
         run: python3 provas/fluxo_no_seco.py
 
       - name: 4m · as trinta armadilhas do caminho do PDF continuam vazias
+        if: '!cancelled()'
         run: python3 provas/testa_golden_path_pdf.py
 
       - name: 4n · o mapa nao diz que nao existe o que existe
+        if: '!cancelled()'
         run: python3 provas/o_mapa_nao_mente.py
 
       # O ENCANAMENTO: uma porta, uma ordem, um dono do RAW. Catorze
       # invariantes pequenos e separados — um portao gigante esconde qual das
       # perguntas reprovou.
       - name: 4n2 · a coleta tem UMA porta de entrada, e ela vem antes da admissao
+        if: '!cancelled()'
         run: python3 provas/o_encanamento_tem_uma_porta.py
 
       # Sem banco: le migrations e codigo, e confronta cada `on conflict` com
       # a chave unica que o sustenta. Corre tambem em `banco-descartavel.yml`,
       # que so acorda por caminho; aqui acorda em todo o push.
       - name: 4o · toda clausula `on conflict` tem chave que a sustente
+        if: '!cancelled()'
         run: python3 provas/o_dedupe_tem_constraint.py
 
       # A fronteira entre a coleta e a inteligencia: que a lei e o codigo
@@ -624,12 +634,15 @@ jobs:
       # a isso «um executor REAL». Com o passo 0 acima, a recusa nunca chega
       # a ser precisa aqui, e e essa a intencao.
       - name: 4p · o executor conta-se, e a lingua que ele fala e a comum
+        if: '!cancelled()'
         run: python3 provas/o_executor_conta_se.py
 
       - name: 4q · a fronteira tem um contrato, um dono, e a lei bate com o codigo
+        if: '!cancelled()'
         run: python3 provas/a_fronteira_da_coleta.py
 
       - name: 5 · o que vai ser publicado existe e é servível
+        if: '!cancelled()'
         run: |
           set -e
           for f in index.html map.js map.css state.generated.json; do
@@ -654,6 +667,7 @@ jobs:
           PY
 
       - name: 6 · nenhum segredo atravessa para o que é publicado
+        if: '!cancelled()'
         run: |
           # O repositório é público e o mapa é servido. Ele carrega caminho de
           # ficheiro e trecho de linha — e trecho de linha é exatamente onde um

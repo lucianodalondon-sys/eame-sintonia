@@ -24,6 +24,18 @@ const $ = id => document.getElementById(id);
 const statusLabel = s => ({ green: 'PROVADO OPERACIONAL', yellow: 'ATENCAO / PENDENCIA',
   red: 'QUEBRADO OU AUSENTE', gray: 'NAO SEI' }[s] || s);
 
+/* OS QUATRO PLANOS SAO DA PECA TAMBEM, NAO SO DA ARESTA.
+   Esta funcao vivia dentro de `openDetail` e so era chamada para arestas. O
+   cartao da peca mostrava um rotulo unico — «PROVADO OPERACIONAL» — por cima
+   de quatro planos que ninguem via, e que em 9 pecas desta arvore dizem todos
+   NAO SEI. O comentario tres linhas abaixo ja proibia isso em palavras:
+
+       OS QUATRO PLANOS, LADO A LADO — E NUNCA UM SO ROTULO POR CIMA DELES.
+
+   A lei estava escrita e a peca estava de fora dela. Nao e regra nova: e a
+   mesma regra, aplicada a metade do mapa que a reforma nao tinha percorrido. */
+const plano = v => v === 'YES' ? 'ok' : (v === 'NO' ? 'não' : '⚪ NÃO SEI');
+
 /* As visoes da barra lateral. Cada peca carrega as suas em `views`, vindas do
    ficheiro declarado — agrupamento visual e coisa de gente, nao de scanner. */
 const VISOES = [
@@ -456,7 +468,6 @@ function openDetail(id) {
 
      Aqui `PROVEN` vem sempre acompanhado do PLANO em que está provado, e
      `UNKNOWN` fica escrito como UNKNOWN — nunca arredondado para verde. */
-  const plano = v => v === 'YES' ? 'ok' : (v === 'NO' ? 'não' : '⚪ NÃO SEI');
   const planos = e => `<div class="planos">`
     + `DECLARED ${plano(e.DECLARED)} · CODE ${plano(e.CODE)} · `
     + `OBSERVED ${plano(e.OBSERVED)} · PROVEN ${plano(e.PROVEN)}`
@@ -487,6 +498,8 @@ function openDetail(id) {
              <b style="color:#4a443f">${esc(n.nome_em_portugues)}</b> · o nome de cima
              é o que está escrito no portal</div>` : ''}
       <span class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</span>
+      ${planos(n)}
+      <div class="planoNota">${esc(n.STATUS_LEGACY_NOTA || '')}</div>
     </div>
     <div class="detailBody">
       ${n.lane === 'futuro' ? `<div class="sec"><div class="evidence"

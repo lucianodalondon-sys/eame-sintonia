@@ -22,14 +22,19 @@ aponta para ela sempre que ela já responde. Uma lei em dois sítios diverge.
 
 ## 0 · O QUE ESTE CONTRATO MEDE, E QUANDO
 
-Todo número citado aqui foi medido em `1f81eb6c` com os comandos ao lado. Um
-número sem comando não entrou.
+Todo número citado aqui foi medido com os comandos ao lado. Um número sem
+comando não entrou.
 
 ```bash
 python3 system-map/scripts/reconciliacao_do_universo.py
 python3 system-map/scripts/validate_system_map.py
 python3 system-map/tests/test_reconciliacao_do_universo.py
 ```
+
+A tabela abaixo é de `1f81eb6c`, e está mantida como o retrato que deu origem à
+DAG dos gaps. **O estado de hoje vive na [§25](#25--veredito-sobre-o-mapa-atual)
+e na [§29](#29--fecho-operacional-da-frente-estrutural)**, remedido no fecho
+operacional — não herdado desta.
 
 | medida | valor | onde |
 |---|---|---|
@@ -754,6 +759,22 @@ mesmo nome. Resolver essas escolhendo um vencedor destruiria informação.
 
 Um conflito `OPEN` é publicado. Um conflito escondido é `FAIL`.
 
+**Medido no fecho operacional: há um, e está publicado.** Vive em
+`state.generated.json · CONFLITOS`, escrito por
+`generate_system_map._conflito_do_status_legado`:
+
+```
+CONFLICT_ID   STATUS_LEGADO_VS_QUATRO_PLANOS_NA_PECA
+ASSERTION_A   a peça está PROVADA OPERACIONAL (`status` / `ui_status`)
+ASSERTION_B   a peça está provada no plano PROVEN dos quatro planos
+STATUS        ACCEPTED_AS_DIFFERENT_QUESTIONS
+PECAS_EM_DESACORDO   109 de 161      ← medido, nunca literal
+```
+
+A contagem é **derivada das peças**, e a prova reprova se alguém a escrever à
+mão: *um conflito cuja contagem é um literal deixa de acusar quando ela muda.*
+O porquê de não se escolher vencedor está na §25.1b.
+
 ---
 
 ## 16 · TRUST MODEL
@@ -1098,12 +1119,24 @@ visível em vez de desaparecer por não ter onde aparecer.
 
 ## 25 · VEREDITO SOBRE O MAPA ATUAL
 
-Aplicando este contrato ao estado medido em `1f81eb6c`, sem herdar veredito
-anterior:
+Aplicando este contrato ao estado medido **hoje**, sem herdar veredito anterior:
 
 ```
-CURRENT_SYSTEM_MAP_TRUST = FAIL
+CURRENT_SYSTEM_MAP_TRUST = DEGRADED
 ```
+
+> **ESTA LINHA JÁ ESTEVE ERRADA, E O DEFEITO ERA DESTE FICHEIRO.** Ela dizia
+> `FAIL` enquanto a tabela três parágrafos abaixo — atualizada por `G0` e `G1` —
+> já respondia **NÃO** às sete condições. O cabeçalho ficou parado quando a
+> medição andou.
+>
+> **UM VEREDITO QUE NÃO É RECALCULADO QUANDO A MEDIÇÃO MUDA DEIXA DE SER UM
+> VEREDITO: PASSA A SER UMA LEMBRANÇA.**
+
+A ordem da §16.4 foi percorrida inteira: não é `UNKNOWN` (a cadeia correu, o
+validador correu, a reconciliação existe); não é `FAIL` (nenhuma das sete
+condições, nem a `C4b`, está acionada — tabela abaixo); é `DEGRADED` porque há
+dívida **rotulada**, e não é `PASS` porque `PASS` é o último recurso.
 
 ### 25.1 · TODAS as condições de `FAIL`, percorridas uma a uma
 
@@ -1113,21 +1146,60 @@ este contrato usa como exemplo de boa prática.
 
 > **NARRAR AS CAUSAS QUE SE CONHECE NÃO É PERCORRER AS CONDIÇÕES QUE SE ESCREVEU.**
 
-| # | condição da §16.3 | acionada? | prova medida em `1f81eb6c` | gap que a fecha |
+| # | condição da §16.3 | acionada? | prova **remedida no fecho operacional** | dono |
 |---|---|---|---|---|
-| C1 | contradição publicada sem conflito declarado | **NÃO** | nenhum campo de conflito é publicado, e nenhuma afirmação contradiz outra. As 2 arestas não-`PROVEN` são `UNKNOWN` com razão escrita | — |
-| C2 | contagem irreconciliável | **NÃO** | `65 == 48 + 17`; `COUNT == len(MEMBERS)` em todos os universos; zero membros do pente fora da vista | — |
-| C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | `STALE = []`; os 4 `UNVERIFIABLE` estão rotulados, e a prova `4m` reprova se algum disser `CURRENT` | — |
-| C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **NÃO — fechada por `G1`** | cada aresta e cada peça publica `DECLARED/CODE/OBSERVED/PROVEN`; `PROVEN` traz sempre `PROVEN_PLANE`, e nenhuma diz `OBSERVED` sem corrida | ~~G1~~ feito |
-| C5 | auto-prova | **NÃO** | o validador corre o gerador como subprocesso e compara com o que está no disco; não partilha estado. Ver a limitação em §16.6 | — |
-| C6 | contagem publicada sem espécie ou sem universo | **NÃO — fechada por `G0`** | **13 de 13 superfícies publicam `ENTITY_SPECIES`** (6 universos, 7 lentes), com dono único e prova executável | ~~G0~~ feito |
-| C7 | exclusão sem razão | **NÃO** | 17 de 17 têm `REASON`, `OWNER` e `INTENTIONAL` | — |
+| C1 | contradição publicada sem conflito declarado | **NÃO** | 0 de 672 arestas com `status=PROVEN` sem `PROVEN=YES`. Nas peças, **109 de 161** divergem entre o eixo legado e os planos (9 delas verdes com os quatro planos em `NÃO SEI`) — e a divergência está **publicada** em `CONFLITOS` com os sete campos da §15, `STATUS = ACCEPTED_AS_DIFFERENT_QUESTIONS`; `STATUS_LEGACY_NOTA` em 833 de 833 objetos; os quatro planos projetados no cartão da peça | `generate_system_map._conflito_do_status_legado` · `test_quatro_planos` §6b |
+| C2 | contagem irreconciliável | **NÃO** | `65 == 48 + 17`; `COUNT == len(MEMBERS)` nos 5 universos que enumeram membros, 0 desencontros; membros do pente fora da vista: `[]` | `reconciliacao_do_universo.py` |
+| C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | 7 artefactos, todos com `ESTADO` **e** `MOTIVO`; 0 a dizer `CURRENT` com motivo de stale; 0 estados fora do vocabulário; `NAO_VERIFICAVEL = []`. O único `STALE` (`pente-fino.generated.json`) diz `STALE_BY_CYCLE` — o mapa a acusar-se, não a esconder-se | `impressao_da_arvore.frescura_do_carimbo` |
+| C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **NÃO** | `OBSERVED=YES` em 0 arestas e 2 peças, as duas com `OBSERVED_EVIDENCE` (`RUN_ID`, `ENVIRONMENT`, `EXECUTION_MODE`); 0 objetos com `PROVEN=YES` sem `PROVEN_PLANE` | `test_quatro_planos` |
+| C4b | evidência que não sustenta a afirmação a que está ligada | **NÃO** | as 52 arestas de linha partilhada revistas uma a uma: 30 `SUPPORTED` → `CODE=YES`, 7 `AMBIGUOUS` → `UNKNOWN`, 15 `UNSUPPORTED` → `UNKNOWN`; 0 decisões sem `PORQUE`; 0 a vazar para `CODE=YES` | `revisao_da_evidencia.py` |
+| C5 | auto-prova | **NÃO** | o validador corre o gerador como **subprocesso** e compara com o disco; não partilha estado. A limitação está declarada na §16.6 | `validate_system_map.py:145` |
+| C6 | contagem publicada sem espécie ou sem universo | **NÃO** | 6 universos e 7 lentes: 0 sem `ENTITY_SPECIES`, 0 lentes sem `PARENT_UNIVERSE`, 0 universos sem `INCLUSION_RULE` | `reconciliacao_do_universo.ESPECIE_DA_SUPERFICIE` |
+| C7 | exclusão sem razão | **NÃO** | 17 de 17 com `EXCLUSION_REASON` **e** `EXCLUSION_OWNER`; `INTENTIONAL` = 12 `UNKNOWN` · 4 `NO` · 1 `YES` — os 12 são dívida `DEGRADED` declarada, não exclusão muda | `pente_fino_da_coleta.ZONAS` |
 
-E a causa da §7.1, que não é uma das sete mas aciona C4 por outro caminho:
+**ACIONADAS: nenhuma.**
 
-| | | | | |
-|---|---|---|---|---|
-| C4b | evidência que não sustenta a afirmação que lhe está ligada | **NÃO — fechada por `G1`** | as 52 arestas revistas uma a uma: 30 `SUPPORTED`, 7 `AMBIGUOUS`, 15 `UNSUPPORTED`, cada uma com `WHY` | ~~G1~~ feito |
+### 25.1b · A condição que o fecho operacional encontrou, e que não foi herdada
+
+Percorrer as sete outra vez — em vez de copiar a tabela anterior — encontrou uma
+`C1` viva que nenhuma prova via:
+
+```
+9 peças   status = PROVEN  ·  ui_status = green  ·  DECLARED/CODE/OBSERVED/PROVEN todos NÃO SEI
+100 peças status amarelo/cinzento  ·  PROVEN = YES
+0 de 161  peças com STATUS_LEGACY_NOTA        (672 de 672 arestas já tinham)
+```
+
+E no ecrã a peça mostrava **um rótulo único — «PROVADO OPERACIONAL» — por cima
+de quatro planos que ninguém via**, que é literalmente o que o comentário do
+próprio `map.js` proíbe em palavras três linhas acima da função que os desenha.
+
+A guarda que devia ter apanhado isto, `o_status_legado_nao_contradiz_os_planos`,
+itera `E`. Só `E`. A reforma do `G1` foi escrita para as arestas, e a guarda foi
+escrita atrás dela.
+
+> **UMA GUARDA QUE SÓ PERCORRE METADE DO MAPA NÃO PROTEGE METADE DO MAPA:
+> ELA APENAS NÃO SABE O QUE SE PASSA NA OUTRA.**
+
+**A correção não repinta cartão nenhum**, e isso é escolha do contrato, não
+comodidade: a §15 tem `ACCEPTED_AS_DIFFERENT_QUESTIONS` precisamente porque
+*«a maior parte das divergências medidas nesta árvore não eram conflitos: eram
+duas perguntas diferentes com o mesmo nome»*. Na peça, `status` responde **«está
+pronta, e porquê»** — e apoia-se em evidência de classes que o modelo de planos
+ainda não representa para a peça (`PERSISTED`, `FLOW_EXECUTED`, `GIT_TREE`).
+Forçá-lo a derivar de `PROVEN` mudaria a cor de 109 cartões para satisfazer uma
+regra escrita para arestas, e destruiria a informação que `status_reason` carrega.
+
+O que o contrato exige não é escolher um vencedor. É **não escolher em silêncio**:
+
+| | |
+|---|---|
+| o conflito | publicado em `state.generated.json · CONFLITOS`, com os 7 campos da §15 e a contagem **medida**, nunca literal |
+| a peça | carrega `STATUS_LEGACY_NOTA`, que diz que `status` **não** deriva dos planos e nomeia os quatro como fonte de verdade sobre evidência |
+| o ecrã | mostra os quatro planos **no cartão da peça**, ao lado do pill, com a nota por baixo |
+| a guarda | percorre agora `N` e `E`; 10 mutantes no código-fonte, 0 sobreviventes |
+
+Ligar as classes em falta ao plano `OBSERVED` continua por fazer: é o `G12`.
 
 ### 25.2 · As três causas
 
@@ -1260,15 +1332,17 @@ mudou.
 `DEGRADED` e não `PASS`, porque continuam declaradas, **rotuladas**, estas
 dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 
-| dívida | medida |
+| dívida | medida no fecho operacional |
 |---|---|
-| exclusões com `INTENTIONAL=UNKNOWN` | 12 |
+| exclusões com `INTENTIONAL=UNKNOWN` | 12 de 17 |
 | artefactos `UNVERIFIABLE` | 0 (eram 4, fechados pelo `G3`) |
 | censos que publicam número sem persistir | 0 (era 1, fechado pelo `G2`) |
-| violação de `ONE CHAIN OWNER` | 13 scripts fora do manifesto |
-| entidades com `ROLE` atribuído | 0 de 160 |
-| cobertura de runtime | 2 de 57 |
-| arestas onde `OBSERVED` é representável | 0 de 660 |
+| violação de `ONE CHAIN OWNER` | 14 scripts fora do manifesto (7 de 21 declarados) |
+| entidades com `ROLE` atribuído | 0 de 161 |
+| cobertura de runtime | 2 de 57 executores relevantes |
+| arestas onde `OBSERVED` é representável | 0 de 672 |
+| peças onde o eixo legado e os planos divergem | 109 de 161 — publicado na §15 |
+| artefactos `STALE` pelo ciclo atrasado | 1 (`pente-fino.generated.json`) |
 
 **Nem `G2` nem `G3` entram no mínimo.** Persistir a topologia e carimbar a
 impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
@@ -1349,8 +1423,179 @@ UMA ROADMAP QUE PROMETE UM ESTADO QUE O SEU PRÓPRIO CONTRATO NEGA É PIOR DO
 QUE NÃO TER ROADMAP: ELA DIZ QUE SE PODE PARAR ANTES.
 ```
 
+E o delta do **fecho operacional**, que é uma decisão durável e não um número:
+
+```
+UMA FERRAMENTA DE OBSERVABILIDADE NÃO PRECISA DE ESTAR COMPLETA PARA SER USÁVEL.
+ELA PRECISA DE SABER DIZER ONDE ACABA. «DEGRADED» NÃO É UMA NOTA BAIXA: É A
+AFIRMAÇÃO DE QUE AS LIMITAÇÕES ESTÃO ENUMERADAS, E DE QUE QUEM AS RESPEITAR
+PODE CONFIAR NO RESTO.
+
+E POR ISSO UMA FRENTE DE ARQUITETURA FECHA-SE POR MEDIÇÃO, NÃO POR CANSAÇO NEM
+POR LISTA ACABADA: G0–G3 REMOVERAM AS CAUSAS DE FAIL; G4–G13 AUMENTAM COBERTURA
+E ARRUMAÇÃO. CONTINUAR A REDESENHAR O INSTRUMENTO ENQUANTO A MÁQUINA QUE ELE
+OBSERVA ESTÁ PARADA É TROCAR O TRABALHO PELO CONFORTO DE O PREPARAR.
+
+    ORGANIZAR PERFEITAMENTE UM SISTEMA QUE AINDA ESTÁ A MUDAR
+    É PAGAR DUAS VEZES PELA MESMA ARRUMAÇÃO.
+
+E A LIÇÃO QUE O PRÓPRIO FECHO PRODUZIU, QUE É A MAIS BARATA DE ESQUECER:
+
+UMA GUARDA QUE SÓ PERCORRE METADE DO MAPA NÃO PROTEGE METADE DO MAPA: ELA
+APENAS NÃO SABE O QUE SE PASSA NA OUTRA. A REFORMA DOS QUATRO PLANOS PERCORREU
+672 ARESTAS E DEIXOU 161 PEÇAS DE FORA, E A GUARDA ESCRITA ATRÁS DELA HERDOU O
+MESMO `for e in E`. NINGUÉM MENTIU: NINGUÉM OLHOU.
+
+    UM VEREDITO QUE NÃO É RECALCULADO QUANDO A MEDIÇÃO MUDA
+    DEIXA DE SER UM VEREDITO: PASSA A SER UMA LEMBRANÇA.
+
+E QUANDO AS DUAS METADES DISCORDAM, O CONTRATO NÃO MANDA ESCOLHER UM VENCEDOR:
+MANDA NÃO ESCOLHER EM SILÊNCIO. `ACCEPTED_AS_DIFFERENT_QUESTIONS` EXISTE PORQUE
+REPINTAR 109 CARTÕES PARA SATISFAZER UMA REGRA ESCRITA PARA ARESTAS DESTRUIRIA
+A INFORMAÇÃO QUE CADA UM CARREGA.
+```
+
 Local de integração sugerido: secção de leis do System Map, junto de
 `CAN DO != DID DO`.
+
+```
+KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
+```
+
+A linha canónica (`claude/sintonia-eame-know-how-v1`,
+`SINTONIA-EAME-KNOW-HOW.md`) foi buscada e lida antes de escrever isto: a última
+secção lá é a `§96`. **Este contrato não escreve nessa linha e não cria um
+segundo dono** — o delta fica aqui, pronto a integrar, como já acontecia com o
+bloco acima.
+
+---
+
+## 29 · FECHO OPERACIONAL DA FRENTE ESTRUTURAL
+
+```
+SYSTEM_MAP_OPERATIONAL_USE   = APPROVED_WITH_DECLARED_LIMITATIONS
+CURRENT_SYSTEM_MAP_TRUST     = DEGRADED
+SYSTEM_MAP_STRUCTURAL_FREEZE_AFTER = G3
+```
+
+`DEGRADED` **não é reprovação**. Significa uma coisa só, e é esta:
+
+> **POSSO USAR O MAPA, DESDE QUE RESPEITE O QUE ELE DIZ QUE NÃO SABE.**
+
+O mapa entra agora numa fase diferente: continua a ser **regenerado, validado e
+observado**, e deixa de ser **redesenhado**. A frente estrutural fecha em `G3`
+— não porque `G4`–`G13` deixaram de importar, mas porque `G0`–`G3` eliminaram as
+causas que impediam acreditar nas afirmações fundamentais, e o resto aumenta
+cobertura e arrumação sem bloquear o fecho da Collection.
+
+### 29.1 · Em que se pode confiar, e com que prova
+
+| | pergunta | veredito | prova |
+|---|---|---|---|
+| A | uma peça existe no código atual? | **YES** | 149 de 161 apontam ficheiro medido; `P4` e `P9` reprovam ficheiro inexistente e código órfão. As 12 sem ficheiro dizem `CODE = NÃO SEI` |
+| B | onde ela está? | **YES** | `P2_PASTA_BATE_COM_MAPA` e `P8_UM_DONO` |
+| C | identidade canónica do cartão? | **PARTIAL** | id, nome, território, família, nível e **espécie** provados. `ROLE` em **0 de 161** — é o `G7` |
+| D | relações encontradas no código? | **YES** | 625 de 672 arestas com `CODE=YES`, cada uma com ficheiro e linha (`P5`). As outras 47 ficam `NÃO SEI` |
+| E | distinguir `DECLARED`/`CODE`/`OBSERVED`/`PROVEN`? | **YES** | os quatro em 672/672 arestas e 161/161 peças; `PROVEN` traz sempre o plano; **desde este fecho os quatro aparecem também no cartão da peça** |
+| F | quando uma afirmação está `UNKNOWN`? | **YES** | `P7_NAO_SEI_VIVE`; 0 planos a dizer `NO` sem medidor de ausência |
+| G | quando uma evidência está stale? | **YES** | três relógios por artefacto com `MOTIVO`; `test_freshness.mjs` prova por força bruta |
+| H | de onde veio a evidência? | **YES** | ficheiro+linha na aresta; `SOURCE_TREE_FINGERPRINT` verificável, `INPUTS` e `INPUTS_DIGEST` no artefacto; `WHO_COMPUTES`/`FROM_WHICH_FIELD` na lente |
+| I | auditar um número até universo/membros/regra? | **PARTIAL** | 6 universos e 7 lentes com espécie e regra; 5 de 6 enumeram membros. `COLLECTION_CODE_FILE_UNIVERSE` publica 102 com regra e **sem** membros — auditável pela regra, não item a item |
+| J | localizar onde investigar a Collection? | **YES** | o censo da topologia audita 111 cartões (65 + 46 vizinhos, universos **diferentes**) e 595 arestas, com quem chama quem |
+
+### 29.2 · O que o mapa **não** pode prometer
+
+```
+ROLE atribuído                    0 de 161          → G7
+cobertura de runtime              2 de 57 executores → G11, G12
+arestas com OBSERVED representável 0 de 672          → G12
+exclusões com INTENTIONAL=UNKNOWN 12 de 17
+peças onde o eixo legado e os planos divergem  109 de 161  (publicado na §15)
+cadeia: passos no manifesto        7 de 21          → G5
+ciclo atrasado                     aberto           → G6
+```
+
+E quatro leituras que o mapa **não autoriza**, por mais verde que esteja:
+
+```
+MAPA NÃO SABE   !=  COISA NÃO EXISTE
+CODE            !=  OBSERVED
+CURRENT MAP     !=  CURRENT RUNTIME
+MAP TRUST       !=  SYSTEM HEALTH
+```
+
+`LIVE` só é conhecido onde há evidência `LIVE`, e não há nenhuma: as duas
+observações que existem declaram `PRODUCAO = false`. **Ausência de cartão não
+prova inexistência universal** — prova que este mapa não viu.
+
+### 29.3 · A dívida do ciclo, medida no próprio fecho
+
+`G6` está aberto, e o fecho mediu exatamente quanto custa. Para o validador
+passar **e** os artefactos derivados dizerem a verdade sobre a sua frescura, a
+ordem em vigor é:
+
+```
+cadeia · cadeia → topologia → matriz → reconciliação → revisão → cadeia → topologia
+```
+
+A cadeia corre **três vezes**. E mesmo assim sobra um resíduo honesto:
+`pente-fino.generated.json` fica `STALE` com motivo `STALE_BY_CYCLE`.
+
+A causa é circular e está medida: `architecture.generated.json` regista o blob
+SHA dos três artefactos derivados, e esses artefactos carregam `GENERATED_AT` —
+logo mudam de SHA a cada geração. Quem correr por último fica certo, e o outro
+fica um passo atrás. Não há ordenação que satisfaça os dois.
+
+```
+CYCLE_DEBT_STILL_OPEN = YES
+```
+
+**Isto não foi corrigido nesta missão, e a decisão é deliberada.** Fechar o ciclo
+é reordenar a cadeia por `INPUTS`, e reordenar por `INPUTS` exige primeiro
+declará-los — `G4`, depois `G5`, depois `G6`. Fazer o atalho aqui seria começar a
+frente que esta secção fecha.
+
+### 29.4 · O que continua obrigatório durante o congelamento
+
+Congelar a **arquitetura** do mapa não é abandonar o mapa:
+
+- **regenerar** sempre que entrar mudança relevante (a lei do `AGENTS.md` continua inteira);
+- **validar** — `SYSTEM MAP CHECK`, `MAP RULES CHECK`, `COLETA CHECK`;
+- **verificar a frescura**, incluindo `--conferir-carimbo` depois do commit;
+- **mostrar** as peças e arestas novas que os scanners detetarem;
+- **denunciar** `UNKNOWN`, `STALE` e `FAIL` como sempre.
+
+O que **não** se faz é implementar feature estrutural nova só porque apareceu um
+cartão novo.
+
+### 29.5 · Quando reabrir a frente
+
+| | gatilho |
+|---|---|
+| A | `TRUST` voltar a `FAIL` |
+| B | a regeneração deixar de convergir |
+| C | o validador deixar de passar por defeito **novo do mapa** |
+| D | o mapa afirmar algo que a evidência não sustenta |
+| E | uma mudança na Collection quebrar o contrato atual de observabilidade |
+| F | o núcleo da Collection fechar — e chegar a hora de `G7`/`G8` |
+| G | o utilizador mandar reabrir |
+
+E um não-gatilho, escrito para não ser esquecido:
+
+> **DÍVIDA CONHECIDA NÃO É EMERGÊNCIA.** `G4` existir não é razão para reabrir.
+
+### 29.6 · Porque `G7`/`G8` esperam, e não são esquecidos
+
+`ROLE` e a arrumação final dos cartões são a frente que organiza cada cartão
+**pelo que ele é**, e não por onde foi desenhado. Fazê-la agora seria arrumar
+com precisão um sistema que ainda está a mudar de forma — e a arrumação teria de
+ser refeita a seguir.
+
+> **ORGANIZAR PERFEITAMENTE UM SISTEMA QUE AINDA ESTÁ A MUDAR
+> É PAGAR DUAS VEZES PELA MESMA ARRUMAÇÃO.**
+
+`G4`–`G13` continuam `OPEN · DEFERRED · NOT_FORGOTTEN ·
+NON_BLOCKING_FOR_COLLECTION_CORE`, na DAG da §26.4, por riscar.
 
 ---
 

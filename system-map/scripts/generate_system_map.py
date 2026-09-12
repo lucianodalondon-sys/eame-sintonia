@@ -2774,6 +2774,28 @@ def os_quatro_planos(ligacoes: dict, nos: list, raiz) -> None:
         n["PROVEN"] = SIM if n.get("files") else NAO_SEI
         n["PROVEN_PLANE"] = ("OBSERVED" if seus else
                              ("CODE" if n.get("files") else None))
+        # O MESMO CAMPO LEGADO QUE AS ARESTAS JA DECLARAM — AGORA TAMBEM AQUI.
+        #
+        # A reforma dos quatro planos passou pelas 672 arestas e deixou as 161
+        # pecas para tras. Medido nesta arvore: 9 pecas publicam
+        # `status = PROVEN` com os QUATRO planos em `NAO SEI`, e 100 publicam o
+        # contrario — `status` amarelo ou cinzento com `PROVEN = YES`. Nenhuma
+        # das 161 dizia que as duas palavras respondem a perguntas diferentes.
+        #
+        #     UMA PALAVRA RESERVADA USADA POR DOIS DONOS NAO E AMBIGUIDADE:
+        #     E UMA CONTRADICAO PUBLICADA, E ELA NAO SE DECLARA SOZINHA.
+        #
+        # Aqui `status` NAO deriva de `PROVEN` — e essa e exactamente a questao.
+        # Na aresta deriva, e por isso a nota dela diz «DERIVADO». Na peca ele e
+        # outro eixo: a prontidao operacional que `status_reason` explica, que
+        # pode apoiar-se num documento, numa migration aplicada ou numa corrida.
+        # Escrever «derivado» aqui seria copiar a frase da aresta para um sitio
+        # onde ela e falsa. A nota diz o que e verdade, e nomeia quem ganha.
+        n["STATUS_LEGACY_NOTA"] = (
+            "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, "
+            "explicado por `status_reason`. Ele NAO deriva dos quatro planos e "
+            "pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os "
+            "quatro planos: DECLARED · CODE · OBSERVED · PROVEN.")
 
 
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
@@ -3370,6 +3392,51 @@ def leia_antes_de_coletar(estado: dict) -> None:
     destino.parent.mkdir(parents=True, exist_ok=True)
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
+
+def _conflito_do_status_legado(nos: list) -> list:
+    """O eixo legado e os quatro planos discordam. Isso nao e para esconder.
+
+    A §15 do contrato de confianca nao manda escolher um vencedor: ela tem o
+    estado `ACCEPTED_AS_DIFFERENT_QUESTIONS` precisamente porque
+
+        A MAIOR PARTE DAS DIVERGENCIAS MEDIDAS NAO ERAM CONFLITOS:
+        ERAM DUAS PERGUNTAS DIFERENTES COM O MESMO NOME.
+
+    Escolher um vencedor aqui repintaria 109 cartoes para satisfazer uma regra
+    escrita para arestas, e destruiria a informacao que `status_reason` carrega
+    — a migration aplicada, a corrida que fechou, o documento que sustenta.
+
+    O que a §15 manda e PUBLICAR: as duas afirmacoes, a evidencia de cada uma,
+    o estado, o dono e a resolucao. O numero e medido aqui, nao escrito a mao:
+    um conflito cuja contagem e um literal deixa de acusar quando ela muda.
+    """
+    discordam = [n["id"] for n in nos
+                 if (n.get("status") == "PROVEN") != (n.get("PROVEN") == "YES")]
+    verdes_sem_plano = [n["id"] for n in nos
+                        if n.get("status") == "PROVEN" and n.get("PROVEN") != "YES"]
+    return [{
+        "CONFLICT_ID": "STATUS_LEGADO_VS_QUATRO_PLANOS_NA_PECA",
+        "ASSERTION_A": "a peca esta PROVADA OPERACIONAL (`status`/`ui_status`)",
+        "EVIDENCE_A": "`status_reason` — documento, migration aplicada, corrida "
+                      "medida ou medicao do git, conforme a peca",
+        "ASSERTION_B": "a peca esta provada no plano PROVEN dos quatro planos",
+        "EVIDENCE_B": "`files` medidos por scan_repo.py; OBSERVED_EVIDENCE quando "
+                      "ha corrida em provas-de-execucao.json",
+        "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
+        "OWNER": "system-map/scripts/generate_system_map.py",
+        "RESOLUTION":
+            "Sao duas perguntas. `status` responde «esta peca esta pronta e "
+            "porque», e apoia-se em evidencia de classes que o modelo de planos "
+            "ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, "
+            "GIT_TREE). Os quatro planos respondem «em que plano esta provada», "
+            "e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma "
+            "vence a outra: as duas sao publicadas lado a lado no cartao, e "
+            "STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre "
+            "EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
+        "PECAS_EM_DESACORDO": len(discordam),
+        "PECAS_VERDES_SEM_PLANO": sorted(verdes_sem_plano),
+        "TOTAL_DE_PECAS": len(nos),
+    }]
 
 def _buracos() -> dict | None:
     """O que o censo dos buracos mediu — ou `None` se ele nao correu.
@@ -4009,6 +4076,14 @@ def main_uma_vez(stamp: bool) -> int:
         # Ficheiro ausente e `None`, e a tela diz que nao mediu; nunca zero, que
         # se leria como «nao ha buracos».
         "BURACOS": _buracos(),
+        # O CONFLITO QUE EXISTE, NA FORMA QUE O CONTRATO EXIGE.
+        #
+        #     UM CONFLITO ESCONDIDO E FAIL.  (§15 do contrato de confianca)
+        #
+        # Nao e um detetor generico de conflitos — isso e o G13/G10 e continua
+        # em aberto. E ESTE conflito, medido nesta arvore, publicado com os
+        # campos da §15 para que a condicao C1 tenha onde ser respondida.
+        "CONFLITOS": _conflito_do_status_legado(nos),
     }
 
     st = [n["status"] for n in nos]

@@ -333,3 +333,9 @@ body.staleOn .warning{top:122px}
 /* OS QUATRO PLANOS NA FICHA DA ARESTA — pequenos, e sempre os quatro.
    Mostrar so o que esta provado seria voltar a dizer que o resto e verde. */
 .planos { font-size: 11px; opacity: .8; margin: 3px 0; letter-spacing: .02em; }
+/* A NOTA DO CAMPO LEGADO, NO CARTAO DA PECA. Pequena, e presente: o pill diz
+   «PROVADO OPERACIONAL» e os quatro planos ao lado podem dizer NAO SEI. Quem
+   le precisa de saber que sao duas perguntas, senao ve uma contradicao e
+   acredita na que estiver em letra maior. */
+.planoNota { font-size: 10px; line-height: 1.45; color: #8a827e; margin: 4px 0 2px; }
+.planoNota:empty { display: none; }
