@@ -1301,7 +1301,7 @@ def _registar_fase_paga(fase, paga, corrida, objetos, trace):
     import hashlib
     med = (trace.get('ROUTER_RECORD') or {}).get('MEDIDA') or {}
     caminho_raw = med.get('SCRAP_RAW_REFERENCE')
-    lido, bytes_lidos, sha_lido = 'NO', None, None
+    lido, bytes_lidos, sha_lido, forma = 'NO', None, None, None
     # O manifesto guarda o caminho CANÔNICO. Quem sabe onde os bytes foram
     # parar é o dono do bruto — e numa prova a seco a gaveta dele é outra.
     # Reler pelo caminho escrito mediria a gaveta, e não os bytes.
@@ -1319,6 +1319,27 @@ def _registar_fase_paga(fase, paga, corrida, objetos, trace):
             sha_lido = hashlib.sha256(_json.dumps(
                 itens, ensure_ascii=False, sort_keys=True).encode('utf-8')).hexdigest()
             lido = 'YES'
+            # ── A FORMA DO BRUTO VIAJA MESMO QUE OS BYTES NÃO VIAGEM ──────
+            # A C10.8B-LIVE pagou por 59.743 bytes e o objeto veio sem
+            # transcrição. Para saber se o ator mudou de esquema ou se o vídeo
+            # deixou de ter legenda, era preciso reler os bytes — e eles já não
+            # existiam: `actions/checkout` limpa o que o `.gitignore` ignora.
+            #
+            #     RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB.
+            #
+            # A forma é barata, cabe no registo e responde à pergunta sem
+            # comprar outra vez.
+            forma = []
+            for it in (itens if isinstance(itens, list) else [itens])[:3]:
+                if not isinstance(it, dict):
+                    forma.append({'TIPO': type(it).__name__})
+                    continue
+                forma.append({k: {
+                    'TIPO': type(v).__name__,
+                    'TAMANHO': (len(v) if isinstance(v, (str, list, dict))
+                                else None),
+                    'VAZIO': (v is None or v == '' or v == [] or v == {}),
+                } for k, v in sorted(it.items())})
         except Exception:                                         # noqa: BLE001
             lido = 'UNREADABLE'
     registo = {
@@ -1345,6 +1366,7 @@ def _registar_fase_paga(fase, paga, corrida, objetos, trace):
         'SCRAP_RAW_READ_BACK': lido,
         'SCRAP_RAW_BYTES': bytes_lidos,
         'SCRAP_RAW_SHA256_READ_BACK': sha_lido,
+        'SCRAP_RAW_ITEM_SHAPE': forma,
         'SCRAP_RAW_RETURNED_TO_REPO': 'NO',
         'SCRAP_RAW_WHY_NOT_RETURNED': ('.gitignore ignora data/samples/**/*.gz — '
                                        'o bruto fica na máquina que colheu'),

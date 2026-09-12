@@ -175,6 +175,34 @@ class ACapacidadeNaoEARota(unittest.TestCase):
             self.assertEqual(paga['ESTADO'], 'POSSIBLE_NOT_PROVED',
                              'estado de rota fora do vocabulario: %s' % paga['ESTADO'])
 
+    def test_2d_PROVED_exige_entrega_medida_no_registo_da_corrida(self):
+        """`PROVED` diz «esta rota entrega». O registo da corrida é quem sabe.
+
+            PROVIDER REACHED != CAPABILITY DELIVERED.
+        """
+        rotas = (mz.MATRIZ.get(PLAT) or {}).get(cap.da_matriz(CAPAC)) or []
+        paga = next(r for r in rotas if r['ROTA'] == ay.ROTA_TRANSCRICAO)
+        if paga['ESTADO'] != 'PROVED':
+            return
+        registo = os.path.join(RAIZ, 'data/samples/SCRAP-YOUTUBE/yt-legenda-paga.json')
+        self.assertTrue(os.path.exists(registo),
+                        'a rota diz PROVED e nao ha registo de corrida nenhuma')
+        with io.open(registo, encoding='utf-8') as f:
+            d = json.load(f)
+        self.assertTrue(
+            any(i.get('TRANSCRIPT_PRESENT') for i in (d.get('ITEMS') or [])),
+            'a rota foi promovida a PROVED e a corrida registada nao entregou '
+            'transcricao nenhuma')
+
+    def test_2c_promovida_a_PARTIAL_a_nota_diz_qual_e_o_limite(self):
+        """`PARTIAL` sem o limite escrito é `PROVED` com outro nome."""
+        rotas = (mz.MATRIZ.get(PLAT) or {}).get(cap.da_matriz(CAPAC)) or []
+        paga = next(r for r in rotas if r['ROTA'] == ay.ROTA_TRANSCRICAO)
+        if paga['ESTADO'] == 'PARTIAL':
+            self.assertIn('PROVIDER REACHED != CAPABILITY DELIVERED',
+                          paga['NOTA'],
+                          'a rota e PARTIAL e a nota nao diz onde ela para')
+
     def test_3_a_politica_da_rota_paga_nao_mudou(self):
         rotas = (mz.MATRIZ.get(PLAT) or {}).get(cap.da_matriz(CAPAC)) or []
         paga = next(r for r in rotas if r['ROTA'] == ay.ROTA_TRANSCRICAO)

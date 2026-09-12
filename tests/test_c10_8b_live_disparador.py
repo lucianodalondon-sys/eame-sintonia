@@ -287,6 +287,20 @@ class ORegistoQueVoltaAoRepositorio(unittest.TestCase):
         self.assertGreater(d['SCRAP_RAW_BYTES'], 0)
         self.assertEqual(d['SCRAP_RAW_SHA256'], d['SCRAP_RAW_SHA256_READ_BACK'])
 
+    def test_20b_a_forma_do_bruto_viaja_mesmo_que_os_bytes_nao(self):
+        """Os bytes morrem no `git clean` do checkout seguinte. A forma não.
+
+            RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB.
+        """
+        d, _f = self._correr()
+        forma = d['SCRAP_RAW_ITEM_SHAPE']
+        self.assertTrue(forma, 'o registo deixou de guardar a forma do bruto')
+        chaves = sorted(forma[0])
+        self.assertEqual(chaves, ['chars', 'transcript', 'url'])
+        for k in chaves:
+            self.assertIn('TIPO', forma[0][k])
+            self.assertIn('VAZIO', forma[0][k])
+
     def test_21_o_registo_nao_leva_credencial(self):
         d, _f = self._correr()
         texto = json.dumps(d, ensure_ascii=False)
