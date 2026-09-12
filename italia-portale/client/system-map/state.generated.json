@@ -1948,10 +1948,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-paid-runtime-prep-c10-6e",
-    "HEAD": "3f963f56aad5e8eb6d8bd23beb24dbca127a6986",
-    "GENERATED_AT": "2026-09-12T11:52:02+00:00",
-    "SOURCE_TREE_FINGERPRINT": "be74eaddf98372ccf451d19eacb67b7125bd5152c0a94a004c19cf937632c1c3"
+    "BRANCH": "claude/sintonia-scrap-canonical-trial-c10-7",
+    "HEAD": "01efc8a05d672fbcc78e032d8af1fbf3664d7e60",
+    "GENERATED_AT": "2026-09-12T11:52:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8934cca35c643713679f977660a72495dc2b44447cc0bf431bf845da4c7b7eeb"
   },
   "FAMILIES": [
     {
@@ -17266,7 +17266,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-paid-runtime-prep-c10-6e"
+        "branch claude/sintonia-scrap-canonical-trial-c10-7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21136,7 +21136,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 273,
+          "line": 414,
           "snippet": "import coleta_checkpoint as ck"
         },
         {
@@ -21164,7 +21164,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 418,
+          "line": 576,
           "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
         }
       ],
@@ -21759,7 +21759,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 431,
+          "line": 589,
           "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
         }
       ],
@@ -29270,7 +29270,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 8 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
@@ -29279,7 +29279,12 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 233,
+          "line": 64,
+          "snippet": "import social_matriz as mz         # noqa: E402"
+        },
+        {
+          "file": "coleta/scrap_executor.py",
+          "line": 360,
           "snippet": "import falhas as fx"
         },
         {

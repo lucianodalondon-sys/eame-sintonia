@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-paid-runtime-prep-c10-6e",
-    "HEAD": "3f963f56aad5e8eb6d8bd23beb24dbca127a6986",
-    "GENERATED_AT": "2026-09-12T11:52:02+00:00",
-    "SOURCE_TREE_FINGERPRINT": "be74eaddf98372ccf451d19eacb67b7125bd5152c0a94a004c19cf937632c1c3"
+    "BRANCH": "claude/sintonia-scrap-canonical-trial-c10-7",
+    "HEAD": "01efc8a05d672fbcc78e032d8af1fbf3664d7e60",
+    "GENERATED_AT": "2026-09-12T11:52:39+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8934cca35c643713679f977660a72495dc2b44447cc0bf431bf845da4c7b7eeb"
   },
   "FILES": [
     {
@@ -1424,7 +1424,7 @@
     },
     {
       "path": "coleta/scrap_executor.py",
-      "sha": "2454f11b1e6da356fed9de3c24141ed789984115",
+      "sha": "cf340671099db3337be47f88f491197f3a759628",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9474,7 +9474,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "1a47a36d69d22d49d6fad2cdff55211bc91748bc",
+      "sha": "26a81a3658c02bcb999f58e7c9d05bbc0cae70a2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -13417,7 +13417,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 273,
+        "line": 414,
         "snippet": "import coleta_checkpoint as ck"
       }
     },
@@ -13428,7 +13428,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 418,
+        "line": 576,
         "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
       }
     },
@@ -13472,7 +13472,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 400,
+        "line": 558,
         "snippet": "import social_rotas as sr"
       }
     },
@@ -13483,7 +13483,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 431,
+        "line": 589,
         "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
       }
     },
@@ -13494,8 +13494,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 233,
+        "line": 360,
         "snippet": "import falhas as fx"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_executor.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_executor.py",
+        "line": 64,
+        "snippet": "import social_matriz as mz         # noqa: E402"
       }
     },
     {
@@ -39359,7 +39370,7 @@
     "files_tracked": 1501,
     "files_readable": 579,
     "files_code_dir": 626,
-    "file_edges": 2580,
+    "file_edges": 2581,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

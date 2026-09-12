@@ -59,6 +59,9 @@ import _gavetas  # noqa: E402,F401
 import scrap_capacidades as cap    # noqa: E402
 import scrap_registo as reg        # noqa: E402
 import scrap_fornecedores as forn  # noqa: E402
+# A POLITICA e CONSULTADA aqui, nunca decidida. `CAPABILITIES` mostra o
+# eixo dela ao lado dos outros dois; quem responde continua a ser ela.
+import social_matriz as mz         # noqa: E402
 
 EXECUTOR_ID = 'SINTONIA_SCRAP'
 EXECUTOR_VERSION = '1.0.0'
@@ -80,6 +83,66 @@ SEM_ROTA = 'DECLARED_WITHOUT_ROUTE'
 NAO_DECLARADA = 'CAPABILITY_NOT_DECLARED'
 SEM_PROMESSA = 'CAPABILITY_STATE_PROMISES_NOTHING'
 AMBIENTE_ERRADO = 'WRONG_EXECUTION_ENVIRONMENT'
+#: O veredicto do `CHECK` em modo de ensaio: NAO promete resultado, e pode ser
+#: medida. Nunca se confunde com `PODE` — sao duas perguntas e duas respostas.
+ELEGIVEL_PARA_ENSAIO = 'TRIAL_ELIGIBLE'
+#: `BLOCKED` recusa tambem em ensaio, e o §14 desta missao diz porque.
+ENSAIO_RECUSADO = 'TRIAL_REFUSED_BY_CAPABILITY_STATE'
+
+# ══════════════════════════════════════════════════════════════════════════
+# O MODO DE EXECUÇÃO — O TERCEIRO EIXO, E O ÚNICO QUE FALTAVA
+# ══════════════════════════════════════════════════════════════════════════
+# Este executor já separava dois eixos e tratava-os como donos diferentes:
+#
+#     CAPABILITY_STATE    o que MEDIMOS que sabemos fazer   `scrap_capacidades`
+#     ROUTE_POLICY        que porta é PERMITIDA             `leis/social_matriz`
+#
+# Faltava o terceiro, e a falta produzia um ciclo fechado. Uma capacidade
+# `NOT_EXECUTED` não promete resultado; `CHECK` recusa-a; para deixar de ser
+# `NOT_EXECUTED` ela tem de correr uma vez; e como o executor a recusa, ela
+# corre por um script lateral — que depois alguém «integra».
+#
+#     UMA FERRAMENTA QUE RECUSA TUDO O QUE AINDA NÃO PROVOU FAZ NASCER TODA
+#     CAPACIDADE NOVA FORA DELA.
+#
+# Não é hipótese. Duas capacidades estão nesse ciclo HOJE, com adaptador ligado
+# e política permitida: `bluesky.author.incremental` e
+# `mastodon.account.incremental`. E o `piloto` do `social_scrap.py` — que a
+# C10.6D mediu a saltar o boundary — é o script lateral que o ciclo já produziu.
+#
+# O terceiro eixo é este, e ele NÃO é uma autorização:
+#
+#     NORMAL   «vou colher, e espero resultado»
+#     TRIAL    «vou MEDIR se consigo, e NÃO espero resultado»
+#
+# A ÚNICA diferença entre os dois, em todo o caminho, é o portão epistemológico
+# da CAPABILITY_STATE. Política, roteamento, adaptador, fornecedor, gasto e
+# taxonomia de falha são idênticos — e as sentinelas desta missão existem para
+# que continuem a ser.
+#
+#     TRIAL NÃO SOBRESCREVE POLICY.
+#     TRIAL NÃO AUTORIZA GASTO.
+#     TRIAL PASSADO != CAPACIDADE PROVADA.
+NORMAL = 'NORMAL'
+TRIAL = 'TRIAL'
+MODOS = (NORMAL, TRIAL)
+
+#: Os estados que um ensaio NÃO pode medir, e porquê.
+#:
+#: `BLOCKED` fica de fora, e a razão é um achado desta missão, não uma cautela.
+#: A prova que escreve `BLOCKED` em `facebook.content` —
+#: `docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md` — mediu UMA rota
+#: (`gallery-dl` deslogado) a partir de UM host, e o próprio documento arruma
+#: essa linha na tabela «o que só o runner local pode fechar». A matriz, ao
+#: lado, declara `FACEBOOK/FETCH_POST` ALLOWED por duas OUTRAS rotas.
+#:
+#:     `BLOCKED` NA CAPACIDADE ESTÁ A DESCREVER UMA ROTA NUM AMBIENTE.
+#:
+#: Enquanto o estado disser duas coisas, deixá-lo entrar em ensaio seria ler o
+#: estado misturado como se estivesse limpo. Fica registado como
+#: `CAPABILITY_ROUTE_STATE_CONFLATION = YES` e NÃO foi corrigido aqui: separar
+#: os eixos muda a declaração de cinco capacidades e é decisão de quem mede.
+SEM_ENSAIO = ('BLOCKED',)
 
 
 def CAPABILITIES(plataforma=None):
@@ -103,32 +166,74 @@ def CAPABILITIES(plataforma=None):
             'EVIDENCE': prova,
             'MATRIZ_CAPABILITY': grosso,
             'ADAPTER': r['ADAPTADOR'] if r else None,
-            'HAS_ROUTE': bool(r and r['EXECUTA']),
+            # ⚠️ ISTO DIZIA `bool(r and r['EXECUTA'])`, E MENTIA PARA ONZE DAS
+            # CATORZE CAPACIDADES LIGADAS. Um adaptador cumpre o seu papel por
+            # `executa=` OU por `rota=` — e quem sabe isso e `scrap_registo`,
+            # que ja tem a funcao. Perguntar so por um dos dois papeis fazia a
+            # introspecao da ferramenta dizer que o Telegram nao tem rota
+            # enquanto o `CHECK`, na linha ao lado, dizia CAN_COLLECT_NOW.
+            #
+            #     DUAS RESPOSTAS PARA A MESMA PERGUNTA SAO DOIS DONOS.
+            'HAS_ROUTE': reg.tem_caminho(plat, nome),
             'PROMISES_RESULT': cap.promete_resultado(nome),
+            # ── OS TRES EIXOS, SEM EXECUTAR NADA ──────────────────────────
+            # `PROMISES_RESULT` responde pelo eixo da CAPACIDADE.
+            # `POLICY_DECISION` responde pelo eixo da POLITICA — e le, nao
+            # decide: quem decide e `leis/social_matriz.py`.
+            # `TRIAL_ELIGIBLE` responde pelo eixo do MODO.
+            #
+            # Nenhum dos tres abre ligacao, e por isso os tres cabem aqui.
+            'POLICY_DECISION': (mz.decisao(plat, grosso)['DECISAO']
+                                if grosso else None),
+            'TRIAL_ELIGIBLE': (estado not in SEM_ENSAIO
+                               and reg.tem_caminho(plat, nome)),
+            'PRODUCTION_READY': (cap.promete_resultado(nome)
+                                 and reg.tem_caminho(plat, nome)),
         }
     return saida
 
 
-def CHECK(plataforma, capacidade, *, ambiente=None):
+def CHECK(plataforma, capacidade, *, ambiente=None, modo=NORMAL):
     """Consigo chegar la agora, SEM GASTAR? → o veredicto, sempre.
 
     Nao faz nenhuma requisicao, nao abre nenhum modelo, nao chama nenhuma rota
     paga. Le o que esta declarado e o que esta registado, e responde.
+
+    `modo=TRIAL` muda UMA coisa e mais nada: a pergunta deixa de ser «promete
+    resultado?» e passa a ser «da para MEDIR?». Tudo o resto — declaracao,
+    rota, ambiente, credencial — corre igual e pela mesma ordem.
+
+        DUAS PERGUNTAS DIFERENTES NAO PODEM DAR A MESMA RESPOSTA.
+
+    Por isso o veredicto passa a trazer os dois campos SEMPRE, nos dois modos:
+
+        PRODUCTION_READY   da para colher a serio, com direito a esperar objeto
+        TRIAL_ELIGIBLE     da para medir uma vez, sem direito a esperar nada
+
+    Um `CAN = True` que nao diga qual dos dois e um `CAN = True` que mente para
+    metade de quem o le.
     """
+    if modo not in MODOS:
+        raise ValueError('modo de execucao desconhecido: %r. Os dois sao %s'
+                         % (modo, ', '.join(MODOS)))
     reg.carregar_adaptadores()
     plat = (plataforma or '').upper()
     alvo, porque = cap.onde(capacidade)
+    estado_medido = cap.estado(capacidade)
     veredicto = {
         'EXECUTOR_ID': EXECUTOR_ID,
         'EXECUTOR_VERSION': EXECUTOR_VERSION,
         'PLATFORM': plat,
         'CAPABILITY': capacidade,
-        'CAPABILITY_STATE': cap.estado(capacidade),
+        'CAPABILITY_STATE': estado_medido,
+        'EXECUTION_MODE': modo,
         'EXECUTION_TARGET': alvo,
         'WHY_LOCAL': porque,
         'EVIDENCE': cap.prova(capacidade),
         'COST_TO_CHECK_USD': 0.0,
         'CAN': False,
+        'PRODUCTION_READY': False,
+        'TRIAL_ELIGIBLE': False,
         'STATE': None,
         'WHY': None,
     }
@@ -137,10 +242,19 @@ def CHECK(plataforma, capacidade, *, ambiente=None):
         veredicto['WHY'] = ('capacidade nao declarada. Isto nao e uma falha: e '
                             'a resposta certa para o que ninguem mediu.')
         return veredicto
-    if not cap.promete_resultado(capacidade):
+    # ── O PORTAO EPISTEMOLOGICO, E A UNICA LINHA QUE O MODO MUDA ───────────
+    promete = cap.promete_resultado(capacidade)
+    if not promete and modo == NORMAL:
         veredicto['STATE'] = SEM_PROMESSA
         veredicto['WHY'] = ('estado medido %s. Existir adaptador para ela nao a '
-                            'transforma em sucesso.' % cap.estado(capacidade))
+                            'transforma em sucesso.' % estado_medido)
+        return veredicto
+    if modo == TRIAL and estado_medido in SEM_ENSAIO:
+        veredicto['STATE'] = ENSAIO_RECUSADO
+        veredicto['WHY'] = ('estado medido %s. A prova que o escreveu mediu uma '
+                            'ROTA num AMBIENTE, e enquanto o estado disser duas '
+                            'coisas o ensaio nao o pode ler como se dissesse '
+                            'uma.' % estado_medido)
         return veredicto
     r = reg.adaptador_de(plat, capacidade)
     if not reg.tem_caminho(plat, capacidade):
@@ -177,8 +291,21 @@ def CHECK(plataforma, capacidade, *, ambiente=None):
             veredicto['WHY'] = ('a rota existe e a configuracao dela nao esta completa neste ambiente')
             return veredicto
     veredicto['CAN'] = True
-    veredicto['STATE'] = PODE
-    veredicto['WHY'] = ('declarada, com rota, configurada, e o estado medido promete resultado')
+    veredicto['PRODUCTION_READY'] = promete
+    veredicto['TRIAL_ELIGIBLE'] = True
+    if promete:
+        veredicto['STATE'] = PODE
+        veredicto['WHY'] = ('declarada, com rota, configurada, e o estado medido '
+                            'promete resultado')
+    else:
+        # Chegou aqui em TRIAL com um estado que nao promete. Dizer `PODE` seria
+        # prometer o que a medicao nao prometeu.
+        #
+        #     TRIAL_ELIGIBLE != PRODUCTION_READY.
+        veredicto['STATE'] = ELEGIVEL_PARA_ENSAIO
+        veredicto['WHY'] = ('declarada, com rota, configurada — e o estado medido '
+                            '%s NAO promete resultado. Da para MEDIR uma vez; nao '
+                            'da para contar com ela.' % estado_medido)
     return veredicto
 
 
@@ -254,7 +381,7 @@ def _estado_da_corrida(objetos, trace, ck):
 
 
 def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
-            **kwargs):
+            modo=NORMAL, **kwargs):
     """Vai buscar. → (objetos, trace). NUNCA levanta por rota recusada.
 
     Recusa e bloqueio sao RESULTADO DE MEDICAO, nao ausencia de resultado — e
@@ -262,10 +389,24 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
 
     `banco` liga a durabilidade comum: RUN prospectiva, checkpoint quando a
     capacidade tem unidade retomável, e rastro de etapa. Sem ele, nada muda.
+
+    `modo=TRIAL` mede uma capacidade que ainda nao promete resultado. Ele muda
+    o portao do `CHECK` e MAIS NADA: a politica, o roteador, o adaptador, o
+    fornecedor, a autorizacao de gasto e a taxonomia de falha sao os mesmos
+    objetos, chamados pelas mesmas linhas.
+
+        A UNICA DIFERENCA ENTRE NORMAL E TRIAL E O PORTAO EPISTEMOLOGICO.
+
+    E o que ele NAO faz e tao importante quanto: um ensaio que devolve objetos
+    nao promove estado nenhum. Quem promove `NOT_EXECUTED` para `PROVEN` e
+    gente, com prova citada, num commit que se le.
     """
     if scope not in ESCOPOS:
         raise ValueError('escopo fora de COL-LAW-016: %r. Os tres sao %s'
                          % (scope, ', '.join(ESCOPOS)))
+    if modo not in MODOS:
+        raise ValueError('modo de execucao desconhecido: %r. Os dois sao %s'
+                         % (modo, ', '.join(MODOS)))
     plat = (platform or '').upper()
     registo = reg.adaptador_de(plat, capability)
     execucao = relator = None
@@ -293,7 +434,7 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
 
     # ── A ETAPA `CHECK` E DESTE FICHEIRO, PORQUE E AQUI QUE ELA CORRE ──────
     linha = relator.abrir('CHECK') if relator is not None else None
-    pronto = CHECK(platform, capability)
+    pronto = CHECK(platform, capability, modo=modo)
     if relator is not None:
         # ⚠️ UM PORTÃO QUE RECUSA NÃO FALHOU. ELE FEZ O SEU TRABALHO.
         # `FAIL` aqui diria que o próprio CHECK rebentou. O que aconteceu foi
@@ -317,7 +458,10 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
         percurso = forn.Percurso(capability)
         trace = percurso.selar(resultado=pronto['STATE'])
         trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'RUN_ID': run_id,
-                      'SCOPE': scope, 'CHECK': pronto})
+                      'SCOPE': scope, 'CHECK': pronto,
+                      'EXECUTION_MODE': modo,
+                      'CAPABILITY_STATE_BEFORE': pronto['CAPABILITY_STATE'],
+                      'CAPABILITY_STATE_AFTER': pronto['CAPABILITY_STATE']})
         if execucao is not None:
             import coleta_checkpoint as ck
             import falhas as fx
@@ -351,8 +495,22 @@ def COLLECT(*, platform, capability, run_id, scope='PONTUAL', banco=None,
             execucao.falhar_checkpoint('%s: %s' % (type(e).__name__, e))
             execucao.fechar(ck.CORRIDA_FALHOU, error='%s: %s' % (type(e).__name__, e))
         raise
+    # ── O MODO SOBE SEMPRE, NOS DOIS MODOS ────────────────────────────────
+    # Um trace que so nomeia o modo quando ele e TRIAL obriga quem le a deduzir
+    # o NORMAL pela ausencia — e ausencia nao e valor.
+    #
+    #     CAMPO AUSENTE != NORMAL. CAMPO AUSENTE != ZERO.
+    #
+    # `CAPABILITY_STATE_AFTER` e igual ao BEFORE por construcao: este ficheiro
+    # nao escreve em `scrap_capacidades.py`, e a igualdade e a prova disso a
+    # viajar dentro do proprio artefato.
+    #
+    #     TRIAL PASSADO != CAPACIDADE PROVADA.
     trace.update({'EXECUTOR_ID': EXECUTOR_ID, 'EXECUTOR_VERSION': EXECUTOR_VERSION,
-                  'RUN_ID': run_id, 'SCOPE': scope, 'CHECK': pronto})
+                  'RUN_ID': run_id, 'SCOPE': scope, 'CHECK': pronto,
+                  'EXECUTION_MODE': modo,
+                  'CAPABILITY_STATE_BEFORE': pronto['CAPABILITY_STATE'],
+                  'CAPABILITY_STATE_AFTER': cap.estado(capability)})
     forn.conferir(trace)
     if execucao is not None:
         import coleta_checkpoint as ck
