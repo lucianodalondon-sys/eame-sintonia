@@ -1150,7 +1150,7 @@ este contrato usa como exemplo de boa prática.
 |---|---|---|---|---|
 | C1 | contradição publicada sem conflito declarado | **NÃO** | 0 de 672 arestas com `status=PROVEN` sem `PROVEN=YES`. Nas peças, **109 de 161** divergem entre o eixo legado e os planos (9 delas verdes com os quatro planos em `NÃO SEI`) — e a divergência está **publicada** em `CONFLITOS` com os sete campos da §15, `STATUS = ACCEPTED_AS_DIFFERENT_QUESTIONS`; `STATUS_LEGACY_NOTA` em 833 de 833 objetos; os quatro planos projetados no cartão da peça | `generate_system_map._conflito_do_status_legado` · `test_quatro_planos` §6b |
 | C2 | contagem irreconciliável | **NÃO** | `65 == 48 + 17`; `COUNT == len(MEMBERS)` nos 5 universos que enumeram membros, 0 desencontros; membros do pente fora da vista: `[]` | `reconciliacao_do_universo.py` |
-| C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | 7 artefactos, todos com `ESTADO` **e** `MOTIVO`; 0 a dizer `CURRENT` com motivo de stale; 0 estados fora do vocabulário; `NAO_VERIFICAVEL = []`. O único `STALE` (`pente-fino.generated.json`) diz `STALE_BY_CYCLE` — o mapa a acusar-se, não a esconder-se | `impressao_da_arvore.frescura_do_carimbo` |
+| C3 | `STALE`/`UNVERIFIABLE` apresentado como `CURRENT` | **NÃO** | 7 artefactos, todos com `ESTADO` **e** `MOTIVO`; 0 a dizer `CURRENT` com motivo de stale; 0 estados fora do vocabulário; `STALE = []`, `CICLO_ATRASADO = []`, `NAO_VERIFICAVEL = []` no ponto fixo. Fora do ponto fixo o mapa acusa-se a si próprio com `STALE_BY_CYCLE` — que é a guarda a funcionar, não a falhar | `impressao_da_arvore.frescura_do_carimbo` |
 | C4 | `OBSERVED`/`PROVEN` sem evidência da classe própria | **NÃO** | `OBSERVED=YES` em 0 arestas e 2 peças, as duas com `OBSERVED_EVIDENCE` (`RUN_ID`, `ENVIRONMENT`, `EXECUTION_MODE`); 0 objetos com `PROVEN=YES` sem `PROVEN_PLANE` | `test_quatro_planos` |
 | C4b | evidência que não sustenta a afirmação a que está ligada | **NÃO** | as 52 arestas de linha partilhada revistas uma a uma: 30 `SUPPORTED` → `CODE=YES`, 7 `AMBIGUOUS` → `UNKNOWN`, 15 `UNSUPPORTED` → `UNKNOWN`; 0 decisões sem `PORQUE`; 0 a vazar para `CODE=YES` | `revisao_da_evidencia.py` |
 | C5 | auto-prova | **NÃO** | o validador corre o gerador como **subprocesso** e compara com o disco; não partilha estado. A limitação está declarada na §16.6 | `validate_system_map.py:145` |
@@ -1342,7 +1342,7 @@ dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 | cobertura de runtime | 2 de 57 executores relevantes |
 | arestas onde `OBSERVED` é representável | 0 de 672 |
 | peças onde o eixo legado e os planos divergem | 109 de 161 — publicado na §15 |
-| artefactos `STALE` pelo ciclo atrasado | 1 (`pente-fino.generated.json`) |
+| ordem da cadeia declarada e forçada | **não** — converge em 3 passagens, e nada no repositório obriga a essa ordem |
 
 **Nem `G2` nem `G3` entram no mínimo.** Persistir a topologia e carimbar a
 impressão são gaps reais e baratos, mas nenhum deles fecha uma condição de
@@ -1498,7 +1498,7 @@ cobertura e arrumação sem bloquear o fecho da Collection.
 | D | relações encontradas no código? | **YES** | 625 de 672 arestas com `CODE=YES`, cada uma com ficheiro e linha (`P5`). As outras 47 ficam `NÃO SEI` |
 | E | distinguir `DECLARED`/`CODE`/`OBSERVED`/`PROVEN`? | **YES** | os quatro em 672/672 arestas e 161/161 peças; `PROVEN` traz sempre o plano; **desde este fecho os quatro aparecem também no cartão da peça** |
 | F | quando uma afirmação está `UNKNOWN`? | **YES** | `P7_NAO_SEI_VIVE`; 0 planos a dizer `NO` sem medidor de ausência |
-| G | quando uma evidência está stale? | **YES** | três relógios por artefacto com `MOTIVO`; `test_freshness.mjs` prova por força bruta |
+| G | quando uma evidência está stale? | **YES** | três relógios por artefacto (árvore, entradas, ciclo) com `MOTIVO`; `test_freshness.mjs` prova por força bruta que nenhuma combinação fica verde sem as quatro provas |
 | H | de onde veio a evidência? | **YES** | ficheiro+linha na aresta; `SOURCE_TREE_FINGERPRINT` verificável, `INPUTS` e `INPUTS_DIGEST` no artefacto; `WHO_COMPUTES`/`FROM_WHICH_FIELD` na lente |
 | I | auditar um número até universo/membros/regra? | **PARTIAL** | 6 universos e 7 lentes com espécie e regra; 5 de 6 enumeram membros. `COLLECTION_CODE_FILE_UNIVERSE` publica 102 com regra e **sem** membros — auditável pela regra, não item a item |
 | J | localizar onde investigar a Collection? | **YES** | o censo da topologia audita 111 cartões (65 + 46 vizinhos, universos **diferentes**) e 595 arestas, com quem chama quem |
@@ -1512,7 +1512,8 @@ arestas com OBSERVED representável 0 de 672          → G12
 exclusões com INTENTIONAL=UNKNOWN 12 de 17
 peças onde o eixo legado e os planos divergem  109 de 161  (publicado na §15)
 cadeia: passos no manifesto        7 de 21          → G5
-ciclo atrasado                     aberto           → G6
+ciclo atrasado                     aberto           → G6   (a ordem converge,
+                                   mas nao esta declarada em lado que a force)
 ```
 
 E quatro leituras que o mapa **não autoriza**, por mais verde que esteja:
@@ -1530,30 +1531,42 @@ prova inexistência universal** — prova que este mapa não viu.
 
 ### 29.3 · A dívida do ciclo, medida no próprio fecho
 
-`G6` está aberto, e o fecho mediu exatamente quanto custa. Para o validador
-passar **e** os artefactos derivados dizerem a verdade sobre a sua frescura, a
-ordem em vigor é:
+`G6` está aberto, e o fecho mediu exatamente quanto custa. A ordem em vigor,
+para o validador passar **e** os artefactos dizerem a verdade sobre a sua
+frescura, é esta:
 
 ```
 cadeia · cadeia → topologia → matriz → reconciliação → revisão → cadeia → topologia
 ```
 
-A cadeia corre **três vezes**. E mesmo assim sobra um resíduo honesto:
-`pente-fino.generated.json` fica `STALE` com motivo `STALE_BY_CYCLE`.
+A cadeia corre **três vezes**, e cada repetição tem uma causa medida, não um
+hábito:
 
-A causa é circular e está medida: `architecture.generated.json` regista o blob
-SHA dos três artefactos derivados, e esses artefactos carregam `GENERATED_AT` —
-logo mudam de SHA a cada geração. Quem correr por último fica certo, e o outro
-fica um passo atrás. Não há ordenação que satisfaça os dois.
+| passagem | por que é preciso |
+|---|---|
+| 1ª e 2ª | **as saídas da própria cadeia vivem dentro da impressão que ela carimba.** Os onze censos escrevem ficheiros que não estão em `IMPRESSAO_DA_ARVORE.EXCLUIDO`, logo a 1ª passagem carimba uma árvore que ela própria muda a seguir. A 2ª carimba a árvore já estável |
+| 3ª | `architecture.generated.json` regista o **blob SHA** dos três artefactos derivados, e esses carregam `GENERATED_AT` — mudam de SHA a cada geração. Sem uma passagem depois deles, `P1_SEM_DRIFT` reprova |
 
 ```
 CYCLE_DEBT_STILL_OPEN = YES
 ```
 
-**Isto não foi corrigido nesta missão, e a decisão é deliberada.** Fechar o ciclo
-é reordenar a cadeia por `INPUTS`, e reordenar por `INPUTS` exige primeiro
-declará-los — `G4`, depois `G5`, depois `G6`. Fazer o atalho aqui seria começar a
-frente que esta secção fecha.
+**No ponto fixo tudo converge**: `MAPA_E_DESTA_ARVORE = True`, `STALE = []`,
+`CICLO_ATRASADO = []`, validador `PASS`. A dívida não é que o mapa fique errado
+— é que **a ordem correta não está declarada em lado nenhum que a force**, e
+quem a executar pela ordem errada obtém artefactos que se acusam de `STALE`
+sem que nada no repositório tenha mudado.
+
+> **UMA ORDEM QUE SÓ EXISTE NA CABEÇA DE QUEM A CORREU NÃO É UMA CADEIA:
+> É UM HÁBITO COM SORTE.**
+
+Este fecho pagou essa dívida em tempo real: a primeira tentativa commitou uma
+reconciliação gerada fora do ponto fixo, e o CI reprovou o passo `4m`.
+
+**Isto não foi corrigido, e a decisão é deliberada.** Fechar o ciclo é ordenar
+a cadeia por `INPUTS`, e ordenar por `INPUTS` exige primeiro declará-los —
+`G4`, depois `G5`, depois `G6`. Fazer o atalho aqui seria começar a frente que
+esta secção fecha.
 
 ### 29.4 · O que continua obrigatório durante o congelamento
 
