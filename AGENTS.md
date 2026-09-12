@@ -389,6 +389,78 @@ push e cada pull request. **Falha fechado**: erro inesperado também é `FAIL`.
 
 ---
 
+## 🔢 TODA CONTAGEM PUBLICADA DECLARA O SEU UNIVERSO
+
+**Um censo individualmente certo não torna a ferramenta coerente.**
+
+Medido nesta árvore: três números chamavam-se todos «os cartões da coleta».
+
+| | contagem | dimensão | quem conta |
+|---|---|---|---|
+| a faixa visual | 65 | `family` | `generate_system_map.desenhar()` |
+| o pente fino | 48 | `territory` | `pente_fino_da_coleta.ZONAS` |
+| o censo da topologia | 111 | `family` + fecho por aresta | `censo_da_topologia.py` |
+
+Nenhum estava errado. Nenhum declarava o seu universo, e por isso **nenhum era
+comparável com o do lado**. A pergunta «quantos cartões tem a coleta?» tinha três
+respostas verdadeiras e nenhuma maneira de as pôr na mesma frase.
+
+> **UMA FERRAMENTA DE OBSERVABILIDADE NÃO É COERENTE PORQUE CADA CENSO ESTÁ
+> CERTO. É COERENTE QUANDO OS CENSOS CONSEGUEM RECONCILIAR OS PRÓPRIOS
+> UNIVERSOS.**
+
+### FAMÍLIA e TERRITÓRIO respondem a perguntas diferentes
+
+O caso que provou isto: em `1766c232` — «a sala de espera tinha os inquilinos
+errados» — treze peças de `Z-GUARDA` mudaram de família `F-ESPERA` para
+`F-COLETA`. O território não mudou.
+
+    a faixa visual   49 / 13  →  62 / 1
+    o pente fino     46       →  46
+
+**Uma reatribuição de família moveu treze peças entre duas contagens publicadas e
+zero peças na terceira.** Quem tivesse lido as duas no mesmo dia veria uma
+divergência de catorze e não teria como saber que ela não existia.
+
+Nunca trocar `territory` por `family` numa lente sem medir o efeito. Não são
+sinónimos e não são intercambiáveis: descobrir qual das duas dimensões é dona de
+cada lente é trabalho de medição, não de gosto.
+
+### O que toda contagem publicada tem de trazer
+
+`UNIVERSE_ID` · `UNIVERSE_DEFINITION` · `MEASURED_HEAD` (ou equivalente
+verificável) · `MEMBERS` · `COUNT` · `INCLUSION_RULE` · `EXCLUSION_RULE`.
+
+E, se for subconjunto de outra: `PARENT_UNIVERSE_ID` · `EXCLUDED_MEMBERS` ·
+`EXCLUSION_REASON_BY_MEMBER`.
+
+**O objetivo não é todas as lentes darem o mesmo número.** É todos os números
+conseguirem ser reconciliados: o que sai de uma lente aparece na lista de
+excluídos da outra, com motivo, dono, e a conta a fechar exatamente.
+
+O dono desta reconciliação é
+[`data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json`](data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json),
+gerado por `system-map/scripts/reconciliacao_do_universo.py` e provado por
+`system-map/tests/test_reconciliacao_do_universo.py` no passo `4m` de
+`MAP RULES CHECK`. **O JSON é o dono das contagens; markdown nenhum as
+reescreve** — inclusive este.
+
+### Duas zonas com o mesmo nome são duas contagens que parecem uma
+
+`Z-GUARDA` chama-se «A SALA DE ESPERA» e está em `F-COLETA`. `Z-ESPERA` chama-se
+«· A SALA DE ESPERA» e está em `F-ESPERA`. **Quem lê a tela vê o nome, não o id.**
+
+### CONTADO PELA FAIXA ≠ DESENHADO NA TELA
+
+A faixa conta os membros da zona; `activeView()` não desenha um cartão com
+bandeira que não seja ITALIA nem TRANSVERSAL. Medido: 65 contados, 64 desenhados.
+As duas estão certas; a relação entre elas é que tem de estar escrita.
+
+E **órfão na vista não é órfão no grafo**: esconder por bandeira não tira o cartão
+do universo nem da auditoria.
+
+---
+
 ## ⚖️ A PRATELEIRA TEM DE BATER COM O MAPA
 
 **O visual e o projeto contam a mesma história. Sempre. Sem exceção.**
@@ -671,6 +743,10 @@ O mapa é mais um consumidor destas leis, não uma exceção a elas:
 - consumidor não vira dono do gerador;
 - tela não recalcula decisão do motor;
 - contrato tem um dono; snapshot é derivado;
+- contagem publicada declara o seu universo; duas populações não usam a mesma
+  palavra sem uma relação explícita entre elas;
+- família não é território, e trocar uma pela outra numa lente move números sem
+  mover peças;
 - código não é deformado para deixar o mapa verde.
 
 ---
