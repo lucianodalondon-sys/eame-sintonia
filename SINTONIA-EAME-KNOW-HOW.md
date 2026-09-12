@@ -4241,3 +4241,119 @@ NEW_FAILURES               = 0   (2334 testes, 93 módulos)
 
 `CLASSIFIER_BAD + LINEAGE_BROKEN`: consertar só um dos dois lados não entrega
 documento nenhum.
+
+---
+
+# §60 · O `SOURCE_ID` PERDE-SE EM DOIS SÍTIOS, E NENHUM É A ADMISSION
+
+**Missão:** `C-MEASURE-SOURCE-ID-WIRING-GAP-V1`
+**HEAD final:** `3ca38679`
+**Dono novo:** `provas/medir_source_id_wiring_gap.py`
+
+## 60.1 · O QUÊ
+
+Os 20 documentos de T3 em que a linhagem aparentava saber a origem e a Admission
+recebeu `NÃO SEI`, seguidos aresta a aresta desde a primeira evidência até à porta.
+
+```
+ONE_SINGLE_ROOT_CAUSE = NO
+
+OUT_OF_FLOW_EVIDENCE   13
+READER_GAP              7
+```
+
+## 60.2 · POR QUÊ — «A LINHAGEM SABE» ERA GENEROSO DEMAIS
+
+O rótulo saiu do `§59`, escrito por mim. Fui ver de onde vinha o valor:
+
+```
+provas/censo_corpus_rotulado_admission.py::fonte_de
+re.search(r"(IT-T\d+-\d+)") sobre o CAMINHO do item e dos pais
+```
+
+Uma expressão regular sobre um nome de directório. A lei desta casa diz
+`SOURCE_ID != path`, e eu tinha contado isso como linhagem a saber.
+
+    UMA CONVENÇÃO DE CAMINHO NÃO É UM CAMPO.
+    ELA NÃO VIAJA, NÃO TEM DONO, E NINGUÉM A DECLAROU.
+
+**A convenção não está errada — está ingovernada.** Nos 7 casos em que existe
+também um campo real, os dois valores batem exactamente. É por isso que ela
+enganou: ela acerta.
+
+## 60.3 · PROVA — AS DUAS CAUSAS
+
+**`READER_GAP`, 7 casos.** O valor existe como campo em
+`data/collection-ledger/italy/observations.ndjson`, ao lado do caminho e do SHA
+do bruto. Quem refaz o bruto não o lê:
+
+```
+coleta/executor_texto_de_pdf.py
+    pai = art.raw_do_disco(str(pdf), str(RAIZ), COUNTRY_SCOPE="IT")
+```
+
+`raw_do_disco` recusa-se, por lei escrita, a deduzir seja o que for do nome do
+ficheiro, e **essa recusa está certa**. Falta alguém passar-lhe a fonte.
+
+    NÃO FOI APAGADO. NUNCA FOI CONSULTADO.
+
+**`OUT_OF_FLOW_EVIDENCE`, 13 casos.** Corpos em
+`data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/` sem observação de coleta nenhuma.
+Não passaram pelo pipeline: foram postos como amostra. Aqui não há aresta
+perdida, porque nunca houve campo para atravessar.
+
+## 60.4 · QUATRO DOS CINCO ESTÁGIOS ESTAVAM CERTOS
+
+A Admission **lê** `source_id`. O ingresso **traduz** o nome. A derivação
+**copia** do pai: `derivado_de` faz `SOURCE_ID=pai.SOURCE_ID`, e copia
+fielmente um valor que já chega vazio.
+
+    O LEITOR NUNCA FOI O DEFEITO.
+
+Duas missões estiveram a olhar para o lado errado da cadeia.
+
+## 60.5 · `SCHEMA EXISTS != WRITER USES IT`
+
+A migration `026` declara `raw_asset.source_id` e os checks recusam `NAO SEI`
+no estado identificado. `CAN_STORE = YES`. E o registo de artefactos tem 43
+`DERIVED`, **zero `RAW`**, e zero `SOURCE_ID` provado. `WRITER_WRITES = NO`.
+
+O banco poder guardar não é ninguém escrever.
+
+## 60.6 · DOIS DEFEITOS MEUS QUE A MEDIÇÃO APANHOU
+
+**Um grep que não distingue código de comentário.** Perguntei
+`"collection-ledger" in fonte` para saber se o executor lia o recibo. Resposta:
+sim — por causa de um comentário que explica que ele **não** lê. O relatório
+saiu a dizer que o forward não tinha o buraco.
+
+    UM GREP QUE NÃO DISTINGUE CÓDIGO DE COMENTÁRIO
+    DEIXA O TEXTO QUE EXPLICA O DEFEITO PROVAR QUE ELE NÃO EXISTE.
+
+Corrigido com uma verificação estrutural por `ast`: há alguma string literal,
+fora de comentário, que nomeie o recibo?
+
+**Um teste que lê o resultado guardado.** A suíte carregava
+`SOURCE-ID-WIRING-GAP-V1.json` do disco quando ele existia. Seis mutações da
+lógica de medição sobreviveram à suíte inteira: os testes liam o artefacto
+congelado de uma corrida anterior e nunca tocavam no código mutado.
+
+    UM TESTE QUE LÊ O RESULTADO GUARDADO
+    TESTA O FICHEIRO, E NÃO A FUNÇÃO QUE O ESCREVEU.
+
+O artefacto no disco é a entrega. A suíte tem de exercitar o código. Depois da
+correcção: 11 mutantes, 0 sobreviventes.
+
+## 60.7 · CONSEQUÊNCIA
+
+O defeito tem **dois donos diferentes**, e uma correcção só serve metade:
+
+| causa | quem conserta | o que é |
+|---|---|---|
+| `READER_GAP` | `coleta/executor_texto_de_pdf.py` | passar ao bruto a fonte que o recibo já tem |
+| `OUT_OF_FLOW_EVIDENCE` | decisão de contrato, não de código | o que fazer com corpos que entraram por fora do pipeline |
+
+`FORWARD_CODE_HAS_SAME_GAP = YES`. `FORWARD_GAP_EXECUTED_AND_PROVEN = UNKNOWN`:
+não houve corrida forward, e previsão não é medição.
+
+Nada foi consertado. `MEASURE != FIX`.
