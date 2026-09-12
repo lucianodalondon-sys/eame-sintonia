@@ -143,67 +143,108 @@ class ACadeiaNovaNaoConheceAVelha(unittest.TestCase):
 
 
 class APortaQueNenhumImportMostra(unittest.TestCase):
-    """O `workflow_dispatch` é despacho de produção, e nenhum `import` o revela."""
+    """O `workflow_dispatch` era despacho de produção, e nenhum `import` o revelava.
 
-    def test_a_porta_do_workflow_continua_a_existir_e_esta_medida(self):
-        # Este teste NAO exige que a porta desapareca — apagar uma entrada
-        # operacional e decisao de gente. O que ele exige e que ela nao mude de
-        # sitio em silencio: se mudar, a medicao da C10.4B fica velha e alguem
-        # tem de a refazer.
-        wf = _fonte(WORKFLOW)
-        self.assertIn('instagram_transcrever.py rodar', wf,
-                      'a fase `transcrever` do workflow mudou; a C10.4B tem de '
-                      'ser remedida antes de se confiar no veredito dela')
+    ACTUALIZADO NA C10.4C. A versão original desta classe media a porta ABERTA:
+    exigia que a fase `transcrever` continuasse no workflow, que a rota velha
+    perguntasse à política antes de sair, e que as suas duas saídas de rede
+    estivessem cobertas. Era a medição certa para um mundo onde a porta existia.
 
-    def test_o_que_essa_porta_corre_pergunta_a_politica(self):
-        self.assertIn('social_matriz', _fonte(VELHA_REL),
-                      'a porta do workflow voltou a nao conhecer a decisao')
+    A C10.4C fechou a porta — que é a decisão de gente que a C10.4B disse que
+    faltava. Estas sentinelas passam a medir o mundo NOVO. O que elas mediam
+    antes fica escrito aqui e em `docs/sintonia-scrap/C10-4B-UM-CAMINHO-SO.md`;
+    o que elas medem agora é que a porta não voltou.
+
+        UMA SENTINELA QUE CONTINUA A MEDIR UM MUNDO QUE ACABOU MEDE O PASSADO.
+    """
+
+    def test_a_porta_do_workflow_foi_fechada_na_c10_4c(self):
+        # Medido no comando, nunca no texto: o `run:` do workflow carrega hoje
+        # um comentário que EXPLICA a aposentadoria e nomeia o ficheiro velho.
+        # Prosa não é chamada.
+        import yaml
+        doc = yaml.safe_load(_fonte(WORKFLOW))
+        vivas = []
+
+        def varre(o):
+            if isinstance(o, dict):
+                for k, v in o.items():
+                    if k == 'run' and isinstance(v, str):
+                        vivas.extend(ln for ln in v.splitlines()
+                                     if not ln.strip().startswith('#'))
+                    varre(v)
+            elif isinstance(o, list):
+                for v in o:
+                    varre(v)
+        varre(doc)
+        self.assertTrue(vivas, 'a sonda nao leu comando nenhum')
+        for ln in vivas:
+            self.assertNotIn('instagram_transcrever.py', ln,
+                             'a fase de video inteiro voltou ao workflow: %s' % ln.strip())
+        disparo = doc.get('on') or doc.get(True) or {}
+        opcoes = disparo['workflow_dispatch']['inputs']['fase']['options']
+        self.assertNotIn('transcrever', opcoes)
+        self.assertNotIn('transcrever-alvos', opcoes)
+
+    def test_o_que_essa_porta_corria_deixou_de_correr(self):
+        """A pergunta de política saiu daqui — e saiu porque não há saída.
+
+        Enquanto a rota adquiria, o portão era a única coisa entre ela e a CDN
+        da Meta. Aposentada, ela não adquire: um portão à frente de uma função
+        que levanta seria cerimónia, e cerimónia parece capacidade.
+        """
         arv = ast.parse(_fonte(VELHA_REL))
-        fn = next(n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)
-                  and n.name == 'politica_da_aquisicao')
-        chamadas = [n for n in ast.walk(fn) if isinstance(n, ast.Call)
-                    and isinstance(n.func, ast.Attribute) and n.func.attr == 'decisao'
-                    and isinstance(n.func.value, ast.Name) and n.func.value.id == 'mz']
-        self.assertEqual(len(chamadas), 1,
-                         'a velha deixou de perguntar ao dono da politica')
+        self.assertFalse([n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)
+                          and n.name == 'politica_da_aquisicao'])
+        self.assertFalse(hasattr(velho, 'politica_da_aquisicao'))
+        # e ela deixou de carregar o dono do reconhecedor: um aposentado que
+        # importa o ASR continua a parecer, a todos os censos, um transcritor
+        importados = []
+        for n in ast.walk(arv):
+            if isinstance(n, ast.Import):
+                importados += [a.name for a in n.names]
+            elif isinstance(n, ast.ImportFrom):
+                importados.append(n.module or '')
+        self.assertNotIn('fala_local', importados)
 
-    def test_a_velha_recusa_a_rede_sob_a_decisao_actual(self):
-        self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
-                         mz.NAO_PERMITIDA)
+    def test_a_velha_nao_adquire_seja_qual_for_a_decisao(self):
+        """Antes recusava por política. Hoje recusa por não ser mais uma rota.
+
+            BLOCKED != RETIRED — e esta é a diferença, em duas linhas.
+        """
         alvo = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             'nao-deve-nascer.mp4')
-        with self.assertRaises(PermissionError):
+        with self.assertRaises(velho.RotaAposentada):
             velho._baixar('https://scontent.cdninstagram.com/nada.mp4', alvo)
         self.assertFalse(os.path.exists(alvo), 'a velha escreveu apesar da recusa')
+        # a decisao de politica continua NAO, e continua a nao ser desta missao
+        self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
+                         mz.NAO_PERMITIDA)
 
-    def test_o_embed_da_velha_tambem_bate_no_portao(self):
-        # Gratis nao e permitido: abrir o embed sobe navegador e toca o host.
-        with self.assertRaises(PermissionError):
+    def test_o_embed_da_velha_tambem_deixou_de_abrir(self):
+        # Gratis nao era permitido: abrir o embed subia navegador e tocava o
+        # host. Hoje nem sobe.
+        with self.assertRaises(velho.RotaAposentada):
             velho._url_nova('QUALQUER')
 
-    def test_os_dois_pontos_de_rede_da_velha_estao_cobertos(self):
-        arv = ast.parse(_fonte(VELHA_REL))
+    def test_a_velha_deixou_de_ter_pontos_de_rede(self):
+        """A cobertura do portao virou ausencia de saida — que e mais forte.
 
-        def dono(no):
-            for f in ast.walk(arv):
-                if isinstance(f, ast.FunctionDef) and no in ast.walk(f):
-                    return f.name
-            return None
-
-        saidas = {dono(n) for n in ast.walk(arv) if isinstance(n, ast.Call)
-                  and isinstance(n.func, ast.Attribute)
-                  and n.func.attr in ('urlopen', 'abrir')}
-        saidas.discard(None)
-        guardadas = set()
-        for nome in saidas:
-            fn = next(n for n in ast.walk(arv) if isinstance(n, ast.FunctionDef)
-                      and n.name == nome)
-            if any(isinstance(n, ast.Call) and getattr(n.func, 'id', None)
-                   == 'politica_da_aquisicao' for n in ast.walk(fn)):
-                guardadas.add(nome)
-        self.assertTrue(saidas, 'a sonda nao encontrou saida de rede nenhuma')
-        self.assertEqual(saidas, guardadas,
-                         'saida de rede sem portao na velha: %s' % sorted(saidas - guardadas))
+        A sonda mede o que mediu sempre: chamadas `urlopen`/`abrir` na arvore.
+        Antes exigia que cada uma tivesse portao. Agora exige que nao haja
+        nenhuma — e prova, no mesmo passo, que a sonda continua a ver, correndo
+        a mesma busca sobre o dono canonico, onde ela TEM de encontrar saida.
+        """
+        def saidas(rel):
+            arv = ast.parse(_fonte(rel))
+            return [n for n in ast.walk(arv) if isinstance(n, ast.Call)
+                    and isinstance(n.func, ast.Attribute)
+                    and n.func.attr in ('urlopen', 'abrir', 'run', 'Popen')]
+        self.assertEqual(saidas(VELHA_REL), [],
+                         'a rota aposentada ganhou saida de rede outra vez')
+        self.assertTrue(saidas(NOVA_REL),
+                        'a sonda deixou de encontrar saida onde ela existe — '
+                        'zero aqui mediria a sonda, nao a casa')
 
 
 class UmaDecisaoTodasAsPortas(unittest.TestCase):
@@ -229,32 +270,30 @@ class UmaDecisaoTodasAsPortas(unittest.TestCase):
                 donos.append(rel)
         self.assertEqual(donos, ['ferramentas/fala_local.py'])
 
-    def test_so_a_velha_pede_o_ficheiro_inteiro(self):
-        """As duas fazem coisas diferentes COM A REDE, e mede-se no argv.
+    def test_so_a_nova_pede_alguma_coisa_a_rede(self):
+        """ACTUALIZADO NA C10.4C.
 
-        `-vn` aparece na prosa das duas — a nova EXPLICA no cabecalho porque
-        deixou de o fazer. O que separa uma da outra e o comando que cada uma
-        monta, e isso le-se na arvore, nao no texto.
+        A versao original comparava DOIS pedidos: `-vn` sobre o ficheiro inteiro
+        contra `-f bestaudio`. Hoje so ha um pedido no repositorio, porque a
+        rota que baixava o ficheiro inteiro deixou de pedir seja o que for.
         """
-        velha_arv = ast.parse(_fonte(VELHA_REL))
-        argv_velha = [n.value for n in ast.walk(velha_arv)
-                      if isinstance(n, ast.Constant) and n.value == '-vn']
-        self.assertTrue(argv_velha, 'a velha deixou de cortar a imagem depois de a baixar')
-
         nova_arv = ast.parse(_fonte(NOVA_REL))
         seletor = [n.value for n in ast.walk(nova_arv)
                    if isinstance(n, ast.Constant) and n.value == 'bestaudio']
         self.assertTrue(seletor, 'a nova deixou de pedir so o som')
         self.assertEqual(rt.SELETOR_SO_AUDIO, 'bestaudio')
 
-        # e a velha, que pede o ficheiro inteiro, esta travada pela decisao
+        # e a velha nao monta argv nenhum: medido na arvore, porque `-vn` e
+        # `bestaudio` aparecem na PROSA das duas e prosa nao e comando
+        velha_arv = ast.parse(_fonte(VELHA_REL))
+        self.assertEqual([n.value for n in ast.walk(velha_arv)
+                          if isinstance(n, ast.Constant) and n.value in
+                          ('-vn', '-i', 'ffmpeg', 'bestaudio')], [],
+                         'a rota aposentada voltou a montar um comando de media')
+
+        # a decisao de politica continua NAO — e continua a nao ser desta missao
         self.assertEqual(mz.decisao('INSTAGRAM', 'FETCH_TRANSCRIPT')['DECISAO'],
                          mz.NAO_PERMITIDA)
-        fn = next(n for n in ast.walk(velha_arv) if isinstance(n, ast.FunctionDef)
-                  and n.name == '_baixar')
-        self.assertTrue([n for n in ast.walk(fn) if isinstance(n, ast.Call)
-                         and getattr(n.func, 'id', None) == 'politica_da_aquisicao'],
-                        'o descarregador da velha perdeu o portao')
 
 
 if __name__ == '__main__':

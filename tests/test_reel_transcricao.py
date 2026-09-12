@@ -416,19 +416,33 @@ class ClassificacaoOuveAFala(unittest.TestCase):
 # ═══════════════════════════════════ 8 · O DONO DO RECONHECIMENTO É UM SÓ
 class UmDonoSo(unittest.TestCase):
 
-    def test_os_tres_chamadores_usam_o_mesmo_reconhecedor(self):
-        import instagram_transcrever as it
+    def test_os_chamadores_vivos_usam_o_mesmo_reconhecedor(self):
+        """ACTUALIZADO NA C10.4C — eram três chamadores; são dois.
+
+        `ferramentas/instagram_transcrever.py` foi APOSENTADO: não transcreve,
+        e por isso não chama o reconhecedor. Continuar a exigir-lhe um
+        `import fala_local` seria exigir que um aposentado parecesse vivo — e
+        é assim que um ficheiro volta a ser contado como dono de um conceito
+        que já tem dono.
+        """
+        import reel_transcricao as rtr
         import youtube_transcrever as yt
-        with open(it.__file__, encoding='utf-8') as f:
-            fonte_it = f.read()
-        with open(yt.__file__, encoding='utf-8') as f:
-            fonte_yt = f.read()
-        for nome, fonte in (('instagram', fonte_it), ('youtube', fonte_yt)):
+        vivos = {'reel': rtr.__file__, 'youtube': yt.__file__}
+        for nome, caminho in vivos.items():
             with self.subTest(ficheiro=nome):
+                with open(caminho, encoding='utf-8') as f:
+                    fonte = f.read()
                 self.assertIn('import fala_local', fonte)
                 # Ninguém volta a carregar o modelo por sua conta.
                 self.assertNotIn('WhisperModel(', fonte)
                 self.assertNotIn('BatchedInferencePipeline(', fonte)
+
+        import instagram_transcrever as it
+        with open(it.__file__, encoding='utf-8') as f:
+            aposentado = f.read()
+        self.assertNotIn('import fala_local', aposentado,
+                         'a rota aposentada voltou a carregar o reconhecedor')
+        self.assertNotIn('WhisperModel(', aposentado)
 
     def test_o_carimbo_do_motor_se_diz_inteiro(self):
         c = fl.carimbo('small')
