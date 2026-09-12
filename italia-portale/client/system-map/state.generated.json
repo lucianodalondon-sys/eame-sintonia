@@ -1951,9 +1951,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/dazzling-cerf-27a7v2",
-    "HEAD": "896e9bc14bd09f4dab3deebedf0183d34e3a50ce",
-    "GENERATED_AT": "2026-09-12T17:26:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72"
+    "HEAD": "758c2322c90cda2a42f9a98aec7f09ca682197a0",
+    "GENERATED_AT": "2026-09-12T17:36:45+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab"
   },
   "FAMILIES": [
     {
@@ -7040,11 +7040,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "BLOCOS_MEDIDOS"
+          "BLOCOS_MEDIDOS",
+          "CAMPOS_NAO_REPRODUZIVEIS"
         ],
-        "palavras": 7,
+        "palavras": 12,
         "por_lingua": {},
-        "sem_marca_de_lingua": 7,
+        "sem_marca_de_lingua": 12,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11112,6 +11113,7 @@
         "listas": [
           "CATEGORIAS_CONHECIDAS",
           "DONO_DA_ESPECIE",
+          "ESPERADO_FORA",
           "LINHA",
           "OBRIGATORIO",
           "PARTES_ESPERADAS",
@@ -11119,9 +11121,9 @@
           "SUSPEITO",
           "_ESPINHA"
         ],
-        "palavras": 64,
+        "palavras": 69,
         "por_lingua": {},
-        "sem_marca_de_lingua": 64,
+        "sem_marca_de_lingua": 69,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -37243,7 +37245,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_topologia_persistida.py",
-          "line": 480,
+          "line": 521,
           "snippet": "fonte.write_text(original + \"\\n# uma fonte que mudou depois da medicao\\n\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",

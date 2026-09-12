@@ -480,10 +480,63 @@ def selo_das_entradas(itens):
 BLOCOS_MEDIDOS = ('UNIVERSE', 'BOUNDARY_NEIGHBORS', 'EXPANDED', 'ARITMETICA',
                   'EDGES', 'RESUMO', 'FICHAS')
 
+# ─────────────────────────────────────────────────────────────────────────
+# O QUE ESTA MEDICAO NAO CONSEGUE PROMETER — DECLARADO, NAO ESCONDIDO
+#
+#     UM CAMPO QUE NAO SE CONSEGUE REPRODUZIR NAO PODE SER PROVA DE DRIFT.
+#
+# ⚠️ ISTO FOI MEDIDO NO CI, E NAO DEDUZIDO. A mesma arvore, medida aqui e no
+# GitHub Actions, deu SEIS cartoes diferentes — todos no mesmo campo:
+#
+#     C-CADEIA-V21      ['italia-portale/CHECKPOINT-...md']  vs  ['HANDOFF-V2-PAUSE.md']
+#     C-IT-CONTRATOS    ['BIBLIA-CANONICA-DA-COLETA.md']     vs  ['docs/fontes/ITALY-...md']
+#     C-MAPA-GERADOR    ['system-map/README.md']             vs  ['regras/LEIA-ANTES-...md']
+#     C-ORQUESTRADOR    ['BIBLIA-CANONICA-DA-COLETA.md']     vs  []
+#     C-PACOTE-CAMADAS  ['HANDOFF-CONTA-...md']              vs  ['PROMPT-PARA-...md']
+#     C-PROCEDENCIA     ['HANDOFF-CONTA-...md']              vs  ['PROMPT-PARA-...md']
+#
+# A causa esta em `documentado_como_cli()`: ele PARA no primeiro `.md` que casa
+# e so olha para as primeiras 20 linhas do `grep`. Quinze ficheiros desta arvore
+# tem mais do que um documento a documenta-los e seis batem no tecto de 20 — e
+# qual deles fica registado depende da ordem em que o sistema de ficheiros
+# devolve os nomes. O caso `C-ORQUESTRADOR` e o mais duro: no CI o tecto cortou
+# as 31 linhas antes da que casava, e o campo saiu VAZIO.
+#
+# ESTA MISSAO NAO CONSERTA ISSO. Mudar a funcao e mudar a semantica do censo, e
+# isso foi explicitamente deixado de fora. O que ela faz e a unica coisa honesta
+# que lhe resta: declarar que este campo nao entra na conta da reproducibilidade,
+# com o motivo escrito ao lado — e deixar o defeito a vista em LIMITATIONS.
+#
+#     ESCONDER UM CAMPO INSTAVEL DENTRO DE UM HASH ESTAVEL
+#     E TRANSFORMAR UMA MEDICAO FRACA NUM VEREDITO FORTE.
+#
+# `SEMANTIC_HASH` continua a cobri-lo: adultera-lo a mao continua a ser apanhado.
+# O que deixa de o cobrir e a pergunta «as contagens reproduzem-se noutra
+# maquina?», porque a resposta honesta para este campo e NAO.
+CAMPOS_NAO_REPRODUZIVEIS = {
+    'FICHAS': ('DOCUMENTADO_COMO_CLI',),
+    # Estes dois derivam do campo de cima: quem entra em `SO_CLI_DOCUMENTADO` e
+    # quem sobra para `NINGUEM_CORRE` muda com ele. Medido nesta arvore os seis
+    # cartoes divergentes nao mexem nestas listas, mas herdar a fraqueza sem a
+    # declarar seria deixar a instabilidade entrar por uma porta lateral.
+    'RESUMO': ('SO_CLI_DOCUMENTADO', 'NINGUEM_CORRE'),
+}
+
+
+def _sem_os_nao_reproduziveis(doc):
+    d = {k: json.loads(json.dumps(doc.get(k), ensure_ascii=False))
+         for k in BLOCOS_MEDIDOS}
+    for campo in CAMPOS_NAO_REPRODUZIVEIS['RESUMO']:
+        (d.get('RESUMO') or {}).pop(campo, None)
+    for ficha in (d.get('FICHAS') or []):
+        for campo in CAMPOS_NAO_REPRODUZIVEIS['FICHAS']:
+            ficha.pop(campo, None)
+    return d
+
 
 def hash_da_medicao(doc):
     return hashlib.sha256(json.dumps(
-        {k: doc.get(k) for k in BLOCOS_MEDIDOS},
+        _sem_os_nao_reproduziveis(doc),
         sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
 
 
@@ -587,6 +640,16 @@ def serializar(med):
             }],
             'CAMPOS_VOLATEIS': list(CAMPOS_VOLATEIS),
             'BLOCOS_DA_MEDICAO': list(BLOCOS_MEDIDOS),
+            'CAMPOS_FORA_DO_MEASUREMENT_HASH': {
+                bloco: list(campos)
+                for bloco, campos in CAMPOS_NAO_REPRODUZIVEIS.items()},
+            'CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE': (
+                'medido: a mesma arvore, medida aqui e no CI, deu seis cartoes '
+                'diferentes em DOCUMENTADO_COMO_CLI. `documentado_como_cli()` para '
+                'no primeiro `.md` que casa e so ve as primeiras 20 linhas do grep, '
+                'e a ordem do grep e do sistema de ficheiros. O campo continua '
+                'publicado e coberto por SEMANTIC_HASH; o que ele nao consegue '
+                'sustentar e a pergunta «reproduz-se noutra maquina?».'),
             'DEPENDENCIES': [i['PATH'] for i in itens if i['PAPEL'] == 'GERADO'],
         },
         'UNIVERSE': {
@@ -666,18 +729,21 @@ def serializar(med):
             # Persistir uma medicao obriga a perguntar se ela e reproduzivel, e a
             # pergunta encontrou isto. Corrigi-lo seria mudar a semantica do censo,
             # e isso nao era trabalho desta missao — declara-lo e.
-            'DOCUMENTADO_COMO_CLI GUARDA NO MAXIMO UM DOCUMENTO POR FICHEIRO: '
-            '`documentado_como_cli()` para no primeiro `.md` que casa. Medido nesta '
-            'arvore: 15 ficheiros tem mais do que um documento a documenta-los, e '
-            'qual deles fica registado depende da ordem em que o `grep` percorre a '
-            'arvore. O campo responde SIM/NAO com seguranca; a lista ao lado dele '
-            'nao e a lista completa.',
-            'AS VARREDURAS TEM TECTO (`head -60` e `head -20`). Medido: zero '
-            'ficheiros de cartao batem no tecto de 60; SEIS batem no de 20, e ai '
-            'as linhas consideradas dependem da ordem do `grep`. Medido em duas '
-            'arvores diferentes, a medicao deu o mesmo MEASUREMENT_HASH — o risco '
-            'e latente, nao activo, e `test_topologia_persistida.py` volta a '
-            'compara-lo a cada corrida.',
+            'DOCUMENTADO_COMO_CLI NAO E REPRODUZIVEL ENTRE MAQUINAS, E ISSO FOI '
+            'MEDIDO NO CI. `documentado_como_cli()` para no primeiro `.md` que casa '
+            'e so ve as primeiras 20 linhas do `grep`; 15 ficheiros desta arvore tem '
+            'mais do que um documento e SEIS batem no tecto. A mesma arvore medida '
+            'aqui e no GitHub Actions deu seis cartoes diferentes, e num deles '
+            '(C-ORQUESTRADOR) o tecto cortou antes da linha que casava e o campo '
+            'saiu VAZIO. O campo fica publicado e fora do MEASUREMENT_HASH, com o '
+            'motivo em PROVENANCE.CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE.',
+            'NEM SIM NEM NAO: O CAMPO ACIMA NAO RESPONDE SEQUER «ESTA DOCUMENTADO?» '
+            'COM SEGURANCA. O caso C-ORQUESTRADOR prova-o. Corrigir isso e mudar a '
+            'semantica do censo, e nao foi trabalho desta missao — foi declarado.',
+            'A VARREDURA `head -60` DE `chamadores()` NAO FOI VISTA A CORTAR: zero '
+            'ficheiros de cartao desta arvore chegam a 60 linhas. O risco existe e '
+            'nao se manifestou; `test_topologia_persistida.py` volta a compara-lo a '
+            'cada corrida, aqui e no CI.',
             'STALE_BY_CYCLE E NOMEADO, NAO REPARADO. Se uma entrada gerada mediu '
             'outra arvore, `frescura()` recusa dizer CURRENT e diz qual — mas nao '
             'reordena a cadeia nem regenera nada. Ordenar a cadeia pelos INPUTS '

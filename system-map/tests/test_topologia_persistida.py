@@ -377,6 +377,47 @@ prova("mexer_so_no_texto_move_o_hash_semantico",
 prova("mexer_so_no_texto_nao_move_o_hash_da_medicao",
       CENSO.hash_da_medicao(textual) == P.get("MEASUREMENT_HASH"))
 
+# ── O QUE FICA DE FORA DA CONTA FICA DE FORA A DIZER PORQUE ─────────────
+# Tirar um campo do MEASUREMENT_HASH e a saida honesta para uma medicao que nao
+# se consegue reproduzir — e e tambem a porta das traseiras perfeita: basta
+# atirar para la o campo que esta a incomodar e o drift desaparece.
+#
+#     UMA LISTA DE EXCLUSAO QUE CRESCE SEM PROVA E UM SILENCIADOR.
+#
+# Por isso ela e fixada aqui, nome a nome. Acrescentar um quarto campo obriga a
+# mexer nesta prova, e mexer nesta prova obriga a escrever o motivo.
+ESPERADO_FORA = {"FICHAS": ["DOCUMENTADO_COMO_CLI"],
+                 "RESUMO": ["SO_CLI_DOCUMENTADO", "NINGUEM_CORRE"]}
+prova("a_lista_de_exclusao_do_hash_da_medicao_e_a_esperada",
+      {k: list(v) for k, v in CENSO.CAMPOS_NAO_REPRODUZIVEIS.items()} == ESPERADO_FORA,
+      CENSO.CAMPOS_NAO_REPRODUZIVEIS)
+prova("o_artefato_declara_o_que_ficou_de_fora",
+      P.get("CAMPOS_FORA_DO_MEASUREMENT_HASH")
+      == {k: list(v) for k, v in CENSO.CAMPOS_NAO_REPRODUZIVEIS.items()},
+      P.get("CAMPOS_FORA_DO_MEASUREMENT_HASH"))
+prova("e_diz_porque_ficou_de_fora",
+      len(P.get("CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE") or "") > 80)
+
+# FICAR FORA DA CONTA NAO E DESAPARECER: o campo continua publicado, cartao a
+# cartao. Uma exclusao que apaga o dado nao esconde o defeito — esconde o facto.
+prova("o_campo_excluido_continua_publicado_em_cada_ficha",
+      all("DOCUMENTADO_COMO_CLI" in f for f in COMMITADO["FICHAS"]))
+for campo in ESPERADO_FORA["RESUMO"]:
+    prova("o_resumo_continua_a_publicar_%s" % campo.lower(),
+          campo in COMMITADO["RESUMO"])
+
+# E CONTINUA COBERTO CONTRA ADULTERACAO, que e outra pergunta.
+instavel = json.loads(json.dumps(COMMITADO, ensure_ascii=False))
+instavel["FICHAS"][0]["DOCUMENTADO_COMO_CLI"] = ["inventado.md"]
+prova("mexer_no_campo_excluido_nao_move_o_hash_da_medicao",
+      CENSO.hash_da_medicao(instavel) == P.get("MEASUREMENT_HASH"))
+prova("mas_mexer_nele_continua_a_mover_o_hash_semantico",
+      CENSO.hash_semantico(instavel) != CENSO.hash_semantico(COMMITADO))
+morde("apanha_campo_excluido_adulterado_a_mao",
+      COMMITADO,
+      lambda d: d["FICHAS"][0].update(DOCUMENTADO_COMO_CLI=["inventado.md"]),
+      "SEMANTIC_HASH nao bate")
+
 # ── #10 · O STDOUT E O ARTEFACTO, E NAO UM PRIMO DELE ───────────────────
 r = correr(RAIZ, "--json", "--nao-escrever")
 prova("o_censo_corre", r.returncode == 0, r.stderr[-300:])

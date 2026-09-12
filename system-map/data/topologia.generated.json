@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-12T17:36:16+00:00",
-  "HEAD": "896e9bc14bd09f4dab3deebedf0183d34e3a50ce",
+  "GENERATED_AT": "2026-09-12T17:44:46+00:00",
+  "HEAD": "758c2322c90cda2a42f9a98aec7f09ca682197a0",
   "BRANCH": "claude/dazzling-cerf-27a7v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72",
+  "SOURCE_TREE_FINGERPRINT": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab",
   "FICHEIROS_NA_IMPRESSAO": 1655,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1735,14 +1735,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72",
+    "VERSAO": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "50a0b8f126265ba597eedd3d9fe9138ec7af9121f867f7727e2389301348af72",
+    "VERSAO": "a573f13c4e1baf8f3b423248e6c27e0fd69dc033e5d4c642efd881f2c71f91ab",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -1910,7 +1910,7 @@
    {
     "PATH": "system-map/tests/test_topologia_persistida.py",
     "PAPEL": "FONTE",
-    "VERSAO": "b9fb7db03a7d5564860322b1e4c33fcf5a56200b",
+    "VERSAO": "3a3045615c3b1fe3dfe03bd35fdcd2c267124dfd",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2665,7 +2665,7 @@
    }
   ],
   "INPUTS_COUNT": 375,
-  "INPUTS_DIGEST": "a4480dcc8406fe36f9f5838a590f1c26c0992d6fee674a77e5605c71e63e7c75",
+  "INPUTS_DIGEST": "397bfe362a2a38231456d182795515e91823b48259b5d11e141bbb47ba32e6ed",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2689,12 +2689,22 @@
    "RESUMO",
    "FICHAS"
   ],
+  "CAMPOS_FORA_DO_MEASUREMENT_HASH": {
+   "FICHAS": [
+    "DOCUMENTADO_COMO_CLI"
+   ],
+   "RESUMO": [
+    "SO_CLI_DOCUMENTADO",
+    "NINGUEM_CORRE"
+   ]
+  },
+  "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "medido: a mesma arvore, medida aqui e no CI, deu seis cartoes diferentes em DOCUMENTADO_COMO_CLI. `documentado_como_cli()` para no primeiro `.md` que casa e so ve as primeiras 20 linhas do grep, e a ordem do grep e do sistema de ficheiros. O campo continua publicado e coberto por SEMANTIC_HASH; o que ele nao consegue sustentar e a pergunta «reproduz-se noutra maquina?».",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "4a043378ff80efcb74f0ad95eb8e9a7cef9cf81031ac4cb092ecd329147fc41d",
-  "SEMANTIC_HASH": "e789797acad51875cf80979eb727793c665efecae2b430f1c47905ca901785ab"
+  "MEASUREMENT_HASH": "b208097d8eff1074b6ea11793c1c9a3842b8bde929c0308dee023867f7f40d88",
+  "SEMANTIC_HASH": "1ef5e29700d6b3097a663a02810d77394d758e6c230a44c99e7abedf890d032c"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -13072,7 +13082,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_topologia_persistida.py",
-      "LINHA": 480,
+      "LINHA": 521,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
@@ -20265,6 +20275,7 @@
     "provas/medir_admission_t3_atual.py",
     "provas/os_portoes_da_collection.py",
     "provas/valida_biblia.py",
+    "system-map/scripts/censo_da_topologia.py",
     "tests/test_biblia.py",
     "tests/test_integracao_biblia.py",
     "tests/test_o10r_a_verdade_dos_nomes.py",
@@ -24792,8 +24803,9 @@
   "A FRESCURA DESTE FICHEIRO NAO SE LE NELE. Um artefacto nao se declara actual a si proprio (§13.1). Quem responde CURRENT/STALE e `frescura()`, corrida por outro processo contra a arvore de agora.",
   "INPUTS SO CONHECE O QUE O CODIGO ABRE POR CAMINHO. A varredura `grep` nao e enumeravel e fica coberta pela impressao da arvore, nao por INPUTS_DIGEST.",
   "UMA ENTRADA GERADA EDITADA A MAO SEM REGERAR NAO MOVE A VERSAO DELA: a versao e a impressao que ela carimba. Quem apanha esse caso e a P1 do validador, que regenera e compara — nao este ficheiro.",
-  "DOCUMENTADO_COMO_CLI GUARDA NO MAXIMO UM DOCUMENTO POR FICHEIRO: `documentado_como_cli()` para no primeiro `.md` que casa. Medido nesta arvore: 15 ficheiros tem mais do que um documento a documenta-los, e qual deles fica registado depende da ordem em que o `grep` percorre a arvore. O campo responde SIM/NAO com seguranca; a lista ao lado dele nao e a lista completa.",
-  "AS VARREDURAS TEM TECTO (`head -60` e `head -20`). Medido: zero ficheiros de cartao batem no tecto de 60; SEIS batem no de 20, e ai as linhas consideradas dependem da ordem do `grep`. Medido em duas arvores diferentes, a medicao deu o mesmo MEASUREMENT_HASH — o risco e latente, nao activo, e `test_topologia_persistida.py` volta a compara-lo a cada corrida.",
+  "DOCUMENTADO_COMO_CLI NAO E REPRODUZIVEL ENTRE MAQUINAS, E ISSO FOI MEDIDO NO CI. `documentado_como_cli()` para no primeiro `.md` que casa e so ve as primeiras 20 linhas do `grep`; 15 ficheiros desta arvore tem mais do que um documento e SEIS batem no tecto. A mesma arvore medida aqui e no GitHub Actions deu seis cartoes diferentes, e num deles (C-ORQUESTRADOR) o tecto cortou antes da linha que casava e o campo saiu VAZIO. O campo fica publicado e fora do MEASUREMENT_HASH, com o motivo em PROVENANCE.CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE.",
+  "NEM SIM NEM NAO: O CAMPO ACIMA NAO RESPONDE SEQUER «ESTA DOCUMENTADO?» COM SEGURANCA. O caso C-ORQUESTRADOR prova-o. Corrigir isso e mudar a semantica do censo, e nao foi trabalho desta missao — foi declarado.",
+  "A VARREDURA `head -60` DE `chamadores()` NAO FOI VISTA A CORTAR: zero ficheiros de cartao desta arvore chegam a 60 linhas. O risco existe e nao se manifestou; `test_topologia_persistida.py` volta a compara-lo a cada corrida, aqui e no CI.",
   "STALE_BY_CYCLE E NOMEADO, NAO REPARADO. Se uma entrada gerada mediu outra arvore, `frescura()` recusa dizer CURRENT e diz qual — mas nao reordena a cadeia nem regenera nada. Ordenar a cadeia pelos INPUTS declarados e o G5, e nao foi feito aqui."
  ]
 }
