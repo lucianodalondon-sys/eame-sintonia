@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-12 — a `SCRAP-SR-02` correu em duas linhas paralelas, e a segunda acrescentou o que a primeira não viu (secção 91.9; depender do dono não é ser o dono).  
-**Próxima missão autorizada:** `T2` não tem regra escrita em `PERGUNTAS_DO_UNIVERSO` — medir antes de escrever.
+**Última atualização material:** 2026-09-12 — §94: foco e encerramento passam a ser requisito de engenharia; achado não bloqueante não abre frente automaticamente.
+**Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
 
@@ -9660,4 +9660,83 @@ e está à vista.
 
 ```
     UM CARIMBO VERIFICÁVEL NÃO PAGA UMA DÍVIDA DE ORDEM.
+```
+---
+
+# §94 · FUNDAÇÃO NÃO É DESTINO: MISSÃO TEM OBJETIVO, ENTREGA E PARA
+
+**Decisão operacional:** a lei normativa vive em `CLAUDE.md`; esta secção guarda o motivo e a consequência para que a decisão não desapareça quando a conversa acabar.
+**Prova da lei:** branch `claude/sintonia-focus-finish-law-v1` · commit `0cdd1f5a36479e895c2886032c56a331fd7b1605`.
+
+## 94.1 · O QUE MUDOU
+
+O SINTONIA passa a tratar **foco e encerramento como requisito de engenharia**. Toda missão precisa nascer com um objetivo principal, critério de PASS, escopo, não-objetivos e HARD STOP. Ela vai até esse objetivo, prova, entrega e para.
+
+```text
+MISSÃO TEM UM OBJETIVO.
+VAI ATÉ ELE.
+PROVA.
+ENTREGA.
+PARA.
+```
+
+Achado novo não vira automaticamente nova frente. Só entra na missão corrente quando for **BLOCKER_DO_OBJETIVO**. Defeito não bloqueante, melhoria, generalização, limpeza ou dívida descoberta são registrados e ficam para decisão posterior.
+
+```text
+ACHADO != CONVOCAÇÃO
+MELHORIA != BLOCKER
+PASS_DA_MISSÃO != PERFEIÇÃO_DO_SISTEMA
+FUNDAÇÃO != DESTINO
+```
+
+## 94.2 · POR QUÊ
+
+O método rigoroso revelou defeitos reais e necessários, mas também criou um risco novo: cada descoberta podia gerar outra missão, cada missão outra auditoria, e um objetivo de produto podia transformar-se em dezenas de frentes antes de entregar valor ao cliente.
+
+O problema não é testar demais. É **não ter critério para parar quando o objetivo já está provado**.
+
+O SINTONIA existe para funcionar com prova, não para maximizar o número de missões. Prazo do cliente e valor entregue passam a ser restrições explícitas da engenharia — abaixo de segurança, identidade, procedência e contratos, mas acima de limpeza, generalização e perfeccionismo arquitetural.
+
+## 94.3 · PROVA
+
+A regra foi versionada no Git em `CLAUDE.md`, dono canônico das instruções permanentes para o Claude Code, no commit `0cdd1f5a36479e895c2886032c56a331fd7b1605`.
+
+A motivação veio do padrão observado nas próprias missões: problemas reais foram sendo encontrados e corrigidos, mas o fechamento de uma frente frequentemente abria outra antes de o sistema voltar a produzir valor operacional. O risco passou a ser de calendário e produto, não apenas técnico.
+
+Esta secção **não duplica o texto normativo**. O owner da regra continua `CLAUDE.md`; o know-how registra por que ela nasceu e como deve orientar decisões futuras.
+
+## 94.4 · CONSEQUÊNCIA
+
+Antes de abrir qualquer missão nova, a pergunta obrigatória é:
+
+```text
+ISTO IMPEDE O OBJETIVO ATUAL DE FUNCIONAR OU DE SER PROVADO?
+```
+
+- **SIM** → tratar dentro da missão se for o menor conserto necessário.
+- **NÃO** → registrar como dívida/risco/melhoria e continuar até entregar o objetivo atual.
+
+Tarefas pequenas que pertencem ao mesmo objetivo devem ser agrupadas na mesma missão; HARD STOP não pode virar mecanismo para fragmentar um único objetivo em vinte micro-missões.
+
+Fundação deve ter critério explícito de encerramento. Legado não utilizado pode permanecer medido e marcado, sendo migrado quando entrar no caminho operacional real. Depois que a máquina mínima segura e auditável estiver provada, a prioridade volta a ser **usar a máquina e entregar valor**.
+
+Hierarquia operacional:
+
+```text
+SEGURANÇA / LEI / CONTRATO
+        ↓
+OBJETIVO DA MISSÃO
+        ↓
+VALOR PARA O CLIENTE / PRAZO
+        ↓
+ROBUSTEZ NECESSÁRIA
+        ↓
+MELHORIA / LIMPEZA / GENERALIZAÇÃO
+```
+
+Regra final:
+
+```text
+O SINTONIA NÃO OTIMIZA PARA TER MAIS MISSÕES.
+OTIMIZA PARA FUNCIONAR COM PROVA.
 ```
