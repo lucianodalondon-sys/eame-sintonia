@@ -101,9 +101,96 @@ def _recusa(decisao):
     return trace
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# A DURABILIDADE NÃO É DESTE ADAPTADOR — ELE SÓ A PEDE
+# ══════════════════════════════════════════════════════════════════════════
+# Quem sabe abrir RUN, ligar checkpoint e fechar os dois é
+# `coleta/coleta_checkpoint.py`. Quem sabe escrever `etapa_da_corrida` é
+# `medidas/rastro_da_coleta.py`. Quem sabe onde os degraus de um Reel começam é
+# `ferramentas/reel_transcricao.py`.
+#
+# Este ficheiro não sabe nenhuma das três coisas, e não passa a saber. Ele junta
+# os donos e diz qual é a unidade de trabalho — que é a única coisa que só um
+# adaptador de Instagram pode dizer.
+#
+#     ONE CONCEPT → ONE OWNER. JUNTAR DONOS NÃO É VIRAR DONO.
+#
+# A UNIDADE DE TRABALHO É O REEL, E A IDENTIDADE DELA É DURA
+# ------------------------------------------------------------
+# `PLATFORM + EXTERNAL_ID + CAPABILITY`. Nada de `RUN_ID`, `token`, `dataset_id`
+# ou `captured_at` — a 016 proíbe, e `identidade_valida()` recusa antes de
+# qualquer gasto. Se o `run_id` entrasse na identidade, cada retomada abriria um
+# checkpoint novo e a retomada deixaria de existir.
+#
+#     A UNIDADE DE TRABALHO NÃO PODE CONHECER A EXECUÇÃO QUE A CORRE.
+CAMPOS_DA_IDENTIDADE = ('PLATFORM', 'EXTERNAL_ID', 'CAPABILITY')
+
+
+def unidade_de_trabalho(ident):
+    """A entrada canônica do checkpoint para UM Reel. → (target, entrada)."""
+    ext = str(ident.get('POST_ID') or ident.get('SHORTCODE') or 'SEM_ID')
+    return ('%s/reel/%s' % (PLATAFORMA, ext),
+            {'PLATFORM': PLATAFORMA, 'EXTERNAL_ID': ext,
+             'CAPABILITY': CAPACIDADE_NA_MATRIZ})
+
+
+def _com_durabilidade(banco, *, rt, ident, run_id, midia_url, midia_ficheiro,
+                      model_hint, guardar, oficina):
+    """A mesma cadeia, com RUN, checkpoint e rastro duráveis à volta dela.
+
+    O registo devolvido é o MESMO que a cadeia devolve sem banco — mais os três
+    números que só existem porque houve banco. Um caminho instrumentado que
+    devolvesse outra coisa faria a prova medir a instrumentação.
+    """
+    import coleta_checkpoint as ck
+    target, entrada = unidade_de_trabalho(ident)
+
+    def trabalho(relator, contexto):
+        registo = rt.transcrever_reel(
+            ident, run_id=run_id, midia_url=midia_url,
+            midia_ficheiro=midia_ficheiro, modelo=model_hint,
+            guardar=guardar, oficina=oficina, etapa=relator)
+        # ⚠️ `PERSISTIU` É O QUE FICOU NO DISCO, NÃO O QUE A CADEIA DEVOLVEU.
+        # Um `TRANSCRIPT_TEXT` em memória com `guardar=False` não é um item
+        # persistido, e contá-lo faria o checkpoint andar sobre nada.
+        #
+        #     SEEN != PERSISTED.
+        salvos = 1 if registo.get('DERIVED') else 0
+        # ⚠️ «OUVI E NÃO HAVIA FALA» NÃO É FALHA DA UNIDADE.
+        # `REQUESTED_EMPTY` é o reconhecedor a dizer que correu e o áudio não
+        # tinha voz. A unidade FOI feita; ela é que veio vazia — e o enum
+        # `run_status` tem `vazia` exactamente por isso, ao lado de `falhou`.
+        #
+        #     ZERO_RESULTS É UM RESULTADO. `falhou` SERIA UMA MENTIRA BARATA.
+        estado = registo.get('TRANSCRIPT_STATE')
+        falhou = (estado not in ('OK', 'REQUESTED_EMPTY')) or not registo.get('RAW')
+        return {'REGISTO': registo, 'PERSISTIU': salvos, 'FALHOU': falhou,
+                'PORQUE': ('%s/%s' % (registo.get('MEDIA_STATE'), estado))}
+
+    r = ck.executar_unidade_duravel(
+        banco, run_id=run_id, target=target, entrada=entrada, actor=NOME,
+        platform=PLATAFORMA, trabalho=trabalho,
+        campos_da_identidade=CAMPOS_DA_IDENTIDADE,
+        unidade=entrada['EXTERNAL_ID'], policy_version=str(politica().get('ESTADO')))
+    registo = r.get('REGISTO')
+    if registo is None:
+        # O checkpoint recusou antes de qualquer trabalho. Isso NÃO é falha da
+        # cadeia — é a trava a funcionar, e ela tem nome próprio.
+        return {'REEL': dict(ident), 'MEDIA_STATE': r.get('STATE'),
+                'TRANSCRIPT_STATE': 'NAO_PEDIDO',
+                'CHECKPOINT_STATE': r.get('STATE'),
+                'CHECKPOINT_ID': r.get('CHECKPOINT_ID'),
+                'RUN_ID': r.get('RUN_ID'), 'RAW': None, 'DERIVED': None,
+                'WHY': r.get('PORQUE')}
+    registo['CHECKPOINT_ID'] = r.get('CHECKPOINT_ID')
+    registo['CHECKPOINT_INPUT_HASH'] = r.get('INPUT_HASH')
+    registo['RUN_STATE_PERSISTED'] = 'YES'
+    return registo
+
+
 def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
                   midia_url=None, midia_ficheiro=None, guardar=True,
-                  oficina=None, **_):
+                  oficina=None, banco=None, **_):
     """Um Reel, ponta a ponta. → (objetos, trace).
 
     Delega a cadeia ja provada. NAO a reimplementa: a cadeia tem 47 testes e
@@ -142,10 +229,16 @@ def capturar_reel(*, url=None, ident=None, run_id, model_hint=None,
         ident = rt.identidade_do_url(url)
     # `guardar=False` existe para a prova de fiacao: atravessar a cadeia
     # inteira sem escrever no disco da casa. Nao e um modo de producao.
-    registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
-                                  midia_ficheiro=midia_ficheiro,
-                                  modelo=model_hint, guardar=guardar,
-                                  oficina=oficina)
+    if banco is not None:
+        registo = _com_durabilidade(
+            banco, rt=rt, ident=ident, run_id=run_id, midia_url=midia_url,
+            midia_ficheiro=midia_ficheiro, model_hint=model_hint,
+            guardar=guardar, oficina=oficina)
+    else:
+        registo = rt.transcrever_reel(ident, run_id=run_id, midia_url=midia_url,
+                                      midia_ficheiro=midia_ficheiro,
+                                      modelo=model_hint, guardar=guardar,
+                                      oficina=oficina)
     trace = forn.de_degraus('instagram.reel.transcribe',
                             registo.get('CAPTURE_ATTEMPTS'),
                             resultado=registo.get('MEDIA_STATE'))

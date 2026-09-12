@@ -1005,15 +1005,46 @@ def _ou(v, alt):
     return v if v not in (None, '', NOT_KNOWN, 'NAO SEI') else alt
 
 
+class _RelatorMudo:
+    """O relator de quem não pediu rastro. Cada chamada é um `no-op`.
+
+    Existe para que esta cadeia tenha UM caminho de código, e não dois com um
+    `if` em cada degrau. Um `if` por degrau é onde um degrau fica de fora.
+    """
+
+    def abrir(self, etapa, **kw):
+        return None
+
+    def fechar(self, linha, estado, **kw):
+        return None
+
+
+_SEM_RELATO = _RelatorMudo()
+
+
 def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
                      idioma=None, modelo=None, transcript_da_fonte=None,
-                     guardar=True, midia_url_kind=None, oficina=None):
+                     guardar=True, midia_url_kind=None, oficina=None,
+                     etapa=None):
     """A cadeia inteira, para UMA publicação. → o registo, sempre.
 
     Devolve registo mesmo quando falha — porque «não tentei», «tentei e o endereço
     venceu» e «ouvi e não havia texto» são três coisas diferentes, e um `None`
     apagaria a diferença.
+
+    O RELATOR, E POR QUE ELE É OPCIONAL
+    -------------------------------------
+    `etapa` é um objeto com `abrir(nome, ...)` e `fechar(linha, estado, ...)`.
+    Esta cadeia sabe onde os seus degraus começam e acabam — é ela que os tem.
+    O que ela não sabe, e não pode saber sem virar outra coisa, é que existe um
+    Postgres do outro lado. Então ela RELATA, e quem escreve é o dono do rastro.
+
+    Sem relator ela corre exactamente como sempre correu: `_SEM_RELATO` responde
+    `None` a tudo e nenhum degrau muda de comportamento.
+
+        INSTRUMENTAR NÃO PODE SER CONDIÇÃO PARA FUNCIONAR.
     """
+    rel = etapa if etapa is not None else _SEM_RELATO
     ident = dict(ident)
 
     # ── DEGRAU 0 · OS METADADOS, DE GRAÇA, ANTES DE BAIXAR NADA ─────────────
@@ -1093,12 +1124,36 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
         prefix='reel-oficina-'))
     base['OFICINA'] = oficina_da_corrida
     base['OFICINA_E_A_GAVETA'] = oficina_da_corrida == MIDIA
+    # ── ETAPA `FETCH` ───────────────────────────────────────────────────────
+    # Ela ABRE antes de a escada correr, e não depois: quem morrer lá dentro tem
+    # de deixar uma linha a dizer que tinha começado.
+    _e_fetch = rel.abrir('FETCH', input_grain='REEL', input_count=1)
     caminho, capture, estado, motivo, degraus = obter_midia(
         ident, midia_url=midia_url or ident.get('MEDIA_URL'),
         midia_ficheiro=midia_ficheiro,
         kind=MIDIA_AUDIO, midia_url_kind=midia_url_kind,
         oficina=oficina_da_corrida)
     base['CAPTURE_ATTEMPTS'] = degraus
+    # ── E O ESTADO DELA NÃO É UM BOOLEANO ───────────────────────────────────
+    # Bytes que já estavam em casa NÃO foram buscados. Chamar isso `PASS` seria
+    # dizer que houve aquisição onde houve leitura de gaveta, e é a diferença que
+    # a C10.5D inteira existe para manter de pé.
+    #
+    #     REUSAR != ADQUIRIR.  E `reused` É UM BALDE PRÓPRIO NO CONTRATO.
+    _reuso = capture in (CAPTURA_JA_PRESERVADA, CAPTURA_FORNECIDA)
+    if caminho and _reuso:
+        rel.fechar(_e_fetch, 'SKIPPED', reused=1, output_grain='MEDIA',
+                   output_count=1, cardinalidade='1:1',
+                   last_good_artifact='RAW_BYTES:%s' % caminho)
+    elif caminho:
+        rel.fechar(_e_fetch, 'PASS', passed=1, output_grain='MEDIA',
+                   output_count=1, cardinalidade='1:1',
+                   last_good_artifact='RAW_BYTES:%s' % caminho)
+    else:
+        rel.fechar(_e_fetch, 'FAIL', error=1,
+                   canonical_state=(estado if estado in fx.ESTADOS
+                                    else 'UNKNOWN_ERROR'),
+                   error_message=motivo)
     base['MEDIA_KIND_REQUESTED'] = MIDIA_AUDIO
     if not caminho:
         base.update({
@@ -1138,8 +1193,24 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
             'REUSED_VIDEO + AUDIO_DERIVATION != AUDIO_ONLY_ACQUISITION.')
 
     # ── DEGRAU 3 · O RAW GANHA FICHA ────────────────────────────────────────
+    _e_raw = rel.abrir('RAW', edge_from='FETCH', input_grain='MEDIA', input_count=1)
     raw = _ficha_raw(caminho, ident, run_id=run_id, capture_provider=capture,
                      media_kind=kind_usado)
+    rel.fechar(_e_raw, 'PASS' if raw is not None else 'FAIL',
+               passed=1 if raw is not None else 0,
+               error=0 if raw is not None else 1,
+               output_grain='RAW_OBSERVATION',
+               output_count=1 if raw is not None else 0, cardinalidade='1:1',
+               canonical_state=None if raw is not None else 'ITEM_ERROR',
+               last_good_artifact=('RAW:%s' % (raw.ARTIFACT_ID or '')[:32]
+                                   if raw is not None else None))
+
+    # ── ETAPA `DERIVED` · ABRE ANTES DO ÁUDIO, FECHA DEPOIS DO TEXTO ────────
+    # Os dois degraus seguintes — extrair o som e ouvi-lo — são UMA derivação: o
+    # WAV é oficina, não entrega. Abrir aqui é o que faz uma morte DENTRO do ASR
+    # deixar linha; abrir depois seria abrir quando já não há nada a testemunhar.
+    _e_der = rel.abrir('DERIVED', edge_from='RAW',
+                       input_grain='RAW_OBSERVATION', input_count=1)
 
     # ── DEGRAU 4 · O ÁUDIO (meio de trabalho, não artefato) ─────────────────
     # O WAV E INTERMEDIO: e trabalho, nao entrega. Vai para a oficina.
@@ -1148,6 +1219,8 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
                        os.path.splitext(os.path.basename(caminho))[0] + '.wav')
     wav, porque = fl.extrair_audio(caminho, wav)
     if not wav:
+        rel.fechar(_e_der, 'FAIL', error=1, canonical_state='EXECUTOR_UNAVAILABLE',
+                   error_message=porque)
         base.update({
             'CAPTURE_PROVIDER': capture, 'MEDIA_STATE': MEDIA_OK,
             'TRANSCRIPT_PROVIDER': ASR_LOCAL,
@@ -1163,8 +1236,49 @@ def transcrever_reel(ident, *, run_id, midia_url=None, midia_ficheiro=None,
     dur = fl.duracao(wav)
     fala = fl.transcrever(wav, idioma=idioma, modelo_nome=modelo or MODELO_PADRAO,
                           duracao_s=dur if isinstance(dur, (int, float)) else None)
-    return _fechar(base, ident, run_id=run_id, capture=capture, midia=caminho,
-                   raw=raw, fala=fala, provider=ASR_LOCAL, guardar=guardar)
+    fechado = _fechar(base, ident, run_id=run_id, capture=capture, midia=caminho,
+                      raw=raw, fala=fala, provider=ASR_LOCAL, guardar=guardar)
+    # ── E O ESTADO DA DERIVAÇÃO É O QUE O RECONHECEDOR DISSE ────────────────
+    # `DERIVED` só fecha em PASS quando há texto E ele foi ancorado num pai
+    # preservado. Texto sem pai não é texto errado — é texto que não se confere,
+    # e o contrato já o distingue em `TRANSCRIPT_WITHOUT_PRESERVED_PARENT`.
+    #
+    #     DERIVED EXISTS != RUN COMPLETED.
+    #     E UM DERIVADO QUE NINGUÉM ANCOROU NÃO É UM `PASS`.
+    _t = fechado.get('TRANSCRIPT_STATE')
+    if _t == fl.OK and fechado.get('DERIVED'):
+        rel.fechar(_e_der, 'PASS', passed=1, output_grain='TRANSCRIPT',
+                   output_count=1, cardinalidade='1:1',
+                   last_good_artifact='DERIVED:%s'
+                   % str((fechado.get('DERIVED') or {}).get('ARTIFACT_ID') or '')[:32])
+    elif _t == fl.OK:
+        # Houve texto e ele NÃO virou artefato com pai — `guardar=False`, ou
+        # RAW ausente. `PARTIAL` diz exactamente isso: correu e trouxe parte.
+        rel.fechar(_e_der, 'PARTIAL', passed=0, unknown=1,
+                   output_grain='TRANSCRIPT', output_count=0,
+                   error_message='texto sem artefato derivado ancorado')
+    elif _t == fl.REQUESTED_EMPTY:
+        # ⚠️ «OUVI E NÃO HAVIA FALA» NÃO É UM ERRO, E ISSO TEM DONO.
+        # `leis/falhas.py` chama-lhe `ZERO_RESULTS` — a etapa CORREU, atravessou
+        # o áudio inteiro e o resultado honesto é zero. Marcá-la `FAIL` faria um
+        # reel mudo parecer um defeito, e um defeito parecer um reel mudo.
+        #
+        #     ERROR != REJECTED != UNKNOWN != NOT_RUN != REUSED.
+        #     E `ZERO_RESULTS` É UM RESULTADO.
+        rel.fechar(_e_der, 'PASS', passed=0, unknown=0, reused=0,
+                   output_grain='TRANSCRIPT', output_count=0,
+                   cardinalidade='1:1', canonical_state='ZERO_RESULTS',
+                   error_message='nenhuma fala no áudio; o reconhecedor correu')
+    else:
+        rel.fechar(_e_der, 'FAIL', error=1,
+                   canonical_state=('ITEM_ERROR' if _t == fl.ASR_FALHOU
+                                    else 'EXECUTOR_UNAVAILABLE'
+                                    if _t == fl.ASR_INDISPONIVEL
+                                    else 'TRANSIENT_NETWORK_ERROR'
+                                    if _t == fl.TRANSCRIPTION_TIMEOUT
+                                    else 'UNKNOWN_ERROR'),
+                   error_message=str(fechado.get('ERROR') or _t))
+    return fechado
 
 
 def _fechar(base, ident, *, run_id, capture, midia, raw, fala, provider,
