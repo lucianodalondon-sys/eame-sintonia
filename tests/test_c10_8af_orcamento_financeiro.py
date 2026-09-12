@@ -499,9 +499,15 @@ class ORastoNaoMente(unittest.TestCase):
                       'FINANCIAL_ATTEMPTS'):
             self.assertIn(campo, saidas[0][1])
         t = saidas[0][1]['FINANCIAL_ATTEMPTS'][0]
-        for campo in ('PROVIDER', 'ACTOR', 'MOTIVO_PAGO', 'PROVIDER_SIDE_CAP',
+        # `MOTIVO_PAGO` chamava-se assim e carregava a MISSÃO — o campo tinha o
+        # nome de outra coisa. A C10.8B-LIVE renomeou-o para `MISSAO`; o motivo
+        # canônico do gasto continua no registo do roteador, que é quem o valida.
+        #
+        #     UM CAMPO COM O NOME DE OUTRA COISA MENTE SEM NINGUÉM MENTIR.
+        for campo in ('PROVIDER', 'ACTOR', 'MISSAO', 'PROVIDER_SIDE_CAP',
                       'OUTCOME', 'COST_STATE', 'ACTUAL_COST_USD'):
             self.assertIn(campo, t)
+        self.assertEqual(saidas[0][1]['ROUTER_RECORD']['MOTIVO_PAGO'], MOTIVO)
 
     def test_36_sem_teto_o_rasto_nao_inventa_um(self):
         saidas, _f, _o = _colher(gasto=None, guiao=(0.25,))

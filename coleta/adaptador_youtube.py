@@ -430,6 +430,9 @@ def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
         mission='C10-8B', query=url,
         source_version='ator %s, captura de %s' % (ATOR_TRANSCRICAO,
                                                    ct.agora()[:10]),
+        # A ROTA e o nome que a matriz lhe da. Mandar o caminho da evidencia
+        # punha um ficheiro no campo que devia ter uma rota.
+        rota=ROTA_TRANSCRICAO,
         evidence_path='data/samples/SCRAP-YOUTUBE/LEGENDA-PAGA.json',
         # ── O `wait` E O QUE DECIDE O TETO DE REDE DESTA ROTA ──────────────
         # A plataforma concede 60 s no proprio POST. Tudo acima disso vira

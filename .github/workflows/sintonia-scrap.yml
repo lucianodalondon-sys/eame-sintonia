@@ -71,6 +71,11 @@ on:
           - posts          # um run por conta
           - reels          # um run por conta
           - comentarios    # atrás do portão de dado pessoal (GDPR)
+          # A ÚNICA fase paga autorizada pela C10.8B-LIVE. Ela não recebe alvo,
+          # teto nem motivo por aqui: tudo isso vive em `FASES_PAGAS`, dentro de
+          # `coleta/social_scrap.py`, onde se lê num commit e não se escolhe num
+          # formulário. Este workflow é DISPARADOR.
+          - yt-legenda-paga  # 1 run · US$0,10 · 1 vídeo · a rota apify:transcricao
           # ── YOUTUBE · TODAS GRÁTIS ─────────────────────────────────
           - yt-canais      # nome, inscritos, descrição dos 8 canais
           - yt-objetos     # 30 vídeos por página, com continuation
@@ -137,12 +142,23 @@ jobs:
       # certa, custa dez segundos e evita a caçada.
       - name: 0 · o ref tem os scripts desta missão?
         run: |
+          # OS CAMINHOS SÃO OS DE HOJE, E ISSO É UM CONSERTO DA C10.8B-LIVE
+          # ------------------------------------------------------------------
+          # Esta guarda procurava tudo em `scripts/`. Os ficheiros mudaram de
+          # casa — `coleta/`, `ferramentas/` — e `scripts/` ficou VAZIO. A
+          # guarda passou a reprovar toda a gente, sempre, com a frase de quem
+          # despachou contra o ref errado.
+          #
+          #     UMA GUARDA QUE APONTA PARA A MORADA ANTIGA RECUSA A CASA CERTA.
           faltam=""
-          for f in instagram_coleta.py instagram_janela.py instagram_diario.py \
-                   instagram_pessoal.py cdp.py \
-                   navegador.py contrato_ator.py youtube_janela.py \
-                   youtube_relevancia.py youtube_transcrever.py; do
-            [ -f "scripts/$f" ] || faltam="$faltam $f"
+          for f in coleta/instagram_coleta.py coleta/instagram_janela.py \
+                   coleta/instagram_diario.py coleta/instagram_pessoal.py \
+                   ferramentas/cdp.py ferramentas/navegador.py \
+                   ferramentas/contrato_ator.py coleta/youtube_janela.py \
+                   coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \
+                   coleta/social_scrap.py coleta/scrap_executor.py \
+                   coleta/coletor.py; do
+            [ -f "$f" ] || faltam="$faltam $f"
           done
           if [ -n "$faltam" ]; then
             echo "SCRIPTS_AUSENTES=YES"
@@ -310,6 +326,22 @@ jobs:
               recusar "${{ inputs.fase }}" COLLECTION_FETCH \
                 "rota paga sem capacidade registada; esta missao nao autoriza gasto" ;;
 
+            # ── A ÚNICA ROTA PAGA COM CAPACIDADE, ROTA E AUTORIZAÇÃO ─────
+            # `youtube.native_caption` → `apify:transcricao`. A C10.8B ligou a
+            # rota e provou-a offline; a C10.8B-LIVE traz a autorização humana
+            # de US$0,10 para a primeira corrida real.
+            #
+            # Esta porta NÃO nomeia ator, NÃO escolhe alvo e NÃO declara teto.
+            # Se ela precisasse de saber o ID do ator para funcionar, o motor
+            # teria voltado para dentro do disparador.
+            #
+            #     WORKFLOW É DISPARADOR. WORKFLOW NÃO É MOTOR DE COLETA.
+            #     E UM TETO QUE VIVE NO DISPARADOR É UM TETO QUE QUEM DISPARA
+            #     ESCOLHE.
+            yt-legenda-paga)
+              PYTHONIOENCODING=utf-8 $PY coleta/social_scrap.py \
+                coletar yt-legenda-paga ;;
+
             # ── NÃO É COLLECTION · CONTINUA COMO ESTAVA ──────────────────
             # Medido, não suposto. Nenhuma destas adquire nada de plataforma:
             # elas leem o que já está em casa, ou dizem o estado de um portão.
@@ -361,14 +393,21 @@ jobs:
           # Nunca `git add -A`. Outra missao pode estar gravando em data/samples/
           # no mesmo instante, e levar o arquivo dela num commit meu criaria um
           # commit que nenhuma das duas missoes fez.
+          # `SCRAP-YOUTUBE` é onde uma fase PAGA deixa o REGISTO dela. O bruto
+          # em si fica na máquina: `.gitignore` ignora `data/samples/**/*.gz`, e
+          # forçá-lo aqui seria passar por cima de uma decisão desta casa sem a
+          # discutir. O que volta é o registo, com o SHA-256 do bruto.
+          #
+          #     RAW CAPTURADO NO RUNNER != RAW DEVOLVIDO AO REPOSITÓRIO.
           for d in INSTAGRAM-JANELA INSTAGRAM-COLETA INSTAGRAM-DIARIO INSTAGRAM-TRANSCRICOES \
-                   YOUTUBE-JANELA YOUTUBE-RELEVANCIA YOUTUBE-TRANSCRICOES; do
+                   YOUTUBE-JANELA YOUTUBE-RELEVANCIA YOUTUBE-TRANSCRICOES \
+                   SCRAP-YOUTUBE; do
             git add "data/samples/$d" 2>/dev/null || true
           done
           if git diff --cached --quiet; then
             echo "NADA_MUDOU=YES · a fase nao produziu arquivo novo"; exit 0
           fi
-          if git diff --cached --name-only | grep -qvE '^data/samples/(INSTAGRAM|YOUTUBE)-'; then
+          if git diff --cached --name-only | grep -qvE '^data/samples/(INSTAGRAM|YOUTUBE|SCRAP)-'; then
             echo "NAMESPACE_VIOLADO=YES · ha arquivo fora dos caminhos desta missao"
             git diff --cached --name-only; exit 1
           fi
