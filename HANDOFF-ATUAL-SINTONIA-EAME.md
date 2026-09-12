@@ -2161,6 +2161,145 @@ UMA SONDA QUE SE ENCONTRA A SI PROPRIA MEDE A SONDA.
 
 ---
 
+## 20. C10.6 — MORRER A MEIO, E SABER O QUE SOBROU
+
+```
+MISSAO  = C10.6 · CRASH / RETRY / PERSISTENCIA, 2026-09-12
+BRANCH  = claude/sintonia-scrap-crash-retry-c10-6
+ENTREGA = docs/sintonia-scrap/C10-6-CRASH-RETRY-PERSISTENCIA.md
+VEREDITO= PARTIAL
+```
+
+### 20.1 · Uma prova de crash mede o disco, nunca a RAM
+
+**O QUE.** Injectar crash com `os._exit()` — que nao desenrola pilha, nao corre
+`finally` e nao corre `atexit` — e responder a pergunta com OUTRO processo.
+
+**POR QUE.** `raise` apanhado prova que a excepcao foi tratada. Nao prova que o
+processo morreu, nem o que ficou em disco.
+
+```text
+CRASH -> PROCESSO NOVO -> RECUPERA?
+```
+
+**PROVA.** Cinco pontos de morte, cinco processos com codigo de saida 97. F3 —
+morte DENTRO do reconhecedor — nao publicou texto nenhum. F4 — transcript
+pronto, antes de fechar a corrida — deixou o `.txt` na gaveta de entrega SEM
+lote nenhum por tras.
+
+```text
+DERIVED EXISTS != RUN COMPLETED.
+```
+
+**CONSEQUENCIA.** Quem ler a gaveta de entrega pode encontrar derivado sem
+registo de corrida. Nao e defeito do derivado: e a prova de que as duas coisas
+sao perguntas diferentes e precisam de resposta separada.
+
+### 20.2 · Um laco que nao pergunta a ninguem repete tudo
+
+**O QUE.** O laco de tentativas tem de perguntar ao dono da taxonomia se
+repetir adianta, em vez de repetir N vezes o que quer que tenha falhado.
+
+**POR QUE.** `leis/falhas.py` ja respondia a essa pergunta — `retentavel()` —
+e a cadeia de Reel nao o importava.
+
+**PROVA.** Medido antes de mudar, com transporte falso: `403` levava QUATRO
+tentativas, `404` tambem, formato ausente tambem. Os tres sao `retentavel=False`
+na tabela da propria casa.
+
+```text
+QUATRO TENTATIVAS SOBRE UM NAO DEFINITIVO NAO SAO PERSISTENCIA.
+SAO MARTELADAS, E COL-LAW-026 EXISTE PARA AS IMPEDIR.
+```
+
+**CONSEQUENCIA.** Depois: permanente para em 1, transiente vai ao teto, politica
+`NAO` nem chega ao laco. E o VOCABULARIO NAO NASCE NO CHAMADOR — nasce no dono.
+O que nasce em quem chama e a TRADUCAO do que o SEU provedor escreve.
+
+```text
+UM SEGUNDO DONO DA TAXONOMIA SERIA UMA SEGUNDA RESPOSTA PARA
+«ISTO REPETE-SE?», E A SEGUNDA DIVERGE NA PRIMEIRA PRESSA.
+```
+
+E o corolario que fecha a porta do meio: **o que nao se entende nao se repete**.
+Erro desconhecido cai em `UNKNOWN_ERROR`, que o dono classifica como nao
+retentavel. Repetir o que nao se entendeu e martelar no escuro.
+
+### 20.3 · Ausencia de `Retry-After` nao e zero
+
+**O QUE.** Quando a plataforma pede tempo, o relogio e dela. Quando nao pede, a
+espera e desta casa: limitada, declarada e observavel.
+
+**PROVA.** Com `Retry-After: 7` as esperas medidas foram `[7, 7, 7]`. Sem ele,
+`[2, 8, 30]` — o escalonamento desta casa.
+
+**CONSEQUENCIA.** O campo fica `NAO SEI` quando ela nao pediu nada. «Ela nao
+pediu tempo» e «ela pediu zero» sao coisas diferentes, e um `0` no lugar da
+ausencia faria a casa martelar sem pausa achando que obedecia.
+
+E o relogio vive num sitio so, para que o teste o troque — nenhuma prova espera
+minutos reais.
+
+### 20.4 · Uma observacao que desapareceu e pior que um erro
+
+**O QUE.** Ler-alterar-escrever sobre um ficheiro partilhado, sem cadeado, perde
+escritas de forma silenciosa.
+
+**PROVA.** Dois processos a fechar o mesmo lote, seis execucoes: em DUAS o
+`RUN_IDS_SEEN` ficou so com um dos dois. O ficheiro nunca corrompeu — o ultimo a
+escrever apagava a fusao do outro.
+
+```text
+UMA OBSERVACAO QUE ACONTECEU E DESAPARECEU E PIOR QUE UM ERRO:
+UM ERRO DEIXA TESTEMUNHA.
+```
+
+**CONSEQUENCIA.** Cadeado consultivo em volta do ciclo inteiro e `os.replace` no
+fim. Sem fila, sem agendador, sem banco. Depois: 8 em 8 seguras. E a licao
+generaliza: **nao corrompeu** nao e o mesmo que **nao perdeu**, e so se ve a
+diferenca escrevendo valores distintos em cada processo.
+
+### 20.5 · `guardar=False` cobre a entrega. A oficina tem de ser dita
+
+**O QUE.** A gaveta do bruto e a oficina de trabalho sao dois sitios. Ler o
+preservado e sempre da gaveta; escrever bytes novos vai para a oficina.
+
+**PROVA.** Ate a C10.6, uma corrida com `guardar=False` escrevia o WAV
+intermedio em `data/raw/REEL-MIDIA/`. Uma suite de crash sujaria o bruto da casa
+a cada execucao.
+
+```text
+UMA CORRIDA QUE NAO GUARDA NAO PODE SUJAR A GAVETA DE QUEM GUARDA.
+```
+
+**CONSEQUENCIA.** Prova destrutiva sem workspace proprio nao e prova: e
+contaminacao com relatorio.
+
+### 20.6 · O que ficou por fazer, e porque nao se inventou
+
+**O QUE.** Nao existe estado de corrida duravel para a cadeia do SCRAP.
+
+**PROVA.** Medido depois da morte em F1: a gaveta de entrega fica VAZIA. O
+processo novo nao ve `attempts`, nem `last_error`, nem `replayable`.
+`coleta/coleta_checkpoint.py` EXISTE e e o dono declarado — o proprio
+`scrap_executor.STATE()` o nomeia — mas fala com Postgres por `psql`, e a cadeia
+de Reel importa-o ZERO vezes. O executor ja declarava `CURSORS: NOT_IMPLEMENTED`.
+
+```text
+UM CRASH NAO SO INTERROMPE O TRABALHO: APAGA O FACTO DE QUE ELE FOI TENTADO.
+```
+
+**CONSEQUENCIA.** `COL-LAW-027` continua por cumprir nesta cadeia. Ligar ao
+checkpoint que existe (e assumir Postgres como requisito) ou dar-lhe suporte
+local sao DUAS ARQUITECTURAS, e escolher uma pela conveniencia de uma missao de
+robustez seria escolher pelo lado errado. Fica como decisao de gente.
+
+```text
+NOT_MEASURED NAO SE ARREDONDA PARA NO. E NOT_IMPLEMENTED TAMBEM NAO.
+```
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
