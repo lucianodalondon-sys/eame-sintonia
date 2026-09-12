@@ -7566,9 +7566,47 @@ verde.
 A prova voltou a correr num banco descartável e deu o mesmo veredito — só o
 `RUN_ID` mudou. Uma medição que não se repete não é uma medição: é uma anedota.
 
-## 82.5 · O QUE FICA POR SABER
+## 82.5 · E A PRÓPRIA IMPRESSÃO NASCEU ERRADA, PELA MESMA DOENÇA
+
+A impressão somava os **bytes** dos quatro donos. Um deles é
+`buracos.generated.json`, e ele guarda um `PROVENANCE.HEAD` — o commit em que o
+censo correu.
+
+```
+commit seguinte  →  PROVENANCE.HEAD muda  →  impressão muda
+                     sem que uma vírgula do censo mude
+```
+
+Medido: a impressão deixou de coincidir no commit a seguir àquele que a criou.
+A cura estava contaminada pela doença que vinha curar — um carimbo de commit
+dentro de um ficheiro a estragar quem o lê, um andar abaixo.
+
+```
+    UMA IMPRESSÃO QUE NUNCA COINCIDE NÃO DIZ «ESTÁ VELHO».
+    NÃO DIZ NADA.
+```
+
+Agora a impressão mede o que o dono **diz**, e não **quando** foi feito: de um
+dono gerado em JSON sai `PROVENANCE.HEAD`, e só ele. `MEDIDO_POR` fica, porque
+trocar quem mede é mudança de substância e tem de gritar.
+
+A lição geral não é sobre este campo:
+
+```
+    UMA IMPRESSÃO DE FRESCURA NÃO PODE INCLUIR NADA QUE MUDE
+    POR RAZÕES QUE NÃO SÃO A PERGUNTA QUE ELA FAZ.
+```
+
+E só se soube porque a impressão foi **conferida contra a árvore depois de o
+commit mudar**. Uma guarda de frescura que nunca se testa contra o segundo
+commit passa despercebida para sempre.
+
+## 82.6 · O QUE FICA POR SABER
 
 Fica por saber se a `IMPRESSAO_DOS_DONOS` tem os donos certos: ela mede quatro
 ficheiros, e nada hoje reprova quem acrescentar um quinto decisor sem o declarar.
 A lista é hoje um acordo escrito, e não uma guarda que morde — ao contrário da
 `EXCLUIDO` da cadeia do mapa, que `test_impressao_da_arvore.py` confere.
+E fica por saber se há outros campos voláteis dentro dos donos: encontrei
+`PROVENANCE.HEAD` porque ele partiu à primeira volta, e não porque alguém
+tenha feito o censo do que lá muda sozinho.
