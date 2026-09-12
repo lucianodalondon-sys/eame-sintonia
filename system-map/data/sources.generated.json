@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "532e3bed6f8345cc380dcfacd7c2d1560878079b",
+    "HEAD": "2c12802e2fc03785ffc07c3bf642aef44758368a",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4212,6 +4212,27 @@
       ]
     },
     {
+      "endpoint": "https://www.youtube.com/watch?v=%s'",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 382
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 447
+        },
+        {
+          "file": "provas/primeira_rota_paga.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 36
+        }
+      ]
+    },
+    {
       "endpoint": "https://api.apify.com/v2",
       "usado_por": [
         {
@@ -4721,15 +4742,6 @@
         {
           "file": "coleta/adaptador_aberto.py",
           "line": 157
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/exemplo",
-      "usado_por": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 244
         }
       ]
     }

@@ -302,6 +302,25 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
     return objetos, registro
 
 
+def _custo_da_medida(registro):
+    """O que a rota mediu do custo sobe SEMPRE, inclusive quando ela falhou.
+
+    O caso que obriga a isto: um POST que caiu no transporte pode ter criado
+    uma execução paga. A rota devolve falha, e o balde traz `UNKNOWN`. Sem esta
+    leitura, o registo ficaria no valor de nascença — `NOT_RUN` — e essa é
+    exactamente a única coisa que aquele momento não foi.
+
+        NOT_RUN != UNKNOWN. UMA COMPRA DUVIDOSA NÃO É UMA COMPRA QUE NÃO HOUVE.
+    """
+    medida = registro.get('MEDIDA') or {}
+    if 'COST_STATE' in medida:
+        registro['COST_STATE'] = medida['COST_STATE']
+        registro['ACTUAL_COST_USD'] = medida.get('ACTUAL_COST_USD')
+        if registro.get('ACTUAL_COST_USD') is not None:
+            registro['COST_USD'] = registro['ACTUAL_COST_USD']
+    return registro
+
+
 def executar(**kwargs):
     """Porta única. Sela TODA saída com a taxonomia canônica — nenhum caminho escapa.
 
@@ -310,7 +329,7 @@ def executar(**kwargs):
     alguém lembrar.
     """
     objetos, registro = _executar(**kwargs)
-    return objetos, selar(registro)
+    return objetos, selar(_custo_da_medida(registro))
 
 
 def selar(registro):

@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.semantica-it/1",
   "O_QUE_ISTO_E": "Cada termo dos vocabularios que a rota italiana toca, classificado em UMA categoria de escopo. As contas fecham por construcao: CLASSIFICADOS + UNKNOWN = TOTAL, e o ficheiro reprova se nao fechar.",
   "PROVENANCE": {
-    "HEAD": "7df9565f5a28b47b6a04239034d1f47ccf105e7d"
+    "HEAD": "2c12802e2fc03785ffc07c3bf642aef44758368a"
   },
   "VOCABULARIOS": [
     {
@@ -25,6 +25,7 @@
       "FOREIGN_ONLY": 11,
       "CONSUMERS": [
         ".github/workflows/apify-sensores.yml",
+        "coleta/adaptador_youtube.py",
         "coleta/social_scrap.py",
         "provas/orcamento_financeiro.py",
         "provas/testa_coleta_canonica.py",
