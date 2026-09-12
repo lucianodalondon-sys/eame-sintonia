@@ -777,6 +777,7 @@
       "docs/sintonia-scrap/C10-6E-RUNTIME-PAGO-UM-SO.md",
       "docs/sintonia-scrap/C10-7-TRIAL-CANONICO-DE-CAPACIDADE.md",
       "docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md",
+      "docs/sintonia-scrap/C10-8A-F-FINANCIAL-BUDGET.md",
       "docs/sintonia-scrap/C10-8A-R-NETWORK-BUDGET.md",
       "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "docs/sintonia-scrap/C12-X-CAPABILITY-DEEP-CENSUS.md",
@@ -1227,6 +1228,7 @@
       "provas/o_mapa_nao_mente.py",
       "provas/objeto_e_observacao_no_postgres.py",
       "provas/orcamento_de_rede.py",
+      "provas/orcamento_financeiro.py",
       "provas/paridade_da_lingua.py",
       "provas/portas_canonicas_no_postgres.py",
       "provas/preflight_022_live.sh",
@@ -1500,6 +1502,7 @@
       "tests/test_c10_6e_runtime_pago.py",
       "tests/test_c10_7_ensaio_canonico.py",
       "tests/test_c10_8a_bluesky_ao_vivo.py",
+      "tests/test_c10_8af_orcamento_financeiro.py",
       "tests/test_c10_8ar_orcamento_de_rede.py",
       "tests/test_c10_audio_only.py",
       "tests/test_c12_x_censo.py",
@@ -1962,10 +1965,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-trial-network-budget-c10-8ar",
-    "HEAD": "6aaaa3b2555486c9dc725c88f4bb868f9dcaa24c",
-    "GENERATED_AT": "2026-09-12T13:43:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "e9e45c79700d11f955cdfb28901fe82224db484d5103bd34c6904d4ebad3cf63"
+    "BRANCH": "claude/sintonia-scrap-financial-budget-c10-8af",
+    "HEAD": "0d1d472e1efe33d3796d6d23f2ed141594bf6923",
+    "GENERATED_AT": "2026-09-12T14:41:01+00:00",
+    "SOURCE_TREE_FINGERPRINT": "477c4fbe1549ffe74402c5aafc5985b0f434c91630c05cda55db8df26451c597"
   },
   "FAMILIES": [
     {
@@ -4849,7 +4852,9 @@
           "leis_que_obedece": [
             "proveniencia"
           ],
-          "regista_descarte": []
+          "regista_descarte": [
+            "RECUSAD"
+          ]
         },
         {
           "ficheiro": "coleta/comunicacao_classificar.py",
@@ -7225,7 +7230,8 @@
       "inbound": [
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
-        "C-RASTRO"
+        "C-RASTRO",
+        "C-SCRAP-SOCIAL"
       ],
       "outbound": [
         "C-COLETA-INSTAGRAM",
@@ -7393,6 +7399,7 @@
       ],
       "outbound": [
         "C-MAPA-TESTES",
+        "C-PROVA-COLETA",
         "C-RECEITAS",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -12093,6 +12100,7 @@
         "provas/ensaio_canonico_de_capacidade.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/orcamento_de_rede.py",
+        "provas/orcamento_financeiro.py",
         "provas/paridade_da_lingua.py",
         "provas/portas_canonicas_no_postgres.py",
         "provas/preflight_022_live.sh",
@@ -12107,7 +12115,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 21,
+      "file_count": 22,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12124,6 +12132,7 @@
         "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-TELEMETRIA",
@@ -12164,6 +12173,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ARRANCAM",
           "BLOQUEADAS",
           "CASOS",
           "COLS_DER",
@@ -12183,9 +12193,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 202,
+        "palavras": 210,
         "por_lingua": {},
-        "sem_marca_de_lingua": 202,
+        "sem_marca_de_lingua": 210,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13829,9 +13839,9 @@
           "_POR_RAZAO_NATIVA",
           "_TABELA"
         ],
-        "palavras": 480,
+        "palavras": 483,
         "por_lingua": {},
-        "sem_marca_de_lingua": 480,
+        "sem_marca_de_lingua": 483,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13953,6 +13963,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -15605,6 +15616,7 @@
         "tests/test_c10_6e_runtime_pago.py",
         "tests/test_c10_7_ensaio_canonico.py",
         "tests/test_c10_8a_bluesky_ao_vivo.py",
+        "tests/test_c10_8af_orcamento_financeiro.py",
         "tests/test_c10_8ar_orcamento_de_rede.py",
         "tests/test_c10_audio_only.py",
         "tests/test_c12_x_censo.py",
@@ -15687,7 +15699,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 106,
+      "file_count": 107,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 9 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17289,7 +17301,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/sintonia-scrap-trial-network-budget-c10-8ar"
+        "branch claude/sintonia-scrap-financial-budget-c10-8af"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21053,7 +21065,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -21064,6 +21076,11 @@
           "file": "provas/_c106c_filho.py",
           "line": 24,
           "snippet": "import coleta_checkpoint as ck   # noqa: E402"
+        },
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 38,
+          "snippet": "import coletor as ct              # noqa: E402  — o dono do dinheiro"
         },
         {
           "file": "provas/portas_canonicas_no_postgres.py",
@@ -21089,6 +21106,24 @@
           "file": "provas/runtime_pago_no_postgres.py",
           "line": 105,
           "snippet": "import coletor                                                    # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 202,
+          "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
         }
       ],
       "categoria": "PROOF"
@@ -21155,12 +21190,22 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 487,
+          "line": 404,
+          "snippet": "import coletor as _ct"
+        },
+        {
+          "file": "coleta/scrap_executor.py",
+          "line": 552,
           "snippet": "import coleta_checkpoint as ck"
+        },
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 61,
+          "snippet": "import coletor                     # noqa: E402  — o dono do dinheiro"
         },
         {
           "file": "coleta/social_scrap.py",
@@ -21187,7 +21232,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 649,
+          "line": 767,
           "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
         }
       ],
@@ -21219,7 +21264,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
@@ -21230,6 +21275,11 @@
           "file": "tests/test_c10_6c_runtime_comum.py",
           "line": 47,
           "snippet": "import coleta_checkpoint as ck    # noqa: E402"
+        },
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 25,
+          "snippet": "import coletor as ct                                              # noqa: E402"
         },
         {
           "file": "tests/test_coleta_resiliente.py",
@@ -21282,12 +21332,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O motor de buscar alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_6b_run_duravel.py",
           "line": 63,
           "snippet": "fonte = _fonte('coleta/coleta_checkpoint.py')"
+        },
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 332,
+          "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -21305,8 +21360,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Colher o Instagram alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 442,
+          "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
+        },
         {
           "file": "provas/portas_canonicas_no_postgres.py",
           "line": 41,
@@ -21423,7 +21483,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Colher o Instagram alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4c_janela_preservada.py",
@@ -21449,6 +21509,11 @@
           "file": "tests/test_c10_6d_portas_canonicas.py",
           "line": 145,
           "snippet": "for i in IMPLEMENTACOES + ('instagram_coleta.py',):"
+        },
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 332,
+          "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         }
       ],
       "categoria": "PROOF"
@@ -21467,6 +21532,24 @@
           "file": "system-map/tests/test_system_map.py",
           "line": 672,
           "snippet": "GEN._fala_com_a_rede(\"coleta/comunicacao_coleta.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-PUBLICA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o que o concorrente publica alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 443,
+          "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         }
       ],
       "categoria": "PROOF"
@@ -21563,7 +21646,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -21579,6 +21662,11 @@
           "file": "tests/test_c10_6e_runtime_pago.py",
           "line": 175,
           "snippet": "arv = ast.parse(_fonte('coleta/comunicacao_coleta.py'))"
+        },
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 333,
+          "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
           "file": "tests/test_c3_youtube_cutover.py",
@@ -21782,7 +21870,7 @@
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
-          "line": 662,
+          "line": 780,
           "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
         }
       ],
@@ -27764,12 +27852,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
           "line": 379,
           "snippet": "fonte = _fonte('provas/bluesky_trial_ao_vivo.py')"
+        },
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 558,
+          "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
         },
         {
           "file": "tests/test_c10_8ar_orcamento_de_rede.py",
@@ -29203,7 +29296,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -29214,6 +29307,11 @@
           "file": "provas/ensaio_canonico_de_capacidade.py",
           "line": 43,
           "snippet": "import social_matriz as mz          # noqa: E402"
+        },
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 41,
+          "snippet": "import social_matriz as mz        # noqa: E402"
         },
         {
           "file": "provas/paridade_da_lingua.py",
@@ -29332,7 +29430,7 @@
         },
         {
           "file": "coleta/scrap_executor.py",
-          "line": 417,
+          "line": 481,
           "snippet": "import falhas as fx"
         },
         {
@@ -29399,7 +29497,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 39 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 41 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -29657,6 +29755,24 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-COLETA-BASE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/coletor.py",
+          "line": 362,
+          "snippet": "import scrap_http as _http"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-COLETA-PUBLICA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -29681,7 +29797,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 30 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 34 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -29861,7 +29977,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 90 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Suite de testes. Provado por 95 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -29934,7 +30050,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 51 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Suite de testes. Provado por 52 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
@@ -30089,8 +30205,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/orcamento_financeiro.py",
+          "line": 443,
+          "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 409,
@@ -30153,8 +30274,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "Coletor dos sensores tecnicos · canal, video e fala alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c10_8af_orcamento_financeiro.py",
+          "line": 333,
+          "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
+        },
         {
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 41,
@@ -32564,7 +32690,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 768,
+  "UNCLAIMED_FILES_COUNT": 769,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32732,12 +32858,12 @@
     "components_pending": 104,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 670,
-    "edges_proven": 667,
+    "edges": 673,
+    "edges_proven": 670,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1515,
-    "files_covered": 747,
+    "files_tracked": 1518,
+    "files_covered": 749,
     "files_code_unclaimed": 0
   }
 }

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "6aaaa3b2555486c9dc725c88f4bb868f9dcaa24c",
+    "HEAD": "0d1d472e1efe33d3796d6d23f2ed141594bf6923",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -423,6 +423,7 @@
         "coleta/instagram_coleta.py"
       ],
       "citado_por": [
+        "coleta/coletor.py",
         "coleta/comunicacao_coleta.py"
       ],
       "no_ci": false
@@ -836,11 +837,12 @@
     {
       "ficheiro": "coleta/coletor.py",
       "gaveta": "coleta",
-      "linhas": 422,
+      "linhas": 812,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
-        "INSTAGRAM"
+        "INSTAGRAM",
+        "YOUTUBE"
       ],
       "ferramentas": [
         "APIFY (rota paga)"
@@ -853,9 +855,12 @@
       "chamado_por": [
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
+        "coleta/scrap_executor.py",
+        "coleta/social_rotas.py",
         "regras/sensor_coleta.py"
       ],
       "citado_por": [
+        "coleta/scrap_executor.py",
         "ferramentas/reel_transcricao.py"
       ],
       "no_ci": false
@@ -1578,7 +1583,7 @@
     {
       "ficheiro": "coleta/scrap_executor.py",
       "gaveta": "coleta",
-      "linhas": 694,
+      "linhas": 812,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1588,6 +1593,7 @@
         "YOUTUBE"
       ],
       "ferramentas": [
+        "APIFY (rota paga)",
         "TRANSCRICAO"
       ],
       "descarta": false,
@@ -1608,7 +1614,7 @@
     {
       "ficheiro": "coleta/scrap_fornecedores.py",
       "gaveta": "coleta",
-      "linhas": 213,
+      "linhas": 231,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1654,6 +1660,7 @@
       "chamado_por": [
         "coleta/adaptador_aberto.py",
         "coleta/adaptador_youtube.py",
+        "coleta/coletor.py",
         "coleta/scrap_executor.py",
         "coleta/social_rotas.py"
       ],
@@ -1769,7 +1776,7 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 296,
+      "linhas": 335,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],

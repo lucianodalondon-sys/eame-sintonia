@@ -1,94 +1,94 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "85a46efbfae8e99b25a47a7caff5353da9e3e333",
+  "HEAD": "0d1d472e1efe33d3796d6d23f2ed141594bf6923",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
  "TOTAL_FICHEIROS": 71,
- "TOTAL_CAMINHOS_RELEVANTES": 60,
+ "TOTAL_CAMINHOS_RELEVANTES": 61,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 11,
+  "NOT_APPLICABLE": 10,
   "NOT_INSTRUMENTED": 57,
-  "PARTIAL": 1,
+  "PARTIAL": 2,
   "INSTRUMENTED": 2
  },
  "PROXIMO_MAIS_BARATO": [
   "coleta/italy_executor.py",
   "guarda/preservar_derivado.py",
   "coleta/social_scrap.py",
-  "coleta/golden_path_pdf.py",
-  "coleta/comunicacao_medir.py"
+  "coleta/adaptador_instagram.py",
+  "coleta/golden_path_pdf.py"
  ],
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 58,
+   "NOT_INSTRUMENTED": 59,
    "NOT_APPLICABLE": 0
   }
  },
@@ -207,15 +207,15 @@
  },
  "DENOMINADORES": {
   "TOTAL_FILES_SCANNED": 71,
-  "TOTAL_RELEVANT_PATHS": 60,
+  "TOTAL_RELEVANT_PATHS": 61,
   "TOTAL_EXECUTORS_PROVEN": 2,
   "TOTAL_EXECUTORS_BY_ROLE": 10,
   "TOTAL_ORCHESTRATORS": 5,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 4,
-  "TOTAL_CHECKPOINT_OWNERS": 1,
+  "TOTAL_CHECKPOINT_OWNERS": 3,
   "TOTAL_TELEMETRY_EMITTERS": 3,
-  "TOTAL_UNKNOWN": 32,
+  "TOTAL_UNKNOWN": 33,
   "A_LEI": "CAMINHO RELEVANTE != EXECUTOR PROVADO. O numero grande e de caminhos varridos; o pequeno e do que foi provado a correr."
  },
  "PORQUE_ESSE": "corre sem rede, sem API paga e sem producao, e ja fala a lingua das falhas — instrumenta-lo custa o writer, e nao um ambiente.",
@@ -271,9 +271,13 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_instagram.py",
    "GAVETA": "coleta",
-   "LINHAS": 107,
+   "LINHAS": 450,
    "TEM_PORTA": false,
-   "ETAPAS_NOMEADAS": [],
+   "ETAPAS_NOMEADAS": [
+    "DISCOVER",
+    "FETCH",
+    "RAW"
+   ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": false,
@@ -290,7 +294,7 @@
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
-   "STATE": "NOT_APPLICABLE"
+   "STATE": "NOT_INSTRUMENTED"
   },
   {
    "EXECUTOR_ID": "coleta/adaptador_linkedin.py",
@@ -391,7 +395,7 @@
   {
    "EXECUTOR_ID": "coleta/coleta_checkpoint.py",
    "GAVETA": "coleta",
-   "LINHAS": 322,
+   "LINHAS": 887,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -400,7 +404,7 @@
    "PAID": true,
    "PRODUCTION_REQUIRED": false,
    "CAN_RUN_OFFLINE": false,
-   "USA_TELEMETRIA": false,
+   "USA_TELEMETRIA": true,
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
@@ -410,12 +414,12 @@
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
-   "STATE": "NOT_INSTRUMENTED"
+   "STATE": "PARTIAL"
   },
   {
    "EXECUTOR_ID": "coleta/coletor.py",
    "GAVETA": "coleta",
-   "LINHAS": 422,
+   "LINHAS": 812,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -466,9 +470,10 @@
   {
    "EXECUTOR_ID": "coleta/comunicacao_coleta.py",
    "GAVETA": "coleta",
-   "LINHAS": 636,
+   "LINHAS": 758,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
+    "FETCH",
     "RAW"
    ],
    "HAS_PRESERVED_INPUT": false,
@@ -1129,7 +1134,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_capacidades.py",
    "GAVETA": "coleta",
-   "LINHAS": 308,
+   "LINHAS": 325,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
@@ -1156,7 +1161,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_executor.py",
    "GAVETA": "coleta",
-   "LINHAS": 280,
+   "LINHAS": 812,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1169,11 +1174,12 @@
    "PRODUCTION_REQUIRED": false,
    "CAN_RUN_OFFLINE": true,
    "USA_TELEMETRIA": false,
-   "USA_FALHAS": false,
+   "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
-   "USA_CHECKPOINT": false,
+   "USA_CHECKPOINT": true,
    "PAPEIS": [
-    "ORCHESTRATOR"
+    "ORCHESTRATOR",
+    "CHECKPOINT_OWNER"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
@@ -1183,7 +1189,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_fornecedores.py",
    "GAVETA": "coleta",
-   "LINHAS": 213,
+   "LINHAS": 231,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1207,7 +1213,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_http.py",
    "GAVETA": "coleta",
-   "LINHAS": 157,
+   "LINHAS": 426,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1231,7 +1237,7 @@
   {
    "EXECUTOR_ID": "coleta/scrap_registo.py",
    "GAVETA": "coleta",
-   "LINHAS": 194,
+   "LINHAS": 212,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1333,7 +1339,7 @@
   {
    "EXECUTOR_ID": "coleta/social_rotas.py",
    "GAVETA": "coleta",
-   "LINHAS": 277,
+   "LINHAS": 335,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1357,7 +1363,7 @@
   {
    "EXECUTOR_ID": "coleta/social_scrap.py",
    "GAVETA": "coleta",
-   "LINHAS": 1230,
+   "LINHAS": 1377,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "DISCOVER",
@@ -1375,9 +1381,10 @@
    "USA_TELEMETRIA": false,
    "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
-   "USA_CHECKPOINT": false,
+   "USA_CHECKPOINT": true,
    "PAPEIS": [
-    "ORCHESTRATOR"
+    "ORCHESTRATOR",
+    "CHECKPOINT_OWNER"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
@@ -1858,7 +1865,7 @@
   {
    "EXECUTOR_ID": "ferramentas/fala_local.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 995,
+   "LINHAS": 1045,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
@@ -1882,15 +1889,17 @@
   {
    "EXECUTOR_ID": "ferramentas/instagram_transcrever.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 395,
+   "LINHAS": 133,
    "TEM_PORTA": true,
-   "ETAPAS_NOMEADAS": [],
+   "ETAPAS_NOMEADAS": [
+    "FETCH"
+   ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
-   "NETWORK_REQUIRED": true,
+   "NETWORK_REQUIRED": false,
    "PAID": false,
    "PRODUCTION_REQUIRED": false,
-   "CAN_RUN_OFFLINE": false,
+   "CAN_RUN_OFFLINE": true,
    "USA_TELEMETRIA": false,
    "USA_FALHAS": false,
    "USA_DIAGNOSTICO": false,
@@ -1930,9 +1939,10 @@
   {
    "EXECUTOR_ID": "ferramentas/reel_transcricao.py",
    "GAVETA": "ferramentas",
-   "LINHAS": 1005,
+   "LINHAS": 1653,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
+    "FETCH",
     "RAW",
     "DERIVED"
    ],
@@ -1943,7 +1953,7 @@
    "PRODUCTION_REQUIRED": false,
    "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
-   "USA_FALHAS": false,
+   "USA_FALHAS": true,
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
