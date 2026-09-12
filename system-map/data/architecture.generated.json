@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-durable-run-checkpoint-c10-6b",
-    "HEAD": "a8c281726ee704d42f3d24001d37184cd41c9e7f",
-    "GENERATED_AT": "2026-09-12T05:26:35+00:00",
-    "SOURCE_TREE_FINGERPRINT": "cf9ee4af170769cacadf11904828cea8c1c6816144bf5870bbba8440ba70fce5"
+    "BRANCH": "claude/sintonia-scrap-durable-runtime-convergence-c10-6c",
+    "HEAD": "4b9a362f2ffaee5d945d88c142466c36094316e9",
+    "GENERATED_AT": "2026-09-12T06:01:23+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f6a9d245241066697d90b40a234fe2cf317b73322a4f96b24222cbb5359521f3"
   },
   "FILES": [
     {
@@ -66,7 +66,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "8eeb3827fd04bbc30030d91b3b663754328c18f9",
+      "sha": "b1ece71c33076197065687a9b309f50f57d98c9c",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1130,7 +1130,7 @@
     },
     {
       "path": "coleta/adaptador_instagram.py",
-      "sha": "98bea2731ffdd331ac18d43579028ca64e159812",
+      "sha": "b24a22ebe30bf704f51f9b85802c013e3a09ca0e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1172,7 +1172,7 @@
     },
     {
       "path": "coleta/coleta_checkpoint.py",
-      "sha": "b65928c934f3566b0ba7f24907e5632d5e888e80",
+      "sha": "072c87cd9bdf3720fa6158056b982f9a33e6f955",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1424,7 +1424,7 @@
     },
     {
       "path": "coleta/scrap_executor.py",
-      "sha": "784fe3098ee69bdbcc8b345e863b728e606398b5",
+      "sha": "2454f11b1e6da356fed9de3c24141ed789984115",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1445,7 +1445,7 @@
     },
     {
       "path": "coleta/scrap_registo.py",
-      "sha": "e55be31f01549e398ce0bdc527b60f75f6738869",
+      "sha": "aa5272997e06074f56d0e683c5c74e047faa207e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5224,6 +5224,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-6C-RUNTIME-DURAVEL-COMUM.md",
+      "sha": "055de9362a982e163d6edf2d1b125833ba29f442",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -7479,7 +7486,7 @@
     },
     {
       "path": "medidas/rastro_da_coleta.py",
-      "sha": "4bba3ed792cc63f36f719a8068763f04e3de093f",
+      "sha": "c560a4706efcc41f131eec34948a72b8944da699",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7961,6 +7968,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/_c106c_filho.py",
+      "sha": "4b2983bf279c31b3afbf83f037b5cbd347757bce",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_autoridade_da_fonte.py",
       "sha": "6eb469aae612e69fe43a9f02a094324b3a2516ff",
       "ext": ".py",
@@ -8194,6 +8208,13 @@
     {
       "path": "provas/run_duravel_no_postgres.py",
       "sha": "7394d2e6a3e168d65454fa7337d7707793e907b6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/runtime_comum_no_postgres.py",
+      "sha": "670773b4885bfee8ec3d6ce614bc1f8b3a0e3434",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9425,7 +9446,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8c6ce8c73fab1dadd275073d59268fbed919eccb",
+      "sha": "913f047b659e418400d4ee40d0db330a70e907d4",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9873,7 +9894,14 @@
     },
     {
       "path": "tests/test_c10_6b_run_duravel.py",
-      "sha": "7ccdaaab2e8ec326860d49d10e18e1c8750fc79d",
+      "sha": "ee4807de421ea7dbf9d8768a86c27ca71417360b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_6c_runtime_comum.py",
+      "sha": "d5da8482afa525c7ce0026564e59e44d8b300db0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10498,7 +10526,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 264,
+        "line": 268,
         "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
       }
     },
@@ -10509,7 +10537,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 248,
+        "line": 252,
         "snippet": "python3 provas/a_rota_m2_atravessa.py"
       }
     },
@@ -10520,7 +10548,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 133,
+        "line": 137,
         "snippet": "python3 provas/derived_artifact_no_postgres.py"
       }
     },
@@ -10531,7 +10559,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 290,
+        "line": 309,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -10542,7 +10570,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 239,
+        "line": 243,
         "snippet": "python3 provas/o_forward_conta_se.py"
       }
     },
@@ -10553,7 +10581,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 148,
+        "line": 152,
         "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
       }
     },
@@ -10564,7 +10592,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 120,
+        "line": 124,
         "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
       }
     },
@@ -10575,7 +10603,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 213,
+        "line": 217,
         "snippet": "python3 provas/rastro_no_postgres.py"
       }
     },
@@ -10586,8 +10614,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 281,
+        "line": 285,
         "snippet": "run: python3 provas/run_duravel_no_postgres.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/runtime_comum_no_postgres.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 298,
+        "snippet": "run: python3 provas/runtime_comum_no_postgres.py"
       }
     },
     {
@@ -10597,7 +10636,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 189,
+        "line": 193,
         "snippet": "python3 provas/social_persistencia_no_postgres.py"
       }
     },
@@ -10608,7 +10647,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 157,
+        "line": 161,
         "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
       }
     },
@@ -11934,17 +11973,6 @@
     },
     {
       "from_file": "coleta/adaptador_instagram.py",
-      "to_file": "coleta/coleta_checkpoint.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "coleta/adaptador_instagram.py",
-        "line": 145,
-        "snippet": "import coleta_checkpoint as ck"
-      }
-    },
-    {
-      "from_file": "coleta/adaptador_instagram.py",
       "to_file": "coleta/scrap_capacidades.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -11983,7 +12011,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 246,
+        "line": 216,
         "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
       }
     },
@@ -11994,7 +12022,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 224,
+        "line": 150,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -12005,7 +12033,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/adaptador_instagram.py",
-        "line": 274,
+        "line": 269,
         "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
       }
     },
@@ -13332,11 +13360,22 @@
     {
       "from_file": "coleta/scrap_executor.py",
       "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_executor.py",
+        "line": 273,
+        "snippet": "import coleta_checkpoint as ck"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_executor.py",
+      "to_file": "coleta/coleta_checkpoint.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 235,
+        "line": 418,
         "snippet": "'CHECKPOINT_BACKEND': 'coleta/coleta_checkpoint.py',"
       }
     },
@@ -13380,7 +13419,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 213,
+        "line": 400,
         "snippet": "import social_rotas as sr"
       }
     },
@@ -13391,8 +13430,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/scrap_executor.py",
-        "line": 248,
+        "line": 431,
         "snippet": "'ARTIFACT_CONTRACT': 'leis/artefato.py',"
+      }
+    },
+    {
+      "from_file": "coleta/scrap_executor.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/scrap_executor.py",
+        "line": 233,
+        "snippet": "import falhas as fx"
       }
     },
     {
@@ -25782,6 +25832,72 @@
       }
     },
     {
+      "from_file": "provas/_c106c_filho.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106c_filho.py",
+        "line": 24,
+        "snippet": "import coleta_checkpoint as ck   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/_c106c_filho.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106c_filho.py",
+        "line": 65,
+        "snippet": "import scrap_executor as sx     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/_c106c_filho.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106c_filho.py",
+        "line": 25,
+        "snippet": "import scrap_http as http        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/_c106c_filho.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106c_filho.py",
+        "line": 26,
+        "snippet": "import scrap_registo as reg      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/_c106c_filho.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106c_filho.py",
+        "line": 36,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "provas/_c106c_filho.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/_c106c_filho.py",
+        "line": 75,
+        "snippet": "import youtube_oficial as yt"
+      }
+    },
+    {
       "from_file": "provas/a_autoridade_da_fonte.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -27066,6 +27182,83 @@
         "file": "provas/run_duravel_no_postgres.py",
         "line": 38,
         "snippet": "FILHO = os.path.join(RAIZ, 'provas', '_c106b_filho.py')"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 87,
+        "snippet": "import coleta_checkpoint as ck"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 89,
+        "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 88,
+        "snippet": "import scrap_http as http"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 90,
+        "snippet": "import scrap_registo as reg"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 107,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "coleta/youtube_oficial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 180,
+        "snippet": "import youtube_oficial as yt"
+      }
+    },
+    {
+      "from_file": "provas/runtime_comum_no_postgres.py",
+      "to_file": "provas/_c106c_filho.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/runtime_comum_no_postgres.py",
+        "line": 243,
+        "snippet": "FILHO = os.path.join(RAIZ, 'provas', '_c106c_filho.py')"
       }
     },
     {
@@ -31239,6 +31432,17 @@
     },
     {
       "from_file": "tests/test_c10_6b_run_duravel.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6b_run_duravel.py",
+        "line": 141,
+        "snippet": "import scrap_executor as sx"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6b_run_duravel.py",
       "to_file": "ferramentas/reel_transcricao.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -31301,6 +31505,105 @@
         "file": "tests/test_c10_6b_run_duravel.py",
         "line": 73,
         "snippet": "self.assertIn('public.etapa_da_corrida', _fonte('medidas/rastro_da_coleta.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "coleta/adaptador_instagram.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 225,
+        "snippet": "import adaptador_instagram as ad"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 47,
+        "snippet": "import coleta_checkpoint as ck    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 45,
+        "snippet": "import scrap_executor as sx       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 93,
+        "snippet": "arv = ast.parse(_fonte('coleta/scrap_executor.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 46,
+        "snippet": "import scrap_registo as reg       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "leis/diagnostico.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 165,
+        "snippet": "import diagnostico as dg"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "leis/falhas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 49,
+        "snippet": "import falhas as fx               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 50,
+        "snippet": "import telemetria as tel          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_6c_runtime_comum.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_6c_runtime_comum.py",
+        "line": 48,
+        "snippet": "import rastro_da_coleta as rastro  # noqa: E402"
       }
     },
     {
@@ -38472,10 +38775,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1491,
-    "files_readable": 572,
-    "files_code_dir": 619,
-    "file_edges": 2506,
+    "files_tracked": 1495,
+    "files_readable": 575,
+    "files_code_dir": 622,
+    "file_edges": 2531,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

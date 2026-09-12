@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "f692720a5733f5a4d892b97baf973ff7ac8fb12a",
+    "HEAD": "4b9a362f2ffaee5d945d88c142466c36094316e9",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -682,7 +682,7 @@
     {
       "ficheiro": "coleta/adaptador_instagram.py",
       "gaveta": "coleta",
-      "linhas": 323,
+      "linhas": 330,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -807,7 +807,7 @@
     {
       "ficheiro": "coleta/coleta_checkpoint.py",
       "gaveta": "coleta",
-      "linhas": 786,
+      "linhas": 887,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -820,7 +820,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "coleta/adaptador_instagram.py",
+        "coleta/scrap_executor.py",
         "coleta/youtube_oficial.py"
       ],
       "citado_por": [
@@ -1575,10 +1575,11 @@
     {
       "ficheiro": "coleta/scrap_executor.py",
       "gaveta": "coleta",
-      "linhas": 280,
+      "linhas": 463,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
+        "INSTAGRAM",
         "LINKEDIN",
         "YOUTUBE"
       ],
@@ -1595,8 +1596,10 @@
         "coleta/social_scrap.py",
         "regras/sensor_coleta.py"
       ],
-      "citado_por": [],
-      "no_ci": false
+      "citado_por": [
+        "coleta/adaptador_instagram.py"
+      ],
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/scrap_fornecedores.py",
@@ -1653,7 +1656,7 @@
     {
       "ficheiro": "coleta/scrap_registo.py",
       "gaveta": "coleta",
-      "linhas": 194,
+      "linhas": 212,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1679,7 +1682,7 @@
         "coleta/social_rotas.py"
       ],
       "citado_por": [],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/sensor_canal_identidade.py",
