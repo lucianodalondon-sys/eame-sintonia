@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/wire-storage-to-derived-canonical-e2e-v1",
-    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
-    "GENERATED_AT": "2026-09-12T15:51:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "07bdf97e600819f5706c4de7fbab4087a27739b8506b62d31c2b604ac9cb656c"
+    "BRANCH": "claude/decide-derived-reuse-lineage-v1",
+    "HEAD": "2bbf25cd13e3f1a0a74df9178d2722a0e3b25d75",
+    "GENERATED_AT": "2026-09-12T16:45:51+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9c24d21b38fde31dc2898c14c56bf62699a6432b1fe366122186bf726d205b16"
   },
   "FILES": [
     {
@@ -4391,6 +4391,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md",
+      "sha": "277a22f52e1d31803a0799bcccc460841452ff1a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
       "sha": "eb0d6193b39ead4b9413d2363ebce581482237bf",
       "ext": ".md",
@@ -4672,7 +4679,7 @@
     },
     {
       "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
-      "sha": "c62c71c492fb343e2d898713ac7ddcdf3e7fbaf4",
+      "sha": "92e4bfbef61f978b4e4ef657382da694dab70ce1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7905,6 +7912,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_linhagem_do_reaproveitamento.py",
+      "sha": "d21059725b2611e466df81689ea21c168ad61955",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_regra_de_t2.py",
       "sha": "f4dc9895386deebab83e7a1dbd456d0bda5e7d50",
       "ext": ".py",
@@ -9501,6 +9515,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/data/linhagem.observada.json",
+      "sha": "9f625ec80e2dba590157b6128c6f9ac4346e9982",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "system-map/data/pedido.observado.json",
       "sha": "cddcbe18fed555eb7a3bac7e5af211138cc27787",
       "ext": ".json",
@@ -9820,6 +9841,13 @@
       "sha": "19c5f7fb716ae3199e5e04b5e6eaf29129e3157f",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_linhagem_do_reaproveitamento.py",
+      "sha": "43ff1bdf99453b96417eff1073c819c7e5a972fa",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -26902,6 +26930,138 @@
       }
     },
     {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 45,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 47,
+        "snippet": "import admissao                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 49,
+        "snippet": "import sala_de_espera as espera                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 48,
+        "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 283,
+        "snippet": "import derivacao_forward as fwd"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 143,
+        "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 284,
+        "snippet": "from guarda.preservar_coleta import ArmazemLocal"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 323,
+        "snippet": "fonte_writer = io.open(os.path.join(RAIZ, \"guarda\", \"preservar_derivado.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 152,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 50,
+        "snippet": "from pedido import Pedido                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 83,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "to_file": "system-map/data/linhagem.observada.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_linhagem_do_reaproveitamento.py",
+        "line": 352,
+        "snippet": "\"linhagem.observada.json\"), \"w\","
+      }
+    },
+    {
       "from_file": "provas/a_regra_de_t2.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -33246,6 +33406,61 @@
         "file": "tests/fixtures/ARESTAS/owner_indireto.py",
         "line": 2,
         "snippet": "from ajudante import persistir"
+      }
+    },
+    {
+      "from_file": "tests/test_a_linhagem_do_reaproveitamento.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+        "line": 23,
+        "snippet": "import _gavetas                      # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_linhagem_do_reaproveitamento.py",
+      "to_file": "docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+        "line": 27,
+        "snippet": "\"ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_linhagem_do_reaproveitamento.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+        "line": 181,
+        "snippet": "s = _fonte(os.path.join(RAIZ, \"guarda\", \"preservar_derivado.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_a_linhagem_do_reaproveitamento.py",
+      "to_file": "provas/a_linhagem_do_reaproveitamento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+        "line": 25,
+        "snippet": "PROVA = os.path.join(RAIZ, \"provas\", \"a_linhagem_do_reaproveitamento.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_linhagem_do_reaproveitamento.py",
+      "to_file": "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+        "line": 168,
+        "snippet": "\"005_camada_analitica_observado_vs_derivado.sql\"))"
       }
     },
     {
@@ -40775,10 +40990,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1508,
-    "files_readable": 587,
-    "files_code_dir": 633,
-    "file_edges": 2702,
+    "files_tracked": 1512,
+    "files_readable": 589,
+    "files_code_dir": 636,
+    "file_edges": 2719,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },

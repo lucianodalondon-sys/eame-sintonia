@@ -143,6 +143,30 @@ derivados antes não tem `derived_artifact` próprio, mesmo tendo a etapa
 corrido. Mudar isso é mexer na régua de unicidade do dono do derivado, e esta
 medição mede a cardinalidade em vez de a redefinir.
 
+**E foi medido a seguir, até ao fim.** A `022` decidiu o grão com a razão
+escrita, e essa decisão fica. O que não se sustenta é a frase ao lado dela —
+que as irmãs se encontram por `where sha256 = parent_sha256` e por isso
+«nenhuma procedência se perde». Essa consulta responde «que observações têm os
+mesmos bytes», e não «que observações passaram por esta derivação».
+
+```
+DERIVED_REUSE_LINEAGE = GAP_CONFIRMED
+DURABLE_EDGE_A_TO_X   = YES
+DURABLE_EDGE_B_TO_X   = NO
+```
+
+Nenhuma tabela do esquema inteiro aponta para `derived_artifact` — medido pelo
+catálogo do Postgres, e não por memória. E `guarda/preservar_derivado.py`
+**conhece** a aresta: no reencontro devolve os dois lados, e não escreve
+nenhum.
+
+> **RUNTIME SABE ≠ O SISTEMA GUARDA.**
+
+A decisão recomendada, com dono e grão explícitos e por implementar, está em
+[`docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md`](../decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md).
+A medição corre em
+[`provas/a_linhagem_do_reaproveitamento.py`](../../provas/a_linhagem_do_reaproveitamento.py).
+
 ## Os que já fecharam
 
 Ficam na lista com o estado novo. Um gap que some não deixa ver que

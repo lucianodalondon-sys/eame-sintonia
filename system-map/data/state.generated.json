@@ -650,6 +650,7 @@
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
       "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+      "docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md",
       "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
       "docs/decisoes/ADR-SCRAP-SOCIAL-NA-BIBLIA.md",
       "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
@@ -1179,6 +1180,7 @@
       "provas/a_fonte_atravessa_ate_a_porta.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_lei_da_fase_10.py",
+      "provas/a_linhagem_do_reaproveitamento.py",
       "provas/a_regra_de_t2.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/a_sala_de_espera_nao_tem_morada.py",
@@ -1421,6 +1423,7 @@
       "system-map/data/architecture.declared.json",
       "system-map/data/estradas-it.model.json",
       "system-map/data/fronteira.observada.json",
+      "system-map/data/linhagem.observada.json",
       "system-map/data/pedido.observado.json",
       "system-map/data/provas-de-execucao.json",
       "system-map/data/rota-m2.observada.json",
@@ -1469,6 +1472,7 @@
       "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
+      "tests/test_a_linhagem_do_reaproveitamento.py",
       "tests/test_a_ponte_do_derived.py",
       "tests/test_a_prova_e2e_segue_a_producao.py",
       "tests/test_a_regra_de_t2.py",
@@ -1955,10 +1959,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/wire-storage-to-derived-canonical-e2e-v1",
-    "HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
-    "GENERATED_AT": "2026-09-12T15:51:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "07bdf97e600819f5706c4de7fbab4087a27739b8506b62d31c2b604ac9cb656c"
+    "BRANCH": "claude/decide-derived-reuse-lineage-v1",
+    "HEAD": "2bbf25cd13e3f1a0a74df9178d2722a0e3b25d75",
+    "GENERATED_AT": "2026-09-12T16:45:51+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9c24d21b38fde31dc2898c14c56bf62699a6432b1fe366122186bf726d205b16"
   },
   "FAMILIES": [
     {
@@ -15719,6 +15723,7 @@
       "files": [
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
+        "tests/test_a_linhagem_do_reaproveitamento.py",
         "tests/test_a_ponte_do_derived.py",
         "tests/test_a_prova_e2e_segue_a_producao.py",
         "tests/test_a_regra_de_t2.py",
@@ -15825,7 +15830,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 107,
+      "file_count": 108,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17405,7 +17410,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/wire-storage-to-derived-canonical-e2e-v1"
+        "branch claude/decide-derived-reuse-lineage-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -23536,8 +23541,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+          "line": 181,
+          "snippet": "s = _fonte(os.path.join(RAIZ, \"guarda\", \"preservar_derivado.py\"))"
+        },
         {
           "file": "tests/test_preservar_derivado.py",
           "line": 186,
@@ -31602,7 +31612,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 22 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 23 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -31640,6 +31650,11 @@
           "snippet": "'014_catalogo_publico_fabricante.sql': 'HANDOFF_SCHEMA_VALID_THEN',"
         },
         {
+          "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+          "line": 168,
+          "snippet": "\"005_camada_analitica_observado_vs_derivado.sql\"))"
+        },
+        {
           "file": "tests/test_armazem_italiano.py",
           "line": 187,
           "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\"))"
@@ -31658,11 +31673,6 @@
           "file": "tests/test_calendario_temporal.py",
           "line": 75,
           "snippet": "m011 = sql('011_calendario_consultas.sql')"
-        },
-        {
-          "file": "tests/test_calendario_temporal.py",
-          "line": 76,
-          "snippet": "m012 = sql('012_contexto_temporal_do_caso.sql')"
         }
       ],
       "categoria": "PROOF"
@@ -33057,8 +33067,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 760,
+  "UNCLAIMED_CODE_FILES": [
+    "provas/a_linhagem_do_reaproveitamento.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 763,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33222,8 +33234,8 @@
     "edges_proven": 697,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1508,
-    "files_covered": 748,
-    "files_code_unclaimed": 0
+    "files_tracked": 1512,
+    "files_covered": 749,
+    "files_code_unclaimed": 1
   }
 }

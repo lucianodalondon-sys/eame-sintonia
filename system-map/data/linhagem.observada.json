@@ -1,0 +1,38 @@
+{
+  "RUN_A": "IT-T2-2026-09-12-170007",
+  "RUN_B": "IT-T2-2026-09-12-170015",
+  "RAW_A": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "RAW_B": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "DERIVED": [
+    {
+      "ID": 1,
+      "RAW_ASSET_ID": 3
+    },
+    {
+      "ID": 2,
+      "RAW_ASSET_ID": 4
+    },
+    {
+      "ID": 3,
+      "RAW_ASSET_ID": 1
+    },
+    {
+      "ID": 4,
+      "RAW_ASSET_ID": 2
+    }
+  ],
+  "TABELAS_QUE_LIGAM_OBSERVACAO_A_DERIVADO": [],
+  "DURABLE_EDGE_A_TO_X": "YES",
+  "DURABLE_EDGE_B_TO_X": "NO",
+  "DERIVED_REUSE_LINEAGE": "GAP_CONFIRMED"
+}
