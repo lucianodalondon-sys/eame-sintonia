@@ -60,7 +60,21 @@ from datetime import date
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
-FILA = RAIZ / "data" / "samples" / "FONTES-CANDIDATAS.json"
+
+# ⚠️ ESTA PORTA ESCREVIA NUM FICHEIRO QUE NINGUEM LIA.
+# A constante dizia `data/samples/FONTES-CANDIDATAS.json`, e esse ficheiro nao
+# existe nesta arvore. A fila que a COL-LAW-053 nomeia como degrau 1, que o
+# AGENTS.md aponta, que `system-map/scripts/scan_sources.py` mede e que
+# `docs/fontes/INDICE-DE-FONTES.md` publica e OUTRA: `candidatas/`.
+#
+#     UMA FILA COM DUAS MORADAS E DUAS FILAS,
+#     E A QUE NINGUEM LE NAO E UMA FILA: E UMA GAVETA.
+#
+# Medido: toda candidata registada por esta porta aterrava fora do alcance do
+# mapa, do censo e da lei — de modo que a escada de quatro degraus tinha o
+# primeiro degrau invisivel, e `candidates: 0` no mapa nao distinguia «ninguem
+# registou nenhuma» de «registaram e foram para outro sitio».
+FILA = RAIZ / "candidatas" / "FONTES-CANDIDATAS.json"
 
 # Os tipos sao os que esta casa ja usa, nao uma taxonomia nova. Inventar uma
 # gaveta nova para cada fonte que chega e como nao ter gaveta nenhuma.

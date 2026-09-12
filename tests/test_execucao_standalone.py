@@ -29,6 +29,7 @@ EXECUTAVEIS = (
     'leis/gestao_da_coleta.py',
     'leis/evolucao.py',
     'leis/aprender_com_a_fonte.py',
+    'leis/relevancia_da_fonte.py',
     'provas/paridade_da_lingua.py',
 )
 

@@ -1,0 +1,156 @@
+{
+  "SCHEMA": "sintonia.source-id-forward-crossing/1",
+  "O_QUE_ISTO_E": "A travessia FORWARD do SOURCE_ID provado, do recibo da coleta ate a porta, numa coleta encenada e descartavel.",
+  "PORQUE_NAO_BASTAVA_O_HISTORICO": "Que os 7 documentos antigos passem a poder ser reconstruidos prova uma correcao sobre o passado. O buraco era forward.",
+  "FORWARD_EXECUTED": "YES",
+  "SOURCE_ID_PRESERVED": "YES",
+  "CASOS": [
+    {
+      "ESPERADO": "IT-T9-999",
+      "TRILHA": {
+        "SHA256": "97f785bf03836fa5eba89057ca3f80388fda636bf3e744bf8d52a13eb3c3f475",
+        "LEDGER": {
+          "SOURCE_ID": "IT-T9-999",
+          "OBSERVACOES": 1,
+          "CONFLITO": [],
+          "PORQUE": "campo SOURCE_ID do livro, em 1 observacao(oes) concordantes"
+        },
+        "RAW": "IT-T9-999",
+        "DERIVED": "IT-T9-999",
+        "INGRESS": "IT-T9-999",
+        "ADMISSION_REGRA": "pertence ao universo",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "PASSA": true,
+      "CASO": "1 · a fonte provada atravessa os quatro estagios",
+      "PORQUE": "o caminho nao tem pista nenhuma da fonte; so o livro sabe"
+    },
+    {
+      "ESPERADO": "UNKNOWN",
+      "TRILHA": {
+        "SHA256": "6ad890a137b61f4845ba09ff259ca696a9731531227a4d94c0d49ae390850ae6",
+        "LEDGER": {
+          "SOURCE_ID": null,
+          "OBSERVACOES": 0,
+          "CONFLITO": [],
+          "PORQUE": "o livro nao tem observacao deste conteudo"
+        },
+        "RAW": "NAO SEI",
+        "DERIVED": "NAO SEI",
+        "INGRESS": null,
+        "ADMISSION_REGRA": "origem",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "PASSA": true,
+      "CASO": "2 · sem recibo continua UNKNOWN, e o caminho nao vota",
+      "PORQUE": "o caminho GRITA IT-T3-008 e tem de ser ignorado"
+    },
+    {
+      "ESPERADO": "IT-T9-999",
+      "TRILHA": {
+        "SHA256": "e1119929c0a871e23f028e7743dbd5fcddd22c95081eec1438be260919d3bd56",
+        "LEDGER": {
+          "SOURCE_ID": "IT-T9-999",
+          "OBSERVACOES": 1,
+          "CONFLITO": [],
+          "PORQUE": "campo SOURCE_ID do livro, em 1 observacao(oes) concordantes"
+        },
+        "RAW": "IT-T9-999",
+        "DERIVED": "IT-T9-999",
+        "INGRESS": "IT-T9-999",
+        "ADMISSION_REGRA": "pertence ao universo",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "O_CAMINHO_DIZIA": "IT-T3-008",
+      "PASSA": true,
+      "CASO": "3 · o livro vence o caminho, e vence por o caminho nao ter voto",
+      "PORQUE": "nao ha desempate porque nao ha empate: o caminho nunca e lido"
+    },
+    {
+      "ESPERADO": "UNKNOWN",
+      "TRILHA": {
+        "SHA256": "4b2898ec40e50247dbe7bfd210e649ed8b8fa49edaf33b0643c97a8a16cb203b",
+        "LEDGER": {
+          "SOURCE_ID": null,
+          "OBSERVACOES": 5,
+          "CONFLITO": [],
+          "PORQUE": "o livro viu este conteudo 5 vez(es) e nao declarou fonte provada em nenhuma"
+        },
+        "RAW": "NAO SEI",
+        "DERIVED": "NAO SEI",
+        "INGRESS": null,
+        "ADMISSION_REGRA": "origem",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "PASSA": true,
+      "CASO": "4 · sentinela no livro nao vira identidade",
+      "PORQUE": "'NAO SEI' e uma string verdadeira; um `if v:` promove-a"
+    },
+    {
+      "ESPERADO": "UNKNOWN + CONFLITO",
+      "TRILHA": {
+        "SHA256": "08659c78f55bbc07b79e4b64ad17d24e0df143610b2b872e2d7347dfd7494817",
+        "LEDGER": {
+          "SOURCE_ID": null,
+          "OBSERVACOES": 2,
+          "CONFLITO": [
+            "IT-T9-888",
+            "IT-T9-999"
+          ],
+          "PORQUE": "o livro registou este mesmo conteudo sob 2 fontes diferentes; desempatar aqui seria inventar"
+        },
+        "RAW": "NAO SEI",
+        "DERIVED": "NAO SEI",
+        "INGRESS": null,
+        "ADMISSION_REGRA": "origem",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "PASSA": true,
+      "CASO": "5 · duas fontes para o mesmo conteudo nao se desempatam",
+      "PORQUE": "escolher em silencio entre duas verdades fabrica uma terceira"
+    },
+    {
+      "ESPERADO": "IT-T9-999",
+      "TRILHA": {
+        "SHA256": "5eebb6c199bde8e240cbae5e37880a71ae3115a889523d95db99fa8f8a0dd972",
+        "LEDGER": {
+          "SOURCE_ID": "IT-T9-999",
+          "OBSERVACOES": 3,
+          "CONFLITO": [],
+          "PORQUE": "campo SOURCE_ID do livro, em 3 observacao(oes) concordantes"
+        },
+        "RAW": "IT-T9-999",
+        "DERIVED": "IT-T9-999",
+        "INGRESS": "IT-T9-999",
+        "ADMISSION_REGRA": "pertence ao universo",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "OBSERVACOES": 3,
+      "PASSA": true,
+      "CASO": "6 · retry e nova corrida nao mudam a fonte nem a perdem",
+      "PORQUE": "NEW RUN != RETRY, e nenhuma das duas re-identifica a fonte"
+    },
+    {
+      "ESPERADO": "IT-T9-999",
+      "TRILHA": {
+        "SHA256": "d59a123d7df2c197ad3c15df961dad1a2d325bb2da97ee0f4d59b56da8e69ee1",
+        "LEDGER": {
+          "SOURCE_ID": "IT-T9-999",
+          "OBSERVACOES": 1,
+          "CONFLITO": [],
+          "PORQUE": "campo SOURCE_ID do livro, em 1 observacao(oes) concordantes"
+        },
+        "RAW": "IT-T9-999",
+        "DERIVED": "IT-T9-999",
+        "INGRESS": "IT-T9-999",
+        "ADMISSION_REGRA": "pertence ao universo",
+        "ADMISSION_SAIDA": "NAO_SEI"
+      },
+      "PASSA": true,
+      "CASO": "7 · o ficheiro mudou de nome e de pasta, e a fonte sobreviveu",
+      "PORQUE": "a chave sao os bytes; se fosse o caminho, isto perdia a fonte"
+    }
+  ],
+  "FALHARAM": [],
+  "GENERATED_BY": "provas/a_fonte_atravessa_ate_a_porta.py"
+}

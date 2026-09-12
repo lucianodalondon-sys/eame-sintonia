@@ -280,11 +280,45 @@ class MemoriaDescartavel(MemoriaDoDerivado):
         linha = cur.fetchone()
         return dict(linha) if linha else None
 
-    def objeto_em(self, storage_path: str):
+    # ── UMA PERGUNTA, UMA CHAVE ─────────────────────────────────────────
+    # `objeto_em(storage_path)` vivia aqui e ia a `raw_asset` buscar a primeira
+    # linha do endereco. Depois da fase 10 sao N, e «a primeira» e a que o
+    # planeador devolver. As tres perguntas separadas nao tem essa escolha.
+    def copia_em(self, storage_path: str):
         cur = self.con.execute(
-            "select * from raw_asset where storage_path = ?", (storage_path,))
+            "select * from storage_object where storage_path = ?",
+            (storage_path,))
         linha = cur.fetchone()
         return dict(linha) if linha else None
+
+    def observacao_identificada(self, run_id, source_id, document_key, sha256):
+        cur = self.con.execute(
+            "select * from raw_asset where identity_state = ?"
+            " and run_id = ? and source_id = ? and document_key = ?"
+            " and sha256 = ?",
+            ("FORWARD_IDENTIFIED", run_id, source_id, document_key, sha256))
+        linha = cur.fetchone()
+        return dict(linha) if linha else None
+
+    def tentativa_sem_prova(self, run_id, source_id, storage_object_id, sha256):
+        # `is not distinct from` e nao `=`: sem copia o `storage_object_id` e
+        # nulo dos dois lados, e `null = null` nao e verdade em SQL nenhum.
+        # Era exactamente isto que fazia a chave deixar passar a linha nao
+        # preservada — medido, e a razao de `nulls not distinct` no indice.
+        cur = self.con.execute(
+            "select * from raw_asset where identity_state = ?"
+            " and run_id = ? and source_id = ?"
+            " and storage_object_id is ? and sha256 = ?",
+            ("FORWARD_IDENTITY_UNPROVEN", run_id, source_id,
+             storage_object_id, sha256))
+        linha = cur.fetchone()
+        return dict(linha) if linha else None
+
+    def observacoes_em(self, storage_path: str):
+        cur = self.con.execute(
+            "select * from raw_asset where storage_path = ? order by id",
+            (storage_path,))
+        return [dict(x) for x in cur.fetchall()]
 
     def objetos_da_corrida(self, run_id: str):
         cur = self.con.execute(

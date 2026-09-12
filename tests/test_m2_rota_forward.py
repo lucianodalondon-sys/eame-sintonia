@@ -23,6 +23,13 @@ import rastro_da_coleta as rastro     # noqa: E402
 import rota_forward_documento as m2   # noqa: E402
 import social_persistencia as sp      # noqa: E402
 import executor_texto_de_pdf as ex    # noqa: E402
+# ⚠️ OS DOIS DONOS QUE A PROVA PASSA A USAR EM VEZ DE OS IMITAR:
+#     leis/artefato.py      como o EXECUTOR entrega
+#     coleta/ingresso.py    como isso vira a lingua do ARMAZEM
+# Imitar um contrato a mao e ter uma segunda copia dele que nao e conferida
+# por ninguem — e foi assim que esta prova envelheceu sem dar erro.
+from leis import artefato as _art     # noqa: E402
+from coleta import ingresso as _ing   # noqa: E402
 from guarda.preservar_coleta import (ArmazemDeMentira, preservar,  # noqa: E402
                                      sha256)
 
@@ -197,15 +204,39 @@ class Base(unittest.TestCase):
                    'MISSION': 'M2R end-to-end',
                    'STARTED_AT': '2026-09-08T00:00:00Z',
                    'RULE_VERSION': '1', 'CAPTURE_METHOD': 'HTTP_GET'}
-        art = {'COUNTRY': 'IT', 'SOURCE_SLUG': 'IT-T2-002',
-               'ARTIFACT_KIND': 'DOCUMENT',
-               'NAME': os.path.basename(caminho),
-               'SOURCE_NATIVE_ID': os.path.basename(caminho),
-               'SHA256': sha256(dados), 'BYTES': len(dados),
-               'MEDIA_TYPE': 'application/pdf',
-               'CAPTURED_AT': '2026-09-02T15:20:48Z',
-               'SOURCE_URL': 'https://www.arpa.veneto.it/%s'
-                             % os.path.basename(caminho)}
+
+        # ── A FICHA DO ARMAZEM VEM DO TRADUTOR DA PRODUCAO ──────────────
+        # ⚠️ ISTO ERA UM DICIONARIO ESCRITO A MAO, E ELE ENVELHECEU. Ele
+        # entregava `SOURCE_SLUG` e NAO entregava `SOURCE_ID`; depois da B5B o
+        # dono do RAW recusa observacao sem fonte real, e esta prova deixou de
+        # correr — 21 erros contra PostgreSQL real. Medido em
+        # `C-REMEASURE-COLLECTION-V1-CLOSE-GATES` como `G-E2E-01`.
+        #
+        # A ESTRADA NAO ESTAVA PARTIDA: a producao ja carregava `SOURCE_ID`
+        # por `ingresso.para_o_dono_do_raw`. Era o RETRATO que estava velho.
+        #
+        #     UM FIXTURE QUE ENTREGA MENOS DO QUE A PRODUCAO ENTREGA
+        #     REPROVA A ESTRADA POR UM DEFEITO QUE E DELE.
+        #
+        # Remendar os campos em falta a mao consertaria hoje e voltaria a
+        # envelhecer amanha. Agora a prova fala pelo MESMO tradutor que a
+        # producao fala — se o contrato mudar, ela segue sozinha.
+        #
+        #     PRODUCTION CONTRACT -> TEST FOLLOWS,
+        #     e nunca STALE TEST -> PRODUCTION WEAKENED.
+        #
+        # A fonte NAO e deduzida do caminho: e declarada aqui, e `LOJA` so
+        # percorre o armazem de IT-T2-002 — a declaracao e verdadeira sobre o
+        # ficheiro que ela escolhe.
+        ficha = _art.raw_do_disco(
+            caminho, RAIZ,
+            COUNTRY_SCOPE='IT',
+            SOURCE_ID='IT-T2-002',
+            SOURCE_URL='https://www.arpa.veneto.it/%s'
+                       % os.path.basename(caminho),
+            COLLECTED_AT='2026-09-02T15:20:48Z')
+        art = _ing.para_o_dono_do_raw(ficha, {})
+
         memoria = _pg.MemoriaPostgres(DSN)
         armazem = ArmazemDeMentira()
         preservar(corrida, [art], armazem, lambda o: dados, memoria=memoria,
@@ -410,6 +441,33 @@ class M2_TravessiaUnica(Base):
             "select count(*) from public.etapa_da_corrida"
             " where run_id = '%s' and etapa = 'READY'" % self.RUN)
         self.assertEqual('0', n[0][0], 'ADMISSION PASS virou READY PASS')
+
+    def test_o_SOURCE_ID_que_ATERRA_no_raw_e_o_do_canario(self):
+        """⚠️ VALOR, E NAO ESTRUTURA: LER DO BANCO A FONTE QUE FICOU.
+
+        Um defeito que devolve o valor CERTO so a estrutura denuncia. Um que
+        devolve OUTRO valor so o banco denuncia — e nenhum teste de texto o
+        apanha. Esta pergunta ao `raw_asset` qual fonte aterrou, e compara-a
+        com o canario declarado em `system-map/data/estradas-it.model.json`.
+
+        A comparacao e contra uma fonte de FORA deste ficheiro. Um numero
+        conferido contra ele proprio nao e uma conferencia: e um eco.
+
+        ⚠️ ESTA PROVA VIVE AQUI, E NAO NO FICHEIRO DE GUARDAS, PORQUE E AQUI
+        QUE AS LINHAS EXISTEM. A `tearDownClass` limpa o banco ao sair, entao
+        uma prova noutro modulo encontrava a tabela vazia e SALTAVA — em
+        silencio, em todas as corridas. SKIP != PASS.
+        """
+        self._correr()
+        with open(os.path.join(RAIZ, 'system-map', 'data',
+                               'estradas-it.model.json'), encoding='utf-8') as f:
+            canario = json.load(f)['CANARIO']['SOURCE_ID']
+        fontes = self.banco.executa(
+            "select distinct coalesce(source_id,'<NULL>')"
+            " from public.raw_asset where run_id like '%s%%'" % self.PREFIXO)
+        self.assertEqual([[canario]], [list(x) for x in fontes],
+                         'aterrou no raw_asset uma fonte que nao e a do'
+                         ' canario declarado')
 
     def test_se_a_derivacao_nao_entregar_a_cadeia_para_em_DERIVED(self):
         """A cadeia diz a verdade sobre onde parou — nao inventa STRUCTURED."""

@@ -47,7 +47,8 @@ RAIZ = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401
 import artefato as art  # noqa: E402
-import admissao as adm  # noqa: E402
+import admissao as adm
+import ingresso as ing  # noqa: E402 — o dono da lingua da porta  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import executor_texto_de_pdf as ex  # noqa: E402
 
@@ -148,23 +149,32 @@ def pela_porta(artefatos: list, run_id: str) -> dict:
         caminho = RAIZ / a["STORAGE_LOCATION"]
         texto = caminho.read_text(encoding="utf-8", errors="replace") \
             if caminho.is_file() else ""
-        item = {
-            "id": a["ARTIFACT_ID"],
+        # ── A POLITICA DESTA ESTRADA, e so ela ─────────────────────────
+        # Estas tres linhas NAO sao traducao: sao decisoes desta estrada sobre
+        # um DERIVADO. Ficam aqui, visiveis, e nao se escondem dentro do
+        # tradutor — que e de toda a casa e nao sabe nada de PDF.
+        unidade = {
             # A ESPECIE E DECLARADA, NAO ADIVINHADA. Sem isto a porta nao sabe
             # que esta a julgar um documento, e volta a cobrar-lhe o tempo de
             # um fato que ainda nao foi extraido (COL-LAW-502).
-            "artifact_type": a["ARTIFACT_TYPE"],
-            "parent_artifact_id": a["PARENT_ARTIFACT_ID"],
-            "texto": texto[:20000],
-            "source_id": (a["SOURCE_ID"] if a["SOURCE_ID"] != art.NAO_SEI
+            "ARTIFACT_TYPE": a["ARTIFACT_TYPE"],
+            "PARENT_ARTIFACT_ID": a["PARENT_ARTIFACT_ID"],
+            # derivado sem fonte propria herda a do pai
+            "SOURCE_ID": (a["SOURCE_ID"] if a["SOURCE_ID"] != art.NAO_SEI
                           else a["PARENT_ARTIFACT_ID"]),
-            "fact_time": (a["FACT_TIME"]
+            # `NAO SEI` nao e uma data: vai vazio, e a porta cobra o degrau
+            "FACT_TIME": (a["FACT_TIME"]
                           if a["FACT_TIME"] not in (art.NAO_SEI, art.NAO_SE_APLICA)
                           else ""),
-            "source_location": a["SOURCE_LOCATION"],
-            "fact_location": a["FACT_LOCATION"],
-            "captured_at": a["DERIVED_AT"],
+            "SOURCE_LOCATION": a["SOURCE_LOCATION"],
+            "FACT_LOCATION": a["FACT_LOCATION"],
+            # a captura de um DERIVADO e a hora em que ele foi derivado
+            "COLLECTED_AT": a["DERIVED_AT"],
         }
+        # ── E A TRAVESSIA DE LINGUA, PELO DONO DELA ────────────────────
+        item = ing.para_a_porta(unidade)
+        item["id"] = a["ARTIFACT_ID"]
+        item["texto"] = texto[:20000]
         itens.append(item)
         decisoes.append(adm.decidir(item, UNIVERSO, corrida=run_id))
 

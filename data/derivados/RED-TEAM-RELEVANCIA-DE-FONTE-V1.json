@@ -1,0 +1,172 @@
+{
+  "SCHEMA": "sintonia.red-team-relevancia-de-fonte/1",
+  "CONTRATO": "RELEVANCIA_DA_FONTE/v1",
+  "VERSAO_DO_PORTAO": "1",
+  "TOTAL": 27,
+  "MORTOS": 27,
+  "VIVOS": 0,
+  "ATAQUES": [
+    {
+      "CODIGO": "RT-01",
+      "ATAQUE": "marcar todas as GREEN como relevantes por convencao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "17 fontes GREEN no cadastro, 0 promovidas pela cor"
+    },
+    {
+      "CODIGO": "RT-02",
+      "ATAQUE": "usar HTTP 200 como relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "responder nao move o portao"
+    },
+    {
+      "CODIGO": "RT-03",
+      "ATAQUE": "usar ACCESSIBLE como relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "acesso conhecido e acesso desconhecido dao o mesmo estado: NAO_AVALIADA / NAO_AVALIADA"
+    },
+    {
+      "CODIGO": "RT-04",
+      "ATAQUE": "usar custo zero como relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "gratis nao autoriza"
+    },
+    {
+      "CODIGO": "RT-05",
+      "ATAQUE": "usar SOURCE_HEALTH como relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "estado() le: ['livro', 'proposito', 'source_id']"
+    },
+    {
+      "CODIGO": "RT-06",
+      "ATAQUE": "usar um unico post relevante para promover a fonte",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "um item nao promove a fonte"
+    },
+    {
+      "CODIGO": "RT-07",
+      "ATAQUE": "usar um post irrelevante para eliminar a fonte",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "um item nao condena a fonte"
+    },
+    {
+      "CODIGO": "RT-08",
+      "ATAQUE": "copiar a decisao de T3 para T9",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "T3 nao fala por T9"
+    },
+    {
+      "CODIGO": "RT-09",
+      "ATAQUE": "UNKNOWN vira NO",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "EXIGE_AVALIACAO"
+    },
+    {
+      "CODIGO": "RT-10",
+      "ATAQUE": "timeout vira NO",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "EXIGE_AVALIACAO"
+    },
+    {
+      "CODIGO": "RT-11",
+      "ATAQUE": "403 vira NO",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "403 continua a ser erro, nao rejeicao"
+    },
+    {
+      "CODIGO": "RT-12",
+      "ATAQUE": "lista vazia vira NO sem baseline",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "acervo vazio produziu «NADA_NO_ACERVO»"
+    },
+    {
+      "CODIGO": "RT-13",
+      "ATAQUE": "keyword miss vira NO",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "sem regex, sem texto a entrada, e a ausencia de palavra da NAO_AVALIADA em vez de NAO"
+    },
+    {
+      "CODIGO": "RT-14",
+      "ATAQUE": "fabricar SOURCE_ID pela URL",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "4 de 4 URLs recusadas"
+    },
+    {
+      "CODIGO": "RT-24",
+      "ATAQUE": "candidate virar registered sem evidencia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a fila nao atribui SOURCE_ID e a prova recusa quem nao esta no cadastro"
+    },
+    {
+      "CODIGO": "RT-15",
+      "ATAQUE": "permitir coleta paga com relevancia ausente",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "STATUS=BARRADO_NA_RELEVANCIA"
+    },
+    {
+      "CODIGO": "RT-16",
+      "ATAQUE": "bypass por workflow (acionamento AGENDADO)",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "BARRADO_NA_RELEVANCIA"
+    },
+    {
+      "CODIGO": "RT-17",
+      "ATAQUE": "bypass por CLI (o binario, nao a funcao)",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "exit=3"
+    },
+    {
+      "CODIGO": "RT-18",
+      "ATAQUE": "bypass direto ao executor pelo plano",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "o plano nomeia o executor e marca-o barrado"
+    },
+    {
+      "CODIGO": "RT-19",
+      "ATAQUE": "mudar o gate depois de ver o resultado",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "portao v1 · decisao v1, e as duas sao carimbadas"
+    },
+    {
+      "CODIGO": "RT-20",
+      "ATAQUE": "apagar a decisao negativa antiga",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "sem porta de apagar; o NAO de ontem continua no livro"
+    },
+    {
+      "CODIGO": "RT-21",
+      "ATAQUE": "score medio compensando falha grave",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "numeros no veredito: ['HISTORICO']"
+    },
+    {
+      "CODIGO": "RT-22",
+      "ATAQUE": "misturar reliability e relevance",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a lei nomeia e nao le reliability"
+    },
+    {
+      "CODIGO": "RT-23",
+      "ATAQUE": "misturar relevance e collection priority",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "o veredito nao traz tier; a politica nao traz relevancia"
+    },
+    {
+      "CODIGO": "RT-25",
+      "ATAQUE": "erro tecnico promover ou degradar a relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a sonda falhou e o estado nao se mexeu"
+    },
+    {
+      "CODIGO": "RT-26",
+      "ATAQUE": "custo «NAO SEI» passar por gratuito",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "custo desconhecido conta como gasto"
+    },
+    {
+      "CODIGO": "RT-27",
+      "ATAQUE": "um SIM numa fonte abrir a porta as outras sete do territorio",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "o plano nao nomeia fonte, logo o SIM de uma nao autoriza o lote"
+    }
+  ]
+}

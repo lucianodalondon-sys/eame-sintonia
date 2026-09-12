@@ -1,0 +1,556 @@
+{
+  "SCHEMA": "sintonia.collection-v1-close-gates/1",
+  "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
+  "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
+  "MEASURED_HEAD": "3b53ef0ca616f4f6a4bdec0db8c347d61bb2ba28",
+  "FRESCURA": {
+    "IMPRESSAO_DOS_DONOS": "936a7d7b7dea7b0a0a9efdfe749d98ac36e3303b05f32072da15f353411a0629",
+    "DONOS_DA_MEDICAO": [
+      "provas/os_portoes_da_collection.py",
+      "docs/biblia/leis.json",
+      "system-map/data/buracos.generated.json",
+      "system-map/data/pedido.observado.json"
+    ],
+    "O_QUE_A_IMPRESSAO_IGNORA": "`PROVENANCE.HEAD` de um dono gerado. Esse campo muda a cada commit sem que o conteudo mude, e uma impressao que nunca coincide nao diz «esta velho»: nao diz nada.",
+    "O_QUE_O_CARIMBO_NAO_DIZ": "`MEASURED_HEAD` e o HEAD do instante da medicao, e o ficheiro que o guarda entra no commit SEGUINTE — nunca pode nomear o commit que o contem. Quem quer saber se esta medicao ainda vale compara a IMPRESSAO_DOS_DONOS, e nao o commit."
+  },
+  "BIBLE_VERSION": "V1.4",
+  "LAW_TOTAL": 105,
+  "IMPLEMENTATION_STATE": {
+    "FONTE": "docs/biblia/leis.json",
+    "NATUREZA": "DECLARED_BY_BIBLE",
+    "O_QUE_ISTO_NAO_E": "nao e observacao de execucao. A Biblia declara de si propria o estado italiano de cada lei; isto e o registo dessa declaracao, e nenhum blocker foi derivado dele.",
+    "CENSO": {
+      "PARTIAL": 48,
+      "IMPLEMENTED": 37,
+      "ABSENT": 18,
+      "NOT_APPLICABLE": 2
+    }
+  },
+  "CLOSE_GATE": {
+    "NATUREZA": "MEASURED",
+    "PROPRIEDADES_QUE_DEFINEM_BLOCKER": [
+      "EXECUTAR",
+      "IDENTIFICAR",
+      "PRESERVAR",
+      "REPROCESSAR",
+      "RECONCILIAR",
+      "AUDITAR",
+      "ADMITIR",
+      "LEVAR_ATE_READY",
+      "LEVAR_A_SALA_DE_ESPERA",
+      "MEDIR_PERDA_ERRO_CUSTO"
+    ],
+    "OS_DOIS_EIXOS_NAO_SE_INFEREM": "uma lei PARTIAL pode nao bloquear nada, e uma lei pequena pode bloquear tudo"
+  },
+  "CANONICAL_E2E": {
+    "REQUEST": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+    },
+    "ORCHESTRATOR": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+    },
+    "EXECUTOR": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+    },
+    "RUN": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so"
+    },
+    "RAW_OBSERVATION": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra migrations 001..027",
+      "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED"
+    },
+    "STORAGE_OBJECT": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra migrations 001..027",
+      "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED"
+    },
+    "DERIVED": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "atravessa em provas/a_unidade_pousa_na_espera.py, entrando pelo RAW",
+      "NAO_ATRAVESSA_PELO_PEDIDO": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED, medido em provas/o_pedido_atravessa.py"
+    },
+    "STRUCTURED": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "atravessa em provas/a_unidade_pousa_na_espera.py, entrando pelo RAW",
+      "NAO_ATRAVESSA_PELO_PEDIDO": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION. FIRST_LOST_EDGE = STORAGE -> DERIVED, medido em provas/o_pedido_atravessa.py"
+    },
+    "ADMISSION": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel"
+    },
+    "READY": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
+      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
+    },
+    "WAITING_ROOM": {
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
+      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
+    }
+  },
+  "ACHADOS_DA_ESTRADA": [
+    {
+      "EDGE": "STORAGE -> DERIVED",
+      "TIPO": "WIRING_GAP",
+      "O_QUE_FALTA": "a rota do orquestrador vai de RAW/STORAGE direto a ADMISSION: a chamada a derivacao nao esta ligada",
+      "A_CAPACIDADE_EXISTE": "YES",
+      "PROVA": "provas/o_pedido_atravessa.py::D1 — a MESMA observacao daquela corrida derivou com PASS quando `derivacao_forward` foi chamada explicitamente",
+      "QUEM_RESOLVE": "codigo — uma ligacao, no orquestrador",
+      "NAO_CORRIGIDO_NESTA_MISSAO": "ligar so esta move o buraco uma aresta para a frente: a seguinte nao tem dono"
+    },
+    {
+      "EDGE": "DERIVED -> STRUCTURED",
+      "TIPO": "CONTRACT_OWNER_GAP",
+      "O_QUE_FALTA": "`public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa quando ele nao existe",
+      "A_CAPACIDADE_EXISTE": "UNKNOWN — nao ha owner para medir",
+      "PROVA": "provas/o_pedido_atravessa.py::D2 — a recusa diz, por escrito, QUEM_RESOLVE = «um dono de identidade, fora do executor de coleta», e esse dono nao esta provado hoje",
+      "QUEM_RESOLVE": "gente — e uma decisao de arquitetura",
+      "NAO_CORRIGIDO_NESTA_MISSAO": "criar o owner aqui seria inventar identidade de canal sem ninguem ter decidido de quem ele e"
+    }
+  ],
+  "PROVA_E2E_HOJE": {
+    "PROVA": "tests/test_m2_rota_forward.py",
+    "CORRE_SEM_BANCO": "NO",
+    "SALTA_SEM_BANCO": "YES",
+    "PORQUE_SALTA_SEM_BANCO": "saltar sem PostgreSQL e honesto: sem banco nao ha travessia para observar. `SKIP != PASS`, e a prova nunca finge.",
+    "CORRE_COM_BANCO_DESCARTAVEL": "YES",
+    "MEDIDO": "25 de 25 contra PostgreSQL 16 com as migrations 001..027; `provas/a_rota_m2_atravessa.py` devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem",
+    "O_QUE_MUDOU": "o fixture escrevia a ficha do armazem a mao e envelheceu; passou a falar pelo tradutor da producao. E a cadeia de migrations da prova da rota era uma lista a mao que parava na 026 — passou a ser lida do disco.",
+    "O_QUE_ISTO_SIGNIFICA_PARA_O_PORTAO": "FLOW_EXECUTED da estrada canonica E observavel neste HEAD"
+  },
+  "DB_SCHEMA_VS_LIVE": {
+    "MIGRATION_IN_GIT": 27,
+    "MIGRATION_APPLIED_DISPOSABLE": "YES — 001..027, verificacao 008 a passar",
+    "MIGRATION_APPLIED_LIVE": "UNKNOWN",
+    "PORQUE_UNKNOWN": "producao nao e laboratorio, e nao foi tocada"
+  },
+  "IDENTITY": {
+    "RAW_OBSERVATION_ID_CANONICAL": "raw_asset.id",
+    "SOURCE_ID_PRESERVED_FORWARD": "YES — fechado no §61",
+    "DOCUMENT_ID_FABRICATED": 0,
+    "SHA_USED_AS_OBSERVATION_ID": "NO",
+    "STORAGE_PATH_USED_AS_IDENTITY": "NO — a 027 tirou a trava e pos chave sobre storage_object_id"
+  },
+  "OBSERVABILITY": {
+    "ETAPAS_QUE_FALAM": [
+      "RAW",
+      "DERIVED",
+      "STRUCTURED",
+      "ADMISSION",
+      "READY"
+    ],
+    "ETAPAS_MUDAS": [],
+    "COMO_FOI_MEDIDO": "AST sobre coleta, guarda, admissao, medidas, orquestrador: quem chama `rastro.registrar` e com que `etapa=`. Um comentario que nomeie uma etapa nao conta.",
+    "O_QUE_MUDO_NAO_QUER_DIZER": "uma etapa muda pode estar a correr. MUDA != PARADA — e esse e o problema",
+    "COST": "NOT_INSTRUMENTED",
+    "O_QUE_NOT_INSTRUMENTED_NAO_E": "nao e zero"
+  },
+  "LEGACY_13": {
+    "DISPOSICAO": "LEGACY_KEEP_OUT_OF_FLOW",
+    "LEGACY_STATE_OWNER": "NAO ATRIBUIDO",
+    "CLOSE_GATE": "NON_BLOCKING_DEBT",
+    "PORQUE": "estao FORA da Collection operacional por decisao; o que entra pela frente nao passa por este estado"
+  },
+  "SCRAP": {
+    "INTEGRATED": "NO",
+    "CHANGED": "NO",
+    "REQUIRED_BEFORE_BIG_COLLECTION": "YES",
+    "PORQUE_SEPARADO": "a ordem aprovada e fechar a maquina, integrar as capacidades, e so depois coletar"
+  },
+  "GAPS": [
+    {
+      "GAP_ID": "G-READY-01",
+      "CONCEPT": "READY nao e produzido por nenhuma rota",
+      "OWNER": "admissao/admissao.py::pronto_para_inteligencia",
+      "CURRENT_STATE": "a rota forward produz READY na mesma corrida: RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY, e as cinco etapas falam no rastro",
+      "EXPECTED_STATE": "ADMISSION SIM produz READY na mesma corrida",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py — 26 casos contra PostgreSQL 16 descartavel e filesystem descartavel, com bytes reais",
+      "SEVERITY": "CRITICAL",
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia LEVAR_ATE_READY. Agora a coleta produz unidade, e nao so corpo.",
+      "MINIMUM_FIX": "—"
+    },
+    {
+      "GAP_ID": "G-READY-02",
+      "CONCEPT": "a sala de espera nao tem armazenamento",
+      "OWNER": "admissao/sala_de_espera.py",
+      "CURRENT_STATE": "a morada tem UM dono, escrita atomica, retry idempotente e conflito explicito; o writer saiu do control plane (COL-LAW-012)",
+      "EXPECTED_STATE": "existe onde pousar a unidade pronta",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py — atomicidade, retry, conflito, concorrencia e crash provados contra filesystem real",
+      "SEVERITY": "CRITICAL",
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia LEVAR_A_SALA_DE_ESPERA. Zero CONSUMIDORES continua correcto antes da Intelligence; zero DESTINO ja nao e o caso.",
+      "MINIMUM_FIX": "—"
+    },
+    {
+      "GAP_ID": "G-E2E-01",
+      "CONCEPT": "a prova da estrada canonica nao corre neste HEAD",
+      "OWNER": "tests/test_m2_rota_forward.py",
+      "CURRENT_STATE": "25 de 25 passam contra PostgreSQL 16 com as migrations 001..027, e a prova da rota devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem",
+      "EXPECTED_STATE": "a estrada canonica tem prova que corre e passa",
+      "PROOF": "o fixture deixou de imitar a lingua do armazem e passou a falar pelo mesmo tradutor da producao (`ingresso.para_o_dono_do_raw`); a cadeia de migrations da prova da rota passou a ser lida do disco e alcancou a 027",
+      "SEVERITY": "HIGH",
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia AUDITAR enquanto FLOW_EXECUTED nao era observavel na estrada canonica. Agora e.",
+      "MINIMUM_FIX": "—"
+    },
+    {
+      "GAP_ID": "G-RUN-01",
+      "CONCEPT": "duas linguas para a ausencia colidem no banco",
+      "OWNER": "coleta/ingresso.py::_corrida_completa + enum `pais`",
+      "CURRENT_STATE": "a fronteira traduz a ausencia para a palavra que o dono de CADA campo entende; `NOT_PRESERVED` continua a valer nos outros",
+      "EXPECTED_STATE": "a ausencia atravessa com um nome que as duas casas aceitam",
+      "PROOF": "REMEDIDO contra banco virgem: corrida minima, completa e SEM PAIS dao todas raw_asset=1 e RUN_STATE=COMPLETE. Fechado em C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1.",
+      "SEVERITY": "HIGH",
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia PRESERVAR quando o chamador nao declarava pais. A corrida ficava PARTIAL e o bruto nao aterrava — em silencio para quem nao lesse o recibo.",
+      "MINIMUM_FIX": "—"
+    },
+    {
+      "GAP_ID": "G-RAW-01",
+      "CONCEPT": "a etapa RAW corre e nao fala",
+      "OWNER": "coleta/ingresso.py (fronteira) + guarda/preservar_coleta.py (dono)",
+      "CURRENT_STATE": "a etapa RAW deixa passagem em `etapa_da_corrida`, e a passagem nomeia a observacao que produziu (`raw_asset_id`, migration 028)",
+      "EXPECTED_STATE": "a etapa deixa passagem observavel como as outras tres",
+      "PROOF": "provas/o_raw_fala.py — 24 casos, PostgreSQL 16 descartavel; e provas/a_rota_m2_atravessa.py exige a aresta RAW->DERIVED com os DOIS topos na mesma corrida",
+      "SEVERITY": "HIGH",
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia RECONCILIAR e MEDIR_PERDA_ERRO_CUSTO. Agora RAW_EXECUTED, RAW_NOT_RUN, RAW_ERROR e RAW_REUSED distinguem-se no rastro.",
+      "MINIMUM_FIX": "—"
+    },
+    {
+      "GAP_ID": "G-STRUCT-01",
+      "CONCEPT": "STRUCTURED tem codigo que nunca correu nesta cadeia",
+      "OWNER": "guarda/importar_italia.py",
+      "CURRENT_STATE": "STATE=CODE, PROOF_KIND=NENHUMA na classe de rota RC-1",
+      "EXPECTED_STATE": "STRUCTURED observado na estrada canonica por classe de documento",
+      "PROOF": "buracos.generated.json::STRUCTURED_SEM_DONO_LIGADO",
+      "SEVERITY": "MEDIUM",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "o ledger JA prova STRUCTURED na rota forward por coleta/social_persistencia.py. O gap e de COBERTURA por classe, e nao de ausencia de travessia.",
+      "MINIMUM_FIX": "medir cobertura de STRUCTURED por classe de documento antes da coleta grande"
+    },
+    {
+      "GAP_ID": "G-ADM-01",
+      "CONCEPT": "a Admission julga o registo legado e nao o derivado",
+      "OWNER": "admissao/admissao.py",
+      "CURRENT_STATE": "STATE=CODE para `derived_artifact` na RC-1",
+      "EXPECTED_STATE": "a Admission recebe a unidade canonica da rota",
+      "PROOF": "buracos.generated.json::ADMISSION_SEM_DONO_LIGADO",
+      "SEVERITY": "MEDIUM",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "o ledger prova ADMISSION observada na rota forward, com caminho bom e caminho de falha. A infraestrutura ATRAVESSA; o que falta e a cobertura do tipo `derived_artifact`.",
+      "MINIMUM_FIX": "medir a Admission sobre `derived_artifact` na mesma corrida"
+    },
+    {
+      "GAP_ID": "G-TEL-01",
+      "CONCEPT": "a falha da telemetria nao tem politica",
+      "OWNER": "coleta/derivacao_forward.py",
+      "CURRENT_STATE": "a excecao do rastro sobe por correr(); o artefato fica guardado e quem chama perde o recibo",
+      "EXPECTED_STATE": "a falha de telemetria nao se confunde com falha de coleta",
+      "PROOF": "buracos.generated.json::TELEMETRY_FAILURE_SEM_POLITICA (declarado DUAS vezes, com o mesmo nome, em dois sitios)",
+      "SEVERITY": "MEDIUM",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "nao impede executar nem preservar. Impede LER o que aconteceu, e isso e divida de observabilidade, nao de fecho.",
+      "MINIMUM_FIX": "politica explicita: perder o recibo nao e perder a coleta"
+    },
+    {
+      "GAP_ID": "G-TEMA-01",
+      "CONCEPT": "o mecanismo tematico falha o portao de aceitacao",
+      "OWNER": "provas/gate_de_aceitacao_tematica.py",
+      "CURRENT_STATE": "WINNER = NONE; o baseline falha 6 de 8 condicoes",
+      "EXPECTED_STATE": "um mecanismo que passe o portao congelado",
+      "PROOF": "data/derivados/BENCHMARK-TEMATICO-V1.json",
+      "SEVERITY": "HIGH",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "NAO bloqueia a coleta grande. A funcao da coleta grande e ADQUIRIR e PRESERVAR; admitir bem e a etapa seguinte, e a Admission ja produz decisao auditavel com NAO_SEI de primeira classe. Bloqueia o universo T3 em particular, e nao a maquina.",
+      "MINIMUM_FIX": "nao e desta fase"
+    },
+    {
+      "GAP_ID": "G-LEG-01",
+      "CONCEPT": "o estado do legado fora do fluxo nao tem dono runtime",
+      "OWNER": "NAO ATRIBUIDO",
+      "CURRENT_STATE": "13 corpos decididos como LEGACY_KEEP_OUT_OF_FLOW, sem estado no vocabulario de runtime",
+      "EXPECTED_STATE": "um estado canonico para corpo preservado sem aquisicao provada",
+      "PROOF": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+      "SEVERITY": "LOW",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "nao impede propriedade nenhuma da coleta grande: os 13 estao FORA da Collection operacional por decisao, e o que entra pela frente nao passa por este estado.",
+      "MINIMUM_FIX": "escrever o estado quando houver onde o por"
+    }
+  ],
+  "BURACOS_DO_CENSO": {
+    "NOMES": [
+      "ADMISSION_SEM_DONO_LIGADO",
+      "CHANNEL_IDENTITY_NOT_RESOLVED",
+      "GAP_DECLARADO",
+      "LINEAGE_PROOF_GAP",
+      "LIVE_HEAD_LOOKUP_NEEDS_SERVER_SIDE_READONLY_PROXY",
+      "READY_NAO_TEM_DONO",
+      "SCRAP_RAW_NAO_RECEBIDO",
+      "STRUCTURED_SEM_DONO_LIGADO",
+      "TELEMETRY_FAILURE_SEM_POLITICA"
+    ],
+    "FORA_DESTE_ESCOPO": {
+      "CHANNEL_IDENTITY_NOT_RESOLVED": "identidade de canal — social/SCRAP",
+      "SCRAP_RAW_NAO_RECEBIDO": "frente do SCRAP, medida a parte",
+      "GAP_DECLARADO": "declaracao, nao buraco proprio",
+      "LINEAGE_PROOF_GAP": "conferivel sem ser impedivel — divida de constraint, medida abaixo",
+      "LIVE_HEAD_LOOKUP_NEEDS_SERVER_SIDE_READONLY_PROXY": "portal"
+    },
+    "DUPLICADO_MEDIDO": "TELEMETRY_FAILURE_SEM_POLITICA aparece DUAS vezes no censo, com o mesmo nome, em dois sitios"
+  },
+  "BLOCKERS": [],
+  "NON_BLOCKING_DEBT": [
+    "G-STRUCT-01",
+    "G-ADM-01",
+    "G-TEL-01",
+    "G-TEMA-01",
+    "G-LEG-01"
+  ],
+  "ROOT_CAUSES": [
+    {
+      "ROOT_CAUSE_ID": "RC-A",
+      "NOME": "a estrada acaba na ADMISSION e READY fica do outro lado",
+      "SYMPTOMS": [
+        "G-READY-01",
+        "G-READY-02"
+      ],
+      "OWNER": "admissao/admissao.py + quem decidir o destino",
+      "DEPENDENCIES": [],
+      "PORQUE_E_UMA_SO": "os dois sao a mesma falta vista de dois lados: nao ha travessia de ADMISSION para READY, e nao ha onde pousar. Consertar so um entrega zero unidades."
+    },
+    {
+      "ROOT_CAUSE_ID": "RC-B",
+      "NOME": "duas linguas para a ausencia, e a fronteira nao traduz",
+      "SYMPTOMS": [
+        "G-RUN-01"
+      ],
+      "OWNER": "coleta/ingresso.py::_corrida_completa",
+      "DEPENDENCIES": [],
+      "PORQUE_E_UMA_SO": "NOT_PRESERVED e NAO_SEI sao dois donos da mesma pergunta. E a MESMA familia do defeito do SOURCE_ID: um valor honesto de um lado que o outro lado nao aceita."
+    },
+    {
+      "ROOT_CAUSE_ID": "RC-C",
+      "NOME": "a estrada canonica nao tem prova que corra hoje",
+      "SYMPTOMS": [
+        "G-E2E-01",
+        "G-RAW-01"
+      ],
+      "OWNER": "tests/test_m2_rota_forward.py + guarda/preservar_coleta.py",
+      "DEPENDENCIES": [
+        "RC-B"
+      ],
+      "PORQUE_E_UMA_SO": "os dois sao a mesma cegueira: a estrada corre e nao se consegue ver. Um porque o retrato esta velho, o outro porque a etapa e muda. E depende de RC-B: uma prova E2E que corra vai bater no enum assim que a corrida nao declarar pais."
+    },
+    {
+      "ROOT_CAUSE_ID": "RC-D",
+      "NOME": "o SCRAP ainda nao entrega pelo contrato canonico",
+      "SYMPTOMS": [
+        "SCRAP_RAW_NAO_RECEBIDO"
+      ],
+      "OWNER": "frente do SCRAP — fora desta medicao",
+      "DEPENDENCIES": [
+        "RC-A",
+        "RC-B",
+        "RC-C"
+      ],
+      "PORQUE_E_UMA_SO": "nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da coleta grande, e nao na do fecho."
+    }
+  ],
+  "MISSOES_JA_FECHADAS": [
+    {
+      "ID": "C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1",
+      "ROOT_CAUSE": "RC-B",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-RUN-01"
+      ]
+    },
+    {
+      "ID": "C-RESTORE-CANONICAL-E2E-PROOF-V1",
+      "ROOT_CAUSE": "RC-C",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-E2E-01"
+      ],
+      "NAO_FECHOU": [
+        "G-RAW-01"
+      ],
+      "PORQUE_NAO_FECHOU_TUDO": "RC-C tinha dois sintomas. A prova voltou a correr; a etapa RAW continua muda, e isso e missao propria."
+    },
+    {
+      "ID": "C-MAKE-RAW-OBSERVABLE-V1",
+      "ROOT_CAUSE": "RC-C",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-RAW-01"
+      ],
+      "COMO": "sem segundo livro: o dono do rastro ja existia (`medidas/rastro_da_coleta.py`) e o vocabulario ja tinha RAW. Faltava UMA correlacao, e ela entrou como coluna na tabela canonica — `etapa_da_corrida.raw_asset_id`, 028",
+      "NAO_FECHOU": [
+        "G-TEL-01"
+      ],
+      "PORQUE_NAO_FECHOU_TUDO": "a politica para quando a propria telemetria falha foi MEDIDA e preservada — a excecao sobe, e o bruto preservado fica. Inventar politica nova aqui faria falha de telemetria passar por falha de RAW, e elas nao sao a mesma coisa."
+    },
+    {
+      "ID": "C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1",
+      "ROOT_CAUSE": "RC-A",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-READY-01",
+        "G-READY-02"
+      ],
+      "DECISAO": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md — o backend da Sala de Espera V1 e o sistema de ficheiros, na morada que ja existia. Decidido por gente, depois de a medicao de C-CLOSE-THE-READY-EDGE-V1 mostrar que a lei aceita as duas e nao escolhe.",
+      "COMO": "a escrita saiu do control plane para UM dono (`admissao/sala_de_espera.py`), e a rota forward passou a chamar o mesmo dono. Sem tabela, sem migration, sem segunda morada."
+    }
+  ],
+  "MINIMUM_MISSION_DAG": [],
+  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 0,
+  "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
+  "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
+  "COLLECTION_CORE_CLOSE": {
+    "VEREDICTO": "FAIL",
+    "CANONICAL_E2E": "NOT_PROVEN",
+    "CANONICAL_E2E_SAME_STORY": "FAIL",
+    "PORQUE_A_HISTORIA": "a mesma historia parou em `STORAGE -> DERIVED` — medido em provas/o_pedido_atravessa.py",
+    "IDENTITY": "PROVEN",
+    "PROVENANCE": "PROVEN",
+    "RAW": "PROVEN",
+    "STORAGE": "PROVEN",
+    "DERIVATION": "PROVEN",
+    "STRUCTURED": "PROVEN_FOR_ONE_CLASS",
+    "ADMISSION_INFRASTRUCTURE": "PROVEN",
+    "READY": "PROVEN",
+    "WAITING_ROOM": "PROVEN",
+    "REPROCESS": "PROVEN",
+    "RETRY_REUSE_NEW": "DISTINGUISHED",
+    "ERROR_UNKNOWN": "DISTINGUISHED",
+    "OBSERVABILITY": "INSUFFICIENT",
+    "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
+    "BLOQUEADO_POR": [],
+    "PORQUE_FALHA": "a mesma historia parou em `STORAGE -> DERIVED` — medido em provas/o_pedido_atravessa.py",
+    "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. E ONZE ETAPAS QUE JA CORRERAM NAO SAO UMA ESTRADA: o veredicto exige a MESMA historia, de ponta a ponta, e nao a soma de metades provadas em rotas diferentes.",
+    "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
+  },
+  "BIG_COLLECTION_READY": {
+    "VEREDICTO": "FAIL",
+    "PORQUE": "depende de COLLECTION_CORE_CLOSE = PASS, e ele nao passa",
+    "REQUIRED_ACQUISITION_CAPABILITIES_INTEGRATED": "NO",
+    "SCRAP_REQUIRED_CAPABILITIES_CANONICALLY_INTEGRATED": "NO",
+    "BUDGET_COST_CONTROLS_SUFFICIENT": "UNKNOWN",
+    "OBSERVABILITY_FOR_SCALE": "NO",
+    "DISPOSABLE_PREFLIGHT_PROOF": "NO"
+  },
+  "RED_TEAM": [
+    {
+      "PROVA": "1 · lei IMPLEMENTED porque existe ficheiro",
+      "ACHADO": "o eixo de implementacao viaja como DECLARED_BY_BIBLE e nunca como observacao. Nenhum blocker foi derivado dele.",
+      "VEREDITO": "SEPARADO"
+    },
+    {
+      "PROVA": "2 · migration LIVE porque esta no Git",
+      "ACHADO": "MIGRATION_IN_GIT = YES (27) · MIGRATION_APPLIED_LIVE = UNKNOWN. Medi contra descartavel, e descartavel nao promove a LIVE.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "3 · READY dado por produzido por fixture",
+      "ACHADO": "READY FLOW_EXECUTED = NO. Ha um CLI e uma prova; nenhuma rota.",
+      "VEREDITO": "NAO DERRUBA"
+    },
+    {
+      "PROVA": "4 · aresta dada por executada por teste de modulo isolado",
+      "ACHADO": "so conta aresta quando as DUAS pontas deixaram passagem na MESMA corrida — regra do proprio ledger, nao minha.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "5 · custo ausente virado zero",
+      "ACHADO": "COST = NOT_INSTRUMENTED, e nunca 0.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "6 · ERROR contado como NAO",
+      "ACHADO": "os cinco estados da porta continuam distintos; a Admission ja distingue NAO de NAO_SEI de ERRO.",
+      "VEREDITO": "NAO DERRUBA"
+    },
+    {
+      "PROVA": "7 · mesmo SHA contado como mesma observacao",
+      "ACHADO": "fechado no §63 e nao reaberto aqui.",
+      "VEREDITO": "NAO DERRUBA"
+    },
+    {
+      "PROVA": "8 · caminho usado como SOURCE_ID",
+      "ACHADO": "fechado no §60/§61; a correcao le o CAMPO do recibo.",
+      "VEREDITO": "NAO DERRUBA"
+    },
+    {
+      "PROVA": "9-10 · portal como consumidor / bypass de Intelligence",
+      "ACHADO": "INTELLIGENCE_CONSUMER_COUNT = 0 e isso e o ALVO nesta fase, nao um defeito. O portal nao conta como consumidor canonico.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "11 · ausencia de consumidor READY tratada como defeito",
+      "ACHADO": "o defeito medido e a ausencia de PRODUTOR e de DESTINO. Zero consumidores esta certo antes da Intelligence.",
+      "VEREDITO": "DISTINGUIDO"
+    },
+    {
+      "PROVA": "12 · legado fora do fluxo contado como RAW operacional",
+      "ACHADO": "os 13 estao fora por decisao; G-LEG-01 e DEBT e nao BLOCKER.",
+      "VEREDITO": "NAO DERRUBA"
+    },
+    {
+      "PROVA": "13 · branch do SCRAP contada como integrada",
+      "ACHADO": "SCRAP_INTEGRATED = NO, e RC-D esta na DAG da coleta grande, nao na do fecho.",
+      "VEREDITO": "SEPARADO"
+    },
+    {
+      "PROVA": "14 · E2E com dados que a producao nunca entrega",
+      "ACHADO": "o defeito e o INVERSO e foi medido: o fixture entrega MENOS do que a producao entrega, e por isso a prova falha onde a estrada passa.",
+      "VEREDITO": "ACHADO REAL"
+    },
+    {
+      "PROVA": "15 · PARTIAL virado blocker automaticamente",
+      "ACHADO": "48 leis estao PARTIAL e ha 0 blockers. Nenhum blocker foi derivado do estado de lei.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "16 · divida estetica virada blocker",
+      "ACHADO": "G-TEL-01 e G-STRUCT-01 ficaram DEBT apesar de reais.",
+      "VEREDITO": "GUARDADO"
+    },
+    {
+      "PROVA": "17 · blocker critico rebaixado por haver contorno manual",
+      "ACHADO": "G-READY-01 continua CRITICAL/BLOCKER embora exista um CLI que produz READY a mao. UM CLI NAO E UMA ROTA.",
+      "VEREDITO": "GUARDADO"
+    }
+  ],
+  "GENERATED_BY": "provas/os_portoes_da_collection.py"
+}

@@ -102,6 +102,21 @@ def _e_descartavel(url: str) -> bool:
     return (u.path or "").lstrip("/") in BANCOS_PERMITIDOS
 
 
+def _lit(v):
+    """Um valor como literal SQL. `None` vira `null`, e nunca a palavra 'None'.
+
+    ⚠️ ISTO NAO E DECORACAO. As chaves de identidade tem campos que PODEM ser
+    nulos — `document_key` na tentativa sem prova, `storage_object_id` numa
+    linha nao preservada. Interpolar `None` faria a consulta procurar a
+    STRING 'None', encontrar nada, e o escritor concluir que a observacao nao
+    existe. Um retry entraria outra vez, e a duplicata teria vindo de uma
+    conversao de tipo.
+    """
+    if v is None:
+        return "null"
+    return "'" + str(v).replace("'", "''") + "'"
+
+
 class MemoriaPostgres(Memoria):
     """A porta do banco falada por `psql`. Lê de volta com `SELECT`, como deve."""
 
@@ -208,8 +223,14 @@ class MemoriaPostgres(Memoria):
                 "identity_state", "source_id", "document_key",
                 "document_key_basis")
     # A leitura da corrida traz o `id`, porque e dela que sai o
-    # `RAW_OBSERVATION_ID`. `objeto_em()` fica sem ele: aquela pergunta e «ja ha
-    # linha neste caminho?», e a identidade nao acrescenta nada a ela.
+    # `RAW_OBSERVATION_ID`. E `COLS_OBS` tambem: uma chave que encontra uma
+    # linha tem de poder dizer QUAL linha encontrou.
+    # A COPIA tem as colunas DELA, e `id` esta la porque e ele que a chave da
+    # tentativa sem prova usa. A OBSERVACAO traz `id` pela mesma razao: quem
+    # encontra uma linha pela chave precisa de poder dizer QUAL linha achou.
+    COLS_COPIA = ("id", "storage_path", "media_type", "bytes", "sha256")
+    COLS_OBS = ("id", "storage_object_id", "attempts") + COLS_OBJ
+
     COLS_OBJ_DA_CORRIDA = ("id",) + COLS_OBJ
     TEMPOS = ("started_at", "finished_at", "captured_at", "derived_at")
 
@@ -223,12 +244,48 @@ class MemoriaPostgres(Memoria):
             % (self._select(self.COLS_RUN), run_id), self.COLS_RUN)
         return linhas[0] if linhas else None
 
-    def objeto_em(self, storage_path):
+    # ── AS TRES PERGUNTAS, CADA UMA COM A SUA CHAVE ─────────────────────
+    # `objeto_em(storage_path)` foi retirado: ele perguntava pela COPIA e
+    # respondia com a primeira OBSERVACAO do endereco. Com o endereco unico
+    # isso acertava por acidente; depois da fase 10 devolveria uma linha ao
+    # acaso com cara de determinismo.
+    def copia_em(self, storage_path):
         linhas = self._linhas(
-            "select %s from public.raw_asset where storage_path = '%s'"
-            % (self._select(self.COLS_OBJ), storage_path.replace("'", "''")),
-            self.COLS_OBJ)
+            "select %s from public.storage_object where storage_path = '%s'"
+            % (self._select(self.COLS_COPIA), storage_path.replace("'", "''")),
+            self.COLS_COPIA)
         return linhas[0] if linhas else None
+
+    def observacao_identificada(self, run_id, source_id, document_key, sha256):
+        linhas = self._linhas(
+            "select %s from public.raw_asset where identity_state = '%s'"
+            " and run_id = %s and source_id = %s and document_key = %s"
+            " and sha256 = %s"
+            % (self._select(self.COLS_OBS), "FORWARD_IDENTIFIED",
+               _lit(run_id), _lit(source_id), _lit(document_key),
+               _lit(sha256)), self.COLS_OBS)
+        return linhas[0] if linhas else None
+
+    def tentativa_sem_prova(self, run_id, source_id, storage_object_id, sha256):
+        # `is not distinct from`, e nao `=`: sem copia o id e nulo dos dois
+        # lados, e `null = null` nao e verdade. A linha nao preservada ficaria
+        # invisivel a propria chave que devia encontra-la.
+        linhas = self._linhas(
+            "select %s from public.raw_asset where identity_state = '%s'"
+            " and run_id = %s and source_id = %s"
+            " and storage_object_id is not distinct from %s and sha256 = %s"
+            % (self._select(self.COLS_OBS), "FORWARD_IDENTITY_UNPROVEN",
+               _lit(run_id), _lit(source_id), _lit(storage_object_id),
+               _lit(sha256)), self.COLS_OBS)
+        return linhas[0] if linhas else None
+
+    def observacoes_em(self, storage_path):
+        """TODAS. Devolve lista para que ninguem lhe chame uma linha."""
+        return self._linhas(
+            "select %s from public.raw_asset where storage_path = '%s'"
+            " order by id"
+            % (self._select(self.COLS_OBS), storage_path.replace("'", "''")),
+            self.COLS_OBS)
 
     def objetos_da_corrida(self, run_id):
         return self._linhas(
@@ -420,15 +477,22 @@ def cenarios(banco):
     # ── G — mesmo caminho reclamado por OUTRA corrida ────────────────────
     r4 = _correr(banco, [_art("a.pdf", A, "11")],
                  run=_corrida("IT-PG-G"), armazem=arm_a)
-    # 026: divergir SO na corrida ganhou nome proprio. Nao e «duas verdades no
-    # mesmo endereco»: e a MESMA verdade observada noutra corrida, e o que a
-    # impede de entrar e a trava fisica antiga — a FASE 10, que nao existe.
+    # 026: divergir SO na corrida ganhou nome proprio. E na preparacao da fase
+    # 10 deixou de ser CONFLITO: a observacao e legitima, a escrita e TENTADA,
+    # e quem a recusa e a trava fisica no banco — nao uma decisao em Python.
+    #
+    #     O ESCRITOR DEIXOU DE CARREGAR A TRAVA DO ESQUEMA DENTRO DE SI.
+    #
+    # A `PENDENCIA` continua a dizer o nome certo, porque foi mesmo ela que
+    # mordeu; o que mudou e QUEM decidiu.
+    notas_g = r4["JA_EXISTIA_NO_BANCO"]["OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO"]
     caso("G_outra_corrida_no_mesmo_caminho_e_NEW_RUN_SAME_STORAGE_PATH",
          r4["PENDENCIA"] == NEW_RUN_SAME_STORAGE_PATH
          and r4["RUN_STATE"] == "PARTIAL"
-         and r4["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"][0]["TIPO"]
-             == NEW_RUN_SAME_STORAGE_PATH,
-         "pendencia=%s" % r4["PENDENCIA"])
+         and not r4["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"]
+         and notas_g and notas_g[0]["TIPO"] == NEW_RUN_SAME_STORAGE_PATH
+         and not r4["MEMORIA"]["APLICADA"],
+         "pendencia=%s notas=%d" % (r4["PENDENCIA"], len(notas_g)))
 
     # ── J — mesmo run_id, identidade congelada diferente ─────────────────
     r5 = _correr(banco, [_art("j.pdf", B, "jj")],

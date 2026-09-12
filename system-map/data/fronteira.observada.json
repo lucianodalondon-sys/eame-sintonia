@@ -33,7 +33,9 @@
  "DONO": "admissao/admissao.py :: pronto_para_inteligencia()",
  "PRODUTORES": [
   "orquestrador/orquestrador.py",
-  "provas/testa_coleta_canonica.py"
+  "provas/so_a_colheita_atravessa.py",
+  "provas/testa_coleta_canonica.py",
+  "tests/test_fronteira_mede_producao.py"
  ],
  "PRODUTORES_EM_RUNTIME": [
   "orquestrador/orquestrador.py"
@@ -41,6 +43,7 @@
  "CONSUMIDORES": [],
  "DESTINO": "data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json",
  "DESTINO_EXISTE": false,
- "GAP": "READY_SEM_CONSUMIDOR",
- "GAP_PORQUE": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e ninguem le a saida. UMA PORTA POR ONDE NINGUEM PASSA NAO E UMA PORTA."
+ "READY_PRODUZIDO": false,
+ "GAP": "READY_NUNCA_PRODUZIDO",
+ "GAP_PORQUE": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. UMA PORTA POR ONDE NINGUEM PASSOU AINDA NAO E UMA PORTA."
 }

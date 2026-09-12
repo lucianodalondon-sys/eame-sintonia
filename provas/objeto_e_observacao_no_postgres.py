@@ -96,6 +96,26 @@ class Banco(_pg.MemoriaPostgres):
         return self._valor(sql)
 
 
+def _a_unica_observacao_em(banco, caminho):
+    """A observação naquele endereço — **provando** que é uma só.
+
+    ⚠️ ISTO ERA `banco.objeto_em(caminho)`, e aquilo devolvia `linhas[0]`.
+    Numa prova com uma observação por endereço acertava sempre, e era
+    exactamente por isso que o defeito era invisível: o teste que devia
+    apanhá-lo tinha o mesmo hábito do código.
+
+    Aqui a lista vem inteira, e se vier com mais de uma a prova REBENTA em vez
+    de escolher. Ler «a primeira» é uma decisão, e uma decisão escondida numa
+    leitura não é uma leitura.
+    """
+    linhas = banco.observacoes_em(caminho)
+    if len(linhas) > 1:
+        raise AssertionError(
+            "%d observacoes em %s — esta prova conta com uma, e escolher a "
+            "primeira seria escolher ao acaso" % (len(linhas), caminho))
+    return linhas[0] if linhas else None
+
+
 def _sql(banco, nome):
     with open(os.path.join(RAIZ, "supabase", "migrations", nome),
               encoding="utf-8") as f:
@@ -614,7 +634,7 @@ def _casos_do_writer(banco):
     r = preservar(corrida, [art], armazem, lambda o: dados, memoria=banco,
                   terminou_em="2026-09-11T02:05:00Z")
     caminho = caminho_do_objeto(art)
-    linha = banco.objeto_em(caminho) or {}
+    linha = _a_unica_observacao_em(banco, caminho) or {}
 
     caso("B5B_writer_escreve_FORWARD_IDENTIFIED",
          r["RUN_STATE"] == "COMPLETE"
@@ -709,7 +729,7 @@ def _casos_do_writer(banco):
                         STARTED_AT="2026-09-14T02:00:00Z"),
                    [art_u], armazem, lambda o: dados_u, memoria=banco,
                    terminou_em="2026-09-14T02:05:00Z")
-    linha_u = banco.objeto_em(caminho_do_objeto(art_u)) or {}
+    linha_u = _a_unica_observacao_em(banco, caminho_do_objeto(art_u)) or {}
     caso("B5B_sem_DOCUMENT_ID_entra_como_UNPROVEN_e_a_chave_fica_NULL",
          r7["RUN_STATE"] == "COMPLETE"
          and linha_u.get("identity_state") == "FORWARD_IDENTITY_UNPROVEN"
@@ -763,6 +783,30 @@ def _reset(banco, url):
             % (i, i, "a" * 63 + str(i)))
     _sql(banco, M025)
 
+    # ── O LIVRO-RAZÃO FICA COERENTE COM O QUE JÁ FOI APLICADO ───────────
+    # Sem isto, o aplicador do cenário B veria 001..025 como pendentes e a
+    # espera pelo lock aconteceria na PRIMEIRA migration da fila — provaria
+    # que ele espera, mas não que espera NA JANELA DA 026, que é a pergunta.
+    # Anotar aqui o que já foi aplicado à mão é o mesmo bootstrap que o
+    # aplicador faz num banco que já tem schema e ainda não tem livro.
+    import hashlib
+    banco.aplicar(
+        "create table if not exists public.schema_migracao ("
+        " versao text primary key,"
+        " aplicada_em timestamptz not null default now(),"
+        " resultado text not null,"
+        " sha256 text not null);")
+    migracoes = os.path.join(RAIZ, "supabase", "migrations")
+    for nome in sorted(os.listdir(migracoes)):
+        if not nome.endswith(".sql") or nome.startswith(("008", "026")):
+            continue
+        with open(os.path.join(migracoes, nome), "rb") as f:
+            sha = hashlib.sha256(f.read()).hexdigest()
+        banco.aplicar(
+            "insert into public.schema_migracao (versao, resultado, sha256) "
+            "values ('%s','JA_EXISTIA','%s') on conflict (versao) do nothing;"
+            % (nome[:3], sha))
+
 
 def _sessao(url, script):
     """Uma sessão `psql` que fica de pé enquanto o script dela corre."""
@@ -795,6 +839,15 @@ def concorrencia(url):
     banco = Banco(url)
     migration = open(os.path.join(RAIZ, "supabase", "migrations", M026),
                      encoding="utf-8").read()
+
+    # ⚠️ O CENÁRIO A SEGURA A TRANSAÇÃO À MÃO, E ISSO É FIEL — NÃO UM ATALHO.
+    # Desde que `motor/cadeia_canonica.sh` passou a correr cada ficheiro com
+    # `--single-transaction`, a fronteira da transação é EXATAMENTE esta: o
+    # ficheiro inteiro, do primeiro `alter` ao último `create index`. O `begin`
+    # explícito aqui reproduz essa fronteira e acrescenta um `pg_sleep` para a
+    # janela ser observável — o aplicador real fecha depressa demais para se
+    # ver alguém a esperar. O cenário B corre o aplicador de verdade, onde a
+    # espera é do lado dele e não precisa de encenação nenhuma.
 
     # ── CENÁRIO A · a transação velha que ainda não inseriu ─────────────
     # A migration segura o lock; o INSERT chega no meio. Ele NÃO pode passar à
@@ -858,8 +911,13 @@ select pg_sleep(3);
 commit;
 """ % ("c" * 64))
     )
-    m2 = _correr_sessao(_sessao(
-        url, "select pg_sleep(1);\nbegin;\n" + migration + "\ncommit;\n"))
+    # O APLICADOR DE VERDADE, e não uma cópia dele. Se a ordem, a transação ou
+    # o livro-razão mudarem em `motor/cadeia_canonica.sh`, este caso muda com
+    # eles — que é o ponto de correr o dono em vez de o imitar.
+    m2 = subprocess.Popen(
+        ["bash", os.path.join(RAIZ, "motor", "cadeia_canonica.sh"),
+         "migrations", url],
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     # ⚠️ A MIGRATION ESPERA MAIS CEDO DO QUE SE ESPERAVA, e isso e medido:
     # ela nao chega ao `lock table` da fase 8 — o primeiro `alter table ... add
     # column` da fase 7 JA pede ACCESS EXCLUSIVE e ja bate na transacao aberta.
@@ -875,7 +933,9 @@ commit;
         "select left(regexp_replace(query, '\\s+', ' ', 'g'), 60) from "
         "pg_stat_activity where wait_event_type='Lock' and query not ilike "
         "'%%pg_stat_activity%%' limit 1")
-    saida_w2, saida_m2 = _esperar(w2), _esperar(m2)
+    saida_w2 = _esperar(w2)
+    saida_m2 = m2.stdout.read()
+    m2.wait()
     linha = banco._linhas(
         "select id, identity_state from public.raw_asset where storage_path = "
         "'IT/conc/antes-do-commit.pdf'", ("id", "identity_state"))

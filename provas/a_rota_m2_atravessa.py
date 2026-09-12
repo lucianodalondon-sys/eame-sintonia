@@ -73,18 +73,47 @@ import rota_forward_documento as m2      # noqa: E402
 import social_persistencia as sp          # noqa: E402
 import telemetria as tel                 # noqa: E402
 from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402
+from coleta import ingresso as ing        # noqa: E402
 from guarda import preservar_derivado as pd   # noqa: E402
 
-MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
-              '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024',
-              # 025 acrescenta uma TRAVA a `raw_asset`, e esta prova escreve
-              # nessa tabela pelo dono canonico. Sem ela, o writer emite um
-              # insert em `storage_object` sobre um esquema que ainda nao a
-              # tem — e a prova morre com «relation does not exist».
-              #
-              #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
-              '025', '026']
+# ── A CADEIA DE MIGRATIONS VEM DO DISCO, E NAO DE UMA LISTA ────────────────
+# ⚠️ AQUI ESTAVA UMA LISTA ESCRITA A MAO, E ELA ENVELHECEU DUAS VEZES. A
+# primeira vez foi apanhada e remendada com `025` e `026`, e o comentario que
+# ficou dizia, com todas as letras:
+#
+#     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
+#
+# Envelheceu outra vez. A `027` — a que tirou a trava do endereco de
+# `raw_asset` e pos chave sobre `storage_object_id` — nunca chegou a ser
+# aplicada por esta prova. Ela atravessava um esquema uma migration atras da
+# realidade e dizia-se canonica.
+#
+#     REMENDAR UMA LISTA QUE JA ENVELHECEU UMA VEZ
+#     E MARCAR ENCONTRO COM O MESMO DEFEITO.
+#
+# Agora a cadeia e LIDA da pasta. Quando nascer a `028`, esta prova aplica-a
+# sem que ninguem se lembre dela.
+#
+# A `008` fica de fora por ser outra especie: nao constroi esquema nenhum, e a
+# VERIFICACAO POS-APLICACAO que confere o que as outras construiram. Corre-la
+# no meio seria pedir-lhe contas de tabelas que ainda nao nasceram.
+_SO_VERIFICA = ("008",)
+
+
+def _cadeia_de_migrations():
+    pasta = os.path.join(RAIZ, "supabase", "migrations")
+    fora = []
+    for f in sorted(os.listdir(pasta)):
+        if not f.endswith(".sql"):
+            continue
+        n = f.split("_", 1)[0]
+        if n in _SO_VERIFICA:
+            continue
+        fora.append(n)
+    return fora
+
+
+MIGRATIONS = _cadeia_de_migrations()
 
 MODELO = os.path.join(RAIZ, "system-map", "data", "estradas-it.model.json")
 # Onde a medicao desta corrida fica escrita, e o ledger que ela confere.
@@ -271,7 +300,9 @@ def main():
             "pdftotext ausente: sem ele o executor devolve FERRAMENTA_AUSENTE "
             "para tudo, e esta prova mediria a maquina, e nao a rota.")
 
-    print("MIGRATIONS — a cadeia canonica, ate a 026")
+    # ⚠️ O ROTULO VEM DA CADEIA, E NAO DE UMA MEMORIA. Escrito a mao,
+    # ele dizia "ate a 026" enquanto a cadeia ja ia na 027.
+    print("MIGRATIONS — a cadeia canonica, ate a %s" % MIGRATIONS[-1])
     caso("A1_a_cadeia_aplica_num_postgres_real",
          aplicar_migrations(url) == len(MIGRATIONS),
          "%d migrations em PostgreSQL 16" % len(MIGRATIONS))
@@ -327,6 +358,18 @@ def main():
     caso("A3_o_bruto_e_real_e_foi_escrito_pelo_dono",
          recibo_raw["PENDENCIA"] == "PRESERVED_AND_REGISTERED" and raw_id > 0,
          "raw_asset_id=%d, por guarda/preservar_coleta.py" % raw_id)
+
+    # ── E A ETAPA RAW CONTA-SE, PELA MESMA FRONTEIRA QUE A PRODUCAO USA ──
+    # ⚠️ ISTO NAO E UM RASTRO ESCRITO A MAO PELA PROVA. E a funcao que
+    # `coleta/ingresso.receber()` chama em producao, com o recibo REAL que
+    # `preservar()` acabou de devolver. Uma prova que emitisse um rastro que a
+    # producao nunca emite estaria a medir a prova.
+    #
+    #     ATE AQUI A ARESTA `RAW -> DERIVED` ESTAVA DECLARADA E SEM TOPO:
+    #     `DERIVED` dizia vir de `RAW`, e `RAW` nao tinha linha nenhuma.
+    ing.falar_do_raw(sql, recibo=recibo_raw, corrida=corrida, entrada=1,
+                     recusas_da_porta=0, source_id=fonte_provavel,
+                     route_class_id=rota_provavel)
 
     # ── DERIVED, na MESMA corrida ────────────────────────────────────────
     print("\nA ROTA, NUMA CORRIDA SO")
@@ -460,27 +503,33 @@ def main():
     # ⚠️ E O QUE SOBRA DE DECLARADO TEM DE SER EXATAMENTE O GAP JA CONHECIDO.
     #
     # Esta prova apanhou uma aresta a mais do que eu esperava — `RAW -> DERIVED`
-    # — e ela esta CERTA a apanha-la. `coleta/derivacao_forward.py` emite
-    # `DERIVED` com `edge_from='RAW'` e NAO emite `RAW`, de propósito: quem
-    # escreve `raw_asset` e `guarda/preservar_coleta.py`, e ler a linha de
-    # outro nao e ter corrido a etapa dele. O gap ja estava declarado em prosa
-    # desde O9R (`RAW_FORWARD_NAO_EMITE`); o que muda agora e que ele passou a
-    # ser VISIVEL NO RASTRO, e nao so num comentario.
+    # ⚠️ AQUI ESTAVA O GAP `RAW_FORWARD_NAO_EMITE`, E ELE FECHOU.
+    # Ate C-MAKE-RAW-OBSERVABLE-V1, `DERIVED` declarava `edge_from='RAW'` e
+    # `RAW` nao tinha linha nenhuma: a seta estava desenhada dos dois lados e
+    # so um lado existia. A prova exigia que a lista de arestas sem topo fosse
+    # EXATAMENTE `{("RAW","DERIVED")}` — o buraco visivel na medicao.
     #
-    #     UM BURACO QUE APARECE NA MEDICAO E DIVIDA.
-    #     UM BURACO QUE SO APARECE NO COMENTARIO E ESQUECIMENTO COM DATA.
+    # Agora a etapa RAW conta-se, pela fronteira que a producao usa, e a lista
+    # esvaziou-se. O que era «exatamente este buraco» passa a ser «nenhum».
     #
-    # A prova nao o perdoa em silencio: ela exige que a lista de arestas sem
-    # topo seja EXATAMENTE esta. Uma segunda aresta declarada e nao percorrida
-    # reprova aqui, no dia em que nascer.
-    esperadas_sem_topo = {("RAW", "DERIVED")}
-    caso("A9_o_unico_declarado_sem_topo_e_o_gap_ja_conhecido",
-         visto["ARESTAS_DECLARADAS_SEM_TOPO"] == esperadas_sem_topo,
-         "sem topo: %s · e RAW_FORWARD_NAO_EMITE e gap declarado do O9R"
+    #     UM BURACO QUE FECHA NAO SE APAGA DA PROVA:
+    #     A PROVA PASSA A EXIGIR QUE ELE CONTINUE FECHADO.
+    #
+    # E a exigencia ficou MAIS forte, nao menos: qualquer aresta declarada e
+    # nao percorrida reprova aqui, no dia em que nascer.
+    caso("A9_nenhuma_aresta_ficou_declarada_sem_topo",
+         visto["ARESTAS_DECLARADAS_SEM_TOPO"] == set(),
+         "sem topo: %s · a aresta RAW->DERIVED tem os dois lados"
          % sorted(visto["ARESTAS_DECLARADAS_SEM_TOPO"]))
-    caso("A9b_o_gap_do_RAW_continua_declarado_pelo_dono_da_fronteira",
-         "RAW_FORWARD_NAO_EMITE" in [g[0] for g in fwd.GAPS],
-         "quem emite DERIVED diz, por escrito, que nao fala pelo RAW")
+    caso("A9b_a_etapa_RAW_deixou_passagem_nesta_MESMA_corrida",
+         "RAW" in visto["ETAPAS"],
+         "etapas observadas na rota: %s" % sorted(visto["ETAPAS"]))
+    caso("A9c_e_a_passagem_do_RAW_aponta_para_a_observacao_desta_corrida",
+         str(banco._valor(
+             "select coalesce(raw_asset_id::text,'<NULL>') from"
+             " public.etapa_da_corrida where run_id = '%s' and etapa = 'RAW'"
+             % RUN)) == str(raw_id),
+         "etapa_da_corrida.raw_asset_id = raw_asset.id = %s" % raw_id)
 
     integ = rastro.integridade(passagens)
     caso("A10_a_conta_fecha_em_todas_as_etapas",

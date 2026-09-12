@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "801724328e985dccacbb3388b1c8b70907e25bfb",
+    "HEAD": "bf8f9d7597e8bba3f04a5404ea899c7875ebab78",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4200,6 +4200,43 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.it/%s",
+      "usado_por": [
+        {
+          "file": "provas/a_fase_10_entra_no_acervo.py",
+          "line": 516
+        },
+        {
+          "file": "provas/a_lei_da_fase_10.py",
+          "line": 696
+        },
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 239
+        },
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 172
+        },
+        {
+          "file": "provas/o_forward_conta_se.py",
+          "line": 211
+        },
+        {
+          "file": "provas/preservar_coleta_no_postgres.py",
+          "line": 388
+        },
+        {
+          "file": "tests/test_preservar_coleta.py",
+          "line": 59
+        },
+        {
+          "file": "tests/test_preservar_coleta_no_banco.py",
+          "line": 59
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/watch?v=%s'",
       "usado_por": [
         {
@@ -4221,31 +4258,6 @@
         {
           "file": "tests/test_c10_8b_rota_paga_canonica.py",
           "line": 36
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.it/%s",
-      "usado_por": [
-        {
-          "file": "provas/a_rota_m2_atravessa.py",
-          "line": 210
-        },
-        {
-          "file": "provas/o_forward_conta_se.py",
-          "line": 211
-        },
-        {
-          "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 331
-        },
-        {
-          "file": "tests/test_preservar_coleta.py",
-          "line": 59
-        },
-        {
-          "file": "tests/test_preservar_coleta_no_banco.py",
-          "line": 59
         }
       ]
     },
@@ -4601,6 +4613,19 @@
       ]
     },
     {
+      "endpoint": "https://learn.microsoft.com/en-us",
+      "usado_por": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 598
+        },
+        {
+          "file": "provas/gate_de_aceitacao_tematica.py",
+          "line": 262
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.adama.com/italia",
       "usado_por": [
         {
@@ -4653,6 +4678,45 @@
       ]
     },
     {
+      "endpoint": "https://www.arpa.veneto.it/%s",
+      "usado_por": [
+        {
+          "file": "provas/a_rota_m2_atravessa.py",
+          "line": 351
+        },
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 214
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.w3.org/TR",
+      "usado_por": [
+        {
+          "file": "provas/candidatos_tematicos.py",
+          "line": 452
+        },
+        {
+          "file": "provas/o_legado_fora_do_fluxo.py",
+          "line": 450
+        }
+      ]
+    },
+    {
+      "endpoint": "https://arpa.veneto.it',",
+      "usado_por": [
+        {
+          "file": "provas/red_team_da_relevancia_da_fonte.py",
+          "line": 213
+        },
+        {
+          "file": "tests/test_relevancia_da_fonte.py",
+          "line": 276
+        }
+      ]
+    },
+    {
       "endpoint": "https://it.linkedin.com/company",
       "usado_por": [
         {
@@ -4662,6 +4726,19 @@
         {
           "file": "tests/test_comunicacao.py",
           "line": 58
+        }
+      ]
+    },
+    {
+      "endpoint": "https://exemplo.invalido/x.pdf",
+      "usado_por": [
+        {
+          "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
+          "line": 130
+        },
+        {
+          "file": "tests/test_legado_fora_do_fluxo.py",
+          "line": 124
         }
       ]
     },
@@ -4714,51 +4791,6 @@
         {
           "file": "tests/test_c10_8ar_orcamento_de_rede.py",
           "line": 222
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/api",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 46
-        }
-      ]
-    },
-    {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 105
-        }
-      ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 113
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/s",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 148
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/%s'",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 157
         }
       ]
     }

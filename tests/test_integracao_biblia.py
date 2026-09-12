@@ -205,10 +205,21 @@ class AsQuatroLeisNovas(unittest.TestCase):
         self.assertEqual(len(ids), len(set(ids)), 'ha COL-LAW repetido')
         v1 = {x for x in ids if int(x[-3:]) < 100}
         self.assertEqual(48, len(v1), 'a V1 tinha 48 leis; alguma sumiu ou mudou de numero')
-        for bloco, quantas in (('1', 12), ('2', 18), ('3', 16), ('4', 6), ('5', 4)):
+        # ⚠️ ESTA CONTAGEM SO SOBE POR EMENDA REGISTADA. O bloco 5xx passou de
+        # 4 para 5 na V1.4 (COL-LAW-505), com registo em
+        # docs/decisoes/DIARIO-DE-DECISOES.md e linha no historico
+        # constitucional, como a COL-LAW-069 exige.
+        for bloco, quantas in (('1', 12), ('2', 18), ('3', 16), ('4', 6), ('5', 5)):
             n = len([x for x in ids if x[-3] == bloco])
             self.assertEqual(quantas, n,
                              f'o bloco {bloco}xx tinha {quantas} leis e agora tem {n}')
+        # E a contagem sozinha nao apanha uma TROCA — uma lei que sai e outra
+        # que entra mantem o total. Estas nunca podem desaparecer nem mudar de
+        # numero, e sao nomeadas uma a uma de proposito.
+        for lei in ('COL-LAW-501', 'COL-LAW-502', 'COL-LAW-503', 'COL-LAW-504',
+                    'COL-LAW-505', 'COL-LAW-012', 'COL-LAW-013', 'COL-LAW-014',
+                    'COL-LAW-042', 'COL-LAW-043', 'COL-LAW-069'):
+            self.assertIn(lei, ids, f'{lei} desapareceu ou foi renumerada')
 
 
 if __name__ == '__main__':

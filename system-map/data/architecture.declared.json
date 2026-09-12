@@ -2988,6 +2988,173 @@
    "files": [
     "provas/instagram_audio_only.py"
    ]
+  },
+  {
+   "id": "C-CONTRATO-DE-RETORNO",
+   "name": "O contrato de retorno da coleta",
+   "territory": "Z-REGUAS",
+   "kind": "contract",
+   "icon": "⊟",
+   "what": "O envelope de UMA corrida: que parte do retorno e COLHEITA e que parte e SUPORTE — manifesto, catalogo, recibo de execucao ou plano. Vocabulario fechado de seis especies, estado proprio para o payload (PRESENTE/AUSENTE/NAO_SE_APLICA, medido na arvore e nao afirmado) e a unica porta por onde algo entra no ingresso: so a COLHEITA atravessa.",
+   "why_here": "COL-LAW-013 exigia «OUTPUT = onde larguei, E EM QUE FORMA» e o «em que forma» nunca teve campo, enum nem guarda — vivia em prosa livre que nenhum codigo lia. O preco foi medido: 253 itens emitidos, ZERO colheita real. Um manifesto de 163 descargas e 74 fichas de conta entraram na cadeia como material observado. Isto e IRMAO de C-CONTRATO-ARTEFATO e nao substituto: aquele governa a ficha de uma coisa ENTREGUE, este governa o que a CORRIDA devolveu. E nao vive em receitas.py porque `larga_em` ja e uma declaracao de intencao — e duas das cinco apontam para pastas que nao existem sem ninguem notar.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "leis/retorno_da_coleta.py"
+   ],
+   "views": [
+    "infra",
+    "audit"
+   ]
+  },
+  {
+   "id": "C-SALA-DE-ESPERA",
+   "name": "A Sala de Espera",
+   "territory": "Z-ADMISSAO",
+   "kind": "engine",
+   "icon": "⌛",
+   "what": "O dono unico da morada onde a unidade READY pousa: data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json. Escrita atomica por troca (fsync + os.replace), retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e uma trava por corrida contra duas maos simultaneas.",
+   "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "admissao/sala_de_espera.py"
+   ],
+   "views": [
+    "audit",
+    "trace"
+   ]
+  },
+  {
+   "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
+   "name": "A prova de ate onde um pedido atravessa",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Aperta o botao no unico ponto de entrada canonico —  com um  — e pergunta ao banco e ao disco o que aquela corrida deixou, etapa a etapa. O executor e o REAL, a ir a fonte REAL; o livro append-only e a Sala de Espera ficam em moradas descartaveis. Depois nomeia o PRIMEIRO edge perdido, e diz quais etapas correram DEPOIS do buraco — porque essas correram e nao provam a estrada.",
+   "why_here": "UMA PROVA QUE COMECA PELO MEIO NAO PROVA A ESTRADA: prova o pedaco por onde comecou. E duas metades provadas em rotas diferentes nao sao uma estrada provada — o veredito exige a MESMA historia.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_pedido_atravessa.py"
+   ],
+   "views": [
+    "audit",
+    "trace"
+   ]
+  },
+  {
+   "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+   "name": "A prova de que a unidade pousa na espera",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre a travessia inteira numa corrida so, com bytes reais, contra PostgreSQL 16 descartavel e um sistema de ficheiros descartavel: RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY -> SALA DE ESPERA. Depois mede o que um ficheiro exige e que ninguem ve ate falhar: atomicidade, retry idempotente, conflito de corrida, concorrencia em processos de verdade, e o que sobra de um crash a meio da escrita.",
+   "why_here": "ADMISSION SIM != READY AUTOMATICO: a unidade tem de POUSAR. E um rastro de READY emitido antes da publicacao seria um sucesso que aponta para um ficheiro que pode nunca ter sido escrito.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_unidade_pousa_na_espera.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+   "name": "A medição de que a Sala de Espera não tem morada",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Mede o que falta para fechar `G-READY-01` e `G-READY-02`, e para antes de escolher. Prova que o contrato READY existe (COL-LAW-043, 11 campos), que tem UM construtor, que a rota forward já tem em mãos o `item` e a `Decisao` que o dono pede, que a morada declarada no mapa JÁ TEM escritor (o orquestrador), que a decisão de admissão não carrega identidade persistida, e que a lei aceita ficheiro E banco sem escolher entre os dois.",
+   "why_here": "DUAS SAÍDAS LEGÍTIMAS COM CONSEQUÊNCIAS DIFERENTES NÃO SÃO UM DETALHE DE IMPLEMENTAÇÃO: SÃO UMA DECISÃO. Fechar `G-READY-02` antes de a morada estar escolhida seria escolher em silêncio — e uma morada escolhida em silêncio é uma que ninguém pode discutir depois.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_sala_de_espera_nao_tem_morada.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-PROVA-O-RAW-FALA",
+   "name": "A prova de que a etapa RAW deixou de ser muda",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre uma observação real pela porta de produção (`coleta/ingresso.receber`) contra PostgreSQL 16 descartável, e pergunta AO BANCO: a etapa RAW deixou passagem em `etapa_da_corrida`, e essa passagem aponta para a observação que produziu (`raw_asset_id`). Mede também o que não pode acontecer — falha antes de persistir não dá rastro de sucesso, o que não correu diz NOT_RUN e não FAIL, recusar não é falhar, a fonte não se infere do caminho nem do sha, e um reencontro conta-se REUSED sem abrir buraco na contabilidade.",
+   "why_here": "Uma etapa que persiste mas não emite rastro existe no banco e NÃO EXISTE PARA A RECONCILIAÇÃO OPERACIONAL. Numa coleta grande, RAW_EXECUTED, RAW_NOT_RUN, RAW_ERROR, RAW_LOST e RAW_REUSED tinham todos o mesmo aspeto: nenhum. E a aresta RAW→DERIVED estava declarada pelo lado de baixo e sem topo.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/o_raw_fala.py"
+   ],
+   "views": [
+    "audit",
+    "trace"
+   ]
+  },
+  {
+   "id": "C-CENSO-CARDS-SENSORES",
+   "name": "Censo dos cards e dos sensores",
+   "territory": "Z-PROVA",
+   "kind": "scanner",
+   "icon": "▦",
+   "what": "Junta oito censos que ja existiam e faz a pergunta que nenhum deles fazia sozinho: que card precisa de que sensor, e ate onde o dado chega. Separa as CINCO provas que nao se emprestam — EXISTE, CORRE, RODOU, PRODUZIU, ENTROU — e classifica cada aresta card->camada como PROVEN, BROKEN ou MISSING conforme exista, nesta arvore, quem ESCREVA a camada.",
+   "why_here": "Cada numero desta matriz ja tinha dono noutro sitio. Escreve-los a mao num documento criaria um SEGUNDO dono de cada contagem, e dois donos divergem no dia em que um deles medir outra vez — por isso isto e um gerador e nao um documento. A descoberta que ele existe para mostrar e que a matriz card x sensor e PEQUENA: nao ha uma unica aresta card->sensor, porque a corrente parte na camada do portal. Desenhar as 638 celulas daria a sensacao de um mapa e seria falsa.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "system-map/scripts/censo_cards_sensores.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
+   "id": "C-RELEVANCIA-FONTE",
+   "name": "O portao de relevancia da fonte",
+   "territory": "Z-REGUAS",
+   "kind": "gate",
+   "icon": "⊘",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "files": [
+    "leis/relevancia_da_fonte.py"
+   ],
+   "what": "Decide, por par (FONTE, PROPOSITO), se esta fonte vale ser acompanhada para este universo — e barra o GASTO quando a resposta nao e SIM. Cinco resultados (SIM · NAO · NAO_SEI · NAO_SE_APLICA · ERRO), mais NAO_AVALIADA, que nao e um resultado porque ninguem olhou. Tres vereditos: AUTORIZA · BARRA · EXIGE_AVALIACAO.",
+   "why_here": "FIRST_PRE_SPEND_RELEVANCE_GATE = NONE. Um pedido atravessava pedido -> receitas -> orquestrador -> subprocess sem que nada perguntasse se a fonte servia: o unico requisito para correr era existir linha em EXECUTORES. MEDIDO: 54 das 77 fontes podiam disparar coleta e 8 podiam correr rota paga com verdict = NAO SEI. E NAO_AVALIADA nao e NAO_SEI nao e ERRO nao e NAO — uma so delas e um julgamento; as outras tres sao confissoes, e uma confissao nao autoriza gasto nem o condena."
+  },
+  {
+   "id": "C-PROVA-BARATA",
+   "name": "A prova barata de uma fonte",
+   "territory": "Z-CANDIDATAS",
+   "kind": "engine",
+   "icon": "◌",
+   "departments": [
+    "INTELIGENCIA"
+   ],
+   "views": [
+    "acervo"
+   ],
+   "files": [
+    "candidatas/prova_barata.py"
+   ],
+   "what": "Olha para uma fonte SEM lhe fazer uma coleta: primeiro o acervo que esta casa ja guardou dela (zero rede, teto de 3 unidades), e so depois uma sonda limitada. Produz uma OBSERVACAO com DECISAO = NAO_TOMADA.",
+   "why_here": "O portao recusa gasto sobre fonte nao avaliada, e avaliar exige olhar. Sem uma forma barata de olhar, o portao seria uma porta trancada com a chave do lado de dentro. E a prova NAO decide: transformar «a amostra que consegui apanhar» em «o que a fonte e» faria a primeira amostra magra condenar a fonte com ar de medicao. PROVA_BARATA_NUNCA_PAGA = True."
   }
  ],
  "BUSINESS_EDGES": [

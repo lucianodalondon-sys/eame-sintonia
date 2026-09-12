@@ -1204,3 +1204,374 @@ nenhuma.
 **SUPOSIÇÃO NÃO ASSUMIDA:** não se decide aqui que a política determinística é
 suficiente para sempre. Decide-se que ela **basta para fechar**, desde que
 produza os dados que uma política melhor precisaria para ser comparada com ela.
+
+---
+
+## D-0xx · O EXECUTOR DECLARA O QUE É COLHEITA — `COL-LAW-505`
+
+```
+LAW_ID    COL-LAW-505 (nova)
+BEFORE    nenhuma lei separava COLHEITA de SUPORTE. COL-LAW-013 exigia
+          «OUTPUT = onde larguei, e em que forma» e o «em que forma» não tinha
+          campo, enum nem guarda. COL-LAW-014 já nomeava `artifact_types` e
+          `produces` e declarava que não existiam.
+AFTER     seis espécies declaradas, vocabulário fechado, validador executável
+          em `leis/retorno_da_coleta.py`. SÓ A COLHEITA ENTRA NO INGRESSO.
+WHY       a espécie era inferida por «a primeira lista do JSON que tenha fichas».
+EVIDENCE  2026-09-11, os cinco executores de pedido/receitas.py:
+              ITEMS_EMITTED        253
+              REAL_HARVEST_ITEMS     0
+              FALSE_HARVEST_TOTAL  253
+          `CLASSIFICADO-V1.json` declara um contentor `ITEMS` com ITEM_COUNT=0;
+          a heurística SALTA-O por estar vazio e agarra o catálogo ao lado.
+IMPACT    runtime NÃO mudou. `a_colheita()` continua como estava e nenhum
+          executor foi adaptado. 3 famílias medidas para a adaptação futura.
+VERSION   V1.3 -> V1.4
+```
+
+**O que se recusou fazer.** Criar uma lei nova que ignorasse `COL-LAW-013` e
+`COL-LAW-014` teria dado à casa duas autoridades sobre a mesma pergunta. A
+`COL-LAW-505` cita as duas e declara-se como a resposta que faltava a elas — não
+como uma terceira pergunta.
+
+**O que se recusou distinguir.** `INDEX` e `MANIFEST` não são espécies
+diferentes. Procurou-se a diferença e ela não existe: as duas são uma listagem
+de payloads, e o que muda é onde o payload está e se está — que é o campo
+`PAYLOAD`, com estado próprio.
+
+    NAO COMPRIMIR ESPECIES DISTINTAS PARA SIMPLIFICAR SCHEMA.
+    NAO INVENTAR DISTINCOES QUE A REALIDADE NAO PEDIU.
+
+**Dono.** `leis/retorno_da_coleta.py`, irmão de `leis/artefato.py`. Não
+`pedido/receitas.py`, que declara INTENÇÃO e cuja declaração pode apodrecer sem
+ninguém notar; não `coleta/ingresso.py`, onde decidir a espécie seria decidir
+por cheiro, depois do facto — que é o defeito que esta lei veio fechar.
+
+---
+
+## D-0xx · A REGRA DE T2 NÃO FOI ESCRITA — e o NÃO tem prova
+
+```
+LAW_ID    nenhuma. NENHUMA LEI MUDOU NESTA MISSÃO.
+          Esta entrada existe porque uma decisão de NÃO IMPLEMENTAR é a que
+          mais facilmente se perde: não deixa código, e daqui a três meses
+          alguém escreve a lista óbvia «porque ninguém tinha tentado».
+BEFORE    `PERGUNTAS_DO_UNIVERSO` tem T3, T4, T7, T9 — e não tem T2. Perguntada
+          sobre T2, a porta responde NAO_SE_APLICA: «não há regra escrita do
+          que conta como «T2». Sem regra, esta porta não inventa uma.»
+AFTER     exactamente o mesmo. Nem uma palavra acrescentada.
+WHY       mediu-se, e a medição fechou o portão na quarta das seis condições
+          que o brief exigia.
+EVIDENCE  `provas/a_regra_de_t2.py` · `docs/operacao/MEDICAO-DA-REGRA-T2.md`
+          gabarito de 46 documentos reais: 10 positivos · 33 negativos ·
+          3 ambíguos (não arredondados).
+
+              nenhum termo aparece nos 10 positivos e em ZERO negativos
+              `vento`  aparece em 30 dos 33 NEGATIVOS e em 7 dos 10 positivos
+              A1-obvia -> FALSE_POSITIVE = 32 dos 33 negativos
+
+          E o ataque que decidiu: existe uma lista que separa o gabarito na
+          perfeição, e ela é feita de `venerdì`, `pomeriggio`, `dipartimento`,
+          `unità organizzativa`. Treinada num publicador:
+
+              GENERALIZACAO = 0/10
+
+IMPACT    Admission intacta. T3, T4, T7, T9 intactos. Runtime intacto.
+          NEW_FAILURES = 0. SYSTEM_MAP_CHECK = PASS.
+VERSION   nenhuma. A Bíblia não mudou porque nenhuma lei mudou.
+```
+
+**O contraexemplo que fundou tudo.** A ARPAV publica `Meteo Veneto` (T2) **e**
+`U.O. Fitosanitario — VITE` (T3). O publicador não decide o território. Sem os
+seis negativos da ARPAV no gabarito, classificar pela fonte **pareceria
+funcionar**.
+
+**O que se recusou fazer.** Escrever `A5-titulo-do-documento`, que tem
+`FP = 0` e `FN = 0` e parece a regra certa. Não é uma regra de clima: é a lista
+dos **nomes comerciais** de três publicações. E ainda assim responde `NAO_SEI`
+ao SIAS — uma fonte T2 declarada.
+
+**O que se recusou arredondar.** Os três boletins da ARIF Puglia abrem com duas
+páginas de análise sinóptica e só depois trazem *Bactrocera*. São as duas coisas
+num PDF. Ficaram `AMBIGUO`, e não viraram número.
+
+    UMA REGRA QUE SÓ ACERTA EM QUEM JÁ VIU NÃO É UMA REGRA:
+    É A LISTA DOS DOCUMENTOS QUE JÁ TÍNHAMOS.
+
+---
+
+## D-0xx · A ADMISSION CONTINUA DONA DO PAR `(ITEM, UNIVERSO)` — e o mecanismo não chega
+
+```
+LAW_ID    nenhuma. NENHUMA LEI MUDOU. A Bíblia não subiu de versão.
+          COL-LAW-005, 042 e 043 saíram desta missão CONFIRMADAS, não emendadas.
+BEFORE    depois de a regra de T2 falhar, ficou no ar se a responsabilidade
+          estava na camada errada — se o par (item, universo) devia sair da
+          Admission para a Intelligence.
+AFTER     fica onde está. E separou-se, pela primeira vez por escrito, o DONO
+          da IMPLEMENTAÇÃO:
+
+              ADMISSION_REMAINS_UNIVERSE_OWNER              YES
+              THEMATIC_CLASSIFICATION_MOVES_TO_INTELLIGENCE NO
+              CURRENT_KEYWORD_IMPLEMENTATION_SUFFICIENT     NO
+              MULTI_UNIVERSE_REQUIRES_ARCH_CHANGE           NO  (provado)
+
+WHY       COL-LAW-005 já diz «ADMITIR decide se a evidência entra num universo»
+          e «JULGAR combina e interpreta depois» — são atos diferentes com donos
+          diferentes. COL-LAW-043 põe `UNIVERSO` entre os 11 campos que a
+          Intelligence RECEBE. Mover a decisão para lá faria o consumidor
+          produzir o que ele consome — e AGENTS.md já legisla contra isso, na
+          lista de leis que o mapa não pode violar: «consumidor não vira dono do
+          gerador».
+EVIDENCE  docs/operacao/ESTUDO-FRONTEIRA-ADMISSION-INTELLIGENCE-V1.md
+          seis sistemas, três famílias tecnológicas independentes:
+          Databricks Medallion · AWS data lake layers · OCCRP Aleph/FollowTheMoney
+          · OpenCTI · Azure AI Document Intelligence · Google Document AI.
+          Os seis põem a classificação semântica num COMPONENTE PRÓPRIO, entre a
+          validação e o consumo. Nenhum a põe dentro do leitor, e nenhum a põe
+          no consumidor. Zero conflitos com lei desta casa.
+IMPACT    runtime intacto · Admission intacta · T2 intacto · NEW_FAILURES = 0.
+VERSION   nenhuma.
+```
+
+**A ARMADILHA DE VOCABULÁRIO, porque ela quase respondeu à pergunta errada.** A
+pergunta chegou como *«o julgamento (item, universo)»*. Nesta casa `JULGAR` é
+outro ato: COL-LAW-005 separa `COLETAR` · `ADMITIR` · `JULGAR`. O par (item,
+universo) é **ADMITIR**. Traduzida para a língua da casa, a pergunta já tinha lei.
+
+    RESPONDER DEPRESSA A UMA PERGUNTA MAL TRADUZIDA
+    É MUDAR A ARQUITETURA POR CAUSA DE UMA PALAVRA.
+
+**O QUE O ESTUDO EXTERNO ACRESCENTOU, e não era o esperado.** Não mudou o dono —
+confirmou-o. O que ele trouxe de novo foi o **diagnóstico do mecanismo**: em
+Azure Document Intelligence, *«custom classifiers identify document types before
+invoking an extraction model»*; em Google Document AI, classificar vive numa
+categoria de processador separada da extração. Decidir «que tipo de documento é
+este» é, em toda a indústria madura, **um problema com dono, corpus e avaliação
+próprios** — nunca uma lista de palavras dentro do leitor.
+
+**O QUE SE RECUSOU.** Trocar o mecanismo agora. O estudo diz de que **família** a
+solução é (regra estruturada + abstenção + revisão, o `doubt` do Aleph casado com
+o `NAO_SEI` desta casa), não qual é. Construir um classificador exige corpus
+rotulado com held-out honesto, e a medição de T2 provou que esta árvore ainda não
+o tem.
+
+**MULTIPERTENÇA, PROVADA E NÃO SUPOSTA.** `decidir()` devolveu `SIM` para
+`(item, T3)` **e** `SIM` para `(item, T4)` no mesmo item, cada um com o seu motivo.
+O livro real já tem 44 itens com mais de uma decisão. Com a ressalva medida: o
+orquestrador pergunta **um** universo por corrida — o que é implementação, não
+arquitetura.
+
+---
+
+## D-0xx · DÚVIDA ESTRUTURAL → ESTUDO EXTERNO ANTES DE IMPLEMENTAR
+
+```
+LAW_ID    nenhuma lei da Bíblia. É REGRA DE MÉTODO, e método tem outro dono.
+OWNER     README.md — «dono canônico do método», confirmado: CLAUDE.md diz
+          «Método … continuam em README.md. Este arquivo não os repete.»
+BEFORE    a prática JÁ EXISTIA, mas só como acontecimento histórico: a Parte XVII
+          da Bíblia («AS LEIS ROUBADAS», emenda V1.1) registra um estudo de
+          sistemas maduros que gerou 30 leis. O que NÃO existia era a regra que
+          diz QUANDO fazer esse estudo outra vez.
+AFTER     README.md, secção «DÚVIDA ESTRUTURAL → ESTUDO EXTERNO ANTES DE
+          IMPLEMENTAR», irmã arquitetural do item 7 («trabalho visual consulta o
+          Design System antes de inventar»).
+WHY       porque um precedente não é uma regra. Ninguém repete um acontecimento
+          por ele ter acontecido.
+EVIDENCE  esta própria missão: o estudo confirmou o dono e diagnosticou o
+          mecanismo, com zero linhas de runtime alteradas.
+IMPACT    UMA regra, UM dono. NÃO foi duplicada em CLAUDE.md, AGENTS.md nem na
+          Bíblia — `grep` confirma ocorrência única.
+VERSION   nenhuma.
+```
+
+**O QUE SE RECUSOU CRIAR.** Uma lei `COL-LAW-5xx`. A Bíblia legisla sobre a
+**coleta**; isto legisla sobre **como se decide**, que é método — e método vive no
+README desde o início. Criar a lei teria dado à casa dois donos para «como se
+trabalha aqui», e a partir daí nenhum dos dois valeria.
+
+**A TRAVA CONTRA O ABUSO.** A regra diz onde PARAR: três sistemas maduros, duas
+famílias, e ou converge ou contradiz explicitamente. Sem isso, «estude antes» vira
+desculpa para não entregar.
+
+    UMA REGRA DE PESQUISA SEM LIMITE DE PESQUISA
+    É UMA LICENÇA PARA ADIAR.
+
+---
+
+### D-040 — O gate de aceitação de mecanismo temático, escrito antes dos candidatos
+- **Data:** 2026-09-11
+- **Estado:** DECIDIDO
+- **Contexto:** a baseline de T3 (`C-MEDE-ADMISSION-ATUAL-CONTRA-GABARITO-T3-V1`)
+  mediu o mecanismo de hoje e fechou com `CURRENT_MECHANISM_ACCEPTABLE = NOT_DECIDED`,
+  porque não existia critério de aceitação em lado nenhum da árvore. Procurado na
+  Bíblia, no README, no AGENTS e no censo: não havia.
+- **Decisão:** criar **um** contrato canónico de aceitação de mecanismo temático,
+  com dono único em `provas/gate_de_aceitacao_tematica.py`. Oito condições duras
+  no plano da observação independente, mais um gate separado de alcance, mais a
+  regra de integração que exige os dois.
+- **Motivo:** sem alvo desenhado antes, a flecha aterra sempre no centro de alguma
+  coisa — e escolher os números depois de ver o resultado é a mesma fraude com o
+  sinal trocado. Estudo externo obrigatório (Google Document AI, Azure Document
+  Intelligence, scikit-learn, NIST AI RMF) devolveu
+  `THERE_IS_A_UNIVERSAL_CLASSIFIER_ACCEPTANCE_THRESHOLD = NO`: nenhum prescreve
+  número, todos dizem que ele sai da função de custo de quem opera. Logo o número
+  tinha de ser escolhido aqui, e a assimetria `FALSE_NEGATIVE_COST >
+  FALSE_POSITIVE_COST` é a razão de cada um.
+- **Consequência:** comparações futuras passam a ter PASS/FAIL predefinido.
+  Aplicado mecanicamente ao baseline congelado:
+  `CURRENT_ADMISSION_GATE_RESULT = FAIL` (6 de 8 condições falham, mais o alcance).
+  Nada foi consertado: `ADMISSION_CHANGED = NO`.
+  E fica fixado `T3_GROUND_TRUTH_ROLE = EVALUATION` — quem afinar olhando para os
+  36 não os pode usar depois como prova independente.
+- **Quem decidiu:** Luciano, na missão `C-FECHA-GATE-ACEITACAO-TEMATICA-V1`.
+
+**O QUE SE RECUSOU CRIAR.** Uma lei `COL-LAW-5xx`. A Bíblia é a constituição da
+**coleta**; este gate legisla sobre a **qualidade de um mecanismo de decisão**, que
+é outro conceito. `COL-LAW-042` já governa a *forma* de uma decisão da Admissão —
+enxertar-lhe um limiar de qualidade daria dois donos ao mesmo assunto. É o mesmo
+raciocínio da D-039, e a mesma conclusão.
+
+```
+BIBLE_CHANGE_REQUIRED    = NO
+CONTRACT_CHANGE_REQUIRED = YES   (contrato novo, dono único)
+```
+
+**ONDE OS NÚMEROS VIVEM.** No código, e só lá.
+`docs/operacao/GATE-DE-ACEITACAO-TEMATICA-V1.md` explica e cita; um teste prova
+que os dois dizem a mesma coisa. Uma lei em dois sítios diverge.
+
+    UM GATE QUE SE COMPENSA É UMA MÉDIA COM NOME DE REGRA.
+
+**O QUE A SEGUNDA PASSAGEM ACRESCENTOU.** Nenhum limiar mudou — a decisão acima
+está intacta. Fecharam-se duas coisas que faltavam à prova dela:
+
+- **A suite do gate foi medida por mutação.** `provas/mutacao_do_gate.py` altera
+  o ficheiro do dono, corre a suite real e exige que ela reprove: 13 mutantes,
+  `SURVIVORS = 0`. Uma suite verde prova que nada rebentou, não que ela morde —
+  e o risco deste gate nunca foi um bug, foi alguém mexer num número depois de
+  ver um resultado.
+- **O único número que o estudo externo encontrou passou a citar a página onde
+  está.** O «target a score of 80% or higher» não vive na *transparency note*
+  nem na página de threshold, mas na `accuracy-confidence` — que também diz
+  contra o que ele é medido: *training data*, não holdout. A afirmação estava
+  certa; a fonte apontava ao lado, e uma citação que não se confirma vale o
+  mesmo que nenhuma.
+
+    UMA SUITE QUE NÃO REPROVA UM LIMIAR ALTERADO
+    NÃO ESTÁ A GUARDAR LIMIAR NENHUM.
+
+---
+
+### D-041 — O portão de relevância da fonte, antes do gasto
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** Rastreado o caminho real `pedido → receitas.resolver →
+  orquestrador.correr → subprocess`, medido em plano seco e sem gastar:
+
+  ```
+  FIRST_PRE_SPEND_RELEVANCE_GATE = NONE
+  ```
+
+  O único requisito para uma corrida acontecer era existir uma linha no dicionário
+  `EXECUTORES` daquele território. As fontes filtradas pelo planeador nem entravam
+  na decisão. Medido sobre as 77 fichas do cadastro único: **54 podiam disparar
+  coleta** e **8 podiam correr rota paga** — as oito de T9, todas com
+  `verdict = NÃO SEI` e `access_method = NÃO SEI`, contra um executor que declara
+  `custo: "pago quando passa pela rota Apify"`. **Zero** fontes tinham decisão
+  explícita de relevância, e `SOURCE_RELEVANCE` não tinha dono em toda a árvore.
+
+- **Decisão:** Criado `leis/relevancia_da_fonte.py` como **dono único** da pergunta
+  «esta fonte vale ser acompanhada PARA ESTE PROPÓSITO?». A decisão é do par
+  `(SOURCE_ID, PROPOSITO)` — nunca da fonte sozinha. O eixo semântico é o que já
+  existe (`admissao/admissao.py::RESULTADOS`, COL-LAW-038), **importado e não
+  copiado**, mais um sexto estado que não é resultado: `NAO_AVALIADA`.
+
+  O portão devolve três vereditos — `AUTORIZA` · `BARRA` · `EXIGE_AVALIACAO` — e
+  guarda o **gasto**, não a observação (COL-LAW-018 uma camada acima). Três formas
+  de gastar fecham a porta quando a resposta não é `SIM`: rota paga (e «NÃO SEI»
+  conta como paga), acionamento `AGENDADO`, escopo `TOTAL`.
+
+  `pedido/receitas.py::resolver` pergunta; `orquestrador/orquestrador.py::correr`
+  obedece, com estado próprio `BARRADO_NA_RELEVANCIA` e `exit 3`. A regra não está
+  copiada em nenhum dos dois.
+
+  `candidatas/prova_barata.py` é a saída do impasse: observa uma fonte sem lhe
+  fazer coleta, com teto duro, sem rede no degrau 0, e com `DECISAO = NAO_TOMADA`
+  sempre — `'NAO_TOMADA'` não pertence a `RESULTADOS`, por construção.
+
+- **Motivo:** O objetivo não é ranking de fontes. É impedir
+  `FONTE DESCOBERTA → COLETA CARA → MUITOS BYTES → depois descobrimos que ela quase
+  nunca servia`. E impedir o contrário com a mesma força:
+
+  ```
+  NAO_AVALIADA ≠ NAO_SEI ≠ ERRO ≠ NAO
+  ```
+
+  Uma só delas é um julgamento; as outras três são confissões, e uma confissão não
+  autoriza gasto nem o condena. Um booleano obrigaria «não sei» a escolher um lado,
+  e o lado que ele escolheria seria sempre o «não».
+
+- **Consequência:**
+  - As 8 fontes que podiam gastar dinheiro sem avaliação passaram a **0**.
+  - Coleta recorrente e coleta total sobre fonte não avaliada passaram a **0**.
+  - 46 fontes de rota gratuita continuam observáveis **à mão e pontualmente** sem
+    decisão — por desenho, com o estado escrito em cada recibo. É a prova barata,
+    não coleta normal, e o gap está nomeado em vez de escondido.
+  - **Nenhuma decisão foi portada do atlas.** `GREEN → SIM` promoveria 17 fontes
+    por convenção de cor e deixaria de fora 4 que o próprio atlas declara
+    relevantes: o `YELLOW` é definido como «fonte real e **relevante**, mas com
+    atrito de acesso/licença/automação». Logo o verde não está a medir relevância.
+
+    ```
+    VERDICT_DO_ATLAS  = EIXO_MISTURADO
+    PORTADAS_DO_ATLAS = 0
+    UMA COR NÃO É UMA DECISÃO. PINTAR NÃO É AVALIAR.
+    ```
+
+  - **Corrigida uma deriva que tornava a fila de candidatas invisível.**
+    `candidatas/fonte_nova.py` escrevia em `data/samples/FONTES-CANDIDATAS.json` —
+    ficheiro que nem existe — enquanto a COL-LAW-053, o `AGENTS.md`, o
+    `scan_sources.py` e o índice de fontes apontavam todos para `candidatas/`.
+    O degrau 1 da escada estava a receber candidatas fora do alcance do mapa, do
+    censo e da lei.
+
+  ```
+  BIBLE_CHANGE_REQUIRED    = YES   (emenda nomeada, NÃO escrita nesta missão)
+  CONTRACT_CHANGE_REQUIRED = YES   (contrato novo, dono único)
+  ```
+
+  A Bíblia precisa de uma lei que hoje não tem: *nenhuma fonte gasta antes de
+  provar que serve para o propósito pedido*. A COL-LAW-053 desenha a escada de
+  quatro degraus e a COL-LAW-018 manda o portão grátis vir antes do gasto, mas
+  nenhuma das duas exige a decisão. Escrever a emenda é ato constitucional —
+  numeração, tabela de história, conformidade — e fica **declarado aqui em vez de
+  feito às pressas no fim de outra missão**.
+
+- **O QUE ESTA DECISÃO NÃO FECHA, e está medido:** o portão vive no caminho
+  **canónico**, e esse caminho não é o único até ao dinheiro.
+
+  ```
+  ENTRYPOINTS DE COLETA COM `__main__` QUE VAO A REDE   40
+  DESTES, QUE TOCAM APIFY                               32
+  DESTES, QUE CONSULTAM O PORTAO DE RELEVANCIA           0
+  WORKFLOWS QUE CORREM ROTA PAGA SEM O ORQUESTRADOR      4 de 5
+  ```
+
+  `coleta/comunicacao_coleta.py` tem `__main__` próprio e importa `apify_pool`.
+  Pôr o portão dentro de cada um dos 32 seria copiar a lei 32 vezes — o defeito
+  que esta própria decisão existe para evitar. O sítio onde uma trava se escreve
+  uma vez e vale para os trinta e dois é o dono da chave, `apify_pool`, por onde
+  todos têm de passar para gastar. Fica **declarado como próximo passo mínimo, e
+  não iniciado**.
+
+      UM PORTÃO NA PORTA DA FRENTE NÃO FECHA TRINTA E DUAS PORTAS DAS TRASEIRAS.
+
+  Por isso o veredito da missão é `PARTIAL`, e não `PASS`.
+
+- **Quem decidiu:** missão SR-01. Relatório completo, com o rastreio, o censo, os
+  27 ataques e os 20 mutantes, em
+  [`docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md`](../operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md).
+
+    UMA DECISÃO QUE A PORTA NÃO CONHECE NÃO É UMA DECISÃO.

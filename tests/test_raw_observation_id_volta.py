@@ -154,9 +154,27 @@ class ASegundaCorridaNaoHERDANOME(Bancada):
         id_a = a["RAW_OBSERVATIONS"][0]["RAW_OBSERVATION_ID"]
         b = self.observar("IT-B4-RUN-B", quando="2026-09-11T00:00:00Z")["RAW"]
 
-        # o estado de hoje, medido no B3 e NÃO corrigido aqui
+        # ⚠️ O NOME DISTO MUDOU, E A MUDANCA E A CORRECCAO INTEIRA.
+        #
+        # Antes esta linha cobrava `CONFLITOS_DE_OBJETO`: o escritor recusava
+        # a corrida nova por SUA CONTA, em Python, antes de o banco ter uma
+        # palavra a dizer. Ele carregava a trava física dentro de si, e por
+        # isso continuaria a recusar mesmo DEPOIS de a fase 10 a retirar.
+        #
+        #     UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+        #
+        # Agora é uma NOTA, a escrita é tentada, e quem decide é o banco.
+        # Enquanto `unique (raw_asset.storage_path)` estiver de pé ele recusa
+        # — e a corrida fecha `PARTIAL` com o motivo DELE, não com o nosso.
         self.assertEqual(b["RUN_STATE"], "PARTIAL")
-        self.assertTrue(b["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"])
+        self.assertEqual(b["JA_EXISTIA_NO_BANCO"]["CONFLITOS_DE_OBJETO"], [])
+        notas = b["JA_EXISTIA_NO_BANCO"]["OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO"]
+        self.assertTrue(notas)
+        self.assertEqual(notas[0]["TIPO"], "NEW_RUN_SAME_STORAGE_PATH")
+        self.assertEqual(notas[0]["CORRIDAS_QUE_JA_LA_ESTAO"], ["IT-B4-RUN-A"])
+        # E O BANCO TEM DE TER SIDO OUVIDO: a escrita foi tentada e recusada.
+        self.assertFalse(b["MEMORIA"]["APLICADA"])
+        self.assertIsNotNone(b["MEMORIA"]["ERRO"])
 
         # e o que o B4 tem de garantir mesmo assim
         self.assertEqual(b["RAW_OBSERVATIONS"], [])
@@ -312,9 +330,16 @@ class ACorridaItalianaInteira(CasoB1):
         self.assertTrue(all(isinstance(i, int) and i > 0 for i in ids))
         for o in obs:
             self.assertEqual(o["RUN_ID"], "IT-B4-ITALIA")
-            linha = self.banco.objeto_em(o["STORAGE_PATH"])
-            self.assertIsNotNone(linha)
-            self.assertEqual(linha["sha256"], o["SHA256"])
+            # A PERGUNTA AQUI E SOBRE A COPIA — «o byte ficou guardado neste
+            # endereco?» — e por isso vai a `storage_object`, que e de quem o
+            # endereco e. `objeto_em` prometia isto e respondia com uma
+            # observacao; o nome mentia, e agora nao ha nome que minta.
+            copia = self.banco.copia_em(o["STORAGE_PATH"])
+            self.assertIsNotNone(copia)
+            self.assertEqual(copia["sha256"], o["SHA256"])
+            # E a OBSERVACAO e uma so neste endereco, nesta corrida.
+            self.assertEqual(
+                len(self.banco.observacoes_em(o["STORAGE_PATH"])), 1)
 
     def test_14_o_recibo_que_a_porta_devolve_transporta_as_observacoes(self):
         """A porta não consulta o banco: ela transporta o que o dono devolveu."""
@@ -327,7 +352,60 @@ class ACorridaItalianaInteira(CasoB1):
         # por dentro — e um teste que proibisse a palavra proibiria a
         # explicacao junto com o defeito.
         self.assertNotIn("RAW_OBSERVATIONS", _codigo("coleta/ingresso.py"))
-        self.assertNotIn("raw_asset", _codigo("coleta/ingresso.py"))
+
+        # ⚠️ ESTA GUARDA PASSOU A NOMEAR O QUE PROTEGE.
+        # Ela proibia o TOKEN `raw_asset` em qualquer sitio do codigo da porta,
+        # e em C-MAKE-RAW-OBSERVABLE-V1 reprovou por uma razao que nao e a
+        # dela: a porta passou a contar a passagem do RAW ao dono do rastro, e
+        # o argumento que leva a correlacao chama-se `raw_asset_id` — o nome
+        # da COLUNA de `etapa_da_corrida`, nao uma conversa com `raw_asset`.
+        #
+        #     PROIBIR A PALAVRA PROIBE A EXPLICACAO JUNTO COM O DEFEITO —
+        #     E PROIBIR O NOME DA COLUNA PROIBE A CORRELACAO JUNTO COM ELE.
+        #
+        # O que a porta nao pode fazer e FALAR com o banco. Entao e isso que
+        # se mede: zero SQL, e `raw_asset` so como o nome do argumento.
+        # ⚠️ E ELA LE-SE POR AST, NAO POR `_codigo`.
+        # MEDIDO: `_codigo()` APAGA as strings, e SQL vive dentro de strings.
+        # A primeira versao desta guarda procurava `select ` no texto sem
+        # strings — e deixou passar, sem uma queixa, um
+        # `memoria.aplicar("select 1 from public.raw_asset")` posto de
+        # proposito para a testar.
+        #
+        #     UMA GUARDA QUE LE O CODIGO SEM AS STRINGS
+        #     NAO VE O SQL, QUE E EXACTAMENTE ONDE ELE MORA.
+        #
+        # A AST ve as strings e nao ve os comentarios — que e a divisao certa:
+        # a prosa pode nomear a tabela, e o codigo nao pode falar com ela.
+        import ast
+        arv = ast.parse(io.open(os.path.join(RAIZ, "coleta", "ingresso.py"),
+                                encoding="utf-8").read())
+        docs = set()
+        for no in ast.walk(arv):
+            if isinstance(no, (ast.Module, ast.FunctionDef, ast.ClassDef)):
+                d = ast.get_docstring(no, clean=False)
+                if d:
+                    docs.add(d)
+        verbos = ("select ", "insert into", "update ", "delete from")
+        for no in ast.walk(arv):
+            if not isinstance(no, ast.Constant):
+                continue
+            if not isinstance(no.value, str) or no.value in docs:
+                continue
+            baixo = no.value.lower()
+            self.assertNotIn("public.raw_asset", baixo,
+                             "a porta fala com `raw_asset` na linha %d"
+                             % no.lineno)
+            if "raw_asset" in baixo:
+                for verbo in verbos:
+                    self.assertNotIn(verbo, baixo,
+                                     "SQL sobre `raw_asset` dentro da porta,"
+                                     " linha %d" % no.lineno)
+        sobras = [p for p in _codigo("coleta/ingresso.py").split()
+                  if "raw_asset" in p and p != "raw_asset_id"]
+        self.assertEqual([], sobras,
+                         "a porta nomeia `raw_asset` fora do argumento de"
+                         " correlacao: %s" % sobras)
 
     def test_15_o_B4_nao_tocou_no_esquema_nem_chamou_o_T32(self):
         alvo = os.path.join(RAIZ, "supabase", "migrations")

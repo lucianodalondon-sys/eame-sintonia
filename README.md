@@ -192,3 +192,64 @@ documento canônico e para o commit — não fica só na conversa.
 7. **Trabalho visual consulta o Design System antes de inventar.** Design, UI, casco, portal,
    componentes, ícones: a lei permanente e a referência oficial estão em
    [`CLAUDE.md`](CLAUDE.md) — dono canônico das instruções permanentes deste repositório.
+8. **Dúvida estrutural consulta sistemas maduros antes de implementar.** Ver abaixo.
+
+---
+
+## DÚVIDA ESTRUTURAL → ESTUDO EXTERNO ANTES DE IMPLEMENTAR
+
+O item 7 acima já diz que trabalho visual consulta o Design System antes de inventar. Esta
+regra é a irmã arquitetural dele, e vale para a estrutura do sistema.
+
+> **Diante de dúvida estrutural, o primeiro movimento não é escrever código.
+> É descobrir como quem já resolveu esta classe de problema a resolveu.**
+
+**QUANDO DISPARA.** Quando há dúvida material sobre **owner** · **camada** ·
+**fronteira entre subsistemas** · **nova lei** · **nova abstração** · **novo contrato** ·
+**mudança arquitetural** · **classificação semântica** · ou qualquer padrão para o qual a
+evidência interna não fecha resposta.
+
+E dispara também, mesmo sem dúvida declarada, quando:
+
+- duas autoridades internas parecem conflitantes;
+- uma solução local funciona no exemplo e falha ao generalizar;
+- estamos prestes a inventar solução para problema conhecido da indústria;
+- o red team derruba a **premissa**, não apenas a implementação.
+
+**QUANDO NÃO DISPARA.** Bug local com contrato claro · erro de sintaxe · regressão com causa
+reproduzida · implementação mecânica de lei já fechada · mudança sem dúvida de owner ou de
+arquitetura. Exigir pesquisa para isto é fingir rigor e gastar o tempo de quem espera.
+
+**O PROCEDIMENTO.**
+
+1. **HARD STOP** da implementação.
+2. Escrever a pergunta em **uma frase**.
+3. Ler as autoridades internas e **citá-las antes de reinterpretá-las**.
+4. Separar `COMPROVADO` / `INFERÊNCIA` / `HIPÓTESE` / `NÃO SEI` — os mesmos quatro estados
+   desta página, aplicados à própria dúvida.
+5. Pesquisar sistemas maduros que resolveram a **mesma classe** de problema.
+6. Usar fonte oficial ou primária quando existir. Blog de opinião não fecha dúvida
+   estrutural.
+7. **Comparar padrões, não produtos.**
+8. Registrar o que é comum **e o que diverge**. A divergência costuma ensinar mais.
+9. Confrontar o padrão externo com as leis do SINTONIA.
+10. Decidir.
+11. **Só então** implementar.
+
+**A REGRA QUE PROTEGE AS LEIS.**
+
+```
+PADRÃO EXTERNO NÃO REVOGA LEI CANÔNICA EM SILÊNCIO.
+```
+
+Havendo conflito entre o padrão externo e uma lei desta casa, o resultado **não** é adotar o
+padrão: é `ARCHITECTURAL_DECISION_REQUIRED = YES` e `IMPLEMENTATION = HARD STOP`, com a
+decisão registrada no diário. Este repositório já fez isto uma vez, e a Parte XVII da
+[`BIBLIA-CANONICA-DA-COLETA.md`](BIBLIA-CANONICA-DA-COLETA.md) guarda a frase:
+**«ROUBAMOS AS LEIS. NÃO TROUXEMOS AS PLATAFORMAS.»**
+
+**ONDE PARAR, PARA NÃO VIRAR TURISMO TECNOLÓGICO.** Estudo externo tem fim. Para-se quando
+houver **≥ 3 sistemas maduros independentes** e **≥ 2 famílias tecnológicas diferentes**, e a
+resposta já estiver **convergente** ou **contraditória de forma explícita**. Se depois disso
+ainda não houver resposta, o resultado é `NÃO SEI / PRECISA ESTUDO MAIOR` — que é um
+resultado, e está registrado como tal. **Não se continua navegando só porque há tempo.**

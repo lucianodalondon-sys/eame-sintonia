@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "801724328e985dccacbb3388b1c8b70907e25bfb"
+    "HEAD": "bf8f9d7597e8bba3f04a5404ea899c7875ebab78"
   },
   "PECAS": [
     {
@@ -39,6 +39,18 @@
       "respostas": 1,
       "ficheiros": 20,
       "estado": "gray"
+    },
+    {
+      "id": "C-PORTA-FONTE",
+      "nome": "A porta de entrada de fonte nova",
+      "zona": "· de onde vem uma fonte",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 2,
+      "ficheiros": 2,
+      "estado": "yellow"
     },
     {
       "id": "C-LEITORES",
@@ -113,6 +125,18 @@
       "estado": "green"
     },
     {
+      "id": "C-SALA-DE-ESPERA",
+      "nome": "A Sala de Espera",
+      "zona": "4 · A PORTA DE ADMISSAO",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
       "id": "C-INGRESSO",
       "nome": "A porta de entrada da coleta",
       "zona": "· os executores",
@@ -125,21 +149,21 @@
       "estado": "yellow"
     },
     {
-      "id": "C-PORTA-FONTE",
-      "nome": "A porta de entrada de fonte nova",
-      "zona": "· de onde vem uma fonte",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 2,
-      "estado": "yellow"
-    },
-    {
       "id": "C-ESTRADA-PDF",
       "nome": "A primeira estrada · PDF até à porta",
       "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-PROVA-BARATA",
+      "nome": "A prova barata de uma fonte",
+      "zona": "· de onde vem uma fonte",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -182,7 +206,7 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 2,
-      "estado": "yellow"
+      "estado": "green"
     },
     {
       "id": "C-ROTULOS",
@@ -207,6 +231,18 @@
       "respostas": 3,
       "ficheiros": 5,
       "estado": "yellow"
+    },
+    {
+      "id": "C-COLETA-YOUTUBE",
+      "nome": "Colher o YouTube",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": false,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 2,
+      "estado": "green"
     },
     {
       "id": "V-FACEBOOK",
@@ -325,8 +361,8 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 4,
-      "estado": "yellow"
+      "ficheiros": 2,
+      "estado": "green"
     },
     {
       "id": "C-DERIVACAO-FORWARD",
@@ -398,7 +434,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 1,
-      "estado": "yellow"
+      "estado": "green"
     },
     {
       "id": "C-COLETA-INSTAGRAM",
@@ -413,18 +449,6 @@
       "estado": "green"
     },
     {
-      "id": "C-COLETA-YOUTUBE",
-      "nome": "Colher o YouTube",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 2,
-      "estado": "green"
-    },
-    {
       "id": "C-COLETA-PUBLICA",
       "nome": "Colher o que o concorrente publica",
       "zona": "· os executores",
@@ -434,6 +458,18 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 3,
+      "estado": "green"
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "nome": "Executor do SCRAP · a aquisicao social",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 5,
       "estado": "yellow"
     },
     {
@@ -458,7 +494,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 2,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-CORPUS",
@@ -481,7 +517,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 48,
+      "ficheiros": 50,
       "estado": "yellow"
     },
     {
@@ -553,7 +589,7 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 7,
+      "ficheiros": 5,
       "estado": "yellow"
     },
     {
@@ -567,25 +603,13 @@
       "respostas": 4,
       "ficheiros": 4,
       "estado": "green"
-    },
-    {
-      "id": "C-SCRAP-SOCIAL",
-      "nome": "SINTONIA SCRAP · o executor da aquisicao social",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 16,
-      "estado": "yellow"
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 48,
-    "respondem_as_quatro": 22,
-    "respondem_a_tres": 17,
-    "respondem_a_duas": 6,
+    "pecas_da_coleta": 50,
+    "respondem_as_quatro": 21,
+    "respondem_a_tres": 19,
+    "respondem_a_duas": 7,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0
   }

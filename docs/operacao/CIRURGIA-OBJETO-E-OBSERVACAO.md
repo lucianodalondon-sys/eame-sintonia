@@ -2424,3 +2424,905 @@ B5B_026_BLOCKER_HISTORICAL_IMPORTER = OPEN
 ```
 READY_FOR_PHASE_10 = NO
 ```
+
+---
+
+## V · C-LIVE-026 — A OBSERVAÇÃO GANHOU IDENTIDADE NO BANCO VIVO
+
+**C-LIVE-026** · aplicação controlada · 2026-09-10
+
+> A 026 deixou de ser proposta. Aplicada ao banco canónico pelo aplicador da
+> casa — o mesmo que a C-PREP-026 corrigiu — com o censo congelado antes e
+> conferido depois.
+
+### V.1 · O QUE FOI FEITO, E POR QUE PORTA
+
+```
+REF DA OPERAÇÃO   claude/raw-observation-identity-3jbwco @ 81ca1eda
+                  026_BLOB_SHA = 0963ff53d784e5422f9ed4b96afe478311b4d090
+                  igual ao que a preparação aprovou, recalculado
+PROCEDIMENTO      workflow_dispatch de .github/workflows/supabase-migrate.yml
+                  importar = false
+CORRIDAS          censo BEFORE   34534258240
+                  aplicação      34537688899
+```
+
+Desta vez **não foi preciso ramo operacional**: o ponteiro existia para esconder
+a 026 do migrador, e agora ela é justamente o que se quer aplicar. A fundação é
+o ref auditado.
+
+```
+MIGRATION_001..025 = SKIP (ja no livro-razao) HASH=MATCH
+MIGRATION_026      = PASS
+POST_APPLY_VERIFICATION (008) = PASS
+passos 5, 6 e 7 (importações) = skipped
+```
+
+### V.2 · A CORREÇÃO DA C-PREP-026 ESTAVA A SEGURAR
+
+A 026 entrou por um aplicador que só existe desde a preparação: cada ficheiro
+corre com `--single-transaction`, e o registo no livro-razão viaja no mesmo
+fluxo. Se a fase 8 tivesse reprovado — por exemplo na precondição da sequência —
+não teria ficado uma coluna sequer.
+
+```
+A 026 TEM SEIS FASES. SEM ATOMICIDADE, UMA FALHA A MEIO
+DEIXARIA METADE DA IDENTIDADE INSTALADA E O LIVRO SEM SABER.
+```
+
+### V.3 · O QUE MUDOU, MEDIDO DOS DOIS LADOS
+
+| | BEFORE | AFTER |
+|---|---|---|
+| `raw_asset` linhas | 252 | 252 |
+| min · max `id` | 1 · 890 | 1 · 890 |
+| ids distintos | 252 | 252 |
+| **md5 do CONJUNTO de ids** | `bf54cf47…86ce` | `bf54cf47…86ce` |
+| `storage_object` | 252 | 252 |
+| observações ligadas | 252 | 252 |
+| preservadas sem cópia | 0 | 0 |
+| caminho / sha divergentes | 0 / 0 | 0 / 0 |
+| `unique (storage_path)` | presente | presente |
+| checks em `public` | 129 | 135 |
+| índices únicos em `public` | 135 | 137 |
+
+As seis colunas da 026 não existiam antes — confirmado por **enumeração** das
+colunas de `raw_asset`, e não por um probe que só encontra o que procura.
+
+### V.4 · O LEGADO, E O QUE NINGUÉM LHE INVENTOU
+
+```
+LEGACY_ROWS                    = 252
+LEGACY_COM_IDENTIDADE          = 0
+IDENTITY_STATE_NOT_NULL        = true
+IDENTITY_STATE_TEM_DEFAULT     = 0
+```
+
+⚠️ **Nenhuma das 252 recebeu fonte ou documento.** Elas não são anónimas por
+descuido: são anteriores à lei, e dizê-lo é a única coisa honesta que se podia
+escrever nelas. O corte que as separa do futuro é o `id`, congelado sob
+`ACCESS EXCLUSIVE` — não um relógio, que a C-CORR-B5B2 já tinha reprovado.
+
+### V.5 · A AUDITORIA PASSA A COBRAR O CONTRATO DA 026
+
+O que a auditoria fazia pela 025 passa a fazer pela 026: contar, comparar e
+**reprovar**. Sete travas pelo nome, com `convalidated`; o estado sem `default`;
+zero observação sem estado; zero identidade no legado; e o índice de
+idempotência forward válido.
+
+```
+UMA TRAVA CRIADA E NÃO VALIDADA É UMA PROMESSA SOBRE O FUTURO
+E UM SILÊNCIO SOBRE O PASSADO.
+```
+
+### V.6 · O QUE CONTINUA FECHADO
+
+```
+NEW_RAW_ASSET_ROWS_CREATED_BY_C_LIVE_026 = 0
+    Nenhum canário. A prova do writer forward foi feita em banco descartável
+    na preparação, e o banco vivo termina com as mesmas 252 observações.
+
+UNIQUE(raw_asset.storage_path)  PRESENTE
+READY_FOR_PHASE_10              NO
+```
+
+---
+
+## W · C-PREP-PHASE-10 — QUAL É A LEI DA FASE 10, E PORQUE ELA AINDA NÃO ENTRA
+
+Missão **de preparação**. Zero DDL no vivo, zero escrita no vivo, zero coleta,
+zero importação. O que ela produz é uma lei **medida**, um protótipo que não
+mora na pasta das migrations, e um veredicto que continua `NO`.
+
+    LIVE_DB_DDL = 0 · LIVE_DB_WRITES = 0 · LIVE_COLLECTION = 0 · LIVE_IMPORT = 0
+
+### W.0 · O estado congelado, relido antes de qualquer coisa
+
+Auditoria somente-leitura do banco canónico, run `34539798312`, no
+`FOUNDATION_HEAD = 1b1487f0`:
+
+```
+025 = APLICADA          026 = APLICADA          MIGRATIONS_PENDENTES = nenhuma
+raw_asset = 252         storage_object = 252    LEGACY_ROWS = 252
+LEGACY_COM_IDENTIDADE = 0                       LEGACY_CUTOFF_VALUE = 890
+identity_state NOT NULL = true                  IDENTITY_STATE_TEM_DEFAULT = 0
+FORWARD_IDEMPOTENCY_INDEX_VALID = 1             unique(storage_path) = PRESENTE
+RAW_ASSET_ID_SET_MD5 = bf54cf470e59a3c512e017a967cd86ce
+```
+
+Idêntico ao que a `C-LIVE-026` deixou. Nada mudou, e por isso não houve
+`HARD STOP`.
+
+### W.1 · A pergunta da fase 10, dita sem rodeios
+
+A `025` separou as espécies e a `026` deu estado à observação. Ficou de fora,
+de propósito, a trava que **junta o que as duas separaram**:
+
+```
+unique (raw_asset.storage_path)   →   duas observações no mesmo endereço são UMA
+```
+
+E isso contradiz a espécie. Uma corrida nova que reencontra o mesmo documento
+faz uma **observação nova** — um facto novo, com outra hora e outra corrida.
+Hoje ela não entra. Medido em `provas/a_lei_da_fase_10.py`, caso `C2`:
+
+```
+C2_A_OBSERVACAO_NOVA_ENTRA = NAO
+C2_QUEM_A_IMPEDE           = raw_asset_storage_path_key
+```
+
+### W.2 · O que foi medido, e onde
+
+Tudo contra **PostgreSQL 16 descartável**, com `001 + 022 + 025 + 026`
+aplicadas, e nada contra SQLite: entram índices parciais únicos, inferência de
+árbitro no `on conflict`, `ACCESS EXCLUSIVE` e `pg_stat_activity`, e nenhum
+deles existe no SQLite com esta semântica.
+
+A prova vive em **`provas/a_lei_da_fase_10.py`** e corre inteira num banco que
+nasce e morre: `A_LEI_DA_FASE_10_DB_TESTED = PASS`.
+
+| parte | o que perguntou | o que o banco respondeu |
+|---|---|---|
+| C1 | retry da mesma corrida | recusado — pelo **endereço**, não pela identidade |
+| C2 | corrida nova, mesmo doc, mesmos bytes | **recusado** — é isto que a fase 10 abre |
+| C3 | corrida nova, mesmo doc, bytes novos | aceite; duas versões do mesmo documento |
+| C4 | dois documentos, mesmos bytes | aceite; **dois** objectos para um só `sha256` |
+| C5 | mesmo documento, duas fontes | aceite; `source_id` está na chave |
+| C6 | `FORWARD_IDENTITY_UNPROVEN` | entra — e **nenhum índice único o cobre** |
+| F | N observações → 1 objecto | proibido hoje, por `raw_asset_storage_path_key` |
+| G | identidade do objecto | é o **endereço**; `sha256` não é único |
+| N | objecto sem observação | permitido; nada no esquema o proíbe |
+| K/L4 | objecto e observação | precisam da **mesma transacção** |
+| L1 | duas sessões, mesma observação forward | a segunda espera, e depois é recusada |
+| L2 | duas sessões, mesma observação sem prova | **as duas entram** |
+| L5 | o DDL contra um escritor vivo | espera pelo `commit`; `ACCESS EXCLUSIVE` |
+| M | a máquina morre entre as duas escritas | objecto órfão sobrevive; o retry cura-o |
+
+### W.3 · A chave do `FORWARD_IDENTITY_UNPROVEN` — escolhida por medição
+
+Este era o buraco. O índice da fase 9 tem predicado `FORWARD_IDENTIFIED`; uma
+linha sem prova não o satisfaz, e portanto **não tem chave nenhuma**.
+
+Cinco candidatas, cada uma instalada como índice parcial a sério, e os mesmos
+cinco cenários por todas:
+
+```
+                             S1  S2  S3  S4  S5
+K0 · nada                    2!  2   2   2   2    REPROVADA
+K1 · (run, fonte, sha256)    1   2   1!  1!  2    REPROVADA
+K2 · (run, fonte, endereço)  1   2   2   2   2    APROVADA
+K3 · (fonte, sha256)         1   1!  1!  1!  2    REPROVADA
+K4 · K2 + sha256             1   2   2   2   2    APROVADA
+```
+
+`S3` é o contraexemplo que esta casa **mediu** nos 195 objectos italianos: a
+ADAMA publicou o **mesmo PDF** em `media/731` e em `media/6321`. Dois factos
+sobre o mundo, um conteúdo só.
+
+    O CONTEUDO NAO E O DOCUMENTO. NUNCA FOI.
+
+`K1` — a candidata que qualquer um escreveria primeiro, porque parece a mais
+honesta — junta esses dois factos num. `K3` faz pior: apaga a corrida nova.
+Fica `K4`, que é `K2` mais `sha256`, porque o endereço escrito na linha **pode
+divergir** do endereço do objecto que ela aponta (medido:
+`F_O_ENDERECO_DA_LINHA_PODE_DIVERGIR_DO_OBJETO = SIM`), e nesse dia o `sha256`
+é a única coisa na chave que ainda fala do conteúdo.
+
+### W.4 · A separação que a missão pediu que fosse investigada
+
+Ela existe, e é o que as medições desenham:
+
+```
+IDENTIDADE DO DOCUMENTO    (source_id, document_key)     só em FORWARD_IDENTIFIED
+IDENTIDADE DA TENTATIVA    (run_id, source_id, endereço, sha256)
+```
+
+A primeira diz **o quê**. A segunda diz **esta ida buscar**. São perguntas
+diferentes, e por isso não podem partilhar chave: uma tentativa repetida da
+mesma corrida é a mesma tentativa; a mesma tentativa noutra corrida é outra.
+E onde não há prova do documento, a casa **não inventa** uma — regista a
+tentativa, que é a única coisa que sabe.
+
+### W.5 · As dez leis propostas
+
+Cada uma com regra, razão, prova e o contraexemplo que ela evita.
+
+1. **O endereço não é identidade da observação.**
+   *Porquê:* junta observações distintas. *Prova:* `C2`, `F_N_OBSERVACOES_PARA_UM_OBJETO = NAO`.
+   *Evita:* a corrida nova desaparecer em silêncio.
+2. **O endereço é identidade do OBJECTO, e continua a ser.**
+   *Porquê:* uma cópia guardada num sítio é uma cópia. *Prova:* `G_DOIS_OBJETOS_NO_MESMO_ENDERECO = NAO`.
+   *Evita:* dois bytes diferentes no mesmo caminho.
+3. **`sha256` identifica conteúdo, nunca documento.**
+   *Prova:* `C4_OBJETOS_PARA_O_MESMO_SHA = 2`, `G_DOIS_OBJETOS_COM_O_MESMO_SHA = SIM`.
+   *Evita:* `media/731` e `media/6321` virarem um.
+4. **Sem `DOCUMENT_ID` provado não há chave de documento — e a tentativa tem chave própria.**
+   *Prova:* parte E, `K4` aprovada. *Evita:* o `UNPROVEN` duplicar sem limite (`H_O_UNPROVEN_DUPLICA_SEM_LIMITE = SIM`).
+5. **A observação e o objecto entram na MESMA transacção.**
+   *Prova:* `L4_A_OBSERVACAO_ENTRA_SEM_O_OBJETO = 0`. *Evita:* observação a apontar para nada.
+6. **O objecto órfão é aceite, e o retry reencontra-o.**
+   *Porquê:* o armazém remoto não está na transacção do Postgres. *Prova:* `M_*`.
+   *Evita:* apagar bytes que já custaram uma ida à rede.
+7. **O estado de identidade não recua nem avança por `update`.**
+   *Prova:* hoje o esquema **deixa** (`S3 · UPDATE que promove: ACEITE`); com o protótipo, `PROMOVER_UNPROVEN_POR_UPDATE = RECUSADO`.
+   *Evita:* dizer, em retrospectiva, que se sabia o que não se sabia.
+8. **Contar tentativas não é reescrever o passado.**
+   `attempts` e `last_attempt_at` continuam escrevíveis. *Prova:* `CONTAR_TENTATIVAS_CONTINUA_PERMITIDO = SIM`.
+9. **A derivação é por conteúdo, não por observação.**
+   *Prova:* a segunda observação dos mesmos bytes é recusada por `derivacao_e_unica_por_regua`.
+   *Evita:* derivar duas vezes os mesmos bytes com a mesma régua.
+10. **Nenhuma lei acima vale enquanto o escritor não souber falá-la.**
+    *Prova:* W.6. *Evita:* um esquema correcto servido por código que escolhe uma linha ao acaso.
+
+### W.6 · Porque o veredicto é `NO` — os seis bloqueios que sobram
+
+Nenhum deles se cura com `alter table`.
+
+1. **`guarda/preservar_coleta.py` lê por endereço.** `objeto_em(storage_path)`
+   faz `linhas[0] if linhas else None`. Com o `unique` de pé isso é uma linha;
+   sem ele são N, e a função escolhe **uma em silêncio**. Medido:
+   `J_OBJETO_EM_ENDERECO_DEIXA_DE_SER_UMA_LINHA = 2`.
+2. **O `on conflict` do escritor não vê a linha sem prova.** Medido:
+   `J_O_ON_CONFLICT_DO_ESCRITOR_NAO_VE_O_UNPROVEN = SIM`, e a linha entra duas
+   vezes. Falta-lhe um segundo `on conflict`, contra o índice da tentativa.
+3. **`attempts` e `last_attempt_at` continuam sem escritor.** Nasceram na 026 e
+   ninguém as escreve.
+4. **O endereço é FABRICADO quando a fonte cala.** `coleta/ingresso.py:215` cai
+   para `f.SHA256[:16]`. Medido pelo código de produção, com dois ficheiros
+   distintos de conteúdo igual e mesmo nome:
+
+   ```
+   com id nativo   XX/…/0b5c068c31e225fe-media-731-FDS.pdf
+                   XX/…/0b5c068c31e225fe-media-6321-FDS.pdf     SEPARADOS
+   sem id nativo   XX/…/0b5c068c31e225fe-0b5c068c31e225fe-FDS.pdf
+                   XX/…/0b5c068c31e225fe-0b5c068c31e225fe-FDS.pdf   COLIDEM
+   ```
+
+   A lei 4 põe o endereço numa chave. O endereço só vale o que vale o
+   discriminante — e este é inventado por nós. A cura é a montante.
+5. **Quatro emissores de `on conflict (storage_path)` partem no passo 1**, e
+   partem a **planear**, não a correr: 138 inserts em
+   `supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql`, mais
+   `guarda/catalogo_importar.py`, `supabase-raw-roundtrip.yml` e
+   `supabase-fichas-adama.yml`. Estão travados desde a `C-PREP-026`
+   (`guarda/trava_do_escritor_antigo.sh`) — **travados não é curados**.
+6. **Dois workflows lêem `where storage_path = '…'` à espera de UMA linha.**
+   Com N observações no mesmo endereço a comparação de shell deixa de fazer
+   sentido.
+
+### W.7 · O protótipo, e onde ele mora
+
+**`supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql`** — três
+passos: retirar o `unique` do endereço, criar o índice da tentativa, e o
+gatilho que impede o estado de recuar.
+
+Ele **não** está em `supabase/migrations/`, e a razão é mecânica: o aplicador
+varre `supabase/migrations/*.sql` e mais nada.
+
+    PROTOTIPO QUE MORA NA PASTA DAS MIGRATIONS E UMA MIGRATION
+    QUE AINDA NAO FOI APLICADA. E ISSO NAO E UM PROTOTIPO.
+
+Aplicado a um banco descartável próprio, ele faz o que promete — e isto foi
+**corrido**, não afirmado:
+
+```
+C2_A_OBSERVACAO_NOVA_ENTRA            SIM
+C1_RETRY_EXACTO_RECUSADO              SIM   por raw_identidade_forward_idx
+S1_RETRY_DA_MESMA_CORRIDA_RECUSADO    SIM   por raw_tentativa_sem_prova_idx
+S2_CORRIDA_NOVA_ENTRA                 SIM
+S3_ADAMA_731_E_6321_SEPARADOS         SIM
+PROMOVER_UNPROVEN_POR_UPDATE          RECUSADO
+CONTAR_TENTATIVAS_CONTINUA_PERMITIDO  SIM
+ON_CONFLICT_STORAGE_PATH              QUEBRA   (de propósito, e é o ponto 5)
+```
+
+### W.8 · O número da próxima migration, medido
+
+Não assumido. `026` é o maior no repositório, o maior no livro-razão do vivo, e
+o maior em **todas** as branches remotas — varridas uma a uma com `git ls-tree`,
+e não pela que estava à mão.
+
+```
+NEXT_MIGRATION_NUMBER = 027
+```
+
+### W.9 · O SINTONIA SCRAP não entra nisto
+
+Medido no código: a rota social **não atravessa RAW**. `social_envelope.py`
+declara `NOT_PRESERVED` e nomeia o dono forward; nenhum dos três ficheiros do
+scrap escreve `raw_asset`. A fase 10 não lhe toca.
+
+### W.10 · Veredicto
+
+```
+PHASE_10_LAW_MEASURED          = YES
+UNPROVEN_TEM_CHAVE_MEDIDA      = YES   (K4)
+UNPROVEN_TEM_CHAVE_NO_ESQUEMA  = NO
+WRITER_BLOCKERS                = 6
+READY_FOR_PHASE_10_IMPLEMENTATION = NO
+READY_FOR_PHASE_10_LIVE           = NO
+```
+
+A lei existe e está medida. O escritor ainda não a sabe falar, e instalar um
+esquema que o código não sabe servir seria trocar uma trava honesta por um
+silêncio.
+
+---
+
+## X · C-CLOSE-PHASE-10-BLOCKERS — O RUNTIME APRENDE A LEI
+
+A `C-PREP-PHASE-10` mediu a lei e parou em `READY_FOR_PHASE_10_IMPLEMENTATION = NO`,
+por seis bloqueios que nenhum `alter table` cura. Esta missão fecha-os. Continua
+sem tocar em produção:
+
+    LIVE_DB_DDL = 0 · LIVE_DB_WRITES = 0 · LIVE_COLLECTION = 0 · LIVE_IMPORT = 0
+    027_CREATED = NO · 027_LIVE = NO
+
+### X.1 · O censo, refeito e fechado
+
+Não se assumiu que eram seis. A varredura cobriu Python, SQL, YAML, heredocs,
+shell, workflows, SQL gerado, testes e provas.
+
+```
+DEPENDENTES_DO_UNIQUE_STORAGE_PATH_TOTAL = 21 ficheiros
+WRITERS_DEPENDENTES = 17     READERS_DEPENDENTES = 17   (sobrepõem-se)
+FALSOS_POSITIVOS = 1         `pacote/ler_saida_leque.py` tem um `objeto_em`
+                             que equilibra chavetas de JSON. Homónimo, e o
+                             censo diz isso em vez de o contar.
+OPERACIONAIS (fora de `tests/` e `provas/`) = 7
+BLOCKERS_FOUND_TOTAL = 9     (os 6 da preparação + 3 novos)
+```
+
+Os sete operacionais, com espécie:
+
+| ficheiro | escreve | lê | espécie |
+|---|:-:|:-:|---|
+| `guarda/preservar_coleta.py` | ✔ | ✔ | o escritor canónico |
+| `guarda/portas_live.py` |  | ✔ | porta do banco vivo |
+| `guarda/memoria_descartavel.py` | ✔ | ✔ | porta SQLite, só provas |
+| `guarda/preservar_derivado.py` |  | ✔ | dono do derivado |
+| `guarda/catalogo_importar.py` | ✔ | ✔ | GERA; `--aplicar` aposentado |
+| `supabase/importacoes/ADAMA-ES-CATALOGO-…` | ✔ | ✔ | registo histórico, fora da cadeia |
+| `supabase/migrations/025_…sql` |  | ✔ | a migration que separou as espécies |
+
+Os três que a preparação não tinha visto:
+
+1. **`guarda/portas_live.py`** — a porta de PRODUÇÃO tinha o mesmo
+   `objeto_em(storage_path)` com `linhas[0]`. A preparação mediu as portas de
+   prova e a de SQLite, e passou ao lado da que fala com o banco vivo.
+2. **`planear()` colapsava observações em Python.** O dicionário do plano era
+   indexado só pelo caminho: duas FONTES a observar o mesmo endereço davam UMA
+   entrada, e a segunda era contada como «relação sem byte novo». A mesma
+   doença do `unique`, mas em código — e portanto invisível a qualquer
+   migration.
+3. **O escritor carregava a trava física dentro de si.** `conferir_o_que_ja_existe`
+   devolvia `NEW_RUN_SAME_STORAGE_PATH` como **conflito**, e conflito PARA a
+   escrita. Com a fase 10 instalada, o escritor continuaria a recusar sozinho
+   o caso que ela existe para abrir.
+
+```
+UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+QUEM SABE SE A LINHA CABE E O BANCO.
+```
+
+### X.2 · A porta do banco, partida em perguntas determinísticas
+
+`objeto_em(storage_path)` **saiu**, e o nome já dizia o erro: prometia um
+OBJETO e ia buscá-lo a `raw_asset`, que guarda OBSERVAÇÕES.
+
+| pergunta | onde | determinística porque |
+|---|---|---|
+| `copia_em(endereço)` | `storage_object` | `unique (storage_object.storage_path)` — e a fase 10 não lhe toca |
+| `observacao_identificada(run, fonte, doc, sha)` | `raw_asset` | índice parcial da fase 9 |
+| `tentativa_sem_prova(run, fonte, objeto, sha)` | `raw_asset` | índice da fase 10 |
+| `observacoes_em(endereço)` | `raw_asset` | devolve **lista**, sempre |
+
+As três implementações — Supabase, Postgres de prova, SQLite — foram mudadas
+juntas. Nenhuma delas voltou a escolher a primeira linha.
+
+### X.3 · A chave do `FORWARD_IDENTITY_UNPROVEN`, agora fechada
+
+A preparação aprovou `K2`/`K4`, ambas construídas sobre `storage_path`. A fase
+11 retira essa coluna de `raw_asset` — uma chave assim nasceria com dívida
+marcada. Entraram duas candidatas sobre o OBJETO, e dez cenários:
+
+```
+                                  S1 S2 S3 S4 S5 S6 S7 S9
+K1 (run, fonte, sha256)            1  2  1! 1! 2  1  2  1    REPROVADA
+K3 (fonte, sha256)                 1  1! 1! 1! 2  1  1! 1    REPROVADA
+K2 (run, fonte, endereço)          1  2  2  2  2  1  2  1    passa, morre na fase 11
+K4 (run, fonte, endereço, sha)     1  2  2  2  2  1  2  1    passa, morre na fase 11
+K5 (run, fonte, objeto)            1  2  2  2  2  1  2  2!   REPROVADA
+K6 (run, fonte, objeto, sha)       1  2  2  2  2  1  2  1    APROVADA
+```
+
+```
+UNPROVEN_KEY_FINAL = (run_id, source_id, storage_object_id, sha256)
+                     NULLS NOT DISTINCT
+                     where identity_state = 'FORWARD_IDENTITY_UNPROVEN'
+PHASE_11_COMPATIBLE = YES
+```
+
+`K5` reprova em `S9` e a razão é fina: uma observação **não preservada** não tem
+cópia, e `storage_object_id` fica nulo. Em Postgres dois nulos são distintos num
+índice único — a chave deixaria passar TODAS as tentativas não preservadas, em
+silêncio. `NULLS NOT DISTINCT` não é afinação: é o que faz a chave existir para
+essas linhas.
+
+### X.4 · A identidade não se reescreve — sete campos, e a regra que os escolhe
+
+```
+IDENTITY_IMMUTABLE_FIELDS = identity_state · source_id · document_key ·
+                            document_key_basis · run_id · sha256 ·
+                            storage_object_id
+```
+
+A regra cabe numa frase: **a afirmação de identidade, mais tudo o que as duas
+chaves de idempotência usam.** Nada mais, porque congelar por medo fecharia o
+que tem de mudar.
+
+E `storage_path` **não** está na lista. Essa ausência é a prova de coerência do
+desenho: ele é ENDEREÇO, e um endereço muda sem que o facto mude — se estivesse
+congelado, a fase 11 teria de o descongelar.
+
+```
+IDENTITY_REWRITE_CURRENTLY_POSSIBLE = YES   (medido: o UPDATE passava)
+IDENTITY_REWRITE_AFTER_FIX          = NO    (9 transições, todas recusadas)
+```
+
+O que continua a poder mudar, e foi medido a poder: `attempts`,
+`last_attempt_at`, `preserved`, `not_preserved_reason`, `source_url`,
+`captured_at`, `storage_path`.
+
+### X.5 · `attempts` e `last_attempt_at` ganham dono
+
+```
+ATTEMPTS_OWNER = guarda/preservar_coleta.py, e mais ninguem
+```
+
+O SQL do escritor passou a ser `update` **e depois** `insert ... where not
+exists`. O `update` vem primeiro de propósito: se a observação já existe,
+incrementa; se não existe, afeta zero linhas e o `insert` põe `attempts = 1`.
+Duas ordens, uma semântica, e nenhuma condição em Python a decidir qual correr.
+
+```
+LER-SOMAR-ESCREVER EM PYTHON PERDERIA INCREMENTOS.
+```
+
+`attempts = coalesce(attempts,0) + 1` acontece DENTRO do banco, debaixo do lock
+da linha: dois retries simultâneos serializam e os dois contam.
+
+E `where not exists` — em vez de um segundo `on conflict` — porque ele funciona
+**antes e depois** da fase 10. Não inventa trava nenhuma: quem arbitra a corrida
+entre duas sessões continua a ser um índice, e há sempre um.
+
+```
+HOJE      unique (raw_asset.storage_path)
+FASE 10   raw_identidade_forward_idx + raw_tentativa_sem_prova_idx
+```
+
+Em nenhum momento há zero travas — e é isso que permite ao escritor mudar
+**antes** da migration.
+
+### X.6 · O endereço deixa de ser fabricado a partir do conteúdo
+
+`coleta/ingresso.py` tinha um `or` de quatro pernas cuja última era o próprio
+`sha256`. Medido pelo código de produção, com dois ficheiros distintos de
+conteúdo igual e o mesmo nome: **um endereço só**, e a segunda publicação nunca
+chegava a existir.
+
+A escada passou a ser, da prova mais forte para a mais fraca:
+
+```
+1. o identificador que a FONTE deu                `media/731`
+2. a URL que esta casa PEDIU, sem o fragmento     `u<sha16 da url>`
+3. o proprio conteudo                             `<sha16 dos bytes>`
+```
+
+Oito casos, todos medidos pelo código real: duas publicações com id nativo,
+duas sem, a mesma repetida, querystring a distinguir documentos, só o fragmento
+a diferir, sem id e sem URL, id nativo `NAO SEI`, e mesmos bytes em URLs
+distintas. `8/8`.
+
+A querystring **fica**: `?id=731` e `?id=6321` são dois documentos na mesma
+fonte. Limpá-la não arrumaria nada — apagaria um facto.
+
+O degrau 3 continua a colapsar, e de propósito: sem identificador e sem URL não
+há **nenhuma** evidência de que sejam duas coisas.
+
+```
+STORAGE_ADDRESS_FALLBACK_BEFORE = sha16 do conteudo
+STORAGE_ADDRESS_FALLBACK_AFTER  = id nativo > URL pedida > sha16
+REAL_COLLISION_FIXED = YES
+DOCUMENT_ID_FABRICATED = NO   — o degrau 2 e ENDERECO, e nunca `DOCUMENT_KEY`
+```
+
+### X.7 · Os escritores antigos: aposentados, não bloqueados
+
+`OLD_WRITER_BUT_BLOCKED` não era um estado final. Cada um recebeu espécie.
+
+| caminho | espécie | porquê |
+|---|---|---|
+| `guarda/preservar_coleta.py` | **o escritor canónico** | sabe falar identidade |
+| `guarda/catalogo_importar.py --aplicar` | REMOVED | não há `SOURCE_ID` para dar |
+| `supabase/importacoes/ADAMA-ES-CATALOGO-…sql` | ARCHIVED AS DEAD | sai da cadeia |
+| `.github/workflows/supabase-raw-roundtrip.yml` | REMOVED | escrevia pré-026 |
+| `.github/workflows/supabase-fichas-adama.yml` | REMOVED | escrevia pré-026 |
+| `guarda/trava_do_escritor_antigo.sh` | REMOVED | sem porta para guardar |
+
+A razão do importador não é de calendário e está no próprio código: **`adama-website`
+é uma ORGANIZAÇÃO, não um código de fonte do atlas.** Sem `SOURCE_ID` real não há
+estado forward possível para aquelas linhas, e nunca houve. Medido contra um
+Postgres com a 026: o import falha na PRIMEIRA linha, em `identity_state` NOT
+NULL, antes de haver conflito para o `on conflict` resolver.
+
+E a trava teve de sair **com** ele. Dos três ficheiros da etapa `importacoes`,
+nenhum dos outros dois toca `raw_asset`. Mantida, ela deixaria de proteger o que
+quer que fosse e passaria a recusar TODA importação futura contra qualquer banco
+pós-026 — ou seja, contra o único banco que existe.
+
+```
+UMA TRAVA QUE SO TRAVA O QUE E LEGITIMO NAO E UMA TRAVA.
+ONE_OPERATIONAL_FORWARD_WRITER = YES
+```
+
+O teste que cobrava «cada caminho antigo chama a trava» foi virado do avesso:
+agora cobra que eles **não existem**, e que o inventário de quem sequer menciona
+`insert into raw_asset` está fechado em três ficheiros com espécie declarada —
+um que ESCREVE, um que GERA, um que LÊ.
+
+### X.8 · Os casos, medidos contra Postgres 16 descartável
+
+`provas/a_lei_da_fase_10.py` — `A_LEI_DA_FASE_10_DB_TESTED = PASS`. Aplica
+`001 + 022 + 025 + 026`, mede o mundo de hoje, **depois** aplica o protótipo e
+mede o mundo de amanhã com o escritor a sério.
+
+| caso | o que ficou provado |
+|---|---|
+| I1 | primeira observação: um objecto, uma observação, `attempts = 1` |
+| I2 | retry da mesma corrida: **o mesmo `raw_asset.id`**, `attempts = 2` |
+| I3 | corrida nova: observação nova, ids diferentes, **um só objecto** |
+| I4 | conteúdo novo do mesmo documento: duas observações, dois objectos |
+| I5 | publicações diferentes, mesmos bytes: não funde |
+| I6 | fontes diferentes, mesmo conteúdo: não funde |
+| I7 | retry sem prova: não duplica, e `attempts` sobe |
+| I8 | sem prova em corrida nova: observação nova |
+| I9 · I10 | duas sessões, mesma observação: uma linha, a segunda recusada |
+| I11 | objecto órfão reutilizado, observação nasce a apontar-lhe |
+| J1–J3 | morte a meio, retry, e metadados incompatíveis com nome próprio |
+| K | derivação por conteúdo, e a conta da casa continua a fechar |
+
+Montar `J3` ensinou mais do que ele mede: a primeira versão desligava a
+observação da cópia para poder mexer no `sha256` dela, e **o gatilho recusou** —
+`storage_object_id` é um dos sete campos congelados.
+
+```
+UMA OBSERVACAO NAO SE DESLIGA DA COPIA QUE ELA DIZ TER VISTO.
+```
+
+### X.9 · A derivação, dita em voz alta para ninguém a ler mal
+
+```
+DERIVED_IDENTITY = CONTENT_BASED
+```
+
+Duas observações dos mesmos bytes partilham o derivado, e o segundo `insert` é
+recusado por `derivacao_e_unica_por_regua`. Isso está certo. Medido também que a
+conta da casa é entre espécies comparáveis — **conteúdos** contra derivados, e
+não observações contra derivados:
+
+```
+K_CONTEUDOS_UNICOS = 1   K_DERIVADOS_PRESENTES = 1   K_PERDA_POR_CONTEUDO = 0
+K_A_CONTA_POR_OBSERVACAO_DARIA_PERDA_FALSA = 1
+```
+
+A última linha está lá de propósito: é a conta errada, escrita para que ninguém
+a faça por engano.
+
+### X.10 · Os leitores, com duas observações num objecto
+
+`tests/test_leitores_depois_da_fase_10.py` monta a bancada que só existe depois
+da fase 10 — um `storage_object`, duas `raw_asset` — e prova que nenhuma
+pergunta responde «a primeira». Dez casos, incluindo o que cobra que
+`objeto_em` não volta por outra porta.
+
+### X.11 · Veredicto
+
+```
+BLOCKERS_FOUND_TOTAL  = 9
+BLOCKERS_CLOSED_TOTAL = 9
+BLOCKERS_OPEN_TOTAL   = 0
+
+READY_FOR_PHASE_10_IMPLEMENTATION = YES
+READY_FOR_PHASE_10_LIVE           = NO
+027_CREATED = NO
+```
+
+O escritor sabe falar a lei. A migration que abre a porta é da missão seguinte.
+
+---
+
+## Y · C-IMPL-PHASE-10 — A LEI VIRA MIGRATION
+
+A `C-PREP-PHASE-10` mediu a lei. A `C-CLOSE-PHASE-10-BLOCKERS` ensinou-a ao
+runtime. Esta escreve-a em SQL versionado — e não a aplica em lado nenhum.
+
+```
+LIVE_DB_DDL = 0 · LIVE_DB_WRITES = 0 · LIVE_COLLECTION = 0 · LIVE_IMPORT = 0
+PHASE10_LIVE = NO
+```
+
+### Y.0 · O estado, medido antes de escrever
+
+```
+CURRENT_BRANCH = claude/raw-observation-identity-3jbwco
+INITIAL_HEAD   = ea9b0d8d578305d2b514fd42eb783edb6232cbf4   (== remoto, sem drift)
+WORKTREE       = limpa, uma só
+NEXT_MIGRATION_NUMBER      = 027   (maior em 104 branches remotas: 026)
+LIVE_LAST_APPLIED_MIGRATION = 026  (auditoria 34548511070, MIGRATIONS_PENDENTES=nenhuma)
+```
+
+### Y.1 · O protótipo foi aposentado no mesmo movimento
+
+`supabase/ensaios/PROTOTIPO-FASE-10-IDENTIDADE-DA-TENTATIVA.sql` existia porque
+a fase 10 era lei sem migration. Com a `027` escrita passariam a existir **dois**
+ficheiros a dizer a mesma lei.
+
+```
+UMA LEI EM DOIS SITIOS DIVERGE,
+E A PARTIR DAI NENHUMA DAS DUAS VALE.
+```
+
+Saiu. `provas/a_lei_da_fase_10.py` deixou de aplicar o protótipo e passou a
+aplicar a **migration a sério** — o que também torna aquela prova mais forte do
+que era: ela mede agora o ficheiro que vai para produção.
+
+### Y.2 · A migration
+
+```
+MIGRATION_FILE   = supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql
+MIGRATION_SHA256 = 67c8fa932d66afad2852fb4a10e903267cb31638742a3abfad1f2cb855ac9163
+```
+
+Três movimentos, uma transacção:
+
+| fase | o quê | porquê |
+|---|---|---|
+| 10a | `drop constraint raw_asset_storage_path_key` | o endereço deixa de ser identidade da observação |
+| 10b | `raw_tentativa_sem_prova_idx`, parcial, `nulls not distinct` | sem isto, 10a abriria um buraco em vez de uma porta |
+| 10c | gatilho que congela sete campos | a afirmação de identidade não se reescreve |
+
+E o que ela **não** faz: retirar a coluna `storage_path`. Isso é a fase 11, e a
+chave de 10b foi escolhida sobre `storage_object_id` exactamente para que essa
+fase não tenha de a desfazer.
+
+### Y.3 · A passagem, e não só a lei
+
+`provas/a_fase_10_entra_no_acervo.py` — `A_FASE_10_ENTRA_NO_ACERVO = PASS`.
+
+A fixture tem a **forma** do vivo: 252 observações legadas, `id` esparsos até
+757, corte da fase 8 instalado, 252 cópias ligadas uma a uma, um derivado com
+chave estrangeira composta, e o livro-razão já a registar `001`–`026`. O
+aplicador vê o que veria em produção: **uma** migration pendente.
+
+```
+AS_ANTERIORES_FORAM_SALTADAS_COM_HASH_A_BATER = 25
+A_027_FOI_APLICADA          = MIGRATION_027=PASS
+NENHUMA_OUTRA_FOI_APLICADA  = 1
+NENHUMA_FOI_PULADA          = 26
+LEDGER_TEM_A_027            = APLICADA
+LEDGER_GUARDOU_O_SHA        = 67c8fa93…  (igual ao do ficheiro)
+```
+
+E as catorze medidas do acervo, ANTES e DEPOIS, todas idênticas: contagens,
+`md5` do conjunto de ids, `md5` do conjunto de shas, `md5` dos caminhos, `md5`
+das ligações observação→cópia, legado, forward, derivados e as ligações deles,
+órfãos e divergentes.
+
+```
+MIGRATION SO PROVADA EM BANCO NOVO E MIGRATION POR PROVAR.
+```
+
+### Y.4 · A falha a meio
+
+Uma cópia da `027` com um erro deliberado no fim, pela **mesma cadeia**, numa
+raiz temporária — porque pôr um ficheiro estragado na pasta a sério seria
+encenar a falha no sítio onde ela não pode acontecer.
+
+```
+A_CADEIA_REPROVOU                      = SIM · MIGRATION_027=FAIL
+PARTIAL_PHASE10_AFTER_FAILED_MIGRATION = 0
+O_UNIQUE_DO_ENDERECO_CONTINUA_LA       = 1
+O_LIVRO_RAZAO_NAO_REGISTOU_A_027       = 0
+A_027_BOA_ENTRA_A_SEGUIR_SEM_LIMPEZA   = MIGRATION_027=PASS
+```
+
+### Y.5 · A janela da transição
+
+O ponto crítico não é o esquema novo nem o writer novo — é o **intervalo** entre
+os dois. Medido nos dois sentidos:
+
+| | esquema velho | esquema novo |
+|---|---|---|
+| **writer novo** | `E1` · a 2ª corrida não entra, `PARTIAL`, `NEW_RUN_SAME_STORAGE_PATH`, erro do banco guardado | `E3`/`E4` · entra, 1 objecto, 2 ids; o retry não duplica e conta a tentativa |
+| **writer antigo** | (era o mundo de antes) | `E2` · falha ALTO, e a **planear**: `no unique or exclusion constraint` |
+
+Não há quadrante em que a escrita não aconteça e ninguém saiba.
+
+```
+SILENCIO INCORRECTO E O UNICO RESULTADO INACEITAVEL.
+```
+
+Mais: `E5` a tentativa sem cópia continua travada (`storage_object_id` nulo dos
+dois lados), `E6` dois documentos com o mesmo `sha256` continuam dois,
+`E7`/`E8` duas sessões simultâneas nas duas famílias dão uma linha e uma recusa.
+
+### Y.6 · Imutabilidade, no banco já migrado
+
+```
+IDENTITY_MUTATIONS_REJECTED   = 10/10
+OPERATIONAL_MUTATIONS_ALLOWED = 6/6
+```
+
+Entre as dez recusadas está `desligar storage_object_id`, que não é óbvia: uma
+observação não se desliga da cópia que ela diz ter visto. Entre as seis
+permitidas está `storage_path`, e essa ausência da lista de congelados é a prova
+de coerência do desenho — a fase 11 não vai ter de descongelar nada.
+
+### Y.7 · O ratchet que faltava
+
+O caso `test_unique_com_coluna_nulavel_usa_nulls_not_distinct` varria blocos
+`create table`. A fase 10 não trouxe uma coluna — trouxe um `create unique
+index`, e a lei era a mesma.
+
+```
+UMA LEI QUE SO SE COBRA NUM DOS SITIOS ONDE ELA VALE
+E UMA LEI COM UM BURACO DO TAMANHO DO OUTRO SITIO.
+```
+
+O caso novo varre os índices. Ele encontrou **três** casos antigos, e dois deles
+são legítimos por razões diferentes: dois índices de `origem` cujo predicado já
+exclui o NULL (derivável, tratado em código), e o índice forward da `026`, cuja
+não-nulidade vem de duas travas noutra migration (não derivável, e por isso uma
+isenção **nomeada**). E há um caso que confere que essas duas travas continuam
+a existir — uma isenção cuja justificação some deixa de valer.
+
+Os dois ratchets foram testados por mutação: tirar `nulls not distinct` da `027`
+reprova; construir a chave sobre `storage_path` reprova.
+
+### Y.8 · Veredicto
+
+```
+READY_FOR_PHASE_10_LIVE = YES
+```
+
+Significa exactamente uma coisa: **a migration está pronta para ser aplicada**.
+Não foi. O livro-razão do banco canónico continua a terminar na `026`, e a
+próxima auditoria vai passar a dizer `MIGRATIONS_PENDENTES= 027` — que é a
+frase certa para o estado certo.
+
+A aplicação é a `C-LIVE-PHASE-10`, com autorização própria.
+
+---
+
+## Z · C-LIVE-PHASE-10 — A FASE 10 ENTROU NO BANCO VIVO
+
+Aplicada ao banco canónico pelo aplicador da casa, por `workflow_dispatch` de
+`supabase-migrate.yml` em `claude/raw-observation-identity-3jbwco` @ `57780b8a`,
+com `importar=false`. Run **`34550502265`**.
+
+```
+MIGRATION_FILE   027_a_observacao_deixa_de_ser_o_endereco.sql
+MIGRATION_SHA256 67c8fa932d66afad2852fb4a10e903267cb31638742a3abfad1f2cb855ac9163
+```
+
+### Z.1 · O pré-voo, e o alvo confirmado por derivação
+
+```
+DB_CONNECTION=PASS
+TABLES_IN_PUBLIC=68
+SAME_PROJECT_CONFIRMED=YES
+ESTADO_ACEITO=68 tabelas, nenhuma fora do que o Git cria
+TABELAS_DECLARADAS_NAS_MIGRATIONS=68
+```
+
+`SAME_PROJECT_CONFIRMED` não é uma afirmação: o workflow deriva o `ref` do
+projeto das DUAS variáveis — `SUPABASE_URL` e `SUPABASE_DB_URL` — e exige que
+coincidam. Escrever no banco errado exigiria que os dois segredos estivessem
+errados do mesmo modo.
+
+### Z.2 · O estado congelado ANTES (auditoria `34550386346`)
+
+```
+RAW_ASSET_COUNT=252          STORAGE_OBJECT_COUNT=252
+LEGACY_ROWS=252              FORWARD_IDENTIFIED=0   FORWARD_UNPROVEN=0
+RAW_ASSET_MIN_ID=1           RAW_ASSET_MAX_ID=890
+RAW_ASSET_ID_SET_MD5=bf54cf470e59a3c512e017a967cd86ce
+LINKED_RAW_ASSETS=252        PRESERVED_WITHOUT_OBJECT=0
+RAW_STORAGE_PATH_MISMATCHES=0  RAW_STORAGE_SHA_MISMATCHES=0
+OBJETOS_SEM_OBSERVACAO=0     derived_artifact=1 (raw_asset_id=890)
+LEGACY_CUTOFF_VALUE=890      FORWARD_IDEMPOTENCY_INDEX_VALID=1
+unique(raw_asset.storage_path) = PRESENTE
+025=APLICADA  026=APLICADA  027=ausente   MIGRATIONS_PENDENTES= 027
+```
+
+Idêntico ao baseline conhecido, incluindo o `md5` do conjunto de ids.
+
+### Z.3 · A aplicação
+
+```
+MIGRATION_001..026 = SKIP (ja no livro-razao) HASH=MATCH
+MIGRATION_027      = PASS
+POST_APPLY_VERIFICATION (008) = PASS
+passos de importacao = skipped
+```
+
+Vinte e seis migrations vistas, uma aplicada, nenhuma pulada. Quarenta e dois
+segundos.
+
+E o inventário medido do banco real diz a mesma coisa por outro caminho:
+
+```
+PUBLIC_TABLE_COUNT=68     (68 antes)
+CHECK_CONSTRAINTS=135     (135 antes — a 027 nao traz CHECK nenhum)
+UNIQUE_INDEXES=137        (137 antes — sai um unique, entra um indice)
+ROWS_TOTAL=2208
+```
+
+`UNIQUE_INDEXES` não mudar é a confirmação independente de que a `027` fez
+exactamente duas coisas com índices: tirou `raw_asset_storage_path_key` e pôs
+`raw_tentativa_sem_prova_idx`. Menos um, mais um.
+
+### Z.4 · A sentinela da fase 10 virou-se ao contrário
+
+A auditoria dizia, desde a `C-LIVE-025`:
+
+> ⚠️ SENTINELA DA FASE 10. Enquanto ela nao for resolvida, esta trava fica — e
+> se um dia desaparecer sem missao que o declare, a auditoria grita.
+
+A `027` é a missão que o declarou. A sentinela **não se apaga** — inverte-se.
+
+```
+UMA SENTINELA APAGADA NAO GUARDA NADA.
+UMA SENTINELA INVERTIDA GUARDA O LADO NOVO.
+```
+
+A partir daqui o que a auditoria grita é a trava **voltar**. E nasce a sentinela
+seguinte, no mesmo sítio e pela mesma razão: a COLUNA `storage_path` fica, e se
+desaparecer sem missão que o declare, a auditoria grita — essa é a fase 11.
+
+### Z.5 · O contrato da 027, agora cobrado pela auditoria
+
+A secção `G` é nova e não imprime: reprova.
+
+```
+UNPROVEN_INDEX_VALID              o indice da tentativa existe e e valido
+UNPROVEN_NULLS_NOT_DISTINCT       dois nulos contam como iguais
+UNPROVEN_SOBRE_O_OBJETO           fala de storage_object_id, e nao do endereco
+IDENTITY_IMMUTABILITY_TRIGGER     a identidade nao se reescreve
+COLUNA_STORAGE_PATH_AINDA_EXISTE  a fase 11 e que a retira
+```
+
+A terceira é a que menos se espera num auditor e a que mais importa: ela cobra
+que a chave **não** foi construída sobre o endereço. Uma chave assim passaria
+hoje e teria de ser desfeita na fase 11.

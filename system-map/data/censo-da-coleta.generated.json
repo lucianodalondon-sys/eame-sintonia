@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "801724328e985dccacbb3388b1c8b70907e25bfb",
+    "HEAD": "bf8f9d7597e8bba3f04a5404ea899c7875ebab78",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -36,7 +36,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 271,
+      "linhas": 402,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -51,7 +51,9 @@
       ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
-      "decisoes_escondidas": [],
+      "decisoes_escondidas": [
+        "if self.relevan"
+      ],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [],
@@ -61,7 +63,7 @@
     {
       "ficheiro": "candidatas/fonte_nova.py",
       "gaveta": "candidatas",
-      "linhas": 213,
+      "linhas": 227,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -77,7 +79,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "citado_por": [],
+      "citado_por": [
+        "candidatas/prova_barata.py"
+      ],
       "no_ci": false
     },
     {
@@ -170,6 +174,23 @@
       "gaveta": "candidatas",
       "linhas": 75,
       "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [],
+      "citado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "candidatas/prova_barata.py",
+      "gaveta": "candidatas",
+      "linhas": 295,
+      "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
       "ferramentas": [],
@@ -1041,7 +1062,7 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 351,
+      "linhas": 361,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1055,6 +1076,7 @@
         "coleta/rota_forward_documento.py"
       ],
       "citado_por": [
+        "coleta/ingresso.py",
         "coleta/rota_forward_documento.py"
       ],
       "no_ci": true
@@ -1138,7 +1160,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
-      "linhas": 592,
+      "linhas": 672,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1205,7 +1227,7 @@
     {
       "ficheiro": "coleta/golden_path_pdf.py",
       "gaveta": "coleta",
-      "linhas": 482,
+      "linhas": 492,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1219,6 +1241,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [],
       "citado_por": [
+        "coleta/ingresso.py",
         "regras/proveniencia.py"
       ],
       "no_ci": false
@@ -1226,7 +1249,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 296,
+      "linhas": 733,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1236,9 +1259,14 @@
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
+      "chamado_por": [
+        "coleta/golden_path_pdf.py",
+        "coleta/rota_forward_documento.py"
+      ],
       "citado_por": [
         "coleta/italy_executor.py",
+        "coleta/rota_forward_documento.py",
+        "guarda/catalogo_importar.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -1346,7 +1374,7 @@
     {
       "ficheiro": "coleta/italy_executor.py",
       "gaveta": "coleta",
-      "linhas": 264,
+      "linhas": 423,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1526,7 +1554,7 @@
     {
       "ficheiro": "coleta/rota_forward_documento.py",
       "gaveta": "coleta",
-      "linhas": 355,
+      "linhas": 507,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1537,7 +1565,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [],
-      "citado_por": [],
+      "citado_por": [
+        "coleta/ingresso.py"
+      ],
       "no_ci": true
     },
     {
@@ -2321,9 +2351,9 @@
       "no_ci": true
     },
     {
-      "ficheiro": "guarda/catalogo_importar.py",
-      "gaveta": "guarda",
-      "linhas": 663,
+      "ficheiro": "admissao/sala_de_espera.py",
+      "gaveta": "admissao",
+      "linhas": 232,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2331,7 +2361,26 @@
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
-      "grava_no_banco": true,
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/rota_forward_documento.py"
+      ],
+      "citado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "guarda/catalogo_importar.py",
+      "gaveta": "guarda",
+      "linhas": 693,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
       "citado_por": [
@@ -2414,7 +2463,7 @@
     {
       "ficheiro": "guarda/memoria_descartavel.py",
       "gaveta": "guarda",
-      "linhas": 325,
+      "linhas": 359,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2433,7 +2482,7 @@
     {
       "ficheiro": "guarda/portas_live.py",
       "gaveta": "guarda",
-      "linhas": 261,
+      "linhas": 319,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2441,7 +2490,7 @@
       ],
       "ferramentas": [],
       "descarta": true,
-      "escreve_o_motivo_do_descarte": false,
+      "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
       "grava_no_banco": true,
       "escreve_ficheiro": false,
@@ -2452,7 +2501,7 @@
     {
       "ficheiro": "guarda/preservar_coleta.py",
       "gaveta": "guarda",
-      "linhas": 993,
+      "linhas": 1292,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2464,14 +2513,17 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "admissao/admissao.py",
+        "admissao/sala_de_espera.py",
         "coleta/ingresso.py",
         "guarda/portas_live.py",
         "guarda/preservar_derivado.py"
       ],
       "citado_por": [
+        "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/rota_forward_documento.py",
-        "coleta/social_envelope.py"
+        "coleta/social_envelope.py",
+        "guarda/catalogo_importar.py"
       ],
       "no_ci": true
     },
@@ -2570,23 +2622,24 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 116,
-    "pontos_de_entrada": 85,
+    "ficheiros_de_codigo": 118,
+    "pontos_de_entrada": 87,
     "executores_que_saem_para_fora": 22,
     "sem_chamador_e_fora_do_ci": 47,
     "sem_aresta_medida_e_fora_do_ci": 64,
-    "gravam_no_banco": 3,
-    "escrevem_ficheiro": 67,
+    "gravam_no_banco": 2,
+    "escrevem_ficheiro": 69,
     "deitam_fora_alguma_coisa": 29,
-    "deitam_fora_SEM_escrever_o_motivo": 2,
-    "ficheiros_com_decisao_escondida": 3,
-    "decisoes_escondidas_ao_todo": 3
+    "deitam_fora_SEM_escrever_o_motivo": 1,
+    "ficheiros_com_decisao_escondida": 4,
+    "decisoes_escondidas_ao_todo": 4
   },
   "LISTAS": {
     "pontos_de_entrada": [
       "pedido/pedido.py",
       "pedido/receitas.py",
       "candidatas/fonte_nova.py",
+      "candidatas/prova_barata.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
       "fontes/adama_it_eu.py",
@@ -2660,6 +2713,7 @@
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py",
       "admissao/admissao.py",
+      "admissao/sala_de_espera.py",
       "guarda/catalogo_importar.py",
       "guarda/es/adama_es_gate.py",
       "guarda/es/adama_es_import_rules.py",
@@ -2696,13 +2750,13 @@
     ],
     "orfaos": [
       "pedido/receitas.py",
-      "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
       "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
+      "candidatas/prova_barata.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
       "fontes/adama_it_gaps.py",
@@ -2752,6 +2806,7 @@
       "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs",
+      "candidatas/prova_barata.py",
       "fontes/adama_catalogo_ler.py",
       "fontes/adama_catalogo_montar.py",
       "fontes/adama_it_eu.py",
@@ -2783,7 +2838,6 @@
       "coleta/filas.py",
       "coleta/gire_mapas.py",
       "coleta/golden_path_pdf.py",
-      "coleta/ingresso.py",
       "coleta/italy_executor.py",
       "coleta/italy_find_docs.mjs",
       "coleta/italy_probe.mjs",
@@ -2810,10 +2864,15 @@
       "guarda/sql_conferir.py"
     ],
     "deitam_fora_sem_motivo": [
-      "coleta/ropf_pre_requisito.py",
-      "guarda/portas_live.py"
+      "coleta/ropf_pre_requisito.py"
     ],
     "decisoes_escondidas": [
+      {
+        "ficheiro": "pedido/receitas.py",
+        "linhas": [
+          "if self.relevan"
+        ]
+      },
       {
         "ficheiro": "ferramentas/fala_local.py",
         "linhas": [

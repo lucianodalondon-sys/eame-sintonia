@@ -117,6 +117,37 @@ IDENTIDADE_DO_OBJETO = ("run_id", "sha256", "bytes", "captured_at", "source_url"
 # continua a bater na trava antiga — de propósito, e com nome próprio.
 IDENTIDADE_FORWARD = ("run_id", "source_id", "document_key", "sha256")
 
+# E A CHAVE DA TENTATIVA, para a observação que NÃO tem identidade documental.
+# O índice da fase 9 tem predicado `FORWARD_IDENTIFIED`; uma linha sem prova
+# não o satisfaz, e por isso ela não tinha chave nenhuma — duplicava a cada
+# retry, e duas sessões simultâneas duplicavam-na na mesma.
+#
+# ESCOLHIDA POR MEDIÇÃO, e não por gosto. Seis candidatas passaram pelos
+# mesmos dez cenários em `provas/a_lei_da_fase_10.py`:
+#
+#     (run, fonte, sha256)                REPROVADA — junta o caso ADAMA
+#     (fonte, sha256)                     REPROVADA — apaga a corrida nova
+#     (run, fonte, endereço [, sha256])   passa tudo, MAS morre na fase 11
+#     (run, fonte, objeto)                REPROVADA — sem objecto não constrange
+#     (run, fonte, objeto, sha256)        APROVADA, com `nulls not distinct`
+#
+# `storage_object_id` e não `storage_path`: o endereço sai de `raw_asset` na
+# fase 11, e uma chave construída sobre ele nasceria com dívida. O objecto é a
+# espécie certa para responder «que cópia física foi esta».
+#
+#     UMA TENTATIVA E: esta corrida, desta fonte, sobre esta copia, destes bytes.
+IDENTIDADE_SEM_PROVA = ("run_id", "source_id", "storage_object_id", "sha256")
+
+# Os campos que a AFIRMAÇÃO DE IDENTIDADE de uma observação usa — e que por
+# isso não podem ser reescritos depois. Os quatro primeiros são a afirmação;
+# os três seguintes são o resto das duas chaves de idempotência.
+#
+#     `storage_path` NÃO está aqui, e isso é a prova de coerência: ele é
+#     ENDEREÇO, e endereço muda sem que o facto mude.
+IDENTIDADE_IMUTAVEL = ("identity_state", "source_id", "document_key",
+                       "document_key_basis", "run_id", "sha256",
+                       "storage_object_id")
+
 # A linha inteira, para a conferência DEPOIS da escrita. Inclui `media_type` e
 # `storage_path`, que a comparação prévia não precisava de olhar — ali o
 # caminho era a chave da busca, aqui é uma coisa a confirmar.
@@ -167,8 +198,55 @@ class Memoria:
         """A linha de `collection_run`, ou `None`."""
         raise NotImplementedError
 
-    def objeto_em(self, storage_path: str) -> dict:
-        """A linha de `raw_asset` naquele caminho, ou `None`."""
+    # ── AS DUAS PERGUNTAS, QUE NUNCA FORAM UMA ──────────────────────────
+    # ⚠️ AQUI VIVIA `objeto_em(storage_path)`, E ELE MISTURAVA AS ESPÉCIES:
+    # perguntava «que OBJETO há neste endereço?» e ia buscar a resposta a
+    # `raw_asset`, que guarda OBSERVAÇÕES. Enquanto o endereço foi único em
+    # `raw_asset` o erro não aparecia — havia sempre uma linha, e as três
+    # implementações faziam `linhas[0] if linhas else None`.
+    #
+    # Depois da fase 10 são N linhas, e `linhas[0]` passa a ser «a que o
+    # planeador devolver primeiro».
+    #
+    #     ESCOLHER A PRIMEIRA E ESCOLHER AO ACASO COM CARA DE DETERMINISMO.
+    #
+    # Por isso a função foi PARTIDA, e não corrigida: cada pergunta tem agora
+    # uma chave que a torna determinística por construção.
+
+    def copia_em(self, storage_path: str) -> dict:
+        """QUE CÓPIA existe neste endereço? A linha de `storage_object`, ou
+        `None`.
+
+        Determinística e assim continua: `unique (storage_object.storage_path)`
+        é a identidade do OBJETO, e a fase 10 não lhe toca.
+        """
+        raise NotImplementedError
+
+    def observacao_identificada(self, run_id, source_id, document_key,
+                                sha256) -> dict:
+        """QUE OBSERVAÇÃO é esta? A linha de `raw_asset` com esta chave
+        forward completa, ou `None`.
+
+        Determinística pelo índice parcial da fase 9.
+        """
+        raise NotImplementedError
+
+    def tentativa_sem_prova(self, run_id, source_id, storage_object_id,
+                            sha256) -> dict:
+        """A MESMA pergunta, para quem não tem identidade documental: a linha
+        com esta chave de tentativa, ou `None`.
+
+        Determinística pelo índice da fase 10. Antes dela, é o endereço único
+        que garante o mesmo resultado — em nenhum momento há zero travas.
+        """
+        raise NotImplementedError
+
+    def observacoes_em(self, storage_path: str) -> list:
+        """TODAS as observações naquele endereço. Uma LISTA, sempre.
+
+        Existe para responder «este endereço já está ocupado?», e devolve
+        lista precisamente para que ninguém volte a chamar-lhe uma linha.
+        """
         raise NotImplementedError
 
     def objetos_da_corrida(self, run_id: str) -> list:
@@ -338,28 +416,50 @@ def planear(artefatos: list) -> dict:
         OBJETO     uma cópia guardada. identidade = o caminho
         RELAÇÃO    produto usa documento. NÃO exige byte novo.
     """
-    por_caminho, conteudos, relacoes = {}, set(), 0
+    # ⚠️ ESTE DICIONARIO ERA INDEXADO SO PELO CAMINHO, e isso colapsava
+    # observacoes. Duas FONTES diferentes a observar o mesmo endereco davam
+    # UMA entrada, e a segunda era contada como «relacao sem byte novo» —
+    # a mesma doenca do `unique (raw_asset.storage_path)`, mas em Python, e
+    # portanto invisivel a qualquer migration.
+    #
+    #     O OBJETO E UM POR ENDERECO. A OBSERVACAO NAO.
+    #
+    # A chave passa a ser a IDENTIDADE DA OBSERVACAO. Duas entradas colapsam
+    # se e so se sao a MESMA observacao — que e o caso do `USED_BY`: dois
+    # produtos que usam o mesmo documento da mesma fonte sao dois registos,
+    # uma observacao e um objeto.
+    por_observacao, caminhos, conteudos, relacoes = {}, set(), set(), 0
     for a in artefatos:
         caminho = caminho_do_objeto(a)
+        identidade = identidade_da_observacao(a)
+        chave = (caminho, identidade["SOURCE_ID"],
+                 identidade["DOCUMENT_KEY"], identidade["IDENTITY_STATE"])
         conteudos.add(a["SHA256"])
-        if caminho in por_caminho:
+        caminhos.add(caminho)
+        if chave in por_observacao:
             relacoes += 1
-            por_caminho[caminho]["USADO_POR"].append(a.get("USED_BY"))
+            por_observacao[chave]["USADO_POR"].append(a.get("USED_BY"))
             continue
-        por_caminho[caminho] = dict(a, STORAGE_PATH=caminho,
-                                    USADO_POR=[a.get("USED_BY")],
-                                    **identidade_da_observacao(a))
+        por_observacao[chave] = dict(a, STORAGE_PATH=caminho,
+                                     USADO_POR=[a.get("USED_BY")],
+                                     **identidade)
     return {
         "REGISTOS_DE_ENTRADA": len(artefatos),
         "CONTEUDOS_UNICOS": len(conteudos),
-        "OBJETOS_PLANEADOS": len(por_caminho),
+        "OBJETOS_PLANEADOS": len(caminhos),
+        # A QUARTA CONTAGEM, e ela faltava. Enquanto uma observacao por
+        # endereco era a lei, `OBJETOS_PLANEADOS` respondia pelas duas
+        # perguntas por acidente. Deixou de responder.
+        "OBSERVACOES_PLANEADAS": len(por_observacao),
         "RELACOES_SEM_BYTE_NOVO": relacoes,
         "PORQUE_OS_TRES_NUMEROS_DIFEREM": (
-            "REGISTO nao e CONTEUDO e nao e OBJETO. Dois produtos que usam o "
-            "mesmo documento na mesma URL sao DOIS registos, UM conteudo e UM "
-            "objeto. O mesmo conteudo publicado em DUAS URLs e UM conteudo e "
-            "DOIS objetos. Nenhuma das tres contagens e derivavel das outras."),
-        "OBJETOS": list(por_caminho.values()),
+            "REGISTO nao e CONTEUDO, nao e OBJETO e nao e OBSERVACAO. Dois "
+            "produtos que usam o mesmo documento da mesma fonte sao DOIS "
+            "registos, UM conteudo, UM objeto e UMA observacao. O mesmo "
+            "conteudo publicado em DUAS URLs e UM conteudo e DOIS objetos. "
+            "DUAS FONTES a observar o mesmo endereco sao UM objeto e DUAS "
+            "observacoes. Nenhuma destas contagens deriva das outras."),
+        "OBJETOS": list(por_observacao.values()),
     }
 
 
@@ -373,9 +473,16 @@ def enviar_os_bytes(plano: dict, armazem: Armazem, bytes_de) -> dict:
     já lá está e `existe()` decide. Cada envio a mais é uma oportunidade a mais
     de escrever por cima do que estava certo.
     """
-    novos, reaproveitados, falhados = [], [], []
+    novos, reaproveitados, falhados, vistos = [], [], [], set()
     for obj in plano["OBJETOS"]:
         caminho = obj["STORAGE_PATH"]
+        # DUAS OBSERVACOES NO MESMO ENDERECO SAO UM BYTE SO. Subir o mesmo
+        # ficheiro duas vezes seria uma oportunidade a mais de escrever por
+        # cima do que ja estava certo — que e precisamente o que esta funcao
+        # existe para nao fazer.
+        if caminho in vistos:
+            continue
+        vistos.add(caminho)
         if armazem.existe(caminho):
             reaproveitados.append(caminho)
             continue
@@ -394,9 +501,12 @@ def conferir_os_bytes(plano: dict, armazem: Armazem) -> dict:
     «Enviei» não é «chegou». Sem esta leitura, um armazém que aceita e descarta
     em silêncio daria uma corrida verde com o acervo vazio.
     """
-    conferidos, divergentes, ausentes = [], [], []
+    conferidos, divergentes, ausentes, vistos = [], [], [], set()
     for obj in plano["OBJETOS"]:
         caminho = obj["STORAGE_PATH"]
+        if caminho in vistos:      # o byte e um so; conferi-lo duas vezes
+            continue               # daria a mesma resposta e contaria duas
+        vistos.add(caminho)
         if not armazem.existe(caminho):
             ausentes.append(caminho)
             continue
@@ -433,52 +543,119 @@ def _linha_esperada(run_id: str, obj: dict) -> dict:
             "document_key_basis": obj.get("DOCUMENT_KEY_BASIS")}
 
 
+def _procurar_a_observacao(run_id, obj, copia, memoria):
+    """A observação desta corrida, procurada pela CHAVE que ela tem.
+
+    Duas chaves, porque há dois estados forward — e nenhuma delas é o endereço.
+    A linha que volta daqui é sempre a MESMA linha para a mesma pergunta.
+    """
+    if obj.get("IDENTITY_STATE") == FORWARD_IDENTIFIED:
+        return memoria.observacao_identificada(
+            run_id, obj.get("SOURCE_ID"), obj.get("DOCUMENT_KEY"),
+            obj["SHA256"])
+    return memoria.tentativa_sem_prova(
+        run_id, obj.get("SOURCE_ID"),
+        (copia or {}).get("id"), obj["SHA256"])
+
+
 def conferir_o_que_ja_existe(run: dict, plano: dict, memoria: Memoria) -> dict:
     """Lê o banco ANTES de escrever, e decide reencontro ou conflito.
 
-    Esta função é a resposta a «`do nothing` ainda pode esconder conflito?».
-    Não pode: a linha existente é lida e comparada campo a campo. Repetir a
-    mesma corrida é `REUSED`; encontrar outro `sha256` no mesmo caminho é
-    `METADATA_CONFLICT`, e a corrida não fecha.
+    ⚠️ ESTA FUNÇÃO FAZIA UMA PERGUNTA SÓ, E ELA ERA DUAS.
+
+        antes   existente = memoria.objeto_em(STORAGE_PATH)
+                e daí saía tudo: a cópia, a observação e o conflito
+
+    Uma chamada por endereço, a `raw_asset`, a devolver a primeira linha. Com
+    o endereço único isso funcionava por acidente. Agora são três perguntas
+    separadas, e cada uma vai à espécie que sabe responder:
+
+        A CÓPIA        `storage_object` por endereço   — o endereço é dela
+        A OBSERVAÇÃO   `raw_asset` pela chave de identidade
+        A OCUPAÇÃO     quantas observações há naquele endereço
+
+    E os dois conflitos deixam de se confundir:
+
+        METADATA_CONFLICT        outros bytes no mesmo endereço. É sobre o
+                                 MUNDO, e continua a ser conflito depois da
+                                 fase 10.
+        NEW_RUN_SAME_STORAGE_PATH  a observação é nova e a chave sabe disso;
+                                 o que a impede é a trava FÍSICA antiga.
+                                 Some sozinho quando a fase 10 entrar.
     """
-    reusados, conflitos = [], []
+    reusados, conflitos, notas = [], [], []
     for obj in plano["OBJETOS"]:
-        existente = memoria.objeto_em(obj["STORAGE_PATH"])
-        if not existente:
+        caminho = obj["STORAGE_PATH"]
+
+        # ── 1 · A CÓPIA. Outros bytes no mesmo endereço são duas verdades num
+        # sítio só, e isso é conflito em qualquer fase.
+        copia = memoria.copia_em(caminho)
+        if copia and str(copia.get("sha256")) != str(obj["SHA256"]):
+            conflitos.append({
+                "TIPO": METADATA_CONFLICT, "STORAGE_PATH": caminho,
+                "DIVERGENCIAS": [{"CAMPO": "sha256",
+                                  "NO_BANCO": copia.get("sha256"),
+                                  "NESTA_CORRIDA": obj["SHA256"]}],
+                "PORQUE": ("o armazem ja tem OUTRO conteudo neste endereco. "
+                           "Duas verdades no mesmo sitio."),
+            })
             continue
-        esperada = _linha_esperada(run["RUN_ID"], obj)
-        # ── QUAL CHAVE DECIDE «É A MESMA OBSERVAÇÃO?» ────────────────────
-        # Quando as duas linhas TÊM identidade provada, quem decide é a chave
-        # de idempotência — a mesma que o índice parcial da fase 9 protege. Aí
-        # `captured_at` e `source_url` deixam de decidir: um retry da mesma
-        # corrida pode trazer outra hora e outra URL e continua a ser a mesma
-        # observação. Sem identidade dos dois lados, vale a regra antiga, que
-        # é mais estrita — e ser mais estrito na ausência de prova é o certo.
-        forward = (existente.get("identity_state") == FORWARD_IDENTIFIED
-                   and esperada["identity_state"] == FORWARD_IDENTIFIED)
-        campos = IDENTIDADE_FORWARD if forward else IDENTIDADE_DO_OBJETO
-        fora = _difere(existente, esperada, campos)
-        if not fora:
-            reusados.append(obj["STORAGE_PATH"])
+
+        # ── 2 · A OBSERVAÇÃO, pela chave dela. Encontrada e igual: é retry.
+        existente = _procurar_a_observacao(run["RUN_ID"], obj, copia, memoria)
+        if existente:
+            esperada = _linha_esperada(run["RUN_ID"], obj)
+            # ⚠️ `storage_object_id` FICA DE FORA DA COMPARACAO, e nao por
+            # descuido: ele foi a CHAVE DA BUSCA e veio do proprio banco. O
+            # plano nunca o teve — o `id` da copia so existe depois de ela ser
+            # escrita — e compara-lo daria sempre `None != 7`, transformando
+            # todo reencontro num conflito inventado.
+            #
+            #     COMPARAR CONTRA O QUE NUNCA SE SOUBE E FABRICAR DIVERGENCIA.
+            campos = (IDENTIDADE_FORWARD
+                      if obj.get("IDENTITY_STATE") == FORWARD_IDENTIFIED
+                      else tuple(c for c in IDENTIDADE_SEM_PROVA
+                                 if c != "storage_object_id"))
+            fora = _difere(existente, esperada, campos)
+            if not fora:
+                reusados.append(caminho)
+                continue
+            # Chegar aqui significa que a chave achou a linha e os campos DA
+            # PRÓPRIA CHAVE divergem — o que só é possível se a implementação
+            # da porta mentir. Vale mais rebentar com nome do que passar.
+            conflitos.append({"TIPO": METADATA_CONFLICT,
+                              "STORAGE_PATH": caminho, "DIVERGENCIAS": fora,
+                              "PORQUE": ("a chave encontrou a linha e a chave "
+                                         "diverge. A porta do banco mentiu.")})
             continue
-        # ── E O CONFLITO GANHA O NOME CERTO ──────────────────────────────
-        # Divergir SÓ na corrida não é «duas verdades no mesmo endereço»: é a
-        # MESMA verdade observada outra vez, e a segunda observação não entra
-        # porque `unique (raw_asset.storage_path)` continua de pé. Isso é a
-        # FASE 10, que não foi autorizada — e chamar-lhe METADATA_CONFLICT
-        # esconderia a fase por trás de um diagnóstico errado.
-        so_a_corrida = [d["CAMPO"] for d in fora] == ["run_id"]
-        conflitos.append({
-            "TIPO": NEW_RUN_SAME_STORAGE_PATH if so_a_corrida
-                    else METADATA_CONFLICT,
-            "STORAGE_PATH": obj["STORAGE_PATH"],
-            "DIVERGENCIAS": fora,
-            **({"PORQUE": (
-                "corrida nova sobre o mesmo endereco. A observacao e NOVA e a "
-                "chave de idempotencia sabe disso; o que a impede de entrar e "
-                "a trava fisica antiga, que so cai na fase 10.")}
-               if so_a_corrida else {}),
-        })
+
+        # ── 3 · A OCUPAÇÃO. A observação é NOVA, e o endereço já tem outra.
+        #
+        # ⚠️ ISTO ERA UM CONFLITO, E BLOQUEAVA A ESCRITA. E era o último nó do
+        # runtime: com a fase 10 instalada, esta observação PODE entrar — e o
+        # escritor recusava-a na mesma, porque a decisão estava em Python e não
+        # no banco. O código levava a trava física dentro de si.
+        #
+        #     UMA TRAVA DO ESQUEMA NAO SE REESCREVE EM PYTHON.
+        #     QUEM SABE SE A LINHA CABE E O BANCO.
+        #
+        # Agora é uma NOTA, e a escrita é tentada. Antes da fase 10 o banco
+        # recusa-a, `MEMORIA.ERRO` guarda o motivo dele e a corrida fecha
+        # `PARTIAL` — honesto. Depois da fase 10 ela entra, e o mesmo código
+        # não muda uma linha. É isso que torna o escritor pronto.
+        ocupantes = memoria.observacoes_em(caminho)
+        if ocupantes:
+            notas.append({
+                "TIPO": NEW_RUN_SAME_STORAGE_PATH, "STORAGE_PATH": caminho,
+                "OCUPANTES": len(ocupantes),
+                "CORRIDAS_QUE_JA_LA_ESTAO": sorted(
+                    {str(o.get("run_id")) for o in ocupantes}),
+                "PORQUE": ("observacao NOVA sobre um endereco ja ocupado. A "
+                           "chave de identidade sabe que ela e nova, e nada "
+                           "nesta casa a impede. O que a pode impedir e "
+                           "`unique (raw_asset.storage_path)` — uma trava do "
+                           "ESQUEMA, que responde no banco e nao aqui."),
+            })
 
     corrida = memoria.corrida(run["RUN_ID"])
     conflito_de_corrida = None
@@ -491,11 +668,18 @@ def conferir_o_que_ja_existe(run: dict, plano: dict, memoria: Memoria) -> dict:
     return {
         "REUSED_METADATA": reusados,
         "CONFLITOS_DE_OBJETO": conflitos,
+        # NOTA NAO E CONFLITO. Uma nota diz «o banco vai ter uma palavra a
+        # dizer sobre isto»; um conflito diz «nao escrevas». Confundi-las fez
+        # o escritor recusar, por sua conta, o caso que a fase 10 abre.
+        "OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO": notas,
         "CONFLITO_DE_CORRIDA": conflito_de_corrida,
+        "PERGUNTAS_SEPARADAS": ["copia_em", "observacao_identificada",
+                                "tentativa_sem_prova", "observacoes_em"],
         "O_QUE_ISTO_IMPEDE": (
-            "que `on conflict do nothing` engula uma divergencia. SQL aceite "
-            "nao e linha gravada, e linha antiga com outro sha256 no mesmo "
-            "caminho e duas verdades no mesmo endereco."),
+            "que `on conflict do nothing` engula uma divergencia, e que a "
+            "pergunta «que copia ha aqui?» seja respondida por uma tabela de "
+            "observacoes. SQL aceite nao e linha gravada, e endereco nao e "
+            "identidade de observacao."),
     }
 
 
@@ -506,6 +690,35 @@ def _texto(v):
     if v is None:
         return "null"
     return "'" + str(v).replace("'", "''") + "'"
+
+
+def _onde_a_observacao_esta(run, o, caminho, prefixo="", objeto=None):
+    """A cláusula `where` que nomeia UMA observação — a desta corrida.
+
+    Escrita uma vez e usada nas duas ordens (`update` e `insert ... where not
+    exists`). Duas cópias da mesma chave divergiriam, e no dia em que
+    divergissem o `update` contaria a tentativa de uma linha e o `insert`
+    criaria outra.
+
+        A CHAVE DA IDEMPOTENCIA E UMA. ESCREVE-SE NUM SITIO SO.
+
+    `objeto` é como se nomeia a cópia no contexto de quem chama: dentro do
+    `insert` ela é `o.id`, a coluna do `select`; fora dele é uma subconsulta
+    pelo endereço, que é a identidade do OBJETO.
+    """
+    p = prefixo
+    copia = objeto or ("(select id from public.storage_object where "
+                       "storage_path = %s)" % _texto(caminho))
+    comum = "%srun_id = %s and %ssource_id = %s and %ssha256 = %s" % (
+        p, _texto(run["RUN_ID"]), p, _texto(o.get("SOURCE_ID")),
+        p, _texto(o["SHA256"]))
+    if o.get("IDENTITY_STATE") == FORWARD_IDENTIFIED:
+        return ("%sidentity_state = %s and %s and %sdocument_key = %s" % (
+            p, _texto(FORWARD_IDENTIFIED), comum, p,
+            _texto(o.get("DOCUMENT_KEY"))))
+    # SEM PROVA: a cópia entra na chave, e o documento não — porque não há.
+    return ("%sidentity_state = %s and %s and %sstorage_object_id = %s" % (
+        p, _texto(FORWARD_IDENTITY_UNPROVEN), comum, p, copia))
 
 
 def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
@@ -525,7 +738,12 @@ def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
        sozinho ele calaria conflito — por isso `conferir_o_que_ja_existe()`
        corre **antes**, e o conflito é apanhado lá.
     """
-    por_caminho = {o["STORAGE_PATH"]: o for o in plano["OBJETOS"]}
+    # ⚠️ ISTO ERA `{o["STORAGE_PATH"]: o}`, e perdia observacoes: duas no
+    # mesmo endereco, e so a ultima chegava ao SQL. O mapa e agora de caminho
+    # para a LISTA das observacoes daquele endereco.
+    por_caminho = {}
+    for o in plano["OBJETOS"]:
+        por_caminho.setdefault(o["STORAGE_PATH"], []).append(o)
     linhas = [
         "-- MEMORIA OPERACIONAL DA CORRIDA %s" % run["RUN_ID"],
         "-- Gerado por guarda/preservar_coleta.py. NAO EDITAR A MAO.",
@@ -543,57 +761,92 @@ def sql_da_memoria(run: dict, conferidos: list, plano: dict) -> str:
         "on conflict (run_id) do nothing;",
     ]
     for caminho in conferidos:
-        o = por_caminho[caminho]
-        # ── A COPIA PRIMEIRO, A OBSERVACAO DEPOIS ───────────────────────────
-        # Sao duas especies desde a migration 025, e a ordem nao e arbitraria:
-        # a observacao aponta para a copia, logo a copia tem de existir antes.
-        #
-        #     GARANTIR A COPIA  ->  GARANTIR A OBSERVACAO  ->  LIGAR
-        #
-        # `do nothing` no objeto e o que torna a segunda corrida do mesmo
-        # endereco barata: a copia ja la esta, e reusa-se. Isto NAO cura o
-        # conflito da observacao — `unique (raw_asset.storage_path)` continua
-        # de pe, e cai so na fase 10 do plano.
-        linhas.append(
-            "insert into public.storage_object (storage_path, media_type, "
-            "bytes, sha256) values (%s, %s, %d, %s) "
-            "on conflict (storage_path) do nothing;" % (
-                _texto(caminho), _texto(o["MEDIA_TYPE"]),
-                o["BYTES"], _texto(o["SHA256"])))
-        # E A LIGACAO SAI DO BANCO, NAO DA NOSSA CABECA. O `id` da copia e lido
-        # de la por endereco — nunca por `sha256`, que dois objetos podem
-        # partilhar, e nunca por um numero que este processo tenha guardado.
-        # ── E A OBSERVACAO DIZ QUEM E O QUE ELA E (026) ─────────────────
-        # O `on conflict` MUDOU, e a mudanca e a metade que interessa:
-        #
-        #     ANTES  on conflict (storage_path) do nothing
-        #     AGORA  on conflict (run_id, source_id, document_key, sha256)
-        #            where identity_state = 'FORWARD_IDENTIFIED' do nothing
-        #
-        # O alvo antigo engolia QUALQUER colisao de endereco — inclusive a de
-        # uma corrida NOVA, que nao e retry nenhum. O novo alvo e o indice
-        # parcial da fase 9: ele absorve o retry da mesma observacao e mais
-        # nada. Uma colisao de `storage_path` deixa de ser calada e REBENTA,
-        # que e o comportamento certo enquanto a fase 10 nao existir.
-        #
-        #     `DO NOTHING` NAO PODE SER O SITIO ONDE A FASE 10 SE ESCONDE.
-        #
-        # Uma linha que nao satisfaz o predicado (UNPROVEN) nao pode colidir
-        # neste indice — logo, para ela, nao ha `do nothing` nenhum.
-        linhas.append(
-            "insert into public.raw_asset (run_id, storage_path, media_type, "
-            "bytes, sha256, captured_at, source_url, storage_object_id, "
-            "identity_state, source_id, document_key, document_key_basis) "
-            "select %s, %s, %s, %d, %s, %s, %s, o.id, %s, %s, %s, %s "
-            "from public.storage_object o where o.storage_path = %s "
-            "on conflict (run_id, source_id, document_key, sha256) "
-            "where identity_state = 'FORWARD_IDENTIFIED' do nothing;" % (
-                _texto(run["RUN_ID"]), _texto(caminho), _texto(o["MEDIA_TYPE"]),
-                o["BYTES"], _texto(o["SHA256"]), _texto(o["CAPTURED_AT"]),
-                _texto(o.get("SOURCE_URL")),
-                _texto(o.get("IDENTITY_STATE")), _texto(o.get("SOURCE_ID")),
-                _texto(o.get("DOCUMENT_KEY")), _texto(o.get("DOCUMENT_KEY_BASIS")),
-                _texto(caminho)))
+        for o in por_caminho[caminho]:
+            # ── A COPIA PRIMEIRO, A OBSERVACAO DEPOIS ───────────────────────────
+            # Sao duas especies desde a migration 025, e a ordem nao e arbitraria:
+            # a observacao aponta para a copia, logo a copia tem de existir antes.
+            #
+            #     GARANTIR A COPIA  ->  GARANTIR A OBSERVACAO  ->  LIGAR
+            #
+            # `do nothing` no objeto e o que torna a segunda corrida do mesmo
+            # endereco barata: a copia ja la esta, e reusa-se. Isto NAO cura o
+            # conflito da observacao — `unique (raw_asset.storage_path)` continua
+            # de pe, e cai so na fase 10 do plano.
+            linhas.append(
+                "insert into public.storage_object (storage_path, media_type, "
+                "bytes, sha256) values (%s, %s, %d, %s) "
+                "on conflict (storage_path) do nothing;" % (
+                    _texto(caminho), _texto(o["MEDIA_TYPE"]),
+                    o["BYTES"], _texto(o["SHA256"])))
+            # E A LIGACAO SAI DO BANCO, NAO DA NOSSA CABECA. O `id` da copia e lido
+            # de la por endereco — nunca por `sha256`, que dois objetos podem
+            # partilhar, e nunca por um numero que este processo tenha guardado.
+            # ── E A OBSERVACAO DIZ QUEM E O QUE ELA E (026) ─────────────────
+            # O `on conflict` MUDOU, e a mudanca e a metade que interessa:
+            #
+            #     ANTES  on conflict (storage_path) do nothing
+            #     AGORA  on conflict (run_id, source_id, document_key, sha256)
+            #            where identity_state = 'FORWARD_IDENTIFIED' do nothing
+            #
+            # O alvo antigo engolia QUALQUER colisao de endereco — inclusive a de
+            # uma corrida NOVA, que nao e retry nenhum. O novo alvo e o indice
+            # parcial da fase 9: ele absorve o retry da mesma observacao e mais
+            # nada. Uma colisao de `storage_path` deixa de ser calada e REBENTA,
+            # que e o comportamento certo enquanto a fase 10 nao existir.
+            #
+            #     `DO NOTHING` NAO PODE SER O SITIO ONDE A FASE 10 SE ESCONDE.
+            #
+            # Uma linha que nao satisfaz o predicado (UNPROVEN) nao pode colidir
+            # neste indice — logo, para ela, nao ha `do nothing` nenhum.
+            # ── A TENTATIVA CONTA-SE ANTES DE A OBSERVACAO NASCER ───────────
+            # `attempts` e `last_attempt_at` nasceram na 026 e ficaram SEM DONO.
+            # O dono e este: o escritor canonico, e ninguem mais.
+            #
+            # O `update` vem PRIMEIRO de proposito. Se a observacao ja existe, ele
+            # incrementa; se nao existe, afecta zero linhas e o `insert` a seguir
+            # poe `attempts = 1`. Duas ordens, uma semantica, e nenhuma condicao em
+            # Python a decidir qual correr.
+            #
+            #     LER-SOMAR-ESCREVER EM PYTHON PERDERIA INCREMENTOS.
+            #
+            # `attempts = attempts + 1` acontece DENTRO do banco, debaixo do lock
+            # da linha. Dois retries simultaneos serializam e os dois contam.
+            linhas.append(
+                "update public.raw_asset set attempts = coalesce(attempts, 0) + 1,"
+                " last_attempt_at = %s where %s;" % (
+                    _texto(o["CAPTURED_AT"]), _onde_a_observacao_esta(run, o, caminho)))
+            # ── E A OBSERVACAO ENTRA SE E SO SE AINDA NAO ESTIVER LA ────────
+            # ⚠️ O `on conflict` DA FASE 9 NAO SERVIA PARA METADE DAS LINHAS: o
+            # indice tem predicado `FORWARD_IDENTIFIED`, e uma linha SEM PROVA nao
+            # o satisfaz — para ela nao havia `do nothing` nenhum, e o retry
+            # entrava outra vez.
+            #
+            # `where not exists` cobre os DOIS estados com a MESMA forma, e — o que
+            # decide — funciona ANTES e DEPOIS da fase 10. Ele nao inventa trava
+            # nenhuma: quem arbitra a corrida entre duas sessoes continua a ser um
+            # indice do banco, e ha sempre um.
+            #
+            #     HOJE      unique (raw_asset.storage_path)
+            #     FASE 10   raw_identidade_forward_idx + raw_tentativa_sem_prova_idx
+            #
+            # Em nenhum momento ha zero travas, e e por isso que o escritor pode
+            # mudar antes da migration.
+            linhas.append(
+                "insert into public.raw_asset (run_id, storage_path, media_type, "
+                "bytes, sha256, captured_at, source_url, storage_object_id, "
+                "identity_state, source_id, document_key, document_key_basis, "
+                "attempts, last_attempt_at) "
+                "select %s, %s, %s, %d, %s, %s, %s, o.id, %s, %s, %s, %s, 1, %s "
+                "from public.storage_object o where o.storage_path = %s "
+                "and not exists (select 1 from public.raw_asset r where %s);" % (
+                    _texto(run["RUN_ID"]), _texto(caminho), _texto(o["MEDIA_TYPE"]),
+                    o["BYTES"], _texto(o["SHA256"]), _texto(o["CAPTURED_AT"]),
+                    _texto(o.get("SOURCE_URL")),
+                    _texto(o.get("IDENTITY_STATE")), _texto(o.get("SOURCE_ID")),
+                    _texto(o.get("DOCUMENT_KEY")), _texto(o.get("DOCUMENT_KEY_BASIS")),
+                    _texto(o["CAPTURED_AT"]), _texto(caminho),
+                    _onde_a_observacao_esta(run, o, caminho, prefixo="r.",
+                                            objeto="o.id")))
     linhas.append("commit;")
     return "\n".join(linhas) + "\n"
 
@@ -621,7 +874,37 @@ def conferir_o_que_ficou_escrito(run: dict, plano: dict, memoria: Memoria) -> di
     conferidos, divergentes, ausentes = [], [], []
     for obj in plano["OBJETOS"]:
         caminho = obj["STORAGE_PATH"]
-        escrita = memoria.objeto_em(caminho)
+        # ⚠️ AQUI TAMBÉM SE LIA POR ENDEREÇO, e pelo mesmo motivo deixou de se
+        # ler: a linha que se quer conferir é a linha QUE ESTA CORRIDA
+        # ESCREVEU, e quem a nomeia é a chave de identidade dela. Ler por
+        # endereço depois da fase 10 poderia conferir a observação de OUTRA
+        # corrida e dar-lhe o nosso nome.
+        copia = memoria.copia_em(caminho)
+        # ── A CÓPIA É CONFERIDA PRIMEIRO, E SOZINHA ─────────────────────
+        # ⚠️ SEM ISTO O DIAGNÓSTICO PERDIA-SE. O caso de corrida é: outro
+        # escritor chega ao endereço no meio, e a cópia que lá fica é A DELE.
+        # A nossa observação nem sequer entra — a chave estrangeira composta
+        # recusa-a, porque o `sha256` dela não é o da cópia. Procurá-la e não
+        # a encontrar diria «falta escrever», e mandaria o operador repetir o
+        # passo errado.
+        #
+        #     BYTES DIFERENTES NO NOSSO ENDERECO NAO E «FALTA ESCREVER».
+        #     E DUAS VERDADES NO MESMO SITIO, e tem esse nome.
+        if copia and str(copia.get("sha256")) != str(obj["SHA256"]):
+            divergentes.append({
+                "TIPO": METADATA_CONFLICT, "STORAGE_PATH": caminho,
+                "DIVERGENCIAS": [
+                    {"CAMPO": c, "NO_BANCO": copia.get(c),
+                     "NESTA_CORRIDA": obj[k]}
+                    for c, k in (("sha256", "SHA256"), ("bytes", "BYTES"))
+                    if str(copia.get(c)) != str(obj[k])],
+                "PORQUE": ("a copia neste endereco tem outro conteudo. A "
+                           "observacao desta corrida nao pode apontar-lhe: a "
+                           "chave estrangeira composta liga `(objeto, sha256)` "
+                           "e recusa-a — e recusou."),
+            })
+            continue
+        escrita = _procurar_a_observacao(run["RUN_ID"], obj, copia, memoria)
         if not escrita:
             ausentes.append(caminho)
             continue
@@ -796,9 +1079,15 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
 
     sql = sql_da_memoria(run, prova["CONFERIDOS"], plano)
     ja_la = {"REUSED_METADATA": [], "CONFLITOS_DE_OBJETO": [],
+             "OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO": [],
              "CONFLITO_DE_CORRIDA": None}
     memoria_estado = {"TENTADA": False, "APLICADA": False, "ERRO": None,
-                      "LINHAS_ESPERADAS": len(prova["CONFERIDOS"]),
+                      # ⚠️ ERA `len(prova["CONFERIDOS"])`, e isso conta
+                      # BYTES conferidos — um por endereco. O que se espera do
+                      # banco sao OBSERVACOES, e duas podem partilhar endereco.
+                      "LINHAS_ESPERADAS": len(
+                          [o for o in plano["OBJETOS"]
+                           if o["STORAGE_PATH"] in set(prova["CONFERIDOS"])]),
                       "LINHAS_OBSERVADAS": None,
                       "COMO_FOI_MEDIDO": "NAO MEDIDO — nao houve leitura do banco"}
     fecho = {"TENTADO": False, "STATUS_NO_BANCO": None, "FINISHED_AT": None}
@@ -909,21 +1198,29 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
     elif ja_la["CONFLITO_DE_CORRIDA"]:
         pendencia = RUN_ID_CONFLICT
     elif ja_la["CONFLITOS_DE_OBJETO"]:
-        # E A PENDENCIA HERDA O NOME DO CONFLITO. Se TODOS forem corrida nova
-        # sobre o mesmo endereco, o diagnostico e esse — e nao «duas verdades
-        # no mesmo endereco», que mandaria o operador procurar uma divergencia
-        # de conteudo que nao existe. Basta um conflito real para o nome voltar
-        # a ser METADATA_CONFLICT: o pior dos dois manda.
-        pendencia = (NEW_RUN_SAME_STORAGE_PATH
-                     if all(c["TIPO"] == NEW_RUN_SAME_STORAGE_PATH
-                            for c in ja_la["CONFLITOS_DE_OBJETO"])
-                     else METADATA_CONFLICT)
+        # Chegar aqui e «duas verdades no mesmo endereco»: outros bytes na
+        # copia. E conflito em qualquer fase, e nao se resolve por antiguidade.
+        pendencia = METADATA_CONFLICT
     # Divergencia encontrada DEPOIS de escrever tambem e conflito, e tem de vir
     # antes de UPLOAD_PENDING_METADATA na fila. Senao o caso de corrida —
     # contagem certa, conteudo errado — sairia rotulado como «falta escrever»,
     # que e o diagnostico errado e manda o operador repetir o passo errado.
     elif pos_escrita and pos_escrita["DIVERGENTES"]:
         pendencia = METADATA_CONFLICT
+    # ── E O NOME DA TRAVA FISICA, QUANDO E ELA QUE MORDE ─────────────────
+    # A observacao nova sobre endereco ocupado deixou de ser CONFLITO — ela e
+    # legitima, e a escrita e tentada. Mas se o banco a recusou, o operador
+    # tem de saber QUE trava o fez, e nao ouvir «falta escrever».
+    #
+    #     UPLOAD_PENDING_METADATA mandaria repetir. Repetir nao cura uma
+    #     trava de esquema: ela cai na fase 10, ou nao cai.
+    #
+    # E a condicao e `nao aplicada`, e nao `houve nota`: com a fase 10
+    # instalada a nota continua a existir — ela e informacao verdadeira sobre
+    # o acervo — e a escrita PASSA. Nesse dia esta linha cala-se sozinha.
+    elif (ja_la.get("OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO")
+          and not condicoes["memoria_aplicada"]):
+        pendencia = NEW_RUN_SAME_STORAGE_PATH
     elif condicoes["bytes_conferidos"] and not condicoes["reconciliacao_observada"]:
         pendencia = UPLOAD_PENDING_METADATA
     elif condicoes["reconciliacao_observada"] and not condicoes["banco_diz_concluida"]:
@@ -950,6 +1247,8 @@ def preservar(run: dict, artefatos: list, armazem: Armazem, bytes_de,
         "JA_EXISTIA_NO_BANCO": {
             "REUSED_METADATA": len(ja_la["REUSED_METADATA"]),
             "CONFLITOS_DE_OBJETO": ja_la["CONFLITOS_DE_OBJETO"],
+            "OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO":
+                ja_la.get("OBSERVACOES_NOVAS_EM_ENDERECO_OCUPADO", []),
             "CONFLITO_DE_CORRIDA": ja_la["CONFLITO_DE_CORRIDA"],
         },
         "MEMORIA": memoria_estado,

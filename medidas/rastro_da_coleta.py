@@ -82,8 +82,35 @@ def _lit(v):
 # ═════════════════════════════════════════════════════════════════════════
 # ESCREVER
 # ═════════════════════════════════════════════════════════════════════════
+def proxima_tentativa(banco, run_id, etapa):
+    """A proxima tentativa desta etapa nesta corrida.
+
+    ⚠️ FIXAR `tentativa=0` FARIA A SEGUNDA PASSAGEM COLIDIR na chave
+    `(run_id, etapa, tentativa)` — e o erro do banco subiria com o mesmo tipo
+    do erro do fluxo. Uma falha que nao deixa linha e a que ninguem vai
+    procurar. E a linha anterior FICA: apagar a tentativa que falhou apagaria
+    a evidencia daquilo que se esta a tentar consertar.
+
+    ⚠️ E ELA VIVE AQUI PORQUE A PERGUNTA E SOBRE ESTA TABELA.
+    `coleta/ingresso.py` tinha uma copia desta consulta, e `ingresso` e a
+    PORTA: ela transporta o que o dono devolveu e nao fala com o banco. Uma
+    porta com SQL la dentro e um segundo dono a nascer — e
+    `rota_forward_documento` ja tinha a terceira copia da mesma regra.
+
+        A PERGUNTA SOBRE UMA TABELA E DE QUEM E DONO DELA.
+    """
+    try:
+        r = banco.executa(
+            "select coalesce(max(tentativa), -1) from public.etapa_da_corrida"
+            " where run_id = %s and etapa = %s" % (_lit(run_id), _lit(etapa)))
+        return int(r[0][0]) + 1
+    except Exception:                                        # noqa: BLE001
+        return 0
+
+
 def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
               source_id=None, route_class_id=None, decision_id=None,
+              raw_asset_id=None,
               input_grain=None, input_count=None,
               output_grain=None, output_count=None, cardinalidade=None,
               passed=0, rejected=0, error=0, not_run=0, unknown=0, reused=0,
@@ -120,8 +147,17 @@ def registrar(banco, *, run_id, etapa, estado, edge_from=None, tentativa=0,
     if output_count is not None and not output_grain:
         raise ValueError('%s: ha contagem de saida sem GRAO declarado.' % etapa)
 
+    # ⚠️ SO O RAW NOMEIA A OBSERVACAO, e o banco tem a mesma trava (028).
+    # Uma linha de DERIVED que apontasse para `raw_asset` estaria a assinar o
+    # trabalho da etapa anterior. Recusar aqui da o nome antes de o banco dar
+    # um erro de constraint.
+    if raw_asset_id is not None and etapa != 'RAW':
+        raise ValueError('so a etapa RAW nomeia a observacao: %s pediu '
+                         'raw_asset_id=%r' % (etapa, raw_asset_id))
+
     colunas = {
         'run_id': run_id, 'decision_id': decision_id, 'source_id': source_id,
+        'raw_asset_id': raw_asset_id,
         'route_class_id': route_class_id, 'etapa': etapa, 'edge_from': edge_from,
         'tentativa': tentativa, 'input_grain': input_grain,
         'input_count': input_count, 'output_grain': output_grain,

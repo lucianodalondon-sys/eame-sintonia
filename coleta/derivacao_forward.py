@@ -151,10 +151,20 @@ DESTINO_DO_MOTIVO = {
 # O que este caminho AINDA não faz, dito com nome. Um buraco declarado é uma
 # dívida; um buraco calado é uma mentira que ninguém vai procurar.
 GAPS = (
-    ("RAW_FORWARD_NAO_EMITE",
-     "guarda/preservar_coleta.py escreve `raw_asset` e nao emite rastro. A "
-     "etapa RAW existe, tem dono e corre — e e muda. Esta fronteira NAO fala "
-     "por ela."),
+    # ⚠️ AQUI VIVIA `RAW_FORWARD_NAO_EMITE`, E ELE FECHOU EM
+    # C-MAKE-RAW-OBSERVABLE-V1. O texto dizia que `guarda/preservar_coleta.py`
+    # escrevia `raw_asset` e nao emitia rastro — e era verdade.
+    #
+    # Quem passou a falar pela etapa RAW NAO foi esta fronteira: foi
+    # `coleta/ingresso.falar_do_raw()`, na porta que preserva. Esta continua a
+    # nao falar pelo RAW, e continua a ter razao — ler a linha de outro nao e
+    # ter corrido a etapa dele.
+    #
+    #     UM BURACO QUE FECHA SAI DA LISTA DOS BURACOS.
+    #     DEIXA-LO CA DEPOIS DE FECHADO E DIVIDA INVENTADA.
+    #
+    # A prova vive em `provas/o_raw_fala.py`, e `provas/a_rota_m2_atravessa.py`
+    # exige que a aresta `RAW -> DERIVED` continue com os DOIS topos.
     ("STRUCTURED_SEM_DONO_LIGADO",
      "RC-1 STEPS.STRUCTURED: STATE=CODE, PROOF_KIND=NENHUMA. Ha codigo em "
      "guarda/importar_italia.py e ele nunca correu nesta cadeia."),

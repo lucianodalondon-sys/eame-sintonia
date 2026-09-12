@@ -1,0 +1,54 @@
+{
+  "RUN_ID": "IT-T2-2026-09-12-153350",
+  "ESTRADA": {
+    "REQUEST": {
+      "OBSERVED": true,
+      "EVIDENCE": "recibo.PEDIDO = {\"alvo\": \"T2\", \"acionamento\": \"MANUAL\", \"escopo\": \"PONTUAL\", \"filtros\": {\"pais\": \"IT\", \"fonte\": \"IT-T2-002\"}}"
+    },
+    "ORCHESTRATOR": {
+      "OBSERVED": true,
+      "EVIDENCE": "receita resolvida: ACTOR=coleta/italy_executor.py · PLATFORM=HTTP direto · CAPTURE_METHOD=gratuito"
+    },
+    "EXECUTOR": {
+      "OBSERVED": true,
+      "EVIDENCE": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-153350 · versao=91514740 · colheita=4"
+    },
+    "RUN": {
+      "OBSERVED": true,
+      "EVIDENCE": "collection_run: ['IT-T2-2026-09-12-153350', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
+    },
+    "RAW": {
+      "OBSERVED": true,
+      "EVIDENCE": "raw_asset da corrida: [1, 2, 3, 4]"
+    },
+    "STORAGE": {
+      "OBSERVED": true,
+      "EVIDENCE": "storage_object ligados a esta corrida: 4"
+    },
+    "DERIVED": {
+      "OBSERVED": false,
+      "EVIDENCE": "derived_artifact desta corrida: 0"
+    },
+    "STRUCTURED": {
+      "OBSERVED": false,
+      "EVIDENCE": "conteudo desta corrida: 0"
+    },
+    "ADMISSION": {
+      "OBSERVED": true,
+      "EVIDENCE": "a porta julgou 4 itens: {'NAO_SEI': 4}"
+    },
+    "READY": {
+      "OBSERVED": false,
+      "EVIDENCE": "unidades prontas: 0"
+    },
+    "WAITING_ROOM": {
+      "OBSERVED": false,
+      "EVIDENCE": "ficheiros na sala DEPOIS: nenhum"
+    }
+  },
+  "FIRST_LOST_EDGE": "STORAGE -> DERIVED",
+  "ETAPAS_DEPOIS_DO_BURACO": [
+    "ADMISSION"
+  ],
+  "CANONICAL_E2E": "FAIL"
+}

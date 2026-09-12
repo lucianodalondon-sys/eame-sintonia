@@ -207,11 +207,31 @@ class OQueEsteDonoNuncaFaz(unittest.TestCase):
 
     def test_a_porta_do_banco_sabe_ler(self):
         """E a porta do banco tem de saber LER — sem leitura não há
-        reconciliação, e sem reconciliação `COMPLETE` é opinião."""
+        reconciliação, e sem reconciliação `COMPLETE` é opinião.
+
+        ⚠️ `objeto_em` SAIU, e o nome já dizia o erro: ele prometia um OBJETO
+        e ia buscá-lo a `raw_asset`, que guarda OBSERVAÇÕES. Enquanto o
+        endereço foi único as duas perguntas tiveram a mesma resposta por
+        acidente; as três implementações faziam `linhas[0] if linhas else
+        None`, e depois da fase 10 isso é «a que o planeador devolver».
+
+            ESCOLHER A PRIMEIRA E ESCOLHER AO ACASO COM CARA DE DETERMINISMO.
+
+        No lugar dele há quatro perguntas, e cada uma tem uma chave que a
+        torna determinística por construção.
+        """
         from guarda import preservar_coleta as pc
         metodos = sorted(m for m in dir(pc.Memoria) if not m.startswith("_"))
-        self.assertEqual(metodos,
-                         ["aplicar", "corrida", "objeto_em", "objetos_da_corrida"])
+        self.assertEqual(metodos, [
+            "aplicar",
+            "copia_em",                # que CÓPIA há neste endereço
+            "corrida",
+            "objetos_da_corrida",
+            "observacao_identificada",  # que OBSERVAÇÃO é esta (chave forward)
+            "observacoes_em",           # TODAS as daquele endereço; lista
+            "tentativa_sem_prova",      # a mesma, para quem não tem chave
+        ])
+        self.assertNotIn("objeto_em", metodos)
 
     def test_so_o_sql_de_fecho_promove_a_corrida(self):
         """`concluida` não aparece no SQL de escrita: a corrida abre `rodando`

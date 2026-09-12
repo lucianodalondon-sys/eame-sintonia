@@ -115,3 +115,12 @@ data/samples/**/*.ogg
 .sintonia-libs/
 **/whisper-models/
 **/.cache/huggingface/
+
+# ⚠️ RESIDUO DE MEDICAO, E NAO ACERVO.
+# `ing.ArmazemLocal` escreve o bruto preservado numa raiz `XX/` quando a
+# medicao corre sem armazem proprio. Em C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1
+# quatro PDFs dessa pasta chegaram a ser commitados.
+#
+#     UMA MEDICAO QUE DEIXA ACERVO NA ARVORE
+#     FAZ A MEDICAO SEGUINTE MEDIR O RESIDUO DESTA.
+XX/
