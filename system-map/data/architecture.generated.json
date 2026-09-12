@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/sintonia-scrap-financial-budget-c10-8af",
-    "HEAD": "7df9565f5a28b47b6a04239034d1f47ccf105e7d",
-    "GENERATED_AT": "2026-09-12T14:42:16+00:00",
-    "SOURCE_TREE_FINGERPRINT": "30240a67f93dc09540db5f33830b1c948449301f0d909f072decc2ae324cc34c"
+    "BRANCH": "claude/sintonia-scrap-first-paid-route-c10-8b",
+    "HEAD": "f302548df60fe5f3b036481e522bf30cd9f87bbd",
+    "GENERATED_AT": "2026-09-12T15:52:31+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1cc943915817edb1fddb66a3f2ffff1c90eea0127aceb9d699a46f279477a835"
   },
   "FILES": [
     {
@@ -1151,7 +1151,7 @@
     },
     {
       "path": "coleta/adaptador_youtube.py",
-      "sha": "4ae1d06703564bb44508ff478c10c3873a68d8f6",
+      "sha": "7bad5dc32b600bdc54d6990c44292f3dd2531052",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1179,7 +1179,7 @@
     },
     {
       "path": "coleta/coletor.py",
-      "sha": "c8fcf9f0d5dd46c22b7e908c3331972157f77298",
+      "sha": "93f4ee23648734b303a066149530bffab898eef1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1473,7 +1473,7 @@
     },
     {
       "path": "coleta/social_rotas.py",
-      "sha": "6a179a8187aedc3d8a065d60f4494be4ba00c757",
+      "sha": "21497b0d621b44f748f96db66ad98d69c69d4ab2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -5294,6 +5294,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/sintonia-scrap/C10-8B-PRIMEIRA-ROTA-PAGA-CANONICA.md",
+      "sha": "d57aaa518454cfda69cc1ae91eb25876e5798bf7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/sintonia-scrap/C10-INSTAGRAM-AUDIO-ONLY.md",
       "sha": "8ff2171a1953b29464fde466c69a0cb05eba3173",
       "ext": ".md",
@@ -8249,7 +8256,7 @@
     },
     {
       "path": "provas/orcamento_financeiro.py",
-      "sha": "65bdd0c9ac703b6428b5a5e9a0c0974d8d0783b0",
+      "sha": "9f1bf328ecf1aa9fb9abc1d2f7ec4523821791a4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8278,6 +8285,13 @@
     {
       "path": "provas/preservar_coleta_no_postgres.py",
       "sha": "d7de5314e7109ef13b75632efde0ff968d9cfde9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/primeira_rota_paga.py",
+      "sha": "b7908971a535e4c90e49c6d8f59f49355ec22718",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9565,7 +9579,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "c32a1a8f0ce1355be4307471a808291570ecdfea",
+      "sha": "ee410c0363077251a19932f3ac289a264f813105",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10055,7 +10069,7 @@
     },
     {
       "path": "tests/test_c10_8af_orcamento_financeiro.py",
-      "sha": "e58f69efffdb26fe8f5083e61cce8870f6d5532f",
+      "sha": "ad2e33a58a699df84524b868f3ad84e0faf5d140",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10063,6 +10077,13 @@
     {
       "path": "tests/test_c10_8ar_orcamento_de_rede.py",
       "sha": "50523d1a9c13d2e776b9c3b3225a6b285376104e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c10_8b_rota_paga_canonica.py",
+      "sha": "278e2629a3adae8c9f27d6ce53ea2fd32924ae95",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10083,7 +10104,7 @@
     },
     {
       "path": "tests/test_c2_youtube_oficial.py",
-      "sha": "ac072b64b5feeda10394ea40384cc8d7b1fa04b2",
+      "sha": "e86df434df26e4e8afb939fad4495e19598ee0cb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12277,6 +12298,28 @@
     },
     {
       "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 411,
+        "snippet": "import coletor as ct"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 453,
+        "snippet": "medida['IMPLEMENTACAO'] = 'coleta/coletor.py'"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
       "to_file": "coleta/scrap_fornecedores.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -12310,13 +12353,35 @@
     },
     {
       "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 36,
+        "snippet": "import social_envelope as env  # noqa: E402  — o envelope canonico"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
       "to_file": "coleta/youtube_oficial.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "coleta/adaptador_youtube.py",
-        "line": 70,
+        "line": 71,
         "snippet": "import youtube_oficial as yt"
+      }
+    },
+    {
+      "from_file": "coleta/adaptador_youtube.py",
+      "to_file": "ferramentas/apify_pool.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/adaptador_youtube.py",
+        "line": 396,
+        "snippet": "import apify_pool as ap"
       }
     },
     {
@@ -27528,7 +27593,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 202,
+        "line": 208,
         "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
       }
     },
@@ -27539,7 +27604,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 443,
+        "line": 456,
         "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
       }
     },
@@ -27550,7 +27615,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 442,
+        "line": 455,
         "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
       }
     },
@@ -27572,7 +27637,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 310,
+        "line": 323,
         "snippet": "import scrap_http as _http                                        # noqa: E402"
       }
     },
@@ -27594,7 +27659,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 311,
+        "line": 324,
         "snippet": "import social_envelope as _env                                    # noqa: E402"
       }
     },
@@ -27605,7 +27670,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 315,
+        "line": 328,
         "snippet": "CORPO = open(BRUTO, encoding='utf-8').read()"
       }
     },
@@ -27627,7 +27692,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/orcamento_financeiro.py",
-        "line": 443,
+        "line": 456,
         "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
       }
     },
@@ -27893,6 +27958,127 @@
         "file": "provas/preservar_coleta_no_postgres.py",
         "line": 59,
         "snippet": "\"026_a_observacao_ganha_identidade.sql\")"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 39,
+        "snippet": "import adaptador_youtube as ay   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 309,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'coleta/adaptador_youtube.py'), encoding='utf-8').read()"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 41,
+        "snippet": "import coletor as ct             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 221,
+        "snippet": "diz(med.get('IMPLEMENTACAO') == 'coleta/coletor.py',"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 42,
+        "snippet": "import scrap_capacidades as cap  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 43,
+        "snippet": "import scrap_executor as sx      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 44,
+        "snippet": "import scrap_http as http        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 45,
+        "snippet": "import scrap_registo as reg      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 58,
+        "snippet": "HISTORICO = 'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "ferramentas/apify_pool.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 40,
+        "snippet": "import apify_pool as ap          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/primeira_rota_paga.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/primeira_rota_paga.py",
+        "line": 46,
+        "snippet": "import social_matriz as mz       # noqa: E402"
       }
     },
     {
@@ -33061,7 +33247,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 332,
+        "line": 338,
         "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
       }
     },
@@ -33072,7 +33258,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 333,
+        "line": 339,
         "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
       }
     },
@@ -33083,7 +33269,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 332,
+        "line": 338,
         "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
       }
     },
@@ -33094,7 +33280,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 545,
+        "line": 564,
         "snippet": "import scrap_capacidades as cap"
       }
     },
@@ -33127,7 +33313,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 390,
+        "line": 396,
         "snippet": "fonte = _fonte('coleta/scrap_http.py')"
       }
     },
@@ -33171,7 +33357,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 464,
+        "line": 470,
         "snippet": "import falhas"
       }
     },
@@ -33193,7 +33379,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 558,
+        "line": 583,
         "snippet": "fonte = _fonte('provas/orcamento_financeiro.py')"
       }
     },
@@ -33204,7 +33390,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c10_8af_orcamento_financeiro.py",
-        "line": 333,
+        "line": 339,
         "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
       }
     },
@@ -33305,6 +33491,149 @@
         "file": "tests/test_c10_8ar_orcamento_de_rede.py",
         "line": 400,
         "snippet": "fonte = _fonte('provas/bluesky_trial_ao_vivo.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 23,
+        "snippet": "import adaptador_youtube as ay                                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/adaptador_youtube.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 200,
+        "snippet": "fonte = _fonte('coleta/adaptador_youtube.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 25,
+        "snippet": "import coletor as ct                                              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 196,
+        "snippet": "self.assertEqual(med.get('IMPLEMENTACAO'), 'coleta/coletor.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 26,
+        "snippet": "import scrap_capacidades as cap                                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 27,
+        "snippet": "import scrap_executor as sx                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 213,
+        "snippet": "fonte = _fonte('coleta/scrap_executor.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 28,
+        "snippet": "import scrap_registo as reg                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 218,
+        "snippet": "self.assertNotIn('pintostudio', _fonte('coleta/social_rotas.py'))"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "data/samples/SENSOR-PILOT/TRANSCRICOES-B.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 37,
+        "snippet": "HISTORICO = 'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "ferramentas/apify_pool.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 24,
+        "snippet": "import apify_pool as ap                                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 29,
+        "snippet": "import social_matriz as mz                                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c10_8b_rota_paga_canonica.py",
+      "to_file": "provas/primeira_rota_paga.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c10_8b_rota_paga_canonica.py",
+        "line": 525,
+        "snippet": "fonte = _fonte('provas/primeira_rota_paga.py')"
       }
     },
     {
@@ -40476,10 +40805,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1518,
-    "files_readable": 587,
-    "files_code_dir": 636,
-    "file_edges": 2671,
+    "files_tracked": 1521,
+    "files_readable": 589,
+    "files_code_dir": 638,
+    "file_edges": 2699,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

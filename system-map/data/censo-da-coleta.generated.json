@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "7df9565f5a28b47b6a04239034d1f47ccf105e7d",
+    "HEAD": "f302548df60fe5f3b036481e522bf30cd9f87bbd",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -364,6 +364,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/adaptador_youtube.py",
         "coleta/coleta_checkpoint.py",
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
@@ -747,14 +748,15 @@
     {
       "ficheiro": "coleta/adaptador_youtube.py",
       "gaveta": "coleta",
-      "linhas": 367,
+      "linhas": 548,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
         "YOUTUBE"
       ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
@@ -837,7 +839,7 @@
     {
       "ficheiro": "coleta/coletor.py",
       "gaveta": "coleta",
-      "linhas": 812,
+      "linhas": 821,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -853,6 +855,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/adaptador_youtube.py",
         "coleta/comunicacao_coleta.py",
         "coleta/instagram_coleta.py",
         "coleta/scrap_executor.py",
@@ -860,6 +863,7 @@
         "regras/sensor_coleta.py"
       ],
       "citado_por": [
+        "coleta/adaptador_youtube.py",
         "coleta/scrap_executor.py",
         "ferramentas/reel_transcricao.py"
       ],
@@ -1737,6 +1741,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/adaptador_aberto.py",
+        "coleta/adaptador_youtube.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py"
@@ -1776,7 +1781,7 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 335,
+      "linhas": 354,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -2221,7 +2226,9 @@
       "chamado_por": [
         "coleta/social_scrap.py"
       ],
-      "citado_por": [],
+      "citado_por": [
+        "coleta/adaptador_youtube.py"
+      ],
       "no_ci": true
     },
     {

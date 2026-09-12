@@ -1,15 +1,15 @@
 {
  "SCHEMA": "executores/v1",
  "PROVENANCE": {
-  "HEAD": "7df9565f5a28b47b6a04239034d1f47ccf105e7d",
+  "HEAD": "f302548df60fe5f3b036481e522bf30cd9f87bbd",
   "MEDIDO_POR": "censo_dos_executores.py"
  },
  "O_QUE_ISTO_MEDE": "capacidade lida no codigo (o que se importa e se nomeia) mais as provas de execucao do ledger. CAN DO != DID DO: importar o writer nao prova que alguma vez correu.",
  "TOTAL_FICHEIROS": 71,
- "TOTAL_CAMINHOS_RELEVANTES": 61,
+ "TOTAL_CAMINHOS_RELEVANTES": 62,
  "POR_ESTADO": {
-  "NOT_APPLICABLE": 10,
-  "NOT_INSTRUMENTED": 57,
+  "NOT_APPLICABLE": 9,
+  "NOT_INSTRUMENTED": 58,
   "PARTIAL": 2,
   "INSTRUMENTED": 2
  },
@@ -23,72 +23,72 @@
  "COBERTURA_POR_DIMENSAO": {
   "RUN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "STAGES": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "EDGE_PASSAGE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "ACCOUNTING": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "GRAIN": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_STATE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "DIAGNOSTIC_CODE": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "FAILURE_SNAPSHOT": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "LAST_GOOD": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "RESUME": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "DURATION": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "COST": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   },
   "CHECKPOINT": {
    "INSTRUMENTED": 1,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 1
   },
   "REUSED": {
    "INSTRUMENTED": 2,
-   "NOT_INSTRUMENTED": 59,
+   "NOT_INSTRUMENTED": 60,
    "NOT_APPLICABLE": 0
   }
  },
@@ -207,9 +207,9 @@
  },
  "DENOMINADORES": {
   "TOTAL_FILES_SCANNED": 71,
-  "TOTAL_RELEVANT_PATHS": 61,
+  "TOTAL_RELEVANT_PATHS": 62,
   "TOTAL_EXECUTORS_PROVEN": 2,
-  "TOTAL_EXECUTORS_BY_ROLE": 10,
+  "TOTAL_EXECUTORS_BY_ROLE": 11,
   "TOTAL_ORCHESTRATORS": 5,
   "TOTAL_ADAPTERS": 8,
   "TOTAL_PRESERVATION_OWNERS": 4,
@@ -347,13 +347,15 @@
   {
    "EXECUTOR_ID": "coleta/adaptador_youtube.py",
    "GAVETA": "coleta",
-   "LINHAS": 367,
+   "LINHAS": 548,
    "TEM_PORTA": false,
-   "ETAPAS_NOMEADAS": [],
+   "ETAPAS_NOMEADAS": [
+    "RAW"
+   ],
    "HAS_PRESERVED_INPUT": false,
    "USA_CONTRATO_ARTEFATO": false,
    "NETWORK_REQUIRED": true,
-   "PAID": false,
+   "PAID": true,
    "PRODUCTION_REQUIRED": false,
    "CAN_RUN_OFFLINE": false,
    "USA_TELEMETRIA": false,
@@ -361,12 +363,12 @@
    "USA_DIAGNOSTICO": false,
    "USA_CHECKPOINT": false,
    "PAPEIS": [
-    "UNKNOWN"
+    "EXECUTOR"
    ],
    "GOOD_PATH_PROVED": false,
    "FAULT_PATH_PROVED": false,
    "PROVA": null,
-   "STATE": "NOT_APPLICABLE"
+   "STATE": "NOT_INSTRUMENTED"
   },
   {
    "EXECUTOR_ID": "coleta/agrifood_ue.py",
@@ -419,7 +421,7 @@
   {
    "EXECUTOR_ID": "coleta/coletor.py",
    "GAVETA": "coleta",
-   "LINHAS": 812,
+   "LINHAS": 821,
    "TEM_PORTA": true,
    "ETAPAS_NOMEADAS": [
     "RAW",
@@ -1339,7 +1341,7 @@
   {
    "EXECUTOR_ID": "coleta/social_rotas.py",
    "GAVETA": "coleta",
-   "LINHAS": 335,
+   "LINHAS": 354,
    "TEM_PORTA": false,
    "ETAPAS_NOMEADAS": [],
    "HAS_PRESERVED_INPUT": false,
