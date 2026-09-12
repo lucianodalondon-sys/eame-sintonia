@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "c2ce62e02f227ffcc00bc6e9ec280e840f520ac8",
+    "HEAD": "bf07e43387a415500975dea6731f3ec973735b0b",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4326,7 +4326,7 @@
       "usado_por": [
         {
           "file": "coleta/coletor.py",
-          "line": 79
+          "line": 88
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4556,6 +4556,19 @@
       ]
     },
     {
+      "endpoint": "https://instagram.com/basf',",
+      "usado_por": [
+        {
+          "file": "provas/red_team_da_autorizacao_de_gasto.py",
+          "line": 206
+        },
+        {
+          "file": "tests/test_autorizacao_de_gasto.py",
+          "line": 398
+        }
+      ]
+    },
+    {
       "endpoint": "https://arpa.veneto.it',",
       "usado_por": [
         {
@@ -4663,15 +4676,6 @@
         {
           "file": "coleta/social_rotas.py",
           "line": 150
-        }
-      ]
-    },
-    {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 209
         }
       ]
     }

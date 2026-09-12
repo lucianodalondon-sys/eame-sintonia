@@ -1575,3 +1575,82 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
   [`docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md`](../operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md).
 
     UMA DECISÃO QUE A PORTA NÃO CONHECE NÃO É UMA DECISÃO.
+
+---
+
+### D-042 — A guarda do gasto pago, e a correção de um número da D-041
+- **Data:** 2026-09-12
+- **Estado:** DECIDIDO
+- **Contexto:** Rastreado o caminho do dinheiro seguindo o **grafo de importações**,
+  não a menção textual, e varrendo seis primitivas de rede — não a palavra «apify»:
+
+  ```
+  FICHEIROS_VARRIDOS           264
+  MENCIONAM_APIFY               52
+  PAID_CREATION_PRIMITIVES       1    coleta/coletor.py :: executar
+  PODEM_CRIAR_EXECUCAO_PAGA      6
+  ```
+
+  Há **uma** ocorrência de `POST /v2/acts/{ator}/runs` em toda a casa, e para a
+  atravessar bastava ter um token na mão.
+
+- **⚠️ CORREÇÃO DA D-041.** A SR-01 escreveu «32 entrypoints que tocam Apify» e
+  usou esse número para baixar o próprio veredito a `PARTIAL`. A frase era
+  literalmente verdadeira, e respondia a «quantos ficheiros mencionam a
+  plataforma e vão à rede». **Essa não é a pergunta do dinheiro:**
+
+  ```
+  GET  /v2/acts/{ator}        lê o contrato do ator. Zero dólares.
+  POST /v2/acts/{ator}/runs   ACENDE UMA EXECUÇÃO. Só isto custa.
+  ```
+
+  Medido: **47 dos 52** só lêem. O buraco era real — nenhum dos que podiam
+  comprar consultava a relevância — mas tinha **5 portas, não 32**.
+
+      TOCAR NA APIFY NÃO É COMPRAR NA APIFY.
+
+  A medição independente confirma-a: o `C10-8A-F-FINANCIAL-BUDGET.md`, escrito no
+  ramo do SCRAP sem conhecimento desta missão, mediu a mesma ocorrência única.
+
+- **Decisão:** Criado `leis/autorizacao_de_gasto.py`, dono único da pergunta
+  «esta compra está autorizada?». `coleta/coletor.py::executar` passa a exigir
+  uma `Autorizacao` selada — que **só** `autorizar()` consegue emitir — e a
+  consumir uma execução por POST.
+
+  Três motivos de gasto, e nenhum se disfarça do outro:
+
+  ```
+  COLETA_NORMAL_DA_FONTE        exige relevância provada do par (FONTE, PROPÓSITO)
+  PROVA_DE_RELEVANCIA_DA_FONTE  NÃO exige — exige autorização humana e tetos duros
+  TRIAL_DE_CAPACIDADE           mede o caminho, não a fonte; tetos e assinatura
+  ```
+
+- **Motivo:** `CREDENTIAL != AUTHORIZATION`. Ter a chave era, na prática, ter a
+  autorização. E o probe existe para quebrar um ciclo que trancaria a casa: para
+  gastar é preciso ser relevante; para provar que é relevante é preciso observar;
+  para observar é preciso gastar.
+
+- **Consequência:**
+  - Entrypoints que podiam comprar sem autorização: **5 → 0**.
+  - A guarda vive em `executar()`, **não** no transporte: `regras/sensor_coleta.py`
+    substitui `coletor._curl` por urllib, e uma guarda no transporte teria sido
+    trocada junto com ele.
+  - `apify_pool` continua só dono da chave; `coletor` continua sem opinião sobre
+    a fonte. Há teste para as duas coisas.
+  - **Nenhuma coleta normal paga consegue correr hoje**, porque as 77 fontes
+    continuam sem decisão de relevância. Isso é a porta a funcionar, não a porta
+    partida — mas o passo em falta é humano.
+  - Fica aberto: `MODULE CAN'T SPEND != FLOW IS CANONICAL`. Três dos quatro
+    workflows que alcançam criação paga continuam a saltar o orquestrador, e com
+    ele a admissão, a proveniência e o `RUN-MANIFEST`. Esta missão fechou o
+    **dinheiro**, não a orquestração.
+
+  ```
+  BIBLE_CHANGE_REQUIRED    = NÃO nesta missão (a D-041 já nomeou a emenda em falta)
+  CONTRACT_CHANGE_REQUIRED = SIM (contrato novo, dono único)
+  ```
+
+- **Quem decidiu:** missão SCRAP-SR-02. Relatório em
+  [`docs/operacao/AUTORIZACAO-DE-GASTO-V1.md`](../operacao/AUTORIZACAO-DE-GASTO-V1.md).
+
+      UMA CHAVE NO PROCESSO NÃO É AUTORIZAÇÃO PARA GASTAR.

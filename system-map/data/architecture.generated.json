@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/magical-ptolemy-bonfgd",
-    "HEAD": "c2ce62e02f227ffcc00bc6e9ec280e840f520ac8",
-    "GENERATED_AT": "2026-09-12T17:34:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d12684f31b030c2c7f79b6926eac737ae4a758fba3e83504ce07a298792ce4be"
+    "HEAD": "bf07e43387a415500975dea6731f3ec973735b0b",
+    "GENERATED_AT": "2026-09-12T17:37:44+00:00",
+    "SOURCE_TREE_FINGERPRINT": "62c2495ed11bdfaae70765d2926c7fbeb7692c053c9a154829db6ad5e691bcaa"
   },
   "FILES": [
     {
@@ -1137,7 +1137,7 @@
     },
     {
       "path": "coleta/coletor.py",
-      "sha": "f3abb53d9f75f02e3060c7187b2a191b3296e781",
+      "sha": "2e054feb6620c63a5fd36c5b503c52dd47ed638e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1151,7 +1151,7 @@
     },
     {
       "path": "coleta/comunicacao_coleta.py",
-      "sha": "e13c01805ce58ae4f5cb2dd69f48a9dac27e5526",
+      "sha": "af431d7dcd0391bb38b1f7e52ffdea8e38c55eb6",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1256,7 +1256,7 @@
     },
     {
       "path": "coleta/instagram_coleta.py",
-      "sha": "4672abd66ebf1dea06863ca4bffaf88369eb1544",
+      "sha": "e5edbd7cb15ea34cf0044c44bf159584cc7c56b7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1528,6 +1528,13 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/CENSO-PORTAS-DE-GASTO-V1.json",
+      "sha": "80db8ea1e93faa5c18199a73c5104135a26ede2e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/CENSO-RELEVANCIA-DE-FONTE-V1.json",
       "sha": "c4053b41f6efee724db5a78f3b597af53b9cfbe7",
       "ext": ".json",
@@ -1565,6 +1572,13 @@
     {
       "path": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "sha": "0a3de40749adb52995ca8bce32e0ae92acdcb030",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/RED-TEAM-AUTORIZACAO-DE-GASTO-V1.json",
+      "sha": "c06fce5a803f5b7e5fbcb6a36b9f340e96e847ad",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4441,7 +4455,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "733cf7dbbc6b58c0cac21f73d613f0c637006932",
+      "sha": "0576cce098a24d22ea29fe43270832157d34ff4b",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4638,6 +4652,13 @@
     {
       "path": "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "sha": "11b6213cc3ae5342137564a5a0d4298d3f002a9c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/AUTORIZACAO-DE-GASTO-V1.md",
+      "sha": "02d3ef8e0d31412464c0c9cb9508e53919ae70c8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7226,6 +7247,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/autorizacao_de_gasto.py",
+      "sha": "8b3ae924b01cee067aea1b1a6eb0ae61623eff2e",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/calendario_handoff.py",
       "sha": "72b198af8ac7f2b8b1a55ad0f16548e8bc6da142",
       "ext": ".py",
@@ -8017,6 +8045,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/censo_das_portas_de_gasto.py",
+      "sha": "a9403a9d7fbb04a53502fca7ccbfd5f1e2356948",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/censo_de_relevancia_das_fontes.py",
       "sha": "55f1169b3eb1a9dd8987886493fdf98f0d5985f8",
       "ext": ".py",
@@ -8117,6 +8152,13 @@
     {
       "path": "provas/medir_source_id_wiring_gap.py",
       "sha": "3de53563d19d96db77ef99af6a3ef8d0b9ac94db",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "sha": "48c9a6b89fbffb824f3161ed0596ccccd66a32a0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8258,6 +8300,13 @@
       "path": "provas/readback_022_live.sh",
       "sha": "c1ac05ce1e6f69eec128842b245d2606bb231903",
       "ext": ".sh",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/red_team_da_autorizacao_de_gasto.py",
+      "sha": "6e42e522fc4d8ba91e5641dfc2e8e189ee677192",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -8424,7 +8473,7 @@
     },
     {
       "path": "regras/sensor_coleta.py",
-      "sha": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
+      "sha": "5f816307a456075f11cb800a5aec4cd9891bfb71",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9537,7 +9586,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "24a6100aa62de64f576ae215d1100a286a327e7a",
+      "sha": "8c41807a7822e5250a046fa034c70ad89c0c25aa",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9965,6 +10014,13 @@
     {
       "path": "tests/test_autoridade_da_fonte.py",
       "sha": "0ccd7b84c8cdd704ca39b8bc6a406a8254083085",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_autorizacao_de_gasto.py",
+      "sha": "b0a085a007497511a9587632ac99147dc48608c7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12109,6 +12165,17 @@
     },
     {
       "from_file": "coleta/coletor.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/coletor.py",
+        "line": 85,
+        "snippet": "import autorizacao_de_gasto as ag  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/coletor.py",
       "to_file": "regras/proveniencia.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -12741,7 +12808,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/instagram_coleta.py",
-        "line": 556,
+        "line": 569,
         "snippet": "import corrigir_custo as cc"
       }
     },
@@ -20498,6 +20565,28 @@
         "file": "leis/auditoria_regua_comercial.py",
         "line": 65,
         "snippet": "CAT_REGULATORIO = 'PRODUCTS-REGULATORY.json'"
+      }
+    },
+    {
+      "from_file": "leis/autorizacao_de_gasto.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/autorizacao_de_gasto.py",
+        "line": 103,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "leis/autorizacao_de_gasto.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "leis/autorizacao_de_gasto.py",
+        "line": 105,
+        "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui"
       }
     },
     {
@@ -28300,6 +28389,39 @@
       }
     },
     {
+      "from_file": "provas/censo_das_portas_de_gasto.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_das_portas_de_gasto.py",
+        "line": 44,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/censo_das_portas_de_gasto.py",
+      "to_file": "data/derivados/CENSO-PORTAS-DE-GASTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_das_portas_de_gasto.py",
+        "line": 46,
+        "snippet": "SAIDA = os.path.join('data', 'derivados', 'CENSO-PORTAS-DE-GASTO-V1.json')"
+      }
+    },
+    {
+      "from_file": "provas/censo_das_portas_de_gasto.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_das_portas_de_gasto.py",
+        "line": 201,
+        "snippet": "'CHAMA_ORQUESTRADOR': 'orquestrador/orquestrador.py' in texto,"
+      }
+    },
+    {
       "from_file": "provas/censo_de_relevancia_das_fontes.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -28968,6 +29090,72 @@
         "file": "provas/medir_source_id_wiring_gap.py",
         "line": 348,
         "snippet": "with open(mig, encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/mutacao_da_autorizacao_de_gasto.py",
+        "line": 33,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_da_autorizacao_de_gasto.py",
+        "line": 38,
+        "snippet": "PORTA = os.path.join('coleta', 'coletor.py')"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "to_file": "coleta/instagram_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_da_autorizacao_de_gasto.py",
+        "line": 40,
+        "snippet": "INSTA = os.path.join('coleta', 'instagram_coleta.py')"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_da_autorizacao_de_gasto.py",
+        "line": 37,
+        "snippet": "GUARDA = os.path.join('leis', 'autorizacao_de_gasto.py')"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_da_autorizacao_de_gasto.py",
+        "line": 167,
+        "snippet": "'FICHEIRO': os.path.join('leis', 'relevancia_da_fonte.py'),"
+      }
+    },
+    {
+      "from_file": "provas/mutacao_da_autorizacao_de_gasto.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/mutacao_da_autorizacao_de_gasto.py",
+        "line": 39,
+        "snippet": "SENSOR = os.path.join('regras', 'sensor_coleta.py')"
       }
     },
     {
@@ -30310,6 +30498,160 @@
         "file": "provas/rastro_no_postgres.py",
         "line": 28,
         "snippet": "from preservar_coleta_no_postgres import _e_descartavel   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 31,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 35,
+        "snippet": "import coletor                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 368,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 265,
+        "snippet": "import social_rotas as sr"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "coleta/social_rotas.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 267,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'social_rotas.py'),"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "data/derivados/RED-TEAM-AUTORIZACAO-DE-GASTO-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 610,
+        "snippet": "'RED-TEAM-AUTORIZACAO-DE-GASTO-V1.json')"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "data/derivados/RED-TEAM-AUTORIZACAO-DE-GASTO-V1.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 612,
+        "snippet": "with open(saida, 'w', encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "ferramentas/apify_pool.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 358,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'ferramentas', 'apify_pool.py'),"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 33,
+        "snippet": "import autorizacao_de_gasto as ag        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 230,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'autorizacao_de_gasto.py'),"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 34,
+        "snippet": "import relevancia_da_fonte as rel        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 377,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "provas/censo_das_portas_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 36,
+        "snippet": "import censo_das_portas_de_gasto as censo  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_autorizacao_de_gasto.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_autorizacao_de_gasto.py",
+        "line": 455,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'regras', 'sensor_coleta.py'),"
       }
     },
     {
@@ -34237,6 +34579,138 @@
         "file": "tests/test_autoridade_da_fonte.py",
         "line": 32,
         "snippet": "import a_autoridade_da_fonte as au  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 20,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 24,
+        "snippet": "import coletor                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "coleta/coletor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 415,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 541,
+        "snippet": "import comunicacao_coleta"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "coleta/instagram_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 508,
+        "snippet": "import instagram_coleta"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "ferramentas/apify_pool.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 422,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'ferramentas', 'apify_pool.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 22,
+        "snippet": "import autorizacao_de_gasto as ag   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 443,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'autorizacao_de_gasto.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 23,
+        "snippet": "import relevancia_da_fonte as rel   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 437,
+        "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "provas/censo_das_portas_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 569,
+        "snippet": "import censo_das_portas_de_gasto as censo"
+      }
+    },
+    {
+      "from_file": "tests/test_autorizacao_de_gasto.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_autorizacao_de_gasto.py",
+        "line": 468,
+        "snippet": "import sensor_coleta"
       }
     },
     {
@@ -41037,6 +41511,13 @@
         "constante": "caminho"
       }
     ],
+    "provas/red_team_da_autorizacao_de_gasto.py": [
+      {
+        "pasta": "data/derivados",
+        "line": 612,
+        "constante": "saida"
+      }
+    ],
     "provas/red_team_da_relevancia_da_fonte.py": [
       {
         "pasta": "data/derivados",
@@ -41179,11 +41660,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1516,
-    "files_readable": 592,
-    "files_code_dir": 638,
-    "file_edges": 2733,
-    "escritas_em_pasta": 72,
+    "files_tracked": 1524,
+    "files_readable": 597,
+    "files_code_dir": 643,
+    "file_edges": 2771,
+    "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

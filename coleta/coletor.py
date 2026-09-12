@@ -74,6 +74,15 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import proveniencia as pv  # noqa: E402
+# ⚠️ A GUARDA DO GASTO, E SO ELA. Este ficheiro NAO importa
+# `relevancia_da_fonte`: se importasse, o dono da execucao paga ganhava uma
+# opiniao sobre a fonte, e a relevancia passava a ter dois donos.
+#
+#     SOURCE RELEVANCE OWNER != SPEND ENFORCER.
+#
+# `tests/test_autorizacao_de_gasto.py` reprova se este ficheiro passar a ler o
+# livro de relevancia.
+import autorizacao_de_gasto as ag  # noqa: E402
 
 RAW_DIR = os.path.join(ROOT, 'data', 'samples', 'raw-paid')
 API = 'https://api.apify.com/v2'
@@ -236,7 +245,8 @@ def _requisicoes_falhadas(loja_kv, *, token):
 
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
              source_version, evidence_path, wait=280, salvar_raw=True,
-             teto_usd=None, build=None):
+             teto_usd=None, build=None, autorizacao=None, source_id=None,
+             proposito=None, motivo_do_gasto=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
 
     `token` nunca entra no manifesto: ele só existe no cabeçalho da chamada.
@@ -248,8 +258,42 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
 
     `teto_usd` vira `&maxTotalChargeUsd=` e `build` vira `&build=`. Os dois são travas do
     lado da plataforma — valem mesmo que este arquivo tenha um defeito.
+
+    ⚠️ `autorizacao` É OBRIGATÓRIA, E ESTE É O PONTO ONDE O DINHEIRO NASCE.
+    ----------------------------------------------------------------------
+    Medido antes desta trava: em toda a casa há **uma** ocorrência de
+    `POST /v2/acts/{ator}/runs`, e é a linha que corre poucas linhas abaixo
+    desta. Para a atravessar bastava ter um token na mão — de modo que ter a
+    credencial era, na prática, ter a autorização.
+
+        CREDENTIAL != AUTHORIZATION.
+        TOKEN_PRESENT != SPEND_ALLOWED.
+
+    A autorização não se constrói aqui e não se constrói no chamador: sai de
+    `leis/autorizacao_de_gasto.autorizar()`, que é quem faz as perguntas — e,
+    para coleta normal, quem consulta o dono da relevância da fonte.
+
+    **Este ficheiro não julga fonte nenhuma.** Ele confere que a autorização
+    trazida cobre ESTA compra: este motivo, este propósito, esta fonte, este
+    teto — e consome uma execução, para que uma autorização de uma corrida não
+    pague duas quando a chave rodar.
+
+        A PORTA QUE GASTA NÃO É A PORTA QUE DECIDE.
     """
     started = agora()
+    # ── A GUARDA, ANTES DE QUALQUER COISA QUE CUSTE ─────────────────────────
+    # Fora do `try` de propósito: uma recusa de autorização NÃO é uma corrida
+    # que falhou. Deixá-la cair no `except` abaixo produziria um manifesto de
+    # execução para uma execução que nunca existiu, com `STATUS: FAILED` — e
+    # isso leria-se como «a Apify recusou», quando quem recusou fomos nós.
+    #
+    #     RECUSA DESTA CASA != FALHA DA PLATAFORMA.
+    recibo_da_autorizacao = ag.conferir_e_consumir(
+        autorizacao,
+        motivo=motivo_do_gasto or ag.COLETA_NORMAL,
+        proposito=proposito,
+        source_id=source_id,
+        teto_usd=teto_usd)
     try:
         params = ['waitForFinish=%d' % min(int(wait), ESPERA_MAXIMA_DA_PLATAFORMA)]
         if teto_usd is not None:
@@ -391,6 +435,10 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     manifesto['REQUESTS_FINISHED'] = terminadas
     manifesto['MAX_TOTAL_CHARGE_USD'] = teto_usd if teto_usd is not None else pv.NOT_PRESERVED
     manifesto['BUILD_PINNED'] = build or pv.NOT_PRESERVED
+    # QUEM RESPONDE POR ESTA COMPRA, escrito na própria corrida. Sem isto, daqui
+    # a três meses ninguém consegue dizer sob que autorização aquele dólar saiu
+    # — e uma autorização que não deixa rasto é indistinguível de nenhuma.
+    manifesto['AUTORIZACAO_DE_GASTO'] = recibo_da_autorizacao
     # O custo lido AGORA vem 0 enquanto a Apify não fecha a conta da execução. Já custou
     # 5,6x uma vez (US$0,90 anunciados, US$5,04 reais). Ele fica gravado, mas ROTULADO:
     # quem publicar número sem liquidar está publicando o número errado.

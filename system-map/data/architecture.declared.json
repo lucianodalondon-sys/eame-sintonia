@@ -1833,7 +1833,7 @@
     "provas/derived_artifact_no_postgres.py",
     "provas/o_corte_de_cr1.py",
     "provas/objeto_e_observacao_no_postgres.py",
-    "provas/a_regra_de_t2.py", "provas/censo_corpus_rotulado_admission.py", "provas/amostragem_neutra_t3.py", "provas/ui_revisao_t3_ptbr.py", "provas/pacote_de_revisao_t3.py", "provas/qualidade_t3.py", "provas/fechar_ground_truth_t3.py", "provas/medir_admission_t3_atual.py", "provas/gate_de_aceitacao_tematica.py", "provas/candidatos_tematicos.py", "provas/implementacoes_candidatas.py", "provas/benchmark_tematico.py", "provas/alcance_da_pergunta_tematica.py", "provas/medir_source_id_wiring_gap.py", "provas/a_fonte_atravessa_ate_a_porta.py", "provas/o_legado_fora_do_fluxo.py", "provas/os_portoes_da_collection.py", "provas/mutacao_do_gate.py", "provas/paridade_da_lingua.py", "provas/censo_de_relevancia_das_fontes.py", "provas/red_team_da_relevancia_da_fonte.py", "provas/mutacao_do_portao_de_relevancia.py",
+    "provas/a_regra_de_t2.py", "provas/censo_corpus_rotulado_admission.py", "provas/amostragem_neutra_t3.py", "provas/ui_revisao_t3_ptbr.py", "provas/pacote_de_revisao_t3.py", "provas/qualidade_t3.py", "provas/fechar_ground_truth_t3.py", "provas/medir_admission_t3_atual.py", "provas/gate_de_aceitacao_tematica.py", "provas/candidatos_tematicos.py", "provas/implementacoes_candidatas.py", "provas/benchmark_tematico.py", "provas/alcance_da_pergunta_tematica.py", "provas/medir_source_id_wiring_gap.py", "provas/a_fonte_atravessa_ate_a_porta.py", "provas/o_legado_fora_do_fluxo.py", "provas/os_portoes_da_collection.py", "provas/mutacao_do_gate.py", "provas/paridade_da_lingua.py", "provas/censo_de_relevancia_das_fontes.py", "provas/red_team_da_relevancia_da_fonte.py", "provas/mutacao_do_portao_de_relevancia.py", "provas/censo_das_portas_de_gasto.py", "provas/red_team_da_autorizacao_de_gasto.py", "provas/mutacao_da_autorizacao_de_gasto.py",
     "provas/preflight_022_live.sh",
     "provas/preservar_coleta_no_postgres.py",
     "provas/rastro_no_postgres.py",
@@ -2998,6 +2998,25 @@
    ],
    "what": "Olha para uma fonte SEM lhe fazer uma coleta: primeiro o acervo que esta casa ja guardou dela (zero rede, teto de 3 unidades), e so depois uma sonda limitada. Produz uma OBSERVACAO com DECISAO = NAO_TOMADA.",
    "why_here": "O portao recusa gasto sobre fonte nao avaliada, e avaliar exige olhar. Sem uma forma barata de olhar, o portao seria uma porta trancada com a chave do lado de dentro. E a prova NAO decide: transformar «a amostra que consegui apanhar» em «o que a fonte e» faria a primeira amostra magra condenar a fonte com ar de medicao. PROVA_BARATA_NUNCA_PAGA = True."
+  },
+  {
+   "id": "C-AUTORIZACAO-DE-GASTO",
+   "name": "A guarda do gasto pago",
+   "territory": "Z-REGUAS",
+   "kind": "gate",
+   "icon": "⛔",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "views": [
+    "audit",
+    "collection-strategy"
+   ],
+   "files": [
+    "leis/autorizacao_de_gasto.py"
+   ],
+   "what": "Confere, antes do POST que acende a execucao paga, que existe uma autorizacao valida para ESTA compra: este motivo, este proposito, esta fonte, este teto. Tres motivos — COLETA_NORMAL_DA_FONTE, PROVA_DE_RELEVANCIA_DA_FONTE e TRIAL_DE_CAPACIDADE — e so o primeiro passa pelo portao de relevancia.",
+   "why_here": "MEDIDO: ha UMA primitiva que cria execucao paga em toda a casa (`coleta/coletor.py::executar`, o POST /v2/acts/{ator}/runs), e para a atravessar bastava ter um token na mao — de modo que ter a credencial era, na pratica, ter a autorizacao. CREDENTIAL != AUTHORIZATION. Esta peca NAO julga fonte: pergunta ao dono da relevancia e obedece. E a autorizacao gasta-se a cada execucao, porque ROTACAO DE CHAVE NAO E NOVA AUTORIZACAO."
   }
  ],
  "BUSINESS_EDGES": [

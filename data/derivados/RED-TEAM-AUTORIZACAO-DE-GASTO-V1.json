@@ -1,0 +1,233 @@
+{
+  "SCHEMA": "sintonia.red-team-autorizacao-de-gasto/1",
+  "CONTRATO": "AUTORIZACAO_DE_GASTO/v1",
+  "TOTAL": 37,
+  "MORTOS": 37,
+  "VIVOS": 0,
+  "APIFY_REAL_RUNS": 0,
+  "REAL_COST_USD": 0,
+  "ATAQUES": [
+    {
+      "CODIGO": "RT-01",
+      "ATAQUE": "script directo compra sem decisao de relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "zero POST sem autorizacao"
+    },
+    {
+      "CODIGO": "RT-02",
+      "ATAQUE": "workflow chama o script COM token e compra sem relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "POSTS_QUE_SAIRAM=0"
+    },
+    {
+      "CODIGO": "RT-03",
+      "ATAQUE": "token presente vale como autorizacao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "CREDENTIAL != AUTHORIZATION"
+    },
+    {
+      "CODIGO": "RT-04",
+      "ATAQUE": "SIM para T3 usado para comprar em T9",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a autorizacao nem chega a nascer"
+    },
+    {
+      "CODIGO": "RT-05",
+      "ATAQUE": "NAO_SEI tratado como SIM",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "recusou, e o estado continua NAO_SEI"
+    },
+    {
+      "CODIGO": "RT-06",
+      "ATAQUE": "ERRO tratado como SIM",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "recusou, e continua a ser ERRO"
+    },
+    {
+      "CODIGO": "RT-07",
+      "ATAQUE": "NAO_AVALIADA tratada como SIM",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "recusou, e nao chamou a fonte de irrelevante"
+    },
+    {
+      "CODIGO": "RT-08",
+      "ATAQUE": "URL usada como SOURCE_ID na autorizacao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "URL NAO E SOURCE_ID (COL-LAW-206)"
+    },
+    {
+      "CODIGO": "RT-09",
+      "ATAQUE": "source id fabricado a partir do URL no probe",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "3 de 3 recusadas"
+    },
+    {
+      "CODIGO": "RT-10",
+      "ATAQUE": "fornecedor pago como override de politica",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "pagar nao compra excepcao"
+    },
+    {
+      "CODIGO": "RT-11",
+      "ATAQUE": "orcamento presente substitui a relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "dinheiro nao substitui decisao"
+    },
+    {
+      "CODIGO": "RT-12",
+      "ATAQUE": "relevancia SIM substitui a politica de rota",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "SIM nao dispensa o teto do fornecedor"
+    },
+    {
+      "CODIGO": "RT-13",
+      "ATAQUE": "rota gratuita passa a exigir autorizacao paga",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a rota livre continua livre"
+    },
+    {
+      "CODIGO": "RT-14",
+      "ATAQUE": "probe de avaliacao bloqueado por nao ter SIM",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "o probe atravessa com a fonte ainda NAO_AVALIADA"
+    },
+    {
+      "CODIGO": "RT-15",
+      "ATAQUE": "probe vira coleta ilimitada",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "1 POST em 3 tentativas"
+    },
+    {
+      "CODIGO": "RT-16",
+      "ATAQUE": "probe sem teto de execucoes",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "SEM_TETO_DE_EXECUCOES: gasto por excecao sem teto de execuco"
+    },
+    {
+      "CODIGO": "RT-17",
+      "ATAQUE": "probe sem teto de dolares",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "SEM_TETO_DE_DOLARES: gasto por excecao sem teto de dolares e"
+    },
+    {
+      "CODIGO": "RT-18",
+      "ATAQUE": "capability trial vira coleta normal",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "TRIAL != COLLECTION"
+    },
+    {
+      "CODIGO": "RT-19",
+      "ATAQUE": "coleta normal chama-se TRIAL para contornar",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "o motivo declarado tem de bater com o autorizado"
+    },
+    {
+      "CODIGO": "RT-20",
+      "ATAQUE": "workflow inventa a propria autorizacao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "objecto parecido nao passa o selo"
+    },
+    {
+      "CODIGO": "RT-21",
+      "ATAQUE": "adapter inventa a propria autorizacao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "so autorizar() consegue emitir"
+    },
+    {
+      "CODIGO": "RT-22",
+      "ATAQUE": "apify_pool passa a decidir relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "o dono da chave continua so dono da chave"
+    },
+    {
+      "CODIGO": "RT-23",
+      "ATAQUE": "coletor passa a decidir relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a porta que gasta nao tem opiniao sobre a fonte"
+    },
+    {
+      "CODIGO": "RT-24",
+      "ATAQUE": "o dono da relevancia recebe token da Apify",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "quem decide nao toca no dinheiro"
+    },
+    {
+      "CODIGO": "RT-25",
+      "ATAQUE": "nasce um segundo dono do livro de relevancia",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "escritores do livro: ['relevancia_da_fonte'] · recusa linha fora do contrato: True"
+    },
+    {
+      "CODIGO": "RT-26",
+      "ATAQUE": "uma segunda primitiva paga sobrevive sem guarda",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "primitivas: ['coleta/coletor.py']"
+    },
+    {
+      "CODIGO": "RT-27",
+      "ATAQUE": "POST directo por curl contorna a guarda",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "primitivas de criacao: ['coleta/coletor.py'] · POST sem autorizacao: 0"
+    },
+    {
+      "CODIGO": "RT-28",
+      "ATAQUE": "subprocesso contorna a guarda",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "troca o transporte, mantem a porta, e leva a autorizacao"
+    },
+    {
+      "CODIGO": "RT-29",
+      "ATAQUE": "rotacao de chave compra de novo sem nova autorizacao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "1 POST com 5 chaves e 1 autorizacao"
+    },
+    {
+      "CODIGO": "RT-30",
+      "ATAQUE": "retry pago contorna o teto de execucoes",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "2 POST com teto de 2"
+    },
+    {
+      "CODIGO": "RT-31",
+      "ATAQUE": "teto do lado do fornecedor ausente",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "sem maxTotalChargeUsd nao sai POST"
+    },
+    {
+      "CODIGO": "RT-32",
+      "ATAQUE": "UNKNOWN exposure vira zero",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "COST_STATE=NOT_SETTLED — custo por liquidar nao e custo zero"
+    },
+    {
+      "CODIGO": "RT-33",
+      "ATAQUE": "proposito ausente na autorizacao",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "3 de 3 motivos recusam proposito vazio"
+    },
+    {
+      "CODIGO": "RT-34",
+      "ATAQUE": "invocacao manual contorna",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "exit=1"
+    },
+    {
+      "CODIGO": "RT-35",
+      "ATAQUE": "test helper consegue gastar",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "ajudantes que compram sem autorizacao: []"
+    },
+    {
+      "CODIGO": "RT-36",
+      "ATAQUE": "a recusa apresenta-se como fonte irrelevante",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "a recusa nao julga a fonte"
+    },
+    {
+      "CODIGO": "RT-37",
+      "ATAQUE": "a recusa apresenta-se como falha da plataforma",
+      "ESTADO": "ATAQUE_MORTO",
+      "NOTA": "levantou antes de qualquer ida a rede"
+    }
+  ]
+}
