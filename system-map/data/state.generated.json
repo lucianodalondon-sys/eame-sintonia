@@ -1396,6 +1396,7 @@
       "supabase/migrations/026_a_observacao_ganha_identidade.sql",
       "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
       "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
+      "supabase/migrations/029_a_observacao_declara_que_participou.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1959,10 +1960,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/decide-derived-participation-grain-v1",
-    "HEAD": "0a2992c4bce6ac68576b32d0b658fc4b0599cf51",
-    "GENERATED_AT": "2026-09-12T18:20:54+00:00",
-    "SOURCE_TREE_FINGERPRINT": "9c17c84920e32c8b1356113a689dcf80191e319ee9800c4a6a2b2942dee6a486"
+    "BRANCH": "claude/collection-v1-operational-close",
+    "HEAD": "b1d491e6e44e39d23e9cda026a6d42afec5de35c",
+    "GENERATED_AT": "2026-09-12T18:49:24+00:00",
+    "SOURCE_TREE_FINGERPRINT": "80ebec328bc6f30df41bd280ca9d1eba12a4a5e07a18291390e1e6123df9e57f"
   },
   "FAMILIES": [
     {
@@ -8346,7 +8347,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▷",
       "views": [
         "acervo",
@@ -8359,9 +8360,11 @@
         "guarda/preservar_derivado.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "guarda/preservar_derivado.py"
+      ],
       "produces": [],
       "inbound": [
         "C-DONO-DA-ESCRITA"
@@ -12194,7 +12197,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "provas/os_portoes_da_collection.py",
-            "line": 1020,
+            "line": 1043,
             "snippet": "escreve em caminho"
           }
         }
@@ -14647,6 +14650,7 @@
         "supabase/migrations/026_a_observacao_ganha_identidade.sql",
         "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
         "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
+        "supabase/migrations/029_a_observacao_declara_que_participou.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -14658,9 +14662,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 50,
+      "file_count": 51,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 7 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -17473,7 +17477,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/decide-derived-participation-grain-v1"
+        "branch claude/collection-v1-operational-close"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19776,7 +19780,7 @@
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 218,
+          "line": 255,
           "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))"
         },
         {
@@ -20318,7 +20322,7 @@
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
-          "line": 211,
+          "line": 216,
           "snippet": "\"provas-de-execucao.json\"), encoding=\"utf-8\") as f:"
         },
         {
@@ -22147,7 +22151,7 @@
         },
         {
           "file": "tests/test_forward_instrumentado.py",
-          "line": 128,
+          "line": 133,
           "snippet": "import artefato as art"
         },
         {
@@ -22926,7 +22930,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 568,
+          "line": 646,
           "snippet": "\"coleta/derivacao_forward.py\")"
         }
       ],
@@ -23008,7 +23012,7 @@
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
-          "line": 252,
+          "line": 257,
           "snippet": "self.assertIn(\"coleta/derivacao_forward.py\", fw[\"FRONTEIRAS\"])"
         }
       ],
@@ -23410,7 +23414,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 523,
+          "line": 601,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira as _AM"
         }
       ],
@@ -23644,7 +23648,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 256,
+          "line": 273,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
         }
       ],
@@ -23716,7 +23720,7 @@
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_reaproveitamento.py",
-          "line": 368,
+          "line": 433,
           "snippet": "s = _fonte(os.path.join(RAIZ, \"guarda\", \"preservar_derivado.py\"))"
         },
         {
@@ -24447,11 +24451,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
+          "file": "tests/test_a_linhagem_do_reaproveitamento.py",
+          "line": 483,
+          "snippet": "\"executor_texto_de_pdf.py\"))"
+        },
+        {
           "file": "tests/test_forward_instrumentado.py",
-          "line": 215,
+          "line": 220,
           "snippet": "p = self._ledger()[\"PROVADOS\"][\"coleta/executor_texto_de_pdf.py\"]"
         },
         {
@@ -25128,7 +25137,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 522,
+          "line": 600,
           "snippet": "import ingresso as ing_"
         }
       ],
@@ -25146,7 +25155,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 567,
+          "line": 645,
           "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
         }
       ],
@@ -25458,7 +25467,7 @@
         },
         {
           "file": "tests/test_forward_instrumentado.py",
-          "line": 240,
+          "line": 245,
           "snippet": "\"ITALY-SOURCE-MASTER-V1.json\"),"
         }
       ],
@@ -27147,7 +27156,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 567,
+          "line": 645,
           "snippet": "producao = (\"orquestrador/orquestrador.py\", \"coleta/ingresso.py\","
         }
       ],
@@ -29303,7 +29312,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 337,
+          "line": 355,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
         }
       ],
@@ -31010,6 +31019,24 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor do SCRAP · a aquisicao social alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 447,
+          "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"social_persistencia.py\"),"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -31912,7 +31939,7 @@
         },
         {
           "file": "tests/test_a_linhagem_do_reaproveitamento.py",
-          "line": 355,
+          "line": 420,
           "snippet": "\"005_camada_analitica_observado_vs_derivado.sql\"))"
         },
         {
@@ -33485,16 +33512,16 @@
   },
   "COUNTS": {
     "components": 165,
-    "components_proven": 59,
-    "components_pending": 100,
+    "components_proven": 58,
+    "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 710,
-    "edges_proven": 708,
+    "edges": 711,
+    "edges_proven": 709,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1512,
-    "files_covered": 750,
+    "files_tracked": 1513,
+    "files_covered": 751,
     "files_code_unclaimed": 0
   }
 }

@@ -57,6 +57,10 @@ from guarda.preservar_coleta import Armazem, Memoria, sha256  # noqa: F401
 # ─────────────────────────────────────────────────────────────────────────
 # OS ESTADOS — poucos, e cada um com uma decisão diferente por trás
 # ─────────────────────────────────────────────────────────────────────────
+# A PARTICIPACAO, quando ela nao se consegue declarar. Nao e um estado do
+# derivado: e um estado da ARESTA, e por isso vive num campo proprio do recibo.
+PARTICIPACAO_SEM_CORRIDA = "PARTICIPACAO_SEM_CORRIDA"
+
 INSERTED = "INSERTED"
 REUSED = "REUSED"
 REUSED_AFTER_RACE = "REUSED_AFTER_RACE"
@@ -246,6 +250,45 @@ def sql_do_derivado(linha: dict) -> str:
             % (", ".join(cols), ", ".join(vals)))
 
 
+def _declarar_participacao(memoria, *, raw_asset_id, derived_id, run_id):
+    """ESTA observação participou DESTE derivado — escrito, e não deduzido.
+
+    ⚠️ ESTA FUNÇÃO EXISTE PORQUE O CONHECIMENTO JÁ CÁ ESTAVA E MORRIA AQUI.
+    No reencontro, este ficheiro devolvia `TESTEMUNHA_NO_BANCO` e
+    `TESTEMUNHA_DESTA_CHAMADA` — os dois lados da aresta — e não escrevia
+    nenhum. Medido em `provas/a_linhagem_do_reaproveitamento.py`.
+
+        RUNTIME SABE != O SISTEMA GUARDA.
+        O QUE MORRE COM O PROCESSO NÃO É LINHAGEM.
+
+    ⚠️ E O `run_id` NÃO SE HERDA DO PAI. `raw_asset.run_id` é a corrida que
+    CAPTUROU a observação; esta aresta precisa da corrida que a DERIVOU, e o
+    banco aceita que sejam diferentes — a prova exercita esse caso. Sem a
+    corrida da passagem, RECUSA-SE a linha:
+
+        A CORRIDA QUE CAPTUROU NÃO É NECESSARIAMENTE A QUE DERIVOU.
+        SEM PROVA, AUSÊNCIA — E NUNCA O VALOR DO LADO.
+
+    `on conflict do nothing` é o que torna retry, reprocessamento e corrida
+    concorrente a MESMA linha. Participar outra vez não é participar duas
+    vezes, e a chave natural é quem o garante — não um `select` antes do
+    `insert`, que tem janela.
+    """
+    if not run_id or not str(run_id).strip():
+        return {"ESTADO": PARTICIPACAO_SEM_CORRIDA,
+                "PORQUE": ("a passagem nao disse em que corrida derivou, e a "
+                           "corrida do PAI nao serve: ela diz quem capturou. "
+                           "A aresta NAO foi escrita, e isso diz-se.")}
+    memoria.aplicar(
+        "insert into public.participacao_na_derivacao "
+        "(raw_asset_id, derived_artifact_id, first_seen_derivation_run_id) "
+        "values (%s, %s, %s) on conflict do nothing;"
+        % (int(raw_asset_id), int(derived_id), _sql(str(run_id))))
+    return {"ESTADO": "DECLARADA", "RAW_ASSET_ID": int(raw_asset_id),
+            "DERIVED_ARTIFACT_ID": int(derived_id),
+            "FIRST_SEEN_DERIVATION_RUN_ID": str(run_id)}
+
+
 # ─────────────────────────────────────────────────────────────────────────
 # 5 · A CADEIA
 # ─────────────────────────────────────────────────────────────────────────
@@ -356,10 +399,18 @@ def preservar_derivado(pedido: dict, bytes_do_filho: bytes,
                                "ficha diz, ou com o que esta execucao produziu."),
                     "BYTES_GUARDADOS": True, "NOVO_UPLOAD": False}
 
+        # ⚠️ E É AQUI QUE A ARESTA MAIS FALTAVA. As duas testemunhas abaixo
+        # dizem exactamente quem participou: a que a linha existente nomeia, e
+        # a desta chamada. Quando são diferentes, esta observação participou de
+        # uma derivação que outra cópia produziu — e era esse o facto que
+        # desaparecia.
         return {"ESTADO": REUSED,
                 "LINHA_EXISTENTE": ja,
                 "TESTEMUNHA_NO_BANCO": ja.get("raw_asset_id"),
                 "TESTEMUNHA_DESTA_CHAMADA": pedido["raw_asset_id"],
+                "PARTICIPACAO": _declarar_participacao(
+                    memoria, raw_asset_id=pedido["raw_asset_id"],
+                    derived_id=ja["id"], run_id=p.get("run_id")),
                 "BYTES_CONFERIDOS_NO_ARMAZEM": True,
                 "PORQUE": _porque_reused(ja, pedido),
                 "BYTES_GUARDADOS": True, "NOVO_UPLOAD": False}
@@ -412,6 +463,9 @@ def preservar_derivado(pedido: dict, bytes_do_filho: bytes,
                     "LINHA_EXISTENTE": escrita, "BYTES_GUARDADOS": True,
                     "NOVO_UPLOAD": novo_upload}
         return {"ESTADO": REUSED_AFTER_RACE, "LINHA_EXISTENTE": escrita,
+                "PARTICIPACAO": _declarar_participacao(
+                    memoria, raw_asset_id=pedido["raw_asset_id"],
+                    derived_id=escrita["id"], run_id=p.get("run_id")),
                 "PORQUE": ("outro escritor ganhou a corrida e escreveu o MESMO "
                            "resultado. Foi lido e comparado — nao presumido."),
                 "BYTES_GUARDADOS": True, "NOVO_UPLOAD": novo_upload}
@@ -436,7 +490,15 @@ def preservar_derivado(pedido: dict, bytes_do_filho: bytes,
                            "e conferir."),
                 "BYTES_GUARDADOS": True, "NOVO_UPLOAD": novo_upload}
 
+    # ⚠️ E A PRIMEIRA PARTICIPACAO TAMBEM SE ESCREVE, ainda que
+    # `derived_artifact.raw_asset_id` ja nomeie esta observacao. Aquela coluna
+    # e TESTEMUNHA — diz de qual copia se leu — e e UMA. A aresta e N, e a
+    # primeira nao e de outra especie: deixa-la de fora faria a tabela ter
+    # todas menos a original, e quem a lesse veria um derivado sem produtor.
     return {"ESTADO": INSERTED, "LINHA_ESCRITA": escrita,
+            "PARTICIPACAO": _declarar_participacao(
+                memoria, raw_asset_id=pedido["raw_asset_id"],
+                derived_id=escrita["id"], run_id=p.get("run_id")),
             "STORAGE_PATH": caminho, "BYTES_GUARDADOS": True,
             "NOVO_UPLOAD": novo_upload,
             "CAMPOS_CONFERIDOS": len(CAMPOS_DA_LINHA),

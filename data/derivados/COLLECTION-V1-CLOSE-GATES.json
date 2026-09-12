@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "0b49ae7368fec5a85c97bdeba76cf6231f186dec",
+  "MEASURED_HEAD": "b1d491e6e44e39d23e9cda026a6d42afec5de35c",
   "FRESCURA": {
-    "IMPRESSAO_DOS_DONOS": "25f24604d914aa5725184b506c9bb2178537a295bfd2ec5037453f04cde93b3f",
+    "IMPRESSAO_DOS_DONOS": "4c90bc80aafe9ee1ab4ac4d777c79a4fc40a490c29e81f0988c25e6fec5d3d06",
     "DONOS_DA_MEDICAO": [
       "provas/os_portoes_da_collection.py",
       "docs/biblia/leis.json",
@@ -133,7 +133,14 @@
       "EDGE": "DERIVED -> STRUCTURED",
       "TIPO": "CONTRACT_OWNER_GAP",
       "O_QUE_FALTA": "`public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa quando ele nao existe",
-      "A_CAPACIDADE_EXISTE": "UNKNOWN — nao ha owner para medir",
+      "A_CAPACIDADE_EXISTE": "PARCIAL — dois dos tres donos existem",
+      "OS_TRES_DONOS": {
+        "SCHEMA_OWNER": "EXISTE — public.origem e public.canal, migration 002, com chave natural (plataforma, channel_id)",
+        "RUNTIME_RESOLVER": "EXISTE — social_persistencia.canal_canonico le e nunca cria; exigir_canal recusa por escrito",
+        "RUNTIME_IDENTITY_CREATOR": "NAO EXISTE — nenhum ficheiro de producao insere em origem ou canal"
+      },
+      "O_QUE_A_FONTE_PROVA": "um DONO textual (agencia regional) e uma URL. Nenhum dos dois e id de plataforma, e `canal.channel_id` e «o id da plataforma, NUNCA o nome»",
+      "E_NAO_E_SO_O_CANAL": "`conteudo.content_id` tambem e «id da plataforma (video_id, post_id)». Um boletim em PDF nao tem nenhum dos dois — a tabela pressupoe uma plataforma que emita identificadores",
       "PROVA": "provas/o_pedido_atravessa.py::D2 — a recusa diz, por escrito, QUEM_RESOLVE = «um dono de identidade, fora do executor de coleta», e esse dono nao esta provado hoje",
       "QUEM_RESOLVE": "gente — e uma decisao de arquitetura",
       "NAO_CORRIGIDO_NESTA_MISSAO": "criar o owner aqui seria inventar identidade de canal sem ninguem ter decidido de quem ele e"

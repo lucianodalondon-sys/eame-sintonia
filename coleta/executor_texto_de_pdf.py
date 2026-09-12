@@ -241,7 +241,8 @@ def registar_achado(achado, caminho, conta, erros):
     return conta
 
 
-def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None) -> dict:
+def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None,
+               contexto_da_passagem=None) -> dict:
     """Um PDF, um pai canónico, um derivado — pelo dono da escrita.
 
     O que este executor entrega ao dono: a **receita** e os **bytes**. Ele não
@@ -252,6 +253,22 @@ def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None) -> dict:
     O `raw_asset_id` vem de fora porque é o **contexto da unidade de
     trabalho**: quem manda derivar já sabe de que bruto se trata. O executor
     não o inventa, e não o adivinha do nome do ficheiro.
+
+    `contexto_da_passagem` é um envelope OPACO que este executor **não lê**.
+    Ele viaja daqui para o dono da escrita e nada mais.
+
+    ⚠️ ELE EXISTE PARA A DOUTRINA DESTE FICHEIRO NÃO SE QUEBRAR.
+    O dono do derivado passou a escrever a participação `(observação,
+    derivado)`, e para isso precisa da corrida da PASSAGEM. Acrescentar aqui um
+    parâmetro `run_id` faria este executor saber o que é uma corrida — e a
+    regra, escrita acima, é que ele não sabe:
+
+        O EXECUTOR PRODUZ O QUE SÓ ELE SABE.
+        TRANSPORTAR NÃO É CONHECER.
+
+    Um envelope que ele não abre continua a ser transporte. Se um dia ele
+    começar a LER lá dentro, a doutrina quebra-se — e é por isso que o nome não
+    é `run_id`.
     """
     from guarda.preservar_derivado import agora_utc, preservar_derivado
 
@@ -263,7 +280,8 @@ def derivar_um(raw_asset_id, pdf, armazem, memoria, relogio=None) -> dict:
                 "ERRO": erro, "MEDIDAS": medidas}
 
     return preservar_derivado(
-        {"raw_asset_id": raw_asset_id,
+        {**(contexto_da_passagem or {}),
+         "raw_asset_id": raw_asset_id,
          "kind": "TEXT_EXTRACTION",
          "producer": EXECUTOR_ID,
          "producer_version": EXECUTOR_VERSION,

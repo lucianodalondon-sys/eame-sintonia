@@ -40,6 +40,23 @@ def _campo(texto, nome):
     return None
 
 
+def _sem_comentarios(sql):
+    """Só as INSTRUÇÕES do SQL — as linhas `--` ficam de fora.
+
+    ⚠️ PELA SEXTA E SÉTIMA VEZ NESTA LINHA DE MISSÕES, UMA GUARDA DE TEXTO
+    MORDEU A PRÓPRIA EXPLICAÇÃO. `assertNotIn("bigserial", sql)` e
+    `assertNotIn("inserted", sql)` reprovaram nos comentários que dizem
+    **por que razão** um surrogate e o resultado ficaram de fora — e um
+    comentário que proíbe uma coisa tem de a nomear.
+
+        UMA GUARDA LÊ O QUE O FICHEIRO FAZ, E NÃO O QUE ELE EXPLICA.
+
+    Para Python isso é o AST. Para SQL, é o texto sem as linhas de comentário.
+    """
+    return "\n".join(l for l in sql.splitlines()
+                      if not l.strip().startswith("--"))
+
+
 def _chaves_do_artefato(caminho):
     """As chaves do dicionário que a prova escreve em JSON, lidas por AST.
 
@@ -152,15 +169,63 @@ class NenhumCasoSeAutoAprova(unittest.TestCase):
         self.assertGreaterEqual(len(_casos(PROVA)), 8)
 
 
-class EstaMissaoNaoImplementa(unittest.TestCase):
-    """MEDIR != CONSERTAR. DECIDIR != IMPLEMENTAR."""
+class AMigrationCUMPREADECISAO(unittest.TestCase):
+    """⚠️ ESTA CLASSE CHAMAVA-SE `EstaMissaoNaoImplementa`, E REPROVOU.
 
-    def test_nenhuma_migration_nova_entrou(self):
+    Ela exigia que a última migration fosse a `028` — o estado correcto
+    enquanto a decisão estava por implementar. Assim que
+    `C-COLLECTION-V1-OPERATIONAL-CLOSE` escreveu a `029`, a guarda reprovou no
+    progresso em vez de reprovar no defeito.
+
+        UMA GUARDA QUE PRENDE O ESTADO ERRADO
+        REPROVA O PROGRESSO E DEIXA PASSAR O DEFEITO.
+
+    O que ela protege agora é o que não pode mudar: a migration existe e
+    cumpre, campo a campo, a decisão da ADR.
+    """
+
+    def _migration(self):
         pasta = os.path.join(RAIZ, "supabase", "migrations")
-        numeros = sorted(f.split("_", 1)[0] for f in os.listdir(pasta)
-                         if f.endswith(".sql"))
-        self.assertEqual(numeros[-1], "028",
-                         "esta missao acrescentou migration, e era de decidir")
+        alvo = [f for f in os.listdir(pasta) if f.startswith("029_")]
+        self.assertEqual(len(alvo), 1, "a 029 desapareceu ou duplicou")
+        return _fonte(os.path.join(pasta, alvo[0]))
+
+    def test_a_chave_e_o_par_e_nada_mais(self):
+        s = _sem_comentarios(self._migration())
+        self.assertIn("primary key (raw_asset_id, derived_artifact_id)", s)
+        self.assertNotIn("bigserial", s, "entrou um surrogate por hábito")
+
+    def test_as_tres_ligacoes_restringem(self):
+        s = _sem_comentarios(self._migration()).lower()
+        for alvo in ("references public.raw_asset(id) on delete restrict",
+                     "references public.derived_artifact(id) on delete restrict",
+                     "references public.collection_run(run_id) on delete restrict"):
+            self.assertIn(alvo, s, "ligação sem RESTRICT: %s" % alvo)
+
+    def test_a_corrida_e_o_tempo_sao_obrigatorios(self):
+        s = _sem_comentarios(self._migration())
+        self.assertIn("first_seen_derivation_run_id text not null", s.lower())
+        self.assertIn("first_seen_at       timestamptz not null default now()",
+                      s)
+
+    def test_nao_ha_backfill(self):
+        """Preencher o passado por inferência é fabricar a evidência que
+        faltava. A tabela nasce vazia."""
+        s = _sem_comentarios(self._migration()).lower()
+        self.assertNotIn("insert into public.participacao_na_derivacao", s)
+        self.assertNotIn("parent_sha256", s)
+
+    def test_o_resultado_e_a_tentativa_ficaram_de_fora(self):
+        """INSERTED/REUSED é destino de item, e a tentativa é chave da
+        passagem. Nenhum dos dois é coluna desta relação."""
+        s = _sem_comentarios(self._migration()).lower()
+        for fora_da_tabela in ("inserted", "reused", "tentativa", "estado"):
+            self.assertNotIn(fora_da_tabela, s,
+                             "%s entrou na relação material" % fora_da_tabela)
+
+    def test_a_migration_nao_se_declara_aplicada_em_producao(self):
+        """MIGRATION EM GIT != MIGRATION LIVE."""
+        self.assertIn("NAO EXECUTADA EM PRODUCAO", self._migration())
 
     def test_a_ADR_declara_que_nao_foi_implementada(self):
         """⚠️ ISTO EXIGIA A PALAVRA `RECOMENDADO`, E ELA MUDOU COM RAZÃO.
@@ -369,12 +434,65 @@ class ORuntimeConheceAArestaQueNinguemEscreve(unittest.TestCase):
         self.assertIn("TESTEMUNHA_NO_BANCO", s)
         self.assertIn("TESTEMUNHA_DESTA_CHAMADA", s)
 
-    def test_e_nao_escreve_relacao_nenhuma(self):
-        """Se um dia ele escrever, esta guarda cai — e cai a dizer que a
-        missão de implementar aconteceu, que é o que se quer saber."""
-        s = _fonte(os.path.join(RAIZ, "guarda", "preservar_derivado.py")).lower()
-        self.assertNotIn("derivacao_de_observacao", s)
-        self.assertNotIn("participacao", s)
+    def test_e_agora_ESCREVE_a_aresta_nos_tres_pontos_em_que_ela_e_real(self):
+        """⚠️ ESTA GUARDA DIZIA «e não escreve relação nenhuma», e caiu a
+        dizer que a missão de implementar aconteceu — que era exactamente o
+        que ela existia para anunciar.
+
+        Agora protege o oposto: a aresta nasce nos três estados em que a
+        observação REALMENTE participou, e em mais nenhum.
+        """
+        fonte = _fonte(os.path.join(RAIZ, "guarda", "preservar_derivado.py"))
+        arvore = ast.parse(fonte)
+        # onde `_declarar_participacao` é chamada, e com que `derived_id`
+        chamadas = [n for n in ast.walk(arvore) if isinstance(n, ast.Call)
+                    and getattr(n.func, "id", None) == "_declarar_participacao"]
+        self.assertEqual(len(chamadas), 3,
+                         "a aresta deixou de nascer em %d dos três pontos"
+                         % (3 - len(chamadas)))
+        # e o `run_id` vem SEMPRE do pedido da passagem, nunca do pai
+        for c in chamadas:
+            corrida = {k.arg: ast.dump(k.value) for k in c.keywords}["run_id"]
+            self.assertIn("run_id", corrida)
+            self.assertNotIn("pai", corrida,
+                             "a corrida da aresta passou a ser herdada do pai")
+
+    def test_sem_corrida_da_passagem_a_aresta_e_RECUSADA(self):
+        """A CORRIDA QUE CAPTUROU NÃO É NECESSARIAMENTE A QUE DERIVOU.
+        Sem prova, ausência — e nunca o valor do lado."""
+        from guarda import preservar_derivado as pdd
+        r = pdd._declarar_participacao(
+            None, raw_asset_id=1, derived_id=1, run_id=None)
+        self.assertEqual(r["ESTADO"], pdd.PARTICIPACAO_SEM_CORRIDA)
+
+    def test_a_escrita_e_idempotente_por_construcao(self):
+        """`on conflict do nothing` e não um `select` antes do `insert`: a
+        janela entre os dois é onde a segunda linha nasce."""
+        fonte = _fonte(os.path.join(RAIZ, "guarda", "preservar_derivado.py"))
+        corpo = fonte[fonte.index("def _declarar_participacao"):]
+        corpo = corpo[:corpo.index("\n# ")]
+        self.assertIn("on conflict do nothing", corpo.lower())
+
+    def test_o_executor_continua_sem_saber_o_que_e_uma_corrida(self):
+        """O EXECUTOR PRODUZ O QUE SÓ ELE SABE. TRANSPORTAR NÃO É CONHECER.
+
+        Ele recebe um envelope opaco e não o abre — se um dia o ler, a
+        doutrina do ficheiro quebra-se.
+        """
+        fonte = _fonte(os.path.join(RAIZ, "coleta",
+                                    "executor_texto_de_pdf.py"))
+        arvore = ast.parse(fonte)
+        alvo = [n for n in ast.walk(arvore) if isinstance(n, ast.FunctionDef)
+                and n.name == "derivar_um"][0]
+        nomes = [a.arg for a in alvo.args.args + alvo.args.kwonlyargs]
+        self.assertIn("contexto_da_passagem", nomes)
+        self.assertNotIn("run_id", nomes, "o executor passou a saber o que é "
+                                          "uma corrida")
+        # e não lê lá dentro
+        for no in ast.walk(alvo):
+            if (isinstance(no, ast.Subscript)
+                    and getattr(no.value, "id", None) == "contexto_da_passagem"):
+                self.fail("o executor abriu o envelope")
 
 
 if __name__ == "__main__":

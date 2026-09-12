@@ -148,11 +148,48 @@ class AMedicaoNaoFechaNada(unittest.TestCase):
                              "a medicao passou a escrever esquema: %s"
                              % proibido)
 
-    def test_nao_ha_migration_029_nesta_missao(self):
+    def test_nenhuma_migration_deu_MORADA_a_sala_de_espera(self):
+        """⚠️ ISTO EXIGIA QUE NÃO EXISTISSE UMA MIGRATION `029`, E REPROVOU.
+
+        O número seguinte era, na altura, um bom atalho para «ninguém escolheu
+        a morada por baixo». Deixou de o ser no dia em que a `029` nasceu para
+        outra coisa — a linhagem material da derivação, que nada tem a ver com
+        a Sala de Espera.
+
+            UM NÚMERO DE MIGRATION NÃO É UMA PROPRIEDADE.
+            PRENDER A GUARDA AO NÚMERO SEGUINTE FAZ O VIZINHO REPROVAR.
+
+        O que ela protege de verdade é que **nenhuma** migration — seja qual
+        for o número — dê casa em SQL à Sala de Espera ou ao READY. A decisão
+        (`ADR-SALA-DE-ESPERA-V1`) diz filesystem, e continua a dizer.
+        """
+        import re
         pasta = os.path.join(RAIZ, "supabase", "migrations")
-        self.assertEqual([], [f for f in os.listdir(pasta)
-                              if f.startswith("029")],
-                         "a morada foi escolhida sem a decisao ter sido tomada")
+        proibidas = ("waiting_room", "sala_de_espera", "ready",
+                     "pronto_para_inteligencia", "unidade_pronta")
+        # ⚠️ E O QUE SE OLHA É O NOME DA TABELA CRIADA, e não a presença da
+        # palavra no ficheiro. A primeira versão perguntava «há `create table`
+        # e há a palavra `ready` algures?» — e acusou a `024`, que cria
+        # `etapa_da_corrida` e menciona `ready` noutro contexto.
+        #
+        #     UMA GUARDA LARGA DE MAIS ACUSA O VIZINHO.
+        nomes_criados = []
+        for f in sorted(os.listdir(pasta)):
+            if not f.endswith(".sql"):
+                continue
+            with io.open(os.path.join(pasta, f), encoding="utf-8") as fh:
+                sql = "\n".join(l for l in fh.read().lower().splitlines()
+                                 if not l.strip().startswith("--"))
+            for nome in re.findall(
+                    r"create table\s+(?:if not exists\s+)?(?:public\.)?(\w+)",
+                    sql):
+                nomes_criados.append((f, nome))
+        achados = ["%s: %s" % (f, nome) for f, nome in nomes_criados
+                   if any(pr in nome for pr in proibidas)]
+        self.assertEqual([], achados,
+                         "a morada foi escolhida em SQL sem a decisao mudar: %s"
+                         % achados)
+        self.assertTrue(nomes_criados, "a varredura nao encontrou tabela nenhuma")
 
     def test_a_medicao_apresenta_as_DUAS_saidas(self):
         s = _fonte(MEDICAO)

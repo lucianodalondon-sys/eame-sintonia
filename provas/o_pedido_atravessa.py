@@ -418,6 +418,84 @@ def main():
          (recusa or {}).get("QUEM_RESOLVE", "o canal resolveu-se sozinho?"))
 
     # ═══════════════════════════════════════════════════════════════════
+    # O BLOQUEIO DO STRUCTURED — os TRES donos, contados um a um
+    # ═══════════════════════════════════════════════════════════════════
+    # ⚠️ «O DONO DO CANAL NAO EXISTE» E LARGO DE MAIS, e mandaria a missao
+    # seguinte construir o que ja esta construido. Ha TRES coisas debaixo da
+    # palavra «dono», e so uma falta:
+    #
+    #     SCHEMA OWNER        a tabela existe?
+    #     RUNTIME RESOLVER    alguem le e recusa quando nao ha?
+    #     RUNTIME CREATOR     alguem DECIDE de quem e o canal e cria-o?
+    #
+    #     ANTES DE DIZER QUE ALGO NAO TEM DONO,
+    #     DIGA QUAL DOS DONOS E QUE FALTA.
+    tabelas = {x[0] for x in sql.executa(
+        "select table_name from information_schema.tables"
+        " where table_schema = 'public'"
+        " and table_name in ('origem', 'canal')")}
+    caso("S1_o_dono_de_ESQUEMA_do_canal_EXISTE",
+         tabelas == {"origem", "canal"},
+         "migration 002: %s" % (sorted(tabelas) or "nenhuma"))
+
+    # ⚠️ E ISTO LE-SE POR AST, e nao procurando a palavra `insert` no corpo da
+    # funcao: a docstring dela DIZ «Nao ha `insert` nesta funcao de proposito»,
+    # e uma guarda de texto reprova exactamente na frase que explica a regra.
+    # E a quinta vez nesta linha de missoes.
+    #
+    #     UMA GUARDA LE O CODIGO, E NAO O FICHEIRO.
+    with io.open(os.path.join(RAIZ, "coleta", "social_persistencia.py"),
+                 encoding="utf-8") as fh:
+        arvore_sp = ast.parse(fh.read())
+    resolvedor = [n for n in ast.walk(arvore_sp)
+                  if isinstance(n, ast.FunctionDef)
+                  and n.name == "canal_canonico"]
+    sql_do_resolvedor = [
+        c.value.lower() for n in resolvedor for c in ast.walk(n)
+        if isinstance(c, ast.Constant) and isinstance(c.value, str)
+        and c.value.strip().lower().startswith(("insert", "update", "delete"))]
+    caso("S2_o_RESOLVEDOR_existe_e_LE_sem_nunca_criar",
+         bool(resolvedor) and not sql_do_resolvedor
+         and cid is None and recusa is not None,
+         "canal_canonico so tem SELECT (escritas encontradas: %s) e "
+         "exigir_canal recusa com QUEM_RESOLVE por escrito"
+         % (sql_do_resolvedor or "nenhuma"))
+
+    # ⚠️ E O CRIADOR MEDE-SE POR AST, e nao pela minha memoria: quem, no
+    # codigo de PRODUCAO, insere em `origem` ou `canal`?
+    criadores = []
+    for pasta in ("coleta", "orquestrador", "guarda", "admissao", "pacote",
+                  "medidas", "leis", "regras"):
+        raiz_ = os.path.join(RAIZ, pasta)
+        if not os.path.isdir(raiz_):
+            continue
+        for dirpath, _, ficheiros in os.walk(raiz_):
+            for f in ficheiros:
+                if not f.endswith(".py"):
+                    continue
+                alvo = os.path.join(dirpath, f)
+                texto = io.open(alvo, encoding="utf-8").read().lower()
+                for tabela in ("insert into public.origem",
+                               "insert into public.canal"):
+                    if tabela in texto:
+                        criadores.append(os.path.relpath(alvo, RAIZ))
+    caso("S3_o_CRIADOR_de_identidade_de_canal_NAO_existe_na_producao",
+         not criadores,
+         "ficheiros de producao que criam origem/canal: %s"
+         % (sorted(set(criadores)) or "NENHUM"))
+
+    # ⚠️ E A FONTE NAO FORNECE IDENTIDADE DE CANAL. O que ela declara e um
+    # DONO textual e uma URL — e nenhum dos dois pode virar `channel_id`:
+    # `canal.channel_id` e «o id da plataforma, NUNCA o nome», e um site nao e
+    # uma plataforma que emita identificadores.
+    canais_existentes = int(sql.executa(
+        "select count(*) from public.canal")[0][0])
+    caso("S4_nao_ha_canal_nenhum_para_esta_fonte_e_nada_prova_qual_seria",
+         canais_existentes == 0,
+         "canais no banco: %d · a ficha da fonte declara owner textual e URL, "
+         "e nenhum dos dois e id de plataforma" % canais_existentes)
+
+    # ═══════════════════════════════════════════════════════════════════
     # OS NEGATIVOS — a maquina tambem tem de falhar direito
     # ═══════════════════════════════════════════════════════════════════
     from pedido import PedidoInvalido

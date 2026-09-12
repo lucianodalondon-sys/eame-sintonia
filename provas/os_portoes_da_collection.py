@@ -937,7 +937,30 @@ def medir():
                 ("O_QUE_FALTA", "`public.conteudo` exige `canal_id`, e "
                                 "`social_persistencia.exigir_canal` recusa "
                                 "quando ele nao existe"),
-                ("A_CAPACIDADE_EXISTE", "UNKNOWN — nao ha owner para medir"),
+                # ⚠️ «NAO HA OWNER» ERA LARGO DE MAIS. Ha TRES donos debaixo
+                # dessa palavra, e so um falta — medido em
+                # `provas/o_pedido_atravessa.py::S1..S4`.
+                ("A_CAPACIDADE_EXISTE", "PARCIAL — dois dos tres donos existem"),
+                ("OS_TRES_DONOS", OrderedDict([
+                    ("SCHEMA_OWNER", "EXISTE — public.origem e public.canal, "
+                                     "migration 002, com chave natural "
+                                     "(plataforma, channel_id)"),
+                    ("RUNTIME_RESOLVER", "EXISTE — social_persistencia."
+                                         "canal_canonico le e nunca cria; "
+                                         "exigir_canal recusa por escrito"),
+                    ("RUNTIME_IDENTITY_CREATOR", "NAO EXISTE — nenhum ficheiro "
+                                                 "de producao insere em "
+                                                 "origem ou canal"),
+                ])),
+                ("O_QUE_A_FONTE_PROVA", "um DONO textual (agencia regional) e "
+                                        "uma URL. Nenhum dos dois e id de "
+                                        "plataforma, e `canal.channel_id` e "
+                                        "«o id da plataforma, NUNCA o nome»"),
+                ("E_NAO_E_SO_O_CANAL", "`conteudo.content_id` tambem e "
+                                       "«id da plataforma (video_id, post_id)». "
+                                       "Um boletim em PDF nao tem nenhum dos "
+                                       "dois — a tabela pressupoe uma "
+                                       "plataforma que emita identificadores"),
                 ("PROVA", "provas/o_pedido_atravessa.py::D2 — a recusa diz, "
                           "por escrito, QUEM_RESOLVE = «um dono de identidade, "
                           "fora do executor de coleta», e esse dono nao esta "

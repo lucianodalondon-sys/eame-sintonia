@@ -519,6 +519,117 @@ def main():
                  c["MATERIAL_EDGE_NEW"], c["STAGE_PASSAGE_TENTATIVA"],
                  c["PERSISTED_WHERE"]))
 
+    # ══════════════════════════════════════════════════════════════════
+    # A ARESTA, AGORA QUE ELA TEM ONDE FICAR (migration 029)
+    # ══════════════════════════════════════════════════════════════════
+    def arestas_no_banco():
+        return {(int(a), int(b)): (c, d) for a, b, c, d in sql.executa(
+            "select raw_asset_id, derived_artifact_id,"
+            " first_seen_derivation_run_id, first_seen_at"
+            " from public.participacao_na_derivacao order by raw_asset_id")}
+
+    gravadas = arestas_no_banco()
+
+    # L1 · TODA aresta tocada pelos quatro casos ficou escrita.
+    caso("L1_as_arestas_dos_quatro_casos_ficaram_ESCRITAS",
+         arestas_dos_quatro <= set(gravadas),
+         "tocadas=%s · no banco=%s"
+         % (sorted(arestas_dos_quatro), sorted(gravadas)))
+
+    # L2 · E cada observacao da corrida A tem a sua, incluindo a primeira —
+    # a que `derived_artifact.raw_asset_id` ja nomeava como testemunha.
+    caso("L2_a_PRIMEIRA_participacao_tambem_ficou_escrita",
+         aresta_original in gravadas,
+         "a aresta original %s esta no banco: %s"
+         % (aresta_original, aresta_original in gravadas))
+
+    # L3 · RETRY e REPROCESSO nao duplicam. A chave natural e quem o garante.
+    caso("L3_retry_e_reprocesso_nao_duplicam_a_aresta",
+         len([1 for k in gravadas if k == aresta_original]) == 1
+         and len(gravadas) == len(set(gravadas)),
+         "%d arestas distintas no banco, e a original aparece uma vez"
+         % len(gravadas))
+
+    # L4 · A IRMA TEM ARESTA PROPRIA. Era esta que desaparecia: mesma receita,
+    # mesmos bytes, outra observacao — e o derivado e o mesmo.
+    caso("L4_a_observacao_IRMA_tem_aresta_propria_para_o_MESMO_derivado",
+         aresta_irma in gravadas
+         and aresta_irma[1] == aresta_original[1]
+         and aresta_irma[0] != aresta_original[0],
+         "irma=%s · original=%s · mesmo derivado=%s"
+         % (aresta_irma, aresta_original,
+            aresta_irma[1] == aresta_original[1]))
+
+    # L5 · A CORRIDA DA ARESTA E A DA PASSAGEM, E NAO A DA CAPTURA.
+    # ⚠️ ESTE E O CASO QUE SEPARA AS DUAS CORRIDAS. A observacao `a1` foi
+    # capturada pela corrida A. A aresta dela foi vista pela primeira vez na
+    # passagem da rota de A — logo diz A. Mas a IRMA `b1` foi capturada por B
+    # e a aresta dela tambem nasceu numa passagem de B. O que prova que nao ha
+    # heranca e o caso 4: rederivar `a1` numa passagem de B NAO mudou a
+    # corrida da aresta original.
+    corrida_da_original = gravadas.get(aresta_original, (None,))[0]
+    caso("L5_a_corrida_da_aresta_NAO_muda_quando_se_rederiva_noutra_corrida",
+         corrida_da_original == run_a,
+         "a aresta %s continua a dizer %s, e o caso 4 correu em %s"
+         % (aresta_original, corrida_da_original, run_b))
+
+    # L6 · E ELA NAO FOI HERDADA DO PAI — prova-se pedindo ao dono da escrita
+    # que declare uma aresta SEM corrida. Ele recusa, e nao vai buscar a do
+    # `raw_asset`.
+    from guarda import preservar_derivado as pdd
+    recusa = pdd._declarar_participacao(
+        _memoria(url), raw_asset_id=a1, derived_id=x1, run_id=None)
+    caso("L6_sem_a_corrida_da_passagem_a_aresta_e_RECUSADA_e_nao_herdada",
+         recusa["ESTADO"] == pdd.PARTICIPACAO_SEM_CORRIDA,
+         recusa.get("PORQUE", "escreveu sem corrida?"))
+
+    # L7 · CONCORRENCIA REAL. Duas declaracoes simultaneas da mesma aresta
+    # dao UMA linha, e nenhuma excecao sai para fora.
+    #
+    #     `on conflict do nothing` NAO E OPCAO DE ESTILO: um `select` antes do
+    #     `insert` tem janela, e a janela e onde a segunda linha nasce.
+    import threading
+    nova_aresta = (sorted(ids_b)[1], x1)
+    erros = []
+
+    def declara():
+        try:
+            pdd._declarar_participacao(
+                _memoria(url), raw_asset_id=nova_aresta[0],
+                derived_id=nova_aresta[1], run_id=run_b)
+        except Exception as e:                              # noqa: BLE001
+            erros.append(repr(e))
+
+    fios = [threading.Thread(target=declara) for _ in range(4)]
+    for f in fios:
+        f.start()
+    for f in fios:
+        f.join()
+    quantas = int(sql.executa(
+        "select count(*) from public.participacao_na_derivacao"
+        " where raw_asset_id = %d and derived_artifact_id = %d"
+        % nova_aresta)[0][0])
+    caso("L7_quatro_declaracoes_concorrentes_da_MESMA_aresta_dao_UMA_linha",
+         quantas == 1 and not erros,
+         "linhas=%d · excecoes que sairam para fora: %s"
+         % (quantas, erros or "nenhuma"))
+
+    # L8 · E A ARESTA NAO SE APAGA EM SILENCIO. `on delete restrict` dos dois
+    # lados: apagar uma observacao que participou tem de doer.
+    barrou = []
+    for alvo, sql_ in (("raw_asset",
+                        "delete from public.raw_asset where id = %d" % a1),
+                       ("derived_artifact",
+                        "delete from public.derived_artifact where id = %d" % x1)):
+        try:
+            sql.executa(sql_)
+            barrou.append("%s: APAGOU" % alvo)
+        except Exception:                                   # noqa: BLE001
+            barrou.append("%s: RECUSOU" % alvo)
+    caso("L8_apagar_um_lado_da_aresta_e_RECUSADO_pelo_banco",
+         all(x.endswith("RECUSOU") for x in barrou),
+         " · ".join(barrou))
+
     persistido = bool(achou_b)
     veredito = "ALREADY_PROVEN" if persistido else "GAP_CONFIRMED"
 

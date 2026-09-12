@@ -255,8 +255,14 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
     resultados, ultimo_bom, primeiro_erro = [], None, None
 
     for u in unidades:
+        # ⚠️ A CORRIDA DA PASSAGEM VIAJA, E NAO E LIDA PELO EXECUTOR.
+        # O dono do derivado escreve a participacao `(observacao, derivado)` e
+        # precisa de saber em que corrida ela foi vista pela primeira vez. Essa
+        # corrida e ESTA — a da passagem — e nao a que capturou a observacao.
+        # O executor transporta o envelope e nao o abre.
         r = derivar(u["RAW_ASSET_ID"], u["PDF"], armazem, memoria,
-                    relogio=relogio)
+                    relogio=relogio,
+                    contexto_da_passagem={"run_id": run_id})
         porta = _porta(r)
         baldes[porta] += 1
         # ⚠️ A LINHA DO DERIVADO SAI NO RECIBO, e nao so o veredito.

@@ -122,9 +122,34 @@ ligar.
 **`DERIVED -> STRUCTURED` — CONTRACT_OWNER_GAP, aberto.**
 `public.conteudo` exige `canal_id`, e `social_persistencia.exigir_canal` recusa
 quando ele não existe — dizendo, por escrito, que quem resolve é «um dono de
-identidade, fora do executor de coleta». Esse dono não existe hoje. Não é uma
-chamada em falta: é um contrato sem dono, e inventar-lhe um seria fabricar
-identidade de canal sem ninguém ter decidido de quem ela é.
+identidade, fora do executor de coleta».
+
+⚠️ **E «o dono não existe» era largo de mais.** São **três** donos debaixo
+dessa palavra, e só um falta — medido em `provas/o_pedido_atravessa.py::S1..S4`:
+
+| dono | estado |
+|---|---|
+| esquema — `origem` e `canal`, migration 002 | **EXISTE** |
+| resolvedor — `canal_canonico` lê e nunca cria | **EXISTE** |
+| criador de identidade — quem decide de quem é o canal | **NÃO EXISTE** |
+
+```
+    ANTES DE DIZER QUE ALGO NÃO TEM DONO,
+    DIGA QUAL DOS DONOS É QUE FALTA.
+```
+
+E não é só o canal. `conteudo.content_id` está comentado como «id da
+plataforma (video_id, post_id)», e `canal.channel_id` como «o id da plataforma,
+NUNCA o nome». Um boletim em PDF publicado no sítio de uma agência regional não
+tem nenhum dos dois: **a tabela pressupõe uma plataforma que emita
+identificadores**, e uma fonte documental não é uma.
+
+O que a ficha da fonte prova é um **dono textual** (ARPAV, agência regional do
+Veneto) e uma **URL**. Nenhum dos dois pode virar `channel_id` sem fabricar
+identidade — e fabricar é exactamente o que não se faz aqui.
+
+**Isto é uma decisão de gente, e está em espera.** A pergunta exacta está no
+fim deste documento.
 
 ### O que o fecho desta ligação revelou, e não consertou
 
@@ -315,3 +340,38 @@ py -c "import json;d=json.load(open('data/derivados/COLLECTION-V1-CLOSE-GATES.js
 - `provas/os_portoes_da_collection.py` — a medição
 - `tests/test_portoes_da_collection.py` — a guarda dos dois eixos
 - `docs/biblia/CONFORMIDADE-ITALIA.md` — o eixo declarado, por lei
+
+
+---
+
+## A PERGUNTA QUE ESTÁ À ESPERA DE GENTE
+
+A máquina pára num sítio, e pára por falta de uma decisão — não por falta de
+código.
+
+```
+DECISION_REQUIRED
+Para uma fonte DOCUMENTAL não social — uma agência pública que publica
+boletins em PDF no seu próprio sítio — qual é o `canal` canónico, e o que
+serve de `channel_id`?
+```
+
+**Por que bloqueia.** `public.conteudo.canal_id` é `not null`. Sem canal não há
+STRUCTURED, e sem STRUCTURED a história pára em DERIVED.
+
+**O que o modelo canónico oferece, e só isto:**
+
+| opção | consequência |
+|---|---|
+| **A** · a agência é uma `organizacao`, e o sítio dela é um `canal` de `plataforma='web'`, com um `channel_id` que **uma pessoa declara** e assina como evidência | o modelo fica intacto; alguém passa a ter de declarar o canal de cada fonte documental antes de ela estruturar |
+| **B** · fontes documentais não têm canal, e `conteudo` deixa de ser a casa delas | evita canais inventados; exige decidir qual é a casa estruturada de um documento, e isso é uma migration e um dono novos |
+| **C** · `conteudo.canal_id` passa a aceitar ausência | a coluna passa a dizer `NAO SEI` em vez de mentir; mas `conteudo` foi desenhada com canal obrigatório, e afrouxar uma trava é mudar um contrato |
+
+**O que não se consegue inferir, e por isso não se inventa:** um `channel_id`
+a partir da URL, do domínio, do `SOURCE_ID`, do nome da agência ou de um hash.
+`CHANNEL_ID PROVA O CANAL, NÃO PROVA A ORIGEM` — e nenhum desses valores é um
+identificador que uma plataforma tenha emitido.
+
+**Recomendação:** nenhuma com evidência suficiente. As três são consistentes
+com o modelo, e a escolha entre elas é sobre o que o SINTONIA quer que um
+«canal» signifique — que é uma decisão de arquitectura, e não uma medição.
