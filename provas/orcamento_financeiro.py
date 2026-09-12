@@ -36,6 +36,7 @@ for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
     sys.path.insert(0, os.path.join(RAIZ, p) if p else RAIZ)
 
 import coletor as ct              # noqa: E402  — o dono do dinheiro
+import autorizacao_de_gasto as _ag   # noqa: E402 — a guarda do gasto
 import scrap_executor as sx       # noqa: E402
 import scrap_registo as reg       # noqa: E402
 import social_matriz as mz        # noqa: E402
@@ -129,7 +130,12 @@ class Cenario(object):
             ATOR, {'q': 1}, token='TOKEN-FALSO', run_id=run_id, platform=PLAT,
             country=country_scope, mission='C10-8A-F', query='prova',
             source_version='prova', evidence_path='data/samples/prova.json',
-            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota)
+            wait=60, salvar_raw=False, teto_usd=self.teto_da_rota,
+            autorizacao=_ag.trial(capacidade='ensaio.orcamento_financeiro',
+                                  alvo=ATOR, humano='C10.8A-F · prova offline',
+                                  max_runs=1, max_posts=1, max_usd=1.0,
+                                  max_items=50,
+                                  condicao_de_paragem='transporte falso, zero rede'))
         if medida is not None:
             r = man.get('FINANCIAL_RESERVATION') or {}
             medida['COST_STATE'] = r.get('COST_STATE', 'UNKNOWN')

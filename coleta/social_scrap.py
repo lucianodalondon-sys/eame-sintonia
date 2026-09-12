@@ -1581,6 +1581,19 @@ FASES_PAGAS = {
         'ALVO_PORQUE': ('sentinela do acervo: SENSOR-TR-B-3-p3, mesmo ator, '
                         'transcrição histórica preservada em '
                         'data/samples/SENSOR-PILOT/TRANSCRICOES-B.json'),
+        # ── OS TECTOS QUE A GUARDA DO GASTO EXIGE, DECLARADOS AQUI ───────────
+        # `leis/autorizacao_de_gasto.py` recusa ensaio sem os quatro. Eles
+        # vivem NESTA tabela — versionada, revista, ao lado da autorização
+        # humana que os justifica — e não numa variável de ambiente nem numa
+        # linha do workflow.
+        #
+        #     UM TECTO QUE VIVE NO WORKFLOW MEDE O WORKFLOW, NÃO A MISSÃO.
+        'MAX_PROVIDER_RUNS': 1,
+        'MAX_START_POSTS': 1,
+        'MAX_USD': 0.10,
+        'MAX_ITEMS': 50,
+        'STOP_CONDITION': ('um POST de criação; qualquer segundo POST é defeito e '
+                           'para a corrida'),
     },
 }
 
@@ -1819,6 +1832,24 @@ def coletar(fase, *, teto=None, run_id=None, banco=None):
                    'motivo_pago': paga['MOTIVO_PAGO'],
                    'teto_de_gasto': paga['TETO_DE_GASTO_USD'],
                    'teto_de_rede': paga['TETO_DE_REDE']})
+        # ── A AUTORIZAÇÃO DERIVA DA TABELA, E A TABELA É VERSIONADA ──────────
+        # A SCRAP-SR-02 fechou a porta da compra: `coletor.executar` recusa sem
+        # autorização. Esta CLI não a INVENTA — ela TRADUZ a declaração que já
+        # estava aqui, revista e commitada, para o contrato que a guarda lê.
+        #
+        #     TRADUZIR UMA DECLARAÇÃO EXISTENTE NÃO É FABRICAR UMA.
+        #     Fabricar seria escrever a autorização no momento do gasto, a
+        #     partir do próprio pedido — e aí quem gasta assinaria por si.
+        #
+        # A fase é um ENSAIO DE CAPACIDADE: o alvo é fixo, vem do acervo, e a
+        # pergunta é sobre a rota paga, não sobre a relevância de uma fonte.
+        import autorizacao_de_gasto as _ag
+        kw['autorizacao'] = _ag.trial(
+            capacidade=capacidade, alvo=str(fixos),
+            humano=paga['AUTORIZACAO'],
+            max_runs=paga['MAX_PROVIDER_RUNS'], max_posts=paga['MAX_START_POSTS'],
+            max_usd=paga['MAX_USD'], max_items=paga['MAX_ITEMS'],
+            condicao_de_paragem=paga['STOP_CONDITION'])
     # O `RUN_ID` vem do chamador canônico. Sem um, cunha-se aqui UM por execução
     # — e diz-se que foi aqui. Inventar um `run_id` em silêncio seria fabricar
     # proveniência; declará-lo é o contrário disso.

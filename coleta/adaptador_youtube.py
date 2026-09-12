@@ -398,7 +398,7 @@ def credencial_paga_presente():
 
 
 def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
-                         video_id=None, medida=None, teto_usd=None, **_):
+                         video_id=None, medida=None, teto_usd=None, autorizacao=None, **_):
     """A rota paga da legenda. → lista de envelopes canonicos.
 
     O `teto_usd` por omissao e `None` DE PROPOSITO: quem decide o teto do lado
@@ -423,8 +423,19 @@ def youtube_legenda_paga(*, run_id, country_scope='IT', video_url=None,
             'NATIVE_REASON': 'APIFY_TOKEN_POOL vazio neste ambiente',
             'RECOVERY_ACTION': 'HUMAN_PROVISION_CREDENTIAL'})
 
+    # ── A AUTORIZACAO ATRAVESSA, E NAO NASCE AQUI ──────────────────────────
+    # Este adaptador RECEBE a autorizacao de quem pediu a colheita e passa-a
+    # ao dono da compra. Ele NAO a fabrica, e a diferenca e a missao inteira:
+    # um adaptador que constroi a propria autorizacao autoriza-se a si mesmo, e
+    # a partir dai a guarda mede um papel que ele proprio assinou.
+    #
+    #     QUEM GASTA NAO ASSINA A PROPRIA AUTORIZACAO.
+    #
+    # Ausente, ela chega ao `coletor` como ausente — e a recusa vem de la, que
+    # e onde a compra nasce.
     itens, man = ct.executar(
         ATOR_TRANSCRICAO, {'videoUrl': url},
+        autorizacao=autorizacao,
         token=chaves[0],                      # a primeira, e so ela — ver acima
         run_id=run_id, platform=PLATAFORMA, country=country_scope,
         mission='C10-8B', query=url,

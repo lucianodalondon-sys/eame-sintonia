@@ -571,9 +571,18 @@ def _requisicoes_falhadas(loja_kv, *, token):
             t if isinstance(t, int) else pv.NOT_PRESERVED)
 
 
+#: A SENTINELA DA AUTORIZACAO. NAO e `None`, e isso e de proposito: `None` e um
+#: valor que alguem pode passar por engano e que se leria como «sem autorizacao,
+#: mas de proposito». Esta sentinela so aparece quando o parametro NAO FOI DADO.
+#:
+#:     ESQUECER NAO E O MESMO QUE DECLARAR QUE NAO HA.
+_NAO_DECLARADA = object()
+
+
 def executar(actor, entrada, *, token, run_id, platform, country, mission, query,
              source_version, evidence_path, wait=280, salvar_raw=True,
-             teto_usd=None, build=None, rota=None):
+             teto_usd=None, build=None, rota=None,
+             autorizacao=_NAO_DECLARADA, source_id=None, proposito=None):
     """Roda um ator e devolve (itens_crus, manifesto). Grava o RAW antes de devolver.
 
     `token` nunca entra no manifesto: ele só existe no cabeçalho da chamada.
@@ -595,6 +604,38 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
         PROVIDER CAP != EXECUTION BUDGET.
     """
     started = agora()
+    # ── A AUTORIZACAO VEM ANTES DE TUDO, INCLUSIVE DO DINHEIRO ───────────────
+    # Esta funcao e o UNICO sitio do repositorio onde uma compra nasce: o
+    # `POST /acts/{actor}/runs` mais abaixo. Medido na SCRAP-SR-02 — sete
+    # modulos de producao chamavam-na, e NENHUM trazia autorizacao nenhuma,
+    # porque ate aqui nao havia onde a trazer.
+    #
+    #     A PORTA UNICA DA COMPRA E O UNICO SITIO ONDE A TRAVA VALE A PENA.
+    #     Copiar a lei para os sete chamadores daria sete leis, e a oitava
+    #     porta nasceria sem nenhuma.
+    #
+    # E ela vem ANTES da reserva financeira de proposito. Reservar dinheiro que
+    # nao se esta autorizado a gastar ja e dispor dele: o saldo fica
+    # comprometido, e o proximo pedido legitimo encontra menos do que havia.
+    #
+    #     UMA RECUSA DE GASTO NAO PRECISA DE ORCAMENTO PARA ACONTECER.
+    #
+    # O que esta trava NAO faz: nao le relevancia, nao julga fonte, nao decide
+    # se a fonte serve. Ela pergunta ao dono — `leis/relevancia_da_fonte.py` —
+    # e obedece.
+    #
+    #     SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER.
+    import autorizacao_de_gasto as _ag
+    if autorizacao is _NAO_DECLARADA:
+        raise _ag.GastoNaoAutorizado({
+            'VEREDITO': _ag.SEM_AUTORIZACAO, 'PODE_COMPRAR': False,
+            'CONTRATO': _ag.CONTRATO, 'PROPOSITO_DO_GASTO': None,
+            'PORQUE': ('`executar` foi chamada sem o parametro `autorizacao`. Esta e a '
+                       'porta unica da compra, e nenhuma compra nasce sem autorizacao '
+                       'que se possa ler. Ver leis/autorizacao_de_gasto.py.')})
+    _ag.exigir(autorizacao, custo='pago',
+               source_id_pedido=source_id, proposito_pedido=proposito)
+
     # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
     # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
     # ela que decide o `maxTotalChargeUsd` que vai na query.

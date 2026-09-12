@@ -23,6 +23,7 @@ for p in ('coleta', 'leis', 'medidas', 'ferramentas', 'guarda', ''):
 import adaptador_youtube as ay                                    # noqa: E402
 import apify_pool as ap                                           # noqa: E402
 import coletor as ct                                              # noqa: E402
+import autorizacao_de_gasto as _ag                                 # noqa: E402
 import scrap_capacidades as cap                                   # noqa: E402
 import scrap_executor as sx                                       # noqa: E402
 import scrap_registo as reg                                       # noqa: E402
@@ -128,7 +129,15 @@ def _colher(falso, *, gasto=TETO_USD, rede=TETO_REDE, com_chave=True,
     with _Cenario(falso, com_chave=com_chave):
         pedido = dict(platform=PLAT, capability=CAPAC, run_id='t-c108b',
                       modo=modo, permitir_pago=permitir_pago, motivo_pago=motivo,
-                      video_id=video)
+                      video_id=video,
+                      # SCRAP-SR-02: a compra passou a exigir autorizacao. Esta
+                      # prova e um ENSAIO DE CAPACIDADE — alvo fixo, transporte
+                      # falso, e a pergunta e sobre a rota, nao sobre a fonte.
+                      autorizacao=_ag.trial(
+                          capacidade=CAPAC, alvo=str(video),
+                          humano='C10.8B · prova offline da rota paga canonica',
+                          max_runs=1, max_posts=1, max_usd=1.0, max_items=50,
+                          condicao_de_paragem='transporte falso; zero rede real'))
         if rede is not None:
             pedido['teto_de_rede'] = rede
         if gasto is None:
