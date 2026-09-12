@@ -9581,3 +9581,83 @@ E a distinção que fica, porque ela não se resolveu e não deve parecer resolv
     MODULE CAN'T SPEND != FLOW IS CANONICAL — e agora UM fluxo é canónico,
     o que é diferente de o sistema o ser.
 ```
+
+---
+
+# §93 · UM VEREDITO DE FRESCURA TEM DE SER PROPRIEDADE DO ARTEFATO, NÃO DO DISCO DE AGORA
+
+**Missão:** `C-SYSTEM-MAP-G3-VERIFIABLE-SOURCE-TREE-FINGERPRINT-V1`
+**Linha:** `claude/system-map-g3-tree-fingerprint-v1` · **HEAD final:** `c737335b`
+**Tocado:** `system-map/scripts/impressao_da_arvore.py` ·
+`scan_sources.py` · `pente_fino_da_coleta.py` · `censo_da_coleta.py` ·
+`censo_cards_sensores.py` · `system-map/tests/test_impressao_verificavel.py`
+
+A `§82` e a `§88` já escreveram que um SHA de commit não prova frescura e que a
+versão de uma entrada gerada é a árvore que ela carimba. Esta secção regista a
+peça que faltava, e que só apareceu quando um relógio foi posto a medir o caso
+que ele existia para ver.
+
+## 93.1 · O RELÓGIO ESTAVA A PERGUNTAR PELA COISA ERRADA
+
+O relógio do ciclo atrasado comparava a versão **actual** da entrada com a
+árvore de agora. Parece a pergunta certa e não é.
+
+Medido num clone, com a cadeia canónica: mexe-se numa fonte e corre-se a cadeia
+**uma vez**. O pente fino corre no passo 5 e lê o estado que o gerador só
+escreve no passo 7 — logo ele mediu a geração **anterior**. Mas quando alguém
+pergunta, o estado no disco já é o novo, e a comparação dá «iguais».
+
+```
+    O DEFEITO EXISTIA, O RELÓGIO ESTAVA LIGADO, E ELE DIZIA QUE ESTAVA TUDO BEM.
+```
+
+A pergunta certa é outra:
+
+```
+    «QUE ÁRVORE MEDIA ESTA ENTRADA QUANDO EU A LI?»
+    e não
+    «QUE ÁRVORE ELA MEDE AGORA?»
+```
+
+Compara-se a versão que o artefato **registou** com a árvore que ele próprio diz
+ter medido. Assim o veredito é uma propriedade do artefato — ele responde
+sozinho, e não muda porque alguém correu outra coisa no disco entretanto.
+
+## 93.2 · A REGRA GERAL
+
+Um veredito que depende do estado actual do disco não é sobre o artefato: é
+sobre o momento em que se perguntou. Dois leitores em momentos diferentes
+recebem respostas diferentes sobre o **mesmo** ficheiro, e nenhuma está errada —
+o que está errado é a pergunta.
+
+```
+    SE O VEREDITO MUDA SEM O ARTEFATO MUDAR,
+    ELE NÃO ESTAVA A FALAR DO ARTEFATO.
+```
+
+## 93.3 · A TERCEIRA SAÍDA PARA UMA ENTRADA QUE NÃO SE CONSEGUE VERSIONAR
+
+Cinco artefatos lidos pela matriz ainda não carimbam impressão nenhuma. As duas
+saídas óbvias são ambas erradas: hashar os bytes põe quem os lê `STALE` a cada
+corrida da cadeia (eles carregam `HEAD` e `GENERATED_AT`); dizer `NÃO SEI`
+transfere para o leitor uma dívida que não é dele.
+
+A terceira é uma **constante declarada** — `DERIVADO_SEM_CARIMBO` — com a falta
+escrita ficha a ficha. Não se move, não contamina o veredito, e deixa a dívida
+contável em vez de escondida num número que ninguém consegue explicar.
+
+```
+    UMA FALTA DECLARADA É DADO. UMA FALTA DILUÍDA NUM HASH É RUÍDO.
+```
+
+## 93.4 · CONSEQUÊNCIA
+
+Os quatro artefatos que só carimbavam SHA de commit passaram a dizer que árvore
+mediram, e dá para conferir. O `G6` **não** foi fechado por isso: uma passagem
+da cadeia depois de uma fonte mudar continua a deixar o pente fino em
+`STALE_BY_CYCLE`, e são precisas duas para ele ficar em dia. Isso está provado,
+e está à vista.
+
+```
+    UM CARIMBO VERIFICÁVEL NÃO PAGA UMA DÍVIDA DE ORDEM.
+```
