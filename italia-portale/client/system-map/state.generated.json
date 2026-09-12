@@ -1955,9 +1955,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/prove-canonical-e2e-from-request-v1",
-    "HEAD": "e1b166d0d880f6b24f71ab8e2137b4ecd351d882",
-    "GENERATED_AT": "2026-09-12T13:34:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5a32848768b6760711211807458d827316c0f96fa3f2ef0b1b3d67c4eec17943"
+    "HEAD": "5816f3ccc11725b80e8f8e89ad1f83a384fe27b8",
+    "GENERATED_AT": "2026-09-12T14:16:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e69603f6ab6d1b6a88400726ae21e9a10c91857e134fea2c52177f3e36244ed1"
   },
   "FAMILIES": [
     {
@@ -17907,6 +17907,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta A prova de ate onde um pedido atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_atravessa.py",
+          "line": 141,
+          "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22744,7 +22762,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 275,
+          "line": 308,
           "snippet": "import derivacao_forward as fwd"
         }
       ],
@@ -23205,7 +23223,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 276,
+          "line": 309,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
         }
       ],
@@ -25284,7 +25302,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 145,
+          "line": 178,
           "snippet": "recibo.get(\"ACTOR\") == \"coleta/italy_executor.py\""
         }
       ],
@@ -26837,7 +26855,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 124,
+          "line": 157,
           "snippet": "import orquestrador as orq"
         }
       ],
@@ -28440,7 +28458,7 @@
       "evidence": [
         {
           "file": "provas/o_pedido_atravessa.py",
-          "line": 93,
+          "line": 109,
           "snippet": "\"preservar_coleta_no_postgres.py\"))"
         }
       ],
@@ -28526,7 +28544,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 29 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 30 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -33092,8 +33110,8 @@
     "components_pending": 99,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 694,
-    "edges_proven": 692,
+    "edges": 695,
+    "edges_proven": 693,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1507,

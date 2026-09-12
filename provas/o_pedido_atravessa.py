@@ -64,6 +64,22 @@ def caso(nome, condicao, detalhe=""):
     fora.append((nome, bool(condicao), detalhe))
 
 
+def uma_corrida_so(quantas):
+    """A regra da MESMA historia, isolada para poder ser ela propria conferida.
+
+    ⚠️ ESCRITA A DIREITO NO CASO POSITIVO, ELA SOBREVIVIA A MUTACAO.
+    `== 1` trocado por `>= 1` nao muda nada num banco que so tem uma corrida:
+    os dois lados dizem a mesma coisa, e nada reprova.
+
+        UM LIMIAR SO ESTA TESTADO SE ALGUM CASO CAIR POR BAIXO DELE.
+
+    Isolada, ela e usada DUAS vezes: no caso positivo, onde tem de dizer SIM
+    a uma corrida, e no negativo, onde tem de dizer NAO a duas. Enfraquece-la
+    passa a partir o segundo.
+    """
+    return quantas == 1
+
+
 def etapa(nome, observada, evidencia):
     visto[nome] = {"OBSERVED": bool(observada), "EVIDENCE": evidencia}
 
@@ -106,6 +122,23 @@ def main():
         print("PEDIDO_ATRAVESSA=NOT_MEASURED")
         return 2
     espera.MORADA = sala
+    # ⚠️ E O LIVRO DA PORTA TAMBEM, PELA MESMA RAZAO.
+    # `pela_porta` chama `admissao.escrever()`, que acrescenta as decisoes ao
+    # livro REAL da arvore. Uma medicao que escreve no acervo faz a medicao
+    # seguinte medir o que esta deixou.
+    #
+    #     UMA MEDICAO QUE SUJA A ARVORE E UMA MEDICAO QUE A PROXIMA VAI MEDIR.
+    #
+    # Medido nesta missao: alem do livro, quatro PDFs de `XX/` — a raiz que o
+    # armazem local usa — chegaram a ser commitados.
+    # ⚠️ E O LIVRO FICA AO LADO DA SALA, E NAO DENTRO DELA.
+    # Posto dentro, ele passou a contar como ficheiro da espera — e o caso que
+    # exige «sala vazia depois de uma admissao negativa» reprovou por causa da
+    # bancada, e nao do codigo. UMA SALA COM O LIVRO DENTRO NAO E A SALA.
+    import pathlib
+    import tempfile
+    admissao.LIVRO = (pathlib.Path(tempfile.mkdtemp(prefix="livro-"))
+                      / "LIVRO-DE-DECISOES.json")
 
     print("=" * 70)
     print("UM PEDIDO ATRAVESSA — %d migrations · ambiente descartavel"
@@ -231,7 +264,7 @@ def main():
     outras = sql.executa(
         "select count(distinct run_id) from public.raw_asset")
     caso("R8_tudo_o_que_aterrou_pertence_a_UMA_corrida_so",
-         int(outras[0][0]) == 1,
+         uma_corrida_so(int(outras[0][0])),
          "corridas distintas em raw_asset: %s" % outras[0][0])
     caso("R9_e_a_sala_so_tem_o_que_ESTA_execucao_produziu",
          set(depois_na_sala) - set(antes_na_sala) == set(depois_na_sala),
@@ -333,6 +366,29 @@ def main():
              for x in brutos),
          "a fonte veio declarada pelo coletor, e nao do endereco")
 
+    # ⚠️ RT5 · E A REGRA DA «MESMA HISTORIA» TEM DE RECUSAR DUAS.
+    # MEDIDO na mutacao: trocar `== 1` por `>= 1` sobrevivia, porque o banco
+    # descartavel so tem UMA corrida — os dois lados diziam a mesma coisa.
+    #
+    #     UM LIMIAR SO ESTA TESTADO SE ALGUM CASO CAIR POR BAIXO DELE.
+    #
+    # A segunda corrida e REAL: aperta-se o botao outra vez. Tentei primeiro
+    # inserir a linha a mao, e o banco recusou-a — `forward_identificado_exige_
+    # identidade`. Ele estava certo: uma observacao a mao nao tem identidade,
+    # e fabricar-lhe uma para a medicao passar seria o defeito que esta missao
+    # existe para nao cometer.
+    #
+    #     UMA BANCADA QUE FABRICA IDENTIDADE MEDE A FABRICA.
+    #
+    # Isto corre no FIM, depois de tudo o que dependia do estado limpo.
+    orq.correr(Pedido(alvo="T2", filtros={"pais": "IT", "fonte": "IT-T2-002"}),
+               memoria=_memoria(url), banco_do_rastro=sql)
+    duas = sql.executa("select count(distinct run_id) from public.raw_asset")
+    caso("N5_com_DUAS_corridas_a_regra_da_mesma_historia_RECUSA",
+         not uma_corrida_so(int(duas[0][0])),
+         "corridas distintas depois de uma segunda corrida REAL: %s — e a"
+         " regra que diz «uma so» tem de reprovar aqui" % duas[0][0])
+
     print("=" * 70)
     print("  A ESTRADA, ETAPA A ETAPA")
     for e in ESTRADA:
@@ -354,7 +410,7 @@ def main():
             print("  (correram, e nao provam a estrada: a historia ja estava"
                   " partida antes delas)")
     print("  SAME_STORY=%s · uma corrida so em raw_asset" % (
-        "YES" if int(outras[0][0]) == 1 else "NO"))
+        "YES" if uma_corrida_so(int(outras[0][0])) else "NO"))
     json.dump({"RUN_ID": run_id, "ESTRADA": visto,
                "FIRST_LOST_EDGE": (None if inteira
                                    else "%s -> %s" % (ultima, perdido)),

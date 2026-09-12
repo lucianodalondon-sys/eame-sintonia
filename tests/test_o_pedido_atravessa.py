@@ -140,6 +140,132 @@ class ACorridaCanonicaDeixaRasto(unittest.TestCase):
         self.assertIn("RAW", tel.ETAPAS_DA_COLETA)
 
 
+class NenhumCasoSeAutoAprova(unittest.TestCase):
+    """⚠️ CINCO MUTANTES SOBREVIVERAM AQUI, E SAO TODOS O MESMO.
+
+    Trocar a condicao de um caso por `True`, ou por `True or <a condicao>`,
+    nao muda nada: o caso continua a dizer PASS, e o mundo medido continua
+    igual. Nada reprova, porque a resposta certa ja era «sim».
+
+        UM CASO QUE PASSA MESMO SEM COMPARAR NADA
+        NAO E UMA MEDICAO: E UMA AFIRMACAO.
+
+    ⚠️ E ESTA GUARDA JA EXISTIA, escrita em §74.5 para outra prova, e eu nao
+    a apliquei a esta. UMA LICAO ESCRITA E NAO APLICADA E O MESMO QUE UMA
+    LICAO NAO ESCRITA.
+    """
+
+    def _condicoes(self):
+        arv = ast.parse(_fonte(PROVA))
+        fora = []
+        for no in ast.walk(arv):
+            if not isinstance(no, ast.Call):
+                continue
+            if getattr(no.func, "id", None) != "caso" or len(no.args) < 2:
+                continue
+            nome = (no.args[0].value if isinstance(no.args[0], ast.Constant)
+                    else "?")
+            fora.append((nome, no.args[1], no.lineno))
+        return fora
+
+    def test_ha_casos_para_conferir(self):
+        self.assertGreaterEqual(len(self._condicoes()), 12)
+
+    def test_nenhuma_condicao_e_uma_constante(self):
+        for nome, cond, linha in self._condicoes():
+            with self.subTest(caso=nome):
+                self.assertNotIsInstance(
+                    cond, ast.Constant,
+                    "o caso %s (linha %d) deixou de comparar" % (nome, linha))
+
+    def test_nenhuma_condicao_comeca_por_uma_constante(self):
+        """`True or <condicao>` passa sempre, e parece uma condicao."""
+        for nome, cond, linha in self._condicoes():
+            if not isinstance(cond, ast.BoolOp):
+                continue
+            with self.subTest(caso=nome):
+                for valor in cond.values:
+                    self.assertNotIsInstance(
+                        valor, ast.Constant,
+                        "o caso %s (linha %d) tem uma constante a curto-"
+                        "circuitar a condicao" % (nome, linha))
+
+    def test_nenhuma_condicao_e_sempre_verdadeira_por_disjuncao(self):
+        """`x or True` passa sempre. `x or ""` e outra coisa.
+
+        ⚠️ A PRIMEIRA VERSAO DESTA GUARDA ACUSOU QUATRO CASOS CERTOS.
+        Ela proibia QUALQUER constante dentro de um `or`, e apanhou
+        `(recusa.get("QUEM_RESOLVE") or "")` — um valor por omissao para nao
+        rebentar em `None`. Isso nao curto-circuita nada: `""` e falso.
+
+            UMA GUARDA QUE PROIBE A FORMA EM VEZ DO EFEITO
+            RECUSA CODIGO CERTO JUNTO COM O DEFEITO.
+
+        O que torna a condicao sempre verdadeira e uma constante VERDADEIRA.
+        E so isso que se proibe.
+        """
+        for nome, cond, linha in self._condicoes():
+            for dentro in ast.walk(cond):
+                if not (isinstance(dentro, ast.BoolOp)
+                        and isinstance(dentro.op, ast.Or)):
+                    continue
+                for v in dentro.values:
+                    if not isinstance(v, ast.Constant):
+                        continue
+                    with self.subTest(caso=nome):
+                        self.assertFalse(
+                            bool(v.value),
+                            "o caso %s (linha %d) tem uma constante VERDADEIRA"
+                            " dentro de um `or`: passa sempre"
+                            % (nome, linha))
+
+
+class ONaoMedidoNaoEPassNoPortao(unittest.TestCase):
+    """⚠️ MEDIDO: o ramo `NOT_MEASURED` podia devolver PASS sem ninguem ver.
+
+    Ele so corre quando a medicao NUNCA correu — e como no repositorio o
+    ficheiro existe, o mutante que o trocava por `PASS` sobrevivia. A guarda
+    apaga o ficheiro num sitio descartavel e pergunta-lhe directamente.
+
+        NOT_MEASURED != PASS.
+    """
+
+    def _portoes(self):
+        import importlib.util as u
+        sp = u.spec_from_file_location(
+            "portoes", os.path.join(RAIZ, "provas",
+                                    "os_portoes_da_collection.py"))
+        m = u.module_from_spec(sp)
+        sp.loader.exec_module(m)
+        return m
+
+    def test_sem_medicao_o_portao_nao_diz_PASS(self):
+        import shutil
+        import tempfile
+        m = self._portoes()
+        alvo = os.path.join(m.RAIZ, "system-map", "data",
+                            "pedido.observado.json")
+        guardado = None
+        if os.path.isfile(alvo):
+            guardado = tempfile.mktemp(suffix=".json")
+            shutil.copy(alvo, guardado)
+            os.unlink(alvo)
+        try:
+            estado, porque = m.uma_historia_so()
+            self.assertEqual("NOT_MEASURED", estado)
+            self.assertIn("NOT_MEASURED != PASS", porque)
+        finally:
+            if guardado:
+                shutil.copy(guardado, alvo)
+                os.unlink(guardado)
+
+    def test_e_uma_historia_partida_tambem_nao(self):
+        m = self._portoes()
+        estado, porque = m.uma_historia_so()
+        if estado == "FAIL":
+            self.assertIn("parou em", porque)
+
+
 class OVereditoSaiSempre(unittest.TestCase):
     """Uma prova que não consegue dizer FAIL não está a aprovar: cala-se."""
 

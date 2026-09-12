@@ -87,3 +87,13 @@ italia-portale/client/system-map/deployment.generated.json
 # corrida, e o arquivo e o livro append-only da coleta. Versiona-lo faria cada
 # corrida propor um commit com a colheita da anterior.
 data/colheita/
+
+
+# ⚠️ RESIDUO DE MEDICAO, E NAO ACERVO.
+# `ing.ArmazemLocal` escreve o bruto preservado numa raiz `XX/` quando a
+# medicao corre sem armazem proprio. Em C-PROVE-CANONICAL-E2E-FROM-REQUEST-V1
+# quatro PDFs dessa pasta chegaram a ser commitados.
+#
+#     UMA MEDICAO QUE DEIXA ACERVO NA ARVORE
+#     FAZ A MEDICAO SEGUINTE MEDIR O RESIDUO DESTA.
+XX/

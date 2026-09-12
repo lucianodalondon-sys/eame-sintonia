@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/prove-canonical-e2e-from-request-v1",
-    "HEAD": "e1b166d0d880f6b24f71ab8e2137b4ecd351d882",
-    "GENERATED_AT": "2026-09-12T13:34:32+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5a32848768b6760711211807458d827316c0f96fa3f2ef0b1b3d67c4eec17943"
+    "HEAD": "5816f3ccc11725b80e8f8e89ad1f83a384fe27b8",
+    "GENERATED_AT": "2026-09-12T14:16:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e69603f6ab6d1b6a88400726ae21e9a10c91857e134fea2c52177f3e36244ed1"
   },
   "FILES": [
     {
@@ -157,7 +157,7 @@
     },
     {
       "path": ".gitignore",
-      "sha": "61d60abd1f63f09663fe9101f2c63588764de8f2",
+      "sha": "7c9f953443af9b2796eada623a9a1ef485cd3c5c",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -3657,7 +3657,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "31ee7ebbf46aaf386cec7f0b0a94df3adfb80c64",
+      "sha": "686ea179d8ae0c2703b7bc46311d6223cfb83589",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -8137,7 +8137,7 @@
     },
     {
       "path": "provas/o_pedido_atravessa.py",
-      "sha": "60efbc9fd85ca0f5e4c4264bf4f02bb394c00962",
+      "sha": "bcb1bf60774a3f28421afa7af18cf2b2e731d488",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9502,7 +9502,7 @@
     },
     {
       "path": "system-map/data/pedido.observado.json",
-      "sha": "6eb0e9db7ba2dbfe33294cc29104a43386211a52",
+      "sha": "1b88a102130c5ffc7474c88647130ea6a3de1640",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10237,7 +10237,7 @@
     },
     {
       "path": "tests/test_o_pedido_atravessa.py",
-      "sha": "937a2fd1ac5929511a3b19a41964c8a240bdff74",
+      "sha": "86adcf8adac5ce82f01cf45dbc571dcf1ccdf274",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29321,7 +29321,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 275,
+        "line": 308,
         "snippet": "import derivacao_forward as fwd"
       }
     },
@@ -29332,7 +29332,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 145,
+        "line": 178,
         "snippet": "recibo.get(\"ACTOR\") == \"coleta/italy_executor.py\""
       }
     },
@@ -29349,12 +29349,23 @@
     },
     {
       "from_file": "provas/o_pedido_atravessa.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_atravessa.py",
+        "line": 141,
+        "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_atravessa.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 276,
+        "line": 309,
         "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
       }
     },
@@ -29365,7 +29376,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 124,
+        "line": 157,
         "snippet": "import orquestrador as orq"
       }
     },
@@ -29387,7 +29398,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 93,
+        "line": 109,
         "snippet": "\"preservar_coleta_no_postgres.py\"))"
       }
     },
@@ -29398,7 +29409,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_pedido_atravessa.py",
-        "line": 364,
+        "line": 420,
         "snippet": "\"pedido.observado.json\"), \"w\","
       }
     },
@@ -37312,6 +37323,28 @@
       }
     },
     {
+      "from_file": "tests/test_o_pedido_atravessa.py",
+      "to_file": "provas/os_portoes_da_collection.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_pedido_atravessa.py",
+        "line": 237,
+        "snippet": "\"os_portoes_da_collection.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_atravessa.py",
+      "to_file": "system-map/data/pedido.observado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_pedido_atravessa.py",
+        "line": 247,
+        "snippet": "\"pedido.observado.json\")"
+      }
+    },
+    {
       "from_file": "tests/test_o_raw_fala.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -40606,7 +40639,7 @@
     "files_tracked": 1507,
     "files_readable": 586,
     "files_code_dir": 632,
-    "file_edges": 2687,
+    "file_edges": 2690,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },
