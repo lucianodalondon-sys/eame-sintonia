@@ -1,6 +1,7 @@
 # OS PORTÕES DA COLLECTION V1
 
-`MEASURE != FIX`. Nenhum blocker foi corrigido nesta missão.
+`MEASURE != FIX` na medição. Os fechos abaixo vieram de missões próprias,
+cada uma com a sua prova.
 
 ## O veredito
 
@@ -8,10 +9,10 @@
 COLLECTION_CORE_CLOSE = FAIL
 BIG_COLLECTION_READY  = FAIL
 
-BLOCKERS            = 5
+BLOCKERS            = 3
 NON_BLOCKING_DEBT   = 5
 ROOT_CAUSES         = 4
-MISSÕES ATÉ FECHAR  = 3
+MISSÕES ATÉ FECHAR  = 2
 ```
 
 Este veredito não vem da média das 105 leis. Vem das propriedades que a
@@ -22,12 +23,12 @@ coleta grande precisa de ter, e cada falha aponta a propriedade que falta.
 | eixo | natureza | fonte |
 |---|---|---|
 | `IMPLEMENTATION_STATE` | declarado pela Bíblia | `docs/biblia/leis.json` |
-| `CLOSE_GATE` | **medido** | esta missão |
+| `CLOSE_GATE` | **medido** | esta linha de missões |
 
 > UMA LEI `PARTIAL` PODE NÃO BLOQUEAR NADA,  
 > E UMA LEI PEQUENA PODE BLOQUEAR TUDO.
 
-Medido: **48 leis `PARTIAL`** e **5 blockers**. Nenhum blocker foi derivado
+Medido: **48 leis `PARTIAL`** e **3 blockers**. Nenhum blocker foi derivado
 do estado de lei.
 
 ## A estrada canónica
@@ -46,10 +47,12 @@ do estado de lei.
 | `READY` | YES | NO | **NO** |
 | `WAITING_ROOM` | NO | NO | **NO** |
 
-Cinco etapas atravessam. As quatro primeiras nunca foram observadas numa
-corrida canónica, e as duas últimas não existem como caminho.
-
 > MÓDULO EXISTE ≠ ARESTA EXISTE ≠ FLUXO EXECUTADO.
+
+A prova da estrada corre: **YES** contra banco descartável.
+25 de 25 contra PostgreSQL 16 com as migrations 001..027; `provas/a_rota_m2_atravessa.py` devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem
+
+Sem banco ela **salta**, e isso é honesto: `SKIP != PASS`.
 
 ## Os blockers
 
@@ -57,9 +60,17 @@ corrida canónica, e as duas últimas não existem como caminho.
 |---|---|---|---|
 | `G-READY-01` | CRITICAL | READY nao e produzido por nenhuma rota | `LEVAR_ATE_READY` |
 | `G-READY-02` | CRITICAL | a sala de espera nao tem armazenamento | `LEVAR_A_SALA_DE_ESPERA` |
-| `G-E2E-01` | HIGH | a prova da estrada canonica nao corre neste HEAD | `AUDITAR` |
-| `G-RUN-01` | HIGH | duas linguas para a ausencia colidem no banco | `PRESERVAR` |
 | `G-RAW-01` | HIGH | a etapa RAW corre e nao fala | `RECONCILIAR, MEDIR_PERDA_ERRO_CUSTO` |
+
+## Os que já fecharam
+
+Ficam na lista com o estado novo. Um gap que some não deixa ver que
+existiu, nem por que deixou de existir.
+
+| id | o que mudou |
+|---|---|
+| `G-E2E-01` | 25 de 25 passam contra PostgreSQL 16 com as migrations 001..027, e a prova da rota devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem |
+| `G-RUN-01` | a fronteira traduz a ausencia para a palavra que o dono de CADA campo entende; `NOT_PRESERVED` continua a valer nos outros |
 
 ## A dívida que não bloqueia
 
@@ -70,11 +81,6 @@ corrida canónica, e as duas últimas não existem como caminho.
 | `G-TEL-01` | nao impede executar nem preservar. Impede LER o que aconteceu, e isso e divida de observabilidade, nao de fecho. |
 | `G-TEMA-01` | NAO bloqueia a coleta grande. A funcao da coleta grande e ADQUIRIR e PRESERVAR; admitir bem e a etapa seguinte, e a Admission ja produz decisao auditavel com NAO_SEI de p |
 | `G-LEG-01` | nao impede propriedade nenhuma da coleta grande: os 13 estao FORA da Collection operacional por decisao, e o que entra pela frente nao passa por este estado. |
-
-O mecanismo temático falhar o portão é o caso que mais custa classificar.
-Ele é `HIGH` e **não** bloqueia: a função da coleta grande é adquirir e
-preservar. Admitir bem é a etapa seguinte, e a Admission já produz decisão
-auditável com `NÃO SEI` de primeira classe.
 
 ## As causas-raiz
 
@@ -102,25 +108,26 @@ Sintomas: `SCRAP_RAW_NAO_RECEBIDO`. Dono: frente do SCRAP — fora desta medicao
 
 nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da coleta grande, e nao na do fecho.
 
+## Missões já fechadas
+
+| missão | fechou |
+|---|---|
+| `C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1` | `G-RUN-01` |
+| `C-RESTORE-CANONICAL-E2E-PROOF-V1` | `G-E2E-01` |
+
 ## A fila mínima
 
-**1. `C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1`**
+**1. `C-MAKE-RAW-OBSERVABLE-V1`**
 
-> como a ausencia de um campo da corrida atravessa a fronteira sem que o banco a recuse?
+> a etapa RAW passa a deixar passagem observavel, como DERIVED, STRUCTURED e ADMISSION ja deixam?
 
-nao depende de nada e todo o resto passa por ela: sem isto, qualquer prova E2E nova rebenta no mesmo sitio
+nao depende de nada em aberto, e sem ela a aresta RAW->DERIVED continua sem os dois topos — numa coleta grande, uma etapa muda nao se distingue de uma que nao correu
 
-**2. `C-RESTORE-CANONICAL-E2E-PROOF-V1`**
-
-> a estrada canonica volta a ter prova que corre, e a etapa RAW passa a falar?
-
-depende de RC-B; e sem ela o portao nao pode fechar, porque FLOW_EXECUTED nao e observavel
-
-**3. `C-CLOSE-THE-READY-EDGE-V1`**
+**2. `C-CLOSE-THE-READY-EDGE-V1`**
 
 > uma unidade que a porta admite chega a READY e pousa na sala de espera, na mesma corrida?
 
-precisa de uma estrada observavel para se provar ponta a ponta; e a unica com decisao de contrato por tomar — onde pousa
+e a unica com decisao de contrato por tomar — onde a unidade pronta pousa
 
 `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`. depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.
 
@@ -138,5 +145,5 @@ MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY  UNKNOWN
 
 - `data/derivados/COLLECTION-V1-CLOSE-GATES.json` — dono dos números
 - `provas/os_portoes_da_collection.py` — a medição
-- `tests/test_portoes_da_collection.py` — 16 testes, 12 mutantes, 0 sobreviventes
+- `tests/test_portoes_da_collection.py` — a guarda dos dois eixos
 - `docs/biblia/CONFORMIDADE-ITALIA.md` — o eixo declarado, por lei

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/fix-absence-vocabulary-run-seam-v1",
-    "HEAD": "7d7efebfee2eaeae076c02721ef3a2f2e343d433",
-    "GENERATED_AT": "2026-09-12T05:01:31+00:00",
-    "SOURCE_TREE_FINGERPRINT": "871011fd4637ad6cd3a28174fb573747d8fa3c15c8f8efdb0c133cf82f5b511b"
+    "BRANCH": "claude/restore-canonical-e2e-proof-v1",
+    "HEAD": "5fbfb3ff0692871ac023a6eca649ac8a90369834",
+    "GENERATED_AT": "2026-09-12T05:02:02+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8b1cbf6fa164dc7ca6ceee1455657b752c0ba1fb53f5587b1a24d0642b3ee010"
   },
   "FILES": [
     {
@@ -1515,7 +1515,7 @@
     },
     {
       "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
-      "sha": "286d50649de5f3ac063a13a5aeaab27e088306a5",
+      "sha": "188b829d81829181f7d87f71930ff76cb7f9f9e6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4658,7 +4658,7 @@
     },
     {
       "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
-      "sha": "65d439a5ecfac5e755d170758580b719fbc3f3b3",
+      "sha": "efdfbc917ca0a8b1bc79977b8c6791aa4e839bb2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7899,7 +7899,7 @@
     },
     {
       "path": "provas/a_rota_m2_atravessa.py",
-      "sha": "bdf852c3e31a7f29cff77f8fc772cf80717bc17b",
+      "sha": "b60f97f83c72bbf6e09c7ea2e491cc7988113aca",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8116,7 +8116,7 @@
     },
     {
       "path": "provas/os_portoes_da_collection.py",
-      "sha": "49df8ad46c4f1eaa84fe25a2abd26a517d27a8a1",
+      "sha": "9583d12b9be068130b8d8deea9a2a7e301589fba",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9767,6 +9767,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_a_prova_e2e_segue_a_producao.py",
+      "sha": "3c3eed8eccdf31c087d6760d61f9831a5db31bc2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_a_regra_de_t2.py",
       "sha": "ae1a388ac4e9b2b8866c965e816e1d2b72f98b12",
       "ext": ".py",
@@ -10104,7 +10111,7 @@
     },
     {
       "path": "tests/test_m2_rota_forward.py",
-      "sha": "f203b80b90046172e75a2af523996456bd26a96b",
+      "sha": "69bfee6ca6bf275b502af44344b5d059cfba13a0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10216,7 +10223,7 @@
     },
     {
       "path": "tests/test_portoes_da_collection.py",
-      "sha": "5204eea04cd0613ef700b6dcc815bc74a4fa77d3",
+      "sha": "dd3b18b701d77f8ded9e8872fa9f02857fdab2f0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27261,7 +27268,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 126,
+        "line": 154,
         "snippet": "with open(CATALOGO, encoding=\"utf-8\") as f:"
       }
     },
@@ -27305,7 +27312,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 133,
+        "line": 161,
         "snippet": "== \"coleta/executor_texto_de_pdf.py\"]"
       }
     },
@@ -27327,7 +27334,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 441,
+        "line": 469,
         "snippet": ".get(\"coleta/rota_forward_documento.py\") or {}).get(\"FORWARD\") or {}"
       }
     },
@@ -27393,7 +27400,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 129,
+        "line": 157,
         "snippet": "with open(MODELO, encoding=\"utf-8\") as f:"
       }
     },
@@ -27404,7 +27411,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 92,
+        "line": 120,
         "snippet": "LEDGER = os.path.join(RAIZ, \"system-map\", \"data\", \"provas-de-execucao.json\")"
       }
     },
@@ -27415,7 +27422,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_rota_m2_atravessa.py",
-        "line": 91,
+        "line": 119,
         "snippet": "OBSERVADO = os.path.join(RAIZ, \"system-map\", \"data\", \"rota-m2.observada.json\")"
       }
     },
@@ -28999,7 +29006,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 281,
+        "line": 296,
         "snippet": "\"admissao/admissao.py\","
       }
     },
@@ -29010,7 +29017,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 292,
+        "line": 307,
         "snippet": "\"coleta/derivacao_forward.py\","
       }
     },
@@ -29021,7 +29028,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 110,
+        "line": 113,
         "snippet": "forward = ex[\"PROVADOS\"][\"coleta/rota_forward_documento.py\"][\"FORWARD\"]"
       }
     },
@@ -29032,7 +29039,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 307,
+        "line": 322,
         "snippet": "\"data/derivados/BENCHMARK-TEMATICO-V1.json\","
       }
     },
@@ -29054,7 +29061,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 320,
+        "line": 335,
         "snippet": "\"data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json\","
       }
     },
@@ -29087,7 +29094,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 269,
+        "line": 284,
         "snippet": "\"guarda/importar_italia.py\","
       }
     },
@@ -29098,7 +29105,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 258,
+        "line": 273,
         "snippet": "\"guarda/preservar_coleta.py\","
       }
     },
@@ -29109,7 +29116,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 304,
+        "line": 319,
         "snippet": "\"provas/gate_de_aceitacao_tematica.py\","
       }
     },
@@ -29131,7 +29138,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 178,
+        "line": 181,
         "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
       }
     },
@@ -32568,6 +32575,50 @@
       }
     },
     {
+      "from_file": "tests/test_a_prova_e2e_segue_a_producao.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_prova_e2e_segue_a_producao.py",
+        "line": 23,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_prova_e2e_segue_a_producao.py",
+      "to_file": "provas/a_rota_m2_atravessa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_prova_e2e_segue_a_producao.py",
+        "line": 28,
+        "snippet": "PROVA_ROTA = os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_prova_e2e_segue_a_producao.py",
+      "to_file": "system-map/data/estradas-it.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_prova_e2e_segue_a_producao.py",
+        "line": 194,
+        "snippet": "MODELO = os.path.join(RAIZ, \"system-map\", \"data\", \"estradas-it.model.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_prova_e2e_segue_a_producao.py",
+      "to_file": "tests/test_m2_rota_forward.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_prova_e2e_segue_a_producao.py",
+        "line": 27,
+        "snippet": "PROVA_E2E = os.path.join(RAIZ, \"tests\", \"test_m2_rota_forward.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_a_regra_de_t2.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -35588,7 +35639,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 424,
+        "line": 455,
         "snippet": "import derivacao_forward as fwd"
       }
     },
@@ -35621,7 +35672,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 643,
+        "line": 674,
         "snippet": "r = led['PROVADOS']['coleta/rota_forward_documento.py']"
       }
     },
@@ -35643,7 +35694,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 26,
+        "line": 33,
         "snippet": "from guarda.preservar_coleta import (ArmazemDeMentira, preservar,  # noqa: E402"
       }
     },
@@ -35687,7 +35738,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 31,
+        "line": 38,
         "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
       }
     },
@@ -35698,7 +35749,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_m2_rota_forward.py",
-        "line": 641,
+        "line": 672,
         "snippet": "'provas-de-execucao.json'),"
       }
     },
@@ -37084,7 +37135,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 239,
+        "line": 271,
         "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
       }
     },
@@ -37095,7 +37146,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 219,
+        "line": 251,
         "snippet": "\"COLLECTION-V1-CLOSE-GATES.md\"),"
       }
     },
@@ -39625,10 +39676,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1494,
-    "files_readable": 576,
-    "files_code_dir": 621,
-    "file_edges": 2607,
+    "files_tracked": 1495,
+    "files_readable": 577,
+    "files_code_dir": 622,
+    "file_edges": 2611,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

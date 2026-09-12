@@ -51,6 +51,9 @@ SAIDA = "data/derivados/COLLECTION-V1-CLOSE-GATES.json"
 BLOCKER = "BLOCKER"
 DEBT = "NON_BLOCKING_DEBT"
 NAO_APLICA = "NOT_APPLICABLE"
+# ⚠️ UM GAP FECHADO NAO E UM GAP APAGADO. Ele fica, com a prova
+# do fecho ao lado, para que a proxima medicao veja o que mudou.
+FECHADO = "CLOSED"
 DESCONHECIDO = "UNKNOWN"
 
 # ⚠️ AS PROPRIEDADES QUE DEFINEM «BLOCKER», ESCRITAS ANTES DE MEDIR.
@@ -178,14 +181,20 @@ def prova_e2e_corre():
         ("PROVA", "tests/test_m2_rota_forward.py"),
         ("CORRE_SEM_BANCO", "NO"),
         ("SALTA_SEM_BANCO", "YES" if saltados else "NO"),
-        ("CORRE_COM_BANCO_DESCARTAVEL", "NO"),
-        ("PORQUE", ("o fixture entrega a ficha do armazem sem SOURCE_ID, e "
-                    "desde a B5B o escritor recusa observacao sem fonte "
-                    "real. Medido: RECUSADOS_SEM_IDENTIDADE = 1.")),
-        ("A_ESTRADA_ESTA_BOA", ("sim — com corrida completa e SOURCE_ID, "
-                                "raw_asset=1 e RUN_STATE=COMPLETE")),
+        ("PORQUE_SALTA_SEM_BANCO",
+         "saltar sem PostgreSQL e honesto: sem banco nao ha travessia para "
+         "observar. `SKIP != PASS`, e a prova nunca finge."),
+        ("CORRE_COM_BANCO_DESCARTAVEL", "YES"),
+        ("MEDIDO", ("25 de 25 contra PostgreSQL 16 com as migrations "
+                    "001..027; `provas/a_rota_m2_atravessa.py` devolve "
+                    "ROTA_M2_ATRAVESSA=PASS sobre banco virgem")),
+        ("O_QUE_MUDOU", (
+            "o fixture escrevia a ficha do armazem a mao e envelheceu; passou "
+            "a falar pelo tradutor da producao. E a cadeia de migrations da "
+            "prova da rota era uma lista a mao que parava na 026 — passou a "
+            "ser lida do disco.")),
         ("O_QUE_ISTO_SIGNIFICA_PARA_O_PORTAO",
-         "FLOW_EXECUTED da estrada canonica NAO e observavel neste HEAD"),
+         "FLOW_EXECUTED da estrada canonica E observavel neste HEAD"),
     ])
 
 
@@ -229,30 +238,36 @@ def gaps():
       "decidir onde a unidade pronta pousa — e uma decisao de contrato antes "
       "de ser codigo")
 
+    # ⚠️ FECHADO em C-RESTORE-CANONICAL-E2E-PROOF-V1. Fica na lista com o
+    # estado novo em vez de desaparecer: um gap que some nao deixa ver que
+    # existiu, nem por que deixou de existir.
     G("G-E2E-01", "a prova da estrada canonica nao corre neste HEAD",
       "tests/test_m2_rota_forward.py",
-      "salta 22 de 25 sem banco; com banco descartavel falha 21 por fixture "
-      "sem SOURCE_ID",
+      "25 de 25 passam contra PostgreSQL 16 com as migrations 001..027, e a "
+      "prova da rota devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem",
       "a estrada canonica tem prova que corre e passa",
-      "medido nesta missao contra PostgreSQL 16 com migrations 001..027",
-      "HIGH", BLOCKER,
-      "impede AUDITAR. O portao so fecha com FLOW_EXECUTED=YES na estrada "
-      "canonica, e hoje isso nao e observavel.",
-      "o fixture passa a falar a lingua que a producao ja fala — "
-      "`para_o_dono_do_raw` carrega SOURCE_ID e o fixture nao")
+      "o fixture deixou de imitar a lingua do armazem e passou a falar pelo "
+      "mesmo tradutor da producao (`ingresso.para_o_dono_do_raw`); a cadeia "
+      "de migrations da prova da rota passou a ser lida do disco e alcancou "
+      "a 027",
+      "HIGH", FECHADO,
+      "impedia AUDITAR enquanto FLOW_EXECUTED nao era observavel na estrada "
+      "canonica. Agora e.",
+      "—")
 
     G("G-RUN-01", "duas linguas para a ausencia colidem no banco",
       "coleta/ingresso.py::_corrida_completa + enum `pais`",
-      "campo em falta vira NOT_PRESERVED; o enum `pais` so aceita "
-      "ES/FR/IT/PT/EU/BR/OTHER/NAO_SEI",
+      "a fronteira traduz a ausencia para a palavra que o dono de CADA campo "
+      "entende; `NOT_PRESERVED` continua a valer nos outros",
       "a ausencia atravessa com um nome que as duas casas aceitam",
-      "medido: corrida sem SOURCE_COUNTRY -> raw_asset=0, RUN_STATE=PARTIAL, "
-      "ERRO «invalid input value for enum pais»",
-      "HIGH", BLOCKER,
-      "impede PRESERVAR quando o chamador nao declara pais. A corrida fica "
-      "PARTIAL e o bruto nao aterra — em silencio para quem nao le o recibo.",
-      "UM CONCEITO, UM DONO: a sentinela da ausencia tem de ser a mesma dos "
-      "dois lados, ou a traducao tem de existir e ser de alguem")
+      "REMEDIDO contra banco virgem: corrida minima, completa e SEM PAIS dao "
+      "todas raw_asset=1 e RUN_STATE=COMPLETE. Fechado em "
+      "C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1.",
+      "HIGH", FECHADO,
+      "impedia PRESERVAR quando o chamador nao declarava pais. A corrida "
+      "ficava PARTIAL e o bruto nao aterrava — em silencio para quem nao "
+      "lesse o recibo.",
+      "—")
 
     G("G-RAW-01", "a etapa RAW corre e nao fala",
       "guarda/preservar_coleta.py",
@@ -397,38 +412,52 @@ def causas_raiz(gs):
     ], len(bloqueios)
 
 
+# ⚠️ AS MISSOES FEITAS FICAM, COM A DATA DO FECHO. Apagar uma missao da fila
+# depois de a correr esconde a ordem que se seguiu — e a ordem e metade do que
+# esta medicao tem para ensinar.
+FEITAS = [
+    OrderedDict([
+        ("ID", "C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1"),
+        ("ROOT_CAUSE", "RC-B"),
+        ("ESTADO", FECHADO),
+        ("FECHOU", ["G-RUN-01"]),
+    ]),
+    OrderedDict([
+        ("ID", "C-RESTORE-CANONICAL-E2E-PROOF-V1"),
+        ("ROOT_CAUSE", "RC-C"),
+        ("ESTADO", FECHADO),
+        ("FECHOU", ["G-E2E-01"]),
+        ("NAO_FECHOU", ["G-RAW-01"]),
+        ("PORQUE_NAO_FECHOU_TUDO", (
+            "RC-C tinha dois sintomas. A prova voltou a correr; a etapa RAW "
+            "continua muda, e isso e missao propria.")),
+    ]),
+]
+
+
 def dag():
-    """A fila minima. So BLOCKER entra, e a ordem vem das dependencias."""
+    """A fila minima. So BLOCKER ABERTO entra, e a ordem vem das dependencias."""
     return [
         OrderedDict([
             ("MISSION", 1),
-            ("ID", "C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1"),
-            ("ROOT_CAUSE", "RC-B"),
-            ("QUESTION", ("como a ausencia de um campo da corrida atravessa "
-                          "a fronteira sem que o banco a recuse?")),
-            ("PORQUE_PRIMEIRO", ("nao depende de nada e todo o resto passa "
-                                 "por ela: sem isto, qualquer prova E2E nova "
-                                 "rebenta no mesmo sitio")),
+            ("ID", "C-MAKE-RAW-OBSERVABLE-V1"),
+            ("ROOT_CAUSE", "RC-C"),
+            ("O_QUE_DA_CAUSA_JA_FECHOU", "G-E2E-01"),
+            ("QUESTION", ("a etapa RAW passa a deixar passagem observavel, "
+                          "como DERIVED, STRUCTURED e ADMISSION ja deixam?")),
+            ("PORQUE_PRIMEIRO", ("nao depende de nada em aberto, e sem ela a "
+                                 "aresta RAW->DERIVED continua sem os dois "
+                                 "topos — numa coleta grande, uma etapa muda "
+                                 "nao se distingue de uma que nao correu")),
         ]),
         OrderedDict([
             ("MISSION", 2),
-            ("ID", "C-RESTORE-CANONICAL-E2E-PROOF-V1"),
-            ("ROOT_CAUSE", "RC-C"),
-            ("QUESTION", ("a estrada canonica volta a ter prova que corre, e "
-                          "a etapa RAW passa a falar?")),
-            ("PORQUE_AGORA", ("depende de RC-B; e sem ela o portao nao pode "
-                              "fechar, porque FLOW_EXECUTED nao e "
-                              "observavel")),
-        ]),
-        OrderedDict([
-            ("MISSION", 3),
             ("ID", "C-CLOSE-THE-READY-EDGE-V1"),
             ("ROOT_CAUSE", "RC-A"),
             ("QUESTION", ("uma unidade que a porta admite chega a READY e "
                           "pousa na sala de espera, na mesma corrida?")),
-            ("PORQUE_ULTIMO", ("precisa de uma estrada observavel para se "
-                               "provar ponta a ponta; e a unica com decisao "
-                               "de contrato por tomar — onde pousa")),
+            ("PORQUE_ULTIMO", ("e a unica com decisao de contrato por tomar — "
+                               "onde a unidade pronta pousa")),
         ]),
     ]
 
@@ -621,6 +650,7 @@ def medir():
         ("NON_BLOCKING_DEBT", [g["GAP_ID"] for g in gs
                                if g["CLOSE_GATE"] == DEBT]),
         ("ROOT_CAUSES", rcs),
+        ("MISSOES_JA_FECHADAS", FEITAS),
         ("MINIMUM_MISSION_DAG", dag()),
         ("MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE", len(dag())),
         ("MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY", "UNKNOWN"),

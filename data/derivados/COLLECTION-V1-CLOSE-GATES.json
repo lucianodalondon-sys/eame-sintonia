@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "465e318a925e215bcbe5db971f9d1c31c7b923a6",
+  "MEASURED_HEAD": "5fbfb3ff0692871ac023a6eca649ac8a90369834",
   "BIBLE_VERSION": "V1.4",
   "LAW_TOTAL": 105,
   "IMPLEMENTATION_STATE": {
@@ -106,10 +106,11 @@
     "PROVA": "tests/test_m2_rota_forward.py",
     "CORRE_SEM_BANCO": "NO",
     "SALTA_SEM_BANCO": "YES",
-    "CORRE_COM_BANCO_DESCARTAVEL": "NO",
-    "PORQUE": "o fixture entrega a ficha do armazem sem SOURCE_ID, e desde a B5B o escritor recusa observacao sem fonte real. Medido: RECUSADOS_SEM_IDENTIDADE = 1.",
-    "A_ESTRADA_ESTA_BOA": "sim — com corrida completa e SOURCE_ID, raw_asset=1 e RUN_STATE=COMPLETE",
-    "O_QUE_ISTO_SIGNIFICA_PARA_O_PORTAO": "FLOW_EXECUTED da estrada canonica NAO e observavel neste HEAD"
+    "PORQUE_SALTA_SEM_BANCO": "saltar sem PostgreSQL e honesto: sem banco nao ha travessia para observar. `SKIP != PASS`, e a prova nunca finge.",
+    "CORRE_COM_BANCO_DESCARTAVEL": "YES",
+    "MEDIDO": "25 de 25 contra PostgreSQL 16 com as migrations 001..027; `provas/a_rota_m2_atravessa.py` devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem",
+    "O_QUE_MUDOU": "o fixture escrevia a ficha do armazem a mao e envelheceu; passou a falar pelo tradutor da producao. E a cadeia de migrations da prova da rota era uma lista a mao que parava na 026 — passou a ser lida do disco.",
+    "O_QUE_ISTO_SIGNIFICA_PARA_O_PORTAO": "FLOW_EXECUTED da estrada canonica E observavel neste HEAD"
   },
   "DB_SCHEMA_VS_LIVE": {
     "MIGRATION_IN_GIT": 27,
@@ -177,25 +178,25 @@
       "GAP_ID": "G-E2E-01",
       "CONCEPT": "a prova da estrada canonica nao corre neste HEAD",
       "OWNER": "tests/test_m2_rota_forward.py",
-      "CURRENT_STATE": "salta 22 de 25 sem banco; com banco descartavel falha 21 por fixture sem SOURCE_ID",
+      "CURRENT_STATE": "25 de 25 passam contra PostgreSQL 16 com as migrations 001..027, e a prova da rota devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem",
       "EXPECTED_STATE": "a estrada canonica tem prova que corre e passa",
-      "PROOF": "medido nesta missao contra PostgreSQL 16 com migrations 001..027",
+      "PROOF": "o fixture deixou de imitar a lingua do armazem e passou a falar pelo mesmo tradutor da producao (`ingresso.para_o_dono_do_raw`); a cadeia de migrations da prova da rota passou a ser lida do disco e alcancou a 027",
       "SEVERITY": "HIGH",
-      "CLOSE_GATE": "BLOCKER",
-      "WHY": "impede AUDITAR. O portao so fecha com FLOW_EXECUTED=YES na estrada canonica, e hoje isso nao e observavel.",
-      "MINIMUM_FIX": "o fixture passa a falar a lingua que a producao ja fala — `para_o_dono_do_raw` carrega SOURCE_ID e o fixture nao"
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia AUDITAR enquanto FLOW_EXECUTED nao era observavel na estrada canonica. Agora e.",
+      "MINIMUM_FIX": "—"
     },
     {
       "GAP_ID": "G-RUN-01",
       "CONCEPT": "duas linguas para a ausencia colidem no banco",
       "OWNER": "coleta/ingresso.py::_corrida_completa + enum `pais`",
-      "CURRENT_STATE": "campo em falta vira NOT_PRESERVED; o enum `pais` so aceita ES/FR/IT/PT/EU/BR/OTHER/NAO_SEI",
+      "CURRENT_STATE": "a fronteira traduz a ausencia para a palavra que o dono de CADA campo entende; `NOT_PRESERVED` continua a valer nos outros",
       "EXPECTED_STATE": "a ausencia atravessa com um nome que as duas casas aceitam",
-      "PROOF": "medido: corrida sem SOURCE_COUNTRY -> raw_asset=0, RUN_STATE=PARTIAL, ERRO «invalid input value for enum pais»",
+      "PROOF": "REMEDIDO contra banco virgem: corrida minima, completa e SEM PAIS dao todas raw_asset=1 e RUN_STATE=COMPLETE. Fechado em C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1.",
       "SEVERITY": "HIGH",
-      "CLOSE_GATE": "BLOCKER",
-      "WHY": "impede PRESERVAR quando o chamador nao declara pais. A corrida fica PARTIAL e o bruto nao aterra — em silencio para quem nao le o recibo.",
-      "MINIMUM_FIX": "UM CONCEITO, UM DONO: a sentinela da ausencia tem de ser a mesma dos dois lados, ou a traducao tem de existir e ser de alguem"
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia PRESERVAR quando o chamador nao declarava pais. A corrida ficava PARTIAL e o bruto nao aterrava — em silencio para quem nao lesse o recibo.",
+      "MINIMUM_FIX": "—"
     },
     {
       "GAP_ID": "G-RAW-01",
@@ -295,8 +296,6 @@
   "BLOCKERS": [
     "G-READY-01",
     "G-READY-02",
-    "G-E2E-01",
-    "G-RUN-01",
     "G-RAW-01"
   ],
   "NON_BLOCKING_DEBT": [
@@ -356,30 +355,46 @@
       "PORQUE_E_UMA_SO": "nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da coleta grande, e nao na do fecho."
     }
   ],
+  "MISSOES_JA_FECHADAS": [
+    {
+      "ID": "C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1",
+      "ROOT_CAUSE": "RC-B",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-RUN-01"
+      ]
+    },
+    {
+      "ID": "C-RESTORE-CANONICAL-E2E-PROOF-V1",
+      "ROOT_CAUSE": "RC-C",
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-E2E-01"
+      ],
+      "NAO_FECHOU": [
+        "G-RAW-01"
+      ],
+      "PORQUE_NAO_FECHOU_TUDO": "RC-C tinha dois sintomas. A prova voltou a correr; a etapa RAW continua muda, e isso e missao propria."
+    }
+  ],
   "MINIMUM_MISSION_DAG": [
     {
       "MISSION": 1,
-      "ID": "C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1",
-      "ROOT_CAUSE": "RC-B",
-      "QUESTION": "como a ausencia de um campo da corrida atravessa a fronteira sem que o banco a recuse?",
-      "PORQUE_PRIMEIRO": "nao depende de nada e todo o resto passa por ela: sem isto, qualquer prova E2E nova rebenta no mesmo sitio"
+      "ID": "C-MAKE-RAW-OBSERVABLE-V1",
+      "ROOT_CAUSE": "RC-C",
+      "O_QUE_DA_CAUSA_JA_FECHOU": "G-E2E-01",
+      "QUESTION": "a etapa RAW passa a deixar passagem observavel, como DERIVED, STRUCTURED e ADMISSION ja deixam?",
+      "PORQUE_PRIMEIRO": "nao depende de nada em aberto, e sem ela a aresta RAW->DERIVED continua sem os dois topos — numa coleta grande, uma etapa muda nao se distingue de uma que nao correu"
     },
     {
       "MISSION": 2,
-      "ID": "C-RESTORE-CANONICAL-E2E-PROOF-V1",
-      "ROOT_CAUSE": "RC-C",
-      "QUESTION": "a estrada canonica volta a ter prova que corre, e a etapa RAW passa a falar?",
-      "PORQUE_AGORA": "depende de RC-B; e sem ela o portao nao pode fechar, porque FLOW_EXECUTED nao e observavel"
-    },
-    {
-      "MISSION": 3,
       "ID": "C-CLOSE-THE-READY-EDGE-V1",
       "ROOT_CAUSE": "RC-A",
       "QUESTION": "uma unidade que a porta admite chega a READY e pousa na sala de espera, na mesma corrida?",
-      "PORQUE_ULTIMO": "precisa de uma estrada observavel para se provar ponta a ponta; e a unica com decisao de contrato por tomar — onde pousa"
+      "PORQUE_ULTIMO": "e a unica com decisao de contrato por tomar — onde a unidade pronta pousa"
     }
   ],
-  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 3,
+  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 2,
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
   "COLLECTION_CORE_CLOSE": {
@@ -402,8 +417,6 @@
     "BLOQUEADO_POR": [
       "G-READY-01",
       "G-READY-02",
-      "G-E2E-01",
-      "G-RUN-01",
       "G-RAW-01"
     ],
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
@@ -485,7 +498,7 @@
     },
     {
       "PROVA": "15 · PARTIAL virado blocker automaticamente",
-      "ACHADO": "48 leis estao PARTIAL e ha 5 blockers. Nenhum blocker foi derivado do estado de lei.",
+      "ACHADO": "48 leis estao PARTIAL e ha 3 blockers. Nenhum blocker foi derivado do estado de lei.",
       "VEREDITO": "GUARDADO"
     },
     {

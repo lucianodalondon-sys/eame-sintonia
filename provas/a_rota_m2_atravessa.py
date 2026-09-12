@@ -75,16 +75,44 @@ import telemetria as tel                 # noqa: E402
 from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402
 from guarda import preservar_derivado as pd   # noqa: E402
 
-MIGRATIONS = ['001', '002', '003', '004', '005', '006', '007', '009', '010',
-              '011', '012', '013', '014', '015', '016', '017', '018', '019',
-              '020', '021', '022', '023', '024',
-              # 025 acrescenta uma TRAVA a `raw_asset`, e esta prova escreve
-              # nessa tabela pelo dono canonico. Sem ela, o writer emite um
-              # insert em `storage_object` sobre um esquema que ainda nao a
-              # tem — e a prova morre com «relation does not exist».
-              #
-              #     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
-              '025', '026']
+# ── A CADEIA DE MIGRATIONS VEM DO DISCO, E NAO DE UMA LISTA ────────────────
+# ⚠️ AQUI ESTAVA UMA LISTA ESCRITA A MAO, E ELA ENVELHECEU DUAS VEZES. A
+# primeira vez foi apanhada e remendada com `025` e `026`, e o comentario que
+# ficou dizia, com todas as letras:
+#
+#     UMA LISTA A MAO ENVELHECE CALADA, e esta envelheceu.
+#
+# Envelheceu outra vez. A `027` — a que tirou a trava do endereco de
+# `raw_asset` e pos chave sobre `storage_object_id` — nunca chegou a ser
+# aplicada por esta prova. Ela atravessava um esquema uma migration atras da
+# realidade e dizia-se canonica.
+#
+#     REMENDAR UMA LISTA QUE JA ENVELHECEU UMA VEZ
+#     E MARCAR ENCONTRO COM O MESMO DEFEITO.
+#
+# Agora a cadeia e LIDA da pasta. Quando nascer a `028`, esta prova aplica-a
+# sem que ninguem se lembre dela.
+#
+# A `008` fica de fora por ser outra especie: nao constroi esquema nenhum, e a
+# VERIFICACAO POS-APLICACAO que confere o que as outras construiram. Corre-la
+# no meio seria pedir-lhe contas de tabelas que ainda nao nasceram.
+_SO_VERIFICA = ("008",)
+
+
+def _cadeia_de_migrations():
+    pasta = os.path.join(RAIZ, "supabase", "migrations")
+    fora = []
+    for f in sorted(os.listdir(pasta)):
+        if not f.endswith(".sql"):
+            continue
+        n = f.split("_", 1)[0]
+        if n in _SO_VERIFICA:
+            continue
+        fora.append(n)
+    return fora
+
+
+MIGRATIONS = _cadeia_de_migrations()
 
 MODELO = os.path.join(RAIZ, "system-map", "data", "estradas-it.model.json")
 # Onde a medicao desta corrida fica escrita, e o ledger que ela confere.

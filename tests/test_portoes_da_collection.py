@@ -180,24 +180,56 @@ class TodoBuracoMedidoERespondido(unittest.TestCase):
 class ADagSoTemBlocker(unittest.TestCase):
 
     def test_nenhuma_missao_nasce_de_divida(self):
+        """Uma missao tem de ter PELO MENOS UM blocker ABERTO, e nenhuma divida.
+
+        ⚠️ ESTE TESTE EXIGIA QUE **TODOS** OS SINTOMAS FOSSEM BLOCKER, e isso
+        so era verdade enquanto nada fechava. Quando `G-E2E-01` fechou, a
+        causa `RC-C` passou a ter um sintoma fechado e outro aberto — e o
+        teste reprovou uma fila correcta.
+
+            UM TESTE QUE SO ESTA CERTO ENQUANTO NADA AVANCA
+            E UM TESTE QUE MEDE O PRIMEIRO DIA.
+        """
         a = _art()
         raizes_com_missao = {m["ROOT_CAUSE"] for m in a["MINIMUM_MISSION_DAG"]}
         for r in a["ROOT_CAUSES"]:
             if r["ROOT_CAUSE_ID"] not in raizes_com_missao:
                 continue
+            estados = []
             for s in r["SYMPTOMS"]:
                 g = next((x for x in a["GAPS"] if x["GAP_ID"] == s), None)
                 if g:
-                    self.assertEqual(g["CLOSE_GATE"], P.BLOCKER,
-                                     "%s virou missao e nao bloqueia" % s)
+                    estados.append(g["CLOSE_GATE"])
+                    self.assertNotEqual(
+                        g["CLOSE_GATE"], P.DEBT,
+                        "%s virou missao e e divida que nao bloqueia" % s)
+            self.assertIn(P.BLOCKER, estados,
+                          "%s virou missao sem nenhum blocker aberto"
+                          % r["ROOT_CAUSE_ID"])
 
     def test_a_primeira_missao_nao_tem_dependencia_aberta(self):
+        """ABERTA — e nao «nenhuma». Uma dependencia ja fechada nao trava.
+
+        A versao anterior exigia lista vazia, e reprovou assim que `RC-B`
+        fechou deixando a referencia para tras. A referencia continua certa:
+        ela e HISTORIA da ordem, e nao um bloqueio de hoje.
+        """
         a = _art()
         primeira = a["MINIMUM_MISSION_DAG"][0]
         rc = next(r for r in a["ROOT_CAUSES"]
                   if r["ROOT_CAUSE_ID"] == primeira["ROOT_CAUSE"])
-        self.assertEqual(rc["DEPENDENCIES"], [],
-                         "a primeira missao da fila depende de outra")
+        abertas = []
+        for dep in rc["DEPENDENCIES"]:
+            outra = next((x for x in a["ROOT_CAUSES"]
+                          if x["ROOT_CAUSE_ID"] == dep), None)
+            if outra is None:
+                continue
+            sintomas = [g for g in a["GAPS"] if g["GAP_ID"] in outra["SYMPTOMS"]]
+            if any(g["CLOSE_GATE"] == P.BLOCKER for g in sintomas):
+                abertas.append(dep)
+        self.assertEqual(abertas, [],
+                         "a primeira missao da fila depende de causa ainda "
+                         "aberta: %s" % abertas)
 
     def test_o_scrap_nao_entra_na_fila_do_fecho(self):
         a = _art()
