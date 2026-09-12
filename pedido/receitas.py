@@ -162,17 +162,28 @@ EXECUTORES = {
         # colheita e escreve porque. URL NAO E SOURCE_ID.
         # A ORDEM E A LINHA DE COMANDO. O orquestrador acrescenta os valores
         # por esta ordem, sem nomes — como ja faz para o `comunicacao-publica`.
-        "argumentos_de_filtros": ["fase", "fonte"],
-        "serve_fases": ["janela", "janela-perfis", "janela-objetos"],
+        "argumentos_de_filtros": ["fase", "fonte", "site"],
+        # `identidade-linkedin` entrou na LINKEDIN-OP-01. Ela e a UNICA rota que a
+        # politica canonica permite no LinkedIn: le o site DA PROPRIA
+        # organizacao e traz de la o endereco que a organizacao publicou. Nunca
+        # toca `linkedin.com`, nunca usa buscador, e devolve CATALOGO — uma
+        # entidade de onde se PODE colher — e nao COLHEITA.
+        #
+        #     IDENTITY != CONTENT. Pedir posts do LinkedIn continua a bater em
+        #     `ROUTE_NOT_ALLOWED`, e nao ha receita que o contorne.
+        "serve_fases": ["janela", "janela-perfis", "janela-objetos",
+                        "identidade-linkedin"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.
         "envelope_em": "data/colheita/scrap/ENVELOPE.json",
         "larga_em": ["data/colheita/scrap/"],
-        "rotas": ["Instagram"],
+        "rotas": ["Instagram", "LinkedIn (so identidade, rota indireta)"],
         "o_que_traz": "a janela publica da conta — o perfil e os objetos que "
                       "ela publicou — pelo executor canonico do SCRAP, com "
-                      "RAW preservado antes de qualquer normalizacao",
+                      "RAW preservado antes de qualquer normalizacao; e, com "
+                      "`fase=identidade-linkedin`, o ENDERECO LinkedIn que a "
+                      "propria organizacao publica no site dela, como CATALOGO",
         "custo": "gratuito",
     }],
 }

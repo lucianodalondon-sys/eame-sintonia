@@ -88,10 +88,39 @@ ENVELOPE = os.path.join(BALCAO, 'ENVELOPE.json')
 #: a plataforma, a capacidade e os argumentos vivem AQUI, em Python versionado.
 #:
 #:     UM DISPARADOR QUE ESCOLHE A CAPACIDADE ESCOLHE O QUE SE COLHE.
+#: E CADA FASE DIZ QUE ESPECIE DE RETORNO PRODUZ.
+#:
+#: A quarta posicao entrou na LINKEDIN-OP-01, e ela e o campo que a
+#: `leis/retorno_da_coleta.py` nasceu a dizer que nao existia: «o "em que forma"
+#: nao tinha campo nenhum, nem enum, nem guarda». Aqui passa a ter, e passa a ser
+#: OBRIGATORIO — nao ha valor por omissao.
+#:
+#:     UMA ESPECIE POR OMISSAO E UMA DECISAO QUE NINGUEM TOMOU.
+#:
+#: Sem isto, a fase de identidade do LinkedIn — que devolve o ENDERECO de uma
+#: conta, e nao uma observacao dela — entrava na porta como se fosse material
+#: observado, que e exactamente a falsa colheita de 253 itens que aquela lei
+#: mediu. O contrato ja recusava: `conferir_unidade` reprova qualquer unidade em
+#: COLHEITA cuja especie nao seja COLHEITA. O que faltava era a fase DIZER.
 FASES = {
-    'janela':         ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'tudo'}),
-    'janela-perfis':  ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'perfis'}),
-    'janela-objetos': ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'objetos'}),
+    'janela':         ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'tudo'}, rc.COLHEITA),
+    'janela-perfis':  ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'perfis'}, rc.COLHEITA),
+    'janela-objetos': ('INSTAGRAM', 'instagram.profile.discovery', {'camada': 'objetos'}, rc.COLHEITA),
+
+    # ── A IDENTIDADE DO LINKEDIN, E POR QUE ELA E CATALOGO ─────────────────
+    # Esta fase le o site DA PROPRIA ORGANIZACAO e traz de la o endereco que a
+    # organizacao publicou. O que ela devolve nao e uma observacao da fonte: e
+    # uma ENTIDADE DE ONDE SE PODE COLHER — que e a definicao literal de
+    # `CATALOG` em `leis/retorno_da_coleta.py`, ao lado de `CONTAS-V1` e
+    # `UNIVERSO-CONTAS`.
+    #
+    #     IDENTITY != CONTENT. UM ENDERECO NAO E UMA PUBLICACAO.
+    #     E `ENTRAM_NO_INGRESSO = (COLHEITA,)`: CATALOGO NAO ATRAVESSA A PORTA.
+    #
+    # Entao o terminal canonico desta fase e o ENVELOPE, na lista de SUPORTE — e
+    # nao a Sala de Espera. Empurra-la para a Admissao completava uma seta no
+    # desenho e metia gasolina na mangueira da agua.
+    'identidade-linkedin': ('LINKEDIN', 'linkedin.identity.discovery', {}, rc.CATALOG),
 }
 
 #: O que o envelope canônico do SCRAP responde, com o nome que a porta usa.
@@ -167,7 +196,7 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
     NÃO levanta por rota recusada: recusa é resultado de medição, e desce como
     estado. O envelope diz o que a corrida devolveu — inclusive «nada, e porquê».
     """
-    plataforma, capacidade, fixos = FASES[fase]
+    plataforma, capacidade, fixos, especie = FASES[fase]
     objetos, trace = sx.COLLECT(platform=plataforma, capability=capacidade,
                                 run_id=run_id, banco=banco,
                                 **dict(fixos, **extra))
@@ -175,6 +204,41 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
     estado = rc.SUCCESS if trace.get('RESULT') in (None, 'OK', 'SUCCESS') else rc.PARTIAL
     erros = []
     porque_zero = ''
+
+    if especie != rc.COLHEITA:
+        # ── A FASE DECLAROU QUE NAO PRODUZ COLHEITA, E ISSO E UM FACTO ──────
+        # `ENTRAM_NO_INGRESSO = (COLHEITA,)`. Esta fase devolve uma entidade DE
+        # ONDE SE PODE COLHER, nao material observado — entao ela sai por
+        # SUPORTE, com a especie escrita, e a COLHEITA fica vazia porque e
+        # vazia. Zero aqui nao e falha nem e ausencia de dados: e a especie.
+        #
+        #     UM ZERO QUE VEM DA ESPECIE NAO SE LE COMO UM ZERO QUE VEM DA FONTE.
+        #
+        # E nao se escolhe por `if plataforma == ...`: escolhe-se pelo que a
+        # fase DECLAROU em `FASES`, que e o unico sitio onde isso se decide.
+        colheita = []
+        suporte = suporte_do_trace(trace) + [
+            {'ESPECIE': especie, 'ONDE': '',
+             'O_QUE_E': 'o que esta fase produz, pela especie que ela declara: '
+                        '%s de %s/%s' % (especie, plataforma, capacidade),
+             'PAYLOAD': {'ONDE': '', 'ESTADO': rc.PAYLOAD_NAO_SE_APLICA},
+             'QUANTOS': len(objetos),
+             'ITENS': objetos}]
+        porque_zero = (
+            'esta fase produz %s, e nao COLHEITA. So %s atravessa o ingresso, '
+            'entao %d resultado(s) sairam por SUPORTE com a especie declarada. '
+            'IDENTITY != CONTENT: um endereco de conta nao e uma observacao '
+            'dela, e empurra-lo para a Admissao seria falsa colheita.'
+            % (especie, ', '.join(rc.ENTRAM_NO_INGRESSO), len(objetos)))
+        return {
+            'RUN_ID': run_id, 'EXECUTOR_ID': EXECUTOR_ID,
+            'EXECUTOR_VERSION': EXECUTOR_VERSION, 'ESTADO': estado,
+            'COLHEITA': colheita, 'SUPORTE': suporte, 'ERROS': erros,
+            'FASE': fase, 'PLATFORM': plataforma, 'CAPABILITY': capacidade,
+            'ESPECIE_DA_FASE': especie,
+            'SOURCE_ID_DO_PEDIDO': fonte or rc.NAO_SEI,
+            'PORQUE_ZERO_COLHEITA': porque_zero,
+        }
 
     if not fonte:
         # ── SEM FONTE PROVADA NÃO HÁ COLHEITA, E ISSO NÃO É UM ERRO ────────
@@ -203,6 +267,7 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
         'EXECUTOR_VERSION': EXECUTOR_VERSION, 'ESTADO': estado,
         'COLHEITA': colheita, 'SUPORTE': suporte, 'ERROS': erros,
         'FASE': fase, 'PLATFORM': plataforma, 'CAPABILITY': capacidade,
+        'ESPECIE_DA_FASE': especie,
         'SOURCE_ID_DO_PEDIDO': fonte or rc.NAO_SEI,
     }
     if porque_zero:
@@ -222,13 +287,15 @@ def escrever(envelope, raiz=RAIZ):
 
 def main(argv=None):
     args = list(argv if argv is not None else sys.argv[1:])
-    run_id = fonte = None
+    run_id = fonte = site = None
     resto = []
     for a in args:
         if a.startswith('--run-id='):
             run_id = a.split('=', 1)[1].strip()
         elif a.startswith('--fonte='):
             fonte = a.split('=', 1)[1].strip() or None
+        elif a.startswith('--site='):
+            site = a.split('=', 1)[1].strip() or None
         else:
             resto.append(a)
     # Os filtros chegam POSICIONAIS, sem nome: e assim que o orquestrador
@@ -236,8 +303,28 @@ def main(argv=None):
     # `comunicacao-publica` ja os recebe. A ordem esta na receita.
     if resto and resto[0] in FASES:
         fase = resto[0]
-        if fonte is None and len(resto) > 1:
-            fonte = resto[1].strip() or None
+        # ── OS POSICIONAIS CLASSIFICAM-SE PELA FORMA, NAO PELA POSICAO ──────
+        # O orquestrador so acrescenta o valor de um filtro QUANDO ELE EXISTE
+        # (`if v:` em `orquestrador.py`). Entao a posicao de um argumento depende
+        # de quais os anteriores estarem preenchidos, e ler `resto[1]` como fonte
+        # e `resto[2]` como site poe o site no lugar da fonte sempre que a fonte
+        # falta.
+        #
+        #     UM ARGUMENTO POSICIONAL NUMA LISTA COM BURACOS NAO TEM POSICAO.
+        #
+        # A forma distingue-os sem ambiguidade, e a regra que os distingue e uma
+        # lei desta casa: `SOURCE_ID != URL`. Um SOURCE_ID nunca tem esquema;
+        # um endereco de site tem sempre. Classificar pela forma NAO fabrica
+        # identidade nenhuma — recusa-se exactamente a fazer isso.
+        for v in resto[1:]:
+            v = (v or '').strip()
+            if not v:
+                continue
+            if '://' in v:
+                if site is None:
+                    site = v
+            elif fonte is None:
+                fonte = v
     else:
         fase = resto[0] if resto else 'janela'
     if fase not in FASES:
@@ -250,7 +337,12 @@ def main(argv=None):
               'não a inventa')
         return 2
 
-    envelope = colher(fase, run_id=run_id, fonte=fonte)
+    extra = {}
+    if site:
+        # O nome que a ROTA usa. Traduzir aqui e trabalho de adapter; inventar
+        # um campo novo seria criar um segundo nome para a mesma coisa.
+        extra['site_url'] = site
+    envelope = colher(fase, run_id=run_id, fonte=fonte, **extra)
     caminho = escrever(envelope)
     mal = rc.conferir(envelope, RAIZ)
 
@@ -258,6 +350,9 @@ def main(argv=None):
     print('  fase          %s' % fase)
     print('  run_id        %s' % run_id)
     print('  source_id     %s' % (fonte or rc.NAO_SEI))
+    print('  especie       %s' % envelope.get('ESPECIE_DA_FASE', rc.COLHEITA))
+    if site:
+        print('  site          %s' % site)
     print('  colheita      %d' % len(envelope['COLHEITA']))
     print('  suporte       %d' % len(envelope['SUPORTE']))
     print('  envelope      %s' % os.path.relpath(caminho, RAIZ))

@@ -40,6 +40,8 @@ escapar de bloqueio, nao finge ser navegador de gente. Quando a plataforma diz
 nao, a resposta e `ROUTE_NOT_ALLOWED` ou `BLOCKED` no artefato — nunca uma
 tentativa mais esperta.
 """
+import contextlib
+import threading
 import time
 import urllib.error
 import urllib.parse
@@ -150,6 +152,119 @@ def _carregar_robots(base):
     return rp, 'LIDO'
 
 
+# ── O PORTAO TAMBEM VALE PARA O SALTO ─────────────────────────────────────────
+# Medido na LINKEDIN-OP-01: o portao julgava o endereco PEDIDO e o `urlopen`
+# seguia os 301/302 em silencio. Um site que redirecionasse para um host barrado
+# era buscado sem ninguem perguntar nada — e a rota de descoberta indireta do
+# LinkedIn morre exactamente assim, porque um `Location: linkedin.com` faz o
+# pedido acabar no host que a politica proibe.
+#
+#     UM PORTAO QUE JULGA SO O PRIMEIRO ENDERECO NAO JULGA O PEDIDO.
+#     UM REDIRECIONAMENTO E UM PEDIDO NOVO, E PEDE LICENCA OUTRA VEZ.
+#
+# Isto vive AQUI e nao no adaptador porque «o portao vale em cada salto» e uma
+# propriedade do TRANSPORTE, e o transporte tem dono. Uma copia da regra dentro
+# de um adaptador seria a regra a valer numa rota e a faltar em todas as outras.
+#: Hosts que a CHAMADA declarou como proibidos para ela. Vive num contexto de
+#: thread porque o `urlopen` nao leva argumentos ate ao handler de
+#: redireccionamento — e porque a lista e de UMA chamada, nao do processo.
+#:
+#: O transporte nao sabe o que e o LinkedIn, e nao tem de saber: ele recebe uma
+#: lista de hosts e recusa-a. Quem sabe POR QUE aqueles hosts sao proibidos e a
+#: rota que os declara.
+#:
+#:     O DONO DA REGRA E QUEM A DECLARA. O DONO DO PONTO DE COBRANCA E ESTE
+#:     FICHEIRO. SAO PAPEIS DIFERENTES DA MESMA TRAVA.
+_LOCAL_HOSTS = threading.local()
+
+
+def _hosts_proibidos_da_chamada():
+    return getattr(_LOCAL_HOSTS, 'hosts', ()) or ()
+
+
+def host_de(url):
+    """→ o host desta URL em minusculas, ou '' quando ela nao tem host.
+
+    Publico pela mesma razao que `host_na_lista`: um adaptador que importe
+    `urllib` para responder a isto fica a um passo de abrir a sua propria
+    ligacao, e ha uma sentinela desta casa que o proibe.
+    """
+    return (urllib.parse.urlsplit(str(url or '')).hostname or '').lower().rstrip('.')
+
+
+def host_na_lista(url, lista):
+    """→ o host desta URL, se ele estiver na lista; senao None. Puro, zero rede.
+
+    Publico porque quem DECLARA a lista precisa de poder conferir o alvo antes de
+    pedir, e a alternativa era cada rota reimplementar «que host e este» com o
+    seu proprio `urlsplit`. Um adaptador que importa `urllib` esta a um passo de
+    abrir a sua propria ligacao — e ha uma sentinela desta casa que o proibe.
+
+        QUEM PERGUNTA «QUE HOST E ESTE?» ESTA A FAZER UMA PERGUNTA DE TRANSPORTE.
+    """
+    host = (urllib.parse.urlsplit(str(url or '')).hostname or '').lower().rstrip('.')
+    if not host:
+        return None
+    for mau in lista:
+        mau = str(mau).lower()
+        if host == mau or host.endswith('.' + mau):
+            return host
+    return None
+
+
+@contextlib.contextmanager
+def hosts_proibidos(*hosts):
+    """Declara, para o bloco, hosts que NENHUM salto desta chamada pode alcancar.
+
+    Recusa-se ANTES de `permitido()`, e isso e o ponto: `permitido()` le o
+    robots.txt do host, e ler o robots de um host proibido ja e um pedido a ele.
+
+        UMA PROIBICAO QUE PERGUNTA AO PROIBIDO NAO CHEGOU A ZERO PEDIDOS.
+    """
+    antes = getattr(_LOCAL_HOSTS, 'hosts', ())
+    _LOCAL_HOSTS.hosts = tuple(antes) + tuple(hosts)
+    try:
+        yield
+    finally:
+        _LOCAL_HOSTS.hosts = antes
+
+
+class _PortaoEmCadaSalto(urllib.request.HTTPRedirectHandler):
+    """Cada destino de redirecionamento passa pelo mesmo `permitido()`."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # A lista da chamada vem PRIMEIRO, e sem rede: ler o robots de um host
+        # que esta rota nunca visita seria um pedido a ele.
+        mau = host_na_lista(newurl, _hosts_proibidos_da_chamada())
+        if mau is not None:
+            raise RotaNaoPermitida(
+                'redirecionamento recusado sem sair da maquina · a chamada '
+                'declarou %s como host proibido · %s -> %s'
+                % (mau, req.full_url, newurl))
+        ok, motivo = permitido(newurl)
+        if not ok:
+            raise RotaNaoPermitida(
+                'redirecionamento recusado pelo portao · %s · %s -> %s'
+                % (motivo, req.full_url, newurl))
+        novo = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if novo is not None:
+            # O tipo de pedido viaja com o salto: uma retentativa de rota que
+            # perdesse a etiqueta seria cobrada ao teto com o nome errado.
+            novo.tipo_de_pedido = getattr(req, 'tipo_de_pedido', PEDIDO_ROTA)
+        return novo
+
+
+# E INSTALA-SE, em vez de se abrir por fora.
+#
+# `_ABRIDOR.open(...)` funcionaria e estaria errado: o teto de rede da C10.8A-R
+# cobra em `urllib.request.urlopen`, e chamar o abridor por fora passava por
+# fora do teto. Instalar o abridor mantem `urlopen` como a unica porta — o teto
+# continua a contar, e o portao passa a ver os saltos.
+#
+#     UM CONSERTO QUE CONTORNA UM TETO NAO E UM CONSERTO.
+urllib.request.install_opener(urllib.request.build_opener(_PortaoEmCadaSalto()))
+
+
 def buscar(url, *, aceitar_json=True):
     """GET com o portão na frente. Nenhuma rota escapa dele.
 
@@ -157,6 +272,10 @@ def buscar(url, *, aceitar_json=True):
     portão não conseguiu JULGAR. Transformá-la aqui numa recusa seria repetir
     o defeito que a C10.8A mediu ao vivo.
     """
+    mau = host_na_lista(url, _hosts_proibidos_da_chamada())
+    if mau is not None:
+        raise RotaNaoPermitida(
+            'a chamada declarou %s como host proibido para ela · %s' % (mau, url))
     ok, motivo = permitido(url)
     if not ok:
         raise RotaNaoPermitida('%s · %s' % (motivo, url))
@@ -170,6 +289,16 @@ def buscar(url, *, aceitar_json=True):
             corpo = f.read().decode('utf-8', 'replace')
     except urllib.error.HTTPError as e:
         raise RotaBloqueada('HTTP %s em %s' % (e.code, url))
+    except RotaNaoPermitida:
+        # ⚠️ PELA TERCEIRA VEZ NESTA CADEIA, e a ocasiao foi o portao passar a
+        # ver os saltos. Uma recusa de POLITICA nossa saia daqui como
+        # `RotaBloqueada`, que quer dizer «a plataforma nos impediu» — e um
+        # redireccionamento recusado pelo nosso portao nao e o host a barrar-nos.
+        #
+        #     QUEM DISSE NAO TEM NOME, E O NOME NAO SE TROCA A CAMINHO DE CIMA.
+        #
+        # A recusa do portao sobe inteira, como a do teto ao lado.
+        raise
     except SemOrcamentoDeRede:
         # ⚠️ PELA SEGUNDA VEZ NESTA CADEIA: o `except Exception` ia traduzir uma
         # recusa NOSSA para `RotaBloqueada`, que quer dizer «a plataforma nos
@@ -244,9 +373,9 @@ class EstadoDaApi(RuntimeError):
 # Duas execuções têm orçamentos distintos. Um contador global de módulo faria a
 # segunda corrida herdar a dívida da primeira — e, pior, faria uma corrida
 # inocente ser recusada por causa de outra.
-import contextlib
+# `contextlib` e `threading` sobem ao topo desde a LINKEDIN-OP-01: o portao dos
+# saltos precisa dos dois, e ele vive acima desta linha.
 import socket as _socket
-import threading
 
 _LOCAL = threading.local()
 

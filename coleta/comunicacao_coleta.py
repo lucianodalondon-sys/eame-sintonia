@@ -90,7 +90,22 @@ ATORES = {
     # quem escolhe adaptador e fornecedor e o SCRAP — nao este ficheiro.
     'INSTAGRAM': ('apify~instagram-scraper', 'NAO_VERIFICADO'),
     'FACEBOOK': ('apify~facebook-posts-scraper', 'NAO_VERIFICADO'),
-    'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),
+    # O LINKEDIN SAIU DAQUI NA LINKEDIN-OP-01, e a ausencia e a prova.
+    #
+    # Ele dizia `('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA')`, e
+    # o rotulo era verdadeiro: o ator JA correu nesta casa e deixou 372 posts
+    # preservados. Mas a C11 mediu o que esse rotulo nao diz:
+    #
+    #     TECHNICALLY_PROVEN_HISTORY != CURRENT_ALLOWED_ROUTE.
+    #     UMA ROTA QUE FUNCIONA NAO E UMA ROTA PERMITIDA.
+    #     HISTORICO NAO E CAPACIDADE ACTUAL.
+    #
+    # `LINKEDIN/FETCH_POST` tem duas rotas declaradas e as duas estao
+    # `PERMITIDA = NAO`. Um identificador de ator pago guardado ao lado de uma
+    # rota proibida e a metade de um caminho — e a outra metade aparece no dia em
+    # que alguem ler o rotulo `JA_RODOU_NESTA_CASA` como autorizacao.
+    #
+    #     CODIGO MORTO COM CARA DE ROTA VIVA E PIOR QUE CODIGO APAGADO.
 }
 
 # ── A QUE ROTA DECLARADA CADA ATOR CORRESPONDE ──────────────────────────────
@@ -116,7 +131,8 @@ ATORES = {
 ROTA_DECLARADA_DO_ATOR = {
     'INSTAGRAM': ('FETCH_POST', 'apify:instagram-scraper'),
     'FACEBOOK': ('FETCH_POST', 'apify:facebook'),
-    'LINKEDIN': ('FETCH_POST', 'apify:harvestapi~linkedin-*'),
+    # O LinkedIn sai tambem daqui, e tem de sair das DUAS: `conferir_atores()`
+    # reprova quem tem rota declarada e nao tem ator, e reprovaria com razao.
 }
 
 #: As classes de rota que custam dinheiro. Quem decide e a matriz.
@@ -165,14 +181,34 @@ CAPACIDADES_SCRAP = {
 }
 
 
+#: AS PLATAFORMAS QUE ESTA FASE ATENDE PARA LHES DIZER NAO.
+#:
+#: O LinkedIn nao tem ator pago (a politica proibe a rota) e nao tem capacidade
+#: canonica de POSTS (a capacidade permitida dele e IDENTIDADE, que nao e esta
+#: fase). Tirando-o das duas tabelas, ele desaparecia de `_PLATAFORMAS()` — e
+#: com ele desaparecia a recusa.
+#:
+#:     UMA RECUSA QUE NAO SE ALCANCA NAO E UMA RECUSA: E UM SILENCIO.
+#:
+#: Entao ele fica declarado AQUI, que e a terceira resposta possivel a pergunta
+#: «esta plataforma passa por esta fase?»: passa, e sai recusada pela politica.
+#: Uma tabela, e nao um `if plataforma == 'LINKEDIN'` — esse seria um segundo
+#: dono da politica, e a politica tem dono: `leis/social_matriz.py`.
+ATENDIDAS_SO_PARA_RECUSAR = {
+    'LINKEDIN': 'FETCH_POST · as duas rotas declaradas estao PERMITIDA = NAO',
+}
+
+
 def _PLATAFORMAS():
     """As plataformas que esta fase atende, venham de que rota vierem.
 
-    Duas tabelas, uma pergunta. Enquanto so havia `ATORES`, ela respondia
+    Tres tabelas, uma pergunta. Enquanto so havia `ATORES`, ela respondia
     sozinha; depois da C3 ha plataformas sem ator nenhum, e continuar a
-    perguntar so a `ATORES` faria o YouTube desaparecer do proprio CLI.
+    perguntar so a `ATORES` faria o YouTube desaparecer do proprio CLI. Depois
+    da LINKEDIN-OP-01 ha uma plataforma que esta fase atende PARA RECUSAR, e
+    esquece-la faria a recusa desaparecer do CLI pela mesma razao.
     """
-    return set(ATORES) | set(CAPACIDADES_SCRAP)
+    return set(ATORES) | set(CAPACIDADES_SCRAP) | set(ATENDIDAS_SO_PARA_RECUSAR)
 
 
 def contas_autorizadas(plataforma=None):
@@ -297,8 +333,12 @@ def entrada(plataforma, conta, dias):
     if plataforma == 'FACEBOOK':
         return {'startUrls': [{'url': url}], 'resultsLimit': 50,
                 'onlyPostsNewerThan': desde}
-    if plataforma == 'LINKEDIN':
-        return {'companyUrls': [url], 'maxItems': 50, 'postedLimit': '%dd' % dias}
+    # O LinkedIn saiu daqui na LINKEDIN-OP-01, pela mesma razao que o YouTube
+    # saiu na C3: ele deixou de ter ator, entao deixou de ter entrada. O bloco
+    # montava `{'companyUrls': [...], 'maxItems': 50}` — a entrada exacta do
+    # `harvestapi~linkedin-post-search` — para uma rota `ROUTE_NOT_ALLOWED`.
+    #
+    #     UMA ENTRADA DE ATOR PRONTA E METADE DE UMA COMPRA.
     if plataforma in CAPACIDADES_SCRAP:
         raise ValueError(
             '%s nao tem entrada de ator: ela pede CAPACIDADE ao SINTONIA SCRAP '
@@ -559,6 +599,41 @@ def _colher_pelo_scrap(plataforma, contas, dias):
 
 
 def fase_posts(plataforma):
+    # ── A POLÍTICA VEM ANTES DO INVENTÁRIO ──────────────────────────────────
+    # Medido na LINKEDIN-OP-01: esta fase JÁ perguntava a `social_matriz` antes
+    # de haver rota paga — a C10.6D pôs a pergunta lá — mas ela vinha DEPOIS de
+    # `contas_autorizadas()`. Para o LinkedIn, que não tem conta AUTORIZADA
+    # local, a função voltava `None` dizendo «nenhuma conta AUTORIZADA», e a
+    # resposta sobre PERMISSÃO nunca era alcançada.
+    #
+    # As duas frases são factos diferentes, e a casa não deixa colapsar factos:
+    #
+    #     AUSÊNCIA DE CONTA NÃO É ROTA NÃO PERMITIDA.
+    #     UM PORTÃO QUE SÓ SE ALCANÇA COM INVENTÁRIO NÃO É UM PORTÃO DE POLÍTICA.
+    #
+    # E o risco era real e silencioso: no dia em que alguém cadastrasse uma
+    # conta LinkedIn, a proteção passava a depender de um gate lá embaixo — que
+    # existe e funciona, mas que ninguém tinha visto responder, porque nunca
+    # chegava a ser chamado.
+    #
+    # A pergunta não muda de dono: continua a ser `leis/social_matriz.py` a
+    # responder. Só deixa de estar atrás de uma pergunta de inventário.
+    #
+    # Quem tem capacidade canônica não passa por aqui: a rota dessa plataforma
+    # não é `FETCH_POST`, e perguntar por uma rota que ela não usa seria recusar
+    # pelo motivo errado. O YouTube mede `NOT_DECLARED` em `FETCH_POST` e colhe
+    # por `youtube.channel.discovery` — gatear nisto desligava-o.
+    if plataforma not in CAPACIDADES_SCRAP:
+        _d = mz.decisao(plataforma, 'FETCH_POST')
+        if _d['DECISAO'] != mz.PERMITIDA_SIM:
+            print('ROTA_NAO_AUTORIZADA=%s/FETCH_POST' % plataforma)
+            print('  decisao   %s' % _d['DECISAO'])
+            print('  porque    %s' % _d['PORQUE'])
+            print('  APIFY_RUNS=0 · HARVESTAPI_START_POSTS=0 · COST_USD=0')
+            print('  Nada saiu desta máquina, e isto é uma recusa de POLÍTICA —')
+            print('  não é ausência de conta, e não é zero resultados.')
+            return None
+
     contas = contas_autorizadas(plataforma)
     if not contas:
         print('nenhuma conta AUTORIZADA em %s. Isto é ausência de conta provada '
