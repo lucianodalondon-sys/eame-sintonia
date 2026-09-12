@@ -291,20 +291,59 @@ CORRIDA_PARA_O_RAW = ("RUN_ID", "PLATFORM", "ACTOR", "ACTOR_VERSION",
                       "RULE_VERSION", "SOURCE_COUNTRY", "STARTED_AT")
 
 
+# ── COMO CADA CAMPO DIZ «NAO VEIO» ────────────────────────────────────────
+# ⚠️ A CONFISSAO TEM DE CABER NA COLUNA QUE A RECEBE. `NOT_PRESERVED` e a
+# palavra desta casa e continua a ser; mas `collection_run.source_country` nao
+# e texto: e o enum `pais`, e o vocabulario dele e outro —
+#
+#     ES · FR · IT · PT · EU · BR · OTHER · NAO_SEI
+#
+# MEDIDO contra PostgreSQL 16 com as 27 migrations aplicadas:
+#
+#     corrida COMPLETA  ->  raw_asset = 1 · RUN_STATE = COMPLETE
+#     corrida sem pais  ->  raw_asset = 0 · RUN_STATE = PARTIAL
+#                           ERROR: invalid input value for enum pais:
+#                           "NOT_PRESERVED"
+#
+# O bruto nao aterrava, e nao aterrava EM SILENCIO para quem nao lesse o
+# recibo. E a mesma familia do defeito do `SOURCE_ID` (§60): um valor honesto
+# de um lado que o outro lado nao aceita.
+#
+#     UMA CONFISSAO QUE A COLUNA RECUSA
+#     NAO E UMA CONFISSAO: E UMA PERDA.
+#
+# ⚠️ E ISTO NAO COLAPSA OS DOIS CONCEITOS. `NOT_PRESERVED != NAO SEI` continua
+# a valer, e continua a ser o que os outros campos recebem. O que esta tabela
+# diz e outra coisa: QUAL DAS DUAS PALAVRAS o dono de CADA campo entende. Quem
+# manda no vocabulario da ausencia e o dono da coluna, e nao a fronteira.
+#
+# `pais` ja declara `NAO_SEI` como o seu proprio default — o autor do esquema
+# ja tinha decidido o que e um pais nao declarado. Aqui so se OBEDECE a essa
+# decisao, em vez de lhe impor a palavra de outro contrato.
+AUSENCIA_POR_CAMPO = {
+    "SOURCE_COUNTRY": "NAO_SEI",     # enum `pais`, migration 001
+}
+AUSENCIA_PADRAO = "NOT_PRESERVED"
+
+
 def _corrida_completa(corrida: dict) -> dict:
     """A corrida na lingua do dono do RAW, sem inventar o que nao veio.
 
-    Campo que o chamador nao trouxe fica `NOT_PRESERVED` — a confissao que o
-    manifesto desta casa ja define — e NAO fica ausente. Ausente rebentaria a
-    colheita inteira por causa de um campo; e preenchido com um palpite seria
+    Campo que o chamador nao trouxe fica com a CONFISSAO QUE O DONO DAQUELE
+    CAMPO ENTENDE — `NOT_PRESERVED` para quase todos, e a palavra propria da
+    coluna quando ela tem uma. E NAO fica ausente: ausente rebentaria a
+    colheita inteira por causa de um campo, e preenchido com um palpite seria
     pior, porque passaria a parecer medido.
 
         NOT_PRESERVED != AUSENTE != NAO SEI != ZERO.
+
+    Os quatro continuam diferentes. O que mudou nao foi o significado: foi
+    deixar de escrever uma palavra onde ela nao e lingua.
     """
     fora = dict(corrida)
     for c in CORRIDA_PARA_O_RAW:
         if not fora.get(c):
-            fora[c] = "NOT_PRESERVED"
+            fora[c] = AUSENCIA_POR_CAMPO.get(c, AUSENCIA_PADRAO)
     fora["RUN_ID"] = corrida.get("RUN_ID") or ""
     fora["STARTED_AT"] = corrida.get("STARTED_AT") or art.agora()
     return fora
