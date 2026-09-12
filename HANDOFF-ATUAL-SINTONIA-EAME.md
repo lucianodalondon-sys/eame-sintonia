@@ -2300,6 +2300,104 @@ NOT_MEASURED NAO SE ARREDONDA PARA NO. E NOT_IMPLEMENTED TAMBEM NAO.
 
 ---
 
+## 21. C10.4B — UMA PORTA QUE NENHUM IMPORT MOSTRA
+
+```
+MISSAO  = C10.4B · ONE CAPABILITY -> ONE LIVE PATH, 2026-09-12
+BRANCH  = claude/sintonia-scrap-instagram-single-path-c10-4b
+ENTREGA = docs/sintonia-scrap/C10-4B-UM-CAMINHO-SO.md
+VEREDITO= DUPLICATE_REACHABLE
+```
+
+### 21.1 · Um censo de alcancabilidade que so le Python esta incompleto
+
+**O QUE.** Procurar chamadores de uma implementacao dentro dos ficheiros `.py`
+responde a uma pergunta mais pequena do que «isto e alcancavel?».
+
+**POR QUE.** Workflows de CI, entradas de linha de comando e agendadores sao
+call paths reais que nenhum `import` revela.
+
+**PROVA.** A implementacao velha de transcricao de Reel — a que baixa o MP4
+inteiro e depois faz `ffmpeg -vn` — tem ZERO importadores de producao. Uma
+armadilha nas funcoes publicas dela ficou muda nas SEIS entradas canonicas, e
+disparou quando chamada de proposito. Parecia codigo morto.
+
+E entao o censo olhou para `.github/workflows/`:
+
+```text
+fase=transcrever  ->  ferramentas/instagram_transcrever.py rodar
+```
+
+`workflow_dispatch`. E o pipeline fecha em si mesmo: a fase `janela` escreve o
+corpus, o proprio workflow faz commit dele, e a fase `transcrever` le-o.
+
+```text
+UMA PORTA QUE NENHUM IMPORT MOSTRA CONTINUA A SER UMA PORTA.
+```
+
+**CONSEQUENCIA.** Todo censo de alcancabilidade tem de incluir workflows,
+scripts de linha de comando e agendadores. `MODULE EXISTS != EDGE EXISTS` ja
+estava escrito; falta va dizer que a aresta pode nascer fora do Python.
+
+### 21.2 · Uma decisao que uma porta nao conhece nao e uma decisao
+
+**O QUE.** Uma decisao de politica so vale nas portas que a leem.
+
+**PROVA.** A C10.5D fechou `INSTAGRAM_REMOTE_ACQUISITION = NOT_ALLOWED`. Medido
+na C10.4B: nem `instagram_transcrever.py` nem `instagram_janela.py` mencionavam
+`social_matriz`, `politica_da_aquisicao` ou `scrap_http` — zero, nos dois. A
+decisao humana nao alcancava a porta do workflow.
+
+```text
+UMA DECISAO QUE UMA PORTA NAO CONHECE NAO E UMA DECISAO. E UM DESEJO.
+```
+
+**CONSEQUENCIA.** Depois de qualquer decisao de politica, a pergunta seguinte e
+sempre a mesma: QUANTAS PORTAS existem para o acto decidido, e quantas delas
+leem a decisao? A C10.4B ligou a velha ao mesmo dono, nos seus dois pontos de
+rede — incluindo o embed, porque GRATIS NAO E PERMITIDO: abrir o embed sobe
+navegador e toca o host.
+
+### 21.3 · Corpus diferente nao e conceito diferente
+
+**O QUE.** Duas implementacoes que leem datasets diferentes podem continuar a
+ser a MESMA capacidade.
+
+**POR QUE.** O `§6` de uma missao de convergencia pergunta se a implementacao
+velha tem «funcao legitima diferente». Ler outro ficheiro nao e uma.
+
+**PROVA.** A velha le `INSTAGRAM-JANELA` e escreve `INSTAGRAM-TRANSCRICOES`; a
+nova le `COMPETITOR-PUBLIC-COMM` e escreve `REEL-TRANSCRICOES`. Datasets
+distintos, corpora distintos — e exactamente o mesmo conceito: obter fala de um
+Reel. So que uma pede `-f bestaudio` e a outra baixa tudo e deita a imagem fora.
+
+```text
+CORPUS DIFERENTE NAO E CONCEITO DIFERENTE.
+O QUE SEPARA DUAS CAPACIDADES E O QUE ELAS FAZEM COM A REDE.
+```
+
+**CONSEQUENCIA.** `ONE CONCEPT -> ONE OWNER` continua por cumprir no Instagram:
+ha um conceito com dois donos, e o segundo so desaparece quando alguem decidir
+aposentar a fase do workflow. Travar nao e aposentar — e o que se pode fazer
+sem decidir pelo dono.
+
+### 21.4 · A cicatriz que se repetiu, e o que a mata
+
+Dois sentinelas desta missao falharam por procurarem a palavra no ficheiro
+inteiro — e o que encontraram foi a PROSA que explica o caminho velho, nao um
+caminho para ele.
+
+```text
+UMA SENTINELA ANCORADA NO TEXTO MEDE O TEXTO, NAO A LEI.
+```
+
+O conserto e sempre o mesmo: ler a arvore. `import` mede-se nos nos `Import`;
+argv mede-se nas constantes do argv. Um comentario que fala do caminho velho
+nao e um caminho para ele — e um teste que nao sabe a diferenca vai falhar no
+dia em que alguem documentar bem.
+
+---
+
 ## EM PALAVRAS FÁCEIS
 
 Estamos consertando a fundação da coleta antes de voltar a crescer o sistema.
