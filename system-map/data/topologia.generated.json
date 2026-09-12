@@ -29,8 +29,8 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-12T20:10:51+00:00",
-  "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
+  "GENERATED_AT": "2026-09-12T20:18:03+00:00",
+  "HEAD": "a196261a72b71366f95da3e9d5191b023bea88de",
   "BRANCH": "claude/system-map-g3-tree-fingerprint-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
@@ -1887,6 +1887,13 @@
     "LIDO_POR": "escreve_le() · open"
    },
    {
+    "PATH": "system-map/tests/test_impressao_verificavel.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "6f24bdc2315d9153b857f3f4fb682eb3b632b7c2",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
     "PATH": "system-map/tests/test_quatro_planos.py",
     "PAPEL": "FONTE",
     "VERSAO": "654b854780bf845b60e1717222711faa064d4825",
@@ -2664,8 +2671,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 375,
-  "INPUTS_DIGEST": "71db8bfc0b049eb276f855473a3f64660f3ef097b8a992b7eb459edcb0ce9e70",
+  "INPUTS_COUNT": 376,
+  "INPUTS_DIGEST": "1f8905b53d3e3ff55a487e795d547c311c68957bb17f44288efa0fbdeb184d7e",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2698,8 +2705,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "f8582cc7edf9e8da3f2eabf7a21024f36b9ff2fe5f51cbc3a5cd7609867d0130",
-  "SEMANTIC_HASH": "987e71e5c9c2c8b931cef1b98bbc1497e9ab4f42a9fb920c01a8311a15da1c2e"
+  "MEASUREMENT_HASH": "5a23bfc284698aff1234a30516de56938b14d636d84b2f46c6435c7ca0f63c7e",
+  "SEMANTIC_HASH": "a2883f7e61c2103ff8197f2c932b111b4c9ccb7d43761ac920954c17c750d9b5"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5164,6 +5171,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 55,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 56,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_reconciliacao_do_universo.py",
       "LINHA": 263,
       "SUPPORTS": "YES",
@@ -5251,6 +5274,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-CENSO-COLETA--READS-->C-MAPA-TESTES",
+    "FROM": "C-CENSO-COLETA",
+    "TO": "C-MAPA-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 54,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CENSO-COLETA--READS-->C-MAPA-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -6250,6 +6295,14 @@
      {
       "FICHEIRO": ".github/workflows/system-map.yml",
       "LINHA": 366,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": ".github/workflows/system-map.yml",
+      "LINHA": 385,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -12718,6 +12771,14 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 44,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_system_map.py",
       "LINHA": 809,
       "SUPPORTS": "YES",
@@ -12777,6 +12838,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 268,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "system-map/tests/test_system_map.py",
       "LINHA": 277,
@@ -13001,6 +13070,22 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 50,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 52,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "system-map/tests/test_system_map.py",
       "LINHA": 473,
@@ -19692,12 +19777,12 @@
     ]
    }
   ],
-  "COUNT": 594
+  "COUNT": 595
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 111,
   "CARTOES_AUDITADOS": 111,
-  "ARESTAS_RELACIONADAS": 594,
+  "ARESTAS_RELACIONADAS": 595,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -19974,7 +20059,7 @@
    "CODE": 67,
    "CONTROL": 63,
    "DATA": 25,
-   "PROOF": 207,
+   "PROOF": 208,
    "READ": 128,
    "RULE": 97,
    "WRITE": 7
@@ -22567,6 +22652,7 @@
    "FICHEIROS": [
     "system-map/tests/test_freshness.mjs",
     "system-map/tests/test_impressao_da_arvore.py",
+    "system-map/tests/test_impressao_verificavel.py",
     "system-map/tests/test_quatro_planos.py",
     "system-map/tests/test_reconciliacao_do_universo.py",
     "system-map/tests/test_system_map.py",
@@ -22600,7 +22686,7 @@
     "pathlib",
     "pente_fino_da_coleta"
    ],
-   "ENTRAM": 18,
+   "ENTRAM": 19,
    "SAEM": 2,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

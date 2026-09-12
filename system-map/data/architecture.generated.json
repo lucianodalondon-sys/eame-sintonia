@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-g3-tree-fingerprint-v1",
-    "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
-    "GENERATED_AT": "2026-09-12T18:39:48+00:00",
+    "HEAD": "a196261a72b71366f95da3e9d5191b023bea88de",
+    "GENERATED_AT": "2026-09-12T20:16:13+00:00",
     "SOURCE_TREE_FINGERPRINT": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5"
   },
   "FILES": [
@@ -1536,7 +1536,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "e6615e9bc126bad56605620bd681fccfd5e312cb",
+      "sha": "2c1890dcc5762e2912362e221a421a88154c5883",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1564,14 +1564,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "b739bd872e688f57c54307c049acb6d02dda193f",
+      "sha": "b473eb8447bd886384b4e529c8e2544b8cc9e13a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "234c24734c1caabf2a931cdb67e54e5692b24b36",
+      "sha": "47af0eac61da8a07fb67b519da6f4deab6e6b6be",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -9704,6 +9704,13 @@
       "code_dir": true
     },
     {
+      "path": "system-map/tests/test_impressao_verificavel.py",
+      "sha": "6f24bdc2315d9153b857f3f4fb682eb3b632b7c2",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/tests/test_quatro_planos.py",
       "sha": "654b854780bf845b60e1717222711faa064d4825",
       "ext": ".py",
@@ -11695,6 +11702,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 313,
         "snippet": "run: python3 system-map/tests/test_impressao_da_arvore.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_impressao_verificavel.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 385,
+        "snippet": "run: python3 system-map/tests/test_impressao_verificavel.py"
       }
     },
     {
@@ -32576,6 +32594,105 @@
       }
     },
     {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "AGENTS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 339,
+        "snippet": "fonte = c / \"AGENTS.md\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "AGENTS.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 341,
+        "snippet": "fonte.write_text(original + \"\\n<!-- uma fonte que mudou -->\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 55,
+        "snippet": "(\"data/derivados/MATRIZ-CARDS-SENSORES-V1.json\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 44,
+        "snippet": "CADEIA = json.loads((SCRIPTS / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "system-map/scripts/censo_cards_sensores.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 56,
+        "snippet": "\"system-map/scripts/censo_cards_sensores.py\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "system-map/scripts/censo_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 54,
+        "snippet": "\"system-map/scripts/censo_da_coleta.py\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 268,
+        "snippet": "< passos.index(\"system-map/scripts/generate_system_map.py\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "system-map/scripts/pente_fino_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 52,
+        "snippet": "\"system-map/scripts/pente_fino_da_coleta.py\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_impressao_verificavel.py",
+      "to_file": "system-map/scripts/scan_sources.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_impressao_verificavel.py",
+        "line": 50,
+        "snippet": "\"system-map/scripts/scan_sources.py\"),"
+      }
+    },
+    {
       "from_file": "system-map/tests/test_quatro_planos.py",
       "to_file": "coleta/comunicacao_coleta.py",
       "type": "READS",
@@ -40172,10 +40289,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1503,
-    "files_readable": 582,
-    "files_code_dir": 627,
-    "file_edges": 2651,
+    "files_tracked": 1504,
+    "files_readable": 583,
+    "files_code_dir": 628,
+    "file_edges": 2661,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

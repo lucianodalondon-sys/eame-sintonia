@@ -1450,6 +1450,7 @@
       "system-map/scripts/verificar_deploy.py",
       "system-map/tests/test_freshness.mjs",
       "system-map/tests/test_impressao_da_arvore.py",
+      "system-map/tests/test_impressao_verificavel.py",
       "system-map/tests/test_quatro_planos.py",
       "system-map/tests/test_reconciliacao_do_universo.py",
       "system-map/tests/test_system_map.py",
@@ -1951,8 +1952,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-g3-tree-fingerprint-v1",
-    "HEAD": "547486ee68612160aeaecbe932cd63b5b251d04c",
-    "GENERATED_AT": "2026-09-12T18:39:48+00:00",
+    "HEAD": "a196261a72b71366f95da3e9d5191b023bea88de",
+    "GENERATED_AT": "2026-09-12T20:16:13+00:00",
     "SOURCE_TREE_FINGERPRINT": "590a8462d24cc1339a7d4f13e45f295ba187d80193a8eb0f198282827e21b3c5"
   },
   "FAMILIES": [
@@ -6350,6 +6351,7 @@
         "C-IMPRESSAO-DA-ARVORE"
       ],
       "outbound": [
+        "C-MAPA-TESTES",
         "C-RECONCILIACAO-UNIVERSO"
       ],
       "paises": {},
@@ -11074,13 +11076,14 @@
       "files": [
         "system-map/tests/test_freshness.mjs",
         "system-map/tests/test_impressao_da_arvore.py",
+        "system-map/tests/test_impressao_verificavel.py",
         "system-map/tests/test_quatro_planos.py",
         "system-map/tests/test_reconciliacao_do_universo.py",
         "system-map/tests/test_system_map.py",
         "system-map/tests/test_topologia_persistida.py",
         "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 7,
+      "file_count": 8,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -11092,6 +11095,7 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CENSO-CARDS-SENSORES",
+        "C-CENSO-COLETA",
         "C-CENSO-TOPOLOGIA",
         "C-CI-MAPA",
         "C-COLETA-PUBLICA",
@@ -23581,8 +23585,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Censo dos cards e dos sensores alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "Censo dos cards e dos sensores alimenta Testes do System Map. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 55,
+          "snippet": "(\"data/derivados/MATRIZ-CARDS-SENSORES-V1.json\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-MAPA-TESTES",
+            "FROM": "C-CENSO-CARDS-SENSORES",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 56,
+          "snippet": "\"system-map/scripts/censo_cards_sensores.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-MAPA-TESTES",
+            "FROM": "C-CENSO-CARDS-SENSORES",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/tests/test_reconciliacao_do_universo.py",
           "line": 263,
@@ -23728,6 +23764,41 @@
             "EDGE_ID": "C-CENSO-CARDS-SENSORES--READS-->C-TESTES",
             "FROM": "C-CENSO-CARDS-SENSORES",
             "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CENSO-COLETA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo da coleta alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 54,
+          "snippet": "\"system-map/scripts/censo_da_coleta.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-COLETA--READS-->C-MAPA-TESTES",
+            "FROM": "C-CENSO-COLETA",
+            "TO": "C-MAPA-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -25435,7 +25506,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 6 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
@@ -25521,6 +25592,22 @@
           "file": ".github/workflows/system-map.yml",
           "line": 366,
           "snippet": "run: python3 system-map/tests/test_topologia_persistida.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 385,
+          "snippet": "run: python3 system-map/tests/test_impressao_verificavel.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
             "FROM": "C-CI-MAPA",
@@ -36668,7 +36755,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Publicador do System Map no deploy alimenta Testes do System Map. Provado por 5 linhas de codigo.",
+      "reason": "Publicador do System Map no deploy alimenta Testes do System Map. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_impressao_da_arvore.py",
@@ -36690,6 +36777,22 @@
           "file": "system-map/tests/test_impressao_da_arvore.py",
           "line": 163,
           "snippet": "x = correr([\"node\", \"system-map/scripts/publicar_no_deploy.mjs\"], cwd=str(r))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 44,
+          "snippet": "CADEIA = json.loads((SCRIPTS / \"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
             "FROM": "C-MAPA-DEPLOY",
@@ -36802,8 +36905,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "Gerador do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 268,
+          "snippet": "< passos.index(\"system-map/scripts/generate_system_map.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-GERADOR",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/tests/test_system_map.py",
           "line": 277,
@@ -37178,8 +37297,40 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Scanner do System Map alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "Scanner do System Map alimenta Testes do System Map. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 50,
+          "snippet": "\"system-map/scripts/scan_sources.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-SCAN",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 52,
+          "snippet": "\"system-map/scripts/pente_fino_da_coleta.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-SCAN",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/tests/test_system_map.py",
           "line": 473,
@@ -50782,12 +50933,12 @@
     "components_pending": 97,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 671,
-    "edges_proven": 624,
+    "edges": 672,
+    "edges_proven": 625,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1503,
-    "files_covered": 744,
+    "files_tracked": 1504,
+    "files_covered": 745,
     "files_code_unclaimed": 0
   }
 }
