@@ -98,15 +98,19 @@ INSTAGRAM_REQUESTS = 0 · APIFY_RUNS = 0 · PAID_RUNS = 0 · COST_USD = 0
 Ele encolheu de 441 para 132 linhas. Todas as seis funções levantam
 `RotaAposentada`. O `__main__` recusa **alto**, com código 2:
 
-```
-$ py ferramentas/instagram_transcrever.py rodar
-ROTA_APOSENTADA: `instagram_transcrever` baixava o video inteiro para
-transcrever. Aposentada na C10.4C. [...]
-$ echo $?
-2
-```
+Medido em seis formas de argumento — nenhuma, `rodar`, `alvos`, `--help`, `-h`,
+e `rodar small 5`. As seis devolvem **código 2**, e em todas o `stderr` abre com
+`ROTA_APOSENTADA:` seguido do nome do dono canônico.
 
     UM SCRIPT QUE SAI 0 SEM FAZER NADA DIZ QUE CORREU.
+
+> Este documento **não escreve a invocação**. O ataque 9 desta mesma missão
+> marca uma linha de comando dentro de um documento como porta — e marcou esta,
+> quando ela estava aqui em forma de `$ py …`. Que o comando só produza recusa
+> não muda a forma: quem procura «como transcrevo um reel» copia o que parece
+> um comando.
+>
+>     UMA DEMONSTRAÇÃO EM FORMA DE INSTRUÇÃO É UMA INSTRUÇÃO.
 
 Saíram três coisas que o faziam **parecer** um dono do conceito:
 
@@ -265,7 +269,7 @@ UMA SONDA QUE CONTA NOMES CONTA NOMES, NÃO CHAMADAS.
 
 ```
 TESTS_BEFORE    = 2293      FAILURES_BEFORE = 23
-TESTS_AFTER     = 2319      FAILURES_AFTER  = 21
+TESTS_AFTER     = 2321      FAILURES_AFTER  = 21
 NEW_FAILURES    = 0
 ASR_OWNERS      = 1
 ```
