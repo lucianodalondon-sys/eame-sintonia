@@ -4910,3 +4910,161 @@ qualquer prova E2E nova teria batido neste enum antes de chegar ao resto.
 COLLECTION_CORE_CLOSE  continua FAIL
 BLOCKERS               5 → 4
 ```
+
+---
+
+# §66 · UMA EXECUÇÃO QUE MORREU NÃO ESCREVE O PRÓPRIO FIM
+
+**Missão:** `C10.6B — RUN DURÁVEL / CHECKPOINT CANÔNICO`
+**HEAD final:** `a8c28172`
+**Tocado:** `coleta/coleta_checkpoint.py` · `medidas/rastro_da_coleta.py` ·
+`ferramentas/reel_transcricao.py` · `coleta/adaptador_instagram.py`
+
+## 66.1 · O QUÊ
+
+A C10.6 tinha provado que a cadeia de Reel aguenta um `os._exit()`. Ficou
+`PARTIAL` por um motivo só: o processo seguinte sabia ler a **gaveta**.
+
+```
+RUN_STATE_PERSISTENCE  NOT_IMPLEMENTED → IMPLEMENTED
+MUTANTS = 12  SURVIVORS = 0 · ATTACKS = 25 · NEW_FAILURES = 0
+NEW_MIGRATION = NO · LIVE_TOUCHED = NO
+```
+
+    UM FICHEIRO NO DISCO É UM RESULTADO. NÃO É UMA EXECUÇÃO.
+
+Nenhuma coluna nova. As migrations 001, 016 e 024 já tinham representação
+honesta para tudo — o que faltava era **aresta**, e a casa já tinha escrito que
+isso não é a mesma coisa: `MODULE EXISTS != EDGE EXISTS != FLOW EXISTS`.
+
+## 66.2 · A LEI QUE A TABELA JÁ TINHA, E QUE RESOLVEU A PERGUNTA DIFÍCIL
+
+Depois de uma retomada, o que fazer com a execução que morreu? A tentação é
+marcá-la `falhou`. O comentário da própria `collection_run` proíbe:
+
+> «PROVENIÊNCIA É PROSPECTIVA: não se preenche elo de execução passada. Inventar
+> o elo depois seria fabricar proveniência.»
+
+    UMA EXECUÇÃO QUE MORREU NÃO ESCREVE O PRÓPRIO FIM.
+    E NINGUÉM ESCREVE POR ELA.
+
+E não é só direito: é **conhecimento**. `rodando` e `EM_CURSO` não distinguem
+«alguém está a correr agora» de «alguém morreu a correr». Sem lease, heartbeat
+ou `pid+host`, nenhum leitor sabe qual dos dois é — e inventar a distinção seria
+sobrecarregar um campo com um segundo significado.
+
+O abandono fica **legível** na evidência: uma etapa `RUNNING` que ninguém fechou,
+ao lado de uma execução posterior no mesmo checkpoint que concluiu. Quem decide
+o que isso significa é gente.
+
+    UM ESTADO QUE SE LÊ DA EVIDÊNCIA É MAIS HONESTO QUE UM ESTADO QUE SE ESCREVE
+    POR SUPOSIÇÃO.
+
+## 66.3 · `RUNNING` ESTAVA NO VOCABULÁRIO E NENHUM ESCRITOR O SABIA ESCREVER
+
+`leis/telemetria.py` declarava `RUNNING` desde sempre. `medidas/rastro_da_coleta`
+escrevia a passagem **depois** de ela acontecer, com o estado final — a forma
+certa para quem chega ao fim, e inútil para quem não chega.
+
+    UM ESTADO QUE NENHUM ESCRITOR ESCREVE SÓ EXISTE NO PAPEL.
+
+A etapa passou a escrever-se em dois tempos na MESMA linha (`abrir_etapa` /
+`fechar_etapa`), e a chave `(run_id, etapa, tentativa)` continua única. Quem
+morre entre as duas deixa `RUNNING` com `terminou_em` nulo — que não diz «está a
+correr agora», diz «começou e ninguém a fechou».
+
+**Corolário que a mesma missão descobriu:** um processo VIVO nunca pode deixar
+isso atrás de si. Só a morte tem esse direito, porque só ela não teve como
+fechar. Uma exceção dentro do trabalho fecha as etapas abertas antes de subir.
+
+## 66.4 · LER «PODES» NÃO É TER TOMADO
+
+`pode_gastar` é uma função `stable` — uma leitura pura. Entre a leitura e a
+escrita não há nada. Dois processos de verdade contra um Postgres de verdade,
+**20 rodadas em 20** avançaram o mesmo checkpoint duas vezes.
+
+    ENTRE A PERGUNTA E A ESCRITA CABE OUTRO PROCESSO INTEIRO.
+
+A correção não foi um lock novo nem uma coluna nova: a pergunta e a escrita
+passam a viajar na **mesma instrução** — `where estado <> 'CONCLUIDO' returning
+…`, o `compare-and-set` que a tabela já permitia. O perdedor volta de mãos
+vazias e **sabe** que perdeu.
+
+O que isto NÃO conserta, e ficou declarado: os dois continuam a fazer o
+trabalho. Impedir isso exige saber se o dono anterior está vivo — §66.2.
+
+## 66.5 · O `psql` FALA, E A FALA VIRAVA DADO
+
+Um `update … returning` que não casa com linha nenhuma imprime o **seu próprio
+recibo** em stdout: `UPDATE 0`. O leitor da casa devolvia-o como se fosse uma
+linha de resultado — e o `compare-and-set` acima lia `[['UPDATE 0']]`, concluía
+que tinha ganho, e os **dois** processos diziam «avancei».
+
+    ZERO LINHAS NÃO É UMA LINHA QUE DIZ ZERO.
+
+Conserto: `-q`. É a terceira vez que esta família morde a casa — `pode_gastar`
+já carrega no corpo o aviso do `'t'` contra `'true'`, e o mesmo leitor já tinha
+o buraco do campo final vazio que some no recorte.
+
+    QUANDO SE LÊ UM BANCO POR UM CLIENTE DE LINHA DE COMANDO,
+    A CONVERSA DO CLIENTE É PARTE DO QUE VOLTA — E NÃO É RESPOSTA.
+
+## 66.6 · UMA PROVA QUE MOSTRA O NÚMERO E NÃO O EXIGE MEDE O ECRÃ
+
+A prova de Postgres desta missão nasceu a **imprimir** o estado de cada crash e
+a passar. Parecia completa: matava processos de verdade, abria ligação nova,
+lia tudo do banco. Doze mutações mostraram o preço — **nove sobreviveram**.
+
+Nada ali exigia que o estado fosse aquele.
+
+    IMPRIMIR NÃO É AFIRMAR.
+
+Sete invariantes passaram a ser afirmadas, e a taxa foi a 12/12. É a mesma lei
+que a casa já tinha para sondas (`UMA SONDA QUE ENCONTRA ZERO E DIZ «LIMPO» MEDE
+A SONDA`), aplicada ao outro lado: uma prova que só descreve mede o relatório.
+
+## 66.7 · DOIS MUTANTES INVÁLIDOS, E O SEGUNDO DRIVER QUE ELES REVELARAM
+
+Duas das mutações «sobreviventes» não mudavam comportamento nenhum: uma
+renomeava uma função e chamava o nome novo; a outra cortava uma das **duas**
+escritas da mesma ligação.
+
+    UMA MUTAÇÃO QUE NÃO MUDA O QUE O CÓDIGO FAZ NÃO PROVA NADA.
+    UM MUTANTE INVÁLIDO É UM SOBREVIVENTE FALSO — E ELE ESCONDE OS VERDADEIROS.
+
+E uma terceira sobreviveu por um motivo que valeu a missão inteira: existiam
+**dois drivers** da mesma sequência durável. O segundo tinha zero chamadores, e
+a mutação trocou o bloco de abertura *dele*. A suíte não caiu porque ninguém o
+corre.
+
+    UM OWNER COM DUAS CÓPIAS DA MESMA ORDEM JÁ É DOIS.
+    E A CÓPIA QUE DIVERGE EM SILÊNCIO É SEMPRE A QUE NINGUÉM CHAMA.
+
+Foi retirado. Zero chamadores não é «inofensivo»: é «ninguém vai reparar».
+
+## 66.8 · INSTRUMENTAR NÃO PODE SER CONDIÇÃO PARA FUNCIONAR
+
+A cadeia de Reel sabe onde os seus degraus estão; não sabe que existe um
+Postgres do outro lado. A junta é um **relator**: um objeto com `abrir` e
+`fechar` que a cadeia usa nos degraus que realmente atravessa, e que quem tem
+banco substitui pelo que escreve.
+
+Sem relator, um objeto mudo responde `None` a tudo e a cadeia corre como sempre
+correu — um caminho de código só, e não dois com um `if` em cada degrau.
+
+    UM `if` POR DEGRAU É ONDE UM DEGRAU FICA DE FORA.
+
+E os estados que ela relata não são booleanos: bytes que já estavam em casa
+fecham `FETCH` em `SKIPPED` com `reused=1`, porque **reusar não é adquirir**; e
+«ouvi e não havia fala» fecha `DERIVED` em `PASS` com `canonical_state =
+ZERO_RESULTS`, porque **zero resultados é um resultado**.
+
+## 66.9 · CONSEQUÊNCIA
+
+`RUN_STATE_PERSISTENCE` deixa de ser o bloqueio da C10.6. A cadeia de Reel tem
+aresta para os três donos — RUN, checkpoint e rastro — e nenhum deles ganhou um
+segundo.
+
+Fica escrita, em vez de improvisada, a única coisa que exige contrato novo:
+**não há como perguntar se uma RUN está viva**. Enquanto não houver, `rodando`
+numa execução morta é a verdade que a casa consegue dizer.
