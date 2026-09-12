@@ -8242,3 +8242,171 @@ construído.
     ANTES DE DIZER QUE ALGO NÃO TEM DONO,
     DIGA QUAL DOS DONOS É QUE FALTA.
 ```
+
+---
+
+# §87 · METADE DE UM MECANISMO NÃO É UM MECANISMO A METADE: É NENHUM
+
+**Missão:** `C10.8B-R — RAW PAGO NÃO MORRE NO CHECKOUT`
+**Corrida:** `scrap-evidencia` run 34707069109 · dois runners, `ubuntu-latest`
+**Gasto:** `APIFY_RUNS = 0 · PROVIDER_START_POSTS = 0 · PAID_USD = 0`
+
+A `§84` descobriu que o bruto pago não sobrevivia ao job seguinte, e consertou a
+**forma**. Esta missão foi buscar os **bytes** — e o que se aprendeu está quase
+todo no caminho até lá, não no destino.
+
+## 87.1 · A CASA JÁ SABIA SUBIR. NUNCA TINHA IDO BUSCAR
+
+A busca pelo dono, antes de escrever qualquer linha, deu um resultado partido ao
+meio:
+
+```
+actions/upload-artifact    vivo, com lei própria    scrap-social.yml
+actions/download-artifact  ZERO workflows
+```
+
+Havia um dono do inventário com SHA, havia retenção declarada, havia até a lei
+`UPLOAD STEP SUCCESS != ARTIFACT EXISTS` escrita à mão porque um passo verde com
+zero ficheiros já tinha custado uma prova. Faltava a volta.
+
+```
+    GUARDAR SEM NUNCA TER IDO BUSCAR NÃO É GUARDAR. É ESPERAR.
+```
+
+Um mecanismo de transporte que nunca foi exercido nos dois sentidos é um
+mecanismo não testado que **parece** testado, porque metade dele tem provas.
+Vale para artefatos, para backups, para exports e para qualquer coisa que se
+escreva com a intenção de um dia se ler.
+
+## 87.2 · O BRUTO MAIS CARO DA CASA ERA O ÚNICO INVISÍVEL
+
+O `coletor` — a porta paga — grava o bruto com gzip e SHA próprios. É o dono
+daquele formato e, com razão, não passa pelo `guardar_raw` genérico. Só que
+quem embala a evidência lê o inventário da corrida, e o inventário só conhece
+quem passou pelo caminho genérico.
+
+```
+    O QUE O INVENTÁRIO NÃO VÊ NÃO ATRAVESSA A FRONTEIRA DO JOB.
+```
+
+O resultado é perverso e silencioso: os brutos **gratuitos** viajavam, e o único
+que custou dinheiro ficava para trás. Ninguém escreveu essa regra; ela emergiu
+de um dono legítimo ter um formato legítimo próprio.
+
+A lição não é «centralizar tudo num dono». É que **um dono especializado tem de
+se anunciar ao inventário** — a especialização é sobre o FORMATO, nunca sobre a
+existência.
+
+## 87.3 · UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER
+
+O pacote recusa-se a levar seis formas de credencial. A primeira versão da sonda
+lia os bytes do ficheiro e procurava os termos.
+
+O bruto pago nasce **comprimido**. Um token dentro do gzip passaria inteiro — e
+a sonda diria «limpo», com toda a confiança, sobre bytes que nunca leu.
+
+```
+    UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER.
+```
+
+O conserto foi olhar as duas formas. E a segunda metade importa tanto quanto a
+primeira: um gzip **ilegível** devolve `GZIP_ILEGIVEL`, e não «limpo». Falhar a
+ler não é a mesma coisa que ler e não encontrar — é a `§80` outra vez, noutra
+roupa: `UNKNOWN != ZERO`.
+
+A generalização: qualquer verificação sobre conteúdo tem de declarar o que
+**não conseguiu inspeccionar**, ou o seu verde é sobre a sua própria cegueira.
+
+## 87.4 · E A RECUSA NÃO PODE APAGAR A COISA QUE ELA PROTEGE
+
+Havia um atalho óbvio: encontrar o segredo e redigi-lo, deixando o pacote
+passar. É exactamente o que não se pode fazer.
+
+```
+    MELHOR FALHAR ALTO DO QUE REDIGIR EM SILÊNCIO:
+    APAGAR EVIDÊNCIA PARA O PACOTE PASSAR DESTRÓI A COISA
+    QUE O PACOTE EXISTE PARA GUARDAR.
+```
+
+Um RAW redigido é um RAW que já não é RAW, e ninguém a jusante saberia disso. A
+recusa levanta, e nada é escrito — nem pacote meio feito.
+
+## 87.5 · UM WORKFLOW SÓ SE PROVA NO RAMO ONDE FOI ESCRITO
+
+Medido duas vezes, com o ficheiro já no remoto:
+
+```
+POST …/workflows/scrap-evidencia.yml/dispatches → 404 Not Found
+```
+
+`workflow_dispatch` só é disparável quando o ficheiro já vive no **ramo padrão**.
+Um workflow novo, escrito num ramo de missão, não existe para a API que o
+dispararia.
+
+```
+    UM WORKFLOW QUE SÓ O RAMO PADRÃO PODE DISPARAR
+    NÃO PROVA NADA NO RAMO ONDE O MECANISMO FOI ESCRITO.
+```
+
+Junta-se à `§84.1`, e as duas juntas dizem a mesma coisa por dois caminhos: um
+workflow que ninguém executa é um workflow que ninguém testou — e às vezes a
+razão por que ninguém o executa é que **ainda não pode ser executado**. O
+conserto foi um `push` com filtro de caminhos: quando o mecanismo muda, ele
+volta a provar-se, no ramo onde está a ser construído.
+
+## 87.6 · UMA SENTINELA QUE LÊ ESTADO GLOBAL MEDE QUEM CORREU ANTES DELA
+
+Uma das quarenta sentinelas passava sozinha e ficava vermelha na suíte inteira.
+Ela lia uma variável de módulo viva — e outra bateria redirecciona essa mesma
+variável de propósito, para o bruto de teste não cair no acervo.
+
+```
+    UMA SONDA QUE LÊ ESTADO GLOBAL MEDE QUEM CORREU ANTES DELA.
+```
+
+É prima da `§77` (`um fake acima do gate mede o fake`) e da armadilha da sonda
+que lê a própria prosa — três formas da mesma coisa: **a sonda tem de medir a
+declaração, não o ambiente em que calhou correr**. Passou a ler o ficheiro que
+declara a gaveta.
+
+## 87.7 · UM MECANISMO TEMPORÁRIO QUE NÃO DIZ O PRAZO PASSA POR PERMANENTE
+
+O pacote funciona. É por isso que ele tem de dizer, dentro de si, o que não é:
+
+```
+EVIDENCE_CLASS                   DIAGNOSTIC_JOB_TO_JOB
+EVIDENCE_RETENTION               TEMPORARY · 30 dias
+CANONICAL_FORWARD_PRESERVATION   NO
+```
+
+```
+    WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE.
+    PRESERVAÇÃO COM PRAZO É PRESERVAÇÃO COM PRAZO, E NÃO PRESERVAÇÃO.
+```
+
+Sem estas linhas, a missão seguinte encontra um transporte que funciona, conclui
+que a preservação está resolvida, e o dono forward nunca é construído. Um
+mecanismo que resolve 30 dias e não o declara **adia para sempre** o que resolve
+o resto — e faz isso parecendo progresso.
+
+A recuperação é pela identidade da corrida, e só por ela: não há volta que
+escolha «o último artefato», porque um pacote de outra corrida com a mesma cara
+não é este pacote. E o SHA do manifesto nunca é aceite sozinho — ele é uma
+afirmação do pacote sobre si próprio; o recalculado é a medição.
+
+## 87.8 · CONSEQUÊNCIA
+
+```
+JOB_A_ARTIFACT_ID    10302640238 · 228.283 + 719.722 bytes assinados
+JOB_B_LOCAL_BEFORE   ABSENT   (runner distinto, checkout limpo)
+JOB_B_RECOVERED      YES · SHA_MATCH YES · REPROCESS_ITEMS 20
+REDE NO REPROCESSO   0 · PROVIDER_CALLS 0
+ATAQUES 40 · MUTANTES 14 · SOBREVIVENTES 0
+apify:transcricao    PARTIAL, intocada — nada correu no provider
+CANONICAL_FORWARD_PRESERVATION = NO, por escrito, em cada pacote
+```
+
+Os 59.743 bytes da `§84` não voltam. Continua por saber por que aquele objeto
+veio vazio, e continua a ser dinheiro que ninguém autorizou. O que mudou é que o
+próximo bruto pago que alguém precise de reler **vai lá estar** — durante trinta
+dias, e a contagem está escrita ao lado dos bytes.
