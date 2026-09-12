@@ -8075,3 +8075,137 @@ E o derivado aterra em `NAO_SEI/derivados/...`, porque `raw_asset` não tem colu
 de país para o provar. O dono do derivado está certo em não inferir; o efeito é
 que toda medição canónica deixa uma pasta `NAO_SEI/` na árvore — agora ignorada,
 como o `XX/` que a `§78` pagou para descobrir.
+
+---
+
+# §86 · UMA ROTA OFICIAL QUE NINGUÉM MODELOU NÃO ESTÁ BLOQUEADA: ESTÁ POR OLHAR
+
+> **Fonte:** `docs/sintonia-scrap/META-DEEP-STUDY-V1.md`,
+> `META-ROUTE-MATRIX-V1.json`, `META-COMPETITOR-COVERAGE-V1.md`.
+> Medido em 2026-09-12 · `META_PLATFORM_PROBES = 0` · `APIFY_RUNS = 0` · `COST_USD = 0`.
+
+A `§83` escreveu que uma linha de código prova que algo *consegue*, não que algo
+*aconteceu*. Esta secção acrescenta o degrau anterior, e ele é mais barato de
+errar: **antes de perguntar se a casa consegue, alguém tem de ter perguntado se
+a rota existe.**
+
+O estudo varreu a família Meta inteira e encontrou a maior rota oficial,
+gratuita e permitida para observar concorrentes — a **Meta Ad Library** — sem
+uma única ocorrência no repositório. Não bloqueada. Não recusada. Não medida e
+reprovada. **Ausente.** O mesmo para o *Branded Content Search*.
+
+```
+    AUSENTE NÃO É UM ESTADO DE CAPACIDADE. É A FALTA DE UM.
+    E o vocabulário fechado não avisa: `social_matriz.CAPACIDADES` tem doze
+    palavras e nenhuma delas nomeia «anúncio». Uma rota que não tem nome não
+    pode ser declarada `BLOCKED` — nem sequer chega a ser perguntada.
+```
+
+## 86.1 · OFFICIAL-FIRST MUDA O PAPEL DA APIFY, E NÃO O PREÇO DELA
+
+**O QUE MUDOU.** Onde existe rota oficial e gratuita, a Apify deixa de ser
+candidata a motor e passa a ser cobertura de **buraco residual**.
+
+**POR QUÊ.** Sete actors de Ad Library vendem, entre US$ 0,55 e US$ 17,00 por
+mil, a leitura de uma fonte cuja API oficial custa zero e cobre a Itália. O que
+eles dão a mais é o criativo em pixels, arrancado da página de *snapshot* —
+rota que documentação nenhuma garante.
+
+**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 19 e Parte 28; `gap_apify()` medido no
+próprio repositório.
+
+**CONSEQUÊNCIA.** Comprar por item o que a rota oficial entrega de graça é pagar
+pela diferença entre não ter credencial e ter. O motivo canónico de gasto passa
+a ter de distinguir isso — e a casa já tem as duas palavras:
+`FREE_ROUTE_UNAVAILABLE` ≠ `AUTHORIZATION_BLOCK`.
+
+## 86.2 · JANELA CURTA TORNA O DELTA UMA NECESSIDADE DE PRESERVAÇÃO
+
+**O QUE MUDOU.** O delta deixa de ser optimização de custo e passa a ser a única
+forma de a casa ter histórico.
+
+**POR QUÊ.** A janela comercial da Ad Library na UE é de **um ano a contar da
+última impressão** — não de sete, que é a janela do corpus político. O que não
+for colhido enquanto está lá desaparece e não volta.
+
+**PROVA.** `META-DEEP-STUDY-V1.md` §5: `COMMERCIAL_EU_HISTORY = 1 ANO a contar
+da última impressão`, citado da documentação primária da Meta.
+
+**CONSEQUÊNCIA.**
+
+```
+    NÃO HÁ CATÁLOGO ANTIGO A RECUPERAR. Colheita rolante, nunca consulta
+    retrospectiva. E como a Meta não emite sinal de remoção, «sumiu do
+    resultado» tem quatro causas possíveis e só uma delas é «o anúncio parou».
+```
+
+## 86.3 · A CASA DECLAROU UM BURACO PAGO CITANDO O FICHEIRO QUE O DESMENTE
+
+**O QUE MUDOU.** `INSTAGRAM/FETCH_COMMENTS` era a única linha da Meta a dizer
+«APIFY NECESSÁRIA», com o motivo `FREE_ROUTE_INSUFFICIENT_CAPABILITY` — «a rota
+grátis dá o NÚMERO, nunca o TEXTO».
+
+**POR QUÊ ESTAVA ERRADO.** O ficheiro citado como evidência mede o contrário.
+`coleta/instagram_janela.py` regista, em comentário de código: *«MEDIDO em 7
+posts das 5 contas do lote, deslogado: 18 de 31 comentários declarados saíram
+COM TEXTO — 58%.»*
+
+**PROVA.** O código, e o RAW pago em `ES-T8-003-instagram-hashtags.raw.json.gz`:
+`commentsCount` soma 31 e `latestComments` traz **zero** comentários em 60 de 60
+itens — a rota paga entregou a contagem e não o texto.
+
+**CONSEQUÊNCIA, E ELA TEM DUAS METADES QUE NÃO SE ANULAM.**
+
+```
+    COMMENT_COUNT != COMMENT_TEXT — continua verdade.
+    E 18/31 TAMBÉM NÃO É 31/31.
+```
+
+Uma medição parcial não promove a rota grátis a suficiente, e não autoriza
+declarar a paga necessária universalmente. O estado honesto é **parcial**, e o
+motivo do gasto muda de «a rota grátis não sabe» para «a rota grátis não é
+permitida» — que é uma frase sobre autorização, não sobre capacidade.
+
+## 86.4 · `AUDIO_ONLY` É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA
+
+**O QUE MUDOU.** A `C10` provou aquisição só-áudio num Reel: `-f bestaudio`
+seleccionou uma representação DASH de áudio, `VIDEO_BYTES_DOWNLOADED = 0`. Essa
+prova **continua de pé** e não é rebaixada aqui.
+
+**POR QUÊ PRECISA DE CERCA.** Evidência pública de terceiros mostra itens do
+mesmo Instagram cuja tabela de formatos não tem **nenhuma** linha `audio only` —
+só DASH de vídeo e MP4 muxado. Nesses, extrair áudio é *demux local*, não
+poupança de rede.
+
+**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 13, com os dois sentidos medidos.
+
+**CONSEQUÊNCIA.**
+
+```
+    A ÚNICA PROVA FIÁVEL É A TABELA DE FORMATOS DAQUELE ITEM.
+    UM REEL NÃO É UM LOTE. Orçar banda com «Reel = ~200 KB de áudio» é
+    generalizar uma medição de um caso para uma plataforma inteira.
+```
+
+## 86.5 · A LIÇÃO TRANSVERSAL: DINHEIRO E CREDENCIAL SÃO EIXOS DIFERENTES
+
+Sete das nove observações que um concorrente completo exigiria custam **zero
+dólares**. As sete estão fechadas — por App Review, verificação de negócio ou
+confirmação de identidade.
+
+```
+    USD_COST = 0  NÃO SIGNIFICA  EXECUTÁVEL AGORA.
+    Uma rota que custa zero e exige aprovação que a casa não tem é tão
+    inalcançável hoje quanto uma que custasse mil — e mais perigosa, porque
+    o número zero convida a chamar-lhe «grátis» e a dá-la por pronta.
+```
+
+## 86.6 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Nenhuma rota Meta foi executada. Nenhuma foi promovida a `PROVED`. Nenhuma
+política mudou por causa deste estudo. O que ele entrega é o mapa — e a
+distinção entre não conseguir e não ter olhado.
+
+```
+    CAN DO ≠ MAY DO ≠ DID DO ≠ EVER ASKED.
+```
