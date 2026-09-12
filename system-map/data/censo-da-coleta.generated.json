@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "6a6ea4c0828818b5956695100f377921e9425175",
+    "HEAD": "076751293edd8489729a2192d084091c319c7e2c",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -709,13 +709,16 @@
     {
       "ficheiro": "coleta/adaptador_linkedin.py",
       "gaveta": "coleta",
-      "linhas": 61,
+      "linhas": 816,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
         "LINKEDIN"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
@@ -1559,7 +1562,7 @@
     {
       "ficheiro": "coleta/scrap_capacidades.py",
       "gaveta": "coleta",
-      "linhas": 325,
+      "linhas": 360,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1664,6 +1667,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/adaptador_aberto.py",
+        "coleta/adaptador_linkedin.py",
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
         "coleta/scrap_executor.py",
@@ -1742,6 +1746,7 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/adaptador_aberto.py",
+        "coleta/adaptador_linkedin.py",
         "coleta/adaptador_youtube.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
