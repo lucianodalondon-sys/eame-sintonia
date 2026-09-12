@@ -190,7 +190,19 @@ DECLARADAS = {
     'mastodon.hashtag.search': ('MASTODON', PROVEN, ONLINE, None, _MZ, 'SEARCH_HASHTAG'),
     'mastodon.account.incremental': ('MASTODON', NOT_EXECUTED, ONLINE, None, _MZ, 'INCREMENTAL'),
     'bluesky.account.discovery': ('BLUESKY', PROVEN, ONLINE, None, _MZ, 'DISCOVER_ACCOUNT'),
-    'bluesky.author.incremental': ('BLUESKY', NOT_EXECUTED, ONLINE, None, _MZ, 'INCREMENTAL'),
+    # PROMOVIDA NA C10.8A, e a promocao e do documento, nao do runtime.
+    # Correu ao vivo em 2026-09-12T12:49:55Z contra `caasrl.bsky.social`:
+    # duas respostas 200, um objeto, 2 555 bytes de RAW guardados com SHA.
+    # A definicao no topo deste ficheiro pede exactamente as tres coisas —
+    # correu, com comando registado e saida guardada — e as tres estao.
+    #
+    #     TRIAL PASSADO NAO PROMOVE. QUEM PROMOVE E A EVIDENCIA, LIDA.
+    #
+    # O que isto NAO afirma: volume, paginacao, janela ou comportamento sob
+    # 429. Foi UM objeto, de UMA conta, com `limit=1`.
+    'bluesky.author.incremental': ('BLUESKY', PROVEN, ONLINE, None,
+                                   'docs/sintonia-scrap/C10-8A-BLUESKY-LIVE-TRIAL.md',
+                                   'INCREMENTAL'),
     'telegram.channel.incremental': ('TELEGRAM', PROVEN, ONLINE, None, _MZ, 'INCREMENTAL'),
 }
 
