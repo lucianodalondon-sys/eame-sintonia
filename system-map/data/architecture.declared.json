@@ -1847,6 +1847,7 @@
     "provas/orcamento_financeiro.py",
     "provas/linkedin_local_first.py",
     "provas/primeira_rota_paga.py",
+    "provas/raw_entre_jobs.py",
     "provas/readback_022_live.sh",
     "provas/social_persistencia_no_postgres.py",
     "provas/testa_coleta_canonica.py",
@@ -2690,6 +2691,25 @@
    ],
    "files": [
     ".github/workflows/scrap-social.yml"
+   ],
+   "views": [
+    "acervo",
+    "infra"
+   ]
+  },
+  {
+   "id": "C-SCRAP-EVIDENCIA",
+   "name": "SCRAP evidencia entre jobs · o bruto pago atravessa, ou nao atravessa",
+   "territory": "Z-EXECUCAO",
+   "kind": "workflow",
+   "icon": "⇄",
+   "what": "Dois jobs em duas maquinas, com um artefato do Actions no meio. O job A escreve o RAW da corrida, rele-o, assina-o e publica o pacote; o job B, em checkout limpo que nunca viu o ficheiro, recupera pela identidade da corrida, RECALCULA o SHA-256 e reprocessa sem abrir rede. Zero provider, zero segredo, zero dolar.",
+   "why_here": "A C10.8B-LIVE pagou por 59.743 bytes de RAW e o job seguinte nao os encontrou: o `.gitignore` ignora `data/samples/**/*.gz` e o `actions/checkout` limpa o que o `.gitignore` ignora. O SHA sobreviveu a apontar para uma coisa que ja nao existia. RAW CAPTURADO NO PROCESSO != RAW QUE SOBREVIVE AO JOB != RAW DEVOLVIDO PARA INVESTIGACAO != PRESERVACAO FORWARD CANONICA — quatro estados que cabiam todos na palavra «preservado», e a casa so tinha o primeiro. O mecanismo de subida ja existia (`actions/upload-artifact` em `scrap-social.yml`); `download-artifact` nao aparecia em workflow nenhum. GUARDAR SEM NUNCA TER IDO BUSCAR NAO E GUARDAR: E ESPERAR. Este cartao e a METADE DA VOLTA que faltava, e ele diz de si proprio o que NAO e: WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE. Retencao de 30 dias, declarada em cada manifesto, e CANONICAL_FORWARD_PRESERVATION = NO. O dono forward (Storage + raw_asset) continua por fazer.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    ".github/workflows/scrap-evidencia.yml"
    ],
    "views": [
     "acervo",

@@ -590,6 +590,331 @@ def youtube_piloto(modo=OPERATIONAL, limite_videos=3, limite_threads=20):
     return 0 if rel['CHANNELS_RESOLVED'] else 5
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# A EVIDÊNCIA QUE ATRAVESSA A FRONTEIRA DO JOB
+# ══════════════════════════════════════════════════════════════════════════
+# A C10.8B-LIVE pagou por 59.743 bytes, escreveu-os, releu-os e assinou-os —
+# tudo dentro do mesmo processo. O job seguinte não os encontrou: o `.gitignore`
+# ignora `data/samples/**/*.gz` e o `actions/checkout` limpa o que o `.gitignore`
+# ignora.
+#
+#     RAW CAPTURADO NO PROCESSO
+#       != RAW QUE SOBREVIVE AO JOB
+#       != RAW DEVOLVIDO PARA INVESTIGAÇÃO
+#       != PRESERVAÇÃO FORWARD CANÔNICA.
+#
+# Quatro estados. Esta função fecha o TERCEIRO, e só ele.
+#
+# O MECANISMO NÃO É NOVO
+# ------------------------
+# `_raw_do_piloto`, aqui abaixo, já inventaria RAW com SHA e já decide o estado
+# da prova a partir do artefato do Actions — incluindo a lei
+# `UPLOAD STEP SUCCESS != ARTIFACT EXISTS`. O que não existia era a METADE DA
+# VOLTA: `download-artifact` não aparece em nenhum workflow desta casa. Um
+# mecanismo que só sobe é um mecanismo que ninguém provou.
+#
+#     GUARDAR SEM NUNCA TER IDO BUSCAR NÃO É GUARDAR. É ESPERAR.
+#
+#     WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE.
+GAVETA_EVIDENCIA = os.path.join('.tmp', 'scrap-evidencia')
+
+#: Retenção do mecanismo. FINITA, e dizê-lo é metade do contrato.
+EVIDENCIA_RETENCAO_DIAS = 30
+EVIDENCIA_RETENCAO = 'TEMPORARY'
+
+#: O que NUNCA pode viajar dentro de um pacote de evidência. A busca é sobre os
+#: BYTES, não sobre a intenção de quem os escreveu.
+#:
+#:     MELHOR FALHAR ALTO DO QUE REDIGIR EM SILÊNCIO: apagar evidência para o
+#:     pacote passar destrói a coisa que o pacote existe para guardar.
+PROIBIDO_NA_EVIDENCIA = ('apify_api_', 'Authorization:', 'Bearer ',
+                         'set-cookie', 'X-Api-Key', 'SUPABASE_SERVICE_ROLE')
+
+
+class EvidenciaComSegredo(RuntimeError):
+    """O pacote levava algo com cara de credencial. Ele NÃO é escrito."""
+
+
+def _sha_e_bytes(caminho):
+    import hashlib
+    with open(caminho, 'rb') as f:
+        dados = f.read()
+    return hashlib.sha256(dados).hexdigest(), len(dados), dados
+
+
+def _tipo_do_ficheiro(nome):
+    """O tipo pelo que o nome declara. `None` quando não se sabe — não se chuta."""
+    baixo = nome.lower()
+    if baixo.endswith('.json.gz'):
+        return 'application/json+gzip'
+    if baixo.endswith('.gz'):
+        return 'application/gzip'
+    if baixo.endswith('.json'):
+        return 'application/json'
+    if baixo.endswith('.txt'):
+        return 'text/plain'
+    return None
+
+
+def _cheira_a_segredo(dados):
+    """→ o termo proibido encontrado, ou None. Lê os bytes, não a intenção.
+
+    O bruto pago nasce COMPRIMIDO: `coletor` grava `.json.gz`. Uma sonda que
+    lesse só os bytes do ficheiro nunca veria um token dentro do gzip — ela
+    daria verde sobre um pacote com credencial lá dentro.
+
+        UMA SONDA QUE NÃO DESCOMPRIME DÁ VERDE AO QUE NÃO CONSEGUE LER.
+
+    Por isso: descomprime quando é gzip, e olha as DUAS formas. Falhar a
+    descompressão não é «limpo» — é `GZIP_ILEGIVEL`, e quem chama decide.
+    """
+    formas = [dados]
+    if dados[:2] == b'\x1f\x8b':
+        import gzip
+        try:
+            formas.append(gzip.decompress(dados))
+        except Exception:                                         # noqa: BLE001
+            return 'GZIP_ILEGIVEL'
+    for forma in formas:
+        texto = forma.decode('utf-8', 'ignore')
+        for termo in PROIBIDO_NA_EVIDENCIA:
+            if termo in texto:
+                return termo
+    return None
+
+
+def evidencia_publicar(run_id, *, platform=None, capability=None, rota=None,
+                       provider=None, ficheiros=None, gaveta=None):
+    """Empacota o RAW DESTA corrida para atravessar a fronteira do job.
+
+    → o estado da transferência. NÃO levanta por falha de transporte: uma
+    aquisição que aconteceu não deixa de ter acontecido porque o pacote não
+    subiu.
+
+        ACQUISITION_RESULT != EVIDENCE_TRANSFER_RESULT.
+
+    A chave do pacote é o `RUN_ID`, e só ele. «O último artefato» recuperaria o
+    de outra corrida com a cara desta.
+    """
+    import shutil
+    alvo = os.path.join(gaveta or GAVETA_EVIDENCIA, str(run_id))
+    origem = list(ficheiros if ficheiros is not None else env.produzidos())
+    itens, faltaram = [], []
+    for caminho in origem:
+        if not os.path.isfile(caminho):
+            faltaram.append(os.path.basename(caminho))
+            continue
+        sha, tam, dados = _sha_e_bytes(caminho)
+        termo = _cheira_a_segredo(dados)
+        if termo:
+            raise EvidenciaComSegredo(
+                'o pacote de %s levava %r em %s — nada foi escrito'
+                % (run_id, termo, os.path.basename(caminho)))
+        itens.append({'RAW_FILENAME': os.path.basename(caminho),
+                      'RAW_BYTES': tam, 'SHA256': sha,
+                      'CONTENT_TYPE': _tipo_do_ficheiro(caminho)})
+    if not itens:
+        return {'EVIDENCE_TRANSFERRED': 'NO_RAW_PRODUCED',
+                'EVIDENCE_REFERENCE': None,
+                'EVIDENCE_RETENTION': EVIDENCIA_RETENCAO,
+                'EVIDENCE_RETENTION_DAYS': EVIDENCIA_RETENCAO_DIAS,
+                'EVIDENCE_FILES': [], 'EVIDENCE_FILES_VANISHED': faltaram,
+                'CANONICAL_FORWARD_PRESERVATION': 'NO'}
+    if os.path.isdir(alvo):
+        shutil.rmtree(alvo)
+    os.makedirs(alvo)
+    for caminho in origem:
+        if os.path.isfile(caminho):
+            shutil.copy2(caminho, os.path.join(alvo, os.path.basename(caminho)))
+    manifesto = {
+        'RUN_ID': str(run_id),
+        'CAPTURED_AT': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+        'PLATFORM': platform, 'CAPABILITY': capability,
+        'ROUTE': rota, 'PROVIDER': provider,
+        'FILES': itens,
+        # O que este pacote É, e o que ele NÃO é. As duas frases viajam juntas.
+        'EVIDENCE_CLASS': 'DIAGNOSTIC_JOB_TO_JOB',
+        'EVIDENCE_RETENTION': EVIDENCIA_RETENCAO,
+        'EVIDENCE_RETENTION_DAYS': EVIDENCIA_RETENCAO_DIAS,
+        'CANONICAL_FORWARD_PRESERVATION': 'NO',
+        'NOTA': ('WORKFLOW ARTIFACT != CANONICAL FORWARD STORAGE. Este pacote '
+                 'fecha a investigacao entre jobs por %d dias. O dono forward '
+                 '(Storage + raw_asset) NAO recebeu estes bytes, e o RUN_ID '
+                 'daqui NAO e um RAW_OBSERVATION_ID.' % EVIDENCIA_RETENCAO_DIAS),
+    }
+    with open(os.path.join(alvo, 'MANIFESTO.json'), 'w', encoding='utf-8') as f:
+        f.write(json.dumps(manifesto, ensure_ascii=False, indent=1,
+                           sort_keys=True) + '\n')
+    return {'EVIDENCE_TRANSFERRED': 'STAGED',
+            'EVIDENCE_REFERENCE': alvo.replace('\\', '/'),
+            'EVIDENCE_RETENTION': EVIDENCIA_RETENCAO,
+            'EVIDENCE_RETENTION_DAYS': EVIDENCIA_RETENCAO_DIAS,
+            'EVIDENCE_FILES': itens, 'EVIDENCE_FILES_VANISHED': faltaram,
+            'CANONICAL_FORWARD_PRESERVATION': 'NO'}
+
+
+def evidencia_recuperar(run_id, *, de):
+    """Lê um pacote recuperado e RECALCULA o SHA de cada ficheiro.
+
+    → o estado da recuperação. O SHA do manifesto é uma AFIRMAÇÃO; o SHA
+    recalculado é a medição. Aceitar a primeira sem a segunda seria confiar
+    numa etiqueta colada pelo próprio pacote.
+
+        UM SHA QUE SÓ VEM DO MANIFESTO NÃO PROVA OS BYTES.
+    """
+    pasta = os.path.join(de, str(run_id))
+    if not os.path.isdir(pasta):
+        # Sem fallback para «o último». Um pacote de outra corrida com o mesmo
+        # formato pareceria este, e a investigacao leria os bytes errados.
+        return {'RECOVERED': 'NO', 'WHY': 'nenhum pacote para %s em %s'
+                % (run_id, de), 'SHA_MATCH': 'NOT_APPLICABLE', 'FILES': []}
+    caminho_man = os.path.join(pasta, 'MANIFESTO.json')
+    if not os.path.isfile(caminho_man):
+        return {'RECOVERED': 'NO', 'WHY': 'pacote sem MANIFESTO.json',
+                'SHA_MATCH': 'NOT_APPLICABLE', 'FILES': []}
+    with open(caminho_man, encoding='utf-8') as f:
+        manifesto = json.load(f)
+    if str(manifesto.get('RUN_ID')) != str(run_id):
+        return {'RECOVERED': 'NO',
+                'WHY': 'o manifesto diz RUN_ID=%s e pediram %s'
+                       % (manifesto.get('RUN_ID'), run_id),
+                'SHA_MATCH': 'NO', 'FILES': []}
+    conferidos, todos_batem = [], True
+    for decl in (manifesto.get('FILES') or []):
+        alvo = os.path.join(pasta, decl['RAW_FILENAME'])
+        if not os.path.isfile(alvo):
+            conferidos.append(dict(decl, RECOVERED='NO', SHA_MATCH='NO',
+                                   RECOVERED_BYTES=None, RECOVERED_SHA256=None))
+            todos_batem = False
+            continue
+        sha, tam, _d = _sha_e_bytes(alvo)
+        bate = (sha == decl['SHA256']) and (tam == decl['RAW_BYTES'])
+        todos_batem = todos_batem and bate
+        conferidos.append(dict(decl, RECOVERED='YES',
+                               RECOVERED_BYTES=tam, RECOVERED_SHA256=sha,
+                               SHA_MATCH='YES' if bate else 'NO'))
+    return {'RECOVERED': 'YES' if conferidos else 'NO',
+            'RUN_ID': manifesto.get('RUN_ID'),
+            'PLATFORM': manifesto.get('PLATFORM'),
+            'CAPABILITY': manifesto.get('CAPABILITY'),
+            'ROUTE': manifesto.get('ROUTE'),
+            'PROVIDER': manifesto.get('PROVIDER'),
+            'EVIDENCE_RETENTION': manifesto.get('EVIDENCE_RETENTION'),
+            'CANONICAL_FORWARD_PRESERVATION':
+                manifesto.get('CANONICAL_FORWARD_PRESERVATION'),
+            'SHA_MATCH': 'YES' if todos_batem else 'NO',
+            'FILES': conferidos}
+
+
+#: Os bytes que a prova da fronteira usa. REAIS, do acervo versionado desta
+#: casa, e de uma corrida paga que já aconteceu — não bytes fabricados para o
+#: teste passar.
+#:
+#: Os 59.743 bytes da C10.8B-LIVE não servem: eles já não existem. É essa a
+#: razão de esta missão existir.
+FIXTURE_DA_FRONTEIRA = 'data/samples/raw-paid/ES-T8-001-youtube-transcripts.raw.json.gz'
+
+
+def evidencia_publicar_prova(run_id, *, gaveta=None):
+    """JOB A — escreve o RAW DESTA corrida e publica o pacote. → código de saída.
+
+    O ficheiro nasce com o `run_id` no nome, dentro de `RAW_DIR`, que o
+    `.gitignore` ignora. Por isso ele NÃO existe no checkout do job seguinte —
+    e é exactamente essa a fronteira que a C10.8B-LIVE não atravessou.
+    """
+    import gzip
+    import hashlib
+    origem = os.path.join(env.ROOT, FIXTURE_DA_FRONTEIRA)
+    if not os.path.isfile(origem):
+        print('FIXTURE_AUSENTE=%s' % FIXTURE_DA_FRONTEIRA)
+        return 1
+    with open(origem, 'rb') as f:
+        bytes_gz = f.read()
+    pasta = os.path.join(env.RAW_DIR, 'YOUTUBE')
+    os.makedirs(pasta, exist_ok=True)
+    alvo_gz = os.path.join(pasta, '%s.raw.json.gz' % run_id)
+    with open(alvo_gz, 'wb') as f:
+        f.write(bytes_gz)
+    # E um segundo, NÃO comprimido: o mecanismo tem de aceitar ficheiro opaco,
+    # e provar-se só com `.gz` provaria o gzip.
+    alvo_json = os.path.join(pasta, '%s.raw.json' % run_id)
+    with open(alvo_json, 'wb') as f:
+        f.write(gzip.decompress(bytes_gz))
+    env.esquecer_produzidos()
+    for caminho in (alvo_gz, alvo_json):
+        env.registar_produzido(caminho)
+    # ── RAW ESCRITO → RELIDO → SHA CONFIRMADO → SÓ ENTÃO TRANSFERIDO ───────
+    #     RAW BEFORE NORMALIZATION — e transferência DEPOIS da releitura.
+    print('RAW_CAPTURED=YES')
+    for caminho in (alvo_gz, alvo_json):
+        with open(caminho, 'rb') as f:
+            dados = f.read()
+        print('  %-48s %8d bytes  %s'
+              % (os.path.basename(caminho), len(dados),
+                 hashlib.sha256(dados).hexdigest()))
+    print('RAW_READ_BACK=YES')
+    estado = evidencia_publicar(run_id, platform='YOUTUBE',
+                                capability='youtube.native_caption',
+                                rota='apify:transcricao', provider='APIFY',
+                                gaveta=gaveta)
+    for chave in ('EVIDENCE_TRANSFERRED', 'EVIDENCE_REFERENCE',
+                  'EVIDENCE_RETENTION', 'EVIDENCE_RETENTION_DAYS',
+                  'CANONICAL_FORWARD_PRESERVATION'):
+        print('%s=%s' % (chave, estado.get(chave)))
+    return 0 if estado.get('EVIDENCE_TRANSFERRED') == 'STAGED' else 1
+
+
+def evidencia_recuperar_prova(run_id, *, de):
+    """JOB B — confere que o workspace NÃO tem o RAW, recupera e reprocessa.
+
+    → código de saída. Zero rede: se alguma linha daqui abrisse ligação, o
+    teto de rede a zero levantava.
+    """
+    import gzip
+    import scrap_http as http
+    pasta_raw = os.path.join(env.RAW_DIR, 'YOUTUBE')
+    locais = [n for n in (os.listdir(pasta_raw) if os.path.isdir(pasta_raw) else [])
+              if n.startswith(str(run_id))]
+    print('WORKSPACE_RAW_BEFORE=%s' % ('PRESENT %s' % locais if locais else 'ABSENT'))
+    if locais:
+        # O job B tem de começar SEM os bytes. Se os tem, a prova mediria o
+        # workspace e não a recuperação.
+        #
+        #     UM JOB QUE JA TEM O FICHEIRO NAO PROVA QUE O FOI BUSCAR.
+        print('PROVA_INVALIDA=o job B já tinha o RAW antes de recuperar')
+        return 1
+    estado = evidencia_recuperar(run_id, de=de)
+    print('RECOVERED=%s' % estado.get('RECOVERED'))
+    print('SHA_MATCH=%s' % estado.get('SHA_MATCH'))
+    print('EVIDENCE_RETENTION=%s' % estado.get('EVIDENCE_RETENTION'))
+    print('CANONICAL_FORWARD_PRESERVATION=%s'
+          % estado.get('CANONICAL_FORWARD_PRESERVATION'))
+    for f in estado.get('FILES') or []:
+        print('  %-48s %8s bytes  match=%s'
+              % (f['RAW_FILENAME'], f.get('RECOVERED_BYTES'), f['SHA_MATCH']))
+    if estado.get('RECOVERED') != 'YES' or estado.get('SHA_MATCH') != 'YES':
+        return 1
+    # ── REPROCESSAR OS BYTES RECUPERADOS, SEM REDE E SEM PROVIDER ─────────
+    # Isto é literalmente o que a C10.8B-LIVE não conseguiu fazer.
+    alvo = os.path.join(de, str(run_id))
+    with http.orcamento_de_rede(0) as orcamento:
+        itens = None
+        for f in estado['FILES']:
+            caminho = os.path.join(alvo, f['RAW_FILENAME'])
+            if f['RAW_FILENAME'].endswith('.gz'):
+                with open(caminho, 'rb') as fh:
+                    itens = json.loads(gzip.decompress(fh.read()).decode('utf-8'))
+            elif f['RAW_FILENAME'].endswith('.json'):
+                with open(caminho, encoding='utf-8') as fh:
+                    itens = json.load(fh)
+        chaves = sorted(itens[0]) if isinstance(itens, list) and itens else []
+    print('REPROCESS_ITEMS=%d' % (len(itens) if isinstance(itens, list) else 0))
+    print('REPROCESS_KEYS=%s' % chaves)
+    print('REPROCESS_NETWORK_USED=%d' % orcamento.usados)
+    print('PROVIDER_CALLS=0')
+    return 0 if (itens and orcamento.usados == 0) else 1
+
+
 def _raw_do_piloto(run_id):
     """Inventaria o RAW da corrida e diz ONDE a prova está — sem mentir.
 
@@ -1626,6 +1951,19 @@ def main():
         return youtube_piloto(ONE_SHOT)
     elif cmd == 'authmodes':
         authmodes()
+    elif cmd == 'evidencia-publicar':
+        # JOB A. Le ficheiro do acervo, escreve, rele e publica. Zero rede.
+        if len(args) < 2:
+            print('uso: evidencia-publicar <run_id>')
+            return 2
+        return evidencia_publicar_prova(args[1])
+    elif cmd == 'evidencia-recuperar':
+        # JOB B. Confere o workspace, recupera por RUN_ID e reprocessa. Zero rede.
+        if len(args) < 2:
+            print('uso: evidencia-recuperar <run_id> [pasta]')
+            return 2
+        return evidencia_recuperar_prova(
+            args[1], de=args[2] if len(args) > 2 else GAVETA_EVIDENCIA)
     elif cmd == 'bruto':
         # Leitura de ficheiro local. Nao adquire, nao gasta e nao toca rede.
         return bruto(args[1] if len(args) > 1 else None)
