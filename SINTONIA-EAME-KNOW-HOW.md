@@ -6864,3 +6864,181 @@ o aviso já escrito à vista.
     UM PARÂMETRO OPCIONAL QUE NINGUÉM CONSEGUE PASSAR
     NÃO É OPCIONAL: É INEXISTENTE.
 ```
+
+---
+
+# §79 · UMA CONTAGEM QUE NÃO DIZ O QUE CONTA É UM NÚMERO, NÃO UMA MEDIÇÃO
+
+**Missões:** `C-RECONCILE-SYSTEM-MAP-AS-OBSERVABILITY-SYSTEM-V1` ·
+`C-DESIGN-SYSTEM-MAP-TRUST-CONTRACT-V1` ·
+`C-IMPLEMENT-SYSTEM-MAP-ENTITY-SPECIES-G0-V1`
+**Linha:** `claude/dazzling-cerf-27a7v2`
+**Tocado:** `docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md` ·
+`system-map/scripts/reconciliacao_do_universo.py` ·
+`system-map/tests/test_reconciliacao_do_universo.py` · `AGENTS.md`
+
+O System Map publicava três números com o mesmo nome. Fechá-los obrigou a
+escrever o que ele pode afirmar, com que evidência — e a primeira coisa que esse
+contrato apanhou foi o artefato que ele próprio usava como exemplo de boa prática.
+
+## 79.1 · TRÊS CONTAGENS CERTAS QUE NÃO ERAM COMPARÁVEIS
+
+```
+65   a faixa visual   familia F-COLETA + F-ESPERA
+48   o pente fino     TERRITORIO numa tupla fixa de nove zonas
+111  o censo           a mesma familia MAIS o fecho por aresta
+```
+
+Nenhuma era falsa. Nenhuma declarava o seu universo, e por isso nenhuma era
+comparável com a do lado.
+
+```
+    UMA FERRAMENTA DE OBSERVABILIDADE NÃO É COERENTE PORQUE CADA CENSO
+    ESTÁ CERTO. É COERENTE QUANDO OS CENSOS CONSEGUEM RECONCILIAR
+    OS PRÓPRIOS UNIVERSOS.
+```
+
+**PROVA.** Em `1766c232`, treze peças de `Z-GUARDA` mudaram de família `F-ESPERA`
+para `F-COLETA`. A faixa visual foi de `49/13` para `62/1`; o pente fino não
+mexeu uma peça, porque filtra por TERRITÓRIO. Uma reatribuição de família moveu
+treze peças entre duas contagens publicadas e zero na terceira.
+
+```
+    FAMÍLIA != TERRITÓRIO. Trocar uma pela outra numa lente
+    move números sem mover peças.
+```
+
+## 79.2 · MEDIR BEM E PUBLICAR A PALAVRA ERRADA
+
+O erro mais caro não foi medir mal.
+
+```
+    658 arestas e 59 peças publicavam  status = PROVEN
+    apoiadas SÓ em análise estática — e a medição estava certa em todas.
+```
+
+As razões que o mapa escreve dizem-no: *«provado por 1 linha de código»*, *«outra
+peça importa isto»*. Todas provam que o código CONSEGUE. Nenhuma prova que
+ACONTECEU.
+
+```
+    ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+    DECLARED → CODE → OBSERVED → PROVEN: nenhum implica o seguinte.
+```
+
+**PROVA.** Zero arestas têm evidência de runtime, e `OBSERVED` é
+*irrepresentável*: o esquema de aresta não tem `RUN_ID`, `OBSERVED_AT` nem
+`ENVIRONMENT`. Não há onde escrever uma observação, mesmo que alguém a medisse.
+
+## 79.3 · UMA LINHA NÃO PROVA DUAS AFIRMAÇÕES DIFERENTES
+
+```
+coleta/comunicacao_coleta.py:57
+  import apify_pool as ap
+
+sustentava ao mesmo tempo:
+  C-APIFY-POOL → C-COMUNICACAO   IMPORTS        ← a linha prova
+  C-APIFY-POOL → V-FACEBOOK      ABRE_O_CANAL   ← não prova
+  C-APIFY-POOL → V-INSTAGRAM     ABRE_O_CANAL   ← não prova
+  C-APIFY-POOL → V-LINKEDIN      ABRE_O_CANAL   ← não prova
+```
+
+**PROVA.** Sobre 1162 linhas de evidência distintas: 55 usadas por mais de uma
+aresta, 37 delas a sustentar tipos de relação diferentes, em 52 arestas.
+
+```
+    A EVIDÊNCIA TEM DE SUSTENTAR A AFIRMAÇÃO CONCRETA,
+    NÃO APENAS TER RELAÇÃO COM O MÓDULO.
+```
+
+## 79.4 · UM CAMPO OBRIGATÓRIO SÓ ESCRITO EM CONTRATO NÃO ESTÁ PROTEGIDO
+
+O contrato exigia `ENTITY_SPECIES` em toda contagem publicada. Duas missões
+depois, medido: **zero de seis universos e zero de sete lentes** o publicavam.
+
+```
+    UM CAMPO OBRIGATÓRIO QUE NENHUMA PROVA EXIGE
+    FICA POR ESCREVER, E NINGUÉM REPARA.
+```
+
+E não foi por distração: as duas missões anteriores NARRARAM as causas que
+conheciam em vez de PERCORREREM as sete condições que tinham escrito.
+
+```
+    NARRAR AS CAUSAS QUE SE CONHECE NÃO É PERCORRER
+    AS CONDIÇÕES QUE SE ESCREVEU.
+```
+
+## 79.5 · UM MUTANTE QUE SOBREVIVE POR NÃO HAVER O QUE APANHAR
+
+Ao implementar, seis mutantes sobreviveram — todos da mesma classe: guardas que
+nunca tinham visto um defeito, porque nesta árvore não havia nenhum para elas
+apanharem. Desligá-las não mudava nada.
+
+```
+    UMA GUARDA QUE NUNCA VIU UM DEFEITO NÃO É UMA GUARDA: É UMA FRASE.
+```
+
+A resposta foi tirar cada regra de dentro da asserção, torná-la função, e
+corrê-la contra um defeito fabricado. Isolada, ela passou a responder também NÃO.
+E uma delas era genuinamente fraca: «os membros pertencem à espécie» aceitava
+declarar `SYSTEM_MAP_VISUAL_CARD` a um conjunto que era EXACTAMENTE o do pente
+fino.
+
+```
+    PERTENCER À ESPÉCIE LARGA NÃO É SER DA ESPÉCIE LARGA.
+```
+
+## 79.6 · O BACKUP TIRADO DEPOIS DA MUTAÇÃO
+
+O harness de mutação guardava a cópia ao lado do ficheiro. Quando um mutante fez
+o gerador rebentar, a corrida seguinte tirou o seu backup de um ficheiro **já
+mutado** — e a restauração repôs a mutação. O trabalho de uma sessão inteira
+ficou pendurado num `.bak` que sobrou por acaso.
+
+```
+    UM BACKUP TIRADO DEPOIS DA MUTAÇÃO NÃO É UM BACKUP:
+    É UMA CÓPIA DO DEFEITO.
+```
+
+## 79.7 · VIOLAR `ONE CHAIN OWNER` NÃO É, SOZINHO, PERDER CONFIANÇA
+
+O manifesto declara 7 passos; o job do CI corre 21. Parecia causa de `FAIL`.
+Medido, correndo as duas cadeias em clones separados do mesmo commit:
+
+```
+architecture.generated.json   IDÊNTICO
+state.generated.json          IDÊNTICO
+sources.generated.json        IDÊNTICO
+impressão da árvore           d692478a  vs  8e6f06e4   DIFERE
+```
+
+As duas cadeias produzem o mesmo mapa. A impressão difere por outra dívida já
+nomeada. A violação existe; o sintoma não.
+
+```
+    VIOLAR ONE CHAIN OWNER    → risco latente  → não move TRUST
+    DUAS CADEIAS, DOIS MAPAS  → contradição    → FAIL
+
+    NÃO PROMOVER UMA VIOLAÇÃO A CAUSA DE FAIL SEM SINTOMA MEDIDO —
+    e não a deixar desaparecer por não ter onde aparecer.
+```
+
+## 79.8 · CONSEQUÊNCIA
+
+```
+CONTRATO   docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md
+           4 planos · modelo de evidência · 6 relógios de frescura
+           TRUST = PASS | DEGRADED | FAIL | UNKNOWN, com PASS em último
+
+G0 FEITO   13 de 13 superfícies publicam ENTITY_SPECIES
+           dono único, gerador RECUSA superfície desconhecida
+           10 mutantes · 0 sobreviventes · 8 ataques · 0 sobreviventes
+
+TRUST      FAIL — C6 fechada; C4 e C4b continuam
+MÍNIMO     [G1] — quatro planos por afirmação + ASSERTION_SUPPORTED
+```
+
+Fica por saber que afirmação cada uma das 37 linhas emprestadas realmente
+sustenta, e `ROLE` continua por atribuir nas 160 entidades. `G0` sozinho nunca
+autorizou `DEGRADED`, e a DAG previu isso antes de a medição o confirmar.
