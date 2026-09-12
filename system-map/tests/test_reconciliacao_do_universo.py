@@ -208,6 +208,7 @@ def sem_carimbo(d):
     reprovar por uma diferenca que nao e conteudo nenhum.
     """
     chaves = set(d.get("CARIMBOS_NAO_COMPARAVEIS") or [])
+    blocos = set(d.get("BLOCOS_NAO_COMPARAVEIS") or []) | {"PROVENANCE"}
 
     def limpar(o):
         if isinstance(o, dict):
@@ -217,12 +218,14 @@ def sem_carimbo(d):
         return o
 
     d = json.loads(json.dumps(d))
-    d.pop("PROVENANCE", None)
+    for b in blocos:
+        d.pop(b, None)
     return json.dumps(limpar(d), ensure_ascii=False, sort_keys=True)
 
 
 prova("o_artefato_declara_os_proprios_carimbos",
-      bool(COMMITADO.get("CARIMBOS_NAO_COMPARAVEIS")),
+      bool(COMMITADO.get("CARIMBOS_NAO_COMPARAVEIS"))
+      and bool(COMMITADO.get("BLOCOS_NAO_COMPARAVEIS")),
       "sem esta lista, a prova anti-drift nao sabe o que e carimbo e o que e "
       "conteudo — e passaria a reprovar a cada commit, por nada")
 

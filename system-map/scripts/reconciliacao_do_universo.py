@@ -121,7 +121,29 @@ CARIMBOS_NAO_COMPARAVEIS = [
     "MEASURED_HEAD",
     "FROM_WHICH_HEAD",
     "GENERATED_AT",
+    # A IMPRESSAO DA ARVORE TAMBEM E CARIMBO, E ISTO FOI MEDIDO.
+    # Ela nao muda quando se guarda o mapa — para isso foi feita —, mas MUDA
+    # quando qualquer ficheiro-fonte muda, e treze censos deste repositorio
+    # carimbam o SHA do commit e nao estao excluidos da impressao. Efeito: todo
+    # commit move a impressao, e a prova anti-drift reprovava por uma diferenca
+    # que nao e populacao nenhuma.
+    #
+    #     ESTA PROVA PERGUNTA «A POPULACAO MUDOU?», NAO «A ARVORE MUDOU?».
+    #
+    # Quem responde por «a arvore mudou e o mapa nao» ja existe e e o passo 2b
+    # do CI, `impressao_da_arvore.py --conferir-carimbo`. Duas provas para a
+    # mesma pergunta nao dao duas respostas: dao uma resposta e um ruido.
+    "MEASURED_TREE",
 ]
+
+# O QUE SE LE DO RELOGIO NAO SE COMPARA COM O QUE ESTA COMMITADO.
+#
+# `FRESCURA` e uma leitura do estado da arvore NO MOMENTO em que o gerador
+# correu: que artefato bate com esta arvore, qual ficou para tras, qual nem
+# consegue dizer. Ela muda sem que uma unica populacao mude — e comparar uma
+# leitura de relogio com um ficheiro guardado e pedir que o passado preveja o
+# presente. As provas da frescura leem o bloco VIVO, e estao noutro sitio.
+BLOCOS_NAO_COMPARAVEIS = ["PROVENANCE", "FRESCURA"]
 
 
 def git(*args: str) -> str:
@@ -701,6 +723,7 @@ def medir(com_topologia: bool) -> dict:
         ],
         "PROVENANCE": cabeca,
         "CARIMBOS_NAO_COMPARAVEIS": CARIMBOS_NAO_COMPARAVEIS,
+        "BLOCOS_NAO_COMPARAVEIS": BLOCOS_NAO_COMPARAVEIS,
         "CARD_SPECIES": especies(S, declarada, matriz, pente),
         "UNIVERSOS": universos,
         "LENTES": lentes,
