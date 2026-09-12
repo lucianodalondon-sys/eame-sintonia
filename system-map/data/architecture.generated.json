@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/make-raw-observable-v1",
-    "HEAD": "a93acfdff0f79f7c80d24888278eec7003387242",
-    "GENERATED_AT": "2026-09-12T11:17:01+00:00",
+    "HEAD": "4f5ea7c902081bd97ae097f5b73d8c9cc9688e0c",
+    "GENERATED_AT": "2026-09-12T11:50:44+00:00",
     "SOURCE_TREE_FINGERPRINT": "9daf22d58876d69dd19fc5e99e49239eec294734b404de0d7fd671e39dcb3f27"
   },
   "FILES": [
@@ -8108,6 +8108,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_raw_fala.py",
+      "sha": "7f4f1f818a45c04361930a04a4cd4a2ced0e93e7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/objeto_e_observacao_no_postgres.py",
       "sha": "4763416cc72ecd211fa1d676e20af57ebbf18672",
       "ext": ".py",
@@ -9291,6 +9298,13 @@
       "code_dir": false
     },
     {
+      "path": "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
+      "sha": "fff991cc29829cb31e5f0a52acf083ebd2036d27",
+      "ext": ".sql",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "supabase/tests/mutacao_cicatrizes.sql",
       "sha": "10b5bffa23e178553e7dad5b0baf7b1701d1ced7",
       "ext": ".sql",
@@ -10161,6 +10175,13 @@
     {
       "path": "tests/test_o9_caminho_instrumentado.py",
       "sha": "ccd8094e4a6a1b204d4144c6179cf759b72d4697",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_o_raw_fala.py",
+      "sha": "3910c1db507f31a45029738fa9d75fe079e3451a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -28923,6 +28944,83 @@
       }
     },
     {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 53,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 55,
+        "snippet": "import coleta_checkpoint as cc                          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 110,
+        "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+      }
+    },
+    {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 59,
+        "snippet": "from guarda.preservar_coleta import sha256              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 57,
+        "snippet": "import telemetria as tel                                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 56,
+        "snippet": "import rastro_da_coleta as rastro                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_raw_fala.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_raw_fala.py",
+        "line": 158,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
       "from_file": "provas/objeto_e_observacao_no_postgres.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
@@ -36513,6 +36611,94 @@
       }
     },
     {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 24,
+        "snippet": "import _gavetas                          # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 29,
+        "snippet": "PORTA = os.path.join(RAIZ, \"coleta\", \"ingresso.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 26,
+        "snippet": "import telemetria as tel                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "medidas/rastro_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 25,
+        "snippet": "import rastro_da_coleta as rastro        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "provas/a_rota_m2_atravessa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 31,
+        "snippet": "ROTA = os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "provas/o_raw_fala.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 30,
+        "snippet": "PROVA = os.path.join(RAIZ, \"provas\", \"o_raw_fala.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "provas/os_portoes_da_collection.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 245,
+        "snippet": "\"os_portoes_da_collection.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_o_raw_fala.py",
+      "to_file": "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_raw_fala.py",
+        "line": 33,
+        "snippet": "\"028_a_etapa_raw_aponta_para_a_observacao.sql\")"
+      }
+    },
+    {
       "from_file": "tests/test_observabilidade.py",
       "to_file": "leis/fundacao_da_coleta.py",
       "type": "READS",
@@ -39709,10 +39895,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1495,
-    "files_readable": 577,
-    "files_code_dir": 622,
-    "file_edges": 2614,
+    "files_tracked": 1498,
+    "files_readable": 579,
+    "files_code_dir": 624,
+    "file_edges": 2629,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

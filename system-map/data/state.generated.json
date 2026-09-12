@@ -1208,6 +1208,7 @@
       "provas/o_forward_conta_se.py",
       "provas/o_legado_fora_do_fluxo.py",
       "provas/o_mapa_nao_mente.py",
+      "provas/o_raw_fala.py",
       "provas/objeto_e_observacao_no_postgres.py",
       "provas/os_portoes_da_collection.py",
       "provas/pacote_de_revisao_t3.py",
@@ -1387,6 +1388,7 @@
       "supabase/migrations/025_o_objeto_ganha_casa.sql",
       "supabase/migrations/026_a_observacao_ganha_identidade.sql",
       "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+      "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1518,6 +1520,7 @@
       "tests/test_navegador.py",
       "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
+      "tests/test_o_raw_fala.py",
       "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
       "tests/test_operacao.py",
@@ -1943,8 +1946,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/make-raw-observable-v1",
-    "HEAD": "a93acfdff0f79f7c80d24888278eec7003387242",
-    "GENERATED_AT": "2026-09-12T11:17:01+00:00",
+    "HEAD": "4f5ea7c902081bd97ae097f5b73d8c9cc9688e0c",
+    "GENERATED_AT": "2026-09-12T11:50:44+00:00",
     "SOURCE_TREE_FINGERPRINT": "9daf22d58876d69dd19fc5e99e49239eec294734b404de0d7fd671e39dcb3f27"
   },
   "FAMILIES": [
@@ -7224,6 +7227,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
@@ -7699,6 +7703,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-RELATORIO-FLUXO",
@@ -8253,6 +8258,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
@@ -9490,6 +9496,7 @@
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-PROVA-COLETA",
+        "C-PROVA-O-RAW-FALA",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -12045,6 +12052,7 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-TESTES"
       ],
@@ -12524,7 +12532,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⊢",
       "views": [
         "audit",
@@ -12533,16 +12541,29 @@
       ],
       "lane": "official",
       "family": "F-GOVERNANCA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add provas/o_raw_fala.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "provas/o_raw_fala.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "inbound": [
+        "C-COLETA-BASE",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DONO-DA-ESCRITA",
+        "C-IT-COLETA",
+        "C-PROVA-COLETA",
+        "C-RASTRO"
+      ],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
@@ -12785,6 +12806,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -14265,6 +14287,7 @@
         "supabase/migrations/025_o_objeto_ganha_casa.sql",
         "supabase/migrations/026_a_observacao_ganha_identidade.sql",
         "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+        "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -14276,9 +14299,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 49,
+      "file_count": 50,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -15460,6 +15483,7 @@
         "tests/test_navegador.py",
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
+        "tests/test_o_raw_fala.py",
         "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
         "tests/test_operacao.py",
@@ -15504,7 +15528,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 102,
+      "file_count": 103,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15591,6 +15615,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
+        "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-RECEITAS",
@@ -21098,6 +21123,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-O-RAW-FALA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de que a etapa RAW deixou de ser muda. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 55,
+          "snippet": "import coleta_checkpoint as cc                          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21758,6 +21801,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-PROVA-O-RAW-FALA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A prova de que a etapa RAW deixou de ser muda. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 57,
+          "snippet": "import telemetria as tel                                # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21818,7 +21879,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -21839,6 +21900,11 @@
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 27,
           "snippet": "import telemetria as tel            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o_raw_fala.py",
+          "line": 26,
+          "snippet": "import telemetria as tel                 # noqa: E402"
         },
         {
           "file": "tests/test_telemetria.py",
@@ -22610,6 +22676,24 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 75,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-O-RAW-FALA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A prova de que a etapa RAW deixou de ser muda. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 59,
+          "snippet": "from guarda.preservar_coleta import sha256              # noqa: E402"
         }
       ],
       "categoria": "CODE"
@@ -24301,12 +24385,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_lingua_da_porta.py",
           "line": 254,
           "snippet": "self.assertEqual(donos, [\"coleta/ingresso.py\"],"
+        },
+        {
+          "file": "tests/test_o_raw_fala.py",
+          "line": 29,
+          "snippet": "PORTA = os.path.join(RAIZ, \"coleta\", \"ingresso.py\")"
         },
         {
           "file": "tests/test_preservar_coleta_no_banco.py",
@@ -24615,6 +24704,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-PROVA-O-RAW-FALA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A prova de que a etapa RAW deixou de ser muda. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 110,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-IT-COLETA",
@@ -27651,6 +27758,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-O-RAW-FALA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de que a etapa RAW deixou de ser muda. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 158,
+          "snippet": "\"preservar_coleta_no_postgres.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "READS",
       "payload": "artefacto",
@@ -27693,7 +27818,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 28 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 29 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -27913,6 +28038,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-O-RAW-FALA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a etapa RAW deixou de ser muda alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_raw_fala.py",
+          "line": 30,
+          "snippet": "PROVA = os.path.join(RAIZ, \"provas\", \"o_raw_fala.py\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-ROTA-M2-ATRAVESSA",
       "to": "C-CENSO-EXECUTORES",
       "type": "READS",
@@ -27938,7 +28081,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que a rota da M2 atravessa alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A prova de que a rota da M2 atravessa alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_prova_e2e_segue_a_producao.py",
@@ -27949,6 +28092,11 @@
           "file": "tests/test_m2_aresta_observada.py",
           "line": 146,
           "snippet": "\"PROVA\": \"provas/a_rota_m2_atravessa.py\"}"
+        },
+        {
+          "file": "tests/test_o_raw_fala.py",
+          "line": 31,
+          "snippet": "ROTA = os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -28099,6 +28247,24 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-PROVA-O-RAW-FALA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por A prova de que a etapa RAW deixou de ser muda. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_raw_fala.py",
+          "line": 56,
+          "snippet": "import rastro_da_coleta as rastro                       # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28141,7 +28307,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_forward_instrumentado.py",
@@ -28177,6 +28343,11 @@
           "file": "tests/test_o9_caminho_instrumentado.py",
           "line": 459,
           "snippet": "import scanner_da_coleta as sc"
+        },
+        {
+          "file": "tests/test_o_raw_fala.py",
+          "line": 25,
+          "snippet": "import rastro_da_coleta as rastro        # noqa: E402"
         },
         {
           "file": "tests/test_politica_da_coleta.py",
@@ -30317,7 +30488,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 21 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 22 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -31930,15 +32101,15 @@
   "COUNTS": {
     "components": 160,
     "components_proven": 59,
-    "components_pending": 94,
+    "components_pending": 95,
     "components_broken": 0,
-    "components_unknown": 7,
-    "edges": 651,
-    "edges_proven": 649,
+    "components_unknown": 6,
+    "edges": 658,
+    "edges_proven": 656,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1495,
-    "files_covered": 737,
+    "files_tracked": 1498,
+    "files_covered": 740,
     "files_code_unclaimed": 0
   }
 }
