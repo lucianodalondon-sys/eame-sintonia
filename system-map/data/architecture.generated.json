@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/close-the-ready-edge-v1",
-    "HEAD": "94e27e2a24eb8587d0e8bcd72f56bed6ca1d5ab8",
-    "GENERATED_AT": "2026-09-12T12:10:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2e288f42dd442b5f16ae0bc83b1d6e1ffb758da9eb67182e6c3c341f60843455"
+    "BRANCH": "claude/close-ready-with-canonical-waiting-room-v1",
+    "HEAD": "bad49037c2e406ff6fdfa3bcf62f1ae8dbdc01c8",
+    "GENERATED_AT": "2026-09-12T13:23:24+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b5b3c7a59316d3817fd843701a2d59cf26942a79c65d2e1a496690aa0f411608"
   },
   "FILES": [
     {
@@ -263,6 +263,13 @@
     {
       "path": "admissao/admissao.py",
       "sha": "5fc2df96604c7bbbb6d113d59ade4b8497e63e9d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "admissao/sala_de_espera.py",
+      "sha": "ffe16212c752cc50007518eca299e65646db927c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1340,7 +1347,7 @@
     },
     {
       "path": "coleta/rota_forward_documento.py",
-      "sha": "9be59bb4388d6f9d65bdbb563e3144adc07fab60",
+      "sha": "bceb1183bffdd5b2241c433be480925c8c1dbd58",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1515,7 +1522,7 @@
     },
     {
       "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
-      "sha": "6f56d21548ef10ba0c69b94111282f102c5a2d4a",
+      "sha": "688925c69eabd827179f8e4afdd2d208e6558fc3",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4384,6 +4391,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+      "sha": "eb0d6193b39ead4b9413d2363ebce581482237bf",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/decisoes/ADR-SCRAP-SOCIAL-NA-BIBLIA.md",
       "sha": "238979062c34736fb8f10972aae25e3c124e61a5",
       "ext": ".md",
@@ -4658,7 +4672,7 @@
     },
     {
       "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
-      "sha": "a66b7af5c213df5bcf3ffdad0e322e12fb21d4f3",
+      "sha": "1b04e5401bcc7bd649104582119ba722f3d1362c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7675,7 +7689,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "a12ef580196e7afdec8eff64e8d86d6b7acac3c3",
+      "sha": "4ad2c9f85d998fca1127202deef2aaaaedc8f1fc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7912,6 +7926,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_unidade_pousa_na_espera.py",
+      "sha": "6e91a9438260a0496fe74e5cf2b93c615895dfd3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/alcance_da_pergunta_tematica.py",
       "sha": "344c11e485dfb616792090d92b25ea39ae38b7ca",
       "ext": ".py",
@@ -8130,7 +8151,7 @@
     },
     {
       "path": "provas/os_portoes_da_collection.py",
-      "sha": "7327ead7e216f61e87718254fa0165c55e457e2d",
+      "sha": "579265e11802bde0d0df18660b27d9eb5ba65b0e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9453,7 +9474,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "ffebec6a03181a2f36c2bb7cc7d7348ee425aa00",
+      "sha": "9dd625ea39524974a8f52dec0ba8ae319ea36fdb",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9804,6 +9825,13 @@
     {
       "path": "tests/test_a_sala_de_espera_nao_tem_morada.py",
       "sha": "daa6274210d7d61823aecf7c992536a398c82b71",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "sha": "2d389dad4d59a10c76a3bc0c513c3f2b59676e92",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10258,7 +10286,7 @@
     },
     {
       "path": "tests/test_portoes_da_collection.py",
-      "sha": "dd3b18b701d77f8ded9e8872fa9f02857fdab2f0",
+      "sha": "89b0d773b0e341976ede5fd7a5ff35c94cd083bb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11831,6 +11859,39 @@
       }
     },
     {
+      "from_file": "admissao/sala_de_espera.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/sala_de_espera.py",
+        "line": 56,
+        "snippet": "import _gavetas                                    # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "admissao/sala_de_espera.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/sala_de_espera.py",
+        "line": 61,
+        "snippet": "from preservar_coleta import RUN_ID_CONFLICT     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "admissao/sala_de_espera.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "admissao/sala_de_espera.py",
+        "line": 57,
+        "snippet": "import telemetria as tel                           # noqa: E402"
+      }
+    },
+    {
       "from_file": "candidatas/fonte_nova.py",
       "to_file": "candidatas/FONTES-CANDIDATAS.json",
       "type": "READS",
@@ -12906,6 +12967,17 @@
         "file": "coleta/rota_forward_documento.py",
         "line": 50,
         "snippet": "import admissao                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/rota_forward_documento.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/rota_forward_documento.py",
+        "line": 57,
+        "snippet": "import sala_de_espera as espera        # noqa: E402"
       }
     },
     {
@@ -23877,6 +23949,17 @@
     },
     {
       "from_file": "orquestrador/orquestrador.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 58,
+        "snippet": "import sala_de_espera as espera        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
       "to_file": "coleta/ingresso.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27572,6 +27655,127 @@
       }
     },
     {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 51,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 53,
+        "snippet": "import admissao                                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 56,
+        "snippet": "import sala_de_espera as espera                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 298,
+        "snippet": "os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 54,
+        "snippet": "import coleta_checkpoint as cc                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "coleta/italy_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 133,
+        "snippet": "\" values ('%s','HTTP direto','coleta/italy_executor.py','adapter-v1',\""
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 55,
+        "snippet": "import rota_forward_documento as m2                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 59,
+        "snippet": "from guarda.preservar_coleta import sha256           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 57,
+        "snippet": "import telemetria as tel                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "provas/a_rota_m2_atravessa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 116,
+        "snippet": "\"rota_m2\", os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/a_unidade_pousa_na_espera.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_unidade_pousa_na_espera.py",
+        "line": 359,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
       "from_file": "provas/alcance_da_pergunta_tematica.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29228,8 +29432,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 377,
+        "line": 386,
         "snippet": "\"admissao/admissao.py\","
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 316,
+        "snippet": "\"admissao/sala_de_espera.py\","
       }
     },
     {
@@ -29239,7 +29454,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 388,
+        "line": 397,
         "snippet": "\"coleta/derivacao_forward.py\","
       }
     },
@@ -29261,7 +29476,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 403,
+        "line": 412,
         "snippet": "\"data/derivados/BENCHMARK-TEMATICO-V1.json\","
       }
     },
@@ -29283,7 +29498,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 416,
+        "line": 425,
         "snippet": "\"data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json\","
       }
     },
@@ -29316,7 +29531,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 365,
+        "line": 374,
         "snippet": "\"guarda/importar_italia.py\","
       }
     },
@@ -29327,7 +29542,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 475,
+        "line": 484,
         "snippet": "\"guarda/preservar_coleta.py\"),"
       }
     },
@@ -29338,7 +29553,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 400,
+        "line": 409,
         "snippet": "\"provas/gate_de_aceitacao_tematica.py\","
       }
     },
@@ -29360,7 +29575,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 258,
+        "line": 264,
         "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
       }
     },
@@ -32926,6 +33141,105 @@
         "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
         "line": 22,
         "snippet": "MEDICAO = os.path.join(RAIZ, \"provas\", \"a_sala_de_espera_nao_tem_morada.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 22,
+        "snippet": "import _gavetas                       # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 23,
+        "snippet": "import admissao                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 24,
+        "snippet": "import sala_de_espera as espera       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 29,
+        "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 28,
+        "snippet": "ROTA = os.path.join(RAIZ, \"coleta\", \"rota_forward_documento.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 30,
+        "snippet": "ADR = os.path.join(RAIZ, \"docs\", \"decisoes\", \"ADR-SALA-DE-ESPERA-V1.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "guarda/preservar_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 202,
+        "snippet": "from preservar_coleta import RUN_ID_CONFLICT"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "leis/telemetria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 25,
+        "snippet": "import telemetria as tel              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+        "line": 27,
+        "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
       }
     },
     {
@@ -37511,7 +37825,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 271,
+        "line": 297,
         "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
       }
     },
@@ -37522,7 +37836,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_portoes_da_collection.py",
-        "line": 251,
+        "line": 277,
         "snippet": "\"COLLECTION-V1-CLOSE-GATES.md\"),"
       }
     },
@@ -40052,10 +40366,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1500,
-    "files_readable": 581,
-    "files_code_dir": 626,
-    "file_edges": 2642,
+    "files_tracked": 1504,
+    "files_readable": 584,
+    "files_code_dir": 629,
+    "file_edges": 2668,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

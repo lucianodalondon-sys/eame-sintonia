@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "94e27e2a24eb8587d0e8bcd72f56bed6ca1d5ab8",
+  "MEASURED_HEAD": "4690cca42cb150be38ec2f38cf13a521181b5133",
   "BIBLE_VERSION": "V1.4",
   "LAW_TOTAL": 105,
   "IMPLEMENTATION_STATE": {
@@ -91,15 +91,17 @@
     },
     "READY": {
       "MODULE_EXISTS": "YES",
-      "EDGE_EXISTS": "NO",
-      "FLOW_EXECUTED": "NO",
-      "PROOF": "READY tem dono (admissao.pronto_para_inteligencia) e contrato (COL-LAW-043, 11 campos); a rota forward termina em ADMISSION e nao chega la. Zero produtores, zero consumidores, e o destino nao existe."
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
+      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
     },
     "WAITING_ROOM": {
-      "MODULE_EXISTS": "NO",
-      "EDGE_EXISTS": "NO",
-      "FLOW_EXECUTED": "NO",
-      "PROOF": "READY tem dono (admissao.pronto_para_inteligencia) e contrato (COL-LAW-043, 11 campos); a rota forward termina em ADMISSION e nao chega la. Zero produtores, zero consumidores, e o destino nao existe."
+      "MODULE_EXISTS": "YES",
+      "EDGE_EXISTS": "YES",
+      "FLOW_EXECUTED": "YES",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
+      "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao."
     }
   },
   "PROVA_E2E_HOJE": {
@@ -130,11 +132,10 @@
       "RAW",
       "DERIVED",
       "STRUCTURED",
-      "ADMISSION"
-    ],
-    "ETAPAS_MUDAS": [
+      "ADMISSION",
       "READY"
     ],
+    "ETAPAS_MUDAS": [],
     "COMO_FOI_MEDIDO": "AST sobre coleta, guarda, admissao, medidas, orquestrador: quem chama `rastro.registrar` e com que `etapa=`. Um comentario que nomeie uma etapa nao conta.",
     "O_QUE_MUDO_NAO_QUER_DIZER": "uma etapa muda pode estar a correr. MUDA != PARADA — e esse e o problema",
     "COST": "NOT_INSTRUMENTED",
@@ -157,25 +158,25 @@
       "GAP_ID": "G-READY-01",
       "CONCEPT": "READY nao e produzido por nenhuma rota",
       "OWNER": "admissao/admissao.py::pronto_para_inteligencia",
-      "CURRENT_STATE": "dono e contrato existem; zero produtores em runtime; a rota forward acaba em ADMISSION",
+      "CURRENT_STATE": "a rota forward produz READY na mesma corrida: RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY, e as cinco etapas falam no rastro",
       "EXPECTED_STATE": "ADMISSION SIM produz READY na mesma corrida",
-      "PROOF": "buracos.generated.json::READY_NAO_TEM_DONO · o ledger de execucao diz READY_EMITIDO=false com COL-LAW-043 citada",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py — 26 casos contra PostgreSQL 16 descartavel e filesystem descartavel, com bytes reais",
       "SEVERITY": "CRITICAL",
-      "CLOSE_GATE": "BLOCKER",
-      "WHY": "impede LEVAR_ATE_READY. Sem READY nao ha o que reconciliar depois da coleta grande, e a coleta produz corpo que nunca vira unidade.",
-      "MINIMUM_FIX": "ligar a saida da ADMISSION ao dono do READY — o dono recebe `item` e a rota produz `derived_artifact`: falta a traducao, nao o contrato"
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia LEVAR_ATE_READY. Agora a coleta produz unidade, e nao so corpo.",
+      "MINIMUM_FIX": "—"
     },
     {
       "GAP_ID": "G-READY-02",
       "CONCEPT": "a sala de espera nao tem armazenamento",
-      "OWNER": "NAO ATRIBUIDO",
-      "CURRENT_STATE": "o destino nao existe; zero consumidores",
+      "OWNER": "admissao/sala_de_espera.py",
+      "CURRENT_STATE": "a morada tem UM dono, escrita atomica, retry idempotente e conflito explicito; o writer saiu do control plane (COL-LAW-012)",
       "EXPECTED_STATE": "existe onde pousar a unidade pronta",
-      "PROOF": "buracos.generated.json::READY_NAO_TEM_DONO — «e nao tem NENHUM consumidor»",
+      "PROOF": "provas/a_unidade_pousa_na_espera.py — atomicidade, retry, conflito, concorrencia e crash provados contra filesystem real",
       "SEVERITY": "CRITICAL",
-      "CLOSE_GATE": "BLOCKER",
-      "WHY": "impede LEVAR_A_SALA_DE_ESPERA. Zero CONSUMIDORES e correcto antes da Intelligence; zero DESTINO nao e.",
-      "MINIMUM_FIX": "decidir onde a unidade pronta pousa — e uma decisao de contrato antes de ser codigo"
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "impedia LEVAR_A_SALA_DE_ESPERA. Zero CONSUMIDORES continua correcto antes da Intelligence; zero DESTINO ja nao e o caso.",
+      "MINIMUM_FIX": "—"
     },
     {
       "GAP_ID": "G-E2E-01",
@@ -295,10 +296,7 @@
     },
     "DUPLICADO_MEDIDO": "TELEMETRY_FAILURE_SEM_POLITICA aparece DUAS vezes no censo, com o mesmo nome, em dois sitios"
   },
-  "BLOCKERS": [
-    "G-READY-01",
-    "G-READY-02"
-  ],
+  "BLOCKERS": [],
   "NON_BLOCKING_DEBT": [
     "G-STRUCT-01",
     "G-ADM-01",
@@ -389,23 +387,21 @@
         "G-TEL-01"
       ],
       "PORQUE_NAO_FECHOU_TUDO": "a politica para quando a propria telemetria falha foi MEDIDA e preservada — a excecao sobe, e o bruto preservado fica. Inventar politica nova aqui faria falha de telemetria passar por falha de RAW, e elas nao sao a mesma coisa."
-    }
-  ],
-  "MINIMUM_MISSION_DAG": [
+    },
     {
-      "MISSION": 1,
-      "ID": "C-CLOSE-THE-READY-EDGE-V1",
+      "ID": "C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1",
       "ROOT_CAUSE": "RC-A",
-      "O_QUE_DA_FILA_JA_FECHOU": [
-        "G-E2E-01",
-        "G-RUN-01",
-        "G-RAW-01"
+      "ESTADO": "CLOSED",
+      "FECHOU": [
+        "G-READY-01",
+        "G-READY-02"
       ],
-      "QUESTION": "uma unidade que a porta admite chega a READY e pousa na sala de espera, na mesma corrida?",
-      "PORQUE_UNICA": "e a unica que resta, e a unica com decisao de contrato por tomar — onde a unidade pronta pousa"
+      "DECISAO": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md — o backend da Sala de Espera V1 e o sistema de ficheiros, na morada que ja existia. Decidido por gente, depois de a medicao de C-CLOSE-THE-READY-EDGE-V1 mostrar que a lei aceita as duas e nao escolhe.",
+      "COMO": "a escrita saiu do control plane para UM dono (`admissao/sala_de_espera.py`), e a rota forward passou a chamar o mesmo dono. Sem tabela, sem migration, sem segunda morada."
     }
   ],
-  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 1,
+  "MINIMUM_MISSION_DAG": [],
+  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 0,
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
   "COLLECTION_CORE_CLOSE": {
@@ -418,17 +414,16 @@
     "DERIVATION": "PROVEN",
     "STRUCTURED": "PROVEN_FOR_ONE_CLASS",
     "ADMISSION_INFRASTRUCTURE": "PROVEN",
-    "READY": "NOT_PROVEN",
-    "WAITING_ROOM": "NOT_PROVEN",
+    "READY": "PROVEN",
+    "WAITING_ROOM": "PROVEN",
     "REPROCESS": "PROVEN",
     "RETRY_REUSE_NEW": "DISTINGUISHED",
     "ERROR_UNKNOWN": "DISTINGUISHED",
     "OBSERVABILITY": "INSUFFICIENT",
     "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
-    "BLOQUEADO_POR": [
-      "G-READY-01",
-      "G-READY-02"
-    ],
+    "BLOQUEADO_POR": [],
+    "PORQUE_FALHA": "os blockers acabaram; o que falta e a CABECA da estrada. REQUEST, ORCHESTRATOR, EXECUTOR e RUN continuam sem corrida observada, e por isso CANONICAL_E2E nao esta provado.",
+    "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. O veredicto vem das PROPRIEDADES, e uma delas — a travessia inteira — continua por observar.",
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
   },
   "BIG_COLLECTION_READY": {
@@ -508,7 +503,7 @@
     },
     {
       "PROVA": "15 · PARTIAL virado blocker automaticamente",
-      "ACHADO": "48 leis estao PARTIAL e ha 2 blockers. Nenhum blocker foi derivado do estado de lei.",
+      "ACHADO": "48 leis estao PARTIAL e ha 0 blockers. Nenhum blocker foi derivado do estado de lei.",
       "VEREDITO": "GUARDADO"
     },
     {

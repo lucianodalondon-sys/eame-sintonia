@@ -50,7 +50,8 @@
       ".github/workflows/system-map.yml"
     ],
     "admissao": [
-      "admissao/admissao.py"
+      "admissao/admissao.py",
+      "admissao/sala_de_espera.py"
     ],
     "build": [
       "build/ITALY-REALITY-HANDOFF-V2/AGROMET-CONDITIONS.json",
@@ -649,6 +650,7 @@
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
       "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+      "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
       "docs/decisoes/ADR-SCRAP-SOCIAL-NA-BIBLIA.md",
       "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
       "docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md",
@@ -1180,6 +1182,7 @@
       "provas/a_regra_de_t2.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/a_sala_de_espera_nao_tem_morada.py",
+      "provas/a_unidade_pousa_na_espera.py",
       "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
       "provas/auditoria.py",
@@ -1467,6 +1470,7 @@
       "tests/test_a_prova_e2e_segue_a_producao.py",
       "tests/test_a_regra_de_t2.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
+      "tests/test_a_sala_de_espera_tem_um_dono.py",
       "tests/test_adama_relevance.py",
       "tests/test_alcance_tematico.py",
       "tests/test_alvo_estruturado_resolvido.py",
@@ -1947,10 +1951,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/close-the-ready-edge-v1",
-    "HEAD": "94e27e2a24eb8587d0e8bcd72f56bed6ca1d5ab8",
-    "GENERATED_AT": "2026-09-12T12:10:04+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2e288f42dd442b5f16ae0bc83b1d6e1ffb758da9eb67182e6c3c341f60843455"
+    "BRANCH": "claude/close-ready-with-canonical-waiting-room-v1",
+    "HEAD": "bad49037c2e406ff6fdfa3bcf62f1ae8dbdc01c8",
+    "GENERATED_AT": "2026-09-12T13:23:24+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b5b3c7a59316d3817fd843701a2d59cf26942a79c65d2e1a496690aa0f411608"
   },
   "FAMILIES": [
     {
@@ -1977,7 +1981,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 64
+      "count": 65
     },
     {
       "id": "F-ESPERA",
@@ -2019,7 +2023,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 58
+      "count": 59
     },
     {
       "id": "F-ENTREGA",
@@ -2247,7 +2251,7 @@
       "y": 190,
       "w": 405,
       "h": 4870,
-      "count": 1
+      "count": 2
     },
     {
       "id": "Z-ESPERA",
@@ -2389,7 +2393,7 @@
       "y": 190,
       "w": 1235,
       "h": 4870,
-      "count": 44
+      "count": 45
     }
   ],
   "DEPARTMENTS": {
@@ -2658,6 +2662,7 @@
         "C-PROVA-FRONTEIRA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-READY",
         "C-RECALL-PORTA-IT",
         "C-ROTA-M2",
@@ -7234,6 +7239,7 @@
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-RASTRO",
         "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
@@ -7710,8 +7716,10 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-RASTRO",
         "C-RELATORIO-FLUXO",
+        "C-SALA-DE-ESPERA",
         "C-TESTES"
       ],
       "paises": {},
@@ -8265,6 +8273,8 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+        "C-SALA-DE-ESPERA",
         "C-TESTES"
       ],
       "paises": {},
@@ -9502,6 +9512,7 @@
         "C-IT-CONTRATOS",
         "C-PROVA-COLETA",
         "C-PROVA-O-RAW-FALA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-RECEITAS",
         "C-TESTES"
       ],
@@ -10831,7 +10842,8 @@
         "C-INGRESSO",
         "C-PEDIDO",
         "C-PROCEDENCIA",
-        "C-RECEITAS"
+        "C-RECEITAS",
+        "C-SALA-DE-ESPERA"
       ],
       "outbound": [
         "C-ESTRADAS-IT",
@@ -12047,6 +12059,7 @@
         "C-RASTRO",
         "C-RECEITAS",
         "C-ROTA-M2",
+        "C-SALA-DE-ESPERA",
         "C-SCRAP-LEIS",
         "C-SENSOR-COLETA",
         "C-SUPABASE",
@@ -12060,6 +12073,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-TESTES"
       ],
       "paises": {},
@@ -12122,11 +12136,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 919,
+        "palavras": 927,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 917,
+        "sem_marca_de_lingua": 925,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12624,6 +12638,7 @@
       ],
       "outbound": [
         "C-CENSO-EXECUTORES",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-TESTES"
       ],
       "paises": {},
@@ -12750,6 +12765,69 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 20850,
       "y": 4224
+    },
+    {
+      "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "name": "A prova de que a unidade pousa na espera",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Corre a travessia inteira numa corrida so, com bytes reais, contra PostgreSQL 16 descartavel e um sistema de ficheiros descartavel: RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY -> SALA DE ESPERA. Depois mede o que um ficheiro exige e que ninguem ve ate falhar: atomicidade, retry idempotente, conflito de corrida, concorrencia em processos de verdade, e o que sobra de um crash a meio da escrita.",
+      "why_here": "ADMISSION SIM != READY AUTOMATICO: a unidade tem de POUSAR. E um rastro de READY emitido antes da publicacao seria um sucesso que aponta para um ficheiro que pode nunca ter sido escrito.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊢",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/a_unidade_pousa_na_espera.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-COLETA-BASE",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DONO-DA-ESCRITA",
+        "C-IT-COLETA",
+        "C-PROVA-COLETA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-ROTA-M2",
+        "C-SALA-DE-ESPERA"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS"
+        ],
+        "palavras": 11,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 11,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVENIENCIA",
@@ -12999,7 +13077,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -13147,7 +13225,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13289,8 +13367,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -13487,6 +13565,7 @@
         "C-DIAGNOSTICO",
         "C-INGRESSO",
         "C-RASTRO",
+        "C-SALA-DE-ESPERA",
         "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL"
       ],
@@ -13494,6 +13573,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-TESTES"
       ],
       "paises": {},
@@ -13638,6 +13718,58 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 6705,
       "y": 1648
+    },
+    {
+      "id": "C-SALA-DE-ESPERA",
+      "name": "A Sala de Espera",
+      "territory": "Z-ADMISSAO",
+      "kind": "engine",
+      "what": "O dono unico da morada onde a unidade READY pousa: data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json. Escrita atomica por troca (fsync + os.replace), retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e uma trava por corrida contra duas maos simultaneas.",
+      "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌛",
+      "views": [
+        "acervo",
+        "audit",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "admissao/sala_de_espera.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-TELEMETRIA",
+        "C-DONO-DA-ESCRITA"
+      ],
+      "outbound": [
+        "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
+        "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+        "C-ROTA-M2",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "PRINCIPAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11600,
+      "y": 682
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -14049,7 +14181,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -15495,6 +15627,7 @@
         "tests/test_a_prova_e2e_segue_a_producao.py",
         "tests/test_a_regra_de_t2.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
+        "tests/test_a_sala_de_espera_tem_um_dono.py",
         "tests/test_adama_relevance.py",
         "tests/test_alcance_tematico.py",
         "tests/test_alvo_estruturado_resolvido.py",
@@ -15595,7 +15728,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 104,
+      "file_count": 105,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15692,6 +15825,7 @@
         "C-RELEVANCIA",
         "C-ROTA-M2",
         "C-ROTULOS",
+        "C-SALA-DE-ESPERA",
         "C-SAUDE-FONTE",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
@@ -15766,11 +15900,11 @@
           "SINTETICOS",
           "_GAVETA_DE"
         ],
-        "palavras": 472,
+        "palavras": 483,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 470,
+        "sem_marca_de_lingua": 481,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15830,7 +15964,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -17173,7 +17307,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/close-the-ready-edge-v1"
+        "branch claude/close-ready-with-canonical-waiting-room-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17614,7 +17748,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 377,
+          "line": 386,
           "snippet": "\"admissao/admissao.py\","
         },
         {
@@ -17722,6 +17856,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 53,
+          "snippet": "import admissao                                      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-READY",
       "type": "PRODUZ",
       "kind": "technical",
@@ -17781,7 +17933,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -17792,6 +17944,11 @@
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
           "line": 20,
           "snippet": "import admissao                    # noqa: E402"
+        },
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 23,
+          "snippet": "import admissao                       # noqa: E402"
         },
         {
           "file": "tests/test_alcance_tematico.py",
@@ -17837,11 +17994,6 @@
           "file": "tests/test_lingua_da_porta.py",
           "line": 39,
           "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "tests/test_m2_rota_forward.py",
-          "line": 18,
-          "snippet": "import admissao                       # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19436,7 +19588,7 @@
         },
         {
           "file": "tests/test_portoes_da_collection.py",
-          "line": 271,
+          "line": 297,
           "snippet": "\"CONFORMIDADE-ITALIA.md\"), encoding=\"utf-8\") as f:"
         }
       ],
@@ -21310,6 +21462,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 54,
+          "snippet": "import coleta_checkpoint as cc                       # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -21988,6 +22158,24 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 57,
+          "snippet": "import telemetria as tel                             # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-RASTRO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22024,14 +22212,37 @@
     },
     {
       "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-SALA-DE-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A Sala de Espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/sala_de_espera.py",
+          "line": 57,
+          "snippet": "import telemetria as tel                           # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 25,
+          "snippet": "import telemetria as tel              # noqa: E402"
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 33,
@@ -22364,7 +22575,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 388,
+          "line": 397,
           "snippet": "\"coleta/derivacao_forward.py\","
         }
       ],
@@ -22784,7 +22995,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 475,
+          "line": 484,
           "snippet": "\"guarda/preservar_coleta.py\"),"
         }
       ],
@@ -22869,14 +23080,55 @@
     },
     {
       "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 59,
+          "snippet": "from guarda.preservar_coleta import sha256           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-SALA-DE-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por A Sala de Espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "admissao/sala_de_espera.py",
+          "line": 61,
+          "snippet": "from preservar_coleta import RUN_ID_CONFLICT     # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 202,
+          "snippet": "from preservar_coleta import RUN_ID_CONFLICT"
+        },
         {
           "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
           "line": 111,
@@ -22931,11 +23183,6 @@
           "file": "tests/test_preservar_derivado.py",
           "line": 34,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, sha256  # noqa: E402"
-        },
-        {
-          "file": "tests/test_raw_observation_id_volta.py",
-          "line": 45,
-          "snippet": "from guarda.memoria_descartavel import MemoriaDescartavel    # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -24304,7 +24551,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 365,
+          "line": 374,
           "snippet": "\"guarda/importar_italia.py\","
         }
       ],
@@ -24870,6 +25117,24 @@
           "file": "provas/o_raw_fala.py",
           "line": 147,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\", \"ACTOR_VERSION\": \"adapter-v1\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas alimenta A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 133,
+          "snippet": "\" values ('%s','HTTP direto','coleta/italy_executor.py','adapter-v1',\""
         }
       ],
       "categoria": "READ"
@@ -26437,11 +26702,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
           "line": 23,
+          "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+        },
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 27,
           "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
         },
         {
@@ -27968,6 +28238,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 359,
+          "snippet": "\"preservar_coleta_no_postgres.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28243,6 +28531,24 @@
           "file": "system-map/scripts/censo_dos_executores.py",
           "line": 531,
           "snippet": "'provas/a_rota_m2_atravessa.py',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a rota da M2 atravessa alimenta A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 116,
+          "snippet": "\"rota_m2\", os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\"))"
         }
       ],
       "categoria": "READ"
@@ -28938,6 +29244,24 @@
     },
     {
       "from": "C-ROTA-M2",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) tem o seu codigo importado por A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 55,
+          "snippet": "import rota_forward_documento as m2                  # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ROTA-M2",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28962,8 +29286,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 28,
+          "snippet": "ROTA = os.path.join(RAIZ, \"coleta\", \"rota_forward_documento.py\")"
+        },
         {
           "file": "tests/test_lingua_da_porta.py",
           "line": 203,
@@ -29163,6 +29492,132 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-ORQUESTRADOR",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 58,
+          "snippet": "import sala_de_espera as espera        # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/os_portoes_da_collection.py",
+          "line": 316,
+          "snippet": "\"admissao/sala_de_espera.py\","
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 56,
+          "snippet": "import sala_de_espera as espera                      # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera alimenta A prova de que a unidade pousa na espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_unidade_pousa_na_espera.py",
+          "line": 298,
+          "snippet": "os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-ROTA-M2",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A rota forward do documento (M2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/rota_forward_documento.py",
+          "line": 57,
+          "snippet": "import sala_de_espera as espera        # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 24,
+          "snippet": "import sala_de_espera as espera       # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
+          "line": 29,
+          "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-SAUDE-FONTE",
@@ -31034,7 +31489,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 258,
+          "line": 264,
           "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
         }
       ],
@@ -32154,7 +32609,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 758,
+  "UNCLAIMED_FILES_COUNT": 759,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -32309,17 +32764,17 @@
     ]
   },
   "COUNTS": {
-    "components": 161,
+    "components": 163,
     "components_proven": 59,
-    "components_pending": 96,
+    "components_pending": 98,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 665,
-    "edges_proven": 663,
+    "edges": 682,
+    "edges_proven": 680,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1500,
-    "files_covered": 742,
+    "files_tracked": 1504,
+    "files_covered": 745,
     "files_code_unclaimed": 0
   }
 }

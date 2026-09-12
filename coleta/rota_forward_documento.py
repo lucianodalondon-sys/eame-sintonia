@@ -54,6 +54,7 @@ import diagnostico as dg             # noqa: E402
 import falhas                        # noqa: E402
 import rastro_da_coleta as rastro    # noqa: E402
 import social_persistencia as sp     # noqa: E402
+import sala_de_espera as espera        # noqa: E402
 
 # ── OS GRAOS ─────────────────────────────────────────────────────────────
 # O grao muda em cada aresta, e por isso nenhuma razao entre entrada e saida e
@@ -62,6 +63,7 @@ import social_persistencia as sp     # noqa: E402
 GRAO_DERIVADO = 'artefato derivado'
 GRAO_REGISTO = 'registo estruturado'
 GRAO_DECISAO = 'decisao de admissao'
+GRAO_PRONTA = 'unidade pronta'
 
 POLICY_VERSION = 'm2:rota-forward-documento'
 
@@ -165,6 +167,53 @@ def estruturar(banco, *, unidade, run_id, canal_id, tentativa=None):
     return recibo
 
 
+def item_para_a_porta(unidade):
+    """A unidade STRUCTURED na lingua que a porta le. UM tradutor, um sitio.
+
+    ⚠️ ISTO ERA CODIGO SOLTO DENTRO DE `admitir()`, e passou a ter nome porque
+    a etapa READY precisa do MESMO item que a porta julgou. Reconstrui-lo do
+    outro lado daria dois itens parecidos e nenhuma garantia de que sao iguais
+    — e entao a unidade entregue a espera nao seria a unidade admitida.
+
+        O QUE A PORTA JULGOU E O QUE TEM DE POUSAR.
+
+    `SOURCE_ID` e nome do contrato comum, e quem o traduz e
+    `coleta/ingresso.py::para_a_porta` — aqui nao se reescreve o mapa.
+
+    ⚠️ E AQUI FICA UM ACHADO, E NAO UMA SOLUCAO. A unidade STRUCTURED tem
+    vocabulario PROPRIO — `CONTENT_ID`, `TEXTO`, `URL`, `CAPTURED_AT` — que NAO
+    e o do contrato comum (`SOURCE_URL`, `COLLECTED_AT`). Sao TRES linguas
+    nesta casa, e nao duas. Meter `URL` e `CAPTURED_AT` no mapa canonico faria
+    o tradutor do contrato comum passar a conhecer o vocabulario do STRUCTURED
+    — e um tradutor que aceita tudo deixa de dizer o que e o que.
+    """
+    # ⚠️ O ESTAGIO VIAJA, E ATE AQUI NAO VIAJAVA.
+    # MEDIDO: a porta pergunta o ESTAGIO do item (COL-LAW-502) e le-o em
+    # `artifact_type`. Esta rota so lhe passava `SOURCE_ID`, entao TODO
+    # documento chegava como `ESTAGIO_DESCONHECIDO` — e a um desconhecido
+    # pergunta-se o TEMPO DO FATO, que um documento nao tem.
+    #
+    #     36 de 36 documentos reais respondiam `NAO_SEI` em «tempo do fato».
+    #     A porta estava certa. A pergunta e que era a errada.
+    #
+    # `ingresso.DA_FICHA_PARA_A_PORTA` ja declara os TRES campos que viajam da
+    # ficha para a porta. Nao se inventa nada: declara-se o que a rota ja sabe
+    # — a unidade que chega a ADMISSION nasceu de um `derived_artifact`.
+    declarado = {'SOURCE_ID': unidade.get('SOURCE_ID'),
+                 'ARTIFACT_TYPE': unidade.get('ARTIFACT_TYPE'),
+                 'PARENT_SHA256': unidade.get('PARENT_SHA256'),
+                 'PARENT_ARTIFACT_ID': unidade.get('PARENT_ARTIFACT_ID')}
+    item = ingresso.para_a_porta({k: v for k, v in declarado.items() if v})
+    item.update({
+        'id': unidade['CONTENT_ID'],
+        'texto': unidade['TEXTO'],
+        'url': unidade.get('URL'),
+        'captured_at': unidade.get('CAPTURED_AT'),
+        'raw_asset_id': unidade.get('RAW_ASSET_ID'),
+    })
+    return item
+
+
 def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
             tentativa=None):
     """ADMISSION — a porta decide, e a costura conta a decisao.
@@ -183,8 +232,7 @@ def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
     # ── A TRAVESSIA DE LINGUA, PELO DONO DELA ──────────────────────────────
     # `SOURCE_ID` e nome do contrato comum, e quem o traduz e
     # `coleta/ingresso.py::para_a_porta` — aqui nao se reescreve o mapa.
-    item = ingresso.para_a_porta({'SOURCE_ID': unidade.get('SOURCE_ID')}
-                                 if unidade.get('SOURCE_ID') else {})
+    item = item_para_a_porta(unidade)
     # ⚠️ E AQUI FICA UM ACHADO, E NAO UMA SOLUCAO. A unidade STRUCTURED tem
     # vocabulario PROPRIO — `CONTENT_ID`, `TEXTO`, `URL`, `CAPTURED_AT` — que
     # NAO e o do contrato comum (`SOURCE_URL`, `COLLECTED_AT`). Sao TRES
@@ -195,13 +243,6 @@ def admitir(banco, *, unidade, run_id, conteudo_id, universo=UNIVERSO_PADRAO,
     # Meter `URL` e `CAPTURED_AT` no mapa canonico faria o tradutor do contrato
     # comum passar a conhecer o vocabulario do STRUCTURED — e um tradutor que
     # aceita tudo deixa de dizer o que e o que.
-    item.update({
-        'id': unidade['CONTENT_ID'],
-        'texto': unidade['TEXTO'],
-        'url': unidade.get('URL'),
-        'captured_at': unidade.get('CAPTURED_AT'),
-        'raw_asset_id': unidade.get('RAW_ASSET_ID'),
-    })
     try:
         decisao = admissao.decidir(item, universo, corrida=run_id)
     except Exception as erro:
@@ -299,6 +340,91 @@ def _texto_derivado(recibo_deriv, armazem):
     return dados.decode('utf-8', errors='replace'), caminho
 
 
+def levar_a_espera(banco, *, unidade, decisao, run_id, tentativa=None):
+    """READY — a unidade admitida pousa na Sala de Espera, e so entao se conta.
+
+    ⚠️ A ORDEM E A PROVA, E ELA E A MESMA DO RAW.
+    O rastro de READY nasce DEPOIS de a unidade estar publicada. Emitir antes
+    daria um PASS que aponta para um ficheiro que pode nunca ter sido escrito
+    — e um sucesso sem sujeito e pior do que rastro nenhum, porque parece
+    medido.
+
+    ⚠️ E SO O `SIM` PASSA.
+    `NAO`, `NAO_SEI`, `NAO_SE_APLICA` e `ERRO` nao produzem unidade nenhuma. O
+    proprio dono do contrato ja recusa emitir sem `SIM` — aqui nem se lhe
+    pergunta, para a etapa poder dizer NOT_RUN em vez de rebentar.
+
+        ADMISSION SIM != READY AUTOMATICO. A unidade tem de POUSAR.
+    """
+    t0 = time.time()
+    comum = dict(_identidade(unidade), run_id=run_id, actor='sala_de_espera',
+                 actor_version=admissao.VERSAO_DA_REGRA,
+                 policy_version=POLICY_VERSION)
+    if tentativa is None:
+        tentativa = rastro.proxima_tentativa(banco, run_id, 'READY')
+
+    if decisao.resultado != admissao.SIM:
+        # A porta disse que nao. A etapa READY NAO CORREU — e nao falhou.
+        rastro.registrar(
+            banco, etapa='READY', edge_from='ADMISSION', estado='NOT_RUN',
+            tentativa=tentativa,
+            input_grain=GRAO_DECISAO, input_count=1,
+            output_grain=GRAO_PRONTA, output_count=0,
+            cardinalidade='1:1', not_run=1, duracao_ms=_ms(t0),
+            last_good_artifact='ADMISSION', **comum)
+        return {'ESTADO': None, 'PORQUE': 'a porta respondeu %s'
+                % decisao.resultado, 'FICHEIRO': None}
+
+    pronta = admissao.pronto_para_inteligencia(item_para_a_porta(unidade),
+                                               decisao)
+    try:
+        recibo = espera.pousar(run_id, [pronta])
+    except Exception as erro:
+        # ⚠️ NAO POUSOU, ENTAO NAO HA READY. Um conflito de corrida sai por
+        # aqui, e sai com o nome dele — nao como sucesso parcial.
+        #
+        # ⚠️ E O CODIGO E ESCOLHIDO, NAO DERIVADO. `diagnostico.POR_ETAPA` nao
+        # tem entrada para READY, e `da_etapa('READY', ...)` devolve `None` —
+        # o que o banco recusa, porque FALHA PRECISA DE CODIGO. Em vez de
+        # inventar um codigo novo no registry, usam-se os dois que ja existem,
+        # escolhidos pelo tipo de falha:
+        #
+        #     ConflitoDeCorrida -> STORAGE_CONFLICT   encaixe exacto: o que
+        #                          esta guardado nao e o que esta execucao diz
+        #     qualquer outra    -> STORAGE_MISSING    leitura declarada: a
+        #                          decisao existe e a unidade nao esta na sala
+        #
+        # A segunda e um ESTICAO da definicao original («a linha existe e o
+        # byte nao esta no armazem»), e fica dito em vez de ficar calado. Um
+        # codigo proprio para READY e trabalho de quem mexer no registry.
+        codigo = (dg.STORAGE_CONFLICT
+                  if isinstance(erro, espera.ConflitoDeCorrida)
+                  else dg.STORAGE_MISSING)
+        rastro.registrar(
+            banco, etapa='READY', edge_from='ADMISSION', estado='FAIL',
+            tentativa=tentativa,
+            input_grain=GRAO_DECISAO, input_count=1,
+            error=1, duracao_ms=_ms(t0),
+            canonical_state='UNKNOWN_ERROR', diagnostic_code=codigo,
+            error_class=type(erro).__name__, error_message=str(erro),
+            last_good_artifact='ADMISSION', **comum)
+        raise
+
+    # `PASSED` quando pousou agora; `REUSED` quando a corrida ja tinha
+    # exactamente este conteudo. Sao dois factos diferentes, e o rastro diz
+    # qual deles foi.
+    balde = 'passed' if recibo['ESTADO'] == espera.POUSOU else 'reused'
+    rastro.registrar(
+        banco, etapa='READY', edge_from='ADMISSION', estado='PASS',
+        tentativa=tentativa,
+        input_grain=GRAO_DECISAO, input_count=1,
+        output_grain=GRAO_PRONTA, output_count=1,
+        cardinalidade='1:1', duracao_ms=_ms(t0),
+        last_good_artifact=recibo['FICHEIRO'],
+        **dict({balde: 1}, **comum))
+    return recibo
+
+
 def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
                universo=UNIVERSO_PADRAO):
     """A rota inteira, NUMA execucao: DERIVED → STRUCTURED → ADMISSION.
@@ -334,6 +460,10 @@ def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
     a_frente['TEXTO'] = texto
     a_frente['DERIVED_STORAGE_PATH'] = caminho
     a_frente['DERIVED_SHA256'] = linha.get('sha256')
+    # O QUE ESTA UNIDADE E, dito por quem a produziu. A porta le isto para
+    # saber que perguntas fazer — e nao para saber a resposta delas.
+    a_frente['ARTIFACT_TYPE'] = 'DERIVED'
+    a_frente.setdefault('PARENT_SHA256', linha.get('parent_sha256'))
     a_frente['CONTENT_ID'] = (linha.get('sha256') or unidade.get('CONTENT_ID'))
 
     recibo_s = estruturar(banco, unidade=a_frente, run_id=run_id,
@@ -353,15 +483,22 @@ def atravessar(banco, *, unidade, run_id, armazem, memoria, canal_id,
     decisao = admitir(banco, unidade=a_frente, run_id=run_id,
                       conteudo_id=recibo_s.get('CONTEUDO_ID'),
                       universo=universo)
+    # ── READY · e a estrada acaba AQUI, na Sala de Espera ────────────────
+    # A Collection termina na espera. Quem a le e a Inteligencia, e isso e
+    # outra missao — zero consumidores neste estagio e o estado CERTO.
+    espera_ = levar_a_espera(banco, unidade=a_frente, decisao=decisao,
+                             run_id=run_id)
     return {'DERIVED': recibo_d, 'STRUCTURED': recibo_s, 'ADMISSION': decisao,
-            'TEXTO_VEIO_DE': caminho}
+            'READY': espera_, 'TEXTO_VEIO_DE': caminho}
 
 
 def main():
     print(__doc__.strip().split('\n')[0])
-    print('etapas: DERIVED (O9R) -> STRUCTURED -> ADMISSION')
-    print('donos : derivacao_forward · social_persistencia · admissao')
-    print('termina em ADMISSION. ADMISSION PASS != READY PASS.')
+    print('etapas: DERIVED (O9R) -> STRUCTURED -> ADMISSION -> READY')
+    print('donos : derivacao_forward · social_persistencia · admissao'
+          ' · sala_de_espera')
+    print('termina na Sala de Espera. ADMISSION SIM != READY: a unidade'
+          ' tem de POUSAR.')
     return 0
 
 

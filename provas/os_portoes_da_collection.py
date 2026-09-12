@@ -140,14 +140,20 @@ def cadeia_canonica():
                                     "SOURCE_COUNTRY; sem ele o enum `pais` "
                                     "recusa a sentinela NOT_PRESERVED")}
         elif e in ("READY", "WAITING_ROOM"):
-            fora[e] = {"MODULE_EXISTS": "YES" if e == "READY" else "NO",
-                       "EDGE_EXISTS": "NO", "FLOW_EXECUTED": "NO",
-                       "PROOF": ("READY tem dono "
-                                 "(admissao.pronto_para_inteligencia) e "
-                                 "contrato (COL-LAW-043, 11 campos); a rota "
-                                 "forward termina em ADMISSION e nao chega "
-                                 "la. Zero produtores, zero consumidores, e "
-                                 "o destino nao existe.")}
+            # ⚠️ FECHADO em C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1.
+            # Ate aqui as duas etapas eram NO/NO: READY tinha dono e contrato
+            # e a rota nao chegava la, e a sala nao tinha morada com dono.
+            # Agora a rota forward produz READY e a unidade POUSA.
+            fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "YES",
+                       "FLOW_EXECUTED": "YES",
+                       "PROOF": ("provas/a_unidade_pousa_na_espera.py: as "
+                                 "CINCO etapas falam na mesma corrida "
+                                 "(RAW -> DERIVED -> STRUCTURED -> ADMISSION "
+                                 "-> READY) e a unidade aterra na sala, com "
+                                 "escrita atomica e conflito explicito"),
+                       "CONSUMIDORES": ("0 — e e o estado CERTO antes da "
+                                        "Intelligence. PRODUTOR existe; "
+                                        "consumidor e outra missao.")}
         else:
             fora[e] = {"MODULE_EXISTS": "YES", "EDGE_EXISTS": "UNKNOWN",
                        "FLOW_EXECUTED": "NO",
@@ -290,30 +296,33 @@ def gaps():
             ("PROOF", prova), ("SEVERITY", sev), ("CLOSE_GATE", portao),
             ("WHY", porque), ("MINIMUM_FIX", fix)]))
 
+    # ⚠️ FECHADO em C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1.
     G("G-READY-01", "READY nao e produzido por nenhuma rota",
       "admissao/admissao.py::pronto_para_inteligencia",
-      "dono e contrato existem; zero produtores em runtime; a rota forward "
-      "acaba em ADMISSION",
+      "a rota forward produz READY na mesma corrida: RAW -> DERIVED -> "
+      "STRUCTURED -> ADMISSION -> READY, e as cinco etapas falam no rastro",
       "ADMISSION SIM produz READY na mesma corrida",
-      "buracos.generated.json::READY_NAO_TEM_DONO · o ledger de execucao diz "
-      "READY_EMITIDO=false com COL-LAW-043 citada",
-      "CRITICAL", BLOCKER,
-      "impede LEVAR_ATE_READY. Sem READY nao ha o que reconciliar depois da "
-      "coleta grande, e a coleta produz corpo que nunca vira unidade.",
-      "ligar a saida da ADMISSION ao dono do READY — o dono recebe `item` e a "
-      "rota produz `derived_artifact`: falta a traducao, nao o contrato")
+      "provas/a_unidade_pousa_na_espera.py — 26 casos contra PostgreSQL 16 "
+      "descartavel e filesystem descartavel, com bytes reais",
+      "CRITICAL", FECHADO,
+      "impedia LEVAR_ATE_READY. Agora a coleta produz unidade, e nao so "
+      "corpo.",
+      "—")
 
+    # ⚠️ FECHADO na mesma missao, e por uma DECISAO que foi tomada por gente:
+    # `docs/decisoes/ADR-SALA-DE-ESPERA-V1.md`. O backend e o sistema de
+    # ficheiros, e isso e uma escolha de MEIO — nao de estado (COL-LAW-044).
     G("G-READY-02", "a sala de espera nao tem armazenamento",
-      "NAO ATRIBUIDO",
-      "o destino nao existe; zero consumidores",
+      "admissao/sala_de_espera.py",
+      "a morada tem UM dono, escrita atomica, retry idempotente e conflito "
+      "explicito; o writer saiu do control plane (COL-LAW-012)",
       "existe onde pousar a unidade pronta",
-      "buracos.generated.json::READY_NAO_TEM_DONO — «e nao tem NENHUM "
-      "consumidor»",
-      "CRITICAL", BLOCKER,
-      "impede LEVAR_A_SALA_DE_ESPERA. Zero CONSUMIDORES e correcto antes da "
-      "Intelligence; zero DESTINO nao e.",
-      "decidir onde a unidade pronta pousa — e uma decisao de contrato antes "
-      "de ser codigo")
+      "provas/a_unidade_pousa_na_espera.py — atomicidade, retry, conflito, "
+      "concorrencia e crash provados contra filesystem real",
+      "CRITICAL", FECHADO,
+      "impedia LEVAR_A_SALA_DE_ESPERA. Zero CONSUMIDORES continua correcto "
+      "antes da Intelligence; zero DESTINO ja nao e o caso.",
+      "—")
 
     # ⚠️ FECHADO em C-RESTORE-CANONICAL-E2E-PROOF-V1. Fica na lista com o
     # estado novo em vez de desaparecer: um gap que some nao deixa ver que
@@ -529,24 +538,41 @@ FEITAS = [
             "politica nova aqui faria falha de telemetria passar por falha de "
             "RAW, e elas nao sao a mesma coisa.")),
     ]),
+    OrderedDict([
+        ("ID", "C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1"),
+        ("ROOT_CAUSE", "RC-A"),
+        ("ESTADO", FECHADO),
+        ("FECHOU", ["G-READY-01", "G-READY-02"]),
+        ("DECISAO", "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md — o backend da "
+                    "Sala de Espera V1 e o sistema de ficheiros, na morada "
+                    "que ja existia. Decidido por gente, depois de a medicao "
+                    "de C-CLOSE-THE-READY-EDGE-V1 mostrar que a lei aceita as "
+                    "duas e nao escolhe."),
+        ("COMO", ("a escrita saiu do control plane para UM dono "
+                  "(`admissao/sala_de_espera.py`), e a rota forward passou a "
+                  "chamar o mesmo dono. Sem tabela, sem migration, sem "
+                  "segunda morada.")),
+    ]),
 ]
 
 
 def dag():
-    """A fila minima. So BLOCKER ABERTO entra, e a ordem vem das dependencias."""
-    return [
-        OrderedDict([
-            ("MISSION", 1),
-            ("ID", "C-CLOSE-THE-READY-EDGE-V1"),
-            ("ROOT_CAUSE", "RC-A"),
-            ("O_QUE_DA_FILA_JA_FECHOU", ["G-E2E-01", "G-RUN-01", "G-RAW-01"]),
-            ("QUESTION", ("uma unidade que a porta admite chega a READY e "
-                          "pousa na sala de espera, na mesma corrida?")),
-            ("PORQUE_UNICA", ("e a unica que resta, e a unica com decisao de "
-                              "contrato por tomar — onde a unidade pronta "
-                              "pousa")),
-        ]),
-    ]
+    """A fila minima. So BLOCKER ABERTO entra, e a ordem vem das dependencias.
+
+    ⚠️ ELA ESVAZIOU-SE, E ISSO NAO E O MESMO QUE FECHAR.
+    `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` fechou os dois ultimos
+    blockers. O que sobra para `COLLECTION_CORE_CLOSE` nao e um gap: e a
+    CABECA da estrada — REQUEST, ORCHESTRATOR, EXECUTOR e RUN continuam sem
+    corrida observada.
+
+        ZERO BLOCKERS != CORE FECHADO.
+
+    Uma fila vazia com um veredicto FAIL ao lado e exactamente o retrato
+    honesto: nao ha buraco declarado por tapar, e ha uma propriedade por
+    provar. Inventar aqui uma missao para a fila nao ficar vazia seria
+    fabricar divida; esconder o FAIL seria pior.
+    """
+    return []
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -624,14 +650,23 @@ def portoes(cadeia, gs):
         ("DERIVATION", "PROVEN"),
         ("STRUCTURED", "PROVEN_FOR_ONE_CLASS"),
         ("ADMISSION_INFRASTRUCTURE", "PROVEN"),
-        ("READY", "NOT_PROVEN"),
-        ("WAITING_ROOM", "NOT_PROVEN"),
+        ("READY", "PROVEN"),
+        ("WAITING_ROOM", "PROVEN"),
         ("REPROCESS", "PROVEN"),
         ("RETRY_REUSE_NEW", "DISTINGUISHED"),
         ("ERROR_UNKNOWN", "DISTINGUISHED"),
         ("OBSERVABILITY", "INSUFFICIENT"),
         ("NO_UNAUTHORIZED_INTELLIGENCE_BYPASS", "YES"),
         ("BLOQUEADO_POR", bloqueios),
+        ("PORQUE_FALHA", (
+            "os blockers acabaram; o que falta e a CABECA da estrada. "
+            "REQUEST, ORCHESTRATOR, EXECUTOR e RUN continuam sem corrida "
+            "observada, e por isso CANONICAL_E2E nao esta provado."
+            if not bloqueios and not e2e else
+            "bloqueado por: %s" % (bloqueios or "—"))),
+        ("ZERO_BLOCKERS_NAO_E_PASS", (
+            "ZERO BLOCKERS != CORE FECHADO. O veredicto vem das PROPRIEDADES, "
+            "e uma delas — a travessia inteira — continua por observar.")),
         ("NAO_E_PERCENTAGEM", (
             "este veredicto nao vem da media das leis. Vem das propriedades "
             "que a coleta grande precisa de ter, e cada FAIL aponta a "

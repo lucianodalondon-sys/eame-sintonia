@@ -9,10 +9,10 @@ cada uma com a sua prova.
 COLLECTION_CORE_CLOSE = FAIL
 BIG_COLLECTION_READY  = FAIL
 
-BLOCKERS            = 2
+BLOCKERS            = 0
 NON_BLOCKING_DEBT   = 5
 ROOT_CAUSES         = 4
-MISSÕES ATÉ FECHAR  = 1
+MISSÕES ATÉ FECHAR  = 0
 ```
 
 Este veredito não vem da média das 105 leis. Vem das propriedades que a
@@ -28,7 +28,7 @@ coleta grande precisa de ter, e cada falha aponta a propriedade que falta.
 > UMA LEI `PARTIAL` PODE NÃO BLOQUEAR NADA,  
 > E UMA LEI PEQUENA PODE BLOQUEAR TUDO.
 
-Medido: **48 leis `PARTIAL`** e **2 blockers**. Nenhum blocker foi derivado
+Medido: **48 leis `PARTIAL`** e **0 blockers**. Nenhum blocker foi derivado
 do estado de lei.
 
 ## A estrada canónica
@@ -44,8 +44,8 @@ do estado de lei.
 | `DERIVED` | YES | YES | **YES** |
 | `STRUCTURED` | YES | YES | **YES** |
 | `ADMISSION` | YES | YES | **YES** |
-| `READY` | YES | NO | **NO** |
-| `WAITING_ROOM` | NO | NO | **NO** |
+| `READY` | YES | YES | **YES** |
+| `WAITING_ROOM` | YES | YES | **YES** |
 
 > MÓDULO EXISTE ≠ ARESTA EXISTE ≠ FLUXO EXECUTADO.
 
@@ -56,10 +56,20 @@ Sem banco ela **salta**, e isso é honesto: `SKIP != PASS`.
 
 ## Os blockers
 
-| id | severidade | conceito | propriedade que impede |
-|---|---|---|---|
-| `G-READY-01` | CRITICAL | READY nao e produzido por nenhuma rota | `LEVAR_ATE_READY` |
-| `G-READY-02` | CRITICAL | a sala de espera nao tem armazenamento | `LEVAR_A_SALA_DE_ESPERA` |
+**Nenhum.** E isso **não** quer dizer que o core fechou.
+
+```
+COLLECTION_CORE_CLOSE = FAIL
+BLOQUEADO_POR         = []
+PORQUE                = CANONICAL_E2E não está provado
+```
+
+> **ZERO BLOCKERS ≠ CORE FECHADO.**
+
+O veredito vem das **propriedades**, e não da contagem de buracos. A que falta
+é a travessia inteira: `REQUEST`, `ORCHESTRATOR`, `EXECUTOR` e `RUN` continuam
+sem corrida observada. Não há gap declarado por tapar — há uma propriedade por
+provar, e a estrada continua a começar no bruto já preservado.
 
 ## Os que já fecharam
 
@@ -71,6 +81,8 @@ existiu, nem por que deixou de existir.
 | `G-E2E-01` | 25 de 25 passam contra PostgreSQL 16 com as migrations 001..027, e a prova da rota devolve ROTA_M2_ATRAVESSA=PASS sobre banco virgem |
 | `G-RUN-01` | a fronteira traduz a ausencia para a palavra que o dono de CADA campo entende; `NOT_PRESERVED` continua a valer nos outros |
 | `G-RAW-01` | a etapa RAW deixa passagem em `etapa_da_corrida`, e a passagem nomeia a observação que produziu (`raw_asset_id`, migration 028) |
+| `G-READY-01` | a rota forward produz READY na mesma corrida: as cinco etapas falam no rastro |
+| `G-READY-02` | a sala tem UM dono, escrita atómica, retry idempotente e conflito explícito |
 
 ## Quem fala, medido
 
@@ -80,7 +92,7 @@ existiu, nem por que deixou de existir.
 | `DERIVED` | **SIM** |
 | `STRUCTURED` | **SIM** |
 | `ADMISSION` | **SIM** |
-| `READY` | não |
+| `READY` | **SIM** |
 
 Não é uma lista escrita à mão: vem de AST sobre o código de produção — quem
 chama `rastro.registrar`, e com que `etapa=`. Um comentário que nomeie uma
@@ -134,6 +146,7 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 | `C-FIX-ABSENCE-VOCABULARY-AT-THE-RUN-SEAM-V1` | `G-RUN-01` |
 | `C-RESTORE-CANONICAL-E2E-PROOF-V1` | `G-E2E-01` |
 | `C-MAKE-RAW-OBSERVABLE-V1` | `G-RAW-01` |
+| `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` | `G-READY-01` · `G-READY-02` |
 
 ## A fila mínima
 

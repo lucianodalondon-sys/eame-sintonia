@@ -2604,6 +2604,43 @@
    ]
   },
   {
+   "id": "C-SALA-DE-ESPERA",
+   "name": "A Sala de Espera",
+   "territory": "Z-ADMISSAO",
+   "kind": "engine",
+   "icon": "⌛",
+   "what": "O dono unico da morada onde a unidade READY pousa: data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json. Escrita atomica por troca (fsync + os.replace), retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e uma trava por corrida contra duas maos simultaneas.",
+   "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "admissao/sala_de_espera.py"
+   ],
+   "views": [
+    "audit",
+    "trace"
+   ]
+  },
+  {
+   "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
+   "name": "A prova de que a unidade pousa na espera",
+   "territory": "Z-PROVA",
+   "kind": "engine",
+   "icon": "⊢",
+   "what": "Corre a travessia inteira numa corrida so, com bytes reais, contra PostgreSQL 16 descartavel e um sistema de ficheiros descartavel: RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY -> SALA DE ESPERA. Depois mede o que um ficheiro exige e que ninguem ve ate falhar: atomicidade, retry idempotente, conflito de corrida, concorrencia em processos de verdade, e o que sobra de um crash a meio da escrita.",
+   "why_here": "ADMISSION SIM != READY AUTOMATICO: a unidade tem de POUSAR. E um rastro de READY emitido antes da publicacao seria um sucesso que aponta para um ficheiro que pode nunca ter sido escrito.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/a_unidade_pousa_na_espera.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
    "name": "A medição de que a Sala de Espera não tem morada",
    "territory": "Z-PROVA",

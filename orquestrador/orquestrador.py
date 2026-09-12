@@ -55,8 +55,18 @@ import admissao as adm  # noqa: E402
 import proveniencia as pv  # noqa: E402
 import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
+import sala_de_espera as espera        # noqa: E402
 
-PRONTOS = RAIZ / "data" / "samples" / "PRONTO-PARA-INTELIGENCIA"
+# ⚠️ A MORADA DA ESPERA NAO VIVE AQUI, E JA NAO E ESTE FICHEIRO QUE ESCREVE.
+# A constante ficava aqui e a escrita corria a baixo — e isso contradizia a
+# COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica
+# escrita estivesse no control plane, a rota forward nao tinha como pousar a
+# unidade sem escrever uma SEGUNDA.
+#
+#     ONE CONCEPT -> ONE OWNER.
+#
+# O dono e `admissao/sala_de_espera.py`, e este ficheiro passou a ser um
+# chamador como qualquer outro.
 
 
 def o_envelope(e: dict, run_id: str = "") -> tuple[dict, str]:
@@ -234,18 +244,15 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
     for x, d in zip(itens, decisoes):
         if d.resultado == adm.SIM:
             aceites.append(adm.pronto_para_inteligencia(x, d))
-    if aceites:
-        PRONTOS.mkdir(parents=True, exist_ok=True)
-        corpo = json.dumps({"RUN_ID": run_id, "ITENS": aceites},
-                           ensure_ascii=False, indent=2)
-        (PRONTOS / f"{run_id}.json").write_text(corpo + "\n", encoding="utf-8")
+    # A ESCRITA E DO DONO DA ESPERA. Aqui so se diz o que foi admitido.
+    recibo = espera.pousar(run_id, aceites)
 
     conta: dict = {}
     for d in decisoes:
         conta[d.resultado] = conta.get(d.resultado, 0) + 1
     return {"itens": len(itens), "por_resultado": conta, "prontos": len(aceites),
-            "ficheiro": (PRONTOS / f"{run_id}.json").relative_to(RAIZ).as_posix()
-                        if aceites else ""}
+            "ficheiro": recibo["FICHEIRO"] or "",
+            "espera": recibo["ESTADO"]}
 
 # O caminho do RUN-MANIFEST NAO vive aqui. Deixar a constante para tras seria
 # deixar a porta destrancada: a proxima pessoa escreve `MANIFESTO.write_text` e

@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "94e27e2a24eb8587d0e8bcd72f56bed6ca1d5ab8",
+    "HEAD": "bad49037c2e406ff6fdfa3bcf62f1ae8dbdc01c8",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1211,7 +1211,7 @@
     {
       "ficheiro": "coleta/rota_forward_documento.py",
       "gaveta": "coleta",
-      "linhas": 370,
+      "linhas": 507,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1807,6 +1807,24 @@
       "no_ci": true
     },
     {
+      "ficheiro": "admissao/sala_de_espera.py",
+      "gaveta": "admissao",
+      "linhas": 232,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "coleta/rota_forward_documento.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "guarda/catalogo_importar.py",
       "gaveta": "guarda",
       "linhas": 693,
@@ -1942,6 +1960,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/sala_de_espera.py",
         "coleta/derivacao_forward.py",
         "coleta/ingresso.py",
         "coleta/rota_forward_documento.py",
@@ -2042,12 +2061,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 102,
-    "pontos_de_entrada": 83,
+    "ficheiros_de_codigo": 103,
+    "pontos_de_entrada": 84,
     "executores_que_saem_para_fora": 21,
     "sem_chamador_e_fora_do_ci": 42,
     "gravam_no_banco": 1,
-    "escrevem_ficheiro": 66,
+    "escrevem_ficheiro": 67,
     "deitam_fora_alguma_coisa": 26,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
@@ -2129,6 +2148,7 @@
       "regras/sensor_coleta.py",
       "regras/sensor_medir.py",
       "admissao/admissao.py",
+      "admissao/sala_de_espera.py",
       "guarda/catalogo_importar.py",
       "guarda/es/adama_es_gate.py",
       "guarda/es/adama_es_import_rules.py",

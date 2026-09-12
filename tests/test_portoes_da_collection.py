@@ -115,11 +115,29 @@ class ONumeroDeLeisVemDoDono(unittest.TestCase):
 
 class ModuloNaoEFluxo(unittest.TestCase):
 
-    def test_ready_tem_modulo_e_nao_tem_fluxo(self):
-        r = _art()["CANONICAL_E2E"]["READY"]
-        self.assertEqual(r["MODULE_EXISTS"], "YES")
-        self.assertEqual(r["FLOW_EXECUTED"], "NO",
-                         "um CLI e uma prova viraram uma rota")
+    def test_ready_tem_modulo_e_AGORA_tem_fluxo(self):
+        """⚠️ ESTE TESTE MUDOU DE LADO, E ISSO E O NORMAL.
+
+        Ate `C-CLOSE-READY-WITH-CANONICAL-WAITING-ROOM-V1` ele exigia
+        `FLOW_EXECUTED = NO`, com a razao certa: «um CLI e uma prova viraram
+        uma rota». O CLI continua a nao ser uma rota — o que mudou e que a
+        ROTA FORWARD passou a produzir READY e a unidade passou a POUSAR.
+
+            UM TESTE QUE SO ESTA CERTO ENQUANTO NADA AVANCA
+            E UM TESTE QUE MEDE O PRIMEIRO DIA.
+
+        Agora ele guarda o contrario, e guarda o par: READY sem a sala seria
+        uma unidade sem onde pousar.
+        """
+        a = _art()["CANONICAL_E2E"]
+        for etapa in ("READY", "WAITING_ROOM"):
+            with self.subTest(etapa=etapa):
+                self.assertEqual(a[etapa]["MODULE_EXISTS"], "YES")
+                self.assertEqual(a[etapa]["FLOW_EXECUTED"], "YES",
+                                 "%s deixou de atravessar" % etapa)
+        self.assertIn("0", str(a["READY"].get("CONSUMIDORES", "")),
+                      "zero consumidores e o estado CERTO antes da"
+                      " Intelligence, e tem de continuar dito")
 
     def test_nenhuma_etapa_tem_fluxo_sem_aresta(self):
         for e, v in _art()["CANONICAL_E2E"].items():
@@ -215,6 +233,14 @@ class ADagSoTemBlocker(unittest.TestCase):
         ela e HISTORIA da ordem, e nao um bloqueio de hoje.
         """
         a = _art()
+        if not a["MINIMUM_MISSION_DAG"]:
+            # ⚠️ A FILA ESVAZIOU-SE, E ISSO NAO E O MESMO QUE FECHAR.
+            # Os blockers acabaram; `COLLECTION_CORE_CLOSE` continua FAIL
+            # porque a CABECA da estrada esta por observar. Uma fila vazia ao
+            # lado de um FAIL e o retrato honesto — e este teste tem de saber
+            # ler isso em vez de rebentar no indice zero.
+            self.assertEqual([], a["COLLECTION_CORE_CLOSE"]["BLOQUEADO_POR"])
+            return
         primeira = a["MINIMUM_MISSION_DAG"][0]
         rc = next(r for r in a["ROOT_CAUSES"]
                   if r["ROOT_CAUSE_ID"] == primeira["ROOT_CAUSE"])
