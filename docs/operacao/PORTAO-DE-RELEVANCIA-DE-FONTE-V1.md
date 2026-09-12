@@ -620,7 +620,7 @@ dele**, e isso fica registado aqui em vez de desaparecer atrás de um PASS final
 ## O · VEREDITO
 
 ```
-SR_01_SOURCE_RELEVANCE_GATE = PASS
+SR_01_SOURCE_RELEVANCE_GATE = PARTIAL
 ```
 
 O portão existe, é canónico, está no caminho real antes do gasto, distingue as
@@ -633,7 +633,72 @@ REAL_COST      = 0
 REDE_USADA_PELA_SONDA = 0
 ```
 
-O gap que fica **não está escondido**: 46 fontes de rota gratuita continuam
-observáveis à mão, pontualmente, sem decisão de relevância — por desenho, com o
-estado escrito em cada recibo, e sem poderem escalar para coleta recorrente, total
-ou paga.
+**E mesmo assim não é PASS**, porque o critério da missão é «nenhum bypass
+relevante sobreviveu» — e sobreviveu um, que não se mede em adjetivos:
+
+### O GAP, NOMEADO COM NÚMEROS
+
+```
+ENTRYPOINTS DE COLETA COM `__main__` QUE VÃO À REDE   40
+DESTES, QUE TOCAM APIFY                               32
+DESTES, QUE CONSULTAM O PORTÃO DE RELEVÂNCIA           0
+WORKFLOWS QUE CORREM COLETA PAGA SEM O ORQUESTRADOR    4 de 5
+```
+
+O portão está no caminho **canónico** — `pedido → receitas.resolver →
+orquestrador.correr` — e esse caminho está fechado, provado pela função, pela
+linha de comando (`exit 3`) e por 27 ataques. Mas o caminho canónico **não é o
+único caminho até ao dinheiro**.
+
+`coleta/comunicacao_coleta.py` tem `__main__` próprio, importa `apify_pool` e
+corre com `python3 coleta/comunicacao_coleta.py posts <plataforma>`. Dos cinco
+workflows que alcançam rota paga, só `comunicacao-publica.yml` passa pelo
+orquestrador; `scrap-social.yml` chama `coleta/social_scrap.py` e
+`guarda/social_guarda.py` diretamente, e `sintonia-scrap.yml` chama sete scripts
+pelo nome.
+
+    UM PORTÃO NA PORTA DA FRENTE NÃO FECHA TRINTA E DUAS PORTAS DAS TRASEIRAS.
+
+### Por que isto NÃO foi fechado nesta missão
+
+1. **Não é um buraco que esta missão abriu, e fechá-lo não é trabalho de
+   relevância.** Quem chama um coletor à mão salta também a admissão, a
+   procedência, o `RUN-MANIFEST` e o ingresso — a arquitetura inteira, não só
+   este portão. A COL-LAW-011 já proíbe o segundo orquestrador; o que falta é
+   **enforcement**, e enforcement dos 32 entrypoints é uma missão própria.
+
+2. **Pô-lo dentro de cada coletor seria copiar a lei 32 vezes**, que é o defeito
+   que este ficheiro passa a página inteira a evitar. Uma lei em trinta e dois
+   sítios diverge no terceiro commit.
+
+3. **Fazê-lo às escondidas seria pior do que não o fazer.** A missão mandou
+   nomear precisamente o que ainda permite gasto sem portão. Está nomeado, com
+   contagem e com o comando que o reproduz:
+
+   ```
+   py provas/censo_de_relevancia_das_fontes.py     # o censo das fontes
+   grep -l "apify" coleta/*.py | xargs grep -L "relevancia_da_fonte"
+   ```
+
+### O que É verdade, e continua a ser
+
+```
+NO CAMINHO CANONICO
+  rota paga sobre fonte não avaliada        0   (eram 8)
+  coleta recorrente sobre fonte não avaliada 0
+  coleta total sobre fonte não avaliada      0
+
+FORA DELE
+  32 entrypoints que tocam Apify continuam a poder correr à mão
+```
+
+E o segundo gap, este por desenho: 46 fontes de rota gratuita continuam
+observáveis à mão e pontualmente sem decisão de relevância, com o estado escrito
+em cada recibo, e sem poderem escalar para coleta recorrente, total ou paga.
+
+### Próximo passo mínimo — declarado, NÃO iniciado
+
+Fazer os 32 entrypoints pagos passarem pelo orquestrador, ou dar-lhes um portão
+comum no dono da chave (`apify_pool`), que é por onde **todos** eles têm de
+passar para gastar. É o único sítio onde uma trava se escreve uma vez e vale para
+os trinta e dois.

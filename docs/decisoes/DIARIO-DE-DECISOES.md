@@ -1549,6 +1549,27 @@ está intacta. Fecharam-se duas coisas que faltavam à prova dela:
   numeração, tabela de história, conformidade — e fica **declarado aqui em vez de
   feito às pressas no fim de outra missão**.
 
+- **O QUE ESTA DECISÃO NÃO FECHA, e está medido:** o portão vive no caminho
+  **canónico**, e esse caminho não é o único até ao dinheiro.
+
+  ```
+  ENTRYPOINTS DE COLETA COM `__main__` QUE VAO A REDE   40
+  DESTES, QUE TOCAM APIFY                               32
+  DESTES, QUE CONSULTAM O PORTAO DE RELEVANCIA           0
+  WORKFLOWS QUE CORREM ROTA PAGA SEM O ORQUESTRADOR      4 de 5
+  ```
+
+  `coleta/comunicacao_coleta.py` tem `__main__` próprio e importa `apify_pool`.
+  Pôr o portão dentro de cada um dos 32 seria copiar a lei 32 vezes — o defeito
+  que esta própria decisão existe para evitar. O sítio onde uma trava se escreve
+  uma vez e vale para os trinta e dois é o dono da chave, `apify_pool`, por onde
+  todos têm de passar para gastar. Fica **declarado como próximo passo mínimo, e
+  não iniciado**.
+
+      UM PORTÃO NA PORTA DA FRENTE NÃO FECHA TRINTA E DUAS PORTAS DAS TRASEIRAS.
+
+  Por isso o veredito da missão é `PARTIAL`, e não `PASS`.
+
 - **Quem decidiu:** missão SR-01. Relatório completo, com o rastreio, o censo, os
   27 ataques e os 20 mutantes, em
   [`docs/operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md`](../operacao/PORTAO-DE-RELEVANCIA-DE-FONTE-V1.md).
