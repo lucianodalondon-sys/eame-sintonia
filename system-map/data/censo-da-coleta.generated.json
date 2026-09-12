@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "85a46efbfae8e99b25a47a7caff5353da9e3e333",
+    "HEAD": "1b67a27922efd747e85f14c43c39f98781f6b8bb",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -407,7 +407,7 @@
     {
       "ficheiro": "ferramentas/fala_local.py",
       "gaveta": "ferramentas",
-      "linhas": 995,
+      "linhas": 1045,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -454,7 +454,7 @@
     {
       "ficheiro": "ferramentas/instagram_transcrever.py",
       "gaveta": "ferramentas",
-      "linhas": 395,
+      "linhas": 441,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -551,7 +551,7 @@
     {
       "ficheiro": "ferramentas/reel_transcricao.py",
       "gaveta": "ferramentas",
-      "linhas": 1005,
+      "linhas": 1539,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -640,11 +640,12 @@
     {
       "ficheiro": "coleta/adaptador_instagram.py",
       "gaveta": "coleta",
-      "linhas": 107,
+      "linhas": 230,
       "e_ponto_de_entrada": false,
-      "sai_para_fora": false,
+      "sai_para_fora": true,
       "veiculos": [
-        "INSTAGRAM"
+        "INSTAGRAM",
+        "YOUTUBE"
       ],
       "ferramentas": [
         "APIFY (rota paga)",
@@ -1447,7 +1448,7 @@
     {
       "ficheiro": "coleta/scrap_capacidades.py",
       "gaveta": "coleta",
-      "linhas": 308,
+      "linhas": 313,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -1617,7 +1618,8 @@
         "coleta/adaptador_aberto.py",
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
-        "coleta/youtube_oficial.py"
+        "coleta/youtube_oficial.py",
+        "ferramentas/reel_transcricao.py"
       ],
       "no_ci": false
     },
@@ -2100,7 +2102,7 @@
     {
       "ficheiro": "admissao/admissao.py",
       "gaveta": "admissao",
-      "linhas": 456,
+      "linhas": 537,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -2258,6 +2260,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "admissao/admissao.py",
         "coleta/derivacao_forward.py",
         "coleta/ingresso.py",
         "coleta/rota_forward_documento.py",
@@ -2359,7 +2362,7 @@
   "RESUMO": {
     "ficheiros_de_codigo": 115,
     "pontos_de_entrada": 85,
-    "executores_que_saem_para_fora": 22,
+    "executores_que_saem_para_fora": 23,
     "sem_chamador_e_fora_do_ci": 47,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 67,
@@ -2462,6 +2465,7 @@
       "ferramentas/instagram_transcrever.py",
       "ferramentas/reel_transcricao.py",
       "ferramentas/youtube_transcrever.py",
+      "coleta/adaptador_instagram.py",
       "coleta/agrifood_ue.py",
       "coleta/corpus_pesquisador.py",
       "coleta/eppo_gd.py",
