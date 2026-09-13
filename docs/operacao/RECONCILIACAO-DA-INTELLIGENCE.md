@@ -1,5 +1,33 @@
 # RECONCILIAÇÃO DA INTELLIGENCE — a máquina que existe × a Bíblia que a governa
 
+> ## ⚠️ CORRIGIDO EM 13/09/2026 — TRÊS ACHADOS DESTE DOCUMENTO ESTÃO ERRADOS
+>
+> Este documento foi medido em `main`/`claude/funny-hypatia-y7ho5s`, que está
+> **268 commits atrás** da linha funcional da Collection. A missão `C-ADM-I01`
+> remediu na linha funcional (`claude/raw-observation-identity-3jbwco` @
+> `247fbf25`, onde `admissao/admissao.py` tem **356 linhas a mais**) e provou
+> que o seguinte é **FALSO ali**:
+>
+> | o que este documento diz | o que a linha funcional mede |
+> |---|---|
+> | «INTERSECÇÃO DE CHAVES = VAZIA» | **falso** — `IDENTIDADE_DA_FONTE` lê `SOURCE_ID`; a pergunta «origem» responde **SIM** |
+> | «ADMISSÕES CONCEDIDAS = 0» | **falso** — o livro tem **36 SIM**, e o recall da porta dá **42/49 (85,7%)** |
+> | «`RAW_OBSERVATION_ID` não existe» | **falso** — `RAW_OBSERVATION_ID = raw_asset.id`, migration `027`, produzido por `guarda/preservar_coleta.observacoes_confirmadas()` |
+>
+> As 506 decisões com `item = "?"` são resíduo da **regra versão 1** (corridas
+> `XX-*`). Nas versões 2 e 3 há 307 decisões, e **as 36 SIM têm identidade real**.
+>
+> A porta fala minúsculas **por desenho**: quem traduz é
+> `coleta/ingresso.py::para_a_porta()`, o dono único do vocabulário. Medir o
+> ledger contra a porta *sem* passar pelo tradutor — que foi o que este
+> documento fez — não mede a estrada, mede um atalho que não existe.
+>
+> **O que continua verdadeiro:** a Intelligence não consome nada, e o contrato
+> `PRONTO_PARA_INTELIGENCIA` não carrega as referências de identidade. Mas isso
+> **não é um defeito**: é `G-READY-02`, uma decisão em aberto e deliberadamente
+> não tomada — ver `provas/a_sala_de_espera_nao_tem_morada.py` na linha funcional.
+
+
 > Medido em 13/09/2026, em `claude/funny-hypatia-y7ho5s` @ `dc0adf04`
 > (`main` @ `f437ff11`). Continuação de
 > [`CENSO-DA-INTELLIGENCE.md`](CENSO-DA-INTELLIGENCE.md).

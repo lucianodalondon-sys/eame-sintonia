@@ -622,7 +622,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md`](handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `73cfb416bf`
+- **impressão do conteúdo medido** — `e20731975c`
 - **prova** — `git:HEAD:handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
 - **o que ela diz de si** — MEMORIA, e nao know-how. Escrever aqui um SINTONIA-EAME-KNOW-HOW.md novo criaria a TERCEIRA versao dele — e isso e o ataque RT04, que o portao desta missao reprova.
