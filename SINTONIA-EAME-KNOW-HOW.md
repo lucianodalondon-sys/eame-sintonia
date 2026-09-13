@@ -10919,3 +10919,209 @@ desaparecer sozinho noutra máquina.
   território é propriedade da FONTE; o universo é pergunta ao DOCUMENTO. A ARPAV
   publica `T2` e `T3` e mostra os dois a divergir. Está medido, não está
   resolvido, e não foi tocado aqui.
+
+---
+
+# §101 · UMA TRANCA DE DINHEIRO NÃO É UMA TRANCA DE POLÍTICA
+
+**Missão:** `SCRAP-RC-01` (Release Candidate V1) + `SCRAP-OP-CLOSE`.
+**Branch:** `claude/sintonia-scrap-release-candidate-v1`
+**Data:** 2026-09-13
+
+A `§97` fechou o dinheiro: limite humano contra ledger, autorização selada,
+cópia que não compra. A `§98` fechou um portão que só se alcançava com
+inventário. Esta secção regista o que ficou **entre** as duas, e que nenhuma
+delas vê.
+
+## 101.1 · O CAMINHO ESTAVA TRANCADO, E PELA FECHADURA ERRADA
+
+`regras/sensor_coleta.py` configura quatro atores HarvestAPI do LinkedIn e leva
+um identificador de ator **direto à porta paga**, sem nunca perguntar à matriz
+de rotas. Uma missão anterior mediu-o e registou-o como risco: o que o travava
+era a guarda de **gasto**.
+
+Estava trancado. E a tranca era a errada.
+
+```
+SEM autorização    -> POST 0   ✔ parecia seguro
+COM autorização    -> POST 1   ✘ a rota proibida corria
+```
+
+    SPEND_AUTHORIZATION != ROUTE_POLICY.
+    DINHEIRO AUTORIZADO NÃO TORNA PERMITIDA UMA ROTA PROIBIDA.
+
+Uma tranca de dinheiro guarda **enquanto não houver dinheiro**. No dia em que
+alguém concedesse a autorização — que é o dia para que a autorização existe — a
+rota proibida passava, e a política continuaria a nunca ter sido perguntada.
+
+E o botão continuava lá: `workflow_dispatch`, alcançável à mão, naquele dia.
+
+    DIZER «É LEGADO» NUM DOCUMENTO NÃO DESLIGA UM BOTÃO.
+
+## 101.2 · A CORREÇÃO NÃO VAI NO CAMINHO. VAI NA PRIMITIVA
+
+Havia a tentação de pôr a pergunta em `sensor_coleta.py`, que era onde o
+problema aparecia. Ela foi para `coleta/coletor.py` — o único sítio onde nasce
+execução paga — e corre **antes** da guarda de gasto.
+
+    UMA GUARDA QUE VIVE NUM CAMINHO GUARDA UM CAMINHO.
+    UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS.
+
+A ordem também é lei: uma rota proibida não deve sequer **consumir** uma
+execução da autorização de quem a pediu. Medido depois: `POST 0` e
+`autorização gasta = 0`.
+
+E a recusa ganhou classe própria. Vesti-la de `GastoRecusado` diria que faltou
+autorização — e no dia em que alguém a concedesse, a mensagem mandaria procurar
+no sítio errado.
+
+    UMA RECUSA COM O NOME DE OUTRA MANDA CONSERTAR A COISA ERRADA.
+
+## 101.3 · A POLARIDADE DE UMA LISTA DE PROIBIÇÃO
+
+A pergunta «este ator é proibido?» tem duas respostas erradas possíveis, e só
+uma delas é óbvia. Responder `False` a tudo abre a porta. Mas responder `True`
+ao que a matriz não nomeia **fecha a casa inteira**: a maior parte dos atores
+desta casa é nomeada pela CAPACIDADE, não pelo id — o `apify:transcricao` do
+YouTube é exactamente isso.
+
+A regra que ficou: proibido quando a matriz o nomeia numa rota `PERMITIDA = NAO`
+e em **nenhuma** permitida.
+
+    DECLARADO PROIBIDO != NÃO DECLARADO.
+    O SILÊNCIO DA MATRIZ NÃO PROÍBE, E TAMBÉM NÃO AUTORIZA.
+
+## 101.4 · `READY` NÃO QUER DIZER QUE ALGUÉM A PEÇA
+
+Ao classificar a superfície V1 apareceu um campo que não existia: onde é que
+cada capacidade **para**. E com ele um facto que nenhuma contagem mostrava:
+
+```
+READY                                    9
+  das quais FIRST_BREAK = NO_REQUEST_PATH  5
+```
+
+Cinco capacidades prontas, permitidas, gratuitas — e **nenhuma fase do caminho
+canônico as pede**. Não é defeito de engenharia; é trabalho de release por
+fazer, e ninguém o via porque `READY` soa a fim de linha.
+
+    CAPABILITY READY != CAPABILITY PEDIDA.
+    UM NÚMERO DE PRONTAS NÃO DIZ QUANTAS ALGUÉM CONSEGUE PEDIR.
+
+Daí os três degraus, e nenhum promete o seguinte:
+
+    NO -> WIRED -> OBSERVED.
+    MODULE EXISTS != EDGE EXISTS != FLOW OBSERVED.
+
+## 101.5 · A RELEVÂNCIA GUARDA O GASTO, E NÃO A OBSERVAÇÃO
+
+O livro de relevância está vazio, e durante duas missões isso leu-se como «a
+máquina não pode trabalhar». Medido nos quatro eixos, contra o livro vazio:
+
+| plano | formas de gasto abertas | bloqueia? |
+|---|---|---|
+| grátis · pontual | nenhuma | **não** |
+| grátis · agendado | `COLETA_RECORRENTE` | sim |
+| pago · pontual | `ROTA_PAGA` | sim |
+| grátis · escopo TOTAL | `COLETA_TOTAL` | sim |
+
+    O PORTÃO GUARDA O GASTO, NÃO A OBSERVAÇÃO.  (COL-LAW-018)
+
+O livro vazio não impede observar. Impede **comprar, repetir sozinho e varrer
+tudo** — que são três formas de gasto, e não três formas de olhar.
+
+E a consequência de método: quando uma lei parece bloquear tudo, perguntar-lhe
+em vez de assumir. Alargá-la em silêncio para «toda coleta precisa de
+relevância» teria sido inventar um requisito e chamar-lhe prudência.
+
+    NÃO SE AUMENTA UM CONTRATO PARA O FAZER PARECER MAIS SEGURO.
+
+## 101.6 · O CANÁRIO NÃO É A PLATAFORMA MAIS IMPORTANTE
+
+O canário da Release foi o Bluesky: gratuito, permitido, sem credencial, sem
+navegador autenticado, sem fornecedor pago. Não é a plataforma de maior valor
+comercial desta casa, e essa foi exactamente a razão.
+
+    O CANÁRIO EXISTE PARA PROVAR A MÁQUINA, NÃO A PLATAFORMA.
+    LINKEDIN TESTA LINKEDIN. BLUESKY TESTA A MÁQUINA.
+
+E houve um achado que só apareceu por o canário ter sido escolhido assim: a
+única fase que o caminho canônico sabia pedir corria numa capacidade
+`DATACENTER_BLOCKED` — precisa de máquina residencial.
+
+    UMA ÁRVORE QUE SÓ SABE PEDIR O QUE NÃO CONSEGUE CORRER
+    NÃO SE CONSEGUE PROVAR A CORRER.
+
+## 101.7 · META CADEIA PROVADA, META CADEIA POR PROVAR
+
+A `SCRAP-OP-CLOSE` procurou uma conta real ligada a um `SOURCE_ID` canônico.
+Encontrou **metade** da cadeia, muito bem provada:
+
+```
+CONTA  <-  EMPRESA     PRIMARY_DECLARED_LINK · 32 PROVED · 22 autorizadas
+           «o site oficial local declara este link.
+            Primeira parte falando de si própria — não é busca por nome.»
+```
+
+E a outra metade em aberto, declarada em aberto pela própria casa:
+
+```
+EMPRESA  <-  SOURCE_ID   STATUS = REDEFINED · «REQUER DECISÃO»
+                         0 das 23 fontes do atlas carrega conta de plataforma
+```
+
+O erro fácil era juntá-las: a conta é da BASF, a ficha fala da BASF, logo a
+conta é da ficha. É plausível, e cada passo é verdadeiro — mas a ficha também
+declara, na mesma linha, que **não mede empresa a empresa**.
+
+    UMA FICHA QUE NOMEIA A EMPRESA E DIZ QUE NÃO A MEDE
+    NÃO É UM VÍNCULO COM A CONTA DELA.
+    DUAS METADES PROVADAS NÃO FAZEM UMA CADEIA PROVADA.
+
+## 101.8 · E QUATRO DEFEITOS DE SONDA, PORQUE ELES REPETEM-SE
+
+Nenhum estava no código medido. Todos estavam em quem media.
+
+- **Contar um nome que ninguém escreve mais.** Uma classificação foi partida de
+  três classes em seis; a sonda continuou a contar a classe antiga, obteve zero,
+  e deu-se por satisfeita.
+- **Julgar uma missão pela história inteira.** «Houve merge bruto?» perguntado
+  ao log completo reprovava por merges de dois meses antes.
+- **Medir a lei contra a própria lei.** Uma sentinela comparava os estados
+  contra as constantes do próprio módulo; trocar o VALOR da constante deixava-a
+  verde, porque os dois lados mudavam juntos.
+- **Um falso instalado no import.** Uma bateria trocou `urlopen` no topo do
+  módulo e nunca o devolveu. O carregador importa todos os módulos antes do
+  primeiro teste — e uma bateria de outra missão, que levanta um servidor em
+  `127.0.0.1`, passou a falar com um mundo falso que nunca ouviu falar de
+  loopback.
+
+```
+UMA SONDA QUE CONTA UM NOME QUE NINGUÉM ESCREVE MAIS CONTA ZERO
+E CHAMA-LHE PROVA.
+
+MEDIR A HISTÓRIA INTEIRA PARA JULGAR UMA MISSÃO JULGA AS OUTRAS.
+
+MEDIR A LEI CONTRA A PRÓPRIA LEI É MEDIR UMA TAUTOLOGIA.
+
+UM FALSO INSTALADO NO IMPORT VIVE ENQUANTO O PROCESSO VIVER.
+```
+
+E um mutante que sobreviveu e valia a pena: pôr uma capacidade proibida de volta
+em `PROVEN` não fazia a máquina correr — o portão continuava a recusar. Mudava
+só o que a casa **diz**.
+
+    UM MUTANTE QUE SÓ MUDA O QUE A CASA DIZ AINDA MUDA ALGUMA COISA:
+    MUDA AQUILO EM QUE A PRÓXIMA MISSÃO VAI ACREDITAR.
+
+## 101.9 · O QUE FICA POR SABER
+
+- **Nenhuma conta está ligada a um `SOURCE_ID` canônico.** Três candidatos
+  estão na mesa com uma pergunta de `SIM`/`NÃO`/`NÃO SEI`, e a máquina espera.
+- **Cinco capacidades `READY` não têm quem as peça.** Decidir quais entram no
+  caminho canônico é trabalho de release.
+- **O bruto continua `NOT_PRESERVED` no dono forward.** Fica no disco do runner
+  com SHA e dono nomeado, e o G-42 ainda não o recebeu.
+- **Quatro desvios declarados continuam alcançáveis** por um workflow. Eles
+  adquirem, saltam o `COLLECT`, e dizem-no na saída — o que é uma medição, e não
+  um buraco. Fechá-los é fan-out, e não era destas missões.
