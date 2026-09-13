@@ -11991,3 +11991,196 @@ TRES COPIAS DE UMA REGRA SAO TRES SITIOS PARA ESQUECER A MESMA COISA.
 28» e «trocar só 26 por 29») · 14 guardas novas · regressão 2632 → 2646 testes
 com conjunto de falhas **idêntico**, `NEW_FAILURES = 0` ·
 `SYSTEM_MAP_CHECK = PASS` · **nenhum byte de LIVE lido ou escrito**.
+
+
+---
+
+# §106 · PEDIR NÃO É OBTER — UM PORTÃO QUE NÃO SE CONFERE É UMA CONVENÇÃO
+
+**Missão:** `C-LIVE-PREFLIGHT-READONLY-V1` — o LIVE está em estado conhecido o
+suficiente para que uma missão posterior possa pedir autorização de apply?
+**Branch:** `claude/live-preflight-readonly-v1`
+**Data:** 2026-09-13
+**LIVE_WRITES_PERFORMED:** 0
+
+## 106.1 · O ACHADO
+
+O preflight abre a sessão em somente-leitura antes de perguntar o que quer que
+seja. A primeira versão fê-lo assim:
+
+```bash
+PGOPTIONS='-c default_transaction_read_only=on'
+```
+
+Contra um PostgreSQL 16 descartável na bancada: `on`, e uma escrita recusada
+com `cannot execute CREATE TABLE in a read-only transaction`. Perfeito.
+
+Contra o banco vivo, medido na corrida 29:
+
+```
+READ_ONLY_SESSION=off
+```
+
+Não deu erro. Não pendurou. Não avisou. O parâmetro foi **silenciosamente
+ignorado** — `PGOPTIONS` é parâmetro de **arranque** da ligação, e um pooler no
+meio pode simplesmente não o encaminhar. A sessão veio de escrita: exactamente
+a sessão que o pedido dizia trancar.
+
+```
+PEDIR NAO E OBTER.
+UM PORTAO QUE NAO SE CONFERE E UMA CONVENCAO COM AR DE TRANCA.
+```
+
+## 106.2 · O QUE SALVOU ISTO NÃO FOI O PEDIDO
+
+Foi a **conferência**. A secção pergunta `show transaction_read_only` e compara
+com `on` **antes** de fazer a primeira pergunta ao banco; como veio `off`, ela
+recusou-se a correr e imprimiu `PREFLIGHT=NOT_MEASURED`.
+
+Se tivesse confiado no pedido, teria corrido o preflight inteiro numa ligação de
+escrita a chamar-lhe somente leitura — e teria escrito no relatório que a sessão
+estava trancada, com toda a convicção.
+
+```
+A TRANCA E A RESPOSTA DO SERVIDOR, NUNCA O PEDIDO DO CLIENTE.
+E A CONFERENCIA VEM ANTES DA PRIMEIRA PERGUNTA, NAO DEPOIS DA ULTIMA.
+```
+
+Isto generaliza para lá de Postgres: sempre que uma garantia é *pedida* a um
+sistema remoto — read-only, timeout, isolamento, quota, região — o pedido e a
+garantia são coisas diferentes até alguém perguntar ao outro lado o que ficou
+realmente em vigor.
+
+## 106.3 · A CURA PORTÁTIL
+
+`begin read only` é **SQL comum**: atravessa pooler, não depende de parâmetro de
+arranque, e quem o faz cumprir continua a ser o servidor. Medido contra o
+**mesmo endpoint vivo** onde o `PGOPTIONS` falhara, corrida 30:
+
+```
+READ_ONLY_SESSION=on
+READ_ONLY_PROVEN=YES
+```
+
+E o que dá valor ao `on` é o `off` do lado de fora: na bancada,
+`transaction_read_only` fora do `begin` vem `off`. Sem essa metade, um `on`
+podia ser só o ambiente já ser assim.
+
+```
+UMA PROVA DE QUE A TRANCA PEGOU PRECISA DO ESTADO SEM A TRANCA AO LADO.
+```
+
+## 106.4 · O QUE A BANCADA NÃO PODE PROVAR
+
+O red team local matou 14 cenários e **não apanhou este**, porque o Postgres da
+bancada aceitava `PGOPTIONS` à primeira. Não havia pooler, não havia endpoint
+gerido, não havia camada nenhuma no meio.
+
+```
+PROVADO CONTRA O LOCAL NAO ESTA PROVADO CONTRA O VIVO,
+QUANDO O QUE SE PROVA E UMA PROPRIEDADE DO CAMINHO E NAO DO MOTOR.
+```
+
+A divisão útil: o red team mede a **lógica** (o que a prova conclui de cada
+estado) e corre em fixtures; o que depende do **caminho até ao banco** só se
+mede no caminho verdadeiro — e por isso a primeira coisa que a secção faz no
+vivo é conferir o portão.
+
+## 106.5 · NÃO NARRAR UMA CAUSA A PARTIR DE UM OBSERVADOR ATRASADO
+
+A API do GitHub serviu `in_progress` durante ~20 minutos para um job que tinha
+terminado aos **80 segundos**. Concluí «pendurou contra o pooler», cancelei a
+corrida, e escrevi isso numa mensagem de commit — que depois teve de ser
+corrigida contra o log, onde estava a verdade: o job correu até ao fim, imprimiu
+`READ_ONLY_SESSION=off` e `AUDITORIA_LIVE=PASS`.
+
+```
+UM OBSERVADOR ATRASADO NAO E UM SISTEMA PARADO.
+ANTES DE NOMEAR A CAUSA, LER O REGISTO DE QUEM FEZ O TRABALHO.
+```
+
+O diagnóstico errado teria sobrevivido no know-how como facto sobre poolers. O
+que o desfez foi o log do job — a fonte primária —, e não mais tempo de espera.
+A cura (`begin read only` + prazos) continuou certa; a **razão** é que estava
+errada, e uma razão errada ensina mal a próxima pessoa.
+
+## 106.6 · MEDIR O LIVE SEM CREDENCIAL NENHUMA
+
+Esta sessão não tinha `SUPABASE_DB_URL` — nem no ambiente, nem em `.env`, nem em
+`~/.pgpass`. A conclusão fácil era `LIVE_DB_REACHABLE = NO` e parar.
+
+Mas a casa já tinha uma **porta somente-leitura** com o segredo do lado dela
+(`auditoria-live.yml`, disparada por `push` em `provas/auditoria_live.sh`), e 28
+corridas de histórico. Duas coisas se seguiram:
+
+1. os **logs das corridas antigas** são medição real do LIVE, e lê-los não custa
+   acção nenhuma — verificado antes de usar que `supabase/migrations/` não mudara
+   entre aquele commit e o HEAD, portanto a comparação continuava byte-idêntica;
+2. estender essa porta com perguntas novas **somente-leitura** dá medição de
+   hoje, sem criar caminho de acesso novo nem segredo novo.
+
+```
+SEM CREDENCIAL NA MAO != SEM MEDICAO POSSIVEL.
+PROCURAR A PORTA QUE JA EXISTE ANTES DE DECLARAR QUE NAO HA PORTA.
+```
+
+## 106.7 · REGISTADA NÃO É EXISTENTE
+
+O preflight pergunta pela `029` e pela `030` **duas vezes**, de propósito:
+
+```
+MIGRATION_029_IN_LEDGER = NO    PARTICIPACAO_NA_DERIVACAO_EXISTS = NO
+MIGRATION_030_IN_LEDGER = NO    DOCUMENTO_ESTRUTURADO_EXISTS     = NO
+```
+
+Porque a diferença entre as duas respostas **é** o achado:
+
+```
+REGISTADA SEM TABELA  = o livro mente sobre o que correu
+TABELA SEM REGISTO    = o aplicador vai tropecar nela
+```
+
+Aqui coincidiram, e isso é uma boa notícia medida — não uma pergunta que se
+poupou. Perguntar só uma delas daria a mesma folha num caso e uma folha errada
+no outro.
+
+## 106.8 · BACKUP EXISTE ≠ RESTORE PROVADO
+
+```
+LIVE_BACKUP_STATUS    NOT_MEASURED    nao ha token de gestao nesta sessao
+LIVE_RESTORE_STATUS   NOT_PROVEN      nao existe registo de restore ensaiado
+```
+
+Os dois rótulos são diferentes e a diferença é deliberada. `NOT_MEASURED` é «não
+olhei, e não digo». `NOT_PROVEN` é «olhei, e a prova não existe» — prova é
+artefacto positivo, e procurar por ele em `docs/`, `.github/`, `motor/` e
+`provas/` e não o encontrar **é** uma medição.
+
+```
+«O SUPABASE TEM BACKUP» NAO E UMA MEDICAO. E UMA EXPECTATIVA SOBRE TERCEIROS.
+```
+
+E é isto, e não o banco, que mantém `LIVE_READY_FOR_APPLY = NO`: do lado do
+schema não há nada a impedir o apply — livro íntegro, zero drift, zero órfãs,
+três pendentes identificadas. O que falta é a **capacidade de voltar atrás**.
+
+## 106.9 · CONSEQUÊNCIA
+
+```
+· garantia pedida a sistema remoto confere-se com a resposta dele,
+  antes da primeira pergunta a serio
+· a prova de que a tranca pegou precisa do estado SEM a tranca ao lado
+· o que depende do caminho ate ao banco nao se prova na bancada
+· antes de nomear a causa de um sistema «parado», ler o log de quem
+  fez o trabalho; observador atrasado nao e sistema parado
+· sem credencial na mao, procurar a porta read-only que a casa ja tem
+· registada e existente sao duas perguntas, sempre as duas
+· NOT_MEASURED e NOT_PROVEN nao sao sinonimos
+· um retrato do LIVE diz na primeira linha que e um retrato
+```
+
+**Medido:** `READ_ONLY_PROVEN = YES` · ledger 26 versões, 0 duplicadas, 0
+resultados inválidos, 0 SHA em falta, 0 drift, 0 extras · `PENDING = {028,029,030}`
+· travas da Collection todas validadas · 14 ataques, 0 sobreviventes ·
+regressão 2647 testes com conjunto idêntico ao baseline ·
+**`LIVE_WRITES_PERFORMED = 0`**.
