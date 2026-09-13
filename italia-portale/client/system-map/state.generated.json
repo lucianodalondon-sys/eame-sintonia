@@ -259,6 +259,7 @@
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "data/derivados/O-CANARIO-DA-COLLECTION.json",
+      "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
       "data/derivados/O-CENSO-DO-ACERVO.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
@@ -725,6 +726,7 @@
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
+      "docs/operacao/CENSO-SALA-DE-ESPERA-ANTES-DA-BIG-COLLECTION-V1.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
@@ -1325,6 +1327,7 @@
       "provas/nenhuma_compra_sem_autorizacao.py",
       "provas/o_canario_da_collection.py",
       "provas/o_canario_do_scrap_v1.py",
+      "provas/o_censo_da_sala_de_espera.py",
       "provas/o_censo_do_acervo.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
@@ -1711,6 +1714,7 @@
       "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
       "tests/test_o_canario_da_collection.py",
+      "tests/test_o_censo_da_sala_de_espera.py",
       "tests/test_o_pedido_atravessa.py",
       "tests/test_o_pedido_t4_atravessa.py",
       "tests/test_o_raw_fala.py",
@@ -2143,10 +2147,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/integrate-scrap-current-collection-v1",
-    "HEAD": "4a7154cda8410ae63d31e5214d90f7b6ed265e65",
-    "GENERATED_AT": "2026-09-13T16:46:30+00:00",
-    "SOURCE_TREE_FINGERPRINT": "621e054073c0d4bf1d71785bf2f5ef5aabd7de756af7020943f7e3da5a3e56fd"
+    "BRANCH": "claude/censo-sala-espera-big-collection-x0ut2y",
+    "HEAD": "9ffd829e0677287c3c6a7ef4932163e42d0e1e07",
+    "GENERATED_AT": "2026-09-13T19:13:55+00:00",
+    "SOURCE_TREE_FINGERPRINT": "aff3b943040f8aadb9d17433b789a50ce310ba8e0486a73ee07d6f149bb5afa8"
   },
   "FAMILIES": [
     {
@@ -12702,6 +12706,7 @@
         "provas/nenhuma_compra_sem_autorizacao.py",
         "provas/o_canario_da_collection.py",
         "provas/o_canario_do_scrap_v1.py",
+        "provas/o_censo_da_sala_de_espera.py",
         "provas/o_censo_do_acervo.py",
         "provas/o_corte_de_cr1.py",
         "provas/o_fluxo_canonico_do_scrap.py",
@@ -12734,7 +12739,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 67,
+      "file_count": 68,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12864,6 +12869,7 @@
           "FIXTURES",
           "FONTE_DO_POSITIVO",
           "GRUPOS_DE_ALVO",
+          "IGNORAR",
           "IMPLEMENTACOES",
           "ITENS",
           "LIMIARES",
@@ -12890,11 +12896,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1391,
+        "palavras": 1397,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1389,
+        "sem_marca_de_lingua": 1395,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17199,6 +17205,7 @@
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_o_canario_da_collection.py",
+        "tests/test_o_censo_da_sala_de_espera.py",
         "tests/test_o_pedido_atravessa.py",
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_o_raw_fala.py",
@@ -17251,7 +17258,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 153,
+      "file_count": 154,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -18895,7 +18902,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/integrate-scrap-current-collection-v1"
+        "branch claude/censo-sala-espera-big-collection-x0ut2y"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19249,7 +19256,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 19 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -19322,12 +19329,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 68,
           "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO = {\","
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 816,
+          "snippet": "sai = _chaves_do_dict_de_retorno(\"admissao/admissao.py\","
         },
         {
           "file": "provas/os_portoes_da_collection.py",
@@ -28842,12 +28854,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "Guardar com impressao digital alimenta Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_source_id_wiring_gap.py",
           "line": 40,
           "snippet": "LEDGER = \"data/collection-ledger/italy/observations.ndjson\""
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 60,
+          "snippet": "\"observations.ndjson\")"
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 61,
+          "snippet": "CORRIDAS_IT = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"runs.ndjson\")"
         },
         {
           "file": "provas/o_censo_do_acervo.py",
@@ -32287,7 +32309,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -32298,6 +32320,11 @@
           "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
           "line": 308,
           "snippet": "import bluesky_trial_ao_vivo as bt"
+        },
+        {
+          "file": "tests/test_o_censo_da_sala_de_espera.py",
+          "line": 31,
+          "snippet": "import o_censo_da_sala_de_espera as censo      # noqa: E402"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
@@ -32330,7 +32357,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 38 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 39 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_fase_10_entra_no_acervo.py",
@@ -33652,12 +33679,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 76,
           "snippet": "(\"coleta/rota_forward_documento.py\","
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 814,
+          "snippet": "entra = _chaves_atribuidas(\"coleta/rota_forward_documento.py\","
         },
         {
           "file": "provas/os_portoes_da_collection.py",
@@ -33998,7 +34030,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -34009,6 +34041,11 @@
           "file": "provas/a_maquina_sob_carga.py",
           "line": 43,
           "snippet": "import sala_de_espera as espera                     # noqa: E402"
+        },
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 53,
+          "snippet": "import sala_de_espera as espera                      # noqa: E402"
         },
         {
           "file": "provas/o_pedido_t4_atravessa.py",
@@ -34026,8 +34063,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_censo_da_sala_de_espera.py",
+          "line": 167,
+          "snippet": "(\"OWNER\", \"admissao/sala_de_espera.py\"),"
+        },
         {
           "file": "provas/os_portoes_da_collection.py",
           "line": 406,
@@ -34152,12 +34194,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 24,
           "snippet": "import sala_de_espera as espera       # noqa: E402"
+        },
+        {
+          "file": "tests/test_o_censo_da_sala_de_espera.py",
+          "line": 30,
+          "snippet": "import sala_de_espera as espera                # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -38834,7 +38881,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 832,
+  "UNCLAIMED_FILES_COUNT": 834,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -38998,8 +39045,8 @@
     "edges_proven": 847,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1696,
-    "files_covered": 864,
+    "files_tracked": 1700,
+    "files_covered": 866,
     "files_code_unclaimed": 0
   }
 }

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/integrate-scrap-current-collection-v1",
-    "HEAD": "4a7154cda8410ae63d31e5214d90f7b6ed265e65",
-    "GENERATED_AT": "2026-09-13T16:46:30+00:00",
-    "SOURCE_TREE_FINGERPRINT": "621e054073c0d4bf1d71785bf2f5ef5aabd7de756af7020943f7e3da5a3e56fd"
+    "BRANCH": "claude/censo-sala-espera-big-collection-x0ut2y",
+    "HEAD": "9ffd829e0677287c3c6a7ef4932163e42d0e1e07",
+    "GENERATED_AT": "2026-09-13T19:13:55+00:00",
+    "SOURCE_TREE_FINGERPRINT": "aff3b943040f8aadb9d17433b789a50ce310ba8e0486a73ee07d6f149bb5afa8"
   },
   "FILES": [
     {
@@ -220,7 +220,7 @@
     },
     {
       "path": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "sha": "85bd263bfd5b0540a285f84c3511a124980653df",
+      "sha": "f83cd3b1cd5bddbfd7a3f23fdb5571f5affb21fd",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1663,6 +1663,13 @@
     {
       "path": "data/derivados/O-CANARIO-DA-COLLECTION.json",
       "sha": "c19eb3867d157a410f029bd795f61e8546c23d13",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
+      "sha": "cdd88d6c7cbaeb02e9f886b3ac3de7c17d9991e9",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4518,7 +4525,7 @@
     },
     {
       "path": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-      "sha": "efa0c991970b872f53bdc54a3b534c996e84efa5",
+      "sha": "5c46c3e538fd12bc7d1d4d95043e233a9b61c223",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4805,7 +4812,7 @@
     },
     {
       "path": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "sha": "d13ee9d5fb52c843a9b18b3dd779b434c331bf64",
+      "sha": "9b9d69068ee2d3635dee570f23635e6327221f3d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4911,6 +4918,13 @@
     {
       "path": "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "sha": "48d8e2c19d6b3f4675e506c98f0b2ff24b5462ff",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CENSO-SALA-DE-ESPERA-ANTES-DA-BIG-COLLECTION-V1.md",
+      "sha": "649a48394ddd129d6df1bc06fcf6f9d7fa66360e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5309,21 +5323,21 @@
     },
     {
       "path": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "sha": "40a7a6c51733741fefcdcecad426d94be3ab2d43",
+      "sha": "2baf37b3e456db4620317dcb4c87402565db67e7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "sha": "7ff2d7fea30f6f6c4c7ba9be845cc0ed51cbf190",
+      "sha": "f2fc6ac35c57bb93bf418e02e58987f27fde6ced",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "sha": "113a921ae81231308a773fd9fbedba28817b952e",
+      "sha": "3f887952cd73dee63d00e6fb3411569934e7aaaa",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5351,7 +5365,7 @@
     },
     {
       "path": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "sha": "44d52e80baf1abfba02df62ccba163c85344dd0f",
+      "sha": "548e70f3987c6dc668295a97efa4f76019e37946",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5484,7 +5498,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "sha": "c5ce9f8cd21f4366e5984bde5aba241c35de99db",
+      "sha": "4457b101815856bcc620ee64a78ec278dcfbb220",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8927,6 +8941,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_censo_da_sala_de_espera.py",
+      "sha": "5c300fe2fada1b545c9cad25726d0b6657bc39f6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_censo_do_acervo.py",
       "sha": "5f35f83ebd5e68b60e17881055e24e7a66dc74c9",
       "ext": ".py",
@@ -10461,7 +10482,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "56356a551b01f8306168a3c9716a3495ed3e9e12",
+      "sha": "3c40e3a2bf9245a1245c1d43151b7a6a1574988a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11512,6 +11533,13 @@
     {
       "path": "tests/test_o_canario_da_collection.py",
       "sha": "10de6f6a88fcd0a68415f75507fe9d9dd9f5157a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_o_censo_da_sala_de_espera.py",
+      "sha": "9c0a24ee52b606c9bbf0f8fdf4210f2682f5f3f5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -33377,6 +33405,116 @@
       }
     },
     {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 52,
+        "snippet": "import admissao                                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 816,
+        "snippet": "sai = _chaves_do_dict_de_retorno(\"admissao/admissao.py\","
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 53,
+        "snippet": "import sala_de_espera as espera                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 167,
+        "snippet": "(\"OWNER\", \"admissao/sala_de_espera.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "coleta/rota_forward_documento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 814,
+        "snippet": "entra = _chaves_atribuidas(\"coleta/rota_forward_documento.py\","
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 60,
+        "snippet": "\"observations.ndjson\")"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 61,
+        "snippet": "CORRIDAS_IT = os.path.join(\"data\", \"collection-ledger\", \"italy\", \"runs.ndjson\")"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 55,
+        "snippet": "SAIDA = os.path.join(\"data\", \"derivados\", \"O-CENSO-DA-SALA-DE-ESPERA.json\")"
+      }
+    },
+    {
+      "from_file": "provas/o_censo_da_sala_de_espera.py",
+      "to_file": "provas/o_censo_do_acervo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_censo_da_sala_de_espera.py",
+        "line": 315,
+        "snippet": "(\"DONO_DO_NUMERO\", \"provas/o_censo_do_acervo.py\"),"
+      }
+    },
+    {
       "from_file": "provas/o_censo_do_acervo.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -47996,6 +48134,50 @@
       }
     },
     {
+      "from_file": "tests/test_o_censo_da_sala_de_espera.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_censo_da_sala_de_espera.py",
+        "line": 29,
+        "snippet": "import _gavetas                                # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_o_censo_da_sala_de_espera.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_censo_da_sala_de_espera.py",
+        "line": 30,
+        "snippet": "import sala_de_espera as espera                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_censo_da_sala_de_espera.py",
+      "to_file": "provas/o_censo_da_sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_censo_da_sala_de_espera.py",
+        "line": 31,
+        "snippet": "import o_censo_da_sala_de_espera as censo      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_censo_da_sala_de_espera.py",
+      "to_file": "provas/o_censo_da_sala_de_espera.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_censo_da_sala_de_espera.py",
+        "line": 33,
+        "snippet": "CENSO = os.path.join(RAIZ, \"provas\", \"o_censo_da_sala_de_espera.py\")"
+      }
+    },
+    {
       "from_file": "tests/test_o_pedido_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -52460,10 +52642,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1696,
-    "files_readable": 700,
-    "files_code_dir": 750,
-    "file_edges": 3644,
+    "files_tracked": 1700,
+    "files_readable": 702,
+    "files_code_dir": 752,
+    "file_edges": 3658,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },
