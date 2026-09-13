@@ -55,12 +55,29 @@ const CADEIA = JSON.parse(readFileSync(join(AQUI, 'CADEIA-DO-MAPA.json'), 'utf8'
 /* O LEITOR DA CADEIA, DO LADO JAVASCRIPT — e ha so este.
    O `G4` deu forma a cada passo: de `"scan_repo.py"` para
    `{STEP_ID, EXECUTABLE, INPUTS, OUTPUTS}`. Quem corre a cadeia quer os
-   caminhos, e quer a ORDEM ESCRITA no manifesto — nunca uma ordem derivada
-   aqui, que seria o G6 implementado a socapa num publicador de build.
+   caminhos, pela ordem ESCRITA no manifesto.
 
    Sao dois runtimes, logo sao dois leitores: este e
    `system-map/scripts/cadeia_do_mapa.py`. UM por runtime e o minimo possivel,
-   e `test_system_map.py` prova que os dois devolvem a mesma lista. */
+   e `test_system_map.py` prova que os dois devolvem a mesma lista.
+
+   DEPOIS DO G6 A ORDEM ESCRITA JA NAO E UMA OPINIAO: ela e igual a ordem que
+   as dependencias derivam, e o lado Python deriva-a. Aqui NAO se repete o
+   algoritmo — repetir Kahn em dois runtimes seria a segunda cadeia a voltar
+   pela porta do algoritmo. Aqui CONFERE-SE, que e outra coisa e cabe em cinco
+   linhas: para cada entrada gerada com produtor, o produtor tem de estar antes.
+
+       CONFERIR NAO E REIMPLEMENTAR. UM VERIFICADOR QUE FALHA
+       DIZ «ESTE FICHEIRO ESTA ERRADO»; UM SEGUNDO ALGORITMO
+       DIZ «EU TENHO OUTRA OPINIAO». */
+function violacoesDaOrdem() {
+  const pos = new Map(CADEIA.REGERAR.map((p, i) => [p.STEP_ID, i]));
+  return CADEIA.REGERAR.flatMap(p => (p.INPUTS || [])
+    .filter(e => e.KIND === 'GENERATED_ARTIFACT' && pos.has(e.PRODUCER)
+                 && pos.get(e.PRODUCER) >= pos.get(p.STEP_ID))
+    .map(e => `${p.STEP_ID} le ${e.PATH} de ${e.PRODUCER}, que corre depois`));
+}
+
 function executaveisDaCadeia() {
   return CADEIA.REGERAR.map(p => p.EXECUTABLE);
 }
@@ -258,6 +275,12 @@ if (!python) {
     + 'envia /build /data /docs /handoff /research /supabase /tests /.github para o '
     + 'contentor). Regenerar aqui daria o mapa de uma arvore mutilada. O mapa '
     + 'commitado continua a ser servido, e a frescura fica UNKNOWN em vez de verde.';
+} else if (violacoesDaOrdem().length) {
+  /* REGENERAR POR UMA ORDEM QUE CONTRADIZ AS DEPENDENCIAS DAVA UM MAPA
+     SILENCIOSAMENTE ANTIGO — cada passo leria o artefato da rodada passada e
+     nenhum deles daria erro. Melhor servir o commitado e dizer porque. */
+  porqueNaoRegenerou = 'a ordem escrita em CADEIA-DO-MAPA.json contradiz as '
+    + `dependencias declaradas: ${violacoesDaOrdem().join(' · ')}. Ver LEI_DA_ORDEM.`;
 } else {
   const passos = executaveisDaCadeia();
   nota(`a regerar pela cadeia de ${passos.length} passos (a mesma do CI)`);

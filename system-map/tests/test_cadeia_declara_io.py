@@ -78,9 +78,15 @@ print("=" * 70)
 # O schema evoluiu no G5: o `/2` nao tinha onde dizer «esta execucao e
 # governada e nao e nem geracao nem validacao» — o portao pos-commit nao cabia
 # em categoria nenhuma sem mentir sobre o contrato dele.
+#
+# E evoluiu no G6 para o `/4`: passou a declarar a LEI_DA_ORDEM e a
+# LEI_DO_CICLO_ATRASADO, e as varreduras que apanham ficheiros gerados deixaram
+# de estar por dizer. Nenhuma chave foi tirada nem mudou de sentido — quem lia
+# o `/3` le o `/4` sem saber.
 prova("o_manifesto_declara_um_schema_conhecido",
       CAD.CADEIA["SCHEMA"] in ("sintonia.system-map.cadeia/2",
-                               "sintonia.system-map.cadeia/3"),
+                               "sintonia.system-map.cadeia/3",
+                               "sintonia.system-map.cadeia/4"),
       CAD.CADEIA["SCHEMA"])
 ids = [p.get("STEP_ID") for p in PASSOS]
 prova("todo_passo_tem_STEP_ID", all(ids), ids)
@@ -216,30 +222,69 @@ prova("a_divida_do_G5_nao_voltou_por_outro_nome",
 prova("o_manifesto_governa_mais_do_que_os_sete_do_G4", len(CAD.passos()) > 7,
       "%d passos em REGERAR" % len(CAD.passos()))
 
-# ── 6 · A ORDEM NAO FOI MEXIDA (G6 CONTINUA POR FAZER) ────────────────────
+# ── 6 · A ORDEM SO MUDA ONDE UMA DEPENDENCIA A OBRIGA ─────────────────────
 # ⚠️ ESTA GUARDA ESTAVA PRESA A UMA LISTA DE SETE. O G5 trouxe treze passos
 # para o manifesto e ela reprovou o progresso, nao um defeito. Congelar a lista
 # outra vez — agora com vinte — repetiria o erro na proxima missao.
 #
 #     UMA GUARDA DE ORDEM QUE GUARDA UMA LISTA GUARDA A DATA EM QUE FOI ESCRITA.
 #
-# O que tem de continuar verdade e a ORDEM RELATIVA dos passos que ja existiam:
-# o G5 podia acrescentar, nunca trocar.
+# Ate ao G5 a pergunta era «a ordem relativa manteve-se?» — e isso proibia o G6,
+# que existe precisamente para trocar os que estavam trocados. A pergunta certa,
+# e a que fica, e outra:
+#
+#     TROCAR PORQUE UMA ARESTA OBRIGA E CORRIGIR.
+#     TROCAR SEM ARESTA NENHUMA E OPINIAO.
+#
+# Para cada par do G4 que hoje aparece invertido, tem de existir um CAMINHO de
+# dependencias nomeadas que o force. Sem caminho, e gosto pessoal a passar por
+# arquitectura. A transitividade conta: o pente fino foi para depois do gerador
+# por aresta directa, e ficou depois do censo dos buracos por consequencia.
 ORDEM_RELATIVA_DO_G4 = ["SCAN_REPO", "SCAN_SOURCES", "SCAN_CASCO", "CENSO_DA_COLETA",
                         "PENTE_FINO_DA_COLETA", "CENSO_DOS_BURACOS",
                         "GENERATE_SYSTEM_MAP"]
 agora = [p["STEP_ID"] for p in CAD.passos()]
-prova("os_passos_do_G4_mantem_a_ordem_relativa",
-      [x for x in agora if x in ORDEM_RELATIVA_DO_G4] == ORDEM_RELATIVA_DO_G4,
-      "%s — acrescentar e G5; trocar e G6" % [x for x in agora if x in ORDEM_RELATIVA_DO_G4])
+_pos = {s: i for i, s in enumerate(agora)}
+_seg = {s: set() for s in agora}
+for _a in CAD.arestas():
+    if _a["CLASSE"] == CAD.NOMEADA and _a["PRODUTOR"] in _seg and _a["CONSUMIDOR"] in _seg:
+        _seg[_a["PRODUTOR"]].add(_a["CONSUMIDOR"])
 
-# E o leitor tem de devolver a ordem ESCRITA, byte a byte. Isto e comportamento,
+
+def _alcanca(de, ate):
+    vistos, pilha = set(), [de]
+    while pilha:
+        x = pilha.pop()
+        if x == ate:
+            return True
+        if x in vistos:
+            continue
+        vistos.add(x)
+        pilha.extend(_seg.get(x, ()))
+    return False
+
+
+_sem_motivo = []
+for _i, _x in enumerate(ORDEM_RELATIVA_DO_G4):
+    for _y in ORDEM_RELATIVA_DO_G4[_i + 1:]:
+        if _pos[_x] > _pos[_y] and not _alcanca(_y, _x):
+            _sem_motivo.append((_x, _y))
+prova("cada_troca_na_ordem_do_G4_e_exigida_por_uma_dependencia", not _sem_motivo,
+      "%s — sucessora de `os_passos_do_G4_mantem_a_ordem_relativa`, que proibia "
+      "qualquer troca e por isso proibia o proprio G6" % _sem_motivo)
+
+# E O FICHEIRO TEM DE DIZER A ORDEM QUE A MAQUINA CORRE. Isto e comportamento,
 # nao texto: procurar a palavra «sort» no ficheiro apanhava o `sorted()` de uma
 # mensagem de erro e deixava passar um `list.sort()` escrito de outra maneira.
-prova("o_leitor_devolve_a_ordem_escrita_do_manifesto",
+#
+# Depois do G6 o leitor JA ORDENA — de proposito. O que nao pode e a lista
+# escrita discordar da derivada, porque o leitor JavaScript le a escrita e nao
+# deriva nada.
+prova("a_ordem_escrita_e_a_ordem_derivada",
       [p["STEP_ID"] for p in CAD.passos()]
       == [p["STEP_ID"] for p in CAD.CADEIA["REGERAR"]],
-      "um leitor que reordena e o G6 implementado a socapa")
+      "sucessora de `o_leitor_devolve_a_ordem_escrita_do_manifesto`: o manifesto "
+      "tem de estar escrito na ordem que as dependencias derivam")
 prova("o_corredor_tambem_nao_ordena",
       [l.strip() for l in
        subprocess.run([sys.executable, str(RAIZ / "system-map/scripts/correr_a_cadeia.py"),
@@ -248,7 +293,7 @@ prova("o_corredor_tambem_nao_ordena",
       == CAD.executaveis(),
       "quem corre a cadeia tem de correr a ordem do manifesto")
 
-# ── 7 · O CICLO DO PENTE FINO, DECLARADO ──────────────────────────────────
+# ── 7 · O CICLO DO PENTE FINO, DECLARADO E PAGO ───────────────────────────
 pente = CAD.por_id("PENTE_FINO_DA_COLETA")
 ciclo = [e for e in CAD.entradas(pente, CAD.GENERATED_ARTIFACT)
          if e["PRODUCER"] == "GENERATE_SYSTEM_MAP"]
@@ -258,8 +303,10 @@ prova("o_pente_fino_declara_que_le_a_saida_do_gerador", bool(ciclo),
 if ciclo:
     i_pente = CAD.executaveis().index(pente["EXECUTABLE"])
     i_ger = CAD.executaveis().index("system-map/scripts/generate_system_map.py")
-    prova("e_o_ciclo_esta_mesmo_atrasado_na_ordem_actual", i_pente < i_ger,
-          "o passo %d le o que o passo %d escreve" % (i_pente + 1, i_ger + 1))
+    prova("e_o_ciclo_deixou_de_estar_atrasado", i_pente > i_ger,
+          "sucessora de `e_o_ciclo_esta_mesmo_atrasado_na_ordem_actual`: o passo "
+          "%d le o que o passo %d escreve, e agora corre depois dele"
+          % (i_pente + 1, i_ger + 1))
 
 # ── 8 · A DECLARACAO CONTRA O CODIGO — TESTEMUNHA 1: A AST ────────────────
 # O que o codigo NOMEIA, lido da arvore sintatica. Nao depende do disco.

@@ -23,11 +23,22 @@ seguinte sem ninguem editar YAML; se alguem o tirar, deixa de correr.
 
 O QUE ELE NAO FAZ
 -----------------
-Nao ordena. Nao deriva ordem de INPUTS/OUTPUTS — isso e o `G6`. A ordem e a que
-esta escrita, e um `sort` aqui dentro seria o G6 implementado a socapa dentro
-de um corredor.
+Nao ordena — e isto continua verdade depois do G6. Quem ordena e o leitor
+canonico, porque a ordem e propriedade do manifesto e nao do veiculo. Um `sort`
+aqui dentro poria a ordem a depender de QUEM corre a cadeia, e a Vercel corre-a
+por outro caminho.
 
 Nao decide o que e cadeia: quem decide e o manifesto.
+
+O QUE ELE PASSOU A FAZER (G6)
+-----------------------------
+Recusa-se a correr quando a ordem ESCRITA no manifesto contradiz a ordem que as
+dependencias derivam. A execucao estaria certa de qualquer maneira — `passos()`
+devolve a derivada — mas o ficheiro estaria a dizer uma coisa e a maquina a
+fazer outra, e o leitor JavaScript le o ficheiro.
+
+    UM FICHEIRO QUE MENTE SOBRE A ORDEM NAO E INOFENSIVO SO PORQUE
+    O PYTHON O CORRIGE: O OUTRO RUNTIME ACREDITA NELE.
 """
 import subprocess
 import sys
@@ -39,7 +50,27 @@ sys.path.insert(0, str(AQUI))
 import cadeia_do_mapa as CAD                               # noqa: E402
 
 
+def conferir_a_ordem() -> int:
+    """A ORDEM ESCRITA TEM DE SER A ORDEM DERIVADA. Senao, para."""
+    escrita = [p["STEP_ID"] for p in CAD.ordem_escrita()]
+    derivada = CAD.ordem_derivada()
+    if escrita == derivada:
+        return 0
+    print("CADEIA=FALHOU · a ordem escrita no manifesto contradiz as "
+          "dependencias declaradas", file=sys.stderr)
+    for i, (e, d) in enumerate(zip(escrita, derivada), 1):
+        if e != d:
+            print("  #%-2d escrito %-28s derivado %s" % (i, e, d), file=sys.stderr)
+    print("  corrige o manifesto (ou a declaracao de INPUTS que o contradiz); "
+          "a lei vive em LEI_DA_ORDEM", file=sys.stderr)
+    return 3
+
+
 def correr(categoria: str, listar: bool = False) -> int:
+    if categoria == "REGERAR":
+        mau = conferir_a_ordem()
+        if mau:
+            return mau
     passos = {
         "REGERAR": CAD.passos, "VALIDAR": CAD.passos_de_validar,
         "PORTOES_POS_COMMIT": CAD.portoes_pos_commit,
@@ -49,7 +80,7 @@ def correr(categoria: str, listar: bool = False) -> int:
         for p in passos:
             print(p["EXECUTABLE"])
         return 0
-    print("CADEIA · %s · %d passo(s), pela ordem do manifesto" % (categoria, len(passos)))
+    print("CADEIA · %s · %d passo(s), pela ordem que as dependencias derivam" % (categoria, len(passos)))
     for i, p in enumerate(passos, 1):
         exe = p["EXECUTABLE"]
         # UM PASSO PODE PRECISAR DE ARGUMENTOS, E ELES VEM DO MANIFESTO.

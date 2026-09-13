@@ -1955,10 +1955,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-g5-one-chain-owner-v1",
-    "HEAD": "ac5bdd1f33f62164f65693c5054694d5be93b767",
-    "GENERATED_AT": "2026-09-13T15:14:44+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d5b1efcbd8232599b3a802353824405bad95edfb1491da6ab8cec10980cd6f47"
+    "BRANCH": "claude/system-map-g6-dependency-order-v1",
+    "HEAD": "a4a756aa4eaa8cc7b8b18865402a2d14bd39a00a",
+    "GENERATED_AT": "2026-09-13T15:37:21+00:00",
+    "SOURCE_TREE_FINGERPRINT": "944f48d6fe42623dfbd984ffc36416417c23d4effa3a59d893bdd04ae8c37df6"
   },
   "FAMILIES": [
     {
@@ -11001,6 +11001,7 @@
         "C-IT-CATALOGO",
         "C-MAPA-DEPLOY",
         "C-MAPA-SCAN",
+        "C-MAPA-TESTES",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-SUPABASE",
@@ -11234,6 +11235,7 @@
       ],
       "outbound": [
         "C-CENSO-TOPOLOGIA",
+        "C-MAPA-GERADOR",
         "C-PROVA-COLETA"
       ],
       "paises": {},
@@ -11276,6 +11278,12 @@
         {
           "onde": "GIT",
           "file": "system-map/scripts/censo_da_topologia.py",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "system-map/scripts/generate_system_map.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -18490,7 +18498,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-g5-one-chain-owner-v1"
+        "branch claude/system-map-g6-dependency-order-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -25020,7 +25028,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_cadeia_declara_io.py",
-          "line": 205,
+          "line": 211,
           "snippet": "CI = texto(\".github/workflows/system-map.yml\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--READS-->C-MAPA-TESTES",
@@ -35884,7 +35892,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_cadeia_declara_io.py",
-          "line": 245,
+          "line": 290,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map/scripts/correr_a_cadeia.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LEITOR-DA-CADEIA--READS-->C-MAPA-TESTES",
@@ -36378,7 +36386,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/cadeia_do_mapa.py",
-          "line": 39,
+          "line": 53,
           "snippet": "MANIFESTO = AQUI / \"CADEIA-DO-MAPA.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-LEITOR-DA-CADEIA",
@@ -36626,28 +36634,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Testes do System Map. Provado por 3 linhas de codigo.",
+      "reason": "Gerador do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_cadeia_declara_io.py",
-          "line": 260,
+          "line": 305,
           "snippet": "i_ger = CAD.executaveis().index(\"system-map/scripts/generate_system_map.py\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-GERADOR",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_impressao_verificavel.py",
-          "line": 276,
-          "snippet": "< passos.index(\"system-map/scripts/generate_system_map.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
             "FROM": "C-MAPA-GERADOR",
@@ -37073,7 +37065,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_impressao_verificavel.py",
-          "line": 275,
+          "line": 278,
           "snippet": "passos.index(\"system-map/scripts/pente_fino_da_coleta.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
@@ -37267,6 +37259,41 @@
             "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
             "FROM": "C-MAPA-TESTES",
             "TO": "C-CENSO-TOPOLOGIA",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-MAPA-GERADOR",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map escreve em Gerador do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 279,
+          "snippet": "> passos.index(\"system-map/scripts/generate_system_map.py\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-MAPA-GERADOR",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-MAPA-GERADOR",
             "RELATION_TYPE": "WRITES",
             "PLANE": "CODE"
           },
@@ -50730,8 +50757,8 @@
     "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 657,
-    "edges_proven": 610,
+    "edges": 658,
+    "edges_proven": 611,
     "edges_unknown": 47,
     "business_edges": 4,
     "files_tracked": 1508,

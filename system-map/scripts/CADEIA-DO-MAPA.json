@@ -1,12 +1,12 @@
 {
-  "SCHEMA": "sintonia.system-map.cadeia/3",
+  "SCHEMA": "sintonia.system-map.cadeia/4",
   "NOTA": [
     "A CADEIA DO MAPA, ESCRITA UMA VEZ SO.",
     "",
     "O GitHub Actions regenera o mapa antes de o validar. A build da Vercel",
     "passou a regenerar tambem, porque servir uma copia commitada e servir o",
     "mapa da arvore ANTERIOR — o ficheiro nasce sempre um commit atras de si",
-    "mesmo, e foi exactamente esse o defeito desta missao.",
+    "mesmo, e foi exactamente esse o defeito da missao do G5.",
     "",
     "    DOIS SITIOS COM A LISTA DOS PASSOS SAO DUAS CADEIAS.",
     "",
@@ -17,7 +17,13 @@
     "",
     "NAO EXISTE UMA SEGUNDA IMPLEMENTACAO DESTES SCANNERS. Nao ha versao Node",
     "do scanner, nao ha atalho para quando o Python falta: se a cadeia nao",
-    "consegue correr, o mapa servido diz que nao conseguiu — nunca finge."
+    "consegue correr, o mapa servido diz que nao conseguiu — nunca finge.",
+    "",
+    "A ORDEM DESTA LISTA JA NAO E UMA OPINIAO (G6). Ela e o resultado de Kahn",
+    "sobre as dependencias NOMEADAS, com desempate estavel pela posicao escrita.",
+    "Editar a ordem a mao nao muda a ordem de execucao — muda so o desempate — e",
+    "a guarda `test_ordem_por_dependencia.py` acusa a discrepancia. Ver",
+    "LEI_DA_ORDEM e LEI_DO_CICLO_ATRASADO."
   ],
   "REGERAR": [
     {
@@ -38,7 +44,14 @@
           ],
           "FILTRO_DONO": "system-map/scripts/scan_repo.py · git(\"ls-files\") · LEGIVEIS",
           "MEDIDO_VARRE": 1499,
-          "PORQUE": "este passo NAO mede um subconjunto: ele enumera a arvore rastreada inteira. `*` aqui e a regra verdadeira, e e o unico passo em que e."
+          "PORQUE": "este passo NAO mede um subconjunto: ele enumera a arvore rastreada inteira. `*` aqui e a regra verdadeira, e e o unico passo em que e.",
+          "INCLUI_GERADOS": [
+            "CENSO_CARDS_SENSORES",
+            "GENERATE_SYSTEM_MAP",
+            "RECONCILIACAO_DO_UNIVERSO",
+            "REVISAO_DA_EVIDENCIA"
+          ],
+          "PORQUE_INCLUI_GERADOS": "o seletor apanha ficheiros que sao SAIDA de outros passos. Este passo nao os nomeia — depende deles pelo conjunto. Apagar isto apagaria a dependencia; declara-los um a um diria que ele os procura pelo nome."
         }
       ],
       "OUTPUTS": [
@@ -195,42 +208,6 @@
       ]
     },
     {
-      "STEP_ID": "PENTE_FINO_DA_COLETA",
-      "EXECUTABLE": "system-map/scripts/pente_fino_da_coleta.py",
-      "INPUTS": [
-        {
-          "KIND": "CANONICAL_MANIFEST",
-          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
-          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia — INDIRECTAMENTE, pelo modulo que a importa",
-          "VIA": "system-map/scripts/impressao_da_arvore.py"
-        },
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/state.generated.json",
-          "PRODUCER": "GENERATE_SYSTEM_MAP",
-          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
-          "PORQUE": "LE A SAIDA DO PASSO 7 ESTANDO NO PASSO 5. Esta e a divida do ciclo atrasado (G6): numa arvore que mudou, a primeira passagem le o state da geracao ANTERIOR e o artefato sai STALE_BY_CYCLE. G4 declara-a; corrigi-la e G6."
-        },
-        {
-          "KIND": "TRACKED_SOURCE_TREE",
-          "ORIGEM": ".github/workflows/*.yml",
-          "PADRAO": [
-            ".github/workflows/*.yml"
-          ],
-          "FILTRO_DONO": "system-map/scripts/pente_fino_da_coleta.py · os_workflows()",
-          "MEDIDO_VARRE": 16,
-          "PORQUE": "quem corre o que, lido dos workflows"
-        }
-      ],
-      "OUTPUTS": [
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/pente-fino.generated.json",
-          "PORQUE": "as quatro perguntas por peca da coleta"
-        }
-      ]
-    },
-    {
       "STEP_ID": "RELATORIO_DO_FLUXO",
       "EXECUTABLE": "system-map/scripts/relatorio_do_fluxo.py",
       "INPUTS": [
@@ -250,73 +227,6 @@
           "KIND": "GENERATED_ARTIFACT",
           "PATH": "system-map/data/fluxo.generated.json",
           "PORQUE": "a telemetria do fluxo, que distingue NAO CORREU de FALHOU"
-        }
-      ]
-    },
-    {
-      "STEP_ID": "CENSO_DA_OBSERVABILIDADE",
-      "EXECUTABLE": "system-map/scripts/censo_da_observabilidade.py",
-      "INPUTS": [
-        {
-          "KIND": "TRACKED_SOURCE_TREE",
-          "ORIGEM": "git ls-files",
-          "PADRAO": [
-            "coleta/*"
-          ],
-          "FILTRO_DONO": "system-map/scripts/censo_da_observabilidade.py · DIMENSOES",
-          "MEDIDO_VARRE": 46,
-          "PORQUE": "os executores da coleta, para medir que dimensao cada um instrumenta"
-        },
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/donos.generated.json",
-          "PRODUCER": "CENSO_DOS_DONOS",
-          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_dos_donos.py",
-          "PORQUE": "entrada gerada por outro passo da cadeia"
-        },
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/fluxo.generated.json",
-          "PRODUCER": "RELATORIO_DO_FLUXO",
-          "PRODUCER_EXECUTABLE": "system-map/scripts/relatorio_do_fluxo.py",
-          "PORQUE": "entrada gerada por outro passo da cadeia"
-        }
-      ],
-      "OUTPUTS": [
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/observabilidade.generated.json",
-          "PORQUE": "que dimensao cada executor instrumenta"
-        }
-      ]
-    },
-    {
-      "STEP_ID": "CENSO_DAS_DERIVACOES",
-      "EXECUTABLE": "system-map/scripts/censo_das_derivacoes.py",
-      "INPUTS": [
-        {
-          "KIND": "TRACKED_SOURCE_FILE",
-          "PATH": "data/derivados/REGISTO-DE-ARTEFATOS.json",
-          "PORQUE": "este passo nao varre arvore nenhuma: le ficheiros pelo nome"
-        },
-        {
-          "KIND": "TRACKED_SOURCE_FILE",
-          "PATH": "leis/artefato.py",
-          "PORQUE": "este passo nao varre arvore nenhuma: le ficheiros pelo nome"
-        },
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/armazem-it.generated.json",
-          "PRODUCER": "CENSO_DO_ARMAZEM_IT",
-          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_do_armazem_it.py",
-          "PORQUE": "entrada gerada por outro passo da cadeia"
-        }
-      ],
-      "OUTPUTS": [
-        {
-          "KIND": "GENERATED_ARTIFACT",
-          "PATH": "system-map/data/derivacoes.generated.json",
-          "PORQUE": "os derivados, por produtor e ferramenta"
         }
       ]
     },
@@ -407,6 +317,36 @@
       ]
     },
     {
+      "STEP_ID": "CENSO_DAS_DERIVACOES",
+      "EXECUTABLE": "system-map/scripts/censo_das_derivacoes.py",
+      "INPUTS": [
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+          "PORQUE": "este passo nao varre arvore nenhuma: le ficheiros pelo nome"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "leis/artefato.py",
+          "PORQUE": "este passo nao varre arvore nenhuma: le ficheiros pelo nome"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/armazem-it.generated.json",
+          "PRODUCER": "CENSO_DO_ARMAZEM_IT",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_do_armazem_it.py",
+          "PORQUE": "entrada gerada por outro passo da cadeia"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/derivacoes.generated.json",
+          "PORQUE": "os derivados, por produtor e ferramenta"
+        }
+      ]
+    },
+    {
       "STEP_ID": "CENSO_DO_CONGELAMENTO",
       "EXECUTABLE": "system-map/scripts/censo_do_congelamento.py",
       "INPUTS": [
@@ -427,6 +367,7 @@
           "MEDIDO_VARRE": 1035,
           "PORQUE": "a extensao e a regra, e esta escrita em EXTS — nao e a arvore toda",
           "INCLUI_GERADOS": [
+            "CENSO_CARDS_SENSORES",
             "CENSO_DAS_DERIVACOES",
             "CENSO_DAS_ESTRADAS_IT",
             "CENSO_DA_COLETA",
@@ -437,12 +378,15 @@
             "CENSO_DOS_DONOS",
             "CENSO_DOS_EXECUTORES",
             "CENSO_DO_ARMAZEM_IT",
+            "CENSO_DO_CONGELAMENTO",
             "CENSO_DO_CORPUS_IT",
             "CENSO_SEMANTICO_IT",
             "GENERATE_SYSTEM_MAP",
             "PENTE_FINO_DA_COLETA",
             "RECALL_DA_PORTA_IT",
+            "RECONCILIACAO_DO_UNIVERSO",
             "RELATORIO_DO_FLUXO",
+            "REVISAO_DA_EVIDENCIA",
             "SCAN_CASCO",
             "SCAN_REPO",
             "SCAN_SOURCES"
@@ -475,7 +419,10 @@
           "MEDIDO_VARRE": 552,
           "PORQUE": "o corpus italiano vive em `data`, e o que o passo varre e mais largo do que a lista PASTAS do codigo: ele segue referencias para fora dela. Declarar PASTAS seria declarar a intencao do autor, e nao o que o programa faz.",
           "INCLUI_GERADOS": [
-            "GENERATE_SYSTEM_MAP"
+            "CENSO_CARDS_SENSORES",
+            "GENERATE_SYSTEM_MAP",
+            "RECONCILIACAO_DO_UNIVERSO",
+            "REVISAO_DA_EVIDENCIA"
           ],
           "PORQUE_INCLUI_GERADOS": "o seletor apanha ficheiros que sao SAIDA de outros passos. Este passo nao os nomeia — depende deles pelo conjunto. Apagar isto apagaria a dependencia; declara-los um a um diria que ele os procura pelo nome."
         }
@@ -515,6 +462,43 @@
           "KIND": "GENERATED_ARTIFACT",
           "PATH": "system-map/data/donos.generated.json",
           "PORQUE": "quem e dono de cada conceito"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "CENSO_DA_OBSERVABILIDADE",
+      "EXECUTABLE": "system-map/scripts/censo_da_observabilidade.py",
+      "INPUTS": [
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "git ls-files",
+          "PADRAO": [
+            "coleta/*"
+          ],
+          "FILTRO_DONO": "system-map/scripts/censo_da_observabilidade.py · DIMENSOES",
+          "MEDIDO_VARRE": 46,
+          "PORQUE": "os executores da coleta, para medir que dimensao cada um instrumenta"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/donos.generated.json",
+          "PRODUCER": "CENSO_DOS_DONOS",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_dos_donos.py",
+          "PORQUE": "entrada gerada por outro passo da cadeia"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/fluxo.generated.json",
+          "PRODUCER": "RELATORIO_DO_FLUXO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/relatorio_do_fluxo.py",
+          "PORQUE": "entrada gerada por outro passo da cadeia"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/observabilidade.generated.json",
+          "PORQUE": "que dimensao cada executor instrumenta"
         }
       ]
     },
@@ -770,6 +754,42 @@
           "KIND": "GENERATED_ARTIFACT",
           "PATH": "regras/LEIA-ANTES-DE-COLETAR.md",
           "PORQUE": "a porta de entrada das reguas"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "PENTE_FINO_DA_COLETA",
+      "EXECUTABLE": "system-map/scripts/pente_fino_da_coleta.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia — INDIRECTAMENTE, pelo modulo que a importa",
+          "VIA": "system-map/scripts/impressao_da_arvore.py"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/state.generated.json",
+          "PRODUCER": "GENERATE_SYSTEM_MAP",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
+          "PORQUE": "LE A SAIDA DO PASSO 7 ESTANDO NO PASSO 5. Esta e a divida do ciclo atrasado (G6): numa arvore que mudou, a primeira passagem le o state da geracao ANTERIOR e o artefato sai STALE_BY_CYCLE. G4 declara-a; corrigi-la e G6."
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": ".github/workflows/*.yml",
+          "PADRAO": [
+            ".github/workflows/*.yml"
+          ],
+          "FILTRO_DONO": "system-map/scripts/pente_fino_da_coleta.py · os_workflows()",
+          "MEDIDO_VARRE": 16,
+          "PORQUE": "quem corre o que, lido dos workflows"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/pente-fino.generated.json",
+          "PORQUE": "as quatro perguntas por peca da coleta"
         }
       ]
     },
@@ -1410,5 +1430,85 @@
     "mudanca nenhuma. Fechar isso e ordenar a cadeia pelas dependencias, que e o",
     "G6. O que o G5 faz e tira-los da invisibilidade: ficam declarados, com dono,",
     "entradas, saidas e a razao de nao correrem."
-  ]
+  ],
+  "LEI_DA_ORDEM": {
+    "REGRA": "A DEPENDENCIA DETERMINA A ORDEM. A ORDEM NAO DETERMINA A DEPENDENCIA.",
+    "DERIVACAO": "Kahn sobre as arestas NOMEADAS · fila de prioridade pela posicao escrita",
+    "DONO": "system-map/scripts/cadeia_do_mapa.py · ordem_derivada()",
+    "PROVA": "system-map/tests/test_ordem_por_dependencia.py",
+    "NOTA": [
+      "Ate ao G5 havia duas coisas que podiam discordar: esta lista e o que os",
+      "passos declaravam ler. Discordaram. Tres consumidores corriam antes do seu",
+      "produtor e ninguem reclamava, porque cada um lia um ficheiro que EXISTIA —",
+      "o da rodada anterior.",
+      "",
+      "    UM CONSUMIDOR ANTES DO PRODUTOR NAO FALHA:",
+      "    ELE RESPONDE DA RODADA PASSADA.",
+      "",
+      "Por isso `passos()` deixou de devolver o que esta escrito. A ordem escrita",
+      "so entra como desempate entre passos que ja estao ambos prontos — e esta",
+      "escrita igual a derivada de proposito, para o ficheiro ser legivel e para o",
+      "leitor JavaScript nao precisar de repetir o algoritmo.",
+      "",
+      "SE AS ARESTAS NOMEADAS TIVEREM CICLO, A DERIVACAO REBENTA em vez de",
+      "escolher. Escolher seria esconder o ciclo para conseguir ordenar."
+    ],
+    "DUAS_CLASSES_DE_ARESTA": {
+      "NOMEADA": "INPUTS[].KIND=GENERATED_ARTIFACT com PRODUCER. O consumidor PEDE aquele artefacto pelo nome — quer a versao DESTA rodada. Logo o produtor corre antes, e isso e exigido com violacoes = 0.",
+      "VARREDURA": "INPUTS[].KIND=TRACKED_SOURCE_TREE com INCLUI_GERADOS. O consumidor varre um SELETOR sobre a arvore rastreada e calha que ficheiros gerados caem la dentro. Ele nao pediu aquele artefacto: pediu «a arvore que existir quando eu correr». Logo NAO ordena.",
+      "REGRA_DE_CONVERSAO": "QUERES FRESCO? NOMEIA. E o que impede alguem de fugir a ordem escondendo uma dependencia dentro de um seletor."
+    }
+  },
+  "LEI_DO_CICLO_ATRASADO": {
+    "REGRA": "A VARREDURA LE A ARVORE QUE EXISTE QUANDO ELA CORRE. O QUE FOR ESCRITO DEPOIS DELA SO E VISTO NA RODADA SEGUINTE.",
+    "DONO": "system-map/scripts/cadeia_do_mapa.py · ciclos() · atrasos()",
+    "QUE_ARTEFATO_E_ATRASADO": [
+      "Todo artefacto gerado que caia dentro do seletor de um passo que corra",
+      "ANTES do seu produtor. Quem sao, hoje, esta declarado em INCLUI_GERADOS",
+      "de cada passo — medido com um espiao de auditoria, nao suposto.",
+      "O caso maior e CENSO_DO_CONGELAMENTO: o seletor dele e a extensao, e por",
+      "isso apanha a saida dos 23 passos que compoem o mapa — incluindo a dele."
+    ],
+    "QUE_VERSAO_E_LIDA": [
+      "A da rodada anterior — a que esta em disco no instante em que o passo",
+      "corre. Nao e 'uma versao qualquer': e a ultima que foi escrita e",
+      "commitada, e ela traz o seu proprio SOURCE_TREE_FINGERPRINT, que diz que",
+      "arvore ela mediu."
+    ],
+    "PORQUE_PRECISA_DE_SER_ATRASADO": [
+      "PORQUE A CADEIA ESCREVE DENTRO DA ARVORE QUE ELA PROPRIA MEDE.",
+      "",
+      "Nenhuma ordem resolve isto, e ha uma prova de uma linha: o seletor de",
+      "CENSO_DO_CONGELAMENTO apanha `congelamento.generated.json`, que e a SAIDA",
+      "do proprio CENSO_DO_CONGELAMENTO. Um passo nao pode correr antes de si",
+      "proprio. Logo o ciclo nao e um erro de ordenacao — e a forma do problema.",
+      "",
+      "    UM MEDIDOR QUE ESCREVE DENTRO DO QUE MEDE",
+      "    NAO SE ORDENA: CONVERGE."
+    ],
+    "COMO_SE_SABE_QUE_NAO_E_STALE_ACIDENTAL": [
+      "Por tres coisas medidas, e nenhuma delas e a ausencia de erro:",
+      "",
+      "1. O ATRASO ESTA DECLARADO. Cada aresta de varredura tem INCLUI_GERADOS e",
+      "   PORQUE_INCLUI_GERADOS. Um stale que o grafo NAO explica e outra coisa,",
+      "   e chama-se UNEXPECTED_STALE.",
+      "2. O ATRASO E INEVITAVEL. Ha pelo menos uma aresta de varredura que e um",
+      "   laco sobre si proprio; nenhuma permutacao a desfaz.",
+      "3. A CADEIA CONVERGE. Duas corridas seguidas sobre a mesma arvore produzem",
+      "   o mesmo conteudo semantico. Se o atraso fosse acidental, a segunda",
+      "   corrida continuaria a mudar coisas."
+    ],
+    "COMO_O_MAPA_COMUNICA": [
+      "`impressao_da_arvore.frescura_do_carimbo` classifica cada artefacto em",
+      "CLASSE_DO_CICLO ∈ {CURRENT, EXPECTED_PREVIOUS_CYCLE, UNEXPECTED_STALE,",
+      "UNKNOWN}. A pergunta que ela faz e sempre a mesma: o grafo EXPLICA este",
+      "atraso? Se explica, e contrato. Se nao explica, e defeito — e diz-se",
+      "defeito, com o nome dos artefactos que nao se explicam."
+    ],
+    "O_QUE_ISTO_NAO_AUTORIZA": [
+      "Nao autoriza chamar CURRENT a um artefacto atrasado.",
+      "Nao autoriza declarar VARREDURA uma dependencia que e pedida pelo nome.",
+      "Nao autoriza calar UNEXPECTED_STALE."
+    ]
+  }
 }

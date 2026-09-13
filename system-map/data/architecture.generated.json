@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-g5-one-chain-owner-v1",
-    "HEAD": "ac5bdd1f33f62164f65693c5054694d5be93b767",
-    "GENERATED_AT": "2026-09-13T15:14:44+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d5b1efcbd8232599b3a802353824405bad95edfb1491da6ab8cec10980cd6f47"
+    "BRANCH": "claude/system-map-g6-dependency-order-v1",
+    "HEAD": "a4a756aa4eaa8cc7b8b18865402a2d14bd39a00a",
+    "GENERATED_AT": "2026-09-13T15:37:21+00:00",
+    "SOURCE_TREE_FINGERPRINT": "944f48d6fe42623dfbd984ffc36416417c23d4effa3a59d893bdd04ae8c37df6"
   },
   "FILES": [
     {
@@ -9488,14 +9488,14 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "d1a651934ed8c7a154d3f0d4469ef5419430f310",
+      "sha": "663df840433b2b31ba6affbc2cd2223b4137b4db",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/cadeia_do_mapa.py",
-      "sha": "dfdd48a277a00980cf64f1b83dcaae935828a24e",
+      "sha": "9104601b4dd4fc430b04eb60648441371bf0dd59",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9600,7 +9600,7 @@
     },
     {
       "path": "system-map/scripts/correr_a_cadeia.py",
-      "sha": "8384f6cb67b541dc5d4eb50862a5f207675c31bd",
+      "sha": "b15dbf9e534d348276bbf03e6fef969de724ec93",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9614,7 +9614,7 @@
     },
     {
       "path": "system-map/scripts/impressao_da_arvore.py",
-      "sha": "f298a022d659f9cf99401cce0db8469ce698cda0",
+      "sha": "1db20f753d25abdfe1d7f018ec33d966d0ef2382",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9635,7 +9635,7 @@
     },
     {
       "path": "system-map/scripts/publicar_no_deploy.mjs",
-      "sha": "e00576c1356a05cfca1bc0c2b46b31fdec95f551",
+      "sha": "06cc096f8314081fe8ae17c66e74688be0cc2b5b",
       "ext": ".mjs",
       "readable": true,
       "code_dir": true
@@ -9705,7 +9705,7 @@
     },
     {
       "path": "system-map/tests/test_cadeia_declara_io.py",
-      "sha": "bec5c9a27b99d82096e0893c935939dd82984514",
+      "sha": "870c73299556a8fb1b1bb626d5261bb22547a735",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9726,7 +9726,7 @@
     },
     {
       "path": "system-map/tests/test_impressao_verificavel.py",
-      "sha": "652cfcb3eaaedd21994c7c6b57ff4fcd29c96e9c",
+      "sha": "f24697fcdcada67577905c9bc9931511fb2aa7b9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9761,7 +9761,7 @@
     },
     {
       "path": "system-map/tests/test_uma_cadeia_um_dono.py",
-      "sha": "c4a0fa1e9e2d215b8a947ecc28878a2fcc6b63b3",
+      "sha": "b40e3148b5b3ef9c86ec24910ccc1d541c892e31",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -30835,7 +30835,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/cadeia_do_mapa.py",
-        "line": 39,
+        "line": 53,
         "snippet": "MANIFESTO = AQUI / \"CADEIA-DO-MAPA.json\""
       }
     },
@@ -31495,7 +31495,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "system-map/scripts/correr_a_cadeia.py",
-        "line": 39,
+        "line": 50,
         "snippet": "import cadeia_do_mapa as CAD                               # noqa: E402"
       }
     },
@@ -32353,7 +32353,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_cadeia_declara_io.py",
-        "line": 205,
+        "line": 211,
         "snippet": "CI = texto(\".github/workflows/system-map.yml\")"
       }
     },
@@ -32364,7 +32364,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_cadeia_declara_io.py",
-        "line": 245,
+        "line": 290,
         "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map/scripts/correr_a_cadeia.py\"),"
       }
     },
@@ -32375,7 +32375,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_cadeia_declara_io.py",
-        "line": 260,
+        "line": 305,
         "snippet": "i_ger = CAD.executaveis().index(\"system-map/scripts/generate_system_map.py\")"
       }
     },
@@ -32496,7 +32496,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_impressao_verificavel.py",
-        "line": 347,
+        "line": 351,
         "snippet": "fonte = c / \"AGENTS.md\""
       }
     },
@@ -32507,7 +32507,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_impressao_verificavel.py",
-        "line": 349,
+        "line": 353,
         "snippet": "fonte.write_text(original + \"\\n<!-- uma fonte que mudou -->\\n\", encoding=\"utf-8\")"
       }
     },
@@ -32536,12 +32536,12 @@
     {
       "from_file": "system-map/tests/test_impressao_verificavel.py",
       "to_file": "system-map/scripts/generate_system_map.py",
-      "type": "READS",
+      "type": "WRITES",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_impressao_verificavel.py",
-        "line": 276,
-        "snippet": "< passos.index(\"system-map/scripts/generate_system_map.py\"),"
+        "line": 279,
+        "snippet": "> passos.index(\"system-map/scripts/generate_system_map.py\"),"
       }
     },
     {
@@ -32551,7 +32551,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_impressao_verificavel.py",
-        "line": 275,
+        "line": 278,
         "snippet": "passos.index(\"system-map/scripts/pente_fino_da_coleta.py\")"
       }
     },

@@ -338,6 +338,96 @@ def carimbo(gerado_por: str, entradas: list[tuple[str, str, str]]) -> dict:
     }
 
 
+def _passo_do_carimbo(prov: dict):
+    """QUE PASSO DA CADEIA ESCREVEU ISTO? None se nao se sabe dizer.
+
+    `None` nao e um encolher de ombros: e a unica resposta honesta para um
+    artefacto que nao diz quem o gerou, ou que foi gerado por algo que a cadeia
+    nao governa. Adivinhar pelo nome do ficheiro poria uma lei do grafo a
+    responder por um artefacto que nao esta no grafo.
+    """
+    exe = (prov or {}).get("GENERATED_BY")
+    if not exe:
+        return None, None
+    import sys as _sys
+    _sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import cadeia_do_mapa as CAD
+    passo = CAD.passo_do_executavel(exe)
+    return (passo, CAD) if passo else (None, CAD)
+
+
+def atraso_por_varredura(prov: dict | None) -> list:
+    """OS PRODUTORES QUE ESTE PASSO VARRE E QUE CORREM DEPOIS DELE.
+
+    Estes sao os artefactos que ele le da rodada ANTERIOR por contrato — e que
+    nenhum dos dois relogios da frescura consegue ver, porque a impressao da
+    arvore exclui de proposito as saidas da cadeia. Sem este campo o atraso
+    existia e nao se dizia em lado nenhum.
+
+        O QUE NENHUM RELOGIO MEDE TEM DE FICAR ESCRITO,
+        OU PASSA A NAO EXISTIR.
+    """
+    passo, CAD = _passo_do_carimbo(prov)
+    if not passo:
+        return None          # NAO SEI QUEM ESCREVEU ISTO — e [] diria «nenhum»
+    eu = passo["STEP_ID"]
+    fora = []
+    for a in CAD.arestas():
+        if a["CLASSE"] != CAD.VARREDURA or a["CONSUMIDOR"] != eu:
+            continue
+        antes = CAD.produtor_corre_antes(eu, a["PRODUTOR"])
+        if antes is False or a["PRODUTOR"] == eu:
+            fora.append(a["ARTEFATO"])
+    return sorted(set(fora))
+
+
+def classe_do_ciclo(prov, atual, arvore_bate, entradas_batem, ciclo) -> str:
+    """CURRENT · EXPECTED_PREVIOUS_CYCLE · UNEXPECTED_STALE · UNKNOWN.
+
+    A pergunta e uma so, e faz-se a cada pedaco de prova de atraso:
+
+        O GRAFO EXPLICA ESTE ATRASO?
+
+    Explica quando o produtor daquela entrada corre DEPOIS deste passo — nesse
+    caso ler a rodada anterior e o contrato, nao o defeito. Nao explica quando o
+    produtor corre antes (o artefacto devia estar fresco e nao esta), nem quando
+    quem mudou foi a arvore de FONTES: a impressao exclui as saidas da cadeia
+    justamente para que mexer numa fonte nao se possa disfarcar de ciclo.
+
+        UM ATRASO QUE O GRAFO NAO EXPLICA NAO E UM CICLO ATRASADO:
+        E UM MAPA VELHO A DIZER QUE ESTA NOVO.
+
+    Basta UM pedaco por explicar para a resposta ser UNEXPECTED_STALE. Somar
+    explicacoes parciais e como tratar meia prova como prova.
+    """
+    if atual:
+        return "CURRENT"
+    passo, CAD = _passo_do_carimbo(prov)
+    if not passo:
+        return "UNKNOWN"
+    eu = passo["STEP_ID"]
+    produtor_de = {}
+    for a in CAD.arestas():
+        if a["CLASSE"] == CAD.NOMEADA and a["CONSUMIDOR"] == eu:
+            produtor_de[a["ARTEFATO"]] = a["PRODUTOR"]
+    explicados = 0
+    for caminho in ciclo:
+        dono = produtor_de.get(caminho)
+        if dono is None:
+            return "UNEXPECTED_STALE"
+        antes = CAD.produtor_corre_antes(eu, dono)
+        if antes is None:
+            return "UNKNOWN"
+        if antes:
+            return "UNEXPECTED_STALE"
+        explicados += 1
+    if not arvore_bate or not entradas_batem:
+        # A ARVORE NAO CONTA COMO CICLO. Ela nao inclui as saidas da cadeia; se
+        # ela mexeu, mexeu uma FONTE, e nenhuma lei de ciclo cobre isso.
+        return "UNEXPECTED_STALE"
+    return "EXPECTED_PREVIOUS_CYCLE" if explicados else "UNEXPECTED_STALE"
+
+
 def frescura_do_carimbo(prov: dict | None) -> dict:
     """CURRENT · STALE · UNVERIFIABLE · UNKNOWN — e quem pergunta nao e quem escreveu.
 
@@ -362,9 +452,11 @@ def frescura_do_carimbo(prov: dict | None) -> dict:
     """
     if not prov:
         return {"VEREDITO": "UNKNOWN", "MOTIVO": "SEM_CARIMBO",
+                "CLASSE_DO_CICLO": "UNKNOWN",
                 "PORQUE": "o artefacto nao traz PROVENANCE"}
     if not prov.get("SOURCE_TREE_FINGERPRINT"):
         return {"VEREDITO": "UNVERIFIABLE", "MOTIVO": "SO_CARIMBA_COMMIT",
+                "CLASSE_DO_CICLO": "UNKNOWN",
                 "PORQUE": ("nao carimba SOURCE_TREE_FINGERPRINT; um SHA de commit "
                            "nao se consegue verificar por construcao")}
     declarados = prov.get("INPUTS") or []
@@ -373,6 +465,12 @@ def frescura_do_carimbo(prov: dict | None) -> dict:
     if not declarados:
         return {"VEREDITO": "CURRENT" if arvore_bate else "STALE",
                 "MOTIVO": "SO_A_ARVORE", "ARVORE_BATE": arvore_bate,
+                # SEM ENTRADAS DECLARADAS NAO HA PERGUNTA DE CICLO: so ha
+                # a arvore. E a impressao da arvore exclui as saidas da
+                # cadeia, portanto mexer nela e mexer numa FONTE — o que
+                # nenhuma lei de ciclo atrasado cobre.
+                "CLASSE_DO_CICLO": "CURRENT" if arvore_bate else "UNEXPECTED_STALE",
+                "ATRASO_POR_VARREDURA": atraso_por_varredura(prov),
                 "IMPRESSAO_CARIMBADA": prov["SOURCE_TREE_FINGERPRINT"],
                 "IMPRESSAO_AGORA": agora,
                 "PORQUE": ("o artefacto nao declara INPUTS: so a arvore pode ser "
@@ -381,6 +479,7 @@ def frescura_do_carimbo(prov: dict | None) -> dict:
     sumidos = [i["PATH"] for i in declarados if not (RAIZ / i["PATH"]).is_file()]
     if sumidos:
         return {"VEREDITO": "UNVERIFIABLE", "MOTIVO": "ENTRADA_DESAPARECEU",
+                "CLASSE_DO_CICLO": "UNKNOWN",
                 "PORQUE": "entradas declaradas que ja nao existem: %s" % sumidos[:5],
                 "IMPRESSAO_AGORA": agora}
 
@@ -389,6 +488,7 @@ def frescura_do_carimbo(prov: dict | None) -> dict:
     por_caminho = {i["PATH"]: i["VERSAO"] for i in hoje}
     if NAO_SEI in por_caminho.values():
         return {"VEREDITO": "UNVERIFIABLE", "MOTIVO": "ENTRADA_SEM_VERSAO",
+                "CLASSE_DO_CICLO": "UNKNOWN",
                 "PORQUE": "entradas sem versao afericavel: %s"
                           % [c for c, v in sorted(por_caminho.items())
                              if v == NAO_SEI][:5],
@@ -435,6 +535,9 @@ def frescura_do_carimbo(prov: dict | None) -> dict:
     return {
         "VEREDITO": "CURRENT" if atual else "STALE",
         "MOTIVO": motivo,
+        "CLASSE_DO_CICLO": classe_do_ciclo(prov, atual, arvore_bate,
+                                           entradas_batem, ciclo),
+        "ATRASO_POR_VARREDURA": atraso_por_varredura(prov),
         "ARVORE_BATE": arvore_bate,
         "ENTRADAS_BATEM": entradas_batem,
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": ciclo,

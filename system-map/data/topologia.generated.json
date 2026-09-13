@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-13T15:37:08+00:00",
-  "HEAD": "ac5bdd1f33f62164f65693c5054694d5be93b767",
-  "BRANCH": "claude/system-map-g5-one-chain-owner-v1",
+  "GENERATED_AT": "2026-09-13T17:24:30+00:00",
+  "HEAD": "a4a756aa4eaa8cc7b8b18865402a2d14bd39a00a",
+  "BRANCH": "claude/system-map-g6-dependency-order-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "d5b1efcbd8232599b3a802353824405bad95edfb1491da6ab8cec10980cd6f47",
+  "SOURCE_TREE_FINGERPRINT": "944f48d6fe42623dfbd984ffc36416417c23d4effa3a59d893bdd04ae8c37df6",
   "FICHEIROS_NA_IMPRESSAO": 1645,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1735,14 +1735,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d5b1efcbd8232599b3a802353824405bad95edfb1491da6ab8cec10980cd6f47",
+    "VERSAO": "944f48d6fe42623dfbd984ffc36416417c23d4effa3a59d893bdd04ae8c37df6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "d5b1efcbd8232599b3a802353824405bad95edfb1491da6ab8cec10980cd6f47",
+    "VERSAO": "944f48d6fe42623dfbd984ffc36416417c23d4effa3a59d893bdd04ae8c37df6",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -1875,7 +1875,7 @@
    {
     "PATH": "system-map/tests/test_cadeia_declara_io.py",
     "PAPEL": "FONTE",
-    "VERSAO": "bec5c9a27b99d82096e0893c935939dd82984514",
+    "VERSAO": "870c73299556a8fb1b1bb626d5261bb22547a735",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1896,7 +1896,7 @@
    {
     "PATH": "system-map/tests/test_impressao_verificavel.py",
     "PAPEL": "FONTE",
-    "VERSAO": "652cfcb3eaaedd21994c7c6b57ff4fcd29c96e9c",
+    "VERSAO": "f24697fcdcada67577905c9bc9931511fb2aa7b9",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -1931,7 +1931,7 @@
    {
     "PATH": "system-map/tests/test_uma_cadeia_um_dono.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c4a0fa1e9e2d215b8a947ecc28878a2fcc6b63b3",
+    "VERSAO": "b40e3148b5b3ef9c86ec24910ccc1d541c892e31",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2686,7 +2686,7 @@
    }
   ],
   "INPUTS_COUNT": 378,
-  "INPUTS_DIGEST": "284ba5f2a155ea78f728c9cffb7ff009a54dc3f120f813c8ceb5f06c413e53a5",
+  "INPUTS_DIGEST": "ebd183f9f4e57ab3f356aa9d8b4a82b5981ef94dcd0ef36e2099fe8bf3442354",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2719,8 +2719,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ce9aea198e501b1fd86f7490b2c6b476fb51fbd540e438ea0789fb9f50061b6e",
-  "SEMANTIC_HASH": "a35c50abca022620b368a4717158c22bee1d604b7f7843c527e5f666c4293273"
+  "MEASUREMENT_HASH": "148adbd9da788c8548a698320bb52dc4c6b0c61f645d9b5835386ec53a4d320b",
+  "SEMANTIC_HASH": "ccb23ee2165e6001624a660bedf7a10e470bf7c8fd35aac1fd698a9bc7e8dd98"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -5772,7 +5772,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_cadeia_declara_io.py",
-      "LINHA": 205,
+      "LINHA": 211,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-MAPA--READS-->C-MAPA-TESTES",
@@ -12128,7 +12128,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_cadeia_declara_io.py",
-      "LINHA": 245,
+      "LINHA": 290,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-LEITOR-DA-CADEIA--READS-->C-MAPA-TESTES",
@@ -12498,15 +12498,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_cadeia_declara_io.py",
-      "LINHA": 260,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
-      "LINHA": 276,
+      "LINHA": 305,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-TESTES",
@@ -12760,7 +12752,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
-      "LINHA": 275,
+      "LINHA": 278,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
@@ -12884,6 +12876,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-TOPOLOGIA",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-MAPA-GERADOR",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-MAPA-GERADOR",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_impressao_verificavel.py",
+      "LINHA": 279,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-MAPA-GERADOR",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -19465,12 +19479,12 @@
     ]
    }
   ],
-  "COUNT": 578
+  "COUNT": 579
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 111,
   "CARTOES_AUDITADOS": 111,
-  "ARESTAS_RELACIONADAS": 578,
+  "ARESTAS_RELACIONADAS": 579,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -19749,7 +19763,7 @@
    "CODE": 67,
    "CONTROL": 45,
    "DATA": 25,
-   "PROOF": 208,
+   "PROOF": 209,
    "READ": 129,
    "RULE": 97,
    "WRITE": 7
@@ -22253,7 +22267,7 @@
    "LE_DE": [
     "pathlib"
    ],
-   "ENTRAM": 13,
+   "ENTRAM": 14,
    "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
@@ -22378,7 +22392,7 @@
     "pente_fino_da_coleta"
    ],
    "ENTRAM": 19,
-   "SAEM": 2,
+   "SAEM": 3,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],

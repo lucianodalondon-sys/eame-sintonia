@@ -256,11 +256,14 @@ prova("e_nao_muda_o_veredito",
       IMPRESSAO.frescura_do_carimbo(relogio)["VEREDITO"]
       == IMPRESSAO.frescura_do_carimbo(BASE)["VEREDITO"])
 
-# ── 10 e 13 e 20 · O PENTE FINO NAO GANHA UM VERDE QUE NAO TEM ─────────
-#     UM CARIMBO VERIFICAVEL NAO PAGA UMA DIVIDA DE ORDEM.
-# O pente fino le `state.generated.json`, que nesta cadeia so e escrito DEPOIS
-# dele. Tornar a impressao aferivel nao muda a ordem — e usar o G3 para o
-# declarar CURRENT seria fechar o G6 com uma frase.
+# ── 10 e 13 e 20 · O PENTE FINO JA NAO PAGA UMA DIVIDA DE ORDEM ────────
+#     UM CARIMBO VERIFICAVEL NAO PAGA UMA DIVIDA DE ORDEM — MAS O G6 PAGOU-A.
+# Ate ao G5 o pente fino lia `state.generated.json` estando ANTES de quem o
+# escreve, e ficava STALE_BY_CYCLE de propria fabrica. O G6 nao o declarou
+# CURRENT: mudou-o de sitio, porque a dependencia e NOMEADA e uma dependencia
+# nomeada pede a versao desta rodada.
+#
+#     NAO SE FECHA UM CICLO COM UMA FRASE. FECHA-SE COM UMA ORDEM.
 pente = IMPRESSAO.frescura_do_carimbo(prov_de(OS_QUATRO[1][0]))
 prova("o_pente_fino_declara_o_estado_como_entrada_gerada",
       any(i["PATH"] == "system-map/data/state.generated.json"
@@ -271,10 +274,11 @@ prova("o_pente_fino_nao_e_current_enquanto_a_ordem_da_cadeia_for_esta",
       or "state.generated.json" not in str(pente.get("ENTRADAS_GERADAS_DE_OUTRA_ARVORE")),
       pente)
 passos = CAD.executaveis()
-prova("a_ordem_da_cadeia_continua_a_por_o_pente_fino_antes_do_gerador",
+prova("a_ordem_da_cadeia_poe_o_pente_fino_depois_do_gerador",
       passos.index("system-map/scripts/pente_fino_da_coleta.py")
-      < passos.index("system-map/scripts/generate_system_map.py"),
-      "se isto mudou, o G6 foi mexido — e nao era esta missao")
+      > passos.index("system-map/scripts/generate_system_map.py"),
+      "sucessora de `a_ordem_da_cadeia_continua_a_por_o_pente_fino_antes_do_"
+      "gerador`: o G6 inverteu-a, e a inversao e a correccao")
 
 if "--sem-clone" in sys.argv:
     nota("(as provas de clone ficam de fora: corrida aninhada)")
@@ -396,8 +400,10 @@ try:
     # de uma fonte mudar: ai o pente fino mede o estado de ANTES, e dizer-lhe
     # CURRENT seria usar o G3 para calar o G6.
     #
-    # Sao precisas DUAS passagens da cadeia para ele ficar em dia. Isso e o preco
-    # do G6, medido aqui, e nao uma solucao.
+    # Ate ao G5 eram precisas DUAS passagens para ele ficar em dia. Depois do G6
+    # basta uma: a dependencia e nomeada, e o produtor passou a correr antes. O
+    # que continua a precisar de duas passagens e a VARREDURA — e essa esta
+    # medida em `test_ordem_por_dependencia.py`, que e onde a lei dela vive.
     PASSOS = CAD.executaveis()
 
     def cadeia(raiz):
@@ -416,18 +422,17 @@ try:
                          encoding="utf-8")
         cadeia(c)
         v = frescura_ali(c, OS_QUATRO[1][0])
-        prova("uma_passagem_so_deixa_o_pente_fino_em_stale_by_cycle",
-              v["VEREDITO"] == "STALE" and v.get("MOTIVO") == "STALE_BY_CYCLE", v)
-        prova("e_diz_que_entrada_o_atrasou",
-              "system-map/data/state.generated.json"
-              in (v.get("ENTRADAS_GERADAS_DE_OUTRA_ARVORE") or []), v)
+        prova("uma_passagem_so_ja_deixa_o_pente_fino_em_dia",
+              v["VEREDITO"] == "CURRENT", v)
+        prova("e_nenhuma_entrada_gerada_ficou_atrasada",
+              not (v.get("ENTRADAS_GERADAS_DE_OUTRA_ARVORE") or []), v)
         # E os que nao leem geracao nenhuma ficam em dia a primeira
         v0 = frescura_ali(c, OS_QUATRO[0][0])
         prova("quem_so_le_fonte_fica_current_a_primeira_passagem",
               v0["VEREDITO"] == "CURRENT", v0)
         cadeia(c)
         v2 = frescura_ali(c, OS_QUATRO[1][0])
-        prova("sao_precisas_duas_passagens_para_o_pente_fino_ficar_em_dia",
+        prova("e_a_segunda_passagem_nao_o_tira_do_lugar",
               v2["VEREDITO"] == "CURRENT", v2)
         marca.write_text(guardado_md, encoding="utf-8")
 finally:

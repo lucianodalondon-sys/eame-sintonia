@@ -322,30 +322,32 @@ exes = [x["EXECUTABLE"] for x in CAD.todas_as_execucoes()]
 prova("nenhum_executavel_aparece_em_duas_categorias",
       len(exes) == len(set(exes)), [e for e in exes if exes.count(e) > 1])
 
-# ── 7 · O G6 NAO FOI COMECADO ─────────────────────────────────────────────
+# ── 7 · O G6 FECHOU O QUE SE FECHAVA, E O RESTO ESTA CLASSIFICADO ────────
+# O G5 deixou aqui duas guardas a dizer «o G6 nao foi comecado». Elas eram
+# verdade e deviam morrer quando deixassem de o ser — sao estas as sucessoras.
 regerar = CAD.passos()
 i_pente = next(i for i, p in enumerate(regerar) if p["STEP_ID"] == "PENTE_FINO_DA_COLETA")
 i_ger = next(i for i, p in enumerate(regerar) if p["STEP_ID"] == "GENERATE_SYSTEM_MAP")
-prova("o_ciclo_do_pente_fino_continua_por_fechar", i_pente < i_ger,
-      "o passo %d continua a ler o que o passo %d escreve — e isso e o G6"
+prova("o_ciclo_do_pente_fino_fechou", i_pente > i_ger,
+      "sucessora de `o_ciclo_do_pente_fino_continua_por_fechar`: o passo %d le o "
+      "que o passo %d escreve, e passou a correr depois dele"
       % (i_pente + 1, i_ger + 1))
 
-# E a divida do ciclo cresceu com o G5, porque agora ve-se inteira.
-pos = {p["STEP_ID"]: i for i, p in enumerate(regerar)}
-atrasados = []
-for p in regerar:
-    for e in p["INPUTS"]:
-        alvo = None
-        if e["KIND"] == "GENERATED_ARTIFACT" and e.get("PRODUCER") in pos:
-            alvo = [e["PRODUCER"]]
-        elif e.get("INCLUI_GERADOS"):
-            alvo = [x for x in e["INCLUI_GERADOS"] if x in pos]
-        for a in alvo or []:
-            if pos[a] > pos[p["STEP_ID"]]:
-                atrasados.append((p["STEP_ID"], a))
+# A DIVIDA QUE FICA E DE OUTRA ESPECIE, E TEM DE SE VER QUE ESPECIE E.
+# Continuam a existir dependencias que so se fecham na rodada seguinte — mas
+# nenhuma delas e NOMEADA. Sao varreduras: seletores que apanham ficheiros
+# gerados sem os pedir pelo nome. Essa e a diferenca que o G6 introduziu, e sem
+# ela «ha divida» e «ha defeito» leem-se igual.
+#
+#     UMA DIVIDA VISIVEL SEM CLASSE E SO UM NUMERO A CRESCER.
+atrasados = CAD.atrasos()
 prova("a_divida_do_ciclo_esta_a_vista_e_medida", bool(atrasados),
       "%d dependencias atrasadas, em %d passos — declaradas, nao escondidas"
-      % (len(atrasados), len({a for a, _ in atrasados})))
+      % (len(atrasados), len({a["CONSUMIDOR"] for a in atrasados})))
+prova("e_nenhuma_delas_e_uma_dependencia_nomeada",
+      not [a for a in atrasados if a["CLASSE"] == CAD.NOMEADA],
+      [(a["CONSUMIDOR"], a["PRODUTOR"], a["ARTEFATO"])
+       for a in atrasados if a["CLASSE"] == CAD.NOMEADA])
 
 corredor = texto(CORREDOR)
 
@@ -393,10 +395,41 @@ prova("so_as_funcoes_de_leitura_entregam_EXECUTABLE",
       len(entrega) == corpos.count(".EXECUTABLE"),
       "%d usos de .EXECUTABLE no ficheiro, %d dentro dos leitores"
       % (len(entrega), corpos.count(".EXECUTABLE")))
-usos = re.findall(r"(?:for\s*\(\s*const\s+\w+\s+of\s+|)(CADEIA\.(?:REGERAR|VALIDAR))\s*(\.\w+|\))", js)
-fora_do_leitor = [u for u in usos if u[1] not in (".map",)]
+# ⚠️ A LISTA BRANCA ERA SINTATICA, E UMA LISTA BRANCA SINTATICA CADUCA.
+# Ela aceitava `.map` e mais nada. O G6 trouxe um VERIFICADOR de ordem ao
+# publicador — ele percorre `CADEIA.REGERAR` para comparar posicoes e nao corre
+# passo nenhum — e a guarda reprovou-o por usar `.flatMap`. Reprovava a forma,
+# nao o perigo; e o `...(CADEIA.REGERAR || [])` que ja la estava escapava por
+# sorte da sintaxe.
+#
+#     CONFERIR A LISTA NAO E RECONSTRUIR A LISTA.
+#     O QUE NAO PODE SAIR DAQUI E UM EXECUTAVEL.
+#
+# A pergunta passa a ser semantica: quem toca na lista crua fora dos dois
+# leitores nao pode produzir `.EXECUTABLE`. Poe-se um `.EXECUTABLE` dentro do
+# verificador e esta guarda morde outra vez — foi assim que foi conferida.
+LEITORES = ("executaveisDaCadeia", "executaveisDeValidar")
+
+
+def _funcao_que_contem(texto_js, i):
+    corte = texto_js.rfind("function ", 0, i)
+    if corte < 0:
+        return "(topo do ficheiro)", texto_js[:i]
+    nome = texto_js[corte + 9:texto_js.find("(", corte)].strip()
+    fim = texto_js.find("\nfunction ", i)
+    return nome, texto_js[corte:fim if fim > 0 else len(texto_js)]
+
+
+fora_do_leitor = []
+for m in re.finditer(r"CADEIA\.(?:REGERAR|VALIDAR)", js):
+    nome, corpo = _funcao_que_contem(js, m.start())
+    if nome in LEITORES:
+        continue
+    if ".EXECUTABLE" in corpo:
+        fora_do_leitor.append(nome)
 prova("o_publicador_nao_percorre_a_lista_crua", not fora_do_leitor,
-      "%s — iterar ou mapear a lista fora do leitor e reconstrui-la" % fora_do_leitor)
+      "%s — tocar na lista crua fora do leitor E entregar executaveis e "
+      "reconstruir a cadeia" % sorted(set(fora_do_leitor)))
 
 # (22) O LEITOR TEM DE CONHECER TODAS AS CATEGORIAS QUE O MANIFESTO TEM.
 # Tirar uma de `CATEGORIAS` nao apaga os passos: apaga-os DESTA PROVA, e o
@@ -434,9 +467,13 @@ for n in ast.walk(_eu):
                 _presos.append("linha %d" % n.lineno)
 prova("esta_prova_nao_esta_presa_a_um_numero_de_passos", not _presos, _presos)
 
+# DEPOIS DO G6 A ORDEM DERIVA-SE — mas NO LEITOR, e so la. Um segundo Kahn
+# dentro do corredor nao seria redundancia inofensiva: a Vercel nao passa pelo
+# corredor, e duas derivacoes que se afastem sao duas ordens outra vez.
 prova("o_corredor_nao_deriva_ordem",
       "topolog" not in corredor.lower() and ".sort(" not in corredor,
-      "derivar ordem aqui seria o G6 implementado a socapa num corredor")
+      "quem ordena e o leitor canonico; derivar tambem aqui seria a segunda "
+      "cadeia a voltar pela porta do algoritmo")
 
 print()
 print("=" * 74)
