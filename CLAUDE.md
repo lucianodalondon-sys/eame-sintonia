@@ -1,8 +1,14 @@
 # CLAUDE.md — instruções permanentes do SINTONIA EAME
 
-> ## ⚖️ LEI OBRIGATÓRIA DO PROJETO
+> ## ⚖️ LEIS OBRIGATÓRIAS DO PROJETO
 >
-> **Leia [`AGENTS.md`](AGENTS.md) antes de fazer qualquer alteração.**
+> **Leia [`AGENTS.md`](AGENTS.md) e [`LEI-DE-COMUNICACAO-HUMANA.md`](LEI-DE-COMUNICACAO-HUMANA.md) antes de fazer qualquer alteração.**
+>
+> `AGENTS.md` governa a lei do System Map. `LEI-DE-COMUNICACAO-HUMANA.md` governa como toda missão, status, handoff e entrega deve ser explicada ao dono do projeto sem exigir conhecimento de engenharia de software.
+>
+> Códigos internos como `E7`, `G4`, `B5B` ou números de migration **nunca bastam como explicação**: na primeira ocorrência relevante, incluir entre parênteses o significado em linguagem simples.
+>
+> Toda missão relevante deve começar com uma camada curta **EM PALAVRAS FÁCEIS** (`onde estamos / o que vamos fazer / por quê / o que muda / o que não faremos`) e terminar com **RESUMO PARA O DONO** (`onde estamos / o que significa / o que falta / próxima decisão`). O detalhe técnico continua obrigatório depois; simplificar a linguagem não autoriza simplificar a prova.
 >
 > O SINTONIA System Map tem de continuar sincronizado com **toda** mudança
 > relevante de arquitetura. **Rode o validador do System Map antes de fechar a
@@ -13,8 +19,7 @@
 > py system-map/scripts/validate_system_map.py
 > ```
 >
-> A lei inteira vive em `AGENTS.md` e **não** é repetida aqui — uma lei em dois
-> sítios diverge, e a partir daí nenhuma das duas vale.
+> As leis vivem nos seus donos e **não** são copiadas integralmente aqui — uma lei em dois sítios diverge. Este ficheiro apenas aponta para elas e torna a leitura obrigatória para Claude Code.
 
 ---
 
