@@ -1278,12 +1278,14 @@
       "provas/a_maquina_depois_do_crash.py",
       "provas/a_maquina_sob_carga.py",
       "provas/a_regra_de_t2.py",
+      "provas/a_repeticao_do_scrap.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/a_sala_de_espera_nao_tem_morada.py",
       "provas/a_unidade_pousa_na_espera.py",
       "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
       "provas/as_corridas_nao_se_cruzam.py",
+      "provas/as_travas_do_scrap_no_postgres.py",
       "provas/asr_banco.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
@@ -2140,9 +2142,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/integrate-scrap-current-collection-v1",
-    "HEAD": "6a7b09de26ef0af969cbcfb1eefc1a5131477148",
-    "GENERATED_AT": "2026-09-13T15:01:17+00:00",
-    "SOURCE_TREE_FINGERPRINT": "751faed9b5f48aecf20ae017cd90c178bac14cac919ae2301e4b6e91fc86c9e9"
+    "HEAD": "d10fbd691ce08d7128f8d22f18e1675939d64a08",
+    "GENERATED_AT": "2026-09-13T15:50:33+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ffb156260ffa7442d91ca511377cf37b004b31409c499f2c8e7e2d2e67c1a4a5"
   },
   "FAMILIES": [
     {
@@ -7384,6 +7386,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+        "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
         "C-REGRA-COLETA",
         "C-TESTES"
       ],
@@ -12795,6 +12798,7 @@
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+        "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-SUPERFICIE-SCRAP-V1",
         "C-TESTES"
@@ -13692,7 +13696,9 @@
         "C-PROVA-COLETA",
         "C-SCRAP-COLHEITA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -13782,7 +13788,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⊬",
       "views": [
         "acervo",
@@ -13791,13 +13797,21 @@
       ],
       "lane": "official",
       "family": "F-GOVERNANCA",
-      "files": [],
-      "file_count": 0,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add provas/a_repeticao_do_scrap.py provas/as_travas_do_scrap_no_postgres.py` e regerar. ISTO NAO E «nao existe».",
+      "files": [
+        "provas/a_repeticao_do_scrap.py",
+        "provas/as_travas_do_scrap_no_postgres.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-CI-PERSIST",
+        "C-PROVA-COLETA",
+        "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+        "C-SALA-DE-ESPERA"
+      ],
       "outbound": [],
       "paises": {},
       "paises_dado": {},
@@ -14866,6 +14880,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
+        "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -23006,6 +23021,29 @@
     },
     {
       "from": "C-CI-PERSIST",
+      "to": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar As travas do acervo, e o que a repeticao do SCRAP revela. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 343,
+          "snippet": "python3 provas/as_travas_do_scrap_no_postgres.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 361,
+          "snippet": "python3 provas/a_repeticao_do_scrap.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
       "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -23760,7 +23798,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 292,
+          "line": 324,
           "snippet": "no = _funcao('coleta/coletor.py', 'executar')"
         },
         {
@@ -23974,7 +24012,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 339,
+          "line": 371,
           "snippet": "self.assertIn(\"'coleta', 'instagram_janela.py'\", prova)"
         }
       ],
@@ -31635,7 +31673,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c6_especie_do_texto.py",
@@ -31671,6 +31709,11 @@
           "file": "tests/test_proveniencia.py",
           "line": 15,
           "snippet": "import proveniencia as pv   # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_flow01_caminho_canonico.py",
+          "line": 633,
+          "snippet": "import proveniencia as pv"
         }
       ],
       "categoria": "PROOF"
@@ -31974,6 +32017,29 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta As travas do acervo, e o que a repeticao do SCRAP revela. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_repeticao_do_scrap.py",
+          "line": 87,
+          "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
+        },
+        {
+          "file": "provas/as_travas_do_scrap_no_postgres.py",
+          "line": 66,
+          "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
       "type": "READS",
       "payload": "artefacto",
@@ -32040,7 +32106,7 @@
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 397,
+          "line": 429,
           "snippet": "import o_fluxo_canonico_do_scrap as prova"
         },
         {
@@ -32472,6 +32538,39 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "to": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o SCRAP chega ao acervo, e nao so o atravessa alimenta As travas do acervo, e o que a repeticao do SCRAP revela. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_repeticao_do_scrap.py",
+          "line": 82,
+          "snippet": "'e2e01', os.path.join(RAIZ, 'provas', 'o_scrap_chega_ao_acervo.py'))"
+        },
+        {
+          "file": "provas/a_repeticao_do_scrap.py",
+          "line": 94,
+          "snippet": "SHIM = os.path.join(RAIZ, 'provas', '_e2e01_janela_admissivel.py')"
+        },
+        {
+          "file": "provas/as_travas_do_scrap_no_postgres.py",
+          "line": 61,
+          "snippet": "'e2e01', os.path.join(RAIZ, 'provas', 'o_scrap_chega_ao_acervo.py'))"
+        },
+        {
+          "file": "provas/as_travas_do_scrap_no_postgres.py",
+          "line": 71,
+          "snippet": "SHIM = os.path.join(RAIZ, 'provas', '_e2e01_janela_admissivel.py')"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-PROVA-TRAVA-MORDE",
@@ -33757,6 +33856,24 @@
     },
     {
       "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por As travas do acervo, e o que a repeticao do SCRAP revela. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_repeticao_do_scrap.py",
+          "line": 91,
+          "snippet": "import sala_de_espera as espera    # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
       "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -34838,7 +34955,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 48 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 49 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -38638,15 +38755,15 @@
   "COUNTS": {
     "components": 180,
     "components_proven": 48,
-    "components_pending": 125,
+    "components_pending": 126,
     "components_broken": 0,
-    "components_unknown": 7,
-    "edges": 837,
-    "edges_proven": 834,
+    "components_unknown": 6,
+    "edges": 841,
+    "edges_proven": 838,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1692,
-    "files_covered": 860,
+    "files_tracked": 1694,
+    "files_covered": 862,
     "files_code_unclaimed": 0
   }
 }
