@@ -349,6 +349,14 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_uma_cadeia_um_dono.py
 
+      # 4s · A ORDEM E O CICLO. Um consumidor antes do produtor nunca falha —
+      #      ele lê o artefato da rodada anterior e responde antigo. Só se
+      #      apanha comparando o que cada passo declara ler com o sítio onde
+      #      ele corre, e é isso que este passo faz.
+      - name: 4s · a ordem sai do grafo, e o ciclo que resta tem nome
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_ordem_por_dependencia.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |

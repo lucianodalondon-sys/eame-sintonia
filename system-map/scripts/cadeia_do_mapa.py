@@ -481,3 +481,28 @@ def passo_do_executavel(caminho: str):
         if p.get("EXECUTABLE") == caminho:
             return p
     return None
+
+
+AUTOMATED = "AUTOMATED"
+MANUAL_BY_CONTRACT = "MANUAL_BY_CONTRACT"
+UNREACHABLE = "UNREACHABLE"
+DESCONHECIDO = "UNKNOWN"
+CLASSES_DE_EXECUCAO = (AUTOMATED, MANUAL_BY_CONTRACT, UNREACHABLE, DESCONHECIDO)
+
+
+def classe_de_execucao(passo: dict) -> str:
+    """QUEM CORRE ISTO — AUTOMACAO, MAO, NINGUEM, OU NAO SE SABE.
+
+    Tudo o que nao esta em REGERAR_A_MAO e corrido por automacao declarada: e
+    por isso que a classe nao se repete em vinte passos. Quem esta em
+    REGERAR_A_MAO tem de a DIZER, e sem a dizer a resposta e UNKNOWN — nunca
+    MANUAL por omissao.
+
+        «NAO ESTA AUTOMATIZADO» E UM FACTO.
+        «E MANUAL POR CONTRATO» E UMA DECISAO, E DECISOES ESCREVEM-SE.
+    """
+    a_mao = {p["STEP_ID"] for p in passos_a_mao()}
+    if passo["STEP_ID"] not in a_mao:
+        return AUTOMATED
+    declarada = passo.get("CLASSE_DE_EXECUCAO")
+    return declarada if declarada in CLASSES_DE_EXECUCAO else DESCONHECIDO

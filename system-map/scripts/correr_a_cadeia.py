@@ -71,11 +71,24 @@ def correr(categoria: str, listar: bool = False) -> int:
         mau = conferir_a_ordem()
         if mau:
             return mau
-    passos = {
-        "REGERAR": CAD.passos, "VALIDAR": CAD.passos_de_validar,
+    # ⚠️ REGERAR_A_MAO FALTAVA AQUI. `CATEGORIAS` anunciava-a, `main()` aceitava-a
+    # e esta tabela nao a tinha — logo `correr_a_cadeia.py REGERAR_A_MAO` morria
+    # com KeyError em vez de correr os tres regeneradores declarados. Ninguem deu
+    # por isso porque ninguem lhes chama: e exactamente a categoria dos passos que
+    # nao tem testemunha.
+    #
+    #     A CATEGORIA QUE NINGUEM CORRE E A QUE PODE ESTAR PARTIDA HA MESES.
+    tabela = {
+        "REGERAR": CAD.passos, "REGERAR_A_MAO": CAD.passos_a_mao,
+        "VALIDAR": CAD.passos_de_validar,
         "PORTOES_POS_COMMIT": CAD.portoes_pos_commit,
         "OUTRAS_EXECUCOES": CAD.outras_execucoes,
-    }[categoria]()
+    }
+    faltam = [c for c in CAD.CATEGORIAS if c not in tabela]
+    if faltam:
+        print("CADEIA=FALHOU · categorias sem corredor: %s" % faltam, file=sys.stderr)
+        return 4
+    passos = tabela[categoria]()
     if listar:
         for p in passos:
             print(p["EXECUTABLE"])

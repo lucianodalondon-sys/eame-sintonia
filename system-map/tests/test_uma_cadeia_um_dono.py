@@ -20,13 +20,13 @@ O QUE ESTE FICHEIRO CONFERE
     SEM SEGUNDA  nenhum consumidor mantem lista propria, em YAML, JS, Python
                  ou array de shell
     EXTERNOS     o que a COLETA produz continua da COLETA
-    FRONTEIRA    o G6 nao foi comecado: a ordem e a escrita, e ninguem a deriva
+    FRONTEIRA    o ciclo nomeado fechou, e o que resta de atraso e varredura
 
 O QUE ELE NAO CONFERE, E PORQUE
 -------------------------------
-Nao confere se a ORDEM esta certa. Esta errada em dezanove sitios, e isso esta
-medido e declarado — e o `G6`. G5 responde «quem diz quais passos existem»,
-nao «em que ordem devem correr».
+Nao confere a ORDEM. Isso e o `G6`, e vive em `test_ordem_por_dependencia.py`.
+Aqui fica so a fronteira entre as duas missoes: G5 responde «quem diz quais
+passos existem», G6 responde «em que ordem correm».
 
     NAO CODIFICAR NUMERO ESPERADO DE PASSOS. O UNIVERSO VEM DA MAQUINA.
 """

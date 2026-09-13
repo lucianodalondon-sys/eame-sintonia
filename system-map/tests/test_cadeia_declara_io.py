@@ -603,6 +603,56 @@ if MED:
           "system-map/data/state.generated.json" in pf,
           "se ele deixasse de o ler, a divida do G6 mudava — e isto avisaria")
 
+    # ── 10 · O QUE O G6 PRECISA QUE ESTA PROVA FECHE ──────────────────────
+    # V6 · LER A SAIDA DE OUTRO PASSO E UMA DEPENDENCIA, E TEM DE ESTAR DITA
+    #      DE UMA DAS DUAS MANEIRAS.
+    #
+    # Apagar uma linha de INPUTS nao partia nada: a leitura continuava explicada
+    # pelo SELETOR de arvore do passo (V4 dava-se por satisfeita), e a aresta
+    # desaparecia do grafo sem ninguem dar por isso. Ou seja: dava para desligar
+    # uma dependencia de ordem apagando uma linha, e a cadeia ficava verde.
+    #
+    #     APAGAR A DEPENDENCIA NAO APAGA A LEITURA.
+    #     SE A LEITURA CONTINUA, A DECLARACAO TEM DE CONTINUAR.
+    donos = {}
+    for _p in CAD.passos() + CAD.passos_a_mao():
+        for _s in CAD.saidas(_p):
+            donos[_s["PATH"]] = _p["STEP_ID"]
+    por_dizer = []
+    for p in MEDIDOS:
+        sid = p["STEP_ID"]
+        nomeadas = {e["PATH"] for e in CAD.entradas(p, CAD.GENERATED_ARTIFACT)}
+        varridos = {x for a in CAD.entradas(p, CAD.TRACKED_SOURCE_TREE)
+                    for x in (a.get("INCLUI_GERADOS") or [])}
+        for x in IO[sid]["LIDOS"]:
+            se_dono = donos.get(x)
+            if se_dono is None or se_dono == sid or x in nomeadas:
+                continue
+            if se_dono not in varridos:
+                por_dizer.append((sid, x, se_dono))
+    prova("nenhuma_leitura_de_saida_alheia_fica_por_declarar", not por_dizer,
+          "%d por dizer: %s" % (len(por_dizer), por_dizer[:5]))
+
+    # V7 · QUEM PEDE PELO NOME NAO PODE DECLARAR-SE VARREDURA.
+    #      E a regra de conversao da LEI_DA_ORDEM, feita executavel. Sem ela, a
+    #      fuga a ordem custava uma linha: tirar o PRODUCER e acrescentar o passo
+    #      ao INCLUI_GERADOS — a leitura ficava explicada, a aresta deixava de
+    #      ordenar, e a cadeia continuava verde.
+    #
+    #     QUERES FRESCO? NOMEIA. QUEM NOMEIA NO CODIGO, NOMEIA NO CONTRATO.
+    disfarcadas = []
+    for p in MEDIDOS:
+        sid = p["STEP_ID"]
+        nomeadas = {e["PATH"] for e in CAD.entradas(p, CAD.GENERATED_ARTIFACT)}
+        for x in IO[sid]["LIDOS"]:
+            se_dono = donos.get(x)
+            if se_dono is None or se_dono == sid or x in nomeadas:
+                continue
+            if nomeia(p["EXECUTABLE"], x):
+                disfarcadas.append((sid, x, se_dono))
+    prova("o_que_o_codigo_nomeia_nao_se_declara_varredura", not disfarcadas,
+          "%d disfarcadas: %s" % (len(disfarcadas), disfarcadas[:5]))
+
 print()
 print("=" * 70)
 if FALHAS:

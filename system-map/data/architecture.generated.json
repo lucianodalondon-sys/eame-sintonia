@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-g6-dependency-order-v1",
-    "HEAD": "a4a756aa4eaa8cc7b8b18865402a2d14bd39a00a",
-    "GENERATED_AT": "2026-09-13T15:37:21+00:00",
-    "SOURCE_TREE_FINGERPRINT": "944f48d6fe42623dfbd984ffc36416417c23d4effa3a59d893bdd04ae8c37df6"
+    "HEAD": "04a0a8ab2680df15ea2c32c937cdc0e528db6559",
+    "GENERATED_AT": "2026-09-13T17:32:42+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a72c3a2253fc2ebe53fef99c2c7e51421b75df22cb0a4d5b26e588c53769d8ad"
   },
   "FILES": [
     {
@@ -150,7 +150,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "f331d1e0b98e9d1b47c4327c407e5a068d41b7d3",
+      "sha": "1f7a05a355992dff3f09d19a66875f19638f6bfa",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -171,7 +171,7 @@
     },
     {
       "path": "AGENTS.md",
-      "sha": "6d8d0dfa2c758f0d92f5470a2f2b1e36c9d05101",
+      "sha": "ab911c0afce0a4a1e7092958d4fccc0a3960ff07",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4322,7 +4322,7 @@
     },
     {
       "path": "docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md",
-      "sha": "26d5a50cd99d5b36c4932c61b08f877ff50025b8",
+      "sha": "885800675b7b7500eed0840cdbab74ef09ee76c0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9488,14 +9488,14 @@
     },
     {
       "path": "system-map/scripts/CADEIA-DO-MAPA.json",
-      "sha": "663df840433b2b31ba6affbc2cd2223b4137b4db",
+      "sha": "3bf8c417a6103921b6b42ff27218e2671c35395b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/cadeia_do_mapa.py",
-      "sha": "9104601b4dd4fc430b04eb60648441371bf0dd59",
+      "sha": "f8d6981d8008e1f23fcfee3aa0368b004ae098fb",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9600,7 +9600,7 @@
     },
     {
       "path": "system-map/scripts/correr_a_cadeia.py",
-      "sha": "b15dbf9e534d348276bbf03e6fef969de724ec93",
+      "sha": "48b217ff8730262041d04f207e1a1d75f0703195",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9614,7 +9614,7 @@
     },
     {
       "path": "system-map/scripts/impressao_da_arvore.py",
-      "sha": "1db20f753d25abdfe1d7f018ec33d966d0ef2382",
+      "sha": "4c58b111927accb7afe5d5975a049a4a9684468b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9670,7 +9670,7 @@
     },
     {
       "path": "system-map/scripts/scan_casco.py",
-      "sha": "ff41767da8af0d50f153179d517e6cabd636c014",
+      "sha": "1fbacd2ae9dbab988b4ba4a6111838a109451568",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9705,7 +9705,7 @@
     },
     {
       "path": "system-map/tests/test_cadeia_declara_io.py",
-      "sha": "870c73299556a8fb1b1bb626d5261bb22547a735",
+      "sha": "d20ea71899e07de9e422610240b9063a44fd9ae9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9727,6 +9727,13 @@
     {
       "path": "system-map/tests/test_impressao_verificavel.py",
       "sha": "f24697fcdcada67577905c9bc9931511fb2aa7b9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/tests/test_ordem_por_dependencia.py",
+      "sha": "8862157212fc20eb91c66176cb7cc91e8ecc1440",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9761,7 +9768,7 @@
     },
     {
       "path": "system-map/tests/test_uma_cadeia_um_dono.py",
-      "sha": "b40e3148b5b3ef9c86ec24910ccc1d541c892e31",
+      "sha": "1a7d7db010ff38e78804a69feb0d1e6d812ccc26",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11332,7 +11339,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 500,
+        "line": 508,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -11343,7 +11350,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 623,
+        "line": 631,
         "snippet": "run: python3 provas/a_fronteira_da_coleta.py"
       }
     },
@@ -11354,7 +11361,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 585,
+        "line": 593,
         "snippet": "run: python3 provas/fluxo_no_seco.py"
       }
     },
@@ -11365,7 +11372,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 607,
+        "line": 615,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -11376,7 +11383,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 600,
+        "line": 608,
         "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py"
       }
     },
@@ -11387,7 +11394,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 619,
+        "line": 627,
         "snippet": "run: python3 provas/o_executor_conta_se.py"
       }
     },
@@ -11398,7 +11405,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 593,
+        "line": 601,
         "snippet": "run: python3 provas/o_mapa_nao_mente.py"
       }
     },
@@ -11409,7 +11416,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 581,
+        "line": 589,
         "snippet": "run: python3 provas/paridade_da_lingua.py"
       }
     },
@@ -11420,7 +11427,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 507,
+        "line": 515,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -11431,7 +11438,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 589,
+        "line": 597,
         "snippet": "run: python3 provas/testa_golden_path_pdf.py"
       }
     },
@@ -11442,7 +11449,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 514,
+        "line": 522,
         "snippet": "run: python3 provas/valida_biblia.py"
       }
     },
@@ -11453,7 +11460,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 398,
+        "line": 406,
         "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")"
       }
     },
@@ -11475,7 +11482,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 412,
+        "line": 420,
         "snippet": "node system-map/scripts/publicar_no_deploy.mjs"
       }
     },
@@ -11521,6 +11528,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 334,
         "snippet": "run: python3 system-map/tests/test_impressao_verificavel.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 358,
+        "snippet": "run: python3 system-map/tests/test_ordem_por_dependencia.py"
       }
     },
     {
@@ -11585,7 +11603,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 538,
+        "line": 546,
         "snippet": "run: python3 tests/test_armazem_italiano.py"
       }
     },
@@ -11596,7 +11614,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 521,
+        "line": 529,
         "snippet": "python3 tests/test_biblia.py"
       }
     },
@@ -11607,7 +11625,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 531,
+        "line": 539,
         "snippet": "run: python3 tests/test_identidade_do_artefato.py"
       }
     },
@@ -11618,7 +11636,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 522,
+        "line": 530,
         "snippet": "python3 tests/test_integracao_biblia.py"
       }
     },
@@ -11629,7 +11647,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 523,
+        "line": 531,
         "snippet": "python3 tests/test_observabilidade_estrada.py"
       }
     },
@@ -11640,7 +11658,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 566,
+        "line": 574,
         "snippet": "run: python3 tests/test_porta_de_producao.py"
       }
     },
@@ -11651,7 +11669,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 545,
+        "line": 553,
         "snippet": "run: python3 tests/test_preservar_coleta.py"
       }
     },
@@ -11662,7 +11680,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 553,
+        "line": 561,
         "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py"
       }
     },
@@ -11673,7 +11691,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 560,
+        "line": 568,
         "snippet": "run: python3 tests/test_preservar_derivado.py"
       }
     },
@@ -11684,7 +11702,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 524,
+        "line": 532,
         "snippet": "python3 tests/test_red_team_estrada.py"
       }
     },
@@ -32089,7 +32107,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_casco.py",
-        "line": 95,
+        "line": 101,
         "snippet": "I18N = \"italia-portale/client/italy-i18n.js\""
       }
     },
@@ -32100,7 +32118,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_casco.py",
-        "line": 104,
+        "line": 110,
         "snippet": "ROTULOS_REUNIAO = \"italia-portale/client/meeting-labels.js\""
       }
     },
@@ -32111,7 +32129,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_casco.py",
-        "line": 94,
+        "line": 100,
         "snippet": "PORTALE = \"italia-portale/client/portale.html\""
       }
     },
@@ -32553,6 +32571,138 @@
         "file": "system-map/tests/test_impressao_verificavel.py",
         "line": 278,
         "snippet": "passos.index(\"system-map/scripts/pente_fino_da_coleta.py\")"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "AGENTS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 574,
+        "snippet": "marca = alvo / \"AGENTS.md\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "AGENTS.md",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 575,
+        "snippet": "marca.write_text(marca.read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 344,
+        "snippet": "DERIVADO = \"data/derivados/MATRIZ-CARDS-SENSORES-V1.json\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 50,
+        "snippet": "MANIFESTO = RAIZ / \"system-map/scripts/CADEIA-DO-MAPA.json\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 92,
+        "snippet": "MANIFESTO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + \"\\n\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/censo_da_topologia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 303,
+        "snippet": "\"PRODUCER_EXECUTABLE\": \"system-map/scripts/censo_da_topologia.py\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/correr_a_cadeia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 430,
+        "snippet": "r = correr([sys.executable, \"system-map/scripts/correr_a_cadeia.py\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 271,
+        "snippet": "\"PRODUCER_EXECUTABLE\": \"system-map/scripts/generate_system_map.py\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/pente_fino_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 371,
+        "snippet": "falso = {\"GENERATED_BY\": \"system-map/scripts/pente_fino_da_coleta.py\"}"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/publicar_no_deploy.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 452,
+        "snippet": "js = (RAIZ / \"system-map/scripts/publicar_no_deploy.mjs\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/scripts/scan_repo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 402,
+        "snippet": "{\"GENERATED_BY\": \"system-map/scripts/scan_repo.py\"})"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_ordem_por_dependencia.py",
+      "to_file": "system-map/tests/test_cadeia_declara_io.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_ordem_por_dependencia.py",
+        "line": 291,
+        "snippet": "[sys.executable, \"system-map/tests/test_cadeia_declara_io.py\"])"
       }
     },
     {
@@ -40240,10 +40390,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1508,
-    "files_readable": 587,
-    "files_code_dir": 632,
-    "file_edges": 2654,
+    "files_tracked": 1509,
+    "files_readable": 588,
+    "files_code_dir": 633,
+    "file_edges": 2667,
     "escritas_em_pasta": 70,
     "declared_missing_here": 0
   },

@@ -488,7 +488,7 @@ O que deveria acontecer, e onde está cada parte:
 | 1 | cada artefacto declara os seus `INPUTS` (§13) | **feito** no `G2`/`G3`, para os cinco artefactos que carimbam |
 | 2 | cada artefacto carimba a versão de cada input que leu | **feito** |
 | 3 | input de outra geração ⇒ `STALE_BY_CYCLE`, nunca `CURRENT` | **feito** |
-| 4 | a cadeia ordenada pelos `INPUTS` declarados, e não à mão | **`G6`**, por fazer |
+| 4 | a cadeia ordenada pelos `INPUTS` declarados, e não à mão | **feito** no `G6` (§32) — a ordem deriva de Kahn sobre as arestas nomeadas |
 
 O relógio **nomeia** e não repara. A pergunta que ele faz é *«que árvore media
 esta entrada quando eu a li?»* — comparada com a árvore que o próprio artefacto
@@ -496,9 +496,12 @@ diz ter medido, e não com o que está no disco agora. A diferença foi medida: 
 primeira versão perguntava pelo estado actual do disco e por isso **não via** o
 caso que existe para ver, porque a cadeia já tinha reescrito a entrada.
 
-Medido hoje: uma passagem da cadeia depois de uma fonte mudar deixa
-`pente-fino.generated.json` em `STALE_BY_CYCLE`, e são precisas **duas** para ele
-ficar em dia. Esse é o preço do `G6`, e está à vista em vez de arredondado.
+Medido antes do `G6`: uma passagem da cadeia depois de uma fonte mudar deixava
+`pente-fino.generated.json` em `STALE_BY_CYCLE`, e eram precisas **duas** para ele
+ficar em dia. **Remedido depois do `G6`: uma passagem chega** — a dependência é
+nomeada, e o produtor passou a correr antes. O que continua a precisar de duas
+passagens é a **varredura**, e isso tem lei escrita e convergência provada
+(§32.4, §32.8).
 
 ---
 
@@ -1361,7 +1364,7 @@ que fecha uma dívida não promove nada, e foi por isso que ele não entrou no m
 | ~~**G3**~~ | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | ✅ **FEITO** |
 | ~~**G4**~~ | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | ✅ **FEITO** (§30) |
 | ~~**G5**~~ | unificar a cadeia: o manifesto governa **todas** as execuções | dívida | ✅ **FEITO** (§31) |
-| G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | ~~G4~~, ~~G5~~ |
+| ~~**G6**~~ | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | ✅ **FEITO** (§32) |
 | G7 | atribuir `ROLE` às 160 entidades | dívida | G1 |
 | G8 | pente fino por `ROLE` em vez de tupla de territórios | dívida | G7 |
 | G9 | `LIMITATIONS` obrigatório em toda evidência publicada | dívida | G1 |
@@ -1734,6 +1737,203 @@ zerar uma contagem.
 
 ---
 
+## 32 · `G6` · A ORDEM NASCE DA DEPENDÊNCIA
+
+```
+NORMAL_DEPENDENCY_ORDER_VIOLATIONS   3  →  0
+UNRESOLVED_DEPENDENCIES              0
+UNCLASSIFIED_CYCLES                  0
+SCHEMA  sintonia.system-map.cadeia/3  →  /4
+```
+
+Três consumidores corriam **antes** do seu produtor, e a cadeia ficava verde na
+mesma — porque cada um deles abria um ficheiro que **existia**: o da rodada
+anterior.
+
+> **UM CONSUMIDOR ANTES DO PRODUTOR NÃO FALHA:
+> ELE RESPONDE DA RODADA PASSADA.**
+
+É por isso que isto não se apanha a correr a cadeia. Só se apanha comparando o
+que cada passo **declara ler** com o **sítio** onde ele corre — e essa
+comparação só passou a ser possível depois do `G4` (o que cada passo lê) e do
+`G5` (uma lista só).
+
+### 32.1 · As três inversões, medidas
+
+| # | consumidor | lia | de | que corria em |
+|---|---|---|---|---|
+| 1 | `PENTE_FINO_DA_COLETA` (5) | `state.generated.json` | `GENERATE_SYSTEM_MAP` | **19** |
+| 2 | `CENSO_DA_OBSERVABILIDADE` (7) | `donos.generated.json` | `CENSO_DOS_DONOS` | **14** |
+| 3 | `CENSO_DAS_DERIVACOES` (8) | `armazem-it.generated.json` | `CENSO_DO_ARMAZEM_IT` | **11** |
+
+Nenhuma delas é um ciclo: o grafo das dependências **nomeadas** é acíclico, e a
+prova é que Kahn o ordena. As três eram ordem errada, e ordem errada corrige-se
+movendo — não classificando.
+
+### 32.2 · Duas classes de aresta, e a lei inteira está nessa diferença
+
+| classe | como se declara | o que o consumidor pediu | ordena? |
+|---|---|---|---|
+| `NOMEADA` | `INPUTS[].KIND=GENERATED_ARTIFACT` + `PRODUCER` | **aquele artefacto**, pelo nome | **sim** |
+| `VARREDURA` | `INPUTS[].KIND=TRACKED_SOURCE_TREE` + `INCLUI_GERADOS` | «a árvore que existir quando eu correr» | **não** |
+
+> **QUERES FRESCO? NOMEIA.**
+
+Essa frase não é um conselho: é a regra de conversão entre as duas classes, e é
+o que fecha a fuga mais barata a esta lei — tirar o `PRODUCER` e acrescentar o
+passo ao `INCLUI_GERADOS`, com o que a leitura continuava explicada e a aresta
+deixava de ordenar. `test_cadeia_declara_io.py` fecha-a com duas provas novas:
+**toda leitura da saída de outro passo tem de estar declarada** de uma das duas
+maneiras, e **o que o código nomeia não se declara varredura**.
+
+### 32.3 · A ordem deixou de ser uma opinião escrita à mão
+
+`passos()` já **não** devolve a ordem escrita: devolve a ordem que Kahn deriva
+sobre as arestas nomeadas, com desempate estável pela posição escrita. A posição
+escrita não decide nada sozinha — só desempata entre passos que já estão ambos
+prontos.
+
+Se as nomeadas tiverem ciclo, a derivação **rebenta** em vez de escolher.
+Escolher seria esconder o ciclo para conseguir ordenar, que é exatamente a
+mentira que esta lei existe para impedir.
+
+O ficheiro fica escrito nessa mesma ordem — e isso não é redundância, é o que
+permite ao **leitor JavaScript** não repetir o algoritmo. Ele lê a ordem escrita
+e **confere** (`violacoesDaOrdem`), e o corredor recusa-se a correr se as duas
+discordarem.
+
+> **CONFERIR NÃO É REIMPLEMENTAR. UM VERIFICADOR QUE FALHA DIZ «ESTE FICHEIRO
+> ESTÁ ERRADO»; UM SEGUNDO ALGORITMO DIZ «EU TENHO OUTRA OPINIÃO».**
+
+### 32.4 · O ciclo que resta, e porque não é desculpa
+
+Sobra **um** ciclo, com 13 passos e 58 cortes no tempo, e a classe dele é
+`DELAYED_CYCLE`. A prova de que é estrutural — e não ordem por arrumar — cabe
+numa linha:
+
+> o seletor de `CENSO_DO_CONGELAMENTO` apanha
+> `congelamento.generated.json`, **que é a saída do próprio
+> `CENSO_DO_CONGELAMENTO`**. Nenhuma permutação põe um passo antes de si mesmo.
+
+> **UM MEDIDOR QUE ESCREVE DENTRO DO QUE MEDE NÃO SE ORDENA: CONVERGE.**
+
+`LEI_DO_CICLO_ATRASADO`, no manifesto, responde às cinco perguntas — qual
+artefacto é atrasado, que versão é lida, porque precisa de ser atrasado, como se
+sabe que não é *stale* acidental, e como o mapa comunica — e cada uma delas tem
+guarda própria.
+
+**E o atraso custa quanto?** Medido, e não suposto: mexe-se numa fonte, corre-se
+a cadeia três vezes e comparam-se os conteúdos.
+
+```
+ATRASO_COM_EFEITO_OBSERVAVEL = NAO
+```
+
+A 1ª e a 2ª passagem dão o **mesmo** conteúdo. O atraso existe (está provado pelo
+laço sobre si próprio) mas não se traduz em diferença, porque os varredores
+dependem do **conjunto** — que ficheiros existem, de que espécie — e não do
+conteúdo que os passos seguintes reescrevem.
+
+> **«O ATRASO EXISTE» E «O ATRASO CUSTA» SÃO DUAS AFIRMAÇÕES.
+> MEDIR A PRIMEIRA E PUBLICAR A SEGUNDA É O ERRO DE SEMPRE.**
+
+A prova traz controlo positivo: antes de comparar, exige que o retrato **veja**
+a mudança que a fonte mexida provocou. Sem isso, um `retrato()` partido passava
+as duas comparações sem medir nada.
+
+### 32.5 · `STALE_BY_CYCLE` deixou de ser uma gaveta
+
+A frescura passou a devolver `CLASSE_DO_CICLO`:
+
+```
+CURRENT                   os dois relógios batem
+EXPECTED_PREVIOUS_CYCLE   o grafo EXPLICA o atraso: o produtor corre depois
+UNEXPECTED_STALE          o grafo NÃO explica: mapa velho a dizer que está novo
+UNKNOWN                   não há carimbo, ou não se sabe quem gerou
+```
+
+A pergunta é sempre a mesma — **o grafo explica este atraso?** — e basta **um**
+pedaço por explicar para a resposta ser `UNEXPECTED_STALE`: somar explicações
+parciais é tratar meia prova como prova.
+
+E há uma assimetria deliberada: mexer numa **fonte** nunca conta como ciclo. A
+impressão da árvore exclui de propósito as saídas da cadeia, logo `ARVORE_MUDOU`
+significa que uma fonte se moveu — e nenhuma lei de ciclo cobre isso.
+
+**Quem enche o balde `EXPECTED_PREVIOUS_CYCLE`:** os três regeneradores
+`MANUAL_BY_CONTRACT`. Nenhuma automação os corre — está escrito, com a razão
+medida — logo a árvore anda sem eles e os artefactos deles ficam para trás.
+Chamar defeito a isso seria acusar o sistema de cumprir o próprio contrato.
+`MATRIZ-CARDS-SENSORES-V1.json` diz hoje `STALE` + `EXPECTED_PREVIOUS_CYCLE`.
+
+E o contrário tem de valer: tira-se-lhes a `CLASSE_DE_EXECUCAO` e o mesmo
+artefacto volta a `UNEXPECTED_STALE` no minuto seguinte — foi assim que a guarda
+foi conferida, e não por leitura.
+
+**O que o classificador não tem:** um ramo para «o produtor corre depois». Havia,
+e era código morto — `ordem_derivada()` garante que toda aresta nomeada é para a
+frente. Um ramo que nenhum teste alcança não é rede de segurança; é uma linha que
+ninguém sabe se funciona. Se a ordem voltar a ter aresta atrasada, quem grita é a
+guarda da ordem, alto e antes de qualquer artefacto ser escrito.
+
+### 32.6 · Os três regeneradores à mão — remedidos, não herdados
+
+O `G5` escreveu que automatizá-los poria *drift*. O `G6` **remediu**: quatro
+passagens seguidas de `REGERAR + REGERAR_A_MAO` sobre a mesma árvore deram
+**quatro inventários diferentes**, e a diferença está sempre nos mesmos três
+caminhos, dentro de `FILES[]` de `architecture.generated.json` — o
+`GENERATED_AT` deles muda, o blob muda com ele, e `SCAN_REPO` regista o blob.
+
+```
+CENSO_CARDS_SENSORES        MANUAL_BY_CONTRACT
+RECONCILIACAO_DO_UNIVERSO   MANUAL_BY_CONTRACT
+REVISAO_DA_EVIDENCIA        MANUAL_BY_CONTRACT
+```
+
+> **AUTOMATIZAR PARA FECHAR UMA CONTAGEM É TROCAR UM NÚMERO
+> POR UMA CADEIA QUE NUNCA MAIS ASSENTA.**
+
+Automatizá-los exige primeiro tirar o relógio de dentro do artefacto. Isso é uma
+missão, não um efeito lateral desta.
+
+### 32.7 · O que o `G5` disse e o `G6` corrigiu
+
+| o `G5` escreveu | o `G6` mediu |
+|---|---|
+| «`CENSO_DO_CONGELAMENTO` depende de 19 dos 20» | **23** — os 20 de `REGERAR`, os 3 à mão, **ele próprio incluído** |
+| «19 dependências atrasadas» | **51**, e nenhuma delas nomeada |
+| «automatizar os três põe drift» | **confirmado**, com o mecanismo nomeado |
+
+A dívida não cresceu: cresceu o que dela se vê — outra vez, e pela mesma razão
+de sempre. `SCAN_REPO`, `CENSO_DO_CORPUS_IT` e o próprio validador liam saídas
+de outros passos **sem o declarar**, e isso só apareceu quando se perguntou pelo
+produtor de cada leitura em vez de pelo caminho.
+
+### 32.8 · Determinismo, separado em dois
+
+```
+SEMANTIC_DETERMINISM = YES   duas passagens seguidas: 0 diferenças de conteúdo
+BYTE_DETERMINISM     = NO    4 artefactos mudam o GENERATED_AT a cada corrida
+```
+
+Não se esconde o segundo para publicar o primeiro. O relógio é legítimo e está
+declarado; o que esta lei promete é o **semântico**, e é esse que
+`SEMANTIC_DRIFT_ON_SECOND_RUN_e_zero` prova.
+
+### 32.9 · O que `G6` não fez
+
+```
+G7_IMPLEMENTED = NO   ROLE continua em 0 de 162
+G8_IMPLEMENTED = NO   nenhum cartão foi reorganizado
+CARD_WORK      = NOT_STARTED
+```
+
+A varredura continua a ler a rodada anterior — **por contrato**, com lei escrita
+e convergência provada, e não por dívida escondida. Torná-la síncrona exigiria
+um medidor que não escreve dentro do que mede, e isso é arquitetura nova.
+
+---
+
 ## 29 · FECHO OPERACIONAL DA FRENTE ESTRUTURAL
 
 ```
@@ -1775,9 +1975,9 @@ cobertura de runtime              2 de 57 executores → G11, G12
 arestas com OBSERVED representável 0 de 672          → G12
 exclusões com INTENTIONAL=UNKNOWN 12 de 17
 peças onde o eixo legado e os planos divergem  109 de 161  (publicado na §15)
-cadeia: execuções governadas       36 de 36         ← G5 fechou
-dependências atrasadas             19 declaradas    → G6
-regeneradores sem automação        3 declarados     → G6
+cadeia: execuções governadas       37 de 37         ← G5 fechou
+dependências atrasadas             51, todas de varredura ← G6 fechou as nomeadas
+regeneradores sem automação        3 · MANUAL_BY_CONTRACT, remedido no G6
 ```
 
 E quatro leituras que o mapa **não autoriza**, por mais verde que esteja:
@@ -1795,7 +1995,15 @@ prova inexistência universal** — prova que este mapa não viu.
 
 ### 29.3 · A dívida do ciclo, medida no próprio fecho
 
-`G6` está aberto, e o fecho mediu exatamente quanto custa. A ordem em vigor,
+> **REMEDIDO NO `G6` (§32).** Esta secção fica como estava, porque é o registo do
+> que se media **antes**. Duas coisas que ela diz deixaram de valer: a ordem
+> deixou de ser um hábito (é derivada, e o corredor recusa-se a correr outra), e
+> a 1ª passagem já não tem o defeito descrito — o `G5` fez a exclusão **derivar**
+> das saídas da cadeia, e o `G6` mediu que a 2ª e a 3ª passagem dão o mesmo
+> conteúdo. O que fica verdade é a 3ª linha: correr os regeneradores à mão move
+> o blob SHA deles, e por isso eles continuam fora da automação.
+
+`G6` estava aberto, e o fecho mediu exatamente quanto custava. A ordem em vigor,
 para o validador passar **e** os artefactos dizerem a verdade sobre a sua
 frescura, é esta:
 
@@ -1812,7 +2020,8 @@ hábito:
 | 3ª | `architecture.generated.json` regista o **blob SHA** dos três artefactos derivados, e esses carregam `GENERATED_AT` — mudam de SHA a cada geração. Sem uma passagem depois deles, `P1_SEM_DRIFT` reprova |
 
 ```
-CYCLE_DEBT_STILL_OPEN = YES
+CYCLE_DEBT_STILL_OPEN = YES     ← era. Ver §32: NOMEADAS fechadas, VARREDURA
+                                  declarada como contrato temporal
 ```
 
 **No ponto fixo tudo converge**: `MAPA_E_DESTA_ARVORE = True`, `STALE = []`,
@@ -1827,10 +2036,11 @@ sem que nada no repositório tenha mudado.
 Este fecho pagou essa dívida em tempo real: a primeira tentativa commitou uma
 reconciliação gerada fora do ponto fixo, e o CI reprovou o passo `4m`.
 
-**Isto não foi corrigido, e a decisão é deliberada.** Fechar o ciclo é ordenar
-a cadeia por `INPUTS`, e ordenar por `INPUTS` exige primeiro declará-los —
-`G4`, depois `G5`, depois `G6`. Fazer o atalho aqui seria começar a frente que
-esta secção fecha.
+**Isto não foi corrigido nesse fecho, e a decisão foi deliberada.** Fechar o
+ciclo é ordenar a cadeia por `INPUTS`, e ordenar por `INPUTS` exige primeiro
+declará-los — `G4`, depois `G5`, depois `G6`. Fazer o atalho ali seria começar a
+frente que essa secção fecha. **Foi corrigido depois, no `G6`** (§32), pela
+ordem prevista e não pelo atalho.
 
 ### 29.4 · O que continua obrigatório durante o congelamento
 

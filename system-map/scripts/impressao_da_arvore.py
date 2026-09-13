@@ -406,26 +406,42 @@ def classe_do_ciclo(prov, atual, arvore_bate, entradas_batem, ciclo) -> str:
     if not passo:
         return "UNKNOWN"
     eu = passo["STEP_ID"]
+    # QUEM CORRE FORA DA RODADA ESTA VELHO POR CONTRATO.
+    # Os tres regeneradores a mao nao sao corridos por automacao nenhuma — esta
+    # escrito, com a razao medida, em CLASSE_DE_EXECUCAO. A arvore anda sem eles;
+    # chamar defeito a isso seria acusar o sistema de cumprir o proprio contrato.
+    # E o contrario tambem tem de valer: tira-se-lhes a classe e o artefacto
+    # volta a ser UNEXPECTED_STALE no minuto seguinte.
+    #
+    #     STALE POR CONTRATO NAO E STALE POR ACIDENTE —
+    #     MAS SO QUANDO O CONTRATO EXISTE E DIZ ISSO.
+    if CAD.classe_de_execucao(passo) == CAD.MANUAL_BY_CONTRACT:
+        return "EXPECTED_PREVIOUS_CYCLE"
     produtor_de = {}
     for a in CAD.arestas():
         if a["CLASSE"] == CAD.NOMEADA and a["CONSUMIDOR"] == eu:
             produtor_de[a["ARTEFATO"]] = a["PRODUTOR"]
-    explicados = 0
     for caminho in ciclo:
         dono = produtor_de.get(caminho)
         if dono is None:
             return "UNEXPECTED_STALE"
-        antes = CAD.produtor_corre_antes(eu, dono)
-        if antes is None:
-            return "UNKNOWN"
-        if antes:
-            return "UNEXPECTED_STALE"
-        explicados += 1
-    if not arvore_bate or not entradas_batem:
-        # A ARVORE NAO CONTA COMO CICLO. Ela nao inclui as saidas da cadeia; se
-        # ela mexeu, mexeu uma FONTE, e nenhuma lei de ciclo cobre isso.
-        return "UNEXPECTED_STALE"
-    return "EXPECTED_PREVIOUS_CYCLE" if explicados else "UNEXPECTED_STALE"
+        if CAD.produtor_corre_antes(eu, dono) is None:
+            return "UNKNOWN"          # um dos dois nao corre nesta escala de tempo
+    # ⚠️ AQUI NAO HA RAMO PARA «O PRODUTOR CORRE DEPOIS».
+    # Havia, e era codigo morto: `ordem_derivada()` garante que toda aresta
+    # NOMEADA e para a frente, logo `produtor_corre_antes` nunca devolve False
+    # entre dois passos da rodada. Um ramo que nenhum teste consegue alcancar
+    # nao e uma rede de seguranca — e uma linha que ninguem sabe se funciona.
+    #
+    #     SE A LEI JA IMPEDE O CASO, O RAMO QUE O TRATA
+    #     NAO PROTEGE NADA: SO ADIA A DESCOBERTA.
+    #
+    # Se um dia a ordem voltar a ter aresta atrasada, quem grita e a guarda da
+    # ordem — alto, e antes de qualquer artefacto ser escrito.
+    #
+    # E A ARVORE TAMBEM NAO CONTA COMO CICLO: a impressao exclui as saidas da
+    # cadeia, logo se ela mexeu, mexeu uma FONTE.
+    return "UNEXPECTED_STALE"
 
 
 def frescura_do_carimbo(prov: dict | None) -> dict:
@@ -465,11 +481,14 @@ def frescura_do_carimbo(prov: dict | None) -> dict:
     if not declarados:
         return {"VEREDITO": "CURRENT" if arvore_bate else "STALE",
                 "MOTIVO": "SO_A_ARVORE", "ARVORE_BATE": arvore_bate,
-                # SEM ENTRADAS DECLARADAS NAO HA PERGUNTA DE CICLO: so ha
-                # a arvore. E a impressao da arvore exclui as saidas da
-                # cadeia, portanto mexer nela e mexer numa FONTE — o que
-                # nenhuma lei de ciclo atrasado cobre.
-                "CLASSE_DO_CICLO": "CURRENT" if arvore_bate else "UNEXPECTED_STALE",
+                # SEM ENTRADAS DECLARADAS NAO HA PERGUNTA DE CICLO NOMEADO:
+                # so ha a arvore. E a impressao exclui as saidas da cadeia,
+                # portanto mexer nela e mexer numa FONTE — o que nenhuma lei
+                # de ciclo cobre. Continua a passar pelo classificador, porque
+                # quem corre FORA da rodada esta velho por contrato, e isso o
+                # classificador sabe e esta linha nao sabia.
+                "CLASSE_DO_CICLO": ("CURRENT" if arvore_bate else
+                                    classe_do_ciclo(prov, False, False, True, [])),
                 "ATRASO_POR_VARREDURA": atraso_por_varredura(prov),
                 "IMPRESSAO_CARIMBADA": prov["SOURCE_TREE_FINGERPRINT"],
                 "IMPRESSAO_AGORA": agora,

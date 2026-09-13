@@ -49,11 +49,13 @@ O mapa continua **ativo como instrumento** e **congelado como frente de
 arquitetura**. Regenerar, validar, verificar a frescura e denunciar
 `UNKNOWN`/`STALE`/`FAIL` continua **obrigatório**; o que para é redesenhá-lo.
 
-`G4` e `G5` foram reabertos e fechados pelo gatilho `G` da §29.5 (o utilizador
-mandou). Cada passo declara `INPUTS`/`OUTPUTS` (§30) e **o manifesto é o único
-dono da cadeia** (§31): o workflow corre `correr_a_cadeia.py <CATEGORIA>` e não
-lista script nenhum. `G6`–`G13` continuam abertos e por riscar, e **dívida
-conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
+`G4`, `G5` e `G6` foram reabertos e fechados pelo gatilho `G` da §29.5 (o
+utilizador mandou). Cada passo declara `INPUTS`/`OUTPUTS` (§30), **o manifesto é
+o único dono da cadeia** (§31) — o workflow corre `correr_a_cadeia.py
+<CATEGORIA>` e não lista script nenhum — e **a ordem nasce da dependência**
+(§32): `passos()` deriva-a das arestas nomeadas, e quem a escrever ao contrário
+é recusado pelo corredor e pelo publicador. `G7`–`G13` continuam abertos e por
+riscar, e **dívida conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
 pode e não pode prometer hoje, e o veredito medido
 (`CURRENT_SYSTEM_MAP_TRUST = DEGRADED`) vivem na **§29 do**
 [`SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md).
@@ -336,6 +338,7 @@ py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao 
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
 node system-map/tests/test_freshness.mjs        # provar que verde exige as quatro provas
 python3 system-map/tests/test_impressao_da_arvore.py   # a impressão mede a árvore
+python3 system-map/tests/test_ordem_por_dependencia.py # a ordem sai do grafo, e o ciclo tem nome
 node system-map/scripts/publicar_no_deploy.mjs  # o que a build corre: regerar, validar, carimbar
 python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo  # DEPOIS de commitar
 ```

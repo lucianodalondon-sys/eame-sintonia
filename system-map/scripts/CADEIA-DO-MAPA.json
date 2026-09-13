@@ -907,7 +907,11 @@
           ],
           "FILTRO_DONO": "system-map/scripts/validate_system_map.py · arquitetura, servido",
           "MEDIDO_VARRE": 341,
-          "PORQUE": "abre o que o mapa cita, para provar que existe e que a linha bate"
+          "PORQUE": "abre o que o mapa cita, para provar que existe e que a linha bate",
+          "INCLUI_GERADOS": [
+            "GENERATE_SYSTEM_MAP"
+          ],
+          "PORQUE_INCLUI_GERADOS": "o seletor apanha o que e SERVIDO — freshness.js, index.html, map.css, map.js — e esses nascem no GENERATE_SYSTEM_MAP. Ele nao os pede pelo nome: pergunta a CADEIA.PUBLICADO quais sao e abre-os para ver se existem e se a linha bate. Sem isto declarado, a dependencia do validador em quem publica ficava por dizer."
         }
       ],
       "OUTPUTS": [],
@@ -1168,6 +1172,14 @@
       "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito."
     },
     {
+      "STEP_ID": "ORDEM_POR_DEPENDENCIA",
+      "EXECUTABLE": "system-map/tests/test_ordem_por_dependencia.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "que a ordem da cadeia sai do grafo — PRODUTOR antes de CONSUMIDOR, com violacoes a zero — e que o ciclo que resta tem classe, lei escrita e convergencia medida",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "Este passo nao escreve artefato nenhum: o resultado dele e um VEREDITO sobre a ordem e sobre os ciclos."
+    },
+    {
       "STEP_ID": "PUBLICADOR_DO_BUILD",
       "EXECUTABLE": "system-map/scripts/publicar_no_deploy.mjs",
       "PAPEL": "PUBLICADOR",
@@ -1278,7 +1290,9 @@
           "PORQUE": "a matriz cartao×sensor, que a reconciliacao le"
         }
       ],
-      "EXECUTADO_POR": "MAO"
+      "EXECUTADO_POR": "MAO",
+      "CLASSE_DE_EXECUCAO": "MANUAL_BY_CONTRACT",
+      "PORQUE_MANUAL": "nenhum workflow, npm script ou build o executa, e automatiza-lo faria a cadeia deixar de convergir — medido no G6, nao herdado: o GENERATED_AT dele muda a cada corrida, o blob muda com ele, e SCAN_REPO regista o blob SHA deste caminho. Quatro passagens seguidas deram quatro inventarios diferentes. Correr a mao mantem o artefato vivo sem por drift no mapa."
     },
     {
       "STEP_ID": "RECONCILIACAO_DO_UNIVERSO",
@@ -1384,7 +1398,9 @@
           "PORQUE": "a reconciliacao dos universos — o dono das contagens"
         }
       ],
-      "EXECUTADO_POR": "MAO"
+      "EXECUTADO_POR": "MAO",
+      "CLASSE_DE_EXECUCAO": "MANUAL_BY_CONTRACT",
+      "PORQUE_MANUAL": "nenhum workflow, npm script ou build o executa, e automatiza-lo faria a cadeia deixar de convergir — medido no G6, nao herdado: o GENERATED_AT dele muda a cada corrida, o blob muda com ele, e SCAN_REPO regista o blob SHA deste caminho. Quatro passagens seguidas deram quatro inventarios diferentes. Correr a mao mantem o artefato vivo sem por drift no mapa."
     },
     {
       "STEP_ID": "REVISAO_DA_EVIDENCIA",
@@ -1411,7 +1427,9 @@
           "PORQUE": "a revisao aresta a aresta da ligacao da evidencia"
         }
       ],
-      "EXECUTADO_POR": "MAO"
+      "EXECUTADO_POR": "MAO",
+      "CLASSE_DE_EXECUCAO": "MANUAL_BY_CONTRACT",
+      "PORQUE_MANUAL": "nenhum workflow, npm script ou build o executa, e automatiza-lo faria a cadeia deixar de convergir — medido no G6, nao herdado: o GENERATED_AT dele muda a cada corrida, o blob muda com ele, e SCAN_REPO regista o blob SHA deste caminho. Quatro passagens seguidas deram quatro inventarios diferentes. Correr a mao mantem o artefato vivo sem por drift no mapa."
     }
   ],
   "PORQUE_REGERAR_A_MAO": [
@@ -1509,6 +1527,32 @@
       "Nao autoriza chamar CURRENT a um artefacto atrasado.",
       "Nao autoriza declarar VARREDURA uma dependencia que e pedida pelo nome.",
       "Nao autoriza calar UNEXPECTED_STALE."
+    ]
+  },
+  "CLASSES_DE_EXECUCAO": {
+    "VOCABULARIO": [
+      "AUTOMATED",
+      "MANUAL_BY_CONTRACT",
+      "UNREACHABLE",
+      "UNKNOWN"
+    ],
+    "AUTOMATED": "alguma automacao declarada o corre (workflow, npm, build). E a classe de tudo o que nao esta em REGERAR_A_MAO.",
+    "MANUAL_BY_CONTRACT": "nenhuma automacao o corre, E ISSO E DECISAO, com razao escrita e medida. O executavel existe e corre.",
+    "UNREACHABLE": "nao ha como o correr: o executavel nao existe, ou nao ha entrada por onde chamar.",
+    "UNKNOWN": "nao se sabe dizer. Nao e uma gaveta de conveniencia: e a resposta quando a medicao nao chega.",
+    "NOTA": [
+      "O G6 REMEDIU em vez de herdar. O G5 escreveu que automatizar os tres",
+      "regeneradores a mao poria drift; isso podia ter deixado de ser verdade.",
+      "Correu-se REGERAR + REGERAR_A_MAO quatro vezes seguidas sobre a mesma",
+      "arvore: quatro conteudos semanticos diferentes, e a diferenca esta sempre",
+      "nos mesmos tres caminhos, dentro de FILES[] de architecture.generated.json.",
+      "",
+      "    AUTOMATIZAR PARA FECHAR UMA CONTAGEM E TROCAR UM NUMERO",
+      "    POR UMA CADEIA QUE NUNCA MAIS ASSENTA.",
+      "",
+      "Por isso o G6 classifica-os e nao lhes toca. Automatiza-los exige primeiro",
+      "tirar o relogio de dentro do artefato — que e outra missao, e tem de ser",
+      "decidida como missao, nao como efeito lateral desta."
     ]
   }
 }
