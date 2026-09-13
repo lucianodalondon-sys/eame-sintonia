@@ -180,20 +180,41 @@ EXECUTORES = {
         # da fase recusa a corrida em vez de morrer no `**_` do adaptador.
         #
         #     HANDLE NAO E SOURCE_ID.
-        "filtros_nomeados": ["teto", "handle"],
+        # ⚠️ `site` ENTRA AQUI E NAO EM `argumentos_de_filtros`, E ISSO E UMA
+        # ESCOLHA. A LINKEDIN-OP-01 passava-o como TERCEIRO POSICIONAL. Um
+        # terceiro argumento sem nome e indistinguivel da fonte no dia em que
+        # alguem omitir uma delas — e a `coleta/scrap_colheita.py::NOMEADOS`
+        # ja declara, por fase, que filtros cada uma aceita, recusando os
+        # outros em vez de os deixar morrer no `**_` do adaptador.
+        #
+        #     PORTA-SE O COMPORTAMENTO, NAO O MECANISMO.
+        #     E O MECANISMO QUE FICA E O QUE RECUSA MAIS CEDO.
+        "filtros_nomeados": ["teto", "handle", "site"],
+        # `identidade-linkedin` chegou da LINKEDIN-OP-01. Ela e a UNICA rota que
+        # a politica canonica permite no LinkedIn: le o site DA PROPRIA
+        # organizacao e traz de la o endereco que a organizacao publicou. Nunca
+        # toca `linkedin.com`, nunca usa buscador, e devolve CATALOGO — uma
+        # entidade de onde se PODE colher — e nao COLHEITA.
+        #
+        #     IDENTITY != CONTENT. Pedir posts do LinkedIn continua a bater em
+        #     `ROUTE_NOT_ALLOWED`, e nao ha receita que o contorne.
         "serve_fases": ["janela", "janela-perfis", "janela-objetos",
-                        "canario-bluesky"],
+                        "canario-bluesky", "identidade-linkedin"],
         "filtros_por_omissao": {},
         # O envelope do COL-LAW-505. Nao e `larga_em`: `larga_em` diz ONDE se
         # largou, e este diz O QUE SE LARGOU — que e a pergunta que faltava.
         "envelope_em": "data/colheita/scrap/ENVELOPE.json",
         "larga_em": ["data/colheita/scrap/"],
-        "rotas": ["Instagram", "Bluesky"],
+        "rotas": ["Instagram", "Bluesky",
+                  "LinkedIn (so identidade, rota indireta)"],
         "o_que_traz": "a janela publica da conta — o perfil e os objetos que "
                       "ela publicou — pelo executor canonico do SCRAP, com "
                       "RAW preservado antes de qualquer normalizacao; e, na "
                       "fase `canario-bluesky`, a cronologia publica de uma "
-                      "conta Bluesky pela AppView aberta, sem credencial",
+                      "conta Bluesky pela AppView aberta, sem credencial; e, "
+                      "com `fase=identidade-linkedin`, o ENDERECO LinkedIn que "
+                      "a propria organizacao publica no site dela, como "
+                      "CATALOGO e nunca como colheita",
         "custo": "gratuito",
     }],
 }

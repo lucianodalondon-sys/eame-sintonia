@@ -1,5 +1,17 @@
 # SCRAP-RC-01 — A RELEASE CANDIDATE DO SINTONIA SCRAP V1
 
+> **Este documento tem duas partes.** A primeira fechou a Release com a máquina
+> provada e três decisões humanas por tomar. A segunda — §14 em diante —
+> absorveu o que chegou de fora **depois**: a linha operacional do LinkedIn, as
+> propriedades de gasto da `SCRAP-CV-02`, e o caminho lateral que as duas
+> juntas tornaram impossível continuar a chamar de risco registado.
+>
+> **O que mudou de veredito:** a primeira parte declarava a porta paga fechada.
+> Ela estava fechada **ao dinheiro**, e aberta à **política** — e essas são
+> duas trancas.
+>
+>     SPEND_AUTHORIZATION != ROUTE_POLICY.
+
 > A pergunta era uma só:
 >
 > **Existe uma única árvore na qual a superfície operacional escolhida para
@@ -404,3 +416,376 @@ APIFY_RUNS = 0 · PROVIDER_RUNS = 0 · PAID_USD = 0 · REDE REAL = 0
 ```
 
 A máquina está pronta. Falta dizer-lhe **de quem** ela vai ouvir.
+
+---
+---
+
+# PARTE II — O QUE CHEGOU DE FORA, E O QUE ELE ABRIU
+
+## 14 · TRÊS LINHAS EXTERNAS MEDIDAS, DUAS RECUSADAS, UMA ABSORVIDA
+
+A primeira parte declarou que `LINKEDIN-OP-01` e `META-OP-01` **não existiam**.
+Essa informação envelheceu enquanto a missão corria. Medido de novo:
+
+| linha | HEAD | base comum | contrato de gasto | veredito |
+|---|---|---|---|---|
+| LinkedIn operacional | `642be9bc` | `84422284` | v1, sem selo | **ABSORVIDA, por delta** |
+| `SCRAP-CV-02` | `a1a78900` | `84422284` | v1, sem selo | **PROPRIEDADES PORTADAS** |
+| META-OP-01 | `6a9907e2` | `e90451e1` | v1, sem selo | `PENDING_EXTERNAL_LINE` |
+
+As três nasceram **antes** da convergência da `SCRAP-OWNER-01`, e as três
+carregam `AUTORIZACAO_DE_GASTO/v1` com **zero** ocorrências do selo privado —
+a autorização que um dicionário conseguia fabricar.
+
+    UM DELTA QUE VEM COM O DONO ANTIGO NÃO É UM DELTA: É UM RETROCESSO
+    COM CARA DE PROGRESSO.
+
+**Meta ficou de fora, e a razão é medida, não preferida.** A divergência entre
+a Release e a linha Meta é de **241 ficheiros e 94 mil linhas**, e dentro dela
+está `tests/test_scrap_sr02_autorizacao.py` (+399) contra
+`tests/test_scrap_sr02_autorizacao_de_gasto.py` (−503) — o dono do gasto
+anterior, vivo, com outro nome de ficheiro. Portar dali exigiria re-derivar o
+trabalho de transporte e token da Meta sobre a base convergida, que é uma
+missão de integração Meta, e esta missão tem ordem de não abrir nenhuma.
+
+Nada foi mergeado. Nenhuma das três é ancestral desta linha — medido com
+`git merge-base --is-ancestor`, e zero merges desde a base.
+
+---
+
+## 15 · CV-02 — QUATRO PROPRIEDADES QUE FALTAVAM, E QUE NÃO SE VIAM
+
+§3 mandou comparar **propriedade por propriedade**, e não por nome de missão.
+Medido na árvore da Release, antes de qualquer alteração:
+
+| propriedade | antes | depois |
+|---|---|---|
+| `SPEND_AUTH_SEALED` (construção à mão) | PASS | PASS |
+| `SPEND_AUTH_CONSUMABLE` | PASS | PASS |
+| `SEALED_AGAINST_WRITE` | **FALHA** | PASS |
+| `AUTH_COPY_ACCEPTED` | **SIM — a cópia comprava** | NÃO |
+| `FINANCIAL_BUDGET_LE_AUTH` | **FALHA** | PASS |
+| `ONE_LEDGER_PER_AUTH` | **FALHA** | PASS |
+
+Quatro buracos reais, cada um reproduzido antes de corrigido:
+
+```
+a.max_usd = 99.0                       -> ACEITE  (autorização de 0,10)
+copy.copy(a)                           -> COMPROU (uma autorização, dois POSTs)
+orçamento 99,00 sob autorização 0,10   -> COMPROU
+a mesma autorização em dois orçamentos -> COMPROU nos dois
+```
+
+### O consumo saiu de dentro da autorização
+
+O contador vivia num campo do objecto, e **uma cópia leva o campo com ela**. A
+`deepcopy` já morria no selo, porque reconstrói; a `copy` rasa não reconstrói
+nada — copia o `__dict__` inteiro, selo incluído.
+
+    COPIAR UMA AUTORIZAÇÃO NÃO É RECEBER UMA AUTORIZAÇÃO.
+
+O consumo passou a viver num registo do módulo, indexado pela identidade cunhada
+na concessão. Uma cópia leva o mesmo nome, e o mesmo nome encontra o mesmo
+contador.
+
+    UMA AUTORIZAÇÃO VALE POR IDENTIDADE, E NÃO PELA FORMA.
+
+### E o ledger ganhou um nome — depois de eu lhe ter dado o errado
+
+A primeira tentativa identificou o orçamento por `id(objecto)`. Duas execuções
+seguidas receberam **o mesmo número**: o primeiro orçamento morre, o alocador
+reaproveita o endereço, e a autorização reconheceu o ledger novo como o antigo.
+
+    UMA IDENTIDADE QUE O ALOCADOR PODE REUTILIZAR NÃO É UMA IDENTIDADE.
+
+Cada `OrcamentoFinanceiro` passou a nascer com identidade própria.
+
+---
+
+## 16 · LINKEDIN — IDENTIDADE ENTRA, CONTEÚDO NÃO
+
+Portado o delta, e **só** ele: o adaptador, a capacidade, a política, as provas
+e os testes. O ficheiro da autorização **não** veio junto.
+
+```
+linkedin.identity.discovery   READY · DIRECT_HTTP · grátis · FLOW_OBSERVED
+linkedin.direct_post          BLOCKED
+linkedin.native_video         BLOCKED
+linkedin.native_caption       BLOCKED
+linkedin.recent.discovery     BLOCKED   (era PROVEN)
+```
+
+`PROVEN → BLOCKED` não é um recuo técnico. A rota paga funciona e continua
+`PERMITIDA = NAO` nas duas rotas que a matriz declara para `FETCH_POST`.
+
+    TECHNICALLY_PROVEN_HISTORY != CURRENT_ALLOWED_ROUTE.
+    UMA ROTA QUE FUNCIONA NÃO É UMA ROTA PERMITIDA.
+
+### A quarta posição de `FASES`, e o que ela impede
+
+Cada fase passou a declarar **que espécie de retorno produz**, obrigatoriamente
+e sem valor por omissão.
+
+    UMA ESPÉCIE POR OMISSÃO É UMA DECISÃO QUE NINGUÉM TOMOU.
+
+`identidade-linkedin` declara `CATALOG`, e `ENTRAM_NO_INGRESSO = (COLHEITA,)`.
+Provado na árvore da Release: a fase corre, devolve um endereço, e a colheita
+sai **zero** — não por falha, mas por espécie.
+
+    IDENTITY != CONTENT. UM ENDEREÇO NÃO É UMA PUBLICAÇÃO.
+    UM ZERO QUE VEM DA ESPÉCIE NÃO SE LÊ COMO UM ZERO QUE VEM DA FONTE.
+
+### O mecanismo que ficou foi o desta linha
+
+A `LINKEDIN-OP-01` passava o alvo como **terceiro posicional**. A Release já
+tinha filtros nomeados por fase, com recusa de nomes fora da lista. Portou-se o
+comportamento, não o mecanismo — e a tradução `site → site_url` mora na tabela,
+à vista.
+
+    PORTA-SE O COMPORTAMENTO, NÃO O MECANISMO.
+    E O MECANISMO QUE FICA É O QUE RECUSA MAIS CEDO.
+
+---
+
+## 17 · O CAMINHO LATERAL — E POR QUE «É LEGADO» NÃO O FECHAVA
+
+`regras/sensor_coleta.py` configura quatro atores HarvestAPI do LinkedIn e leva
+um identificador de ator **direto à porta paga**, sem nunca perguntar à matriz.
+A `LINKEDIN-OP-01` mediu-o e registou-o como risco. O que o trancava era a
+guarda de **gasto**.
+
+Uma tranca de dinheiro guarda enquanto não houver dinheiro.
+
+    SPEND_AUTHORIZATION != ROUTE_POLICY.
+    DINHEIRO AUTORIZADO NÃO TORNA PERMITIDA UMA ROTA PROIBIDA.
+
+E o botão continua lá: `workflow_dispatch`, alcançável à mão, hoje.
+
+    DIZER «É LEGADO» NUM DOCUMENTO NÃO DESLIGA UM BOTÃO.
+
+### A correcção vive na primitiva, e não no caminho
+
+`coleta/coletor.py` — o único sítio onde nasce execução paga — pergunta a
+`social_matriz.actor_proibido()` **antes** da guarda de gasto.
+
+    UMA GUARDA QUE VIVE NUM CAMINHO GUARDA UM CAMINHO.
+    UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS.
+
+A polaridade importa, e é fail-closed **só sobre o que está nomeado**: responde
+proibido quando a matriz nomeia o ator numa rota `PERMITIDA = NAO` e em nenhuma
+permitida. Um ator que a matriz não nomeia não é proibido por omissão — a maior
+parte dos atores desta casa é nomeada pela capacidade, não pelo id.
+
+    DECLARADO PROIBIDO != NÃO DECLARADO.
+    O SILÊNCIO DA MATRIZ NÃO PROÍBE, E TAMBÉM NÃO AUTORIZA.
+
+E a recusa tem classe própria. Vesti-la de `GastoRecusado` diria que faltou
+autorização — e no dia em que alguém a concedesse, a rota continuaria proibida e
+a mensagem mandaria procurar no sítio errado.
+
+Medido, com tudo válido do outro lado:
+
+```
+ator HarvestAPI LinkedIn + token válido + autorização válida + orçamento
+  -> RotaNaoPermitida · POSTS = 0 · autorização consumida = 0
+```
+
+A autorização **nem foi tocada**: a política parou antes do dinheiro.
+
+---
+
+## 18 · AS ENTRADAS, RECONTADAS POR ESTRUTURA
+
+§6 mandou parar de responder isto com grep. Duas correcções:
+
+**O corte de prosa deixou de ter duas implementações.**
+`system-map/scripts/censo_da_coleta.py` já o fazia há missões, com a razão
+escrita lá. Esta prova passou a chamá-lo.
+
+    DUAS IMPLEMENTAÇÕES DO MESMO CONTRATO NÃO SÃO DUAS VERSÕES DA VERDADE:
+    SÃO DUAS VERDADES.
+
+**E as três classes viraram seis**, porque o balde do «legado» juntava coisas
+que não são a mesma:
+
+| classe | quantas |
+|---|---|
+| `CANONICAL_V1` | 5 |
+| `ACTIVE_V1_BYPASS` | **0** |
+| `MEASUREMENT_ONLY` | 1 |
+| `LOCAL_REPROCESSING` | 13 |
+| `FAIL_CLOSED` | 0 |
+| `LEGACY_NOT_IN_V1` | 5 |
+| `UNKNOWN` | 0 |
+
+    NÃO SE CHAMA REPROCESSAMENTO LOCAL DE BYPASS DE AQUISIÇÃO.
+    NÃO SE CHAMA FERRAMENTA DE MEDIÇÃO DE ROTA DE PRODUÇÃO.
+
+A primeira versão desta classificação pôs `yt-legenda-paga` em
+`LOCAL_REPROCESSING` porque o ficheiro que ele corre não abre socket nenhum
+sozinho. Ele colhe pela rota **paga** do YouTube.
+
+    QUEM DELEGA A IDA AO MUNDO CONTINUA A IR AO MUNDO.
+
+E o gate novo mede-se **correndo**, não lendo: chama-se a porta paga com cada
+ator que um ramo alcançável configura, e vê-se o que sai.
+
+    LER A ÁRVORE PROVA QUE A PEÇA EXISTE. SÓ CORRER PROVA QUE A ARESTA EXISTE.
+
+```
+MANUALLY_TRIGGERABLE_POLICY_BYPASSES = 0
+```
+
+---
+
+## 19 · A SUPERFÍCIE, RECONGELADA COM O CAMPO QUE FALTAVA
+
+| estado | antes | depois |
+|---|---|---|
+| `READY` | 8 | **9** |
+| `READY_PENDING_CREDENTIAL` | 6 | 6 |
+| `FAIL_CLOSED` | 5 | **12** |
+| `NOT_IN_V1` | 16 | **9** |
+| `UNKNOWN` | 0 | 0 |
+
+E ganhou `FIRST_BREAK`, que é o campo mais útil da tabela: saber que uma
+capacidade não corre vale pouco; saber **onde** ela para diz de quem é a próxima
+decisão. Cinco das nove `READY` param em `NO_REQUEST_PATH` — estão prontas e
+ninguém no caminho canônico as pede. Não é defeito; é uma lista de trabalho.
+
+`FLOW_OBSERVED` tem três degraus, e nenhum promete o seguinte:
+
+    NO -> WIRED -> OBSERVED.
+    EDGE EXISTS != FLOW OBSERVED. Uma aresta lida na árvore não anda.
+
+---
+
+## 20 · O CANÁRIO CORREU A SÉRIO
+
+Bluesky continua o canário: LinkedIn testa LinkedIn, Bluesky testa a máquina.
+
+```
+REAL_CANARY            = PASS
+CANARY_CAPABILITY      = bluesky.author.incremental
+RUN_ID                 = IT-T9-2026-09-13-012809
+REAL_REQUESTS          = 1 rota + 1 robots
+RESULT                 = OK
+COST_STATE             = FREE_ROUTE_BY_POLICY
+REAL_COST_USD          = 0
+OBSERVADOS             = 1
+COLHEITA               = 0
+```
+
+Uma requisição, uma conta pública, sem lote, sem paginação, sem provider pago.
+
+**A colheita é zero por LEI, e não por falha.** O pedido não nomeou fonte, e o
+adapter declara-o por escrito: sem `SOURCE_ID` vindo do pedido, o que se
+observou são **candidatas**, não observações de uma fonte provada.
+
+    URL NÃO É SOURCE_ID. O QUE NÃO SE DECLAROU NÃO ENTRA.
+
+E não se nomeou fonte porque **não há nenhuma para nomear**: as 29 fichas do
+atlas não incluem nenhuma conta Bluesky, Mastodon ou Telegram. Emparelhar
+`IT-T9-001` com um handle que a ficha dele nunca declarou seria fabricar
+identidade um andar acima — exactamente o que a máquina toda existe para
+impedir.
+
+Nenhum ficheiro novo de bruto apareceu. O bruto é endereçado por conteúdo, e
+esta casa já tinha capturado a mesma conta antes; o mais provável é que o hash
+tenha batido e a escrita tenha sido dispensada. **Não o confirmei**, e por isso
+não o afirmo.
+
+---
+
+## 21 · OS PORTÕES, NA ÁRVORE FINAL
+
+```
+ATTACKS = 43   ·   SURVIVING_ATTACKS = 0
+MUTANTS = 30   ·   SURVIVING_MEANINGFUL_MUTANTS = 0
+```
+
+Três ataques e um mutante sobreviveram à primeira volta, e **os quatro eram
+defeitos das minhas próprias sondas**:
+
+- um contava a classe `NOT_IN_V1`, que a §6 tinha partido em quatro. Contava
+  zero e dava-se por satisfeita;
+- um perguntava «houve merge bruto?» ao histórico **inteiro** da casa, e
+  reprovava por merges de Agosto;
+- um fatiava o ficheiro da lei para ler o contrato activo, em vez de perguntar
+  ao módulo;
+- e o mutante que pôs o conteúdo do LinkedIn de volta em `PROVEN` não fazia a
+  máquina correr — mudava só o que a casa **diz**.
+
+    UMA SONDA QUE CONTA UM NOME QUE NINGUÉM ESCREVE MAIS CONTA ZERO
+    E CHAMA-LHE PROVA.
+
+    MEDIR A HISTÓRIA INTEIRA PARA JULGAR UMA MISSÃO JULGA AS OUTRAS.
+
+    UM MUTANTE QUE SÓ MUDA O QUE A CASA DIZ AINDA MUDA ALGUMA COISA:
+    MUDA AQUILO EM QUE A PRÓXIMA MISSÃO VAI ACREDITAR.
+
+E três âncoras de mutação deixaram de bater porque **eu** tinha mudado as linhas
+que elas citavam. A missão já dizia o que fazer com isso: âncora que não bate
+conta como sobrevivente.
+
+---
+
+## 22 · O QUE CONTINUA POR DECIDIR
+
+As três decisões da Parte I **continuam de pé**, e a Parte II afinou a primeira:
+
+**DECISÃO 1.** Nomear uma conta real numa plataforma que a máquina colhe, e
+ligá-la a um `SOURCE_ID` do atlas. Sem isto, o canário corre e entrega zero —
+não por defeito, por lei.
+
+**DECISÃO 2.** Uma linha no livro de relevância para o par
+`(SOURCE_ID, PROPOSITO)`. **Não é necessária** para a rota grátis e pontual —
+medido, e o contrato não foi alargado para o fingir.
+
+**DECISÃO 3.** Autorizar a recorrência, e só se o canário for correr sozinho.
+
+E uma quarta, que a Parte II abriu e não fechou:
+
+**DECISÃO 4 (não bloqueante).** Cinco capacidades `READY` param em
+`NO_REQUEST_PATH`. Decidir quais entram no caminho canônico é trabalho de
+release, não de engenharia — e não se faz sozinho.
+
+---
+
+## 23 · A LINHA DE FECHO, DEPOIS DA PARTE II
+
+```
+ONE_ORCHESTRATION_OWNER                  = PASS
+SPEND_AUTH_OWNER_COUNT                   = 1
+SOURCE_RELEVANCE_OWNER_COUNT             = 1
+FINANCIAL_BUDGET_LE_AUTH                 = PASS   (novo)
+ONE_LEDGER_PER_AUTH                      = PASS   (novo)
+FREE_ROUTE_DOES_NOT_REQUIRE_SPEND_AUTH   = PASS
+ROUTE_POLICY_CANNOT_BE_OVERRIDDEN_BY_MONEY = PASS (novo)
+ACTIVE_V1_BYPASSES                       = 0
+MANUALLY_TRIGGERABLE_POLICY_BYPASSES     = 0      (novo)
+ACTIVE_V1_HIDDEN_FALLBACKS               = 0
+FLOW02_ITEM_CEILING                      = PASS
+LINKEDIN_RC_INTEGRATION                  = PASS   (novo)
+SUPPORTED_CAPABILITIES_HAVE_EDGE         = PASS
+FAIL_CLOSED_CAPABILITIES_REALLY_FAIL_CLOSED = PASS
+RETURN_CONTRACT                          = PASS
+SCRAP_TO_COLLECTION_BOUNDARY             = PASS
+BLUESKY_CANARY_FAKE                      = PASS
+SURVIVING_ATTACKS                        = 0
+SURVIVING_MEANINGFUL_MUTANTS             = 0
+NEW_FAILURES                             = 0
+SYSTEM_MAP_CHECK                         = PASS
+
+SCRAP_ENGINE_READY      = PASS
+REAL_CANARY             = PASS   (máquina)
+SCRAP_OPERATIONAL_READY = NO
+SCRAP_V1                = READY_PENDING_SOURCE_APPROVAL
+```
+
+O canário real passou **como prova da máquina**: a árvore vai ao mundo, obedece
+aos portões, preserva e declara. Não passou como prova de operação, porque
+nenhuma fonte aprovada existe para ele colher — e `READY` não se usa com
+significado maior do que a prova.
+
+A máquina está pronta. Continua a faltar dizer-lhe **de quem** ela vai ouvir.

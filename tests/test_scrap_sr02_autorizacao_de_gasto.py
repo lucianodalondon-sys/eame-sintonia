@@ -289,7 +289,13 @@ class AsPortasTraseiras(unittest.TestCase):
         subprocess.run = falsa
         ct._curl = ct._CURL_DA_CASA
         try:
-            with http.orcamento_de_rede(5), ct.orcamento_financeiro(1.0):
+            # ⚠️ O ORÇAMENTO É 0,10 E NÃO 1,00, E ISSO É LEI DESDE A RC-01.
+            # `FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD`: declarar
+            # que esta execução pode comprometer um dólar sob uma autorização
+            # de dez cêntimos é pedir nove vezes o que a pessoa concedeu.
+            # O assunto deste teste é o recibo viajar no manifesto; o tamanho
+            # do orçamento era incidental, e estava acima do autorizado.
+            with http.orcamento_de_rede(5), ct.orcamento_financeiro(0.10):
                 _i, man = ct.executar(
                     ATOR, {'q': 1}, token='F', run_id='t', platform='YOUTUBE',
                     country='IT', mission='m', query='q', source_version='v',

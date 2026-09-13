@@ -134,6 +134,7 @@ STATUS_TRANSITORIOS = ('READY', 'RUNNING', 'ABORTING')
 # segunda não herda a dívida da primeira.
 import contextlib
 import threading
+import uuid
 
 _LOCAL = threading.local()
 
@@ -245,6 +246,14 @@ class OrcamentoFinanceiro(object):
     def __init__(self, limite):
         if limite is None or float(limite) < 0:
             raise ValueError('limite financeiro inválido: %r' % limite)
+        # ── A IDENTIDADE DESTE LEDGER, E POR QUE NÃO É `id()` ────────────────
+        # ⚠️ MEDIDO: com `id(objecto)` como nome do ledger, duas execuções
+        # seguidas receberam o MESMO número — o primeiro orçamento morre, e o
+        # alocador reaproveita o endereço para o segundo. A autorização
+        # reconhecia o ledger novo como o antigo e gastava outra vez.
+        #
+        #     UMA IDENTIDADE QUE O ALOCADOR PODE REUTILIZAR NÃO É UMA IDENTIDADE.
+        self.identidade = uuid.uuid4().hex
         self.limite_micros = _micros(limite)
         self.gasto_micros = 0
         self.comprometido_micros = 0
@@ -413,9 +422,20 @@ def _recusas_nossas():
     try:
         import scrap_http as _http
         return (SemAutorizacaoDeGasto, SemOrcamentoFinanceiro,
-                _http.SemOrcamentoDeRede)
+                RotaNaoPermitida, _http.SemOrcamentoDeRede)
     except ImportError:                                           # pragma: no cover
-        return (SemAutorizacaoDeGasto, SemOrcamentoFinanceiro)
+        return (SemAutorizacaoDeGasto, SemOrcamentoFinanceiro, RotaNaoPermitida)
+
+
+class RotaNaoPermitida(PermissionError):
+    """A política recusou esta rota. NÃO é falta de dinheiro nem de credencial.
+
+    Ela tem classe própria de propósito. Vesti-la de `GastoRecusado` diria que
+    faltou autorização — e o dia em que alguém a concedesse, a rota continuaria
+    proibida e a mensagem mandaria procurar no sítio errado.
+
+        SPEND_AUTHORIZATION != ROUTE_POLICY.
+    """
 
 
 class PostTalvezCriado(RuntimeError):
@@ -689,9 +709,46 @@ def executar(actor, entrada, *, token, run_id, platform, country, mission, query
     #
     #     ONE CONCEPT -> ONE OWNER, E UM SO MAPA ENTRE OS DOIS EIXOS.
     motivo = az.motivo_do_modo(motivo_do_gasto or modo)
+    # ── A POLITICA VEM PRIMEIRO, E VEM AQUI PORQUE AQUI E A PRIMITIVA ──────
+    # ⚠️ MEDIDO NA LINKEDIN-OP-01: `regras/sensor_coleta.py` chega a esta porta
+    # com quatro atores HarvestAPI do LinkedIn sem nunca ter perguntado a
+    # `leis/social_matriz.py` se a rota e permitida. O caminho ficava parado
+    # pela autorizacao de gasto — e isso NAO e a mesma trava:
+    #
+    #     SPEND_AUTHORIZATION != ROUTE_POLICY.
+    #     DINHEIRO AUTORIZADO NAO TORNA PERMITIDA UMA ROTA PROIBIDA.
+    #
+    # A pergunta podia viver no chamador. Nao vive: um chamador que se lembra
+    # guarda um caminho, e o caminho seguinte esquece-se.
+    #
+    #     UMA GUARDA QUE VIVE NUM CAMINHO GUARDA UM CAMINHO.
+    #     UMA GUARDA QUE VIVE NA PRIMITIVA GUARDA TODOS.
+    #
+    # E ela vem ANTES da guarda de gasto de proposito: uma rota proibida nao
+    # deve sequer consumir uma execucao da autorizacao de quem a pediu.
+    try:
+        import social_matriz as _mz
+        _proibida, _porque = _mz.actor_proibido(platform, actor)
+    except ImportError:                                           # pragma: no cover
+        _proibida, _porque = False, ''
+    if _proibida:
+        raise RotaNaoPermitida(
+            'ROUTE_NOT_ALLOWED · %s. Nenhum POST foi criado, e nenhuma '
+            'autorizacao foi consumida.' % _porque)
+
+    # ── O LEDGER DESCE COM O PEDIDO, E A IDENTIDADE DELE TAMBEM ─────────────
+    # A lei do gasto nao vai buscar o orcamento: ele e DESTA execucao, e quem o
+    # conhece e quem o instalou. Descem duas coisas, e sao duas: quanto esta
+    # execucao pode comprometer no total, e QUAL ledger e esse.
+    #
+    #     LIMITE HUMANO != LEDGER OPERACIONAL. E UM NOME NAO E UMA SOMA.
+    _orc = orcamento_financeiro_actual()
+    _autorizado = None if _orc is None else _orc.limite_micros / 1e6
     recibo = az.conferir_e_consumir(
         autorizacao, motivo=motivo, proposito=proposito,
-        source_id=source_id, teto_usd=teto_usd)
+        source_id=source_id, teto_usd=teto_usd,
+        orcamento_autorizado=_autorizado,
+        ledger=None if _orc is None else _orc.identidade)
     # ── O GATE FINANCEIRO VEM ANTES DO POST ───────────────────────────────────
     # Cobrar depois do provider é contar o prejuízo. A reserva acontece aqui, e é
     # ela que decide o `maxTotalChargeUsd` que vai na query.

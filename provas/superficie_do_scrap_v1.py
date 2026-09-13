@@ -94,8 +94,16 @@ def medir():
             'CAPABILITY': capacidade,
             'DECLARED_STATE': estado,
             'POLICY_STATE': politica,
+            # MODULE EXISTS != EDGE EXISTS: o primeiro e haver adaptador
+            # registado para o par; o segundo e haver ROTA ligada nele.
+            'MODULE_EXISTS': bool(plat and reg.adaptador_de(plat, capacidade)),
             'EDGE_EXISTS': aresta,
+            'FLOW_OBSERVED': _fluxo(capacidade),
             'EXECUTION_TARGET': alvo,
+            'PROVIDER': _provider(plat, capacidade),
+            'CREDENTIAL_STATE': ('MISSING' if pronto == 'CREDENTIAL_MISSING'
+                                 else 'NOT_REQUIRED_OR_PRESENT'),
+            'COST_STATE': _custo(plat, capacidade),
             'CHECK_STATE': pronto, 'CAN': pode,
             'PAID': _e_paga(plat, capacidade),
         }
@@ -105,7 +113,77 @@ def medir():
     v1 = plataformas_v1(fora)
     for l in fora:
         l['V1'] = _classificar(l, v1)
+        l['V1_STATE'] = l['V1']
+        l['FIRST_BREAK'] = _primeira_quebra(l)
     return fora
+
+
+#: As capacidades cujo FLUXO esta OBSERVADO — e o que as põe aqui é uma prova
+#: desta casa que as CORREU ponta a ponta, nomeada ao lado.
+#:
+#:     EDGE EXISTS != FLOW OBSERVED. Uma aresta lida na árvore não anda.
+#:
+#: `WIRED` é o degrau do meio: existe fase no caminho canônico que a pede, e
+#: ninguém aqui afirma que ela já correu.
+FLUXO_OBSERVADO = {
+    'bluesky.author.incremental': 'provas/o_canario_do_scrap_v1.py',
+    'linkedin.identity.discovery': 'provas/linkedin_local_first.py',
+}
+
+
+def _fluxo(capacidade):
+    if capacidade in FLUXO_OBSERVADO:
+        return 'OBSERVED'
+    try:
+        import scrap_colheita as _sc
+        if any(l[1] == capacidade for l in _sc.FASES.values()):
+            return 'WIRED'
+    except Exception:                                             # noqa: BLE001
+        pass
+    return 'NO'
+
+
+def _rota_da_matriz(plat, capacidade):
+    if not plat:
+        return None
+    rotas = (mz.MATRIZ.get(plat) or {}).get(cap.da_matriz(capacidade))
+    return mz._rota_padrao(rotas) if rotas else None
+
+
+def _provider(plat, capacidade):
+    escolhida = _rota_da_matriz(plat, capacidade)
+    return (escolhida or {}).get('CLASSE') or DESCONHECIDO
+
+
+def _custo(plat, capacidade):
+    classe = _provider(plat, capacidade)
+    if classe in ('APIFY', 'OFFICIAL_API_PAID'):
+        return 'PAID'
+    if classe == DESCONHECIDO:
+        return DESCONHECIDO
+    return 'FREE'
+
+
+def _primeira_quebra(l):
+    """O PRIMEIRO portão que diz não. → o nome dele, ou `NONE`.
+
+    Saber que uma capacidade não corre vale pouco; saber ONDE ela para é o que
+    diz de quem é a próxima decisão — da política, da engenharia, de quem tem a
+    credencial, ou de ninguém.
+    """
+    if l['POLICY_STATE'] in ('NAO', 'NOT_ALLOWED', 'BLOCKED'):
+        return 'ROUTE_POLICY'
+    if not l['MODULE_EXISTS']:
+        return 'NO_ADAPTER'
+    if not l['EDGE_EXISTS']:
+        return 'NO_ROUTE'
+    if l['CREDENTIAL_STATE'] == 'MISSING':
+        return 'CREDENTIAL'
+    if l['CAN'] is not True:
+        return l['CHECK_STATE'] or DESCONHECIDO
+    if l['FLOW_OBSERVED'] == 'NO':
+        return 'NO_REQUEST_PATH'
+    return 'NONE'
 
 
 def _e_paga(plat, capacidade):

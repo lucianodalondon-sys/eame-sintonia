@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "644220495721eb7b77d5ac31265757f1b193a989",
+    "HEAD": "3739d9fd9033f9df9d74b8a274522eb300145f55",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -2949,7 +2949,9 @@
       ],
       "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
-      "regista_descarte": []
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/comunicacao_medir.py",
@@ -4203,6 +4205,35 @@
       ]
     },
     {
+      "endpoint": "https://www.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 753
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 266
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 383
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 339
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 42
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 305
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/p",
       "usado_por": [
         {
@@ -4286,7 +4317,7 @@
       "usado_por": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 227
+          "line": 263
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4332,11 +4363,11 @@
         },
         {
           "file": "provas/red_team_da_release_v1.py",
-          "line": 197
+          "line": 202
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
-          "line": 249
+          "line": 276
         }
       ]
     },
@@ -4439,6 +4470,23 @@
         {
           "file": "motor/v21_ingest_c.py",
           "line": 173
+        }
+      ]
+    },
+    {
+      "endpoint": "https://youtu.be/X'",
+      "usado_por": [
+        {
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 142
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 159
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 398
         }
       ]
     },
@@ -4694,15 +4742,28 @@
       ]
     },
     {
-      "endpoint": "https://youtu.be/X'",
+      "endpoint": "https://it.linkedin.com/in",
       "usado_por": [
         {
-          "file": "provas/nenhuma_compra_sem_autorizacao.py",
-          "line": 142
+          "file": "provas/linkedin_local_first.py",
+          "line": 267
         },
         {
-          "file": "provas/red_team_da_release_v1.py",
-          "line": 154
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 340
+        }
+      ]
+    },
+    {
+      "endpoint": "https://twitter.com/x",
+      "usado_por": [
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 268
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 396
         }
       ]
     },
@@ -4757,37 +4818,6 @@
           "line": 309
         }
       ]
-    },
-    {
-      "endpoint": "https://exemplo.tld/x'))",
-      "usado_por": [
-        {
-          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
-          "line": 339
-        },
-        {
-          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
-          "line": 222
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/api",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 46
-        }
-      ]
-    },
-    {
-      "endpoint": "https://t.me/s",
-      "usado_por": [
-        {
-          "file": "coleta/adaptador_aberto.py",
-          "line": 148
-        }
-      ]
     }
   ],
   "COUNTS": {
@@ -4812,7 +4842,7 @@
     "coletores_com_data": 17,
     "coletores_com_lugar": 31,
     "coletores_que_separam_fonte_do_fato": 20,
-    "coletores_que_registam_descarte": 14,
+    "coletores_que_registam_descarte": 15,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

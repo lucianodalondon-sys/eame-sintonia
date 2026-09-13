@@ -714,6 +714,58 @@ def decisao(platform, capability):
     return veredicto
 
 
+def actor_proibido(plataforma, actor):
+    """Esta matriz NOMEIA este ator, e só em rotas proibidas? → (bool, porquê).
+
+    ⚠️ NASCEU DE UM CAMINHO LATERAL MEDIDO NA LINKEDIN-OP-01 e fechado na
+    SCRAP-RC-01. `regras/sensor_coleta.py` configura quatro atores HarvestAPI do
+    LinkedIn e chama a porta paga DIRETAMENTE, sem passar pelo roteador. Ele
+    ficava parado pela autorização de gasto — e isso não chega:
+
+        SPEND_AUTHORIZATION != ROUTE_POLICY.
+
+    Uma autorização financeira futura não pode transformar uma rota proibida
+    numa rota permitida. A pergunta «esta rota é permitida?» tem dono, e o dono
+    é este ficheiro; o que faltava era alguém fazer-lhe a pergunta antes do POST.
+
+    A POLARIDADE IMPORTA, E É FAIL-CLOSED SÓ SOBRE O QUE ESTÁ NOMEADO
+    -----------------------------------------------------------------
+    Responde `True` quando a matriz nomeia o ator numa rota `PERMITIDA = NAO` e
+    **não** o nomeia em nenhuma permitida. Um ator que a matriz não nomeia não é
+    proibido por omissão: seria recusar por ausência de declaração, e a maior
+    parte dos atores desta casa é nomeada pela CAPACIDADE, não pelo id — o
+    `apify:transcricao` do YouTube é exactamente isso.
+
+        DECLARADO PROIBIDO != NÃO DECLARADO.
+        O SILÊNCIO DA MATRIZ NÃO PROÍBE, E TAMBÉM NÃO AUTORIZA.
+
+    O nome da rota pode trazer glob (`apify:harvestapi~linkedin-*`), porque é
+    assim que a matriz já escreve uma família de atores numa linha só.
+    """
+    import fnmatch
+    alvo = str(actor or '').strip()
+    if not alvo:
+        return False, ''
+    caps = MATRIZ.get(str(plataforma or '').upper()) or {}
+    proibidas, permitidas = [], []
+    for capac, rotas in caps.items():
+        if capac.startswith('_') or not isinstance(rotas, list):
+            continue
+        for r in rotas:
+            nome = str(r.get('ROTA') or '')
+            padrao = nome.split(':', 1)[1] if ':' in nome else nome
+            if not (fnmatch.fnmatch(alvo, padrao) or alvo == padrao):
+                continue
+            (permitidas if r.get('PERMITIDA') in ('SIM', 'CONDICIONAL')
+             else proibidas).append((capac, nome, r.get('NOTA') or ''))
+    if proibidas and not permitidas:
+        capac, nome, nota = proibidas[0]
+        return True, ('%s/%s declara a rota «%s» como PERMITIDA = NAO%s'
+                      % (plataforma, capac, nome,
+                         (' — ' + nota[:160]) if nota else ''))
+    return False, ''
+
+
 def _rota_padrao(rotas):
     """A rota DEFAULT: PERMITIDA primeiro, BARATA depois, PROVADA por último.
 

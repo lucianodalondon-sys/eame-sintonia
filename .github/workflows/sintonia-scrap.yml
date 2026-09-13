@@ -75,6 +75,10 @@ on:
           # sem navegador autenticado e sem fornecedor pago — escolhida para
           # provar a MÁQUINA, e não a plataforma mais importante.
           - canario-bluesky # cronologia pública de UMA conta Bluesky
+          # A ÚNICA rota que a política permite no LinkedIn: lê o site DA
+          # PRÓPRIA organização e traz de lá o endereço que ela publicou.
+          # Devolve CATÁLOGO, e catálogo não atravessa a Admissão.
+          - identidade-linkedin # o endereço LinkedIn publicado pela organização
           # `transcrever` e `transcrever-alvos` foram APOSENTADAS na C10.4C.
           # A fala de Reel tem um dono só, e ele pede áudio — nunca o vídeo
           # inteiro. Ver `docs/sintonia-scrap/C10-4C-APOSENTAR-A-ROTA-LEGADA.md`.
@@ -127,6 +131,10 @@ on:
         type: string
       handle:
         description: 'só para `canario-bluesky` — a conta Bluesky a observar (ex.: nome.bsky.social). NÃO é o SOURCE_ID.'
+        required: false
+        type: string
+      site:
+        description: 'só para `identidade-linkedin` — o site DA ORGANIZAÇÃO onde ela publica o próprio endereço. NUNCA linkedin.com.'
         required: false
         type: string
       orcamento_h:
@@ -351,6 +359,25 @@ jobs:
                 --filtro pais=IT \
                 --filtro fonte="${{ inputs.fonte }}" \
                 --filtro handle="${{ inputs.handle }}" ;;
+
+            # ── A IDENTIDADE DO LINKEDIN ─────────────────────────────────
+            # Ramo próprio pela mesma razão do canário: ele leva `site`, que
+            # é o endereço do site DA ORGANIZAÇÃO — nunca `linkedin.com`, e
+            # nunca um buscador. O que volta é CATÁLOGO: uma entidade de onde
+            # se PODE colher, e não material observado.
+            #
+            #     IDENTITY != CONTENT. E CATALOG != COLHEITA.
+            #
+            # Pedir PUBLICAÇÕES do LinkedIn não tem ramo aqui, e a ausência é
+            # a declaração: `LINKEDIN/FETCH_POST` tem duas rotas e as duas
+            # estão `PERMITIDA = NAO`.
+            identidade-linkedin)
+              PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \
+                "colete concorrentes" \
+                --filtro fase="${{ inputs.fase }}" \
+                --filtro pais=IT \
+                --filtro fonte="${{ inputs.fonte }}" \
+                --filtro site="${{ inputs.site }}" ;;
 
             # ── COLLECTION SEM ROTA CANÔNICA · RECUSA ────────────────────
             # `coleta/instagram_diario.py rodar` importa `instagram_janela` e

@@ -57,6 +57,7 @@ mundo.instalar()
 import autorizacao_de_gasto as az                    # noqa: E402
 import coletor as ct                                 # noqa: E402
 import entradas_do_scrap_v1 as ent                   # noqa: E402
+import scrap_colheita as sc                          # noqa: E402
 import nenhuma_compra_sem_autorizacao as sr02        # noqa: E402
 import relevancia_da_fonte as rel                    # noqa: E402
 import scrap_capacidades as cap                      # noqa: E402
@@ -70,6 +71,10 @@ import superficie_do_scrap_v1 as sup                 # noqa: E402
 # outra bateria a correr no mesmo processo, mas a linha fica ao lado do uso
 # pela mesma razão que na bateria — o acervo não é lugar de prova.
 envelope.RAW_DIR = os.path.join(BANCO, 'raw-free')
+
+#: A base desta Release. Os ataques que perguntam «esta missão fez X?» medem
+#: daqui para a frente, e nunca a história inteira da casa.
+BASE = '64422049'
 
 SOBREVIVENTES = []
 ATAQUES = [0]
@@ -306,11 +311,202 @@ def main():
            'A19 · branch LinkedIn em movimento é absorvida',
            'nenhum commit LINKEDIN-OP no histórico')
     # A20 · legado fora da V1 contado como bypass operacional
-    bypasses = [e for e in entradas if e['ESTADO'] == 'ACTIVE_V1_BYPASS']
-    legado = [e for e in entradas if e['ESTADO'] == 'NOT_IN_V1']
-    ataque(not bypasses and len(legado) > 0,
+    # ⚠️ `NOT_IN_V1` DEIXOU DE SER UMA CLASSE. A §6 partiu-a em quatro — legado,
+    # medição, reprocessamento local e fail-closed — e esta sonda continuava a
+    # contar o nome antigo, que já não existe. Contava zero e dava-se por
+    # satisfeita.
+    #
+    #     UMA SONDA QUE CONTA UM NOME QUE NINGUÉM ESCREVE MAIS CONTA ZERO
+    #     E CHAMA-LHE PROVA.
+    bypasses = [e for e in entradas if e['ESTADO'] == ent.BYPASS]
+    fora_da_v1 = [e for e in entradas
+                  if e['ESTADO'] in (ent.LEGACY_NOT_IN_V1, ent.MEASUREMENT_ONLY,
+                                     ent.LOCAL_REPROCESSING, ent.FAIL_CLOSED)]
+    ataque(not bypasses and len(fora_da_v1) > 0,
            'A20 · legado fora da V1 conta como bypass',
-           '%d legado · %d bypass' % (len(legado), len(bypasses)))
+           '%d fora da V1 · %d bypass' % (len(fora_da_v1), len(bypasses)))
+
+    # ══════════════════════════════════════════════════════════════════════
+    print('\n§18 · OS ATAQUES QUE A CONTINUAÇÃO ACRESCENTOU')
+    # ══════════════════════════════════════════════════════════════════════
+    import copy as _copy
+    import social_matriz as mz
+
+    # B1 · política diz NÃO e há dinheiro autorizado
+    livro = sr02.livro_com(rel.SIM, sid='IT-T9-001', prop='T9')
+    autb = az.autorizar(motivo=az.COLETA_NORMAL, proposito='T9',
+                        source_id='IT-T9-001', max_execucoes=1, max_usd=0.50,
+                        livro=livro)
+    fb = sr02.FalsaApify(sr02.itens_reais())
+    real = subprocess.run
+    subprocess.run = fb
+    try:
+        with http.orcamento_de_rede(5), ct.orcamento_financeiro(0.50):
+            ct.executar('harvestapi~linkedin-profile-search-by-name',
+                        {'firstName': 'x'}, token='apify_api_VALIDO',
+                        run_id='b1', platform='LINKEDIN', country='IT',
+                        mission='RC01', query='q', source_version='p',
+                        evidence_path='/dev/null', wait=60, salvar_raw=False,
+                        autorizacao=autb, teto_usd=0.50)
+        estado_b1 = 'EXECUTOU'
+    except ct.RotaNaoPermitida as e:                              # noqa: BLE001
+        estado_b1 = 'ROTA_NAO_PERMITIDA'
+    except Exception as e:                                        # noqa: BLE001
+        estado_b1 = type(e).__name__
+    finally:
+        subprocess.run = real
+    ataque(not fb.posts and estado_b1 == 'ROTA_NAO_PERMITIDA',
+           'B1 · política NÃO + autorização SIM + token válido',
+           'POSTS=%d · %s' % (len(fb.posts), estado_b1))
+    ataque(autb.gastas == 0,
+           'B2 · a rota proibida consome a autorização de quem a pediu',
+           'gastas=%d' % autb.gastas)
+
+    # B3 · o caminho lateral do sensor, com tudo válido
+    import apify_pool as ap
+    visto = []
+
+    def _falso(url, *, token, metodo='GET', corpo=None, timeout=300, **k):
+        visto.append(metodo)
+        return {'data': {'id': 'F', 'status': 'SUCCEEDED',
+                         'defaultDatasetId': 'D', 'usageTotalUsd': 0}}
+
+    curl_real, pool_real = ct._curl, ap.pool
+    ct._curl = _falso
+    ap.pool = lambda env=None: ['apify_api_TOKEN_DE_MENTIRA']
+    try:
+        sys.modules.pop('sensor_coleta', None)
+        import sensor_coleta as sensor
+        ct._curl = _falso
+        aut3 = az.autorizar(motivo=az.COLETA_NORMAL, proposito='T9',
+                            source_id='IT-T9-001', max_execucoes=1,
+                            max_usd=0.50, livro=livro)
+        try:
+            with ct.orcamento_financeiro(0.50):
+                sensor._rodar(sensor.ATORES['LINKEDIN_SEARCH_BY_NAME'],
+                              {'firstName': 'x', 'lastName': 'y', 'maxItems': 1},
+                              run_id='b3', platform='LINKEDIN', country='IT',
+                              query='q', evidence_path='/dev/null', lote='A',
+                              autorizacao=aut3)
+            estado_b3 = 'EXECUTOU'
+        except ct.RotaNaoPermitida:
+            estado_b3 = 'ROTA_NAO_PERMITIDA'
+        except Exception as e:                                    # noqa: BLE001
+            estado_b3 = type(e).__name__
+    finally:
+        ct._curl, ap.pool = curl_real, pool_real
+        sys.modules.pop('sensor_coleta', None)
+    ataque(visto.count('POST') == 0 and estado_b3 == 'ROTA_NAO_PERMITIDA',
+           'B3 · sensor LinkedIn com token E autorização válidos',
+           'POSTS=%d · %s' % (visto.count('POST'), estado_b3))
+
+    # B4 · uma cópia da autorização compra
+    a4 = sr02.autorizacao_normal()
+    c4 = _copy.copy(a4)
+    n1, _ = correr_pago(autorizacao=a4)
+    n2, e4 = correr_pago(autorizacao=c4)
+    ataque(n2 == 0, 'B4 · autorização copiada compra',
+           'original=%d · cópia=%d · %s' % (n1, n2, e4))
+
+    # B5 · a mesma autorização sob outro ledger
+    a5 = az.autorizar(motivo=az.COLETA_NORMAL, proposito=sr02.PROPOSITO,
+                      source_id=sr02.FONTE, max_execucoes=2, max_usd=0.10,
+                      livro=sr02.livro_com(rel.SIM))
+    m1, _ = correr_pago(autorizacao=a5)
+    m2, e5 = correr_pago(autorizacao=a5)
+    ataque(m2 == 0, 'B5 · ledger trocado a meio',
+           'ledger1=%d · ledger2=%d · %s' % (m1, m2, e5))
+
+    # B6 · o orçamento declara mais do que a pessoa autorizou
+    a6 = sr02.autorizacao_normal()
+    f6 = sr02.FalsaApify(sr02.itens_reais())
+    real = subprocess.run
+    subprocess.run = f6
+    try:
+        with http.orcamento_de_rede(5), ct.orcamento_financeiro(99.0):
+            ct.executar(sr02.ATOR, {'videoUrl': 'https://youtu.be/X'},
+                        token='F', run_id='b6', platform='YOUTUBE',
+                        country='IT', mission='RC01', query='X',
+                        source_version='p', evidence_path='/dev/null',
+                        wait=60, salvar_raw=False, autorizacao=a6,
+                        teto_usd=a6.max_usd)
+        e6 = 'EXECUTOU'
+    except Exception as e:                                        # noqa: BLE001
+        e6 = getattr(e, 'causa', type(e).__name__)
+    finally:
+        subprocess.run = real
+    ataque(not f6.posts, 'B6 · orçamento maior que a autorização humana',
+           'POSTS=%d · %s' % (len(f6.posts), e6))
+
+    # B7 · escrever na autorização depois de concedida
+    a7 = sr02.autorizacao_normal()
+    try:
+        a7.max_usd = 99.0
+        e7 = 'ACEITE'
+    except Exception as e:                                        # noqa: BLE001
+        e7 = type(e).__name__
+    ataque(e7 != 'ACEITE', 'B7 · autorização reescrita depois de concedida', e7)
+
+    # B8 · um redirecionamento salta a deny-list
+    ataque(hasattr(http, 'hosts_proibidos'),
+           'B8 · redirecionamento salta a lista de hosts proibidos',
+           'UM REDIRECIONAMENTO É UM PEDIDO NOVO')
+
+    # B9 · CATALOG atravessa a Admissão
+    import retorno_da_coleta as rc2
+    ataque(rc2.CATALOG not in rc2.ENTRAM_NO_INGRESSO,
+           'B9 · CATALOG entra no ingresso', rc2.ENTRAM_NO_INGRESSO)
+    ataque(all(l[3] in rc2.ESPECIES for l in sc.FASES.values()),
+           'B10 · uma fase sem espécie declarada',
+           '%d fases, todas declaram' % len(sc.FASES))
+
+    # B11 · reprocessamento local contado como aquisição
+    locais = [e for e in entradas if e['ESTADO'] == ent.LOCAL_REPROCESSING]
+    ataque(all(not e['ALCANCA'] for e in locais),
+           'B11 · reprocessamento local contado como aquisição',
+           '%d locais, nenhum alcança capacidade' % len(locais))
+
+    # B12 · um botão manual proibido continua alcançável
+    manuais = ent.bypasses_de_politica(entradas)
+    ataque(not manuais, 'B12 · botão manual proibido continua alcançável',
+           manuais or 'MANUALLY_TRIGGERABLE_POLICY_BYPASSES = 0')
+
+    # B13 · uma linha divergente recebeu merge bruto
+    # ⚠️ A PERGUNTA É SOBRE ESTA MISSÃO, E NÃO SOBRE A HISTÓRIA DA CASA. Havia
+    # aqui um `git log --merges -30` que apanhava merges de 2026-08, muito
+    # anteriores — e reprovava por eles.
+    #
+    #     MEDIR A HISTÓRIA INTEIRA PARA JULGAR UMA MISSÃO JULGA AS OUTRAS.
+    #
+    # O que interessa: desde a base da Release, esta linha absorveu alguma das
+    # divergentes por merge? Pergunta-se ao git se cada uma é ANCESTRAL.
+    DIVERGENTES = ('origin/claude/wonderful-hamilton-m50ahv',
+                   'origin/claude/sintonia-scrap-paid-flow-convergence-cv02',
+                   'origin/claude/sintonia-scrap-linkedin-operational-close-v1')
+    absorvidas = []
+    for ref in DIVERGENTES:
+        r = sp.run(['git', '-C', RAIZ, 'merge-base', '--is-ancestor', ref, 'HEAD'],
+                   capture_output=True, text=True)
+        if r.returncode == 0:
+            absorvidas.append(ref.split('/')[-1])
+    merges = sp.run(['git', '-C', RAIZ, 'log', '--oneline', '--merges',
+                     '%s..HEAD' % BASE], capture_output=True, text=True).stdout
+    ataque(not absorvidas and not merges.strip(),
+           'B13 · uma branch divergente recebeu merge bruto',
+           'absorvidas=%s · merges desde a base=%d'
+           % (absorvidas or 'nenhuma', len(merges.strip().splitlines())))
+    ataque(az.CONTRATO == 'AUTORIZACAO_DE_GASTO/v2'
+           and az.CONTRATO_AMBIGUO_ANTERIOR == 'AUTORIZACAO_DE_GASTO/v1',
+           'B14 · a autorização antiga voltou com o delta externo',
+           'activo=%s · anterior=%s' % (az.CONTRATO, az.CONTRATO_AMBIGUO_ANTERIOR))
+
+    # B15 · o id do provider vira SOURCE_ID
+    u15 = sc.unidade({'URL': 'https://x/y', 'NATIVE_ID': 'at://did:plc:Z/x'},
+                     run_id='R', fonte='IT-T9-001')
+    ataque(u15['SOURCE_ID'] == 'IT-T9-001'
+           and u15['DOCUMENT_ID'] == rc2.NAO_SEI,
+           'B15 · o id do provider vira SOURCE_ID',
+           '%s / %s' % (u15['SOURCE_ID'], u15['DOCUMENT_ID']))
 
     print('\n' + '=' * 78)
     print('ATTACKS = %d' % ATAQUES[0])

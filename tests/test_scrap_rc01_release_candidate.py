@@ -42,7 +42,24 @@ import scrap_executor as sx                                       # noqa: E402
 import social_envelope as envelope                                # noqa: E402
 import superficie_do_scrap_v1 as sup                              # noqa: E402
 
-mundo.instalar()
+#: O `urlopen` verdadeiro, guardado ANTES de qualquer troca, e devolvido ao
+#: lugar em `tearDownModule`.
+#:
+#: ⚠️ ESTA BATERIA INSTALAVA O FALSO NO IMPORT E NUNCA O TIRAVA. Medido na suíte
+#: inteira: o carregador importa TODOS os módulos antes de correr o primeiro
+#: teste, então o socket ficava falso para o processo todo — e uma bateria do
+#: LinkedIn que levanta um servidor em `127.0.0.1`, para provar que um
+#: redirecionamento pede licença outra vez, recebia `URLError` de um mundo falso
+#: que nunca ouviu falar de `127.0.0.1`.
+#:
+#:     UM FALSO INSTALADO NO IMPORT VIVE ENQUANTO O PROCESSO VIVER.
+#:     E O QUE ELE MEDE DEPOIS JÁ NÃO É O QUE ALGUÉM PEDIU PARA MEDIR.
+_URLOPEN_VERDADEIRO = mundo.urllib.request.urlopen
+
+
+def tearDownModule():
+    """Devolve o mundo a quem vier a seguir."""
+    mundo.urllib.request.urlopen = _URLOPEN_VERDADEIRO
 
 
 def pinar_o_banco():
@@ -62,8 +79,6 @@ def pinar_o_banco():
     mundo.IDAS = os.path.join(BANCO, 'IDAS-AO-MUNDO.json')
     mundo.instalar()
 
-
-pinar_o_banco()
 
 WORKFLOW = '.github/workflows/sintonia-scrap.yml'
 FASE = 'canario-bluesky'
@@ -156,8 +171,20 @@ class OPortaoRecusaPeloMotivoCerto(unittest.TestCase):
         self.assertEqual(pronto['STATE'], 'CAPABILITY_STATE_PROMISES_NOTHING')
 
     def test_rt35_declarada_sem_rota_nao_pode_correr(self):
-        """CAPABILITY DECLARADA != ARESTA EXISTE."""
-        pronto = sx.CHECK('LINKEDIN', 'linkedin.recent.discovery')
+        """CAPABILITY DECLARADA != ARESTA EXISTE.
+
+        ⚠️ ERA `linkedin.recent.discovery`, E ELA MUDOU DE ESTADO. A
+        LINKEDIN-OP-01 passou-a de `PROVEN` a `BLOCKED` — uma rota que funciona
+        nao e uma rota permitida — e desde entao o `CHECK` recusa-a mais cedo,
+        no portao epistemologico, sem chegar a perguntar pela rota. A sentinela
+        media a mesma lei atraves de uma capacidade que deixou de a alcancar.
+
+            UMA SONDA ANCORADA NUM ESTADO MEDE ATE O ESTADO MUDAR.
+
+        `x.direct_post` esta `PROVEN` e continua sem rota ligada nesta
+        linhagem: promete resultado, e portanto chega ao portao da rota.
+        """
+        pronto = sx.CHECK('X', 'x.direct_post')
         self.assertFalse(pronto['CAN'])
         self.assertEqual(pronto['STATE'], 'DECLARED_WITHOUT_ROUTE')
 
@@ -272,6 +299,263 @@ class OCanarioEntraPelaPortaCerta(unittest.TestCase):
             self.assertNotIn(proibido, ramo, proibido)
 
 
+class OLinkedInEntraSoPelaIdentidade(unittest.TestCase):
+    """IDENTITY != CONTENT. E CATALOG != COLHEITA."""
+
+    HTML = ('<html><body><a href="https://www.linkedin.com/company/exemplo-org/">'
+            'LinkedIn</a></body></html>')
+
+    def _envelope(self):
+        import adaptador_linkedin as li
+        import scrap_registo as reg
+        pinar_o_banco()
+        orig = li.identidade_pelo_site
+
+        def com_html(**kw):
+            kw.setdefault('transporte', lambda url, **k: self.HTML)
+            return orig(**kw)
+
+        reg.registar('LINKEDIN', 'linkedin.identity.discovery',
+                     adaptador='adaptador_linkedin', rota=com_html)
+        try:
+            return sc.colher('identidade-linkedin', run_id='RC01-LI',
+                             fonte=FONTE, site_url='https://exemplo.invalido/')
+        finally:
+            reg.registar('LINKEDIN', 'linkedin.identity.discovery',
+                         adaptador='adaptador_linkedin', rota=orig)
+
+    def test_rt41_a_fase_de_identidade_declara_CATALOG(self):
+        """UMA ESPÉCIE POR OMISSÃO É UMA DECISÃO QUE NINGUÉM TOMOU."""
+        self.assertEqual(sc.FASES['identidade-linkedin'][3], rc.CATALOG)
+        for fase, linha in sc.FASES.items():
+            self.assertEqual(len(linha), 4, fase)
+            self.assertIn(linha[3], rc.ESPECIES, fase)
+
+    def test_rt42_o_catalogo_nao_atravessa_o_ingresso(self):
+        """ENTRAM_NO_INGRESSO = (COLHEITA,). Catálogo fica no envelope."""
+        env = self._envelope()
+        self.assertEqual(env['ESPECIE_DA_FASE'], rc.CATALOG)
+        self.assertEqual(env['COLHEITA'], [])
+        especies = {x.get('ESPECIE') for x in env['SUPORTE']}
+        self.assertIn(rc.CATALOG, especies)
+        self.assertNotIn(rc.CATALOG, rc.ENTRAM_NO_INGRESSO)
+
+    def test_rt43_e_ele_respeita_o_contrato_de_retorno(self):
+        self.assertEqual(rc.conferir(self._envelope(), RAIZ), [])
+
+    def test_rt44_o_conteudo_do_linkedin_nao_corre(self):
+        """UMA ROTA QUE FUNCIONA NÃO É UMA ROTA PERMITIDA."""
+        for capacidade in ('linkedin.direct_post', 'linkedin.native_video',
+                           'linkedin.native_caption', 'linkedin.recent.discovery'):
+            pronto = sx.CHECK('LINKEDIN', capacidade)
+            self.assertFalse(pronto['CAN'], capacidade)
+
+    def test_rt44b_o_conteudo_do_linkedin_e_DECLARADO_bloqueado(self):
+        """TECHNICALLY_PROVEN_HISTORY != CURRENT_ALLOWED_ROUTE.
+
+        ⚠️ NASCEU DE UM MUTANTE QUE SOBREVIVEU. Pôr `linkedin.direct_post` de
+        volta em `PROVEN` não fazia a máquina correr — o `CHECK` continuava a
+        recusar, e a superfície continuava `FAIL_CLOSED`. O que mudava era o
+        que a casa DIZ: que uma rota proibida pela política está provada.
+
+            UMA ROTA QUE FUNCIONA NÃO É UMA ROTA PERMITIDA.
+            E UM MUTANTE QUE SÓ MUDA O QUE A CASA DIZ AINDA MUDA ALGUMA COISA:
+            MUDA AQUILO EM QUE A PRÓXIMA MISSÃO VAI ACREDITAR.
+
+        A história técnica não se perde: ela vive no relatório da C11, com os
+        372 posts e as datas. O que não fica é a promessa operacional.
+        """
+        for capacidade in ('linkedin.direct_post', 'linkedin.native_video',
+                           'linkedin.native_caption', 'linkedin.recent.discovery'):
+            self.assertEqual(cap.estado(capacidade), 'BLOCKED', capacidade)
+            self.assertFalse(cap.promete_resultado(capacidade), capacidade)
+
+    def test_rt45_nao_ha_fase_nenhuma_para_conteudo_do_linkedin(self):
+        """A ausência da fase é a declaração."""
+        for _p, capacidade, _f, _e in sc.FASES.values():
+            self.assertNotIn(capacidade, ('linkedin.direct_post',
+                                          'linkedin.native_video',
+                                          'linkedin.native_caption',
+                                          'linkedin.recent.discovery'))
+
+
+class OLimiteHumanoEUmLimite(unittest.TestCase):
+    """As propriedades que a SCRAP-CV-02 provou, medidas nesta árvore.
+
+        LIMITE HUMANO != LEDGER OPERACIONAL. E UM NOME NÃO É UMA SOMA.
+    """
+
+    def _bater(self, aut, *, teto=0.10, orcamento=0.10, run='cv'):
+        import coletor as ct
+        import nenhuma_compra_sem_autorizacao as sr02
+        import scrap_http as http
+        import subprocess
+        falsa = sr02.FalsaApify(sr02.itens_reais())
+        real = subprocess.run
+        subprocess.run = falsa
+        try:
+            with http.orcamento_de_rede(5), ct.orcamento_financeiro(orcamento):
+                ct.executar(sr02.ATOR, {'videoUrl': 'https://youtu.be/X'},
+                            token='F', run_id=run, platform='YOUTUBE',
+                            country='IT', mission='RC01', query='X',
+                            source_version='p', evidence_path='/dev/null',
+                            wait=60, salvar_raw=False, autorizacao=aut,
+                            teto_usd=teto)
+            return len(falsa.posts), 'EXECUTOU'
+        except Exception as e:                                    # noqa: BLE001
+            return len(falsa.posts), getattr(e, 'causa', type(e).__name__)
+        finally:
+            subprocess.run = real
+
+    def _autorizacao(self, **kw):
+        import autorizacao_de_gasto as az
+        import nenhuma_compra_sem_autorizacao as sr02
+        import relevancia_da_fonte as rl
+        kw.setdefault('max_execucoes', 1)
+        kw.setdefault('max_usd', 0.10)
+        return az.autorizar(motivo=az.COLETA_NORMAL, proposito=sr02.PROPOSITO,
+                            source_id=sr02.FONTE,
+                            livro=sr02.livro_com(rl.SIM), **kw)
+
+    def test_rt50_o_orcamento_nao_pode_exceder_a_autorizacao(self):
+        """FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD."""
+        posts, causa = self._bater(self._autorizacao(), orcamento=99.0,
+                                   run='rt50')
+        self.assertEqual(posts, 0)
+        self.assertEqual(causa, 'ORCAMENTO_ACIMA_DA_AUTORIZACAO')
+
+    def test_rt51_uma_autorizacao_vale_dentro_de_UM_ledger(self):
+        """UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NÃO FOI CONFERIDO."""
+        aut = self._autorizacao(max_execucoes=2)
+        p1, _ = self._bater(aut, run='rt51a')
+        p2, causa = self._bater(aut, run='rt51b')
+        self.assertEqual((p1, p2), (1, 0))
+        self.assertEqual(causa, 'AUTORIZACAO_DE_OUTRO_LEDGER')
+
+    def test_rt52_uma_autorizacao_concedida_nao_se_reescreve(self):
+        """UMA AUTORIZAÇÃO QUE MUDA DEPOIS DE CONCEDIDA NÃO FOI CONFERIDA."""
+        import autorizacao_de_gasto as az
+        aut = self._autorizacao()
+        for campo, valor in (('max_usd', 99.0), ('max_execucoes', 99),
+                             ('source_id', 'OUTRA'), ('motivo', az.TRIAL_DE_CAPACIDADE)):
+            with self.assertRaises(az.AutorizacaoSelada, msg=campo):
+                setattr(aut, campo, valor)
+
+    def test_rt53_uma_copia_nao_e_uma_autorizacao_nova(self):
+        """COPIAR UMA AUTORIZAÇÃO NÃO É RECEBER UMA AUTORIZAÇÃO."""
+        import copy
+        import coletor as ct
+        aut = self._autorizacao()
+        orc = ct.OrcamentoFinanceiro(0.10)
+        p1, _ = self._bater(aut, orcamento=orc, run='rt53a')
+        p2, causa = self._bater(copy.copy(aut), orcamento=orc, run='rt53b')
+        self.assertEqual((p1, p2), (1, 0))
+        self.assertEqual(causa, 'AUTORIZACAO_ESGOTADA')
+
+    def test_rt54_cada_ledger_tem_identidade_propria(self):
+        """UMA IDENTIDADE QUE O ALOCADOR PODE REUTILIZAR NÃO É UMA IDENTIDADE."""
+        import coletor as ct
+        vistos = set()
+        for _ in range(20):
+            vistos.add(ct.OrcamentoFinanceiro(1.0).identidade)
+        self.assertEqual(len(vistos), 20)
+
+
+class OTetoDeItensDesce(unittest.TestCase):
+    """MIGRAR UM CAMINHO É MUDAR POR ONDE ELE PASSA, NÃO O QUE ELE LEVA."""
+
+    def _espiar(self, *args):
+        import adaptador_instagram as ai
+        import scrap_registo as reg
+        pinar_o_banco()
+        visto = {}
+        orig = ai.janela
+
+        def espia(**kw):
+            visto.clear()
+            visto.update(kw)
+            return []
+
+        reg.registar('INSTAGRAM', 'instagram.profile.discovery',
+                     adaptador='adaptador_instagram', rota=espia)
+        try:
+            sc.main(list(args))
+        finally:
+            reg.registar('INSTAGRAM', 'instagram.profile.discovery',
+                         adaptador='adaptador_instagram', rota=orig)
+        return visto
+
+    def test_rt55_o_teto_do_pedido_chega_a_rota(self):
+        visto = self._espiar('--run-id=rt55', '--teto=5', 'janela-perfis', FONTE)
+        self.assertEqual(str(visto.get('teto')), '5')
+
+    def test_rt56_sem_teto_nada_de_teto(self):
+        """Vazio = sem teto, e isso é um valor — não um cinco por omissão."""
+        visto = self._espiar('--run-id=rt56', 'janela-perfis', FONTE)
+        self.assertNotIn('teto', visto)
+
+    def test_rt57_o_teto_e_filtro_nomeado_e_nao_um_terceiro_posicional(self):
+        e = _receita()
+        self.assertIn('teto', e['filtros_nomeados'])
+        self.assertNotIn('teto', e['argumentos_de_filtros'])
+
+
+class ODinheiroNaoAbreRotaProibida(unittest.TestCase):
+    """SPEND_AUTHORIZATION != ROUTE_POLICY."""
+
+    def test_rt46_a_matriz_responde_pelo_ator_proibido(self):
+        import social_matriz as mz
+        proibido, porque = mz.actor_proibido(
+            'LINKEDIN', 'harvestapi~linkedin-profile-search-by-name')
+        self.assertTrue(proibido)
+        self.assertIn('PERMITIDA = NAO', porque)
+
+    def test_rt47_um_ator_que_a_matriz_nao_nomeia_nao_e_proibido(self):
+        """O SILÊNCIO DA MATRIZ NÃO PROÍBE, E TAMBÉM NÃO AUTORIZA."""
+        import social_matriz as mz
+        proibido, _ = mz.actor_proibido(
+            'YOUTUBE', 'pintostudio~youtube-transcript-scraper')
+        self.assertFalse(proibido)
+
+    def test_rt48_a_porta_paga_recusa_a_rota_proibida(self):
+        """ROUTE_NOT_ALLOWED + auth + budget + token = POST 0."""
+        import coletor as ct
+        import autorizacao_de_gasto as az
+        import nenhuma_compra_sem_autorizacao as sr02
+        import relevancia_da_fonte as rl
+        import scrap_http as http
+        import subprocess
+        livro = [rl.Decisao(source_id=FONTE, proposito='T9', resultado=rl.SIM,
+                            motivo='medido', metodo='PROVA',
+                            evidencia={'file': 'x', 'line': 1}).para_livro()]
+        aut = az.autorizar(motivo=az.COLETA_NORMAL, proposito='T9',
+                           source_id=FONTE, max_execucoes=1, max_usd=0.50,
+                           livro=livro)
+        falsa = sr02.FalsaApify([])
+        real = subprocess.run
+        subprocess.run = falsa
+        try:
+            with self.assertRaises(ct.RotaNaoPermitida):
+                with http.orcamento_de_rede(5), ct.orcamento_financeiro(0.50):
+                    ct.executar('harvestapi~linkedin-profile-search-by-name',
+                                {'firstName': 'x'}, token='apify_api_VALIDO',
+                                run_id='rt48', platform='LINKEDIN', country='IT',
+                                mission='RC01', query='q', source_version='p',
+                                evidence_path='/dev/null', wait=60,
+                                salvar_raw=False, autorizacao=aut, teto_usd=0.50)
+        finally:
+            subprocess.run = real
+        self.assertEqual(falsa.posts, [])
+        # E A AUTORIZAÇÃO NEM FOI TOCADA: a política parou antes do dinheiro.
+        self.assertEqual(aut.gastas, 0)
+
+    def test_rt49_a_recusa_de_politica_nao_se_veste_de_recusa_de_gasto(self):
+        import autorizacao_de_gasto as az
+        import coletor as ct
+        self.assertFalse(issubclass(ct.RotaNaoPermitida, az.GastoRecusado))
+        self.assertIn(ct.RotaNaoPermitida, ct._recusas_nossas())
+
+
 # ══════════════════════════════════════════════════════════════════════════
 # RT15–RT20 · A RELEVÂNCIA GUARDA O GASTO, NÃO A OBSERVAÇÃO
 # ══════════════════════════════════════════════════════════════════════════
@@ -321,7 +605,7 @@ class AsEntradasDaV1(unittest.TestCase):
     def test_rt21_nenhum_bypass_ativo_na_v1(self):
         """ACTIVE_V1_BYPASSES = 0."""
         maus = [(e['WORKFLOW'], e['FASE']) for e in self.entradas
-                if e['ESTADO'] == 'ACTIVE_V1_BYPASS']
+                if e['ESTADO'] == ent.BYPASS]
         self.assertEqual(maus, [])
 
     def test_rt22_nenhum_fallback_escondido_na_v1(self):
@@ -337,7 +621,7 @@ class AsEntradasDaV1(unittest.TestCase):
     def test_rt24_o_canario_e_uma_entrada_canonica(self):
         canario = [e for e in self.entradas if e['FASE'] == FASE]
         self.assertTrue(canario)
-        self.assertEqual(canario[0]['ESTADO'], 'ACTIVE_V1_CANONICAL')
+        self.assertEqual(canario[0]['ESTADO'], ent.CANONICAL_V1)
 
     def test_rt25_os_desvios_que_adquirem_estao_declarados(self):
         """UM DESVIO DECLARADO É UMA MEDIÇÃO. UM DESVIO CALADO É UM BURACO."""

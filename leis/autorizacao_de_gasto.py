@@ -165,6 +165,7 @@ from __future__ import annotations
 
 import os
 import sys
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
@@ -289,6 +290,35 @@ class GastoRecusado(PermissionError):
 # de um dicionario que alguem escreveu. Sem ele, `Autorizacao(...)` levanta.
 _SELO = object()
 
+# ── O QUE JA FOI GASTO NAO VIVE DENTRO DA AUTORIZACAO ──────────────────────
+# ⚠️ MEDIDO NESTA ARVORE, e reproduzido antes de corrigido (SCRAP-CV-02, cujas
+# propriedades esta linha porta uma a uma):
+#
+#     a = autorizar(max_execucoes=1)      # UMA compra autorizada
+#     b = copy.copy(a)
+#     a -> POST 1 · b -> POST 1           # DUAS compras, uma autorizacao
+#
+# O contador vivia num campo do objecto, e uma copia leva o campo com ela. A
+# `deepcopy` ja morria no selo, porque reconstroi; a `copy` rasa nao reconstroi
+# nada — copia o `__dict__` inteiro, selo incluido.
+#
+#     COPIAR UMA AUTORIZACAO NAO E RECEBER UMA AUTORIZACAO.
+#
+# Entao o consumo passa a viver AQUI, indexado pela identidade cunhada no
+# momento da concessao. Uma copia leva o mesmo nome, e o mesmo nome encontra o
+# mesmo contador: ela nao ganha execucao nenhuma por ser copia.
+#
+#     UMA AUTORIZACAO VALE POR IDENTIDADE, E NAO PELA FORMA.
+_CONSUMO = {}
+
+
+def _registo(ident):
+    return _CONSUMO.setdefault(ident, {'GASTAS': 0, 'LEDGER': None})
+
+
+class AutorizacaoSelada(AttributeError):
+    """Escrever numa autorizacao ja concedida. Nao se faz, e diz-se porque."""
+
 
 def agora() -> str:
     return datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -313,7 +343,10 @@ class Autorizacao:
     versao: str = VERSAO_DA_GUARDA
     concedida_em: str = ''
     _selo: object = None
-    _gastas: int = 0
+    #: A identidade desta concessao. Cunhada uma vez, e e por ela que o
+    #: registo de consumo a encontra — inclusive quando alguem a copia.
+    _id: str = ''
+    _fechada: bool = False
 
     def __post_init__(self):
         if self._selo is not _SELO:
@@ -321,10 +354,38 @@ class Autorizacao:
                 'AUTORIZACAO_FABRICADA: %s Use leis/autorizacao_de_gasto.autorizar().'
                 % CAUSAS['AUTORIZACAO_FABRICADA'])
         self.concedida_em = self.concedida_em or agora()
+        self._id = self._id or uuid.uuid4().hex
+        _registo(self._id)
+        # ── E A PARTIR DAQUI ELA NAO MUDA MAIS ──────────────────────────────
+        # ⚠️ MEDIDO: `a.max_usd = 99.0` era aceite depois de concedida, e a
+        # trava do fornecedor compara `teto_usd` contra `max_usd`. Subir o
+        # campo subia o tecto — uma autorizacao de dez centimos passava a
+        # autorizar noventa e nove dolares sem ninguem autorizar nada.
+        #
+        #     UMA AUTORIZACAO QUE MUDA DEPOIS DE CONCEDIDA NAO FOI CONFERIDA.
+        self._fechada = True
+
+    def __setattr__(self, nome, valor):
+        if getattr(self, '_fechada', False):
+            raise AutorizacaoSelada(
+                'esta autorizacao ja foi concedida e nao se reescreve '
+                '(tentou-se mudar «%s»). Para outros limites, pede-se outra.'
+                % nome)
+        object.__setattr__(self, nome, valor)
+
+    @property
+    def gastas(self) -> int:
+        """Quantas execucoes ja se gastaram — lido do registo, nunca do objecto."""
+        return _registo(self._id)['GASTAS']
+
+    @property
+    def ledger(self):
+        """O orcamento contra o qual este limite humano foi conferido."""
+        return _registo(self._id)['LEDGER']
 
     @property
     def restantes(self) -> int:
-        return max(0, self.max_execucoes - self._gastas)
+        return max(0, self.max_execucoes - self.gastas)
 
     def para_o_manifesto(self) -> dict:
         """O que fica escrito na corrida. Sem segredo, sem objecto."""
@@ -333,7 +394,9 @@ class Autorizacao:
             'PROPOSITO': self.proposito,
             'SOURCE_ID': self.source_id,
             'MAX_EXECUCOES': self.max_execucoes,
-            'EXECUCOES_GASTAS': self._gastas,
+            'EXECUCOES_GASTAS': self.gastas,
+            'AUTORIZACAO_ID': self._id,
+            'LEDGER': self.ledger,
             'MAX_USD': self.max_usd,
             'QUEM_AUTORIZOU': self.quem_autorizou,
             'PORQUE': self.porque,
@@ -432,7 +495,8 @@ def autorizar(*, motivo, proposito, source_id=None, max_execucoes=None,
 
 
 def conferir_e_consumir(autorizacao, *, motivo, proposito, source_id=None,
-                        teto_usd=None) -> dict:
+                        teto_usd=None, orcamento_autorizado=None,
+                        ledger=None) -> dict:
     """A PORTA. Chamada pelo dono da execucao paga, ANTES do POST.
 
     → o recibo da autorizacao, ou levanta `GastoRecusado`. Consome uma
@@ -472,10 +536,58 @@ def conferir_e_consumir(autorizacao, *, motivo, proposito, source_id=None,
                 'SEM_TETO_NO_FORNECEDOR',
                 'teto pedido %.4f acima do autorizado %.4f'
                 % (float(teto_usd), float(autorizacao.max_usd)))
+    # ── O LIMITE HUMANO CONTRA O LEDGER DA EXECUCAO ─────────────────────────
+    # ⚠️ MEDIDO NESTA ARVORE, e reproduzido antes de corrigido:
+    #
+    #     autorizacao MAX_USD = 0.10 · orcamento declarado = 99.00 -> COMPROU
+    #
+    # A trava do fornecedor comparava `teto_usd` com `max_usd` e mais nada. O
+    # ORCAMENTO da execucao — o que ela pode comprometer no total — nunca era
+    # confrontado com o limite que a pessoa concedeu.
+    #
+    #     LIMITE HUMANO != LEDGER OPERACIONAL.
+    #     FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD.
+    if orcamento_autorizado is not None and autorizacao.max_usd is not None:
+        try:
+            declarado = float(orcamento_autorizado)
+            humano = float(autorizacao.max_usd)
+        except (TypeError, ValueError):
+            raise GastoRecusado(
+                'ORCAMENTO_NAO_NUMERICO',
+                'orcamento %r ou limite %r nao e numero'
+                % (orcamento_autorizado, autorizacao.max_usd))
+        if declarado > humano + 1e-9:
+            raise GastoRecusado(
+                'ORCAMENTO_ACIMA_DA_AUTORIZACAO',
+                'a execucao declarou poder comprometer %.4f e a pessoa '
+                'autorizou %.4f' % (declarado, humano))
+
+    # ── E TEM DE SER SEMPRE O MESMO LEDGER ──────────────────────────────────
+    # ⚠️ MEDIDO: a MESMA autorizacao gastou sob DOIS orcamentos separados. Cada
+    # um cabia no limite humano; a soma nao. Conferir um limite contra um
+    # ledger que muda a meio e o mesmo que nao o conferir.
+    #
+    #     UM LIMITE CONFERIDO CONTRA UM LEDGER QUE MUDA NAO FOI CONFERIDO.
+    #
+    # A saida NAO e dar um saldo a esta lei — seriam duas pecas a somar o mesmo
+    # dolar. Ela guarda um NOME: a identidade do orcamento contra o qual o
+    # limite foi conferido da primeira vez.
+    #
+    #     UM NOME NAO E UMA SOMA.
+    reg = _registo(autorizacao._id)
+    if ledger is not None:
+        if reg['LEDGER'] is None:
+            reg['LEDGER'] = ledger
+        elif reg['LEDGER'] != ledger:
+            raise GastoRecusado(
+                'AUTORIZACAO_DE_OUTRO_LEDGER',
+                'esta autorizacao ja foi conferida contra outro orcamento. Ela '
+                'vale dentro de UMA execucao; para outra, pede-se outra vez.')
+
     if autorizacao.restantes <= 0:
         raise GastoRecusado('AUTORIZACAO_ESGOTADA', CAUSAS['AUTORIZACAO_ESGOTADA'])
 
-    autorizacao._gastas += 1
+    reg['GASTAS'] += 1
     recibo = autorizacao.para_o_manifesto()
     recibo['VEREDITO'] = AUTORIZADO
     recibo['TETO_USD_PEDIDO'] = teto_usd

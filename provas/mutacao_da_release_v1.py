@@ -59,7 +59,9 @@ MUTACOES = [
     ('M3 · a guarda de gasto sai da primitiva paga', DONO,
      "    recibo = az.conferir_e_consumir(\n"
      "        autorizacao, motivo=motivo, proposito=proposito,\n"
-     "        source_id=source_id, teto_usd=teto_usd)",
+     "        source_id=source_id, teto_usd=teto_usd,\n"
+     "        orcamento_autorizado=_autorizado,\n"
+     "        ledger=None if _orc is None else _orc.identidade)",
      "    recibo = {'CAN_START_PAID_EXECUTION': True}",
      'nenhum POST nasce sem autorização consumida'),
 
@@ -76,7 +78,7 @@ MUTACOES = [
 
     # ── 4 · REPEAT PAID POST ──────────────────────────────────────────────
     ('M6 · a autorização deixa de se gastar', LEI,
-     "    autorizacao._gastas += 1",
+     "    reg['GASTAS'] += 1",
      "    pass",
      'uma autorização de UMA execução não paga duas'),
 
@@ -158,8 +160,10 @@ MUTACOES = [
      'um filtro fora da lista da fase recusa a corrida'),
 
     ('M17 · a fase do canário troca de capacidade', ADP,
-     "    'canario-bluesky': ('BLUESKY', 'bluesky.author.incremental', {'limit': 1}),",
-     "    'canario-bluesky': ('INSTAGRAM', 'instagram.profile.discovery', {}),",
+     "    'canario-bluesky': ('BLUESKY', 'bluesky.author.incremental', {'limit': 1},\n"
+     "                        rc.COLHEITA),",
+     "    'canario-bluesky': ('INSTAGRAM', 'instagram.profile.discovery', {},\n"
+     "                        rc.COLHEITA),",
      'a fase do canário pede a capacidade do canário'),
 
     ('M18 · o alvo em falta deixa de parar a corrida', ADP,
@@ -180,6 +184,62 @@ MUTACOES = [
      "                      'CAPABILITY_STATE_AFTER': pronto['CAPABILITY_STATE']})",
      "                      'CAPABILITY_STATE_AFTER': 'PROVEN'})",
      'TRIAL PASSADO != CAPACIDADE PROVADA'),
+
+    # ══════════════════════════════════════════════════════════════════════
+    # OS QUE A CONTINUACAO ACRESCENTOU — politica, ledger, especie, tecto
+    # ══════════════════════════════════════════════════════════════════════
+    ('M21 · a politica sai da porta paga', DONO,
+     "    if _proibida:",
+     "    if False:",
+     'dinheiro autorizado nao abre rota proibida'),
+
+    ('M22 · a matriz deixa de reconhecer o ator proibido', 'leis/social_matriz.py',
+     "    if proibidas and not permitidas:",
+     "    if False:",
+     'a matriz responde pelo ator que ela nomeia'),
+
+    ('M23 · a politica vem DEPOIS da guarda de gasto', DONO,
+     "        raise RotaNaoPermitida(\n"
+     "            'ROUTE_NOT_ALLOWED · %s. Nenhum POST foi criado, e nenhuma '\n"
+     "            'autorizacao foi consumida.' % _porque)",
+     "        pass",
+     'a rota proibida nao consome a autorizacao'),
+
+    ('M24 · o orcamento deixa de ser conferido contra a autorizacao', LEI,
+     "        if declarado > humano + 1e-9:",
+     "        if False:",
+     'FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD'),
+
+    ('M25 · a autorizacao deixa de se prender a um ledger', LEI,
+     "        elif reg['LEDGER'] != ledger:",
+     "        elif False:",
+     'um limite conferido contra um ledger que muda nao foi conferido'),
+
+    ('M26 · a autorizacao volta a poder ser reescrita', LEI,
+     "        if getattr(self, '_fechada', False):",
+     "        if False:",
+     'uma autorizacao que muda depois de concedida nao foi conferida'),
+
+    ('M27 · o consumo volta para dentro do objecto', LEI,
+     "        return _registo(self._id)['GASTAS']",
+     "        return 0",
+     'copiar uma autorizacao nao e receber uma autorizacao'),
+
+    ('M28 · a especie da fase deixa de decidir o terminal', ADP,
+     "    if especie != rc.COLHEITA:",
+     "    if False:",
+     'so COLHEITA atravessa o ingresso'),
+
+    ('M29 · o teto de itens deixa de descer', ADP,
+     "                      **{aceites[k]: v for k, v in nomeados.items()})",
+     "                      )",
+     'o teto do pedido chega a rota'),
+
+    ('M30 · o conteudo do LinkedIn volta a prometer resultado',
+     'coleta/scrap_capacidades.py',
+     "    'linkedin.direct_post': ('LINKEDIN', BLOCKED, ONLINE, None, _C11, 'FETCH_POST'),",
+     "    'linkedin.direct_post': ('LINKEDIN', PROVEN, ONLINE, None, _C11, 'FETCH_POST'),",
+     'uma rota que funciona nao e uma rota permitida'),
 ]
 
 
