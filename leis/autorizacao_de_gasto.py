@@ -165,6 +165,7 @@ from __future__ import annotations
 
 import os
 import sys
+import threading
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -289,6 +290,42 @@ class GastoRecusado(PermissionError):
 # ⚠️ O SELO. Privado ao modulo, e e a unica coisa que separa uma autorizacao
 # de um dicionario que alguem escreveu. Sem ele, `Autorizacao(...)` levanta.
 _SELO = object()
+
+# ── E A TRAVA QUE FAZ DE CONFERIR-E-CONSUMIR UM SO ACTO ────────────────────
+# ⚠️ MEDIDO NA NIGHT-SHIFT-01 §15, e reproduzido antes de corrigido:
+#
+#     autorizacao para 1 execucao   -> 2 corridas pagaram
+#     autorizacao para 3 execucoes  -> 5 corridas pagaram
+#
+# E nao so na primitiva: pela PORTA PAGA de verdade, com 16 fios e teto 3,
+# NASCERAM 4 POSTs. Uma compra alem do que a pessoa autorizou.
+#
+# A causa e a distancia entre duas linhas que pareciam uma:
+#
+#     if autorizacao.restantes <= 0: recusa
+#     reg['GASTAS'] += 1
+#
+# Entre a pergunta e a resposta cabe outro fio. `+= 1` tambem nao e atomico —
+# le, soma e escreve sao tres passos, e o interpretador troca de fio entre
+# bytecodes. Nenhuma das duas coisas e rara o suficiente para nao acontecer
+# numa maquina com carga.
+#
+#     UMA GUARDA QUE CONFERE E DEPOIS CONSOME
+#     DEIXA PASSAR QUEM CHEGAR NO MEIO.
+#     CONFERIR E CONSUMIR TEM DE SER UM SO ACTO.
+#
+# A trava e UMA, do modulo, e nao uma por autorizacao: a seccao critica nao
+# faz E/S nenhuma — sao comparacoes e duas escritas num dicionario — e uma
+# trava so torna a prova de correccao trivial. Serializar isto nao custa nada
+# comparado com o POST que vem a seguir.
+#
+# E ELA NAO PRECISA DE ATRAVESSAR PROCESSOS. `_SELO` e um `object()` deste
+# processo: uma autorizacao reconstruida noutro lado nao tem o selo e e
+# recusada como `AUTORIZACAO_FABRICADA` — medido, nao presumido, em
+# `provas/queda_e_repeticao_da_v1.py`. Um processo, um registo, uma trava.
+#
+#     COPIAR UMA AUTORIZACAO NAO E RECEBER UMA AUTORIZACAO.
+_TRAVA = threading.Lock()
 
 # ── O QUE JA FOI GASTO NAO VIVE DENTRO DA AUTORIZACAO ──────────────────────
 # ⚠️ MEDIDO NESTA ARVORE, e reproduzido antes de corrigido (SCRAP-CV-02, cujas
@@ -574,20 +611,25 @@ def conferir_e_consumir(autorizacao, *, motivo, proposito, source_id=None,
     # limite foi conferido da primeira vez.
     #
     #     UM NOME NAO E UMA SOMA.
+    # ⚠️ A PARTIR DAQUI, UM SO ACTO. Ver `_TRAVA`: ler o que resta, prender o
+    # ledger e consumir sao tres passos sobre o MESMO registo, e separa-los
+    # deixa passar quem chegar no meio. A trava entra aqui e nao antes: tudo o
+    # que esta acima le apenas a autorizacao, que e imutavel depois de selada.
     reg = _registo(autorizacao._id)
-    if ledger is not None:
-        if reg['LEDGER'] is None:
-            reg['LEDGER'] = ledger
-        elif reg['LEDGER'] != ledger:
-            raise GastoRecusado(
-                'AUTORIZACAO_DE_OUTRO_LEDGER',
-                'esta autorizacao ja foi conferida contra outro orcamento. Ela '
-                'vale dentro de UMA execucao; para outra, pede-se outra vez.')
+    with _TRAVA:
+        if ledger is not None:
+            if reg['LEDGER'] is None:
+                reg['LEDGER'] = ledger
+            elif reg['LEDGER'] != ledger:
+                raise GastoRecusado(
+                    'AUTORIZACAO_DE_OUTRO_LEDGER',
+                    'esta autorizacao ja foi conferida contra outro orcamento. Ela '
+                    'vale dentro de UMA execucao; para outra, pede-se outra vez.')
 
-    if autorizacao.restantes <= 0:
-        raise GastoRecusado('AUTORIZACAO_ESGOTADA', CAUSAS['AUTORIZACAO_ESGOTADA'])
+        if autorizacao.restantes <= 0:
+            raise GastoRecusado('AUTORIZACAO_ESGOTADA', CAUSAS['AUTORIZACAO_ESGOTADA'])
 
-    reg['GASTAS'] += 1
+        reg['GASTAS'] += 1
     recibo = autorizacao.para_o_manifesto()
     recibo['VEREDITO'] = AUTORIZADO
     recibo['TETO_USD_PEDIDO'] = teto_usd

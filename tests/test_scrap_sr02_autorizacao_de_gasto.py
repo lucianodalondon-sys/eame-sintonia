@@ -505,5 +505,138 @@ class OQueAMutacaoEncontrou(unittest.TestCase):
                          'SPEND_AUTH_OWNER_COUNT != 1: %s' % donos)
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# CONFERIR E CONSUMIR SÃO UM SÓ ACTO
+# ══════════════════════════════════════════════════════════════════════════
+class DuasCorridasAoMesmoTempoNaoPagamDuasVezes(unittest.TestCase):
+    """⚠️ MEDIDO NA NIGHT-SHIFT-01 §15, E REPRODUZIDO ANTES DE CORRIGIDO.
+
+        autorização para 1 execução   ->  2 corridas pagaram
+        autorização para 3 execuções  ->  5 corridas pagaram
+
+    E não só na primitiva: pela PORTA PAGA de verdade, com 16 fios e teto 3,
+    NASCERAM 4 POSTs. Uma compra além do que a pessoa autorizou.
+
+    Entre a pergunta e a resposta cabia outro fio:
+
+        if autorizacao.restantes <= 0: recusa
+        reg['GASTAS'] += 1
+
+        UMA GUARDA QUE CONFERE E DEPOIS CONSOME
+        DEIXA PASSAR QUEM CHEGAR NO MEIO.
+
+    POR QUE SE ENCURTA O INTERVALO DE TROCA
+    -----------------------------------------
+    A corrida é rara com o intervalo normal — e rara não é ausente. Encurtá-lo
+    não INVENTA a corrida: ela existe no código ou não existe. Só a torna
+    visível num segundo em vez de num mês.
+
+        «NÃO APARECEU» NÃO É «NÃO EXISTE».
+
+    E o valor é REPOSTO no fim: ele é global do processo, e deixá-lo curto
+    faria as baterias seguintes medir noutra máquina que não a delas.
+    """
+
+    RODADAS = 200
+
+    def setUp(self):
+        self._intervalo = sys.getswitchinterval()
+        sys.setswitchinterval(1e-9)
+
+    def tearDown(self):
+        sys.setswitchinterval(self._intervalo)
+
+    def _quantos_passaram(self, fios, teto):
+        """→ o maior número de execuções que a porta concedeu em N rodadas."""
+        import threading
+        pior = 0
+        for _ in range(self.RODADAS):
+            a = _autorizacao(teto)
+            porta = threading.Barrier(fios)
+            passaram, trava = [], threading.Lock()
+
+            def bate():
+                porta.wait()
+                try:
+                    az.conferir_e_consumir(a, motivo=az.TRIAL_DE_CAPACIDADE,
+                                           proposito=PROP, teto_usd=0.10)
+                except az.GastoRecusado:
+                    return
+                with trava:
+                    passaram.append(1)
+
+            fs = [threading.Thread(target=bate) for _ in range(fios)]
+            for f in fs:
+                f.start()
+            for f in fs:
+                f.join()
+            pior = max(pior, len(passaram))
+            self.assertEqual(a.gastas, len(passaram),
+                             'o contador e o número de autorizações divergiram')
+        return pior
+
+    def test_uma_execucao_autorizada_paga_uma_vez(self):
+        self.assertEqual(self._quantos_passaram(16, 1), 1)
+
+    def test_tres_execucoes_autorizadas_pagam_tres_vezes(self):
+        """O teto é o teto, e não «mais ou menos o teto»."""
+        self.assertEqual(self._quantos_passaram(16, 3), 3)
+
+    def test_e_com_muitos_fios_continua_a_ser_o_teto(self):
+        self.assertEqual(self._quantos_passaram(64, 3), 3)
+
+    def test_a_porta_paga_de_verdade_nao_deixa_nascer_compra_a_mais(self):
+        """A PRIMITIVA GUARDA TODOS — e é pela porta que se confere.
+
+        CHAMAR A LEI À MÃO PROVA A LEI, E MAIS NADA: aqui corre `coletor`
+        inteiro, e conta-se o POST que TERIA saído.
+        """
+        import threading
+        a = _autorizacao(3)
+        falsa = _Falsa()
+        real, curl = subprocess.run, ct._curl
+        subprocess.run = falsa
+        ct._curl = ct._CURL_DA_CASA
+        porta = threading.Barrier(16)
+        try:
+            with http.orcamento_de_rede(64), ct.orcamento_financeiro(0.10):
+                def bate():
+                    porta.wait()
+                    try:
+                        ct.executar(ATOR, {'q': 1}, token='FALSO',
+                                    run_id='t-sr02-corrida', platform='YOUTUBE',
+                                    country='IT', mission='SR-02', query='q',
+                                    source_version='v',
+                                    evidence_path='/dev/null', wait=5,
+                                    salvar_raw=False, teto_usd=0.10,
+                                    modo=az.TRIAL, autorizacao=a,
+                                    proposito=PROP,
+                                    motivo_do_gasto=az.TRIAL_DE_CAPACIDADE)
+                    except Exception:                             # noqa: BLE001
+                        pass
+                fs = [threading.Thread(target=bate) for _ in range(16)]
+                for f in fs:
+                    f.start()
+                for f in fs:
+                    f.join()
+        finally:
+            subprocess.run, ct._curl = real, curl
+        self.assertLessEqual(len(falsa.posts), 3,
+                             'nasceram %d compras para 3 autorizadas'
+                             % len(falsa.posts))
+
+    def test_uma_corrida_que_morre_depois_de_consumir_nao_devolve_o_gasto(self):
+        """A rota morreu e o POST já tinha saído. Repetir é COMPRAR OUTRA VEZ."""
+        a = _autorizacao(1)
+        az.conferir_e_consumir(a, motivo=az.TRIAL_DE_CAPACIDADE,
+                               proposito=PROP, teto_usd=0.10)
+        with self.assertRaises(az.GastoRecusado) as c:
+            az.conferir_e_consumir(a, motivo=az.TRIAL_DE_CAPACIDADE,
+                                   proposito=PROP, teto_usd=0.10)
+        self.assertEqual(c.exception.causa, 'AUTORIZACAO_ESGOTADA')
+        self.assertEqual(a.gastas, 1)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
