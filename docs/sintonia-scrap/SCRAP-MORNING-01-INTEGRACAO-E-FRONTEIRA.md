@@ -128,6 +128,52 @@ mutação não mudava nada).
 
 ---
 
+## 2.5 · A REGRESSÃO, E POR QUE A PRIMEIRA MEDIÇÃO NÃO SERVIA
+
+A base tem de ser medida **no mesmo ambiente**. A primeira comparação usou a
+base da madrugada, tirada noutro worktree — e esse worktree não tinha a media
+local que o principal carrega por fora do Git. Cinco testes apareceram como
+«consertados» e nenhum deles tinha sido tocado: eram testes que aqui conseguem
+correr e lá saltavam.
+
+```
+COMPARAR DUAS ÁRVORES COM CONTEÚDO DIFERENTE
+COMPARA O CONTEÚDO, NÃO O CÓDIGO.
+```
+
+A base foi refeita **no mesmo worktree**, com os mesmos ficheiros não
+versionados, mudando só o código:
+
+```
+RC 081316fc   2.862 testes · 191 não-PASS
+RC final      2.885 testes · 190 não-PASS
+
+OLD_FAILURES   = 191
+NEW_FAILURES   = 0
+FIXED_FAILURES = 0
+TESTES NOVOS   = 23   todos PASS
+SUMIRAM        = 0
+
+PASS 2.695 · SKIP 175 · FAIL 13 · ERROR 1 · LOADERROR 1
+```
+
+**E o único teste que mudou de veredito também não foi um conserto.**
+`test_portao…test_branch_vivo_nao_e_alvo_congelado` saiu de FAIL para PASS, e a
+causa é o método: `auditoria.validar()` exige, na terceira verificação, que a
+árvore auditada seja **um worktree destacado e não um branch vivo**. A base
+correu com `HEAD` destacado — e por isso `validar()` aceitou-a, que é
+exactamente o que o teste manda não acontecer.
+
+```
+UMA BASE MEDIDA COM A CABEÇA DESTACADA
+MEDE UMA ÁRVORE QUE NÃO É A DE TRABALHO.
+```
+
+Verificado à parte, na árvore final e limpa, com o ramo vivo: o teste passa.
+`FIXED_FAILURES = 0` é o número honesto.
+
+---
+
 ## 3 · E7 — O QUE ELE É, E O QUE ELE NÃO É
 
 A cadeia liga inteira. Com o código da Collection sobre os dados do SCRAP,
