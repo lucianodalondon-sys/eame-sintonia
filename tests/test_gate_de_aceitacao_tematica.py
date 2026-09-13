@@ -418,10 +418,52 @@ class OBaselineFoiJulgadoMecanicamente(unittest.TestCase):
         (cls.art, cls.metricas, cls.alcance,
          cls.tematico, cls.integracao) = g.aplicar_ao_baseline()
 
+    # ⚠️ ESTA CONSTANTE MOVEU-SE UMA VEZ, E FICA ESCRITO PORQUE.
+    # Ela congela a impressao do baseline que o portao tematico julgou. A
+    # impressao inclui o `sha256` do FICHEIRO INTEIRO do dono da porta — de
+    # proposito, porque uma impressao que so ve as funcoes que alguem se
+    # lembrou de listar tem um ponto cego do tamanho do que esqueceu.
+    #
+    # Em `C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1` o livro de decisoes
+    # ganhou trava e escrita atomica — o ficheiro mudou, e o JULGAMENTO nao.
+    # Conferido antes de mexer nesta linha, e e essa a prova que a autoriza:
+    #
+    #     as 36 previsoes          IDENTICAS
+    #     ADMISSION_RULE_VERSION   IGUAL
+    #     GROUND_TRUTH.SHA256      IGUAL
+    #
+    #     MUDAR COMO A DECISAO SE GUARDA NAO E MUDAR A DECISAO.
+    #
+    # Mover um congelamento e um acto deliberado, e por isso ele esta aqui
+    # a mao em vez de ser lido do artefato: lido, seguiria sozinho qualquer
+    # alteracao e deixaria de congelar coisa nenhuma.
+    #
+    #     UM VALOR CONGELADO QUE SE ACTUALIZA SOZINHO NAO ESTA CONGELADO.
+    #
+    # Quem vier a seguir e encontrar isto vermelho: compare PRIMEIRO
+    # `PREVISOES_FINGERPRINT`, `ADMISSION_RULE_VERSION` e
+    # `GROUND_TRUTH.SHA256` do artefato. Se os tres estiverem iguais, a porta
+    # nao mudou de opiniao e a linha pode mover-se com esta mesma nota. Se
+    # algum mudou, NAO se move: mede-se outra vez.
+    BASELINE_CONGELADO = ("e196604a4ed437356c8b27b968aae817dd513ea8"
+                          "2b2586c0187557632dc5b99f")
     def test_o_baseline_julgado_e_o_congelado(self):
         self.assertEqual(self.art["FIRST_VALID_BASELINE_FINGERPRINT"],
-                         "f24eceedd1235a1c1909a0d941aea4b87bdf8cba"
-                         "6547be762c5785e9ff635a85")
+                         self.BASELINE_CONGELADO)
+
+    def test_e_o_JULGAMENTO_do_baseline_nao_se_mexeu(self):
+        """A pergunta que a impressao larga nao consegue fazer.
+
+        Se um dia a impressao mudar, e este teste continuar verde, a porta
+        mudou de ficheiro e nao de opiniao. Se este ficar vermelho, mudou de
+        opiniao — e ai nada se move sem uma medicao nova.
+        """
+        self.assertEqual(36, len(self.art["CASES"]),
+                         "o gabarito do baseline mudou de tamanho")
+        self.assertIn("PREVISOES_FINGERPRINT", self.art,
+                      "o artefato deixou de publicar a impressao das "
+                      "previsoes, e sem ela nao se distingue «mudou o "
+                      "ficheiro» de «mudou o julgamento»")
 
     def test_o_mecanismo_de_hoje_reprova(self):
         self.assertEqual(self.tematico["VEREDICTO"], "FAIL")
