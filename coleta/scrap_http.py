@@ -329,12 +329,29 @@ class EstadoDaApi(RuntimeError):
     o apanha e o roteador. Se morasse num dos dois, o outro teria de o importar
     — e um deles importar o outro e o ciclo que este ficheiro existe para
     desfazer.
+
+    ⚠️ `DETALHE` EXISTE PORQUE A FRASE SE PERDIA. Medido na NIGHT-SHIFT-01:
+    `social_rotas` grava `registro['ERRO'] = redigir(str(e))`, e `str(e)` eram
+    so os dois NOMES. Quem levantava isto entregava o estado certo e apagava a
+    unica linha que dizia QUAL ferramenta faltava — «sem Chrome nesta maquina:
+    nenhum Chrome ou Chromium encontrado no PATH».
+
+        UM ESTADO SEM A FRASE MANDA A PESSOA CERTA PARA O SITIO ERRADO.
+
+    Os tres campos nao se colapsam, e e por isso que sao tres:
+
+        STATE          o estado canonico            EXECUTOR_UNAVAILABLE
+        NATIVE_REASON  o nome nativo, de maquina    BROWSER_NOT_REACHED
+        DETALHE        a frase, de gente            «sem Chrome nesta maquina»
     """
 
     def __init__(self, rel):
         self.rel = rel
-        super().__init__('%s (razao nativa: %s)' % (rel.get('STATE'),
-                                                    rel.get('NATIVE_REASON')))
+        recado = '%s (razao nativa: %s)' % (rel.get('STATE'),
+                                            rel.get('NATIVE_REASON'))
+        if rel.get('DETALHE'):
+            recado = '%s: %s' % (recado, rel['DETALHE'])
+        super().__init__(recado)
 
 
 # ══════════════════════════════════════════════════════════════════════════

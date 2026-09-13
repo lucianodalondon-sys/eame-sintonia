@@ -38,6 +38,9 @@ EXE = 'coleta/scrap_executor.py'
 ROT = 'coleta/social_rotas.py'
 SUP = 'provas/superficie_do_scrap_v1.py'
 REC = 'pedido/receitas.py'
+CDP = 'ferramentas/cdp.py'
+HTTP = 'coleta/scrap_http.py'
+IGA = 'coleta/adaptador_instagram.py'
 
 #: Cada mutante é uma das dez classes que a §15 nomeia, escrita como uma
 #: mudança que MUDA COMPORTAMENTO — renomear uma variável não é um mutante.
@@ -246,6 +249,32 @@ MUTACOES = [
      "    if objetos and trace.get('COST_STATE') == NAO_CORREU:",
      "    if False:",
      'uma rota que nao correu nao observou nada'),
+
+    # ── 12 · UMA FALHA QUE SABE VOLTA A CHEGAR COMO UMA QUE NAO SABE ──────
+    ('M32 · o dono da ferramenta deixa de declarar o estado', CDP,
+     "        self.estado = estado",
+     "        self.estado = None",
+     'sem navegador, o estado diz qual e'),
+
+    ('M33 · o adaptador deixa de traduzir o estado declarado', IGA,
+     "        if declarado:\n"
+     "            # A frase viaja em `DETALHE` e nao em `NATIVE_REASON`: o segundo e",
+     "        if False:\n"
+     "            # A frase viaja em `DETALHE` e nao em `NATIVE_REASON`: o segundo e",
+     'uma falha que sabe nao chega como uma que nao sabe'),
+
+    ('M34 · a frase perde-se e so ficam os nomes', HTTP,
+     "        if rel.get('DETALHE'):",
+     "        if False:",
+     'um estado sem a frase manda a pessoa certa para o sitio errado'),
+
+    ('M35 · o roteador volta a escrever a chave a None', ROT,
+     "        for campo in ('NATIVE_REASON', 'RECOVERY_ACTION'):\n"
+     "            if e.rel.get(campo):\n"
+     "                registro[campo] = e.rel[campo]",
+     "        registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')\n"
+     "        registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')",
+     'uma chave escrita a None nao e uma chave ausente'),
 ]
 
 

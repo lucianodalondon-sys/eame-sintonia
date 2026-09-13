@@ -790,5 +790,143 @@ class UmaRotaQueNaoCorreuNaoObservouNada(unittest.TestCase):
         self.assertNotIn('PORQUE_ZERO_COLHEITA', env)
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# NS8–NS15 · UMA FALHA QUE SABE NÃO PODE CHEGAR COMO UMA FALHA QUE NÃO SABE
+# ══════════════════════════════════════════════════════════════════════════
+class UmaFalhaQueSabeChegaComNome(unittest.TestCase):
+    """⚠️ MEDIDO NA NIGHT-SHIFT-01 §9, NUM RUNNER SEM CHROME.
+
+        instagram.profile.discovery -> RESULT = UNKNOWN_ERROR
+        ROUTER_RECORD.ERRO = «sem Chrome nesta máquina: nenhum Chrome ou
+                              Chromium encontrado no PATH nem nos caminhos
+                              padrão»
+
+    A frase sabia exactamente o que tinha acontecido. O ESTADO dizia «não
+    classificado». De manhã, `UNKNOWN_ERROR` sobre Instagram manda alguém
+    depurar o Instagram — quando o que falta é um navegador.
+
+        UMA MENSAGEM QUE SABE E UM ESTADO QUE NÃO SABE VALEM MENOS QUE NENHUM
+        DOS DOIS: QUEM LÊ POR MÁQUINA LÊ O ESTADO.
+
+    Nada disto é vocabulário novo: `leis/falhas.py` já tinha
+    `EXECUTOR_UNAVAILABLE` e já listava `BROWSER_NOT_REACHED` como nome nativo
+    dele. Faltava quem o dissesse — e o dono é `cdp`, que a própria
+    `falhas.classificar` nomeia entre quem «deve classificar por conta
+    própria».
+
+        FAILURE STATE VEM DO DONO, OU NÃO É FAILURE STATE.
+
+    O QUE É FALSO AQUI
+    -------------------
+    A FERRAMENTA, e só ela: `instagram_janela.perfis` é trocada por uma que
+    levanta o que o `cdp` levanta. Não se chama `perfis()` a sério porque, numa
+    máquina COM Chrome, ela subia um Chrome e ia à internet — e a prova
+    passaria a medir a internet.
+    """
+
+    def _correr(self, excecao):
+        """Corre o caminho real — portão, roteador, política, selo — e devolve
+        o par (objetos, trace). Só a ferramenta é falsa."""
+        import instagram_janela as ij
+        real = ij.perfis
+
+        def rebenta(*_a, **_k):
+            raise excecao
+        ij.perfis = rebenta
+        try:
+            pinar_o_banco()
+            return sx.COLLECT(platform='INSTAGRAM',
+                              capability='instagram.profile.discovery',
+                              run_id='NS01-SEM-CHROME', camada='perfis')
+        finally:
+            ij.perfis = real
+
+    def test_ns08_o_dono_da_ferramenta_declara_o_estado(self):
+        """`cdp` sabe que não alcançou o navegador, e passa a dizê-lo.
+
+        Porta local fechada, sem uma única ida à internet.
+        """
+        import cdp
+        with self.assertRaises(cdp.Erro) as c:
+            cdp.abas(1, timeout=1)
+        self.assertEqual(c.exception.estado, cdp.BROWSER_NOT_REACHED)
+
+    def test_ns09_e_a_casa_ja_sabia_traduzir_esse_nome(self):
+        """O estado não é inventado nesta missão: já estava na taxonomia."""
+        import cdp
+        import falhas
+        self.assertEqual(falhas.traduzir(cdp.BROWSER_NOT_REACHED),
+                         'EXECUTOR_UNAVAILABLE')
+
+    def test_ns10_o_que_o_dono_nao_declara_continua_a_ser_nao_sei(self):
+        """NÃO SEI CONTINUA A SER UMA RESPOSTA.
+
+        Um erro de JavaScript na página não é o navegador em falta. Carimbá-lo
+        com o mesmo nome seria trocar um balde por outro.
+        """
+        import cdp
+        _o, trace = self._correr(cdp.Erro('o JavaScript da página lançou'))
+        self.assertEqual(trace['RESULT'], 'UNKNOWN_ERROR')
+
+    def test_ns11_sem_navegador_o_estado_diz_qual_e(self):
+        import cdp
+        _o, trace = self._correr(
+            cdp.Erro('sem Chrome nesta máquina: nenhum Chrome no PATH',
+                     cdp.BROWSER_NOT_REACHED))
+        self.assertEqual(trace['RESULT'], 'EXECUTOR_UNAVAILABLE')
+        self.assertEqual(trace['NATIVE_REASON'], cdp.BROWSER_NOT_REACHED)
+
+    def test_ns12_e_a_frase_nao_se_perde_pelo_caminho(self):
+        """UM ESTADO SEM A FRASE MANDA A PESSOA CERTA PARA O SÍTIO ERRADO.
+
+        O nome vai em `NATIVE_REASON`, que é campo de máquina. A frase vai em
+        `DETALHE` e chega a `ERRO`. UM NOME E UMA FRASE NÃO CABEM NO MESMO CAMPO.
+        """
+        import cdp
+        _o, trace = self._correr(
+            cdp.Erro('sem Chrome nesta máquina: nenhum Chrome no PATH',
+                     cdp.BROWSER_NOT_REACHED))
+        self.assertIn('sem Chrome nesta máquina',
+                      trace['ROUTER_RECORD']['ERRO'])
+
+    def test_ns13_a_culpa_fica_na_camada_certa(self):
+        """ROTA CAÍDA NÃO É FONTE CAÍDA. Nada foi medido sobre o Instagram."""
+        import cdp
+        objetos, trace = self._correr(
+            cdp.Erro('sem Chrome', cdp.BROWSER_NOT_REACHED))
+        r = trace['ROUTER_RECORD']
+        self.assertEqual(objetos, [])
+        self.assertEqual(trace['FAILURE_LAYER'], 'EXECUTOR')
+        self.assertEqual(r['EXECUTOR_HEALTH'], 'BROKEN')
+        self.assertEqual(r['SOURCE_HEALTH'], 'HEALTHY')
+        self.assertFalse(r['DEGRADES_SOURCE'])
+
+    def test_ns14_e_o_trace_diz_o_que_fazer_a_seguir(self):
+        """UMA CHAVE ESCRITA A None NÃO É UMA CHAVE AUSENTE.
+
+        O roteador escrevia `RECOVERY_ACTION = None` mesmo quando ninguém a
+        declarara, e `selar()` deriva-a com `setdefault` — que olha para a
+        PRESENÇA da chave, não para o valor. A derivação nunca corria.
+        """
+        import cdp
+        _o, trace = self._correr(
+            cdp.Erro('sem Chrome', cdp.BROWSER_NOT_REACHED))
+        self.assertEqual(trace['RECOVERY_ACTION'], 'NEEDS_HUMAN_FIX')
+
+    def test_ns15_e_isso_vale_para_qualquer_adaptador_nao_so_este(self):
+        """O buraco do `setdefault` não era do Instagram: era do roteador.
+
+        Qualquer dono que declare o estado e não declare a recuperação —
+        o ramo de `HTTPError` do YouTube, hoje — perdia-a da mesma maneira.
+        """
+        import scrap_http as _http
+        _o, trace = self._correr(
+            _http.EstadoDaApi({'STATE': 'ROUTE_UNAVAILABLE',
+                               'NATIVE_REASON': 'ATOR_NAO_ALCANCADO'}))
+        self.assertEqual(trace['RESULT'], 'ROUTE_UNAVAILABLE')
+        self.assertEqual(trace['RECOVERY_ACTION'], 'CHANGE_ROUTE')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

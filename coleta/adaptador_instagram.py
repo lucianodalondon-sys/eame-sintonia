@@ -46,6 +46,12 @@ import scrap_registo as reg          # noqa: E402
 import scrap_fornecedores as forn    # noqa: E402
 import scrap_capacidades as cap      # noqa: E402
 import social_matriz as mz           # noqa: E402 — DONO da decisao de rota
+import falhas                        # noqa: E402 — DONO da taxonomia
+import scrap_http as http            # noqa: E402 — onde vive o carregador
+
+#: O estado que o dono da ferramenta declarou viaja no transporte, para que
+#: roteador e adaptador falem dele sem se importarem um ao outro.
+_EstadoDaApi = http.EstadoDaApi
 
 NOME = 'adaptador_instagram'
 PLATAFORMA = 'INSTAGRAM'
@@ -393,9 +399,51 @@ def _janela(qual, *, run_id, country_scope=None, medida=None, etapa=None,
         codigo = ij.perfis() if qual == 'perfis' else ij.objetos(
             int(teto) if teto not in (None, '', '0') else None)
     except Exception as e:                                        # noqa: BLE001
+        # ── O ESTADO QUE O DONO DA FERRAMENTA DECLAROU SOBE INTEIRO ───────
+        # ⚠️ MEDIDO NA NIGHT-SHIFT-01 §9, num runner sem Chrome:
+        #
+        #     instagram.profile.discovery -> RESULT = UNKNOWN_ERROR
+        #     ROUTER_RECORD.ERRO = 'sem Chrome nesta maquina: nenhum Chrome ou
+        #                           Chromium encontrado no PATH nem nos
+        #                           caminhos padrao'
+        #
+        # A frase sabia. O estado nao sabia. E quem le por maquina le o estado
+        # — de manha, `UNKNOWN_ERROR` sobre Instagram manda alguem depurar o
+        # Instagram, quando o que falta e um navegador.
+        #
+        #     UMA MENSAGEM QUE SABE E UM ESTADO QUE NAO SABE VALEM MENOS QUE
+        #     NENHUM DOS DOIS.
+        #
+        # A traducao vive AQUI, e nao no roteador: ele deixou de conhecer
+        # plataformas na C1 e nao volta atras — e e a mesma costura que
+        # `adaptador_youtube` ja usa para «nao tenho chave». Nao se inventa
+        # vocabulario: `cdp` declara o nome nativo, `leis/falhas.py` ja o lista
+        # como `EXECUTOR_UNAVAILABLE`, e `social_rotas.selar` traduz, guarda o
+        # `ESTADO_ORIGINAL` e deriva camada, saude e recuperacao.
+        #
+        #     FAILURE STATE VEM DO DONO, OU NAO E FAILURE STATE.
+        #
+        # Onde o dono NAO declarou, nada muda: um erro de JavaScript na pagina
+        # nao e o navegador em falta, e carimba-lo seria trocar um balde por
+        # outro. NAO SEI CONTINUA A SER UMA RESPOSTA.
+        declarado = getattr(e, 'estado', None)
+        estado = falhas.traduzir(declarado) if declarado else 'UNKNOWN_ERROR'
         if etapa is not None:
-            etapa.fechar(rel, 'FAIL', error=1, canonical_state='UNKNOWN_ERROR',
+            etapa.fechar(rel, 'FAIL', error=1, canonical_state=estado,
                          error_class=type(e).__name__, error_message=str(e))
+        if declarado:
+            # A frase viaja em `DETALHE` e nao em `NATIVE_REASON`: o segundo e
+            # um NOME que `falhas.py` procura numa tabela, e enfiar prosa la
+            # faria a refinacao por razao nativa deixar de bater.
+            #
+            #     UM NOME E UMA FRASE NAO CABEM NO MESMO CAMPO.
+            #
+            # `RECOVERY_ACTION` nao vai: quem a decide e `leis/falhas.py`, e
+            # para `EXECUTOR_UNAVAILABLE` ela ja diz `NEEDS_HUMAN_FIX`.
+            # Reescreve-la aqui seria um segundo dono da mesma pergunta.
+            raise _EstadoDaApi({'STATE': estado,
+                                'NATIVE_REASON': declarado,
+                                'DETALHE': str(e)}) from e
         raise
     itens = _itens_da_gaveta('PERFIS.json' if qual == 'perfis' else 'OBJETOS.json')
     if etapa is not None:

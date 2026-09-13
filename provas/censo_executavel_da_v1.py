@@ -46,6 +46,7 @@ import scrap_executor as sx                                       # noqa: E402
 import scrap_registo as reg                                       # noqa: E402
 import social_envelope as env                                     # noqa: E402
 import superficie_do_scrap_v1 as sup                              # noqa: E402
+import scrap_colheita as sc                                       # noqa: E402
 
 env.RAW_DIR = os.path.join(BANCO, 'raw')
 
@@ -187,6 +188,30 @@ def main():
     for f in quebradas:
         print('   · %s — %s' % (f['CAPABILITY'], f['RESULT']))
     print('SEM_ALVO_DECLARADO                         %d' % len(sem_alvo))
+    # ── O PORTÃO DA §6, MEDIDO E NÃO ARBITRADO ────────────────────────────
+    # «REQUIRED_V1_CAPABILITY» não é uma lista que esta prova escolhe: é o que
+    # `scrap_colheita.FASES` — o único sítio onde a V1 declara o que se pede —
+    # nomeia. Escrever aqui uma segunda lista faria a prova medir a opinião
+    # dela sobre o que a V1 devia ter.
+    #
+    #     UMA LISTA ESCRITA NA SONDA MEDE A SONDA.
+    #
+    # As restantes capacidades `READY` existem e não têm pedido — e isso é um
+    # facto sobre a V1, não um defeito dela: CAPABILITY READY != CAPABILITY
+    # PEDIDA.
+    exigidas = {c for _p, c, _f, _e in sc.FASES.values()}
+    por_nome = {f['CAPABILITY']: f for f in fichas}
+    sem_pedido = sorted(c for c in exigidas
+                        if (por_nome.get(c) or {}).get('REQUEST_PATH') == 'NO'
+                        or c not in por_nome)
+    print('CAPACIDADES PEDIDAS PELA V1 (scrap_colheita.FASES)  %d' % len(exigidas))
+    print('REQUIRED_V1_CAPABILITY_WITHOUT_REQUEST_PATH        %d' % len(sem_pedido))
+    for c in sem_pedido:
+        print('   · %s' % c)
+    prontas_sem_pedido = sorted(f['CAPABILITY'] for f in fichas
+                                if f['REQUEST_PATH'] == 'NO')
+    print('READY_SEM_PEDIDO (existe, ninguem pede)            %d · %s'
+          % (len(prontas_sem_pedido), ', '.join(prontas_sem_pedido)))
     print('PAID_PROVIDER_USED                         %d' % len(pagas))
     print('REAL_NETWORK = 0 · idas ao mundo falso = %d' % len(IDAS))
     if os.environ.get('CENSO_JSON'):

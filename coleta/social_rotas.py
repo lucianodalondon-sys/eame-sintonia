@@ -233,9 +233,26 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         return [], registro
     except _EstadoDaApi as e:
         # A API disse o que houve. Não reinterpretamos: gravamos o que ela disse.
+        #
+        # ⚠️ E SÓ O QUE ELA DISSE. Medido na NIGHT-SHIFT-01: as três linhas
+        # escreviam as três chaves SEMPRE, mesmo quando o dono não declarara
+        # nenhuma — e `RECOVERY_ACTION = None` não é uma chave em falta. O
+        # `selar()` deriva a recuperação com `setdefault`, que olha para a
+        # PRESENÇA da chave e não para o valor dela: escrita a `None`, a
+        # derivação nunca corria, e o trace saía sem dizer o que fazer a
+        # seguir. E não é exclusivo deste caminho — qualquer adaptador que
+        # levante o estado sem recuperação (o ramo de `HTTPError` do YouTube,
+        # hoje) perdia-a da mesma maneira.
+        #
+        #     UMA CHAVE ESCRITA A None NÃO É UMA CHAVE AUSENTE.
+        #     E `setdefault` NÃO SABE A DIFERENÇA.
+        #
+        # Quem declara, manda; quem não declara, deixa o dono da taxonomia
+        # responder. O que não pode é a ausência apagar a resposta dele.
         registro['ESTADO'] = e.rel.get('STATE')
-        registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')
-        registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')
+        for campo in ('NATIVE_REASON', 'RECOVERY_ACTION'):
+            if e.rel.get(campo):
+                registro[campo] = e.rel[campo]
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except RotaBloqueada as e:
