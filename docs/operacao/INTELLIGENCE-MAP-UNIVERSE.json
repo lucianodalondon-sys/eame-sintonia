@@ -1,0 +1,2777 @@
+{
+  "MEDIDO_EM": "84186dfaf6be8a52866efc4a440609985f7f4401",
+  "MECANISMO": "componente.territory -> territory.family",
+  "TERRITORIOS_DA_FAMILIA": [
+    "Z-LINEAGE",
+    "Z-MOTOR"
+  ],
+  "TOTAL_DE_PECAS_NO_MAPA": 181,
+  "INTELLIGENCE_MAP_COUNT": 12,
+  "PECAS": [
+    {
+      "MAP_NODE_ID": "C-CADEIA-V21",
+      "NOME": "Cadeia canonica V2.1",
+      "KIND": "chain",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PENDING",
+      "MAP_STATUS_REASON": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "WHAT": "O roteiro que roda os trinta passos do motor na ordem certa, do dado bruto ate o pacote fechado.",
+      "WHY_HERE": "A ordem nao e adivinhavel. Rodar um passo sozinho produz um pacote que parece bom e esta errado.",
+      "FILES": [
+        "motor/cadeia_canonica.sh",
+        "motor/v21_cadeia.sh"
+      ],
+      "FILE_EXISTS": {
+        "motor/cadeia_canonica.sh": true,
+        "motor/v21_cadeia.sh": true
+      },
+      "SYMBOLS": {},
+      "DECLARED_INBOUND": [
+        "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
+        "C-PROVA-COLETA",
+        "C-SUPABASE"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
+        "C-PROVENIENCIA",
+        "C-REGRA-COLETA",
+        "C-SUPABASE",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CI-PERSIST",
+        "C-CI-REGRESSAO",
+        "C-PROVA-COLETA",
+        "C-SUPABASE"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
+        "C-PROVENIENCIA",
+        "C-REGRA-COLETA",
+        "C-SUPABASE",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-CI-PERSIST",
+          "nome": "Os botoes que cuidam do banco",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": ".github/workflows/supabase-migrate.yml",
+              "line": 92,
+              "snippet": "run: bash motor/cadeia_canonica.sh migrations \"$SUPABASE_DB_URL\""
+            }
+          ]
+        },
+        {
+          "outro": "C-CI-REGRESSAO",
+          "nome": "Calendario de regressoes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": ".github/workflows/calendario-regressoes.yml",
+              "line": 169,
+              "snippet": "bash motor/cadeia_canonica.sh migrations \"$CADEIA\" | tail -3"
+            }
+          ]
+        },
+        {
+          "outro": "C-PROVA-COLETA",
+          "nome": "Provas da coleta canonica",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "provas/preflight_022_live.sh",
+              "line": 120,
+              "snippet": "echo \"Lembrete do proprio motor/cadeia_canonica.sh: reaplicar a 015\""
+            },
+            {
+              "file": "provas/trava_de_drift_de_migration.sh",
+              "line": 95,
+              "snippet": "saida=$(bash \"$RAIZ/motor/cadeia_canonica.sh\" migrations \"$URL\" 2>&1) && rc=0 || rc=$?"
+            }
+          ]
+        },
+        {
+          "outro": "C-SUPABASE",
+          "nome": "O banco onde o dado fica guardado",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/cadeia_canonica.sh",
+              "line": 186,
+              "snippet": "for f in supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql \\"
+            },
+            {
+              "file": "motor/cadeia_canonica.sh",
+              "line": 187,
+              "snippet": "supabase/importacoes/IT-LASTMILE-2026-09-02.sql; do"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-AUDIT-GERAL",
+          "nome": "Demais auditorias do portal",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "italia-portale/audit/deploy-surface.mjs",
+              "line": 39,
+              "snippet": "'/motor/v21_cadeia.sh',"
+            }
+          ]
+        },
+        {
+          "outro": "C-LUGAR-DO-FATO",
+          "nome": "A geografia do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 174,
+              "snippet": "\"$PY\" leis/v21_geografia_contrato.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-PACOTE-CAMADAS",
+          "nome": "Montagem do pacote por camadas",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "pacote/v21_handoff_json.py",
+              "line": 109,
+              "snippet": "\"motor/v21_cadeia.sh\","
+            }
+          ]
+        },
+        {
+          "outro": "C-PROVA-COLETA",
+          "nome": "Provas da coleta canonica",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "provas/a_fase_10_entra_no_acervo.py",
+              "line": 76,
+              "snippet": "CADEIA = os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\")"
+            },
+            {
+              "file": "provas/objeto_e_observacao_no_postgres.py",
+              "line": 918,
+              "snippet": "[\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
+            }
+          ]
+        },
+        {
+          "outro": "C-PROVENIENCIA",
+          "nome": "A procedencia dentro do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 97,
+              "snippet": "\"$PY\" leis/v21_carimbar_origem.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 112,
+              "snippet": "\"$PY\" leis/v21_procedencia_religar.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 175,
+              "snippet": "\"$PY\" leis/v21_procedencia_contrato.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-REGRA-COLETA",
+          "nome": "A regra de coleta externa",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "medidas/portoes_eame.py",
+              "line": 255,
+              "snippet": "('a cadeia canônica', ('motor', 'cadeia_canonica.sh'))):"
+            }
+          ]
+        },
+        {
+          "outro": "C-SUPABASE",
+          "nome": "O banco onde o dado fica guardado",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/cadeia_canonica.sh",
+              "line": 195,
+              "snippet": "if ! python3 \"$RAIZ/guarda/sql_conferir.py\" \"$RAIZ/$f\"; then"
+            }
+          ]
+        },
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_porta_de_producao.py",
+              "line": 100,
+              "snippet": "with open(os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CONTRATO",
+          "nome": "Contrato do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 117,
+              "snippet": "\"$PY\" motor/v21_contrato_do_pacote.py --rota"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 133,
+              "snippet": "\"$PY\" motor/v21_traducao_trava.py --aplicar"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 150,
+              "snippet": "\"$PY\" motor/v21_aceitacao.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CRUZAMENTO",
+          "nome": "Cruzamentos e convergencia",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 87,
+              "snippet": "\"$PY\" motor/v21_crossings.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 91,
+              "snippet": "\"$PY\" motor/v21_vozes_reconciliar.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 101,
+              "snippet": "\"$PY\" motor/v21_fontes_rechavear.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 105,
+              "snippet": "\"$PY\" motor/v21_fontes_faltantes.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-INGEST",
+          "nome": "Ingestao V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 75,
+              "snippet": "\"$PY\" motor/v21_ingest.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 76,
+              "snippet": "\"$PY\" motor/v21_ingest_b.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 82,
+              "snippet": "\"$PY\" motor/v21_ingest_c.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-OPORTUNIDADE",
+          "nome": "Motor de Oportunidade",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 122,
+              "snippet": "\"$PY\" motor/v21_dominio_da_alegacao.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 128,
+              "snippet": "\"$PY\" motor/v21_oportunidades.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 141,
+              "snippet": "\"$PY\" motor/v21_fechar.py"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "DOC": [
+          "BIBLIA-CANONICA-DA-COLETA.md(PATH)",
+          "HANDOFF-BUILD-DA-REUNIAO.md(PATH)",
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "docs/biblia/CENSO-DA-INFRAESTRUTURA.md(PATH)",
+          "docs/decisoes/DIARIO-DE-DECISOES.md(PATH)",
+          "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md(PATH)",
+          "docs/design/ITALY-V2.1-README-FIRST.md(PATH)",
+          "docs/operacao/PREFLIGHT-LIVE-COLLECTION-V1.md(PATH)",
+          "docs/operacao/TOPOLOGIA-DA-COLETA.md(PATH)",
+          "italia-portale/CHECKPOINT-INTEGRACAO-ACERVO-PORTAL.md(PATH)"
+        ],
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)"
+        ],
+        "RUNTIME": [
+          "HANDOFF-V2-PAUSE.json(PATH)",
+          "pacote/v21_handoff_json.py(PATH)",
+          "portoes/site_v21_ingest.py(PATH)",
+          "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql(PATH)"
+        ],
+        "WORKFLOW": [
+          ".github/workflows/banco-descartavel.yml(PATH)",
+          ".github/workflows/calendario-regressoes.yml(PATH)",
+          ".github/workflows/supabase-migrate.yml(PATH)"
+        ],
+        "TEST": [
+          "tests/test_a_fase_10_entra_no_acervo.py(PATH)",
+          "tests/test_migrations.py(PATH)",
+          "tests/test_prioridade_comercial.py(PATH)"
+        ],
+        "PROVA": [
+          "provas/a_fase_10_entra_no_acervo.py(PATH)",
+          "provas/inventario_esperado.py(PATH)",
+          "provas/o_dedupe_tem_constraint.py(PATH)",
+          "provas/objeto_e_observacao_no_postgres.py(PATH)",
+          "provas/preflight_022_live.sh(PATH)",
+          "provas/trava_de_drift_de_migration.sh(PATH)"
+        ],
+        "PORTAL": [
+          "italia-portale/audit/INGESTION-REPRODUCTION.json(PATH)",
+          "italia-portale/audit/STALE-GENERATOR-CONTROL.json(PATH)",
+          "italia-portale/audit/cadeia-de-familias.mjs(PATH)",
+          "italia-portale/audit/deploy-surface.mjs(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "DOC": 10,
+        "SYSTEM_MAP": 8,
+        "RUNTIME": 4,
+        "WORKFLOW": 3,
+        "TEST": 3,
+        "PROVA": 6,
+        "PORTAL": 4
+      },
+      "RUNTIME_REFS": [
+        ".github/workflows/banco-descartavel.yml(PATH)",
+        ".github/workflows/calendario-regressoes.yml(PATH)",
+        ".github/workflows/supabase-migrate.yml(PATH)",
+        "HANDOFF-V2-PAUSE.json(PATH)",
+        "pacote/v21_handoff_json.py(PATH)",
+        "portoes/site_v21_ingest.py(PATH)",
+        "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql(PATH)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": true,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V2-LEGADO",
+      "NOME": "Cadeia V2 (legado)",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "legacy",
+      "LEGACY": true,
+      "VIEWS": [
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PENDING",
+      "MAP_STATUS_REASON": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "WHAT": "A geracao anterior do motor, antes da V2.1.",
+      "WHY_HERE": "Continua no repositorio e por isso aparece no mapa — mas nao e a cadeia oficial de hoje.",
+      "FILES": [
+        "motor/v2_conflitos.py",
+        "motor/v2_cruzamentos.py",
+        "motor/v2_dedup_e_familias.py",
+        "motor/v2_fechar.py",
+        "motor/v2_montar_handoff.py",
+        "motor/v2_qa_atribuir.py",
+        "motor/v2_relatorio.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v2_conflitos.py": true,
+        "motor/v2_cruzamentos.py": true,
+        "motor/v2_dedup_e_familias.py": true,
+        "motor/v2_fechar.py": true,
+        "motor/v2_montar_handoff.py": true,
+        "motor/v2_qa_atribuir.py": true,
+        "motor/v2_relatorio.py": true
+      },
+      "SYMBOLS": {
+        "motor/v2_conflitos.py": [
+          "_n",
+          "datas",
+          "le",
+          "main"
+        ],
+        "motor/v2_cruzamentos.py": [
+          "_n",
+          "cultura_de",
+          "idx_por_cultura",
+          "le",
+          "le_ant",
+          "main"
+        ],
+        "motor/v2_dedup_e_familias.py": [
+          "_n",
+          "chave_canonica",
+          "host",
+          "main",
+          "tipo_de_fato"
+        ],
+        "motor/v2_fechar.py": [
+          "le",
+          "main"
+        ],
+        "motor/v2_montar_handoff.py": [
+          "carrega",
+          "env",
+          "main"
+        ],
+        "motor/v2_qa_atribuir.py": [
+          "indices_derrubados",
+          "main"
+        ],
+        "motor/v2_relatorio.py": [
+          "le",
+          "main"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-V21-FONTES",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-V21-FONTES",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v2_cruzamentos.py",
+              "line": 91,
+              "snippet": "vozes = le('PUBLIC-VOICES.json')"
+            },
+            {
+              "file": "motor/v2_montar_handoff.py",
+              "line": 55,
+              "snippet": "'PUBLIC_VOICES': 'PUBLIC-VOICES.json',"
+            },
+            {
+              "file": "motor/v2_montar_handoff.py",
+              "line": 227,
+              "snippet": "grava('SOURCES.json', dict("
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_vozes_reconciliar.py",
+              "line": 53,
+              "snippet": "qa = json.load(open(QA, encoding='utf-8'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-OPORTUNIDADE",
+          "nome": "Motor de Oportunidade",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_fechar.py",
+              "line": 202,
+              "snippet": "('V2-VALIDATION', os.path.join(V2, 'VALIDATION-MANIFEST.json')),"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 32
+      },
+      "RUNTIME_REFS": [],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "ORPHAN_SO_O_MAPA_A_CONHECE",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-COMERCIAL",
+      "NOME": "Leitura comercial e completude",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "generator",
+        "meeting",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PENDING",
+      "MAP_STATUS_REASON": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "WHAT": "Mede se o caso esta completo o bastante para virar conversa comercial, e reavalia quando muda.",
+      "WHY_HERE": "Caso incompleto virando pedido de venda e o erro mais caro que este sistema pode cometer.",
+      "FILES": [
+        "motor/v21_adama_registro_validar.py",
+        "motor/v21_antes_e_depois.py",
+        "motor/v21_campos_de_lingua.py",
+        "motor/v21_comercial.py",
+        "motor/v21_completude_oportunidade.py",
+        "motor/v21_necessidade.py",
+        "motor/v21_reavaliar_35.py",
+        "motor/v21_reverificacao_ledger.py",
+        "motor/v21_tm_colher.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_adama_registro_validar.py": true,
+        "motor/v21_antes_e_depois.py": true,
+        "motor/v21_campos_de_lingua.py": true,
+        "motor/v21_comercial.py": true,
+        "motor/v21_completude_oportunidade.py": true,
+        "motor/v21_necessidade.py": true,
+        "motor/v21_reavaliar_35.py": true,
+        "motor/v21_reverificacao_ledger.py": true,
+        "motor/v21_tm_colher.py": true
+      },
+      "SYMBOLS": {
+        "motor/v21_adama_registro_validar.py": [
+          "_data_iso",
+          "_data_it",
+          "ativas",
+          "carregar",
+          "chave",
+          "enriquecimento",
+          "main",
+          "medir"
+        ],
+        "motor/v21_antes_e_depois.py": [
+          "_rotulo",
+          "antes",
+          "depois",
+          "familias_externas",
+          "main"
+        ],
+        "motor/v21_campos_de_lingua.py": [
+          "campos_do_registro",
+          "e_portugues",
+          "main",
+          "parte_minha",
+          "varrer"
+        ],
+        "motor/v21_comercial.py": [
+          "_achatar",
+          "casar",
+          "catalogo_declara_cultura",
+          "externo",
+          "fonte_nomeia_o_nosso",
+          "indice_comercial",
+          "meios_prescritos",
+          "num",
+          "prioridade"
+        ],
+        "motor/v21_completude_oportunidade.py": [
+          "_entrada_do_arquetipo",
+          "_lista",
+          "_num",
+          "_texto",
+          "cruza",
+          "familias_que_o_motor_carrega",
+          "le_casa",
+          "le_censo_catalogo",
+          "le_pacote",
+          "le_snapshot",
+          "le_video",
+          "main"
+        ],
+        "motor/v21_necessidade.py": [
+          "_cartesiano",
+          "_mais_restritiva",
+          "_n",
+          "_pinar",
+          "atribuir_direcao",
+          "direcao",
+          "direcao_do_par",
+          "indice_de_pares",
+          "main",
+          "oracoes",
+          "par_do_titulo",
+          "pares_observados",
+          "sub_oracoes"
+        ],
+        "motor/v21_reavaliar_35.py": [
+          "_apoios",
+          "j",
+          "main"
+        ],
+        "motor/v21_reverificacao_ledger.py": [
+          "coletar",
+          "esperados",
+          "main"
+        ],
+        "motor/v21_tm_colher.py": [
+          "_nu",
+          "main",
+          "trava"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-ARTEFACTO-V21",
+        "C-LASTMILE",
+        "C-PORTAL-MODELO",
+        "C-V21-CONTRATO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-PACOTE-CAMADAS",
+        "C-SCRAP-GUARDA",
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CONTRATO",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-ARTEFACTO-V21",
+        "C-LASTMILE",
+        "C-PORTAL-MODELO",
+        "C-V21-CONTRATO",
+        "C-V21-FONTES",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-PACOTE-CAMADAS",
+        "C-SCRAP-GUARDA",
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-CONTRATO",
+        "C-V21-CONTRATO",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-ARTEFACTO-V21",
+          "nome": "Artefacto embarcado (italy-handoff-v21.js)",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_completude_oportunidade.py",
+              "line": 87,
+              "snippet": "s = open(PORTAL, encoding='utf-8').read()"
+            }
+          ]
+        },
+        {
+          "outro": "C-LASTMILE",
+          "nome": "Ultima milha da entrega",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_completude_oportunidade.py",
+              "line": 73,
+              "snippet": "return json.load(open(SNAPSHOT, encoding='utf-8'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-PORTAL-MODELO",
+          "nome": "Modelo de aplicacao do portal",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_completude_oportunidade.py",
+              "line": 77,
+              "snippet": "s = open(CASA, encoding='utf-8').read()"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CONTRATO",
+          "nome": "Contrato do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_tm_colher.py",
+              "line": 41,
+              "snippet": "from v21_traducao_trava import conferir"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_reavaliar_35.py",
+              "line": 48,
+              "snippet": "SRC = PORARQ['SOURCES.json']"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-INGEST",
+          "nome": "Ingestao V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_comercial.py",
+              "line": 305,
+              "snippet": "import v21_normalizar as N"
+            },
+            {
+              "file": "motor/v21_necessidade.py",
+              "line": 70,
+              "snippet": "import v21_normalizar as N  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-OPORTUNIDADE",
+          "nome": "Motor de Oportunidade",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_completude_oportunidade.py",
+              "line": 147,
+              "snippet": "src = open(os.path.join(ROOT, 'motor', 'v21_oportunidades.py'),"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-PACOTE-CAMADAS",
+          "nome": "Montagem do pacote por camadas",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "pacote/v21_handoff_json.py",
+              "line": 9,
+              "snippet": "tm = json.load(open(R + '/data/i18n/v21-traducoes.json', encoding='utf-8'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-SCRAP-GUARDA",
+          "nome": "A guarda de credencial e de sessao do SCRAP",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "guarda/social_guarda.py",
+              "line": 193,
+              "snippet": "'scripts/v21_tm_colher.py':"
+            }
+          ]
+        },
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_prioridade_comercial.py",
+              "line": 21,
+              "snippet": "import v21_comercial as CM  # noqa: E402"
+            },
+            {
+              "file": "tests/test_prioridade_comercial.py",
+              "line": 22,
+              "snippet": "import v21_necessidade as NE  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_completude_oportunidade.py",
+              "line": 178,
+              "snippet": "with open(MEDIDA, encoding='utf-8') as f:"
+            },
+            {
+              "file": "tests/test_social_sessao.py",
+              "line": 232,
+              "snippet": "'motor/v21_tm_colher.py',"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CONTRATO",
+          "nome": "Contrato do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_aceitacao.py",
+              "line": 39,
+              "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa"
+            },
+            {
+              "file": "motor/v21_traducao_trava.py",
+              "line": 54,
+              "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  # noqa"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CONTRATO",
+          "nome": "Contrato do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_traducao_trava.py",
+              "line": 351,
+              "snippet": "d = json.load(open(TM, encoding='utf-8'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-OPORTUNIDADE",
+          "nome": "Motor de Oportunidade",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_oportunidades.py",
+              "line": 45,
+              "snippet": "import v21_necessidade as NE  # noqa: E402"
+            },
+            {
+              "file": "motor/v21_oportunidades.py",
+              "line": 46,
+              "snippet": "import v21_comercial as CM  # noqa: E402"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)"
+        ],
+        "DOC": [
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "docs/adama/AVALIACAO-IT-T4-001-CONTRA-V2.1.md(PATH)",
+          "docs/design/COMMERCIAL-PRIORITY-V11.md(PATH)",
+          "docs/design/COMPLETUDE-DA-OPORTUNIDADE.md(PATH)",
+          "docs/design/COMPLETUDE-DA-OPORTUNIDADE.md(PATH)",
+          "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md(PATH)",
+          "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md(PATH)",
+          "docs/operacao/TRAVA-DA-INTELIGENCIA.json(PATH)",
+          "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md(PATH)"
+        ],
+        "RUNTIME": [
+          "motor/v21_aceitacao.py(IMPORT)",
+          "motor/v21_oportunidades.py(IMPORT)",
+          "motor/v21_oportunidades.py(IMPORT)",
+          "motor/v21_oportunidades.py(PATH)",
+          "motor/v21_traducao_trava.py(IMPORT)"
+        ],
+        "TEST": [
+          "tests/test_prioridade_comercial.py(IMPORT)",
+          "tests/test_prioridade_comercial.py(IMPORT)",
+          "tests/test_social_sessao.py(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 42,
+        "DOC": 10,
+        "RUNTIME": 5,
+        "TEST": 3
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_aceitacao.py(IMPORT)",
+        "motor/v21_oportunidades.py(IMPORT)",
+        "motor/v21_oportunidades.py(IMPORT)",
+        "motor/v21_oportunidades.py(PATH)",
+        "motor/v21_traducao_trava.py(IMPORT)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-CONTRATO",
+      "NOME": "Contrato do pacote",
+      "KIND": "contract",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "o sistema importa esta lei em runtime para decidir: C-V21-COMERCIAL.",
+      "WHAT": "Confere se o pacote fechado obedece as contagens e as regras antes de existir.",
+      "WHY_HERE": "Pacote que nao prova a si mesmo nao pode chegar ao portal.",
+      "FILES": [
+        "motor/v21_aceitacao.py",
+        "motor/v21_contrato_do_pacote.py",
+        "motor/v21_traducao_trava.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_aceitacao.py": true,
+        "motor/v21_contrato_do_pacote.py": true,
+        "motor/v21_traducao_trava.py": true
+      },
+      "SYMBOLS": {
+        "motor/v21_aceitacao.py": [
+          "_apoios",
+          "colecoes",
+          "main"
+        ],
+        "motor/v21_contrato_do_pacote.py": [
+          "_papel",
+          "carimbar_build_id",
+          "conferir_readme",
+          "contrato_de_lingua",
+          "host",
+          "main",
+          "rotas_medidas"
+        ],
+        "motor/v21_traducao_trava.py": [
+          "caixa_alta",
+          "carregar_tm",
+          "conferir",
+          "data_presente",
+          "datas",
+          "enfase",
+          "main",
+          "numeros",
+          "sem_acento"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V21-COMERCIAL",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V21-COMERCIAL",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-TESTES",
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-CADEIA-V21",
+          "nome": "Cadeia canonica V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 117,
+              "snippet": "\"$PY\" motor/v21_contrato_do_pacote.py --rota"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 133,
+              "snippet": "\"$PY\" motor/v21_traducao_trava.py --aplicar"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 150,
+              "snippet": "\"$PY\" motor/v21_aceitacao.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_aceitacao.py",
+              "line": 39,
+              "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, campos_do_registro,  # noqa"
+            },
+            {
+              "file": "motor/v21_traducao_trava.py",
+              "line": 54,
+              "snippet": "from v21_campos_de_lingua import (LEITURA, MISTO, PROMOVE, campos_do_registro,  # noqa"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_traducao_trava.py",
+              "line": 351,
+              "snippet": "d = json.load(open(TM, encoding='utf-8'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_aceitacao.py",
+              "line": 257,
+              "snippet": "if a == 'SOURCES.json':      # §18 · a casa declarada do metadado de rota"
+            },
+            {
+              "file": "motor/v21_contrato_do_pacote.py",
+              "line": 82,
+              "snippet": "S = json.load(open(os.path.join(ING, 'SOURCES.json'), encoding='utf-8'))['RECORDS']"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_v21_traducao_trava.py",
+              "line": 29,
+              "snippet": "from v21_traducao_trava import conferir  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_c7_lugar_do_fato.py",
+              "line": 284,
+              "snippet": "'motor/v21_traducao_trava.py'],"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_tm_colher.py",
+              "line": 41,
+              "snippet": "from v21_traducao_trava import conferir"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "RUNTIME": [
+          "HANDOFF-V2-PAUSE.json(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_tm_colher.py(IMPORT)",
+          "pacote/v21_handoff_json.py(PATH)"
+        ],
+        "DOC": [
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "docs/design/ITALY-V2.1-README-FIRST.md(PATH)",
+          "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md(PATH)",
+          "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md(PATH)"
+        ],
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)"
+        ],
+        "TEST": [
+          "tests/test_c7_lugar_do_fato.py(PATH)",
+          "tests/test_v21_traducao_trava.py(IMPORT)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "RUNTIME": 6,
+        "DOC": 5,
+        "SYSTEM_MAP": 12,
+        "TEST": 2
+      },
+      "RUNTIME_REFS": [
+        "HANDOFF-V2-PAUSE.json(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_tm_colher.py(IMPORT)",
+        "pacote/v21_handoff_json.py(PATH)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-CRUZAMENTO",
+      "NOME": "Cruzamentos e convergencia",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "WHAT": "Cruza sinais de origens diferentes e ve onde eles se encontram.",
+      "WHY_HERE": "Um sinal sozinho e ruido. O valor esta no encontro de dois.",
+      "FILES": [
+        "motor/consolidar_leque.py",
+        "motor/matriz_recorte.py",
+        "motor/pacote_convergencia.py",
+        "motor/v21_crossings.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/consolidar_leque.py": true,
+        "motor/matriz_recorte.py": true,
+        "motor/pacote_convergencia.py": true,
+        "motor/v21_crossings.py": true
+      },
+      "SYMBOLS": {
+        "motor/consolidar_leque.py": [
+          "main",
+          "pares_do_output",
+          "resultados"
+        ],
+        "motor/matriz_recorte.py": [
+          "_arquivos",
+          "_camada",
+          "_norm",
+          "_padrao",
+          "_perto",
+          "_tem",
+          "montar",
+          "selecionar",
+          "varrer"
+        ],
+        "motor/pacote_convergencia.py": [
+          "camada_convergencia"
+        ],
+        "motor/v21_crossings.py": [
+          "le",
+          "main"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-PALAVRAS",
+        "C-RELEVANCIA",
+        "C-ROTULOS",
+        "C-V21-FONTES",
+        "C-V21-INGEST"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-PACOTE-CAMADAS"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-PALAVRAS",
+        "C-RELEVANCIA",
+        "C-ROTULOS",
+        "C-V21-FONTES",
+        "C-V21-INGEST"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-PACOTE-CAMADAS"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-CADEIA-V21",
+          "nome": "Cadeia canonica V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 87,
+              "snippet": "\"$PY\" motor/v21_crossings.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-PALAVRAS",
+          "nome": "As palavras que a busca digita",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 101,
+              "snippet": "cen = local_json(os.path.join('IT-ROTULOS', 'IT-CENSO-DE-TERMOS.json'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-RELEVANCIA",
+          "nome": "Regua de relevancia ADAMA",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 193,
+              "snippet": "'data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json',"
+            }
+          ]
+        },
+        {
+          "outro": "C-ROTULOS",
+          "nome": "Baixar e ler os rotulos oficiais",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 40,
+              "snippet": "rot = local_json(os.path.join('IT-ROTULOS', 'IT-ROTULOS-PARES.json'))"
+            },
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 41,
+              "snippet": "cru = local_json(os.path.join('IT-CRUZAMENTO', 'IT-CONVERSA-X-ROTULO.json'))"
+            },
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 78,
+              "snippet": "'data/raw/IT-ROTULOS/_MANIFESTO.json'],"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_crossings.py",
+              "line": 62,
+              "snippet": "'VOICE': le('PUBLIC-VOICES.json'),"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-INGEST",
+          "nome": "Ingestao V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 34,
+              "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-PACOTE-CAMADAS",
+          "nome": "Montagem do pacote por camadas",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "pacote/pacote.py",
+              "line": 35,
+              "snippet": "from pacote_convergencia import camada_convergencia              # noqa: E402"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/congelamento.generated.json(PATH)",
+          "system-map/data/congelamento.generated.json(PATH)"
+        ],
+        "RUNTIME": [
+          "motor/v21_cadeia.sh(PATH)",
+          "pacote/pacote.py(IMPORT)"
+        ],
+        "DOC": [
+          "docs/operacao/TOPOLOGIA-DA-COLETA.md(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 18,
+        "RUNTIME": 2,
+        "DOC": 1
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_cadeia.sh(PATH)",
+        "pacote/pacote.py(IMPORT)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-FONTES",
+      "NOME": "Religacao de fontes do pacote",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "WHAT": "Garante que cada caso do pacote continua ligado a fonte que o provou.",
+      "WHY_HERE": "Caso sem fonte religada e afirmacao orfa.",
+      "FILES": [
+        "motor/v21_fontes_faltantes.py",
+        "motor/v21_fontes_rechavear.py",
+        "motor/v21_vozes_reconciliar.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_fontes_faltantes.py": true,
+        "motor/v21_fontes_rechavear.py": true,
+        "motor/v21_vozes_reconciliar.py": true
+      },
+      "SYMBOLS": {
+        "motor/v21_fontes_faltantes.py": [
+          "main"
+        ],
+        "motor/v21_fontes_rechavear.py": [
+          "chave_do_host",
+          "main"
+        ],
+        "motor/v21_vozes_reconciliar.py": [
+          "main"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V2-LEGADO"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-PORTAL-MODELO",
+        "C-PROVENIENCIA",
+        "C-SITE-INGEST",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-V2-LEGADO"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-AUDIT-GERAL",
+        "C-PORTAL-MODELO",
+        "C-PROVENIENCIA",
+        "C-SITE-INGEST",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-CONTRATO",
+        "C-V21-CRUZAMENTO",
+        "C-V21-INGEST",
+        "C-V21-OPORTUNIDADE"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-CADEIA-V21",
+          "nome": "Cadeia canonica V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 91,
+              "snippet": "\"$PY\" motor/v21_vozes_reconciliar.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 101,
+              "snippet": "\"$PY\" motor/v21_fontes_rechavear.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 105,
+              "snippet": "\"$PY\" motor/v21_fontes_faltantes.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-V2-LEGADO",
+          "nome": "Cadeia V2 (legado)",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_vozes_reconciliar.py",
+              "line": 53,
+              "snippet": "qa = json.load(open(QA, encoding='utf-8'))"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-AUDIT-GERAL",
+          "nome": "Demais auditorias do portal",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "italia-portale/audit/cadeia-de-familias.mjs",
+              "line": 78,
+              "snippet": "publicVoices: 'PUBLIC-VOICES.json',"
+            },
+            {
+              "file": "italia-portale/audit/cadeia-de-familias.mjs",
+              "line": 85,
+              "snippet": "sources: 'SOURCES.json',"
+            }
+          ]
+        },
+        {
+          "outro": "C-PORTAL-MODELO",
+          "nome": "Modelo de aplicacao do portal",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "italia-portale/client/italy-v21.js",
+              "line": 5,
+              "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+            },
+            {
+              "file": "italia-portale/client/italy-v21.js",
+              "line": 5,
+              "snippet": "window.ITALY_HANDOFF_V21 = {\"BUILD_ID\":\"V21-843baf4229d93598\",\"SCHEMA_VERSION\":\"V2.1\",\"BUILT_AT\":\"2026-09-02\",\"REFERENCE_DATE\":\"2026-09-02\",\"CLIENT_SAFE_RULE\":{"
+            }
+          ]
+        },
+        {
+          "outro": "C-PROVENIENCIA",
+          "nome": "A procedencia dentro do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "leis/v21_procedencia_contrato.py",
+              "line": 45,
+              "snippet": "fontes = json.load(open(os.path.join(ING, 'SOURCES.json'), encoding='utf-8'))"
+            },
+            {
+              "file": "leis/v21_procedencia_religar.py",
+              "line": 136,
+              "snippet": "fontes = json.load(open(os.path.join(ING, 'SOURCES.json'), encoding='utf-8'))"
+            }
+          ]
+        },
+        {
+          "outro": "C-SITE-INGEST",
+          "nome": "Ingestao do pacote no site",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "portoes/site_v21_ingest.py",
+              "line": 219,
+              "snippet": "'publicVoices': ('PUBLIC-VOICES.json', ("
+            },
+            {
+              "file": "portoes/site_v21_ingest.py",
+              "line": 234,
+              "snippet": "'sources': ('SOURCES.json', ("
+            }
+          ]
+        },
+        {
+          "outro": "C-V2-LEGADO",
+          "nome": "Cadeia V2 (legado)",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v2_cruzamentos.py",
+              "line": 91,
+              "snippet": "vozes = le('PUBLIC-VOICES.json')"
+            },
+            {
+              "file": "motor/v2_montar_handoff.py",
+              "line": 55,
+              "snippet": "'PUBLIC_VOICES': 'PUBLIC-VOICES.json',"
+            },
+            {
+              "file": "motor/v2_montar_handoff.py",
+              "line": 227,
+              "snippet": "grava('SOURCES.json', dict("
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_reavaliar_35.py",
+              "line": 48,
+              "snippet": "SRC = PORARQ['SOURCES.json']"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CONTRATO",
+          "nome": "Contrato do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_aceitacao.py",
+              "line": 257,
+              "snippet": "if a == 'SOURCES.json':      # §18 · a casa declarada do metadado de rota"
+            },
+            {
+              "file": "motor/v21_contrato_do_pacote.py",
+              "line": 82,
+              "snippet": "S = json.load(open(os.path.join(ING, 'SOURCES.json'), encoding='utf-8'))['RECORDS']"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CRUZAMENTO",
+          "nome": "Cruzamentos e convergencia",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_crossings.py",
+              "line": 62,
+              "snippet": "'VOICE': le('PUBLIC-VOICES.json'),"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-INGEST",
+          "nome": "Ingestao V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_ingest_b.py",
+              "line": 308,
+              "snippet": "grava('PUBLIC-VOICES.json', 'VOICES', vz, 'VOICE_ID',"
+            },
+            {
+              "file": "motor/v21_ingest_b.py",
+              "line": 422,
+              "snippet": "grava('SOURCES.json', 'SOURCES', src, 'ID', 'medicao propria de estado de acesso',"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-OPORTUNIDADE",
+          "nome": "Motor de Oportunidade",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_fechar.py",
+              "line": 63,
+              "snippet": "('voices', 'PUBLIC-VOICES.json'),"
+            },
+            {
+              "file": "motor/v21_fechar.py",
+              "line": 71,
+              "snippet": "('sources', 'SOURCES.json'),"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)"
+        ],
+        "RUNTIME": [
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 12,
+        "RUNTIME": 3
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-INGEST",
+      "NOME": "Ingestao V2.1",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "WHAT": "Entrada do motor: le o dado bruto e o coloca no formato que o resto da cadeia entende.",
+      "WHY_HERE": "Primeiro degrau da cadeia. Tudo depois depende do que entra aqui.",
+      "FILES": [
+        "motor/normalize_agro.py",
+        "motor/normalize_substance.py",
+        "motor/pacote_normalizar.py",
+        "motor/v21_ingest.py",
+        "motor/v21_ingest_b.py",
+        "motor/v21_ingest_c.py",
+        "motor/v21_normalizar.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/normalize_agro.py": true,
+        "motor/normalize_substance.py": true,
+        "motor/pacote_normalizar.py": true,
+        "motor/v21_ingest.py": true,
+        "motor/v21_ingest_b.py": true,
+        "motor/v21_ingest_c.py": true,
+        "motor/v21_normalizar.py": true
+      },
+      "SYMBOLS": {
+        "motor/normalize_agro.py": [
+          "build",
+          "candidates",
+          "crop_index",
+          "es_dict",
+          "evaluate",
+          "load_pairs",
+          "norm",
+          "pest_candidates",
+          "pest_index",
+          "resolve_crop",
+          "sim",
+          "summarise",
+          "toks",
+          "verify"
+        ],
+        "motor/normalize_substance.py": [
+          "Normalizer",
+          "evaluate",
+          "load_fr_spellings",
+          "load_fr_table",
+          "load_it_spellings",
+          "morph",
+          "norm",
+          "strip_accents"
+        ],
+        "motor/pacote_normalizar.py": [
+          "camada_adama",
+          "env",
+          "git_json",
+          "grava",
+          "linha_de",
+          "local_json",
+          "novo_id"
+        ],
+        "motor/v21_ingest.py": [
+          "ant",
+          "base",
+          "do_anterior",
+          "do_lastmile",
+          "le",
+          "main",
+          "sid"
+        ],
+        "motor/v21_ingest_b.py": [
+          "grava",
+          "main"
+        ],
+        "motor/v21_ingest_c.py": [
+          "ai_id",
+          "colecao",
+          "grava",
+          "main",
+          "pkg"
+        ],
+        "motor/v21_normalizar.py": [
+          "_areal_ids",
+          "_casa",
+          "_e_prosa",
+          "_host",
+          "_n",
+          "_todos",
+          "client_safe",
+          "crop_id",
+          "crops_no_texto",
+          "escopo",
+          "estagio_da_mercadoria",
+          "geo_do_host",
+          "geografia",
+          "issue_id",
+          "issues_no_texto",
+          "province_ids",
+          "region_ids"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-ADAMA-IT",
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-FONTES-EU",
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PACOTE-CAMADAS",
+        "C-TESTES",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-ADAMA-IT",
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-FONTES-EU",
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-LUGAR-DO-FATO",
+        "C-PACOTE-CAMADAS",
+        "C-PACOTE-CAMADAS",
+        "C-TESTES",
+        "C-V21-COMERCIAL",
+        "C-V21-CRUZAMENTO"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-ADAMA-IT",
+          "nome": "O que a ADAMA sabe de si",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_ingest.py",
+              "line": 266,
+              "snippet": "for p in le(os.path.join(LM, 'IT-ADAMA-CATALOGO.json'), 'PRODUTOS')}"
+            }
+          ]
+        },
+        {
+          "outro": "C-CADEIA-V21",
+          "nome": "Cadeia canonica V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 75,
+              "snippet": "\"$PY\" motor/v21_ingest.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 76,
+              "snippet": "\"$PY\" motor/v21_ingest_b.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 82,
+              "snippet": "\"$PY\" motor/v21_ingest_c.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-DATA-CLOCK",
+          "nome": "Regua do tempo",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_ingest_b.py",
+              "line": 37,
+              "snippet": "import v21_datas as DT            # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-FONTES-EU",
+          "nome": "Ler as bases oficiais da Europa",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/normalize_agro.py",
+              "line": 29,
+              "snippet": "from eppo_gd import names as eppo_names"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_ingest_b.py",
+              "line": 308,
+              "snippet": "grava('PUBLIC-VOICES.json', 'VOICES', vz, 'VOICE_ID',"
+            },
+            {
+              "file": "motor/v21_ingest_b.py",
+              "line": 422,
+              "snippet": "grava('SOURCES.json', 'SOURCES', src, 'ID', 'medicao propria de estado de acesso',"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-LUGAR-DO-FATO",
+          "nome": "A geografia do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "leis/v21_geografia_contrato.py",
+              "line": 26,
+              "snippet": "import v21_normalizar as N  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-PACOTE-CAMADAS",
+          "nome": "Montagem do pacote por camadas",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "pacote/pacote.py",
+              "line": 27,
+              "snippet": "from pacote_normalizar import camada_adama, DR                      # noqa: E402"
+            },
+            {
+              "file": "pacote/pacote_camadas.py",
+              "line": 20,
+              "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+            },
+            {
+              "file": "pacote/pacote_camadas2.py",
+              "line": 21,
+              "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+            },
+            {
+              "file": "pacote/pacote_camadas3.py",
+              "line": 25,
+              "snippet": "from pacote_normalizar import (git_json, local_json, grava, env, novo_id,  # noqa: E402"
+            },
+            {
+              "file": "pacote/pacote_fenologia.py",
+              "line": 33,
+              "snippet": "from pacote_normalizar import grava, env, novo_id, DR  # noqa: E402"
+            },
+            {
+              "file": "pacote/pacote_mercado.py",
+              "line": 32,
+              "snippet": "from pacote_normalizar import grava, env, novo_id, DR, ROOT, local_json  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-PACOTE-CAMADAS",
+          "nome": "Montagem do pacote por camadas",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "pacote/metricas_canonicas.py",
+              "line": 151,
+              "snippet": "x6 = _sample('X-006-substance-normalisation.json')"
+            },
+            {
+              "file": "pacote/metricas_canonicas.py",
+              "line": 173,
+              "snippet": "x7 = _sample('X-007-canonical-agro-dictionary.json')['full_corpus']"
+            }
+          ]
+        },
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_v21_geografia.py",
+              "line": 21,
+              "snippet": "import v21_normalizar as N  # noqa: E402"
+            },
+            {
+              "file": "tests/test_v21_mercado.py",
+              "line": 17,
+              "snippet": "import v21_normalizar as N  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_comercial.py",
+              "line": 305,
+              "snippet": "import v21_normalizar as N"
+            },
+            {
+              "file": "motor/v21_necessidade.py",
+              "line": 70,
+              "snippet": "import v21_normalizar as N  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-CRUZAMENTO",
+          "nome": "Cruzamentos e convergencia",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/pacote_convergencia.py",
+              "line": 34,
+              "snippet": "from pacote_normalizar import DR, env, grava, local_json, novo_id  # noqa: F401"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)"
+        ],
+        "DOC": [
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "HANDOFF-V2-PAUSE.md(PATH)",
+          "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md(PATH)",
+          "docs/design/AUDITORIA-DO-RADAR-FUTURO.md(PATH)",
+          "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md(PATH)",
+          "docs/operacao/TOPOLOGIA-DA-COLETA.md(PATH)",
+          "docs/operacao/TOPOLOGIA-DA-COLETA.md(PATH)"
+        ],
+        "PORTAL": [
+          "italia-portale/audit/reconciliacao-do-catalogo.mjs(PATH)",
+          "italia-portale/client/upstream/IT-PORTAL-SPRINT-HANDOFF-HUMAN-SENSORS-V1.json(PATH)"
+        ],
+        "RUNTIME": [
+          "leis/v21_geografia_contrato.py(IMPORT)",
+          "motor/pacote_convergencia.py(IMPORT)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_comercial.py(IMPORT)",
+          "motor/v21_necessidade.py(IMPORT)",
+          "pacote/pacote.py(IMPORT)",
+          "pacote/pacote_camadas.py(IMPORT)",
+          "pacote/pacote_camadas2.py(IMPORT)",
+          "pacote/pacote_camadas3.py(IMPORT)",
+          "pacote/pacote_fenologia.py(IMPORT)",
+          "pacote/pacote_mercado.py(IMPORT)"
+        ],
+        "TEST": [
+          "tests/test_v21_geografia.py(IMPORT)",
+          "tests/test_v21_mercado.py(IMPORT)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 32,
+        "DOC": 7,
+        "PORTAL": 2,
+        "RUNTIME": 13,
+        "TEST": 2
+      },
+      "RUNTIME_REFS": [
+        "leis/v21_geografia_contrato.py(IMPORT)",
+        "motor/pacote_convergencia.py(IMPORT)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_comercial.py(IMPORT)",
+        "motor/v21_necessidade.py(IMPORT)",
+        "pacote/pacote.py(IMPORT)",
+        "pacote/pacote_camadas.py(IMPORT)",
+        "pacote/pacote_camadas2.py(IMPORT)",
+        "pacote/pacote_camadas3.py(IMPORT)",
+        "pacote/pacote_fenologia.py(IMPORT)",
+        "pacote/pacote_mercado.py(IMPORT)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "C-V21-OPORTUNIDADE",
+      "NOME": "Motor de Oportunidade",
+      "KIND": "engine",
+      "TERRITORY": "Z-MOTOR",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "generator",
+        "opportunity"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "WHAT": "Transforma cruzamento provado em caso de oportunidade, com dono, lugar e momento.",
+      "WHY_HERE": "E aqui que o sistema decide. A tela nao recalcula nada disto.",
+      "FILES": [
+        "motor/v21_dominio_da_alegacao.py",
+        "motor/v21_fechar.py",
+        "motor/v21_oportunidades.py"
+      ],
+      "FILE_EXISTS": {
+        "motor/v21_dominio_da_alegacao.py": true,
+        "motor/v21_fechar.py": true,
+        "motor/v21_oportunidades.py": true
+      },
+      "SYMBOLS": {
+        "motor/v21_dominio_da_alegacao.py": [
+          "colecoes",
+          "despersonalizar",
+          "evidencia_do_bloqueio",
+          "main",
+          "promover_research"
+        ],
+        "motor/v21_fechar.py": [
+          "main"
+        ],
+        "motor/v21_oportunidades.py": [
+          "_ix",
+          "_le",
+          "_texto_afirmado",
+          "data_do_sinal",
+          "estado_temporal",
+          "gravar",
+          "identidade",
+          "janela",
+          "main",
+          "portoes",
+          "red_team",
+          "score"
+        ]
+      },
+      "DECLARED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "DECLARED_OUTBOUND": [
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "OBSERVED_INBOUND": [
+        "C-CADEIA-V21",
+        "C-DATA-CLOCK",
+        "C-V2-LEGADO",
+        "C-V21-COMERCIAL",
+        "C-V21-FONTES"
+      ],
+      "OBSERVED_OUTBOUND": [
+        "C-TESTES",
+        "C-V21-COMERCIAL"
+      ],
+      "EDGES_IN": [
+        {
+          "outro": "C-CADEIA-V21",
+          "nome": "Cadeia canonica V2.1",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 122,
+              "snippet": "\"$PY\" motor/v21_dominio_da_alegacao.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 128,
+              "snippet": "\"$PY\" motor/v21_oportunidades.py"
+            },
+            {
+              "file": "motor/v21_cadeia.sh",
+              "line": 141,
+              "snippet": "\"$PY\" motor/v21_fechar.py"
+            }
+          ]
+        },
+        {
+          "outro": "C-DATA-CLOCK",
+          "nome": "Regua do tempo",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_oportunidades.py",
+              "line": 44,
+              "snippet": "import v21_datas as DT  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-V2-LEGADO",
+          "nome": "Cadeia V2 (legado)",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_fechar.py",
+              "line": 202,
+              "snippet": "('V2-VALIDATION', os.path.join(V2, 'VALIDATION-MANIFEST.json')),"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_oportunidades.py",
+              "line": 45,
+              "snippet": "import v21_necessidade as NE  # noqa: E402"
+            },
+            {
+              "file": "motor/v21_oportunidades.py",
+              "line": 46,
+              "snippet": "import v21_comercial as CM  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-FONTES",
+          "nome": "Religacao de fontes do pacote",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_fechar.py",
+              "line": 63,
+              "snippet": "('voices', 'PUBLIC-VOICES.json'),"
+            },
+            {
+              "file": "motor/v21_fechar.py",
+              "line": 71,
+              "snippet": "('sources', 'SOURCES.json'),"
+            }
+          ]
+        }
+      ],
+      "EDGES_OUT": [
+        {
+          "outro": "C-TESTES",
+          "nome": "Suite de testes",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "tests/test_completude_oportunidade.py",
+              "line": 56,
+              "snippet": "import v21_oportunidades as M"
+            },
+            {
+              "file": "tests/test_prioridade_comercial.py",
+              "line": 23,
+              "snippet": "import v21_oportunidades as OP  # noqa: E402"
+            }
+          ]
+        },
+        {
+          "outro": "C-V21-COMERCIAL",
+          "nome": "Leitura comercial e completude",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "motor/v21_completude_oportunidade.py",
+              "line": 147,
+              "snippet": "src = open(os.path.join(ROOT, 'motor', 'v21_oportunidades.py'),"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.declared.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/congelamento.generated.json(PATH)",
+          "system-map/data/congelamento.generated.json(PATH)",
+          "system-map/data/congelamento.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)"
+        ],
+        "RUNTIME": [
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "motor/v21_completude_oportunidade.py(PATH)",
+          "pacote/meeting_snapshot.py(PATH)"
+        ],
+        "PORTAL": [
+          "italia-portale/client/meeting-intelligence-snapshot.js(PATH)",
+          "italia-portale/client/meeting-intelligence-snapshot.json(PATH)"
+        ],
+        "TEST": [
+          "tests/test_completude_oportunidade.py(IMPORT)",
+          "tests/test_prioridade_comercial.py(IMPORT)",
+          "tests/test_trava_da_inteligencia.py(PATH)"
+        ],
+        "DOC": [
+          "docs/design/AUDITORIA-DO-RADAR-FUTURO.md(PATH)",
+          "docs/design/COMPLETUDE-DA-OPORTUNIDADE.md(PATH)",
+          "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md(PATH)",
+          "docs/design/OPPORTUNITY-ENGINE-REPORT.md(PATH)",
+          "docs/operacao/TRAVA-DA-INTELIGENCIA.json(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "SYSTEM_MAP": 15,
+        "RUNTIME": 5,
+        "PORTAL": 2,
+        "TEST": 3,
+        "DOC": 5
+      },
+      "RUNTIME_REFS": [
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "motor/v21_completude_oportunidade.py(PATH)",
+        "pacote/meeting_snapshot.py(PATH)"
+      ],
+      "TEM_TESTE": true,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "architecture.declared.json"
+    },
+    {
+      "MAP_NODE_ID": "lineage_consumer",
+      "NOME": "Linha que consome (esta arvore)",
+      "KIND": "branch consumidora",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "lineage",
+        "official"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "o git prova a branch; o commit exacto vive em PROVENANCE.HEAD.",
+      "WHAT": "E a branch onde este mapa foi medido. Ela consome inteligencia; nao e dona do gerador.",
+      "WHY_HERE": "Separar consumidor de gerador impede que a linha do portal reescreva inteligencia com uma cadeia atrasada.",
+      "FILES": [],
+      "FILE_EXISTS": {},
+      "SYMBOLS": {},
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [],
+      "EDGES_IN": [],
+      "EDGES_OUT": [],
+      "REFS_POR_CLASSE": {},
+      "REFS_CONTAGEM": {},
+      "RUNTIME_REFS": [],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "SEM_FICHEIRO_DECLARADO",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER"
+    },
+    {
+      "MAP_NODE_ID": "lineage_generator",
+      "NOME": "Linha geradora canonica",
+      "KIND": "branch geradora",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "lineage",
+        "official"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "o proprio repositorio declara este dono, por escrito, num contrato versionado.",
+      "WHAT": "E o dono do pacote canonico: claude/acervo-to-package-intelligence-v1.",
+      "WHY_HERE": "a inteligencia tem UM dono. A Linha B consome; nao gera, nao decide e nao arbitra.",
+      "FILES": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "FILE_EXISTS": {
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json": true
+      },
+      "SYMBOLS": {},
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [],
+      "EDGES_IN": [],
+      "EDGES_OUT": [],
+      "REFS_POR_CLASSE": {
+        "RUNTIME": [
+          ".vercelignore(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "portoes/site_v21_ingest.py(PATH)"
+        ],
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/README.md(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/scripts/generate_system_map.py(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "RUNTIME": 3,
+        "SYSTEM_MAP": 5
+      },
+      "RUNTIME_REFS": [
+        ".vercelignore(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "portoes/site_v21_ingest.py(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER"
+    },
+    {
+      "MAP_NODE_ID": "lineage_package",
+      "NOME": "Pacote canonico esperado",
+      "KIND": "artefato",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "lineage",
+        "official"
+      ],
+      "MAP_STATUS": "PROVEN",
+      "MAP_STATUS_REASON": "esta escrito no contrato e o portao da build recusa qualquer outro.",
+      "WHAT": "O unico BUILD_ID que pode atravessar para o site: V21-06c6421d001ea52a.",
+      "WHY_HERE": "Um pacote que nao prova a sua identidade nao chega ao cliente.",
+      "FILES": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "FILE_EXISTS": {
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json": true
+      },
+      "SYMBOLS": {},
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [],
+      "EDGES_IN": [],
+      "EDGES_OUT": [],
+      "REFS_POR_CLASSE": {
+        "RUNTIME": [
+          ".vercelignore(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "portoes/site_v21_ingest.py(PATH)"
+        ],
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/README.md(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/scripts/generate_system_map.py(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "RUNTIME": 3,
+        "SYSTEM_MAP": 5
+      },
+      "RUNTIME_REFS": [
+        ".vercelignore(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "portoes/site_v21_ingest.py(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER"
+    },
+    {
+      "MAP_NODE_ID": "lineage_stale",
+      "NOME": "Safras atrasadas conhecidas (4)",
+      "KIND": "artefato vencido",
+      "TERRITORY": "Z-LINEAGE",
+      "FAMILY": "F-INTELIGENCIA",
+      "LANE": "official",
+      "LEGACY": false,
+      "VIEWS": [
+        "lineage",
+        "official"
+      ],
+      "MAP_STATUS": "PENDING",
+      "MAP_STATUS_REASON": "existem e estao barrados de proposito — nao e defeito, e memoria.",
+      "WHAT": "Pacotes que ja existiram e que o portao reconhece para RECUSAR.",
+      "WHY_HERE": "Saber o nome do errado e o que permite recusa-lo. Sem esta lista, uma safra velha passava com cara de nova.",
+      "FILES": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json"
+      ],
+      "FILE_EXISTS": {
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json": true
+      },
+      "SYMBOLS": {},
+      "DECLARED_INBOUND": [],
+      "DECLARED_OUTBOUND": [
+        "C-AUDIT-HARNESS",
+        "C-MAPA-GERADOR",
+        "C-PORTAO-BUILD",
+        "C-SITE-INGEST"
+      ],
+      "OBSERVED_INBOUND": [],
+      "OBSERVED_OUTBOUND": [
+        "C-AUDIT-HARNESS",
+        "C-MAPA-GERADOR",
+        "C-PORTAO-BUILD",
+        "C-SITE-INGEST"
+      ],
+      "EDGES_IN": [],
+      "EDGES_OUT": [
+        {
+          "outro": "C-AUDIT-HARNESS",
+          "nome": "Harness de auditoria",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "italia-portale/audit/lib/pacote.mjs",
+              "line": 27,
+              "snippet": "export const CONTRATO = JSON.parse(fs.readFileSync(path.resolve(HERE, '..', 'CANONICAL-PACKAGE-CONTRACT.json'), 'utf8'));"
+            }
+          ]
+        },
+        {
+          "outro": "C-MAPA-GERADOR",
+          "nome": "Gerador do System Map",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "system-map/scripts/generate_system_map.py",
+              "line": 239,
+              "snippet": "contrato = RAIZ / \"italia-portale\" / \"audit\" / \"CANONICAL-PACKAGE-CONTRACT.json\""
+            }
+          ]
+        },
+        {
+          "outro": "C-PORTAO-BUILD",
+          "nome": "Portao da build",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "italia-portale/audit/ingestion-provenance.mjs",
+              "line": 38,
+              "snippet": "fs.readFileSync(new URL('./CANONICAL-PACKAGE-CONTRACT.json', import.meta.url), 'utf8'),"
+            }
+          ]
+        },
+        {
+          "outro": "C-SITE-INGEST",
+          "nome": "Ingestao do pacote no site",
+          "kind": "technical",
+          "status": "PROVEN",
+          "evidence": [
+            {
+              "file": "portoes/site_v21_ingest.py",
+              "line": 714,
+              "snippet": "'CANONICAL-PACKAGE-CONTRACT.json')"
+            }
+          ]
+        }
+      ],
+      "REFS_POR_CLASSE": {
+        "RUNTIME": [
+          ".vercelignore(PATH)",
+          "motor/v21_cadeia.sh(PATH)",
+          "portoes/site_v21_ingest.py(PATH)"
+        ],
+        "SYSTEM_MAP": [
+          "italia-portale/client/system-map/state.generated.json(PATH)",
+          "system-map/README.md(PATH)",
+          "system-map/data/architecture.generated.json(PATH)",
+          "system-map/data/state.generated.json(PATH)",
+          "system-map/scripts/generate_system_map.py(PATH)"
+        ]
+      },
+      "REFS_CONTAGEM": {
+        "RUNTIME": 3,
+        "SYSTEM_MAP": 5
+      },
+      "RUNTIME_REFS": [
+        ".vercelignore(PATH)",
+        "motor/v21_cadeia.sh(PATH)",
+        "portoes/site_v21_ingest.py(PATH)"
+      ],
+      "TEM_TESTE": false,
+      "TEM_PROVA": false,
+      "ESTADO_ESTATICO": "CONNECTED_STATIC_NOT_RUNTIME_PROVEN",
+      "RUNTIME_OBSERVED": "NAO_MEDIDO_POR_ESTE_INSTRUMENTO",
+      "DECLARACAO_ORIGEM": "GERADA_PELO_SCANNER"
+    }
+  ]
+}
