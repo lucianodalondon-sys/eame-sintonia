@@ -12184,3 +12184,128 @@ resultados inválidos, 0 SHA em falta, 0 drift, 0 extras · `PENDING = {028,029,
 · travas da Collection todas validadas · 14 ataques, 0 sobreviventes ·
 regressão 2647 testes com conjunto idêntico ao baseline ·
 **`LIVE_WRITES_PERFORMED = 0`**.
+
+
+---
+
+# §107 · UM TESTE QUE SÓ FALA PELO SÍMBOLO NÃO VÊ O CONTRATO MUDAR
+
+**Missão:** `C-INTEGRATE-E7-INTO-CURRENT-COLLECTION-V2` — aterrar o contrato do
+texto na linha funcional, que andou cinco commits desde a base dele.
+**Branch:** `claude/integrate-e7-current-collection-v2` → linha funcional por fast-forward
+**Data:** 2026-09-13
+
+A `COL-E7-01` fechou o contrato do texto com 65 casos, e fechou-o bem. O red
+team **da integração** — que ataca a junção, e não cada lado — pôs dois
+mutantes que os 65 não viram:
+
+```
+CAMPO_DAS_UNIDADES = 'TEXTOS'          ->  65 testes verdes
+TEXTO_DESCONHECIDO = 'TRANSCRIPT'      ->  65 testes verdes
+```
+
+O campo do envelope mudou de nome, e o desconhecido passou a dizer — no fio —
+que alguém o tinha transcrito. Nenhum teste reclamou.
+
+## 107.1 · POR QUÊ
+
+Porque a suíte inteira se refere ao contrato pelo **símbolo**:
+
+```python
+pv.CAMPO_DAS_UNIDADES        e nunca   'TEXT_UNITS'
+pv.TEXTO_DESCONHECIDO        e nunca   'UNKNOWN'
+```
+
+Isso é boa prática para código — e é exactamente o que cega o teste. Mudar a
+constante move os dois lados da igualdade ao mesmo tempo, e a asserção continua
+verdadeira sobre um mundo diferente.
+
+```
+UM TESTE QUE SO FALA PELO SIMBOLO MEDE A COERENCIA INTERNA,
+E NAO O CONTRATO COM QUEM ESTA DO OUTRO LADO DO FIO.
+```
+
+## 107.2 · E DO OUTRO LADO DO FIO HÁ GENTE
+
+`TEXT_UNITS` não é detalhe de implementação: é o nome que **viaja no envelope**,
+fica escrito em disco, e é o que o SCRAP vai produzir na missão seguinte.
+Renomeá-lo em silêncio não parte um teste — parte a leitura de tudo o que já foi
+colhido, e parte uma ponte que ainda não foi construída.
+
+```
+UM VALOR QUE ATRAVESSA UMA FRONTEIRA E UM CONTRATO,
+E UM CONTRATO PRENDE-SE PELO VALOR — UMA VEZ, NUM SITIO SO.
+```
+
+Onde? Numa guarda dedicada, separada da suíte de comportamento: ali escreve-se o
+literal **de propósito**, e é o único sítio do repositório onde isso é correcto.
+
+E a trava que mata a família toda, e não só o caso que apareceu: **a ausência de
+espécie não pode coincidir com nenhuma espécie de verdade**, seja qual for o
+valor que lhe derem.
+
+## 107.3 · UM CONFLITO EM FICHEIRO GERADO NÃO SE RESOLVE ESCOLHENDO UM LADO
+
+Das duas linhas juntas nesta missão, **nenhum ficheiro de código-fonte foi
+tocado pelos dois lados**. Os únicos oito conflitos foram os JSON gerados do
+System Map — cada lado tinha regenerado o mapa a partir da **sua** árvore.
+
+`ours` guardaria o mapa de uma árvore que já não existe. `theirs`, o de outra
+que também não. As duas opções são medições de passados diferentes.
+
+```
+UM MAPA E MEDIDA, E NAO OPINIAO.
+NAO SE ESCOLHE ENTRE DUAS MEDIDAS DE ARVORES QUE JA NAO EXISTEM:
+MEDE-SE A QUE EXISTE.
+```
+
+Resolveu-se correndo a cadeia canónica sobre a árvore **já junta** — e isso
+prova-se, não se afirma: os oito ficheiros regenerados **diferem dos dois
+lados**. Se algum coincidisse, seria sinal de que alguém tinha escolhido.
+
+Generaliza: num merge, ficheiro derivado não tem lado. Tem **gerador**.
+
+## 107.4 · O A/B DE UM JULGAMENTO É CONTRA O HEAD DE HOJE
+
+A `COL-E7-01` já provara 174 vereditos iguais — contra a base de onde ela saiu.
+Isso não serve para a integração: a pergunta mudou de «o E7 muda o julgamento?»
+para «o E7 **aqui**, sobre cinco commits que ele nunca viu, muda o julgamento?».
+
+E ao construí-lo, três coisas quase o invalidaram:
+
+1. **O carimbo de tempo não é um julgamento.** A primeira comparação deu 129 de
+   129 «diferentes» por causa de `quando=`. Neutraliza-se esse campo **pelo
+   nome** — apagar tudo o que varia até o diff se calar seria comparar o
+   silêncio.
+2. **Juntar pela chave errada não dá zero linhas: dá linhas vazias.** Os 36
+   itens do gabarito não casam por `ITEM_ID` com `ARTIFACT_ID` — casam por
+   `DOC_SHA256`. Com a chave errada: ficha vazia, item sem tipo, e a porta a
+   abster-se em 100% dos casos. Um A/B assim passa sempre, e não por bom motivo.
+3. **Um A/B onde nada discrimina não prova que nada mudou.** Enquanto todos os
+   vereditos saíam `NAO_SEI`, a comparação passaria na mesma se a regra tivesse
+   desaparecido. Só depois de o arnês da casa alcançar vereditos **temáticos**
+   (`SIM`/`NÃO`) é que o zero passou a significar alguma coisa.
+
+## 107.5 · CONSEQUÊNCIA
+
+```
+· contrato que atravessa fronteira prende-se pelo VALOR, em guarda propria
+· a ausencia de especie nao pode coincidir com especie nenhuma de verdade
+· ficheiro gerado nao tem lado num merge: tem gerador — e prova-se que o
+  resultado difere dos DOIS lados
+· A/B de julgamento e contra o HEAD de hoje, nao contra a base do ramo
+· neutralizar num diff so o que nao e a pergunta, pelo NOME, e so isso
+· antes de confiar num A/B, perguntar se ele CHEGA a discriminar
+· (ja registado antes, e repetido aqui) red team que muta e restaura no
+  mesmo segundo envenena o `.pyc`: a arvore fica certa e o comportamento
+  errado, e TUDO o que se medir a seguir mede a bancada. Custou uma
+  regressao inteira com 8 falhas que nao existiam. A lei ja estava
+  escrita; o arnes novo e que nasceu sem ela.
+```
+
+**Medido:** `TEXT_CONTRACT_OWNER_COUNT = 1` · E1–E7 PASS em 5 casos ·
+`TEXT_KIND_LOSS = TEXT_RELATION_LOSS = LANGUAGE_LOSS = 0` ·
+`JUDGMENT_DIFF_COUNT = 0` em dois arneses · regressão 2647 → 2720 com conjunto
+de falhas idêntico, `NEW_FAILURES = 0`, `DISAPPEARED_TESTS = 0` ·
+`POSTGRES_DISPOSABLE = PASS` · 19 ataques e 6 mutantes, **0 sobreviventes** ·
+`SCRAP_TOUCHED = NO` · `LIVE_READS = LIVE_WRITES = 0`.
