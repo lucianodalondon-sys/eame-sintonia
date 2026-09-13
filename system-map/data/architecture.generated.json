@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/close-postgres-ci-before-live-v1",
-    "HEAD": "822666002c12b1523876f3f4eb7336338b1b01a5",
-    "GENERATED_AT": "2026-09-13T04:03:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5b3606accd9e0f01eed2d2a1b8d521b5d2d7f52f7cfbb5c62116b5e0165a049e"
+    "HEAD": "82a0f6ba03bb3b13315d9e293d40dd15c4d8706d",
+    "GENERATED_AT": "2026-09-13T11:03:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a38406749848745d8f4e24c3bf4009de2a2de6662cc1469c446a18266b1436db"
   },
   "FILES": [
     {
@@ -8221,7 +8221,7 @@
     },
     {
       "path": "provas/o_forward_conta_se.py",
-      "sha": "7f5a001142e3a7a162b28b754ba5389a7b9820e1",
+      "sha": "5fe24a430ede1ff7ebbf8ba0b6210a7351dffc9d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9992,7 +9992,7 @@
     },
     {
       "path": "tests/test_a_prova_e2e_segue_a_producao.py",
-      "sha": "a45da889f8746ba4e35965966a03625b5094a7d6",
+      "sha": "e5c4ea29ed4dbaa5ab6ffe18bfd4b77ab3c8a0fe",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29855,7 +29855,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_forward_conta_se.py",
-        "line": 153,
+        "line": 185,
         "snippet": "with open(CATALOGO_DE_FONTES, encoding=\"utf-8\") as f:"
       }
     },
@@ -29899,7 +29899,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_forward_conta_se.py",
-        "line": 123,
+        "line": 155,
         "snippet": "def route_class_do_executor(ficheiro_do_executor=\"coleta/executor_texto_de_pdf.py\"):"
       }
     },
@@ -29976,7 +29976,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_forward_conta_se.py",
-        "line": 130,
+        "line": 162,
         "snippet": "with open(MODELO_DAS_ESTRADAS, encoding=\"utf-8\") as f:"
       }
     },
@@ -34514,12 +34514,23 @@
     },
     {
       "from_file": "tests/test_a_prova_e2e_segue_a_producao.py",
+      "to_file": "provas/o_forward_conta_se.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_prova_e2e_segue_a_producao.py",
+        "line": 128,
+        "snippet": "os.path.join(RAIZ, \"provas\", \"o_forward_conta_se.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_a_prova_e2e_segue_a_producao.py",
       "to_file": "system-map/data/estradas-it.model.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-        "line": 244,
+        "line": 284,
         "snippet": "MODELO = os.path.join(RAIZ, \"system-map\", \"data\", \"estradas-it.model.json\")"
       }
     },
@@ -42053,7 +42064,7 @@
     "files_tracked": 1533,
     "files_readable": 601,
     "files_code_dir": 649,
-    "file_edges": 2802,
+    "file_edges": 2803,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },

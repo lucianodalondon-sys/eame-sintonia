@@ -111,14 +111,54 @@ class OFixtureFalaPeloTradutorDaProducao(unittest.TestCase):
                       "versao a mao — remedir a deriva")
 
 
+# A MESMA PERGUNTA, FEITA A TODAS AS PROVAS QUE MONTAM O ESQUEMA.
+#
+# Esta guarda nasceu a olhar para UMA prova, e a cura foi escrita para UMA
+# prova. `provas/o_forward_conta_se.py` tinha o mesmo defeito, ao lado, e
+# ficou de fora — envelheceu sozinha ate a `029` criar uma tabela que ela
+# escreve, e o CI parou.
+#
+#     CURAR UM SITIO E DEIXAR A GUARDA A OLHAR SO PARA ESSE SITIO
+#     E CURAR UM SITIO.
+#
+# A lista vive aqui agora, e quem acrescentar uma prova que aplique
+# migrations acrescenta-a a este tuplo — nao a um comentario.
+PROVAS_QUE_MONTAM_O_ESQUEMA = (
+    os.path.join(RAIZ, "provas", "a_rota_m2_atravessa.py"),
+    os.path.join(RAIZ, "provas", "o_forward_conta_se.py"),
+)
+
+
 class ACadeiaDeMigrationsVemDoDisco(unittest.TestCase):
     """A segunda copia que envelheceu, e que ja tinha envelhecido uma vez."""
 
-    def _mod(self):
-        spec = importlib.util.spec_from_file_location("rota_t", PROVA_ROTA)
+    def _mod(self, caminho=None):
+        caminho = caminho or PROVA_ROTA
+        spec = importlib.util.spec_from_file_location(
+            "cadeia_t_" + os.path.basename(caminho)[:-3], caminho)
         m = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(m)
         return m
+
+    def test_TODAS_as_provas_que_montam_esquema_leem_a_pasta(self):
+        """O defeito concreto de 2026-09-13: a cura existia num ficheiro e o
+        do lado continuava com a lista a mao."""
+        pasta = os.path.join(RAIZ, "supabase", "migrations")
+        no_disco = {f.split("_", 1)[0] for f in os.listdir(pasta)
+                    if f.endswith(".sql")}
+        for caminho in PROVAS_QUE_MONTAM_O_ESQUEMA:
+            nome = os.path.basename(caminho)
+            with self.subTest(prova=nome):
+                m = self._mod(caminho)
+                self.assertEqual(
+                    ("008",), m._SO_VERIFICA,
+                    "%s deixou de dizer porque e que a 008 fica de fora" % nome)
+                self.assertEqual(
+                    set(m.MIGRATIONS), no_disco - set(m._SO_VERIFICA),
+                    "%s atravessa um esquema atras da realidade" % nome)
+                self.assertIn(
+                    "_cadeia_de_migrations()", _fonte(caminho),
+                    "%s voltou a ter a cadeia escrita a mao" % nome)
 
     def test_a_lista_nao_esta_escrita_a_mao(self):
         s = _fonte(PROVA_ROTA)

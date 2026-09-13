@@ -1981,9 +1981,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/close-postgres-ci-before-live-v1",
-    "HEAD": "822666002c12b1523876f3f4eb7336338b1b01a5",
-    "GENERATED_AT": "2026-09-13T04:03:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5b3606accd9e0f01eed2d2a1b8d521b5d2d7f52f7cfbb5c62116b5e0165a049e"
+    "HEAD": "82a0f6ba03bb3b13315d9e293d40dd15c4d8706d",
+    "GENERATED_AT": "2026-09-13T11:03:04+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a38406749848745d8f4e24c3bf4009de2a2de6662cc1469c446a18266b1436db"
   },
   "FAMILIES": [
     {
@@ -12542,23 +12542,14 @@
         "C-RASTRO",
         "C-SCRAP-LEIS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {
         "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "MIGRATIONS"
-        ],
-        "palavras": 25,
-        "por_lingua": {},
-        "sem_marca_de_lingua": 25,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
-      },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [],
@@ -16125,6 +16116,7 @@
         "C-PROCEDENCIA",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-FORWARD-CONTA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-MAPA-NAO-MENTE",
@@ -24124,7 +24116,7 @@
       "evidence": [
         {
           "file": "provas/o_forward_conta_se.py",
-          "line": 130,
+          "line": 162,
           "snippet": "with open(MODELO_DAS_ESTRADAS, encoding=\"utf-8\") as f:"
         }
       ],
@@ -24160,7 +24152,7 @@
       "evidence": [
         {
           "file": "tests/test_a_prova_e2e_segue_a_producao.py",
-          "line": 244,
+          "line": 284,
           "snippet": "MODELO = os.path.join(RAIZ, \"system-map\", \"data\", \"estradas-it.model.json\")"
         },
         {
@@ -24637,7 +24629,7 @@
       "evidence": [
         {
           "file": "provas/o_forward_conta_se.py",
-          "line": 123,
+          "line": 155,
           "snippet": "def route_class_do_executor(ficheiro_do_executor=\"coleta/executor_texto_de_pdf.py\"):"
         }
       ],
@@ -25682,7 +25674,7 @@
       "evidence": [
         {
           "file": "provas/o_forward_conta_se.py",
-          "line": 153,
+          "line": 185,
           "snippet": "with open(CATALOGO_DE_FONTES, encoding=\"utf-8\") as f:"
         }
       ],
@@ -29299,6 +29291,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-FORWARD-CONTA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o forward se conta alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_prova_e2e_segue_a_producao.py",
+          "line": 128,
+          "snippet": "os.path.join(RAIZ, \"provas\", \"o_forward_conta_se.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-PROVA-FRONTEIRA",
@@ -33923,7 +33933,7 @@
       {
         "NOME": "TELEMETRY_FAILURE_SEM_POLITICA",
         "ONDE": "provas/o_forward_conta_se.py",
-        "LINHA": 105,
+        "LINHA": 137,
         "FORMA": "tuplo GAPS",
         "O_QUE_FALTA": "A excecao do rastro SOBE por `derivacao_forward.correr()`. O artefato fica guardado — a coleta NAO falhou — mas quem chama perde o recibo, e um chamador desatento pode ler a excecao como corrida falhada. Nao ha politica escrita nesta casa para «o sensor partiu-se», e inventar uma aqui para fechar o teste seria escrever constituicao para passar num exame. Fica como divida com nome."
       }
@@ -33935,8 +33945,8 @@
     "components_pending": 103,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 718,
-    "edges_proven": 716,
+    "edges": 719,
+    "edges_proven": 717,
     "edges_unknown": 2,
     "business_edges": 4,
     "files_tracked": 1533,
