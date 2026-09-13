@@ -1337,7 +1337,7 @@ dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 | exclusões com `INTENTIONAL=UNKNOWN` | 12 de 17 |
 | artefactos `UNVERIFIABLE` | 0 (eram 4, fechados pelo `G3`) |
 | censos que publicam número sem persistir | 0 (era 1, fechado pelo `G2`) |
-| violação de `ONE CHAIN OWNER` | 14 scripts fora do manifesto (7 de 21 declarados) |
+| violação de `ONE CHAIN OWNER` | 14 scripts fora do manifesto, agora **declarados** em `FORA_DESTE_MANIFESTO` (§30) — a dívida ficou visível, não menor |
 | entidades com `ROLE` atribuído | 0 de 161 |
 | cobertura de runtime | 2 de 57 executores relevantes |
 | arestas onde `OBSERVED` é representável | 0 de 672 |
@@ -1359,9 +1359,9 @@ que fecha uma dívida não promove nada, e foi por isso que ele não entrou no m
 | ~~**G1**~~ | quatro planos por afirmação **+** `ASSERTION_SUPPORTED` por evidência | **C4 e C4b · FAIL** | ✅ **FEITO** |
 | ~~**G2**~~ | persistir o censo da topologia como artefacto | dívida | ✅ **FEITO** (dívida do `G2B` fechada, §13.3) |
 | ~~**G3**~~ | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | ✅ **FEITO** |
-| G4 | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | G3 |
-| G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | G4 |
-| G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | G4, G5 |
+| ~~**G4**~~ | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | ✅ **FEITO** (§30) |
+| G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | ~~G4~~ |
+| G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | ~~G4~~, G5 |
 | G7 | atribuir `ROLE` às 160 entidades | dívida | G1 |
 | G8 | pente fino por `ROLE` em vez de tupla de territórios | dívida | G7 |
 | G9 | `LIMITATIONS` obrigatório em toda evidência publicada | dívida | G1 |
@@ -1458,15 +1458,172 @@ A INFORMAÇÃO QUE CADA UM CARREGA.
 Local de integração sugerido: secção de leis do System Map, junto de
 `CAN DO != DID DO`.
 
+E o delta do **`G4`**, que é sobre como se prova uma declaração de dependência:
+
+```
+UMA DECLARACAO DE DEPENDENCIA QUE SO SE CONFERE CONTRA SI PROPRIA NAO SE
+CONSEGUE DESMENTIR — E O QUE NAO SE DESMENTE NAO E UM CONTRATO. ELA PRECISA DE
+DUAS TESTEMUNHAS QUE ERREM DE LADOS OPOSTOS: A AST VE O QUE O CODIGO NOMEIA E
+ACREDITA NUMA STRING QUE NINGUEM USA; A CORRIDA VE O QUE O CODIGO ABRIU E NAO
+VE O FICHEIRO QUE HOJE NAO EXISTE. SEPARADAS, CADA UMA ASSINA UMA MENTIRA.
+
+E O KIND NAO E DECORACAO. CHAMAR FONTE A UM ARTEFATO GERADO NAO APAGA A
+DEPENDENCIA: APAGA A CAPACIDADE DE A VER. FOI O UNICO SOBREVIVENTE DE VINTE
+ATAQUES, E PASSAVA EM TUDO — O CAMINHO EXISTIA, ERA MESMO LIDO, A AST
+CONFIRMAVA-O. SO A PALAVRA MUDAVA.
+
+UM FORMATO COM QUATRO LEITORES NAO E UM FORMATO: SAO QUATRO ACORDOS QUE POR
+ENQUANTO CALHAM BATER. UM LEITOR POR RUNTIME E O MINIMO POSSIVEL, E E O MAXIMO
+ACEITAVEL.
+
+UMA DIVIDA QUE SO VIVE NUM NUMERO DENTRO DE UM TESTE DESAPARECE NO DIA EM QUE
+ALGUEM ACERTA O NUMERO. A DIVIDA DO G5 PASSOU A SER DADO NO MANIFESTO, E A
+PROVA COMPARA-A COM O QUE O WORKFLOW REALMENTE CORRE.
+
+E DUAS LICOES DE BANCADA, QUE CUSTARAM UM FICHEIRO E DOZE MORTES FALSAS:
+
+UMA BANCADA QUE ESTRAGA A ARVORE MEDE A SUA PROPRIA AVARIA. UM ATAQUE QUE MOVE
+UM FICHEIRO TEM DE DESFAZER O MOVIMENTO, NUNCA «LIMPAR» — apagar a copia movida
+apaga o original, e os ataques seguintes passam a morrer do ficheiro em falta
+em vez de morrerem da guarda.
+
+UM TESTE QUE PROCURA TEXTO NAO DISTINGUE QUEM USA DE QUEM CITA. A guarda do
+«consumidor teimoso» apanhou-se a si propria e depois apanhou um teste que so
+falava da lista entre aspas. Quem USA subscreve o dicionario, e isso ve-se na
+arvore sintatica — so la.
+
+E UM PORTAO QUE REBENTA COM TRACEBACK NAO E MELHOR DO QUE UM QUE MENTE: OS DOIS
+OBRIGAM QUEM LE A ADIVINHAR.
+```
+
 ```
 KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
 ```
 
 A linha canónica (`claude/sintonia-eame-know-how-v1`,
 `SINTONIA-EAME-KNOW-HOW.md`) foi buscada e lida antes de escrever isto: a última
-secção lá é a `§96`. **Este contrato não escreve nessa linha e não cria um
-segundo dono** — o delta fica aqui, pronto a integrar, como já acontecia com o
-bloco acima.
+secção lá é a **`§105`**. **Este contrato não escreve nessa linha e não cria um
+segundo dono** — o delta fica aqui, pronto a integrar, como já acontecia com os
+blocos acima.
+
+---
+
+## 30 · `G4` · CADA PASSO DECLARA O QUE LÊ E O QUE ESCREVE
+
+```
+SCHEMA  sintonia.system-map.cadeia/1  →  sintonia.system-map.cadeia/2
+antes   "system-map/scripts/scan_repo.py"
+depois  { STEP_ID, EXECUTABLE, INPUTS[], OUTPUTS[] }
+```
+
+O congelamento da §29 não caducou sozinho: foi **levantado pelo gatilho `G` da
+§29.5** — o utilizador mandou reabrir, e nomeou `G4`. Os gatilhos existem para
+serem usados; um freeze que se levanta em silêncio não era um freeze.
+
+### 30.1 · O vocabulário, e porque é deste tamanho
+
+| `KIND` | o que é | identidade |
+|---|---|---|
+| `TRACKED_SOURCE_TREE` | o conjunto que o passo varre | `ORIGEM` + `PADRAO` + `FILTRO_DONO` (ficheiro **e símbolo** que existem) |
+| `TRACKED_SOURCE_FILE` | um ficheiro rastreado que o passo vai buscar pelo nome | `PATH` |
+| `GENERATED_ARTIFACT` | a saída de outro passo | `PATH` + `PRODUCER` + `PRODUCER_EXECUTABLE` |
+| `CANONICAL_MANIFEST` | o próprio manifesto | `PATH` (+ `VIA`, quando a leitura é indirecta) |
+
+Quatro, e nem um a mais. A linha que o contrato exigia é a primeira: **fonte
+rastreada ≠ artefacto gerado por passo anterior** — e ela é a única coisa que o
+`G6` vai precisar de ler para derivar ordem.
+
+### 30.2 · O que a medição encontrou, e que não se sabia
+
+**A árvore chega à maior parte dos passos pelo artefacto, não pelo git.** Só
+`SCAN_REPO` e `CENSO_DOS_BURACOS` perguntam ao git (`git ls-files` e
+`git ls-files "*.py"`). `SCAN_SOURCES`, `GENERATE_SYSTEM_MAP` e o validador
+abrem o que `architecture.generated.json · FILES[]` lhes nomeia. Isso torna
+`SCAN_REPO` um ponto de passagem obrigatório que a ordem actual respeita por
+acidente histórico, e que o `G6` passa a poder derivar.
+
+**Cinco entradas do gerador não têm produtor neste manifesto.** `armazem-it`,
+`corpus-it`, `derivacoes`, `identidade-it` vêm dos treze de fora; e
+`golden-path-pdf.generated.json` vem de `coleta/golden_path_pdf.py` — da
+**Collection**, fora da cadeia do mapa por inteiro. Estão declaradas com
+`PRODUCER = FORA_DO_MANIFESTO`, que é a verdade, e não omitidas, que seria
+fingir que a dívida do `G5` não toca o passo mais importante.
+
+### 30.3 · O ciclo do pente fino, declarado
+
+```
+PENTE_FINO_CYCLE_DEPENDENCY = DECLARED
+```
+
+`PENTE_FINO_DA_COLETA` é o **passo 5** e lê `system-map/data/state.generated.json`,
+que o **passo 7** escreve. Está escrito no manifesto, com a razão, e duas provas
+mordem se alguém o apagar — uma sobre a declaração, outra sobre a corrida real.
+`G4` **não o corrige**: corrigir é ordenar por `INPUTS`, e isso é `G6`.
+
+### 30.4 · Como a declaração se desmente
+
+Uma declaração que só se confere contra si própria não é um contrato. Esta
+confere-se contra o código, por **duas testemunhas que erram de lados opostos**:
+
+| testemunha | o que vê | o que não vê |
+|---|---|---|
+| a **AST** | o que o código **nomeia** | uma string que ninguém usa |
+| a **corrida** num clone | o que o código **abriu** | um ficheiro que hoje não existe |
+
+E as cinco perguntas que fecham o cerco, todas contra a corrida:
+
+```
+toda entrada declarada foi mesmo lida        → mata o INPUT INVENTADO
+toda saída declarada foi mesmo escrita       → mata o OUTPUT INVENTADO
+toda escrita real está declarada             → mata a ESCRITA ESCONDIDA
+toda leitura real é explicada                → mata a LEITURA ESCONDIDA
+o seletor não é mais largo do que o varrido  → mata «a árvore toda como entrada»
+```
+
+`*` como padrão só passa em `SCAN_REPO`, e só porque ele **enumera mesmo** a
+árvore inteira: a prova compara o varrido com o rastreado e reprova quem declarar
+tudo medindo um pedaço.
+
+### 30.5 · O red team encontrou um sobrevivente, e a bancada encontrou-se a si
+
+Vinte ataques, e o décimo segundo **sobreviveu**: trocar `GENERATED_ARTIFACT`
+por `TRACKED_SOURCE_FILE` numa entrada real passava em tudo. O caminho existia,
+era mesmo lido, a AST confirmava-o — só a **palavra** mudava.
+
+> **CHAMAR FONTE A UM ARTEFACTO GERADO NÃO APAGA A DEPENDÊNCIA:
+> APAGA A CAPACIDADE DE A VER.**
+
+Duas regras fecharam-no, e nenhuma precisa de lista escrita à mão: o que é
+**saída** de um passo é `GENERATED_ARTIFACT` em todo o lado, e o `KIND` de um
+caminho não muda conforme quem o lê.
+
+E ele só apareceu porque a **bancada** foi corrigida primeiro. O ataque 10 movia
+um ficheiro e a limpeza **apagava a cópia movida** — destruiu `scan_casco.py` a
+sério, e os ataques seguintes morriam do ficheiro em falta em vez de morrerem da
+guarda. Doze mortes eram falsas.
+
+> **UMA BANCADA QUE ESTRAGA A ÁRVORE MEDE A SUA PRÓPRIA AVARIA.
+> UM ATAQUE QUE MOVE UM FICHEIRO TEM DE DESFAZER O MOVIMENTO, NUNCA «LIMPAR».**
+
+Depois da correcção: **20 ataques, 0 sobreviventes**, cada um com a guarda que o
+matou escrita ao lado, e nenhum a morrer por *traceback* — um portão que rebenta
+não é melhor do que um que mente, porque os dois obrigam quem lê a adivinhar.
+
+### 30.6 · O que `G4` não fez
+
+```
+G5_IMPLEMENTED = NO      os 14 de fora continuam fora — e agora DECLARADOS,
+                         em FORA_DESTE_MANIFESTO, com a razão
+G6_IMPLEMENTED = NO      a ordem é byte a byte a de antes; o leitor não ordena,
+                         e uma prova reprova um `sort` lá dentro
+CHAIN_SINGLE_OWNER       continua VIOLATED, e agora diz-se onde
+```
+
+A dívida do `G5` deixou de viver num número dentro de um teste e passou a ser
+**dado no manifesto**. A diferença não é cosmética:
+
+> **UMA DÍVIDA QUE SÓ VIVE NUM NÚMERO DENTRO DE UM TESTE
+> DESAPARECE NO DIA EM QUE ALGUÉM ACERTA O NÚMERO.**
 
 ---
 

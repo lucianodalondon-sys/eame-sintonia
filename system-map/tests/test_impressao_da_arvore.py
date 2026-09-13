@@ -26,6 +26,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
 import impressao_da_arvore as IMP  # noqa: E402
+import cadeia_do_mapa as CAD  # noqa: E402
 
 CADEIA = json.loads((RAIZ / "system-map" / "scripts" / "CADEIA-DO-MAPA.json")
                     .read_text(encoding="utf-8"))
@@ -88,7 +89,7 @@ prova("nenhum_ficheiro_rastreado_falta_ao_disco", not ausentes,
 # da alarme falso; excluir de MAIS da verde falso, e verde falso e o unico erro
 # que esta lei nao pode cometer.
 r = clone()
-for passo in CADEIA["REGERAR"]:
+for passo in CAD.executaveis():
     x = correr([sys.executable, passo], cwd=str(r))
     if x.returncode != 0:
         prova(f"a_cadeia_corre_no_clone[{passo}]", False, x.stderr[-300:])

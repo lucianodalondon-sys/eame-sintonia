@@ -51,6 +51,19 @@ import { fileURLToPath } from 'node:url';
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const RAIZ = resolve(AQUI, '..', '..');
 const CADEIA = JSON.parse(readFileSync(join(AQUI, 'CADEIA-DO-MAPA.json'), 'utf8'));
+
+/* O LEITOR DA CADEIA, DO LADO JAVASCRIPT — e ha so este.
+   O `G4` deu forma a cada passo: de `"scan_repo.py"` para
+   `{STEP_ID, EXECUTABLE, INPUTS, OUTPUTS}`. Quem corre a cadeia quer os
+   caminhos, e quer a ORDEM ESCRITA no manifesto — nunca uma ordem derivada
+   aqui, que seria o G6 implementado a socapa num publicador de build.
+
+   Sao dois runtimes, logo sao dois leitores: este e
+   `system-map/scripts/cadeia_do_mapa.py`. UM por runtime e o minimo possivel,
+   e `test_system_map.py` prova que os dois devolvem a mesma lista. */
+function executaveisDaCadeia() {
+  return CADEIA.REGERAR.map(p => p.EXECUTABLE);
+}
 const SERVIDO = join(RAIZ, 'italia-portale', 'client', 'system-map');
 const ESTADO = join(SERVIDO, 'state.generated.json');
 const ARTEFATO = join(SERVIDO, CADEIA.ARTEFATO_DE_DEPLOY);
@@ -218,9 +231,10 @@ if (!python) {
     + 'contentor). Regenerar aqui daria o mapa de uma arvore mutilada. O mapa '
     + 'commitado continua a ser servido, e a frescura fica UNKNOWN em vez de verde.';
 } else {
-  nota(`a regerar pela cadeia de ${CADEIA.REGERAR.length} passos (a mesma do CI)`);
+  const passos = executaveisDaCadeia();
+  nota(`a regerar pela cadeia de ${passos.length} passos (a mesma do CI)`);
   try {
-    for (const passo of CADEIA.REGERAR) {
+    for (const passo of passos) {
       execFileSync(python, [passo], { cwd: RAIZ, stdio: 'inherit' });
     }
     regenerou = true;

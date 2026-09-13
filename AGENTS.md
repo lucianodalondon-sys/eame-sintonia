@@ -49,8 +49,10 @@ O mapa continua **ativo como instrumento** e **congelado como frente de
 arquitetura**. Regenerar, validar, verificar a frescura e denunciar
 `UNKNOWN`/`STALE`/`FAIL` continua **obrigatório**; o que para é redesenhá-lo.
 
-Não iniciar `G4`–`G13` — eles continuam abertos e por riscar, e **dívida
-conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
+`G4` foi reaberto e fechado pelo gatilho `G` da §29.5 (o utilizador mandou):
+cada passo do manifesto declara agora `INPUTS`/`OUTPUTS`, e a §30 do contrato
+diz como isso se desmente. `G5`–`G13` continuam abertos e por riscar, e
+**dívida conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
 pode e não pode prometer hoje, e o veredito medido
 (`CURRENT_SYSTEM_MAP_TRUST = DEGRADED`) vivem na **§29 do**
 [`SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md).

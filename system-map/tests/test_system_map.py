@@ -27,6 +27,7 @@ RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
 
 import generate_system_map as GEN  # noqa: E402
+import cadeia_do_mapa as CAD  # noqa: E402
 
 DADOS = RAIZ / "system-map" / "data"
 S = json.loads((DADOS / "state.generated.json").read_text(encoding="utf-8"))
@@ -885,14 +886,17 @@ CI_YML = (RAIZ / ".github" / "workflows" / "system-map.yml").read_text(encoding=
 #
 #     UMA SEQUENCIA CERTA SOMADA DE DOIS SITIOS NAO PROVA NENHUM DELES.
 JOBS = re.split(r"\n  (?=[a-z_-]+:\n)", CI_YML)
-esperado = list(CADEIA["REGERAR"]) + list(CADEIA["VALIDAR"])
-so_regerar = list(CADEIA["REGERAR"])
+# O `G4` deu forma a cada passo. A lista de CAMINHOS vem do leitor unico, nunca
+# de um `list(...)` escrito aqui — senao este ficheiro passa a ser um segundo
+# interprete do manifesto, e a proxima mudanca de forma parte-o em silencio.
+esperado = CAD.executaveis() + CAD.executaveis_de_validar()
+so_regerar = CAD.executaveis()
 por_job, torto = [], []
 for bloco in JOBS:
     nome = re.match(r"\s*([a-z_-]+):", bloco)
     linhas = [x for x in re.findall(
         r"^\s*(?:run:\s*)?python3 (system-map/scripts/\S+\.py)\s*$", bloco, re.M)
-        if x in CADEIA["REGERAR"] or x in CADEIA["VALIDAR"]]
+        if x in esperado]
     if not linhas:
         continue
     por_job.append(nome.group(1) if nome else "?")

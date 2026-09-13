@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "1d4370bec4d8499791b7e049145ce2f72e6f0072",
-    "BRANCH": "claude/system-map-operational-close-v1",
-    "GENERATED_AT": "2026-09-12T23:22:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "139a2f444cb92d82ffa79af16fc27a39588f2ad42ed24b9bb754ea7a73fb9e57"
+    "HEAD": "057a94a81f05db575b1f4c8cfa1b4fe5251c7fd2",
+    "BRANCH": "claude/system-map-g4-declared-step-io-v1",
+    "GENERATED_AT": "2026-09-13T11:42:12+00:00",
+    "SOURCE_TREE_FINGERPRINT": "270341631597d583368de5002e39eaaa81ece9ac8cb7b342b98b3d689a924614"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,18 +20,18 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 672,
-    "LINHAS_PARTILHADAS": 55,
+    "ARESTAS_TOTAL": 676,
+    "LINHAS_PARTILHADAS": 57,
     "LINHAS_PARTILHADAS_ENTRE_TIPOS": 37,
-    "ARESTAS_REVISTAS": 52,
-    "SUPPORTED": 30,
+    "ARESTAS_REVISTAS": 54,
+    "SUPPORTED": 32,
     "AMBIGUOUS": 7,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
     "POR_DECISAO_E_TIPO": {
       "AMBIGUOUS·READS": 7,
       "SUPPORTED·IMPORTS": 10,
-      "SUPPORTED·READS": 18,
+      "SUPPORTED·READS": 20,
       "SUPPORTED·RUNS": 2,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
@@ -993,6 +993,39 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-CENSO-COLETA--READS-->C-MAPA-TESTES",
+      "FROM": "C-CENSO-COLETA",
+      "TO": "C-MAPA-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "system-map/tests/test_cadeia_declara_io.py",
+          "line": 269,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 55,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-CENSO-COLETA--READS-->C-MAPA-TESTES",
+        "FROM": "C-CENSO-COLETA",
+        "TO": "C-MAPA-TESTES",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
       "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
       "FROM": "C-CI-PERSIST",
       "TO": "C-TESTES",
@@ -1257,6 +1290,64 @@
         "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
         "FROM": "C-MAPA-SCAN",
         "TO": "C-MAPA-GERADOR",
+        "RELATION_TYPE": "READS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
+      "FROM": "C-MAPA-SCAN",
+      "TO": "C-MAPA-TESTES",
+      "RELATION_TYPE": "READS",
+      "RAW_TYPE_MEDIDO": "READS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "system-map/tests/test_cadeia_declara_io.py",
+          "line": 268,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_cadeia_declara_io.py",
+          "line": 268,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_cadeia_declara_io.py",
+          "line": 269,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_cadeia_declara_io.py",
+          "line": 270,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 51,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_impressao_verificavel.py",
+          "line": 53,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "system-map/tests/test_system_map.py",
+          "line": 474,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-TESTES",
+        "FROM": "C-MAPA-SCAN",
+        "TO": "C-MAPA-TESTES",
         "RELATION_TYPE": "READS",
         "PLANE": "CODE"
       },

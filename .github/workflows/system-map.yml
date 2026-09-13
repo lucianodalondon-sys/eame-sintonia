@@ -388,6 +388,14 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_impressao_verificavel.py
 
+      # O contrato de IO por passo. Ele corre a cadeia num CLONE e espia o que
+      # cada passo ABRE — por isso demora, e por isso vale: uma declaracao de
+      # dependencia que so se confere contra si propria nao se consegue
+      # desmentir, e o que nao se desmente nao e contrato.
+      - name: 4q · cada passo declara o que lê e o que escreve, e confere
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_cadeia_declara_io.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |

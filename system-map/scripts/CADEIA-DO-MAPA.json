@@ -1,5 +1,5 @@
 {
-  "SCHEMA": "sintonia.system-map.cadeia/1",
+  "SCHEMA": "sintonia.system-map.cadeia/2",
   "NOTA": [
     "A CADEIA DO MAPA, ESCRITA UMA VEZ SO.",
     "",
@@ -20,16 +20,446 @@
     "consegue correr, o mapa servido diz que nao conseguiu — nunca finge."
   ],
   "REGERAR": [
-    "system-map/scripts/scan_repo.py",
-    "system-map/scripts/scan_sources.py",
-    "system-map/scripts/scan_casco.py",
-    "system-map/scripts/censo_da_coleta.py",
-    "system-map/scripts/pente_fino_da_coleta.py",
-    "system-map/scripts/censo_dos_buracos.py",
-    "system-map/scripts/generate_system_map.py"
+    {
+      "STEP_ID": "SCAN_REPO",
+      "EXECUTABLE": "system-map/scripts/scan_repo.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia — INDIRECTAMENTE, pelo modulo que a importa",
+          "VIA": "system-map/scripts/impressao_da_arvore.py"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "git ls-files",
+          "PADRAO": [
+            "*"
+          ],
+          "FILTRO_DONO": "system-map/scripts/scan_repo.py · git(\"ls-files\") · LEGIVEIS",
+          "MEDIDO_VARRE": 1499,
+          "PORQUE": "este passo NAO mede um subconjunto: ele enumera a arvore rastreada inteira. `*` aqui e a regra verdadeira, e e o unico passo em que e."
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/architecture.generated.json",
+          "PORQUE": "o inventario de ficheiros, imports e chamadas desta arvore"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "SCAN_SOURCES",
+      "EXECUTABLE": "system-map/scripts/scan_sources.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia — INDIRECTAMENTE, pelo modulo que a importa",
+          "VIA": "system-map/scripts/impressao_da_arvore.py"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/architecture.generated.json",
+          "PRODUCER": "SCAN_REPO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/scan_repo.py",
+          "PORQUE": "le FILES[] para saber que ficheiros de codigo existem"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "FILES[] do artefato de SCAN_REPO",
+          "ORIGEM_ARTEFATO": "system-map/data/architecture.generated.json",
+          "CAMPO": "FILES[].path",
+          "PADRAO": [
+            "*.py",
+            "*.sh"
+          ],
+          "FILTRO_DONO": "system-map/scripts/scan_sources.py · as_palavras, as_portas",
+          "MEDIDO_VARRE": 384,
+          "PORQUE": "nao pergunta ao git: pergunta ao artefato do passo anterior"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+          "PORQUE": "o atlas declarado das fontes"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+          "PORQUE": "os contratos de busca"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "candidatas/FONTES-CANDIDATAS.json",
+          "PORQUE": "as candidatas declaradas"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+          "PORQUE": "o master italiano"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "data/samples/RUN-MANIFEST.json",
+          "PORQUE": "as corridas que tocaram cada fonte"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+          "PORQUE": "as contas por canal"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "data/collection-ledger/italy/runs.ndjson",
+          "PORQUE": "o livro de corridas"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "data/collection-ledger/italy/observations.ndjson",
+          "PORQUE": "o livro de observacoes"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/sources.generated.json",
+          "PORQUE": "o veredito por fonte"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "SCAN_CASCO",
+      "EXECUTABLE": "system-map/scripts/scan_casco.py",
+      "INPUTS": [
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "italia-portale/audit/blocks/*.spec.json + italia-portale/client/*.js",
+          "PADRAO": [
+            "italia-portale/audit/blocks/*.spec.json",
+            "italia-portale/client/*.js"
+          ],
+          "FILTRO_DONO": "system-map/scripts/scan_casco.py · BLOCOS, CLIENTE",
+          "MEDIDO_VARRE": 35,
+          "PORQUE": "os contratos de bloco e o cliente que os desenha"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "italia-portale/client/portale.html",
+          "PORQUE": "a pagina que monta os blocos"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/casco.generated.json",
+          "PORQUE": "as ferramentas do portal italiano"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "CENSO_DA_COLETA",
+      "EXECUTABLE": "system-map/scripts/censo_da_coleta.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia — INDIRECTAMENTE, pelo modulo que a importa",
+          "VIA": "system-map/scripts/impressao_da_arvore.py"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "as gavetas da coleta + .github/workflows/*.yml",
+          "PADRAO": [
+            "pedido/*",
+            "candidatas/*",
+            "fontes/*",
+            "ferramentas/*",
+            "coleta/*",
+            "regras/*",
+            "admissao/*",
+            "guarda/*",
+            ".github/workflows/*.yml"
+          ],
+          "FILTRO_DONO": "system-map/scripts/censo_da_coleta.py · GAVETAS, CODIGO",
+          "MEDIDO_VARRE": 118,
+          "PORQUE": "o subconjunto e identificavel e esta declarado: as oito gavetas"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/censo-da-coleta.generated.json",
+          "PORQUE": "os ficheiros de codigo da coleta, por gaveta"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "PENTE_FINO_DA_COLETA",
+      "EXECUTABLE": "system-map/scripts/pente_fino_da_coleta.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia — INDIRECTAMENTE, pelo modulo que a importa",
+          "VIA": "system-map/scripts/impressao_da_arvore.py"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/state.generated.json",
+          "PRODUCER": "GENERATE_SYSTEM_MAP",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
+          "PORQUE": "LE A SAIDA DO PASSO 7 ESTANDO NO PASSO 5. Esta e a divida do ciclo atrasado (G6): numa arvore que mudou, a primeira passagem le o state da geracao ANTERIOR e o artefato sai STALE_BY_CYCLE. G4 declara-a; corrigi-la e G6."
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": ".github/workflows/*.yml",
+          "PADRAO": [
+            ".github/workflows/*.yml"
+          ],
+          "FILTRO_DONO": "system-map/scripts/pente_fino_da_coleta.py · os_workflows()",
+          "MEDIDO_VARRE": 16,
+          "PORQUE": "quem corre o que, lido dos workflows"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/pente-fino.generated.json",
+          "PORQUE": "as quatro perguntas por peca da coleta"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "CENSO_DOS_BURACOS",
+      "EXECUTABLE": "system-map/scripts/censo_dos_buracos.py",
+      "INPUTS": [
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "git ls-files \"*.py\"",
+          "PADRAO": [
+            "*.py"
+          ],
+          "FILTRO_DONO": "system-map/scripts/censo_dos_buracos.py · git(\"ls-files\", \"*.py\")",
+          "MEDIDO_VARRE": 370,
+          "PORQUE": "os tuplos GAPS de qualquer ficheiro .py, lidos por AST"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_FILE",
+          "PATH": "system-map/data/provas-de-execucao.json",
+          "PORQUE": "as chaves do livro de execucao, para saber que buraco ja fechou"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/buracos.generated.json",
+          "PORQUE": "os buracos declarados no codigo"
+        }
+      ]
+    },
+    {
+      "STEP_ID": "GENERATE_SYSTEM_MAP",
+      "EXECUTABLE": "system-map/scripts/generate_system_map.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le a formula da IMPRESSAO_DA_ARVORE para carimbar a proveniencia"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/architecture.generated.json",
+          "PRODUCER": "SCAN_REPO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/scan_repo.py",
+          "PORQUE": "o inventario medido"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/sources.generated.json",
+          "PRODUCER": "SCAN_SOURCES",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/scan_sources.py",
+          "PORQUE": "o veredito por fonte"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/casco.generated.json",
+          "PRODUCER": "SCAN_CASCO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/scan_casco.py",
+          "PORQUE": "as ferramentas do portal"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/buracos.generated.json",
+          "PRODUCER": "CENSO_DOS_BURACOS",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_dos_buracos.py",
+          "PORQUE": "os buracos declarados"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/armazem-it.generated.json",
+          "PRODUCER": "FORA_DO_MANIFESTO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_do_armazem_it.py",
+          "PORQUE": "o armazem italiano"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/corpus-it.generated.json",
+          "PRODUCER": "FORA_DO_MANIFESTO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_do_corpus_it.py",
+          "PORQUE": "o corpus italiano"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/derivacoes.generated.json",
+          "PRODUCER": "FORA_DO_MANIFESTO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_das_derivacoes.py",
+          "PORQUE": "os derivados"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/identidade-it.generated.json",
+          "PRODUCER": "FORA_DO_MANIFESTO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_de_identidade_it.py",
+          "PORQUE": "a identidade italiana"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/golden-path-pdf.generated.json",
+          "PRODUCER": "FORA_DO_MANIFESTO",
+          "PRODUCER_EXECUTABLE": "coleta/golden_path_pdf.py",
+          "PORQUE": "a corrida do PDF — produzida pela COLETA, fora da cadeia do mapa"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "FILES[] do artefato de SCAN_REPO",
+          "ORIGEM_ARTEFATO": "system-map/data/architecture.generated.json",
+          "CAMPO": "FILES[].path",
+          "PADRAO": [
+            "*"
+          ],
+          "FILTRO_DONO": "system-map/scripts/generate_system_map.py · arquivos",
+          "MEDIDO_VARRE": 683,
+          "PORQUE": "abre os ficheiros que o inventario nomeia, para medir peca e aresta"
+        }
+      ],
+      "OUTPUTS": [
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/state.generated.json",
+          "PORQUE": "o mapa"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "italia-portale/client/system-map/state.generated.json",
+          "PORQUE": "a copia servida",
+          "DERIVADO_DE": "PUBLICADO"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "italia-portale/client/system-map/index.html",
+          "PORQUE": "a casca servida",
+          "DERIVADO_DE": "PUBLICADO"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "italia-portale/client/system-map/map.js",
+          "PORQUE": "a tela servida",
+          "DERIVADO_DE": "PUBLICADO"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "italia-portale/client/system-map/map.css",
+          "PORQUE": "o estilo servido",
+          "DERIVADO_DE": "PUBLICADO"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "italia-portale/client/system-map/freshness.js",
+          "PORQUE": "a lei da frescura servida",
+          "DERIVADO_DE": "PUBLICADO"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "docs/fontes/INDICE-DE-FONTES.md",
+          "PORQUE": "a porta de entrada das fontes"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "regras/LEIA-ANTES-DE-COLETAR.md",
+          "PORQUE": "a porta de entrada das reguas"
+        }
+      ]
+    }
   ],
   "VALIDAR": [
-    "system-map/scripts/validate_system_map.py"
+    {
+      "STEP_ID": "VALIDATE_SYSTEM_MAP",
+      "EXECUTABLE": "system-map/scripts/validate_system_map.py",
+      "INPUTS": [
+        {
+          "KIND": "CANONICAL_MANIFEST",
+          "PATH": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "PORQUE": "le o manifesto para saber o que e PUBLICADO"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/architecture.generated.json",
+          "PRODUCER": "SCAN_REPO",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/scan_repo.py",
+          "PORQUE": "para comparar com o regerado"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/sources.generated.json",
+          "PRODUCER": "SCAN_SOURCES",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/scan_sources.py",
+          "PORQUE": "idem"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/state.generated.json",
+          "PRODUCER": "GENERATE_SYSTEM_MAP",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
+          "PORQUE": "idem"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "italia-portale/client/system-map/state.generated.json",
+          "PRODUCER": "GENERATE_SYSTEM_MAP",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
+          "PORQUE": "o que e servido"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "docs/fontes/INDICE-DE-FONTES.md",
+          "PRODUCER": "GENERATE_SYSTEM_MAP",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
+          "PORQUE": "o indice gerado"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
+          "PATH": "regras/LEIA-ANTES-DE-COLETAR.md",
+          "PRODUCER": "GENERATE_SYSTEM_MAP",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/generate_system_map.py",
+          "PORQUE": "a porta gerada"
+        },
+        {
+          "KIND": "TRACKED_SOURCE_TREE",
+          "ORIGEM": "FILES[] do artefato de SCAN_REPO",
+          "ORIGEM_ARTEFATO": "system-map/data/architecture.generated.json",
+          "CAMPO": "FILES[].path",
+          "PADRAO": [
+            "*"
+          ],
+          "FILTRO_DONO": "system-map/scripts/validate_system_map.py · arquitetura, servido",
+          "MEDIDO_VARRE": 341,
+          "PORQUE": "abre o que o mapa cita, para provar que existe e que a linha bate"
+        }
+      ],
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "Este passo nao escreve artefato nenhum: o resultado dele e um VEREDITO. Mas ele corre SCAN_REPO, SCAN_SOURCES, SCAN_CASCO e GENERATE_SYSTEM_MAP como SUBPROCESSOS para comparar o regerado com o commitado — e por isso reescreve, em disco, as saidas DESSES passos. Elas sao OUTPUT deles, nao deste. Declarado aqui para nao aparecer como output roubado nem como escrita escondida."
+    }
   ],
   "PUBLICADO": [
     "index.html",
@@ -173,5 +603,43 @@
     "WORKFLOW": ".github/workflows/system-map.yml",
     "JOB": "coleta",
     "NOME": "COLETA CHECK"
+  },
+  "FORA_DESTE_MANIFESTO": {
+    "NOTA": [
+      "OS PASSOS QUE O WORKFLOW CORRE E ESTE MANIFESTO NAO DECLARA.",
+      "",
+      "Isto NAO e uma lista de excluidos por conveniencia: e a divida do G5,",
+      "escrita onde se ve. O job `mapa` corre estes scripts e o manifesto nao os",
+      "governa — logo `CHAIN_SINGLE_OWNER` continua VIOLATED, e continua a dizer-se.",
+      "",
+      "    UMA DIVIDA QUE SO VIVE NUM NUMERO DENTRO DE UM TESTE",
+      "    DESAPARECE NO DIA EM QUE ALGUEM ACERTA O NUMERO.",
+      "",
+      "A prova compara esta lista com o que o workflow REALMENTE corre. Se um",
+      "script entrar no workflow e nao entrar aqui, ela reprova — e se alguem o",
+      "trouxer para REGERAR, reprova tambem, porque isso e o G5 e nao o G4."
+    ],
+    "PORQUE_FICAM_FORA": "unifica-los sob o manifesto e o G5, e o G5 nao e esta missao.",
+    "ONZE_CENSOS": [
+      "system-map/scripts/relatorio_do_fluxo.py",
+      "system-map/scripts/censo_da_observabilidade.py",
+      "system-map/scripts/censo_das_derivacoes.py",
+      "system-map/scripts/censo_das_estradas_it.py",
+      "system-map/scripts/censo_de_identidade_it.py",
+      "system-map/scripts/censo_do_armazem_it.py",
+      "system-map/scripts/censo_do_congelamento.py",
+      "system-map/scripts/censo_do_corpus_it.py",
+      "system-map/scripts/censo_dos_donos.py",
+      "system-map/scripts/censo_dos_executores.py",
+      "system-map/scripts/censo_semantico_it.py",
+      "system-map/scripts/recall_da_porta_it.py"
+    ],
+    "CENSO_DA_TOPOLOGIA": [
+      "system-map/scripts/censo_da_topologia.py"
+    ],
+    "PORTAO_POS_COMMIT": [
+      "system-map/scripts/impressao_da_arvore.py"
+    ],
+    "PORQUE_O_PORTAO_E_OUTRA_COISA": "`impressao_da_arvore.py --conferir-carimbo` corre DEPOIS do commit e nao regenera nada: ele compara o carimbo do mapa commitado com a arvore commitada. Nao e passo de REGERAR nem de VALIDAR, e conta-lo como divida do G5 seria contar duas coisas com o mesmo nome. Fica aqui porque o workflow corre-o e o manifesto nao o governa — que e o facto."
   }
 }

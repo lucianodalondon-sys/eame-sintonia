@@ -40,6 +40,7 @@ RAIZ = Path(__file__).resolve().parents[2]
 SCRIPTS = RAIZ / "system-map" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 import impressao_da_arvore as IMPRESSAO                 # noqa: E402
+import cadeia_do_mapa as CAD                           # noqa: E402
 
 CADEIA = json.loads((SCRIPTS / "CADEIA-DO-MAPA.json").read_text(encoding="utf-8"))
 
@@ -262,7 +263,7 @@ prova("o_pente_fino_nao_e_current_enquanto_a_ordem_da_cadeia_for_esta",
       pente["VEREDITO"] != "CURRENT" or pente.get("MOTIVO") != "CURRENT"
       or "state.generated.json" not in str(pente.get("ENTRADAS_GERADAS_DE_OUTRA_ARVORE")),
       pente)
-passos = CADEIA["REGERAR"]
+passos = CAD.executaveis()
 prova("a_ordem_da_cadeia_continua_a_por_o_pente_fino_antes_do_gerador",
       passos.index("system-map/scripts/pente_fino_da_coleta.py")
       < passos.index("system-map/scripts/generate_system_map.py"),
@@ -390,7 +391,7 @@ try:
     #
     # Sao precisas DUAS passagens da cadeia para ele ficar em dia. Isso e o preco
     # do G6, medido aqui, e nao uma solucao.
-    PASSOS = [p for p in CADEIA["REGERAR"]]
+    PASSOS = CAD.executaveis()
 
     def cadeia(raiz):
         for passo in PASSOS:
