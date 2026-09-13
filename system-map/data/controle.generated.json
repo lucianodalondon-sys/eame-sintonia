@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "b6b7865bdec7b61638f2072e931a4eaa233cc235",
+    "HEAD": "1897a8e25d33a9eb2b77f36b366496e623c06061",
     "BRANCH": "claude/funny-hypatia-y7ho5s"
   },
   "PLANES": [
@@ -872,9 +872,9 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "746b8846bb",
-      "LAST_VERIFIED": "2026-09-13T15:25:07+00:00",
-      "LAST_COMMIT": "b6b7865bde",
-      "LAST_SUBJECT": "controle: quem manda passa a ter registo, portao e faixa propria no mapa",
+      "LAST_VERIFIED": "2026-09-13T15:28:17+00:00",
+      "LAST_COMMIT": "1897a8e25d",
+      "LAST_SUBJECT": "controle: a porta nao pode carregar a impressao de si propria",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/portao_do_controle.py",
       "REFERENCED_BY": [
@@ -1120,9 +1120,9 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "9c14af304f",
-      "LAST_VERIFIED": "2026-09-13T15:25:07+00:00",
-      "LAST_COMMIT": "b6b7865bde",
-      "LAST_SUBJECT": "controle: quem manda passa a ter registo, portao e faixa propria no mapa",
+      "LAST_VERIFIED": "2026-09-13T15:28:17+00:00",
+      "LAST_COMMIT": "1897a8e25d",
+      "LAST_SUBJECT": "controle: a porta nao pode carregar a impressao de si propria",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/censo_do_controle.py",
       "REFERENCED_BY": [
@@ -1224,7 +1224,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "32aa53ee66",
+      "SHA": "d16ee046af",
       "LAST_VERIFIED": "2026-09-13T15:25:07+00:00",
       "LAST_COMMIT": "b6b7865bde",
       "LAST_SUBJECT": "controle: quem manda passa a ter registo, portao e faixa propria no mapa",
@@ -1260,9 +1260,9 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "59c2d43275",
-      "LAST_VERIFIED": "2026-09-13T15:25:07+00:00",
-      "LAST_COMMIT": "b6b7865bde",
-      "LAST_SUBJECT": "controle: quem manda passa a ter registo, portao e faixa propria no mapa",
+      "LAST_VERIFIED": "2026-09-13T15:28:17+00:00",
+      "LAST_COMMIT": "1897a8e25d",
+      "LAST_SUBJECT": "controle: a porta nao pode carregar a impressao de si propria",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
       "REFERENCED_BY": [
@@ -1273,6 +1273,37 @@
         "controle/portao_do_controle.py"
       ],
       "REFERENCED_BY_COUNT": 5
+    },
+    {
+      "CARD_ID": "H-DELTA-108",
+      "KIND": "HANDOFF",
+      "NAME": "Handoff · delta de know-how §108",
+      "DOMAIN": "GOVERNANCA",
+      "CONCEPT_OWNER": "",
+      "IS_POINTER": false,
+      "PURPOSE": "Levar o §108 ate a linha do know-how, que esta missao nao tem autorizacao para escrever.",
+      "SCOPE": "Uma integracao.",
+      "CANONICAL_PATH": "handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md",
+      "CANONICAL_REF": "IN_TREE",
+      "VERSION": "§108",
+      "LIFECYCLE": "HISTORICAL",
+      "DECLARED_STATE": "MEMORIA, e nao know-how. Escrever aqui um SINTONIA-EAME-KNOW-HOW.md novo criaria a TERCEIRA versao dele — e isso e o ataque RT04, que o portao desta missao reprova.",
+      "NOTE": "Segue o precedente de `handoff/KNOW-HOW-DELTA-107-RECUPERACAO.md`. O dono verdadeiro vive em origin/claude/sintonia-eame-know-how-v1.",
+      "SUPERSEDES": [],
+      "SUPERSEDED_BY": [],
+      "DIVERGENT_COPIES": [],
+      "OBSERVED_STATE": "PRESENT_AND_POINTED",
+      "IN_TREE": true,
+      "SHA": "e80a7d8475",
+      "LAST_VERIFIED": "",
+      "LAST_COMMIT": "",
+      "LAST_SUBJECT": "",
+      "LIVES_AT": "HEAD",
+      "PROOF": "git:HEAD:handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md",
+      "REFERENCED_BY": [
+        "controle/AUTORIDADES-CANONICAS.json"
+      ],
+      "REFERENCED_BY_COUNT": 1
     }
   ],
   "GOVERNANCE_EDGES": [
@@ -1798,8 +1829,8 @@
     }
   ],
   "COUNTS": {
-    "authorities": 34,
-    "in_tree": 30,
+    "authorities": 35,
+    "in_tree": 31,
     "absent_from_snapshot": 4,
     "orphan_in_tree": 0,
     "edges": 52,

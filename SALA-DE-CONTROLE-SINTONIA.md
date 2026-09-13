@@ -318,7 +318,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `32aa53ee66`
+- **impressão do conteúdo medido** — `d16ee046af`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
 - **quem aponta para ela** — `AGENTS.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `system-map/data/architecture.declared.json` *(+1)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
@@ -613,6 +613,20 @@ A leitura desta tabela é o resultado principal desta missão:
 - **prova** — `git:HEAD:PORTAL-CAPABILITY-INVENTORY.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
 - **o que ela diz de si** — MEMORIA.
+
+#### 🟢 Handoff · delta de know-how §108
+
+- **conceito que possui** — *nenhum — é ponteiro*
+- **para que serve** — Levar o §108 ate a linha do know-how, que esta missao nao tem autorizacao para escrever.
+- **até onde vale** — Uma integracao.
+- **onde vive** — [`handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md`](handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md)
+- **estado declarado** — `HISTORICAL`
+- **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
+- **impressão do conteúdo medido** — `e80a7d8475`
+- **prova** — `git:HEAD:handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
+- **o que ela diz de si** — MEMORIA, e nao know-how. Escrever aqui um SINTONIA-EAME-KNOW-HOW.md novo criaria a TERCEIRA versao dele — e isso e o ataque RT04, que o portao desta missao reprova.
+- **nota** — Segue o precedente de `handoff/KNOW-HOW-DELTA-107-RECUPERACAO.md`. O dono verdadeiro vive em origin/claude/sintonia-eame-know-how-v1.
 
 ---
 
