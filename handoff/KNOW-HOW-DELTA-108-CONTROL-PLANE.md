@@ -1,7 +1,23 @@
 # HANDOFF · DELTA DE KNOW-HOW §108
 
 **Para aplicar em `claude/sintonia-eame-know-how-v1` →
-`SINTONIA-EAME-KNOW-HOW.md`, a seguir ao `§107`.**
+`SINTONIA-EAME-KNOW-HOW.md`, no PRÓXIMO NÚMERO LIVRE.**
+
+> ⚠️ **O NÚMERO DESTE DELTA MUDOU, E O NOME DO FICHEIRO FICOU PARA TRÁS.**
+> Quando isto foi escrito, o último era o `§107`. Enquanto esperava integração,
+> outra missão escreveu o seu próprio `§108 · A ETAPA QUE NÃO SE APLICA, E A
+> FALHA QUE NÃO ACONTECEU` (`39e685fc`).
+>
+> ```text
+> DOIS DELTAS A APONTAR PARA O MESMO NUMERO NAO SAO DOIS: O SEGUNDO APAGA O PRIMEIRO.
+> ```
+>
+> Quem integrar **lê o último `§` do ficheiro e usa o seguinte** — não confia no
+> número no nome deste ficheiro. Renomeá-lo agora só mudaria de que número ele
+> mentiria: a linha do know-how mexeu três vezes em duas missões.
+>
+> As subsecções abaixo ainda dizem `108.x`. **Acompanham o número escolhido** —
+> se o delta entrar como `§110`, elas são `110.1`, `110.2`, e assim por diante.
 
 Este ficheiro vive aqui, e não lá, pela mesma razão do `§107`: esta missão está
 presa ao seu ramo (`claude/funny-hypatia-y7ho5s`) e não tem autorização para
@@ -24,7 +40,7 @@ NAO_DUPLICA §107 — ali fica o que se aprendeu sobre testes e contratos;
 
 ---
 
-# §108 · UMA LEI QUE EXISTE NO GIT E NÃO EXISTE NO TEU COMMIT NÃO GOVERNA NADA
+# §<PRÓXIMO LIVRE> · UMA LEI QUE EXISTE NO GIT E NÃO EXISTE NO TEU COMMIT NÃO GOVERNA NADA
 
 ## O QUÊ
 

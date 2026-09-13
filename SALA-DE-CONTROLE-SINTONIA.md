@@ -301,7 +301,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — `SINTONIA-EAME-KNOW-HOW.md` — **não nesta árvore**; em `origin/claude/sintonia-eame-know-how-v1`
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `ABSENT_FROM_SNAPSHOT` · NÃO ESTÁ NESTA ÁRVORE — vive noutra linha
-- **impressão do conteúdo medido** — `5590b5f00b`
+- **impressão do conteúdo medido** — `08eab1dd28`
 - **prova** — `git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md`
 - **quem aponta para ela** — `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
@@ -622,7 +622,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md`](handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `e80a7d8475`
+- **impressão do conteúdo medido** — `73cfb416bf`
 - **prova** — `git:HEAD:handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
 - **o que ela diz de si** — MEMORIA, e nao know-how. Escrever aqui um SINTONIA-EAME-KNOW-HOW.md novo criaria a TERCEIRA versao dele — e isso e o ataque RT04, que o portao desta missao reprova.
