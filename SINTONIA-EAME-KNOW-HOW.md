@@ -11331,3 +11331,230 @@ Um caso que afirmasse o comportamento actual reprovaria quem o consertasse.
 - **A fonte `fitosanitari.salute.gov.it` continua sem verificar TLS** deste
   ambiente. Não se desligou a verificação, e o executor `rotulos-oficiais`
   continua na receita — atrás, porque indexa e não colhe.
+
+---
+
+# §103 · O QUE FUNCIONA EM SÉRIE NÃO ESTÁ PROVADO: ESTÁ POR PROVAR
+
+**Missão:** `C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1` — deixar a
+Collection pronta para operar.
+**Branch:** `claude/collection-operational-readiness-overnight-v1`
+**Data:** 2026-09-13
+
+A máquina estava provada de ponta a ponta. Bastou pô-la a correr **cinco vezes
+ao mesmo tempo** para encontrar quatro defeitos, e um deles corrompia dados em
+silêncio.
+
+```
+5 corridas concorrentes  ->  CORRIDAS_DISTINTAS = 1 · SUCCESS = 1 · ERROR = 4
+```
+
+    UMA MÁQUINA PROVADA EM SÉRIE É UMA MÁQUINA PROVADA EM SÉRIE.
+
+## 103.1 · O SEGUNDO NÃO É UMA IDENTIDADE
+
+A corrida chamava-se `{país}-{alvo}-{AAAA-MM-DD-HHMMSS}`. Cinco corridas do
+mesmo alvo no mesmo segundo receberam **o mesmo nome**. Quatro rebentaram na
+chave única de `etapa_da_corrida`.
+
+E rebentar foi o **bom** desfecho: o banco recusou. O mau é silencioso, e
+acontece em cada tabela sem essa chave — as observações de uma corrida ficam
+atribuídas a outra, e ninguém vê.
+
+    DUAS COLETAS NO MESMO SEGUNDO NÃO SÃO A MESMA COLETA.
+    UM NOME QUE SE REPETE NÃO É UM NOME.
+
+**E o tamanho do desempate mediu-se, não se escolheu a olho.** A primeira
+correcção usou três bytes. Com 400 nomes gerados de uma vez, houve **uma**
+colisão — 400 contra 399 distintos. Três bytes dão 16,7 milhões de valores, e o
+paradoxo dos aniversários come isso depressa.
+
+    «IMPROVÁVEL» NÃO É «IMPOSSÍVEL», E A COLETA GRANDE
+    É EXACTAMENTE ONDE O IMPROVÁVEL ACONTECE.
+
+Ter criticado os microsegundos por «reduzirem sem fechar» e depois aceitar três
+bytes seria aplicar duas réguas. Ficaram oito.
+
+## 103.2 · TRÊS SÍTIOS, UM SÓ DEFEITO: ESCRITA NÃO-ATÓMICA EM CAMINHO PARTILHADO
+
+Depois do nome, caíram três coisas seguidas, e no fim eram a mesma:
+
+| onde | o que acontecia |
+|---|---|
+| livro de decisões | ler-juntar-escrever sem trava → `LivroIlegivel`, e pior: *lost update* silencioso |
+| PDF preservado | `open(…,"wb")` trunca antes de encher → outra corrida lê «não é PDF» e vai à rede |
+| *(já curado antes)* Sala de Espera | tinha exactamente a mesma cura, de outra missão |
+
+    UM FICHEIRO A MEIO DE SER ESCRITO NÃO É UM FICHEIRO VAZIO:
+    É UM FICHEIRO QUE MENTE DURANTE UNS MILISSEGUNDOS.
+
+A cura é sempre a mesma e já não precisa de ser descoberta: **corpo inteiro num
+temporário na mesma filesystem, `fsync`, `os.replace`.** Quem ler durante a
+escrita vê o ficheiro anterior, inteiro.
+
+**Mas a trava não é sempre a mesma, e essa parte é conceito e não gosto.** Na
+Sala de Espera a trava é *fail-fast*: duas escritas da MESMA corrida na mesma
+morada são um conflito e devem gritar. No livro de decisões é **bloqueante**:
+muitas corridas diferentes acrescentam ao mesmo livro, não há conflito nenhum,
+há fila. Fazer o livro falhar transformaria trabalho legítimo em erro.
+
+    A MESMA CURA, DUAS TRAVAS DIFERENTES:
+    CONFLITO GRITA, FILA ESPERA.
+
+## 103.3 · A CORTESIA NÃO É ENFEITE, E APRENDEU-SE PERDENDO A FONTE
+
+O executor de T4 foi à mesma fonte umas dez vezes em duas horas — sem pausa,
+sem recuo, e **sem reaproveitar os bytes que já tinha em disco**. O EUR-Lex
+passou a responder `202` com corpo vazio a **tudo**: qualquer formato, qualquer
+documento, host inteiro.
+
+    UM COLETOR SEM CORTESIA NÃO PERDE UM DOCUMENTO: PERDE A FONTE.
+
+E o `202` revelou um segundo erro, este de vocabulário: o executor chamava-lhe
+`VAZIO`, que se lê como «a fonte não tinha nada».
+
+    A FONTE QUE ME TRAVA NÃO É A FONTE QUE NÃO TEM NADA.
+
+`EMPTY_SUCCESS != ERROR` continua a valer — uma fonte que responde e não tem
+nada é um sucesso vazio. O que não pode é um travão passar por isso. Ficaram
+cinco estados distintos, e `FONTE_INDISPONIVEL` é um deles.
+
+**E a correcção mais barata foi não ir.** Bytes já preservados não se vão
+buscar outra vez: zero informação nova, uma janela de escrita a mais, e um
+pedido a mais a uma fonte pública.
+
+    A ESCRITA MAIS SEGURA É A QUE NÃO ACONTECE.
+
+## 103.4 · REAPROVEITAR BYTES ATRAVESSA A ESTRADA E NÃO PROVA A AQUISIÇÃO
+
+O reaproveitamento local salvou a noite — a fonte estava travada e a estrada
+continuou a atravessar. E abriu a porta a uma mentira confortável: uma noite
+inteira de provas verdes a dizer «a aquisição funciona» sem ninguém ter aberto
+uma ligação.
+
+São duas propriedades, e separaram-se:
+
+```
+CANONICAL_E2E_T4     PASS         a máquina atravessa
+AQUISICAO_PELA_REDE  NOT_PROVEN   a ida à fonte, nesta corrida, não
+```
+
+O executor **declara** `ORIGEM_DOS_BYTES`, e a prova lê a declaração em vez de
+a supor.
+
+    FIXTURE PROVA PARSER. SÓ A INTERNET PROVA AQUISIÇÃO.
+    E REAPROVEITAR O QUE JÁ SE TEM NÃO É FIXTURE — É TAMBÉM NÃO É REDE.
+
+## 103.5 · UM CASO QUE PASSA PORQUE NÃO CONSEGUIU MEDIR É UM CASO QUE NÃO MEDIU
+
+A prova de crash simulava a morte rebentando a etapa seguinte. Quando a excepção
+subia, não havia recibo — e a primeira versão dava-se por satisfeita com «a
+excepção subiu», marcando `PASS`.
+
+Isso mede o **chamador**. A pergunta era sobre o **estado**: o que ficou escrito,
+e dá para o ler?
+
+    UM CASO QUE PASSA PORQUE NÃO CONSEGUIU MEDIR É UM CASO QUE NÃO MEDIU.
+
+A corrida morta encontra-se onde deixou marca — no banco, comparando o conjunto
+de corridas antes e depois. O recibo nunca foi a verdade; era só o caminho mais
+fácil até ela.
+
+## 103.6 · A CURA TROUXE UMA CONSEQUÊNCIA, E ELA MEDE-SE TAMBÉM
+
+Dar um endereço por corrida ao envelope resolveu o cruzamento — e passou a
+deixar **um ficheiro por corrida, para sempre**. Uma noite de medição deixou
+413 envelopes numa pasta.
+
+Não é perda nem confusão: o órfão é inerte desde que o endereço leva a corrida,
+e a pasta está no `.gitignore`. É crescimento sem fim, e isso decide-se antes da
+coleta grande, não durante.
+
+    UMA CORRECÇÃO QUE NÃO MEDE O QUE PASSOU A CRIAR
+    TROCA UM DEFEITO CONHECIDO POR UM DESCONHECIDO.
+
+Ficou `G-ENV-02`, com nome, antes de alguém tropeçar nela.
+
+## 103.7 · `UNKNOWN` COM MOTIVO NÃO É ZERO
+
+O LIVE não foi alcançado, e a resposta não é «não sei»: **este ambiente não tem
+as credenciais**, medido variável a variável. Daí `LIVE_SCHEMA_VERSION`,
+`MIGRATION_029_LIVE` e `MIGRATION_030_LIVE` ficarem `UNKNOWN`.
+
+    ZERO MANDA APLICAR TUDO. NÃO-MEDIDO MANDA IR VER PRIMEIRO.
+
+O caminho, esse, foi ensaiado inteiro num descartável virgem — incluindo a
+segunda passagem, que é a que importa: `SKIP (já no livro-razão) HASH=MATCH`.
+E o que **não** se mediu ficou escrito como não medido: a capacidade de backup
+do LIVE. Escrever «há backup» sem ter visto seria a única linha perigosa do
+pré-voo.
+
+## 103.8 · REPROCESSAR TEM DE DIZER O QUE REPROCESSA
+
+Dar endereço por corrida ao envelope partiu uma coisa que ninguém esperava:
+`--so-a-porta`, o caminho que leva à peneira uma colheita **já existente** —
+usado para reprocessar quando a regra muda.
+
+Ele funcionava lendo «o último envelope que estivesse lá». Ou seja: **o defeito
+estava a ser usado como funcionalidade.**
+
+    UMA FUNCIONALIDADE QUE DEPENDE DE UM DEFEITO
+    PARTE-SE NO DIA EM QUE O DEFEITO É CURADO — E ESSE É O DIA CERTO.
+
+O reprocessamento passou a nomear a corrida cuja colheita quer: a corrida nova
+é nova e julga de novo; o que se reaproveita é o **material**, não a corrida.
+Isto arrumou de vez os quatro conceitos que o brief mandava separar:
+
+```
+corrida nova      material novo, corrida nova
+retry             a mesma corrida outra vez
+reprocessamento   material de OUTRA corrida, corrida nova, julgamento novo
+reuse             o derivado reencontra-se; a etapa correu
+```
+
+## 103.9 · UMA GUARDA QUE COMPARA COM `HEAD` DEIXA DE GUARDAR NO COMMIT SEGUINTE
+
+Dois testes de missões antigas dizem «`admissao/` não pode mudar nesta missão»
+e implementam-no com `git diff HEAD -- admissao/`.
+
+Isso compara a **árvore de trabalho** com o `HEAD`. Falha enquanto a alteração
+está por commitar e **passa assim que ela é commitada** — inclusive quando o
+commit muda exactamente aquilo que a guarda dizia proteger.
+
+    UMA GUARDA CONTRA `HEAD` NÃO GUARDA A MISSÃO: GUARDA O INSTANTE.
+    Ela avisa enquanto se trabalha e cala-se no fim.
+
+Não se corrigiu aqui — é guarda de outra linha, e mexer-lhe na semântica é
+outra missão. Fica registado porque explica um par de vermelhos que depois
+ficaram verdes sozinhos, e porque quem confiar nela para provar que algo não
+mudou vai confiar em nada.
+
+## 103.10 · UMA IMPRESSÃO DIGITAL LARGA APANHA O QUE NÃO É DELA
+
+O baseline da Admission de T3 guarda uma impressão que inclui o `sha256` do
+**ficheiro inteiro** do dono da porta. Pôr uma trava no livro de decisões moveu
+a impressão — sem mover uma única decisão.
+
+Verificado antes de tocar em nada: as 36 previsões, a versão da regra e o
+gabarito estavam **idênticos**.
+
+    MUDAR COMO A DECISÃO SE GUARDA NÃO É MUDAR A DECISÃO.
+
+A tentação era estreitar a impressão para olhar só às funções que julgam. Não
+se fez: uma impressão que só vê o que alguém se lembrou de listar tem um ponto
+cego do tamanho do que esqueceu. Ficou larga, e ao lado dela ficou o que
+faltava — `PREVISOES_FINGERPRINT`, para quem investigar saber onde olhar.
+
+    NÃO SE ESTREITA UMA GUARDA PARA ELA DEIXAR PASSAR O MEU CÓDIGO.
+    ACRESCENTA-SE O QUE FALTAVA PARA A LER.
+
+## 103.11 · O QUE FICA POR SABER
+
+- **A aquisição de T4 pela rede continua por provar** enquanto o EUR-Lex nos
+  travar. A cortesia e o recuo já lá estão; o tempo de espera não se mediu.
+- **`collection_run.status` diz `concluida` quando o RAW fecha**, não quando a
+  estrada acaba. Não corrompe nada; confunde quem opera. `G-RUN-02`.
+- **Retenção de envelopes** por decidir. `G-ENV-02`.
+- **A concorrência foi provada até 20 corridas** simultâneas sobre o mesmo
+  documento, que é o pior caso para as chaves únicas. Acima disso é
+  `NOT_MEASURED`.
