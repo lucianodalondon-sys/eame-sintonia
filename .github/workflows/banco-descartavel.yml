@@ -67,6 +67,10 @@ on:
       - 'admissao/admissao.py'
       - 'leis/telemetria.py'
       - 'provas/a_rota_m2_atravessa.py'
+      - 'provas/o_scrap_chega_ao_acervo.py'
+      - 'provas/_e2e01_janela_admissivel.py'
+      - 'provas/_flow01_janela_falsa.py'
+      - 'provas/o_fluxo_canonico_do_scrap.py'
       - 'provas/o_forward_conta_se.py'
       - 'provas/o_executor_conta_se.py'
       - 'provas/a_autoridade_da_fonte.py'
@@ -282,6 +286,42 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ═══════════════════════════════════════════════════════════════
+      # E A ESTRADA DO SCRAP, DO BOTAO AO ACERVO.
+      #
+      # `o_fluxo_canonico_do_scrap.py` ja prova que o SCRAP ATRAVESSA, e
+      # prova-o SEM BANCO NENHUM. Sao duas perguntas, e so a segunda e a
+      # desta linha de trabalho:
+      #
+      #     ATRAVESSAR NAO E CHEGAR.
+      #
+      # Este passo corre a MESMA rota com `memoria=` e `banco_do_rastro=`
+      # ligados, e pergunta ao banco e ao disco o que a corrida deixou la:
+      # `raw_asset`, `storage_object`, os bytes relidos, o sha, a cadeia
+      # RUN -> RAW -> STORAGE, a matriz do texto, o READY e a sala.
+      #
+      # Corre DUAS corridas de proposito. Uma com texto que nenhum universo
+      # reconhece (a porta responde NAO_SEI, e a sala fica vazia — que e a
+      # LEI), outra com texto do universo pedido (e ai tem de chegar). Com
+      # so a primeira, «sala vazia» teria duas leituras indistinguiveis: a
+      # lei a morder, ou a estrada partida.
+      #
+      # A fronteira externa e falsa e e o unico ficheiro falso:
+      # REAL_NETWORK = 0 · META_REQUESTS = 0 · PAID_USD = 0.
+      #
+      # Banco VIRGEM, pela razao de sempre: a cadeia de migrations nao e
+      # idempotente, e uma prova sobre o esquema deixado por outra nao
+      # prova o que diz provar.
+      - name: 2g2 · o SCRAP chega ao acervo, e nao so o atravessa
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_scrap_chega_ao_acervo.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
 
       # Corre LOGO A SEGUIR a travessia, e de proposito no MESMO banco: o
       # AU8 pergunta se MEDIR a autoridade escreve identidade, e essa

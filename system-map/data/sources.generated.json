@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "903e18605e3fb3e66b616974aa80ff07835dc5d8",
+    "HEAD": "5528b637be2fd8d50b2623c660c3c120947c279f",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -2723,7 +2723,7 @@
     },
     {
       "file": "regras/sensor_coleta.py",
-      "line": 198,
+      "line": 213,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -2920,7 +2920,9 @@
       "leis_que_obedece": [
         "proveniencia"
       ],
-      "regista_descarte": []
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/comunicacao_classificar.py",
@@ -2937,7 +2939,9 @@
     {
       "ficheiro": "coleta/comunicacao_coleta.py",
       "como_se_chama": "coleta/comunicacao_coleta.py contratos",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "FACT_LOCATION",
@@ -2945,7 +2949,9 @@
       ],
       "separa_fonte_do_fato": true,
       "leis_que_obedece": [],
-      "regista_descarte": []
+      "regista_descarte": [
+        "RECUSAD"
+      ]
     },
     {
       "ficheiro": "coleta/comunicacao_medir.py",
@@ -3240,6 +3246,33 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/scrap_colheita.py",
+      "como_se_chama": "coleta/scrap_colheita.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
+      "ficheiro": "coleta/scrap_http.py",
+      "como_se_chama": "",
+      "carimba_data": [],
+      "carimba_lugar": [],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": [
+        "RECUSAD"
+      ]
+    },
+    {
       "ficheiro": "coleta/sensor_canal_identidade.py",
       "como_se_chama": "coleta/sensor_canal_identidade.py",
       "carimba_data": [],
@@ -3267,22 +3300,11 @@
       "regista_descarte": []
     },
     {
-      "ficheiro": "coleta/social_rotas.py",
-      "como_se_chama": "",
-      "carimba_data": [],
-      "carimba_lugar": [
-        "COUNTRY"
-      ],
-      "separa_fonte_do_fato": false,
-      "leis_que_obedece": [
-        "proveniencia"
-      ],
-      "regista_descarte": []
-    },
-    {
       "ficheiro": "coleta/social_scrap.py",
       "como_se_chama": "scripts/social_scrap.py censo",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "SOURCE_LOCATION"
@@ -3483,15 +3505,21 @@
     {
       "ficheiro": "regras/sensor_medir.py",
       "como_se_chama": "regras/sensor_medir.py",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "FACT_LOCATION",
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
-      "regista_descarte": []
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "REJEIT"
+      ]
     }
   ],
   "COLETAS_FEITAS": {
@@ -4147,6 +4175,63 @@
   },
   "ENDPOINTS": [
     {
+      "endpoint": "https://www.instagram.com/reel",
+      "usado_por": [
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 7
+        },
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 65
+        },
+        {
+          "file": "provas/instagram_audio_only.py",
+          "line": 7
+        },
+        {
+          "file": "tests/test_c10_1_source_id.py",
+          "line": 18
+        },
+        {
+          "file": "tests/test_c10_2_origin_gate.py",
+          "line": 37
+        },
+        {
+          "file": "tests/test_c10_3_location.py",
+          "line": 199
+        },
+        {
+          "file": "tests/test_c10_4_route_gate.py",
+          "line": 68
+        },
+        {
+          "file": "tests/test_c10_5_collection_flow.py",
+          "line": 139
+        },
+        {
+          "file": "tests/test_c10_5d_decisao_instagram.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_c10_6_crash_retry.py",
+          "line": 65
+        },
+        {
+          "file": "tests/test_c10_audio_only.py",
+          "line": 116
+        },
+        {
+          "file": "tests/test_reel_transcricao.py",
+          "line": 116
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 758
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4184,11 +4269,123 @@
       ]
     },
     {
+      "endpoint": "https://www.linkedin.com/company",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_linkedin.py",
+          "line": 753
+        },
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 97
+        },
+        {
+          "file": "provas/linkedin_local_first.py",
+          "line": 266
+        },
+        {
+          "file": "regras/comunicacao_identidade.py",
+          "line": 383
+        },
+        {
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 339
+        },
+        {
+          "file": "tests/test_linkedin_op_01_operacional.py",
+          "line": 42
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 305
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 336
+        },
+        {
+          "file": "provas/_e2e01_janela_admissivel.py",
+          "line": 71
+        },
+        {
+          "file": "provas/_flow01_janela_falsa.py",
+          "line": 21
+        },
+        {
+          "file": "tests/test_scrap_flow01_caminho_canonico.py",
+          "line": 219
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.youtube.com/watch?v=%s'",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_youtube.py",
+          "line": 382
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 448
+        },
+        {
+          "file": "provas/primeira_rota_paga.py",
+          "line": 57
+        },
+        {
+          "file": "tests/test_c10_8b_live_disparador.py",
+          "line": 248
+        },
+        {
+          "file": "tests/test_c10_8b_rota_paga_canonica.py",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 113
+        },
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 113
+        },
+        {
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 202
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 276
+        }
+      ]
+    },
+    {
       "endpoint": "https://api.apify.com/v2",
       "usado_por": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 129
+          "line": 263
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4226,23 +4423,23 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/p",
+      "endpoint": "https://youtu.be/X'",
       "usado_por": [
         {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
+          "file": "provas/nenhuma_compra_sem_autorizacao.py",
+          "line": 142
         },
         {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
+          "file": "provas/queda_e_repeticao_da_v1.py",
+          "line": 92
         },
         {
-          "file": "coleta/instagram_janela.py",
-          "line": 673
+          "file": "provas/red_team_da_release_v1.py",
+          "line": 159
         },
         {
-          "file": "ferramentas/instagram_transcrever.py",
-          "line": 187
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 398
         }
       ]
     },
@@ -4281,6 +4478,40 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/%s",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 374
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 671
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 266
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.googleapis.com/youtube",
+      "usado_por": [
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 88
+        },
+        {
+          "file": "tests/test_c2_youtube_oficial.py",
+          "line": 55
+        },
+        {
+          "file": "tests/test_youtube_oficial.py",
+          "line": 528
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.hracglobal.com/tools",
       "usado_por": [
         {
@@ -4315,6 +4546,36 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.tld/x')",
+      "usado_por": [
+        {
+          "file": "provas/orcamento_de_rede.py",
+          "line": 287
+        },
+        {
+          "file": "tests/test_c10_8a_bluesky_ao_vivo.py",
+          "line": 96
+        },
+        {
+          "file": "tests/test_c10_8ar_orcamento_de_rede.py",
+          "line": 207
+        }
+      ]
+    },
+    {
+      "endpoint": "https://public.api.bsky.app/xrpc",
+      "usado_por": [
+        {
+          "file": "coleta/adaptador_aberto.py",
+          "line": 105
+        },
+        {
+          "file": "provas/_rc01_mundo_falso.py",
+          "line": 111
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.ec.europa.eu/agrifood",
       "usado_por": [
         {
@@ -4345,7 +4606,7 @@
       "usado_por": [
         {
           "file": "coleta/coletor.py",
-          "line": 79
+          "line": 91
         },
         {
           "file": "ferramentas/contrato_ator.py",
@@ -4367,19 +4628,6 @@
       ]
     },
     {
-      "endpoint": "https://www.instagram.com/%s",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 374
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 671
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.fitosanitari.salute.gov.it/",
       "usado_por": [
         {
@@ -4393,19 +4641,6 @@
       ]
     },
     {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 227
-        },
-        {
-          "file": "provas/ensaio_do_texto_na_collection.py",
-          "line": 113
-        }
-      ]
-    },
-    {
       "endpoint": "https://www.youtube.com/watch?v='",
       "usado_por": [
         {
@@ -4414,20 +4649,20 @@
         },
         {
           "file": "ferramentas/youtube_transcrever.py",
-          "line": 151
+          "line": 158
         }
       ]
     },
     {
-      "endpoint": "https://www.googleapis.com/youtube",
+      "endpoint": "https://www.youtube.com/channel",
       "usado_por": [
         {
           "file": "coleta/youtube_oficial.py",
-          "line": 88
+          "line": 450
         },
         {
-          "file": "tests/test_youtube_oficial.py",
-          "line": 528
+          "file": "regras/sensor_coleta.py",
+          "line": 806
         }
       ]
     },
@@ -4492,7 +4727,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 387
+          "line": 487
         }
       ]
     },
@@ -4505,7 +4740,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 289
+          "line": 358
         }
       ]
     },
@@ -4518,7 +4753,7 @@
         },
         {
           "file": "leis/social_matriz.py",
-          "line": 174
+          "line": 201
         }
       ]
     },
@@ -4527,7 +4762,7 @@
       "usado_por": [
         {
           "file": "leis/social_matriz.py",
-          "line": 398
+          "line": 498
         },
         {
           "file": "provas/gate_de_aceitacao_tematica.py",
@@ -4575,6 +4810,19 @@
       ]
     },
     {
+      "endpoint": "https://mastodon.uno/users",
+      "usado_por": [
+        {
+          "file": "provas/_c106c_filho.py",
+          "line": 40
+        },
+        {
+          "file": "provas/runtime_comum_no_postgres.py",
+          "line": 46
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.arpa.veneto.it/%s",
       "usado_por": [
         {
@@ -4601,100 +4849,28 @@
       ]
     },
     {
-      "endpoint": "https://it.linkedin.com/company",
+      "endpoint": "https://it.linkedin.com/in",
       "usado_por": [
         {
-          "file": "regras/comunicacao_identidade.py",
-          "line": 399
+          "file": "provas/linkedin_local_first.py",
+          "line": 267
         },
         {
-          "file": "tests/test_comunicacao.py",
-          "line": 58
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 340
         }
       ]
     },
     {
-      "endpoint": "https://exemplo.invalido/x.pdf",
+      "endpoint": "https://twitter.com/x",
       "usado_por": [
         {
-          "file": "tests/test_ausencia_na_fronteira_da_corrida.py",
-          "line": 130
+          "file": "provas/linkedin_local_first.py",
+          "line": 268
         },
         {
-          "file": "tests/test_legado_fora_do_fluxo.py",
-          "line": 124
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/exemplo",
-      "usado_por": [
-        {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 146
-        }
-      ]
-    },
-    {
-      "endpoint": "https://doi.org/',",
-      "usado_por": [
-        {
-          "file": "coleta/corpus_pesquisador.py",
-          "line": 390
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.data.gouv.fr/api",
-      "usado_por": [
-        {
-          "file": "coleta/ephy.sh",
-          "line": 30
-        }
-      ]
-    },
-    {
-      "endpoint": "https://gd.eppo.int/taxon",
-      "usado_por": [
-        {
-          "file": "coleta/eppo_gd.py",
-          "line": 28
-        }
-      ]
-    },
-    {
-      "endpoint": "https://ipinfo.io/json',",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 442
-        }
-      ]
-    },
-    {
-      "endpoint": "https://servicio.mapa.gob.es/regfiweb'",
-      "usado_por": [
-        {
-          "file": "coleta/mapa_regfi.py",
-          "line": 44
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.fitosanitari.salute.gov.it/',",
-      "usado_por": [
-        {
-          "file": "coleta/rotulos_baixar.py",
-          "line": 59
-        }
-      ]
-    },
-    {
-      "endpoint": "https://%s/api",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 151
+          "file": "tests/test_linkedin_build_01_local_first.py",
+          "line": 396
         }
       ]
     }
@@ -4717,11 +4893,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 48,
-    "coletores_com_data": 14,
+    "coletores": 49,
+    "coletores_com_data": 17,
     "coletores_com_lugar": 32,
     "coletores_que_separam_fonte_do_fato": 20,
-    "coletores_que_registam_descarte": 10,
+    "coletores_que_registam_descarte": 15,
     "corridas_registadas": 26,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,

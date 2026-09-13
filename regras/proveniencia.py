@@ -457,6 +457,30 @@ METODOS_DE_DERIVACAO = (LIDO_DO_CAMPO, RASPADO_DA_PAGINA, EXTRAIDO_DO_DOCUMENTO,
 METODOS_DE_MAQUINA = (EXTRAIDO_DO_DOCUMENTO, ASR_DO_PROVEDOR, ASR_DA_CASA,
                       TRADUCAO_DO_PROVEDOR, TRADUCAO_DA_CASA)
 
+# ── ESPÉCIE É PROCEDÊNCIA, E NÃO QUALIDADE ─────────────────────────────────
+# Esta lei vinha da C6 e quase se perdeu: ela vivia na prosa de uma cópia
+# ANTIGA deste vocabulário, apensa ao fim do ficheiro pela integração do
+# SCRAP. A cópia saiu — cada símbolo dela tem par mais completo aqui em cima —
+# e a lei ia sair com ela, calada.
+#
+#     UMA LEI QUE SÓ VIVE NA CÓPIA DUPLICADA MORRE COM A DESDUPLICAÇÃO.
+#
+# Fica onde sempre devia ter ficado: ao lado do vocabulário que a cumpre.
+#
+# AS ESPÉCIES NÃO SÃO NÍVEIS. Uma tradução pode ser excelente e uma legenda
+# original pode estar cheia de erro. Espécie diz QUEM PRODUZIU O TEXTO e A
+# PARTIR DE QUÊ; qualidade é outro eixo, com outro dono, e ninguém a mediu
+# aqui.
+#
+#     ESPÉCIE É PROCEDÊNCIA. QUALIDADE É OUTRA PERGUNTA.
+#
+# Por isso não há ordem de mérito entre elas, e a ordem que existe
+# (`ORDEM_DA_ESPECIE`) é de ESCOLHA determinística para quem julga — não é um
+# ranking de bondade. Confundir as duas faria a casa descartar uma tradução
+# por ser tradução, que é exactamente o que `SERVEM_PARA_ORIGINAL` evita
+# dizer: ela responde «sustenta afirmação sobre a fala original?», e não
+# «presta?».
+
 # ── OS NOMES DA C6, QUE CONTINUAM A RESOLVER ───────────────────────────────
 # Mudou de forma, não de significado. Quem importava estes nomes continua a
 # importá-los, e há prova de que apontam para o mesmo objeto.

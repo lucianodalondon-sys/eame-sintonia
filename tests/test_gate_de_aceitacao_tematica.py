@@ -445,8 +445,26 @@ class OBaselineFoiJulgadoMecanicamente(unittest.TestCase):
     # `GROUND_TRUTH.SHA256` do artefato. Se os tres estiverem iguais, a porta
     # nao mudou de opiniao e a linha pode mover-se com esta mesma nota. Se
     # algum mudou, NAO se move: mede-se outra vez.
-    BASELINE_CONGELADO = ("e196604a4ed437356c8b27b968aae817dd513ea8"
-                          "2b2586c0187557632dc5b99f")
+    # ── MOVIDA EM 2026-09-13, PELO PROCEDIMENTO ESCRITO ACIMA ───────────
+    # A integracao do SCRAP juntou `admissao/admissao.py` — os dois lados
+    # tinham crescido — e a impressao inclui o `sha256` do FICHEIRO INTEIRO.
+    # Os BYTES mudaram; a opiniao da porta nao.
+    #
+    # Conferido antes de mover, como a nota manda, e os tres bateram:
+    #
+    #     PREVISOES_FINGERPRINT   e4fd888fef…  IGUAL
+    #     ADMISSION_RULE_VERSION  3            IGUAL
+    #     GROUND_TRUTH.SHA256     f66ce19525…  IGUAL
+    #     as 36 previsoes         IDENTICAS
+    #
+    # E medido por fora, em dois arneses: JUDGMENT_DIFF_COUNT = 0, com os
+    # vereditos TEMATICOS (SIM/NAO) incluidos.
+    #
+    #     A IMPRESSAO MEDE O FICHEIRO. O JULGAMENTO E QUE E A PERGUNTA.
+    #
+    # anterior: e196604a4ed437356c8b27b968aae817dd513ea82b2586c0187557632dc5b99f
+    BASELINE_CONGELADO = ("4a8bd30eccc8ef4e969440443eadd7c3b568cf8a"
+                          "2014ae2e2fbc9a6c0f566002")
     def test_o_baseline_julgado_e_o_congelado(self):
         self.assertEqual(self.art["FIRST_VALID_BASELINE_FINGERPRINT"],
                          self.BASELINE_CONGELADO)

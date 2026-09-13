@@ -2148,8 +2148,8 @@
       "territory": "Z-REGUAS",
       "kind": "contract",
       "icon": "⊟",
-      "what": "O envelope de UMA corrida: que parte do retorno e COLHEITA e que parte e SUPORTE — manifesto, catalogo, recibo de execucao ou plano. Vocabulario fechado de seis especies, estado proprio para o payload (PRESENTE/AUSENTE/NAO_SE_APLICA, medido na arvore e nao afirmado) e a unica porta por onde algo entra no ingresso: so a COLHEITA atravessa.",
-      "why_here": "COL-LAW-013 exigia «OUTPUT = onde larguei, E EM QUE FORMA» e o «em que forma» nunca teve campo, enum nem guarda — vivia em prosa livre que nenhum codigo lia. O preco foi medido: 253 itens emitidos, ZERO colheita real. Um manifesto de 163 descargas e 74 fichas de conta entraram na cadeia como material observado. Isto e IRMAO de C-CONTRATO-ARTEFATO e nao substituto: aquele governa a ficha de uma coisa ENTREGUE, este governa o que a CORRIDA devolveu. E nao vive em receitas.py porque `larga_em` ja e uma declaracao de intencao — e duas das cinco apontam para pastas que nao existem sem ninguem notar.",
+      "what": "O envelope de UMA corrida: que parte do retorno e COLHEITA e que parte e SUPORTE — manifesto, catalogo, recibo de execucao ou plano. Vocabulario fechado de seis especies, estado proprio para o payload (PRESENTE/AUSENTE/NAO_SE_APLICA, medido na arvore e nao afirmado) e a unica porta por onde algo entra no ingresso: so a COLHEITA atravessa. COL-LAW-505, dita pelos nomes: COLHEITA, MANIFEST, CATALOG, RUN_RECEIPT, PLAN, UNKNOWN — e so a primeira atravessa a porta. `conferir` mede cada unidade: SOURCE_ID provado e nunca fabricado, DOCUMENT_ID que pode faltar e nao pode ser inventado, payload com estado MEDIDO e nao declarado. Quem nao declarou envelope entra pela ponte do legado, que por construcao so consegue declarar SUPORTE.",
+      "why_here": "COL-LAW-013 exigia «OUTPUT = onde larguei, E EM QUE FORMA» e o «em que forma» nunca teve campo, enum nem guarda — vivia em prosa livre que nenhum codigo lia. O preco foi medido: 253 itens emitidos, ZERO colheita real. Um manifesto de 163 descargas e 74 fichas de conta entraram na cadeia como material observado. Isto e IRMAO de C-CONTRATO-ARTEFATO e nao substituto: aquele governa a ficha de uma coisa ENTREGUE, este governa o que a CORRIDA devolveu. E nao vive em receitas.py porque `larga_em` ja e uma declaracao de intencao — e duas das cinco apontam para pastas que nao existem sem ninguem notar. E o contraexemplo que fecha o assunto, medido: `orquestrador::a_colheita` usava a heuristica «uma lista, ou o primeiro campo do ficheiro que seja lista de fichas», e um ficheiro com contentor de colheita VAZIO era saltado por estar vazio enquanto a heuristica agarrava o catalogo ao lado. UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR. O INDICE DE UMA COLHEITA NAO E A COLHEITA. || A INTEGRACAO DO SCRAP TROUXE UMA SEGUNDA PECA PARA ESTE MESMO FICHEIRO — `C-RETORNO-DA-COLETA` — e ela foi RETIRADA, com o que sabia dobrado para dentro desta. A escolha nao foi por nome, por idade nem por tamanho: foi MEDIDA no mapa gerado. Esta peca participa em OITO arestas provadas (C-ORQUESTRADOR, C-SCRAP-COLHEITA, C-IT-COLETA, C-EU-REGULATORIO-COLETA, C-PROVA-COLETA, C-TESTES); a outra participava em ZERO. ONE CONCEPT -> ONE OWNER: DOIS DONOS DECLARADOS DO MESMO FICHEIRO SAO ZERO DONOS, E O MAPA ELEGIA UM POR ORDEM ALFABETICA — QUE NAO E ELEGER. UM NO SEM ARESTA NAO E UM DONO: E UM CARTAZ.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -2157,6 +2157,7 @@
         "leis/retorno_da_coleta.py"
       ],
       "views": [
+        "acervo",
         "audit",
         "infra"
       ]
@@ -2288,25 +2289,6 @@
         "leis/falhas.py",
         "leis/fundacao_da_coleta.py",
         "leis/social_matriz.py"
-      ]
-    },
-    {
-      "id": "C-RETORNO-DA-COLETA",
-      "name": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita",
-      "territory": "Z-REGUAS",
-      "kind": "contract",
-      "icon": "⌬",
-      "what": "COL-LAW-505. Da nome as especies do que uma corrida devolve — COLHEITA, MANIFEST, CATALOG, RUN_RECEIPT, PLAN, UNKNOWN — e so a primeira atravessa a porta da coleta. Confere cada unidade: SOURCE_ID provado e nunca fabricado, DOCUMENT_ID que pode faltar mas nao pode ser inventado, payload com estado MEDIDO e nao declarado. Quem nao declarou envelope entra pela ponte do legado, que por construcao so consegue declarar SUPORTE.",
-      "why_here": "`COL-LAW-013` escreveu a pergunta «onde larguei, E EM QUE FORMA» e nunca respondeu a segunda metade: o «onde» tem campo desde sempre (`larga_em`), o «em que forma» vivia em prosa livre que nenhum codigo le. O preco esta medido: `orquestrador/orquestrador.py::a_colheita` usava uma heuristica generica — «uma lista, ou o primeiro campo do ficheiro que seja lista de fichas» — e com ela entraram na cadeia, como se fossem material observado, um manifesto de 163 descarregamentos, catalogos de contas e ordens de execucao. UMA HEURISTICA QUE PREFERE UMA LISTA CHEIA A UMA LISTA CERTA NAO ESTA A LER O RETORNO: ESTA A ADIVINHAR. E o contraexemplo que fecha o assunto: um ficheiro com contentor de colheita VAZIO era saltado por estar vazio, e a heuristica agarrava a lista de catalogo ao lado. O INDICE DE UMA COLHEITA NAO E A COLHEITA: E UM RECIBO, E UM RECIBO NAO SE ADMITE, LE-SE. Este ficheiro chegou da linhagem SR-01 byte a byte, e nao foi reescrito: duas copias da mesma lei sao duas leis, e a segunda envelhece calada.",
-      "departments": [
-        "ENGENHARIA"
-      ],
-      "files": [
-        "leis/retorno_da_coleta.py"
-      ],
-      "views": [
-        "acervo",
-        "audit"
       ]
     },
     {
@@ -2834,6 +2816,27 @@
         "provas/o_pedido_atravessa.py"
       ],
       "views": [
+        "audit",
+        "trace"
+      ]
+    },
+    {
+      "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "name": "A prova de que o SCRAP chega ao acervo, e nao so o atravessa",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊨",
+      "what": "Corre a rota SCRAP do botao ao fim — REQUEST, ORQUESTRADOR, EXECUTOR, RUN, RAW OBSERVATION, STORAGE OBJECT, CONTRATO DO TEXTO, INGRESSO, ADMISSAO, READY, SALA DE ESPERA — com `memoria` e `banco_do_rastro` ligados a um PostgreSQL 16 descartavel, e depois pergunta ao banco e ao disco o que a corrida deixou la. Mede as nove propriedades do portao do armazenamento (observacao criada, objeto criado, bytes, sha, media_type, ligacao a corrida, ligacao ao objeto, releitura, linhagem fechada), a matriz do texto com um contador POR EIXO — especie, relacao, lingua — e a fabricacao de identidade em SOURCE_ID e DOCUMENT_ID. A fronteira externa e o unico ficheiro falso: REAL_NETWORK = 0 · PAID_USD = 0. Corre DUAS corridas: uma com texto que nenhum universo reconhece, outra com texto do universo pedido e especie declarada.",
+      "why_here": "ATRAVESSAR NAO E CHEGAR. `provas/o_fluxo_canonico_do_scrap.py` ja provava que o pedido chega ao executor do SCRAP e que a colheita atravessa o ingresso — e provava-o SEM BANCO NENHUM, o que faz dela uma prova da ESTRADA e nao do ACERVO. UMA ESTRADA PROVADA SEM ARMAZEM PROVA A ESTRADA. || E as duas corridas nao sao zelo: com so a que nao e admitida, «a sala esta vazia» teria duas leituras indistinguiveis — a lei a morder, ou a estrada partida antes dela. UMA SALA VAZIA NAO DIZ SE A PORTA RECUSOU OU SE A ESTRADA ACABOU ANTES. SO UM CASO QUE CHEGA SEPARA AS DUAS. || E o contador por eixo tambem foi pago: a primeira versao somava tudo num `TEXT_LOSS` e contava `UNKNOWN` como perda, acusando perda de lingua numa corrida onde a fonte nunca declarara lingua nenhuma — contra sentinela EXPLICITA do E7. PERDA NAO E AUSENCIA DECLARADA, E UMA MEDIDA QUE CHAMA DEFEITO AO CUMPRIMENTO DA LEI FAZ ALGUEM «CORRIGIR» A LEI.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/o_scrap_chega_ao_acervo.py",
+        "provas/_e2e01_janela_admissivel.py"
+      ],
+      "views": [
+        "acervo",
         "audit",
         "trace"
       ]

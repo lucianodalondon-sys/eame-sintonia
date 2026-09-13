@@ -116,14 +116,50 @@ class ODoisNomesComDoisValores(unittest.TestCase):
 class ADecisaoDaPortaMudaDeVerdade(unittest.TestCase):
     """A prova do seam: o mesmo valor, a mesma porta, outra resposta."""
 
-    def test_source_id_deixa_de_parecer_ausente(self):
+    def test_um_campo_por_traduzir_deixa_de_parecer_ausente(self):
+        """⚠️ ESTE SEAM ERA O `SOURCE_ID`, E DEIXOU DE O SER — POR MELHORIA.
+
+        A porta perguntava a origem assim: `source_id or fonte or url`. Uma
+        cadeia de `or` mede se o valor e truthy, nao se ele RESPONDE, e a
+        integracao do SCRAP trouxe a medicao do buraco:
+
+            source_id = "NAO SEI" SEM url  ->  SIM, «a origem esta declarada»
+
+        Um item sem endereco nenhum passava a dizer que a origem estava
+        declarada. A versao que entrou le identidade primeiro e endereco
+        depois, e RECUSA a confissao de ausencia — e, de caminho, passou a
+        ler tambem `SOURCE_ID` em maiusculas.
+
+            UMA PORTA QUE LE MELHOR DEIXA DE PRECISAR DE TRADUCAO
+            PARA AQUELE CAMPO. O SEAM MUDA DE SITIO; A LEI NAO.
+
+        A lei que esta sentinela guarda continua inteira, e e a do metodo
+        irmao: traduzir move a porta para a PROXIMA pergunta — nao a faz
+        dizer SIM. Ela passa a ser demonstrada num campo onde a traducao
+        ainda decide: `FACT_TIME` -> `fact_time`.
+        """
         cru = {"id": "x", "texto": "Bollettino agrometeorologico con dati.",
-               "SOURCE_ID": "IT-T2-002"}
+               "source_id": "IT-T2-002", "FACT_TIME": "2026-09-02"}
         antes = adm.decidir(cru, "T2", corrida="SEAM")
         depois = adm.decidir(ing.para_a_porta(cru), "T2", corrida="SEAM")
-        self.assertIn("de onde este item veio", antes.motivo)
-        self.assertNotIn("de onde este item veio", depois.motivo,
-                         "a origem continua a parecer ausente depois de traduzir")
+        self.assertIn("quando o fato aconteceu", antes.motivo,
+                      "o campo por traduzir devia parecer ausente")
+        self.assertNotIn("quando o fato aconteceu", depois.motivo,
+                         "o campo continua a parecer ausente depois de traduzir")
+        self.assertNotEqual(antes.regra, depois.regra,
+                            "traduzir nao moveu a porta para a proxima pergunta")
+
+    def test_a_origem_recusa_a_confissao_de_ausencia(self):
+        """O buraco que o SCRAP fechou, virado sentinela.
+
+        `NAO SEI` e uma confissao de ausencia, e nao um valor. Uma origem
+        que se declara `NAO SEI` NAO esta declarada — e sem endereco nenhum
+        ao lado, nao ha nada que se possa conferir depois.
+        """
+        d = adm.decidir({"id": "x", "texto": "Bollettino con dati.",
+                         "source_id": "NAO SEI"}, "T2", corrida="SEAM")
+        self.assertNotEqual(d.regra, "pertence ao universo",
+                            "a porta aceitou «NAO SEI» como origem declarada")
 
     def test_a_semantica_da_porta_nao_mudou(self):
         """Traduzir move a porta para a PRÓXIMA pergunta — não a faz dizer SIM."""

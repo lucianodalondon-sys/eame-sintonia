@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "903e18605e3fb3e66b616974aa80ff07835dc5d8"
+    "HEAD": "5528b637be2fd8d50b2623c660c3c120947c279f"
   },
   "PECAS": [
     {
@@ -125,18 +125,6 @@
       "estado": "yellow"
     },
     {
-      "id": "C-INGRESSO",
-      "nome": "A porta de entrada da coleta",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 3,
-      "ficheiros": 1,
-      "estado": "yellow"
-    },
-    {
       "id": "C-PORTA-FONTE",
       "nome": "A porta de entrada de fonte nova",
       "zona": "· de onde vem uma fonte",
@@ -194,7 +182,7 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 2,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-ROTULOS",
@@ -219,18 +207,6 @@
       "respostas": 3,
       "ficheiros": 5,
       "estado": "yellow"
-    },
-    {
-      "id": "C-COLETA-YOUTUBE",
-      "nome": "Colher o YouTube",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": false,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 3,
-      "ficheiros": 2,
-      "estado": "green"
     },
     {
       "id": "V-FACEBOOK",
@@ -291,6 +267,18 @@
       "respostas": 3,
       "ficheiros": 9,
       "estado": "green"
+    },
+    {
+      "id": "C-SCRAP-COLHEITA",
+      "nome": "O adapter do SCRAP para a porta canonica · a aresta que faltava",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
+      "estado": "yellow"
     },
     {
       "id": "C-IT-CONTRATOS",
@@ -361,8 +349,8 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 2,
-      "estado": "green"
+      "ficheiros": 4,
+      "estado": "yellow"
     },
     {
       "id": "C-DERIVACAO-FORWARD",
@@ -392,6 +380,18 @@
       "id": "C-ADMISSAO",
       "nome": "A porta de admissao",
       "zona": "4 · A PORTA DE ADMISSAO",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 1,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-INGRESSO",
+      "nome": "A porta de entrada da coleta",
+      "zona": "· os executores",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
@@ -434,7 +434,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 1,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-COLETA-INSTAGRAM",
@@ -446,6 +446,18 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 4,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-COLETA-YOUTUBE",
+      "nome": "Colher o YouTube",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 2,
       "estado": "green"
     },
     {
@@ -470,18 +482,6 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 3,
-      "estado": "green"
-    },
-    {
-      "id": "C-SCRAP-SOCIAL",
-      "nome": "Executor do SCRAP · a aquisicao social",
-      "zona": "· os executores",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": true,
-      "respostas": 4,
-      "ficheiros": 5,
       "estado": "yellow"
     },
     {
@@ -590,7 +590,7 @@
       "alguem_corre": true,
       "respostas": 4,
       "ficheiros": 2,
-      "estado": "green"
+      "estado": "yellow"
     },
     {
       "id": "C-CI-PERSIST",
@@ -615,12 +615,24 @@
       "respostas": 4,
       "ficheiros": 4,
       "estado": "green"
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "nome": "SINTONIA SCRAP · o executor da aquisicao social",
+      "zona": "· os executores",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 16,
+      "estado": "yellow"
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 51,
-    "respondem_as_quatro": 22,
-    "respondem_a_tres": 20,
+    "pecas_da_coleta": 52,
+    "respondem_as_quatro": 24,
+    "respondem_a_tres": 19,
     "respondem_a_duas": 6,
     "respondem_a_uma": 3,
     "nao_respondem_a_nenhuma": 0

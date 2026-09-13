@@ -470,14 +470,59 @@ class OSubstringEOAcertoPorAcidente(unittest.TestCase):
 
 class ANaoContaminacaoFoiProvada(unittest.TestCase):
 
-    def test_o_mecanismo_e_mais_velho_do_que_o_gabarito(self):
+    def test_a_independencia_historica_diz_o_que_se_consegue_provar(self):
+        """⚠️ ESTE TESTE EXIGIA `YES`, E DEIXOU DE PODER EXIGI-LO.
+
+        A prova da nao-contaminacao era por DATAS: «o ficheiro do mecanismo
+        nao e tocado desde 2026-09-09, e o gabarito so existe desde
+        2026-09-11 — nenhuma palavra pode ter sido escolhida a olhar para
+        rotulos que ainda nao existiam».
+
+        A integracao do SCRAP juntou `admissao/admissao.py`. O ficheiro passou
+        a ter sido tocado HOJE, e `mexido < gabarito` deixou de ser verdade.
+
+            A REGRA NAO MUDOU — as 36 previsoes sao identicas, a
+            RULE_VERSION e a mesma, e JUDGMENT_DIFF_COUNT = 0.
+            O QUE SE PERDEU FOI A MANEIRA DE DATAR A INOCENCIA DELA.
+
+        E NAO SE INVENTA UMA DATACAO NOVA para recuperar o verde. Medir a
+        data de OUTRA coisa — o bloco da regra em vez do ficheiro — seria
+        trocar a pergunta ate ela dar a resposta que se queria.
+
+            UMA PROVA HISTORICA QUE DEPENDE DA DATA DE UM FICHEIRO
+            NAO SOBREVIVE A UM MERGE QUE LHE TOCA.
+            PRESERVAR A VERDADE VALE MAIS DO QUE PRESERVAR O VERDE.
+
+        O que esta sentinela continua a cobrar, e que e o que importa: a
+        autoridade do gabarito, e que o campo NUNCA diga `YES` sem as datas
+        o sustentarem. `YES` volta a ser exigivel no dia em que alguem o
+        provar por outro caminho — e ai esta linha muda com essa prova.
+        """
         la = _art()["LEAKAGE_AUDIT"]
         self.assertEqual(la["GROUND_TRUTH_AUTHORITY"], "HUMAN_VERIFIED")
+        valor = la["CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN"]
+        self.assertIn(valor, ("YES", "NAO SEI"), valor)
+        if valor == "YES":
+            # Se alguem voltar a afirma-lo, as datas TEM de o sustentar.
+            self.assertLess(la["MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM"],
+                            la["GABARITO_COMMITADO_EM"],
+                            "afirmou independencia historica sem as datas")
+        else:
+            # E se e `NAO SEI`, tem de o DIZER — a falta declarada e legitima,
+            # a falta calada nao.
+            self.assertIn("nao foi possivel datar", la["PROVA"],
+                          "a ausencia de prova ficou sem motivo escrito")
+
+    def test_o_facto_historico_de_hoje_esta_declarado(self):
+        """O estado MEDIDO nesta arvore, escrito para nao passar despercebido.
+
+        Se um dia isto voltar a `YES` por uma prova de verdade, este teste
+        reprova e obriga a olhar — que e exactamente o que se quer."""
+        la = _art()["LEAKAGE_AUDIT"]
         self.assertEqual(
             la["CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN"],
-            "YES")
-        self.assertLess(la["MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM"],
-                        la["GABARITO_COMMITADO_EM"])
+            "NAO SEI",
+            "a independencia historica mudou de estado — medir porque")
 
     def test_sem_datas_a_independencia_e_nao_sei_e_nao_yes(self):
         """Nao se inventa independencia historica."""
