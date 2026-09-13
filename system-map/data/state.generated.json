@@ -590,6 +590,7 @@
       "docs/operacao/CENSO-DA-INTELLIGENCE.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
@@ -667,6 +668,7 @@
     ],
     "handoff": [
       "handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md",
+      "handoff/KNOW-HOW-DELTA-MORADA-DA-SALA-DE-ESPERA.md",
       "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "handoff/paused-v2/MANIFEST.md",
       "handoff/paused-v2/MANIFESTO.json",
@@ -1007,6 +1009,7 @@
       "prototype/portal/index.html"
     ],
     "provas": [
+      "provas/a_sala_de_espera_em_postgres.py",
       "provas/auditoria.py",
       "provas/chain.py",
       "provas/corrigir_custo.py",
@@ -1015,6 +1018,7 @@
       "provas/inventario_esperado.py",
       "provas/italy_accounting.mjs",
       "provas/italy_pilot_negativos.mjs",
+      "provas/red_team_da_sala_de_espera.py",
       "provas/testa_coleta_canonica.py",
       "provas/testa_rota_italia.py"
     ],
@@ -1596,8 +1600,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "9bcfdfa189fbb6a72373e62ef03fb7c086fc5d7e",
-    "GENERATED_AT": "2026-09-13T18:24:40+00:00"
+    "HEAD": "06a8fba5f05c00df3adaf6f2624e1fcf2d0ed9de",
+    "GENERATED_AT": "2026-09-13T21:28:23+00:00"
   },
   "FAMILIES": [
     {
@@ -1673,7 +1677,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 29
+      "count": 30
     },
     {
       "id": "F-ENTREGA",
@@ -2042,7 +2046,7 @@
       "y": 2460,
       "w": 1235,
       "h": 1972,
-      "count": 13
+      "count": 14
     },
     {
       "id": "Z-PACOTE",
@@ -3242,7 +3246,8 @@
       "outbound": [
         "C-CTRL-REDTEAM",
         "C-ORQUESTRADOR",
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-PROVA-MORADA-DA-ESPERA"
       ],
       "paises": {},
       "paises_dado": {},
@@ -8329,7 +8334,8 @@
         "C-RECEITAS"
       ],
       "outbound": [
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-PROVA-MORADA-DA-ESPERA"
       ],
       "paises": {},
       "paises_dado": {},
@@ -9137,6 +9143,50 @@
       "y": 3596
     },
     {
+      "id": "C-PROVA-MORADA-DA-ESPERA",
+      "name": "Bancada da morada da Sala de Espera",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Duas bancadas que mediram ONDE a unidade PRONTO_PARA_INTELIGENCIA deve pousar: a opcao PostgreSQL construida a serio (mesma bateria, mesmos nomes de caso, schema descartavel que nasce e morre na execucao) e 16 ataques contra a morada em ficheiro.",
+      "why_here": "UMA OPCAO QUE NUNCA CORREU NAO PERDE NEM GANHA: ELA NAO FOI MEDIDA. A opcao perdedora foi construida para que a vitoria da outra fosse uma medicao, e nao uma preferencia. O veredito confirma `docs/decisoes/ADR-SALA-DE-ESPERA-V1.md`, e nao o substitui.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md",
+        "provas/a_sala_de_espera_em_postgres.py",
+        "provas/red_team_da_sala_de_espera.py"
+      ],
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-ORQUESTRADOR"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 12015,
+      "y": 3596
+    },
+    {
       "id": "C-PROVENIENCIA",
       "name": "A procedencia dentro do pacote",
       "territory": "Z-REGUAS",
@@ -9287,8 +9337,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12015,
-      "y": 3596
+      "x": 11185,
+      "y": 3918
     },
     {
       "id": "C-REGRA-COLETA",
@@ -11055,7 +11105,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 11185,
+      "x": 11600,
       "y": 3918
     },
     {
@@ -13763,7 +13813,7 @@
       "icon": "B",
       "facts": [
         "branch claude/funny-hypatia-y7ho5s",
-        "HEAD 9bcfdfa189fbb6a72373e62ef03fb7c086fc5d7e"
+        "HEAD 06a8fba5f05c00df3adaf6f2624e1fcf2d0ed9de"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14570,6 +14620,28 @@
           "file": "provas/testa_coleta_canonica.py",
           "line": 32,
           "snippet": "import admissao as adm  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-MORADA-DA-ESPERA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao importa Bancada da morada da Sala de Espera. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_sala_de_espera_em_postgres.py",
+          "line": 140,
+          "snippet": "import admissao"
+        },
+        {
+          "file": "provas/red_team_da_sala_de_espera.py",
+          "line": 28,
+          "snippet": "import admissao                                        # noqa: E402"
         }
       ]
     },
@@ -18257,6 +18329,23 @@
       ]
     },
     {
+      "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-MORADA-DA-ESPERA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador alimenta Bancada da morada da Sala de Espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/red_team_da_sala_de_espera.py",
+          "line": 67,
+          "snippet": "\"orquestrador/orquestrador.py\")"
+        }
+      ]
+    },
+    {
       "from": "C-PACOTE-CAMADAS",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -21605,20 +21694,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 647,
+  "UNCLAIMED_FILES_COUNT": 648,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 138,
+    "components": 139,
     "components_proven": 96,
-    "components_pending": 34,
+    "components_pending": 35,
     "components_broken": 4,
     "components_unknown": 4,
-    "edges": 373,
-    "edges_proven": 361,
+    "edges": 375,
+    "edges_proven": 363,
     "edges_unknown": 12,
     "business_edges": 4,
-    "files_tracked": 1152,
-    "files_covered": 505,
+    "files_tracked": 1156,
+    "files_covered": 508,
     "files_code_unclaimed": 0
   }
 }

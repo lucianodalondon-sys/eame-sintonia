@@ -1812,6 +1812,26 @@
       ]
     },
     {
+      "id": "C-PROVA-MORADA-DA-ESPERA",
+      "name": "Bancada da morada da Sala de Espera",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "✓",
+      "what": "Duas bancadas que mediram ONDE a unidade PRONTO_PARA_INTELIGENCIA deve pousar: a opcao PostgreSQL construida a serio (mesma bateria, mesmos nomes de caso, schema descartavel que nasce e morre na execucao) e 16 ataques contra a morada em ficheiro.",
+      "why_here": "UMA OPCAO QUE NUNCA CORREU NAO PERDE NEM GANHA: ELA NAO FOI MEDIDA. A opcao perdedora foi construida para que a vitoria da outra fosse uma medicao, e nao uma preferencia. O veredito confirma `docs/decisoes/ADR-SALA-DE-ESPERA-V1.md`, e nao o substitui.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_sala_de_espera_em_postgres.py",
+        "provas/red_team_da_sala_de_espera.py",
+        "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
       "id": "C-CENSO-COLETA",
       "name": "Censo da coleta",
       "territory": "Z-PROVA",

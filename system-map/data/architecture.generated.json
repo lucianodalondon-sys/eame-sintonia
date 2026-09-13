@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "9bcfdfa189fbb6a72373e62ef03fb7c086fc5d7e",
-    "GENERATED_AT": "2026-09-13T18:24:40+00:00"
+    "HEAD": "06a8fba5f05c00df3adaf6f2624e1fcf2d0ed9de",
+    "GENERATED_AT": "2026-09-13T21:28:23+00:00"
   },
   "FILES": [
     {
@@ -3970,6 +3970,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md",
+      "sha": "56b509471fc37b64fcbfa92dd07f33b3c0dbfca5",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
       "sha": "18a3de75a5211318974934fc0d8e290bf1de8f61",
       "ext": ".md",
@@ -4448,6 +4455,13 @@
     {
       "path": "handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md",
       "sha": "e20731975c7e4f020902ee8ea045ba9c228d0735",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "handoff/KNOW-HOW-DELTA-MORADA-DA-SALA-DE-ESPERA.md",
+      "sha": "a28cade233f893657ba9b852f9aecfcc54afd0e3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6714,6 +6728,13 @@
       "code_dir": false
     },
     {
+      "path": "provas/a_sala_de_espera_em_postgres.py",
+      "sha": "e876d6d5641e9c26393e93e6776882d6cfd5e8bc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/auditoria.py",
       "sha": "5b0375fdf9f334142d56f869dae339c7cf010868",
       "ext": ".py",
@@ -6766,6 +6787,13 @@
       "path": "provas/italy_pilot_negativos.mjs",
       "sha": "a3969ca0688cd93406ca9f7fc85b4a5fa4f81924",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/red_team_da_sala_de_espera.py",
+      "sha": "712ecb1ba19fec4c0e46e80ddc1e59684f9d4f0a",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -7772,7 +7800,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7c04d539f87f02300488e0c653316a81d4a5125e",
+      "sha": "24f2b14f18246ec51b7d776d1178473c3f556301",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -21373,6 +21401,28 @@
       }
     },
     {
+      "from_file": "provas/a_sala_de_espera_em_postgres.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_em_postgres.py",
+        "line": 139,
+        "snippet": "import _gavetas                                    # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/a_sala_de_espera_em_postgres.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_sala_de_espera_em_postgres.py",
+        "line": 140,
+        "snippet": "import admissao"
+      }
+    },
+    {
       "from_file": "provas/chain.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -21480,6 +21530,39 @@
         "file": "provas/italy_pilot_negativos.mjs",
         "line": 8,
         "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_sala_de_espera.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_sala_de_espera.py",
+        "line": 27,
+        "snippet": "import _gavetas                                        # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_sala_de_espera.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/red_team_da_sala_de_espera.py",
+        "line": 28,
+        "snippet": "import admissao                                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/red_team_da_sala_de_espera.py",
+      "to_file": "pedido/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/red_team_da_sala_de_espera.py",
+        "line": 67,
+        "snippet": "\"orquestrador/orquestrador.py\")"
       }
     },
     {
@@ -25478,10 +25561,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1152,
-    "files_readable": 392,
-    "files_code_dir": 439,
-    "file_edges": 1548,
+    "files_tracked": 1156,
+    "files_readable": 394,
+    "files_code_dir": 441,
+    "file_edges": 1553,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
