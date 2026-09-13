@@ -1,0 +1,302 @@
+{
+  "PERGUNTA": "que classe consegue hoje atravessar a Collection inteira, de REQUEST a SALA DE ESPERA?",
+  "CLASSES_MEDIDAS": 11,
+  "EXECUTOR_DEPENDE_DO_PAIS": "NO",
+  "PORQUE": "receitas.resolver le EXECUTORES.get(alvo) e o pais filtra FONTES, nunca EXECUTORES — medido em 5 paises",
+  "CENSO": [
+    {
+      "CLASS": "T1",
+      "ASSUNTO": "Cultura e producao",
+      "EXECUTOR": "—",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "nao ha executor declarado para este alvo",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "—",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "sem executor, nao ha especie para classificar",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "REGRA_DE_ADMISSAO",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 3
+    },
+    {
+      "CLASS": "T2",
+      "ASSUNTO": "Clima e tempo",
+      "EXECUTOR": "italia-recorrente",
+      "CANONICAL_ACQUISITION": "YES",
+      "PORQUE_AQUISICAO": "retorno.ENVELOPE = data/colheita/italia/RETORNO.json",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NO",
+      "PORQUE_ENVELOPE": "o ENVELOPE declarado nao esta na arvore: data/colheita/italia/RETORNO.json",
+      "SPECIES": "DOCUMENTAL",
+      "STRUCTURED_SUPPORTED": "YES",
+      "PORQUE_STRUCTURED": "documento: `public.documento_estruturado` (migration 030), com dono em guarda/preservar_documento.py",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "REGRA_DE_ADMISSAO"
+      ],
+      "QUANTO_FALTA": 1
+    },
+    {
+      "CLASS": "T3",
+      "ASSUNTO": "Praga e doenca",
+      "EXECUTOR": "eppo",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "o executor existe e NAO declara retorno nenhum",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "OUTRA",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "a especie nao e documental nem de plataforma, e nenhum dono STRUCTURED foi medido para ela",
+      "ADMISSION_RULE": "YES",
+      "PORQUE_REGRA": "13 termos escritos em PERGUNTAS_DO_UNIVERSO",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 2
+    },
+    {
+      "CLASS": "T4",
+      "ASSUNTO": "Regulatorio",
+      "EXECUTOR": "rotulos-oficiais",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "declara LEGADO (MANIFEST) — suporte, nunca colheita",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "DOCUMENTAL",
+      "STRUCTURED_SUPPORTED": "YES",
+      "PORQUE_STRUCTURED": "documento: `public.documento_estruturado` (migration 030), com dono em guarda/preservar_documento.py",
+      "ADMISSION_RULE": "YES",
+      "PORQUE_REGRA": "11 termos escritos em PERGUNTAS_DO_UNIVERSO",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA"
+      ],
+      "QUANTO_FALTA": 1
+    },
+    {
+      "CLASS": "T5",
+      "ASSUNTO": "Preco e mercado",
+      "EXECUTOR": "—",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "nao ha executor declarado para este alvo",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "—",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "sem executor, nao ha especie para classificar",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "REGRA_DE_ADMISSAO",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 3
+    },
+    {
+      "CLASS": "T7",
+      "ASSUNTO": "Ciencia e ensaio",
+      "EXECUTOR": "corpus-pesquisador",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "declara LEGADO (CATALOG) — suporte, nunca colheita",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "OUTRA",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "a especie nao e documental nem de plataforma, e nenhum dono STRUCTURED foi medido para ela",
+      "ADMISSION_RULE": "YES",
+      "PORQUE_REGRA": "21 termos escritos em PERGUNTAS_DO_UNIVERSO",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 2
+    },
+    {
+      "CLASS": "T9",
+      "ASSUNTO": "Concorrente",
+      "EXECUTOR": "comunicacao-publica",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "declara LEGADO (CATALOG, PLAN, RUN_RECEIPT) — suporte, nunca colheita",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "PLATAFORMA",
+      "STRUCTURED_SUPPORTED": "NO",
+      "PORQUE_STRUCTURED": "conteudo de plataforma: `public.conteudo` exige `canal_id`, e o criador dessa identidade nao existe na producao",
+      "ADMISSION_RULE": "YES",
+      "PORQUE_REGRA": "12 termos escritos em PERGUNTAS_DO_UNIVERSO",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 2
+    },
+    {
+      "CLASS": "T10",
+      "ASSUNTO": "Politica e subsidio",
+      "EXECUTOR": "—",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "nao ha executor declarado para este alvo",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "—",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "sem executor, nao ha especie para classificar",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "REGRA_DE_ADMISSAO",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 3
+    },
+    {
+      "CLASS": "T11",
+      "ASSUNTO": "Solo e agua",
+      "EXECUTOR": "—",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "nao ha executor declarado para este alvo",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "—",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "sem executor, nao ha especie para classificar",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "REGRA_DE_ADMISSAO",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 3
+    },
+    {
+      "CLASS": "T12",
+      "ASSUNTO": "Substancia ativa",
+      "EXECUTOR": "—",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "nao ha executor declarado para este alvo",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "—",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "sem executor, nao ha especie para classificar",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "REGRA_DE_ADMISSAO",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 3
+    },
+    {
+      "CLASS": "T13",
+      "ASSUNTO": "Outro",
+      "EXECUTOR": "—",
+      "CANONICAL_ACQUISITION": "NO",
+      "PORQUE_AQUISICAO": "nao ha executor declarado para este alvo",
+      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
+      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "SPECIES": "—",
+      "STRUCTURED_SUPPORTED": "NOT_MEASURED",
+      "PORQUE_STRUCTURED": "sem executor, nao ha especie para classificar",
+      "ADMISSION_RULE": "NO",
+      "PORQUE_REGRA": "nao ha vocabulario escrito para este universo",
+      "CAN_REACH_READY": "NO",
+      "O_QUE_FALTA": [
+        "AQUISICAO_CANONICA",
+        "REGRA_DE_ADMISSAO",
+        "DONO_STRUCTURED"
+      ],
+      "QUANTO_FALTA": 3
+    }
+  ],
+  "CANONICAL_CANARY_CLASS": "NONE",
+  "CLASSES_A_UMA_PECA_DE_DISTANCIA": [
+    {
+      "CLASS": "T2",
+      "FALTA": "REGRA_DE_ADMISSAO"
+    },
+    {
+      "CLASS": "T4",
+      "FALTA": "AQUISICAO_CANONICA"
+    }
+  ],
+  "O_QUE_ISTO_ACRESCENTA": "a missao anterior provou que ninguem passa. Esta diz quem esta a UMA peca de passar, e qual peca e — e sao duas perguntas diferentes.",
+  "PORQUE_T2_NAO_TEM_REGRA": {
+    "CLASSIFICACAO": "B_COM_A_RAZAO_DE_C",
+    "T2_ADMISSION_APPLICABILITY": "YES_COMO_UNIVERSO_NO_COMO_REGRA",
+    "O_UNIVERSO_E_LEGITIMO": "YES",
+    "O_QUE_FALHA": "MECANISMO",
+    "PORQUE_NAO_E_A": "nao e «falta escrever a lista»: a lista foi procurada exaustivamente e a que separa o gabarito e feita de dias da semana e nomes de departamento — generalizacao 0/10",
+    "PORQUE_NAO_E_B_INTEIRO": "T2 nao e um universo ilegitimo: e canonico, com cinco fontes declaradas e dez positivos reais de tres publicadores",
+    "PORQUE_C_APARECE": "a propria medicao de T2 registou-o: TERRITORIO e propriedade da FONTE e UNIVERSO e pergunta ao DOCUMENTO. A ARPAV publica T2 e T3, e mostra os dois a divergir. Mas as duas listas ficam na MESMA taxonomia — nao sao universos incompativeis, sao dois usos do mesmo nome",
+    "CONDICAO_QUE_FECHOU": "RULE_CAN_DISTINGUISH_T2_FROM_T3",
+    "GABARITO": {
+      "POSITIVOS": 10,
+      "NEGATIVOS": 33,
+      "AMBIGUOS_NAO_ARREDONDADOS": 3
+    },
+    "O_QUE_FALTA_PARA_A_REGRA_EXISTIR": [
+      "uma lei que diga o que e um documento ser SOBRE um assunto",
+      "um mecanismo que conte sinais em vez de parar na primeira palavra"
+    ],
+    "DONO_DESTA_RESPOSTA": "provas/a_regra_de_t2.py"
+  },
+  "O_CANARIO_RECOMENDADO": {
+    "CANONICAL_CANARY_CLASS_RECOMENDADA": "T4",
+    "ASSUNTO": "Regulatorio",
+    "PORQUE_ESTA": "e a unica classe a uma peca de distancia cuja peca em falta nao foi medida e reprovada. Ela ja tem regra tematica escrita e ja tem dono STRUCTURED — falta-lhe ir buscar o material pelo contrato canonico",
+    "O_QUE_ELA_JA_TEM": [
+      "REGRA_DE_ADMISSAO",
+      "DONO_STRUCTURED"
+    ],
+    "O_QUE_LHE_FALTA": [
+      "AQUISICAO_CANONICA"
+    ],
+    "BLOCKER_REAL": {
+      "O_QUE_E": "o executor de T4 nao declara COLHEITA",
+      "ONDE": "pedido/receitas.py::EXECUTORES['T4'] -> retorno",
+      "ESTADO_HOJE": "declara LEGADO (MANIFEST) — suporte, nunca colheita",
+      "O_QUE_FALTA_TECNICAMENTE": "um ENVELOPE por corrida com RUN_ID, EXECUTOR_ID, EXECUTOR_VERSION, ESTADO e as listas COLHEITA/SUPORTE/ERROS, conforme leis/retorno_da_coleta.py::conferir",
+      "E_O_SCRAP": "NO",
+      "PORQUE_NAO_E_O_SCRAP": "o SCRAP e uma capacidade social e nao coleta documento de ministerio. Integra-lo nao muda uma linha do retorno de T4",
+      "QUEM_RESOLVE": "codigo — e e trabalho de AQUISICAO, que esta fase separou de proposito do fecho da maquina"
+    },
+    "PORQUE_NAO_T2": "T2 e a outra classe a uma peca de distancia, e a peca dela e a regra tematica — medida contra 46 documentos reais e REPROVADA. Escolher T2 obrigaria a escrever a lista que a medicao ja disse que nao existe.",
+    "O_QUE_ISTO_NAO_AUTORIZA": "comecar a aquisicao de T4 dentro desta missao. Fechar a maquina e integrar aquisicao sao fases diferentes, e a ordem aprovada poe a segunda depois da primeira."
+  },
+  "O_TESTE_DO_SCRAP": {
+    "CLASSES_QUE_O_SCRAP_SERVE": [
+      "T9"
+    ],
+    "PORQUE_ESSAS": "sao as classes cujas rotas declaradas sao sociais (YouTube, Instagram, LinkedIn, Facebook) — e o SCRAP e uma capacidade social",
+    "DANDO_LHES_A_AQUISICAO_AINDA_FALTA": {
+      "T9": [
+        "DONO_STRUCTURED"
+      ]
+    },
+    "SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
+    "PORQUE_NAO": "mesmo com a aquisicao resolvida, T9 para em STRUCTURED: conteudo de plataforma exige `canal_id`, e o criador dessa identidade nao existe na producao. O SCRAP traz bytes; ele nao traz um dono de identidade de canal.",
+    "E_O_SCRAP_CONTINUA_A_FAZER_FALTA": "YES — para a coleta grande. PRECISO != BLOQUEANTE, e sao duas perguntas diferentes"
+  },
+  "GENERATED_BY": "provas/o_canario_da_collection.py"
+}

@@ -234,6 +234,7 @@
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
+      "data/derivados/A-REGRA-DE-T2.json",
       "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
       "data/derivados/BASELINE-ADMISSION-T3-V1.json",
       "data/derivados/BENCHMARK-TEMATICO-V1.json",
@@ -242,6 +243,7 @@
       "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
       "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
       "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+      "data/derivados/O-CANARIO-DA-COLLECTION.json",
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
@@ -1208,6 +1210,7 @@
       "provas/medir_admission_t3_atual.py",
       "provas/medir_source_id_wiring_gap.py",
       "provas/mutacao_do_gate.py",
+      "provas/o_canario_da_collection.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
       "provas/o_encanamento_tem_uma_porta.py",
@@ -1536,6 +1539,7 @@
       "tests/test_navegador.py",
       "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
+      "tests/test_o_canario_da_collection.py",
       "tests/test_o_pedido_atravessa.py",
       "tests/test_o_raw_fala.py",
       "tests/test_observabilidade.py",
@@ -1963,9 +1967,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-v1-operational-close",
-    "HEAD": "bd5ad9c06c3e1d6cab44f561f7cdaaac3ecebecd",
-    "GENERATED_AT": "2026-09-12T21:56:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "231579ec96feddcd49186bcee6d5e6b95949b14c176e5b5af076193f4245b6c6"
+    "HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
+    "GENERATED_AT": "2026-09-12T22:55:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "69af1b5c0bab1fa300d98ac0a8312a54c0b8ec8e54492d429dba21c662053486"
   },
   "FAMILIES": [
     {
@@ -12087,6 +12091,7 @@
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/mutacao_do_gate.py",
+        "provas/o_canario_da_collection.py",
         "provas/o_corte_de_cr1.py",
         "provas/o_legado_fora_do_fluxo.py",
         "provas/objeto_e_observacao_no_postgres.py",
@@ -12105,7 +12110,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 34,
+      "file_count": 35,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12255,7 +12260,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "provas/os_portoes_da_collection.py",
-            "line": 1273,
+            "line": 1335,
             "snippet": "escreve em caminho"
           }
         }
@@ -15911,6 +15916,7 @@
         "tests/test_navegador.py",
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
+        "tests/test_o_canario_da_collection.py",
         "tests/test_o_pedido_atravessa.py",
         "tests/test_o_raw_fala.py",
         "tests/test_observabilidade.py",
@@ -15957,7 +15963,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 108,
+      "file_count": 109,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17892,7 +17898,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 13 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -17901,7 +17907,7 @@
         },
         {
           "file": "provas/a_regra_de_t2.py",
-          "line": 39,
+          "line": 40,
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
@@ -17940,6 +17946,11 @@
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
+          "file": "provas/o_canario_da_collection.py",
+          "line": 52,
+          "snippet": "import admissao as adm                                      # noqa: E402"
+        },
+        {
           "file": "provas/o_corte_de_cr1.py",
           "line": 61,
           "snippet": "import admissao as adm  # noqa: E402"
@@ -17947,11 +17958,6 @@
         {
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 37,
-          "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "provas/testa_coleta_canonica.py",
-          "line": 34,
           "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
@@ -18236,7 +18242,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 17 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -22313,8 +22319,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_da_collection.py",
+          "line": 55,
+          "snippet": "import retorno_da_coleta as ret                             # noqa: E402"
+        },
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 62,
@@ -24348,7 +24359,7 @@
       "evidence": [
         {
           "file": "provas/a_regra_de_t2.py",
-          "line": 41,
+          "line": 42,
           "snippet": "REGISTO = os.path.join(RAIZ, \"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
         },
         {
@@ -27504,8 +27515,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_da_collection.py",
+          "line": 53,
+          "snippet": "from pedido import ALVOS, Pedido                            # noqa: E402"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 31,
@@ -27576,7 +27592,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
@@ -27587,6 +27603,11 @@
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 54,
           "snippet": "from pedido import de_uma_frase            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o_canario_da_collection.py",
+          "line": 86,
+          "snippet": "from pedido import ALVOS"
         }
       ],
       "categoria": "PROOF"
@@ -28952,7 +28973,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 30 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 31 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -29201,7 +29222,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 830,
+          "line": 831,
           "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
         }
       ],
@@ -29640,8 +29661,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/o_canario_da_collection.py",
+          "line": 54,
+          "snippet": "from receitas import EXECUTORES, resolver                   # noqa: E402"
+        },
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 59,
@@ -33435,7 +33461,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 762,
+  "UNCLAIMED_FILES_COUNT": 764,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33599,8 +33625,8 @@
     "edges_proven": 710,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1515,
-    "files_covered": 753,
+    "files_tracked": 1519,
+    "files_covered": 755,
     "files_code_unclaimed": 0
   }
 }

@@ -341,36 +341,68 @@ class AFraseDeFechoNaoSeArredonda(unittest.TestCase):
         UMA FRASE DE FECHO E UMA AUTORIZACAO. NAO SE ARREDONDA.
     """
 
-    def _cert(self, veredicto, porque, buraco):
-        return P.certificacao(
-            {"VEREDICTO": veredicto, "PORQUE_A_HISTORIA": porque}, buraco)
+    def _cert(self, veredicto, porque, buraco, scrap="ausente"):
+        """⚠️ ESTE AJUDANTE JA PASSOU O BURACO E ESPERAVA QUE ELE DECIDISSE.
+        Decidia: `certificacao` tinha uma lista de arestas escrita a mao que
+        adivinhava «este buraco e do SCRAP» pelo SITIO dele. Deixou de ter —
+        agora le a medicao de quem perguntou pela CLASSE que o SCRAP serve.
+
+            O TESTE SEGUE O MECANISMO NOVO, E NAO O CONTRARIO.
+        """
+        real = P._o_scrap_fecharia
+        if scrap != "ausente":
+            P._o_scrap_fecharia = lambda: scrap
+        try:
+            return P.certificacao(
+                {"VEREDICTO": veredicto, "PORQUE_A_HISTORIA": porque}, buraco)
+        finally:
+            P._o_scrap_fecharia = real
 
     def test_com_a_historia_a_falhar_as_duas_dizem_no(self):
-        c = self._cert("FAIL", "parou algures", "ADMISSION -> READY")
+        c = self._cert("FAIL", "parou algures", "ADMISSION -> READY",
+                       {"SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
+                        "CLASSES_QUE_O_SCRAP_SERVE": ["T9"],
+                        "PORQUE_NAO": "T9 para em STRUCTURED"})
         self.assertEqual("NO", c["COLLECTION_V1_CORE_READY_WITHOUT_SCRAP"])
         self.assertEqual(
             "NO", c["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
             "um buraco que o SCRAP nao tapa nao pode dar «so falta o SCRAP»")
 
-    def test_a_segunda_frase_pergunta_QUAL_buraco_e_nao_SE_ha_scrap(self):
+    def test_a_segunda_frase_segue_a_MEDICAO_e_nao_o_sitio_do_buraco(self):
         """⚠️ A ARMADILHA ERA ESTA: «o SCRAP nao esta integrado, logo e ele
         que falta». Nao e. A pergunta e se o buraco QUE ESTA LA seria tapado
-        por integrar o SCRAP — e um buraco na porta nao seria.
+        por integrar o SCRAP.
+
+        E a segunda armadilha, que custou este teste: responder a essa
+        pergunta ADIVINHANDO pelo sitio do buraco. Uma lista de arestas
+        escrita a mao responde bem aos buracos que ja se viram e mal a todos
+        os outros. Agora a resposta vem de quem mediu, e este teste prova que
+        a certificacao a SEGUE — nos dois sentidos.
         """
-        aquisicao = self._cert("FAIL", "parou", "EXECUTOR -> RUN")
-        porta = self._cert("FAIL", "parou", "ADMISSION -> READY")
+        fecha = self._cert("FAIL", "parou", "EXECUTOR -> RUN",
+                           {"SCRAP_WOULD_CLOSE_CURRENT_GAP": "YES",
+                            "CLASSES_QUE_O_SCRAP_SERVE": ["T9"],
+                            "PORQUE_NAO": "—"})
+        nao_fecha = self._cert("FAIL", "parou", "ADMISSION -> READY",
+                               {"SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
+                                "CLASSES_QUE_O_SCRAP_SERVE": ["T9"],
+                                "PORQUE_NAO": "T9 para em STRUCTURED"})
         self.assertEqual(
-            "YES",
-            aquisicao["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+            "YES", fecha["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
+            "a medicao disse que o SCRAP fecharia e a certificacao "
+            "discordou dela")
         self.assertEqual(
-            "NO", porta["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+            "NO", nao_fecha["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
 
     def test_sem_medicao_nenhuma_nao_se_certifica(self):
         """`NOT_MEASURED != PASS`, e tambem nao e «so falta o SCRAP»."""
-        c = self._cert("FAIL", "ninguem mediu", None)
+        c = self._cert("FAIL", "ninguem mediu", None, None)
         self.assertEqual("NO", c["COLLECTION_V1_CORE_READY_WITHOUT_SCRAP"])
         self.assertEqual(
             "NO", c["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+        self.assertEqual("NOT_MEASURED", c["SCRAP_WOULD_CLOSE_CURRENT_GAP"],
+                         "sem medicao a certificacao inventou um veredicto "
+                         "sobre o SCRAP")
 
     def test_o_yes_nao_esta_escrito_a_mao_no_ficheiro(self):
         """Mutante que isto apanha: `("...", "YES")` fixo, sem condicao.

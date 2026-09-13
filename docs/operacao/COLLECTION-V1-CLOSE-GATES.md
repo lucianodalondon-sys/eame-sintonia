@@ -26,7 +26,15 @@ ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = NO
 O segundo é o que surpreende, e está medido: o buraco que resta é
 `ADMISSION -> READY`, e **integrar o SCRAP não o tapa**. O SCRAP continua a ser
 preciso antes da coleta grande — mas não é a única coisa que falta, e dizer que
-é autorizava começar pela peça errada. O porquê está no fim deste documento.
+é autorizava começar pela peça errada.
+
+E a classe que fecha a máquina está nomeada, com o blocker dela:
+
+```
+CANONICAL_CANARY_CLASS_RECOMENDADA = T4 (Regulatório)
+BLOCKER_REAL  = o executor de T4 não declara COLHEITA
+É O SCRAP?    = NO
+```
 
 Este veredito não vem da média das 105 leis. Vem das propriedades que a
 coleta grande precisa de ter, e cada falha aponta a propriedade que falta.
@@ -213,16 +221,127 @@ duas leis estão a ser cumpridas.
 
 > **FALTA DE PEÇA ≠ PEÇAS QUE NÃO SE CRUZAM.**
 
-Não se corrige a construir. Corrige-se a decidir: escrever regra temática para
-`T2`, ou pôr um executor de colheita canónica num universo que já tem regra.
+### E depois mediu-se o que faltava a cada classe, e a parede virou fila
 
-⚠️ **E não é o SCRAP.** O SCRAP não escreve regra temática nem muda o que a
-porta pergunta. Integrá-lo amanhã deixava esta interseção exactamente onde ela
-está. Medido em `provas/o_pedido_atravessa.py::A1, A2`.
+«A interseção é vazia» é verdade e não ajuda a decidir. Entre classes todas
+paradas, nenhuma parece mais perto do que as outras até alguém contar **o que
+falta a cada uma**. Medido em
+[`provas/o_canario_da_collection.py`](../../provas/o_canario_da_collection.py),
+sobre as onze classes da taxonomia:
 
-⚠️ **E não se corrige afrouxando a regra.** Mudar a regra temática até um caso
-passar é mudar a pergunta para gostar da resposta — e o veredito que saísse daí
-mediria a regra nova, e não a máquina.
+| classe | aquisição | structured | regra | falta |
+|---|---|---|---|---|
+| **T2** · Clima e tempo | **SIM** | **SIM** | NÃO | só a **regra** |
+| **T4** · Regulatório | NÃO | **SIM** | **SIM** | só a **aquisição** |
+| T3 · Praga e doença | NÃO | — | SIM | aquisição + structured |
+| T7 · Ciência e ensaio | NÃO | — | SIM | aquisição + structured |
+| T9 · Concorrente | NÃO | NÃO | SIM | aquisição + structured |
+| T1 · T5 · T10 · T11 · T12 · T13 | NÃO | — | NÃO | as três |
+
+```
+CANONICAL_CANARY_CLASS = NONE      (ninguém atravessa hoje)
+A UMA PEÇA DE DISTÂNCIA = T2 · T4
+```
+
+⚠️ **O país não entra nesta conta, e isso foi medido.** A medição anterior
+perguntou só por `pais=IT`. `receitas.resolver` escolhe executores por
+`EXECUTORES.get(alvo)` e o país filtra **fontes**, nunca executores — conferido
+em cinco países. Uma resposta de um país só não era uma resposta.
+
+### As duas peças não são iguais, e é isso que decide
+
+Uma peça e uma peça, e as duas classes parecem empatadas. Não estão:
+
+```
+T2 · falta a REGRA       ->  já foi medida, e REPROVADA
+T4 · falta a AQUISIÇÃO   ->  nunca foi tentada: é trabalho por fazer
+```
+
+**A regra de T2 foi medida contra 46 documentos reais, e o portão fechou.**
+Isso não é novo desta missão — está em
+[`provas/a_regra_de_t2.py`](../../provas/a_regra_de_t2.py) e em
+[`docs/operacao/MEDICAO-DA-REGRA-T2.md`](MEDICAO-DA-REGRA-T2.md), e foi
+reconfirmado aqui ao correr outra vez:
+
+```
+gabarito       10 positivos · 33 negativos · 3 ambíguos não arredondados
+nenhum termo aparece nos 10 positivos e em ZERO negativos
+`vento`        30 dos 33 NEGATIVOS · 7 dos 10 positivos
+GENERALIZACAO  0/10
+```
+
+A lista que separa o gabarito **existe** — e é feita de `venerdì`,
+`pomeriggio`, `dipartimento`, `unità organizzativa`. Dias da semana e o nome do
+departamento que imprime.
+
+> **NÃO É VOCABULÁRIO DE CLIMA. É A IMPRESSÃO DIGITAL DE QUEM IMPRIME.**
+> **UMA REGRA QUE SÓ ACERTA EM QUEM JÁ VIU NÃO É UMA REGRA.**
+
+### Por que T2 não tem regra — a classificação, com as três metades
+
+A missão pediu A, B, C ou D. **Nenhuma das quatro serve inteira**, e dizer só
+uma letra mandaria a próxima pessoa para o sítio errado:
+
+| letra | o que diria | por que não serve sozinha |
+|---|---|---|
+| **A** · deveria ter regra e está ausente | manda escrever a lista | a lista foi procurada exaustivamente e reprovada |
+| **B** · correctamente não deve ter regra | manda desistir de T2 | T2 é um universo canónico com 5 fontes e 10 positivos reais |
+| **C** · dois universos incompatíveis | manda refazer a taxonomia | as duas listas estão na **mesma** taxonomia |
+| **D** · UNKNOWN | manda medir | já foi medido |
+
+A resposta medida **não é sobre o universo — é sobre o mecanismo**:
+
+```
+O_UNIVERSO_E_LEGITIMO = YES
+O_QUE_FALHA           = MECANISMO
+```
+
+Uma lista plana de palavras não distingue *«documento SOBRE clima»* de
+*«documento que MENCIONA clima»* — e as palavras óbvias de clima aparecem
+**mais fora** de T2 do que dentro, porque um boletim de praga fala do tempo a
+que a praga responde. Para escrever a regra faltam duas coisas que esta casa
+não tem: uma **lei** que diga o que é ser *sobre* um assunto, e um **mecanismo**
+que conte sinais em vez de parar na primeira palavra.
+
+E há um resíduo de `C` que a própria medição registou, e que fica escrito
+porque é verdadeiro e é caro:
+
+> **TERRITÓRIO É PROPRIEDADE DA FONTE. UNIVERSO É PERGUNTA AO DOCUMENTO.**
+> A ARPAV publica `Meteo Veneto` (T2) **e** `U.O. Fitosanitario — VITE` (T3).
+> O publicador não decide o território.
+
+### O canário, e o blocker real
+
+```
+CANONICAL_CANARY_CLASS_RECOMENDADA = T4 (Regulatório)
+```
+
+T4 é a única classe a uma peça de distância cuja peça em falta **não foi medida
+e reprovada**. Ela já tem regra temática escrita e já tem dono `STRUCTURED`
+documental — a mesma casa que T2 usa, porque a espécie é a mesma: PDF oficial.
+
+**O blocker real, nomeado:**
+
+```
+o executor de T4 não declara COLHEITA
+onde        pedido/receitas.py::EXECUTORES['T4'] -> retorno
+hoje        declara LEGADO (MANIFEST) — suporte, nunca colheita
+falta       um ENVELOPE por corrida, com RUN_ID, EXECUTOR_ID,
+            EXECUTOR_VERSION, ESTADO e as listas COLHEITA/SUPORTE/ERROS
+quem        código — e é trabalho de AQUISIÇÃO
+```
+
+⚠️ **E não é o SCRAP.** O SCRAP é uma capacidade social e não colhe documento de
+ministério. Integrá-lo não muda uma linha do retorno de T4.
+
+**O que ficou medido e não resolvido, sobre o ambiente:** a fonte de T4
+(`www.fitosanitari.salute.gov.it`) **não passa a verificação de TLS** deste
+ambiente — o servidor não envia a cadeia intermédia, e o erro é
+`unable to get local issuer certificate`. Medido em 2026-09-13; a fonte de T2
+(`www.arpa.veneto.it`) responde `200` no mesmo ambiente e no mesmo instante.
+Não se desligou a verificação, e por isso **a aquisição de T4 não foi provada
+aqui**. Isto é um facto sobre o ambiente, e não sobre a arquitectura: os dois
+ficam escritos separados de propósito.
 
 ### O que o fecho desta ligação revelou, e não consertou
 
@@ -381,6 +500,7 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 | `C-DECIDE-DERIVED-PARTICIPATION-GRAIN-V1` | decidiu o conceito, o grão e a identidade da participação |
 | `C-COLLECTION-V1-OPERATIONAL-CLOSE` | implementou a participação (migration `029`) |
 | `C-COLLECTION-V1-FINAL-OPERATIONAL-CERTIFICATION` | a aresta `DERIVED -> STRUCTURED` (migration `030`) |
+| `C-CLOSE-ADMISSION-TO-READY-V1` | nomeou o canário (`T4`) e o blocker real; provou que o SCRAP não o tapa |
 
 ## A fila mínima
 
@@ -398,12 +518,21 @@ fechar não é um buraco declarado: é uma propriedade por provar. E o número n
 é zero — zero ao lado de um veredito `FAIL` lê-se como «não falta nada», e
 falta.
 
-Também não é um número maior inventado. A próxima coisa conhecida é fechar
-`ADMISSION -> READY`, e ela **não é uma missão de código**: a porta existe,
-julga e responde — e responde certo. Primeiro alguém escreve regra temática para
-`T2`, ou põe colheita canónica num universo que já tem regra; só depois há o que
-implementar — e isso pode decompor-se em mais do que uma missão. Contar agora
-seria feeling com cara de DAG.
+Também não é um número maior inventado. A próxima coisa conhecida **é** uma
+missão de código, e passou a sê-lo nesta medição: **dar aquisição canónica a
+`T4`**. O ficheiro e o campo estão nomeados —
+`pedido/receitas.py::EXECUTORES['T4'] -> retorno`, hoje `LEGADO`, e o executor
+`coleta/rotulos_baixar.py`, que já colhe PDF real do Ministero.
+
+Ela não entra na fila porque a fila conta **blockers abertos** e este gap está
+registado como dívida de aquisição, não como blocker do fecho. E o número
+continua `UNKNOWN` porque a missão pode descobrir ao correr o que a medição do
+contrato não vê — contar agora seria feeling com cara de DAG.
+
+⚠️ **O que já não é a próxima coisa:** escrever regra temática para `T2`. Esse
+caminho foi medido contra 46 documentos reais e reprovado, e continuar a
+oferecê-lo ao lado do outro mandava a próxima pessoa repetir uma missão já
+feita.
 
 `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`, pela mesma disciplina:
 depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda não
@@ -482,10 +611,9 @@ ficava honesta e a tabela ficava com dois significados.
 
 ---
 
-## A PERGUNTA QUE ESTÁ À ESPERA DE GENTE
+## A SEGUNDA PERGUNTA — TAMBÉM RESPONDIDA, E POR MEDIÇÃO
 
-A máquina volta a parar num sítio, e volta a parar por falta de uma decisão —
-não por falta de código. Mas o sítio mudou, e a espécie da falta também.
+Ficou escrita aqui, uma missão atrás:
 
 ```
 DECISION_REQUIRED
@@ -493,39 +621,46 @@ Nenhum universo tem, ao mesmo tempo, regra temática escrita E executor de
 colheita canónica. Qual dos dois lados se move?
 ```
 
-```
-com regra de admissão escrita      T3 · T4 · T7 · T9
-com colheita canónica declarada    T2
-interseção                         VAZIA
-```
+Duas opções estavam em cima da mesa, e a recomendação era a **A** — escrever
+regra temática para `T2`, «com uma razão medida».
 
-**Por que bloqueia.** A porta pergunta pela regra do universo (`COL-LAW-502`) e
-só deixa entrar colheita (`COL-LAW-505`). Com as duas listas disjuntas, a porta
-responde `NAO_SE_APLICA` a tudo — e responde **certo**. Sem `READY` não há
-unidade na Sala de Espera, e a história pára em `ADMISSION`.
+⚠️ **A recomendação estava errada, e a medição que a desmente já existia.**
+`provas/a_regra_de_t2.py` tinha medido exactamente isso contra 46 documentos
+reais e o portão fechou na quarta condição. A recomendação anterior tratou as
+duas opções como igualmente abertas porque olhou para o que **falta** a cada
+lado, e não para o que já tinha sido **tentado**.
 
-⚠️ **Isto não é infraestrutura partida.** A porta julga, decide e diz porquê. É
-o corpus que não tem, hoje, um caso legitimamente admissível.
+> **DUAS OPÇÕES NÃO SÃO DUAS OPÇÕES QUANDO UMA DELAS JÁ FOI MEDIDA E REPROVADA.**
 
-> **INFRAESTRUTURA FUNCIONA ≠ HÁ CASO ADMISSÍVEL NO CORPUS.**
+A resposta é a **B**: mover o lado da aquisição, e o alvo é `T4`. Não é uma
+decisão de gente — é uma missão de código, com o ficheiro e o campo nomeados.
 
-**As duas saídas, e só estas:**
-
-| opção | consequência |
-|---|---|
-| **A** · escrever regra temática para `T2` | a regra que falta nasce onde já há colheita; exige decidir o que conta como «T2», que é a mesma classe de decisão que as outras quatro regras já tomaram |
-| **B** · pôr executor de colheita canónica num universo que já tem regra (`T3`, `T4`, `T7`, `T9`) | reaproveita regra já escrita; exige um executor novo, e é trabalho de aquisição — a mesma família de trabalho que o SCRAP faz |
-
-**O que não se faz, e por isso não está na tabela:** afrouxar ou reescrever uma
-regra temática existente para que o corpus de hoje passe. Isso produziria um
-`READY` que mediria a regra nova, e não a máquina.
-
-**Recomendação:** a **A**, e com uma razão medida — `T2` é o único universo cujo
-executor já vai à fonte real e já declara colheita canónica, e a estrada já
-atravessa nove etapas com pedidos `T2`. Escrever a regra de `T2` fecha a última
-aresta sem construir aquisição nova. A **B** é legítima e é mais trabalho.
+**Por que isto não precisou de decisão humana.** A pergunta parecia de
+arquitectura («qual é o significado de um universo?») e era de facto: bastava
+ler quem já tinha medido. A decisão humana que restava era escolher entre dois
+caminhos, e um deles estava fechado por prova.
 
 ---
+
+## O QUE ESTÁ À ESPERA DE GENTE — e é outra coisa
+
+Já não é o fecho da máquina. É o que fazer com `T2`:
+
+```
+T2 tem aquisição canónica, tem dono STRUCTURED, tem 5 fontes declaradas
+e 10 positivos reais — e não tem como ser julgado.
+```
+
+Para T2 atravessar faltam **duas peças de arquitectura**, e nenhuma delas cabe
+numa missão de fecho:
+
+1. uma **lei** que diga o que é um documento ser *sobre* um assunto;
+2. um **mecanismo** de admissão que conte sinais em vez de parar na primeira
+   palavra.
+
+As duas mudam a Admission. Nenhuma é urgente: `T4` fecha a máquina sem elas.
+Fica registado para quando a pergunta voltar — e ela volta, porque `T2` é o
+universo que mais material tem a entrar hoje.
 
 ## O que esta certificação NÃO pôde escrever
 
@@ -536,8 +671,38 @@ ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = NO
 
 O segundo é o que importa, e é o contrário do que se esperava encontrar. O red
 team tentou produzir `ONLY_REMAINING_DEPENDENCY_IS_SCRAP = YES` e **não
-conseguiu**: o buraco medido é `ADMISSION -> READY`, e o SCRAP não o tapa. Ele
-não escreve regra temática nem muda o que a porta pergunta. Integrá-lo amanhã
-deixava a interseção vazia exactamente onde ela está.
+conseguiu** — duas vezes, e a segunda com uma cadeia muito mais forte do que a
+primeira.
+
+**A primeira tentativa** respondeu: *o SCRAP não escreve regra temática nem muda
+o que a porta pergunta.* Verdade, e uma verdade lateral — argumentava pelo que o
+SCRAP **não faz**.
+
+**A segunda mediu a classe que ele serve.** O SCRAP é uma capacidade social, e a
+única classe desta casa com rotas sociais é `T9`. Então o teste deixou de ser
+uma impressão e passou a ser uma conta: **dá-se a `T9` a aquisição de graça e
+pergunta-se o que lhe falta depois.**
+
+```
+o SCRAP serve            T9
+T9 tem regra temática    SIM
+dando-lhe a aquisição    ainda falta DONO_STRUCTURED
+```
+
+`T9` é conteúdo de plataforma: `public.conteudo` exige `canal_id`, e o criador
+dessa identidade não existe na produção. **O SCRAP traz bytes; não traz um dono
+de identidade de canal.** Integrá-lo amanhã levaria `T9` de «sem aquisição» a
+«com aquisição» — e ela continuaria a parar em `STRUCTURED`, uma etapa antes de
+`READY`.
+
+> **«O SCRAP AINDA FALTA» ≠ «O SCRAP É O QUE BLOQUEIA».**
+> O teste não é *«o SCRAP está integrado?»*. É *«o buraco que está lá seria
+> tapado por integrar o SCRAP?»*
+
+E a pergunta certa tem agora dono: o veredicto vem de
+`provas/o_canario_da_collection.py`, e a certificação **lê-o** em vez de o
+adivinhar. A versão anterior adivinhava pelo **sítio** do buraco, com uma lista
+de arestas escrita à mão — respondia bem aos buracos já vistos e mal a todos os
+outros.
 
 > Uma frase de fecho só se escreve se estiver **provada**. Esta não estava.

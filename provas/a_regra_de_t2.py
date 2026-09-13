@@ -28,6 +28,7 @@ unico sitio onde a opiniao encontra os documentos.
 
     ESCREVER A REGRA SEM MEDIR E ADIVINHAR COM AR DE LEI.
 """
+import io
 import json
 import os
 import re
@@ -404,7 +405,7 @@ def portao(limpas, generaliza):
         print("  `PERGUNTAS_DO_UNIVERSO` fica exactamente como estava, e T2 "
               "continua a\n  responder NAO_SE_APLICA — que e verdade: nao ha "
               "regra escrita.")
-    return passou
+    return passou, g
 
 
 def main():
@@ -472,8 +473,62 @@ def main():
           "clima:\n  e a lista dos NOMES COMERCIAIS de tres publicacoes. E "
           "mesmo assim\n  responde NAO_SEI ao SIAS — uma fonte T2 declarada.")
     generaliza = red_team(textos, pos, neg)
-    portao(limpa, generaliza)
+    passou, condicoes = portao(limpa, generaliza)
+    escrever_veredicto(passou, condicoes, generaliza, pos, neg, amb)
     return 0
+
+
+# ⚠️ ISTO NASCEU PORQUE UMA MISSAO SEGUINTE FOI RE-DECIDIR O QUE ESTA PROVA
+# JA TINHA DECIDIDO. A resposta «T2 nao leva regra» vivia so em prosa — no
+# diario de decisoes e neste terminal — e prosa nao se le por programa. Quem
+# quisesse cruzar esta resposta com outra media outra vez, ou copiava.
+#
+#     UMA DECISAO QUE SO EXISTE EM PROSA VOLTA A SER TOMADA.
+#
+# Agora ela sai num ficheiro com dono. O censo do canario LE daqui em vez de
+# repetir a medicao — e se o veredicto mudar, o censo muda com ele sem que
+# ninguem se lembre dele.
+def escrever_veredicto(passou, condicoes, generaliza, pos, neg, amb):
+    from collections import OrderedDict
+    art = OrderedDict([
+        ("PERGUNTA", "o que um documento precisa provar para a Admission "
+                     "dizer que ele pertence a «T2 — Clima e tempo»?"),
+        ("T2_RULE_IMPLEMENTED", "YES" if passou else "NO"),
+        ("PORTAO", "ABERTO" if passou else "FECHADO"),
+        ("CONDICOES", [OrderedDict([("NOME", n), ("VALOR", v), ("PORQUE", p)])
+                       for n, v, p in condicoes]),
+        ("CONDICAO_QUE_FECHOU",
+         next((n for n, v, _p in condicoes if v not in ("YES",)), None)),
+        ("GABARITO", OrderedDict([
+            ("POSITIVOS", len(pos)), ("NEGATIVOS", len(neg)),
+            ("AMBIGUOS_NAO_ARREDONDADOS", len(amb)),
+        ])),
+        ("GENERALIZACAO", "%d/%d" % generaliza),
+        # ⚠️ A DISTINCAO QUE UM LEITOR APRESSADO PERDE, E E A QUE DECIDE.
+        # «T2 nao tem regra» pode ler-se como «T2 nao e um universo». Nao e
+        # isso: o universo e canonico e tem cinco fontes declaradas. O que
+        # falha e o MECANISMO — uma lista plana de palavras nao separa
+        # «documento SOBRE clima» de «documento que MENCIONA clima».
+        ("O_UNIVERSO_E_LEGITIMO", "YES"),
+        ("O_QUE_FALHA", "MECANISMO"),
+        ("PORQUE_NAO_E_O_UNIVERSO",
+         "«T2 = Clima e tempo» e canonico, com cinco fontes declaradas em "
+         "MASTER_ITALIANO e dez positivos reais de tres publicadores. O que "
+         "nao existe e um mecanismo que distinga SOBRE de MENCIONA: as "
+         "palavras obvias de clima aparecem MAIS fora de T2 do que dentro, "
+         "porque um boletim de praga fala do tempo a que a praga responde."),
+        ("O_QUE_FALTA_PARA_A_REGRA_EXISTIR", [
+            "uma lei que diga o que e um documento ser SOBRE um assunto",
+            "um mecanismo que conte sinais em vez de parar na primeira "
+            "palavra",
+        ]),
+        ("GENERATED_BY", "provas/a_regra_de_t2.py"),
+    ])
+    caminho = os.path.join(RAIZ, "data", "derivados", "A-REGRA-DE-T2.json")
+    os.makedirs(os.path.dirname(caminho), exist_ok=True)
+    with io.open(caminho, "w", encoding="utf-8") as f:
+        f.write(json.dumps(art, ensure_ascii=False, indent=2) + "\n")
+    print("\n  escrito: data/derivados/A-REGRA-DE-T2.json")
 
 
 def _exclusivos(textos, pos, neg):

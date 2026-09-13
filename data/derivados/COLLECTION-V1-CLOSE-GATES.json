@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "bd5ad9c06c3e1d6cab44f561f7cdaaac3ecebecd",
+  "MEASURED_HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
   "FRESCURA": {
-    "IMPRESSAO_DOS_DONOS": "07b054f0cec588933915a0a5ed7c8a5d37a0ed72e03ba7bf3941659f3d4bb143",
+    "IMPRESSAO_DOS_DONOS": "7803f285db7f3d61da5d751a1e87ead8bda13918dd9a05faa4c892bcb803927e",
     "DONOS_DA_MEDICAO": [
       "provas/os_portoes_da_collection.py",
       "docs/biblia/leis.json",
@@ -66,7 +66,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-12-222641 · versao=91514740 · colheita=4"
+      "PROVA_PELO_PEDIDO": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-13-010346 · versao=91514740 · colheita=4"
     },
     "RUN": {
       "MODULE_EXISTS": "YES",
@@ -74,7 +74,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "collection_run: ['IT-T2-2026-09-12-222641', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
+      "PROVA_PELO_PEDIDO": "collection_run: ['IT-T2-2026-09-13-010346', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
     },
     "RAW_OBSERVATION": {
       "MODULE_EXISTS": "YES",
@@ -187,9 +187,11 @@
       "O_QUE_A_PORTA_RESPONDE": "NAO_SE_APLICA — «nao ha regra escrita do que conta como «T2». Sem regra, esta porta nao inventa uma.» A recusa esta CERTA",
       "PROVA": "provas/o_pedido_atravessa.py::A1, A2 — A1 mede a recusa, A2 mede as duas listas e a intersecao",
       "PORQUE_ISTO_NAO_E_INFRAESTRUTURA_PARTIDA": "COL-LAW-505 manda que so colheita entre no ingresso, e COL-LAW-502 manda que a porta pergunte pela regra do universo. As duas leis estao a ser cumpridas. O corpus e que nao tem, hoje, um caso legitimamente admissivel",
-      "QUEM_RESOLVE": "gente — escrever regra tematica para T2, ou por um executor de colheita canonica num universo que ja tem regra",
+      "QUEM_RESOLVE": "codigo — por colheita canonica num universo que JA tem regra. O canario medido e T4, e falta-lhe so a aquisicao",
+      "E_A_OUTRA_OPCAO_ESTA_FECHADA": "escrever regra tematica para T2 foi MEDIDO e REPROVADO em provas/a_regra_de_t2.py: gabarito de 46 documentos, nenhum termo em todos os positivos e em zero negativos, e a lista que separa e feita de dias da semana e nomes de departamento — generalizacao 0/10",
+      "O_CANARIO": "T4 (Regulatorio) — ja tem regra tematica escrita e ja tem dono STRUCTURED documental; falta-lhe declarar COLHEITA. Medido em provas/o_canario_da_collection.py",
       "NAO_CORRIGIDO_NESTA_MISSAO": "alterar regra tematica para produzir SIM seria mudar a pergunta para gostar da resposta. A missao proibiu-o por escrito, e ela tinha razao",
-      "E_NAO_E_O_SCRAP": "o SCRAP nao escreve regra tematica nem muda o que a porta pergunta. Integra-lo amanha nao cruza estas duas listas"
+      "E_NAO_E_O_SCRAP": "medido: o SCRAP e capacidade SOCIAL e serve T9. T9 ja tem regra tematica — e mesmo com a aquisicao resolvida para em STRUCTURED, porque conteudo de plataforma exige `canal_id` e esse dono de identidade nao existe. O SCRAP traz bytes; nao traz um dono de identidade"
     }
   ],
   "PROVA_E2E_HOJE": {
@@ -493,7 +495,7 @@
   ],
   "MINIMUM_MISSION_DAG": [],
   "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": "UNKNOWN",
-  "NEXT_KNOWN_MISSION": "fechar ADMISSION -> READY. Ela NAO e uma missao de codigo: a porta existe, julga e responde, e responde CERTO. O que falta e um universo que esteja nas DUAS listas — os que tem regra de admissao escrita (T3, T4, T7, T9) e os cujo executor declara colheita canonica (T2). A intersecao e VAZIA. Primeiro alguem escreve regra tematica para T2, ou poe colheita canonica num universo que ja tem regra; so depois ha o que implementar.",
+  "NEXT_KNOWN_MISSION": "dar aquisicao canonica a T4. E uma missao de CODIGO, e o alvo esta nomeado: o executor `coleta/rotulos_baixar.py` colhe PDF real do Ministero e declara o retorno como LEGADO/MANIFEST — suporte, nunca colheita. Fazer-lhe um ENVELOPE por corrida (RUN_ID, EXECUTOR_ID, EXECUTOR_VERSION, ESTADO, COLHEITA/SUPORTE/ERROS) poe T4 nas duas listas, porque a regra tematica de T4 ja existe e o dono STRUCTURED documental tambem. Medido em provas/o_canario_da_collection.py. NAO e escrever regra para T2: isso foi medido e reprovado.",
   "ZERO_BLOCKERS_NAO_E_ZERO_TRABALHO": "a fila minima conta BLOCKERS ABERTOS, e ela esta vazia. O que falta para o core fechar nao e um buraco declarado: e uma propriedade por provar, e ela nao se conta em missoes enquanto depender de uma decisao que ninguem tomou.",
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
@@ -533,8 +535,10 @@
   "CERTIFICACAO_SEM_O_SCRAP": {
     "COLLECTION_V1_CORE_READY_WITHOUT_SCRAP": "NO",
     "PORQUE": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
+    "SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
     "ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP": "NO",
-    "PORQUE_NAO_E_SO_O_SCRAP": "o buraco medido e `ADMISSION -> READY`, e integrar o SCRAP nao o tapa: o SCRAP nao escreve regra tematica nem muda o que a porta pergunta. Continua a ser preciso ANTES da coleta grande — mas nao e a unica coisa que falta, e dizer que e autorizava comecar pela peca errada.",
+    "PORQUE_NAO_E_SO_O_SCRAP": "o buraco medido e `ADMISSION -> READY`. Medido: o SCRAP serve T9, e essa classe JA tem regra tematica — dando-lhe a aquisicao de graca, ela continua a parar antes de READY. mesmo com a aquisicao resolvida, T9 para em STRUCTURED: conteudo de plataforma exige `canal_id`, e o criador dessa identidade nao existe na producao. O SCRAP traz bytes; ele nao traz um dono de identidade de canal. Continua a ser preciso ANTES da coleta grande, mas nao e a unica coisa que falta, e dizer que e autorizava comecar pela peca errada.",
+    "O_CANARIO_QUE_FECHARIA": "T4 — ja tem regra e dono STRUCTURED; falta-lhe declarar COLHEITA. E trabalho de aquisicao, e nao do SCRAP",
     "O_QUE_ISTO_NAO_DIZ": "que a infraestrutura esta partida. Ela nao esta: a porta julga, decide e diz porque. INFRAESTRUTURA FUNCIONA != HA CASO ADMISSIVEL NO CORPUS.",
     "SCRAP_TOCADO_NESTA_MISSAO": "NO"
   },

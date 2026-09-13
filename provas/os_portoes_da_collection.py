@@ -669,13 +669,14 @@ def dag():
 
 # A PROXIMA MISSAO CONHECIDA — nomeada, e nao contada.
 PROXIMA_CONHECIDA = (
-    "fechar ADMISSION -> READY. Ela NAO e uma missao de codigo: a porta "
-    "existe, julga e responde, e responde CERTO. O que falta e um universo "
-    "que esteja nas DUAS listas — os que tem regra de admissao escrita "
-    "(T3, T4, T7, T9) e os cujo executor declara colheita canonica (T2). A "
-    "intersecao e VAZIA. Primeiro alguem escreve regra tematica para T2, ou "
-    "poe colheita canonica num universo que ja tem regra; so depois ha o que "
-    "implementar.")
+    "dar aquisicao canonica a T4. E uma missao de CODIGO, e o alvo esta "
+    "nomeado: o executor `coleta/rotulos_baixar.py` colhe PDF real do "
+    "Ministero e declara o retorno como LEGADO/MANIFEST — suporte, nunca "
+    "colheita. Fazer-lhe um ENVELOPE por corrida (RUN_ID, EXECUTOR_ID, "
+    "EXECUTOR_VERSION, ESTADO, COLHEITA/SUPORTE/ERROS) poe T4 nas duas listas, "
+    "porque a regra tematica de T4 ja existe e o dono STRUCTURED documental "
+    "tambem. Medido em provas/o_canario_da_collection.py. NAO e escrever "
+    "regra para T2: isso foi medido e reprovado.")
 
 
 def missoes_que_faltam(core):
@@ -689,9 +690,9 @@ def missoes_que_faltam(core):
         ZERO BLOCKERS != ZERO TRABALHO.
         UMA FILA VAZIA MEDE A FILA, E NAO O CAMINHO.
 
-    E a resposta honesta nao e um numero maior inventado: o que falta depende
-    de uma DECISAO de arquitetura — que regra tematica escrever, e para que
-    universo — e uma decisao por tomar pode dar uma missao ou quatro. Contar agora seria
+    E a resposta honesta nao e um numero maior inventado: o que falta e uma
+    missao de aquisicao nomeada (dar ENVELOPE a T4) mais o que ela descobrir
+    ao correr — e uma aquisicao por integrar pode dar uma missao ou quatro. Contar agora seria
     feeling com cara de DAG, que e exactamente o que
     `MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY` ja recusa fazer ao lado.
 
@@ -840,25 +841,58 @@ def uma_historia_so():
 #
 # Entao as duas saem CALCULADAS da mesma medicao que faz o veredicto, e
 # nenhuma delas tem literal `YES` escrito neste ficheiro.
+# ⚠️ ESTE TESTE JA FOI UMA LISTA DE ARESTAS ESCRITA A MAO — «o buraco e do
+# SCRAP se estiver em EXECUTOR -> RUN ou RUN -> RAW». Adivinhava pelo SITIO do
+# buraco em vez de perguntar pela CLASSE que o SCRAP serve, e teria respondido
+# mal a qualquer buraco novo que ninguem tivesse previsto.
+#
+#     NAO «ONDE ESTA O BURACO», MAS «O SCRAP TAPA ESTE BURACO?».
+#
+# `provas/o_canario_da_collection.py` passou a medir isso a serio: da a classe
+# que o SCRAP serve a aquisicao de graca e pergunta o que ainda lhe falta.
+# Aqui le-se essa resposta em vez de a adivinhar outra vez.
+CANARIO = "data/derivados/O-CANARIO-DA-COLLECTION.json"
+
+
+def _o_scrap_fecharia():
+    caminho = os.path.join(RAIZ, CANARIO)
+    if not os.path.isfile(caminho):
+        return None
+    with io.open(caminho, encoding="utf-8") as f:
+        return (json.load(f).get("O_TESTE_DO_SCRAP") or {})
+
+
 def certificacao(core, primeiro_perdido):
     pronto = core["VEREDICTO"] == "PASS"
-    # ⚠️ E O TESTE DECISIVO NAO E «o SCRAP esta integrado?». E outro: o buraco
-    # que esta la SERIA TAPADO por integrar o SCRAP? Se nao for, o SCRAP nao e
-    # a dependencia que falta — e a frase bonita e falsa mesmo com o SCRAP
-    # legitimamente por integrar.
-    buraco_e_do_scrap = primeiro_perdido in ("EXECUTOR -> RUN", "RUN -> RAW")
+    teste = _o_scrap_fecharia()
+    if teste is None:
+        # NOT_MEASURED != NO, e tambem nao e YES. Sem a medicao, a frase de
+        # fecho nao se escreve de maneira nenhuma.
+        fecharia, porque_scrap = "NOT_MEASURED", (
+            "provas/o_canario_da_collection.py nunca correu neste HEAD")
+    else:
+        fecharia = teste.get("SCRAP_WOULD_CLOSE_CURRENT_GAP")
+        porque_scrap = teste.get("PORQUE_NAO") or "—"
     return OrderedDict([
         ("COLLECTION_V1_CORE_READY_WITHOUT_SCRAP", "YES" if pronto else "NO"),
         ("PORQUE", core["PORQUE_A_HISTORIA"]),
+        ("SCRAP_WOULD_CLOSE_CURRENT_GAP", fecharia),
         ("ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP",
-         "YES" if (pronto or buraco_e_do_scrap) else "NO"),
+         "YES" if (pronto or fecharia == "YES") else "NO"),
         ("PORQUE_NAO_E_SO_O_SCRAP",
-         "—" if (pronto or buraco_e_do_scrap) else
-         ("o buraco medido e `%s`, e integrar o SCRAP nao o tapa: o SCRAP nao "
-          "escreve regra tematica nem muda o que a porta pergunta. Continua a "
-          "ser preciso ANTES da coleta grande — mas nao e a unica coisa que "
-          "falta, e dizer que e autorizava comecar pela peca errada."
-          % (primeiro_perdido or "NAO_MEDIDO"))),
+         "—" if (pronto or fecharia == "YES") else
+         ("o buraco medido e `%s`. Medido: o SCRAP serve %s, e essa classe JA "
+          "tem regra tematica — dando-lhe a aquisicao de graca, ela continua "
+          "a parar antes de READY. %s Continua a ser preciso ANTES da coleta "
+          "grande, mas nao e a unica coisa que falta, e dizer que e "
+          "autorizava comecar pela peca errada."
+          % (primeiro_perdido or "NAO_MEDIDO",
+             ", ".join((teste or {}).get("CLASSES_QUE_O_SCRAP_SERVE")
+                       or ["NAO_MEDIDO"]),
+             porque_scrap))),
+        ("O_CANARIO_QUE_FECHARIA", (
+            "T4 — ja tem regra e dono STRUCTURED; falta-lhe declarar COLHEITA. "
+            "E trabalho de aquisicao, e nao do SCRAP")),
         ("O_QUE_ISTO_NAO_DIZ",
          "que a infraestrutura esta partida. Ela nao esta: a porta julga, "
          "decide e diz porque. INFRAESTRUTURA FUNCIONA != HA CASO ADMISSIVEL "
@@ -1180,16 +1214,44 @@ def medir():
                  "COL-LAW-502 manda que a porta pergunte pela regra do "
                  "universo. As duas leis estao a ser cumpridas. O corpus e "
                  "que nao tem, hoje, um caso legitimamente admissivel"),
-                ("QUEM_RESOLVE", "gente — escrever regra tematica para T2, ou "
-                                 "por um executor de colheita canonica num "
-                                 "universo que ja tem regra"),
+                # ⚠️ ESTA LINHA JA DEU DUAS OPCOES COMO SE FOSSEM IGUAIS, E
+                # ELAS NAO SAO. `C-CLOSE-ADMISSION-TO-READY-V1` mediu as duas
+                # e uma delas ja estava fechada: a regra de T2 foi medida
+                # contra 46 documentos reais e REPROVADA, com generalizacao
+                # 0/10. Oferecer as duas em pe de igualdade mandava a proxima
+                # pessoa para o caminho que ja tinha sido tentado.
+                #
+                #     DUAS OPCOES NAO SAO DUAS OPCOES
+                #     QUANDO UMA DELAS JA FOI MEDIDA E REPROVADA.
+                ("QUEM_RESOLVE", "codigo — por colheita canonica num universo "
+                                 "que JA tem regra. O canario medido e T4, e "
+                                 "falta-lhe so a aquisicao"),
+                ("E_A_OUTRA_OPCAO_ESTA_FECHADA",
+                 "escrever regra tematica para T2 foi MEDIDO e REPROVADO em "
+                 "provas/a_regra_de_t2.py: gabarito de 46 documentos, nenhum "
+                 "termo em todos os positivos e em zero negativos, e a lista "
+                 "que separa e feita de dias da semana e nomes de "
+                 "departamento — generalizacao 0/10"),
+                ("O_CANARIO", "T4 (Regulatorio) — ja tem regra tematica "
+                              "escrita e ja tem dono STRUCTURED documental; "
+                              "falta-lhe declarar COLHEITA. Medido em "
+                              "provas/o_canario_da_collection.py"),
                 ("NAO_CORRIGIDO_NESTA_MISSAO",
                  "alterar regra tematica para produzir SIM seria mudar a "
                  "pergunta para gostar da resposta. A missao proibiu-o por "
                  "escrito, e ela tinha razao"),
-                ("E_NAO_E_O_SCRAP", "o SCRAP nao escreve regra tematica nem "
-                                    "muda o que a porta pergunta. Integra-lo "
-                                    "amanha nao cruza estas duas listas"),
+                # ⚠️ E O TESTE DO SCRAP FICOU MAIS FORTE DO QUE ERA.
+                # Antes dizia «o SCRAP nao escreve regra tematica» — verdade,
+                # e uma verdade lateral. Agora a cadeia esta medida: o SCRAP
+                # serve T9, T9 JA TEM regra, e mesmo assim nao chegaria a
+                # READY, porque para uma etapa antes.
+                ("E_NAO_E_O_SCRAP", "medido: o SCRAP e capacidade SOCIAL e "
+                                    "serve T9. T9 ja tem regra tematica — e "
+                                    "mesmo com a aquisicao resolvida para em "
+                                    "STRUCTURED, porque conteudo de "
+                                    "plataforma exige `canal_id` e esse dono "
+                                    "de identidade nao existe. O SCRAP traz "
+                                    "bytes; nao traz um dono de identidade"),
             ]),
         ]),
         ("PROVA_E2E_HOJE", prova_e2e_corre()),

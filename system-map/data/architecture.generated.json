@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-v1-operational-close",
-    "HEAD": "bd5ad9c06c3e1d6cab44f561f7cdaaac3ecebecd",
-    "GENERATED_AT": "2026-09-12T21:56:49+00:00",
-    "SOURCE_TREE_FINGERPRINT": "231579ec96feddcd49186bcee6d5e6b95949b14c176e5b5af076193f4245b6c6"
+    "HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
+    "GENERATED_AT": "2026-09-12T22:55:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "69af1b5c0bab1fa300d98ac0a8312a54c0b8ec8e54492d429dba21c662053486"
   },
   "FILES": [
     {
@@ -1493,6 +1493,13 @@
       "code_dir": false
     },
     {
+      "path": "data/derivados/A-REGRA-DE-T2.json",
+      "sha": "98ca3cc1e66b319f1feb9e1e6d6a462cd98a10e0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
       "sha": "0cf028c2b37839dce6e717b061b69d2decc60957",
       "ext": ".json",
@@ -1522,7 +1529,7 @@
     },
     {
       "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
-      "sha": "929b22f60eb4bd6d2ccba6234ba1208687e946a1",
+      "sha": "1a9a59ec65fb26314e5c53be4bbb55f30180911e",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1544,6 +1551,13 @@
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "sha": "24b45073263f180de1278e1e1c4d9d4f45695e92",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/O-CANARIO-DA-COLLECTION.json",
+      "sha": "e5a87a34ec751f254309a3c08ea64119dd5e8de8",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4679,7 +4693,7 @@
     },
     {
       "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
-      "sha": "cc861d66c3eaa839036a05df4bc3e81e3b80d3fd",
+      "sha": "6874338199155cbb55f7d9929b2edd6a9eb162fa",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7927,7 +7941,7 @@
     },
     {
       "path": "provas/a_regra_de_t2.py",
-      "sha": "f4dc9895386deebab83e7a1dbd456d0bda5e7d50",
+      "sha": "68e211a952bc6f69bbf4ac4f8b8b82b4abc099b2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8108,6 +8122,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_canario_da_collection.py",
+      "sha": "61a3e5fd2e457829bc3de7c94bc7da4f8b041566",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_corte_de_cr1.py",
       "sha": "fec4673393cb68fd3d22000b0a6513063268983d",
       "ext": ".py",
@@ -8179,7 +8200,7 @@
     },
     {
       "path": "provas/os_portoes_da_collection.py",
-      "sha": "ccd02628cf9e85d8b853b48a18984fcc7d48af7d",
+      "sha": "170bb0ad363a9a8293d2b2f9265217ab3e20a49b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9516,7 +9537,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "65828ab8650740a441ce0792f5fe034c9ccd93fc",
+      "sha": "569c1cc9c415021cc769d7fcd661bd8d08cbf814",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9544,7 +9565,7 @@
     },
     {
       "path": "system-map/data/pedido.observado.json",
-      "sha": "b5989daabc2434975b3477147ce1a40feb322507",
+      "sha": "926a3c77af754087e406439ee123e9112e275822",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10292,6 +10313,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_o_canario_da_collection.py",
+      "sha": "10de6f6a88fcd0a68415f75507fe9d9dd9f5157a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_o_pedido_atravessa.py",
       "sha": "d8a3480d2776f025b5baff59531c51e297da65d7",
       "ext": ".py",
@@ -10363,7 +10391,7 @@
     },
     {
       "path": "tests/test_portoes_da_collection.py",
-      "sha": "0c2b2bfe989099baa9f2f7165d02f5e81842edbe",
+      "sha": "1b7abeb7f01980c88b8ce2772a5f66e130aca58a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27111,7 +27139,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 38,
+        "line": 39,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -27122,7 +27150,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 39,
+        "line": 40,
         "snippet": "import admissao as adm  # noqa: E402"
       }
     },
@@ -27133,8 +27161,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 181,
+        "line": 182,
         "snippet": "\"TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html\", NAO,"
+      }
+    },
+    {
+      "from_file": "provas/a_regra_de_t2.py",
+      "to_file": "data/derivados/A-REGRA-DE-T2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/a_regra_de_t2.py",
+        "line": 527,
+        "snippet": "caminho = os.path.join(RAIZ, \"data\", \"derivados\", \"A-REGRA-DE-T2.json\")"
       }
     },
     {
@@ -27144,7 +27183,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 41,
+        "line": 42,
         "snippet": "REGISTO = os.path.join(RAIZ, \"data\", \"derivados\", \"REGISTO-DE-ARTEFATOS.json\")"
       }
     },
@@ -27155,7 +27194,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 159,
+        "line": 160,
         "snippet": "(\"data/derivados/texto/RAW-024abdb692be926a.txt\", NAO,"
       }
     },
@@ -27166,7 +27205,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 77,
+        "line": 78,
         "snippet": "(\"data/derivados/texto/RAW-0be2d204c98ad1b1.txt\", SIM,"
       }
     },
@@ -27177,7 +27216,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 121,
+        "line": 122,
         "snippet": "(\"data/derivados/texto/RAW-0c2723e66201f966.txt\", NAO,"
       }
     },
@@ -27188,7 +27227,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 79,
+        "line": 80,
         "snippet": "(\"data/derivados/texto/RAW-144fdb152b1a6ae4.txt\", SIM,"
       }
     },
@@ -27199,7 +27238,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 201,
+        "line": 202,
         "snippet": "(\"data/derivados/texto/RAW-178ebe9e0ea7dd83.txt\", AMBIGUO,"
       }
     },
@@ -27210,7 +27249,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 151,
+        "line": 152,
         "snippet": "(\"data/derivados/texto/RAW-221ab4a8d6ebec30.txt\", NAO,"
       }
     },
@@ -27221,7 +27260,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 101,
+        "line": 102,
         "snippet": "(\"data/derivados/texto/RAW-223510588786a4de.txt\", NAO,"
       }
     },
@@ -27232,7 +27271,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 174,
+        "line": 175,
         "snippet": "(\"data/derivados/texto/RAW-2a12cb316622a9a5.txt\", NAO,"
       }
     },
@@ -27243,7 +27282,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 139,
+        "line": 140,
         "snippet": "(\"data/derivados/texto/RAW-392840d3e13d1b15.txt\", NAO,"
       }
     },
@@ -27254,7 +27293,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 73,
+        "line": 74,
         "snippet": "(\"data/derivados/texto/RAW-3d3c1bc0e96332e8.txt\", SIM,"
       }
     },
@@ -27265,7 +27304,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 169,
+        "line": 170,
         "snippet": "(\"data/derivados/texto/RAW-3e941738599367d7.txt\", NAO,"
       }
     },
@@ -27276,7 +27315,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 198,
+        "line": 199,
         "snippet": "(\"data/derivados/texto/RAW-3ef48aaa830edf3b.txt\", AMBIGUO,"
       }
     },
@@ -27287,7 +27326,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 123,
+        "line": 124,
         "snippet": "(\"data/derivados/texto/RAW-420e08ef15bec6e4.txt\", NAO,"
       }
     },
@@ -27298,7 +27337,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 82,
+        "line": 83,
         "snippet": "(\"data/derivados/texto/RAW-445e41701f737d73.txt\", SIM,"
       }
     },
@@ -27309,7 +27348,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 125,
+        "line": 126,
         "snippet": "(\"data/derivados/texto/RAW-48e76a696be6831d.txt\", NAO,"
       }
     },
@@ -27320,7 +27359,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 109,
+        "line": 110,
         "snippet": "(\"data/derivados/texto/RAW-4e12affad7fedd91.txt\", NAO,"
       }
     },
@@ -27331,7 +27370,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 167,
+        "line": 168,
         "snippet": "(\"data/derivados/texto/RAW-59da05274359eff6.txt\", NAO,"
       }
     },
@@ -27342,7 +27381,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 161,
+        "line": 162,
         "snippet": "(\"data/derivados/texto/RAW-5dcfb75ac38390c3.txt\", NAO,"
       }
     },
@@ -27353,7 +27392,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 88,
+        "line": 89,
         "snippet": "(\"data/derivados/texto/RAW-6377ac2f8419d905.txt\", SIM,"
       }
     },
@@ -27364,7 +27403,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 91,
+        "line": 92,
         "snippet": "(\"data/derivados/texto/RAW-699a073ace4361ea.txt\", SIM,"
       }
     },
@@ -27375,7 +27414,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 106,
+        "line": 107,
         "snippet": "(\"data/derivados/texto/RAW-6d12bcb5fa2b0905.txt\", NAO,"
       }
     },
@@ -27386,7 +27425,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 131,
+        "line": 132,
         "snippet": "(\"data/derivados/texto/RAW-7a51732e87f0f319.txt\", NAO,"
       }
     },
@@ -27397,7 +27436,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 141,
+        "line": 142,
         "snippet": "(\"data/derivados/texto/RAW-823e18ebb232eb36.txt\", NAO,"
       }
     },
@@ -27408,7 +27447,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 75,
+        "line": 76,
         "snippet": "(\"data/derivados/texto/RAW-8c13500d43502e64.txt\", SIM,"
       }
     },
@@ -27419,7 +27458,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 176,
+        "line": 177,
         "snippet": "(\"data/derivados/texto/RAW-924aabd94168c53a.txt\", NAO,"
       }
     },
@@ -27430,7 +27469,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 113,
+        "line": 114,
         "snippet": "(\"data/derivados/texto/RAW-9488589cfc657b95.txt\", NAO,"
       }
     },
@@ -27441,7 +27480,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 128,
+        "line": 129,
         "snippet": "(\"data/derivados/texto/RAW-99cb44a67f6b4e9a.txt\", NAO,"
       }
     },
@@ -27452,7 +27491,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 85,
+        "line": 86,
         "snippet": "(\"data/derivados/texto/RAW-9a01cc17889e1f40.txt\", SIM,"
       }
     },
@@ -27463,7 +27502,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 143,
+        "line": 144,
         "snippet": "(\"data/derivados/texto/RAW-a6515948880d173a.txt\", NAO,"
       }
     },
@@ -27474,7 +27513,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 178,
+        "line": 179,
         "snippet": "(\"data/derivados/texto/RAW-a927e846ba8e78b0.txt\", NAO,"
       }
     },
@@ -27485,7 +27524,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 145,
+        "line": 146,
         "snippet": "(\"data/derivados/texto/RAW-b631f6eecfbc1db0.txt\", NAO,"
       }
     },
@@ -27496,7 +27535,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 111,
+        "line": 112,
         "snippet": "(\"data/derivados/texto/RAW-c6377f6951bfeb2e.txt\", NAO,"
       }
     },
@@ -27507,7 +27546,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 153,
+        "line": 154,
         "snippet": "(\"data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt\", NAO,"
       }
     },
@@ -27518,7 +27557,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 163,
+        "line": 164,
         "snippet": "(\"data/derivados/texto/RAW-ded546686d61dc91.txt\", NAO,"
       }
     },
@@ -27529,7 +27568,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 133,
+        "line": 134,
         "snippet": "(\"data/derivados/texto/RAW-df4adcb5d78929e1.txt\", NAO,"
       }
     },
@@ -27540,7 +27579,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 172,
+        "line": 173,
         "snippet": "(\"data/derivados/texto/RAW-e5176df66216dfd0.txt\", NAO,"
       }
     },
@@ -27551,7 +27590,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 191,
+        "line": 192,
         "snippet": "(\"data/derivados/texto/RAW-e612807928b5ada9.txt\", AMBIGUO,"
       }
     },
@@ -27562,7 +27601,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 147,
+        "line": 148,
         "snippet": "(\"data/derivados/texto/RAW-e6ec962a8a730ee4.txt\", NAO,"
       }
     },
@@ -27573,7 +27612,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 135,
+        "line": 136,
         "snippet": "(\"data/derivados/texto/RAW-e9395a7ea894c1d2.txt\", NAO,"
       }
     },
@@ -27584,7 +27623,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 155,
+        "line": 156,
         "snippet": "(\"data/derivados/texto/RAW-ec3108a2ed424702.txt\", NAO,"
       }
     },
@@ -27595,7 +27634,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 71,
+        "line": 72,
         "snippet": "(\"data/derivados/texto/RAW-f88c89d73d6a132a.txt\", SIM,"
       }
     },
@@ -27606,7 +27645,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 157,
+        "line": 158,
         "snippet": "(\"data/derivados/texto/RAW-fd5b5e465457e4d6.txt\", NAO,"
       }
     },
@@ -27617,7 +27656,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_regra_de_t2.py",
-        "line": 116,
+        "line": 117,
         "snippet": "(\"data/derivados/texto/RAW-fe3c922bfdfd7999.txt\", NAO,"
       }
     },
@@ -29052,6 +29091,94 @@
       }
     },
     {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 52,
+        "snippet": "import admissao as adm                                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "data/derivados/A-REGRA-DE-T2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 242,
+        "snippet": "VEREDICTO_T2 = \"data/derivados/A-REGRA-DE-T2.json\""
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "data/derivados/O-CANARIO-DA-COLLECTION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 57,
+        "snippet": "SAIDA = \"data/derivados/O-CANARIO-DA-COLLECTION.json\""
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 55,
+        "snippet": "import retorno_da_coleta as ret                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 53,
+        "snippet": "from pedido import ALVOS, Pedido                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 54,
+        "snippet": "from receitas import EXECUTORES, resolver                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_canario_da_collection.py",
+      "to_file": "provas/a_regra_de_t2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_canario_da_collection.py",
+        "line": 299,
+        "snippet": "(\"DONO_DESTA_RESPOSTA\", \"provas/a_regra_de_t2.py\"),"
+      }
+    },
+    {
       "from_file": "provas/o_corte_de_cr1.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29933,6 +30060,17 @@
     },
     {
       "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "data/derivados/O-CANARIO-DA-COLLECTION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 854,
+        "snippet": "CANARIO = \"data/derivados/O-CANARIO-DA-COLLECTION.json\""
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
       "to_file": "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "type": "READS",
       "payload": "artefacto",
@@ -29988,12 +30126,23 @@
     },
     {
       "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "provas/o_canario_da_collection.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 1238,
+        "snippet": "\"provas/o_canario_da_collection.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
       "to_file": "provas/o_pedido_atravessa.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 830,
+        "line": 831,
         "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
       }
     },
@@ -37698,6 +37847,61 @@
       }
     },
     {
+      "from_file": "tests/test_o_canario_da_collection.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_canario_da_collection.py",
+        "line": 25,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_o_canario_da_collection.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_canario_da_collection.py",
+        "line": 27,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_canario_da_collection.py",
+      "to_file": "data/derivados/A-REGRA-DE-T2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_canario_da_collection.py",
+        "line": 34,
+        "snippet": "VEREDICTO_T2 = os.path.join(RAIZ, \"data\", \"derivados\", \"A-REGRA-DE-T2.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_canario_da_collection.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_canario_da_collection.py",
+        "line": 86,
+        "snippet": "from pedido import ALVOS"
+      }
+    },
+    {
+      "from_file": "tests/test_o_canario_da_collection.py",
+      "to_file": "provas/o_canario_da_collection.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_canario_da_collection.py",
+        "line": 30,
+        "snippet": "\"canario_t\", os.path.join(RAIZ, \"provas\", \"o_canario_da_collection.py\"))"
+      }
+    },
+    {
       "from_file": "tests/test_o_pedido_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -40916,7 +41120,7 @@
     "provas/os_portoes_da_collection.py": [
       {
         "pasta": "system-map",
-        "line": 1273,
+        "line": 1335,
         "constante": "caminho"
       }
     ],
@@ -41055,10 +41259,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1515,
-    "files_readable": 590,
-    "files_code_dir": 637,
-    "file_edges": 2723,
+    "files_tracked": 1519,
+    "files_readable": 592,
+    "files_code_dir": 639,
+    "file_edges": 2739,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },
