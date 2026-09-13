@@ -38,6 +38,7 @@ EXE = 'coleta/scrap_executor.py'
 ROT = 'coleta/social_rotas.py'
 SUP = 'provas/superficie_do_scrap_v1.py'
 REC = 'pedido/receitas.py'
+AZ = 'leis/autorizacao_de_gasto.py'
 CDP = 'ferramentas/cdp.py'
 HTTP = 'coleta/scrap_http.py'
 IGA = 'coleta/adaptador_instagram.py'
@@ -80,9 +81,24 @@ MUTACOES = [
      'um dicionário com a forma certa não é autorização'),
 
     # ── 4 · REPEAT PAID POST ──────────────────────────────────────────────
+    # ⚠️ A ANCORA DESTE MUTANTE JA FOI ROUBADA UMA VEZ, e por um comentario.
+    # Ela era `"    reg['GASTAS'] += 1"` — quatro espacos — e a NIGHT-SHIFT-01
+    # escreveu, no mesmo ficheiro, um comentario que CITA a linha:
+    #
+    #     #     reg['GASTAS'] += 1
+    #
+    # O texto do comentario contem a ancora como sub-cadeia. `replace(..., 1)`
+    # trocou a PRIMEIRA ocorrencia — o comentario — e o codigo ficou intacto. O
+    # mutante nao mudou nada e o relatorio chamou-lhe SOBREVIVENTE.
+    #
+    #     UM COMENTARIO QUE CITA O CODIGO ROUBA A ANCORA DE QUEM MUTA O CODIGO.
+    #
+    # A ancora passa a ser de DUAS LINHAS, e a segunda e codigo que nenhum
+    # comentario desta casa repete. `_ancora_unica()` guarda o resto.
     ('M6 · a autorização deixa de se gastar', LEI,
-     "    reg['GASTAS'] += 1",
-     "    pass",
+     "        reg['GASTAS'] += 1\n"
+     "    recibo = autorizacao.para_o_manifesto()",
+     "    recibo = autorizacao.para_o_manifesto()",
      'uma autorização de UMA execução não paga duas'),
 
     # ── 5 · BYPASS ORCHESTRATOR ───────────────────────────────────────────
@@ -183,9 +199,22 @@ MUTACOES = [
     # A linha que corre é a do RETORNO DO PORTÃO — a outra só é alcançada por
     # capacidades que chegam a executar, e nesta árvore todas essas já são
     # `PROVEN`, o que tornava o mutante invisível. Medido, não suposto.
+    # ⚠️ E ESTE MUTANTE APONTAVA PARA O SITIO ERRADO — foi o guarda de ancora
+    # ambigua desta madrugada que o descobriu, no minuto em que nasceu.
+    # `'CAPABILITY_STATE_AFTER': pronto['CAPABILITY_STATE']` aparece DUAS vezes
+    # em `scrap_executor.py`, e as duas sao ramos de RECUSA — a capacidade nem
+    # correu. `replace(..., 1)` mutava a primeira, e o mutante nunca tocou no
+    # caminho de que a lei fala.
+    #
+    #     TRIAL PASSADO != CAPACIDADE PROVADA e uma lei sobre o que CORREU.
+    #     MUTAR O RAMO QUE RECUSA NAO TESTA A LEI DE QUEM PASSOU.
+    #
+    # O sitio certo e o do SUCESSO, e ele le o estado do dono
+    # (`cap.estado(capability)`) em vez do que o CHECK trouxe — expressao que
+    # aparece uma unica vez no ficheiro, e e a que `test_rt32` vigia.
     ('M20 · o portão promove o estado da capacidade', EXE,
-     "                      'CAPABILITY_STATE_AFTER': pronto['CAPABILITY_STATE']})",
-     "                      'CAPABILITY_STATE_AFTER': 'PROVEN'})",
+     "                  'CAPABILITY_STATE_AFTER': cap.estado(capability)})",
+     "                  'CAPABILITY_STATE_AFTER': 'PROVEN'})",
      'TRIAL PASSADO != CAPACIDADE PROVADA'),
 
     # ══════════════════════════════════════════════════════════════════════
@@ -275,6 +304,15 @@ MUTACOES = [
      "        registro['NATIVE_REASON'] = e.rel.get('NATIVE_REASON')\n"
      "        registro['RECOVERY_ACTION'] = e.rel.get('RECOVERY_ACTION')",
      'uma chave escrita a None nao e uma chave ausente'),
+
+    # ── 13 · CONFERIR E CONSUMIR VOLTAM A SER DOIS ACTOS ──────────────────
+    ('M36 · a trava sai da porta paga', AZ,
+     "_TRAVA = threading.Lock()",
+     "class _Solta(object):\n"
+     "    def __enter__(self): return self\n"
+     "    def __exit__(self, *a): return False\n"
+     "_TRAVA = _Solta()",
+     'duas corridas ao mesmo tempo nao pagam duas vezes'),
 ]
 
 
@@ -324,6 +362,24 @@ def main():
             if velho not in original:
                 print('%-56s ALVO_AUSENTE' % nome[:56])
                 sobreviventes.append((nome, 'ALVO_AUSENTE — a mutação não foi aplicada'))
+                continue
+            # ── UMA ÂNCORA AMBÍGUA MUTA O SÍTIO ERRADO ────────────────────
+            # ⚠️ MEDIDO NA NIGHT-SHIFT-01: M6 apontava para uma linha que um
+            # comentário do mesmo ficheiro CITAVA. `replace(..., 1)` trocou o
+            # comentário, o código ficou igual, e o relatório disse
+            # «SOBREVIVE» — acusando a bateria de um buraco que ela não tinha.
+            #
+            #     UM MUTANTE QUE NÃO MUDA NENHUM NÚMERO NÃO SE CONSEGUE VIGIAR.
+            #     E UM QUE MUDA O NÚMERO ERRADO É PIOR: ELE MENTE COM CONFIANÇA.
+            #
+            # Contar é a única defesa que não depende de alguém reparar.
+            quantas_vezes = original.count(velho)
+            if quantas_vezes != 1:
+                print('%-56s ALVO_AMBIGUO (%d ocorrências)'
+                      % (nome[:56], quantas_vezes))
+                sobreviventes.append(
+                    (nome, 'ALVO_AMBIGUO — a âncora aparece %d vezes, e a '
+                           'mutação iria ao sítio errado' % quantas_vezes))
                 continue
             with open(alvo, 'w', encoding='utf-8') as f:
                 f.write(original.replace(velho, novo, 1))

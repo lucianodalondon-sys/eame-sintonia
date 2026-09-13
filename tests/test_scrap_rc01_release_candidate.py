@@ -681,9 +681,47 @@ class OCanarioCorreMesmo(unittest.TestCase):
         self.assertTrue(raw['PRESERVATION_OWNER'])
 
     def test_rt32_o_estado_da_capacidade_nao_se_promove_sozinho(self):
-        """TRIAL PASSADO != CAPACIDADE PROVADA."""
+        """TRIAL PASSADO != CAPACIDADE PROVADA.
+
+        ⚠️ ESTA SENTINELA ERA CEGA, E FOI A MUTAÇÃO DA NIGHT-SHIFT-01 QUE O
+        DISSE. Ela comparava BEFORE com AFTER e mais nada — e o canário é
+        `bluesky.author.incremental`, que o dono já declara `PROVEN`. Um
+        mutante que escrevesse `'PROVEN'` em `CAPABILITY_STATE_AFTER` não
+        mudava número nenhum AQUI, e passava verde.
+
+            UMA SENTINELA QUE VIGIA UM CAMPO CUJO VALOR JÁ É O DA MUTAÇÃO
+            NÃO VIGIA NADA.
+
+        A pergunta certa não é «os dois são iguais?» — é «o depois é o que o
+        DONO diz?». `scrap_capacidades` é quem declara o estado, e este
+        ficheiro não lhe escreve.
+        """
         self.assertEqual(self.trace['CAPABILITY_STATE_BEFORE'],
                          self.trace['CAPABILITY_STATE_AFTER'])
+        self.assertEqual(self.trace['CAPABILITY_STATE_AFTER'],
+                         cap.estado(CAPACIDADE))
+
+    def test_rt32b_e_nem_uma_capacidade_QUE_NAO_E_PROVEN_se_promove(self):
+        """A prova só vale se puder falhar.
+
+        O canário está `PROVEN`: sobre ele, «não promoveu» e «promoveu para
+        PROVEN» são a mesma linha. A identidade do LinkedIn está `PARTIAL` —
+        nela, uma promoção é visível.
+
+            UMA PROVA QUE SÓ CORRE ONDE O ERRO É INVISÍVEL NÃO É UMA PROVA.
+        """
+        pinar_o_banco()
+        _o, trace = sx.COLLECT(platform='LINKEDIN',
+                               capability='linkedin.identity.discovery',
+                               run_id='RC01-RT32B',
+                               site_url='https://exemplo.invalido/')
+        self.assertNotEqual(cap.estado('linkedin.identity.discovery'), 'PROVEN',
+                            'esta prova escolheu a capacidade errada: ela já '
+                            'está PROVEN e voltou a ser cega')
+        self.assertEqual(trace['CAPABILITY_STATE_AFTER'],
+                         cap.estado('linkedin.identity.discovery'))
+        self.assertEqual(trace['CAPABILITY_STATE_BEFORE'],
+                         trace['CAPABILITY_STATE_AFTER'])
 
 
 
