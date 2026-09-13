@@ -11767,3 +11767,157 @@ ele é. A segunda precisa de vocabulário que a porta hoje não tem. Sem as duas
 **Medido:** 56 ataques · 0 sobreviventes · 37 mutantes · 0 sobreviventes ·
 0 regressões na suíte inteira comparada por identidade ·
 `REAL_PAID_RUNS = 0` · `PAID_USD = 0`.
+
+
+---
+
+# §105 · UM NÚMERO QUE ERA CONSEQUÊNCIA FOI ESCRITO COMO EXPECTATIVA
+
+**Missão:** `C-CLOSE-POSTGRES-CI-BEFORE-LIVE-V1` — fechar o job vermelho antes
+de qualquer conversa sobre LIVE.
+**Branch:** `claude/close-postgres-ci-before-live-v1` → `claude/raw-observation-identity-3jbwco` por fast-forward
+**Data:** 2026-09-13
+
+O job `postgres-descartavel` estava vermelho, e não porque alguma coisa tivesse
+partido. `provas/a_fase_10_entra_no_acervo.py` encena um acervo com tudo
+aplicado menos a `027`, corre o aplicador canónico e pergunta o que ele fez.
+Perguntava assim:
+
+```python
+_e("AS_ANTERIORES_FORAM_SALTADAS_COM_HASH_A_BATER", len(saltadas), 25)
+_e("NENHUMA_FOI_PULADA", len(mencionadas), 26)
+```
+
+Chegaram a `028`, a `029` e a `030`. O cenário não mudou **nada** — continuou a
+haver exactamente uma migration pendente, e continuou a ser a `027`. A prova
+reprovou na aritmética.
+
+## 105.1 · A DISTINÇÃO
+
+```
+O CENARIO E «SO A 027 ESTA PENDENTE».
+NAO E «HA 26 MIGRATIONS».
+```
+
+O segundo não é o cenário: é uma **consequência** dele, medida num dia. Escrita
+como expectativa, ela caduca na migration seguinte — e caducou.
+
+Isto não é o mesmo defeito da `§46` (contagem congelada numa trava, curada por
+derivação). Ali o número era um **invariante que alguém quis afrouxar**. Aqui o
+número nunca foi invariante nenhum: era um efeito colateral do universo, e o
+universo cresce por desenho. A cura é a mesma família, o diagnóstico não.
+
+## 105.2 · A EMENDA QUE PARECE CONSERTO E NÃO É
+
+O caminho mais curto para o verde era trocar `25` por `28` e `26` por `29`.
+
+```
+TROCAR O NUMERO NAO E CONSERTAR O NUMERO.
+E MARCAR ENCONTRO COM O MESMO DEFEITO.
+```
+
+Marcaria encontro na `031`, e nessa altura já ninguém se lembra porque é que o
+número estava lá. Um CI que fica vermelho por crescimento normal do repositório
+**ensina a equipa a ignorar o CI** — e é isso que custa, muito mais do que o
+job.
+
+## 105.3 · A CURA — CONJUNTOS, E NÃO QUANTIDADES
+
+O universo lê-se do disco a cada corrida, **pela mesma regra que o aplicador
+usa** (`supabase/migrations/*.sql` menos a que só confere). O livro-razão lê-se
+do banco, e não de uma lista escrita na prova. O que se compara são conjuntos
+de versões:
+
+```
+MIGRATIONS_IN_SCENARIO        medido do disco
+ALREADY_APPLIED_BEFORE_TEST   lido do banco, ANTES de a cadeia correr
+EXPECTED_PENDING              a diferenca dos dois  ->  tem de ser {027}
+ACTUALLY_SKIPPED == ALREADY_APPLIED & MIGRATIONS_IN_SCENARIO
+ACTUALLY_APPLIED == EXPECTED_PENDING
+ACTUALLY_SKIPPED | ACTUALLY_APPLIED == MIGRATIONS_IN_SCENARIO
+```
+
+A contagem aparece no log e **não decide nada**.
+
+```
+UMA CONTAGEM CADUCA.
+UM CONJUNTO NAO SABE CONTAR, E POR ISSO TAMBEM NAO SABE CADUCAR.
+```
+
+E quando falha, diz **quais** faltam e **quais** sobram. Um `28 != 25` não diz
+a ninguém o que mudou; `SOBRAM 028-030` diz.
+
+**A única versão escrita à mão é a `027`** — e tem de ser, porque ela *é* o
+assunto da prova. A regra prática: escreve-se à mão o **sujeito**, nunca o
+**tamanho do universo à volta dele**.
+
+## 105.4 · O ESPERADO DECLARA-SE ANTES DE A RESPOSTA CHEGAR
+
+`universo_da_cadeia()` e `livro_razao(url)` correm **antes** de
+`aplicar_pela_cadeia()`. Declarar depois de ver a saída seria escrever o
+gabarito a partir da resposta, e a prova passaria sempre. Há uma guarda que
+compara as posições das duas chamadas na AST — não é paranóia: a ordem é
+invisível numa revisão de diff.
+
+## 105.5 · SALTAR NÃO É TUDO A MESMA COISA
+
+O aplicador canónico tem **dois** SKIP, e significam o contrário um do outro:
+
+```
+SKIP (ja no livro-razao) HASH=MATCH       o livro sabia, e o ficheiro nao mudou
+SKIP (objetos ja existem; anotado ...)    o livro NAO sabia; foi o banco que disse
+```
+
+O segundo, no cenário desta prova, é um defeito: quer dizer que a fixture não
+semeou o que jurou ter semeado. Contados juntos, os dois davam o mesmo número e
+ninguém via. São conjuntos separados agora — mais uma aplicação de
+`ERRO != RECUSADO != DESCONHECIDO`.
+
+E uma migration que a cadeia **nunca menciona** também aparece:
+
+```
+SILENCIO NAO E PASS.
+```
+
+Uma migration que ninguém viu não é uma migration que passou.
+
+## 105.6 · A `008` FICA DE FORA PORQUE CONFERE
+
+Ela lê o que as outras fizeram e reclama se não bater; não é DDL normal. Esse
+juízo estava escrito em três sítios — o laço que aplica, o laço que semeia o
+livro, e implicitamente nos números `25` e `26`. Passou a ter um dono só,
+`SO_VERIFICA`, ao lado de `EM_PROVA` e `DEPOIS_DO_ACERVO`. Mais `ONE CONCEPT →
+ONE OWNER`, e a guarda cobra que o literal `"008"` apareça **uma vez** no código.
+
+## 105.7 · COMO SE PROVA QUE UM DEFEITO DESTES MORREU
+
+Não por argumento. Pôs-se uma `031` real no disco e correu-se a prova inteira
+contra PostgreSQL 16, **sem tocar numa linha dela**:
+
+```
+MIGRATIONS_IN_SCENARIO        29 -> 30
+ACTUALLY_SKIPPED              28 -> 29
+A_FASE_10_ENTRA_NO_ACERVO     PASS
+```
+
+Com o código antigo, isso era vermelho. **É esse o teste de uma cura contra
+caducidade: acrescentar o que faria o defeito voltar, e não mexer em nada.**
+
+## 105.8 · CONSEQUÊNCIA
+
+```
+· uma contagem so entra numa assercao se for o SUJEITO, e nunca se for
+  o tamanho do universo a volta dele
+· o universo de uma prova le-se da mesma fonte que o codigo medido usa
+· declarar o esperado ANTES de correr; a ordem merece guarda propria
+· dois caminhos com o mesmo aspecto no log sao dois conjuntos, nao um numero
+· silencio nao e PASS: todo elemento do universo tem de ter destino dito
+· provar que uma cura contra caducidade pegou = acrescentar o proximo
+  elemento e nao editar nada
+```
+
+**Medido:** `postgres-descartavel` reproduzido vermelho antes de tocar em nada ·
+10 ataques · 0 sobreviventes (os dois últimos são exactamente «trocar só 25 por
+28» e «trocar só 26 por 29») · 14 guardas novas · regressão 2632 → 2646 testes
+com conjunto de falhas **idêntico**, `NEW_FAILURES = 0` ·
+`SYSTEM_MAP_CHECK = PASS` · **nenhum byte de LIVE lido ou escrito**.
