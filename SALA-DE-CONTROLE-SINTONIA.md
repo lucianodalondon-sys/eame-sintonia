@@ -38,6 +38,7 @@ O System Map atravessa os três. **Não é pai de nenhum** — é derivado deles
 |---|---|---|---|
 | **COLETA** | BIBLIA CANONICA DA COLETA | `origin/claude/raw-observation-identity-3jbwco` | 🔴 CANONICAL |
 | **INTELIGÊNCIA** | BIBLIA DA INTELIGENCIA | `origin/claude/integration-acervo-portal-v1` | 🔴 RECOVERY_PENDING |
+| **INTELIGÊNCIA** | BIBLIA DE ENGENHARIA DA INTELLIGENCE | `origin/research/intelligence-bible-engineering-v1` | 🔴 CANDIDATE |
 | **ENTREGA / CASCO** | BIBLIA DA ENTREGA / CASCO | `origin/research/delivery-bible-v1` | 🔴 CANDIDATE |
 
 A leitura desta tabela é o resultado principal desta missão:
@@ -112,7 +113,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `5754471916`
 - **prova** — `git:HEAD:README.md`
-- **quem aponta para ela** — `AGENTS.md`, `CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py` *(+2)*
+- **quem aponta para ela** — `AGENTS.md`, `CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py` *(+3)*
 - **o que ela diz de si** — O metodo. Nao repete a lei do mapa; aponta para AGENTS.md.
 - **nota** — Aponta para `docs/08-decisoes/DIARIO-DE-DECISOES.md`, que nao existe. O diario vive em `docs/decisoes/`.
 
@@ -150,9 +151,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — `BIBLIA-CANONICA-DA-COLETA.md` — **não nesta árvore**; em `origin/claude/raw-observation-identity-3jbwco`
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `ABSENT_FROM_SNAPSHOT` · NÃO ESTÁ NESTA ÁRVORE — vive noutra linha
-- **impressão do conteúdo medido** — `5a3ce7b1d6`
+- **impressão do conteúdo medido** — `909ba45bac`
 - **prova** — `git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md`
-- **quem aponta para ela** — `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `controle/red_team_do_controle.py`
+- **quem aponta para ela** — `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `controle/red_team_do_controle.py` *(+1)*
 - **cópias divergentes medidas** — 3: `origin/claude/sintonia-eame-know-how-v1`, `origin/release/canonical`, `origin/claude/biblia-canonica-da-coleta`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.
 
@@ -175,8 +176,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **impressão do conteúdo medido** — `ac478fb7e0`
 - **prova** — `git:origin/claude/integration-acervo-portal-v1:docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`
+- **substituída por** — A-BIBLIA-ENG-INTELIGENCIA
 - **o que ela diz de si** — NAO EXISTE. O ficheiro com este nome existe no Git, mas o seu proprio cabecalho recusa o titulo: diz-se `INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE` e escreve `O_QUE_ELE_AINDA_NAO_E: a Biblia de Engenharia da Inteligencia`. Um inventario das leis ja aprendidas nao e a constituicao que decide as proximas.
-- **nota** — Fragmento util, nao autoridade. Nao reconstruir nesta missao.
+- **nota** — Fragmento util, nao autoridade. Nao reconstruir nesta missao. C-INT-ARB-01: o RECOVERY_PENDING fecha — a autoridade que faltava e A-BIBLIA-ENG-INTELIGENCIA (V0.2).
 
 #### 🔴 BIBLIA DA ENTREGA / CASCO
 
@@ -197,6 +199,27 @@ A leitura desta tabela é o resultado principal desta missão:
   | `GOVERNS` | `portoes/build_portal.py` | **DECLARED** | *authority_absent* |
   | `GOVERNS` | `portoes/site_v21_ingest.py` | **DECLARED** | *authority_absent* |
   | `GOVERNS` | `superficie/ask_sintonia.py` | **DECLARED** | *authority_absent* |
+
+#### 🔴 BIBLIA DE ENGENHARIA DA INTELLIGENCE
+
+- **conceito que possui** — `LEI_DA_INTELIGENCIA`
+- **para que serve** — A constituicao da Intelligence: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega.
+- **até onde vale** — Todo trabalho do lado Intelligence da fronteira COLLECTION -> SALA DE ESPERA -> INTELLIGENCE.
+- **onde vive** — `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md` — **não nesta árvore**; em `origin/research/intelligence-bible-engineering-v1`
+- **estado declarado** — `CANDIDATE`
+- **estado medido** — `ABSENT_FROM_SNAPSHOT` · NÃO ESTÁ NESTA ÁRVORE — vive noutra linha
+- **impressão do conteúdo medido** — `9420760814`
+- **prova** — `git:origin/research/intelligence-bible-engineering-v1:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`
+- **o que ela diz de si** — CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.
+- **nota** — NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.
+
+  | relação | alvo | estado | prova |
+  |---|---|---|---|
+  | `REFERENCES` | `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` | **DECLARED** | *authority_absent* |
+  | `REFERENCES` | `BIBLIA-CANONICA-DA-COLETA.md` | **DECLARED** | *authority_absent* |
+  | `REFERENCES` | `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` | **DECLARED** | *authority_absent* |
+  | `SUPERSEDES` | `A-BIBLIA-INTELIGENCIA` | **DECLARED** | *authority_absent* |
 
 ### CONTRATOS
 
@@ -275,6 +298,25 @@ A leitura desta tabela é o resultado principal desta missão:
 - **o que ela diz de si** — Vive em `medidas/`. `tests/test_coleta_externa.py` procura-a em `docs/regras/` e nao a acha — quatro testes acordam com FileNotFoundError.
 - **nota** — BROKEN_POINTER conhecido e medido; o conserto e do dono do teste, nao deste registo.
 
+#### 🔴 MOTOR INTELLIGENCE V2 — REQUISITOS CANONICOS
+
+- **conceito que possui** — `CONTRATO_DO_MOTOR_DE_INTELIGENCIA`
+- **para que serve** — Requisitos, gates, estados e proibicoes contra os quais MOTOR_V2_READY e julgado.
+- **até onde vale** — A implementacao de um motor de Intelligence. Nao governa a constituicao.
+- **onde vive** — `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` — **não nesta árvore**; em `origin/claude/intelligence-backlog-canonical`
+- **estado declarado** — `SUBORDINATE`
+- **estado medido** — `ABSENT_FROM_SNAPSHOT` · NÃO ESTÁ NESTA ÁRVORE — vive noutra linha
+- **impressão do conteúdo medido** — `def980dea0`
+- **prova** — `git:origin/claude/intelligence-backlog-canonical:docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/RECONCILIACAO-DA-INTELLIGENCE.md`
+- **o que ela diz de si** — SUBORDINATE_IMPLEMENTATION_CONTRACT, arbitrado em C-INT-ARB-01. Testado conceito a conceito contra a Biblia V0.2: 0 conflitos estruturais. A INT-LAW-031 cita-o e PRESERVA a sua exigencia de identidade global de claim, acrescentando a fronteira de que a Intelligence nao fabrica essa identidade se o upstream nao a tem.
+- **nota** — Nao apagar: contem requisitos maduros e casos-testemunha que a Biblia nao desce a detalhar.
+
+  | relação | alvo | estado | prova |
+  |---|---|---|---|
+  | `REFERENCES` | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md` | **DECLARED** | *authority_absent* |
+  | `REFERENCES` | `docs/intelligence/BACKLOG-OBRIGATORIO.md` | **DECLARED** | *authority_absent* |
+
 ### DECISÕES
 
 #### 🟢 DIARIO DE DECISOES
@@ -287,7 +329,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `8c7007535d`
 - **prova** — `git:HEAD:docs/decisoes/DIARIO-DE-DECISOES.md`
-- **quem aponta para ela** — `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`, `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/descoberta/MISSAO-EAME-01.md` *(+1)*
+- **quem aponta para ela** — `HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`, `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `controle/AUTORIDADES-CANONICAS.json`, `docs/descoberta/MISSAO-EAME-01.md` *(+2)*
 - **cópias divergentes medidas** — 6: `origin/claude/raw-observation-identity-3jbwco`, `origin/claude/sintonia-eame-know-how-v1`, `origin/release/canonical`, `origin/claude/integration-acervo-portal-v1`, `origin/research/delivery-bible-v1`, `origin/claude/biblia-canonica-da-coleta`
 - **o que ela diz de si** — Seis versoes distintas medidas em dez linhas — a autoridade mais divergida do repositorio.
 
@@ -301,7 +343,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — `SINTONIA-EAME-KNOW-HOW.md` — **não nesta árvore**; em `origin/claude/sintonia-eame-know-how-v1`
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `ABSENT_FROM_SNAPSHOT` · NÃO ESTÁ NESTA ÁRVORE — vive noutra linha
-- **impressão do conteúdo medido** — `08eab1dd28`
+- **impressão do conteúdo medido** — `212c4210f4`
 - **prova** — `git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md`
 - **quem aponta para ela** — `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
@@ -318,7 +360,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `086fb579d6`
+- **impressão do conteúdo medido** — `7a31f6ced5`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
 - **quem aponta para ela** — `AGENTS.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `system-map/data/architecture.declared.json` *(+1)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
@@ -470,7 +512,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `f5e721ab6a`
 - **prova** — `git:HEAD:system-map/scripts/generate_system_map.py`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `AGENTS.md`, `CLAUDE.md` *(+7)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `AGENTS.md`, `CLAUDE.md` *(+9)*
 - **o que ela diz de si** — DERIVADO. O mapa nasce do repo; o repo nunca nasce do mapa. Este ficheiro NAO e dono de arquitetura nenhuma — e o consumidor dela.
 
   | relação | alvo | estado | prova |
@@ -533,7 +575,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `d0fbc49d24`
 - **prova** — `git:HEAD:HANDOFF-BUILD-DA-REUNIAO.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `system-map/data/architecture.declared.json`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json`, `system-map/data/architecture.declared.json`
 - **o que ela diz de si** — MEMORIA. Nao manda em nada; conta o que aconteceu.
 
 #### 🟢 Handoff de conta
@@ -559,7 +601,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `0e19eef562`
 - **prova** — `git:HEAD:HANDOFF-V2-PAUSE.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `pacote/v21_handoff_json.py`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json`, `pacote/v21_handoff_json.py`
 - **o que ela diz de si** — MEMORIA.
 
 #### 🟢 Depois do portal
@@ -638,7 +680,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `e55e81caf6`
 - **prova** — `git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json`
 - **o que ela diz de si** — MEMORIA. Diz «dono canonico» a falar do dono de OUTRA coisa — o gerador do pacote — e nao a reivindicar-se dono de nada.
 - **nota** — Aparecia como UNREGISTERED_CANONICAL_DOCUMENT porque a varredura procura a frase, e nao a intencao. Registado como HANDOFF: e assim que a varredura passa a saber que ele nao manda.
 
@@ -652,6 +694,8 @@ A leitura desta tabela é o resultado principal desta missão:
 | BIBLIA DA INTELIGENCIA | `RECOVERY_PENDING` / `ABSENT_FROM_SNAPSHOT` | `origin/claude/integration-acervo-portal-v1` |
 | BIBLIA DA ENTREGA / CASCO | `CANDIDATE` / `ABSENT_FROM_SNAPSHOT` | `origin/research/delivery-bible-v1` |
 | SINTONIA EAME KNOW-HOW | `CANONICAL` / `ABSENT_FROM_SNAPSHOT` | `origin/claude/sintonia-eame-know-how-v1` |
+| BIBLIA DE ENGENHARIA DA INTELLIGENCE | `CANDIDATE` / `ABSENT_FROM_SNAPSHOT` | `origin/research/intelligence-bible-engineering-v1` |
+| MOTOR INTELLIGENCE V2 — REQUISITOS CANONICOS | `SUBORDINATE` / `ABSENT_FROM_SNAPSHOT` | `origin/claude/intelligence-backlog-canonical` |
 
 **Um ficheiro existir não prova que ele ainda manda — e não estar aqui não
 prova que ele não existe.** As linhas acima foram medidas no git, não
@@ -661,10 +705,10 @@ presumidas: cada uma diz a ref onde a autoridade realmente está.
 
 ## DECLARADO ≠ OBSERVADO
 
-O censo mediu **52** relações de governo declaradas neste
+O censo mediu **58** relações de governo declaradas neste
 registo. Delas, **35** têm prova apontável
 (ficheiro e linha dentro do texto da própria autoridade) e
-**17** continuam apenas declaradas.
+**23** continuam apenas declaradas.
 
 Uma relação declarada **não passa a observada por estar desenhada**. Quem
 prova que uma lei governa uma peça é o texto da lei a nomear a peça — não o

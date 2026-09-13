@@ -266,9 +266,11 @@
       "REFERENCES": [],
       "DECLARED_STATE": "NAO EXISTE. O ficheiro com este nome existe no Git, mas o seu proprio cabecalho recusa o titulo: diz-se `INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE` e escreve `O_QUE_ELE_AINDA_NAO_E: a Biblia de Engenharia da Inteligencia`. Um inventario das leis ja aprendidas nao e a constituicao que decide as proximas.",
       "SUPERSEDES": [],
-      "SUPERSEDED_BY": [],
+      "SUPERSEDED_BY": [
+        "A-BIBLIA-ENG-INTELIGENCIA"
+      ],
       "DIVERGENT_COPIES": [],
-      "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao.",
+      "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao. C-INT-ARB-01: o RECOVERY_PENDING fecha — a autoridade que faltava e A-BIBLIA-ENG-INTELIGENCIA (V0.2).",
       "ENTRY_POINT": false
     },
     {
@@ -1000,6 +1002,59 @@
       "SUPERSEDED_BY": [],
       "DIVERGENT_COPIES": [],
       "NOTE": "Aparecia como UNREGISTERED_CANONICAL_DOCUMENT porque a varredura procura a frase, e nao a intencao. Registado como HANDOFF: e assim que a varredura passa a saber que ele nao manda."
+    },
+    {
+      "CARD_ID": "A-BIBLIA-ENG-INTELIGENCIA",
+      "KIND": "BIBLE",
+      "NAME": "BIBLIA DE ENGENHARIA DA INTELLIGENCE",
+      "DOMAIN": "INTELIGENCIA",
+      "CONCEPT_OWNER": "LEI_DA_INTELIGENCIA",
+      "PURPOSE": "A constituicao da Intelligence: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega.",
+      "SCOPE": "Todo trabalho do lado Intelligence da fronteira COLLECTION -> SALA DE ESPERA -> INTELLIGENCE.",
+      "CANONICAL_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "CANONICAL_REF": "origin/research/intelligence-bible-engineering-v1",
+      "VERSION": "V0.2",
+      "LIFECYCLE": "CANDIDATE",
+      "IS_POINTER": false,
+      "GOVERNS": [],
+      "REFERENCES": [
+        "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+        "BIBLIA-CANONICA-DA-COLETA.md",
+        "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md"
+      ],
+      "DECLARED_STATE": "CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.",
+      "SUPERSEDES": [
+        "A-BIBLIA-INTELIGENCIA"
+      ],
+      "SUPERSEDED_BY": [],
+      "DIVERGENT_COPIES": [],
+      "NOTE": "NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.",
+      "ENTRY_POINT": false
+    },
+    {
+      "CARD_ID": "A-MOTOR-V2-REQUISITOS",
+      "KIND": "CONTRACT",
+      "NAME": "MOTOR INTELLIGENCE V2 — REQUISITOS CANONICOS",
+      "DOMAIN": "INTELIGENCIA",
+      "CONCEPT_OWNER": "CONTRATO_DO_MOTOR_DE_INTELIGENCIA",
+      "PURPOSE": "Requisitos, gates, estados e proibicoes contra os quais MOTOR_V2_READY e julgado.",
+      "SCOPE": "A implementacao de um motor de Intelligence. Nao governa a constituicao.",
+      "CANONICAL_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+      "CANONICAL_REF": "origin/claude/intelligence-backlog-canonical",
+      "VERSION": "viva",
+      "LIFECYCLE": "SUBORDINATE",
+      "IS_POINTER": false,
+      "GOVERNS": [],
+      "REFERENCES": [
+        "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+        "docs/intelligence/BACKLOG-OBRIGATORIO.md"
+      ],
+      "DECLARED_STATE": "SUBORDINATE_IMPLEMENTATION_CONTRACT, arbitrado em C-INT-ARB-01. Testado conceito a conceito contra a Biblia V0.2: 0 conflitos estruturais. A INT-LAW-031 cita-o e PRESERVA a sua exigencia de identidade global de claim, acrescentando a fronteira de que a Intelligence nao fabrica essa identidade se o upstream nao a tem.",
+      "SUPERSEDES": [],
+      "SUPERSEDED_BY": [],
+      "DIVERGENT_COPIES": [],
+      "NOTE": "Nao apagar: contem requisitos maduros e casos-testemunha que a Biblia nao desce a detalhar.",
+      "ENTRY_POINT": false
     }
   ]
 }

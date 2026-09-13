@@ -39,7 +39,7 @@ E a pergunta que ela responde não é «quem menciona?», é **«quem decide?»*
 | `CONVERGENCE` | 78 | `italia-portale` 19 | **NÃO SEI** | — |
 | `VALIDATION` | 58 | `italia-portale` 23 · `motor` 5 | **NÃO SEI** | — |
 | `FUTURE_SIGNAL` | 54 | `italia-portale` 27 | ENTREGA (por massa) | — |
-| `FACT / CLAIM` | 50 | `build` 11 · `docs` 9 | `C-V21-INGEST` (`v21_dominio_da_alegacao.py`) | não |
+| `FACT / CLAIM` | 50 | `build` 11 · `docs` 9 | **COLLECTION** — ver correção abaixo | não |
 | `DISEASE_PRESSURE` | 12 | `build` 4 | **NÃO SEI** | — |
 | **`COLLECTION_GAP`** | **0** | — | **NÃO EXISTE** | — |
 | **`INTELLIGENCE_RUN`** | **0** | — | **NÃO EXISTE** | — |
@@ -113,3 +113,41 @@ Os dois zeros — `COLLECTION_GAP` e `INTELLIGENCE_RUN` — são o achado mais l
 desta matriz: a Intelligence desta árvore **não tem noção de corrida própria**, e
 não sabe nomear um buraco de coleta. Quando existir Intelligence canónica, esses
 dois conceitos nascem do zero.
+
+
+---
+
+## ⚠️ CORREÇÃO — APLICADA POR `C-INT-ARB-01` EM 2026-09-13
+
+Esta matriz atribuía `FACT / CLAIM` a `C-V21-INGEST`, via
+`motor/v21_dominio_da_alegacao.py`. **Duas coisas estavam erradas.**
+
+**1 · A peça.** O ficheiro pertence a `C-V21-OPORTUNIDADE`, e não a
+`C-V21-INGEST`. Erro de atribuição do censo.
+
+**2 · O conceito, que é o erro que importa.** Lido o comportamento em vez do
+nome:
+
+```
+grep CLAIM_ID motor/*.py               VAZIO
+grep sha256|uuid|hashlib no ficheiro   VAZIO
+ids sobre que opera                    IT-CAN-… (upstream, ja existentes)
+```
+
+O módulo **não cria** claim nenhum: julga se uma alegação já admitida é sobre o
+mundo ou sobre a nossa infraestrutura de coleta.
+
+```
+FACT_CLAIM_COLLISION = NAME_COLLISION
+```
+
+`SOURCE_FACT / SOURCE_CLAIM` pertence à **Collection**, por `INT-LAW-000` da
+Bíblia de Engenharia da Intelligence V0.2. O que a Intelligence possui ali é um
+conceito diferente, agora nomeado:
+
+```
+CLAIM_DOMAIN_JUDGMENT   INTELLIGENCE   o claim e sobre o mundo, ou sobre o
+                                       nosso encanamento — herda o ID upstream
+```
+
+A arbitragem completa está em `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md`.

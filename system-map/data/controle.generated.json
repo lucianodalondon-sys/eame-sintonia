@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "9bcfdfa189fbb6a72373e62ef03fb7c086fc5d7e",
+    "HEAD": "a885769c54991a222fa39fce9da106605de475e3",
     "BRANCH": "claude/funny-hypatia-y7ho5s"
   },
   "PLANES": [
@@ -189,10 +189,11 @@
         "CLAUDE.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
         "system-map/README.md",
         "system-map/tests/test_system_map.py"
       ],
-      "REFERENCED_BY_COUNT": 6
+      "REFERENCED_BY_COUNT": 7
     },
     {
       "CARD_ID": "A-COPILOT",
@@ -249,19 +250,20 @@
       ],
       "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
       "IN_TREE": false,
-      "SHA": "5a3ce7b1d6",
-      "LAST_VERIFIED": "2026-09-11T04:38:03+00:00",
-      "LAST_COMMIT": "5524c512d4",
-      "LAST_SUBJECT": "law: COL-LAW-505 — o executor declara o que e colheita e o que e suporte",
+      "SHA": "909ba45bac",
+      "LAST_VERIFIED": "2026-09-13T21:29:13+00:00",
+      "LAST_COMMIT": "84f2b56302",
+      "LAST_SUBJECT": "o READY leva a observacao, e a volta ao byte deixa de ser um palpite",
       "LIVES_AT": "origin/claude/raw-observation-identity-3jbwco",
       "PROOF": "git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md",
       "REFERENCED_BY": [
         "AGENTS.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
-        "controle/red_team_do_controle.py"
+        "controle/red_team_do_controle.py",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json"
       ],
-      "REFERENCED_BY_COUNT": 4
+      "REFERENCED_BY_COUNT": 5
     },
     {
       "CARD_ID": "A-BIBLIA-INTELIGENCIA",
@@ -277,9 +279,11 @@
       "VERSION": "—",
       "LIFECYCLE": "RECOVERY_PENDING",
       "DECLARED_STATE": "NAO EXISTE. O ficheiro com este nome existe no Git, mas o seu proprio cabecalho recusa o titulo: diz-se `INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE` e escreve `O_QUE_ELE_AINDA_NAO_E: a Biblia de Engenharia da Inteligencia`. Um inventario das leis ja aprendidas nao e a constituicao que decide as proximas.",
-      "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao.",
+      "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao. C-INT-ARB-01: o RECOVERY_PENDING fecha — a autoridade que faltava e A-BIBLIA-ENG-INTELIGENCIA (V0.2).",
       "SUPERSEDES": [],
-      "SUPERSEDED_BY": [],
+      "SUPERSEDED_BY": [
+        "A-BIBLIA-ENG-INTELIGENCIA"
+      ],
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
       "IN_TREE": false,
@@ -551,9 +555,10 @@
         "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "docs/descoberta/MISSAO-EAME-01.md",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
         "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md"
       ],
-      "REFERENCED_BY_COUNT": 5
+      "REFERENCED_BY_COUNT": 6
     },
     {
       "CARD_ID": "A-KNOWHOW",
@@ -577,10 +582,10 @@
       ],
       "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
       "IN_TREE": false,
-      "SHA": "08eab1dd28",
-      "LAST_VERIFIED": "2026-09-13T18:22:21+00:00",
-      "LAST_COMMIT": "39e685fc79",
-      "LAST_SUBJECT": "know-how §108: a etapa que nao se aplica, e a falha que nao aconteceu",
+      "SHA": "212c4210f4",
+      "LAST_VERIFIED": "2026-09-13T22:47:19+00:00",
+      "LAST_COMMIT": "7b5e50cf80",
+      "LAST_SUBJECT": "know-how §109: o valor que existia em maos e nao atravessava a fronteira",
       "LIVES_AT": "origin/claude/sintonia-eame-know-how-v1",
       "PROOF": "git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md",
       "REFERENCED_BY": [
@@ -617,9 +622,10 @@
       "PROOF": "git:HEAD:HANDOFF-BUILD-DA-REUNIAO.md",
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
         "system-map/data/architecture.declared.json"
       ],
-      "REFERENCED_BY_COUNT": 2
+      "REFERENCED_BY_COUNT": 3
     },
     {
       "CARD_ID": "H-CONTA-CLAUDE",
@@ -683,9 +689,10 @@
       "PROOF": "git:HEAD:HANDOFF-V2-PAUSE.md",
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
         "pacote/v21_handoff_json.py"
       ],
-      "REFERENCED_BY_COUNT": 2
+      "REFERENCED_BY_COUNT": 3
     },
     {
       "CARD_ID": "H-DEPOIS-DO-PORTAL",
@@ -1094,6 +1101,8 @@
         "AGENTS.md",
         "CLAUDE.md",
         "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
         "guarda/es/workflows/LEIA.md",
         "system-map/README.md",
         "system-map/app/map.js",
@@ -1101,7 +1110,7 @@
         "system-map/scripts/mudar_gaveta.py",
         "system-map/scripts/validate_system_map.py"
       ],
-      "REFERENCED_BY_COUNT": 11
+      "REFERENCED_BY_COUNT": 13
     },
     {
       "CARD_ID": "O-CENSO-CONTROLE",
@@ -1228,7 +1237,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "086fb579d6",
+      "SHA": "7a31f6ced5",
       "LAST_VERIFIED": "2026-09-13T15:34:56+00:00",
       "LAST_COMMIT": "9dc23c613f",
       "LAST_SUBJECT": "controle: um handoff que diz «dono canonico» a falar do dono de outra coisa",
@@ -1263,10 +1272,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "15a81cb075",
-      "LAST_VERIFIED": "2026-09-13T18:24:40+00:00",
-      "LAST_COMMIT": "9bcfdfa189",
-      "LAST_SUBJECT": "handoff: o delta do Control Plane deixa de apontar para um numero ja ocupado",
+      "SHA": "292163bd79",
+      "LAST_VERIFIED": "2026-09-13T19:25:30+00:00",
+      "LAST_COMMIT": "b3ce973784",
+      "LAST_SUBJECT": "censo/reconciliacao: tres achados meus estavam errados, e ficam corrigidos no topo",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
       "REFERENCED_BY": [
@@ -1336,9 +1345,76 @@
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
       "REFERENCED_BY": [
-        "controle/AUTORIDADES-CANONICAS.json"
+        "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json"
       ],
-      "REFERENCED_BY_COUNT": 1
+      "REFERENCED_BY_COUNT": 2
+    },
+    {
+      "CARD_ID": "A-BIBLIA-ENG-INTELIGENCIA",
+      "KIND": "BIBLE",
+      "NAME": "BIBLIA DE ENGENHARIA DA INTELLIGENCE",
+      "DOMAIN": "INTELIGENCIA",
+      "CONCEPT_OWNER": "LEI_DA_INTELIGENCIA",
+      "IS_POINTER": false,
+      "PURPOSE": "A constituicao da Intelligence: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega.",
+      "SCOPE": "Todo trabalho do lado Intelligence da fronteira COLLECTION -> SALA DE ESPERA -> INTELLIGENCE.",
+      "CANONICAL_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "CANONICAL_REF": "origin/research/intelligence-bible-engineering-v1",
+      "VERSION": "V0.2",
+      "LIFECYCLE": "CANDIDATE",
+      "DECLARED_STATE": "CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.",
+      "NOTE": "NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.",
+      "SUPERSEDES": [
+        "A-BIBLIA-INTELIGENCIA"
+      ],
+      "SUPERSEDED_BY": [],
+      "DIVERGENT_COPIES": [],
+      "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+      "IN_TREE": false,
+      "SHA": "9420760814",
+      "LAST_VERIFIED": "2026-09-13T12:50:24-03:00",
+      "LAST_COMMIT": "1fee90931b",
+      "LAST_SUBJECT": "docs: reconciliar Biblia Intelligence com ownership FACT/CLAIM da Collection",
+      "LIVES_AT": "origin/research/intelligence-bible-engineering-v1",
+      "PROOF": "git:origin/research/intelligence-bible-engineering-v1:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "REFERENCED_BY": [
+        "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/CENSO-DA-INTELLIGENCE.md"
+      ],
+      "REFERENCED_BY_COUNT": 2
+    },
+    {
+      "CARD_ID": "A-MOTOR-V2-REQUISITOS",
+      "KIND": "CONTRACT",
+      "NAME": "MOTOR INTELLIGENCE V2 — REQUISITOS CANONICOS",
+      "DOMAIN": "INTELIGENCIA",
+      "CONCEPT_OWNER": "CONTRATO_DO_MOTOR_DE_INTELIGENCIA",
+      "IS_POINTER": false,
+      "PURPOSE": "Requisitos, gates, estados e proibicoes contra os quais MOTOR_V2_READY e julgado.",
+      "SCOPE": "A implementacao de um motor de Intelligence. Nao governa a constituicao.",
+      "CANONICAL_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+      "CANONICAL_REF": "origin/claude/intelligence-backlog-canonical",
+      "VERSION": "viva",
+      "LIFECYCLE": "SUBORDINATE",
+      "DECLARED_STATE": "SUBORDINATE_IMPLEMENTATION_CONTRACT, arbitrado em C-INT-ARB-01. Testado conceito a conceito contra a Biblia V0.2: 0 conflitos estruturais. A INT-LAW-031 cita-o e PRESERVA a sua exigencia de identidade global de claim, acrescentando a fronteira de que a Intelligence nao fabrica essa identidade se o upstream nao a tem.",
+      "NOTE": "Nao apagar: contem requisitos maduros e casos-testemunha que a Biblia nao desce a detalhar.",
+      "SUPERSEDES": [],
+      "SUPERSEDED_BY": [],
+      "DIVERGENT_COPIES": [],
+      "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+      "IN_TREE": false,
+      "SHA": "def980dea0",
+      "LAST_VERIFIED": "2026-09-06T20:48:34+00:00",
+      "LAST_COMMIT": "4df24aa9be",
+      "LAST_SUBJECT": "docs: canoniza requisitos e backlog do Motor Intelligence V2",
+      "LIVES_AT": "origin/claude/intelligence-backlog-canonical",
+      "PROOF": "git:origin/claude/intelligence-backlog-canonical:docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+      "REFERENCED_BY": [
+        "controle/AUTORIDADES-CANONICAS.json",
+        "docs/operacao/RECONCILIACAO-DA-INTELLIGENCE.md"
+      ],
+      "REFERENCED_BY_COUNT": 2
     }
   ],
   "GOVERNANCE_EDGES": [
@@ -1861,15 +1937,75 @@
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "CODE_REFERENCE",
       "PROOF_LOCATION": "controle/censo_do_controle.py:8"
+    },
+    {
+      "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
+      "TO_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+      "TO_COMPONENT": "",
+      "EDGE_TYPE": "REFERENCES",
+      "EDGE_PLANE": "CONTROL",
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "AUTHORITY_ABSENT",
+      "PROOF_LOCATION": ""
+    },
+    {
+      "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
+      "TO_PATH": "BIBLIA-CANONICA-DA-COLETA.md",
+      "TO_COMPONENT": "",
+      "EDGE_TYPE": "REFERENCES",
+      "EDGE_PLANE": "CONTROL",
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "AUTHORITY_ABSENT",
+      "PROOF_LOCATION": ""
+    },
+    {
+      "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
+      "TO_PATH": "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
+      "TO_COMPONENT": "",
+      "EDGE_TYPE": "REFERENCES",
+      "EDGE_PLANE": "CONTROL",
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "AUTHORITY_ABSENT",
+      "PROOF_LOCATION": ""
+    },
+    {
+      "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
+      "TO_PATH": "A-BIBLIA-INTELIGENCIA",
+      "TO_COMPONENT": "",
+      "EDGE_TYPE": "SUPERSEDES",
+      "EDGE_PLANE": "HISTORY",
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "AUTHORITY_ABSENT",
+      "PROOF_LOCATION": ""
+    },
+    {
+      "FROM": "A-MOTOR-V2-REQUISITOS",
+      "TO_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "TO_COMPONENT": "",
+      "EDGE_TYPE": "REFERENCES",
+      "EDGE_PLANE": "CONTROL",
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "AUTHORITY_ABSENT",
+      "PROOF_LOCATION": ""
+    },
+    {
+      "FROM": "A-MOTOR-V2-REQUISITOS",
+      "TO_PATH": "docs/intelligence/BACKLOG-OBRIGATORIO.md",
+      "TO_COMPONENT": "",
+      "EDGE_TYPE": "REFERENCES",
+      "EDGE_PLANE": "CONTROL",
+      "EDGE_STATE": "DECLARED",
+      "PROOF_KIND": "AUTHORITY_ABSENT",
+      "PROOF_LOCATION": ""
     }
   ],
   "COUNTS": {
-    "authorities": 36,
+    "authorities": 38,
     "in_tree": 32,
-    "absent_from_snapshot": 4,
+    "absent_from_snapshot": 6,
     "orphan_in_tree": 0,
-    "edges": 52,
+    "edges": 58,
     "edges_observed": 35,
-    "edges_declared": 17
+    "edges_declared": 23
   }
 }
