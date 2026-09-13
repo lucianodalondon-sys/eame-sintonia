@@ -30,7 +30,7 @@ def _fonte(caminho):
 class OContratoREADYNaoMudou(unittest.TestCase):
     """Os 11 campos da COL-LAW-043, e um dono só."""
 
-    CAMPOS = ("ESTADO", "ITEM_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
+    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
               "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
               "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
 

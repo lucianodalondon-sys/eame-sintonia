@@ -175,7 +175,7 @@ GAPS = (
     # corrigido em vez de ser apagado — porque a FALTA e real, so que nao e
     # a que o nome anuncia. Medido em `provas/a_fronteira_da_coleta.py`:
     #
-    #     READY TEM contrato   COL-LAW-043, 11 campos, fixos
+    #     READY TEM contrato   COL-LAW-043, 12 campos, fixos
     #     READY TEM dono       admissao.pronto_para_inteligencia()
     #     READY TEM 0 produtores em runtime (so um CLI e uma prova)
     #     READY TEM 0 consumidores, e o destino nem sequer existe

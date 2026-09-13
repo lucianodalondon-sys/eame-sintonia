@@ -63,7 +63,7 @@ LIVRO_DA_PORTA = os.path.join(RAIZ, "data", "samples",
                               "LIVRO-DE-DECISOES.json")
 # Os 11 campos que a lei declara. Escritos aqui para a comparacao ter dois
 # lados — o codigo do dono e a lei — e nao um eco.
-CAMPOS_DA_LEI = ("ESTADO", "ITEM_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
+CAMPOS_DA_LEI = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
                  "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
                  "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
 

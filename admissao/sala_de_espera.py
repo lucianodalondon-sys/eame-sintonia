@@ -12,7 +12,7 @@ O QUE ESTE MÓDULO É DONO
 
 O QUE ELE NÃO É DONO
 --------------------
-    O CONTRATO    `admissao.pronto_para_inteligencia()` — 11 campos, COL-LAW-043
+    O CONTRATO    `admissao.pronto_para_inteligencia()` — 12 campos, COL-LAW-043
     A DECISÃO     `admissao.decidir()`
     O RASTRO      `medidas/rastro_da_coleta.py`
 

@@ -214,11 +214,11 @@ def medir(url, sala):
                                  len(corpo.get("ITENS") or [])))
 
     # ── O CONTRATO NAO MUDOU ────────────────────────────────────────────
-    CAMPOS = ("ESTADO", "ITEM_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
+    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
               "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
               "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
     u = (corpo.get("ITENS") or [{}])[0]
-    caso("E5_a_unidade_tem_os_11_campos_da_lei_e_nem_um_a_mais",
+    caso("E5_a_unidade_tem_os_12_campos_da_lei_e_nem_um_a_mais",
          tuple(u) == CAMPOS, "%d campos, na ordem da COL-LAW-043" % len(u))
     caso("E6_e_o_estado_dela_e_PRONTO_PARA_INTELIGENCIA",
          u.get("ESTADO") == "PRONTO_PARA_INTELIGENCIA",

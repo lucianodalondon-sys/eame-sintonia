@@ -960,7 +960,7 @@ def a_sala_de_espera() -> tuple[list, list]:
     POR QUE ESTE CARTAO E GERADO, E NAO DECLARADO
 
     O READY nao e um ficheiro. E uma FUNCAO (`admissao.pronto_para_inteligencia`),
-    um CONTRATO (COL-LAW-043, 11 campos fixos) e uma FRONTEIRA — e o ficheiro que
+    um CONTRATO (COL-LAW-043, 12 campos fixos) e uma FRONTEIRA — e o ficheiro que
     o contem ja tem dono (`C-ADMISSAO`, que cobre `admissao/admissao.py`).
     Declara-lo como peca com gaveta propria obrigaria a tirar aquele ficheiro do
     dono que ja o tem, e o mapa proibe dois donos para um ficheiro.

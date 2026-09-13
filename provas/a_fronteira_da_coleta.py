@@ -11,7 +11,7 @@ nenhum deles estava errado por descuido — cada um foi escrito num momento em
 que era verdade, e ninguem tinha um medidor para os confrontar:
 
     BIBLIA-CANONICA-DA-COLETA.md · COL-LAW-043
-        READY e canonico, o contrato de saida e FIXO e tem 11 campos.
+        READY e canonico, o contrato de saida e FIXO e tem 12 campos.
         IT: PARTIAL.
 
     docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md:110

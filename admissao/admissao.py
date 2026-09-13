@@ -566,12 +566,41 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
     Ela nao sabe — nem precisa de saber — qual raspador trouxe, qual API, qual
     veiculo, nem que remendo foi preciso pelo caminho. Se amanha o executor for
     outro, este contrato nao muda, e nenhum consumidor a jusante mexe uma linha.
+
+    ⚠️ E DESDE `C-READY-LINEAGE-BEFORE-SCALE-V1` ELE LEVA A OBSERVACAO.
+    Nao e um campo de conveniencia: sem ele, a unica maneira de voltar do item
+    ao bruto era procurar `derived_artifact` pelo `sha256` — e isso MEDIU-SE
+    ambiguo contra PostgreSQL real. Dois PDFs diferentes com o mesmo texto
+    extraido dao DOIS derivados com o mesmo `sha256`, e a procura devolve os
+    dois, com duas observacoes e dois objetos de armazem.
+
+        SHA256 IDENTIFICA BYTES. NAO IDENTIFICA OBSERVACAO.
+        DOIS CANDIDATOS NAO SAO UMA LINHAGEM.
+
+    A COL-LAW-033 ja exigia linhagem a todo artefato, e ja tinha escrito o
+    porque: «A PROCEDENCIA SO VALE SE FOR POSTA NA COLETA. Depois e tarde.»
+    O valor ja estava em maos — as duas rotas canonicas poem `raw_asset_id` no
+    item que entregam a porta — e era deitado fora exactamente aqui.
+
+        RUNTIME SABE != O SISTEMA GUARDA (know-how §86.4).
+
+    ⚠️ E SO ESTE ID VIAJA. `storage_object_id` NAO entra: `raw_asset` ja aponta
+    para a copia por chave estrangeira composta `(storage_object_id, sha256)`,
+    e duplica-lo aqui daria duas declaracoes do mesmo parentesco, livres para
+    divergir. A MENOR IDENTIDADE QUE FECHA A ESTRADA E A CERTA.
     """
     if decisao.resultado != SIM:
         raise ValueError(f"item {decisao.item} nao passou a porta ({decisao.resultado})")
+    # ⚠️ AUSENCIA NAO SE FABRICA, E `or` AQUI SERIA UM DEFEITO.
+    # `raw_asset.id` e `bigserial`, mas quem escreve isto nao tem de saber
+    # disso: `or` transformaria um id falsy num «NAO SEI» silencioso, e um
+    # «NAO SEI» inventado e pior do que um id errado, porque ninguem o procura.
+    # Nunca se deriva de sha256, URL, caminho, filename nem RUN_ID.
+    observacao = item.get("raw_asset_id")
     return {
         "ESTADO": "PRONTO_PARA_INTELIGENCIA",
         "ITEM_ID": decisao.item,
+        "RAW_OBSERVATION_ID": "NAO SEI" if observacao is None else observacao,
         "UNIVERSO": decisao.universo,
         "TEXTO": item.get("texto") or item.get("title") or "",
         "SOURCE_ID": item.get("source_id") or item.get("fonte") or "NAO SEI",

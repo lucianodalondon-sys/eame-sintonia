@@ -117,7 +117,7 @@ class UMDonoEUmaMorada(unittest.TestCase):
 class OContratoNaoMudou(unittest.TestCase):
     """READY continua os 11 campos, e nem um a mais para facilitar storage."""
 
-    CAMPOS = ("ESTADO", "ITEM_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
+    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
               "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
               "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
 

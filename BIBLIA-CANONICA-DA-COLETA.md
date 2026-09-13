@@ -1087,10 +1087,41 @@ terminou».
 O contrato de saída é fixo, e a inteligência recebe **isto e mais nada**:
 
 ```
-ESTADO · ITEM_ID · UNIVERSO · TEXTO · SOURCE_ID
+ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · TEXTO · SOURCE_ID
 SOURCE_LOCATION · FACT_LOCATION · FACT_TIME · CAPTURED_AT
 CORRIDA · ADMITIDO_POR
 ```
+
+### `RAW_OBSERVATION_ID` — a linhagem viaja, e viaja uma vez só
+
+`RAW_OBSERVATION_ID = raw_asset.id`. Ausente: `NAO SEI`. **Nunca** derivado de
+`sha256`, URL, `storage_path`, filename ou `RUN_ID`.
+
+> **TER RAW ≠ O READY CONSEGUIR PROVAR QUAL RAW É O SEU.**
+
+Até `C-READY-LINEAGE-BEFORE-SCALE-V1` este campo não existia, e voltar do item
+ao bruto só se conseguia procurando `derived_artifact` pelo `sha256` do texto.
+**Medido contra PostgreSQL 16 com a cadeia canônica:** dois PDFs diferentes com
+o mesmo texto extraído produzem **dois** derivados com o mesmo `sha256`, e essa
+procura devolve **2 derivados · 2 observações · 2 objetos de armazém**.
+
+```
+READY_TO_RAW (antes)   AMBIGUOUS — 2 candidatos
+READY_TO_RAW (depois)  PROVEN    — 1, por id canônico
+```
+
+**Isto não é lei nova: é a `COL-LAW-033` a ser cumprida.** Ela já exigia
+linhagem de todo artefato, e já tinha escrito o prazo — *«A PROCEDÊNCIA SÓ VALE
+SE FOR POSTA NA COLETA. Depois é tarde.»* Enquanto os dois textos divergiram, o
+`isto e mais nada` desta lei venceu na prática e a linhagem ficou de fora.
+
+**E só este id viaja.** `STORAGE_OBJECT_ID` não entra: `raw_asset` já aponta
+para a cópia por chave estrangeira composta `(storage_object_id, sha256)`, e
+duplicá-lo aqui daria duas declarações do mesmo parentesco, livres para
+divergir. `TEXT_KIND`, `TEXT_RELATION` e `LANGUAGE` também não entram — as
+`TEXT_UNITS` ficam preservadas nos bytes do RAW (`coleta/ingresso.py::
+_bytes_do_item` serializa o item inteiro), e resolvem-se por esta mesma
+linhagem. **A MENOR IDENTIDADE QUE FECHA A ESTRADA É A CERTA.**
 
 Ela não sabe — nem precisa de saber — qual raspador trouxe, qual API, qual veículo, nem que
 remendo foi preciso. Se amanhã o executor for outro, **este contrato não muda**.
