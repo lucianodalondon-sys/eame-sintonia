@@ -462,9 +462,29 @@ class OBaselineFoiJulgadoMecanicamente(unittest.TestCase):
     #
     #     A IMPRESSAO MEDE O FICHEIRO. O JULGAMENTO E QUE E A PERGUNTA.
     #
+    # ── MOVIDA EM 2026-09-13, PELO MESMO PROCEDIMENTO ───────────────────
+    # `C-READY-LINEAGE-BEFORE-SCALE-V1` deu ao contrato READY o campo
+    # `RAW_OBSERVATION_ID` (COL-LAW-043, 11 -> 12 campos). O ficheiro do dono
+    # da porta mudou — docstring e uma linha de dicionario — e a impressao
+    # inclui o `sha256` do FICHEIRO INTEIRO. Os BYTES mudaram; a opiniao da
+    # porta nao: `decidir()` nao foi tocada.
+    #
+    # Conferido antes de mover, como a nota manda, e os tres bateram:
+    #
+    #     PREVISOES_FINGERPRINT   e4fd888fef…  IGUAL
+    #     ADMISSION_RULE_VERSION  3            IGUAL
+    #     GROUND_TRUTH.SHA256     f66ce19525…  IGUAL
+    #     as 36 previsoes         IDENTICAS
+    #
+    # E medido por fora: JUDGMENT_DIFF_COUNT = 0 sobre 129 decisoes do corpus
+    # real em T2/T3/T7, com SIM(50), NAO(28), NAO_SEI(8) e NAO_SE_APLICA(43)
+    # todos representados — um A/B em que tudo respondesse o mesmo nao teria
+    # provado nada.
+    #
+    # anterior: 4a8bd30eccc8ef4e969440443eadd7c3b568cf8a2014ae2e2fbc9a6c0f566002
     # anterior: e196604a4ed437356c8b27b968aae817dd513ea82b2586c0187557632dc5b99f
-    BASELINE_CONGELADO = ("4a8bd30eccc8ef4e969440443eadd7c3b568cf8a"
-                          "2014ae2e2fbc9a6c0f566002")
+    BASELINE_CONGELADO = ("03ebe69cf15780e03678a433452e0cffe7f2e4ba"
+                          "fad9fa690f9689eab79cce96")
     def test_o_baseline_julgado_e_o_congelado(self):
         self.assertEqual(self.art["FIRST_VALID_BASELINE_FINGERPRINT"],
                          self.BASELINE_CONGELADO)
