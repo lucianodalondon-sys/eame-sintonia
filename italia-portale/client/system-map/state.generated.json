@@ -586,6 +586,11 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
+      "docs/intelligence/INTELLIGENCE-CANONICAL-TOPOLOGY-V1.md",
+      "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
+      "docs/intelligence/INTELLIGENCE-MIGRATION-MAP-V1.md",
+      "docs/intelligence/RED-TEAM-INTELLIGENCE-ARBITRATION-V1.md",
       "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.json",
       "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.md",
       "docs/operacao/CENSO-DA-COLETA.md",
@@ -674,6 +679,7 @@
     ],
     "handoff": [
       "handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md",
+      "handoff/KNOW-HOW-DELTA-ARBITRAGEM-DA-INTELLIGENCE.md",
       "handoff/KNOW-HOW-DELTA-MORADA-DA-SALA-DE-ESPERA.md",
       "handoff/paused-v2/ACHADOS-DA-AUDITORIA-NAO-REFUTADOS.json",
       "handoff/paused-v2/MANIFEST.md",
@@ -1607,8 +1613,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "3321aedebe89dacc0f3d043a378bd547e6e8639f",
-    "GENERATED_AT": "2026-09-13T22:49:11+00:00"
+    "HEAD": "b701a9b029a7a4e008f2c0acba951a78463d42df",
+    "GENERATED_AT": "2026-09-13T23:11:16+00:00"
   },
   "FAMILIES": [
     {
@@ -1631,7 +1637,7 @@
         "Z-CTRL-OBSERVADORES",
         "Z-CTRL-REGISTO"
       ],
-      "count": 40
+      "count": 42
     },
     {
       "id": "F-COLETA",
@@ -1714,7 +1720,7 @@
         "governanca"
       ],
       "folder": null,
-      "x": 1112,
+      "x": 1070,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1729,11 +1735,11 @@
         "governanca"
       ],
       "folder": null,
-      "x": 2629,
+      "x": 2545,
       "y": 190,
       "w": 405,
       "h": 1650,
-      "count": 3
+      "count": 4
     },
     {
       "id": "Z-CTRL-CONTRATOS",
@@ -1744,11 +1750,11 @@
         "governanca"
       ],
       "folder": null,
-      "x": 4146,
+      "x": 4020,
       "y": 190,
-      "w": 405,
+      "w": 820,
       "h": 1650,
-      "count": 5
+      "count": 6
     },
     {
       "id": "Z-CTRL-DECISOES",
@@ -1759,7 +1765,7 @@
         "governanca"
       ],
       "folder": null,
-      "x": 5663,
+      "x": 5910,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1774,7 +1780,7 @@
         "governanca"
       ],
       "folder": null,
-      "x": 7180,
+      "x": 7385,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1789,7 +1795,7 @@
         "governanca"
       ],
       "folder": null,
-      "x": 8697,
+      "x": 8860,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1804,7 +1810,7 @@
         "governanca"
       ],
       "folder": null,
-      "x": 10629,
+      "x": 10750,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -1819,7 +1825,7 @@
         "governanca"
       ],
       "folder": null,
-      "x": 12561,
+      "x": 12640,
       "y": 190,
       "w": 405,
       "h": 1650,
@@ -1834,7 +1840,7 @@
         "governanca"
       ],
       "folder": "controle",
-      "x": 14078,
+      "x": 14115,
       "y": 190,
       "w": 820,
       "h": 1650,
@@ -2214,7 +2220,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 1172,
+      "x": 1130,
       "y": 360
     },
     {
@@ -2277,7 +2283,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 4206,
+      "x": 4080,
       "y": 360
     },
     {
@@ -2350,8 +2356,8 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 4206,
-      "y": 682
+      "x": 4495,
+      "y": 360
     },
     {
       "id": "A-BIBLIA-COLETA",
@@ -2369,10 +2375,10 @@
       "file_count": 0,
       "facts": [
         "BIBLIA-CANONICA-DA-COLETA.md @ origin/claude/raw-observation-identity-3jbwco",
-        "SHA 5a3ce7b1d6"
+        "SHA 909ba45bac"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md · conteudo 5a3ce7b1d6",
+      "evidence_text": "git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md · conteudo 909ba45bac",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -2382,7 +2388,9 @@
       "lane": "official",
       "legacy": false,
       "changed_since_declared": [],
-      "inbound": [],
+      "inbound": [
+        "A-BIBLIA-ENG-INTELIGENCIA"
+      ],
       "outbound": [
         "C-ADMISSAO",
         "C-COLETA-BASE",
@@ -2403,12 +2411,13 @@
         "DECLARED_STATE": "AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.",
         "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
         "PROOF": "git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md",
-        "SHA": "5a3ce7b1d6",
+        "SHA": "909ba45bac",
         "REFERENCED_BY": [
           "AGENTS.md",
           "controle/AUTORIDADES-CANONICAS.json",
           "controle/censo_do_controle.py",
-          "controle/red_team_do_controle.py"
+          "controle/red_team_do_controle.py",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json"
         ],
         "DIVERGENT_COPIES": [
           "origin/claude/sintonia-eame-know-how-v1",
@@ -2420,8 +2429,73 @@
         "NOTE": "",
         "IN_TREE": false
       },
-      "x": 2689,
+      "x": 2605,
       "y": 360
+    },
+    {
+      "id": "A-BIBLIA-ENG-INTELIGENCIA",
+      "name": "BIBLIA DE ENGENHARIA DA INTELLIGENCE",
+      "kind": "bible",
+      "icon": "▤",
+      "territory": "Z-CTRL-BIBLIAS",
+      "family": "F-CONTROLE",
+      "status": "BROKEN",
+      "ui_status": "red",
+      "status_reason": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+      "what": "A constituicao da Intelligence: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega.",
+      "why_here": "CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md @ origin/research/intelligence-bible-engineering-v1",
+        "SHA 9420760814"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:origin/research/intelligence-bible-engineering-v1:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md · conteudo 9420760814",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-MOTOR-V2-REQUISITOS"
+      ],
+      "outbound": [
+        "A-BIBLIA-COLETA",
+        "A-MOTOR-V2-REQUISITOS"
+      ],
+      "controle": {
+        "KIND": "BIBLE",
+        "DOMAIN": "INTELIGENCIA",
+        "CONCEPT_OWNER": "LEI_DA_INTELIGENCIA",
+        "SCOPE": "Todo trabalho do lado Intelligence da fronteira COLLECTION -> SALA DE ESPERA -> INTELLIGENCE.",
+        "CANONICAL_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+        "CANONICAL_REF": "origin/research/intelligence-bible-engineering-v1",
+        "LIVES_AT": "origin/research/intelligence-bible-engineering-v1",
+        "VERSION": "V0.2",
+        "LIFECYCLE": "CANDIDATE",
+        "DECLARED_STATE": "CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.",
+        "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+        "PROOF": "git:origin/research/intelligence-bible-engineering-v1:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+        "SHA": "9420760814",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/CENSO-DA-INTELLIGENCE.md"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [
+          "A-BIBLIA-INTELIGENCIA"
+        ],
+        "SUPERSEDED_BY": [],
+        "NOTE": "NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.",
+        "IN_TREE": false
+      },
+      "x": 2605,
+      "y": 682
     },
     {
       "id": "A-BIBLIA-ENTREGA",
@@ -2480,8 +2554,8 @@
         "NOTE": "CANDIDATE, nao CANONICAL: uma biblia que se declara DRAFT nao pode ser carimbada de lei por quem a cataloga.",
         "IN_TREE": false
       },
-      "x": 2689,
-      "y": 682
+      "x": 2605,
+      "y": 1004
     },
     {
       "id": "A-BIBLIA-INTELIGENCIA",
@@ -2534,12 +2608,14 @@
         ],
         "DIVERGENT_COPIES": [],
         "SUPERSEDES": [],
-        "SUPERSEDED_BY": [],
-        "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao.",
+        "SUPERSEDED_BY": [
+          "A-BIBLIA-ENG-INTELIGENCIA"
+        ],
+        "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao. C-INT-ARB-01: o RECOVERY_PENDING fecha — a autoridade que faltava e A-BIBLIA-ENG-INTELIGENCIA (V0.2).",
         "IN_TREE": false
       },
-      "x": 2689,
-      "y": 1004
+      "x": 2605,
+      "y": 1326
     },
     {
       "id": "A-CLAUDE",
@@ -2611,7 +2687,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 1172,
+      "x": 1130,
       "y": 682
     },
     {
@@ -2674,8 +2750,8 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 4206,
-      "y": 1004
+      "x": 4080,
+      "y": 682
     },
     {
       "id": "A-CONTRATOS-FONTES",
@@ -2739,8 +2815,8 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 4206,
-      "y": 1326
+      "x": 4495,
+      "y": 682
     },
     {
       "id": "A-COPILOT",
@@ -2797,7 +2873,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 1172,
+      "x": 1130,
       "y": 1004
     },
     {
@@ -2851,6 +2927,7 @@
           "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
           "controle/AUTORIDADES-CANONICAS.json",
           "docs/descoberta/MISSAO-EAME-01.md",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
           "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md"
         ],
         "DIVERGENT_COPIES": [
@@ -2866,7 +2943,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 5723,
+      "x": 5970,
       "y": 360
     },
     {
@@ -2885,10 +2962,10 @@
       "file_count": 0,
       "facts": [
         "SINTONIA-EAME-KNOW-HOW.md @ origin/claude/sintonia-eame-know-how-v1",
-        "SHA 08eab1dd28"
+        "SHA 212c4210f4"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md · conteudo 08eab1dd28",
+      "evidence_text": "git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md · conteudo 212c4210f4",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -2913,7 +2990,7 @@
         "DECLARED_STATE": "AUSENTE DESTA ARVORE. O dono verdadeiro vive numa branch lateral; `main` nao tem know-how nenhum.",
         "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
         "PROOF": "git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md",
-        "SHA": "08eab1dd28",
+        "SHA": "212c4210f4",
         "REFERENCED_BY": [
           "AGENTS.md",
           "controle/AUTORIDADES-CANONICAS.json"
@@ -2926,8 +3003,70 @@
         "NOTE": "A copia esta 50 commits atras do dono. Escrever um SINTONIA-EAME-KNOW-HOW.md novo em `main` criaria a terceira versao — e isso e o ataque RT04.",
         "IN_TREE": false
       },
-      "x": 7240,
+      "x": 7445,
       "y": 360
+    },
+    {
+      "id": "A-MOTOR-V2-REQUISITOS",
+      "name": "MOTOR INTELLIGENCE V2 — REQUISITOS CANONICOS",
+      "kind": "contract",
+      "icon": "◫",
+      "territory": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "status": "BROKEN",
+      "ui_status": "red",
+      "status_reason": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+      "what": "Requisitos, gates, estados e proibicoes contra os quais MOTOR_V2_READY e julgado.",
+      "why_here": "SUBORDINATE_IMPLEMENTATION_CONTRACT, arbitrado em C-INT-ARB-01. Testado conceito a conceito contra a Biblia V0.2: 0 conflitos estruturais. A INT-LAW-031 cita-o e PRESERVA a sua exigencia de identidade global de claim, acrescentando a fronteira de que a Intelligence nao fabrica essa identidade se o upstream nao a tem.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md @ origin/claude/intelligence-backlog-canonical",
+        "SHA def980dea0"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:origin/claude/intelligence-backlog-canonical:docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md · conteudo def980dea0",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-BIBLIA-ENG-INTELIGENCIA"
+      ],
+      "outbound": [
+        "A-BIBLIA-ENG-INTELIGENCIA"
+      ],
+      "controle": {
+        "KIND": "CONTRACT",
+        "DOMAIN": "INTELIGENCIA",
+        "CONCEPT_OWNER": "CONTRATO_DO_MOTOR_DE_INTELIGENCIA",
+        "SCOPE": "A implementacao de um motor de Intelligence. Nao governa a constituicao.",
+        "CANONICAL_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+        "CANONICAL_REF": "origin/claude/intelligence-backlog-canonical",
+        "LIVES_AT": "origin/claude/intelligence-backlog-canonical",
+        "VERSION": "viva",
+        "LIFECYCLE": "SUBORDINATE",
+        "DECLARED_STATE": "SUBORDINATE_IMPLEMENTATION_CONTRACT, arbitrado em C-INT-ARB-01. Testado conceito a conceito contra a Biblia V0.2: 0 conflitos estruturais. A INT-LAW-031 cita-o e PRESERVA a sua exigencia de identidade global de claim, acrescentando a fronteira de que a Intelligence nao fabrica essa identidade se o upstream nao a tem.",
+        "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+        "PROOF": "git:origin/claude/intelligence-backlog-canonical:docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+        "SHA": "def980dea0",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/RECONCILIACAO-DA-INTELLIGENCE.md"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "Nao apagar: contem requisitos maduros e casos-testemunha que a Biblia nao desce a detalhar.",
+        "IN_TREE": false
+      },
+      "x": 4080,
+      "y": 1004
     },
     {
       "id": "A-README",
@@ -2985,6 +3124,7 @@
           "CLAUDE.md",
           "controle/AUTORIDADES-CANONICAS.json",
           "controle/censo_do_controle.py",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
           "system-map/README.md",
           "system-map/tests/test_system_map.py"
         ],
@@ -2994,7 +3134,7 @@
         "NOTE": "Aponta para `docs/08-decisoes/DIARIO-DE-DECISOES.md`, que nao existe. O diario vive em `docs/decisoes/`.",
         "IN_TREE": true
       },
-      "x": 1172,
+      "x": 1130,
       "y": 1326
     },
     {
@@ -3053,8 +3193,8 @@
         "NOTE": "BROKEN_POINTER conhecido e medido; o conserto e do dono do teste, nao deste registo.",
         "IN_TREE": true
       },
-      "x": 4206,
-      "y": 1648
+      "x": 4495,
+      "y": 1004
     },
     {
       "id": "C-ADAMA-ES",
@@ -6873,7 +7013,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14138,
+      "x": 14175,
       "y": 360
     },
     {
@@ -6918,7 +7058,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14553,
+      "x": 14590,
       "y": 360
     },
     {
@@ -6965,7 +7105,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14138,
+      "x": 14175,
       "y": 682
     },
     {
@@ -7009,7 +7149,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14553,
+      "x": 14590,
       "y": 682
     },
     {
@@ -11859,7 +11999,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 10689,
+      "x": 10810,
       "y": 360
     },
     {
@@ -11920,7 +12060,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 11104,
+      "x": 11225,
       "y": 360
     },
     {
@@ -11983,7 +12123,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 10689,
+      "x": 10810,
       "y": 682
     },
     {
@@ -12048,7 +12188,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 11104,
+      "x": 11225,
       "y": 682
     },
     {
@@ -12113,7 +12253,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 10689,
+      "x": 10810,
       "y": 1004
     },
     {
@@ -12180,7 +12320,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 11104,
+      "x": 11225,
       "y": 1004
     },
     {
@@ -12229,6 +12369,7 @@
         "SHA": "d0fbc49d24",
         "REFERENCED_BY": [
           "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
           "system-map/data/architecture.declared.json"
         ],
         "DIVERGENT_COPIES": [],
@@ -12237,7 +12378,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 8757,
+      "x": 8920,
       "y": 360
     },
     {
@@ -12294,7 +12435,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 9172,
+      "x": 9335,
       "y": 360
     },
     {
@@ -12353,7 +12494,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 8757,
+      "x": 8920,
       "y": 682
     },
     {
@@ -12409,7 +12550,7 @@
         "NOTE": "Segue o precedente de `handoff/KNOW-HOW-DELTA-107-RECUPERACAO.md`. O dono verdadeiro vive em origin/claude/sintonia-eame-know-how-v1.",
         "IN_TREE": true
       },
-      "x": 9172,
+      "x": 9335,
       "y": 682
     },
     {
@@ -12465,7 +12606,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 8757,
+      "x": 8920,
       "y": 1004
     },
     {
@@ -12513,7 +12654,8 @@
         "PROOF": "git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
         "SHA": "e55e81caf6",
         "REFERENCED_BY": [
-          "controle/AUTORIDADES-CANONICAS.json"
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json"
         ],
         "DIVERGENT_COPIES": [],
         "SUPERSEDES": [],
@@ -12521,7 +12663,7 @@
         "NOTE": "Aparecia como UNREGISTERED_CANONICAL_DOCUMENT porque a varredura procura a frase, e nao a intencao. Registado como HANDOFF: e assim que a varredura passa a saber que ele nao manda.",
         "IN_TREE": true
       },
-      "x": 9172,
+      "x": 9335,
       "y": 1004
     },
     {
@@ -12577,7 +12719,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 8757,
+      "x": 8920,
       "y": 1326
     },
     {
@@ -12635,7 +12777,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 9172,
+      "x": 9335,
       "y": 1326
     },
     {
@@ -12684,6 +12826,7 @@
         "SHA": "0e19eef562",
         "REFERENCED_BY": [
           "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
           "pacote/v21_handoff_json.py"
         ],
         "DIVERGENT_COPIES": [],
@@ -12692,7 +12835,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 8757,
+      "x": 8920,
       "y": 1648
     },
     {
@@ -12752,7 +12895,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 12621,
+      "x": 12700,
       "y": 360
     },
     {
@@ -12817,7 +12960,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 12621,
+      "x": 12700,
       "y": 682
     },
     {
@@ -12876,6 +13019,8 @@
           "AGENTS.md",
           "CLAUDE.md",
           "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md",
+          "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
           "guarda/es/workflows/LEIA.md",
           "system-map/README.md",
           "system-map/app/map.js",
@@ -12889,7 +13034,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 12621,
+      "x": 12700,
       "y": 1004
     },
     {
@@ -12948,7 +13093,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 12621,
+      "x": 12700,
       "y": 1326
     },
     {
@@ -13010,7 +13155,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 12621,
+      "x": 12700,
       "y": 1648
     },
     {
@@ -13031,7 +13176,7 @@
         "controle/AUTORIDADES-CANONICAS.json"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:controle/AUTORIDADES-CANONICAS.json · conteudo 086fb579d6",
+      "evidence_text": "git:HEAD:controle/AUTORIDADES-CANONICAS.json · conteudo 7a31f6ced5",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -13061,7 +13206,7 @@
         "DECLARED_STATE": "INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:controle/AUTORIDADES-CANONICAS.json",
-        "SHA": "086fb579d6",
+        "SHA": "7a31f6ced5",
         "REFERENCED_BY": [
           "AGENTS.md",
           "controle/censo_do_controle.py",
@@ -13075,7 +13220,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 14138,
+      "x": 14175,
       "y": 1004
     },
     {
@@ -13096,7 +13241,7 @@
         "SALA-DE-CONTROLE-SINTONIA.md"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 15a81cb075",
+      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 292163bd79",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -13121,7 +13266,7 @@
         "DECLARED_STATE": "GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
-        "SHA": "15a81cb075",
+        "SHA": "292163bd79",
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "AGENTS.md",
@@ -13135,7 +13280,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 14553,
+      "x": 14590,
       "y": 1004
     },
     {
@@ -13863,7 +14008,7 @@
       "icon": "B",
       "facts": [
         "branch claude/funny-hypatia-y7ho5s",
-        "HEAD 3321aedebe89dacc0f3d043a378bd547e6e8639f"
+        "HEAD b701a9b029a7a4e008f2c0acba951a78463d42df"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14329,6 +14474,34 @@
       "evidence": []
     },
     {
+      "from": "A-BIBLIA-ENG-INTELIGENCIA",
+      "to": "A-BIBLIA-COLETA",
+      "type": "REFERENCES",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "references",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-ENG-INTELIGENCIA",
+      "to": "A-MOTOR-V2-REQUISITOS",
+      "type": "REFERENCES",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "references",
+      "evidence": []
+    },
+    {
       "from": "A-BIBLIA-ENTREGA",
       "to": "C-ASK-SINTONIA",
       "type": "GOVERNS",
@@ -14477,6 +14650,20 @@
           "snippet": "references — o texto da autoridade nomeia AGENTS.md"
         }
       ]
+    },
+    {
+      "from": "A-MOTOR-V2-REQUISITOS",
+      "to": "A-BIBLIA-ENG-INTELIGENCIA",
+      "type": "REFERENCES",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "references",
+      "evidence": []
     },
     {
       "from": "A-README",
@@ -21744,19 +21931,19 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 650,
+  "UNCLAIMED_FILES_COUNT": 656,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 140,
+    "components": 142,
     "components_proven": 96,
     "components_pending": 35,
-    "components_broken": 4,
+    "components_broken": 6,
     "components_unknown": 5,
-    "edges": 375,
+    "edges": 378,
     "edges_proven": 363,
-    "edges_unknown": 12,
+    "edges_unknown": 15,
     "business_edges": 4,
-    "files_tracked": 1163,
+    "files_tracked": 1169,
     "files_covered": 513,
     "files_code_unclaimed": 0
   }
