@@ -131,7 +131,17 @@ def correr_fluxo(arvore, fonte):
         print((r.stdout or '')[-1200:])
         print((r.stderr or '')[-1200:])
     env = {}
-    alvo = os.path.join(arvore, sc.ENVELOPE)
+    # ── A MORADA E A DA CORRIDA, E NAO A DO EXECUTOR ────────────────────
+    # Esta linha lia `sc.ENVELOPE` direito, e isso deixou de ser a morada no
+    # dia em que o envelope passou a viver numa pasta por corrida. O leitor
+    # resolve pela MESMA funcao que o escritor usa, ou a prova procura onde
+    # ja ninguem escreve — e encontra `{}`, que tem a mesma cara de «a
+    # corrida nao produziu nada».
+    #
+    #     MUDAR O ENDERECO DE QUEM ESCREVE SEM MUDAR O DE QUEM LE
+    #     NAO DA ERRO: DA VAZIO.
+    alvo = os.path.join(arvore, rc.endereco_do_envelope(
+        sc.ENVELOPE, str((recibo or {}).get('RUN_ID') or '')))
     if os.path.isfile(alvo):
         with open(alvo, encoding='utf-8') as f:
             env = json.load(f)

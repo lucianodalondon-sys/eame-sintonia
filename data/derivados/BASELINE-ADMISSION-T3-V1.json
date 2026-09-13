@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.baseline-admission-t3/1",
   "O_QUE_ISTO_E": "Uma BASELINE: o mecanismo tematico de hoje, medido contra o primeiro gabarito humano de T3. Nao corrige nada, nao propoe substituto e nao aprova nem reprova o mecanismo.",
   "MEASURE_NOT_FIX": true,
-  "SOURCE_HEAD": "f06b203cefbb01311fff7a46c5c1a2407f892dcd",
+  "SOURCE_HEAD": "72b9513a76dc00055f59e27d61af2540f382bb07",
   "UNIVERSE": "T3",
   "ADMISSION_OWNER_FILE": "admissao/admissao.py",
   "ADMISSION_OWNER_FUNCTION": "_do_universo (via decidir)",
@@ -11,25 +11,25 @@
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "PERGUNTAS_DO_UNIVERSO = {",
-      "LINE": 321,
+      "LINE": 402,
       "PORQUE": "a lista de palavras, por universo"
     },
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "def _do_universo(",
-      "LINE": 243,
+      "LINE": 324,
       "PORQUE": "a funcao que decide o tema"
     },
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "def decidir(",
-      "LINE": 347,
+      "LINE": 428,
       "PORQUE": "a porta: prontidao primeiro, tema depois"
     },
     {
       "FILE": "orquestrador/orquestrador.py",
       "MARCA": "adm.decidir(x, universo, corrida=run_id)",
-      "LINE": 509,
+      "LINE": 532,
       "PORQUE": "o orquestrador corre a porta sobre a colheita"
     },
     {
@@ -41,7 +41,7 @@
     {
       "FILE": "coleta/ingresso.py",
       "MARCA": "def para_a_porta(",
-      "LINE": 149,
+      "LINE": 188,
       "PORQUE": "o unico tradutor do contrato para a lingua da porta"
     }
   ],
@@ -2994,13 +2994,13 @@
   "LEAKAGE_AUDIT": {
     "GROUND_TRUTH_AUTHORITY": "HUMAN_VERIFIED",
     "MECANISMO_NASCEU_EM": "2026-09-07",
-    "MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM": "2026-09-09",
+    "MECANISMO_MEXIDO_PELA_ULTIMA_VEZ_EM": "2026-09-13",
     "REVISAO_HUMANA_FECHOU_EM": "2026-09-11",
     "GABARITO_COMMITADO_EM": "2026-09-11",
-    "CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN": "YES",
-    "PROVA": "o ficheiro do mecanismo nao e tocado desde 2026-09-09, e o gabarito so existe desde 2026-09-11 — nenhuma palavra pode ter sido escolhida a olhar para rotulos que ainda nao existiam"
+    "CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN": "NAO SEI",
+    "PROVA": "nao foi possivel datar as duas coisas pelo Git"
   },
-  "FIRST_VALID_BASELINE_FINGERPRINT": "e196604a4ed437356c8b27b968aae817dd513ea82b2586c0187557632dc5b99f",
+  "FIRST_VALID_BASELINE_FINGERPRINT": "4a8bd30eccc8ef4e969440443eadd7c3b568cf8a2014ae2e2fbc9a6c0f566002",
   "O_QUE_A_IMPRESSAO_NAO_DISTINGUE": "ela hasheia o ficheiro inteiro do dono da porta. Uma mudanca que nao toca no julgamento — uma trava, uma escrita atomica, um comentario — move a impressao na mesma. Para saber se a PORTA mudou, comparar PREVISOES_FINGERPRINT, ADMISSION_RULE_VERSION e GROUND_TRUTH.SHA256.",
   "PREVISOES_FINGERPRINT": "e4fd888feff5a1ee9aa4f77d1bc674c489dab3f6c280185480db7cf0c9e36c7f"
 }

@@ -165,16 +165,39 @@ class SuporteNaoEObservacao(unittest.TestCase):
         corpo = ast.unparse(no)
         self.assertIn('so_o_que_entra', corpo,
                       'a porta deixou de ler a espécie declarada')
-        self.assertIn('_envelope_declarado', corpo)
-        self.assertIn('RETORNO_ADIVINHADO', corpo,
-                      'a adivinhação voltou a ser silenciosa')
-        # e o recibo diz sempre qual das duas foi
-        alvo = _funcao('orquestrador/orquestrador.py', 'correr')
-        self.assertIn('RETORNO_DECLARADO', ast.unparse(alvo))
+        # ⚠️ A DIVIDA QUE ESTA SENTINELA MEDIA FOI PAGA, E POR ISSO ELA MUDOU.
+        # Ela exigia `_envelope_declarado` e `RETORNO_ADIVINHADO`: a
+        # adivinhacao continuava viva para os executores que ainda nao
+        # declaravam envelope, e o que se cobrava era que ela fosse CONTADA
+        # em vez de silenciosa.
+        #
+        # Na linha funcional ela deixou de existir. `a_colheita` corre SEMPRE
+        # `conferir()` + `so_o_que_entra()` sobre um envelope declarado, e nao
+        # ha ramo que adivinhe — nem calado nem contado.
+        #
+        #     UMA DIVIDA PAGA NAO SE GUARDA: GUARDA-SE O QUE A SUBSTITUIU.
+        #
+        # A propriedade que sobrevive e mais forte: nao existe caminho de
+        # adivinhacao nenhum. Se um voltar, esta linha reprova.
+        self.assertIn('conferir', corpo,
+                      'a colheita deixou de conferir o envelope')
+        for adivinha in ('RETORNO_ADIVINHADO', 'isinstance(v, list)',
+                         'next((v for v in d.values()'):
+            self.assertNotIn(adivinha, corpo,
+                             'a adivinhacao do retorno voltou ao caminho')
 
     def test_rt07b_o_executor_migrado_declara_envelope(self):
+        # ⚠️ O CONCEITO E O MESMO; O NOME PASSOU A SER O DA CASA.
+        # A receita do SCRAP dizia `envelope_em`; as outras cinco dizem
+        # `retorno: {ESPECIE: caminho}`, que e a forma da COL-LAW-505 — ela
+        # nomeia a ESPECIE do que volta, e nao so o sitio. O orquestrador le
+        # `retorno`, e com o nome antigo ele corria o executor, nao encontrava
+        # nada e seguia em frente, sem erro nenhum.
+        #
+        #     DOIS NOMES PARA O MESMO CONCEITO NAO SAO SINONIMOS:
+        #     SAO UM CAMINHO QUE NINGUEM PERCORRE.
         e = _executor_da_fase('janela-perfis')
-        self.assertTrue(e.get('envelope_em'),
+        self.assertTrue((e.get('retorno') or {}).get('ENVELOPE'),
                         'o executor do SCRAP deixou de declarar o retorno')
 
     def test_rt07b_quem_nao_declara_envelope_nao_entrega_colheita(self):
@@ -212,22 +235,52 @@ class IdentidadeNaoSeFabrica(unittest.TestCase):
 
     def test_rt10_raw_observation_id_nao_nasce_de_caminho(self):
         """RAW_OBSERVATION_ID = raw_asset.id, e mais nada."""
-        codigo = _fonte('coleta/ingresso.py')
-        self.assertIn('"RAW_OBSERVATION_ID": NAO_SEI_ID', codigo)
+        # ⚠️ A LEI E A MESMA; O MECANISMO QUE A CUMPRIA MUDOU.
+        # Antes, o ingresso carimbava `RAW_OBSERVATION_ID: NAO_SEI_ID` num
+        # segundo balde (`ENTRADOS`). Esse balde era uma SEGUNDA PORTA — so
+        # uma das duas listas passava pelo tradutor do texto — e saiu na
+        # integracao. O carimbo util viaja agora na unidade CANONICA.
+        #
+        # A propriedade que sobrevive e mais forte do que a antiga: o campo
+        # nao e carimbado de todo nesta fronteira, porque quem o cunha e o
+        # banco. Ele NAO esta na lista dos que atravessam.
+        #
+        #     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
+        import coleta.ingresso as _ing
+        self.assertNotIn('RAW_OBSERVATION_ID', _ing.DA_FICHA_PARA_A_PORTA,
+                         'a fronteira voltou a carimbar uma identidade que '
+                         'ela nao cunha')
         no = _funcao('coleta/ingresso.py', 'receber')
         corpo = ast.unparse(no)
         for errado in ('RAW_OBSERVATION_ID": f.SHA256',
-                       'RAW_OBSERVATION_ID": f.STORAGE_LOCATION'):
+                       'RAW_OBSERVATION_ID": f.STORAGE_LOCATION',
+                       "RAW_OBSERVATION_ID': f.SHA256",
+                       "RAW_OBSERVATION_ID': f.STORAGE_LOCATION"):
             self.assertNotIn(errado, corpo)
 
     def test_rt11_o_estagio_atravessa_a_fronteira_do_ingresso(self):
         """O ITEM QUE SAI DO INGRESSO NÃO É O ITEM QUE ENTROU."""
         no = _funcao('orquestrador/orquestrador.py', 'correr')
         corpo = ast.unparse(no)
-        self.assertIn('ENTRADOS', corpo,
+        # ⚠️ ANTES ESTA SENTINELA EXIGIA `ENTRADOS`, o segundo balde do SCRAP.
+        # Ele saiu: duas listas a chegar a quem julga sao duas travessias, e
+        # so uma passa pelo tradutor do texto — a observacao do SCRAP seria
+        # julgada sem o contrato do texto aplicado.
+        #
+        #     UMA SEGUNDA LISTA PARA A ADMISSAO E UMA SEGUNDA PORTA.
+        #
+        # A lei nao mudou, e e a mesma frase do docstring: o item que sai do
+        # ingresso nao e o item que entrou. O que se cobra agora e que quem
+        # julga receba a unidade CANONICA — e nunca a lista original.
+        self.assertIn('PARA_A_PORTA', corpo,
                       'a admissão voltou a receber a lista original')
-        self.assertIn('a_julgar', corpo)
         self.assertNotIn('pela_porta(itens', corpo)
+        # E O FALLBACK AO LEGADO NAO VOLTA. `a_julgar = entrados if entrados
+        # else itens` deixava a lista original alcancavel quando o balde
+        # vinha vazio — um caminho antigo que ninguem via porque so abria no
+        # caso mau.
+        self.assertNotIn('else itens', corpo,
+                         'o fallback ao legado voltou a ser alcancavel')
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -382,8 +435,17 @@ class OCaminhoCorreMesmo(unittest.TestCase):
         self.assertEqual(adm.get('itens'), len(self.env['COLHEITA']))
         # ⚠️ O TAMANHO NÃO CHEGA: a lista original e a que saiu da porta têm o
         # mesmo tamanho e o mesmo aspecto. O que as separa é o carimbo.
-        self.assertEqual(adm.get('COM_CARIMBO_DA_PORTA'), adm.get('itens'),
-                         'a admissão julgou o item ANTES do ingresso')
+        #
+        # O carimbo mudou de sitio, e nao de existencia. Ele vivia num segundo
+        # balde (`ENTRADOS` -> `COM_CARIMBO_DA_PORTA`), que era uma segunda
+        # porta; agora viaja na unidade CANONICA, que e a unica que chega a
+        # quem julga. Cobra-se no sitio onde ele esta.
+        unidades = (self.recibo.get('INGRESSO') or {}).get('PARA_A_PORTA') or []
+        self.assertEqual(len(unidades), adm.get('itens'),
+                         'a admissão julgou uma lista que não é a da porta')
+        self.assertTrue(all(u.get('ARTIFACT_ID') for u in unidades),
+                        'a unidade chegou a quem julga SEM o que a porta '
+                        'provou sobre ela — a porta não aconteceu')
         self.assertTrue(adm.get('por_resultado'), adm)
 
     def test_rt26_o_suporte_nunca_atravessou(self):
@@ -405,10 +467,18 @@ class OCaminhoCorreMesmo(unittest.TestCase):
                                         'PAYLOAD': {'ONDE': '',
                                                     'ESTADO': rc.PAYLOAD_NAO_SE_APLICA}}])
         self.assertTrue(rc.conferir(mau, RAIZ))
+        # ⚠️ A LEI E A MESMA; A MORADA E QUE MUDOU.
+        # O envelope passou a viver numa pasta POR CORRIDA, e a fixture
+        # escrevia no sitio antigo. O leitor resolvia para a pasta da corrida,
+        # encontrava o envelope BOM, e o caso mau nunca chegava a ser lido —
+        # a sentinela passava a guardar outra coisa sem dizer nada.
+        #
+        #     UMA FIXTURE NA MORADA ERRADA NAO TESTA O CASO MAU:
+        #     TESTA O CASO BOM, COM O NOME DO MAU.
         e = dict(_executor_da_fase('janela-perfis'),
-                 envelope_em='data/colheita/scrap/ENVELOPE.json')
-        caminho = os.path.join(self.arvore, 'data', 'colheita', 'scrap',
-                               'ENVELOPE.json')
+                 retorno={'ENVELOPE': 'data/colheita/scrap/ENVELOPE.json'})
+        caminho = os.path.join(self.arvore, rc.endereco_do_envelope(
+            'data/colheita/scrap/ENVELOPE.json', self.env['RUN_ID']))
         original = None
         if os.path.isfile(caminho):
             with io.open(caminho, encoding='utf-8') as f:
@@ -423,7 +493,20 @@ class OCaminhoCorreMesmo(unittest.TestCase):
             finally:
                 orq.RAIZ = antes
             self.assertEqual(itens, [], 'um envelope inválido entregou itens')
-            self.assertIn('CONTRATO', notas)
+                # ⚠️ A RECUSA E A MESMA; A PALAVRA MUDOU.
+            # Esta linha prendia o literal `CONTRATO`. A recusa canonica desta
+            # arvore diz `ENVELOPE_INVALIDO`, e diz mais do que dizia: nomeia o
+            # campo em falta e o porque. Prender a palavra faria a sentinela
+            # reprovar uma recusa MELHOR do que a que ela foi escrita para exigir.
+            #
+            #     UMA GUARDA QUE PRENDE A PALAVRA REPROVA A MELHORIA.
+            #     O QUE SE COBRA E QUE A RECUSA SEJA DITA, E COM MOTIVO.
+            #
+            # O que nao se afrouxa: a nota tem de NOMEAR o que faltou. Uma recusa
+            # sem motivo continua a reprovar aqui.
+            self.assertTrue(notas.strip(), 'a recusa foi silenciosa')
+            self.assertIn('SOURCE_ID', notas,
+                          'a recusa nao diz o que faltou')
         finally:
             if original is not None:
                 with io.open(caminho, 'w', encoding='utf-8') as f:
