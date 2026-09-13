@@ -952,6 +952,42 @@ class UmaFalhaQueSabeChegaComNome(unittest.TestCase):
             cdp.Erro('sem Chrome', cdp.BROWSER_NOT_REACHED))
         self.assertEqual(trace['RECOVERY_ACTION'], 'NEEDS_HUMAN_FIX')
 
+    def test_ns16_e_o_recibo_LEVA_o_que_o_trace_soube(self):
+        """⚠️ CONSERTAR O TRACE É CONSERTAR O TRACE. O QUE ATRAVESSA É O RECIBO.
+
+        Medido na SCRAP-MORNING-01: o trace já dizia `EXECUTOR_UNAVAILABLE`,
+        `NEEDS_HUMAN_FIX` e a frase — e o `RUN_RECEIPT` que viaja no envelope
+        carregava cinco chaves, nenhuma delas a recuperação nem a frase. Quem
+        lesse o envelope via um estado sem saber de quem era a culpa nem o que
+        fazer a seguir.
+
+            UM ESTADO QUE SABE, NUM RECIBO QUE NÃO O LEVA,
+            VOLTA A SER «NÃO SEI» PARA QUEM LÊ.
+        """
+        import cdp
+        _o, trace = self._correr(
+            cdp.Erro('sem Chrome nesta máquina: nenhum Chrome no PATH',
+                     cdp.BROWSER_NOT_REACHED))
+        r = sc.resumo_do_trace(trace)
+        self.assertEqual(r['RESULT'], 'EXECUTOR_UNAVAILABLE')
+        self.assertEqual(r['FAILURE_LAYER'], 'EXECUTOR')
+        self.assertEqual(r['RECOVERY_ACTION'], 'NEEDS_HUMAN_FIX')
+        self.assertEqual(r['NATIVE_REASON'], cdp.BROWSER_NOT_REACHED)
+        self.assertIn('sem Chrome nesta máquina', r['PORQUE'])
+
+    def test_ns17_e_a_frase_viaja_AO_LADO_do_nome_e_nao_dentro(self):
+        """UM NOME E UMA FRASE NÃO CABEM NO MESMO CAMPO.
+
+        `NATIVE_REASON` é procurado numa tabela por `falhas.recuperacao`.
+        Enfiar prosa lá faria a refinação por razão nativa deixar de bater.
+        """
+        import cdp
+        _o, trace = self._correr(
+            cdp.Erro('sem Chrome nesta máquina', cdp.BROWSER_NOT_REACHED))
+        r = sc.resumo_do_trace(trace)
+        self.assertNotIn(' ', r['NATIVE_REASON'])
+        self.assertNotEqual(r['NATIVE_REASON'], r.get('PORQUE'))
+
     def test_ns15_e_isso_vale_para_qualquer_adaptador_nao_so_este(self):
         """O buraco do `setdefault` não era do Instagram: era do roteador.
 

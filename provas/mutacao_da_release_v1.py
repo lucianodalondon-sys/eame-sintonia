@@ -313,6 +313,12 @@ MUTACOES = [
      "    def __exit__(self, *a): return False\n"
      "_TRAVA = _Solta()",
      'duas corridas ao mesmo tempo nao pagam duas vezes'),
+
+    # ── 14 · O RECIBO VOLTA A DEITAR FORA O QUE O TRACE SOUBE ─────────────
+    ('M37 · o recibo deixa de levar a recuperacao e a frase', ADP,
+     "    resumo = {k: trace.get(k) for k in EIXOS_DO_RECIBO if k in trace}",
+     "    resumo = {k: trace.get(k) for k in EIXOS_DO_RECIBO[:5] if k in trace}",
+     'o recibo leva o que o trace soube'),
 ]
 
 

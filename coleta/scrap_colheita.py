@@ -228,10 +228,61 @@ def suporte_do_trace(trace):
              'O_QUE_E': 'o trace da corrida do SCRAP: rota escolhida, estado, '
                         'tetos e custo. Prova da execução, não material observado.',
              'PAYLOAD': {'ONDE': '', 'ESTADO': rc.PAYLOAD_NAO_SE_APLICA},
-             'RESUMO': {k: trace.get(k) for k in
-                        ('RESULT', 'EXECUTOR_ID', 'EXECUTION_MODE',
-                         'NETWORK_REQUESTS_USED', 'COST_STATE')
-                        if k in trace}}]
+             'RESUMO': resumo_do_trace(trace)}]
+
+
+#: Os eixos que o recibo leva, e por que sao estes.
+#:
+#: ⚠️ MEDIDO NA SCRAP-MORNING-01, no portao §2B. A NIGHT-SHIFT-01 consertou o
+#: TRACE — sem Chrome, `instagram.profile.discovery` passou a dizer
+#: `EXECUTOR_UNAVAILABLE` em vez de `UNKNOWN_ERROR`. Mas o recibo que atravessa
+#: para quem le carregava CINCO chaves, e nenhuma delas era a recuperacao nem a
+#: frase. Quem lesse o envelope via um estado sem saber de quem era a culpa nem
+#: o que fazer a seguir:
+#:
+#:     RESULT EXECUTOR_UNAVAILABLE  ·  e mais nada
+#:
+#: Um estado que sabe, num recibo que nao o leva, volta a ser «nao sei» para
+#: quem le.
+#:
+#:     CONSERTAR O TRACE E CONSERTAR O TRACE.
+#:     O QUE ATRAVESSA E O RECIBO.
+#:
+#: Os quatro eixos novos nao sao inventados aqui: `leis/falhas.py` ja os deriva
+#: todos a partir do estado canonico, e `social_rotas.selar()` ja os escreve.
+#: Este ficheiro so deixa de os deitar fora.
+EIXOS_DO_RECIBO = (
+    'RESULT',                 # o estado canonico
+    'EXECUTOR_ID',
+    'EXECUTION_MODE',
+    'NETWORK_REQUESTS_USED',
+    'COST_STATE',             # NOT_RUN != COST 0
+    'FAILURE_LAYER',          # de quem e a culpa — ROTA CAIDA NAO E FONTE CAIDA
+    'RECOVERY_ACTION',        # o que fazer a seguir
+    'NATIVE_REASON',          # o nome nativo, de maquina
+)
+
+
+def resumo_do_trace(trace):
+    """O que o recibo leva de uma corrida. → o resumo, sem nada inventado.
+
+    A frase de gente viaja ao lado dos nomes, e nunca dentro deles:
+
+        STATE          o estado canonico       EXECUTOR_UNAVAILABLE
+        NATIVE_REASON  o nome, de maquina      BROWSER_NOT_REACHED
+        PORQUE         a frase, de gente       «sem Chrome nesta maquina: ...»
+
+    UM NOME E UMA FRASE NAO CABEM NO MESMO CAMPO.
+
+    A frase vem de `ROUTER_RECORD.ERRO`, que `social_rotas` ja REDIGIU — um
+    traceback de `urllib` carrega a URL, e a URL pode carregar o token. Copia-la
+    de outro sitio seria copia-la por redigir.
+    """
+    resumo = {k: trace.get(k) for k in EIXOS_DO_RECIBO if k in trace}
+    porque = ((trace.get('ROUTER_RECORD') or {}).get('ERRO'))
+    if porque:
+        resumo['PORQUE'] = porque
+    return resumo
 
 
 def colher(fase, *, run_id, fonte, banco=None, **extra):
