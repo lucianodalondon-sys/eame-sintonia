@@ -66,6 +66,7 @@ on:
       - 'provas/o_dedupe_tem_constraint.py'
       - 'provas/inventario_esperado.py'
       - 'motor/cadeia_canonica.sh'
+      - 'provas/recuperacao_provada_no_postgres.py'
       - 'provas/trava_de_drift_de_migration.sh'
       - '.github/workflows/banco-descartavel.yml'
   workflow_dispatch:
@@ -297,6 +298,32 @@ jobs:
       - name: 2i · toda clausula `on conflict` tem chave que a sustente
         if: always()
         run: python3 provas/o_dedupe_tem_constraint.py
+
+      # ═══════════════════════════════════════════════════════════════
+      # BACKUP EXISTE != RESTORE PROVADO.
+      #
+      # Ate aqui este workflow provava que as migrations APLICAM. Nao havia
+      # uma linha em lado nenhum a provar que, se uma aplicacao corresse mal,
+      # se conseguia voltar atras. Um backup que nunca foi restaurado e uma
+      # hipotese, e uma hipotese nao autoriza tocar em producao.
+      #
+      # A prova constroi a bancada pela cadeia canonica, escreve sentinelas
+      # SINTETICAS (nenhum corpus real atravessa para aqui), faz o backup,
+      # DESTROI o banco de proposito, restaura num banco vazio e confere a
+      # impressao inteira numa sessao que o servidor RECUSA para escrita.
+      #
+      #     RESTAURAR POR CIMA DO QUE AINDA EXISTE NAO PROVA NADA.
+      #
+      # `if: always()` aqui NAO contorna dependencia nenhuma: esta prova cria
+      # e deita fora os proprios bancos (`recuperacao`, `recuperacao_vazia`,
+      # `recuperacao_ataque`) e nao le nada que os passos acima deixem. Se o
+      # `2b` rebentar, a pergunta «conseguimos voltar atras?» continua a ser
+      # exactamente a que tem de ser respondida.
+      - name: 2j · o backup volta, e o banco destruido volta inteiro
+        if: always()
+        run: python3 provas/recuperacao_provada_no_postgres.py
+        env:
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/recuperacao
 
       - name: 3 · a prova recusa-se a correr fora de um banco descartável
         if: always()

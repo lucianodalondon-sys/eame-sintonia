@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/live-preflight-readonly-v1",
-    "HEAD": "36f007268c50a8f10921ff2440effece3f6bcf8e",
-    "GENERATED_AT": "2026-09-13T12:05:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b0b596bf5243cfe3c336a7e1c649ca428be8eea3a75f0506f362971347d75c73"
+    "BRANCH": "claude/recovery-proof-before-live-v1-3sszpj",
+    "HEAD": "903e18605e3fb3e66b616974aa80ff07835dc5d8",
+    "GENERATED_AT": "2026-09-13T12:06:52+00:00",
+    "SOURCE_TREE_FINGERPRINT": "87ba6a6b0b865f9430e57ce8f72011abe434dfbf203bf2d1073d5ee55fe122ba"
   },
   "FILES": [
     {
@@ -66,7 +66,7 @@
     },
     {
       "path": ".github/workflows/banco-descartavel.yml",
-      "sha": "116e375cc371761f536e77bf8c77c9b18762f8c0",
+      "sha": "9c4452c59d81a6043844b92f4e27a04c6e96994b",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4944,6 +4944,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/RECOVERY-PROOF-BEFORE-LIVE-V1.md",
+      "sha": "377ee303c9c549f6e163c0603e81a6e810d08449",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "sha": "1364610433c216c946c1ca6e279eb10f17207668",
       "ext": ".md",
@@ -5544,6 +5551,13 @@
       "ext": ".py",
       "readable": true,
       "code_dir": true
+    },
+    {
+      "path": "handoff/KNOW-HOW-DELTA-107-RECUPERACAO.md",
+      "sha": "ca3760dd5cf2ad20676457440ef80191b94310b6",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
     },
     {
       "path": "handoff/S2A-R-RECONCILIACAO.md",
@@ -8332,6 +8346,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/recuperacao_provada_no_postgres.py",
+      "sha": "6665874e45b1f3aa4530de04263040bd4bdae1f9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/rls_censo_metadados.sql",
       "sha": "503192dfd1c8d28100c71428dd484b7dc000de50",
       "ext": ".sql",
@@ -9614,7 +9635,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "8a13c0b7294a45df733e32bb5ef6e6b070620e33",
+      "sha": "5e4da2d471e6b92f253262a9430933db55f6da6f",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9628,7 +9649,7 @@
     },
     {
       "path": "system-map/data/fronteira.observada.json",
-      "sha": "0471d90472a1a5d8234d4ef5020cadcb1b9f4538",
+      "sha": "e1c9908f33bc1421858c31343a8d234918a5a838",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10799,7 +10820,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 290,
+        "line": 291,
         "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
       }
     },
@@ -10810,7 +10831,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 175,
+        "line": 176,
         "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
       }
     },
@@ -10821,7 +10842,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 162,
+        "line": 163,
         "snippet": "run: python3 provas/a_lei_da_fase_10.py"
       }
     },
@@ -10832,7 +10853,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 274,
+        "line": 275,
         "snippet": "python3 provas/a_rota_m2_atravessa.py"
       }
     },
@@ -10843,7 +10864,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 134,
+        "line": 135,
         "snippet": "python3 provas/derived_artifact_no_postgres.py"
       }
     },
@@ -10854,7 +10875,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 299,
+        "line": 300,
         "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
       }
     },
@@ -10865,7 +10886,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 265,
+        "line": 266,
         "snippet": "python3 provas/o_forward_conta_se.py"
       }
     },
@@ -10876,7 +10897,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 149,
+        "line": 150,
         "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
       }
     },
@@ -10887,7 +10908,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 121,
+        "line": 122,
         "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
       }
     },
@@ -10898,8 +10919,19 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 239,
+        "line": 240,
         "snippet": "python3 provas/rastro_no_postgres.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/banco-descartavel.yml",
+      "to_file": "provas/recuperacao_provada_no_postgres.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/banco-descartavel.yml",
+        "line": 324,
+        "snippet": "run: python3 provas/recuperacao_provada_no_postgres.py"
       }
     },
     {
@@ -10909,7 +10941,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 215,
+        "line": 216,
         "snippet": "python3 provas/social_persistencia_no_postgres.py"
       }
     },
@@ -10920,7 +10952,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/banco-descartavel.yml",
-        "line": 183,
+        "line": 184,
         "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
       }
     },
@@ -31110,6 +31142,28 @@
       }
     },
     {
+      "from_file": "provas/recuperacao_provada_no_postgres.py",
+      "to_file": "motor/cadeia_canonica.sh",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recuperacao_provada_no_postgres.py",
+        "line": 63,
+        "snippet": "CADEIA_CANONICA = os.path.join(RAIZ, \"motor/cadeia_canonica.sh\")"
+      }
+    },
+    {
+      "from_file": "provas/recuperacao_provada_no_postgres.py",
+      "to_file": "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recuperacao_provada_no_postgres.py",
+        "line": 65,
+        "snippet": "RAIZ, \"supabase/migrations/008_verificacao_pos_aplicacao.sql\")"
+      }
+    },
+    {
       "from_file": "provas/so_a_colheita_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -42068,10 +42122,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1534,
-    "files_readable": 601,
-    "files_code_dir": 649,
-    "file_edges": 2803,
+    "files_tracked": 1537,
+    "files_readable": 602,
+    "files_code_dir": 650,
+    "file_edges": 2806,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },

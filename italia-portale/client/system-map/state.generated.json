@@ -729,6 +729,7 @@
       "docs/operacao/PREFLIGHT-LIVE-READONLY-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
+      "docs/operacao/RECOVERY-PROOF-BEFORE-LIVE-V1.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
@@ -823,6 +824,7 @@
       "guarda/sql_conferir.py"
     ],
     "handoff": [
+      "handoff/KNOW-HOW-DELTA-107-RECUPERACAO.md",
       "handoff/S2A-R-RECONCILIACAO.md",
       "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
       "handoff/SYSTEM-MAP-SM-P1.md",
@@ -1240,6 +1242,7 @@
       "provas/qualidade_t3.py",
       "provas/rastro_no_postgres.py",
       "provas/readback_022_live.sh",
+      "provas/recuperacao_provada_no_postgres.py",
       "provas/rls_censo_metadados.sql",
       "provas/rls_censo_portao.py",
       "provas/so_a_colheita_atravessa.py",
@@ -1981,10 +1984,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/live-preflight-readonly-v1",
-    "HEAD": "36f007268c50a8f10921ff2440effece3f6bcf8e",
-    "GENERATED_AT": "2026-09-13T12:05:22+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b0b596bf5243cfe3c336a7e1c649ca428be8eea3a75f0506f362971347d75c73"
+    "BRANCH": "claude/recovery-proof-before-live-v1-3sszpj",
+    "HEAD": "903e18605e3fb3e66b616974aa80ff07835dc5d8",
+    "GENERATED_AT": "2026-09-13T12:06:52+00:00",
+    "SOURCE_TREE_FINGERPRINT": "87ba6a6b0b865f9430e57ce8f72011abe434dfbf203bf2d1073d5ee55fe122ba"
   },
   "FAMILIES": [
     {
@@ -2053,7 +2056,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 61
+      "count": 62
     },
     {
       "id": "F-ENTREGA",
@@ -2423,7 +2426,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 47
+      "count": 48
     }
   ],
   "DEPARTMENTS": {
@@ -6076,6 +6079,7 @@
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-PROVA-COLETA",
+        "C-PROVA-RECUPERACAO",
         "C-PROVENIENCIA",
         "C-REGRA-COLETA",
         "C-SUPABASE",
@@ -7069,6 +7073,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-DEDUPE",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-RECUPERACAO",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-REGRA-COLETA",
         "C-TESTES"
@@ -12883,6 +12888,62 @@
       "y": 4224
     },
     {
+      "id": "C-PROVA-RECUPERACAO",
+      "name": "Prova de recuperacao",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Constroi uma bancada pela cadeia canonica, escreve sentinelas sinteticas, tira a impressao, faz o backup, DESTROI o banco de proposito, restaura num banco vazio e confere tudo em sessao so-leitura — com vinte ataques a tentar produzir um verde falso.",
+      "why_here": "Havia backup por hipotese e nenhum restauro exercido. BACKUP EXISTE nao e RESTORE PROVADO, e so a segunda frase autoriza aplicar migration em producao.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/recuperacao_provada_no_postgres.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CADEIA-V21",
+        "C-CI-PERSIST",
+        "C-SUPABASE"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CONSULTAS",
+          "TABELAS_DA_COLLECTION"
+        ],
+        "palavras": 14,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 14,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20850,
+      "y": 4224
+    },
+    {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
       "name": "A prova de que a rota da M2 atravessa",
       "territory": "Z-PROVA",
@@ -12940,8 +13001,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -12999,7 +13060,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -13052,7 +13113,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13115,8 +13176,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-PROVENIENCIA",
@@ -13274,8 +13335,8 @@
       "icon": "◈",
       "territory": "Z-ESPERA",
       "family": "F-ESPERA",
-      "status": "PENDING",
-      "ui_status": "yellow",
+      "status": "PROVEN",
+      "ui_status": "green",
       "proof": "git-measurement",
       "lane": "official",
       "legacy": false,
@@ -13293,15 +13354,15 @@
       ],
       "outbound": [],
       "evidence_text": "provas/a_fronteira_da_coleta.py",
-      "what": "O contrato de saida da coleta: 11 campos fixos, declarados na COL-LAW-043 e devolvidos por admissao/admissao.py :: pronto_para_inteligencia(). A inteligencia recebe isto e mais nada — nao sabe que raspador trouxe, nem que remendo foi preciso. Produtores em runtime: 1. Consumidores: 0.",
+      "what": "O contrato de saida da coleta: 11 campos fixos, declarados na COL-LAW-043 e devolvidos por admissao/admissao.py :: pronto_para_inteligencia(). A inteligencia recebe isto e mais nada — nao sabe que raspador trouxe, nem que remendo foi preciso. Produtores em runtime: 2. Consumidores: 4.",
       "why_here": "A faixa «A ESPERA» define-se como «o que ja passou por toda a coleta e ainda nao entrou na inteligencia» — que e o READY, palavra por palavra. Ela estava ocupada pela Z-GUARDA, que guarda os donos do RAW e do DERIVED (etapas 5 e 6 das nove, provadas em provas/a_rota_m2_atravessa.py A3 e A4) e portanto e COLETA. A sala de espera existia no mapa com os inquilinos errados, e o inquilino certo nao tinha cartao nenhum.",
       "facts": [
         "a lei e o codigo declaram os mesmos campos: SIM (11 campos)",
-        "produtores em runtime: orquestrador/orquestrador.py — e e um CLI, nao um workflow",
-        "consumidores: NENHUM",
+        "produtores em runtime: coleta/rota_forward_documento.py, orquestrador/orquestrador.py — e e um CLI, nao um workflow",
+        "consumidores: admissao/sala_de_espera.py, provas/a_sala_de_espera_nao_tem_morada.py, tests/test_a_sala_de_espera_nao_tem_morada.py, tests/test_a_sala_de_espera_tem_um_dono.py",
         "destino declarado data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json existe: NAO"
       ],
-      "status_reason": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. UMA PORTA POR ONDE NINGUEM PASSOU AINDA NAO E UMA PORTA.",
+      "status_reason": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. E ja ha quem leia uma saida que ninguem escreve: admissao/sala_de_espera.py, provas/a_sala_de_espera_nao_tem_morada.py, tests/test_a_sala_de_espera_nao_tem_morada.py, tests/test_a_sala_de_espera_tem_um_dono.py.",
       "gap": "READY_NUNCA_PRODUZIDO",
       "produces": [],
       "paises": {},
@@ -13366,7 +13427,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -13516,7 +13577,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -13658,8 +13719,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -14475,7 +14536,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 5190
     },
     {
@@ -14816,6 +14877,7 @@
         "C-MAPA-GERADOR",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-RECUPERACAO",
         "C-REGRA-COLETA",
         "C-ROTULOS",
         "C-TESTES"
@@ -16274,7 +16336,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -17619,7 +17681,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/live-preflight-readonly-v1"
+        "branch claude/recovery-proof-before-live-v1-3sszpj"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20001,6 +20063,24 @@
     },
     {
       "from": "C-CADEIA-V21",
+      "to": "C-PROVA-RECUPERACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 alimenta Prova de recuperacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/recuperacao_provada_no_postgres.py",
+          "line": 63,
+          "snippet": "CADEIA_CANONICA = os.path.join(RAIZ, \"motor/cadeia_canonica.sh\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-CADEIA-V21",
       "to": "C-PROVENIENCIA",
       "type": "RUNS",
       "payload": "execucao",
@@ -21347,7 +21427,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 290,
+          "line": 291,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -21370,42 +21450,42 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 121,
+          "line": 122,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 134,
+          "line": 135,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 149,
+          "line": 150,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 162,
+          "line": 163,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 175,
+          "line": 176,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 183,
+          "line": 184,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 215,
+          "line": 216,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 239,
+          "line": 240,
           "snippet": "python3 provas/rastro_no_postgres.py"
         }
       ],
@@ -21423,7 +21503,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 299,
+          "line": 300,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -21441,11 +21521,29 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 265,
+          "line": 266,
           "snippet": "python3 provas/o_forward_conta_se.py"
         }
       ],
       "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-RECUPERACAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar Prova de recuperacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 324,
+          "snippet": "run: python3 provas/recuperacao_provada_no_postgres.py"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CI-PERSIST",
@@ -21459,7 +21557,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 274,
+          "line": 275,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -32256,6 +32354,24 @@
     },
     {
       "from": "C-SUPABASE",
+      "to": "C-PROVA-RECUPERACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta Prova de recuperacao. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/recuperacao_provada_no_postgres.py",
+          "line": 65,
+          "snippet": "RAIZ, \"supabase/migrations/008_verificacao_pos_aplicacao.sql\")"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SUPABASE",
       "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -33786,7 +33902,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 771,
+  "UNCLAIMED_FILES_COUNT": 773,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33941,17 +34057,17 @@
     ]
   },
   "COUNTS": {
-    "components": 167,
-    "components_proven": 58,
+    "components": 168,
+    "components_proven": 59,
     "components_pending": 103,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 719,
-    "edges_proven": 717,
+    "edges": 722,
+    "edges_proven": 720,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1534,
-    "files_covered": 763,
+    "files_tracked": 1537,
+    "files_covered": 764,
     "files_code_unclaimed": 0
   }
 }

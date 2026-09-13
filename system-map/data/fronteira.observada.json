@@ -32,18 +32,30 @@
  "LEI_E_CODIGO_BATEM": true,
  "DONO": "admissao/admissao.py :: pronto_para_inteligencia()",
  "PRODUTORES": [
+  "coleta/rota_forward_documento.py",
   "orquestrador/orquestrador.py",
+  "provas/a_sala_de_espera_nao_tem_morada.py",
   "provas/so_a_colheita_atravessa.py",
   "provas/testa_coleta_canonica.py",
-  "tests/test_fronteira_mede_producao.py"
+  "tests/test_a_sala_de_espera_nao_tem_morada.py",
+  "tests/test_a_sala_de_espera_tem_um_dono.py",
+  "tests/test_fronteira_mede_producao.py",
+  "tests/test_o_canario_da_collection.py",
+  "tests/test_o_pedido_t4_atravessa.py"
  ],
  "PRODUTORES_EM_RUNTIME": [
+  "coleta/rota_forward_documento.py",
   "orquestrador/orquestrador.py"
  ],
- "CONSUMIDORES": [],
+ "CONSUMIDORES": [
+  "admissao/sala_de_espera.py",
+  "provas/a_sala_de_espera_nao_tem_morada.py",
+  "tests/test_a_sala_de_espera_nao_tem_morada.py",
+  "tests/test_a_sala_de_espera_tem_um_dono.py"
+ ],
  "DESTINO": "data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json",
  "DESTINO_EXISTE": false,
  "READY_PRODUZIDO": false,
  "GAP": "READY_NUNCA_PRODUZIDO",
- "GAP_PORQUE": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. UMA PORTA POR ONDE NINGUEM PASSOU AINDA NAO E UMA PORTA."
+ "GAP_PORQUE": "o contrato existe, tem dono e o codigo devolve exactamente os campos da lei — e NUNCA foi produzido um READY. O destino declarado nao existe nesta arvore. E ja ha quem leia uma saida que ninguem escreve: admissao/sala_de_espera.py, provas/a_sala_de_espera_nao_tem_morada.py, tests/test_a_sala_de_espera_nao_tem_morada.py, tests/test_a_sala_de_espera_tem_um_dono.py."
 }

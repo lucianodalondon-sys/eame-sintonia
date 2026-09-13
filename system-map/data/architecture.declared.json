@@ -1892,6 +1892,24 @@
    ]
   },
   {
+   "id": "C-PROVA-RECUPERACAO",
+   "name": "Prova de recuperacao",
+   "territory": "Z-PROVA",
+   "kind": "test",
+   "icon": "✓",
+   "what": "Constroi uma bancada pela cadeia canonica, escreve sentinelas sinteticas, tira a impressao, faz o backup, DESTROI o banco de proposito, restaura num banco vazio e confere tudo em sessao so-leitura — com vinte ataques a tentar produzir um verde falso.",
+   "why_here": "Havia backup por hipotese e nenhum restauro exercido. BACKUP EXISTE nao e RESTORE PROVADO, e so a segunda frase autoriza aplicar migration em producao.",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "provas/recuperacao_provada_no_postgres.py"
+   ],
+   "views": [
+    "audit"
+   ]
+  },
+  {
    "id": "C-CENSO-COLETA",
    "name": "Censo da coleta",
    "territory": "Z-PROVA",
