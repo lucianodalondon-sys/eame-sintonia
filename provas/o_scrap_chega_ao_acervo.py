@@ -292,6 +292,11 @@ def uma_corrida(url, shim, etiqueta):
         m['DERIVED_MOTIVOS'] = sorted({r.get('MOTIVO_DO_EXECUTOR')
                                        for r in (d.get('RESULTADOS') or [])
                                        if r.get('MOTIVO_DO_EXECUTOR')})
+        # A razão de uma etapa que NÃO SE APLICA não vive nos resultados —
+        # não há resultado nenhum. Ela vem do runner, que a escreveu.
+        m['DERIVED_PORQUE'] = d.get('PORQUE') if isinstance(
+            d.get('PORQUE'), list) else ([d['PORQUE']] if d.get('PORQUE') else [])
+        m['DERIVED_APLICABILIDADE'] = d.get('APLICABILIDADE', 'APPLICABLE')
         m['STRUCTURED_CHAMADO'] = bool((recibo.get('ESTRUTURACAO')
                                         or {}).get('CHAMADO'))
 
@@ -577,40 +582,59 @@ def main():
         'kind=%s lang=%s preservados'
         % (b.get('TEXT_KIND_PRESERVED'), b.get('LANGUAGE_PRESERVED')))
 
-    # ── UMA DÍVIDA MEDIDA, E DECLARADA COM O DONO ───────────────────────
-    # A etapa DERIVED sai `FAIL` nas DUAS corridas, com `EXTRACTION_ERROR`:
-    # `orquestrador.pela_derivacao` manda TODA observação preservada ao runner
-    # do DERIVED, e esse runner é o documental — ele abre um PDF. A uma
-    # observação SOCIAL, que é um JSON e cujo texto já vem no envelope, não há
-    # PDF nenhum para abrir, e a ferramenta falha por não ter sujeito.
+    # ── A ETAPA QUE NÃO SE APLICA, E QUE AGORA DIZ ISSO ──────────────────
+    # ⚠️ AQUI VIVIA UMA DÍVIDA, E ELA FOI PAGA. A etapa `DERIVED` saía `FAIL`
+    # com `EXTRACTION_ERROR` nas DUAS corridas, porque
+    # `coleta/ingresso.py::unidades_para_a_derivacao` mandava ao extrator de PDF
+    # toda observação cujos bytes estivessem alcançáveis — sem perguntar de que
+    # ESPÉCIE eram. Uma observação social é um JSON com o texto já declarado
+    # dentro; não há PDF nenhum para abrir.
     #
-    # ⚠️ E ISTO NÃO É DA INTEGRAÇÃO DO SCRAP. Medido contra `974e39a6`:
-    # `coleta/derivacao_forward.py` e `coleta/executor_texto_de_pdf.py` estão
-    # BYTE A BYTE iguais, e `pela_derivacao` é IDÊNTICA por AST. O SCRAP é a
-    # primeira rota social a percorrer a estrada canónica com armazém real, e
-    # por isso é a primeira a acender esta luz.
+    #     ALCANÇAR OS BYTES NÃO É SABER O QUE ELES SÃO.
+    #     UMA FERRAMENTA QUE RECEBE O QUE NÃO SABE ABRIR NÃO FALHOU:
+    #     FOI CHAMADA PARA O TRABALHO ERRADO.
     #
-    #     A INTEGRAÇÃO NÃO ABRIU ESTE BURACO: FOI O PRIMEIRO CARRO A CAIR
-    #     NELE. REVELAR != CAUSAR, E CONFUNDIR OS DOIS FAZ CULPAR QUEM MEDIU.
+    # O conserto não inventou estado nem rota: o executor JÁ declarava o que
+    # sabe abrir (`CAPACIDADE["SUPPORTS"] = ["PDF_RAW"]`) e essa declaração
+    # tinha ZERO leitores em toda a árvore. A porta passou a lê-la.
     #
-    # O que esta prova exige HOJE não é que o buraco feche — não é missão
-    # desta. É que ele não engula a observação: um DERIVED em erro não pode
-    # fazer o RAW desaparecer, nem calar a admissão, nem esvaziar a sala.
+    #     UMA CAPACIDADE DECLARADA QUE NINGUÉM LÊ NÃO GUARDA NADA.
     #
-    #     UMA ETAPA QUE FALHA PODE PARAR A ESTRADA. NÃO PODE APAGÁ-LA.
+    # E o estado também já existia: `NOT_APPLICABLE`, em
+    # `leis/telemetria.py::ESTADOS_DE_ETAPA` — «não existe nesta rota, com razão
+    # escrita» — e `ETAPA_ACONTECEU = ('PASS','PARTIAL')` já o exclui de contar
+    # como sucesso.
+    #
+    # O QUE ESTA SECÇÃO GUARDA AGORA são as três bordas, e não uma:
+    #
+    #     NOT_APPLICABLE != FAIL    a etapa não se partiu
+    #     NOT_APPLICABLE != PASS    e também não aconteceu
+    #     NOT_APPLICABLE != SILÊNCIO a passagem FICA ESCRITA no rastro
+    #
+    # A terceira é a que se perde mais facilmente: bastava não chamar o runner
+    # e a corrida saía sem linha `DERIVED` nenhuma — que se lê, três meses
+    # depois, como «ninguém sabe se aquela etapa correu».
     print('\n' + '=' * 74)
-    print('A DÍVIDA QUE ESTA CORRIDA ACENDEU, E QUE NÃO É DESTA INTEGRAÇÃO')
-    print('  DERIVED_ESTADO = %s · MOTIVO = %s' % (b.get('DERIVED_ESTADO'),
-                                                   b.get('DERIVED_MOTIVOS')))
-    print('  DONO = orquestrador.pela_derivacao + coleta/derivacao_forward.py')
-    print('  ORIGEM = anterior a 974e39a6 (código idêntico; ver o comentário)')
-    diz(b.get('DERIVED_ESTADO') == 'FAIL'
-        and b.get('DERIVED_MOTIVOS') == ['EXTRACTION_ERROR'],
-        'a dívida está onde foi medida (e não noutro sítio)',
-        '%s · %s' % (b.get('DERIVED_ESTADO'), b.get('DERIVED_MOTIVOS')))
+    print('A ETAPA QUE NÃO SE APLICA — E QUE MESMO ASSIM SE CONTA')
+    print('  DERIVED_ESTADO = %s · PORQUE = %s' % (b.get('DERIVED_ESTADO'),
+                                                   b.get('DERIVED_PORQUE')))
+    print('  ETAPAS NO RASTRO = %s' % b.get('ETAPAS'))
+    for etiqueta, m in (('A', a), ('B', b)):
+        diz(m.get('DERIVED_ESTADO') == 'NOT_APPLICABLE',
+            'caso %s · DERIVED diz NOT_APPLICABLE' % etiqueta,
+            m.get('DERIVED_ESTADO'))
+        diz(m.get('DERIVED_ESTADO') not in ('FAIL', 'PASS'),
+            'caso %s · e não se veste de FAIL nem de PASS' % etiqueta,
+            m.get('DERIVED_ESTADO'))
+        diz(m.get('DERIVED_PORQUE') == ['DERIVACAO_ESPECIE_NAO_SUPORTADA'],
+            'caso %s · com a razão ESCRITA, e nomeada' % etiqueta,
+            m.get('DERIVED_PORQUE'))
+        diz(any(str(e).startswith('DERIVED=') for e in (m.get('ETAPAS') or [])),
+            'caso %s · e a passagem fica no rastro, não em silêncio' % etiqueta,
+            m.get('ETAPAS'))
     diz(b.get('RAW_OBSERVATIONS', 0) >= 1 and b.get('READY_COUNT', 0) >= 1
         and b.get('SALA_DE_ESPERA') == 'CHEGOU',
-        'e um DERIVED em erro NÃO apaga o RAW, nem o READY, nem a sala',
+        'e a estrada segue: RAW, READY e sala intactos',
         'raw=%s ready=%s sala=%s' % (b.get('RAW_OBSERVATIONS'),
                                      b.get('READY_COUNT'),
                                      b.get('SALA_DE_ESPERA')))
@@ -636,7 +660,8 @@ def main():
                   'SALA_UNIDADES', 'SALA_RUN_ID_BATE',
                   'READY_CAMPOS_N', 'READY_TODOS_COM_11', 'READY_ESTADO',
                   'READY_CORRIDA_BATE', 'READY_SOURCE_ID_DECLARADO',
-                  'ETAPAS', 'DERIVED_ESTADO',
+                  'ETAPAS', 'DERIVED_ESTADO', 'DERIVED_APLICABILIDADE',
+                  'DERIVED_PORQUE',
                   'DERIVED_BALDES', 'DERIVED_MOTIVOS', 'STRUCTURED_CHAMADO',
                   'REAL_NETWORK', 'PAID_USD'):
             print('  %-28s = %s' % (k, m.get(k, 'NAO SEI')))

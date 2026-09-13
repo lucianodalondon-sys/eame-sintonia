@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "d10fbd691ce08d7128f8d22f18e1675939d64a08",
+    "HEAD": "4a7154cda8410ae63d31e5214d90f7b6ed265e65",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4232,6 +4232,43 @@
       ]
     },
     {
+      "endpoint": "https://www.instagram.com/p",
+      "usado_por": [
+        {
+          "file": "coleta/instagram_coleta.py",
+          "line": 183
+        },
+        {
+          "file": "coleta/instagram_diario.py",
+          "line": 484
+        },
+        {
+          "file": "coleta/instagram_janela.py",
+          "line": 673
+        },
+        {
+          "file": "ferramentas/reel_transcricao.py",
+          "line": 336
+        },
+        {
+          "file": "provas/_e2e01_janela_admissivel.py",
+          "line": 71
+        },
+        {
+          "file": "provas/_e2e02_janela_dois_posts.py",
+          "line": 37
+        },
+        {
+          "file": "provas/_flow01_janela_falsa.py",
+          "line": 21
+        },
+        {
+          "file": "tests/test_scrap_flow01_caminho_canonico.py",
+          "line": 219
+        }
+      ]
+    },
+    {
       "endpoint": "https://exemplo.it/%s",
       "usado_por": [
         {
@@ -4298,39 +4335,6 @@
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
           "line": 305
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.instagram.com/p",
-      "usado_por": [
-        {
-          "file": "coleta/instagram_coleta.py",
-          "line": 183
-        },
-        {
-          "file": "coleta/instagram_diario.py",
-          "line": 484
-        },
-        {
-          "file": "coleta/instagram_janela.py",
-          "line": 673
-        },
-        {
-          "file": "ferramentas/reel_transcricao.py",
-          "line": 336
-        },
-        {
-          "file": "provas/_e2e01_janela_admissivel.py",
-          "line": 71
-        },
-        {
-          "file": "provas/_flow01_janela_falsa.py",
-          "line": 21
-        },
-        {
-          "file": "tests/test_scrap_flow01_caminho_canonico.py",
-          "line": 219
         }
       ]
     },

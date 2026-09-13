@@ -352,7 +352,66 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
 #                               o endereco fisico daquele byte
 #
 # Nenhum dos dois e inventado aqui, e nenhum e derivado do outro.
+#: Os executores de derivação cujas capacidades esta porta consulta. Hoje é um;
+#: a lista existe para o segundo entrar sem ninguém tocar na regra de cima.
+#:
+#: O import é LOCAL e protegido: esta porta corre em contextos onde o executor
+#: pode não estar importável (uma prova que copia meia árvore, por exemplo), e
+#: um `ImportError` aqui faria a coleta parar por causa de uma PERGUNTA sobre
+#: capacidade. Sem a declaração, `_quem_deriva_aceita` responde True — que é o
+#: comportamento de sempre, e o seguro.
+def _capacidades_de_derivacao():
+    try:
+        import executor_texto_de_pdf as _ex
+    except Exception:                                          # noqa: BLE001
+        return ()
+    cap = getattr(_ex, "CAPACIDADE", None)
+    return (cap,) if isinstance(cap, dict) else ()
+
+
 DERIVACAO_SEM_BYTES_LOCAIS = "DERIVACAO_SEM_BYTES_LOCAIS"
+#: A espécie dos bytes foi DECLARADA, e nenhum executor de derivação a sabe
+#: abrir. NÃO é erro, NÃO é recusa e NÃO é ausência: é uma etapa que não se
+#: aplica a esta observação.
+#:
+#:     NOT_APPLICABLE != FAIL. NOT_APPLICABLE != PASS.
+DERIVACAO_ESPECIE_NAO_SUPORTADA = "DERIVACAO_ESPECIE_NAO_SUPORTADA"
+
+
+def _quem_deriva_aceita(media_type) -> bool:
+    """A espécie declarada cabe em algum executor de derivação? → True/False.
+
+    A pergunta é feita AO DONO DA CAPACIDADE, e não a uma lista escrita aqui.
+    `coleta/executor_texto_de_pdf.py::CAPACIDADE` declara o que sabe abrir; esta
+    porta lê essa declaração. Repetir aqui «application/pdf» seria um SEGUNDO
+    dono da mesma pergunta, e no dia em que entrasse um executor de áudio os
+    dois divergiam em silêncio.
+
+        ONE CONCEPT -> ONE OWNER. QUEM SABE ABRIR É QUEM DIZ O QUE ABRE.
+
+    ⚠️ AUSÊNCIA NÃO É RECUSA, e a diferença decide o comportamento:
+
+        espécie DECLARADA e suportada      -> deriva
+        espécie DECLARADA e não suportada  -> não deriva, e diz-se porquê
+        espécie NÃO DECLARADA              -> deriva, como sempre derivou
+
+    O terceiro caso é o que impede esta função de encolher a coleta por
+    silêncio. Sem `media_type` na linha, esta casa não sabe o que são aqueles
+    bytes — e «não sei» nunca autoriza a concluir «não serve». Tenta-se, e o
+    executor responde honestamente o que encontrou.
+
+        AUSÊNCIA DE EVIDÊNCIA NÃO É EVIDÊNCIA DE AUSÊNCIA.
+    """
+    if media_type is None or not str(media_type).strip():
+        return True
+    tipo = str(media_type).split(";")[0].strip().lower()
+    if tipo in _SENTINELAS or tipo.upper() in _SENTINELAS:
+        return True
+    for cap in _capacidades_de_derivacao():
+        aceita = cap.get("ACEITA_MEDIA_TYPES") or ()
+        if tipo in tuple(str(a).strip().lower() for a in aceita):
+            return True
+    return False
 
 
 def unidades_para_a_derivacao(recibo, armazem) -> tuple:
@@ -385,6 +444,28 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
             sem_bytes.append({"RAW_ASSET_ID": o.get("RAW_OBSERVATION_ID"),
                               "STORAGE_PATH": caminho,
                               "PORQUE": DERIVACAO_SEM_BYTES_LOCAIS})
+            continue
+        # ── E A SEGUNDA PERGUNTA, QUE FALTAVA ───────────────────────────
+        # Ter os bytes não é saber o que eles são. Uma observação social — um
+        # JSON cujo texto já vem declarado no envelope — tem bytes perfeitamente
+        # alcançáveis e NADA que um extrator de PDF possa fazer com eles.
+        #
+        # Medido antes desta linha existir: a etapa DERIVED saía `FAIL` com
+        # `EXTRACTION_ERROR` em TODA corrida do SCRAP, porque a ferramenta certa
+        # era chamada para o trabalho errado.
+        #
+        #     UMA FERRAMENTA QUE RECEBE O QUE NÃO SABE ABRIR NÃO FALHOU:
+        #     FOI CHAMADA PARA O TRABALHO ERRADO.
+        #
+        # E a saída dela NÃO é `FAIL`: é uma etapa que não se aplica a esta
+        # observação. `NOT_APPLICABLE` já existe no vocabulário canónico
+        # (`leis/telemetria.py::ESTADOS_DE_ETAPA`), e `ETAPA_ACONTECEU` já o
+        # exclui — não se inventa estado nenhum aqui.
+        if not _quem_deriva_aceita(o.get("MEDIA_TYPE")):
+            sem_bytes.append({"RAW_ASSET_ID": o.get("RAW_OBSERVATION_ID"),
+                              "STORAGE_PATH": caminho,
+                              "MEDIA_TYPE": o.get("MEDIA_TYPE"),
+                              "PORQUE": DERIVACAO_ESPECIE_NAO_SUPORTADA})
             continue
         unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
                          "PDF": local})

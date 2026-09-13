@@ -367,6 +367,71 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
     return recibo
 
 
+def nao_se_aplica(nao_derivaveis, *, banco_do_rastro, run_id,
+                  source_id=None, route_class_id=None, tentativa=None) -> dict:
+    """A etapa DERIVED não se aplica a estas observações — e isso DIZ-SE.
+
+    ⚠️ ESTA FUNÇÃO EXISTE PORQUE O SILÊNCIO TAMBÉM MENTE.
+
+    Quando a porta não encontra nada para derivar, a alternativa fácil é não
+    escrever passagem nenhuma. Só que uma corrida sem linha `DERIVED` no rastro
+    lê-se, três meses depois, como «ninguém sabe se aquela etapa correu» — e
+    aqui sabe-se muito bem: ela não se aplica àquelas observações, e há razão
+    escrita para isso.
+
+        UMA ETAPA QUE NÃO SE APLICA NÃO É UMA ETAPA SEM RESPOSTA.
+        NOT_APPLICABLE != NOT_RUN != FAIL != PASS.
+
+    E não é `FAIL`: falhar é a etapa ter corrido e ter-se partido. Não é
+    `NOT_RUN`: esse é «fazia parte do plano e não chegou a vez». Não é
+    `SKIPPED`: esse é «decidiu-se não correr». É `NOT_APPLICABLE` — «não existe
+    nesta rota, com razão escrita» — palavra por palavra o que
+    `leis/telemetria.py` declara. Nada de vocabulário novo.
+
+    `ETAPA_ACONTECEU = ('PASS', 'PARTIAL')` já exclui este estado, e por isso
+    nenhum leitor a jusante o vai confundir com sucesso.
+
+    O que ela NÃO faz, e é metade da honestidade: não conta as observações como
+    `PASSED`, não inventa `last_good_artifact`, e não promove nada. Elas
+    entraram como `input_count` e saíram como ZERO — que é a verdade.
+    """
+    quantas = len(nao_derivaveis or [])
+    porques = sorted({str(x.get("PORQUE")) for x in (nao_derivaveis or [])
+                      if x.get("PORQUE")})
+    recibo = {
+        "FRONTEIRA": FRONTEIRA,
+        "RUN_ID": run_id,
+        "SOURCE_ID": source_id,
+        "ROUTE_CLASS_ID": route_class_id,
+        "ENTRADA": quantas,
+        "SAIRAM": 0,
+        "BALDES": {d: 0 for d in ("PASSED", "REJECTED", "ERROR", "NOT_RUN",
+                                  "UNKNOWN", "REUSED")},
+        "ESTADO_DA_ETAPA": rastro.NOT_APPLICABLE,
+        "PORQUE": porques,
+        "RESULTADOS": [],
+        "TERMINA_EM": "DERIVED",
+    }
+    if banco_do_rastro is None:
+        recibo["ETAPAS_EMITIDAS"] = []
+        recibo["RASTRO"] = "NAO_EMITIDO"
+        return recibo
+    if tentativa is None:
+        tentativa = rastro.proxima_tentativa(banco_do_rastro, run_id, "DERIVED")
+    recibo["ETAPAS_EMITIDAS"] = ["DERIVED"]
+    recibo["RASTRO"] = rastro.registrar(
+        banco_do_rastro,
+        run_id=run_id, etapa="DERIVED", edge_from="RAW", tentativa=tentativa,
+        source_id=source_id, route_class_id=route_class_id,
+        input_grain=GRAO_ENTRADA, input_count=quantas,
+        output_grain=GRAO_SAIDA, output_count=0,
+        cardinalidade="1:1",
+        estado=rastro.NOT_APPLICABLE,
+        actor=ex.EXECUTOR_ID, actor_version=ex.EXECUTOR_VERSION,
+        policy_version=ex.PIPELINE_VERSION,
+        error_message=" · ".join(porques) or None)
+    return recibo
+
 def main():
     print(__doc__)
     print("GAPS DECLARADOS")

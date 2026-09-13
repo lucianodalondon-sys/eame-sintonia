@@ -1044,6 +1044,25 @@ def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
             "STORAGE_PATH": linha["storage_path"],
             # A IDENTIDADE DOS BYTES. Outra especie, outra pergunta.
             "SHA256": linha.get("sha256"),
+            # ── A ESPECIE DOS BYTES, QUE A LINHA JA TINHA E ESTA PORTA DEITAVA
+            # FORA ────────────────────────────────────────────────────────────
+            # `raw_asset.media_type` e escrito por esta mesma peca, e ficava
+            # aqui. Sem ele, quem recebe estas observacoes so consegue perguntar
+            # «os bytes estao la?» — e nao «o que sao estes bytes?».
+            #
+            #     ALCANCAR OS BYTES NAO E SABER O QUE ELES SAO.
+            #
+            # Medido: era por isto que `coleta/ingresso.py` mandava uma
+            # observacao social (JSON) ao extrator de PDF, e a etapa DERIVED
+            # saia FAIL. A informacao existia na linha; nao atravessava a porta.
+            #
+            #     UM CAMPO QUE O DONO ESCREVEU E A PORTA NAO LEVA
+            #     E UM CAMPO QUE, PARA QUEM ESTA DO OUTRO LADO, NAO EXISTE.
+            #
+            # Ausente continua ausente: sem `media_type` na linha, sai `None`,
+            # e quem le tem de tratar isso como NAO SEI — nunca como «nao
+            # suportado».
+            "MEDIA_TYPE": linha.get("media_type"),
         })
     return fora
 

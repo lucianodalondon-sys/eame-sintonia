@@ -295,7 +295,7 @@ def pela_entrada(itens: list, recibo: dict, memoria=None,
 
 def pela_derivacao(unidades: list, *, run_id: str, armazem, memoria,
                    banco_do_rastro=None, source_id=None,
-                   route_class_id=None) -> dict:
+                   route_class_id=None, nao_derivaveis=None) -> dict:
     """Leva as observacoes preservadas ao RUNNER CANONICO do DERIVED.
 
     ⚠️ ESTA FUNCAO NAO DERIVA NADA, E ISSO NAO E MODESTIA: E A LEI.
@@ -332,9 +332,40 @@ def pela_derivacao(unidades: list, *, run_id: str, armazem, memoria,
         UNKNOWN HONESTO > ID INVENTADO.
     """
     if not unidades:
+        # ── DUAS AUSENCIAS DIFERENTES, E SO UMA E SILENCIO ─────────────────
         # NAO CORREU != CORREU E NAO DEU NADA. Sem observacao preservada nao
         # ha sujeito, e inventar uma chamada vazia poria uma passagem DERIVED
         # no rastro a dizer que a etapa correu.
+        #
+        # ⚠️ MAS «NAO HA UNIDADES» DEIXOU DE QUERER DIZER UMA COISA SO.
+        # A porta passou a separar duas razoes para uma observacao nao ir
+        # derivar, e elas nao sao a mesma ausencia:
+        #
+        #     nao houve observacao nenhuma        -> nao ha sujeito. Silencio.
+        #     houve, e a especie nao se deriva    -> HA sujeito, e ha resposta.
+        #
+        # A segunda tem de aparecer no rastro. Uma corrida que preservou
+        # observacoes e nao deixou linha `DERIVED` nenhuma le-se, tres meses
+        # depois, como «ninguem sabe se aquela etapa correu» — e sabe-se.
+        #
+        #     UMA ETAPA QUE NAO SE APLICA NAO E UMA ETAPA SEM RESPOSTA.
+        #
+        # Quem escreve a passagem continua a ser o RUNNER, e nao esta funcao:
+        # CONTROL PLANE != DATA PLANE (COL-LAW-012) nao muda por a resposta
+        # ser um nao.
+        if nao_derivaveis:
+            r = deriv.nao_se_aplica(
+                nao_derivaveis, banco_do_rastro=banco_do_rastro,
+                run_id=run_id, source_id=source_id,
+                route_class_id=route_class_id)
+            return {"CHAMADO": False,
+                    "APLICABILIDADE": "NOT_APPLICABLE",
+                    "PORQUE": r.get("PORQUE"),
+                    "UNIDADES": 0,
+                    "NAO_DERIVAVEIS": len(nao_derivaveis),
+                    "ESTADO_DA_ETAPA": r.get("ESTADO_DA_ETAPA"),
+                    "RASTRO": ("EMITIDO" if r.get("RASTRO") not in
+                               (None, "NAO_EMITIDO") else "NAO_EMITIDO")}
         return {"CHAMADO": False, "PORQUE": "nenhuma observacao preservada "
                                             "nesta corrida para derivar",
                 "UNIDADES": 0}
@@ -835,7 +866,8 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             entrada.get("PARA_A_DERIVACAO") or [],
             run_id=recibo["RUN_ID"], armazem=armazem, memoria=memoria,
             banco_do_rastro=banco_do_rastro,
-            source_id=entrada.get("FONTE_PROVADA"))
+            source_id=entrada.get("FONTE_PROVADA"),
+            nao_derivaveis=entrada.get("SEM_BYTES_PARA_DERIVAR") or [])
 
     # ── E O QUE FOI DERIVADO ATRAVESSA PARA O STRUCTURED ──────────────────
     # ⚠️ ATE AQUI A ESTRADA PARTIA-SE AQUI. O texto era extraido, guardado, e

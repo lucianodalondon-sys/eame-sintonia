@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "d10fbd691ce08d7128f8d22f18e1675939d64a08",
+    "HEAD": "4a7154cda8410ae63d31e5214d90f7b6ed265e65",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -1027,7 +1027,7 @@
     {
       "ficheiro": "coleta/derivacao_forward.py",
       "gaveta": "coleta",
-      "linhas": 380,
+      "linhas": 445,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1146,7 +1146,7 @@
     {
       "ficheiro": "coleta/executor_texto_de_pdf.py",
       "gaveta": "coleta",
-      "linhas": 690,
+      "linhas": 716,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1162,10 +1162,12 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "coleta/derivacao_forward.py",
-        "coleta/golden_path_pdf.py"
+        "coleta/golden_path_pdf.py",
+        "coleta/ingresso.py"
       ],
       "citado_por": [
-        "coleta/derivacao_forward.py"
+        "coleta/derivacao_forward.py",
+        "coleta/ingresso.py"
       ],
       "no_ci": true
     },
@@ -1235,7 +1237,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 930,
+      "linhas": 1011,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1251,10 +1253,12 @@
       ],
       "citado_por": [
         "coleta/eu_regulatorio_executor.py",
+        "coleta/executor_texto_de_pdf.py",
         "coleta/italy_executor.py",
         "coleta/rota_forward_documento.py",
         "coleta/scrap_colheita.py",
         "guarda/catalogo_importar.py",
+        "guarda/preservar_coleta.py",
         "pedido/receitas.py",
         "regras/proveniencia.py"
       ],
@@ -2540,7 +2544,7 @@
     {
       "ficheiro": "guarda/preservar_coleta.py",
       "gaveta": "guarda",
-      "linhas": 1339,
+      "linhas": 1358,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],

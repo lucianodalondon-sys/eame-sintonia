@@ -70,6 +70,8 @@ on:
       - 'provas/o_scrap_chega_ao_acervo.py'
       - 'provas/as_travas_do_scrap_no_postgres.py'
       - 'provas/a_repeticao_do_scrap.py'
+      - 'provas/o_retry_do_scrap.py'
+      - 'provas/_e2e02_janela_dois_posts.py'
       - 'provas/_e2e01_janela_admissivel.py'
       - 'provas/_flow01_janela_falsa.py'
       - 'provas/o_fluxo_canonico_do_scrap.py'
@@ -359,6 +361,29 @@ jobs:
           psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
           psql "$ADMIN_URL" -c 'create database descartavel;'
           python3 provas/a_repeticao_do_scrap.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # O RETRY DE VERDADE, e nao duas corridas novas.
+      #
+      #     DUAS CORRIDAS NOVAS NAO SAO UMA CORRIDA REPETIDA.
+      #
+      # `a_repeticao_do_scrap.py` mede NEW_RUN + NEW_RUN. Este mede
+      # RECUPERACAO DENTRO de uma corrida: o armazem recusa escrever na
+      # primeira tentativa, a corrida fica PARTIAL com a linha de
+      # `collection_run` ja aberta, e o retry entra pela MESMA porta com o
+      # MESMO recibo.
+      #
+      # A falha nao e injectada em codigo de producao: e posta no MUNDO — um
+      # ficheiro onde tem de haver a pasta do deposito — e o codigo responde
+      # como ja responde.
+      - name: 2g5 · o retry do SCRAP recupera a MESMA corrida
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_retry_do_scrap.py
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel

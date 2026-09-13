@@ -347,5 +347,208 @@ class ATentativaPerguntaAoDono(unittest.TestCase):
         self.assertEqual(r["ETAPAS_EMITIDAS"], [])
 
 
+class AEspecieDecideSeHaOQueDerivar(unittest.TestCase):
+    """ALCANÇAR OS BYTES NÃO É SABER O QUE ELES SÃO.
+
+    ⚠️ ESTA CLASSE NASCEU DE UM DEFEITO MEDIDO NA ROTA DO SCRAP. A porta
+    decidia o que ia derivar por UMA pergunta só — «os bytes estão
+    alcançáveis?» — e mandava ao extrator de PDF toda observação que
+    respondesse que sim. Uma observação social é um JSON com o texto já
+    declarado dentro; o `pdftotext` tentava abri-lo, e a etapa `DERIVED` saía
+    `FAIL` com `EXTRACTION_ERROR` em TODA corrida do SCRAP.
+
+        UMA FERRAMENTA QUE RECEBE O QUE NÃO SABE ABRIR NÃO FALHOU:
+        FOI CHAMADA PARA O TRABALHO ERRADO.
+
+    E o conserto não inventou vocabulário nenhum: o executor JÁ declarava o que
+    sabe abrir, e a declaração tinha ZERO leitores em toda a árvore.
+
+        UMA CAPACIDADE DECLARADA QUE NINGUÉM LÊ NÃO GUARDA NADA.
+    """
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
+        self.a = ArmazemLocal(self.tmp)
+        self.a.enviar("XX/f/DOCUMENT/a.pdf", b"%PDF-a", "application/pdf")
+        self.a.enviar("XX/f/OBSERVATION/b.json", b'{"x":1}', "application/json")
+
+    def _u(self, *obs):
+        return ing.unidades_para_a_derivacao({"RAW_OBSERVATIONS": list(obs)},
+                                             self.a)
+
+    def test_a_especie_que_o_executor_abre_vai_derivar(self):
+        u, sem = self._u({"RAW_OBSERVATION_ID": 1,
+                          "STORAGE_PATH": "XX/f/DOCUMENT/a.pdf",
+                          "MEDIA_TYPE": "application/pdf"})
+        self.assertEqual([x["RAW_ASSET_ID"] for x in u], [1])
+        self.assertEqual(sem, [])
+
+    def test_a_especie_que_ele_nao_abre_NAO_vai_e_diz_porque(self):
+        u, sem = self._u({"RAW_OBSERVATION_ID": 2,
+                          "STORAGE_PATH": "XX/f/OBSERVATION/b.json",
+                          "MEDIA_TYPE": "application/json"})
+        self.assertEqual(u, [], 'uma observacao social foi para o extrator '
+                                'de PDF outra vez')
+        self.assertEqual(len(sem), 1)
+        self.assertEqual(sem[0]["PORQUE"],
+                         ing.DERIVACAO_ESPECIE_NAO_SUPORTADA)
+        # E a razão NÃO é a do outro balde: são duas ausências diferentes.
+        self.assertNotEqual(sem[0]["PORQUE"], ing.DERIVACAO_SEM_BYTES_LOCAIS)
+
+    def test_ausencia_de_especie_NAO_e_recusa(self):
+        """Sem `MEDIA_TYPE`, esta casa não sabe o que são aqueles bytes.
+
+        ⚠️ E «NÃO SEI» NUNCA AUTORIZA A CONCLUIR «NÃO SERVE». Tratar a ausência
+        como não-suportado faria a coleta encolher em silêncio: bastaria um
+        writer deixar de escrever a coluna para metade do acervo parar de
+        derivar, e nada ficaria vermelho.
+
+            AUSÊNCIA DE EVIDÊNCIA NÃO É EVIDÊNCIA DE AUSÊNCIA.
+
+        Tenta-se, e o executor responde honestamente o que encontrou.
+        """
+        for ausente in (None, "", "   ", "NAO SEI", "UNKNOWN"):
+            with self.subTest(media_type=ausente):
+                o = {"RAW_OBSERVATION_ID": 3,
+                     "STORAGE_PATH": "XX/f/DOCUMENT/a.pdf"}
+                if ausente is not None:
+                    o["MEDIA_TYPE"] = ausente
+                u, sem = self._u(o)
+                self.assertEqual([x["RAW_ASSET_ID"] for x in u], [3])
+                self.assertEqual(sem, [])
+
+    def test_a_porta_NAO_repete_a_lista_de_especies_do_executor(self):
+        """Quem sabe abrir é quem diz o que abre.
+
+        Repetir a lista na porta seria um SEGUNDO dono da mesma pergunta, e no
+        dia em que entrasse um executor de áudio os dois divergiam em silêncio.
+
+            ONE CONCEPT -> ONE OWNER.
+
+        ⚠️ E A PERGUNTA É SOBRE ESTA FUNÇÃO, E NÃO SOBRE O FICHEIRO INTEIRO.
+        A primeira versão desta sentinela proibia `application/pdf` em
+        `coleta/ingresso.py` todo — e reprovou por duas razões, ambas
+        instrutivas. Mordeu a própria prosa (a docstring de
+        `_quem_deriva_aceita` explica porque NÃO se escreve o tipo lá) e
+        mordeu dois usos LEGÍTIMOS que nada têm a ver com derivação: o
+        `CONTENT_TYPE` que a porta declara para o que ela própria escreveu, e o
+        `ARTIFACT_KIND` do endereço do armazém.
+
+            UMA GUARDA LARGA DEMAIS REPROVA O QUE ESTÁ CERTO,
+            E ENSINA A DESLIGÁ-LA.
+
+        O que se cobra é estreito: a função que DECIDE a capacidade não tem
+        tipo nenhum escrito dentro dela.
+        """
+        fonte = io.open(os.path.join(RAIZ, 'coleta', 'ingresso.py'),
+                        encoding='utf-8').read()
+        no = next((n for n in ast.walk(ast.parse(fonte))
+                   if isinstance(n, ast.FunctionDef)
+                   and n.name == '_quem_deriva_aceita'), None)
+        self.assertIsNotNone(no, 'a funcao que decide a capacidade sumiu')
+        corpo = list(no.body)
+        # a docstring sai: ela EXPLICA a lei, e explicar nao e violar
+        if (corpo and isinstance(corpo[0], ast.Expr)
+                and isinstance(corpo[0].value, ast.Constant)):
+            corpo = corpo[1:]
+        literais = {n.value for c in corpo for n in ast.walk(c)
+                    if isinstance(n, ast.Constant) and isinstance(n.value, str)}
+        maus = [v for v in literais if '/' in v and ' ' not in v]
+        self.assertEqual(
+            maus, [],
+            'a porta escreveu tipo(s) de media a mao (%s): a capacidade tem UM '
+            'dono, e e o executor que a declara.' % maus)
+
+    def test_a_capacidade_do_executor_continua_legivel_por_maquina(self):
+        """A declaração que o conserto passou a ler não pode voltar a ser prosa.
+
+        Se `ACEITA_MEDIA_TYPES` desaparecer, `_quem_deriva_aceita` volta a
+        responder True a tudo — e o SCRAP volta a bater no extrator de PDF sem
+        que nada fique vermelho.
+        """
+        import executor_texto_de_pdf as ex
+        aceita = ex.CAPACIDADE.get('ACEITA_MEDIA_TYPES')
+        self.assertTrue(aceita, 'o executor deixou de declarar o que abre')
+        self.assertIn('application/pdf',
+                      tuple(str(x).lower() for x in aceita))
+
+class UmaEtapaQueNaoSeAplicaNaoSeDeclaraCumprida(unittest.TestCase):
+    """NOT_APPLICABLE != PASS. E NOT_APPLICABLE != SILÊNCIO.
+
+    ⚠️ ESTA CLASSE NASCEU DE UM MUTANTE QUE SOBREVIVEU. Trocar
+    `rastro.NOT_APPLICABLE` por `rastro.PASS` em `derivacao_forward.nao_se_aplica`
+    não acendia NADA na suíte: só a prova contra PostgreSQL o apanhava, e essa
+    não corre aqui.
+
+        A MUTAÇÃO MAIS PERIGOSA É A QUE TRANSFORMA UMA AUSÊNCIA EM SUCESSO,
+        E FOI EXACTAMENTE ESSA QUE NINGUÉM GUARDAVA.
+
+    O que ela produziria: uma corrida cuja etapa `DERIVED` diz `PASS` sem ter
+    derivado coisa nenhuma — e `ETAPA_ACONTECEU` passaria a contá-la como
+    acontecida. Um relatório a jusante somaria como trabalho feito o que nunca
+    foi trabalho.
+    """
+
+    def test_o_estado_e_NOT_APPLICABLE_e_nao_PASS(self):
+        r = deriv.nao_se_aplica(
+            [{"RAW_ASSET_ID": 1, "PORQUE": ing.DERIVACAO_ESPECIE_NAO_SUPORTADA}],
+            banco_do_rastro=None, run_id="R")
+        self.assertEqual('NOT_APPLICABLE', r["ESTADO_DA_ETAPA"])
+        self.assertNotEqual('PASS', r["ESTADO_DA_ETAPA"])
+
+    def test_e_o_vocabulario_e_o_do_DONO_dele(self):
+        """O estado tem de ser um dos que `leis/telemetria.py` declara.
+
+        Inventar uma palavra nova aqui — `NAO_APLICAVEL`, `SKIP`, `N/A` — daria
+        uma linha que o banco recusa (o enum `etapa_estado`) ou, pior, que ele
+        aceita e ninguém a jusante sabe ler.
+        """
+        import telemetria as tel
+        r = deriv.nao_se_aplica([], banco_do_rastro=None, run_id="R")
+        self.assertIn(r["ESTADO_DA_ETAPA"], tel.ESTADOS_DE_ETAPA)
+
+    def test_e_NAO_conta_como_etapa_acontecida(self):
+        """`ETAPA_ACONTECEU = ('PASS', 'PARTIAL')` — e este estado fica fora.
+
+        É esta linha que impede a etapa não-aplicável de ser somada como
+        trabalho feito por quem lê o rastro.
+        """
+        import telemetria as tel
+        r = deriv.nao_se_aplica([], banco_do_rastro=None, run_id="R")
+        self.assertNotIn(r["ESTADO_DA_ETAPA"], tel.ETAPA_ACONTECEU)
+
+    def test_nada_sai_como_produzido(self):
+        """Zero à saída, e nenhum balde a fingir movimento.
+
+        Uma etapa que não se aplica não recusou nada, não errou nada e não
+        reaproveitou nada. Pôr um número em qualquer balde seria inventar
+        acontecimento.
+        """
+        r = deriv.nao_se_aplica(
+            [{"RAW_ASSET_ID": 1, "PORQUE": ing.DERIVACAO_ESPECIE_NAO_SUPORTADA},
+             {"RAW_ASSET_ID": 2, "PORQUE": ing.DERIVACAO_ESPECIE_NAO_SUPORTADA}],
+            banco_do_rastro=None, run_id="R")
+        self.assertEqual(2, r["ENTRADA"], 'as observacoes entraram na conta')
+        self.assertEqual(0, r["SAIRAM"])
+        self.assertEqual({0}, set(r["BALDES"].values()))
+
+    def test_a_razao_viaja_com_a_etapa(self):
+        """Sem razão escrita, `NOT_APPLICABLE` é indistinguível de desleixo.
+
+        `leis/telemetria.py` define este estado como «não existe nesta rota,
+        COM RAZÃO ESCRITA». A razão é metade do estado.
+        """
+        r = deriv.nao_se_aplica(
+            [{"RAW_ASSET_ID": 1, "PORQUE": ing.DERIVACAO_ESPECIE_NAO_SUPORTADA}],
+            banco_do_rastro=None, run_id="R")
+        self.assertEqual([ing.DERIVACAO_ESPECIE_NAO_SUPORTADA], r["PORQUE"])
+
+    def test_sem_banco_nao_se_inventa_passagem(self):
+        """AUSÊNCIA DE RASTRO É AUSÊNCIA, e diz-se com `NAO_EMITIDO`."""
+        r = deriv.nao_se_aplica([], banco_do_rastro=None, run_id="R")
+        self.assertEqual('NAO_EMITIDO', r["RASTRO"])
+        self.assertEqual([], r["ETAPAS_EMITIDAS"])
+
 if __name__ == "__main__":
     unittest.main()

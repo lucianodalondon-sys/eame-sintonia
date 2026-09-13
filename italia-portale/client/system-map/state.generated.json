@@ -1267,6 +1267,7 @@
       "provas/_c108a_ensaio_a_seco.json",
       "provas/_c108a_ultima_corrida.json",
       "provas/_e2e01_janela_admissivel.py",
+      "provas/_e2e02_janela_dois_posts.py",
       "provas/_flow01_janela_falsa.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
@@ -1336,6 +1337,7 @@
       "provas/o_pedido_atravessa.py",
       "provas/o_pedido_t4_atravessa.py",
       "provas/o_raw_fala.py",
+      "provas/o_retry_do_scrap.py",
       "provas/o_scrap_chega_ao_acervo.py",
       "provas/objeto_e_observacao_no_postgres.py",
       "provas/orcamento_de_rede.py",
@@ -2142,9 +2144,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/integrate-scrap-current-collection-v1",
-    "HEAD": "d10fbd691ce08d7128f8d22f18e1675939d64a08",
-    "GENERATED_AT": "2026-09-13T15:50:33+00:00",
-    "SOURCE_TREE_FINGERPRINT": "ffb156260ffa7442d91ca511377cf37b004b31409c499f2c8e7e2d2e67c1a4a5"
+    "HEAD": "4a7154cda8410ae63d31e5214d90f7b6ed265e65",
+    "GENERATED_AT": "2026-09-13T16:46:30+00:00",
+    "SOURCE_TREE_FINGERPRINT": "621e054073c0d4bf1d71785bf2f5ef5aabd7de756af7020943f7e3da5a3e56fd"
   },
   "FAMILIES": [
     {
@@ -2213,7 +2215,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 72
+      "count": 73
     },
     {
       "id": "F-ENTREGA",
@@ -2583,7 +2585,7 @@
       "y": 190,
       "w": 1235,
       "h": 6158,
-      "count": 56
+      "count": 57
     }
   ],
   "DEPARTMENTS": {
@@ -7384,6 +7386,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-DEDUPE",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -7592,6 +7595,7 @@
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -8040,6 +8044,7 @@
         "C-IT-COLETA",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-SCRAP-COLHEITA",
         "C-TESTES"
@@ -9241,6 +9246,7 @@
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
+        "C-INGRESSO",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
         "C-ORQUESTRADOR",
@@ -9262,9 +9268,9 @@
         "listas": [
           "CAPACIDADE"
         ],
-        "palavras": 13,
+        "palavras": 15,
         "por_lingua": {},
-        "sem_marca_de_lingua": 13,
+        "sem_marca_de_lingua": 15,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -9909,6 +9915,7 @@
         "C-CONTRATO-ARTEFATO",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-PROCEDENCIA",
         "C-RASTRO"
       ],
@@ -9918,6 +9925,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -11416,6 +11424,7 @@
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-SUPERFICIE-SCRAP-V1",
@@ -12796,6 +12805,7 @@
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -13536,6 +13546,58 @@
       "y": 4868
     },
     {
+      "id": "C-PROVA-RETRY-DO-SCRAP",
+      "name": "A prova de que o retry recupera a MESMA corrida",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Corre a rota SCRAP com o armazem FECHADO na primeira tentativa — um ficheiro posto onde tem de haver a pasta do deposito — e depois abre-o e faz o retry pela MESMA porta, com o MESMO recibo. Mede no banco: quantas linhas de corrida, quantas observacoes, quantos objetos, que tentativas ficaram na `etapa_da_corrida`, se a linhagem fecha, e em que estado a corrida ficou antes e depois. Declara tambem, medido, que esta rota NAO tem checkpoint.",
+      "why_here": "DUAS CORRIDAS NOVAS NAO SAO UMA CORRIDA REPETIDA. `a_repeticao_do_scrap.py` prova `NEW_RUN + NEW_RUN`, que e idempotencia ENTRE corridas; isto prova RECUPERACAO DENTRO de uma, que e outra pergunta e tem outro dono. || A falha e posta no MUNDO e nao ensinada ao codigo: A FALHA NAO FOI ENSINADA AO CODIGO, FOI POSTA NO MUNDO, E O CODIGO RESPONDEU COMO RESPONDE. E foram precisas TRES tentativas para a por no sitio certo — primeiro num endereco calculado com um RUN_ID inventado (e o sha do bruto embute o RUN_ID, logo O ENDERECO SO EXISTE DEPOIS DE A CORRIDA TER NOME), depois com `chmod`, que o root ignora (UMA TRANCA QUE O UTILIZADOR DESTA MAQUINA IGNORA NAO E UMA TRANCA), e so entao no deposito real, que e `IT/<fonte>/OBSERVATION/` e nao `data/raw/observacoes/`. || Quem apanhou os tres enganos nao foi releitura: foram as assercoes do passo 1, que exigem VER a falha. UMA FALHA QUE NAO ACONTECEU PASSA EM QUALQUER PROVA QUE NAO EXIJA VER A FALHA.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "↻",
+      "views": [
+        "acervo",
+        "audit",
+        "infra",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/_e2e02_janela_dois_posts.py",
+        "provas/o_retry_do_scrap.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-PERSIST",
+        "C-COLETA-BASE",
+        "C-CONTRATO-DE-RETORNO",
+        "C-INGRESSO",
+        "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
+        "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+        "C-SCRAP-COLHEITA"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 4868
+    },
+    {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
       "name": "A prova de que a rota da M2 atravessa",
       "territory": "Z-PROVA",
@@ -13593,7 +13655,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -13652,8 +13714,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -13697,6 +13759,7 @@
         "C-SCRAP-COLHEITA"
       ],
       "outbound": [
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP"
       ],
       "paises": {},
@@ -13721,7 +13784,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5190
     },
     {
@@ -13774,7 +13837,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -13821,8 +13884,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5190
+      "x": 20020,
+      "y": 5512
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -13884,7 +13947,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5512
     },
     {
@@ -14136,7 +14199,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5512
     },
     {
@@ -14288,8 +14351,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5512
+      "x": 20020,
+      "y": 5834
     },
     {
       "id": "C-REGRA-COLETA",
@@ -14430,7 +14493,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5834
     },
     {
@@ -14981,6 +15044,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-RECEITAS",
         "C-SUPERFICIE-SCRAP-V1",
@@ -15475,7 +15539,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 5834
     },
     {
@@ -15776,8 +15840,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5834
+      "x": 20020,
+      "y": 6156
     },
     {
       "id": "C-SUPABASE",
@@ -15950,7 +16014,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 6156
     },
     {
@@ -17398,13 +17462,13 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 660,
+        "palavras": 665,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 648,
+        "sem_marca_de_lingua": 653,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -17466,7 +17530,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 6156
     },
     {
@@ -22873,7 +22937,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 378,
+          "line": 403,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -22896,52 +22960,52 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 134,
+          "line": 136,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 147,
+          "line": 149,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 162,
+          "line": 164,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 175,
+          "line": 177,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 188,
+          "line": 190,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 196,
+          "line": 198,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 228,
+          "line": 230,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 252,
+          "line": 254,
           "snippet": "python3 provas/rastro_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 395,
+          "line": 420,
           "snippet": "run: python3 provas/run_duravel_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 408,
+          "line": 433,
           "snippet": "run: python3 provas/runtime_comum_no_postgres.py"
         }
       ],
@@ -22959,7 +23023,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 419,
+          "line": 444,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -22977,8 +23041,26 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 278,
+          "line": 280,
           "snippet": "python3 provas/o_forward_conta_se.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 386,
+          "snippet": "python3 provas/o_retry_do_scrap.py"
         }
       ],
       "categoria": "CONTROL"
@@ -22995,7 +23077,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 287,
+          "line": 289,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -23013,7 +23095,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 322,
+          "line": 324,
           "snippet": "python3 provas/o_scrap_chega_ao_acervo.py"
         }
       ],
@@ -23031,12 +23113,12 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 343,
+          "line": 345,
           "snippet": "python3 provas/as_travas_do_scrap_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 361,
+          "line": 363,
           "snippet": "python3 provas/a_repeticao_do_scrap.py"
         }
       ],
@@ -23482,6 +23564,24 @@
           "file": "provas/o_raw_fala.py",
           "line": 55,
           "snippet": "import coleta_checkpoint as cc                          # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 109,
+          "snippet": "import coleta_checkpoint as cc"
         }
       ],
       "categoria": "CODE"
@@ -24640,6 +24740,24 @@
     },
     {
       "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 111,
+          "snippet": "import retorno_da_coleta as rc, scrap_colheita as sc"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-DE-RETORNO",
       "to": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -24951,8 +25069,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por Suite de testes. Provado por 11 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 507,
+          "snippet": "import telemetria as tel"
+        },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 25,
@@ -26108,12 +26231,12 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 415,
+          "line": 433,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 415,
+          "line": 433,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         }
       ],
@@ -26154,7 +26277,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 273,
+          "line": 299,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
         }
       ],
@@ -26249,7 +26372,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 455,
+          "line": 486,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}"
         }
       ],
@@ -26807,6 +26930,24 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-INGRESSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A porta de entrada da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/ingresso.py",
+          "line": 365,
+          "snippet": "import executor_texto_de_pdf as _ex"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-IT-TEXTO-DERIVADO",
       "type": "PRODUZ",
       "kind": "technical",
@@ -26857,7 +26998,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 497,
+          "line": 528,
           "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")"
         }
       ],
@@ -27037,8 +27178,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_ponte_do_derived.py",
+          "line": 470,
+          "snippet": "import executor_texto_de_pdf as ex"
+        },
         {
           "file": "tests/test_m2_rota_forward.py",
           "line": 25,
@@ -27784,6 +27930,24 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 380,
+          "snippet": "import ingresso as ing"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27895,7 +28059,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 355,
+          "line": 373,
           "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
         },
         {
@@ -28353,7 +28517,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 90,
+          "line": 108,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\","
         },
         {
@@ -29900,6 +30064,24 @@
     },
     {
       "from": "C-ORQUESTRADOR",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O orquestrador tem o seu codigo importado por A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 110,
+          "snippet": "import orquestrador as orq, pedido as pd"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ORQUESTRADOR",
       "to": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
       "type": "READS",
       "payload": "artefacto",
@@ -30004,7 +30186,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 310,
+          "line": 328,
           "snippet": "import orquestrador as orq"
         },
         {
@@ -31971,6 +32153,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 76,
+          "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-ROTA-M2-ATRAVESSA",
       "type": "READS",
       "payload": "artefacto",
@@ -32009,7 +32209,7 @@
         },
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 484,
+          "line": 489,
           "snippet": "os.path.join(RAIZ, 'provas', '_flow01_janela_falsa.py')),"
         }
       ],
@@ -32101,7 +32301,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 269,
+          "line": 287,
           "snippet": "import preservar_coleta_no_postgres as pg"
         },
         {
@@ -32541,6 +32741,24 @@
     },
     {
       "from": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o SCRAP chega ao acervo, e nao so o atravessa alimenta A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 71,
+          "snippet": "'e2e01', os.path.join(RAIZ, 'provas', 'o_scrap_chega_ao_acervo.py'))"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
       "to": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
       "type": "READS",
       "payload": "artefacto",
@@ -32638,7 +32856,7 @@
       "evidence": [
         {
           "file": "coleta/executor_texto_de_pdf.py",
-          "line": 355,
+          "line": 381,
           "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
         }
       ],
@@ -33059,7 +33277,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 311,
+          "line": 329,
           "snippet": "from receitas import EXECUTORES"
         },
         {
@@ -34096,6 +34314,24 @@
     },
     {
       "from": "C-SCRAP-COLHEITA",
+      "to": "C-PROVA-RETRY-DO-SCRAP",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por A prova de que o retry recupera a MESMA corrida. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_retry_do_scrap.py",
+          "line": 381,
+          "snippet": "import scrap_colheita as sc"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
       "to": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -34124,7 +34360,7 @@
       "evidence": [
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 498,
+          "line": 503,
           "snippet": "diz(m['ACTOR'] == 'coleta/scrap_colheita.py',"
         }
       ],
@@ -38753,17 +38989,17 @@
     ]
   },
   "COUNTS": {
-    "components": 180,
+    "components": 181,
     "components_proven": 48,
-    "components_pending": 126,
+    "components_pending": 127,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 841,
-    "edges_proven": 838,
+    "edges": 850,
+    "edges_proven": 847,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1694,
-    "files_covered": 862,
+    "files_tracked": 1696,
+    "files_covered": 864,
     "files_code_unclaimed": 0
   }
 }

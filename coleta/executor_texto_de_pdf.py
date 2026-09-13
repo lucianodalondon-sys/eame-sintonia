@@ -80,6 +80,33 @@ CAPACIDADE = {
     "EXECUTOR_ID": EXECUTOR_ID,
     "VERSION": EXECUTOR_VERSION,
     "SUPPORTS": ["PDF_RAW"],
+    # ── A ESPECIE, EM LINGUA QUE UMA MAQUINA LE ──────────────────────────────
+    # ⚠️ `SUPPORTS: ["PDF_RAW"]` ESTAVA AQUI DESDE O PRIMEIRO DIA, E TINHA ZERO
+    # LEITORES. Medido nesta árvore: a string `SUPPORTS` só aparece na linha
+    # acima e em mais lado nenhum do código de produção.
+    #
+    #     UMA CAPACIDADE DECLARADA QUE NINGUÉM LÊ NÃO GUARDA NADA.
+    #
+    # É a mesma família do defeito que esta casa já pagou duas vezes e escreveu
+    # nas duas: «UM PARÂMETRO OPCIONAL QUE NINGUÉM CONSEGUE PASSAR NÃO É
+    # OPCIONAL: É INEXISTENTE.» Aqui não era um parâmetro — era uma declaração
+    # de capacidade, e o efeito foi o mesmo.
+    #
+    # O PREÇO, MEDIDO: `coleta/ingresso.py` mandava a este executor TODA
+    # observação cujos bytes estivessem alcançáveis, sem perguntar de que
+    # espécie eram. Uma observação social — um JSON cujo texto já vem declarado
+    # dentro do envelope — chegava aqui, o `pdftotext` tentava abri-la como PDF,
+    # e a etapa `DERIVED` saía `FAIL` com `EXTRACTION_ERROR`.
+    #
+    #     ALCANÇAR OS BYTES NÃO É SABER O QUE ELES SÃO.
+    #     E UMA FERRAMENTA QUE RECEBE O QUE NÃO SABE ABRIR NÃO FALHOU:
+    #     FOI CHAMADA PARA O TRABALHO ERRADO.
+    #
+    # `PDF_RAW` é o nome da espécie na COL-LAW-007, e é para gente ler. Esta
+    # tupla é o MESMO facto na língua que a porta lê — o `media_type` que o
+    # `raw_asset` guarda. Não é um segundo dono da capacidade: é a mesma
+    # declaração, legível pelos dois lados.
+    "ACEITA_MEDIA_TYPES": ("application/pdf",),
     "PRODUCES": ["TEXT_EXTRACTED"],
     "NETWORK_REQUIRED": "NO",
     "OCR": "NO",
@@ -87,7 +114,6 @@ CAPACIDADE = {
     "COST_CLASS": "LOCAL",
     "FERRAMENTA_EXTERNA": "pdftotext (poppler/xpdf)",
 }
-
 # ── ONDE VIVEM AS COISAS ────────────────────────────────────────────────────
 # O texto derivado NÃO fica ao lado do PDF. Fica em pasta própria, e a razão é
 # a regra «armazenamento não é estado»: uma pasta é um sítio, não um selo de

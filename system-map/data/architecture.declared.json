@@ -2863,6 +2863,27 @@
       ]
     },
     {
+      "id": "C-PROVA-RETRY-DO-SCRAP",
+      "name": "A prova de que o retry recupera a MESMA corrida",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "↻",
+      "what": "Corre a rota SCRAP com o armazem FECHADO na primeira tentativa — um ficheiro posto onde tem de haver a pasta do deposito — e depois abre-o e faz o retry pela MESMA porta, com o MESMO recibo. Mede no banco: quantas linhas de corrida, quantas observacoes, quantos objetos, que tentativas ficaram na `etapa_da_corrida`, se a linhagem fecha, e em que estado a corrida ficou antes e depois. Declara tambem, medido, que esta rota NAO tem checkpoint.",
+      "why_here": "DUAS CORRIDAS NOVAS NAO SAO UMA CORRIDA REPETIDA. `a_repeticao_do_scrap.py` prova `NEW_RUN + NEW_RUN`, que e idempotencia ENTRE corridas; isto prova RECUPERACAO DENTRO de uma, que e outra pergunta e tem outro dono. || A falha e posta no MUNDO e nao ensinada ao codigo: A FALHA NAO FOI ENSINADA AO CODIGO, FOI POSTA NO MUNDO, E O CODIGO RESPONDEU COMO RESPONDE. E foram precisas TRES tentativas para a por no sitio certo — primeiro num endereco calculado com um RUN_ID inventado (e o sha do bruto embute o RUN_ID, logo O ENDERECO SO EXISTE DEPOIS DE A CORRIDA TER NOME), depois com `chmod`, que o root ignora (UMA TRANCA QUE O UTILIZADOR DESTA MAQUINA IGNORA NAO E UMA TRANCA), e so entao no deposito real, que e `IT/<fonte>/OBSERVATION/` e nao `data/raw/observacoes/`. || Quem apanhou os tres enganos nao foi releitura: foram as assercoes do passo 1, que exigem VER a falha. UMA FALHA QUE NAO ACONTECEU PASSA EM QUALQUER PROVA QUE NAO EXIJA VER A FALHA.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/o_retry_do_scrap.py",
+        "provas/_e2e02_janela_dois_posts.py"
+      ],
+      "views": [
+        "acervo",
+        "audit",
+        "trace"
+      ]
+    },
+    {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
       "name": "A prova da linhagem do reaproveitamento",
       "territory": "Z-PROVA",

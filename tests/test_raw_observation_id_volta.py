@@ -46,7 +46,25 @@ from guarda.memoria_descartavel import MemoriaDescartavel    # noqa: E402
 from guarda import preservar_coleta as pc                    # noqa: E402
 from test_italia_na_porta_canonica import CasoB1             # noqa: E402
 
-CAMPOS = ("RAW_OBSERVATION_ID", "RUN_ID", "STORAGE_PATH", "SHA256")
+# ── O QUE UMA OBSERVACAO CONFIRMADA CARREGA, E NADA MAIS ──────────────────
+# Este conjunto e FECHADO de proposito: a porta transporta o que o dono do RAW
+# apurou, e nao tudo o que a linha do banco tem. Sem esta trava, cada consumidor
+# novo pedia «mais um campo» e a observacao virava a linha inteira — que e outra
+# coisa, com outro dono.
+#
+# ⚠️ `MEDIA_TYPE` ENTROU, E ENTROU COM RAZAO ESCRITA. Ate aqui a porta so
+# conseguia perguntar «os bytes estao alcancaveis?», porque a especie deles
+# ficava na linha e nao atravessava. O preco esta medido: toda observacao social
+# — um JSON — era mandada ao extrator de PDF, e a etapa DERIVED saia FAIL.
+#
+#     ALCANCAR OS BYTES NAO E SABER O QUE ELES SAO.
+#
+# Nao e um campo a mais por conveniencia: e a informacao sem a qual
+# `coleta/ingresso.py::_quem_deriva_aceita` nao consegue fazer a pergunta que
+# esta casa precisa que ela faca. E continua FECHADO — o proximo campo tera de
+# se justificar aqui, como este se justificou.
+CAMPOS = ("RAW_OBSERVATION_ID", "RUN_ID", "STORAGE_PATH", "SHA256",
+          "MEDIA_TYPE")
 
 
 def _codigo(caminho):
