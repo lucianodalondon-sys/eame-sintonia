@@ -52,6 +52,15 @@
       <div id="views"></div>
     </div>
     <div class="filter">
+      <!-- AS LENTES. Uma lente muda o que se VE — nunca o que e verdade. Ela
+           apaga o resto; nao repinta nada, nao promove nada a verde, e nao
+           esconde um NAO SEI atras de um recorte. O mapa continua um so: cinco
+           mapas independentes seriam cinco verdades a envelhecer em separado. -->
+      <div class="sideTitle">Lente</div>
+      <div class="lensRow" id="lentes"></div>
+      <p class="lensWhy" id="lenteWhy"></p>
+    </div>
+    <div class="filter">
       <div class="sideTitle">Que setas mostrar</div>
       <label class="check"><input type="checkbox" name="nat" value="FLUXO" checked>
         <b>o caminho do dado</b></label>
@@ -59,8 +68,13 @@
         esta peça é feita com aquela</label>
       <label class="check"><input type="checkbox" name="nat" value="DISPARO" checked>
         aquela manda esta correr</label>
-      <p class="hint">Desligue as duas de baixo para ver a corrente da coleta
+      <label class="check"><input type="checkbox" name="nat" value="GOVERNO" checked>
+        <b style="color:#6b4fa8">quem manda nesta peça</b></label>
+      <p class="hint">Desligue as três de baixo para ver a corrente da coleta
         sozinha: fontes → ferramentas → ações → veículos → porta.</p>
+      <p class="hint"><b>A seta de governo é roxa, ponto-e-traço, e acaba em
+        losango</b> — nenhum dado atravessa o CONTROL PLANE, e por isso ela não
+        pode parecer-se com o caminho do dado.</p>
     </div>
     <div class="filter">
       <div class="sideTitle">País da fonte</div>
@@ -86,7 +100,7 @@
 
   <main class="mapWrap">
     <div class="canvasTitle">
-      <b>COLETA → <i>a espera</i> → INTELIGÊNCIA → ENTREGA</b>
+      <b>CONTROL PLANE <i>por cima de</i> COLETA → <i>a espera</i> → INTELIGÊNCIA → ENTREGA</b>
       <span>Entre a coleta e a inteligência há uma faixa cinzenta: é onde o que já
         foi colhido dorme até entrar no processo seguinte. Cinzenta porque ali nada
         é transformado — só guardado. Arraste · zoom · passe o mouse · clique ·
@@ -98,7 +112,16 @@
       <svg id="edges">
         <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3"
               orient="auto" markerUnits="strokeWidth">
-          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker></defs>
+          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker>
+          <!-- A PONTA DA SETA DE GOVERNO E UM LOSANGO, e nao uma ponta de seta.
+               Uma ponta de seta diz «entra aqui», e governo nao entra em lado
+               nenhum: ele pousa. Enquanto as duas partilhavam a mesma ponta, uma
+               linha a descer do CONTROL PLANE sobre `admissao/` continuava a
+               poder ler-se como caminho de dado — que e o unico mal-entendido
+               que esta faixa existe para tornar impossivel. -->
+          <marker id="governa" markerWidth="11" markerHeight="11" refX="9" refY="4"
+              orient="auto" markerUnits="strokeWidth">
+          <path d="M0,4 L4.5,0 L9,4 L4.5,8 z" fill="#6b4fa8"/></marker></defs>
         <g id="edgeLayer"></g>
       </svg>
       <div id="families"></div>

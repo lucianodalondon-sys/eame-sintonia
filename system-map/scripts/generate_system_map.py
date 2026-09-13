@@ -172,6 +172,11 @@ ZONA_PAD, ZONA_CAB = 60, 110    # margem interna e cabecalho da zona
 ZONA_GAP = 300                 # entre zonas: a fronteira tem de se ver
 TOPO = 190
 FAM_TOPO, FAM_PAD = 60, 40      # a faixa da familia abraca as zonas dela
+PLANO_GAP = 620                # ENTRE PLANOS: tem de ser maior que ZONA_GAP,
+                               # senao o andar de cima le-se como mais uma zona
+                               # da fila — e o CONTROL PLANE volta a parecer a
+                               # etapa seguinte do dado, que e o unico erro que
+                               # este desenho existe para nao cometer.
 
 
 def linhagem() -> list:
@@ -1069,14 +1074,18 @@ def momento_das_ferramentas(nos: list) -> None:
                                   "rota conhecida nem trata o que voltou.")
 
 
-def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
-    """Coloca cada peca numa coluna, e cada zona lado a lado, da esquerda para a
-    direita — que e a direcao em que o dado corre: fonte → motor → pacote → tela."""
-    por_zona: dict[str, list] = {z["id"]: [] for z in zonas}
-    for n in nos:
-        por_zona.get(n["territory"], []).append(n)
+def _dispor(zonas: list, por_zona: dict, topo: int,
+            gap: int | None = None) -> tuple[list, int]:
+    """Poe estas zonas lado a lado, da esquerda para a direita, a partir de `topo`.
 
-    x = ZONA_GAP
+    Extraido de `desenhar` para poder correr DUAS VEZES: uma para o plano de
+    controlo e outra para o plano operacional. Enquanto era um laco unico, uma
+    faixa nova so podia nascer a direita da ENTREGA — e o CONTROL PLANE a
+    direita da entrega leria-se como a etapa seguinte do dado, que e exatamente
+    o que ele nao e.
+    """
+    folga = ZONA_GAP if gap is None else gap
+    x = folga
     caixas = []
     for z in zonas:
         # peca com ordem propria (as ferramentas do portal) respeita-a; o resto
@@ -1090,14 +1099,70 @@ def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, 
         alt = ZONA_CAB + ZONA_PAD * 2 + linhas * NO_A + max(0, linhas - 1) * GAP_Y
         for i, n in enumerate(membros):
             n["x"] = x + ZONA_PAD + (i % cols) * (NO_L + GAP_X)
-            n["y"] = TOPO + ZONA_CAB + ZONA_PAD + (i // cols) * (NO_A + GAP_Y)
-        caixas.append({**z, "x": x, "y": TOPO, "w": larg, "h": alt,
+            n["y"] = topo + ZONA_CAB + ZONA_PAD + (i // cols) * (NO_A + GAP_Y)
+        caixas.append({**z, "x": x, "y": topo, "w": larg, "h": alt,
                        "count": len(membros)})
-        x += larg + ZONA_GAP
+        x += larg + folga
 
-    altura = max(c["y"] + c["h"] for c in caixas) + ZONA_GAP
+    if not caixas:
+        return [], topo
+    fundo = max(c["y"] + c["h"] for c in caixas)
     for c in caixas:
-        c["h"] = altura - TOPO - ZONA_GAP  # todas as zonas com a mesma altura
+        c["h"] = fundo - topo            # todas as zonas do plano com a mesma altura
+    return caixas, fundo
+
+
+def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
+    """Dois planos, um por cima do outro — e o de cima NAO e a etapa seguinte.
+
+    O plano operacional le-se da esquerda para a direita, que e a direcao em que
+    o dado corre: fonte → motor → pacote → tela. O CONTROL PLANE fica POR CIMA
+    dele, atravessado, porque governa a linha inteira e nao um pedaco dela.
+
+        CONTROL PLANE           quem manda
+        ─────────────────────   (nenhum dado atravessa esta linha)
+        COLETA → … → ENTREGA    a maquina
+
+    Poe-lo a direita da ENTREGA — que e onde uma quinta familia cairia sozinha —
+    dizia ao olho `ENTREGA → CONTROL PLANE`, e portanto que governar era o passo
+    depois de entregar. Em cima, atravessado, nao ha como ler isso.
+    """
+    por_zona: dict[str, list] = {z["id"]: [] for z in zonas}
+    for n in nos:
+        por_zona.get(n["territory"], []).append(n)
+
+    plano_da_familia = {f["id"]: f.get("plane", "OPERATIONAL") for f in familias}
+    de_controlo = [z for z in zonas if plano_da_familia.get(z["family"]) == "CONTROL"]
+    operacionais = [z for z in zonas if plano_da_familia.get(z["family"]) != "CONTROL"]
+
+    caixas_ctrl, fundo_ctrl = _dispor(de_controlo, por_zona, TOPO)
+    # A distancia entre os dois planos e MAIOR do que a distancia entre zonas do
+    # mesmo plano, de proposito: e ela que diz ao olho que aquilo ali nao e mais
+    # uma zona da fila — e outro andar.
+    topo_op = (fundo_ctrl + PLANO_GAP) if caixas_ctrl else TOPO
+    caixas_op, fundo_op = _dispor(operacionais, por_zona, topo_op)
+
+    # AS DUAS FILAS TEM DE ACABAR NO MESMO SITIO.
+    #
+    # As nove zonas de governo sao estreitas; as dezoito da maquina sao largas.
+    # Dispostas com a mesma folga, o plano de controlo acaba a meio do mapa — e a
+    # faixa roxa, esticada ate ao fim para dizer que governa tudo, fica com a
+    # metade direita vazia. Um retangulo colorido vazio nao se le como «isto
+    # governa aquilo tudo»: le-se como um erro de desenho, e quem o ve deixa de
+    # confiar no resto do que o mapa afirma.
+    #
+    # A folga entre as zonas de governo estica-se, entao, ate as duas filas
+    # acabarem juntas. E SO ESPACO: nenhuma zona muda de ordem, nenhuma peca muda
+    # de zona, e nada aqui altera uma afirmacao do mapa.
+    if caixas_ctrl and caixas_op:
+        largura_op = max(c["x"] + c["w"] for c in caixas_op)
+        soma_ctrl = sum(c["w"] for c in caixas_ctrl)
+        folga = max(ZONA_GAP, (largura_op - soma_ctrl) // (len(caixas_ctrl) + 1))
+        caixas_ctrl, fundo_ctrl = _dispor(de_controlo, por_zona, TOPO, gap=folga)
+
+    caixas = caixas_ctrl + caixas_op
+    altura = max(fundo_ctrl, fundo_op) + ZONA_GAP
+    largura = max([c["x"] + c["w"] for c in caixas] or [ZONA_GAP]) + ZONA_GAP
 
     # A FAIXA DA FAMILIA. E ela que faz COLETA -> INTELIGENCIA -> ENTREGA ler-se
     # de longe, quando as letras da zona ja sao pequenas demais para ler. Cada
@@ -1109,13 +1174,168 @@ def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, 
         minhas = [c for c in caixas if c["family"] == f["id"]]
         if not minhas:
             continue
-        x0 = min(c["x"] for c in minhas) - FAM_PAD
-        x1 = max(c["x"] + c["w"] for c in minhas) + FAM_PAD
-        faixas.append({**f, "x": x0, "y": FAM_TOPO, "w": x1 - x0,
-                       "h": altura - FAM_TOPO - ZONA_GAP + FAM_PAD,
+        controlo = plano_da_familia.get(f["id"]) == "CONTROL"
+        topo_f = FAM_TOPO if controlo else (topo_op - (TOPO - FAM_TOPO))
+        fundo_f = (fundo_ctrl if controlo else fundo_op) + FAM_PAD
+        if controlo:
+            # A FAIXA DO GOVERNO ATRAVESSA A LARGURA TODA, e nao so a das zonas
+            # que ela contem. Isto e uma excecao deliberada a regra de que a
+            # faixa abraca as suas zonas — e a excecao diz uma verdade que o
+            # abraco apertado escondia:
+            #
+            #     esta faixa nao governa a COLETA. Governa a linha inteira.
+            #
+            # Medido: as nove zonas de governo somam 7.370px, e a maquina vai
+            # ate 16.050px. Uma faixa que acabasse aos 7.370 ficaria pousada
+            # exatamente por cima da COLETA e de mais nada — e leria-se como
+            # «o governo e da coleta», que e falso e pior do que nao ter faixa.
+            x0 = min(c["x"] for c in caixas) - FAM_PAD
+            x1 = max(c["x"] + c["w"] for c in caixas) + FAM_PAD
+        else:
+            x0 = min(c["x"] for c in minhas) - FAM_PAD
+            x1 = max(c["x"] + c["w"] for c in minhas) + FAM_PAD
+        faixas.append({**f, "x": x0, "y": topo_f, "w": x1 - x0,
+                       "h": fundo_f - topo_f,
                        "zones": [c["id"] for c in minhas],
                        "count": sum(c["count"] for c in minhas)})
-    return caixas, nos, faixas, x, altura
+    return caixas, nos, faixas, largura, altura
+
+
+# ── O CONTROL PLANE NO MAPA ─────────────────────────────────────────────────
+# Nada aqui e escrito a mao. Os cartoes e as arestas vem de
+# `system-map/data/controle.generated.json`, que `controle/censo_do_controle.py`
+# produz medindo `controle/AUTORIDADES-CANONICAS.json` contra esta arvore.
+#
+#     REGISTO (escrito por gente)  →  CENSO (mede)  →  MAPA (desenha)
+#
+# O mapa e o terceiro da fila, e nunca o primeiro. Se ele desenhasse uma seta de
+# governo que o censo nao mediu, seria a segunda verdade arquitetural que
+# AGENTS.md proibe — desta vez sobre quem manda, que e pior do que sobre o que
+# corre.
+CONTROLE = DADOS / "controle.generated.json"
+
+ZONA_DA_ESPECIE = {
+    "INSTRUCTION": "Z-CTRL-INSTRUCOES", "BIBLE": "Z-CTRL-BIBLIAS",
+    "CONTRACT": "Z-CTRL-CONTRATOS", "DECISION": "Z-CTRL-DECISOES",
+    "KNOW_HOW": "Z-CTRL-KNOWHOW", "HANDOFF": "Z-CTRL-HANDOFFS",
+    "VALIDATOR": "Z-CTRL-PORTOES", "POLICY": "Z-CTRL-PORTOES",
+    "OBSERVER": "Z-CTRL-OBSERVADORES", "REGISTRY": "Z-CTRL-REGISTO",
+}
+ICONE_DA_ESPECIE = {
+    "INSTRUCTION": "§", "BIBLE": "▤", "CONTRACT": "◫", "DECISION": "◈",
+    "KNOW_HOW": "✦", "HANDOFF": "↷", "VALIDATOR": "⚖", "POLICY": "▶",
+    "OBSERVER": "◎", "REGISTRY": "☰",
+}
+# O QUE FOI MEDIDO -> A COR. Uma autoridade que nao esta nesta arvore e VERMELHA,
+# e nao amarela: ela foi declarada canonica e nao existe aqui, que e exatamente a
+# definicao de BROKEN em AGENTS.md. Pinta-la de amarelo seria dizer «existe, mas
+# com uma pendencia» sobre um ficheiro que quem clona esta linha nunca vai ler.
+COR_DO_OBSERVADO = {
+    "PRESENT_AND_POINTED": VERDE, "PRESENT_ENTRY_POINT": VERDE,
+    "ORPHAN_IN_TREE": AMARELO, "ABSENT_FROM_SNAPSHOT": VERMELHO, "ABSENT": CINZA,
+}
+PORQUE_ESTA_COR = {
+    "PRESENT_AND_POINTED": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+    "PRESENT_ENTRY_POINT": "e porta de entrada: entra-se nela de fora do repositorio.",
+    "ORPHAN_IN_TREE": "esta nesta arvore e NINGUEM aponta para ela.",
+    "ABSENT_FROM_SNAPSHOT": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+    "ABSENT": "NAO SEI: nao foi encontrada em lado nenhum.",
+}
+
+
+def control_plane(ids_existentes: set) -> tuple[list, list, int]:
+    """Os cartoes e as setas do plano de governo, lidos do censo."""
+    if not CONTROLE.exists():
+        return [], [], 0
+    C = json.loads(CONTROLE.read_text(encoding="utf-8"))
+
+    cartoes, por_caminho = [], {}
+    for c in C["CARDS"]:
+        obs = c["OBSERVED_STATE"]
+        status = COR_DO_OBSERVADO.get(obs, CINZA)
+        # O caminho so entra em `files` quando EXISTE. Quando nao existe, entra
+        # em `facts` — com a ref onde ele realmente vive. Um mapa que citasse um
+        # ficheiro ausente como ficheiro reprovaria em P4, e com razao: a peca
+        # continuaria a dizer «este ficheiro e meu» sobre nada.
+        existe = c["IN_TREE"]
+        factos = [] if existe else [
+            f"{c['CANONICAL_PATH']} @ {c['LIVES_AT']}",
+            f"SHA {c['SHA']}" if c["SHA"] else "sem SHA",
+        ]
+        cartoes.append({
+            "id": c["CARD_ID"], "name": c["NAME"],
+            "kind": c["KIND"].lower().replace("_", " "),
+            "icon": ICONE_DA_ESPECIE.get(c["KIND"], "§"),
+            "territory": ZONA_DA_ESPECIE.get(c["KIND"], "Z-CTRL-REGISTO"),
+            "family": "F-CONTROLE",
+            "status": status,
+            "ui_status": {"PROVEN": "green", "PENDING": "yellow",
+                          "BROKEN": "red", "UNKNOWN": "gray"}[status],
+            "status_reason": PORQUE_ESTA_COR.get(obs, ""),
+            "what": c["PURPOSE"], "why_here": c["DECLARED_STATE"],
+            # `files` fica VAZIO de proposito, mesmo quando o caminho existe: o
+            # ficheiro ja tem dono do lado operacional (P8 recusa dois donos), e
+            # uma autoridade nao e o codigo dela — e um facto sobre quem manda.
+            "files": [], "file_count": 0, "facts": factos or [c["CANONICAL_PATH"]],
+            "proof": "git-measurement",
+            "evidence_text": (f"{c['PROOF']} · conteudo {c['SHA']}" if c["PROOF"]
+                              else "nao encontrado no git"),
+            "departments": ["INTELIGENCIA"], "views": ["governanca"],
+            "lane": "official", "legacy": False, "changed_since_declared": [],
+            "inbound": [], "outbound": [],
+            # ── o cartao de governo, campo a campo ───────────────────────────
+            "controle": {
+                "KIND": c["KIND"], "DOMAIN": c["DOMAIN"],
+                "CONCEPT_OWNER": c["CONCEPT_OWNER"], "SCOPE": c["SCOPE"],
+                "CANONICAL_PATH": c["CANONICAL_PATH"],
+                "CANONICAL_REF": c["CANONICAL_REF"], "LIVES_AT": c["LIVES_AT"],
+                "VERSION": c["VERSION"], "LIFECYCLE": c["LIFECYCLE"],
+                "DECLARED_STATE": c["DECLARED_STATE"],
+                # `LAST_VERIFIED` NAO ENTRA NO ESTADO SERVIDO. E uma data de
+                # commit, e uma data de commit muda no instante do commit — o
+                # mapa nasceria sempre um commit atras de si mesmo, e a prova
+                # anti-drift reprovaria o commit que acabou de a satisfazer.
+                # Ela fica em `controle.generated.json`, que nao e comparado.
+                # Aqui vai a IMPRESSAO DO CONTEUDO, que atravessa o commit.
+                "OBSERVED_STATE": obs, "PROOF": c["PROOF"], "SHA": c["SHA"],
+                "REFERENCED_BY": c["REFERENCED_BY"],
+                "DIVERGENT_COPIES": c["DIVERGENT_COPIES"],
+                "SUPERSEDES": c["SUPERSEDES"], "SUPERSEDED_BY": c["SUPERSEDED_BY"],
+                "NOTE": c["NOTE"], "IN_TREE": existe,
+            },
+        })
+        por_caminho[c["CANONICAL_PATH"]] = c["CARD_ID"]
+
+    arestas, sem_alvo = [], 0
+    for e in C["GOVERNANCE_EDGES"]:
+        alvo = por_caminho.get(e["TO_PATH"]) or e["TO_COMPONENT"]
+        if not alvo or alvo not in ids_existentes and alvo not in por_caminho.values():
+            sem_alvo += 1
+            continue
+        observada = e["EDGE_STATE"] == "OBSERVED"
+        # A PROVA, quando existe, e `ficheiro:linha` — e vai para o mapa no
+        # mesmo formato que P5_PROVA_APONTAVEL exige de qualquer outra aresta.
+        prova = []
+        if observada and ":" in e["PROOF_LOCATION"]:
+            f, _, ln = e["PROOF_LOCATION"].rpartition(":")
+            if ln.isdigit():
+                prova = [{"file": f, "line": int(ln),
+                          "snippet": f"{e['EDGE_TYPE'].lower()} — o texto da "
+                                     f"autoridade nomeia {e['TO_PATH']}"}]
+        arestas.append({
+            "from": e["FROM"], "to": alvo, "type": e["EDGE_TYPE"],
+            # DECLARADA E `expected`, E `expected` E OBRIGADO A SER UNKNOWN por
+            # P7_NAO_SEI_VIVE. Nao ha aqui regra nova: a lei que ja impedia uma
+            # aresta tecnica declarada de ficar verde e a mesma que impede uma
+            # GOVERNS declarada de ficar verde. Uma lei, dois usos.
+            "kind": "governance" if observada else "expected",
+            "status": "PROVEN" if observada else "UNKNOWN",
+            "natureza": "GOVERNO",
+            "edge_state": e["EDGE_STATE"], "edge_plane": e["EDGE_PLANE"],
+            "proof_kind": e["PROOF_KIND"], "proof_location": e["PROOF_LOCATION"],
+            "payload": e["EDGE_TYPE"].lower(), "evidence": prova,
+        })
+    return cartoes, arestas, sem_alvo
 
 
 def indice_de_fontes() -> None:
@@ -2055,6 +2275,27 @@ def main_uma_vez(stamp: bool) -> int:
         n["escreve_na_pasta"] = pastas
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
+
+    # ── O CONTROL PLANE ──────────────────────────────────────────────────────
+    # Entra DEPOIS de tudo o que e operacional, e nao antes: ele precisa de saber
+    # que pecas existem para poder dizer que governa alguma. Uma autoridade que
+    # governasse um id inexistente daria ponta solta, e P3 reprovaria — o que
+    # esta certo, e por isso as arestas cujo alvo nao e reivindicado por peca
+    # nenhuma nao sao desenhadas: ficam contadas, e ditas em voz alta.
+    cartoes_ctrl, arestas_ctrl, ctrl_sem_alvo = control_plane({n["id"] for n in nos})
+    nos = nos + cartoes_ctrl
+    for a in arestas_ctrl:
+        ligacoes[(a["from"], a["to"], a["type"])] = a
+
+    # As arestas de governo tambem contam para «recebe» e «envia» de cada peca —
+    # senao um cartao governado por uma Biblia diria «ninguem manda em mim».
+    por_id_todos = {n["id"]: n for n in nos}
+    for a in arestas_ctrl:
+        origem, destino_ = por_id_todos.get(a["from"]), por_id_todos.get(a["to"])
+        if origem and a["to"] not in origem["outbound"]:
+            origem["outbound"] = sorted(origem["outbound"] + [a["to"]])
+        if destino_ and a["from"] not in destino_["inbound"]:
+            destino_["inbound"] = sorted(destino_["inbound"] + [a["from"]])
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])

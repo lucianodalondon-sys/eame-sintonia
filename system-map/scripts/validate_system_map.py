@@ -197,7 +197,7 @@ def main() -> int:
     fams = {f["id"] for f in S["FAMILIES"]}
     orfas = sorted(z["id"] for z in S["TERRITORIES"] if z.get("family") not in fams)
     prova("P2_ZONA_TEM_FAMILIA",
-          "toda zona pertence a COLETA, INTELIGENCIA ou ENTREGA",
+          "toda zona pertence a uma familia que existe",
           not orfas, ", ".join(orfas))
 
     sem_fam = sorted({n["id"] for n in S["NODES"] if n.get("family") not in fams})

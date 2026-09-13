@@ -1,8 +1,8 @@
 {
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
-    "w": 15895,
-    "h": 2462
+    "w": 16310,
+    "h": 4732
   },
   "INVENTORY": {
     "(raiz)": [
@@ -20,6 +20,7 @@
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
+      "SALA-DE-CONTROLE-SINTONIA.md",
       "_gavetas.py",
       "package.json",
       "vercel.json"
@@ -30,6 +31,7 @@
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -203,6 +205,13 @@
       "coleta/universo_ciencia_it.py",
       "coleta/youtube_janela.py",
       "coleta/youtube_relevancia.py"
+    ],
+    "controle": [
+      "controle/AUTORIDADES-CANONICAS.json",
+      "controle/CHAO-DO-CONTROLE.json",
+      "controle/censo_do_controle.py",
+      "controle/portao_do_controle.py",
+      "controle/red_team_do_controle.py"
     ],
     "data": [
       "data/collection-ledger/italy/observations.ndjson",
@@ -1583,18 +1592,41 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/funny-hypatia-y7ho5s",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FAMILIES": [
+    {
+      "id": "F-CONTROLE",
+      "name": "CONTROL PLANE",
+      "plane": "CONTROL",
+      "why": "Quem governa a maquina: instrucoes, biblias, contratos, decisoes, know-how, handoffs, portoes e observadores. NENHUM DADO ATRAVESSA ESTE PLANO — ele nao e uma quarta etapa da coleta, e o andar de cima dela",
+      "x": 260,
+      "y": 60,
+      "w": 15790,
+      "h": 1820,
+      "zones": [
+        "Z-CTRL-INSTRUCOES",
+        "Z-CTRL-BIBLIAS",
+        "Z-CTRL-CONTRATOS",
+        "Z-CTRL-DECISOES",
+        "Z-CTRL-KNOWHOW",
+        "Z-CTRL-HANDOFFS",
+        "Z-CTRL-PORTOES",
+        "Z-CTRL-OBSERVADORES",
+        "Z-CTRL-REGISTO"
+      ],
+      "count": 38
+    },
     {
       "id": "F-COLETA",
       "name": "COLETA",
       "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
+      "plane": "OPERATIONAL",
       "x": 260,
-      "y": 60,
-      "w": 6955,
+      "y": 2330,
+      "w": 7370,
       "h": 2142,
       "zones": [
         "Z-PEDIDO",
@@ -1607,14 +1639,15 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 37
+      "count": 38
     },
     {
       "id": "F-ESPERA",
       "name": "A ESPERA",
       "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas",
-      "x": 7435,
-      "y": 60,
+      "plane": "OPERATIONAL",
+      "x": 7850,
+      "y": 2330,
       "w": 485,
       "h": 2142,
       "zones": [
@@ -1626,8 +1659,9 @@
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
       "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
-      "x": 8140,
-      "y": 60,
+      "plane": "OPERATIONAL",
+      "x": 8555,
+      "y": 2330,
       "w": 3845,
       "h": 2142,
       "zones": [
@@ -1642,8 +1676,9 @@
       "id": "F-ENTREGA",
       "name": "ENTREGA",
       "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
-      "x": 12205,
-      "y": 60,
+      "plane": "OPERATIONAL",
+      "x": 12620,
+      "y": 2330,
       "w": 3430,
       "h": 2142,
       "zones": [
@@ -1657,6 +1692,141 @@
   ],
   "TERRITORIES": [
     {
+      "id": "Z-CTRL-INSTRUCOES",
+      "family": "F-CONTROLE",
+      "name": "INSTRUCOES",
+      "why": "A lei escrita e as suas portas. Um dono, multiplos ponteiros: quem repete a lei cria uma segunda que diverge",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 1112,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 4
+    },
+    {
+      "id": "Z-CTRL-BIBLIAS",
+      "family": "F-CONTROLE",
+      "name": "BIBLIAS",
+      "why": "A constituicao de cada departamento — COLETA, INTELIGENCIA, ENTREGA. Nenhuma das tres esta nesta arvore, e e por isso que esta faixa existe",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 2629,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 3
+    },
+    {
+      "id": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "name": "CONTRATOS",
+      "why": "O que cada peca promete, e o que ela nao prova. Contrato tem um dono; snapshot e derivado",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 4146,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 5
+    },
+    {
+      "id": "Z-CTRL-DECISOES",
+      "family": "F-CONTROLE",
+      "name": "DECISOES",
+      "why": "Toda decisao, com data e motivo. Decisao que fica so na conversa nao existe",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 5663,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 1
+    },
+    {
+      "id": "Z-CTRL-KNOWHOW",
+      "family": "F-CONTROLE",
+      "name": "KNOW-HOW",
+      "why": "O conhecimento duravel. UM SO — um segundo know-how nao acrescenta memoria, divide-a",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 7180,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 1
+    },
+    {
+      "id": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "name": "HANDOFFS",
+      "why": "Memoria de sessao, NAO autoridade. Um handoff conta o que aconteceu; no dia em que governar alguem, a lembranca de um dia manda no repositorio inteiro",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 8697,
+      "y": 190,
+      "w": 820,
+      "h": 1650,
+      "count": 7
+    },
+    {
+      "id": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "name": "PORTOES DE GOVERNANCA",
+      "why": "Os dentes. Texto nao reprova nada; portao reprova",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 10629,
+      "y": 190,
+      "w": 820,
+      "h": 1650,
+      "count": 6
+    },
+    {
+      "id": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "name": "OBSERVADORES",
+      "why": "Quem mede e escreve o que viu. Medem — nao decidem, e nunca governam",
+      "views": [
+        "governanca"
+      ],
+      "folder": null,
+      "x": 12561,
+      "y": 190,
+      "w": 405,
+      "h": 1650,
+      "count": 5
+    },
+    {
+      "id": "Z-CTRL-REGISTO",
+      "family": "F-CONTROLE",
+      "name": "O REGISTO E A SUA MAQUINA",
+      "why": "O indice de quem manda, e o codigo que o mede contra a arvore. INDICE, NAO BIBLIA: nao possui lei nenhuma; possui a lista de quem possui",
+      "views": [
+        "governanca"
+      ],
+      "folder": "controle",
+      "x": 14078,
+      "y": 190,
+      "w": 820,
+      "h": 1650,
+      "count": 6
+    },
+    {
       "id": "Z-PEDIDO",
       "family": "F-COLETA",
       "name": "1 · O PEDIDO E O PLANO",
@@ -1666,7 +1836,7 @@
       ],
       "folder": "pedido",
       "x": 300,
-      "y": 190,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 4
@@ -1681,7 +1851,7 @@
       ],
       "folder": "candidatas",
       "x": 1005,
-      "y": 190,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 2
@@ -1696,7 +1866,7 @@
       ],
       "folder": "fontes",
       "x": 1710,
-      "y": 190,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 2
@@ -1711,10 +1881,10 @@
       ],
       "folder": "ferramentas",
       "x": 2415,
-      "y": 190,
-      "w": 405,
+      "y": 2460,
+      "w": 820,
       "h": 1972,
-      "count": 5
+      "count": 6
     },
     {
       "id": "Z-VEICULOS",
@@ -1724,8 +1894,8 @@
       "views": [
         "acervo"
       ],
-      "x": 3120,
-      "y": 190,
+      "x": 3535,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 5
@@ -1740,8 +1910,8 @@
         "audit"
       ],
       "folder": "regras",
-      "x": 3825,
-      "y": 190,
+      "x": 4240,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 4
@@ -1756,8 +1926,8 @@
         "infra"
       ],
       "folder": "coleta",
-      "x": 4530,
-      "y": 190,
+      "x": 4945,
+      "y": 2460,
       "w": 820,
       "h": 1972,
       "count": 8
@@ -1771,8 +1941,8 @@
         "acervo"
       ],
       "folder": "admissao",
-      "x": 5650,
-      "y": 190,
+      "x": 6065,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 1
@@ -1786,8 +1956,8 @@
         "audit"
       ],
       "folder": "medidas",
-      "x": 6355,
-      "y": 190,
+      "x": 6770,
+      "y": 2460,
       "w": 820,
       "h": 1972,
       "count": 6
@@ -1801,8 +1971,8 @@
         "infra"
       ],
       "folder": "guarda",
-      "x": 7475,
-      "y": 190,
+      "x": 7890,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 5
@@ -1817,8 +1987,8 @@
         "official"
       ],
       "folder": null,
-      "x": 8180,
-      "y": 190,
+      "x": 8595,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 4
@@ -1833,8 +2003,8 @@
         "science"
       ],
       "folder": "leis",
-      "x": 8885,
-      "y": 190,
+      "x": 9300,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 4
@@ -1849,8 +2019,8 @@
         "opportunity"
       ],
       "folder": "motor",
-      "x": 9590,
-      "y": 190,
+      "x": 10005,
+      "y": 2460,
       "w": 820,
       "h": 1972,
       "count": 8
@@ -1865,8 +2035,8 @@
         "infra"
       ],
       "folder": "provas",
-      "x": 10710,
-      "y": 190,
+      "x": 11125,
+      "y": 2460,
       "w": 1235,
       "h": 1972,
       "count": 13
@@ -1881,8 +2051,8 @@
         "portal"
       ],
       "folder": "pacote",
-      "x": 12245,
-      "y": 190,
+      "x": 12660,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 3
@@ -1897,8 +2067,8 @@
         "audit"
       ],
       "folder": "portoes",
-      "x": 12950,
-      "y": 190,
+      "x": 13365,
+      "y": 2460,
       "w": 820,
       "h": 1972,
       "count": 7
@@ -1913,8 +2083,8 @@
         "meeting"
       ],
       "folder": "superficie",
-      "x": 14070,
-      "y": 190,
+      "x": 14485,
+      "y": 2460,
       "w": 405,
       "h": 1972,
       "count": 5
@@ -1928,8 +2098,8 @@
         "portal",
         "entrega"
       ],
-      "x": 14775,
-      "y": 190,
+      "x": 15190,
+      "y": 2460,
       "w": 820,
       "h": 1972,
       "count": 11
@@ -1947,6 +2117,929 @@
     "ENGENHARIA": "Engenharia do proprio SINTONIA (nao e departamento da ADAMA)."
   },
   "NODES": [
+    {
+      "id": "A-AGENTS",
+      "name": "A LEI DO SYSTEM MAP",
+      "kind": "instruction",
+      "icon": "§",
+      "territory": "Z-CTRL-INSTRUCOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Dizer o que o System Map e, o que ele nunca pode fazer, e que gaveta guarda que etapa.",
+      "why_here": "A lei escrita. Os outros ficheiros de instrucao apontam para aqui e nao a repetem.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "AGENTS.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:AGENTS.md · conteudo 42a22207e7",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-CLAUDE",
+        "A-COPILOT",
+        "A-README"
+      ],
+      "outbound": [
+        "A-ATLAS-FONTES",
+        "A-CLAUDE",
+        "A-CONTRATOS-FONTES",
+        "A-README",
+        "C-PORTA-FONTE",
+        "G-PORTAO-CONTROLE",
+        "G-TESTES-MAPA",
+        "G-VALIDADOR-MAPA",
+        "O-CENSO-CONTROLE",
+        "O-GERADOR",
+        "R-AUTORIDADES"
+      ],
+      "controle": {
+        "KIND": "INSTRUCTION",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "LEI_DO_SYSTEM_MAP",
+        "SCOPE": "Todo agente que altera arquitetura, fonte, coleta, fluxo, contrato, regua, motor ou superficie.",
+        "CANONICAL_PATH": "AGENTS.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "A lei escrita. Os outros ficheiros de instrucao apontam para aqui e nao a repetem.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:AGENTS.md",
+        "SHA": "42a22207e7",
+        "REFERENCED_BY": [
+          ".github/copilot-instructions.md",
+          ".github/workflows/system-map.yml",
+          "CLAUDE.md",
+          "README.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/censo_do_controle.py",
+          "controle/portao_do_controle.py",
+          "controle/red_team_do_controle.py",
+          "provas/testa_coleta_canonica.py",
+          "system-map/README.md",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/generate_system_map.py",
+          "system-map/scripts/validate_system_map.py",
+          "system-map/tests/test_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 1172,
+      "y": 360
+    },
+    {
+      "id": "A-ARQ-PRODUTO",
+      "name": "ARQUITETURA DE PRODUTO ATUAL",
+      "kind": "contract",
+      "icon": "◫",
+      "territory": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Vencer quando dois documentos discordarem sobre o que o produto e hoje.",
+      "why_here": "Identica em todas as dez linhas medidas.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md · conteudo bb6355c401",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "CONTRACT",
+        "DOMAIN": "PRODUTO",
+        "CONCEPT_OWNER": "ARQUITETURA_DE_PRODUTO",
+        "SCOPE": "Produto e portal.",
+        "CANONICAL_PATH": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "estavel",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Identica em todas as dez linhas medidas.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "SHA": "bb6355c401",
+        "REFERENCED_BY": [
+          "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+          "PORTAL-CAPABILITY-INVENTORY.md",
+          "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
+          "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
+          "docs/piloto/ENTRADA-PARA-CLAUDE-DESIGN.md",
+          "docs/relatorios/RELATORIO-CAMADA-COMPETITOR.md"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 4206,
+      "y": 360
+    },
+    {
+      "id": "A-ATLAS-FONTES",
+      "name": "ATLAS DE FONTES EAME",
+      "kind": "contract",
+      "icon": "◫",
+      "territory": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O capital parado da casa: que fonte existe, quem publica, onde vive, o que ela entrega — com evidencia guardada.",
+      "why_here": "Segundo degrau. Uma linha so existe aqui depois de alguem abrir a fonte e guardar evidencia.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:docs/fontes/ATLAS-DE-FONTES-EAME.md · conteudo 508a4ca185",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "CONTRACT",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "ACERVO_DE_FONTES",
+        "SCOPE": "Toda fonte REGISTADA.",
+        "CANONICAL_PATH": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Segundo degrau. Uma linha so existe aqui depois de alguem abrir a fonte e guardar evidencia.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "SHA": "508a4ca185",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+          "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+          "candidatas/FONTES-CANDIDATAS.json",
+          "candidatas/ITALY-SOURCE-MASTER-V1.json",
+          "candidatas/ITALY-SOURCE-MASTER-V1.md",
+          "candidatas/fonte_nova.py",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/descoberta/MISSAO-EAME-01.md",
+          "docs/relatorios/RELATORIO-CAMADA-COMPETITOR.md",
+          "medidas/padrao_da_coleta.py",
+          "pacote/metricas_canonicas.py",
+          "portoes/build_portal.py",
+          "system-map/scripts/generate_system_map.py",
+          "system-map/scripts/scan_sources.py",
+          "system-map/tests/test_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 4206,
+      "y": 682
+    },
+    {
+      "id": "A-BIBLIA-COLETA",
+      "name": "BIBLIA CANONICA DA COLETA",
+      "kind": "bible",
+      "icon": "▤",
+      "territory": "Z-CTRL-BIBLIAS",
+      "family": "F-CONTROLE",
+      "status": "BROKEN",
+      "ui_status": "red",
+      "status_reason": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+      "what": "A constituicao da COLETA: o que entra, com que carimbo, por que porta, e o que nunca pode passar.",
+      "why_here": "AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "BIBLIA-CANONICA-DA-COLETA.md @ origin/claude/raw-observation-identity-3jbwco",
+        "SHA 5a3ce7b1d6"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md · conteudo 5a3ce7b1d6",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-ADMISSAO",
+        "C-COLETA-BASE",
+        "C-PALAVRAS",
+        "C-PEDIDO",
+        "C-PROCEDENCIA"
+      ],
+      "controle": {
+        "KIND": "BIBLE",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "LEI_DA_COLETA",
+        "SCOPE": "Todo o departamento de COLETA e a porta de admissao.",
+        "CANONICAL_PATH": "BIBLIA-CANONICA-DA-COLETA.md",
+        "CANONICAL_REF": "origin/claude/raw-observation-identity-3jbwco",
+        "LIVES_AT": "origin/claude/raw-observation-identity-3jbwco",
+        "VERSION": "linha funcional",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.",
+        "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+        "PROOF": "git:origin/claude/raw-observation-identity-3jbwco:BIBLIA-CANONICA-DA-COLETA.md",
+        "SHA": "5a3ce7b1d6",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/censo_do_controle.py",
+          "controle/red_team_do_controle.py"
+        ],
+        "DIVERGENT_COPIES": [
+          "origin/claude/sintonia-eame-know-how-v1",
+          "origin/release/canonical",
+          "origin/claude/biblia-canonica-da-coleta"
+        ],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": false
+      },
+      "x": 2689,
+      "y": 360
+    },
+    {
+      "id": "A-BIBLIA-ENTREGA",
+      "name": "BIBLIA DA ENTREGA / CASCO",
+      "kind": "bible",
+      "icon": "▤",
+      "territory": "Z-CTRL-BIBLIAS",
+      "family": "F-CONTROLE",
+      "status": "BROKEN",
+      "ui_status": "red",
+      "status_reason": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+      "what": "A constituicao da ENTREGA: como se cria, testa, promove, funde e aposenta uma ferramenta do portal sem perder evidencia, autoridade nem NAO SEI.",
+      "why_here": "ESCRITA E NAO ACEITE. 2.738 linhas, quatro partes, benchmark de 16 sistemas — e o proprio cabecalho carimba `BIBLE_STATUS DRAFT`, `IMPLEMENTATION NONE`, `MERGES ZERO`. Nunca entrou em `main`; nenhuma peca da ENTREGA a obedece hoje.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/biblia/BIBLIA-DA-ENTREGA-EAME.md @ origin/research/delivery-bible-v1",
+        "SHA bb471910c6"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:origin/research/delivery-bible-v1:docs/biblia/BIBLIA-DA-ENTREGA-EAME.md · conteudo bb471910c6",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "C-ASK-SINTONIA",
+        "C-SITE-INGEST"
+      ],
+      "controle": {
+        "KIND": "BIBLE",
+        "DOMAIN": "ENTREGA",
+        "CONCEPT_OWNER": "LEI_DA_ENTREGA",
+        "SCOPE": "Pacote canonico, fronteira e portoes, superficies, as ferramentas do portal.",
+        "CANONICAL_PATH": "docs/biblia/BIBLIA-DA-ENTREGA-EAME.md",
+        "CANONICAL_REF": "origin/research/delivery-bible-v1",
+        "LIVES_AT": "origin/research/delivery-bible-v1",
+        "VERSION": "V0.4R",
+        "LIFECYCLE": "CANDIDATE",
+        "DECLARED_STATE": "ESCRITA E NAO ACEITE. 2.738 linhas, quatro partes, benchmark de 16 sistemas — e o proprio cabecalho carimba `BIBLE_STATUS DRAFT`, `IMPLEMENTATION NONE`, `MERGES ZERO`. Nunca entrou em `main`; nenhuma peca da ENTREGA a obedece hoje.",
+        "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+        "PROOF": "git:origin/research/delivery-bible-v1:docs/biblia/BIBLIA-DA-ENTREGA-EAME.md",
+        "SHA": "bb471910c6",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "CANDIDATE, nao CANONICAL: uma biblia que se declara DRAFT nao pode ser carimbada de lei por quem a cataloga.",
+        "IN_TREE": false
+      },
+      "x": 2689,
+      "y": 682
+    },
+    {
+      "id": "A-BIBLIA-INTELIGENCIA",
+      "name": "BIBLIA DA INTELIGENCIA",
+      "kind": "bible",
+      "icon": "▤",
+      "territory": "Z-CTRL-BIBLIAS",
+      "family": "F-CONTROLE",
+      "status": "BROKEN",
+      "ui_status": "red",
+      "status_reason": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+      "what": "A constituicao da INTELIGENCIA: como dado bruto vira caso com dono, lugar e momento — e o que a transformacao nunca pode inventar.",
+      "why_here": "NAO EXISTE. O ficheiro com este nome existe no Git, mas o seu proprio cabecalho recusa o titulo: diz-se `INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE` e escreve `O_QUE_ELE_AINDA_NAO_E: a Biblia de Engenharia da Inteligencia`. Um inventario das leis ja aprendidas nao e a constituicao que decide as proximas.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md @ origin/claude/integration-acervo-portal-v1",
+        "SHA ac478fb7e0"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:origin/claude/integration-acervo-portal-v1:docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md · conteudo ac478fb7e0",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "BIBLE",
+        "DOMAIN": "INTELIGENCIA",
+        "CONCEPT_OWNER": "LEI_DA_INTELIGENCIA",
+        "SCOPE": "Todo o departamento de INTELIGENCIA: reguas, motor, provas.",
+        "CANONICAL_PATH": "docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md",
+        "CANONICAL_REF": "origin/claude/integration-acervo-portal-v1",
+        "LIVES_AT": "origin/claude/integration-acervo-portal-v1",
+        "VERSION": "—",
+        "LIFECYCLE": "RECOVERY_PENDING",
+        "DECLARED_STATE": "NAO EXISTE. O ficheiro com este nome existe no Git, mas o seu proprio cabecalho recusa o titulo: diz-se `INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE` e escreve `O_QUE_ELE_AINDA_NAO_E: a Biblia de Engenharia da Inteligencia`. Um inventario das leis ja aprendidas nao e a constituicao que decide as proximas.",
+        "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+        "PROOF": "git:origin/claude/integration-acervo-portal-v1:docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md",
+        "SHA": "ac478fb7e0",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "Fragmento util, nao autoridade. Nao reconstruir nesta missao.",
+        "IN_TREE": false
+      },
+      "x": 2689,
+      "y": 1004
+    },
+    {
+      "id": "A-CLAUDE",
+      "name": "INSTRUCOES PERMANENTES DO PROJETO",
+      "kind": "instruction",
+      "icon": "§",
+      "territory": "Z-CTRL-INSTRUCOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Regra que vale para todas as missoes futuras, sem depender de alguem lembrar na conversa. Dona da LEI DE DESIGN.",
+      "why_here": "Aponta para AGENTS.md como dono da lei do mapa, e possui sozinha a lei de design.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "CLAUDE.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:CLAUDE.md · conteudo b38c2989c5",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS",
+        "A-README"
+      ],
+      "outbound": [
+        "A-AGENTS",
+        "A-CONTRATO-DESIGN",
+        "A-README"
+      ],
+      "controle": {
+        "KIND": "INSTRUCTION",
+        "DOMAIN": "PROJETO",
+        "CONCEPT_OWNER": "INSTRUCOES_PERMANENTES",
+        "SCOPE": "Toda missao neste repositorio; e toda missao que toque em design, UI, casco, portal, icones.",
+        "CANONICAL_PATH": "CLAUDE.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Aponta para AGENTS.md como dono da lei do mapa, e possui sozinha a lei de design.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:CLAUDE.md",
+        "SHA": "b38c2989c5",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "README.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/censo_do_controle.py",
+          "controle/red_team_do_controle.py",
+          "docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md",
+          "docs/regras/BRAZIL-LESSONS-TRANSFER-EAME.md",
+          "medidas/cicatrizes_brasil.py",
+          "system-map/app/index.html",
+          "system-map/tests/test_system_map.py",
+          "tests/test_handoff.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 1172,
+      "y": 682
+    },
+    {
+      "id": "A-CONTRATO-DESIGN",
+      "name": "CONTRATO DE DESIGN DO SINTONIA",
+      "kind": "contract",
+      "icon": "◫",
+      "territory": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Dizer o que a forma nao pode esconder: NAO SEI visivel, idade do dado ao lado do numero, facto != interpretacao != acao.",
+      "why_here": "Identico em todas as dez linhas medidas — a unica autoridade do repositorio que nao divergiu. Vence o ADAMA Design System em conflito.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/design/CONTRATO-DE-DESIGN-SINTONIA.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:docs/design/CONTRATO-DE-DESIGN-SINTONIA.md · conteudo 39df42260c",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-CLAUDE"
+      ],
+      "outbound": [
+        "C-ASK-SINTONIA",
+        "C-PORTAL-MODELO"
+      ],
+      "controle": {
+        "KIND": "CONTRACT",
+        "DOMAIN": "DESIGN",
+        "CONCEPT_OWNER": "CONTRATO_DE_DESIGN",
+        "SCOPE": "Toda superficie que uma pessoa ve.",
+        "CANONICAL_PATH": "docs/design/CONTRATO-DE-DESIGN-SINTONIA.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "estavel",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Identico em todas as dez linhas medidas — a unica autoridade do repositorio que nao divergiu. Vence o ADAMA Design System em conflito.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:docs/design/CONTRATO-DE-DESIGN-SINTONIA.md",
+        "SHA": "39df42260c",
+        "REFERENCED_BY": [
+          "CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/red_team_do_controle.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 4206,
+      "y": 1004
+    },
+    {
+      "id": "A-CONTRATOS-FONTES",
+      "name": "CONTRATOS DAS FONTES",
+      "kind": "contract",
+      "icon": "◫",
+      "territory": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O que cada fonte promete entregar, e o que ela nao prova.",
+      "why_here": "Terceiro degrau da escada da fonte, entre o atlas e o workflow.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:docs/operacao/CONTRATOS-DAS-FONTES-EAME.md · conteudo 1aa96613c2",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS"
+      ],
+      "outbound": [
+        "C-IT-CONTRATOS"
+      ],
+      "controle": {
+        "KIND": "CONTRACT",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "CONTRATO_DAS_FONTES",
+        "SCOPE": "Toda fonte que sobe ao degrau CONTRATADA.",
+        "CANONICAL_PATH": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Terceiro degrau da escada da fonte, entre o atlas e o workflow.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+        "SHA": "1aa96613c2",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "medidas/padrao_da_coleta.py",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/generate_system_map.py",
+          "system-map/scripts/scan_sources.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 4206,
+      "y": 1326
+    },
+    {
+      "id": "A-COPILOT",
+      "name": "Ponteiro para a lei (Copilot e afins)",
+      "kind": "instruction",
+      "icon": "§",
+      "territory": "Z-CTRL-INSTRUCOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Levar qualquer agente que entre pelo GitHub ate AGENTS.md, sem repetir uma linha da lei.",
+      "why_here": "PONTEIRO. Nao possui conceito nenhum, e por isso nao pode colidir com AGENTS.md.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        ".github/copilot-instructions.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:.github/copilot-instructions.md · conteudo 84b591b6c6",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "A-AGENTS"
+      ],
+      "controle": {
+        "KIND": "INSTRUCTION",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Agentes que leem `.github/`.",
+        "CANONICAL_PATH": ".github/copilot-instructions.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "PONTEIRO. Nao possui conceito nenhum, e por isso nao pode colidir com AGENTS.md.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:.github/copilot-instructions.md",
+        "SHA": "84b591b6c6",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 1172,
+      "y": 1004
+    },
+    {
+      "id": "A-DIARIO",
+      "name": "DIARIO DE DECISOES",
+      "kind": "decision",
+      "icon": "◈",
+      "territory": "Z-CTRL-DECISOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Toda decisao, com data e motivo. Decisao que fica so na conversa nao existe.",
+      "why_here": "Seis versoes distintas medidas em dez linhas — a autoridade mais divergida do repositorio.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/decisoes/DIARIO-DE-DECISOES.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:docs/decisoes/DIARIO-DE-DECISOES.md · conteudo 8c7007535d",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-README"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "DECISION",
+        "DOMAIN": "PROJETO",
+        "CONCEPT_OWNER": "DIARIO_DE_DECISOES",
+        "SCOPE": "Todo o projeto.",
+        "CANONICAL_PATH": "docs/decisoes/DIARIO-DE-DECISOES.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Seis versoes distintas medidas em dez linhas — a autoridade mais divergida do repositorio.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:docs/decisoes/DIARIO-DE-DECISOES.md",
+        "SHA": "8c7007535d",
+        "REFERENCED_BY": [
+          "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+          "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/descoberta/MISSAO-EAME-01.md",
+          "docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md"
+        ],
+        "DIVERGENT_COPIES": [
+          "origin/claude/raw-observation-identity-3jbwco",
+          "origin/claude/sintonia-eame-know-how-v1",
+          "origin/release/canonical",
+          "origin/claude/integration-acervo-portal-v1",
+          "origin/research/delivery-bible-v1",
+          "origin/claude/biblia-canonica-da-coleta"
+        ],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 5723,
+      "y": 360
+    },
+    {
+      "id": "A-KNOWHOW",
+      "name": "SINTONIA EAME KNOW-HOW",
+      "kind": "know how",
+      "icon": "✦",
+      "territory": "Z-CTRL-KNOWHOW",
+      "family": "F-CONTROLE",
+      "status": "BROKEN",
+      "ui_status": "red",
+      "status_reason": "DECLARADA CANONICA E NAO EXISTE NESTA ARVORE — vive noutra linha.",
+      "what": "O conhecimento duravel: o que se aprendeu, porque, com que prova e com que consequencia.",
+      "why_here": "AUSENTE DESTA ARVORE. O dono verdadeiro vive numa branch lateral; `main` nao tem know-how nenhum.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "SINTONIA-EAME-KNOW-HOW.md @ origin/claude/sintonia-eame-know-how-v1",
+        "SHA 5590b5f00b"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md · conteudo 5590b5f00b",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "KNOW_HOW",
+        "DOMAIN": "PROJETO",
+        "CONCEPT_OWNER": "KNOW_HOW",
+        "SCOPE": "Todo o projeto. UM SO — nao existe segundo know-how permitido.",
+        "CANONICAL_PATH": "SINTONIA-EAME-KNOW-HOW.md",
+        "CANONICAL_REF": "origin/claude/sintonia-eame-know-how-v1",
+        "LIVES_AT": "origin/claude/sintonia-eame-know-how-v1",
+        "VERSION": "§107",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "AUSENTE DESTA ARVORE. O dono verdadeiro vive numa branch lateral; `main` nao tem know-how nenhum.",
+        "OBSERVED_STATE": "ABSENT_FROM_SNAPSHOT",
+        "PROOF": "git:origin/claude/sintonia-eame-know-how-v1:SINTONIA-EAME-KNOW-HOW.md",
+        "SHA": "5590b5f00b",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [
+          "origin/claude/sintonia-eame-know-how-v1-copy"
+        ],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "A copia esta 50 commits atras do dono. Escrever um SINTONIA-EAME-KNOW-HOW.md novo em `main` criaria a terceira versao — e isso e o ataque RT04.",
+        "IN_TREE": false
+      },
+      "x": 7240,
+      "y": 360
+    },
+    {
+      "id": "A-README",
+      "name": "METODO E ESTADOS DE EVIDENCIA",
+      "kind": "instruction",
+      "icon": "§",
+      "territory": "Z-CTRL-INSTRUCOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Dono da disciplina SOURCE -> EVIDENCE -> ... -> PORTAL e dos quatro estados de evidencia (COMPROVADO, INFERENCIA, HIPOTESE, NAO SEI).",
+      "why_here": "O metodo. Nao repete a lei do mapa; aponta para AGENTS.md.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "README.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:README.md · conteudo 5754471916",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS",
+        "A-CLAUDE"
+      ],
+      "outbound": [
+        "A-AGENTS",
+        "A-CLAUDE",
+        "A-DIARIO"
+      ],
+      "controle": {
+        "KIND": "INSTRUCTION",
+        "DOMAIN": "METODO",
+        "CONCEPT_OWNER": "METODO_E_ESTADOS_DE_EVIDENCIA",
+        "SCOPE": "Todo registo do repositorio: fonte, dado, cruzamento, capacidade, afirmacao, tela.",
+        "CANONICAL_PATH": "README.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "O metodo. Nao repete a lei do mapa; aponta para AGENTS.md.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:README.md",
+        "SHA": "5754471916",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/censo_do_controle.py",
+          "system-map/README.md",
+          "system-map/tests/test_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "Aponta para `docs/08-decisoes/DIARIO-DE-DECISOES.md`, que nao existe. O diario vive em `docs/decisoes/`.",
+        "IN_TREE": true
+      },
+      "x": 1172,
+      "y": 1326
+    },
+    {
+      "id": "A-REGRA-COLETA-EXTERNA",
+      "name": "REGRA DE COLETA EXTERNA",
+      "kind": "contract",
+      "icon": "◫",
+      "territory": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O que se pode e o que nao se pode ir buscar la fora.",
+      "why_here": "Vive em `medidas/`. `tests/test_coleta_externa.py` procura-a em `docs/regras/` e nao a acha — quatro testes acordam com FileNotFoundError.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:medidas/REGRA-DE-COLETA-EXTERNA-EAME.md · conteudo ce98fc51bb",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "CONTRACT",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "REGRA_DE_COLETA_EXTERNA",
+        "SCOPE": "Toda acao de coleta que sai para a rede.",
+        "CANONICAL_PATH": "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Vive em `medidas/`. `tests/test_coleta_externa.py` procura-a em `docs/regras/` e nao a acha — quatro testes acordam com FileNotFoundError.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
+        "SHA": "ce98fc51bb",
+        "REFERENCED_BY": [
+          "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+          "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "BROKEN_POINTER conhecido e medido; o conserto e do dono do teste, nao deste registo.",
+        "IN_TREE": true
+      },
+      "x": 4206,
+      "y": 1648
+    },
     {
       "id": "C-ADAMA-ES",
       "name": "O portao do catalogo espanhol · projeto futuro",
@@ -2014,8 +3107,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7535,
-      "y": 360
+      "x": 7950,
+      "y": 2630
     },
     {
       "id": "C-ADAMA-IT",
@@ -2110,7 +3203,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 1770,
-      "y": 360
+      "y": 2630
     },
     {
       "id": "C-ADMISSAO",
@@ -2138,8 +3231,11 @@
       "status_reason": "esta no caminho: alguem o chama antes de publicar.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "A-BIBLIA-COLETA"
+      ],
       "outbound": [
+        "C-CTRL-REDTEAM",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA"
       ],
@@ -2152,8 +3248,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5710,
-      "y": 360
+      "x": 6125,
+      "y": 2630
     },
     {
       "id": "C-APIFY-POOL",
@@ -2220,7 +3316,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
-      "y": 360
+      "y": 2630
     },
     {
       "id": "C-ARTEFACTO-V21",
@@ -2270,8 +3366,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12305,
-      "y": 360
+      "x": 12720,
+      "y": 2630
     },
     {
       "id": "C-AS-FONTES",
@@ -4496,7 +5592,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1770,
-      "y": 682
+      "y": 2952
     },
     {
       "id": "C-ASK-SINTONIA",
@@ -4531,9 +5627,12 @@
         "data/samples/ASK-SINTONIA-teste.json"
       ],
       "inbound": [
+        "A-BIBLIA-ENTREGA",
+        "A-CONTRATO-DESIGN",
         "C-TESTES"
       ],
       "outbound": [
+        "C-CTRL-REDTEAM",
         "C-TESTES"
       ],
       "paises": {},
@@ -4555,8 +5654,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 360
+      "x": 14545,
+      "y": 2630
     },
     {
       "id": "C-AUDIT-BLOCOS",
@@ -4626,8 +5725,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 360
+      "x": 13425,
+      "y": 2630
     },
     {
       "id": "C-AUDIT-CASCO",
@@ -4683,8 +5782,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
-      "y": 360
+      "x": 13840,
+      "y": 2630
     },
     {
       "id": "C-AUDIT-GERAL",
@@ -4804,8 +5903,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 682
+      "x": 13425,
+      "y": 2952
     },
     {
       "id": "C-AUDIT-HARNESS",
@@ -4858,8 +5957,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
-      "y": 682
+      "x": 13840,
+      "y": 2952
     },
     {
       "id": "C-AUDIT-MARCA",
@@ -4908,8 +6007,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13010,
-      "y": 1004
+      "x": 13425,
+      "y": 3274
     },
     {
       "id": "C-CADEIA-V21",
@@ -4946,6 +6045,7 @@
       ],
       "outbound": [
         "C-AUDIT-GERAL",
+        "C-CTRL-REDTEAM",
         "C-LUGAR-DO-FATO",
         "C-PACOTE-CAMADAS",
         "C-PROVENIENCIA",
@@ -4967,8 +6067,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 9650,
-      "y": 360
+      "x": 10065,
+      "y": 2630
     },
     {
       "id": "C-CENSO-COLETA",
@@ -5008,8 +6108,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 360
+      "x": 11185,
+      "y": 2630
     },
     {
       "id": "C-CI-COLETA",
@@ -5061,7 +6161,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 360,
-      "y": 360
+      "y": 2630
     },
     {
       "id": "C-CI-MAPA",
@@ -5074,7 +6174,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -5086,13 +6186,18 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
         "C-CENSO-COLETA",
+        "C-CTRL-CENSO",
+        "C-CTRL-PORTAO",
+        "C-CTRL-REDTEAM",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
@@ -5107,8 +6212,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
-      "y": 360
+      "x": 11600,
+      "y": 2630
     },
     {
       "id": "C-CI-PERSIST",
@@ -5164,8 +6269,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit).",
-      "x": 7535,
-      "y": 682
+      "x": 7950,
+      "y": 2952
     },
     {
       "id": "C-CI-REGRESSAO",
@@ -5211,8 +6316,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
-      "y": 360
+      "x": 12015,
+      "y": 2630
     },
     {
       "id": "C-CICATRIZES-BR",
@@ -5279,8 +6384,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 6415,
-      "y": 360
+      "x": 6830,
+      "y": 2630
     },
     {
       "id": "C-COLETA-BASE",
@@ -5308,12 +6413,14 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "A-BIBLIA-COLETA",
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
+        "C-SCRAP-SOCIAL",
         "V-LINKEDIN"
       ],
       "outbound": [
@@ -5333,8 +6440,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
-      "y": 360
+      "x": 5005,
+      "y": 2630
     },
     {
       "id": "C-COLETA-INSTAGRAM",
@@ -5390,8 +6497,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 360
+      "x": 5420,
+      "y": 2630
     },
     {
       "id": "C-COLETA-PUBLICA",
@@ -5456,8 +6563,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
-      "y": 682
+      "x": 5005,
+      "y": 2952
     },
     {
       "id": "C-COLETA-YOUTUBE",
@@ -5506,8 +6613,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 682
+      "x": 5420,
+      "y": 2952
     },
     {
       "id": "C-CONTRATO-CAMPOS",
@@ -5551,8 +6658,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6830,
-      "y": 360
+      "x": 7245,
+      "y": 2630
     },
     {
       "id": "C-CORPUS",
@@ -5661,8 +6768,187 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 4590,
-      "y": 1004
+      "x": 5005,
+      "y": 3274
+    },
+    {
+      "id": "C-CTRL-CENSO",
+      "name": "Censo do Control Plane",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "medidor",
+      "what": "Mede o registo contra a arvore: se o caminho existe, que SHA tem, quando mudou, quem aponta para ele, e que arestas tem prova apontavel.",
+      "why_here": "E ele quem escreve OBSERVED. O registo declarado nunca escreve — declaracao nao promove a verde.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "audit",
+        "governanca"
+      ],
+      "lane": "official",
+      "family": "F-CONTROLE",
+      "files": [
+        "controle/censo_do_controle.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-MAPA",
+        "C-CTRL-REGISTO"
+      ],
+      "outbound": [
+        "C-CTRL-REDTEAM"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14138,
+      "y": 360
+    },
+    {
+      "id": "C-CTRL-PORTAO",
+      "name": "Portao do Control Plane",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "portao",
+      "what": "Reprova autoridade que duplicou, divergiu, foi apontada errado, foi carimbada de canonica depois de superseded, ou cuja divida piorou desde o chao.",
+      "why_here": "Um registo sem portao e um pedido por favor. Este falha fechado.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "governanca"
+      ],
+      "lane": "official",
+      "family": "F-CONTROLE",
+      "files": [
+        "controle/portao_do_controle.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CI-MAPA",
+        "C-CTRL-REGISTO"
+      ],
+      "outbound": [
+        "C-CTRL-REDTEAM"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14553,
+      "y": 360
+    },
+    {
+      "id": "C-CTRL-REDTEAM",
+      "name": "Red team do Control Plane",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "teste",
+      "what": "Os doze ataques conhecidos ao registo, cada um executado contra o portao real — e reprova se algum passar.",
+      "why_here": "Um portao que nunca foi atacado nao provou que fecha. Estes doze ja passaram uma vez cada um, na cabeca de alguem, antes de existirem aqui.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚔",
+      "views": [
+        "audit",
+        "governanca"
+      ],
+      "lane": "official",
+      "family": "F-CONTROLE",
+      "files": [
+        "controle/red_team_do_controle.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-ASK-SINTONIA",
+        "C-CADEIA-V21",
+        "C-CI-MAPA",
+        "C-CTRL-CENSO",
+        "C-CTRL-PORTAO",
+        "C-CTRL-REGISTO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14138,
+      "y": 682
+    },
+    {
+      "id": "C-CTRL-REGISTO",
+      "name": "O registo das autoridades",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "contrato",
+      "what": "O indice de quem manda: um conceito, um dono, um ciclo de vida, um caminho — e o teto da divida medida.",
+      "why_here": "Sem um registo unico, cada missao redescobria quem era a autoridade lendo o ficheiro que calhava abrir primeiro. Ele nao possui lei nenhuma: possui a lista de quem possui.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "§",
+      "views": [
+        "audit",
+        "governanca"
+      ],
+      "lane": "official",
+      "family": "F-CONTROLE",
+      "files": [
+        "controle/AUTORIDADES-CANONICAS.json",
+        "controle/CHAO-DO-CONTROLE.json"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-CTRL-CENSO",
+        "C-CTRL-PORTAO",
+        "C-CTRL-REDTEAM"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14553,
+      "y": 682
     },
     {
       "id": "C-DATA-CLOCK",
@@ -5736,8 +7022,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 8945,
-      "y": 360
+      "x": 9360,
+      "y": 2630
     },
     {
       "id": "C-DS-ADAMA",
@@ -5797,8 +7083,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
-      "y": 682
+      "x": 14545,
+      "y": 2952
     },
     {
       "id": "C-FONTES-EU",
@@ -5899,8 +7185,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
-      "y": 1004
+      "x": 5420,
+      "y": 3274
     },
     {
       "id": "C-IDENTIDADE",
@@ -5977,8 +7263,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
-      "y": 360
+      "x": 4300,
+      "y": 2630
     },
     {
       "id": "C-IMPORTAR",
@@ -6058,8 +7344,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 7535,
-      "y": 1004
+      "x": 7950,
+      "y": 3274
     },
     {
       "id": "C-IT-CATALOGO",
@@ -6128,7 +7414,7 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 1065,
-      "y": 360
+      "y": 2630
     },
     {
       "id": "C-IT-COLETA",
@@ -6182,8 +7468,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
-      "y": 1326
+      "x": 5005,
+      "y": 3596
     },
     {
       "id": "C-IT-CONTAS",
@@ -6235,8 +7521,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 682
+      "x": 11185,
+      "y": 2952
     },
     {
       "id": "C-IT-CONTRATOS",
@@ -6272,6 +7558,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "A-CONTRATOS-FONTES",
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
@@ -6317,8 +7604,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
-      "y": 682
+      "x": 4300,
+      "y": 2952
     },
     {
       "id": "C-IT-PRESERVAR",
@@ -6367,8 +7654,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7535,
-      "y": 1326
+      "x": 7950,
+      "y": 3596
     },
     {
       "id": "C-LASTMILE",
@@ -6473,8 +7760,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12305,
-      "y": 682
+      "x": 12720,
+      "y": 2952
     },
     {
       "id": "C-LEITORES",
@@ -6525,8 +7812,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
-      "y": 682
+      "x": 2890,
+      "y": 2630
     },
     {
       "id": "C-LUGAR-COLETA",
@@ -6571,8 +7858,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6415,
-      "y": 682
+      "x": 6830,
+      "y": 2952
     },
     {
       "id": "C-LUGAR-DO-FATO",
@@ -6623,8 +7910,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8945,
-      "y": 682
+      "x": 9360,
+      "y": 2952
     },
     {
       "id": "C-MAPA-APP",
@@ -6638,7 +7925,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "audit",
@@ -6652,9 +7939,13 @@
         "system-map/app/map.js"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/app/index.html",
+        "system-map/app/map.css",
+        "system-map/app/map.js"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -6669,8 +7960,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
-      "y": 682
+      "x": 11600,
+      "y": 2952
     },
     {
       "id": "C-MAPA-GERADOR",
@@ -6683,7 +7974,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -6696,9 +7987,11 @@
         "system-map/scripts/mudar_gaveta.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/generate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -6720,8 +8013,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
-      "y": 682
+      "x": 12015,
+      "y": 2952
     },
     {
       "id": "C-MAPA-SCAN",
@@ -6788,8 +8081,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10770,
-      "y": 1004
+      "x": 11185,
+      "y": 3274
     },
     {
       "id": "C-MAPA-TESTES",
@@ -6816,7 +8109,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/tests/test_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -6833,8 +8128,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
-      "y": 1004
+      "x": 11600,
+      "y": 3274
     },
     {
       "id": "C-MAPA-VALIDADOR",
@@ -6847,7 +8142,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⛨",
       "views": [
         "audit",
@@ -6859,9 +8154,11 @@
         "system-map/scripts/validate_system_map.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/validate_system_map.py"
+      ],
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
@@ -6879,8 +8176,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
-      "y": 1004
+      "x": 12015,
+      "y": 3274
     },
     {
       "id": "C-MEDICAO",
@@ -6936,8 +8233,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1326
+      "x": 11185,
+      "y": 3596
     },
     {
       "id": "C-NAVEGADOR",
@@ -6989,7 +8286,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
-      "y": 1004
+      "y": 2952
     },
     {
       "id": "C-ORQUESTRADOR",
@@ -7037,7 +8334,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 360,
-      "y": 682
+      "y": 2952
     },
     {
       "id": "C-PACOTE-CAMADAS",
@@ -7190,8 +8487,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 12305,
-      "y": 1004
+      "x": 12720,
+      "y": 3274
     },
     {
       "id": "C-PADRAO-COLETA",
@@ -7247,8 +8544,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6830,
-      "y": 682
+      "x": 7245,
+      "y": 2952
     },
     {
       "id": "C-PALAVRAS",
@@ -7283,6 +8580,7 @@
         "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json"
       ],
       "inbound": [
+        "A-BIBLIA-COLETA",
         "C-APIFY-POOL",
         "C-CI-COLETA",
         "C-COLETA-BASE",
@@ -7326,8 +8624,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
-      "y": 1004
+      "x": 4300,
+      "y": 3274
     },
     {
       "id": "C-PEDIDO",
@@ -7355,7 +8653,9 @@
       "status_reason": "o motor importa esta lei para decidir.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "A-BIBLIA-COLETA"
+      ],
       "outbound": [
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
@@ -7371,7 +8671,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 360,
-      "y": 1004
+      "y": 3274
     },
     {
       "id": "C-PORTA-FONTE",
@@ -7401,6 +8701,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "A-AGENTS",
         "C-COLETA-INSTAGRAM"
       ],
       "outbound": [
@@ -7416,7 +8717,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
-      "y": 682
+      "y": 2952
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -7475,8 +8776,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 1004
+      "x": 14545,
+      "y": 3274
     },
     {
       "id": "C-PORTAL-DADOS",
@@ -7577,8 +8878,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 1326
+      "x": 14545,
+      "y": 3596
     },
     {
       "id": "C-PORTAL-MODELO",
@@ -7613,6 +8914,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "A-CONTRATO-DESIGN",
         "C-LASTMILE",
         "C-PORTAL-DADOS",
         "C-V21-FONTES"
@@ -7638,8 +8940,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
-      "y": 1648
+      "x": 14545,
+      "y": 3918
     },
     {
       "id": "C-PORTAO-BUILD",
@@ -7690,8 +8992,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13425,
-      "y": 1004
+      "x": 13840,
+      "y": 3274
     },
     {
       "id": "C-PROCEDENCIA",
@@ -7724,7 +9026,9 @@
         "data/samples/POLITICA-RAW-ROTA-PAGA.json",
         "data/samples/RUN-MANIFEST.json"
       ],
-      "inbound": [],
+      "inbound": [
+        "A-BIBLIA-COLETA"
+      ],
       "outbound": [
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
@@ -7774,8 +9078,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 3885,
-      "y": 1326
+      "x": 4300,
+      "y": 3596
     },
     {
       "id": "C-PROVA-COLETA",
@@ -7822,8 +9126,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
-      "y": 1326
+      "x": 11600,
+      "y": 3596
     },
     {
       "id": "C-PROVENIENCIA",
@@ -7878,8 +9182,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8945,
-      "y": 1004
+      "x": 9360,
+      "y": 3274
     },
     {
       "id": "C-RECEITAS",
@@ -7931,7 +9235,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 360,
-      "y": 1326
+      "y": 3596
     },
     {
       "id": "C-RECORRENCIA",
@@ -7976,8 +9280,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
-      "y": 1326
+      "x": 12015,
+      "y": 3596
     },
     {
       "id": "C-REGRA-COLETA",
@@ -8057,8 +9361,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 6415,
-      "y": 1004
+      "x": 6830,
+      "y": 3274
     },
     {
       "id": "C-RELEVANCIA",
@@ -8137,8 +9441,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 8945,
-      "y": 1326
+      "x": 9360,
+      "y": 3596
     },
     {
       "id": "C-ROTULOS",
@@ -8247,8 +9551,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
-      "y": 1326
+      "x": 5420,
+      "y": 3596
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -8293,8 +9597,53 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6830,
-      "y": 1004
+      "x": 7245,
+      "y": 3274
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "name": "SCRAP SOCIAL — o despachador da coleta social",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "workflow",
+      "what": "O botao que manda correr a coleta das redes sociais, com checkpoint duravel entre corridas.",
+      "why_here": "Entrou no ramo padrao pelo PR #3 sem ninguem o declarar, e o mapa passou a ter um ficheiro de arquitetura que nenhuma peca reivindicava — que e a definicao de arquitetura invisivel.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▶",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        ".github/workflows/scrap-social.yml"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-COLETA-BASE"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "momento": "DESPACHO",
+      "momento_texto": "nao e rota nem preparo: e o botao que manda correr",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 2890,
+      "y": 2952
     },
     {
       "id": "C-SINTONIA-SCRAP",
@@ -8346,7 +9695,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 2475,
-      "y": 1326
+      "y": 3274
     },
     {
       "id": "C-SITE-INGEST",
@@ -8377,6 +9726,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "A-BIBLIA-ENTREGA",
         "C-ARTEFACTO-V21",
         "C-AS-FONTES",
         "C-V21-FONTES",
@@ -8415,8 +9765,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13010,
-      "y": 1326
+      "x": 13425,
+      "y": 3596
     },
     {
       "id": "C-SUPABASE",
@@ -8516,8 +9866,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7535,
-      "y": 1648
+      "x": 7950,
+      "y": 3918
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -8641,8 +9991,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1648
+      "x": 15250,
+      "y": 3918
     },
     {
       "id": "C-TELA-COMPETITORS",
@@ -8741,8 +10091,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
-      "y": 1004
+      "x": 15665,
+      "y": 3274
     },
     {
       "id": "C-TELA-FIELD",
@@ -8804,8 +10154,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1970
+      "x": 15250,
+      "y": 4240
     },
     {
       "id": "C-TELA-FUTURE",
@@ -8858,8 +10208,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
-      "y": 360
+      "x": 15665,
+      "y": 2630
     },
     {
       "id": "C-TELA-MARKET",
@@ -8943,8 +10293,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
-      "y": 682
+      "x": 15665,
+      "y": 2952
     },
     {
       "id": "C-TELA-MEETING",
@@ -9076,8 +10426,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 360
+      "x": 15250,
+      "y": 2630
     },
     {
       "id": "C-TELA-PORTFOLIO",
@@ -9210,8 +10560,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
-      "y": 1326
+      "x": 15665,
+      "y": 3596
     },
     {
       "id": "C-TELA-SCIENCE",
@@ -9338,8 +10688,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1326
+      "x": 15250,
+      "y": 3596
     },
     {
       "id": "C-TELA-SOURCES",
@@ -9388,8 +10738,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 15250,
-      "y": 1648
+      "x": 15665,
+      "y": 3918
     },
     {
       "id": "C-TELA-VOICES",
@@ -9441,8 +10791,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 1004
+      "x": 15250,
+      "y": 3274
     },
     {
       "id": "C-TELA-WINDOWS",
@@ -9565,8 +10915,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14835,
-      "y": 682
+      "x": 15250,
+      "y": 2952
     },
     {
       "id": "C-TESTES",
@@ -9698,8 +11048,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10770,
-      "y": 1648
+      "x": 11185,
+      "y": 3918
     },
     {
       "id": "C-TRANSCRICAO",
@@ -9746,8 +11096,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 2475,
-      "y": 1648
+      "x": 2890,
+      "y": 3274
     },
     {
       "id": "C-V2-LEGADO",
@@ -9840,8 +11190,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10065,
-      "y": 360
+      "x": 10480,
+      "y": 2630
     },
     {
       "id": "C-V21-COMERCIAL",
@@ -9977,8 +11327,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
-      "y": 682
+      "x": 10065,
+      "y": 2952
     },
     {
       "id": "C-V21-CONTRATO",
@@ -10028,8 +11378,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10065,
-      "y": 682
+      "x": 10480,
+      "y": 2952
     },
     {
       "id": "C-V21-CRUZAMENTO",
@@ -10118,8 +11468,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
-      "y": 1004
+      "x": 10065,
+      "y": 3274
     },
     {
       "id": "C-V21-FONTES",
@@ -10194,8 +11544,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10065,
-      "y": 1004
+      "x": 10480,
+      "y": 3274
     },
     {
       "id": "C-V21-INGEST",
@@ -10283,8 +11633,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 9650,
-      "y": 1326
+      "x": 10065,
+      "y": 3596
     },
     {
       "id": "C-V21-OPORTUNIDADE",
@@ -10337,8 +11687,1235 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10065,
+      "x": 10480,
+      "y": 3596
+    },
+    {
+      "id": "G-CI-MAPA",
+      "name": "Os dentes da lei — workflow do System Map",
+      "kind": "policy",
+      "icon": "▶",
+      "territory": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Transformar a lei escrita em AGENTS.md num portao que reprova, e nao num pedido por favor.",
+      "why_here": "TEXTO NAO REPROVA NADA. WORKFLOW REPROVA.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        ".github/workflows/system-map.yml"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:.github/workflows/system-map.yml · conteudo b2b2caff21",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [
+        "G-COLETA-CANONICA",
+        "G-PADRAO-COLETA",
+        "G-TESTES-MAPA",
+        "G-VALIDADOR-MAPA",
+        "O-GERADOR",
+        "O-SCAN-REPO"
+      ],
+      "controle": {
+        "KIND": "POLICY",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "CI_DO_SYSTEM_MAP",
+        "SCOPE": "Todo push e todo pull request.",
+        "CANONICAL_PATH": ".github/workflows/system-map.yml",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "TEXTO NAO REPROVA NADA. WORKFLOW REPROVA.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:.github/workflows/system-map.yml",
+        "SHA": "b2b2caff21",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 10689,
+      "y": 360
+    },
+    {
+      "id": "G-COLETA-CANONICA",
+      "name": "As sete maneiras de o caminho da coleta mentir",
+      "kind": "validator",
+      "icon": "⚖",
+      "territory": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Fechar as sete formas conhecidas de «erro» virar «rejeicao» e «nao sei» virar «nao».",
+      "why_here": "Corre no CI, passo 4b.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "provas/testa_coleta_canonica.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:provas/testa_coleta_canonica.py · conteudo 4f6ce8d858",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "G-CI-MAPA"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "VALIDATOR",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "PORTAO_DA_COLETA_CANONICA",
+        "SCOPE": "O caminho da coleta.",
+        "CANONICAL_PATH": "provas/testa_coleta_canonica.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Corre no CI, passo 4b.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:provas/testa_coleta_canonica.py",
+        "SHA": "4f6ce8d858",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 11104,
+      "y": 360
+    },
+    {
+      "id": "G-PADRAO-COLETA",
+      "name": "O padrao do departamento de coleta",
+      "kind": "validator",
+      "icon": "⚖",
+      "territory": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Reprovar quando o padrao do departamento de coleta piora.",
+      "why_here": "Corre no CI, passo 3.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "medidas/padrao_da_coleta.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:medidas/padrao_da_coleta.py · conteudo e6a12f1f60",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "G-CI-MAPA"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "VALIDATOR",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "PADRAO_DA_COLETA",
+        "SCOPE": "COLETA.",
+        "CANONICAL_PATH": "medidas/padrao_da_coleta.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Corre no CI, passo 3.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:medidas/padrao_da_coleta.py",
+        "SHA": "e6a12f1f60",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/CENSO-DA-COLETA.md",
+          "medidas/PADRAO-DA-COLETA-CHAO.json",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/generate_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 10689,
+      "y": 682
+    },
+    {
+      "id": "G-PORTAO-CONTROLE",
+      "name": "Portao do Control Plane",
+      "kind": "validator",
+      "icon": "⚖",
+      "territory": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Reprovar autoridade que desapareceu, duplicou, divergiu, foi apontada errado, ou foi carimbada de canonica depois de superseded.",
+      "why_here": "Falha fechado.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "controle/portao_do_controle.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:controle/portao_do_controle.py · conteudo 3815eb3ec0",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS"
+      ],
+      "outbound": [
+        "R-AUTORIDADES"
+      ],
+      "controle": {
+        "KIND": "VALIDATOR",
+        "DOMAIN": "GOVERNANCA",
+        "CONCEPT_OWNER": "PORTAO_DO_CONTROL_PLANE",
+        "SCOPE": "O registo das autoridades e a arvore em que ele vive.",
+        "CANONICAL_PATH": "controle/portao_do_controle.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "12 provas",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Falha fechado.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:controle/portao_do_controle.py",
+        "SHA": "3815eb3ec0",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/censo_do_controle.py",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 11104,
+      "y": 682
+    },
+    {
+      "id": "G-TESTES-MAPA",
+      "name": "Testes das regras do mapa",
+      "kind": "validator",
+      "icon": "⚖",
+      "territory": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Provar que as regras do mapa nao afrouxaram entre uma missao e a seguinte.",
+      "why_here": "Corre no CI, passo 4.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "system-map/tests/test_system_map.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:system-map/tests/test_system_map.py · conteudo 0f24994734",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS",
+        "G-CI-MAPA"
+      ],
+      "outbound": [
+        "O-GERADOR"
+      ],
+      "controle": {
+        "KIND": "VALIDATOR",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "TESTES_DO_SYSTEM_MAP",
+        "SCOPE": "O gerador e o validador.",
+        "CANONICAL_PATH": "system-map/tests/test_system_map.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Corre no CI, passo 4.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:system-map/tests/test_system_map.py",
+        "SHA": "0f24994734",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/README.md",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 10689,
+      "y": 1004
+    },
+    {
+      "id": "G-VALIDADOR-MAPA",
+      "name": "Validador do System Map",
+      "kind": "validator",
+      "icon": "⚖",
+      "territory": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Provar que o mapa commitado e o que esta arvore produz — e reprovar quando nao e.",
+      "why_here": "Falha fechado: erro inesperado tambem e FAIL.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "system-map/scripts/validate_system_map.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:system-map/scripts/validate_system_map.py · conteudo ce78f61dbe",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS",
+        "G-CI-MAPA"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "VALIDATOR",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "PORTAO_DO_SYSTEM_MAP",
+        "SCOPE": "Todo push e todo pull request.",
+        "CANONICAL_PATH": "system-map/scripts/validate_system_map.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "19 provas",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Falha fechado: erro inesperado tambem e FAIL.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:system-map/scripts/validate_system_map.py",
+        "SHA": "ce78f61dbe",
+        "REFERENCED_BY": [
+          ".github/copilot-instructions.md",
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "guarda/es/workflows/LEIA.md",
+          "system-map/README.md",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/mudar_gaveta.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 11104,
+      "y": 1004
+    },
+    {
+      "id": "H-BUILD-REUNIAO",
+      "name": "Handoff · build da reuniao",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Onde a build da reuniao parou e o que faltava.",
+      "why_here": "MEMORIA. Nao manda em nada; conta o que aconteceu.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "HANDOFF-BUILD-DA-REUNIAO.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:HANDOFF-BUILD-DA-REUNIAO.md · conteudo d0fbc49d24",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "ENTREGA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Uma sessao.",
+        "CANONICAL_PATH": "HANDOFF-BUILD-DA-REUNIAO.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "sessao 3",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA. Nao manda em nada; conta o que aconteceu.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:HANDOFF-BUILD-DA-REUNIAO.md",
+        "SHA": "d0fbc49d24",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 8757,
+      "y": 360
+    },
+    {
+      "id": "H-CASCO-DEMO",
+      "name": "Casco client-demo",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O que ja estava feito no casco, o que faltava, o que passou a estar certo.",
+      "why_here": "MEMORIA. Nao e a Biblia da Entrega, apesar de falar de casco.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "CASCO-CLIENT-DEMO.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:CASCO-CLIENT-DEMO.md · conteudo 1bd04ffdcc",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "ENTREGA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Uma missao de casco.",
+        "CANONICAL_PATH": "CASCO-CLIENT-DEMO.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA. Nao e a Biblia da Entrega, apesar de falar de casco.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:CASCO-CLIENT-DEMO.md",
+        "SHA": "1bd04ffdcc",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 9172,
+      "y": 360
+    },
+    {
+      "id": "H-CONTA-CLAUDE",
+      "name": "Handoff de conta",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Passar o repositorio para outra conta quando a que o construiu acabou.",
+      "why_here": "MEMORIA.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md · conteudo e301b36612",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "PROJETO",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Uma transicao de conta.",
+        "CANONICAL_PATH": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+        "SHA": "e301b36612",
+        "REFERENCED_BY": [
+          "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "tests/test_handoff.py",
+          "tests/test_metricas.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 8757,
+      "y": 682
+    },
+    {
+      "id": "H-DEPOIS-DO-PORTAL",
+      "name": "Depois do portal",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O que ficou por fazer em 06-09-2026, e porque.",
+      "why_here": "MEMORIA.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "DEPOIS-DO-PORTAL.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:DEPOIS-DO-PORTAL.md · conteudo bdf3477ab8",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "ENTREGA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Um dia.",
+        "CANONICAL_PATH": "DEPOIS-DO-PORTAL.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:DEPOIS-DO-PORTAL.md",
+        "SHA": "bdf3477ab8",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 9172,
+      "y": 682
+    },
+    {
+      "id": "H-PORTAL-INVENTORY",
+      "name": "Inventario de capacidades do portal",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O que a navegacao mostra hoje, e com que autoridade.",
+      "why_here": "MEMORIA.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "PORTAL-CAPABILITY-INVENTORY.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:PORTAL-CAPABILITY-INVENTORY.md · conteudo 03b0da54fb",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "ENTREGA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "O portal de um dia.",
+        "CANONICAL_PATH": "PORTAL-CAPABILITY-INVENTORY.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:PORTAL-CAPABILITY-INVENTORY.md",
+        "SHA": "03b0da54fb",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 8757,
+      "y": 1004
+    },
+    {
+      "id": "H-PROMPT-NOVA-CONTA",
+      "name": "Prompt para a nova conta",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O texto a colar na primeira mensagem de uma conta nova.",
+      "why_here": "MEMORIA.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "PROMPT-PARA-NOVA-CONTA-CLAUDE.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:PROMPT-PARA-NOVA-CONTA-CLAUDE.md · conteudo 42d1c565e9",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "PROJETO",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Arranque de conta.",
+        "CANONICAL_PATH": "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
+        "SHA": "42d1c565e9",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/design/REVISAO-COMMERCIAL-PRIORITY-V11.md",
+          "tests/test_handoff.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 9172,
+      "y": 1004
+    },
+    {
+      "id": "H-V2-PAUSE",
+      "name": "Handoff · V2 em pausa",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "O estado em que a V2 foi parada.",
+      "why_here": "MEMORIA.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "HANDOFF-V2-PAUSE.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:HANDOFF-V2-PAUSE.md · conteudo 0e19eef562",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "INTELIGENCIA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "A linha V2.",
+        "CANONICAL_PATH": "HANDOFF-V2-PAUSE.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:HANDOFF-V2-PAUSE.md",
+        "SHA": "0e19eef562",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json",
+          "pacote/v21_handoff_json.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 8757,
       "y": 1326
+    },
+    {
+      "id": "O-CENSO-COLETA",
+      "name": "Censo da coleta",
+      "kind": "observer",
+      "icon": "◎",
+      "territory": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Medir o estado real do departamento de coleta.",
+      "why_here": "Mede.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "system-map/scripts/censo_da_coleta.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:system-map/scripts/censo_da_coleta.py · conteudo 3fa99e2b21",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "OBSERVER",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "CENSO_DA_COLETA",
+        "SCOPE": "COLETA.",
+        "CANONICAL_PATH": "system-map/scripts/censo_da_coleta.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Mede.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:system-map/scripts/censo_da_coleta.py",
+        "SHA": "3fa99e2b21",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/CENSO-DA-COLETA.md",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 12621,
+      "y": 360
+    },
+    {
+      "id": "O-CENSO-CONTROLE",
+      "name": "Censo do Control Plane",
+      "kind": "observer",
+      "icon": "◎",
+      "territory": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Medir, para cada autoridade declarada: se o caminho existe, que SHA tem, quando mudou, quem aponta para ela, e que arestas tem prova.",
+      "why_here": "Ele e quem escreve OBSERVED. O registo declarado nunca escreve.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "controle/censo_do_controle.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:controle/censo_do_controle.py · conteudo 54125525ff",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS"
+      ],
+      "outbound": [
+        "R-AUTORIDADES"
+      ],
+      "controle": {
+        "KIND": "OBSERVER",
+        "DOMAIN": "GOVERNANCA",
+        "CONCEPT_OWNER": "MEDICAO_DO_CONTROL_PLANE",
+        "SCOPE": "O registo das autoridades.",
+        "CANONICAL_PATH": "controle/censo_do_controle.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Ele e quem escreve OBSERVED. O registo declarado nunca escreve.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:controle/censo_do_controle.py",
+        "SHA": "54125525ff",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/portao_do_controle.py",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/generate_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 12621,
+      "y": 682
+    },
+    {
+      "id": "O-GERADOR",
+      "name": "Gerador do System Map",
+      "kind": "observer",
+      "icon": "◎",
+      "territory": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Juntar o que foi medido com o que foi declarado e produzir a projecao.",
+      "why_here": "DERIVADO. O mapa nasce do repo; o repo nunca nasce do mapa. Este ficheiro NAO e dono de arquitetura nenhuma — e o consumidor dela.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "system-map/scripts/generate_system_map.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:system-map/scripts/generate_system_map.py · conteudo f5e721ab6a",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS",
+        "G-CI-MAPA",
+        "G-TESTES-MAPA"
+      ],
+      "outbound": [
+        "R-AUTORIDADES"
+      ],
+      "controle": {
+        "KIND": "OBSERVER",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "PROJECAO_DA_ARQUITETURA",
+        "SCOPE": "O mapa.",
+        "CANONICAL_PATH": "system-map/scripts/generate_system_map.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "DERIVADO. O mapa nasce do repo; o repo nunca nasce do mapa. Este ficheiro NAO e dono de arquitetura nenhuma — e o consumidor dela.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:system-map/scripts/generate_system_map.py",
+        "SHA": "f5e721ab6a",
+        "REFERENCED_BY": [
+          ".github/copilot-instructions.md",
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "CLAUDE.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "guarda/es/workflows/LEIA.md",
+          "system-map/README.md",
+          "system-map/app/map.js",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/mudar_gaveta.py",
+          "system-map/scripts/validate_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 12621,
+      "y": 1004
+    },
+    {
+      "id": "O-PENTE-FINO",
+      "name": "Pente fino da coleta",
+      "kind": "observer",
+      "icon": "◎",
+      "territory": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "A segunda passagem sobre o que a coleta trouxe.",
+      "why_here": "Mede.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "system-map/scripts/pente_fino_da_coleta.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:system-map/scripts/pente_fino_da_coleta.py · conteudo 7c6f8bd541",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "OBSERVER",
+        "DOMAIN": "COLETA",
+        "CONCEPT_OWNER": "PENTE_FINO_DA_COLETA",
+        "SCOPE": "COLETA.",
+        "CANONICAL_PATH": "system-map/scripts/pente_fino_da_coleta.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Mede.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:system-map/scripts/pente_fino_da_coleta.py",
+        "SHA": "7c6f8bd541",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 12621,
+      "y": 1326
+    },
+    {
+      "id": "O-SCAN-REPO",
+      "name": "Scanner do repositorio",
+      "kind": "observer",
+      "icon": "◎",
+      "territory": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Medir ficheiros, imports, chamadas, workflows e artefactos — sem que ninguem os declare a mao.",
+      "why_here": "Mede. Nao decide. O que ele nao consegue saber fica no ficheiro declarado.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "system-map/scripts/scan_repo.py"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:system-map/scripts/scan_repo.py · conteudo 2721f4eace",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "G-CI-MAPA"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "OBSERVER",
+        "DOMAIN": "ARQUITETURA",
+        "CONCEPT_OWNER": "MEDICAO_DA_ARVORE",
+        "SCOPE": "A arvore inteira.",
+        "CANONICAL_PATH": "system-map/scripts/scan_repo.py",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "viva",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "Mede. Nao decide. O que ele nao consegue saber fica no ficheiro declarado.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:system-map/scripts/scan_repo.py",
+        "SHA": "2721f4eace",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "system-map/README.md",
+          "system-map/data/architecture.declared.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 12621,
+      "y": 1648
+    },
+    {
+      "id": "R-AUTORIDADES",
+      "name": "Registo das autoridades canonicas",
+      "kind": "registry",
+      "icon": "☰",
+      "territory": "Z-CTRL-REGISTO",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Ser o indice de quem manda: um conceito, um dono, um ciclo de vida, um caminho.",
+      "why_here": "INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "controle/AUTORIDADES-CANONICAS.json"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:controle/AUTORIDADES-CANONICAS.json · conteudo 32aa53ee66",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [
+        "A-AGENTS",
+        "G-PORTAO-CONTROLE",
+        "O-CENSO-CONTROLE",
+        "O-GERADOR"
+      ],
+      "outbound": [],
+      "controle": {
+        "KIND": "REGISTRY",
+        "DOMAIN": "GOVERNANCA",
+        "CONCEPT_OWNER": "REGISTO_DAS_AUTORIDADES",
+        "SCOPE": "O Control Plane.",
+        "CANONICAL_PATH": "controle/AUTORIDADES-CANONICAS.json",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "1",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:controle/AUTORIDADES-CANONICAS.json",
+        "SHA": "32aa53ee66",
+        "REFERENCED_BY": [
+          "AGENTS.md",
+          "controle/censo_do_controle.py",
+          "controle/portao_do_controle.py",
+          "system-map/data/architecture.declared.json",
+          "system-map/scripts/generate_system_map.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 14138,
+      "y": 1004
+    },
+    {
+      "id": "R-SALA",
+      "name": "Sala de Controle do SINTONIA",
+      "kind": "registry",
+      "icon": "☰",
+      "territory": "Z-CTRL-REGISTO",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "A porta por onde uma pessoa entra e descobre quem governa cada parte da maquina.",
+      "why_here": "GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "SALA-DE-CONTROLE-SINTONIA.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 36058b4d6d",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "REGISTRY",
+        "DOMAIN": "GOVERNANCA",
+        "CONCEPT_OWNER": "PONTO_DE_ENTRADA_DO_CONTROL_PLANE",
+        "SCOPE": "Todo agente ou pessoa que abre o repositorio.",
+        "CANONICAL_PATH": "SALA-DE-CONTROLE-SINTONIA.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "gerada",
+        "LIFECYCLE": "CANONICAL",
+        "DECLARED_STATE": "GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
+        "SHA": "36058b4d6d",
+        "REFERENCED_BY": [
+          ".github/workflows/system-map.yml",
+          "AGENTS.md",
+          "controle/AUTORIDADES-CANONICAS.json",
+          "controle/censo_do_controle.py",
+          "controle/portao_do_controle.py"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "",
+        "IN_TREE": true
+      },
+      "x": 14553,
+      "y": 1004
     },
     {
       "id": "V-FACEBOOK",
@@ -10413,8 +12990,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
-      "y": 360
+      "x": 3595,
+      "y": 2630
     },
     {
       "id": "V-HTTP",
@@ -10633,8 +13210,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
-      "y": 682
+      "x": 3595,
+      "y": 2952
     },
     {
       "id": "V-INSTAGRAM",
@@ -10776,8 +13353,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
-      "y": 1004
+      "x": 3595,
+      "y": 3274
     },
     {
       "id": "V-LINKEDIN",
@@ -10912,8 +13489,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
-      "y": 1326
+      "x": 3595,
+      "y": 3596
     },
     {
       "id": "V-YOUTUBE",
@@ -11055,8 +13632,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 3180,
-      "y": 1648
+      "x": 3595,
+      "y": 3918
     },
     {
       "id": "lineage_consumer",
@@ -11064,8 +13641,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-canonical-v1",
-        "HEAD 491b6f8d01c5e745a614e7e16d02375c666106ea"
+        "branch claude/funny-hypatia-y7ho5s",
+        "HEAD f437ff1140fa97484ca9695b341fbe9ca0a9f050"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11097,8 +13674,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
-      "y": 360
+      "x": 8655,
+      "y": 2630
     },
     {
       "id": "lineage_generator",
@@ -11141,8 +13718,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
-      "y": 682
+      "x": 8655,
+      "y": 2952
     },
     {
       "id": "lineage_package",
@@ -11184,8 +13761,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
-      "y": 1004
+      "x": 8655,
+      "y": 3274
     },
     {
       "id": "lineage_stale",
@@ -11235,11 +13812,505 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 8240,
-      "y": 1326
+      "x": 8655,
+      "y": 3596
     }
   ],
   "EDGES": [
+    {
+      "from": "A-AGENTS",
+      "to": "A-ATLAS-FONTES",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:460",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 460,
+          "snippet": "references — o texto da autoridade nomeia docs/fontes/ATLAS-DE-FONTES-EAME.md"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "A-CLAUDE",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:521",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 521,
+          "snippet": "references — o texto da autoridade nomeia CLAUDE.md"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "A-CONTRATOS-FONTES",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:461",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 461,
+          "snippet": "references — o texto da autoridade nomeia docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "A-README",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:522",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 522,
+          "snippet": "references — o texto da autoridade nomeia README.md"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "C-PORTA-FONTE",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:448",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 448,
+          "snippet": "governs — o texto da autoridade nomeia candidatas/fonte_nova.py"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "G-PORTAO-CONTROLE",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:85",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 85,
+          "snippet": "governs — o texto da autoridade nomeia controle/portao_do_controle.py"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "G-TESTES-MAPA",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:87",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 87,
+          "snippet": "governs — o texto da autoridade nomeia system-map/tests/test_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "G-VALIDADOR-MAPA",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:84",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 84,
+          "snippet": "governs — o texto da autoridade nomeia system-map/scripts/validate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "O-CENSO-CONTROLE",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:77",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 77,
+          "snippet": "governs — o texto da autoridade nomeia controle/censo_do_controle.py"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "O-GERADOR",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:83",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 83,
+          "snippet": "governs — o texto da autoridade nomeia system-map/scripts/generate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "A-AGENTS",
+      "to": "R-AUTORIDADES",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "AGENTS.md:240",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "AGENTS.md",
+          "line": 240,
+          "snippet": "governs — o texto da autoridade nomeia controle/AUTORIDADES-CANONICAS.json"
+        }
+      ]
+    },
+    {
+      "from": "A-BIBLIA-COLETA",
+      "to": "C-ADMISSAO",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-COLETA",
+      "to": "C-COLETA-BASE",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-COLETA",
+      "to": "C-PALAVRAS",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-COLETA",
+      "to": "C-PEDIDO",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-COLETA",
+      "to": "C-PROCEDENCIA",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-ENTREGA",
+      "to": "C-ASK-SINTONIA",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-BIBLIA-ENTREGA",
+      "to": "C-SITE-INGEST",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "AUTHORITY_ABSENT",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-CLAUDE",
+      "to": "A-AGENTS",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "CLAUDE.md:5",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "CLAUDE.md",
+          "line": 5,
+          "snippet": "references — o texto da autoridade nomeia AGENTS.md"
+        }
+      ]
+    },
+    {
+      "from": "A-CLAUDE",
+      "to": "A-CONTRATO-DESIGN",
+      "type": "GOVERNS",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "CLAUDE.md:98",
+      "payload": "governs",
+      "evidence": [
+        {
+          "file": "CLAUDE.md",
+          "line": 98,
+          "snippet": "governs — o texto da autoridade nomeia docs/design/CONTRATO-DE-DESIGN-SINTONIA.md"
+        }
+      ]
+    },
+    {
+      "from": "A-CLAUDE",
+      "to": "A-README",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "CLAUDE.md:26",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "CLAUDE.md",
+          "line": 26,
+          "snippet": "references — o texto da autoridade nomeia README.md"
+        }
+      ]
+    },
+    {
+      "from": "A-CONTRATO-DESIGN",
+      "to": "C-ASK-SINTONIA",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "PATH_EXISTS",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-CONTRATO-DESIGN",
+      "to": "C-PORTAL-MODELO",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "PATH_EXISTS",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-CONTRATOS-FONTES",
+      "to": "C-IT-CONTRATOS",
+      "type": "GOVERNS",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "PATH_EXISTS",
+      "proof_location": "",
+      "payload": "governs",
+      "evidence": []
+    },
+    {
+      "from": "A-COPILOT",
+      "to": "A-AGENTS",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/copilot-instructions.md:3",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/copilot-instructions.md",
+          "line": 3,
+          "snippet": "references — o texto da autoridade nomeia AGENTS.md"
+        }
+      ]
+    },
+    {
+      "from": "A-README",
+      "to": "A-AGENTS",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "README.md:5",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "README.md",
+          "line": 5,
+          "snippet": "references — o texto da autoridade nomeia AGENTS.md"
+        }
+      ]
+    },
+    {
+      "from": "A-README",
+      "to": "A-CLAUDE",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": "README.md:194",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": "README.md",
+          "line": 194,
+          "snippet": "references — o texto da autoridade nomeia CLAUDE.md"
+        }
+      ]
+    },
+    {
+      "from": "A-README",
+      "to": "A-DIARIO",
+      "type": "REFERENCES",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "PATH_EXISTS",
+      "proof_location": "",
+      "payload": "references",
+      "evidence": []
+    },
     {
       "from": "C-ADAMA-ES",
       "to": "C-PROVA-COLETA",
@@ -11327,6 +14398,23 @@
           "file": "motor/v21_ingest.py",
           "line": 266,
           "snippet": "for p in le(os.path.join(LM, 'IT-ADAMA-CATALOGO.json'), 'PRODUTOS')}"
+        }
+      ]
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-CTRL-REDTEAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta Red team do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 279,
+          "snippet": "g[\"GOVERNS\"] = [\"motor/v21_cadeia.sh\", \"admissao/admissao.py\"]"
         }
       ]
     },
@@ -11790,12 +14878,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 408,
+          "line": 413,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\""
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1461,
+          "line": 1681,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ]
@@ -11839,7 +14927,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 198,
+          "line": 211,
           "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
         }
       ]
@@ -11987,6 +15075,23 @@
           "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
           "line": 1,
           "snippet": "14 conta(s) de YOUTUBE em ficha, 7 autorizada(s) a coletar"
+        }
+      ]
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-CTRL-REDTEAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Red team do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 234,
+          "snippet": "and x[\"TO_PATH\"] == \"superficie/ask_sintonia.py\")"
         }
       ]
     },
@@ -12536,6 +15641,23 @@
     },
     {
       "from": "C-CADEIA-V21",
+      "to": "C-CTRL-REDTEAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Cadeia canonica V2.1 alimenta Red team do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 119,
+          "snippet": "achar(reg, \"A-AGENTS\")[\"GOVERNS\"].append(\"motor/v21_cadeia.sh\")"
+        }
+      ]
+    },
+    {
+      "from": "C-CADEIA-V21",
       "to": "C-LUGAR-DO-FATO",
       "type": "RUNS",
       "payload": "execucao",
@@ -12888,8 +16010,59 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 67,
+          "line": 74,
           "snippet": "python3 system-map/scripts/censo_da_coleta.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-CTRL-CENSO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Censo do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 67,
+          "snippet": "run: python3 controle/censo_do_controle.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-CTRL-PORTAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Portao do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 104,
+          "snippet": "run: python3 controle/portao_do_controle.py"
+        }
+      ]
+    },
+    {
+      "from": "C-CI-MAPA",
+      "to": "C-CTRL-REDTEAM",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Workflow do System Map manda rodar Red team do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 108,
+          "snippet": "run: python3 controle/red_team_do_controle.py"
         }
       ]
     },
@@ -12905,7 +16078,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 69,
+          "line": 76,
           "snippet": "python3 system-map/scripts/generate_system_map.py"
         }
       ]
@@ -12922,22 +16095,22 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 64,
+          "line": 71,
           "snippet": "python3 system-map/scripts/scan_repo.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 65,
+          "line": 72,
           "snippet": "python3 system-map/scripts/scan_sources.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 66,
+          "line": 73,
           "snippet": "python3 system-map/scripts/scan_casco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 68,
+          "line": 75,
           "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
         }
       ]
@@ -12954,7 +16127,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 83,
+          "line": 90,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
         }
       ]
@@ -12971,7 +16144,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 77,
+          "line": 84,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
         }
       ]
@@ -12988,7 +16161,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 80,
+          "line": 87,
           "snippet": "run: python3 medidas/padrao_da_coleta.py"
         }
       ]
@@ -13005,7 +16178,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 89,
+          "line": 96,
           "snippet": "run: python3 provas/testa_coleta_canonica.py"
         }
       ]
@@ -13439,6 +16612,101 @@
           "file": "pedido/receitas.py",
           "line": 66,
           "snippet": "\"larga_em\": [\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\"],"
+        }
+      ]
+    },
+    {
+      "from": "C-CTRL-CENSO",
+      "to": "C-CTRL-REDTEAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo do Control Plane alimenta Red team do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 81,
+          "snippet": "c = subprocess.run([sys.executable, str(RAIZ / \"controle\" / \"censo_do_controle.py\")],"
+        }
+      ]
+    },
+    {
+      "from": "C-CTRL-PORTAO",
+      "to": "C-CTRL-REDTEAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Portao do Control Plane alimenta Red team do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 85,
+          "snippet": "g = subprocess.run([sys.executable, str(RAIZ / \"controle\" / \"portao_do_controle.py\")],"
+        }
+      ]
+    },
+    {
+      "from": "C-CTRL-REGISTO",
+      "to": "C-CTRL-CENSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O registo das autoridades alimenta Censo do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/censo_do_controle.py",
+          "line": 71,
+          "snippet": "RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\")"
+        }
+      ]
+    },
+    {
+      "from": "C-CTRL-REGISTO",
+      "to": "C-CTRL-PORTAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O registo das autoridades alimenta Portao do Control Plane. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "controle/portao_do_controle.py",
+          "line": 60,
+          "snippet": "RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\")"
+        },
+        {
+          "file": "controle/portao_do_controle.py",
+          "line": 63,
+          "snippet": "CHAO = _caminho(\"SINTONIA_CONTROLE_CHAO\", RAIZ / \"controle\" / \"CHAO-DO-CONTROLE.json\")"
+        }
+      ]
+    },
+    {
+      "from": "C-CTRL-REGISTO",
+      "to": "C-CTRL-REDTEAM",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O registo das autoridades alimenta Red team do Control Plane. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 59,
+          "snippet": "REGISTO_REAL = RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\""
+        },
+        {
+          "file": "controle/red_team_do_controle.py",
+          "line": 60,
+          "snippet": "CHAO_REAL = RAIZ / \"controle\" / \"CHAO-DO-CONTROLE.json\""
         }
       ]
     },
@@ -13995,7 +17263,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1483,
+          "line": 1703,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ]
@@ -14471,17 +17739,17 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1684,
+          "line": 1904,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1684,
+          "line": 1904,
           "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1685,
+          "line": 1905,
           "snippet": "\"system-map/app/map.css\"):"
         }
       ]
@@ -14498,12 +17766,12 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 236,
+          "line": 249,
           "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
         },
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 238,
+          "line": 251,
           "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
         }
       ]
@@ -14576,12 +17844,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2124,
+          "line": 2365,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2124,
+          "line": 2365,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ]
@@ -14598,7 +17866,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 205,
+          "line": 218,
           "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
         }
       ]
@@ -14642,7 +17910,7 @@
       "evidence": [
         {
           "file": "system-map/tests/test_system_map.py",
-          "line": 224,
+          "line": 237,
           "snippet": "\"validate_system_map.py\" in lei,"
         }
       ]
@@ -16357,6 +19625,23 @@
       ]
     },
     {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-COLETA-BASE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP SOCIAL — o despachador da coleta social manda rodar O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 239,
+          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+        }
+      ]
+    },
+    {
       "from": "C-SINTONIA-SCRAP",
       "to": "C-APIFY-POOL",
       "type": "RUNS",
@@ -17626,6 +20911,200 @@
       ]
     },
     {
+      "from": "G-CI-MAPA",
+      "to": "G-COLETA-CANONICA",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/workflows/system-map.yml:96",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 96,
+          "snippet": "references — o texto da autoridade nomeia provas/testa_coleta_canonica.py"
+        }
+      ]
+    },
+    {
+      "from": "G-CI-MAPA",
+      "to": "G-PADRAO-COLETA",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/workflows/system-map.yml:87",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 87,
+          "snippet": "references — o texto da autoridade nomeia medidas/padrao_da_coleta.py"
+        }
+      ]
+    },
+    {
+      "from": "G-CI-MAPA",
+      "to": "G-TESTES-MAPA",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/workflows/system-map.yml:90",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 90,
+          "snippet": "references — o texto da autoridade nomeia system-map/tests/test_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "G-CI-MAPA",
+      "to": "G-VALIDADOR-MAPA",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/workflows/system-map.yml:84",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 84,
+          "snippet": "references — o texto da autoridade nomeia system-map/scripts/validate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "G-CI-MAPA",
+      "to": "O-GERADOR",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/workflows/system-map.yml:76",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 76,
+          "snippet": "references — o texto da autoridade nomeia system-map/scripts/generate_system_map.py"
+        }
+      ]
+    },
+    {
+      "from": "G-CI-MAPA",
+      "to": "O-SCAN-REPO",
+      "type": "REFERENCES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "CONTROL",
+      "proof_kind": "TEXT_POINTER",
+      "proof_location": ".github/workflows/system-map.yml:71",
+      "payload": "references",
+      "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 71,
+          "snippet": "references — o texto da autoridade nomeia system-map/scripts/scan_repo.py"
+        }
+      ]
+    },
+    {
+      "from": "G-PORTAO-CONTROLE",
+      "to": "R-AUTORIDADES",
+      "type": "VALIDATES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "PROOF",
+      "proof_kind": "CODE_REFERENCE",
+      "proof_location": "controle/portao_do_controle.py:11",
+      "payload": "validates",
+      "evidence": [
+        {
+          "file": "controle/portao_do_controle.py",
+          "line": 11,
+          "snippet": "validates — o texto da autoridade nomeia controle/AUTORIDADES-CANONICAS.json"
+        }
+      ]
+    },
+    {
+      "from": "G-TESTES-MAPA",
+      "to": "O-GERADOR",
+      "type": "VALIDATES",
+      "kind": "expected",
+      "status": "UNKNOWN",
+      "natureza": "GOVERNO",
+      "edge_state": "DECLARED",
+      "edge_plane": "PROOF",
+      "proof_kind": "PATH_EXISTS",
+      "proof_location": "",
+      "payload": "validates",
+      "evidence": []
+    },
+    {
+      "from": "O-CENSO-CONTROLE",
+      "to": "R-AUTORIDADES",
+      "type": "OBSERVES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "PROOF",
+      "proof_kind": "CODE_REFERENCE",
+      "proof_location": "controle/censo_do_controle.py:8",
+      "payload": "observes",
+      "evidence": [
+        {
+          "file": "controle/censo_do_controle.py",
+          "line": 8,
+          "snippet": "observes — o texto da autoridade nomeia controle/AUTORIDADES-CANONICAS.json"
+        }
+      ]
+    },
+    {
+      "from": "O-GERADOR",
+      "to": "R-AUTORIDADES",
+      "type": "OBSERVES",
+      "kind": "governance",
+      "status": "PROVEN",
+      "natureza": "GOVERNO",
+      "edge_state": "OBSERVED",
+      "edge_plane": "PROOF",
+      "proof_kind": "CODE_REFERENCE",
+      "proof_location": "system-map/scripts/generate_system_map.py:1207",
+      "payload": "observes",
+      "evidence": [
+        {
+          "file": "system-map/scripts/generate_system_map.py",
+          "line": 1207,
+          "snippet": "observes — o texto da autoridade nomeia controle/AUTORIDADES-CANONICAS.json"
+        }
+      ]
+    },
+    {
       "from": "V-FACEBOOK",
       "to": "C-COLETA-PUBLICA",
       "type": "VIAJA_POR",
@@ -17909,7 +21388,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 191,
+          "line": 196,
           "snippet": "contrato = RAIZ / \"italia-portale\" / \"audit\" / \"CANONICAL-PACKAGE-CONTRACT.json\""
         }
       ]
@@ -17988,20 +21467,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_FILES_COUNT": 644,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 97,
-    "components_proven": 68,
-    "components_pending": 25,
-    "components_broken": 0,
+    "components": 136,
+    "components_proven": 94,
+    "components_pending": 34,
+    "components_broken": 4,
     "components_unknown": 4,
-    "edges": 322,
-    "edges_proven": 322,
-    "edges_unknown": 0,
+    "edges": 372,
+    "edges_proven": 360,
+    "edges_unknown": 12,
     "business_edges": 4,
-    "files_tracked": 1142,
-    "files_covered": 499,
+    "files_tracked": 1149,
+    "files_covered": 505,
     "files_code_unclaimed": 0
   }
 }

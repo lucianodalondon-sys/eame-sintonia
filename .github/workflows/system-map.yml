@@ -59,6 +59,13 @@ jobs:
       # Sem dependências. O scanner usa só a biblioteca padrão, de propósito:
       # um mapa de arquitetura que depende de pacote de terceiro para ser
       # gerado tem uma dependência que o próprio mapa não consegue explicar.
+      # O CENSO DO CONTROLO VEM PRIMEIRO, e a ordem nao e gosto: ele escreve
+      # `SALA-DE-CONTROLE-SINTONIA.md`, que e um ficheiro versionado. Corre-lo
+      # depois do scanner faz o scanner medir a versao anterior dela, e o passo 2
+      # reprova — nao porque alguem errou, mas porque a cadeia correu ao contrario.
+      - name: 0 · medir quem manda (Control Plane)
+        run: python3 controle/censo_do_controle.py
+
       - name: 1 · regerar o mapa a partir desta árvore
         run: |
           python3 system-map/scripts/scan_repo.py
@@ -87,6 +94,18 @@ jobs:
       # escritas num comentário — e voltariam a confundir-se na primeira pressa.
       - name: 4b · o caminho da coleta continua fechado
         run: python3 provas/testa_coleta_canonica.py
+
+      # As nove maneiras conhecidas de uma autoridade mentir sobre si mesma:
+      # duplicar o conceito, duplicar o know-how, ressuscitar um documento
+      # superseded, fazer um handoff governar, fazer o mapa governar, pintar de
+      # observada uma relacao que so esta declarada. Sem isto no CI, o registo
+      # das autoridades seria mais um documento a pedir por favor.
+      - name: 4c · o governo não mentiu sobre si mesmo
+        run: python3 controle/portao_do_controle.py
+
+      # Um portao que nunca foi atacado nao provou que fecha.
+      - name: 4d · os doze ataques ao Control Plane continuam a falhar
+        run: python3 controle/red_team_do_controle.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         run: |

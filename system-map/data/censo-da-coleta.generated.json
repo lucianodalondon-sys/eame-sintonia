@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -651,7 +651,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [],
-      "no_ci": false
+      "no_ci": true
     },
     {
       "ficheiro": "coleta/coletor.py",
@@ -1719,7 +1719,7 @@
     "ficheiros_de_codigo": 88,
     "pontos_de_entrada": 75,
     "executores_que_saem_para_fora": 18,
-    "sem_chamador_e_fora_do_ci": 44,
+    "sem_chamador_e_fora_do_ci": 43,
     "gravam_no_banco": 1,
     "escrevem_ficheiro": 64,
     "deitam_fora_alguma_coisa": 19,
@@ -1844,7 +1844,6 @@
       "ferramentas/italy_extract_fields.mjs",
       "ferramentas/pdf_peek.mjs",
       "coleta/agrifood_ue.py",
-      "coleta/coleta_checkpoint.py",
       "coleta/cruzar_regua_rotulo.py",
       "coleta/ephy.sh",
       "coleta/es/corpus_es.py",

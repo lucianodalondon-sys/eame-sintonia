@@ -98,17 +98,27 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
     coleta que acabou e a inteligencia que ainda nao comecou. Pintar de cor
     forte faria a sala de espera parecer mais uma etapa de trabalho. */
  --fam-espera:#8a827e;--fam-espera-bg:#f4f2f1;
+ /* O CONTROL PLANE NAO E UMA ETAPA, E POR ISSO NAO PODE USAR A RAMPA DAS
+    ETAPAS. Azul, verde e laranja dizem «coleta, inteligencia, entrega» a
+    quem ja olhou este mapa uma vez; dar-lhe um quarto tom da mesma rampa
+    ensinaria o olho a le-lo como a quarta. O roxo esta fora da rampa de
+    propósito — e a cor de nada que corra. */
+ --fam-controle:#6b4fa8;--fam-controle-bg:#f2eef9;
 }
 .family{position:absolute;border-radius:34px;border:2px dashed;z-index:1;pointer-events:none}
 .family.F-COLETA{border-color:var(--fam-coleta);background:var(--fam-coleta-bg)}
 .family.F-ESPERA{border-color:var(--fam-espera);background:var(--fam-espera-bg)}
 .family.F-INTELIGENCIA{border-color:var(--fam-inteligencia);background:var(--fam-inteligencia-bg)}
 .family.F-ENTREGA{border-color:var(--fam-entrega);background:var(--fam-entrega-bg)}
+/* A faixa do governo e SOLIDA, e nao tracejada como as outras: as etapas sao
+   agrupamentos do mesmo tipo de coisa, e esta e outro andar. */
+.family.F-CONTROLE{border-color:var(--fam-controle);background:var(--fam-controle-bg);border-style:solid}
 .familyHead{position:absolute;left:50%;transform:translateX(-50%);top:-1px;text-align:center;padding:10px 22px;border-radius:0 0 18px 18px;color:#fff;white-space:nowrap}
 .family.F-COLETA .familyHead{background:var(--fam-coleta)}
 .family.F-ESPERA .familyHead{background:var(--fam-espera)}
 .family.F-INTELIGENCIA .familyHead{background:var(--fam-inteligencia)}
 .family.F-ENTREGA .familyHead{background:var(--fam-entrega)}
+.family.F-CONTROLE .familyHead{background:var(--fam-controle)}
 .familyName{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
 .familyWhy{font-size:12px;margin-top:6px;opacity:.92;max-width:760px;white-space:normal;margin-inline:auto}
 .family.dim{opacity:.18}
@@ -120,11 +130,13 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .zone.F-ESPERA{border-top:5px solid var(--fam-espera)}
 .zone.F-INTELIGENCIA{border-top:5px solid var(--fam-inteligencia)}
 .zone.F-ENTREGA{border-top:5px solid var(--fam-entrega)}
+.zone.F-CONTROLE{border-top:5px solid var(--fam-controle)}
 .zoneFam{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
 .zone.F-COLETA .zoneFam{color:var(--fam-coleta)}
 .zone.F-ESPERA .zoneFam{color:var(--fam-espera)}
 .zone.F-INTELIGENCIA .zoneFam{color:var(--fam-inteligencia)}
 .zone.F-ENTREGA .zoneFam{color:var(--fam-entrega)}
+.zone.F-CONTROLE .zoneFam{color:var(--fam-controle)}
 .zoneHead{height:auto;min-height:78px}
 
 /* A barra lateral: escolher uma familia e a primeira coisa que se faz. */
@@ -142,6 +154,7 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 .famBtn.active[data-fam="F-INTELIGENCIA"]{background:var(--fam-inteligencia)}
 .famBtn.active[data-fam="F-ENTREGA"]{background:var(--fam-entrega)}
 .famBtn.active[data-fam="F-ESPERA"]{background:var(--fam-espera)}
+.famBtn.active[data-fam="F-CONTROLE"]{background:var(--fam-controle)}
 .famBtn.active .swatch{background:#fff}
 .famBtn small{display:block;font-weight:400;font-size:9px;opacity:.8;margin-top:2px}
 
@@ -207,3 +220,53 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a
    natureza: quem esta a seguir UMA ligacao quer ve-la toda. */
 .dyn.acesa .edgePath{stroke-dasharray:none;opacity:1}
+
+/* ═══ A SETA DE GOVERNO NAO E UMA SETA DE DADO ═══════════════════════════════
+   Esta e a regra visual central do CONTROL PLANE, e ela tem de sobreviver a
+   ser vista de longe, com o mapa reduzido a 14%, por quem nunca leu a legenda.
+
+   Quatro coisas mudam ao mesmo tempo, e nenhuma delas sozinha bastava:
+
+     COR       roxo, fora da rampa das etapas — nada que corra e roxo
+     TRACO     ponto-e-traco longo, que nenhuma seta de dado usa
+     ESPESSURA mais fina que o fluxo: governo nao e caudal
+     PONTA     losango, e nao a ponta de seta do dado
+
+   A ponta e o detalhe que fecha a questao. Enquanto a seta de governo acabava
+   na mesma ponta do fluxo, uma linha roxa a descer sobre `admissao/` continuava
+   a poder ler-se como «isto entra ali». Um losango nao entra em lado nenhum. */
+.dyn.natGOVERNO .edgePath{
+  stroke:var(--fam-controle);stroke-width:1.9;opacity:.62;
+  stroke-dasharray:14 5 3 5;marker-end:url(#governa)}
+.dyn.natGOVERNO .edgePath.unknown{
+  stroke:#a99ec4;stroke-width:1.6;opacity:.42;stroke-dasharray:3 7}
+.dyn.natGOVERNO .edgePath.broken{stroke:var(--bad);stroke-dasharray:14 5 3 5}
+#world.focando .dyn.natGOVERNO.acesa .edgePath{
+  stroke:var(--fam-controle);stroke-width:3.6;opacity:1;stroke-dasharray:14 5 3 5}
+
+/* ═══ AS LENTES ══════════════════════════════════════════════════════════════
+   Uma lente muda O QUE SE VE. Nunca muda o que e verdade: ela apaga, nunca
+   repinta. Por isso e `opacity`, e nao `display:none` nem uma segunda cor — o
+   que esta apagado continua la, e continua a poder ser encontrado pela busca. */
+.lenteFora{opacity:.06;pointer-events:none}
+.zone.lenteFora,.family.lenteFora{opacity:.05}
+.lensRow{display:flex;flex-wrap:wrap;gap:5px}
+.lensBtn{border:1px solid var(--line);background:var(--white);color:var(--text);
+  border-radius:999px;padding:5px 11px;font-size:10.5px;cursor:pointer;font-weight:700}
+.lensBtn:hover{border-color:var(--fam-controle)}
+.lensBtn.active{background:var(--fam-controle);border-color:var(--fam-controle);color:#fff}
+.lensWhy{font-size:9.6px;color:#7d8783;margin-top:7px;line-height:1.45}
+
+/* O cartao de governo: o que foi DECLARADO e o que foi MEDIDO nao podem
+   partilhar a mesma caixa, senao o olho junta-os e a distincao morre. */
+.ctrlPar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.ctrlBox{border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:var(--white)}
+.ctrlBox.decl{border-left:4px solid var(--earth40)}
+.ctrlBox.obs{border-left:4px solid var(--fam-controle)}
+.ctrlBoxTitle{font-size:8.6px;font-weight:800;letter-spacing:.1em;color:#8b938f;margin-bottom:5px}
+.ctrlKey{font-size:9.4px;color:#7d8783;margin-top:5px}
+.ctrlVal{font-size:10.6px;color:var(--text);font-weight:700;word-break:break-word}
+.ctrlAusente{background:#fdecea;border-left-color:var(--bad)}
+.edgeState{font-family:monospace;font-size:8.6px;padding:1px 5px;border-radius:4px;font-weight:700}
+.edgeState.OBSERVED{background:#e7f4ec;color:#136b3d}
+.edgeState.DECLARED{background:var(--earth20);color:#6d6663}

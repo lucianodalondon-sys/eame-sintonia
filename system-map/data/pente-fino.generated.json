@@ -1,21 +1,9 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea"
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050"
   },
   "PECAS": [
-    {
-      "id": "C-ADMISSAO",
-      "nome": "A porta de admissao",
-      "zona": "8 · A PORTA DE ADMISSAO",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 1,
-      "estado": "green"
-    },
     {
       "id": "C-LEITORES",
       "nome": "Abrir PDF, ODS e HTML",
@@ -26,30 +14,6 @@
       "alguem_corre": false,
       "respostas": 2,
       "ficheiros": 5,
-      "estado": "green"
-    },
-    {
-      "id": "C-PROCEDENCIA",
-      "nome": "De onde veio — carimbado na coleta",
-      "zona": "6 · AS REGUAS QUE CARIMBAM",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 1,
-      "estado": "green"
-    },
-    {
-      "id": "C-PEDIDO",
-      "nome": "O pedido de coleta",
-      "zona": "1 · O PEDIDO E O PLANO",
-      "de_onde_vem": false,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 2,
-      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -86,6 +50,18 @@
       "alguem_corre": true,
       "respostas": 3,
       "ficheiros": 2,
+      "estado": "green"
+    },
+    {
+      "id": "C-ADMISSAO",
+      "nome": "A porta de admissao",
+      "zona": "8 · A PORTA DE ADMISSAO",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -134,6 +110,18 @@
       "alguem_corre": true,
       "respostas": 3,
       "ficheiros": 2,
+      "estado": "green"
+    },
+    {
+      "id": "C-PROCEDENCIA",
+      "nome": "De onde veio — carimbado na coleta",
+      "zona": "6 · AS REGUAS QUE CARIMBAM",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": false,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -197,15 +185,15 @@
       "estado": "yellow"
     },
     {
-      "id": "C-COLETA-BASE",
-      "nome": "O motor de buscar",
-      "zona": "7 · AS ACOES DA COLETA",
+      "id": "C-PEDIDO",
+      "nome": "O pedido de coleta",
+      "zona": "1 · O PEDIDO E O PLANO",
       "de_onde_vem": true,
       "para_onde_vai": true,
       "porque_existe": true,
       "alguem_corre": false,
       "respostas": 3,
-      "ficheiros": 3,
+      "ficheiros": 1,
       "estado": "green"
     },
     {
@@ -218,6 +206,18 @@
       "alguem_corre": false,
       "respostas": 3,
       "ficheiros": 3,
+      "estado": "yellow"
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "nome": "SCRAP SOCIAL — o despachador da coleta social",
+      "zona": "4 · AS FERRAMENTAS",
+      "de_onde_vem": false,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 3,
+      "ficheiros": 1,
       "estado": "yellow"
     },
     {
@@ -365,6 +365,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-COLETA-BASE",
+      "nome": "O motor de buscar",
+      "zona": "7 · AS ACOES DA COLETA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 3,
+      "estado": "green"
+    },
+    {
       "id": "C-NAVEGADOR",
       "nome": "O navegador — a rota gratis",
       "zona": "4 · AS FERRAMENTAS",
@@ -438,10 +450,10 @@
     }
   ],
   "RESUMO": {
-    "pecas_da_coleta": 36,
-    "respondem_as_quatro": 17,
-    "respondem_a_tres": 13,
-    "respondem_a_duas": 6,
+    "pecas_da_coleta": 37,
+    "respondem_as_quatro": 18,
+    "respondem_a_tres": 16,
+    "respondem_a_duas": 3,
     "respondem_a_uma": 0,
     "nao_respondem_a_nenhuma": 0
   }

@@ -136,7 +136,9 @@ function render() {
     const cls = e.kind === 'expected' ? 'unknown'
       : (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken' : '';
     return `<g class="dyn nat${esc(e.natureza || 'FLUXO')}" data-edge="${i}" data-nat="${
-      esc(e.natureza || 'FLUXO')}" data-from="${esc(e.from)}" data-to="${esc(e.to)}">
+      esc(e.natureza || 'FLUXO')}" data-etype="${esc(e.type || '')}" data-estate="${
+      esc(e.edge_state || '')}" data-eplane="${esc(e.edge_plane || '')}"
+      data-from="${esc(e.from)}" data-to="${esc(e.to)}">
       <path d="${d}" class="edgePath ${cls}"></path>
       <path d="${d}" class="edgeHit"></path></g>`;
   }).join('');
@@ -196,13 +198,29 @@ function showNodeTip(e, n) {
 function showEdgeTip(e, d) {
   const st = d.kind === 'expected' ? 'NÃO SEI — declarada, não provada' : 'LIGAÇÃO PROVADA';
   const p = d.evidence?.[0];
+  /* A SETA DE GOVERNO DIZ O SEU ESTADO POR EXTENSO, e nao so pela cor. Alguem
+     que nao distinga o roxo do cinza tem de conseguir ler a diferenca entre
+     «esta escrito que manda» e «foi medido que manda» — e a diferenca entre as
+     duas e a coisa toda. */
+  const gov = d.natureza === 'GOVERNO';
   tooltip.innerHTML =
     `<div class="ttName">${esc(nodeById[d.from]?.name)} → ${esc(nodeById[d.to]?.name)}</div>
-     <div class="ttStatus">${st}</div>
-     <div class="ttLabel">O que passa aqui</div><div class="ttText">${esc(d.payload || d.type)}</div>
-     <div class="ttLabel">Por quê</div><div class="ttText">${esc(d.reason)}</div>
-     <div class="ttLabel">Prova</div><div class="ttText">${
-       p ? esc(p.file + ':' + p.line) : 'não há linha de código que prove'}</div>`;
+     <div class="ttStatus">${gov
+       ? `RELAÇÃO DE GOVERNO · <span class="edgeState ${esc(d.edge_state)}">${
+           esc(d.edge_state)}</span>` : st}</div>` +
+    (gov
+      ? `<div class="ttLabel">Que relação</div><div class="ttText">${esc(d.type)} — nenhum
+           dado atravessa esta seta</div>
+         <div class="ttLabel">Que prova o censo exigia</div><div class="ttText">${
+           esc(d.proof_kind)}</div>
+         <div class="ttLabel">Onde ela está</div><div class="ttText">${
+           d.proof_location ? esc(d.proof_location)
+             : 'em lado nenhum — continua DECLARADA, e é isso que a linha diz'}</div>`
+      : `<div class="ttLabel">O que passa aqui</div><div class="ttText">${
+           esc(d.payload || d.type)}</div>
+         <div class="ttLabel">Por quê</div><div class="ttText">${esc(d.reason)}</div>
+         <div class="ttLabel">Prova</div><div class="ttText">${
+           p ? esc(p.file + ':' + p.line) : 'não há linha de código que prove'}</div>`);
   tooltip.style.display = 'block'; moveTip(e);
 }
 function moveTip(e) {
@@ -411,6 +429,68 @@ function blocoFontes(n) {
 }
 
 /* ══ 3 · O PAINEL — o detalhe todo, com a evidencia linha a linha ═════════ */
+/* O CARTAO DE GOVERNO — declarado a esquerda, medido a direita.
+   As duas colunas nao sao decoracao: enquanto «esta escrito que manda» e «foi
+   medido que manda» partilhavam a mesma caixa, o olho lia-as como uma frase so,
+   e a segunda emprestava credibilidade a primeira sem ter sido verificada. */
+function blocoControle(n) {
+  const c = n.controle;
+  const ausente = !c.IN_TREE;
+  return `
+    <div class="sec">
+      <h4>Cartão de governo</h4>
+      <div class="ctrlPar">
+        <div class="ctrlBox decl">
+          <div class="ctrlBoxTitle">DECLARADO — escrito por gente</div>
+          <div class="ctrlKey">espécie</div><div class="ctrlVal">${esc(c.KIND)}</div>
+          <div class="ctrlKey">conceito que possui</div>
+          <div class="ctrlVal">${esc(c.CONCEPT_OWNER || '— nenhum: é ponteiro')}</div>
+          <div class="ctrlKey">domínio</div><div class="ctrlVal">${esc(c.DOMAIN)}</div>
+          <div class="ctrlKey">ciclo de vida</div><div class="ctrlVal">${esc(c.LIFECYCLE)}</div>
+          <div class="ctrlKey">versão</div><div class="ctrlVal">${esc(c.VERSION || '—')}</div>
+          <div class="ctrlKey">caminho canónico</div>
+          <div class="ctrlVal" style="font-family:monospace;font-size:9.6px">${
+            esc(c.CANONICAL_PATH)}</div>
+        </div>
+        <div class="ctrlBox obs${ausente ? ' ctrlAusente' : ''}">
+          <div class="ctrlBoxTitle">OBSERVADO — medido no git</div>
+          <div class="ctrlKey">estado medido</div>
+          <div class="ctrlVal">${esc(c.OBSERVED_STATE)}</div>
+          <div class="ctrlKey">vive em</div>
+          <div class="ctrlVal" style="font-family:monospace;font-size:9.6px">${
+            esc(c.LIVES_AT)}</div>
+          <div class="ctrlKey">impressão do conteúdo</div>
+          <div class="ctrlVal" style="font-family:monospace">${esc(c.SHA || '—')}</div>
+          <div class="ctrlKey">prova</div>
+          <div class="ctrlVal" style="font-family:monospace;font-size:9.6px">${
+            esc(c.PROOF || 'nenhuma')}</div>
+          <div class="ctrlKey">quem aponta para ela</div>
+          <div class="ctrlVal">${c.REFERENCED_BY.length}</div>
+        </div>
+      </div>
+      ${ausente ? `<div class="file" style="border-left:3px solid var(--bad)">
+        <b>ESTA AUTORIDADE NÃO ESTÁ NESTA ÁRVORE.</b><br>
+        Ela foi declarada <code>${esc(c.LIFECYCLE)}</code> e o ficheiro
+        <code>${esc(c.CANONICAL_PATH)}</code> não existe neste commit. Quem clonar
+        esta linha e for lê-la não a encontra. Vive em
+        <code>${esc(c.LIVES_AT)}</code>.</div>` : ''}
+      <p style="font-size:11px;color:#4a443f;margin-top:10px">${esc(c.SCOPE)}</p>
+      ${c.DIVERGENT_COPIES.length ? `<div class="file"
+        style="border-left:3px solid #b07d2b"><b>${c.DIVERGENT_COPIES.length}
+        cópia(s) divergente(s) medida(s)</b><div style="font-size:10px;color:#8a827e">${
+        esc(c.DIVERGENT_COPIES.join(' · '))}</div></div>` : ''}
+      ${c.SUPERSEDED_BY.length ? `<div class="file"><b>substituída por</b>
+        ${esc(c.SUPERSEDED_BY.join(' · '))}</div>` : ''}
+      ${c.NOTE ? `<div class="file" style="border-left:3px solid var(--earth40)">${
+        esc(c.NOTE)}</div>` : ''}
+      ${c.REFERENCED_BY.length ? `<div class="sec"><h4>Quem aponta para ela (${
+        c.REFERENCED_BY.length})</h4>${c.REFERENCED_BY.slice(0, 12)
+        .map(f => `<div class="file">${esc(f)}</div>`).join('')}${
+        c.REFERENCED_BY.length > 12 ? `<div class="file">… e mais ${
+          c.REFERENCED_BY.length - 12}</div>` : ''}</div>` : ''}
+    </div>`;
+}
+
 function openDetail(id) {
   const n = nodeById[id]; if (!n) return;
   workspace.classList.add('detailOpen');
@@ -467,6 +547,8 @@ function openDetail(id) {
           esc(b.to.replace('DEPT:', '').replace(/_/g, ' '))}</b><br>${esc(b.reason)}<br>
           fonte: ${esc(b.source)} · declarado por ${esc(b.declared_by)} em ${esc(b.declared_at)}
           </div>`).join('')}</div>` : ''}
+
+      ${n.controle ? blocoControle(n) : ''}
 
       <div class="sec"><h4>Recebe de (${entra.length})</h4>${lig(entra, 'in')}</div>
       <div class="sec"><h4>Envia para (${sai.length})</h4>${lig(sai, 'out')}</div>
@@ -620,6 +702,82 @@ function highlightPath(id) {
   applyFilters();
 }
 
+/* ══ 3b · AS LENTES ══════════════════════════════════════════════════════
+   UMA LENTE MUDA O QUE SE VE. NUNCA MUDA O QUE E VERDADE.
+
+   Ela apaga — nao repinta, nao promove nada a verde, nao esconde um NAO SEI
+   atras de um recorte favoravel. O que fica apagado continua no DOM, continua
+   com o mesmo estado, e continua a ser encontrado pela busca. Por isso e
+   opacidade, e nao `display:none`: uma lente que apagasse do documento seria
+   indistinguivel, para quem le o ecra, de uma peca que nao existe.
+
+   E UM GRAFO COM CINCO LEITURAS, e nao cinco mapas. Cinco mapas independentes
+   seriam cinco verdades a envelhecer em separado, e a terceira vez que alguem
+   corrigisse uma delas as outras quatro passariam a mentir. */
+const LENTES = [
+  { id: 'tudo', nome: 'Tudo', porque:
+    'O grafo inteiro: a maquina, quem manda nela, e a prova de ambos.',
+    no: () => true, seta: () => true },
+
+  { id: 'maquina', nome: 'Máquina', porque:
+    'Só o caminho do dado: FONTE → COLETA → a espera → INTELIGÊNCIA → ENTREGA. '
+    + 'O plano de governo apaga-se porque nenhum dado passa por ele.',
+    no: n => n.family !== 'F-CONTROLE',
+    seta: g => g.dataset.nat === 'FLUXO' },
+
+  { id: 'governo', nome: 'Governo', porque:
+    'Quem manda em quê: BÍBLIA → CONTRATO → PEÇA, e as instruções, decisões e '
+    + 'know-how com as suas relações próprias. A seta roxa é governo, nunca dado.',
+    no: n => n.family === 'F-CONTROLE' || govAlvos.has(n.id),
+    seta: g => g.dataset.nat === 'GOVERNO' },
+
+  { id: 'prova', nome: 'Prova', porque:
+    'O que sustenta o verde: PEÇA → TESTE → EVIDÊNCIA. Mostra os portões, os '
+    + 'medidores e o que eles alcançam — e deixa à vista o que nenhum deles toca.',
+    no: n => n.territory === 'Z-PROVA' || n.territory === 'Z-CTRL-PORTOES'
+             || n.territory === 'Z-CTRL-OBSERVADORES' || n.territory === 'Z-CTRL-REGISTO'
+             || provaAlvos.has(n.id),
+    seta: g => g.dataset.eplane === 'PROOF'
+               || ['VALIDATES', 'OBSERVES', 'GENERATES', 'RUNS'].includes(g.dataset.etype) },
+
+  { id: 'estado', nome: 'Estado', porque:
+    'Os quatro estados que esta casa já usa — PROVEN, PENDING, BROKEN, NÃO SEI — '
+    + 'mais o que foi medido como ausente desta árvore. Não há vocabulário novo aqui.',
+    no: n => n.ui_status !== 'green' || (n.controle
+             && n.controle.OBSERVED_STATE !== 'PRESENT_AND_POINTED'
+             && n.controle.OBSERVED_STATE !== 'PRESENT_ENTRY_POINT'),
+    seta: g => g.dataset.estate === 'DECLARED' || g.dataset.nat === 'GOVERNO' },
+
+  { id: 'historia', nome: 'História', porque:
+    'O ciclo de vida das autoridades: CANONICAL, CANDIDATE, SUPERSEDED, '
+    + 'HISTORICAL, RECOVERY_PENDING. Um ficheiro existir não prova que ele ainda manda.',
+    no: n => !!n.controle,
+    seta: g => g.dataset.etype === 'SUPERSEDES' || g.dataset.nat === 'GOVERNO' },
+];
+let currentLens = 'tudo';
+/* Quem e governado por alguem, e quem e alcancado por um portao ou medidor —
+   calculado UMA VEZ a partir das arestas medidas, e nao escrito a mao. Uma
+   lista de alvos escrita a mao seria a lente a afirmar uma relacao que o censo
+   nao mediu, que e exatamente a coisa que este mapa nao pode fazer. */
+let govAlvos = new Set(), provaAlvos = new Set();
+function indexarLentes() {
+  govAlvos = new Set(edges.filter(e => e.natureza === 'GOVERNO')
+                          .flatMap(e => [e.from, e.to]));
+  provaAlvos = new Set(edges.filter(e => e.edge_plane === 'PROOF'
+                          || ['VALIDATES', 'OBSERVES', 'GENERATES', 'RUNS'].includes(e.type))
+                          .flatMap(e => [e.from, e.to]));
+}
+function pintarLentes() {
+  $('lentes').innerHTML = LENTES.map(l =>
+    `<button class="lensBtn${l.id === currentLens ? ' active' : ''}" data-lens="${
+      esc(l.id)}">${esc(l.nome)}</button>`).join('');
+  $('lenteWhy').textContent = LENTES.find(l => l.id === currentLens).porque;
+  document.querySelectorAll('.lensBtn').forEach(b =>
+    b.addEventListener('click', () => {
+      currentLens = b.dataset.lens; pintarLentes(); applyFilters();
+    }));
+}
+
 /* ══ 4 · FILTROS ═════════════════════════════════════════════════════════ */
 function activeView(n) {
   /* AQUI E A ITALIA. O que e de outro pais nao aparece por omissao.
@@ -675,6 +833,16 @@ function applyFilters() {
     el.classList.toggle('highlight', !!(pathSet && pathSet.has(n.id)));
   });
 
+  // A LENTE. Vem depois dos filtros e nao se mistura com eles: o filtro decide
+  // o que EXISTE no ecra, a lente decide para onde se esta a olhar. Por isso
+  // apaga (opacidade) em vez de esconder — e por isso nao mexe nos KPIs, que
+  // continuam a contar o que os filtros deixaram passar.
+  const lente = LENTES.find(l => l.id === currentLens);
+  nodes.forEach(n => {
+    const el = $('node-' + n.id); if (!el) return;
+    el.classList.toggle('lenteFora', !lente.no(n));
+  });
+
   // A faixa apaga-se quando nenhuma peca dela esta visivel — assim o filtro
   // nao deixa um retangulo colorido vazio a dizer que ali ha alguma coisa.
   document.querySelectorAll('.family').forEach(f => {
@@ -684,6 +852,8 @@ function applyFilters() {
   document.querySelectorAll('.zone').forEach(z => {
     const viva = nodes.some(n => n.territory === z.dataset.zone && vis.has(n.id));
     z.style.opacity = viva ? '' : '.25';
+    z.classList.toggle('lenteFora',
+      !nodes.some(n => n.territory === z.dataset.zone && lente.no(n)));
   });
 
   // que naturezas de seta estao ligadas — vazio nao esconde tudo, mostra tudo
@@ -693,6 +863,7 @@ function applyFilters() {
     const dentro = vis.has(g.dataset.from) && vis.has(g.dataset.to)
       && (!nats.size || nats.has(g.dataset.nat || 'FLUXO'));
     g.style.display = dentro ? '' : 'none';
+    g.classList.toggle('lenteFora', !lente.seta(g));
     const p = g.querySelector('.edgePath');
     p.classList.toggle('highlight',
       !!(pathSet && pathSet.has(g.dataset.from) && pathSet.has(g.dataset.to)
@@ -944,6 +1115,7 @@ async function arrancar() {
       `<label class="check" title="${esc(desc)}"><input type="radio" name="dept"
         value="${esc(k)}">${esc(k.replace(/_/g, ' '))}</label>`).join('');
 
+  indexarLentes(); pintarLentes();
   render(); bind(); renderMini(); applyFilters();
   requestAnimationFrame(fit);
 

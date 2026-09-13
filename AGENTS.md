@@ -74,10 +74,23 @@ de prova não é prova de ausência, e também não é prova de presença.
 Antes de concluir qualquer mudança relevante, corra:
 
 ```bash
-py system-map/scripts/generate_system_map.py    # regerar o mapa
-py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao repo
-py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
+py controle/censo_do_controle.py                # 1 · medir quem manda
+py system-map/scripts/scan_repo.py              # 2 · medir a árvore
+py system-map/scripts/scan_sources.py
+py system-map/scripts/scan_casco.py
+py system-map/scripts/censo_da_coleta.py
+py system-map/scripts/pente_fino_da_coleta.py
+py system-map/scripts/generate_system_map.py    # 3 · regerar o mapa
+py system-map/scripts/validate_system_map.py    # 4 · provar que ele bate com o repo
+py controle/portao_do_controle.py               # 5 · provar que o governo não mentiu
+py controle/red_team_do_controle.py             # 6 · os doze ataques
+py system-map/tests/test_system_map.py          # 7 · as regras não afrouxaram
 ```
+
+**A ORDEM DO PASSO 1 NÃO É GOSTO.** O censo do controlo escreve
+`SALA-DE-CONTROLE-SINTONIA.md`, que é um ficheiro versionado. Corrê-lo *depois*
+do scanner faz o scanner medir a versão anterior dela, e a verificação anti-drift
+reprova — não porque alguém errou, mas porque a cadeia correu ao contrário.
 
 Use `python3` em vez de `py` em Linux/CI. Se o validador reprovar, **a mudança
 não está pronta** — não é um aviso, é um portão.
@@ -117,7 +130,7 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 |---|---|
 | `P1_SEM_DRIFT` | o mapa commitado é o que o repositório de hoje produz |
 | `P2_IDS_UNICOS` | nenhum id repetido; todo território existe |
-| `P2_ZONA_TEM_FAMILIA` | toda zona pertence a COLETA, INTELIGÊNCIA ou ENTREGA |
+| `P2_ZONA_TEM_FAMILIA` | toda zona pertence a uma família que existe — CONTROL PLANE, COLETA, A ESPERA, INTELIGÊNCIA ou ENTREGA |
 | `P2_PASTA_BATE_COM_MAPA` | **todo ficheiro está na gaveta da sua peça** |
 | `P3_SEM_PONTA_SOLTA` | nenhuma ligação aponta para peça inexistente |
 | `P4_FICHEIROS_REAIS` | todo ficheiro citado pelo mapa existe |
@@ -133,6 +146,33 @@ Corre no CI em
 [`.github/workflows/system-map.yml`](.github/workflows/system-map.yml), em cada
 push e cada pull request. **Falha fechado**: erro inesperado também é `FAIL`.
 
+### E o que o PORTÃO DO CONTROL PLANE prova
+
+| | |
+|---|---|
+| `DUPLICATE_AUTHORITY_ID` | nenhum cartão com id repetido |
+| `DUPLICATE_CONCEPT_OWNER` | **um conceito, um dono** — nenhum conceito com dois donos canónicos |
+| `KNOW_HOW_DUPLICATED` | existe exatamente **um** know-how canónico |
+| `SUPERSEDED_MARKED_CANONICAL` | nada substituído continua carimbado de canónico |
+| `HANDOFF_AS_AUTHORITY` | nenhum handoff governa nada |
+| `SYSTEM_MAP_IS_AUTHORITY` | nenhuma peça do mapa governa — mede e reprova, só |
+| `DECLARED_EDGE_RENDERED_AS_OBSERVED` | nenhuma relação declarada aparece como observada |
+| `OBSERVED_EDGE_HAS_LOCATION` | toda relação observada diz ficheiro e linha |
+| `BROKEN_POINTER` | nenhuma autoridade presente aponta para caminho inexistente |
+| `CONTROL_PLANE_REGISTRY_DRIFT` | o censo corresponde ao registo de hoje |
+| `CANONICAL_CONTROL_ENTRYPOINTS` | existe exatamente **uma** sala de controle |
+
+As de cima reprovam sempre. Abaixo delas vive a **dívida medida** — autoridades
+fora desta árvore, cópias divergentes, documentos que se dizem lei e não estão no
+registo — e essa não exige zero: exige **não piorar**, contra o teto gravado em
+`controle/CHAO-DO-CONTROLE.json`.
+
+**«ESTÁ TUDO CERTO» NÃO É EXECUTÁVEL HOJE. «NÃO PIOROU» É.** Exigir zero na
+primeira corrida reprovaria o repositório inteiro, e a primeira coisa que alguém
+faria era desligar o portão. A dívida fica à vista, com nome e número, em vez de
+virar silêncio; quando alguém a pagar, `--fixar` desce o teto — e ele nunca mais
+sobe.
+
 ---
 
 ## ⚖️ A PRATELEIRA TEM DE BATER COM O MAPA
@@ -144,6 +184,9 @@ pasta da sua peça:
 
 | passo | zona | pasta |
 |---|---|---|
+| | **CONTROL PLANE** *(faixa roxa, por cima de tudo)* | |
+|  | O REGISTO E A SUA MAQUINA | `controle/` |
+|  | INSTRUÇÕES · BÍBLIAS · CONTRATOS · DECISÕES · KNOW-HOW · HANDOFFS · PORTÕES · OBSERVADORES | *(sem pasta — cartões medidos)* |
 | | **COLETA** | |
 | 1 | O PEDIDO E O PLANO | `pedido/` + `.github/workflows/` |
 | 2 | DE ONDE VEM UMA FONTE | `candidatas/` |
@@ -170,6 +213,62 @@ pasta da sua peça:
 `P2_PASTA_BATE_COM_MAPA` **reprova** quando um ficheiro está numa gaveta que não é
 a da sua peça. Mover ficheiro sem mover a peça reprova. Mudar a peça de zona sem
 mover o ficheiro reprova. As duas verdades não voltam a divergir em silêncio.
+
+### O CONTROL PLANE FICA POR CIMA, E NÃO À DIREITA
+
+`COLETA → INTELIGÊNCIA → ENTREGA` é o caminho do dado, e lê-se da esquerda para a
+direita. Quem governa esse caminho **não é o passo seguinte dele**:
+
+```
+CONTROL PLANE          quem manda      ← faixa roxa, atravessada por cima
+─────────────────────────────────────    nenhum dado cruza esta linha
+COLETA → … → ENTREGA   a máquina       ← as faixas de sempre
+```
+
+Uma quinta família colocada na fila cairia à direita da ENTREGA, e o olho leria
+`ENTREGA → CONTROL PLANE` — isto é, que governar é o que se faz depois de
+entregar. **Não existe `DADO → CONTROL PLANE`.**
+
+Por isso a faixa do governo é **roxa** (fora da rampa das etapas — nada que corre
+é roxo), a seta de governo é **ponto-e-traço** e acaba em **losango**, e não na
+ponta de seta do fluxo. Uma ponta de seta diz *«entra aqui»*; governo não entra
+em lado nenhum.
+
+| | dono | o que é |
+|---|---|---|
+| **quem manda** | [`SALA-DE-CONTROLE-SINTONIA.md`](SALA-DE-CONTROLE-SINTONIA.md) | a porta humana — **gerada**, não editar à mão |
+| **o registo** | [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json) | o índice de quem manda, escrito por gente |
+| **a medição** | [`controle/censo_do_controle.py`](controle/censo_do_controle.py) | mede o registo contra esta árvore |
+| **os dentes** | [`controle/portao_do_controle.py`](controle/portao_do_controle.py) | reprova quem mentir |
+| **os ataques** | [`controle/red_team_do_controle.py`](controle/red_team_do_controle.py) | os doze ataques conhecidos |
+
+**O registo não é uma bíblia, não é o know-how e não é este ficheiro.** Ele não
+possui lei nenhuma: possui a lista de quem possui. Um índice que se declarasse
+dono do que indexa passaria a competir com o que indexa.
+
+#### Uma relação de governo declarada não é uma relação provada
+
+A lei que já valia para as setas técnicas vale igual aqui, e é a mesma lei:
+
+```
+GOVERNS DECLARADA  ≠  GOVERNS OBSERVADA
+```
+
+Uma `GOVERNS` só passa a observada quando **o texto da própria autoridade nomeia
+o caminho do alvo**, com ficheiro e linha. Não conta o ficheiro existir; não conta
+o mundo mencionar o alvo; não conta estar desenhado. Enquanto não houver essa
+linha, a seta é `expected` — e `P7_NAO_SEI_VIVE` obriga-a a ficar em NÃO SEI, tal
+como obriga qualquer outra.
+
+#### Uma autoridade pode existir no Git e não existir aqui
+
+Foi o que esta faixa encontrou: `BIBLIA-CANONICA-DA-COLETA.md` e
+`SINTONIA-EAME-KNOW-HOW.md` estão no repositório e **não estão em `main`**. Um
+agente que clone o ramo padrão é mandado consultar ficheiros que ali não existem.
+
+O registo diz onde cada autoridade realmente vive (`CANONICAL_REF`), e o censo
+vai lá medir. **Medir noutra ref não a traz para cá — só diz onde ela está.** O
+cartão dela fica 🔴 `ABSENT_FROM_SNAPSHOT`, que é a verdade.
 
 ### Não existe mais `scripts/`
 

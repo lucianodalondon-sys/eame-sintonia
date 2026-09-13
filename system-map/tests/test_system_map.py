@@ -60,7 +60,20 @@ prova("todo_no_tem_motivo_de_status",
 # A trava continua: as partes sao ESTAS e sao NESTA ORDEM. Trocar «tres» por
 # «quatro» so adiaria o problema — daqui a um mes seriam cinco sem ninguem
 # decidir. Nomear cada uma obriga a passar por aqui quem quiser mudar o desenho.
-PARTES_ESPERADAS = ["F-COLETA", "F-ESPERA", "F-INTELIGENCIA", "F-ENTREGA"]
+#
+# E FOI ISSO QUE ACONTECEU AGORA. Sao cinco, e a quinta e de OUTRA NATUREZA:
+#
+#     F-CONTROLE nao e uma etapa do dado. Nenhum dado a atravessa.
+#
+# As outras quatro respondem «por onde passa o que foi colhido». Esta responde
+# «quem manda em quem faz isso» — e por isso ela vem PRIMEIRO na lista e fica
+# POR CIMA no desenho, numa faixa propria, com cor fora da rampa das etapas.
+#
+# Se algum dia alguem a puser no meio das outras quatro, este teste reprova — e
+# esta certo que reprove: uma faixa de governo no meio da fila do dado le-se
+# como mais um passo do dado, que e exatamente o que ela nao e.
+PARTES_ESPERADAS = ["F-CONTROLE", "F-COLETA", "F-ESPERA",
+                    "F-INTELIGENCIA", "F-ENTREGA"]
 FAMS = {f["id"] for f in S["FAMILIES"]}
 prova("as_partes_sao_estas_e_nesta_ordem",
       [f["id"] for f in S["FAMILIES"]] == PARTES_ESPERADAS,

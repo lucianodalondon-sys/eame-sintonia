@@ -28,6 +28,96 @@
   },
   "TERRITORIES": [
     {
+      "id": "Z-CTRL-INSTRUCOES",
+      "family": "F-CONTROLE",
+      "name": "INSTRUCOES",
+      "why": "A lei escrita e as suas portas. Um dono, multiplos ponteiros: quem repete a lei cria uma segunda que diverge",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-BIBLIAS",
+      "family": "F-CONTROLE",
+      "name": "BIBLIAS",
+      "why": "A constituicao de cada departamento — COLETA, INTELIGENCIA, ENTREGA. Nenhuma das tres esta nesta arvore, e e por isso que esta faixa existe",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-CONTRATOS",
+      "family": "F-CONTROLE",
+      "name": "CONTRATOS",
+      "why": "O que cada peca promete, e o que ela nao prova. Contrato tem um dono; snapshot e derivado",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-DECISOES",
+      "family": "F-CONTROLE",
+      "name": "DECISOES",
+      "why": "Toda decisao, com data e motivo. Decisao que fica so na conversa nao existe",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-KNOWHOW",
+      "family": "F-CONTROLE",
+      "name": "KNOW-HOW",
+      "why": "O conhecimento duravel. UM SO — um segundo know-how nao acrescenta memoria, divide-a",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "name": "HANDOFFS",
+      "why": "Memoria de sessao, NAO autoridade. Um handoff conta o que aconteceu; no dia em que governar alguem, a lembranca de um dia manda no repositorio inteiro",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-PORTOES",
+      "family": "F-CONTROLE",
+      "name": "PORTOES DE GOVERNANCA",
+      "why": "Os dentes. Texto nao reprova nada; portao reprova",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-OBSERVADORES",
+      "family": "F-CONTROLE",
+      "name": "OBSERVADORES",
+      "why": "Quem mede e escreve o que viu. Medem — nao decidem, e nunca governam",
+      "views": [
+        "governanca"
+      ],
+      "folder": null
+    },
+    {
+      "id": "Z-CTRL-REGISTO",
+      "family": "F-CONTROLE",
+      "name": "O REGISTO E A SUA MAQUINA",
+      "why": "O indice de quem manda, e o codigo que o mede contra a arvore. INDICE, NAO BIBLIA: nao possui lei nenhuma; possui a lista de quem possui",
+      "views": [
+        "governanca"
+      ],
+      "folder": "controle"
+    },
+    {
       "id": "Z-PEDIDO",
       "family": "F-COLETA",
       "name": "1 · O PEDIDO E O PLANO",
@@ -1738,6 +1828,102 @@
       "views": [
         "audit"
       ]
+    },
+    {
+      "id": "C-CTRL-REGISTO",
+      "name": "O registo das autoridades",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "contrato",
+      "icon": "§",
+      "views": [
+        "governanca",
+        "audit"
+      ],
+      "what": "O indice de quem manda: um conceito, um dono, um ciclo de vida, um caminho — e o teto da divida medida.",
+      "why_here": "Sem um registo unico, cada missao redescobria quem era a autoridade lendo o ficheiro que calhava abrir primeiro. Ele nao possui lei nenhuma: possui a lista de quem possui.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "controle/AUTORIDADES-CANONICAS.json",
+        "controle/CHAO-DO-CONTROLE.json"
+      ]
+    },
+    {
+      "id": "C-CTRL-CENSO",
+      "name": "Censo do Control Plane",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "medidor",
+      "icon": "◎",
+      "views": [
+        "governanca",
+        "audit"
+      ],
+      "what": "Mede o registo contra a arvore: se o caminho existe, que SHA tem, quando mudou, quem aponta para ele, e que arestas tem prova apontavel.",
+      "why_here": "E ele quem escreve OBSERVED. O registo declarado nunca escreve — declaracao nao promove a verde.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "controle/censo_do_controle.py"
+      ]
+    },
+    {
+      "id": "C-CTRL-PORTAO",
+      "name": "Portao do Control Plane",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "portao",
+      "icon": "⚖",
+      "views": [
+        "governanca",
+        "audit"
+      ],
+      "what": "Reprova autoridade que duplicou, divergiu, foi apontada errado, foi carimbada de canonica depois de superseded, ou cuja divida piorou desde o chao.",
+      "why_here": "Um registo sem portao e um pedido por favor. Este falha fechado.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "controle/portao_do_controle.py"
+      ]
+    },
+    {
+      "id": "C-CTRL-REDTEAM",
+      "name": "Red team do Control Plane",
+      "territory": "Z-CTRL-REGISTO",
+      "kind": "teste",
+      "icon": "⚔",
+      "views": [
+        "governanca",
+        "audit"
+      ],
+      "what": "Os doze ataques conhecidos ao registo, cada um executado contra o portao real — e reprova se algum passar.",
+      "why_here": "Um portao que nunca foi atacado nao provou que fecha. Estes doze ja passaram uma vez cada um, na cabeca de alguem, antes de existirem aqui.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "controle/red_team_do_controle.py"
+      ]
+    },
+    {
+      "id": "C-SCRAP-SOCIAL",
+      "name": "SCRAP SOCIAL — o despachador da coleta social",
+      "territory": "Z-FERRAMENTAS",
+      "kind": "workflow",
+      "icon": "▶",
+      "views": [
+        "infra",
+        "acervo"
+      ],
+      "what": "O botao que manda correr a coleta das redes sociais, com checkpoint duravel entre corridas.",
+      "why_here": "Entrou no ramo padrao pelo PR #3 sem ninguem o declarar, e o mapa passou a ter um ficheiro de arquitetura que nenhuma peca reivindicava — que e a definicao de arquitetura invisivel.",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "files": [
+        ".github/workflows/scrap-social.yml"
+      ]
     }
   ],
   "BUSINESS_EDGES": [
@@ -2217,24 +2403,34 @@
   },
   "FAMILIES": [
     {
+      "id": "F-CONTROLE",
+      "name": "CONTROL PLANE",
+      "plane": "CONTROL",
+      "why": "Quem governa a maquina: instrucoes, biblias, contratos, decisoes, know-how, handoffs, portoes e observadores. NENHUM DADO ATRAVESSA ESTE PLANO — ele nao e uma quarta etapa da coleta, e o andar de cima dela"
+    },
+    {
       "id": "F-COLETA",
       "name": "COLETA",
-      "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui."
+      "why": "Trazer para dentro o que existe la fora. Nada no SINTONIA comeca sem passar por aqui.",
+      "plane": "OPERATIONAL"
     },
     {
       "id": "F-ESPERA",
       "name": "A ESPERA",
-      "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas"
+      "why": "O que ja passou por toda a coleta e ainda nao entrou na inteligencia. Nao e coleta (o trabalho ja acabou) nem inteligencia (ainda nao comecou) — e o sitio onde o dado dorme entre as duas",
+      "plane": "OPERATIONAL"
     },
     {
       "id": "F-INTELIGENCIA",
       "name": "INTELIGENCIA",
-      "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa."
+      "why": "Transformar dado bruto em caso com dono, lugar e momento — e provar que a transformacao esta certa.",
+      "plane": "OPERATIONAL"
     },
     {
       "id": "F-ENTREGA",
       "name": "ENTREGA",
-      "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado."
+      "why": "Levar o que foi decidido ate quem precisa dele, sem deixar passar o que esta errado.",
+      "plane": "OPERATIONAL"
     }
   ]
 }
