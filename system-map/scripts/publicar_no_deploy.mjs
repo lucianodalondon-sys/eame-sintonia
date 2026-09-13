@@ -204,8 +204,19 @@ function impressaoDoIndice() {
   if (!temGit || !LEI_DA_IMPRESSAO) return null;
   const cru = comando('git', ['ls-files', '-s']);
   if (cru === null) return null;
-  const excluido = (p) => LEI_DA_IMPRESSAO.EXCLUIDO
-    .some(e => p === e || p.startsWith(e));
+  /* AS SAIDAS DA CADEIA, DERIVADAS — nao uma lista escrita aqui nem la.
+     `EXCLUIDO` era doze caminhos a mao no manifesto, e era, palavra por palavra,
+     «as saidas da cadeia»: o mesmo que cada passo ja declara em OUTPUTS. Quando
+     o G5 trouxe treze passos para dentro, catorze ficheiros que a cadeia escreve
+     ficaram DENTRO da impressao que ela carimba.
+
+     Sao dois runtimes, logo sao duas derivacoes — mas da MESMA fonte, e
+     `test_uma_cadeia_um_dono.py` reprova se uma delas passar a saber de cor. */
+  const saidasDaCadeia = [
+    ...(CADEIA.REGERAR || []), ...(CADEIA.REGERAR_A_MAO || []),
+  ].flatMap(p => (p.OUTPUTS || []).map(s => s.PATH)).filter(Boolean);
+  const fora = [...saidasDaCadeia, ...(LEI_DA_IMPRESSAO.EXCLUIDO_EXTRA || [])];
+  const excluido = (p) => fora.some(e => p === e || p.startsWith(e));
   const linhas = [];
   for (const ln of cru.split('\n')) {
     if (!ln) continue;
