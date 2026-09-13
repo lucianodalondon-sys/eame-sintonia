@@ -1594,8 +1594,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "1897a8e25d33a9eb2b77f36b366496e623c06061",
-    "GENERATED_AT": "2026-09-13T15:28:17+00:00"
+    "HEAD": "5ace34a8140f268d60472602d1eaed82003673d8",
+    "GENERATED_AT": "2026-09-13T15:32:55+00:00"
   },
   "FAMILIES": [
     {
@@ -1618,7 +1618,7 @@
         "Z-CTRL-OBSERVADORES",
         "Z-CTRL-REGISTO"
       ],
-      "count": 39
+      "count": 40
     },
     {
       "id": "F-COLETA",
@@ -1780,7 +1780,7 @@
       "y": 190,
       "w": 820,
       "h": 1650,
-      "count": 8
+      "count": 9
     },
     {
       "id": "Z-CTRL-PORTOES",
@@ -12363,6 +12363,62 @@
       "y": 1004
     },
     {
+      "id": "H-OPPORTUNITY-FIX",
+      "name": "Handoff · correcoes de Opportunity para a linhagem geradora",
+      "kind": "handoff",
+      "icon": "↷",
+      "territory": "Z-CTRL-HANDOFFS",
+      "family": "F-CONTROLE",
+      "status": "PROVEN",
+      "ui_status": "green",
+      "status_reason": "esta nesta arvore e ha quem aponte para ela — medido no git.",
+      "what": "Levar as correcoes do motor de Oportunidade ate a linhagem que gera o pacote canonico.",
+      "why_here": "MEMORIA. Diz «dono canonico» a falar do dono de OUTRA coisa — o gerador do pacote — e nao a reivindicar-se dono de nada.",
+      "files": [],
+      "file_count": 0,
+      "facts": [
+        "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md"
+      ],
+      "proof": "git-measurement",
+      "evidence_text": "git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md · conteudo e55e81caf6",
+      "departments": [
+        "INTELIGENCIA"
+      ],
+      "views": [
+        "governanca"
+      ],
+      "lane": "official",
+      "legacy": false,
+      "changed_since_declared": [],
+      "inbound": [],
+      "outbound": [],
+      "controle": {
+        "KIND": "HANDOFF",
+        "DOMAIN": "INTELIGENCIA",
+        "CONCEPT_OWNER": "",
+        "SCOPE": "Uma integracao entre duas branches.",
+        "CANONICAL_PATH": "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
+        "CANONICAL_REF": "IN_TREE",
+        "LIVES_AT": "HEAD",
+        "VERSION": "—",
+        "LIFECYCLE": "HISTORICAL",
+        "DECLARED_STATE": "MEMORIA. Diz «dono canonico» a falar do dono de OUTRA coisa — o gerador do pacote — e nao a reivindicar-se dono de nada.",
+        "OBSERVED_STATE": "PRESENT_AND_POINTED",
+        "PROOF": "git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
+        "SHA": "e55e81caf6",
+        "REFERENCED_BY": [
+          "controle/AUTORIDADES-CANONICAS.json"
+        ],
+        "DIVERGENT_COPIES": [],
+        "SUPERSEDES": [],
+        "SUPERSEDED_BY": [],
+        "NOTE": "Aparecia como UNREGISTERED_CANONICAL_DOCUMENT porque a varredura procura a frase, e nao a intencao. Registado como HANDOFF: e assim que a varredura passa a saber que ele nao manda.",
+        "IN_TREE": true
+      },
+      "x": 9172,
+      "y": 1004
+    },
+    {
       "id": "H-PORTAL-INVENTORY",
       "name": "Inventario de capacidades do portal",
       "kind": "handoff",
@@ -12415,8 +12471,8 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 9172,
-      "y": 1004
+      "x": 8757,
+      "y": 1326
     },
     {
       "id": "H-PROMPT-NOVA-CONTA",
@@ -12473,7 +12529,7 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 8757,
+      "x": 9172,
       "y": 1326
     },
     {
@@ -12530,8 +12586,8 @@
         "NOTE": "",
         "IN_TREE": true
       },
-      "x": 9172,
-      "y": 1326
+      "x": 8757,
+      "y": 1648
     },
     {
       "id": "O-CENSO-COLETA",
@@ -12869,7 +12925,7 @@
         "controle/AUTORIDADES-CANONICAS.json"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:controle/AUTORIDADES-CANONICAS.json · conteudo d16ee046af",
+      "evidence_text": "git:HEAD:controle/AUTORIDADES-CANONICAS.json · conteudo 086fb579d6",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -12899,7 +12955,7 @@
         "DECLARED_STATE": "INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:controle/AUTORIDADES-CANONICAS.json",
-        "SHA": "d16ee046af",
+        "SHA": "086fb579d6",
         "REFERENCED_BY": [
           "AGENTS.md",
           "controle/censo_do_controle.py",
@@ -12934,7 +12990,7 @@
         "SALA-DE-CONTROLE-SINTONIA.md"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 59c2d43275",
+      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 2ffa2196db",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -12959,7 +13015,7 @@
         "DECLARED_STATE": "GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
-        "SHA": "59c2d43275",
+        "SHA": "2ffa2196db",
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "AGENTS.md",
@@ -13701,7 +13757,7 @@
       "icon": "B",
       "facts": [
         "branch claude/funny-hypatia-y7ho5s",
-        "HEAD 1897a8e25d33a9eb2b77f36b366496e623c06061"
+        "HEAD 5ace34a8140f268d60472602d1eaed82003673d8"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21546,8 +21602,8 @@
   "UNCLAIMED_FILES_COUNT": 645,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 137,
-    "components_proven": 95,
+    "components": 138,
+    "components_proven": 96,
     "components_pending": 34,
     "components_broken": 4,
     "components_unknown": 4,

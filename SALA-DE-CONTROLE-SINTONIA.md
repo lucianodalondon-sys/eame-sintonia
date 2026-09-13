@@ -318,7 +318,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `d16ee046af`
+- **impressão do conteúdo medido** — `086fb579d6`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
 - **quem aponta para ela** — `AGENTS.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `system-map/data/architecture.declared.json` *(+1)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
@@ -627,6 +627,20 @@ A leitura desta tabela é o resultado principal desta missão:
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
 - **o que ela diz de si** — MEMORIA, e nao know-how. Escrever aqui um SINTONIA-EAME-KNOW-HOW.md novo criaria a TERCEIRA versao dele — e isso e o ataque RT04, que o portao desta missao reprova.
 - **nota** — Segue o precedente de `handoff/KNOW-HOW-DELTA-107-RECUPERACAO.md`. O dono verdadeiro vive em origin/claude/sintonia-eame-know-how-v1.
+
+#### 🟢 Handoff · correcoes de Opportunity para a linhagem geradora
+
+- **conceito que possui** — *nenhum — é ponteiro*
+- **para que serve** — Levar as correcoes do motor de Oportunidade ate a linhagem que gera o pacote canonico.
+- **até onde vale** — Uma integracao entre duas branches.
+- **onde vive** — [`docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md`](docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md)
+- **estado declarado** — `HISTORICAL`
+- **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
+- **impressão do conteúdo medido** — `e55e81caf6`
+- **prova** — `git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
+- **o que ela diz de si** — MEMORIA. Diz «dono canonico» a falar do dono de OUTRA coisa — o gerador do pacote — e nao a reivindicar-se dono de nada.
+- **nota** — Aparecia como UNREGISTERED_CANONICAL_DOCUMENT porque a varredura procura a frase, e nao a intencao. Registado como HANDOFF: e assim que a varredura passa a saber que ele nao manda.
 
 ---
 

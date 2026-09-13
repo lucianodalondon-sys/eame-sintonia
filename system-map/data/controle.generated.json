@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "1897a8e25d33a9eb2b77f36b366496e623c06061",
+    "HEAD": "5ace34a8140f268d60472602d1eaed82003673d8",
     "BRANCH": "claude/funny-hypatia-y7ho5s"
   },
   "PLANES": [
@@ -1224,10 +1224,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "d16ee046af",
-      "LAST_VERIFIED": "2026-09-13T15:25:07+00:00",
-      "LAST_COMMIT": "b6b7865bde",
-      "LAST_SUBJECT": "controle: quem manda passa a ter registo, portao e faixa propria no mapa",
+      "SHA": "086fb579d6",
+      "LAST_VERIFIED": "2026-09-13T15:32:55+00:00",
+      "LAST_COMMIT": "5ace34a814",
+      "LAST_SUBJECT": "know-how: o delta §108 fica em handoff, porque escreve-lo aqui seria o RT04",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/AUTORIDADES-CANONICAS.json",
       "REFERENCED_BY": [
@@ -1259,10 +1259,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "59c2d43275",
-      "LAST_VERIFIED": "2026-09-13T15:28:17+00:00",
-      "LAST_COMMIT": "1897a8e25d",
-      "LAST_SUBJECT": "controle: a porta nao pode carregar a impressao de si propria",
+      "SHA": "2ffa2196db",
+      "LAST_VERIFIED": "2026-09-13T15:32:55+00:00",
+      "LAST_COMMIT": "5ace34a814",
+      "LAST_SUBJECT": "know-how: o delta §108 fica em handoff, porque escreve-lo aqui seria o RT04",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
       "REFERENCED_BY": [
@@ -1295,11 +1295,42 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "e80a7d8475",
-      "LAST_VERIFIED": "",
-      "LAST_COMMIT": "",
-      "LAST_SUBJECT": "",
+      "LAST_VERIFIED": "2026-09-13T15:32:55+00:00",
+      "LAST_COMMIT": "5ace34a814",
+      "LAST_SUBJECT": "know-how: o delta §108 fica em handoff, porque escreve-lo aqui seria o RT04",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:handoff/KNOW-HOW-DELTA-108-CONTROL-PLANE.md",
+      "REFERENCED_BY": [
+        "controle/AUTORIDADES-CANONICAS.json"
+      ],
+      "REFERENCED_BY_COUNT": 1
+    },
+    {
+      "CARD_ID": "H-OPPORTUNITY-FIX",
+      "KIND": "HANDOFF",
+      "NAME": "Handoff · correcoes de Opportunity para a linhagem geradora",
+      "DOMAIN": "INTELIGENCIA",
+      "CONCEPT_OWNER": "",
+      "IS_POINTER": false,
+      "PURPOSE": "Levar as correcoes do motor de Oportunidade ate a linhagem que gera o pacote canonico.",
+      "SCOPE": "Uma integracao entre duas branches.",
+      "CANONICAL_PATH": "docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
+      "CANONICAL_REF": "IN_TREE",
+      "VERSION": "—",
+      "LIFECYCLE": "HISTORICAL",
+      "DECLARED_STATE": "MEMORIA. Diz «dono canonico» a falar do dono de OUTRA coisa — o gerador do pacote — e nao a reivindicar-se dono de nada.",
+      "NOTE": "Aparecia como UNREGISTERED_CANONICAL_DOCUMENT porque a varredura procura a frase, e nao a intencao. Registado como HANDOFF: e assim que a varredura passa a saber que ele nao manda.",
+      "SUPERSEDES": [],
+      "SUPERSEDED_BY": [],
+      "DIVERGENT_COPIES": [],
+      "OBSERVED_STATE": "PRESENT_AND_POINTED",
+      "IN_TREE": true,
+      "SHA": "e55e81caf6",
+      "LAST_VERIFIED": "2026-09-07T12:27:39-03:00",
+      "LAST_COMMIT": "b8321b07de",
+      "LAST_SUBJECT": "a prateleira passa a bater com o mapa: 149 scripts saem de uma pasta so e vao para a gaveta do que sao",
+      "LIVES_AT": "HEAD",
+      "PROOF": "git:HEAD:docs/design/HANDOFF-OPPORTUNITY-CANONICAL-FIX.md",
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json"
       ],
@@ -1829,8 +1860,8 @@
     }
   ],
   "COUNTS": {
-    "authorities": 35,
-    "in_tree": 31,
+    "authorities": 36,
+    "in_tree": 32,
     "absent_from_snapshot": 4,
     "orphan_in_tree": 0,
     "edges": 52,
