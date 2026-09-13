@@ -377,11 +377,22 @@ prova("o_leitor_javascript_cobre_REGERAR_e_VALIDAR",
       "function executaveisDaCadeia()" in js and "function executaveisDeValidar()" in js,
       "as duas listas tem a mesma forma; migrar so uma deixa a outra a entregar "
       "o OBJECTO do passo ao python")
-cru = re.findall(r"CADEIA\.(REGERAR|VALIDAR)", js)
-prova("o_acesso_cru_vive_so_nas_funcoes_de_leitura",
-      cru.count("REGERAR") == 1 and cru.count("VALIDAR") == 1,
-      "REGERAR=%d VALIDAR=%d — uma ocorrencia cada, dentro do seu leitor"
-      % (cru.count("REGERAR"), cru.count("VALIDAR")))
+# ⚠️ CONTAR ACESSOS AO MANIFESTO ERA A PERGUNTA ERRADA. Derivar a exclusao
+# precisa de ler `CADEIA.REGERAR` para lhe tirar os OUTPUTS — e isso nao e
+# reconstruir a cadeia, e usa-la. A primeira versao contava ocorrencias e
+# reprovou a derivacao que este mesmo G5 introduziu.
+#
+#     O QUE NAO PODE SER COPIADO E A LISTA DE QUEM CORRE.
+#     LER O QUE CADA PASSO PRODUZ E OUTRA PERGUNTA.
+#
+# Quem distribui EXECUTAVEIS sao as duas funcoes de leitura, e mais ninguem.
+entrega = [m for m in re.finditer(r"\.EXECUTABLE", js)]
+corpos = "".join(re.findall(
+    r"function executaveis(?:DaCadeia|DeValidar)\(\)\s*\{[^}]*\}", js))
+prova("so_as_funcoes_de_leitura_entregam_EXECUTABLE",
+      len(entrega) == corpos.count(".EXECUTABLE"),
+      "%d usos de .EXECUTABLE no ficheiro, %d dentro dos leitores"
+      % (len(entrega), corpos.count(".EXECUTABLE")))
 usos = re.findall(r"(?:for\s*\(\s*const\s+\w+\s+of\s+|)(CADEIA\.(?:REGERAR|VALIDAR))\s*(\.\w+|\))", js)
 fora_do_leitor = [u for u in usos if u[1] not in (".map",)]
 prova("o_publicador_nao_percorre_a_lista_crua", not fora_do_leitor,
