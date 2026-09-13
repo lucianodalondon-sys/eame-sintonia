@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "89edb1dd4934e7a59b32c1ae078cd506e3ef2b37",
+    "HEAD": "84186dfaf6be8a52866efc4a440609985f7f4401",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4831,6 +4831,19 @@
       ]
     },
     {
+      "endpoint": "https://social.example/p",
+      "usado_por": [
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 488
+        },
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 369
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.arpa.veneto.it/%s",
       "usado_por": [
         {
@@ -4866,19 +4879,6 @@
         {
           "file": "tests/test_linkedin_build_01_local_first.py",
           "line": 340
-        }
-      ]
-    },
-    {
-      "endpoint": "https://twitter.com/x",
-      "usado_por": [
-        {
-          "file": "provas/linkedin_local_first.py",
-          "line": 268
-        },
-        {
-          "file": "tests/test_linkedin_build_01_local_first.py",
-          "line": 396
         }
       ]
     }

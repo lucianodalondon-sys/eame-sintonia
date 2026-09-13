@@ -68,6 +68,8 @@ on:
       - 'leis/telemetria.py'
       - 'provas/a_rota_m2_atravessa.py'
       - 'provas/o_scrap_chega_ao_acervo.py'
+      - 'provas/a_linhagem_do_ready_social.py'
+      - 'provas/mutacao_da_linhagem_social.py'
       - 'provas/as_travas_do_scrap_no_postgres.py'
       - 'provas/a_repeticao_do_scrap.py'
       - 'provas/o_retry_do_scrap.py'
@@ -384,6 +386,55 @@ jobs:
           psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
           psql "$ADMIN_URL" -c 'create database descartavel;'
           python3 provas/o_retry_do_scrap.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # ═══════════════════════════════════════════════════════════════
+      # E A VOLTA: DO READY SOCIAL DE REGRESSO AO BYTE.
+      #
+      # `a_linhagem_do_ready.py` ja fecha esta volta na rota DOCUMENTAL.
+      # A rota social nao a fechava, e o motivo era TEMPORAL: a ficha para a
+      # porta era montada ANTES de `preservar()` cunhar `raw_asset.id`, e o
+      # item chegava a Admissao sem ele. Medido antes do conserto, com a rota
+      # SCRAP inteira contra Postgres real:
+      #
+      #     SCRAP_RAW_OBSERVATION_ID       = 1
+      #     SCRAP_READY_RAW_OBSERVATION_ID = NAO SEI
+      #
+      #     O ID EXISTIA. O ITEM E QUE NAO O LEVAVA.
+      #
+      # Esta prova mede a estrada inteira e depois volta SO pelo que ficou
+      # pousado na sala, e ataca a ponte por 23 lados — sha, run, fonte,
+      # caminho, posicao, bytes iguais, duas corridas, retry, recusa no meio.
+      #
+      # Banco VIRGEM, pela razao de sempre: a cadeia nao e idempotente, e a
+      # propria prova aplica-a.
+      - name: 2g6 · o READY social volta ao RAW, e ao byte
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_linhagem_do_ready_social.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # E A PERGUNTA QUE SESSENTA CASOS VERDES NAO RESPONDEM:
+      #
+      #     SE EU PARTIR A PONTE, ALGUM FICA VERMELHO?
+      #
+      # Cinco mutantes reais (a observacao nao atravessa, e trocada pelo
+      # RUN_ID, pelo sha, a alca deixa de separar dois brutos do mesmo sha, e
+      # a prova do SCRAP volta a validar ONZE campos) mais UMA contraprova
+      # no-op — sem ela, uma bateria que morre com qualquer mudanca pareceria
+      # sensivel e seria cega.
+      - name: 2g7 · e a mutacao diz se essa volta esta mesmo guardada
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/mutacao_da_linhagem_social.py
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel

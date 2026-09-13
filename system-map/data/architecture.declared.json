@@ -2844,6 +2844,27 @@
       ]
     },
     {
+      "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "name": "A prova de que o READY social volta ao RAW, e ao byte",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊨",
+      "what": "Fecha a VOLTA da rota social: do item pousado na sala de espera de regresso ao byte preservado. Corre a estrada inteira do SCRAP contra PostgreSQL 16 descartavel — REQUEST, ORQUESTRADOR, EXECUTOR, INGRESSO, RUN, RAW, STORAGE, ADMISSAO, READY, SALA — e depois resolve SO a partir do ficheiro pousado: READY.RAW_OBSERVATION_ID -> raw_asset -> storage_object -> bytes, e tambem -> RUN e -> SOURCE. Ataca a ponte por vinte e tres lados (sha, RUN_ID, SOURCE_ID, storage_path, posicao na lista, dois conteudos iguais em dois enderecos, duas corridas da mesma fonte, recusa no meio da colheita, retry, RAW inexistente, RAW de outra corrida, storage ausente, TEXT_KIND inferido, LANGUAGE herdada, NOT_APPLICABLE a virar PASS, o contrato a validar onze campos) e mede a cardinalidade com uma colheita hostil de cinco itens que produz quatro contagens diferentes. `mutacao_da_linhagem_social.py` mata cinco mutantes e guarda uma contraprova no-op. Sala descartavel, armazem descartavel: REAL_WAITING_ROOM_ITEMS_CREATED = 0 · REAL_NETWORK = 0 · PAID_USD = 0.",
+      "why_here": "A rota documental ja fechava esta volta; a social nao, e o motivo era TEMPORAL e nao arquitectural. `coleta/ingresso.py::receber` monta a ficha para a porta ANTES de `preservar()` cunhar `raw_asset.id`, e o item chegava a Admissao sem ele. MEDIDO contra Postgres real antes do conserto: SCRAP_RAW_OBSERVATION_ID = 1 e SCRAP_READY_RAW_OBSERVATION_ID = NAO SEI. O ID EXISTIA; O ITEM E QUE NAO O LEVAVA. || A fronteira estava dentro de `conferir_o_que_ficou_escrito`, onde a observacao PLANEADA e a LINHA lida de volta estao as duas em mao — e o par era deitado fora. O QUE O DONO SABE E NAO DEVOLVE, PARA QUEM ESTA DO OUTRO LADO NUNCA ACONTECEU. || E a colheita hostil nao e zelo: entrada 5, artefatos 4, observacoes 3, READY 4, e a lista que o banco devolve sai por ordem de HASH e nao de entrada. POSICAO NAO E LIGACAO, e quem ligasse por indice daria a cada item a observacao de outro com cara de certo. || A mutacao existe porque sessenta casos verdes so provam que eles passaram: a pergunta e se algum fica vermelho quando a ponte se parte.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_linhagem_do_ready_social.py",
+        "provas/mutacao_da_linhagem_social.py"
+      ],
+      "views": [
+        "acervo",
+        "audit",
+        "trace"
+      ]
+    },
+    {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
       "name": "As travas do acervo, e o que a repeticao do SCRAP revela",
       "territory": "Z-PROVA",

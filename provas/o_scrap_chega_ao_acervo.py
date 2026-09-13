@@ -82,6 +82,25 @@ _sp.loader.exec_module(_flow01)
 FONTE = 'IT-T9-001'
 FALHAS = []
 
+#: QUANTOS CAMPOS O CONTRATO READY TEM — e o número vem do DONO dele.
+#: `admissao.pronto_para_inteligencia()` é quem o define (COL-LAW-043); esta
+#: prova pergunta-lhe, e não escreve um literal ao lado.
+#:
+#:     DOIS SÍTIOS A DECLARAR O MESMO NÚMERO DIVERGEM NO DIA EM QUE UM DELES
+#:     MUDAR — e foi assim que esta prova ficou a exigir ONZE depois de a lei
+#:     ir em DOZE.
+def _campos_do_contrato_ready():
+    import admissao as _adm
+    sonda = {'id': 'sonda-do-contrato',
+             'texto': 'Ensaio de campo publicado com DOI',
+             'source_id': 'IT-T7-001', 'fact_time': '2026-05-02',
+             'raw_asset_id': 1}
+    d = _adm.decidir(sonda, 'T7', corrida='sonda')
+    return len(_adm.pronto_para_inteligencia(sonda, d))
+
+
+READY_CAMPOS_DO_CONTRATO = _campos_do_contrato_ready()
+
 
 def diz(ok, titulo, detalhe=''):
     print('  %-5s %-52s %s' % ('ok' if ok else 'FALHA', titulo[:52],
@@ -173,6 +192,50 @@ def correr_com_banco(arvore, fonte, url):
         with open(marca, encoding='utf-8') as f:
             idas = json.load(f)
     return recibo, env, idas
+
+
+#: A `008` não constrói esquema: ela CONFERE o que as outras construíram.
+_SO_VERIFICA = ('008',)
+
+
+def cadeia_de_migrations():
+    pasta = os.path.join(RAIZ, 'supabase', 'migrations')
+    return [f.split('_', 1)[0] for f in sorted(os.listdir(pasta))
+            if f.endswith('.sql') and f.split('_', 1)[0] not in _SO_VERIFICA]
+
+
+def garantir_o_esquema(url):
+    """A cadeia canónica, e SÓ se o banco ainda não a tem.
+
+    ⚠️ ESTA PROVA NÃO APLICAVA ESQUEMA NENHUM, e o workflow entrega-lhe um
+    banco recém-criado (`drop database` + `create database`, passo 2g2).
+    Medido nesta missão: a corrida morria em `relation "public.storage_object"
+    does not exist`, a prova saía `SCRAP_CHEGA_AO_ACERVO=NO` e o motivo
+    escrito era «a corrida nao cunhou RUN_ID» — que manda procurar o defeito
+    no orquestrador, onde ele não está.
+
+        UM PORTÃO QUE NÃO CHEGA A CORRER NÃO É UM PORTÃO A FALHAR:
+        É UM PORTÃO QUE NÃO EXISTE, COM CARA DE VERMELHO.
+
+    A cadeia NÃO é idempotente — a segunda aplicação morre em «type pais
+    already exists» —, e por isso pergunta-se ao banco ANTES: sem
+    `raw_asset`, aplica-se; com ela, não se toca em nada. A pergunta é ao
+    banco, e não a uma variável de ambiente que alguém se lembre de pôr.
+    """
+    ja = q(url, "select count(*) from information_schema.tables where"
+                " table_schema = 'public' and table_name = 'raw_asset'")
+    if int(ja[0][0]) > 0:
+        return 0
+    pasta = os.path.join(RAIZ, 'supabase', 'migrations')
+    for n in cadeia_de_migrations():
+        achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + '_')]
+        r = subprocess.run(['psql', url, '-v', 'ON_ERROR_STOP=1', '-q', '-f',
+                            os.path.join(pasta, achados[0])],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            print('FALHOU a aplicar %s\n%s' % (achados[0], r.stderr[:900]))
+            raise SystemExit(1)
+    return len(cadeia_de_migrations())
 
 
 def q(url, sql):
@@ -340,16 +403,32 @@ def uma_corrida(url, shim, etiqueta):
         m['SALA_RUN_ID_BATE'] = (pousado or {}).get('RUN_ID') == run_id
 
         # ── O CONTRATO DE READY, CONFERIDO NO QUE ATERROU ───────────────
-        # COL-LAW-043: a inteligência recebe ONZE campos, e mais nada. Um
+        # COL-LAW-043: a inteligência recebe DOZE campos, e mais nada. Um
         # campo a mais é um canal por onde a rota fala com quem não devia
         # conhecê-la; um a menos é um consumidor a ler ausência.
         #
         #     READY NÃO É «O QUE SOBROU DA PORTA»: É UM CONTRATO FECHADO.
+        #
+        # ⚠️ ESTA LINHA DIZIA `ONZE`, E A LEI JÁ IA EM DOZE.
+        # `C-READY-LINEAGE-BEFORE-SCALE-V1` acrescentou `RAW_OBSERVATION_ID`
+        # ao contrato, e esta prova continuou a exigir onze — ou seja, a
+        # exigir que o campo da linhagem NÃO estivesse lá. Ela passou a
+        # reprovar o cumprimento da lei nova, e teria «passado» outra vez no
+        # dia em que alguém o removesse.
+        #
+        #     UM PORTÃO QUE VALIDA A LEI ANTERIOR NÃO É UM PORTÃO A DORMIR:
+        #     É UM PORTÃO A GUARDAR O LADO ERRADO DA PORTA.
+        #
+        # O número vem agora do DONO do contrato — `admissao.
+        # pronto_para_inteligencia` — e não de um literal escrito aqui. Dois
+        # sítios a declarar o mesmo número divergem no dia em que um deles
+        # mudar, e foi exactamente isso que aconteceu.
         campos = sorted({k for i in na_sala for k in i})
         m['READY_CAMPOS'] = campos
         m['READY_CAMPOS_N'] = len(campos)
-        m['READY_TODOS_COM_11'] = bool(na_sala) and all(
-            len(i) == 11 for i in na_sala)
+        m['READY_CONTRATO_N'] = READY_CAMPOS_DO_CONTRATO
+        m['READY_TODOS_COM_O_CONTRATO'] = bool(na_sala) and all(
+            len(i) == READY_CAMPOS_DO_CONTRATO for i in na_sala)
         m['READY_ESTADO'] = sorted({i.get('ESTADO') for i in na_sala})
         # E a corrida que lá está tem de ser ESTA. Um READY que nomeia outra
         # corrida é linhagem partida no último metro da estrada.
@@ -359,6 +438,14 @@ def uma_corrida(url, shim, etiqueta):
                      for i in (env.get('COLHEITA') or [])} - {''}
         m['READY_SOURCE_ID_DECLARADO'] = bool(na_sala) and all(
             str(i.get('SOURCE_ID') or '') in declarada for i in na_sala)
+        # ── E A LINHAGEM, QUE É O QUE O CAMPO NOVO SERVE PARA LEVAR ──────
+        # Ela confere-se contra `raw_asset` DESTA corrida: um número no campo
+        # não prova nada se não for uma linha que existe.
+        reais = {int(o[0]) for o in obs}
+        ids = [i.get('RAW_OBSERVATION_ID') for i in na_sala]
+        m['READY_RAW_OBSERVATION_IDS'] = ids
+        m['READY_RAW_OBSERVATION_ID_REAL'] = bool(na_sala) and all(
+            str(x).isdigit() and int(x) in reais for x in ids)
         return m
     finally:
         shutil.rmtree(base, ignore_errors=True)
@@ -483,6 +570,9 @@ def main():
 
     print(__doc__.strip().splitlines()[0])
     print('=' * 74)
+    aplicadas = garantir_o_esquema(url)
+    print('esquema: %s' % ('%d migrations aplicadas agora' % aplicadas
+                           if aplicadas else 'ja estava no banco'))
 
     casos = [
         ('A · TEXTO FORA DO LÉXICO DE TODOS OS UNIVERSOS',
@@ -568,10 +658,20 @@ def main():
         'e o ficheiro da sala tem mesmo a unidade, e é desta corrida',
         'ITENS=%s · RUN_ID bate: %s' % (b.get('SALA_UNIDADES'),
                                         b.get('SALA_RUN_ID_BATE')))
-    diz(b.get('READY_TODOS_COM_11'),
-        'READY entrega os ONZE campos do contrato, e mais nada',
+    diz(b.get('READY_TODOS_COM_O_CONTRATO'),
+        'READY entrega os %d campos do contrato, e mais nada'
+        % READY_CAMPOS_DO_CONTRATO,
         '%d campo(s): %s' % (b.get('READY_CAMPOS_N', 0),
                              ', '.join(b.get('READY_CAMPOS') or [])))
+    # E O CAMPO DA LINHAGEM NÃO É «UM DOS DOZE»: É O QUE FECHA A ESTRADA.
+    # Contá-lo junto com os outros deixaria `READY_CAMPOS_N = 12` passar com
+    # `RAW_OBSERVATION_ID = NAO SEI` lá dentro — que foi, medido, o estado da
+    # rota social até `C-SCRAP-READY-RAW-LINEAGE-V1`.
+    #
+    #     DOZE CAMPOS COM A LINHAGEM VAZIA SÃO DOZE CAMPOS E NENHUMA VOLTA.
+    diz(b.get('READY_RAW_OBSERVATION_ID_REAL'),
+        'e o READY social nomeia a OBSERVAÇÃO real que o originou',
+        'RAW_OBSERVATION_ID = %s' % b.get('READY_RAW_OBSERVATION_IDS'))
     diz(b.get('READY_CORRIDA_BATE') and b.get('READY_SOURCE_ID_DECLARADO'),
         'e o READY nomeia ESTA corrida e a fonte DECLARADA',
         'corrida=%s fonte=%s' % (b.get('READY_CORRIDA_BATE'),
@@ -658,7 +758,10 @@ def main():
                   'DOCUMENT_ID_FABRICATION', 'ADMISSION_JUDGED',
                   'ADMISSION_BY_RESULT', 'READY_COUNT', 'SALA_DE_ESPERA',
                   'SALA_UNIDADES', 'SALA_RUN_ID_BATE',
-                  'READY_CAMPOS_N', 'READY_TODOS_COM_11', 'READY_ESTADO',
+                  'READY_CAMPOS_N', 'READY_CONTRATO_N',
+                  'READY_TODOS_COM_O_CONTRATO', 'READY_ESTADO',
+                  'READY_RAW_OBSERVATION_IDS',
+                  'READY_RAW_OBSERVATION_ID_REAL',
                   'READY_CORRIDA_BATE', 'READY_SOURCE_ID_DECLARADO',
                   'ETAPAS', 'DERIVED_ESTADO', 'DERIVED_APLICABILIDADE',
                   'DERIVED_PORQUE',

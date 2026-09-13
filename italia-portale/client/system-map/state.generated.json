@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21495,
-    "h": 6648
+    "h": 6970
   },
   "INVENTORY": {
     ".claude": [
@@ -759,6 +759,7 @@
       "docs/operacao/PREFLIGHT-LIVE-READONLY-V1.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/PROXIMA-MISSAO-YOUTUBE.md",
+      "docs/operacao/READY-LINEAGE-BEFORE-SCALE-V1.md",
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
@@ -1276,6 +1277,7 @@
       "provas/a_fronteira_da_coleta.py",
       "provas/a_lei_da_fase_10.py",
       "provas/a_linhagem_do_ready.py",
+      "provas/a_linhagem_do_ready_social.py",
       "provas/a_linhagem_do_reaproveitamento.py",
       "provas/a_maquina_depois_do_crash.py",
       "provas/a_maquina_sob_carga.py",
@@ -1321,6 +1323,7 @@
       "provas/medir_source_id_wiring_gap.py",
       "provas/mutacao_da_autorizacao.py",
       "provas/mutacao_da_linhagem_do_ready.py",
+      "provas/mutacao_da_linhagem_social.py",
       "provas/mutacao_da_release_v1.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/mutacao_do_gate.py",
@@ -2146,10 +2149,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/ready-lineage-before-scale-v1",
-    "HEAD": "89edb1dd4934e7a59b32c1ae078cd506e3ef2b37",
-    "GENERATED_AT": "2026-09-13T21:39:37+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2fcbe259c65ab84b161f03d1260dee2415225536b1c5c4bfadd08a5df357aac7"
+    "BRANCH": "claude/scrap-ready-raw-lineage-v1-ywwn15",
+    "HEAD": "84186dfaf6be8a52866efc4a440609985f7f4401",
+    "GENERATED_AT": "2026-09-13T21:43:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "93c96fc0e9ee57a8afc60789c2602d3849e66a69d571d365ed6ba5deeec67304"
   },
   "FAMILIES": [
     {
@@ -2159,7 +2162,7 @@
       "x": 260,
       "y": 60,
       "w": 11725,
-      "h": 6328,
+      "h": 6650,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -2185,7 +2188,7 @@
       "x": 12205,
       "y": 60,
       "w": 485,
-      "h": 6328,
+      "h": 6650,
       "zones": [
         "Z-ESPERA"
       ],
@@ -2198,7 +2201,7 @@
       "x": 12910,
       "y": 60,
       "w": 1605,
-      "h": 6328,
+      "h": 6650,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE"
@@ -2213,12 +2216,12 @@
       "x": 18385,
       "y": 60,
       "w": 2850,
-      "h": 6328,
+      "h": 6650,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 73
+      "count": 74
     },
     {
       "id": "F-ENTREGA",
@@ -2227,7 +2230,7 @@
       "x": 14735,
       "y": 60,
       "w": 3430,
-      "h": 6328,
+      "h": 6650,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -2249,7 +2252,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 1
     },
     {
@@ -2263,7 +2266,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 1
     },
     {
@@ -2278,7 +2281,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 2
     },
     {
@@ -2293,7 +2296,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 1
     },
     {
@@ -2308,7 +2311,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 2
     },
     {
@@ -2323,7 +2326,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 2
     },
     {
@@ -2337,7 +2340,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 3
     },
     {
@@ -2351,7 +2354,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 5
     },
     {
@@ -2367,7 +2370,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 4
     },
     {
@@ -2383,7 +2386,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 6158,
+      "h": 6480,
       "count": 16
     },
     {
@@ -2399,7 +2402,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 6158,
+      "h": 6480,
       "count": 14
     },
     {
@@ -2415,7 +2418,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 5
     },
     {
@@ -2430,7 +2433,7 @@
       "x": 10420,
       "y": 190,
       "w": 820,
-      "h": 6158,
+      "h": 6480,
       "count": 11
     },
     {
@@ -2445,7 +2448,7 @@
       "x": 11540,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 2
     },
     {
@@ -2460,7 +2463,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 1
     },
     {
@@ -2476,7 +2479,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 6158,
+      "h": 6480,
       "count": 8
     },
     {
@@ -2492,7 +2495,7 @@
       "x": 14070,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 4
     },
     {
@@ -2508,7 +2511,7 @@
       "x": 14775,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 3
     },
     {
@@ -2524,7 +2527,7 @@
       "x": 15480,
       "y": 190,
       "w": 820,
-      "h": 6158,
+      "h": 6480,
       "count": 7
     },
     {
@@ -2540,7 +2543,7 @@
       "x": 16600,
       "y": 190,
       "w": 405,
-      "h": 6158,
+      "h": 6480,
       "count": 5
     },
     {
@@ -2555,7 +2558,7 @@
       "x": 17305,
       "y": 190,
       "w": 820,
-      "h": 6158,
+      "h": 6480,
       "count": 11
     },
     {
@@ -2571,7 +2574,7 @@
       "x": 18425,
       "y": 190,
       "w": 1235,
-      "h": 6158,
+      "h": 6480,
       "count": 16
     },
     {
@@ -2587,8 +2590,8 @@
       "x": 19960,
       "y": 190,
       "w": 1235,
-      "h": 6158,
-      "count": 57
+      "h": 6480,
+      "count": 58
     }
   ],
   "DEPARTMENTS": {
@@ -2855,9 +2858,11 @@
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
+        "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-READY",
         "C-RECALL-PORTA-IT",
@@ -7389,6 +7394,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-DEDUPE",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -7596,6 +7602,7 @@
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-RETRY-DO-SCRAP",
@@ -7924,6 +7931,7 @@
         "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-SCRAP-SOCIAL",
         "C-TESTES",
         "C-TRANSCRICAO"
@@ -8105,6 +8113,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -8667,6 +8676,7 @@
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -9927,6 +9937,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-ROTA-M2",
@@ -12378,6 +12389,7 @@
         "C-PADRAO-COLETA",
         "C-PALAVRAS",
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-RECEITAS",
         "C-REGRA-COLETA",
@@ -12809,6 +12821,7 @@
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-RETRY-DO-SCRAP",
@@ -13340,6 +13353,75 @@
       "y": 4546
     },
     {
+      "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "name": "A prova de que o READY social volta ao RAW, e ao byte",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Fecha a VOLTA da rota social: do item pousado na sala de espera de regresso ao byte preservado. Corre a estrada inteira do SCRAP contra PostgreSQL 16 descartavel — REQUEST, ORQUESTRADOR, EXECUTOR, INGRESSO, RUN, RAW, STORAGE, ADMISSAO, READY, SALA — e depois resolve SO a partir do ficheiro pousado: READY.RAW_OBSERVATION_ID -> raw_asset -> storage_object -> bytes, e tambem -> RUN e -> SOURCE. Ataca a ponte por vinte e tres lados (sha, RUN_ID, SOURCE_ID, storage_path, posicao na lista, dois conteudos iguais em dois enderecos, duas corridas da mesma fonte, recusa no meio da colheita, retry, RAW inexistente, RAW de outra corrida, storage ausente, TEXT_KIND inferido, LANGUAGE herdada, NOT_APPLICABLE a virar PASS, o contrato a validar onze campos) e mede a cardinalidade com uma colheita hostil de cinco itens que produz quatro contagens diferentes. `mutacao_da_linhagem_social.py` mata cinco mutantes e guarda uma contraprova no-op. Sala descartavel, armazem descartavel: REAL_WAITING_ROOM_ITEMS_CREATED = 0 · REAL_NETWORK = 0 · PAID_USD = 0.",
+      "why_here": "A rota documental ja fechava esta volta; a social nao, e o motivo era TEMPORAL e nao arquitectural. `coleta/ingresso.py::receber` monta a ficha para a porta ANTES de `preservar()` cunhar `raw_asset.id`, e o item chegava a Admissao sem ele. MEDIDO contra Postgres real antes do conserto: SCRAP_RAW_OBSERVATION_ID = 1 e SCRAP_READY_RAW_OBSERVATION_ID = NAO SEI. O ID EXISTIA; O ITEM E QUE NAO O LEVAVA. || A fronteira estava dentro de `conferir_o_que_ficou_escrito`, onde a observacao PLANEADA e a LINHA lida de volta estao as duas em mao — e o par era deitado fora. O QUE O DONO SABE E NAO DEVOLVE, PARA QUEM ESTA DO OUTRO LADO NUNCA ACONTECEU. || E a colheita hostil nao e zelo: entrada 5, artefatos 4, observacoes 3, READY 4, e a lista que o banco devolve sai por ordem de HASH e nao de entrada. POSICAO NAO E LIGACAO, e quem ligasse por indice daria a cada item a observacao de outro com cara de certo. || A mutacao existe porque sessenta casos verdes so provam que eles passaram: a pergunta e se algum fica vermelho quando a ponte se parte.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊨",
+      "views": [
+        "acervo",
+        "audit",
+        "infra",
+        "trace"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/a_linhagem_do_ready_social.py",
+        "provas/mutacao_da_linhagem_social.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-ADMISSAO",
+        "C-CI-PERSIST",
+        "C-COLETA-BASE",
+        "C-CONTRATO-ARTEFATO",
+        "C-CONTRATO-TELEMETRIA",
+        "C-DONO-DA-ESCRITA",
+        "C-INGRESSO",
+        "C-PROCEDENCIA",
+        "C-PROVA-COLETA",
+        "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+        "C-SALA-DE-ESPERA",
+        "C-SCRAP-COLHEITA",
+        "C-SCRAP-SOCIAL",
+        "C-SUPABASE"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MUTACOES"
+        ],
+        "palavras": 6,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 6,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20435,
+      "y": 4546
+    },
+    {
       "id": "C-PROVA-MAPA-NAO-MENTE",
       "name": "A prova de que o mapa não mente sobre existência",
       "territory": "Z-PROVA",
@@ -13426,7 +13508,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -13496,8 +13578,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -13548,7 +13630,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4868
     },
     {
@@ -13600,7 +13682,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4868
     },
     {
@@ -13662,8 +13744,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -13721,7 +13803,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5190
     },
     {
@@ -13755,6 +13837,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-ADMISSAO",
         "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
@@ -13766,6 +13849,7 @@
         "C-SCRAP-COLHEITA"
       ],
       "outbound": [
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP"
       ],
@@ -13791,7 +13875,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -13844,8 +13928,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5190
+      "x": 20020,
+      "y": 5512
     },
     {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -13891,7 +13975,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5512
     },
     {
@@ -13954,7 +14038,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5512
     },
     {
@@ -14206,8 +14290,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5512
+      "x": 20020,
+      "y": 5834
     },
     {
       "id": "C-RECEITAS",
@@ -14358,7 +14442,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5834
     },
     {
@@ -14500,7 +14584,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5834
     },
     {
@@ -14949,6 +15033,7 @@
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -15051,6 +15136,7 @@
       ],
       "outbound": [
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-RECEITAS",
@@ -15402,6 +15488,7 @@
         "C-COLETA-BASE",
         "C-COLETA-PUBLICA",
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
@@ -15546,8 +15633,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 5834
+      "x": 20020,
+      "y": 6156
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -15847,7 +15934,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 6156
     },
     {
@@ -15946,6 +16033,7 @@
         "C-MAPA-GERADOR",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-COLETA",
+        "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-REGRA-COLETA",
         "C-ROTULOS",
         "C-TESTES"
@@ -16021,7 +16109,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 6156
     },
     {
@@ -17470,13 +17558,13 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 679,
+        "palavras": 680,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 667,
+        "sem_marca_de_lingua": 668,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -17538,8 +17626,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20850,
-      "y": 6156
+      "x": 20020,
+      "y": 6478
     },
     {
       "id": "C-TRANSCRICAO",
@@ -18903,7 +18991,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/ready-lineage-before-scale-v1"
+        "branch claude/scrap-ready-raw-lineage-v1-ywwn15"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19406,6 +19494,24 @@
     },
     {
       "from": "C-ADMISSAO",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 64,
+          "snippet": "import admissao                                        # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-ADMISSAO",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -19475,6 +19581,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao tem o seu codigo importado por A prova de que o SCRAP chega ao acervo, e nao so o atravessa. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_scrap_chega_ao_acervo.py",
+          "line": 93,
+          "snippet": "import admissao as _adm"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-ADMISSAO",
@@ -22960,7 +23084,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 403,
+          "line": 454,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -22983,52 +23107,52 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 136,
+          "line": 138,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 149,
+          "line": 151,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 164,
+          "line": 166,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 177,
+          "line": 179,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 190,
+          "line": 192,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 198,
+          "line": 200,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 230,
+          "line": 232,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 254,
+          "line": 256,
           "snippet": "python3 provas/rastro_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 420,
+          "line": 471,
           "snippet": "run: python3 provas/run_duravel_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 433,
+          "line": 484,
           "snippet": "run: python3 provas/runtime_comum_no_postgres.py"
         }
       ],
@@ -23046,7 +23170,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 444,
+          "line": 495,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -23064,8 +23188,31 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 280,
+          "line": 282,
           "snippet": "python3 provas/o_forward_conta_se.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar A prova de que o READY social volta ao RAW, e ao byte. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 418,
+          "snippet": "python3 provas/a_linhagem_do_ready_social.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 437,
+          "snippet": "python3 provas/mutacao_da_linhagem_social.py"
         }
       ],
       "categoria": "CONTROL"
@@ -23082,7 +23229,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 386,
+          "line": 388,
           "snippet": "python3 provas/o_retry_do_scrap.py"
         }
       ],
@@ -23100,7 +23247,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 289,
+          "line": 291,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -23118,7 +23265,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 324,
+          "line": 326,
           "snippet": "python3 provas/o_scrap_chega_ao_acervo.py"
         }
       ],
@@ -23136,12 +23283,12 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 345,
+          "line": 347,
           "snippet": "python3 provas/as_travas_do_scrap_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 363,
+          "line": 365,
           "snippet": "python3 provas/a_repeticao_do_scrap.py"
         }
       ],
@@ -23557,6 +23704,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 66,
+          "snippet": "import coleta_checkpoint as cc                         # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -23657,7 +23822,7 @@
       "evidence": [
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 113,
+          "line": 132,
           "snippet": "import coleta_checkpoint as cc"
         }
       ],
@@ -23982,7 +24147,7 @@
       "evidence": [
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 137,
+          "line": 156,
           "snippet": "shutil.copy2(shim, os.path.join(arvore, 'coleta', 'instagram_janela.py'))"
         }
       ],
@@ -24449,7 +24614,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 77,
+          "line": 78,
           "snippet": "import artefato as art                                    # noqa: E402"
         }
       ],
@@ -24487,6 +24652,24 @@
           "file": "provas/o_encanamento_tem_uma_porta.py",
           "line": 29,
           "snippet": "import artefato as art          # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 65,
+          "snippet": "import artefato as art                                 # noqa: E402"
         }
       ],
       "categoria": "RULE"
@@ -24972,6 +25155,24 @@
           "file": "provas/o_forward_conta_se.py",
           "line": 74,
           "snippet": "import telemetria as tel                # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-TELEMETRIA",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Contrato da telemetria — a forma do fluxo tem o seu codigo importado por A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 777,
+          "snippet": "import telemetria as tel"
         }
       ],
       "categoria": "RULE"
@@ -25713,7 +25914,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 84,
+          "line": 91,
           "snippet": "import diagnostico as dg                                    # noqa: E402"
         }
       ],
@@ -25910,8 +26111,8 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 78,
-          "snippet": "from guarda.preservar_coleta import ArmazemLocal, preservar  # noqa: E402"
+          "line": 84,
+          "snippet": "from guarda.preservar_coleta import (ArmazemLocal, PASSAGEM,  # noqa: E402"
         }
       ],
       "categoria": "CODE"
@@ -26040,6 +26241,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_linhagem_social.py",
+          "line": 34,
+          "snippet": "PRE = 'guarda/preservar_coleta.py'"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-DONO-DA-ESCRITA",
@@ -26259,12 +26478,12 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 433,
+          "line": 551,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 433,
+          "line": 551,
           "snippet": "for nome in (\"preservar_coleta.py\", \"portas_live.py\"):"
         }
       ],
@@ -26968,7 +27187,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 365,
+          "line": 377,
           "snippet": "import executor_texto_de_pdf as _ex"
         }
       ],
@@ -27927,6 +28146,29 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 681,
+          "snippet": "fonte_ing = io.open(os.path.join(RAIZ, 'coleta', 'ingresso.py'),"
+        },
+        {
+          "file": "provas/mutacao_da_linhagem_social.py",
+          "line": 33,
+          "snippet": "ING = 'coleta/ingresso.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -27973,7 +28215,7 @@
       "evidence": [
         {
           "file": "provas/o_retry_do_scrap.py",
-          "line": 380,
+          "line": 388,
           "snippet": "import ingresso as ing"
         }
       ],
@@ -28097,7 +28339,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 373,
+          "line": 491,
           "snippet": "self.assertNotIn(\"RAW_OBSERVATIONS\", _codigo(\"coleta/ingresso.py\"))"
         },
         {
@@ -28560,7 +28802,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 108,
+          "line": 129,
           "snippet": "\"ACTOR\": \"coleta/italy_executor.py\","
         },
         {
@@ -30153,7 +30395,7 @@
       "evidence": [
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 114,
+          "line": 133,
           "snippet": "import orquestrador as orq, pedido as pd"
         }
       ],
@@ -30229,7 +30471,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 328,
+          "line": 446,
           "snippet": "import orquestrador as orq"
         },
         {
@@ -31635,7 +31877,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 90,
+          "line": 97,
           "snippet": "import proveniencia as pv                                   # noqa: E402"
         }
       ],
@@ -31753,6 +31995,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 67,
+          "snippet": "import proveniencia as pv                              # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
     },
     {
       "from": "C-PROCEDENCIA",
@@ -32160,6 +32420,24 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 137,
+          "snippet": "'preservar_coleta_no_postgres.py'))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "READS",
       "payload": "artefacto",
@@ -32247,12 +32525,12 @@
         },
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 110,
+          "line": 129,
           "snippet": "'prova_pg', os.path.join(RAIZ, 'provas', 'preservar_coleta_no_postgres.py'))"
         },
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 489,
+          "line": 579,
           "snippet": "os.path.join(RAIZ, 'provas', '_flow01_janela_falsa.py')),"
         }
       ],
@@ -32344,7 +32622,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 287,
+          "line": 405,
           "snippet": "import preservar_coleta_no_postgres as pg"
         },
         {
@@ -32802,6 +33080,34 @@
     },
     {
       "from": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o SCRAP chega ao acervo, e nao so o atravessa alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 74,
+          "snippet": "'e2e01', os.path.join(RAIZ, 'provas', 'o_scrap_chega_ao_acervo.py'))"
+        },
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 212,
+          "snippet": "arvore, os.path.join(RAIZ, 'provas', '_e2e01_janela_admissivel.py'))"
+        },
+        {
+          "file": "provas/mutacao_da_linhagem_social.py",
+          "line": 35,
+          "snippet": "E2E = 'provas/o_scrap_chega_ao_acervo.py'"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
       "to": "C-PROVA-RETRY-DO-SCRAP",
       "type": "READS",
       "payload": "artefacto",
@@ -32953,7 +33259,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 83,
+          "line": 90,
           "snippet": "import rastro_da_coleta as rastro                           # noqa: E402"
         }
       ],
@@ -33338,7 +33644,7 @@
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
-          "line": 329,
+          "line": 447,
           "snippet": "from receitas import EXECUTORES"
         },
         {
@@ -34150,6 +34456,24 @@
     },
     {
       "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 68,
+          "snippet": "import sala_de_espera as espera                        # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -34408,6 +34732,24 @@
     },
     {
       "from": "C-SCRAP-COLHEITA",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 221,
+          "snippet": "recibo.get('ACTOR') == 'coleta/scrap_colheita.py' and len(idas) >= 1,"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SCRAP-COLHEITA",
       "to": "C-PROVA-RETRY-DO-SCRAP",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -34418,7 +34760,7 @@
       "evidence": [
         {
           "file": "provas/o_retry_do_scrap.py",
-          "line": 381,
+          "line": 389,
           "snippet": "import scrap_colheita as sc"
         }
       ],
@@ -34454,7 +34796,7 @@
       "evidence": [
         {
           "file": "provas/o_scrap_chega_ao_acervo.py",
-          "line": 503,
+          "line": 593,
           "snippet": "diz(m['ACTOR'] == 'coleta/scrap_colheita.py',"
         }
       ],
@@ -35730,6 +36072,24 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 388,
+          "snippet": "'ACTOR': 'coleta/adaptador_instagram.py', 'ACTOR_VERSION': 'v1',"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -36971,6 +37331,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SUPABASE",
+      "to": "C-PROVA-LINHAGEM-READY-SOCIAL",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta A prova de que o READY social volta ao RAW, e ao byte. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready_social.py",
+          "line": 794,
+          "snippet": "'026_a_observacao_ganha_identidade.sql'),"
+        }
+      ],
+      "categoria": "READ"
     },
     {
       "from": "C-SUPABASE",
@@ -38928,7 +39306,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 832,
+  "UNCLAIMED_FILES_COUNT": 833,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -39083,17 +39461,17 @@
     ]
   },
   "COUNTS": {
-    "components": 181,
+    "components": 182,
     "components_proven": 48,
-    "components_pending": 127,
+    "components_pending": 128,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 852,
-    "edges_proven": 849,
+    "edges": 867,
+    "edges_proven": 864,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1699,
-    "files_covered": 867,
+    "files_tracked": 1702,
+    "files_covered": 869,
     "files_code_unclaimed": 0
   }
 }

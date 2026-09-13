@@ -125,6 +125,14 @@ def main():
 
     print(__doc__.strip().splitlines()[0])
     print('=' * 74)
+    # ⚠️ O ESQUEMA, PELO DONO DELE — e nao por uma segunda copia da
+    # cadeia escrita aqui. O workflow entrega um banco recem-criado, e
+    # sem isto esta prova morria em «relation does not exist» a dizer
+    # outra coisa qualquer.
+    #
+    #     UM PORTAO QUE NAO CHEGA A CORRER NAO E UM PORTAO A FALHAR:
+    #     E UM PORTAO QUE NAO EXISTE.
+    _e2e.garantir_o_esquema(url)
 
     base = tempfile.mkdtemp(prefix='scrap-repete-')
     arvore = os.path.join(base, 'arvore')

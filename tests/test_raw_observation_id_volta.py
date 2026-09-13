@@ -63,8 +63,29 @@ from test_italia_na_porta_canonica import CasoB1             # noqa: E402
 # `coleta/ingresso.py::_quem_deriva_aceita` nao consegue fazer a pergunta que
 # esta casa precisa que ela faca. E continua FECHADO — o proximo campo tera de
 # se justificar aqui, como este se justificou.
+#
+# ⚠️ `PASSAGENS` ENTROU EM `C-SCRAP-READY-RAW-LINEAGE-V1`, E E DE OUTRA
+# ESPECIE — por isso justifica-se em separado.
+#
+# Os outros cinco sao FACTOS SOBRE A OBSERVACAO: quem ela e, de que corrida
+# veio, onde os bytes estao, que bytes sao e de que especie. `PASSAGENS` nao
+# e nada disso: e a lista das alcas que QUEM CHAMOU atou aos artefatos que
+# entregou, devolvida para ele saber qual `raw_asset.id` pertence a qual item.
+#
+#     AS OUTRAS CINCO SAO SOBRE A OBSERVACAO. ESTA E SOBRE A CHAMADA.
+#
+# Foi isto que fechou a rota social: `PARA_A_PORTA` e montado ANTES de
+# `preservar()` cunhar o id, e sem uma alca de volta o item chegava a Admissao
+# sem observacao — `RAW_OBSERVATION_ID = NAO SEI`, medido contra Postgres real.
+# O valor nao faltava; nao atravessava.
+#
+# E ela e EFEMERA, o que a lista abaixo nao consegue dizer sozinha: nao e
+# escrita em coluna nenhuma, nao entra em `insert` nenhum e nao e identidade.
+# `test_a_alca_e_efemera_e_nao_substitui_a_identidade` e quem guarda isso.
+#
+#     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
 CAMPOS = ("RAW_OBSERVATION_ID", "RUN_ID", "STORAGE_PATH", "SHA256",
-          "MEDIA_TYPE")
+          "MEDIA_TYPE", "PASSAGENS")
 
 
 def _codigo(caminho):
@@ -124,6 +145,103 @@ class OIdVemDoBanco(Bancada):
         self.assertIsInstance(obs[0]["RAW_OBSERVATION_ID"], int)
         self.assertNotIsInstance(obs[0]["RAW_OBSERVATION_ID"], bool)
         self.assertGreater(obs[0]["RAW_OBSERVATION_ID"], 0)
+
+    def test_a_alca_e_efemera_e_nao_substitui_a_identidade(self):
+        """`PASSAGENS` volta, e NAO se promove a identidade de nada.
+
+            UMA ALCA E PARA AMARRAR, NAO PARA IDENTIFICAR.
+
+        Tres coisas, e nenhuma se deduz das outras: a alca volta ao chamador,
+        ela nao e escrita no banco, e o `RAW_OBSERVATION_ID` continua a ser o
+        `id` que o banco cunhou — nunca a alca.
+        """
+        r = self.observar("IT-B4-ALCA")
+        o = r["RAW"]["RAW_OBSERVATIONS"][0]
+        self.assertIsInstance(o["PASSAGENS"], list)
+        self.assertEqual(len(o["PASSAGENS"]), 1,
+                         "um artefato entregue, uma alca de volta")
+        linha = self.banco.objetos_da_corrida("IT-B4-ALCA")[0]
+        self.assertNotIn(o["PASSAGENS"][0], [str(v) for v in linha.values()],
+                         "a alca NAO pode estar escrita na linha do banco")
+        self.assertEqual(o["RAW_OBSERVATION_ID"], linha["id"])
+        self.assertNotEqual(str(o["RAW_OBSERVATION_ID"]), o["PASSAGENS"][0])
+        # E o SQL que o dono gerou nao a nomeia em lado nenhum.
+        self.assertNotIn(o["PASSAGENS"][0], r["RAW"]["SQL"])
+        self.assertNotIn("PASSAGEM", r["RAW"]["SQL"])
+
+    def test_o_item_que_vai_a_porta_leva_a_observacao_que_o_originou(self):
+        """A ponte inteira, no gesto mais curto que a exercita.
+
+        ⚠️ E ELA E SOBRE `PARA_A_PORTA`, e nao sobre `PARA_A_DERIVACAO`.
+        A segunda ja levava o id — e por isso a rota documental fechava. Era
+        a PRIMEIRA que chegava a Admissao sem ele.
+        """
+        r = self.observar("IT-B4-PONTE")
+        porta = r["PARA_A_PORTA"]
+        obs = r["RAW"]["RAW_OBSERVATIONS"]
+        self.assertEqual(len(porta), 1)
+        self.assertEqual(porta[0].get("raw_asset_id"),
+                         obs[0]["RAW_OBSERVATION_ID"])
+        self.assertIsInstance(porta[0]["raw_asset_id"], int)
+
+    def test_sem_banco_o_item_nao_leva_id_nenhum_e_nao_o_inventa(self):
+        """Sem observacao confirmada NAO ha id — e ausencia diz-se.
+
+            AUSENCIA DE OBSERVACAO E AUSENCIA. ELA NAO SE PREENCHE.
+        """
+        r = self.observar("IT-B4-SEM-BANCO", banco=False)
+        self.assertEqual(r["RAW"]["RAW_OBSERVATIONS"], [])
+        self.assertNotIn("raw_asset_id", r["PARA_A_PORTA"][0])
+
+    def test_duas_entradas_da_MESMA_observacao_partilham_o_MESMO_id(self):
+        """A cardinalidade DECLARADA, e nao presumida.
+
+        `preservar_coleta.planear()` colapsa duas entradas quando — e so
+        quando — elas tem a MESMA identidade de observacao: mesmo endereco,
+        mesma fonte, mesma chave de documento, mesmo estado. Nesse caso sao a
+        mesma observacao vista duas vezes, e as duas tem direito ao mesmo
+        `raw_asset.id`.
+
+            COLAPSO DECLARADO E CARDINALIDADE. SILENCIO E PERDA.
+
+        O que NAO pode acontecer e uma delas chegar a porta sem id nenhum
+        porque a outra «ficou com ele».
+        """
+        pedido = {"SOURCE_ID": "IT-T2-002",
+                  "SOURCE_URL": "https://www.arpa.veneto.it/…/agro_01.pdf",
+                  "STORAGE_LOCATION": self.rel}
+        r = ing.receber(
+            [dict(pedido), dict(pedido)],
+            corrida={"RUN_ID": "IT-B4-GEMEOS", "PLATFORM": "HTTP direto",
+                     "ACTOR": "coleta/italy_executor.py",
+                     "ACTOR_VERSION": "adapter-v1", "SOURCE_COUNTRY": "IT",
+                     "RULE_VERSION": "1",
+                     "STARTED_AT": "2026-09-10T00:00:00Z"},
+            armazem=self.armazem, memoria=self.banco, raiz=self.tmp)
+        obs = r["RAW"]["RAW_OBSERVATIONS"]
+        self.assertEqual(len(obs), 1, "uma identidade, uma observacao")
+        self.assertEqual(len(obs[0]["PASSAGENS"]), 2,
+                         "as DUAS alcas dobraram-se na mesma observacao")
+        levados = [u.get("raw_asset_id") for u in r["PARA_A_PORTA"]]
+        self.assertEqual(levados,
+                         [obs[0]["RAW_OBSERVATION_ID"]] * 2,
+                         "nenhum dos dois fica sem linhagem")
+
+    def test_uma_alca_em_DUAS_observacoes_levanta_e_nao_escolhe(self):
+        """Uma alca reclamada por duas observacoes NAO se resolve escolhendo.
+
+            UM ITEM TEM UMA OBSERVACAO. DUAS NAO E «QUASE UMA»: E NENHUMA.
+
+        E estruturalmente impossivel — `planear()` visita cada artefato uma
+        vez — e e por isso que tem de levantar em vez de escolher: um id
+        errado com cara de linhagem provada e pior do que um `NAO SEI`.
+        """
+        recibo = {"RAW_OBSERVATIONS": [
+            {"RAW_OBSERVATION_ID": 1, "PASSAGENS": ["alca-x"]},
+            {"RAW_OBSERVATION_ID": 2, "PASSAGENS": ["alca-x"]}]}
+        item = {}
+        with self.assertRaises(ing.LigacaoAmbigua):
+            ing._a_observacao_volta_ao_item(recibo, {"alca-x": item})
 
     def test_2_o_id_devolvido_e_o_id_que_esta_no_banco(self):
         """Não basta ser inteiro: tem de ser AQUELE inteiro."""

@@ -165,6 +165,32 @@ CAMPOS_DA_LINHA = ("run_id", "storage_path", "media_type", "bytes", "sha256",
 IDENTIDADE_DA_CORRIDA = ("actor", "actor_version", "source_country",
                          "started_at", "rule_version", "capture_method")
 
+# ── A ALÇA DA PASSAGEM — efémera, e de propósito ──────────────────────────
+#
+#     PASSAGEM_ID NÃO É IDENTIDADE. É UM FIO QUE SE ATA ANTES DE ENTRAR
+#     E SE CORTA À SAÍDA.
+#
+# Quem chama `preservar()` pode pôr esta chave em cada artefato. Ela viaja
+# pelo plano e VOLTA colada à observação que o banco confirmou — e é assim que
+# o chamador sabe qual `raw_asset.id` pertence a qual item SEM ir procurá-lo
+# depois. O valor é do chamador, é vivo só durante a chamada, e:
+#
+#     NÃO entra em `caminho_do_objeto`      não é endereço
+#     NÃO entra em `identidade_da_observacao`  não é identidade
+#     NÃO entra em nenhum `insert`          não fica escrito em lado nenhum
+#
+# A identidade canónica da observação continua a ser `raw_asset.id`, cunhado
+# pelo banco, e esta alça nunca lhe toma o lugar. Promovê-la a identidade
+# externa seria trocar um surrogate que o banco garante por um número que
+# este processo inventou.
+PASSAGEM = "PASSAGEM_ID"
+#: A lista das alças que se dobraram NUMA observação planeada. É lista, e não
+#: campo: duas entradas com a MESMA identidade de observação são uma
+#: observação só — o `USED_BY` já vivia dessa lei — e as duas têm direito ao
+#: mesmo `raw_asset.id`. Uma alça em DUAS observações é que seria defeito, e
+#: quem a recebe tem de o recusar.
+PASSAGENS = "PASSAGENS"
+
 
 class Armazem:
     """A porta do armazém. Três perguntas, e nenhuma delas é «apague».
@@ -483,12 +509,25 @@ def planear(artefatos: list) -> dict:
                  identidade["DOCUMENT_KEY"], identidade["IDENTITY_STATE"])
         conteudos.add(a["SHA256"])
         caminhos.add(caminho)
+        # ── A ALÇA DA PASSAGEM DOBRA-SE COM A OBSERVAÇÃO, NÃO AO LADO ──────
+        # ⚠️ E POR ISSO É UMA LISTA, tal como `USADO_POR`. Se duas entradas
+        # colapsam aqui, elas SÃO a mesma observação por decisão desta função
+        # — mesma identidade declarada, mesmo endereço — e ambas têm direito
+        # ao mesmo `raw_asset.id`. Guardar só a primeira faria a segunda
+        # chegar ao fim da estrada sem linhagem, calada.
+        #
+        #     COLAPSO DECLARADO É CARDINALIDADE. SILÊNCIO É PERDA.
+        alca = a.get(PASSAGEM)
         if chave in por_observacao:
             relacoes += 1
             por_observacao[chave]["USADO_POR"].append(a.get("USED_BY"))
+            if alca is not None:
+                por_observacao[chave][PASSAGENS].append(alca)
             continue
         por_observacao[chave] = dict(a, STORAGE_PATH=caminho,
                                      USADO_POR=[a.get("USED_BY")],
+                                     **{PASSAGENS: [alca] if alca is not None
+                                        else []},
                                      **identidade)
     return {
         "REGISTOS_DE_ENTRADA": len(artefatos),
@@ -917,8 +956,29 @@ def conferir_o_que_ficou_escrito(run: dict, plano: dict, memoria: Memoria) -> di
     Por isso a última palavra é esta: cada linha esperada é lida do banco e
     comparada nos campos que a identificam. Uma divergência aqui é
     `METADATA_CONFLICT`, e a corrida não fecha.
+
+    ⚠️ E É AQUI, E SÓ AQUI, QUE A OBSERVAÇÃO PLANEADA E O ID CUNHADO PELO
+    BANCO ESTÃO OS DOIS EM MÃO.
+    -------------------------------------------------------------------------
+    `_procurar_a_observacao()` devolve A LINHA daquela observação — pela chave
+    de identidade dela, nunca pelo endereço — e essa linha traz o `id`. Deste
+    lado está o `obj`, que é o artefato do chamador. Do outro está o `id` real.
+    O par existia, e **era deitado fora**: a função guardava só o caminho, e
+    quem precisava do id tinha de o reencontrar depois, por busca.
+
+        MEDIDO, `C-SCRAP-READY-RAW-LINEAGE-V1`: era exactamente por isto que a
+        rota social chegava ao READY com `RAW_OBSERVATION_ID = NAO SEI`. O
+        valor não faltava — não atravessava.
+
+        O QUE O DONO SABE E NÃO DEVOLVE, PARA QUEM ESTÁ DO OUTRO LADO
+        NUNCA ACONTECEU.
+
+    `OBSERVACOES_CONFERIDAS` é esse par, e mais nada: o id que o banco cunhou
+    e as alças de passagem que o chamador atou aos artefatos. Não é um segundo
+    registo de linhagem — nada disto fica escrito em lado nenhum — é o
+    transporte da ligação que já existia dentro desta chamada.
     """
-    conferidos, divergentes, ausentes = [], [], []
+    conferidos, divergentes, ausentes, pareadas = [], [], [], []
     for obj in plano["OBJETOS"]:
         caminho = obj["STORAGE_PATH"]
         # ⚠️ AQUI TAMBÉM SE LIA POR ENDEREÇO, e pelo mesmo motivo deixou de se
@@ -962,8 +1022,18 @@ def conferir_o_que_ficou_escrito(run: dict, plano: dict, memoria: Memoria) -> di
                                 "STORAGE_PATH": caminho, "DIVERGENCIAS": fora})
         else:
             conferidos.append(caminho)
+            # O PAR, ATADO AQUI: o id que o banco cunhou para ESTA observação
+            # planeada, e as alças que o chamador lhe atou. `id` sai da linha
+            # LIDA, e de mais lado nenhum.
+            pareadas.append({"RAW_OBSERVATION_ID": escrita.get("id"),
+                             "STORAGE_PATH": caminho,
+                             PASSAGENS: list(obj.get(PASSAGENS) or [])})
     return {
         "POST_WRITE_METADATA_MATCH": len(conferidos),
+        # O PAR OBSERVAÇÃO ↔ ALÇA DA PASSAGEM. Só das linhas que passaram a
+        # conferência campo a campo — uma linha divergente não empresta id
+        # nenhum a ninguém.
+        "OBSERVACOES_CONFERIDAS": pareadas,
         # A LISTA, E NAO SO A CONTA. Ela ja era calculada aqui e deitada fora
         # ao virar numero. Quem devolve a identidade de uma observacao precisa
         # de saber QUAIS linhas foram confirmadas, e nao quantas — contar de
@@ -1014,8 +1084,27 @@ def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
     Sem linha, sem id. Nao se devolve `null`, `UNKNOWN`, `NAO SEI` nem o
     caminho no lugar do id: **ausencia e ausencia**, e ela diz exactamente o
     que aconteceu — esta observacao ainda nao existe no banco.
+
+    ⚠️ E A ALCA DA PASSAGEM VOLTA COLADA, QUANDO O CHAMADOR A ATOU.
+    A juncao e pelo PROPRIO `raw_asset.id` — o mesmo numero dos dois lados, um
+    lido aqui e outro lido em `conferir_o_que_ficou_escrito`, ambos do banco.
+
+        NAO se junta pelo `storage_path`  esse e endereco
+        NAO se junta pelo `sha256`        esse e a identidade dos BYTES
+        NAO se junta pela POSICAO         essa nao e ligacao nenhuma
+
+    Sem alcas atadas, `PASSAGENS` sai vazia e nada muda para quem nao a usa.
     """
     confirmados = set(pos_escrita.get("CONFERIDOS") or []) if pos_escrita else set()
+    # As alcas, indexadas pelo id REAL. Duas entradas com o mesmo id sao a
+    # mesma observacao vista duas vezes, e as alcas somam-se — nunca se
+    # substituem: substituir calaria uma delas.
+    alcas = {}
+    for par in ((pos_escrita or {}).get("OBSERVACOES_CONFERIDAS") or []):
+        ident_par = par.get("RAW_OBSERVATION_ID")
+        if ident_par is None:
+            continue
+        alcas.setdefault(ident_par, []).extend(par.get(PASSAGENS) or [])
     fora = []
     for linha in linhas or []:
         if linha.get("run_id") != run["RUN_ID"]:
@@ -1063,6 +1152,13 @@ def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
             # e quem le tem de tratar isso como NAO SEI — nunca como «nao
             # suportado».
             "MEDIA_TYPE": linha.get("media_type"),
+            # ── A ALCA, DE VOLTA A QUEM A ATOU ────────────────────────
+            # Efemera, e so por isso e que ela pode existir: ela nao nomeia
+            # nada no acervo, nao e escrita em coluna nenhuma e morre com
+            # esta chamada. O que fica e o que sempre foi:
+            #
+            #     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
+            PASSAGENS: list(alcas.get(ident) or []),
         })
     return fora
 

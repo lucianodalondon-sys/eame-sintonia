@@ -69,13 +69,20 @@ from __future__ import annotations
 import json
 import os
 import sys
+import uuid
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401
 
 import artefato as art                                    # noqa: E402
-from guarda.preservar_coleta import ArmazemLocal, preservar  # noqa: E402
+# ⚠️ `PASSAGEM` E `PASSAGENS` SAO DO DONO DO RAW, E NAO SE REDECLARAM AQUI.
+# A alca da passagem e um contrato entre esta porta e `preservar()`. Escrever
+# a string outra vez deste lado daria dois donos ao mesmo nome, e no dia em que
+# um deles mudasse a ligacao partia-se em silencio — que e a pior maneira de
+# uma linhagem se perder.
+from guarda.preservar_coleta import (ArmazemLocal, PASSAGEM,  # noqa: E402
+                                     PASSAGENS, preservar)
 # ⚠️ O DONO DO RASTRO, E NAO UMA SEGUNDA TELEMETRIA.
 # `medidas/rastro_da_coleta.py` ja escreve as passagens de DERIVED, STRUCTURED
 # e ADMISSION. A etapa RAW estava no vocabulario (`telemetria.ETAPAS_DA_COLETA`)
@@ -289,12 +296,17 @@ NAO_E_AFIRMACAO = (art.NAO_SEI, "NAO_SE_APLICA", "", None)
 #     UM ESTAGIO QUE NAO ATRAVESSA A FRONTEIRA NAO ACONTECEU
 #     PARA QUEM ESTA DO OUTRO LADO.  (a frase e do SCRAP, e esta certa)
 #
-# ⚠️ `RAW_OBSERVATION_ID` NAO ENTRA AQUI, e a ausencia e deliberada. Ele e
-# `raw_asset.id`, cunhado pelo banco DEPOIS desta linha; o SCRAP escrevia
-# `NAO SEI` no carimbo, honestamente, e quem precisa do id real tem-no em
-# `PARA_A_DERIVACAO`, que se monta depois de `preservar()` responder.
+# ⚠️ `RAW_OBSERVATION_ID` NAO ENTRA AQUI, e a ausencia continua deliberada.
+# Ele e `raw_asset.id`, cunhado pelo banco DEPOIS desta linha: a ficha nao o
+# sabe, e o que a ficha nao sabe nao se escreve na ficha.
 #
 #     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
+#
+# ⚠️ O QUE MUDOU EM `C-SCRAP-READY-RAW-LINEAGE-V1` E O DEPOIS, E NAO O AQUI.
+# A unidade que sai desta funcao passa a ser a MESMA que, mais abaixo, recebe
+# `raw_asset_id` de `_a_observacao_volta_ao_item()` — quando `preservar()`
+# responder, e so com o id que ele devolveu. Ate la ela nao o tem, e nao o
+# finge ter.
 DA_FICHA_PARA_A_PORTA = ("ARTIFACT_TYPE", "PARENT_ARTIFACT_ID", "PARENT_SHA256",
                          "ARTIFACT_ID", "SHA256", "STORAGE_LOCATION", "BYTES")
 
@@ -822,6 +834,64 @@ def _baldes_do_raw(recibo, recusas_da_porta, entrada):
             "rejected": recusadas, "unknown": max(resto, 0)}
 
 
+class LigacaoAmbigua(Exception):
+    """Uma alça reclamada por DUAS observações confirmadas.
+
+        UM ITEM TEM UMA OBSERVAÇÃO. DUAS NÃO É «QUASE UMA»: É NENHUMA.
+
+    Isto não pode acontecer — `planear()` visita cada artefato uma vez, e a
+    alça é única por passagem — e é exactamente por isso que se levanta em vez
+    de se escolher. Escolher aqui daria ao item o `raw_asset.id` de outra
+    observação com cara de linhagem provada, e um id errado que ninguém
+    procura é pior do que um `NAO SEI` honesto.
+    """
+
+
+def _a_observacao_volta_ao_item(recibo, por_passagem):
+    """O id que o banco cunhou volta ao item que o originou. Sem procurar nada.
+
+    ⚠️ ESTE É O METRO QUE FALTAVA, e ele é de transporte — não de descoberta.
+    O par (alça, `raw_asset.id`) vem PRONTO de `preservar()`, que o atou lá
+    dentro, no único sítio onde a observação planeada e a linha escrita estão
+    as duas em mão. Aqui não se consulta o banco, não se compara `sha256`, não
+    se lê `storage_path` e não se conta posição.
+
+        A PONTE NÃO PROCURA A OBSERVAÇÃO: ELA RECEBE-A.
+
+    ⚠️ E A CARDINALIDADE É DECLARADA, e não presumida:
+
+        1 observação → N alças   legítimo. As N entradas colapsaram em
+                                 `planear()` por terem a MESMA identidade de
+                                 observação: são a mesma observação, e têm
+                                 direito ao mesmo id.
+        1 alça → 2 observações   impossível, e levanta. Ver `LigacaoAmbigua`.
+        alça sem observação      ausência, e fica ausência: o item segue sem
+                                 `raw_asset_id` e o READY dirá `NAO SEI`.
+                                 Uma observação que o banco não confirmou não
+                                 empresta id a ninguém.
+    """
+    visto = {}
+    for o in (recibo or {}).get("RAW_OBSERVATIONS") or []:
+        ident = o.get("RAW_OBSERVATION_ID")
+        if ident is None:
+            continue
+        for alca in (o.get(PASSAGENS) or []):
+            if alca in visto and visto[alca] != ident:
+                raise LigacaoAmbigua(
+                    "a mesma passagem foi reclamada por duas observacoes "
+                    "(%s e %s). NAO foi escrita linhagem nenhuma."
+                    % (visto[alca], ident))
+            visto[alca] = ident
+            unidade = por_passagem.get(alca)
+            if unidade is not None:
+                # ⚠️ O NOME É `raw_asset_id`, e é o que `admissao.
+                # pronto_para_inteligencia()` lê para escrever
+                # `RAW_OBSERVATION_ID`. Um segundo nome aqui seria um segundo
+                # contrato com o mesmo significado.
+                unidade["raw_asset_id"] = ident
+    return visto
+
+
 def _a_observacao_desta_passagem(recibo):
     """O alvo da linha — e só quando ela produziu EXATAMENTE uma.
 
@@ -933,6 +1003,13 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
 
     aceites, recusas, bytes_por_caminho, para_o_raw = [], [], {}, []
     para_a_porta_ = []
+    # A alca de cada aceite -> a unidade DELE que vai a porta. O valor do mapa
+    # e o PROPRIO dicionario que segue para quem julga, e nao um indice para
+    # ele: um indice sobrevive a uma recusa no meio da lista e passa a apontar
+    # para o vizinho, e e assim que uma linhagem troca de dono sem ninguem ver.
+    #
+    #     POSICAO NAO E LIGACAO.
+    por_passagem = {}
     for i, item in enumerate(itens):
         if not isinstance(item, dict) or not item:
             recusas.append({"INDICE": i, "PORQUE": SEM_CONTEUDO,
@@ -957,14 +1034,31 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
             open(caminho, "rb").read() if os.path.isfile(caminho)
             else _bytes_do_item(item))
         aceites.append(f)
-        para_a_porta_.append(unidade_para_a_porta(item, f))
-        para_o_raw.append(para_o_dono_do_raw(f, item))
+        # ── A ALCA DESTA PASSAGEM, ATADA AQUI E CORTADA JA A SEGUIR ────────
+        # ⚠️ ELA NAO PODE SER O `ARTIFACT_ID`, E ISSO FOI MEDIDO.
+        # `artefato.artifact_id()` nasce do `sha256`: dois itens com os mesmos
+        # bytes tem o MESMO `ARTIFACT_ID`, e uma ligacao feita nele juntaria
+        # duas observacoes numa. Tambem nao pode ser o sha, nem o caminho, nem
+        # a posicao na lista — sao todos ou identidade de outra especie ou
+        # ligacao nenhuma.
+        #
+        #     UMA ALCA E PARA AMARRAR, NAO PARA IDENTIFICAR.
+        #
+        # Por isso ela e nova em cada passagem, unica dentro dela, e nao diz
+        # NADA sobre o conteudo: e so um fio entre o item que entrou e a
+        # observacao que o banco confirmar. Morre no fim desta funcao.
+        alca = uuid.uuid4().hex
+        unidade = unidade_para_a_porta(item, f)
+        para_a_porta_.append(unidade)
+        por_passagem[alca] = unidade
+        para_o_raw.append(dict(para_o_dono_do_raw(f, item), **{PASSAGEM: alca}))
 
     recibo = None
     if para_o_raw:
         recibo = preservar(_corrida_completa(corrida), para_o_raw, armazem,
                            lambda o: bytes_por_caminho[o["SHA256"]],
                            memoria=memoria)
+        _a_observacao_volta_ao_item(recibo, por_passagem)
     # ── A PASSAGEM, DEPOIS DE A OBSERVACAO EXISTIR ──────────────────────
     # ⚠️ A ORDEM E A PROVA. `preservar()` ja correu, ja leu de volta e ja
     # devolveu os ids REAIS. So agora a etapa tem o que contar. Trocar estas
@@ -1003,6 +1097,15 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
     # `PARA_A_PORTA` sao os MESMOS aceites, com o conteudo intacto e o estagio
     # preservado. Nao e um terceiro objecto: e a unidade aceite, na lingua de
     # quem a vai julgar. Quem foi recusado nao aparece aqui.
+    #
+    # ⚠️ E DESDE `C-SCRAP-READY-RAW-LINEAGE-V1` CADA UMA LEVA A SUA OBSERVACAO.
+    # `raw_asset_id` ja la esta — posto por `_a_observacao_volta_ao_item()`, a
+    # partir do que `preservar()` devolveu, e so para quem o banco confirmou.
+    # Era isto que faltava para a rota social cumprir o contrato READY: a rota
+    # documental ja o levava por `PARA_A_DERIVACAO -> STRUCTURED`, e esta nao
+    # tinha por onde.
+    #
+    #     COLETAR != ADMITIR != JULGAR. A PORTA NAO JULGA, MAS TRANSPORTA.
     return {"ACEITES": aceites, "RECUSAS": recusas, "RAW": recibo,
             "RASTRO": trilho, "PARA_A_PORTA": para_a_porta_,
             "PARA_A_DERIVACAO": para_derivar,
