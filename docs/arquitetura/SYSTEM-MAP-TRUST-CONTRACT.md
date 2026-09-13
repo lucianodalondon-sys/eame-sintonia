@@ -1529,7 +1529,7 @@ KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
 
 A linha canónica (`claude/sintonia-eame-know-how-v1`,
 `SINTONIA-EAME-KNOW-HOW.md`) foi buscada e lida antes de escrever isto: a última
-secção lá é a **`§105`** (medida no fecho do `G5`). **Este contrato não escreve nessa linha e não cria um
+secção lá é a **`§107`** — a linha andou durante o `G5` (`034a5a19` → `3d9f6230`), e o número foi remedido no fecho em vez de herdado. **Este contrato não escreve nessa linha e não cria um
 segundo dono** — o delta fica aqui, pronto a integrar, como já acontecia com os
 blocos acima.
 
