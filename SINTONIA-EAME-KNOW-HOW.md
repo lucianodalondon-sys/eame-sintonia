@@ -662,6 +662,10 @@ READY é a fronteira final da Collection.
 
 A função atual `admissao.pronto_para_inteligencia()` devolve contrato de 11 campos e exige `decisao.resultado == SIM`.
 
+> **SUPERADA — ver §109.7.** O contrato tem **12** campos desde
+> `C-READY-LINEAGE-BEFORE-SCALE-V1`: `RAW_OBSERVATION_ID` entrou. A frase
+> acima fica por ser o registo da data dela; o estado de hoje é o do §109.7.
+
 A intenção é:
 
 ```text
@@ -1118,7 +1122,7 @@ READY_STORAGE_OWNER = orquestrador.pela_porta
 READY_CONSUMER_COUNT = 0
 ```
 
-Contrato READY tem 11 campos.
+Contrato READY tem 11 campos. **SUPERADA — hoje são 12; ver §109.7.**
 
 Problemas:
 
@@ -12507,4 +12511,248 @@ E a que vale para lá desta missão:
 ```
 MEDIR ANTES DE CONSERTAR NAO E CAUTELA: E O QUE SEPARA
 UM DEFEITO DE UMA ETAPA QUE NUNCA DEVIA TER SIDO CHAMADA.
+```
+
+---
+
+# §109 · O VALOR QUE EXISTIA EM MÃOS E NÃO ATRAVESSAVA A FRONTEIRA
+
+**Missão:** `C-SCRAP-READY-RAW-LINEAGE-V1` — fechar a única ponte que faltava
+na rota social: do `READY` de volta ao `RAW` e ao byte.
+**Branch:** `claude/scrap-ready-raw-lineage-v1-ywwn15`
+**Data:** 2026-09-13
+
+A rota documental já fechava `READY → RAW → STORAGE`. A social não. A tentação
+era procurar uma maneira de **reencontrar** o bruto depois — por `sha256`, por
+`storage_path`, pela posição na lista. Nenhuma delas é linhagem. O que a
+medição mostrou foi outra coisa, e mais barata:
+
+```
+O ID NUNCA FALTOU. ELE EXISTIA, DENTRO DO DONO, E ERA DEITADO FORA.
+```
+
+## 109.1 · MEDIR O BURACO ANTES DE LHE TOCAR
+
+A rota SCRAP inteira, contra PostgreSQL 16 descartável, no HEAD de antes:
+
+```
+SCRAP_RAW_OBSERVATION_CREATED   = YES
+SCRAP_RAW_OBSERVATION_ID        = 1          ← o banco cunhou-o
+SCRAP_READY_CREATED             = YES
+SCRAP_READY_RAW_OBSERVATION_ID  = 'NAO SEI'  ← e o item não o levava
+```
+
+Dois números na mesma corrida, e a distância entre eles é a missão inteira.
+Sem esta medida, qualquer conserto seria plausível — e um conserto plausível
+sobre um defeito não reproduzido é uma alteração à espera de justificação.
+
+```
+NÃO CORRIGIR DEFEITO QUE NÃO SE VIU ACONTECER.
+```
+
+## 109.2 · A PERGUNTA CERTA NÃO É «COMO ENCONTRO», É «ONDE É QUE SE PERDE»
+
+A pergunta errada — *como encontro depois o RAW correspondente?* — só tem
+respostas heurísticas, e todas elas trocam identidade por semelhança.
+
+A pergunta certa é temporal:
+
+```
+EM QUE FRONTEIRA O SISTEMA JÁ SABE QUAL raw_asset.id PERTENCE
+ÀQUELE ITEM, E DEIXA DE O CARREGAR?
+```
+
+Seguindo a informação em execução, a resposta é um sítio só, e está dentro do
+dono do RAW: `guarda/preservar_coleta.py::conferir_o_que_ficou_escrito()`. Ali,
+por cada observação **planeada** — que é o artefato de quem chamou — lê-se de
+volta a **linha escrita**, pela chave de identidade dela, e essa linha traz o
+`id`. Os dois estão em mão ao mesmo tempo, uma única vez em toda a estrada.
+
+E o par era descartado: guardava-se só o `storage_path`.
+
+```
+O QUE O DONO SABE E NÃO DEVOLVE, PARA QUEM ESTÁ DO OUTRO LADO
+NUNCA ACONTECEU.
+```
+
+É a mesma família de `CONTAR UMA COISA NÃO É GUARDÁ-LA` (§76): a informação
+existe no runtime, e não existe no sistema, porque nada a transporta.
+
+```
+RAW_OBSERVATION_ID PRECISA DE NASCER DO RETORNO DE preservar(),
+E NUNCA DE CORRELAÇÃO POSTERIOR.
+```
+
+## 109.3 · UMA ASSOCIAÇÃO POR POSIÇÃO NÃO É LINHAGEM SEM CONTRATO DE CARDINALIDADE
+
+A maneira cómoda de atar item a observação seria pelo índice: `itens[i]` com
+`RAW_OBSERVATIONS[i]`. Ela é falsa em três sítios ao mesmo tempo, e os três
+foram medidos numa colheita hostil de cinco itens sociais:
+
+```
+entrada                       5
+recusado NA PORTA             1   (unidade de texto malformada)
+chega à porta                 4
+recusado POR preservar()      1   (sem SOURCE_ID real)
+observações confirmadas       3
+READY pousados                4   (um deles honestamente sem observação)
+```
+
+Quatro contagens diferentes na mesma passagem. E ainda há uma quarta razão,
+que é a mais silenciosa das quatro:
+
+```
+objetos_da_corrida()  →  «order by storage_path»
+storage_path          →  começa pelo sha do conteúdo
+
+A LISTA QUE VOLTA DO BANCO SAI POR ORDEM DE HASH,
+E NÃO POR ORDEM DE ENTRADA.
+```
+
+Medido: a entrada `[post-1, post-3, post-5]` voltou como `[3, 2, 4]`. Quem
+ligasse por índice daria a cada item a observação de outro — e com cara de
+certo, que é o pior modo de estar errado.
+
+```
+POSIÇÃO NÃO É LIGAÇÃO.
+UMA ASSOCIAÇÃO POR POSIÇÃO ENTRE ITENS E OBSERVAÇÕES NÃO É LINHAGEM
+SEM CONTRATO DE CARDINALIDADE — E O CONTRATO TEM DE SER MEDIDO,
+NÃO PRESUMIDO.
+```
+
+O contrato que ficou escrito, e provado:
+
+```
+1 observação → N alças   legítimo, e só quando `planear()` as colapsou por
+                         terem a MESMA identidade de observação: são a mesma
+                         observação vista N vezes, e todas têm direito ao
+                         mesmo id
+1 alça → 2 observações   impossível, e LEVANTA. Escolher uma daria ao item o
+                         id de outra observação com cara de linhagem provada
+alça sem observação      ausência, e fica ausência: o READY diz `NAO SEI`
+```
+
+## 109.4 · UMA ALÇA É PARA AMARRAR, NÃO PARA IDENTIFICAR
+
+O transporte precisava de um fio entre o item que entra e a observação que o
+banco confirma. Três candidatos foram recusados **por medição**, e não por
+gosto:
+
+```
+ARTIFACT_ID    nasce do sha256 — dois itens com os mesmos bytes partilham-no,
+               e a ligação juntaria duas observações numa
+SHA256         identidade dos BYTES, e dois endereços partilham o mesmo sha
+storage_path   endereço físico, e endereço muda sem o facto mudar
+```
+
+O que entrou foi uma **alça de passagem**: um valor novo por item, vivo só
+durante a chamada, que viaja no artefato, dobra-se com a observação planeada e
+volta colada à linha confirmada. Ela não nomeia nada, não é escrita em coluna
+nenhuma, não entra em `insert` nenhum, e morre no fim da função.
+
+```
+UMA ALÇA É PARA AMARRAR, NÃO PARA IDENTIFICAR.
+A IDENTIDADE CANÓNICA CONTINUA A SER raw_asset.id, E MAIS NADA.
+```
+
+E o que **não** se fez, porque era a saída fácil e teria criado um segundo
+dono do parentesco: nenhuma tabela nova, nenhum JSON paralelo de linhagem,
+nenhum mapa `sha → raw`, nenhum índice auxiliar permanente.
+
+```
+A COLLECTION JÁ TEM O DONO DO RAW.
+TRANSPORTA-SE A LIGAÇÃO; NÃO SE DUPLICA.
+```
+
+## 109.5 · UM PORTÃO QUE VALIDA A LEI ANTERIOR GUARDA O LADO ERRADO DA PORTA
+
+`provas/o_scrap_chega_ao_acervo.py` exigia `len(item) == 11` no READY. A lei
+tinha ido para 12 em `C-READY-LINEAGE-BEFORE-SCALE-V1`, quando
+`RAW_OBSERVATION_ID` entrou no contrato. Ou seja: o portão exigia que o campo
+da linhagem **não** estivesse lá.
+
+```
+UM PORTÃO QUE VALIDA A LEI ANTERIOR NÃO É UM PORTÃO A DORMIR:
+É UM PORTÃO A GUARDAR O LADO ERRADO DA PORTA.
+```
+
+O conserto não foi trocar `11` por `12` — isso reabre o mesmo buraco na
+próxima lei. O número passou a vir do **dono do contrato**
+(`admissao.pronto_para_inteligencia()`), perguntado em execução.
+
+```
+DOIS SÍTIOS A DECLARAR O MESMO NÚMERO DIVERGEM NO DIA EM QUE UM MUDAR.
+```
+
+E foi preciso um segundo caso ao lado, porque doze campos não provam linhagem:
+
+```
+DOZE CAMPOS COM A LINHAGEM VAZIA SÃO DOZE CAMPOS E NENHUMA VOLTA.
+```
+
+## 109.6 · UM PORTÃO QUE NÃO CHEGA A CORRER NÃO É UM PORTÃO A FALHAR
+
+Achado adjacente, e medido a caminho: **quatro** provas do workflow
+`banco-descartavel` morriam em `relation "public.storage_object" does not
+exist`. O passo do CI faz `drop database` + `create database` e nenhuma delas
+aplicava a cadeia canónica — ao contrário de todas as suas irmãs. A mensagem
+que saía era *«a corrida nao cunhou RUN_ID»*, que manda procurar o defeito no
+orquestrador, onde ele não estava.
+
+```
+UM PORTÃO QUE NÃO CHEGA A CORRER NÃO É UM PORTÃO A FALHAR:
+É UM PORTÃO QUE NÃO EXISTE, COM CARA DE VERMELHO.
+```
+
+A cadeia passou a ser aplicada por **um** dono
+(`o_scrap_chega_ao_acervo.garantir_o_esquema`), e só quando o banco ainda não a
+tem — a cadeia não é idempotente, e a pergunta é feita ao banco e não a uma
+variável de ambiente que alguém se lembre de pôr.
+
+## 109.7 · CORREÇÃO DE ESTADO — READY TEM DOZE CAMPOS
+
+Afirmações deste ficheiro que ficaram para trás e que um leitor de hoje leria
+como estado atual:
+
+```
+«A função atual admissao.pronto_para_inteligencia() devolve contrato de
+ 11 campos»                                              → SUPERADA
+«Contrato READY tem 11 campos.»                          → SUPERADA
+```
+
+O estado medido no HEAD funcional, e conferido no que aterrou na sala:
+
+```
+READY_FIELDS = 12
+
+ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · TEXTO · SOURCE_ID ·
+SOURCE_LOCATION · FACT_LOCATION · FACT_TIME · CAPTURED_AT · CORRIDA ·
+ADMITIDO_POR
+```
+
+As menções aos «11 campos» nas secções históricas (§37, §74) ficam como
+estavam: elas descrevem o que era verdade na data delas, e reescrevê-las
+apagaria a data. **O que se corrige é a afirmação de estado, não o registo do
+passado.**
+
+## 109.8 · O QUE FICA
+
+```
+· medir o buraco ANTES de lhe tocar, e reproduzi-lo no HEAD de hoje
+· a pergunta nao e «como encontro depois», e «onde e que se perde»
+· o valor que falta costuma ja estar em maos, dentro do dono
+· posicao nao e ligacao — e a lista que volta do banco nao vem
+  na ordem em que foi
+· uma alca efemera transporta; ela nunca vira identidade externa
+· cardinalidade declarada e contrato; cardinalidade presumida e defeito
+· o numero de um contrato pergunta-se ao dono dele, nunca se escreve
+  ao lado
+· um portao que nao chega a correr nao e um portao
+```
+
+E a que vale para lá desta missão:
+
+```
+UMA LINHAGEM NÃO SE DESCOBRE: ELA TRANSPORTA-SE.
+QUEM A PROCURA DEPOIS ENCONTRA SEMELHANÇA, E SEMELHANÇA NÃO É IDENTIDADE.
 ```
