@@ -167,6 +167,7 @@ Contrato e detalhe em `ASK-SINTONIA-BENCHMARK.md`.
 # TRUST / EVIDENCE
 Toda amostra declara origem, data de captura, idioma original, SOURCE_LOCATION e
 FACT_LOCATION. **<!--M:TEST_COUNT_CURRENT-->2.701<!--/M--> provas automatizadas** reprovam amostra sem proveniência — e já
+FACT_LOCATION. **<!--M:TEST_COUNT_CURRENT-->2.888<!--/M--> provas automatizadas** reprovam amostra sem proveniência — e já
 reprovaram três vezes nesta linha de missões, incluindo contagens que eu havia declarado
 errado. Regra: `FACT` / `INTERPRETATION` / `ACTION` nunca no mesmo campo.
 

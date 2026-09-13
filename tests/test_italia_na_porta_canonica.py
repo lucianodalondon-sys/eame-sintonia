@@ -200,12 +200,25 @@ class OCaminhoEstaLigado(CasoB1):
     # CORRIDA E UM ACTO DELIBERADO E VISIVEL. Com a lista aqui, acrescentar um
     # executor que a recebe obriga a mexer nesta linha — que e exactamente a
     # revisao que se quer.
+    #: Quem PEDE a corrida, e desde quando. `recebe_run_id` e opt-in, e a lei
+    #: que esta sentinela guarda e «ninguem passa a recebe-la sem a pedir».
+    #:
+    #: ⚠️ A LISTA CRESCEU DUAS VEZES, E CRESCER NAO E O MESMO QUE MUDAR.
+    #: `regulatorio-eu` entrou com a aquisicao canonica do T4.
+    #: `scrap-colheita` entra agora, e entra por causa do campo: o adapter do
+    #: SCRAP NAO pode cunhar corrida, ou a corrida do orquestrador e a da
+    #: coleta eram duas. Um executor ANTIGO que ganhasse o campo em silencio
+    #: e que era o defeito — e continua a ser reprovado.
+    #:
+    #:     UM EXECUTOR NOVO QUE PEDE A CORRIDA NAO E UM EXECUTOR ANTIGO
+    #:     QUE PASSOU A RECEBE-LA.
     PEDEM_A_CORRIDA = {
         "italia-recorrente",   # B1 · o adapter italiano, o primeiro a pedi-la
         "regulatorio-eu",      # T4 · o adapter regulatorio, que nao cunha
+        "scrap-colheita",      # SCRAP · a colheita social, que tambem nao cunha
     }
 
-    def test_6_so_recebe_corrida_quem_a_pede_por_escrito(self):
+    def test_6_nenhum_executor_antigo_mudou_de_linha_de_comando(self):
         for universo, lista in EXECUTORES.items():
             for e in lista:
                 if e["id"] in self.PEDEM_A_CORRIDA:

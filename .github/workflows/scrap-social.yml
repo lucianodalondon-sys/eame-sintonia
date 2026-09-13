@@ -13,6 +13,20 @@
 #     piloto   GRÁTIS · a prova pequena, ao vivo, contra alvo real
 #     ledger   GRÁTIS · o que REALMENTE rodou (can do != did do)
 #
+# E uma que custa QUOTA, e é a prova da cadeia inteira:
+#
+#     youtube-oficial   as quatro capacidades pelo EXECUTOR, não pela API direta
+#     cutover           os três callers antigos atravessando o SCRAP
+#
+# A fase `youtube` chama `youtube_oficial` direto e mede a API. A
+# `youtube-oficial` entra pelo `scrap_executor`, atravessa o roteador com os
+# portões e só então chega à API. São perguntas diferentes:
+#
+#     MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+#
+# O secret entra no MESMO passo que já o recebia. Nenhum job novo, nenhum
+# arquivo novo: um segundo workflow de YouTube seria um segundo produto.
+#
 # TODAS as fases custam zero DÓLAR. A partir de 2026-09-08 uma delas custa QUOTA:
 # `youtube` fala com a YouTube Data API v3 pela chave `YOUTUBE_DATA_API_KEY`.
 #
@@ -51,11 +65,18 @@ on:
         default: censo
         type: choice
         options: [censo, portao, video, gap, piloto, ledger, sessao, politica, guarda,
-                  youtube, youtube-piloto, youtube-piloto-oneshot]
+                  youtube, youtube-oficial, cutover, youtube-piloto,
+                  youtube-piloto-oneshot, hardware, gpu-asr]
       url:
         description: 'só para a fase `portao`: a URL a testar'
         required: false
         default: 'https://www.youtube.com/feeds/videos.xml?channel_id=X'
+      runner:
+        description: 'só para `hardware` — qual máquina local medir. São DUAS, e não se somam.'
+        required: false
+        default: '2'
+        type: choice
+        options: ['1', '2']
       auth_mode:
         description: 'AUTO deixa a política escolher. Os outros FORÇAM e podem recusar.'
         required: false
@@ -69,7 +90,146 @@ permissions:
   contents: write
 
 jobs:
+  # ══════════════════════════════════════════════════════════════════════
+  # O CENSO DA MÁQUINA — job próprio, e a razão é o SHELL
+  # ══════════════════════════════════════════════════════════════════════
+  # Este job não podia ser um passo do `scrap`. Três razões medidas, e nenhuma
+  # é estética:
+  #
+  #   1. o `scrap` declara `shell: bash`, e em 2026-09-09 o runner local 2
+  #      respondeu `bash: command not found` a um job inteiro. Numa máquina
+  #      Windows o shell garantido é o PowerShell, e não o bash do Git;
+  #   2. o passo do guarda chama `python3`, que nessa máquina é o atalho da
+  #      Microsoft Store e falha. Ali o interpretador chama-se `py`;
+  #   3. o `setup-python` instala um Python que NÃO é o da máquina — e medir a
+  #      máquina com um Python que não é o dela mediria a coisa errada.
+  #
+  #     MEDIR A MÁQUINA COM AS FERRAMENTAS DE OUTRA MÁQUINA NÃO É MEDIR.
+  #
+  # E ele NÃO instala, NÃO atualiza driver, NÃO mexe em PATH global e NÃO pede
+  # admin. Só pergunta. Uma prova que altera a máquina que mede deixou de medir.
+  hardware:
+    if: inputs.fase == 'hardware'
+    runs-on: ${{ inputs.runner == '1'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
+    # ⚠️ `timeout-minutes` NÃO limita a espera na FILA — correção a mim próprio.
+    # Escrevi este tecto a pensar que ele protegia contra runner offline. NÃO
+    # protege: o relógio do GitHub só começa quando um runner ACEITA o job. Um
+    # job à espera de máquina que não atende fica `queued` até às 24 horas, e
+    # foi exatamente isso que aconteceu às três corridas do `sintonia-scrap` em
+    # setembro — e de novo às duas desta missão, canceladas à mão aos 23 min.
+    #
+    #     UM TECTO QUE SÓ CONTA DEPOIS DE COMEÇAR NÃO PROTEGE DE NUNCA COMEÇAR.
+    #
+    # Ele fica, porque limita o censo em si (que leva segundos) se a máquina
+    # travar a meio. Quem despacha é que tem de saber: runner que não atende em
+    # poucos minutos está OFFLINE, e isso é uma medição — cancele e registe.
+    timeout-minutes: 15
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: 0 · quem atendeu, e com que interpretador
+        run: |
+          Write-Host "RUNNER_NAME=$env:RUNNER_NAME"
+          Write-Host "RUNNER_OS=$env:RUNNER_OS  RUNNER_ARCH=$env:RUNNER_ARCH"
+          $achado = $null
+          foreach ($c in @('py','python','python3')) {
+            $cmd = Get-Command $c -ErrorAction SilentlyContinue
+            if ($cmd) {
+              $v = & $c --version 2>&1
+              # O atalho da Microsoft Store responde ao `Get-Command` e falha ao
+              # correr. Só conta quem devolve uma versão de verdade.
+              if ($LASTEXITCODE -eq 0 -and "$v" -match '\d+\.\d+') {
+                $achado = $c; Write-Host "INTERPRETADOR=$c ($v)"; break
+              }
+            }
+          }
+          if (-not $achado) { Write-Host 'INTERPRETADOR=NENHUM'; exit 1 }
+          "PY=$achado" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: 1 · o que esta máquina tem
+        env:
+          PYTHONIOENCODING: utf-8
+        run: |
+          & $env:PY provas/hardware_local.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+  # ── A PROVA DA PLACA, E POR QUE ELA PRECISA DE FASE PRÓPRIA ─────────────
+  # A primeira prova de que a GTX 1080 levava uma inferência até ao fim foi
+  # feita à mão, num PowerShell, e passou. Uma prova que só existe no histórico
+  # de um terminal não se repete e morre com a janela.
+  #
+  #     O QUE NAO CORRE OUTRA VEZ NAO E PROVA. E UMA LEMBRANCA.
+  #
+  # Fase separada do `hardware` de propósito: aquele PERGUNTA à máquina e leva
+  # segundos; este CORRE o reconhecedor e leva minutos. Juntá-los faria o censo
+  # barato herdar o custo e o risco do caro.
+  #
+  # E ele NÃO instala CUDA, cuBLAS nem cuDNN. Esses foram postos na máquina à
+  # mão, e uma prova que instala o que vai medir deixou de medir.
+  gpu-asr:
+    if: inputs.fase == 'gpu-asr'
+    runs-on: ${{ inputs.runner == '1'
+      && fromJSON('["self-hosted","Windows","X64","eame-sintonia-local"]')
+      || fromJSON('["self-hosted","Windows","X64","eame-sintonia-local-2"]') }}
+    # Mesma advertência da fase `hardware`: este tecto NÃO limita a espera na
+    # fila. Runner que não atende em poucos minutos está OFFLINE — cancele e
+    # registe `RUNNER_OFFLINE`, que é uma medição e não uma falha da prova.
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: 0 · quem atendeu, e com que interpretador
+        run: |
+          Write-Host "RUNNER_NAME=$env:RUNNER_NAME"
+          $achado = $null
+          foreach ($c in @('py','python','python3')) {
+            $cmd = Get-Command $c -ErrorAction SilentlyContinue
+            if ($cmd) {
+              $v = & $c --version 2>&1
+              if ($LASTEXITCODE -eq 0 -and "$v" -match '\d+\.\d+') {
+                $achado = $c; Write-Host "INTERPRETADOR=$c ($v)"; break
+              }
+            }
+          }
+          if (-not $achado) { Write-Host 'INTERPRETADOR=NENHUM'; exit 1 }
+          "PY=$achado" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      # O tipo de cálculo NÃO está no código como padrão, e isso é decisão:
+      # a GTX 1080 não faz `float16` útil, mas uma política global tirada de UMA
+      # placa seria uma regra universal escrita a partir de uma amostra de um.
+      # Aqui ele é override EXPLÍCITO da prova, e fica escrito no artefato.
+      - name: 1 · a placa leva uma inferência até ao fim?
+        env:
+          PYTHONIOENCODING: utf-8
+          SINTONIA_ASR_COMPUTE: int8_float32
+        run: |
+          & $env:PY provas/gpu_asr_smoke.py --device GPU --json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
   scrap:
+    # ⚠️ ESTA CONDICAO E UMA LISTA DE EXCLUSAO, E ISSO TEM CUSTO.
+    # Ela dizia so `!= 'hardware'`. Ao nascer uma fase de MAQUINA, este job
+    # passa a disparar tambem para ela — apanhado numa corrida real na linha
+    # GPU: dois jobs a arrancar, e o `scrap` a receber uma fase que o seu
+    # despacho nao conhece.
+    #
+    #     UMA LISTA DE EXCLUSAO NAO SABE O QUE AINDA NAO NASCEU.
+    #
+    # Cada fase nova de maquina tem de entrar aqui, e ha prova que reprova se
+    # uma ficar de fora.
+    if: inputs.fase != 'hardware' && inputs.fase != 'gpu-asr'
     # A fase que fala com o navegador PRECISA da máquina onde o perfil vive. As
     # outras não — e mandar tudo para o runner local só ocuparia a máquina que
     # faz a coleta paga.

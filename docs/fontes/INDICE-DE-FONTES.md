@@ -168,7 +168,7 @@ internacional, não a conversa técnica local.
 | `POPILLIA` | popillia japonica |
 | `XYLELLA` | xylella |
 
-### `regras/sensor_coleta.py:198` · 68 palavras
+### `regras/sensor_coleta.py:213` · 68 palavras
 
 | grupo | palavras |
 |---|---|

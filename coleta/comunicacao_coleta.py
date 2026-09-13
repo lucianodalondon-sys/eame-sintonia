@@ -56,6 +56,8 @@ sys.path.insert(0, os.path.dirname(HERE))   # a raiz
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import apify_pool as ap        # noqa: E402  — dono único da rotação de chave
 import coletor                 # noqa: E402  — porta única das rotas pagas
+sys.path.insert(0, os.path.join(ROOT, 'leis'))
+import social_matriz as mz     # noqa: E402  — DONO da política de rota
 
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 SAIDA = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM')
@@ -71,6 +73,10 @@ MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
 DATASET_OWNER = 'COMPETITOR_PUBLIC_COMMUNICATION_EAME'
 RUNNER = os.environ.get('RUNNER_NAME') or 'NOT_KNOWN'
 NAO_SEI = 'NOT_KNOWN'
+# A casa ja tem esta palavra em `leis/artefato.py`, e ela quer dizer outra
+# coisa: o campo nao se aplica a este objeto. Nao e ignorancia — e ausencia
+# de pergunta.
+NAO_SE_APLICA = 'NAO_SE_APLICA'
 
 JANELA_INICIAL_DIAS = 30
 JANELA_AMPLIADA_DIAS = 90
@@ -80,11 +86,129 @@ CORPUS_BAIXO = 5               # itens por conta abaixo disto autorizam ampliar 
 # troca esta marca por evidência. O YouTube reusa o ator que a Espanha já rodou com
 # sucesso; os outros dois são candidatos e estão declarados como tal.
 ATORES = {
-    'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),
+    # O YouTube SAIU daqui na C3. Ele agora pede CAPACIDADE ao SINTONIA SCRAP, e
+    # quem escolhe adaptador e fornecedor e o SCRAP — nao este ficheiro.
     'INSTAGRAM': ('apify~instagram-scraper', 'NAO_VERIFICADO'),
     'FACEBOOK': ('apify~facebook-posts-scraper', 'NAO_VERIFICADO'),
-    'LINKEDIN': ('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA'),
+    # O LINKEDIN SAIU DAQUI NA LINKEDIN-OP-01, e a ausencia e a prova.
+    #
+    # Ele dizia `('harvestapi~linkedin-post-search', 'JA_RODOU_NESTA_CASA')`, e
+    # o rotulo era verdadeiro: o ator JA correu nesta casa e deixou 372 posts
+    # preservados. Mas a C11 mediu o que esse rotulo nao diz:
+    #
+    #     TECHNICALLY_PROVEN_HISTORY != CURRENT_ALLOWED_ROUTE.
+    #     UMA ROTA QUE FUNCIONA NAO E UMA ROTA PERMITIDA.
+    #     HISTORICO NAO E CAPACIDADE ACTUAL.
+    #
+    # `LINKEDIN/FETCH_POST` tem duas rotas declaradas e as duas estao
+    # `PERMITIDA = NAO`. Um identificador de ator pago guardado ao lado de uma
+    # rota proibida e a metade de um caminho — e a outra metade aparece no dia em
+    # que alguem ler o rotulo `JA_RODOU_NESTA_CASA` como autorizacao.
+    #
+    #     CODIGO MORTO COM CARA DE ROTA VIVA E PIOR QUE CODIGO APAGADO.
 }
+
+# ── A QUE ROTA DECLARADA CADA ATOR CORRESPONDE ──────────────────────────────
+# A C10.6E censou a identidade do fornecedor e encontrou QUATRO donos: a matriz,
+# que declara `apify:instagram-scraper` como rota de `INSTAGRAM/FETCH_POST`, e
+# tres tabelas `ATORES` em codigo — esta, a do `instagram_coleta.py` e a do
+# `sensor_coleta.py`.
+#
+#     UM OWNER COM DUAS COPIAS DA MESMA ORDEM JA E DOIS.
+#
+# O nome da ROTA na matriz e um ROTULO de politica; o `apify~...` e um
+# IDENTIFICADOR de execucao. Sao coisas diferentes e nao se derivam uma da
+# outra — derivar por troca de `:` para `~` seria inventar uma regra que
+# ninguem escreveu, e inventar regra e pior do que duplicar.
+#
+#     DERIVAR O QUE NAO FOI DECLARADO E FABRICAR, NAO E NORMALIZAR.
+#
+# O que se pode fazer sem inventar nada e AMARRAR as duas: cada ator declara
+# QUAL rota da matriz ele cumpre, e `conferir_atores()` recusa se a matriz
+# deixar de declarar essa rota, ou se ela deixar de ser paga. Duas copias
+# amarradas ainda sao duas — mas deixam de poder divergir em silencio, que era
+# o defeito real.
+ROTA_DECLARADA_DO_ATOR = {
+    'INSTAGRAM': ('FETCH_POST', 'apify:instagram-scraper'),
+    'FACEBOOK': ('FETCH_POST', 'apify:facebook'),
+    # O LinkedIn sai tambem daqui, e tem de sair das DUAS: `conferir_atores()`
+    # reprova quem tem rota declarada e nao tem ator, e reprovaria com razao.
+}
+
+#: As classes de rota que custam dinheiro. Quem decide e a matriz.
+CLASSES_PAGAS = ('APIFY', 'OFFICIAL_API_PAID')
+
+
+def conferir_atores():
+    """Cada ator desta tabela ainda corresponde a uma rota PAGA declarada?
+
+    → lista de divergencias. Vazia quer dizer que as duas copias concordam.
+    """
+    fora = []
+    for plataforma, (capacidade, rotulo) in sorted(ROTA_DECLARADA_DO_ATOR.items()):
+        if plataforma not in ATORES:
+            fora.append('%s tem rota declarada e nao tem ator' % plataforma)
+            continue
+        rotas = (mz.MATRIZ.get(plataforma) or {}).get(capacidade) or []
+        achada = next((x for x in rotas if x['ROTA'] == rotulo), None)
+        if achada is None:
+            fora.append('%s/%s: a matriz ja nao declara a rota %r que o ator %r '
+                        'cumpre' % (plataforma, capacidade, rotulo,
+                                    ATORES[plataforma][0]))
+            continue
+        if achada['CLASSE'] not in CLASSES_PAGAS:
+            fora.append('%s/%s: a rota %r deixou de ser paga (classe %s) e o ator '
+                        'continua aqui' % (plataforma, capacidade, rotulo,
+                                           achada['CLASSE']))
+    for plataforma in sorted(ATORES):
+        if plataforma not in ROTA_DECLARADA_DO_ATOR:
+            fora.append('%s tem ator e nao diz que rota declarada ele cumpre'
+                        % plataforma)
+    return fora
+
+# ── A TABELA QUE SUBSTITUI O ATOR, E POR QUE ELA E DE CAPACIDADE ─────────────
+# Uma plataforma que esta aqui NAO passa pela porta paga. Ela pede uma
+# capacidade ao executor do SCRAP, e o SCRAP resolve a rota.
+#
+#     QUEM PEDE DIZ O QUE QUER. NUNCA DIZ COM QUE FERRAMENTA.
+#
+# Acrescentar o LinkedIn amanha e acrescentar uma LINHA aqui — nao e escrever um
+# `if plataforma ==` neste ficheiro. Este ficheiro nao pode virar um segundo
+# roteador, e a diferenca entre as duas coisas e exatamente esta tabela.
+CAPACIDADES_SCRAP = {
+    'YOUTUBE': {'RESOLVER': 'youtube.channel.resolve',
+                'COLHER': 'youtube.channel.discovery'},
+}
+
+
+#: AS PLATAFORMAS QUE ESTA FASE ATENDE PARA LHES DIZER NAO.
+#:
+#: O LinkedIn nao tem ator pago (a politica proibe a rota) e nao tem capacidade
+#: canonica de POSTS (a capacidade permitida dele e IDENTIDADE, que nao e esta
+#: fase). Tirando-o das duas tabelas, ele desaparecia de `_PLATAFORMAS()` — e
+#: com ele desaparecia a recusa.
+#:
+#:     UMA RECUSA QUE NAO SE ALCANCA NAO E UMA RECUSA: E UM SILENCIO.
+#:
+#: Entao ele fica declarado AQUI, que e a terceira resposta possivel a pergunta
+#: «esta plataforma passa por esta fase?»: passa, e sai recusada pela politica.
+#: Uma tabela, e nao um `if plataforma == 'LINKEDIN'` — esse seria um segundo
+#: dono da politica, e a politica tem dono: `leis/social_matriz.py`.
+ATENDIDAS_SO_PARA_RECUSAR = {
+    'LINKEDIN': 'FETCH_POST · as duas rotas declaradas estao PERMITIDA = NAO',
+}
+
+
+def _PLATAFORMAS():
+    """As plataformas que esta fase atende, venham de que rota vierem.
+
+    Tres tabelas, uma pergunta. Enquanto so havia `ATORES`, ela respondia
+    sozinha; depois da C3 ha plataformas sem ator nenhum, e continuar a
+    perguntar so a `ATORES` faria o YouTube desaparecer do proprio CLI. Depois
+    da LINKEDIN-OP-01 ha uma plataforma que esta fase atende PARA RECUSAR, e
+    esquece-la faria a recusa desaparecer do CLI pela mesma razao.
+    """
+    return set(ATORES) | set(CAPACIDADES_SCRAP) | set(ATENDIDAS_SO_PARA_RECUSAR)
 
 
 def contas_autorizadas(plataforma=None):
@@ -102,10 +226,20 @@ def contas_autorizadas(plataforma=None):
 
 
 def _gravar(nome, corpo):
+    """Escreve, e devolve o caminho REAL — nao um caminho decorado.
+
+    Ele devolvia sempre `data/samples/COMPETITOR-PUBLIC-COMM/<nome>`, mesmo
+    quando `SAIDA` apontava para outro sitio. A mensagem dizia uma coisa e o
+    disco fazia outra, e quem lesse o log procuraria o ficheiro onde ele nao
+    estava.
+
+        UM CAMINHO IMPRESSO QUE NAO E O CAMINHO ESCRITO E UMA PISTA FALSA.
+    """
     os.makedirs(SAIDA, exist_ok=True)
-    with open(os.path.join(SAIDA, nome), 'w', encoding='utf-8') as f:
+    destino = os.path.join(SAIDA, nome)
+    with open(destino, 'w', encoding='utf-8') as f:
         json.dump(corpo, f, ensure_ascii=False, indent=1)
-    return 'data/samples/COMPETITOR-PUBLIC-COMM/' + nome
+    return os.path.relpath(destino, ROOT) if destino.startswith(ROOT) else destino
 
 
 def _hoje():
@@ -183,17 +317,33 @@ def entrada(plataforma, conta, dias):
     """A entrada do ator, por plataforma. Uma função, para o contrato ser legível."""
     desde = _desde(dias)
     url = conta['ACCOUNT_URL']
-    if plataforma == 'YOUTUBE':
-        return {'startUrls': [{'url': url}], 'maxResults': 50,
-                'dateFilter': desde, 'sortVideosBy': 'NEWEST'}
+    # O YouTube SAIU daqui na C3, e a ausencia e a prova. Esta funcao monta a
+    # ENTRADA DE UM ATOR; o YouTube deixou de ter ator, entao deixou de ter
+    # entrada. Manter o bloco «por via das duvidas» deixaria codigo morto com
+    # cara de rota viva, e daqui a tres meses alguem o ligaria de volta sem
+    # perceber que a rota paga tinha sido aposentada.
+    #
+    #     CODIGO MORTO COM CARA DE ROTA VIVA E PIOR QUE CODIGO APAGADO.
+    #
+    # Pedir entrada de ator para o YouTube agora levanta, e a mensagem diz
+    # exatamente onde ir buscar a rota certa.
     if plataforma == 'INSTAGRAM':
         return {'directUrls': [url], 'resultsType': 'posts', 'resultsLimit': 50,
                 'onlyPostsNewerThan': desde}
     if plataforma == 'FACEBOOK':
         return {'startUrls': [{'url': url}], 'resultsLimit': 50,
                 'onlyPostsNewerThan': desde}
-    if plataforma == 'LINKEDIN':
-        return {'companyUrls': [url], 'maxItems': 50, 'postedLimit': '%dd' % dias}
+    # O LinkedIn saiu daqui na LINKEDIN-OP-01, pela mesma razao que o YouTube
+    # saiu na C3: ele deixou de ter ator, entao deixou de ter entrada. O bloco
+    # montava `{'companyUrls': [...], 'maxItems': 50}` — a entrada exacta do
+    # `harvestapi~linkedin-post-search` — para uma rota `ROUTE_NOT_ALLOWED`.
+    #
+    #     UMA ENTRADA DE ATOR PRONTA E METADE DE UMA COMPRA.
+    if plataforma in CAPACIDADES_SCRAP:
+        raise ValueError(
+            '%s nao tem entrada de ator: ela pede CAPACIDADE ao SINTONIA SCRAP '
+            '(%s). Ver `_colher_pelo_scrap`.'
+            % (plataforma, ', '.join(sorted(CAPACIDADES_SCRAP[plataforma].values()))))
     raise ValueError('plataforma sem contrato de entrada: %s' % plataforma)
 
 
@@ -215,35 +365,281 @@ def normalizar(bruto, conta, plataforma, dias, man=None):
         return NAO_SEI
 
     return {
-        'POST_ID': g('id', 'videoId', 'postId', 'shortCode', 'url'),
+        # Os nomes em MAIUSCULA sao os do envelope do SCRAP; os minusculos,
+        # os do ator pago. Os dois convivem de proposito: a mesma coleta pode
+        # vir de uma rota ou da outra, e o item nao muda de forma por causa
+        # disso. Converter um no outro antes de normalizar seria disfarcar a
+        # origem — e a origem e exatamente o que tem de ficar legivel.
+        'POST_ID': g('NATIVE_ID', 'id', 'videoId', 'postId', 'shortCode', 'url'),
         'ACCOUNT_ID': conta['ACCOUNT_HANDLE'],
         'ACCOUNT_URL': conta['ACCOUNT_URL'],
         'COMPANY': conta['COMPANY'],
         'COUNTRY_SCOPE': conta['COUNTRY'],
-        'ACCOUNT_SCOPE': conta['ACCOUNT_SCOPE'],
+        # ── UM CAMPO QUE O LOTE NUNCA TEVE ──────────────────────────────
+        # Medido ao migrar: NENHUMA das 22 contas do lote congelado carrega
+        # `ACCOUNT_SCOPE`. Nem uma. O acesso direto levantava `KeyError` na
+        # PRIMEIRA conta, de qualquer plataforma — o que diz, sozinho, que esta
+        # normalizacao nunca correu ate ao fim desde que o lote foi congelado.
+        #
+        #     UM `KeyError` NA PRIMEIRA CONTA NAO E UM CASO RARO. E a prova de
+        #     que o caminho nunca passou por aqui.
+        #
+        # `regras/comunicacao_universo.py` escreve o campo com `NOT_KNOWN` no
+        # ficheiro do universo, entao o valor honesto e esse mesmo. Trocar por
+        # `PAGE_ROLE` seria mais bonito e seria outra coisa: papel da pagina nao
+        # e alcance da conta.
+        'ACCOUNT_SCOPE': conta.get('ACCOUNT_SCOPE', NAO_SEI),
         'PLATFORM': plataforma,
-        'PUBLISHED_AT': g('date', 'publishedAt', 'timestamp', 'time'),
+        'PUBLISHED_AT': g('PUBLISHED_AT', 'date', 'publishedAt', 'timestamp', 'time'),
         'FIRST_OBSERVED': _hoje().isoformat(),
         'LAST_OBSERVED': _hoje().isoformat(),
-        'URL': g('url', 'postUrl', 'link'),
-        'TITLE': g('title', 'headline'),
-        'TEXT': g('text', 'caption', 'description', 'content'),
-        'MEDIA_TYPE': g('type', 'mediaType', 'productType'),
+        'URL': g('URL', 'url', 'postUrl', 'link'),
+        'TITLE': g('TITLE', 'title', 'headline'),
+        # `TEXT` E A LEGENDA — o que o autor escreveu. Fica dito aqui porque, a
+        # partir de 2026-09-10, existe um segundo texto no mesmo item: a FALA.
+        # Somar os dois neste campo apagaria qual deles sustentou o que vier
+        # depois. A fala entra em `TRANSCRIPT_TEXT`, e nunca aqui.
+        'TEXT': g('TEXT', 'text', 'caption', 'description', 'content'),
+        'TEXT_KIND': 'CAPTION',
+        'MEDIA_TYPE': g('CONTENT_TYPE', 'type', 'mediaType', 'productType'),
+        # ── O ENDERECO DO VIDEO, QUE ATE AQUI SE PERDIA ─────────────────────
+        # A normalizacao deitava fora o endereco da midia. Sem ele, um Reel
+        # coletado (e pago) nao podia ser ouvido depois sem se coletar outra
+        # vez — e coletar outra vez custa. O endereco e ASSINADO e MORRE em
+        # horas; guarda-lo nao e preserva-lo, e por isso o campo diz TEMPORARY.
+        #
+        #     ENDERECO VENCIDO != VIDEO INEXISTENTE.
+        'MEDIA_URL_TEMPORARY': g('videoUrl', 'video_url', 'videoUrlBackup',
+                                 'displayUrl', 'mediaUrl'),
+        'MEDIA_DURATION_S': g('videoDuration', 'duration', 'durationSeconds'),
+        'IS_VIDEO': ('YES' if str(g('CONTENT_TYPE', 'type', 'mediaType',
+                                    'productType')).upper()
+                     in ('VIDEO', 'REEL', 'CLIPS', 'IGTV') else NAO_SEI),
+        # A FALA AINDA NAO FOI PEDIDA. Nascer NOT_REQUESTED, e nao vazio, e o
+        # que impede «ninguem transcreveu» de se ler como «nao havia fala».
+        'TRANSCRIPT_TEXT': None,
+        'TRANSCRIPT_STATE': 'NOT_REQUESTED',
         'COLLECTION_WINDOW_DAYS': dias,
         'COLLECTION_WINDOW_FROM': _desde(dias),
         'DATASET_OWNER': DATASET_OWNER,
         # A cadeia CONTENT -> RUN_ID -> MANIFEST -> RAW fecha aqui, no item.
         'COLLECTION_RUN_ID': man.get('RUN_ID', NAO_SEI),
-        'RAW_REFERENCE': man.get('RAW_EVIDENCE_PATH', NAO_SEI),
+        'RAW_REFERENCE': man.get('RAW_EVIDENCE_PATH',
+                                 bruto.get('RAW_REFERENCE', NAO_SEI)),
         'RAW_COMPLETENESS': man.get('RAW_COMPLETENESS', NAO_SEI),
-        'ACTOR': man.get('ACTOR', NAO_SEI),
+        # ── QUEM TROUXE ISTO, E A VERDADE NAO E SEMPRE «UM ATOR» ────────
+        # Enquanto so havia rota paga, `ACTOR` respondia a pergunta inteira.
+        # Agora ha itens que vieram da API oficial, e para esses nao existe
+        # ator nenhum. Escrever `NOT_KNOWN` seria dizer «nao sei qual ator»,
+        # que e falso: sei que nao houve.
+        #
+        #     NAO_SE_APLICA E NAO_SEI SAO RESPOSTAS DIFERENTES.
+        'ACTOR': man.get('ACTOR') or NAO_SE_APLICA,
+        'COLLECTION_PROVIDER': man.get('COLLECTION_PROVIDER', NAO_SEI),
         'MISSION': MISSION,
         'RUNNER_NAME': RUNNER,
     }
 
 
-def fase_posts(plataforma):
-    ator, _ = ATORES[plataforma]
+# ── QUOTA: SOMAR SO O QUE A ROTA DECLAROU ───────────────────────────────────
+# O primeiro corte desta missao escrevia `+= 1` para o passo da colheita, porque
+# «uma pagina de `playlistItems` custa uma unidade». MEDIDO com transporte
+# injetado, o passo custa DUAS: `channels.list` para achar a playlist de uploads
+# e `playlistItems.list` para a ler. O numero publicado ficava abaixo do real.
+#
+#     UM NUMERO SUPOSTO COM CARA DE MEDIDO E PIOR QUE NENHUM NUMERO: ninguem
+#     volta a perguntar a um campo que ja tem digito.
+#
+# A correcao NAO e adivinhar melhor. E somar so o que a rota declarou, e dizer
+# em voz alta quando a soma esta incompleta. `PARTIAL` significa PISO — o mesmo
+# que a casa ja faz com o custo historico («>= US$ 12,81», nunca «12,81»).
+#
+# Uma rota que nao declara unidades faz o lote inteiro sair `PARTIAL`. Hoje as
+# quatro do YouTube declaram — quem entrar a seguir e que decide se continua.
+#
+# E DOIS BALDES, NAO UM: `SEARCH` conta CHAMADAS (100 por dia) e `GENERAL` conta
+# UNIDADES (10.000 por dia). Soma-los daria um numero que nao existe, por isso
+# viajam em campos separados ate ao artefato.
+QUOTA_MEDIDA = 'MEASURED'
+QUOTA_PARCIAL = 'PARTIAL'
+QUOTA_NAO_SE_APLICA = 'NOT_APPLICABLE'
+
+
+def _somar_quota(man, trace):
+    """Acrescenta ao manifesto o que o trace DECLAROU. Nunca inventa."""
+    unidades = trace.get('QUOTA_UNITS')
+    if unidades is None:
+        man['OFFICIAL_API_QUOTA_STATE'] = QUOTA_PARCIAL
+        return man
+    man['OFFICIAL_API_QUOTA_USED'] += unidades
+    man['OFFICIAL_API_SEARCH_CALLS'] = (man.get('OFFICIAL_API_SEARCH_CALLS') or 0) \
+        + (trace.get('QUOTA_SEARCH_CALLS') or 0)
+    return man
+
+
+def _estado_da_quota(mans):
+    """O estado do LOTE: parcial se qualquer corrida dele for parcial."""
+    estados = [m.get('OFFICIAL_API_QUOTA_STATE') for m in mans
+               if m.get('OFFICIAL_API_QUOTA_STATE')]
+    if not estados:
+        return QUOTA_NAO_SE_APLICA
+    return QUOTA_PARCIAL if QUOTA_PARCIAL in estados else QUOTA_MEDIDA
+
+
+def _gravar_posts(plataforma, contas, janela, r, mans, ampliou):
+    """O artefato da fase. UM formato so, venha o item de que rota vier.
+
+    Duas funcoes a escrever o mesmo ficheiro divergiriam no terceiro mes, e a
+    divergencia apareceria como «o YouTube tem campos a menos».
+    """
+    pagas = [m for m in mans if m.get('PAID')]
+    quota = sum(m.get('OFFICIAL_API_QUOTA_USED') or 0 for m in mans)
+    buscas = sum(m.get('OFFICIAL_API_SEARCH_CALLS') or 0 for m in mans)
+    quota_estado = _estado_da_quota(mans)
+    corpo = {
+        'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
+        'DATASET_OWNER': DATASET_OWNER,
+        'source': 'contas oficiais LOCAIS provadas, coletadas por rota pública',
+        'SOURCE_LOCATION': plataforma,
+        'FACT_LOCATION': 'NOT_KNOWN — o §6 decide item a item, depois, de graça',
+        'EVIDENCE_CLASS': 'COMPETITOR_PUBLIC_COMMUNICATION_OBSERVED',
+        'COLLECTION_WINDOW_DAYS': janela['DIAS'],
+        'WINDOW_WIDENED': ampliou,
+        'WINDOW_WIDENED_WHY': (
+            'menos de %d itens por conta na janela de %d dias'
+            % (CORPUS_BAIXO, JANELA_INICIAL_DIAS)) if ampliou == 'YES' else 'n/a',
+        'ACCOUNTS_ATTEMPTED': len(contas),
+        'ACCOUNTS_DONE': len(r['UNITS_DONE']),
+        'ACCOUNTS_PENDING': len(r['UNITS_PENDING']),
+        'POOL_STATE': r['STATE'],
+        'DUPLICATES_REMOVED': r['DUPLICATES_REMOVED'],
+        # ── TRES NUMEROS, E ELES NAO SAO O MESMO NUMERO ──────────────────────
+        # `APIFY_RUNS` contava TODA corrida enquanto toda corrida era paga.
+        # Agora ha corridas gratuitas, e manter a conta antiga faria a rota
+        # oficial aparecer como gasto no relatorio de custo.
+        #
+        #     APIFY_RUNS = NUMERO DE CHAMADAS DA API OFICIAL SERIA FALSO.
+        #
+        # O campo legado sobrevive porque ha leitor real — `comunicacao_medir`
+        # — e passa a contar so o que foi PAGO. Para uma fase inteiramente
+        # oficial ele vale 0, e o zero e verdadeiro.
+        'COLLECTION_RUNS': len(mans),
+        'APIFY_RUNS': len(pagas),
+        # Dois baldes, dois campos. `PARTIAL` = PISO, nao total — ver `_somar_quota`.
+        'OFFICIAL_API_QUOTA_USED': quota,
+        'OFFICIAL_API_SEARCH_CALLS': buscas,
+        'OFFICIAL_API_QUOTA_STATE': quota_estado,
+        'COLLECTION_PROVIDERS': sorted({m.get('COLLECTION_PROVIDER') for m in mans
+                                        if m.get('COLLECTION_PROVIDER')}),
+        'COST_USD': sum(m.get('COST_USD') or 0 for m in mans
+                        if isinstance(m.get('COST_USD'), (int, float))),
+        'ITEM_COUNT': len(r['ITEMS']),
+        'ITEMS': r['ITEMS'],
+        'RUNS': mans,
+    }
+    print('%s · %d contas · %d itens · janela %d dias'
+          % (plataforma, len(contas), len(r['ITEMS']), janela['DIAS']))
+    print('gravado em %s' % _gravar('POSTS-%s.json' % plataforma, corpo))
+    return corpo
+
+
+def _colher_pelo_scrap(plataforma, contas, dias):
+    """A colheita pela rota canonica. → (itens, manifestos).
+
+    Sem pool de chaves, sem token, sem rotacao: nao ha chave paga para rodar. O
+    que ha e uma capacidade pedida ao executor, e o executor escolhe a rota.
+
+        ESTE FICHEIRO NAO SABE O QUE E `yt-dlp`, `channels.list` OU APIFY.
+        Ele sabe que quer a comunicacao publica de uma conta. Mais nada.
+
+    Cada conta produz UM registo de corrida, e esse registo diz quem trouxe. Um
+    manifesto que nao diz o fornecedor obriga quem le a adivinhar — e quem
+    adivinha escreve «Apify» por habito.
+    """
+    import scrap_executor as scrap
+    caps = CAPACIDADES_SCRAP[plataforma]
+    itens, mans = [], []
+    for conta in contas:
+        rid = '%s-%s-%s-%s' % (MISSION, plataforma, conta['COMPANY'], conta['COUNTRY'])
+        man = {'RUN_ID': rid, 'PLATFORM': plataforma, 'ACTOR': None,
+               'COLLECTION_PROVIDER': None, 'PAID': False, 'COST_USD': 0.0,
+               'OFFICIAL_API_QUOTA_USED': 0,
+               'OFFICIAL_API_SEARCH_CALLS': 0,
+               'OFFICIAL_API_QUOTA_STATE': QUOTA_MEDIDA,
+               'ACCOUNT_URL': conta['ACCOUNT_URL'],
+               'STATUS': None, 'CAPTURED_AT': coletor.agora()}
+
+        alvo, trace_r = scrap.COLLECT(platform=plataforma, capability=caps['RESOLVER'],
+                                      run_id=rid, country_scope=conta['COUNTRY'],
+                                      account_url=conta['ACCOUNT_URL'])
+        _somar_quota(man, trace_r)
+        man['COLLECTION_PROVIDER'] = trace_r.get('PROVIDER_USED')
+        if not alvo:
+            # NAO RESOLVER NAO E COLETAR ZERO. O estado sobe inteiro para que
+            # ninguem leia «esta empresa nao publica» onde a verdade e «este
+            # endereco nao tem resolvedor oficial».
+            man['STATUS'] = trace_r.get('RESULT')
+            man['TRACE'] = trace_r
+            mans.append(man)
+            continue
+
+        objetos, trace_c = scrap.COLLECT(
+            platform=plataforma, capability=caps['COLHER'], run_id=rid,
+            country_scope=conta['COUNTRY'], channel_id=alvo[0]['CHANNEL_ID'],
+            limit=50)
+        man['STATUS'] = trace_c.get('RESULT')
+        man['COLLECTION_PROVIDER'] = trace_c.get('PROVIDER_USED') or man['COLLECTION_PROVIDER']
+        man['PAID'] = bool(trace_c.get('PAID_PROVIDER_USED'))
+        _somar_quota(man, trace_c)
+        man['CHANNEL_ID'] = alvo[0]['CHANNEL_ID']
+        man['TRACE'] = trace_c
+        mans.append(man)
+        itens.extend(normalizar(o, conta, plataforma, dias, man) for o in objetos)
+    return itens, mans
+
+
+def fase_posts(plataforma, autorizacao=None):
+    """⚠️ `autorizacao` NAO NASCE AQUI, E ESSE E O PONTO.
+
+    Ela vem de `leis/autorizacao_de_gasto.autorizar()`, que e quem faz as
+    perguntas. Sem ela, a porta paga recusa — e recusar e o comportamento
+    certo para um adaptador que ninguem autorizou a gastar.
+    """
+    # ── A POLÍTICA VEM ANTES DO INVENTÁRIO ──────────────────────────────────
+    # Medido na LINKEDIN-OP-01: esta fase JÁ perguntava a `social_matriz` antes
+    # de haver rota paga — a C10.6D pôs a pergunta lá — mas ela vinha DEPOIS de
+    # `contas_autorizadas()`. Para o LinkedIn, que não tem conta AUTORIZADA
+    # local, a função voltava `None` dizendo «nenhuma conta AUTORIZADA», e a
+    # resposta sobre PERMISSÃO nunca era alcançada.
+    #
+    # As duas frases são factos diferentes, e a casa não deixa colapsar factos:
+    #
+    #     AUSÊNCIA DE CONTA NÃO É ROTA NÃO PERMITIDA.
+    #     UM PORTÃO QUE SÓ SE ALCANÇA COM INVENTÁRIO NÃO É UM PORTÃO DE POLÍTICA.
+    #
+    # E o risco era real e silencioso: no dia em que alguém cadastrasse uma
+    # conta LinkedIn, a proteção passava a depender de um gate lá embaixo — que
+    # existe e funciona, mas que ninguém tinha visto responder, porque nunca
+    # chegava a ser chamado.
+    #
+    # A pergunta não muda de dono: continua a ser `leis/social_matriz.py` a
+    # responder. Só deixa de estar atrás de uma pergunta de inventário.
+    #
+    # Quem tem capacidade canônica não passa por aqui: a rota dessa plataforma
+    # não é `FETCH_POST`, e perguntar por uma rota que ela não usa seria recusar
+    # pelo motivo errado. O YouTube mede `NOT_DECLARED` em `FETCH_POST` e colhe
+    # por `youtube.channel.discovery` — gatear nisto desligava-o.
+    if plataforma not in CAPACIDADES_SCRAP:
+        _d = mz.decisao(plataforma, 'FETCH_POST')
+        if _d['DECISAO'] != mz.PERMITIDA_SIM:
+            print('ROTA_NAO_AUTORIZADA=%s/FETCH_POST' % plataforma)
+            print('  decisao   %s' % _d['DECISAO'])
+            print('  porque    %s' % _d['PORQUE'])
+            print('  APIFY_RUNS=0 · HARVESTAPI_START_POSTS=0 · COST_USD=0')
+            print('  Nada saiu desta máquina, e isto é uma recusa de POLÍTICA —')
+            print('  não é ausência de conta, e não é zero resultados.')
+            return None
+
     contas = contas_autorizadas(plataforma)
     if not contas:
         print('nenhuma conta AUTORIZADA em %s. Isto é ausência de conta provada '
@@ -252,6 +648,83 @@ def fase_posts(plataforma):
 
     janela = {'DIAS': JANELA_INICIAL_DIAS}
     mans = []
+
+    # ── A BIFURCACAO E POR TABELA, NAO POR NOME DE PLATAFORMA ────────────────
+    # Um `if plataforma == 'YOUTUBE'` aqui faria deste ficheiro um segundo
+    # roteador, e o proximo a migrar acrescentaria o segundo `elif`. A pergunta
+    # certa nao e «qual plataforma e esta» — e «esta plataforma ja tem
+    # capacidade canonica?».
+    if plataforma in CAPACIDADES_SCRAP:
+        itens, mans = _colher_pelo_scrap(plataforma, contas, janela['DIAS'])
+        r = {'ITEMS': itens, 'UNITS_DONE': [c['ACCOUNT_URL'] for c in contas],
+             'UNITS_PENDING': [], 'STATE': 'DONE', 'DUPLICATES_REMOVED': 0}
+        ampliou = 'NO'
+        return _gravar_posts(plataforma, contas, janela, r, mans, ampliou)
+
+    # ── A POLÍTICA É PERGUNTADA ANTES DE HAVER ROTA PAGA ────────────────────
+    # A C10.6D censou as portas operacionais e mediu que NENHUMA implementação
+    # chamada direto por workflow perguntava nada a `leis/social_matriz.py`.
+    #
+    #     UMA DECISÃO QUE UMA PORTA NÃO CONHECE NÃO É UMA DECISÃO. É UM DESEJO.
+    #
+    # Aqui isso doía especificamente: `LINKEDIN/FETCH_POST` está
+    # `ROUTE_NOT_ALLOWED` nas DUAS rotas declaradas — a Community Management
+    # API e o ator pago `harvestapi~linkedin-*` — e este ficheiro corria o ator
+    # pago na mesma, porque ele FUNCIONA.
+    #
+    #     UMA ROTA QUE FUNCIONA NÃO É UMA ROTA PERMITIDA.
+    #
+    # A pergunta fica ANTES de `ATORES[...]`, e não depois: perguntar com o ator
+    # já escolhido é conferir o bilhete depois da viagem. E `NOT_DECLARED`
+    # também não passa: não declarado não é proibido, mas para uma rota que
+    # GASTA também não é permissão. Quem quiser abrir declara na matriz.
+    d = mz.decisao(plataforma, 'FETCH_POST')
+    if d['DECISAO'] != mz.PERMITIDA_SIM:
+        print('ROTA_NAO_AUTORIZADA=%s/FETCH_POST' % plataforma)
+        print('  decisao   %s' % d['DECISAO'])
+        print('  porque    %s' % d['PORQUE'])
+        print('  APIFY_RUNS=0 · COST_USD=0 — nada saiu desta máquina.')
+        print('  A política é dona da rota. Esta fase NÃO improvisa a volta.')
+        return None
+
+    # ── ESTE E O SEGUNDO RUNTIME, E ELE DIZ QUE E ───────────────────────────
+    # A C10.6E mediu por que a convergencia nao acontece aqui hoje. Nao e por
+    # falta de politica: a matriz DECLARA a rota paga para as duas plataformas e
+    # ate escreve o motivo canonico de subir para ela. E o roteador que nao tem
+    # como receber «preciso do degrau de cima»:
+    #
+    #     A MATRIZ DECLARA A ESCADA. O ROTEADOR SO SABE SUBIR O PRIMEIRO DEGRAU.
+    #
+    # `mz.decisao()` devolve UMA rota — a primeira viavel. Para o Instagram essa
+    # e a gratuita `instagram_janela.py:embed`, que a propria matriz diz cobrir
+    # «os 12 mais recentes». Mandar esta fase por COLLECT hoje trocaria, em
+    # silencio, uma janela de 30 dias por 12 itens — e chamar isso de
+    # convergencia seria falsificar equivalencia.
+    #
+    #     UM CAMINHO QUE MUDA O QUE COLHE NAO E O MESMO CAMINHO.
+    #
+    # Entao o caminho antigo fica. O que NAO fica e o silencio: quem correr esta
+    # fase le, na saida, que ela nao atravessa a casa e o que falta para que
+    # atravesse.
+    #
+    #     UM DESVIO DECLARADO E UMA MEDICAO. UM DESVIO CALADO E UM BURACO.
+    print('SEGUNDO_RUNTIME=%s/FETCH_POST' % plataforma)
+    print('  Esta fase NAO atravessa `scrap_executor.COLLECT`.')
+    print('  rota em uso     %s (ator %s)'
+          % (ROTA_DECLARADA_DO_ATOR[plataforma][1], ATORES[plataforma][0]))
+    print('  rota canonica   %s' % (d['ROTA'],))
+    print('  FALTA           o roteador nao sabe pedir um DEGRAU da escada, e')
+    print('                  nao ha adaptador ligado a %s/FETCH_POST.' % plataforma)
+    print('  LIVE_PROOF_REQUIRED=YES · ver docs/sintonia-scrap/C10-6E-*.md')
+    divergentes = conferir_atores()
+    if divergentes:
+        print('ATOR_DIVERGE_DA_MATRIZ=YES')
+        for x in divergentes:
+            print('  %s' % x)
+        print('  APIFY_RUNS=0 · COST_USD=0 — nada saiu desta maquina.')
+        return None
+
+    ator, _ = ATORES[plataforma]
 
     def trabalho(conta, token):
         """A chamada da porta paga. QUATRO defeitos consertados aqui em 2026-09-02.
@@ -290,7 +763,23 @@ def fase_posts(plataforma):
             country=conta['COUNTRY'], mission=MISSION,
             query=conta['ACCOUNT_URL'],
             source_version='captura de %s' % coletor.agora()[:10],
-            evidence_path=evidencia)
+            evidence_path=evidencia,
+            # ── A AUTORIZACAO DESCE, E NAO NASCE AQUI ─────────────────────
+            # Um adaptador que fabricasse a propria autorizacao estaria a
+            # assinar o seu proprio cheque. Ela vem de cima, de
+            # `leis/autorizacao_de_gasto.autorizar()`.
+            #
+            #     QUEM PEDE A COMPRA NAO E QUEM A AUTORIZA.
+            autorizacao=autorizacao,
+            motivo_do_gasto=getattr(autorizacao, 'motivo', None),
+            proposito=getattr(autorizacao, 'proposito', None),
+            source_id=getattr(autorizacao, 'source_id', None),
+            teto_usd=getattr(autorizacao, 'max_usd', None))
+        # A rota paga DECLARA que foi paga. Antes ninguem precisava: tudo era
+        # pago. Agora que ha duas, quem nao se declara obriga o contador a
+        # adivinhar — e adivinhar aqui e escrever «Apify» por habito.
+        man['PAID'] = True
+        man.setdefault('COLLECTION_PROVIDER', 'APIFY')
         mans.append(man)
         estado = ap.classificar(status=man.get('PLATFORM_STATUS'),
                                 status_message=str(man.get('ERROR') or ''),
@@ -311,45 +800,50 @@ def fase_posts(plataforma):
                                   identidade=lambda i: (i['PLATFORM'], i['POST_ID']))
         r = r2 if len(r2['ITEMS']) > len(r['ITEMS']) else r
 
-    corpo = {
-        'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
-        'DATASET_OWNER': DATASET_OWNER,
-        'source': 'contas oficiais LOCAIS provadas, coletadas por rota pública',
-        'SOURCE_LOCATION': plataforma,
-        'FACT_LOCATION': 'NOT_KNOWN — o §6 decide item a item, depois, de graça',
-        'EVIDENCE_CLASS': 'COMPETITOR_PUBLIC_COMMUNICATION_OBSERVED',
-        'COLLECTION_WINDOW_DAYS': janela['DIAS'],
-        'WINDOW_WIDENED': ampliou,
-        'WINDOW_WIDENED_WHY': (
-            'menos de %d itens por conta na janela de %d dias'
-            % (CORPUS_BAIXO, JANELA_INICIAL_DIAS)) if ampliou == 'YES' else 'n/a',
-        'ACCOUNTS_ATTEMPTED': len(contas),
-        'ACCOUNTS_DONE': len(r['UNITS_DONE']),
-        'ACCOUNTS_PENDING': len(r['UNITS_PENDING']),
-        'POOL_STATE': r['STATE'],
-        'DUPLICATES_REMOVED': r['DUPLICATES_REMOVED'],
-        'APIFY_RUNS': len(mans),
-        'COST_USD': sum(m.get('COST_USD') or 0 for m in mans
-                        if isinstance(m.get('COST_USD'), (int, float))),
-        'ITEM_COUNT': len(r['ITEMS']),
-        'ITEMS': r['ITEMS'],
-        'RUNS': mans,
-    }
-    print('%s · %d contas · %d itens · janela %d dias'
-          % (plataforma, len(contas), len(r['ITEMS']), janela['DIAS']))
-    print('gravado em %s' % _gravar('POSTS-%s.json' % plataforma, corpo))
-    return corpo
+    return _gravar_posts(plataforma, contas, janela, r, mans, ampliou)
+
+
+def fase_transcrever(plataforma, run_id=None, teto=None):
+    """A FALA DOS VIDEOS JA COLETADOS. Nenhuma execucao paga nova acontece aqui.
+
+    POR QUE ESTA FASE VIVE NESTE FICHEIRO, E NAO NOUTRO
+    ----------------------------------------------------
+    Porque o orquestrador ja conhece este executor (T9), e a receita ja traduz
+    `fase` e `plataforma` do pedido em argumentos da linha de comando. Registar
+    um executor novo criaria uma segunda porta para a mesma capacidade — e o
+    orquestrador so chama o PRIMEIRO executor de cada alvo, portanto a segunda
+    porta nunca seria aberta e ficaria a mentir no registo.
+
+        O BOTAO PEDE. O ORQUESTRADOR DECIDE COMO. UMA CAPACIDADE, UMA PORTA.
+
+    O trabalho em si nao e daqui: e de `ferramentas/reel_transcricao.py`, que e
+    a cadeia, e de `ferramentas/fala_local.py`, que e o reconhecedor. Esta
+    funcao so leva o pedido ate la.
+    """
+    import reel_transcricao as rt
+    return rt.fase_posts(plataforma, teto=teto, run_id=run_id)
 
 
 if __name__ == '__main__':
     fase = sys.argv[1] if len(sys.argv) > 1 else 'contratos'
+    resto = [a for a in sys.argv[2:] if not a.startswith('--')]
+    op = dict(a[2:].split('=', 1) for a in sys.argv[2:]
+              if a.startswith('--') and '=' in a)
     if fase == 'contratos':
         fase_contratos()
     elif fase == 'posts':
-        if len(sys.argv) < 3 or sys.argv[2] not in ATORES:
-            print('uso: comunicacao_coleta.py posts {%s}' % '|'.join(sorted(ATORES)))
+        if not resto or resto[0] not in _PLATAFORMAS():
+            print('uso: comunicacao_coleta.py posts {%s}'
+                  % '|'.join(sorted(_PLATAFORMAS())))
             raise SystemExit(2)
-        fase_posts(sys.argv[2])
+        fase_posts(resto[0])
+    elif fase == 'transcrever':
+        if not resto or resto[0] not in _PLATAFORMAS():
+            print('uso: comunicacao_coleta.py transcrever {%s}'
+                  % '|'.join(sorted(_PLATAFORMAS())))
+            raise SystemExit(2)
+        raise SystemExit(fase_transcrever(resto[0], run_id=op.get('run-id'),
+                                          teto=op.get('teto')))
     else:
         print('fase desconhecida: %s' % fase)
         raise SystemExit(2)

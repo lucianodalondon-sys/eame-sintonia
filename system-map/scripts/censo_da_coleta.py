@@ -122,13 +122,68 @@ def ficheiros() -> list:
     return fora
 
 
+def _linhas_de_comando(t: str, arv=None) -> str:
+    """O texto MENOS a prosa: comentarios e docstrings.
+
+    Uma linha cujo primeiro caractere nao-branco e `#` nao corre — nem em
+    Python, nem em YAML, nem em shell. Um docstring tambem nao: ele e um valor
+    que ninguem le em tempo de execucao.
+
+    Contar prosa como chamada foi o defeito que a C10.4C apanhou aqui. O censo
+    declarou que um modulo APOSENTADO chamava tres modulos vivos, e que dois
+    deles corriam no CI — tudo a partir do docstring que EXPLICA a
+    aposentadoria e do comentario do workflow que a anuncia.
+
+        UMA SENTINELA ANCORADA NO TEXTO MEDE O TEXTO, NAO A LEI.
+
+    O docstring apaga-se por LINHA, na arvore: procurar o texto dele dentro do
+    ficheiro daria um casamento por acaso sempre que uma frase se repetisse.
+    """
+    linhas = t.splitlines()
+    if arv is not None:
+        prosa = set()
+        for no in ast.walk(arv):
+            if isinstance(no, ast.Expr) and isinstance(no.value, ast.Constant) \
+                    and isinstance(no.value.value, str):
+                fim = getattr(no, "end_lineno", no.lineno) or no.lineno
+                prosa.update(range(no.lineno, fim + 1))
+        linhas = ["" if i in prosa else ln for i, ln in enumerate(linhas, 1)]
+    return "\n".join(ln for ln in linhas if not ln.lstrip().startswith("#"))
+
+
+def _lanca_processo(arv) -> bool:
+    """Este ficheiro chega a lancar algum processo? Medido na arvore."""
+    FAMILIA = {"run", "Popen", "call", "check_call", "check_output", "system",
+               "execv", "execvp", "spawnv", "import_module", "run_module",
+               "run_path", "__import__"}
+    for no in ast.walk(arv):
+        if isinstance(no, ast.Call):
+            nome = getattr(no.func, "attr", None) or getattr(no.func, "id", None)
+            if nome in FAMILIA:
+                return True
+    return False
+
+
 def quem_chama(todos: list) -> dict:
-    """Quem importa ou corre quem. Medido, nao suposto."""
+    """Quem importa ou corre quem, e — a parte — quem apenas FALA de quem.
+
+    Sao duas perguntas, e junta-las apagava a diferenca entre uma aresta e uma
+    frase:
+
+        chamado_por   `import` medido na arvore, ou o caminho numa linha que a
+                      maquina executa (argv de subprocesso, `run:` de workflow).
+        citado_por    o caminho aparece no ficheiro, mas em prosa. NAO e aresta.
+                      Continua registado porque uma instrucao operacional escrita
+                      num documento e, ela propria, uma porta — a C10.4C mediu
+                      cinco assim.
+    """
     chamado_por: dict[str, set] = {f: set() for f in todos}
+    citado_por: dict[str, set] = {f: set() for f in todos}
     nome = {Path(f).stem: f for f in todos}
 
     for f in todos:
         t = (RAIZ / f).read_text(encoding="utf-8", errors="replace")
+        arv = None
         if f.endswith(".py"):
             try:
                 arv = ast.parse(t)
@@ -144,25 +199,40 @@ def quem_chama(todos: list) -> dict:
                     for a in alvos:
                         if a in nome and nome[a] != f:
                             chamado_por[nome[a]].add(f)
-        # e quem e citado pelo caminho inteiro (subprocess, workflow, doc)
+        vivo = _linhas_de_comando(t, arv)
+        # Um ficheiro que NUNCA lanca processo e nunca importa nada nao pode
+        # estar a correr outro pelo caminho, por mais vezes que o nomeie. A
+        # C10.4C mediu isto: a rota aposentada importa `sys` e mais nada, e o
+        # censo declarava-a a chamar tres modulos vivos — por causa da mensagem
+        # de recusa, que NOMEIA o dono canonico para quem a ler.
+        #
+        #     UM NOME DENTRO DE UMA FRASE NAO E UM ARGV.
+        pode_lancar = (not f.endswith(".py")) or arv is None or _lanca_processo(arv)
         for outro in todos:
-            if outro != f and outro in t:
+            if outro == f or outro not in t:
+                continue
+            if outro in vivo and pode_lancar:
                 chamado_por[outro].add(f)
-    return {k: sorted(v) for k, v in chamado_por.items()}
+            else:
+                citado_por[outro].add(f)
+    return ({k: sorted(v) for k, v in chamado_por.items()},
+            {k: sorted(v) for k, v in citado_por.items()})
 
 
 def nos_workflows(todos: list) -> dict:
+    """Corre no CI — medido nas linhas que a Action executa, nao nos comentarios."""
     wf = RAIZ / ".github" / "workflows"
     texto = ""
     if wf.is_dir():
         for p in sorted(wf.glob("*.yml")):
-            texto += p.read_text(encoding="utf-8", errors="replace")
+            texto += _linhas_de_comando(
+                p.read_text(encoding="utf-8", errors="replace")) + "\n"
     return {f: (f in texto) for f in todos}
 
 
 def medir() -> dict:
     todos = ficheiros()
-    chamado = quem_chama(todos)
+    chamado, citado = quem_chama(todos)
     em_ci = nos_workflows(todos)
 
     fichas = []
@@ -187,13 +257,22 @@ def medir() -> dict:
             "grava_no_banco": bool(GRAVA_NO_BANCO.search(t)),
             "escreve_ficheiro": bool(ESCREVE_FICHEIRO.search(t)),
             "chamado_por": chamado[f],
+            "citado_por": citado[f],
             "no_ci": em_ci[f],
         })
 
     def conta(cond) -> list:
         return [x["ficheiro"] for x in fichas if cond(x)]
 
-    orfaos = conta(lambda x: not x["chamado_por"] and not x["no_ci"])
+    # ORFAO = ninguem o chama, ninguem o corre no CI e ninguem sequer o NOMEIA.
+    # `citado_por` entra aqui de proposito: um ficheiro citado numa instrucao
+    # operacional nao esta esquecido — esta a ser apontado a gente, que e a
+    # forma de porta que a C10.4C mediu cinco vezes. Separar chamada de citacao
+    # afinou a ARESTA sem mexer no que conta como esquecido.
+    orfaos = conta(lambda x: not x["chamado_por"] and not x["citado_por"]
+                   and not x["no_ci"])
+    #: O numero mais apertado: sem ARESTA medida, ainda que alguem o nomeie.
+    sem_aresta = conta(lambda x: not x["chamado_por"] and not x["no_ci"])
     executores = conta(lambda x: x["sai_para_fora"])
     entradas = conta(lambda x: x["e_ponto_de_entrada"])
     deita_fora = conta(lambda x: x["descarta"])
@@ -211,6 +290,7 @@ def medir() -> dict:
             "pontos_de_entrada": len(entradas),
             "executores_que_saem_para_fora": len(executores),
             "sem_chamador_e_fora_do_ci": len(orfaos),
+            "sem_aresta_medida_e_fora_do_ci": len(sem_aresta),
             "gravam_no_banco": len(conta(lambda x: x["grava_no_banco"])),
             "escrevem_ficheiro": len(conta(lambda x: x["escreve_ficheiro"])),
             "deitam_fora_alguma_coisa": len(deita_fora),
@@ -222,6 +302,7 @@ def medir() -> dict:
             "pontos_de_entrada": entradas,
             "executores": executores,
             "orfaos": orfaos,
+            "sem_aresta_medida": sem_aresta,
             "deitam_fora_sem_motivo": sem_motivo,
             "decisoes_escondidas": [{"ficheiro": f, "linhas": d} for f, d in escondidas],
         },

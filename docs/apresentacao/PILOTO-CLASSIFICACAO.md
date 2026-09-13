@@ -26,6 +26,7 @@ técnico identificado **e** nenhum bloqueio conhecido. O incerto vai para `EXPLO
 | **Área de cultura por NUTS 2, 25 anos** · **preço de cereal por praça** | CAP-010, CAP-019 | FR · ES · IT |
 | **Ask Sintonia** — consulta à camada de evidência | benchmark 35 perguntas: 20 respondidas, 14 recusadas, 1 parcial, **0 erradas** | todos |
 | **Toda resposta leva à evidência** + *"we don't know yet"* | **<!--M:TEST_COUNT_CURRENT-->2.701<!--/M--> provas automatizadas**; 16 fontes em NÃO SEI com motivo | todos |
+| **Toda resposta leva à evidência** + *"we don't know yet"* | **<!--M:TEST_COUNT_CURRENT-->2.888<!--/M--> provas automatizadas**; 16 fontes em NÃO SEI com motivo | todos |
 | **Rede de distribuição** (distribuidores e cooperativas) | FR-T13-001, 4.646 empresas | FR |
 
 ## 2 · COMING SOON — caminho técnico identificado, sem bloqueio conhecido

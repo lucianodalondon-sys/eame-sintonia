@@ -168,10 +168,14 @@ _TABELA = [
        'de BUDGET_EXHAUSTED — colapsar os dois faria a casa parar de rotacionar '
        'chave, que é justamente o que a rota paga já sabia fazer.'),
     _e('BUDGET_EXHAUSTED', ROUTE, True, UNAVAILABLE, False, False,
-       ['BUDGET_EXHAUSTED', 'PAID_ROUTE_REFUSED', 'JA_CONCLUIDO'],
-       'teto NOSSO: gasto, itens, ou a missão não autorizou pagar. Trocar de chave '
-       'não resolve — a recusa é da casa, não da plataforma. A fonte não tem nada '
-       'a ver com isso.'),
+       ['BUDGET_EXHAUSTED', 'PAID_ROUTE_REFUSED', 'JA_CONCLUIDO',
+        'NETWORK_BUDGET_EXHAUSTED', 'FINANCIAL_BUDGET_EXHAUSTED',
+        'PAID_TRIAL_WITHOUT_FINANCIAL_BUDGET'],
+       'teto NOSSO: gasto, ACESSOS, itens, ou a missão não autorizou pagar. Trocar '
+       'de chave não resolve — a recusa é da casa, não da plataforma. A fonte não '
+       'tem nada a ver com isso. Os dois tetos da C10.8A-R/C10.8A-F entram aqui '
+       'porque são a mesma família — recusa nossa, NO_RETRY — e porque sem alias '
+       'eles caíam em UNKNOWN_ERROR, que é o balde de «ninguém sabe o que houve».'),
 
     # ── A ROTA FALHOU (a fonte continua sã) ────────────────────────────────
     _e('AUTH_EXPIRED', ROUTE, True, UNHEALTHY, True, False,

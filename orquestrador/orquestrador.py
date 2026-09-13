@@ -544,6 +544,15 @@ def pela_porta(itens: list, universo: str, run_id: str) -> dict:
     conta: dict = {}
     for d in decisoes:
         conta[d.resultado] = conta.get(d.resultado, 0) + 1
+    # ── QUANTOS DOS JULGADOS TRAZIAM O CARIMBO DA PORTA ────────────────────
+    # Sem este numero, mandar a lista ORIGINAL a admissao em vez da que saiu do
+    # ingresso e uma troca invisivel: as duas tem o mesmo tamanho, os mesmos
+    # campos e o mesmo aspecto no recibo. A diferenca e exactamente o que a
+    # porta provou — e e isso que se conta aqui.
+    #
+    #     UMA TROCA QUE NAO MUDA NENHUM NUMERO NAO SE CONSEGUE VIGIAR.
+    carimbados = sum(1 for x in itens
+                     if isinstance(x, dict) and x.get("INGRESSO"))
     return {"itens": len(itens), "por_resultado": conta, "prontos": len(aceites),
             "ficheiro": recibo["FICHEIRO"] or "",
             "espera": recibo["ESTADO"]}
@@ -687,6 +696,15 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # continua a ser chamado com exactamente os mesmos argumentos de antes —
     # acrescentar isto a todos mudaria a linha de comando de quatro executores
     # que nunca a pediram.
+    # ── OS FILTROS NOMEADOS ───────────────────────────────────────────────
+    # `argumentos_de_filtros` manda valores POSICIONAIS, pela ordem. Um filtro
+    # opcional nao cabe la: omiti-lo faz o seguinte ocupar o lugar dele.
+    #
+    #     UM ARGUMENTO OPCIONAL SEM NOME NAO E OPCIONAL: E UMA ARMADILHA.
+    for nome in e.get("filtros_nomeados") or []:
+        v = valores.get(nome)
+        if v not in (None, ""):
+            comando.append("--%s=%s" % (nome, v))
     if e.get("recebe_run_id"):
         comando.append("--run-id=%s" % run_id)
     inicio = agora()
@@ -850,6 +868,18 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
             julgar = recibo["INGRESSO"].get("PARA_A_PORTA") or []
         r = pela_porta(julgar, p.alvo, recibo["RUN_ID"])
         recibo["ADMISSAO"] = r
+        # ── UM FOSSIL DO SCRAP, RETIRADO — E A DIVIDA DELE, DECLARADA ───────
+        # Aqui estava `pop("ENTRADOS")`. `ENTRADOS` era o segundo balde de
+        # itens do SCRAP, e ele saiu na integracao: uma segunda lista a chegar
+        # a quem julga e uma segunda porta da Collection, e so uma delas passa
+        # pelo tradutor do texto.
+        #
+        # A INTENCAO dele era boa e NAO foi adoptada: «um recibo que carrega
+        # todas as observacoes deixa de ser um recibo». Continua verdade para
+        # `PARA_A_PORTA`. Mas esvazia-la aqui e mudanca de comportamento que
+        # esta missao nao tem autorizacao para fazer, e ha consumidores.
+        #
+        #     DIVIDA DECLARADA E DIVIDA. DIVIDA CALADA E DEFEITO.
         recibo["ITEM_COUNT_RAW"] = r["itens"]
         recibo["ITEM_COUNT_NORMALIZED"] = r["prontos"]
         recibo["ESTADO_DOS_ITENS"] = ("PRONTO_PARA_INTELIGENCIA" if r["prontos"]

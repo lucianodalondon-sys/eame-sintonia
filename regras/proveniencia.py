@@ -904,6 +904,27 @@ def texto_para_quem_julga(unidades):
 #
 # A partir daqui o DONO da população é este módulo, e o inventário é DERIVADO do diretório.
 
+
+# ── UMA COPIA ANTIGA DESTE VOCABULARIO VIVIA AQUI, E FOI RETIRADA ────────
+# A integracao do SCRAP trouxe, APENSO AO FIM DESTE FICHEIRO, o vocabulario
+# da especie do texto tal como ele era na SCRAP-C6: as quatro especies, as
+# tres bases, `SERVEM_PARA_ORIGINAL`, `especie_declarada` e
+# `serve_para_original`. Tudo isso ja vive em cima, na forma que a COL-E7-01
+# fechou — a mesma lei, mais larga.
+#
+# O `git merge` juntou os dois SEM UM UNICO CONFLITO, porque um apenso ao fim
+# de um ficheiro nao colide com nada. E em Python a SEGUNDA definicao ganha:
+# `BASES_DA_ESPECIE` passou a ser a de tres valores, e `DECLARED_BY_ROUTE`
+# — que a E7 acrescentou — deixou de existir para quem conferisse.
+#
+#     AUTO-MERGE SEM CONFLITO NAO E MERGE CORRECTO.
+#     DUAS DEFINICOES DO MESMO NOME NAO SAO CONFLITO PARA O GIT,
+#     E SAO CONFLITO PARA A CASA.
+#
+# Cinco casos do contrato do texto reprovaram, e foi assim que isto apareceu.
+# Nada se perdeu: cada simbolo do bloco antigo tem par mais completo acima.
+
+
 RAW_PAID_REL = 'data/samples/raw-paid'
 
 # Duas populações vivem no mesmo diretório e NÃO têm a mesma obrigação. Sem distinguir,

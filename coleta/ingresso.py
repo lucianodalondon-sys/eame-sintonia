@@ -100,6 +100,8 @@ RECUSAS = (SEM_CORRIDA, SEM_CONTEUDO, CONTRATO_QUEBRADO)
 
 # Os campos que o coletor PODE declarar e que a porta transporta sem tocar.
 # Nao ha valor por omissao nenhum aqui: o que o coletor nao disser fica NAO SEI.
+NAO_SEI_ID = "NAO SEI"
+
 DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "SOURCE_LOCATION", "FACT_LOCATION", "ITEM_LANGUAGE",
               "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT",
@@ -272,7 +274,29 @@ NAO_E_AFIRMACAO = (art.NAO_SEI, "NAO_SE_APLICA", "", None)
 
 # O que o CONTRATO sabe melhor do que o item: a especie e a linhagem. O resto
 # do item e dele, e nao se toca — o conteudo vive no item, nao na ficha.
-DA_FICHA_PARA_A_PORTA = ("ARTIFACT_TYPE", "PARENT_ARTIFACT_ID", "PARENT_SHA256")
+# ── O QUE A PORTA PROVOU VIAJA COM O ITEM ───────────────────────────────
+# Os tres primeiros ja ca estavam. Os quatro seguintes vieram do SCRAP, que
+# tinha razao na intencao e criava um segundo balde para a cumprir: ele
+# devolvia uma lista `ENTRADOS` com o item mais um carimbo `INGRESSO`, e o
+# orquestrador julgava ESSA lista.
+#
+#     UMA SEGUNDA LISTA PARA A ADMISSAO E UMA SEGUNDA PORTA DA COLLECTION.
+#
+# Duas listas a chegar a quem julga significam duas travessias, e so uma
+# delas passa pelo tradutor do texto — a observacao do SCRAP seria julgada
+# sem o contrato E7 aplicado. A intencao fica; o segundo balde sai.
+#
+#     UM ESTAGIO QUE NAO ATRAVESSA A FRONTEIRA NAO ACONTECEU
+#     PARA QUEM ESTA DO OUTRO LADO.  (a frase e do SCRAP, e esta certa)
+#
+# ⚠️ `RAW_OBSERVATION_ID` NAO ENTRA AQUI, e a ausencia e deliberada. Ele e
+# `raw_asset.id`, cunhado pelo banco DEPOIS desta linha; o SCRAP escrevia
+# `NAO SEI` no carimbo, honestamente, e quem precisa do id real tem-no em
+# `PARA_A_DERIVACAO`, que se monta depois de `preservar()` responder.
+#
+#     RAW_OBSERVATION_ID = raw_asset.id, E MAIS NADA.
+DA_FICHA_PARA_A_PORTA = ("ARTIFACT_TYPE", "PARENT_ARTIFACT_ID", "PARENT_SHA256",
+                         "ARTIFACT_ID", "SHA256", "STORAGE_LOCATION", "BYTES")
 
 
 def unidade_para_a_porta(item: dict, ficha) -> dict:

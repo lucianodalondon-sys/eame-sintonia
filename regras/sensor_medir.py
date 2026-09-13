@@ -29,12 +29,19 @@ Agrociencia. Nacionalidade da pessoa também não é lugar do fato.
 
     COUNTRY_OF_PERSON != COUNTRY_OF_FACT. IDIOMA != LUGAR.
 """
+import datetime
 import json
 import os
 import re
+import sys
 import unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
+# O DONO DA PROCEDENCIA. A especie de um texto derivado e pergunta dele, e este
+# ficheiro so a faz — nao a responde.
+import proveniencia as pv  # noqa: E402
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
 PILOT = os.path.join(SAMPLES, 'SENSOR-PILOT')
 
@@ -375,24 +382,116 @@ def classificar_comentario(texto):
     return 'OPINION', 'texto com conteúdo, sem marcador de campo nem de técnica'
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O LUGAR TEM DE ESTAR ESCRITO — E `_tem` NUNCA SOUBE EXIGIR ISSO
+# ══════════════════════════════════════════════════════════════════════════
+# `_tem`/`_raizes`/`_perto` são a peneira de ASSUNTO: ela trunca a palavra de
+# propósito, para que `diserbo` apanhe `diserbato` e `diserbante`. Para assunto
+# isso é virtude — a mesma ideia sobrevive à conjugação.
+#
+# Para NOME DE LUGAR é ruína, e a ruína foi medida neste corpus:
+#
+#     _raizes('la rioja')  ->  ['rio']     «la» é palavra de função e sai;
+#                                          «rioja» tem 5 letras e perde 2.
+#
+# e `_perto` procura a raiz DENTRO de qualquer palavra. O resultado, contado nos
+# 4.759 textos do acervo:
+#
+#     la rioja  <- septoriose (48x), fusariosi (17x), periodo, fitosanitario
+#     toledo    <- barbabietole, bietole            a beterraba virou província
+#     france    <- francesco, francesca             o nome da pessoa virou país
+#     beauce    <- beaucoup (43x)                   «muito» virou departamento
+#     verona    <- davvero, vero                    «deveras» virou cidade
+#     cordoba   <- ricordo, accordo                 «recordo» virou Andaluzia
+#     italia    <- italiana, italiano, digitale     e IDIOMA != LUGAR DO FATO
+#
+# Não é o caso de um lugar infeliz: 37 dos 59 lugares declarados casavam assim.
+#
+#     PENEIRA DE ASSUNTO TRUNCA PORQUE A IDEIA SOBREVIVE A CONJUGACAO.
+#     NOME PROPRIO NAO SOBREVIVE A TRUNCAGEM — ELE VIRA OUTRO NOME.
+#
+# Por isso a geografia ganha matcher PRÓPRIO, e ele não trunca nada. A regra de
+# fronteira é COPIADA, não inventada: vem de `leis/fato_local.py::mencoes`, que
+# já a escreveu com a razão ao lado — «substring acidental foi um dos falsos
+# positivos medidos no Brasil». Uma casa, uma regra.
+#
+# `_raizes`, `_perto` e `_tem` continuam INTACTOS e a servir o assunto. O que
+# muda é quem a geografia chama.
+_FRONTEIRA = r'(?<![0-9a-z])%s(?![0-9a-z])'
+
+
+def _nomeia_lugar(texto, nome):
+    """O texto ESCREVE este lugar? → True/False. Sem raiz, sem substring.
+
+    Nome de uma palavra casa como token inteiro. Nome de várias exige a frase
+    declarada, com os tokens na ordem — só o espaço entre eles é elástico, para
+    que uma quebra de linha não apague `la\nrioja`.
+
+        NORMALIZAR != STEMMING.
+
+    Acento e caixa são grafia da mesma palavra e caem na normalização. Cortar a
+    palavra para aumentar recall é outra coisa: é aceitar outra palavra.
+    """
+    partes = [re.escape(p) for p in _n(nome).split()]
+    if not partes:
+        return False
+    return re.search(_FRONTEIRA % r'\s+'.join(partes), texto) is not None
+
+
 def lugar_do_fato(texto):
-    """Só quando o texto NOMEIA. Idioma não é lugar."""
+    """Só quando o texto NOMEIA. Idioma não é lugar.
+
+    A ordem de desempate é a de sempre — primeiro país da tabela, primeiro nome
+    da lista — e a C7 não a mexeu de propósito: corrigir o casamento e mudar a
+    precedência na mesma missão faria dois efeitos num delta só.
+    """
     t = _n(texto)
     for pais, nomes in LUGARES.items():
-        achou = _tem(t, nomes)
-        if achou:
-            return pais, achou
+        for nome in nomes:
+            if _nomeia_lugar(t, nome):
+                return pais, nome
     return NAO_SEI, None
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O TEXTO ENTRA COM A ESPÉCIE, OU NÃO ENTRA ONDE A ESPÉCIE IMPORTA
+# ══════════════════════════════════════════════════════════════════════════
+# Medido na C6, sobre este próprio corpus: o texto da transcrição mudou o
+# `COUNTRY_OF_FACT` de QUINZE dos 28 vídeos que tocou — e em CATORZE deles
+# mudou-o para `ES`.
+#
+#     EAkcA_2FDN8  «CONTRASTO ALLA FLAVESCENZA DORATA DELLA VITE»  -> ES
+#     Ea-AcNeRDMU  «Diserbo in post-emergenza»                     -> ES
+#     G0oPuGlDkkU  «Diserbo del mais in pre-emergenza»             -> ES
+#     -oMxkCI1ERc  «Protection de la vigne en Champagne»   FR      -> ES
+#     rTOS8t1j174  já estava                               IT      -> ES
+#
+# Vídeos italianos e franceses a declarar facto em Espanha. E o texto que os
+# levou lá é INGLÊS — a C5 mediu que onze dos 28 são tradução.
+#
+#     UM TEXTO DE ESPÉCIE DESCONHECIDA ESTAVA A DECIDIR ONDE O FACTO ACONTECEU.
+#
+# A TRAVA É A MENOR POSSÍVEL, E ISSO É DELIBERADO
+# ------------------------------------------------
+# `classificar_conteudo` CONTINUA a receber o texto. Saber que um vídeo é webinar
+# ou pesquisa sobrevive à tradução, e barrar isso perderia capacidade para
+# arrumar um campo. Só `lugar_do_fato` passa a exigir espécie que sustente a
+# fala original — porque o nome de um lugar numa tradução é escolha de quem
+# traduziu, não do que foi dito.
+#
+#     FIT FOR PURPOSE E DO CONSUMIDOR. PROCEDENCIA E DA COLETA.
+#     Por isso a resposta nao e «rejeitar traducao», e «perguntar a especie».
 def medir():
     videos, vistos = [], set()
-    trans = {}
+    trans, especies = {}, {}
     for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('TRANSCRICOES-%s.json' % L) or {'ITEMS': []}
         for t in d['ITEMS']:
             if t.get('TRANSCRIPT'):
                 trans[t['SOURCE_URL']] = t['TRANSCRIPT']
+                # A espécie vem do REGISTO, e o registo antigo não a tem — o que
+                # devolve `NÃO SEI`. Ausência de campo NUNCA vira ORIGINAL.
+                especies[t['SOURCE_URL']] = t.get('TRANSCRIPT_KIND') or pv.NAO_SEI
     dups = 0
     for L in ('A', 'B', 'C', 'D', 'E'):
         d = _ler('VIDEOS-%s.json' % L) or {'ITEMS': []}
@@ -403,9 +502,14 @@ def medir():
                 continue
             vistos.add(chave)
             tr = trans.get(v['SOURCE_URL'])
+            especie = especies.get(v['SOURCE_URL'], pv.NAO_SEI) if tr else None
+            # Tolerante à tradução: o tipo de conteúdo sobrevive a ela.
             tipo, ev = classificar_conteudo(v.get('TITLE'), v.get('DESCRIPTION'), tr)
+            # NÃO tolerante: o lugar do facto sai das palavras ditas, e uma
+            # tradução tem as palavras de quem traduziu.
+            tr_para_lugar = tr if (tr and pv.serve_para_original(especie)) else ''
             pais_fato, nome = lugar_do_fato(
-                '%s %s %s' % (v.get('TITLE'), v.get('DESCRIPTION'), tr or ''))
+                '%s %s %s' % (v.get('TITLE'), v.get('DESCRIPTION'), tr_para_lugar))
             videos.append(dict(v, **{
                 'CONTENT_TYPE': tipo, 'CONTENT_TYPE_EVIDENCE': ev,
                 'TRANSCRIPT_AVAILABLE': 'YES' if tr else 'NO',
@@ -517,6 +621,30 @@ if __name__ == '__main__':
         'SOURCE_LOCATION': 'derivado', 'FACT_LOCATION': 'ver por item',
         'ORIGINAL_LANGUAGE': 'pt', 'EVIDENCE_CLASS': 'DERIVED_MEASUREMENT',
         'APIFY_RUNS': 0, 'COST_USD': 0,
+        # ── DE ONDE ISTO VEM, E DE QUANDO ─────────────────────────────────
+        # Este artefato é uma FUNÇÃO dos pais mais a régua do dia. Sem dizer
+        # quando a derivação correu, ele parece ter a idade da coleta — e uma
+        # medição de 2026-09-06 ficou cinco dias a ser lida como se fosse de
+        # hoje, enquanto a régua por baixo dela já tinha mudado três vezes.
+        #
+        #     ARTEFATO DERIVADO SEM HORA DE DERIVACAO ENVELHECE EM SEGREDO.
+        'ARTIFACT_KIND': 'DERIVED',
+        'PARENT_ARTIFACTS': sorted(
+            'data/samples/SENSOR-PILOT/%s-%s.json' % (n, L)
+            for n in ('VIDEOS', 'COMENTARIOS', 'TRANSCRICOES')
+            for L in ('A', 'B', 'C', 'D', 'E')
+            if os.path.exists(os.path.join(PILOT, '%s-%s.json' % (n, L)))),
+        'CAPTURED_AT': datetime.datetime.now(datetime.timezone.utc)
+                               .strftime('%Y-%m-%d'),
+        'DERIVED_AT': datetime.datetime.now(datetime.timezone.utc)
+                              .strftime('%Y-%m-%dT%H:%M:%SZ'),
+        # A régua muda o número. Quem lê daqui a um mês precisa saber qual delas
+        # produziu estas contagens.
+        'GEOGRAPHY_RULER': (
+            'COUNTRY_OF_FACT exige o nome do lugar ESCRITO, como token inteiro '
+            '(frase inteira, para nome de várias palavras). Sem raiz truncada e '
+            'sem substring: «italiano» não é «italia», «barbabietole» não é '
+            '«toledo». Idioma e gentílico não são lugar do facto.'),
         'LIMITE_DO_CLASSIFICADOR': (
             'lexical. Polissemia produz falso positivo e nenhum portão automático detecta '
             'isso. Todo item carrega CONTENT_TYPE_EVIDENCE; a verificação é humana.'),

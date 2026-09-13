@@ -109,8 +109,35 @@ def auth_mode(rota):
 # Estados de capacidade. `ROUTE_NOT_ALLOWED` é diferente de `BLOCKED`:
 # BLOCKED = a plataforma me impediu tecnicamente.
 # ROUTE_NOT_ALLOWED = ela permitiria tecnicamente, e eu escolhi não fazer.
-ESTADOS = ('PROVED', 'POSSIBLE_NOT_PROVED', 'BLOCKED',
-           'ROUTE_NOT_ALLOWED', 'CREDENTIAL_MISSING', 'NOT_APPLICABLE', 'UNKNOWN')
+#
+# ── DOIS ESTADOS NOVOS NA C5, E ELES NÃO SÃO SINÓNIMOS DOS OUTROS ──────────
+# `captions.download` e `captions.list` estavam os dois como `ROUTE_NOT_ALLOWED`,
+# e isso dizia uma coisa falsa sobre eles: que a casa PODIA e ESCOLHEU não. Não
+# é o caso de nenhum dos dois.
+#
+#     ROUTE_NOT_ALLOWED         eu podia, e decidi não fazer.
+#     REQUIRES_OWNER_PERMISSION o dono do vídeo teria de me autorizar.
+#     REQUIRES_AUTHORIZATION    falta-me credencial mais forte (OAuth), não decisão.
+#
+# A diferença é quem tem a chave da porta. Colapsá-los faria a casa carregar a
+# culpa de uma recusa que não é dela — e, pior, esconderia que UM DELES ABRE se
+# alguém der uma autorização, enquanto o outro depende de terceiros.
+#
+#     «EU NÃO QUIS» E «NÃO ME DEIXAM» NÃO SE ESCREVEM COM A MESMA PALAVRA.
+# `PARTIAL` entrou na C10.8B-LIVE, e entrou DECLARADO. A rota `apify:transcricao`
+# correu de ponta a ponta pelo caminho canônico — executor, roteador, adaptador,
+# dono pago — com 1 POST, cap US$0,10 e `SUCCEEDED`, e o objeto voltou sem a
+# carga da capacidade. Nem `PROVED` (não entregou) nem `POSSIBLE_NOT_PROVED`
+# (já não é verdade que não se saiba se corre).
+#
+#     PROVIDER REACHED != CAPABILITY DELIVERED.
+#
+# A lista continua FECHADA, e continua a ser conferida por `test_c5`. Estender
+# um vocabulário fechado é uma decisão que se escreve; deixá-lo aberto para não
+# ter de a escrever é que seria o atalho.
+ESTADOS = ('PROVED', 'PARTIAL', 'POSSIBLE_NOT_PROVED', 'BLOCKED',
+           'ROUTE_NOT_ALLOWED', 'REQUIRES_OWNER_PERMISSION', 'REQUIRES_AUTHORIZATION',
+           'CREDENTIAL_MISSING', 'NOT_APPLICABLE', 'UNKNOWN')
 
 # Vocabulário fechado do fallback pago. "porque a Apify já estava configurada"
 # não está aqui, e é justamente por isso que a lista é fechada.
@@ -183,17 +210,59 @@ MATRIZ = {
               'https://developers.google.com/youtube/v3/determine_quota_cost'),
         ],
         'FETCH_TRANSCRIPT': [
+            # Reconferido na C5 contra a documentação VIVA, 2026-09-11. A frase
+            # continua lá, palavra por palavra: «This method is requires the user to
+            # have permission to edit the video.»
             r('youtube-data-api-v3:captions.download', 'OFFICIAL_API_FREE', 'NAO',
-              'ROUTE_NOT_ALLOWED', '200 unidades',
-              'SÓ O DONO DO VÍDEO. A doc exige "permission to edit the video". Para canal '
-              'de terceiro devolve 403. Não existe rota oficial de legenda pública.',
+              'REQUIRES_OWNER_PERMISSION', '200 unidades',
+              'SÓ O DONO DO VÍDEO. A doc exige "permission to edit the video", e devolve '
+              '403 `forbidden` sem ela. Para canal de terceiro NÃO HÁ rota oficial de '
+              'legenda — e isto não é limite de chave, é limite de PERMISSÃO.',
               'https://developers.google.com/youtube/v3/docs/captions/download'),
+            # Listar não é baixar, e por isso tem linha própria. Medido na C5: exige
+            # OAuth (a chave de API sozinha NÃO serve) e custa 50 unidades. Mesmo que
+            # listasse, o conteúdo continuaria atrás da `captions.download`.
+            r('youtube-data-api-v3:captions.list', 'OFFICIAL_API_FREE', 'NAO',
+              'REQUIRES_AUTHORIZATION', '50 unidades',
+              'PRECISA DE OAUTH — `YOUTUBE_DATA_API_KEY` não autentica este método. E a '
+              'resposta NÃO traz o texto da legenda: só a ficha da faixa. Listar uma '
+              'faixa nunca foi o mesmo que poder lê-la.',
+              'https://developers.google.com/youtube/v3/docs/captions/list'),
+            # ⚠️ A NOTA ANTIGA CITAVA O DISALLOW ERRADO — corrigido na C5, 2026-09-11.
+            # Ela dizia «`/timedtext_video` está em Disallow», e está — mas NÃO é esse
+            # o caminho que o código chamaria. A `baseUrl` que sai de `captionTracks`
+            # aponta para `/api/timedtext`, e quem a cobre é o `Disallow: /api/`.
+            #
+            #     O VEREDITO ESTAVA CERTO E A PROVA ESTAVA TROCADA.
+            #     Uma citação errada cai no dia em que alguém a confere.
+            #
+            # E há duas autoridades ACIMA do robots.txt, medidas na C5:
+            #
+            #   ToS §Permissions and Restrictions: proíbe «access the Service using any
+            #   automated means (such as robots, botnets or scrapers)» salvo motor de
+            #   busca público conforme robots.txt, ou permissão escrita prévia. Esta
+            #   casa não é motor de busca e não tem permissão escrita.
+            #
+            #   Developer Policies III.D.7 e III.E.6: quem usa a API «must not use
+            #   undocumented APIs without express permission» e «must not ... scrape
+            #   YouTube Applications». O SINTONIA usa a Data API — logo está preso a
+            #   estas, e não só ao robots.txt.
             r('timedtext', 'DIRECT_HTTP', 'NAO', 'ROUTE_NOT_ALLOWED', 'zero',
-              'não documentado pelo Google e `/timedtext_video` está em Disallow',
-              'https://www.youtube.com/robots.txt'),
-            r('apify:transcricao', 'APIFY', 'CONDICIONAL', 'POSSIBLE_NOT_PROVED', 'por minuto',
+              'ToS proíbe meio automatizado sem permissão escrita; `Disallow: /api/` '
+              'cobre a `baseUrl` real; Developer Policies III.D.7 (API não documentada) '
+              'e III.E.6 (scraping). Tecnicamente também não fecha: a página /watch '
+              'devolveu 429+CAPTCHA de IP de datacenter em 2026-09-03, e timedtext sem '
+              'assinatura devolve corpo vazio.',
+              'https://www.youtube.com/t/terms · https://www.youtube.com/robots.txt · '
+              'https://developers.google.com/youtube/terms/developer-policies'),
+            r('apify:transcricao', 'APIFY', 'CONDICIONAL', 'PARTIAL', 'por minuto',
               'ÚNICA rota restante para legenda de canal de terceiro. Motivo canônico: '
-              'ROUTE_NOT_ALLOWED nas rotas livres.', None),
+              'ROUTE_NOT_ALLOWED nas rotas livres. PARTIAL e nao PROVED: a C10.8B-LIVE '
+              'correu-a de ponta a ponta pelo caminho canonico — executor, roteador, '
+              'adaptador, dono pago — com 1 POST, cap US$0,10 e status SUCCEEDED, e o '
+              'objeto voltou SEM transcricao nos campos que o adaptador le. '
+              'PROVIDER REACHED != CAPABILITY DELIVERED.',
+              'docs/sintonia-scrap/C10-8B-LIVE-PRIMEIRA-ROTA-PAGA.md'),
         ],
     },
 
@@ -347,10 +416,41 @@ MATRIZ = {
               'em reel, visualizações e duração', 'scripts/instagram_janela.py'),
         ],
         'FETCH_TRANSCRIPT': [
-            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'SIM', 'PROVED',
+            # ── DECISÃO HUMANA, C10.5D · 2026-09-11 ──────────────────────────
+            # Esta linha deixou de ser `SIM`. O que mudou NÃO foi a capacidade:
+            # foi a leitura do `robots.txt` VIVO de `instagram.com`, medida pelo
+            # portão desta casa e confirmada lendo o ficheiro — 6.256 bytes, e o
+            # bloco que nos serve é `User-agent: *` / `Disallow: /`. O agente
+            # desta coleta não aparece nomeado em lado nenhum.
+            #
+            #     ROTA QUE FUNCIONA NÃO É ROTA PERMITIDA.
+            #
+            # E a rota que esta linha nomeia NÃO é um motor local: ela baixa o
+            # MP4 INTEIRO da CDN da Meta antes de reconhecer a fala. É por isso
+            # que o `NAO` lhe pertence — não por causa do `faster-whisper`.
+            #
+            # O QUE ESTE `NAO` **NÃO** DIZ:
+            #     · não diz que o reconhecedor local está proibido;
+            #     · não diz que os bytes já preservados nesta casa não podem
+            #       voltar a ser processados;
+            #     · não rebaixa a capacidade medida — `instagram.reel.transcribe`
+            #       continua `PROVEN` em `scrap_capacidades.py`, e tem de
+            #       continuar.
+            #
+            #     CAN DO != MAY DO != DID DO.   REUSAR != ADQUIRIR.
+            #
+            # Quem faz valer esta decisão é o portão que vive no ponto onde o
+            # socket abre (`ferramentas/reel_transcricao.py`), e é por viver lá
+            # que ele recusa a aquisição sem recusar o reprocessamento.
+            r('instagram_transcrever.py:faster-whisper', 'LOCAL_EXECUTOR', 'NAO',
+              'ROUTE_NOT_ALLOWED',
               'zero dólar, ~6 h/1.000 vídeos no modelo small',
-              'já medido nesta casa; reusar, não recriar',
-              'scripts/instagram_transcrever.py'),
+              'A ROTA SAI PARA A PLATAFORMA: baixa o MP4 inteiro da CDN da Meta e '
+              'só depois transcreve. O `robots.txt` vivo de instagram.com responde '
+              '`Disallow: /` ao agente desta casa — medido na C10.5. O motor local '
+              'continua provado e os bytes já preservados continuam reprocessáveis; '
+              'o que está recusado é SAIR para buscar mídia nova.',
+              'docs/sintonia-scrap/C10-5-FLUXO-DA-COLLECTION.md'),
         ],
         'FETCH_COMMENTS': [
             r('apify:comments', 'APIFY', 'CONDICIONAL', 'PROVED', 'por item',
@@ -555,6 +655,115 @@ def rota_declarada(platform, capability, auth_mode):
         if AUTH_MODE_DA_CLASSE.get(r['CLASSE']) == auth_mode:
             return r
     return None
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# A DECISÃO, PARA QUEM PRECISA DELA ANTES DE TOCAR A REDE
+# ══════════════════════════════════════════════════════════════════════════
+#: O que a política responde. Três palavras, e nenhuma cobre a outra.
+NAO_DECLARADA = 'NOT_DECLARED'
+NAO_PERMITIDA = 'ROUTE_NOT_ALLOWED'
+PERMITIDA_SIM = 'ALLOWED'
+
+
+def decisao(platform, capability):
+    """A decisão desta matriz para (plataforma, capacidade). LÊ — não decide.
+
+    Existe porque quem adquire precisa perguntar ANTES de sair para a rede, e
+    até aqui só o roteador sabia perguntar. Quem não passava pelo roteador não
+    tinha a quem perguntar, e uma pergunta que não tem dono é uma pergunta que
+    não se faz.
+
+        PERGUNTAR DEPOIS DE BAIXAR É CONFERIR O BILHETE DEPOIS DA VIAGEM.
+
+    Esta função não escreve `PERMITIDA` nenhuma. Ela devolve o que já está
+    escrito na `MATRIZ`, traduzido para três palavras que NÃO são sinónimos:
+
+        NOT_DECLARED       ninguém mediu esta capacidade nesta plataforma.
+        ROUTE_NOT_ALLOWED  mediram, e nenhuma rota viável sobrou.
+        ALLOWED            há rota declarada, permitida e viável.
+
+    Colapsar a primeira na segunda faria a casa dizer «não pode» onde a
+    verdade é «ninguém sabe», e é assim que uma ausência de medição vira uma
+    proibição que ninguém decidiu — ou, virando ao contrário, uma autorização
+    que ninguém deu.
+
+        NÃO DECLARADO NÃO É PROIBIDO, E MUITO MENOS É PERMITIDO.
+    """
+    plat, capac = (platform or '').upper(), (capability or '').upper()
+    veredicto = {'PLATFORM': plat, 'CAPABILITY': capac, 'DECISAO': NAO_DECLARADA,
+                 'ROTA': None, 'CLASSE': None, 'PERMITIDA': None, 'ESTADO': None,
+                 'AUTH_MODE': None, 'PORQUE': None}
+    rotas = (MATRIZ.get(plat) or {}).get(capac)
+    if not rotas:
+        veredicto['PORQUE'] = ('a matriz nao declara %s para %s. Ninguem mediu '
+                               'esta porta.' % (capac, plat))
+        return veredicto
+    escolhida = _rota_padrao(rotas)
+    if escolhida is None:
+        veredicto['DECISAO'] = NAO_PERMITIDA
+        veredicto['PORQUE'] = ('%s/%s tem %d rota(s) declarada(s) e nenhuma '
+                               'viavel' % (plat, capac, len(rotas)))
+        return veredicto
+    veredicto.update({'DECISAO': PERMITIDA_SIM, 'ROTA': escolhida['ROTA'],
+                      'CLASSE': escolhida['CLASSE'],
+                      'PERMITIDA': escolhida['PERMITIDA'],
+                      'ESTADO': escolhida['ESTADO'],
+                      'AUTH_MODE': auth_mode(escolhida),
+                      'PORQUE': escolhida['NOTA']})
+    return veredicto
+
+
+def actor_proibido(plataforma, actor):
+    """Esta matriz NOMEIA este ator, e só em rotas proibidas? → (bool, porquê).
+
+    ⚠️ NASCEU DE UM CAMINHO LATERAL MEDIDO NA LINKEDIN-OP-01 e fechado na
+    SCRAP-RC-01. `regras/sensor_coleta.py` configura quatro atores HarvestAPI do
+    LinkedIn e chama a porta paga DIRETAMENTE, sem passar pelo roteador. Ele
+    ficava parado pela autorização de gasto — e isso não chega:
+
+        SPEND_AUTHORIZATION != ROUTE_POLICY.
+
+    Uma autorização financeira futura não pode transformar uma rota proibida
+    numa rota permitida. A pergunta «esta rota é permitida?» tem dono, e o dono
+    é este ficheiro; o que faltava era alguém fazer-lhe a pergunta antes do POST.
+
+    A POLARIDADE IMPORTA, E É FAIL-CLOSED SÓ SOBRE O QUE ESTÁ NOMEADO
+    -----------------------------------------------------------------
+    Responde `True` quando a matriz nomeia o ator numa rota `PERMITIDA = NAO` e
+    **não** o nomeia em nenhuma permitida. Um ator que a matriz não nomeia não é
+    proibido por omissão: seria recusar por ausência de declaração, e a maior
+    parte dos atores desta casa é nomeada pela CAPACIDADE, não pelo id — o
+    `apify:transcricao` do YouTube é exactamente isso.
+
+        DECLARADO PROIBIDO != NÃO DECLARADO.
+        O SILÊNCIO DA MATRIZ NÃO PROÍBE, E TAMBÉM NÃO AUTORIZA.
+
+    O nome da rota pode trazer glob (`apify:harvestapi~linkedin-*`), porque é
+    assim que a matriz já escreve uma família de atores numa linha só.
+    """
+    import fnmatch
+    alvo = str(actor or '').strip()
+    if not alvo:
+        return False, ''
+    caps = MATRIZ.get(str(plataforma or '').upper()) or {}
+    proibidas, permitidas = [], []
+    for capac, rotas in caps.items():
+        if capac.startswith('_') or not isinstance(rotas, list):
+            continue
+        for r in rotas:
+            nome = str(r.get('ROTA') or '')
+            padrao = nome.split(':', 1)[1] if ':' in nome else nome
+            if not (fnmatch.fnmatch(alvo, padrao) or alvo == padrao):
+                continue
+            (permitidas if r.get('PERMITIDA') in ('SIM', 'CONDICIONAL')
+             else proibidas).append((capac, nome, r.get('NOTA') or ''))
+    if proibidas and not permitidas:
+        capac, nome, nota = proibidas[0]
+        return True, ('%s/%s declara a rota «%s» como PERMITIDA = NAO%s'
+                      % (plataforma, capac, nome,
+                         (' — ' + nota[:160]) if nota else ''))
+    return False, ''
 
 
 def _rota_padrao(rotas):
