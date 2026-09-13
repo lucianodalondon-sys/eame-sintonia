@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "06a8fba5f05c00df3adaf6f2624e1fcf2d0ed9de",
-    "GENERATED_AT": "2026-09-13T21:28:23+00:00"
+    "HEAD": "2d6749f4ae75990fc6a9d451ce86582d49aad2fb",
+    "GENERATED_AT": "2026-09-13T22:48:19+00:00"
   },
   "FILES": [
     {
@@ -3942,6 +3942,20 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.json",
+      "sha": "342e24f6106e15ee4dd01b30037d0872cb554669",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.md",
+      "sha": "9fd1633c1f47a31eb208bc2fc9ba12adb8a693f1",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CENSO-DA-COLETA.md",
       "sha": "4868be1478cda9d46ed370d61ef1ac7b2b2dc349",
       "ext": ".md",
@@ -3984,6 +3998,27 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/INTELLIGENCE-CONCEPT-OWNERSHIP.md",
+      "sha": "eb750a9ddd1b6ebae6e34598c621b861c0f284b8",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
+      "sha": "b68e3c6e0ca9e987a7d3c2bcdce48ec88fd05d0f",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/INTELLIGENCE-OBSERVED-FLOWS.md",
+      "sha": "a73a9082e8ce451b7851ade448904c33dfc31fda",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "sha": "84e1e5fd7d9895c03bd9340503448347424b0e86",
       "ext": ".md",
@@ -4014,6 +4049,13 @@
     {
       "path": "docs/operacao/RECONCILIACAO-DA-INTELLIGENCE.md",
       "sha": "145db47c5b1b34f488bdda9b5d306a970bbb1f40",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/RED-TEAM-CENSO-INTELLIGENCE.md",
+      "sha": "3b91da7cd288c12c98e560665a815c6749c75fba",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6737,6 +6779,13 @@
     {
       "path": "provas/auditoria.py",
       "sha": "5b0375fdf9f334142d56f869dae339c7cf010868",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/censo_da_inteligencia.py",
+      "sha": "943c6aee644183385c377d354638ef4434f3905b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -21423,6 +21472,28 @@
       }
     },
     {
+      "from_file": "provas/censo_da_inteligencia.py",
+      "to_file": "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_da_inteligencia.py",
+        "line": 264,
+        "snippet": "with io.open(os.path.join(SAIDA, \"INTELLIGENCE-MAP-UNIVERSE.json\"),"
+      }
+    },
+    {
+      "from_file": "provas/censo_da_inteligencia.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/censo_da_inteligencia.py",
+        "line": 117,
+        "snippet": "D = json.load(io.open(caminho(\"system-map/data/architecture.declared.json\"),"
+      }
+    },
+    {
       "from_file": "provas/chain.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -25561,10 +25632,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1156,
-    "files_readable": 394,
-    "files_code_dir": 441,
-    "file_edges": 1553,
+    "files_tracked": 1163,
+    "files_readable": 395,
+    "files_code_dir": 442,
+    "file_edges": 1555,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

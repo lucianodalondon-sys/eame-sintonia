@@ -586,17 +586,23 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.json",
+      "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.md",
       "docs/operacao/CENSO-DA-COLETA.md",
       "docs/operacao/CENSO-DA-INTELLIGENCE.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/DECISAO-DA-MORADA-DA-SALA-DE-ESPERA.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
+      "docs/operacao/INTELLIGENCE-CONCEPT-OWNERSHIP.md",
+      "docs/operacao/INTELLIGENCE-MAP-UNIVERSE.json",
+      "docs/operacao/INTELLIGENCE-OBSERVED-FLOWS.md",
       "docs/operacao/ITALY-FORWARD-ONLY-SCHEDULING-V1.md",
       "docs/operacao/ITALY-RECURRENT-PILOT-V1.md",
       "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
       "docs/operacao/PROVA-DE-RECORRENCIA-MISSAO-08.md",
       "docs/operacao/RECONCILIACAO-DA-INTELLIGENCE.md",
+      "docs/operacao/RED-TEAM-CENSO-INTELLIGENCE.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
       "docs/piloto/ASK-SINTONIA-BENCHMARK.md",
@@ -1011,6 +1017,7 @@
     "provas": [
       "provas/a_sala_de_espera_em_postgres.py",
       "provas/auditoria.py",
+      "provas/censo_da_inteligencia.py",
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
@@ -1600,8 +1607,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "06a8fba5f05c00df3adaf6f2624e1fcf2d0ed9de",
-    "GENERATED_AT": "2026-09-13T21:28:23+00:00"
+    "HEAD": "2d6749f4ae75990fc6a9d451ce86582d49aad2fb",
+    "GENERATED_AT": "2026-09-13T22:48:19+00:00"
   },
   "FAMILIES": [
     {
@@ -1677,7 +1684,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 30
+      "count": 31
     },
     {
       "id": "F-ENTREGA",
@@ -2046,7 +2053,7 @@
       "y": 2460,
       "w": 1235,
       "h": 1972,
-      "count": 14
+      "count": 15
     },
     {
       "id": "Z-PACOTE",
@@ -6122,6 +6129,49 @@
       "y": 2630
     },
     {
+      "id": "C-CENSO-INTELIGENCIA",
+      "name": "Censo da Intelligence",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Extrai do proprio System Map a populacao exacta da familia INTELIGENCIA (componente -> territorio -> familia) e mede cada peca contra a arvore: ficheiros, simbolos, e quem lhe toca — separando runtime, workflow, teste, prova, documento e mapa.",
+      "why_here": "O MAPA E OBSERVADOR DA MAQUINA, E NAO A MAQUINA. Este instrumento nao conta a copia do mapa em client/system-map/ como uso, nao transforma import em fluxo, e nao afirma runtime — que ele nao consegue medir. O que ele nao pode provar, ele diz.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "docs/operacao/CENSO-ATUAL-DA-INTELLIGENCE.md",
+        "docs/operacao/INTELLIGENCE-CONCEPT-OWNERSHIP.md",
+        "docs/operacao/INTELLIGENCE-OBSERVED-FLOWS.md",
+        "docs/operacao/RED-TEAM-CENSO-INTELLIGENCE.md",
+        "provas/censo_da_inteligencia.py"
+      ],
+      "file_count": 5,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11600,
+      "y": 2630
+    },
+    {
       "id": "C-CI-COLETA",
       "name": "Os botoes que disparam a coleta",
       "territory": "Z-PEDIDO",
@@ -6222,7 +6272,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12015,
       "y": 2630
     },
     {
@@ -6326,8 +6376,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12015,
-      "y": 2630
+      "x": 11185,
+      "y": 2952
     },
     {
       "id": "C-CICATRIZES-BR",
@@ -7533,7 +7583,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 11600,
       "y": 2952
     },
     {
@@ -7972,7 +8022,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12015,
       "y": 2952
     },
     {
@@ -8025,8 +8075,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12015,
-      "y": 2952
+      "x": 11185,
+      "y": 3274
     },
     {
       "id": "C-MAPA-SCAN",
@@ -8093,7 +8143,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 11185,
+      "x": 11600,
       "y": 3274
     },
     {
@@ -8140,7 +8190,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12015,
       "y": 3274
     },
     {
@@ -8188,8 +8238,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12015,
-      "y": 3274
+      "x": 11185,
+      "y": 3596
     },
     {
       "id": "C-MEDICAO",
@@ -8245,7 +8295,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 11600,
       "y": 3596
     },
     {
@@ -9139,7 +9189,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
+      "x": 12015,
       "y": 3596
     },
     {
@@ -9183,8 +9233,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 12015,
-      "y": 3596
+      "x": 11185,
+      "y": 3918
     },
     {
       "id": "C-PROVENIENCIA",
@@ -9337,7 +9387,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
+      "x": 11600,
       "y": 3918
     },
     {
@@ -11105,7 +11155,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 11600,
+      "x": 12015,
       "y": 3918
     },
     {
@@ -13813,7 +13863,7 @@
       "icon": "B",
       "facts": [
         "branch claude/funny-hypatia-y7ho5s",
-        "HEAD 06a8fba5f05c00df3adaf6f2624e1fcf2d0ed9de"
+        "HEAD 2d6749f4ae75990fc6a9d451ce86582d49aad2fb"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21694,20 +21744,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 648,
+  "UNCLAIMED_FILES_COUNT": 650,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 139,
+    "components": 140,
     "components_proven": 96,
     "components_pending": 35,
     "components_broken": 4,
-    "components_unknown": 4,
+    "components_unknown": 5,
     "edges": 375,
     "edges_proven": 363,
     "edges_unknown": 12,
     "business_edges": 4,
-    "files_tracked": 1156,
-    "files_covered": 508,
+    "files_tracked": 1163,
+    "files_covered": 513,
     "files_code_unclaimed": 0
   }
 }
