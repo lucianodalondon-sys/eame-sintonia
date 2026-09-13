@@ -11903,7 +11903,73 @@ A_FASE_10_ENTRA_NO_ACERVO     PASS
 Com o código antigo, isso era vermelho. **É esse o teste de uma cura contra
 caducidade: acrescentar o que faria o defeito voltar, e não mexer em nada.**
 
-## 105.8 · CONSEQUÊNCIA
+## 105.9 · UM PASSO VERMELHO ESCONDE OS PASSOS A SEGUIR
+
+Consertada a contagem, o job andou mais quatro passos e parou noutro sítio:
+
+```
+relation "public.participacao_na_derivacao" does not exist
+```
+
+O passo `2f` NUNCA TINHA CORRIDO. Estava atrás do passo vermelho, e um passo
+que não corre não é um passo que passa.
+
+```
+UM JOB VERMELHO NAO TEM UM DEFEITO.
+TEM UM DEFEITO VISIVEL, E SABE-SE LA QUANTOS POR TRAS DELE.
+```
+
+Isto muda o que significa «consertei o job». A medição honesta é: o passo que
+era vermelho ficou verde, e apareceu outro que ninguém tinha visto. Corrigir a
+contagem não foi o fim da missão — foi o que **tornou a missão mensurável**.
+
+E a prática que se leva daqui: ao fechar um job vermelho, correr LOCALMENTE os
+passos que vinham depois do que falhava, antes de empurrar. Foi assim que o
+`2g` e o `2h` — também nunca corridos — foram medidos antes de o CI os
+encontrar.
+
+## 105.10 · A MESMA DOENÇA, E A CURA JÁ ESTAVA ESCRITA
+
+O segundo defeito era o mesmo do primeiro noutra roupa:
+`provas/o_forward_conta_se.py` montava o esquema a partir de uma **lista de
+migrations escrita à mão**, que parava na `026`.
+
+E já tinha envelhecido **uma vez**: faltava a `025`, foi remendada com
+`'025', '026'`, e ficou um comentário ao lado a dizer, em letra bem grande,
+`UMA LISTA A MAO ENVELHECE CALADA`. Envelheceu outra vez, exactamente como o
+comentário avisava.
+
+O que torna este caso instrutivo não é o defeito — é que **a cura já existia na
+casa**. `provas/a_rota_m2_atravessa.py` tinha sofrido o mesmo, fora curado com
+`_cadeia_de_migrations()` + `_SO_VERIFICA`, e ganhara uma guarda própria. Só
+que a guarda olhava para **um ficheiro**.
+
+```
+CURAR UM SITIO E DEIXAR A GUARDA A OLHAR SO PARA ESSE SITIO
+E CURAR UM SITIO.
+```
+
+Duas consequências práticas:
+
+1. **A cura repetida usa o mesmo nome.** Inventar um segundo vocabulário para o
+   mesmo defeito cria duas coisas que alguém tem de se lembrar de procurar.
+   `_SO_VERIFICA` e `_cadeia_de_migrations()` foram copiados tal e qual.
+2. **A guarda passou a iterar uma lista de ficheiros**
+   (`PROVAS_QUE_MONTAM_O_ESQUEMA`), verificada a morder: reposta a lista à mão,
+   ela reprova nomeando o ficheiro **e** a migration em falta. Quando nascer uma
+   terceira prova que aplique migrations, acrescenta-se ao tuplo — e não a um
+   comentário.
+
+E um terceiro, mais pequeno e da mesma família: `delete from derived_artifact`
+estava escrito em três sítios. A `029` deu um filho ao derivado, e a mesma linha
+passou a bater numa chave estrangeira **nos três ao mesmo tempo**. Virou
+`limpar_derivados()`.
+
+```
+TRES COPIAS DE UMA REGRA SAO TRES SITIOS PARA ESQUECER A MESMA COISA.
+```
+
+## 105.11 · CONSEQUÊNCIA
 
 ```
 · uma contagem so entra numa assercao se for o SUJEITO, e nunca se for
@@ -11914,6 +11980,10 @@ caducidade: acrescentar o que faria o defeito voltar, e não mexer em nada.**
 · silencio nao e PASS: todo elemento do universo tem de ter destino dito
 · provar que uma cura contra caducidade pegou = acrescentar o proximo
   elemento e nao editar nada
+· ao fechar um job vermelho, correr LOCALMENTE os passos que vinham
+  depois do que falhava: eles nunca correram
+· cura repetida usa o nome da cura que ja existe, nunca um segundo
+· a guarda de uma cura itera uma LISTA DE SITIOS, e a lista vive no teste
 ```
 
 **Medido:** `postgres-descartavel` reproduzido vermelho antes de tocar em nada ·
