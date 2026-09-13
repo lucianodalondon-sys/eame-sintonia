@@ -12756,3 +12756,208 @@ E a que vale para lá desta missão:
 UMA LINHAGEM NÃO SE DESCOBRE: ELA TRANSPORTA-SE.
 QUEM A PROCURA DEPOIS ENCONTRA SEMELHANÇA, E SEMELHANÇA NÃO É IDENTIDADE.
 ```
+
+---
+
+# §110 · PROVA DENTRO DO PROCESSO NÃO É DURABILIDADE OPERACIONAL
+
+**Missão:** `C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1`, a seguir ao bloqueio
+medido em `C-ITALIA-FIRST-REAL-COLLECTION-CANARY-V1`.
+
+## 110.1 · O QUE MUDOU
+
+A Sala de Espera deixou de viver num ficheiro do workspace do runner e passou a
+viver numa tabela — `public.sala_de_espera`, migration `031` — **atrás do mesmo
+dono**, `admissao/sala_de_espera.py`. E ganhou o que um ficheiro não tinha:
+uma fila com transição auditável, `WAITING → CONSUMED`, sem apagar a linha.
+
+## 110.2 · POR QUÊ
+
+Porque a primeira tentativa de coleta real italiana parou antes de adquirir um
+único byte, e parou com razão. A pergunta que nunca tinha sido feita era esta:
+
+> quando o runner acabar, onde é que o READY fica?
+
+A `ADR-SALA-DE-ESPERA-V1` estava certa no que decidiu — o **meio** — e nunca
+respondeu à **sobrevivência**. Não é contradição dela: é uma pergunta que ela
+não fez, porque naquele momento ninguém tinha tentado coletar a sério.
+
+E a razão de fundo é que **toda** a prova da Sala, até aqui, corria dentro de um
+processo: escrever e reler na mesma execução prova a escrita atómica, e não
+prova durabilidade nenhuma.
+
+```
+MODULE EXISTS != FILE WRITTEN ON RUNNER != PERSISTED AFTER RUN.
+PROVA DENTRO DO PROCESSO != DURABILIDADE OPERACIONAL.
+```
+
+É a mesma família de `MODULE EXISTS != EDGE EXISTS != FLOW EXISTS`, aplicada ao
+**tempo** em vez de ao grafo:
+
+```
+FLOW EXISTS != FLOW SURVIVES.
+```
+
+## 110.3 · PROVA
+
+```
+git log --all -- 'data/samples/PRONTO-PARA-INTELIGENCIA'      ->  vazio
+.github/workflows/sintonia-scrap.yml                          ->  so INSTAGRAM|YOUTUBE|SCRAP, e RECUSA o resto
+.github/workflows/scrap-social.yml                            ->  tres ficheiros nomeados de SOCIAL-IT
+grep -rn upload-artifact .github/workflows/                   ->  nenhum cobre a Sala
+ADR-SALA-DE-ESPERA-V1 §1                                      ->  sem tabela, sem migration, sem PostgreSQL
+```
+
+Nunca, em ramo nenhum, um ficheiro da Sala foi versionado. A pasta nem existe na
+árvore.
+
+Do lado do conserto, contra PostgreSQL 16 descartável: 67 casos e 30 ataques de
+red team com zero sobreviventes (`provas/a_sala_sobrevive_ao_processo.py`), e 17
+mutantes com 17 mortos (`provas/mutacao_da_sala_duravel.py`). A durabilidade é
+medida **matando o processo de verdade** e só depois perguntando ao banco.
+
+## 110.4 · CONSEQUÊNCIA
+
+```
+WAITING_ROOM_DURABILITY_OWNER   PostgreSQL, atras de admissao/sala_de_espera.py
+WAITING_ROOM_V1_BACKEND         FILESYSTEM, preservado e declarado NAO CANONICO
+```
+
+E a regra que fica, maior do que a Sala: **uma prova que não sobrevive ao
+processo que a produziu não prova persistência.** Sempre que uma peça desta casa
+disser «guardado», a pergunta seguinte é «guardado onde, e quem o vai lá buscar
+amanhã?». Se a resposta for um caminho no disco do runner, não está guardado.
+
+---
+
+## 110.5 · O SEGUNDO ACHADO — UM PREFLIGHT QUE SÓ CORRE DEPOIS DE COMEÇAR
+
+**O QUE MUDOU.** `superficie/rede.py` — o portão que desde o primeiro dia
+responde «a coleta é executável neste ambiente?» — passou a responder também
+`EGRESS_COUNTRY_CODE`, e o workflow canónico chama-o **antes** do passo que
+adquire.
+
+**POR QUÊ.** O único medidor de egresso desta casa vivia dentro de
+`coleta/instagram_janela.py`, ou seja **dentro de uma rota de aquisição**. Exigir
+`IT` antes de adquirir era, por construção, impossível: para saber por onde se
+saía era preciso já estar a sair.
+
+```
+UM PREFLIGHT QUE SÓ CORRE DEPOIS DE COMEÇAR NÃO É UM PREFLIGHT.
+```
+
+**PROVA.** 34 casos, 10 ataques, zero sobreviventes, todos determinísticos — o
+corpo do checker é injetado, e nenhum caso liga VPN nenhuma. `UNKNOWN` bloqueia
+tal como `FR` ou `US`.
+
+```
+UNKNOWN != IT.
+```
+
+**CONSEQUÊNCIA.** O egresso é propriedade do **ambiente de execução**, e nunca da
+fonte. E continua a não dizer nada sobre o dado:
+
+```
+VPN_LOCATION != SOURCE_LOCATION
+VPN_LOCATION != FACT_LOCATION
+```
+
+---
+
+## 110.6 · TRÊS CICATRIZES DESTA MISSÃO, E TODAS APARECERAM A MEDIR
+
+**(1) `None` a querer dizer duas coisas.** O portão de egresso usava `bruto=None`
+para «não me deram corpo, vai medir» — e `None` é também o que o checker devolve
+quando não respondeu. A prova do timeout **foi à rede a sério** e voltou com um
+país verdadeiro: um caso de red team passou por acidente.
+
+```
+DOIS SIGNIFICADOS NO MESMO VALOR É COMO SE LÊ O ERRADO.
+```
+
+**(2) O portão aprovava um ambiente e a aquisição corria noutro.** A variável que
+escolhe o backend da Sala estava declarada só dentro do passo do preflight. Ele
+passava — e o passo seguinte, o que adquire, corria sem ela.
+
+```
+UM PORTÃO QUE MEDE UM AMBIENTE E DEIXA PASSAR PARA OUTRO NÃO MEDIU NADA.
+```
+
+**(3) A prova sujava a árvore que media.** A bateria de mutação corre numa cópia
+com `data/` ligado por symlink à árvore real. O mutante que faz a Sala cair para
+ficheiro escreveu, por esse symlink, um ficheiro dentro do repositório de
+verdade — e ele chegou a aparecer no `git add`.
+
+```
+UMA PROVA QUE SUJA A ÁRVORE QUE MEDE DEIXOU DE SÓ MEDIR.
+```
+
+---
+
+## 110.7 · E DUAS LIÇÕES SOBRE COMO SE MEDE
+
+**O mutante que não muda comportamento mede o texto, não a lei.** A primeira
+ronda de mutação teve dois sobreviventes, e os dois eram mutantes maus: um
+trocava uma condição por outra que **também** falhava fechada; o outro alargava
+uma chave primária de forma que não mudava a unicidade. Um sobrevivente pode ser
+uma lei sem guarda — ou um mutante que não morde.
+
+```
+UM MUTANTE QUE NÃO MUDA O COMPORTAMENTO NÃO MEDE A LEI: MEDE O TEXTO.
+```
+
+**E o System Map apanhou um defeito de desenho.** Houve, a meio desta missão, um
+`motor/preflight_da_coleta.py` a compor os dois portões. O validador reprovou-o
+— uma peça nova a morar numa gaveta que não era a do seu território — e a
+pergunta seguinte matou-o: para que serve um terceiro ficheiro se cada dono já
+responde por si e a ordem mora no workflow?
+
+```
+UM COMPOSITOR QUE SÓ ENCADEIA DOIS DONOS
+É UM TERCEIRO SÍTIO ONDE A VERDADE PODE DIVERGIR.
+```
+
+O mapa não serviu de decoração: serviu de red team.
+
+---
+
+## 110.8 · O ACHADO QUE QUASE ENTROU NO SCHEMA
+
+A chave da fila ia ser `(run_id, item_id)`. Medi-la matou-a:
+
+```python
+ITEM_ID = str(item.get("id") or item.get("url") or "?")
+```
+
+`"?"` é alcançável. Dois itens admitidos sem `id` e sem `url` na mesma corrida
+trazem **ambos** `ITEM_ID = "?"`, e uma chave primária ali deitaria um deles fora
+— em silêncio.
+
+```
+ITEM_ID NÃO É IDENTIDADE GARANTIDA DENTRO DA CORRIDA.
+DESCOBRIR ISSO A APAGAR UMA LINHA É DESCOBRIR TARDE DEMAIS.
+```
+
+A chave é `(run_id, ordem)`, e retirar por um `ITEM_ID` ambíguo é **recusado com
+nome** em vez de escolher um à sorte.
+
+---
+
+## 110.9 · O QUE ISTO **NÃO** DESBLOQUEIA
+
+```
+LIVE_MIGRATION_APPLIED   NO
+READY_FOR_LIVE_APPLY     NO   ·  BLOCKER = RESTORE_NOT_PROVEN
+```
+
+A implementação está provada em **descartável**. O bloqueio à aplicação é
+anterior a esta missão e está medido em
+`docs/operacao/PREFLIGHT-LIVE-READONLY-V1.md`: o projeto não tem prova de que
+consegue voltar atrás.
+
+```
+BACKUP EXISTE != RESTORE PROVADO.
+DESIGNED != DB_TESTED != LIVE.
+```
+
+O canário italiano continua parado, e agora por **uma** razão em vez de três.
