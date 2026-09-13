@@ -389,6 +389,25 @@ TIME_GEO_PROVENANCE  = PASS   sem FACT_TIME, sem FACT_LOCATION derivados
 ATTACKS   = 56 · SURVIVING_ATTACKS = 0
 MUTANTS   = 36 · SURVIVING_MUTANTS = 0
 
+SUITE INTEIRA, COMPARADA POR IDENTIDADE — nome a nome, não por total
+    base da madrugada  2.862 testes
+    final              2.883 testes  (PASS 2.688 · SKIP 180 · FAIL 13 ·
+                                      ERROR 1 · LOADERROR 1)
+    OLD_FAILURES   = 195   as mesmas de antes, nenhuma do SCRAP
+    NEW_FAILURES   = 0
+    FIXED_FAILURES = 0
+    TESTES NOVOS   = 21    todos PASS
+    SUMIRAM        = 0
+
+    COMPARAR TOTAIS COMPARA O TAMANHO, NÃO O CONTEÚDO.
+
+SYSTEM_MAP_CHECK = PASS
+    e regenerado pela CADEIA INTEIRA (sete passos), não só pelo último —
+    a diferença não foi cosmética: três ficheiros de censo não tinham sido
+    tocados, e as ligações passaram de 730 para 731.
+
+FINAL_HEAD = (ver `git log -1` da branch)
+
 META_INTEGRATION_REHEARSAL       = NAO_APLICAVEL
 COLLECTION_INTEGRATION_REHEARSAL = ENSAIADA · liga até à admissão
 
@@ -490,6 +509,148 @@ NÃO ESTÁ A MEDIR O QUE DIZ.
 O conserto é uma linha em cada um — `if not os.path.isdir(gaveta) or not
 os.listdir(gaveta): self.skipTest(...)` — mas são provas de duas outras missões,
 e ninguém pediu para lhes mexer.
+
+---
+
+## KNOW-HOW
+
+```
+KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
+KNOW_HOW_ESCRITO = NÃO — e é de propósito
+```
+
+`claude/sintonia-eame-know-how-v1` está em `4b240bab`, na §103, e recebeu **três
+commits esta mesma noite** (§101, §102, §103). Está `MOVING`, e é de outra aba.
+
+A REGRA ABSOLUTA 0 diz `mover ref dela` — proibido. A §34 manda escrever a
+próxima secção livre; a §0 manda não tocar na ref de outra missão. Quando as
+duas se cruzam, a absoluta ganha. Então o texto fica **aqui**, pronto a colar,
+e quem é dono daquela branch decide se e quando.
+
+```
+UMA REGRA ABSOLUTA NÃO SE NEGOCIA COM UMA REGRA DE PROCEDIMENTO.
+```
+
+O que esta madrugada produziu de durável, e que não estava escrito em lado
+nenhum — cinco leis, todas com prova a correr nesta branch:
+
+**§104 — UMA GUARDA QUE CONFERE E DEPOIS CONSOME NÃO GUARDA NADA**
+
+```
+O QUE mudou
+    `conferir_e_consumir` passou a ser um só acto, sob trava. Ler o que
+    resta, prender o ledger e consumir eram três passos sobre o mesmo
+    registo, e entre eles cabia outro fio.
+
+POR QUÊ
+    Autorização para 1 execução → 2 corridas pagaram. Para 3 → 5 pagaram.
+    E pela porta paga de verdade, 16 fios sobre teto 3 → 4 POSTs.
+    A corrida é rara com o intervalo de troca normal — e rara não é ausente.
+    Encurtá-lo não inventa a corrida: só a torna visível num segundo.
+
+PROVA
+    provas/queda_e_repeticao_da_v1.py · 0 furos em 64 fios × 200 rodadas
+    tests/test_scrap_sr02_autorizacao_de_gasto.py · 5 sentinelas
+    M36 na mutação: tirar a trava mata 3 delas
+
+CONSEQUÊNCIA
+    Onde houver estado consumível, a pergunta não é «a guarda confere?» —
+    é «confere e consome no mesmo acto?». As duas linhas separadas passam
+    em todo o teste sequencial que existir.
+```
+
+**§105 — UMA CHAVE ESCRITA A `None` NÃO É UMA CHAVE AUSENTE**
+
+```
+O QUE mudou
+    `social_rotas` deixou de escrever `RECOVERY_ACTION = None` quando
+    ninguém a declarou.
+
+POR QUÊ
+    `selar()` deriva-a com `setdefault`, que olha para a PRESENÇA da chave
+    e não para o valor. Escrita a `None`, a derivação nunca corria — e o
+    trace saía sem dizer o que fazer a seguir. Não era do Instagram:
+    qualquer adaptador que declare o estado sem a recuperação perdia-a.
+
+PROVA
+    tests/test_scrap_rc01_release_candidate.py · ns14 e ns15
+    M35: voltar a escrever a chave a None mata 2 sentinelas
+
+CONSEQUÊNCIA
+    `setdefault` só é seguro sobre dicionários onde a ausência é ausência.
+    Quem escreve «não sei» como `None` num dicionário que outro deriva por
+    `setdefault` desligou a derivação sem nunca a ter chamado.
+```
+
+**§106 — UM COMENTÁRIO QUE CITA O CÓDIGO ROUBA A ÂNCORA DE QUEM O MUTA**
+
+```
+O QUE mudou
+    A mutação passou a contar as ocorrências da âncora e a recusar-se a
+    correr quando não é única — `ALVO_AMBIGUO`, contado como sobrevivente.
+
+POR QUÊ
+    Um comentário novo citava a linha que M6 mutava. `replace(..., 1)`
+    trocou o comentário e o código ficou intacto: o mutante não mudou nada
+    e o relatório chamou-lhe sobrevivente, acusando a bateria de um buraco
+    que ela não tinha. O guarda apanhou um segundo caso (M20) no minuto em
+    que nasceu — uma âncora em dois ramos de recusa, quando a lei falava do
+    caminho que correu.
+
+PROVA
+    provas/mutacao_da_release_v1.py · MUTANTS 36 · SURVIVORS 0
+
+CONSEQUÊNCIA
+    Um comentário que documenta bem o código é, para uma ferramenta que
+    procura texto, indistinguível do código. Quem muta por string tem de
+    contar antes de trocar.
+```
+
+**§107 — UMA SENTINELA QUE VIGIA UM CAMPO CUJO VALOR JÁ É O DA MUTAÇÃO NÃO VIGIA NADA**
+
+```
+O QUE mudou
+    `test_rt32` deixou de comparar BEFORE com AFTER e passou a comparar
+    AFTER com o que o DONO declara. Ganhou uma irmã sobre uma capacidade
+    `PARTIAL`, onde a promoção é visível.
+
+POR QUÊ
+    O canário é `bluesky.author.incremental`, que já está `PROVEN`. Sobre
+    ele, «não promoveu» e «promoveu para PROVEN» são a mesma linha. A
+    sentinela passava verde com o portão a promover.
+
+PROVA
+    M20 sobrevivia com 0 sentinelas; agora morre com 1.
+
+CONSEQUÊNCIA
+    Ao escolher o sujeito de uma prova, perguntar primeiro: neste sujeito,
+    o erro que eu quero apanhar muda algum número? Se não muda, a prova
+    corre no único sítio onde não pode falhar.
+```
+
+**§108 — UMA ROTA QUE NÃO CORREU NÃO OBSERVOU NADA**
+
+```
+O QUE mudou
+    `scrap_colheita` passou a recusar como COLHEITA o que volta de uma rota
+    cujo dono do custo diz `COST_STATE = NOT_RUN`.
+
+POR QUÊ
+    Uma rota recusada pela política, sem um único socket aberto, devolvia
+    um esqueleto com todos os campos em `NOT_KNOWN` — e ele virava uma
+    unidade carimbada com um `SOURCE_ID` verdadeiro, sem um reparo do
+    contrato. O sinal não é o estado de falha: uma rota que colheu dez e
+    depois levou `RATE_LIMITED` colheu dez de verdade.
+
+PROVA
+    provas/censo_executavel_da_v1.py
+    tests/test_scrap_rc01_release_candidate.py · ns1–ns7
+    M31: tirar a guarda mata 3 sentinelas
+
+CONSEQUÊNCIA
+    Um esqueleto com identidade é uma observação fabricada. Quem decide o
+    que é colheita tem de ler o dono do custo, e não o estado de falha.
+```
 
 ---
 
