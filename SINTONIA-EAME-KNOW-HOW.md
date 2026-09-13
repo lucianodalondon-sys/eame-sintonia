@@ -10741,3 +10741,181 @@ exige a mesma história, e não a soma de `YES`), e lê o buraco de quem o mediu
   facto sobre o corpus, e não sobre a máquina — e a missão proibiu, por escrito,
   afrouxar a regra até um caso passar. Tinha razão: o veredito que saísse daí
   mediria a regra nova, e não a máquina.
+
+---
+
+# §100 · UMA DECISÃO QUE SÓ EXISTE EM PROSA VOLTA A SER TOMADA
+
+**Missão:** `C-CLOSE-ADMISSION-TO-READY-V1` — fechar `ADMISSION → READY`.
+**Branch:** `claude/collection-v1-operational-close`
+**Data:** 2026-09-13
+
+A `§99` fechou a recomendar: *escrever regra temática para `T2`, com uma razão
+medida.* Estava errada. A medição que a desmente **já existia na árvore**, feita
+por uma missão anterior, com 46 documentos reais e um portão fechado.
+
+Esta secção regista como se chega a recomendar uma missão que já foi feita e
+reprovada — e o que passou a impedir que volte a acontecer.
+
+## 100.1 · O DIÁRIO DE DECISÕES NÃO É LEGÍVEL POR PROGRAMA
+
+A decisão estava escrita, e bem escrita. Estava em
+`docs/decisoes/DIARIO-DE-DECISOES.md`, numa entrada que abre com a frase certa:
+
+> *«Esta entrada existe porque uma decisão de NÃO IMPLEMENTAR é a que mais
+> facilmente se perde: não deixa código, e daqui a três meses alguém escreve a
+> lista óbvia porque ninguém tinha tentado.»*
+
+Três meses foi optimista. Foi **um dia**.
+
+O autor previu o modo de falha exacto e escreveu a prevenção em prosa — e a
+prevenção falhou porque **prosa não se cruza com outra medição**. O censo que
+recomendou `T2` leu contratos, código e taxonomia. Não leu, nem podia, um
+parágrafo em markdown.
+
+```
+ANTES   o veredicto de T2 vivia no diário e no terminal
+DEPOIS  data/derivados/A-REGRA-DE-T2.json, e o censo LÊ-O
+```
+
+    UMA DECISÃO QUE SÓ EXISTE EM PROSA VOLTA A SER TOMADA.
+    UM «NÃO» SEM ARTEFATO É UM «AINDA NÃO PERGUNTARAM».
+
+É a irmã exacta da `§99.6`, e é pior do que ela. Lá, três listas escritas à mão
+envelheceram e passaram a mentir sobre o presente. Aqui, uma decisão correcta,
+completa e provada **não estava a mentir** — estava apenas fora do alcance de
+quem decidia a seguir.
+
+## 100.2 · «A UMA PEÇA DE DISTÂNCIA» NÃO ORDENA NADA
+
+A `§99` mediu duas listas e cruzou-as: quem tem regra e quem tem colheita.
+Interseção vazia. Verdade, e inútil para decidir — entre classes todas paradas,
+nenhuma parece mais perto do que as outras.
+
+O censo desta missão contou **o que falta a cada classe** das onze:
+
+```
+T2   tem aquisição · tem structured · falta a REGRA
+T4   tem regra     · tem structured · falta a AQUISIÇÃO
+```
+
+Duas classes, uma peça cada. E aqui esteve a armadilha: **parecem empatadas, e
+não estão.**
+
+```
+a peça de T2   já foi medida, e REPROVADA
+a peça de T4   nunca foi tentada: é trabalho por fazer
+```
+
+    DUAS OPÇÕES NÃO SÃO DUAS OPÇÕES
+    QUANDO UMA DELAS JÁ FOI MEDIDA E REPROVADA.
+
+Contar o que falta transforma uma parede numa fila. Mas a fila só ordena depois
+de se perguntar, a cada peça em falta, **se ela já foi tentada** — e essa
+pergunta não se responde olhando para o que falta. Responde-se olhando para trás.
+
+## 100.3 · QUATRO LETRAS E NENHUMA SERVE: QUANDO A CLASSIFICAÇÃO PEDIDA NÃO CHEGA
+
+O brief pediu que a ausência da regra de `T2` fosse classificada como `A`
+(deveria ter e falta), `B` (correctamente não deve ter), `C` (universos
+incompatíveis) ou `D` (UNKNOWN).
+
+Nenhuma serve inteira, e **escrever só uma letra mandava a próxima pessoa para o
+sítio errado**:
+
+| letra | para onde manda | por que está errada |
+|---|---|---|
+| `A` | escrever a lista | a lista foi procurada exaustivamente e reprovada |
+| `B` | desistir de `T2` | `T2` é canónico, com 5 fontes e 10 positivos reais |
+| `C` | refazer a taxonomia | as duas listas estão na **mesma** taxonomia |
+| `D` | medir | já foi medido |
+
+A resposta medida não é sobre o universo — **é sobre o mecanismo**. `T2` é
+legítimo; o que não existe é maneira de o julgar com uma lista plana de palavras,
+porque ela não distingue *documento SOBRE clima* de *documento que MENCIONA
+clima*. As palavras óbvias de clima aparecem **mais fora** de `T2` do que dentro:
+um boletim de praga fala do tempo a que a praga responde.
+
+    QUANDO NENHUMA DAS OPÇÕES OFERECIDAS SERVE, A RESPOSTA HONESTA
+    NÃO É A MENOS MÁ: É DIZER DE QUE É QUE ELAS FALAM TODAS AO LADO.
+
+Registou-se `B_COM_A_RAZAO_DE_C`, com as três metades escritas ao lado. Uma letra
+sozinha seria arrumação, não resposta.
+
+## 100.4 · O TESTE DO SCRAP DEIXOU DE ARGUMENTAR PELA AUSÊNCIA
+
+A `§99.4` já tinha o teste certo — *«o buraco que está lá seria tapado por
+integrar o SCRAP?»* — e respondia-o mal: *«o SCRAP não escreve regra temática»*.
+Verdade, e uma verdade **lateral**. Argumentava pelo que o SCRAP não faz, e
+qualquer buraco novo teria de ser argumentado outra vez à mão.
+
+Pior: a implementação adivinhava pelo **sítio** do buraco, com uma lista de
+arestas escrita à mão (`EXECUTOR -> RUN`, `RUN -> RAW`). Responde bem aos buracos
+que já se viram e mal a todos os outros — a mesma família da `§99.6`.
+
+A versão medida faz uma conta:
+
+```
+o SCRAP é capacidade SOCIAL     →  a única classe com rotas sociais é T9
+T9 tem regra temática           →  SIM
+dá-se a T9 a aquisição de graça →  ainda falta DONO_STRUCTURED
+logo                            →  T9 pára em STRUCTURED, uma etapa antes
+```
+
+    PARA SABER SE UMA PEÇA EM FALTA É A QUE BLOQUEIA,
+    DÁ-SE-LHE A PEÇA DE GRAÇA E PERGUNTA-SE O QUE SOBRA.
+
+Isto é generalizável e não tem nada de SCRAP: serve para qualquer dependência
+que alguém queira nomear como bloqueio. E responde `NO` mesmo quando a
+dependência é legítima e urgente, porque **`PRECISO ≠ BLOQUEANTE`**.
+
+## 100.5 · O TESTE QUE GUARDAVA O MECANISMO EM VEZ DA PROPRIEDADE
+
+Ao trocar a adivinha pela medição, um teste escrito **na missão anterior**
+rebentou. Ele passava `EXECUTOR -> RUN` e exigia `YES` — estava a guardar a lista
+de arestas, não a regra.
+
+É a terceira vez nesta linha (`§95`, `§99.7`, agora). O sintoma é sempre o
+mesmo: **o teste falha no dia em que o mecanismo melhora**, que é o dia errado
+para um teste falhar. A correcção também é sempre a mesma: perguntar o que
+sobrevive à mudança. Aqui sobrevive *«a certificação segue a medição»* — e o
+teste novo prova-o **nos dois sentidos**, com a medição a dizer `YES` e a dizer
+`NO`.
+
+    UM TESTE QUE SÓ PROVA UM DOS SENTIDOS
+    NÃO PROVA QUE O CÓDIGO SEGUE: PROVA QUE ELE CONCORDA HOJE.
+
+## 100.6 · AMBIENTE E ARQUITECTURA SÃO DOIS BLOQUEIOS, E ESCREVEM-SE SEPARADOS
+
+O canário medido é `T4`, e a fonte dele — o Ministero della Salute — **não passa
+a verificação de TLS** deste ambiente: o servidor não envia a cadeia intermédia.
+A fonte de `T2` responde `200` no mesmo instante e no mesmo ambiente.
+
+Não se desligou a verificação. E os dois factos ficaram escritos **separados**:
+
+```
+ARQUITECTURA   o executor de T4 declara LEGADO e não COLHEITA
+AMBIENTE       a fonte de T4 não verifica TLS aqui, medido em 2026-09-13
+```
+
+Juntá-los daria *«T4 está bloqueado»* — e mandaria a próxima pessoa desistir de
+`T4` por causa de um certificado, ou tentar `T4` sem saber que vai bater num
+certificado. O primeiro é permanente até alguém o escrever; o segundo pode
+desaparecer sozinho noutra máquina.
+
+    UM BLOQUEIO DE AMBIENTE COM DATA NÃO É UMA PROPRIEDADE DA ARQUITECTURA.
+
+## 100.7 · O QUE FICA POR SABER
+
+- **`ADMISSION → READY` continua aberto**, e agora tem dono e alvo: dar
+  `ENVELOPE` por corrida ao executor de `T4`. É missão de código, não de gente.
+- **A aquisição de `T4` não foi provada** neste ambiente, pelo certificado. Se a
+  missão seguinte correr noutro sítio, esse obstáculo pode nem existir.
+- **`T2` fica à espera de duas peças de arquitectura** que nenhuma missão de
+  fecho deve improvisar: uma lei que diga o que é um documento ser *sobre* um
+  assunto, e um mecanismo de admissão que conte sinais em vez de parar na
+  primeira palavra. Nenhuma é urgente — `T4` fecha a máquina sem elas.
+- **`TERRITÓRIO` e `UNIVERSO` continuam a ser duas coisas com o mesmo nome.** O
+  território é propriedade da FONTE; o universo é pergunta ao DOCUMENTO. A ARPAV
+  publica `T2` e `T3` e mostra os dois a divergir. Está medido, não está
+  resolvido, e não foi tocado aqui.
