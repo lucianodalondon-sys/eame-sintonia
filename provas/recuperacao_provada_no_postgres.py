@@ -45,6 +45,7 @@ lá para caber aqui seria afrouxar uma trava alheia por conveniência.
     ficheiro, e a que vier de fora é recusada antes de qualquer ligação.
 """
 import hashlib
+import json
 import os
 import re
 import shutil
@@ -436,7 +437,7 @@ def portao(backup_source_for_live, restore_mechanism, same_class_restore,
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# G · O RED TEAM — vinte ataques, e cada um tem de ser apanhado
+# G · O RED TEAM — vinte e um ataques, e cada um tem de ser apanhado
 # ─────────────────────────────────────────────────────────────────────────
 URLS_HOSTIS = (
     "postgresql://postgres:x@db.abcdefghijklmnop.supabase.co:5432/postgres",
@@ -634,6 +635,34 @@ def red_team(url, dump, dump_so_schema, impressao_boa, tmp):
     anota("A19", "restore tenta apontar para o LIVE", recusou and passaram == [],
           "exigir_descartavel levanta em todas as %d" % len(URLS_HOSTIS))
 
+    # ── 21 · a POLITICA da plataforma promovida a ARTEFATO ────────────
+    # O ataque que a medicao externa trouxe consigo: saber que o plano Pro faz
+    # backup diario e ficheiro de factos a dizer `PLATFORM_BACKUP_POLICY =
+    # PROVEN` — e alguem concluir dai que ha backup, e que a fonte esta
+    # provada. Escreve-se esse ficheiro e mede-se o que a prova faz com ele.
+    #
+    #     POLITICA PROVADA != ARTEFATO PROVADO.
+    so_politica = os.path.join(tmp, "so-politica.json")
+    with open(so_politica, "w", encoding="utf-8") as fh:
+        json.dump({"PROVENANCE": {"MEDIDO_POR": "ATAQUE", "MEDIDO_EM": "hoje"},
+                   "POLITICA_DA_PLATAFORMA": {
+                       "PLATFORM_BACKUP_POLICY": "PROVEN",
+                       "LIVE_BACKUP_MECHANISM": "PROVIDER_BACKUP",
+                       "LIVE_BACKUP_CLASS": "PHYSICAL",
+                       "BACKUP_RETENTION": "7 dias"},
+                   "O_ARTEFATO": {"PITR_ENABLED": "UNKNOWN",
+                                  "LATEST_AVAILABLE_BACKUP": "UNKNOWN",
+                                  "LATEST_BACKUP_TIMESTAMP": "UNKNOWN",
+                                  "LIVE_RECOVERY_EXERCISED": "NO"}}, fh)
+    _m, _c, estado_a, politica_a, _e = mede_backup_do_live(so_politica)
+    fonte_a = "PROVEN" if estado_a == "PROVEN" else "NOT_PROVEN"
+    g_a = portao(fonte_a, "PROVEN", mesma_classe(_c), "PASS", 0)
+    anota("A21", "politica da plataforma promovida a artefato",
+          politica_a == "PROVEN" and estado_a == "NOT_MEASURED"
+          and fonte_a == "NOT_PROVEN" and g_a[1] == "NO",
+          "politica PROVEN e artefato NOT_MEASURED ao mesmo tempo; o portao "
+          "devolve %s" % g_a[0])
+
     # ── 20 · a prova depende de conserto manual pos-restore ───────────
     restaurado = com_banco(url, "recuperacao_vazia")
     morde = sessao_so_leitura_morde(restaurado)
@@ -689,15 +718,45 @@ PISTAS_DE_BACKUP = re.compile(
     r"pg_dump|pg_basebackup|supabase\s+db\s+dump|wal-g|barman|pgbackrest", re.I)
 
 
-def mede_backup_do_live():
-    """Devolve (mecanismo, estado, evidências).
+FACTOS_DO_LIVE = os.path.join(RAIZ, "provas/RECUPERACAO-FACTOS-DO-LIVE.json")
 
-    Três sítios, e nenhum deles é uma opinião:
+
+def factos_do_live(caminho=None):
+    """Os factos sobre o LIVE que esta sessão não consegue medir sozinha.
+
+    Vivem num ficheiro versionado, com proveniência ao lado, e chegam
+    marcados como `COORDINATION_MEASURED` — nunca como medição local. O
+    ficheiro é opcional: sem ele a prova continua a correr e a responder
+    `UNKNOWN`, que é o que ela sabia antes de alguém ter ido ver.
+    """
+    try:
+        with open(caminho or FACTOS_DO_LIVE, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def mede_backup_do_live(caminho_dos_factos=None):
+    """Devolve (mecanismo, classe, estado, política, evidências).
+
+    Cinco sítios, e nenhum deles é uma opinião:
       1. o ambiente tem credencial capaz de falar com a API de gestão?
       2. alguma automação deste repositório PRODUZ um backup do LIVE?
       3. existe registo datado de um restauro do LIVE?
+      4. que política de backup a plataforma tem — e em que classe?
+      5. existe um backup CONCRETO, com data, e foi ele restaurado?
 
-    «O Supabase tem backup» não entra em nenhum dos três. Não é uma medição.
+    Os pontos 4 e 5 são perguntas DIFERENTES, e confundi-las é o erro que esta
+    função existe para não cometer:
+
+        POLITICA PROVADA != ARTEFATO PROVADO.
+
+    Saber que o plano faz backup diário responde ao 4 e não toca no 5. Por
+    isso a política entra em `PLATFORM_BACKUP_POLICY` e nunca em
+    `LIVE_BACKUP_STATUS` — o segundo continua a exigir um backup que alguém
+    tenha visto, datado, e conseguido restaurar.
+
+    «O Supabase tem backup» continua a não ser uma medição de artefato.
     """
     ev = []
     tem_credencial = [v for v in CREDENCIAIS_DE_GESTAO if os.environ.get(v)]
@@ -718,20 +777,61 @@ def mede_backup_do_live():
     ev.append("WORKFLOW_QUE_PRODUZ_BACKUP_DO_LIVE=%s"
               % (",".join(produtores) if produtores else "NENHUM"))
 
-    if tem_credencial:
-        # Haver credencial não é haver medição: ela abre a porta, e quem mede
-        # é a chamada à API — que esta prova não faz, porque fazê-la daqui
-        # seria alargar o escopo sem autorização.
-        return "UNKNOWN", "NOT_MEASURED", ev
-    if produtores:
-        return "PG_DUMP", "NOT_PROVEN", ev
-    return "UNKNOWN", "NOT_MEASURED", ev
+    # ── o que chegou de fora, e chega rotulado ────────────────────────
+    f = factos_do_live(caminho_dos_factos)
+    pol = f.get("POLITICA_DA_PLATAFORMA", {})
+    art = f.get("O_ARTEFATO", {})
+    politica = pol.get("PLATFORM_BACKUP_POLICY", "NOT_MEASURED")
+    classe = pol.get("LIVE_BACKUP_CLASS", "UNKNOWN")
+    mecanismo = pol.get("LIVE_BACKUP_MECHANISM", "UNKNOWN")
+    if f:
+        prov = f.get("PROVENANCE", {})
+        ev.append("FACTOS_DO_LIVE=%s/%s  COORDINATION_MEASURED · "
+                  "LOCAL_NOT_REMEASURED"
+                  % (prov.get("MEDIDO_POR", "?"), prov.get("MEDIDO_EM", "?")))
+        ev.append("PLATFORM_BACKUP_POLICY=%s  LIVE_BACKUP_CLASS=%s  "
+                  "BACKUP_RETENTION=%s"
+                  % (politica, classe, pol.get("BACKUP_RETENTION", "UNKNOWN")))
+        ev.append("PITR_ENABLED=%s  LATEST_BACKUP_TIMESTAMP=%s  "
+                  "LIVE_RECOVERY_EXERCISED=%s"
+                  % (art.get("PITR_ENABLED", "UNKNOWN"),
+                     art.get("LATEST_AVAILABLE_BACKUP", "UNKNOWN"),
+                     art.get("LIVE_RECOVERY_EXERCISED", "NO")))
+    else:
+        ev.append("FACTOS_DO_LIVE=AUSENTE")
+
+    # ── o estado do ARTEFATO, e ele não herda nada da política ────────
+    # Um backup concreto, nomeado e datado, E um restauro exercido. Menos do
+    # que isso não é `PROVEN`, por mais generoso que o plano seja.
+    tem_artefato = (art.get("LATEST_AVAILABLE_BACKUP", "UNKNOWN") != "UNKNOWN"
+                    and art.get("LATEST_BACKUP_TIMESTAMP", "UNKNOWN") != "UNKNOWN")
+    exercido = art.get("LIVE_RECOVERY_EXERCISED", "NO") == "YES"
+    if tem_artefato and exercido:
+        estado = "PROVEN"
+    elif tem_artefato:
+        estado = "NOT_PROVEN"
+    elif produtores and not tem_credencial:
+        # Há automação que produz dump do LIVE, e nunca ninguém a restaurou.
+        estado = "NOT_PROVEN"
+        if mecanismo == "UNKNOWN":
+            mecanismo, classe = "PG_DUMP", "LOGICAL"
+    else:
+        estado = "NOT_MEASURED"
+    return mecanismo, classe, estado, politica, ev
 
 
-def mesma_classe(mecanismo_live, mecanismo_descartavel):
-    if mecanismo_live == "UNKNOWN":
+# A bancada faz backup LOGICO. Um dump logico e um snapshot fisico nao se
+# restauram com as mesmas ferramentas nem falham pelos mesmos motivos, e por
+# isso a pergunta do portao e sobre a CLASSE — nunca sobre o nome da ferramenta.
+DISPOSABLE_BACKUP_CLASS = "LOGICAL"
+
+
+def mesma_classe(classe_live, classe_descartavel=DISPOSABLE_BACKUP_CLASS):
+    """`UNKNOWN` enquanto ninguem souber a classe do LIVE; `NO` assim que se
+    souber que ela e outra. Saber APERTA o veredito — nunca o afrouxa."""
+    if classe_live == "UNKNOWN":
         return "UNKNOWN"
-    return "YES" if mecanismo_live == mecanismo_descartavel else "NO"
+    return "YES" if classe_live == classe_descartavel else "NO"
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -1002,7 +1102,7 @@ def main():
             falhas.append("o banco restaurado nao opera")
 
         # ── 8 · O RED TEAM ────────────────────────────────────────────
-        secao("8 · RED TEAM — VINTE ATAQUES")
+        secao("8 · RED TEAM — VINTE E UM ATAQUES")
         ataques = red_team(url, dump, dump_schema, antes, tmp)
         sobreviventes = [a for a in ataques if a[2] != "APANHADO"]
         for ident, nome, estado, como in ataques:
@@ -1014,10 +1114,10 @@ def main():
 
         # ── 9 · O VEREDITO ────────────────────────────────────────────
         secao("9 · O VEREDITO")
-        mec_live, estado_live, ev = mede_backup_do_live()
+        mec_live, classe_live, estado_live, politica, ev = mede_backup_do_live()
         for e in ev:
             print("  %s" % e)
-        classe = mesma_classe(mec_live, "PG_DUMP")
+        classe = mesma_classe(classe_live)
         # DUAS PALAVRAS, E ELAS NAO SAO SINONIMOS. `LIVE_BACKUP_STATUS` diz o
         # que se conseguiu MEDIR da origem; `BACKUP_SOURCE_FOR_LIVE` diz o que
         # o portao pode CONTAR COM. Tudo o que nao for `PROVEN` conta como
@@ -1028,10 +1128,24 @@ def main():
                                    and not sobreviventes) else "NOT_PROVEN"
         descartavel = "PASS" if (restauro_ok and ok_func) else "FAIL"
         gate, pronto = portao(backup_source, restore_mec, classe, descartavel, 0)
+        art = factos_do_live().get("O_ARTEFATO", {})
+        # A POLITICA E O ARTEFATO IMPRIMEM-SE LADO A LADO, e nunca fundidos
+        # num numero so: e exactamente entre estas duas linhas que mora a
+        # tentacao de promover «o plano faz backup» a «ha um backup».
+        print("PLATFORM_BACKUP_POLICY=%s" % politica)
         print("LIVE_BACKUP_MECHANISM=%s" % mec_live)
+        print("LIVE_BACKUP_CLASS=%s" % classe_live)
+        print("PITR_ENABLED=%s" % art.get("PITR_ENABLED", "UNKNOWN"))
+        print("LATEST_AVAILABLE_BACKUP=%s"
+              % art.get("LATEST_AVAILABLE_BACKUP", "UNKNOWN"))
+        print("LATEST_BACKUP_TIMESTAMP=%s"
+              % art.get("LATEST_BACKUP_TIMESTAMP", "UNKNOWN"))
+        print("LIVE_RECOVERY_EXERCISED=%s"
+              % art.get("LIVE_RECOVERY_EXERCISED", "NO"))
         print("LIVE_BACKUP_STATUS=%s" % estado_live)
         print("BACKUP_SOURCE_FOR_LIVE=%s" % backup_source)
         print("DISPOSABLE_BACKUP_MECHANISM=PG_DUMP")
+        print("DISPOSABLE_BACKUP_CLASS=%s" % DISPOSABLE_BACKUP_CLASS)
         print("SAME_CLASS_AS_LIVE_BACKUP=%s" % classe)
         print("SAME_CLASS_RESTORE=%s" % classe)
         print("RESTORE_MECHANISM=%s" % restore_mec)
@@ -1050,9 +1164,10 @@ def main():
         print("  pg_dump, devolve um Postgres 16 inteiro e operavel depois de")
         print("  o original ter sido destruido — schema, dados, livro-razao,")
         print("  travas, sequencias e linhagem — sem um unico conserto a mao.")
-        print("  o que NAO prova: que o LIVE seja recuperavel. O mecanismo de")
-        print("  backup do LIVE esta %s, e por isso SAME_CLASS_RESTORE=%s e o"
-              % (estado_live, classe))
+        print("  o que NAO prova: que o LIVE seja recuperavel. O backup do")
+        print("  LIVE e de classe %s e o desta bancada e %s, logo"
+              % (classe_live, DISPOSABLE_BACKUP_CLASS))
+        print("  SAME_CLASS_RESTORE=%s e o" % classe)
         print("  portao devolve %s. Um mecanismo diferente chamado de" % gate)
         print("  equivalente seria o unico erro que esta prova nao pode cometer.")
         return 0

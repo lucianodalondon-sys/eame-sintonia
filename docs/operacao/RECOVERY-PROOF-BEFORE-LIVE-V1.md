@@ -10,6 +10,15 @@ LIVE_WRITES        0
 MIGRATIONS_APLICADAS_NO_LIVE  0
 ```
 
+> ## ⚠️ LEIA O §12 ANTES DO §2 E DO §8
+>
+> Depois de esta missão fechar, a coordenação **mediu o LIVE por fora** e a
+> linha funcional **avançou**. O `§12 · ADDENDUM` corrige as classificações que
+> envelheceram: `SAME_CLASS_RESTORE` deixou de ser `UNKNOWN` e passou a **`NO`**.
+> O portão continua `BLOCKED` — a medição nova **apertou** o veredito, não o
+> afrouxou. As secções `§2` e `§8` ficam como foram escritas, datadas, e o
+> addendum diz o que nelas deixou de valer.
+
 > **Esta missão não aplicou nada em produção, e não é ela quem autoriza aplicar.**
 > Ela responde a UMA pergunta: se uma futura aplicação da `028`/`029`/`030`
 > correr mal, temos **prova executável** de que conseguimos voltar atrás?
@@ -369,3 +378,182 @@ Corre sozinha em `.github/workflows/banco-descartavel.yml`, passo
 > **UM PORTÃO QUE NÃO CORRE NÃO É UM PORTÃO.** Uma prova de recuperação que
 > dependesse de alguém se lembrar dela envelheceria em silêncio, que é a única
 > maneira de uma prova deixar de valer sem ninguém notar.
+
+---
+
+## 12 · ADDENDUM — O QUE MUDOU DEPOIS DO HARD STOP
+
+```
+ESCRITO_EM   2026-09-13, depois do fecho da missao
+NAO_REABRE   nenhuma migration, nenhum toque no LIVE, nenhum merge na linha
+             funcional, nenhuma escrita na linha do know-how
+```
+
+### 12.1 · A LINHA FUNCIONAL ANDOU, E A BASE DESTA MISSÃO NÃO
+
+```
+RECOVERY_BASE_HEAD                            903e1860
+CURRENT_FUNCTIONAL_HEAD                       974e39a6
+FUNCTIONAL_HEAD_ADVANCED_AFTER_RECOVERY_START YES
+RECOVERY_SCHEMA_PROOF_INVALIDATED_BY_E7       NO
+RECOVERY_REGRESSION_IS_CURRENT_FUNCTIONAL_SNAPSHOT  NO
+```
+
+`974e39a6` foi **medido localmente**, e não só recebido: `git fetch` seguido de
+`git rev-parse origin/claude/raw-observation-identity-3jbwco`. O delta são
+quatro commits — a integração do E7.
+
+E a razão de a prova do schema **não** cair com ele é mais forte do que «não
+traz migration nova», que foi o que a coordenação disse. Medido aqui:
+
+| pergunta | resposta |
+|---|---|
+| migrations mexidas no delta | **nenhuma** |
+| `motor/cadeia_canonica.sh` mexido | **não** |
+| conjunto de ficheiros em `supabase/migrations/` | **idêntico** (30 ↔ 30) |
+| bytes de cada migration | **idênticos**, sha a sha, nos dois lados |
+
+```
+NAO TRAZ MIGRATION NOVA  <  AS 30 SAO BYTE A BYTE AS MESMAS.
+```
+
+A segunda frase é a que fecha a pergunta: a cadeia que a bancada aplicou em
+`903e1860` é, ficheiro a ficheiro, a cadeia que existe em `974e39a6`.
+
+**A regressão é outra história, e ela envelheceu.** Os 123 alvos e o
+`NEW_FAILURES = 0` do `§`ENTREGA foram medidos em `903e1860` e **não** são o
+retrato da linha funcional de hoje. Um número de regressão não se herda por
+cima de quatro commits que ninguém correu. Esta branch **não** foi rebasada
+nem integrada — de propósito.
+
+### 12.2 · O LIVE FOI MEDIDO POR FORA — E ISSO APERTOU O VEREDITO
+
+```
+COORDINATION_MEASURED / LOCAL_NOT_REMEASURED
+```
+
+Estes valores **não** foram remedidos aqui: esta sessão continua sem credencial
+de gestão, e inventar que os viu seria pior do que não os ter.
+
+| | medido pela coordenação |
+|---|---|
+| `PROJECT` | `eame-sintonia` |
+| `PROJECT_REF` | `odhdwvugikjdvkapbowe` |
+| `PLAN` | `PRO` |
+| `LIVE_POSTGRES_ENGINE` | `17` |
+| `LIVE_POSTGRES_VERSION` | `17.6.1.166` |
+
+Da documentação oficial do Supabase (lida pela coordenação, **não** por esta
+sessão): Pro tem backup automático diário com 7 dias de retenção; projetos em
+`15.8.1.079` ou acima usam o processo novo, de backup **físico**; com PITR
+ligado o físico substitui o diário e junta-lhe o WAL. `17.6.1.166` está acima
+do corte.
+
+Os factos vivem em
+[`provas/RECUPERACAO-FACTOS-DO-LIVE.json`](../../provas/RECUPERACAO-FACTOS-DO-LIVE.json),
+versionados e com proveniência ao lado — e não cravados dentro do código da
+prova, onde um facto externo passa a parecer medido.
+
+### 12.3 · A CORREÇÃO, E A LINHA QUE ELA NÃO ATRAVESSA
+
+```
+PLATFORM_BACKUP_POLICY   PROVEN      ← isto é NOVO, e é verdade
+LIVE_BACKUP_MECHANISM    PROVIDER_BACKUP
+LIVE_BACKUP_CLASS        PHYSICAL
+BACKUP_RETENTION         7 dias de backups diários (Pro)
+
+PITR_ENABLED             UNKNOWN
+LATEST_AVAILABLE_BACKUP  UNKNOWN
+LATEST_BACKUP_TIMESTAMP  UNKNOWN
+LIVE_RECOVERY_EXERCISED  NO
+LIVE_BACKUP_STATUS       NOT_MEASURED   ← e isto NÃO mudou
+BACKUP_SOURCE_FOR_LIVE   NOT_PROVEN     ← nem isto
+```
+
+> **POLÍTICA PROVADA ≠ ARTEFATO PROVADO.**
+> «O plano prevê backup diário» não é «este backup existe, e é deste instante».
+> Nenhum backup concreto deste projeto foi listado, datado ou restaurado.
+
+Promover `BACKUP_SOURCE_FOR_LIVE` porque o plano é Pro seria o mesmo erro do
+`A15`, com outra roupa — e por isso passou a ter ataque próprio:
+
+```
+A21 · politica da plataforma promovida a artefato        APANHADO
+      politica PROVEN e artefato NOT_MEASURED ao mesmo tempo;
+      o portao devolve BLOCKED
+ATTACKS = 21    SURVIVORS = 0
+```
+
+### 12.4 · A CLASSE, QUE ERA A PERGUNTA CERTA DESDE O INÍCIO
+
+O `§8` publicou `SAME_CLASS_RESTORE = UNKNOWN` porque ninguém sabia a classe
+do LIVE. Agora sabe-se, e a resposta é pior — que é o **bom** sentido de uma
+medição correr:
+
+```
+LIVE_BACKUP_CLASS        PHYSICAL   (snapshot do provedor, + WAL se houver PITR)
+DISPOSABLE_BACKUP_CLASS  LOGICAL    (pg_dump formato custom)
+SAME_CLASS_RESTORE       NO         (era UNKNOWN)
+```
+
+A comparação do portão deixou de ser entre **nomes de ferramenta** e passou a
+ser entre **classes** — que era o que `SAME_CLASS_*` sempre quis perguntar. Um
+dump lógico e um snapshot físico não se restauram com as mesmas ferramentas
+nem falham pelos mesmos motivos.
+
+**O que a prova desta missão continua a valer, com o nome certo:**
+
+```
+«RECUPERACAO LOGICA INDEPENDENTE E PORTATIL DA BASE CANONICA» — PROVADA.
+```
+
+Não é, e nunca foi, a prova do mecanismo de recuperação do Supabase LIVE.
+
+### 12.5 · O VEREDITO CORRIGIDO
+
+```
+PLATFORM_BACKUP_POLICY   PROVEN
+LIVE_BACKUP_CLASS        PHYSICAL
+PITR_ENABLED             UNKNOWN
+LATEST_BACKUP_TIMESTAMP  UNKNOWN
+DISPOSABLE_BACKUP_CLASS  LOGICAL
+DISPOSABLE_RESTORE       PASS
+SAME_CLASS_RESTORE       NO          ← era UNKNOWN
+LIVE_RECOVERY_EXERCISED  NO
+BACKUP_SOURCE_FOR_LIVE   NOT_PROVEN
+RESTORE_MECHANISM        PROVEN      (da classe LÓGICA, e só dela)
+LIVE_WRITES_PERFORMED    0
+RECOVERY_GATE            BLOCKED
+LIVE_READY_FOR_APPLY     NO
+```
+
+### 12.6 · EQUIVALÊNCIAS, PARA NÃO NASCER CAMPO A DOBRAR
+
+O complemento nomeou campos que já tinham dono. Registados como equivalência,
+e não como campo novo:
+
+| nome no complemento | dono já existente |
+|---|---|
+| `DISPOSABLE_LOGICAL_RESTORE` | `DISPOSABLE_RESTORE` (= `PASS`) |
+| `LATEST_AVAILABLE_BACKUP` | publicado, e igual a `LATEST_BACKUP_TIMESTAMP` enquanto os dois forem `UNKNOWN` |
+| `LIVE_RECOVERY_EXERCISED = NO` | é o que sustenta `BACKUP_SOURCE_FOR_LIVE = NOT_PROVEN` |
+| `SAME_CLASS_RESTORE = NO / NOT_PROVEN` | `NO` — o vocabulário deste contrato é `YES / NO / UNKNOWN`, e `NO` é o mais forte dos dois |
+
+`PLATFORM_BACKUP_POLICY`, `LIVE_BACKUP_CLASS` e `DISPOSABLE_BACKUP_CLASS` **são**
+campos novos, e nascem porque medem coisas que nenhum campo existente media —
+a classe já era pressuposta por `SAME_CLASS_*` sem nunca ter sido escrita.
+
+### 12.7 · O QUE FALTA AGORA
+
+Mudou, e ficou mais concreto do que o `§9`:
+
+1. **`PITR_ENABLED`** — um olhar na consola do projeto `odhdwvugikjdvkapbowe`.
+   Com PITR, a janela de recuperação é outra e o `RPO` deixa de ser «até 24h».
+2. **`LATEST_BACKUP_TIMESTAMP`** — listar os backups e datar o mais recente.
+   É o que transforma `LIVE_BACKUP_STATUS` de `NOT_MEASURED` em medido.
+3. **Exercer a classe física uma vez** — restaurar um backup do LIVE para um
+   projeto **descartável**, datado. Só isso move `SAME_CLASS_RESTORE` e
+   `LIVE_RECOVERY_EXERCISED`, e só então o portão pode fechar.
+
+O passo 3 é o único que fecha o gate. Os passos 1 e 2 dizem **de onde** ele
+partiria.

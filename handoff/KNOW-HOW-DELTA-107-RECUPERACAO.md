@@ -128,7 +128,41 @@ pelo nome, mas deixa de conseguir apontar a linha que o chama.
 a frase fica errada, e isso regista-se — em vez de se trocar `kind` ou de se
 inventar uma aresta.
 
-## 107.8 · CONSEQUÊNCIA
+## 107.8 · POLÍTICA PROVADA NÃO É ARTEFATO PROVADO — E MEDIR APERTA
+
+Apareceu depois do hard stop, quando a medição externa chegou: plano **Pro**,
+Postgres **17.6.1.166**, e a documentação a dizer que acima de `15.8.1.079` o
+backup é **físico**. Três tentações de uma vez.
+
+```
+POLITICA PROVADA != ARTEFATO PROVADO.
+«O PLANO PREVE BACKUP DIARIO» NAO E «ESTE BACKUP EXISTE, E E DESTE INSTANTE».
+```
+
+`PLATFORM_BACKUP_POLICY = PROVEN` e `LIVE_BACKUP_STATUS = NOT_MEASURED`
+imprimem-se **lado a lado**, e é entre essas duas linhas que mora a tentação.
+Enquanto ninguém listar um backup concreto e o datar, a fonte continua
+`NOT_PROVEN` — por mais generoso que o plano seja.
+
+E a segunda lição é contra-intuitiva, e é a boa:
+
+```
+MEDIR A PLATAFORMA APERTOU O VEREDITO, EM VEZ DE O AFROUXAR.
+```
+
+`SAME_CLASS_RESTORE` estava em `UNKNOWN` por ignorância. Sabida a classe do
+LIVE (`PHYSICAL`) contra a da bancada (`LOGICAL`), passou a `NO`. Uma medição
+que só podia melhorar a resposta não é uma medição — é uma procura de
+confirmação. **Um facto externo só entra num portão se ele conseguir piorar o
+resultado.**
+
+Daí a forma: os factos que a sessão não mede vivem num **ficheiro versionado
+com proveniência** (`COORDINATION_MEASURED / LOCAL_NOT_REMEASURED`), e não
+cravados dentro da função de medição — onde um facto de fora passa a parecer
+medido. E a comparação do portão passou a ser entre **classes**, nunca entre
+nomes de ferramenta: era isso que `SAME_CLASS_*` sempre quis perguntar.
+
+## 107.9 · CONSEQUÊNCIA
 
 ```
 · backup so se prova com o original destruido, e a destruicao mede-se
@@ -140,11 +174,21 @@ inventar uma aresta.
 · o portao e funcao com entradas, para o red team poder bater nele
 · veredito que se passa por env obedece a quem corre, nao ao que existe
 · aresta que o mapa nao consegue provar fica amarela, e nao se pinta
+· politica da plataforma nao promove o artefato, e imprimem-se juntas
+· facto externo so entra num portao se puder PIORAR o resultado
+· facto que a sessao nao mede vive em ficheiro com proveniencia,
+  nunca dentro da funcao que mede
+· o portao compara CLASSES de backup, e nao nomes de ferramenta
 ```
 
 **Medido:** PostgreSQL 16.13 descartável · 29 migrations pela cadeia canónica ·
 impressão `041c4dee…` idêntica antes e depois · `RESTORE_COMMAND_EXIT = 0` com
 `SECOES_DIFERENTES = NENHUMA` · segunda passagem da cadeia sobre o restaurado
-= 29 `SKIP HASH=MATCH`, 0 reaplicadas · 5 travas mordidas · **20 ataques, 0
+= 29 `SKIP HASH=MATCH`, 0 reaplicadas · 5 travas mordidas · **21 ataques, 0
 sobreviventes** · regressão 123 alvos, `NEW_FAILURES = 0` ·
 **`LIVE_WRITES_PERFORMED = 0`**.
+
+**Addendum (2026-09-13, pos-hard-stop):** medicao externa da coordenacao —
+plano Pro, Postgres 17.6.1.166, backup do LIVE de classe `PHYSICAL` —
+moveu `SAME_CLASS_RESTORE` de `UNKNOWN` para **`NO`**. O portao continua
+`BLOCKED`, por um motivo mais nitido. `A21` nasceu dessa medicao.

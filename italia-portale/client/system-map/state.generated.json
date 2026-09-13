@@ -1186,6 +1186,7 @@
       "prototype/portal/index.html"
     ],
     "provas": [
+      "provas/RECUPERACAO-FACTOS-DO-LIVE.json",
       "provas/a_autoridade_da_fonte.py",
       "provas/a_fase_10_entra_no_acervo.py",
       "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -1985,9 +1986,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/recovery-proof-before-live-v1-3sszpj",
-    "HEAD": "903e18605e3fb3e66b616974aa80ff07835dc5d8",
-    "GENERATED_AT": "2026-09-13T12:06:52+00:00",
-    "SOURCE_TREE_FINGERPRINT": "87ba6a6b0b865f9430e57ce8f72011abe434dfbf203bf2d1073d5ee55fe122ba"
+    "HEAD": "6ed50e8d244c4f8637800f2812a294adacd02dda",
+    "GENERATED_AT": "2026-09-13T13:21:59+00:00",
+    "SOURCE_TREE_FINGERPRINT": "65923219224e4e878ce5847af6ac55e7b2cfd3627a6abe901abc07cf71c3e7eb"
   },
   "FAMILIES": [
     {
@@ -12892,7 +12893,7 @@
       "name": "Prova de recuperacao",
       "territory": "Z-PROVA",
       "kind": "test",
-      "what": "Constroi uma bancada pela cadeia canonica, escreve sentinelas sinteticas, tira a impressao, faz o backup, DESTROI o banco de proposito, restaura num banco vazio e confere tudo em sessao so-leitura — com vinte ataques a tentar produzir um verde falso.",
+      "what": "Constroi uma bancada pela cadeia canonica, escreve sentinelas sinteticas, tira a impressao, faz o backup, DESTROI o banco de proposito, restaura num banco vazio e confere tudo em sessao so-leitura — com vinte e um ataques a tentar produzir um verde falso. Le a classe do backup do LIVE de um ficheiro de factos com proveniencia, e so a usa para APERTAR o veredito.",
       "why_here": "Havia backup por hipotese e nenhum restauro exercido. BACKUP EXISTE nao e RESTORE PROVADO, e so a segunda frase autoriza aplicar migration em producao.",
       "departments": [
         "ENGENHARIA"
@@ -12907,9 +12908,10 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/RECUPERACAO-FACTOS-DO-LIVE.json",
         "provas/recuperacao_provada_no_postgres.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
       "changed_since_declared": [],
@@ -20073,7 +20075,7 @@
       "evidence": [
         {
           "file": "provas/recuperacao_provada_no_postgres.py",
-          "line": 63,
+          "line": 64,
           "snippet": "CADEIA_CANONICA = os.path.join(RAIZ, \"motor/cadeia_canonica.sh\")"
         }
       ],
@@ -32364,7 +32366,7 @@
       "evidence": [
         {
           "file": "provas/recuperacao_provada_no_postgres.py",
-          "line": 65,
+          "line": 66,
           "snippet": "RAIZ, \"supabase/migrations/008_verificacao_pos_aplicacao.sql\")"
         }
       ],
@@ -34066,8 +34068,8 @@
     "edges_proven": 720,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1537,
-    "files_covered": 764,
+    "files_tracked": 1538,
+    "files_covered": 765,
     "files_code_unclaimed": 0
   }
 }

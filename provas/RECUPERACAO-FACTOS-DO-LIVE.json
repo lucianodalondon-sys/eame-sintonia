@@ -1,0 +1,55 @@
+{
+  "SCHEMA": "sintonia.recuperacao-factos-do-live/1",
+  "NOTA": [
+    "Os factos sobre o LIVE que esta sessao NAO consegue medir, e que por isso",
+    "chegam de fora. Eles vivem num ficheiro versionado, com proveniencia ao",
+    "lado, em vez de estarem escritos dentro do codigo da prova: um facto",
+    "externo cravado no meio de uma funcao de medicao passa a parecer medido.",
+    "",
+    "POLITICA PROVADA != ARTEFATO PROVADO.",
+    "«O PLANO PREVE BACKUP DIARIO» NAO E «ESTE BACKUP EXISTE, E E DESTE INSTANTE».",
+    "",
+    "E POR ISSO QUE ESTE FICHEIRO SO CONSEGUE APERTAR O VEREDITO, NUNCA O",
+    "AFROUXAR. A prova le daqui a CLASSE do backup do LIVE — e saber a classe",
+    "so serve para descobrir que ela nao e a da bancada. Nada aqui promove",
+    "LIVE_BACKUP_STATUS nem BACKUP_SOURCE_FOR_LIVE: esses continuam a exigir um",
+    "backup concreto, com data, e um restauro exercido."
+  ],
+  "PROVENANCE": {
+    "MEDIDO_POR": "COORDENACAO",
+    "MEDIDO_EM": "2026-09-13",
+    "COMO": "ligacao Supabase da coordenacao. Esta sessao nao tem credencial de gestao e NAO remediu nenhum destes valores.",
+    "LOCAL_NOT_REMEASURED": true
+  },
+  "PROJETO": {
+    "PROJECT": "eame-sintonia",
+    "PROJECT_REF": "odhdwvugikjdvkapbowe",
+    "PLAN": "PRO",
+    "LIVE_POSTGRES_ENGINE": "17",
+    "LIVE_POSTGRES_VERSION": "17.6.1.166"
+  },
+  "POLITICA_DA_PLATAFORMA": {
+    "PLATFORM_BACKUP_POLICY": "PROVEN",
+    "LIVE_BACKUP_MECHANISM": "PROVIDER_BACKUP",
+    "LIVE_BACKUP_CLASS": "PHYSICAL",
+    "BACKUP_RETENTION": "7 dias de backups diarios (plano Pro)",
+    "PORQUE": [
+      "documentacao oficial do Supabase: projetos Pro tem backup automatico",
+      "diario, com 7 dias de retencao; projetos em 15.8.1.079 ou superior usam",
+      "o processo novo, de backup FISICO; e com PITR ligado o fisico substitui",
+      "o diario e junta-lhe o WAL. Este projeto corre 17.6.1.166, logo esta",
+      "acima do corte."
+    ],
+    "FONTE": "documentacao oficial do Supabase, lida pela coordenacao"
+  },
+  "O_ARTEFATO": {
+    "PITR_ENABLED": "UNKNOWN",
+    "LATEST_AVAILABLE_BACKUP": "UNKNOWN",
+    "LATEST_BACKUP_TIMESTAMP": "UNKNOWN",
+    "LIVE_RECOVERY_EXERCISED": "NO",
+    "PORQUE": [
+      "nenhum backup concreto deste projeto foi listado, nem datado, nem",
+      "restaurado. Saber que a plataforma faz backup nao e ter visto um."
+    ]
+  }
+}
