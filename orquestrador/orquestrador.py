@@ -472,11 +472,34 @@ def item_documental_para_a_porta(estruturado, *, source_id):
         A IDENTIDADE DO NOSSO REGISTO NAO E A IDENTIDADE DO DOCUMENTO.
         CONFUNDI-LAS E QUE SERIA FABRICAR.
     """
+    # ── E O TEXTO LEVA A ESPECIE DELE, QUE NAO E A DE UM POST ─────────────
+    # ⚠️ ESTE `texto` NAO E O TEXTO DE NINGUEM: E EXTRACCAO DE MAQUINA.
+    # Ele sai de `armazem.ler(storage_path)` sobre um DERIVED que
+    # `executor_texto_de_pdf` produziu a partir de um PDF. Chegava a porta
+    # indistinguivel de uma legenda escrita por uma pessoa — e a primeira
+    # pergunta que a inteligencia faz sobre qualquer classificacao e
+    # exactamente essa: o que sustentou isto, o que alguem escreveu ou o que a
+    # maquina leu?
+    #
+    #     DOCUMENT_TEXT != AUTHOR_TEXT. O PDF NAO FALOU: NOS LEMOS.
+    #
+    # E aqui a linhagem NAO e `UNKNOWN`: esta rota conhece a observacao de onde
+    # o documento nasceu (`RAW_ASSET_ID`) e o pai dos bytes (`PARENT_SHA256`).
+    # Escreve-los e a diferenca entre um texto que se confere contra o original
+    # e um texto que ninguem consegue ligar ao PDF de onde saiu.
+    unidade = pv.unidade_de_texto(
+        texto=estruturado["TEXTO"],
+        kind=pv.DOCUMENT_TEXT, kind_basis=pv.DECLARED_BY_ROUTE,
+        relation=pv.ORIGINAL, unit_id="TU-1",
+        raw_observation_id=estruturado.get("RAW_ASSET_ID"),
+        source_artifact=estruturado.get("PARENT_SHA256"),
+        derivation_method=pv.EXTRAIDO_DO_DOCUMENTO,
+        tool="coleta/executor_texto_de_pdf.py")
     item = ing.para_a_porta({"SOURCE_ID": source_id,
                              "ARTIFACT_TYPE": "DERIVED",
-                             "PARENT_SHA256": estruturado.get("PARENT_SHA256")})
+                             "PARENT_SHA256": estruturado.get("PARENT_SHA256"),
+                             pv.CAMPO_DAS_UNIDADES: [unidade]})
     item.update({"id": "derived:%s" % estruturado["DERIVED_ARTIFACT_ID"],
-                 "texto": estruturado["TEXTO"],
                  "raw_asset_id": estruturado.get("RAW_ASSET_ID")})
     return item
 

@@ -53,6 +53,7 @@ RAIZ = os.path.dirname(HERE)
 sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho
 import social_envelope as env      # noqa: E402
+import proveniencia as pv          # noqa: E402  — o dono da especie do texto
 import social_matriz as mz         # noqa: E402
 import falhas                      # noqa: E402  — a lingua unica do erro
 import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor
@@ -172,7 +173,13 @@ def mastodon_tag(*, instancia, tag, limit, run_id, country_scope):
             # instância ser italiana não faz o autor ser da Itália.
             language=p.get('language'),
             source_location=None,
+            # A ESPECIE DECLARA-SE, e quem a declara e quem sabe qual campo leu.
+            # `content` do Mastodon e o corpo que o autor escreveu; a lingua e a
+            # que ELE declarou, e nao uma leitura do texto.
             text=_sem_tags(p.get('content') or ''),
+            text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+            text_relation=pv.ORIGINAL, text_language=p.get('language'),
+            text_derivation=pv.LIDO_DO_CAMPO,
             raw_reference=raw,
             raw={'instancia': instancia, 'id_local': p.get('id'),
                  'replies_count': p.get('replies_count'),
@@ -199,7 +206,10 @@ def mastodon_conta_statuses(*, instancia, acct_id, limit, run_id, country_scope)
             executor='social_rotas.mastodon_conta_statuses', run_id=run_id,
             country_scope=country_scope, source_account=conta.get('acct'),
             published_at=p.get('created_at'), language=p.get('language'),
-            text=_sem_tags(p.get('content') or ''), raw_reference=raw,
+            text=_sem_tags(p.get('content') or ''),
+            text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+            text_relation=pv.ORIGINAL, text_language=p.get('language'),
+            text_derivation=pv.LIDO_DO_CAMPO, raw_reference=raw,
             raw={'instancia': instancia, 'id_local': p.get('id')}))
     return saida
 
@@ -218,7 +228,16 @@ def bluesky_buscar_contas(*, termo, limit, run_id, country_scope):
             content_type='PROFILE', route='bsky:app.bsky.actor.searchActors',
             executor='social_rotas.bluesky_buscar_contas', run_id=run_id,
             country_scope=country_scope, source_account=a.get('handle'),
+            # A bio de um perfil E texto do autor — o que muda e o
+            # CONTENT_TYPE (`PROFILE`), que ja o diz. Nao se inventa especie
+            # nova para uma diferenca que ja tem campo.
+            #
+            # ⚠️ E A LINGUA FICA POR DECLARAR: `searchActors` nao devolve
+            # idioma nenhum. Ler a bio para adivinhar seria a inferencia que a
+            # lei proibe, e `UNKNOWN` e mais barato que errado.
             title=a.get('displayName'), text=a.get('description'),
+            text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+            text_relation=pv.ORIGINAL, text_derivation=pv.LIDO_DO_CAMPO,
             raw_reference=raw, raw={'did': a.get('did')}))
     return saida
 
@@ -240,7 +259,11 @@ def bluesky_feed_autor(*, handle, limit, run_id, country_scope):
             source_account=(p.get('author') or {}).get('handle'),
             published_at=rec.get('createdAt'),
             language=(rec.get('langs') or [None])[0],
-            text=rec.get('text'), raw_reference=raw,
+            text=rec.get('text'),
+            text_kind=pv.AUTHOR_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+            text_relation=pv.ORIGINAL,
+            text_language=(rec.get('langs') or [None])[0],
+            text_derivation=pv.LIDO_DO_CAMPO, raw_reference=raw,
             raw={'likeCount': p.get('likeCount'), 'repostCount': p.get('repostCount'),
                  'replyCount': p.get('replyCount')}))
     return saida
@@ -262,7 +285,16 @@ def telegram_canal(*, canal, run_id, country_scope):
             content_type='POST', route='telegram:t.me/s/{canal}',
             executor='social_rotas.telegram_canal', run_id=run_id,
             country_scope=country_scope, source_account=canal,
+            # ⚠️ ISTO NAO E `AUTHOR_TEXT`, E A DIFERENCA E MEDIVEL.
+            # Nao ha campo de API nenhum: ha HTML de uma previa, com as tags
+            # tiradas por nos e CORTADO aos 4000 caracteres. O autor escreveu
+            # uma mensagem; o que ca esta e a nossa leitura da pagina dela.
+            #
+            #     RASPAR UMA PAGINA NAO E LER UM CAMPO.
             published_at=quando or None, text=_sem_tags(html)[:4000],
+            text_kind=pv.PAGE_TEXT, text_kind_basis=pv.DECLARED_BY_ROUTE,
+            text_relation=pv.ORIGINAL,
+            text_derivation=pv.RASPADO_DA_PAGINA,
             raw_reference=raw, raw={'canal': canal}))
     if not saida:
         # Canal inexistente e canal sem prévia devolvem a MESMA página curta.

@@ -82,6 +82,12 @@ from guarda.preservar_coleta import ArmazemLocal, preservar  # noqa: E402
 # e era muda. Esta porta passa a contar-lhe a passagem na MESMA lingua.
 import rastro_da_coleta as rastro                           # noqa: E402
 import diagnostico as dg                                    # noqa: E402
+# ⚠️ O DONO DA ESPECIE DO TEXTO, E NAO UMA SEGUNDA COPIA DELA.
+# `regras/proveniencia.py` ja governa a procedencia de um texto derivado
+# (`ESPECIES_DO_TEXTO`, desde a C6). A porta NAO redeclara o vocabulario nem a
+# regra de escolha: importa-os. Duas listas para o mesmo vocabulario divergem no
+# dia em que alguem acrescentar uma especie a uma delas.
+import proveniencia as pv                                   # noqa: E402
 
 # O que a porta recusa, com nome. Cada um destes e uma RECUSA da porta — nunca
 # um ERRO da coleta, e nunca uma REJEICAO da admissao, que e outra pergunta.
@@ -98,6 +104,23 @@ DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "SOURCE_LOCATION", "FACT_LOCATION", "ITEM_LANGUAGE",
               "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT",
               "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION")
+
+# ⚠️ `TEXT_UNITS` NAO ESTA NA LISTA ACIMA, E A AUSENCIA E A DECISAO.
+# Medido ao ligar: por-lo la levanta
+# `Artefato.__init__() got an unexpected keyword argument 'TEXT_UNITS'` — e o
+# erro tem razao. `DO_COLETOR` nao e «o que a porta transporta»: e o que entra
+# na FICHA do contrato comum, e a ficha e metadado do artefato, nao conteudo
+# dele. Este ficheiro ja o dizia, na linha a seguir:
+#
+#     «O item manda no conteudo — `texto` vive nele e nao na ficha.»
+#
+# A evidencia textual e conteudo. Ela atravessa porque `para_a_porta` deixa
+# passar intacto tudo o que nao esta no mapa de nomes — a mesma regra que ja
+# leva o `DOCUMENT_ID`, que tambem nao tem par do outro lado. E os bytes dela
+# ficam preservados no RAW porque `_bytes_do_item` serializa o ITEM inteiro.
+#
+#     ACRESCENTAR UM CAMPO A UMA LISTA PORQUE ELE PRECISA DE VIAJAR
+#     E CONFUNDIR «POR ONDE PASSA» COM «DE QUEM E».
 
 
 # ── A LINGUA DA PORTA — UM SO TRADUTOR, NA FRONTEIRA ───────────────────────
@@ -137,6 +160,20 @@ PARA_A_PORTA = {
 }
 
 
+class TextoEmConflito(ValueError):
+    """O item traz unidades de texto E um `texto` a mao que as contradiz.
+
+    NAO SE ESCOLHE EM SILENCIO, pela mesma razao de `AliasEmConflito`. E aqui a
+    escolha calada seria pior do que um alias trocado: um `texto` escrito a mao
+    ao lado de `TEXT_UNITS` e exactamente a forma que o contrato novo tem de ser
+    ignorado sem que nada reclame — o campo antigo continua a responder, a
+    especie fica no campo novo a ser lida por ninguem, e as duas coisas divergem
+    a partir do dia em que uma delas mudar.
+
+        UM CONTRATO QUE O CAMINHO ANTIGO CONSEGUE CONTORNAR NAO E UM CONTRATO.
+    """
+
+
 class AliasEmConflito(ValueError):
     """Dois nomes do mesmo conceito, com valores diferentes.
 
@@ -157,6 +194,36 @@ def para_a_porta(item: dict) -> dict:
     campo que o coletor nao deu nao aparece do lado de la como string vazia.
     """
     fora = dict(item)
+
+    # ── O TEXTO ATRAVESSA AQUI, PELA MESMA RAZAO QUE OS OUTROS DEZ ─────────
+    # ⚠️ NAO EM `unidade_para_a_porta`, e a diferenca nao e de arrumacao.
+    # A rota documental (`orquestrador.item_documental_para_a_porta`) chama ESTA
+    # funcao e nunca passa por aquela. Se a escolha vivesse la, o documento
+    # estruturado ficava sem especie e a rota social ficava com ela — duas rotas
+    # a entregar a mesma porta coisas diferentes, que e o defeito que
+    # `PARA_A_PORTA` veio curar para os dez nomes do contrato comum.
+    #
+    #     UMA TRAVESSIA, UM TRADUTOR, NA FRONTEIRA. O TEXTO NAO E EXCEPCAO.
+    unidades = fora.get(pv.CAMPO_DAS_UNIDADES)
+    if unidades:
+        escolha = pv.texto_para_quem_julga(unidades)
+        # ⚠️ ABSENCIA CONTINUA ABSENCIA. `texto_para_quem_julga` devolve `{}`
+        # quando nao ha texto legivel, e nao `{"texto": ""}`. Uma observacao com
+        # unidades vazias chega a porta SEM `texto`, para ela responder «nao
+        # consegui ver» — e nao «vi, e estava vazio».
+        antigo = fora.get("texto")
+        if (antigo is not None and str(antigo).strip()
+                and str(antigo) != str(escolha.get("texto"))):
+            raise TextoEmConflito(
+                "o item traz %s e tambem um «texto» escrito a mao que nao e o "
+                "que a regra canonica escolheu. Um deles esta errado, e escolher "
+                "em silencio faria a especie de um viajar colada ao valor do "
+                "outro. Declarado: %r. Escolhido: %r (%s)."
+                % (pv.CAMPO_DAS_UNIDADES, str(antigo)[:120],
+                   str(escolha.get("texto"))[:120],
+                   escolha.get("texto_escolha_porque")))
+        fora.update(escolha)
+
     for de, para in PARA_A_PORTA.items():
         if de not in item:
             continue
@@ -214,6 +281,15 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
     O item manda no conteudo — `texto` vive nele e nao na ficha. A ficha manda
     no estagio, porque foi ela que o apurou. Nada e reescrito: um campo que o
     item ja afirma nao e tocado.
+
+    ⚠️ E E AQUI, E SO AQUI, QUE A EVIDENCIA TEXTUAL VIRA O TEXTO QUE SE JULGA.
+    A observacao traz N unidades com especie; quem julga le uma. A regra da
+    escolha e de `regras/proveniencia.py` — a porta APLICA-A, nao a redefine, e
+    nao a aplica duas vezes: se ela vivesse tambem no orquestrador, as duas
+    copias divergiam no dia em que alguem mudasse uma.
+
+        UMA TRAVESSIA, UM TRADUTOR, NA FRONTEIRA. Ja era a lei deste ficheiro
+        para os dez nomes do contrato comum; passa a valer para o texto.
     """
     fora = dict(item)
     for campo in DA_FICHA_PARA_A_PORTA:
@@ -221,6 +297,7 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
         if valor in NAO_E_AFIRMACAO:
             continue
         fora.setdefault(campo, valor)
+
     return para_a_porta(fora)
 
 
@@ -757,7 +834,15 @@ def receber(itens: list, *, corrida: dict, armazem, memoria=None,
                             "DETALHE": "a observacao nao e um objecto com campos"})
             continue
         f = ficha(item, corrida=corrida, raiz=raiz)
-        quebras = art.conferir(f)
+        # ⚠️ O CONTRATO DO TEXTO CONFERE-SE AQUI, COM O DO ARTEFATO E NA MESMA
+        # RECUSA. Deixar passar uma unidade de texto malformada e deixar entrar
+        # uma especie que ninguem vai conseguir ler depois — e a porta e o
+        # ultimo sitio onde ainda ha um item a quem devolver o motivo.
+        #
+        #     UMA ESPECIE QUE ENTRA ERRADA NAO SE CONSERTA DEPOIS:
+        #     ELA VIRA O QUE O PROXIMO LEITOR ACHAR QUE ELA E.
+        quebras = art.conferir(f) + pv.conferir_unidades_de_texto(
+            item.get(pv.CAMPO_DAS_UNIDADES))
         if quebras:
             recusas.append({"INDICE": i, "PORQUE": CONTRATO_QUEBRADO,
                             "ARTIFACT_ID": f.ARTIFACT_ID, "DETALHE": quebras})

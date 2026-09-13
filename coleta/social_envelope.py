@@ -54,8 +54,18 @@ import datetime
 import hashlib
 import json
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+import _gavetas  # noqa: E402,F401
+
+# ⚠️ A ESPECIE DO TEXTO VEM DO DONO DELA, e nao se redeclara aqui.
+# Este ficheiro e o dono do ENVELOPE — do que toda plataforma tem de ter. Nao e
+# o dono da procedencia de um texto: esse e `regras/proveniencia.py`, e foi ele
+# que a C6 escolheu justamente por dois consumidores tirarem a pergunta ao
+# primeiro que precisou dela.
+import proveniencia as pv  # noqa: E402
 SAIDA = os.path.join(ROOT, 'data', 'samples', 'SOCIAL-IT')
 RAW_DIR = os.path.join(SAIDA, 'raw-free')
 
@@ -188,13 +198,73 @@ def _slug(s):
     return ''.join(c if (c.isalnum() or c in '-_.') else '-' for c in str(s)).strip('-')
 
 
+# ══════════════════════════════════════════════════════════════════════════
+# O TEXTO TEM ESPÉCIE, E ELA DECLARA-SE AQUI OU NÃO SE DECLARA EM LADO NENHUM
+# ══════════════════════════════════════════════════════════════════════════
+# MEDIDO nos produtores desta árvore, e é por isto que o campo `TEXT` sozinho
+# não podia atravessar fronteira nenhuma:
+#
+#     social_rotas.bluesky_feed_autor      TEXT = record.text     o autor
+#     social_rotas.bluesky_buscar_contas   TEXT = description     a bio do perfil
+#     social_rotas.telegram_canal          TEXT = _sem_tags(html) a página raspada
+#     youtube_oficial._comentario          TEXT = textOriginal    o comentário
+#     adaptador_youtube.…_legenda_paga     TEXT = it['transcript'] a FALA
+#
+# Cinco produtores, cinco espécies, UM campo. E o último já sabia que não sabia:
+# ele escreve `'SPECIES': 'NOT_DECLARED_BY_PROVIDER'` dentro do `RAW`, porque o
+# contrato não tinha onde pôr a resposta.
+#
+#     UM CAMPO CHAMADO `TEXT` NÃO PROVA A ESPÉCIE DO TEXTO.
+#     E CINCO ESPÉCIES NUM CAMPO SÓ NÃO É UM CAMPO GENÉRICO: É UMA PERDA.
+#
+# ⚠️ O DEFEITO NÃO SE APAGA AQUI — PASSA A VER-SE.
+# Quem não declarar espécie continua a produzir envelope válido, e a unidade
+# nasce `UNKNOWN` com base `NOT_DECLARED`. Isso é uma MEDIÇÃO sobre o produtor,
+# não um buraco: `UNKNOWN` fica `UNKNOWN` e não é promovido a nada.
+
+
 def envelope(*, platform, native_id, url, content_type, route, executor,
              run_id, country_scope, source_account=None, published_at=None,
              language=None, source_location=None, cost_usd=0.0,
-             raw_reference=None, raw=None, title=None, text=None):
-    """Monta o envelope canônico. Campos ausentes viram UNKNOWN, nunca ''."""
+             raw_reference=None, raw=None, title=None, text=None,
+             text_kind=None, text_kind_basis=None, text_relation=None,
+             text_language=None, text_derivation=None, text_tool=None,
+             text_model=None, text_units=None):
+    """Monta o envelope canônico. Campos ausentes viram UNKNOWN, nunca ''.
+
+    `text_units` é a forma completa — uma observação com legenda E fala traz
+    DUAS unidades, e quem as monta usa `proveniencia.unidade_de_texto`. Os
+    `text_*` são o atalho do caso comum (um texto só) e produzem exactamente a
+    mesma unidade; não são um segundo contrato.
+
+    ⚠️ `text_language` NÃO É `language`, E OS DOIS NÃO SE DERIVAM UM DO OUTRO.
+    `language` é o idioma que a plataforma declarou para a PUBLICAÇÃO. Uma
+    tradução dentro dessa publicação está noutra língua, e escrever a da
+    publicação em cima dela apagaria a única coisa que distingue uma da outra.
+    Sem `text_language`, a unidade fica `UNKNOWN` — nunca herda.
+    """
     if content_type not in CONTENT_TYPES:
         raise ValueError('CONTENT_TYPE fora do vocabulário: %r' % content_type)
+    if text_units is not None and (text_kind or text_relation or text_language):
+        raise ValueError(
+            'ou se dá `text_units`, ou se dá os `text_*` do caso comum — nunca '
+            'os dois. Duas maneiras de dizer a mesma coisa no mesmo sítio é o '
+            'começo de duas respostas diferentes.')
+    unidades = text_units
+    if unidades is None:
+        unidades = ([] if text is None else [pv.unidade_de_texto(
+            texto=text,
+            kind=text_kind or pv.TEXTO_DESCONHECIDO,
+            # Sem espécie declarada não há quem a tenha declarado. A base tem de
+            # acompanhar, senão `UNKNOWN` chegaria com testemunha inventada.
+            kind_basis=(text_kind_basis or (pv.DECLARED_BY_ROUTE if text_kind
+                                            else pv.NOT_DECLARED)),
+            relation=text_relation or pv.TEXTO_DESCONHECIDO,
+            language=text_language,
+            unit_id='TU-1',
+            source_artifact=url,
+            derivation_method=text_derivation or pv.TEXTO_DESCONHECIDO,
+            tool=text_tool, model=text_model)])
     return {
         'PLATFORM': platform.upper(),
         'SOURCE_ACCOUNT': source_account or DESCONHECIDO,
@@ -202,7 +272,17 @@ def envelope(*, platform, native_id, url, content_type, route, executor,
         'URL': url,
         'CONTENT_TYPE': content_type,
         'TITLE': title,
+        # ⚠️ `TEXT` FICA, E FICA A DIZER O QUE SEMPRE DISSE.
+        # Ele tem leitores medidos — `social_scrap.py` lê `o.get('TEXT')` para o
+        # `TEXT_HEAD` do relatório, e `dedupe()` preenche buraco por ele. Parti-lo
+        # agora trocaria uma perda de espécie por uma quebra silenciosa noutro
+        # sítio. Ele é a VISTA CURTA; `TEXT_UNITS` é a evidência.
+        #
+        #     ONE CONCEPT -> ONE OWNER: o dono da evidência textual é
+        #     `TEXT_UNITS`. `TEXT` é uma projecção dele, e tem data para sair
+        #     (ver `docs/decisoes/ADR-CONTRATO-DO-TEXTO-NA-COLLECTION.md`).
         'TEXT': text,
+        pv.CAMPO_DAS_UNIDADES: unidades,
         'PUBLISHED_AT': published_at or DESCONHECIDO,
         'COLLECTED_AT': agora(),
         # Os dois campos que NUNCA se derivam um do outro.

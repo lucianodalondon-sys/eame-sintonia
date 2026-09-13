@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "36f007268c50a8f10921ff2440effece3f6bcf8e",
+    "HEAD": "903e18605e3fb3e66b616974aa80ff07835dc5d8",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -665,7 +665,8 @@
       "escreve_ficheiro": true,
       "chamado_por": [
         "ferramentas/contrato_ator.py",
-        "pedido/receitas.py"
+        "pedido/receitas.py",
+        "regras/proveniencia.py"
       ],
       "no_ci": true
     },
@@ -948,7 +949,7 @@
     {
       "ficheiro": "coleta/ingresso.py",
       "gaveta": "coleta",
-      "linhas": 821,
+      "linhas": 906,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [],
@@ -964,7 +965,8 @@
         "coleta/italy_executor.py",
         "coleta/rota_forward_documento.py",
         "guarda/catalogo_importar.py",
-        "pedido/receitas.py"
+        "pedido/receitas.py",
+        "regras/proveniencia.py"
       ],
       "no_ci": false
     },
@@ -1309,14 +1311,16 @@
     {
       "ficheiro": "coleta/social_envelope.py",
       "gaveta": "coleta",
-      "linhas": 266,
+      "linhas": 346,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
         "LINKEDIN",
         "YOUTUBE"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "TRANSCRICAO"
+      ],
       "descarta": true,
       "escreve_o_motivo_do_descarte": true,
       "decisoes_escondidas": [],
@@ -1325,7 +1329,8 @@
       "chamado_por": [
         "coleta/social_rotas.py",
         "coleta/social_scrap.py",
-        "coleta/youtube_oficial.py"
+        "coleta/youtube_oficial.py",
+        "regras/proveniencia.py"
       ],
       "no_ci": false
     },
@@ -1357,7 +1362,7 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 510,
+      "linhas": 542,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -1509,7 +1514,7 @@
     {
       "ficheiro": "coleta/youtube_oficial.py",
       "gaveta": "coleta",
-      "linhas": 994,
+      "linhas": 1018,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -1717,12 +1722,16 @@
     {
       "ficheiro": "regras/proveniencia.py",
       "gaveta": "regras",
-      "linhas": 489,
+      "linhas": 1074,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
       "ferramentas": [
-        "APIFY (rota paga)"
+        "APIFY (rota paga)",
+        "TRANSCRICAO"
       ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
@@ -1732,7 +1741,11 @@
       "chamado_por": [
         "coleta/coletor.py",
         "coleta/golden_path_pdf.py",
+        "coleta/ingresso.py",
         "coleta/instagram_janela.py",
+        "coleta/social_envelope.py",
+        "coleta/social_rotas.py",
+        "coleta/youtube_oficial.py",
         "pedido/receitas.py",
         "regras/sensor_coleta.py"
       ],
