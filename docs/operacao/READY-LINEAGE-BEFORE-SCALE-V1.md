@@ -268,9 +268,30 @@ de existir, e a `COL-LAW-033` já diz que depois é tarde.
 ## KNOW-HOW
 
 ```
-KNOW_HOW_HEAD  = 39e685fc  ·  claude/sintonia-eame-know-how-v1
-KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
+KNOW_HOW_HEAD (início)  = 39e685fc
+KNOW_HOW_HEAD (fim)     = 0de9dd95   ·  claude/sintonia-eame-know-how-v1
+KNOW_HOW_DRIFT          = YES — durante esta missão
+KNOW_HOW_DELTA          = ATUALIZAÇÃO NECESSÁRIA
 ```
+
+⚠️ **O know-how andou enquanto esta missão corria**, e o que entrou toca-lhe
+directamente: `know-how/daily/2026-09-13-ready-address-and-admission-correction.md`.
+Foi lido antes de fechar. Ele **confirma** o desenho — *«`RAW_OBSERVATION_ID`
+existe e é canonicamente `raw_asset.id`»* — e deixa duas linhas que esta missão
+acabou de mover:
+
+1. Ele escreve **«11 campos fixos conforme `COL-LAW-043`»**. Passaram a ser
+   **12**. A linha ficou stale pelo commit desta missão, e não por idade.
+2. Ele trata `G-READY-02` como *«decisão arquitetural em aberto»* entre ficheiro
+   e armazenamento transacional. `docs/decisoes/ADR-SALA-DE-ESPERA-V1.md` já
+   decidiu **FILESYSTEM**, e o censo anterior mediu a morada com **um** dono.
+   Quem reabrir a pergunta reabre-a contra o ADR, não contra o vazio.
+
+E a lição que ele próprio registou vale nos dois sentidos, incluindo contra
+este relatório:
+
+> *«UM RELATÓRIO DE GOVERNANÇA PODE ENVELHECER ENQUANTO A LINHA FUNCIONAL
+> CONTINUA A EVOLUIR; PARA ESTADO ATUAL, REMEDIR A LINHA FUNCIONAL.»*
 
 ⚠️ **E a primeira lição é sobre o censo anterior, que estava errado.** Ele
 declarou `KNOW_HOW_HEAD = não está neste repositório` — porque procurou em
