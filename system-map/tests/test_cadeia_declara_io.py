@@ -262,7 +262,33 @@ prova("nenhum_consumidor_le_a_lista_crua", not cruus, cruus)
 js = texto("system-map/scripts/publicar_no_deploy.mjs")
 prova("o_leitor_javascript_existe_e_le_o_EXECUTABLE",
       "function executaveisDaCadeia()" in js and "p.EXECUTABLE" in js,
-      "o publicador tem de ler a forma nova, e por uma funcao so")
+      "o publicador tem de ler a forma nova")
+prova("o_leitor_javascript_cobre_REGERAR_e_VALIDAR",
+      "function executaveisDeValidar()" in js,
+      "as duas listas tem a mesma forma; migrar so uma deixa a outra a passar "
+      "o OBJECTO do passo ao python")
+
+# ⚠️ O PUBLICADOR E O LEITOR, LOGO ESTA ISENTO DA GUARDA DA LISTA CRUA — E FOI
+# NESSE BURACO QUE O DEFEITO ENTROU. Ele iterava `CADEIA.VALIDAR` directamente e
+# entregava o objecto do passo ao python:
+#
+#     python3: can't open file '.../[object Object]'
+#
+# E nao caiu: o publicador apanha a falha do validador de proposito, para nao
+# derrubar o portal. O `rc` ficou 0 e o veredito foi parar ao FIM da linha.
+#
+#     QUEM E ISENTO DE UMA GUARDA PRECISA DE OUTRA, E NAO DE NENHUMA.
+#
+# Dentro do leitor, o acesso cru so pode viver nas funcoes de leitura — nunca
+# num laco que corre processos.
+import re as _re
+lacos = _re.findall(r"for\s*\(\s*const\s+\w+\s+of\s+(CADEIA\.\w+)\s*\)", js)
+prova("o_publicador_nao_itera_a_lista_crua", not lacos,
+      "%s — tem de passar pelo leitor, senao entrega o objecto ao python" % lacos)
+prova("o_acesso_cru_vive_so_nas_funcoes_de_leitura",
+      js.count("CADEIA.REGERAR") == 1 and js.count("CADEIA.VALIDAR") == 1,
+      "REGERAR=%d VALIDAR=%d — uma ocorrencia cada, dentro do seu leitor"
+      % (js.count("CADEIA.REGERAR"), js.count("CADEIA.VALIDAR")))
 
 # ── 6 · A ORDEM NAO FOI MEXIDA (G6 CONTINUA POR FAZER) ────────────────────
 ORDEM_G3 = ["system-map/scripts/scan_repo.py", "system-map/scripts/scan_sources.py",

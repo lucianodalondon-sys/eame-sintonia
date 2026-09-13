@@ -64,6 +64,23 @@ const CADEIA = JSON.parse(readFileSync(join(AQUI, 'CADEIA-DO-MAPA.json'), 'utf8'
 function executaveisDaCadeia() {
   return CADEIA.REGERAR.map(p => p.EXECUTABLE);
 }
+
+/* E A DE VALIDAR TAMBEM. Migrar so o `REGERAR` deixou este laco a passar o
+   OBJECTO do passo ao python, e o erro saiu assim:
+
+       python3: can't open file '.../[object Object]'
+
+   O publicador apanha a falha do validador e NAO cai — de proposito, para nao
+   derrubar o portal — logo o `rc` continuou 0 e a linha dizia, no fim,
+   `SYSTEM_MAP_CHECK=FAIL`. Localmente eu cortei a linha antes dessa palavra.
+
+       UM VEREDITO QUE CABE NO FIM DA LINHA E O PRIMEIRO A SER CORTADO.
+
+   Duas listas com a mesma forma precisam do mesmo leitor: deixar uma de fora e
+   deixar a forma nova com duas interpretacoes dentro do MESMO ficheiro. */
+function executaveisDeValidar() {
+  return CADEIA.VALIDAR.map(p => p.EXECUTABLE);
+}
 const SERVIDO = join(RAIZ, 'italia-portale', 'client', 'system-map');
 const ESTADO = join(SERVIDO, 'state.generated.json');
 const ARTEFATO = join(SERVIDO, CADEIA.ARTEFATO_DE_DEPLOY);
@@ -247,7 +264,7 @@ if (!python) {
   if (regenerou) {
     /* O VALIDADOR NAO E OPCIONAL, mas tambem nao derruba o portal. Ele corre, e
        o veredito vai para o artefato — a tela pinta BROKEN se ele reprovar. */
-    for (const passo of CADEIA.VALIDAR) {
+    for (const passo of executaveisDeValidar()) {
       const r = spawnSync(python, [passo], { cwd: RAIZ, stdio: 'inherit' });
       check = r.status === 0 ? 'PASS' : 'FAIL';
       if (check === 'FAIL') break;
