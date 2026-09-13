@@ -2,7 +2,7 @@
 
 ```text
 BIBLE_ID = SINTONIA-INTELLIGENCE-BIBLE
-VERSION = V0.1
+VERSION = V0.2
 STATUS = CANDIDATE_FOR_CANONICAL_REVIEW
 DATE = 2026-09-13
 IMPLEMENTATION_AUTHORIZED = NO
@@ -10,48 +10,79 @@ IMPLEMENTATION_AUTHORIZED = NO
 
 > Esta é a **Bíblia de Engenharia da Intelligence**, não um relatório, backlog, handoff, design de portal ou prova de implementação.
 >
-> Ela nasce como `CANDIDATE_FOR_CANONICAL_REVIEW` porque a governança mediu `CONTROL_PLANE_ATOMICITY = FAIL`: código, Bíblias, Know-how e registry ainda não formam um único snapshot canônico. Promovê-la silenciosamente a `CANONICAL` nesta branch criaria exatamente a divergência que o Control Plane foi criado para impedir.
+> Nasce como `CANDIDATE_FOR_CANONICAL_REVIEW` porque a governança mediu `CONTROL_PLANE_ATOMICITY = FAIL`: código, Bíblias, Know-how e registry ainda não formam um único snapshot canônico. Promovê-la silenciosamente nesta branch criaria a divergência que o Control Plane existe para impedir.
 >
-> **Esta Bíblia declara como a Intelligence deve funcionar. Ela não prova que funciona.**
+> **Lei declarada não prova implementação.**
 
 ---
 
-# 0. PAPEL, ESCOPO E AUTORIDADE
+# 0. AUTORIDADE, ESCOPO E OWNER
 
-## 0.1 O que esta Bíblia possui
+## INT-LAW-000 — ONE CONCEPT → ONE OWNER
 
-Esta Bíblia é candidata a possuir, após promoção explícita, as leis de:
+Esta Bíblia só pode possuir conceitos que não pertencem a outra autoridade canônica.
 
-- entrada e fronteira da Intelligence;
-- identidade analítica;
-- fatos, claims, evidências, hipóteses, sinais, crossings, findings e opportunities;
-- lineage/proveniência analítica;
-- dependência e independência de evidência;
-- incerteza e alternativas;
-- completude/universos;
-- temporalidade e geografia na análise;
-- Radar Futuro / horizon scanning;
-- uso de IA/LLM na Intelligence;
+A reconciliação com `BIBLIA-CANONICA-DA-COLETA.md` V1.4 mostrou que a Collection já reserva o contrato factual `CLAIM / FACT` para separar artefato de fato extraído (`ARTIFACT → CLAIM`). Portanto:
+
+```text
+COLLECTION OWNS:
+RAW / ARTIFACT / DERIVED / STRUCTURED / ADMISSION
+SOURCE FACTUAL CLAIM / FACT EXTRAÍDO
+IDENTIDADE E PROVENIÊNCIA DESSE CLAIM/FACT
+
+INTELLIGENCE OWNS:
+INTELLIGENCE_REQUEST
+INTELLIGENCE_RUN
+SUPPORT / CONTRADICTION RELATIONS
+DEPENDENCY / INDEPENDENCE GRAPH
+CROSSING
+ANALYTIC_SIGNAL
+ANALYTIC_ASSUMPTION
+ANALYTIC_HYPOTHESIS
+ANALYTIC_JUDGMENT / FINDING
+OPPORTUNITY / ATTENTION ITEM / FUTURE SIGNAL
+ANALYTIC_RECOMMENDATION
+```
+
+**Intelligence consome CLAIM/FACT admitido. Não fabrica um segundo CLAIM/FACT concorrente.**
+
+Se no futuro o contrato factual mudar de owner, a mudança exige decisão arquitetural explícita e reconciliação das duas Bíblias.
+
+## INT-LAW-001 — O que esta Bíblia governa
+
+Após promoção explícita, esta Bíblia é candidata a governar:
+
+- fronteira e entrada da Intelligence;
+- identidade dos objetos analíticos;
+- relação entre claims/evidências admitidas e julgamentos;
+- dependência, independência, crossing e convergência;
+- incerteza, premissas e alternativas;
+- completude/universos na análise;
+- temporalidade e geografia analíticas;
+- Future Radar / horizon scanning;
+- uso de IA/LLM;
 - segurança da Intelligence;
-- qualidade, observabilidade, avaliação e red team;
-- relação Collection ↔ Intelligence ↔ Delivery.
+- qualidade, observabilidade, evals e red team;
+- saída para Intelligence Tools / Delivery.
 
-## 0.2 O que esta Bíblia NÃO possui
+## INT-LAW-002 — O que esta Bíblia não governa
 
-Ela não possui:
+Não possui:
 
 - leis da Collection;
-- identidade de RAW/RUN/STORAGE;
-- aquisição direta;
-- regras de Admission;
+- SOURCE_ID / DOCUMENT_ID / RAW_OBSERVATION_ID;
+- identidade de RUN da Collection;
+- armazenamento RAW;
+- aquisição;
+- Admission;
 - UI/portal;
 - Design System;
 - deploy;
 - execução comercial;
-- decisão humana final;
-- verdade sobre runtime atual.
+- ação humana final;
+- estado real do runtime.
 
-## 0.3 Ordem canônica do projeto
+## INT-LAW-003 — Ordem do SINTONIA
 
 ```text
 COLLECTION
@@ -64,77 +95,64 @@ Portal não puxa arquitetura para trás.
 
 ---
 
-# 1. DEFINIÇÃO DA INTELLIGENCE
+# 1. O QUE É INTELLIGENCE
 
-## INT-LAW-001 — Intelligence começa na Sala de Espera
+## INT-LAW-010 — Intelligence começa na Sala de Espera
 
 ```text
 INTELLIGENCE_INPUT = MATERIAL ADMITIDO / READY NA SALA DE ESPERA
 ```
 
-Collection termina na Sala de Espera. Intelligence não redefine Admission para conseguir material mais conveniente.
+Collection termina na Sala de Espera. Intelligence não redefine Admission para conseguir material conveniente.
 
-## INT-LAW-002 — Intelligence transforma evidência em julgamento auditável
+## INT-LAW-011 — Intelligence é produção analítica auditável
 
-Intelligence não é “resumir documentos”.
-
-Sua função é produzir, quando houver base:
+Intelligence não é “resumir documentos”. Ela combina claims/fatos/evidências admitidos para produzir, quando houver base:
 
 ```text
-FACTS / CLAIMS
-→ RELATIONS / CROSSINGS
-→ SIGNALS
+SUPPORT / CONTRADICTION RELATIONS
+→ DEPENDENCY / INDEPENDENCE GRAPH
+→ CROSSINGS
+→ ANALYTIC_SIGNALS
 → HYPOTHESES / ALTERNATIVES
 → FINDINGS / JUDGMENTS
 → OPPORTUNITIES / ATTENTION ITEMS / FUTURE SIGNALS
 ```
 
-com lineage, incerteza, prova e limites explícitos.
+com lineage, incerteza e limites explícitos.
 
-## INT-LAW-003 — Intelligence pode concluir que não há ação defensável
+## INT-LAW-012 — NO_DEFENSIBLE_ACTION_YET é sucesso epistemológico
 
 ```text
 NO_DEFENSIBLE_ACTION_YET
 ```
 
-é saída válida e desejável quando a evidência não suporta promoção.
+é saída válida quando a evidência não suporta promoção.
 
 Quantidade de cards não mede qualidade.
 
-## INT-LAW-004 — Intelligence não fabrica necessidade de produto
+## INT-LAW-013 — TRUE ≠ RELEVANT ≠ ACTIONABLE
 
-Ausência de finding/opportunity não pode ser “corrigida” relaxando leis para abastecer portal.
+Algo pode ser verdadeiro e irrelevante; relevante e incerto; verdadeiro e fora da janela operacional.
 
-## INT-LAW-005 — Verdade, relevância e acionabilidade são eixos diferentes
+## INT-LAW-014 — Intelligence não fabrica necessidade
 
-```text
-TRUE != RELEVANT != ACTIONABLE
-```
-
-Algo pode ser verdadeiro e irrelevante, relevante e incerto, ou verdadeiro e fora da janela de ação.
+Ausência de opportunity não pode ser corrigida relaxando gates para abastecer portal.
 
 ---
 
-# 2. FRONTEIRAS ENTRE DOMÍNIOS
+# 2. FRONTEIRAS ENTRE COLLECTION, INTELLIGENCE E DELIVERY
 
-## INT-LAW-010 — Collection Gap volta pela Collection canônica
+## INT-LAW-020 — Collection Gap volta pela Collection canônica
 
-Intelligence pode detectar:
-
-```text
-COLLECTION_GAP
-```
-
-mas não chama collector diretamente.
-
-Fluxo:
+Intelligence pode detectar `COLLECTION_GAP`, mas não chama collector diretamente.
 
 ```text
 INTELLIGENCE
 → COLLECTION_GAP_REQUEST
-→ ORCHESTRATOR CANÔNICO DA COLLECTION
+→ COLLECTION ORCHESTRATOR
 → COLLECTOR
-→ RUN
+→ COLLECTION RUN
 → RAW
 → DERIVED
 → STRUCTURED
@@ -143,25 +161,25 @@ INTELLIGENCE
 → INTELLIGENCE
 ```
 
-## INT-LAW-011 — Collection existe ≠ família consultada
+## INT-LAW-021 — COLLECTION EXISTS ≠ FAMILY CONSULTED
 
-Ter material no acervo não prova que a Intelligence o consultou para a pergunta atual.
+Existência de material/coleção não prova que a família foi consultada para a pergunta atual.
 
-## INT-LAW-012 — Intelligence ≠ Delivery
+## INT-LAW-022 — Intelligence ≠ Delivery
 
-Intelligence produz material analítico. Delivery/Casco decide como expor material autorizado.
+Intelligence produz objetos analíticos. Delivery/Casco decide como expor objetos autorizados.
 
-## INT-LAW-013 — Portal não reconstrói Intelligence
+## INT-LAW-023 — Portal não reconstrói Intelligence
 
 Portal não pode:
 
 - refazer crossing;
 - completar relação ausente;
 - recalcular independência;
-- converter UNKNOWN em display-friendly PASS;
+- converter UNKNOWN em PASS;
 - reclassificar finding por conveniência.
 
-## INT-LAW-014 — Recommendation ≠ Action
+## INT-LAW-024 — RECOMMENDATION ≠ ACTION
 
 Por padrão:
 
@@ -170,162 +188,170 @@ INTELLIGENCE MAY PROPOSE
 INTELLIGENCE DOES NOT EXECUTE OPERATIONAL ACTION
 ```
 
-Qualquer write/action futuro precisa de owner, contrato, autorização e prova separados.
+Write/action exige owner, contrato, autorização e prova próprios.
 
 ---
 
 # 3. IDENTIDADES ANALÍTICAS
 
-## INT-LAW-020 — Um saco semântico único é proibido
+## INT-LAW-030 — Não existe saco semântico único
 
 Não comprimir:
 
 ```text
+COLLECTION_CLAIM / FACT      ← upstream, owner Collection
 INTELLIGENCE_REQUEST
-!= INTELLIGENCE_RUN
-!= FACT
-!= CLAIM
-!= EVIDENCE
-!= ASSUMPTION
-!= HYPOTHESIS
-!= SIGNAL
-!= CROSSING
-!= FINDING / JUDGMENT
-!= OPPORTUNITY
-!= RECOMMENDATION
-!= ACTION
+INTELLIGENCE_RUN
+SUPPORT_EDGE
+CONTRADICTION_EDGE
+ANALYTIC_ASSUMPTION
+ANALYTIC_HYPOTHESIS
+ANALYTIC_SIGNAL
+CROSSING
+ANALYTIC_JUDGMENT / FINDING
+OPPORTUNITY
+ANALYTIC_RECOMMENDATION
+ACTION                        ← downstream, fora do baseline
 ```
 
-Isso não obriga 12 tabelas na primeira implementação. Obriga 12 conceitos semânticos distintos.
+Isso não obriga uma tabela para cada conceito; obriga identidades semânticas distintas.
 
-## INT-LAW-021 — FACT é proposição sobre o mundo com suporte factual
+## INT-LAW-031 — Claim factual consumido precisa de identidade global
 
-FACT não é texto do documento, nem opinião do analista, nem output de LLM.
+Preservar a exigência do Motor Intelligence V2: toda claim factual consumida precisa de identidade estável, global, reproduzível e rastreável.
 
-## INT-LAW-022 — CLAIM é afirmação identificável e rastreável
+**Mas Intelligence não fabrica essa identidade se o contrato upstream não a possui.** Falta de identidade vira contract/collection gap.
 
-Toda claim consumida pela Intelligence precisa de identidade estável e global dentro do sistema.
+## INT-LAW-032 — SUPPORT ≠ CLAIM
 
-Proibido `CLAIM_ID` derivado apenas de posição, contador ou ordem de processamento.
+Uma relação de suporte diz que uma evidência/claim suporta outra unidade analítica. Ela não cria novo fato por si só.
 
-## INT-LAW-023 — EVIDENCE é suporte, não conclusão
+## INT-LAW-033 — CONTRADICTION é first-class
 
-Evidence pode apoiar, contradizer ou contextualizar uma claim.
+Evidência material contrária precisa poder ser ligada explicitamente ao judgment que afeta.
 
-## INT-LAW-024 — ASSUMPTION é explícita
+## INT-LAW-034 — ANALYTIC_ASSUMPTION é explícita
 
-Premissa usada para atravessar lacuna crítica precisa ser registrada como premissa, não apresentada como fato.
+Premissa usada para atravessar lacuna crítica nunca é renderizada como fato.
 
-## INT-LAW-025 — HYPOTHESIS não vira FACT por repetição
+## INT-LAW-035 — HYPOTHESIS não vira FACT por repetição
 
-Várias fontes repetindo hipótese, rumor ou uma mesma origem não promovem automaticamente factualidade.
+Fontes repetindo hipótese, rumor ou mesma origem não promovem factualidade automaticamente.
 
-## INT-LAW-026 — SIGNAL é observação analiticamente relevante, não oportunidade
+## INT-LAW-036 — SIGNAL ≠ FINDING ≠ OPPORTUNITY
 
-```text
-SIGNAL != FINDING != OPPORTUNITY
-```
+Signal é indicação relevante; finding é julgamento analítico; opportunity é promoção com gates adicionais.
 
-## INT-LAW-027 — CROSSING é relação produzida por chaves compatíveis e lógica declarada
+## INT-LAW-037 — CROSSING é relação provada, não semelhança
 
-Dois materiais parecidos não são crossing sem chave factual compatível ou regra explícita.
+Crossing requer chaves factuais compatíveis ou regra de equivalência explícita.
 
-## INT-LAW-028 — FINDING/JUDGMENT precisa de rationale auditável
+## INT-LAW-038 — FINDING/JUDGMENT precisa de decision trace auditável
 
-Guardar rationale verificável, evidências, premissas, alternativas e gates; não depender de chain-of-thought privado de modelo.
+Guardar artifacts compartilháveis:
 
-## INT-LAW-029 — OPPORTUNITY tem identidade factual própria
+- claims/evidências usadas;
+- support/contradiction edges;
+- premissas;
+- alternativas materiais;
+- regra/algoritmo/prompt versionado quando aplicável;
+- rationale resumido verificável;
+- gates e estados.
 
-Opportunity não pode ser apenas um card visual. Sua identidade precisa ser separável de sua renderização e de seu score.
+Não depender de chain-of-thought privado de modelo.
+
+## INT-LAW-039 — Opportunity é objeto analítico, não card visual
+
+Identidade e estado da Opportunity independem da UI.
 
 ---
 
 # 4. PROVENIÊNCIA E LINEAGE
 
-## INT-LAW-030 — Todo derivado aponta para seus inputs reais
+## INT-LAW-040 — Todo analítico derivado aponta para inputs reais
 
-Finding sem upstream identificável é inválido.
+Finding sem upstream reconstruível é inválido ou `LINEAGE_PARTIAL`.
 
-## INT-LAW-031 — Lineage inclui dados + lógica + execução
+## INT-LAW-041 — Lineage inclui dado + lógica + execução
 
-Para reproduzir um resultado, a Intelligence precisa poder responder:
+Para reproduzir um resultado:
 
 ```text
-QUAL INPUT?
-QUAL CLAIM/EVIDENCE?
+QUAL INPUT ADMITIDO?
+QUAL CLAIM/FACT?
+QUAL SUPPORT/CONTRADICTION?
 QUAL REGRA/ALGORITMO/PROMPT?
 QUAL VERSÃO?
 QUAL MODELO, SE HOUVE?
 QUAIS PARÂMETROS?
 QUAL UNIVERSO?
-QUAL RUN?
+QUAL INTELLIGENCE_RUN?
 QUAL OUTPUT?
 ```
 
-## INT-LAW-032 — Participar do mesmo run não cria edge
+## INT-LAW-042 — Participar do mesmo run não cria edge
 
 ```text
-SAME_RUN(A, B) != A_DERIVED_FROM_B
+SAME_RUN(A,B) != A_DERIVED_FROM_B
 ```
 
 Não inferir produto cartesiano entre inputs e outputs.
 
-## INT-LAW-033 — Declared lineage ≠ observed lineage
+## INT-LAW-043 — DECLARED LINEAGE ≠ OBSERVED LINEAGE
 
-Relação declarada e relação observada possuem estados diferentes.
+Ambos podem existir; não podem ser fundidos silenciosamente.
 
-## INT-LAW-034 — Lineage incompleto fica visível
-
-Quando não for possível reconstruir parte da cadeia:
+## INT-LAW-044 — Limitação de lineage fica visível
 
 ```text
-LINEAGE_STATE = PARTIAL / UNKNOWN
+LINEAGE_STATE = COMPLETE | PARTIAL | UNKNOWN
 ```
 
-Nunca preencher por plausibilidade.
+Sem preencher por plausibilidade.
 
-## INT-LAW-035 — Derivação deve permitir impact analysis
+## INT-LAW-045 — Lineage deve permitir impact analysis
 
-Antes de mudar contrato, normalização, taxonomia ou regra, deve ser possível identificar downstream potencialmente afetado.
+Mudança de contrato, taxonomia, regra ou normalização deve permitir identificar downstream afetado.
 
 ---
 
-# 5. RUN DA INTELLIGENCE
+# 5. INTELLIGENCE RUN
 
-## INT-LAW-040 — RUN é execução, não produto analítico
+## INT-LAW-050 — INTELLIGENCE_RUN != COLLECTION_RUN != FINDING
+
+São conceitos diferentes.
+
+## INT-LAW-051 — Toda execução tem identidade própria
+
+Cada execução analítica precisa de `INTELLIGENCE_RUN_ID` ou contrato equivalente não ambíguo.
+
+## INT-LAW-052 — Run preserva configuração efetiva
+
+Conforme aplicável:
 
 ```text
-INTELLIGENCE_RUN != FINDING
+CODE_VERSION
+BIBLE_VERSION
+RULESET_VERSION
+MODEL / MODEL_VERSION
+PROMPT / POLICY VERSION
+PARAMETERS
+INPUT REFERENCES
+UNIVERSE
+START / END
+RESULT STATE
+ERRORS
+REUSE STATE
+COST
 ```
 
-## INT-LAW-041 — Toda execução tem identidade
+## INT-LAW-053 — NOT_RUN ≠ ERROR ≠ EMPTY_RESULT ≠ NO_FINDING
 
-Cada execução precisa de `INTELLIGENCE_RUN_ID` ou identidade equivalente não ambígua.
+Estados separados.
 
-## INT-LAW-042 — Run preserva configuração efetiva
+## INT-LAW-054 — Reuso precisa ser provado
 
-Registrar, conforme aplicável:
-
-- versão de código;
-- versão de regras;
-- modelo;
-- prompt/policy;
-- parâmetros;
-- inputs;
-- universo;
-- horário;
-- resultado;
-- erros;
-- reuso;
-- custo quando mensurável.
-
-## INT-LAW-043 — NOT_RUN ≠ ERROR ≠ EMPTY_RESULT
-
-Preservar estados separados.
-
-## INT-LAW-044 — Reuso precisa ser provado
-
-Reutilizar resultado apenas quando for demonstrada equivalência relevante entre:
+Só reutilizar quando equivalência relevante for provada entre:
 
 ```text
 INPUTS + LOGIC + PARAMETERS + REQUIRED_CONTEXT
@@ -337,13 +363,11 @@ INPUTS + LOGIC + PARAMETERS + REQUIRED_CONTEXT
 
 # 6. QUALIDADE E CREDIBILIDADE DA EVIDÊNCIA
 
-## INT-LAW-050 — Fonte tem qualidade contextual, não reputação absoluta
+## INT-LAW-060 — Qualidade da fonte é contextual
 
-Avaliar o que a fonte prova para aquela claim.
+Pergunta: **o que esta fonte prova para esta claim?** Não “esta fonte é boa em geral?”.
 
-## INT-LAW-051 — Quatro eixos de evidência permanecem separados
-
-Preservar o contrato maduro:
+## INT-LAW-061 — Quatro eixos de evidência permanecem separados
 
 ```text
 EVIDENCE_CLASS
@@ -352,29 +376,29 @@ EVIDENCE_STRENGTH
 EVIDENCE_REASON
 ```
 
-## INT-LAW-052 — PROVED exige razão semanticamente compatível
+## INT-LAW-062 — PROVED exige razão compatível
 
 ```text
 PROVED + UNKNOWN_REASON = INVALID
 ```
 
-## INT-LAW-053 — Conteúdo do corpo ≠ chrome da página
+## INT-LAW-063 — Corpo ≠ chrome da página
 
-Sidebar, menu, breadcrumbs, tags, recommendation widgets e texto de navegação não provam fato no corpo.
+Sidebar, menu, breadcrumbs, tags e recommendation widgets não provam fato no corpo.
 
-## INT-LAW-054 — Snippet ≠ documento completo
+## INT-LAW-064 — Snippet ≠ documento
 
-Trecho de busca ou preview não substitui leitura da unidade necessária quando a conclusão depende do contexto ausente.
+Preview/trecho não substitui unidade completa quando contexto é necessário.
 
-## INT-LAW-055 — Identidade ≠ expertise
+## INT-LAW-065 — Identidade ≠ expertise
 
-Pessoa/organização identificada não se torna especialista específica de cultura/issue sem prova.
+Pessoa/organização identificada não se torna especialista específica sem prova temática.
 
-## INT-LAW-056 — Identidade ≠ sinal
+## INT-LAW-066 — Identidade ≠ sinal
 
 Conta/creator/empresa conhecida não prova comportamento, issue ou evento atual.
 
-## INT-LAW-057 — Registro ≠ mercado
+## INT-LAW-067 — Registro ≠ mercado
 
 ```text
 REGISTRATION != SALES
@@ -386,29 +410,27 @@ REGISTRATION_COUNT != MARKET_SHARE
 
 # 7. DEPENDÊNCIA E INDEPENDÊNCIA
 
-## INT-LAW-060 — Grafo de dependências vem antes de convergência
+## INT-LAW-070 — Grafo de dependências vem antes da convergência
 
-Nenhuma contagem multi-sinal é publicada antes de resolver dependência suficiente entre as pernas.
+Nenhuma contagem multi-sinal é publicada antes da análise de dependência suficiente.
 
-## INT-LAW-061 — Mesmo originador não vira múltiplas fontes
+## INT-LAW-071 — Mesmo originador não vira múltiplas fontes
 
-Reprodução/sindicação/cópia da mesma origem não cria independência.
+Cópia/sindicação/republicação não cria independência.
 
-## INT-LAW-062 — Mesmo documento, vistas diferentes, continua sendo a mesma evidência-base
+## INT-LAW-072 — Mesmo documento, vistas diferentes, continua mesma evidência-base
 
-Index, listing, metadata e corpo podem oferecer atributos diferentes, mas não viram fontes independentes automaticamente.
+Listing, metadata e corpo podem oferecer atributos distintos sem virarem fontes independentes.
 
-## INT-LAW-063 — Mesmo dataset, transformações diferentes, não cria fonte independente
+## INT-LAW-073 — Mesmo dataset, transformações diferentes, não cria origem independente
 
-Transformação pode criar validação distinta, não origem independente.
+Pode criar validação estrutural diferente, não nova fonte.
 
-## INT-LAW-064 — Mesma entidade, observações diferentes, precisa de classificação explícita
+## INT-LAW-074 — Mesma entidade, observações diferentes, exige classificação
 
-Observações em tempos/canais diferentes podem ter valor próprio, mas não recebem independência por default.
+Tempo/canal diferente pode trazer nova observação; independência não é automática.
 
-## INT-LAW-065 — Famílias precisam ser semanticamente separadas
-
-Preservar:
+## INT-LAW-075 — Famílias não se comprimem
 
 ```text
 EVIDENCE_FAMILY
@@ -416,32 +438,30 @@ DATASET_FAMILY
 SOURCE_FAMILY
 ```
 
-## INT-LAW-066 — Structural validation não infla independent source count
+## INT-LAW-076 — Structural validation não infla independent source count
 
-Catálogo, label e registro podem validar estrutura sem se tornarem três sinais externos independentes.
+Catálogo, label e registro podem validar estrutura sem serem três sinais externos independentes.
 
-## INT-LAW-067 — Convergência mede independência e compatibilidade
+## INT-LAW-077 — Convergência exige independência + compatibilidade
 
-Convergência exige pelo menos:
+Verificar pelo menos:
 
-- compatibilidade factual;
-- dependência analisada;
-- tempo compatível;
-- geografia compatível;
-- entidades compatíveis;
-- ausência de double counting crítico.
+- entidade;
+- geografia;
+- tempo;
+- cultura/issue quando aplicável;
+- dependência/originador;
+- double counting.
 
 ---
 
 # 8. NORMALIZAÇÃO E ENTITY RESOLUTION
 
-## INT-LAW-070 — Normalização precede backfill e cruzamento massivo
+## INT-LAW-080 — Normalização precede backfill/crossing massivo
 
-Identidades equivalentes precisam de regra/prova antes de multiplicar relações.
+## INT-LAW-081 — Similaridade textual não prova equivalência
 
-## INT-LAW-071 — Similaridade textual não prova equivalência
-
-Exemplo-testemunha já maduro:
+Fixture madura:
 
 ```text
 VITE
@@ -449,41 +469,35 @@ VITE DA VINO
 VINE
 ```
 
-podem ter relação, mas `VITE DA TAVOLA` exige decisão própria.
+não autoriza automaticamente `VITE DA TAVOLA`.
 
-## INT-LAW-072 — Canonical concept ≠ local term
+## INT-LAW-082 — Canonical concept ≠ local term
 
-Multilíngue deve mapear termos locais para conceitos sem apagar o original.
+Preservar termo original e mapeamento multilíngue.
 
-## INT-LAW-073 — Resolver entidade não autoriza fabricar SOURCE_ID/DOCUMENT_ID
+## INT-LAW-083 — Entity resolution não fabrica identidade da Collection
 
-Identidade da Collection continua governada pela Bíblia da Collection.
+Nunca fabricar SOURCE_ID, DOCUMENT_ID ou equivalente upstream.
 
-## INT-LAW-074 — Conflito de normalização permanece conflito
+## INT-LAW-084 — Conflito de normalização permanece conflito
 
-Não escolher “o mais provável” para fazer crossing fechar.
+Não escolher “mais provável” para fazer crossing fechar.
 
 ---
 
 # 9. CROSSINGS E CONVERGÊNCIA
 
-## INT-LAW-080 — Crossing precisa declarar pergunta
+## INT-LAW-090 — Crossing declara a pergunta que responde
 
-Cada crossing existe para responder uma pergunta explícita.
-
-## INT-LAW-081 — Missing join key bloqueia crossing
-
-Se uma chave necessária não estiver provada:
+## INT-LAW-091 — Missing join key bloqueia crossing
 
 ```text
-CROSSING_STATE = NOT_POSSIBLE / UNKNOWN / PARTIAL
+CROSSING_STATE = NOT_POSSIBLE | UNKNOWN | PARTIAL
 ```
 
-não “closest match”.
+não closest-match silencioso.
 
-## INT-LAW-082 — Métricas de convergência ficam separadas
-
-Preservar:
+## INT-LAW-092 — Métricas de convergência separadas
 
 ```text
 EXTERNAL_SIGNAL_COUNT
@@ -492,42 +506,40 @@ STRUCTURAL_VALIDATION_COUNT
 INTELLIGENCE_FAMILY_COUNT
 ```
 
-## INT-LAW-083 — Score não substitui decomposição
+## INT-LAW-093 — Score não substitui decomposição
 
-Se houver score, seus componentes e razões devem continuar acessíveis.
+Componentes e motivos permanecem acessíveis.
 
-## INT-LAW-084 — Score alto não derrota gate duro
+## INT-LAW-094 — Score alto não derrota gate duro
 
-Gate epistemológico/segurança falho não pode ser compensado por soma de pontos.
+Gate epistemológico/segurança falho não é compensado por pontos.
 
-## INT-LAW-085 — Correlação ≠ causalidade
+## INT-LAW-095 — Correlação ≠ causalidade
 
-Claim causal exige contrato/prova mais forte do que associação ou coocorrência.
+Causalidade exige contrato/prova mais forte.
 
 ---
 
 # 10. TEMPO E GEOGRAFIA
 
-## INT-LAW-090 — Herda separações maduras
+## INT-LAW-100 — Herda semântica madura
 
 ```text
 SOURCE_LOCATION != FACT_LOCATION
 FACT_TIME != PUBLICATION_TIME != OBSERVED_TIME != COLLECTED_TIME
 ```
 
-## INT-LAW-091 — Escopo da página ≠ local do fato
+Intelligence consome essas distinções; não as achata.
 
-País da página/conta/fonte não prova país onde o fato ocorreu.
+## INT-LAW-101 — Escopo da página ≠ local do fato
 
-## INT-LAW-092 — Afiliação ≠ local do estudo
+## INT-LAW-102 — Afiliação ≠ local do estudo
 
-Instituição/autoria não prova localização experimental.
+## INT-LAW-103 — Tempo participa da acionabilidade
 
-## INT-LAW-093 — Tempo participa da acionabilidade
+Fato pode continuar verdadeiro e perder utilidade operacional.
 
-Um fato pode permanecer factual e perder utilidade operacional.
-
-## INT-LAW-094 — ACT_NOW exige janela compatível
+## INT-LAW-104 — ACT_NOW exige janela compatível
 
 Sem janela factual suficiente:
 
@@ -535,9 +547,9 @@ Sem janela factual suficiente:
 ACT_NOW = NOT_PROVED
 ```
 
-## INT-LAW-095 — Estado temporal precisa explicar o motivo
+## INT-LAW-105 — Estado temporal explica motivo
 
-Exemplos possíveis:
+Taxonomia final deve ser contratada antes do runtime. Estados candidatos:
 
 ```text
 ACT_NOW
@@ -547,21 +559,19 @@ STALE_FOR_ACTION
 UNKNOWN_WINDOW
 ```
 
-A taxonomia final deve ser contratada antes do runtime.
-
 ---
 
 # 11. UNIVERSOS, COMPLETUDE, ZERO E AUSÊNCIA
 
-## INT-LAW-100 — Universo é definido pela pergunta
+## INT-LAW-110 — Universo é definido pela pergunta
 
 ```text
 UNIVERSE != DIRECTORY
 ```
 
-## INT-LAW-101 — Completude exige contrato de universo
+## INT-LAW-111 — Completude exige contrato de universo
 
-Para afirmar `COMPLETE`, `FULL_SCAN`, `ZERO` ou `NOT_FOUND` com força de ausência, declarar pelo menos:
+Para afirmar `COMPLETE`, `FULL_SCAN`, `ZERO` ou ausência forte:
 
 ```text
 WHICH_UNIVERSE
@@ -574,9 +584,9 @@ SCANNED_FINGERPRINT
 COMPLETENESS_STATE
 ```
 
-## INT-LAW-102 — ZERO_PROVED é estado raro e exigente
+## INT-LAW-112 — ZERO_PROVED é estado exigente
 
-Preservar distinções:
+Distinguir:
 
 ```text
 ZERO_PROVED
@@ -587,54 +597,49 @@ MATERIAL_NOT_USABLE
 UNKNOWN
 ```
 
-## INT-LAW-103 — Input vazio nunca prova completude
+## INT-LAW-113 — Input vazio nunca prova completude
 
-Gate crítico que passa com input vazio é inválido.
+Gate crítico que passa vazio é inválido.
 
-## INT-LAW-104 — Reprodutibilidade ≠ decisão de universo
+## INT-LAW-114 — Reprodutibilidade ≠ universo correto
 
-Dois leitores concordarem na mesma contagem prova leitura reprodutível; não prova que o universo escolhido é o correto.
+Dois leitores concordarem prova reprodutibilidade da leitura, não decisão do universo.
 
 ---
 
 # 12. INCERTEZA, JULGMENT E ALTERNATIVAS
 
-## INT-LAW-110 — Informação, premissa e julgamento ficam separados
+## INT-LAW-120 — Informação upstream, premissa e julgamento ficam separados
 
 ```text
-UNDERLYING_INFORMATION
-ASSUMPTION
-JUDGMENT
+COLLECTION_CLAIM / FACT
+ANALYTIC_ASSUMPTION
+ANALYTIC_JUDGMENT
 ```
 
-não podem ser renderizados como equivalentes.
+## INT-LAW-121 — Major judgment explica incerteza
 
-## INT-LAW-111 — Major judgment explica incerteza
+Registrar, quando material:
 
-Registrar causas relevantes de incerteza:
-
-- quantidade de evidência;
-- qualidade;
+- quantidade/qualidade de evidência;
 - freshness;
 - gaps;
 - dependência de premissas;
 - conflitos.
 
-## INT-LAW-112 — Confidence ≠ probability
+## INT-LAW-122 — Confidence ≠ probability
 
-Confiança na base do judgment e probabilidade de um evento são conceitos diferentes.
+Confiança na base do judgment e probabilidade de evento são conceitos diferentes.
 
-## INT-LAW-113 — Contradictory evidence fica visível
+## INT-LAW-123 — Evidência contrária fica visível
 
-Informação material contrária não pode ser descartada porque reduz score.
+Não descartar porque reduz score.
 
-## INT-LAW-114 — High-impact uncertainty exige alternativas
+## INT-LAW-124 — Alto impacto + alta incerteza exige alternativas
 
-Quando risco/impacto justificar, produzir hipóteses alternativas e indicadores que mudariam o judgment.
+Produzir hipóteses alternativas e indicadores que mudariam o judgment quando risco justificar.
 
-## INT-LAW-115 — Judgment novo explica mudança
-
-Quando um judgment muda, registrar:
+## INT-LAW-125 — Mudança de judgment é explicada
 
 ```text
 PREVIOUS_JUDGMENT
@@ -644,68 +649,58 @@ WHY
 NEW_EVIDENCE_OR_REASONING
 ```
 
-## INT-LAW-116 — Independência de audiência/comercial
+## INT-LAW-126 — Judgment não faz advocacy
 
-Judgment não deve ser moldado para confirmar o que Marketing, Sales ou direção desejam ouvir.
+Não moldar conclusão para confirmar expectativa comercial, política ou de audiência.
 
 ---
 
 # 13. FUTURO / HORIZON SCANNING
 
-## INT-LAW-120 — Weak signal ≠ forecast
+## INT-LAW-130 — WEAK_SIGNAL ≠ FORECAST
 
-```text
-WEAK_SIGNAL != FORECAST
-```
+## INT-LAW-131 — FORECAST ≠ FACT
 
-## INT-LAW-121 — Forecast ≠ fact
+## INT-LAW-132 — SCENARIO ≠ PREDICTION
 
-```text
-FORECAST != OBSERVED_FACT
-```
+## INT-LAW-133 — FUTURE_DATE ≠ OPPORTUNITY
 
-## INT-LAW-122 — Scenario ≠ prediction
+Calendário, expiry, safra ou janela futura isolados não criam Opportunity.
 
-Cenário explora possibilidade; não afirma ocorrência.
+## INT-LAW-134 — Radar Futuro consulta corpus relevante
 
-## INT-LAW-123 — Future date não cria opportunity
+Mesma disciplina de consulta global e estados explícitos por família.
 
-Calendário, expiry, safra ou janela futura isolados não são oportunidade.
-
-## INT-LAW-124 — Radar Futuro consulta corpus relevante
-
-Mesma disciplina de consulta global e estados explícitos por família se aplica ao futuro.
-
-## INT-LAW-125 — Horizon item declara horizonte e incerteza
+## INT-LAW-135 — Horizon item declara incerteza e horizonte
 
 No mínimo:
 
-- o sinal;
+- sinal observado;
 - evidência;
-- horizonte temporal;
+- horizonte;
 - impacto potencial;
-- grau/causas de incerteza;
-- indicadores que fortaleceriam/enfraqueceriam o cenário.
+- causas/grau de incerteza;
+- indicadores que fortaleceriam/enfraqueceriam.
 
-## INT-LAW-126 — História não prova repetição
+## INT-LAW-136 — História não prova repetição
 
-Pattern histórico pode informar hipótese, não determinar recorrência futura.
+Pattern histórico informa hipótese, não determina futuro.
 
 ---
 
 # 14. FINDING, ATTENTION ITEM E OPPORTUNITY
 
-## INT-LAW-130 — Finding responde uma pergunta analítica
+## INT-LAW-140 — Finding responde pergunta analítica
 
-Não criar finding genérico “interessante”.
+Não existe finding genérico “interessante”.
 
-## INT-LAW-131 — Relevância para decisão é explícita
+## INT-LAW-141 — Relevância para decisão é explícita
 
-Finding deve dizer para quem/qual decisão ele importa, sem fabricar ação.
+Dizer para quem/qual decisão importa, sem fabricar ação.
 
-## INT-LAW-132 — Opportunity cruza todas as famílias aplicáveis disponíveis
+## INT-LAW-142 — Opportunity consulta famílias aplicáveis
 
-Preservar estado explícito por família:
+Preservar contrato vigente de estados, atualmente:
 
 ```text
 MATCH
@@ -715,31 +710,31 @@ UNKNOWN
 MATERIAL_EXISTENTE_NAO_UTILIZAVEL
 ```
 
-Taxonomia pode evoluir por contrato, não por implementação silenciosa.
+Mudança de taxonomia exige contrato, não implementação silenciosa.
 
-## INT-LAW-133 — Portfolio completeness permanece obrigatório quando aplicável
+## INT-LAW-143 — Portfolio completeness quando aplicável
 
-Para Opportunity comercial ligada a ADAMA, produtos relevantes do país/cultura precisam ser contabilizados conforme contrato vigente.
+Opportunity comercial ligada à ADAMA deve contabilizar o portfólio do país/cultura conforme contrato vigente.
 
-## INT-LAW-134 — Produto para cultura ≠ produto para alvo
+## INT-LAW-144 — Produto para cultura ≠ produto para alvo
 
-Não chamar “solução” sem relação cultura × alvo provada.
+Não chamar solução sem relação cultura × alvo provada.
 
-## INT-LAW-135 — Opportunity não nasce de uma fonte estrutural sozinha
+## INT-LAW-145 — Estrutura não inventa pressão de campo
 
-Autorização/portfolio/label podem contextualizar; não inventam pressão de campo ou demanda.
+Autorização/portfolio/label contextualizam; não criam sinal de campo/demanda.
 
-## INT-LAW-136 — DAILY_COLLECTION_VALUE ≠ DAILY_INTELLIGENCE_VALUE
+## INT-LAW-146 — DAILY_COLLECTION_VALUE ≠ DAILY_INTELLIGENCE_VALUE
 
-Cadência de coleta não determina cadência de Intelligence.
+Cadência da Collection não determina cadência de Intelligence.
 
 ---
 
 # 15. COLLECTION GAP
 
-## INT-LAW-140 — Gap é first-class
+## INT-LAW-150 — Gap é first-class
 
-Gap deve declarar:
+Declarar:
 
 ```text
 QUESTION_BLOCKED
@@ -749,41 +744,39 @@ REQUIRED_SCOPE
 URGENCY
 ```
 
-## INT-LAW-141 — Gap não prescreve collector específico sem owner competente
+## INT-LAW-151 — Intelligence pede prova, não escolhe rota de coleta
 
-Intelligence pede o que precisa provar; Collection decide a rota de aquisição conforme contratos próprios.
+Collector/route pertencem à Collection.
 
-## INT-LAW-142 — Reprocessar antes de recolher quando aplicável
+## INT-LAW-152 — Reprocessar antes de recolher quando aplicável
 
-Se a informação potencialmente existe no RAW/material preservado e falta derivação/estrutura, avaliar reprocessamento antes de nova coleta.
+Se informação pode existir no material preservado e falta extração/estrutura, avaliar reprocessamento antes de nova aquisição.
 
-## INT-LAW-143 — Collection Gap ≠ Collection failure
+## INT-LAW-153 — Collection Gap ≠ Collection failure
 
-Um novo questionamento analítico pode exigir dado que nunca esteve no universo anterior.
+Pergunta nova pode pedir dado fora do universo anterior.
 
 ---
 
-# 16. IA / LLM DENTRO DA INTELLIGENCE
+# 16. IA / LLM NA INTELLIGENCE
 
-## INT-LAW-150 — LLM é mecanismo, não fonte factual
+## INT-LAW-160 — LLM é mecanismo, não fonte factual
 
-Output de modelo precisa apontar para evidência externa ou ser classificado como hipótese/síntese conforme o caso.
+Output de modelo aponta para claim/evidência upstream ou permanece hipótese/síntese.
 
-## INT-LAW-151 — Conteúdo coletado é dado não confiável, não instrução
+## INT-LAW-161 — Conteúdo coletado é dado não confiável, não instrução
 
-Texto de web, PDF, comentário, transcript ou documento pode conter instruções maliciosas/irrelevantes. Agente não deve tratar conteúdo de fonte como autorização para mudar ferramentas, políticas, segredos ou escopo.
+Web/PDF/comment/transcript pode conter instruções adversariais ou irrelevantes. Conteúdo de fonte não autoriza mudar ferramentas, políticas, segredos, escopo ou permissões.
 
-## INT-LAW-152 — Prompt/model/version são parte do lineage quando materialmente relevantes
+## INT-LAW-162 — Model/prompt/policy version entram no lineage quando materiais
 
-Mudança de modelo ou prompt pode mudar resultado mesmo com input idêntico.
+Mesmo input com modelo/prompt diferente pode produzir comportamento diferente.
 
-## INT-LAW-153 — Saída de IA é distinguível de source evidence
+## INT-LAW-163 — Saída de IA é distinguível de source evidence
 
-Nunca apresentar paráfrase/inferência do modelo como citação ou fato bruto da fonte.
+Paráfrase/inferência não aparece como citação/fato bruto.
 
-## INT-LAW-154 — IA deve poder recusar promoção
-
-Modelo deve ter caminho válido para:
+## INT-LAW-164 — IA deve poder recusar promoção
 
 ```text
 UNKNOWN
@@ -792,203 +785,193 @@ CONFLICTING_EVIDENCE
 NEEDS_REVIEW
 ```
 
-## INT-LAW-155 — Private chain-of-thought não é requisito de auditoria
+são resultados válidos.
 
-Auditoria deve depender de artifacts compartilháveis:
+## INT-LAW-165 — Chain-of-thought privado não é dependência de auditoria
 
-- evidência;
-- regras;
-- premissas;
-- alternatives;
-- rationale resumido;
-- parâmetros;
-- outputs/gates.
+Guardar decision trace compartilhável, não raciocínio privado do modelo.
 
-## INT-LAW-156 — Evals são obrigatórios antes de confiar função nova de IA
+## INT-LAW-166 — Evals antes de confiança
 
-Cada função material de IA precisa de casos positivos, negativos, contraditórios e adversariais.
+Função material de IA precisa de positivos, negativos, contraditórios e adversariais.
 
-## INT-LAW-157 — Model change exige regressão
+## INT-LAW-167 — Model change exige regressão
 
-Trocar provider/model/version sem regressão é mudança de comportamento não medida.
+Trocar provider/model/version sem regressão é mudança não medida.
 
 ---
 
 # 17. HUMAN REVIEW E AUTONOMIA
 
-## INT-LAW-160 — Autonomia é granular
+## INT-LAW-170 — Autonomia é granular
 
-Não existe `AI_AUTONOMY = ON/OFF` global.
+Permissões separáveis para:
 
-Permissões podem diferir por tarefa:
+```text
+READ
+EXTRACT
+CLASSIFY
+PROPOSE_HYPOTHESIS
+GENERATE_CANDIDATE_FINDING
+PROMOTE_FINDING
+PROPOSE_RECOMMENDATION
+EXECUTE_ACTION
+```
 
-- ler;
-- extrair;
-- classificar;
-- propor hipótese;
-- gerar finding candidato;
-- promover finding;
-- propor recomendação;
-- executar ação.
+## INT-LAW-171 — Risco aumenta profundidade de revisão
 
-## INT-LAW-161 — Alto impacto / baixa confiança aumenta revisão
+Alto impacto, baixa confiança, novidade ou complexidade exigem review maior.
 
-Profundidade de review deve crescer com risco, novidade, incerteza e impacto.
+## INT-LAW-172 — Human approval não transforma base fraca em fato
 
-## INT-LAW-162 — Human approval não converte evidência fraca em fato
+Approval não apaga gaps/provenance.
 
-Revisão humana pode aceitar julgamento, mas não apaga provenance/gaps.
+## INT-LAW-173 — Challenge path independente
 
-## INT-LAW-163 — Challenge path independente
-
-Findings importantes precisam poder ser contestados por processo/reviewer que não dependa do mesmo mecanismo produtor.
+Findings importantes precisam de contestação/reviewer não dependente do mesmo produtor.
 
 ---
 
 # 18. SEGURANÇA
 
-## INT-LAW-170 — Security-by-design
+## INT-LAW-180 — Security-by-design
 
-Segurança participa de arquitetura, implementação, testes, deploy e operação.
+Segurança entra em arquitetura, implementação, testes, deploy e operação.
 
-## INT-LAW-171 — Least privilege
+## INT-LAW-181 — Least privilege
 
-Intelligence recebe apenas capacidades necessárias para a missão.
+Intelligence recebe somente capacidades necessárias.
 
-## INT-LAW-172 — Authentication ≠ Authorization
+## INT-LAW-182 — AUTHENTICATION ≠ AUTHORIZATION
 
-Identidade válida não implica permissão para recurso/ação.
+Identidade válida não implica acesso ao recurso/ação.
 
-## INT-LAW-173 — READ ≠ DERIVE ≠ WRITE ≠ ACT
+## INT-LAW-183 — READ ≠ DERIVE ≠ WRITE ≠ ACT
 
-Capacidades devem ser separáveis e auditáveis.
+Capacidades separáveis e auditáveis.
 
-## INT-LAW-174 — Default da Intelligence é read/derive-first
+## INT-LAW-184 — Default V1 é read/derive-first
 
-Writes operacionais externos não fazem parte do baseline da Intelligence V1.
+Writes operacionais externos não fazem parte do baseline.
 
-## INT-LAW-175 — Segredos nunca entram em prompt/artefato sem necessidade e política
+## INT-LAW-185 — Secrets ficam fora de prompt/repo/log
 
-Secrets ficam em mecanismo próprio de secret management; nunca em repo, log ou dataset por conveniência.
+Usar secret management apropriado.
 
-## INT-LAW-176 — Dados sensíveis seguem minimização e purpose limitation
+## INT-LAW-186 — Dados sensíveis seguem minimização e propósito
 
-Só usar informação necessária à pergunta autorizada.
+Só usar o necessário à pergunta autorizada.
 
-## INT-LAW-177 — Provedor externo não recebe dados automaticamente
+## INT-LAW-187 — Provedor externo não recebe dados automaticamente
 
-Envio a API/modelo externo exige política/contrato de dados compatível.
+API/modelo externo exige política de dados compatível.
 
-## INT-LAW-178 — Dependências fazem parte da superfície de risco
+## INT-LAW-188 — Dependências são superfície de risco
 
-Bibliotecas, modelos, serviços, connectors e APIs precisam de inventário e processo de atualização/vulnerabilidade proporcional ao risco.
+Bibliotecas, modelos, connectors e APIs entram em inventário e processo de atualização/vulnerabilidade proporcional.
 
-## INT-LAW-179 — Auditoria de ações é obrigatória
+## INT-LAW-189 — Ações e promoções relevantes são auditáveis
 
-Acesso, mudança de regra, promoção de finding, alteração de permissão e ação futura relevante precisam ser auditáveis.
+Mudança de regra, promoção de finding, permissão e ação futura deixam trilha.
 
-## INT-LAW-180 — Production não é laboratório
+## INT-LAW-190 — Production não é laboratório
 
-Mudança estrutural segue ambiente descartável/preparação/prova antes de LIVE.
-
----
-
-# 19. QUALIDADE, OBSERVABILIDADE E SAÚDE
-
-## INT-LAW-190 — Qualidade é contínua
-
-Monitorar, quando mensurável:
-
-- freshness;
-- completeness;
-- schema/contract drift;
-- lineage gaps;
-- falhas de family consultation;
-- distribuição anômala de estados;
-- mudança de comportamento do modelo;
-- custo/latência quando relevante.
-
-## INT-LAW-191 — Incidente não vira silêncio
-
-Quando qualidade falha, produzir estado explícito; não esconder item ou apresentar último valor como atual sem marcação.
-
-## INT-LAW-192 — Freshness é contextual
-
-“Velho” depende da pergunta e da janela, não apenas de dias fixos globais.
-
-## INT-LAW-193 — Health não é truth
-
-Pipeline saudável não prova que finding está correto.
-
-## INT-LAW-194 — Truth evaluation e system health são camadas diferentes
-
-Ambas importam e devem ser distinguíveis.
+Mudança estrutural passa por ambiente apropriado, prova e preparação antes de LIVE.
 
 ---
 
-# 20. HISTÓRIA, CORREÇÕES E FEEDBACK
+# 19. QUALIDADE E OBSERVABILIDADE
 
-## INT-LAW-200 — Histórico é append-only por default
+## INT-LAW-200 — Qualidade é contínua
+
+Monitorar quando mensurável:
+
+```text
+FRESHNESS
+COMPLETENESS
+CONTRACT / SCHEMA DRIFT
+LINEAGE GAPS
+FAMILY CONSULTATION GAPS
+STATE DISTRIBUTION ANOMALIES
+MODEL BEHAVIOR DRIFT
+COST / LATENCY quando relevante
+```
+
+## INT-LAW-201 — Incidente não vira silêncio
+
+Falha de qualidade produz estado explícito; não simplesmente remove item.
+
+## INT-LAW-202 — Freshness é contextual
+
+“Velho” depende da pergunta/janela, não de um número universal de dias.
+
+## INT-LAW-203 — SYSTEM HEALTH ≠ ANALYTIC TRUTH
+
+Pipeline saudável não prova finding correto.
+
+---
+
+# 20. HISTÓRIA, CORREÇÃO E FEEDBACK
+
+## INT-LAW-210 — Histórico append-only por default
 
 Correção não apaga estado anterior.
 
-## INT-LAW-201 — ACTIVE_STATE pode mudar sem apagar HISTORICAL_STATE
+## INT-LAW-211 — ACTIVE_STATE pode mudar sem apagar HISTORICAL_STATE
 
-Consumidor precisa saber qual é o estado vigente e como chegou nele.
+## INT-LAW-212 — Correção registra causa
 
-## INT-LAW-202 — Correção registra causa
+Distinguir erro de fonte, normalização, lógica, modelo, input ou interpretação.
 
-Erro de fonte, normalização, lógica, modelo, input ou interpretação devem ser distinguíveis.
+## INT-LAW-213 — Outcome posterior não reescreve julgamento passado
 
-## INT-LAW-203 — Feedback posterior não altera retroativamente o julgamento
+Serve para calibrar futuras análises.
 
-Outcome posterior serve para calibrar o sistema, não para fingir que o sistema sabia antes.
+## INT-LAW-214 — Calibração usa ground truth legítimo
 
-## INT-LAW-204 — Medir calibração quando houver ground truth legítimo
-
-Confidence buckets e tipos de judgment podem ser comparados ao resultado posterior quando semanticamente válido.
+Não calibrar contra proxy que mede outra pergunta.
 
 ---
 
-# 21. REPROCESSAMENTO, REUSO E MUDANÇA
+# 21. REPROCESSAMENTO E MUDANÇA
 
-## INT-LAW-210 — New data e new logic são causas distintas de recomputação
+## INT-LAW-220 — New data e new logic são causas diferentes de recomputação
 
-## INT-LAW-211 — Alteração upstream deve permitir localizar downstream afetado
+## INT-LAW-221 — Impact analysis antes de mudança estrutural
 
-## INT-LAW-212 — Reprocessamento preserva origem
+## INT-LAW-222 — Reprocessamento preserva origem Collection
 
-Novo derived não muda identidade/proveniência do material de Collection que o originou.
+Novo output analítico não muda identidade/proveniência upstream.
 
-## INT-LAW-213 — Reprocessar material existente pode fechar gap
+## INT-LAW-223 — Gap pode fechar por reprocessamento
 
-Não abrir aquisição nova antes de verificar se o gap é de extração/estrutura.
+Verificar antes de coletar de novo.
 
-## INT-LAW-214 — Mudança semântica exige migration/reconciliation explícita
+## INT-LAW-224 — Mudança semântica exige reconciliação/migration explícita
 
-Renomear estado/campo/conceito pode quebrar histórico mesmo sem alterar bytes de evidência.
+Renomear conceito/estado pode quebrar histórico sem alterar bytes.
 
 ---
 
 # 22. SYSTEM MAP E CARDS
 
-## INT-LAW-220 — System Map observa Intelligence
+## INT-LAW-230 — System Map observa Intelligence
 
 ```text
-SYSTEM MAP != INTELLIGENCE AUTHORITY
+SYSTEM_MAP != INTELLIGENCE_AUTHORITY
 ```
 
-## INT-LAW-221 — Card != file
+## INT-LAW-231 — CARD != FILE
 
 Card representa responsabilidade/conceito.
 
-## INT-LAW-222 — Declared ≠ observed no mapa
+## INT-LAW-232 — DECLARED ≠ OBSERVED
 
 Capability declarada sem runtime não aparece como provada.
 
-## INT-LAW-223 — Relações analíticas têm tipo próprio
+## INT-LAW-233 — Relações analíticas têm semântica própria
 
-Exemplos a contratar/usar conforme modelo vigente:
+Conforme contratos futuros:
 
 ```text
 SUPPORTS
@@ -998,14 +981,13 @@ DEPENDS_ON
 CROSSES_WITH
 PROMOTES_TO
 VALIDATES
-OBSERVES
 ```
 
-Não comprimir tudo em DATA/CONTROL.
+Não comprimir em DATA/CONTROL.
 
-## INT-LAW-224 — Vertical navigation deve chegar à prova
+## INT-LAW-234 — Navegação vertical chega à prova
 
-Quando implementado, deve ser possível navegar:
+Quando implementado:
 
 ```text
 BIBLE / LAW
@@ -1013,52 +995,51 @@ BIBLE / LAW
 → COMPONENT
 → CODE
 → RUN
-→ INPUT EVIDENCE
-→ OUTPUT FINDING
+→ INPUT CLAIM/EVIDENCE
+→ OUTPUT JUDGMENT
 → TEST / PROOF
 ```
 
-Elo ausente permanece `UNKNOWN`.
+Elo ausente = UNKNOWN.
 
 ---
 
 # 23. INTELLIGENCE TOOLS / DELIVERY
 
-## INT-LAW-230 — Tool consome Intelligence; não inventa Intelligence
+## INT-LAW-240 — Tool consome Intelligence; não inventa Intelligence
 
-## INT-LAW-231 — Ferramenta só nasce quando pergunta + usuário + valor são provados
+## INT-LAW-241 — Tool exige pergunta + usuário + valor
 
 “Temos dados” não justifica ferramenta.
 
-## INT-LAW-232 — Uma capability pode existir sem virar tool
+## INT-LAW-242 — Capability pode não virar tool
 
-Alguns mecanismos devem permanecer internos/guardrails.
+Guardrails e mecanismos internos podem permanecer internos.
 
-## INT-LAW-233 — Ask Sintonia não recebe bypass epistemológico
+## INT-LAW-243 — Ask Sintonia não recebe bypass epistemológico
 
-Interface conversacional segue os mesmos gates, provenance e estados da Intelligence.
+Interface conversacional segue os mesmos gates, provenance e estados.
 
-## INT-LAW-234 — Explicabilidade mínima acompanha saída
+## INT-LAW-244 — Explicabilidade mínima acompanha saída
 
-Consumidor precisa conseguir descobrir:
+Consumidor deve descobrir:
 
 - por que apareceu;
 - quais fatos sustentam;
+- o que contradiz;
 - o que é incerto;
-- qual janela/escopo;
+- janela/escopo;
 - o que mudaria o judgment.
 
 ---
 
 # 24. AVALIAÇÃO
 
-## INT-LAW-240 — “Parece bom” não é eval
+## INT-LAW-250 — “Parece bom” não é eval
 
-Avaliação precisa de fixtures/casos e critérios.
+## INT-LAW-251 — Métricas candidatas
 
-## INT-LAW-241 — Métricas recomendadas
-
-Conforme se tornem mensuráveis:
+Quando mensuráveis:
 
 ```text
 PROVENANCE_COMPLETENESS
@@ -1078,23 +1059,21 @@ USER_DECISION_RELEVANCE
 SECURITY_POLICY_VIOLATIONS
 ```
 
-## INT-LAW-242 — Métrica inexistente = NOT_MEASURED
+## INT-LAW-252 — Métrica inexistente = NOT_MEASURED
 
-Não fabricar baseline.
+## INT-LAW-253 — Golden cases não bastam
 
-## INT-LAW-243 — Golden cases não bastam
+Incluir negative/adversarial fixtures.
 
-Incluir adversarial/negative fixtures.
+## INT-LAW-254 — Fixtures históricos precisam ser re-medidos
 
-## INT-LAW-244 — Casos-testemunha maduros permanecem regressão
-
-Exemplos do Motor V2 podem continuar fixtures quando aplicáveis, mas devem ser medidos contra dados atuais antes de qualquer afirmação quantitativa.
+Números antigos não viram baseline atual sem reprodução.
 
 ---
 
 # 25. RED TEAM MÍNIMO
 
-Toda implementação material de Intelligence deve ser atacada, conforme aplicável, contra:
+Implementação material deve sobreviver, conforme aplicável:
 
 ```text
 RT-INT-01  duplicar evidência em famílias diferentes para inflar convergência
@@ -1104,37 +1083,44 @@ RT-INT-04  PUBLICATION_TIME → FACT_TIME
 RT-INT-05  NOT_FOUND → ZERO_PROVED sem universo
 RT-INT-06  fato antigo → ACT_NOW
 RT-INT-07  identidade → expertise
-RT-INT-08  catálogo/registro → sinal de campo independente
-RT-INT-09  family existente mas não consultada → gate PASS
-RT-INT-10  ocultar contradictory evidence
-RT-INT-11  output LLM sem support edge → FACT
+RT-INT-08  catálogo/registro → sinal independente
+RT-INT-09  família existente mas não consultada → gate PASS
+RT-INT-10  ocultar evidence contrária
+RT-INT-11  output LLM sem support edge → fato/judgment provado
 RT-INT-12  modelo/prompt mudou → reuso silencioso
-RT-INT-13  permissão read/analyze → write/action
-RT-INT-14  correção → apagar finding histórico
+RT-INT-13  read/analyze → write/action
+RT-INT-14  correção → apagar histórico
 RT-INT-15  data futura → forecast/opportunity
 RT-INT-16  crossing sem join key factual
 RT-INT-17  input vazio → PASS
-RT-INT-18  múltiplas validações dependentes → score de independência alto
-RT-INT-19  múltiplas cópias da mesma origem → hipótese promovida
-RT-INT-20  finding sem reprodução de input + lógica + gates
-RT-INT-21  portal reconstrói relação que motor não produziu
+RT-INT-18  validações dependentes → independência alta
+RT-INT-19  cópias da mesma origem → múltiplas confirmações
+RT-INT-20  finding sem reproduzir inputs + lógica + gates
+RT-INT-21  portal reconstrói relação ausente
 RT-INT-22  Collection Gap chama collector direto
-RT-INT-23  UNKNOWN desaparece na renderização
-RT-INT-24  factualidade correta mas geografia/tempo incompatíveis → oportunidade
+RT-INT-23  UNKNOWN some na Delivery
+RT-INT-24  geografia/tempo incompatível → opportunity
+RT-INT-25  Intelligence fabrica CLAIM_ID upstream para destravar análise
 ```
 
-Ataque só conta quando mutação realmente atingiu o alvo e teardown restaurou o estado inicial.
+Ataque só conta se atingiu alvo e teardown restaurou estado.
 
 ---
 
-# 26. GATES MÍNIMOS DE UMA FUTURA INTELLIGENCE V1
+# 26. GATES DE UMA FUTURA INTELLIGENCE V1
 
-Antes de `INTELLIGENCE_V1_READY = YES`, exigir contratos/provas equivalentes a:
+Antes de:
+
+```text
+INTELLIGENCE_V1_READY = YES
+```
+
+exigir contratos/provas equivalentes a:
 
 ```text
 WAITING_ROOM_INPUT_BOUNDARY          = PASS
+UPSTREAM_CLAIM_IDENTITY              = PASS
 INTELLIGENCE_RUN_IDENTITY            = PASS
-CLAIM_IDENTITY                       = PASS
 PROVENANCE_LINEAGE                   = PASS
 DEPENDENCY_GRAPH                     = PASS
 INDEPENDENCE_ACCOUNTING              = PASS
@@ -1152,43 +1138,32 @@ REGRESSION                           = PASS
 SYSTEM_MAP                           = PASS
 ```
 
-## INT-LAW-260 — Gates críticos precisam saber falhar
+## INT-LAW-260 — Gate crítico precisa saber falhar
 
-Provar pelo menos falhas de:
-
-- input vazio;
-- missing file/input;
-- duplicate claim;
-- missing provenance;
-- contradictory state;
-- unknown escondido;
-- universe mismatch;
-- dependency inflation;
-- stale actionability;
-- unauthorized capability.
+Provar falhas com input vazio, missing input, duplicate identity, missing provenance, contradictory state, hidden UNKNOWN, universe mismatch, dependency inflation, stale actionability e unauthorized capability.
 
 ---
 
-# 27. DEFINIÇÃO DE “INTELLIGENCE V1 PRONTA”
+# 27. DEFINIÇÃO DE INTELLIGENCE V1 PRONTA
 
-Intelligence V1 pode ser considerada pronta quando, para perguntas aprovadas e escopo declarado, a máquina consegue repetivelmente:
+Intelligence V1 pode ser considerada pronta quando, para perguntas aprovadas e escopo declarado, consegue repetivelmente:
 
-1. receber apenas material admissível da Sala de Espera;
-2. abrir um Intelligence Run identificável;
-3. resolver entidades/claims necessárias sem fabricar identidade;
-4. construir lineage de evidência;
+1. receber apenas material READY da Sala de Espera;
+2. abrir `INTELLIGENCE_RUN` identificável;
+3. consumir claims/fatos upstream sem fabricar identidade;
+4. construir support/contradiction + lineage;
 5. distinguir dependência/independência;
 6. executar crossings com chaves provadas;
 7. preservar tempo/geografia/proveniência;
-8. produzir signal/finding/opportunity ou recusa epistemológica explícita;
+8. produzir signal/finding/opportunity ou recusa epistemológica;
 9. declarar incerteza, premissas e evidência contrária quando material;
-10. detectar Collection Gap e devolvê-lo à Collection canônica;
-11. preservar histórico/reprocessamento;
+10. detectar Collection Gap e voltar pela Collection canônica;
+11. preservar história/reprocessamento;
 12. passar red team e regressão;
-13. expor resultados a ferramentas sem o portal reconstruir a lógica;
-14. operar com controles de segurança e auditoria proporcionais ao risco.
+13. expor resultados sem Delivery reconstruir verdade;
+14. operar com controles de segurança/auditoria proporcionais.
 
-“Pronta” não significa prever tudo, nem encontrar oportunidade todo dia.
+Pronta não significa prever tudo nem encontrar oportunidade todos os dias.
 
 ---
 
@@ -1196,9 +1171,10 @@ Intelligence V1 pode ser considerada pronta quando, para perguntas aprovadas e e
 
 ```text
 INTELLIGENCE MUST NOT COLLECT DIRECTLY.
+INTELLIGENCE MUST NOT FABRICATE COLLECTION CLAIM/FACT IDENTITY.
 INTELLIGENCE MUST NOT FABRICATE SOURCE_ID OR DOCUMENT_ID.
 INTELLIGENCE MUST NOT TURN UNKNOWN INTO FACT.
-INTELLIGENCE MUST NOT TURN NOT_FOUND INTO ZERO WITHOUT A DECLARED UNIVERSE.
+INTELLIGENCE MUST NOT TURN NOT_FOUND INTO ZERO WITHOUT DECLARED UNIVERSE.
 INTELLIGENCE MUST NOT COUNT DEPENDENT EVIDENCE AS INDEPENDENT.
 INTELLIGENCE MUST NOT TURN STRUCTURAL VALIDATION INTO FIELD SIGNAL.
 INTELLIGENCE MUST NOT TURN FUTURE DATE INTO FORECAST.
@@ -1215,43 +1191,59 @@ INTELLIGENCE MUST NOT REWRITE HISTORY SILENTLY.
 
 ---
 
-# 29. BENCHMARKS QUE INFORMARAM V0.1
+# 29. ORIGEM DAS LEIS V0.2
 
-Esta Bíblia foi sintetizada de:
+## Interno
 
-## Evidência e leis internas
+- `BIBLIA-CANONICA-DA-COLETA.md` V1.4 — owner upstream e fronteira factual;
+- `docs/refresh/FINAL-INTELLIGENCE-REFRESH-EAME.md` — dependência, falsas convergências, contexto, tempo, gaps;
+- `docs/red-team/C-SNAPSHOT-DE-INTELIGENCIA-EAME.md` — assimetrias, limites de fontes e leituras falsas;
+- `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` — requisitos futuros maduros;
+- Know-how e leis transversais do SINTONIA.
 
-- `docs/refresh/FINAL-INTELLIGENCE-REFRESH-EAME.md`
-- `docs/red-team/C-SNAPSHOT-DE-INTELIGENCIA-EAME.md`
-- `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md`
-- leis maduras de identidade, tempo, geografia, procedência, prova e Collection do SINTONIA.
+## Benchmark externo
 
-## Referências externas de engenharia
-
-- Databricks Unity Catalog — governance, lineage, data quality;
-- Palantir Foundry/Ontology — data + logic + action + security e decision lineage;
+- Databricks Unity Catalog — governance, lineage, quality;
+- Palantir Foundry/Ontology — data + logic + action + security, decision lineage;
 - OpenLineage — Run/Job/Dataset e lineage explícito;
 - W3C PROV-O — provenance interoperável;
-- OpenMetadata — lineage, quality, incidents e observabilidade;
-- Dagster/dbt — asset/state-aware engineering, observabilidade e testabilidade;
+- OpenMetadata — lineage, quality, incidents, observability;
+- Dagster/dbt — assets/state, observability, testability;
 - ODNI ICD 203 — analytic standards;
-- CIA Structured Analytic Techniques — análise estruturada e mitigação de vieses;
-- UK Government Office for Science Futures Toolkit — horizon scanning e futuros sob incerteza;
-- NIST AI RMF / GenAI Profile — risco de IA ao longo do lifecycle;
-- NIST SSDF — desenvolvimento seguro integrado ao SDLC;
-- NIST Zero Trust — ausência de confiança implícita e autorização por recurso/identidade.
+- CIA Structured Analytic Techniques — structured analysis;
+- UK Government Office for Science Futures Toolkit — horizon scanning;
+- NIST AI RMF / GenAI Profile — AI risk lifecycle;
+- NIST SSDF — secure SDLC;
+- NIST Zero Trust — no implicit trust.
 
-Detalhes e URLs estão em:
+Detalhes e URLs:
 
 `research/intelligence/BENCHMARK-DE-ENGENHARIA-DA-INTELLIGENCE-2026-09-13.md`
 
-Benchmark não é autoridade. Esta Bíblia só incorpora princípios que foram reconciliados com as leis e provas do SINTONIA.
+Benchmark informa; não governa.
 
 ---
 
-# 30. PROMOÇÃO PARA CANONICAL
+# 30. RELAÇÃO COM MOTOR INTELLIGENCE V2
 
-Esta V0.1 só pode mudar de:
+`docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` contém requisitos maduros e não deve ser apagado.
+
+Mas, após promoção desta Bíblia, não podem existir dois owners da mesma lei.
+
+Estratégia de reconciliação a decidir:
+
+```text
+BIBLE = CONSTITUTION / PRINCIPLES / BOUNDARIES
+MOTOR-V2-REQUIREMENTS = SUBORDINATE IMPLEMENTATION CONTRACT
+```
+
+Qualquer requisito do Motor V2 que contradiga a Bíblia deve ser resolvido explicitamente antes de implementação.
+
+---
+
+# 31. PROMOÇÃO PARA CANONICAL
+
+V0.2 só muda de:
 
 ```text
 CANDIDATE_FOR_CANONICAL_REVIEW
@@ -1263,16 +1255,16 @@ para:
 CANONICAL
 ```
 
-após, no mínimo:
+após:
 
-1. reconciliar com a Bíblia da Collection vigente;
-2. reconciliar com contratos de Intelligence já existentes;
-3. resolver colisões de owner com `MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` — este deve virar contrato subordinado/referenciado, não segunda Bíblia concorrente;
-4. registrar a autoridade na Sala de Controle/registry canônico;
-5. integrar em snapshot onde a autoridade não fique presa a branch lateral invisível;
-6. executar governance gate;
-7. atualizar System Map por cadeia canônica, sem edição manual de gerados;
-8. registrar o delta no Know-how canônico;
+1. reconciliação completa com Collection Bible vigente;
+2. reconciliação com Motor V2 e contratos existentes;
+3. owner collision count = 0;
+4. registro no Control Plane/Sala de Controle;
+5. integração em snapshot onde a autoridade não fique invisível numa branch lateral;
+6. governance gate;
+7. System Map atualizado pela cadeia canônica, nunca por edição manual de gerados;
+8. Know-how delta aplicado ao owner canônico;
 9. aprovação explícita da promoção.
 
 Até lá:
@@ -1283,32 +1275,33 @@ INTELLIGENCE_BIBLE_STATUS = CANDIDATE
 
 ---
 
-# 31. PRIMEIRA MISSÃO APÓS PROMOÇÃO — NÃO EXECUTAR AGORA
+# 32. PRIMEIRA MISSÃO APÓS PROMOÇÃO — NÃO EXECUTAR AGORA
 
-A primeira missão futura não deve ser “construir o motor inteiro”.
+Pergunta mínima:
 
-Ela deve responder uma única pergunta:
+> Qual é o contrato mínimo de entrada/saída e identidade de um `INTELLIGENCE_RUN` consumindo **um claim/fato real e admitido** da Sala de Espera, sem produzir Opportunity ainda?
 
-> Qual é o **contrato mínimo de entrada/saída e identidade** de um `INTELLIGENCE_RUN` consumindo um item real da Sala de Espera, sem produzir Opportunity ainda?
-
-Gate sugerido:
+Gate:
 
 ```text
 ONE REAL WAITING_ROOM ITEM
+→ UPSTREAM CLAIM/FACT IDENTITY PRESERVED
 → ONE IDENTIFIED INTELLIGENCE_RUN
 → PROVEN INPUT LINEAGE
 → NO DIRECT COLLECTION
-→ NO JUDGMENT FABRICATION
+→ NO ANALYTIC JUDGMENT FABRICATION
 ```
 
 Depois HARD STOP.
 
 ---
 
-# 32. VEREDITO DA BÍBLIA V0.1
+# 33. VEREDITO V0.2
 
 ```text
 ENGINEERING_BIBLE_WRITTEN = YES
+COLLECTION_OWNER_COLLISION_FOUND = YES
+COLLECTION_OWNER_COLLISION_CORRECTED_IN_CANDIDATE = YES
 CANONICAL = NO
 RUNTIME_IMPLEMENTED = NO
 COLLECTION_CHANGED = NO
@@ -1319,13 +1312,12 @@ LIVE_CHANGED = NO
 
 A Intelligence do SINTONIA deve ser uma **máquina de produção analítica auditável**.
 
-Ela não ganha qualidade por falar com mais confiança.
-
-Ela ganha qualidade quando consegue provar:
+Ela precisa provar:
 
 ```text
 O QUE SABE
-POR QUE SABE
+QUAL CLAIM/FACT UPSTREAM SUSTENTA
+POR QUE O JUDGMENT É DEFENSÁVEL
 DE ONDE VEIO
 O QUE DEPENDE DA MESMA ORIGEM
 O QUE É PREMISSA
@@ -1333,7 +1325,7 @@ O QUE É INCERTO
 O QUE CONTRADIZ
 QUAL É A JANELA
 QUAL É O ESCOPO
-O QUE MUDARIA O JULGAMENTO
+O QUE MUDARIA O JUDGMENT
 E QUANDO A RESPOSTA CORRETA É NÃO AGIR AINDA
 ```
 
@@ -1341,4 +1333,4 @@ E QUANDO A RESPOSTA CORRETA É NÃO AGIR AINDA
 
 `KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA APÓS PROMOÇÃO/INTEGRAÇÃO`
 
-**HARD STOP — esta Bíblia não autoriza iniciar a implementação da Intelligence.**
+**HARD STOP — esta Bíblia não autoriza iniciar implementação da Intelligence.**
