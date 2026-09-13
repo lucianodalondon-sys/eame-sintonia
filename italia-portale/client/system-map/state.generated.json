@@ -656,6 +656,7 @@
       "docs/capacidades/ATLAS-DE-CAPACIDADES-EAME.md",
       "docs/capacidades/SINTONIA-SCRAP-SOCIAL.md",
       "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+      "docs/decisoes/ADR-CONTRATO-DO-TEXTO-NA-COLLECTION.md",
       "docs/decisoes/ADR-LINHAGEM-DO-REAPROVEITAMENTO-V1.md",
       "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
       "docs/decisoes/ADR-SCRAP-SOCIAL-NA-BIBLIA.md",
@@ -1207,6 +1208,7 @@
       "provas/corrigir_custo.py",
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
+      "provas/ensaio_do_texto_na_collection.py",
       "provas/es/freeze_es.py",
       "provas/fechar_ground_truth_t3.py",
       "provas/fluxo_no_seco.py",
@@ -1513,6 +1515,7 @@
       "tests/test_censo_corpus_rotulado_admission.py",
       "tests/test_censo_dos_donos.py",
       "tests/test_cicatrizes_brasil.py",
+      "tests/test_col_e7_contrato_do_texto.py",
       "tests/test_coleta_externa.py",
       "tests/test_coleta_resiliente.py",
       "tests/test_competitor_layer.py",
@@ -1979,10 +1982,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-operational-readiness-overnight-v1",
-    "HEAD": "42555816c6bf2319289a38679576ee8d8615dfce",
-    "GENERATED_AT": "2026-09-13T03:57:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c96409aaf53b369cf9779594734a9b17dfa45fd4058bfb8102bc17f51100af5e"
+    "BRANCH": "claude/collection-e7-text-contract-0qk2gr",
+    "HEAD": "643b7d3f6a5d33d5f9e75c1e5b688ab7b78eb3fb",
+    "GENERATED_AT": "2026-09-13T11:37:28+00:00",
+    "SOURCE_TREE_FINGERPRINT": "7b9b420bbb82f389eee04c181f78781096330c05f5081e50084f6423f4057afc"
   },
   "FAMILIES": [
     {
@@ -5034,7 +5037,9 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": true,
-          "leis_que_obedece": [],
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
           "regista_descarte": [
             "RECUSAD",
             "REJEIT"
@@ -5196,7 +5201,9 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": false,
-          "leis_que_obedece": [],
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
           "regista_descarte": []
         },
         {
@@ -5207,7 +5214,9 @@
             "COUNTRY"
           ],
           "separa_fonte_do_fato": false,
-          "leis_que_obedece": [],
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
           "regista_descarte": []
         },
         {
@@ -5306,7 +5315,9 @@
             "SOURCE_LOCATION"
           ],
           "separa_fonte_do_fato": false,
-          "leis_que_obedece": [],
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
           "regista_descarte": []
         },
         {
@@ -8834,6 +8845,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
+        "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FORWARD-CONTA",
@@ -9499,6 +9511,7 @@
         "C-CONTRATO-ARTEFATO",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
+        "C-PROCEDENCIA",
         "C-RASTRO"
       ],
       "outbound": [
@@ -10988,6 +11001,7 @@
         "C-CONTRATO-DE-RETORNO",
         "C-DERIVACAO-FORWARD",
         "C-DONO-DO-DOCUMENTO",
+        "C-EXECUTOR-TEXTO-PDF",
         "C-INGRESSO",
         "C-PEDIDO",
         "C-PROCEDENCIA",
@@ -11920,7 +11934,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-ORQUESTRADOR.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "regras/proveniencia.py"
       ],
@@ -11935,12 +11949,15 @@
         "C-COLETA-INSTAGRAM",
         "C-DATA-CLOCK",
         "C-ESTRADA-PDF",
+        "C-INGRESSO",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
+        "C-PROVA-COLETA",
         "C-RECEITAS",
         "C-REGRA-COLETA",
+        "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
         "C-TESTES"
       ],
@@ -11955,12 +11972,13 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "CAMPOS_DA_ESCOLHA",
           "CAMPOS_RUN",
           "CHAVES_DERIVADAS"
         ],
-        "palavras": 27,
+        "palavras": 33,
         "por_lingua": {},
-        "sem_marca_de_lingua": 27,
+        "sem_marca_de_lingua": 33,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12151,6 +12169,7 @@
         "provas/candidatos_tematicos.py",
         "provas/censo_corpus_rotulado_admission.py",
         "provas/derived_artifact_no_postgres.py",
+        "provas/ensaio_do_texto_na_collection.py",
         "provas/fechar_ground_truth_t3.py",
         "provas/gate_de_aceitacao_tematica.py",
         "provas/implementacoes_candidatas.py",
@@ -12178,7 +12197,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 40,
+      "file_count": 41,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12216,12 +12235,14 @@
         "C-ORQUESTRADOR",
         "C-PALAVRAS",
         "C-PEDIDO",
+        "C-PROCEDENCIA",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-RASTRO",
         "C-RECEITAS",
         "C-ROTA-M2",
         "C-SALA-DE-ESPERA",
         "C-SCRAP-LEIS",
+        "C-SCRAP-SOCIAL",
         "C-SENSOR-COLETA",
         "C-SUPABASE",
         "C-TESTES"
@@ -12268,6 +12289,7 @@
           "CONDICOES",
           "CRITERIOS",
           "CROMO",
+          "DO_SCRAP_PARA_A_PORTA",
           "EDICAO",
           "ENSAIO",
           "ENTRADAS_PERMITIDAS",
@@ -12301,11 +12323,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 945,
+        "palavras": 957,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 943,
+        "sem_marca_de_lingua": 955,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14357,6 +14379,7 @@
       "inbound": [
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
+        "C-PROCEDENCIA",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
         "C-SCRAP-ROTA",
@@ -14364,6 +14387,7 @@
         "V-YOUTUBE"
       ],
       "outbound": [
+        "C-PROVA-COLETA",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
@@ -15951,6 +15975,7 @@
         "tests/test_censo_corpus_rotulado_admission.py",
         "tests/test_censo_dos_donos.py",
         "tests/test_cicatrizes_brasil.py",
+        "tests/test_col_e7_contrato_do_texto.py",
         "tests/test_coleta_externa.py",
         "tests/test_coleta_resiliente.py",
         "tests/test_competitor_layer.py",
@@ -16037,7 +16062,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 111,
+      "file_count": 112,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17551,7 +17576,7 @@
         "acoes da coleta que nomeiam este canal: 3",
         "prova: coleta/youtube_janela.py:70",
         "prova: coleta/comunicacao_coleta.py:83",
-        "prova: coleta/social_rotas.py:298"
+        "prova: coleta/social_rotas.py:330"
       ],
       "status_reason": "3 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -17623,7 +17648,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-operational-readiness-overnight-v1"
+        "branch claude/collection-e7-text-contract-0qk2gr"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17977,7 +18002,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 17 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -18020,6 +18045,11 @@
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 51,
+          "snippet": "import admissao as adm                                       # noqa: E402"
+        },
+        {
           "file": "provas/implementacoes_candidatas.py",
           "line": 25,
           "snippet": "import admissao as adm  # noqa: E402"
@@ -18033,11 +18063,6 @@
           "file": "provas/medir_source_id_wiring_gap.py",
           "line": 34,
           "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "provas/o_canario_da_collection.py",
-          "line": 52,
-          "snippet": "import admissao as adm                                      # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -18270,7 +18295,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 20 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -18313,6 +18338,11 @@
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 23,
+          "snippet": "import admissao as adm                                       # noqa: E402"
+        },
+        {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 46,
           "snippet": "import admissao as adm  # noqa: E402"
@@ -18326,11 +18356,6 @@
           "file": "tests/test_fronteira_mede_producao.py",
           "line": 138,
           "snippet": "import admissao"
-        },
-        {
-          "file": "tests/test_implementacoes_candidatas.py",
-          "line": 19,
-          "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -21904,7 +21929,7 @@
       "evidence": [
         {
           "file": "coleta/youtube_oficial.py",
-          "line": 315,
+          "line": 316,
           "snippet": "import coleta_checkpoint as cc"
         }
       ],
@@ -22388,7 +22413,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 7 linhas de codigo.",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -22399,6 +22424,11 @@
           "file": "provas/as_corridas_nao_se_cruzam.py",
           "line": 43,
           "snippet": "import retorno_da_coleta as rdc                             # noqa: E402"
+        },
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 54,
+          "snippet": "import retorno_da_coleta as rdc                              # noqa: E402"
         },
         {
           "file": "provas/o_canario_da_collection.py",
@@ -24512,6 +24542,24 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
+      "to": "C-ORQUESTRADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · texto a partir de PDF alimenta O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 497,
+          "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -25314,8 +25362,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 52,
+          "snippet": "import ingresso as ing                                       # noqa: E402"
+        },
         {
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 38,
@@ -25440,7 +25493,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -25451,6 +25504,11 @@
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 249,
           "snippet": "import ingresso as ing"
+        },
+        {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 24,
+          "snippet": "import ingresso as ing                                       # noqa: E402"
         },
         {
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
@@ -25483,12 +25541,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 151,
           "snippet": "chamadas = _chamadas(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))"
+        },
+        {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 323,
+          "snippet": "with open(os.path.join(RAIZ, 'coleta', 'ingresso.py'),"
         },
         {
           "file": "tests/test_lingua_da_porta.py",
@@ -27471,7 +27534,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
@@ -27481,6 +27544,11 @@
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 181,
+          "snippet": "import orquestrador as orq"
+        },
+        {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 480,
           "snippet": "import orquestrador as orq"
         },
         {
@@ -28764,6 +28832,24 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-INGRESSO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por A porta de entrada da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/ingresso.py",
+          "line": 90,
+          "snippet": "import proveniencia as pv                                   # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-MAPA-SCAN",
       "type": "READS",
       "payload": "artefacto",
@@ -28841,6 +28927,24 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 53,
+          "snippet": "import proveniencia as pv                                    # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-RECEITAS",
       "type": "READS",
       "payload": "artefacto",
@@ -28900,6 +29004,34 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-SCRAP-SOCIAL",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Executor do SCRAP · a aquisicao social. Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/social_envelope.py",
+          "line": 68,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        },
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 56,
+          "snippet": "import proveniencia as pv          # noqa: E402  — o dono da especie do texto"
+        },
+        {
+          "file": "coleta/youtube_oficial.py",
+          "line": 85,
+          "snippet": "import proveniencia as pv            # noqa: E402  — o dono da especie do texto"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-SENSOR-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28924,8 +29056,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 25,
+          "snippet": "import proveniencia as pv                                    # noqa: E402"
+        },
         {
           "file": "tests/test_handoff.py",
           "line": 157,
@@ -28952,8 +29089,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 318,
+          "snippet": "self.assertEqual(['regras/proveniencia.py'], sorted(donos),"
+        },
         {
           "file": "tests/test_portao.py",
           "line": 251,
@@ -30800,7 +30942,7 @@
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
-          "line": 58,
+          "line": 59,
           "snippet": "import social_sessao as ss         # noqa: E402  — LOCAL_SESSION é rota, não motor"
         },
         {
@@ -31192,12 +31334,12 @@
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
-          "line": 56,
+          "line": 57,
           "snippet": "import social_matriz as mz         # noqa: E402"
         },
         {
           "file": "coleta/social_rotas.py",
-          "line": 57,
+          "line": 58,
           "snippet": "import falhas                      # noqa: E402  — a lingua unica do erro"
         },
         {
@@ -31217,7 +31359,7 @@
         },
         {
           "file": "coleta/youtube_oficial.py",
-          "line": 85,
+          "line": 86,
           "snippet": "import social_matriz as mz           # noqa: E402  — DONO da regra de quota"
         }
       ],
@@ -31400,6 +31542,24 @@
     },
     {
       "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 55,
+          "snippet": "import social_envelope as env                                # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-O-PEDIDO-ATRAVESSA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -31478,12 +31638,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "Executor do SCRAP · a aquisicao social tem o seu codigo importado por Suite de testes. Provado por 19 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autoridade_da_fonte.py",
           "line": 144,
           "snippet": "import social_persistencia as sp"
+        },
+        {
+          "file": "tests/test_col_e7_contrato_do_texto.py",
+          "line": 26,
+          "snippet": "import social_envelope as env                                # noqa: E402"
         },
         {
           "file": "tests/test_falhas.py",
@@ -31534,11 +31699,6 @@
           "file": "tests/test_youtube_antidrift.py",
           "line": 362,
           "snippet": "import social_scrap as sc"
-        },
-        {
-          "file": "tests/test_youtube_checkpoint_pg.py",
-          "line": 21,
-          "snippet": "import youtube_oficial as yt        # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -33654,7 +33814,7 @@
       "evidence": [
         {
           "file": "coleta/social_rotas.py",
-          "line": 298,
+          "line": 330,
           "snippet": "def youtube_buscar(*, termo, run_id, country_scope, limit=25, **_):"
         }
       ],
@@ -33772,7 +33932,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 770,
+  "UNCLAIMED_FILES_COUNT": 771,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33899,7 +34059,7 @@
       {
         "NOME": "SCRAP_RAW_NAO_RECEBIDO",
         "ONDE": "coleta/social_envelope.py",
-        "LINHA": 114,
+        "LINHA": 124,
         "FORMA": "tuplo GAPS",
         "O_QUE_FALTA": "a aquisicao social preserva os bytes como artefacto do Actions (RETENTION_CLASS ACTIONS_ARTIFACT_30D) e escreve a estrutura em `conteudo`/`comentario`, mas o dono forward do RAW — Storage + `raw_asset` — nunca os recebe. A rota social NAO atravessa RAW. SCRAP SUCCESS != ADMITTED EVIDENCE."
       },
@@ -33932,12 +34092,12 @@
     "components_pending": 103,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 718,
-    "edges_proven": 716,
+    "edges": 723,
+    "edges_proven": 721,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1532,
-    "files_covered": 762,
+    "files_tracked": 1535,
+    "files_covered": 764,
     "files_code_unclaimed": 0
   }
 }

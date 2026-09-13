@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "42555816c6bf2319289a38679576ee8d8615dfce",
+    "HEAD": "643b7d3f6a5d33d5f9e75c1e5b688ab7b78eb3fb",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3097,7 +3097,9 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": true,
-      "leis_que_obedece": [],
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
       "regista_descarte": [
         "RECUSAD",
         "REJEIT"
@@ -3259,7 +3261,9 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": false,
-      "leis_que_obedece": [],
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
       "regista_descarte": []
     },
     {
@@ -3270,7 +3274,9 @@
         "COUNTRY"
       ],
       "separa_fonte_do_fato": false,
-      "leis_que_obedece": [],
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
       "regista_descarte": []
     },
     {
@@ -3369,7 +3375,9 @@
         "SOURCE_LOCATION"
       ],
       "separa_fonte_do_fato": false,
-      "leis_que_obedece": [],
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
       "regista_descarte": []
     },
     {
@@ -4385,6 +4393,19 @@
       ]
     },
     {
+      "endpoint": "https://bsky.app/profile",
+      "usado_por": [
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 227
+        },
+        {
+          "file": "provas/ensaio_do_texto_na_collection.py",
+          "line": 113
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.youtube.com/watch?v='",
       "usado_por": [
         {
@@ -4402,7 +4423,7 @@
       "usado_por": [
         {
           "file": "coleta/youtube_oficial.py",
-          "line": 87
+          "line": 88
         },
         {
           "file": "tests/test_youtube_oficial.py",
@@ -4673,16 +4694,7 @@
       "usado_por": [
         {
           "file": "coleta/social_rotas.py",
-          "line": 150
-        }
-      ]
-    },
-    {
-      "endpoint": "https://public.api.bsky.app/xrpc",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 209
+          "line": 151
         }
       ]
     }
