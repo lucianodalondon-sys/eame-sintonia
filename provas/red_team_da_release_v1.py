@@ -508,6 +508,137 @@ def main():
            'B15 · o id do provider vira SOURCE_ID',
            '%s / %s' % (u15['SOURCE_ID'], u15['DOCUMENT_ID']))
 
+    # ══════════════════════════════════════════════════════════════════════
+    # §19 §20 §21 · IDENTIDADE, TEMPO, GEOGRAFIA, ESPÉCIE E BRUTO
+    # ══════════════════════════════════════════════════════════════════════
+    # A NIGHT-SHIFT-01 nomeia treze ataques que a Release não tinha corrido.
+    # Nenhum deles pergunta «o dono devolve o que eu espero?» — cada um tenta
+    # FABRICAR uma coisa que a casa diz que não se fabrica, e falha ou não.
+    print('\n§19 §20 §21 · IDENTIDADE, TEMPO, GEOGRAFIA, ESPÉCIE E BRUTO')
+
+    # ── C1–C3 · O QUE NÃO É SOURCE_ID, POR MAIS PARECIDO QUE SEJA ─────────
+    #     DOMAIN != SOURCE_ID · SLUG != SOURCE_ID · SHA != SOURCE_ID
+    #
+    # ⚠️ E O DONO DESTA PERGUNTA NÃO É `conferir_source_id`. A primeira versão
+    # destes três ataques apontou-lhe a arma, e ele «sobreviveu» a todos — mas
+    # ele nunca prometeu isto. Ele guarda UMA lei, a COL-LAW-206, e diz qual:
+    # `URL NÃO É SOURCE_ID`. É um guarda de FORMA, e `bayer.it` não tem forma
+    # de URL.
+    #
+    #     UMA SONDA QUE ATACA O DONO ERRADO
+    #     MEDE A LEI QUE ELE NÃO ESCREVEU.
+    #
+    # Quem guarda a EXISTÊNCIA é o portão da relevância, e guarda-a no sítio
+    # onde ela custa dinheiro: nascer uma autorização. É lá que se bate.
+    #
+    # ⚠️ E COM CONTROLO. Com o livro vazio NADA compra — nem a fonte
+    # verdadeira. Um ataque que passa porque nada passa não mediu guarda
+    # nenhuma, mediu um livro vazio.
+    #
+    #     UM ATAQUE QUE PASSA PORQUE NADA PASSA NÃO MEDE A GUARDA.
+    #
+    # Então o livro é escrito COMO DADOS, a dizer SIM à fonte verdadeira, e os
+    # três impostores tentam entrar pela porta que acabou de se abrir.
+    livro_sim = sr02.livro_com(rel.SIM, sid=sr02.FONTE, prop=sr02.PROPOSITO)
+
+    def nasce(sid):
+        try:
+            az.autorizar(motivo=az.COLETA_NORMAL, proposito=sr02.PROPOSITO,
+                         source_id=sid, max_execucoes=1, max_usd=0.10,
+                         livro=livro_sim)
+            return True, 'autorização concedida'
+        except Exception as e:                                    # noqa: BLE001
+            return False, str(e).split(':')[0][:40]
+
+    abriu, porque = nasce(sr02.FONTE)
+    ataque(abriu, 'C0 · CONTROLO — a fonte provada consegue autorização',
+           porque)
+    for nome, valor in (('C1 · domínio usado como SOURCE_ID', 'bayer.it'),
+                        ('C2 · slug usado como SOURCE_ID', 'bayer-italia'),
+                        ('C3 · sha usado como SOURCE_ID', 'a' * 64)):
+        passou, porque = nasce(valor)
+        ataque(not passou, nome, porque if not passou else 'COMPROU com %r' % valor)
+
+    # ── C4–C6 · O QUE NÃO É DOCUMENT_ID ───────────────────────────────────
+    # O contrato mede o `DOCUMENT_ID` contra o sha E contra o endereço. Aqui
+    # constrói-se a unidade À MÃO de propósito: é o que um executor distraído
+    # faria, e é exactamente contra isso que a lei existe.
+    #
+    #     SHA256 NÃO É IDENTIDADE DOCUMENTAL. storage_path NÃO É IDENTIDADE.
+    SHA = 'b' * 64
+    ONDE = 'data/samples/X/observacao-42.json'
+    for nome, doc, sha, onde in (
+            ('C4 · nome do ficheiro vira DOCUMENT_ID',
+             'observacao-42', '', ONDE),
+            ('C5 · sha vira DOCUMENT_ID', SHA, SHA, ''),
+            ('C6 · caminho de armazenamento vira DOCUMENT_ID',
+             ONDE, '', ONDE)):
+        u = {'ESPECIE': rc2.COLHEITA, 'SOURCE_ID': 'IT-T9-001',
+             'DOCUMENT_ID': doc, 'SHA256': sha, 'RUN_ID': 'R',
+             'PAYLOAD': {'ONDE': onde, 'ESTADO': rc2.PAYLOAD_NAO_SE_APLICA}}
+        mal = rc2.conferir_unidade(u, 'R', RAIZ)
+        ataque(any('DOCUMENT_ID fabricado' in m for m in mal), nome,
+               '; '.join(mal)[:70] or 'o contrato deixou passar')
+
+    # ── C7 · O LUGAR DA FONTE NÃO É O LUGAR DO FATO ───────────────────────
+    # `SOURCE_LOCATION` diz de onde se leu. `FACT_LOCATION` diz onde a coisa
+    # aconteceu. São dois eixos, e derivá-los um do outro é o erro que põe uma
+    # notícia italiana sobre a Andaluzia no mapa de Itália.
+    u7 = sc.unidade({'URL': 'https://x/y', 'SOURCE_LOCATION': 'Italia',
+                     'COUNTRY_SCOPE': 'IT'}, run_id='R', fonte='IT-T9-001')
+    ataque('FACT_LOCATION' not in u7,
+           'C7 · SOURCE_LOCATION vira FACT_LOCATION',
+           'campos com LOCATION: %s'
+           % ([k for k in u7 if 'LOCATION' in k] or 'nenhum FACT_LOCATION'))
+
+    # ── C8–C9 · O TEMPO DA PUBLICAÇÃO E O DA OBSERVAÇÃO NÃO SÃO O DO FATO ─
+    u8 = sc.unidade({'URL': 'https://x/y', 'PUBLISHED_AT': '2026-09-01T00:00:00Z',
+                     'COLLECTED_AT': '2026-09-13T00:00:00Z'},
+                    run_id='R', fonte='IT-T9-001')
+    ataque('FACT_TIME' not in u8,
+           'C8 · PUBLISHED_AT vira FACT_TIME',
+           'campos com TIME: %s'
+           % ([k for k in u8 if 'TIME' in k] or 'nenhum FACT_TIME'))
+    ataque(u8.get('OBSERVED_AT') == '2026-09-13T00:00:00Z'
+           and u8.get('PUBLISHED_AT') == '2026-09-01T00:00:00Z',
+           'C9 · OBSERVED_AT e PUBLISHED_AT colapsam num só',
+           'observado=%s publicado=%s'
+           % (u8.get('OBSERVED_AT'), u8.get('PUBLISHED_AT')))
+
+    # ── C10–C11 · A ESPÉCIE DECIDE, E NÃO O SILÊNCIO ──────────────────────
+    #     ENTRAM_NO_INGRESSO = (COLHEITA,) — e nada mais.
+    u10 = {'ESPECIE': rc2.RUN_RECEIPT, 'SOURCE_ID': 'IT-T9-001',
+           'DOCUMENT_ID': rc2.NAO_SEI, 'RUN_ID': 'R',
+           'PAYLOAD': {'ONDE': '', 'ESTADO': rc2.PAYLOAD_NAO_SE_APLICA}}
+    mal10 = rc2.conferir_unidade(u10, 'R', RAIZ)
+    ataque(bool(mal10), 'C10 · RUN_RECEIPT viaja como unidade colhida',
+           '; '.join(mal10)[:70] or 'o contrato deixou passar o recibo')
+    u11 = dict(u10, ESPECIE=rc2.ESPECIE_DESCONHECIDA)
+    mal11 = rc2.conferir_unidade(u11, 'R', RAIZ)
+    e11 = {'RUN_ID': 'R', 'EXECUTOR_ID': 'X', 'EXECUTOR_VERSION': '1',
+           'ESTADO': rc2.SUCCESS, 'COLHEITA': [u11], 'SUPORTE': []}
+    ataque(bool(mal11) and bool(rc2.conferir(e11, RAIZ)),
+           'C11 · UNKNOWN vira COLHEITA por omissão',
+           '; '.join(mal11)[:70] or 'o contrato aceitou UNKNOWN como colheita')
+
+    # ── C12 · §19 · QUEM OBSERVA BYTES E NÃO PRESERVA O BRUTO ─────────────
+    # Não se abre arquitetura nova: mede-se e classifica-se. `social_envelope`
+    # é o dono do bruto e declara, ele próprio, que o que grava no disco do
+    # runner ainda NÃO está preservado.
+    #
+    #     GRAVADO NO RUNNER != PRESERVADO.
+    #
+    # A pergunta que interessa é mais estreita: alguma capacidade do CAMINHO
+    # DE PEDIDO DA V1 observa bytes materiais e perde o bruto? As três fases
+    # declaradas devolvem observações cujo PAYLOAD é `NAO_SE_APLICA` — a
+    # observação É o item, e não há segundo ficheiro para preservar.
+    com_bytes = [c for _p, c, _f, _e in sc.FASES.values()
+                 if c in ('instagram.reel.capture', 'instagram.reel.audio',
+                          'instagram.reel.transcribe')]
+    ataque(not com_bytes,
+           'C12 · uma fase da V1 observa bytes e perde o bruto',
+           'fases com media no caminho de pedido: %s' % (com_bytes or 'nenhuma'))
+
     print('\n' + '=' * 78)
     print('ATTACKS = %d' % ATAQUES[0])
     print('SURVIVING_ATTACKS = %d' % len(SOBREVIVENTES))

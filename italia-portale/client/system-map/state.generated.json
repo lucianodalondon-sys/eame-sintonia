@@ -2006,9 +2006,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-night-shift-01",
-    "HEAD": "c68c5ed8f9ed62abcf6e8237a8d3d02d6165e000",
-    "GENERATED_AT": "2026-09-13T03:37:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f20886c32003a8c2a61cdbc053c62460dc38be00180242255ff0be067a4c7bb5"
+    "HEAD": "355fa0f8940f89f478d14e741db6829a8837534f",
+    "GENERATED_AT": "2026-09-13T03:54:54+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e0edc14df9ad8e1d31cbefc1ae8c4ef51791496429315efc195ed87be449cc73"
   },
   "FAMILIES": [
     {
@@ -10901,7 +10901,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◎",
       "views": [
         "acervo",
@@ -10914,9 +10914,11 @@
         "ferramentas/navegador.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "outras pecas importam ou carregam isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "outras pecas importam ou carregam isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "ferramentas/cdp.py"
+      ],
       "produces": [],
       "inbound": [
         "C-SINTONIA-SCRAP"
@@ -22294,7 +22296,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 372,
+          "line": 378,
           "snippet": "import instagram_janela as ij"
         },
         {
@@ -22317,7 +22319,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 411,
+          "line": 459,
           "snippet": "medida['IMPLEMENTACAO'] = 'coleta/instagram_janela.py'"
         }
       ],
@@ -22331,7 +22333,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o Instagram tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Colher o Instagram tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -22342,6 +22344,11 @@
           "file": "tests/test_c10_4c_janela_preservada.py",
           "line": 43,
           "snippet": "import instagram_janela as jn   # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 869,
+          "snippet": "import instagram_janela as ij"
         }
       ],
       "categoria": "PROOF"
@@ -26908,6 +26915,24 @@
     },
     {
       "from": "C-NAVEGADOR",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O navegador — a rota gratis alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 42,
+          "snippet": "CDP = 'ferramentas/cdp.py'"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-NAVEGADOR",
       "to": "C-SCRAP-GUARDA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -26937,7 +26962,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O navegador — a rota gratis tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "O navegador — a rota gratis tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4c_janela_preservada.py",
@@ -26948,6 +26973,11 @@
           "file": "tests/test_navegador.py",
           "line": 25,
           "snippet": "import navegador as nav                                        # noqa: E402"
+        },
+        {
+          "file": "tests/test_scrap_rc01_release_candidate.py",
+          "line": 888,
+          "snippet": "import cdp"
         },
         {
           "file": "tests/test_social_sessao.py",
@@ -29812,7 +29842,7 @@
       "evidence": [
         {
           "file": "leis/autorizacao_de_gasto.py",
-          "line": 177,
+          "line": 178,
           "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui"
         }
       ],
@@ -30323,8 +30353,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 49,
+          "snippet": "import scrap_colheita as sc                                       # noqa: E402"
+        },
         {
           "file": "provas/o_canario_do_scrap_v1.py",
           "line": 56,
@@ -30996,7 +31031,7 @@
       "evidence": [
         {
           "file": "provas/mutacao_da_release_v1.py",
-          "line": 110,
+          "line": 129,
           "snippet": "('M9 · a política aceita rota NÃO permitida', 'leis/social_matriz.py',"
         },
         {
@@ -31087,12 +31122,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 10 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 11 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
           "line": 48,
           "snippet": "import social_matriz as mz           # noqa: E402 — DONO da decisao de rota"
+        },
+        {
+          "file": "coleta/adaptador_instagram.py",
+          "line": 49,
+          "snippet": "import falhas                        # noqa: E402 — DONO da taxonomia"
         },
         {
           "file": "coleta/adaptador_linkedin.py",
@@ -31154,7 +31194,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 84,
+          "line": 90,
           "snippet": "return {'POLICY_OWNER': 'leis/social_matriz.py',"
         },
         {
@@ -31196,7 +31236,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 47 linhas de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por Suite de testes. Provado por 48 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4_route_gate.py",
@@ -31574,7 +31614,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 18 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
@@ -31608,33 +31648,33 @@
         },
         {
           "file": "provas/mutacao_da_release_v1.py",
-          "line": 95,
+          "line": 43,
+          "snippet": "HTTP = 'coleta/scrap_http.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 44,
+          "snippet": "IGA = 'coleta/adaptador_instagram.py'"
+        },
+        {
+          "file": "provas/mutacao_da_release_v1.py",
+          "line": 114,
           "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',"
         },
         {
           "file": "provas/mutacao_da_release_v1.py",
-          "line": 175,
+          "line": 194,
           "snippet": "'coleta/social_envelope.py',"
         },
         {
           "file": "provas/mutacao_da_release_v1.py",
-          "line": 239,
+          "line": 271,
           "snippet": "'coleta/scrap_capacidades.py',"
         },
         {
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 53,
           "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',"
-        },
-        {
-          "file": "provas/orcamento_de_rede.py",
-          "line": 264,
-          "snippet": "for rel in ('coleta/social_rotas.py', 'coleta/scrap_executor.py',"
-        },
-        {
-          "file": "provas/orcamento_de_rede.py",
-          "line": 264,
-          "snippet": "for rel in ('coleta/social_rotas.py', 'coleta/scrap_executor.py',"
         }
       ],
       "categoria": "PROOF"
@@ -33571,7 +33611,7 @@
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 150,
+          "line": 156,
           "snippet": "import reel_transcricao as rt"
         }
       ],
@@ -33590,12 +33630,12 @@
       "evidence": [
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 216,
+          "line": 222,
           "snippet": "trace['ASR_OWNER'] = 'ferramentas/fala_local.py'"
         },
         {
           "file": "coleta/adaptador_instagram.py",
-          "line": 269,
+          "line": 275,
           "snippet": "medida['IMPLEMENTACAO'] = 'ferramentas/reel_transcricao.py'"
         }
       ],
@@ -34932,12 +34972,12 @@
   },
   "COUNTS": {
     "components": 169,
-    "components_proven": 52,
-    "components_pending": 111,
+    "components_proven": 51,
+    "components_pending": 112,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 729,
-    "edges_proven": 726,
+    "edges": 730,
+    "edges_proven": 727,
     "edges_unknown": 3,
     "business_edges": 4,
     "files_tracked": 1558,
