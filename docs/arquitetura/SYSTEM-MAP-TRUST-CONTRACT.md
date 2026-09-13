@@ -1337,7 +1337,7 @@ dívidas — e dívida rotulada é exatamente o que `DEGRADED` significa:
 | exclusões com `INTENTIONAL=UNKNOWN` | 12 de 17 |
 | artefactos `UNVERIFIABLE` | 0 (eram 4, fechados pelo `G3`) |
 | censos que publicam número sem persistir | 0 (era 1, fechado pelo `G2`) |
-| violação de `ONE CHAIN OWNER` | 14 scripts fora do manifesto, agora **declarados** em `FORA_DESTE_MANIFESTO` (§30) — a dívida ficou visível, não menor |
+| violação de `ONE CHAIN OWNER` | **0** — o manifesto governa 36 execuções em 5 categorias, e não há segunda lista (§31) |
 | entidades com `ROLE` atribuído | 0 de 161 |
 | cobertura de runtime | 2 de 57 executores relevantes |
 | arestas onde `OBSERVED` é representável | 0 de 672 |
@@ -1360,8 +1360,8 @@ que fecha uma dívida não promove nada, e foi por isso que ele não entrou no m
 | ~~**G2**~~ | persistir o censo da topologia como artefacto | dívida | ✅ **FEITO** (dívida do `G2B` fechada, §13.3) |
 | ~~**G3**~~ | carimbar a impressão da árvore nos 4 artefactos `UNVERIFIABLE` | dívida | ✅ **FEITO** |
 | ~~**G4**~~ | declarar `INPUTS`/`OUTPUTS` por passo no manifesto | dívida | ✅ **FEITO** (§30) |
-| G5 | unificar a cadeia: o manifesto declara os 21 passos | dívida | ~~G4~~ |
-| G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | ~~G4~~, G5 |
+| ~~**G5**~~ | unificar a cadeia: o manifesto governa **todas** as execuções | dívida | ✅ **FEITO** (§31) |
+| G6 | ordenar a cadeia por `INPUTS`; fechar a lei do ciclo atrasado | dívida | ~~G4~~, ~~G5~~ |
 | G7 | atribuir `ROLE` às 160 entidades | dívida | G1 |
 | G8 | pente fino por `ROLE` em vez de tupla de territórios | dívida | G7 |
 | G9 | `LIMITATIONS` obrigatório em toda evidência publicada | dívida | G1 |
@@ -1496,13 +1496,40 @@ E UM PORTAO QUE REBENTA COM TRACEBACK NAO E MELHOR DO QUE UM QUE MENTE: OS DOIS
 OBRIGAM QUEM LE A ADIVINHAR.
 ```
 
+E o delta do **`G5`**, que é sobre onde uma segunda lista se esconde:
+
+```
+UMA SEGUNDA LISTA NAO SE ANUNCIA COMO LISTA. ELA APARECE COMO «O WORKFLOW SO
+PRECISA DE CORRER ESTES», COMO UM HELPER QUE «JA SABE A ORDEM», COMO UMA
+LISTA DE EXCLUSAO QUE POR ACASO E IGUAL AS SAIDAS DA CADEIA. NENHUMA DELAS SE
+CHAMA CADEIA, E TODAS O SAO.
+
+E O SINAL DE QUE EXISTE UMA E QUE NINGUEM AS COMPARA: OS DOIS JOBS DO MESMO
+WORKFLOW CORRIAM DEZANOVE E SETE SCRIPTS, LADO A LADO NO MESMO FICHEIRO,
+DURANTE MESES.
+
+TIRAR A LISTA DE UM CONSUMIDOR QUEBRA AS PROVAS QUE PROCURAVAM A LISTA — E
+ISSO NAO E REGRESSAO, E A GUARDA A MEDIR A DOENCA EM VEZ DA CURA. UMA PROVA
+QUE EXIGE VER A SEGUNDA LISTA REPROVA QUEM A APAGAR, E TEM DE PASSAR A
+PERGUNTAR PELA INVOCACAO: «ALGUEM CORRE A CADEIA?», NUNCA «O NOME ESTA NO
+YAML?».
+
+TRAZER TREZE PASSOS PARA DENTRO DE UM MANIFESTO NAO CRIA DIVIDA NOVA: REVELA
+A QUE JA LA ESTAVA. UM CENSO ESTAVA A LER A SAIDA DE DEZANOVE DOS VINTE PASSOS
+ESTANDO NO DOZE, E NINGUEM PODIA SABER PORQUE SO SETE ESTAVAM DECLARADOS.
+
+E HA UMA CATEGORIA QUE SO APARECE QUANDO SE MEDE A SERIO: O QUE NINGUEM CORRE.
+TRES REGENERADORES ESCREVIAM ARTEFATO COMMITADO E NENHUMA AUTOMACAO OS
+EXECUTAVA. NAO ESTAVAM ERRADOS — ESTAVAM A ENVELHECER SEM TESTEMUNHA.
+```
+
 ```
 KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA
 ```
 
 A linha canónica (`claude/sintonia-eame-know-how-v1`,
 `SINTONIA-EAME-KNOW-HOW.md`) foi buscada e lida antes de escrever isto: a última
-secção lá é a **`§105`**. **Este contrato não escreve nessa linha e não cria um
+secção lá é a **`§105`** (medida no fecho do `G5`). **Este contrato não escreve nessa linha e não cria um
 segundo dono** — o delta fica aqui, pronto a integrar, como já acontecia com os
 blocos acima.
 
@@ -1627,6 +1654,86 @@ A dívida do `G5` deixou de viver num número dentro de um teste e passou a ser
 
 ---
 
+## 31 · `G5` · UM DONO SÓ PARA A CADEIA
+
+```
+CHAIN_SINGLE_OWNER = PASS          (era VIOLATED)
+SCHEMA  sintonia.system-map.cadeia/2  →  /3
+```
+
+O manifesto declarava **7** passos. O workflow corria **20**. E os dois jobs do
+mesmo ficheiro corriam listas **diferentes**: `mapa` corria dezanove scripts,
+`regras` corria sete — o job que valida as regras validava-as sobre meio mapa.
+
+> **DOIS SÍTIOS COM A LISTA DOS PASSOS NÃO SÃO UMA LISTA REPETIDA:
+> SÃO DUAS CADEIAS, E UMA DELAS ESTÁ SEMPRE ERRADA SEM NINGUÉM SABER.**
+
+### 31.1 · As cinco categorias, e porque são cinco
+
+| categoria | quantos | o contrato |
+|---|---|---|
+| `REGERAR` | 20 | compõem o mapa; `INPUTS`/`OUTPUTS` do `G4` |
+| `REGERAR_A_MAO` | 3 | **escrevem artefacto commitado e nenhuma automação os corre** |
+| `VALIDAR` | 1 | devolve veredito, não materializa |
+| `PORTOES_POS_COMMIT` | 1 | `--conferir-carimbo`, com o argumento no manifesto |
+| `OUTRAS_EXECUCOES` | 11 | as provas, o publicador do build, o portão de deploy |
+
+O `/2` não tinha onde dizer «esta execução é governada e não é nem geração nem
+validação». Pôr o portão pós-commit em `REGERAR` para zerar uma lista mentiria
+sobre o contrato dele; pô-lo em `VALIDAR` mentiria sobre **quando** ele corre.
+
+### 31.2 · O que a medição encontrou, e que não se sabia
+
+**Três regeneradores que ninguém corre.** `censo_cards_sensores`,
+`reconciliacao_do_universo` e `revisao_da_evidencia` escrevem artefactos
+**commitados** de que o mapa depende — a matriz, a reconciliação das contagens,
+a revisão da evidência — e nenhum workflow, script npm ou build os executa.
+
+> **UM ARTEFACTO COMMITADO QUE NENHUMA AUTOMAÇÃO REGENERA
+> NÃO ESTÁ ERRADO: ESTÁ A ENVELHECER SEM TESTEMUNHA.**
+
+`G5` **não** os automatiza, e a razão está medida: correr a reconciliação no CI
+move o `GENERATED_AT` dela, e `architecture.generated.json` regista o blob SHA
+dos três — a passagem seguinte veria drift onde não houve mudança. Isso é `G6`.
+O que `G5` faz é tirá-los da invisibilidade.
+
+**Dezanove dependências atrasadas, e não uma.** O `G4` só via o pente fino
+porque só sete passos estavam declarados. Com vinte, vê-se inteiro:
+`CENSO_DO_CONGELAMENTO` está no passo **12** e depende da saída de **dezanove
+dos vinte**. A dívida do `G6` não cresceu — cresceu o que dela se vê.
+
+### 31.3 · A lista de exclusão deixou de ser uma lista
+
+`IMPRESSAO_DA_ARVORE.EXCLUIDO` eram doze caminhos escritos à mão, e eram,
+palavra por palavra, *as saídas da cadeia* — o mesmo que cada passo já declara
+em `OUTPUTS`.
+
+> **UMA LISTA DAS SAÍDAS AO LADO DE UMA LISTA DAS SAÍDAS
+> NÃO É REDUNDÂNCIA: É A SEGUNDA A FICAR PARA TRÁS.**
+
+E ficou: **catorze** ficheiros que a cadeia escreve estavam **dentro** da
+impressão que ela carimba. Agora a exclusão **deriva** de
+`REGERAR + REGERAR_A_MAO`, nos dois runtimes, e só a pasta servida fica em
+`EXCLUIDO_EXTRA` — com guarda própria, porque o que fica à mão envelhece.
+
+### 31.4 · O que `G5` não fez
+
+```
+G6_IMPLEMENTED = NO   a ordem é byte a byte a de antes; PENTE_FINO continua a
+                      gritar STALE_BY_CYCLE numa passagem — medido, não suposto
+G7_IMPLEMENTED = NO   ROLE continua em 0 de 162
+G8_IMPLEMENTED = NO   nenhum cartão foi reorganizado
+```
+
+E `golden-path-pdf.generated.json` continua a ser da **Collection**. O mapa
+consome-o e não o produz; trazê-lo para a cadeia criaria um dono falso só para
+zerar uma contagem.
+
+> **`G5` É «UM DONO PARA A CADEIA DO MAPA»,
+> NÃO «O MAPA VIRA DONO DE TUDO O QUE CONSOME».**
+
+---
+
 ## 29 · FECHO OPERACIONAL DA FRENTE ESTRUTURAL
 
 ```
@@ -1668,9 +1775,9 @@ cobertura de runtime              2 de 57 executores → G11, G12
 arestas com OBSERVED representável 0 de 672          → G12
 exclusões com INTENTIONAL=UNKNOWN 12 de 17
 peças onde o eixo legado e os planos divergem  109 de 161  (publicado na §15)
-cadeia: passos no manifesto        7 de 21          → G5
-ciclo atrasado                     aberto           → G6   (a ordem converge,
-                                   mas nao esta declarada em lado que a force)
+cadeia: execuções governadas       36 de 36         ← G5 fechou
+dependências atrasadas             19 declaradas    → G6
+regeneradores sem automação        3 declarados     → G6
 ```
 
 E quatro leituras que o mapa **não autoriza**, por mais verde que esteja:

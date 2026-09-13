@@ -49,10 +49,11 @@ O mapa continua **ativo como instrumento** e **congelado como frente de
 arquitetura**. Regenerar, validar, verificar a frescura e denunciar
 `UNKNOWN`/`STALE`/`FAIL` continua **obrigatório**; o que para é redesenhá-lo.
 
-`G4` foi reaberto e fechado pelo gatilho `G` da §29.5 (o utilizador mandou):
-cada passo do manifesto declara agora `INPUTS`/`OUTPUTS`, e a §30 do contrato
-diz como isso se desmente. `G5`–`G13` continuam abertos e por riscar, e
-**dívida conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
+`G4` e `G5` foram reabertos e fechados pelo gatilho `G` da §29.5 (o utilizador
+mandou). Cada passo declara `INPUTS`/`OUTPUTS` (§30) e **o manifesto é o único
+dono da cadeia** (§31): o workflow corre `correr_a_cadeia.py <CATEGORIA>` e não
+lista script nenhum. `G6`–`G13` continuam abertos e por riscar, e **dívida
+conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
 pode e não pode prometer hoje, e o veredito medido
 (`CURRENT_SYSTEM_MAP_TRUST = DEGRADED`) vivem na **§29 do**
 [`SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md).
@@ -328,7 +329,9 @@ de prova não é prova de ausência, e também não é prova de presença.
 Antes de concluir qualquer mudança relevante, corra:
 
 ```bash
-py system-map/scripts/generate_system_map.py    # regerar o mapa
+py system-map/scripts/correr_a_cadeia.py REGERAR  # regerar o mapa (a cadeia inteira,
+                                                  # lida do manifesto)
+py system-map/scripts/generate_system_map.py    # so o passo do gerador
 py system-map/scripts/validate_system_map.py    # provar que ele corresponde ao repo
 py system-map/tests/test_system_map.py          # provar que as regras não afrouxaram
 node system-map/tests/test_freshness.mjs        # provar que verde exige as quatro provas
