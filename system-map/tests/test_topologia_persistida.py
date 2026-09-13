@@ -584,11 +584,30 @@ if r.returncode == 0:
 # O artefacto so continua a existir porque alguma corrida o refaz. Se o passo do
 # workflow desaparecer, ou passar a correr com `--nao-escrever`, o ficheiro
 # congela e ninguem repara — ele continua la, com ar de recente.
-linhas = [l.strip() for l in WORKFLOW.read_text(encoding="utf-8").splitlines()
-          if "censo_da_topologia.py" in l and not l.strip().startswith("#")]
-prova("o_workflow_corre_o_censo", bool(linhas), "nenhuma linha no workflow")
+# O `G5` tirou os nomes dos scripts do YAML: o workflow corre o corredor, e o
+# corredor le a cadeia do manifesto. Procurar «censo_da_topologia.py» no YAML
+# passou a medir a ausencia da segunda lista, e nao a presenca do censo.
+#
+#     A PERGUNTA NAO E «O NOME ESTA NO YAML?». E «ALGUEM O CORRE?».
+import sys as _sys
+_sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
+import cadeia_do_mapa as _CAD                                  # noqa: E402
+_wf = WORKFLOW.read_text(encoding="utf-8")
+_corrido = ("system-map/scripts/censo_da_topologia.py" in _CAD.executaveis()
+            and "correr_a_cadeia.py REGERAR" in _wf)
+prova("o_workflow_corre_o_censo", _corrido,
+      "o censo tem de estar em REGERAR e o workflow tem de correr REGERAR — "
+      "se sair de um dos dois, o artefacto congela com ar de recente")
+# E ninguem pode desligar a persistencia — nem no YAML, nem no manifesto, que e
+# onde os argumentos de um passo passaram a viver desde o `G5`.
+_argumentos = [a for x in _CAD.passos()
+               if x["EXECUTABLE"].endswith("censo_da_topologia.py")
+               for a in (x.get("ARGUMENTOS") or [])]
+_linhas_do_yaml = [l for l in _wf.splitlines() if "censo_da_topologia" in l]
 prova("o_workflow_nao_corre_o_censo_com_a_persistencia_desligada",
-      all("--nao-escrever" not in l for l in linhas), linhas)
+      "--nao-escrever" not in _argumentos
+      and all("--nao-escrever" not in l for l in _linhas_do_yaml),
+      f"argumentos={_argumentos} yaml={_linhas_do_yaml}")
 
 # ── A · F · I · O QUE SO SE PROVA NOUTRA ARVORE ─────────────────────────
 # Tudo o que segue mexe em ficheiros. Mexe num CLONE DESCARTAVEL, sempre:

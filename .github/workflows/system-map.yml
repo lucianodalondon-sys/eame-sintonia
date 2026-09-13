@@ -121,70 +121,26 @@ jobs:
       # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      # ⚠️ A LISTA DOS PASSOS NAO VIVE AQUI. Vivia — dezanove linhas de YAML — e
+      # os DOIS jobs deste mesmo ficheiro tinham listas DIFERENTES: o job `mapa`
+      # corria dezanove scripts e o job `regras` corria sete. Ninguem comparava.
+      #
+      #     DOIS SITIOS COM A LISTA DOS PASSOS NAO SAO UMA LISTA REPETIDA:
+      #     SAO DUAS CADEIAS, E UMA DELAS ESTA SEMPRE ERRADA SEM NINGUEM SABER.
+      #
+      # Agora a composicao vive so em `CADEIA-DO-MAPA.json`, e o corredor le-a em
+      # runtime. Acrescentar um passo ao manifesto passa a bastar; e
+      # `test_cadeia_declara_io.py` reprova se alguem voltar a escrever a lista
+      # em YAML, em JS, em Python ou num array de shell.
       - name: 1 · regerar o mapa a partir desta árvore
         if: '!cancelled()'
-        run: |
-          python3 system-map/scripts/scan_repo.py
-          python3 system-map/scripts/scan_sources.py
-          python3 system-map/scripts/scan_casco.py
-          python3 system-map/scripts/censo_da_coleta.py
-          python3 system-map/scripts/pente_fino_da_coleta.py
-          # ⚠️ OS OUTROS ONZE CENSOS NAO CORRIAM AQUI, E O MAPA MOSTRA-OS.
-          # Medido em 2026-09-09: de 21 scripts do mapa, o CI corria SEIS. Os
-          # `.generated.json` dos outros alimentam cartoes — o do derivado, o
-          # dos donos, o do armazem italiano — e ninguem os regerava. Correr os
-          # doze deu diferenca em SETE:
-          #
-          #   corpus-it       276 linhas · donos  78 · semantica-it  48
-          #   recall-porta-it  30 · executores 6 · congelamento 2 · derivacoes 2
-          #
-          # E o P1_SEM_DRIFT nao apanhava, porque ele so regera o que o CI
-          # regera: a verificacao anti-drift media exactamente a metade que
-          # nao estava a apodrecer.
-          #
-          #     UM CENSO QUE NAO CORRE NAO E UM CENSO. E UMA FOTOGRAFIA.
-          # ⚠️ A ORDEM AQUI E UMA DEPENDENCIA, NAO ARRUMACAO.
-          # `relatorio_do_fluxo.py` ESCREVE `fluxo.generated.json` (linha 44,
-          # json.dump na 172) e `censo_da_observabilidade.py` LE-O nas linhas
-          # 54, 81 e 114 para decidir as dimensoes TRACE e PERFORMANCE.
-          # Ao ligar os onze censos, liguei o CONSUMIDOR e deixei o PRODUTOR
-          # de fora — o censo passaria a correr sempre sobre um ficheiro que
-          # ninguem refazia.
-          #
-          #     LIGAR QUEM LE E DEIXAR QUEM ESCREVE DE FORA
-          #     E TROCAR UM FICHEIRO PARADO POR UM NUMERO CONFIANTE.
-          python3 system-map/scripts/relatorio_do_fluxo.py
-          python3 system-map/scripts/censo_da_observabilidade.py
-          python3 system-map/scripts/censo_das_derivacoes.py
-          python3 system-map/scripts/censo_das_estradas_it.py
-          python3 system-map/scripts/censo_de_identidade_it.py
-          python3 system-map/scripts/censo_do_armazem_it.py
-          python3 system-map/scripts/censo_do_congelamento.py
-          python3 system-map/scripts/censo_do_corpus_it.py
-          python3 system-map/scripts/censo_dos_donos.py
-          python3 system-map/scripts/censo_dos_executores.py
-          python3 system-map/scripts/censo_semantico_it.py
-          python3 system-map/scripts/recall_da_porta_it.py
-          python3 system-map/scripts/censo_dos_buracos.py
-          python3 system-map/scripts/generate_system_map.py
+        run: python3 system-map/scripts/correr_a_cadeia.py REGERAR
 
-      # O censo da topologia: quem chama cada cartao, o que atravessa cada
-      # aresta, e porque um cartao esta sozinho. Corre depois do mapa porque
-      # le o estado gerado.
-      - name: 1b · o censo da topologia da coleta
-        if: '!cancelled()'
-        run: python3 system-map/scripts/censo_da_topologia.py
-
-      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
-      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
-      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
-      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
-      # o carimbo, e cobre tambem a copia que vai ser servida.
       - name: 2 · o validador (provas anti-drift, falha fechado)
         # Ele REGENERA por dentro (é a P1), logo não depende do passo 1 ter
         # corrido. Correr na mesma dá o segundo diagnóstico em vez do silêncio.
         if: '!cancelled()'
-        run: python3 system-map/scripts/validate_system_map.py
+        run: python3 system-map/scripts/correr_a_cadeia.py VALIDAR
 
       # A P1 do validador IGNORA o bloco PROVENANCE — e tem de ignorar, senão
       # reprovaria toda a gente em todo o commit. Só que a impressão das fontes
@@ -201,7 +157,7 @@ jobs:
         # outro se o CARIMBO corresponde. São dois diagnósticos, e quem lê o
         # vermelho merece os dois — não o primeiro e um silêncio.
         if: '!cancelled()'
-        run: python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo
+        run: python3 system-map/scripts/correr_a_cadeia.py PORTOES_POS_COMMIT
 
   # E O `mapa` FOI SEPARADO OUTRA VEZ, PELA MESMA RAZÃO — E TAMBÉM MEDIDO.
   # -------------------------------------------------------------------------
@@ -282,22 +238,11 @@ jobs:
       # exactamente a de `CADEIA-DO-MAPA.json`, na mesma ordem.
       #
       #     TEXTO NÃO REPROVA NADA. WORKFLOW REPROVA.
+      # A SEGUNDA LISTA VIVIA AQUI, E ERA MAIS CURTA: sete scripts contra os
+      # dezanove do job `mapa`. Este job validava as regras sobre meio mapa.
       - name: 1 · regerar o mapa a partir desta árvore
         if: '!cancelled()'
-        run: |
-          python3 system-map/scripts/scan_repo.py
-          python3 system-map/scripts/scan_sources.py
-          python3 system-map/scripts/scan_casco.py
-          python3 system-map/scripts/censo_da_coleta.py
-          python3 system-map/scripts/pente_fino_da_coleta.py
-          python3 system-map/scripts/censo_dos_buracos.py
-          python3 system-map/scripts/generate_system_map.py
-
-      # A comparacao anti-drift NAO e um `git diff` cru, de proposito: o bloco
-      # PROVENANCE carrega HEAD e BRANCH, que mudam a cada commit e a cada ramo.
-      # Um diff cru reprovaria toda a gente, sempre — inclusive o commit que
-      # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
-      # o carimbo, e cobre tambem a copia que vai ser servida.
+        run: python3 system-map/scripts/correr_a_cadeia.py REGERAR
 
       - name: 4 · as regras do mapa não afrouxaram
         if: '!cancelled()'
@@ -395,6 +340,14 @@ jobs:
       - name: 4q · cada passo declara o que lê e o que escreve, e confere
         if: '!cancelled()'
         run: python3 system-map/tests/test_cadeia_declara_io.py
+
+      # Um dono so para a cadeia. Esta prova mede o universo NA MAQUINA — o que
+      # os workflows e o npm realmente correm — e compara com o manifesto nos
+      # dois sentidos. Se alguem voltar a escrever a lista em YAML, em JS, em
+      # Python ou num array de shell, ela reprova.
+      - name: 4r · o manifesto é o único dono da cadeia
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_uma_cadeia_um_dono.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'

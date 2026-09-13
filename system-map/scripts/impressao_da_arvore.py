@@ -81,9 +81,31 @@ def git(*args: str) -> str:
     ).stdout.rstrip("\n")
 
 
+def _excluidos() -> tuple:
+    """AS SAIDAS DA CADEIA — derivadas do que cada passo DECLARA produzir.
+
+    Isto era uma lista escrita a mao, e a lista era, palavra por palavra, «as
+    saidas da cadeia» — o mesmo que cada passo ja declara em OUTPUTS.
+
+        UMA LISTA DAS SAIDAS AO LADO DE UMA LISTA DAS SAIDAS
+        NAO E REDUNDANCIA: E A SEGUNDA A FICAR PARA TRAS.
+
+    E ficou. Quando o `G5` trouxe treze passos para o manifesto, CATORZE
+    ficheiros que a cadeia escreve estavam DENTRO da impressao que ela carimba,
+    porque ninguem se tinha lembrado de os acrescentar aqui.
+
+    O import e tardio de proposito: `cadeia_do_mapa` nao importa este modulo,
+    mas fazer o import no topo criaria uma ordem de carregamento que so existe
+    para agradar ao interpretador.
+    """
+    from cadeia_do_mapa import passos, passos_a_mao, saidas
+    fora = {s["PATH"] for p in passos() + passos_a_mao() for s in saidas(p)}
+    return tuple(sorted(fora) + list(LEI.get("EXCLUIDO_EXTRA", [])))
+
+
 def excluido(caminho: str) -> bool:
-    """Saida da cadeia? A lista vem do manifesto, nunca daqui."""
-    return any(caminho == e or caminho.startswith(e) for e in LEI["EXCLUIDO"])
+    """Saida da cadeia? A resposta deriva do manifesto, nunca nasce aqui."""
+    return any(caminho == e or caminho.startswith(e) for e in _excluidos())
 
 
 def sha_do_disco(caminhos: list[str]) -> list[str]:

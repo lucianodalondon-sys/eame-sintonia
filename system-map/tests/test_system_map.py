@@ -889,26 +889,42 @@ JOBS = re.split(r"\n  (?=[a-z_-]+:\n)", CI_YML)
 # O `G4` deu forma a cada passo. A lista de CAMINHOS vem do leitor unico, nunca
 # de um `list(...)` escrito aqui — senao este ficheiro passa a ser um segundo
 # interprete do manifesto, e a proxima mudanca de forma parte-o em silencio.
+# ⚠️ ESTA PROVA PROCURAVA OS NOMES DOS SCRIPTS NO YAML, e o `G5` tirou-os de la
+# de proposito: o workflow deixou de declarar a cadeia e passou a corre-la pelo
+# corredor, que a le do manifesto. Procurar nomes era medir a DOENCA — duas
+# listas — e dar por falta dela quando a cura chegou.
+#
+#     UMA PROVA QUE EXIGE VER A SEGUNDA LISTA REPROVA QUEM A APAGAR.
+#
+# A pergunta continua a mesma: ALGUEM CORRE MESMO A CADEIA, E A INTEIRA? So que
+# agora pergunta-se pela invocacao do corredor, e o corredor responde com o que
+# vai correr — que e o que corre em producao.
+CORREDOR = "system-map/scripts/correr_a_cadeia.py"
 esperado = CAD.executaveis() + CAD.executaveis_de_validar()
-so_regerar = CAD.executaveis()
-por_job, torto = [], []
-for bloco in JOBS:
-    nome = re.match(r"\s*([a-z_-]+):", bloco)
-    linhas = [x for x in re.findall(
-        r"^\s*(?:run:\s*)?python3 (system-map/scripts/\S+\.py)\s*$", bloco, re.M)
-        if x in esperado]
-    if not linhas:
-        continue
-    por_job.append(nome.group(1) if nome else "?")
-    if linhas not in (esperado, so_regerar):
-        torto.append(f"{nome.group(1) if nome else '?'}: {linhas}")
+invocacoes = re.findall(re.escape(CORREDOR) + r"\s+([A-Z_]+)", CI_YML)
+prova("SMF-13_alguem_corre_mesmo_a_cadeia_no_CI",
+      "REGERAR" in invocacoes and "VALIDAR" in invocacoes,
+      f"categorias invocadas no CI: {sorted(set(invocacoes))} — sem REGERAR e "
+      f"VALIDAR, a cadeia nao corre e as provas seguintes passariam por vacuidade")
+
+# E o corredor tem de entregar EXACTAMENTE o que o manifesto declara, na ordem
+# escrita. Se ele filtrasse, saltasse ou reordenasse, o CI correria uma cadeia
+# que nenhum manifesto descreve — que era o defeito, com outra roupa.
+saida = subprocess.run(
+    [sys.executable, str(RAIZ / CORREDOR), "--listar", "REGERAR"],
+    capture_output=True, text=True, cwd=str(RAIZ)).stdout.split()
+prova("SMF-13_o_corredor_entrega_a_cadeia_declarada",
+      saida == CAD.executaveis(),
+      f"corredor={saida[:3]}… manifesto={CAD.executaveis()[:3]}…")
+
+# E o BUILD corre a mesma cadeia: ele chama o publicador, que le o mesmo
+# manifesto. Nao ha aqui uma segunda lista a comparar — e e esse o ponto.
 prova("SMF-13_a_cadeia_do_build_e_a_do_CI_na_mesma_ordem",
-      bool(por_job) and not torto,
-      f"jobs que correm a cadeia: {por_job}\n        torto: {torto}"
-      f"\n        cadeia diz {esperado}")
-prova("SMF-13_alguem_corre_mesmo_a_cadeia_no_CI", bool(por_job),
-      "a cadeia declarada nao e corrida por job nenhum — a prova de cima "
-      "passaria por vacuidade")
+      "publicar_no_deploy.mjs" in json.loads(
+          (RAIZ / "package.json").read_text(encoding="utf-8"))["scripts"]["build"],
+      "o build tem de passar pelo publicador, que le o manifesto — nunca por "
+      "uma lista propria")
+
 prova("SMF-13_o_CI_confere_a_mesma_lista_de_publicados",
       all(f in CI_YML for f in CADEIA["PUBLICADO"]),
       "um ficheiro publicado que o CI nao confere pode sair velho sem uma queixa")

@@ -44,18 +44,25 @@ import cadeia_do_mapa as CAD                           # noqa: E402
 
 CADEIA = json.loads((SCRIPTS / "CADEIA-DO-MAPA.json").read_text(encoding="utf-8"))
 
-# Os quatro do G3, com o gerador de cada um. A lista e a da missao, e nao um
+# Os quatro ARTEFATOS do G3. A lista dos artefatos e a da missao, e nao um
 # palpite: quem a alargar tem de vir aqui dizer porque.
-OS_QUATRO = [
-    ("system-map/data/sources.generated.json",
-     "system-map/scripts/scan_sources.py"),
-    ("system-map/data/pente-fino.generated.json",
-     "system-map/scripts/pente_fino_da_coleta.py"),
-    ("system-map/data/censo-da-coleta.generated.json",
-     "system-map/scripts/censo_da_coleta.py"),
-    ("data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-     "system-map/scripts/censo_cards_sensores.py"),
+#
+# O PRODUTOR DE CADA UM JA NAO ESTA ESCRITO AQUI. Estava — quatro pares
+# artefato -> script — e era conhecimento que o manifesto passou a ter no G5.
+# Dois sitios a dizer quem produz o quê divergem no dia em que um passo muda de
+# nome, e o teste continuaria verde a apontar para um ficheiro que ja nao existe.
+#
+#     UM PAR RECONSTRUIDO A MAO E UMA SEGUNDA VERDADE A NASCER DEVAGAR.
+OS_ARTEFATOS_DO_G3 = [
+    "system-map/data/sources.generated.json",
+    "system-map/data/pente-fino.generated.json",
+    "system-map/data/censo-da-coleta.generated.json",
+    "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
 ]
+OS_QUATRO = [(a, CAD.executavel_que_produz(a)) for a in OS_ARTEFATOS_DO_G3]
+_sem_dono = [a for a, g in OS_QUATRO if not g]
+assert not _sem_dono, ("o manifesto nao diz quem produz %s — sem isso este teste "
+                       "nao sabe o que correr" % _sem_dono)
 
 FALHAS: list = []
 CONTA = [0]

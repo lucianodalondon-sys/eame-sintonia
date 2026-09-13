@@ -2845,13 +2845,14 @@
    "name": "Leitor da cadeia do mapa",
    "territory": "Z-PROVA",
    "kind": "contract",
-   "what": "Interpreta `CADEIA-DO-MAPA.json`: devolve os passos, os executaveis na ordem escrita, as entradas e saidas declaradas de cada um, e quem produz um artefato. Nao guarda lista nenhuma e nao decide ordem nenhuma.",
+   "what": "Interpreta `CADEIA-DO-MAPA.json` e corre o que ele declara. O leitor devolve os passos de cada categoria, as entradas e saidas de cada um e quem produz um artefato; o corredor executa uma categoria pela ordem escrita. Nenhum dos dois guarda lista, e nenhum decide ordem.",
    "why_here": "O G4 deu forma a cada passo — de um caminho solto para {STEP_ID, EXECUTABLE, INPUTS, OUTPUTS}. Quatro consumidores liam a lista antiga, cada um a seu modo. Um formato com quatro leitores nao e um formato: sao quatro acordos que por enquanto calham bater. Este e o leitor do lado Python; o do lado JavaScript vive no publicador, e a prova compara os dois.",
    "departments": [
     "ENGENHARIA"
    ],
    "files": [
-    "system-map/scripts/cadeia_do_mapa.py"
+    "system-map/scripts/cadeia_do_mapa.py",
+    "system-map/scripts/correr_a_cadeia.py"
    ],
    "views": [],
    "icon": "⌗"

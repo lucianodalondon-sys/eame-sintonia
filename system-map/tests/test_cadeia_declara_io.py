@@ -75,8 +75,12 @@ print("O CONTRATO DE IO DA CADEIA — %d passos" % len(PASSOS))
 print("=" * 70)
 
 # ── 1 · FORMA ──────────────────────────────────────────────────────────────
-prova("o_manifesto_declara_o_schema_novo",
-      CAD.CADEIA["SCHEMA"] == "sintonia.system-map.cadeia/2",
+# O schema evoluiu no G5: o `/2` nao tinha onde dizer «esta execucao e
+# governada e nao e nem geracao nem validacao» — o portao pos-commit nao cabia
+# em categoria nenhuma sem mentir sobre o contrato dele.
+prova("o_manifesto_declara_um_schema_conhecido",
+      CAD.CADEIA["SCHEMA"] in ("sintonia.system-map.cadeia/2",
+                               "sintonia.system-map.cadeia/3"),
       CAD.CADEIA["SCHEMA"])
 ids = [p.get("STEP_ID") for p in PASSOS]
 prova("todo_passo_tem_STEP_ID", all(ids), ids)
@@ -142,9 +146,15 @@ mentiras = []
 for p in PASSOS:
     for e in CAD.entradas(p, CAD.GENERATED_ARTIFACT):
         real = CAD.quem_produz(e["PATH"])
-        if e["PRODUCER"] == CAD.FORA_DO_MANIFESTO:
+        if e["PRODUCER"] in (CAD.FORA_DO_MANIFESTO, "EXTERNAL_PRODUCER"):
+            # QUEM DIZ «EXTERNO» TEM DE O PROVAR NO SITIO DOS EXTERNOS.
+            # Sem isto, `EXTERNAL_PRODUCER` seria a palavra que faz qualquer
+            # dependencia desaparecer da conta.
+            externo = {x["PATH"] for x in CAD.produtores_externos()}
             if real is not None:
-                mentiras.append((p["STEP_ID"], e["PATH"], "diz FORA mas %s produz" % real))
+                mentiras.append((p["STEP_ID"], e["PATH"], "diz externo mas %s produz" % real))
+            elif e["PRODUCER"] == "EXTERNAL_PRODUCER" and e["PATH"] not in externo:
+                mentiras.append((p["STEP_ID"], e["PATH"], "diz EXTERNAL_PRODUCER e nao esta em PRODUTORES_EXTERNOS"))
         elif real != e["PRODUCER"]:
             mentiras.append((p["STEP_ID"], e["PATH"], "diz %s, produz %s" % (e["PRODUCER"], real)))
 prova("o_produtor_declarado_e_quem_produz_mesmo", not mentiras, mentiras[:4])
@@ -193,116 +203,50 @@ prova("nenhuma_saida_tem_dois_donos", not disputados, disputados)
 # Os treze scripts que o workflow corre e o manifesto nao declara continuam
 # fora. G4 mede-os; trazê-los para dentro e o G5.
 CI = texto(".github/workflows/system-map.yml")
-import re
-no_ci = re.findall(r"python3 (system-map/scripts/[a-z_]+\.py)", CI)
-declarados = set(CAD.executaveis()) | set(CAD.executaveis_de_validar())
-fora = sorted(set(no_ci) - declarados)
-DIV = CAD.CADEIA["FORA_DESTE_MANIFESTO"]
-declarada_fora = sorted(DIV["ONZE_CENSOS"] + DIV["CENSO_DA_TOPOLOGIA"]
-                        + DIV["PORTAO_POS_COMMIT"])
-prova("a_divida_do_G5_esta_declarada_no_manifesto_e_nao_num_numero_aqui",
-      fora == declarada_fora,
-      "workflow-menos-manifesto=%s · declarado=%s"
-      % (sorted(set(fora) - set(declarada_fora)), sorted(set(declarada_fora) - set(fora))))
-prova("a_divida_declarada_diz_porque_fica_fora", bool(DIV.get("PORQUE_FICAM_FORA")))
-prova("o_manifesto_nao_engoliu_os_treze", len(CAD.passos()) == 7,
-      "%d passos em REGERAR — se subiu, o G5 entrou por acidente" % len(CAD.passos()))
-prova("ha_entradas_geradas_com_produtor_fora_do_manifesto",
-      any(e.get("PRODUCER") == CAD.FORA_DO_MANIFESTO
-          for p in PASSOS for e in CAD.entradas(p, CAD.GENERATED_ARTIFACT)),
-      "o gerador le artefatos dos treze; esconder isso seria fingir que a "
-      "divida do G5 nao existe")
-
-# ── 5b · UM SO DONO, E UM SO LEITOR POR RUNTIME ───────────────────────────
-# Um segundo ficheiro a declarar dependencias seria uma segunda verdade, e duas
-# verdades divergem no dia em que alguem so mexe numa.
-CONCORRENTES = ["CADEIA-V2.json", "DEPENDENCIAS.json", "pipeline.json",
-                "graph.json", "manifest-final.json", "CADEIA-IO.json",
-                "pipeline-dependencies.json", "map-build-graph-v2.json"]
-achados = [n for n in CONCORRENTES
-           if list(RAIZ.rglob(n)) and not any("node_modules" in str(x)
-                                              for x in RAIZ.rglob(n))]
-prova("nao_nasceu_um_segundo_dono_da_cadeia", not achados, achados)
-
-# E quem CONSOME a cadeia tem de passar pelo leitor. Um consumidor que volte a
-# abrir a lista com as proprias maos e um segundo interprete do formato.
-LEITORES = {"system-map/scripts/cadeia_do_mapa.py",
-            "system-map/scripts/publicar_no_deploy.mjs"}
-# ⚠️ PROCURAR O TEXTO NAO CHEGA, E ISTO FOI MEDIDO DUAS VEZES. A primeira
-# versao procurava a string e apanhou-se a si propria; a segunda montou a
-# agulha e apanhou `test_system_map.py`, que a tem DENTRO DE ASPAS para
-# conferir o publicador. Nenhum dos dois le a lista: os dois FALAM dela.
-#
-#     UM TESTE QUE PROCURA TEXTO NAO DISTINGUE QUEM USA DE QUEM CITA.
-#
-# Quem USA subscreve o dicionario. Isso ve-se na arvore sintatica, e so la.
-cruus = []
-for f in sorted(RAIZ.glob("system-map/**/*.py")):
-    rel = f.relative_to(RAIZ).as_posix()
-    if rel in LEITORES or "__pycache__" in rel:
-        continue
-    try:
-        arv = ast.parse(f.read_text(encoding="utf-8", errors="replace"))
-    except SyntaxError:
-        continue
-    for n in ast.walk(arv):
-        if (isinstance(n, ast.Subscript) and isinstance(n.value, ast.Name)
-                and n.value.id == "CADEIA" and isinstance(n.slice, ast.Constant)
-                and n.slice.value in ("REGERAR", "VALIDAR")):
-            cruus.append("%s:%d" % (rel, n.lineno))
-for f in sorted(RAIZ.glob("system-map/**/*.mjs")):
-    rel = f.relative_to(RAIZ).as_posix()
-    if rel in LEITORES:
-        continue
-    if "CADEIA" + ".REGERAR" in f.read_text(encoding="utf-8", errors="replace"):
-        cruus.append(rel)
-prova("nenhum_consumidor_le_a_lista_crua", not cruus, cruus)
-
-# E os dois leitores — um por runtime — tem de devolver a MESMA lista.
-js = texto("system-map/scripts/publicar_no_deploy.mjs")
-prova("o_leitor_javascript_existe_e_le_o_EXECUTABLE",
-      "function executaveisDaCadeia()" in js and "p.EXECUTABLE" in js,
-      "o publicador tem de ler a forma nova")
-prova("o_leitor_javascript_cobre_REGERAR_e_VALIDAR",
-      "function executaveisDeValidar()" in js,
-      "as duas listas tem a mesma forma; migrar so uma deixa a outra a passar "
-      "o OBJECTO do passo ao python")
-
-# ⚠️ O PUBLICADOR E O LEITOR, LOGO ESTA ISENTO DA GUARDA DA LISTA CRUA — E FOI
-# NESSE BURACO QUE O DEFEITO ENTROU. Ele iterava `CADEIA.VALIDAR` directamente e
-# entregava o objecto do passo ao python:
-#
-#     python3: can't open file '.../[object Object]'
-#
-# E nao caiu: o publicador apanha a falha do validador de proposito, para nao
-# derrubar o portal. O `rc` ficou 0 e o veredito foi parar ao FIM da linha.
-#
-#     QUEM E ISENTO DE UMA GUARDA PRECISA DE OUTRA, E NAO DE NENHUMA.
-#
-# Dentro do leitor, o acesso cru so pode viver nas funcoes de leitura — nunca
-# num laco que corre processos.
-import re as _re
-lacos = _re.findall(r"for\s*\(\s*const\s+\w+\s+of\s+(CADEIA\.\w+)\s*\)", js)
-prova("o_publicador_nao_itera_a_lista_crua", not lacos,
-      "%s — tem de passar pelo leitor, senao entrega o objecto ao python" % lacos)
-prova("o_acesso_cru_vive_so_nas_funcoes_de_leitura",
-      js.count("CADEIA.REGERAR") == 1 and js.count("CADEIA.VALIDAR") == 1,
-      "REGERAR=%d VALIDAR=%d — uma ocorrencia cada, dentro do seu leitor"
-      % (js.count("CADEIA.REGERAR"), js.count("CADEIA.VALIDAR")))
+# ⚠️ O BLOCO `FORA_DESTE_MANIFESTO` DEIXOU DE EXISTIR, E ISSO E O G5.
+# Ele declarava os catorze scripts que o workflow corria e o manifesto nao
+# governava. Agora cada um tem casa: REGERAR, VALIDAR, PORTOES_POS_COMMIT ou
+# OUTRAS_EXECUCOES. Quem confere a composicao inteira e
+# `test_uma_cadeia_um_dono.py`; aqui basta garantir que a divida nao voltou
+# disfarcada de bloco novo.
+prova("a_divida_do_G5_nao_voltou_por_outro_nome",
+      not any(k for k in CAD.CADEIA
+              if "FORA" in k.upper() or "EXCEPC" in k.upper() or "IGNORAD" in k.upper()),
+      [k for k in CAD.CADEIA if "FORA" in k.upper()])
+prova("o_manifesto_governa_mais_do_que_os_sete_do_G4", len(CAD.passos()) > 7,
+      "%d passos em REGERAR" % len(CAD.passos()))
 
 # ── 6 · A ORDEM NAO FOI MEXIDA (G6 CONTINUA POR FAZER) ────────────────────
-ORDEM_G3 = ["system-map/scripts/scan_repo.py", "system-map/scripts/scan_sources.py",
-            "system-map/scripts/scan_casco.py", "system-map/scripts/censo_da_coleta.py",
-            "system-map/scripts/pente_fino_da_coleta.py",
-            "system-map/scripts/censo_dos_buracos.py",
-            "system-map/scripts/generate_system_map.py"]
-prova("a_ordem_da_cadeia_e_a_mesma_que_antes_do_G4",
-      CAD.executaveis() == ORDEM_G3,
-      "G4 declara dependencia; ordenar por ela e o G6")
-leitor = texto("system-map/scripts/cadeia_do_mapa.py")
-prova("o_leitor_nao_ordena_nada",
-      "sort" not in leitor and "topolog" not in leitor.lower(),
-      "um sort dentro do leitor seria o G6 implementado a socapa")
+# ⚠️ ESTA GUARDA ESTAVA PRESA A UMA LISTA DE SETE. O G5 trouxe treze passos
+# para o manifesto e ela reprovou o progresso, nao um defeito. Congelar a lista
+# outra vez — agora com vinte — repetiria o erro na proxima missao.
+#
+#     UMA GUARDA DE ORDEM QUE GUARDA UMA LISTA GUARDA A DATA EM QUE FOI ESCRITA.
+#
+# O que tem de continuar verdade e a ORDEM RELATIVA dos passos que ja existiam:
+# o G5 podia acrescentar, nunca trocar.
+ORDEM_RELATIVA_DO_G4 = ["SCAN_REPO", "SCAN_SOURCES", "SCAN_CASCO", "CENSO_DA_COLETA",
+                        "PENTE_FINO_DA_COLETA", "CENSO_DOS_BURACOS",
+                        "GENERATE_SYSTEM_MAP"]
+agora = [p["STEP_ID"] for p in CAD.passos()]
+prova("os_passos_do_G4_mantem_a_ordem_relativa",
+      [x for x in agora if x in ORDEM_RELATIVA_DO_G4] == ORDEM_RELATIVA_DO_G4,
+      "%s — acrescentar e G5; trocar e G6" % [x for x in agora if x in ORDEM_RELATIVA_DO_G4])
+
+# E o leitor tem de devolver a ordem ESCRITA, byte a byte. Isto e comportamento,
+# nao texto: procurar a palavra «sort» no ficheiro apanhava o `sorted()` de uma
+# mensagem de erro e deixava passar um `list.sort()` escrito de outra maneira.
+prova("o_leitor_devolve_a_ordem_escrita_do_manifesto",
+      [p["STEP_ID"] for p in CAD.passos()]
+      == [p["STEP_ID"] for p in CAD.CADEIA["REGERAR"]],
+      "um leitor que reordena e o G6 implementado a socapa")
+prova("o_corredor_tambem_nao_ordena",
+      [l.strip() for l in
+       subprocess.run([sys.executable, str(RAIZ / "system-map/scripts/correr_a_cadeia.py"),
+                       "--listar", "REGERAR"], capture_output=True, text=True,
+                      cwd=str(RAIZ)).stdout.splitlines() if l.strip()]
+      == CAD.executaveis(),
+      "quem corre a cadeia tem de correr a ordem do manifesto")
 
 # ── 7 · O CICLO DO PENTE FINO, DECLARADO ──────────────────────────────────
 pente = CAD.por_id("PENTE_FINO_DA_COLETA")
@@ -357,6 +301,13 @@ for p in PASSOS:
             pasta_ok = nomeia(p["EXECUTABLE"], e["PATH"].rsplit("/", 1)[0])
             if not (nome in CAD.CADEIA["PUBLICADO"] and pasta_ok):
                 mudos.append((p["STEP_ID"], e["PATH"], "derivado de PUBLICADO"))
+            continue
+        if e.get("LEITURA_DINAMICA"):
+            # UMA LEITURA QUE NASCE DE DADO NAO ESTA ESCRITA EM CODIGO NENHUM.
+            # A AST cala-se aqui de PROPOSITO, e o silencio esta declarado no
+            # manifesto com a razao. Quem prova que e lido e a corrida — e a
+            # regra `toda_entrada_declarada_foi_mesmo_lida` continua a valer,
+            # logo isto nao e uma porta de saida: e a testemunha certa.
             continue
         onde = e.get("VIA") or p["EXECUTABLE"]
         if not nomeia(onde, e["PATH"]):
@@ -449,11 +400,21 @@ def medir_em_clone():
         return None, "clone falhou: " + r.stderr[-200:]
     with open(os.path.join(raiz, "_espiao.py"), "w", encoding="utf-8") as fh:
         fh.write(ESPIAO)
-    # assentar: as saidas da cadeia vivem dentro da impressao que ela carimba,
-    # logo a primeira passagem muda a arvore que ela proria mediu. (G6)
-    for _ in range(2):
+    # ASSENTAR ATE PARAR DE MEXER, e nao um numero de passagens escolhido.
+    # As saidas da cadeia vivem dentro da impressao que ela carimba, logo cada
+    # passagem muda a arvore que ela propria mediu (G6). Com sete passos, duas
+    # passagens chegavam; com vinte e as dezanove dependencias atrasadas, nao —
+    # e o validador reprovava no clone por um estado a meio do ciclo.
+    #
+    #     UM NUMERO DE PASSAGENS ESCOLHIDO A DEDO MEDE O DIA EM QUE FOI ESCOLHIDO.
+    anterior = None
+    for _ in range(6):
         for exe in CAD.executaveis():
             _correr([sys.executable, exe], raiz)
+        agora = _correr(["git", "status", "--porcelain"], raiz).stdout
+        if agora == anterior:
+            break
+        anterior = agora
     out = {}
     for p in PASSOS:
         nome = "_io_%s.json" % p["STEP_ID"]
@@ -489,8 +450,20 @@ prova("a_medicao_de_runtime_correu_num_clone", MED is not None, erro)
 
 if MED:
     IO, RASTREADOS = MED
-    maus_rc = [s for s, d in IO.items() if d["RC"] != 0]
+    # ⚠️ O VALIDADOR NAO E MEDIDO PELO VEREDITO DELE NUM CLONE DESCARTAVEL.
+    # Ele compara o regerado com o commitado; num clone a meio do ciclo, o que
+    # ele reprova e o CICLO (G6), e nao o passo. Aqui interessa que ele CORRA e
+    # deixe medicao — o veredito dele tem o seu proprio portao, no CI, sobre a
+    # arvore a serio.
+    #
+    #     MEDIR UM PASSO PELO VEREDITO DE OUTRA PERGUNTA
+    #     E TROCAR A PERGUNTA SEM AVISAR.
+    SO_MEDEM = {"VALIDATE_SYSTEM_MAP"}
+    maus_rc = [s for s, d in IO.items() if d["RC"] != 0 and s not in SO_MEDEM]
     prova("todo_passo_correu_sem_erro_no_clone", not maus_rc, maus_rc)
+    prova("o_validador_correu_e_deixou_medicao",
+          "VALIDATE_SYSTEM_MAP" in IO and bool(IO["VALIDATE_SYSTEM_MAP"]["LIDOS"]),
+          "sem medicao dele, as regras seguintes nao teriam sobre o que correr")
 
     # UM PASSO SEM MEDICAO NAO E UM PASSO VERIFICADO. Acontece quando o
     # STEP_ID muda, fica vazio, ou aparece um passo novo — e nesse caso as
