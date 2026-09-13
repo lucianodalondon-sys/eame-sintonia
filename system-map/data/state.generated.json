@@ -1275,6 +1275,7 @@
       "provas/a_fonte_atravessa_ate_a_porta.py",
       "provas/a_fronteira_da_coleta.py",
       "provas/a_lei_da_fase_10.py",
+      "provas/a_linhagem_do_ready.py",
       "provas/a_linhagem_do_reaproveitamento.py",
       "provas/a_maquina_depois_do_crash.py",
       "provas/a_maquina_sob_carga.py",
@@ -1319,6 +1320,7 @@
       "provas/medir_admission_t3_atual.py",
       "provas/medir_source_id_wiring_gap.py",
       "provas/mutacao_da_autorizacao.py",
+      "provas/mutacao_da_linhagem_do_ready.py",
       "provas/mutacao_da_release_v1.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/mutacao_do_gate.py",
@@ -1612,6 +1614,7 @@
       "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_a_fase_10_entra_no_acervo.py",
+      "tests/test_a_linhagem_do_ready.py",
       "tests/test_a_linhagem_do_reaproveitamento.py",
       "tests/test_a_operacao_aguenta_concorrencia.py",
       "tests/test_a_ponte_do_derived.py",
@@ -2143,10 +2146,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/integrate-scrap-current-collection-v1",
-    "HEAD": "4a7154cda8410ae63d31e5214d90f7b6ed265e65",
-    "GENERATED_AT": "2026-09-13T16:46:30+00:00",
-    "SOURCE_TREE_FINGERPRINT": "621e054073c0d4bf1d71785bf2f5ef5aabd7de756af7020943f7e3da5a3e56fd"
+    "BRANCH": "claude/ready-lineage-before-scale-v1",
+    "HEAD": "762d2d937a2ffb83767f49d200da199492d51560",
+    "GENERATED_AT": "2026-09-13T21:34:12+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2fcbe259c65ab84b161f03d1260dee2415225536b1c5c4bfadd08a5df357aac7"
   },
   "FAMILIES": [
     {
@@ -12673,6 +12676,7 @@
         "provas/a_fase_10_entra_no_acervo.py",
         "provas/a_fonte_atravessa_ate_a_porta.py",
         "provas/a_lei_da_fase_10.py",
+        "provas/a_linhagem_do_ready.py",
         "provas/a_maquina_depois_do_crash.py",
         "provas/a_maquina_sob_carga.py",
         "provas/a_regra_de_t2.py",
@@ -12696,6 +12700,7 @@
         "provas/medir_admission_t3_atual.py",
         "provas/medir_source_id_wiring_gap.py",
         "provas/mutacao_da_autorizacao.py",
+        "provas/mutacao_da_linhagem_do_ready.py",
         "provas/mutacao_da_release_v1.py",
         "provas/mutacao_do_fluxo_canonico.py",
         "provas/mutacao_do_gate.py",
@@ -12734,7 +12739,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 67,
+      "file_count": 69,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12780,6 +12785,7 @@
         "C-PEDIDO",
         "C-PROCEDENCIA",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
+        "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-RASTRO",
         "C-RECEITAS",
         "C-RELEVANCIA-DA-FONTE",
@@ -12815,7 +12821,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3,
+        "ITALIA": 4,
         "ESPANHA": 3
       },
       "pais": "TRANSVERSAL",
@@ -13642,6 +13648,7 @@
       ],
       "outbound": [
         "C-CENSO-EXECUTORES",
+        "C-PROVA-COLETA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-TESTES"
       ],
@@ -13703,9 +13710,9 @@
         "listas": [
           "CAMPOS_DA_LEI"
         ],
-        "palavras": 11,
+        "palavras": 12,
         "por_lingua": {},
-        "sem_marca_de_lingua": 11,
+        "sem_marca_de_lingua": 12,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13936,9 +13943,9 @@
         "listas": [
           "CAMPOS"
         ],
-        "palavras": 11,
+        "palavras": 12,
         "por_lingua": {},
-        "sem_marca_de_lingua": 11,
+        "sem_marca_de_lingua": 12,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17100,6 +17107,7 @@
         "tests/es/test_adama_es_gate.py",
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_a_fase_10_entra_no_acervo.py",
+        "tests/test_a_linhagem_do_ready.py",
         "tests/test_a_linhagem_do_reaproveitamento.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
         "tests/test_a_ponte_do_derived.py",
@@ -17251,7 +17259,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 153,
+      "file_count": 154,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17462,13 +17470,13 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 665,
+        "palavras": 679,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 653,
+        "sem_marca_de_lingua": 667,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -18895,7 +18903,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/integrate-scrap-current-collection-v1"
+        "branch claude/ready-lineage-before-scale-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19249,12 +19257,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 19 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 20 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
           "line": 30,
           "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 58,
+          "snippet": "import admissao                                      # noqa: E402"
         },
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -19305,11 +19318,6 @@
           "file": "provas/implementacoes_candidatas.py",
           "line": 25,
           "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "provas/medir_admission_t3_atual.py",
-          "line": 56,
-          "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19322,12 +19330,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 68,
           "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO = {\","
+        },
+        {
+          "file": "provas/mutacao_da_linhagem_do_ready.py",
+          "line": 27,
+          "snippet": "ADM = 'admissao/admissao.py'"
         },
         {
           "file": "provas/os_portoes_da_collection.py",
@@ -19560,8 +19573,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 22 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 23 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready.py",
+          "line": 23,
+          "snippet": "import admissao                       # noqa: E402"
+        },
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
           "line": 23,
@@ -19616,11 +19634,6 @@
           "file": "tests/test_estagio_atravessa_a_fronteira.py",
           "line": 46,
           "snippet": "import admissao as adm  # noqa: E402"
-        },
-        {
-          "file": "tests/test_fonte_atravessa.py",
-          "line": 22,
-          "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19633,8 +19646,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready.py",
+          "line": 86,
+          "snippet": "\"admissao.py\")))"
+        },
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
           "line": 248,
@@ -21416,8 +21434,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 11 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 12 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready.py",
+          "line": 27,
+          "snippet": "BIBLIA = os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\")"
+        },
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
           "line": 255,
@@ -23383,7 +23406,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 15 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 16 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -23394,6 +23417,11 @@
           "file": "provas/_c106c_filho.py",
           "line": 24,
           "snippet": "import coleta_checkpoint as ck   # noqa: E402"
+        },
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 59,
+          "snippet": "import coleta_checkpoint as cc                       # noqa: E402"
         },
         {
           "file": "provas/a_maquina_depois_do_crash.py",
@@ -23439,11 +23467,6 @@
           "file": "provas/red_team_da_release_v1.py",
           "line": 58,
           "snippet": "import coletor as ct                                 # noqa: E402"
-        },
-        {
-          "file": "provas/run_duravel_no_postgres.py",
-          "line": 57,
-          "snippet": "import coleta_checkpoint as ck"
         }
       ],
       "categoria": "PROOF"
@@ -25901,7 +25924,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
@@ -25912,6 +25935,11 @@
           "file": "provas/a_lei_da_fase_10.py",
           "line": 689,
           "snippet": "from guarda.preservar_coleta import sha256 as _sha"
+        },
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 118,
+          "snippet": "from guarda.preservar_coleta import ArmazemDeMentira"
         },
         {
           "file": "provas/derived_artifact_no_postgres.py",
@@ -27841,12 +27869,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 79,
           "snippet": "(\"coleta/ingresso.py\", \"def para_a_porta(\","
+        },
+        {
+          "file": "provas/mutacao_da_linhagem_do_ready.py",
+          "line": 28,
+          "snippet": "ING = 'coleta/ingresso.py'"
         },
         {
           "file": "provas/mutacao_do_fluxo_canonico.py",
@@ -28025,8 +28058,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready.py",
+          "line": 163,
+          "snippet": "fonte = _fonte(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))"
+        },
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 151,
@@ -28355,8 +28393,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 222,
+          "snippet": "\"ACTOR\": \"coleta/italy_executor.py\","
+        },
         {
           "file": "provas/so_a_colheita_atravessa.py",
           "line": 124,
@@ -30210,8 +30253,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 15 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 16 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready.py",
+          "line": 26,
+          "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+        },
         {
           "file": "tests/test_a_operacao_aguenta_concorrencia.py",
           "line": 114,
@@ -30266,11 +30314,6 @@
           "file": "tests/test_medir_admission_t3_atual.py",
           "line": 56,
           "snippet": "self.assertIn(\"orquestrador/orquestrador.py\", ficheiros)"
-        },
-        {
-          "file": "tests/test_o_pedido_atravessa.py",
-          "line": 23,
-          "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -32677,6 +32720,24 @@
     },
     {
       "from": "C-PROVA-ROTA-M2-ATRAVESSA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que a rota da M2 atravessa alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 126,
+          "snippet": "\"rota_m2\", os.path.join(RAIZ, \"provas\", \"a_rota_m2_atravessa.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-ROTA-M2-ATRAVESSA",
       "to": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
       "type": "READS",
       "payload": "artefacto",
@@ -33647,17 +33708,40 @@
     {
       "from": "C-ROTA-M2",
       "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 60,
+          "snippet": "import rota_forward_documento as m2                  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
           "line": 76,
           "snippet": "(\"coleta/rota_forward_documento.py\","
+        },
+        {
+          "file": "provas/mutacao_da_linhagem_do_ready.py",
+          "line": 29,
+          "snippet": "ROTA = 'coleta/rota_forward_documento.py'"
         },
         {
           "file": "provas/os_portoes_da_collection.py",
@@ -33765,8 +33849,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 5 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_linhagem_do_ready.py",
+          "line": 25,
+          "snippet": "ROTA = os.path.join(RAIZ, \"coleta\", \"rota_forward_documento.py\")"
+        },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 28,
@@ -33998,8 +34087,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 61,
+          "snippet": "import sala_de_espera as espera                      # noqa: E402"
+        },
         {
           "file": "provas/a_maquina_depois_do_crash.py",
           "line": 49,
@@ -35569,8 +35663,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 20 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social alimenta Provas da coleta canonica. Provado por 21 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_linhagem_do_ready.py",
+          "line": 493,
+          "snippet": "\"ACTOR\": \"coleta/adaptador_instagram.py\","
+        },
         {
           "file": "provas/bluesky_trial_ao_vivo.py",
           "line": 135,
@@ -35625,11 +35724,6 @@
           "file": "provas/mutacao_da_release_v1.py",
           "line": 271,
           "snippet": "'coleta/scrap_capacidades.py',"
-        },
-        {
-          "file": "provas/mutacao_do_fluxo_canonico.py",
-          "line": 53,
-          "snippet": "'        \"roda\": [\"coleta/social_scrap.py\", \"coletar\"],',"
         }
       ],
       "categoria": "PROOF"
@@ -38994,12 +39088,12 @@
     "components_pending": 127,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 850,
-    "edges_proven": 847,
+    "edges": 852,
+    "edges_proven": 849,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1696,
-    "files_covered": 864,
+    "files_tracked": 1699,
+    "files_covered": 867,
     "files_code_unclaimed": 0
   }
 }
