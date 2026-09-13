@@ -52,16 +52,26 @@
       <div id="views"></div>
     </div>
     <div class="filter">
-      <div class="sideTitle">Que setas mostrar</div>
-      <label class="check"><input type="checkbox" name="nat" value="FLUXO" checked>
-        <b>o caminho do dado</b></label>
-      <label class="check"><input type="checkbox" name="nat" value="MONTAGEM" checked>
-        esta peça é feita com aquela</label>
-      <label class="check"><input type="checkbox" name="nat" value="DISPARO" checked>
-        aquela manda esta correr</label>
-      <p class="hint">Desligue as duas de baixo para ver a corrente da coleta
-        sozinha: fontes → ferramentas → ações → veículos → porta.</p>
-    </div>
+      <div class="sideTitle">Conexões</div>
+      <label class="check"><input type="checkbox" name="cat" value="DATA" checked>
+        <b>DADO</b> — um item passa mesmo daqui para ali</label>
+      <label class="check"><input type="checkbox" name="cat" value="CONTROL" checked>
+        <b>COMANDO</b> — uma peça manda a outra executar</label>
+      <label class="check"><input type="checkbox" name="cat" value="WRITE">
+        ESCRITA — guarda o resultado num lugar</label>
+      <label class="check"><input type="checkbox" name="cat" value="READ">
+        LEITURA — lê um arquivo que a outra escreveu</label>
+      <label class="check"><input type="checkbox" name="cat" value="RULE">
+        REGRA — consulta uma lei para decidir</label>
+      <label class="check"><input type="checkbox" name="cat" value="PROOF">
+        PROVA — um teste ou medição observa</label>
+      <label class="check"><input type="checkbox" name="cat" value="CODE">
+        CÓDIGO — só dependência técnica, nenhum dado passa</label>
+      <label class="check"><input type="checkbox" name="cat" value="UNKNOWN">
+        NÃO SEI — não foi possível classificar</label>
+      <p class="hint">Começa com DADO e COMANDO ligados: é o caminho que a coleta
+        percorre. Ligue as outras para auditar — nada é escondido, só recolhido.
+        Nenhum cartão desaparece; só as setas.</p>
     <div class="filter">
       <div class="sideTitle">País da fonte</div>
       <div id="paises"></div>

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "HEAD": "dfc37ed97cce090f64b574befaa9f2abac1a7bb5",
+    "GENERATED_AT": "2026-09-07T23:41:40-03:00"
   },
   "FILES": [
     {
@@ -30,7 +30,7 @@
     },
     {
       "path": ".github/workflows/apify-sensores.yml",
-      "sha": "d86aec4d2cbb6f36a47330a3c16587055ad0c248",
+      "sha": "d9890ae3d47b6b07bb2832697bf55a51dfcacfff",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -44,7 +44,7 @@
     },
     {
       "path": ".github/workflows/comunicacao-publica.yml",
-      "sha": "6f456034e189d64a086152825470ea282b20ad48",
+      "sha": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -191,14 +191,14 @@
     },
     {
       "path": "_gavetas.py",
-      "sha": "00ebe0acc22ba35815015782d0ebf15266a21d22",
+      "sha": "34b9aef66ba5d3e68feb49d117052b386d6cbe9e",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "admissao/admissao.py",
-      "sha": "ba263a7b85a0f82b7b68901ecd74f1ab4ce7a8c6",
+      "sha": "1aab3d64646c380ed4347c7b1e159be5d752c6d0",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1135,6 +1135,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/executor_texto_de_pdf.py",
+      "sha": "efd64987b55500b8d42db836d9350a9877d4025b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/filas.py",
       "sha": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
       "ext": ".py",
@@ -1144,6 +1151,13 @@
     {
       "path": "coleta/gire_mapas.py",
       "sha": "4a54507d756ae72eaf0442c37717ed190eaaad95",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/golden_path_pdf.py",
+      "sha": "696d77e111df67dbbd98cc8e73e6d8269940753f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1341,6 +1355,314 @@
       "path": "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
       "sha": "def6ea8a531859318fb7c325b6130cfea34d3afc",
       "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "sha": "c6e594b879e293487c8e87d3ad47c881414d78f4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-024abdb692be926a.txt",
+      "sha": "1425d1ce388243a2413a1a6146abcd778524d152",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+      "sha": "da3ca46c2e286ec86ac9b88fe1dfa890932171ed",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-0c2723e66201f966.txt",
+      "sha": "a1a07939668961f7bb411827aeb230608a02bc52",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+      "sha": "459bc50350d25c0df11e42cfc69fc1ada68f5935",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+      "sha": "e3b897fb488601dc9d332f3c45a252f7e6c7c5e4",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+      "sha": "def4f5b4678fdc99c8190d28c0dc4f78a8252321",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-223510588786a4de.txt",
+      "sha": "f3e90cf312d956ad82713d13c7a914b2923d9992",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+      "sha": "a4b095bdb3dda6981c29ebe2da04a61e4f014e46",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+      "sha": "a78d2f88c61722cb9db706bbfb5381037743c983",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+      "sha": "852b97309e4160654c27793899cc87ba1f634b0f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-3e941738599367d7.txt",
+      "sha": "f3006845f61a67e2ae1c3cba4bc6d465a3c66c49",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+      "sha": "a89d265b20f9c2850b1046c5e7645b35ece64e72",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+      "sha": "e568a0f2fa5f14155fa091db288ff1e4fa2eaf6e",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-445e41701f737d73.txt",
+      "sha": "07d2713d65958d7f9e82b0b1ce025e6c5b4b3966",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-48e76a696be6831d.txt",
+      "sha": "49a5e492ee1917d4a1ccd8ad44f24782b8860250",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+      "sha": "8ac833ab306bf54295af83ed9893fe6ced4ec8a3",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-59da05274359eff6.txt",
+      "sha": "e2dff006ccf72e5fccb185917d5b817c5db822ca",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+      "sha": "4822ff394ed55d9dbe460ed7677928749558368f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+      "sha": "f9ec489b8771f829886102b2b17aeb6d6343bce2",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-699a073ace4361ea.txt",
+      "sha": "ee712198bfd0f58becee4b235e9041ce9b9ef63c",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+      "sha": "53eec229f3af245d9a4a357ae5d6e52e323cf50d",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+      "sha": "8632a307d1cdb33f46f38987f1e4cb4beb85d23f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+      "sha": "f82ee47924d216fbad7cb04f70f4a8d14ca6fdaf",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-8c13500d43502e64.txt",
+      "sha": "d9c5e05a841edd8664f44d0dd66c4d989a6e9409",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-924aabd94168c53a.txt",
+      "sha": "9772f13b3d36ef3393425356181841dfe0dcf340",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-9488589cfc657b95.txt",
+      "sha": "1cec72aa225248a97571ae9fba7b95ae067f2a39",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+      "sha": "be9ed527290eb0c9030738fb633dba5e591a8f2f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+      "sha": "680098d50b99499e46689859d2153cc0b6ca49bb",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-a6515948880d173a.txt",
+      "sha": "7d8acf6e3891d31d048b97a33e37ea410980d822",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+      "sha": "69de363406ffc2aede6fa8a2c874f358e3c74e11",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+      "sha": "7e6ab208eb29746a2b3218850961d30e8e33a5fc",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+      "sha": "f034b6468d1395c36306f5fac53b34f99edefa29",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+      "sha": "6251d6f41d69b7fd06cd20dca24472b7d116dcac",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-ded546686d61dc91.txt",
+      "sha": "24ef07e5521b0a050089910021672468f71163be",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+      "sha": "2b5eeed7cf64dfa2bc5587e0fc5843aaba73effd",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+      "sha": "1c9dc86b7a8a58b9d2fbc46833828a22c5abdf03",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e612807928b5ada9.txt",
+      "sha": "78327b6bd0837c163c23273c271c423e00355ced",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+      "sha": "442c59427c22a972b3d9da2c433faa057aaf47c3",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+      "sha": "ab719f0ccdd399d95e8660cd1e512497a762f9ee",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+      "sha": "45673b371b4d9fe28d731abb2c6c718e96c2e55f",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+      "sha": "8a640eb79c43119ce8bbbaee8349cc3edba133ee",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+      "sha": "b481dc5d40e7eec3f1437d3c1a8d1bbf49801bd6",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/derivados/texto/RAW-fe3c922bfdfd7999.txt",
+      "sha": "2e465b4fad1138d71b4f3be711b7053a6ff6281e",
+      "ext": ".txt",
       "readable": false,
       "code_dir": false
     },
@@ -3096,7 +3418,7 @@
     },
     {
       "path": "data/samples/LIVRO-DE-DECISOES.json",
-      "sha": "66f0cf3efc2887a543736929f724ab7bbdb65416",
+      "sha": "36efa5a82533cabac439a1721da4e9819d639c8a",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3369,7 +3691,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "a6c4c0c7bc4c874d7fab5b7a12c83c7ac11632be",
+      "sha": "8770e480cd5b9cfcd9a6a01ed758869c78ecddc6",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3873,7 +4195,7 @@
     },
     {
       "path": "docs/fontes/INDICE-DE-FONTES.md",
-      "sha": "b417c0d73dffafccd141342b9bb8fbd727c49161",
+      "sha": "ea0b4e1fd79474fdb65f88309cfe737fe7b589a2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3893,8 +4215,22 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
+      "sha": "11b6213cc3ae5342137564a5a0d4298d3f002a9c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CENSO-DA-COLETA.md",
       "sha": "4868be1478cda9d46ed370d61ef1ac7b2b2dc349",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
+      "sha": "7c7059dc80f03bd855433baee63537eff5186c2d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3909,6 +4245,13 @@
     {
       "path": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "sha": "1aa96613c29fefeba47732f5f501b10ad679eaf8",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/ETAPA-2.6-OS-SEIS-VEREDITOS.md",
+      "sha": "e27a64bd5549375452900d6815ab31130e42ba7f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3937,6 +4280,13 @@
     {
       "path": "docs/operacao/ITALY-SINTONIA-SCRAP-SOURCE-TEST.md",
       "sha": "f5008231ad8a9dad60ca32f5283e2c4d9c0cf1ef",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/MODELO-DAS-CONEXOES.md",
+      "sha": "49cebcb9358509db9077feff30f41cf6de22681d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -6056,6 +6406,13 @@
       "code_dir": true
     },
     {
+      "path": "leis/artefato.py",
+      "sha": "db12c95938b9d3558a8304516e40e99cb87c94dc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "leis/auditoria_regua_comercial.py",
       "sha": "0b74e427335ff870fb7c815426e92832e67127d4",
       "ext": ".py",
@@ -6462,6 +6819,13 @@
       "code_dir": true
     },
     {
+      "path": "orquestrador/orquestrador.py",
+      "sha": "e6d9cccad2ee16d47ff403e2d94b99029b640aac",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "package.json",
       "sha": "08d737be6904f5597e02495b601be6f3862be563",
       "ext": ".json",
@@ -6588,13 +6952,6 @@
       "code_dir": true
     },
     {
-      "path": "pedido/orquestrador.py",
-      "sha": "b1b6edd63ff947942079ab92f736de24dfde43e9",
-      "ext": ".py",
-      "readable": true,
-      "code_dir": true
-    },
-    {
       "path": "pedido/pedido.py",
       "sha": "783852b225b497ca118f1f250f650123d1f81df0",
       "ext": ".py",
@@ -6701,7 +7058,14 @@
     },
     {
       "path": "provas/testa_coleta_canonica.py",
-      "sha": "4f6ce8d8584222fea36c2ea728992b57d2bc3c20",
+      "sha": "2dda00e21578d4990d654f6b3c745d80d645f7f6",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/testa_golden_path_pdf.py",
+      "sha": "9423756789328f35ba6b4b924e65f4e8c301850d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -6715,7 +7079,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "48da0985deaddcae18437e764fa2c72861d19d4b",
+      "sha": "5777f60861f54786fce58d57bb5f56e61cd039ee",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -6792,14 +7156,14 @@
     },
     {
       "path": "regras/sensor_coleta.py",
-      "sha": "bc0fbd82df9669cfd06ff1672db991bcb26564b7",
+      "sha": "6267585dda56bda9ff2c8b4e443e0d2386b82ccc",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "regras/sensor_medir.py",
-      "sha": "d3464ca6888a9e6af7f548984292a08a809dff4e",
+      "sha": "78a08f1ac8d8d832df55ae53a667d28792f0b307",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7681,28 +8045,35 @@
     },
     {
       "path": "system-map/app/index.html",
-      "sha": "07a751b6d25a9dd38ea985ed70bf12f4b7baf295",
+      "sha": "e03ea69361b475d380b1256e170346f9d3e2cbd1",
       "ext": ".html",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.css",
-      "sha": "36fcb9336297f70f5d3263079c3f6ae5cb99a079",
+      "sha": "509ff2a37ebb527c7563a88cdf4a6a5429a6b1af",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/app/map.js",
-      "sha": "38e8d05eff4137e36d9c593731ff56fa7f352872",
+      "sha": "433aa0bc66add1fc4ec82aea3471ba9b3015c8be",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
+      "path": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
+      "sha": "6fcbb799a06216fdd4cb8efae3ee4c4f85530f2a",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "62c326bb84d16cafb421192987e741470b036f0e",
+      "sha": "f71c25daea31c6be05ae1fa19499cb21a49d26d9",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7715,8 +8086,22 @@
       "code_dir": true
     },
     {
+      "path": "system-map/scripts/censo_do_corpus_it.py",
+      "sha": "2ba1b258fa85a7be69fb3c3d3a49683cb9fa515a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/censo_semantico_it.py",
+      "sha": "575e2343b667b163062998901e7422bdf381887c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "a12efea2c785b6107a1e8d8fa36c4c179ff008c5",
+      "sha": "3eece1c87b060efe5ff97e38c31587cf2bcf5a07",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7731,6 +8116,13 @@
     {
       "path": "system-map/scripts/pente_fino_da_coleta.py",
       "sha": "7c6f8bd541be3e5aef7aaf3df2514af423f14928",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/scripts/recall_da_porta_it.py",
+      "sha": "e677f9289ce6c380b298c019788b4b95b630fa73",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7765,7 +8157,7 @@
     },
     {
       "path": "system-map/tests/test_system_map.py",
-      "sha": "d8e76c0f7c789936d516ad66808ba6bcf5f38091",
+      "sha": "6ed6682aa01a24ffd67cd3a7e89c77a84379a399",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8021,7 +8413,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/apify-sensores.yml",
-        "line": 99,
+        "line": 117,
         "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
       }
     },
@@ -8032,7 +8424,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/apify-sensores.yml",
-        "line": 106,
+        "line": 124,
         "snippet": "PYTHONIOENCODING=utf-8 $PY regras/sensor_coleta.py \\"
       }
     },
@@ -8346,13 +8738,13 @@
     },
     {
       "from_file": ".github/workflows/comunicacao-publica.yml",
-      "to_file": "pedido/orquestrador.py",
+      "to_file": "orquestrador/orquestrador.py",
       "type": "RUNS",
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 139,
-        "snippet": "PYTHONIOENCODING=utf-8 $PY pedido/orquestrador.py \"colete concorrentes\" \\"
+        "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \"colete concorrentes\" \\"
       }
     },
     {
@@ -9060,6 +9452,39 @@
       }
     },
     {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 67,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 97,
+        "snippet": "REGISTO = RAIZ / \"data\" / \"derivados\" / \"REGISTO-DE-ARTEFATOS.json\""
+      }
+    },
+    {
+      "from_file": "coleta/executor_texto_de_pdf.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_texto_de_pdf.py",
+        "line": 68,
+        "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
       "from_file": "coleta/filas.py",
       "to_file": "data/samples/ES-RESEARCHERS-OLIVE.json",
       "type": "READS",
@@ -9079,6 +9504,61 @@
         "file": "coleta/filas.py",
         "line": 93,
         "snippet": "origens = _ler('ES-VOICE-LINKEDIN.json')['ORIGINS']"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 48,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 50,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 51,
+        "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 53,
+        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "coleta/golden_path_pdf.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/golden_path_pdf.py",
+        "line": 49,
+        "snippet": "import artefato as art  # noqa: E402"
       }
     },
     {
@@ -18575,6 +19055,61 @@
       }
     },
     {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 50,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 54,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "data/samples/RUN-MANIFEST.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 128,
+        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 52,
+        "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "orquestrador/orquestrador.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "orquestrador/orquestrador.py",
+        "line": 53,
+        "snippet": "from receitas import resolver, Plano  # noqa: E402"
+      }
+    },
+    {
       "from_file": "pacote/lastmile_entregar.py",
       "to_file": "data/samples/IT-LASTMILE/IT-ADAMA-CATALOGO.json",
       "type": "READS",
@@ -20599,61 +21134,6 @@
       }
     },
     {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "_gavetas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 50,
-        "snippet": "import _gavetas  # noqa: E402,F401"
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "admissao/admissao.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 54,
-        "snippet": "import admissao as adm  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "data/samples/RUN-MANIFEST.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 128,
-        "snippet": "MANIFESTO = RAIZ / \"data\" / \"samples\" / \"RUN-MANIFEST.json\""
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "pedido/pedido.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 52,
-        "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402"
-      }
-    },
-    {
-      "from_file": "pedido/orquestrador.py",
-      "to_file": "pedido/receitas.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "pedido/orquestrador.py",
-        "line": 53,
-        "snippet": "from receitas import resolver, Plano  # noqa: E402"
-      }
-    },
-    {
       "from_file": "pedido/receitas.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -21210,7 +21690,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 130,
+        "line": 143,
         "snippet": "if not l.startswith((\"guarda/es/\", \"docs/\", \"AGENTS.md\","
       }
     },
@@ -21221,7 +21701,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 27,
+        "line": 29,
         "snippet": "import _gavetas  # noqa: E402,F401"
       }
     },
@@ -21232,7 +21712,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 32,
+        "line": 34,
         "snippet": "import admissao as adm  # noqa: E402"
       }
     },
@@ -21243,18 +21723,18 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 118,
+        "line": 131,
         "snippet": "REMOVIDOS = (\".github/workflows/adama-es-gate.yml\",)"
       }
     },
     {
       "from_file": "provas/testa_coleta_canonica.py",
-      "to_file": "pedido/orquestrador.py",
+      "to_file": "orquestrador/orquestrador.py",
       "type": "IMPORTS",
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 31,
+        "line": 33,
         "snippet": "import orquestrador as orq  # noqa: E402"
       }
     },
@@ -21265,7 +21745,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 29,
+        "line": 31,
         "snippet": "from pedido import de_uma_frase, Pedido, PedidoInvalido  # noqa: E402"
       }
     },
@@ -21276,8 +21756,129 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/testa_coleta_canonica.py",
-        "line": 30,
+        "line": 32,
         "snippet": "from receitas import resolver  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 286,
+        "snippet": "import sensor_coleta as sc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 406,
+        "snippet": "_PERMITIDO = ('regras/sensor_coleta.py', 'provas/testa_coleta_canonica.py')"
+      }
+    },
+    {
+      "from_file": "provas/testa_coleta_canonica.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_coleta_canonica.py",
+        "line": 160,
+        "snippet": "import sensor_medir as _sm"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 22,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 24,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 25,
+        "snippet": "import executor_texto_de_pdf as ex  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 182,
+        "snippet": "_fonte_ex = (RAIZ / \"coleta\" / \"executor_texto_de_pdf.py\").read_text("
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 26,
+        "snippet": "import golden_path_pdf as gp  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 184,
+        "snippet": "_fonte_gp = (RAIZ / \"coleta\" / \"golden_path_pdf.py\").read_text(encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 23,
+        "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/testa_golden_path_pdf.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/testa_golden_path_pdf.py",
+        "line": 211,
+        "snippet": "RAIZ / \"orquestrador\" / \"orquestrador.py\").read_text(encoding=\"utf-8\"),"
       }
     },
     {
@@ -21683,7 +22284,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_coleta.py",
-        "line": 279,
+        "line": 345,
         "snippet": "open(UNIVERSO, 'leitura')  # UNIVERSO = data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       }
     },
@@ -21716,7 +22317,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_medir.py",
-        "line": 376,
+        "line": 491,
         "snippet": "canal = _ler('CANAL-IDENTIDADE.json') or {'ITEMS': []}"
       }
     },
@@ -21727,7 +22328,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "regras/sensor_medir.py",
-        "line": 426,
+        "line": 541,
         "snippet": "with open(os.path.join(PILOT, 'MEDICAO.json'), 'w', encoding='utf-8') as f:"
       }
     },
@@ -22013,8 +22614,52 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/app/index.html",
-        "line": 158,
+        "line": 168,
         "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 60,
+        "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO\", \"ADMISSAO\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "regras/rotulos_censo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 51,
+        "snippet": "(\"regras/rotulos_censo.py\", \"TERMOS\", \"EXTRACAO\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "regras/sensor_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 49,
+        "snippet": "(\"regras/sensor_coleta.py\", \"TERMOS\", \"BUSCA\","
+      }
+    },
+    {
+      "from_file": "system-map/scripts/censo_semantico_it.py",
+      "to_file": "regras/sensor_medir.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/censo_semantico_it.py",
+        "line": 53,
+        "snippet": "(\"regras/sensor_medir.py\", \"OBSERVACAO_CAMPO\", \"CLASSIFICACAO\", \"fala de campo\"),"
       }
     },
     {
@@ -22024,8 +22669,41 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1483,
+        "line": 2098,
         "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 831,
+        "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "coleta/golden_path_pdf.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 846,
+        "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/generate_system_map.py",
+      "to_file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/scripts/generate_system_map.py",
+        "line": 839,
+        "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\","
       }
     },
     {
@@ -22035,7 +22713,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1461,
+        "line": 2076,
         "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
       }
     },
@@ -22046,7 +22724,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1242,
+        "line": 1857,
         "snippet": "destino = RAIZ / \"docs\" / \"fontes\" / \"INDICE-DE-FONTES.md\""
       }
     },
@@ -22079,7 +22757,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1662,
+        "line": 2277,
         "snippet": "destino = RAIZ / \"regras\" / \"LEIA-ANTES-DE-COLETAR.md\""
       }
     },
@@ -22090,7 +22768,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1684,
+        "line": 2299,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22101,7 +22779,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1685,
+        "line": 2300,
         "snippet": "\"system-map/app/map.css\"):"
       }
     },
@@ -22112,7 +22790,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1684,
+        "line": 2299,
         "snippet": "for nome in (\"system-map/app/index.html\", \"system-map/app/map.js\","
       }
     },
@@ -22134,7 +22812,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2124,
+        "line": 2781,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22145,7 +22823,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 2124,
+        "line": 2781,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -22156,7 +22834,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 1423,
+        "line": 2038,
         "snippet": "vj = RAIZ / \"vercel.json\""
       }
     },
@@ -22169,6 +22847,28 @@
         "file": "system-map/scripts/mudar_gaveta.py",
         "line": 31,
         "snippet": "DECL = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
+      }
+    },
+    {
+      "from_file": "system-map/scripts/recall_da_porta_it.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/recall_da_porta_it.py",
+        "line": 42,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "system-map/scripts/recall_da_porta_it.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/scripts/recall_da_porta_it.py",
+        "line": 43,
+        "snippet": "import admissao as adm  # noqa: E402"
       }
     },
     {
@@ -22442,7 +23142,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 219,
+        "line": 390,
         "snippet": "agents = RAIZ / \"AGENTS.md\""
       }
     },
@@ -22453,7 +23153,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 228,
+        "line": 399,
         "snippet": "claude = RAIZ / \"CLAUDE.md\""
       }
     },
@@ -22464,7 +23164,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 231,
+        "line": 402,
         "snippet": "readme = RAIZ / \"README.md\""
       }
     },
@@ -22475,7 +23175,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 123,
+        "line": 294,
         "snippet": "(RAIZ / \"_gavetas.py\").exists(),"
       }
     },
@@ -22486,7 +23186,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 198,
+        "line": 369,
         "snippet": "and K[\"escada\"][0][\"onde\"] != \"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
       }
     },
@@ -22497,7 +23197,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 238,
+        "line": 409,
         "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
       }
     },
@@ -22508,8 +23208,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 236,
-        "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
+        "line": 170,
+        "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -22525,12 +23225,23 @@
     },
     {
       "from_file": "system-map/tests/test_system_map.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_system_map.py",
+        "line": 191,
+        "snippet": "GERADOR = (RAIZ / \"system-map\" / \"scripts\" / \"generate_system_map.py\").read_text("
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_system_map.py",
       "to_file": "system-map/scripts/scan_repo.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 205,
+        "line": 376,
         "snippet": "subprocess.run([sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"scan_repo.py\")],"
       }
     },
@@ -22541,7 +23252,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/tests/test_system_map.py",
-        "line": 224,
+        "line": 395,
         "snippet": "\"validate_system_map.py\" in lei,"
       }
     },
@@ -25179,14 +25890,14 @@
     "regras/sensor_coleta.py": [
       {
         "pasta": "data/samples/SENSOR-PILOT",
-        "line": 289,
+        "line": 355,
         "constante": "SAIDA"
       }
     ],
     "regras/sensor_medir.py": [
       {
         "pasta": "data/samples/SENSOR-PILOT",
-        "line": 426,
+        "line": 541,
         "constante": "PILOT"
       }
     ],
@@ -25199,10 +25910,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
-    "files_readable": 388,
-    "files_code_dir": 433,
-    "file_edges": 1529,
+    "files_tracked": 1198,
+    "files_readable": 395,
+    "files_code_dir": 441,
+    "file_edges": 1558,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

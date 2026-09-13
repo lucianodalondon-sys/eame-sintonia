@@ -136,7 +136,7 @@ jobs:
           # argumentos, o botão quebra — e ninguém descobre até alguém clicar.
           # Agora o botão diz O QUE quer; o orquestrador escolhe COMO e assina o
           # recibo da corrida no RUN-MANIFEST, que antes ninguém escrevia.
-          PYTHONIOENCODING=utf-8 $PY pedido/orquestrador.py "colete concorrentes" \
+          PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py "colete concorrentes" \
             --filtro fase=${{ inputs.fase }} \
             --filtro plataforma="${{ inputs.plataforma }}"
 

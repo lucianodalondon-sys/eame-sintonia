@@ -571,6 +571,314 @@ def sem_comentarios(texto: str) -> str:
     return "\n".join(fora)
 
 
+def o_corte_do_pdf() -> tuple[list, list]:
+    """O maior buraco medido da Italia, desenhado como buraco.
+
+    O DESENHO QUE ISTO PRODUZ
+
+        EVIDENCIA BRUTA (PDF)
+                |
+                v
+        [ DERIVACAO DE TEXTO — AUSENTE ]   <- a tesoura
+                x
+        TEXTO QUE A MAQUINA LE
+                |
+                v
+        VOCABULARIO / CLASSIFICACAO / PENEIRA
+
+    POR QUE E UMA PECA E NAO UMA NOTA DE RODAPE
+
+    Ate aqui o mapa dizia «corpus» e metia numa palavra so duas coisas que nao
+    sao a mesma: o que esta GUARDADO e o que da para LER. Com uma palavra so,
+    62,7 MB de PDF pareciam corpus farto, e o sistema parecia bem alimentado.
+
+    Nao esta. 43 dos 49 PDF italianos nunca viraram texto. Os 6 que viraram,
+    viraram a mao — nao ha codigo nenhum que o faca.
+
+    E isto muda a ordem do trabalho: nao adianta melhorar palavras, peneira ou
+    disparo enquanto a evidencia estiver fechada dentro do PDF. Nenhuma
+    palavra, por melhor que seja, encontra texto que nao existe.
+
+    CUIDADO COM A LINGUAGEM, QUE AQUI JA SE ERROU
+
+    62,7 MB de PDF NAO e prova de milhoes de caracteres. Megabyte nao e
+    caractere: um PDF de 6 MB tanto pode ser cinquenta paginas escritas como
+    uma unica fotografia digitalizada. O numero antigo continua NAO REPRODUZIDO
+    COMO TEXTO; o que esta provado e o acervo bruto, e escreve-se como acervo
+    bruto.
+
+    NOTA SOBRE O QUE O MAPA CONSEGUE VER
+
+    O scanner ignora ficheiros binarios de proposito — nao sabe ler um PDF. Ou
+    seja: os 49 documentos mais ricos da Italia sao INVISIVEIS para o mapa pela
+    via normal. Este cartao existe para eles deixarem de o ser, e os numeros
+    dele vem do censo, que os conta pelo disco.
+    """
+    f = DADOS / "corpus-it.generated.json"
+    if not f.is_file():
+        return [], []
+    C = json.loads(f.read_text(encoding="utf-8"))
+    B = C.get("BRUTO_POR_LER") or {}
+    T = C.get("TOTAIS") or {}
+
+    n_pdf = B.get("FICHEIROS", 0)
+    mb = B.get("MEGABYTES", 0)
+    com = B.get("PDF_COM_TEXTO_DERIVADO", 0)
+    sem = B.get("PDF_SEM_TEXTO_DERIVADO", 0)
+    ja = B.get("CARACTERES_JA_DERIVADOS_DOS_PDF", 0)
+    prosa = T.get("CORPO_DE_TEXTO_EM_CARACTERES", 0)
+
+    bruto = {
+        "id": "C-IT-PDF-BRUTO", "name": "Evidência bruta em PDF (Itália)",
+        "kind": "acervo", "icon": "▤",
+        "territory": "Z-GUARDA", "family": "F-ESPERA",
+        "status": CINZA, "ui_status": "gray", "proof": "git-measurement",
+        "what": (f"{n_pdf} documentos italianos guardados em PDF — boletins "
+                 f"regionais, bilanci fitosanitari, diretrizes. {mb} MB. É o "
+                 f"material mais rico que a Itália tem. Já não está fechado: "
+                 f"o executor abriu-os e o texto existe, com pai declarado."),
+        "why_here": ("Enquanto o mapa dizia «corpus» numa palavra só, isto "
+                     "parecia alimento do sistema. Separar o guardado do "
+                     "legível foi o que permitiu ver — e fechar — o corte."),
+        "files": [], "file_count": n_pdf,
+        "facts": [
+            f"PDF italianos guardados: {n_pdf}",
+            f"tamanho em disco: {mb} MB",
+            f"PDF COM texto derivado: {com} de {n_pdf}",
+            f"PDF SEM texto derivado: {sem} de {n_pdf}",
+            "caracteres dentro dos PDF: NÃO MEDIDO — abrir PDF é derivar, não medir",
+            f"{mb} MB NÃO é prova de milhões de caracteres: megabyte não é caractere",
+            "o antigo «milhões de caracteres» continua NÃO REPRODUZIDO COMO TEXTO",
+        ],
+        "status_reason": (
+            f"CINZENTO porque o mapa continua a não conseguir LER um PDF — o "
+            f"scanner não abre ficheiro binário, e isso não mudou. O que mudou "
+            f"é que já não precisa: o executor abriu-os e o texto vive ao lado, "
+            f"como artefato próprio, esse sim legível e contado."),
+        "evidence_text": "system-map/data/corpus-it.generated.json → BRUTO_POR_LER",
+        "departments": ["ENGENHARIA"], "views": ["acervo", "infra", "audit"],
+        "lane": "official", "legacy": False, "changed_since_declared": [],
+        "inbound": [], "outbound": [],
+    }
+
+    # ── A SETA DO CORTE, DEPOIS DE O CORTE TER SIDO FECHADO ─────────────────
+    # Esta seta dizia «DERIVACAO AUSENTE» e estava certa quando foi escrita. Ja
+    # nao esta: a derivacao existe, correu, e produziu texto com pai para todos
+    # os PDF que tinham camada de texto.
+    #
+    #     SETA DESATUALIZADA E PIOR QUE SETA NENHUMA.
+    #     A que falta faz perguntar; a que mente faz confiar.
+    #
+    # O que sobra deste lado e o caminho ANTIGO, feito a mao: seis textos que
+    # alguem escreveu sem deixar registo de como. Tres deles conseguem provar de
+    # que PDF vieram; tres nao. Esse continua a ser um caminho por confirmar, e
+    # e isso — e so isso — que a seta cinzenta passa a dizer.
+    gp = DADOS / "golden-path-pdf.generated.json"
+    maos = {}
+    if gp.is_file():
+        maos = (json.loads(gp.read_text(encoding="utf-8")).get("TEXTOS_A_MAO")
+                or {})
+    n_maos = maos.get("TOTAL", com)
+    provados = maos.get("PARENT_PROVEN", 0)
+
+    ligacoes = [{
+        "from": "C-IT-PDF-BRUTO", "to": "C-IT-TEXTO-PESQUISAVEL",
+        "type": "DERIVA_TEXTO_A_MAO", "kind": "expected",
+        "status": CINZA, "evidence": [],
+        "reason": (
+            f"⚪ O CAMINHO ANTIGO, FEITO À MÃO. {n_maos} textos foram tirados de "
+            f"PDF por uma pessoa, antes de haver contrato, sem registo de quem "
+            f"nem de quando. Destes, {provados} conseguem provar de que PDF "
+            f"vieram — o texto do ficheiro aparece mesmo dentro do documento. "
+            f"Os outros {n_maos - provados} não: estar ao lado com o mesmo nome "
+            f"é indício, não prova, e por isso o pai ficou NÃO SEI. "
+            f"Fica cinzenta porque continua sem código que a sustente. O "
+            f"caminho novo, esse, está desenhado a cheio: BRUTO → EXECUTOR → "
+            f"TEXTO DERIVADO → PORTA."),
+        "source": "system-map/data/golden-path-pdf.generated.json",
+        "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
+    }]
+    return [bruto], ligacoes
+
+
+def a_estrada_do_pdf() -> tuple[list, list]:
+    """A primeira estrada do plano de dados, desenhada a partir da corrida real.
+
+    O DESENHO
+
+        PDF BRUTO ──DATA──> EXECUTOR ──DATA──> TEXTO DERIVADO ──DATA──> PORTA
+             │
+             └── NEEDS_OCR  (so aparece se houver algum)
+
+    A REGRA QUE MANDA AQUI
+
+    Nada nestes cartoes e escrito a mao. Todos os numeros saem do ficheiro da
+    reconciliacao, que e produzido pela corrida. Se a corrida nao aconteceu, os
+    cartoes nao aparecem — e isso e de proposito:
+
+        NAO SE AFIRMA «OBSERVADO» SEM TER HAVIDO UMA CORRIDA.
+
+    Um mapa que mostra uma estrada que ninguem percorreu e pior que um mapa
+    vazio, porque o vazio faz perguntar e o desenho falso faz confiar.
+
+    E O QUE FICOU A FALTAR TAMBEM APARECE
+
+    Os 49 textos existem e a porta viu-os todos — e todos ficaram em NAO SEI,
+    porque nenhum diz quando o fato aconteceu. Isso e a estrada a funcionar: a
+    porta recusou-se a adivinhar. O cartao mostra esse degrau em vez de o
+    esconder atras de um numero bonito de cobertura.
+    """
+    f = DADOS / "golden-path-pdf.generated.json"
+    if not f.is_file():
+        return [], []
+    R = json.loads(f.read_text(encoding="utf-8"))
+    C = R["COUNTS"]
+    maos = R.get("TEXTOS_A_MAO") or {}
+    imut = R.get("RAW_IMUTAVEL") or {}
+
+    admissao = {k[len("ADMISSION_"):]: v for k, v in C.items()
+                if k.startswith("ADMISSION_") and k != "ADMISSION_SEEN"}
+    resumo_adm = " · ".join(f"{k} {v}" for k, v in sorted(admissao.items()))
+    total_derivado = C["DERIVED_LANDED"] + C.get("JA_EXISTIAM", 0)
+
+    # A FAMILIA VEM DA ZONA, NUNCA DA PECA. Uma peca que declara familia
+    # diferente da sua zona cria dois agrupamentos para a mesma coisa, e o mapa
+    # passa a ter duas respostas para «onde e que isto vive».
+    FAMILIA_DA_ZONA = {"Z-PROVA": "F-INTELIGENCIA", "Z-GUARDA": "F-ESPERA",
+                       "Z-EXECUCAO": "F-COLETA", "Z-ACOES": "F-COLETA"}
+    comum = {
+        "kind": "engine", "proof": "git-measurement",
+        "files": [], "file_count": 0, "departments": ["ENGENHARIA"],
+        "views": ["acervo", "infra", "audit"], "lane": "official",
+        "legacy": False, "changed_since_declared": [],
+        "inbound": [], "outbound": [], "evidence_text": f.name,
+    }
+
+    # O CARTAO DO EXECUTOR NAO NASCE AQUI.
+    # O codigo dele e peca declarada (C-EXECUTOR-TEXTO-PDF), porque e
+    # arquitetura: existe no disco, tem dono, tem ficheiro. O que nasce aqui e
+    # so o que foi MEDIDO nesta corrida. Ter as duas coisas em cartoes
+    # separados e o que permite distinguir CODIGO (existe) de OBSERVADO (esta
+    # corrida usou) — e criar um segundo cartao para o executor seria a
+    # «segunda verdade» que a Regra Zero proibe.
+
+    derivado = {
+        **comum,
+        "id": "C-IT-TEXTO-DERIVADO", "name": "Texto derivado, com pai",
+        "icon": "▤", "territory": "Z-GUARDA",
+        "family": FAMILIA_DA_ZONA["Z-GUARDA"],
+        "status": VERDE, "ui_status": "green",
+        "what": (f"{total_derivado} textos tirados de PDF por máquina, cada um "
+                 f"a saber de que original nasceu, com que executor, em que "
+                 f"versão e a que horas."),
+        "why_here": ("É o outro lado do corte que estava aberto. Antes: 43 de "
+                     "49 PDF fechados. Agora: têm texto, e o texto tem pai."),
+        "facts": [
+            f"artefatos de texto com pai: {total_derivado}",
+            f"emitidos nesta corrida: {C['DERIVED_EMITTED']}",
+            f"guardados nesta corrida: {C['DERIVED_LANDED']}",
+            f"já existiam (repetir não duplica): {C.get('JA_EXISTIAM', 0)}",
+            f"PERDIDOS: {C['LOST']}",
+            f"textos antigos feitos à mão: {maos.get('TOTAL', 0)} — "
+            f"com pai provado {maos.get('PARENT_PROVEN', 0)}, "
+            f"pai desconhecido {maos.get('PARENT_UNKNOWN', 0)}",
+        ],
+        "status_reason": (
+            f"Cada artefato tem nome próprio, impressão digital, pai, "
+            f"impressão digital do pai e versão de quem o fez. Perdidos: "
+            f"{C['LOST']}."),
+    }
+
+    porta = {
+        **comum,
+        "id": "C-GOLDEN-PATH-PDF", "name": "A corrida · PDF até à porta",
+        "icon": "◉", "territory": "Z-PROVA",
+        "family": FAMILIA_DA_ZONA["Z-PROVA"],
+        "status": AMARELO, "ui_status": "yellow",
+        "what": (f"A conta desta corrida, do PDF guardado até à porta de "
+                 f"admissão. A porta viu {C['ADMISSION_SEEN']} textos: "
+                 f"{resumo_adm or 'nenhuma decisão'}."),
+        "why_here": ("Se a máquina fez e o mapa não consegue mostrar, a "
+                     "engenharia ainda não terminou."),
+        "facts": [
+            f"RUN_ID: {R['RUN_ID']}",
+            f"estado da corrida: {R['STATUS']}",
+            f"RAW_INPUT: {C['RAW_INPUT']} PDF italianos",
+            f"a porta viu: {C['ADMISSION_SEEN']}",
+            f"decisões: {resumo_adm or 'nenhuma'}",
+            f"PERDIDOS: {C['LOST']}",
+            f"originais alterados: {len(imut.get('ALTERADOS') or [])} "
+            f"({imut.get('VEREDITO', 'NAO SEI')})",
+            "custo: 0 · rede: NÃO · OCR: NÃO",
+            "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos "
+            "passaram é COBERTURA, não acerto.",
+        ],
+        "status_reason": (
+            f"AMARELO de propósito. A estrada está inteira e nada se perdeu, "
+            f"mas os {C['ADMISSION_SEEN']} textos ficaram todos em NÃO SEI na "
+            f"porta: nenhum diz quando o fato aconteceu. Pintar isto de verde "
+            f"seria chamar «pronto» a uma coisa que ainda não entrou."),
+    }
+
+    nos = [derivado, porta]
+
+    ligacoes = [
+        {"from": "C-IT-PDF-BRUTO", "to": "C-EXECUTOR-TEXTO-PDF", "type": "DERIVA_TEXTO",
+         "kind": "technical", "status": VERDE, "payload": "dado",
+         "reason": (f"O executor abriu {C['RAW_INPUT']} PDF italianos nesta "
+                    f"corrida. O original não foi tocado: "
+                    f"{imut.get('VEREDITO', 'NAO SEI')}."),
+         "evidence": [{"file": "coleta/executor_texto_de_pdf.py", "line": 1,
+                       "snippet": f"RUN {R['RUN_ID']} · "
+                                  f"RAW_INPUT={C['RAW_INPUT']}"}]},
+        {"from": "C-EXECUTOR-TEXTO-PDF", "to": "C-IT-TEXTO-DERIVADO",
+         "type": "PRODUZ", "kind": "technical", "status": VERDE,
+         "payload": "dado",
+         "reason": (f"{total_derivado} textos guardados, cada um com pai e "
+                    f"impressão digital do pai. Perdidos: {C['LOST']}."),
+         "evidence": [{"file": "data/derivados/REGISTO-DE-ARTEFATOS.json",
+                       "line": 1,
+                       "snippet": f"{total_derivado} artefatos derivados"}]},
+        {"from": "C-IT-TEXTO-DERIVADO", "to": "C-ADMISSAO", "type": "ALIMENTA",
+         "kind": "technical", "status": VERDE, "payload": "dado",
+         "reason": (f"A porta viu {C['ADMISSION_SEEN']} textos e decidiu: "
+                    f"{resumo_adm or 'nada'}."),
+         "evidence": [{"file": "coleta/golden_path_pdf.py", "line": 1,
+                       "snippet": f"ADMISSION_SEEN={C['ADMISSION_SEEN']}"}]},
+    ]
+
+    # O RAMO DO OCR SO EXISTE SE HOUVER OCR POR FAZER. Desenhar um caminho
+    # vazio seria mostrar um problema que nao existe — e um mapa que mostra
+    # problemas imaginarios treina toda a gente a ignorar os avisos.
+    if C["RAW_NEEDS_OCR"]:
+        nos.append({
+            **comum, "id": "C-IT-NEEDS-OCR", "name": "Por ler: precisa de OCR",
+            "icon": "◍", "territory": "Z-GUARDA",
+            "family": FAMILIA_DA_ZONA["Z-GUARDA"],
+            "status": CINZA, "ui_status": "gray",
+            "what": (f"{C['RAW_NEEDS_OCR']} PDF abriram bem e não tinham letra "
+                     f"nenhuma por dentro: são fotografia de papel."),
+            "why_here": ("NEEDS_OCR não é rejeição. É um trabalho que ainda "
+                         "não foi feito."),
+            "facts": [f"PDF sem camada de texto: {C['RAW_NEEDS_OCR']}",
+                      "OCR NÃO está implementado — e não se desenha como se "
+                      "estivesse"],
+            "status_reason": ("NÃO SEI o que está escrito nestes. Precisam de "
+                              "OCR, que não é parte desta missão."),
+        })
+        ligacoes.append({
+            "from": "C-IT-PDF-BRUTO", "to": "C-IT-NEEDS-OCR",
+            "type": "NEEDS_OCR", "kind": "technical", "status": CINZA,
+            "payload": "dado",
+            "reason": (f"{C['RAW_NEEDS_OCR']} dos {C['RAW_INPUT']} PDF não têm "
+                       f"camada de texto. Trabalho por fazer, não rejeição."),
+            "evidence": [{"file": "system-map/data/golden-path-pdf.generated.json",
+                          "line": 1,
+                          "snippet": f"RAW_NEEDS_OCR={C['RAW_NEEDS_OCR']}"}]})
+
+    return nos, ligacoes
+
+
 def os_veiculos(comps: list, dono: dict, G: dict) -> tuple[list, list]:
     """Um cartao por canal, e uma seta de cada acao para o canal que ela usa.
 
@@ -979,25 +1287,86 @@ def as_ferramentas() -> tuple[list, list]:
 
 
 
-# ── UMA SETA SO PARA TRES COISAS DIFERENTES ────────────────────────────────
-# O mapa desenhava com o mesmo traco «o dado corre daqui para ali», «esta peca
-# e feita com aquela» e «aquela manda esta correr». Sao relacoes de naturezas
-# diferentes, e misturadas produzem o novelo que faz a corrente da coleta
-# desaparecer: de 316 setas, 108 nao sao caminho de dado nenhum.
+# ── AS SETE NATUREZAS DE UMA LIGACAO ───────────────────────────────────────
+# O mapa desenhava tres: FLUXO, MONTAGEM, DISPARO. E duas delas saiam com o
+# mesmo traco, o que punha «este modulo importa aquele» e «este workflow manda
+# aquele correr» a parecer a mesma coisa. Sao relacoes de naturezas diferentes,
+# e quem le nao tinha como as separar.
 #
-# Quem pergunta «depois das fontes vem o que?» quer seguir O DADO. As outras
-# duas sao verdadeiras e uteis, mas respondem a outra pergunta — e mostradas ao
-# mesmo tempo, com o mesmo peso, tapam a resposta.
-NATUREZA_DA_SETA = {
-    "READS": "FLUXO",       # o conteudo daquilo entra aqui
-    "ENTREGA_A_LISTA": "FLUXO",  # as fontes dizem ao canal onde ir
-    "ABRE_O_CANAL": "FLUXO",     # e por esta ferramenta que se chega la
-    "WRITES": "FLUXO",      # isto sai daqui e vai para ali
-    "FEEDS": "FLUXO",       # a camada de dado alimenta a tela
-    "VIAJA_POR": "FLUXO",   # a coleta sai por este canal
-    "IMPORTS": "MONTAGEM",  # esta peca e construida com aquela
-    "RUNS": "DISPARO",      # aquela manda esta correr
+#     DATA     um item sai mesmo de uma peca e entra noutra
+#     CONTROL  uma peca manda outra executar
+#     READ     uma peca le artefato que outra produziu ou mantem
+#     RULE     uma peca consulta uma lei/contrato para decidir
+#     WRITE    uma peca guarda resultado num sitio (ficheiro, banco)
+#     PROOF    um teste, auditoria ou medicao observa outra peca
+#     CODE     dependencia tecnica pura: import, modulo partilhado
+#     UNKNOWN  nao se conseguiu classificar — e fica NAO SEI, nunca DATA
+#
+# A REGRA MAIS IMPORTANTE DESTA TABELA E O QUE ELA PROIBE:
+#
+#     CODE NAO E DATA. READ NAO E DATA. CONTROL NAO E DATA. PROOF NAO E DATA.
+#
+# Dois modulos conversarem nao prova que um item passou de um para o outro. Um
+# `import` prova que ha dependencia de codigo, e mais nada. Inventar DATA a
+# partir de um import faz o mapa desenhar um caminho de dado que nunca existiu —
+# e um caminho falso e pior que um caminho em falta, porque ninguem o procura.
+DATA, CONTROL, READ, RULE = "DATA", "CONTROL", "READ", "RULE"
+WRITE, PROOF, CODE, DESCONHECIDA = "WRITE", "PROOF", "CODE", "UNKNOWN"
+
+CATEGORIAS = (DATA, CONTROL, READ, RULE, WRITE, PROOF, CODE, DESCONHECIDA)
+
+# O tipo cru continua a existir e a ser guardado: e ele que carrega a evidencia.
+# Isto e so a traducao para a linguagem visual — normalizacao, nao camada nova.
+CATEGORIA_DO_TIPO = {
+    # o item atravessa mesmo a linha, e ha evidencia da entrega
+    "VIAJA_POR": DATA,          # a colheita vem do canal para a acao
+    "FEEDS": DATA,              # a camada de dado alimenta a tela
+    "ENTREGA_A_LISTA": DATA,    # as fontes entregam ao canal a lista de contas
+    # ordem de execucao
+    "RUNS": CONTROL,
+    "ABRE_O_CANAL": CONTROL,    # e por esta ferramenta que se chega la
+    # leitura e escrita
+    "READS": READ,
+    "WRITES": WRITE,
+    "RETRIEVED_BY": READ,
+    # dependencia de codigo
+    "IMPORTS": CODE,
 }
+
+# Uma peca destas de um dos lados torna a ligacao PROOF, seja qual for o tipo
+# cru: o que atravessa a linha e uma observacao, nao trabalho.
+KINDS_QUE_PROVAM = {"test"}
+
+# E uma leitura cujo OUTRO lado e uma lei nao e leitura de dado: e consulta de
+# regra. A diferenca importa porque uma regra consultada nao carrega item — e
+# quem procura o caminho do dado nao a quer no meio.
+#
+# MAS «LEI» E ONDE ELA MORA, NAO O QUE ALGUEM ESCREVEU NA FICHA DELA.
+# A primeira versao usava `kind == "contract"`, e «O que a ADAMA sabe de si» saiu
+# como RULE — quando ele e o CATALOGO comercial, um artefato de dado. Esta
+# declarado como `contract` na ficha, e a regra herdou o engano em silencio.
+#
+# Uma lei desta casa vive numa das gavetas de lei. Isso e medido, nao declarado —
+# e se alguem mover a peca, a classificacao acompanha sozinha.
+ZONAS_DE_LEI = {"Z-REGRAS", "Z-MEDIDAS", "Z-REGUAS"}
+
+
+def categoria_da_ligacao(tipo, no_de, no_para):
+    """A natureza visual de uma ligacao. Nunca devolve DATA por omissao.
+
+    A ordem das perguntas e a regra:
+      1. algum dos lados prova? entao e PROOF, mesmo que o tipo cru seja outro
+      2. e uma leitura de uma lei? entao e RULE, nao READ
+      3. o tipo cru tem traducao? usa-se
+      4. caso contrario UNKNOWN — e UNKNOWN e uma resposta, nao uma falha
+    """
+    kinds = {(no_de or {}).get("kind"), (no_para or {}).get("kind")}
+    if kinds & KINDS_QUE_PROVAM:
+        return PROOF
+    if (tipo in ("READS", "IMPORTS")
+            and (no_de or {}).get("territory") in ZONAS_DE_LEI):
+        return RULE
+    return CATEGORIA_DO_TIPO.get(tipo, DESCONHECIDA)
 
 # ── AS FERRAMENTAS NAO SERVEM TODAS NO MESMO MOMENTO ────────────────────────
 # «Apify» e «a fala vira texto» estavam na mesma gaveta com o mesmo peso, e nao
@@ -1067,6 +1436,252 @@ def momento_das_ferramentas(nos: list) -> None:
             n["momento"] = "NAO SEI"
             n["momento_texto"] = ("NAO SEI quando esta ferramenta serve: nao usa "
                                   "rota conhecida nem trata o que voltou.")
+
+
+# ── O PAPEL DE UMA PECA NO PLANO DE CONTROLO ────────────────────────────────
+# «Escolhe executor» aparecia em tres pecas: a receita, o orquestrador e o
+# SINTONIA SCRAP. A mesma pergunta — «como atender este pedido?» — respondida em
+# tres sitios. Uma responsabilidade com tres donos nao tem dono.
+#
+# Isto nao consolida nada: so poe no cartao o que a peca REALMENTE faz, medido,
+# para se poder ver a duplicacao em vez de a deduzir. A consolidacao e decisao
+# de produto, e fica para depois de o modelo minimo ser aprovado.
+#
+#     ARQUIVO NAO E RESPONSABILIDADE. MODULO NAO E ESTACAO.
+PAPEIS = (
+    # (papel, o que quer dizer, o que tem de ser verdade)
+    ("ORQUESTRADOR", "decide como atender o pedido, e assina a corrida",
+     lambda m: m["chama_subprocesso"] and m["assina_recibo"]),
+    ("EXECUTOR COMPOSTO", "corre varias fases e abre os portoes de cada uma",
+     lambda m: m["e_workflow"] and m["executores_que_chama"] >= 3),
+    ("BOTAO", "so dispara; nao decide nada",
+     lambda m: m["e_workflow"]),
+    ("POLITICA INTERNA", "decide, mas nao executa — e tem um so consumidor",
+     lambda m: m["decide"] and not m["executa"] and m["consumidores"] <= 2),
+    ("CONTRATO", "so representa e valida; nao executa nada",
+     lambda m: m["valida"] and not m["executa"] and not m["decide"]),
+)
+
+RX_PAPEL = {
+    "chama_subprocesso": r"subprocess\.run|os\.system",
+    # ESCREVER o recibo, nao mencionar o ficheiro. `apify_contrato.py` fala do
+    # RUN-MANIFEST numa frase e saiu classificado como ORQUESTRADOR — a mesma
+    # armadilha do Supabase e do Instagram: mencionar nao e usar.
+    "assina_recibo": r"guardar_recibo\(",
+    "acessa_rede": r"requests\.(get|post)|httpx|urllib\.request|aiohttp",
+    "grava": r"open\([^)]*['\"][wa]|write_text\(|json\.dump\(",
+    # decidir e ter a TABELA de executores ou resolver um plano — nao e a
+    # palavra «escolhe» solta numa linha
+    "decide": r"EXECUTORES\b|resolver\(",
+    "valida": r"raise \w*Invalid|PedidoInvalido",
+}
+
+
+def papel_das_pecas(nos: list) -> None:
+    """Poe em cada peca do plano de controlo o papel que ela DESEMPENHA."""
+    # SO O PLANO DE CONTROLO. Uma ferramenta nao tem «papel de controlo» — o
+    # papel dela ja esta medido noutro sitio, e chama-se `momento` (ROTA,
+    # PREPARO, DESPACHO). Perguntar a um leitor de PDF se ele e orquestrador
+    # devolve NAO SEI, e esse NAO SEI nao ensina nada a ninguem.
+    #
+    # O despachante entra por ser o unico caso em que um workflow FAZ trabalho
+    # de controlo: escolhe portoes e corre seis executores.
+    no_controlo = {"Z-PEDIDO"}
+    for n in nos:
+        if n.get("territory") not in no_controlo and n.get("id") != "C-SINTONIA-SCRAP":
+            continue
+        ficheiros = n.get("files", [])
+        texto = ""
+        for f in ficheiros:
+            cam = RAIZ / f
+            if cam.is_file():
+                bruto = cam.read_text(encoding="utf-8", errors="replace")
+                texto += "\n".join(
+                    "" if l.lstrip().startswith(("#", "//")) else l.split("#", 1)[0]
+                    for l in bruto.splitlines())
+
+        m = {k: bool(re.search(rx, texto, re.I)) for k, rx in RX_PAPEL.items()}
+        m["e_workflow"] = bool(ficheiros) and all(
+            f.endswith((".yml", ".yaml")) for f in ficheiros)
+        m["executa"] = m["chama_subprocesso"] or m["acessa_rede"] or m["grava"]
+        m["executores_que_chama"] = len(re.findall(
+            r"(?:coleta|fontes|candidatas)/[A-Za-z0-9_-]+\.py", texto))
+        m["consumidores"] = len(n.get("outbound", []))
+
+        for papel, o_que_e, cabe in PAPEIS:
+            if cabe(m):
+                n["papel"] = papel
+                n["papel_texto"] = o_que_e
+                break
+        else:
+            n["papel"] = "NAO SEI"
+            n["papel_texto"] = ("nao encaixa em nenhum papel conhecido do plano "
+                                "de controlo — e isso e uma resposta, nao um erro")
+        n["papel_medido"] = {k: v for k, v in m.items() if k != "consumidores"}
+
+
+# ── A AVENIDA PRINCIPAL E AS RUAS DE DENTRO ────────────────────────────────
+# O mapa era um diagrama de FICHEIROS: cada modulo virava uma caixa do mesmo
+# tamanho, e a receita — que e politica interna do orquestrador, com um unico
+# consumidor — competia visualmente com o orquestrador.
+#
+#     ARQUIVO NAO E RESPONSABILIDADE. MODULO NAO E ESTACAO.
+#
+# Estas zonas sao a avenida: as responsabilidades de topo da coleta. Tudo o
+# resto continua no mapa, continua clicavel, continua no ficheiro gerado — mas
+# sai da avenida. NADA DESAPARECE: agrupar nao e apagar, e uma peca escondida
+# por conveniencia visual e uma peca que ninguem vai auditar.
+AVENIDA = ("Z-ENTRADA", "Z-ORQUESTRADOR", "Z-EXECUCAO", "Z-ADMISSAO")
+
+# Estas quatro fecham o caminho do controlo. Uma seta entre elas e canonica;
+# uma seta que salta uma delas e um desvio, e o mapa tem de o mostrar em vez de
+# o esconder — senao a reorganizacao vira maquilhagem.
+CAMINHO_CANONICO = ("Z-ENTRADA", "Z-ORQUESTRADOR", "Z-EXECUCAO", "Z-ADMISSAO")
+
+
+def nivel_das_pecas(nos: list) -> None:
+    """PRINCIPAL na avenida, INTERNO no raio-X. Ninguem e removido."""
+    for n in nos:
+        n["nivel"] = "PRINCIPAL" if n.get("territory") in AVENIDA else "INTERNO"
+
+
+def quem_salta_o_cerebro(nos: list) -> None:
+    """Quem dispara trabalho sem passar pelo orquestrador. Medido na peca.
+
+    A primeira versao so olhava para as SETAS que saem da entrada, e por isso
+    nao via o caso maior: o SINTONIA SCRAP dispara seis executores e nao tem
+    ligacao nenhuma com o orquestrador — nao ha seta para encontrar, e a
+    ausencia de seta nao aparece a procurar setas.
+
+        O DESVIO MAIS CARO E O QUE NAO DEIXA RASTO.
+
+    Reorganizar a avenida sem mostrar isto seria maquilhagem: o desenho ficava
+    certo e a casa continuava a funcionar por fora dele.
+    """
+    QUEM_DISPARA = {"BOTAO", "EXECUTOR COMPOSTO"}
+    for n in nos:
+        if n.get("papel") not in QUEM_DISPARA:
+            continue
+        toca_o_cerebro = "C-ORQUESTRADOR" in (
+            set(n.get("inbound") or []) | set(n.get("outbound") or []))
+        n["salta_o_orquestrador"] = not toca_o_cerebro
+        n["salta_porque"] = ("" if toca_o_cerebro else
+                             "dispara trabalho e nao tem ligacao nenhuma com o "
+                             "orquestrador: a decisao de COMO atender esta aqui "
+                             "dentro, e nao no unico sitio que devia decidi-la")
+
+
+def desvios_do_controlo(ligacoes: dict, nos: list) -> list:
+    """As setas que saltam o orquestrador — medidas, nao supostas.
+
+    O modelo aprovado e ENTRADA -> ORQUESTRADOR -> EXECUCAO. Uma seta que sai da
+    entrada e cai direto num executor, numa ferramenta ou num canal salta o
+    cerebro: a decisao de COMO atender fica no botao.
+    """
+    zona = {n["id"]: n.get("territory") for n in nos}
+    DEPOIS_DO_CEREBRO = {"Z-EXECUCAO", "Z-ACOES", "Z-FERRAMENTAS", "Z-VEICULOS"}
+    fora = []
+    for l in ligacoes.values():
+        if l.get("kind") != "technical":
+            continue
+        de, para = zona.get(l["from"]), zona.get(l["to"])
+        salta = (de == "Z-ENTRADA" and para in DEPOIS_DO_CEREBRO) or \
+                (para == "Z-ENTRADA" and de in DEPOIS_DO_CEREBRO)
+        if salta and l.get("categoria") in ("CONTROL", "CODE", "DATA", "READ"):
+            l["desvio"] = True
+            l["desvio_porque"] = (
+                "sai da ENTRADA direto para a execucao, sem passar pelo "
+                "ORQUESTRADOR: a decisao de COMO atender ficou no botao")
+            fora.append(l)
+    return fora
+
+
+# ── QUE PALAVRAS A ITALIA RECEBE, E DE QUE LINGUA SAO ───────────────────────
+# A busca foi corrigida e a porta ficou para tras: ela decidia sobre item
+# ITALIANO com 28 palavras em PORTUGUES, e contra o unico texto italiano real
+# desta arvore UMA casava. Isso nao dava NAO_SEI — dava «nao pertence a este
+# universo». Uma peneira que fala outra lingua rejeita tudo com ar de quem julgou.
+#
+# O mapa tem de conseguir mostrar isto sem despejar mil palavras no ecra: por
+# peca, quantas palavras, de que lingua, e quantas sao de pais que nao e o desta
+# rota. NAO E UMA LISTA — E UM TERMOMETRO.
+#
+#     TERMO QUE EXISTE EM VARIAS LINGUAS NAO E CONTAMINACAO. `doi`, `orcid`,
+#     `fungo`, `evento`, `decreto` valem em toda a parte. Contaminacao e o termo
+#     EXCLUSIVO de outro pais numa rota que nao e dele.
+SO_DE_UM_PAIS = {
+    "ES": r"^(repilo|olivar|jornada|septoriosis|trigo|espanol)$",
+    "FR": r"^(mildiou|septoriose|webinaire|vigne|ble|francais)$",
+    "PT": r"^(estudo|pesquisa|revista|artigo|universidade|instituto|publicacao|"
+          r"lancamento|campanha|produto|anuncio|autorizacao|rotulo|bula|praga|"
+          r"doenca|inseto|infestacao|sintoma)$",
+    "IT": r"^(studio|ricerca|rivista|articolo|universita|istituto|pubblicazione|"
+          r"convegno|sperimentazione|tesi|lancio|campagna|prodotto|annuncio|"
+          r"novita|fiera|autorizzazione|etichetta|foglietto|registrazione|"
+          r"gazzetta|parassita|malattia|insetto|infestazione|sintomo|avversita|"
+          r"patogeno|diserbo|infestanti|difesa|malattie|frumento|grano|melo|"
+          r"pomodoro|riso|mais|olivo|vite|soia|bietola)$",
+}
+
+# Que papel cada lista tem. Confundir busca com admissao foi o erro: encontrar um
+# material e decidir se ele serve sao perguntas diferentes, e podem — devem —
+# ter vocabularios diferentes.
+PAPEL_DO_VOCABULARIO = {
+    "C-PALAVRAS": "BUSCA",
+    "C-ADMISSAO": "ADMISSAO",
+    "C-ROTULOS-CENSO": "BUSCA/EXTRACAO",
+}
+
+RX_LISTA = re.compile(r"^\s*([A-Z][A-Z0-9_]{3,})\s*=\s*[\[({]", re.M)
+
+
+def vocabulario_das_pecas(nos: list) -> None:
+    """Por peca: quantas palavras, de que lingua, e quantas sao de fora."""
+    import ast as _ast
+    compilados = {k: re.compile(v) for k, v in SO_DE_UM_PAIS.items()}
+
+    for n in nos:
+        listas = {}
+        for f in n.get("files", []):
+            cam = RAIZ / f
+            if not cam.is_file() or cam.suffix != ".py":
+                continue
+            try:
+                arv = _ast.parse(cam.read_text(encoding="utf-8", errors="replace"))
+            except SyntaxError:
+                continue
+            for no in _ast.walk(arv):
+                if not isinstance(no, _ast.Assign) or len(no.targets) != 1:
+                    continue
+                alvo = no.targets[0]
+                if not isinstance(alvo, _ast.Name) or not alvo.id.isupper():
+                    continue
+                palavras = [x.value.lower() for x in _ast.walk(no.value)
+                            if isinstance(x, _ast.Constant)
+                            and isinstance(x.value, str) and 2 < len(x.value) < 40]
+                if len(palavras) >= 5:
+                    listas.setdefault(alvo.id, []).extend(palavras)
+        if not listas:
+            continue
+
+        todas = [w for v in listas.values() for w in v]
+        por_lingua = {}
+        for w in todas:
+            for k, rx in compilados.items():
+                if rx.match(w.split()[0] if " " in w else w):
+                    por_lingua[k] = por_lingua.get(k, 0) + 1
+                    break
+        # a rota desta peca e a Italia; PT/ES/FR aqui sao de fora
+        de_fora = {k: v for k, v in por_lingua.items() if k in ("ES", "FR")}
+        n["vocabulario"] = {
+            "papel": PAPEL_DO_VOCABULARIO.get(n["id"], "NAO SEI"),
+            "listas": sorted(listas),
+            "palavras": len(todas),
+            "por_lingua": dict(sorted(por_lingua.items(), key=lambda x: -x[1])),
+            "sem_marca_de_lingua": len(todas) - sum(por_lingua.values()),
+            "de_outro_pais": sum(de_fora.values()),
+            "de_outro_pais_quais": dict(sorted(de_fora.items())),
+        }
 
 
 def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, int, int]:
@@ -1746,6 +2361,13 @@ def main_uma_vez(stamp: bool) -> int:
     veiculos, lig_veiculos = os_veiculos(comps, dono, G)
     gerados += veiculos
 
+    pdf_nos, lig_pdf = o_corte_do_pdf()
+    gerados += pdf_nos
+
+    gp_nos, lig_gp = a_estrada_do_pdf()
+    gerados += gp_nos
+    lig_pdf += lig_gp
+
     # ── 2 · arestas de ficheiro sobem para arestas de componente ─────────────
     # Cada aresta de componente carrega TODAS as linhas que a provam. E o que
     # responde "por que existe esta seta?" com dedo apontado, nao com opiniao.
@@ -1783,7 +2405,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (a, b, e["type"])
         alvo = ligacoes.setdefault(chave, {
             "from": a, "to": b, "type": e["type"], "payload": e["payload"],
-            "natureza": NATUREZA_DA_SETA.get(e["type"], "FLUXO"),
+            "raw_type": e["type"],
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -1791,9 +2413,24 @@ def main_uma_vez(stamp: bool) -> int:
 
     for lig in ligacoes.values():
         n = len(lig["evidence"])
-        verbo = {"IMPORTS": "importa", "READS": "alimenta", "WRITES": "escreve em",
-                 "RUNS": "manda rodar", "RETRIEVED_BY": "e buscada por"}.get(
-                     lig["type"], lig["type"].lower())
+        # O VERBO TEM DE CONCORDAR COM A SETA, e era aqui que ele nao concordava.
+        #
+        # `IMPORTS` e virado de proposito — o codigo do importado entra no
+        # importador — mas o verbo ficou o da direcao antiga. Resultado, em 76
+        # arestas: a seta ia de A para B e a frase dizia «A importa B», quando o
+        # que o codigo diz e que B importa A. Lida sozinha, cada frase parecia
+        # plausivel; e por isso ninguem reparou.
+        #
+        #     VIRAR UMA SETA E MEIA MUDANCA. A OUTRA METADE E A FRASE.
+        #
+        # Agora o verbo e escolhido para a direcao GUARDADA, nao para a original.
+        verbo = {
+            "IMPORTS": "tem o seu codigo importado por",   # virado: importado -> importador
+            "READS": "alimenta",                           # virado: lido -> leitor
+            "WRITES": "escreve em",                        # nao virado
+            "RUNS": "manda rodar",                         # nao virado
+            "RETRIEVED_BY": "e buscada por",
+        }.get(lig["type"], lig["type"].lower())
         nomes = {c["id"]: c["name"] for c in comps}
         nomes.update({g["id"]: g["name"] for g in gerados})
         de, para = nomes.get(lig["from"], lig["from"]), nomes.get(lig["to"], lig["to"])
@@ -1914,7 +2551,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = ("C-AS-FONTES", alvo, "RETRIEVED_BY")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": chave[0], "to": alvo, "type": "RETRIEVED_BY",
-            "payload": "coleta", "natureza": "FLUXO",
+            "payload": "coleta",
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -1936,6 +2573,13 @@ def main_uma_vez(stamp: bool) -> int:
     # duas leituras; a diferenca e qual delas o mapa desenha, e o mapa desenha
     # o dado.
     nome_da_peca = {c["id"]: c["name"] for c in comps}
+
+    # O CORTE do PDF entra como aresta cinzenta: declarada pela medicao, e sem
+    # uma linha de codigo que a prove — porque o passo nao existe. E exatamente
+    # o que uma aresta cinzenta quer dizer.
+    for lp in lig_pdf:
+        ligacoes[(lp["from"], lp["to"], lp["type"])] = lp
+
     for lv in lig_veiculos:
         # AS FONTES entregam ao canal a lista de onde ir. E a unica coisa que um
         # canal recebe, e sem ela «colher o YouTube» nao quer dizer nada:
@@ -1944,7 +2588,7 @@ def main_uma_vez(stamp: bool) -> int:
             chave = (lv["acao"], lv["veiculo"], "ABRE_O_CANAL")
             alvo_lig = ligacoes.setdefault(chave, {
                 "from": lv["acao"], "to": lv["veiculo"], "type": "ABRE_O_CANAL",
-                "payload": "rota", "natureza": "FLUXO",
+                "payload": "rota",
                 "kind": "technical", "status": VERDE,
                 "reason": ("E por esta ferramenta que se chega a este canal. Um "
                            "canal pode ter mais de uma rota — e saber qual e "
@@ -1961,7 +2605,7 @@ def main_uma_vez(stamp: bool) -> int:
             chave = ("C-AS-FONTES", lv["veiculo"], "ENTREGA_A_LISTA")
             alvo_lig = ligacoes.setdefault(chave, {
                 "from": "C-AS-FONTES", "to": lv["veiculo"], "type": "ENTREGA_A_LISTA",
-                "payload": "contas", "natureza": "FLUXO",
+                "payload": "contas",
                 "kind": "technical", "status": VERDE,
                 "reason": ("AS FONTES entregam a este canal a lista de contas a "
                            "visitar, com a identidade de cada uma provada ou "
@@ -1974,7 +2618,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (lv["veiculo"], lv["acao"], "VIAJA_POR")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": lv["veiculo"], "to": lv["acao"], "type": "VIAJA_POR",
-            "payload": "coleta", "natureza": "FLUXO",
+            "payload": "coleta",
             "kind": "technical", "status": VERDE,
             "reason": (f"O que sai deste canal entra em "
                        f"«{nome_da_peca.get(lv['acao'], lv['acao'])}», que e quem o "
@@ -1993,7 +2637,7 @@ def main_uma_vez(stamp: bool) -> int:
         chave = (origem, lt["node"], "FEEDS")
         alvo_lig = ligacoes.setdefault(chave, {
             "from": origem, "to": lt["node"], "type": "FEEDS",
-            "payload": "dado", "natureza": "FLUXO",
+            "payload": "dado",
             "kind": "technical", "status": VERDE,
             "reason": "", "evidence": [],
         })
@@ -2015,24 +2659,35 @@ def main_uma_vez(stamp: bool) -> int:
     # depende disso. Ela corria depois, e por isso a reclassificacao nao via
     # preparo nenhum: o conjunto vinha sempre vazio, em silencio.
     momento_das_ferramentas(nos)
+    papel_das_pecas(nos)
+    vocabulario_das_pecas(nos)
+    nivel_das_pecas(nos)
+    quem_salta_o_cerebro(nos)
 
-    # ── A FERRAMENTA DE PREPARO ESTA NO CAMINHO DO ITEM ─────────────────────
-    # «SINTONIA SCRAP manda para o whisper» — e verdade, e o mapa ja tinha essa
-    # ligacao. So que classificada como DISPARO («aquela manda esta correr»), e
-    # por isso ela desaparecia quando se pedia para ver so o caminho do dado.
+    # ── CADA LIGACAO GANHA A SUA CATEGORIA ──────────────────────────────────
+    # Feito aqui, no fim, porque a categoria depende do TIPO das duas pecas —
+    # e as pecas geradas (canais, telas, linhagem) so existem a esta altura.
+    por_id = {n["id"]: n for n in nos}
+    for l in ligacoes.values():
+        if l["kind"] != "technical":
+            l["categoria"] = PROOF if l.get("payload") == "negocio" else DESCONHECIDA
+            continue
+        l["categoria"] = categoria_da_ligacao(
+            l["type"], por_id.get(l["from"]), por_id.get(l["to"]))
+
+    # A FERRAMENTA DE PREPARO CARREGA O ITEM, e por isso a sua ligacao e DATA.
+    # «SINTONIA SCRAP manda para o whisper» era CONTROL — e e — mas o que sai do
+    # whisper e o TEXTO do item, e e esse texto que a porta de admissao le. Uma
+    # peca que TRANSFORMA o item esta no caminho dele.
     #
-    # Mas o que atravessa aquela linha nao e uma ordem: e O ITEM. Entra audio,
-    # sai texto — e e esse texto que a porta de admissao le. Uma peca que
-    # TRANSFORMA o item esta no caminho dele, seja qual for o verbo que a chama.
-    #
-    # Por isso, e so para as ferramentas de PREPARO, a seta conta como FLUXO.
-    # Nao vale para a rota nem para o despacho: essas levam ate ao sitio ou
-    # apertam o botao — nao mexem no que passa.
+    # Isto NAO e inferir DATA de um import: a prova e o que a ferramenta faz
+    # (audio entra, texto sai), medido em `momento_das_ferramentas`.
     preparo = {n["id"] for n in nos if n.get("momento") == "PREPARO"}
     for l in ligacoes.values():
         if l["kind"] == "technical" and (l["from"] in preparo or l["to"] in preparo):
-            l["natureza"] = "FLUXO"
-            l["passa_pelo_preparo"] = True
+            if l["categoria"] in (CODE, READ):
+                l["categoria"] = DATA
+                l["passa_pelo_preparo"] = True
 
     tecnicas = [l for l in ligacoes.values() if l["kind"] == "technical"]
     for n in nos:
@@ -2055,6 +2710,8 @@ def main_uma_vez(stamp: bool) -> int:
         n["escreve_na_pasta"] = pastas
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
+
+    desvios = desvios_do_controlo(ligacoes, nos)
 
     zonas, nos, faixas, mundo_w, mundo_h = desenhar(
         D["TERRITORIES"], nos, D["FAMILIES"])
