@@ -163,7 +163,7 @@ velha e diria «vazia» sobre uma sala cheia.
 
 ### Não há segunda representação — e isto foi procurado, não assumido
 
-O censo varreu **449 ficheiros `.json`/`.ndjson`** da árvore inteira à procura
+O censo varreu **452 ficheiros `.json`/`.ndjson`** da árvore inteira à procura
 de qualquer objecto com `ESTADO = PRONTO_PARA_INTELIGENCIA` ou com a forma
 completa dos 11 campos.
 
@@ -280,7 +280,7 @@ argumento.
 
 | # | ataque | como morre |
 |---|---|---|
-| 1 | mesmo item em duas representações contado duas vezes | 449 ficheiros varridos · 0 objectos `READY` fora da sala canónica |
+| 1 | mesmo item em duas representações contado duas vezes | 452 ficheiros varridos · 0 objectos `READY` fora da sala canónica |
 | 2 | SHA igual tratado como mesma observação | balde próprio + `OBSERVATION_ID_MEDIDO = NO` (e não `0`) |
 | 3 | `SOURCE_ID` ausente fabricado de URL | lido do campo do contrato; nenhuma URL/path/slug entra nele |
 | 4 | `DOCUMENT_ID` fabricado de SHA | `DOCUMENT_ID_PROVEN = 0`; não há caminho de código que o derive |
@@ -342,13 +342,20 @@ Nenhum ficheiro de produção foi alterado. O que entrou:
 | `tests/test_o_censo_da_sala_de_espera.py` | as guardas do instrumento (14 casos) |
 | `data/derivados/O-CENSO-DA-SALA-DE-ESPERA.json` | o relatório máquina |
 | 8 documentos, 1 linha cada | `TEST_COUNT_CURRENT` 3.874 → 3.888 |
+| `system-map/data/*` + `italia-portale/client/system-map/` | a peça da medição no mapa |
 
 **A suíte foi medida dos dois lados, e o delta é conhecido item a item:**
 
 ```
 BASELINE (sem estes ficheiros)   3.867 testes · 18 falhas · 16 erros · 194 pulados
-COM O CENSO                      3.881 testes · 24 falhas · 16 erros · 194 pulados
+COM O CENSO, antes de escriturar 3.881 testes · 24 falhas · 16 erros · 194 pulados
+COM O CENSO, depois              3.881 testes · 18 falhas · 16 erros · 194 pulados
 ```
+
+> **O conjunto final de falhas é IDÊNTICO ao do baseline, nome a nome** — não
+> «o mesmo número», o **mesmo conjunto**, comparado por `diff` das duas listas.
+> Nenhuma falha nova sobrou, e nenhuma falha antiga desapareceu (desaparecer
+> também seria suspeito: este censo não conserta nada).
 
 As **6 falhas novas** foram identificadas pelo nome e todas eram
 **escrituração**, nenhuma comportamento:
@@ -378,7 +385,19 @@ SYSTEM_MAP_DELTA = uma medição nova em `provas/`, e o teste dela em `tests/`
                    — `tests/test_o_censo_da_sala_de_espera.py`
 ```
 
-Declarado, e não integrado.
+Declarado, e não integrado. A peça entrou em `C-PROVA-COLETA` — onde
+`provas/o_censo_do_acervo.py` já mora — com **uma linha** em
+`architecture.declared.json`; o resto o gerador derivou (+4 ficheiros seguidos,
++2 de código, +14 arestas de import, todas para os módulos que a medição
+importa).
+
+```
+SYSTEM_MAP_CHECK = PASS · 10 de 10 provas
+```
+
+⚠️ Foi preciso gerar **duas vezes**, e a razão está na lei: a primeira passagem
+mudou `architecture.declared.json`, e o mapa guarda o SHA desse ficheiro dentro
+de si. **O ficheiro não pode conhecer o próprio SHA na mesma passagem.**
 
 ---
 
