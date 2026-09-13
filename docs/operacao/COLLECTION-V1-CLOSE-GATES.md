@@ -6,38 +6,37 @@ cada uma com a sua prova.
 ## O veredito
 
 ```
-COLLECTION_CORE_CLOSE = FAIL
+COLLECTION_CORE_CLOSE = PASS
 BIG_COLLECTION_READY  = FAIL
 
 BLOCKERS            = 0
-NON_BLOCKING_DEBT   = 5
+NON_BLOCKING_DEBT   = 6
 ROOT_CAUSES         = 4
-MISSÕES ATÉ FECHAR  = UNKNOWN
+MISSÕES ATÉ FECHAR  = 0
 ```
 
-E a certificação que a última missão foi pedir — a Collection V1 como máquina
-operacional completa, **excluindo só o SCRAP**:
+**A Collection V1 fechou.** Um pedido `T4` real atravessou as onze etapas na
+mesma corrida, do botão até à Sala de Espera, com o executor a ir à fonte
+oficial e a porta a dizer `SIM` por uma regra que já existia.
 
 ```
-COLLECTION_V1_CORE_READY_WITHOUT_SCRAP         = NO
+COLLECTION_V1_CORE_READY_WITHOUT_SCRAP         = YES
 ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = NO
 ```
 
-O segundo é o que surpreende, e está medido: o buraco que resta é
-`ADMISSION -> READY`, e **integrar o SCRAP não o tapa**. O SCRAP continua a ser
-preciso antes da coleta grande — mas não é a única coisa que falta, e dizer que
-é autorizava começar pela peça errada.
+⚠️ **As duas frases não dizem a mesma coisa, e a segunda é a que trava.** A
+máquina está fechada: a estrada existe e foi atravessada de ponta a ponta. Mas
+**nove das onze classes continuam sem aquisição canónica**, e só uma delas
+(`T9`) é do domínio do SCRAP. As outras oito esperam por executores que o SCRAP
+não escreve.
 
-E a classe que fecha a máquina está nomeada, com o blocker dela:
+> **A MÁQUINA ESTAR FECHADA NÃO DIZ NADA SOBRE QUANTAS CLASSES AINDA NÃO A
+> ATRAVESSAM.**
 
-```
-CANONICAL_CANARY_CLASS_RECOMENDADA = T4 (Regulatório)
-BLOCKER_REAL  = o executor de T4 não declara COLHEITA
-É O SCRAP?    = NO
-```
-
-Este veredito não vem da média das 105 leis. Vem das propriedades que a
-coleta grande precisa de ter, e cada falha aponta a propriedade que falta.
+Isto esteve a um passo de sair falso, e pelo atalho mais inocente que há: a
+certificação calculava a segunda frase como *«o core fechou **ou** o SCRAP
+taparia o buraco»*. Com o core fechado, ela dizia «só falta o SCRAP» sem nunca
+ter perguntado quem mais falta.
 
 ## Os dois eixos, que não se inferem
 
@@ -67,71 +66,83 @@ Duas colunas, e a segunda é a que responde à pergunta que as pessoas fazem.
 | `DERIVED` | YES | YES | YES | **SIM** |
 | `STRUCTURED` | YES | YES | YES | **SIM** |
 | `ADMISSION` | YES | YES | YES | **SIM** |
-| `READY` | YES | YES | YES | **NÃO** |
-| `WAITING_ROOM` | YES | YES | YES | **NÃO** |
+| `READY` | YES | YES | YES | **SIM** |
+| `WAITING_ROOM` | YES | YES | YES | **SIM** |
 
 > MÓDULO EXISTE ≠ ARESTA EXISTE ≠ FLUXO EXECUTADO.
 
-Todas as onze etapas já atravessaram. **E isso não é a estrada.**
+**As onze atravessam, e agora na mesma história.** O que fechou a coluna da
+direita foi um pedido `T4`:
 
-> **DUAS METADES PROVADAS NÃO SÃO UMA ESTRADA PROVADA.**
-> **ONZE ETAPAS QUE JÁ CORRERAM NÃO SÃO UMA HISTÓRIA.**
+```
+RUN         IT-T4-…        collection_run · concluida
+RAW         id=1           source_id=EU-T4-001
+                           document_key=32026R1696 · basis=SOURCE_DOCUMENT_ID
+STORAGE     1 objeto ligado à observação
+DERIVED     1 · TEXT_EXTRACTION · participação material escrita
+STRUCTURED  1 · documento_estruturado, sem canal inventado
+ADMISSION   {'SIM': 1}     pela regra de T4 que já existia
+READY       1 unidade
+SALA        IT-T4-….json
+```
 
-**Nove das onze atravessam agora na história do pedido** — de `REQUEST` até
-`ADMISSION`, com o executor a ir à fonte real. As duas últimas atravessam só na
-rota forward, que entra pelo `RAW` e não pelo pedido. Por isso o portão não soma
-`YES`: exige a **mesma história**, medida por quem aperta o botão no pedido.
+⚠️ **A coluna «pelo pedido» lê DUAS medições, e não uma.** Cada classe tem a
+sua: `T4` atravessa, `T2` para na porta. A pergunta do censo é *«esta etapa
+atravessa por algum pedido?»*, e não *«atravessa pelo pedido T2?»* — enquanto
+só havia uma classe medida, as duas perguntas tinham a mesma resposta.
 
-⚠️ **A coluna «pelo pedido» deixou de ser escrita à mão.** Já esteve escrita, e
-envelheceu três vezes: dizia «`DERIVED` e `STRUCTURED` só atravessam na rota
-forward» muito depois de as duas terem passado a atravessar pelo pedido. Agora é
-lida de `system-map/data/pedido.observado.json`, que é escrito por quem mede.
+> **UMA CLASSE NÃO ATRAVESSA ≠ A ESTRADA NÃO ATRAVESSA.**
 
-> **O CENSO NÃO DECIDE ONDE A ESTRADA PARA. ELE LÊ QUEM MEDIU.**
+`T2` continua a parar em `ADMISSION`, e isso continua **certo**: ela não tem
+regra temática escrita, e a porta não inventa uma. Isso é cobertura por fechar,
+não estrada por construir.
 
 Sem ambiente descartável a medição **não corre**, e isso diz-se: `SKIP != PASS`
 e `NOT_MEASURED != PASS`.
 
 ## Os blockers
 
-**Nenhum.** E isso **não** quer dizer que o core fechou.
+**Nenhum — e agora isso quer dizer alguma coisa.**
 
 ```
-COLLECTION_CORE_CLOSE     = FAIL
+COLLECTION_CORE_CLOSE     = PASS
 BLOQUEADO_POR             = []
-CANONICAL_E2E             = NOT_PROVEN
-CANONICAL_E2E_SAME_STORY  = FAIL
+CANONICAL_E2E             = PROVEN
+CANONICAL_E2E_SAME_STORY  = PASS
 ```
 
-> **ZERO BLOCKERS ≠ CORE FECHADO.**
+Durante quatro missões esta secção dizia **`ZERO BLOCKERS ≠ CORE FECHADO`** — e
+estava certa: a fila estava vazia e o veredito era `FAIL`, porque o que faltava
+não era um buraco declarado, era uma propriedade por provar.
 
-A mesma história parou em `ADMISSION -> READY`, medido em
-[`provas/o_pedido_atravessa.py`](../../provas/o_pedido_atravessa.py).
+A propriedade ficou provada. O veredito mudou porque a medição mudou, e não
+porque a régua desceu.
 
-E parou por um motivo que não se parece com nenhum dos anteriores: **não falta
-peça nenhuma.**
+## Onde a estrada se partia, e eram três achados
 
-## Onde a estrada se parte, e são três achados
-
-Um pedido real atravessa `REQUEST → ORCHESTRATOR → EXECUTOR → RUN → RAW →
-STORAGE → DERIVED → STRUCTURED → ADMISSION` numa história só, com o executor a
-ir à fonte real. E para.
+Um pedido `T4` real atravessa hoje as **onze** etapas numa história só, com o
+executor a ir à fonte oficial.
 
 ```
-LAST_PROVEN_STAGE   = ADMISSION
-FIRST_LOST_EDGE     = ADMISSION -> READY
-NEXT_EXPECTED_STAGE = READY
+LAST_PROVEN_STAGE   = WAITING_ROOM
+FIRST_LOST_EDGE     = (nenhum)
 ```
+
+O que se segue é a história de como os três buracos fecharam, pela ordem em que
+apareceram. Fica escrita porque **um buraco que some não deixa ver que existiu,
+nem por que deixou de existir** — e os três fecharam de maneiras diferentes,
+que é a parte transferível.
 
 Os três achados são de **espécies diferentes**, e não se misturaram — um
-resolvia-se com código, o segundo com uma separação, o terceiro não se resolve
-com nenhum dos dois. Os dois primeiros fecharam.
+resolvia-se com código, o segundo com uma separação, o terceiro parecia não se
+resolver com nenhum dos dois. **Os três fecharam**, e o terceiro fechou pelo
+lado que a medição anterior tinha recomendado errado.
 
 | aresta | tipo | quem resolve | estado |
 |---|---|---|---|
 | `STORAGE -> DERIVED` | `WIRING_GAP` | código | **FECHADO** |
 | `DERIVED -> STRUCTURED` | `CONTRACT_OWNER_GAP` | gente | **FECHADO** |
-| `ADMISSION -> READY` | `EMPTY_INTERSECTION` | gente | **ABERTO** |
+| `ADMISSION -> READY` | `EMPTY_INTERSECTION` | código | **FECHADO** |
 
 **`STORAGE -> DERIVED` — WIRING_GAP, fechado.**
 A capacidade existia e ninguém a chamava. A porta passou a devolver as
@@ -201,25 +212,23 @@ Medido em `provas/o_pedido_atravessa.py::E1..E5`: o documento fica escrito, sem
 `document_id` inventado, com `SOURCE_ID` provado pela fonte, sem canal nenhum
 criado, e a linhagem anda **documento → participação → observação**.
 
-**`ADMISSION -> READY` — EMPTY_INTERSECTION, aberto.**
+**`ADMISSION -> READY` — EMPTY_INTERSECTION, fechado por aquisição.**
 
-Este é o mais raro dos três: **tudo o que ele precisa existe, e ainda assim nada
-passa.** A porta existe, julga os quatro itens e responde. As regras temáticas
-existem. Os executores existem.
+Este era o mais raro dos três: **tudo o que ele precisava existia, e ainda
+assim nada passava.** A porta existia, julgava e respondia. As regras temáticas
+existiam. Os executores existiam.
 
 ```
 universos com regra de admissão escrita         T3 · T4 · T7 · T9
-universos cujo executor declara colheita        T2
+universos cujo executor declarava colheita      T2
 interseção                                      VAZIA
 ```
 
-A porta responde `NAO_SE_APLICA` aos quatro itens, e diz porquê por escrito:
-«não há regra escrita do que conta como «T2». Sem regra, esta porta não inventa
-uma.» **A recusa está certa.** `COL-LAW-505` manda que só colheita entre no
-ingresso, e `COL-LAW-502` manda que a porta pergunte pela regra do universo. As
-duas leis estão a ser cumpridas.
-
 > **FALTA DE PEÇA ≠ PEÇAS QUE NÃO SE CRUZAM.**
+
+**Como fechou:** `T4` passou a ter aquisição canónica, e por isso entrou na
+segunda lista sem sair da primeira. A interseção deixou de ser vazia por
+**movimento**, e não por alguém ter reescrito uma das listas.
 
 ### E depois mediu-se o que faltava a cada classe, e a parede virou fila
 
@@ -310,38 +319,96 @@ porque é verdadeiro e é caro:
 > A ARPAV publica `Meteo Veneto` (T2) **e** `U.O. Fitosanitario — VITE` (T3).
 > O publicador não decide o território.
 
-### O canário, e o blocker real
+### O canário, e o blocker que fechou
 
 ```
-CANONICAL_CANARY_CLASS_RECOMENDADA = T4 (Regulatório)
+CANONICAL_CANARY_CLASS = T4 (Regulatório)   — e agora ele ATRAVESSA
 ```
 
 T4 é a única classe a uma peça de distância cuja peça em falta **não foi medida
 e reprovada**. Ela já tem regra temática escrita e já tem dono `STRUCTURED`
 documental — a mesma casa que T2 usa, porque a espécie é a mesma: PDF oficial.
 
-**O blocker real, nomeado:**
+**O blocker que estava nomeado:**
 
 ```
-o executor de T4 não declara COLHEITA
+o executor de T4 não declarava COLHEITA
 onde        pedido/receitas.py::EXECUTORES['T4'] -> retorno
-hoje        declara LEGADO (MANIFEST) — suporte, nunca colheita
-falta       um ENVELOPE por corrida, com RUN_ID, EXECUTOR_ID,
-            EXECUTOR_VERSION, ESTADO e as listas COLHEITA/SUPORTE/ERROS
-quem        código — e é trabalho de AQUISIÇÃO
+declarava   LEGADO (MANIFEST) — suporte, e suporte nunca atravessa
+faltava     um ENVELOPE por corrida
 ```
 
-⚠️ **E não é o SCRAP.** O SCRAP é uma capacidade social e não colhe documento de
-ministério. Integrá-lo não muda uma linha do retorno de T4.
+**Como fechou, e a parte que quase o impediu.** A medição anterior deixou ao
+lado um bloqueio de ambiente:
 
-**O que ficou medido e não resolvido, sobre o ambiente:** a fonte de T4
-(`www.fitosanitari.salute.gov.it`) **não passa a verificação de TLS** deste
-ambiente — o servidor não envia a cadeia intermédia, e o erro é
-`unable to get local issuer certificate`. Medido em 2026-09-13; a fonte de T2
-(`www.arpa.veneto.it`) responde `200` no mesmo ambiente e no mesmo instante.
-Não se desligou a verificação, e por isso **a aquisição de T4 não foi provada
-aqui**. Isto é um facto sobre o ambiente, e não sobre a arquitectura: os dois
-ficam escritos separados de propósito.
+```
+www.fitosanitari.salute.gov.it — unable to get local issuer certificate
+```
+
+Verdade, medida com cuidado, e **enganosa** — porque diz «a fonte de T4» quando
+o que foi medido é *a fonte que o executor da receita usa*. O atlas tem **oito**
+fontes T4 aprovadas, e ninguém lhes tinha perguntado:
+
+| fonte | resposta |
+|---|---|
+| `EU-T4-001` · Publications Office da UE | **200** · `GREEN` · `sabe_coletar: true` |
+| `IT-T4-001` · dati.salute.gov.it | **200** · CSV 4,6 MB |
+| França · data.gouv.fr | 404 (a rota mudou) |
+| `fitosanitari.salute.gov.it` | TLS não verifica |
+
+> **A FONTE QUE O EXECUTOR USA NÃO É «A FONTE DA CLASSE».**
+> Uma classe tem um atlas; um executor tem um endereço.
+
+**E a rota certa já estava escrita no contrato da fonte.** O colector de
+`EU-T4-001` devolve XHTML, e o derivador desta casa extrai texto de PDF — medido:
+um ficheiro que não começa por `%PDF` sai com `EXTRACTION_ERROR`. O caminho fácil
+era escrever um derivador para XHTML. Não foi preciso: o contrato da fonte já
+declarava, no campo `fallback`, *«EUR-Lex por CELEX (mesma casa, outra rota)»* —
+e o EUR-Lex serve o mesmo ato em PDF oficial.
+
+> **ANTES DE CONSTRUIR A PEÇA QUE FALTA, LER O CONTRATO DA FONTE ATÉ AO FIM.**
+
+O executor novo é `coleta/eu_regulatorio_executor.py`. Não cunha corrida, não
+julga, não escreve em tabela nenhuma: larga bytes e **declara**. E o
+`rotulos-oficiais` **fica** na receita, atrás — ele indexa 163 rótulos e esse
+índice tem valor; sai da frente porque não colhe, não porque não sirva.
+
+⚠️ **E não foi o SCRAP.** O SCRAP é uma capacidade social e não colhe documento
+de ministério.
+
+### O primeiro `DOCUMENT_ID` provado desta casa
+
+Durante missões seguidas, `DOCUMENT_ID` foi sempre `NULL` — e sempre com razão.
+`EU-T4-001` declara no contrato dela:
+
+```
+identity_keys: CELEX
+```
+
+O CELEX **é** o nome que o emissor dá ao ato. Medido, ele atravessa até
+`raw_asset`:
+
+```
+document_key        32026R1696
+document_key_basis  SOURCE_DOCUMENT_ID
+identity_state      FORWARD_IDENTIFIED
+```
+
+> **SHA É DOS BYTES. CAMINHO É MORADA. URL É ENDPOINT.**
+> **CELEX É O NOME QUE O MUNDO DEU AO DOCUMENTO.**
+
+E apanhou-se ao lado uma frase que tinha ficado verdadeira e deixou de ser. O
+orquestrador dizia, em comentário: *«`document_id` NÃO VAI. A fonte documental
+não o prova.»* Era verdade da **única** fonte que por ali tinha passado.
+
+> **UMA FRASE VERDADEIRA SOBRE A ÚNICA FONTE QUE JÁ PASSOU
+> NÃO É UMA FRASE VERDADEIRA SOBRE A ESTRADA.**
+
+A frase foi corrigida e o transporte **não** foi alargado: levar o CELEX até
+`documento_estruturado` atravessa quatro donos, e isso é trabalho deliberado. A
+identidade não se perde — vive na casa dela. O `NULL` no registo estruturado
+passou a significar *«esta casa ainda não o transporta»*, que não é a mesma
+ausência que *«a fonte não o provou»*.
 
 ### O que o fecho desta ligação revelou, e não consertou
 
@@ -447,9 +514,8 @@ etapa não conta.
 > `MUDA != PARADA` — e esse é o problema.
 
 As cinco falam. A tabela diz **quem sabe falar**, e não **quem falou nesta
-corrida** — são duas perguntas, e a segunda mede-se na estrada, acima. Nesta
-corrida do pedido falaram `RAW`, `DERIVED` e `ADMISSION`; `READY` não falou
-porque não houve `READY`.
+corrida** — são duas perguntas, e a segunda mede-se na estrada, acima. Na
+corrida `T4` que fechou a Collection falaram todas as que a estrada atravessa.
 
 ## A dívida que não bloqueia
 
@@ -459,6 +525,7 @@ porque não houve `READY`.
 | `G-ADM-01` | o ledger prova ADMISSION observada na rota forward, com caminho bom e caminho de falha. A infraestrutura ATRAVESSA; o que falta e a cobertura do tipo `derived_artifact`. |
 | `G-TEL-01` | nao impede executar nem preservar. Impede LER o que aconteceu, e isso e divida de observabilidade, nao de fecho. |
 | `G-TEMA-01` | NAO bloqueia a coleta grande. A funcao da coleta grande e ADQUIRIR e PRESERVAR; admitir bem e a etapa seguinte, e a Admission ja produz decisao auditavel com NAO_SEI de p |
+| `G-ENV-01` | o envelope vive num caminho por executor e não por corrida: duas corridas do mesmo executor escrevem no mesmo ficheiro. Em série não morde, e a coleta de hoje é em série. Morde quando duas corridas se cruzarem — e isso é a coleta grande, não o fecho. |
 | `G-LEG-01` | nao impede propriedade nenhuma da coleta grande: os 13 estao FORA da Collection operacional por decisao, e o que entra pela frente nao passa por este estado. |
 
 ## As causas-raiz
@@ -501,42 +568,32 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 | `C-COLLECTION-V1-OPERATIONAL-CLOSE` | implementou a participação (migration `029`) |
 | `C-COLLECTION-V1-FINAL-OPERATIONAL-CERTIFICATION` | a aresta `DERIVED -> STRUCTURED` (migration `030`) |
 | `C-CLOSE-ADMISSION-TO-READY-V1` | nomeou o canário (`T4`) e o blocker real; provou que o SCRAP não o tapa |
+| `C-T4-CANONICAL-ACQUISITION-TO-WAITING-ROOM-V1` | deu aquisição canónica a `T4` e **fechou a Collection V1** |
 
 ## A fila mínima
 
-**Vazia.** E uma fila vazia mede a fila, não o caminho.
+**Vazia — e desta vez a fila vazia e o veredito concordam.**
 
 ```
 MINIMUM_MISSION_DAG                       []
-MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE UNKNOWN
+MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE 0
+COLLECTION_CORE_CLOSE                     PASS
 ```
 
-> **ZERO BLOCKERS ≠ ZERO TRABALHO.**
+Durante quatro missões esta secção teve de explicar por que uma fila vazia
+convivia com um veredito `FAIL`:
 
-A fila conta **blockers abertos**, e não há nenhum. O que falta para o core
-fechar não é um buraco declarado: é uma propriedade por provar. E o número não
-é zero — zero ao lado de um veredito `FAIL` lê-se como «não falta nada», e
-falta.
+> **ZERO BLOCKERS ≠ CORE FECHADO.**
+> **UMA FILA VAZIA MEDE A FILA, E NÃO O CAMINHO.**
 
-Também não é um número maior inventado. A próxima coisa conhecida **é** uma
-missão de código, e passou a sê-lo nesta medição: **dar aquisição canónica a
-`T4`**. O ficheiro e o campo estão nomeados —
-`pedido/receitas.py::EXECUTORES['T4'] -> retorno`, hoje `LEGADO`, e o executor
-`coleta/rotulos_baixar.py`, que já colhe PDF real do Ministero.
+As duas frases continuam verdadeiras e continuam a valer para a próxima vez. O
+que mudou é que o caminho acabou.
 
-Ela não entra na fila porque a fila conta **blockers abertos** e este gap está
-registado como dívida de aquisição, não como blocker do fecho. E o número
-continua `UNKNOWN` porque a missão pode descobrir ao correr o que a medição do
-contrato não vê — contar agora seria feeling com cara de DAG.
-
-⚠️ **O que já não é a próxima coisa:** escrever regra temática para `T2`. Esse
-caminho foi medido contra 46 documentos reais e reprovado, e continuar a
-oferecê-lo ao lado do outro mandava a próxima pessoa repetir uma missão já
-feita.
-
-`MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY = UNKNOWN`, pela mesma disciplina:
-depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda não
-foi medido.
+**O que vem a seguir não é do fecho da máquina**, e por isso não entra nesta
+fila: são nove classes sem aquisição canónica, cada uma com o seu executor por
+escrever. `T9` espera pelo SCRAP; as outras oito esperam por trabalho que ainda
+não tem dono. Contar isso como «missões até fechar o core» seria contar duas
+coisas diferentes no mesmo número.
 
 ## O que ficou `UNKNOWN`
 
@@ -547,6 +604,11 @@ MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY  UNKNOWN
 ```
 
 `NOT_INSTRUMENTED` não é zero. Produção não é laboratório.
+
+⚠️ **E o core ter fechado não promove nada disto.** A estrada foi provada
+contra PostgreSQL descartável, com a cadeia de migrations que está em git. Que
+LIVE tenha a mesma cadeia continua por medir, e medir contra descartável nunca
+promoveu nada a LIVE.
 
 ## A frescura deste retrato
 
@@ -662,26 +724,25 @@ As duas mudam a Admission. Nenhuma é urgente: `T4` fecha a máquina sem elas.
 Fica registado para quando a pergunta voltar — e ela volta, porque `T2` é o
 universo que mais material tem a entrar hoje.
 
-## O que esta certificação NÃO pôde escrever
+## O que a certificação pôde e não pôde escrever
 
 ```
-COLLECTION_V1_CORE_READY_WITHOUT_SCRAP        = NO
+COLLECTION_V1_CORE_READY_WITHOUT_SCRAP         = YES
 ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = NO
 ```
 
-O segundo é o que importa, e é o contrário do que se esperava encontrar. O red
-team tentou produzir `ONLY_REMAINING_DEPENDENCY_IS_SCRAP = YES` e **não
-conseguiu** — duas vezes, e a segunda com uma cadeia muito mais forte do que a
-primeira.
+A primeira **pôde** escrever-se, e só se escreveu porque um pedido `T4` real
+atravessou as onze etapas na mesma corrida. A segunda continua a não poder — e
+pela terceira vez seguida, por um motivo diferente do da vez anterior.
 
 **A primeira tentativa** respondeu: *o SCRAP não escreve regra temática nem muda
 o que a porta pergunta.* Verdade, e uma verdade lateral — argumentava pelo que o
 SCRAP **não faz**.
 
 **A segunda mediu a classe que ele serve.** O SCRAP é uma capacidade social, e a
-única classe desta casa com rotas sociais é `T9`. Então o teste deixou de ser
-uma impressão e passou a ser uma conta: **dá-se a `T9` a aquisição de graça e
-pergunta-se o que lhe falta depois.**
+única classe desta casa com rotas sociais é `T9`. O teste passou a ser uma
+conta: **dá-se a `T9` a aquisição de graça e pergunta-se o que lhe falta
+depois.**
 
 ```
 o SCRAP serve            T9
@@ -689,20 +750,58 @@ T9 tem regra temática    SIM
 dando-lhe a aquisição    ainda falta DONO_STRUCTURED
 ```
 
-`T9` é conteúdo de plataforma: `public.conteudo` exige `canal_id`, e o criador
-dessa identidade não existe na produção. **O SCRAP traz bytes; não traz um dono
-de identidade de canal.** Integrá-lo amanhã levaria `T9` de «sem aquisição» a
-«com aquisição» — e ela continuaria a parar em `STRUCTURED`, uma etapa antes de
-`READY`.
+**A terceira apareceu quando o core fechou**, e era a mais perigosa das três
+porque estava no código e não no raciocínio. A certificação calculava:
 
-> **«O SCRAP AINDA FALTA» ≠ «O SCRAP É O QUE BLOQUEIA».**
-> O teste não é *«o SCRAP está integrado?»*. É *«o buraco que está lá seria
-> tapado por integrar o SCRAP?»*
+```
+ONLY_REMAINING = "YES" se (core fechou) OU (o SCRAP taparia o buraco)
+```
 
-E a pergunta certa tem agora dono: o veredicto vem de
-`provas/o_canario_da_collection.py`, e a certificação **lê-o** em vez de o
-adivinhar. A versão anterior adivinhava pelo **sítio** do buraco, com uma lista
-de arestas escrita à mão — respondia bem aos buracos já vistos e mal a todos os
-outros.
+Com o core a fechar, o primeiro ramo ficou verdadeiro e a frase passou a dizer
+«só falta o SCRAP» **sem nunca ter perguntado quem mais falta**. Medido:
 
-> Uma frase de fecho só se escreve se estiver **provada**. Esta não estava.
+| classes sem aquisição canónica | 9 |
+|---|---|
+| dessas, do domínio do SCRAP | `T9` |
+| dessas, que o SCRAP não serve | `T1` `T3` `T5` `T7` `T10` `T11` `T12` `T13` |
+
+> **A MÁQUINA ESTAR FECHADA NÃO DIZ NADA SOBRE QUANTAS CLASSES AINDA NÃO A
+> ATRAVESSAM.**
+> Uma classe provou a estrada. Isso diz que **quando** as outras tiverem
+> aquisição, a estrada está lá — não que já a atravessem.
+
+A frase passou a contar as classes e só diz `YES` se **todas** as que faltam
+forem do SCRAP. E um teste prova os dois sentidos, com o core fechado nos dois.
+
+> Uma frase de fecho é uma **autorização**. Não se arredonda, e não se deixa
+> cair de um `or`.
+
+---
+
+## O QUE FICA MEDIDO E NÃO CONSERTADO
+
+**`G-ENV-01` · o envelope vive num caminho por executor, e não por corrida.**
+
+`retorno.ENVELOPE` é uma constante da receita: duas corridas do mesmo executor
+escrevem no mesmo ficheiro. Medido nesta missão — perguntou-se pela colheita de
+uma corrida que não existe, e o orquestrador devolveu a colheita da última que
+escreveu, **sem nota e sem recusa**.
+
+```
+ENVELOPE_PARTILHADO = NAO_DETECTA
+```
+
+Não é defeito desta missão: o adapter italiano tem a propriedade exactamente
+igual. **Em série não morde** — cada corrida escreve, o orquestrador lê a
+seguir — e a coleta de hoje é em série. Morde quando duas corridas do mesmo
+executor se cruzarem no tempo, que é o que a coleta grande vai fazer.
+
+Fica como dívida com nome, e não como promessa de que está certo: corrigi-la é
+mudar a convenção de **todos** os executores, e isso é trabalho deliberado, não
+efeito secundário de uma missão de aquisição.
+
+⚠️ **E não virou um `caso()` com veredito.** Um caso que afirmasse o
+comportamento de hoje passaria a abençoá-lo: no dia em que alguém o
+consertasse, a prova reprovava a correcção.
+
+> **UMA GUARDA QUE FIXA O DEFEITO DE HOJE DEFENDE O DEFEITO.**

@@ -367,9 +367,30 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
         recibo = pdoc.preservar_documento(
             {"derived_artifact_id": linha["id"], "run_id": run_id,
              "source_id": source_id, "texto": corpo,
-             # ⚠️ `document_id` NAO VAI. A fonte documental nao o prova, e
-             # deriva-lo do caminho ou do hash seria fabricar identidade.
-             # Ausencia e a resposta certa, e o dono guarda NULL.
+             # ⚠️ `document_id` NAO VAI — E A RAZAO MUDOU, E ISSO FICA DITO.
+             # Esta linha dizia «a fonte documental nao o prova». Era verdade
+             # da unica fonte que por aqui passava (um boletim ARPAV, sem
+             # numero que a fonte declare). Deixou de ser verdade em
+             # `C-T4-CANONICAL-ACQUISITION-TO-WAITING-ROOM-V1`: a fonte
+             # `EU-T4-001` declara, no contrato dela, `identity_keys: CELEX`,
+             # e a observacao chega com esse CELEX provado.
+             #
+             #     UMA FRASE VERDADEIRA SOBRE A UNICA FONTE QUE JA PASSOU
+             #     NAO E UMA FRASE VERDADEIRA SOBRE A ESTRADA.
+             #
+             # A identidade NAO SE PERDE: ela vive onde e a casa dela —
+             # `raw_asset.document_key`, com `document_key_basis =
+             # SOURCE_DOCUMENT_ID` e `identity_state = FORWARD_IDENTIFIED`.
+             # Medido: a corrida T4 aterra com o CELEX escrito la.
+             #
+             # O que falta e TRANSPORTA-LA daqui ate `documento_estruturado`,
+             # e isso atravessa quatro donos (o dono do RAW emite quatro
+             # campos, a ponte da derivacao passa dois, o runner outro tanto).
+             # Alargar essa cadeia era mexer no que esta missao nao veio
+             # medir, e por isso fica DECLARADO em vez de improvisado:
+             # `documento_estruturado.document_id` continua NULL, e NULL aqui
+             # significa «esta casa ainda nao o transporta», e nao «a fonte
+             # nao o provou». Os dois nao sao a mesma ausencia.
              "source_url": r.get("SOURCE_URL")},
             memoria)
         if recibo["ESTADO"] in (pdoc.INSERTED, pdoc.REUSED):

@@ -2,14 +2,15 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
+  "MEASURED_HEAD": "0f3be15cd15ba9030d41195a24fc82b99df9eda8",
   "FRESCURA": {
-    "IMPRESSAO_DOS_DONOS": "7803f285db7f3d61da5d751a1e87ead8bda13918dd9a05faa4c892bcb803927e",
+    "IMPRESSAO_DOS_DONOS": "1dfe7533ddd69ef75536034181a08f925d7e26af475081de18472889be8f7697",
     "DONOS_DA_MEDICAO": [
       "provas/os_portoes_da_collection.py",
       "docs/biblia/leis.json",
       "system-map/data/buracos.generated.json",
-      "system-map/data/pedido.observado.json"
+      "system-map/data/pedido.observado.json",
+      "system-map/data/pedido-t4.observado.json"
     ],
     "O_QUE_A_IMPRESSAO_IGNORA": "`PROVENANCE.HEAD` de um dono gerado. Esse campo muda a cada commit sem que o conteudo mude, e uma impressao que nunca coincide nao diz «esta velho»: nao diz nada.",
     "O_QUE_O_CARIMBO_NAO_DIZ": "`MEASURED_HEAD` e o HEAD do instante da medicao, e o ficheiro que o guarda entra no commit SEGUINTE — nunca pode nomear o commit que o contem. Quem quer saber se esta medicao ainda vale compara a IMPRESSAO_DOS_DONOS, e nao o commit."
@@ -50,7 +51,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "recibo.PEDIDO = {\"alvo\": \"T2\", \"acionamento\": \"MANUAL\", \"escopo\": \"PONTUAL\", \"filtros\": {\"pais\": \"IT\", \"fonte\": \"IT-T2-002\"}}"
+      "PROVA_PELO_PEDIDO": "[T4] recibo.PEDIDO = {\"alvo\": \"T4\", \"acionamento\": \"MANUAL\", \"escopo\": \"PONTUAL\", \"filtros\": {\"pais\": \"IT\", \"celex\": \"32026R1696\"}}"
     },
     "ORCHESTRATOR": {
       "MODULE_EXISTS": "YES",
@@ -58,7 +59,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "receita resolvida: ACTOR=coleta/italy_executor.py · PLATFORM=HTTP direto · CAPTURE_METHOD=gratuito"
+      "PROVA_PELO_PEDIDO": "[T4] ACTOR=coleta/eu_regulatorio_executor.py · PLATFORM=EUR-Lex por CELEX (rota declarada no contrato de EU-T4-001) · CAPTURE_METHOD=gratuito"
     },
     "EXECUTOR": {
       "MODULE_EXISTS": "YES",
@@ -66,7 +67,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "COMANDO=coleta/italy_executor.py IT-T2-002 --run-id=IT-T2-2026-09-13-010346 · versao=91514740 · colheita=4"
+      "PROVA_PELO_PEDIDO": "[T4] COMANDO=coleta/eu_regulatorio_executor.py 32026R1696 --run-id=IT-T4-2026-09-13-021332 · versao=NOT_PRESERVED · colheita=1"
     },
     "RUN": {
       "MODULE_EXISTS": "YES",
@@ -74,7 +75,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "collection_run: ['IT-T2-2026-09-13-010346', 'concluida', 'NAO_SEI', 'coleta/italy_executor.py']"
+      "PROVA_PELO_PEDIDO": "[T4] collection_run: [['IT-T4-2026-09-13-021332', 'concluida']]"
     },
     "RAW_OBSERVATION": {
       "MODULE_EXISTS": "YES",
@@ -83,7 +84,7 @@
       "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra a cadeia de migrations em git",
       "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "raw_asset da corrida: [1, 2, 3, 4]"
+      "PROVA_PELO_PEDIDO": "[T4] raw_asset da corrida: ['1']"
     },
     "STORAGE_OBJECT": {
       "MODULE_EXISTS": "YES",
@@ -92,7 +93,7 @@
       "PROOF": "medido nesta missao: corrida completa aterra raw_asset=1 contra a cadeia de migrations em git",
       "CONDICAO": "so quando a corrida declara SOURCE_COUNTRY; sem ele o enum `pais` recusa a sentinela NOT_PRESERVED",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "storage_object ligados a esta corrida: 4"
+      "PROVA_PELO_PEDIDO": "[T4] storage_object ligados a esta corrida: 1"
     },
     "DERIVED": {
       "MODULE_EXISTS": "YES",
@@ -100,7 +101,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "derived_artifact desta corrida: 4"
+      "PROVA_PELO_PEDIDO": "[T4] derived_artifact desta corrida: 1"
     },
     "STRUCTURED": {
       "MODULE_EXISTS": "YES",
@@ -108,7 +109,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "documento_estruturado: 4 · conteudo (plataforma): 0"
+      "PROVA_PELO_PEDIDO": "[T4] documento_estruturado: 1"
     },
     "ADMISSION": {
       "MODULE_EXISTS": "YES",
@@ -116,7 +117,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "ledger de execucao: tests/test_m2_rota_forward.py, sobre PostgreSQL descartavel",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "a porta julgou 4 itens: {'NAO_SE_APLICA': 4}"
+      "PROVA_PELO_PEDIDO": "[T4] a porta julgou 1 itens: {'SIM': 1}"
     },
     "READY": {
       "MODULE_EXISTS": "YES",
@@ -124,9 +125,8 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
       "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao.",
-      "ATRAVESSA_PELO_PEDIDO": "NO",
-      "PROVA_PELO_PEDIDO": "unidades prontas: 0",
-      "FLOW_EXECUTED_MAS": "esta etapa ja correu — na rota forward, que entra pelo RAW. Pelo PEDIDO ela nao atravessa: o buraco esta em `ADMISSION -> READY`. DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA."
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "[T4] unidades prontas: 1"
     },
     "WAITING_ROOM": {
       "MODULE_EXISTS": "YES",
@@ -134,9 +134,8 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
       "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao.",
-      "ATRAVESSA_PELO_PEDIDO": "NO",
-      "PROVA_PELO_PEDIDO": "ficheiros na sala DEPOIS: nenhum",
-      "FLOW_EXECUTED_MAS": "esta etapa ja correu — na rota forward, que entra pelo RAW. Pelo PEDIDO ela nao atravessa: o buraco esta em `ADMISSION -> READY`. DUAS METADES PROVADAS NAO SAO UMA ESTRADA PROVADA."
+      "ATRAVESSA_PELO_PEDIDO": "YES",
+      "PROVA_PELO_PEDIDO": "[T4] ficheiros na sala DEPOIS: ['IT-T4-2026-09-13-021332.json']"
     }
   },
   "ACHADOS_DA_ESTRADA": [
@@ -354,6 +353,18 @@
       "MINIMUM_FIX": "nao e desta fase"
     },
     {
+      "GAP_ID": "G-ENV-01",
+      "CONCEPT": "o envelope vive num caminho por EXECUTOR, e nao por CORRIDA",
+      "OWNER": "pedido/receitas.py::EXECUTORES[*].retorno.ENVELOPE + orquestrador/orquestrador.py::o_envelope",
+      "CURRENT_STATE": "duas corridas do mesmo executor escrevem no MESMO ficheiro; medido: perguntar pela colheita de uma corrida inexistente devolve a colheita da ultima que escreveu, sem nota e sem recusa",
+      "EXPECTED_STATE": "um envelope por corrida, ou uma recusa quando o RUN_ID nao e o pedido",
+      "PROOF": "provas/o_pedido_t4_atravessa.py::ENVELOPE_PARTILHADO",
+      "SEVERITY": "MEDIUM",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "em SERIE nao morde, e a coleta de hoje e em serie: cada corrida escreve e o orquestrador le a seguir. Morde quando duas corridas do mesmo executor se cruzarem no tempo — e isso e a coleta grande, nao o fecho da maquina.",
+      "MINIMUM_FIX": "decidir a convencao do envelope por corrida antes da coleta grande — e e decisao para TODOS os executores, nao para um"
+    },
+    {
       "GAP_ID": "G-LEG-01",
       "CONCEPT": "o estado do legado fora do fluxo nao tem dono runtime",
       "OWNER": "NAO ATRIBUIDO",
@@ -393,6 +404,7 @@
     "G-ADM-01",
     "G-TEL-01",
     "G-TEMA-01",
+    "G-ENV-01",
     "G-LEG-01"
   ],
   "ROOT_CAUSES": [
@@ -494,16 +506,16 @@
     }
   ],
   "MINIMUM_MISSION_DAG": [],
-  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": "UNKNOWN",
+  "MINIMUM_MISSIONS_TO_COLLECTION_CORE_CLOSE": 0,
   "NEXT_KNOWN_MISSION": "dar aquisicao canonica a T4. E uma missao de CODIGO, e o alvo esta nomeado: o executor `coleta/rotulos_baixar.py` colhe PDF real do Ministero e declara o retorno como LEGADO/MANIFEST — suporte, nunca colheita. Fazer-lhe um ENVELOPE por corrida (RUN_ID, EXECUTOR_ID, EXECUTOR_VERSION, ESTADO, COLHEITA/SUPORTE/ERROS) poe T4 nas duas listas, porque a regra tematica de T4 ja existe e o dono STRUCTURED documental tambem. Medido em provas/o_canario_da_collection.py. NAO e escrever regra para T2: isso foi medido e reprovado.",
   "ZERO_BLOCKERS_NAO_E_ZERO_TRABALHO": "a fila minima conta BLOCKERS ABERTOS, e ela esta vazia. O que falta para o core fechar nao e um buraco declarado: e uma propriedade por provar, e ela nao se conta em missoes enquanto depender de uma decisao que ninguem tomou.",
   "MINIMUM_MISSIONS_TO_BIG_COLLECTION_READY": "UNKNOWN",
   "PORQUE_O_SEGUNDO_E_UNKNOWN": "depende de quantas capacidades do SCRAP a coleta grande exige, e isso ainda nao foi medido. Contar agora seria feeling com cara de DAG.",
   "COLLECTION_CORE_CLOSE": {
-    "VEREDICTO": "FAIL",
-    "CANONICAL_E2E": "NOT_PROVEN",
-    "CANONICAL_E2E_SAME_STORY": "FAIL",
-    "PORQUE_A_HISTORIA": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
+    "VEREDICTO": "PASS",
+    "CANONICAL_E2E": "PROVEN",
+    "CANONICAL_E2E_SAME_STORY": "PASS",
+    "PORQUE_A_HISTORIA": "um pedido T4 atravessou de REQUEST a SALA DE ESPERA, na mesma corrida `IT-T4-2026-09-13-021332` — medido em provas/o_pedido_t4_atravessa.py",
     "IDENTITY": "PROVEN",
     "PROVENANCE": "PROVEN",
     "RAW": "PROVEN",
@@ -519,7 +531,7 @@
     "OBSERVABILITY": "INSUFFICIENT",
     "NO_UNAUTHORIZED_INTELLIGENCE_BYPASS": "YES",
     "BLOQUEADO_POR": [],
-    "PORQUE_FALHA": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
+    "PORQUE_FALHA": "bloqueado por: —",
     "ZERO_BLOCKERS_NAO_E_PASS": "ZERO BLOCKERS != CORE FECHADO. E ONZE ETAPAS QUE JA CORRERAM NAO SAO UMA ESTRADA: o veredicto exige a MESMA historia, de ponta a ponta, e nao a soma de metades provadas em rotas diferentes.",
     "NAO_E_PERCENTAGEM": "este veredicto nao vem da media das leis. Vem das propriedades que a coleta grande precisa de ter, e cada FAIL aponta a propriedade que falta."
   },
@@ -533,11 +545,22 @@
     "DISPOSABLE_PREFLIGHT_PROOF": "NO"
   },
   "CERTIFICACAO_SEM_O_SCRAP": {
-    "COLLECTION_V1_CORE_READY_WITHOUT_SCRAP": "NO",
-    "PORQUE": "a mesma historia parou em `ADMISSION -> READY` — medido em provas/o_pedido_atravessa.py",
+    "COLLECTION_V1_CORE_READY_WITHOUT_SCRAP": "YES",
+    "PORQUE": "um pedido T4 atravessou de REQUEST a SALA DE ESPERA, na mesma corrida `IT-T4-2026-09-13-021332` — medido em provas/o_pedido_t4_atravessa.py",
     "SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
     "ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP": "NO",
-    "PORQUE_NAO_E_SO_O_SCRAP": "o buraco medido e `ADMISSION -> READY`. Medido: o SCRAP serve T9, e essa classe JA tem regra tematica — dando-lhe a aquisicao de graca, ela continua a parar antes de READY. mesmo com a aquisicao resolvida, T9 para em STRUCTURED: conteudo de plataforma exige `canal_id`, e o criador dessa identidade nao existe na producao. O SCRAP traz bytes; ele nao traz um dono de identidade de canal. Continua a ser preciso ANTES da coleta grande, mas nao e a unica coisa que falta, e dizer que e autorizava comecar pela peca errada.",
+    "QUEM_MAIS_FALTA": [
+      "T1",
+      "T10",
+      "T11",
+      "T12",
+      "T13",
+      "T3",
+      "T5",
+      "T7"
+    ],
+    "O_QUE_A_MAQUINA_FECHADA_DIZ": "que a estrada existe e foi atravessada de ponta a ponta por uma classe real. NAO diz que as outras classes ja a atravessam: diz que quando elas tiverem aquisicao, a estrada esta la.",
+    "PORQUE_NAO_E_SO_O_SCRAP": "faltam 9 classes sem aquisicao canonica, e so T9 e do dominio do SCRAP. As outras (T1, T10, T11, T12, T13, T3, T5, T7) esperam por executores que o SCRAP nao escreve. A estrada em si nao tem buraco: uma classe atravessou-a inteira. Medido: o SCRAP serve T9, e essa classe JA tem regra tematica — dando-lhe a aquisicao de graca, ela continua a parar antes de READY. mesmo com a aquisicao resolvida, T9 para em STRUCTURED: conteudo de plataforma exige `canal_id`, e o criador dessa identidade nao existe na producao. O SCRAP traz bytes; ele nao traz um dono de identidade de canal. Continua a ser preciso ANTES da coleta grande, mas nao e a unica coisa que falta, e dizer que e autorizava comecar pela peca errada.",
     "O_CANARIO_QUE_FECHARIA": "T4 — ja tem regra e dono STRUCTURED; falta-lhe declarar COLHEITA. E trabalho de aquisicao, e nao do SCRAP",
     "O_QUE_ISTO_NAO_DIZ": "que a infraestrutura esta partida. Ela nao esta: a porta julga, decide e diz porque. INFRAESTRUTURA FUNCIONA != HA CASO ADMISSIVEL NO CORPUS.",
     "SCRAP_TOCADO_NESTA_MISSAO": "NO"
@@ -555,7 +578,7 @@
     },
     {
       "PROVA": "3 · READY dado por produzido por fixture",
-      "ACHADO": "READY atravessa — na rota forward, que entra pelo RAW. Pelo PEDIDO nao atravessa: ATRAVESSA_PELO_PEDIDO = NO. As duas colunas dizem-se lado a lado, e o portao le a segunda.",
+      "ACHADO": "READY atravessa — na rota forward, que entra pelo RAW. Pelo PEDIDO nao atravessa: ATRAVESSA_PELO_PEDIDO = YES. As duas colunas dizem-se lado a lado, e o portao le a segunda.",
       "VEREDITO": "GUARDADO"
     },
     {
@@ -625,7 +648,7 @@
     },
     {
       "PROVA": "18 · «so falta o SCRAP» porque o SCRAP e o unico NAO no quadro",
-      "ACHADO": "TENTEI e NAO CONSEGUI. O buraco medido e `ADMISSION -> READY`, e o SCRAP nao o tapa: ele nao escreve regra tematica nem muda o que a porta pergunta. Integra-lo amanha deixava este buraco onde esta.",
+      "ACHADO": "TENTEI e NAO CONSEGUI. O buraco medido e `NAO_MEDIDO`, e o SCRAP nao o tapa: ele nao escreve regra tematica nem muda o que a porta pergunta. Integra-lo amanha deixava este buraco onde esta.",
       "VEREDITO": "FALHOU — e e esse o resultado"
     },
     {

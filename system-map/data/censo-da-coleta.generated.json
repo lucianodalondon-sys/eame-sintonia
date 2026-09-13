@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
+    "HEAD": "0f3be15cd15ba9030d41195a24fc82b99df9eda8",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -35,7 +35,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 309,
+      "linhas": 344,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -825,6 +825,26 @@
       "no_ci": false
     },
     {
+      "ficheiro": "coleta/eu_regulatorio_executor.py",
+      "gaveta": "coleta",
+      "linhas": 279,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": true,
+      "veiculos": [
+        "HTTP DIRETO"
+      ],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": true,
+      "chamado_por": [
+        "pedido/receitas.py"
+      ],
+      "no_ci": false
+    },
+    {
       "ficheiro": "coleta/eu_substancia_adama_it.py",
       "gaveta": "coleta",
       "linhas": 199,
@@ -939,6 +959,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
+        "coleta/eu_regulatorio_executor.py",
         "coleta/golden_path_pdf.py",
         "coleta/italy_executor.py",
         "coleta/rota_forward_documento.py",
@@ -1242,6 +1263,7 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [
+        "coleta/eu_regulatorio_executor.py",
         "pedido/receitas.py"
       ],
       "no_ci": false
@@ -2080,12 +2102,12 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 104,
-    "pontos_de_entrada": 84,
-    "executores_que_saem_para_fora": 21,
+    "ficheiros_de_codigo": 105,
+    "pontos_de_entrada": 85,
+    "executores_que_saem_para_fora": 22,
     "sem_chamador_e_fora_do_ci": 43,
     "gravam_no_banco": 1,
-    "escrevem_ficheiro": 67,
+    "escrevem_ficheiro": 68,
     "deitam_fora_alguma_coisa": 26,
     "deitam_fora_SEM_escrever_o_motivo": 1,
     "ficheiros_com_decisao_escondida": 2,
@@ -2126,6 +2148,7 @@
       "coleta/derivacao_forward.py",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
+      "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/executor_texto_de_pdf.py",
       "coleta/filas.py",
@@ -2187,6 +2210,7 @@
       "coleta/corpus_pesquisador.py",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
+      "coleta/eu_regulatorio_executor.py",
       "coleta/gire_mapas.py",
       "coleta/instagram_janela.py",
       "coleta/mapa_regfi.py",

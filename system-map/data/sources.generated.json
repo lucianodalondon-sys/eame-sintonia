@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
+    "HEAD": "0f3be15cd15ba9030d41195a24fc82b99df9eda8",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3014,6 +3014,17 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/eu_regulatorio_executor.py",
+      "como_se_chama": "coleta/eu_regulatorio_executor.py --run-id",
+      "carimba_data": [],
+      "carimba_lugar": [
+        "COUNTRY"
+      ],
+      "separa_fonte_do_fato": false,
+      "leis_que_obedece": [],
+      "regista_descarte": []
+    },
+    {
       "ficheiro": "coleta/eu_substancia_adama_it.py",
       "como_se_chama": "coleta/eu_substancia_adama_it.py",
       "carimba_data": [
@@ -4335,6 +4346,19 @@
       ]
     },
     {
+      "endpoint": "https://eur-lex.europa.eu/legal-content",
+      "usado_por": [
+        {
+          "file": "coleta/eu_regulatorio_executor.py",
+          "line": 90
+        },
+        {
+          "file": "fontes/adama_it_eu.py",
+          "line": 29
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/%s",
       "usado_por": [
         {
@@ -4661,15 +4685,6 @@
           "line": 209
         }
       ]
-    },
-    {
-      "endpoint": "https://bsky.app/profile",
-      "usado_por": [
-        {
-          "file": "coleta/social_rotas.py",
-          "line": 217
-        }
-      ]
     }
   ],
   "COUNTS": {
@@ -4690,9 +4705,9 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 47,
+    "coletores": 48,
     "coletores_com_data": 14,
-    "coletores_com_lugar": 31,
+    "coletores_com_lugar": 32,
     "coletores_que_separam_fonte_do_fato": 20,
     "coletores_que_registam_descarte": 10,
     "corridas_registadas": 26,

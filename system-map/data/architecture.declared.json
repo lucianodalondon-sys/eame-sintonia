@@ -361,6 +361,25 @@
    ]
   },
   {
+   "id": "C-EU-REGULATORIO-COLETA",
+   "name": "Colher o ato regulatório da UE",
+   "territory": "Z-ACOES",
+   "kind": "engine",
+   "icon": "§",
+   "what": "Vai buscar um ato do Jornal Oficial da UE em PDF, pelo CELEX, larga os bytes e DECLARA num envelope o que a corrida produziu. Não cunha corrida: recebe a que o orquestrador cunhou.",
+   "why_here": "T4 era a classe mais perto de atravessar a Collection inteira — tinha regra de admissão escrita e dono STRUCTURED documental, e faltava-lhe aquisição canónica: o executor que a receita nomeava declara LEGADO/MANIFEST, que é SUPORTE, e suporte nunca atravessa (COL-LAW-505). Esta peça dá a T4 a peça que faltava, e com ela a Collection V1 fechou: um pedido T4 atravessa de REQUEST à Sala de Espera na mesma corrida. ⚠️ NÃO É UMA FONTE NOVA: `EU-T4-001` já estava aprovada no atlas (verdict GREEN), e a rota usada é a que o contrato dela declara no campo `fallback`. E é a primeira peça desta casa a escrever um DOCUMENT_ID provado — o CELEX, que o contrato da fonte declara como `identity_keys`; não é o sha (que identifica bytes), não é o caminho (que é morada), não é a URL (que é endpoint).",
+   "departments": [
+    "ENGENHARIA"
+   ],
+   "files": [
+    "coleta/eu_regulatorio_executor.py"
+   ],
+   "views": [
+    "infra",
+    "audit"
+   ]
+  },
+  {
    "id": "C-LEITORES",
    "name": "Abrir PDF, ODS e HTML",
    "territory": "Z-FERRAMENTAS",
@@ -1851,6 +1870,7 @@
     "provas/o_legado_fora_do_fluxo.py",
     "provas/os_portoes_da_collection.py",
     "provas/o_canario_da_collection.py",
+    "provas/o_pedido_t4_atravessa.py",
     "provas/mutacao_do_gate.py",
     "provas/paridade_da_lingua.py",
     "provas/preflight_022_live.sh",

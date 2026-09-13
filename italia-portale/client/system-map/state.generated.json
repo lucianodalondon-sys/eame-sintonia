@@ -191,6 +191,7 @@
       "coleta/ephy.sh",
       "coleta/eppo_gd.py",
       "coleta/es/corpus_es.py",
+      "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/executor_texto_de_pdf.py",
       "coleta/filas.py",
@@ -1219,6 +1220,7 @@
       "provas/o_legado_fora_do_fluxo.py",
       "provas/o_mapa_nao_mente.py",
       "provas/o_pedido_atravessa.py",
+      "provas/o_pedido_t4_atravessa.py",
       "provas/o_raw_fala.py",
       "provas/objeto_e_observacao_no_postgres.py",
       "provas/os_portoes_da_collection.py",
@@ -1430,6 +1432,7 @@
       "system-map/data/estradas-it.model.json",
       "system-map/data/fronteira.observada.json",
       "system-map/data/linhagem.observada.json",
+      "system-map/data/pedido-t4.observado.json",
       "system-map/data/pedido.observado.json",
       "system-map/data/provas-de-execucao.json",
       "system-map/data/rota-m2.observada.json",
@@ -1541,6 +1544,7 @@
       "tests/test_o9_caminho_instrumentado.py",
       "tests/test_o_canario_da_collection.py",
       "tests/test_o_pedido_atravessa.py",
+      "tests/test_o_pedido_t4_atravessa.py",
       "tests/test_o_raw_fala.py",
       "tests/test_observabilidade.py",
       "tests/test_observabilidade_estrada.py",
@@ -1643,16 +1647,16 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "17 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
+      "titulo": "18 coletores gravam registo sem data nem lugar.",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · social_rotas.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
         "coleta/cruzar_regua_rotulo.py",
         "coleta/denominaciones.py",
         "coleta/eppo_gd.py",
-        "coleta/executor_texto_de_pdf.py",
-        "coleta/filas.py"
+        "coleta/eu_regulatorio_executor.py",
+        "coleta/executor_texto_de_pdf.py"
       ]
     }
   ],
@@ -1966,10 +1970,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-v1-operational-close",
-    "HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
-    "GENERATED_AT": "2026-09-12T22:55:38+00:00",
-    "SOURCE_TREE_FINGERPRINT": "69af1b5c0bab1fa300d98ac0a8312a54c0b8ec8e54492d429dba21c662053486"
+    "BRANCH": "claude/t4-canonical-acquisition-v1",
+    "HEAD": "0f3be15cd15ba9030d41195a24fc82b99df9eda8",
+    "GENERATED_AT": "2026-09-13T01:26:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cfa7c6809f297e316168931538aa0ef0e0c254a230acace5403cd6c83e7dbc71"
   },
   "FAMILIES": [
     {
@@ -1996,7 +2000,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 66
+      "count": 67
     },
     {
       "id": "F-ESPERA",
@@ -2204,7 +2208,7 @@
       "y": 190,
       "w": 1235,
       "h": 5192,
-      "count": 14
+      "count": 15
     },
     {
       "id": "Z-GUARDA",
@@ -4951,6 +4955,17 @@
           "regista_descarte": []
         },
         {
+          "ficheiro": "coleta/eu_regulatorio_executor.py",
+          "como_se_chama": "coleta/eu_regulatorio_executor.py --run-id",
+          "carimba_data": [],
+          "carimba_lugar": [
+            "COUNTRY"
+          ],
+          "separa_fonte_do_fato": false,
+          "leis_que_obedece": [],
+          "regista_descarte": []
+        },
+        {
           "ficheiro": "coleta/eu_substancia_adama_it.py",
           "como_se_chama": "coleta/eu_substancia_adama_it.py",
           "carimba_data": [
@@ -7252,6 +7267,7 @@
       "outbound": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
+        "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -7670,11 +7686,12 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-COLETA, C-ORQUESTRADOR.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-EU-REGULATORIO-COLETA, C-IT-COLETA, C-ORQUESTRADOR.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-EU-REGULATORIO-COLETA",
         "C-IT-COLETA",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
@@ -8664,6 +8681,56 @@
       "y": 1648
     },
     {
+      "id": "C-EU-REGULATORIO-COLETA",
+      "name": "Colher o ato regulatório da UE",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Vai buscar um ato do Jornal Oficial da UE em PDF, pelo CELEX, larga os bytes e DECLARA num envelope o que a corrida produziu. Não cunha corrida: recebe a que o orquestrador cunhou.",
+      "why_here": "T4 era a classe mais perto de atravessar a Collection inteira — tinha regra de admissão escrita e dono STRUCTURED documental, e faltava-lhe aquisição canónica: o executor que a receita nomeava declara LEGADO/MANIFEST, que é SUPORTE, e suporte nunca atravessa (COL-LAW-505). Esta peça dá a T4 a peça que faltava, e com ela a Collection V1 fechou: um pedido T4 atravessa de REQUEST à Sala de Espera na mesma corrida. ⚠️ NÃO É UMA FONTE NOVA: `EU-T4-001` já estava aprovada no atlas (verdict GREEN), e a rota usada é a que o contrato dela declara no campo `fallback`. E é a primeira peça desta casa a escrever um DOCUMENT_ID provado — o CELEX, que o contrato da fonte declara como `identity_keys`; não é o sha (que identifica bytes), não é o caminho (que é morada), não é a URL (que é endpoint).",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "§",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/eu_regulatorio_executor.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-DE-RETORNO",
+        "V-HTTP"
+      ],
+      "outbound": [
+        "C-PROVA-COLETA",
+        "C-RECEITAS",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 7120,
+      "y": 1004
+    },
+    {
       "id": "C-EVOLUCAO",
       "name": "O contrato da evolução",
       "territory": "Z-REGUAS",
@@ -8809,7 +8876,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7120,
+      "x": 7535,
       "y": 1004
     },
     {
@@ -8983,8 +9050,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 7535,
-      "y": 1004
+      "x": 6705,
+      "y": 1326
     },
     {
       "id": "C-FRONTEIRA-TELEMETRIA",
@@ -9471,7 +9538,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 6705,
+      "x": 7120,
       "y": 1326
     },
     {
@@ -9614,7 +9681,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7120,
+      "x": 7535,
       "y": 1326
     },
     {
@@ -12094,6 +12161,7 @@
         "provas/o_canario_da_collection.py",
         "provas/o_corte_de_cr1.py",
         "provas/o_legado_fora_do_fluxo.py",
+        "provas/o_pedido_t4_atravessa.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "provas/os_portoes_da_collection.py",
         "provas/pacote_de_revisao_t3.py",
@@ -12110,7 +12178,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 35,
+      "file_count": 36,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12130,6 +12198,7 @@
         "C-CENSO-OBSERVABILIDADE",
         "C-CI-MAPA",
         "C-CI-PERSIST",
+        "C-COLETA-BASE",
         "C-CONTRATO-ARTEFATO",
         "C-CONTRATO-DE-RETORNO",
         "C-CONTRATO-TELEMETRIA",
@@ -12138,6 +12207,7 @@
         "C-DONO-DA-ESCRITA",
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
+        "C-EU-REGULATORIO-COLETA",
         "C-EXECUTOR-TEXTO-PDF",
         "C-INGRESSO",
         "C-IT-COLETA",
@@ -12202,6 +12272,7 @@
           "ENSAIO",
           "ENTRADAS_PERMITIDAS",
           "ENTRADAS_PROIBIDAS",
+          "ESTRADA",
           "ESTUDO_EXTERNO",
           "ETAPAS",
           "ETAPAS_DA_ESTRADA",
@@ -12230,11 +12301,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 934,
+        "palavras": 945,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 932,
+        "sem_marca_de_lingua": 943,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12260,7 +12331,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "provas/os_portoes_da_collection.py",
-            "line": 1335,
+            "line": 1465,
             "snippet": "escreve em caminho"
           }
         }
@@ -13338,6 +13409,7 @@
         "C-COLETA-PUBLICA",
         "C-CORPUS",
         "C-DATA-CLOCK",
+        "C-EU-REGULATORIO-COLETA",
         "C-FONTES-EU",
         "C-IDENTIDADE",
         "C-IT-COLETA",
@@ -13371,7 +13443,7 @@
         "valida": false,
         "e_workflow": false,
         "executa": false,
-        "executores_que_chama": 5
+        "executores_que_chama": 6
       },
       "vocabulario": {
         "papel": "NAO SEI",
@@ -13379,9 +13451,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 92,
+        "palavras": 109,
         "por_lingua": {},
-        "sem_marca_de_lingua": 92,
+        "sem_marca_de_lingua": 109,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13812,8 +13884,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7535,
-      "y": 1326
+      "x": 6705,
+      "y": 1648
     },
     {
       "id": "C-ROTULOS",
@@ -13942,7 +14014,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 6705,
+      "x": 7120,
       "y": 1648
     },
     {
@@ -14325,7 +14397,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 7120,
+      "x": 7535,
       "y": 1648
     },
     {
@@ -15918,6 +15990,7 @@
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_o_canario_da_collection.py",
         "tests/test_o_pedido_atravessa.py",
+        "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_o_raw_fala.py",
         "tests/test_observabilidade.py",
         "tests/test_observabilidade_estrada.py",
@@ -15963,7 +16036,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 109,
+      "file_count": 110,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -16020,6 +16093,7 @@
         "C-DONO-DO-DERIVADO",
         "C-ESTRADA-PDF",
         "C-ESTRADAS-IT",
+        "C-EU-REGULATORIO-COLETA",
         "C-EVOLUCAO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-FLUXO-NO-SECO",
@@ -16104,6 +16178,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ANTES_DESTA_MISSAO",
           "ANTES_DO_B2",
           "APOSENTADOS",
           "BINDINGS",
@@ -16137,11 +16212,12 @@
           "SINTETICOS",
           "_GAVETA_DE"
         ],
-        "palavras": 483,
+        "palavras": 494,
         "por_lingua": {
-          "IT": 2
+          "IT": 7,
+          "PT": 3
         },
-        "sem_marca_de_lingua": 481,
+        "sem_marca_de_lingua": 484,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -17087,18 +17163,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 6 acao(oes) da coleta passam por aqui.",
+      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 7 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
-        "acoes da coleta que nomeiam este canal: 6",
+        "acoes da coleta que nomeiam este canal: 7",
+        "prova: coleta/eu_regulatorio_executor.py:69",
         "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
         "prova: coleta/agrifood_ue.py:29",
-        "prova: coleta/corpus_pesquisador.py:92",
-        "prova: coleta/mapa_regfi.py:42"
+        "prova: coleta/corpus_pesquisador.py:92"
       ],
-      "status_reason": "6 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
+      "status_reason": "7 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -17112,6 +17188,7 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-CORPUS",
+        "C-EU-REGULATORIO-COLETA",
         "C-FONTES-EU",
         "C-ROTULOS",
         "C-SCRAP-SOCIAL"
@@ -17283,6 +17360,7 @@
       "saem_daqui_sem_destino": [
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
+        "C-EU-REGULATORIO-COLETA",
         "C-SCRAP-SOCIAL"
       ],
       "precisa_de_ferramenta": false,
@@ -17544,7 +17622,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-v1-operational-close"
+        "branch claude/t4-canonical-acquisition-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17898,7 +17976,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 14 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 15 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -17956,9 +18034,9 @@
           "snippet": "import admissao as adm  # noqa: E402"
         },
         {
-          "file": "provas/so_a_colheita_atravessa.py",
-          "line": 37,
-          "snippet": "import admissao as adm  # noqa: E402"
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 49,
+          "snippet": "import admissao                                     # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -17971,7 +18049,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/censo_corpus_rotulado_admission.py",
@@ -17984,8 +18062,13 @@
           "snippet": "(\"admissao/admissao.py\", \"PERGUNTAS_DO_UNIVERSO = {\","
         },
         {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 140,
+          "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
+        },
+        {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 457,
+          "line": 487,
           "snippet": "\"admissao/admissao.py\","
         },
         {
@@ -18242,7 +18325,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 18 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 19 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -18973,7 +19056,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 161,
+          "line": 196,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
         }
       ],
@@ -21699,6 +21782,24 @@
     },
     {
       "from": "C-COLETA-BASE",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 50,
+          "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-COLETA-BASE",
       "to": "C-PROVA-FORWARD-CONTA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22051,7 +22152,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 166,
+          "line": 201,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
         }
       ],
@@ -22277,6 +22378,24 @@
     },
     {
       "from": "C-CONTRATO-DE-RETORNO",
+      "to": "C-EU-REGULATORIO-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Colher o ato regulatório da UE. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/eu_regulatorio_executor.py",
+          "line": 75,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-CONTRATO-DE-RETORNO",
       "to": "C-IT-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -22347,8 +22466,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de retorno da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_o_pedido_t4_atravessa.py",
+          "line": 24,
+          "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+        },
         {
           "file": "tests/test_retorno_da_coleta.py",
           "line": 23,
@@ -22776,7 +22900,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 187,
+          "line": 222,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -22948,7 +23072,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 468,
+          "line": 498,
           "snippet": "\"coleta/derivacao_forward.py\","
         }
       ],
@@ -23409,7 +23533,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 574,
+          "line": 624,
           "snippet": "\"guarda/preservar_coleta.py\"),"
         }
       ],
@@ -23815,7 +23939,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 387,
+          "line": 408,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}"
         }
       ],
@@ -24082,6 +24206,60 @@
           "file": "tests/test_route_membership.py",
           "line": 108,
           "snippet": "'estradas-it.model.json'), encoding='utf-8') as f:"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-EU-REGULATORIO-COLETA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o ato regulatório da UE alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 177,
+          "snippet": "recibo.get(\"ACTOR\") == \"coleta/eu_regulatorio_executor.py\""
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-EU-REGULATORIO-COLETA",
+      "to": "C-RECEITAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o ato regulatório da UE alimenta A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 116,
+          "snippet": "\"roda\": [\"coleta/eu_regulatorio_executor.py\"],"
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-EU-REGULATORIO-COLETA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher o ato regulatório da UE alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_pedido_t4_atravessa.py",
+          "line": 28,
+          "snippet": "EXEC_T4 = os.path.join(RAIZ, \"coleta\", \"eu_regulatorio_executor.py\")"
         }
       ],
       "categoria": "PROOF"
@@ -24639,7 +24817,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 117,
+          "line": 152,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
         }
       ],
@@ -24947,12 +25125,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 162,
+          "line": 197,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 163,
+          "line": 198,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
         }
       ],
@@ -25693,7 +25871,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 135,
+          "line": 170,
           "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
         }
       ],
@@ -26402,7 +26580,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 189,
+          "line": 224,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -27119,12 +27297,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O orquestrador tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_corte_de_cr1.py",
           "line": 60,
           "snippet": "import orquestrador as orq  # noqa: E402"
+        },
+        {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 156,
+          "snippet": "import orquestrador as orq"
         },
         {
           "file": "provas/so_a_colheita_atravessa.py",
@@ -27515,12 +27698,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "O pedido de coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_canario_da_collection.py",
           "line": 53,
           "snippet": "from pedido import ALVOS, Pedido                            # noqa: E402"
+        },
+        {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 52,
+          "snippet": "from pedido import Pedido                           # noqa: E402"
         },
         {
           "file": "provas/testa_coleta_canonica.py",
@@ -28610,12 +28798,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 185,
+          "line": 220,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 191,
+          "line": 226,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -28973,7 +29161,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 31 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 32 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_regra_de_t2.py",
@@ -29222,8 +29410,8 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 831,
-          "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
+          "line": 886,
+          "snippet": "\"provas/o_pedido_atravessa.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -29661,7 +29849,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/o_canario_da_collection.py",
@@ -29672,6 +29860,11 @@
           "file": "provas/o_corte_de_cr1.py",
           "line": 59,
           "snippet": "import receitas  # noqa: E402"
+        },
+        {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 477,
+          "snippet": "from receitas import EXECUTORES as EX_"
         },
         {
           "file": "provas/so_a_colheita_atravessa.py",
@@ -29712,12 +29905,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A receita da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_italia_na_porta_canonica.py",
           "line": 55,
           "snippet": "from receitas import EXECUTORES            # noqa: E402"
+        },
+        {
+          "file": "tests/test_o_pedido_t4_atravessa.py",
+          "line": 25,
+          "snippet": "from receitas import EXECUTORES  # noqa: E402"
         },
         {
           "file": "tests/test_raw_observation_id_volta.py",
@@ -29957,7 +30155,7 @@
         },
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 148,
+          "line": 178,
           "snippet": "forward = ex[\"PROVADOS\"][\"coleta/rota_forward_documento.py\"][\"FORWARD\"]"
         }
       ],
@@ -30157,12 +30355,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 103,
+          "line": 138,
           "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},"
         },
         {
           "file": "pedido/receitas.py",
-          "line": 104,
+          "line": 139,
           "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
         }
       ],
@@ -30289,6 +30487,24 @@
     {
       "from": "C-SALA-DE-ESPERA",
       "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_pedido_t4_atravessa.py",
+          "line": 51,
+          "snippet": "import sala_de_espera as espera                     # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-SALA-DE-ESPERA",
+      "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -30298,7 +30514,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 376,
+          "line": 406,
           "snippet": "\"admissao/sala_de_espera.py\","
         }
       ],
@@ -32341,7 +32557,7 @@
       "evidence": [
         {
           "file": "provas/os_portoes_da_collection.py",
-          "line": 324,
+          "line": 354,
           "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
         }
       ],
@@ -33198,6 +33414,23 @@
     },
     {
       "from": "V-HTTP",
+      "to": "C-EU-REGULATORIO-COLETA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Colher o ato regulatório da UE», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/eu_regulatorio_executor.py",
+          "line": 69,
+          "snippet": "import urllib.request"
+        }
+      ],
+      "categoria": "DATA"
+    },
+    {
+      "from": "V-HTTP",
       "to": "C-FONTES-EU",
       "type": "VIAJA_POR",
       "payload": "coleta",
@@ -33461,7 +33694,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 764,
+  "UNCLAIMED_FILES_COUNT": 765,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -33616,17 +33849,17 @@
     ]
   },
   "COUNTS": {
-    "components": 166,
+    "components": 167,
     "components_proven": 58,
-    "components_pending": 102,
+    "components_pending": 103,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 712,
-    "edges_proven": 710,
+    "edges": 719,
+    "edges_proven": 717,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1519,
-    "files_covered": 755,
+    "files_tracked": 1523,
+    "files_covered": 758,
     "files_code_unclaimed": 0
   }
 }

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-v1-operational-close",
-    "HEAD": "d7d0008d6e5a83ab20c9af80fd75bb1ff800646c",
-    "GENERATED_AT": "2026-09-12T22:55:38+00:00",
-    "SOURCE_TREE_FINGERPRINT": "69af1b5c0bab1fa300d98ac0a8312a54c0b8ec8e54492d429dba21c662053486"
+    "BRANCH": "claude/t4-canonical-acquisition-v1",
+    "HEAD": "0f3be15cd15ba9030d41195a24fc82b99df9eda8",
+    "GENERATED_AT": "2026-09-13T01:26:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "cfa7c6809f297e316168931538aa0ef0e0c254a230acace5403cd6c83e7dbc71"
   },
   "FILES": [
     {
@@ -157,7 +157,7 @@
     },
     {
       "path": ".gitignore",
-      "sha": "224aad5e68cc477340808dd1e95366498e61fe34",
+      "sha": "c95c3d81d4c0258f28a19fe371207805591e00fe",
       "ext": "",
       "readable": false,
       "code_dir": false
@@ -1206,6 +1206,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/eu_regulatorio_executor.py",
+      "sha": "39e79f31f143a724527825b6a078258bf7353f0c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/eu_substancia_adama_it.py",
       "sha": "93600f2cc5f920838d750aa57675b22329583dd0",
       "ext": ".py",
@@ -1529,7 +1536,7 @@
     },
     {
       "path": "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
-      "sha": "1a9a59ec65fb26314e5c53be4bbb55f30180911e",
+      "sha": "64a9ad7f5fc8bacc23998f88393432dbf93a816c",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1557,7 +1564,7 @@
     },
     {
       "path": "data/derivados/O-CANARIO-DA-COLLECTION.json",
-      "sha": "e5a87a34ec751f254309a3c08ea64119dd5e8de8",
+      "sha": "c19eb3867d157a410f029bd795f61e8546c23d13",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4693,7 +4700,7 @@
     },
     {
       "path": "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
-      "sha": "6874338199155cbb55f7d9929b2edd6a9eb162fa",
+      "sha": "7a406d297b0cea2d00cbd25117623b14df45719c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7717,7 +7724,7 @@
     },
     {
       "path": "orquestrador/orquestrador.py",
-      "sha": "64964a3167c26c586b527e728a354ffa3ec6e5c7",
+      "sha": "f20794baf538a7a5ed77bc6571789e0f70df27ae",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -7857,7 +7864,7 @@
     },
     {
       "path": "pedido/receitas.py",
-      "sha": "7f40bfcb43d4c71c20cc568bedbce97ecc4207e6",
+      "sha": "eae11065ea6e7281cb28c1c8a66d05a41abfec91",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8185,6 +8192,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/o_pedido_t4_atravessa.py",
+      "sha": "2815dd31d17d6484290857470094827171f04e5d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/o_raw_fala.py",
       "sha": "9739a4a2400810ad104ada84f6341197bc893cb8",
       "ext": ".py",
@@ -8200,7 +8214,7 @@
     },
     {
       "path": "provas/os_portoes_da_collection.py",
-      "sha": "170bb0ad363a9a8293d2b2f9265217ab3e20a49b",
+      "sha": "200f97a98ac4a3289fb2c99156b391eadcf2d7d4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9537,7 +9551,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "569c1cc9c415021cc769d7fcd661bd8d08cbf814",
+      "sha": "557ad935f9756f86ba2c11cbc981122dbea04470",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9559,6 +9573,13 @@
     {
       "path": "system-map/data/linhagem.observada.json",
       "sha": "eae5da48a2b89662ffc45657705bee0976a368bb",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/data/pedido-t4.observado.json",
+      "sha": "6f315da0361b0e1594e9fae421d3beaa16bb2b14",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10209,7 +10230,7 @@
     },
     {
       "path": "tests/test_italia_na_porta_canonica.py",
-      "sha": "823ab145535195dfa37fee11a939bec11dc47576",
+      "sha": "0944fcbaf75405649e7ce14d4232b9ae7fbcd39d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10321,7 +10342,14 @@
     },
     {
       "path": "tests/test_o_pedido_atravessa.py",
-      "sha": "d8a3480d2776f025b5baff59531c51e297da65d7",
+      "sha": "8fe3b98a96771319cd94dfc1a3f1b3982b1bf1af",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_o_pedido_t4_atravessa.py",
+      "sha": "dc989951167905a510be6f13cadcc588a1657dec",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10391,7 +10419,7 @@
     },
     {
       "path": "tests/test_portoes_da_collection.py",
-      "sha": "1b7abeb7f01980c88b8ce2772a5f66e130aca58a",
+      "sha": "220caa983a6e518c9f147ed3b307049cf1714c89",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12412,6 +12440,28 @@
         "file": "coleta/derivacao_forward.py",
         "line": 81,
         "snippet": "import rastro_da_coleta as rastro    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/eu_regulatorio_executor.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/eu_regulatorio_executor.py",
+        "line": 73,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/eu_regulatorio_executor.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/eu_regulatorio_executor.py",
+        "line": 75,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
       }
     },
     {
@@ -24103,7 +24153,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "orquestrador/orquestrador.py",
-        "line": 387,
+        "line": 408,
         "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}"
       }
     },
@@ -26193,7 +26243,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 166,
+        "line": 201,
         "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
       }
     },
@@ -26215,8 +26265,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 117,
+        "line": 152,
         "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
+      }
+    },
+    {
+      "from_file": "pedido/receitas.py",
+      "to_file": "coleta/eu_regulatorio_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "pedido/receitas.py",
+        "line": 116,
+        "snippet": "\"roda\": [\"coleta/eu_regulatorio_executor.py\"],"
       }
     },
     {
@@ -26226,7 +26287,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 135,
+        "line": 170,
         "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
       }
     },
@@ -26237,7 +26298,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 104,
+        "line": 139,
         "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
       }
     },
@@ -26248,7 +26309,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 103,
+        "line": 138,
         "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},"
       }
     },
@@ -26259,7 +26320,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 160,
+        "line": 195,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/ANCORAS-EVIDENCIA-V1.json\": \"CATALOG\","
       }
     },
@@ -26270,7 +26331,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 165,
+        "line": 200,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CLASSIFICADO-V1.json\": \"RUN_RECEIPT\"}},"
       }
     },
@@ -26281,7 +26342,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 161,
+        "line": 196,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
       }
     },
@@ -26292,7 +26353,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 164,
+        "line": 199,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/MEDICAO-PRIMEIRO-LOTE-V1.json\": \"RUN_RECEIPT\","
       }
     },
@@ -26303,7 +26364,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 163,
+        "line": 198,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
       }
     },
@@ -26314,7 +26375,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 162,
+        "line": 197,
         "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
       }
     },
@@ -26336,7 +26397,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 191,
+        "line": 226,
         "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
       }
     },
@@ -26347,7 +26408,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 187,
+        "line": 222,
         "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
       }
     },
@@ -26358,7 +26419,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 189,
+        "line": 224,
         "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
       }
     },
@@ -26380,7 +26441,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "pedido/receitas.py",
-        "line": 185,
+        "line": 220,
         "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
       }
     },
@@ -29817,6 +29878,127 @@
       }
     },
     {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 47,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 49,
+        "snippet": "import admissao                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 51,
+        "snippet": "import sala_de_espera as espera                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 50,
+        "snippet": "import coleta_checkpoint as cc                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "coleta/eu_regulatorio_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 177,
+        "snippet": "recibo.get(\"ACTOR\") == \"coleta/eu_regulatorio_executor.py\""
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "data/samples/LIVRO-DE-DECISOES.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 140,
+        "snippet": "/ \"LIVRO-DE-DECISOES.json\")"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 156,
+        "snippet": "import orquestrador as orq"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "pedido/pedido.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 52,
+        "snippet": "from pedido import Pedido                           # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 477,
+        "snippet": "from receitas import EXECUTORES as EX_"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "provas/preservar_coleta_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 121,
+        "snippet": "\"preservar_coleta_no_postgres.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/o_pedido_t4_atravessa.py",
+      "to_file": "system-map/data/pedido-t4.observado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/o_pedido_t4_atravessa.py",
+        "line": 58,
+        "snippet": "SAIDA = os.path.join(\"system-map\", \"data\", \"pedido-t4.observado.json\")"
+      }
+    },
+    {
       "from_file": "provas/o_raw_fala.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -29999,7 +30181,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 457,
+        "line": 487,
         "snippet": "\"admissao/admissao.py\","
       }
     },
@@ -30010,7 +30192,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 376,
+        "line": 406,
         "snippet": "\"admissao/sala_de_espera.py\","
       }
     },
@@ -30021,7 +30203,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 468,
+        "line": 498,
         "snippet": "\"coleta/derivacao_forward.py\","
       }
     },
@@ -30032,7 +30214,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 148,
+        "line": 178,
         "snippet": "forward = ex[\"PROVADOS\"][\"coleta/rota_forward_documento.py\"][\"FORWARD\"]"
       }
     },
@@ -30043,7 +30225,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 483,
+        "line": 513,
         "snippet": "\"data/derivados/BENCHMARK-TEMATICO-V1.json\","
       }
     },
@@ -30065,7 +30247,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 854,
+        "line": 928,
         "snippet": "CANARIO = \"data/derivados/O-CANARIO-DA-COLLECTION.json\""
       }
     },
@@ -30076,7 +30258,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 496,
+        "line": 546,
         "snippet": "\"data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json\","
       }
     },
@@ -30109,7 +30291,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 574,
+        "line": 624,
         "snippet": "\"guarda/preservar_coleta.py\"),"
       }
     },
@@ -30120,7 +30302,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 480,
+        "line": 510,
         "snippet": "\"provas/gate_de_aceitacao_tematica.py\","
       }
     },
@@ -30131,7 +30313,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 1238,
+        "line": 1368,
         "snippet": "\"provas/o_canario_da_collection.py\"),"
       }
     },
@@ -30142,8 +30324,30 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 831,
-        "snippet": "\"provas/o_pedido_atravessa.py\" % d.get(\"FIRST_LOST_EDGE\"))"
+        "line": 886,
+        "snippet": "\"provas/o_pedido_atravessa.py\"))"
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "provas/o_pedido_t4_atravessa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 884,
+        "snippet": "\"provas/o_pedido_t4_atravessa.py\"),"
+      }
+    },
+    {
+      "from_file": "provas/os_portoes_da_collection.py",
+      "to_file": "system-map/data/pedido-t4.observado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/os_portoes_da_collection.py",
+        "line": 126,
+        "snippet": "PEDIDOS_OBSERVADOS = ((\"T4\", \"system-map/data/pedido-t4.observado.json\"),"
       }
     },
     {
@@ -30153,8 +30357,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 123,
-        "snippet": "PEDIDO_OBSERVADO = \"system-map/data/pedido.observado.json\""
+        "line": 127,
+        "snippet": "(\"T2\", \"system-map/data/pedido.observado.json\"))"
       }
     },
     {
@@ -30175,7 +30379,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/os_portoes_da_collection.py",
-        "line": 324,
+        "line": 354,
         "snippet": "(\"PROVA\", \"tests/test_m2_rota_forward.py\"),"
       }
     },
@@ -37957,14 +38161,80 @@
       }
     },
     {
-      "from_file": "tests/test_o_pedido_atravessa.py",
-      "to_file": "system-map/data/pedido.observado.json",
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 21,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 23,
+        "snippet": "import admissao as adm  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "coleta/eu_regulatorio_executor.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
-        "file": "tests/test_o_pedido_atravessa.py",
-        "line": 297,
-        "snippet": "\"pedido.observado.json\")"
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 28,
+        "snippet": "EXEC_T4 = os.path.join(RAIZ, \"coleta\", \"eu_regulatorio_executor.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 24,
+        "snippet": "import retorno_da_coleta as rdc  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "pedido/receitas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 25,
+        "snippet": "from receitas import EXECUTORES  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "provas/o_pedido_t4_atravessa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 27,
+        "snippet": "PROVA = os.path.join(RAIZ, \"provas\", \"o_pedido_t4_atravessa.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_pedido_t4_atravessa.py",
+      "to_file": "system-map/data/pedido-t4.observado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_pedido_t4_atravessa.py",
+        "line": 30,
+        "snippet": "\"pedido-t4.observado.json\")"
       }
     },
     {
@@ -41120,7 +41390,7 @@
     "provas/os_portoes_da_collection.py": [
       {
         "pasta": "system-map",
-        "line": 1335,
+        "line": 1465,
         "constante": "caminho"
       }
     ],
@@ -41259,10 +41529,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1519,
-    "files_readable": 592,
-    "files_code_dir": 639,
-    "file_edges": 2739,
+    "files_tracked": 1523,
+    "files_readable": 595,
+    "files_code_dir": 643,
+    "file_edges": 2761,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },

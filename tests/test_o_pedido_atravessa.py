@@ -290,24 +290,41 @@ class ONaoMedidoNaoEPassNoPortao(unittest.TestCase):
         return m
 
     def test_sem_medicao_o_portao_nao_diz_PASS(self):
+        """⚠️ ESTE TESTE ESCONDIA UMA MEDICAO SO, E O PORTAO PASSOU A LER DUAS.
+
+        Ele apagava `pedido.observado.json` e esperava `NOT_MEASURED`. Quando
+        uma segunda classe passou a ser medida, apagar um ficheiro deixou de
+        ser «nao ha medicao nenhuma»: a outra continuava la, a dizer PASS — e
+        o portao respondia PASS, correctamente.
+
+            ESCONDER UMA FONTE NAO E ESCONDER TODAS
+            QUANDO O NUMERO DE FONTES PODE CRESCER.
+
+        A lista deixa de estar escrita aqui e passa a vir do proprio modulo.
+        Uma terceira classe medida entra sozinha, e este teste continua a
+        medir o que diz medir.
+        """
         import shutil
         import tempfile
         m = self._portoes()
-        alvo = os.path.join(m.RAIZ, "system-map", "data",
-                            "pedido.observado.json")
-        guardado = None
-        if os.path.isfile(alvo):
-            guardado = tempfile.mktemp(suffix=".json")
-            shutil.copy(alvo, guardado)
-            os.unlink(alvo)
+        guardados = []
+        for _classe, rel in m.PEDIDOS_OBSERVADOS:
+            alvo = os.path.join(m.RAIZ, rel)
+            if os.path.isfile(alvo):
+                copia = tempfile.mktemp(suffix=".json")
+                shutil.copy(alvo, copia)
+                os.unlink(alvo)
+                guardados.append((alvo, copia))
+        self.assertTrue(m.PEDIDOS_OBSERVADOS,
+                        "o portao deixou de nomear as medicoes que le")
         try:
             estado, porque = m.uma_historia_so()
             self.assertEqual("NOT_MEASURED", estado)
             self.assertIn("NOT_MEASURED != PASS", porque)
         finally:
-            if guardado:
-                shutil.copy(guardado, alvo)
-                os.unlink(guardado)
+            for alvo, copia in guardados:
+                shutil.copy(copia, alvo)
+                os.unlink(copia)
 
     def test_e_uma_historia_partida_tambem_nao(self):
         m = self._portoes()

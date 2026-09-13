@@ -67,21 +67,19 @@
     {
       "CLASS": "T4",
       "ASSUNTO": "Regulatorio",
-      "EXECUTOR": "rotulos-oficiais",
-      "CANONICAL_ACQUISITION": "NO",
-      "PORQUE_AQUISICAO": "declara LEGADO (MANIFEST) — suporte, nunca colheita",
-      "HAS_RUN_ENVELOPE_ON_DISK": "NOT_MEASURED",
-      "PORQUE_ENVELOPE": "este alvo nao declara ENVELOPE — nao ha o que conferir",
+      "EXECUTOR": "regulatorio-eu",
+      "CANONICAL_ACQUISITION": "YES",
+      "PORQUE_AQUISICAO": "retorno.ENVELOPE = data/colheita/eu-regulatorio/RETORNO.json",
+      "HAS_RUN_ENVELOPE_ON_DISK": "YES",
+      "PORQUE_ENVELOPE": "envelope com 1 na COLHEITA, corrida IT-T4-2026-09-13-021335",
       "SPECIES": "DOCUMENTAL",
       "STRUCTURED_SUPPORTED": "YES",
       "PORQUE_STRUCTURED": "documento: `public.documento_estruturado` (migration 030), com dono em guarda/preservar_documento.py",
       "ADMISSION_RULE": "YES",
       "PORQUE_REGRA": "11 termos escritos em PERGUNTAS_DO_UNIVERSO",
-      "CAN_REACH_READY": "NO",
-      "O_QUE_FALTA": [
-        "AQUISICAO_CANONICA"
-      ],
-      "QUANTO_FALTA": 1
+      "CAN_REACH_READY": "YES",
+      "O_QUE_FALTA": [],
+      "QUANTO_FALTA": 0
     },
     {
       "CLASS": "T5",
@@ -229,15 +227,11 @@
       "QUANTO_FALTA": 3
     }
   ],
-  "CANONICAL_CANARY_CLASS": "NONE",
+  "CANONICAL_CANARY_CLASS": "T4",
   "CLASSES_A_UMA_PECA_DE_DISTANCIA": [
     {
       "CLASS": "T2",
       "FALTA": "REGRA_DE_ADMISSAO"
-    },
-    {
-      "CLASS": "T4",
-      "FALTA": "AQUISICAO_CANONICA"
     }
   ],
   "O_QUE_ISTO_ACRESCENTA": "a missao anterior provou que ninguem passa. Esta diz quem esta a UMA peca de passar, e qual peca e — e sao duas perguntas diferentes.",
@@ -262,27 +256,16 @@
     "DONO_DESTA_RESPOSTA": "provas/a_regra_de_t2.py"
   },
   "O_CANARIO_RECOMENDADO": {
-    "CANONICAL_CANARY_CLASS_RECOMENDADA": "T4",
-    "ASSUNTO": "Regulatorio",
-    "PORQUE_ESTA": "e a unica classe a uma peca de distancia cuja peca em falta nao foi medida e reprovada. Ela ja tem regra tematica escrita e ja tem dono STRUCTURED — falta-lhe ir buscar o material pelo contrato canonico",
-    "O_QUE_ELA_JA_TEM": [
-      "REGRA_DE_ADMISSAO",
-      "DONO_STRUCTURED"
-    ],
-    "O_QUE_LHE_FALTA": [
-      "AQUISICAO_CANONICA"
-    ],
+    "CANONICAL_CANARY_CLASS_RECOMENDADA": "NONE",
+    "ASSUNTO": "—",
+    "PORQUE_ESTA": "nenhuma classe esta a uma peca de distancia por um caminho que nao esteja medido e reprovado",
+    "O_QUE_ELA_JA_TEM": [],
+    "O_QUE_LHE_FALTA": [],
     "BLOCKER_REAL": {
-      "O_QUE_E": "o executor de T4 nao declara COLHEITA",
-      "ONDE": "pedido/receitas.py::EXECUTORES['T4'] -> retorno",
-      "ESTADO_HOJE": "declara LEGADO (MANIFEST) — suporte, nunca colheita",
-      "O_QUE_FALTA_TECNICAMENTE": "um ENVELOPE por corrida com RUN_ID, EXECUTOR_ID, EXECUTOR_VERSION, ESTADO e as listas COLHEITA/SUPORTE/ERROS, conforme leis/retorno_da_coleta.py::conferir",
-      "E_O_SCRAP": "NO",
-      "PORQUE_NAO_E_O_SCRAP": "o SCRAP e uma capacidade social e nao coleta documento de ministerio. Integra-lo nao muda uma linha do retorno de T4",
-      "QUEM_RESOLVE": "codigo — e e trabalho de AQUISICAO, que esta fase separou de proposito do fecho da maquina"
+      "O_QUE_E": "NOT_MEASURED"
     },
     "PORQUE_NAO_T2": "T2 e a outra classe a uma peca de distancia, e a peca dela e a regra tematica — medida contra 46 documentos reais e REPROVADA. Escolher T2 obrigaria a escrever a lista que a medicao ja disse que nao existe.",
-    "O_QUE_ISTO_NAO_AUTORIZA": "comecar a aquisicao de T4 dentro desta missao. Fechar a maquina e integrar aquisicao sao fases diferentes, e a ordem aprovada poe a segunda depois da primeira."
+    "O_QUE_ISTO_NAO_AUTORIZA": "comecar a aquisicao de ninguem dentro desta missao. Fechar a maquina e integrar aquisicao sao fases diferentes, e a ordem aprovada poe a segunda depois da primeira."
   },
   "O_TESTE_DO_SCRAP": {
     "CLASSES_QUE_O_SCRAP_SERVE": [

@@ -120,7 +120,11 @@ ETAPAS = ("REQUEST", "ORCHESTRATOR", "EXECUTOR", "RUN", "RAW_OBSERVATION",
 # `system-map/data/pedido.observado.json`, que e escrito por quem aperta o
 # botao. Quando o buraco andar, esta funcao anda com ele sem ninguem se
 # lembrar dela.
-PEDIDO_OBSERVADO = "system-map/data/pedido.observado.json"
+# ⚠️ SAO DUAS MEDICOES, E LER SO UMA DELAS RESPONDE PELA CLASSE ERRADA.
+# Cada ficheiro e a travessia de UMA classe. A pergunta do censo e «esta etapa
+# atravessa por algum pedido?», e nao «atravessa pelo pedido T2?».
+PEDIDOS_OBSERVADOS = (("T4", "system-map/data/pedido-t4.observado.json"),
+                      ("T2", "system-map/data/pedido.observado.json"))
 
 # Os dois censos nomeiam as mesmas etapas com nomes diferentes. Traduzir e
 # barato; deixar dois vocabularios em contacto sem tradutor e que nao e.
@@ -128,18 +132,44 @@ NOME_NA_MEDICAO = {"RAW_OBSERVATION": "RAW", "STORAGE_OBJECT": "STORAGE"}
 
 
 def _estrada_do_pedido():
-    """O que a medicao do PEDIDO observou, etapa a etapa.
+    """O que as medicoes dos PEDIDOS observaram, etapa a etapa.
 
     Devolve `({}, None)` quando ninguem mediu. `NOT_MEASURED != NO`: nao
     saber se uma etapa atravessa nao e o mesmo que saber que ela nao
     atravessa, e o censo tem de conseguir dizer a diferenca.
+
+    Com mais de uma classe medida, uma etapa conta como atravessada quando
+    ALGUMA classe a atravessou — e a evidencia diz qual. Exigir que TODAS as
+    classes atravessem seria outra pergunta, e uma que nenhuma lei faz: T2
+    para na porta por nao ter regra, e isso nao tira a estrada a T4.
     """
-    caminho = os.path.join(RAIZ, PEDIDO_OBSERVADO)
-    if not os.path.isfile(caminho):
-        return {}, None
-    with io.open(caminho, encoding="utf-8") as f:
-        d = json.load(f)
-    return d.get("ESTRADA") or {}, d.get("FIRST_LOST_EDGE")
+    # ⚠️ ESTA JUNCAO JA TEVE UM DEFEITO DE ORDEM, E ELE ERA SUBTIL.
+    # A primeira versao guardava o buraco «se ainda nao houver buraco». Como
+    # a classe que ATRAVESSA nao tem buraco nenhum, ela deixava o campo vazio
+    # — e a classe seguinte, que para, enchia-o. O censo dizia que a estrada
+    # estava inteira E nomeava um buraco ao lado.
+    #
+    #     UM BURACO SO EXISTE SE NINGUEM ATRAVESSAR.
+    #     COM UMA CLASSE INTEIRA, O QUE AS OUTRAS PERDEM E COBERTURA.
+    juntas, buracos, passou = {}, [], False
+    for classe, rel in PEDIDOS_OBSERVADOS:
+        caminho = os.path.join(RAIZ, rel)
+        if not os.path.isfile(caminho):
+            continue
+        with io.open(caminho, encoding="utf-8") as f:
+            d = json.load(f)
+        if d.get("FIRST_LOST_EDGE"):
+            buracos.append(d["FIRST_LOST_EDGE"])
+        for etapa_, v in (d.get("ESTRADA") or {}).items():
+            ja = juntas.get(etapa_)
+            if ja and ja.get("OBSERVED"):
+                continue
+            juntas[etapa_] = {
+                "OBSERVED": bool(v.get("OBSERVED")),
+                "EVIDENCE": "[%s] %s" % (classe, v.get("EVIDENCE") or "")}
+        if d.get("CANONICAL_E2E") == "PASS":
+            passou = True
+    return juntas, (None if passou else (buracos[0] if buracos else None))
 
 
 def cadeia_canonica():
@@ -488,6 +518,26 @@ def gaps():
       "universo T3 em particular, e nao a maquina.",
       "nao e desta fase")
 
+    # ⚠️ ACHADO DE `C-T4-CANONICAL-ACQUISITION-TO-WAITING-ROOM-V1`, e nao
+    # defeito dela: a propriedade e do contrato PARTILHADO, e o adapter
+    # italiano tem-na igual. Fica com nome porque um risco sem nome so
+    # aparece quando morde.
+    G("G-ENV-01", "o envelope vive num caminho por EXECUTOR, e nao por CORRIDA",
+      "pedido/receitas.py::EXECUTORES[*].retorno.ENVELOPE + "
+      "orquestrador/orquestrador.py::o_envelope",
+      "duas corridas do mesmo executor escrevem no MESMO ficheiro; medido: "
+      "perguntar pela colheita de uma corrida inexistente devolve a colheita "
+      "da ultima que escreveu, sem nota e sem recusa",
+      "um envelope por corrida, ou uma recusa quando o RUN_ID nao e o pedido",
+      "provas/o_pedido_t4_atravessa.py::ENVELOPE_PARTILHADO",
+      "MEDIUM", DEBT,
+      "em SERIE nao morde, e a coleta de hoje e em serie: cada corrida "
+      "escreve e o orquestrador le a seguir. Morde quando duas corridas do "
+      "mesmo executor se cruzarem no tempo — e isso e a coleta grande, nao o "
+      "fecho da maquina.",
+      "decidir a convencao do envelope por corrida antes da coleta grande — e "
+      "e decisao para TODOS os executores, nao para um")
+
     G("G-LEG-01", "o estado do legado fora do fluxo nao tem dono runtime",
       "NAO ATRIBUIDO",
       "13 corpos decididos como LEGACY_KEEP_OUT_OF_FLOW, sem estado no "
@@ -819,16 +869,40 @@ def uma_historia_so():
     MESMA historia atravessou?». A resposta vem da medicao que aperta o botao
     no pedido, e nao desta funcao.
     """
-    caminho = os.path.join(RAIZ, "system-map", "data", "pedido.observado.json")
-    if not os.path.isfile(caminho):
-        return "NOT_MEASURED", ("provas/o_pedido_atravessa.py nunca correu "
-                                "neste HEAD — e NOT_MEASURED != PASS")
-    with io.open(caminho, encoding="utf-8") as f:
-        d = json.load(f)
-    if d.get("CANONICAL_E2E") == "PASS":
-        return "PASS", "um pedido atravessou de REQUEST a SALA DE ESPERA"
-    return "FAIL", ("a mesma historia parou em `%s` — medido em "
-                    "provas/o_pedido_atravessa.py" % d.get("FIRST_LOST_EDGE"))
+    # ⚠️ A PERGUNTA E «ALGUMA CLASSE ATRAVESSA?», E NAO «T2 ATRAVESSA?».
+    # Esta funcao lia UM ficheiro — a medicao do pedido T2 — e por isso
+    # respondia sobre uma classe enquanto o nome dela dizia «a estrada».
+    # Enquanto so havia uma classe medida, as duas perguntas tinham a mesma
+    # resposta; no dia em que uma segunda classe atravessou, deixaram de ter.
+    #
+    #     UMA CLASSE NAO ATRAVESSA != A ESTRADA NAO ATRAVESSA.
+    #
+    # T2 continua a parar na porta, e isso continua CERTO: ela nao tem regra
+    # tematica escrita, e a porta nao inventa uma. O que mudou e que T4
+    # atravessa — e uma estrada provada por uma classe e uma estrada provada.
+    medicoes = (("T4", "pedido-t4.observado.json",
+                 "provas/o_pedido_t4_atravessa.py"),
+                ("T2", "pedido.observado.json",
+                 "provas/o_pedido_atravessa.py"))
+    lidas, faltam = [], []
+    for classe, ficheiro, prova in medicoes:
+        caminho = os.path.join(RAIZ, "system-map", "data", ficheiro)
+        if not os.path.isfile(caminho):
+            faltam.append("%s (%s)" % (classe, prova))
+            continue
+        with io.open(caminho, encoding="utf-8") as f:
+            lidas.append((classe, prova, json.load(f)))
+    if not lidas:
+        return "NOT_MEASURED", ("nenhuma classe foi medida neste HEAD: %s — e "
+                                "NOT_MEASURED != PASS" % " · ".join(faltam))
+    for classe, prova, d in lidas:
+        if d.get("CANONICAL_E2E") == "PASS":
+            return "PASS", ("um pedido %s atravessou de REQUEST a SALA DE "
+                            "ESPERA, na mesma corrida `%s` — medido em %s"
+                            % (classe, d.get("RUN_ID"), prova))
+    paradas = ["%s parou em `%s`" % (c, d.get("FIRST_LOST_EDGE"))
+               for c, _p, d in lidas]
+    return "FAIL", ("nenhuma classe atravessou: %s" % " · ".join(paradas))
 
 
 # ⚠️ DUAS FRASES QUE SO SE ESCREVEM SE ESTIVEREM PROVADAS.
@@ -852,6 +926,21 @@ def uma_historia_so():
 # que o SCRAP serve a aquisicao de graca e pergunta o que ainda lhe falta.
 # Aqui le-se essa resposta em vez de a adivinhar outra vez.
 CANARIO = "data/derivados/O-CANARIO-DA-COLLECTION.json"
+NAO_MEDIDO_CERT = "UNKNOWN"
+
+
+def _censo_das_classes():
+    """O censo classe a classe, lido de quem o mede.
+
+    ⚠️ NAO SE RECONTA AQUI. `provas/o_canario_da_collection.py` e o dono desta
+    contagem, e uma segunda contagem sobre os mesmos ficheiros divergiria no
+    dia em que uma das duas aprendesse alguma coisa.
+    """
+    caminho = os.path.join(RAIZ, CANARIO)
+    if not os.path.isfile(caminho):
+        return []
+    with io.open(caminho, encoding="utf-8") as f:
+        return json.load(f).get("CENSO") or []
 
 
 def _o_scrap_fecharia():
@@ -873,21 +962,61 @@ def certificacao(core, primeiro_perdido):
     else:
         fecharia = teste.get("SCRAP_WOULD_CLOSE_CURRENT_GAP")
         porque_scrap = teste.get("PORQUE_NAO") or "—"
+
+    # QUEM AINDA NAO TEM AQUISICAO, E DE QUEM E CADA BURACO.
+    # Le-se do censo das classes, que e quem mede isto.
+    censo_ = _censo_das_classes()
+    sem_aquisicao = [l for l in censo_
+                     if l.get("CANONICAL_ACQUISITION") != "YES"]
+    sociais = sorted(l["CLASS"] for l in sem_aquisicao
+                     if l.get("SPECIES") == "PLATAFORMA")
+    nao_sociais = sorted(l["CLASS"] for l in sem_aquisicao
+                         if l.get("SPECIES") != "PLATAFORMA")
+    if not censo_:
+        so_o_scrap = NAO_MEDIDO_CERT
+    elif not sem_aquisicao:
+        so_o_scrap = "NO"
+    else:
+        so_o_scrap = "YES" if (sociais and not nao_sociais) else "NO"
+
     return OrderedDict([
         ("COLLECTION_V1_CORE_READY_WITHOUT_SCRAP", "YES" if pronto else "NO"),
         ("PORQUE", core["PORQUE_A_HISTORIA"]),
         ("SCRAP_WOULD_CLOSE_CURRENT_GAP", fecharia),
-        ("ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP",
-         "YES" if (pronto or fecharia == "YES") else "NO"),
+        # ⚠️ ESTA FRASE ESTEVE A UM PASSO DE SAIR FALSA, E PELO ATALHO MAIS
+        # INOCENTE QUE HA: `pronto or ...`. Com o core fechado, ela dizia
+        # «so falta o SCRAP» sem nunca ter perguntado quem mais falta.
+        #
+        #     A MAQUINA ESTAR FECHADA NAO DIZ NADA
+        #     SOBRE QUANTAS CLASSES AINDA NAO A ATRAVESSAM.
+        #
+        # Uma classe provou a estrada. Nove continuam sem aquisicao canonica, e
+        # so UMA delas e do dominio do SCRAP. Dizer «so falta o SCRAP» mandava
+        # alguem integrar o SCRAP e descobrir depois que oito classes ficaram
+        # exactamente onde estavam.
+        ("ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP", so_o_scrap),
+        ("QUEM_MAIS_FALTA", nao_sociais),
+        ("O_QUE_A_MAQUINA_FECHADA_DIZ",
+         "que a estrada existe e foi atravessada de ponta a ponta por uma "
+         "classe real. NAO diz que as outras classes ja a atravessam: diz que "
+         "quando elas tiverem aquisicao, a estrada esta la."),
         ("PORQUE_NAO_E_SO_O_SCRAP",
-         "—" if (pronto or fecharia == "YES") else
-         ("o buraco medido e `%s`. Medido: o SCRAP serve %s, e essa classe JA "
+         "—" if so_o_scrap == "YES" else
+         ("faltam %d classes sem aquisicao canonica, e so %s e do dominio do "
+          "SCRAP. As outras (%s) esperam por executores que o SCRAP nao "
+          "escreve. "
+          % (len(sem_aquisicao), ", ".join(sociais) or "nenhuma",
+             ", ".join(nao_sociais) or "nenhuma")
+          + ("%s " % (("O buraco da estrada e `%s`." % primeiro_perdido)
+                        if primeiro_perdido else
+                        "A estrada em si nao tem buraco: uma classe "
+                        "atravessou-a inteira."))
+          + "Medido: o SCRAP serve %s, e essa classe JA "
           "tem regra tematica — dando-lhe a aquisicao de graca, ela continua "
           "a parar antes de READY. %s Continua a ser preciso ANTES da coleta "
           "grande, mas nao e a unica coisa que falta, e dizer que e "
           "autorizava comecar pela peca errada."
-          % (primeiro_perdido or "NAO_MEDIDO",
-             ", ".join((teste or {}).get("CLASSES_QUE_O_SCRAP_SERVE")
+          % (", ".join((teste or {}).get("CLASSES_QUE_O_SCRAP_SERVE")
                        or ["NAO_MEDIDO"]),
              porque_scrap))),
         ("O_CANARIO_QUE_FECHARIA", (
@@ -967,6 +1096,7 @@ DONOS_DA_MEDICAO = (
     "docs/biblia/leis.json",
     "system-map/data/buracos.generated.json",
     "system-map/data/pedido.observado.json",
+    "system-map/data/pedido-t4.observado.json",
 )
 
 

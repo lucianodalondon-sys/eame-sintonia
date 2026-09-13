@@ -180,13 +180,55 @@ class OCaminhoEstaLigado(CasoB1):
         self.assertEqual(r.returncode, 2)
         self.assertIn("NAO cunha corrida", r.stderr)
 
-    def test_6_nenhum_executor_antigo_mudou_de_linha_de_comando(self):
+    # ⚠️ QUEM PEDE A CORRIDA PEDE-A POR ESCRITO, E A LISTA E AQUI.
+    # Este teste nasceu com `if e["id"] == "italia-recorrente": continue` — um
+    # unico nome no meio do codigo. Naquele dia «antigo» e «nao e o italiano»
+    # eram a mesma coisa; deixaram de ser quando um executor NOVO entrou a
+    # pedir a corrida de propósito.
+    #
+    #     UM TESTE QUE CODIFICA «TODOS MENOS ESTE»
+    #     REPROVA O PROXIMO QUE TIVER O MESMO DIREITO.
+    #
+    # A propriedade que sobrevive nao e «so o italiano pede»: e que PEDIR A
+    # CORRIDA E UM ACTO DELIBERADO E VISIVEL. Com a lista aqui, acrescentar um
+    # executor que a recebe obriga a mexer nesta linha — que e exactamente a
+    # revisao que se quer.
+    PEDEM_A_CORRIDA = {
+        "italia-recorrente",   # B1 · o adapter italiano, o primeiro a pedi-la
+        "regulatorio-eu",      # T4 · o adapter regulatorio, que nao cunha
+    }
+
+    def test_6_so_recebe_corrida_quem_a_pede_por_escrito(self):
         for universo, lista in EXECUTORES.items():
             for e in lista:
-                if e["id"] == "italia-recorrente":
+                if e["id"] in self.PEDEM_A_CORRIDA:
                     continue
                 self.assertNotIn("recebe_run_id", e,
-                                 "%s/%s passou a receber corrida sem a pedir"
+                                 "%s/%s passou a receber corrida sem a pedir. "
+                                 "Se foi de propósito, o nome dele entra em "
+                                 "PEDEM_A_CORRIDA — nunca em silencio"
+                                 % (universo, e["id"]))
+
+    def test_6b_quem_pede_a_corrida_NAO_a_cunha(self):
+        """O direito de RECEBER a corrida vem com o dever de nao a inventar.
+
+            PROVENIENCIA E PROSPECTIVA: quem cunha a propria corrida
+            nao e chamado — e um segundo pipeline com o mesmo nome.
+        """
+        import ast as _ast
+        import io as _io
+        for universo, lista in EXECUTORES.items():
+            for e in lista:
+                if not e.get("recebe_run_id"):
+                    continue
+                caminho = os.path.join(RAIZ, e["roda"][0])
+                with _io.open(caminho, encoding="utf-8") as fh:
+                    arvore = _ast.parse(fh.read())
+                cunha = [n for n in _ast.walk(arvore)
+                         if isinstance(n, _ast.Call)
+                         and getattr(n.func, "id", "") == "novo_run_id"]
+                self.assertEqual([], cunha,
+                                 "%s/%s recebe a corrida E cunha outra"
                                  % (universo, e["id"]))
 
 

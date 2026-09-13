@@ -95,6 +95,41 @@ EXECUTORES = {
         "custo": "gratuito",
     }],
     "T4": [{
+        # ⚠️ ESTE EXECUTOR ENTROU A FRENTE DO `rotulos-oficiais`, E NAO NO
+        # LUGAR DELE. O orquestrador corre `plano.executores[0]`, e a ordem
+        # desta lista e portanto uma DECISAO, nao arrumacao.
+        #
+        # O censo das classes mediu que T4 estava a UMA peca de atravessar a
+        # Collection inteira — tinha regra de admissao e dono STRUCTURED, e
+        # nao tinha aquisicao canonica. O `rotulos-oficiais` nao a podia dar:
+        # declara `LEGADO/MANIFEST` (suporte, que nunca atravessa) e a fonte
+        # dele nao verifica TLS deste ambiente.
+        #
+        #     UM EXECUTOR QUE NAO PODE DECLARAR COLHEITA
+        #     NAO E UM EXECUTOR MAU: E OUTRO TRABALHO.
+        #
+        # O `rotulos-oficiais` FICA: ele indexa 163 rotulos e esse indice tem
+        # valor. Sai da frente porque nao colhe — nao porque nao sirva.
+        "id": "regulatorio-eu",
+        # F1 · a corrida DECLARA o que produziu. Origem legitima de COLHEITA.
+        "retorno": {"ENVELOPE": "data/colheita/eu-regulatorio/RETORNO.json"},
+        "roda": ["coleta/eu_regulatorio_executor.py"],
+        # O adapter NAO cunha corrida: recebe a que o orquestrador cunhou.
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/eu-regulatorio/"],
+        # O pedido escolhe o ato; a receita traduz o filtro em argumento.
+        "argumentos_de_filtros": ["celex"],
+        # ⚠️ ESTE CELEX NAO FOI ESCOLHIDO POR CASAR COM A REGRA DA PORTA.
+        # E o que a ficha de `EU-T4-001` ja nomeia no campo `real_example`,
+        # escrito por outra missao. O criterio e mais velho do que a medicao.
+        "filtros_por_omissao": {"celex": "32026R1696"},
+        "rotas": ["EUR-Lex por CELEX (rota declarada no contrato de "
+                  "EU-T4-001)"],
+        "o_que_traz": "o ato regulatorio oficial da UE, em PDF, como o Jornal "
+                      "Oficial o publica, com o CELEX que a fonte declara como "
+                      "identidade",
+        "custo": "gratuito",
+    }, {
         "id": "rotulos-oficiais",
         # F3 · o retorno e o MANIFESTO de 163 descargas. Os 163 PDF que ele
         # indexa nao estao nesta arvore: `PAYLOAD = AUSENTE`, e ausencia

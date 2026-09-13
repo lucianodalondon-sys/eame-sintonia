@@ -368,31 +368,65 @@ class AFraseDeFechoNaoSeArredonda(unittest.TestCase):
             "NO", c["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
             "um buraco que o SCRAP nao tapa nao pode dar «so falta o SCRAP»")
 
-    def test_a_segunda_frase_segue_a_MEDICAO_e_nao_o_sitio_do_buraco(self):
-        """⚠️ A ARMADILHA ERA ESTA: «o SCRAP nao esta integrado, logo e ele
-        que falta». Nao e. A pergunta e se o buraco QUE ESTA LA seria tapado
-        por integrar o SCRAP.
+    def test_a_segunda_frase_conta_QUEM_FALTA_e_nao_se_o_core_fechou(self):
+        """⚠️ TERCEIRA VERSAO DESTE TESTE, E A TERCEIRA ARMADILHA E A PIOR.
 
-        E a segunda armadilha, que custou este teste: responder a essa
-        pergunta ADIVINHANDO pelo sitio do buraco. Uma lista de arestas
-        escrita a mao responde bem aos buracos que ja se viram e mal a todos
-        os outros. Agora a resposta vem de quem mediu, e este teste prova que
-        a certificacao a SEGUE — nos dois sentidos.
+        A primeira armadilha: «o SCRAP nao esta integrado, logo e ele que
+        falta». A segunda: responder a isso ADIVINHANDO pelo sitio do buraco.
+
+        A terceira apareceu quando o core FECHOU: a certificacao calculava
+        `pronto or fecharia == "YES"`, e com o core fechado passou a dizer «so
+        falta o SCRAP» sem nunca ter perguntado quem mais falta.
+
+            A MAQUINA ESTAR FECHADA NAO DIZ NADA
+            SOBRE QUANTAS CLASSES AINDA NAO A ATRAVESSAM.
+
+        A propriedade que sobrevive as tres: a frase conta as classes SEM
+        aquisicao canonica e so diz YES se TODAS forem do dominio do SCRAP.
         """
-        fecha = self._cert("FAIL", "parou", "EXECUTOR -> RUN",
-                           {"SCRAP_WOULD_CLOSE_CURRENT_GAP": "YES",
-                            "CLASSES_QUE_O_SCRAP_SERVE": ["T9"],
-                            "PORQUE_NAO": "—"})
-        nao_fecha = self._cert("FAIL", "parou", "ADMISSION -> READY",
-                               {"SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
-                                "CLASSES_QUE_O_SCRAP_SERVE": ["T9"],
-                                "PORQUE_NAO": "T9 para em STRUCTURED"})
+        real = P._censo_das_classes
+        def censo(sociais, outras):
+            return ([{"CLASS": c, "CANONICAL_ACQUISITION": "NO",
+                      "SPECIES": "PLATAFORMA"} for c in sociais]
+                    + [{"CLASS": c, "CANONICAL_ACQUISITION": "NO",
+                        "SPECIES": "DOCUMENTAL"} for c in outras]
+                    + [{"CLASS": "T4", "CANONICAL_ACQUISITION": "YES",
+                        "SPECIES": "DOCUMENTAL"}])
+        try:
+            # so falta social -> a frase pode dizer YES
+            P._censo_das_classes = lambda: censo(["T9"], [])
+            so_social = self._cert("PASS", "atravessou", None)
+            # falta social E documental -> tem de dizer NO, mesmo com o core
+            # fechado, que e exactamente o caso que quase passou
+            P._censo_das_classes = lambda: censo(["T9"], ["T3", "T7"])
+            misturado = self._cert("PASS", "atravessou", None)
+        finally:
+            P._censo_das_classes = real
         self.assertEqual(
-            "YES", fecha["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
-            "a medicao disse que o SCRAP fecharia e a certificacao "
-            "discordou dela")
+            "YES", so_social["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
         self.assertEqual(
-            "NO", nao_fecha["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"])
+            "NO", misturado["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
+            "com o core fechado e oito classes por integrar, a frase disse "
+            "«so falta o SCRAP»")
+        self.assertIn("T3", str(misturado["QUEM_MAIS_FALTA"]),
+                      "a frase diz NO e nao nomeia quem falta")
+
+    def test_o_core_fechado_NAO_e_argumento_para_a_segunda_frase(self):
+        """A guarda direta do atalho `pronto or ...`."""
+        real = P._censo_das_classes
+        try:
+            P._censo_das_classes = lambda: [
+                {"CLASS": "T3", "CANONICAL_ACQUISITION": "NO",
+                 "SPECIES": "DOCUMENTAL"}]
+            fechado = self._cert("PASS", "atravessou", None)
+            aberto = self._cert("FAIL", "parou", "ADMISSION -> READY")
+        finally:
+            P._censo_das_classes = real
+        self.assertEqual(
+            fechado["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
+            aberto["ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP"],
+            "o veredicto do core mudou a resposta sobre o SCRAP — e sao duas "
+            "perguntas diferentes")
 
     def test_sem_medicao_nenhuma_nao_se_certifica(self):
         """`NOT_MEASURED != PASS`, e tambem nao e «so falta o SCRAP»."""
@@ -430,11 +464,22 @@ class AFraseDeFechoNaoSeArredonda(unittest.TestCase):
             return [c for c in ast.walk(no)
                     if isinstance(c, ast.Constant) and c.value == "YES"]
 
-        condicionais = set()
+        # ⚠️ E ESTA GUARDA JA FOI LARGA DE MAIS, e mordeu codigo correcto.
+        # Ela contava QUALQUER `"YES"` fora de uma condicao — e apanhou
+        # `if l.get("CANONICAL_ACQUISITION") != "YES"`, que nao AFIRMA nada:
+        # le o valor de outra pessoa.
+        #
+        #     AFIRMAR «YES» E PRODUZIR UM VEREDICTO.
+        #     COMPARAR COM «YES» E LER O VEREDICTO DE OUTRO.
+        #
+        # E a mesma familia da guarda que bania `listdir` e reprovava quem
+        # listava a Sala de Espera para a MEDIR. Uma guarda larga de mais
+        # reprova o uso legitimo, e quem a herdar aprende a desliga-la.
+        permitidos = set()
         for no in ast.walk(fn):
-            if isinstance(no, (ast.IfExp, ast.If)):
-                condicionais.update(id(c) for c in sins(no))
-        soltos = [c.lineno for c in sins(fn) if id(c) not in condicionais]
+            if isinstance(no, (ast.IfExp, ast.If, ast.Compare)):
+                permitidos.update(id(c) for c in sins(no))
+        soltos = [c.lineno for c in sins(fn) if id(c) not in permitidos]
         self.assertEqual([], soltos,
                          "ha «YES» fora de qualquer condicao nas linhas %s: "
                          "a certificacao passou a afirmar sem calcular"
