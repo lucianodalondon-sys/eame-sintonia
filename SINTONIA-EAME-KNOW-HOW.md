@@ -11558,3 +11558,212 @@ faltava — `PREVISOES_FINGERPRINT`, para quem investigar saber onde olhar.
 - **A concorrência foi provada até 20 corridas** simultâneas sobre o mesmo
   documento, que é o pior caso para as chaves únicas. Acima disso é
   `NOT_MEASURED`.
+
+---
+
+# §104 · UMA GUARDA QUE CONFERE E DEPOIS CONSOME NÃO GUARDA NADA
+
+**Missão:** `SINTONIA-SCRAP NIGHT-SHIFT-01` + `SCRAP-MORNING-01` — madrugada de
+hardening e integração na Release.
+**Branch:** `claude/sintonia-scrap-night-shift-01` → RC por fast-forward
+**Data:** 2026-09-13
+
+A `§103` aprendeu, do lado da Collection, que **uma máquina provada em série é
+uma máquina provada em série**. Na mesma noite, do lado do SCRAP, a mesma lição
+apareceu noutra forma — e a forma importa, porque a cura de lá (escrita atómica
+em ficheiro) não serve aqui.
+
+## 104.1 · O DINHEIRO
+
+A porta paga tinha duas linhas que pareciam uma:
+
+```python
+if autorizacao.restantes <= 0: recusa
+reg['GASTAS'] += 1
+```
+
+```
+autorização para 1 execução   ->  2 corridas pagaram
+autorização para 3 execuções  ->  5 corridas pagaram
+```
+
+E não só na primitiva. Pela **porta paga de verdade** — o coletor inteiro, com o
+provider falso por baixo da guarda, dos dois tetos e do cap do fornecedor — com
+16 fios sobre teto 3 **nasceram 4 POSTs**.
+
+    UMA GUARDA QUE CONFERE E DEPOIS CONSOME
+    DEIXA PASSAR QUEM CHEGAR NO MEIO.
+    CONFERIR E CONSUMIR TÊM DE SER UM SÓ ACTO.
+
+`+= 1` também não é atómico: ler, somar e escrever são três passos, e o
+interpretador troca de fio entre bytecodes. A `§97` já tinha ensinado que **um
+limite conferido contra um ledger que muda não foi conferido**; esta é a irmã
+temporal dela — um limite conferido e consumido em dois momentos também não foi
+conferido.
+
+**E há uma parte de método que se transfere inteira.** A corrida é rara com o
+intervalo de troca de fio normal, e rara não é ausente. `sys.setswitchinterval`
+encurtado **não inventa** a corrida — ela existe no código ou não existe. Só a
+torna visível numa medição de segundos em vez de numa de meses.
+
+    «NÃO APARECEU» NÃO É «NÃO EXISTE».
+
+A trava é **uma**, do módulo, e não uma por autorização: a secção crítica não faz
+E/S nenhuma. E não precisa de atravessar processos — o selo é um `object()` do
+processo, e uma autorização reconstruída noutro lado é recusada como fabricada.
+Medido, não presumido.
+
+    UM PROCESSO, UM REGISTO, UMA TRAVA.
+
+## 104.2 · UMA ROTA QUE NÃO CORREU NÃO OBSERVOU NADA
+
+Pôr cada capacidade `READY` a andar pelo caminho real — e não a ser contada —
+encontrou duas a responder o impossível:
+
+```
+instagram.reel.capture   RESULT = ROUTE_NOT_ALLOWED   e 1 objeto
+PROVIDER_USED = None · COST_STATE = NOT_RUN · sockets abertos = 0
+```
+
+O objeto era um esqueleto com todos os campos em `NOT_KNOWN` — e, levado pelo
+dono da colheita com uma fonte no pedido, virava **uma unidade carimbada com um
+`SOURCE_ID` verdadeiro**, sem um único reparo do contrato de retorno. Na forma,
+uma observação perfeita de uma fonte real.
+
+    UMA ROTA QUE NÃO CORREU NÃO OBSERVOU NADA.
+    UM ESQUELETO COM SOURCE_ID É UMA OBSERVAÇÃO FABRICADA.
+
+O esqueleto nasce de propósito lá em baixo: a cadeia de Reel distingue REUSAR de
+ADQUIRIR, e o portão está onde o socket abre para não recusar reprocessamento
+local. O erro estava em cima, em quem decide o que é colheita.
+
+**E o sinal não é o estado de falha.** Uma rota que colheu dez e depois levou
+`RATE_LIMITED` colheu dez de verdade. O sinal é o do dono do custo, que nasce
+`NOT_RUN` e só quem corre sobrescreve.
+
+    NOT_RUN != COST 0. UNKNOWN COST != COST 0.
+
+## 104.3 · UM ERRO DE AMBIENTE CONHECIDO NÃO É «NÃO SEI»
+
+Num runner sem Chrome, `instagram.profile.discovery` chegava como
+`UNKNOWN_ERROR` — o balde de «ninguém sabe» — enquanto a mensagem dizia, por
+extenso, «sem Chrome nesta máquina».
+
+    UMA MENSAGEM QUE SABE E UM ESTADO QUE NÃO SABE
+    VALEM MENOS QUE NENHUM DOS DOIS: QUEM LÊ POR MÁQUINA LÊ O ESTADO.
+
+De manhã, `UNKNOWN_ERROR` sobre Instagram manda alguém depurar o Instagram —
+quando o que falta é um navegador. É a irmã da `§102.1` com o eixo trocado: lá
+concluiu-se sobre a classe medindo um endereço; aqui, sabendo-se a causa exacta,
+publicou-se «não sei».
+
+**Nada disto era vocabulário novo.** A taxonomia já tinha o estado e já listava
+o nome nativo; a ferramenta já tinha a constante. Os dois donos concordavam e
+ninguém os tinha ligado.
+
+    FAILURE STATE VEM DO DONO, OU NÃO É FAILURE STATE.
+
+**E consertar o trace não chega.** Isso mediu-se na integração, no dia seguinte:
+o *trace* já dizia `EXECUTOR_UNAVAILABLE`, `NEEDS_HUMAN_FIX` e a frase — e o
+**recibo** que atravessa a fronteira levava cinco chaves, nenhuma delas a
+recuperação nem a frase.
+
+    CONSERTAR O TRACE É CONSERTAR O TRACE. O QUE ATRAVESSA É O RECIBO.
+    UM ESTADO QUE SABE, NUM RECIBO QUE NÃO O LEVA,
+    VOLTA A SER «NÃO SEI» PARA QUEM LÊ.
+
+Dois defeitos gerais caíram ao consertar este, e nenhum era do Instagram:
+`setdefault` sobre uma chave escrita a `None` nunca deriva nada — **uma chave
+escrita a `None` não é uma chave ausente** — e um carregador de estado que só
+leva NOMES apaga a única linha que diz *qual* ferramenta faltava.
+
+    UM NOME E UMA FRASE NÃO CABEM NO MESMO CAMPO.
+
+## 104.4 · A MÁQUINA DE PROVAR PROVAVA MENOS DO QUE DIZIA
+
+Três defeitos, nenhum no produto. Estão todos na parte que julga o produto — que
+é a mais cara quando mente, porque ninguém a audita.
+
+**Um comentário roubou a âncora de um mutante.** A madrugada escreveu, no mesmo
+ficheiro, um comentário que CITAVA a linha que o mutante mutava. `replace(…, 1)`
+trocou o comentário; o código ficou intacto; o relatório chamou-lhe sobrevivente
+e acusou a bateria de um buraco que ela não tinha.
+
+    UM COMENTÁRIO QUE CITA O CÓDIGO
+    ROUBA A ÂNCORA DE QUEM MUTA O CÓDIGO.
+
+A cura não é re-ancorar aquele mutante: é a mutação passar a **contar** as
+ocorrências e recusar-se a correr quando a âncora não é única. O guarda apanhou
+um segundo caso no minuto em que nasceu.
+
+    UM MUTANTE QUE NÃO MUDA NENHUM NÚMERO NÃO SE CONSEGUE VIGIAR.
+    E UM QUE MUDA O NÚMERO ERRADO É PIOR: ELE MENTE COM CONFIANÇA.
+
+**E uma sentinela era cega por escolher o sujeito errado.** Ela comparava
+`CAPABILITY_STATE_BEFORE` com `AFTER` — e o canário era a única capacidade já
+declarada `PROVEN`. Sobre ela, «não promoveu» e «promoveu para PROVEN» são a
+mesma linha.
+
+    UMA SENTINELA QUE VIGIA UM CAMPO CUJO VALOR JÁ É O DA MUTAÇÃO
+    NÃO VIGIA NADA.
+    UMA PROVA QUE SÓ CORRE ONDE O ERRO É INVISÍVEL NÃO É UMA PROVA.
+
+## 104.5 · UM WORKTREE DESCARTÁVEL NÃO É UM STORAGE DESCARTÁVEL
+
+O ensaio SCRAP → Collection correu o ingresso **deles** sobre os dados
+**nossos**, sem merge. Passou — e escreveu cinco observações dentro do checkout
+que estava a ler.
+
+Não fez mal: o checkout era um worktree temporário e detached, a ref nunca se
+moveu, nada foi commitado. Mas isso é sorte de endereço, não propriedade da
+prova.
+
+    UMA PROVA QUE ESCREVE NA ÁRVORE QUE LÊ MEDE A ÁRVORE QUE ELA MUDOU.
+    UM WORKTREE DESCARTÁVEL NÃO É UM STORAGE DESCARTÁVEL.
+
+O código tem de vir da árvore verdadeira — é ele que está sob prova. Os **bytes**
+vão para uma raiz que a prova cria e que mais ninguém conhece.
+
+## 104.6 · PASSAR TEXTO É PASSAR ESPÉCIE, NÃO SÓ VALOR
+
+O ensaio liga do contrato à admissão e para numa aresta só: a unidade chega
+**sem texto**, e quem julga responde `NÃO SEI` — que é a resposta certa para um
+item sem conteúdo.
+
+O envelope guarda o texto em `TEXT`; quem julga lê `texto`. Nenhum dos dois mapas
+o carrega. A ligação parece uma linha, e é por isso que é perigosa: escrevê-la
+apaga a espécie.
+
+```
+CAPTION != TRANSCRIPT
+ORIGINAL != TRANSLATED
+```
+
+Uma legenda escrita pelo autor e uma fala reconhecida por máquina chegariam ao
+mesmo campo, indistinguíveis — e essa é a primeira pergunta que a inteligência
+faz sobre qualquer classificação.
+
+    PASSAR TEXTO SEM PASSAR A ESPÉCIE DELE
+    É ENTREGAR UMA RESPOSTA SEM DIZER A QUE PERGUNTA ELA RESPONDE.
+
+Ligá-lo são **duas** decisões, não uma: o campo do texto, e o campo que diz o que
+ele é. A segunda precisa de vocabulário que a porta hoje não tem. Sem as duas,
+`E7 = BLOCKED_BY_CONTRACT_DECISION` — e isso **não** reprova o motor a montante.
+
+    A CADEIA LIGAR E A ADMISSÃO DIZER SIM SÃO DUAS PERGUNTAS.
+
+## 104.7 · CONSEQUÊNCIA
+
+```
+· onde houver estado consumível, perguntar se confere e consome no MESMO acto
+· o sinal de que uma rota correu é do dono do custo, não do estado de falha
+· quem sabe a causa publica a causa, e o recibo leva o que o trace soube
+· mutação por texto conta antes de trocar; prova escolhe sujeito onde o erro
+  possa aparecer
+· prova escreve em storage próprio, não na árvore que lê
+· texto que atravessa fronteira viaja com a espécie, ou não viaja
+```
+
+**Medido:** 56 ataques · 0 sobreviventes · 37 mutantes · 0 sobreviventes ·
+0 regressões na suíte inteira comparada por identidade ·
+`REAL_PAID_RUNS = 0` · `PAID_USD = 0`.
