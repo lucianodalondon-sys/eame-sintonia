@@ -686,5 +686,109 @@ class OCanarioCorreMesmo(unittest.TestCase):
                          self.trace['CAPABILITY_STATE_AFTER'])
 
 
+
+# ══════════════════════════════════════════════════════════════════════════
+# NS1–NS7 · UMA ROTA QUE NÃO CORREU NÃO OBSERVOU NADA
+# ══════════════════════════════════════════════════════════════════════════
+class UmaRotaQueNaoCorreuNaoObservouNada(unittest.TestCase):
+    """⚠️ DEFEITO MEDIDO NA NIGHT-SHIFT-01 §6, E REPRODUZIDO ANTES DE CORRIGIDO.
+
+    `instagram.reel.capture` é recusada pela política — `RESULT =
+    ROUTE_NOT_ALLOWED`, `PROVIDER_USED = None`, `COST_STATE = NOT_RUN` — e
+    mesmo assim devolve UM objeto: um esqueleto de REEL com todos os campos em
+    `NOT_KNOWN`. Ele nasce de propósito LÁ EM BAIXO, porque a cadeia de Reel
+    distingue REUSAR de ADQUIRIR e devolve o que sabe mesmo quando a aquisição
+    é recusada. O erro estava AQUI EM CIMA: quem decide o que é COLHEITA é
+    `scrap_colheita`, e ele carimbava o esqueleto com um `SOURCE_ID`
+    verdadeiro. O contrato deixava passar sem um único reparo.
+
+        UMA ROTA QUE NÃO CORREU NÃO OBSERVOU NADA.
+        UM ESQUELETO COM SOURCE_ID É UMA OBSERVAÇÃO FABRICADA.
+
+    O par `(objetos, trace)` desta bateria NÃO é escrito à mão: é o que a
+    cadeia real devolve AGORA, medido em `setUpClass` pelo caminho real.
+
+        UM TRACE INVENTADO PROVA UMA SITUAÇÃO INVENTADA.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        pinar_o_banco()
+        cls.objetos, cls.trace = sx.COLLECT(
+            platform='INSTAGRAM', capability='instagram.reel.capture',
+            run_id='NS01-ROTA-RECUSADA',
+            url='https://www.instagram.com/reel/EXEMPLO/')
+
+    def _colher_com(self, objetos, trace):
+        """Corre o DONO DA COLHEITA sobre um par que a cadeia real produziu.
+
+        Troca-se `COLLECT` e mais nada: o que está sob prova é a decisão de
+        `scrap_colheita` — e essa decisão é a que estava errada.
+        """
+        real = sx.COLLECT
+        sx.COLLECT = lambda **_k: (objetos, trace)
+        try:
+            return sc.colher(FASE, run_id='NS01', fonte=FONTE, handle=HANDLE)
+        finally:
+            sx.COLLECT = real
+
+    def test_ns1_a_rota_recusada_devolve_mesmo_um_objeto(self):
+        """A PREMISSA DESTA BATERIA É MEDIDA, E NÃO SUPOSTA.
+
+        Se a cadeia deixar de devolver o esqueleto, as sentinelas abaixo
+        passariam a provar o vazio. Então mede-se a premissa primeiro.
+        """
+        self.assertEqual(self.trace['RESULT'], 'ROUTE_NOT_ALLOWED')
+        self.assertEqual(len(self.objetos), 1)
+
+    def test_ns2_e_o_dono_do_custo_diz_que_ela_nao_correu(self):
+        """NOT_RUN != COST 0. O SINAL É DO DONO DO CUSTO, NÃO DO ESTADO DE FALHA."""
+        self.assertEqual(self.trace['COST_STATE'], sc.NAO_CORREU)
+        self.assertIsNone(self.trace['PROVIDER_USED'])
+        self.assertFalse(self.trace['PAID_PROVIDER_USED'])
+
+    def test_ns3_o_esqueleto_nao_traz_nada_que_se_tenha_observado(self):
+        reel = self.objetos[0]['REEL']
+        sabidos = [k for k, v in reel.items()
+                   if v not in ('NOT_KNOWN', None, '', [])
+                   and k not in ('PLATFORM', 'POST_ID', 'SOURCE_URL')]
+        self.assertEqual(sabidos, [],
+                         'a rota nao correu e ainda assim sabe %s' % sabidos)
+
+    def test_ns4_nada_disso_vira_colheita(self):
+        self.assertEqual(self._colher_com(self.objetos, self.trace)['COLHEITA'], [])
+
+    def test_ns5_mas_tambem_nao_desaparece(self):
+        """NÃO DESTRUIR EVIDÊNCIA SILENCIOSAMENTE: sai por SUPORTE, contado."""
+        env = self._colher_com(self.objetos, self.trace)
+        desconhecido = [s for s in env['SUPORTE']
+                        if s['ESPECIE'] == rc.ESPECIE_DESCONHECIDA]
+        self.assertEqual(len(desconhecido), 1)
+        self.assertEqual(desconhecido[0]['QUANTOS'], len(self.objetos))
+        self.assertIn(rc.RUN_RECEIPT, [s['ESPECIE'] for s in env['SUPORTE']])
+
+    def test_ns6_e_o_envelope_diz_porque_o_zero_e_zero(self):
+        """UM ZERO SEM MOTIVO ESCRITO LÊ-SE COMO FALHA DA FONTE."""
+        env = self._colher_com(self.objetos, self.trace)
+        porque = env['PORQUE_ZERO_COLHEITA']
+        self.assertIn(sc.NAO_CORREU, porque)
+        self.assertIn('ROUTE_NOT_ALLOWED', porque)
+        self.assertEqual(env['ESTADO'], rc.PARTIAL)
+        self.assertEqual(rc.conferir(env, RAIZ), [])
+
+    def test_ns7_e_uma_rota_QUE_CORREU_continua_a_colher(self):
+        """A GUARDA NÃO PODE FECHAR A PORTA A QUEM ENTROU PELA PORTA.
+
+        O canário corre a sério contra o mundo falso: se a guarda lesse o
+        estado de falha em vez do estado do custo, este zero apareceria aqui.
+        """
+        pinar_o_banco()
+        env = sc.colher(FASE, run_id='NS01-CORREU', fonte=FONTE, handle=HANDLE)
+        self.assertEqual(env['ESTADO'], rc.SUCCESS)
+        self.assertEqual(len(env['COLHEITA']), 1)
+        self.assertEqual(env['COLHEITA'][0]['SOURCE_ID'], FONTE)
+        self.assertNotIn('PORQUE_ZERO_COLHEITA', env)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

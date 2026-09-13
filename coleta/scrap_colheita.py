@@ -180,6 +180,10 @@ DO_SCRAP_PARA_A_PORTA = {
 
 DESCONHECIDO = 'UNKNOWN'
 
+#: O valor de nascenca de `COST_STATE` em `coleta/social_rotas.py`: a rota nao
+#: correu. So quem corre o sobrescreve.
+NAO_CORREU = 'NOT_RUN'
+
 
 def _limpo(v):
     """→ o valor, ou None quando ele é uma confissão de ausência."""
@@ -244,6 +248,50 @@ def colher(fase, *, run_id, fonte, banco=None, **extra):
     estado = rc.SUCCESS if trace.get('RESULT') in (None, 'OK', 'SUCCESS') else rc.PARTIAL
     erros = []
     porque_zero = ''
+
+    # ── UMA ROTA QUE NAO CORREU NAO OBSERVOU NADA ──────────────────────────
+    # ⚠️ MEDIDO NA NIGHT-SHIFT-01, e reproduzido antes de corrigido:
+    #
+    #     instagram.reel.capture · RESULT = ROUTE_NOT_ALLOWED
+    #     PROVIDER_USED = None  ·  COST_STATE = NOT_RUN
+    #     -> e mesmo assim UM objeto voltava, e virava UMA unidade de COLHEITA
+    #        carimbada com um SOURCE_ID verdadeiro.
+    #
+    # O objeto era um esqueleto: todos os campos em `NOT_KNOWN`. Ele nasce de
+    # proposito — a cadeia de Reel distingue REUSAR de ADQUIRIR e devolve o que
+    # sabe mesmo quando a aquisicao e recusada, o que esta certo LA. O que
+    # estava errado era aqui: quem decide o que e COLHEITA e este ficheiro, e
+    # ele contava o esqueleto como observacao.
+    #
+    #     UMA ROTA QUE NAO CORREU NAO OBSERVOU NADA.
+    #     UM ESQUELETO COM SOURCE_ID E UMA OBSERVACAO FABRICADA.
+    #
+    # O sinal nao e o estado de falha — uma rota que colheu dez e depois levou
+    # `RATE_LIMITED` colheu dez de verdade. O sinal e o do dono do custo, que
+    # nasce `NOT_RUN` e so quem corre sobrescreve:
+    #
+    #     NOT_RUN != COST 0. UNKNOWN COST != COST 0.  (`coleta/social_rotas.py`)
+    if objetos and trace.get('COST_STATE') == NAO_CORREU:
+        suporte = suporte_do_trace(trace) + [
+            {'ESPECIE': rc.ESPECIE_DESCONHECIDA, 'ONDE': '',
+             'O_QUE_E': 'o que a rota devolveu sem ter corrido: %s'
+                        % (trace.get('RESULT') or 'sem estado'),
+             'PAYLOAD': {'ONDE': '', 'ESTADO': rc.PAYLOAD_NAO_SE_APLICA},
+             'QUANTOS': len(objetos)}]
+        return {
+            'RUN_ID': run_id, 'EXECUTOR_ID': EXECUTOR_ID,
+            'EXECUTOR_VERSION': EXECUTOR_VERSION, 'ESTADO': rc.PARTIAL,
+            'COLHEITA': [], 'SUPORTE': suporte, 'ERROS': erros,
+            'FASE': fase, 'PLATFORM': plataforma, 'CAPABILITY': capacidade,
+            'ESPECIE_DA_FASE': especie,
+            'SOURCE_ID_DO_PEDIDO': fonte or rc.NAO_SEI,
+            'PORQUE_ZERO_COLHEITA': (
+                'a rota nao correu (COST_STATE=%s, RESULT=%s) e, mesmo assim, '
+                'devolveu %d objeto(s). Eles NAO sao observacoes: saem por '
+                'SUPORTE. Uma rota que nao correu nao observou nada, e um '
+                'esqueleto carimbado com SOURCE_ID seria observacao fabricada.'
+                % (NAO_CORREU, trace.get('RESULT'), len(objetos))),
+        }
 
     if especie != rc.COLHEITA:
         # ── A FASE DECLAROU QUE NAO PRODUZ COLHEITA, E ISSO E UM FACTO ──────

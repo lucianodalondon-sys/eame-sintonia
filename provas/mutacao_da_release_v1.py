@@ -240,6 +240,12 @@ MUTACOES = [
      "    'linkedin.direct_post': ('LINKEDIN', BLOCKED, ONLINE, None, _C11, 'FETCH_POST'),",
      "    'linkedin.direct_post': ('LINKEDIN', PROVEN, ONLINE, None, _C11, 'FETCH_POST'),",
      'uma rota que funciona nao e uma rota permitida'),
+
+    # ── 11 · UMA ROTA QUE NAO CORREU VOLTA A PODER OBSERVAR ───────────────
+    ('M31 · o esqueleto de uma rota recusada volta a ser colheita', ADP,
+     "    if objetos and trace.get('COST_STATE') == NAO_CORREU:",
+     "    if False:",
+     'uma rota que nao correu nao observou nada'),
 ]
 
 
