@@ -54,6 +54,18 @@ import json, os, sys, tempfile
 RAIZ = sys.argv[1]
 ENVELOPE = sys.argv[2]
 sys.path.insert(0, RAIZ)
+# ── O ENSAIO ESCREVE NUM DESCARTAVEL, E NUNCA NA ARVORE QUE LE ────────────
+# ⚠️ MEDIDO: a primeira versao passava `raiz=RAIZ` ao ingresso, e o armazem
+# escreveu CINCO observacoes dentro do checkout da Collection —
+# `IT/it-t9-001/OBSERVATION/*.json`. Correu num worktree temporario, e por
+# isso nao fez mal; mas uma sonda que so e inofensiva por causa de onde a
+# apontaram nao e uma sonda inofensiva.
+#
+#     UMA PROVA QUE ESCREVE NA ARVORE QUE LE MEDE A ARVORE QUE ELA MUDOU.
+#
+# O codigo vem de `RAIZ`. Os BYTES vao para um sitio que esta prova cria e
+# que ninguem mais conhece.
+BANCO = tempfile.mkdtemp(prefix='ns-ensaio-collection-')
 import _gavetas                                                    # noqa: F401
 import admissao as adm
 import ingresso as ing
@@ -66,7 +78,7 @@ def caso(nome, ok, detalhe=''):
 env = json.load(open(ENVELOPE, encoding='utf-8'))
 run = env.get('RUN_ID')
 
-mal = rdc.conferir(env, RAIZ)
+mal = rdc.conferir(env, BANCO)
 caso('E1_o_contrato_da_collection_aceita_o_envelope_do_scrap',
      not mal, '; '.join(mal[:3]))
 
@@ -95,8 +107,8 @@ def medir(nome, fn, detalhe=lambda v: ''):
 
 r = medir('E3_o_ingresso_aceita_a_unidade',
           lambda: ing.receber(itens, corrida=recibo,
-                              armazem=ing.ArmazemLocal(RAIZ), memoria=None,
-                              raiz=RAIZ),
+                              armazem=ing.ArmazemLocal(BANCO), memoria=None,
+                              raiz=BANCO),
           lambda v: ('aceites=%d recusas=%s'
                      % (len(v['ACEITES']),
                         json.dumps([x.get('PORQUE') for x in v['RECUSAS']])[:160])
