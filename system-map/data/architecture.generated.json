@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-operational-readiness-overnight-v1",
-    "HEAD": "42555816c6bf2319289a38679576ee8d8615dfce",
-    "GENERATED_AT": "2026-09-13T03:57:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "c96409aaf53b369cf9779594734a9b17dfa45fd4058bfb8102bc17f51100af5e"
+    "BRANCH": "claude/close-postgres-ci-before-live-v1",
+    "HEAD": "822666002c12b1523876f3f4eb7336338b1b01a5",
+    "GENERATED_AT": "2026-09-13T04:03:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5b3606accd9e0f01eed2d2a1b8d521b5d2d7f52f7cfbb5c62116b5e0165a049e"
   },
   "FILES": [
     {
@@ -7941,7 +7941,7 @@
     },
     {
       "path": "provas/a_fase_10_entra_no_acervo.py",
-      "sha": "c658ef03c0b66b6e022b08d4f01265f07c9c54c6",
+      "sha": "884b7672112843b154d7853790aed471fde3f4d4",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9960,6 +9960,13 @@
       "sha": "19c5f7fb716ae3199e5e04b5e6eaf29129e3157f",
       "ext": ".json",
       "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_fase_10_entra_no_acervo.py",
+      "sha": "dccd6d41d6ae92674d3a0d23c586d0848e5aacd3",
+      "ext": ".py",
+      "readable": true,
       "code_dir": true
     },
     {
@@ -26900,7 +26907,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_fase_10_entra_no_acervo.py",
-        "line": 504,
+        "line": 693,
         "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256"
       }
     },
@@ -26911,7 +26918,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_fase_10_entra_no_acervo.py",
-        "line": 64,
+        "line": 76,
         "snippet": "CADEIA = os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\")"
       }
     },
@@ -26922,7 +26929,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_fase_10_entra_no_acervo.py",
-        "line": 58,
+        "line": 70,
         "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))"
       }
     },
@@ -26933,7 +26940,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_fase_10_entra_no_acervo.py",
-        "line": 179,
+        "line": 312,
         "snippet": "ok, e = ficheiro(url, os.path.join(MIGRACOES, \"026_a_observacao_ganha_identidade.sql\"))"
       }
     },
@@ -26944,7 +26951,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_fase_10_entra_no_acervo.py",
-        "line": 62,
+        "line": 74,
         "snippet": "M027 = \"027_a_observacao_deixa_de_ser_o_endereco.sql\""
       }
     },
@@ -34206,6 +34213,17 @@
         "file": "tests/fixtures/ARESTAS/owner_indireto.py",
         "line": 2,
         "snippet": "from ajudante import persistir"
+      }
+    },
+    {
+      "from_file": "tests/test_a_fase_10_entra_no_acervo.py",
+      "to_file": "provas/a_fase_10_entra_no_acervo.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_a_fase_10_entra_no_acervo.py",
+        "line": 45,
+        "snippet": "PROVA = \"provas/a_fase_10_entra_no_acervo.py\""
       }
     },
     {
@@ -41867,7 +41885,7 @@
     "provas/a_fase_10_entra_no_acervo.py": [
       {
         "pasta": "supabase/migrations",
-        "line": 373,
+        "line": 562,
         "constante": "alvo"
       }
     ],
@@ -42032,10 +42050,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1532,
-    "files_readable": 600,
-    "files_code_dir": 648,
-    "file_edges": 2801,
+    "files_tracked": 1533,
+    "files_readable": 601,
+    "files_code_dir": 649,
+    "file_edges": 2802,
     "escritas_em_pasta": 71,
     "declared_missing_here": 0
   },

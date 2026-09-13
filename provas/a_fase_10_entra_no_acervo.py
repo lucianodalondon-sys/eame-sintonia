@@ -19,8 +19,19 @@ A FIXTURE TEM A FORMA DO VIVO, E ISSO É O PONTO
 -----------------------------------------------
 252 observações legadas, `id` esparsos até 890, o corte da fase 8 instalado
 sobre eles, 252 cópias ligadas uma a uma, e um derivado. O livro-razão já
-regista `001`–`026`, como o do banco canónico. O aplicador vê exactamente o
-que veria em produção: **uma** migration pendente.
+regista **tudo o que a cadeia percorre menos a `027`** — quantas forem, hoje
+ou daqui a dez migrations. O aplicador vê exactamente o que veria em
+produção: **uma** migration pendente, e é essa.
+
+    O CENARIO E «SO A 027 ESTA PENDENTE».
+    NAO E «HA 26 MIGRATIONS».
+
+O segundo não é o cenário: é uma consequência dele, medida num dia. Escrita
+como expectativa, ela caduca na migration seguinte — e foi o que aconteceu:
+a `028`, a `029` e a `030` chegaram, o cenário continuou exactamente o mesmo,
+e a prova reprovou na aritmética. Por isso o que se compara aqui são
+CONJUNTOS DE VERSÕES, e nunca contagens; a contagem pode aparecer no log,
+mas não decide nada.
 
 ⚠️ Nenhum byte vem do banco vivo. A fixture é gerada, e a semelhança é
 ESTRUTURAL — contagens, dispersão dos ids, ligações, corte. É a forma que
@@ -43,6 +54,7 @@ raiz temporária. O que se mede a seguir é o que ficou instalado.
 """
 import hashlib
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -68,7 +80,96 @@ SEP = "\x1f"
 LINHAS_LEGADAS = 252
 CORTE_ESPERADO = 757          # 252 * 3 + 1, a dispersão que a fixture gera
 
+# ── OS TRÊS PAPÉIS, CADA UM COM UM DONO SÓ ───────────────────────────────
+# Estas três constantes são a ÚNICA fonte de «que migration é especial e
+# porquê». Antes o mesmo juízo estava escrito três vezes — no laço que
+# aplica, no laço que semeia o livro-razão, e implicitamente nos números
+# 25 e 26 — e três cópias de uma regra são três oportunidades de divergir.
+#
+#     ONE CONCEPT -> ONE OWNER.
+#
+# A `008` CONFERE, NÃO CRIA. Ela lê o que as outras fizeram e reclama se não
+# bater. O aplicador canónico exclui-a por isto mesmo (`grep -v '/008_'` em
+# `motor/cadeia_canonica.sh`), e aqui exclui-se pela MESMA razão declarada —
+# não por coincidência de listas.
+SO_VERIFICA = ("008",)
+
+# A migration que ESTA prova encena. Ela fica de fora da fixture porque é
+# ela que se quer ver chegar.
+EM_PROVA = "027"
+
+# A `026` entra DEPOIS do acervo, e não na ordem do número: é ela que
+# classifica o legado e instala o corte, e corrê-la sobre uma tabela vazia
+# daria um corte de zero.
+DEPOIS_DO_ACERVO = "026"
+
+_MIGRACAO = re.compile(r"^MIGRATION_(\d{3})=(.*)$")
+
 FORA = []
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# O UNIVERSO, MEDIDO — E NUNCA HERDADO
+# ─────────────────────────────────────────────────────────────────────────
+def universo_da_cadeia():
+    """As versões que o aplicador canónico vai percorrer, pela MESMA regra
+    que ele usa: todo o `supabase/migrations/*.sql`, menos a que só confere.
+
+    Lê-se do disco a cada corrida. Uma migration nova entra aqui sozinha, e
+    é exactamente isso que impede que esta prova volte a caducar."""
+    return {n[:3] for n in os.listdir(MIGRACOES)
+            if n.endswith(".sql") and n[:3] not in SO_VERIFICA}
+
+
+def livro_razao(url):
+    """O que o livro-razão diz, LIDO DO BANCO. Não é uma lista escrita nesta
+    prova: é o estado que a fixture realmente deixou lá."""
+    ok, linhas, _ = psql(url, "select versao from public.schema_migracao")
+    return {l[0] for l in linhas} if ok else set()
+
+
+def o_que_a_cadeia_disse(linhas):
+    """O log do aplicador, lido por VOCABULÁRIO e não por contagem.
+
+    São três destinos diferentes, e confundi-los é confundir
+    `ERRO != RECUSADO != DESCONHECIDO`:
+
+        SKIP ... HASH=MATCH      o livro sabia, e o ficheiro não mudou
+        SKIP (objetos ja existem) o livro NÃO sabia; foi o banco que disse
+        PASS                      correu agora
+    """
+    saltadas, por_ja_existir, aplicadas, outras = set(), set(), set(), set()
+    for l in linhas:
+        m = _MIGRACAO.match(l)
+        if not m:
+            continue
+        num, destino = m.group(1), m.group(2)
+        if destino.startswith("SKIP") and "HASH=MATCH" in destino:
+            saltadas.add(num)
+        elif destino.startswith("SKIP"):
+            por_ja_existir.add(num)
+        elif destino == "PASS":
+            aplicadas.add(num)
+        else:
+            outras.add(num)
+    return saltadas, por_ja_existir, aplicadas, outras
+
+
+def faixas(versoes):
+    """`{001..007, 009..030}` escrito como `001-007,009-030`: cabe no log e
+    continua a ser o conjunto, e não o tamanho dele."""
+    if not versoes:
+        return "(vazio)"
+    ns = sorted(versoes)
+    saida, inicio, anterior = [], ns[0], ns[0]
+    for n in ns[1:]:
+        if int(n) == int(anterior) + 1:
+            anterior = n
+            continue
+        saida.append(inicio if inicio == anterior else "%s-%s" % (inicio, anterior))
+        inicio = anterior = n
+    saida.append(inicio if inicio == anterior else "%s-%s" % (inicio, anterior))
+    return ",".join(saida)
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -108,6 +209,32 @@ def _e(nome, obtido, esperado):
     return bate
 
 
+def _e_conjunto(nome, obtido, esperado):
+    """A MESMA pergunta do `_e`, feita sobre CONJUNTOS DE VERSÕES.
+
+    Existe porque a versão em números já caducou uma vez: `25` e `26` eram
+    verdade no dia em que foram escritas e mentira na migration seguinte, e
+    o conserto tentador era trocá-los por `28` e `29` — o que só adiaria o
+    mesmo defeito para a `031`.
+
+        UMA CONTAGEM CADUCA. UM CONJUNTO NÃO SABE CONTAR, E POR ISSO
+        TAMBÉM NÃO SABE CADUCAR.
+
+    Quando falha, diz QUAIS faltam e QUAIS sobram. É essa a frase útil: um
+    `28 != 25` não diz a ninguém o que mudou."""
+    bate = sorted(obtido) == sorted(esperado)
+    print("  %-52s %-34s %s" % (nome, faixas(obtido),
+                                "OK" if bate else "!! esperado=%s" % faixas(esperado)))
+    if not bate:
+        faltam, sobram = set(esperado) - set(obtido), set(obtido) - set(esperado)
+        if faltam:
+            print("  %-52s %s" % ("    FALTAM", faixas(faltam)))
+        if sobram:
+            print("  %-52s %s" % ("    SOBRAM", faixas(sobram)))
+        FORA.append(nome)
+    return bate
+
+
 def diz(nome, v):
     print("  %-52s %s" % (nome, v))
 
@@ -116,19 +243,25 @@ def diz(nome, v):
 # 1 · A FIXTURE, COM A FORMA DO VIVO
 # ─────────────────────────────────────────────────────────────────────────
 def fixture_pos_026(url):
-    """Um banco no estado EXACTO em que o canónico está hoje: `001`–`026`
-    aplicadas, acervo legado dentro, livro-razão a saber disso.
+    """Um banco com TUDO aplicado menos a `027`: acervo legado dentro, e o
+    livro-razão a saber disso.
 
-    As `001`–`025` entram por `psql` porque a cadeia aplicaria TODAS — e o que
+    As outras entram por `psql` porque a cadeia aplicaria TODAS — e o que
     esta prova precisa é do momento ANTES da `027`. A `026` entra a seguir ao
     acervo, e não antes: é ela que classifica o legado e instala o corte, e
     corrê-la sobre uma tabela vazia daria um corte de zero.
 
         A ORDEM E A DA VIDA REAL, E NAO A CONVENIENTE.
+
+    E O QUE FICA DE FORA FICA POR UM MOTIVO DITO, e não por um número
+    escrito: `SO_VERIFICA` porque confere, `EM_PROVA` porque é o assunto,
+    `DEPOIS_DO_ACERVO` porque precisa do acervo lá. Uma migration nova entra
+    aqui sozinha — e o cenário continua a ser o mesmo cenário.
     """
     psql(url, "drop schema public cascade; create schema public;")
     for nome in sorted(os.listdir(MIGRACOES)):
-        if not nome.endswith(".sql") or nome[:3] in ("008", "026", "027"):
+        if not nome.endswith(".sql") or nome[:3] in (
+                SO_VERIFICA + (DEPOIS_DO_ACERVO, EM_PROVA)):
             continue
         ok, e = ficheiro(url, os.path.join(MIGRACOES, nome))
         if not ok:
@@ -190,7 +323,7 @@ def fixture_pos_026(url):
               " resultado text not null,"
               " sha256 text not null)")
     for nome in sorted(os.listdir(MIGRACOES)):
-        if not nome.endswith(".sql") or nome[:3] in ("008", "027"):
+        if not nome.endswith(".sql") or nome[:3] in SO_VERIFICA + (EM_PROVA,):
             continue
         psql(url, "insert into public.schema_migracao (versao, resultado, "
                   "sha256) values ('%s','APLICADA','%s') on conflict (versao) "
@@ -271,22 +404,71 @@ def parte_upgrade(url):
        um(url, "select count(*) from public.schema_migracao where "
                "versao='027'"), 0)
 
+    # ── O UNIVERSO DECLARADO, ANTES DE A CADEIA CORRER ───────────────
+    # Declara-se PRIMEIRO e mede-se DEPOIS. Declarar o esperado depois de
+    # ver a saída seria escrever o gabarito a partir da resposta — e é
+    # exactamente assim que uma prova passa a não medir nada.
+    no_cenario = universo_da_cadeia()
+    ja_aplicadas = livro_razao(url)
+    pendentes = no_cenario - ja_aplicadas
+    esperadas_saltadas = no_cenario & ja_aplicadas
+
+    print("\n  -- o universo deste cenario, medido e nao herdado")
+    diz("MIGRATIONS_IN_SCENARIO", "%s  (%d)" % (faixas(no_cenario), len(no_cenario)))
+    diz("ALREADY_APPLIED_BEFORE_TEST",
+        "%s  (%d)" % (faixas(ja_aplicadas), len(ja_aplicadas)))
+    diz("EXPECTED_PENDING", faixas(pendentes))
+
+    # O CENÁRIO, COBRADO AO CENÁRIO. Se a fixture um dia deixar de encenar
+    # «só a 027 pendente», esta prova diz isso em vez de medir outra coisa e
+    # chamar-lhe a mesma. É a única versão escrita à mão neste bloco, e tem
+    # de ser: ela É o assunto da prova.
+    _e_conjunto("O_CENARIO_TEM_A_027_COMO_UNICA_PENDENTE", pendentes, {EM_PROVA})
+
+    # A `008` NÃO É UMA MIGRATION QUE FALTA — é uma que confere. Medido, e
+    # não assumido: o ficheiro existe no disco E está fora do universo.
+    _e("A_008_EXISTE_NO_DISCO",
+       len([n for n in os.listdir(MIGRACOES)
+            if n.endswith(".sql") and n[:3] in SO_VERIFICA]), len(SO_VERIFICA))
+    _e_conjunto("E_ESTA_FORA_DO_UNIVERSO_PORQUE_CONFERE",
+                no_cenario & set(SO_VERIFICA), set())
+
     print("\n  -- e agora a cadeia canonica, com a 027 como unica pendente")
     codigo, saida, erro = aplicar_pela_cadeia(url)
     linhas = saida.splitlines()
     _e("A_CADEIA_TERMINOU_BEM", codigo, 0)
     if codigo:
         print("    " + (erro or saida)[-400:])
-    saltadas = [l for l in linhas if "SKIP (ja no livro-razao) HASH=MATCH" in l]
-    _e("AS_ANTERIORES_FORAM_SALTADAS_COM_HASH_A_BATER", len(saltadas), 25)
-    _e("A_027_FOI_APLICADA",
-       "MIGRATION_027=PASS" if "MIGRATION_027=PASS" in linhas else
-       [l for l in linhas if "027" in l] or "NADA SOBRE A 027",
-       "MIGRATION_027=PASS")
-    _e("NENHUMA_OUTRA_FOI_APLICADA",
-       len([l for l in linhas if l.endswith("=PASS")]), 1)
-    _e("NENHUMA_FOI_PULADA",
-       len([l for l in linhas if l.startswith("MIGRATION_")]), 26)
+
+    saltadas, por_ja_existir, aplicadas, outras = o_que_a_cadeia_disse(linhas)
+    diz("ACTUALLY_SKIPPED", "%s  (%d)" % (faixas(saltadas), len(saltadas)))
+    diz("ACTUALLY_APPLIED", faixas(aplicadas))
+
+    # 1+2 · AS QUE O LIVRO JÁ TINHA FORAM SALTADAS, E COM O SHA A BATER.
+    # O `HASH=MATCH` está dentro do critério de leitura: uma saltada sem ele
+    # não entra neste conjunto, e a igualdade parte-se.
+    _e_conjunto("AS_ANTERIORES_FORAM_SALTADAS_COM_HASH_A_BATER",
+                saltadas, esperadas_saltadas)
+
+    # E SALTAR NÃO É TUDO O MESMO. Saltar porque o livro sabia é o cenário;
+    # saltar porque o banco respondeu «já existe» significa que o livro NÃO
+    # sabia — outra história, com o mesmo aspecto no log.
+    _e_conjunto("NENHUM_SKIP_FOI_POR_OBJETO_JA_EXISTIR", por_ja_existir, set())
+
+    # 4 · A 027 ENTROU.
+    _e_conjunto("A_027_FOI_APLICADA", aplicadas & {EM_PROVA}, {EM_PROVA})
+
+    # 5 · E MAIS NENHUMA. Com a linha de cima, isto é `aplicadas == {027}`
+    # escrito nas duas metades que se lêem: entrou esta, e não entrou outra.
+    _e_conjunto("NENHUMA_OUTRA_FOI_APLICADA", aplicadas - pendentes, set())
+
+    # 6 · E NINGUÉM DESAPARECEU PELO CAMINHO. Toda versão do universo tem de
+    # ter um destino dito em voz alta. Uma migration que a cadeia nunca
+    # menciona não é uma migration que passou: é uma que ninguém viu.
+    #
+    #     SILENCIO NAO E PASS.
+    _e_conjunto("NENHUMA_FOI_PULADA", saltadas | aplicadas, no_cenario)
+    _e_conjunto("E_NENHUMA_TEVE_DESTINO_ESTRANHO", outras, set())
 
     print("\n  -- o livro-razao")
     _e("LEDGER_TEM_A_027",
@@ -295,6 +477,13 @@ def parte_upgrade(url):
     _e("LEDGER_GUARDOU_O_SHA_DO_FICHEIRO",
        um(url, "select sha256 from public.schema_migracao where versao='027'"),
        sha_do(os.path.join(MIGRACOES, M027)))
+
+    # O LIVRO FICOU COERENTE COM O UNIVERSO — nem a menos (uma correu e não
+    # ficou registada: a próxima corrida reaplica-a) nem a mais (ficou
+    # registada uma que não correu: a próxima corrida salta-a para sempre).
+    # Os dois erros são silenciosos, e é por isso que se pergunta.
+    _e_conjunto("O_LIVRO_RAZAO_FECHOU_IGUAL_AO_UNIVERSO",
+                livro_razao(url), no_cenario)
 
     print("\n  -- o acervo, relido")
     depois = censo(url)
