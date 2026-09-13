@@ -12309,3 +12309,202 @@ E ao construí-lo, três coisas quase o invalidaram:
 de falhas idêntico, `NEW_FAILURES = 0`, `DISAPPEARED_TESTS = 0` ·
 `POSTGRES_DISPOSABLE = PASS` · 19 ataques e 6 mutantes, **0 sobreviventes** ·
 `SCRAP_TOUCHED = NO` · `LIVE_READS = LIVE_WRITES = 0`.
+
+---
+
+# §108 · A ETAPA QUE NÃO SE APLICA, E A FALHA QUE NÃO ACONTECEU
+
+**Missão:** `C-INTEGRATE-SCRAP-INTO-CURRENT-COLLECTION-V1` — fechamento final:
+as duas dúvidas que ainda impediam o SCRAP de entrar na Collection.
+**Branch:** `claude/integrate-scrap-current-collection-v1`
+**Data:** 2026-09-13
+
+Duas perguntas ficaram de pé depois de a estrada estar provada. A primeira era
+um `FAIL` que ninguém sabia se era defeito. A segunda era uma prova que media
+uma coisa e dizia outra. As duas ensinaram o mesmo: **antes de consertar,
+classificar** — e depois **exigir ver o que se diz ter visto**.
+
+## 108.1 · UMA ETAPA NÃO APLICÁVEL NÃO É PASS, E MUITO MENOS FAIL
+
+A etapa `DERIVED` saía `FAIL` com `EXTRACTION_ERROR` em **toda** corrida do
+SCRAP. A tentação era caçar o erro. A pergunta certa era anterior:
+
+```
+DERIVED PRECISA DE EXISTIR PARA ESTE MATERIAL?
+```
+
+A resposta estava escrita há muito, em três sítios que ninguém tinha juntado:
+
+* `derived_artifact.kind` é uma lista **fechada** — `TEXT_EXTRACTION`, `OCR`,
+  `TRANSCRIPTION`, `TRANSLATION`, `THUMBNAIL`, `FRAME`, `TABLE_EXTRACTION` — e
+  toda ela é transformação de um byte-stream **noutro**;
+* `COL-LAW-006` manda **ordem** (*preserva o original, depois deriva*), e não
+  existência;
+* o contrato do texto entrega a espécie **na porta**: o texto de uma observação
+  social chega declarado, não extraído.
+
+Uma observação social é um JSON cujo texto já vem dentro. Não há o que derivar.
+
+```
+DERIVED_APPLICABILITY = NOT_APPLICABLE
+```
+
+E o estado para dizer isso **já existia**, com a definição exacta, em
+`leis/telemetria.py`: `NOT_APPLICABLE` — «não existe nesta rota, com razão
+escrita» — e `ETAPA_ACONTECEU = ('PASS','PARTIAL')` já o excluía de contar como
+trabalho feito. Não se inventou vocabulário nenhum.
+
+```
+NOT_APPLICABLE != FAIL      a etapa nao se partiu
+NOT_APPLICABLE != PASS      e tambem nao aconteceu
+NOT_APPLICABLE != SILENCIO  a passagem fica ESCRITA no rastro
+```
+
+A terceira é a que se perde mais fácil. Bastava não chamar o runner e a corrida
+saía sem linha `DERIVED` nenhuma — que se lê, três meses depois, como «ninguém
+sabe se aquela etapa correu». E sabia-se.
+
+```
+UMA ETAPA QUE NAO SE APLICA NAO E UMA ETAPA SEM RESPOSTA.
+```
+
+## 108.2 · UMA CAPACIDADE DECLARADA QUE NINGUÉM LÊ NÃO GUARDA NADA
+
+A causa do `FAIL` não era o extrator. Era a pergunta que a porta fazia:
+
+```python
+local = armazem.caminho_local(caminho)
+if not local: ...        # «os bytes estao alcancaveis?»
+unidades.append({"RAW_ASSET_ID": ..., "PDF": local})
+```
+
+Uma pergunta só — e a chave da unidade chama-se literalmente `"PDF"`.
+
+```
+ALCANCAR OS BYTES NAO E SABER O QUE ELES SAO.
+UMA FERRAMENTA QUE RECEBE O QUE NAO SABE ABRIR NAO FALHOU:
+FOI CHAMADA PARA O TRABALHO ERRADO.
+```
+
+E o mais instrutivo: o executor **já declarava** o que sabe abrir —
+`CAPACIDADE["SUPPORTS"] = ["PDF_RAW"]` — desde o primeiro dia. Medido: a string
+`SUPPORTS` aparecia na linha que a escreve **e em mais lado nenhum** do código
+de produção.
+
+```
+UMA CAPACIDADE DECLARADA QUE NINGUEM LE NAO GUARDA NADA.
+```
+
+É a irmã da lei que esta casa já tinha escrito duas vezes — *um parâmetro
+opcional que ninguém consegue passar não é opcional: é inexistente*. Aqui não
+era um parâmetro: era uma declaração de capacidade, e o efeito foi o mesmo.
+
+O conserto foi ligar a declaração a quem decide, e **a regra tem três ramos**:
+
+```
+especie DECLARADA e suportada      -> deriva
+especie DECLARADA e nao suportada  -> nao deriva, e diz-se porque
+especie NAO DECLARADA              -> deriva, como sempre derivou
+```
+
+O terceiro não é zelo. Sem ele, bastaria um writer deixar de escrever a coluna
+para metade do acervo parar de derivar **em silêncio**, e nada ficaria vermelho.
+
+```
+AUSENCIA NAO E RECUSA. «NAO SEI» NUNCA AUTORIZA A CONCLUIR «NAO SERVE».
+```
+
+## 108.3 · DUAS CORRIDAS NOVAS NÃO SÃO UMA CORRIDA REPETIDA
+
+Havia uma prova de «repetição»: corria a mesma fonte duas vezes e media o que
+ficava. Ela é verdadeira e está certa — só não prova o que o nome sugere.
+
+```
+NEW RUN + NEW RUN          e idempotencia ENTRE corridas
+UMA CORRIDA FALHA -> RETRY e recuperacao DENTRO de uma
+```
+
+São duas perguntas com donos diferentes, e só a segunda responde «o que
+acontece quando uma corrida falha». Medido, o contrato desta casa responde as
+duas em sítios distintos: `orquestrador.correr()` **não tem porta de retoma** —
+cada chamada cunha `RUN_ID` novo — e o retry real vive **por etapa**, dentro da
+corrida, com `rastro.proxima_tentativa` e o contador `raw_asset.attempts`.
+
+```
+1a tentativa   RUN_STATE=PARTIAL  · RAW=0 · etapa RAW/0 = FAIL
+retry          RUN_STATE=COMPLETE · RAW=2 · etapa RAW/1 = PASS
+```
+
+O mesmo `RUN_ID`, zero duplicação, linhagem fechada — e **a tentativa 0 fica**.
+Apagar o que falhou apagaria a evidência daquilo que se está a consertar.
+
+## 108.4 · UMA FALHA QUE NÃO ACONTECEU PASSA EM QUALQUER PROVA QUE NÃO A EXIJA
+
+Para medir o retry era preciso uma falha controlada **depois** de a corrida já
+estar persistida. A pedra caiu no sítio errado **três vezes**:
+
+| tentativa | porque falhou |
+|---|---|
+| endereço calculado com `RUN_ID` inventado | o sha do bruto **embute** o `RUN_ID` — o endereço só existe depois de a corrida ter nome |
+| `chmod 0o555` no depósito | a prova corre como `root`, e o root ignora bits de permissão |
+| `data/raw/observacoes/` | o depósito real é `IT/<fonte>/OBSERVATION/` |
+
+Nas três, a colheita passou inteira e a corrida saiu `COMPLETE`. Uma prova
+escrita só com «o retry recuperou?» teria dito **retry provado** tendo medido
+uma corrida que nunca falhou.
+
+```
+UMA FALHA QUE NAO ACONTECEU PASSA EM QUALQUER PROVA
+QUE NAO EXIJA VER A FALHA.
+```
+
+O que apanhou os três não foi releitura. Foram as asserções do passo 1 — *um
+post preservado, a corrida NÃO cumprida* — que obrigam a prova a **ver o
+estranho** antes de medir o conserto.
+
+```
+UMA TRANCA QUE O UTILIZADOR DESTA MAQUINA IGNORA NAO E UMA TRANCA.
+O SITIO ONDE EU ACHO QUE OS BYTES FICAM NAO E O SITIO ONDE ELES FICAM.
+```
+
+## 108.5 · A CONTRAPROVA É QUE ENCONTRA O ATAQUE QUE MORREU NA PORTA ERRADA
+
+Na prova das travas do esquema, seis ataques deram `ok` sem nunca terem chegado
+à lei que visavam: morreram todos em `NOT NULL: captured_at`, uma coluna que o
+ataque esquecera de preencher. A recusa era verdadeira e o veredito era falso.
+
+```
+UMA RECUSA PELA LEI ERRADA NAO PROVA A LEI CERTA.
+«O BANCO DISSE QUE NAO» NAO E UMA RESPOSTA: E METADE DELA.
+```
+
+Quem apanhou isso foi a **contraprova** — a mesma escrita **sem** a mutação, que
+tinha de passar e não passava. Sem ela, o ficheiro reportaria oito travas a
+morder tendo medido uma.
+
+```
+UMA TRAVA QUE RECUSA TUDO PASSA NUM TESTE QUE SO VERIFICA RECUSAS.
+```
+
+Daí a forma que ficou: cada ataque **declara a lei em que tem de morrer**, e
+morrer noutra reprova.
+
+## 108.6 · O QUE FICA
+
+```
+· antes de consertar um estado, perguntar se ele devia existir
+· o estado que falta costuma ja estar no vocabulario, com dono
+· uma capacidade declarada precisa de um LEITOR, ou nao existe
+· ausencia declarada != recusa, e o ramo do meio e o que evita
+  a coleta encolher em silencio
+· retry e repeticao sao perguntas diferentes, com donos diferentes
+· uma prova de recuperacao tem de EXIGIR VER a falha
+· todo ataque precisa da contraprova ao lado
+```
+
+E a que vale para lá desta missão:
+
+```
+MEDIR ANTES DE CONSERTAR NAO E CAUTELA: E O QUE SEPARA
+UM DEFEITO DE UMA ETAPA QUE NUNCA DEVIA TER SIDO CHAMADA.
+```
