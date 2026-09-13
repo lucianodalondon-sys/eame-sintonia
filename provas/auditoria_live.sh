@@ -323,11 +323,41 @@ echo "  MIGRATIONS_PENDENTES=${pendentes:-nenhuma}"
 echo
 echo "-- H · preflight de aplicacao (somente leitura, provada)"
 
-ro() { PGOPTIONS='-c default_transaction_read_only=on -c statement_timeout=20000' \
-       psql "$URL" -X -q -A -t -F '|' -v ON_ERROR_STOP=1 -c "$1" 2>/tmp/ero \
+# COMO SE FECHA O PORTAO, E PORQUE NAO E COM PGOPTIONS.
+#
+# A primeira versao usava `PGOPTIONS='-c default_transaction_read_only=on'`.
+# Contra um Postgres descartavel local funcionou a primeira: `on`, e a escrita
+# recusada. Contra o banco vivo devolveu isto, medido na corrida 29:
+#
+#     READ_ONLY_SESSION=off
+#
+# Nao deu erro. Nao pendurou. Nao avisou. O parametro foi SILENCIOSAMENTE
+# IGNORADO, e a sessao veio de escrita — exactamente a sessao que o pedido
+# dizia trancar.
+#
+#     PEDIR NAO E OBTER.
+#     UM PORTAO QUE NAO SE CONFERE E UMA CONVENCAO COM AR DE TRANCA.
+#
+# Se a seccao confiasse no pedido em vez de conferir a resposta, teria corrido
+# o preflight inteiro numa ligacao de escrita a chamar-lhe somente leitura. Foi
+# a CONFERENCIA que salvou isto, e nao o pedido — e e por isso que ela vem
+# antes de qualquer pergunta, e nao depois.
+#
+# `PGOPTIONS` e parametro de ARRANQUE da ligacao, e um pooler no meio (e o
+# Supabase tem um) pode simplesmente nao o encaminhar. `begin read only` e SQL
+# comum: atravessa pooler, nao depende de arranque, e quem o faz cumprir e o
+# servidor — a mesma garantia por um caminho que existe em toda a parte.
+#
+# E tudo leva prazo, que e barato e evita a classe de problema em que uma
+# ligacao remota fica a espera sem ninguem saber: `PGCONNECT_TIMEOUT` para a
+# ligacao, `timeout` para a pergunta inteira.
+export PGCONNECT_TIMEOUT=10
+
+ro() { timeout 30 psql "$URL" -X -q -A -t -F '|' -v ON_ERROR_STOP=1 \
+         -c "begin read only; $1; commit;" 2>/tmp/ero \
          || { echo "ERRO"; sanitiza </tmp/ero | head -2; }; }
 
-READ_ONLY=$(ro "show default_transaction_read_only")
+READ_ONLY=$(ro "show transaction_read_only")
 echo "  READ_ONLY_SESSION=$READ_ONLY"
 
 if [ "$READ_ONLY" != "on" ]; then
