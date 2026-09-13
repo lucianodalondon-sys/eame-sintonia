@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-night-shift-01",
-    "HEAD": "355fa0f8940f89f478d14e741db6829a8837534f",
-    "GENERATED_AT": "2026-09-13T03:54:54+00:00",
+    "HEAD": "7f750d2168cd29b2b239874c967babfef6e565ef",
+    "GENERATED_AT": "2026-09-13T04:54:52+00:00",
     "SOURCE_TREE_FINGERPRINT": "e0edc14df9ad8e1d31cbefc1ae8c4ef51791496429315efc195ed87be449cc73"
   },
   "FILES": [
@@ -4181,6 +4181,13 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-bsky.app__c057dbbc17e6da97.txt",
+      "sha": "d7167f03c7eb86ca3411daefc3c44fe83d033a6b",
+      "ext": ".txt",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
       "sha": "61b7afaf51e1782cf23e6b4138c116965f40810d",
       "ext": ".txt",
@@ -5429,6 +5436,13 @@
     {
       "path": "docs/sintonia-scrap/ESTADO-REAL-V1.md",
       "sha": "3f4589aab7f72cbcc279a5f5422bf58fac34f0a7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
+      "sha": "3babf7708d814d992fe2632af9b7bf155a95180f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8262,6 +8276,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/ensaio_scrap_para_a_collection.py",
+      "sha": "8ed73cc1a7d47933d387c90b4ce7ccf067857936",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/entradas_do_scrap_v1.py",
       "sha": "870bd90a0deab4b46410e2838b42f27330e29fa0",
       "ext": ".py",
@@ -8467,6 +8488,13 @@
     {
       "path": "provas/primeira_rota_paga.py",
       "sha": "b7908971a535e4c90e49c6d8f59f49355ec22718",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/queda_e_repeticao_da_v1.py",
+      "sha": "b61526740470e85ec5a8712dc144cd4482078843",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -27582,6 +27610,94 @@
       }
     },
     {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 57,
+        "snippet": "import _gavetas                                                    # noqa: F401"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "admissao/admissao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 58,
+        "snippet": "import admissao as adm"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 59,
+        "snippet": "import ingresso as ing"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 142,
+        "snippet": "import scrap_colheita as sc"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 78,
+        "snippet": "'ACTOR': 'coleta/scrap_colheita.py',"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 143,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 60,
+        "snippet": "import retorno_da_coleta as rdc"
+      }
+    },
+    {
+      "from_file": "provas/ensaio_scrap_para_a_collection.py",
+      "to_file": "provas/_rc01_mundo_falso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/ensaio_scrap_para_a_collection.py",
+        "line": 141,
+        "snippet": "import _rc01_mundo_falso as mundo"
+      }
+    },
+    {
       "from_file": "provas/entradas_do_scrap_v1.py",
       "to_file": "coleta/coletor.py",
       "type": "IMPORTS",
@@ -29526,6 +29642,94 @@
         "file": "provas/primeira_rota_paga.py",
         "line": 46,
         "snippet": "import social_matriz as mz       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "coleta/coletor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 48,
+        "snippet": "import coletor as ct                                              # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 200,
+        "snippet": "import scrap_colheita as sc"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 50,
+        "snippet": "import scrap_http as http                                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 199,
+        "snippet": "import social_envelope as env"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "leis/autorizacao_de_gasto.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 47,
+        "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "leis/retorno_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 264,
+        "snippet": "import retorno_da_coleta as rc"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "provas/_rc01_mundo_falso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 198,
+        "snippet": "import _rc01_mundo_falso as mundo"
+      }
+    },
+    {
+      "from_file": "provas/queda_e_repeticao_da_v1.py",
+      "to_file": "provas/nenhuma_compra_sem_autorizacao.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/queda_e_repeticao_da_v1.py",
+        "line": 49,
+        "snippet": "import nenhuma_compra_sem_autorizacao as sr02                     # noqa: E402"
       }
     },
     {
@@ -43924,10 +44128,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1558,
-    "files_readable": 617,
-    "files_code_dir": 666,
-    "file_edges": 2959,
+    "files_tracked": 1562,
+    "files_readable": 619,
+    "files_code_dir": 668,
+    "file_edges": 2975,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

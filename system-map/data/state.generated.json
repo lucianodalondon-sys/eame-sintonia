@@ -618,6 +618,7 @@
       "data/samples/SENSOR-PILOT/VIDEOS-E.json",
       "data/samples/SLICE-PLASVI-vertical.json",
       "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
+      "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-bsky.app__c057dbbc17e6da97.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__07f7506618bbd2b6.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__77ae30349938860b.txt",
       "data/samples/SOCIAL-IT/raw-free/BLUESKY/authorFeed-caasrl.bsky.social__85febb3329491c69.txt",
@@ -799,6 +800,7 @@
       "docs/sintonia-scrap/CENSO-DOS-ACTORS-E-CUSTO-V1.md",
       "docs/sintonia-scrap/CONVERGENCIA-DAS-DUAS-LINHAGENS-V1.md",
       "docs/sintonia-scrap/ESTADO-REAL-V1.md",
+      "docs/sintonia-scrap/NIGHT-SHIFT-01-MADRUGADA-DE-HARDENING.md",
       "docs/sintonia-scrap/SCRAP-FLOW-01-CAMINHO-CANONICO.md",
       "docs/sintonia-scrap/SCRAP-OP-CLOSE-DECISAO-DE-VINCULO.md",
       "docs/sintonia-scrap/SCRAP-OWNER-01-AUTORIZACAO-CONVERGIDA.md",
@@ -1230,6 +1232,7 @@
       "provas/coverage.py",
       "provas/derived_artifact_no_postgres.py",
       "provas/ensaio_canonico_de_capacidade.py",
+      "provas/ensaio_scrap_para_a_collection.py",
       "provas/entradas_do_scrap_v1.py",
       "provas/es/freeze_es.py",
       "provas/especie_do_texto_auditoria.py",
@@ -1260,6 +1263,7 @@
       "provas/preflight_022_live.sh",
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_rota_paga.py",
+      "provas/queda_e_repeticao_da_v1.py",
       "provas/quem_pode_comprar.py",
       "provas/rastro_no_postgres.py",
       "provas/raw_entre_jobs.py",
@@ -2006,8 +2010,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-night-shift-01",
-    "HEAD": "355fa0f8940f89f478d14e741db6829a8837534f",
-    "GENERATED_AT": "2026-09-13T03:54:54+00:00",
+    "HEAD": "7f750d2168cd29b2b239874c967babfef6e565ef",
+    "GENERATED_AT": "2026-09-13T04:54:52+00:00",
     "SOURCE_TREE_FINGERPRINT": "e0edc14df9ad8e1d31cbefc1ae8c4ef51791496429315efc195ed87be449cc73"
   },
   "FAMILIES": [
@@ -12241,6 +12245,7 @@
         "provas/censo_executavel_da_v1.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
+        "provas/ensaio_scrap_para_a_collection.py",
         "provas/linkedin_local_first.py",
         "provas/mutacao_da_autorizacao.py",
         "provas/mutacao_da_release_v1.py",
@@ -12256,6 +12261,7 @@
         "provas/preflight_022_live.sh",
         "provas/preservar_coleta_no_postgres.py",
         "provas/primeira_rota_paga.py",
+        "provas/queda_e_repeticao_da_v1.py",
         "provas/quem_pode_comprar.py",
         "provas/rastro_no_postgres.py",
         "provas/raw_entre_jobs.py",
@@ -12269,7 +12275,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 36,
+      "file_count": 38,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -18142,8 +18148,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/ensaio_scrap_para_a_collection.py",
+          "line": 58,
+          "snippet": "import admissao as adm"
+        },
         {
           "file": "provas/testa_coleta_canonica.py",
           "line": 34,
@@ -19734,12 +19745,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/nenhuma_compra_sem_autorizacao.py",
           "line": 49,
           "snippet": "import autorizacao_de_gasto as az   # noqa: E402"
+        },
+        {
+          "file": "provas/queda_e_repeticao_da_v1.py",
+          "line": 47,
+          "snippet": "import autorizacao_de_gasto as az                                 # noqa: E402"
         },
         {
           "file": "provas/red_team_da_release_v1.py",
@@ -21815,7 +21831,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "O motor de buscar tem o seu codigo importado por Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106b_filho.py",
@@ -21846,6 +21862,11 @@
           "file": "provas/primeira_rota_paga.py",
           "line": 41,
           "snippet": "import coletor as ct             # noqa: E402"
+        },
+        {
+          "file": "provas/queda_e_repeticao_da_v1.py",
+          "line": 48,
+          "snippet": "import coletor as ct                                              # noqa: E402"
         },
         {
           "file": "provas/red_team_da_release_v1.py",
@@ -25227,6 +25248,24 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-INGRESSO",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/ensaio_scrap_para_a_collection.py",
+          "line": 59,
+          "snippet": "import ingresso as ing"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-INGRESSO",
@@ -29971,8 +30010,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O contrato de retorno · o que uma corrida devolveu, e qual parte e colheita tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/ensaio_scrap_para_a_collection.py",
+          "line": 60,
+          "snippet": "import retorno_da_coleta as rdc"
+        },
         {
           "file": "provas/o_canario_do_scrap_v1.py",
           "line": 54,
@@ -29982,6 +30026,11 @@
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 56,
           "snippet": "import retorno_da_coleta as rc      # noqa: E402"
+        },
+        {
+          "file": "provas/queda_e_repeticao_da_v1.py",
+          "line": 264,
+          "snippet": "import retorno_da_coleta as rc"
         },
         {
           "file": "provas/red_team_da_release_v1.py",
@@ -30353,12 +30402,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/censo_executavel_da_v1.py",
           "line": 49,
           "snippet": "import scrap_colheita as sc                                       # noqa: E402"
+        },
+        {
+          "file": "provas/ensaio_scrap_para_a_collection.py",
+          "line": 142,
+          "snippet": "import scrap_colheita as sc"
         },
         {
           "file": "provas/o_canario_do_scrap_v1.py",
@@ -30369,6 +30423,11 @@
           "file": "provas/o_fluxo_canonico_do_scrap.py",
           "line": 57,
           "snippet": "import scrap_colheita as sc         # noqa: E402"
+        },
+        {
+          "file": "provas/queda_e_repeticao_da_v1.py",
+          "line": 200,
+          "snippet": "import scrap_colheita as sc"
         },
         {
           "file": "provas/red_team_da_release_v1.py",
@@ -30386,8 +30445,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "O adapter do SCRAP para a porta canonica · a aresta que faltava alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/ensaio_scrap_para_a_collection.py",
+          "line": 78,
+          "snippet": "'ACTOR': 'coleta/scrap_colheita.py',"
+        },
         {
           "file": "provas/mutacao_da_release_v1.py",
           "line": 35,
@@ -31541,7 +31605,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 54 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 57 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -34808,7 +34872,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 779,
+  "UNCLAIMED_FILES_COUNT": 781,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -34976,12 +35040,12 @@
     "components_pending": 112,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 730,
-    "edges_proven": 727,
+    "edges": 731,
+    "edges_proven": 728,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1558,
-    "files_covered": 779,
+    "files_tracked": 1562,
+    "files_covered": 781,
     "files_code_unclaimed": 0
   }
 }

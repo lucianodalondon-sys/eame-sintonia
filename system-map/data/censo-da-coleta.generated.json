@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "0880b6a85000cfbd4861b92e8cdb1bd488ee1df2",
+    "HEAD": "7f750d2168cd29b2b239874c967babfef6e565ef",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -379,14 +379,16 @@
     {
       "ficheiro": "ferramentas/cdp.py",
       "gaveta": "ferramentas",
-      "linhas": 391,
+      "linhas": 426,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
         "HTTP DIRETO",
         "INSTAGRAM"
       ],
-      "ferramentas": [],
+      "ferramentas": [
+        "APIFY (rota paga)"
+      ],
       "descarta": false,
       "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
@@ -685,7 +687,7 @@
     {
       "ficheiro": "coleta/adaptador_instagram.py",
       "gaveta": "coleta",
-      "linhas": 450,
+      "linhas": 498,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -1598,7 +1600,7 @@
     {
       "ficheiro": "coleta/scrap_colheita.py",
       "gaveta": "coleta",
-      "linhas": 408,
+      "linhas": 456,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -1680,7 +1682,7 @@
     {
       "ficheiro": "coleta/scrap_http.py",
       "gaveta": "coleta",
-      "linhas": 555,
+      "linhas": 572,
       "e_ponto_de_entrada": false,
       "sai_para_fora": true,
       "veiculos": [
@@ -1699,6 +1701,7 @@
       "escreve_ficheiro": false,
       "chamado_por": [
         "coleta/adaptador_aberto.py",
+        "coleta/adaptador_instagram.py",
         "coleta/adaptador_linkedin.py",
         "coleta/adaptador_youtube.py",
         "coleta/coletor.py",
@@ -1823,10 +1826,12 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 354,
+      "linhas": 371,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
-      "veiculos": [],
+      "veiculos": [
+        "YOUTUBE"
+      ],
       "ferramentas": [
         "APIFY (rota paga)"
       ],
@@ -1839,7 +1844,9 @@
         "coleta/scrap_executor.py",
         "coleta/social_scrap.py"
       ],
-      "citado_por": [],
+      "citado_por": [
+        "coleta/scrap_colheita.py"
+      ],
       "no_ci": false
     },
     {
