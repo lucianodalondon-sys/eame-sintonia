@@ -638,5 +638,94 @@ class DuasCorridasAoMesmoTempoNaoPagamDuasVezes(unittest.TestCase):
         self.assertEqual(a.gastas, 1)
 
 
+class UmaRecusaDeGastoNaoSeVesteDeOutraCoisa(unittest.TestCase):
+    """ERROR != REJECTED. E a diferenca custa retentativas e diagnostico.
+
+    ⚠️ ESTA CLASSE NASCEU DE DOIS SOBREVIVENTES DO RED TEAM. `GastoRecusado`
+    herdava de `PermissionError` — que e um `OSError` — e caia no apanhador de
+    TRANSPORTE de `coleta/social_rotas.py`. Uma corrida sem autorizacao humana
+    saia do rasto assim:
+
+        ESTADO TRANSIENT_NETWORK_ERROR · RECOVERY_ACTION WAIT
+        ROUTE_HEALTH UNHEALTHY
+
+    e as duas correcoes — tirar a base errada, e dar-lhe ramo proprio na rota —
+    podiam ser desfeitas sem uma unica luz vermelha.
+
+        UM CONSERTO SEM SENTINELA E UM CONSERTO COM DATA DE VALIDADE.
+
+    O preco nao era o nome. `WAIT` manda a casa TENTAR OUTRA VEZ uma rota
+    recusada por falta de gente — e tentar outra vez nao traz autorizacao
+    nenhuma — enquanto `UNHEALTHY` acusa de doente uma rota que nem chegou a
+    ser chamada.
+
+        UMA POLITICA QUE RECUSOU NAO E UM TRANSPORTE QUE CAIU.
+    """
+
+    def test_a_recusa_de_gasto_nao_e_um_erro_de_sistema_operativo(self):
+        """A base da excecao E a lei: quem apanha `OSError` nao pode leva-la.
+
+        E a cura tem de ser a BASE, e nao um `except` por sitio: dois ficheiros
+        de producao apanham `OSError` no caminho do dinheiro, e o terceiro que
+        alguem escrever amanha herdaria a armadilha sem o saber.
+        """
+        self.assertFalse(issubclass(az.GastoRecusado, OSError),
+                         'GastoRecusado voltou a ser um OSError: quem apanha '
+                         'transporte volta a apanhar a recusa de gasto.')
+        self.assertFalse(issubclass(az.GastoRecusado, PermissionError))
+
+    def test_nenhum_apanhador_de_transporte_consegue_leva_la(self):
+        """A prova de COMPORTAMENTO, e nao so da arvore de classes.
+
+        Escrita como o `except` real esta escrito, com a mesma tupla: se
+        amanha `GastoRecusado` voltar a caber ali por outro caminho, esta
+        linha cai.
+        """
+        import urllib.error
+        try:
+            raise az.GastoRecusado('AUTORIZACAO_AUSENTE', 'prova')
+        except (urllib.error.URLError, TimeoutError, ConnectionError, OSError):
+            self.fail('o apanhador de transporte levou a recusa de gasto')
+        except az.GastoRecusado as e:
+            self.assertEqual('AUTORIZACAO_AUSENTE', e.causa)
+
+    def test_a_rota_social_da_a_recusa_de_gasto_um_ramo_proprio(self):
+        """E o estado dele e o da RECUSA NOSSA, nao o do desconhecido.
+
+        `leis/falhas.py` escreveu `BUDGET_EXHAUSTED` exactamente para isto —
+        alias `PAID_ROUTE_REFUSED`, e a frase «teto NOSSO: gasto, ACESSOS,
+        itens, OU A MISSAO NAO AUTORIZOU PAGAR». Ela traz UNAVAILABLE e
+        NO_RETRY, que e o que uma recusa da casa merece.
+        """
+        fonte = io.open(os.path.join(RAIZ, 'coleta', 'social_rotas.py'),
+                        encoding='utf-8').read()
+        arvore = ast.parse(fonte)
+        ramos = [n for n in ast.walk(arvore)
+                 if isinstance(n, ast.ExceptHandler)
+                 and n.type is not None
+                 and 'GastoRecusado' in ast.unparse(n.type)]
+        self.assertTrue(ramos,
+                        '`social_rotas` deixou de ter ramo proprio para a '
+                        'recusa de gasto: ela volta a cair no balde de quem '
+                        'ninguem sabe o que houve.')
+        corpo = ' '.join(ast.unparse(r) for r in ramos)
+        self.assertIn('BUDGET_EXHAUSTED', corpo,
+                      'a recusa de gasto deixou de ser dita como recusa NOSSA')
+        for errado in ('TRANSIENT_NETWORK_ERROR', 'UNKNOWN_ERROR',
+                       'SOURCE_UNAVAILABLE'):
+            self.assertNotIn(
+                errado, corpo,
+                'a recusa de gasto voltou a vestir-se de `%s`' % errado)
+
+    def test_o_estado_da_recusa_nao_pede_para_tentar_outra_vez(self):
+        """RETRY numa recusa de autorizacao e uma tentativa que nunca ganha.
+
+        A lei nao e sobre o nome do estado: e sobre o que a casa FAZ a seguir.
+        """
+        import falhas
+        self.assertNotEqual(
+            'WAIT', falhas.recuperacao('BUDGET_EXHAUSTED'),
+            'o estado da recusa de gasto voltou a mandar esperar e repetir')
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -218,7 +218,30 @@ class OCaminhoEstaLigado(CasoB1):
         "scrap-colheita",      # SCRAP · a colheita social, que tambem nao cunha
     }
 
-    def test_6_nenhum_executor_antigo_mudou_de_linha_de_comando(self):
+    def test_6_so_recebe_corrida_quem_a_pede_por_escrito(self):
+        """O NOME VOLTOU A DIZER O QUE A ASSERCAO FAZ.
+
+        ⚠️ A INTEGRACAO DO SCRAP RENOMEOU ISTO PARA
+        `test_6_nenhum_executor_antigo_mudou_de_linha_de_comando` — e o corpo
+        ficou BYTE A BYTE IGUAL. O corpo nao olha para linha de comando
+        nenhuma: ele percorre os executores e exige que quem recebe a corrida
+        esteja escrito em `PEDEM_A_CORRIDA`.
+
+            UM TESTE CUJO NOME DESCREVE OUTRA LEI E PIOR DO QUE UM TESTE SEM
+            NOME: QUEM LE O RELATORIO LE O NOME, E NAO O CORPO.
+
+        E o preco nao e teorico. Um teste renomeado DESAPARECE do inventario
+        de identidades e reaparece como teste novo — 1 sumido + 1 novo, e a
+        contagem total nao mexe. Foi assim que este apareceu: nao por alguem
+        o ter lido, mas por `DISAPPEARED_TESTS` o ter contado.
+
+            UMA CONTAGEM QUE NAO MUDA PODE ESCONDER UMA TROCA.
+
+        O que a integracao acrescentou de verdade — `scrap-colheita` em
+        `PEDEM_A_CORRIDA` — esta certo e fica: o adapter do SCRAP declara
+        `recebe_run_id`, e declara-o por escrito, que e exactamente o que
+        esta lei exige.
+        """
         for universo, lista in EXECUTORES.items():
             for e in lista:
                 if e["id"] in self.PEDEM_A_CORRIDA:

@@ -275,12 +275,44 @@ class IdentidadeNaoSeFabrica(unittest.TestCase):
         self.assertIn('PARA_A_PORTA', corpo,
                       'a admissão voltou a receber a lista original')
         self.assertNotIn('pela_porta(itens', corpo)
-        # E O FALLBACK AO LEGADO NAO VOLTA. `a_julgar = entrados if entrados
-        # else itens` deixava a lista original alcancavel quando o balde
-        # vinha vazio — um caminho antigo que ninguem via porque so abria no
-        # caso mau.
-        self.assertNotIn('else itens', corpo,
-                         'o fallback ao legado voltou a ser alcancavel')
+        # E O FALLBACK AO LEGADO NAO VOLTA — SEJA QUAL FOR A GRAFIA DELE.
+        #
+        # ⚠️ ESTA LINHA JA FOI `assertNotIn('else itens', corpo)`, e o red team
+        # da integracao atravessou-a a primeira: bastou escrever o MESMO
+        # fallback de outra maneira.
+        #
+        #     `a_julgar = entrados if entrados else itens`   <- apanhado
+        #     `julgar = ...get('PARA_A_PORTA') or itens`     <- NAO apanhado
+        #
+        # Sao a mesma lei quebrada, e a sentinela so conhecia uma das
+        # escritas.
+        #
+        #     UMA SENTINELA QUE FIXA A GRAFIA GUARDA A GRAFIA.
+        #     QUEM QUER GUARDAR A LEI TEM DE OLHAR PARA A LEI.
+        #
+        # A lei e esta: `itens` — a lista ORIGINAL do executor — nao pode
+        # aparecer em lado nenhum da atribuicao de quem vai ser julgado. Por
+        # isso a pergunta passou a ser feita sobre a ARVORE e nao sobre o
+        # texto: qualquer `Name(id='itens')` dentro do valor atribuido a
+        # `julgar` reprova, seja ele um `or`, um ternario, um `if/else`, um
+        # `next(...)` ou o que alguem inventar a seguir.
+        for _no in ast.walk(no):
+            alvos = []
+            if isinstance(_no, ast.Assign):
+                alvos = [a for a in _no.targets
+                         if isinstance(a, ast.Name) and a.id == 'julgar']
+            elif isinstance(_no, ast.AugAssign) and \
+                    isinstance(_no.target, ast.Name) and _no.target.id == 'julgar':
+                alvos = [_no.target]
+            if not alvos:
+                continue
+            nomes = {n.id for n in ast.walk(_no.value)
+                     if isinstance(n, ast.Name)}
+            self.assertNotIn(
+                'itens', nomes,
+                'o que vai a admissao voltou a poder ser a lista ORIGINAL '
+                '(`itens`) do executor: %s. UMA SEGUNDA PORTA NAO PRECISA DE '
+                'SER UMA LISTA NOVA — BASTA UM `or`.' % ast.unparse(_no))
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -512,6 +544,144 @@ class OCaminhoCorreMesmo(unittest.TestCase):
                 with io.open(caminho, 'w', encoding='utf-8') as f:
                     f.write(original)
 
+
+class APonteDoTextoTemQuemAGuarde(unittest.TestCase):
+    """A LINHA QUE ESTA INTEGRACAO EXISTE PARA ATERRAR, E QUE NINGUEM VIGIAVA.
+
+    ⚠️ ESTA CLASSE NASCEU DE UM SOBREVIVENTE DO RED TEAM. Dois ataques
+    cortaram a ponte do texto no adapter do SCRAP — um pondo `[]` no lugar
+    dela, outro trocando-a por um `fora['texto'] = objeto.get('TEXT')` cru — e
+    NENHUM teste desta arvore reprovou.
+
+        A LINHA MAIS IMPORTANTE DE UMA INTEGRACAO PODE SER TAMBEM
+        A MENOS VIGIADA: ELA E NOVA, E O QUE E NOVO AINDA NAO TEM INIMIGOS.
+
+    O segundo ataque e o perigoso, e por isso ha uma asserção so para ele: o
+    texto CONTINUA a chegar a porta, e por isso a admissao continua a dizer
+    SIM. Nada fica vermelho. O que se perde e a ESPECIE — legenda de autor e
+    fala reconhecida por maquina passam a viajar no mesmo campo,
+    indistinguiveis, que e exactamente a soma que a casa proibe.
+
+        CAPTION != TRANSCRIPT. E UM ATAQUE QUE NAO PINTA NADA DE VERMELHO
+        E O UNICO QUE CHEGA A PRODUCAO.
+    """
+
+    ADAPTER = 'coleta/scrap_colheita.py'
+
+    def _unidade(self):
+        no = _funcao(self.ADAPTER, 'unidade')
+        self.assertIsNotNone(no, 'o mapeador `unidade` desapareceu do adapter')
+        return no
+
+    def test_a_ponte_chama_o_DONO_do_vocabulario_do_texto(self):
+        """E chama-o pelo nome dele, e nao por uma copia local da regra."""
+        corpo = ast.unparse(self._unidade())
+        self.assertIn('unidades_do_envelope', corpo,
+                      'o adapter deixou de chamar o dono das unidades de '
+                      'texto (`regras/proveniencia.py`). TRADUZIR NOME E '
+                      'FORMA E TRABALHO DE ADAPTER; DECIDIR O QUE O TEXTO E, '
+                      'NAO E.')
+        self.assertIn('CAMPO_DAS_UNIDADES', corpo,
+                      'o campo canonico do texto deixou de ser escrito')
+
+    def test_o_adapter_nao_decide_a_especie_por_conta_propria(self):
+        """Nenhuma palavra do vocabulario do texto nasce dentro do adapter.
+
+        Reescrever `NATIVE_CAPTION` aqui seria um SEGUNDO dono da mesma lei —
+        e dois donos divergem no dia em que alguem acrescentar a quinta
+        especie a um deles.
+        """
+        fonte = io.open(os.path.join(RAIZ, self.ADAPTER),
+                        encoding='utf-8').read()
+        arvore = ast.parse(fonte)
+        literais = {n.value for n in ast.walk(arvore)
+                    if isinstance(n, ast.Constant) and isinstance(n.value, str)}
+        for palavra in ('NATIVE_CAPTION', 'AUTHOR_TEXT', 'TRANSCRIPT', 'ASR',
+                        'ORIGINAL', 'TRANSLATED'):
+            self.assertNotIn(
+                palavra, literais,
+                'o adapter escreveu `%s` a mao: o vocabulario do texto tem UM '
+                'dono, e e `regras/proveniencia.py`.' % palavra)
+
+    def test_o_texto_nao_atravessa_por_fora_do_contrato(self):
+        """O atalho cru — `fora['texto'] = ...` — nao volta.
+
+        Ele funciona, e e esse o problema: o texto chega, a porta diz SIM, e a
+        especie fica para tras sem ninguem reparar.
+        """
+        for no in ast.walk(self._unidade()):
+            if not isinstance(no, ast.Assign):
+                continue
+            for alvo in no.targets:
+                if (isinstance(alvo, ast.Subscript)
+                        and isinstance(alvo.slice, ast.Constant)
+                        and str(alvo.slice.value).lower() in
+                        ('texto', 'text', 'texto_especie', 'texto_lingua')):
+                    self.fail(
+                        'o adapter voltou a escrever o texto a mao (%s). A '
+                        'travessia do texto e do contrato, e a escolha de qual '
+                        'texto vai a porta e de `ingresso.para_a_porta`.'
+                        % ast.unparse(no))
+
+    def test_a_unidade_que_sai_traz_as_unidades_de_texto(self):
+        """E a prova de comportamento, e nao so de forma.
+
+        As duas de cima leem codigo; esta corre o mapeador com um envelope que
+        DECLARA especie, e exige que ela chegue inteira do outro lado. Uma
+        prova de forma sozinha cai no dia em que a forma mudar e a lei ficar.
+        """
+        import proveniencia as pv
+        import scrap_colheita as sc
+        objeto = {
+            'PLATFORM': 'INSTAGRAM', 'NATIVE_ID': 'X1',
+            'URL': 'https://exemplo.invalido/p/X1/',
+            'CONTENT_TYPE': 'POST', 'TEXT': 'uma legenda',
+            'TEXT_UNITS': [{
+                'TEXT_UNIT_ID': 'TU-1', 'TEXT': 'uma legenda',
+                'TEXT_KIND': 'NATIVE_CAPTION',
+                'TEXT_KIND_BASIS': 'DECLARED_BY_PROVIDER',
+                'TEXT_RELATION': 'ORIGINAL', 'LANGUAGE': 'it',
+                'TRANSLATED_FROM_TEXT_UNIT_ID': None,
+                'LINEAGE': {'RAW_OBSERVATION_ID': 'UNKNOWN',
+                            'SOURCE_ARTIFACT': 'https://exemplo.invalido/p/X1/',
+                            'DERIVATION_METHOD': 'UNKNOWN',
+                            'TOOL': 'UNKNOWN', 'MODEL': 'UNKNOWN'}}],
+        }
+        fora = sc.unidade(objeto, run_id='RUN-TESTE', fonte='IT-T9-001')
+        unidades = fora.get(pv.CAMPO_DAS_UNIDADES) or []
+        self.assertEqual(1, len(unidades),
+                         'a unidade de texto nao atravessou o adapter')
+        u = unidades[0]
+        self.assertEqual('NATIVE_CAPTION', u.get('TEXT_KIND'),
+                         'a ESPECIE declarada perdeu-se na travessia')
+        self.assertEqual('ORIGINAL', u.get('TEXT_RELATION'),
+                         'a RELACAO declarada perdeu-se na travessia')
+        self.assertEqual('it', u.get('LANGUAGE'),
+                         'a LINGUA declarada perdeu-se na travessia')
+
+    def test_o_desconhecido_atravessa_desconhecido(self):
+        """E a outra metade: o que ninguem declarou nao sobe de categoria.
+
+        Sem esta, a de cima passaria numa implementacao que carimbasse
+        `NATIVE_CAPTION` em tudo — e isso seria pior do que perder a especie.
+
+            AUSENCIA PROMOVIDA A DECLARACAO E UMA MENTIRA COM FORMA DE DADO.
+        """
+        import proveniencia as pv
+        import scrap_colheita as sc
+        fora = sc.unidade({'PLATFORM': 'INSTAGRAM', 'NATIVE_ID': 'X2',
+                           'URL': 'https://exemplo.invalido/p/X2/',
+                           'CONTENT_TYPE': 'POST', 'TEXT': 'sem especie',
+                           'LANGUAGE': 'it'},
+                          run_id='RUN-TESTE', fonte='IT-T9-001')
+        u = (fora.get(pv.CAMPO_DAS_UNIDADES) or [{}])[0]
+        self.assertEqual(pv.TEXTO_DESCONHECIDO, u.get('TEXT_KIND'))
+        self.assertEqual(pv.NOT_DECLARED, u.get('TEXT_KIND_BASIS'))
+        # E A LINGUA DA PUBLICACAO NAO E A LINGUA DO TEXTO: o envelope declara
+        # `LANGUAGE: it` para a OBSERVACAO, e isso nao diz nada sobre a lingua
+        # daquele texto. O E7 tem sentinela propria para esta lei; aqui cobra-se
+        # que a travessia do SCRAP nao a contorne.
+        self.assertEqual(pv.TEXTO_DESCONHECIDO, u.get('LANGUAGE'))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
