@@ -587,6 +587,7 @@
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
       "docs/operacao/CENSO-DA-COLETA.md",
+      "docs/operacao/CENSO-DA-INTELLIGENCE.md",
       "docs/operacao/CONTRATO-DE-ATUALIZACAO-DO-PILOTO.md",
       "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
       "docs/operacao/FALHA-DE-FONTE-ESPANHA.md",
@@ -1594,8 +1595,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "5ace34a8140f268d60472602d1eaed82003673d8",
-    "GENERATED_AT": "2026-09-13T15:32:55+00:00"
+    "HEAD": "9dc23c613fafe97dd68749e3782766d42bd11709",
+    "GENERATED_AT": "2026-09-13T15:34:56+00:00"
   },
   "FAMILIES": [
     {
@@ -2187,6 +2188,7 @@
           "controle/censo_do_controle.py",
           "controle/portao_do_controle.py",
           "controle/red_team_do_controle.py",
+          "docs/operacao/CENSO-DA-INTELLIGENCE.md",
           "provas/testa_coleta_canonica.py",
           "system-map/README.md",
           "system-map/data/architecture.declared.json",
@@ -2515,7 +2517,8 @@
         "PROOF": "git:origin/claude/integration-acervo-portal-v1:docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md",
         "SHA": "ac478fb7e0",
         "REFERENCED_BY": [
-          "controle/AUTORIDADES-CANONICAS.json"
+          "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/CENSO-DA-INTELLIGENCE.md"
         ],
         "DIVERGENT_COPIES": [],
         "SUPERSEDES": [],
@@ -11807,6 +11810,7 @@
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "controle/AUTORIDADES-CANONICAS.json",
+          "docs/operacao/CENSO-DA-INTELLIGENCE.md",
           "system-map/data/architecture.declared.json"
         ],
         "DIVERGENT_COPIES": [],
@@ -11934,6 +11938,7 @@
           "AGENTS.md",
           "controle/AUTORIDADES-CANONICAS.json",
           "controle/censo_do_controle.py",
+          "docs/operacao/CENSO-DA-INTELLIGENCE.md",
           "system-map/data/architecture.declared.json"
         ],
         "DIVERGENT_COPIES": [],
@@ -12990,7 +12995,7 @@
         "SALA-DE-CONTROLE-SINTONIA.md"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 2ffa2196db",
+      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 702b5571bc",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -13015,7 +13020,7 @@
         "DECLARED_STATE": "GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
-        "SHA": "2ffa2196db",
+        "SHA": "702b5571bc",
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "AGENTS.md",
@@ -13757,7 +13762,7 @@
       "icon": "B",
       "facts": [
         "branch claude/funny-hypatia-y7ho5s",
-        "HEAD 5ace34a8140f268d60472602d1eaed82003673d8"
+        "HEAD 9dc23c613fafe97dd68749e3782766d42bd11709"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -21599,7 +21604,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 645,
+  "UNCLAIMED_FILES_COUNT": 646,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 138,
@@ -21611,7 +21616,7 @@
     "edges_proven": 361,
     "edges_unknown": 12,
     "business_edges": 4,
-    "files_tracked": 1150,
+    "files_tracked": 1151,
     "files_covered": 505,
     "files_code_unclaimed": 0
   }

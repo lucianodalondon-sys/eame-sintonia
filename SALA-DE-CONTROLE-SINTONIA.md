@@ -59,7 +59,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `42a22207e7`
 - **prova** — `git:HEAD:AGENTS.md`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `CLAUDE.md`, `README.md` *(+10)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `CLAUDE.md`, `README.md` *(+11)*
 - **o que ela diz de si** — A lei escrita. Os outros ficheiros de instrucao apontam para aqui e nao a repetem.
 
   | relação | alvo | estado | prova |
@@ -174,7 +174,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `ABSENT_FROM_SNAPSHOT` · NÃO ESTÁ NESTA ÁRVORE — vive noutra linha
 - **impressão do conteúdo medido** — `ac478fb7e0`
 - **prova** — `git:origin/claude/integration-acervo-portal-v1:docs/biblia/BIBLIA-DA-INTELIGENCIA-EAME.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`
 - **o que ela diz de si** — NAO EXISTE. O ficheiro com este nome existe no Git, mas o seu proprio cabecalho recusa o titulo: diz-se `INVENTARIO_DE_LEIS · INPUT_TO_INTELLIGENCE_BIBLE` e escreve `O_QUE_ELE_AINDA_NAO_E: a Biblia de Engenharia da Inteligencia`. Um inventario das leis ja aprendidas nao e a constituicao que decide as proximas.
 - **nota** — Fragmento util, nao autoridade. Nao reconstruir nesta missao.
 
@@ -366,7 +366,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `746b8846bb`
 - **prova** — `git:HEAD:controle/portao_do_controle.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py` *(+1)*
+- **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py` *(+2)*
 - **o que ela diz de si** — Falha fechado.
 
   | relação | alvo | estado | prova |
@@ -401,7 +401,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `4f6ce8d858`
 - **prova** — `git:HEAD:provas/testa_coleta_canonica.py`
-- **quem aponta para ela** — `.github/workflows/system-map.yml`, `controle/AUTORIDADES-CANONICAS.json`, `system-map/data/architecture.declared.json`
+- **quem aponta para ela** — `.github/workflows/system-map.yml`, `controle/AUTORIDADES-CANONICAS.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `system-map/data/architecture.declared.json`
 - **o que ela diz de si** — Corre no CI, passo 4b.
 
 #### 🟢 O padrao do departamento de coleta
