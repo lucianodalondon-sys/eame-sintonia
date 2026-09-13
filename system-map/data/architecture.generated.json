@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-night-shift-01",
-    "HEAD": "081316fc816840b56dbd0bfb7ebe281ad68b0027",
-    "GENERATED_AT": "2026-09-13T02:06:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "32c35c20ed92408397a743b33381001fe220a1d220a2efee85957d8af59826d8"
+    "HEAD": "13a5e95155bc28236184fb9e0508df5975f7dac7",
+    "GENERATED_AT": "2026-09-13T03:36:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f20886c32003a8c2a61cdbc053c62460dc38be00180242255ff0be067a4c7bb5"
   },
   "FILES": [
     {
@@ -8220,6 +8220,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/censo_executavel_da_v1.py",
+      "sha": "c0b25571c5ea5ae576764fcd5b67e95735c641a9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/chain.py",
       "sha": "d5c07eec3c026b3e2fad7b2013db9da49a3fba90",
       "ext": ".py",
@@ -9775,7 +9782,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "3fc485dc0366ea71e4345bbd07f9e960355f7305",
+      "sha": "e5ec72a947b42eea4b6d72fe8d4426536639e997",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -27256,6 +27263,61 @@
       }
     },
     {
+      "from_file": "provas/censo_executavel_da_v1.py",
+      "to_file": "coleta/scrap_capacidades.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_executavel_da_v1.py",
+        "line": 44,
+        "snippet": "import scrap_capacidades as cap                                   # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/censo_executavel_da_v1.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_executavel_da_v1.py",
+        "line": 45,
+        "snippet": "import scrap_executor as sx                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/censo_executavel_da_v1.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_executavel_da_v1.py",
+        "line": 46,
+        "snippet": "import scrap_registo as reg                                       # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/censo_executavel_da_v1.py",
+      "to_file": "coleta/social_envelope.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_executavel_da_v1.py",
+        "line": 47,
+        "snippet": "import social_envelope as env                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/censo_executavel_da_v1.py",
+      "to_file": "provas/superficie_do_scrap_v1.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/censo_executavel_da_v1.py",
+        "line": 48,
+        "snippet": "import superficie_do_scrap_v1 as sup                              # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/chain.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -43763,10 +43825,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1557,
-    "files_readable": 616,
-    "files_code_dir": 665,
-    "file_edges": 2945,
+    "files_tracked": 1558,
+    "files_readable": 617,
+    "files_code_dir": 666,
+    "file_edges": 2950,
     "escritas_em_pasta": 67,
     "declared_missing_here": 0
   },

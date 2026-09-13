@@ -1224,6 +1224,7 @@
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
       "provas/bluesky_trial_ao_vivo.py",
+      "provas/censo_executavel_da_v1.py",
       "provas/chain.py",
       "provas/corrigir_custo.py",
       "provas/coverage.py",
@@ -2005,9 +2006,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/sintonia-scrap-night-shift-01",
-    "HEAD": "081316fc816840b56dbd0bfb7ebe281ad68b0027",
-    "GENERATED_AT": "2026-09-13T02:06:50+00:00",
-    "SOURCE_TREE_FINGERPRINT": "32c35c20ed92408397a743b33381001fe220a1d220a2efee85957d8af59826d8"
+    "HEAD": "13a5e95155bc28236184fb9e0508df5975f7dac7",
+    "GENERATED_AT": "2026-09-13T03:36:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f20886c32003a8c2a61cdbc053c62460dc38be00180242255ff0be067a4c7bb5"
   },
   "FAMILIES": [
     {
@@ -12235,6 +12236,7 @@
         "provas/_rc01_mundo_falso.py",
         "provas/auditoria_live.sh",
         "provas/bluesky_trial_ao_vivo.py",
+        "provas/censo_executavel_da_v1.py",
         "provas/derived_artifact_no_postgres.py",
         "provas/ensaio_canonico_de_capacidade.py",
         "provas/linkedin_local_first.py",
@@ -12265,7 +12267,7 @@
         "provas/testa_golden_path_pdf.py",
         "provas/trava_de_drift_de_migration.sh"
       ],
-      "file_count": 35,
+      "file_count": 36,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12332,6 +12334,7 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "ALVOS",
           "ARRANCAM",
           "BLOQUEADAS",
           "CASOS",
@@ -12348,6 +12351,7 @@
           "ITENS",
           "LOCAL",
           "MIGRATIONS",
+          "MUNDO",
           "MUTACOES",
           "PESADAS",
           "RESPOSTA_MASTODON",
@@ -12357,9 +12361,9 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 463,
+        "palavras": 547,
         "por_lingua": {},
-        "sem_marca_de_lingua": 463,
+        "sem_marca_de_lingua": 547,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -31497,7 +31501,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 50 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por Provas da coleta canonica. Provado por 54 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/_c106c_filho.py",
@@ -31555,9 +31559,9 @@
           "snippet": "import scrap_http as http"
         },
         {
-          "file": "provas/ensaio_canonico_de_capacidade.py",
-          "line": 38,
-          "snippet": "import scrap_capacidades as cap     # noqa: E402"
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 44,
+          "snippet": "import scrap_capacidades as cap                                   # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -32980,8 +32984,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "A superficie da Release V1 · «o que o SCRAP promete, e o que ele nao promete» tem o seu codigo importado por Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/censo_executavel_da_v1.py",
+          "line": 48,
+          "snippet": "import superficie_do_scrap_v1 as sup                              # noqa: E402"
+        },
         {
           "file": "provas/red_team_da_release_v1.py",
           "line": 59,
@@ -34931,8 +34940,8 @@
     "edges_proven": 726,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1557,
-    "files_covered": 778,
+    "files_tracked": 1558,
+    "files_covered": 779,
     "files_code_unclaimed": 0
   }
 }
