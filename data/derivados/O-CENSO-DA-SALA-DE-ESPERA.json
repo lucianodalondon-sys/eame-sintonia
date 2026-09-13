@@ -1,0 +1,335 @@
+{
+  "SCHEMA": "sintonia.censo-da-sala-de-espera/1",
+  "O_QUE_ISTO_E": "A fotografia medida da Sala de Espera antes da BIG COLLECTION. Read-only: nada foi apagado, movido, renomeado, admitido, reprocessado, deduplicado nem re-admitido.",
+  "ISTO_NAO_E_DONO_DE_ESTADO": "fotografia historica. Quem decide se um item esta READY continua a ser `admissao.pronto_para_inteligencia()`; quem e dono da morada continua a ser `admissao/sala_de_espera.py`.",
+  "A_SALA": {
+    "OWNER": "admissao/sala_de_espera.py",
+    "CONSTRUTOR_DO_ITEM": "admissao.pronto_para_inteligencia()",
+    "CONTRATO": "COL-LAW-043",
+    "CAMPOS_DO_CONTRATO": [
+      "ESTADO",
+      "ITEM_ID",
+      "UNIVERSO",
+      "TEXTO",
+      "SOURCE_ID",
+      "SOURCE_LOCATION",
+      "FACT_LOCATION",
+      "FACT_TIME",
+      "CAPTURED_AT",
+      "CORRIDA",
+      "ADMITIDO_POR"
+    ],
+    "MORADA": "data/samples/PRONTO-PARA-INTELIGENCIA",
+    "MORADA_EXISTE": false,
+    "BACKEND": "FILESYSTEM (ADR-SALA-DE-ESPERA-V1)",
+    "TOTAL_WAITING_ROOM_RECORDS": 0,
+    "TOTAL_UNIQUE_READY_ITEMS": 0,
+    "PORQUE_OS_DOIS_NUMEROS_PODEM_DIFERIR": "um registo e um FICHEIRO DE CORRIDA; um item e uma UNIDADE dentro dele. Uma corrida com 3 unidades da 1 registo e 3 itens.",
+    "FICHEIROS_ILEGIVEIS": [],
+    "REGISTOS": []
+  },
+  "OUTRAS_REPRESENTACOES": {
+    "FICHEIROS_JSON_VARRIDOS": 452,
+    "OBJECTOS_READY_ENCONTRADOS": 0,
+    "FORA_DA_SALA_CANONICA": 0,
+    "ONDE": [],
+    "REPRESENTACOES_DA_SALA": 1,
+    "O_QUE_ISTO_PROVA": "se FORA_DA_SALA_CANONICA = 0, nao ha segunda representacao em ficheiro nesta arvore, e os totais da sala podem ser lidos como estao — sem risco de contar o mesmo item duas vezes."
+  },
+  "LIVE": {
+    "LIVE_READS": 0,
+    "LIVE_WRITES": 0,
+    "CREDENCIAIS_PRESENTES": [],
+    "A_SALA_VIVE_NO_LIVE": "NO",
+    "PORQUE": "ADR-SALA-DE-ESPERA-V1 decidiu FILESYSTEM: nao ha tabela de READY, nao ha migration da sala, e a decisao de admissao nao e persistida em PostgreSQL. O enum `etapa_da_coleta` tem 'READY', mas ele e PASSAGEM de corrida em `etapa_da_corrida` — telemetria, e nao a unidade. ETAPA QUE PASSOU != UNIDADE POUSADA.",
+    "CENSUS_BLOCKED_BY_LIVE_MEASUREMENT": "NO"
+  },
+  "PERFIL_DOS_ITENS": {
+    "LINHAGEM": {
+      "LINEAGE_FULL": 0,
+      "LINEAGE_PARTIAL": 0,
+      "LINEAGE_BROKEN": 0,
+      "LINEAGE_UNKNOWN": 0
+    },
+    "QUEBRA_POR_ESTAGIO": {
+      "MISSING_RUN_LINK": 0,
+      "MISSING_RAW_LINK": 0,
+      "MISSING_STORAGE_LINK": 0,
+      "MISSING_ADMISSION_LINK": 0,
+      "MISSING_SOURCE_LINK": 0
+    },
+    "ORIGEM": {
+      "CURRENT_CANONICAL_PROVEN": 0,
+      "LEGACY_PROVEN": 0,
+      "MIXED_OR_TRANSITIONAL": 0,
+      "UNKNOWN_ORIGIN": 0
+    },
+    "CONTRATO": {
+      "READY_CONTRACT_VALID": 0,
+      "READY_CONTRACT_INVALID": 0,
+      "READY_CONTRACT_UNKNOWN": 0
+    },
+    "IDENTIDADE": {
+      "SOURCE_ID_PRESENT": 0,
+      "SOURCE_ID_UNKNOWN": 0,
+      "SOURCE_ID_SUSPECTED_FABRICATED": 0,
+      "DOCUMENT_ID_PROVEN": 0,
+      "DOCUMENT_ID_UNKNOWN": 0,
+      "DOCUMENT_ID_SUSPECTED_FABRICATED": 0
+    },
+    "TEXTO": {
+      "TOTAL_TEXT_UNITS": 0,
+      "AUTHOR_TEXT": 0,
+      "NATIVE_CAPTION": 0,
+      "TRANSCRIPT": 0,
+      "ASR": 0,
+      "PAGE_TEXT": 0,
+      "DOCUMENT_TEXT": 0,
+      "UNKNOWN_TEXT_KIND": 0,
+      "TEXT_RELATION_ORIGINAL": 0,
+      "TEXT_RELATION_TRANSLATED": 0,
+      "TEXT_RELATION_UNKNOWN": 0,
+      "LANGUAGE_KNOWN": 0,
+      "LANGUAGE_UNKNOWN": 0
+    },
+    "TEMPO": {
+      "FACT_TIME_KNOWN": 0,
+      "FACT_TIME_UNKNOWN": 0,
+      "PUBLICATION_TIME_KNOWN": 0,
+      "PUBLICATION_TIME_UNKNOWN": 0,
+      "OBSERVED_TIME_KNOWN": 0,
+      "OBSERVED_TIME_UNKNOWN": 0,
+      "COLLECTED_TIME_KNOWN": 0,
+      "COLLECTED_TIME_UNKNOWN": 0
+    },
+    "GEOGRAFIA": {
+      "SOURCE_LOCATION_KNOWN": 0,
+      "SOURCE_LOCATION_UNKNOWN": 0,
+      "FACT_LOCATION_KNOWN": 0,
+      "FACT_LOCATION_UNKNOWN": 0
+    }
+  },
+  "DUPLICACAO": {
+    "BYTE_DUPLICATES": 0,
+    "OBSERVATION_ID_DUPLICATES": 0,
+    "OBSERVATION_ID_MEDIDO": "NO",
+    "PORQUE_OBSERVATION_ID_NAO_FOI_MEDIDO": "RAW_OBSERVATION_ID = raw_asset.id, e ele NAO viaja no contrato de 11 campos. Nenhum item da sala o carrega, entao nao ha o que duplicar nem como conferir. Derivar do SHA seria fabricar identidade.",
+    "READY_ID_DUPLICATES": 0,
+    "READY_ID_IDENTIDADE": "(CORRIDA, ITEM_ID) — o par que o contrato da",
+    "POSSIBLE_SEMANTIC_DUPLICATES": "NAO SEI",
+    "PORQUE_SEMANTICA_E_NAO_SEI": "nao existe identidade semantica provada: DOCUMENT_ID nao viaja no READY, e deduzi-lo de URL, SHA ou filename seria fabrica-lo."
+  },
+  "FILA_A_MONTANTE": {
+    "ISTO_NAO_E_A_SALA": "YES — e a fila a montante dela",
+    "DONO_DO_NUMERO": "provas/o_censo_do_acervo.py",
+    "OBSERVACOES_NO_LIVRO": 144,
+    "CORRIDAS_NO_LIVRO": 6,
+    "OBSERVACOES_POR_CORRIDA": {
+      "PILOT_RUN_20260907153737_4c34b3": 10,
+      "PILOT_RUN_20260907153844_ce49c0": 10,
+      "PILOT_RUN_20260907155832_cf7519": 31,
+      "PILOT_RUN_20260907160005_dc7570": 31,
+      "PILOT_RUN_20260907160230_41b185": 31,
+      "PILOT_RUN_20260907161006_3c63c6": 31
+    },
+    "OBSERVATION_RESULT": {
+      "BASELINE_DOCUMENT": 10,
+      "NEW_DOCUMENT": 25,
+      "SEEN_AGAIN": 109
+    },
+    "DOCUMENT_ID_DISTINTOS": 35,
+    "RAW_SHA256_DISTINTOS": 35,
+    "GRUPOS_DE_BYTES_IDENTICOS": 35,
+    "COMO_LER_ESSE_NUMERO": "⚠️ NAO E «35 DOCUMENTOS DUPLICADOS». Sao 35 conjuntos de bytes que foram observados MAIS DE UMA VEZ — porque reobservar a mesma publicacao em corridas seguintes devolve os mesmos bytes, e o livro regista isso como SEEN_AGAIN. REOBSERVAR NAO E DUPLICAR: o documento e um, e as observacoes dele sao varias.",
+    "PRIMEIRAS_OBSERVACOES": 35,
+    "REOBSERVACOES": 109,
+    "O_QUE_SHA_IGUAL_QUER_DIZER": "MESMOS BYTES. Nao diz mesmo documento, nao diz mesma observacao, e nao serve de DOCUMENT_ID.",
+    "COM_CAMINHO_DE_BYTES": 35,
+    "COM_BYTES_MESMO_NA_ARVORE": 10,
+    "FICHEIROS_NO_ARMAZEM": 10,
+    "POR_FONTE": {
+      "IT-T2-002": 124,
+      "IT-T2-004": 6,
+      "IT-T3-002": 2,
+      "IT-T3-005": 6,
+      "IT-T3-008": 2,
+      "IT-T3-010": 2,
+      "IT-T4-001": 2
+    },
+    "COLLECTED_TIME_KNOWN": 144,
+    "COLLECTED_TIME_UNKNOWN": 0,
+    "FACT_TIME_KNOWN": 12,
+    "FACT_TIME_UNKNOWN": 132,
+    "RAW_OBSERVATION_ID": "UNKNOWN em disco — a identidade canonica e `raw_asset.id`, e ela nasce no ingresso canonico. O livro do coletor nao a carrega, e deriva-la do SHA seria fabrica-la."
+  },
+  "FOTOGRAFIA": {
+    "A_READY_COM_LINHAGEM_COMPLETA": 0,
+    "B_READY_COM_LINHAGEM_PARCIAL": 0,
+    "C_LEGADO_REPROCESSAVEL": 0,
+    "D_INCOMPLETO_OU_CONTRATO_INVALIDO": 0,
+    "E_ORIGEM_DESCONHECIDA": 0,
+    "SOMA": 0,
+    "TOTAL_DE_ITENS": 0,
+    "UNKNOWN_NAO_ESTA_ESCONDIDO_EM_C_NEM_D": "E_ORIGEM_DESCONHECIDA e balde proprio, e nao entra em C nem em D."
+  },
+  "PLANEAMENTO": {
+    "REPROCESS_CANDIDATES": 0,
+    "QUARANTINE_CANDIDATES": 0,
+    "REVIEW_REQUIRED": 0,
+    "NO_ACTION": 0,
+    "UNKNOWN_ACTION": 0,
+    "TOTAL": 0,
+    "ISTO_E_PLANEAMENTO_E_NAO_EXECUCAO": "nenhuma destas categorias foi aplicada a ficheiro nenhum."
+  },
+  "RED_TEAM": [
+    {
+      "ATAQUE": "1 · mesmo item em duas representacoes contado duas vezes",
+      "SOBREVIVEU": false,
+      "PORQUE": "varridos 452 ficheiros JSON/NDJSON da arvore: 0 objectos READY fora da sala canonica. Uma representacao so."
+    },
+    {
+      "ATAQUE": "2 · SHA igual tratado como mesma observacao",
+      "SOBREVIVEU": false,
+      "PORQUE": "SHA foi contado num balde proprio (GRUPOS_DE_BYTES_IDENTICOS=35 na fila) e a saida diz, ao lado, que SHA igual e BYTES iguais e mais nada. OBSERVATION_ID_MEDIDO=NO, e nao NO porque deu zero."
+    },
+    {
+      "ATAQUE": "3 · SOURCE_ID ausente fabricado de URL",
+      "SOBREVIVEU": false,
+      "PORQUE": "SOURCE_ID e lido do campo do contrato e classificado em PRESENT / UNKNOWN. Nenhuma URL, path ou slug entra nesse campo: 0 presentes, 0 UNKNOWN, 0 suspeitos."
+    },
+    {
+      "ATAQUE": "4 · DOCUMENT_ID fabricado de SHA",
+      "SOBREVIVEU": false,
+      "PORQUE": "DOCUMENT_ID_PROVEN=0. O contrato READY nao carrega DOCUMENT_ID, e por isso todo item cai em DOCUMENT_ID_UNKNOWN por construcao — nao ha caminho de codigo que o derive de SHA."
+    },
+    {
+      "ATAQUE": "5 · SOURCE_LOCATION copiado para FACT_LOCATION",
+      "SOBREVIVEU": false,
+      "PORQUE": "sao dois baldes lidos de dois campos diferentes do item, sem fallback de um para o outro: SOURCE_LOCATION_KNOWN=0 · FACT_LOCATION_KNOWN=0."
+    },
+    {
+      "ATAQUE": "6 · publication time copiado para fact time",
+      "SOBREVIVEU": false,
+      "PORQUE": "PUBLICATION_TIME nao tem campo no contrato de 11 campos: PUBLICATION_TIME_KNOWN=0, e FACT_TIME sai so de FACT_TIME."
+    },
+    {
+      "ATAQUE": "7 · UNKNOWN contado como vazio/NO",
+      "SOBREVIVEU": false,
+      "PORQUE": "`_sabido()` devolve False para vazio E para as sentinelas (NAO SEI · NÃO SEI · UNKNOWN · DESCONHECIDO) — os dois vao para o lado do que NAO se prova, e nenhum e promovido a valor."
+    },
+    {
+      "ATAQUE": "8 · NOT_APPLICABLE contado como PASS",
+      "SOBREVIVEU": false,
+      "PORQUE": "RAW e STORAGE nao viajam no contrato de 11 campos. Isso conta como MISSING_RAW_LINK/MISSING_STORAGE_LINK e trava LINEAGE_FULL em 0 — nunca vira PASS por ser inaplicavel ao contrato."
+    },
+    {
+      "ATAQUE": "9 · READY declarado sem item na sala",
+      "SOBREVIVEU": false,
+      "PORQUE": "READY_DECLARED conta ficheiros REAIS na morada do dono: 0 registos, 0 itens. As provas que produzem READY redirigem `espera.MORADA` para arvore descartavel — READY PROVADO EM DESCARTAVEL != ESTOQUE NA SALA, e o censo le so a sala."
+    },
+    {
+      "ATAQUE": "10 · item na sala sem RUN contado como linhagem completa",
+      "SOBREVIVEU": false,
+      "PORQUE": "LINEAGE_FULL exige CORRIDA presente E igual a do ficheiro. LINEAGE_FULL=0 · MISSING_RUN_LINK=0."
+    },
+    {
+      "ATAQUE": "11 · legado classificado como atual so por data",
+      "SOBREVIVEU": false,
+      "PORQUE": "nenhuma classificacao de origem le data. O criterio e estrutural: CORRIDA coerente + SOURCE_ID + ADMITIDO_POR. Nenhum mtime, nenhum timestamp de Git entra na decisao."
+    },
+    {
+      "ATAQUE": "12 · ficheiro novo com conteudo antigo classificado como novo",
+      "SOBREVIVEU": false,
+      "PORQUE": "a origem sai dos CAMPOS do item, nunca da idade do ficheiro. Um ficheiro escrito hoje com item sem CORRIDA cai em UNKNOWN_ORIGIN."
+    },
+    {
+      "ATAQUE": "13 · dois RUNs da mesma fonte colapsados",
+      "SOBREVIVEU": false,
+      "PORQUE": "a sala e um ficheiro por corrida e o dono levanta RUN_ID_CONFLICT se a mesma corrida contar outra historia: 0 registos, 0 RUN_ID distintos."
+    },
+    {
+      "ATAQUE": "14 · lingua da publicacao herdada pelo texto",
+      "SOBREVIVEU": false,
+      "PORQUE": "o contrato READY nao tem campo de lingua: LANGUAGE_KNOWN=0, e nenhuma lingua e lida do documento, da fonte ou do pais."
+    },
+    {
+      "ATAQUE": "15 · filename usado como identidade",
+      "SOBREVIVEU": false,
+      "PORQUE": "o nome do ficheiro nunca e identidade de item. A identidade de READY e (CORRIDA, ITEM_ID), lida de dentro; o nome do ficheiro so localiza o registo da corrida, e o RUN_ID e reconferido pelo campo RUN_ID do corpo."
+    }
+  ],
+  "PRONTIDAO": {
+    "BIG_COLLECTION_CAN_START": "YES_WITH_CONDITIONS",
+    "PORQUE": "a sala canonica esta VAZIA e tem UMA representacao so. Nao ha estoque antigo para se misturar com coleta nova, e por isso a Big Collection nao arrisca mistura irreversivel DENTRO da sala. As condicoes nao sao sobre o estoque: sao sobre o que a sala vazia NAO prova.",
+    "BIG_COLLECTION_CONDITIONS": [
+      "TODA unidade nova pousa por `admissao/sala_de_espera.py` — o unico dono da morada. Segunda escrita = segunda verdade.",
+      "TODA corrida nova carrega RUN_ID proprio, e o ficheiro da sala e dessa corrida: a sala vazia faz de MARCO ZERO, e tudo que aparecer depois e coleta nova por construcao.",
+      "LINEAGE_FULL continua impossivel enquanto RAW e STORAGE nao tiverem como ser reconciliados a partir do item: o contrato de 11 campos NAO os carrega (COL-LAW-043, de proposito). A ponte e o ledger da corrida, e ela tem de existir ANTES de a escala tornar a reconciliacao cara.",
+      "a sala vazia NAO prova que a rota aguenta volume: READY so foi produzido em arvore descartavel. PROVADO EM DESCARTAVEL != PROVADO EM PRODUCAO.",
+      "medir de novo depois do primeiro lote: um censo antes da coleta nao e um censo durante."
+    ],
+    "O_QUE_ISTO_NAO_DIZ": "nao diz que a Big Collection deve comecar, nem que o resto da maquina esta pronto. Diz que O ESTOQUE DA SALA nao a impede.",
+    "RED_TEAM_ATTACKS": 15,
+    "RED_TEAM_SURVIVORS": 0
+  },
+  "ONDE_A_CADEIA_QUEBRA": {
+    "COMO_FOI_MEDIDO": "AST sobre `coleta/rota_forward_documento.py::item_para_a_porta` e `admissao/admissao.py::pronto_para_inteligencia`. Nenhum item foi preciso: a quebra esta na forma, e a forma esta em git.",
+    "CHAVES_QUE_A_ROTA_ENTREGA_A_PORTA": [
+      "captured_at",
+      "id",
+      "raw_asset_id",
+      "texto",
+      "url"
+    ],
+    "CHAVES_QUE_SAEM_NO_READY": [
+      "ESTADO",
+      "ITEM_ID",
+      "UNIVERSO",
+      "TEXTO",
+      "SOURCE_ID",
+      "SOURCE_LOCATION",
+      "FACT_LOCATION",
+      "FACT_TIME",
+      "CAPTURED_AT",
+      "CORRIDA",
+      "ADMITIDO_POR"
+    ],
+    "CHAVES_DO_ITEM_QUE_O_READY_LE": [
+      "captured_at",
+      "data",
+      "fact_location",
+      "fact_time",
+      "fonte",
+      "id",
+      "source_id",
+      "source_location",
+      "texto",
+      "title",
+      "url"
+    ],
+    "CHAVES_QUE_NAO_ATRAVESSAM": [
+      "raw_asset_id"
+    ],
+    "COMO_SE_SABE_QUE_ATRAVESSOU": "por CONSUMO, nunca por nome igual. `id` e `url` chamam-se ITEM_ID do outro lado, e atravessam; quem nao e lido em sitio nenhum e que fica pelo caminho.",
+    "RAW_ASSET_ID_CHEGA_A_PORTA": true,
+    "RAW_ASSET_ID_ATRAVESSA_PARA_READY": false,
+    "O_QUE_ISTO_SIGNIFICA": "RAW_OBSERVATION_ID = raw_asset.id (identidade canonica). A rota forward TEM-NO em maos e entrega-o a porta; o contrato de 11 campos NAO o leva. Entao a cadeia ate ao byte NAO se fecha a partir de um item pousado — fecha-se pelo ledger da corrida, por `CORRIDA`. ISTO NAO E DEFEITO NOVO: e a COL-LAW-043 a cumprir-se (a inteligencia recebe 11 campos e mais nada). E divida de RECONCILIACAO, e ela cresce com o volume.",
+    "TEXT_UNITS_ATRAVESSA": "NO",
+    "O_QUE_ISSO_CUSTA": "o contrato E7 do texto (`regras/proveniencia.py`: TEXT_UNITS com TEXT_KIND · LANGUAGE · TEXT_RELATION · RAW_OBSERVATION_ID) NAO atravessa: o READY leva `TEXTO`, uma string. Por isso TEXT_KIND, TEXT_RELATION e LANGUAGE ficam UNKNOWN para TODO item futuro — e nao por falta de dado a montante, mas porque o contrato da sala nao tem onde os pousar."
+  },
+  "CRITERIOS": {
+    "CURRENT_CANONICAL_PROVEN": "forma == contrato de hoje (11 campos, ESTADO correcto) E as tres ligacoes que o contrato carrega: CORRIDA presente e IGUAL a do ficheiro, SOURCE_ID nao-sentinela, ADMITIDO_POR nao-sentinela.",
+    "LEGACY_PROVEN": "as tres ligacoes completas MAS forma diferente do contrato de hoje. E o unico sinal estrutural de outra era: um writer antigo deixa marca na FORMA. NENHUMA DATA ENTRA NESTA DECISAO.",
+    "MIXED_OR_TRANSITIONAL": "alguma das tres ligacoes, mas nao todas.",
+    "UNKNOWN_ORIGIN": "nenhuma das tres ligacoes.",
+    "LINEAGE_FULL": "READY <- ADMISSION <- STRUCTURED <- DERIVED|NOT_APPLICABLE <- RAW <- STORAGE <- RUN <- SOURCE, fechada a partir do item. ⚠️ INATINGIVEL A PARTIR DO ITEM SOZINHO, e de proposito: a COL-LAW-043 manda a inteligencia receber 11 campos e mais nada, e RAW/STORAGE nao estao entre eles. Quem fecha a cadeia ate ao byte e o ledger da corrida. Marcar FULL sem ele seria dar por provado o que o contrato escolheu nao transportar.",
+    "LINEAGE_PARTIAL": "as tres ligacoes do contrato, sem RAW/STORAGE.",
+    "LINEAGE_BROKEN": "alguma ligacao do contrato falta.",
+    "LINEAGE_UNKNOWN": "o item nao e legivel como unidade.",
+    "LEGACY_BUT_USABLE": "LEGACY_PROVEN e contrato legivel.",
+    "LEGACY_NEEDS_REPROCESSING": "LEGACY_PROVEN e contrato invalido pelas leis de hoje.",
+    "LEGACY_UNEXPLAINED": "UNKNOWN_ORIGIN.",
+    "O_QUE_NENHUM_CRITERIO_USA": "mtime de ficheiro, data de commit, ordem alfabetica, nome de ficheiro, URL, SHA. Nenhum deles entra em classificacao nenhuma."
+  },
+  "GENERATED_BY": "provas/o_censo_da_sala_de_espera.py"
+}
