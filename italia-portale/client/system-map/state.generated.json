@@ -1593,8 +1593,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
-    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
+    "HEAD": "b6b7865bdec7b61638f2072e931a4eaa233cc235",
+    "GENERATED_AT": "2026-09-13T15:25:07+00:00"
   },
   "FAMILIES": [
     {
@@ -6803,6 +6803,7 @@
         "C-CTRL-REGISTO"
       ],
       "outbound": [
+        "C-CTRL-PORTAO",
         "C-CTRL-REDTEAM"
       ],
       "paises": {},
@@ -6844,6 +6845,7 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
+        "C-CTRL-CENSO",
         "C-CTRL-REGISTO"
       ],
       "outbound": [
@@ -11896,7 +11898,7 @@
         "controle/portao_do_controle.py"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:controle/portao_do_controle.py · conteudo 3815eb3ec0",
+      "evidence_text": "git:HEAD:controle/portao_do_controle.py · conteudo 746b8846bb",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -11925,7 +11927,7 @@
         "DECLARED_STATE": "Falha fechado.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:controle/portao_do_controle.py",
-        "SHA": "3815eb3ec0",
+        "SHA": "746b8846bb",
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "AGENTS.md",
@@ -12552,7 +12554,7 @@
         "controle/censo_do_controle.py"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:controle/censo_do_controle.py · conteudo 54125525ff",
+      "evidence_text": "git:HEAD:controle/censo_do_controle.py · conteudo 9c14af304f",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -12581,7 +12583,7 @@
         "DECLARED_STATE": "Ele e quem escreve OBSERVED. O registo declarado nunca escreve.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:controle/censo_do_controle.py",
-        "SHA": "54125525ff",
+        "SHA": "9c14af304f",
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "AGENTS.md",
@@ -12875,7 +12877,7 @@
         "SALA-DE-CONTROLE-SINTONIA.md"
       ],
       "proof": "git-measurement",
-      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 36058b4d6d",
+      "evidence_text": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md · conteudo 59c2d43275",
       "departments": [
         "INTELIGENCIA"
       ],
@@ -12900,7 +12902,7 @@
         "DECLARED_STATE": "GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.",
         "OBSERVED_STATE": "PRESENT_AND_POINTED",
         "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
-        "SHA": "36058b4d6d",
+        "SHA": "59c2d43275",
         "REFERENCED_BY": [
           ".github/workflows/system-map.yml",
           "AGENTS.md",
@@ -13642,7 +13644,7 @@
       "icon": "B",
       "facts": [
         "branch claude/funny-hypatia-y7ho5s",
-        "HEAD f437ff1140fa97484ca9695b341fbe9ca0a9f050"
+        "HEAD b6b7865bdec7b61638f2072e931a4eaa233cc235"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -16617,6 +16619,23 @@
     },
     {
       "from": "C-CTRL-CENSO",
+      "to": "C-CTRL-PORTAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo do Control Plane alimenta Portao do Control Plane. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "controle/portao_do_controle.py",
+          "line": 218,
+          "snippet": "[sys.executable, str(RAIZ / \"controle\" / \"censo_do_controle.py\")],"
+        }
+      ]
+    },
+    {
+      "from": "C-CTRL-CENSO",
       "to": "C-CTRL-REDTEAM",
       "type": "READS",
       "payload": "artefacto",
@@ -16678,12 +16697,12 @@
       "evidence": [
         {
           "file": "controle/portao_do_controle.py",
-          "line": 60,
+          "line": 61,
           "snippet": "RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\")"
         },
         {
           "file": "controle/portao_do_controle.py",
-          "line": 63,
+          "line": 64,
           "snippet": "CHAO = _caminho(\"SINTONIA_CONTROLE_CHAO\", RAIZ / \"controle\" / \"CHAO-DO-CONTROLE.json\")"
         }
       ]
@@ -21475,8 +21494,8 @@
     "components_pending": 34,
     "components_broken": 4,
     "components_unknown": 4,
-    "edges": 372,
-    "edges_proven": 360,
+    "edges": 373,
+    "edges_proven": 361,
     "edges_unknown": 12,
     "business_edges": 4,
     "files_tracked": 1149,

@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/funny-hypatia-y7ho5s",
-    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
-    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
+    "HEAD": "b6b7865bdec7b61638f2072e931a4eaa233cc235",
+    "GENERATED_AT": "2026-09-13T15:25:07+00:00"
   },
   "FILES": [
     {
@@ -198,7 +198,7 @@
     },
     {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
-      "sha": "da0321ae4517ae9db8ca5bb6ba30bec7fd298179",
+      "sha": "59c2d43275df84c364a9238817e4feae153431e0",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1332,14 +1332,14 @@
     },
     {
       "path": "controle/censo_do_controle.py",
-      "sha": "54125525ff02a97ab90b1fb19ff01309d05b95d2",
+      "sha": "9c14af304f2d9ecd8adf20ad3122cd266ed36993",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "controle/portao_do_controle.py",
-      "sha": "3815eb3ec03f883964096cbc971fb8853e5a50d5",
+      "sha": "746b8846bb4cfa3fa52f6a8f486328d65fd6db94",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -9770,12 +9770,23 @@
     },
     {
       "from_file": "controle/portao_do_controle.py",
+      "to_file": "SALA-DE-CONTROLE-SINTONIA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "controle/portao_do_controle.py",
+        "line": 214,
+        "snippet": "sala = RAIZ / \"SALA-DE-CONTROLE-SINTONIA.md\""
+      }
+    },
+    {
+      "from_file": "controle/portao_do_controle.py",
       "to_file": "controle/AUTORIDADES-CANONICAS.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 60,
+        "line": 61,
         "snippet": "RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\")"
       }
     },
@@ -9786,8 +9797,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 63,
+        "line": 64,
         "snippet": "CHAO = _caminho(\"SINTONIA_CONTROLE_CHAO\", RAIZ / \"controle\" / \"CHAO-DO-CONTROLE.json\")"
+      }
+    },
+    {
+      "from_file": "controle/portao_do_controle.py",
+      "to_file": "controle/censo_do_controle.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "controle/portao_do_controle.py",
+        "line": 218,
+        "snippet": "[sys.executable, str(RAIZ / \"controle\" / \"censo_do_controle.py\")],"
       }
     },
     {
@@ -25438,7 +25460,7 @@
     "files_tracked": 1149,
     "files_readable": 392,
     "files_code_dir": 439,
-    "file_edges": 1546,
+    "file_edges": 1548,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

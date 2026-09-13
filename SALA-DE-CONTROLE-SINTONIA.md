@@ -331,7 +331,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`SALA-DE-CONTROLE-SINTONIA.md`](SALA-DE-CONTROLE-SINTONIA.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `36058b4d6d`
+- **impressão do conteúdo medido** — *não se mede a si própria: o valor mudaria por ser escrito aqui*
 - **prova** — `git:HEAD:SALA-DE-CONTROLE-SINTONIA.md`
 - **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py` *(+1)*
 - **o que ela diz de si** — GERADA do registo e do censo. Editar a mao e escrever uma verdade que nenhum medidor confirma.
@@ -364,7 +364,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/portao_do_controle.py`](controle/portao_do_controle.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `3815eb3ec0`
+- **impressão do conteúdo medido** — `746b8846bb`
 - **prova** — `git:HEAD:controle/portao_do_controle.py`
 - **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py` *(+1)*
 - **o que ela diz de si** — Falha fechado.
@@ -486,7 +486,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/censo_do_controle.py`](controle/censo_do_controle.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `54125525ff`
+- **impressão do conteúdo medido** — `9c14af304f`
 - **prova** — `git:HEAD:controle/censo_do_controle.py`
 - **quem aponta para ela** — `.github/workflows/system-map.yml`, `AGENTS.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/portao_do_controle.py` *(+2)*
 - **o que ela diz de si** — Ele e quem escreve OBSERVED. O registo declarado nunca escreve.

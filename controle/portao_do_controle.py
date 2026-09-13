@@ -44,6 +44,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[1]
@@ -200,6 +201,29 @@ def main() -> int:
                 if a["KIND"] == "REGISTRY" and a["CANONICAL_PATH"].endswith(".md")]
     prova("CANONICAL_CONTROL_ENTRYPOINTS", "existe exatamente uma sala de controle",
           len(entradas) == 1, entradas if len(entradas) != 1 else [])
+
+    # ── 12 · A PORTA COMMITADA E A QUE O CENSO DE HOJE PRODUZ ────────────────
+    # `SALA-DE-CONTROLE-SINTONIA.md` e gerada, e o validador do mapa nao a
+    # confere — ele confere o indice de fontes e a porta da coleta, que ja
+    # existiam quando foi escrito. Sem esta prova, alguem podia mudar o registo,
+    # regerar tudo menos ela, e commitar uma porta que descreve um Control Plane
+    # que ja nao existe.
+    #
+    #     UMA PORTA DE ENTRADA DESATUALIZADA E PIOR QUE NENHUMA:
+    #     QUEM A LE ACREDITA NELA.
+    sala = RAIZ / "SALA-DE-CONTROLE-SINTONIA.md"
+    with tempfile.TemporaryDirectory() as td:
+        nova = Path(td) / "sala.md"
+        r = subprocess.run(
+            [sys.executable, str(RAIZ / "controle" / "censo_do_controle.py")],
+            capture_output=True, text=True,
+            env={**os.environ, "SINTONIA_CONTROLE_SALA": str(nova),
+                 "SINTONIA_CONTROLE_CENSO": str(Path(td) / "censo.json")})
+        igual = (r.returncode == 0 and nova.exists() and sala.exists()
+                 and nova.read_text(encoding="utf-8") == sala.read_text(encoding="utf-8"))
+    prova("SALA_DE_CONTROLE_ATUAL",
+          "a sala de controle commitada e a que o censo de hoje produz", igual,
+          ["regenere: python3 controle/censo_do_controle.py"] if not igual else [])
 
     # ══ DIVIDA — medida, contada, e com teto que nao sobe ══════════════════
 

@@ -237,7 +237,8 @@ DIZ = {"PRESENT_AND_POINTED": "está aqui, e alguém aponta para ela",
        "ABSENT": "não existe em lado nenhum"}
 
 
-def sala_de_controle(cartoes: list, arestas: list, resumo: dict) -> None:
+def sala_de_controle(cartoes: list, arestas: list, resumo: dict,
+                     sala_canonica: str) -> None:
     """Escreve `SALA-DE-CONTROLE-SINTONIA.md` — a porta humana do Control Plane.
 
     GERADA, e nao escrita a mao, pela mesma razao que `LEIA-ANTES-DE-COLETAR.md`
@@ -345,7 +346,20 @@ def sala_de_controle(cartoes: list, arestas: list, resumo: dict) -> None:
             # verificacao anti-drift. Ela vive em `controle.generated.json`, que
             # nao entra nessa comparacao. O que entra aqui e o SHA do CONTEUDO,
             # que e o mesmo antes e depois do commit.
-            if c["SHA"]:
+            #
+            # COM UMA EXCECAO, E E ESTE FICHEIRO. Escrever aqui dentro a
+            # impressao DESTE ficheiro e escrever o hash de uma coisa que muda
+            # por eu o escrever: cada corrida mede o texto anterior, grava-o, e
+            # com isso produz um texto novo para a corrida seguinte medir.
+            #
+            #     UM HASH DE SI PROPRIO NUNCA CHEGA A PONTO FIXO.
+            #
+            # A cadeia nunca fechava, e o mapa acusava drift para sempre. Fica
+            # dito em vez de medido — que e a unica resposta honesta aqui.
+            if c["CANONICAL_PATH"] == sala_canonica:
+                w("- **impressão do conteúdo medido** — *não se mede a si própria: "
+                  "o valor mudaria por ser escrito aqui*")
+            elif c["SHA"]:
                 w(f"- **impressão do conteúdo medido** — `{c['SHA']}`")
             if c["PROOF"]:
                 w(f"- **prova** — `{c['PROOF']}`")
@@ -543,7 +557,15 @@ def main() -> int:
         "COUNTS": resumo,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    sala_de_controle(cartoes, arestas, resumo)
+    # QUAL CARTAO E A PROPRIA PORTA — perguntado ao registo, e nao ao nome do
+    # ficheiro de saida. O portao regenera a sala para um caminho temporario
+    # para a comparar com a commitada; se a resposta viesse do nome do ficheiro,
+    # a regeneracao produzia um texto diferente e a comparacao acusava drift
+    # que nao existe. Escrevi-o assim a primeira vez, e foi o proprio portao que
+    # apanhou o erro.
+    entradas = [a["CANONICAL_PATH"] for a in reg["AUTHORITIES"]
+                if a["KIND"] == "REGISTRY" and a["CANONICAL_PATH"].endswith(".md")]
+    sala_de_controle(cartoes, arestas, resumo, entradas[0] if entradas else "")
 
     print(f"CENSO_DO_CONTROLE=OK · autoridades={resumo['authorities']} "
           f"(na arvore {resumo['in_tree']} · ausentes desta foto "
