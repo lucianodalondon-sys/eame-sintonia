@@ -301,6 +301,126 @@ for f in "$RAIZ"/supabase/migrations/*.sql; do
 done
 echo "  MIGRATIONS_PENDENTES=${pendentes:-nenhuma}"
 
+# ── H · PREFLIGHT DE APLICACAO — SOMENTE LEITURA, E PROVADA ───────────
+# Nasceu na C-LIVE-PREFLIGHT-READONLY-V1. As seccoes acima medem as leis que
+# a casa ja instalou; esta responde a UMA pergunta diferente:
+#
+#     O LIVE ESTA EM ESTADO CONHECIDO O SUFICIENTE PARA QUE UMA MISSAO
+#     POSTERIOR POSSA PEDIR AUTORIZACAO DE APPLY?
+#
+# Ela NAO aplica nada. Nao e um aplicador com a coragem baixa: e um censo.
+#
+# E COMECA POR PROVAR QUE NAO PODE ESCREVER. O resto do ficheiro e so
+# `select` por disciplina e por guarda de teste — o que faltava era o banco
+# CONFIRMAR isso do lado dele. Uma sessao que so escreve `select` por
+# convencao e uma sessao que escreve o que lhe mandarem.
+#
+#     SO USEI SELECT != A SESSAO NAO PODIA ESCREVER.
+#
+# Se a prova nao vier `on`, esta seccao NAO corre. Nao por medo das queries
+# — sao as mesmas — mas porque um preflight que ignora o proprio portao
+# nao e um preflight.
+echo
+echo "-- H · preflight de aplicacao (somente leitura, provada)"
+
+ro() { PGOPTIONS='-c default_transaction_read_only=on -c statement_timeout=20000' \
+       psql "$URL" -X -q -A -t -F '|' -v ON_ERROR_STOP=1 -c "$1" 2>/tmp/ero \
+         || { echo "ERRO"; sanitiza </tmp/ero | head -2; }; }
+
+READ_ONLY=$(ro "show default_transaction_read_only")
+echo "  READ_ONLY_SESSION=$READ_ONLY"
+
+if [ "$READ_ONLY" != "on" ]; then
+  echo "  READ_ONLY_PROVEN=NO"
+  echo "  PREFLIGHT=NOT_MEASURED — a sessao nao provou ser somente leitura."
+  echo "  Nenhuma pergunta do preflight foi feita. Isto NAO reprova a"
+  echo "  auditoria: as seccoes A-G mediram o que sempre mediram."
+else
+  echo "  READ_ONLY_PROVEN=YES"
+
+  # ── H1 · O LIVRO-RAZAO EXISTE? ──────────────────────────────────────
+  # Primeira pergunta, e eliminatoria. Um banco sem livro-razao nao tem
+  # historia do aplicador canonico: reaplicar por cima seria adivinhar.
+  ledger=$(ro "select coalesce(to_regclass('public.schema_migracao')::text,'-')")
+  echo "  LIVE_SCHEMA_LEDGER_EXISTS=$([ "$ledger" != "-" ] && echo YES || echo NO)"
+
+  if [ "$ledger" = "-" ]; then
+    echo "  LIVE_CANONICAL_APPLICATOR_HISTORY=NO"
+    echo "  PREFLIGHT=STOP — sem livro-razao nao se decide apply."
+  else
+    # ── H2 · SAUDE DO LIVRO-RAZAO ────────────────────────────────────
+    # Quatro doencas que uma listagem bonita nao mostra: a versao repetida,
+    # o resultado fora do vocabulario, o sha em falta, e a versao que o
+    # repositorio nao conhece.
+    echo "  LEDGER_ROWS=$(ro "select count(*) from public.schema_migracao")"
+    echo "  LEDGER_DUPLICATES=$(ro "select count(*) from (select versao from public.schema_migracao group by versao having count(*)>1) d")"
+    echo "  LEDGER_INVALID_RESULTS=$(ro "select count(*) from public.schema_migracao where resultado not in ('APLICADA','JA_EXISTIA')")"
+    echo "  LEDGER_MISSING_SHA=$(ro "select count(*) from public.schema_migracao where sha256 is null or length(sha256)<>64")"
+    echo "  LEDGER_VERSIONS=$(ro "select coalesce(string_agg(versao,',' order by versao),'-') from public.schema_migracao")"
+
+    # ── H3 · O INVENTARIO DAS TABELAS DA COLLECTION ──────────────────
+    # EXISTE e QUANTAS LINHAS, por tabela. Estrutura e contagem; nunca
+    # corpus. Nenhuma linha de documento e lida aqui.
+    echo "  -- tabelas"
+    for t in collection_run raw_asset storage_object derived_artifact \
+             etapa_da_corrida participacao_na_derivacao \
+             documento_estruturado schema_migracao; do
+      existe=$(ro "select coalesce(to_regclass('public.$t')::text,'-')")
+      if [ "$existe" = "-" ]; then
+        printf '  TABELA %-28s EXISTS=NO   ROWS=-\n' "$t"
+      else
+        printf '  TABELA %-28s EXISTS=YES  ROWS=%s\n' "$t" \
+          "$(ro "select count(*) from public.$t")"
+      fi
+    done
+
+    # ── H4 · AS TRAVAS DE CADA UMA ───────────────────────────────────
+    # `convalidated=false` e uma trava que existe no catalogo e NAO foi
+    # conferida contra as linhas que ja la estavam. Ela parece uma trava e
+    # nao garante o passado.
+    echo "  -- travas por tabela (tipo|nome|convalidada)"
+    ro "select c.relname||'|'||con.contype::text||'|'||con.conname||'|'||con.convalidated
+        from pg_constraint con join pg_class c on c.oid=con.conrelid
+        join pg_namespace n on n.oid=c.relnamespace
+        where n.nspname='public' and c.relname in
+          ('collection_run','raw_asset','storage_object','derived_artifact',
+           'etapa_da_corrida','participacao_na_derivacao',
+           'documento_estruturado','schema_migracao')
+        order by c.relname, con.contype, con.conname" | sed 's/^/    /'
+    echo "  CONSTRAINTS_NAO_CONVALIDADAS=$(ro "select count(*) from pg_constraint con join pg_class c on c.oid=con.conrelid join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and not con.convalidated")"
+    # UM NUMERO NAO DIZ EM QUE TABELA. Uma trava por convalidar e uma trava
+    # que nao garante o passado, e quem a vai ler precisa do nome dela.
+    echo "  QUAIS_NAO_CONVALIDADAS=$(ro "select coalesce(string_agg(c.relname||'.'||con.conname,',' order by c.relname,con.conname),'nenhuma') from pg_constraint con join pg_class c on c.oid=con.conrelid join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and not con.convalidated")"
+
+    # ── H5 · MIGRATION REGISTADA != TABELA EXISTE ────────────────────
+    # As duas perguntas sao diferentes, e a diferenca entre elas E o
+    # achado. Uma tabela que existe sem registo no livro significa que
+    # alguem a criou por fora do aplicador canonico — e o aplicador vai
+    # tentar cria-la outra vez.
+    #
+    #     REGISTADA SEM TABELA  = o livro mente sobre o que correu
+    #     TABELA SEM REGISTO    = o aplicador vai tropecar nela
+    echo "  -- a 029 e a 030, pelas DUAS perguntas"
+    for par in "029|participacao_na_derivacao" "030|documento_estruturado"; do
+      v="${par%%|*}"; t="${par##*|}"
+      no_livro=$(ro "select count(*) from public.schema_migracao where versao='$v'")
+      a_tabela=$(ro "select coalesce(to_regclass('public.$t')::text,'-')")
+      printf '  MIGRATION_%s_IN_LEDGER=%s  %s_EXISTS=%s\n' \
+        "$v" "$([ "$no_livro" = "1" ] && echo YES || echo NO)" \
+        "$(echo "$t" | tr 'a-z' 'A-Z')" \
+        "$([ "$a_tabela" != "-" ] && echo YES || echo NO)"
+      if [ "$no_livro" != "1" ] && [ "$a_tabela" != "-" ]; then
+        mal "TABELA_SEM_REGISTO_NO_LIVRO" "$t existe e a $v nao esta no livro"
+      fi
+    done
+
+    # ── H6 · O QUE O LIVRO TEM E O REPOSITORIO NAO ───────────────────
+    # A seccao A ja grita se um registo nao tiver ficheiro. Aqui diz-se o
+    # conjunto, porque um preflight precisa do conjunto e nao do alarme.
+    echo "  EXTRA_IN_LIVE=$(ro "select coalesce(string_agg(versao,',' order by versao),'nenhuma') from public.schema_migracao where versao not in ($(for f in "$RAIZ"/supabase/migrations/*.sql; do printf "'%s'," "$(basename "$f" | cut -c1-3)"; done | sed 's/,$//'))")"
+  fi
+fi
+
 echo
 if [ "$falhou" = "0" ]; then
   echo "AUDITORIA_LIVE=PASS"; exit 0
