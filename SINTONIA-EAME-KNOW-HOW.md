@@ -11125,3 +11125,209 @@ só o que a casa **diz**.
 - **Quatro desvios declarados continuam alcançáveis** por um workflow. Eles
   adquirem, saltam o `COLLECT`, e dizem-no na saída — o que é uma medição, e não
   um buraco. Fechá-los é fan-out, e não era destas missões.
+
+---
+
+# §102 · A FONTE QUE NÃO RESPONDE NÃO É A CLASSE QUE NÃO PRESTA
+
+**Missão:** `C-T4-CANONICAL-ACQUISITION-TO-WAITING-ROOM-V1` — dar aquisição
+canónica a T4 e fechar `ADMISSION → READY`.
+**Branch:** `claude/t4-canonical-acquisition-v1`
+**Data:** 2026-09-13
+
+A Collection V1 fechou. Um pedido `T4` real atravessou as onze etapas na mesma
+corrida, do botão à Sala de Espera, com o executor a ir à fonte oficial e a
+porta a dizer `SIM` por uma regra que já existia.
+
+Esta secção regista **como quase não fechou**, que é a parte que se transfere.
+
+## 102.1 · MEDIU-SE A FONTE E CONCLUIU-SE SOBRE A CLASSE
+
+A `§100` entregou `T4` como canário com um blocker de ambiente ao lado:
+
+```
+a fonte de T4 não passa a verificação de TLS deste ambiente
+www.fitosanitari.salute.gov.it — unable to get local issuer certificate
+```
+
+Verdade, e medida com cuidado. E **enganosa**, porque a frase diz «a fonte de
+T4» quando o que foi medido é *a fonte que o executor da receita usa*. O atlas
+tem **oito** fontes T4 aprovadas. Ninguém as tinha perguntado.
+
+```
+IT-T4-001  dati.salute.gov.it       200 · CSV 4,6 MB
+EU-T4-001  publications.europa.eu   200 · GREEN · sabe_coletar: true
+FR         data.gouv.fr             404 (rota mudou)
+—          fitosanitari.salute.gov  TLS não verifica
+```
+
+    A FONTE QUE O EXECUTOR USA NÃO É «A FONTE DA CLASSE».
+    UMA CLASSE TEM UM ATLAS; UM EXECUTOR TEM UM ENDEREÇO.
+
+O erro é fácil de repetir porque a medição estava certa e o salto era pequeno:
+mediu-se um host, escreveu-se «a fonte», leu-se «a classe». **Um bloqueio de
+ambiente com data é uma afirmação sobre um endereço, e nunca sobre a classe
+inteira** — a menos que alguém tenha perguntado a todos os endereços dela, e
+isso é uma medição diferente, que custa quatro `curl`.
+
+## 102.2 · A ROTA QUE O CONTRATO DA FONTE JÁ DECLARAVA
+
+`EU-T4-001` responde, e o colector que ela tem (`coleta/cellar.sh`) devolve
+XHTML. O derivador canónico desta casa extrai texto de **PDF**: medido, um
+ficheiro que não começa por `%PDF` sai com `EXTRACTION_ERROR`.
+
+O caminho fácil dali seria escrever um derivador para XHTML — e abrir uma
+segunda casa de derivação por causa de um formato.
+
+Não foi preciso. O contrato da fonte, escrito muito antes, já dizia:
+
+```
+fallback: "EUR-Lex por CELEX (mesma casa, outra rota)"
+```
+
+O EUR-Lex serve o **mesmo ato** em PDF oficial. A rota estava declarada e
+ninguém a tinha usado.
+
+    ANTES DE CONSTRUIR A PEÇA QUE FALTA,
+    LER O CONTRATO DA FONTE ATÉ AO FIM.
+
+Esta é irmã da `§100.1` com o sinal trocado: lá, uma decisão perdeu-se por
+estar só em prosa; aqui, uma **capacidade** estava escrita num campo estruturado
+e também não foi lida. O campo existia, tinha nome, e estava a três linhas de
+distância do que já se estava a ler.
+
+## 102.3 · O PRIMEIRO `DOCUMENT_ID` PROVADO DESTA CASA
+
+Durante missões seguidas, `DOCUMENT_ID` foi sempre `NULL`, e sempre com razão:
+um boletim da ARPAV não traz número que a fonte declare, e derivá-lo do sha, do
+caminho ou da URL seria fabricar.
+
+`EU-T4-001` declara, no contrato dela:
+
+```
+identity_keys: CELEX
+```
+
+O CELEX **é** o nome que o emissor dá ao ato. Escrito, ele atravessa até
+`raw_asset.document_key` com `document_key_basis = SOURCE_DOCUMENT_ID` e
+`identity_state = FORWARD_IDENTIFIED` — a primeira observação desta casa com
+identidade documental provada.
+
+    SHA É DOS BYTES. CAMINHO É MORADA. URL É ENDPOINT.
+    CELEX É O NOME QUE O MUNDO DEU AO DOCUMENTO.
+
+E apanhou-se, ao lado, uma frase que tinha ficado verdadeira e deixou de ser. O
+orquestrador dizia, em comentário:
+
+> *«`document_id` NÃO VAI. A fonte documental não o prova.»*
+
+Era verdade da **única** fonte que por ali tinha passado.
+
+    UMA FRASE VERDADEIRA SOBRE A ÚNICA FONTE QUE JÁ PASSOU
+    NÃO É UMA FRASE VERDADEIRA SOBRE A ESTRADA.
+
+Corrigiu-se a frase e **não** se alargou o transporte: levar o `CELEX` até
+`documento_estruturado` atravessa quatro donos, e isso é trabalho deliberado. A
+identidade não se perde — vive na casa dela — e o `NULL` no registo estruturado
+passou a significar «esta casa ainda não o transporta», que não é a mesma
+ausência que «a fonte não o provou».
+
+## 102.4 · O `or` QUE QUASE ESCREVEU UMA FRASE FALSA
+
+Com o core a fechar, a certificação calculava:
+
+```python
+ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP = pronto or fecharia == "YES"
+```
+
+O primeiro ramo ficou verdadeiro no instante em que a máquina fechou, e a frase
+passou a dizer **«só falta o SCRAP»** sem nunca ter perguntado quem mais falta.
+Medido: nove classes sem aquisição canónica, e só **uma** é do domínio do SCRAP.
+
+    A MÁQUINA ESTAR FECHADA NÃO DIZ NADA
+    SOBRE QUANTAS CLASSES AINDA NÃO A ATRAVESSAM.
+
+É a terceira armadilha seguida na mesma frase (`§99.4`, `§100.4`, esta), e a
+primeira que estava **no código** e não no raciocínio. As duas anteriores
+apanharam-se a pensar; esta só se apanhou porque o veredito mudou de lado e
+alguém foi reler o cálculo.
+
+> **UMA CONDIÇÃO DE ATALHO NUM VEREDITO SÓ SE REVELA
+> NO DIA EM QUE O OUTRO RAMO MUDA.**
+
+Enquanto o core esteve `FAIL`, `pronto` foi sempre `False` e o `or` nunca fez
+nada. Ele não estava testado: estava **adormecido**. Um veredito com um ramo que
+nunca se exerce é um veredito por medir.
+
+## 102.5 · TRÊS GUARDAS DE OUTRAS MISSÕES REBENTARAM, E AS TRÊS TINHAM RAZÃO DE SER
+
+Fechar a estrada partiu três testes escritos antes. Nenhum era mau; os três
+codificavam o **mecanismo** de então:
+
+| guarda | o que codificava | o que sobrevive |
+|---|---|---|
+| `test_6_nenhum_executor_antigo…` | «todos menos `italia-recorrente`» | pedir a corrida é acto deliberado e visível |
+| `test_sem_medicao_o_portao_nao_diz_PASS` | apagar **um** ficheiro | esconder **todas** as medições que o portão lê |
+| `test_o_yes_nao_esta_escrito_a_mao` | qualquer `"YES"` fora de condição | `"YES"` **produzido**, não `"YES"` **comparado** |
+
+O terceiro é o mais instrutivo: a guarda bania `"YES"` solto e apanhou
+`if x != "YES"`.
+
+    AFIRMAR «YES» É PRODUZIR UM VEREDITO.
+    COMPARAR COM «YES» É LER O VEREDITO DE OUTRO.
+
+É a mesma família da guarda que bania `listdir` e reprovava quem listava a Sala
+de Espera para a medir. Uma guarda larga de mais reprova o uso legítimo, e quem
+a herdar aprende a desligá-la — que é pior do que não a ter.
+
+E o segundo tem uma regra própria que vale a pena isolar: ele escondia uma fonte
+para provar «sem medição». Quando o número de fontes pode crescer, esconder uma
+deixa de ser esconder todas — e a correcção é o teste **ler a lista do módulo**
+em vez de a repetir.
+
+## 102.6 · A QUARTA VEZ QUE UMA GUARDA MORDEU A PROSA DA PRÓPRIA REGRA
+
+`test_nenhum_canal_nem_conteudo_de_plataforma_e_criado` procurava `channel_id`
+no texto do executor — e o executor **diz**, na docstring, que não inventa
+`channel_id`.
+
+Quarta ocorrência (`§95`, `§99.5`, `§100.5`, esta). A correcção já não se
+descobre, aplica-se: **AST em vez de texto**. Desta vez ficou um ajudante com
+nome, `_codigo_sem_prosa`, que devolve o ficheiro sem comentários e sem
+docstrings — `ast.unparse` deita fora os comentários sozinho, as docstrings
+tiram-se à mão.
+
+    PROCURAR O TEXTO DA REGRA NÃO É MEDIR A REGRA.
+
+Vale registar que a guarda de TLS do mesmo ficheiro **é** de texto, de
+propósito, e isso está escrito ao lado dela: as formas de desligar TLS em Python
+são poucas e têm nome próprio (`_create_unverified_context`, `verify=False`,
+`CERT_NONE`). São chamadas de biblioteca, não prosa. A regra não é «nunca
+guardas de texto» — é «não procurar a regra no texto que a explica».
+
+## 102.7 · O QUE FICA MEDIDO E NÃO CONSERTADO
+
+**`G-ENV-01` · o envelope vive num caminho por executor, e não por corrida.**
+Medido: pediu-se a colheita de uma corrida que não existe, e o orquestrador
+devolveu a da última que escreveu — sem nota e sem recusa. Não é defeito desta
+missão (o adapter italiano tem-na igual) e em série não morde. Morde quando duas
+corridas do mesmo executor se cruzarem, que é a coleta grande.
+
+E **não virou um `caso()` com veredito**, de propósito:
+
+    UMA GUARDA QUE FIXA O DEFEITO DE HOJE DEFENDE O DEFEITO.
+
+Um caso que afirmasse o comportamento actual reprovaria quem o consertasse.
+
+## 102.8 · O QUE FICA POR SABER
+
+- **Nove classes continuam sem aquisição canónica**, e só `T9` é do SCRAP. As
+  outras oito esperam por executores que ninguém escreveu.
+- **`T2` continua sem poder ser julgada** — falta uma lei que diga o que é um
+  documento ser *sobre* um assunto, e um mecanismo que conte sinais. Nenhuma é
+  urgente agora: `T4` fecha a máquina sem elas.
+- **O `CELEX` não chega a `documento_estruturado`.** Vive em `raw_asset`, que é
+  a casa dele; transportá-lo atravessa quatro donos.
+- **A fonte `fitosanitari.salute.gov.it` continua sem verificar TLS** deste
+  ambiente. Não se desligou a verificação, e o executor `rotulos-oficiais`
+  continua na receita — atrás, porque indexa e não colhe.
