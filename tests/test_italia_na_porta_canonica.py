@@ -127,7 +127,14 @@ class CasoB1(unittest.TestCase):
         """Adapter -> colheita -> a_colheita do T-04 -> porta -> dono do RAW."""
         resumo = adapter.colher(run_id, ops_root=self.ops)
         e = EXECUTORES["T2"][0]
-        itens, notas = orq.a_colheita(e)
+        # ⚠️ A COLHEITA PEDE-SE EM NOME DE UMA CORRIDA, e isto pedia-a sem.
+        # Enquanto o envelope viveu num caminho por executor, perguntar sem
+        # corrida funcionava — e era esse o defeito (`G-ENV-01`): a resposta
+        # era «a ultima que escreveu». Agora o envelope e da corrida, e a
+        # pergunta sem corrida e recusada por escrito.
+        #
+        #     A COLHEITA E DE UMA CORRIDA, OU NAO E DE NINGUEM.
+        itens, notas = orq.a_colheita(e, run_id)
         recibo = {"RUN_ID": run_id, "PLATFORM": "HTTP direto",
                   "ACTOR": "coleta/italy_executor.py", "ACTOR_VERSION": "adapter-v1",
                   "SOURCE_COUNTRY": "IT", "STARTED_AT": "2026-09-10T00:00:00Z"}

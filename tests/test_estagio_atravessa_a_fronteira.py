@@ -394,8 +394,13 @@ class ACorridaInteiraProvadaACorrer(unittest.TestCase):
                 f.write(conteudo)
 
     def test_correr_julga_a_unidade_da_fronteira(self):
+        # ⚠️ REPROCESSAR NOMEIA A CORRIDA CUJA COLHEITA VAI A PORTA.
+        # Isto corria sem dizer de quem era a colheita, e acertava porque o
+        # envelope vivia num caminho fixo — «o ultimo que estava la». Era o
+        # defeito `G-ENV-01` a ser usado como funcionalidade.
         recibo = self.orq.correr(self.frase("colete clima e tempo"),
-                                 so_a_porta=True)
+                                 so_a_porta=True,
+                                 colheita_da_corrida=self.run_id)
         self.assertEqual(recibo["INGRESSO"]["PRESERVADOS"], 1, recibo["INGRESSO"])
         a = recibo["ADMISSAO"]
         self.assertEqual(a["itens"], 1)

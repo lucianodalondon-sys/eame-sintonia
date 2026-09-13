@@ -522,7 +522,10 @@ def gaps():
     # defeito dela: a propriedade e do contrato PARTILHADO, e o adapter
     # italiano tem-na igual. Fica com nome porque um risco sem nome so
     # aparece quando morde.
-    G("G-ENV-01", "o envelope vive num caminho por EXECUTOR, e nao por CORRIDA",
+    # ⚠️ FECHADO em C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1.
+    # Fica na lista com o estado novo: um gap que some nao deixa ver que
+    # existiu, nem por que deixou.
+    G("G-ENV-01", "o envelope vivia num caminho por EXECUTOR, e nao por CORRIDA",
       "pedido/receitas.py::EXECUTORES[*].retorno.ENVELOPE + "
       "orquestrador/orquestrador.py::o_envelope",
       "duas corridas do mesmo executor escrevem no MESMO ficheiro; medido: "
@@ -530,13 +533,42 @@ def gaps():
       "da ultima que escreveu, sem nota e sem recusa",
       "um envelope por corrida, ou uma recusa quando o RUN_ID nao e o pedido",
       "provas/o_pedido_t4_atravessa.py::ENVELOPE_PARTILHADO",
+      "MEDIUM", FECHADO,
+      "media com 4 corridas em paralelo: com endereco fixo, so 1 de 4 recebia "
+      "o SEU envelope. A regra do endereco passou a viver em "
+      "leis/retorno_da_coleta.py::endereco_do_envelope, e o orquestrador "
+      "RECUSA envelope cuja corrida nao e a que perguntou.",
+      "—")
+
+    # ⚠️ E A CURA TROUXE UMA CONSEQUENCIA, QUE FICA MEDIDA E NAO ESCONDIDA.
+    G("G-ENV-02", "os envelopes acumulam-se, um por corrida, para sempre",
+      "leis/retorno_da_coleta.py::endereco_do_envelope + data/colheita/",
+      "cada corrida escreve o seu envelope e ninguem os apaga: uma noite de "
+      "medicao deixou 413 ficheiros em `data/colheita/eu-regulatorio/`",
+      "uma politica de retencao decidida — quanto tempo o envelope de uma "
+      "corrida tem de sobreviver, e quem o arruma",
+      "provas/o_censo_do_acervo.py conta os envelopes em disco",
+      "LOW", DEBT,
+      "nao impede propriedade nenhuma: `data/colheita/` esta no .gitignore e "
+      "o envelope orfao e INERTE desde que o endereco passou a ter a corrida. "
+      "E crescimento de pasta, e nao perda nem confusao — mas e crescimento "
+      "sem fim, e isso decide-se antes da coleta grande.",
+      "decidir retencao de envelope antes da coleta grande")
+
+    # ⚠️ MEDIDO NA PROVA DE CRASH, e e um nome que engana quem opera.
+    G("G-RUN-02", "uma corrida que morreu antes de derivar diz `concluida`",
+      "guarda/preservar_coleta.py::sql_de_fecho",
+      "`collection_run.status` passa a `concluida` quando a etapa RAW "
+      "reconcilia — e nao quando a estrada acaba. Medido: uma corrida que "
+      "rebentou entre RAW e DERIVED ficou `concluida` com zero derivados",
+      "um estado da corrida que distinga «o RAW fechou» de «a estrada acabou»",
+      "provas/a_maquina_depois_do_crash.py::B2",
       "MEDIUM", DEBT,
-      "em SERIE nao morde, e a coleta de hoje e em serie: cada corrida "
-      "escreve e o orquestrador le a seguir. Morde quando duas corridas do "
-      "mesmo executor se cruzarem no tempo — e isso e a coleta grande, nao o "
-      "fecho da maquina.",
-      "decidir a convencao do envelope por corrida antes da coleta grande — e "
-      "e decisao para TODOS os executores, nao para um")
+      "a verdade esta em `etapa_da_corrida`, etapa a etapa, e e la que a "
+      "maquina le. Quem se engana e a PESSOA que olha para `status` e conclui "
+      "que a coleta terminou. Nao corrompe dado nenhum; confunde quem opera.",
+      "renomear ou desdobrar o estado da corrida — e mudanca de contrato, "
+      "nao de codigo solto")
 
     G("G-LEG-01", "o estado do legado fora do fluxo nao tem dono runtime",
       "NAO ATRIBUIDO",

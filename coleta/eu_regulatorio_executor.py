@@ -66,6 +66,9 @@ import hashlib
 import json
 import os
 import sys
+import tempfile
+import time
+import urllib.error
 import urllib.request
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -126,6 +129,39 @@ RETORNO = os.path.join(BALCAO, "RETORNO.json")
 ARMAZEM = os.path.join("data", "raw", "eu-regulatorio")
 
 
+# ⚠️ OS ESTADOS DA IDA A FONTE, E POR QUE SAO MAIS DO QUE DOIS.
+# A primeira versao tinha `OK` e `VAZIO`. Entao o EUR-Lex comecou a responder
+# `202` com corpo vazio — que e um servidor a dizer «aceitei, volta mais
+# tarde» — e o executor chamou-lhe `VAZIO`, que se le como «a fonte nao tinha
+# nada».
+#
+#     A FONTE QUE ME TRAVA NAO E A FONTE QUE NAO TEM NADA.
+#     CONFUNDIR AS DUAS FAZ UMA CORRIDA TRAVADA PARECER UMA COLHEITA VAZIA.
+#
+# `EMPTY_SUCCESS != ERROR` continua a valer: uma fonte que responde e nao tem
+# nada e um sucesso vazio. O que nao pode e um travao passar por isso.
+OK = "OK"
+VAZIO = "VAZIO"                       # respondeu, e nao havia nada
+FONTE_INDISPONIVEL = "FONTE_INDISPONIVEL"   # travou-me, ou esta em baixo
+NAO_E_PDF = "NAO_E_PDF"
+DO_ARQUIVO = "DO_ARQUIVO_LOCAL"       # nao fui a rede: ja tinha estes bytes
+
+# Os codigos com que um servidor diz «agora nao»: aceite-mas-nao-pronto,
+# pedidos a mais, e serviço indisponivel.
+TRAVOU = (202, 429, 503)
+
+# ⚠️ A CORTESIA NAO E ENFEITE, E ISTO FOI MEDIDO DA MANEIRA CARA.
+# Este executor foi a mesma fonte dez vezes em duas horas, sem pausa e sem
+# reaproveitar o que ja tinha em disco. O EUR-Lex passou a responder `202` a
+# TUDO — qualquer formato, qualquer CELEX. Foi a nossa propria pressa que
+# fechou a porta.
+#
+#     UM COLETOR SEM CORTESIA NAO PERDE UM DOCUMENTO: PERDE A FONTE.
+PAUSA_ENTRE_IDAS = 2.0
+TENTATIVAS = 3
+ESPERA_INICIAL = 5.0
+
+
 class SemCorrida(ValueError):
     """Um executor que cunha a propria corrida nao e chamado: e um segundo
     pipeline com o mesmo nome.
@@ -142,19 +178,52 @@ def baixar(celex: str, iso2: str = IDIOMA) -> tuple:
     por colher, e isso diz-se alto.
     """
     url = ROTA % {"iso2": iso2, "celex": celex}
-    req = urllib.request.Request(url, headers={
-        "User-Agent": UA, "Accept": "application/pdf,*/*"})
+    espera = ESPERA_INICIAL
+    for tentativa in range(1, TENTATIVAS + 1):
+        req = urllib.request.Request(url, headers={
+            "User-Agent": UA, "Accept": "application/pdf,*/*"})
+        try:
+            with urllib.request.urlopen(req, timeout=180) as r:
+                codigo, b = r.status, r.read()
+        except urllib.error.HTTPError as ex:
+            codigo, b = ex.code, b""
+        except Exception as ex:                               # noqa: BLE001
+            return b"", "ERRO_%s" % type(ex).__name__, url
+        if b[:4] == b"%PDF":
+            return b, OK, url
+        # ── O SERVIDOR DISSE «AGORA NAO» ────────────────────────────────
+        # Nao e vazio, nao e erro nosso, e nao se insiste de imediato.
+        if codigo in TRAVOU or (codigo == 200 and not b):
+            if tentativa < TENTATIVAS:
+                time.sleep(espera)
+                espera *= 2
+                continue
+            return b"", FONTE_INDISPONIVEL, url
+        if not b:
+            return b"", VAZIO, url
+        # HTML de erro devolvido com 200 e a armadilha classica destes portais.
+        return b, NAO_E_PDF, url
+    return b"", FONTE_INDISPONIVEL, url
+
+
+def _bytes_que_ja_temos(celex: str, iso2: str = IDIOMA):
+    """Os bytes deste ato que esta arvore ja preservou, ou `None`.
+
+    ⚠️ SO CONTA SE FOREM MESMO UM PDF. Um ficheiro truncado por uma corrida
+    interrompida tem o nome certo e nao serve — e reaproveita-lo em silencio
+    poria a corrida seguinte a derivar lixo com cara de documento.
+
+        TER UM FICHEIRO COM O NOME CERTO NAO E TER O DOCUMENTO.
+    """
+    caminho = os.path.join(RAIZ, ARMAZEM, "%s-%s.pdf" % (celex, iso2))
+    if not os.path.isfile(caminho):
+        return None
     try:
-        with urllib.request.urlopen(req, timeout=180) as r:
-            b = r.read()
-    except Exception as ex:                                   # noqa: BLE001
-        return b"", "ERRO_%s" % type(ex).__name__, url
-    if not b:
-        return b"", "VAZIO", url
-    # HTML de erro devolvido com 200 e a armadilha classica destes portais.
-    if b[:4] != b"%PDF":
-        return b, "NAO_E_PDF", url
-    return b, "OK", url
+        with open(caminho, "rb") as fh:
+            b = fh.read()
+    except OSError:
+        return None
+    return b if b[:4] == b"%PDF" else None
 
 
 def preservar(b: bytes, celex: str, iso2: str = IDIOMA) -> str:
@@ -166,8 +235,36 @@ def preservar(b: bytes, celex: str, iso2: str = IDIOMA) -> str:
     """
     destino = os.path.join(RAIZ, ARMAZEM, "%s-%s.pdf" % (celex, iso2))
     os.makedirs(os.path.dirname(destino), exist_ok=True)
-    with open(destino, "wb") as fh:
-        fh.write(b)
+    # ⚠️ ESCRITA ATOMICA, E ISTO CUSTOU DUAS CORRIDAS EM VINTE.
+    # A primeira versao fazia `open(destino, "wb")` e escrevia por cima. Duas
+    # corridas concorrentes do mesmo ato davam isto:
+    #
+    #     A abre o ficheiro (trunca para zero) e comeca a escrever
+    #     B le o mesmo caminho  ->  nao comeca por %PDF  ->  «nao tenho isto»
+    #     B vai a rede          ->  a fonte estava a travar  ->  corrida perde
+    #
+    # O ficheiro nunca ficou corrompido no fim — mas houve um INSTANTE em que
+    # ele nao era um PDF, e a corrida que leu nesse instante pagou.
+    #
+    #     UM FICHEIRO A MEIO DE SER ESCRITO NAO E UM FICHEIRO VAZIO:
+    #     E UM FICHEIRO QUE MENTE DURANTE UNS MILISSEGUNDOS.
+    #
+    # Corpo inteiro num temporario NA MESMA pasta, `fsync`, e so entao
+    # `os.replace` — atomico no POSIX. Quem ler durante a escrita ve o
+    # ficheiro ANTERIOR, inteiro. E a mesma cura da Sala de Espera e do livro
+    # de decisoes: tres sitios, um so defeito.
+    fd, temporario = tempfile.mkstemp(prefix=".eu-", suffix=".pdf",
+                                      dir=os.path.dirname(destino))
+    try:
+        with os.fdopen(fd, "wb") as fh:
+            fh.write(b)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(temporario, destino)
+        temporario = None
+    finally:
+        if temporario and os.path.exists(temporario):
+            os.unlink(temporario)
     return os.path.join(ARMAZEM, "%s-%s.pdf" % (celex, iso2)).replace(
         os.sep, "/")
 
@@ -182,7 +279,22 @@ def observar(celex: str, run_id: str, iso2: str = IDIOMA) -> dict:
         O QUE SE OBSERVA E O QUE A FONTE PUBLICOU,
         E NAO O QUE NOS SABEMOS FAZER COM ISSO DEPOIS.
     """
-    b, estado, url = baixar(celex, iso2)
+    # ⚠️ PRIMEIRO VE-SE O QUE JA SE TEM. Ir buscar outra vez bytes que ja
+    # estao preservados nao traz informacao nenhuma — traz um pedido a mais a
+    # uma fonte publica, e foi assim que este executor se fez travar.
+    #
+    #     O QUE JA ESTA PRESERVADO NAO SE VAI BUSCAR OUTRA VEZ.
+    #
+    # E ISTO DIZ-SE. Uma corrida que reaproveitou bytes locais NAO provou
+    # aquisicao, e quem le o envelope tem de conseguir ver a diferenca:
+    # `ORIGEM_DOS_BYTES` viaja declarado.
+    b, estado, url = b"", "", ROTA % {"iso2": iso2, "celex": celex}
+    ja = _bytes_que_ja_temos(celex, iso2)
+    if ja is not None:
+        b, estado = ja, DO_ARQUIVO
+    else:
+        b, estado, url = baixar(celex, iso2)
+        time.sleep(PAUSA_ENTRE_IDAS)
     item = {
         "SOURCE_ID": SOURCE_ID,
         "SOURCE_URL": url,
@@ -195,14 +307,26 @@ def observar(celex: str, run_id: str, iso2: str = IDIOMA) -> dict:
         # A FONTE PROVA ESTE, e por isso ele e escrito.
         "DOCUMENT_ID": celex,
         "RUN_ID": run_id,
+        "ORIGEM_DOS_BYTES": "REDE" if estado == OK else (
+            "ARQUIVO_LOCAL" if estado == DO_ARQUIVO else "NENHUMA"),
     }
-    if estado != "OK":
+    if estado not in (OK, DO_ARQUIVO):
         # NAO COLHIDO NAO E COLHIDO E VAZIO. O erro vai declarado, e a unidade
         # nao entra na COLHEITA.
         return {"ESTADO": estado, "ITEM": item, "SHA256": "", "ONDE": ""}
-    onde = preservar(b, celex, iso2)
+    # ⚠️ E NAO SE REESCREVE O QUE JA ESTAVA LA.
+    # Quando os bytes vieram do arquivo local, grava-los outra vez e escrever
+    # exactamente o mesmo conteudo por cima de si proprio — zero informacao
+    # nova, e uma janela de escrita a mais para outra corrida apanhar.
+    #
+    #     A ESCRITA MAIS SEGURA E A QUE NAO ACONTECE.
+    if estado == DO_ARQUIVO:
+        onde = os.path.join(ARMAZEM, "%s-%s.pdf" % (celex, iso2)).replace(
+            os.sep, "/")
+    else:
+        onde = preservar(b, celex, iso2)
     item["STORAGE_LOCATION"] = onde
-    return {"ESTADO": "OK", "ITEM": item,
+    return {"ESTADO": estado, "ITEM": item,
             "SHA256": hashlib.sha256(b).hexdigest(), "ONDE": onde}
 
 
@@ -232,11 +356,21 @@ def declarar(colhidas: list, erros: list, run_id: str,
         "SUPORTE": [],
         "ERROS": erros,
     }
-    destino = os.path.join(raiz, RETORNO)
+    # ⚠️ O ENDERECO E DA CORRIDA, E A REGRA NAO E DESTE FICHEIRO.
+    # Escrever sempre no mesmo sitio fazia duas corridas do mesmo executor
+    # colidirem, e a segunda apagava a primeira sem ninguem notar (`G-ENV-01`).
+    # Quem sabe onde vive o envelope de uma corrida e `leis/retorno_da_coleta`.
+    #
+    # ISTO NAO FAZ DESTE EXECUTOR O DONO DA CORRIDA: ele recebe o `run_id` do
+    # orquestrador e USA-O como endereco. Transportar e usar o contexto que
+    # lhe deram; decidir a identidade seria outra coisa, e continua a nao ser
+    # dele.
+    onde = rdc.endereco_do_envelope(RETORNO.replace(os.sep, "/"), run_id)
+    destino = os.path.join(raiz, onde)
     os.makedirs(os.path.dirname(destino), exist_ok=True)
     with open(destino, "w", encoding="utf-8") as fh:
         json.dump(envelope, fh, ensure_ascii=False, indent=1)
-    return RETORNO.replace(os.sep, "/")
+    return onde
 
 
 def colher(run_id: str, celex: str = "", iso2: str = IDIOMA,
@@ -246,8 +380,9 @@ def colher(run_id: str, celex: str = "", iso2: str = IDIOMA,
             "este executor nao cunha corrida: o RUN_ID vem do orquestrador")
     alvo = celex or CELEX_POR_OMISSAO
     r = observar(alvo, run_id, iso2)
-    colhidas = [r] if r["ESTADO"] == "OK" else []
-    erros = ([] if r["ESTADO"] == "OK" else
+    bom = r["ESTADO"] in (OK, DO_ARQUIVO)
+    colhidas = [r] if bom else []
+    erros = ([] if bom else
              [{"CELEX": alvo, "ESTADO": r["ESTADO"],
                "ONDE": r["ITEM"].get("SOURCE_URL", "")}])
     onde = declarar(colhidas, erros, run_id, raiz)
@@ -271,7 +406,7 @@ def main() -> int:
     r = colher(run_id, celex)
     print("T4 · %s · %s · colhidas=%d · declarou em %s"
           % (r["CELEX"], r["ESTADO"], r["COLHIDAS"], r["DECLAROU_EM"]))
-    return 0 if r["ESTADO"] == "OK" else 1
+    return 0 if r["ESTADO"] in (OK, DO_ARQUIVO) else 1
 
 
 if __name__ == "__main__":

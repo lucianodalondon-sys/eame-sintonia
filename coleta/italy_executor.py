@@ -353,11 +353,17 @@ def declarar(itens: list, run_id: str, raiz: str = RAIZ) -> str:
         "SUPORTE": [],
         "ERROS": [],
     }
-    destino = os.path.join(raiz, RETORNO)
+    # ⚠️ O ENDERECO E DA CORRIDA — ver `leis/retorno_da_coleta.py`.
+    # Este adapter tinha a MESMA colisao que o regulatorio: um caminho fixo
+    # por executor, e a segunda corrida a apagar a primeira. Corrigir so um
+    # dos dois deixaria a propriedade meia verdadeira, que e pior do que
+    # falsa: passaria a depender de qual executor correu.
+    onde = rdc.endereco_do_envelope(RETORNO.replace(os.sep, "/"), run_id)
+    destino = os.path.join(raiz, onde)
     os.makedirs(os.path.dirname(destino), exist_ok=True)
     with open(destino, "w", encoding="utf-8") as fh:
         json.dump(envelope, fh, ensure_ascii=False, indent=1)
-    return RETORNO.replace(os.sep, "/")
+    return onde
 
 
 def colher(run_id: str, ops_root: str = None, raiz: str = RAIZ) -> dict:

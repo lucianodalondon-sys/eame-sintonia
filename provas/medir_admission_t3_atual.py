@@ -712,6 +712,30 @@ def medir_tudo():
     }
     artefato["LEAKAGE_AUDIT"] = auditoria_de_vazamento(doc)
     artefato["FIRST_VALID_BASELINE_FINGERPRINT"] = impressao_digital(artefato)
+    # ⚠️ A IMPRESSAO MUDOU SEM A PORTA TER MUDADO DE OPINIAO, E ISSO DIZ-SE.
+    # `impressao_digital` hasheia o FICHEIRO INTEIRO do dono da porta — de
+    # proposito, e nao se estreita: uma impressao que so olha para as funcoes
+    # que eu me lembrei de listar tem um ponto cego do tamanho do que esqueci.
+    #
+    # Consequencia aceite: uma alteracao que NAO toca no julgamento tambem
+    # move a impressao. Aconteceu em
+    # `C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1`, quando o livro de
+    # decisoes ganhou trava e escrita atomica — nada disso decide nada.
+    #
+    #     MUDAR COMO A DECISAO SE GUARDA NAO E MUDAR A DECISAO.
+    #
+    # Entao, ao lado da impressao, fica a prova de que o julgamento nao se
+    # mexeu: a lista de previsoes, a versao da regra e o gabarito. Quem
+    # investigar uma impressao nova compara ESTES tres, e nao o sha do
+    # ficheiro — que muda por motivos que nao sao dele.
+    artefato["O_QUE_A_IMPRESSAO_NAO_DISTINGUE"] = (
+        "ela hasheia o ficheiro inteiro do dono da porta. Uma mudanca que nao "
+        "toca no julgamento — uma trava, uma escrita atomica, um comentario — "
+        "move a impressao na mesma. Para saber se a PORTA mudou, comparar "
+        "PREVISOES_FINGERPRINT, ADMISSION_RULE_VERSION e GROUND_TRUTH.SHA256.")
+    artefato["PREVISOES_FINGERPRINT"] = hashlib.sha256(json.dumps(
+        sorted((c["ITEM_ID"], c["RAW_OUTPUT"]) for c in artefato["CASES"]),
+        ensure_ascii=False).encode("utf-8")).hexdigest()
     return artefato
 
 

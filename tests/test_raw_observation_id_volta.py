@@ -310,7 +310,8 @@ class ACorridaItalianaInteira(CasoB1):
         import orquestrador as orq
         from receitas import EXECUTORES
         adapter.colher(run_id, ops_root=self.ops)
-        itens, _ = orq.a_colheita(EXECUTORES["T2"][0])
+        # A colheita e de uma corrida — ver `G-ENV-01`.
+        itens, _ = orq.a_colheita(EXECUTORES["T2"][0], run_id)
         return ing.receber(
             itens,
             corrida={"RUN_ID": run_id, "PLATFORM": "HTTP direto",

@@ -108,6 +108,80 @@ ESTADOS_DO_PAYLOAD = (PRESENTE, AUSENTE, PAYLOAD_NAO_SE_APLICA)
 
 NAO_SEI = "NAO SEI"
 
+# ── ONDE VIVE O ENVELOPE DE UMA CORRIDA ─────────────────────────────────────
+# ⚠️ ISTO NASCEU DE UM DEFEITO MEDIDO, E O DEFEITO ERA DE ENDERECO.
+# O envelope vivia num caminho por EXECUTOR: `data/colheita/italia/RETORNO.json`.
+# Duas corridas do mesmo executor escreviam no mesmo ficheiro, e perguntar pela
+# colheita de uma corrida devolvia a da ultima que escreveu — sem nota, sem
+# recusa, sem nada que se pudesse ver depois.
+#
+#     UM ENVELOPE POR EXECUTOR NAO E UM ENVELOPE POR CORRIDA.
+#
+# Em serie nao mordia, e a coleta era em serie. Morde quando duas corridas do
+# mesmo executor se cruzam — e e isso que a coleta grande faz.
+#
+# A REGRA DO ENDERECO VIVE AQUI, E SO AQUI. O executor escreve por ela e o
+# orquestrador procura por ela; se ela vivesse nos dois, divergia no dia em que
+# alguem mudasse um. E a mesma razao por que a especie do retorno tambem vive
+# neste ficheiro e nao em quem o le.
+#
+# NAO SE INVENTA IDENTIDADE NOVA: usa-se a corrida, que ja e a dona daquela
+# execucao. Sem timestamp (duas corridas no mesmo segundo colidem), sem random
+# (nao se reencontra), sem pid (o mesmo processo corre varias), sem hash do
+# conteudo (o endereco tem de existir ANTES de haver conteudo).
+#
+#     RUN != OBSERVATION != CONTENT != STORAGE OBJECT.
+#     O ENVELOPE E DA CORRIDA, E POR ISSO O ENDERECO DELE E A CORRIDA.
+ENVELOPE_SEM_CORRIDA = "ENVELOPE_SEM_CORRIDA"
+_SEGURO = re.compile(r"[^A-Za-z0-9._-]+")
+
+
+def endereco_do_envelope(padrao: str, run_id: str) -> str:
+    """O caminho do envelope DESTA corrida, a partir do padrao da receita.
+
+    O padrao e o que a receita declara em `retorno.ENVELOPE`. O sufixo da
+    corrida entra antes da extensao:
+
+        data/colheita/italia/RETORNO.json
+            + IT-T2-2026-09-13-0101
+        -> data/colheita/italia/RETORNO.IT-T2-2026-09-13-0101.json
+
+    ⚠️ SEM CORRIDA, DEVOLVE O PADRAO — e isso e deliberado.
+    Quem chama sem corrida esta a perguntar «onde e que este executor
+    costuma escrever», e nao «onde escreveu a corrida X». Inventar aqui um
+    endereco para uma corrida que nao existe daria um caminho que nunca
+    ninguem escreveria, e a recusa deixaria de se distinguir do erro.
+
+    O `run_id` e SANEADO para caber num nome de ficheiro, e o saneamento e so
+    isso: nao e identidade, e nao se le de volta. Quem quer saber de que
+    corrida o envelope e LE O CAMPO `RUN_ID` la dentro — que e o que o
+    contrato ja exige e o que `conferir()` ja verifica.
+
+        O CAMINHO E MORADA. A IDENTIDADE ESTA DENTRO.
+    """
+    if not padrao:
+        return padrao
+    if not str(run_id or "").strip():
+        return padrao
+    # ⚠️ A CORRIDA ENTRA COMO PASTA, E NAO NO NOME DO FICHEIRO.
+    # A primeira versao punha o sufixo antes da extensao, com `splitext` — e
+    # uma guarda deste ficheiro reprovou-a, com razao: `leis/retorno_da_coleta`
+    # e o sitio onde a ESPECIE de um retorno se decide, e ali ninguem pode
+    # olhar para extensoes. A guarda nao sabe distinguir «parti a extensao
+    # para classificar» de «parti a extensao para construir um caminho», e
+    # nao deve ter de saber.
+    #
+    #     QUANDO UMA GUARDA LEGITIMA REPROVA O MEU CODIGO,
+    #     A PRIMEIRA HIPOTESE E QUE O MEU CODIGO PODE SER OUTRO.
+    #
+    # Alargar a guarda para caber esta linha seria ensinar quem a herdar que
+    # ela se desliga. A pasta resolve o mesmo e nao toca no nome: o ficheiro
+    # continua a chamar-se o que a receita disse.
+    pasta, nome = os.path.split(padrao)
+    return os.path.join(pasta, _SEGURO.sub("-", str(run_id).strip()),
+                        nome).replace(os.sep, "/")
+
+
 _SHA = re.compile(r"^[0-9a-f]{12,64}$", re.I)
 
 

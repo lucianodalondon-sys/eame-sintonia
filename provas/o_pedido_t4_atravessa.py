@@ -77,6 +77,33 @@ PORQUE_ELE_E_T4 = (
 
 fora = []
 visto = {}
+# A origem dos bytes desta medicao — `REDE`, `ARQUIVO_LOCAL` ou `NAO_MEDIDA`.
+ORIGEM_DOS_BYTES = "NAO_MEDIDA"
+
+
+def _origem_declarada(recibo):
+    """O que o executor DECLAROU sobre a origem dos bytes desta corrida.
+
+    Le o envelope que a corrida escreveu. Nao se adivinha pela presenca do
+    ficheiro em disco: o ficheiro estar la nao diz se ele foi buscado agora ou
+    ha duas horas — e essa e exactamente a pergunta.
+    """
+    import retorno_da_coleta as rdc_
+    from receitas import EXECUTORES as EX_
+    e = (EX_.get("T4") or [{}])[0]
+    padrao = (e.get("retorno") or {}).get("ENVELOPE")
+    run_id = recibo.get("RUN_ID")
+    if not padrao or not run_id:
+        return "NAO_MEDIDA"
+    caminho = os.path.join(RAIZ, rdc_.endereco_do_envelope(padrao, run_id))
+    if not os.path.isfile(caminho):
+        return "NAO_MEDIDA"
+    with io.open(caminho, encoding="utf-8") as fh:
+        env = json.load(fh)
+    origens = {u.get("ORIGEM_DOS_BYTES") for u in (env.get("COLHEITA") or [])}
+    if len(origens) == 1:
+        return origens.pop() or "NAO_MEDIDA"
+    return "MISTURADA" if origens else "NAO_MEDIDA"
 
 
 def caso(nome, condicao, detalhe=""):
@@ -188,9 +215,26 @@ def main():
           "COMANDO=%s · versao=%s · colheita=%s"
           % (recibo.get("COMANDO"), recibo.get("ACTOR_VERSION"),
              recibo.get("COLHEITA_ENCONTRADA")))
-    caso("T3_o_EXECUTOR_REAL_correu_e_foi_a_FONTE_REAL", correu,
+    caso("T3_o_EXECUTOR_REAL_correu_e_TROUXE_COLHEITA", correu,
          "%s itens · %s" % (recibo.get("COLHEITA_ENCONTRADA"),
                             (recibo.get("RETORNO") or {}).get("ESTADO")))
+
+    # ⚠️ DE ONDE VIERAM OS BYTES — E SAO DUAS PROPRIEDADES, NAO UMA.
+    # A estrada atravessar e uma coisa. A AQUISICAO estar provada e outra: so
+    # a rede prova aquisicao, e um executor que reaproveita bytes que ja tinha
+    # em disco atravessou a estrada sem ter ido a fonte.
+    #
+    #     FIXTURE PROVA PARSER. SO A INTERNET PROVA AQUISICAO.
+    #     E REAPROVEITAR O QUE JA SE TEM NAO E FIXTURE — E TAMBEM NAO E REDE.
+    #
+    # Escondendo esta diferenca, uma noite inteira de provas verdes diria
+    # «a aquisicao funciona» sem ninguem ter aberto uma ligacao. O executor
+    # DECLARA a origem, e esta prova le a declaracao em vez de a supor.
+    global ORIGEM_DOS_BYTES
+    ORIGEM_DOS_BYTES = _origem_declarada(recibo)
+    caso("T3c_o_executor_DECLARA_de_onde_vieram_os_bytes",
+         ORIGEM_DOS_BYTES in ("REDE", "ARQUIVO_LOCAL"),
+         "ORIGEM_DOS_BYTES=%s" % ORIGEM_DOS_BYTES)
     caso("T3b_e_nao_foi_um_ensaio_seco",
          "(ensaio seco" not in (recibo.get("SAIDA") or "")
          and "(nao se colheu" not in (recibo.get("SAIDA") or ""),
@@ -198,7 +242,7 @@ def main():
     # ⚠️ E A COLHEITA E COLHEITA, E NAO SUPORTE.
     # Esta e a peca que faltava a T4, e e o unico sitio onde ela se ve.
     ret = recibo.get("RETORNO") or {}
-    caso("T3c_o_retorno_e_ENVELOPE_e_nao_LEGADO",
+    caso("T3d_o_retorno_e_ENVELOPE_e_nao_LEGADO",
          (ret.get("ESPECIE_DECLARADA") or ret.get("ORIGEM") or "") != "LEGADO"
          and (recibo.get("COLHEITA_ENCONTRADA") or 0) > 0,
          "retorno=%s" % json.dumps(ret, ensure_ascii=False)[:150])
@@ -333,7 +377,7 @@ def main():
                                    str(detalhe)[:70]))
     if ACHADOS:
         print()
-        print("  ACHADOS — medidos, NAO consertados nesta missao")
+        print("  ACHADOS — medidos, e o estado ao lado diz se ja curaram")
         for nome, estado, detalhe in ACHADOS:
             print("    %-22s %-12s %s" % (nome, estado, detalhe[:60]))
     print("=" * 70)
@@ -343,6 +387,13 @@ def main():
         print("  FIRST_LOST_EDGE     = %s -> %s" % (ultima, perdido))
     print("  SAME_STORY=%s · uma corrida so em raw_asset"
           % ("YES" if uma_corrida_so(int(outras[0][0])) else "NO"))
+    print("  ORIGEM_DOS_BYTES=%s" % ORIGEM_DOS_BYTES)
+    print("  AQUISICAO_PELA_REDE=%s"
+          % ("PASS" if ORIGEM_DOS_BYTES == "REDE" else "NOT_PROVEN"))
+    if ORIGEM_DOS_BYTES != "REDE":
+        print("    a estrada atravessou com bytes que esta arvore JA tinha "
+              "preservado.\n    A maquina esta provada; a ida a fonte, nesta "
+              "corrida, nao esta.")
 
     with io.open(os.path.join(RAIZ, SAIDA), "w", encoding="utf-8") as fh:
         json.dump({"CLASSE": "T4", "CELEX": CELEX,
@@ -353,6 +404,9 @@ def main():
                    "ACHADOS_NAO_CONSERTADOS": [
                        {"NOME": n, "ESTADO": e_, "DETALHE": d}
                        for n, e_, d in ACHADOS],
+                   "ORIGEM_DOS_BYTES": ORIGEM_DOS_BYTES,
+                   "AQUISICAO_PELA_REDE": ("PASS" if ORIGEM_DOS_BYTES == "REDE"
+                                           else "NOT_PROVEN"),
                    "CANONICAL_E2E": "PASS" if inteira else "FAIL"},
                   fh, ensure_ascii=False, indent=2)
         fh.write("\n")
@@ -453,7 +507,15 @@ ACHADOS = []
 
 
 def _achado_do_envelope_partilhado():
-    """O ENVELOPE VIVE NUM CAMINHO FIXO, E DUAS CORRIDAS PARTILHAM-NO.
+    """O ENVELOPE VIVIA NUM CAMINHO FIXO, E DUAS CORRIDAS PARTILHAVAM-NO.
+
+    ⚠️ CURADO EM `C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1`, e esta
+    medicao FICA — porque uma cura sem guarda desfaz-se sozinha. Ela mede o
+    comportamento, e nao a correcao: se alguem voltar a por um endereco fixo,
+    isto passa a dizer `NAO_DETECTA` outra vez.
+
+        UMA CURA SEM MEDICAO AO LADO E UMA CURA ATE ALGUEM MEXER.
+
 
     `retorno.ENVELOPE` e uma constante da receita — um caminho por executor, e
     nao por corrida. Duas corridas do mesmo executor escrevem no mesmo sitio.

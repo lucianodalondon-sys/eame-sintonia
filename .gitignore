@@ -103,7 +103,18 @@ XX/
 # coluna de pais para o provar. O dono do derivado esta certo em nao inferir;
 # o efeito e que toda medicao canonica deixa uma pasta `NAO_SEI/` na arvore.
 NAO_SEI/
-# ⚠️ E `EU/` APARECE PELA RAZAO CONTRARIA A `XX/`, o que e facil de ler ao
+# ⚠️ E `EU/
+
+# ⚠️ AS TRAVAS SAO ESTADO DE EXECUCAO, E NAO ACERVO.
+# `admissao/admissao.py` e `admissao/sala_de_espera.py` prendem um ficheiro
+# `.lock` ao lado do que escrevem, para que duas escritas concorrentes nao se
+# atropelem. Ele nasce vazio, nao carrega informacao nenhuma, e commita-lo
+# poria um ficheiro de trava a viajar entre maquinas — onde nao trava nada e
+# so confunde quem o encontra.
+#
+#     UMA TRAVA DIZ «ALGUEM ESTA A ESCREVER AGORA, AQUI».
+#     LEVADA PARA OUTRA MAQUINA, ELA JA NAO DIZ NADA.
+*.lock` APARECE PELA RAZAO CONTRARIA A `XX/`, o que e facil de ler ao
 # contrario. `XX/` nasce quando o pais e DESCONHECIDO. `EU/` nasce porque a
 # observacao regulatoria DECLARA o pais dela (`COUNTRY_SCOPE = EU`), e o
 # armazem local usa a raiz que a observacao provou.

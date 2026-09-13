@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.collection-v1-close-gates/1",
   "O_QUE_ISTO_E": "O que ainda impede declarar COLLECTION V1 = FECHADA, medido no HEAD de agora e separado do que e divida que nao bloqueia.",
   "MEASURE_NOT_FIX": "nenhum blocker foi corrigido nesta missao",
-  "MEASURED_HEAD": "0f3be15cd15ba9030d41195a24fc82b99df9eda8",
+  "MEASURED_HEAD": "f06b203cefbb01311fff7a46c5c1a2407f892dcd",
   "FRESCURA": {
-    "IMPRESSAO_DOS_DONOS": "1dfe7533ddd69ef75536034181a08f925d7e26af475081de18472889be8f7697",
+    "IMPRESSAO_DOS_DONOS": "dc3e49c53118aedad81a200854fea6504898a1089be5a80901aa0e1f415dfa29",
     "DONOS_DA_MEDICAO": [
       "provas/os_portoes_da_collection.py",
       "docs/biblia/leis.json",
@@ -67,7 +67,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "[T4] COMANDO=coleta/eu_regulatorio_executor.py 32026R1696 --run-id=IT-T4-2026-09-13-021332 · versao=NOT_PRESERVED · colheita=1"
+      "PROVA_PELO_PEDIDO": "[T4] COMANDO=coleta/eu_regulatorio_executor.py 32026R1696 --run-id=IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7 · versao=f06b203c · colheita=1"
     },
     "RUN": {
       "MODULE_EXISTS": "YES",
@@ -75,7 +75,7 @@
       "FLOW_EXECUTED": "YES",
       "PROOF": "provas/o_pedido_atravessa.py: pedido T2 real -> receita `italia-recorrente` -> `coleta/italy_executor.py` na fonte real -> collection_run, numa historia so",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "[T4] collection_run: [['IT-T4-2026-09-13-021332', 'concluida']]"
+      "PROVA_PELO_PEDIDO": "[T4] collection_run: [['IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7', 'concluida']]"
     },
     "RAW_OBSERVATION": {
       "MODULE_EXISTS": "YES",
@@ -135,7 +135,7 @@
       "PROOF": "provas/a_unidade_pousa_na_espera.py: as CINCO etapas falam na mesma corrida (RAW -> DERIVED -> STRUCTURED -> ADMISSION -> READY) e a unidade aterra na sala, com escrita atomica e conflito explicito",
       "CONSUMIDORES": "0 — e e o estado CERTO antes da Intelligence. PRODUTOR existe; consumidor e outra missao.",
       "ATRAVESSA_PELO_PEDIDO": "YES",
-      "PROVA_PELO_PEDIDO": "[T4] ficheiros na sala DEPOIS: ['IT-T4-2026-09-13-021332.json']"
+      "PROVA_PELO_PEDIDO": "[T4] ficheiros na sala DEPOIS: ['IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7.json']"
     }
   },
   "ACHADOS_DA_ESTRADA": [
@@ -354,15 +354,39 @@
     },
     {
       "GAP_ID": "G-ENV-01",
-      "CONCEPT": "o envelope vive num caminho por EXECUTOR, e nao por CORRIDA",
+      "CONCEPT": "o envelope vivia num caminho por EXECUTOR, e nao por CORRIDA",
       "OWNER": "pedido/receitas.py::EXECUTORES[*].retorno.ENVELOPE + orquestrador/orquestrador.py::o_envelope",
       "CURRENT_STATE": "duas corridas do mesmo executor escrevem no MESMO ficheiro; medido: perguntar pela colheita de uma corrida inexistente devolve a colheita da ultima que escreveu, sem nota e sem recusa",
       "EXPECTED_STATE": "um envelope por corrida, ou uma recusa quando o RUN_ID nao e o pedido",
       "PROOF": "provas/o_pedido_t4_atravessa.py::ENVELOPE_PARTILHADO",
       "SEVERITY": "MEDIUM",
+      "CLOSE_GATE": "CLOSED",
+      "WHY": "media com 4 corridas em paralelo: com endereco fixo, so 1 de 4 recebia o SEU envelope. A regra do endereco passou a viver em leis/retorno_da_coleta.py::endereco_do_envelope, e o orquestrador RECUSA envelope cuja corrida nao e a que perguntou.",
+      "MINIMUM_FIX": "—"
+    },
+    {
+      "GAP_ID": "G-ENV-02",
+      "CONCEPT": "os envelopes acumulam-se, um por corrida, para sempre",
+      "OWNER": "leis/retorno_da_coleta.py::endereco_do_envelope + data/colheita/",
+      "CURRENT_STATE": "cada corrida escreve o seu envelope e ninguem os apaga: uma noite de medicao deixou 413 ficheiros em `data/colheita/eu-regulatorio/`",
+      "EXPECTED_STATE": "uma politica de retencao decidida — quanto tempo o envelope de uma corrida tem de sobreviver, e quem o arruma",
+      "PROOF": "provas/o_censo_do_acervo.py conta os envelopes em disco",
+      "SEVERITY": "LOW",
       "CLOSE_GATE": "NON_BLOCKING_DEBT",
-      "WHY": "em SERIE nao morde, e a coleta de hoje e em serie: cada corrida escreve e o orquestrador le a seguir. Morde quando duas corridas do mesmo executor se cruzarem no tempo — e isso e a coleta grande, nao o fecho da maquina.",
-      "MINIMUM_FIX": "decidir a convencao do envelope por corrida antes da coleta grande — e e decisao para TODOS os executores, nao para um"
+      "WHY": "nao impede propriedade nenhuma: `data/colheita/` esta no .gitignore e o envelope orfao e INERTE desde que o endereco passou a ter a corrida. E crescimento de pasta, e nao perda nem confusao — mas e crescimento sem fim, e isso decide-se antes da coleta grande.",
+      "MINIMUM_FIX": "decidir retencao de envelope antes da coleta grande"
+    },
+    {
+      "GAP_ID": "G-RUN-02",
+      "CONCEPT": "uma corrida que morreu antes de derivar diz `concluida`",
+      "OWNER": "guarda/preservar_coleta.py::sql_de_fecho",
+      "CURRENT_STATE": "`collection_run.status` passa a `concluida` quando a etapa RAW reconcilia — e nao quando a estrada acaba. Medido: uma corrida que rebentou entre RAW e DERIVED ficou `concluida` com zero derivados",
+      "EXPECTED_STATE": "um estado da corrida que distinga «o RAW fechou» de «a estrada acabou»",
+      "PROOF": "provas/a_maquina_depois_do_crash.py::B2",
+      "SEVERITY": "MEDIUM",
+      "CLOSE_GATE": "NON_BLOCKING_DEBT",
+      "WHY": "a verdade esta em `etapa_da_corrida`, etapa a etapa, e e la que a maquina le. Quem se engana e a PESSOA que olha para `status` e conclui que a coleta terminou. Nao corrompe dado nenhum; confunde quem opera.",
+      "MINIMUM_FIX": "renomear ou desdobrar o estado da corrida — e mudanca de contrato, nao de codigo solto"
     },
     {
       "GAP_ID": "G-LEG-01",
@@ -404,7 +428,8 @@
     "G-ADM-01",
     "G-TEL-01",
     "G-TEMA-01",
-    "G-ENV-01",
+    "G-ENV-02",
+    "G-RUN-02",
     "G-LEG-01"
   ],
   "ROOT_CAUSES": [
@@ -515,7 +540,7 @@
     "VEREDICTO": "PASS",
     "CANONICAL_E2E": "PROVEN",
     "CANONICAL_E2E_SAME_STORY": "PASS",
-    "PORQUE_A_HISTORIA": "um pedido T4 atravessou de REQUEST a SALA DE ESPERA, na mesma corrida `IT-T4-2026-09-13-021332` — medido em provas/o_pedido_t4_atravessa.py",
+    "PORQUE_A_HISTORIA": "um pedido T4 atravessou de REQUEST a SALA DE ESPERA, na mesma corrida `IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7` — medido em provas/o_pedido_t4_atravessa.py",
     "IDENTITY": "PROVEN",
     "PROVENANCE": "PROVEN",
     "RAW": "PROVEN",
@@ -546,7 +571,7 @@
   },
   "CERTIFICACAO_SEM_O_SCRAP": {
     "COLLECTION_V1_CORE_READY_WITHOUT_SCRAP": "YES",
-    "PORQUE": "um pedido T4 atravessou de REQUEST a SALA DE ESPERA, na mesma corrida `IT-T4-2026-09-13-021332` — medido em provas/o_pedido_t4_atravessa.py",
+    "PORQUE": "um pedido T4 atravessou de REQUEST a SALA DE ESPERA, na mesma corrida `IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7` — medido em provas/o_pedido_t4_atravessa.py",
     "SCRAP_WOULD_CLOSE_CURRENT_GAP": "NO",
     "ONLY_REMAINING_ACQUISITION_DEPENDENCY_IS_SCRAP": "NO",
     "QUEM_MAIS_FALTA": [

@@ -57,6 +57,8 @@ SAIDA: data/samples/LIVRO-DE-DECISOES.json
 from __future__ import annotations
 
 import json
+import os
+import tempfile
 import sys
 from dataclasses import dataclass, asdict, field
 from datetime import datetime, timezone
@@ -399,7 +401,43 @@ def escrever(decisoes: list) -> int:
     pessoa olhar — nunca para uma maquina resolver deitando fora o que nao
     entendeu. O ficheiro fica intacto: quem levanta esta excecao nao escreveu
     nada.
+
+    ⚠️ E A SEGUNDA MANEIRA DE PERDER O LIVRO ERA A CONCORRENCIA.
+    A funcao LE, junta e ESCREVE. Duas corridas ao mesmo tempo davam duas
+    falhas diferentes, e as duas silenciosas na origem:
+
+        as duas leem 100 · cada uma junta 1 · a ultima escreve 101
+        -> a decisao da outra desapareceu, e o total parece certo
+
+        uma le enquanto a outra escreve
+        -> JSON truncado -> LivroIlegivel na corrida seguinte
+
+    Medido nesta arvore com cinco corridas concorrentes: uma das cinco morreu
+    com `LivroIlegivel`. A recusa estava certa; o que estava errado era haver
+    o que recusar.
+
+        LER, JUNTAR E ESCREVER SEM TRAVA NAO E ACRESCENTAR:
+        E ESCREVER POR CIMA DE QUEM ESTAVA A ACRESCENTAR.
+
+    A trava e BLOQUEANTE, e nao fail-fast como a da Sala de Espera — e a
+    diferenca e de conceito, nao de gosto. Na sala, duas escritas da MESMA
+    corrida na mesma morada sao um conflito e devem gritar. Aqui, muitas
+    corridas DIFERENTES acrescentam ao MESMO livro: nao ha conflito nenhum,
+    ha fila. Fazer isto falhar seria transformar trabalho legitimo em erro.
     """
+    import fcntl
+    LIVRO.parent.mkdir(parents=True, exist_ok=True)
+    trava = os.open(str(LIVRO) + ".lock", os.O_CREAT | os.O_RDWR, 0o644)
+    try:
+        fcntl.flock(trava, fcntl.LOCK_EX)
+        return _escrever_sob_trava(decisoes)
+    finally:
+        fcntl.flock(trava, fcntl.LOCK_UN)
+        os.close(trava)
+
+
+def _escrever_sob_trava(decisoes: list) -> int:
+    """O corpo de `escrever`, com a trava ja presa por quem chamou."""
     d = {"DECISOES": []}
     if LIVRO.is_file():
         try:
@@ -417,8 +455,26 @@ def escrever(decisoes: list) -> int:
                 "objecto com a lista DECISOES). NAO foi escrito nada." % LIVRO)
     d.setdefault("DECISOES", []).extend(asdict(x) for x in decisoes)
     LIVRO.parent.mkdir(parents=True, exist_ok=True)
-    LIVRO.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n",
-                     encoding="utf-8")
+    # ⚠️ E A ESCRITA E ATOMICA, PELA MESMA RAZAO DA SALA DE ESPERA.
+    # `write_text` deixa o ficheiro truncado se o processo morrer a meio — no
+    # sitio exacto onde o livro bom estava. Corpo inteiro num temporario na
+    # MESMA pasta, `fsync`, e so entao `os.replace`, que e atomico no POSIX.
+    # Quem ler durante a escrita ve o livro ANTERIOR, inteiro.
+    #
+    #     FICHEIRO PARCIAL NAO E ESTADO LEGITIMO.
+    corpo = json.dumps(d, ensure_ascii=False, indent=2) + "\n"
+    fd, temporario = tempfile.mkstemp(prefix=".livro-", suffix=".json",
+                                      dir=str(LIVRO.parent))
+    try:
+        with open(fd, "w", encoding="utf-8") as fh:
+            fh.write(corpo)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(temporario, str(LIVRO))
+        temporario = None
+    finally:
+        if temporario and os.path.exists(temporario):
+            os.unlink(temporario)
     return len(d["DECISOES"])
 
 

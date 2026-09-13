@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import json
 import os
+import secrets
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -57,6 +58,8 @@ import ingresso as ing  # noqa: E402  — a porta de entrada da coleta
 import derivacao_forward as deriv  # noqa: E402 — o RUNNER canonico do DERIVED
 from guarda import preservar_documento as pdoc  # noqa: E402 — o dono do STRUCTURED documental
 import retorno_da_coleta as rdc  # noqa: E402 — a lei do retorno (COL-LAW-505)
+
+NAO_SEI_RUN = "NAO SEI"
 import sala_de_espera as espera        # noqa: E402
 
 # ⚠️ A MORADA DA ESPERA NAO VIVE AQUI, E JA NAO E ESTE FICHEIRO QUE ESCREVE.
@@ -103,7 +106,33 @@ def o_envelope(e: dict, run_id: str = "") -> tuple[dict, str]:
     notas = []
 
     # ── 1 · A CORRIDA DECLAROU? Essa e a unica origem de COLHEITA ──────────
-    caminho = retorno.get("ENVELOPE")
+    # ⚠️ O ENDERECO E DESTA CORRIDA, E A REGRA NAO VIVE AQUI.
+    # Isto lia `retorno.ENVELOPE` como um caminho literal — um por EXECUTOR.
+    # Duas corridas do mesmo executor escreviam no mesmo ficheiro, e esta
+    # funcao devolvia a ultima que tivesse escrito, a qualquer um que
+    # perguntasse. Medido em `G-ENV-01`.
+    #
+    #     «PEGUEI O QUE ESTAVA LA» NAO E UMA RESPOSTA SOBRE ESTA CORRIDA.
+    #
+    # Quem sabe onde vive o envelope de uma corrida e `leis/retorno_da_coleta`,
+    # e e de la que a regra vem. Aqui so se pergunta.
+    padrao = retorno.get("ENVELOPE")
+    # ⚠️ PERGUNTAR PELA COLHEITA SEM DIZER DE QUE CORRIDA E UMA PERGUNTA MAL
+    # POSTA, e era exactamente assim que uma corrida consumia o envelope de
+    # outra. Com o endereco por corrida, a pergunta sem corrida cairia no
+    # caminho sem sufixo — que ninguem escreve — e devolveria «nao ha nada»
+    # em silencio. Silencio nao: recusa com motivo.
+    #
+    #     «DA-ME A COLHEITA DESTE EXECUTOR» NAO TEM RESPOSTA.
+    #     A COLHEITA E DE UMA CORRIDA, OU NAO E DE NINGUEM.
+    if padrao and not str(run_id or "").strip():
+        notas.append("pediu-se a colheita de «%s» sem dizer de que corrida. "
+                     "O envelope e de uma corrida, e sem ela nao ha o que "
+                     "devolver." % ident)
+        return rdc.envelope_de_quem_nao_declarou(
+            run_id or NAO_SEI_RUN, ident, versao,
+            "a colheita foi pedida sem corrida"), " · ".join(notas)
+    caminho = rdc.endereco_do_envelope(padrao, run_id) if padrao else padrao
     if caminho:
         alvo = RAIZ / caminho
         if alvo.is_file():
@@ -112,7 +141,25 @@ def o_envelope(e: dict, run_id: str = "") -> tuple[dict, str]:
             except (json.JSONDecodeError, OSError) as ex:
                 notas.append(f"«{caminho}» nao deu para ler: {type(ex).__name__}")
             else:
-                if run_id and not str(envelope.get("RUN_ID") or "").strip():
+                # ── E O ENVELOPE TEM DE SER DESTA CORRIDA ─────────────────
+                # O endereco ja separa; isto e a segunda tranca, e existe
+                # porque a primeira pode ser contornada por um ficheiro
+                # deixado a mao, por um restauro de backup ou por um padrao
+                # sem sufixo. Uma tranca de endereco protege do acidente; uma
+                # tranca de CONTEUDO protege tambem do engano.
+                #
+                #     O CAMINHO E MORADA. A IDENTIDADE ESTA DENTRO.
+                dele = str(envelope.get("RUN_ID") or "").strip()
+                if run_id and dele and dele != run_id:
+                    notas.append(
+                        f"«{caminho}» declara a corrida «{dele}» e quem "
+                        f"perguntou foi «{run_id}». Saida de outra corrida "
+                        f"nao se atribui a esta.")
+                    return rdc.envelope_de_quem_nao_declarou(
+                        run_id, ident, versao,
+                        f"o envelope encontrado pertence a «{dele}»"), \
+                        " · ".join(notas)
+                if run_id and not dele:
                     envelope["RUN_ID"] = run_id
                 return envelope, " · ".join(notas)
         notas.append(f"«{caminho}» e o envelope declarado e nao existe: ou a "
@@ -500,9 +547,54 @@ def versao_do_executor(caminho: str) -> str:
     return (r.stdout.strip() or "NOT_PRESERVED") if r.returncode == 0 else "NOT_PRESERVED"
 
 
+# ⚠️ A CORRIDA TINHA O SEGUNDO COMO GRANULARIDADE, E ISSO NAO E IDENTIDADE.
+# Medido em `C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1`, com cinco
+# corridas concorrentes do mesmo alvo e do mesmo pais:
+#
+#     CORRIDAS_DISTINTAS = 1  ·  SUCCESS = 1  ·  ERROR = 4
+#     duplicate key value violates unique constraint
+#         "etapa_da_corrida_run_id_etapa_tentativa_..."
+#
+# As cinco nasceram no mesmo segundo e receberam O MESMO NOME. Quatro
+# rebentaram na chave unica — e rebentar foi o BOM desfecho: o banco recusou.
+# O mau desfecho e silencioso, e e o que acontece nas tabelas sem essa chave:
+# as observacoes de uma corrida ficam atribuidas a outra, e ninguem ve.
+#
+#     DUAS COLETAS NO MESMO SEGUNDO NAO SAO A MESMA COLETA.
+#     UM NOME QUE SE REPETE NAO E UM NOME.
+#
+# O QUE SE ACRESCENTOU, E POR QUE NAO E ENFEITE. O prefixo legivel fica —
+# `pais`, `alvo` e o instante continuam a dizer o que dizem, e ha gente que le
+# estes nomes. O que entra e um SUFIXO DE DESEMPATE, e ele nao carrega
+# significado nenhum: nao se le de volta, nao se compara, nao se ordena por
+# ele. Existe para que duas corridas do mesmo segundo sejam duas.
+#
+# NAO SE USOU O SEGUNDO COM MAIS CASAS SOZINHO: microsegundos reduzem a
+# probabilidade e nao a fecham, e a coleta grande e exactamente onde o
+# improvavel acontece. NAO SE USOU O PID: o mesmo processo corre varias
+# corridas em fios. NAO SE PEDIU AO BANCO uma sequencia: a corrida nasce ANTES
+# de qualquer escrita, porque a proveniencia e prospectiva — e uma identidade
+# que so existe depois do primeiro INSERT nao serve para nomear o que vem
+# antes dele.
+#
+# ⚠️ E O TAMANHO DO SUFIXO FOI MEDIDO, E NAO ESCOLHIDO A OLHO.
+# A primeira versao usava tres bytes. Com 400 nomes gerados no mesmo instante
+# houve UMA colisao — 400 contra 399 distintos. Tres bytes dao 16,7 milhoes de
+# valores, e o paradoxo dos aniversarios come isso a uma velocidade que a
+# coleta grande alcanca.
+#
+#     «IMPROVAVEL» NAO E «IMPOSSIVEL», E A COLETA GRANDE
+#     E EXACTAMENTE ONDE O IMPROVAVEL ACONTECE.
+#
+# Oito bytes dao 1,8e19. Com vinte mil corridas no mesmo segundo a
+# probabilidade de duas colidirem fica na ordem de 1e-11 — e isso ja nao e
+# «pouco provavel»: e outra ordem de grandeza de risco. Criticar os
+# microsegundos por reduzirem sem fechar e depois aceitar tres bytes seria
+# aplicar duas reguas.
 def novo_run_id(p: Pedido) -> str:
     pais = (p.filtros.get("pais") or "XX").upper()
-    return f"{pais}-{p.alvo}-{datetime.now(timezone.utc).strftime('%Y-%m-%d-%H%M%S')}"
+    quando = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H%M%S")
+    return f"{pais}-{p.alvo}-{quando}-{secrets.token_hex(8)}"
 
 
 def guardar_recibo(recibo: dict) -> None:
@@ -527,7 +619,8 @@ def guardar_recibo(recibo: dict) -> None:
 
 
 def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
-           so_a_porta: bool = False, memoria=None, banco_do_rastro=None) -> dict:
+           so_a_porta: bool = False, memoria=None, banco_do_rastro=None,
+           colheita_da_corrida: str = "") -> dict:
     """Do pedido ao recibo. Devolve o recibo, sempre — mesmo quando falha."""
     plano = resolver(p)
 
@@ -635,7 +728,24 @@ def correr(p: Pedido, so_plano: bool = False, seco: bool = False,
     # largava o que trouxe numa pasta, e ninguem ia buscar: a peneira existia e
     # nada passava por ela.
     envelope, notas = o_envelope(e, run_id)
-    itens, notas = a_colheita(e, run_id)
+    # ⚠️ REPROCESSAR NAO E COLHER, E A COLHEITA NAO E «A QUE ESTIVER LA».
+    # `--so-a-porta` leva a peneira uma colheita que JA existe — e essa
+    # colheita e de OUTRA corrida, a que a produziu. Enquanto o envelope viveu
+    # num caminho fixo, isto funcionava por acidente: lia-se o ultimo que
+    # tivesse sido escrito, fosse de quem fosse.
+    #
+    #     REPROCESSAR TEM DE DIZER O QUE REPROCESSA.
+    #     «O ULTIMO QUE ESTAVA LA» NAO E UMA RESPOSTA.
+    #
+    # Entao o reprocessamento NOMEIA a corrida cuja colheita quer levar a
+    # porta, e a corrida nova continua a ser nova: ela julga de novo, e as
+    # decisoes sao dela. O que se reaproveita e o MATERIAL, e nao a corrida.
+    de_quem = str(colheita_da_corrida or "").strip() or run_id
+    itens, notas = a_colheita(e, de_quem)
+    if colheita_da_corrida:
+        notas = " · ".join(filter(None, [
+            notas, "colheita reprocessada da corrida «%s» pela corrida «%s»"
+                   % (colheita_da_corrida, run_id)]))
     recibo["COLHEITA_ENCONTRADA"] = len(itens)
     recibo["COLHEITA_NAO_ENCONTRADA"] = notas
     # O RETORNO FICA ESCRITO NO RECIBO, e nao so a contagem: quem audita
@@ -728,6 +838,10 @@ def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     so_plano = "--so-plano" in sys.argv
     so_a_porta = "--so-a-porta" in sys.argv
+    colheita_de = ""
+    for _a in sys.argv[1:]:
+        if _a.startswith("--colheita-da-corrida="):
+            colheita_de = _a.split("=", 1)[1]
     seco = "--seco" in sys.argv and not so_a_porta
     # --filtro fase=posts --filtro plataforma=youtube
     extras = {}
@@ -744,7 +858,8 @@ def main() -> int:
         print(f"PEDIDO RECUSADO: {ex}")
         return 2
 
-    recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta)
+    recibo = correr(p, so_plano=so_plano, seco=seco, so_a_porta=so_a_porta,
+                    colheita_da_corrida=colheita_de)
     plano = recibo.pop("_plano")
     print(plano.em_palavras())
     print()

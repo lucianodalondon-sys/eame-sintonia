@@ -10,7 +10,7 @@ COLLECTION_CORE_CLOSE = PASS
 BIG_COLLECTION_READY  = FAIL
 
 BLOCKERS            = 0
-NON_BLOCKING_DEBT   = 6
+NON_BLOCKING_DEBT   = 7
 ROOT_CAUSES         = 4
 MISSÕES ATÉ FECHAR  = 0
 ```
@@ -525,7 +525,8 @@ corrida `T4` que fechou a Collection falaram todas as que a estrada atravessa.
 | `G-ADM-01` | o ledger prova ADMISSION observada na rota forward, com caminho bom e caminho de falha. A infraestrutura ATRAVESSA; o que falta e a cobertura do tipo `derived_artifact`. |
 | `G-TEL-01` | nao impede executar nem preservar. Impede LER o que aconteceu, e isso e divida de observabilidade, nao de fecho. |
 | `G-TEMA-01` | NAO bloqueia a coleta grande. A funcao da coleta grande e ADQUIRIR e PRESERVAR; admitir bem e a etapa seguinte, e a Admission ja produz decisao auditavel com NAO_SEI de p |
-| `G-ENV-01` | o envelope vive num caminho por executor e não por corrida: duas corridas do mesmo executor escrevem no mesmo ficheiro. Em série não morde, e a coleta de hoje é em série. Morde quando duas corridas se cruzarem — e isso é a coleta grande, não o fecho. |
+| `G-ENV-02` | os envelopes acumulam-se, um por corrida, para sempre. Consequência medida da cura do `G-ENV-01`: uma noite de medição deixou 413 ficheiros. Não é perda nem confusão — o órfão é inerte e a pasta está no `.gitignore` — é crescimento sem fim, e decide-se antes da coleta grande. |
+| `G-RUN-02` | uma corrida que morre antes de derivar continua a dizer `concluida`: o estado passa quando a etapa RAW reconcilia, não quando a estrada acaba. A verdade está em `etapa_da_corrida`. Não corrompe dado; confunde quem opera. |
 | `G-LEG-01` | nao impede propriedade nenhuma da coleta grande: os 13 estao FORA da Collection operacional por decisao, e o que entra pela frente nao passa por este estado. |
 
 ## As causas-raiz
@@ -569,6 +570,7 @@ nao e do core: e a integracao que vem DEPOIS do core fechar. Fica na DAG da cole
 | `C-COLLECTION-V1-FINAL-OPERATIONAL-CERTIFICATION` | a aresta `DERIVED -> STRUCTURED` (migration `030`) |
 | `C-CLOSE-ADMISSION-TO-READY-V1` | nomeou o canário (`T4`) e o blocker real; provou que o SCRAP não o tapa |
 | `C-T4-CANONICAL-ACQUISITION-TO-WAITING-ROOM-V1` | deu aquisição canónica a `T4` e **fechou a Collection V1** |
+| `C-COLLECTION-OPERATIONAL-READINESS-OVERNIGHT-V1` | `G-ENV-01`, e mais três defeitos que só aparecem com corridas concorrentes |
 
 ## A fila mínima
 
@@ -775,6 +777,95 @@ forem do SCRAP. E um teste prova os dois sentidos, com o core fechado nos dois.
 
 > Uma frase de fecho é uma **autorização**. Não se arredonda, e não se deixa
 > cair de um `or`.
+
+---
+
+## A NOITE EM QUE SE PÔS A MÁQUINA A CORRER VÁRIAS VEZES
+
+A máquina estava provada de ponta a ponta. Bastou pô-la a correr **cinco vezes
+ao mesmo tempo** para encontrar quatro defeitos.
+
+```
+5 corridas concorrentes  ->  CORRIDAS_DISTINTAS = 1 · SUCCESS = 1 · ERROR = 4
+```
+
+> **UMA MÁQUINA PROVADA EM SÉRIE É UMA MÁQUINA PROVADA EM SÉRIE.**
+
+### 1 · O segundo não é uma identidade
+
+A corrida chamava-se `{país}-{alvo}-{AAAA-MM-DD-HHMMSS}`. Cinco corridas do
+mesmo alvo no mesmo segundo receberam **o mesmo nome**, e quatro rebentaram na
+chave única de `etapa_da_corrida`.
+
+Rebentar foi o **bom** desfecho — o banco recusou. O mau é silencioso, e
+acontece em cada tabela sem essa chave: observações de uma corrida atribuídas a
+outra, sem ninguém ver.
+
+> **DUAS COLETAS NO MESMO SEGUNDO NÃO SÃO A MESMA COLETA.**
+
+⚠️ **E o desempate mediu-se.** A primeira correcção usou três bytes: com 400
+nomes de uma vez houve uma colisão. Ficaram oito bytes. Criticar os
+microsegundos por reduzirem sem fechar e depois aceitar três bytes seria aplicar
+duas réguas.
+
+### 2 · Três sítios, um só defeito
+
+| onde | o que acontecia |
+|---|---|
+| livro de decisões | ler-juntar-escrever sem trava → `LivroIlegivel`, e pior: *lost update* silencioso |
+| PDF preservado | `open(…,"wb")` trunca antes de encher → outra corrida lê «não é PDF» e vai à rede |
+
+> **UM FICHEIRO A MEIO DE SER ESCRITO NÃO É UM FICHEIRO VAZIO:**
+> **É UM FICHEIRO QUE MENTE DURANTE UNS MILISSEGUNDOS.**
+
+A cura é a mesma da Sala de Espera, de uma missão anterior: temporário, `fsync`,
+`os.replace`. **Mas a trava não é a mesma**, e isso é conceito: na sala é
+*fail-fast* porque duas escritas da mesma corrida são um conflito; no livro é
+bloqueante porque muitas corridas diferentes acrescentam ao mesmo sítio.
+
+> **A MESMA CURA, DUAS TRAVAS DIFERENTES: CONFLITO GRITA, FILA ESPERA.**
+
+### 3 · A cortesia não é enfeite
+
+O executor foi à mesma fonte umas dez vezes em duas horas, sem pausa e sem
+reaproveitar o que já tinha em disco. O EUR-Lex passou a responder `202` a
+**tudo** — qualquer formato, qualquer documento, host inteiro.
+
+> **UM COLETOR SEM CORTESIA NÃO PERDE UM DOCUMENTO: PERDE A FONTE.**
+
+E o `202` revelou um erro de vocabulário: o executor chamava-lhe `VAZIO`, que se
+lê como «a fonte não tinha nada».
+
+> **A FONTE QUE ME TRAVA NÃO É A FONTE QUE NÃO TEM NADA.**
+
+Ficaram cinco estados distintos, pausa entre idas, e recuo com espera dobrada. E
+a correcção mais barata foi **não ir**: bytes já preservados não se vão buscar
+outra vez.
+
+### 4 · E isso abriu a porta a uma mentira confortável
+
+O reaproveitamento salvou a noite e podia ter produzido uma noite inteira de
+verdes a dizer «a aquisição funciona» sem ninguém ter aberto uma ligação. São
+duas propriedades, e estão separadas:
+
+```
+CANONICAL_E2E_T4     PASS         a máquina atravessa
+AQUISICAO_PELA_REDE  NOT_PROVEN   a ida à fonte, nesta corrida, não
+```
+
+O executor **declara** a origem dos bytes, e a prova lê a declaração.
+
+### O resultado, depois das quatro correcções
+
+| carga | corridas | erros | órfãs | cruzamento | baldes |
+|---|---|---|---|---|---|
+| 5 | 5 | 0 | 0 | 0 | 1 novo · 4 reaproveitados |
+| 10 | 10 | 0 | 0 | 0 | 1 novo · 9 reaproveitados |
+| 20 | 20 | 0 | 0 | 0 | 1 novo · 19 reaproveitados |
+
+E as três fronteiras de crash — depois do envelope, depois do RAW, depois do
+`SIM` — todas legíveis: o que ficou para trás diz de quem é, e a corrida
+seguinte não o herda.
 
 ---
 

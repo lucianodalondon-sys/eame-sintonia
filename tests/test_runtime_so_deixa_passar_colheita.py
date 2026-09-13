@@ -23,6 +23,7 @@ sys.path.insert(0, RAIZ)
 import _gavetas  # noqa: E402,F401
 import orquestrador as orq  # noqa: E402
 import retorno_da_coleta as rdc  # noqa: E402
+import retorno_da_coleta as rdc  # noqa: E402
 
 
 class Bancada(unittest.TestCase):
@@ -33,11 +34,29 @@ class Bancada(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self.dir, True)
         self.rel = os.path.relpath(self.dir, RAIZ).replace(os.sep, "/")
 
+    # A corrida em nome da qual estes ataques perguntam.
+    CORRIDA = "RUN-ATAQUE"
+
     def escrever(self, nome, corpo):
-        caminho = os.path.join(self.dir, nome)
+        """Escreve o envelope ONDE A CORRIDA o teria escrito, e devolve o
+        PADRAO — que e o que uma receita declara.
+
+        ⚠️ ISTO ESCREVIA NUM CAMINHO LITERAL, e funcionava enquanto o envelope
+        vivia num sitio so por executor. Com o endereco por corrida
+        (`G-ENV-01`), um envelope escrito fora do sitio da corrida deixa de
+        ser encontrado — e deve mesmo deixar: era assim que uma corrida lia o
+        trabalho de outra.
+
+            A BANCADA TEM DE POR O FICHEIRO ONDE O EXECUTOR O PORIA.
+            Se ela o puser noutro sitio, mede outra coisa.
+        """
+        padrao = "%s/%s" % (self.rel, nome)
+        caminho = os.path.join(
+            RAIZ, rdc.endereco_do_envelope(padrao, self.CORRIDA))
+        os.makedirs(os.path.dirname(caminho), exist_ok=True)
         with open(caminho, "w", encoding="utf-8") as f:
             json.dump(corpo, f, ensure_ascii=False)
-        return "%s/%s" % (self.rel, nome)
+        return padrao
 
     def executor(self, **kw):
         base = {"id": "ataque", "roda": ["coleta/ataque.py"], "larga_em": [self.rel]}
@@ -45,7 +64,7 @@ class Bancada(unittest.TestCase):
         return base
 
     def passa(self, e):
-        itens, _ = orq.a_colheita(e, "RUN-ATAQUE")
+        itens, _ = orq.a_colheita(e, self.CORRIDA)
         return itens
 
 
