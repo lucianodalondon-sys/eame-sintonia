@@ -2140,9 +2140,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/integrate-scrap-current-collection-v1",
-    "HEAD": "5528b637be2fd8d50b2623c660c3c120947c279f",
-    "GENERATED_AT": "2026-09-13T14:21:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "bd35f66d326d14a6c0bf919b47b80d581f3ade3b29ca4bcfd281b3cc568bf709"
+    "HEAD": "6a7b09de26ef0af969cbcfb1eefc1a5131477148",
+    "GENERATED_AT": "2026-09-13T15:01:17+00:00",
+    "SOURCE_TREE_FINGERPRINT": "751faed9b5f48aecf20ae017cd90c178bac14cac919ae2301e4b6e91fc86c9e9"
   },
   "FAMILIES": [
     {
@@ -2211,7 +2211,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 71
+      "count": 72
     },
     {
       "id": "F-ENTREGA",
@@ -2581,7 +2581,7 @@
       "y": 190,
       "w": 1235,
       "h": 6158,
-      "count": 55
+      "count": 56
     }
   ],
   "DEPARTMENTS": {
@@ -13772,6 +13772,45 @@
       "y": 5190
     },
     {
+      "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "name": "As travas do acervo, e o que a repeticao do SCRAP revela",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Duas provas contra PostgreSQL 16 descartavel, e as duas partem da linha que a rota SCRAP escreveu de verdade. `as_travas_do_scrap_no_postgres.py` ataca cada lei do esquema mudando UM campo da linha real, e cada ataque declara a LEI em que tem de morrer — morrer noutra reprova. Cada ataque traz a sua CONTRAPROVA: a mesma escrita sem a mutacao, que tem de passar. `a_repeticao_do_scrap.py` corre a MESMA colheita duas vezes na mesma arvore e contra o mesmo banco, conta o que ficou, e NOMEIA o campo que difere entre os dois brutos.",
+      "why_here": "UMA CONSTRAINT LISTADA NAO E UMA CONSTRAINT PROVADA, e QUE O BOM PASSE NAO PROVA QUE O MAU PARE. A prova que so verifica que a linha certa entra passaria identica num esquema sem trava nenhuma. || E as duas metades foram pagas na primeira corrida. SEIS ataques deram «ok» sem nunca terem chegado a lei que visavam: morreram todos em `NOT NULL: captured_at`, uma coluna que o ataque esquecera de preencher. A recusa era verdadeira e o veredito era falso. UMA RECUSA PELA LEI ERRADA NAO PROVA A LEI CERTA. Quem apanhou isso nao foi releitura: foi a CONTRAPROVA, que tinha de passar e nao passava. || A repeticao guarda uma lei estreita de proposito — que os dois brutos difiram EXATAMENTE no `/RUN_ID`. Dela sai o resto: o bruto carrega o nome da corrida que o trouxe, logo O SHA DE UM BRUTO NUNCA IDENTIFICA O CONTEUDO OBSERVADO, IDENTIFICA A OBSERVACAO. O endereco por conteudo nunca colide, e DEDUPLICACAO QUE NUNCA COLIDE NAO E DEDUPLICACAO: E UM NOME NOVO DE CADA VEZ. O conflito que a prova da migration 025 documenta no caso H nao acontece nesta rota — nao por estar curado, por ser INALCANCAVEL. UM PERIGO INALCANCAVEL NAO E UM PERIGO RESOLVIDO, E UMA TRAVA QUE NUNCA E TOCADA NAO ESTA PROVADA.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⊬",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [],
+      "file_count": 0,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add provas/a_repeticao_do_scrap.py provas/as_travas_do_scrap_no_postgres.py` e regerar. ISTO NAO E «nao existe».",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20850,
+      "y": 5190
+    },
+    {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
       "name": "A prova de que a unidade pousa na espera",
       "territory": "Z-PROVA",
@@ -13831,8 +13870,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5190
+      "x": 20020,
+      "y": 5512
     },
     {
       "id": "C-PROVENIENCIA",
@@ -14083,7 +14122,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 5512
     },
     {
@@ -14235,7 +14274,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5512
     },
     {
@@ -14377,8 +14416,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5512
+      "x": 20020,
+      "y": 5834
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -15421,7 +15460,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 5834
     },
     {
@@ -15722,7 +15761,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 5834
     },
     {
@@ -15896,8 +15935,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5834
+      "x": 20020,
+      "y": 6156
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -17412,7 +17451,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 6156
     },
     {
@@ -21010,12 +21049,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 2 linhas de codigo.",
+      "reason": "A autorizacao de gasto · a guarda antes do POST pago tem o seu codigo importado por SINTONIA SCRAP · o executor da aquisicao social. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/scrap_executor.py",
           "line": 142,
           "snippet": "from autorizacao_de_gasto import (  # noqa: E402"
+        },
+        {
+          "file": "coleta/social_rotas.py",
+          "line": 62,
+          "snippet": "import autorizacao_de_gasto as az  # noqa: E402  — a recusa de gasto tem nome"
         },
         {
           "file": "coleta/social_scrap.py",
@@ -22814,7 +22858,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 337,
+          "line": 378,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -22837,52 +22881,52 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 132,
+          "line": 134,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 145,
+          "line": 147,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 160,
+          "line": 162,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 173,
+          "line": 175,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 186,
+          "line": 188,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 194,
+          "line": 196,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 226,
+          "line": 228,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 250,
+          "line": 252,
           "snippet": "python3 provas/rastro_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 354,
+          "line": 395,
           "snippet": "run: python3 provas/run_duravel_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 367,
+          "line": 408,
           "snippet": "run: python3 provas/runtime_comum_no_postgres.py"
         }
       ],
@@ -22900,7 +22944,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 378,
+          "line": 419,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -22918,7 +22962,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 276,
+          "line": 278,
           "snippet": "python3 provas/o_forward_conta_se.py"
         }
       ],
@@ -22936,7 +22980,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 285,
+          "line": 287,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -22954,7 +22998,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 320,
+          "line": 322,
           "snippet": "python3 provas/o_scrap_chega_ao_acervo.py"
         }
       ],
@@ -23311,7 +23355,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 208,
+          "line": 256,
           "snippet": "fonte = open(os.path.join(RAIZ, 'coleta', 'coletor.py'), encoding='utf-8').read()"
         },
         {
@@ -23749,7 +23793,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 455,
+          "line": 520,
           "snippet": "for mod in ('coleta/coletor.py', 'coleta/instagram_coleta.py',"
         },
         {
@@ -23966,7 +24010,7 @@
       "evidence": [
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 456,
+          "line": 521,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         }
       ],
@@ -35656,7 +35700,7 @@
         },
         {
           "file": "provas/orcamento_financeiro.py",
-          "line": 456,
+          "line": 521,
           "snippet": "'regras/sensor_coleta.py', 'coleta/comunicacao_coleta.py'):"
         },
         {
@@ -38592,11 +38636,11 @@
     ]
   },
   "COUNTS": {
-    "components": 179,
+    "components": 180,
     "components_proven": 48,
     "components_pending": 125,
     "components_broken": 0,
-    "components_unknown": 6,
+    "components_unknown": 7,
     "edges": 837,
     "edges_proven": 834,
     "edges_unknown": 3,

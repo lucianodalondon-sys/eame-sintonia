@@ -277,8 +277,57 @@ class AutorizacaoInvalida(ValueError):
     """Um pedido de autorizacao que nao se pode conceder. Para-se, e diz-se porque."""
 
 
-class GastoRecusado(PermissionError):
-    """A porta paga recusou. NAO e falha de rede, e NAO e juizo sobre a fonte."""
+class GastoRecusado(Exception):
+    """A porta paga recusou. NAO e falha de rede, e NAO e juizo sobre a fonte.
+
+    ⚠️ ESTA CLASSE HERDAVA DE `PermissionError`, E ISSO TORNAVA A FRASE ACIMA
+    FALSA NO SITIO ONDE ELA MAIS IMPORTA. `PermissionError` e um `OSError`, e
+    quem apanha `OSError` a espera de transporte apanhava tambem esta.
+
+    MEDIDO, e nao deduzido — `provas/orcamento_financeiro.py`, caso F0, com o
+    trace inteiro impresso:
+
+        ERRO   GastoRecusado: SEM_AUTORIZACAO_NAO_GASTEI · AUTORIZACAO_AUSENTE
+        ESTADO TRANSIENT_NETWORK_ERROR
+        RECOVERY_ACTION WAIT   ·   ROUTE_HEALTH UNHEALTHY
+
+    Uma corrida sem autorizacao humana saia do rasto como um tunel que caiu.
+    E as consequencias nao param no nome:
+
+        · `WAIT` manda a maquina TENTAR OUTRA VEZ uma rota que foi recusada
+          por falta de gente — e tentar outra vez nao traz a autorizacao.
+        · `ROUTE_HEALTH = UNHEALTHY` acusa de doente uma rota que respondeu
+          perfeitamente: ela nem chegou a ser chamada.
+
+    `coleta/social_rotas.py` tem escrito, duas linhas acima do sitio onde isto
+    acontecia:
+
+        UM TRANSPORTE QUE CAIU NAO E UMA POLITICA QUE RECUSOU.
+
+    E isto era exactamente o mesmo erro ao espelho:
+
+        UMA POLITICA QUE RECUSOU NAO E UM TRANSPORTE QUE CAIU.
+        ERROR != REJECTED != UNKNOWN != NOT_RUN.
+
+    A cura e a base, e nao um `except` novo em cada sitio: dois sitios de
+    producao apanhavam `OSError` no caminho do dinheiro — `social_rotas.py` e
+    `scrap_http.py` — e o terceiro que alguem escrever amanha herdaria o
+    defeito sem o saber.
+
+        REMENDAR CADA APANHADOR E DEIXAR A ARMADILHA ARMADA
+        PARA QUEM VIER A SEGUIR.
+
+    INVENTARIO ANTES DE MUDAR, porque mudar uma base e mudar quem a apanha.
+    Medido nesta arvore: NINGUEM apanha `PermissionError` — nenhum ficheiro,
+    nem de producao nem de prova. Os cinco sitios que apanham esta excecao
+    nomeiam-na directamente (`except az.GastoRecusado`), e continuam a
+    apanha-la. A unica prova que fala da hierarquia
+    (`test_scrap_rc01::issubclass(RotaNaoPermitida, GastoRecusado)`) fala do
+    outro lado dela, e nao deste.
+
+        UMA HERANCA QUE NINGUEM USA E QUE MENTE NAO E COMPATIBILIDADE:
+        E UMA ARMADILHA COM ANTIGUIDADE.
+    """
 
     def __init__(self, causa, detalhe=''):
         self.causa = causa

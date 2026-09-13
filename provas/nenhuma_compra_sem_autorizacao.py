@@ -131,12 +131,39 @@ def autorizacao_normal(sid=FONTE, prop=PROPOSITO, resultado=None, livro=None):
 
 
 def correr(**kw):
-    """Corre `coletor.executar` pelo caminho real. → (posts, estado)."""
+    """Corre `coletor.executar` pelo caminho real. → (posts, estado).
+
+    ⚠️ O ORÇAMENTO DECLARADO SEGUE A AUTORIZAÇÃO, E NÃO UM NÚMERO FIXO.
+    Esta bancada declarava `orcamento_financeiro(0.10)` para TODOS os casos,
+    e a autorização do probe vale `max_usd=0.05`. A lei
+    `FINANCIAL_BUDGET.AUTHORIZED <= AUTORIZACAO.MAX_USD` fazia então o que
+    tem de fazer — recusava — e o caso POSITIVO do probe reprovava com
+    `ORCAMENTO_ACIMA_DA_AUTORIZACAO`.
+
+        A LEI ESTAVA CERTA. A BANCADA É QUE DECLARAVA UM ORÇAMENTO
+        QUE A AUTORIZAÇÃO DAQUELE CASO NUNCA COBRIU.
+
+    A linha logo abaixo já sabia isto para o teto do fornecedor —
+    `teto_usd` sai de `autorizacao.max_usd`. Faltava o mesmo ao orçamento da
+    execução, que é a outra metade do mesmo par.
+
+    E NÃO SE PERDE A TRAVA COM ISTO. Quem a guarda é
+    `tests/test_scrap_rc01_release_candidate.py::test_rt50`, que passa
+    `orcamento=99.0` À MÃO contra uma autorização de `0.10` e exige
+    `ORCAMENTO_ACIMA_DA_AUTORIZACAO`. Por isso `orcamento=` continua a poder
+    vir de fora aqui: é assim que um caso NEGATIVO se escreve.
+
+        UM CASO POSITIVO QUE NÃO CONSEGUE PASSAR NÃO PROVA OS NEGATIVOS
+        AO LADO DELE: FAZ COMPANHIA.
+    """
     falsa = FalsaApify(itens_reais())
     real = subprocess.run
     subprocess.run = falsa
+    orcamento = kw.pop('orcamento', None)
+    if orcamento is None:
+        orcamento = getattr(kw.get('autorizacao'), 'max_usd', None) or 0.10
     try:
-        with http.orcamento_de_rede(5), ct.orcamento_financeiro(0.10):
+        with http.orcamento_de_rede(5), ct.orcamento_financeiro(orcamento):
             kw.setdefault('teto_usd',
                           getattr(kw.get('autorizacao'), 'max_usd', None))
             ct.executar(ATOR, {'videoUrl': 'https://youtu.be/X'},
@@ -192,6 +219,25 @@ def main():
     print('\n2 · SEM AUTORIZAÇÃO NENHUMA — o silêncio não autoriza')
     posts, estado = correr()
     diz(posts == 0, 'chamada sem `autorizacao`', 'POSTS=%d · %s' % (posts, estado))
+
+    # ── E O ORÇAMENTO DECLARADO NÃO PASSA POR CIMA DO LIMITE HUMANO ─────
+    # ⚠️ ESTE CASO NASCEU DE UM CONSERTO, E EXISTE PARA O CONSERTO NÃO VIRAR
+    # BURACO. `correr()` passou a derivar o orçamento da autorização — que é
+    # o certo, e é o que tornava o probe testável. Só que, sozinho, isso
+    # tiraria desta bancada a ÚNICA maneira de a lei do orçamento aparecer:
+    # com os dois números sempre iguais, ela nunca mais dispara aqui.
+    #
+    #     UM CONSERTO QUE APAGA O CASO QUE O EXIGIA
+    #     NÃO CONSERTOU: MUDOU O ASSUNTO.
+    #
+    # Por isso o orçamento continua a poder vir de fora, e vem — alto de
+    # propósito, contra uma autorização de 0.10.
+    #
+    #     LIMITE HUMANO != LEDGER OPERACIONAL.
+    posts, estado = correr(autorizacao=autorizacao_normal(), orcamento=99.0)
+    diz(posts == 0 and estado == 'ORCAMENTO_ACIMA_DA_AUTORIZACAO',
+        'orçamento acima do autorizado não compra',
+        'POSTS=%d · %s' % (posts, estado))
 
     print('\n3 · SOURCE EVALUATION PROBE — candidata NAO_AVALIADA')
     def probe():

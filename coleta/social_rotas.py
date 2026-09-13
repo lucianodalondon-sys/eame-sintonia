@@ -59,6 +59,7 @@ import scrap_http as http          # noqa: E402  — o portao e a busca
 import scrap_registo as reg        # noqa: E402  — o mapa, dono unico
 import scrap_capacidades as cap    # noqa: E402  — a declaracao
 import coletor                     # noqa: E402  — o dono do dinheiro
+import autorizacao_de_gasto as az  # noqa: E402  — a recusa de gasto tem nome
 
 # ── O QUE MUDOU DE SITIO, E CONTINUA A ATENDER PELO NOME ANTIGO ───────────
 # Codigo vivo e testes ja chamam `social_rotas.permitido`. Mudar o ficheiro de
@@ -229,6 +230,44 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         raise
     except RotaNaoPermitida as e:
         registro['ESTADO'] = 'ROUTE_NOT_ALLOWED'
+        registro['ERRO'] = ss.redigir(str(e))
+        return [], registro
+    except az.GastoRecusado as e:
+        # ── UMA RECUSA DE GASTO É UMA RECUSA NOSSA, E TEM CASA PRÓPRIA ──────
+        # ⚠️ SEM ESTE RAMO, ELA CAÍA DUAS VEZES NO SÍTIO ERRADO. Primeiro em
+        # `TRANSIENT_NETWORK_ERROR`, porque `GastoRecusado` herdava de
+        # `PermissionError` — que é um `OSError` — e o apanhador de transporte
+        # lá em baixo levava-a. Corrigida a base, passou a cair em
+        # `UNKNOWN_ERROR`, que é o balde de «ninguém sabe o que houve».
+        #
+        # Medido em `provas/orcamento_financeiro.py`, caso F0:
+        #
+        #     ERRO   GastoRecusado · AUTORIZACAO_AUSENTE
+        #     ESTADO TRANSIENT_NETWORK_ERROR -> UNKNOWN_ERROR -> BUDGET_EXHAUSTED
+        #
+        # Duas linhas acima está escrito, sobre o ramo do transporte:
+        #
+        #     UM TRANSPORTE QUE CAIU NÃO É UMA POLÍTICA QUE RECUSOU.
+        #
+        # Isto é o mesmo erro ao espelho, e custava mais caro:
+        #
+        #     UMA POLÍTICA QUE RECUSOU NÃO É UM TRANSPORTE QUE CAIU.
+        #     ERROR != REJECTED != UNKNOWN != NOT_RUN.
+        #
+        # E o preço não era o nome. `TRANSIENT_NETWORK_ERROR` traz
+        # `RECOVERY_ACTION = WAIT` e `ROUTE_HEALTH = UNHEALTHY`: a casa
+        # tentaria OUTRA VEZ uma rota recusada por falta de gente — e tentar
+        # outra vez não traz autorização nenhuma — enquanto acusava de doente
+        # uma rota que nem chegou a ser chamada.
+        #
+        # `BUDGET_EXHAUSTED` não é uma casa emprestada: `leis/falhas.py`
+        # escreveu-a para isto, com o alias `PAID_ROUTE_REFUSED` e com a frase
+        # «teto NOSSO: gasto, ACESSOS, itens, OU A MISSÃO NÃO AUTORIZOU PAGAR»
+        # — e avisou que sem alias estes casos caem em `UNKNOWN_ERROR`. Era
+        # exactamente onde este estava. Ela traz `UNAVAILABLE` e NO_RETRY, que
+        # é o que uma recusa da casa merece.
+        registro['ESTADO'] = 'BUDGET_EXHAUSTED'
+        registro['NATIVE_REASON'] = getattr(e, 'causa', None)
         registro['ERRO'] = ss.redigir(str(e))
         return [], registro
     except _EstadoDaApi as e:

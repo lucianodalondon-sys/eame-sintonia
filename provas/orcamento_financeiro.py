@@ -198,6 +198,54 @@ def colher(*, teto_de_gasto=None, teto_de_rede=None, guiao=(0.0,),
         return saidas, c.falso
 
 
+
+# ══ O QUE BLOQUEIA ESTA BANCADA, DITO ANTES DE ELA FINGIR QUE MEDIU ═══════
+#
+# ⚠️ ESTA PROVA NASCEU ANTES DA LEI QUE ELA TEM DE ATRAVESSAR, E FICOU PARA
+# TRÁS. Ela é da C10.8A-F e mede a ARITMÉTICA do dinheiro — o saldo que resta,
+# o teto que desce ao fornecedor, a exaustão antes da chamada. Quando foi
+# escrita, comprometer dólar não exigia autorização de gente.
+#
+# A SR-02 acrescentou `leis/autorizacao_de_gasto.py`, e `coletor.executar`
+# passou a EXIGIR uma autorização humana. Só que o caminho canónico por onde
+# esta bancada entra — `scrap_executor.COLLECT` -> `social_rotas.executar` ->
+# adaptador -> `coletor.executar` — NÃO TEM CANAL PARA ELA: medido, a palavra
+# `autorizacao` não aparece uma única vez em `coleta/social_rotas.py`.
+#
+#     SPEND_AUTHORIZATION != ROUTE_POLICY — e aqui a rota não consegue
+#     sequer CARREGAR a autorização, quanto mais respeitá-la.
+#
+# O efeito, medido com o trace inteiro à vista:
+#
+#     todos os casos F morrem em AUTORIZACAO_AUSENTE, antes do fornecedor.
+#     PAID_USD = 0 · PAID_CALLS = 0 — a rota paga FALHA FECHADA, e isso é bom.
+#     E a aritmética do orçamento NUNCA CORRE — o que não é bom, e é calado.
+#
+# Isto NÃO é regressão da integração do SCRAP: reproduz-se igual, linha a
+# linha, no próprio `sintonia-scrap-release-candidate-v1`, e nem esta bancada
+# nem `leis/autorizacao_de_gasto.py` existiam em `974e39a6`. É dívida que
+# chega COM o RC, e não dívida que a linha funcional tinha.
+#
+# O QUE FOI CONSERTADO AQUI, E PORQUE PAROU AÍ
+# --------------------------------------------
+# Duas camadas de silêncio EM CIMA da recusa foram tiradas, porque eram
+# mentiras e não faltas:
+#
+#   1. `GastoRecusado` herdava de `PermissionError` (que é `OSError`), e caía
+#      no apanhador de TRANSPORTE: uma recusa por falta de gente saía como
+#      `TRANSIENT_NETWORK_ERROR`, com `RECOVERY_ACTION = WAIT`. A casa
+#      tentaria outra vez — e tentar outra vez não traz autorização.
+#   2. `coleta/social_rotas.py` não tinha ramo para ela, e mandava-a para
+#      `UNKNOWN_ERROR`. Agora vai para `BUDGET_EXHAUSTED`, que `leis/falhas.py`
+#      escreveu para isto mesmo.
+#
+# O que NÃO foi feito, e de propósito: abrir um canal de autorização através
+# de `social_rotas`. Isso é ARQUITECTURA NOVA, e esta missão é de integração.
+#
+#     REVELAR != CAUSAR != CONSERTAR.
+#     E UMA PROVA QUE REBENTA COM `IndexError` PARECE PARTIDA.
+#     UMA QUE DIZ O QUE A BLOQUEIA PODE SER RESOLVIDA.
+
 print('=' * 88)
 print('C10.8A-F · O ORCAMENTO FINANCEIRO DO SINTONIA SCRAP')
 print('=' * 88)
@@ -258,6 +306,23 @@ diz(len(objetos) == 1, 'e o objeto veio', len(objetos))
 print('\n── F2 · a segunda chamada nao recebe o teto original ──')
 (saidas, falso) = colher(teto_de_gasto=1.00, guiao=(0.25, 0.10), chamadas=2)
 tetos = [t for _a, t in falso.posts]
+if not tetos:
+    # A bancada não chegou ao fornecedor. Continuar daqui leria `tetos[0]`
+    # numa lista vazia e sairia `IndexError` — que tem o aspecto de uma prova
+    # partida, e não de uma prova bloqueada. São coisas diferentes, e quem
+    # abrir o relatório daqui a três meses precisa de saber qual das duas é.
+    #
+    #     NOT_MEASURED != FAIL. E SKIP != PASS.
+    print('\n' + '=' * 88)
+    print('ORCAMENTO_FINANCEIRO=NOT_MEASURED')
+    print('PORQUE = AUTORIZACAO_AUSENTE — o caminho canonico nao carrega a')
+    print('         autorizacao humana ate `coletor.executar`. Ver o bloco')
+    print('         «O QUE BLOQUEIA ESTA BANCADA» no topo deste ficheiro.')
+    print('PAID_USD = 0 · PAID_CALLS = 0 — a rota paga falha FECHADA.')
+    print('DONO = coleta/social_rotas.py (sem canal de `autorizacao`)')
+    print('ORIGEM = chega com o RC do SCRAP; nao existia em 974e39a6')
+    print('=' * 88)
+    raise SystemExit(2)
 diz(tetos[0] == 1.00, 'a primeira leva o saldo inteiro', tetos[0])
 diz(tetos[1] is not None and abs(tetos[1] - 0.75) < 1e-9,
     'a segunda leva 0.75 — o que RESTA, nao o teto original', tetos[1])

@@ -2842,6 +2842,27 @@
       ]
     },
     {
+      "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
+      "name": "As travas do acervo, e o que a repeticao do SCRAP revela",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊬",
+      "what": "Duas provas contra PostgreSQL 16 descartavel, e as duas partem da linha que a rota SCRAP escreveu de verdade. `as_travas_do_scrap_no_postgres.py` ataca cada lei do esquema mudando UM campo da linha real, e cada ataque declara a LEI em que tem de morrer — morrer noutra reprova. Cada ataque traz a sua CONTRAPROVA: a mesma escrita sem a mutacao, que tem de passar. `a_repeticao_do_scrap.py` corre a MESMA colheita duas vezes na mesma arvore e contra o mesmo banco, conta o que ficou, e NOMEIA o campo que difere entre os dois brutos.",
+      "why_here": "UMA CONSTRAINT LISTADA NAO E UMA CONSTRAINT PROVADA, e QUE O BOM PASSE NAO PROVA QUE O MAU PARE. A prova que so verifica que a linha certa entra passaria identica num esquema sem trava nenhuma. || E as duas metades foram pagas na primeira corrida. SEIS ataques deram «ok» sem nunca terem chegado a lei que visavam: morreram todos em `NOT NULL: captured_at`, uma coluna que o ataque esquecera de preencher. A recusa era verdadeira e o veredito era falso. UMA RECUSA PELA LEI ERRADA NAO PROVA A LEI CERTA. Quem apanhou isso nao foi releitura: foi a CONTRAPROVA, que tinha de passar e nao passava. || A repeticao guarda uma lei estreita de proposito — que os dois brutos difiram EXATAMENTE no `/RUN_ID`. Dela sai o resto: o bruto carrega o nome da corrida que o trouxe, logo O SHA DE UM BRUTO NUNCA IDENTIFICA O CONTEUDO OBSERVADO, IDENTIFICA A OBSERVACAO. O endereco por conteudo nunca colide, e DEDUPLICACAO QUE NUNCA COLIDE NAO E DEDUPLICACAO: E UM NOME NOVO DE CADA VEZ. O conflito que a prova da migration 025 documenta no caso H nao acontece nesta rota — nao por estar curado, por ser INALCANCAVEL. UM PERIGO INALCANCAVEL NAO E UM PERIGO RESOLVIDO, E UMA TRAVA QUE NUNCA E TOCADA NAO ESTA PROVADA.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/as_travas_do_scrap_no_postgres.py",
+        "provas/a_repeticao_do_scrap.py"
+      ],
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ]
+    },
+    {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
       "name": "A prova da linhagem do reaproveitamento",
       "territory": "Z-PROVA",

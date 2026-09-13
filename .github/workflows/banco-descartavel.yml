@@ -68,6 +68,8 @@ on:
       - 'leis/telemetria.py'
       - 'provas/a_rota_m2_atravessa.py'
       - 'provas/o_scrap_chega_ao_acervo.py'
+      - 'provas/as_travas_do_scrap_no_postgres.py'
+      - 'provas/a_repeticao_do_scrap.py'
       - 'provas/_e2e01_janela_admissivel.py'
       - 'provas/_flow01_janela_falsa.py'
       - 'provas/o_fluxo_canonico_do_scrap.py'
@@ -318,6 +320,45 @@ jobs:
           psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
           psql "$ADMIN_URL" -c 'create database descartavel;'
           python3 provas/o_scrap_chega_ao_acervo.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # As travas do esquema, atacadas A PARTIR DA LINHA QUE A ROTA
+      # ESCREVEU DE VERDADE. Uma constraint listada nao e uma constraint
+      # provada, e QUE O BOM PASSE NAO PROVA QUE O MAU PARE.
+      #
+      # Cada ataque declara a LEI em que tem de morrer, e morrer noutra
+      # reprova. Isto nao e zelo: na primeira corrida deste ficheiro SEIS
+      # ataques deram «ok» sem nunca terem chegado a lei que visavam —
+      # morreram todos numa coluna `NOT NULL` que o ataque esquecera de
+      # preencher.
+      #
+      #     UMA RECUSA PELA LEI ERRADA NAO PROVA A LEI CERTA.
+      - name: 2g3 · as travas mordem a forma que o SCRAP escreve
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/as_travas_do_scrap_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          PYTHONDONTWRITEBYTECODE: '1'
+
+      # A repeticao: correr a MESMA colheita duas vezes e perguntar ao banco
+      # o que ficou. Ela MEDE e nao conserta, e guarda uma lei estreita: que
+      # os dois brutos difiram EXATAMENTE no `/RUN_ID`.
+      #
+      # No dia em que alguem tirar o `RUN_ID` de dentro do bruto, os shas
+      # passam a colidir, a trava do endereco acorda, e este passo reprova a
+      # dizer exactamente isso — que e o aviso que se quer, e nao um
+      # silencio verde.
+      - name: 2g4 · a repeticao do SCRAP, medida
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_repeticao_do_scrap.py
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
