@@ -2343,9 +2343,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-italia-caption-audio-8b460b",
-    "HEAD": "0d44e9af6329a9cfca3f84a855bde2234e1f663b",
-    "GENERATED_AT": "2026-09-14T17:36:34-03:00",
-    "SOURCE_TREE_FINGERPRINT": "f2288cd6a49f73a632604240d0cc6700dfddf2ac04bd4d80ada7475287c11551"
+    "HEAD": "f860a6b63bbbcd5cfb0a9ccdb4d6a16c37925664",
+    "GENERATED_AT": "2026-09-14T18:12:21-03:00",
+    "SOURCE_TREE_FINGERPRINT": "da70c567292b28fc7465fc16c93f04ace16e8c91d25c0246394da89310040d86"
   },
   "FAMILIES": [
     {
@@ -10564,11 +10564,12 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
-          "DESTINO_DO_ESTADO"
+          "DESTINO_DO_ESTADO",
+          "DESTINO_DO_MOTIVO"
         ],
-        "palavras": 9,
+        "palavras": 21,
         "por_lingua": {},
-        "sem_marca_de_lingua": 9,
+        "sem_marca_de_lingua": 21,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11019,7 +11020,7 @@
         "PLANO": null,
         "PROVA": [
           "coleta/executor_texto_de_pdf.py:299",
-          "coleta/executor_transcricao_midia.py:254",
+          "coleta/executor_transcricao_midia.py:267",
           "guarda/memoria_descartavel.py:43",
           "provas/a_linhagem_do_reaproveitamento.py:323"
         ],
@@ -11828,7 +11829,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/derivacao_forward.py:83",
+          "coleta/derivacao_forward.py:101",
           "coleta/golden_path_pdf.py:53",
           "medidas/corrida_instrumentada.py:122",
           "medidas/corrida_instrumentada.py:157"
@@ -12923,9 +12924,9 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "coleta/derivacao_forward.py:291",
+          "coleta/derivacao_forward.py:325",
           "coleta/golden_path_pdf.py:51",
-          "coleta/rota_forward_documento.py:51",
+          "coleta/rota_forward_documento.py:71",
           "orquestrador/orquestrador.py:57"
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -17287,7 +17288,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:545"
+          ".github/workflows/banco-descartavel.yml:595"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17913,7 +17914,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/auditoria-live.yml:54",
-          ".github/workflows/banco-descartavel.yml:152",
+          ".github/workflows/banco-descartavel.yml:238",
           ".github/workflows/system-map.yml:551",
           ".github/workflows/system-map.yml:625"
         ],
@@ -18004,7 +18005,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:586",
+          ".github/workflows/banco-descartavel.yml:636",
           ".github/workflows/system-map.yml:651"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -18386,7 +18387,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:337"
+          ".github/workflows/banco-descartavel.yml:423"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18682,8 +18683,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:509",
-          ".github/workflows/banco-descartavel.yml:528"
+          ".github/workflows/banco-descartavel.yml:559",
+          ".github/workflows/banco-descartavel.yml:578"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19206,7 +19207,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:479"
+          ".github/workflows/banco-descartavel.yml:529"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19308,7 +19309,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:346"
+          ".github/workflows/banco-descartavel.yml:432"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19447,7 +19448,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:380"
+          ".github/workflows/banco-descartavel.yml:180"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19763,7 +19764,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:417"
+          ".github/workflows/banco-descartavel.yml:467"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19934,8 +19935,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:438",
-          ".github/workflows/banco-descartavel.yml:456"
+          ".github/workflows/banco-descartavel.yml:488",
+          ".github/workflows/banco-descartavel.yml:506"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -29411,7 +29412,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 50,
+          "line": 70,
           "snippet": "import admissao                      # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-ROTA-M2",
@@ -36830,7 +36831,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 545,
+          "line": 595,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-AUTORIDADE-FONTE",
@@ -36881,7 +36882,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 152,
+          "line": 238,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36897,7 +36898,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 165,
+          "line": 251,
           "snippet": "python3 provas/derived_artifact_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36913,7 +36914,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 180,
+          "line": 266,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36929,7 +36930,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 193,
+          "line": 279,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36945,7 +36946,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 206,
+          "line": 292,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36961,7 +36962,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 228,
+          "line": 314,
           "snippet": "python3 provas/a_sala_sobrevive_ao_processo.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36977,7 +36978,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 239,
+          "line": 325,
           "snippet": "run: python3 provas/o_egresso_antes_da_aquisicao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36993,7 +36994,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 250,
+          "line": 336,
           "snippet": "run: python3 provas/mutacao_da_sala_duravel.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37009,7 +37010,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 255,
+          "line": 341,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37025,7 +37026,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 287,
+          "line": 373,
           "snippet": "python3 provas/social_persistencia_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37041,7 +37042,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 311,
+          "line": 397,
           "snippet": "python3 provas/rastro_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37076,7 +37077,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 586,
+          "line": 636,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-DEDUPE",
@@ -37111,7 +37112,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 337,
+          "line": 423,
           "snippet": "python3 provas/o_forward_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-FORWARD-CONTA",
@@ -37146,7 +37147,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 509,
+          "line": 559,
           "snippet": "python3 provas/a_linhagem_do_ready_social.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -37162,7 +37163,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 528,
+          "line": 578,
           "snippet": "python3 provas/mutacao_da_linhagem_social.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -37197,7 +37198,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 479,
+          "line": 529,
           "snippet": "python3 provas/o_retry_do_scrap.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-RETRY-DO-SCRAP",
@@ -37232,7 +37233,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 346,
+          "line": 432,
           "snippet": "python3 provas/a_rota_m2_atravessa.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-ROTA-M2-ATRAVESSA",
@@ -37267,7 +37268,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 380,
+          "line": 180,
           "snippet": "python3 provas/a_ponte_de_midia_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-ROTAS-REAIS",
@@ -37302,7 +37303,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 417,
+          "line": 467,
           "snippet": "python3 provas/o_scrap_chega_ao_acervo.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -37337,7 +37338,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 438,
+          "line": 488,
           "snippet": "python3 provas/as_travas_do_scrap_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -37353,7 +37354,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 456,
+          "line": 506,
           "snippet": "python3 provas/a_repeticao_do_scrap.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -40453,7 +40454,7 @@
       "evidence": [
         {
           "file": "coleta/derivacao_forward.py",
-          "line": 78,
+          "line": 96,
           "snippet": "import artefato as art               # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-DERIVACAO-FORWARD",
@@ -43381,7 +43382,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 52,
+          "line": 72,
           "snippet": "import derivacao_forward as deriv     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-ROTA-M2",
@@ -43613,7 +43614,7 @@
       "evidence": [
         {
           "file": "coleta/derivacao_forward.py",
-          "line": 79,
+          "line": 97,
           "snippet": "import diagnostico as dg             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DIAGNOSTICO--IMPORTS-->C-DERIVACAO-FORWARD",
@@ -43874,7 +43875,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 53,
+          "line": 73,
           "snippet": "import diagnostico as dg             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DIAGNOSTICO--IMPORTS-->C-ROTA-M2",
@@ -45210,7 +45211,7 @@
       "evidence": [
         {
           "file": "coleta/executor_transcricao_midia.py",
-          "line": 254,
+          "line": 267,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -45315,7 +45316,7 @@
       "evidence": [
         {
           "file": "tests/test_c4h_ponte_de_midia.py",
-          "line": 346,
+          "line": 375,
           "snippet": "import guarda.preservar_derivado as gpd",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-TESTES",
@@ -46577,7 +46578,7 @@
       "evidence": [
         {
           "file": "coleta/derivacao_forward.py",
-          "line": 83,
+          "line": 101,
           "snippet": "import executor_texto_de_pdf as ex   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-DERIVACAO-FORWARD",
@@ -48902,7 +48903,7 @@
       "evidence": [
         {
           "file": "coleta/derivacao_forward.py",
-          "line": 291,
+          "line": 325,
           "snippet": "import ingresso as _ing                            # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-DERIVACAO-FORWARD",
@@ -49453,7 +49454,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 51,
+          "line": 71,
           "snippet": "import ingresso                      # noqa: E402 — o dono da lingua da porta",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-ROTA-M2",
@@ -62707,7 +62708,7 @@
       "evidence": [
         {
           "file": "coleta/derivacao_forward.py",
-          "line": 81,
+          "line": 99,
           "snippet": "import rastro_da_coleta as rastro    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RASTRO--IMPORTS-->C-DERIVACAO-FORWARD",
@@ -63057,7 +63058,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 55,
+          "line": 75,
           "snippet": "import rastro_da_coleta as rastro    # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RASTRO--IMPORTS-->C-ROTA-M2",
@@ -66213,7 +66214,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 57,
+          "line": 77,
           "snippet": "import sala_de_espera as espera        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-ROTA-M2",
@@ -67829,7 +67830,7 @@
       "evidence": [
         {
           "file": "coleta/derivacao_forward.py",
-          "line": 80,
+          "line": 98,
           "snippet": "import falhas                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-DERIVACAO-FORWARD",
@@ -68438,7 +68439,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 54,
+          "line": 74,
           "snippet": "import falhas                        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-ROTA-M2",
@@ -70365,7 +70366,7 @@
       "evidence": [
         {
           "file": "coleta/rota_forward_documento.py",
-          "line": 56,
+          "line": 76,
           "snippet": "import social_persistencia as sp     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-ROTA-M2",
@@ -73587,7 +73588,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 25 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 26 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -73766,9 +73767,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_calendario_temporal.py",
-          "line": 51,
-          "snippet": "self.m010 = sql('010_calendario_agronomico.sql')",
+          "file": "tests/test_c4h_ponte_de_midia.py",
+          "line": 336,
+          "snippet": "sql = open(caminho, encoding=\"utf-8\").read()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-TESTES",
             "FROM": "C-SUPABASE",

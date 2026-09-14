@@ -52,16 +52,34 @@ Emite UMA passagem: `DERIVED`, com `edge_from='RAW'`.
 
         STAGE EXISTS IN VOCABULARY  !=  STAGE RAN.
 
-                           A unidade forward de hoje TERMINA em `DERIVED`. Não
-                           há dono forward ligado a `derived_artifact` a jusante:
-                           o modelo das estradas dá `STRUCTURED` e `ADMISSION` da
-                           RC-1 como `STATE=CODE`, `PROOF_KIND=NENHUMA` — código
-                           escrito, nunca corrido nesta cadeia. `NOT_RUN` também
-                           seria mentira: `NOT_RUN` é «fazia parte do plano e não
-                           chegou a vez». Estas etapas não fazem parte do plano
-                           desta unidade; elas não têm ainda quem as corra.
+                           Esta fronteira continua a emitir UMA passagem, e é
+                           `DERIVED`. Quem emite as de baixo é
+                           `coleta/rota_forward_documento.py`.
 
-O buraco fica declarado em `GAPS`, e não fechado com uma linha bonita.
+⚠️ E AQUI ESTAVA ESCRITO QUE NÃO HAVIA NINGUÉM LÁ EM BAIXO. JÁ HÁ.
+------------------------------------------------------------------
+Até à C4H este cabeçalho dizia, por extenso: *«A unidade forward de hoje TERMINA
+em `DERIVED`. Não há dono forward ligado a `derived_artifact` a jusante»*. Era
+verdade quando foi escrito. **Deixou de ser**, e ninguém veio apagar a frase.
+
+O custo não foi cosmético: em 2026-09-14 uma missão leu esta linha, concluiu
+que a estrada a jusante não existia, e começou a planear arquitectura nova para
+uma estrada **que já estava construída**. Só não a construiu duas vezes porque
+foi ler o código em vez do comentário.
+
+    UM COMENTÁRIO DESACTUALIZADO NÃO É RUÍDO: É UMA AFIRMAÇÃO FALSA
+    ASSINADA POR ESTA CASA, E A PRÓXIMA PESSOA ACREDITA NELA.
+
+O que o código faz hoje, medido contra PostgreSQL 16 descartável no CI
+(`provas/a_ponte_de_midia_no_postgres.py`, 2026-09-14):
+
+    ETAPAS_OBSERVADAS = ['ADMISSION', 'DERIVED', 'RAW', 'READY', 'STRUCTURED']
+
+`rota_forward_documento.levar_a_espera()` chama `espera.pousar()`, distingue
+`PASSED` de `REUSED`, e escreve `NOT_RUN` quando a Admissão não diz `SIM`.
+
+O que continua verdade, e não mudou: **esta peça** não emite nenhuma delas.
+Emitir aqui seria falar por um dono que está calado.
 
 ⚠️ ESTA PEÇA NÃO É UM EXECUTOR.
 O censo tipado (`system-map/scripts/censo_da_observabilidade.py`) classifica-a
