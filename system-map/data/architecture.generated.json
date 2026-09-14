@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-italia-caption-audio-8b460b",
-    "HEAD": "953e29ba3a9ce8cf6feb454646d77ab442bf9a3c",
-    "GENERATED_AT": "2026-09-14T16:57:48-03:00",
+    "HEAD": "258b8e2a96b3ca5c72c849b2d29b008612896a24",
+    "GENERATED_AT": "2026-09-14T17:19:13-03:00",
     "SOURCE_TREE_FINGERPRINT": "4c9f49f3555fc014b639e947e3f9e957faae3f5f86abbb4a19039802ea0ca44b"
   },
   "FILES": [
@@ -1271,6 +1271,13 @@
     {
       "path": "coleta/executor_texto_de_pdf.py",
       "sha": "d385bb7a1e84f9ab737ea081b2ebf9ee844c335c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "coleta/executor_transcricao_midia.py",
+      "sha": "087f10d1dc7cd5744dafab83f2034fb838eb634a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4938,7 +4945,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "a8aeeccc7cb1c01c2ad8fb49608a86a0b8cae2dc",
+      "sha": "fe6ecfe330d9020f961cd4cdd9e351a9969b7161",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8731,6 +8738,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/a_ponte_de_midia_atravessa.py",
+      "sha": "ab67fc4b2074858767627900fef5af05d5849af8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/a_porta_le_italiano.py",
       "sha": "f111b83cc88480cf6398458c73279c9dc5d8fc49",
       "ext": ".py",
@@ -9481,7 +9495,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "d12a9fdfbe26976f720b7c49f0fcfe9a7d09483c",
+      "sha": "01361eaa68d16c63ddad2c7654624f7cfa1d183f",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -11519,6 +11533,13 @@
     {
       "path": "tests/test_c4g_a_especie_do_video.py",
       "sha": "6939986207f97d2111ad5974a6f714a106a979b5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c4h_ponte_de_midia.py",
+      "sha": "89235d96a8f7832634cdd8b2e0d479d83349f977",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14776,6 +14797,72 @@
         "file": "coleta/executor_texto_de_pdf.py",
         "line": 381,
         "snippet": "import rastro_da_coleta as rastro   # noqa: E402  (a gaveta resolve o path)"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 70,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 75,
+        "snippet": "import fala_local as fl  # noqa: E402 — o dono único de FALA -> TEXTO"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 122,
+        "snippet": "\"ASR_OWNER\": \"ferramentas/fala_local.py\","
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 254,
+        "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 71,
+        "snippet": "import artefato as art  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 72,
+        "snippet": "import proveniencia as pv  # noqa: E402 — o dono da espécie do texto"
       }
     },
     {
@@ -30817,6 +30904,61 @@
       }
     },
     {
+      "from_file": "provas/a_ponte_de_midia_atravessa.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_ponte_de_midia_atravessa.py",
+        "line": 44,
+        "snippet": "import _gavetas                                    # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "provas/a_ponte_de_midia_atravessa.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_ponte_de_midia_atravessa.py",
+        "line": 47,
+        "snippet": "import executor_texto_de_pdf as pdf                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_ponte_de_midia_atravessa.py",
+      "to_file": "coleta/executor_transcricao_midia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_ponte_de_midia_atravessa.py",
+        "line": 46,
+        "snippet": "import executor_transcricao_midia as midia         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_ponte_de_midia_atravessa.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_ponte_de_midia_atravessa.py",
+        "line": 45,
+        "snippet": "import ingresso as ing                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_ponte_de_midia_atravessa.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_ponte_de_midia_atravessa.py",
+        "line": 48,
+        "snippet": "import proveniencia as pv                          # noqa: E402"
+      }
+    },
+    {
       "from_file": "provas/a_porta_le_italiano.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -46745,6 +46887,105 @@
       }
     },
     {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 24,
+        "snippet": "import _gavetas                                    # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 28,
+        "snippet": "import derivacao_forward as deriv                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 27,
+        "snippet": "import executor_texto_de_pdf as pdf                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "coleta/executor_transcricao_midia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 26,
+        "snippet": "import executor_transcricao_midia as midia         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 25,
+        "snippet": "import ingresso as ing                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 317,
+        "snippet": "fonte = open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 240,
+        "snippet": "\"ferramentas/fala_local.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 346,
+        "snippet": "import guarda.preservar_derivado as gpd"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_ponte_de_midia.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_ponte_de_midia.py",
+        "line": 29,
+        "snippet": "import proveniencia as pv                          # noqa: E402"
+      }
+    },
+    {
       "from_file": "tests/test_c5_transcript_gate.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -55627,10 +55868,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1753,
-    "files_readable": 739,
-    "files_code_dir": 792,
-    "file_edges": 3895,
+    "files_tracked": 1756,
+    "files_readable": 742,
+    "files_code_dir": 795,
+    "file_edges": 3915,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
