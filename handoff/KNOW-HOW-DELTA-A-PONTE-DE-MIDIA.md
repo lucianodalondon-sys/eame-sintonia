@@ -1,14 +1,35 @@
-# §___ · A PONTE QUE NÃO SABE DE ONDE O BYTE VEIO
+# DELTA PARA O KNOW-HOW CANÓNICO — A PONTE QUE NÃO SABE DE ONDE O BYTE VEIO
 
-> **Secção escrita em forma final, com o número em branco de propósito.**
+```
+ORIGEM            C4H · A PONTE DE MÍDIA  →  C-GATE-BIG-COLLECTION-01
+BRANCH            claude/big-collection-gate-01
+BASE FUNCIONAL    claude/youtube-italia-caption-audio-8b460b @ fa980fe7
+                  + claude/collection-preserve-facts-2139eb @ 4708f772
+KNOW_HOW_MEDIDO   claude/sintonia-eame-know-how-v1 @ 5705ac7b  (medido 2026-09-14)
+ÚLTIMA SECÇÃO     §119  (medida agora, não herdada)
+NÚMERO DESTA      **por atribuir** — quem integrar escolhe o primeiro livre
+```
+
+> **⚠️ ESTE FICHEIRO NÃO É UM SEGUNDO KNOW-HOW.**
+> O know-how canónico é `SINTONIA-EAME-KNOW-HOW.md`, e ele vive noutra linha.
+> Escrever aqui uma cópia das suas leis criaria a coisa que este projeto passa
+> a vida a consertar: **dois donos do mesmo conceito**. Isto é um DELTA, na
+> forma que `handoff/KNOW-HOW-DELTA-A-BASE-DA-AUDITORIA.md` já fixou.
+
+> **⚠️ E ELE JÁ ESTEVE NO SÍTIO ERRADO.**
+> A C4H escreveu este texto em `docs/know-how/SECAO-A-PONTE-DE-MIDIA.md` —
+> uma pasta nova, com forma de secção e número em branco. A intenção era boa
+> (não reivindicar número sem medir), mas o sítio estava errado: uma pasta
+> chamada `know-how/` dentro do repositório é, para quem chegar depois, um
+> segundo lugar onde procurar a lei.
 >
-> `SINTONIA-EAME-KNOW-HOW.md` **não existe nesta branch**, e existe em 16
-> documentos distintos noutras, com cinco cabeças que declaram «última
-> atualização material» diferentes — e o §118 ocupado por quatro títulos.
-> Escolher um número aqui criaria a divergência seguinte.
+> ```
+> NÃO RECLAMAR O NÚMERO NÃO CHEGA. UM DELTA NO SÍTIO ERRADO
+> AINDA É UM SEGUNDO ENDEREÇO PARA A MESMA AUTORIDADE.
+> ```
 >
-> **Aplicar esta secção é decisão de gente.** O texto está pronto; o número não
-> se reivindica sem medir se está livre.
+> Movido para `handoff/`, que é onde esta casa já punha os outros três, e a
+> pasta `docs/know-how/` foi retirada.
 
 ---
 
@@ -214,4 +235,102 @@ Medido a 2026-09-14, no CI:
 ```
 ETAPAS_OBSERVADAS = ['ADMISSION', 'DERIVED', 'RAW', 'READY', 'STRUCTURED']
 PONTE_DE_MIDIA_POSTGRES = PROVADO · 20 passaram · 0 falharam
+```
+
+---
+
+## O QUE A C-GATE-BIG-COLLECTION-01 ACRESCENTOU
+
+### ETAPA REGISTADA ≠ UNIDADE PRODUZIDA
+
+A prova da ponte de mídia media, e media com honestidade:
+
+```
+ADMISSION_EXECUTED = YES   ADMISSION_DECISION = NAO_SEI
+READY_HANDLING = NOT_RUN   WAITING_ROOM_HANDLING = NOT_RUN
+```
+
+A etapa `READY` **correu**. Nenhum READY **existiu**. As duas frases são
+verdadeiras ao mesmo tempo, e quem ler só a primeira conclui o contrário da
+segunda.
+
+```
+ETAPA REGISTADA ≠ UNIDADE PRODUZIDA.
+MÓDULO EXISTE ≠ LINHA EXISTE.
+```
+
+A única maneira de não as confundir é **ir contar a linha na tabela** — e
+depois **abrir outro processo** e perguntar ao dono canónico se ela ainda lá
+está. Um recibo de escrita é a afirmação de quem escreveu.
+
+### PERGUNTAR À TABELA NÃO É PERGUNTAR AO DONO
+
+A prova de durabilidade abre um interpretador novo e chama
+`sala_de_espera.ler()` — não faz `select`. Um `select` mediria o Postgres, e
+no dia em que o dono mudasse de forma de guardar a prova continuaria verde
+sobre uma casa vazia.
+
+### UM CAMPO DE CONTRATO NÃO É UMA COLUNA
+
+`CAMPOS_READY` tem 19. A tabela tem coluna homónima para **17**. Os outros dois
+estão certos assim, e a equivalência declara-se:
+
+```
+ESTADO   constante do contrato — guardar uma coluna cujo valor é sempre o
+         mesmo seria guardar a palavra, e não o facto
+CORRIDA  mora em `run_id`, que é como a casa inteira lhe chama. Uma segunda
+         coluna seria um segundo nome para a mesma identidade, livre para
+         divergir
+```
+
+Uma verificação ingénua (`campo.lower() in colunas`) reprova sobre uma tabela
+correcta. A equivalência tem de ser **declarada e verificada**, para que mudar
+de casa obrigue a reescrevê-la.
+
+### UM TEMPLATE QUE FORMATA CÓDIGO COMPETE COM O CÓDIGO
+
+O processo leitor era montado com `... % (RAIZ, RUN)` e o próprio texto do
+programa tinha um `%r` numa mensagem de erro. A formatação de fora comeu-o, e
+a secção inteira morreu sem imprimir uma linha.
+
+```
+UM TEMPLATE QUE FORMATA CÓDIGO COMPETE COM O CÓDIGO PELOS MESMOS SÍMBOLOS,
+E QUEM PERDE É SEMPRE O DEPURADOR.
+```
+
+Valores para um subprocesso passam por ambiente, em JSON — o mesmo caminho por
+onde a resposta volta.
+
+### UM PORTÃO QUE NÃO CORRE NÃO É UM PORTÃO FECHADO
+
+`provas/o_egresso_antes_da_aquisicao.py` abortava há dias, em **todas** as
+branches, com `ModuleNotFoundError: yaml`. A causa não era arquitectura: era
+uma dependência que ninguém declarou.
+
+```
+UM PORTÃO QUE NÃO CORRE NÃO É UM PORTÃO FECHADO: É UM PORTÃO AUSENTE,
+E ELE ESTAVA VERMELHO A DIZER ISSO.
+```
+
+Escrever um analisador de YAML caseiro para fugir à dependência poria um
+segundo dono a interpretar o mesmo ficheiro — e um analisador que se engane
+deixa o portão passar por cima da lei que ele existe para guardar.
+
+Medido depois: `CASOS=34 PASS=34 RED_TEAM_SURVIVORS=0`.
+
+### COMO SE PROVA (acrescento)
+
+```bash
+# contra PostgreSQL 16 de verdade, no CI:
+#   .github/workflows/banco-descartavel.yml  ·  job `portao-big-collection`
+py provas/o_portao_da_big_collection.py   # exige SINTONIA_SALA_BACKEND=POSTGRES
+```
+
+Medido a 2026-09-14, no CI:
+
+```
+MIGRATION_032_APPLIED = True · READY_CONTRACT_FIELDS = 19
+ADMISSION_DECISION_CANARIO = SIM (IT-T3-010) · CONTROLO_NEGATIVO = NAO_SEI
+WAITING_ROWS = 1 · READY_EXISTS_AFTER_PROCESS_EXIT = True · LEITURA_CAMPOS = 19
+PORTAO_BIG_COLLECTION = PROVADO · 18 passaram · 0 falharam
 ```

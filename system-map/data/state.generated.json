@@ -720,7 +720,6 @@
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
-      "docs/know-how/SECAO-A-PONTE-DE-MIDIA.md",
       "docs/operacao/A-CASA-DO-DERIVADO.md",
       "docs/operacao/ALLOWED-STRUCTURED-TARGETS-POR-FONTE.md",
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
@@ -823,6 +822,7 @@
       "docs/research/SINTONIA-SCRAP-ENGINEERING-BENCHMARK.md",
       "docs/sintonia-scrap/AP-DISCOVERY-VS-CAPTURA-V1.md",
       "docs/sintonia-scrap/BENCHMARK-V1-FINAL.md",
+      "docs/sintonia-scrap/C-GATE-BIG-COLLECTION-01.md",
       "docs/sintonia-scrap/C1-CONVERGENCIA-ESTRUTURAL.md",
       "docs/sintonia-scrap/C10-1-SOURCE-ID.md",
       "docs/sintonia-scrap/C10-2-ORIGEM-NA-ADMISSION.md",
@@ -916,6 +916,7 @@
     ],
     "handoff": [
       "handoff/KNOW-HOW-DELTA-A-BASE-DA-AUDITORIA.md",
+      "handoff/KNOW-HOW-DELTA-A-PONTE-DE-MIDIA.md",
       "handoff/KNOW-HOW-DELTA-O-CAMPO-QUE-NAO-ATRAVESSA.md",
       "handoff/KNOW-HOW-DELTA-O-FERRO-NEGOCIADO.md",
       "handoff/S2A-R-RECONCILIACAO.md",
@@ -2352,9 +2353,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/big-collection-gate-01",
-    "HEAD": "13feb273ab7da665d28d467290d34d69e0ad8dec",
-    "GENERATED_AT": "2026-09-14T18:50:07-03:00",
-    "SOURCE_TREE_FINGERPRINT": "377848b47df3b7556cbba2b16c2ee628f86648a1a06c6489edfa99dfc38fab6b"
+    "HEAD": "e4939955e55a97c287b7580be90ec15c5e8e05e0",
+    "GENERATED_AT": "2026-09-14T19:35:16-03:00",
+    "SOURCE_TREE_FINGERPRINT": "fdc0b7884c5d86d641d64faced80e6b203f3f994b67863faad2607c9baa24517"
   },
   "FAMILIES": [
     {
@@ -44759,7 +44760,7 @@
         },
         {
           "file": "provas/o_portao_da_big_collection.py",
-          "line": 322,
+          "line": 367,
           "snippet": "from guarda.preservar_coleta import ArmazemDeMentira, preservar, sha256",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-ROTAS-REAIS",
@@ -78207,7 +78208,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 847,
+  "UNCLAIMED_FILES_COUNT": 848,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -78396,7 +78397,7 @@
     "edges_proven": 923,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1766,
+    "files_tracked": 1767,
     "files_covered": 919,
     "files_code_unclaimed": 0,
     "roles_proven": 138,
