@@ -730,6 +730,7 @@
       "docs/intelligence/INTELLIGENCE-CANONICAL-TOPOLOGY-V1.md",
       "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
       "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
+      "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
       "docs/intelligence/INTELLIGENCE-MIGRATION-MAP-V1.md",
       "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "docs/intelligence/README.md",
@@ -2226,9 +2227,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-night-v1",
-    "HEAD": "187cdf37556f2f2cacc1110a47c6912be1080dcc",
-    "GENERATED_AT": "2026-09-14T02:57:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "023b69845a57f72ed1bd45621910f274bd15dc2fe05eb9d76fd22f4861ae3506"
+    "HEAD": "dd58f000d8769d1f084dd5e6e8f45bde5575e8a2",
+    "GENERATED_AT": "2026-09-14T03:20:02+00:00",
+    "SOURCE_TREE_FINGERPRINT": "14e7c1d680b18624af6dcd59666275b7df0d117b3fe5e91ec501de2182df175f"
   },
   "FAMILIES": [
     {
@@ -10082,7 +10083,9 @@
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json"
+      ],
       "inbound": [
         "C-ADMISSAO",
         "C-BIBLIA",
@@ -10127,9 +10130,18 @@
           }
         }
       ],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 20850,
       "y": 2292
     },
@@ -28821,12 +28833,22 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 148,
+          "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
+        },
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
           "line": 345,
           "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 204,
+          "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\"),"
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
@@ -40201,8 +40223,8 @@
     "edges_proven": 883,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1774,
-    "files_covered": 879,
+    "files_tracked": 1775,
+    "files_covered": 880,
     "files_code_unclaimed": 0
   }
 }

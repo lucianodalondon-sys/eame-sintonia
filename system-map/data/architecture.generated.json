@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-night-v1",
-    "HEAD": "187cdf37556f2f2cacc1110a47c6912be1080dcc",
-    "GENERATED_AT": "2026-09-14T02:57:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "023b69845a57f72ed1bd45621910f274bd15dc2fe05eb9d76fd22f4861ae3506"
+    "HEAD": "dd58f000d8769d1f084dd5e6e8f45bde5575e8a2",
+    "GENERATED_AT": "2026-09-14T03:20:02+00:00",
+    "SOURCE_TREE_FINGERPRINT": "14e7c1d680b18624af6dcd59666275b7df0d117b3fe5e91ec501de2182df175f"
   },
   "FILES": [
     {
@@ -227,7 +227,7 @@
     },
     {
       "path": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "sha": "5cd7af8db20a1712c1b90dd7eb8bf4035824b6b1",
+      "sha": "b3b97adf88347d42f04b3afe0f491959da186a15",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4574,7 +4574,7 @@
     },
     {
       "path": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-      "sha": "bdf672dc4ac8e7c549548aa21eb9baa7633a0965",
+      "sha": "3fdbd8e3ec5befd61a9526155bd995f7f5ad1c48",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4861,7 +4861,7 @@
     },
     {
       "path": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "sha": "4156dc7d6b4cade7c27a617311b48c3b1cdce62f",
+      "sha": "97cffb88b684079573a76f0d99a0ae6f0b499068",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4932,6 +4932,13 @@
     {
       "path": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
       "sha": "6aaf3aff9df75e48fc5e541312236899ba7c02b4",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "sha": "9c06b078e075aec923c86e613589effd3469a921",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -5463,21 +5470,21 @@
     },
     {
       "path": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "sha": "e12aaff24c94b63aa1b6849d6734a644a87e67ae",
+      "sha": "12afdf8d821ca9df3aeb38956bb1665093c21410",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "sha": "7b947f679ff1d3e05cf899aa03bbae0225d8d678",
+      "sha": "d32622d658d3277630453afbbd2949b314533a46",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "sha": "6507f460fee104fd65c222b7afeabde1bf6c63ea",
+      "sha": "73dce6e1b22880f67869c1bb5ca291c18242d351",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5505,7 +5512,7 @@
     },
     {
       "path": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "sha": "7828f806a5c93913899e78aa4ff2c5993bace69d",
+      "sha": "e99ee087eb2a8d6691197141c636c4bd0971b8aa",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5638,7 +5645,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "sha": "564b0ee55934d3614022a6e73f42acd2c7896c07",
+      "sha": "ae59ef51952ed738d6a10f740b4d94d06a8679c5",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -32186,6 +32193,28 @@
     },
     {
       "from_file": "provas/arbitragem_da_intelligence.py",
+      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/arbitragem_da_intelligence.py",
+        "line": 400,
+        "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\")"
+      }
+    },
+    {
+      "from_file": "provas/arbitragem_da_intelligence.py",
+      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/arbitragem_da_intelligence.py",
+        "line": 401,
+        "snippet": "with open(destino, \"w\", encoding=\"utf-8\") as f:"
+      }
+    },
+    {
+      "from_file": "provas/arbitragem_da_intelligence.py",
       "to_file": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "type": "READS",
       "payload": "artefacto",
@@ -42031,6 +42060,17 @@
     },
     {
       "from_file": "tests/test_atomicidade_da_intelligence.py",
+      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_atomicidade_da_intelligence.py",
+        "line": 148,
+        "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_atomicidade_da_intelligence.py",
       "to_file": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
       "type": "READS",
       "payload": "artefacto",
@@ -51612,6 +51652,17 @@
     },
     {
       "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 204,
+        "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
       "to_file": "italia-portale/client/italy-app-model.js",
       "type": "READS",
       "payload": "artefacto",
@@ -54388,10 +54439,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1774,
+    "files_tracked": 1775,
     "files_readable": 714,
     "files_code_dir": 761,
-    "file_edges": 3769,
+    "file_edges": 3773,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
