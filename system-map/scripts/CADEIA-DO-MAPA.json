@@ -691,6 +691,13 @@
         },
         {
           "KIND": "GENERATED_ARTIFACT",
+          "PATH": "system-map/data/donos.generated.json",
+          "PRODUCER": "CENSO_DOS_DONOS",
+          "PRODUCER_EXECUTABLE": "system-map/scripts/censo_dos_donos.py",
+          "PORQUE": "le CONCEITOS e POR_ESTADO para publicar «um conceito, um dono» no estado. NAO reconta: o dono da contagem e o censo, e recontar aqui criaria uma segunda contagem do mesmo universo"
+        },
+        {
+          "KIND": "GENERATED_ARTIFACT",
           "PATH": "system-map/data/golden-path-pdf.generated.json",
           "PRODUCER": "EXTERNAL_PRODUCER",
           "PRODUCER_EXECUTABLE": "coleta/golden_path_pdf.py",
