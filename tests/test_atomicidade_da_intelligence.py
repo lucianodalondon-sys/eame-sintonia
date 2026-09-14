@@ -36,6 +36,10 @@ from arbitragem_da_intelligence import AUTORIDADES, medir  # noqa: E402
 #: «nao alterado» e medido contra ele, e nao contra a memoria de ninguem.
 TRONCO = "dc00583d01ac6312fa6fa83195d936199eaa3d12"
 
+#: O ultimo dos cinco commits que trouxeram autoridades. Ate aqui, so pode
+#: haver ficheiros ACRESCENTADOS — e e o que a prova mede.
+FIM_DA_INTEGRACAO = "a8b56448009661c12216d265465d02289c15c8e0"
+
 
 def git(*a):
     return subprocess.check_output(["git"] + list(a), cwd=RAIZ, text=True,
@@ -287,6 +291,64 @@ class P5_P10_AEspinhaSobreviveAArvoreCompleta(unittest.TestCase):
                 self.assertFalse(callable(valor))
 
 
+class P10b_ATravaDaInteligenciaContinuaAMorder(unittest.TestCase):
+    """A excepcao que esta missao pediu a trava, paga com prova.
+
+    Dois ficheiros foram declarados `INSTRUMENTOS` em
+    `system-map/scripts/censo_do_congelamento.py`. Uma excepcao a um portao de
+    outra frente so e legitima se for ESTREITA e VERIFICAVEL — senao e uma
+    porta.
+
+        UMA EXCEPCAO SEM PROVA E UM BURACO COM COMENTARIO BONITO.
+    """
+
+    #: A pergunta que `_especie` diz fazer: «este ficheiro CALCULA sinal, nota
+    #: ou recomendacao?». Estes sao os verbos de quem calcula.
+    VERBOS_DE_CALCULO = ("score", "pontuacao", "ranking", "recomend",
+                         "priorizar", "classificar_sinal")
+
+    def test_o_instrumento_de_arbitragem_nao_calcula_sinal_nota_nem_recomendacao(self):
+        import arbitragem_da_intelligence as a
+        publico = [n for n in dir(a) if not n.startswith("_") and callable(getattr(a, n))]
+        for nome in publico:
+            for verbo in self.VERBOS_DE_CALCULO:
+                self.assertNotIn(verbo, nome.lower(),
+                                 "o instrumento ganhou um calculo: %s" % nome)
+        # e o que ele devolve e contagem, nunca juizo sobre o mundo
+        r = a.medir()
+        for c in r["CONCEITOS"].values():
+            self.assertIsInstance(c["FICHEIROS_QUE_TOCAM"], int)
+            self.assertNotIn("SCORE", c)
+            self.assertNotIn("CONFIDENCE", c)
+
+    def test_o_registo_de_autoridades_nao_carrega_dado_de_inteligencia(self):
+        """Governanca diz QUEM manda, nunca O QUE foi descoberto."""
+        reg = json.load(open(ficheiro("controle/AUTORIDADES-CANONICAS.json"),
+                             encoding="utf-8"))
+        for a in reg["AUTHORITIES"]:
+            for proibido in ("SIGNAL_ID", "FINDING_ID", "OPPORTUNITY_ID",
+                             "CROSSING_ID", "SCORE"):
+                self.assertNotIn(proibido, json.dumps(a, ensure_ascii=False),
+                                 "%s carrega dado de inteligencia" % a["CARD_ID"])
+
+    def test_a_lista_de_instrumentos_continua_curta_e_declarada(self):
+        """Qualquer nome a mais aparece no diff — e e essa a unica guarda."""
+        sys.path.insert(0, ficheiro("system-map", "scripts"))
+        import censo_do_congelamento as c
+        self.assertEqual(6, len(c.INSTRUMENTOS),
+                         "a lista de instrumentos cresceu: %s" % (c.INSTRUMENTOS,))
+        self.assertIn("provas/arbitragem_da_intelligence.py", c.INSTRUMENTOS)
+        self.assertIn("controle/AUTORIDADES-CANONICAS.json", c.INSTRUMENTOS)
+
+    def test_a_espinha_NAO_pediu_excepcao_nenhuma(self):
+        """⚠️ E a parte que mais importa: a maquina de estados continua debaixo
+        da trava. Se ela avancar, a trava morde — e e para isso que ela existe.
+        """
+        sys.path.insert(0, ficheiro("system-map", "scripts"))
+        import censo_do_congelamento as c
+        self.assertNotIn("provas/espinha_da_intelligence.py", c.INSTRUMENTOS)
+
+
 class P11_OSystemMapObservaAsAutoridades(unittest.TestCase):
     """P11 · o System Map consegue observar as autoridades integradas."""
 
@@ -368,17 +430,67 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
             {'"id": "C-INT-ESPINHA",', '"id": "C-INT-ARBITRAGEM",'}, so_entram,
             "o mapa ganhou peca que esta missao nao declarou: %s" % so_entram)
 
-    def test_a_integracao_so_acrescentou(self):
-        """Nenhum ficheiro do tronco foi apagado nem sobrescrito com versao antiga.
+    def test_a_integracao_de_autoridades_so_acrescentou(self):
+        """Ataques 1 e 14 do red team, guardados no sitio certo.
 
-        Ataque 1 e 14 do red team, guardados: um `checkout <ref> -- <path>` de
-        uma branch lateral pode enterrar uma versao mais nova sem aviso.
+        Um `checkout <ref> -- <path>` de uma branch lateral pode enterrar uma
+        versao mais nova sem aviso. Por isso os CINCO commits de integracao sao
+        medidos sozinhos: neles, so pode haver 'A'.
+
+        O que vem DEPOIS — mapa regenerado, numeros re-derivados — e outra
+        categoria, e tem a sua propria prova a seguir.
+
+            REGENERAR NAO E SOBRESCREVER. MAS SO SE ALGUEM SEPARAR AS DUAS.
+        """
+        saida = git("diff", "--name-status", TRONCO, FIM_DA_INTEGRACAO)
+        maus = [l for l in saida.splitlines() if l and l[0] != "A"]
+        self.assertEqual([], maus,
+                         "a integracao de autoridades modificou ou apagou: %s" % maus)
+
+    #: O que PODE ser modificado depois da integracao, e porque. Cada entrada e
+    #: uma saida de gerador canonico. Nao ha aqui nenhum ficheiro de logica.
+    REGENERADO_POR_CADEIA_CANONICA = (
+        "system-map/data/",                        # a cadeia do mapa
+        "italia-portale/client/system-map/",       # o espelho da mesma cadeia
+    )
+    REGENERADO_PELO_LEDGER = (
+        "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
+        "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
+        "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
+        "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
+        "docs/piloto/O-QUE-PODEMOS-DIZER.md",
+        "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
+        "docs/piloto/VEREDITO-M10-HANDOFF.md",
+        "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
+    )
+
+    def test_tudo_o_que_foi_modificado_tem_gerador_com_nome(self):
+        """Nenhum ficheiro mudou por edicao a mao.
+
+        Um ficheiro gerado que alguem editou a mao e indistinguivel de um
+        gerado — ate ao dia em que o gerador corre outra vez e apaga a edicao.
         """
         saida = git("diff", "--name-status", TRONCO, "HEAD")
         modificados = [l.split("\t", 1)[1] for l in saida.splitlines()
                        if l and l[0] in ("M", "D")]
-        self.assertEqual([], modificados,
-                         "a integracao modificou ou apagou: %s" % modificados)
+        orfaos = [f for f in modificados
+                  if not f.startswith(self.REGENERADO_POR_CADEIA_CANONICA)
+                  and f not in self.REGENERADO_PELO_LEDGER]
+        self.assertEqual([], orfaos,
+                         "modificado sem gerador que o explique: %s" % orfaos)
+
+    def test_nenhum_gerado_foi_editado_a_mao(self):
+        """O `.declared.json` e fonte; os `.generated.json` sao saida.
+
+        Esta prova mede que a declaracao mudou (foi la que eu escrevi) e que
+        os gerados mudaram COM ela — nunca sem.
+        """
+        saida = git("diff", "--name-only", TRONCO, "HEAD")
+        tocados = set(saida.splitlines())
+        self.assertIn("system-map/data/architecture.declared.json", tocados,
+                      "declarei pecas novas e a FONTE nao mudou")
+        self.assertIn("system-map/data/architecture.generated.json", tocados,
+                      "a fonte mudou e o gerado nao: a cadeia nao correu")
 
 
 if __name__ == "__main__":

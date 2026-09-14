@@ -387,7 +387,7 @@ BROKEN       motor/v21_reavaliar_35.py  não importa: FileNotFoundError
 ```
 
 **Nada foi apagado.** `motor/v21_tm_colher.py` também carrega um caminho de
-Windows (`C:\Users\London1\AppData\Local`), mas com `os.environ.get` à frente —
+Windows (`C:\Users\<UTILIZADOR>\AppData\Local`), mas com `os.environ.get` à frente —
 degrada, não parte.
 
 ---

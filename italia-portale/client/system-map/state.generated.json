@@ -2223,9 +2223,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "812690c1e5940c9cad393beb1bcf69eea5e4e483",
-    "GENERATED_AT": "2026-09-14T01:23:16+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8ad138779421a7836a3f41cfbc0582eec8ce6b75682bd690007f90cd9cd903f5"
+    "HEAD": "8cc702274bc10f94a0df56ad620fb4afd408823c",
+    "GENERATED_AT": "2026-09-14T01:31:17+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b37e8aacb4e419498a780674acea7d7112ae0711c929c3a523da16f82d16371d"
   },
   "FAMILIES": [
     {
@@ -6672,6 +6672,7 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
+        "C-INT-ARBITRAGEM",
         "C-PROVA-TRAVA-MORDE",
         "C-SCRAP-LEIS",
         "C-TESTES"
@@ -6687,12 +6688,13 @@
         "listas": [
           "DE_COLETA",
           "EXTS",
+          "INSTRUMENTOS",
           "MARCAS_FORTES",
           "MARCAS_FRACAS"
         ],
-        "palavras": 37,
+        "palavras": 42,
         "por_lingua": {},
-        "sem_marca_de_lingua": 37,
+        "sem_marca_de_lingua": 42,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -6702,7 +6704,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_do_congelamento.py",
-            "line": 253,
+            "line": 270,
             "snippet": "escreve em destino"
           }
         }
@@ -10086,6 +10088,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-CENSO-CONGELAMENTO",
         "C-TESTES"
       ],
       "paises": {},
@@ -17846,16 +17849,17 @@
           "SINAL_VENETO",
           "SINTETICOS",
           "TRACE_GPU",
+          "VERBOS_DE_CALCULO",
           "VOCABULARIO_DA_COLLECTION",
           "_GAVETA_DE"
         ],
-        "palavras": 693,
+        "palavras": 699,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 681,
+        "sem_marca_de_lingua": 687,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -20065,7 +20069,7 @@
         },
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 229,
+          "line": 233,
           "snippet": "from admissao import decidir, pronto_para_inteligencia"
         },
         {
@@ -21919,7 +21923,7 @@
         },
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 98,
+          "line": 102,
           "snippet": "[\"BIBLIA-CANONICA-DA-COLETA.md\","
         },
         {
@@ -28121,7 +28125,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 160,
+          "line": 164,
           "snippet": "import gestao_da_coleta as g"
         },
         {
@@ -28740,6 +28744,24 @@
     },
     {
       "from": "C-INT-ARBITRAGEM",
+      "to": "C-CENSO-CONGELAMENTO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/scripts/censo_do_congelamento.py",
+          "line": 136,
+          "snippet": "\"provas/arbitragem_da_intelligence.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-ARBITRAGEM",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -28764,12 +28786,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 139,
+          "line": 143,
           "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
+        },
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 340,
+          "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
         }
       ],
       "categoria": "PROOF"
@@ -28809,13 +28836,31 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 176,
+          "line": 180,
           "snippet": "from espinha_da_intelligence import PALAVRAS_QUE_O_REQUISITO_RECUSA"
         },
         {
           "file": "tests/test_espinha_da_intelligence.py",
           "line": 26,
           "snippet": "from espinha_da_intelligence import (            # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-INT-ESPINHA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 349,
+          "snippet": "self.assertNotIn(\"provas/espinha_da_intelligence.py\", c.INSTRUMENTOS)"
         }
       ],
       "categoria": "PROOF"
@@ -33379,8 +33424,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 490,
+          "snippet": "self.assertIn(\"system-map/data/architecture.declared.json\", tocados,"
+        },
         {
           "file": "tests/test_mapa_nao_mente.py",
           "line": 37,
@@ -35617,7 +35667,7 @@
         {
           "file": "system-map/scripts/censo_do_congelamento.py",
           "line": 127,
-          "snippet": "\"leis/fundacao_da_coleta.py\")"
+          "snippet": "\"leis/fundacao_da_coleta.py\","
         }
       ],
       "categoria": "RULE"
@@ -39987,8 +40037,8 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 878,
-    "edges_proven": 875,
+    "edges": 880,
+    "edges_proven": 877,
     "edges_unknown": 3,
     "business_edges": 4,
     "files_tracked": 1771,
