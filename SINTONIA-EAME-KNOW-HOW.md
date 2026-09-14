@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-12 — §98: um portão que só se alcança com inventário não é um portão de política; um redirecionamento é um pedido novo.
+**Última atualização material:** 2026-09-14 — §117: a porta de fonte nova escrevia numa fila inexistente, e o System Map tapava o buraco por casar nome de ficheiro em vez de caminho.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -14082,3 +14082,109 @@ DEV_REUSE_SAFE = BLOCKED, e nao YES.
 O que **não** se fez: declarar `YES` porque a frase era plausível. A frase
 pode até ser verdadeira — mas então é verdadeira **e** por medir, e essas
 duas coisas escrevem-se de maneira diferente.
+
+---
+
+# §117 · A PORTA DE FONTE NOVA ESCREVIA NUMA FILA QUE NINGUÉM LIA
+
+**Branch:** `claude/fix-source-candidate-door-v1` · **Base:** `b67c8978`
+
+## 117.1 · O QUÊ
+
+`candidatas/fonte_nova.py` — o único degrau 1 da escada de fontes — resolvia a
+sua fila para `data/samples/FONTES-CANDIDATAS.json`. Esse ficheiro **não
+existia**. A fila real, que toda a casa lê, é `candidatas/FONTES-CANDIDATAS.json`.
+
+Corrigido para ancorar o caminho no próprio ficheiro:
+
+```python
+FILA = Path(__file__).resolve().parent / "FONTES-CANDIDATAS.json"
+```
+
+## 117.2 · POR QUÊ — o modo de falhar era o pior possível
+
+A porta **não dava erro**. Aceitava a candidata, imprimia `NA_FILA=CAND-0001` e
+criava a fila em falta, do lado errado. Quem registasse uma fonte via a
+confirmação de sucesso e perdia o registo em silêncio.
+
+A causa-raiz é banal e é a lição: o script nasceu em `scripts/fonte_nova.py`
+(commit `0edbbd43`) e derivava o caminho da **raiz do repositório**. Quando a
+gaveta passou a `candidatas/`, o ficheiro mudou de sítio e a constante não veio
+com ele.
+
+```
+CAMINHO DERIVADO DA RAIZ  sobrevive a um `git mv` e passa a apontar para o sítio errado.
+CAMINHO ANCORADO NO __file__  move-se com a gaveta.
+```
+
+## 117.3 · O MAPA ESTAVA A TAPAR O BURACO — e esta é a parte que interessa
+
+`architecture.generated.json` declarava a aresta certa
+(`fonte_nova.py → candidatas/FONTES-CANDIDATAS.json`) e citava, como prova, uma
+linha que dizia o contrário:
+
+```json
+"to_file": "candidatas/FONTES-CANDIDATAS.json",
+"snippet": "FILA = RAIZ / \"data\" / \"samples\" / \"FONTES-CANDIDATAS.json\""
+```
+
+O scanner casa por **nome de ficheiro**, não por caminho. `FONTES-CANDIDATAS.json`
+bateu, e a aresta ficou verde durante meses com uma prova que a desmentia.
+
+```
+ARESTA PROVADA != PROVA LIDA.
+```
+
+Uma prova que ninguém lê é decoração. O validador exige que exista uma linha de
+código; não exige que essa linha diga o que a aresta afirma. É um buraco do
+próprio System Map, medido aqui e **não corrigido** nesta missão — corrigi-lo é
+mexer no scanner, que tem dono próprio.
+
+## 117.4 · PROVA
+
+| | |
+|---|---|
+| baseline | sandbox temporário: `SECOND_QUEUE_WOULD_BE_CREATED=YES`, fila canónica ficou vazia |
+| teste | `tests/test_porta_de_candidatas.py` — 17 provas, comportamentais em filesystem temporário |
+| controlo do teste | contra o código com defeito, **10 das 17 reprovam**; contra a correção, 17/17 passam |
+| canário | 3 linhas reais (`BASE_OFICIAL`/`ORGANIZACAO`/`YOUTUBE`) → 3 candidatas; 2.ª passagem → 0 novas |
+| red team | RT1–RT10, 10/10 resistidos |
+| `SOURCE_ID` | `null` em todas as candidatas criadas |
+
+O teste não se contenta com a constante: copia a porta para um diretório
+temporário, corre-a por subprocesso — inclusive a partir de outro `cwd` — e vai
+ver onde os bytes caíram. **Uma constante certa com comportamento errado
+continua a perder candidatas.**
+
+## 117.5 · CAVEAT MEDIDO, DEIXADO COMO ESTÁ
+
+`normalizar()` faz `.lower()` no endereço inteiro, logo dobra também o
+**caminho**. Em servidores onde o caminho é sensível a maiúsculas, `/a` e `/A`
+são dois recursos e aqui viram uma só candidata. Não foi alterado: ampliar a
+dedupe muda o significado de «fonte» sem ninguém ter decidido isso. Ficou
+**travado por teste**, para que a mudança, se vier, seja decidida e não herdada.
+
+## 117.6 · O QUE ISTO CONFIRMA SOBRE PROVA DE IDENTIDADE NA WEB
+
+Medido na missão anterior (`ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx`, aba
+`README`) e **remedido nesta**:
+
+```
+FACEBOOK:   200 para a página real E para uma inventada  → o status não distingue nada.
+INSTAGRAM:  429 para tudo a partir do datacenter         → o status não distingue nada.
+LINKEDIN / YOUTUBE: 404 para o inexistente               → o status distingue.
+```
+
+Consequência já em vigor: nessas duas plataformas o `liveness` não vem do HTTP.
+Vem da **declaração do próprio dono** no site oficial, ou não vem. E
+`BLOCKED_EM_DATACENTER != FONTE MORTA` continua: bloqueio dá `UNKNOWN`, nunca
+`REJECT`.
+
+**Cadeia TLS incompleta não é fonte morta.** Vários servidores italianos entregam
+só a folha. Completar a cadeia com o intermediário que o próprio certificado
+publica (AIA) — o que um navegador faz — recuperou fontes que pareciam mortas,
+com a verificação **ligada**. `verify=False` nunca é a resposta.
+
+**OpenAlex** ficou indisponível nesse ambiente (`429 · Insufficient budget`).
+É limitação **observada do ambiente**, não lei universal: remedir antes de
+assumir.
