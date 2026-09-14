@@ -2339,9 +2339,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-italia-caption-audio-8b460b",
-    "HEAD": "6d52109e57b081c0f994b6cf5374b7bbff0a3de4",
-    "GENERATED_AT": "2026-09-14T16:48:26-03:00",
-    "SOURCE_TREE_FINGERPRINT": "ffbcc7cab2e7e6ca186b3978a0f38a50dddfaeb1ce48f2a5a36e9e0d3f3d8706"
+    "HEAD": "bfff926201318874d53f3eab5bfef33bcfc1cf55",
+    "GENERATED_AT": "2026-09-14T16:53:57-03:00",
+    "SOURCE_TREE_FINGERPRINT": "eef71b40f3ff426ece119491300d58d18fbf18b57937a310003903ea240f6056"
   },
   "FAMILIES": [
     {
@@ -19198,7 +19198,7 @@
       "name": "As rotas existem de facto? — corrida, consumidor e durabilidade",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Quatro medicoes que separam o DECLARADO do que EXISTE: que rotas de aquisicao cunham ou recebem RUN e quais nao; se o que o executor de video escreve e lido por alguem como COLHEITA; a durabilidade real de cada observacao do livro italiano (LOCAL_ONLY, MISSING, RECOVERABLE, UNKNOWN); e se a rota OpenAlex continua gratuita — respondendo NAO SEI quando o ambiente nao deixa medir.",
+      "what": "Cinco medicoes que separam o DECLARADO do que EXISTE: que rotas de aquisicao cunham ou recebem RUN e quais nao; se o que o executor de video escreve e lido por alguem como COLHEITA; a durabilidade real de cada observacao do livro italiano (LOCAL_ONLY, MISSING, RECOVERABLE, UNKNOWN); se a rota OpenAlex continua gratuita; e se legenda publica e audio-only sao rotas PERMITIDAS, lendo o robots.txt vivo sobre os caminhos reais em vez de herdar o veredito do video — respondendo NAO SEI quando o ambiente nao deixa medir.",
       "why_here": "FILE_WRITTEN != FLOW_EXISTS · BOTAO EXISTE != ROTA EXISTE · LOCAL PATH != REMOTE DURABILITY · HOST_ALCANCAVEL != ROTA_GRATUITA. Nenhuma das quatro se responde lendo uma declaracao — e todas eram respondidas assim.",
       "departments": [
         "ENGENHARIA"
@@ -19214,11 +19214,12 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/a_corrida_existe_em_cada_rota.py",
+        "provas/a_legenda_e_o_audio_do_youtube.py",
         "provas/a_rota_gratuita_ainda_e_gratuita.py",
         "provas/o_raw_local_nao_e_duravel.py",
         "provas/o_video_tem_consumidor.py"
       ],
-      "file_count": 4,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
@@ -19246,12 +19247,14 @@
         "papel": "NAO SEI",
         "listas": [
           "ALTERNATIVAS",
+          "CAMINHOS",
+          "CLAUSULAS",
           "DONOS_DO_RUN",
           "ULTIMA_MEDICAO_CONHECIDA"
         ],
-        "palavras": 17,
+        "palavras": 38,
         "por_lingua": {},
-        "sem_marca_de_lingua": 17,
+        "sem_marca_de_lingua": 38,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -19260,20 +19263,20 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "PROOF",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M5_VAI_BUSCAR_FORA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE": "UNKNOWN",
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
-        "MEASURED": "MEASUREMENT_INSTRUMENT",
-        "MEASURED_WHY": "le 11 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "MEASURED": "OPERATIONAL_STEP",
+        "MEASURED_WHY": "provas/a_legenda_e_o_audio_do_youtube.py abre ligacao de rede: vai buscar dado fora da arvore",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: proof` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 11 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (provas/a_legenda_e_o_audio_do_youtube.py abre ligacao de rede: vai buscar dado fora da arvore) e a ficha diz PROOF (declarado `kind: proof` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -19285,6 +19288,7 @@
         "coleta/social_scrap.py",
         "coleta/youtube_oficial.py",
         "data/collection-ledger/italy/observations.ndjson",
+        "data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json",
         "ferramentas/reel_transcricao.py",
         "guarda/catalogo_importar.py",
         "guarda/preservar_coleta.py",
@@ -67528,8 +67532,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
+          "line": 188,
+          "snippet": "import social_matriz as mz                                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/o_video_tem_consumidor.py",
           "line": 116,
@@ -69407,8 +69427,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
+          "line": 154,
+          "snippet": "import scrap_http as http                                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/o_video_tem_consumidor.py",
           "line": 86,
@@ -76949,10 +76985,8 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    "provas/a_legenda_e_o_audio_do_youtube.py"
-  ],
-  "UNCLAIMED_FILES_COUNT": 845,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 844,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -77142,8 +77176,8 @@
     "edges_unknown": 52,
     "business_edges": 4,
     "files_tracked": 1753,
-    "files_covered": 908,
-    "files_code_unclaimed": 1,
+    "files_covered": 909,
+    "files_code_unclaimed": 0,
     "roles_proven": 137,
     "roles_declared_only": 5,
     "roles_unknown": 47,
