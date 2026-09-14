@@ -38,7 +38,7 @@ O System Map atravessa os três. **Não é pai de nenhum** — é derivado deles
 |---|---|---|---|
 | **COLETA** | BIBLIA CANONICA DA COLETA | nesta árvore | 🟢 CANONICAL |
 | **INTELIGÊNCIA** | BIBLIA DA INTELIGENCIA | `origin/claude/integration-acervo-portal-v1` | 🔴 RECOVERY_PENDING |
-| **INTELIGÊNCIA** | BIBLIA DE ENGENHARIA DA INTELLIGENCE | nesta árvore | 🟢 CANDIDATE |
+| **INTELIGÊNCIA** | BIBLIA DE ENGENHARIA DA INTELLIGENCE | nesta árvore | 🟢 CANONICAL |
 | **ENTREGA / CASCO** | BIBLIA DA ENTREGA / CASCO | `origin/research/delivery-bible-v1` | 🔴 CANDIDATE |
 
 A leitura desta tabela é o resultado principal desta missão:
@@ -60,7 +60,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `cc861488d8`
 - **prova** — `git:HEAD:AGENTS.md`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `CLAUDE.md` *(+20)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `BIBLIA-CANONICA-DA-COLETA.md`, `CLAUDE.md` *(+21)*
 - **o que ela diz de si** — A lei escrita. Os outros ficheiros de instrucao apontam para aqui e nao a repetem.
 
   | relação | alvo | estado | prova |
@@ -92,7 +92,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `b38c2989c5`
 - **prova** — `git:HEAD:CLAUDE.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+12)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+13)*
 - **o que ela diz de si** — Aponta para AGENTS.md como dono da lei do mapa, e possui sozinha a lei de design.
 
   | relação | alvo | estado | prova |
@@ -153,7 +153,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `909ba45bac`
 - **prova** — `git:HEAD:BIBLIA-CANONICA-DA-COLETA.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+26)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+27)*
 - **cópias divergentes medidas** — 3: `origin/claude/sintonia-eame-know-how-v1`, `origin/release/canonical`, `origin/claude/biblia-canonica-da-coleta`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.
 
@@ -206,18 +206,18 @@ A leitura desta tabela é o resultado principal desta missão:
 - **para que serve** — A constituicao da Intelligence: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega.
 - **até onde vale** — Todo trabalho do lado Intelligence da fronteira COLLECTION -> SALA DE ESPERA -> INTELLIGENCE.
 - **onde vive** — [`BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`](BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md)
-- **estado declarado** — `CANDIDATE`
+- **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `9420760814`
+- **impressão do conteúdo medido** — `dfb1b7699c`
 - **prova** — `git:HEAD:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `provas/arbitragem_da_intelligence.py` *(+1)*
-- **o que ela diz de si** — CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `provas/arbitragem_da_intelligence.py` *(+2)*
+- **o que ela diz de si** — CANONICAL desde 2026-09-14, promovida por C-CTRL-INT-NIGHT-02 com as 9 condicoes da secao 31 re-medidas contra esta arvore: 9/9 PASS. A 5 fechou com a integracao de C-INT-ATOMICITY-01 — Biblia, Biblia da Coleta, know-how, arbitragem e registo coexistem num commit so. A 6 fechou quando os dois bloqueadores se revelaram inexistentes: dez MENCOES contadas como leis, e um CARD_ID lido como caminho. A canonica e esta copia, nesta arvore: CANONICAL_REF deixou de apontar para a branch lateral. IMPLEMENTATION_AUTHORIZED cobre apenas a primeira missao da secao 32.
 - **nota** — NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.
 
   | relação | alvo | estado | prova |
   |---|---|---|---|
-  | `REFERENCES` | `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1201` |
-  | `REFERENCES` | `BIBLIA-CANONICA-DA-COLETA.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:25` |
+  | `REFERENCES` | `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1232` |
+  | `REFERENCES` | `BIBLIA-CANONICA-DA-COLETA.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:56` |
   | `REFERENCES` | `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` | **DECLARED** | *path_exists* |
   | `SUPERSEDES` | `A-BIBLIA-INTELIGENCIA` | **OBSERVED** | `registo:A-BIBLIA-INTELIGENCIA.SUPERSEDED_BY` |
 
@@ -365,7 +365,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `0f057a40e7`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `provas/arbitragem_da_intelligence.py`, `tests/test_atomicidade_da_intelligence.py` *(+1)*
+- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `provas/arbitragem_da_intelligence.py` *(+2)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. O dono verdadeiro vive numa branch lateral; `main` nao tem know-how nenhum.
 - **nota** — A copia esta 50 commits atras do dono. Escrever um SINTONIA-EAME-KNOW-HOW.md novo em `main` criaria a terceira versao — e isso e o ataque RT04.
@@ -380,9 +380,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `a47aed3777`
+- **impressão do conteúdo medido** — `e193c9d2a1`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
-- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` *(+3)*
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` *(+4)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
 
 #### 🟢 Sala de Controle do SINTONIA
@@ -426,7 +426,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/portao_do_controle.py`](controle/portao_do_controle.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `a608977d9f`
+- **impressão do conteúdo medido** — `dfe2429fd1`
 - **prova** — `git:HEAD:controle/portao_do_controle.py`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `tests/test_atomicidade_da_intelligence.py`
 - **o que ela diz de si** — Falha fechado.
@@ -532,7 +532,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `02a01be583`
 - **prova** — `git:HEAD:system-map/scripts/generate_system_map.py`
-- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `AGENTS.md`, `CLAUDE.md` *(+17)*
+- **quem aponta para ela** — `.github/copilot-instructions.md`, `.github/workflows/system-map.yml`, `AGENTS.md`, `CLAUDE.md` *(+18)*
 - **o que ela diz de si** — DERIVADO. O mapa nasce do repo; o repo nunca nasce do mapa. Este ficheiro NAO e dono de arquitetura nenhuma — e o consumidor dela.
 
   | relação | alvo | estado | prova |

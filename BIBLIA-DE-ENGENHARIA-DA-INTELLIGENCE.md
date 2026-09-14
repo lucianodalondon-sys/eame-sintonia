@@ -3,16 +3,47 @@
 ```text
 BIBLE_ID = SINTONIA-INTELLIGENCE-BIBLE
 VERSION = V0.2
-STATUS = CANDIDATE_FOR_CANONICAL_REVIEW
+STATUS = CANONICAL
 DATE = 2026-09-13
-IMPLEMENTATION_AUTHORIZED = NO
+PROMOTED = 2026-09-14
+IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32
 ```
 
 > Esta é a **Bíblia de Engenharia da Intelligence**, não um relatório, backlog, handoff, design de portal ou prova de implementação.
 >
-> Nasce como `CANDIDATE_FOR_CANONICAL_REVIEW` porque a governança mediu `CONTROL_PLANE_ATOMICITY = FAIL`: código, Bíblias, Know-how e registry ainda não formam um único snapshot canônico. Promovê-la silenciosamente nesta branch criaria a divergência que o Control Plane existe para impedir.
->
 > **Lei declarada não prova implementação.**
+
+---
+
+## O REGISTO DA PROMOÇÃO
+
+Ela nasceu `CANDIDATE_FOR_CANONICAL_REVIEW` porque a governança mediu
+`CONTROL_PLANE_ATOMICITY = FAIL`: código, Bíblias, Know-how e registry não
+formavam um único snapshot canônico. Promovê-la naquela branch criaria a
+divergência que o Control Plane existe para impedir.
+
+Isso deixou de ser verdade, e não por decreto: `C-INT-ATOMICITY-01` integrou as
+autoridades numa árvore só, e `C-CTRL-INT-NIGHT-02` pagou os dois bloqueadores
+que restavam — nenhum dos quais era o que o nome dizia. As nove condições da
+secção 31 foram re-medidas, uma a uma, e passaram todas.
+
+```text
+PROMOTED_BY   C-CTRL-INT-NIGHT-02 · autorização humana explícita no enunciado,
+              condicional a 9/9 gates objetivos
+GATES         9 / 9 PASS   (a 6 fechou com PORTAO_DO_CONTROLE=PASS · 22 provas)
+SUPERSEDES    A-BIBLIA-INTELIGENCIA — o «INVENTÁRIO DAS LEIS», que recusa o
+              título no próprio cabeçalho. A relação é de IDENTIDADE, e a outra
+              ponta declara-a de volta no registo.
+```
+
+**O que a promoção autoriza, e só isso.** `IMPLEMENTATION_AUTHORIZED = NO`
+nasceu colado a `STATUS = CANDIDATE`: enquanto esta Bíblia fosse candidata,
+implementar contra ela era construir sobre lei não aprovada. A secção 32 nomeia
+a **primeira missão após promoção** e delimita-a. É essa, e mais nenhuma, que
+esta promoção autoriza.
+
+Tudo o resto — Intelligence Tools, Portal, UI, Opportunity, França, Espanha,
+controlador EAME — continua fora, e continua a precisar dos gates da secção 26.
 
 ---
 
@@ -1267,11 +1298,24 @@ após:
 8. Know-how delta aplicado ao owner canônico;
 9. aprovação explícita da promoção.
 
-Até lá:
+As nove foram medidas em `C-CTRL-INT-NIGHT-02`, contra esta árvore:
 
 ```text
-INTELLIGENCE_BIBLE_STATUS = CANDIDATE
+INTELLIGENCE_BIBLE_STATUS = CANONICAL
+BIBLE_PROMOTION_GATES     = 9 / 9 PASS
+PROMOTED_AT               = 2026-09-14
 ```
+
+A condição 5 — «integração em snapshot onde a autoridade não fique invisível
+numa branch lateral» — foi a última a fechar, e fechou porque esta Bíblia, a
+Bíblia da Coleta, o know-how canônico, a arbitragem e o registo passaram a
+coexistir num commit só. A condição 6 fechou quando se descobriu que os dois
+defeitos que a mantinham aberta não existiam: dez menções contadas como leis, e
+um `CARD_ID` lido como caminho de ficheiro.
+
+> **Promoção não é implementação.** O que esta linha muda é quem é a lei — não
+> o que já está construído. `INTELLIGENCE_RUNTIME_IMPLEMENTED` continua a ser
+> medido, nunca declarado.
 
 ---
 

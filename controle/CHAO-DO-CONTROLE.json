@@ -2,13 +2,15 @@
   "NOTA": [
     "O TETO DA DIVIDA DO CONTROL PLANE. Nao e meta: e teto.",
     "Um numero que sobe reprova, e um MEMBRO novo reprova mesmo",
-    "que o numero nao suba.",
+    "que o numero nao suba. Quando alguem pagar a divida,",
+    "`--fixar` desce o teto — e ele nunca mais sobe.",
     "",
     "MEDIDO_EM diz em que arvore isto foi medido. Um chao cuja",
-    "arvore nao esta atras desta nao mede esta."
+    "arvore nao esta atras desta nao mede esta: ou e re-fixado",
+    "aqui, ou declara MIGRADO_DE com a razao de continuar a valer."
   ],
   "MEDIDO_EM": {
-    "HEAD": "207745da380b3cba29b6417e7044874ef0a0c57b",
+    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
     "BRANCH": "claude/control-plane-intelligence-night-v2",
     "MIGRADO_DE": {
       "HEAD": "a885769c54",
@@ -104,7 +106,7 @@
     "CANONICAL_AUTHORITY_MISSING": 0,
     "CANONICAL_AUTHORITY_LOST": 0,
     "DIVERGENT_CANONICAL_COPY": 3,
-    "STALE_AUTHORITY": 5,
+    "STALE_AUTHORITY": 4,
     "UNREGISTERED_CANONICAL_DOCUMENT": 0,
     "ORPHAN_AUTHORITY": 0
   },
@@ -120,7 +122,6 @@
       "A-BIBLIA-INTELIGENCIA",
       "A-BIBLIA-ENTREGA",
       "A-KNOWHOW",
-      "A-BIBLIA-ENG-INTELIGENCIA",
       "A-MOTOR-V2-REQUISITOS"
     ],
     "UNREGISTERED_CANONICAL_DOCUMENT": [],
@@ -133,7 +134,6 @@
     "STALE_AUTHORITY/A-BIBLIA-INTELIGENCIA": "canonica em origin/claude/integration-acervo-portal-v1, fora deste HEAD",
     "STALE_AUTHORITY/A-BIBLIA-ENTREGA": "canonica em origin/research/delivery-bible-v1, fora deste HEAD",
     "STALE_AUTHORITY/A-KNOWHOW": "canonica em origin/claude/sintonia-eame-know-how-v1, fora deste HEAD",
-    "STALE_AUTHORITY/A-BIBLIA-ENG-INTELIGENCIA": "canonica em origin/research/intelligence-bible-engineering-v1, fora deste HEAD",
     "STALE_AUTHORITY/A-MOTOR-V2-REQUISITOS": "canonica em origin/claude/intelligence-backlog-canonical, fora deste HEAD"
   }
 }

@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/control-plane-intelligence-night-v2",
-    "HEAD": "207745da380b3cba29b6417e7044874ef0a0c57b",
-    "GENERATED_AT": "2026-09-14T03:53:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "30ded2ed786876dce8a73a0e543fd0f7edd97733ae042d649555bc74a9cc0893"
+    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
+    "GENERATED_AT": "2026-09-14T04:31:45+00:00",
+    "SOURCE_TREE_FINGERPRINT": "87aa96f8a63b81746c2f6883630752675ba4f73d8663e8fa6d3fbb95917895ce"
   },
   "FILES": [
     {
@@ -192,7 +192,7 @@
     },
     {
       "path": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
-      "sha": "9420760814b1e38037e87577c9195bbf70314e85",
+      "sha": "dfb1b7699cab385ea16b96297088216df76ceac6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -269,7 +269,7 @@
     },
     {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
-      "sha": "9647a781006574774672489656b193a422c44f37",
+      "sha": "0020fffca376f20c33ee5a5e30dc13e62ae520b4",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1571,14 +1571,14 @@
     },
     {
       "path": "controle/AUTORIDADES-CANONICAS.json",
-      "sha": "a47aed3777ad8aa43e270f49dceadc52eb9f4133",
+      "sha": "e193c9d2a11ac3ed948ff034136c94e3e2f26fd9",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "controle/CHAO-DO-CONTROLE.json",
-      "sha": "da7812a9ea0d1cbab8407d62a6d42e756fc176d9",
+      "sha": "f29010d91440a303fbd5471eb78cf8a8a594bd5d",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1592,7 +1592,7 @@
     },
     {
       "path": "controle/portao_do_controle.py",
-      "sha": "a608977d9f9f7eea3c0078f79d2c85409d8b6e35",
+      "sha": "dfe2429fd101f023fab37cddb7cdf956fc77b307",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -12070,6 +12070,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "sha": "a41c10ed32c1fe1196067e956d233ab913b430a5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_o_pedido_atravessa.py",
       "sha": "8fe3b98a96771319cd94dfc1a3f1b3982b1bf1af",
       "ext": ".py",
@@ -16640,7 +16647,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 310,
+        "line": 346,
         "snippet": "sala = RAIZ / \"SALA-DE-CONTROLE-SINTONIA.md\""
       }
     },
@@ -16673,7 +16680,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 523,
+        "line": 559,
         "snippet": "CHAO.write_text(json.dumps({"
       }
     },
@@ -16684,7 +16691,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 314,
+        "line": 350,
         "snippet": "[sys.executable, str(RAIZ / \"controle\" / \"censo_do_controle.py\")],"
       }
     },
@@ -49843,6 +49850,248 @@
       }
     },
     {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "AGENTS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 174,
+        "snippet": "for p, forma in ((\"AGENTS.md\", \"RECLAMA_SE\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "BIBLIA-CANONICA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 176,
+        "snippet": "(\"BIBLIA-CANONICA-DA-COLETA.md\", \"LEGISLA\")):"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 417,
+        "snippet": "h[\"GOVERNS\"] = [\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\"]"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "CLAUDE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 175,
+        "snippet": "(\"CLAUDE.md\", \"LEGISLA\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "controle/AUTORIDADES-CANONICAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 40,
+        "snippet": "REGISTO_REAL = RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "controle/CHAO-DO-CONTROLE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 41,
+        "snippet": "CHAO_REAL = RAIZ / \"controle\" / \"CHAO-DO-CONTROLE.json\""
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "controle/censo_do_controle.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 64,
+        "snippet": "c = subprocess.run([sys.executable, str(RAIZ / \"controle\" / \"censo_do_controle.py\")],"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "controle/portao_do_controle.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 68,
+        "snippet": "g = subprocess.run([sys.executable, str(RAIZ / \"controle\" / \"portao_do_controle.py\")],"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/A-CASA-DO-DERIVADO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 154,
+        "snippet": "dez = [\"docs/operacao/A-CASA-DO-DERIVADO.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 155,
+        "snippet": "\"docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 156,
+        "snippet": "\"docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/ENCANAMENTO-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 157,
+        "snippet": "\"docs/operacao/ENCANAMENTO-DA-COLETA.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 158,
+        "snippet": "\"docs/operacao/IDENTIDADE-DA-OBSERVACAO-RAW.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 159,
+        "snippet": "\"docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/TOPOLOGIA-DA-COLETA.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 160,
+        "snippet": "\"docs/operacao/TOPOLOGIA-DA-COLETA.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 161,
+        "snippet": "\"docs/sintonia-scrap/C7-LUGAR-DO-FATO.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "handoff/S2A-R-RECONCILIACAO.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 108,
+        "snippet": "\"handoff/S2A-R-RECONCILIACAO.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "know-how/daily/2026-09-10.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 121,
+        "snippet": "\"know-how/daily/2026-09-10.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 460,
+        "snippet": "for fonte in (\"system-map/data/architecture.declared.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "system-map/scripts/generate_system_map.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 461,
+        "snippet": "\"system-map/scripts/generate_system_map.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "system-map/scripts/impressao_da_arvore.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 500,
+        "snippet": "[sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"impressao_da_arvore.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "system-map/scripts/publicar_no_deploy.mjs",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 508,
+        "snippet": "\"system-map/scripts/publicar_no_deploy.mjs\"):"
+      }
+    },
+    {
       "from_file": "tests/test_o_pedido_atravessa.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -54468,10 +54717,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1776,
-    "files_readable": 714,
-    "files_code_dir": 761,
-    "file_edges": 3775,
+    "files_tracked": 1777,
+    "files_readable": 715,
+    "files_code_dir": 762,
+    "file_edges": 3797,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

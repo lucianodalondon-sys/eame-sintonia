@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "207745da380b3cba29b6417e7044874ef0a0c57b",
+    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
     "BRANCH": "claude/control-plane-intelligence-night-v2"
   },
   "PLANES": [
@@ -145,9 +145,10 @@
         "system-map/scripts/impressao_da_arvore.py",
         "system-map/scripts/validate_system_map.py",
         "system-map/tests/test_impressao_da_arvore.py",
-        "system-map/tests/test_system_map.py"
+        "system-map/tests/test_system_map.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 24
+      "REFERENCED_BY_COUNT": 25
     },
     {
       "CARD_ID": "A-CLAUDE",
@@ -191,9 +192,10 @@
         "medidas/cicatrizes_brasil.py",
         "system-map/app/index.html",
         "system-map/tests/test_system_map.py",
-        "tests/test_handoff.py"
+        "tests/test_handoff.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 16
+      "REFERENCED_BY_COUNT": 17
     },
     {
       "CARD_ID": "A-README",
@@ -331,9 +333,10 @@
         "tests/test_biblia.py",
         "tests/test_integracao_biblia.py",
         "tests/test_o10r_a_verdade_dos_nomes.py",
-        "tests/test_o9_caminho_instrumentado.py"
+        "tests/test_o9_caminho_instrumentado.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 30
+      "REFERENCED_BY_COUNT": 31
     },
     {
       "CARD_ID": "A-BIBLIA-INTELIGENCIA",
@@ -679,12 +682,13 @@
       "PROOF": "git:HEAD:SINTONIA-EAME-KNOW-HOW.md",
       "REFERENCED_BY": [
         "controle/AUTORIDADES-CANONICAS.json",
+        "controle/red_team_do_controle.py",
         "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
         "provas/arbitragem_da_intelligence.py",
         "tests/test_atomicidade_da_intelligence.py",
         "tests/test_fronteira_mede_producao.py"
       ],
-      "REFERENCED_BY_COUNT": 5
+      "REFERENCED_BY_COUNT": 6
     },
     {
       "CARD_ID": "H-BUILD-REUNIAO",
@@ -982,10 +986,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "a608977d9f",
-      "LAST_VERIFIED": "2026-09-14T01:14:19+00:00",
-      "LAST_COMMIT": "0b7ed8a68e",
-      "LAST_SUBJECT": "integracao 1/5: o control plane e o registo de quem manda",
+      "SHA": "dfe2429fd1",
+      "LAST_VERIFIED": "2026-09-14T04:31:45+00:00",
+      "LAST_COMMIT": "08803882c3",
+      "LAST_SUBJECT": "G1+G2+G3 — nenhum dos dois bloqueadores era o que o nome dizia",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/portao_do_controle.py",
       "REFERENCED_BY": [
@@ -1239,9 +1243,10 @@
         "system-map/data/architecture.declared.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/mudar_gaveta.py",
-        "system-map/scripts/validate_system_map.py"
+        "system-map/scripts/validate_system_map.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 21
+      "REFERENCED_BY_COUNT": 22
     },
     {
       "CARD_ID": "O-CENSO-CONTROLE",
@@ -1264,9 +1269,9 @@
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
       "SHA": "282a4285d9",
-      "LAST_VERIFIED": "2026-09-14T01:14:19+00:00",
-      "LAST_COMMIT": "0b7ed8a68e",
-      "LAST_SUBJECT": "integracao 1/5: o control plane e o registo de quem manda",
+      "LAST_VERIFIED": "2026-09-14T04:31:45+00:00",
+      "LAST_COMMIT": "08803882c3",
+      "LAST_SUBJECT": "G1+G2+G3 — nenhum dos dois bloqueadores era o que o nome dizia",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/censo_do_controle.py",
       "REFERENCED_BY": [
@@ -1369,10 +1374,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "a47aed3777",
-      "LAST_VERIFIED": "2026-09-14T03:31:25+00:00",
-      "LAST_COMMIT": "30b02332ca",
-      "LAST_SUBJECT": "G2 — a Biblia NAO foi promovida: oito gates passam, o sexto reprova",
+      "SHA": "e193c9d2a1",
+      "LAST_VERIFIED": "2026-09-14T04:31:45+00:00",
+      "LAST_COMMIT": "08803882c3",
+      "LAST_SUBJECT": "G1+G2+G3 — nenhum dos dois bloqueadores era o que o nome dizia",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:controle/AUTORIDADES-CANONICAS.json",
       "REFERENCED_BY": [
@@ -1382,9 +1387,10 @@
         "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
         "provas/arbitragem_da_intelligence.py",
         "system-map/scripts/censo_do_congelamento.py",
-        "tests/test_atomicidade_da_intelligence.py"
+        "tests/test_atomicidade_da_intelligence.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 7
+      "REFERENCED_BY_COUNT": 8
     },
     {
       "CARD_ID": "R-SALA",
@@ -1406,10 +1412,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "9647a78100",
-      "LAST_VERIFIED": "2026-09-14T03:47:57+00:00",
-      "LAST_COMMIT": "2ff5757c73",
-      "LAST_SUBJECT": "a Sala de Controle regenerada, e o carimbo do mapa",
+      "SHA": "d5433542a4",
+      "LAST_VERIFIED": "2026-09-14T04:31:45+00:00",
+      "LAST_COMMIT": "08803882c3",
+      "LAST_SUBJECT": "G1+G2+G3 — nenhum dos dois bloqueadores era o que o nome dizia",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
       "REFERENCED_BY": [
@@ -1492,10 +1498,10 @@
       "PURPOSE": "A constituicao da Intelligence: fronteiras, identidades analiticas, lineage, run, evidencia, dependencia, crossings, universos, incerteza e saida para a Entrega.",
       "SCOPE": "Todo trabalho do lado Intelligence da fronteira COLLECTION -> SALA DE ESPERA -> INTELLIGENCE.",
       "CANONICAL_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
-      "CANONICAL_REF": "origin/research/intelligence-bible-engineering-v1",
+      "CANONICAL_REF": "",
       "VERSION": "V0.2",
-      "LIFECYCLE": "CANDIDATE",
-      "DECLARED_STATE": "CANDIDATE_FOR_CANONICAL_REVIEW, e ela propria declara IMPLEMENTATION_AUTHORIZED=NO. C-INT-ARB-01 mediu as 9 condicoes de promocao que ela fixa: a 2 (reconciliacao com Motor V2) fechou com 0 conflitos estruturais e a 4 (registo no Control Plane) e esta entrada. Bloqueia na 5: a autoridade vive numa branch lateral e nenhum commit contem Biblia + Motor V2 + censo + know-how + runtime.",
+      "LIFECYCLE": "CANONICAL",
+      "DECLARED_STATE": "CANONICAL desde 2026-09-14, promovida por C-CTRL-INT-NIGHT-02 com as 9 condicoes da secao 31 re-medidas contra esta arvore: 9/9 PASS. A 5 fechou com a integracao de C-INT-ATOMICITY-01 — Biblia, Biblia da Coleta, know-how, arbitragem e registo coexistem num commit so. A 6 fechou quando os dois bloqueadores se revelaram inexistentes: dez MENCOES contadas como leis, e um CARD_ID lido como caminho. A canonica e esta copia, nesta arvore: CANONICAL_REF deixou de apontar para a branch lateral. IMPLEMENTATION_AUTHORIZED cobre apenas a primeira missao da secao 32.",
       "NOTE": "NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.",
       "SUPERSEDES": [
         "A-BIBLIA-INTELIGENCIA"
@@ -1504,7 +1510,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "9420760814",
+      "SHA": "dfb1b7699c",
       "LAST_VERIFIED": "2026-09-14T01:14:34+00:00",
       "LAST_COMMIT": "1f738ae5ba",
       "LAST_SUBJECT": "integracao 2/5: a Biblia V0.2, e as duas pecas que a sustentam",
@@ -1515,9 +1521,10 @@
         "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json",
         "docs/operacao/CENSO-DA-INTELLIGENCE.md",
         "provas/arbitragem_da_intelligence.py",
-        "tests/test_atomicidade_da_intelligence.py"
+        "tests/test_atomicidade_da_intelligence.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py"
       ],
-      "REFERENCED_BY_COUNT": 5
+      "REFERENCED_BY_COUNT": 6
     },
     {
       "CARD_ID": "A-MOTOR-V2-REQUISITOS",
@@ -2169,7 +2176,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1201"
+      "PROOF_LOCATION": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1232"
     },
     {
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
@@ -2180,7 +2187,7 @@
       "EDGE_PLANE": "CONTROL",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "TEXT_POINTER",
-      "PROOF_LOCATION": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:25"
+      "PROOF_LOCATION": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:56"
     },
     {
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",

@@ -286,6 +286,42 @@ def main() -> int:
     prova("SUPERSESSION_RECIPROCAL", "toda supersessao esta escrita nas duas pontas",
           not mancas, mancas)
 
+    # ── 9d · A LEI E O REGISTO TEM DE CONTAR A MESMA HISTORIA ────────────────
+    #
+    #     PROMOVER NO REGISTO E NAO PROMOVER NO TEXTO DA LEI — OU AO CONTRARIO —
+    #     DEIXA DUAS VERDADES, E A PARTIR DAI NENHUMA DAS DUAS VALE.
+    #
+    # Uma Biblia carrega o estado no proprio cabecalho. Quem le a lei le o
+    # cabecalho; quem consulta o Control Plane le o registo. Se os dois
+    # discordarem, cada leitor sai com uma resposta diferente e ninguem sabe
+    # qual manda. A prova nao inventa estado nenhum: so exige que os dois
+    # coincidam quando o documento se pronuncia.
+    #
+    # So vale para lei que ESTA nesta arvore e que DIZ o seu estado. Uma que nao
+    # declare nada nao e acusada — o silencio nao e uma contradicao.
+    ESTADO_NO_CABECALHO = re.compile(r"^STATUS\s*[:=]?\s+([A-Z_]+)\s*$", re.M)
+    discordias = []
+    for a in R["AUTHORITIES"]:
+        if a["KIND"] != "BIBLE" or a["CANONICAL_PATH"] not in rastreados:
+            continue
+        try:
+            cabeca = (RAIZ / a["CANONICAL_PATH"]).read_text(
+                encoding="utf-8", errors="replace")[:2000]
+        except OSError:
+            continue
+        m = ESTADO_NO_CABECALHO.search(cabeca)
+        if not m:
+            continue
+        dito, registado = m.group(1), a["LIFECYCLE"]
+        # `CANDIDATE_FOR_CANONICAL_REVIEW` e `CANDIDATE` sao a mesma coisa dita
+        # com mais palavras. Igualar pelo prefixo, e nunca por uma tabela de
+        # sinonimos que alguem aumenta para calar o portao.
+        if not (dito == registado or dito.startswith(registado + "_")):
+            discordias.append(f"{a['CARD_ID']}: o texto diz {dito}, o registo diz {registado}")
+    prova("BIBLE_STATUS_MATCHES_REGISTRY",
+          "nenhuma lei carimba no texto um estado diferente do registado",
+          not discordias, discordias)
+
     # ── 10 · o censo esta atual ──────────────────────────────────────────────
     drift = [a["CARD_ID"] for a in R["AUTHORITIES"] if a["CARD_ID"] not in por_id]
     drift += [c["CARD_ID"] for c in cartoes if c["CARD_ID"] not in set(ids)]
@@ -554,6 +590,11 @@ def main() -> int:
                   f" · pagos {len(equivalencia[k]['PAGOS'])})")
         return 0
 
+    migrado_antes = None
+    if CHAO.exists():
+        migrado_antes = (json.loads(CHAO.read_text(encoding="utf-8"))
+                         .get("MEDIDO_EM") or {}).get("MIGRADO_DE")
+
     if fixar or not CHAO.exists():
         # `--fixar` NAO E UM BOTAO DE PASSAR. Ele grava o estado de hoje como
         # tecto, e por isso so pode correr quando hoje ja e melhor ou igual: se
@@ -582,8 +623,12 @@ def main() -> int:
                      "MEDIDO_EM diz em que arvore isto foi medido. Um chao cuja",
                      "arvore nao esta atras desta nao mede esta: ou e re-fixado",
                      "aqui, ou declara MIGRADO_DE com a razao de continuar a valer."],
+            # A HISTORIA DA MIGRACAO NAO SE PERDE POR O CHAO DESCER DEPOIS.
+            # Baixar o tecto e outro acto; apagar de onde este chao veio era
+            # apagar a unica prova de que a troca de linhagem foi legitima.
             "MEDIDO_EM": {"HEAD": git("rev-parse", "HEAD"),
-                          "BRANCH": git("rev-parse", "--abbrev-ref", "HEAD")},
+                          "BRANCH": git("rev-parse", "--abbrev-ref", "HEAD"),
+                          **({"MIGRADO_DE": migrado_antes} if migrado_antes else {})},
             "TETO": medido,
             "MEMBROS": detalhes,
             "PORQUE": {f"{k}/{m}": porques[(k, m)] for k in detalhes

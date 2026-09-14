@@ -1794,6 +1794,7 @@
       "tests/test_o10r_a_verdade_dos_nomes.py",
       "tests/test_o9_caminho_instrumentado.py",
       "tests/test_o_canario_da_collection.py",
+      "tests/test_o_controle_separa_lei_de_mencao.py",
       "tests/test_o_pedido_atravessa.py",
       "tests/test_o_pedido_t4_atravessa.py",
       "tests/test_o_raw_fala.py",
@@ -2228,9 +2229,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/control-plane-intelligence-night-v2",
-    "HEAD": "207745da380b3cba29b6417e7044874ef0a0c57b",
-    "GENERATED_AT": "2026-09-14T03:53:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "30ded2ed786876dce8a73a0e543fd0f7edd97733ae042d649555bc74a9cc0893"
+    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
+    "GENERATED_AT": "2026-09-14T04:31:45+00:00",
+    "SOURCE_TREE_FINGERPRINT": "87aa96f8a63b81746c2f6883630752675ba4f73d8663e8fa6d3fbb95917895ce"
   },
   "FAMILIES": [
     {
@@ -9969,7 +9970,8 @@
         "C-MAPA-DEPLOY"
       ],
       "outbound": [
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11134,7 +11136,8 @@
         "C-IMPRESSAO-DA-ARVORE",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -11402,7 +11405,8 @@
         "C-PROVA-MAPA-NAO-MENTE"
       ],
       "outbound": [
-        "C-PROVA-COLETA"
+        "C-PROVA-COLETA",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -17601,6 +17605,7 @@
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py",
         "tests/test_o_canario_da_collection.py",
+        "tests/test_o_controle_separa_lei_de_mencao.py",
         "tests/test_o_pedido_atravessa.py",
         "tests/test_o_pedido_t4_atravessa.py",
         "tests/test_o_raw_fala.py",
@@ -17654,7 +17659,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 157,
+      "file_count": 158,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17726,6 +17731,7 @@
         "C-GESTAO-DA-COLETA",
         "C-IDENTIDADE",
         "C-IMPORTAR",
+        "C-IMPRESSAO-DA-ARVORE",
         "C-INGRESSO",
         "C-INT-ARBITRAGEM",
         "C-INT-ESPINHA",
@@ -17736,7 +17742,9 @@
         "C-LASTMILE",
         "C-LUGAR-COLETA",
         "C-MAPA-APP",
+        "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
+        "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
         "C-MEDICAO",
         "C-NAVEGADOR",
@@ -21934,7 +21942,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 13 linhas de codigo.",
+      "reason": "A Bíblia canônica da coleta alimenta Suite de testes. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -21992,9 +22000,9 @@
           "snippet": "BIBLIA = os.path.join(RAIZ, 'BIBLIA-CANONICA-DA-COLETA.md')"
         },
         {
-          "file": "tests/test_observabilidade_estrada.py",
-          "line": 264,
-          "snippet": "conf = ler(os.path.join(RAIZ, 'docs', 'biblia', 'CONFORMIDADE-ITALIA.md'))"
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 176,
+          "snippet": "(\"BIBLIA-CANONICA-DA-COLETA.md\", \"LEGISLA\")):"
         }
       ],
       "categoria": "PROOF"
@@ -28439,6 +28447,24 @@
       "categoria": "CODE"
     },
     {
+      "from": "C-IMPRESSAO-DA-ARVORE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Impressao da arvore-fonte alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 500,
+          "snippet": "[sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"impressao_da_arvore.py\"),"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-INGRESSO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
@@ -30217,6 +30243,24 @@
       "categoria": "READ"
     },
     {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 508,
+          "snippet": "\"system-map/scripts/publicar_no_deploy.mjs\"):"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-MAPA-GERADOR",
       "to": "C-MAPA-TESTES",
       "type": "READS",
@@ -30311,7 +30355,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Gerador do System Map alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Gerador do System Map alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
@@ -30322,6 +30366,11 @@
           "file": "tests/test_identidade_do_artefato.py",
           "line": 202,
           "snippet": "\"generate_system_map.py\"), encoding=\"utf-8\").read()"
+        },
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 461,
+          "snippet": "\"system-map/scripts/generate_system_map.py\","
         },
         {
           "file": "tests/test_observabilidade_estrada.py",
@@ -30419,6 +30468,24 @@
           "file": "provas/testa_coleta_canonica.py",
           "line": 146,
           "snippet": "if not l.startswith((\"guarda/es/\", \"docs/\", \"AGENTS.md\","
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 174,
+          "snippet": "for p, forma in ((\"AGENTS.md\", \"RECLAMA_SE\"),"
         }
       ],
       "categoria": "PROOF"
@@ -33515,7 +33582,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
@@ -33531,6 +33598,11 @@
           "file": "tests/test_mapa_nao_mente.py",
           "line": 52,
           "snippet": "{\"COMPONENTS\": [{\"id\": \"X\", \"files\": [\"provas/o_mapa_nao_mente.py\"]}]},"
+        },
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 460,
+          "snippet": "for fonte in (\"system-map/data/architecture.declared.json\","
         }
       ],
       "categoria": "PROOF"
@@ -40220,12 +40292,12 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 886,
-    "edges_proven": 883,
+    "edges": 889,
+    "edges_proven": 886,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1776,
-    "files_covered": 880,
+    "files_tracked": 1777,
+    "files_covered": 881,
     "files_code_unclaimed": 0
   }
 }

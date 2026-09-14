@@ -34,6 +34,9 @@ sys.path.insert(0, str(RAIZ / "controle"))
 
 import portao_do_controle as PORTAO          # noqa: E402
 
+sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
+import impressao_da_arvore as IMPRESSAO       # noqa: E402
+
 REGISTO_REAL = RAIZ / "controle" / "AUTORIDADES-CANONICAS.json"
 CHAO_REAL = RAIZ / "controle" / "CHAO-DO-CONTROLE.json"
 
@@ -339,6 +342,173 @@ class C_OChaoMedeEstaArvoreOuNaoVale(unittest.TestCase):
             b = C["PORQUE"].get(f"STALE_AUTHORITY/{m}", "")
             self.assertTrue(a and b and a != b,
                             f"{m}: uma razao apagou a outra")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class P_APromocaoDaBibliaAtacada(unittest.TestCase):
+    """§34 · os oito ataques a promocao. Todos tem de morrer.
+
+        PROMOVER E MUDAR QUEM E A LEI. NAO E MUDAR O QUE ESTA CONSTRUIDO.
+    """
+
+    def test_P0_a_biblia_esta_canonica_no_texto_e_no_registo(self):
+        R = base()
+        c = achar(R, "A-BIBLIA-ENG-INTELIGENCIA")
+        self.assertEqual(c["LIFECYCLE"], "CANONICAL")
+        cabeca = (RAIZ / c["CANONICAL_PATH"]).read_text(encoding="utf-8")[:2000]
+        self.assertIn("STATUS = CANONICAL", cabeca)
+
+    def test_P1_existe_exatamente_uma_biblia_canonica_da_inteligencia(self):
+        R = base()
+        donas = [a["CARD_ID"] for a in R["AUTHORITIES"]
+                 if a.get("CONCEPT_OWNER") == "LEI_DA_INTELIGENCIA"
+                 and a["LIFECYCLE"] == "CANONICAL" and not a.get("IS_POINTER")]
+        self.assertEqual(donas, ["A-BIBLIA-ENG-INTELIGENCIA"], donas)
+
+    def test_P2_uma_segunda_biblia_canonica_reprova(self):
+        reg = base()
+        gemea = dict(achar(reg, "A-BIBLIA-ENG-INTELIGENCIA"))
+        gemea["CARD_ID"] = "A-BIBLIA-ENG-INTELIGENCIA-2"
+        gemea["CANONICAL_PATH"] = "docs/biblia/BIBLIA-INTELLIGENCE-V2.md"
+        reg["AUTHORITIES"].append(gemea)
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  DUPLICATE_CONCEPT_OWNER", saida)
+
+    def test_P3_a_autoridade_antiga_nao_ressuscita(self):
+        reg = base()
+        achar(reg, "A-BIBLIA-INTELIGENCIA")["LIFECYCLE"] = "CANONICAL"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  SUPERSEDED_MARKED_CANONICAL", saida)
+        self.assertIn("FAIL  DUPLICATE_CONCEPT_OWNER", saida)
+
+    def test_P4_a_canonica_e_esta_copia_e_nao_uma_branch_lateral(self):
+        """Promover e trazer a lei para ca. Deixar a ref numa branch lateral
+        seria promover um ficheiro que esta arvore nao carrega."""
+        c = achar(base(), "A-BIBLIA-ENG-INTELIGENCIA")
+        self.assertEqual(c.get("CANONICAL_REF", ""), "")
+        self.assertTrue((RAIZ / c["CANONICAL_PATH"]).exists())
+
+    def test_P5_apontar_a_canonica_de_volta_para_a_branch_lateral_reprova(self):
+        reg = base()
+        achar(reg, "A-BIBLIA-ENG-INTELIGENCIA")["CANONICAL_REF"] = \
+            "origin/research/intelligence-bible-engineering-v1"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  STALE_AUTHORITY", saida)
+
+    def test_P6_o_texto_da_lei_nao_pode_discordar_do_registo(self):
+        """O ataque mais silencioso: promover num sitio so."""
+        reg = base()
+        achar(reg, "A-BIBLIA-ENG-INTELIGENCIA")["LIFECYCLE"] = "CANDIDATE"
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  BIBLE_STATUS_MATCHES_REGISTRY", saida)
+
+    def test_P7_o_motor_v2_continua_subordinado_e_nao_dono(self):
+        m = achar(base(), "A-MOTOR-V2-REQUISITOS")
+        self.assertEqual(m["LIFECYCLE"], "SUBORDINATE")
+        self.assertNotEqual(m["CONCEPT_OWNER"], "LEI_DA_INTELIGENCIA")
+
+    def test_P8_um_handoff_nao_vira_autoridade_com_a_promocao(self):
+        reg = base()
+        h = achar(reg, "H-DELTA-108")
+        h["GOVERNS"] = ["BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"]
+        with tempfile.TemporaryDirectory() as td:
+            _, saida = correr(reg, Path(td))
+        self.assertIn("FAIL  HANDOFF_AS_AUTHORITY", saida)
+
+    def test_P9_a_promocao_nao_declarou_runtime_nenhum(self):
+        """PROMOCAO != IMPLEMENTACAO. A Biblia continua a dizer o que autoriza."""
+        texto = (RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md").read_text(encoding="utf-8")
+        self.assertIn("IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32",
+                      texto)
+        self.assertIn("Promoção não é implementação", texto)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+class M_UmArtefactoGeradoNaoCarimbaOProprioCommit(unittest.TestCase):
+    """M1–M5 · a prova de frescor do mapa, atacada.
+
+        commit 8e1947d2  ->  PROVENANCE.HEAD = c293be65
+        commit c293be65  ->  PROVENANCE.HEAD = 44e2de1b
+
+    Um ficheiro commitado nao pode conter o SHA do commit que o contem: o carimbo
+    nasce SEMPRE a nomear o commit anterior. Isso nao e deriva nem indisciplina —
+    e construcao. Perseguir o ponto fixo por regerar-e-commitar e um ciclo que
+    nunca fecha, e eu persegui-o uma vez.
+
+    Estas provas nao inventam mecanismo nenhum: medem o que `C-MAPA` ja construiu
+    — `impressao_da_arvore.py` + `CADEIA-DO-MAPA.json`. A pergunta certa ja la
+    estava, e nao e «que commit?», e «que fontes?».
+    """
+
+    def test_M1_guardar_o_mapa_regerado_nao_mexe_na_impressao(self):
+        """A saida da cadeia esta FORA do universo medido — toda ela."""
+        for saida in ("system-map/data/architecture.generated.json",
+                      "system-map/data/state.generated.json",
+                      "system-map/data/casco.generated.json",
+                      "system-map/data/sources.generated.json",
+                      "italia-portale/client/system-map/state.generated.json"):
+            with self.subTest(saida=saida):
+                self.assertTrue(IMPRESSAO.excluido(saida),
+                                "um artefacto que a cadeia escreve nao pode "
+                                "entrar na impressao que prova a cadeia")
+
+    def test_M2_uma_fonte_de_arquitetura_esta_dentro_do_universo_medido(self):
+        for fonte in ("system-map/data/architecture.declared.json",
+                      "system-map/scripts/generate_system_map.py",
+                      "controle/AUTORIDADES-CANONICAS.json",
+                      "AGENTS.md"):
+            with self.subTest(fonte=fonte):
+                self.assertFalse(IMPRESSAO.excluido(fonte),
+                                 "mexer numa fonte TEM de mudar a impressao")
+
+    def test_M3_a_impressao_muda_quando_o_sha_de_uma_fonte_muda(self):
+        linhas = ["aaa system-map/data/architecture.declared.json", "bbb AGENTS.md"]
+        outras = ["ccc system-map/data/architecture.declared.json", "bbb AGENTS.md"]
+        self.assertNotEqual(IMPRESSAO._selar(linhas), IMPRESSAO._selar(outras))
+        self.assertEqual(IMPRESSAO._selar(linhas), IMPRESSAO._selar(linhas[::-1]),
+                         "a ordem do disco nao pode entrar na impressao")
+
+    def test_M4_o_universo_medido_e_declarado_e_nao_adivinhado(self):
+        """Nao existe «ficheiro irrelevante fora do universo».
+
+        O universo e TODO ficheiro rastreado menos a lista de EXCLUIDO, e essa
+        lista vive no manifesto, num sitio so. Nao ha terceira categoria: ou o
+        ficheiro e fonte, ou e saida da propria cadeia. Um HEAD que mude por
+        causa de qualquer outra coisa muda a impressao, e isso e a resposta
+        certa — «nao sei se este mapa e o desta arvore» e melhor que um verde.
+        """
+        lei = IMPRESSAO.LEI
+        self.assertTrue(lei["EXCLUIDO"])
+        self.assertEqual(lei["ALGORITMO"], "sha256")
+        for e in lei["EXCLUIDO"]:
+            with self.subTest(excluido=e):
+                self.assertTrue(e.startswith(("system-map/data/", "italia-portale/")),
+                                "so saida da cadeia sai do universo")
+
+    def test_M5_o_ponto_fixo_existe_e_esta_alcancado_nesta_arvore(self):
+        """A prova empirica de que a perseguicao era desnecessaria.
+
+        O carimbo commitado ja e igual a impressao da arvore commitada — sem
+        nenhum ciclo de regerar-e-commitar, e num commit cujo PROVENANCE.HEAD
+        nomeia, como sempre, o commit anterior.
+        """
+        rc = subprocess.run(
+            [sys.executable, str(RAIZ / "system-map" / "scripts" / "impressao_da_arvore.py"),
+             "--conferir-carimbo"], capture_output=True, text=True)
+        self.assertIn("IMPRESSAO_DO_CARIMBO=IGUAL", rc.stdout,
+                      "o ponto fixo da FONTE tem de ser alcancavel: " + rc.stdout[-400:])
+
+    def test_M6_o_carimbo_de_commit_continua_a_nomear_o_commit_anterior(self):
+        """E isso fica DITO, nao escondido — em codigo, nao so em prosa minha."""
+        for f in ("system-map/scripts/impressao_da_arvore.py",
+                  "system-map/scripts/publicar_no_deploy.mjs"):
+            texto = (RAIZ / f).read_text(encoding="utf-8")
+            with self.subTest(ficheiro=f):
+                self.assertIn("ANTERIOR", texto)
 
 
 if __name__ == "__main__":
