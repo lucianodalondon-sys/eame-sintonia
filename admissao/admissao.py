@@ -569,7 +569,32 @@ PERGUNTAS_DO_UNIVERSO = {
            "daninha", "erva daninha", "herbicida", "resistencia",  # pt · daninha
            "parassita", "malattia", "insetto", "infestazione",
            "sintomo", "avversita", "patogeno",               # it
-           "fitosanitario", "fitopatolog", "trappola", "trappole",
+           # ⚠️ `fitosanitario` SAIU, E FOI O GABARITO QUE O TIROU.
+           # Eu acrescentei-o por parecer obviamente de T3, e nao o medi
+           # contra o gabarito humano antes. Medido depois, com a porta v3
+           # contra a v4 sobre os mesmos 36 documentos: os acertos CAIRAM de
+           # 6 para 4, e QUATRO boletins que o humano rotulou `T3_NAO`
+           # passaram a `SIM` — todos boletins agrometeorologicos da ARPAV,
+           # todos pela mesma dupla: `fitosanitario` + `ovideposizione`.
+           #
+           # E `fitosanitario` estava, nos quatro, no RODAPE INSTITUCIONAL:
+           #
+           #     «Regione Veneto — Unita Organizzativa FITOSANITARIO —
+           #      Difesa Integrata — Ambiente Rurale»
+           #
+           # E o nome de um DEPARTAMENTO, e ele esta em todos os boletins
+           # daquele publicador, falem eles de praga ou de chuva.
+           #
+           #     O NOME DE QUEM PUBLICA NAO E O ASSUNTO DO QUE SE PUBLICA.
+           #
+           # A regra que o devia ter travado ja estava escrita quatro linhas
+           # acima — «uma palavra que qualquer documento tem nao separa
+           # documento nenhum» — e eu escrevi-a e nao a apliquei ao termo que
+           # estava a acrescentar.
+           #
+           # `fitopatolog` FICA: e raiz de conteudo (fitopatologia,
+           # fitopatologico), e nao nome de orgao.
+           "fitopatolog", "trappola", "trappole",
            "ovideposizione", "peronospora", "oidio", "botrite",
            "ticchiolatura",                                  # it · praga/doenca
            "infestante", "diserbo", "erbicida", "malerba"],  # it · daninha

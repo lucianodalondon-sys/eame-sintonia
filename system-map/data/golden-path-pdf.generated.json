@@ -1,7 +1,7 @@
 {
  "O_QUE_ISTO_E": "A conta desta corrida, do PDF guardado ate a porta. Cada numero e medido; nenhum e esperado.",
  "COMO_REFAZER": "py coleta/golden_path_pdf.py",
- "RUN_ID": "DERIV-PDF-20260914T155245Z",
+ "RUN_ID": "DERIV-PDF-20260914T164000Z",
  "STATUS": "SUCCESS",
  "RUN_STATE": "COMPLETE",
  "COMPLETION_BASIS": {
@@ -36,15 +36,15 @@
   "CONTEUDOS_UNICOS": 43,
   "DERIVADOS_PRESENTES": 43
  },
- "GIT_COMMIT": "4ee7d0f3f57b929ba93332ff395cf71869b0e1a0",
+ "GIT_COMMIT": "a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f",
  "GIT_BRANCH": "claude/collection-to-waiting-room-v1",
  "GIT_TREE_CLEAN": "NAO",
  "BIBLE_VERSION": "V1.4",
  "EXECUTOR_ID": "texto-de-pdf",
  "EXECUTOR_VERSION": "1",
  "PIPELINE_VERSION": "1",
- "STARTED_AT": "2026-09-14T15:52:45Z",
- "FINISHED_AT": "2026-09-14T15:52:45Z",
+ "STARTED_AT": "2026-09-14T16:40:00Z",
+ "FINISHED_AT": "2026-09-14T16:40:00Z",
  "COUNTS": {
   "RAW_INPUT": 49,
   "RAW_TEXT_LAYER_PRESENT": 0,
@@ -55,9 +55,9 @@
   "DERIVED_LANDED": 0,
   "JA_EXISTIAM": 43,
   "ADMISSION_SEEN": 43,
-  "ADMISSION_NAO": 18,
-  "ADMISSION_SIM": 10,
-  "ADMISSION_NAO_SEI": 15,
+  "ADMISSION_NAO": 22,
+  "ADMISSION_SIM": 12,
+  "ADMISSION_NAO_SEI": 9,
   "LOST": 0
  },
  "RAW_IMUTAVEL": {
@@ -299,7 +299,7 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
     "regra": "pertence ao universo",
-    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "motivo": "nao fala de «T5», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "prova": {
      "achado_noutro": {
       "T3": [
@@ -314,7 +314,7 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
     "regra": "pertence ao universo",
-    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "motivo": "nao fala de «T5», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "prova": {
      "achado_noutro": {
       "T3": [
@@ -329,7 +329,7 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
     "regra": "pertence ao universo",
-    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "motivo": "nao fala de «T5», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "prova": {
      "achado_noutro": {
       "T3": [
@@ -346,11 +346,11 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-ea2276b0500902b9",
     "regra": "pertence ao universo",
-    "motivo": "fala de agronomi, soci — que e do que «T7» trata",
+    "motivo": "fala de articolo, pubblicazione — que e do que «T5» trata",
     "prova": {
      "palavras": [
-      "agronomi",
-      "soci"
+      "articolo",
+      "pubblicazione"
      ],
      "sinais": 2,
      "estagio": "DOCUMENTO",
@@ -358,13 +358,13 @@
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
+    "item": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
     "regra": "pertence ao universo",
-    "motivo": "fala de agronomi, soci — que e do que «T7» trata",
+    "motivo": "fala de revista, ricerca — que e do que «T5» trata",
     "prova": {
      "palavras": [
-      "agronomi",
-      "soci"
+      "revista",
+      "ricerca"
      ],
      "sinais": 2,
      "estagio": "DOCUMENTO",
@@ -372,15 +372,16 @@
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-c5d0962a405cb87b",
+    "item": "DERIVED-TEXT_EXTRACTION-7b3a26a7335a078b",
     "regra": "pertence ao universo",
-    "motivo": "fala de agronomi, soci — que e do que «T7» trata",
+    "motivo": "fala de articolo, pubblicazione, tesi — que e do que «T5» trata",
     "prova": {
      "palavras": [
-      "agronomi",
-      "soci"
+      "articolo",
+      "pubblicazione",
+      "tesi"
      ],
-     "sinais": 2,
+     "sinais": 3,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
@@ -388,12 +389,26 @@
   ],
   "NAO_SEI": [
    {
-    "item": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
+    "item": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
     "regra": "pertence ao universo",
-    "motivo": "so uma palavra de «T7» aparece (agronomi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+    "motivo": "so uma palavra de «T5» aparece (doi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
     "prova": {
      "palavras": [
-      "agronomi"
+      "doi"
+     ],
+     "sinais": 1,
+     "sinais_minimos": 2,
+     "estagio": "DOCUMENTO",
+     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
+    }
+   },
+   {
+    "item": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+    "regra": "pertence ao universo",
+    "motivo": "so uma palavra de «T5» aparece (tesi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+    "prova": {
+     "palavras": [
+      "tesi"
      ],
      "sinais": 1,
      "sinais_minimos": 2,
@@ -404,24 +419,10 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
     "regra": "pertence ao universo",
-    "motivo": "so uma palavra de «T7» aparece (soci), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+    "motivo": "so uma palavra de «T5» aparece (tesi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
     "prova": {
      "palavras": [
-      "soci"
-     ],
-     "sinais": 1,
-     "sinais_minimos": 2,
-     "estagio": "DOCUMENTO",
-     "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
-    }
-   },
-   {
-    "item": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
-    "regra": "pertence ao universo",
-    "motivo": "so uma palavra de «T7» aparece (soci), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
-    "prova": {
-     "palavras": [
-      "soci"
+      "tesi"
      ],
      "sinais": 1,
      "sinais_minimos": 2,

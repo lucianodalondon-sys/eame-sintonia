@@ -3440,6 +3440,87 @@
       ],
       "views": [],
       "icon": "⌗"
+    },
+    {
+      "id": "C-TERRITORIOS",
+      "name": "Os territorios — o dono unico de T1..T13",
+      "territory": "Z-REGUAS",
+      "kind": "contract",
+      "icon": "🗺",
+      "views": [
+        "infra"
+      ],
+      "what": "O dono unico da taxonomia T1..T13. NAO digita a tabela: LE-A do Atlas (docs/fontes/ATLAS-DE-FONTES-EAME.md, seccao «OS 12 TERRITORIOS»), que e a autoridade que cada ficha de fonte ja cita. Expoe os doze canonicos, os que o Atlas usa e nao declara (T13 DISTRIBUTION, EM_DIVIDA) e os apelidos humanos que apontam para cada um. Sem Atlas legivel LEVANTA — nao cai para copia de reserva, porque uma copia de reserva e a tabela seguinte.",
+      "why_here": "T7 queria dizer TRES coisas ao mesmo tempo nesta arvore: TECHNICAL NETWORK no Atlas, «Ciencia e ensaio» em pedido/pedido.py e o mesmo em scan_sources.py — e esta terceira ESCREVIA, pondo territory_name «Preco e mercado» no OpenAlex dentro de sources.generated.json. Medido com seleccao real: pedir ciencia devolvia doze COOPERATIVAS. DUAS TABELAS PARA O MESMO CONCEITO NAO SAO UMA REDUNDANCIA: SAO DUAS VERDADES, E A PARTIR DAI NENHUMA DELAS VALE.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "leis/territorios.py"
+      ]
+    },
+    {
+      "id": "C-PROVA-SALA-ITALIANA",
+      "name": "O material italiano chega a Sala — ida, volta e repeticao",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "🇮🇹",
+      "views": [
+        "infra",
+        "acervo"
+      ],
+      "what": "Leva material italiano REAL — bytes com SHA no livro, preservados nesta arvore — pela Collection inteira ate POUSAR na Sala de Espera CANONICA em PostgreSQL. Prova a estrada nos dois sentidos: ida degrau a degrau, e volta item a item, cada degrau alcancado pela CHAVE que o anterior declarou e nunca por posicao de lista. Mede o retry: REUSED nao duplica RAW, nem STORAGE, nem a Sala. E leva um red team de 28 ataques a mesma estrada.",
+      "why_here": "Aperta o botao em orquestrador.correr() e pergunta AO BANCO o que ficou — nunca chama pousar() nem pronto_para_inteligencia() directamente. UMA PROVA QUE COMECA PELO MEIO NAO PROVA A ESTRADA: PROVA O PEDACO POR ONDE ELA COMECOU. Nao adquire da rede, e diz porque.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/o_material_italiano_chega_a_sala.py",
+        "provas/red_team_collection_ate_a_sala.py"
+      ]
+    },
+    {
+      "id": "C-PROVA-PORTA-ITALIANA",
+      "name": "A porta le italiano — positivos, negativos, ambiguos e mutacoes",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "🔎",
+      "views": [
+        "infra"
+      ],
+      "what": "Julga DOCUMENTO REAL preservado nesta arvore contra a regua de T3: boletins de praga entram, pagina de precipitacao e texto de mercado nao entram, um indicio solto fica NAO_SEI, e o acento nao muda a resposta. Regista o caso ambiguo medido — o catalogo de produtos que responde SIM a T3 e a T4 — em vez de o apertar ate dar a resposta que dava jeito. E mede o corte silencioso de texto antes da porta. A prova da taxonomia mora aqui pela mesma razao: o que a porta decide e o NOME do universo em que ela decide sao a mesma pergunta — ela compara OBJECTOS e nao palavras, e varre a arvore contra uma quarta tabela T1..T13.",
+      "why_here": "O recall que esta casa publicava — 85.7% — era um artefacto de substring: 42 de 49 itens entravam na CIENCIA por `prova` dentro de «ap-PROV-al», em regulamento da UE escrito em INGLES. UM NUMERO QUE SOBE COM O LEXICO MEDE O LEXICO, E NAO A PORTA.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "provas/a_porta_le_italiano.py",
+        "provas/nada_some_em_silencio.py",
+        "provas/a_taxonomia_tem_um_dono.py"
+      ]
+    },
+    {
+      "id": "C-PROVA-ROTAS-REAIS",
+      "name": "As rotas existem de facto? — corrida, consumidor e durabilidade",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "🧭",
+      "views": [
+        "infra"
+      ],
+      "what": "Quatro medicoes que separam o DECLARADO do que EXISTE: que rotas de aquisicao cunham ou recebem RUN e quais nao; se o que o executor de video escreve e lido por alguem como COLHEITA; a durabilidade real de cada observacao do livro italiano (LOCAL_ONLY, MISSING, RECOVERABLE, UNKNOWN); e se a rota OpenAlex continua gratuita — respondendo NAO SEI quando o ambiente nao deixa medir.",
+      "why_here": "FILE_WRITTEN != FLOW_EXISTS · BOTAO EXISTE != ROTA EXISTE · LOCAL PATH != REMOTE DURABILITY · HOST_ALCANCAVEL != ROTA_GRATUITA. Nenhuma das quatro se responde lendo uma declaracao — e todas eram respondidas assim.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/a_corrida_existe_em_cada_rota.py",
+        "provas/o_video_tem_consumidor.py",
+        "provas/o_raw_local_nao_e_duravel.py",
+        "provas/a_rota_gratuita_ainda_e_gratuita.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [

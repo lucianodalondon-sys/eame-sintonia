@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.baseline-admission-t3/1",
   "O_QUE_ISTO_E": "Uma BASELINE: o mecanismo tematico de hoje, medido contra o primeiro gabarito humano de T3. Nao corrige nada, nao propoe substituto e nao aprova nem reprova o mecanismo.",
   "MEASURE_NOT_FIX": true,
-  "SOURCE_HEAD": "fb1bff2e49ca83698877cfc61b53aa893fc65933",
+  "SOURCE_HEAD": "a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f",
   "UNIVERSE": "T3",
   "ADMISSION_OWNER_FILE": "admissao/admissao.py",
   "ADMISSION_OWNER_FUNCTION": "_do_universo (via decidir)",
@@ -23,7 +23,7 @@
     {
       "FILE": "admissao/admissao.py",
       "MARCA": "def decidir(",
-      "LINE": 579,
+      "LINE": 604,
       "PORQUE": "a porta: prontidao primeiro, tema depois"
     },
     {
@@ -501,22 +501,22 @@
       "DOCUMENT_PLANE": {
         "TOTAL": 36,
         "TP": 2,
-        "TN": 2,
-        "FP": 9,
+        "TN": 4,
+        "FP": 5,
         "FN": 0,
-        "ABSTAIN": 23,
+        "ABSTAIN": 25,
         "NOT_APPLICABLE": 0,
         "ERROR": 0,
-        "BINARY_DECISIONS": 13,
-        "CORRECT_BINARY": 4,
-        "WRONG_BINARY": 9,
-        "DECISION_COVERAGE": 0.3611,
-        "EFFECTIVE_ACCURACY": 0.1111,
-        "CONDITIONAL_ACCURACY": 0.3077,
-        "PRECISION_T3": 0.1818,
+        "BINARY_DECISIONS": 11,
+        "CORRECT_BINARY": 6,
+        "WRONG_BINARY": 5,
+        "DECISION_COVERAGE": 0.3056,
+        "EFFECTIVE_ACCURACY": 0.1667,
+        "CONDITIONAL_ACCURACY": 0.5455,
+        "PRECISION_T3": 0.2857,
         "RECALL_T3": 1.0,
-        "SPECIFICITY": 0.1818,
-        "F1_T3": 0.3077,
+        "SPECIFICITY": 0.4444,
+        "F1_T3": 0.4444,
         "AS_FORMULAS": {
           "DECISION_COVERAGE": "BINARY_DECISIONS / TOTAL",
           "EFFECTIVE_ACCURACY": "(TP+TN) / TOTAL",
@@ -528,10 +528,10 @@
         "GROUP_TOTAL": 31,
         "GROUP_POSITIVE": 11,
         "GROUP_NEGATIVE": 20,
-        "GROUP_PASS": 4,
-        "GROUP_FAIL": 7,
+        "GROUP_PASS": 6,
+        "GROUP_FAIL": 5,
         "GROUP_NOT_DECIDED": 20,
-        "GROUP_EFFECTIVE_ACCURACY": 0.129,
+        "GROUP_EFFECTIVE_ACCURACY": 0.1935,
         "MIXED_GROUND_TRUTH_GROUP": [],
         "GRUPOS_COM_MAIS_DE_UM": 3,
         "SAME_GROUP_SAME_PREDICTION": 3,
@@ -558,9 +558,9 @@
               "RAW-3d3c1bc0e96332e8.txt"
             ],
             "PREVISOES": [
-              "SIM"
+              "NAO_SEI"
             ],
-            "ESTADO": "GROUP_FAIL"
+            "ESTADO": "GROUP_NOT_DECIDED"
           },
           {
             "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
@@ -594,9 +594,9 @@
               "RAW-178ebe9e0ea7dd83.txt"
             ],
             "PREVISOES": [
-              "NAO_SEI"
+              "NAO"
             ],
-            "ESTADO": "GROUP_NOT_DECIDED"
+            "ESTADO": "GROUP_PASS"
           },
           {
             "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
@@ -775,9 +775,9 @@
               "RAW-f88c89d73d6a132a.txt"
             ],
             "PREVISOES": [
-              "SIM"
+              "NAO_SEI"
             ],
-            "ESTADO": "GROUP_FAIL"
+            "ESTADO": "GROUP_NOT_DECIDED"
           },
           {
             "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
@@ -838,9 +838,9 @@
               "RAW-a927e846ba8e78b0.txt"
             ],
             "PREVISOES": [
-              "NAO_SEI"
+              "NAO"
             ],
-            "ESTADO": "GROUP_NOT_DECIDED"
+            "ESTADO": "GROUP_PASS"
           },
           {
             "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
@@ -921,22 +921,22 @@
   "DOCUMENT_PLANE": {
     "TOTAL": 36,
     "TP": 2,
-    "TN": 2,
-    "FP": 9,
+    "TN": 4,
+    "FP": 5,
     "FN": 0,
-    "ABSTAIN": 23,
+    "ABSTAIN": 25,
     "NOT_APPLICABLE": 0,
     "ERROR": 0,
-    "BINARY_DECISIONS": 13,
-    "CORRECT_BINARY": 4,
-    "WRONG_BINARY": 9,
-    "DECISION_COVERAGE": 0.3611,
-    "EFFECTIVE_ACCURACY": 0.1111,
-    "CONDITIONAL_ACCURACY": 0.3077,
-    "PRECISION_T3": 0.1818,
+    "BINARY_DECISIONS": 11,
+    "CORRECT_BINARY": 6,
+    "WRONG_BINARY": 5,
+    "DECISION_COVERAGE": 0.3056,
+    "EFFECTIVE_ACCURACY": 0.1667,
+    "CONDITIONAL_ACCURACY": 0.5455,
+    "PRECISION_T3": 0.2857,
     "RECALL_T3": 1.0,
-    "SPECIFICITY": 0.1818,
-    "F1_T3": 0.3077,
+    "SPECIFICITY": 0.4444,
+    "F1_T3": 0.4444,
     "AS_FORMULAS": {
       "DECISION_COVERAGE": "BINARY_DECISIONS / TOTAL",
       "EFFECTIVE_ACCURACY": "(TP+TN) / TOTAL",
@@ -948,10 +948,10 @@
     "GROUP_TOTAL": 31,
     "GROUP_POSITIVE": 11,
     "GROUP_NEGATIVE": 20,
-    "GROUP_PASS": 4,
-    "GROUP_FAIL": 7,
+    "GROUP_PASS": 6,
+    "GROUP_FAIL": 5,
     "GROUP_NOT_DECIDED": 20,
-    "GROUP_EFFECTIVE_ACCURACY": 0.129,
+    "GROUP_EFFECTIVE_ACCURACY": 0.1935,
     "MIXED_GROUND_TRUTH_GROUP": [],
     "GRUPOS_COM_MAIS_DE_UM": 3,
     "SAME_GROUP_SAME_PREDICTION": 3,
@@ -981,9 +981,9 @@
         "RAW-3d3c1bc0e96332e8.txt"
       ],
       "PREVISOES": [
-        "SIM"
+        "NAO_SEI"
       ],
-      "ESTADO": "GROUP_FAIL"
+      "ESTADO": "GROUP_NOT_DECIDED"
     },
     {
       "GRUPO": "0da6949be9406a5246669bde9f3a02e619854a14137c1bb972ffd1222073064a",
@@ -1017,9 +1017,9 @@
         "RAW-178ebe9e0ea7dd83.txt"
       ],
       "PREVISOES": [
-        "NAO_SEI"
+        "NAO"
       ],
-      "ESTADO": "GROUP_NOT_DECIDED"
+      "ESTADO": "GROUP_PASS"
     },
     {
       "GRUPO": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
@@ -1198,9 +1198,9 @@
         "RAW-f88c89d73d6a132a.txt"
       ],
       "PREVISOES": [
-        "SIM"
+        "NAO_SEI"
       ],
-      "ESTADO": "GROUP_FAIL"
+      "ESTADO": "GROUP_NOT_DECIDED"
     },
     {
       "GRUPO": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
@@ -1261,9 +1261,9 @@
         "RAW-a927e846ba8e78b0.txt"
       ],
       "PREVISOES": [
-        "NAO_SEI"
+        "NAO"
       ],
-      "ESTADO": "GROUP_NOT_DECIDED"
+      "ESTADO": "GROUP_PASS"
     },
     {
       "GRUPO": "aed962d6adb8f1692496af233e3af8a6e04be1eeff2495385c7d54085357ec86",
@@ -1709,7 +1709,7 @@
     },
     {
       "SONDA": "2 · ARPAV com meteorologia e fitossanidade",
-      "MEDIDO": "ARPAV: ['T3_NAO->NAO_SEI', 'T3_NAO->SIM', 'T3_SIM->NAO_SEI']"
+      "MEDIDO": "ARPAV: ['T3_NAO->NAO_SEI', 'T3_SIM->NAO_SEI']"
     },
     {
       "SONDA": "3 · documento T3 com muito vocabulario climatico",
@@ -1741,7 +1741,7 @@
     },
     {
       "SONDA": "10 · os estados da porta continuam separados",
-      "MEDIDO": "estados vistos: {'NAO_SEI': 23, 'SIM': 11, 'NAO': 2} · vocabulario do runtime: ['SIM', 'NAO', 'NAO_SEI', 'NAO_SE_APLICA', 'ERRO']"
+      "MEDIDO": "estados vistos: {'NAO_SEI': 25, 'NAO': 4, 'SIM': 7} · vocabulario do runtime: ['SIM', 'NAO', 'NAO_SEI', 'NAO_SE_APLICA', 'ERRO']"
     },
     {
       "SONDA": "11 · substring dentro de outra palavra",
@@ -1749,7 +1749,7 @@
     },
     {
       "SONDA": "12 · decisoes que assentam SO num casamento falso",
-      "MEDIDO": "1 de 13 decisoes binarias · [('RAW-445e41701f737d73.txt', 'NAO', 'YES', ['lancio'])]"
+      "MEDIDO": "1 de 11 decisoes binarias · [('RAW-445e41701f737d73.txt', 'NAO', 'YES', ['lancio'])]"
     }
   ],
   "PERFORMANCE_GATE_PREDEFINED": "NO",
@@ -1865,18 +1865,17 @@
       "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
       "LANGUAGE": "it",
       "HUMAN_LABEL": "T3_NAO",
-      "RAW_OUTPUT": "SIM",
+      "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fitosanitario, ovideposizione — que e do que «T3» trata",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
         "palavras": [
-          "fitosanitario",
           "ovideposizione"
         ],
         "estagio": "DOCUMENTO"
       },
-      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
-      "CORRECT": "NO"
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
     },
     {
       "DOC_SHA256": "144fdb152b1a6ae4852dcafa2ee336e9e0f530da3dc16c534ed5c00fef66418c",
@@ -1911,17 +1910,22 @@
       "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
       "LANGUAGE": "it",
       "HUMAN_LABEL": "T3_NAO",
-      "RAW_OUTPUT": "NAO_SEI",
+      "RAW_OUTPUT": "NAO",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "so uma palavra de «T3» aparece (fitosanitario), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T7: soci; T4: autorizzazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
       "ADMISSION_EVIDENCE": {
-        "palavras": [
-          "fitosanitario"
-        ],
+        "achado_noutro": {
+          "T7": [
+            "soci"
+          ],
+          "T4": [
+            "autorizzazione"
+          ]
+        },
         "estagio": "DOCUMENTO"
       },
-      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
-      "CORRECT": "NOT_DECIDED"
+      "NORMALIZED_EVAL_BUCKET": "PRED_NEGATIVE",
+      "CORRECT": "YES"
     },
     {
       "DOC_SHA256": "223510588786a4ded14ec6439492ea37b1a7fe8b3d4f11c819419aaae89ce79f",
@@ -1952,13 +1956,12 @@
       "HUMAN_LABEL": "T3_NAO",
       "RAW_OUTPUT": "SIM",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de parassita, malattia, avversita, fitosanitario — que e do que «T3» trata",
+      "ADMISSION_REASON": "fala de parassita, malattia, avversita, fitopatolog — que e do que «T3» trata",
       "ADMISSION_EVIDENCE": {
         "palavras": [
           "parassita",
           "malattia",
           "avversita",
-          "fitosanitario",
           "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
@@ -1993,18 +1996,17 @@
       "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
       "LANGUAGE": "it",
       "HUMAN_LABEL": "T3_NAO",
-      "RAW_OUTPUT": "SIM",
+      "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fitosanitario, ovideposizione — que e do que «T3» trata",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
         "palavras": [
-          "fitosanitario",
           "ovideposizione"
         ],
         "estagio": "DOCUMENTO"
       },
-      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
-      "CORRECT": "NO"
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
     },
     {
       "DOC_SHA256": "3e941738599367d7e105a675b182cb4799c9c87f5bb00c7e55922074b6952c1f",
@@ -2026,8 +2028,8 @@
           "insetto",
           "infestazione",
           "avversita",
-          "fitosanitario",
-          "trappole"
+          "trappole",
+          "ovideposizione"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2055,7 +2057,7 @@
           "malattia",
           "insetto",
           "infestazione",
-          "fitosanitario"
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2121,7 +2123,6 @@
           "malattia",
           "insetto",
           "avversita",
-          "fitosanitario",
           "trappole"
         ],
         "estagio": "DOCUMENTO"
@@ -2228,18 +2229,17 @@
       "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
       "LANGUAGE": "it",
       "HUMAN_LABEL": "T3_NAO",
-      "RAW_OUTPUT": "SIM",
+      "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fitosanitario, ovideposizione — que e do que «T3» trata",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
         "palavras": [
-          "fitosanitario",
           "ovideposizione"
         ],
         "estagio": "DOCUMENTO"
       },
-      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
-      "CORRECT": "NO"
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
     },
     {
       "DOC_SHA256": "924aabd94168c53aa1b042935cef3072889ced9dbc1374ca735bbcad791b98b6",
@@ -2262,7 +2262,7 @@
           "infestazione",
           "avversita",
           "patogeno",
-          "fitosanitario"
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2332,17 +2332,27 @@
       "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
       "LANGUAGE": "it",
       "HUMAN_LABEL": "T3_NAO",
-      "RAW_OUTPUT": "NAO_SEI",
+      "RAW_OUTPUT": "NAO",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "so uma palavra de «T3» aparece (fitosanitario), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
+      "ADMISSION_REASON": "nao fala de «T3», e fala claramente de outro universo (T7: soci; T9: prodotto; T4: decreto, autorizzazione, registrazione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
       "ADMISSION_EVIDENCE": {
-        "palavras": [
-          "fitosanitario"
-        ],
+        "achado_noutro": {
+          "T7": [
+            "soci"
+          ],
+          "T9": [
+            "prodotto"
+          ],
+          "T4": [
+            "decreto",
+            "autorizzazione",
+            "registrazione"
+          ]
+        },
         "estagio": "DOCUMENTO"
       },
-      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
-      "CORRECT": "NOT_DECIDED"
+      "NORMALIZED_EVAL_BUCKET": "PRED_NEGATIVE",
+      "CORRECT": "YES"
     },
     {
       "DOC_SHA256": "b631f6eecfbc1db0b711eb7921d2aa4158ed1e7a00493f3766c288a84fcd70c6",
@@ -2398,10 +2408,10 @@
           "insetto",
           "infestazione",
           "avversita",
-          "fitosanitario",
           "trappole",
           "ovideposizione",
-          "oidio"
+          "oidio",
+          "ticchiolatura"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2429,7 +2439,7 @@
           "malattia",
           "insetto",
           "infestazione",
-          "fitosanitario"
+          "fitopatolog"
         ],
         "estagio": "DOCUMENTO"
       },
@@ -2463,18 +2473,17 @@
       "DOCUMENT_TYPE": "TEXTO-DERIVADO-DE-PDF",
       "LANGUAGE": "it",
       "HUMAN_LABEL": "T3_NAO",
-      "RAW_OUTPUT": "SIM",
+      "RAW_OUTPUT": "NAO_SEI",
       "ADMISSION_RULE": "pertence ao universo",
-      "ADMISSION_REASON": "fala de fitosanitario, ovideposizione — que e do que «T3» trata",
+      "ADMISSION_REASON": "so uma palavra de «T3» aparece (ovideposizione), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
       "ADMISSION_EVIDENCE": {
         "palavras": [
-          "fitosanitario",
           "ovideposizione"
         ],
         "estagio": "DOCUMENTO"
       },
-      "NORMALIZED_EVAL_BUCKET": "PRED_POSITIVE",
-      "CORRECT": "NO"
+      "NORMALIZED_EVAL_BUCKET": "ABSTAIN",
+      "CORRECT": "NOT_DECIDED"
     },
     {
       "DOC_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
@@ -3172,7 +3181,7 @@
     "CURRENT_ADMISSION_NEVER_SAW_GROUND_TRUTH_DURING_ITS_DESIGN": "NAO SEI",
     "PROVA": "nao foi possivel datar as duas coisas pelo Git"
   },
-  "FIRST_VALID_BASELINE_FINGERPRINT": "f757ad8114db03a860cae374c938ccd10b6a2236b2dd276a30ba01ca5e703a7a",
+  "FIRST_VALID_BASELINE_FINGERPRINT": "402362e75786705489d9964d2efbacf7bdfcabf854f8638f61f72dbea7058aa1",
   "O_QUE_A_IMPRESSAO_NAO_DISTINGUE": "ela hasheia o ficheiro inteiro do dono da porta. Uma mudanca que nao toca no julgamento — uma trava, uma escrita atomica, um comentario — move a impressao na mesma. Para saber se a PORTA mudou, comparar PREVISOES_FINGERPRINT, ADMISSION_RULE_VERSION e GROUND_TRUTH.SHA256.",
-  "PREVISOES_FINGERPRINT": "63279c0e9c55f0f1d9f06f929dd350ff52d9b5307a3e58dc191b8d0b5787ba80"
+  "PREVISOES_FINGERPRINT": "e4fd888feff5a1ee9aa4f77d1bc674c489dab3f6c280185480db7cf0c9e36c7f"
 }

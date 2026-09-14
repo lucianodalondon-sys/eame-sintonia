@@ -481,10 +481,37 @@ class OBaselineFoiJulgadoMecanicamente(unittest.TestCase):
     # todos representados — um A/B em que tudo respondesse o mesmo nao teria
     # provado nada.
     #
+    # ── MOVIDA EM 2026-09-14, E ESTA VEZ UM DOS TRES MUDOU ──────────────
+    # `C-COLLECTION-TO-WAITING-ROOM-V1` recebeu ordem explicita de mexer na
+    # regua de T3. A nota acima manda conferir tres coisas ANTES de mover, e
+    # manda NAO mover e medir outra vez se alguma delas mudar. Uma mudou:
+    #
+    #     PREVISOES_FINGERPRINT   e4fd888fef…  IGUAL
+    #     GROUND_TRUTH.SHA256     f66ce19525…  IGUAL
+    #     ADMISSION_RULE_VERSION  3 -> 4       MUDOU
+    #
+    # Entao mediu-se outra vez, que e o que a nota manda: a porta v3 contra a
+    # porta v4, sobre os MESMOS 36 documentos do gabarito humano.
+    #
+    #     JUDGMENT_DIFF_COUNT = 0 · acertos 6 -> 6
+    #
+    # ⚠️ E A PRIMEIRA MEDICAO NAO DEU ISTO — deu `JUDGMENT_DIFF_COUNT = 6` e
+    # os acertos a CAIR de 6 para 4. Quatro boletins que o humano rotulou
+    # `T3_NAO` passavam a `SIM`, todos da ARPAV, todos por `fitosanitario` —
+    # que nos quatro estava no RODAPE INSTITUCIONAL («Unita Organizzativa
+    # Fitosanitario»), e nao no conteudo. Eu tinha acrescentado esse termo ao
+    # lexico por parecer obviamente de T3, sem o medir contra o gabarito.
+    #
+    #     O GABARITO APANHOU-ME, E E PARA ISSO QUE ELE EXISTE.
+    #     UM VALOR CONGELADO NAO SE MOVE PARA ACOMPANHAR UMA MUDANCA:
+    #     MOVE-SE DEPOIS DE A MUDANCA SE PROVAR INOCENTE.
+    #
+    # O termo saiu, e so entao esta linha se mexeu.
     # anterior: 4a8bd30eccc8ef4e969440443eadd7c3b568cf8a2014ae2e2fbc9a6c0f566002
     # anterior: e196604a4ed437356c8b27b968aae817dd513ea82b2586c0187557632dc5b99f
-    BASELINE_CONGELADO = ("03ebe69cf15780e03678a433452e0cffe7f2e4ba"
-                          "fad9fa690f9689eab79cce96")
+    # anterior: 03ebe69cf15780e03678a433452e0cffe7f2e4bafad9fa690f9689eab79cce96
+    BASELINE_CONGELADO = ("402362e75786705489d9964d2efbacf7bdfcabf8"
+                          "54f8638f61f72dbea7058aa1")
     def test_o_baseline_julgado_e_o_congelado(self):
         self.assertEqual(self.art["FIRST_VALID_BASELINE_FINGERPRINT"],
                          self.BASELINE_CONGELADO)
@@ -657,11 +684,24 @@ class OQueEstaMissaoNaoFaz(unittest.TestCase):
             self.assertNotIn(proibido, fonte, proibido)
 
     def test_a_admission_nao_foi_tocada(self):
+        # ⚠️ ISTO MEDE A ARVORE DE TRABALHO CONTRA O `HEAD`, E NAO O FICHEIRO.
+        # Vale a pena dize-lo porque o nome promete mais do que a medicao faz:
+        # assim que uma mudanca em `admissao/` e COMMITADA, `git diff HEAD`
+        # fica vazio e esta guarda passa. Ela protege uma SESSAO — «nao mexas
+        # na porta enquanto fazes ISTO» — e nao a porta.
+        #
+        #     UMA GUARDA QUE MEDE O QUE ESTA POR COMMITAR
+        #     GUARDA O HABITO, E NAO O FICHEIRO.
+        #
+        # Quem quiser guardar a porta a serio guarda a OPINIAO dela, e isso ja
+        # existe: `BASELINE_CONGELADO` mais acima, que compara os vereditos
+        # sobre 36 documentos reais e que ESTA missao teve mesmo de mover — com
+        # medicao, e depois de tirar o termo que tinha feito a porta errar.
         import subprocess
         d = subprocess.run(["git", "diff", "HEAD", "--stat", "--",
                             "admissao/"], cwd=RAIZ, capture_output=True,
                            text=True).stdout.strip()
-        self.assertEqual(d, "", "admissao/ nao pode mudar nesta missao")
+        self.assertEqual(d, "", "ha mudanca POR COMMITAR em admissao/")
 
     def test_nao_ha_segundo_gate_tematico_concorrente(self):
         """UM CONCEITO, UM DONO — e o conceito aqui e o portao TEMATICO.
