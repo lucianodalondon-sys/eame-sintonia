@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/supabase-backup-readonly-measure-v1",
-    "HEAD": "99e97d9281fb4d4fc3ca7b164ec1f48c39c6cf3b",
-    "GENERATED_AT": "2026-09-14T01:31:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3b226213ea81180a2ec3244ca80903be925d4137e0a09d919ec7200a17bd29ee"
+    "HEAD": "d601223c17e098a3d5ec43971f6ab01eb433504b",
+    "GENERATED_AT": "2026-09-14T02:11:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1396907b8d4c07867c1e42c6b8a7fc6cb544fd10eff70e8335f32e36d171844e"
   },
   "FILES": [
     {
@@ -129,7 +129,7 @@
     },
     {
       "path": ".github/workflows/supabase-backup-readonly.yml",
-      "sha": "1e4ffc59c13fb0e95b707eb960b46b47ebaf5352",
+      "sha": "8fa5a8fa4ec3b03b35af3b28ba3a1cee61a69511",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4895,6 +4895,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/C-SUPABASE-BACKUP-READONLY-MEASURE-V1.md",
+      "sha": "cea6296b55e424532d865a847d3e1a894e9ddd8a",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1.md",
       "sha": "214498217302fd8a94f3d35d5f6df1ba9a01df82",
       "ext": ".md",
@@ -5204,7 +5211,7 @@
     },
     {
       "path": "docs/operacao/RUNBOOK-DE-RECUPERACAO.md",
-      "sha": "88d6e8ca846cbb3be658dd88f8bcd6f59881577a",
+      "sha": "fb0d208d94daebd1fc271311a8a3877d39cfe9c6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8542,6 +8549,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
+      "sha": "6a9fe2dc59cc0df654de820386d2ba2cf5262294",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/_c106b_filho.py",
       "sha": "20c80db99fda4284c77abac4c87df9747d8943ff",
       "ext": ".py",
@@ -8753,7 +8767,7 @@
     },
     {
       "path": "provas/backup_do_live_medido.py",
-      "sha": "719932757523137fecbe91a9038246801fc10a3b",
+      "sha": "64c80f631b60248b1546f5d81dba0df3ad76740a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12877,7 +12891,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/supabase-backup-readonly.yml",
-        "line": 74,
+        "line": 95,
         "snippet": "python3 provas/backup_do_live_medido.py | tee -a \"$GITHUB_STEP_SUMMARY\" || rc=$?"
       }
     },
@@ -31579,6 +31593,28 @@
         "file": "provas/asr_banco.py",
         "line": 54,
         "snippet": "import fala_local as fl                                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/backup_do_live_medido.py",
+      "to_file": "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/backup_do_live_medido.py",
+        "line": 56,
+        "snippet": "SAIDA = RAIZ / \"provas\" / \"SUPABASE-LIVE-BACKUP-MEASURED.json\""
+      }
+    },
+    {
+      "from_file": "provas/backup_do_live_medido.py",
+      "to_file": "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/backup_do_live_medido.py",
+        "line": 559,
+        "snippet": "SAIDA.write_text(texto + \"\\n\", encoding=\"utf-8\")"
       }
     },
     {
@@ -53129,10 +53165,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1713,
+    "files_tracked": 1715,
     "files_readable": 710,
-    "files_code_dir": 763,
-    "file_edges": 3694,
+    "files_code_dir": 764,
+    "file_edges": 3696,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

@@ -83,17 +83,29 @@ Medido na documentação oficial em 2026-09-14 (`C-SUPABASE-LIVE-RECOVERY-PREFLI
 | vem com o plano? | **sim** (Pro: 7 dias) | **não — é add-on PAGO** |
 | granularidade | **um ponto por dia** | até ao **segundo** |
 | RPO na prática | **até 24 horas** | ~2 minutos no pior caso |
-| ligado neste projeto? | **NÃO MEDIDO** | **NÃO MEDIDO** |
+| ligado neste projeto? | **SIM — 7 backups físicos medidos** | **NÃO — `pitr_enabled` = `false`, medido** |
+
+Medido em 2026-09-14 pela Management API, em `C-SUPABASE-BACKUP-READONLY-MEASURE-V1`
+(`provas/SUPABASE-LIVE-BACKUP-MEASURED.json`): sete backups `COMPLETED`, todos
+físicos, de `2026-09-07 03:07` a `2026-09-13 03:05` UTC, `walg_enabled = true`,
+região `eu-west-1`.
 
 ```
 LIVE_RECOVERY_MECHANISM = SUPABASE_BACKUP_RESTORE   (backup diario fisico)
 ```
 
 > **NÃO CONTE COM RECUPERAÇÃO AO SEGUNDO.** Ligar PITR é uma decisão de
-> dinheiro que ninguém tomou, e este runbook não pode presumi-la. Enquanto
-> `PITR_ENABLED` não for medido, **assuma que se perde até um dia de
-> escritas** — e diga isso ao coordenador no passo `§5.1.3`, antes de ele
-> decidir restaurar.
+> dinheiro que ninguém tomou. Isto já não é uma suposição prudente — está
+> **medido**: `pitr_enabled = false`.
+>
+> ```
+> RPO REAL DESTE PROJETO = ATE ~24 HORAS.
+> ```
+>
+> E há uma precisão que a média esconde: o backup é das **~03:07 UTC**. Uma
+> perda às 02:00 UTC custa ~23 horas de escritas; uma perda às 04:00 UTC
+> custa ~1 hora. **O RPO não é uniforme ao longo do dia** — diga ao
+> coordenador a hora, e não só o número, no passo `§5.1.3`.
 >
 > E há uma armadilha ao contrário: a documentação diz que **ligar PITR
 > DESLIGA o backup diário**. Não são duas redes de segurança empilhadas.
@@ -131,6 +143,18 @@ Se **qualquer** uma falhar, pare e vá ao `§7`.
 
 > O ponto **3** é o que mais se assume e menos se mede. «O plano Pro tem
 > backup diário» é uma frase sobre um produto, não sobre este projeto.
+>
+> Para **medir** em vez de assumir, há agora uma porta que o faz sem escrever
+> nada e sem credencial de banco:
+>
+> ```
+> .github/workflows/supabase-backup-readonly.yml   (um GET, zero escritas)
+> ```
+>
+> Ela lista os backups deste projeto com data, e diz se o PITR está ligado.
+> **Corra-a antes do ponto 3**, e leia a janela real em vez de a presumir. E
+> note que a medição envelhece: um artefacto de ontem não cobre o instante
+> de hoje.
 >
 > ```
 > POLITICA DA PLATAFORMA PROVADA  !=  ESTE BACKUP EXISTE, E E DESTE INSTANTE.

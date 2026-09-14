@@ -722,6 +722,7 @@
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
       "docs/operacao/C-RESTORE-PROOF-BEFORE-LIVE-V2.md",
+      "docs/operacao/C-SUPABASE-BACKUP-READONLY-MEASURE-V1.md",
       "docs/operacao/C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1.md",
       "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
@@ -1270,6 +1271,7 @@
       "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
       "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
       "provas/RECUPERACAO-FISICA-MEDIDA.json",
+      "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
       "provas/_c106b_filho.py",
       "provas/_c106c_filho.py",
       "provas/_c108a_ensaio_a_seco.json",
@@ -2161,9 +2163,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/supabase-backup-readonly-measure-v1",
-    "HEAD": "99e97d9281fb4d4fc3ca7b164ec1f48c39c6cf3b",
-    "GENERATED_AT": "2026-09-14T01:31:57+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3b226213ea81180a2ec3244ca80903be925d4137e0a09d919ec7200a17bd29ee"
+    "HEAD": "d601223c17e098a3d5ec43971f6ab01eb433504b",
+    "GENERATED_AT": "2026-09-14T02:11:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1396907b8d4c07867c1e42c6b8a7fc6cb544fd10eff70e8335f32e36d171844e"
   },
   "FAMILIES": [
     {
@@ -13676,7 +13678,8 @@
       "changed_since_declared": [],
       "produces": [
         "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
-        "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json"
+        "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+        "provas/SUPABASE-LIVE-BACKUP-MEASURED.json"
       ],
       "inbound": [
         "C-CI-PERSIST"
@@ -13707,7 +13710,7 @@
         {
           "onde": "SUPABASE",
           "file": "provas/backup_do_live_medido.py",
-          "line": 453,
+          "line": 483,
           "snippet": "token = os.environ.get(\"SUPABASE_ACCESS_TOKEN\", \"\")"
         },
         {
@@ -13719,6 +13722,12 @@
         {
           "onde": "GIT",
           "file": "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -23388,7 +23397,7 @@
       "evidence": [
         {
           "file": ".github/workflows/supabase-backup-readonly.yml",
-          "line": 74,
+          "line": 95,
           "snippet": "python3 provas/backup_do_live_medido.py | tee -a \"$GITHUB_STEP_SUMMARY\" || rc=$?"
         }
       ],
@@ -39483,7 +39492,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 836,
+  "UNCLAIMED_FILES_COUNT": 837,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -39647,8 +39656,8 @@
     "edges_proven": 865,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1713,
-    "files_covered": 877,
+    "files_tracked": 1715,
+    "files_covered": 878,
     "files_code_unclaimed": 0
   }
 }

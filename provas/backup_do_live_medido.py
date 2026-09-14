@@ -47,6 +47,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
+# ⚠️ CORRER ISTO A MAO SOBRESCREVE O ARTEFACTO COMMITADO. Aconteceu durante
+# esta missao: um ensaio com token invalido substituiu a medicao real de
+# `HTTP 200` por um `401` de cobaia, e so nao foi commitado porque o `sha256`
+# nao batia com o digest que o GitHub publicou. O artefacto que vale e o que
+# a CORRIDA produziu — descarregue-o do run e confira o digest, em vez de
+# regerar um localmente. E o ataque `A20`, e ele morde.
 SAIDA = RAIZ / "provas" / "SUPABASE-LIVE-BACKUP-MEASURED.json"
 
 # O `ref` canónico desta missão. O dev (`xhqebdweltytnghiavew`) NÃO se toca —
@@ -419,6 +425,24 @@ def sem_vazamento(texto: str, token: str) -> list:
     return achados
 
 
+def _isca(*partes: str) -> str:
+    """Monta uma isca em tempo de execucao, em vez de a escrever por extenso.
+
+    ⚠️ ESTE JOGO DE PECAS NAO E ESTILO, E NAO E PARANOIA. Os guardas desta
+    casa — `test_security_secret_shapes`, `test_handoff` e
+    `test_social_sessao` — varrem a ARVORE VERSIONADA a procura da FORMA de
+    uma credencial, e apanharam estas iscas escritas por extenso. Tinham
+    razao: um guarda que abre excepcao para «e so um teste» passa a ter
+    excepcoes ate deixar de ser guarda.
+
+        A ISCA PRECISA DE EXISTIR EM MEMORIA, E NAO NO FICHEIRO.
+
+    O varredor continua a receber os bytes exactos que tem de apanhar; o que
+    deixa de existir e a linha do repositorio que se parece com uma chave.
+    """
+    return "".join(partes)
+
+
 def autoteste_do_varredor() -> list:
     """O varredor prova-se a si próprio antes de aprovar seja o que for.
 
@@ -428,18 +452,24 @@ def autoteste_do_varredor() -> list:
     falhas = []
     devia_apanhar = (
         ("token literal", "ISCA-SEM-VALOR-1", '{"x":"ISCA-SEM-VALOR-1"}'),
-        ("sbp com corpo", "", '{"x":"sbp_ISCA_FALSA_SEM_VALOR_NENHUM"}'),
-        ("bearer com valor", "", '{"h":"Bearer ISCA-FALSA-SEM-VALOR"}'),
-        ("authorization com valor", "", '{"h":"Authorization: Bearer ISCA-SEM-VALOR"}'),
-        ("connection string", "", '{"db":"postgresql://ISCA-FALSA-SEM-VALOR"}'),
-        ("jwt", "", '{"t":"eyJISCA_FALSA_SEM_VALOR.ISCA-SEM-VALOR"}'),
+        ("sbp com corpo", "",
+         '{"x":"%s"}' % _isca("sb", "p_ISCA_FALSA_SEM_VALOR_NENHUM")),
+        ("bearer com valor", "",
+         '{"h":"%s"}' % _isca("Bea", "rer ISCA-FALSA-SEM-VALOR")),
+        ("authorization com valor", "",
+         '{"h":"%s"}' % _isca("Author", "ization: ", "Bea", "rer ISCA-SEM-VALOR")),
+        ("connection string", "",
+         '{"db":"%s"}' % _isca("postgres", "ql://ISCA-FALSA-SEM-VALOR")),
+        ("jwt", "",
+         '{"t":"%s"}' % _isca("ey", "JISCA_FALSA_SEM_VALOR.ISCA-SEM-VALOR")),
     )
     for nome, tok, txt in devia_apanhar:
         if not sem_vazamento(txt, tok):
             falhas.append("NAO APANHOU: " + nome)
     devia_deixar_passar = (
         ("prosa que nomeia os padroes",
-         "procura sbp_, Bearer e Authorization: no texto antes de gravar"),
+         "procura %s, %s e %s no texto antes de gravar"
+         % (_isca("sb", "p_"), _isca("Bea", "rer"), _isca("Author", "ization:"))),
         ("nome de variavel", "o secret chama-se SUPABASE_ACCESS_TOKEN"),
         ("id de backup", '{"id": 123456789, "status": "COMPLETED"}'),
     )

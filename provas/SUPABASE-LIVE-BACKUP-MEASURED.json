@@ -1,0 +1,223 @@
+{
+  "HTTP_STATUS": 200,
+  "BACKUPS_VISIBLE": "YES",
+  "BACKUP_COUNT": 7,
+  "LATEST_BACKUP_TIMESTAMP": "2026-09-13T03:05:36.879000+00:00",
+  "OLDEST_BACKUP_TIMESTAMP": "2026-09-07T03:07:43.374000+00:00",
+  "BACKUP_RETENTION_OBSERVED": "6.00 dias entre o backup mais antigo e o mais recente listados",
+  "BACKUP_TYPES": [
+    "PHYSICAL"
+  ],
+  "PHYSICAL_BACKUP_OBSERVED": "YES",
+  "PITR_OBSERVED": "YES",
+  "PITR_ENABLED": "NO",
+  "BACKUP_SCHEDULE": "UNKNOWN",
+  "RESTORE_SOURCE_AVAILABLE": "YES",
+  "REGION_OBSERVED": "eu-west-1",
+  "WALG_ENABLED": true,
+  "HORAS_SUSPEITAS": [],
+  "CAMPOS_IGNORADOS": [],
+  "BACKUP_RETENTION_OBSERVED_SIGNIFICA": "a distancia entre o mais antigo e o mais recente que a API mostrou HOJE. NAO e a politica de retencao do plano: um projeto novo mostra pouco sem que a retencao seja pouca.",
+  "BACKUPS": [
+    {
+      "id": 1659467399,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-13T03:05:36.879Z",
+      "is_physical_backup": true
+    },
+    {
+      "id": 1649662801,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-12T03:07:35.384Z",
+      "is_physical_backup": true
+    },
+    {
+      "id": 1639785447,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-11T03:07:01.839Z",
+      "is_physical_backup": true
+    },
+    {
+      "id": 1629860455,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-10T03:07:49.737Z",
+      "is_physical_backup": true
+    },
+    {
+      "id": 1619912022,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-09T03:05:14.915Z",
+      "is_physical_backup": true
+    },
+    {
+      "id": 1610002858,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-08T03:08:54.021Z",
+      "is_physical_backup": true
+    },
+    {
+      "id": 1600007469,
+      "status": "COMPLETED",
+      "inserted_at": "2026-09-07T03:07:43.374Z",
+      "is_physical_backup": true
+    }
+  ],
+  "HORAS_USADAS": 7,
+  "PHYSICAL_BACKUP_WINDOW": {
+    "earliest_physical_backup_date_unix": null,
+    "latest_physical_backup_date_unix": null
+  },
+  "RESTORE_SOURCE_AVAILABLE_SIGNIFICA": "existe uma FONTE listada pela API. NAO significa que um restauro corra, nem que corra neste projeto, nem que o resultado sirva. SAME_PLATFORM_RESTORE continua NOT_RUN.",
+  "PORQUE_SCHEDULE_UNKNOWN": "a Management API nao expoe endpoint read-only de agendamento de backup. UNKNOWN por ausencia de rota — nao por 403 e nao por falha. Ampliar escopo nao resolveria.",
+  "PROVA": "SUPABASE-LIVE-BACKUP-MEASURED",
+  "MEDIDO_EM": "2026-09-14T02:11:39+00:00",
+  "PROJECT_REF": "odhdwvugikjdvkapbowe",
+  "PROJECT_NAME_ESPERADO": "eame-sintonia",
+  "PROJECT_NAME_MEDIDO": "NOT_MEASURED",
+  "PORQUE_NOME_NAO_MEDIDO": "o nome vive em GET /v1/projects, que exige escopo de projeto e nao de backups. Nao foi chamado: esta missao nao amplia escopo.",
+  "DEV_REF_NAO_TOCADO": "xhqebdweltytnghiavew",
+  "ESCRITAS_NO_DEV": 0,
+  "METODO": {
+    "METODOS_HTTP_USADOS": [
+      "GET"
+    ],
+    "ENDPOINT": "/v1/projects/odhdwvugikjdvkapbowe/database/backups",
+    "TOKEN_EM_ARGV": "NAO",
+    "TOKEN_EM_FICHEIRO": "NAO",
+    "TOKEN_EM_URL": "NAO",
+    "ECHO_DO_TOKEN": "NAO",
+    "VARREDURA_DE_VAZAMENTO": "SIM",
+    "VARREDOR_AUTOTESTADO": "SIM",
+    "PERMISSOES_DO_WORKFLOW": "contents: read",
+    "ESCRITAS": 0,
+    "DDL": 0,
+    "SQL_NO_LIVE": 0,
+    "RESTAUROS": 0
+  },
+  "MANAGEMENT_TOKEN_WORKED": "YES",
+  "SAME_PLATFORM_RESTORE": "NOT_RUN",
+  "PORQUE_RESTORE_NOT_RUN": "esta missao mede e nao restaura. Nenhum backup listado promove SAME_PLATFORM_RESTORE: so um restauro EXECUTADO o faria.",
+  "LIVE_BACKUP_PREFLIGHT": "PASS",
+  "READY_FOR_LIVE_APPLY": "NO",
+  "PORQUE_NAO_PRONTO": "a lei em vigor exige SAME_PLATFORM_RESTORE executado, e ele continua NOT_RUN. Medir backup remove UNKNOWN; nao relaxa portao.",
+  "LIVE_READS": 1,
+  "LIVE_WRITES": 0,
+  "LIVE_DDL": 0,
+  "REAL_COLLECTION": 0,
+  "RED_TEAM": {
+    "RED_TEAM_ATTACKS": 22,
+    "RED_TEAM_SURVIVORS": 0,
+    "ATAQUES": {
+      "A01": {
+        "ATAQUE": "secret ausente e a medicao continua como se tivesse corrido",
+        "RESULTADO": "APANHADO",
+        "COMO": "sem SUPABASE_ACCESS_TOKEN o processo aborta com codigo 1 antes de qualquer GET; nao ha artefacto para confundir com medicao"
+      },
+      "A02": {
+        "ATAQUE": "token invalido tratado como medicao valida",
+        "RESULTADO": "APANHADO",
+        "COMO": "401 nao preenche campo nenhum: tudo fica NOT_MEASURED e a causa vai para PORQUE_NAO_MEDIDO"
+      },
+      "A03": {
+        "ATAQUE": "401 chamado de «sem backup»",
+        "RESULTADO": "APANHADO",
+        "COMO": "so um 200 pode escrever BACKUPS_VISIBLE; 401 escreve NOT_MEASURED"
+      },
+      "A04": {
+        "ATAQUE": "403 chamado de «sem backup»",
+        "RESULTADO": "APANHADO",
+        "COMO": "403 e escopo insuficiente, e fica dito assim — o campo continua NOT_MEASURED"
+      },
+      "A05": {
+        "ATAQUE": "404 chamado de «sem backup»",
+        "RESULTADO": "APANHADO",
+        "COMO": "404 e rota/projeto inexistente para esta credencial, e nao ausencia de backup"
+      },
+      "A06": {
+        "ATAQUE": "resposta vazia tratada como erro",
+        "RESULTADO": "APANHADO",
+        "COMO": "200 com lista vazia e MEDICAO: escreve BACKUPS_VISIBLE=NO, que e resposta e nao falha"
+      },
+      "A07": {
+        "ATAQUE": "backup diario tratado como PITR",
+        "RESULTADO": "APANHADO",
+        "COMO": "PITR_ENABLED so se escreve a partir do campo pitr_enabled da API; a existencia de backups nunca lhe toca"
+      },
+      "A08": {
+        "ATAQUE": "PITR UNKNOWN tratado como NO",
+        "RESULTADO": "APANHADO",
+        "COMO": "campo ausente -> PITR_ENABLED=UNKNOWN. So um false explicito vira NO"
+      },
+      "A09": {
+        "ATAQUE": "backup listado tratado como restauro provado",
+        "RESULTADO": "APANHADO",
+        "COMO": "RESTORE_SOURCE_AVAILABLE diz FONTE. SAME_PLATFORM_RESTORE fica NOT_RUN por construcao: esta prova nao restaura"
+      },
+      "A10": {
+        "ATAQUE": "timestamp futuro aceite como backup real",
+        "RESULTADO": "APANHADO",
+        "COMO": "hora_valida() marca FUTURA e a hora sai do calculo de latest/oldest"
+      },
+      "A11": {
+        "ATAQUE": "timestamp invalido aceite, ou hora desaparecida em silencio",
+        "RESULTADO": "APANHADO",
+        "COMO": "cada backup ou entrou no calculo (HORAS_USADAS=7) ou foi marcado suspeito; a soma tem de bater com BACKUP_COUNT"
+      },
+      "A12": {
+        "ATAQUE": "token a vazar no log",
+        "RESULTADO": "APANHADO",
+        "COMO": "nao ha curl: o cabecalho e montado dentro do processo. Nenhum print toca a variavel, e o workflow nao tem set -x"
+      },
+      "A13": {
+        "ATAQUE": "token a vazar no artefacto",
+        "RESULTADO": "APANHADO",
+        "COMO": "sem_vazamento() procura o valor literal do token e a FORMA de uma credencial no texto ANTES de gravar; e autoteste_do_varredor() prova que ele ainda apanha seis credenciais falsas e nao reprova prosa"
+      },
+      "A14": {
+        "ATAQUE": "cabecalho Authorization persistido",
+        "RESULTADO": "APANHADO",
+        "COMO": "o cabecalho vive num objeto Request em memoria e morre com o processo; nada dele e escrito"
+      },
+      "A15": {
+        "ATAQUE": "projeto dev usado por engano",
+        "RESULTADO": "APANHADO",
+        "COMO": "o ref e constante no ficheiro, e confere-se contra o dev antes de gravar"
+      },
+      "A16": {
+        "ATAQUE": "project_ref errado",
+        "RESULTADO": "APANHADO",
+        "COMO": "o ref pedido e o ref gravado sao o mesmo literal, e a API so responde 200 para um projeto que a credencial alcanca"
+      },
+      "A17": {
+        "ATAQUE": "POST usado sem querer",
+        "RESULTADO": "APANHADO",
+        "COMO": "so_get() fixa method=GET e e a unica porta de rede deste ficheiro"
+      },
+      "A18": {
+        "ATAQUE": "workflow com permissao excessiva",
+        "RESULTADO": "APANHADO",
+        "COMO": "o job nao escreve no repositorio nem publica nada"
+      },
+      "A19": {
+        "ATAQUE": "resultado de documentacao tratado como resultado da API",
+        "RESULTADO": "APANHADO",
+        "COMO": "esta prova nao carrega documentacao nenhuma: todo campo vem do corpo da resposta ou fica UNKNOWN"
+      },
+      "A20": {
+        "ATAQUE": "artefacto antigo tratado como medicao atual",
+        "RESULTADO": "APANHADO",
+        "COMO": "MEDIDO_EM e gravado a cada corrida, e o ficheiro e reescrito inteiro; o run do GitHub e que o data"
+      },
+      "A21": {
+        "ATAQUE": "retencao observada tratada como politica de retencao",
+        "RESULTADO": "APANHADO",
+        "COMO": "o artefacto carrega, ao lado do numero, a frase que diz que ele e a janela VISIVEL hoje e nao a politica do plano"
+      },
+      "A22": {
+        "ATAQUE": "BLOCKED promovido a PARTIAL por ter havido resposta HTTP",
+        "RESULTADO": "APANHADO",
+        "COMO": "o portao le campos MEDIDOS, e um codigo HTTP nao e um campo medido"
+      }
+    }
+  }
+}
