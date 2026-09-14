@@ -136,7 +136,20 @@ TEXT_RELATION = pv.ORIGINAL
 TEXT_BASIS = pv.PRODUCED_BY_LOCAL_ASR
 
 #: O `kind` da linha do derivado, na língua da tabela.
-KIND = "AUDIO_TRANSCRIPTION"
+#:
+#: ⚠️ ESCREVI `AUDIO_TRANSCRIPTION` E O BANCO RECUSOU — COM RAZÃO.
+#: `migration 022` tem uma lista FECHADA de sete valores, e um deles já era
+#: `'TRANSCRIPTION'`, com o comentário `-- whisper sobre audio` ao lado. A casa
+#: tinha reservado a palavra antes de existir quem a usasse.
+#:
+#: O sintoma foi caro de ler: a etapa saiu `DERIVED FAIL · {'ERROR': 1}` e o
+#: motivo era `METADATA_NOT_RECONCILED` — «os bytes ficaram no armazém e a
+#: linha não entrou». Parecia avaria de escrita, e era um nome inventado a
+#: bater numa trava que funcionava.
+#:
+#:     ANTES DE CRIAR UM NOME, PROCURAR SE A CASA JÁ TEM UM.
+#:     UMA LISTA FECHADA É UM VOCABULÁRIO, E NÃO UM OBSTÁCULO.
+KIND = "TRANSCRIPTION"
 
 
 def ha_ferramenta() -> bool:

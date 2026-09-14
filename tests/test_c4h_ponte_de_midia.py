@@ -319,6 +319,35 @@ class ORunnerDespacha(unittest.TestCase):
         self.assertIn('"MEDIA_TYPE": o.get("MEDIA_TYPE")', fonte)
 
 
+class OKindCabeNaListaFechada(unittest.TestCase):
+    """⚠️ O BANCO TEM UMA LISTA FECHADA, E ELA E O VOCABULARIO.
+
+    `migration 022` declara sete valores para `derived_artifact.kind`. Escrever
+    um nome fora dela faz o insert falhar com `METADATA_NOT_RECONCILED` — que
+    se le como avaria de escrita, quando e um nome inventado a bater numa trava
+    que funciona.
+
+        ANTES DE CRIAR UM NOME, PROCURAR SE A CASA JA TEM UM.
+    """
+
+    def test_o_kind_da_ponte_existe_na_migration(self):
+        caminho = os.path.join(RAIZ, "supabase", "migrations",
+                               "022_o_derivado_ganha_casa.sql")
+        sql = open(caminho, encoding="utf-8").read()
+        i = sql.index("kind            text not null check (kind in (")
+        bloco = sql[i:sql.index("))", i)]
+        self.assertIn("'%s'" % midia.KIND, bloco,
+                      "o kind da ponte nao esta na lista fechada do banco")
+
+    def test_o_kind_do_pdf_continua_a_existir(self):
+        """Controlo: se esta leitura estivesse partida, a de cima passaria a toa."""
+        caminho = os.path.join(RAIZ, "supabase", "migrations",
+                               "022_o_derivado_ganha_casa.sql")
+        sql = open(caminho, encoding="utf-8").read()
+        self.assertIn("'TEXT_EXTRACTION'", sql)
+        self.assertNotIn("'AUDIO_TRANSCRIPTION'", sql)
+
+
 class AFichaDeCapacidade(unittest.TestCase):
     def test_a_ficha_declara_o_que_aceita_e_o_que_produz(self):
         c = midia.CAPACIDADE
