@@ -1,0 +1,2442 @@
+{
+ "SCHEMA": "sintonia.system-map-v2.measured/1",
+ "PROVENANCE": {
+  "REPO": "lucianodalondon-sys/eame-sintonia",
+  "BRANCH": "claude/dazzling-sagan-s53805",
+  "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+  "GENERATED_AT": "2026-09-12T18:49:29-03:00"
+ },
+ "FILES_TRACKED": 1315,
+ "DEPARTAMENTOS": [
+  {
+   "id": "D-FONTES",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "consulta-se antes de coletar"
+   }
+  },
+  {
+   "id": "D-COLETA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Ferramenta, veiculo e acao sao TRES coisas"
+   }
+  },
+  {
+   "id": "D-ESPERA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "A SALA DE ESPERA e cinzenta de proposito"
+   }
+  },
+  {
+   "id": "D-INTELIGENCIA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "a inteligencia tem UM dono"
+   }
+  },
+  {
+   "id": "D-VALIDACAO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "FRONTEIRA E PORTOES"
+   }
+  },
+  {
+   "id": "D-PORTAL",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "tela nao recalcula decisao do motor"
+   }
+  }
+ ],
+ "CONCEITOS": [
+  {
+   "id": "S-ACERVO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "consulta-se antes de coletar"
+   },
+   "ficheiros": [
+    "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+    "docs/fontes/INDICE-DE-FONTES.md",
+    "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+    "fontes/adama_catalogo_ler.py",
+    "fontes/adama_catalogo_montar.py",
+    "fontes/adama_it_eu.py",
+    "fontes/adama_it_frac.py",
+    "fontes/adama_it_gaps.py",
+    "fontes/adama_it_intelligence.py",
+    "fontes/adama_it_labels.py",
+    "fontes/adama_it_moa.py",
+    "fontes/adama_it_qa.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 157144,
+     "path": "system-map/data/sources.generated.json",
+     "prova": "o scanner de fontes leu o atlas e os contratos e devolveu as fontes medidas"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "F-ATLAS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "uma linha so existe aqui depois que alguem abriu a fonte"
+   },
+   "ficheiros": [
+    "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+    "docs/fontes/INDICE-DE-FONTES.md",
+    "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+    "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "F-ADAMA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "ADAMA REGISTERED RESPONSE"
+   },
+   "ficheiros": [
+    "fontes/adama_catalogo_ler.py",
+    "fontes/adama_catalogo_montar.py",
+    "fontes/adama_it_eu.py",
+    "fontes/adama_it_frac.py",
+    "fontes/adama_it_gaps.py",
+    "fontes/adama_it_intelligence.py",
+    "fontes/adama_it_labels.py",
+    "fontes/adama_it_moa.py",
+    "fontes/adama_it_qa.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-CANDIDATAS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "O que entra pela porta e candidata, nunca fonte"
+   },
+   "ficheiros": [
+    "candidatas/FONTES-CANDIDATAS.json",
+    "candidatas/ITALY-SOURCE-MASTER-V1.json",
+    "candidatas/ITALY-SOURCE-MASTER-V1.md",
+    "candidatas/fonte_nova.py",
+    "candidatas/italy_fill_manifests.mjs",
+    "candidatas/italy_fill_manifests_browser.mjs",
+    "candidatas/italy_fix_semantics.mjs",
+    "candidatas/italy_profiles.mjs",
+    "candidatas/italy_update_master_browser.mjs",
+    "candidatas/italy_write_matrix.mjs"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 642,
+     "path": "candidatas/FONTES-CANDIDATAS.json",
+     "prova": "a fila de candidatas existe e tem conteudo"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-PEDIDO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "um contrato de entrada que diga"
+   },
+   "ficheiros": [
+    "pedido/pedido.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 19706,
+     "path": "data/samples/RUN-MANIFEST.json",
+     "prova": "ha recibos de corridas nascidas de um pedido, com RUN_ID no formato que o orquestrador emite"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-ORQUESTRADOR",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "ORQUESTRADOR"
+   },
+   "ficheiros": [
+    "pedido/orquestrador.py",
+    "pedido/receitas.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 19706,
+     "path": "data/samples/RUN-MANIFEST.json",
+     "prova": "tres recibos assinados em 2026-09-07 (XX-T7, XX-T9, XX-T4), todos STATUS=OK"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "O-RECEITA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "consulta-se antes de coletar"
+   },
+   "ficheiros": [
+    "pedido/receitas.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-EXECUTORES",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Ferramenta, veiculo e acao sao TRES coisas"
+   },
+   "ficheiros": [
+    "coleta/agrifood_ue.py",
+    "coleta/cellar.sh",
+    "coleta/coleta_checkpoint.py",
+    "coleta/coletor.py",
+    "coleta/comunicacao_classificar.py",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/corpus_pesquisador.py",
+    "coleta/cruzar_regua_rotulo.py",
+    "coleta/denominaciones.py",
+    "coleta/ephy.sh",
+    "coleta/eppo_gd.py",
+    "coleta/es/corpus_es.py",
+    "coleta/eu_substancia_adama_it.py",
+    "coleta/filas.py",
+    "coleta/gire_mapas.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_diario.py",
+    "coleta/instagram_janela.py",
+    "coleta/instagram_pessoal.py",
+    "coleta/italy_find_docs.mjs",
+    "coleta/italy_pilot_collect.mjs",
+    "coleta/italy_probe.mjs",
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/mapa_regfi.py",
+    "coleta/pdf_text.py",
+    "coleta/preservar_pdf.py",
+    "coleta/regulatorio_importar.py",
+    "coleta/ropf_pre_requisito.py",
+    "coleta/rotulos_baixar.py",
+    "coleta/rotulos_ler.py",
+    "coleta/sensor_canal_identidade.py",
+    "coleta/speaker_identidade.py",
+    "coleta/speaker_universo.py",
+    "coleta/texto_fonte.py",
+    "coleta/universo_ciencia_it.py",
+    "coleta/youtube_janela.py",
+    "coleta/youtube_relevancia.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "E-SOCIAL",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "ATIVACAO OBSERVADA"
+   },
+   "ficheiros": [
+    "coleta/comunicacao_classificar.py",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_diario.py",
+    "coleta/instagram_janela.py",
+    "coleta/instagram_pessoal.py",
+    "coleta/sensor_canal_identidade.py",
+    "coleta/speaker_identidade.py",
+    "coleta/speaker_universo.py",
+    "coleta/youtube_janela.py",
+    "coleta/youtube_relevancia.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "E-CIENCIA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "Um caso de convergencia cruza"
+   },
+   "ficheiros": [
+    "coleta/corpus_pesquisador.py",
+    "coleta/es/corpus_es.py",
+    "coleta/universo_ciencia_it.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "E-ROTULOS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "registro oficial nacional"
+   },
+   "ficheiros": [
+    "coleta/cruzar_regua_rotulo.py",
+    "coleta/pdf_text.py",
+    "coleta/preservar_pdf.py",
+    "coleta/rotulos_baixar.py",
+    "coleta/rotulos_ler.py",
+    "coleta/texto_fonte.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "E-OFICIAIS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "ato europeu"
+   },
+   "ficheiros": [
+    "coleta/agrifood_ue.py",
+    "coleta/cellar.sh",
+    "coleta/denominaciones.py",
+    "coleta/ephy.sh",
+    "coleta/eppo_gd.py",
+    "coleta/eu_substancia_adama_it.py",
+    "coleta/gire_mapas.py",
+    "coleta/mapa_regfi.py",
+    "coleta/regulatorio_importar.py",
+    "coleta/ropf_pre_requisito.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "E-ITALIA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+    "anchor": "IT-"
+   },
+   "ficheiros": [
+    "coleta/italy_find_docs.mjs",
+    "coleta/italy_pilot_collect.mjs",
+    "coleta/italy_probe.mjs",
+    "coleta/italy_recurrent_collect.mjs"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-FERRAMENTAS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "com **que** se viaja"
+   },
+   "ficheiros": [
+    "ferramentas/apify_contrato.py",
+    "ferramentas/apify_pool.py",
+    "ferramentas/apify_recuperar.py",
+    "ferramentas/cdp.py",
+    "ferramentas/contrato_ator.py",
+    "ferramentas/html_text.mjs",
+    "ferramentas/instagram_transcrever.py",
+    "ferramentas/italy-forward-only-live.cmd",
+    "ferramentas/italy_extract_fields.mjs",
+    "ferramentas/navegador.py",
+    "ferramentas/ods_peek.mjs",
+    "ferramentas/pdf_peek.mjs",
+    "ferramentas/youtube_transcrever.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "T-APIFY",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Apify"
+   },
+   "ficheiros": [
+    "ferramentas/apify_contrato.py",
+    "ferramentas/apify_pool.py",
+    "ferramentas/apify_recuperar.py",
+    "ferramentas/contrato_ator.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "T-NAVEGADOR",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "o navegador"
+   },
+   "ficheiros": [
+    "ferramentas/cdp.py",
+    "ferramentas/navegador.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "T-TRANSCRICAO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "a transcricao"
+   },
+   "ficheiros": [
+    "ferramentas/instagram_transcrever.py",
+    "ferramentas/youtube_transcrever.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "T-LEITORES",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "abrir PDF"
+   },
+   "ficheiros": [
+    "ferramentas/html_text.mjs",
+    "ferramentas/italy_extract_fields.mjs",
+    "ferramentas/ods_peek.mjs",
+    "ferramentas/pdf_peek.mjs"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-CANAIS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "de **onde** o dado vem"
+   },
+   "ficheiros": [],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-SCRAP",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": ".github/workflows/scrap-social.yml",
+    "anchor": "Este workflow NAO e um segundo motor"
+   },
+   "ficheiros": [
+    ".github/workflows/apify-conexao.yml",
+    ".github/workflows/apify-sensores.yml",
+    ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "SC-INSTAGRAM",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": ".github/workflows/sintonia-scrap.yml",
+    "anchor": "LOTE CONGELADO"
+   },
+   "ficheiros": [
+    ".github/workflows/sintonia-scrap.yml"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": [
+    {
+     "tipo": "FICHEIRO_EXIGIDO_AUSENTE",
+     "exigido_por": ".github/workflows/sintonia-scrap.yml",
+     "porque": "o passo 0 do despacho confere estes ficheiros e aborta a corrida se algum faltar",
+     "caminhos": [
+      "scripts/instagram_coleta.py",
+      "scripts/instagram_janela.py",
+      "scripts/instagram_diario.py",
+      "scripts/instagram_transcrever.py",
+      "scripts/instagram_pessoal.py",
+      "scripts/cdp.py",
+      "scripts/navegador.py",
+      "scripts/contrato_ator.py",
+      "scripts/youtube_janela.py",
+      "scripts/youtube_relevancia.py",
+      "scripts/youtube_transcrever.py"
+     ],
+     "ausentes": [
+      "scripts/instagram_coleta.py",
+      "scripts/instagram_janela.py",
+      "scripts/instagram_diario.py",
+      "scripts/instagram_transcrever.py",
+      "scripts/instagram_pessoal.py",
+      "scripts/cdp.py",
+      "scripts/navegador.py",
+      "scripts/contrato_ator.py",
+      "scripts/youtube_janela.py",
+      "scripts/youtube_relevancia.py",
+      "scripts/youtube_transcrever.py"
+     ],
+     "bloqueia": true
+    }
+   ]
+  },
+  {
+   "id": "SC-SOCIAL",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": ".github/workflows/scrap-social.yml",
+    "anchor": "can do != did do"
+   },
+   "ficheiros": [
+    ".github/workflows/scrap-social.yml"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": [
+    {
+     "tipo": "FICHEIRO_EXIGIDO_AUSENTE",
+     "exigido_por": ".github/workflows/scrap-social.yml",
+     "porque": "o workflow manda rodar estes dois ficheiros; sem eles a corrida rebenta no import",
+     "caminhos": [
+      "guarda/social_guarda.py",
+      "coleta/social_scrap.py"
+     ],
+     "ausentes": [
+      "guarda/social_guarda.py",
+      "coleta/social_scrap.py"
+     ],
+     "bloqueia": true
+    }
+   ]
+  },
+  {
+   "id": "S-REGUAS-CARIMBO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Regua que carimba nao e regua que mede"
+   },
+   "ficheiros": [
+    "regras/LEIA-ANTES-DE-COLETAR.md",
+    "regras/comunicacao_identidade.py",
+    "regras/comunicacao_lote.py",
+    "regras/comunicacao_universo.py",
+    "regras/italy_contract_test.mjs",
+    "regras/italy_contracts.mjs",
+    "regras/italy_pilot_guards.mjs",
+    "regras/italy_scheduling_guards.mjs",
+    "regras/italy_source_health.mjs",
+    "regras/proveniencia.py",
+    "regras/rotulos_censo.py",
+    "regras/sensor_coleta.py",
+    "regras/sensor_medir.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 6493,
+     "path": "regras/LEIA-ANTES-DE-COLETAR.md",
+     "prova": "a porta unica das reguas e gerada do mapa e lista cada regua com o ficheiro onde vive"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-ADMISSAO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "PORTA DE ADMISSAO"
+   },
+   "ficheiros": [
+    "admissao/admissao.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 224131,
+     "path": "data/samples/LIVRO-DE-DECISOES.json",
+     "prova": "506 decisoes escritas em seis corridas de 2026-09-07"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-MEDIDAS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Medir nao e filtrar"
+   },
+   "ficheiros": [
+    "medidas/PADRAO-DA-COLETA-CHAO.json",
+    "medidas/PORTOES-DE-COLETA-10B.md",
+    "medidas/REGRA-DE-COLETA-EXTERNA-EAME.md",
+    "medidas/cicatrizes_brasil.py",
+    "medidas/fato_local.py",
+    "medidas/lugar_do_fato.py",
+    "medidas/padrao_da_coleta.py",
+    "medidas/portao.py",
+    "medidas/portoes_eame.py",
+    "medidas/source_health.py",
+    "medidas/voz.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 13017,
+     "path": "medidas/PADRAO-DA-COLETA-CHAO.json",
+     "prova": "o chao medido esta gravado e o CI reprova quando o numero piora"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-PRONTOS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "A SALA DE ESPERA e cinzenta de proposito"
+   },
+   "ficheiros": [],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": false,
+     "tipo": null,
+     "path": "data/samples/PRONTO-PARA-INTELIGENCIA",
+     "prova": "a bandeja teria um ficheiro por corrida admitida"
+    }
+   ],
+   "impedimentos": [
+    {
+     "tipo": "BANDEJA_VAZIA",
+     "exigido_por": "pedido/orquestrador.py",
+     "porque": "e aqui que a bandeja seria escrita, uma vez por corrida admitida",
+     "caminhos": [
+      "data/samples/PRONTO-PARA-INTELIGENCIA"
+     ],
+     "ausentes": [
+      "data/samples/PRONTO-PARA-INTELIGENCIA"
+     ],
+     "bloqueia": true
+    }
+   ]
+  },
+  {
+   "id": "S-AMOSTRAS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": ".gitignore",
+    "anchor": "Evidencia preservavel vai para data/samples/, que E versionado"
+   },
+   "ficheiros": [
+    "data/samples/LIVRO-DE-DECISOES.json",
+    "data/samples/RUN-MANIFEST.json"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "pasta",
+     "itens": 376,
+     "path": "data/samples",
+     "prova": "a pasta de amostras existe e esta versionada"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-BANCO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "A SALA DE ESPERA"
+   },
+   "ficheiros": [
+    ".github/workflows/supabase-conexao.yml",
+    ".github/workflows/supabase-fichas-adama.yml",
+    ".github/workflows/supabase-migrate.yml",
+    ".github/workflows/supabase-raw-roundtrip.yml",
+    ".github/workflows/supabase-storage.yml",
+    "guarda/catalogo_importar.py",
+    "guarda/es/adama_es_gate.py",
+    "guarda/es/adama_es_import_rules.py",
+    "guarda/es/workflows/LEIA.md",
+    "guarda/es/workflows/adama-es-gate.yml",
+    "guarda/importar_italia.py",
+    "guarda/sql_conferir.py",
+    "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+    "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+    "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
+    "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
+    "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+    "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
+    "supabase/fixtures/es_calendario_mvp.sql",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+    "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+    "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
+    "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+    "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+    "supabase/migrations/002_identidade_pessoa_org_canal.sql",
+    "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
+    "supabase/migrations/004_crop_issue_par_explicito.sql",
+    "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql",
+    "supabase/migrations/006_regulatorio_e_rls.sql",
+    "supabase/migrations/007_views_de_apoio.sql",
+    "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+    "supabase/migrations/009_semantica_de_pais.sql",
+    "supabase/migrations/010_calendario_agronomico.sql",
+    "supabase/migrations/011_calendario_consultas.sql",
+    "supabase/migrations/012_contexto_temporal_do_caso.sql",
+    "supabase/migrations/013_captura_nao_e_registro.sql",
+    "supabase/migrations/014_catalogo_publico_fabricante.sql",
+    "supabase/migrations/015_cicatrizes_do_brasil.sql",
+    "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
+    "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql",
+    "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
+    "supabase/migrations/019_camada_ue_e_resistencia.sql",
+    "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
+    "supabase/migrations/021_fato_externo_publicado.sql",
+    "supabase/tests/mutacao_cicatrizes.sql",
+    "supabase/tests/mutacao_coleta.sql",
+    "supabase/tests/mutacao_lugar_do_fato.sql",
+    "supabase/tests/regressoes_calendario.sql",
+    "supabase/tests/regressoes_captura.sql",
+    "supabase/tests/regressoes_catalogo_es.sql",
+    "supabase/tests/regressoes_cicatrizes.sql",
+    "supabase/tests/regressoes_coleta.sql",
+    "supabase/tests/regressoes_lugar_do_fato.sql",
+    "supabase/tests/regressoes_regulatorio_es.sql"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-PRESERVACAO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "metade sao ferramentas de mao"
+   },
+   "ficheiros": [
+    "guarda/italy_preserve.mjs"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-DONO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "a inteligencia tem UM dono"
+   },
+   "ficheiros": [
+    "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "italia-portale/audit/STALE-GENERATOR-CONTROL.json"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 8332059,
+     "path": "italia-portale/client/italy-handoff-v21.js",
+     "prova": "o pacote embarcado carrega o BUILD_ID que o contrato declara esperado"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-LEIS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "fonte/location do documento nao vira local do fato"
+   },
+   "ficheiros": [
+    "leis/adama_relevance.py",
+    "leis/auditoria_regua_comercial.py",
+    "leis/calendario_handoff.py",
+    "leis/data_clock.py",
+    "leis/regua_italia.py",
+    "leis/v21_carimbar_origem.py",
+    "leis/v21_datas.py",
+    "leis/v21_geografia_contrato.py",
+    "leis/v21_procedencia_contrato.py",
+    "leis/v21_procedencia_religar.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-MOTOR",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "CANONICAL_GENERATOR"
+   },
+   "ficheiros": [
+    "motor/cadeia_canonica.sh",
+    "motor/consolidar_leque.py",
+    "motor/matriz_recorte.py",
+    "motor/normalize_agro.py",
+    "motor/normalize_substance.py",
+    "motor/pacote_convergencia.py",
+    "motor/pacote_normalizar.py",
+    "motor/v21_aceitacao.py",
+    "motor/v21_adama_registro_validar.py",
+    "motor/v21_antes_e_depois.py",
+    "motor/v21_cadeia.sh",
+    "motor/v21_campos_de_lingua.py",
+    "motor/v21_comercial.py",
+    "motor/v21_completude_oportunidade.py",
+    "motor/v21_contrato_do_pacote.py",
+    "motor/v21_crossings.py",
+    "motor/v21_dominio_da_alegacao.py",
+    "motor/v21_fechar.py",
+    "motor/v21_fontes_faltantes.py",
+    "motor/v21_fontes_rechavear.py",
+    "motor/v21_ingest.py",
+    "motor/v21_ingest_b.py",
+    "motor/v21_ingest_c.py",
+    "motor/v21_necessidade.py",
+    "motor/v21_normalizar.py",
+    "motor/v21_oportunidades.py",
+    "motor/v21_reavaliar_35.py",
+    "motor/v21_reverificacao_ledger.py",
+    "motor/v21_tm_colher.py",
+    "motor/v21_traducao_trava.py",
+    "motor/v21_vozes_reconciliar.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "M-CRUZAMENTOS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+    "anchor": "cruzamento"
+   },
+   "ficheiros": [
+    "motor/pacote_convergencia.py",
+    "motor/v21_crossings.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "M-SINAIS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "PRIORITY TO INVESTIGATE"
+   },
+   "ficheiros": [
+    "motor/v21_comercial.py",
+    "motor/v21_completude_oportunidade.py",
+    "motor/v21_necessidade.py",
+    "motor/v21_oportunidades.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "M-FECHAR",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "EXPECTED_BUILD_ID"
+   },
+   "ficheiros": [
+    "motor/v21_aceitacao.py",
+    "motor/v21_contrato_do_pacote.py",
+    "motor/v21_fechar.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-PACOTE",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "generated artifact* nao vira dono da lei"
+   },
+   "ficheiros": [
+    "pacote/lastmile_entregar.py",
+    "pacote/lastmile_inventario.py",
+    "pacote/lastmile_para_supabase.py",
+    "pacote/lastmile_relatorio.py",
+    "pacote/ler_saida_leque.py",
+    "pacote/meeting_snapshot.py",
+    "pacote/metricas_canonicas.py",
+    "pacote/pacote.py",
+    "pacote/pacote_camadas.py",
+    "pacote/pacote_camadas2.py",
+    "pacote/pacote_camadas3.py",
+    "pacote/pacote_docs.py",
+    "pacote/pacote_fenologia.py",
+    "pacote/pacote_mercado.py",
+    "pacote/pacote_montar.py",
+    "pacote/pacote_relacoes_convergencia.py",
+    "pacote/v21_handoff_json.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 1773,
+     "path": "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
+     "prova": "existe pacote construido e preservado na arvore"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-V2-LEGADO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "legacy"
+   },
+   "ficheiros": [
+    "motor/v2_conflitos.py",
+    "motor/v2_cruzamentos.py",
+    "motor/v2_dedup_e_familias.py",
+    "motor/v2_fechar.py",
+    "motor/v2_montar_handoff.py",
+    "motor/v2_qa_atribuir.py",
+    "motor/v2_relatorio.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-PORTAO-BUILD",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "FAIL_CLOSED"
+   },
+   "ficheiros": [
+    "italia-portale/audit/build-gate.mjs",
+    "italia-portale/audit/build-v21.mjs",
+    "portoes/build_portal.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-INGEST-SITE",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/site_v21_ingest.py",
+    "anchor": "PROSA QUE NAO EMBARCA NAO VAZA"
+   },
+   "ficheiros": [
+    "portoes/site_v21_ingest.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 8332059,
+     "path": "italia-portale/client/italy-handoff-v21.js",
+     "prova": "o ficheiro embarcado existe no cliente e carrega o BUILD_ID esperado"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-AUDITORIA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "italia-portale/audit/"
+   },
+   "ficheiros": [
+    "italia-portale/audit/BASELINE-SHA256.txt",
+    "italia-portale/audit/BLOCK-CONTRACTS.md",
+    "italia-portale/audit/DO-NOT-SHOW-QA.json",
+    "italia-portale/audit/DO-NOT-SHOW-SEMANTIC-REVIEW.json",
+    "italia-portale/audit/INGESTION-REPRODUCTION.json",
+    "italia-portale/audit/_adversarial-audit.md",
+    "italia-portale/audit/_block-reports.md",
+    "italia-portale/audit/_changes.txt",
+    "italia-portale/audit/_digest.md",
+    "italia-portale/audit/_markup-requests.md",
+    "italia-portale/audit/_occurrences.md",
+    "italia-portale/audit/_specs.json",
+    "italia-portale/audit/_v21-schema.md",
+    "italia-portale/audit/acceptance.mjs",
+    "italia-portale/audit/action-map-consistency.mjs",
+    "italia-portale/audit/adama-product-claim.mjs",
+    "italia-portale/audit/adama-relevance-gate.mjs",
+    "italia-portale/audit/baseline-reports/RAPPORTO-ARCHITETTURA.md",
+    "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE-2.md",
+    "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE-3.md",
+    "italia-portale/audit/baseline-reports/RAPPORTO-RICEVITORE.md",
+    "italia-portale/audit/baseline-reports/STATO-MISSIONE.md",
+    "italia-portale/audit/blocks.mjs",
+    "italia-portale/audit/blocks/archive.js",
+    "italia-portale/audit/blocks/archive.spec.json",
+    "italia-portale/audit/blocks/brief.js",
+    "italia-portale/audit/blocks/brief.spec.json",
+    "italia-portale/audit/blocks/calendar.js",
+    "italia-portale/audit/blocks/calendar.spec.json",
+    "italia-portale/audit/blocks/case.js",
+    "italia-portale/audit/blocks/case.spec.json",
+    "italia-portale/audit/blocks/competitor.js",
+    "italia-portale/audit/blocks/competitor.spec.json",
+    "italia-portale/audit/blocks/field.js",
+    "italia-portale/audit/blocks/field.spec.json",
+    "italia-portale/audit/blocks/future.js",
+    "italia-portale/audit/blocks/future.spec.json",
+    "italia-portale/audit/blocks/head.js",
+    "italia-portale/audit/blocks/head.spec.json",
+    "italia-portale/audit/blocks/helpers.js",
+    "italia-portale/audit/blocks/helpers.spec.json",
+    "italia-portale/audit/blocks/market.js",
+    "italia-portale/audit/blocks/market.spec.json",
+    "italia-portale/audit/blocks/nav.js",
+    "italia-portale/audit/blocks/nav.spec.json",
+    "italia-portale/audit/blocks/portfolio.js",
+    "italia-portale/audit/blocks/portfolio.spec.json",
+    "italia-portale/audit/blocks/product.js",
+    "italia-portale/audit/blocks/product.spec.json",
+    "italia-portale/audit/blocks/science.js",
+    "italia-portale/audit/blocks/science.spec.json",
+    "italia-portale/audit/blocks/search.js",
+    "italia-portale/audit/blocks/search.spec.json",
+    "italia-portale/audit/blocks/signal.js",
+    "italia-portale/audit/blocks/signal.spec.json",
+    "italia-portale/audit/blocks/voci.js",
+    "italia-portale/audit/blocks/voci.spec.json",
+    "italia-portale/audit/blocks/windows.js",
+    "italia-portale/audit/blocks/windows.spec.json",
+    "italia-portale/audit/brandwell.mjs",
+    "italia-portale/audit/browser-deep.mjs",
+    "italia-portale/audit/browser.mjs",
+    "italia-portale/audit/cadeia-de-familias.mjs",
+    "italia-portale/audit/casa-gate.mjs",
+    "italia-portale/audit/casco/brandwell-parita.mjs",
+    "italia-portale/audit/casco/censo-demo.mjs",
+    "italia-portale/audit/casco/censo-precedenza.mjs",
+    "italia-portale/audit/casco/demo-visibile.mjs",
+    "italia-portale/audit/casco/due-mappe.mjs",
+    "italia-portale/audit/casco/falso-zero.mjs",
+    "italia-portale/audit/casco/fase4-inventario.mjs",
+    "italia-portale/audit/casco/fonti-collegate.mjs",
+    "italia-portale/audit/casco/fonti-divario.mjs",
+    "italia-portale/audit/casco/fuga-tsr.mjs",
+    "italia-portale/audit/casco/mappa-azioni.mjs",
+    "italia-portale/audit/casco/parita-visiva.mjs",
+    "italia-portale/audit/casco/quarantatre.mjs",
+    "italia-portale/audit/casco/release-gate.mjs",
+    "italia-portale/audit/casco/ricchezza.mjs",
+    "italia-portale/audit/casco/sinale.mjs",
+    "italia-portale/audit/casco/sperimentali.mjs",
+    "italia-portale/audit/checks.mjs",
+    "italia-portale/audit/click-audit.mjs",
+    "italia-portale/audit/client-boundary.mjs",
+    "italia-portale/audit/client-surface.mjs",
+    "italia-portale/audit/competitor-population.mjs",
+    "italia-portale/audit/contract-numbers.mjs",
+    "italia-portale/audit/counters.mjs",
+    "italia-portale/audit/cta-navigation.mjs",
+    "italia-portale/audit/deploy-surface.mjs",
+    "italia-portale/audit/do-not-show.mjs",
+    "italia-portale/audit/exposure.mjs",
+    "italia-portale/audit/external-only.mjs",
+    "italia-portale/audit/future-ruler.mjs",
+    "italia-portale/audit/ingestion-provenance.mjs",
+    "italia-portale/audit/internal-token.mjs",
+    "italia-portale/audit/inventory.mjs",
+    "italia-portale/audit/lang.mjs",
+    "italia-portale/audit/lib/drive.mjs",
+    "italia-portale/audit/lib/harness.mjs",
+    "italia-portale/audit/lib/nav-names.mjs",
+    "italia-portale/audit/lib/pacote.mjs",
+    "italia-portale/audit/lib/scan.mjs",
+    "italia-portale/audit/link-asset.mjs",
+    "italia-portale/audit/lote-completo.mjs",
+    "italia-portale/audit/market-price-claim.mjs",
+    "italia-portale/audit/markup-flat.mjs",
+    "italia-portale/audit/markup-holes.mjs",
+    "italia-portale/audit/meeting-browser.mjs",
+    "italia-portale/audit/meeting-gate.mjs",
+    "italia-portale/audit/meeting-public.mjs",
+    "italia-portale/audit/mirror.mjs",
+    "italia-portale/audit/mobile.mjs",
+    "italia-portale/audit/negative-control.mjs",
+    "italia-portale/audit/opportunity-detail.mjs",
+    "italia-portale/audit/opportunity-hub.mjs",
+    "italia-portale/audit/opportunity-trace.mjs",
+    "italia-portale/audit/pdf-gate.mjs",
+    "italia-portale/audit/portfolio-claims.mjs",
+    "italia-portale/audit/probe-relationships.mjs",
+    "italia-portale/audit/probe-v21.mjs",
+    "italia-portale/audit/product-identity.mjs",
+    "italia-portale/audit/production.mjs",
+    "italia-portale/audit/prova-da-build.mjs",
+    "italia-portale/audit/publication-boundary.mjs",
+    "italia-portale/audit/reachability.mjs",
+    "italia-portale/audit/reconciliacao-do-catalogo.mjs",
+    "italia-portale/audit/responsive.mjs",
+    "italia-portale/audit/rtv-gate.mjs",
+    "italia-portale/audit/run.mjs",
+    "italia-portale/audit/screen-arithmetic.mjs",
+    "italia-portale/audit/serve.mjs",
+    "italia-portale/audit/snapshot-failure.mjs",
+    "italia-portale/audit/splice.mjs",
+    "italia-portale/audit/stale-generator-gate.mjs",
+    "italia-portale/audit/surface-contract.mjs",
+    "italia-portale/audit/upstream-ingestion.mjs",
+    "italia-portale/audit/v21-gate.mjs"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "A-BLOCOS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/BLOCK-CONTRACTS.md",
+    "anchor": "MUST STILL DEFINE"
+   },
+   "ficheiros": [
+    "italia-portale/audit/blocks.mjs",
+    "italia-portale/audit/blocks/archive.js",
+    "italia-portale/audit/blocks/archive.spec.json",
+    "italia-portale/audit/blocks/brief.js",
+    "italia-portale/audit/blocks/brief.spec.json",
+    "italia-portale/audit/blocks/calendar.js",
+    "italia-portale/audit/blocks/calendar.spec.json",
+    "italia-portale/audit/blocks/case.js",
+    "italia-portale/audit/blocks/case.spec.json",
+    "italia-portale/audit/blocks/competitor.js",
+    "italia-portale/audit/blocks/competitor.spec.json",
+    "italia-portale/audit/blocks/field.js",
+    "italia-portale/audit/blocks/field.spec.json",
+    "italia-portale/audit/blocks/future.js",
+    "italia-portale/audit/blocks/future.spec.json",
+    "italia-portale/audit/blocks/head.js",
+    "italia-portale/audit/blocks/head.spec.json",
+    "italia-portale/audit/blocks/helpers.js",
+    "italia-portale/audit/blocks/helpers.spec.json",
+    "italia-portale/audit/blocks/market.js",
+    "italia-portale/audit/blocks/market.spec.json",
+    "italia-portale/audit/blocks/nav.js",
+    "italia-portale/audit/blocks/nav.spec.json",
+    "italia-portale/audit/blocks/portfolio.js",
+    "italia-portale/audit/blocks/portfolio.spec.json",
+    "italia-portale/audit/blocks/product.js",
+    "italia-portale/audit/blocks/product.spec.json",
+    "italia-portale/audit/blocks/science.js",
+    "italia-portale/audit/blocks/science.spec.json",
+    "italia-portale/audit/blocks/search.js",
+    "italia-portale/audit/blocks/search.spec.json",
+    "italia-portale/audit/blocks/signal.js",
+    "italia-portale/audit/blocks/signal.spec.json",
+    "italia-portale/audit/blocks/voci.js",
+    "italia-portale/audit/blocks/voci.spec.json",
+    "italia-portale/audit/blocks/windows.js",
+    "italia-portale/audit/blocks/windows.spec.json"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "A-CASCO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "regras/LEIA-ANTES-DE-COLETAR.md",
+    "anchor": "Lista vazia e FALHA, nao zero"
+   },
+   "ficheiros": [
+    "italia-portale/audit/casco/brandwell-parita.mjs",
+    "italia-portale/audit/casco/censo-demo.mjs",
+    "italia-portale/audit/casco/censo-precedenza.mjs",
+    "italia-portale/audit/casco/demo-visibile.mjs",
+    "italia-portale/audit/casco/due-mappe.mjs",
+    "italia-portale/audit/casco/falso-zero.mjs",
+    "italia-portale/audit/casco/fase4-inventario.mjs",
+    "italia-portale/audit/casco/fonti-collegate.mjs",
+    "italia-portale/audit/casco/fonti-divario.mjs",
+    "italia-portale/audit/casco/fuga-tsr.mjs",
+    "italia-portale/audit/casco/mappa-azioni.mjs",
+    "italia-portale/audit/casco/parita-visiva.mjs",
+    "italia-portale/audit/casco/quarantatre.mjs",
+    "italia-portale/audit/casco/release-gate.mjs",
+    "italia-portale/audit/casco/ricchezza.mjs",
+    "italia-portale/audit/casco/sinale.mjs",
+    "italia-portale/audit/casco/sperimentali.mjs"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-PROVAS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "tests/"
+   },
+   "ficheiros": [
+    ".github/workflows/calendario-regressoes.yml",
+    "provas/auditoria.py",
+    "provas/chain.py",
+    "provas/corrigir_custo.py",
+    "provas/coverage.py",
+    "provas/es/freeze_es.py",
+    "provas/inventario_esperado.py",
+    "provas/italy_accounting.mjs",
+    "provas/italy_pilot_negativos.mjs",
+    "provas/testa_coleta_canonica.py",
+    "provas/testa_rota_italia.py",
+    "tests/.gitkeep",
+    "tests/es/test_adama_es_gate.py",
+    "tests/es/test_adama_es_import_rules.py",
+    "tests/fixtures/yt-raw-minimo.json",
+    "tests/test_adama_relevance.py",
+    "tests/test_calendario_temporal.py",
+    "tests/test_canonico.py",
+    "tests/test_cicatrizes_brasil.py",
+    "tests/test_coleta_externa.py",
+    "tests/test_coleta_resiliente.py",
+    "tests/test_competitor_layer.py",
+    "tests/test_completude_oportunidade.py",
+    "tests/test_comunicacao.py",
+    "tests/test_evidence.py",
+    "tests/test_handoff.py",
+    "tests/test_hero_cases_v1.py",
+    "tests/test_lugar_do_fato.py",
+    "tests/test_metricas.py",
+    "tests/test_migrations.py",
+    "tests/test_navegador.py",
+    "tests/test_operacao.py",
+    "tests/test_pipeline.py",
+    "tests/test_portao.py",
+    "tests/test_portoes_eame.py",
+    "tests/test_prioridade_comercial.py",
+    "tests/test_proveniencia.py",
+    "tests/test_radar_futuro.py",
+    "tests/test_v21_datas.py",
+    "tests/test_v21_geografia.py",
+    "tests/test_v21_mercado.py",
+    "tests/test_v21_traducao_trava.py",
+    "tests/test_voz.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [
+    {
+     "existe": true,
+     "tipo": "ficheiro",
+     "bytes": 6956,
+     "path": "provas/testa_coleta_canonica.py",
+     "prova": "existe prova executavel que percorre pedido, orquestrador e admissao de ponta a ponta"
+    }
+   ],
+   "impedimentos": []
+  },
+  {
+   "id": "S-MAPA",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "O mapa e derivado do repo"
+   },
+   "ficheiros": [
+    ".github/workflows/system-map.yml",
+    "system-map/app/index.html",
+    "system-map/app/map.css",
+    "system-map/app/map.js",
+    "system-map/scripts/censo_da_coleta.py",
+    "system-map/scripts/generate_system_map.py",
+    "system-map/scripts/mudar_gaveta.py",
+    "system-map/scripts/pente_fino_da_coleta.py",
+    "system-map/scripts/scan_casco.py",
+    "system-map/scripts/scan_repo.py",
+    "system-map/scripts/scan_sources.py",
+    "system-map/scripts/validate_system_map.py",
+    "system-map/tests/test_system_map.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "MP-V2",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "O mapa e derivado do repo"
+   },
+   "ficheiros": [
+    "system-map/v2/app/index.html",
+    "system-map/v2/app/map.css",
+    "system-map/v2/app/map.js",
+    "system-map/v2/model/machine.model.json",
+    "system-map/v2/scripts/generate_map_v2.py",
+    "system-map/v2/scripts/scan_machine.py",
+    "system-map/v2/scripts/validate_map_v2.py",
+    "system-map/v2/tests/red_team.py",
+    "system-map/v2/tests/test_map_v2.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-CASCO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "tela nao recalcula decisao do motor"
+   },
+   "ficheiros": [
+    "italia-portale/client/accesso.html",
+    "italia-portale/client/casa.html",
+    "italia-portale/client/index.html",
+    "italia-portale/client/italy-i18n.js",
+    "italia-portale/client/portale.html",
+    "italia-portale/client/support.js"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-MODELO",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/site_v21_ingest.py",
+    "anchor": "italy-app-model.js"
+   },
+   "ficheiros": [
+    "italia-portale/client/italy-app-model.js",
+    "italia-portale/client/italy-canonical-windows.js",
+    "italia-portale/client/italy-handoff-v21.js",
+    "italia-portale/client/italy-ingested.js",
+    "italia-portale/client/italy-v21.js"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-TOOLS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "system-map/data/casco.generated.json",
+    "anchor": "FERRAMENTAS"
+   },
+   "ficheiros": [
+    "italia-portale/client/adama-relevance.js",
+    "italia-portale/client/italy-briefs.js",
+    "italia-portale/client/italy-casa.js",
+    "italia-portale/client/italy-catalog.js",
+    "italia-portale/client/italy-demo-data.js",
+    "italia-portale/client/italy-label-verdicts.js",
+    "italia-portale/client/italy-market-pulse.js",
+    "italia-portale/client/italy-pdf.js",
+    "italia-portale/client/italy-real-intelligence.js",
+    "italia-portale/client/italy-science-business.js",
+    "italia-portale/client/meeting-intelligence-snapshot.js",
+    "italia-portale/client/meeting-labels.js",
+    "italia-portale/client/meeting-surface.js"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-ASK",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "Nao e uma quarta ferramenta"
+   },
+   "ficheiros": [
+    "superficie/ask_sintonia.py",
+    "superficie/es/proto_es.py",
+    "superficie/it_casa_dados.py",
+    "superficie/rede.py"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  },
+  {
+   "id": "S-DS",
+   "autoridade": {
+    "estado": "CONFIRMADA",
+    "file": "CLAUDE.md",
+    "anchor": "Extrato local"
+   },
+   "ficheiros": [
+    "italia-portale/client/_ds/adama-brandwell/_adherence.oxlintrc.json",
+    "italia-portale/client/_ds/adama-brandwell/_ds_bundle.js",
+    "italia-portale/client/_ds/adama-brandwell/_ds_manifest.json",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/Aleo-Italic-VariableFont_wght.ttf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/Aleo-VariableFont_wght.ttf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-Bold.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-BoldItalic.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-Italic.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-Light.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-LightItalic.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-Regular.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-Thin.otf",
+    "italia-portale/client/_ds/adama-brandwell/assets/fonts/BrownLL-ThinItalic.otf",
+    "italia-portale/client/_ds/adama-brandwell/readme.md",
+    "italia-portale/client/_ds/adama-brandwell/styles.css",
+    "italia-portale/client/_ds/adama-brandwell/tokens/base.css",
+    "italia-portale/client/_ds/adama-brandwell/tokens/colors.css",
+    "italia-portale/client/_ds/adama-brandwell/tokens/patterns.css",
+    "italia-portale/client/_ds/adama-brandwell/tokens/spacing.css",
+    "italia-portale/client/_ds/adama-brandwell/tokens/typography.css"
+   ],
+   "padroes_vazios": [],
+   "observacoes": [],
+   "impedimentos": []
+  }
+ ],
+ "LIGACOES": [
+  {
+   "de": "D-FONTES",
+   "para": "D-COLETA",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "consulta-se antes de coletar"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/receitas.py",
+    "line": 48,
+    "snippet": "FONTES_MEDIDAS = RAIZ / \"system-map\" / \"data\" / \"sources.generated.json\"",
+    "contem": "FONTES_MEDIDAS"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 19706,
+    "path": "data/samples/RUN-MANIFEST.json",
+    "prova": "ha recibos de corridas que nasceram de um pedido"
+   }
+  },
+  {
+   "de": "D-COLETA",
+   "para": "D-ESPERA",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "a sala de espera"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/orquestrador.py",
+    "line": 116,
+    "snippet": "PRONTOS.mkdir(parents=True, exist_ok=True)",
+    "contem": "PRONTOS.mkdir"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "D-ESPERA",
+   "para": "D-INTELIGENCIA",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "le-se em tres palavras, da esquerda para a direita"
+   },
+   "implementada": {
+    "estado": "NAO_DECLARADA",
+    "file": null
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "D-INTELIGENCIA",
+   "para": "D-VALIDACAO",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "atravessar a fronteira do site"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "portoes/site_v21_ingest.py",
+    "line": 8,
+    "snippet": "le : build/ITALY-REALITY-HANDOFF-V2.1/DESIGN-INGEST/*.json",
+    "contem": "DESIGN-INGEST"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 8332059,
+    "path": "italia-portale/client/italy-handoff-v21.js",
+    "prova": "o pacote atravessou: o ficheiro embarcado existe"
+   }
+  },
+  {
+   "de": "D-VALIDACAO",
+   "para": "D-PORTAL",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/site_v21_ingest.py",
+    "anchor": "a fronteira entre o pacote V2.1 e o portal"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/italy-app-model.js",
+    "line": 46,
+    "snippet": "HANDOFF_V21: (typeof window !== 'undefined' && window.ITALY_HANDOFF_V21) || null,",
+    "contem": "ITALY_HANDOFF_V21"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 8332059,
+    "path": "italia-portale/client/italy-handoff-v21.js",
+    "prova": "o cliente carrega o pacote embarcado com o BUILD_ID esperado pelo contrato"
+   }
+  },
+  {
+   "de": "D-INTELIGENCIA",
+   "para": "D-FONTES",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "COLLECT MORE"
+   },
+   "implementada": {
+    "estado": "NAO_DECLARADA",
+    "file": null
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-ACERVO",
+   "para": "O-RECEITA",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "consulta-se antes de coletar"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/receitas.py",
+    "line": 48,
+    "snippet": "FONTES_MEDIDAS = RAIZ / \"system-map\" / \"data\" / \"sources.generated.json\"",
+    "contem": "sources.generated.json"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 157144,
+    "path": "system-map/data/sources.generated.json",
+    "prova": "as fontes medidas existem e sao lidas pela receita"
+   }
+  },
+  {
+   "de": "S-CANDIDATAS",
+   "para": "S-ACERVO",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "O que entra pela porta e candidata, nunca fonte"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "candidatas/fonte_nova.py",
+    "line": 27,
+    "snippet": "2 · REGISTADA   tem ficha no ATLAS-DE-FONTES-EAME.md · verdict GREEN",
+    "contem": "ATLAS"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 642,
+    "path": "candidatas/FONTES-CANDIDATAS.json",
+    "prova": "a fila de candidatas existe"
+   }
+  },
+  {
+   "de": "S-PEDIDO",
+   "para": "S-ORQUESTRADOR",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "ORQUESTRADOR"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/orquestrador.py",
+    "line": 52,
+    "snippet": "from pedido import Pedido, de_uma_frase, PedidoInvalido, ERRO, COLHIDO  # noqa: E402",
+    "contem": "from pedido import"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 19706,
+    "path": "data/samples/RUN-MANIFEST.json",
+    "prova": "recibos com RUN_ID no formato que o orquestrador emite"
+   }
+  },
+  {
+   "de": "S-ORQUESTRADOR",
+   "para": "S-EXECUTORES",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "qual caminho executar"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/orquestrador.py",
+    "line": 212,
+    "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+    "contem": "subprocess.run([sys.executable"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 19706,
+    "path": "data/samples/RUN-MANIFEST.json",
+    "prova": "os recibos nomeiam o executor que correu (coleta/corpus_pesquisador.py, coleta/comunicacao_coleta.py, coleta/rotulos_baixar.py)"
+   }
+  },
+  {
+   "de": "S-CANAIS",
+   "para": "S-EXECUTORES",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "A seta segue o dado, e o dado VEM do canal"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/youtube_janela.py",
+    "line": 5,
+    "snippet": "py coleta/youtube_janela.py canais      # nome, inscritos, descrição, a grade",
+    "contem": "youtube"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 19706,
+    "path": "data/samples/RUN-MANIFEST.json",
+    "prova": "os recibos registam a plataforma de onde cada corrida trouxe material"
+   }
+  },
+  {
+   "de": "S-FERRAMENTAS",
+   "para": "S-EXECUTORES",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "com **que** se viaja"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/instagram_coleta.py",
+    "line": 62,
+    "snippet": "import json",
+    "contem": "import"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-REGUAS-CARIMBO",
+   "para": "S-EXECUTORES",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Regua que carimba nao e regua que mede"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/coletor.py",
+    "line": 76,
+    "snippet": "import proveniencia as pv  # noqa: E402",
+    "contem": "proveniencia"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-SCRAP",
+   "para": "S-EXECUTORES",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": ".github/workflows/sintonia-scrap.yml",
+    "anchor": "A MAQUINA CONTINUA SENDO A MAQUINA. O QUE MUDA E QUEM PODE CHAMAR"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": ".github/workflows/sintonia-scrap.yml",
+    "line": 234,
+    "snippet": "janela)          PYTHONIOENCODING=utf-8 $PY coleta/instagram_janela.py tudo    $TETO ;;",
+    "contem": "coleta/instagram_janela.py"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-EXECUTORES",
+   "para": "S-ADMISSAO",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CENSO-DA-COLETA.md",
+    "anchor": "PORTA DE ADMISSAO"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/orquestrador.py",
+    "line": 107,
+    "snippet": "decisoes = [adm.decidir(x, universo, corrida=run_id) for x in itens]",
+    "contem": "adm.decidir"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 224131,
+    "path": "data/samples/LIVRO-DE-DECISOES.json",
+    "prova": "506 decisoes escritas, com o item, o universo, a regra e o motivo"
+   }
+  },
+  {
+   "de": "S-ADMISSAO",
+   "para": "S-PRONTOS",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "A SALA DE ESPERA e cinzenta de proposito"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/orquestrador.py",
+    "line": 114,
+    "snippet": "aceites.append(adm.pronto_para_inteligencia(x, d))",
+    "contem": "pronto_para_inteligencia"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-EXECUTORES",
+   "para": "S-MEDIDAS",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Medir nao e filtrar"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "medidas/padrao_da_coleta.py",
+    "line": 6,
+    "snippet": "py medidas/padrao_da_coleta.py            mede e compara com o chao",
+    "contem": "coleta"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 13017,
+    "path": "medidas/PADRAO-DA-COLETA-CHAO.json",
+    "prova": "o chao medido esta gravado e o CI compara contra ele"
+   }
+  },
+  {
+   "de": "S-EXECUTORES",
+   "para": "S-BANCO",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "A SALA DE ESPERA"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "guarda/catalogo_importar.py",
+    "line": 5,
+    "snippet": "python3 guarda/catalogo_importar.py --linhas   # normaliza e escreve o JSON de linhas",
+    "contem": "import"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-DONO",
+   "para": "S-MOTOR",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "a inteligencia tem UM dono"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "motor/v21_cadeia.sh",
+    "line": 40,
+    "snippet": "CADEIA RECUSADA NESTA LINHAGEM.",
+    "contem": "CADEIA RECUSADA NESTA LINHAGEM"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 904,
+    "path": "italia-portale/audit/STALE-GENERATOR-CONTROL.json",
+    "prova": "o controlo negativo medido: a saida real da cadeia corrida na linhagem consumidora, que o portao tem de recusar"
+   }
+  },
+  {
+   "de": "S-LEIS",
+   "para": "S-MOTOR",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "contrato tem um dono"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "motor/v21_cadeia.sh",
+    "line": 97,
+    "snippet": "\"$PY\" leis/v21_carimbar_origem.py",
+    "contem": "leis/v21_carimbar_origem.py"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-MOTOR",
+   "para": "S-PACOTE",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "EXPECTED_BUILD_ID"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "motor/v21_cadeia.sh",
+    "line": 141,
+    "snippet": "\"$PY\" motor/v21_fechar.py",
+    "contem": "motor/v21_fechar.py"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 1773,
+    "path": "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
+    "prova": "existe pacote construido e preservado"
+   }
+  },
+  {
+   "de": "S-PACOTE",
+   "para": "S-PORTAO-BUILD",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "FAIL_CLOSED"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/audit/build-gate.mjs",
+    "line": 61,
+    "snippet": "if (H.buildId !== CONTRATO.EXPECTED_BUILD_ID) r.push(`BUILD_ID ${H.buildId || '(ausente)'} != ${CONTRATO.EXPECTED_BUILD_ID}`);",
+    "contem": "EXPECTED_BUILD_ID"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-PORTAO-BUILD",
+   "para": "S-INGEST-SITE",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/site_v21_ingest.py",
+    "anchor": "PROSA QUE NAO EMBARCA NAO VAZA"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "portoes/site_v21_ingest.py",
+    "line": 9,
+    "snippet": "escreve: italia-portale/client/italy-handoff-v21.js",
+    "contem": "italy-handoff-v21.js"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 8332059,
+    "path": "italia-portale/client/italy-handoff-v21.js",
+    "prova": "o ficheiro embarcado existe no cliente"
+   }
+  },
+  {
+   "de": "S-INGEST-SITE",
+   "para": "S-MODELO",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/site_v21_ingest.py",
+    "anchor": "italy-app-model.js"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/italy-app-model.js",
+    "line": 46,
+    "snippet": "HANDOFF_V21: (typeof window !== 'undefined' && window.ITALY_HANDOFF_V21) || null,",
+    "contem": "ITALY_HANDOFF_V21"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 8332059,
+    "path": "italia-portale/client/italy-handoff-v21.js",
+    "prova": "o pacote embarcado carrega o BUILD_ID que o contrato espera"
+   }
+  },
+  {
+   "de": "S-MODELO",
+   "para": "S-TOOLS",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/site_v21_ingest.py",
+    "anchor": "ja tem os resolvedores e o relogio unico"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/portale.html",
+    "line": 4421,
+    "snippet": "['meeting', mtL('navMeeting'), relev ? relev.OPPORTUNITA : meetingCount],",
+    "contem": "navMeeting"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 85673,
+    "path": "system-map/data/casco.generated.json",
+    "prova": "as onze ferramentas foram medidas na tela, cada uma com a linha onde o seu nome aparece"
+   }
+  },
+  {
+   "de": "S-TOOLS",
+   "para": "S-AUDITORIA",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "italia-portale/audit/"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/audit/blocks.mjs",
+    "line": 1,
+    "snippet": "/* Split the render logic into disjoint edit blocks and compute, for each, the",
+    "contem": "blocks"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-DS",
+   "para": "S-CASCO",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "CLAUDE.md",
+    "anchor": "Extrato local"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/portale.html",
+    "line": 25,
+    "snippet": "<link rel=\"stylesheet\" href=\"_ds/adama-brandwell/tokens/colors.css\">",
+    "contem": "_ds/adama-brandwell"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-CASCO",
+   "para": "S-TOOLS",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "SUPERFICIES"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/portale.html",
+    "line": 1870,
+    "snippet": "<div style=\"display:flex;align-items:baseline;gap:10px\"><h1 style=\"margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em;color:#fff;white-space:nowrap\"",
+    "contem": "navPortfolio"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 85673,
+    "path": "system-map/data/casco.generated.json",
+    "prova": "a navegacao foi medida no ficheiro do casco"
+   }
+  },
+  {
+   "de": "S-MAPA",
+   "para": "S-PROVAS",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "Falha fechado"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": ".github/workflows/system-map.yml",
+    "line": 80,
+    "snippet": "run: python3 system-map/scripts/validate_system_map.py",
+    "contem": "validate_system_map.py"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  },
+  {
+   "de": "S-EXECUTORES",
+   "para": "S-AMOSTRAS",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": ".gitignore",
+    "anchor": "Evidencia preservavel vai para data/samples/, que E versionado"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/comunicacao_medir.py",
+    "line": 42,
+    "snippet": "SAMPLES = os.path.join(ROOT, 'data', 'samples')",
+    "contem": "samples"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 19706,
+    "path": "data/samples/RUN-MANIFEST.json",
+    "prova": "os recibos das corridas estao la"
+   }
+  },
+  {
+   "de": "S-AMOSTRAS",
+   "para": "S-ASK",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "README.md",
+    "anchor": "amostras reais, com procedencia"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "superficie/ask_sintonia.py",
+    "line": 20,
+    "snippet": "S = os.path.join(ROOT, 'data', 'samples')",
+    "contem": "'data', 'samples'"
+   },
+   "observada": {
+    "existe": true,
+    "tipo": "ficheiro",
+    "bytes": 11701,
+    "path": "data/samples/ASK-SINTONIA-benchmark.json",
+    "prova": "a saida do benchmark existe na arvore"
+   }
+  },
+  {
+   "de": "S-AMOSTRAS",
+   "para": "S-PORTAO-BUILD",
+   "declarada": {
+    "estado": "CONFIRMADA",
+    "file": "portoes/build_portal.py",
+    "anchor": "nenhum numero e digitado a mao neste script"
+   },
+   "implementada": {
+    "estado": "ENCONTRADA",
+    "file": "portoes/build_portal.py",
+    "line": 14,
+    "snippet": "S = os.path.join(ROOT, 'data', 'samples')",
+    "contem": "'data', 'samples'"
+   },
+   "observada": {
+    "existe": false,
+    "path": null
+   }
+  }
+ ],
+ "CANAIS": [
+  {
+   "id": "V-YOUTUBE",
+   "nome": "YOUTUBE",
+   "termos": [
+    "youtube",
+    "yt-dlp",
+    "youtu.be"
+   ],
+   "provas": [
+    {
+     "file": "coleta/comunicacao_classificar.py",
+     "line": 55,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/comunicacao_coleta.py",
+     "line": 6,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/comunicacao_medir.py",
+     "line": 46,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/corpus_pesquisador.py",
+     "line": 32,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/filas.py",
+     "line": 83,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/speaker_identidade.py",
+     "line": 170,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/youtube_janela.py",
+     "line": 3,
+     "termo": "youtube"
+    },
+    {
+     "file": "coleta/youtube_relevancia.py",
+     "line": 5,
+     "termo": "youtube"
+    }
+   ],
+   "total_provas": 8
+  },
+  {
+   "id": "V-INSTAGRAM",
+   "nome": "INSTAGRAM",
+   "termos": [
+    "instagram"
+   ],
+   "provas": [
+    {
+     "file": "coleta/coletor.py",
+     "line": 54,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/comunicacao_classificar.py",
+     "line": 55,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/comunicacao_coleta.py",
+     "line": 7,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/comunicacao_medir.py",
+     "line": 46,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/instagram_coleta.py",
+     "line": 3,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/instagram_diario.py",
+     "line": 5,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/instagram_janela.py",
+     "line": 3,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/instagram_pessoal.py",
+     "line": 3,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/speaker_identidade.py",
+     "line": 171,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/youtube_janela.py",
+     "line": 16,
+     "termo": "instagram"
+    },
+    {
+     "file": "coleta/youtube_relevancia.py",
+     "line": 12,
+     "termo": "instagram"
+    }
+   ],
+   "total_provas": 11
+  },
+  {
+   "id": "V-LINKEDIN",
+   "nome": "LINKEDIN",
+   "termos": [
+    "linkedin"
+   ],
+   "provas": [
+    {
+     "file": "coleta/comunicacao_classificar.py",
+     "line": 55,
+     "termo": "linkedin"
+    },
+    {
+     "file": "coleta/comunicacao_coleta.py",
+     "line": 86,
+     "termo": "linkedin"
+    },
+    {
+     "file": "coleta/comunicacao_medir.py",
+     "line": 46,
+     "termo": "linkedin"
+    },
+    {
+     "file": "coleta/corpus_pesquisador.py",
+     "line": 32,
+     "termo": "linkedin"
+    },
+    {
+     "file": "coleta/filas.py",
+     "line": 82,
+     "termo": "linkedin"
+    },
+    {
+     "file": "coleta/sensor_canal_identidade.py",
+     "line": 16,
+     "termo": "linkedin"
+    },
+    {
+     "file": "coleta/speaker_identidade.py",
+     "line": 14,
+     "termo": "linkedin"
+    }
+   ],
+   "total_provas": 7
+  },
+  {
+   "id": "V-FACEBOOK",
+   "nome": "FACEBOOK",
+   "termos": [
+    "facebook",
+    "meta ads"
+   ],
+   "provas": [
+    {
+     "file": "coleta/comunicacao_classificar.py",
+     "line": 55,
+     "termo": "facebook"
+    },
+    {
+     "file": "coleta/comunicacao_coleta.py",
+     "line": 8,
+     "termo": "facebook"
+    },
+    {
+     "file": "coleta/comunicacao_medir.py",
+     "line": 46,
+     "termo": "facebook"
+    },
+    {
+     "file": "coleta/instagram_janela.py",
+     "line": 127,
+     "termo": "facebook"
+    }
+   ],
+   "total_provas": 4
+  },
+  {
+   "id": "V-HTTP",
+   "nome": "PEDIDO HTTP DIRETO",
+   "termos": [
+    "urllib.request",
+    "requests.get",
+    "fetch("
+   ],
+   "provas": [
+    {
+     "file": "coleta/agrifood_ue.py",
+     "line": 29,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/corpus_pesquisador.py",
+     "line": 92,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/eppo_gd.py",
+     "line": 11,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/es/corpus_es.py",
+     "line": 29,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/gire_mapas.py",
+     "line": 17,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/instagram_janela.py",
+     "line": 440,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/mapa_regfi.py",
+     "line": 42,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/rotulos_baixar.py",
+     "line": 41,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/speaker_identidade.py",
+     "line": 70,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/speaker_universo.py",
+     "line": 62,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/texto_fonte.py",
+     "line": 22,
+     "termo": "urllib.request"
+    },
+    {
+     "file": "coleta/universo_ciencia_it.py",
+     "line": 46,
+     "termo": "urllib.request"
+    }
+   ],
+   "total_provas": 13
+  }
+ ]
+}

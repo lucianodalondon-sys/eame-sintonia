@@ -589,14 +589,15 @@
         "infra",
         "acervo"
       ],
-      "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
+      "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina. A segunda porta (scrap-social) cobre as rotas gratuitas e permitidas.",
       "why_here": "Os cinco `instagram_*.py` rodavam A MAO. Isso significa que a coleta so existia enquanto alguem estivesse sentado nela. Aqui ela vira despacho: quem pede nao precisa estar na maquina, e o que rodou fica no historico. A ordem e lei: LOTE CONGELADO -> PERFIL -> OBJETO -> so entao ROTA PAGA.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
       ],
       "files": [
-        ".github/workflows/sintonia-scrap.yml"
+        ".github/workflows/sintonia-scrap.yml",
+        ".github/workflows/scrap-social.yml"
       ]
     },
     {
@@ -1738,6 +1739,86 @@
       "views": [
         "audit"
       ]
+    },
+    {
+      "id": "C-MAPAV2-SCAN",
+      "name": "Scanner da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⌕",
+      "views": [],
+      "what": "Mede o repositorio para cada conceito declarado do mapa V2: confere se a autoridade citada existe e diz aquilo, se os ficheiros estao la, e se o artefato que provaria a execucao existe.",
+      "why_here": "Ele nao decide o que a maquina e — confere se o que foi declarado sobrevive ao repositorio.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/v2/scripts/scan_machine.py"
+      ]
+    },
+    {
+      "id": "C-MAPAV2-GERADOR",
+      "name": "Gerador do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⚙",
+      "views": [],
+      "what": "Junta o modelo declarado com a medicao e calcula as quatro dimensoes de cada conceito: canonico, implementado, observado e impedido.",
+      "why_here": "CODIGO EXISTE nao e FLUXO CORREU. Fundir as quatro dimensoes num verde so esconderia as outras tres.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/v2/scripts/generate_map_v2.py"
+      ]
+    },
+    {
+      "id": "C-MAPAV2-VALIDADOR",
+      "name": "Validador do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "icon": "⚖",
+      "views": [],
+      "what": "As 14 provas do mapa V2: sem drift, autoridade confirmada, prova fraca que nao vira forte, orfandade zero, um dono por ficheiro, e estado que nunca se escreve a mao.",
+      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada. Falha fechado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/v2/scripts/validate_map_v2.py"
+      ]
+    },
+    {
+      "id": "C-MAPAV2-TESTES",
+      "name": "Testes do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "icon": "✓",
+      "views": [],
+      "what": "Constroem de proposito o caso mau — ligacao sem artefato, autoridade que nao confirma, estado escrito a mao — e exigem que o sistema o recuse.",
+      "why_here": "Teste que nunca viu vermelho nao e teste.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/v2/tests/*.py"
+      ]
+    },
+    {
+      "id": "C-MAPAV2-APP",
+      "name": "Interface do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "surface",
+      "icon": "▣",
+      "views": [],
+      "what": "A tela do mapa V2: quatro niveis, migalhas, busca, gaveta de detalhe e legado recolhido.",
+      "why_here": "So renderiza. Nenhum facto sobre a maquina mora dentro dela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/v2/app/**"
+      ]
     }
   ],
   "BUSINESS_EDGES": [
@@ -2184,6 +2265,14 @@
     "system-map/scripts/scan_sources.py": "ebf2ca643c3fc39caed844e26ec7ae88846d2343",
     "system-map/scripts/validate_system_map.py": "049a768123347c52a32588b49d3fd6d65c564a8d",
     "system-map/tests/test_system_map.py": "d8e76c0f7c789936d516ad66808ba6bcf5f38091",
+    "system-map/v2/app/index.html": "2ad84e95c9d3fcf1d429692f17fb530e59a5f793",
+    "system-map/v2/app/map.css": "a13095e19ed31a02397654d92463e2dd3f7f11eb",
+    "system-map/v2/app/map.js": "2a4c6d92115b24ec12a32d950797adde106e0186",
+    "system-map/v2/scripts/generate_map_v2.py": "cd556f999ae8138094cba340be01975b00d812f3",
+    "system-map/v2/scripts/scan_machine.py": "c4bb0826d26e0a7f9b434bd4faa22b613b91d8a8",
+    "system-map/v2/scripts/validate_map_v2.py": "aa355a93c434910d067079b74dc3067190e3410d",
+    "system-map/v2/tests/red_team.py": "087d857aab60d9176a65316db8bce571dbcbd81f",
+    "system-map/v2/tests/test_map_v2.py": "4d5fa16ca8d901f0b8628a87f29b5413e358dcde",
     "tests/es/test_adama_es_gate.py": "6a314fa029012cc403351afa7248c1b89666e786",
     "tests/es/test_adama_es_import_rules.py": "b37f0ceadb1bb42c4f4cd08c2c473d4cf661a197",
     "tests/test_adama_relevance.py": "4337978c67cf52681f3eddbcaeb2423eca2291e8",

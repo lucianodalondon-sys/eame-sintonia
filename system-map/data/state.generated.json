@@ -30,6 +30,7 @@
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -1167,7 +1168,19 @@
       "system-map/scripts/scan_repo.py",
       "system-map/scripts/scan_sources.py",
       "system-map/scripts/validate_system_map.py",
-      "system-map/tests/test_system_map.py"
+      "system-map/tests/test_system_map.py",
+      "system-map/v2/README.md",
+      "system-map/v2/app/index.html",
+      "system-map/v2/app/map.css",
+      "system-map/v2/app/map.js",
+      "system-map/v2/data/machine.measured.json",
+      "system-map/v2/data/state.v2.generated.json",
+      "system-map/v2/model/machine.model.json",
+      "system-map/v2/scripts/generate_map_v2.py",
+      "system-map/v2/scripts/scan_machine.py",
+      "system-map/v2/scripts/validate_map_v2.py",
+      "system-map/v2/tests/red_team.py",
+      "system-map/v2/tests/test_map_v2.py"
     ],
     "tests": [
       "tests/.gitkeep",
@@ -1583,9 +1596,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/dazzling-sagan-s53805",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FAMILIES": [
     {
@@ -1636,7 +1649,7 @@
         "Z-MOTOR",
         "Z-PROVA"
       ],
-      "count": 29
+      "count": 34
     },
     {
       "id": "F-ENTREGA",
@@ -1869,7 +1882,7 @@
       "y": 190,
       "w": 1235,
       "h": 1972,
-      "count": 13
+      "count": 18
     },
     {
       "id": "Z-PACOTE",
@@ -5074,7 +5087,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▶",
       "views": [
         "audit",
@@ -5086,9 +5099,11 @@
         ".github/workflows/system-map.yml"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        ".github/workflows/system-map.yml"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -5308,12 +5323,13 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
+        "C-SINTONIA-SCRAP",
         "V-LINKEDIN"
       ],
       "outbound": [
@@ -5787,6 +5803,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-MAPAV2-APP",
         "C-PORTAL-CASCO",
         "C-TELA-FIELD"
       ],
@@ -6658,9 +6675,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
-        "C-MAPA-GERADOR",
-        "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-GERADOR"
       ],
       "paises": {},
       "paises_dado": {},
@@ -6821,7 +6836,6 @@
       "inbound": [
         "C-AS-FONTES",
         "C-CI-MAPA",
-        "C-MAPA-APP",
         "C-MAPA-SCAN",
         "C-MAPA-VALIDADOR"
       ],
@@ -6865,7 +6879,6 @@
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
-        "C-MAPA-APP",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN"
       ],
@@ -6881,6 +6894,218 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 11600,
       "y": 1004
+    },
+    {
+      "id": "C-MAPAV2-APP",
+      "name": "Interface do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "surface",
+      "what": "A tela do mapa V2: quatro niveis, migalhas, busca, gaveta de detalhe e legado recolhido.",
+      "why_here": "So renderiza. Nenhum facto sobre a maquina mora dentro dela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "▣",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/v2/app/index.html",
+        "system-map/v2/app/map.css",
+        "system-map/v2/app/map.js"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-DS-ADAMA"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 10770,
+      "y": 1326
+    },
+    {
+      "id": "C-MAPAV2-GERADOR",
+      "name": "Gerador do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Junta o modelo declarado com a medicao e calcula as quatro dimensoes de cada conceito: canonico, implementado, observado e impedido.",
+      "why_here": "CODIGO EXISTE nao e FLUXO CORREU. Fundir as quatro dimensoes num verde so esconderia as outras tres.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/v2/scripts/generate_map_v2.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-MAPAV2-TESTES",
+        "C-MAPAV2-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11185,
+      "y": 1326
+    },
+    {
+      "id": "C-MAPAV2-SCAN",
+      "name": "Scanner da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede o repositorio para cada conceito declarado do mapa V2: confere se a autoridade citada existe e diz aquilo, se os ficheiros estao la, e se o artefato que provaria a execucao existe.",
+      "why_here": "Ele nao decide o que a maquina e — confere se o que foi declarado sobrevive ao repositorio.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌕",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/v2/scripts/scan_machine.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-MAPAV2-TESTES",
+        "C-MAPAV2-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11600,
+      "y": 1326
+    },
+    {
+      "id": "C-MAPAV2-TESTES",
+      "name": "Testes do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "Constroem de proposito o caso mau — ligacao sem artefato, autoridade que nao confirma, estado escrito a mao — e exigem que o sistema o recuse.",
+      "why_here": "Teste que nunca viu vermelho nao e teste.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/v2/tests/red_team.py",
+        "system-map/v2/tests/test_map_v2.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-SCAN"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 10770,
+      "y": 1648
+    },
+    {
+      "id": "C-MAPAV2-VALIDADOR",
+      "name": "Validador do mapa da maquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "As 14 provas do mapa V2: sem drift, autoridade confirmada, prova fraca que nao vira forte, orfandade zero, um dono por ficheiro, e estado que nunca se escreve a mao.",
+      "why_here": "Um mapa de auditoria que nao e auditado nao vale nada. Falha fechado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "system-map/v2/scripts/validate_map_v2.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "portao que ninguem chama.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-SCAN"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 11185,
+      "y": 1648
     },
     {
       "id": "C-MEDICAO",
@@ -6936,8 +7161,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 10770,
-      "y": 1326
+      "x": 11600,
+      "y": 1648
     },
     {
       "id": "C-NAVEGADOR",
@@ -7822,8 +8047,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11185,
-      "y": 1326
+      "x": 10770,
+      "y": 1970
     },
     {
       "id": "C-PROVENIENCIA",
@@ -7976,8 +8201,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 11600,
-      "y": 1326
+      "x": 11185,
+      "y": 1970
     },
     {
       "id": "C-REGRA-COLETA",
@@ -8301,14 +8526,14 @@
       "name": "SINTONIA SCRAP — o despachador",
       "territory": "Z-FERRAMENTAS",
       "kind": "workflow",
-      "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.",
+      "what": "O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina. A segunda porta (scrap-social) cobre as rotas gratuitas e permitidas.",
       "why_here": "Os cinco `instagram_*.py` rodavam A MAO. Isso significa que a coleta so existia enquanto alguem estivesse sentado nela. Aqui ela vira despacho: quem pede nao precisa estar na maquina, e o que rodou fica no historico. A ordem e lei: LOTE CONGELADO -> PERFIL -> OBJETO -> so entao ROTA PAGA.",
       "departments": [
         "ENGENHARIA",
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚡",
       "views": [
         "acervo",
@@ -8317,11 +8542,12 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        ".github/workflows/scrap-social.yml",
         ".github/workflows/sintonia-scrap.yml"
       ],
-      "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -8329,6 +8555,7 @@
       ],
       "outbound": [
         "C-APIFY-POOL",
+        "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-NAVEGADOR",
@@ -9698,8 +9925,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 10770,
-      "y": 1648
+      "x": 11600,
+      "y": 1970
     },
     {
       "id": "C-TRANSCRICAO",
@@ -11064,8 +11291,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-canonical-v1",
-        "HEAD 491b6f8d01c5e745a614e7e16d02375c666106ea"
+        "branch claude/dazzling-sagan-s53805",
+        "HEAD f437ff1140fa97484ca9695b341fbe9ca0a9f050"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12888,7 +13115,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 67,
+          "line": 70,
           "snippet": "python3 system-map/scripts/censo_da_coleta.py"
         }
       ]
@@ -12905,7 +13132,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 69,
+          "line": 72,
           "snippet": "python3 system-map/scripts/generate_system_map.py"
         }
       ]
@@ -12922,22 +13149,22 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 64,
+          "line": 67,
           "snippet": "python3 system-map/scripts/scan_repo.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 65,
+          "line": 68,
           "snippet": "python3 system-map/scripts/scan_sources.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 66,
+          "line": 69,
           "snippet": "python3 system-map/scripts/scan_casco.py"
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 68,
+          "line": 71,
           "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
         }
       ]
@@ -12954,7 +13181,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 83,
+          "line": 86,
           "snippet": "run: python3 system-map/tests/test_system_map.py"
         }
       ]
@@ -12971,7 +13198,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 77,
+          "line": 80,
           "snippet": "run: python3 system-map/scripts/validate_system_map.py"
         }
       ]
@@ -12988,7 +13215,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 80,
+          "line": 83,
           "snippet": "run: python3 medidas/padrao_da_coleta.py"
         }
       ]
@@ -13005,7 +13232,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 89,
+          "line": 92,
           "snippet": "run: python3 provas/testa_coleta_canonica.py"
         }
       ]
@@ -13563,6 +13790,28 @@
           "file": "motor/v21_oportunidades.py",
           "line": 44,
           "snippet": "import v21_datas as DT  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-DS-ADAMA",
+      "to": "C-MAPAV2-APP",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Extrato local do ADAMA Design System alimenta Interface do mapa da maquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/app/index.html",
+          "line": 15,
+          "snippet": "<link rel=\"stylesheet\" href=\"../../../italia-portale/client/_ds/adama-brandwell/tokens/colors.css\">"
+        },
+        {
+          "file": "system-map/v2/app/index.html",
+          "line": 16,
+          "snippet": "<link rel=\"stylesheet\" href=\"../../../italia-portale/client/_ds/adama-brandwell/tokens/typography.css\">"
         }
       ]
     },
@@ -14487,50 +14736,6 @@
       ]
     },
     {
-      "from": "C-MAPA-APP",
-      "to": "C-MAPA-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/tests/test_system_map.py",
-          "line": 236,
-          "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
-        },
-        {
-          "file": "system-map/tests/test_system_map.py",
-          "line": 238,
-          "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
-        }
-      ]
-    },
-    {
-      "from": "C-MAPA-APP",
-      "to": "C-MAPA-VALIDADOR",
-      "type": "READS",
-      "payload": "artefacto",
-      "natureza": "FLUXO",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Validador do System Map. Provado por 2 linhas de codigo.",
-      "evidence": [
-        {
-          "file": "system-map/scripts/validate_system_map.py",
-          "line": 93,
-          "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-        },
-        {
-          "file": "system-map/scripts/validate_system_map.py",
-          "line": 93,
-          "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-        }
-      ]
-    },
-    {
       "from": "C-MAPA-GERADOR",
       "to": "C-MAPA-VALIDADOR",
       "type": "READS",
@@ -14644,6 +14849,74 @@
           "file": "system-map/tests/test_system_map.py",
           "line": 224,
           "snippet": "\"validate_system_map.py\" in lei,"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPAV2-GERADOR",
+      "to": "C-MAPAV2-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do mapa da maquina (V2) alimenta Testes do mapa da maquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/tests/test_map_v2.py",
+          "line": 117,
+          "snippet": "subprocess.run([sys.executable, str(V2 / \"scripts\" / \"generate_map_v2.py\")],"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPAV2-GERADOR",
+      "to": "C-MAPAV2-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do mapa da maquina (V2) alimenta Validador do mapa da maquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/validate_map_v2.py",
+          "line": 78,
+          "snippet": "for passo in (\"scan_machine.py\", \"generate_map_v2.py\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPAV2-SCAN",
+      "to": "C-MAPAV2-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner da maquina (V2) alimenta Testes do mapa da maquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/tests/test_map_v2.py",
+          "line": 115,
+          "snippet": "subprocess.run([sys.executable, str(V2 / \"scripts\" / \"scan_machine.py\")],"
+        }
+      ]
+    },
+    {
+      "from": "C-MAPAV2-SCAN",
+      "to": "C-MAPAV2-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner da maquina (V2) alimenta Validador do mapa da maquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/validate_map_v2.py",
+          "line": 78,
+          "snippet": "for passo in (\"scan_machine.py\", \"generate_map_v2.py\"):"
         }
       ]
     },
@@ -16375,6 +16648,23 @@
     },
     {
       "from": "C-SINTONIA-SCRAP",
+      "to": "C-COLETA-BASE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP — o despachador manda rodar O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 239,
+          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+        }
+      ]
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
       "to": "C-COLETA-INSTAGRAM",
       "type": "RUNS",
       "payload": "execucao",
@@ -17988,20 +18278,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_FILES_COUNT": 647,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 97,
-    "components_proven": 68,
-    "components_pending": 25,
+    "components": 102,
+    "components_proven": 67,
+    "components_pending": 31,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 322,
-    "edges_proven": 322,
+    "edges": 326,
+    "edges_proven": 326,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1142,
-    "files_covered": 499,
+    "files_tracked": 1155,
+    "files_covered": 508,
     "files_code_unclaimed": 0
   }
 }

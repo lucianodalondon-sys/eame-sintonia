@@ -1,0 +1,204 @@
+/* SINTONIA SYSTEM MAP V2 — a forma
+   NENHUM TAMANHO DE LETRA DESCE ABAIXO DE 11px, e isso e regra, nao gosto: um
+   mapa que obriga a aproximar para ser lido nao foi lido — foi decifrado. O
+   red team desta entrega derrubou uma versao anterior por causa de uma unica
+   pastilha a 9,5px, e ela estava exatamente onde o estado de cada ligacao e
+   dito.
+   ===========================================================================
+   O QUE ESTA FOLHA TENTA PARECER: um esquema de instalacao — estacoes, linhas
+   e sentido de fluxo. O que ela evita parecer: um explorador de ficheiros.
+
+   A COR DIZ O ASSUNTO; A PASTILHA DIZ SE FUNCIONA
+   -----------------------------------------------
+   As cores de familia (COLETA / ESPERA / INTELIGENCIA / ENTREGA) sao tokens
+   oficiais do ADAMA Design System — nenhuma e escrita a mao aqui: chegam por
+   `_ds/adama-brandwell/tokens/colors.css` e sao reatribuidas abaixo com nome
+   de processo, para ninguem ler um bloco azul e pensar «fungicida».
+
+       ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND   (so para a rampa de ESTADO)
+       NEW_PATTERN_REQUIRED = YES
+
+   Motivo, o mesmo ja registado no mapa V1 e nao reinventado aqui: o BrandWell
+   tem quatro cores de CATEGORIA DE PRODUTO e nenhuma significa «quebrado».
+   Pintar peca bloqueada de roxo Pest Control daria a uma cor de marca um
+   segundo significado, e a partir dai nenhuma das duas leituras seria de
+   confianca. Por isso ESTADO tem rampa propria de engenharia, e ela vive so na
+   pastilha.
+   =========================================================================== */
+:root{
+  /* processo — tokens da marca, renomeados pelo que significam AQUI */
+  --f-coleta:        var(--color-disease-control, #00a0df);
+  --f-espera:        var(--color-adama-earth, #978b87);
+  --f-inteligencia:  var(--color-corporate-green, #009845);
+  --f-entrega:       var(--color-crop-enhancement, #f89e18);
+
+  --brand:   var(--color-corporate-green, #009845);
+  --brand-d: var(--color-corporate-green-secondary, #00783f);
+  --earth10: var(--color-earth-10, #f4f2f2);
+  --earth20: var(--color-earth-20, #e5e1e0);
+  --earth40: var(--color-earth-40, #cbc5c3);
+  --text:    var(--color-text-grey, #5f504d);
+  --ink:     #33413c;
+
+  /* rampa de ESTADO — propria de engenharia, fora do BrandWell */
+  --ok:#198754; --warn:#d99a00; --bad:#c53b35; --unknown:#7f8b87; --off:#9aa4a0;
+
+  --bg:#f5f6f5; --card:#fff; --line:#dcd8d6;
+  --shadow:0 10px 30px rgba(48,42,39,.10);
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:var(--font-primary,Arial,Helvetica,sans-serif);
+  color:var(--text);background:var(--bg)}
+button,input{font:inherit;color:inherit}
+
+/* ── topo ─────────────────────────────────────────────────────────────── */
+.top{display:flex;align-items:center;gap:18px;padding:14px 22px;background:#fff;
+  border-bottom:1px solid var(--earth20);position:sticky;top:0;z-index:60;flex-wrap:wrap}
+.mark{width:40px;height:40px;border-radius:12px;background:var(--brand);position:relative;flex:none}
+.mark:after{content:"";position:absolute;width:26px;height:14px;background:#fff;left:7px;top:13px;
+  border-radius:100% 0 100% 0;transform:rotate(-34deg)}
+.ttl{font-weight:800;font-size:19px;letter-spacing:.02em;color:var(--ink);line-height:1.2}
+.sub{font-size:11px;color:#8a8481;margin-top:2px}
+.find{flex:1;min-width:240px;max-width:520px;position:relative}
+.find input{width:100%;border:1px solid var(--earth20);background:#fafafa;border-radius:11px;
+  padding:11px 14px 11px 38px;outline:none;font-size:14px}
+.find input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(0,152,69,.12)}
+.find:before{content:"⌕";position:absolute;left:13px;top:6px;font-size:23px;color:#8b938f}
+.stamp{margin-left:auto;font-size:11.5px;line-height:1.5;color:#8a8481;text-align:right}
+.stamp b{color:var(--ink)}
+
+/* ── trilho de navegacao ──────────────────────────────────────────────── */
+.crumbs{display:flex;align-items:center;gap:6px;padding:11px 22px;background:#fff;
+  border-bottom:1px solid var(--earth20);position:sticky;top:69px;z-index:55;flex-wrap:wrap;font-size:13px}
+.crumb{background:none;border:0;cursor:pointer;color:var(--brand-d);font-weight:700;padding:5px 9px;
+  border-radius:8px}
+.crumb:hover{background:#edf7f1}
+.crumb[disabled]{color:var(--ink);cursor:default;font-weight:800}
+.crumbs .sep{color:#b9b3b0}
+.back{margin-left:auto;background:#fff;border:1px solid var(--earth20);border-radius:9px;
+  padding:6px 13px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--ink)}
+.back:hover{border-color:var(--brand);color:var(--brand-d)}
+
+/* ── palco ────────────────────────────────────────────────────────────── */
+.stage{position:relative;padding:26px 22px 60px}
+.lede{max-width:940px;margin:0 0 22px}
+.lede h1{font-size:22px;margin:0 0 7px;color:var(--ink);letter-spacing:.01em}
+.lede p{margin:0;font-size:14.5px;line-height:1.6;max-width:80ch}
+
+/* faixas de familia — a leitura em tres palavras, da esquerda para a direita */
+.bands{display:flex;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.band{font-size:11.5px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;
+  padding:6px 12px;border-radius:99px;color:#fff}
+.band.F-COLETA{background:var(--f-coleta)} .band.F-ESPERA{background:var(--f-espera)}
+.band.F-INTELIGENCIA{background:var(--f-inteligencia)} .band.F-ENTREGA{background:var(--f-entrega)}
+
+.wires{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:visible}
+.rail{position:relative;z-index:2;display:flex;gap:40px;flex-wrap:wrap;align-items:stretch}
+/* Os seis departamentos cabem numa linha so a 1440px: a maquina le-se de uma
+   vez, da esquerda para a direita, como a lei manda. Se nao coubessem, a
+   ultima estacao quebrava para baixo e a seta atravessava o desenho todo. */
+.rail.level0{gap:30px;margin-bottom:58px}
+
+/* ── cartao ───────────────────────────────────────────────────────────── */
+.node{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:16px 16px 14px;cursor:pointer;text-align:left;
+  display:flex;flex-direction:column;gap:9px;transition:transform .12s ease,border-color .12s ease}
+.node:hover{transform:translateY(-2px);border-color:var(--brand)}
+.node:focus-visible{outline:3px solid rgba(0,152,69,.35);outline-offset:2px}
+.rail.level0 .node{width:196px;min-height:252px}
+.rail.level1 .node,.rail.level2 .node{width:270px;min-height:184px}
+.node .top4{height:5px;border-radius:6px;width:46px}
+.node.F-COLETA .top4{background:var(--f-coleta)} .node.F-ESPERA .top4{background:var(--f-espera)}
+.node.F-INTELIGENCIA .top4{background:var(--f-inteligencia)} .node.F-ENTREGA .top4{background:var(--f-entrega)}
+.node h3{margin:0;font-size:15.5px;line-height:1.3;color:var(--ink);letter-spacing:.01em}
+.rail.level0 .node h3{font-size:16.5px}
+.node .what{margin:0;font-size:13px;line-height:1.5;color:#6d6663}
+.node .foot{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding-top:9px;border-top:1px solid var(--earth20)}
+.node .more{font-size:11px;color:#8a8481}
+
+/* uma pastilha grande diz a saude; as quatro dimensoes ficam no detalhe */
+.pill{font-size:11.5px;font-weight:800;letter-spacing:.055em;text-transform:uppercase;
+  padding:4px 10px;border-radius:99px;color:#fff;white-space:nowrap}
+.pill.OK{background:var(--ok)} .pill.ATENCAO{background:var(--warn)}
+.pill.BLOQUEADO{background:var(--bad)} .pill.UNKNOWN{background:var(--unknown)}
+.pill\.NAO{background:var(--off)}
+.pill[data-s="NAO IMPLEMENTADO"]{background:var(--off)}
+.pill.LEGADO{background:#6f6a67}
+.warnline{display:flex;gap:7px;font-size:12px;line-height:1.45;color:#a0522d;
+  background:#fdf6ec;border:1px solid #f0e0c6;border-radius:9px;padding:8px 10px}
+.warnline b{color:#8a4420}
+
+/* ── linhas ───────────────────────────────────────────────────────────── */
+.wire{fill:none;stroke-linecap:round}
+.wire.OBSERVED{stroke:var(--ok);stroke-width:3}
+.wire.IMPLEMENTED{stroke:var(--brand-d);stroke-width:2.4;stroke-dasharray:9 6}
+.wire.DECLARED{stroke:var(--warn);stroke-width:2.2;stroke-dasharray:2 7}
+.wire.UNKNOWN{stroke:var(--unknown);stroke-width:2;stroke-dasharray:2 7;opacity:.75}
+.wire.retorno{stroke-dasharray:14 8}
+.wirehit{stroke:transparent;stroke-width:16;fill:none;pointer-events:stroke;cursor:pointer}
+
+.legend{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin:30px 0 0;
+  padding:14px 16px;background:#fff;border:1px solid var(--earth20);border-radius:12px;font-size:12.5px}
+.legend b{color:var(--ink)}
+.legend .k{display:flex;align-items:center;gap:8px}
+.legend svg{flex:none}
+
+/* ── legado, recolhido por padrao ─────────────────────────────────────── */
+.legacy{margin-top:26px;border:1px dashed var(--earth40);border-radius:12px;background:#fbfafa}
+.legacy>summary{cursor:pointer;padding:13px 16px;font-size:13px;font-weight:700;color:#7a736f}
+.legacy .rail{padding:0 16px 16px}
+.legacy .node{opacity:.72;box-shadow:none}
+
+/* ── gaveta de detalhe ────────────────────────────────────────────────── */
+.scrim{position:fixed;inset:0;background:rgba(35,30,28,.34);z-index:90;opacity:0;pointer-events:none;
+  transition:opacity .16s ease}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,100%);background:#fff;z-index:95;
+  box-shadow:-16px 0 44px rgba(40,34,32,.2);transform:translateX(102%);transition:transform .2s ease;
+  display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dhead{padding:20px 22px 14px;border-bottom:1px solid var(--earth20)}
+.dhead h2{margin:6px 0 8px;font-size:20px;color:var(--ink);line-height:1.25}
+.dclose{position:absolute;top:14px;right:16px;border:1px solid var(--earth20);background:#fff;
+  width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:17px;line-height:1}
+.dbody{overflow:auto;padding:18px 22px 46px}
+.qa{margin:0 0 18px}
+.qa h4{margin:0 0 6px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#948e8b;font-weight:800}
+.qa p{margin:0;font-size:14px;line-height:1.6}
+.dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:9px;margin:0 0 18px}
+.dim{border:1px solid var(--earth20);border-radius:11px;padding:10px 11px;background:#fbfbfb}
+.dim .n{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#948e8b;font-weight:800}
+.dim .v{font-size:14px;font-weight:800;margin-top:3px}
+.dim .v.SIM{color:var(--ok)} .dim .v.NAO{color:var(--bad)}
+.dim .v[data-v="NAO SEI"]{color:var(--unknown)} .dim .v.PARCIAL{color:var(--warn)}
+.dim .v[data-v="NAO SE APLICA"]{color:#8a8481}
+.dim .r{font-size:11.5px;line-height:1.45;color:#7d7774;margin-top:5px;word-break:break-word;overflow-wrap:anywhere}
+.lk{display:block;width:100%;text-align:left;border:1px solid var(--earth20);background:#fff;
+  border-radius:10px;padding:9px 11px;margin-bottom:7px;cursor:pointer;font-size:13px}
+.lk:hover{border-color:var(--brand);background:#f4fbf7}
+.lk .tag{font-size:11px;font-weight:800;letter-spacing:.07em;padding:2px 7px;border-radius:99px;
+  color:#fff;margin-right:7px}
+.tag.OBSERVED{background:var(--ok)} .tag.IMPLEMENTED{background:var(--brand-d)}
+.tag.DECLARED{background:var(--warn)} .tag.UNKNOWN{background:var(--unknown)}
+.files{border:1px solid var(--earth20);border-radius:11px;background:#fbfbfb;padding:10px 12px;
+  max-height:270px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  line-height:1.75;color:#5f6b66}
+.eng{margin-top:8px}
+.eng>summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--brand-d);padding:6px 0}
+.src{font-size:11.5px;color:#8a8481;margin:5px 0 16px;font-family:ui-monospace,Menlo,monospace;word-break:break-word}
+
+/* ── busca ────────────────────────────────────────────────────────────── */
+.hits{position:absolute;left:22px;right:22px;top:0;z-index:40}
+.hitcard{background:#fff;border:1px solid var(--earth20);border-radius:11px;padding:11px 13px;
+  margin-bottom:8px;cursor:pointer;display:flex;gap:11px;align-items:center}
+.hitcard:hover{border-color:var(--brand)}
+.hitcard .path{font-size:11.5px;color:#8a8481}
+.empty{padding:26px;text-align:center;color:#8a8481;font-size:14px}
+
+@media (max-width:760px){
+  .rail{gap:26px}
+  .rail.level0 .node,.rail.level1 .node,.rail.level2 .node{width:100%;min-height:0}
+  .wires{display:none}
+}

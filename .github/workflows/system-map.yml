@@ -14,7 +14,10 @@
 #      ARQUITETURA E NÃO ATUALIZOU O MAPA, e a mudança para aqui;
 #   3. corre as provas das regras do mapa (verde sem evidência, aresta
 #      inventada, NÃO SEI escondido);
-#   4. prova que o pacote publicável foi regerado junto.
+#   4. prova que o pacote publicável foi regerado junto;
+#   5. prova o MAPA DA MÁQUINA (V2) — a projeção por departamentos — com o
+#      seu próprio validador e os seus próprios testes. São dois mapas com
+#      dois modelos e um repositório só: o portão tem de segurar os dois.
 #
 # Corre em `ubuntu-latest`, e não no runner local, porque não toca em rede,
 # não gasta execução paga e não precisa de IP residencial: é leitura da
@@ -87,6 +90,29 @@ jobs:
       # escritas num comentário — e voltariam a confundir-se na primeira pressa.
       - name: 4b · o caminho da coleta continua fechado
         run: python3 provas/testa_coleta_canonica.py
+
+      # ── O MAPA DA MÁQUINA (V2) ────────────────────────────────────────
+      # Corre DEPOIS do passo 1, e a ordem não é estética: o passo 1 gera
+      # `regras/LEIA-ANTES-DE-COLETAR.md`, e o V2 observa esse ficheiro. Ao
+      # contrário, o V2 mediria a versão anterior dele e acusaria drift sobre
+      # uma mudança que o próprio CI acabou de fazer — o portão a reprovar um
+      # trabalho já feito, que é a forma mais rápida de ensinar a ignorá-lo.
+      #
+      # O V2 não publica nada: a app dele serve-se da árvore, e pôr um segundo
+      # publicador a escrever no mesmo destino é a forma mais barata de servir
+      # a versão errada sem ninguém perceber. Publicar é decisão humana.
+      - name: 4c · o mapa da máquina (V2) corresponde ao repositório
+        run: python3 system-map/v2/scripts/validate_map_v2.py
+
+      - name: 4d · as regras do mapa da máquina (V2) não afrouxaram
+        run: python3 system-map/v2/tests/test_map_v2.py
+
+      # As trinta maneiras conhecidas de um mapa de arquitetura mentir. Um
+      # sobrevivente material reprova: foi assim que a primeira corrida desta
+      # entrega foi recusada, por uma pastilha a 9,5px no sítio exato onde o
+      # estado de cada ligação é dito.
+      - name: 4e · o red team não encontra brecha no mapa da máquina
+        run: python3 system-map/v2/tests/red_team.py
 
       - name: 5 · o que vai ser publicado existe e é servível
         run: |

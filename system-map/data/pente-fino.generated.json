@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.pente-fino-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea"
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050"
   },
   "PECAS": [
     {
@@ -197,18 +197,6 @@
       "estado": "yellow"
     },
     {
-      "id": "C-COLETA-BASE",
-      "nome": "O motor de buscar",
-      "zona": "7 · AS ACOES DA COLETA",
-      "de_onde_vem": true,
-      "para_onde_vai": true,
-      "porque_existe": true,
-      "alguem_corre": false,
-      "respostas": 3,
-      "ficheiros": 3,
-      "estado": "green"
-    },
-    {
       "id": "C-ADAMA-ES",
       "nome": "O portao do catalogo espanhol · projeto futuro",
       "zona": "A SALA DE ESPERA",
@@ -365,6 +353,18 @@
       "estado": "yellow"
     },
     {
+      "id": "C-COLETA-BASE",
+      "nome": "O motor de buscar",
+      "zona": "7 · AS ACOES DA COLETA",
+      "de_onde_vem": true,
+      "para_onde_vai": true,
+      "porque_existe": true,
+      "alguem_corre": true,
+      "respostas": 4,
+      "ficheiros": 3,
+      "estado": "green"
+    },
+    {
       "id": "C-NAVEGADOR",
       "nome": "O navegador — a rota gratis",
       "zona": "4 · AS FERRAMENTAS",
@@ -433,14 +433,14 @@
       "porque_existe": true,
       "alguem_corre": true,
       "respostas": 4,
-      "ficheiros": 1,
-      "estado": "green"
+      "ficheiros": 2,
+      "estado": "yellow"
     }
   ],
   "RESUMO": {
     "pecas_da_coleta": 36,
-    "respondem_as_quatro": 17,
-    "respondem_a_tres": 13,
+    "respondem_as_quatro": 18,
+    "respondem_a_tres": 12,
     "respondem_a_duas": 6,
     "respondem_a_uma": 0,
     "nao_respondem_a_nenhuma": 0

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>SINTONIA · O mapa da máquina (V2)</title>
+
+<!-- Tokens oficiais do ADAMA Design System. Extrato versionado no repositório;
+     a fonte de verdade visual continua a ser o Claude Design (ver CLAUDE.md).
+     O caminho é relativo à raiz do repositório, que é de onde esta app se serve
+     (`python3 -m http.server` na raiz, e abrir /system-map/v2/app/). Publicar
+     noutro sítio é decisão humana, e o caminho muda com ela — um <link> morto
+     enche a consola de 404 e esconde o erro a seguir. -->
+<link rel="stylesheet" href="../../../italia-portale/client/_ds/adama-brandwell/tokens/colors.css">
+<link rel="stylesheet" href="../../../italia-portale/client/_ds/adama-brandwell/tokens/typography.css">
+<link rel="stylesheet" href="map.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     NADA NESTE FICHEIRO ESTÁ ESCRITO À MÃO sobre a máquina. Nenhum nome de
+     peça, nenhum estado, nenhuma seta, nenhuma contagem. Tudo isso chega de
+     `../data/state.v2.generated.json`, que o gerador produz do modelo declarado
+     mais a medição do repositório.
+
+         O SYSTEM MAP OBSERVA A MÁQUINA. NÃO A DEFINE.
+
+     Se encontrar aqui o nome de um departamento ou o número de uma contagem,
+     isso é um defeito: é um facto a esconder-se na tela, onde nenhum validador
+     o alcança.
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<header class="top">
+  <div class="mark"></div>
+  <div>
+    <div class="ttl">SINTONIA</div>
+    <div class="sub">O mapa da máquina · de longe o processo, de perto a engenharia</div>
+  </div>
+  <div class="find">
+    <input id="q" placeholder="Procurar departamento, sistema ou peça…" autocomplete="off"
+           aria-label="Procurar no mapa">
+  </div>
+  <div class="stamp" id="stamp"></div>
+</header>
+
+<nav class="crumbs" id="crumbs" aria-label="Onde estou"></nav>
+
+<main class="stage" id="stage">
+  <svg class="wires" id="wires" aria-hidden="true"></svg>
+  <div id="view"></div>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Detalhe">
+  <button class="dclose" id="dclose" aria-label="Fechar">×</button>
+  <div class="dhead" id="dhead"></div>
+  <div class="dbody" id="dbody"></div>
+</aside>
+
+<script src="map.js"></script>
+</body>
+</html>

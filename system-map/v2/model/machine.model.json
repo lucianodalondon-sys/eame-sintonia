@@ -1,0 +1,1905 @@
+{
+  "SCHEMA": "sintonia.system-map-v2.model/1",
+  "LEI": "Este ficheiro e a UNICA entrada escrita por gente do System Map V2. Ele declara CONCEITOS da maquina — nunca ficheiros soltos, nunca scripts, nunca tabelas. Quem mede os ficheiros e o scanner; quem calcula o status e o gerador. Nenhum status, nenhuma contagem e nenhum numero se escreve aqui: escrever um seria maquiagem, e maquiagem e a unica forma de mentir neste sistema.",
+  "O_QUE_ELE_NAO_E": "nao e arquitetura. O SYSTEM MAP OBSERVA A MAQUINA; NAO A DEFINE. Toda linha aqui aponta para uma autoridade que ja existia antes dele — e o scanner recusa a linha cuja autoridade nao se confirme.",
+  "AUTORIDADE_RAIZ": "AGENTS.md",
+  "FAMILIAS": [
+    {
+      "id": "F-COLETA",
+      "nome": "COLETA",
+      "frase": "Trazer para dentro o que existe lá fora."
+    },
+    {
+      "id": "F-ESPERA",
+      "nome": "A ESPERA",
+      "frase": "O que já foi colhido e guardado, à espera de ser processado. Nada é transformado aqui."
+    },
+    {
+      "id": "F-INTELIGENCIA",
+      "nome": "INTELIGÊNCIA",
+      "frase": "Transformar dado bruto em caso com dono, lugar e momento."
+    },
+    {
+      "id": "F-ENTREGA",
+      "nome": "ENTREGA",
+      "frase": "Levar o que foi decidido até quem precisa dele, sem deixar passar o que está errado."
+    }
+  ],
+  "DEPARTAMENTOS": [
+    {
+      "id": "D-FONTES",
+      "ordem": 1,
+      "familia": "F-COLETA",
+      "nome": "DE ONDE VEM, E QUEM PEDE",
+      "frase": "O que a casa já sabe onde encontrar, e o pedido que manda ir buscar.",
+      "papel": "SOURCE_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "consulta-se antes de coletar"
+      }
+    },
+    {
+      "id": "D-COLETA",
+      "ordem": 2,
+      "familia": "F-COLETA",
+      "nome": "A COLETA",
+      "frase": "Quem sai, com que ferramenta, por que canal — e a peneira que decide o que entra.",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "Ferramenta, veiculo e acao sao TRES coisas"
+      }
+    },
+    {
+      "id": "D-ESPERA",
+      "ordem": 3,
+      "familia": "F-ESPERA",
+      "nome": "A SALA DE ESPERA",
+      "frase": "Onde o que passou fica guardado. Não é coleta: o trabalho acabou. Não é inteligência: ainda não começou.",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "A SALA DE ESPERA e cinzenta de proposito"
+      }
+    },
+    {
+      "id": "D-INTELIGENCIA",
+      "ordem": 4,
+      "familia": "F-INTELIGENCIA",
+      "nome": "A INTELIGÊNCIA",
+      "frase": "Onde o dado vira caso: as leis que decidem o que conta como verdade, os cruzamentos e os sinais.",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "a inteligencia tem UM dono"
+      }
+    },
+    {
+      "id": "D-VALIDACAO",
+      "ordem": 5,
+      "familia": "F-ENTREGA",
+      "nome": "AS PROVAS E OS PORTÕES",
+      "frase": "O que separa «está escrito» de «está provado» — e o que impede coisa errada de atravessar para a tela.",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "FRONTEIRA E PORTOES"
+      }
+    },
+    {
+      "id": "D-PORTAL",
+      "ordem": 6,
+      "familia": "F-ENTREGA",
+      "nome": "O PORTAL",
+      "frase": "O que o cliente vê. Apresenta decisão já tomada; não recalcula nada.",
+      "papel": "SINK_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "tela nao recalcula decisao do motor"
+      }
+    }
+  ],
+  "CONCEITOS": [
+    {
+      "id": "S-ACERVO",
+      "nivel": 1,
+      "departamento": "D-FONTES",
+      "parent": null,
+      "tipo": "acervo",
+      "nome": "O acervo de fontes",
+      "frase": "A lista do que a casa já sabe onde encontrar, e o que cada fonte entrega.",
+      "porque": "Acervo é capital parado: consulta-se antes de coletar, para não se gastar uma coleta a descobrir o que já se sabia.",
+      "entra": "nada — é o ponto de partida da máquina",
+      "sai": "para a receita da coleta, que escolhe por onde ir",
+      "dono": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "papel": "SOURCE_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "consulta-se antes de coletar"
+      },
+      "implementa": [
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "docs/fontes/INDICE-DE-FONTES.md",
+        "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+        "fontes/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/sources.generated.json",
+          "prova": "o scanner de fontes leu o atlas e os contratos e devolveu as fontes medidas"
+        }
+      ]
+    },
+    {
+      "id": "F-ATLAS",
+      "nivel": 2,
+      "departamento": "D-FONTES",
+      "parent": "S-ACERVO",
+      "tipo": "acervo",
+      "nome": "As bases oficiais e abertas",
+      "frase": "As fontes públicas já abertas, olhadas, e com prova guardada do que entregam.",
+      "porque": "Uma linha só existe no atlas depois que alguém abriu a fonte, olhou o que ela entrega e guardou evidência disso.",
+      "entra": "nada",
+      "sai": "para a receita da coleta",
+      "dono": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "papel": "SOURCE_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "uma linha so existe aqui depois que alguem abriu a fonte"
+      },
+      "implementa": [
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "docs/fontes/INDICE-DE-FONTES.md",
+        "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+        "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md"
+      ]
+    },
+    {
+      "id": "F-ADAMA",
+      "nivel": 2,
+      "departamento": "D-FONTES",
+      "parent": "S-ACERVO",
+      "tipo": "acervo",
+      "nome": "O que a ADAMA sabe de si",
+      "frase": "O catálogo comercial da própria ADAMA lido por dentro: o que vende em cada país, com que rótulo e que substância.",
+      "porque": "Sem saber o que a casa já tem registado, não se consegue dizer se existe resposta para um problema encontrado.",
+      "entra": "nada",
+      "sai": "para a inteligência, como camada de portfólio",
+      "dono": "fontes/adama_catalogo_montar.py",
+      "papel": "SOURCE_BY_DESIGN",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "ADAMA REGISTERED RESPONSE"
+      },
+      "implementa": [
+        "fontes/**"
+      ]
+    },
+    {
+      "id": "S-CANDIDATAS",
+      "nivel": 1,
+      "departamento": "D-FONTES",
+      "parent": null,
+      "tipo": "porta",
+      "nome": "A porta de fonte nova",
+      "frase": "Por onde uma fonte nova entra — e ela entra como candidata, nunca como fonte.",
+      "porque": "Escrever direto no atlas é afirmar que a fonte existe sem ninguém ter olhado o que ela entrega.",
+      "entra": "fonte encontrada no meio de uma coleta, ou à mão",
+      "sai": "para o acervo, depois de alguém abrir e olhar",
+      "dono": "candidatas/fonte_nova.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "O que entra pela porta e candidata, nunca fonte"
+      },
+      "implementa": [
+        "candidatas/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "candidatas/FONTES-CANDIDATAS.json",
+          "prova": "a fila de candidatas existe e tem conteudo"
+        }
+      ]
+    },
+    {
+      "id": "S-PEDIDO",
+      "nivel": 1,
+      "departamento": "D-FONTES",
+      "parent": null,
+      "tipo": "contrato",
+      "nome": "O pedido de coleta",
+      "frase": "Uma frase simples — «colete materiais de pesquisadores» — que diz O QUE se quer, sem dizer COMO.",
+      "porque": "O censo mediu 79 pontos de entrada em 92 ficheiros de coleta. Setenta e nove maneiras de começar uma coleta não são uma coleta: são setenta e nove.",
+      "entra": "uma pessoa, um relógio",
+      "sai": "para o orquestrador, que decide o caminho",
+      "dono": "pedido/pedido.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "um contrato de entrada que diga"
+      },
+      "implementa": [
+        "pedido/pedido.py"
+      ],
+      "observado_por": [
+        {
+          "artefato": "data/samples/RUN-MANIFEST.json",
+          "prova": "ha recibos de corridas nascidas de um pedido, com RUN_ID no formato que o orquestrador emite"
+        }
+      ],
+      "problema": "Disparo por acontecimento está previsto no contrato e não existe em lado nenhum. É recusado com o motivo escrito, em vez de aceite em silêncio."
+    },
+    {
+      "id": "S-ORQUESTRADOR",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "O orquestrador",
+      "frase": "Quem responde «qual caminho executar para este pedido» — e assina o recibo de cada corrida.",
+      "porque": "Sem ele, quem quisesse coletar precisava de saber o nome de um script. Trocar o executor obrigaria toda a gente a mudar o pedido.",
+      "entra": "o pedido",
+      "sai": "manda o executor sair, e leva o que ele trouxe à porta de admissão",
+      "dono": "pedido/orquestrador.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "ORQUESTRADOR"
+      },
+      "implementa": [
+        "pedido/orquestrador.py",
+        "pedido/receitas.py"
+      ],
+      "observado_por": [
+        {
+          "artefato": "data/samples/RUN-MANIFEST.json",
+          "prova": "tres recibos assinados em 2026-09-07 (XX-T7, XX-T9, XX-T4), todos STATUS=OK"
+        }
+      ]
+    },
+    {
+      "id": "O-RECEITA",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-ORQUESTRADOR",
+      "tipo": "contrato",
+      "nome": "A receita da coleta",
+      "frase": "Como se atende um pedido: das fontes que o atlas já classificou até ao executor que sabe percorrer a rota.",
+      "porque": "O conhecimento de «como se coleta ciência italiana» estava espalhado por cabeçalho de script e prompt de aba. Espalhado assim, ele não se consulta: redescobre-se — e redescobrir custa uma coleta de cada vez.",
+      "entra": "o pedido e o acervo de fontes",
+      "sai": "um plano que diz quantas fontes a casa sabe percorrer, e nomeia as que não sabe",
+      "dono": "pedido/receitas.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "consulta-se antes de coletar"
+      },
+      "implementa": [
+        "pedido/receitas.py"
+      ],
+      "problema": "35 das 54 fontes italianas têm método de acesso «NÃO SEI»: a ficha diz que a fonte existe, não diz como se chega lá. O plano declara isso em vez de o esconder."
+    },
+    {
+      "id": "S-EXECUTORES",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "acao",
+      "nome": "Quem sai e traz",
+      "frase": "As ações da coleta: quem vai buscar o material lá fora e o guarda.",
+      "porque": "Ação é verbo. Colher, baixar, montar, ler — é o que atravessa a rede, e não se confunde com a ferramenta nem com o canal.",
+      "entra": "a ordem do orquestrador, e o dado que vem do canal",
+      "sai": "a colheita, que vai à porta de admissão",
+      "dono": "coleta/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "Ferramenta, veiculo e acao sao TRES coisas"
+      },
+      "implementa": [
+        "coleta/**"
+      ]
+    },
+    {
+      "id": "E-SOCIAL",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-EXECUTORES",
+      "tipo": "acao",
+      "nome": "Colher a comunicação pública",
+      "frase": "Colher o que o concorrente publica em Instagram, YouTube e outras contas públicas.",
+      "porque": "Ativação pública observada é uma coluna própria — nunca se soma com resposta registada.",
+      "entra": "das contas públicas autorizadas pela régua de identidade",
+      "sai": "para a porta de admissão",
+      "dono": "coleta/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "ATIVACAO OBSERVADA"
+      },
+      "implementa": [
+        "coleta/instagram_*.py",
+        "coleta/youtube_*.py",
+        "coleta/comunicacao_*.py",
+        "coleta/speaker_*.py",
+        "coleta/sensor_canal_identidade.py"
+      ]
+    },
+    {
+      "id": "E-CIENCIA",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-EXECUTORES",
+      "tipo": "acao",
+      "nome": "Colher a ciência e a voz",
+      "frase": "Montar o corpus de obra publicada e de fala de quem trabalha no campo.",
+      "porque": "Sinal de ciência e sinal de campo são camadas distintas do cruzamento, e cada uma tem o seu relógio.",
+      "entra": "de bases académicas abertas (OpenAlex, ORCID)",
+      "sai": "para a porta de admissão",
+      "dono": "coleta/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "Um caso de convergencia cruza"
+      },
+      "implementa": [
+        "coleta/corpus_pesquisador.py",
+        "coleta/es/**",
+        "coleta/universo_ciencia_it.py"
+      ]
+    },
+    {
+      "id": "E-ROTULOS",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-EXECUTORES",
+      "tipo": "acao",
+      "nome": "Baixar e ler os rótulos oficiais",
+      "frase": "Ir buscar o documento oficial do produto e tirar dele o texto que interessa.",
+      "porque": "O rótulo é a prova de que existe resposta registada localmente para um par cultura × problema.",
+      "entra": "dos registos nacionais",
+      "sai": "para a porta de admissão",
+      "dono": "coleta/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "registro oficial nacional"
+      },
+      "implementa": [
+        "coleta/rotulos_*.py",
+        "coleta/cruzar_regua_rotulo.py",
+        "coleta/preservar_pdf.py",
+        "coleta/pdf_text.py",
+        "coleta/texto_fonte.py"
+      ]
+    },
+    {
+      "id": "E-OFICIAIS",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-EXECUTORES",
+      "tipo": "acao",
+      "nome": "Ler as bases oficiais da Europa",
+      "frase": "Ler os registos públicos europeus e nacionais: atos, substâncias, autorizações, mapas.",
+      "porque": "Só o regulatório antecipa com data publicada — e por isso é a única camada com prazo conhecido.",
+      "entra": "dos portais oficiais europeus e nacionais",
+      "sai": "para a porta de admissão",
+      "dono": "coleta/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "ato europeu"
+      },
+      "implementa": [
+        "coleta/agrifood_ue.py",
+        "coleta/cellar.sh",
+        "coleta/ephy.sh",
+        "coleta/eppo_gd.py",
+        "coleta/denominaciones.py",
+        "coleta/gire_mapas.py",
+        "coleta/mapa_regfi.py",
+        "coleta/regulatorio_importar.py",
+        "coleta/eu_substancia_adama_it.py",
+        "coleta/ropf_pre_requisito.py"
+      ]
+    },
+    {
+      "id": "E-ITALIA",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-EXECUTORES",
+      "tipo": "acao",
+      "nome": "Colher as fontes italianas",
+      "frase": "Percorrer as rotas italianas já contratadas e trazer o documento certo.",
+      "porque": "Cada fonte italiana tem contrato executável que diz como se sabe que é o documento certo — e como ele falha.",
+      "entra": "dos portais italianos",
+      "sai": "para a porta de admissão",
+      "dono": "coleta/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+        "anchor": "IT-"
+      },
+      "implementa": [
+        "coleta/italy_*.mjs"
+      ]
+    },
+    {
+      "id": "S-FERRAMENTAS",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "ferramenta",
+      "nome": "Com que se viaja",
+      "frase": "As ferramentas da coleta: o navegador, a rota paga, a transcrição local, os leitores de documento.",
+      "porque": "Ferramenta responde «com QUE se viaja» — não é o canal de onde o dado vem, nem a ação que vai buscá-lo.",
+      "entra": "é chamada pela ação da coleta",
+      "sai": "devolve a página, o áudio em texto, o PDF aberto",
+      "dono": "ferramentas/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "com **que** se viaja"
+      },
+      "implementa": [
+        "ferramentas/**"
+      ]
+    },
+    {
+      "id": "T-APIFY",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-FERRAMENTAS",
+      "tipo": "ferramenta",
+      "nome": "A rota paga",
+      "frase": "Guarda e reveza as chaves das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no registo.",
+      "porque": "Oito execuções pagas já foram queimadas nesta casa mandando campo que o ator descartava em silêncio.",
+      "entra": "chamada pela ação da coleta",
+      "sai": "o material bruto da plataforma",
+      "dono": "ferramentas/apify_pool.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "Apify"
+      },
+      "implementa": [
+        "ferramentas/apify_*.py",
+        "ferramentas/contrato_ator.py"
+      ]
+    },
+    {
+      "id": "T-NAVEGADOR",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-FERRAMENTAS",
+      "tipo": "ferramenta",
+      "nome": "A rota grátis",
+      "frase": "Abre a página pública pelo próprio navegador e lê o que ela já mostra de graça.",
+      "porque": "As fases grátis não são cerimónia: pagar pelo que a rota pública já entrega é pagar duas vezes.",
+      "entra": "chamada pela ação da coleta",
+      "sai": "o que a página pública mostra",
+      "dono": "ferramentas/navegador.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "o navegador"
+      },
+      "implementa": [
+        "ferramentas/navegador.py",
+        "ferramentas/cdp.py"
+      ]
+    },
+    {
+      "id": "T-TRANSCRICAO",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-FERRAMENTAS",
+      "tipo": "ferramenta",
+      "nome": "A fala vira texto",
+      "frase": "Transcreve o áudio dos vídeos na própria máquina, sem fatura.",
+      "porque": "A rota paga de transcrição cobra por minuto — e há ator que cobra por minuto iniciado.",
+      "entra": "o vídeo colhido",
+      "sai": "o texto do que foi dito",
+      "dono": "ferramentas/instagram_transcrever.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "a transcricao"
+      },
+      "implementa": [
+        "ferramentas/*transcrever*.py"
+      ]
+    },
+    {
+      "id": "T-LEITORES",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-FERRAMENTAS",
+      "tipo": "ferramenta",
+      "nome": "Abrir PDF, ODS e HTML",
+      "frase": "Tira o texto de dentro de um PDF, de uma planilha ou de uma página.",
+      "porque": "O documento oficial chega como ficheiro fechado; sem o abrir não há facto nenhum.",
+      "entra": "o ficheiro baixado",
+      "sai": "o texto de dentro dele",
+      "dono": "ferramentas/pdf_peek.mjs",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "abrir PDF"
+      },
+      "implementa": [
+        "ferramentas/*peek*.mjs",
+        "ferramentas/html_text.mjs",
+        "ferramentas/italy_extract_fields.mjs"
+      ]
+    },
+    {
+      "id": "S-CANAIS",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "canal",
+      "nome": "De onde o dado vem",
+      "frase": "Os canais — YouTube, Instagram, LinkedIn, Facebook, pedido HTTP direto. O lugar, não a ação.",
+      "porque": "A seta segue o dado, e o dado VEM do canal — não vai para ele. Por isso o canal vem antes da ação: ele é o início do caminho.",
+      "entra": "nada — é origem",
+      "sai": "para a ação que o colhe",
+      "dono": "medido no codigo de cada acao",
+      "papel": "SOURCE_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "de **onde** o dado vem"
+      },
+      "implementa": []
+    },
+    {
+      "id": "S-SCRAP",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "capacidade",
+      "nome": "SINTONIA SCRAP",
+      "frase": "A capacidade especializada de aquisição: o botão único que despacha a coleta social de qualquer lugar, sem ninguém estar na máquina.",
+      "porque": "Os coletores rodavam à mão, na máquina — ou seja, a coleta só existia enquanto alguém estivesse sentado nela. A máquina continua a ser a mesma; o que muda é quem pode chamar.",
+      "entra": "um despacho de quem tem permissão",
+      "sai": "manda rodar as ações da coleta, na ordem grátis-antes-de-pago",
+      "dono": ".github/workflows/sintonia-scrap.yml",
+      "papel": "FLUXO",
+      "authority": {
+        "file": ".github/workflows/scrap-social.yml",
+        "anchor": "Este workflow NAO e um segundo motor"
+      },
+      "implementa": [
+        ".github/workflows/sintonia-scrap.yml",
+        ".github/workflows/scrap-social.yml",
+        ".github/workflows/apify-sensores.yml",
+        ".github/workflows/apify-conexao.yml",
+        ".github/workflows/comunicacao-publica.yml"
+      ],
+      "problema": "O despacho do Instagram confere os scripts em «scripts/», pasta que foi dissolvida nas gavetas e hoje só tem um marcador. A conferência falha e a corrida para no passo 0."
+    },
+    {
+      "id": "SC-INSTAGRAM",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-SCRAP",
+      "tipo": "capacidade",
+      "nome": "O despacho de Instagram e YouTube",
+      "frase": "As fases da coleta social, as grátis primeiro e a rota paga só no fim.",
+      "porque": "LOTE CONGELADO → PERFIL → OBJETO → (só então) ROTA PAGA. A ordem é lei, e ela vem da medição: pagar pelo que a rota pública já entrega é pagar duas vezes.",
+      "entra": "o lote congelado de contas autorizadas",
+      "sai": "o material colhido, para a admissão",
+      "dono": ".github/workflows/sintonia-scrap.yml",
+      "papel": "FLUXO",
+      "authority": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "anchor": "LOTE CONGELADO"
+      },
+      "implementa": [
+        ".github/workflows/sintonia-scrap.yml"
+      ],
+      "problema": "O passo 0 confere «scripts/<nome>.py» para onze ficheiros. A pasta «scripts/» já não existe como gaveta: qualquer despacho para nesse passo.",
+      "impedimentos": [
+        {
+          "tipo": "FICHEIRO_EXIGIDO_AUSENTE",
+          "exigido_por": ".github/workflows/sintonia-scrap.yml",
+          "porque": "o passo 0 do despacho confere estes ficheiros e aborta a corrida se algum faltar",
+          "caminhos": [
+            "scripts/instagram_coleta.py",
+            "scripts/instagram_janela.py",
+            "scripts/instagram_diario.py",
+            "scripts/instagram_transcrever.py",
+            "scripts/instagram_pessoal.py",
+            "scripts/cdp.py",
+            "scripts/navegador.py",
+            "scripts/contrato_ator.py",
+            "scripts/youtube_janela.py",
+            "scripts/youtube_relevancia.py",
+            "scripts/youtube_transcrever.py"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SC-SOCIAL",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "S-SCRAP",
+      "tipo": "capacidade",
+      "nome": "As rotas sociais gratuitas",
+      "frase": "As fases que não tocam a rota paga: censo de capacidade, portão do robots.txt, piloto ao vivo, e o registo do que realmente rodou.",
+      "porque": "PODER FAZER não é TER FEITO — e por isso uma das fases existe só para registar o que de facto correu.",
+      "entra": "um despacho",
+      "sai": "medições de rota e o registo de execução",
+      "dono": ".github/workflows/scrap-social.yml",
+      "papel": "FLUXO",
+      "authority": {
+        "file": ".github/workflows/scrap-social.yml",
+        "anchor": "can do != did do"
+      },
+      "implementa": [
+        ".github/workflows/scrap-social.yml"
+      ],
+      "implementado_declarado": "NAO",
+      "problema": "O workflow está registado no ramo padrão, mas os dois ficheiros que ele manda rodar não existem nesta árvore. Declarado, não implementado aqui.",
+      "impedimentos": [
+        {
+          "tipo": "FICHEIRO_EXIGIDO_AUSENTE",
+          "exigido_por": ".github/workflows/scrap-social.yml",
+          "porque": "o workflow manda rodar estes dois ficheiros; sem eles a corrida rebenta no import",
+          "caminhos": [
+            "guarda/social_guarda.py",
+            "coleta/social_scrap.py"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S-REGUAS-CARIMBO",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "lei",
+      "nome": "As réguas que carimbam",
+      "frase": "As leis que trabalham NO MOMENTO em que o item entra: de onde veio, quem está autorizado, que palavras a busca digita.",
+      "porque": "Uma régua que carimba só vale se for posta na coleta: depois é tarde, porque o dado já entrou sem ela e ninguém consegue recuperar a origem.",
+      "entra": "o item a ser colhido",
+      "sai": "o mesmo item, carimbado — ou barrado",
+      "dono": "regras/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "Regua que carimba nao e regua que mede"
+      },
+      "implementa": [
+        "regras/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "regras/LEIA-ANTES-DE-COLETAR.md",
+          "prova": "a porta unica das reguas e gerada do mapa e lista cada regua com o ficheiro onde vive"
+        }
+      ]
+    },
+    {
+      "id": "S-ADMISSAO",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "porta",
+      "nome": "A porta de admissão",
+      "frase": "A peneira comum: para cada item e cada universo, SIM, NÃO, NÃO SEI ou NÃO SE APLICA — e o livro que guarda o motivo de cada não.",
+      "porque": "O caminho era colher, carimbar e guardar TUDO. A peneira existia para um canal de cinco. Descarte sem testemunha é trabalho perdido duas vezes.",
+      "entra": "a colheita que o executor largou",
+      "sai": "o que passou vai para a sala de espera; o que não passou fica escrito no livro",
+      "dono": "admissao/admissao.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "PORTA DE ADMISSAO"
+      },
+      "implementa": [
+        "admissao/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "data/samples/LIVRO-DE-DECISOES.json",
+          "prova": "506 decisoes escritas em seis corridas de 2026-09-07"
+        }
+      ],
+      "problema": "A porta correu e não admitiu nada: das 506 decisões, zero são SIM (364 NÃO SEI, 142 NÃO SE APLICA), e todas foram tomadas pela mesma única regra. A sala de espera está vazia por consequência."
+    },
+    {
+      "id": "S-MEDIDAS",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "lei",
+      "nome": "As réguas que medem",
+      "frase": "As leis que trabalham DEPOIS, olhando para trás: o padrão da coleta, a saúde de cada fonte, o lugar do facto.",
+      "porque": "Medir não é filtrar. Uma régua que mede não barra nada — conta quanto falta. Pô-la antes das ações faz parecer que há peneira onde só há termómetro.",
+      "entra": "o que já foi colhido",
+      "sai": "um número que diz quanto falta — e um chão que só sobe",
+      "dono": "medidas/",
+      "papel": "TERMINAL_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "Medir nao e filtrar"
+      },
+      "implementa": [
+        "medidas/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "medidas/PADRAO-DA-COLETA-CHAO.json",
+          "prova": "o chao medido esta gravado e o CI reprova quando o numero piora"
+        }
+      ]
+    },
+    {
+      "id": "S-PRONTOS",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "bandeja",
+      "nome": "A bandeja «pronto para inteligência»",
+      "frase": "Onde fica o que passou na peneira, à espera de ser processado.",
+      "porque": "Entre a coleta e a inteligência há uma faixa neutra: o trabalho de colher acabou e o de analisar ainda não começou. Nada é transformado aqui — só guardado.",
+      "entra": "o que a porta de admissão aceitou",
+      "sai": "para a inteligência",
+      "dono": "pedido/orquestrador.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "A SALA DE ESPERA e cinzenta de proposito"
+      },
+      "implementa": [],
+      "observado_por": [
+        {
+          "artefato": "data/samples/PRONTO-PARA-INTELIGENCIA",
+          "prova": "a bandeja teria um ficheiro por corrida admitida"
+        }
+      ],
+      "problema": "A bandeja nunca recebeu nada: a pasta não existe na árvore, porque nenhuma das 506 decisões da porta foi SIM. E, do outro lado, ninguém a lê — nenhuma peça da inteligência aponta para ela.",
+      "impedimentos": [
+        {
+          "tipo": "BANDEJA_VAZIA",
+          "exigido_por": "pedido/orquestrador.py",
+          "porque": "e aqui que a bandeja seria escrita, uma vez por corrida admitida",
+          "caminhos": [
+            "data/samples/PRONTO-PARA-INTELIGENCIA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S-AMOSTRAS",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "armazem",
+      "nome": "As amostras preservadas",
+      "frase": "O sítio versionado onde a coleta larga a evidência que sobrevive à reunião.",
+      "porque": "Dado bruto e normalizado não é versionado; evidência preservável é. Sem um artefato que sobreviva, nada é COMPROVADO — e uma capacidade sem evidência preservável é hipótese.",
+      "entra": "o material que as ações da coleta largam",
+      "sai": "para quem precisar dele — inclusive superfícies que o leem direto",
+      "dono": "data/samples/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": ".gitignore",
+        "anchor": "Evidencia preservavel vai para data/samples/, que E versionado"
+      },
+      "implementa": [
+        "data/samples/RUN-MANIFEST.json",
+        "data/samples/LIVRO-DE-DECISOES.json"
+      ],
+      "observado_por": [
+        {
+          "artefato": "data/samples",
+          "prova": "a pasta de amostras existe e esta versionada"
+        }
+      ],
+      "problema": "Este armazém é lido DIRETAMENTE por superfícies do portal, em paralelo à rota do pacote canónico. Duas rotas para a mesma tela é a forma de as duas discordarem sem ninguém notar."
+    },
+    {
+      "id": "S-BANCO",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "armazem",
+      "nome": "O banco onde o dado fica guardado",
+      "frase": "A base de dados que guarda o que foi colhido entre uma corrida e outra.",
+      "porque": "Sem persistência, cada corrida recomeça do zero e o que custou dinheiro a colher perde-se.",
+      "entra": "o material colhido e importado",
+      "sai": "consulta para quem precisar",
+      "dono": "guarda/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "A SALA DE ESPERA"
+      },
+      "implementa": [
+        "guarda/**",
+        "supabase/**",
+        ".github/workflows/supabase-*.yml"
+      ],
+      "problema": "MIGRATION EXISTE NO GIT não é MIGRATION APLICADA AO VIVO. O que está aplicado no banco real não se mede a partir desta árvore: aqui só se vê o ficheiro.",
+      "excluir": [
+        "guarda/italy_preserve.mjs"
+      ]
+    },
+    {
+      "id": "S-PRESERVACAO",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "armazem",
+      "nome": "Guardar com impressão digital",
+      "frase": "Preservar o documento como ele saiu da fonte, com o resumo digital que prova que não mudou.",
+      "porque": "Testemunho não é prova. Sem impressão digital não se consegue mostrar depois que o documento lido era aquele.",
+      "entra": "o documento baixado",
+      "sai": "o mesmo documento, com impressão digital",
+      "dono": "guarda/italy_preserve.mjs",
+      "papel": "FERRAMENTA_DE_MAO",
+      "authority": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "metade sao ferramentas de mao"
+      },
+      "implementa": [
+        "guarda/italy_preserve.mjs"
+      ],
+      "problema": "Nenhum código e nenhum workflow a chama: corre à mão, pela linha de comando. Não é lixo — é ferramenta de mão, e o censo já tinha medido 49 peças nessa situação."
+    },
+    {
+      "id": "S-DONO",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "lei",
+      "nome": "Quem manda na inteligência",
+      "frase": "A linhagem que tem o direito de gerar o pacote — e a declaração de que esta árvore NÃO é ela.",
+      "porque": "A inteligência tem UM dono. Um consumidor que ainda sabe gerar acaba por gerar — e gera uma safra atrasada com a mesma cara da boa.",
+      "entra": "nada — é uma lei sobre quem decide",
+      "sai": "para o portão da build, que recusa pacote sem esta prova",
+      "dono": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+      "papel": "TERMINAL_BY_DESIGN",
+      "authority": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "a inteligencia tem UM dono"
+      },
+      "implementa": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "italia-portale/audit/STALE-GENERATOR-CONTROL.json"
+      ],
+      "observado_por": [
+        {
+          "artefato": "italia-portale/client/italy-handoff-v21.js",
+          "prova": "o pacote embarcado carrega o BUILD_ID que o contrato declara esperado"
+        }
+      ]
+    },
+    {
+      "id": "S-LEIS",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "lei",
+      "nome": "As leis que decidem o que conta como verdade",
+      "frase": "Procedência, lugar do facto, tempo do facto, relevância para a ADAMA, domínio da alegação.",
+      "porque": "Sem estas leis um número vira verdade só porque está escrito — e o lugar do documento passa por lugar do facto, a publicação passa por data do facto.",
+      "entra": "o dado que chegou à inteligência",
+      "sai": "o mesmo dado, com o que é verdade separado do que é suposição",
+      "dono": "leis/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "fonte/location do documento nao vira local do fato"
+      },
+      "implementa": [
+        "leis/**"
+      ]
+    },
+    {
+      "id": "S-MOTOR",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "O motor que transforma dado em caso",
+      "frase": "A cadeia V2.1: uma ordem só, do material bruto até ao caso fechado com dono, lugar e momento.",
+      "porque": "A ordem importa e não é adivinhável. O passo que apaga sem avisar é pior que o passo que falha — o que falha, vê-se.",
+      "entra": "as coleções do handoff e da última milha",
+      "sai": "o pacote canónico fechado",
+      "dono": "motor/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "CANONICAL_GENERATOR"
+      },
+      "implementa": [
+        "motor/v21_*.py",
+        "motor/v21_cadeia.sh",
+        "motor/normalize_*.py",
+        "motor/pacote_*.py",
+        "motor/consolidar_leque.py",
+        "motor/matriz_recorte.py",
+        "motor/cadeia_canonica.sh"
+      ],
+      "problema": "A cadeia recusa-se a correr nesta linhagem: corrida aqui produz uma safra atrasada, sem a lei de superfície e com um estado já revogado de volta em onze casos. CÓDIGO EXISTE não é FLUXO CORREU."
+    },
+    {
+      "id": "M-CRUZAMENTOS",
+      "nivel": 2,
+      "departamento": "D-INTELIGENCIA",
+      "parent": "S-MOTOR",
+      "tipo": "motor",
+      "nome": "Os cruzamentos",
+      "frase": "Onde duas camadas diferentes se encontram sobre o mesmo identificador — campo com ciência, ciência com regulatório, tudo com o portfólio local.",
+      "porque": "Um caso de convergência cruza sete camadas, e a concorrência é uma delas: não é um monitor pendurado ao lado do produto.",
+      "entra": "os registos já normalizados",
+      "sai": "os pares que se tocam, com a chave que os liga",
+      "dono": "motor/v21_crossings.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/cruzamentos/MATRIZ-DE-CRUZAMENTOS-EAME.md",
+        "anchor": "cruzamento"
+      },
+      "implementa": [
+        "motor/v21_crossings.py",
+        "motor/pacote_convergencia.py"
+      ]
+    },
+    {
+      "id": "M-SINAIS",
+      "nivel": 2,
+      "departamento": "D-INTELIGENCIA",
+      "parent": "S-MOTOR",
+      "tipo": "motor",
+      "nome": "Os sinais e as oportunidades",
+      "frase": "O que merece ser investigado primeiro — e nunca «oportunidade de venda».",
+      "porque": "A saída é PRIORIDADE A INVESTIGAR. Chamar área × incidência de área tratada, procura ou venda seria transformar um índice de exposição relativa numa afirmação económica que ninguém mediu.",
+      "entra": "os cruzamentos e a leitura comercial",
+      "sai": "os casos, cada um com o seu estado",
+      "dono": "motor/v21_oportunidades.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "PRIORITY TO INVESTIGATE"
+      },
+      "implementa": [
+        "motor/v21_oportunidades.py",
+        "motor/v21_comercial.py",
+        "motor/v21_completude_oportunidade.py",
+        "motor/v21_necessidade.py"
+      ]
+    },
+    {
+      "id": "M-FECHAR",
+      "nivel": 2,
+      "departamento": "D-INTELIGENCIA",
+      "parent": "S-MOTOR",
+      "tipo": "motor",
+      "nome": "O fechamento e a aceitação",
+      "frase": "O registo central, o manifesto e a recontagem de todo número declarado.",
+      "porque": "Um carimbo que não sobrevive a si mesmo não identifica nada: a identidade do pacote só fecha quando recarimbar deixa de mudar o resultado.",
+      "entra": "o pacote já montado",
+      "sai": "o pacote com identidade fixa e contagens provadas",
+      "dono": "motor/v21_fechar.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "EXPECTED_BUILD_ID"
+      },
+      "implementa": [
+        "motor/v21_fechar.py",
+        "motor/v21_aceitacao.py",
+        "motor/v21_contrato_do_pacote.py"
+      ]
+    },
+    {
+      "id": "S-PACOTE",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "artefato",
+      "nome": "O pacote canónico",
+      "frase": "O artefato fechado que sai da inteligência — derivado e reproduzível, nunca dono da lei.",
+      "porque": "Contrato tem um dono; o retrato é derivado. Um artefato gerado que passe a mandar seria uma segunda verdade.",
+      "entra": "do motor, na linhagem que tem o direito de gerar",
+      "sai": "para o portão da build",
+      "dono": "pacote/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "generated artifact* nao vira dono da lei"
+      },
+      "implementa": [
+        "pacote/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
+          "prova": "existe pacote construido e preservado na arvore"
+        }
+      ]
+    },
+    {
+      "id": "S-V2-LEGADO",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "A cadeia V2",
+      "frase": "A geração anterior do motor, antes da V2.1.",
+      "porque": "Fica no histórico porque a sua ordem é conhecimento; apagá-la perderia a razão de cada passo.",
+      "entra": "—",
+      "sai": "—",
+      "dono": "motor/",
+      "papel": "LEGADO",
+      "legacy": true,
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "legacy"
+      },
+      "implementa": [
+        "motor/v2_*.py"
+      ]
+    },
+    {
+      "id": "S-PORTAO-BUILD",
+      "nivel": 1,
+      "departamento": "D-VALIDACAO",
+      "parent": null,
+      "tipo": "portao",
+      "nome": "O portão da build",
+      "frase": "O único ponto por onde o pacote atravessa para a tela — e ele fecha quando a procedência não se prova.",
+      "porque": "Um portão que avisa é um portão que se ignora na sexta-feira à noite. Se a procedência não se prova, a build para — não passa com aviso.",
+      "entra": "o pacote canónico",
+      "sai": "autorização para atravessar, ou a build parada",
+      "dono": "italia-portale/audit/build-gate.mjs",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "FAIL_CLOSED"
+      },
+      "implementa": [
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/build-v21.mjs",
+        "portoes/build_portal.py"
+      ]
+    },
+    {
+      "id": "S-INGEST-SITE",
+      "nivel": 1,
+      "departamento": "D-VALIDACAO",
+      "parent": null,
+      "tipo": "portao",
+      "nome": "A fronteira entre o pacote e o portal",
+      "frase": "Quem decide, campo a campo, O QUE do pacote pode atravessar para o navegador do cliente.",
+      "porque": "O que não atravessa esta linha não precisa ser filtrado na tela. Prosa que não embarca não vaza.",
+      "entra": "o pacote canónico aprovado",
+      "sai": "o ficheiro embarcado que o portal lê",
+      "dono": "portoes/site_v21_ingest.py",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "portoes/site_v21_ingest.py",
+        "anchor": "PROSA QUE NAO EMBARCA NAO VAZA"
+      },
+      "implementa": [
+        "portoes/site_v21_ingest.py"
+      ],
+      "observado_por": [
+        {
+          "artefato": "italia-portale/client/italy-handoff-v21.js",
+          "prova": "o ficheiro embarcado existe no cliente e carrega o BUILD_ID esperado"
+        }
+      ]
+    },
+    {
+      "id": "S-AUDITORIA",
+      "nivel": 1,
+      "departamento": "D-VALIDACAO",
+      "parent": null,
+      "tipo": "prova",
+      "nome": "A auditoria do portal",
+      "frase": "As verificações que olham a tela pronta e perguntam se ela diz a verdade.",
+      "porque": "Teste que nunca viu vermelho não é teste: as verificações correm contra casos negativos construídos de propósito.",
+      "entra": "o portal montado",
+      "sai": "relatórios que aprovam ou reprovam",
+      "dono": "italia-portale/audit/",
+      "papel": "TERMINAL_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "italia-portale/audit/"
+      },
+      "implementa": [
+        "italia-portale/audit/**"
+      ],
+      "excluir": [
+        "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "italia-portale/audit/STALE-GENERATOR-CONTROL.json",
+        "italia-portale/audit/build-gate.mjs",
+        "italia-portale/audit/build-v21.mjs"
+      ]
+    },
+    {
+      "id": "A-BLOCOS",
+      "nivel": 2,
+      "departamento": "D-VALIDACAO",
+      "parent": "S-AUDITORIA",
+      "tipo": "prova",
+      "nome": "A auditoria de blocos",
+      "frase": "Cada bloco da tela tem um contrato, e a verificação confere se o bloco o cumpre.",
+      "porque": "Um bloco que mostra número sem dizer de onde ele vem é uma afirmação sem fonte.",
+      "entra": "os blocos do portal",
+      "sai": "o veredito por bloco",
+      "dono": "italia-portale/audit/blocks",
+      "papel": "TERMINAL_BY_DESIGN",
+      "authority": {
+        "file": "italia-portale/audit/BLOCK-CONTRACTS.md",
+        "anchor": "MUST STILL DEFINE"
+      },
+      "implementa": [
+        "italia-portale/audit/blocks/**",
+        "italia-portale/audit/blocks.mjs"
+      ]
+    },
+    {
+      "id": "A-CASCO",
+      "nivel": 2,
+      "departamento": "D-VALIDACAO",
+      "parent": "S-AUDITORIA",
+      "tipo": "prova",
+      "nome": "A auditoria do casco",
+      "frase": "As verificações da casca do portal: navegação, demonstração visível, falso zero, mapas duplicados.",
+      "porque": "Um zero que na verdade é «não consegui ver» é a diferença entre um relatório e uma mentira.",
+      "entra": "o casco montado",
+      "sai": "o veredito do casco",
+      "dono": "italia-portale/audit/casco",
+      "papel": "TERMINAL_BY_DESIGN",
+      "authority": {
+        "file": "regras/LEIA-ANTES-DE-COLETAR.md",
+        "anchor": "Lista vazia e FALHA, nao zero"
+      },
+      "implementa": [
+        "italia-portale/audit/casco/**"
+      ]
+    },
+    {
+      "id": "S-PROVAS",
+      "nivel": 1,
+      "departamento": "D-VALIDACAO",
+      "parent": null,
+      "tipo": "prova",
+      "nome": "As provas do repositório",
+      "frase": "Os testes que provam que a máquina faz o que diz — incluindo a coleta canónica de ponta a ponta.",
+      "porque": "O que separa «está escrito» de «está provado».",
+      "entra": "o código da máquina",
+      "sai": "passa ou reprova, e o CI fecha o caminho",
+      "dono": "provas/",
+      "papel": "TERMINAL_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "tests/"
+      },
+      "implementa": [
+        "provas/**",
+        "tests/**",
+        ".github/workflows/calendario-regressoes.yml"
+      ],
+      "observado_por": [
+        {
+          "artefato": "provas/testa_coleta_canonica.py",
+          "prova": "existe prova executavel que percorre pedido, orquestrador e admissao de ponta a ponta"
+        }
+      ]
+    },
+    {
+      "id": "S-MAPA",
+      "nivel": 1,
+      "departamento": "D-VALIDACAO",
+      "parent": null,
+      "tipo": "instrumento",
+      "nome": "O System Map",
+      "frase": "O instrumento que observa a máquina e a publica de forma navegável.",
+      "porque": "O mapa é derivado do repo; o repo não é derivado do mapa. Ele observa a máquina — não a define.",
+      "entra": "o repositório e as autoridades",
+      "sai": "um mapa navegável, e um portão que reprova quando ele mente",
+      "dono": "system-map/",
+      "papel": "INSTRUMENTO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "O mapa e derivado do repo"
+      },
+      "implementa": [
+        "system-map/scripts/**",
+        "system-map/tests/**",
+        "system-map/app/**",
+        ".github/workflows/system-map.yml"
+      ]
+    },
+    {
+      "id": "MP-V2",
+      "nivel": 2,
+      "departamento": "D-VALIDACAO",
+      "parent": "S-MAPA",
+      "tipo": "instrumento",
+      "nome": "O mapa da máquina (V2)",
+      "frase": "A projeção que mostra a máquina por departamentos, e não o repositório por ficheiros.",
+      "porque": "De longe a máquina; mais perto os departamentos; mais perto os subsistemas; só no último nível a engenharia. Se for preciso abrir código para responder às perguntas macro, o mapa falhou.",
+      "entra": "o modelo declarado e a medição do repositório",
+      "sai": "um mapa navegável com quatro níveis",
+      "dono": "system-map/v2/",
+      "papel": "INSTRUMENTO",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "O mapa e derivado do repo"
+      },
+      "implementa": [
+        "system-map/v2/scripts/**",
+        "system-map/v2/tests/**",
+        "system-map/v2/app/**",
+        "system-map/v2/model/**"
+      ]
+    },
+    {
+      "id": "S-CASCO",
+      "nivel": 1,
+      "departamento": "D-PORTAL",
+      "parent": null,
+      "tipo": "superficie",
+      "nome": "O casco do portal",
+      "frase": "A casca: a navegação, os idiomas, as páginas que seguram as ferramentas.",
+      "porque": "A tela apresenta decisão já tomada. Ela não recalcula nada, e não pode passar a definir a arquitetura.",
+      "entra": "o pacote embarcado",
+      "sai": "as telas que o cliente abre",
+      "dono": "italia-portale/client/portale.html",
+      "papel": "SINK_BY_DESIGN",
+      "authority": {
+        "file": "AGENTS.md",
+        "anchor": "tela nao recalcula decisao do motor"
+      },
+      "implementa": [
+        "italia-portale/client/portale.html",
+        "italia-portale/client/index.html",
+        "italia-portale/client/casa.html",
+        "italia-portale/client/accesso.html",
+        "italia-portale/client/italy-i18n.js",
+        "italia-portale/client/support.js"
+      ]
+    },
+    {
+      "id": "S-MODELO",
+      "nivel": 1,
+      "departamento": "D-PORTAL",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "O modelo de aplicação do portal",
+      "frase": "Quem resolve cultura, problema e região dentro da tela, com um relógio único.",
+      "porque": "Ter DOIS lugares a resolver cultura é como o projeto acabaria com duas telas a discordar sobre a mesma videira.",
+      "entra": "o pacote embarcado",
+      "sai": "as coleções que cada ferramenta lê",
+      "dono": "italia-portale/client/italy-app-model.js",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "portoes/site_v21_ingest.py",
+        "anchor": "italy-app-model.js"
+      },
+      "implementa": [
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-handoff-v21.js",
+        "italia-portale/client/italy-ingested.js",
+        "italia-portale/client/italy-v21.js",
+        "italia-portale/client/italy-canonical-windows.js"
+      ]
+    },
+    {
+      "id": "S-TOOLS",
+      "nivel": 1,
+      "departamento": "D-PORTAL",
+      "parent": null,
+      "tipo": "ferramenta",
+      "nome": "As ferramentas do portal",
+      "frase": "As vistas que o cliente abre — cada uma consumindo a inteligência já decidida.",
+      "porque": "Uma ferramenta consome e valida a inteligência; não a possui. Deixar uma ferramenta visual puxar a arquitetura para trás inverteria a ordem inteira.",
+      "entra": "as coleções do modelo de aplicação",
+      "sai": "o que o cliente lê na tela",
+      "dono": "italia-portale/client/portale.html",
+      "papel": "SINK_BY_DESIGN",
+      "authority": {
+        "file": "system-map/data/casco.generated.json",
+        "anchor": "FERRAMENTAS"
+      },
+      "implementa": [
+        "italia-portale/client/italy-briefs.js",
+        "italia-portale/client/italy-catalog.js",
+        "italia-portale/client/italy-market-pulse.js",
+        "italia-portale/client/italy-science-business.js",
+        "italia-portale/client/italy-label-verdicts.js",
+        "italia-portale/client/italy-casa.js",
+        "italia-portale/client/meeting-*.js",
+        "italia-portale/client/italy-pdf.js",
+        "italia-portale/client/adama-relevance.js",
+        "italia-portale/client/italy-real-intelligence.js",
+        "italia-portale/client/italy-demo-data.js"
+      ],
+      "medido_por": "casco",
+      "problema": "Das onze ferramentas medidas, quatro não têm bloco nem origem de dado identificada: ficam em NÃO SEI, e isso é a verdade sobre elas."
+    },
+    {
+      "id": "S-ASK",
+      "nivel": 1,
+      "departamento": "D-PORTAL",
+      "parent": null,
+      "tipo": "superficie",
+      "nome": "Ask Sintonia",
+      "frase": "Como se pergunta às ferramentas — não é uma ferramenta a mais.",
+      "porque": "É um contrato de aceitação, não um teste executado: toda resposta devolve factos, ligações, o que não se sabe, por que pode importar, e a evidência.",
+      "entra": "uma pergunta de quem usa",
+      "sai": "factos, ligações e o que continua desconhecido",
+      "dono": "superficie/ask_sintonia.py",
+      "papel": "SINK_BY_DESIGN",
+      "authority": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "Nao e uma quarta ferramenta"
+      },
+      "implementa": [
+        "superficie/**"
+      ],
+      "problema": "Cinco perguntas executam; trinta e cinco têm veredito escrito à mão. E ele lê as amostras da coleta DIRETO, não o pacote canónico: é uma segunda rota até à tela."
+    },
+    {
+      "id": "S-DS",
+      "nivel": 1,
+      "departamento": "D-PORTAL",
+      "parent": null,
+      "tipo": "biblioteca",
+      "nome": "O extrato do ADAMA Design System",
+      "frase": "Os tokens oficiais de cor, tipografia e espaçamento que a tela carrega.",
+      "porque": "Nenhuma cor de marca se escreve à mão. O extrato local serve para não divergir dos tokens em código — a consulta continua a ser no Design System oficial.",
+      "entra": "—",
+      "sai": "para toda superfície que pinta alguma coisa",
+      "dono": "italia-portale/client/_ds/adama-brandwell/",
+      "papel": "FLUXO",
+      "authority": {
+        "file": "CLAUDE.md",
+        "anchor": "Extrato local"
+      },
+      "implementa": [
+        "italia-portale/client/_ds/**"
+      ]
+    }
+  ],
+  "LIGACOES": [
+    {
+      "de": "D-FONTES",
+      "para": "D-COLETA",
+      "nivel": 0,
+      "significado": "o acervo e o pedido dizem o que ir buscar",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "consulta-se antes de coletar"
+      },
+      "implementada": {
+        "file": "pedido/receitas.py",
+        "contem": "FONTES_MEDIDAS"
+      },
+      "observada": {
+        "artefato": "data/samples/RUN-MANIFEST.json",
+        "prova": "ha recibos de corridas que nasceram de um pedido"
+      }
+    },
+    {
+      "de": "D-COLETA",
+      "para": "D-ESPERA",
+      "nivel": 0,
+      "significado": "o que passou na peneira fica guardado à espera",
+      "declarada": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "a sala de espera"
+      },
+      "implementada": {
+        "file": "pedido/orquestrador.py",
+        "contem": "PRONTOS.mkdir"
+      },
+      "observada": null
+    },
+    {
+      "de": "D-ESPERA",
+      "para": "D-INTELIGENCIA",
+      "nivel": 0,
+      "significado": "a inteligência pega o que está pronto",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "le-se em tres palavras, da esquerda para a direita"
+      },
+      "implementada": null,
+      "observada": null
+    },
+    {
+      "de": "D-INTELIGENCIA",
+      "para": "D-VALIDACAO",
+      "nivel": 0,
+      "significado": "o pacote só atravessa se provar de onde veio",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "atravessar a fronteira do site"
+      },
+      "implementada": {
+        "file": "portoes/site_v21_ingest.py",
+        "contem": "DESIGN-INGEST"
+      },
+      "observada": {
+        "artefato": "italia-portale/client/italy-handoff-v21.js",
+        "prova": "o pacote atravessou: o ficheiro embarcado existe"
+      }
+    },
+    {
+      "de": "D-VALIDACAO",
+      "para": "D-PORTAL",
+      "nivel": 0,
+      "significado": "o que passou no portão chega à tela",
+      "declarada": {
+        "file": "portoes/site_v21_ingest.py",
+        "anchor": "a fronteira entre o pacote V2.1 e o portal"
+      },
+      "implementada": {
+        "file": "italia-portale/client/italy-app-model.js",
+        "contem": "ITALY_HANDOFF_V21"
+      },
+      "observada": {
+        "artefato": "italia-portale/client/italy-handoff-v21.js",
+        "prova": "o cliente carrega o pacote embarcado com o BUILD_ID esperado pelo contrato"
+      }
+    },
+    {
+      "de": "D-INTELIGENCIA",
+      "para": "D-FONTES",
+      "nivel": 0,
+      "retorno": true,
+      "significado": "a inteligência descobre que falta coleta e pede mais",
+      "declarada": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "COLLECT MORE"
+      },
+      "implementada": null,
+      "observada": null
+    },
+    {
+      "de": "S-ACERVO",
+      "para": "O-RECEITA",
+      "nivel": 1,
+      "significado": "a receita deriva o plano das fontes que o atlas já classificou",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "consulta-se antes de coletar"
+      },
+      "implementada": {
+        "file": "pedido/receitas.py",
+        "contem": "sources.generated.json"
+      },
+      "observada": {
+        "artefato": "system-map/data/sources.generated.json",
+        "prova": "as fontes medidas existem e sao lidas pela receita"
+      }
+    },
+    {
+      "de": "S-CANDIDATAS",
+      "para": "S-ACERVO",
+      "nivel": 1,
+      "significado": "a candidata vira fonte depois de alguém a abrir e olhar",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "O que entra pela porta e candidata, nunca fonte"
+      },
+      "implementada": {
+        "file": "candidatas/fonte_nova.py",
+        "contem": "ATLAS"
+      },
+      "observada": {
+        "artefato": "candidatas/FONTES-CANDIDATAS.json",
+        "prova": "a fila de candidatas existe"
+      }
+    },
+    {
+      "de": "S-PEDIDO",
+      "para": "S-ORQUESTRADOR",
+      "nivel": 1,
+      "significado": "quem pede diz o que quer; o orquestrador decide como",
+      "declarada": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "ORQUESTRADOR"
+      },
+      "implementada": {
+        "file": "pedido/orquestrador.py",
+        "contem": "from pedido import"
+      },
+      "observada": {
+        "artefato": "data/samples/RUN-MANIFEST.json",
+        "prova": "recibos com RUN_ID no formato que o orquestrador emite"
+      }
+    },
+    {
+      "de": "S-ORQUESTRADOR",
+      "para": "S-EXECUTORES",
+      "nivel": 1,
+      "significado": "o orquestrador manda o executor sair",
+      "declarada": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "qual caminho executar"
+      },
+      "implementada": {
+        "file": "pedido/orquestrador.py",
+        "contem": "subprocess.run([sys.executable"
+      },
+      "observada": {
+        "artefato": "data/samples/RUN-MANIFEST.json",
+        "prova": "os recibos nomeiam o executor que correu (coleta/corpus_pesquisador.py, coleta/comunicacao_coleta.py, coleta/rotulos_baixar.py)"
+      }
+    },
+    {
+      "de": "S-CANAIS",
+      "para": "S-EXECUTORES",
+      "nivel": 1,
+      "significado": "o dado vem do canal e atravessa para a ação que o colhe",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "A seta segue o dado, e o dado VEM do canal"
+      },
+      "implementada": {
+        "file": "coleta/youtube_janela.py",
+        "contem": "youtube"
+      },
+      "observada": {
+        "artefato": "data/samples/RUN-MANIFEST.json",
+        "prova": "os recibos registam a plataforma de onde cada corrida trouxe material"
+      }
+    },
+    {
+      "de": "S-FERRAMENTAS",
+      "para": "S-EXECUTORES",
+      "nivel": 1,
+      "significado": "a ação usa a ferramenta para chegar lá",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "com **que** se viaja"
+      },
+      "implementada": {
+        "file": "coleta/instagram_coleta.py",
+        "contem": "import"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-REGUAS-CARIMBO",
+      "para": "S-EXECUTORES",
+      "nivel": 1,
+      "significado": "a régua carimba no momento em que o item entra",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "Regua que carimba nao e regua que mede"
+      },
+      "implementada": {
+        "file": "coleta/coletor.py",
+        "contem": "proveniencia"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-SCRAP",
+      "para": "S-EXECUTORES",
+      "nivel": 1,
+      "significado": "o despacho manda rodar as ações da coleta social",
+      "declarada": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "anchor": "A MAQUINA CONTINUA SENDO A MAQUINA. O QUE MUDA E QUEM PODE CHAMAR"
+      },
+      "implementada": {
+        "file": ".github/workflows/sintonia-scrap.yml",
+        "contem": "coleta/instagram_janela.py"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-EXECUTORES",
+      "para": "S-ADMISSAO",
+      "nivel": 1,
+      "significado": "a colheita é levada à peneira",
+      "declarada": {
+        "file": "docs/operacao/CENSO-DA-COLETA.md",
+        "anchor": "PORTA DE ADMISSAO"
+      },
+      "implementada": {
+        "file": "pedido/orquestrador.py",
+        "contem": "adm.decidir"
+      },
+      "observada": {
+        "artefato": "data/samples/LIVRO-DE-DECISOES.json",
+        "prova": "506 decisoes escritas, com o item, o universo, a regra e o motivo"
+      }
+    },
+    {
+      "de": "S-ADMISSAO",
+      "para": "S-PRONTOS",
+      "nivel": 1,
+      "significado": "o que a porta aceitou vai para a bandeja",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "A SALA DE ESPERA e cinzenta de proposito"
+      },
+      "implementada": {
+        "file": "pedido/orquestrador.py",
+        "contem": "pronto_para_inteligencia"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-EXECUTORES",
+      "para": "S-MEDIDAS",
+      "nivel": 1,
+      "significado": "as réguas que medem olham para trás, para o que já foi colhido",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "Medir nao e filtrar"
+      },
+      "implementada": {
+        "file": "medidas/padrao_da_coleta.py",
+        "contem": "coleta"
+      },
+      "observada": {
+        "artefato": "medidas/PADRAO-DA-COLETA-CHAO.json",
+        "prova": "o chao medido esta gravado e o CI compara contra ele"
+      }
+    },
+    {
+      "de": "S-EXECUTORES",
+      "para": "S-BANCO",
+      "nivel": 1,
+      "significado": "o material colhido é importado para o banco",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "A SALA DE ESPERA"
+      },
+      "implementada": {
+        "file": "guarda/catalogo_importar.py",
+        "contem": "import"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-DONO",
+      "para": "S-MOTOR",
+      "nivel": 1,
+      "significado": "só a linhagem dona tem o direito de correr o motor",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "a inteligencia tem UM dono"
+      },
+      "implementada": {
+        "file": "motor/v21_cadeia.sh",
+        "contem": "CADEIA RECUSADA NESTA LINHAGEM"
+      },
+      "observada": {
+        "artefato": "italia-portale/audit/STALE-GENERATOR-CONTROL.json",
+        "prova": "o controlo negativo medido: a saida real da cadeia corrida na linhagem consumidora, que o portao tem de recusar"
+      }
+    },
+    {
+      "de": "S-LEIS",
+      "para": "S-MOTOR",
+      "nivel": 1,
+      "significado": "o motor importa as leis para decidir",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "contrato tem um dono"
+      },
+      "implementada": {
+        "file": "motor/v21_cadeia.sh",
+        "contem": "leis/v21_carimbar_origem.py"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-MOTOR",
+      "para": "S-PACOTE",
+      "nivel": 1,
+      "significado": "o motor fecha o pacote canónico",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "EXPECTED_BUILD_ID"
+      },
+      "implementada": {
+        "file": "motor/v21_cadeia.sh",
+        "contem": "motor/v21_fechar.py"
+      },
+      "observada": {
+        "artefato": "build/ITALY-REALITY-HANDOFF-V2/MANIFEST.json",
+        "prova": "existe pacote construido e preservado"
+      }
+    },
+    {
+      "de": "S-PACOTE",
+      "para": "S-PORTAO-BUILD",
+      "nivel": 1,
+      "significado": "o pacote apresenta-se ao portão",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "FAIL_CLOSED"
+      },
+      "implementada": {
+        "file": "italia-portale/audit/build-gate.mjs",
+        "contem": "EXPECTED_BUILD_ID"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-PORTAO-BUILD",
+      "para": "S-INGEST-SITE",
+      "nivel": 1,
+      "significado": "aprovado no portão, o pacote é filtrado campo a campo",
+      "declarada": {
+        "file": "portoes/site_v21_ingest.py",
+        "anchor": "PROSA QUE NAO EMBARCA NAO VAZA"
+      },
+      "implementada": {
+        "file": "portoes/site_v21_ingest.py",
+        "contem": "italy-handoff-v21.js"
+      },
+      "observada": {
+        "artefato": "italia-portale/client/italy-handoff-v21.js",
+        "prova": "o ficheiro embarcado existe no cliente"
+      }
+    },
+    {
+      "de": "S-INGEST-SITE",
+      "para": "S-MODELO",
+      "nivel": 1,
+      "significado": "o portal lê o pacote embarcado com precedência canónica",
+      "declarada": {
+        "file": "portoes/site_v21_ingest.py",
+        "anchor": "italy-app-model.js"
+      },
+      "implementada": {
+        "file": "italia-portale/client/italy-app-model.js",
+        "contem": "ITALY_HANDOFF_V21"
+      },
+      "observada": {
+        "artefato": "italia-portale/client/italy-handoff-v21.js",
+        "prova": "o pacote embarcado carrega o BUILD_ID que o contrato espera"
+      }
+    },
+    {
+      "de": "S-MODELO",
+      "para": "S-TOOLS",
+      "nivel": 1,
+      "significado": "cada ferramenta lê as coleções que o modelo resolveu",
+      "declarada": {
+        "file": "portoes/site_v21_ingest.py",
+        "anchor": "ja tem os resolvedores e o relogio unico"
+      },
+      "implementada": {
+        "file": "italia-portale/client/portale.html",
+        "contem": "navMeeting"
+      },
+      "observada": {
+        "artefato": "system-map/data/casco.generated.json",
+        "prova": "as onze ferramentas foram medidas na tela, cada uma com a linha onde o seu nome aparece"
+      }
+    },
+    {
+      "de": "S-TOOLS",
+      "para": "S-AUDITORIA",
+      "nivel": 1,
+      "significado": "a auditoria olha a tela pronta e pergunta se ela diz a verdade",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "italia-portale/audit/"
+      },
+      "implementada": {
+        "file": "italia-portale/audit/blocks.mjs",
+        "contem": "blocks"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-DS",
+      "para": "S-CASCO",
+      "nivel": 1,
+      "significado": "a tela carrega os tokens oficiais da marca",
+      "declarada": {
+        "file": "CLAUDE.md",
+        "anchor": "Extrato local"
+      },
+      "implementada": {
+        "file": "italia-portale/client/portale.html",
+        "contem": "_ds/adama-brandwell"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-CASCO",
+      "para": "S-TOOLS",
+      "nivel": 1,
+      "significado": "o casco segura e apresenta as ferramentas",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "SUPERFICIES"
+      },
+      "implementada": {
+        "file": "italia-portale/client/portale.html",
+        "contem": "navPortfolio"
+      },
+      "observada": {
+        "artefato": "system-map/data/casco.generated.json",
+        "prova": "a navegacao foi medida no ficheiro do casco"
+      }
+    },
+    {
+      "de": "S-MAPA",
+      "para": "S-PROVAS",
+      "nivel": 1,
+      "significado": "o mapa é provado pelo seu próprio validador no CI",
+      "declarada": {
+        "file": "AGENTS.md",
+        "anchor": "Falha fechado"
+      },
+      "implementada": {
+        "file": ".github/workflows/system-map.yml",
+        "contem": "validate_system_map.py"
+      },
+      "observada": null
+    },
+    {
+      "de": "S-EXECUTORES",
+      "para": "S-AMOSTRAS",
+      "nivel": 1,
+      "significado": "a ação larga a evidência preservável no acervo de amostras",
+      "declarada": {
+        "file": ".gitignore",
+        "anchor": "Evidencia preservavel vai para data/samples/, que E versionado"
+      },
+      "implementada": {
+        "file": "coleta/comunicacao_medir.py",
+        "contem": "samples"
+      },
+      "observada": {
+        "artefato": "data/samples/RUN-MANIFEST.json",
+        "prova": "os recibos das corridas estao la"
+      }
+    },
+    {
+      "de": "S-AMOSTRAS",
+      "para": "S-ASK",
+      "nivel": 1,
+      "significado": "o Ask Sintonia lê as amostras da coleta diretamente",
+      "declarada": {
+        "file": "README.md",
+        "anchor": "amostras reais, com procedencia"
+      },
+      "implementada": {
+        "file": "superficie/ask_sintonia.py",
+        "contem": "'data', 'samples'"
+      },
+      "observada": {
+        "artefato": "data/samples/ASK-SINTONIA-benchmark.json",
+        "prova": "a saida do benchmark existe na arvore"
+      }
+    },
+    {
+      "de": "S-AMOSTRAS",
+      "para": "S-PORTAO-BUILD",
+      "nivel": 1,
+      "significado": "o construtor do protótipo lê as amostras preservadas",
+      "declarada": {
+        "file": "portoes/build_portal.py",
+        "anchor": "nenhum numero e digitado a mao neste script"
+      },
+      "implementada": {
+        "file": "portoes/build_portal.py",
+        "contem": "'data', 'samples'"
+      },
+      "observada": null
+    }
+  ]
+}

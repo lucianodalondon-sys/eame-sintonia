@@ -99,7 +99,7 @@ A regua que decide se uma conta publica entra na coleta: identidade provada e co
 - **Abrir PDF, ODS e HTML** — Tira o texto de dentro de um PDF, de uma planilha ODS ou de uma pagina.
 - **Apify — a rota paga** — Guarda e reveza as chaves de acesso das coletas pagas, e limpa qualquer mensagem de erro antes de escrever no log.
 - **O navegador — a rota gratis** — Abre a pagina publica pelo proprio navegador e le o que ela ja mostra de graca.
-- **SINTONIA SCRAP — o despachador** — O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina.
+- **SINTONIA SCRAP — o despachador** — O botao unico da coleta de Instagram e YouTube: 24 fases, as gratis primeiro, despachavel de qualquer lugar sem ninguem estar na maquina. A segunda porta (scrap-social) cobre as rotas gratuitas e permitidas.
 
 ---
 

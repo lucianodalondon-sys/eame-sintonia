@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/dazzling-sagan-s53805",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FILES": [
     {
@@ -45,6 +45,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "6f456034e189d64a086152825470ea282b20ad48",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/scrap-social.yml",
+      "sha": "9cdaaa2415cdb40afb8e1e996dbad5a49c3df1b4",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -93,7 +100,7 @@
     },
     {
       "path": ".github/workflows/system-map.yml",
-      "sha": "5d3fd3a3a732f04b1a7cfa0ee465aa95e71e3369",
+      "sha": "3553723b3f281b0b3b2af87fd5f0c61785611ae8",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -6715,7 +6722,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "48da0985deaddcae18437e764fa2c72861d19d4b",
+      "sha": "730b9513337a4d0d643e1d028b648d2df0cb7d8d",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -7702,7 +7709,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "62c326bb84d16cafb421192987e741470b036f0e",
+      "sha": "294915fcfcdcc8669f3b280903fc6dbadfbc75ac",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -7766,6 +7773,90 @@
     {
       "path": "system-map/tests/test_system_map.py",
       "sha": "d8e76c0f7c789936d516ad66808ba6bcf5f38091",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/README.md",
+      "sha": "b0f9202d1a23bc01f5c7890fb338957a9de56fd5",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/app/index.html",
+      "sha": "2ad84e95c9d3fcf1d429692f17fb530e59a5f793",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/app/map.css",
+      "sha": "a13095e19ed31a02397654d92463e2dd3f7f11eb",
+      "ext": ".css",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/app/map.js",
+      "sha": "2a4c6d92115b24ec12a32d950797adde106e0186",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/data/machine.measured.json",
+      "sha": "6026eff97340ef77cbe8ad65322f3ef0637f1a28",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/data/state.v2.generated.json",
+      "sha": "032a10c209304fbfb8c266df972f716c208e9f1c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/model/machine.model.json",
+      "sha": "fd640e92aef60d9f49e9747d4fc436728f43820c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/generate_map_v2.py",
+      "sha": "cd556f999ae8138094cba340be01975b00d812f3",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/scan_machine.py",
+      "sha": "c4bb0826d26e0a7f9b434bd4faa22b613b91d8a8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/validate_map_v2.py",
+      "sha": "aa355a93c434910d067079b74dc3067190e3410d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/tests/red_team.py",
+      "sha": "087d857aab60d9176a65316db8bce571dbcbd81f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/tests/test_map_v2.py",
+      "sha": "4d5fa16ca8d901f0b8628a87f29b5413e358dcde",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8378,6 +8469,17 @@
       }
     },
     {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 239,
+        "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+      }
+    },
+    {
       "from_file": ".github/workflows/sintonia-scrap.yml",
       "to_file": "coleta/instagram_coleta.py",
       "type": "RUNS",
@@ -8560,7 +8662,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 80,
+        "line": 83,
         "snippet": "run: python3 medidas/padrao_da_coleta.py"
       }
     },
@@ -8571,7 +8673,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 89,
+        "line": 92,
         "snippet": "run: python3 provas/testa_coleta_canonica.py"
       }
     },
@@ -8582,7 +8684,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 67,
+        "line": 70,
         "snippet": "python3 system-map/scripts/censo_da_coleta.py"
       }
     },
@@ -8593,7 +8695,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 69,
+        "line": 72,
         "snippet": "python3 system-map/scripts/generate_system_map.py"
       }
     },
@@ -8604,7 +8706,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 68,
+        "line": 71,
         "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py"
       }
     },
@@ -8615,7 +8717,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 66,
+        "line": 69,
         "snippet": "python3 system-map/scripts/scan_casco.py"
       }
     },
@@ -8626,7 +8728,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 64,
+        "line": 67,
         "snippet": "python3 system-map/scripts/scan_repo.py"
       }
     },
@@ -8637,7 +8739,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 65,
+        "line": 68,
         "snippet": "python3 system-map/scripts/scan_sources.py"
       }
     },
@@ -8648,7 +8750,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 77,
+        "line": 80,
         "snippet": "run: python3 system-map/scripts/validate_system_map.py"
       }
     },
@@ -8659,7 +8761,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/system-map.yml",
-        "line": 83,
+        "line": 86,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
       }
     },
@@ -22371,28 +22473,6 @@
     },
     {
       "from_file": "system-map/scripts/validate_system_map.py",
-      "to_file": "system-map/app/map.css",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/validate_system_map.py",
-        "line": 93,
-        "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/validate_system_map.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/scripts/validate_system_map.py",
-        "line": 93,
-        "snippet": "for n in (\"state.generated.json\", \"index.html\", \"map.js\", \"map.css\")}"
-      }
-    },
-    {
-      "from_file": "system-map/scripts/validate_system_map.py",
       "to_file": "system-map/scripts/generate_system_map.py",
       "type": "READS",
       "payload": "artefacto",
@@ -22492,28 +22572,6 @@
     },
     {
       "from_file": "system-map/tests/test_system_map.py",
-      "to_file": "system-map/app/map.css",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_system_map.py",
-        "line": 238,
-        "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_system_map.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_system_map.py",
-        "line": 236,
-        "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_system_map.py",
       "to_file": "system-map/data/architecture.declared.json",
       "type": "READS",
       "payload": "artefacto",
@@ -22543,6 +22601,248 @@
         "file": "system-map/tests/test_system_map.py",
         "line": 224,
         "snippet": "\"validate_system_map.py\" in lei,"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/index.html",
+      "to_file": "italia-portale/client/_ds/adama-brandwell/tokens/colors.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/index.html",
+        "line": 15,
+        "snippet": "<link rel=\"stylesheet\" href=\"../../../italia-portale/client/_ds/adama-brandwell/tokens/colors.css\">"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/index.html",
+      "to_file": "italia-portale/client/_ds/adama-brandwell/tokens/typography.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/index.html",
+        "line": 16,
+        "snippet": "<link rel=\"stylesheet\" href=\"../../../italia-portale/client/_ds/adama-brandwell/tokens/typography.css\">"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/index.html",
+      "to_file": "system-map/v2/app/map.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/index.html",
+        "line": 17,
+        "snippet": "<link rel=\"stylesheet\" href=\"map.css\">"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/index.html",
+      "to_file": "system-map/v2/app/map.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/index.html",
+        "line": 61,
+        "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/map.js",
+      "to_file": "system-map/v2/data/state.v2.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/map.js",
+        "line": 40,
+        "snippet": "fetch('../data/state.v2.generated.json')"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/generate_map_v2.py",
+      "to_file": "system-map/v2/data/machine.measured.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/generate_map_v2.py",
+        "line": 50,
+        "snippet": "MEDIDO = V2 / \"data\" / \"machine.measured.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/generate_map_v2.py",
+      "to_file": "system-map/v2/data/state.v2.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/generate_map_v2.py",
+        "line": 51,
+        "snippet": "SAIDA = V2 / \"data\" / \"state.v2.generated.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/generate_map_v2.py",
+      "to_file": "system-map/v2/model/machine.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/generate_map_v2.py",
+        "line": 49,
+        "snippet": "MODELO = V2 / \"model\" / \"machine.model.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/scan_machine.py",
+      "to_file": "system-map/v2/data/machine.measured.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/scan_machine.py",
+        "line": 57,
+        "snippet": "SAIDA = RAIZ / \"system-map\" / \"v2\" / \"data\" / \"machine.measured.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/scan_machine.py",
+      "to_file": "system-map/v2/model/machine.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/scan_machine.py",
+        "line": 56,
+        "snippet": "MODELO = RAIZ / \"system-map\" / \"v2\" / \"model\" / \"machine.model.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validate_map_v2.py",
+      "to_file": "system-map/v2/data/machine.measured.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validate_map_v2.py",
+        "line": 36,
+        "snippet": "MEDIDO = V2 / \"data\" / \"machine.measured.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validate_map_v2.py",
+      "to_file": "system-map/v2/data/state.v2.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validate_map_v2.py",
+        "line": 37,
+        "snippet": "ESTADO = V2 / \"data\" / \"state.v2.generated.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validate_map_v2.py",
+      "to_file": "system-map/v2/model/machine.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validate_map_v2.py",
+        "line": 35,
+        "snippet": "MODELO = V2 / \"model\" / \"machine.model.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validate_map_v2.py",
+      "to_file": "system-map/v2/scripts/generate_map_v2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validate_map_v2.py",
+        "line": 78,
+        "snippet": "for passo in (\"scan_machine.py\", \"generate_map_v2.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validate_map_v2.py",
+      "to_file": "system-map/v2/scripts/scan_machine.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validate_map_v2.py",
+        "line": 78,
+        "snippet": "for passo in (\"scan_machine.py\", \"generate_map_v2.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/v2/data/machine.measured.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 32,
+        "snippet": "MED = json.loads((V2 / \"data\" / \"machine.measured.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/v2/data/state.v2.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 30,
+        "snippet": "S = json.loads((V2 / \"data\" / \"state.v2.generated.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/v2/model/machine.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 31,
+        "snippet": "M = json.loads((V2 / \"model\" / \"machine.model.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/test_map_v2.py",
+      "to_file": "system-map/v2/data/state.v2.generated.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/test_map_v2.py",
+        "line": 43,
+        "snippet": "S = json.loads((V2 / \"data\" / \"state.v2.generated.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/test_map_v2.py",
+      "to_file": "system-map/v2/model/machine.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/test_map_v2.py",
+        "line": 44,
+        "snippet": "M = json.loads((V2 / \"model\" / \"machine.model.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/test_map_v2.py",
+      "to_file": "system-map/v2/scripts/generate_map_v2.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/test_map_v2.py",
+        "line": 117,
+        "snippet": "subprocess.run([sys.executable, str(V2 / \"scripts\" / \"generate_map_v2.py\")],"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/test_map_v2.py",
+      "to_file": "system-map/v2/scripts/scan_machine.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/test_map_v2.py",
+        "line": 115,
+        "snippet": "subprocess.run([sys.executable, str(V2 / \"scripts\" / \"scan_machine.py\")],"
       }
     },
     {
@@ -25199,10 +25499,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
-    "files_readable": 388,
-    "files_code_dir": 433,
-    "file_edges": 1529,
+    "files_tracked": 1155,
+    "files_readable": 396,
+    "files_code_dir": 446,
+    "file_edges": 1548,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
