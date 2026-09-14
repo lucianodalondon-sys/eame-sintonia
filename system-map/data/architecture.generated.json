@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FILES": [
     {
@@ -45,6 +45,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "6f456034e189d64a086152825470ea282b20ad48",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/scrap-social.yml",
+      "sha": "9cdaaa2415cdb40afb8e1e996dbad5a49c3df1b4",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -974,6 +981,27 @@
       "code_dir": true
     },
     {
+      "path": "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+      "sha": "bce1a76118cc6993b6a898ba7cbdb865b461ae3d",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.md",
+      "sha": "7b43143b28d5ea9fcef28e00a502a53919561b81",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx",
+      "sha": "72f966e992219c320744ab348d1ebe229d4c8553",
+      "ext": ".xlsx",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "sha": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
       "ext": ".json",
@@ -990,6 +1018,83 @@
     {
       "path": "candidatas/fonte_nova.py",
       "sha": "9a96acc19f31d08a1aebca168fcc0380268c46c9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_baseline.py",
+      "sha": "e50a775d894edf4f37f7d63b908489ee94c4612c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_crawl.py",
+      "sha": "07a4c09799feac13911075b12d183f81bf920ef5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_probe.py",
+      "sha": "c4c01989d3a6e9e225dec72bca13fe655fb8dbcc",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_red_team.py",
+      "sha": "d1470c1729119afcfe7f382e6fbb8b7a3bce6b5c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_regras_b.py",
+      "sha": "4b298d2c32f562b8050a74ba0c5ef086c72f2543",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_second_proof.py",
+      "sha": "b6418d9f57c8fd2ac1c9837d13468ae409e8af8c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_second_proof_amostra.json",
+      "sha": "75b633c7bc249ba82f0ac97e9b86e68bc781e7df",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_seeds.json",
+      "sha": "106dbb49e0ed620964ac5bd7d44a424a76bd830c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_seeds.py",
+      "sha": "7cd2ce6995ecb61b97fef4fb5a86a78dc7854caa",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_workbook.py",
+      "sha": "2870153e885a56678e06c2139eb6d0b658ebfd5c",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_deep_xlsx.py",
+      "sha": "a8bdb1e7349fe10779418004fe626f29a3f279af",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -3867,6 +3972,13 @@
     {
       "path": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
       "sha": "508a4ca1853fbd3917dde501625980cc01b6e3d6",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/fontes/DELTA-KNOW-HOW-DESCOBERTA-PROFUNDA-2026-09-14.md",
+      "sha": "10676d9d02f53d6b7c7197641380fe73953ccecf",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7702,7 +7814,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "62c326bb84d16cafb421192987e741470b036f0e",
+      "sha": "0e743fc0f3f4e8def74e203f75493871a874be38",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -8378,6 +8490,17 @@
       }
     },
     {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 239,
+        "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+      }
+    },
+    {
       "from_file": ".github/workflows/sintonia-scrap.yml",
       "to_file": "coleta/instagram_coleta.py",
       "type": "RUNS",
@@ -8705,6 +8828,160 @@
         "file": "candidatas/fonte_nova.py",
         "line": 49,
         "snippet": "url=..., para_que=..., quem_viu=\"instagram_coleta.py\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "candidatas/FONTES-CANDIDATAS.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 131,
+        "snippet": "for rel in (\"candidatas/FONTES-CANDIDATAS.json\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 107,
+        "snippet": "master = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "candidatas/ITALY-SOURCE-MASTER-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 147,
+        "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.md\"):"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 154,
+        "snippet": "for rel in (\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 155,
+        "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\"):"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 143,
+        "snippet": "for rel in (\"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "docs/fontes/INDICE-DE-FONTES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 144,
+        "snippet": "\"docs/fontes/INDICE-DE-FONTES.md\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 145,
+        "snippet": "\"docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_baseline.py",
+      "to_file": "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_baseline.py",
+        "line": 146,
+        "snippet": "\"docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_second_proof.py",
+      "to_file": "candidatas/italy_deep_second_proof_amostra.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_second_proof.py",
+        "line": 61,
+        "snippet": "AMOSTRA_JSON = Path(__file__).resolve().parent / \"italy_deep_second_proof_amostra.json\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_seeds.py",
+      "to_file": "candidatas/italy_deep_seeds.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_seeds.py",
+        "line": 35,
+        "snippet": "DADOS = Path(__file__).resolve().parent / \"italy_deep_seeds.json\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_xlsx.py",
+      "to_file": "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_xlsx.py",
+        "line": 532,
+        "snippet": "csv_alvo = DESTINO / \"ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_xlsx.py",
+      "to_file": "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_xlsx.py",
+        "line": 533,
+        "snippet": "open(csv_alvo, 'w')  # csv_alvo = candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_deep_xlsx.py",
+      "to_file": "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_deep_xlsx.py",
+        "line": 392,
+        "snippet": "alvo = DESTINO / \"ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx\""
       }
     },
     {
@@ -25199,10 +25476,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
-    "files_readable": 388,
-    "files_code_dir": 433,
-    "file_edges": 1529,
+    "files_tracked": 1158,
+    "files_readable": 398,
+    "files_code_dir": 448,
+    "file_edges": 1544,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

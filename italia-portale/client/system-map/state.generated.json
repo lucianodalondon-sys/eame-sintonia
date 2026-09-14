@@ -30,6 +30,7 @@
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -154,9 +155,23 @@
     ],
     "candidatas": [
       "candidatas/FONTES-CANDIDATAS.json",
+      "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+      "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.md",
+      "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx",
       "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "candidatas/ITALY-SOURCE-MASTER-V1.md",
       "candidatas/fonte_nova.py",
+      "candidatas/italy_deep_baseline.py",
+      "candidatas/italy_deep_crawl.py",
+      "candidatas/italy_deep_probe.py",
+      "candidatas/italy_deep_red_team.py",
+      "candidatas/italy_deep_regras_b.py",
+      "candidatas/italy_deep_second_proof.py",
+      "candidatas/italy_deep_second_proof_amostra.json",
+      "candidatas/italy_deep_seeds.json",
+      "candidatas/italy_deep_seeds.py",
+      "candidatas/italy_deep_workbook.py",
+      "candidatas/italy_deep_xlsx.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
@@ -574,6 +589,7 @@
       "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
       "docs/ferramentas/CATALOGO-DE-FERRAMENTAS-EAME.md",
       "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "docs/fontes/DELTA-KNOW-HOW-DESCOBERTA-PROFUNDA-2026-09-14.md",
       "docs/fontes/INDICE-DE-FONTES.md",
       "docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md",
       "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md",
@@ -1208,8 +1224,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 552 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 552 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1583,9 +1599,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FAMILIES": [
     {
@@ -1607,7 +1623,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 37
+      "count": 38
     },
     {
       "id": "F-ESPERA",
@@ -1684,7 +1700,7 @@
       "y": 190,
       "w": 405,
       "h": 1972,
-      "count": 2
+      "count": 3
     },
     {
       "id": "Z-FONTES",
@@ -2312,6 +2328,7 @@
         "C-CI-COLETA",
         "C-COLETA-PUBLICA",
         "C-IDENTIDADE",
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
@@ -4487,7 +4504,9 @@
       },
       "file_count": 3,
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
@@ -5945,11 +5964,14 @@
         "C-COLETA-INSTAGRAM",
         "C-COLETA-PUBLICA",
         "C-COLETA-YOUTUBE",
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-SINTONIA-SCRAP",
         "C-TESTES"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [
@@ -6102,6 +6124,7 @@
         "C-IT-COLETA",
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN"
       ],
@@ -6109,7 +6132,7 @@
         "ITALIA": 8
       },
       "paises_dado": {
-        "ITALIA": 12
+        "ITALIA": 14
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -6281,13 +6304,14 @@
         "C-IT-CATALOGO",
         "C-IT-COLETA",
         "C-IT-CONTAS",
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-IT-PRESERVAR"
       ],
       "paises": {
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 33
+        "ITALIA": 34
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -6318,6 +6342,76 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 3885,
+      "y": 682
+    },
+    {
+      "id": "C-IT-DESCOBERTA-PROFUNDA",
+      "name": "A descoberta profunda de fontes italianas",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "what": "Procura QUEM, em Italia, produz informacao agricola util e recorrente — e separa isso do resto. Anda pelos links das fontes que a casa ja conhece (grafo de descoberta), sonda cada pista com HTTP real, mede seis coisas em separado (Italia, sinal agricola, informacao propria, recorrencia, proximidade do facto, identidade) e escreve uma pre-classe A/B/C/HOLD/REJECT com a razao ao lado. Entrega planilha e CSV pronto para a porta — e NAO executa a porta.",
+      "why_here": "Vem antes de `fontes/` de proposito: o que sai daqui e CANDIDATA, nunca fonte. A peca vizinha (C-IT-CATALOGO) mantem o catalogo do que ja se sabe; esta procura o que ainda nao se sabe, e mede-se contra aquela para nao devolver as mesmas fontes com nomes diferentes. Nenhum SOURCE_ID nasce aqui: SOURCE_ID nasce no atlas, com evidencia guardada por gente.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◎",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+        "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx",
+        "candidatas/italy_deep_baseline.py",
+        "candidatas/italy_deep_crawl.py",
+        "candidatas/italy_deep_probe.py",
+        "candidatas/italy_deep_red_team.py",
+        "candidatas/italy_deep_regras_b.py",
+        "candidatas/italy_deep_second_proof.py",
+        "candidatas/italy_deep_seeds.py",
+        "candidatas/italy_deep_workbook.py",
+        "candidatas/italy_deep_xlsx.py"
+      ],
+      "file_count": 11,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-IDENTIDADE",
+        "C-IT-CATALOGO",
+        "C-IT-CONTRATOS",
+        "C-PORTA-FONTE"
+      ],
+      "outbound": [],
+      "paises": {
+        "ITALIA": 11
+      },
+      "paises_dado": {
+        "ITALIA": 11
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 1065,
       "y": 682
     },
     {
@@ -7404,10 +7498,13 @@
         "C-COLETA-INSTAGRAM"
       ],
       "outbound": [
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-MAPA-SCAN"
       ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
@@ -7416,7 +7513,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
-      "y": 682
+      "y": 1004
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -11064,8 +11161,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-canonical-v1",
-        "HEAD 491b6f8d01c5e745a614e7e16d02375c666106ea"
+        "branch claude/italy-agricultural-sources-discovery-dfba81",
+        "HEAD f437ff1140fa97484ca9695b341fbe9ca0a9f050"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11775,6 +11872,28 @@
           "file": "regras/comunicacao_lote.py",
           "line": 54,
           "snippet": "CONTAS = os.path.join(SAIDA, 'CONTAS-V1.json')"
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta A descoberta profunda de fontes italianas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 143,
+          "snippet": "for rel in (\"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+        },
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 154,
+          "snippet": "for rel in (\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\","
         }
       ]
     },
@@ -13834,6 +13953,23 @@
     },
     {
       "from": "C-IDENTIDADE",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Quem esta autorizado a ser coletado alimenta A descoberta profunda de fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 155,
+          "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\"):"
+        }
+      ]
+    },
+    {
+      "from": "C-IDENTIDADE",
       "to": "C-SINTONIA-SCRAP",
       "type": "READS",
       "payload": "artefacto",
@@ -13980,6 +14116,28 @@
           "file": "candidatas/italy_write_matrix.mjs",
           "line": 73,
           "snippet": "writeFileSync(\"docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md\", L.join(\"\\n\") + \"\\n\");"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta A descoberta profunda de fontes italianas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 107,
+          "snippet": "master = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\""
+        },
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 147,
+          "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.md\"):"
         }
       ]
     },
@@ -14170,6 +14328,23 @@
           "file": "regras/italy_pilot_guards.mjs",
           "line": 99,
           "snippet": "const arquivos = [\"coleta/italy_pilot_collect.mjs\", \"provas/italy_pilot_negativos.mjs\"].map(f => readFileSync(f, \"utf8\")).join(\"\");"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana alimenta A descoberta profunda de fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 145,
+          "snippet": "\"docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md\","
         }
       ]
     },
@@ -14971,6 +15146,23 @@
           "file": "pedido/receitas.py",
           "line": 46,
           "snippet": "from pedido import Pedido, ALVOS  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta A descoberta profunda de fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_deep_baseline.py",
+          "line": 131,
+          "snippet": "for rel in (\"candidatas/FONTES-CANDIDATAS.json\","
         }
       ]
     },
@@ -17987,21 +18179,23 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_CODE_FILES": [
+    ".github/workflows/scrap-social.yml"
+  ],
+  "UNCLAIMED_FILES_COUNT": 648,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 97,
+    "components": 98,
     "components_proven": 68,
-    "components_pending": 25,
+    "components_pending": 26,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 322,
-    "edges_proven": 322,
+    "edges": 327,
+    "edges_proven": 327,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1142,
-    "files_covered": 499,
-    "files_code_unclaimed": 0
+    "files_tracked": 1158,
+    "files_covered": 510,
+    "files_code_unclaimed": 1
   }
 }

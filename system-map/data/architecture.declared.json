@@ -244,6 +244,35 @@
       ]
     },
     {
+      "id": "C-IT-DESCOBERTA-PROFUNDA",
+      "name": "A descoberta profunda de fontes italianas",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "◎",
+      "views": [
+        "acervo"
+      ],
+      "what": "Procura QUEM, em Italia, produz informacao agricola util e recorrente — e separa isso do resto. Anda pelos links das fontes que a casa ja conhece (grafo de descoberta), sonda cada pista com HTTP real, mede seis coisas em separado (Italia, sinal agricola, informacao propria, recorrencia, proximidade do facto, identidade) e escreve uma pre-classe A/B/C/HOLD/REJECT com a razao ao lado. Entrega planilha e CSV pronto para a porta — e NAO executa a porta.",
+      "why_here": "Vem antes de `fontes/` de proposito: o que sai daqui e CANDIDATA, nunca fonte. A peca vizinha (C-IT-CATALOGO) mantem o catalogo do que ja se sabe; esta procura o que ainda nao se sabe, e mede-se contra aquela para nao devolver as mesmas fontes com nomes diferentes. Nenhum SOURCE_ID nasce aqui: SOURCE_ID nasce no atlas, com evidencia guardada por gente.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "candidatas/italy_deep_baseline.py",
+        "candidatas/italy_deep_seeds.py",
+        "candidatas/italy_deep_crawl.py",
+        "candidatas/italy_deep_probe.py",
+        "candidatas/italy_deep_workbook.py",
+        "candidatas/italy_deep_regras_b.py",
+        "candidatas/italy_deep_second_proof.py",
+        "candidatas/italy_deep_red_team.py",
+        "candidatas/italy_deep_xlsx.py",
+        "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx",
+        "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv"
+      ]
+    },
+    {
       "id": "C-IT-COLETA",
       "name": "Colher as fontes italianas",
       "territory": "Z-ACOES",
