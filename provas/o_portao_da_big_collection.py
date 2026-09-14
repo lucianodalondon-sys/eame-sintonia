@@ -321,7 +321,17 @@ def main():
 
     # ── E · A DURABILIDADE, NOUTRO PROCESSO ───────────────────────────────
     print("\nE · O PROCESSO ESCRITOR MORRE, E A LINHA FICA")
-    lido = _ler_noutro_processo(url)
+    # ⚠️ UMA EXCECAO AQUI NAO PODE MATAR A PROVA EM SILENCIO.
+    # Foi o que aconteceu na primeira corrida: a seccao imprimiu o titulo e o
+    # processo morreu com codigo 1, sem uma linha a dizer porque. O relatorio
+    # gravado ficou sem a seccao inteira.
+    #
+    #     UMA PROVA QUE REBENTA NAO MEDIU NADA, E TEM DE O DIZER.
+    try:
+        lido = _ler_noutro_processo(url)
+    except Exception as e:                                     # noqa: BLE001
+        lido = {"ENCONTRADO": False,
+                "ERRO": "a propria leitura rebentou: %r" % (e,)}
     _mede("READY_EXISTS_AFTER_PROCESS_EXIT", lido.get("ENCONTRADO"),
           "lido pelo dono canonico, noutro interpretador")
     _mede("LEITURA_CAMPOS", lido.get("CAMPOS"), "")
@@ -385,45 +395,61 @@ def _ler_noutro_processo(url):
 
         PERGUNTAR A TABELA NAO E PERGUNTAR AO DONO.
     """
-    codigo = (
-        "import json,os,sys\n"
-        "sys.path.insert(0, %r)\n"
-        "sys.path.insert(0, os.path.join(%r,'coleta'))\n"
-        "sys.path.insert(0, os.path.join(%r,'admissao'))\n"
-        "import _gavetas\n"
-        "import sala_de_espera as espera\n"
-        "try:\n"
-        "    u = espera.ler(%r)\n"
-        "except Exception as e:\n"
-        "    print(json.dumps({'ENCONTRADO': False, 'ERRO': repr(e)})); raise SystemExit(0)\n"
-        "if not u:\n"
-        "    print(json.dumps({'ENCONTRADO': False, 'ERRO': 'ler() devolveu vazio'}))\n"
-        "    raise SystemExit(0)\n"
-        # A chave e `ITENS`, e e do dono. A primeira versao desta prova
-        # procurava `UNIDADES`, nao achava, e caia para o proprio envelope —
-        # entao media 2 campos (RUN_ID e ITENS) e dizia que o READY tinha 2.
-        #     UM `.get` COM A CHAVE ERRADA NAO REBENTA: MENTE BAIXINHO.
-        "itens = u.get('ITENS') if isinstance(u, dict) else u\n"
-        "if not isinstance(itens, list) or not itens:\n"
-        "    print(json.dumps({'ENCONTRADO': False, 'VIA': 'sala_de_espera.ler',\n"
-        "      'ERRO': 'ler() devolveu %r sem ITENS' % (sorted(u) if isinstance(u, dict) else type(u).__name__)}))\n"
-        "    raise SystemExit(0)\n"
-        "p = itens[0]\n"
-        "print(json.dumps({'ENCONTRADO': True, 'VIA': 'sala_de_espera.ler',\n"
-        "  'CAMPOS': len(p), 'RAW_OBSERVATION_ID': p.get('RAW_OBSERVATION_ID'),\n"
-        "  'CORRIDA': p.get('CORRIDA'), 'SOURCE_ID': p.get('SOURCE_ID'),\n"
-        "  'ESTADO': p.get('ESTADO')}, default=str))\n"
-    ) % (RAIZ, RAIZ, RAIZ, RUN)
+    # ⚠️ ESTE CODIGO NAO PASSA POR `%`, E A RAZAO E UM DEFEITO MEDIDO.
+    # A primeira versao interpolava a raiz com `... % (RAIZ, RAIZ, RAIZ, RUN)`
+    # — e o proprio texto do programa tinha um `%r` la dentro, numa mensagem de
+    # erro. A formatacao de fora comeu-o, e o processo leitor rebentou ANTES de
+    # correr, com a seccao E a morrer sem imprimir uma linha.
+    #
+    #     UM TEMPLATE QUE FORMATA CODIGO COMPETE COM O CODIGO PELOS MESMOS
+    #     SIMBOLOS, E QUEM PERDE E SEMPRE O DEPURADOR.
+    #
+    # Os dois valores entram por `json.dumps`, que e o que ja se usa para os
+    # atravessar de volta.
+    codigo = """
+import json, os, sys
+RAIZ = json.loads(os.environ["PORTAO_RAIZ"])
+RUN  = json.loads(os.environ["PORTAO_RUN"])
+sys.path.insert(0, RAIZ)
+sys.path.insert(0, os.path.join(RAIZ, 'coleta'))
+sys.path.insert(0, os.path.join(RAIZ, 'admissao'))
+import _gavetas
+import sala_de_espera as espera
+try:
+    u = espera.ler(RUN)
+except Exception as e:
+    print(json.dumps({'ENCONTRADO': False, 'ERRO': repr(e)}))
+    raise SystemExit(0)
+if not u:
+    print(json.dumps({'ENCONTRADO': False, 'VIA': 'sala_de_espera.ler',
+                      'ERRO': 'ler() devolveu vazio'}))
+    raise SystemExit(0)
+itens = u.get('ITENS') if isinstance(u, dict) else u
+if not isinstance(itens, list) or not itens:
+    print(json.dumps({'ENCONTRADO': False, 'VIA': 'sala_de_espera.ler',
+                      'ERRO': 'ler() nao trouxe ITENS',
+                      'CHAVES': sorted(u) if isinstance(u, dict) else str(type(u))}))
+    raise SystemExit(0)
+p = itens[0]
+print(json.dumps({'ENCONTRADO': True, 'VIA': 'sala_de_espera.ler',
+                  'CAMPOS': len(p),
+                  'RAW_OBSERVATION_ID': p.get('RAW_OBSERVATION_ID'),
+                  'CORRIDA': p.get('CORRIDA'),
+                  'SOURCE_ID': p.get('SOURCE_ID'),
+                  'ESTADO': p.get('ESTADO')}, default=str))
+"""
     amb = dict(os.environ)
     amb["SINTONIA_SALA_BACKEND"] = "POSTGRES"
     amb["SINTONIA_SALA_DSN"] = url
+    amb["PORTAO_RAIZ"] = json.dumps(RAIZ)
+    amb["PORTAO_RUN"] = json.dumps(RUN)
     r = subprocess.run([sys.executable, "-c", codigo], capture_output=True,
                        text=True, env=amb)
     linha = (r.stdout or "").strip().splitlines()
     if not linha:
         return {"ENCONTRADO": False,
                 "ERRO": "o processo leitor nao escreveu nada: %s"
-                        % (r.stderr or "")[:300]}
+                        % ((r.stderr or "").strip()[-400:] or "sem stderr")}
     try:
         return json.loads(linha[-1])
     except Exception:                                          # noqa: BLE001
