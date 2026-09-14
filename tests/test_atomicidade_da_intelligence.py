@@ -485,9 +485,31 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         so_entram = {l[1:].strip() for l in entram} - {l[1:].strip() for l in saem}
         so_saem = {l[1:].strip() for l in saem} - {l[1:].strip() for l in entram}
         self.assertEqual(set(), so_saem, "o mapa perdeu pecas: %s" % so_saem)
-        self.assertEqual(
-            {'"id": "C-INT-ESPINHA",', '"id": "C-INT-ARBITRAGEM",'}, so_entram,
-            "o mapa ganhou peca que esta missao nao declarou: %s" % so_entram)
+
+        # ⚠️ ISTO JA FOI UMA LISTA LITERAL — e por isso reprovou sozinho.
+        #
+        # A primeira versao fixava `{C-INT-ESPINHA, C-INT-ARBITRAGEM}`, que era
+        # o que estava declarado NAQUELA missao. A missao seguinte declarou
+        # `C-INT-MODELO-OBJETOS` no sitio certo — na FONTE — regenerou pela
+        # cadeia canonica, e este teste reprovou uma coisa correcta.
+        #
+        #     UMA ASSERCAO CERTA PRESA A UMA FOTOGRAFIA ANTIGA.
+        #
+        # E a sexta vez nesta casa. A defesa e deixar de fixar um VALOR e passar
+        # a medir a PROPRIEDADE que o valor representava: o espelho so pode
+        # ganhar pecas que a FONTE declara, e so desta faixa. Uma peca que
+        # aparece no espelho sem estar declarada continua a reprovar — que e
+        # exactamente o que esta prova existe para apanhar.
+        with open(ficheiro("system-map/data/architecture.declared.json"),
+                  encoding="utf-8") as fh:
+            declarados = {c["id"] for c in json.load(fh)["COMPONENTS"]}
+        for linha in sorted(so_entram):
+            cid = linha.split('"')[3]
+            with self.subTest(peca=cid):
+                self.assertIn(cid, declarados,
+                              "o espelho ganhou uma peca que a FONTE nao declara")
+                self.assertTrue(cid.startswith("C-INT-"),
+                                "esta faixa so declara pecas da Intelligence")
 
     def test_a_integracao_de_autoridades_so_acrescentou(self):
         """Ataques 1 e 14 do red team, guardados no sitio certo.
