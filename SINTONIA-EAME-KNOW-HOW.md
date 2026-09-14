@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-12 — §98: um portão que só se alcança com inventário não é um portão de política; um redirecionamento é um pedido novo.
+**Última atualização material:** 2026-09-14 — §111-§113: um grafo truncado responde «não existe»; um contrato com chave estrangeira para ninguém descreve um dono que ainda não chegou; a exceção a um portão paga-se com prova.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -12961,3 +12961,224 @@ DESIGNED != DB_TESTED != LIVE.
 ```
 
 O canário italiano continua parado, e agora por **uma** razão em vez de três.
+
+---
+
+# §111 · UM GRAFO TRUNCADO RESPONDE «NÃO EXISTE» ÀS PERGUNTAS QUE NÃO SABE RESPONDER
+
+## O QUE MUDOU
+
+A entrega de `C-INT-SPINE-01` declarou, com ênfase, que a branch da espinha
+**não tinha ancestral comum** com nenhuma autoridade da Intelligence — e
+construiu sobre isso a decisão de não integrar.
+
+A afirmação estava errada. O ancestral comum existe:
+
+```
+96933996e136cbbbca17dbe99e75f668fe050ec5
+2026-08-29 · «handoff: a tag foi recusada pelo proxy, e o marcador passa a ser o commit»
+```
+
+E é o mesmo para as **sete** referências medidas — linha funcional, agro,
+Bíblia, arbitragem, Motor V2, know-how e `main`.
+
+## POR QUÊ — A CAUSA, PROVADA
+
+```
+git rev-parse --is-shallow-repository   ->  true
+cat .git/shallow                        ->  472b4f9da48fa9f62002d6435bfcb52dd2f15f84
+                                            2026-09-06
+```
+
+O clone era **raso**. O enxerto cortava a história em 2026-09-06, e o ancestral
+comum é de 2026-08-29 — **abaixo do corte**. O `git merge-base` devolveu vazio
+porque, dentro do grafo que lhe deram, a resposta certa *era* vazio.
+
+```
+git merge-base --is-ancestor 96933996 472b4f9d   ->  verdadeiro
+git fetch --unshallow                            ->  a branch passa de 51 para 190 commits
+git merge-base <espinha> <qualquer autoridade>   ->  96933996, nas sete
+```
+
+## PROVA
+
+A mesma medição, antes e depois de um comando que não mudou uma linha de
+código:
+
+| | antes | depois |
+|---|---|---|
+| profundidade da branch | 51 commits | 190 commits |
+| `merge-base` com 7 autoridades | vazio, 7 vezes | `96933996`, 7 vezes |
+| conclusão publicada | «histórias desconexas» | «divergiram em 2026-08-29» |
+
+## CONSEQUÊNCIA
+
+**Duas, e a segunda é maior.**
+
+### 1 · A regra operacional
+
+```
+ANTES DE CONCLUIR AUSENCIA A PARTIR DE git merge-base, git log OU git grep:
+
+    git rev-parse --is-shallow-repository
+
+E SE FOR `true`, A MEDICAO NAO VALE — nem para dizer que existe, nem para
+dizer que nao existe.
+```
+
+Um clone raso não devolve erro. Devolve **silêncio**, e silêncio lê-se como
+ausência.
+
+### 2 · É o `§NEXT` da missão anterior, outra vez, com outra roupa
+
+Aquela secção escreveu-o para o `grep`:
+
+```
+UM CENSO SEM A FOTOGRAFIA DECLARADA E UM NUMERO SEM DENOMINADOR.
+```
+
+Faltava metade. A fotografia não é só *qual commit* — é **quanto da história
+veio junto**. Um censo pode declarar o commit certo e mesmo assim estar cego,
+se o grafo que o rodeia estiver cortado.
+
+```
+DECLARAR O COMMIT NAO CHEGA. DECLARA-SE TAMBEM A PROFUNDIDADE —
+PORQUE UM GRAFO TRUNCADO RESPONDE «NAO EXISTE»
+AS PERGUNTAS QUE ELE NAO SABE RESPONDER.
+```
+
+E a consequência prática, medida nesta casa em duas missões seguidas: **as duas
+conclusões erradas da frente Intelligence tiveram a mesma forma.** Uma
+mediu num repositório sem `leis/gestao_da_coleta.py`; a outra mediu num grafo
+sem o ancestral comum. Nenhuma das duas foi descuido de quem mediu.
+
+```
+O ERRO NAO ESTAVA NA MEDICAO. ESTAVA EM MEDIR
+SEM PERGUNTAR QUANTO DO MUNDO ESTAVA DENTRO DO ENQUADRAMENTO.
+```
+
+---
+
+# §112 · UM CONTRATO COM UMA CHAVE ESTRANGEIRA PARA NINGUÉM ESTÁ A DESCREVER UM DONO QUE AINDA NÃO CHEGOU
+
+## O QUE MUDOU
+
+A missão anterior propôs partir `COLLECTION_GAP` em dois donos. Era hipótese.
+Re-medida contra a árvore integrada — onde `leis/gestao_da_coleta.py`,
+`admissao/`, `motor/` e as leis da Intelligence coexistem pela primeira vez —
+**sobreviveu, e com uma prova mais dura do que a que a propôs.**
+
+```
+CAMPOS_DA_NECESSIDADE ∩ CAMPOS_DA_FALTA  =  {REQUIREMENT_ID}
+```
+
+Uma só. A necessidade é de quem a declara; a falta é de quem a mede; e as duas
+tocam-se num identificador, e em mais nada.
+
+## POR QUÊ
+
+A divisão **não foi inventada pela Intelligence**. Já estava desenhada em
+`GESTAO_DA_COLETA/v1`, escrita em 2026-09-08 por quem trabalhava a Collection:
+
+```
+CAMPOS_DA_NECESSIDADE   REQUIREMENT_ID · O_QUE · JANELA · FRESCURA_EXIGIDA ·
+                        GRAO · PORQUE_IMPORTA · POLICY_VERSION
+CAMPOS_DA_FALTA         GAP_ID · REQUIREMENT_ID · SATISFACTION_STATE · ...
+```
+
+O contrato declara os campos de uma necessidade **e nunca diz quem a escreve**.
+Tem uma chave estrangeira apontada para um declarante que ele não nomeia.
+
+## PROVA
+
+```
+motor/ e superficie/  tocam  GAP_ID · SATISFACTION_STATE · COLLECT_NOW ·
+                             DO_NOT_COLLECT · DEFER_UNKNOWN
+                             em ZERO ficheiros
+```
+
+Os únicos ficheiros do lado da Intelligence que escrevem esse vocabulário são
+os documentos e as provas da espinha — e escrevem-no para o **proibir**:
+`provas/espinha_da_intelligence.py` recusa doze dessas palavras em código, e
+`tests/test_atomicidade_da_intelligence.py::P4` tenta contrabandeá-las de
+quatro maneiras.
+
+## CONSEQUÊNCIA
+
+```
+QUANDO UM CONTRATO DESCREVE UM PAPEL QUE NINGUEM OCUPA,
+ELE NAO ESTA INCOMPLETO: ESTA A ESPERA.
+E PREENCHE-LO COM UM SEGUNDO CONCEITO DO MESMO NOME
+E A MANEIRA MAIS RAPIDA DE ARRANJAR DOIS DONOS.
+```
+
+E a regra de leitura que isto deixa: antes de criar um conceito, procurar **um
+contrato existente com um campo por preencher**. Foi assim que
+`INTELLIGENCE_REQUIREMENT` nasceu com dono, vocabulário e chave — em vez de
+nascer com um nome novo ao lado de um nome antigo.
+
+---
+
+# §113 · UM PORTÃO QUE PRENDE O TRABALHO CERTO É UM PORTÃO QUE ALGUÉM DESLIGA — E A EXCEÇÃO PAGA-SE COM PROVA
+
+## O QUE MUDOU
+
+Integrar as autoridades da Intelligence fez morder a **trava da Inteligência**
+da Collection (`COLLECTION_FOUNDATION_CLOSED = NAO`). Ela acusou dois ficheiros
+de serem «inteligência nova»:
+
+```
+provas/arbitragem_da_intelligence.py   -> IMPLEMENTATION
+controle/AUTORIDADES-CANONICAS.json    -> CONTRACT
+```
+
+O primeiro porque escreve `SIGNAL`, `CROSSING` e `OPPORTUNITY` por extenso —
+para os **procurar**. O segundo porque declara `"SCHEMA"` — mas o contrato que
+declara é o de **governança**, não o de análise.
+
+## POR QUÊ
+
+O próprio contrato da trava já autorizava os dois, por escrito:
+
+```
+O_QUE_A_TRAVA_NAO_IMPEDE:
+  · preservar historico e documentos
+  · medir o que a inteligencia futura vai esperar da coleta
+```
+
+E o classificador já tinha a lista `INSTRUMENTOS` para isto, com o precedente
+escrito ao lado: `leis/fundacao_da_coleta.py` nomeia `FIELD_VOICES` e `SCORING`
+**para os bloquear**, e congelá-la trancaria a própria fechadura.
+
+```
+O INSTRUMENTO DE MEDIDA NAO E A COISA MEDIDA.
+```
+
+## PROVA
+
+A exceção não foi paga com um comentário. Foi paga com `P10b`:
+
+```
+o instrumento nao tem funcao com verbo de calculo
+o que ele devolve e contagem — sem SCORE, sem CONFIDENCE
+o registo de autoridades nao carrega SIGNAL_ID, FINDING_ID nem OPPORTUNITY_ID
+a lista INSTRUMENTOS tem SEIS nomes, e o teste falha no setimo
+provas/espinha_da_intelligence.py NAO pediu excepcao — continua sob a trava
+```
+
+O último é o que interessa: **a máquina de estados da Intelligence continua
+congelada.** Quem pediu passagem foi o instrumento que a mede, não a coisa
+medida.
+
+## CONSEQUÊNCIA
+
+```
+UMA EXCEPCAO A UM PORTAO DE OUTRA FRENTE SO E LEGITIMA
+SE FOR ESTREITA, DECLARADA E VERIFICAVEL.
+SEM AS TRES, E UMA PORTA COM UM COMENTARIO BONITO.
+```
+
+E o corolário para quem integrar autoridades no futuro: **o portão da outra
+frente é informação, não obstáculo.** Ele apanhou exatamente o que existe para
+apanhar; o que estava errado era a espécie que o classificador atribuía, e o
+conserto foi na fonte — nunca no JSON gerado, nunca na baseline.

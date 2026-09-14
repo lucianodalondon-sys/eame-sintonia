@@ -7,7 +7,37 @@ ESPECIE      DELTA. NAO E O KNOW-HOW.
 APLICAR_EM   claude/sintonia-eame-know-how-v1 : SINTONIA-EAME-KNOW-HOW.md
 ```
 
+
 ---
+
+> # ⚠️ ESTE DELTA FOI APLICADO — E A SUA PREMISSA ERA FALSA
+>
+> ```
+> APLICADO_EM   SINTONIA-EAME-KNOW-HOW.md §111-§113
+> POR           C-INT-ATOMICITY-01, 2026-09-14
+> ```
+>
+> A secção seguinte diz que este delta vive em `handoff/` porque a branch da
+> espinha **não tinha ancestral comum** com o know-how. **Isso estava errado.**
+> A causa foi medida: o clone era raso (`.git/shallow` enxertado em `472b4f9d`,
+> 2026-09-06) e o ancestral comum — `96933996`, 2026-08-29 — ficava abaixo do
+> corte.
+>
+> ```
+> git fetch --unshallow
+> git merge-base <espinha> <know-how>   ->   96933996
+> ```
+>
+> O raciocínio de não fundar um segundo know-how continua certo. **A medição que
+> o motivou não.** Fica escrito aqui em vez de ser apagado: o §111 do know-how
+> canónico nasceu deste erro, e apagá-lo apagaria a razão de ele existir.
+>
+> ```
+> UMA CORRECCAO QUE APAGA O ENGANO APAGA TAMBEM A LICAO.
+> ```
+
+---
+
 
 # POR QUE ISTO É UM DELTA, E NÃO UMA SECÇÃO ESCRITA
 
