@@ -1503,6 +1503,7 @@
       "research/intelligence/RED-TEAM-AGRO-INTELLIGENCE-BENCHMARK-V1.md",
       "research/intelligence/RED-TEAM-BIBLIA-INTELLIGENCE-V0.2.md",
       "research/intelligence/RED-TEAM-INTELLIGENCE-SPINE-V1.md",
+      "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
       "research/italy-demo-reality/ADAMA-ITALY-CROP-PROBLEM-PRODUCT-MATRIX.json",
       "research/italy-demo-reality/ADAMA-ITALY-HERBICIDE-UNIVERSE.md",
       "research/italy-demo-reality/ADAMA-ITALY-PORTFOLIO-DEEP-DIVE.md",
@@ -1816,6 +1817,7 @@
       "tests/test_red_team_estrada.py",
       "tests/test_reel_transcricao.py",
       "tests/test_relatorio_do_fluxo.py",
+      "tests/test_relevance_priority_sobrecarga.py",
       "tests/test_retorno_da_coleta.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -2224,8 +2226,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "90abc6511d94cdc43ddf3a8c5520cc9d0264779b",
-    "GENERATED_AT": "2026-09-14T02:28:00+00:00",
+    "HEAD": "fce6204b9a7c24fdc36e380f4da2e8a268c45e9c",
+    "GENERATED_AT": "2026-09-14T02:55:58+00:00",
     "SOURCE_TREE_FINGERPRINT": "5a987ef9fd6ee411ef60d51e9a9f185ec1ca35959f36d34e18e8102381d82a62"
   },
   "FAMILIES": [
@@ -17612,6 +17614,7 @@
         "tests/test_red_team_estrada.py",
         "tests/test_reel_transcricao.py",
         "tests/test_relatorio_do_fluxo.py",
+        "tests/test_relevance_priority_sobrecarga.py",
         "tests/test_retorno_da_coleta.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
@@ -17639,7 +17642,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 156,
+      "file_count": 157,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17819,6 +17822,7 @@
           "CORRIDA",
           "DEFEITO_MEDIDO",
           "DESTINOS",
+          "DONOS",
           "ESCRITORES",
           "ESPECIES",
           "ESTADOS",
@@ -17856,13 +17860,13 @@
           "VOCABULARIO_DA_COLLECTION",
           "_GAVETA_DE"
         ],
-        "palavras": 699,
+        "palavras": 706,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 687,
+        "sem_marca_de_lingua": 694,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -20106,7 +20110,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao alimenta Suite de testes. Provado por 4 linhas de codigo.",
+      "reason": "A porta de admissao alimenta Suite de testes. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -20127,6 +20131,11 @@
           "file": "tests/test_observabilidade_estrada.py",
           "line": 269,
           "snippet": "porta = ler(os.path.join(RAIZ, 'admissao', 'admissao.py'))"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 54,
+          "snippet": "\"ITEM_RELEVANCE\": \"admissao/admissao.py\","
         }
       ],
       "categoria": "PROOF"
@@ -28142,7 +28151,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato da gestão da coleta tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O contrato da gestão da coleta tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
@@ -28153,6 +28162,11 @@
           "file": "tests/test_gestao_da_coleta.py",
           "line": 17,
           "snippet": "import gestao_da_coleta as g  # noqa: E402"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 113,
+          "snippet": "import gestao_da_coleta as g"
         }
       ],
       "categoria": "PROOF"
@@ -28807,7 +28821,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
@@ -28818,6 +28832,11 @@
           "file": "tests/test_atomicidade_da_intelligence.py",
           "line": 340,
           "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 197,
+          "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\"),"
         }
       ],
       "categoria": "PROOF"
@@ -31482,12 +31501,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A politica da coleta — o que colher, quando, e se ja temos tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A politica da coleta — o que colher, quando, e se ja temos tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_politica_da_coleta.py",
           "line": 18,
           "snippet": "import politica_da_coleta as g    # noqa: E402"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 122,
+          "snippet": "import politica_da_coleta as p"
         }
       ],
       "categoria": "PROOF"
@@ -31500,7 +31524,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A politica da coleta — o que colher, quando, e se ja temos alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A politica da coleta — o que colher, quando, e se ja temos alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_execucao_standalone.py",
@@ -31511,6 +31535,11 @@
           "file": "tests/test_politica_da_coleta.py",
           "line": 28,
           "snippet": "with open(caminho, encoding='utf-8') as fh:"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 102,
+          "snippet": "\"leis/politica_da_coleta.py\"):"
         }
       ],
       "categoria": "PROOF"
@@ -32194,8 +32223,13 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Modelo de aplicacao do portal alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 183,
+          "snippet": "modelo = texto(\"italia-portale/client/italy-app-model.js\")"
+        },
         {
           "file": "tests/test_security_ratchet.py",
           "line": 250,
@@ -34409,12 +34443,35 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Regua de relevancia ADAMA tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Regua de relevancia ADAMA tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_adama_relevance.py",
           "line": 22,
           "snippet": "from adama_relevance import (classificar, contar, produto_que_prova,   # noqa: E402"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 93,
+          "snippet": "import adama_relevance as ar"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-RELEVANCIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua de relevancia ADAMA alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 55,
+          "snippet": "\"CASE_RELEVANCE\": \"leis/adama_relevance.py\","
         }
       ],
       "categoria": "PROOF"
@@ -34514,7 +34571,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
@@ -34525,6 +34582,11 @@
           "file": "tests/test_linkedin_op_01_operacional.py",
           "line": 317,
           "snippet": "import relevancia_da_fonte as rl"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 94,
+          "snippet": "import relevancia_da_fonte as rf"
         },
         {
           "file": "tests/test_scrap_rc01_release_candidate.py",
@@ -34542,12 +34604,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_autorizacao_de_gasto.py",
           "line": 438,
           "snippet": "fonte = open(os.path.join(RAIZ, 'leis', 'relevancia_da_fonte.py'),"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 53,
+          "snippet": "\"SOURCE_RELEVANCE\": \"leis/relevancia_da_fonte.py\","
         }
       ],
       "categoria": "PROOF"
@@ -38926,7 +38993,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Leitura comercial e completude tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Leitura comercial e completude tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_prioridade_comercial.py",
@@ -38937,6 +39004,11 @@
           "file": "tests/test_prioridade_comercial.py",
           "line": 22,
           "snippet": "import v21_necessidade as NE  # noqa: E402"
+        },
+        {
+          "file": "tests/test_relevance_priority_sobrecarga.py",
+          "line": 129,
+          "snippet": "import v21_comercial as c"
         }
       ],
       "categoria": "PROOF"
@@ -39898,7 +39970,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 894,
+  "UNCLAIMED_FILES_COUNT": 895,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -40058,12 +40130,12 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 881,
-    "edges_proven": 878,
+    "edges": 882,
+    "edges_proven": 879,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1772,
-    "files_covered": 878,
+    "files_tracked": 1774,
+    "files_covered": 879,
     "files_code_unclaimed": 0
   }
 }

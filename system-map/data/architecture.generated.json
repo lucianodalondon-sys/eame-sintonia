@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "90abc6511d94cdc43ddf3a8c5520cc9d0264779b",
-    "GENERATED_AT": "2026-09-14T02:28:00+00:00",
+    "HEAD": "fce6204b9a7c24fdc36e380f4da2e8a268c45e9c",
+    "GENERATED_AT": "2026-09-14T02:55:58+00:00",
     "SOURCE_TREE_FINGERPRINT": "5a987ef9fd6ee411ef60d51e9a9f185ec1ca35959f36d34e18e8102381d82a62"
   },
   "FILES": [
@@ -10117,6 +10117,13 @@
       "code_dir": false
     },
     {
+      "path": "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
+      "sha": "462e8c253db72d602452258d17904f4d8428bbe8",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "research/italy-demo-reality/ADAMA-ITALY-CROP-PROBLEM-PRODUCT-MATRIX.json",
       "sha": "79861c68f4510de8ed0a5788d6ff79f3590d2b1e",
       "ext": ".json",
@@ -12219,6 +12226,13 @@
     {
       "path": "tests/test_relatorio_do_fluxo.py",
       "sha": "6ce0032ae5798cbb37aee401db51f905d370af92",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_relevance_priority_sobrecarga.py",
+      "sha": "d84332f9e4b1eecf049063523cfc51a7f8ed1389",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -51553,6 +51567,149 @@
       }
     },
     {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 31,
+        "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "admissao/admissao.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 54,
+        "snippet": "\"ITEM_RELEVANCE\": \"admissao/admissao.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 197,
+        "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "italia-portale/client/italy-app-model.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 183,
+        "snippet": "modelo = texto(\"italia-portale/client/italy-app-model.js\")"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/adama_relevance.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 93,
+        "snippet": "import adama_relevance as ar"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/adama_relevance.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 55,
+        "snippet": "\"CASE_RELEVANCE\": \"leis/adama_relevance.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/gestao_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 113,
+        "snippet": "import gestao_da_coleta as g"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/politica_da_coleta.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 122,
+        "snippet": "import politica_da_coleta as p"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/politica_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 102,
+        "snippet": "\"leis/politica_da_coleta.py\"):"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 94,
+        "snippet": "import relevancia_da_fonte as rf"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 53,
+        "snippet": "\"SOURCE_RELEVANCE\": \"leis/relevancia_da_fonte.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "motor/v21_comercial.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 129,
+        "snippet": "import v21_comercial as c"
+      }
+    },
+    {
+      "from_file": "tests/test_relevance_priority_sobrecarga.py",
+      "to_file": "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_relevance_priority_sobrecarga.py",
+        "line": 207,
+        "snippet": "\"research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md\")"
+      }
+    },
+    {
       "from_file": "tests/test_retorno_da_coleta.py",
       "to_file": "coleta/italy_executor.py",
       "type": "READS",
@@ -54220,10 +54377,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1772,
-    "files_readable": 713,
-    "files_code_dir": 760,
-    "file_edges": 3755,
+    "files_tracked": 1774,
+    "files_readable": 714,
+    "files_code_dir": 761,
+    "file_edges": 3768,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
