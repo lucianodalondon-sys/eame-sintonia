@@ -1,0 +1,987 @@
+{
+  "ARTIFACT_ID": "IT-VENETO-VENDITE-FITO-2025-ADAMA",
+  "BUILT_AT": "2026-09-13",
+  "EVIDENCE_STATE": "COMPROVADO",
+  "WHAT_IT_IS": "Cruzamento entre a declaracao oficial de vendas de prodotti fitosanitari no Veneto (ano 2025) e o portfolio ADAMA do registro italiano. Chave do cruzamento: numero de registrazione.",
+  "SOURCE_A": {
+    "NAME": "ARPAV — Open data 'Vendite fitosanitari anno 2025'",
+    "URL": "https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari",
+    "FILE_URL": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+    "LICENSE": "CC BY 4.0",
+    "DOWNLOADED_AT": "2026-09-13",
+    "SHA256": "7bca647d58113da33ef84a20ad61e45730efee6de198e9d4b6514aec8919c2d1",
+    "BYTES": 238851,
+    "ROWS": 10719,
+    "LEGAL_BASIS": "D.Lgs 150/2012 art.16 — declaracao anual obrigatoria dos titulares de autorizacao de venda; portal ARPAV Web FAS",
+    "GRAIN": "provincia de venda x numero de registro x quantidade (kg ou litri)",
+    "WHAT_IT_CANNOT_PROVE": [
+      "quem comprou",
+      "nome do revendedor",
+      "preco ou valor",
+      "cultura de destino",
+      "onde o produto foi efetivamente aplicado",
+      "share de mercado em valor"
+    ]
+  },
+  "SOURCE_B": {
+    "NAME": "Portfolio ADAMA Italia derivado do registro oficial",
+    "FILE": "research/adama-italy-product-intelligence-deep/PRODUCTS-REGULATORY.json",
+    "REGISTRY_SNAPSHOT_DATE": "2026-08-31",
+    "UPSTREAM": "Ministero della Salute — Banca dati prodotti fitosanitari (open data)",
+    "RECORDS": 602,
+    "ADMIN_ACTIVE": 163
+  },
+  "JOIN_QA": {
+    "METHOD": "int(NUM_REGISTRAZIONE) == int(N. Reg.)",
+    "NAME_MATCHED_LINES": 437,
+    "LINES_WITHOUT_NAME_IN_SOURCE": 287,
+    "NAME_DIVERGENCES": 1,
+    "DIVERGENCE_DETAIL": "reg 18270: ARPAV 'GLIPHOGAN TOP 500 ML' vs registro 'GLIPHOGAN TOP CL PFnPE' — mesmo produto, sufixo de formato de embalagem",
+    "UNREADABLE_ROWS": 3
+  },
+  "CAVEAT_OBRIGATORIO": "Quantidade e volume fisico (kg/l), nao valor. Enxofre e cobre dominam o volume veneto e sao baratos por quilo: 6,88% em volume NAO e 6,88% de share de mercado em valor. Share em valor: NAO SEI.",
+  "VENETO_TOTAL_KG_L": 16265861.79,
+  "ADAMA_TOTAL_KG_L": 1118859.32,
+  "ADAMA_SHARE_VOLUME_PCT": 6.88,
+  "ADAMA_REGISTRATIONS_SOLD": 107,
+  "ADAMA_ACTIVE_SOLD": 95,
+  "ADAMA_ACTIVE_NOT_SOLD": 68,
+  "BY_PROVINCE": [
+    {
+      "PROVINCIA": "VR",
+      "TOTAL_KG_L": 6530580.47,
+      "ADAMA_KG_L": 358088.2,
+      "ADAMA_SHARE_VOLUME_PCT": 5.48,
+      "ADAMA_PRODUCTS": 85
+    },
+    {
+      "PROVINCIA": "TV",
+      "TOTAL_KG_L": 4818507.79,
+      "ADAMA_KG_L": 272899.61,
+      "ADAMA_SHARE_VOLUME_PCT": 5.66,
+      "ADAMA_PRODUCTS": 68
+    },
+    {
+      "PROVINCIA": "VE",
+      "TOTAL_KG_L": 1477462.45,
+      "ADAMA_KG_L": 116365.7,
+      "ADAMA_SHARE_VOLUME_PCT": 7.88,
+      "ADAMA_PRODUCTS": 69
+    },
+    {
+      "PROVINCIA": "PD",
+      "TOTAL_KG_L": 1397895.35,
+      "ADAMA_KG_L": 141509.64,
+      "ADAMA_SHARE_VOLUME_PCT": 10.12,
+      "ADAMA_PRODUCTS": 73
+    },
+    {
+      "PROVINCIA": "RO",
+      "TOTAL_KG_L": 1191658.68,
+      "ADAMA_KG_L": 175378.61,
+      "ADAMA_SHARE_VOLUME_PCT": 14.72,
+      "ADAMA_PRODUCTS": 70
+    },
+    {
+      "PROVINCIA": "VI",
+      "TOTAL_KG_L": 831376.49,
+      "ADAMA_KG_L": 53021.67,
+      "ADAMA_SHARE_VOLUME_PCT": 6.38,
+      "ADAMA_PRODUCTS": 59
+    },
+    {
+      "PROVINCIA": "BL",
+      "TOTAL_KG_L": 18380.56,
+      "ADAMA_KG_L": 1595.89,
+      "ADAMA_SHARE_VOLUME_PCT": 8.68,
+      "ADAMA_PRODUCTS": 18
+    }
+  ],
+  "TOP_ADAMA_PRODUCTS": [
+    {
+      "NUM_REGISTRAZIONE": 8601,
+      "PRODUCT": "FOLPAN 80 WDG",
+      "KG_L": 185125.9,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "VR": 95867.0,
+        "TV": 47354.0,
+        "VE": 21157.0,
+        "VI": 10917.9,
+        "PD": 7572.0,
+        "RO": 2238.0,
+        "BL": 20.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 15401,
+      "PRODUCT": "TAIFUN MK CL",
+      "KG_L": 125173.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034",
+      "BY_PROVINCE": {
+        "RO": 41371.0,
+        "PD": 29432.5,
+        "TV": 18873.5,
+        "VR": 13005.0,
+        "VE": 12705.0,
+        "VI": 9281.0,
+        "BL": 505.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 14479,
+      "PRODUCT": "SCHERMO 0,5 G",
+      "KG_L": 111314.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2027",
+      "BY_PROVINCE": {
+        "RO": 49164.0,
+        "VR": 41063.0,
+        "PD": 14117.0,
+        "TV": 3182.0,
+        "VE": 2808.0,
+        "VI": 971.0,
+        "BL": 9.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 12878,
+      "PRODUCT": "FOLPAN GOLD",
+      "KG_L": 94705.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "TV": 42493.0,
+        "VR": 24341.0,
+        "PD": 13394.0,
+        "VE": 8281.0,
+        "RO": 3774.0,
+        "VI": 2422.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 13585,
+      "PRODUCT": "SOLOFOL",
+      "KG_L": 63105.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "TV": 60725.0,
+        "VE": 2380.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 8189,
+      "PRODUCT": "LEBRON 0,5 G",
+      "KG_L": 58622.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2027",
+      "BY_PROVINCE": {
+        "VR": 25842.0,
+        "RO": 17870.0,
+        "PD": 7650.0,
+        "VI": 5240.0,
+        "VE": 2020.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 15317,
+      "PRODUCT": "SESTO GOLD",
+      "KG_L": 56691.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "VR": 26255.0,
+        "TV": 16277.0,
+        "VE": 6003.0,
+        "PD": 4232.0,
+        "VI": 3812.0,
+        "RO": 112.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 13012,
+      "PRODUCT": "FOLVIT 80 WDG",
+      "KG_L": 54233.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "TV": 28203.0,
+        "VR": 15651.0,
+        "PD": 5145.0,
+        "VI": 2571.0,
+        "VE": 2541.0,
+        "BL": 77.0,
+        "RO": 45.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 18270,
+      "PRODUCT": "GLIPHOGAN TOP 500 ML",
+      "KG_L": 42749.52,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034",
+      "BY_PROVINCE": {
+        "PD": 10994.32,
+        "VE": 9433.5,
+        "TV": 8579.0,
+        "VR": 5887.5,
+        "VI": 5411.3,
+        "RO": 1909.0,
+        "BL": 534.9
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 16749,
+      "PRODUCT": "FOLPAN ENERGY",
+      "KG_L": 41155.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato con procedura zonale",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "VR": 23375.0,
+        "TV": 14680.0,
+        "VI": 2335.0,
+        "PD": 455.0,
+        "VE": 310.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 8102,
+      "PRODUCT": "MERPAN 80 WDG",
+      "KG_L": 38835.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040",
+      "BY_PROVINCE": {
+        "VR": 21909.0,
+        "VE": 6295.0,
+        "RO": 5856.0,
+        "TV": 1868.0,
+        "PD": 1634.0,
+        "VI": 1203.0,
+        "BL": 70.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 11243,
+      "PRODUCT": "LEOPARD 5 EC",
+      "KG_L": 20644.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027",
+      "BY_PROVINCE": {
+        "RO": 5455.0,
+        "PD": 5068.0,
+        "VE": 4212.0,
+        "TV": 3240.0,
+        "VR": 1629.0,
+        "VI": 1021.0,
+        "BL": 19.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 13771,
+      "PRODUCT": "NIMROD 250 EW",
+      "KG_L": 20101.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027",
+      "BY_PROVINCE": {
+        "VE": 14153.0,
+        "VR": 4404.0,
+        "RO": 929.0,
+        "PD": 529.0,
+        "TV": 45.0,
+        "VI": 29.0,
+        "BL": 12.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 9005,
+      "PRODUCT": "AGIL",
+      "KG_L": 14683.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027",
+      "BY_PROVINCE": {
+        "VR": 4404.0,
+        "VE": 2880.0,
+        "PD": 2726.0,
+        "RO": 2076.0,
+        "TV": 1767.0,
+        "VI": 830.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 16616,
+      "PRODUCT": "VALLEY",
+      "KG_L": 12061.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato con procedura zonale",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027",
+      "BY_PROVINCE": {
+        "RO": 3101.0,
+        "PD": 2827.0,
+        "VE": 2553.0,
+        "VR": 1953.0,
+        "TV": 1341.0,
+        "VI": 286.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 13242,
+      "PRODUCT": "NICOGAN V.O.",
+      "KG_L": 10885.5,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027",
+      "BY_PROVINCE": {
+        "RO": 3852.0,
+        "PD": 2942.0,
+        "TV": 2063.5,
+        "VR": 1104.0,
+        "VI": 516.0,
+        "VE": 406.0,
+        "BL": 2.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 13711,
+      "PRODUCT": "QUIZA 5 EC",
+      "KG_L": 10547.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027",
+      "BY_PROVINCE": {
+        "PD": 3981.0,
+        "VR": 2128.0,
+        "RO": 2024.0,
+        "VE": 1914.0,
+        "VI": 500.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 9800,
+      "PRODUCT": "MAVRIK SMART",
+      "KG_L": 9089.65,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027",
+      "BY_PROVINCE": {
+        "TV": 3842.4,
+        "VR": 2460.9,
+        "RO": 1096.15,
+        "VI": 710.65,
+        "PD": 521.5,
+        "VE": 443.05,
+        "BL": 15.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 15405,
+      "PRODUCT": "SHAMAL MK PLUS CL",
+      "KG_L": 8796.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034",
+      "BY_PROVINCE": {
+        "TV": 6320.0,
+        "VR": 2018.0,
+        "PD": 458.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 17398,
+      "PRODUCT": "DOMITREL 400 CS",
+      "KG_L": 8754.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/01/2027",
+      "BY_PROVINCE": {
+        "VR": 5620.0,
+        "RO": 980.0,
+        "PD": 928.0,
+        "VE": 718.0,
+        "VI": 468.0,
+        "TV": 40.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 17116,
+      "PRODUCT": "ACTIVUS ME",
+      "KG_L": 8708.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/01/2027",
+      "BY_PROVINCE": {
+        "RO": 3493.0,
+        "PD": 1524.0,
+        "TV": 1384.0,
+        "VR": 1179.0,
+        "VE": 909.0,
+        "VI": 219.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 17115,
+      "PRODUCT": "ZETROLA",
+      "KG_L": 8427.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027",
+      "BY_PROVINCE": {
+        "RO": 4117.0,
+        "VR": 2075.0,
+        "PD": 1229.0,
+        "VE": 747.0,
+        "TV": 139.0,
+        "VI": 120.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 8259,
+      "PRODUCT": "LAMDEX EXTRA",
+      "KG_L": 7946.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/08/2026",
+      "BY_PROVINCE": {
+        "RO": 3579.0,
+        "VR": 2137.0,
+        "PD": 1755.0,
+        "TV": 433.0,
+        "VI": 39.0,
+        "VE": 3.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 2732,
+      "PRODUCT": "GOLTIX",
+      "KG_L": 7901.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2026",
+      "BY_PROVINCE": {
+        "RO": 2645.0,
+        "VE": 2490.0,
+        "VR": 1089.0,
+        "PD": 1061.0,
+        "TV": 530.0,
+        "VI": 86.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 15229,
+      "PRODUCT": "STOPPER P",
+      "KG_L": 7600.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/08/2027",
+      "BY_PROVINCE": {
+        "RO": 4180.0,
+        "VR": 1850.0,
+        "PD": 1330.0,
+        "VE": 100.0,
+        "TV": 85.0,
+        "VI": 55.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 13905,
+      "PRODUCT": "BANJO",
+      "KG_L": 6855.0,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2027",
+      "BY_PROVINCE": {
+        "VR": 4946.0,
+        "RO": 1217.0,
+        "PD": 248.0,
+        "VE": 221.0,
+        "TV": 163.0,
+        "VI": 60.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 15096,
+      "PRODUCT": "GLIPHOGAN TOP CL",
+      "KG_L": 6083.5,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034",
+      "BY_PROVINCE": {
+        "VR": 2750.0,
+        "PD": 1486.0,
+        "RO": 950.0,
+        "VI": 524.0,
+        "TV": 244.5,
+        "VE": 116.0,
+        "BL": 13.0
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 14210,
+      "PRODUCT": "EVURE PRO",
+      "KG_L": 6025.8,
+      "REGULATORY_ADMIN_STATE": "Ri-registrato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027",
+      "BY_PROVINCE": {
+        "VR": 2457.5,
+        "TV": 1518.4,
+        "RO": 1002.0,
+        "VE": 570.2,
+        "PD": 390.1,
+        "VI": 87.6
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 18277,
+      "PRODUCT": "SHAMAL MK PLUS CL PFnPE",
+      "KG_L": 5399.2,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034",
+      "BY_PROVINCE": {
+        "PD": 2460.8,
+        "VI": 1232.4,
+        "TV": 620.0,
+        "VE": 490.0,
+        "RO": 402.5,
+        "VR": 193.5
+      }
+    },
+    {
+      "NUM_REGISTRAZIONE": 11526,
+      "PRODUCT": "SULTAN",
+      "KG_L": 4704.0,
+      "REGULATORY_ADMIN_STATE": "Autorizzato",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2026",
+      "BY_PROVINCE": {
+        "VR": 1325.0,
+        "RO": 1149.0,
+        "PD": 931.0,
+        "VE": 549.0,
+        "TV": 542.0,
+        "VI": 208.0
+      }
+    }
+  ],
+  "TOP_MARKET_PRODUCTS_ANY_TITULAR": [
+    {
+      "NUM_REGISTRAZIONE": 1583,
+      "PRODUCT": "MICROTHIOL DISPERSS",
+      "KG_L": 1419941.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 13809,
+      "PRODUCT": "FORCE ULTRA",
+      "KG_L": 737079.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 11070,
+      "PRODUCT": "TIOGOLD DISPERSS",
+      "KG_L": 721525.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 13,
+      "PRODUCT": "THIOPRON",
+      "KG_L": 385588.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 5152,
+      "PRODUCT": "TIOSPOR WG",
+      "KG_L": 343184.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 15149,
+      "PRODUCT": "COSAVET DF EDGE",
+      "KG_L": 284305.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 12096,
+      "PRODUCT": "POLTIGLIA DISPERSS",
+      "KG_L": 284159.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 15901,
+      "PRODUCT": "ERCOLE",
+      "KG_L": 258964.44,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 17896,
+      "PRODUCT": "FORTUNE DISPERSS",
+      "KG_L": 211220.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 13485,
+      "PRODUCT": "FOLPEC 80 WG ADVANCE",
+      "KG_L": 207110.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 16562,
+      "PRODUCT": "DELAN PRO",
+      "KG_L": 200310.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 8601,
+      "PRODUCT": "FOLPAN 80 WDG",
+      "KG_L": 185125.9,
+      "IS_ADAMA": true
+    },
+    {
+      "NUM_REGISTRAZIONE": 9041,
+      "PRODUCT": "TIOFLOW 57",
+      "KG_L": 170310.0,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 18074,
+      "PRODUCT": "ROUNDUP Futur",
+      "KG_L": 141578.25,
+      "IS_ADAMA": false
+    },
+    {
+      "NUM_REGISTRAZIONE": 2923,
+      "PRODUCT": "TIOVIT JET",
+      "KG_L": 138973.0,
+      "IS_ADAMA": false
+    }
+  ],
+  "ADAMA_ACTIVE_WITHOUT_VENETO_SALES": [
+    {
+      "NUM_REGISTRAZIONE": 7555,
+      "PRODUCT": "KLARTAN 20 EW",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 7603,
+      "PRODUCT": "NORTIM",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 7864,
+      "PRODUCT": "TAU AL 240 EW",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 7876,
+      "PRODUCT": "PIRIMOR 17,5",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 8401,
+      "PRODUCT": "FINESSOX",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040"
+    },
+    {
+      "NUM_REGISTRAZIONE": 9783,
+      "PRODUCT": "MAGNATE 500 EC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 10063,
+      "PRODUCT": "TOPIK 80 EC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/07/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 10569,
+      "PRODUCT": "GOLTIX 700 SC",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 10587,
+      "PRODUCT": "FOLPAN SC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040"
+    },
+    {
+      "NUM_REGISTRAZIONE": 11500,
+      "PRODUCT": "CAPTHENE 80 WDG",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040"
+    },
+    {
+      "NUM_REGISTRAZIONE": 11660,
+      "PRODUCT": "SHOGUN",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 11734,
+      "PRODUCT": "CONTATTO DOUBLE SC",
+      "AUTHORIZATION_EXPIRY_DATE": "30/09/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 12060,
+      "PRODUCT": "FOX",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 12279,
+      "PRODUCT": "ERBY 5 EC",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 13299,
+      "PRODUCT": "MAGIO'",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 13332,
+      "PRODUCT": "VIP",
+      "AUTHORIZATION_EXPIRY_DATE": "31/07/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 13402,
+      "PRODUCT": "LUMA-KL",
+      "AUTHORIZATION_EXPIRY_DATE": "31/08/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 13590,
+      "PRODUCT": "NINJA",
+      "AUTHORIZATION_EXPIRY_DATE": "31/08/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 13899,
+      "PRODUCT": "DAUPHIN 45",
+      "AUTHORIZATION_EXPIRY_DATE": "15/08/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 14093,
+      "PRODUCT": "ANTARKTIS",
+      "AUTHORIZATION_EXPIRY_DATE": "31/12/2031"
+    },
+    {
+      "NUM_REGISTRAZIONE": 14190,
+      "PRODUCT": "MAVRIK EW",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 14386,
+      "PRODUCT": "OLIONET",
+      "AUTHORIZATION_EXPIRY_DATE": "10/03/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 14693,
+      "PRODUCT": "VIP 80 EC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/07/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 14694,
+      "PRODUCT": "CELIO 80 EC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/07/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 14862,
+      "PRODUCT": "SOLOFOL AP",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2040"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15182,
+      "PRODUCT": "NICAMACK V.O.",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15183,
+      "PRODUCT": "RENDER V.O.",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15232,
+      "PRODUCT": "CUSTODIA ULTRA",
+      "AUTHORIZATION_EXPIRY_DATE": "15/08/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15316,
+      "PRODUCT": "HAWK",
+      "AUTHORIZATION_EXPIRY_DATE": "31/07/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15592,
+      "PRODUCT": "TAIFUN JARDIN",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15740,
+      "PRODUCT": "VINETO",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 15909,
+      "PRODUCT": "PYXIDES WG",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2033"
+    },
+    {
+      "NUM_REGISTRAZIONE": 16152,
+      "PRODUCT": "SEEDRON",
+      "AUTHORIZATION_EXPIRY_DATE": "30/09/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 16553,
+      "PRODUCT": "ELEGANT 2FD",
+      "AUTHORIZATION_EXPIRY_DATE": "31/12/2031"
+    },
+    {
+      "NUM_REGISTRAZIONE": 16697,
+      "PRODUCT": "CINDER",
+      "AUTHORIZATION_EXPIRY_DATE": "15/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 16823,
+      "PRODUCT": "ACTIVUS 40 SC",
+      "AUTHORIZATION_EXPIRY_DATE": "15/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17206,
+      "PRODUCT": "LIGA",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17318,
+      "PRODUCT": "CHASER-S",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17332,
+      "PRODUCT": "HANUKYS",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17335,
+      "PRODUCT": "MOVER",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17585,
+      "PRODUCT": "POSTSCRIPT 80",
+      "AUTHORIZATION_EXPIRY_DATE": "30/06/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17658,
+      "PRODUCT": "PRESTIGAN ME",
+      "AUTHORIZATION_EXPIRY_DATE": "15/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17659,
+      "PRODUCT": "ACTIGAN ME",
+      "AUTHORIZATION_EXPIRY_DATE": "15/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17662,
+      "PRODUCT": "BIFENIX",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17663,
+      "PRODUCT": "KORAL 50 WG",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2035"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17664,
+      "PRODUCT": "KIKKO 50 WG",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2035"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17688,
+      "PRODUCT": "ANTERLEX",
+      "AUTHORIZATION_EXPIRY_DATE": "15/08/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17703,
+      "PRODUCT": "ACTIGAN DFF",
+      "AUTHORIZATION_EXPIRY_DATE": "31/08/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17852,
+      "PRODUCT": "POWERFILM",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2041"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17868,
+      "PRODUCT": "POSTSCRIPT 80 XL",
+      "AUTHORIZATION_EXPIRY_DATE": "30/06/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17898,
+      "PRODUCT": "RIMENSIS",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17929,
+      "PRODUCT": "KORAVERT",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17930,
+      "PRODUCT": "AKTIVIR",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17968,
+      "PRODUCT": "MAVRIK JET",
+      "AUTHORIZATION_EXPIRY_DATE": "31/01/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17983,
+      "PRODUCT": "GOLDBEET SUPER",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 17995,
+      "PRODUCT": "HIGHCARD",
+      "AUTHORIZATION_EXPIRY_DATE": "28/02/2028"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18089,
+      "PRODUCT": "AVASTEL",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2028"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18101,
+      "PRODUCT": "MORAINE",
+      "AUTHORIZATION_EXPIRY_DATE": "15/02/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18165,
+      "PRODUCT": "APYZA 500 WG",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18175,
+      "PRODUCT": "SORATEL",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18202,
+      "PRODUCT": "ETHOSAT SC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/10/2032"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18271,
+      "PRODUCT": "HERBITOTAL CL PFNPE",
+      "AUTHORIZATION_EXPIRY_DATE": "15/12/2034"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18545,
+      "PRODUCT": "NERASTAL",
+      "AUTHORIZATION_EXPIRY_DATE": "31/03/2028"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18561,
+      "PRODUCT": "COSAYR 200 SC",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2027"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18644,
+      "PRODUCT": "MEZAYO",
+      "AUTHORIZATION_EXPIRY_DATE": "31/12/2029"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18694,
+      "PRODUCT": "DIODE",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2032"
+    },
+    {
+      "NUM_REGISTRAZIONE": 18813,
+      "PRODUCT": "GOLTIX BETA",
+      "AUTHORIZATION_EXPIRY_DATE": "30/11/2026"
+    },
+    {
+      "NUM_REGISTRAZIONE": 19095,
+      "PRODUCT": "KOJAMI",
+      "AUTHORIZATION_EXPIRY_DATE": "31/05/2027"
+    }
+  ]
+}

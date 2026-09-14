@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -320,7 +320,7 @@
       "verdict": "GREEN",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "line": 1210,
+        "line": 1263,
         "snippet": "bloco EU-T12-001 no atlas de fontes"
       },
       "contract": null,
@@ -564,7 +564,7 @@
       "verdict": "GREEN",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-        "line": 1276,
+        "line": 1329,
         "snippet": "bloco FR-T13-001 no atlas de fontes"
       },
       "contract": null,
@@ -675,6 +675,34 @@
       "sabe_coletar": true
     },
     {
+      "source_id": "IT-T10-001",
+      "name": "ARPAV — Vendite fitosanitari (open data) + Rapporto annuale",
+      "owner": "ARPAV (Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto), por delegação da Regione del Veneto",
+      "country": "ITALIA",
+      "territory": "T10",
+      "territory_name": "Politica e subsidio",
+      "type": "declaração administrativa obrigatória, publicada como open data",
+      "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari",
+      "access_method": "download direto de CSV, **sem chave** (.../vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file)",
+      "language": "IT",
+      "update_frequency": "anual — ano 2025 publicado, com arquivo histórico",
+      "historical_depth": "série publicada por ano; relatórios anuais em PDF desde 2003",
+      "automation": "ALTA — um GET, CSV limpo",
+      "collection": "ALTA",
+      "risk": "BAIXO — open data com licença explícita",
+      "use_case": "COMMERCIAL / EAME: onde o produto registrado efetivamente se move dentro de uma região, por província, e qual parte do portfólio ativo **não aparece** vendida ali.",
+      "real_example": "Vêneto 2025: **16.265.862 kg/l** declarados. Cruzando pelo número de registro com o portfólio ADAMA do registro italiano (IT-T4-001): **107 registros ADAMA, 1.118.859 kg/l, 6,88% do volume**. Rovigo é a província de maior quota em volume (**14,72%**); FOLPAN 80 WDG é o maior item ADAMA (185.126 kg). O relatório de 2022 informa **531 titulares** de autorização de venda declarantes e 550 declarações por província.",
+      "evidence_path": "data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md",
+      "verdict": "GREEN",
+      "evidence": {
+        "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+        "line": 1032,
+        "snippet": "bloco IT-T10-001 no atlas de fontes"
+      },
+      "contract": null,
+      "sabe_coletar": false
+    },
+    {
       "source_id": "IT-T3-001",
       "name": "IT-T3-001",
       "owner": "Regione Emilia-Romagna — Servizio fitosanitario; Consorzi Fitosanitari Provinciali (Reggio Emilia, Modena…)",
@@ -754,17 +782,17 @@
   "CITADAS_SEM_FICHA": [
     {
       "source_id": "ES-T8-001",
-      "line": 1151,
+      "line": 1204,
       "o_que_a_tabela_diz": "YouTube · 157 canais · 252 vídeos · 15 transcrições · PROVED"
     },
     {
       "source_id": "ES-T8-002",
-      "line": 1152,
+      "line": 1205,
       "o_que_a_tabela_diz": "LinkedIn · 202 perfis · 179 declaram ES · PROVED** (identidade) · PARCIAL (conteúdo)"
     },
     {
       "source_id": "ES-T8-003",
-      "line": 1153,
+      "line": 1206,
       "o_que_a_tabela_diz": "Instagram · 32 contas agronômicas · FAILED_WITH_REASON"
     }
   ],
@@ -2038,7 +2066,6 @@
     ],
     "so_no_master_italiano": [
       "IT-T1-001",
-      "IT-T10-001",
       "IT-T10-002",
       "IT-T10-003",
       "IT-T10-004",
@@ -2091,6 +2118,7 @@
       "IT-T9-008"
     ],
     "nos_dois": [
+      "IT-T10-001",
       "IT-T3-001",
       "IT-T4-001"
     ],
@@ -2100,7 +2128,7 @@
       "ES-T8-003"
     ],
     "total_distintas": 78,
-    "leitura": "23 tem ficha no atlas, 54 estao no levantamento italiano, 2 estao nos dois. 52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico."
+    "leitura": "24 tem ficha no atlas, 54 estao no levantamento italiano, 3 estao nos dois. 51 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico."
   },
   "ACCOUNTS": {
     "file": "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json",
@@ -2550,7 +2578,7 @@
         "degrau": 2,
         "nome": "REGISTADA",
         "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-        "quantas": 18,
+        "quantas": 19,
         "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
       },
@@ -3836,6 +3864,7 @@
       "FR-T3-001",
       "FR-T3-002",
       "FR-T4-001",
+      "IT-T10-001",
       "IT-T3-001",
       "IT-T4-001"
     ],
@@ -4389,16 +4418,16 @@
     }
   ],
   "COUNTS": {
-    "sources": 23,
+    "sources": 24,
     "with_contract": 5,
     "by_country": {
       "ESPANHA": 6,
       "EUROPA": 11,
       "FRANCA": 4,
-      "ITALIA": 2
+      "ITALIA": 3
     },
     "by_verdict": {
-      "GREEN": 16,
+      "GREEN": 17,
       "NAO SEI": 5,
       "YELLOW": 2
     },
@@ -4414,11 +4443,11 @@
     "corridas_registadas": 19,
     "observacoes_registadas": 144,
     "fontes_ja_coletadas": 4,
-    "fontes_nunca_coletadas": 22,
+    "fontes_nunca_coletadas": 23,
     "citadas_sem_ficha": 3,
     "fontes_no_master_italiano": 54,
     "fontes_distintas": 78,
-    "levantadas_sem_ficha": 52,
+    "levantadas_sem_ficha": 51,
     "coletadas_sem_ficha": 3,
     "accounts": 44,
     "accounts_authorized": 22
@@ -4429,13 +4458,13 @@
     "ES-T8-003"
   ],
   "HEADER_CLAIM": {
-    "total": 37,
+    "total": 38,
     "line": 9,
-    "green": 16,
+    "green": 17,
     "yellow": 4,
     "nao_sei": 17,
-    "fichas_completas": 23,
+    "fichas_completas": 24,
     "divergencia": 14,
-    "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+    "leitura": "O cabecalho do atlas diz 38 fontes registradas; fichas completas, com SOURCE_ID valido, ha 24. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
   }
 }

@@ -6,8 +6,8 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-08-30 — **<!--M:SOURCE_ID_COUNT-->37<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 17 NÃO SEI).
-**Última atualização:** 2026-08-29
+**Estado:** atualizado em 2026-09-13 — **<!--M:SOURCE_ID_COUNT-->38<!--/M--> fontes registradas** (17 GREEN, 4 YELLOW, 17 NÃO SEI).
+**Última atualização:** 2026-09-13
 
 ---
 
@@ -1025,6 +1025,59 @@ VERDICT:                      GREEN
 
 ---
 
+### T10 · MARKET / TRADE — ITALY
+
+#### IT-T10-001 · ARPAV — declaração anual de venda de fitossanitários no Vêneto
+
+```
+SOURCE_ID:                    IT-T10-001
+SOURCE_NAME:                  ARPAV — Vendite fitosanitari (open data) + Rapporto annuale
+SOURCE_OWNER:                 ARPAV (Agenzia Regionale per la Prevenzione e Protezione
+                              Ambientale del Veneto), por delegação da Regione del Veneto
+COUNTRY:                      ITALY — **apenas a região do Vêneto**
+LANGUAGE:                     IT
+TERRITORY:                    T10
+SOURCE_TYPE:                  declaração administrativa obrigatória, publicada como open data
+URL:                          https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari
+ACCESS_METHOD:                download direto de CSV, **sem chave**
+                              (.../vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file)
+LEGAL_BASIS:                  D.Lgs 150/2012 art. 16 — titular de autorização de venda declara
+                              anualmente, até 28/02, pelo portal ARPAV Web FAS
+LICENSE:                      **CC BY 4.0**
+CROPS:                        não declarado (a fonte não diz a cultura de destino)
+TOPICS:                       produto vendido, número de registro, quantidade (kg ou litros)
+GEOGRAPHIC_GRANULARITY:       **PROVÍNCIA** (BL · PD · RO · TV · VE · VI · VR)
+UPDATE_FREQUENCY:             anual — ano 2025 publicado, com arquivo histórico
+HISTORICAL_DEPTH:             série publicada por ano; relatórios anuais em PDF desde 2003
+SOURCE_IDENTITY_PRESERVABLE:  SIM — província, número de registro, produto, quantidade
+PUBLICATION_DATE_AVAILABLE:   SIM — ano de referência declarado
+RAW_EVIDENCE_PRESERVABLE:     SIM — CSV de 238.851 bytes, 10.719 linhas, SHA-256
+                              7bca647d58113da33ef84a20ad61e45730efee6de198e9d4b6514aec8919c2d1
+AUTOMATION_FEASIBILITY:       ALTA — um GET, CSV limpo
+COLLECTION_FEASIBILITY:       ALTA
+LEGAL_OR_ACCESS_RISK:         BAIXO — open data com licença explícita
+REAL_EXAMPLE:                 Vêneto 2025: **16.265.862 kg/l** declarados. Cruzando pelo número
+                              de registro com o portfólio ADAMA do registro italiano
+                              (IT-T4-001): **107 registros ADAMA, 1.118.859 kg/l, 6,88% do
+                              volume**. Rovigo é a província de maior quota em volume
+                              (**14,72%**); FOLPAN 80 WDG é o maior item ADAMA (185.126 kg).
+                              O relatório de 2022 informa **531 titulares** de autorização de
+                              venda declarantes e 550 declarações por província.
+WHAT_IT_CANNOT_PROVE:         quem comprou · qual revenda vendeu · preço ou valor · cultura de
+                              destino · onde foi aplicado · quota de mercado em valor
+ADAMA_USE_CASE:               COMMERCIAL / EAME: onde o produto registrado efetivamente se move
+                              dentro de uma região, por província, e qual parte do portfólio
+                              ativo **não aparece** vendida ali.
+EVIDENCE:                     data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json
+                              research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md
+VERDICT:                      GREEN
+```
+
+⚠️ **Limite de generalização:** esta fonte é **regional**. Outras regiões italianas publicam
+dados equivalentes? **NÃO SEI** — não foi investigado nesta rodada.
+
+---
+
 ### T9 · COMPETITORS — camada de comunicação
 
 #### FR/ES/IT-T9-001 · Sites e canais de comunicação dos concorrentes
@@ -1323,7 +1376,9 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->38<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Atualizado em **2026-09-13**: entrou a ficha **IT-T10-001** (ARPAV, venda declarada de
+fitossanitários no Vêneto) — **27 fichas · <!--M:SOURCE_ID_COUNT-->38<!--/M--> SOURCE_IDs · 17 GREEN · 4 YELLOW · 0 RED · 17 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -1338,8 +1393,8 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **16** | **4** | **0** | **17** | **37** |
+| ITALY | 2 | 2 | 0 | 3 | 7 |
+| **Total** | **17** | **4** | **0** | **17** | **38** |
 
 ### Cobertura por território
 
@@ -1348,6 +1403,6 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | 1Y | – |
+| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | **1G** | 1Y | – |
 
 *(– = não investigado)*

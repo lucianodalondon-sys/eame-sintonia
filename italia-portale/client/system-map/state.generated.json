@@ -30,6 +30,7 @@
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -1208,8 +1209,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 3. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 3 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1217,8 +1218,8 @@
     },
     {
       "id": "duas-listas-de-fontes",
-      "titulo": "52 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
-      "texto": "23 tem ficha no atlas, 54 estao no levantamento italiano, 2 estao nos dois. 52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
+      "titulo": "51 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
+      "texto": "24 tem ficha no atlas, 54 estao no levantamento italiano, 3 estao nos dois. 51 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
       "porque_importa": "O levantamento italiano tem campos que o atlas nao tem — o dono normalizado, o papel da fonte, e o melhor de todos: o que ela NAO prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1237,8 +1238,8 @@
     },
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
-      "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "titulo": "23 fontes nunca foram coletadas. Todas as corridas foram num país só.",
+      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 23 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1583,9 +1584,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/cool-dijkstra-4agznu",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FAMILIES": [
     {
@@ -2283,7 +2284,7 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
+      "what": "O capital parado da casa: 24 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
       "why_here": "Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so entra depois de alguem a abrir, olhar o que ela entrega e guardar evidencia disso — e coleta nenhuma comeca sem consultar o que ja esta aqui.",
       "files": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2291,14 +2292,14 @@
         "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
       ],
       "facts": [
-        "bases oficiais com ficha: 23",
+        "bases oficiais com ficha: 24",
         "dessas, a maquina sabe buscar sozinha: 5",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
         "enderecos que o codigo realmente chama: 40"
       ],
-      "status_reason": "23 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "status_reason": "24 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 19, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -2327,7 +2328,7 @@
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
-          "subtitulo": "23 fichas no atlas · 5 com contrato de busca escrito",
+          "subtitulo": "24 fichas no atlas · 5 com contrato de busca escrito",
           "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
           "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
           "itens": [
@@ -2725,6 +2726,21 @@
                   "snippet": "contrato de FR-T4-001"
                 }
               }
+            },
+            {
+              "id": "IT-T10-001",
+              "nome": "ARPAV — Vendite fitosanitari (open data) + Rapporto annuale",
+              "pais": "ITALIA",
+              "assunto": "T10 · Politica e subsidio",
+              "estado": "GREEN",
+              "estado_texto": "verificada, com exemplo real guardado",
+              "sabe_coletar": false,
+              "como_se_entra": "download direto de CSV, **sem chave** (.../vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file)",
+              "dono": "ARPAV (Agenzia Regionale per la Prevenzione e Protezione Ambientale del Veneto), por delegação da Regione del Veneto",
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari",
+              "atualiza": "anual — ano 2025 publicado, com arquivo histórico",
+              "exemplo": "Vêneto 2025: **16.265.862 kg/l** declarados. Cruzando pelo número de registro com o portfólio ADAMA do registro italiano (IT-T4-001): **107 registros ADAMA, 1.118.859 kg/l, 6,88% do volume**. Rovigo é a província de maior quota em volume (**14,72%**); FOLPAN 80 WDG é o maior item ADAMA (185.126 kg).",
+              "contrato": null
             },
             {
               "id": "IT-T3-001",
@@ -3472,14 +3488,14 @@
         }
       ],
       "header_claim": {
-        "total": 37,
+        "total": 38,
         "line": 9,
-        "green": 16,
+        "green": 17,
         "yellow": 4,
         "nao_sei": 17,
-        "fichas_completas": 23,
+        "fichas_completas": 24,
         "divergencia": 14,
-        "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "leitura": "O cabecalho do atlas diz 38 fontes registradas; fichas completas, com SOURCE_ID valido, ha 24. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -3946,6 +3962,7 @@
           "FR-T3-001",
           "FR-T3-002",
           "FR-T4-001",
+          "IT-T10-001",
           "IT-T3-001",
           "IT-T4-001"
         ],
@@ -4460,7 +4477,7 @@
             "degrau": 2,
             "nome": "REGISTADA",
             "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-            "quantas": 18,
+            "quantas": 19,
             "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
             "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
           },
@@ -11064,8 +11081,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-canonical-v1",
-        "HEAD 491b6f8d01c5e745a614e7e16d02375c666106ea"
+        "branch claude/cool-dijkstra-4agznu",
+        "HEAD f437ff1140fa97484ca9695b341fbe9ca0a9f050"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17987,8 +18004,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_CODE_FILES": [
+    ".github/workflows/scrap-social.yml"
+  ],
+  "UNCLAIMED_FILES_COUNT": 644,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
@@ -18000,8 +18019,8 @@
     "edges_proven": 322,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1142,
+    "files_tracked": 1143,
     "files_covered": 499,
-    "files_code_unclaimed": 0
+    "files_code_unclaimed": 1
   }
 }

@@ -558,4 +558,33 @@ nos cabeçalhos de `coleta/rotulos_ler.py`, `regras/rotulos_censo.py` e
 | P-006 | Criar conta institucional EPPO para obter token da API (EU-T3-001)? É gratuita, mas fica em nome de alguém. | EU-T3-001 | 2026-08-28 |
 | P-009 | Obter chave da YouTube Data API e decidir se a ADAMA quer perfilar criadores individuais (T8). Questão de GDPR distinta da de T5. | T8 inteiro | 2026-08-28 |
 | P-008 | Perfilamento de pesquisadores identificados (EU-T5-001/OpenAlex): revisão GDPR antes de qualquer tela que liste pessoas nomeadas. **Continua ABERTA.** A MISSÃO 10C registrou os limites provisórios em `docs/regras/LIMITES-DE-DADO-PESSOAL-EAME.md` — `NAMED_RESEARCHER_PUBLIC_SCREEN = BLOCKED_PENDING_LEGAL_REVIEW`. Isso **não** é parecer jurídico e não fecha a pendência. | T6, people graph, protótipo, filas de 20 | 2026-08-28 |
+| P-010 | A camada de **venda declarada por província** (IT-T10-001) pode aparecer em tela para o cliente, com os avisos de volume≠valor? Decisão de produto, não de execução. | portal, telas comerciais | 2026-09-13 |
 | P-007 | Uso e difusão de coordenadas de parcela do RAIF (ES-T3-001): revisão jurídica antes de expor em tela externa. | ES-T3-001, protótipo | 2026-08-28 |
+
+---
+
+### D-027 — Venda declarada por província é fonte externa, e não revoga o `EXTERNAL-ONLY`
+- **Data:** 2026-09-13
+- **Estado:** DECIDIDO
+- **Contexto:** A missão pediu pesquisa de **possíveis clientes da ADAMA numa região italiana
+  (Vêneto)**. Até aqui o acervo dizia, corretamente, que não se pode afirmar "nada sobre
+  estoque, venda, share ou prontidão comercial" (ver `ITALY-OPPORTUNITY-CANDIDATES-REAL.md`,
+  OC-1), porque a única via conhecida seria dado interno — fechado por **P-003
+  (`EXTERNAL-ONLY`)**. A pesquisa encontrou uma via externa: a declaração anual obrigatória
+  dos titulares de autorização de venda (D.Lgs 150/2012 art. 16), publicada pela ARPAV como
+  open data CC BY 4.0, com **número de registro e província**.
+- **Decisão:** a fonte entra como **IT-T10-001 (GREEN)** e pode sustentar frases sobre
+  **volume físico declarado por província**, cruzado com o portfólio ADAMA pelo número de
+  registro. **Não** pode sustentar frase sobre receita, margem, preço, quota de mercado em
+  valor, cliente nomeado ou prontidão comercial — essas continuam `NÃO SEI` por premissa.
+- **Motivo:** `EXTERNAL-ONLY` proíbe **dado interno da ADAMA**, não dado público oficial sobre
+  produtos cujo titular é a ADAMA. Rebaixar uma fonte pública por prudência seria esconder
+  evidência; elevá-la a "share de mercado" seria inventar. O limite fica escrito no artefato,
+  não na memória de quem leu.
+- **Consequência:** todo uso desta camada carrega o aviso de que **volume ≠ valor** (enxofre e
+  cobre dominam o volume vêneto e são baratos por quilo) e de que **ausência na declaração ≠
+  ausência de venda**. Artefatos: `data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json`
+  e `research/veneto-clients/`.
+- **Quem decidiu:** decisão de execução desta missão, sob o pedido de Luciano de pesquisar
+  possíveis clientes numa região. Fica **pendente de confirmação** se o cliente quer esta
+  camada exposta no portal — abre **P-010**.

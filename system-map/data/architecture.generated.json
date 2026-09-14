@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/cool-dijkstra-4agznu",
+    "HEAD": "f437ff1140fa97484ca9695b341fbe9ca0a9f050",
+    "GENERATED_AT": "2026-09-12T18:49:29-03:00"
   },
   "FILES": [
     {
@@ -45,6 +45,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "6f456034e189d64a086152825470ea282b20ad48",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/scrap-social.yml",
+      "sha": "9cdaaa2415cdb40afb8e1e996dbad5a49c3df1b4",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -3719,7 +3726,7 @@
     },
     {
       "path": "docs/decisoes/DIARIO-DE-DECISOES.md",
-      "sha": "8c7007535dc373377fe7c9076f0445e879428722",
+      "sha": "44a3fd1ab05b9e71eb69c4d6afca20d4f1c2fa49",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -3866,7 +3873,7 @@
     },
     {
       "path": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-      "sha": "508a4ca1853fbd3917dde501625980cc01b6e3d6",
+      "sha": "4ce38f4b8251e264aaab52ec26fe1070b440bff2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8375,6 +8382,17 @@
         "file": ".github/workflows/comunicacao-publica.yml",
         "line": 105,
         "snippet": "PYTHONIOENCODING=utf-8 $PY tests/test_comunicacao.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 239,
+        "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
       }
     },
     {
@@ -25199,10 +25217,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
-    "files_readable": 388,
-    "files_code_dir": 433,
-    "file_edges": 1529,
+    "files_tracked": 1143,
+    "files_readable": 389,
+    "files_code_dir": 434,
+    "file_edges": 1530,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },

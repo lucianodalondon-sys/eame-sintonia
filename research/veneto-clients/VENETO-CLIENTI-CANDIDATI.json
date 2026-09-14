@@ -1,0 +1,369 @@
+{
+  "ARTIFACT_ID": "VENETO-CLIENTI-CANDIDATI",
+  "BUILT_AT": "2026-09-13",
+  "REGION": "Veneto (IT)",
+  "RULE": "Candidato a cliente != cliente. Nenhuma ficha afirma relacao comercial com a ADAMA. Dado interno da ADAMA permanece NAO SEI por premissa (P-003 EXTERNAL-ONLY).",
+  "CHANNEL_UNIVERSE": {
+    "TITOLARI_AUTORIZZAZIONE_VENDITA_2022": 531,
+    "DICHIARAZIONI_PER_PROVINCIA_2022": {
+      "TV": 126,
+      "PD": 103,
+      "VI": 99,
+      "VR": 92,
+      "VE": 69,
+      "RO": 45,
+      "BL": 16,
+      "TOTALE": 550
+    },
+    "SOURCE": "ARPAV, Vendita di prodotti fitosanitari nella regione Veneto - Rapporto anno 2022 (PDF lido)",
+    "EVIDENCE_STATE": "COMPROVADO",
+    "PUBLIC_NAME_LIST": "NAO SEI - a Regione nao publica o elenco; autorizacao emitida pelo Dipartimento di Prevenzione da ULSS"
+  },
+  "FARM_STRUCTURE": {
+    "AZIENDE_AGRICOLE_2020": 83017,
+    "SAU_HA_2020": 835231,
+    "MEDIA_HA": 10.1,
+    "VAR_AZIENDE_2010_2020_PCT": -30.5,
+    "SOURCE": "ISTAT 7 Censimento Agricoltura 2020 via Statistica Regione Veneto",
+    "EVIDENCE_STATE": "COMPROVADO"
+  },
+  "CANDIDATES": [
+    {
+      "ID": "C-1",
+      "NAME": "Consorzio Agrario del Nordest (Agrinordest)",
+      "TYPE": "CONSORZIO_AGRARIO",
+      "HQ": "Via Francia 2, 37135 Verona (VR)",
+      "VAT": "03335760231",
+      "FOUNDED": 1895,
+      "TERRITORY": [
+        "BS",
+        "MN",
+        "PD",
+        "RO",
+        "VE",
+        "VR",
+        "VI"
+      ],
+      "SIZE": {
+        "SOCI_E_CLIENTI": "oltre 50.000 (Unioncamere)",
+        "PUNTI_VENDITA": "~80+ (sito proprio)",
+        "FATTURATO_2022_EUR": 398192832,
+        "FATTURATO_DIVERGENCE": "outras fontes citam >450 mi EUR - divergencia registrada, nao resolvida",
+        "QUOTA_SETTORE_AGRONOMICO_PCT": "36 (NAO LIDO NA FONTE - resumo de busca)"
+      },
+      "ADAMA_LINK": "aderiu a Consorzi Agrari d'Italia (CAI) em 28/07/2022; CAI e parceiro nomeado em 4 dos 29 eventos ADAMA in Campo",
+      "EVIDENCE_STATE": {
+        "PORTE": "COMPROVADO",
+        "RELACAO_COM_ADAMA": "HIPOTESE",
+        "PORTA_DE_ENTRADA_VIA_CAI": "INFERENCIA"
+      },
+      "SOURCES": [
+        "https://www.unioncamere.gov.it/imprese-storiche/agrinordest-consorzio-agrario-del-nordest-societa-cooperativa",
+        "https://www.agrinordest.it/",
+        "https://www.ufficiocamerale.it/8355/consorzio-agrario-del-nordest-societa-cooperativa"
+      ],
+      "PRIORITY": 2,
+      "MARCAS_QUE_JA_TRABALHA": {
+        "MARCAS_PUBLICADAS": "nenhuma lista de fornecedores publicada",
+        "MARCA_PROPRIA_CAI": [
+          "Maniflow (fungicida - titular MANICA S.P.A., reg. 015120/018243)",
+          "Sequra WG (insetticida Bt - titular SUMITOMO CHEMICAL AGRO EUROPE, reg. 009531/018247)",
+          "Actileaf (fungicida cerevisane - titular AGRAUXINE, reg. 017810)",
+          "PlutoneFeMn (nutrizionale - sem registro fitossanitario encontrado)"
+        ],
+        "CATEGORIAS_DECLARADAS": [
+          "fungicidi",
+          "insetticidi",
+          "erbicidi",
+          "nutrizionali"
+        ],
+        "OUTROS_SINAIS": "~40 tecnici fitoiatrici (CAI); >100 campos sperimentali/ano em BS, MN, PD, RO, VE, VR, VI, em colaboracao com ditte sementiere e di agrofarmaci NAO NOMEADAS e com le Universita di Padova e Piacenza",
+        "ADAMA_PRESENTE": "NAO SEI",
+        "EVIDENCE_STATE": "COMPROVADO (o que e publicado) · NAO SEI (mix de fornecedores)"
+      }
+    },
+    {
+      "ID": "C-2",
+      "NAME": "Consorzio Agrario di Treviso e Belluno",
+      "TYPE": "CONSORZIO_AGRARIO",
+      "TERRITORY": [
+        "TV",
+        "BL"
+      ],
+      "SIZE": {
+        "VALORE_PRODUZIONE_2024_EUR": 118000000,
+        "EBITDA_2024_EUR": 3900000,
+        "PATRIMONIO_NETTO_2024_EUR": 28300000,
+        "RICAVI_ANTIPARASSITARI_2024_EUR": 18100000,
+        "PETROLIFERI_2024_EUR": 22000000,
+        "MACCHINE_2024_EUR": 16400000,
+        "IMPIANTI_VIGNETO_2024_EUR": 8900000,
+        "MANGIMI_T": 49000
+      },
+      "WHY": "unica compra de agrofarmaco quantificada da regiao; territorio Prosecco; carteira de vinha explicita",
+      "SOURCE_CAVEAT": "site proprio devolve HTTP 202 com corpo vazio (anti-bot). Numeros da imprensa local lida na fonte (qdpnews 27/06/2025), confirmados por segundo veiculo. Balanco original NAO LIDO.",
+      "EVIDENCE_STATE": {
+        "PORTE": "COMPROVADO_VIA_IMPRENSA",
+        "RELACAO_COM_ADAMA": "HIPOTESE"
+      },
+      "SOURCES": [
+        "https://www.qdpnews.it/comuni/bellunese/belluno/il-consorzio-agrario-di-treviso-e-belluno-approva-il-bilancio-ed-elegge-il-nuovo-cda/",
+        "https://www.giornalenordest.it/bilancio-2024-consorzio-agrario-treviso-belluno-conferma-la-sua-solidita/"
+      ],
+      "PRIORITY": 1,
+      "MARCAS_QUE_JA_TRABALHA": {
+        "MARCAS_PUBLICADAS": "NAO SEI - compra de antiparassitari quantificada (18,1 mi EUR em 2024) mas sem mix publico; site bloqueia acesso automatizado (HTTP 202 vazio)",
+        "EVIDENCE_STATE": "NAO SEI"
+      }
+    },
+    {
+      "ID": "C-3",
+      "NAME": "Geofin S.p.A.",
+      "TYPE": "DISTRIBUTORE_PRIVATO",
+      "HQ": "Via Crear 15, Oppeano (VR)",
+      "VAT": "02803700232",
+      "FOUNDED": 2000,
+      "ATECO": "46.85.01",
+      "SIZE": {
+        "FATTURATO_2024_EUR": 12685423,
+        "FATTURATO_2023_EUR": 12680315,
+        "DIPENDENTI": "20-49",
+        "CATALOGO": "200+ prodotti"
+      },
+      "AMBIGUITY": "e distribuidor de multinacionais E titular de registros proprios - tambem concorrente na prateleira",
+      "EVIDENCE_STATE": {
+        "PORTE": "COMPROVADO",
+        "RELACAO_COM_ADAMA": "NAO SEI"
+      },
+      "SOURCES": [
+        "https://geofin.vr.it/chi-siamo/",
+        "https://www.companyreports.it/geofin-spa-02803700232"
+      ],
+      "PRIORITY": 6,
+      "MARCAS_QUE_JA_TRABALHA": {
+        "MARCAS_PUBLICADAS": [
+          "BASF",
+          "Bayer",
+          "FMC",
+          "Gowan",
+          "Sapec/Ascenza",
+          "Sharda",
+          "Sipcam",
+          "Syngenta",
+          "Agrobio",
+          "Cheminova"
+        ],
+        "LINHA_PROPRIA": [
+          "ATTAK",
+          "CUPPER 400",
+          "GEN RAME",
+          "TRICHOPROTECT",
+          "PROPOLIS",
+          "NEMATODI",
+          "SOLE STOP",
+          "SUNPOWER",
+          "FOLIAR 20-20-20",
+          "BICARBONATO DI SODIO",
+          "EISENCHELAT 6%"
+        ],
+        "REGISTRO_PROPRIO_ATIVO": "DIGEO XXIII (reg. 019321) - NEMATOCIDA, 1,3-dicloropropene",
+        "POSICAO_NO_VENETO": "1o titular de NEMATOCIDA do Veneto em volume declarado 2025: 104.480 kg/l",
+        "ADAMA_PRESENTE": "NAO - a ADAMA nao consta entre os Partner Multinazionali publicados",
+        "EVIDENCE_STATE": "COMPROVADO - pagina Partner lida na fonte"
+      }
+    },
+    {
+      "ID": "C-4",
+      "NAME": "Cantina di Soave (CADIS 1898)",
+      "TYPE": "COOPERATIVA_VITIVINICOLA",
+      "TERRITORY": [
+        "VR"
+      ],
+      "SIZE": {
+        "SOCI": 2300,
+        "HA_VIGNETO": 6500,
+        "FATTURATO_EUR": 141000000
+      },
+      "CAVEAT": "cooperativa vinifica; que compre e distribua agrofarmaco aos socios e pratica comum do setor, NAO provado aqui",
+      "EVIDENCE_STATE": {
+        "PORTE": "COMPROVADO",
+        "PAPEL_DE_COMPRADOR_DE_INSUMO": "HIPOTESE"
+      },
+      "SOURCES": [
+        "https://www.larena.it/territorio-veronese/est/colosso-con-2-300-soci-e-80-milioni-di-bottiglie-1.8163712"
+      ],
+      "PRIORITY": 4,
+      "MARCAS_QUE_JA_TRABALHA": {
+        "MARCAS_PUBLICADAS": "NAO SEI",
+        "EVIDENCE_STATE": "NAO SEI"
+      }
+    },
+    {
+      "ID": "C-5",
+      "NAME": "Collis Veneto Wine Group",
+      "TYPE": "COOPERATIVA_VITIVINICOLA",
+      "TERRITORY": [
+        "VR"
+      ],
+      "SIZE": {
+        "SOCI": 2450,
+        "HA_VIGNETO": 7200,
+        "FATTURATO_EUR": "oltre 220.000.000"
+      },
+      "FATTO_RECENTE": "incorporou a Cantina Sociale di Monteforte d'Alpone em nov/2025 (+450 socios, +1.200 ha)",
+      "EVIDENCE_STATE": {
+        "PORTE": "COMPROVADO",
+        "PAPEL_DE_COMPRADOR_DE_INSUMO": "HIPOTESE"
+      },
+      "SOURCES": [
+        "https://winenews.it/it/vino-e-fusioni-collis-veneto-wine-group-incorpora-cantina-sociale-di-monteforte-dalpone_575698/"
+      ],
+      "PRIORITY": 4,
+      "MARCAS_QUE_JA_TRABALHA": {
+        "MARCAS_PUBLICADAS": "NAO SEI",
+        "EVIDENCE_STATE": "NAO SEI"
+      }
+    },
+    {
+      "ID": "C-6",
+      "NAME": "Organizzazioni di Produttori ortofrutticole del Veneto",
+      "TYPE": "OP_AOP",
+      "UNIVERSE": {
+        "OP_ORTOFRUTTA": 16,
+        "AOP_ORTOFRUTTA": 1,
+        "OP_OLIO": 2,
+        "OP_ALTRI_SETTORI": 18,
+        "SOCI_2017": 3356,
+        "HA_2017": 14765,
+        "VPC_2017_EUR": 427000000,
+        "MEDIA_VPC_PER_OP_EUR": 25000000
+      },
+      "MAIORES": [
+        {
+          "NAME": "Ortoromi",
+          "VPC_2017_EUR": 89000000,
+          "HQ": "Borgoricco (PD)",
+          "NOTE": "10 empresas socias, 700+ ha"
+        },
+        {
+          "NAME": "OPO Veneto",
+          "VPC_2017_EUR": 43800000,
+          "NOTE": "fundada 2001, 400 socios diretos + 100 indiretos"
+        },
+        {
+          "NAME": "APO Scaligera",
+          "VPC_2017_EUR": 36700000
+        },
+        {
+          "NAME": "Consorzio Ortofrutticolo Padano (OP COP)",
+          "FATTURATO_EUR": 25000000,
+          "NOTE": "700 a 1.300 empresas conforme a fonte; VR/PD/RO/MN"
+        }
+      ],
+      "CAVEAT": "dados de 2017/2018; elenco oficial baixavel do portal PIAVe e um .doc atualizado em 27/11/2014. Elenco atual: NAO SEI.",
+      "EVIDENCE_STATE": {
+        "PORTE": "COMPROVADO_MAS_DESATUALIZADO",
+        "PAPEL_DE_COMPRADOR_DE_INSUMO": "HIPOTESE"
+      },
+      "SOURCES": [
+        "https://www.piave.veneto.it/resource/resolver?resourceId=d5de4976-f282-42b8-95cd-7c595a0fbe18%2F21.pdf",
+        "https://www.regione.veneto.it/web/agricoltura-e-foreste/associazionismo"
+      ],
+      "PRIORITY": 5,
+      "MARCAS_QUE_JA_TRABALHA": {
+        "MARCAS_PUBLICADAS": "NAO SEI",
+        "EVIDENCE_STATE": "NAO SEI"
+      }
+    }
+  ],
+  "TERRITORY_PRIORITY": {
+    "ID": "T-1",
+    "NAME": "Rovigo",
+    "WHY": "14,72% de quota ADAMA em volume declarado 2025 - mais que o dobro da media regional (6,88%) - em perfil milho/soja/beterraba; unica provincia veneta com evento ADAMA in Campo (SATA, 28/05/2026)",
+    "EVIDENCE_STATE": "COMPROVADO",
+    "PRIORITY": 3
+  },
+  "OPEN_GAPS": [
+    {
+      "ID": "L-1",
+      "GAP": "nomes das 531 revendas",
+      "HOW_TO_CLOSE": "acesso a ato administrativo nas 9 ULSS; ou Registro Imprese por ATECO 46.85.01 por provincia"
+    },
+    {
+      "ID": "L-2",
+      "GAP": "quem compra ADAMA hoje",
+      "HOW_TO_CLOSE": "dado interno - fechado por premissa P-003 EXTERNAL-ONLY"
+    },
+    {
+      "ID": "L-3",
+      "GAP": "quota em valor",
+      "HOW_TO_CLOSE": "painel de mercado pago; a fonte ARPAV e volume"
+    },
+    {
+      "ID": "L-4",
+      "GAP": "elenco atual das OP",
+      "HOW_TO_CLOSE": "pedido a Direzione Agroalimentare da Regione del Veneto"
+    },
+    {
+      "ID": "L-5",
+      "GAP": "balanco original do Consorzio Agrario di Treviso e Belluno",
+      "HOW_TO_CLOSE": "navegador com janela ou pedido direto (site bloqueia automacao)"
+    },
+    {
+      "ID": "L-6",
+      "GAP": "cooperativas vitivinicolas revendem insumo aos socios?",
+      "HOW_TO_CLOSE": "pergunta direta; estatuto ou balanco social"
+    },
+    {
+      "ID": "L-7",
+      "GAP": "estrutura nacional do canal (ca. 4.000 revendas, >60% de quota em agrofarmaci)",
+      "HOW_TO_CLOSE": "reabrir Compag e AgriCommercio - 403/redirect nesta sessao"
+    },
+    {
+      "ID": "L-8",
+      "GAP": "por que 4 dos 6 tau-fluvalinato nao tem venda declarada no Veneto",
+      "HOW_TO_CLOSE": "so a ADAMA sabe - descontinuacao, canal ou omissao de declaracao"
+    },
+    {
+      "ID": "L-9",
+      "GAP": "mix de fornecedores por revenda/consorzio (quem compra de quem)",
+      "HOW_TO_CLOSE": "nao e publico em lugar nenhum: so por declaracao do proprio canal, visita comercial ou painel pago"
+    }
+  ],
+  "MARCAS_NO_VENETO_2025": {
+    "FONTE": "data/samples/IT-VENETO-CANALE/IT-VENETO-MARCAS-POR-TIPO-2025.json",
+    "LIMITE": "a declaracao ARPAV e por provincia, nao por revenda: prova o que a regiao compra, nao o mix de uma casa",
+    "TOP_5_GERAL": [
+      {
+        "UPL Holdings": "3.717.020 kg/l · 22,9%"
+      },
+      {
+        "Syngenta Italia": "1.519.269 · 9,3%"
+      },
+      {
+        "BASF Agricultural Solutions Italy": "793.394 · 4,9%"
+      },
+      {
+        "Bayer CropScience": "778.897 · 4,8%"
+      },
+      {
+        "Gowan Italia": "706.460 · 4,3%"
+      }
+    ],
+    "ADAMA": {
+      "ADAMA ITALIA": "686.324 kg/l · 4,2% · 6o lugar geral",
+      "GRUPO_SOMADO": "1.118.859 kg/l · 6,88%",
+      "POR_TIPO": {
+        "FUNGICIDA": "ADAMA Italia #6 (4,51%) · grupo 5,98%",
+        "DISERBANTE": "ADAMA Deutschland #5 (8,06%) · grupo 12,86%",
+        "INSETTICIDA": "ADAMA Italia #3 (7,82%) · grupo 7,83%"
+      }
+    },
+    "LIDERES_POR_TIPO": {
+      "FUNGICIDA": "UPL Holdings 35,76%",
+      "DISERBANTE": "Bayer CropScience 16,04%",
+      "INSETTICIDA": "Syngenta Italia 37,64%",
+      "NEMATOCIDA": "Geofin S.p.A. 104.480 kg/l (1o)"
+    }
+  }
+}
