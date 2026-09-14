@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.censo-cards-sensores/1",
   "O_QUE_ISTO_E": "A matriz CARD x SENSOR do SINTONIA, montada a partir dos censos que ja existem. Nenhum numero e medido aqui: cada um tem dono noutro ficheiro, e este junta-os para fazer a pergunta que nenhum deles fazia sozinho.",
   "PROVENANCE": {
-    "HEAD": "8de92df365e9d453c68789c10bb5cd3b871a8675",
+    "HEAD": "6bbbfc1cc7571216c07c2f0c0102694bc0880d53",
     "LIDO_DE": [
       "casco.generated.json",
       "executores.generated.json",
@@ -26,15 +26,15 @@
       "NAO SEI": 4,
       "REAL": 1
     },
-    "SENSORES_TOTAL": 58,
+    "SENSORES_TOTAL": 74,
     "SENSORES_POR_INSTRUMENTACAO": {
-      "NOT_INSTRUMENTED": 53,
-      "PARTIAL": 1,
-      "INSTRUMENTED": 2,
-      "NOT_APPLICABLE": 2
+      "NOT_APPLICABLE": 9,
+      "NOT_INSTRUMENTED": 60,
+      "PARTIAL": 3,
+      "INSTRUMENTED": 2
     },
     "SENSORES_COM_CORRIDA_PROVADA": 2,
-    "SENSORES_QUE_CORREM_OFFLINE": 32,
+    "SENSORES_QUE_CORREM_OFFLINE": 45,
     "FONTES_NO_ATLAS": 23,
     "FONTES_COM_CONTRATO": 5,
     "FONTES_JA_COLETADAS": 4,
@@ -56,7 +56,7 @@
       "IT-T3-010": 2,
       "IT-T4-001": 2
     },
-    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 73,
+    "ARTEFATOS_DE_INTELIGENCIA_CONGELADOS": 72,
     "CAMADAS_DO_PORTAL": 15,
     "CAMADAS_COM_GERADOR": 5,
     "ARESTAS_POR_CLASSE": {
@@ -74,13 +74,13 @@
     {
       "PROVA": "EXISTE",
       "PERGUNTA": "ha ficheiro?",
-      "SENSORES": 58,
+      "SENSORES": 74,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
       "PROVA": "CORRE",
       "PERGUNTA": "e chamavel sem rede, sem pago, sem producao?",
-      "SENSORES": 32,
+      "SENSORES": 45,
       "MEDIDO_POR": "system-map/data/executores.generated.json"
     },
     {
@@ -354,6 +354,138 @@
   ],
   "SENSORES": [
     {
+      "SENSOR_ID": "coleta/adaptador_aberto.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/adaptador_facebook.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/adaptador_instagram.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/adaptador_linkedin.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/adaptador_x.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/adaptador_youtube.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
       "SENSOR_ID": "coleta/agrifood_ue.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -381,7 +513,7 @@
       "PAPEIS": [
         "UNKNOWN"
       ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "ESTADO_DE_INSTRUMENTACAO": "PARTIAL",
       "EXISTE": true,
       "CORRE_OFFLINE": false,
       "REDE": false,
@@ -393,7 +525,7 @@
       "MODO": null,
       "TEM_PORTA": true,
       "USA_CONTRATO_ARTEFATO": false,
-      "USA_TELEMETRIA": false,
+      "USA_TELEMETRIA": true,
       "ENTROU_NA_CADEIA": false,
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
@@ -596,6 +728,28 @@
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
+      "SENSOR_ID": "coleta/eu_regulatorio_executor.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
       "SENSOR_ID": "coleta/eu_substancia_adama_it.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -710,6 +864,28 @@
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
+      "SENSOR_ID": "coleta/ingresso.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "TELEMETRY_EMITTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "PARTIAL",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": true,
+      "USA_TELEMETRIA": true,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
       "SENSOR_ID": "coleta/instagram_coleta.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -780,6 +956,28 @@
       "GAVETA": "coleta",
       "PAPEIS": [
         "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/italy_executor.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "EXECUTOR"
       ],
       "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
@@ -978,6 +1176,139 @@
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
+      "SENSOR_ID": "coleta/scrap_capacidades.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/scrap_colheita.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/scrap_executor.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "ORCHESTRATOR",
+        "CHECKPOINT_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/scrap_fornecedores.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/scrap_http.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "coleta/scrap_registo.py",
+      "GAVETA": "coleta",
+      "PAPEIS": [
+        "UNKNOWN"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
       "SENSOR_ID": "coleta/sensor_canal_identidade.py",
       "GAVETA": "coleta",
       "PAPEIS": [
@@ -1047,9 +1378,9 @@
       "SENSOR_ID": "coleta/social_rotas.py",
       "GAVETA": "coleta",
       "PAPEIS": [
-        "EXECUTOR"
+        "UNKNOWN"
       ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
       "EXISTE": true,
       "CORRE_OFFLINE": false,
       "REDE": true,
@@ -1069,14 +1400,15 @@
       "SENSOR_ID": "coleta/social_scrap.py",
       "GAVETA": "coleta",
       "PAPEIS": [
-        "ORCHESTRATOR"
+        "ORCHESTRATOR",
+        "CHECKPOINT_OWNER"
       ],
       "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
-      "CORRE_OFFLINE": true,
+      "CORRE_OFFLINE": false,
       "REDE": false,
       "PAGO": false,
-      "PRODUCAO": false,
+      "PRODUCAO": true,
       "RODOU_COM_PROVA": false,
       "PRODUZIU": [],
       "PROVA": null,
@@ -1336,7 +1668,7 @@
       "PAPEIS": [
         "PRESERVATION_OWNER"
       ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
       "CORRE_OFFLINE": true,
       "REDE": false,
@@ -1359,6 +1691,28 @@
         "PRESERVATION_OWNER"
       ],
       "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": false,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "guarda/preservar_documento.py",
+      "GAVETA": "guarda",
+      "PAPEIS": [
+        "PRESERVATION_OWNER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_APPLICABLE",
       "EXISTE": true,
       "CORRE_OFFLINE": true,
       "REDE": false,
@@ -1441,51 +1795,7 @@
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
     },
     {
-      "SENSOR_ID": "ferramentas/apify_contrato.py",
-      "GAVETA": "ferramentas",
-      "PAPEIS": [
-        "ADAPTER"
-      ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
-      "EXISTE": true,
-      "CORRE_OFFLINE": false,
-      "REDE": false,
-      "PAGO": true,
-      "PRODUCAO": false,
-      "RODOU_COM_PROVA": false,
-      "PRODUZIU": [],
-      "PROVA": null,
-      "MODO": null,
-      "TEM_PORTA": true,
-      "USA_CONTRATO_ARTEFATO": false,
-      "USA_TELEMETRIA": false,
-      "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
-    },
-    {
       "SENSOR_ID": "ferramentas/apify_pool.py",
-      "GAVETA": "ferramentas",
-      "PAPEIS": [
-        "ADAPTER"
-      ],
-      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
-      "EXISTE": true,
-      "CORRE_OFFLINE": false,
-      "REDE": false,
-      "PAGO": true,
-      "PRODUCAO": false,
-      "RODOU_COM_PROVA": false,
-      "PRODUZIU": [],
-      "PROVA": null,
-      "MODO": null,
-      "TEM_PORTA": true,
-      "USA_CONTRATO_ARTEFATO": false,
-      "USA_TELEMETRIA": false,
-      "ENTROU_NA_CADEIA": false,
-      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
-    },
-    {
-      "SENSOR_ID": "ferramentas/apify_recuperar.py",
       "GAVETA": "ferramentas",
       "PAPEIS": [
         "ADAPTER"
@@ -1538,6 +1848,28 @@
       "EXISTE": true,
       "CORRE_OFFLINE": false,
       "REDE": true,
+      "PAGO": true,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "ferramentas/fala_local.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
       "PAGO": false,
       "PRODUCAO": false,
       "RODOU_COM_PROVA": false,
@@ -1558,8 +1890,8 @@
       ],
       "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
       "EXISTE": true,
-      "CORRE_OFFLINE": false,
-      "REDE": true,
+      "CORRE_OFFLINE": true,
+      "REDE": false,
       "PAGO": false,
       "PRODUCAO": false,
       "RODOU_COM_PROVA": false,
@@ -1590,6 +1922,29 @@
       "MODO": null,
       "TEM_PORTA": true,
       "USA_CONTRATO_ARTEFATO": false,
+      "USA_TELEMETRIA": false,
+      "ENTROU_NA_CADEIA": false,
+      "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
+    },
+    {
+      "SENSOR_ID": "ferramentas/reel_transcricao.py",
+      "GAVETA": "ferramentas",
+      "PAPEIS": [
+        "ORCHESTRATOR",
+        "ADAPTER"
+      ],
+      "ESTADO_DE_INSTRUMENTACAO": "NOT_INSTRUMENTED",
+      "EXISTE": true,
+      "CORRE_OFFLINE": false,
+      "REDE": true,
+      "PAGO": false,
+      "PRODUCAO": false,
+      "RODOU_COM_PROVA": false,
+      "PRODUZIU": [],
+      "PROVA": null,
+      "MODO": null,
+      "TEM_PORTA": true,
+      "USA_CONTRATO_ARTEFATO": true,
       "USA_TELEMETRIA": false,
       "ENTROU_NA_CADEIA": false,
       "PORQUE_NAO_ENTROU": "a fronteira COL-LAW-043 nunca produziu um READY: o destino declarado nao existe nesta arvore"
