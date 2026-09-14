@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-preserve-facts-2139eb",
-    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
-    "GENERATED_AT": "2026-09-14T17:57:54-03:00",
-    "SOURCE_TREE_FINGERPRINT": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378"
+    "BRANCH": "claude/pg032-ready19-prova",
+    "HEAD": "802c55d1b3e697ed0e85190eea01c4638c66a1a7",
+    "GENERATED_AT": "2026-09-14T19:07:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "080e8c357b2f203d02d277cc5a1ccfabede15b05a264b247bd0083b84a6b210b"
   },
   "FILES": [
     {
@@ -4945,7 +4945,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "cc076e29eff81c08a179eae0013e46c88c1a6cd2",
+      "sha": "a2c95f7841265286fb3745738c2db71a27bc0f96",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8746,7 +8746,7 @@
     },
     {
       "path": "provas/a_sala_sobrevive_ao_processo.py",
-      "sha": "22c00fb49937d9c337f965f59734e0a900225573",
+      "sha": "d3bb3f091517a5245021f913c8f03fa397b33b85",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10531,7 +10531,7 @@
     },
     {
       "path": "supabase/migrations/032_a_sala_guarda_o_fato_e_a_especie.sql",
-      "sha": "c228b7082551a718a88303456db671408d554046",
+      "sha": "a29841f65b8697ffb1b7ee7c4f1624969a97227b",
       "ext": ".sql",
       "readable": false,
       "code_dir": false
@@ -31715,7 +31715,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_sala_sobrevive_ao_processo.py",
-        "line": 153,
+        "line": 232,
         "snippet": "import admissao as adm"
       }
     },
@@ -31726,8 +31726,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_sala_sobrevive_ao_processo.py",
-        "line": 171,
-        "snippet": "import sala_de_espera as espera"
+        "line": 162,
+        "snippet": "import sala_de_espera as _espera                          # noqa: PLC0415"
       }
     },
     {
@@ -31737,7 +31737,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_sala_sobrevive_ao_processo.py",
-        "line": 536,
+        "line": 689,
         "snippet": "[sys.executable, os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"),"
       }
     },

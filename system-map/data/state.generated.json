@@ -2335,10 +2335,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-preserve-facts-2139eb",
-    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
-    "GENERATED_AT": "2026-09-14T17:57:54-03:00",
-    "SOURCE_TREE_FINGERPRINT": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378"
+    "BRANCH": "claude/pg032-ready19-prova",
+    "HEAD": "802c55d1b3e697ed0e85190eea01c4638c66a1a7",
+    "GENERATED_AT": "2026-09-14T19:07:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "080e8c357b2f203d02d277cc5a1ccfabede15b05a264b247bd0083b84a6b210b"
   },
   "FAMILIES": [
     {
@@ -17507,6 +17507,7 @@
           "CANDIDATAS_A",
           "CANDIDATOS",
           "CASOS",
+          "COLS_031",
           "COLS_DER",
           "COLS_DOC",
           "COLS_OBJ",
@@ -17562,11 +17563,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1417,
+        "palavras": 1430,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1415,
+        "sem_marca_de_lingua": 1428,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -27790,7 +27791,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-preserve-facts-2139eb"
+        "branch claude/pg032-ready19-prova"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -28561,7 +28562,7 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 153,
+          "line": 232,
           "snippet": "import admissao as adm",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
@@ -64980,8 +64981,8 @@
         },
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 171,
-          "snippet": "import sala_de_espera as espera",
+          "line": 162,
+          "snippet": "import sala_de_espera as _espera                          # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-SALA-DE-ESPERA",
@@ -65031,7 +65032,7 @@
       "evidence": [
         {
           "file": "provas/a_sala_sobrevive_ao_processo.py",
-          "line": 536,
+          "line": 689,
           "snippet": "[sys.executable, os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-PROVA-COLETA",
