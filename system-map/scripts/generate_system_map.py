@@ -2587,6 +2587,265 @@ def papel_de_cada_regua(nos: list, G: dict, dono: dict) -> None:
 
 
 # ═════════════════════════════════════════════════════════════════════════════
+# G7 · O PAPEL DE CADA PECA — DERIVADO DE EVIDENCIA, NUNCA LIDO NO NOME
+#
+# A §4 do contrato de confianca poe `ROLE` na lista de campos obrigatorios de
+# uma entidade publicada, e a §5.1 fecha o vocabulario. A §21 escreveu, em
+# 2026-09, a frase que esta funcao vem apagar:
+#
+#     «`ROLE` nao existe ainda como campo. Atribui-lo e trabalho de medicao.»
+#
+# Ele passa a existir, e o trabalho e o de medicao — nao o de ler a ficha.
+#
+#     NOME DE FICHEIRO NAO E PAPEL. GAVETA NAO E PAPEL. FICHA NAO E MEDICAO.
+#
+# DUAS FONTES, NUNCA FUNDIDAS
+# ---------------------------
+# `ROLE_MEASURED`  sai da arvore: que ficheiros a peca tem, o que eles escrevem,
+#                  quem le isso, quem os corre, se falam com a rede. Plano CODE.
+# `ROLE_DECLARED`  sai de `architecture.declared.json`, e SO dos rotulos `kind`
+#                  que nao sao ambiguos. Plano DECLARED.
+#
+# O contrato proibe promover DECLARED para CODE, entao elas nao se misturam: o
+# que a medicao diz sai com `ROLE_PLANE = CODE`; o que so a ficha diz sai com
+# `ROLE_PLANE = DECLARED`; e quando as duas se contradizem, NENHUMA GANHA EM
+# SILENCIO — a peca fica `UNKNOWN` e o conflito e publicado com os dois lados.
+#
+#     UM CONFLITO ESCONDIDO E FAIL.  (§15 do contrato de confianca)
+#
+# PORQUE `kind` NAO ENTRA TODO
+# ----------------------------
+# `contract`, `engine`, `gate`, `library` e `chain` sao rotulos que esta arvore
+# ja provou pouco fiaveis: o comentario de `ZONAS_DE_LEI`, cinquenta linhas
+# acima, regista «O que a ADAMA sabe de si» declarado `contract` quando e o
+# catalogo comercial. Herdar esse engano com cara de papel seria repeti-lo num
+# nivel acima. Sete rotulos entram; o resto nao produz papel declarado nenhum.
+#
+# O QUE ESTA ESCADA NAO PROVA — e esta escrito em cada regra, nao aqui
+# -------------------------------------------------------------------
+# `scan_repo.py` mede escrita para ficheiro RASTREADO e para pasta declarada em
+# constante. Um coletor que escreve em `data/raw/` — que o git ignora — nao tem
+# escrita medida, e sai desta escada como instrumento. Isso e uma limitacao da
+# medicao, e vai escrita em `ROLE_LIMITATIONS` de cada regra, como a §7 exige:
+#
+#     UMA EVIDENCIA QUE NAO DECLARA O SEU LIMITE
+#     E UMA EVIDENCIA QUE SERA USADA FORA DELE.
+# ═════════════════════════════════════════════════════════════════════════════
+PAPEIS_CANONICOS = ("OPERATIONAL_STEP", "MEASUREMENT_INSTRUMENT", "CONTRACT_OR_RULE",
+                    "STORAGE", "SURFACE", "DISPATCH_ENTRYPOINT", "PROOF", "UNKNOWN")
+
+# So os rotulos declarados que NAO sao ambiguos nesta arvore. Ver o comentario.
+KIND_PARA_PAPEL = {
+    "test": "PROOF", "proof": "PROOF",
+    "workflow": "DISPATCH_ENTRYPOINT",
+    "surface": "SURFACE", "tela": "SURFACE",
+    "store": "STORAGE", "acervo": "STORAGE",
+}
+
+# A raiz servida sai de `vercel.json` — nao de um palpite sobre o nome da pasta.
+def _raiz_servida() -> str:
+    try:
+        v = json.loads((RAIZ / "vercel.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ""
+    d = (v.get("outputDirectory") or "").strip("/")
+    return (d + "/") if d else ""
+
+
+_RX_WORKFLOW = re.compile(r"(^|/)workflows/[^/]+\.ya?ml$")
+_EXT_EXECUTAVEL = (".py", ".mjs", ".js", ".sh", ".yml", ".yaml")
+_EXT_SERVIDA = (".html", ".js", ".css")
+
+# A ESCADA. A ORDEM E A REGRA, e por isso ela esta escrita como dados e nao
+# como uma cascata de `if` espalhada: quem a ler consegue dizer, sem correr
+# nada, qual pergunta foi feita primeiro.
+#
+# Cada degrau traz o LIMITE do que ele prova. Nenhum fica vazio.
+LIMITE_ESTATICO = ("analise estatica da arvore: prova CODE. Nao prova OBSERVED, "
+                   "nem que o item da coleta atravessa esta peca.")
+
+
+def papel_canonico(nos: list, G: dict, dono: dict) -> None:
+    """Escreve `ROLE` e a sua evidencia em cada peca. §5.1 do contrato."""
+    servida = _raiz_servida()
+
+    escreve: dict[str, set] = {}
+    leem: dict[str, set] = {}
+    corre: dict[str, set] = {}
+    for e in G["FILE_EDGES"]:
+        t = e["type"]
+        if t == "WRITES":
+            escreve.setdefault(e["from_file"], set()).add(e["to_file"])
+        elif t == "READS":
+            leem.setdefault(e["to_file"], set()).add(e["from_file"])
+        elif t == "RUNS":
+            corre.setdefault(e["from_file"], set()).add(e["to_file"])
+    em_pasta = G.get("ESCRITAS_EM_PASTA") or {}
+
+    for n in nos:
+        fs = n.get("files") or []
+        execs = [f for f in fs if f.endswith(_EXT_EXECUTAVEL)]
+        wfs = [f for f in fs if _RX_WORKFLOW.search(f)]
+        srv = [f for f in fs if servida and f.startswith(servida)
+               and f.endswith(_EXT_SERVIDA)]
+        artefactos = sorted({a for f in fs for a in escreve.get(f, ())})
+        leitores = sorted({dono.get(x) for a in artefactos
+                           for x in leem.get(a, ())
+                           if dono.get(x) and dono.get(x) != n["id"]})
+        le_artefacto = sorted({e["to_file"] for e in G["FILE_EDGES"]
+                               if e["type"] == "READS" and e["from_file"] in fs})
+        pastas = [(f, x) for f in fs for x in em_pasta.get(f, [])]
+        manda = sorted({o for f in fs for o in corre.get(f, ())
+                        if dono.get(o) and dono.get(o) != n["id"]})
+        rede = [f for f in execs if f.endswith(".py") and _fala_com_a_rede(f)]
+
+        medido = regra = porque = None
+        if execs and wfs and len(wfs) == len(execs):
+            medido, regra = "DISPATCH_ENTRYPOINT", "M1_SO_WORKFLOW"
+            porque = ("%d ficheiro(s), todos manifestos de workflow: quem os corre "
+                      "e o GitHub Actions, e nada na arvore os importa" % len(wfs))
+        elif srv:
+            medido, regra = "SURFACE", "M2_SERVIDO_AO_BROWSER"
+            porque = ("vercel.json serve `%s`; %s esta la dentro"
+                      % (servida.rstrip("/"), srv[0]))
+        elif n.get("rule_role") == "DECLARES":
+            medido, regra = "CONTRACT_OR_RULE", "M3_REGUA_QUE_ENUNCIA"
+            porque = "rule_role medido: %s" % n.get("rule_role_evidence")
+        elif n.get("rule_role") == "MEASURES":
+            medido, regra = "MEASUREMENT_INSTRUMENT", "M3_REGUA_QUE_MEDE"
+            porque = "rule_role medido: %s" % n.get("rule_role_evidence")
+        elif n.get("rule_role") == "STAMPS":
+            medido, regra = "OPERATIONAL_STEP", "M3_REGUA_QUE_CARIMBA"
+            porque = "rule_role medido: %s" % n.get("rule_role_evidence")
+        elif manda:
+            medido, regra = "OPERATIONAL_STEP", "M4_MANDA_OUTRA_CORRER"
+            porque = ("corre %s por subprocesso: quem manda outra peca executar "
+                      "nao esta so a olhar" % manda[0])
+        elif rede:
+            medido, regra = "OPERATIONAL_STEP", "M5_VAI_BUSCAR_FORA"
+            porque = ("%s abre ligacao de rede: vai buscar dado fora da arvore"
+                      % rede[0])
+        elif pastas:
+            f, x = pastas[0]
+            medido, regra = "OPERATIONAL_STEP", "M6_ESCREVE_NUMA_PASTA"
+            porque = ("escreve na pasta %s (%s:%d): produz dado"
+                      % (x["pasta"], f, x["line"]))
+        elif artefactos and leitores:
+            medido, regra = "OPERATIONAL_STEP", "M7_ENTREGA_A_SEGUINTE"
+            porque = ("escreve %s, e %s le isso: entrega trabalho a peca seguinte"
+                      % (artefactos[0], leitores[0]))
+        elif le_artefacto and not artefactos:
+            medido, regra = "MEASUREMENT_INSTRUMENT", "M8_LE_E_NAO_ESCREVE"
+            porque = ("le %d artefato(s) e nao escreve nenhum medido: olha e da nota"
+                      % len(le_artefacto))
+        elif fs and not execs:
+            medido, regra = "STORAGE", "M9_NADA_AQUI_CORRE"
+            porque = ("%d ficheiro(s) e nenhum executavel: aqui guarda-se, "
+                      "nao se corre" % len(fs))
+
+        declarado = KIND_PARA_PAPEL.get(n.get("kind"))
+        porque_declarado = ("declarado `kind: %s` em architecture.declared.json"
+                            % n.get("kind"))
+
+        n["ROLE_MEASURED"] = medido or "UNKNOWN"
+        n["ROLE_DECLARED"] = declarado or "UNKNOWN"
+        n["ROLE_RULE"] = regra or "SEM_REGRA"
+        n["ROLE_LIMITATIONS"] = LIMITE_ESTATICO
+
+        if medido and declarado and medido != declarado:
+            # NENHUMA GANHA EM SILENCIO.
+            n["ROLE"] = "UNKNOWN"
+            n["ROLE_PLANE"] = "UNKNOWN"
+            n["ROLE_CONFLICT"] = {
+                "MEASURED": medido, "MEASURED_WHY": porque,
+                "DECLARED": declarado, "DECLARED_WHY": porque_declarado,
+                "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente",
+            }
+            n["ROLE_EVIDENCE"] = ("CONFLITO · a medicao diz %s (%s) e a ficha diz %s "
+                                  "(%s). Enquanto nao houver decisao, NAO SEI."
+                                  % (medido, porque, declarado, porque_declarado))
+        else:
+            n["ROLE_CONFLICT"] = None
+            if medido:
+                n["ROLE"], n["ROLE_PLANE"], n["ROLE_EVIDENCE"] = medido, "CODE", porque
+            elif declarado:
+                n["ROLE"] = declarado
+                n["ROLE_PLANE"] = "DECLARED"
+                n["ROLE_EVIDENCE"] = (porque_declarado + " — nenhum ficheiro medido "
+                                      "sustenta ou contradiz isto")
+            else:
+                n["ROLE"], n["ROLE_PLANE"] = "UNKNOWN", "UNKNOWN"
+                n["ROLE_EVIDENCE"] = (
+                    "nenhum ficheiro rastreado reivindicado por esta peca"
+                    if not fs else
+                    "tem ficheiro, e nenhuma regra desta escada o classifica: "
+                    "a arvore nao mostra o que ele escreve, le, corre ou serve")
+        assert n["ROLE"] in PAPEIS_CANONICOS
+
+
+# ═════════════════════════════════════════════════════════════════════════════
+# G8 · QUEM RESPONDE POR ESTA PECA, E O QUE ENTRA NELA
+#
+# A §4 do contrato poe `OWNER` como campo PROPRIO e OBRIGATORIO — «quem responde
+# por esta entidade existir e estar certa». Ele nao e identidade nem
+# classificacao: e responsabilidade, e por isso nao se deduz do sitio onde o
+# ficheiro mora.
+#
+#     PASTA NAO E DONO. O DONO E DECLARADO, OU E NAO SEI.
+#
+# E o `produces` ja respondia «o que sai daqui». Nao havia o simetrico: a tela
+# mostrava as SETAS que entram, mas nao os FICHEIROS que entram — e uma seta diz
+# de QUEM vem, nao O QUE vem.
+#
+#     DE QUEM VEM  !=  O QUE VEM.
+#
+# `consumes` e o simetrico medido de `produces`: os ficheiros que o codigo desta
+# peca abre para ler. Plano CODE — analise estatica prova que ele CONSEGUE ler,
+# nao que leu numa corrida.
+# ═════════════════════════════════════════════════════════════════════════════
+def dono_e_entradas(nos: list, G: dict, dono: dict, varios_autores: list) -> None:
+    """Escreve `OWNER` e `consumes` em cada peca."""
+    por_artefacto = {a["file"]: a for a in varios_autores}
+
+    le: dict[str, set] = {}
+    for e in G["FILE_EDGES"]:
+        if e["type"] == "READS":
+            le.setdefault(e["from_file"], set()).add(e["to_file"])
+
+    for n in nos:
+        fs = n.get("files") or []
+
+        # ── O DONO ────────────────────────────────────────────────────────────
+        deps = [d for d in (n.get("departments") or []) if d]
+        if deps:
+            n["OWNER"] = " · ".join(deps)
+            n["OWNER_PLANE"] = "DECLARED"
+            n["OWNER_EVIDENCE"] = ("`departments` declarado em "
+                                   "architecture.declared.json — decisao de gente, "
+                                   "nao medicao da arvore")
+        else:
+            n["OWNER"] = "UNKNOWN"
+            n["OWNER_PLANE"] = "UNKNOWN"
+            n["OWNER_EVIDENCE"] = ("nenhum departamento declarado para esta peca; "
+                                   "a arvore nao consegue medir responsabilidade")
+
+        # ── O DONO DISPUTADO, QUANDO HA ──────────────────────────────────────
+        # Nao e o dono da PECA: e o dono de um artefato que ela escreve e que
+        # mais alguem tambem escreve. A eleicao por ordem alfabetica ja esta
+        # medida em `ARTEFACT_MULTIPLE_AUTHORS`; aqui ela chega ao cartao.
+        disputados = [por_artefacto[a] for a in (n.get("produces") or [])
+                      if a in por_artefacto]
+        n["OWNER_CONFLICT"] = disputados or None
+
+        # ── O QUE ENTRA, EM FICHEIROS ────────────────────────────────────────
+        entradas = sorted({a for f in fs for a in le.get(f, ())})
+        n["consumes"] = entradas
+        n["consumes_plane"] = "CODE" if entradas else "UNKNOWN"
+
+
+
+
+# ═════════════════════════════════════════════════════════════════════════════
 # OS QUATRO PLANOS, E A EVIDENCIA LIGADA A AFIRMACAO CERTA — G1 do contrato.
 #
 # O mapa media bem e publicava a palavra errada. `status = PROVEN` saia em 659
@@ -3438,6 +3697,35 @@ def _conflito_do_status_legado(nos: list) -> list:
         "TOTAL_DE_PECAS": len(nos),
     }]
 
+def _contagem_dos_donos() -> dict:
+    """UM CONCEITO, UM DONO — lido de quem o mede, e nunca recontado aqui.
+
+    `censo_dos_donos.py` percorre 15 conceitos canonicos e diz, de cada um, se
+    tem um dono, dois, ou se quem responde por ele e um instrumento. Esse numero
+    existia desde a missao da observabilidade e NUNCA chegou a tela — e uma
+    duplicacao de dono que ninguem ve custa o mesmo que uma que nao foi medida.
+
+        MEDIDO E INVISIVEL VALE O MESMO QUE NAO MEDIDO.
+
+    Ficheiro ausente devolve `None` em cada campo, e a tela diz NAO SEI. Nunca
+    zero: zero leria-se como «nenhum conceito tem dois donos», que e o contrario
+    do que esta arvore mede.
+    """
+    caminho = RAIZ / "system-map" / "data" / "donos.generated.json"
+    try:
+        d = json.loads(caminho.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"concept_owner_count": None, "concept_owner_conflicts": None,
+                "concept_owner_single": None, "concept_owner_instrument": None}
+    por_estado = d.get("POR_ESTADO") or {}
+    return {
+        "concept_owner_count": d.get("CONCEITOS"),
+        "concept_owner_conflicts": por_estado.get("DONO_DUPLICADO", 0),
+        "concept_owner_single": por_estado.get("UM_DONO", 0),
+        "concept_owner_instrument": por_estado.get("DONO_E_INSTRUMENTO", 0),
+    }
+
+
 def _buracos() -> dict | None:
     """O que o censo dos buracos mediu — ou `None` se ele nao correu.
 
@@ -4004,8 +4292,27 @@ def main_uma_vez(stamp: bool) -> int:
             continue
         toca = (l["from"] in preparo or l["to"] in preparo)
         outro = l["to"] if l["from"] in preparo else l["from"]
+        # ⚠️ E NUNCA A PARTIR DE UM `import` — TERCEIRA VOLTA DA MESMA LICAO.
+        #
+        # A regra promovia `categoria in (CODE, READ)`. Medido nesta arvore, as
+        # UNICAS DUAS ligacoes que ela promovia eram as duas de `import`:
+        #
+        #   C-COLETA-INSTAGRAM -> C-TRANSCRICAO  IMPORTS  (instagram_transcrever.py:184)
+        #   C-NAVEGADOR        -> C-TRANSCRICAO  IMPORTS  (instagram_transcrever.py:183)
+        #
+        # Ou seja: a regra justificava-se com «o que sai do whisper e o TEXTO do
+        # item» e, na pratica, so promovia importacoes de modulo. Uma linha
+        # `import cdp` prova que ha dependencia de codigo. Nao prova travessia.
+        #
+        #     UM IMPORT NAO E UM CARIMBO, e este ficheiro ja o dizia
+        #     duzentas linhas acima — sobre as reguas, e nao sobre isto.
+        #
+        # A promocao fica de pe para o caso que a justifica (LER o artefacto que
+        # a ferramenta escreveu) e recusa o caso que a contradiz. Hoje isso
+        # promove ZERO ligacoes, e zero e a resposta certa: nenhuma leitura
+        # dessas esta medida nesta arvore.
         if toca and not _fora_do_caminho(outro):
-            if l["categoria"] in (CODE, READ):
+            if l["categoria"] == READ:
                 l["categoria"] = DATA
                 l["passa_pelo_preparo"] = True
 
@@ -4031,6 +4338,10 @@ def main_uma_vez(stamp: bool) -> int:
 
     onde_para_o_que_sai(nos, produz, _rastreados(), G, dono)
     papel_de_cada_regua(nos, G, dono)
+    # G7 · o papel canonico corre DEPOIS da regua, porque reutiliza `rule_role`:
+    # medir duas vezes a mesma coisa daria duas respostas a divergir.
+    papel_canonico(nos, G, dono)
+    dono_e_entradas(nos, G, dono, varios_autores)
 
     desvios = desvios_do_controlo(ligacoes, nos)
 
@@ -4098,6 +4409,18 @@ def main_uma_vez(stamp: bool) -> int:
         "files_tracked": G["COUNTS"]["files_tracked"],
         "files_covered": len(dono),
         "files_code_unclaimed": len(orfaos_de_codigo),
+        # G7 · O PAPEL, CONTADO PELO PLANO EM QUE ESTA PROVADO.
+        # Um numero so — «162 pecas tem papel» — juntaria o que a arvore mede com
+        # o que a ficha afirma, e e exactamente a promocao que a §2 do contrato
+        # proibe. Tres numeros, tres perguntas diferentes.
+        "roles_proven": sum(1 for n in nos if n.get("ROLE_PLANE") == "CODE"),
+        "roles_declared_only": sum(1 for n in nos if n.get("ROLE_PLANE") == "DECLARED"),
+        "roles_unknown": sum(1 for n in nos if n.get("ROLE") == "UNKNOWN"),
+        "roles_conflict": sum(1 for n in nos if n.get("ROLE_CONFLICT")),
+        # G7 · UM CONCEITO, UM DONO — medido por `censo_dos_donos.py`, nao aqui.
+        # O censo ja existia e ja media; o que faltava era ele chegar a tela.
+        # Recontar aqui criaria uma segunda contagem do mesmo universo.
+        **_contagem_dos_donos(),
     }
 
     ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
