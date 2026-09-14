@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  7aaa15ed03ba1ebfa4d505123f429767ebc1a941
+HEAD_DA_MEDICAO  1878b17ee76122187be6c6ef190346286a7c8b6b
 BRANCH           claude/system-map-current-collection-truth-v2
-GERADO_EM        2026-09-14T10:46:45+00:00
+GERADO_EM        2026-09-14T11:17:08+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1198,23 +1198,23 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `system-map/data/provas-de-execucao.json`, `system-map/scripts/censo_dos_executores.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-MAPA |
-| **prova de quem ativa** | .github/workflows/system-map.yml:163 _(plano CODE)_ |
-| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **status operacional** | yellow — existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-CENSO-CARDS-SENSORES, C-CENSO-DOS-BURACOS, C-MAPA-GERADOR, C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-TESTES |
+| **prova de quem ativa** | provas/a_rota_m2_atravessa.py:121; provas/os_portoes_da_collection.py:47; system-map/scripts/censo_cards_sensores.py:140 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `provas/a_rota_m2_atravessa.py`, `provas/paridade_da_lingua.py`, `system-map/data/provas-de-execucao.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 4 · saem 6 |
-| **arestas provadas** | entram 4 · saem 6 |
+| **arestas no mapa** | entram 3 · saem 6 |
+| **arestas provadas** | entram 3 · saem 6 |
 | **OBSERVADAS** | 0 |
-| **control plane** | entram 1 · saem 0 |
+| **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 10 |
+| **prova das ligações** | CODE 9 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-CENSO-OBSERVABILIDADE` · Censo da observabilidade
 
@@ -1223,23 +1223,23 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `system-map/scripts/censo_da_observabilidade.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-MAPA |
-| **prova de quem ativa** | .github/workflows/system-map.yml:155 _(plano CODE)_ |
-| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-COLETA, C-TESTES |
+| **prova de quem ativa** | provas/paridade_da_lingua.py:220; tests/test_lingua_unica.py:73 _(plano CODE)_ |
+| **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `leis/evolucao.py`, `leis/gestao_da_coleta.py`, `provas/o_executor_conta_se.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 10 · saem 2 |
-| **arestas provadas** | entram 10 · saem 2 |
+| **arestas no mapa** | entram 9 · saem 2 |
+| **arestas provadas** | entram 9 · saem 2 |
 | **OBSERVADAS** | 0 |
-| **control plane** | entram 1 · saem 0 |
+| **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 12 |
+| **prova das ligações** | CODE 11 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
-| **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
+| **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-CICATRIZES-BR` · Cicatrizes do Brasil (lei portada)
 
@@ -1325,7 +1325,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | green — esta no caminho: alguem o chama antes de publicar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-MAPA |
-| **prova de quem ativa** | .github/workflows/system-map.yml:463 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/system-map.yml:544 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson`, `data/samples/RUN-MANIFEST.json` |
@@ -1398,21 +1398,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `system-map/scripts/relatorio_do_fluxo.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **PECA_INTERNA** — C-CI-MAPA |
-| **prova de quem ativa** | .github/workflows/system-map.yml:154 _(plano CODE)_ |
-| **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
+| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 3 · saem 0 |
-| **arestas provadas** | entram 3 · saem 0 |
+| **arestas no mapa** | entram 2 · saem 0 |
+| **arestas provadas** | entram 2 · saem 0 |
 | **OBSERVADAS** | 0 |
-| **control plane** | entram 1 · saem 0 |
+| **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 3 |
+| **prova das ligações** | CODE 2 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
@@ -1779,9 +1779,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ## O PLACAR
 
 ```
-OK                 37
+OK                 35
 UNKNOWN            16
-SYSTEM_GAP         7
+SYSTEM_GAP         9
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
 TERMINAL           1

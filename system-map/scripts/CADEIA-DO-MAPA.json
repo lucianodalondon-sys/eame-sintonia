@@ -1219,6 +1219,22 @@
       "O_QUE_FAZ": "pergunta ao URL publico se o commit implantado foi mesmo publicado. Corre no workflow `system-map-deploy-verify`.",
       "OUTPUTS": [],
       "NAO_MATERIALIZA": "le a web e devolve veredito; nao escreve artefato do mapa."
+    },
+    {
+      "STEP_ID": "TEST_BASE_DA_AUDITORIA",
+      "EXECUTABLE": "system-map/tests/test_base_da_auditoria.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "a arvore auditada contem a linha funcional actual da Collection",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito. Esta em particular recusa-se a passar por nao ter medido — CANNOT_MEASURE reprova."
+    },
+    {
+      "STEP_ID": "TEST_VERDADE_DA_COLLECTION_ACTUAL",
+      "EXECUTABLE": "system-map/tests/test_verdade_da_collection_actual.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "vinte e seis ataques a verdade da Collection actual: a base, o SCRAP, o LinkedIn, e as fronteiras entre existir, poder e ter acontecido",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito."
     }
   ],
   "PRODUTORES_EXTERNOS": [

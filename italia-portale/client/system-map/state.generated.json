@@ -2317,9 +2317,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "7aaa15ed03ba1ebfa4d505123f429767ebc1a941",
-    "GENERATED_AT": "2026-09-14T10:46:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d3b23cf09a70794e7d1578bf7d72a1826c351385e275a6de610da9d6aaadb758"
+    "HEAD": "1878b17ee76122187be6c6ef190346286a7c8b6b",
+    "GENERATED_AT": "2026-09-14T11:17:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "9501a34d9c85be507d1ee02790abcb6c3e4a2b3a304003288e177fa240e327f8"
   },
   "FAMILIES": [
     {
@@ -7260,7 +7260,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -7272,13 +7272,12 @@
         "system-map/scripts/censo_do_armazem_it.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CENSO-IDENTIDADE-IT",
-        "C-CI-MAPA",
         "C-IMPORTAR"
       ],
       "outbound": [
@@ -7341,15 +7340,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:159"
+          "tests/test_armazem_italiano.py:226"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20020,
       "y": 360
@@ -7489,13 +7488,12 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [
         "system-map/scripts/censo_da_coleta.py"
       ],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-IMPRESSAO-DA-ARVORE"
       ],
       "outbound": [
@@ -7544,15 +7542,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-RECONCILIACAO-UNIVERSO"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:128"
+          "system-map/scripts/reconciliacao_do_universo.py:443"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20850,
       "y": 360
@@ -7581,11 +7579,10 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-PROVA-TRAVA-MORDE",
         "C-SCRAP-LEIS",
         "C-TESTES"
@@ -7650,15 +7647,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-PROVA-TRAVA-MORDE"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:160"
+          "provas/trava_da_inteligencia_morde.py:24"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20020,
       "y": 682
@@ -7687,11 +7684,10 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-EXECUTOR-TEXTO-PDF"
       ],
       "outbound": [
@@ -7745,15 +7741,17 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-CENSO-IDENTIDADE-IT",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:161"
+          "system-map/scripts/censo_de_identidade_it.py:241",
+          "tests/test_observabilidade_estrada.py:35"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20435,
       "y": 682
@@ -7845,7 +7843,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -7857,13 +7855,12 @@
         "system-map/scripts/censo_das_derivacoes.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
-        "C-CI-MAPA",
         "C-CONTRATO-ARTEFATO",
         "C-EXECUTOR-TEXTO-PDF",
         "C-LEITORES",
@@ -7935,15 +7932,11 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
-        "QUEM": [
-          "C-CI-MAPA"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          ".github/workflows/system-map.yml:156"
-        ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 20020,
       "y": 1004
@@ -7959,7 +7952,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "yellow",
+      "ui_status": "gray",
       "icon": "◎",
       "views": [
         "audit",
@@ -7971,13 +7964,11 @@
         "system-map/scripts/censo_dos_donos.py"
       ],
       "file_count": 1,
-      "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [
-        "C-CI-MAPA"
-      ],
+      "inbound": [],
       "outbound": [],
       "paises": {},
       "paises_dado": {},
@@ -8029,15 +8020,11 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
-        "QUEM": [
-          "C-CI-MAPA"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          ".github/workflows/system-map.yml:162"
-        ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 20435,
       "y": 1004
@@ -8070,8 +8057,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CENSO-EXECUTORES",
-        "C-CI-MAPA"
+        "C-CENSO-EXECUTORES"
       ],
       "outbound": [],
       "paises": {},
@@ -8106,15 +8092,11 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
-        "QUEM": [
-          "C-CI-MAPA"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          ".github/workflows/system-map.yml:166"
-        ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 20850,
       "y": 1004
@@ -8144,11 +8126,10 @@
       ],
       "file_count": 2,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA"
@@ -8221,15 +8202,23 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-CENSO-CARDS-SENSORES",
+          "C-CENSO-DOS-BURACOS",
+          "C-MAPA-GERADOR",
+          "C-PROVA-COLETA",
+          "C-PROVA-ROTA-M2-ATRAVESSA",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:163"
+          "provas/a_rota_m2_atravessa.py:121",
+          "provas/os_portoes_da_collection.py:47",
+          "system-map/scripts/censo_cards_sensores.py:140",
+          "system-map/scripts/censo_dos_buracos.py:43"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 10895,
       "y": 360
@@ -8258,12 +8247,11 @@
       ],
       "file_count": 1,
       "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CENSO-CORPUS-IT",
-        "C-CI-MAPA",
         "C-EXECUTOR-TEXTO-PDF",
         "C-IT-PRESERVAR"
       ],
@@ -8313,15 +8301,17 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-CENSO-ARMAZEM-IT",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:158"
+          "system-map/scripts/censo_do_armazem_it.py:187",
+          "tests/test_identidade_do_artefato.py:103"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20020,
       "y": 1326
@@ -8349,12 +8339,11 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-APRENDER-COM-A-FONTE",
-        "C-CI-MAPA",
         "C-CONTRATO-TELEMETRIA",
         "C-EVOLUCAO",
         "C-GESTAO-DA-COLETA",
@@ -8414,15 +8403,17 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-PROVA-COLETA",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:155"
+          "provas/paridade_da_lingua.py:220",
+          "tests/test_lingua_unica.py:73"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 10480,
       "y": 682
@@ -8438,7 +8429,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -8450,13 +8441,12 @@
         "system-map/scripts/censo_semantico_it.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ADMISSAO",
-        "C-CI-MAPA",
         "C-PALAVRAS",
         "C-SENSOR-COLETA"
       ],
@@ -8510,15 +8500,11 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
-        "QUEM": [
-          "C-CI-MAPA"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          ".github/workflows/system-map.yml:164"
-        ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 20435,
       "y": 1326
@@ -8547,11 +8533,10 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-IMPRESSAO-DA-ARVORE",
         "C-MAPA-TESTES"
       ],
@@ -8600,15 +8585,18 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-MAPA-TESTES",
+          "C-RECONCILIACAO-UNIVERSO"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:173"
+          "system-map/scripts/reconciliacao_do_universo.py:81",
+          "system-map/scripts/reconciliacao_do_universo.py:504",
+          "system-map/tests/test_ordem_por_dependencia.py:303"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20850,
       "y": 1326
@@ -8737,26 +8725,10 @@
         "C-MAPA-DEPLOY"
       ],
       "outbound": [
-        "C-CENSO-ARMAZEM-IT",
-        "C-CENSO-COLETA",
-        "C-CENSO-CONGELAMENTO",
-        "C-CENSO-CORPUS-IT",
-        "C-CENSO-DERIVACOES",
-        "C-CENSO-DONOS",
-        "C-CENSO-DOS-BURACOS",
-        "C-CENSO-EXECUTORES",
-        "C-CENSO-IDENTIDADE-IT",
-        "C-CENSO-OBSERVABILIDADE",
-        "C-CENSO-SEMANTICO-IT",
-        "C-CENSO-TOPOLOGIA",
-        "C-ESTRADAS-IT",
         "C-FLUXO-NO-SECO",
-        "C-IMPRESSAO-DA-ARVORE",
+        "C-LEITOR-DA-CADEIA",
         "C-MAPA-DEPLOY",
-        "C-MAPA-GERADOR",
-        "C-MAPA-SCAN",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR",
         "C-PADRAO-COLETA",
         "C-PROVA-BIBLIA",
         "C-PROVA-COLETA",
@@ -8765,8 +8737,6 @@
         "C-PROVA-EXECUTOR-CONTA",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
-        "C-RECALL-PORTA-IT",
-        "C-RELATORIO-FLUXO",
         "C-TESTES"
       ],
       "paises": {},
@@ -11338,11 +11308,10 @@
       ],
       "file_count": 6,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-IT-CATALOGO",
         "C-IT-PRESERVAR",
         "C-ORQUESTRADOR",
@@ -11417,15 +11386,19 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-PROVA-FORWARD-CONTA",
+          "C-PROVA-ROTA-M2-ATRAVESSA",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:157"
+          "provas/a_rota_m2_atravessa.py:158",
+          "provas/o_forward_conta_se.py:162",
+          "tests/test_a_prova_e2e_segue_a_producao.py:284"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20435,
       "y": 1970
@@ -11831,7 +11804,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:546"
+          ".github/workflows/system-map.yml:629"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -12567,7 +12540,6 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-LEITOR-DA-CADEIA",
         "C-MAPA-DEPLOY"
       ],
@@ -12611,15 +12583,23 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-CENSO-CARDS-SENSORES",
+          "C-CENSO-COLETA",
+          "C-CENSO-TOPOLOGIA",
+          "C-MAPA-SCAN",
+          "C-RECONCILIACAO-UNIVERSO",
+          "C-REVISAO-DA-EVIDENCIA"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:201"
+          "system-map/scripts/censo_cards_sensores.py:44",
+          "system-map/scripts/censo_da_coleta.py:50",
+          "system-map/scripts/censo_da_topologia.py:480",
+          "system-map/scripts/pente_fino_da_coleta.py:38"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20435,
       "y": 2292
@@ -13743,6 +13723,7 @@
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-CI-MAPA",
         "C-MAPA-DEPLOY"
       ],
       "outbound": [
@@ -13792,17 +13773,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "CLASSE": "PECA_INTERNA",
         "QUEM": [
-          "C-IMPRESSAO-DA-ARVORE",
-          "C-MAPA-TESTES"
+          "C-CI-MAPA"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/impressao_da_arvore.py:101",
-          "system-map/tests/test_cadeia_declara_io.py:290"
+          ".github/workflows/system-map.yml:137"
         ],
-        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 20020,
       "y": 2614
@@ -14292,7 +14271,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/system-map-deploy-verify.yml:65",
-          ".github/workflows/system-map.yml:395"
+          ".github/workflows/system-map.yml:456"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14324,7 +14303,7 @@
       ],
       "file_count": 2,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "system-map/scripts/generate_system_map.py"
       ],
@@ -14337,7 +14316,6 @@
         "C-ADMISSAO",
         "C-AS-FONTES",
         "C-CENSO-EXECUTORES",
-        "C-CI-MAPA",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
         "C-IT-CATALOGO",
@@ -14471,15 +14449,23 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-MAPA-TESTES",
+          "C-MAPA-VALIDADOR",
+          "C-PROVA-MAPA-NAO-MENTE",
+          "C-RECONCILIACAO-UNIVERSO",
+          "C-REVISAO-DA-EVIDENCIA",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:167"
+          "provas/o_mapa_nao_mente.py:50",
+          "system-map/scripts/reconciliacao_do_universo.py:392",
+          "system-map/scripts/revisao_da_evidencia.py:46",
+          "system-map/scripts/validate_system_map.py:133"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20020,
       "y": 2936
@@ -14511,7 +14497,7 @@
       ],
       "file_count": 4,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "system-map/scripts/pente_fino_da_coleta.py",
         "system-map/scripts/scan_casco.py",
@@ -14521,7 +14507,6 @@
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
-        "C-CI-MAPA",
         "C-IMPRESSAO-DA-ARVORE",
         "C-IT-CATALOGO",
         "C-IT-PRESERVAR",
@@ -14606,16 +14591,22 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-MAPA-DEPLOY",
+          "C-MAPA-GERADOR",
+          "C-MAPA-TESTES",
+          "C-MAPA-VALIDADOR",
+          "C-RECONCILIACAO-UNIVERSO"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:125",
-          ".github/workflows/system-map.yml:126"
+          "system-map/scripts/generate_system_map.py:5329",
+          "system-map/scripts/publicar_no_deploy.mjs:56",
+          "system-map/scripts/reconciliacao_do_universo.py:80",
+          "system-map/scripts/reconciliacao_do_universo.py:407"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20435,
       "y": 2936
@@ -14851,8 +14842,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:310",
-          ".github/workflows/system-map.yml:314"
+          ".github/workflows/system-map.yml:258",
+          ".github/workflows/system-map.yml:262"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14884,13 +14875,12 @@
       ],
       "file_count": 2,
       "status": "PENDING",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "portao que ninguem chama.",
       "changed_since_declared": [
         "system-map/scripts/validate_system_map.py"
       ],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
@@ -14940,15 +14930,19 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
+        "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
-          "C-CI-MAPA"
+          "C-MAPA-TESTES",
+          "C-PROVA-MAPA-NAO-MENTE",
+          "C-TESTES"
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:184"
+          "provas/o_mapa_nao_mente.py:52",
+          "system-map/tests/test_base_da_auditoria.py:46",
+          "tests/test_mapa_nao_mente.py:129"
         ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20020,
       "y": 3258
@@ -15687,7 +15681,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:463"
+          ".github/workflows/system-map.yml:544"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17166,7 +17160,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:477"
+          ".github/workflows/system-map.yml:558"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17674,8 +17668,8 @@
         "PROVA": [
           ".github/workflows/auditoria-live.yml:54",
           ".github/workflows/banco-descartavel.yml:147",
-          ".github/workflows/system-map.yml:470",
-          ".github/workflows/system-map.yml:543"
+          ".github/workflows/system-map.yml:551",
+          ".github/workflows/system-map.yml:625"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17765,7 +17759,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/banco-descartavel.yml:545",
-          ".github/workflows/system-map.yml:564"
+          ".github/workflows/system-map.yml:651"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17856,7 +17850,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:558"
+          ".github/workflows/system-map.yml:644"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17935,7 +17929,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:575"
+          ".github/workflows/system-map.yml:663"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18241,7 +18235,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:578"
+          ".github/workflows/system-map.yml:667"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18579,7 +18573,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:552"
+          ".github/workflows/system-map.yml:637"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19758,7 +19752,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▦",
       "views": [
         "audit",
@@ -19770,13 +19764,12 @@
         "system-map/scripts/recall_da_porta_it.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-ADMISSAO",
-        "C-CI-MAPA"
+        "C-ADMISSAO"
       ],
       "outbound": [],
       "paises": {},
@@ -19820,15 +19813,11 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
-        "QUEM": [
-          "C-CI-MAPA"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          ".github/workflows/system-map.yml:165"
-        ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 20435,
       "y": 5834
@@ -20442,11 +20431,10 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
-        "C-CI-MAPA",
         "C-CONTRATO-TELEMETRIA",
         "C-IT-PRESERVAR"
       ],
@@ -20497,15 +20485,11 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "PECA_INTERNA",
-        "QUEM": [
-          "C-CI-MAPA"
-        ],
-        "PLANO": "CODE",
-        "PROVA": [
-          ".github/workflows/system-map.yml:154"
-        ],
-        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
       "x": 10895,
       "y": 1648
@@ -25273,8 +25257,8 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:105",
-          ".github/workflows/system-map.yml:484",
-          ".github/workflows/system-map.yml:485"
+          ".github/workflows/system-map.yml:565",
+          ".github/workflows/system-map.yml:566"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -34909,461 +34893,6 @@
     },
     {
       "from": "C-CI-MAPA",
-      "to": "C-CENSO-ARMAZEM-IT",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo do armazém italiano. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 159,
-          "snippet": "python3 system-map/scripts/censo_do_armazem_it.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-ARMAZEM-IT",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-ARMAZEM-IT",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-COLETA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo da coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 128,
-          "snippet": "python3 system-map/scripts/censo_da_coleta.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-COLETA",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-COLETA",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-CONGELAMENTO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo do congelamento da inteligência. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 160,
-          "snippet": "python3 system-map/scripts/censo_do_congelamento.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-CONGELAMENTO",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-CONGELAMENTO",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-CORPUS-IT",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo do corpo italiano. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 161,
-          "snippet": "python3 system-map/scripts/censo_do_corpus_it.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-CORPUS-IT",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-CORPUS-IT",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-DERIVACOES",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo das derivações. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 156,
-          "snippet": "python3 system-map/scripts/censo_das_derivacoes.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-DERIVACOES",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-DERIVACOES",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-DONOS",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo dos donos. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 162,
-          "snippet": "python3 system-map/scripts/censo_dos_donos.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-DONOS",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-DONOS",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-DOS-BURACOS",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo dos buracos declarados. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 166,
-          "snippet": "python3 system-map/scripts/censo_dos_buracos.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-DOS-BURACOS",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-DOS-BURACOS",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-EXECUTORES",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo dos executores — caminhos, papeis e cobertura. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 163,
-          "snippet": "python3 system-map/scripts/censo_dos_executores.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-EXECUTORES",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-EXECUTORES",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-IDENTIDADE-IT",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo de identidade do artefato. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 158,
-          "snippet": "python3 system-map/scripts/censo_de_identidade_it.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-IDENTIDADE-IT",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-IDENTIDADE-IT",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-OBSERVABILIDADE",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo da observabilidade. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 155,
-          "snippet": "python3 system-map/scripts/censo_da_observabilidade.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-OBSERVABILIDADE",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-OBSERVABILIDADE",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-SEMANTICO-IT",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo das palavras da Itália. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 164,
-          "snippet": "python3 system-map/scripts/censo_semantico_it.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-SEMANTICO-IT",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-SEMANTICO-IT",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-CENSO-TOPOLOGIA",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Censo da topologia da coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 173,
-          "snippet": "run: python3 system-map/scripts/censo_da_topologia.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-CENSO-TOPOLOGIA",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-CENSO-TOPOLOGIA",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-ESTRADAS-IT",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar O censo das classes de estrada da coleta italiana. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 157,
-          "snippet": "python3 system-map/scripts/censo_das_estradas_it.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-ESTRADAS-IT",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-ESTRADAS-IT",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
       "to": "C-FLUXO-NO-SECO",
       "type": "RUNS",
       "payload": "execucao",
@@ -35374,7 +34903,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 546,
+          "line": 629,
           "snippet": "run: python3 provas/fluxo_no_seco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-FLUXO-NO-SECO",
@@ -35399,22 +34928,22 @@
     },
     {
       "from": "C-CI-MAPA",
-      "to": "C-IMPRESSAO-DA-ARVORE",
+      "to": "C-LEITOR-DA-CADEIA",
       "type": "RUNS",
       "payload": "execucao",
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Impressao da arvore-fonte. Provado por 1 linha de codigo.",
+      "reason": "Workflow do System Map manda rodar Leitor da cadeia do mapa. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 201,
-          "snippet": "run: python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo",
+          "line": 137,
+          "snippet": "run: python3 system-map/scripts/correr_a_cadeia.py REGERAR",
           "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-IMPRESSAO-DA-ARVORE",
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-LEITOR-DA-CADEIA",
             "FROM": "C-CI-MAPA",
-            "TO": "C-IMPRESSAO-DA-ARVORE",
+            "TO": "C-LEITOR-DA-CADEIA",
             "RELATION_TYPE": "RUNS",
             "PLANE": "CODE"
           },
@@ -35460,130 +34989,12 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 395,
+          "line": 456,
           "snippet": "node system-map/scripts/publicar_no_deploy.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-DEPLOY",
             "FROM": "C-CI-MAPA",
             "TO": "C-MAPA-DEPLOY",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-MAPA-GERADOR",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Gerador do System Map. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 167,
-          "snippet": "python3 system-map/scripts/generate_system_map.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-GERADOR",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-MAPA-GERADOR",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-MAPA-SCAN",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Scanner do System Map. Provado por 4 linhas de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 125,
-          "snippet": "python3 system-map/scripts/scan_repo.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-SCAN",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-MAPA-SCAN",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 126,
-          "snippet": "python3 system-map/scripts/scan_sources.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-SCAN",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-MAPA-SCAN",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 127,
-          "snippet": "python3 system-map/scripts/scan_casco.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-SCAN",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-MAPA-SCAN",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 129,
-          "snippet": "python3 system-map/scripts/pente_fino_da_coleta.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-SCAN",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-MAPA-SCAN",
             "RELATION_TYPE": "RUNS",
             "PLANE": "CODE"
           },
@@ -35708,11 +35119,11 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 5 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 13 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 310,
+          "line": 258,
           "snippet": "run: python3 system-map/tests/test_base_da_auditoria.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35728,7 +35139,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 314,
+          "line": 262,
           "snippet": "run: python3 system-map/tests/test_system_map.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35744,7 +35155,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 320,
+          "line": 268,
           "snippet": "run: python3 system-map/tests/test_verdade_da_collection_actual.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35760,7 +35171,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 324,
+          "line": 272,
           "snippet": "run: node system-map/tests/test_freshness.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35776,8 +35187,120 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 333,
+          "line": 281,
           "snippet": "run: python3 system-map/tests/test_impressao_da_arvore.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 299,
+          "snippet": "run: python3 system-map/tests/test_reconciliacao_do_universo.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 314,
+          "snippet": "run: python3 system-map/tests/test_quatro_planos.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 334,
+          "snippet": "run: python3 system-map/tests/test_topologia_persistida.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 353,
+          "snippet": "run: python3 system-map/tests/test_impressao_verificavel.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 361,
+          "snippet": "run: python3 system-map/tests/test_cadeia_declara_io.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 369,
+          "snippet": "run: python3 system-map/tests/test_uma_cadeia_um_dono.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 377,
+          "snippet": "run: python3 system-map/tests/test_ordem_por_dependencia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
             "FROM": "C-CI-MAPA",
@@ -35801,41 +35324,6 @@
     },
     {
       "from": "C-CI-MAPA",
-      "to": "C-MAPA-VALIDADOR",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Validador do System Map. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 184,
-          "snippet": "run: python3 system-map/scripts/validate_system_map.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-VALIDADOR",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-MAPA-VALIDADOR",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
       "to": "C-PADRAO-COLETA",
       "type": "RUNS",
       "payload": "execucao",
@@ -35846,7 +35334,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 463,
+          "line": 544,
           "snippet": "run: python3 medidas/padrao_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PADRAO-COLETA",
@@ -35881,7 +35369,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 477,
+          "line": 558,
           "snippet": "run: python3 provas/valida_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-BIBLIA",
@@ -35916,7 +35404,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 470,
+          "line": 551,
           "snippet": "run: python3 provas/testa_coleta_canonica.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35932,7 +35420,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 543,
+          "line": 625,
           "snippet": "run: python3 provas/paridade_da_lingua.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35948,7 +35436,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 549,
+          "line": 633,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35983,7 +35471,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 564,
+          "line": 651,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-DEDUPE",
@@ -36018,7 +35506,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 558,
+          "line": 644,
           "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-ENCANAMENTO",
@@ -36053,7 +35541,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 575,
+          "line": 663,
           "snippet": "run: python3 provas/o_executor_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-EXECUTOR-CONTA",
@@ -36088,7 +35576,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 578,
+          "line": 667,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-FRONTEIRA",
@@ -36123,82 +35611,12 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 552,
+          "line": 637,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-MAPA-NAO-MENTE",
             "FROM": "C-CI-MAPA",
             "TO": "C-PROVA-MAPA-NAO-MENTE",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-RECALL-PORTA-IT",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Quanto a peneira apanha na Itália. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 165,
-          "snippet": "python3 system-map/scripts/recall_da_porta_it.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-RECALL-PORTA-IT",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-RECALL-PORTA-IT",
-            "RELATION_TYPE": "RUNS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CONTROL",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-CI-MAPA",
-      "to": "C-RELATORIO-FLUXO",
-      "type": "RUNS",
-      "payload": "execucao",
-      "raw_type": "RUNS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Relatório do fluxo. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": ".github/workflows/system-map.yml",
-          "line": 154,
-          "snippet": "python3 system-map/scripts/relatorio_do_fluxo.py",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-CI-MAPA--RUNS-->C-RELATORIO-FLUXO",
-            "FROM": "C-CI-MAPA",
-            "TO": "C-RELATORIO-FLUXO",
             "RELATION_TYPE": "RUNS",
             "PLANE": "CODE"
           },
@@ -36228,7 +35646,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 484,
+          "line": 565,
           "snippet": "python3 tests/test_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36244,7 +35662,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 485,
+          "line": 566,
           "snippet": "python3 tests/test_integracao_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36260,7 +35678,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 486,
+          "line": 567,
           "snippet": "python3 tests/test_observabilidade_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36276,7 +35694,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 487,
+          "line": 568,
           "snippet": "python3 tests/test_red_team_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36292,7 +35710,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 494,
+          "line": 575,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36308,7 +35726,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 501,
+          "line": 582,
           "snippet": "run: python3 tests/test_armazem_italiano.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36324,7 +35742,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 508,
+          "line": 589,
           "snippet": "run: python3 tests/test_preservar_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36340,7 +35758,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 516,
+          "line": 597,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36356,7 +35774,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 523,
+          "line": 604,
           "snippet": "run: python3 tests/test_preservar_derivado.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36372,7 +35790,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 529,
+          "line": 610,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -51263,7 +50681,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 381,
+          "line": 442,
           "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-CI-MAPA",
@@ -75352,7 +74770,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 143,
+      "PECAS_EM_DESACORDO": 147,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -75369,12 +74787,12 @@
   ],
   "COUNTS": {
     "components": 185,
-    "components_proven": 48,
-    "components_pending": 131,
+    "components_proven": 44,
+    "components_pending": 134,
     "components_broken": 0,
-    "components_unknown": 6,
-    "edges": 928,
-    "edges_proven": 880,
+    "components_unknown": 7,
+    "edges": 910,
+    "edges_proven": 862,
     "edges_unknown": 48,
     "business_edges": 4,
     "files_tracked": 1731,
