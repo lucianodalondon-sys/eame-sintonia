@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-v2-canonical-rebuild",
-    "HEAD": "ce83b14acf48170135cd8d98dfff17a66c1dd9c0",
-    "GENERATED_AT": "2026-09-14T17:35:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "aa2bf981dd15273759eeccc5a6b3159360c82fea4c206967f4a1975eab2e0b24"
+    "HEAD": "88688d1f575eb6aea795e9bfe20cefed4d74da77",
+    "GENERATED_AT": "2026-09-14T18:14:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "786f01568d63750aa3c12e36f7d6009643b87bf4612a8e1b9b9f748d7aa21dd4"
   },
   "FILES": [
     {
@@ -10503,7 +10503,7 @@
     },
     {
       "path": "system-map/CANONICAL-PUBLICATION.json",
-      "sha": "3aadaaac73778d569914d5bd508c67594da81e96",
+      "sha": "406acfdd53388ca088a2d2dc6ff2287896a5c462",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10559,7 +10559,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "7d011aeaf28aa464e3df15072ce106917cb01a5b",
+      "sha": "46ca7b62f603d3e68b5d0de00d192b882f9a880a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10944,7 +10944,7 @@
     },
     {
       "path": "system-map/v2/ACHADOS.md",
-      "sha": "2a9726f8131a3cb0413851f520e0f295aaaa12ef",
+      "sha": "a1e167c2e76ce853389f902cd014886a8f71753f",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -10965,28 +10965,28 @@
     },
     {
       "path": "system-map/v2/app/map.css",
-      "sha": "2fcd9bd3d145ffa0cc7095bc458cc411239551f9",
+      "sha": "ba8f920847a3e2a6f37b162125944c3137b3c5f1",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/v2/app/map.js",
-      "sha": "4b5bf6e391ab9492c5d84d586516e36ef9dbd380",
+      "sha": "2e5a842d989082f8f2023b9df4e16af0b77decac",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/v2/data/estado.gerado.json",
-      "sha": "c5a62577888c62996d165d7ab9c858f3d8c9775a",
+      "sha": "588cf27defe20ea02610c9f139a0ab33fb4306ef",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/v2/data/maquina.medida.json",
-      "sha": "4e3cc1becc0cd3c6628851f5fc5371545d322a14",
+      "sha": "ac1623421fce8c7c94775c6ae3b51c67b5fa4122",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11000,7 +11000,7 @@
     },
     {
       "path": "system-map/v2/scripts/gerar_mapa.py",
-      "sha": "cbcbb6abd1fc4795ff0d1b1cff6fdeeb3ba8e378",
+      "sha": "7e09e4230febe00de13adf8f4c30ef0832b46be9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11021,7 +11021,14 @@
     },
     {
       "path": "system-map/v2/scripts/validar_mapa.py",
-      "sha": "d32d0a53d3c191ec824f77a96e4ee4ac8231566f",
+      "sha": "1d4943365aa14cffe37c7eed9c3e0e95afa41d7b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/verificar_preview_estavel.py",
+      "sha": "4acaf0ab52b46efaf12253d3fab8ed65a8edae43",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -41231,6 +41238,17 @@
     },
     {
       "from_file": "system-map/v2/scripts/gerar_mapa.py",
+      "to_file": "system-map/CANONICAL-PUBLICATION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/gerar_mapa.py",
+        "line": 44,
+        "snippet": "CONTRATO = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/gerar_mapa.py",
       "to_file": "system-map/v2/data/estado.gerado.json",
       "type": "READS",
       "payload": "artefacto",
@@ -41247,7 +41265,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/v2/scripts/gerar_mapa.py",
-        "line": 346,
+        "line": 365,
         "snippet": "SAIDA.write_text(json.dumps(estado, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -41341,6 +41359,17 @@
     },
     {
       "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/CANONICAL-PUBLICATION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 422,
+        "snippet": "contrato_f = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
       "to_file": "system-map/data/pedido.observado.json",
       "type": "READS",
       "payload": "artefacto",
@@ -41403,6 +41432,39 @@
         "file": "system-map/v2/scripts/validar_mapa.py",
         "line": 105,
         "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/v2/scripts/verificar_preview_estavel.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 423,
+        "snippet": "conf = V2 / \"scripts\" / \"verificar_preview_estavel.py\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/verificar_preview_estavel.py",
+      "to_file": "system-map/CANONICAL-PUBLICATION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/verificar_preview_estavel.py",
+        "line": 59,
+        "snippet": "CONTRATO = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/verificar_preview_estavel.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/verificar_preview_estavel.py",
+        "line": 61,
+        "snippet": "FICHEIROS = (\"index.html\", \"map.js\", \"map.css\", \"estado.gerado.json\")"
       }
     },
     {
@@ -54813,10 +54875,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1743,
-    "files_readable": 735,
-    "files_code_dir": 792,
-    "file_edges": 3828,
+    "files_tracked": 1744,
+    "files_readable": 736,
+    "files_code_dir": 793,
+    "file_edges": 3833,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

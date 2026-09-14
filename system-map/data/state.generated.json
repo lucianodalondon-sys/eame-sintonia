@@ -1639,6 +1639,7 @@
       "system-map/v2/scripts/medir_maquina.py",
       "system-map/v2/scripts/publicar_v2.py",
       "system-map/v2/scripts/validar_mapa.py",
+      "system-map/v2/scripts/verificar_preview_estavel.py",
       "system-map/v2/tests/red_team.py",
       "system-map/v2/tests/testa_mapa.py"
     ],
@@ -2329,9 +2330,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-v2-canonical-rebuild",
-    "HEAD": "ce83b14acf48170135cd8d98dfff17a66c1dd9c0",
-    "GENERATED_AT": "2026-09-14T17:35:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "aa2bf981dd15273759eeccc5a6b3159360c82fea4c206967f4a1975eab2e0b24"
+    "HEAD": "88688d1f575eb6aea795e9bfe20cefed4d74da77",
+    "GENERATED_AT": "2026-09-14T18:14:50+00:00",
+    "SOURCE_TREE_FINGERPRINT": "786f01568d63750aa3c12e36f7d6009643b87bf4612a8e1b9b9f748d7aa21dd4"
   },
   "FAMILIES": [
     {
@@ -14190,7 +14191,7 @@
       "name": "Publicador do System Map no deploy",
       "territory": "Z-PROVA",
       "kind": "gate",
-      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado.",
+      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado. Confere tambem o ENDERECO FIXO do candidato: nao basta o deployment ficar READY, o alias de branch tem de ter andado com ele — READY DEPLOYMENT != ALIAS ACTUALIZADO.",
       "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
       "departments": [
         "ENGENHARIA"
@@ -14209,17 +14210,19 @@
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/portao_da_promocao.py",
         "system-map/scripts/publicar_no_deploy.mjs",
-        "system-map/scripts/verificar_deploy.py"
+        "system-map/scripts/verificar_deploy.py",
+        "system-map/v2/scripts/verificar_preview_estavel.py"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
-      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 5 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas ha 6 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CI-MAPA",
         "C-MAPA-SCAN",
-        "C-MAPA-TESTES"
+        "C-MAPA-TESTES",
+        "C-MAPAV2-GERADOR"
       ],
       "outbound": [
         "C-CI-MAPA",
@@ -14227,7 +14230,9 @@
         "C-LEITOR-DA-CADEIA",
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
-        "C-MAPA-VALIDADOR"
+        "C-MAPA-VALIDADOR",
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-VALIDADOR"
       ],
       "paises": {},
       "paises_dado": {},
@@ -14263,7 +14268,8 @@
       "consumes": [
         "system-map/CANONICAL-PUBLICATION.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
-        "system-map/scripts/scan_repo.py"
+        "system-map/scripts/scan_repo.py",
+        "system-map/v2/data/estado.gerado.json"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -15118,10 +15124,12 @@
         "system-map/v2/data/estado.gerado.json"
       ],
       "inbound": [
+        "C-MAPA-DEPLOY",
         "C-MAPAV2-MEDIDOR",
         "C-MAPAV2-MODELO"
       ],
       "outbound": [
+        "C-MAPA-DEPLOY",
         "C-MAPAV2-APP",
         "C-MAPAV2-TESTES",
         "C-MAPAV2-VALIDADOR"
@@ -15161,12 +15169,13 @@
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve system-map/v2/data/estado.gerado.json, e C-MAPAV2-APP le isso: entrega trabalho a peca seguinte",
+      "ROLE_EVIDENCE": "escreve system-map/v2/data/estado.gerado.json, e C-MAPA-DEPLOY le isso: entrega trabalho a peca seguinte",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "system-map/CANONICAL-PUBLICATION.json",
         "system-map/v2/data/estado.gerado.json",
         "system-map/v2/data/maquina.medida.json",
         "system-map/v2/model/maquina.model.json"
@@ -15182,6 +15191,7 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
+          "C-MAPA-DEPLOY",
           "C-MAPAV2-APP",
           "C-MAPAV2-TESTES",
           "C-MAPAV2-VALIDADOR"
@@ -15190,6 +15200,7 @@
         "PROVA": [
           "system-map/v2/app/map.js:44",
           "system-map/v2/scripts/validar_mapa.py:38",
+          "system-map/v2/scripts/verificar_preview_estavel.py:61",
           "system-map/v2/tests/red_team.py:25"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
@@ -15518,6 +15529,7 @@
       ],
       "produces": [],
       "inbound": [
+        "C-MAPA-DEPLOY",
         "C-MAPAV2-GERADOR",
         "C-MAPAV2-MEDIDOR",
         "C-MAPAV2-MODELO"
@@ -15538,18 +15550,20 @@
       "ROLE_CONFLICT": null,
       "ROLE": "MEASUREMENT_INSTRUMENT",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
+        "system-map/CANONICAL-PUBLICATION.json",
         "system-map/data/pedido.observado.json",
         "system-map/v2/data/estado.gerado.json",
         "system-map/v2/data/maquina.medida.json",
         "system-map/v2/model/maquina.model.json",
         "system-map/v2/scripts/gerar_mapa.py",
-        "system-map/v2/scripts/medir_maquina.py"
+        "system-map/v2/scripts/medir_maquina.py",
+        "system-map/v2/scripts/verificar_preview_estavel.py"
       ],
       "consumes_plane": "CODE",
       "DECLARED": "YES",
@@ -51551,6 +51565,92 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-MAPAV2-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Gerador do mapa da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/gerar_mapa.py",
+          "line": 44,
+          "snippet": "CONTRATO = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPAV2-GERADOR",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-MAPAV2-GERADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-DEPLOY",
+      "to": "C-MAPAV2-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Publicador do System Map no deploy alimenta Validador do mapa da máquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 422,
+          "snippet": "contrato_f = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 423,
+          "snippet": "conf = V2 / \"scripts\" / \"verificar_preview_estavel.py\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPA-DEPLOY",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-MAPA-GERADOR",
       "to": "C-MAPA-TESTES",
       "type": "READS",
@@ -52671,6 +52771,41 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-GERADOR",
+      "to": "C-MAPA-DEPLOY",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do mapa da máquina (V2) alimenta Publicador do System Map no deploy. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/verificar_preview_estavel.py",
+          "line": 61,
+          "snippet": "FICHEIROS = (\"index.html\", \"map.js\", \"map.css\", \"estado.gerado.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPA-DEPLOY",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPA-DEPLOY",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -75786,12 +75921,12 @@
     "components_pending": 140,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 922,
-    "edges_proven": 874,
+    "edges": 925,
+    "edges_proven": 877,
     "edges_unknown": 48,
     "business_edges": 4,
-    "files_tracked": 1743,
-    "files_covered": 906,
+    "files_tracked": 1744,
+    "files_covered": 907,
     "files_code_unclaimed": 0,
     "roles_proven": 139,
     "roles_declared_only": 5,

@@ -406,6 +406,56 @@ def main() -> int:
           "o mapa conta as telas da ferramenta, e nao lhe atribui tipo que nenhum contrato define",
           not maus, maus)
 
+    # ── V22 · O CANDIDATO TEM MORADA, E ELA NAO E O RECIBO ──────────────────
+    # A menor proteccao possivel contra a regressao que motivou isto: uma missao
+    # futura voltar a entregar so o URL de deployment, que muda a cada push.
+    #
+    #     EPHEMERAL_DEPLOYMENT_URL  !=  STABLE_BRANCH_PREVIEW_URL
+    #
+    # Esta prova NAO vai a rede — corre no CI, onde a rede nao e garantida, e um
+    # portao que depende da rede reprova por motivos que nao sao o seu. Ela
+    # confere que o contrato declara a morada, que o conferidor existe e a le de
+    # la (e nao a tem escrita dentro), e que a rota declarada e mesmo aquela onde
+    # o mapa e publicado. Quem vai a rede e `verificar_preview_estavel.py`, na
+    # rotina de fechamento.
+    maus = []
+    contrato_f = RAIZ / "system-map" / "CANONICAL-PUBLICATION.json"
+    conf = V2 / "scripts" / "verificar_preview_estavel.py"
+    if not contrato_f.is_file():
+        maus.append("system-map/CANONICAL-PUBLICATION.json nao existe")
+    else:
+        cpub = json.loads(contrato_f.read_text(encoding="utf-8"))
+        b = cpub.get("CANDIDATO_SYSTEM_MAP_V2") or {}
+        url = b.get("SYSTEM_MAP_V2_PREVIEW_STABLE_URL") or ""
+        if not url:
+            maus.append("o contrato nao declara SYSTEM_MAP_V2_PREVIEW_STABLE_URL")
+        if not b.get("ROTINA_DE_FECHAMENTO"):
+            maus.append("o contrato nao declara a ROTINA_DE_FECHAMENTO do candidato")
+        rota = b.get("CANDIDATE_ROUTE") or ""
+        if rota and not url.rstrip("/").endswith(rota.rstrip("/")):
+            maus.append(f"a morada nao acaba na rota declarada ({rota})")
+        publicado = RAIZ / "italia-portale" / "client" / "system-map-v2" / "index.html"
+        if rota.strip("/") != "system-map-v2":
+            maus.append(f"a rota declarada ({rota}) nao e onde o candidato e publicado")
+        if not publicado.is_file():
+            maus.append("o candidato nao esta publicado na rota que o contrato declara")
+        # e a morada nao pode ser um URL de deployment: esses levam hash.
+        if "-git-" not in url and url:
+            maus.append("a morada declarada nao e um alias de branch (falta `-git-`) — "
+                        "parece um URL de deployment, que muda a cada push")
+    if not conf.is_file():
+        maus.append("falta system-map/v2/scripts/verificar_preview_estavel.py")
+    else:
+        txt = conf.read_text(encoding="utf-8")
+        if "CANONICAL-PUBLICATION.json" not in txt:
+            maus.append("o conferidor nao le a morada do contrato")
+        if "https://sintonia-eame-preview-git-" in txt:
+            maus.append("o conferidor tem a morada escrita dentro — "
+                        "dois sitios com o mesmo endereco sao dois enderecos")
+    prova("V22_CANDIDATO_TEM_MORADA_FIXA",
+          "o candidato tem endereco estavel declarado no contrato, e quem o confere le-o de la",
+          not maus, maus)
+
     largura = 78
     print("=" * largura)
     print("SYSTEM MAP V2 — o mapa mostra a máquina, e prova cada coisa que diz")

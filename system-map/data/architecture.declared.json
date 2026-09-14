@@ -1764,7 +1764,7 @@
       "name": "Publicador do System Map no deploy",
       "territory": "Z-PROVA",
       "kind": "gate",
-      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado.",
+      "what": "Corre no BUILD: regera o mapa pela cadeia que o CI ja usa, guarda o veredito do validador, e escreve qual commit esta REALMENTE implantado — e depois do deploy confere, contra o URL publico, se aquele commit foi mesmo publicado. Confere tambem o ENDERECO FIXO do candidato: nao basta o deployment ficar READY, o alias de branch tem de ter andado com ele — READY DEPLOYMENT != ALIAS ACTUALIZADO.",
       "why_here": "O commit implantado nao pode viver num ficheiro commitado: gera-se com o HEAD A, commita-se, o commit passa a B, e o ficheiro nasce um commit atras de si mesmo. GENERATED != DEPLOYED, e so o build sabe o segundo.",
       "departments": [
         "ENGENHARIA"
@@ -1774,7 +1774,8 @@
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/portao_da_promocao.py",
         "system-map/scripts/publicar_no_deploy.mjs",
-        "system-map/scripts/verificar_deploy.py"
+        "system-map/scripts/verificar_deploy.py",
+        "system-map/v2/scripts/verificar_preview_estavel.py"
       ],
       "views": [],
       "icon": "⇪"

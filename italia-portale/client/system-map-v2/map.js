@@ -57,10 +57,18 @@
       'branch <b>' + p.BRANCH + '</b> · HEAD <b>' + p.HEAD.slice(0, 7) + '</b><br>' +
       'medido em ' + (p.GENERATED_AT || '').slice(0, 10) + ' · ' +
       c.FILES_TRACKED + ' ficheiros · ' + S.BIBLIA.leis_conhecidas + ' leis';
+    // A morada fixa vem do estado, que a leu do contrato. Escrevê-la aqui era
+    // pôr um facto na tela — e um facto na tela envelhece sem dar erro.
+    const pb = S.PUBLICACAO || {};
     $('#candidato').innerHTML =
       '<b>ESTA PÁGINA É UM CANDIDATO.</b> O mapa oficial continua a ser servido em ' +
       '<code>/system-map/</code> e não foi substituído. Aqui está a reconstrução, ' +
-      'para ser olhada antes de qualquer decisão.';
+      'para ser olhada antes de qualquer decisão.' +
+      (pb.CANDIDATO_ESTAVEL
+        ? '<span class="morada">Endereço fixo deste candidato — o mesmo a cada ' +
+          'publicação: <a href="' + pb.CANDIDATO_ESTAVEL + '">' +
+          pb.CANDIDATO_ESTAVEL + '</a></span>'
+        : '');
 
     $('#q').addEventListener('input', procurar);
     $('#dclose').addEventListener('click', fechar);

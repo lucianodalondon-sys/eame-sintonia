@@ -1,12 +1,17 @@
 {
  "SCHEMA": "sintonia.system-map-v2.estado/2",
+ "PUBLICACAO": {
+  "CANDIDATO_ESTAVEL": "https://sintonia-eame-preview-git-claude-system-e66563-london-creative.vercel.app/system-map-v2/",
+  "OFICIAL": "https://sintonia-eame-preview.vercel.app/system-map/",
+  "CONTRATO": "system-map/CANONICAL-PUBLICATION.json"
+ },
  "LEI": "Este ficheiro é a ÚNICA entrada escrita por gente. Declara CONCEITOS da máquina e aponta, para cada um, a AUTORIDADE que o sustenta. Não contém estado: DECLARED, CODE, OBSERVED e BIBLE são calculados pelo gerador a partir da medição. Escrever um estado aqui seria maquiagem.",
  "AS_QUATRO_VERDADES": "COL-LAW-102 — DECLARED (o contrato diz que pode existir) · CODE (há implementação que permite) · OBSERVED (uma execução real provou) · BIBLE (a Bíblia exige). Nunca se fundem.",
  "PROVENANCE": {
   "REPO": "lucianodalondon-sys/eame-sintonia",
   "BRANCH": "claude/system-map-v2-canonical-rebuild",
-  "HEAD": "ce83b14acf48170135cd8d98dfff17a66c1dd9c0",
-  "GENERATED_AT": "2026-09-14T17:35:08+00:00"
+  "HEAD": "88688d1f575eb6aea795e9bfe20cefed4d74da77",
+  "GENERATED_AT": "2026-09-14T18:14:50+00:00"
  },
  "BIBLIA": {
   "ficheiro": "docs/biblia/leis.json",
@@ -176,7 +181,7 @@
    ],
    "conta_n1": 3,
    "conta_n2": 0,
-   "engenharia": 323
+   "engenharia": 324
   },
   {
    "id": "D-PORTAL",
@@ -3425,7 +3430,7 @@
    "declarado": "SIM",
    "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
    "codigo": "SIM",
-   "codigo_motivo": "38 ficheiro(s) reais sustentam esta peça.",
+   "codigo_motivo": "39 ficheiro(s) reais sustentam esta peça.",
    "observado": "NAO_SEI",
    "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
    "status": "UNKNOWN",
@@ -3474,6 +3479,7 @@
     "system-map/v2/scripts/medir_maquina.py",
     "system-map/v2/scripts/publicar_v2.py",
     "system-map/v2/scripts/validar_mapa.py",
+    "system-map/v2/scripts/verificar_preview_estavel.py",
     "system-map/v2/tests/red_team.py",
     "system-map/v2/tests/testa_mapa.py"
    ],
@@ -3516,10 +3522,11 @@
     "system-map/v2/scripts/medir_maquina.py",
     "system-map/v2/scripts/publicar_v2.py",
     "system-map/v2/scripts/validar_mapa.py",
+    "system-map/v2/scripts/verificar_preview_estavel.py",
     "system-map/v2/tests/red_team.py",
     "system-map/v2/tests/testa_mapa.py"
    ],
-   "engenharia": 38,
+   "engenharia": 39,
    "entra_de": [
     {
      "id": "M-PROVAS",
@@ -6239,8 +6246,8 @@
   },
   "NIVEL_2": 14,
   "LEGADO": 1,
-  "ENGENHARIA": 629,
-  "FILES_TRACKED": 1943,
+  "ENGENHARIA": 630,
+  "FILES_TRACKED": 1946,
   "ARESTAS": {
    "OBSERVED": 20,
    "IMPLEMENTED": 10,

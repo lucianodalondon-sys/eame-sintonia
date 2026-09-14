@@ -41,6 +41,7 @@ V2 = RAIZ / "system-map" / "v2"
 MODELO = V2 / "model" / "maquina.model.json"
 MEDIDA = V2 / "data" / "maquina.medida.json"
 SAIDA = V2 / "data" / "estado.gerado.json"
+CONTRATO = RAIZ / "system-map" / "CANONICAL-PUBLICATION.json"
 
 OK, ATENCAO, BLOQUEADO, NAO_IMPL, UNKNOWN, LEGADO = (
     "OK", "ATENCAO", "BLOQUEADO", "NAO_IMPLEMENTADO", "UNKNOWN", "LEGADO")
@@ -311,8 +312,26 @@ def main() -> int:
     for l in ligacoes:
         st_lig[l["status"]] += 1
 
+    # ── A PAGINA PASSA A SABER A SUA PROPRIA MORADA ─────────────────────────
+    # Quem abre um URL de deployment (o que tem hash) nao tem como saber que
+    # existe um endereco fixo. Ficava a guardar o recibo em vez da morada, e a
+    # trocar de link a cada push — que era o problema todo.
+    #
+    # O endereco NAO esta escrito na tela nem aqui: le-se do contrato, que e o
+    # dono do conceito. Se o bloco sair de la, sai da pagina no mesmo commit.
+    pub = {}
+    if CONTRATO.is_file():
+        c = json.loads(CONTRATO.read_text(encoding="utf-8"))
+        b = c.get("CANDIDATO_SYSTEM_MAP_V2") or {}
+        pub = {
+            "CANDIDATO_ESTAVEL": b.get("SYSTEM_MAP_V2_PREVIEW_STABLE_URL"),
+            "OFICIAL": c.get("CANONICAL_URL"),
+            "CONTRATO": "system-map/CANONICAL-PUBLICATION.json",
+        }
+
     estado = {
         "SCHEMA": "sintonia.system-map-v2.estado/2",
+        "PUBLICACAO": pub,
         "LEI": modelo["LEI"],
         "AS_QUATRO_VERDADES": modelo["AS_QUATRO_VERDADES"],
         "PROVENANCE": medida["PROVENANCE"],

@@ -207,6 +207,16 @@ permissão. **Não foi criado um segundo know-how.**
 4. **O artefato regenerado tem de corresponder ao commit publicado.** Encenar
    primeiro, medir depois, e **voltar a validar já commitado** — porque a
    contagem de ficheiros e o `HEAD` mudam com o próprio commit que os grava.
+5. **`DEPLOYMENT URL ≠ ENDEREÇO ESTÁVEL`.** O URL com hash
+   (`…-fpx33krow-…`) é o **recibo**: prova que um commit construiu. A morada é o
+   alias de branch (`…-git-claude-system-e66563-…`), e é essa que se entrega. Um
+   endereço que muda a cada push não é endereço: não se guarda, não se partilha,
+   não se abre duas vezes.
+6. **`READY DEPLOYMENT ≠ ALIAS ATUALIZADO`.** São dois factos. O segundo mede-se
+   **no endereço fixo, depois de publicar** — nunca se infere de a Vercel ter
+   dito READY. E `HTTP 200 ≠ versão nova`: um alias parado num deployment antigo
+   responde 200 com toda a alegria. Por isso a prova compara **bytes**, não
+   estados.
 
 ---
 

@@ -124,7 +124,15 @@
   "PREVIEW_URL_POLICY": [
     "Os previews continuam a existir e sao uteis — sao a bancada da engenharia.",
     "Nao se entregam ao dono do produto como endereco. Qualquer handoff futuro",
-    "apresenta primeiro CANONICAL_URL; o URL do deployment vive na seccao tecnica."
+    "apresenta primeiro CANONICAL_URL; o URL do deployment vive na seccao tecnica.",
+    "",
+    "PRECISAO ACRESCENTADA DEPOIS: «preview» eram duas coisas com um nome so.",
+    "O URL DE DEPLOYMENT (com hash) muda a cada push e nunca foi endereco. O ALIAS",
+    "DE BRANCH nao muda, e e o endereco de trabalho do candidato — ver",
+    "CANDIDATO_SYSTEM_MAP_V2. Continua a nao ser o endereco do PRODUTO, que e",
+    "CANONICAL_URL; passa a ser o endereco do CANDIDATO, que antes nao tinha nenhum.",
+    "",
+    "    EPHEMERAL_DEPLOYMENT_URL  !=  STABLE_BRANCH_PREVIEW_URL  !=  CANONICAL_URL"
   ],
   "FUTURE_PRIVATE_REPO_COMPATIBLE": true,
   "PORQUE_SOBREVIVE_A_SECURITY_FOUNDATION": [
@@ -193,5 +201,88 @@
     "e o artefacto de deploy, por impressao da arvore-fonte",
     "(MAP_BELONGS_TO_DEPLOYED_TREE), que nao depende de ficheiro commitado nenhum.",
     "Mudar isto e trabalho do dono do System Map, e nao desta missao."
-  ]
+  ],
+  "CANDIDATO_SYSTEM_MAP_V2": {
+    "PORQUE_ISTO_EXISTE": [
+      "O mesmo defeito que este ficheiro ja corrigiu para o produto, outra vez um",
+      "andar abaixo: o candidato tambem entregava um endereco novo a cada push.",
+      "",
+      "    EPHEMERAL_DEPLOYMENT_URL  !=  STABLE_BRANCH_PREVIEW_URL",
+      "    READY DEPLOYMENT          !=  ALIAS ACTUALIZADO",
+      "",
+      "Um endereco que muda a cada commit nao e um endereco: e um recibo. Quem",
+      "acompanha o trabalho tinha de trocar de link todas as vezes, e um link que",
+      "se troca nao se guarda, nao se partilha e nao se abre duas vezes."
+    ],
+    "SYSTEM_MAP_V2_PREVIEW_STABLE_URL": "https://sintonia-eame-preview-git-claude-system-e66563-london-creative.vercel.app/system-map-v2/",
+    "CANDIDATE_HOST": "sintonia-eame-preview-git-claude-system-e66563-london-creative.vercel.app",
+    "CANDIDATE_ROUTE": "/system-map-v2/",
+    "CANDIDATE_BRANCH": "claude/system-map-v2-canonical-rebuild",
+    "QUEM_ADMINISTRA_ESTE_ALIAS": [
+      "A VERCEL, pela integracao Git que ja existe. Nao ha aqui mecanismo novo,",
+      "nao ha token, nao ha passo de CI a mover alias nenhum, e nao ha redirect",
+      "escrito a mao dentro do HTML. O alias de branch da Vercel acompanha sozinho",
+      "o ultimo deployment desta branch — foi MEDIDO a funcionar, nao presumido.",
+      "",
+      "    UMA AUTORIDADE DE DEPLOY. CONTINUA A SER A VERCEL.",
+      "",
+      "Por isso este contrato DOCUMENTA e CONFERE o alias; nao o constroi. Um",
+      "mecanismo paralelo para o mesmo destino seria a segunda cadeia que o",
+      "`PORTAO_DO_RELEASE` ja proibe noutro paragrafo."
+    ],
+    "O_QUE_ESTE_ENDERECO_E": [
+      "O endereco de trabalho do CANDIDATO enquanto ele vive nesta branch. E a",
+      "bancada, com morada fixa — nao e o produto.",
+      "",
+      "    CANDIDATO  !=  OFICIAL",
+      "",
+      "O oficial continua a ser CANONICAL_URL, e esta missao nao o substituiu nem",
+      "o promoveu. Sao papeis diferentes: um mostra o que existe hoje para quem",
+      "usa; o outro mostra o que se propoe, para quem decide."
+    ],
+    "O_QUE_ESTE_ENDERECO_NAO_E": [
+      "Nao e promocao. Nao e o dominio oficial. Nao e afirmacao de que o candidato",
+      "vai substituir o mapa de `/system-map/` — essa decisao e de gente, passa",
+      "pelo PORTAO_DO_RELEASE, e nao acontece por alguem abrir um link."
+    ],
+    "URL_DO_DEPLOYMENT": [
+      "O `sintonia-eame-preview-<hash>-london-creative.vercel.app` de cada corrida",
+      "continua a existir e continua util: e a PROVA TECNICA de que um commit",
+      "concreto construiu. Nao e o endereco principal, e nao se entrega como tal.",
+      "",
+      "    O RECIBO PROVA A COMPRA. NAO E A MORADA."
+    ],
+    "COMO_SE_CONFERE": [
+      "`system-map/v2/scripts/verificar_preview_estavel.py`, sem token nenhum.",
+      "",
+      "O carimbo servido NAO serve para isto: `PROVENANCE.HEAD` dentro de",
+      "`estado.gerado.json` e sempre o commit ANTERIOR, porque a copia publicada",
+      "nasce um commit atras de si mesma — ja escrito em",
+      "O_QUE_O_PORTAO_DO_RELEASE_NAO_PODE_SER. Comparar esse carimbo com o HEAD",
+      "actual reprovaria sempre.",
+      "",
+      "O que se compara sao os BYTES: os quatro ficheiros que o endereco fixo",
+      "devolve tem de ser identicos, por SHA-256, aos que estao commitados em",
+      "`italia-portale/client/system-map-v2/` no HEAD desta branch. Se o alias",
+      "ficou parado num deployment antigo, os bytes diferem e o portao reprova.",
+      "",
+      "    HTTP 200  !=  VERSAO NOVA"
+    ],
+    "ROTINA_DE_FECHAMENTO": [
+      "Toda missao futura do System Map V2 fecha assim, por esta ordem:",
+      " 1. commit;",
+      " 2. push;",
+      " 3. esperar o deployment desta branch e confirmar READY;",
+      " 4. correr `verificar_preview_estavel.py`;",
+      " 5. so entao PREVIEW_STABLE_URL = PASS.",
+      "",
+      "O URL efemero pode ir na seccao tecnica da entrega, como prova. O endereco",
+      "que se entrega e SYSTEM_MAP_V2_PREVIEW_STABLE_URL, sempre o mesmo."
+    ],
+    "QUANDO_ISTO_MORRE": [
+      "Este bloco e do CANDIDATO e vive enquanto a branch viver. No dia em que o",
+      "V2 for promovido, ou a branch for abandonada, ele sai daqui — e sai deste",
+      "ficheiro, que e o unico dono do conceito. Nao ha segunda copia a apagar."
+    ]
+  }
 }
