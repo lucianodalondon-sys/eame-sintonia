@@ -276,11 +276,19 @@
    "DESCRIPTION": "A estrada canonica FECHA — e os bytes nao vieram da rede. O recibo `pedido-t4.observado.json` tem CANONICAL_E2E=PASS com as onze etapas observadas, READY produzido e o ficheiro na Sala com nome. E o mesmo recibo declara `ORIGEM_DOS_BYTES = ARQUIVO_LOCAL` e `AQUISICAO_PELA_REDE = NOT_PROVEN`. A canalizacao esta provada de ponta a ponta; a TORNEIRA nao.",
    "EVIDENCE": "system-map/data/pedido-t4.observado.json · RUN IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7. O ataque 12 do red team reprova quem publicar isto como aquisicao pela rede provada.",
    "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-043",
+   "NODE": "C-ADMISSAO",
+   "TYPE": "ARTEFACTO_SEM_AUTOR",
+   "DESCRIPTION": "`data/samples/LIVRO-DE-DECISOES.json` nao tem autor declarado, e a guarda `tem_autor_LIVRO-DE-DECISOES` reprova com a frase certa: UM ARTEFACTO SEM AUTOR NAO E UM ARTEFACTO SEM AUTOR — E UMA MEDICAO QUE NAO OLHOU. O livro de decisoes e onde a porta de admissao guarda cada veredito com regra, versao e prova; nao saber quem o escreve e nao saber quem responde pelas decisoes guardadas la.",
+   "EVIDENCE": "PRE-EXISTENTE, e provado: a mesma guarda reprova no HEAD funcional intocado 12c919af, ANTES de qualquer alteracao desta missao — e la reprova TAMBEM `scanner_e_deterministico`, que nesta arvore passa. Nao e regressao desta missao; e divida da linha funcional, medida e nomeada.",
+   "STATUS": "OPEN"
   }
  ],
  "COUNTS": {
-  "abertos": 27,
+  "abertos": 28,
   "fechados": 7,
-  "total": 34
+  "total": 35
  }
 }
