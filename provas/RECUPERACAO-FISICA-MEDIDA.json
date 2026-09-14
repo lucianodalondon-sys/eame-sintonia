@@ -1,0 +1,677 @@
+{
+  "PROVA": "RECUPERACAO-FISICA-PROVADA-NO-POSTGRES",
+  "MEDIDO_EM": "2026-09-14T01:06:42+00:00",
+  "BANCADA": {
+    "POSTGRES_VERSION": "17.11 (Ubuntu 17.11-1.pgdg24.04+2)",
+    "DATA_CHECKSUMS": "on",
+    "WAL_LEVEL": "replica",
+    "ARCHIVE_MODE": "on",
+    "DISPOSABLE_ONLY": "YES",
+    "CORPUS_DO_LIVE_IMPORTADO": "NAO"
+  },
+  "CADEIA": {
+    "MIGRATIONS": 29,
+    "CONFERENCIA_008": "PASS",
+    "MIGRATION_031": "PASS",
+    "SHA_031": "9414b4f7becd81382512ce2af5b5a28f334aa70b6cea127bdb6ff8c52eb306e3",
+    "REF_031": "origin/claude/sala-persistente-preflight-real-v1",
+    "ERRO": ""
+  },
+  "BACKUP": {
+    "BACKUP_CLASS": "PHYSICAL",
+    "BACKUP_MECHANISM": "pg_basebackup + arquivo de WAL",
+    "BACKUP_CREATED": "YES",
+    "BACKUP_BYTES": 53102427,
+    "BACKUP_FICHEIROS": 1724,
+    "BACKUP_CHECKSUM_ALGO": "SHA256",
+    "BACKUP_INTEGRITY_CHECK": "PASS",
+    "BACKUP_SEGUNDOS": 0.7
+  },
+  "SENTINELAS": {
+    "SHA_DOS_BYTES_SINTETICOS": "a686acd6215a88d8d0bf39ea660e99cae63d643714fa70d585f306ba0fd1365a",
+    "CORRIDAS": [
+      "RESTAURO-FISICO-RUN-CAPTURA",
+      "RESTAURO-FISICO-RUN-DERIVACAO",
+      "RESTAURO-FISICO-RUN-POS-BACKUP"
+    ],
+    "LINHAS_NA_SALA": "4",
+    "MARCO_POS_BACKUP": "RESTAURO-FISICO-RUN-POS-BACKUP",
+    "PORQUE_O_MARCO_EXISTE": "escrito depois do base backup e antes do ponto de recuperacao. So existe no WAL. Se ele volta, o WAL foi reproduzido."
+  },
+  "IMPRESSAO_ANTES": {
+    "TABELAS": "79760b3e18c089db1ae4ac24226e0d7b96b9f19ac8d58ed9b52cee8ee516a7af",
+    "LINHAS": "6f7d3a232969b24e0f0a72c084f642a8c93b7030a938351000a8df1b6e550d41",
+    "LEDGER": "e0aff57e9a473dbfb05de3557df6d8d5a49539eb144716b22d00291d083a6c31",
+    "TRAVAS": "0df44cecb30ec86622e429993228dce55032940c81bd4e554fb2ef4cddcca235",
+    "INDICES": "8308c54b4d925b48216ade4bc4e3df45d47988b7d733e726d56cd9217a5c3b03",
+    "SEQUENCIAS": "04c0158d87e1e1ca7aa56d49e129c779db4be9caf2c0b339b55f221e42b41b40",
+    "EXTENSOES": "fba9a14119e8f9c9bd03d2151b24b0af5ab1289a0563fc261108f1eb4a769b33",
+    "DONOS": "59d07a0f33ebc2a0e846053f5cc3bbe6ff16432bf4dbbe154ff6ea207e829ba1",
+    "AMBIENTE": "51448acb99614f14be9c03bf4ad7b1e26eee49001637c32fae2b3de70a51d59f",
+    "TIPOS": "16587232e17628b57ab962b8411910335268802ca495015e60ab9a4745506ee6",
+    "SENTINELAS": "f9bae3407c1d187cb9c1d8ab48a87a091383b8bc31bb26d383247f8c848a4d02",
+    "_GLOBAL": "4af2d790d19c9ed8751b22fa54e1766531955ce85a8d856b03595be6342fb0e8"
+  },
+  "ALVO": {
+    "RECOVERY_TARGET_LSN": "0/30BAD20",
+    "RECOVERY_TARGET_TIME": "2026-09-14 01:06:51.749757+00",
+    "RECOVERY_TARGET_NAME": "PONTO_ANTES_DO_DESASTRE"
+  },
+  "DESASTRE": {
+    "A_DELETE_DE_DADOS": "FEITO",
+    "B_DROP_DE_TABELA": "FEITO",
+    "C_MIGRATION_ESTRUTURAL_MA": "FEITO",
+    "D_CORRUPCAO_LOGICA": "FEITO",
+    "D0a_identidade_da_observacao": "RECUSOU",
+    "D0b_sha_da_copia": "RECUSOU",
+    "CONFIRMACAO_DA_DESTRUICAO": {
+      "sala_existe": "0",
+      "documentos_restantes": "0",
+      "trava_existe": "0",
+      "json_adulterado": "true",
+      "contagem_adulterada": "999",
+      "ledger_tem_999": "1"
+    },
+    "DESTRUICAO_REAL": "SIM"
+  },
+  "WAL_ARQUIVADO": 5,
+  "DESTRUICAO_DO_ORIGINAL": {
+    "ORIGINAL_DATABASE_AVAILABLE": "NO",
+    "PGDATA_DA_PRIMARIA_EXISTE": "NAO"
+  },
+  "RESTORE": {
+    "RESTORE_MECHANISM": "PITR: base backup fisico + restore_command + recovery_target_time",
+    "RESTORE_EXECUTED": "YES",
+    "RECOVERY_TARGET_USADO": "recovery_target_time",
+    "EM_RECUPERACAO": "f",
+    "RESTORE_SEGUNDOS": 0.56,
+    "MARCO_POS_BACKUP_VOLTOU": "SIM",
+    "WAL_FOI_REPRODUZIDO": "SIM",
+    "RESTORE_VERIFIED": "YES"
+  },
+  "IMPRESSAO_DEPOIS": {
+    "TABELAS": "79760b3e18c089db1ae4ac24226e0d7b96b9f19ac8d58ed9b52cee8ee516a7af",
+    "LINHAS": "6f7d3a232969b24e0f0a72c084f642a8c93b7030a938351000a8df1b6e550d41",
+    "LEDGER": "e0aff57e9a473dbfb05de3557df6d8d5a49539eb144716b22d00291d083a6c31",
+    "TRAVAS": "0df44cecb30ec86622e429993228dce55032940c81bd4e554fb2ef4cddcca235",
+    "INDICES": "8308c54b4d925b48216ade4bc4e3df45d47988b7d733e726d56cd9217a5c3b03",
+    "SEQUENCIAS": "04c0158d87e1e1ca7aa56d49e129c779db4be9caf2c0b339b55f221e42b41b40",
+    "EXTENSOES": "fba9a14119e8f9c9bd03d2151b24b0af5ab1289a0563fc261108f1eb4a769b33",
+    "DONOS": "59d07a0f33ebc2a0e846053f5cc3bbe6ff16432bf4dbbe154ff6ea207e829ba1",
+    "AMBIENTE": "51448acb99614f14be9c03bf4ad7b1e26eee49001637c32fae2b3de70a51d59f",
+    "TIPOS": "16587232e17628b57ab962b8411910335268802ca495015e60ab9a4745506ee6",
+    "SENTINELAS": "f9bae3407c1d187cb9c1d8ab48a87a091383b8bc31bb26d383247f8c848a4d02",
+    "_GLOBAL": "4af2d790d19c9ed8751b22fa54e1766531955ce85a8d856b03595be6342fb0e8"
+  },
+  "SECOES_DIFERENTES": "NENHUMA",
+  "SEQUENCIAS": {
+    "SEQUENCIAS_CONFERIDAS": 64,
+    "SEQUENCIAS_FORA_DA_REGRA": "NENHUMA",
+    "SEQUENCIAS_EM_FALTA": "NENHUMA",
+    "REGRA": "nunca para tras; no maximo um bloco de WAL (32 x incremento) a frente",
+    "RESULTADO": "PASS",
+    "VALORES_DEPOIS": {
+      "boletim_fitossanitario_id_seq": [
+        null,
+        1
+      ],
+      "canal_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_captura_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_agente_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_claim_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_cultivo_agente_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_cultivo_dose_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_cultivo_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_documento_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_janela_aplicacao_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_modo_acao_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_relacao_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_substancia_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_produto_tecnologia_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_registro_crosswalk_id_seq": [
+        null,
+        1
+      ],
+      "catalogo_termo_ambiguo_id_seq": [
+        null,
+        1
+      ],
+      "checkpoint_coleta_id_seq": [
+        null,
+        1
+      ],
+      "clima_observacao_id_seq": [
+        null,
+        1
+      ],
+      "collection_run_id_seq": [
+        35,
+        1
+      ],
+      "comentario_id_seq": [
+        null,
+        1
+      ],
+      "conteudo_crop_issue_id_seq": [
+        null,
+        1
+      ],
+      "conteudo_id_seq": [
+        null,
+        1
+      ],
+      "conteudo_lugar_id_seq": [
+        null,
+        1
+      ],
+      "conteudo_visto_em_id_seq": [
+        null,
+        1
+      ],
+      "crop_calendar_id_seq": [
+        null,
+        1
+      ],
+      "crop_id_seq": [
+        null,
+        1
+      ],
+      "crop_issue_id_seq": [
+        null,
+        1
+      ],
+      "crop_local_id_seq": [
+        null,
+        1
+      ],
+      "decisao_de_coleta_id_seq": [
+        null,
+        1
+      ],
+      "derivacao_id_seq": [
+        null,
+        1
+      ],
+      "derived_artifact_id_seq": [
+        1,
+        1
+      ],
+      "disponibilidade_comercial_id_seq": [
+        null,
+        1
+      ],
+      "estatistica_agricola_id_seq": [
+        null,
+        1
+      ],
+      "etapa_da_corrida_id_seq": [
+        34,
+        1
+      ],
+      "evento_setorial_id_seq": [
+        null,
+        1
+      ],
+      "fonte_acesso_teste_id_seq": [
+        null,
+        1
+      ],
+      "fonte_externa_id_seq": [
+        null,
+        1
+      ],
+      "freshness_regra_id_seq": [
+        null,
+        1
+      ],
+      "geografia_id_seq": [
+        null,
+        1
+      ],
+      "issue_id_seq": [
+        null,
+        1
+      ],
+      "issue_local_id_seq": [
+        null,
+        1
+      ],
+      "issue_window_id_seq": [
+        null,
+        1
+      ],
+      "lacuna_candidata_id_seq": [
+        null,
+        1
+      ],
+      "lastmile_registro_pendente_id_seq": [
+        null,
+        1
+      ],
+      "mercado_observacao_id_seq": [
+        null,
+        1
+      ],
+      "observacao_id_seq": [
+        null,
+        1
+      ],
+      "organizacao_id_seq": [
+        null,
+        1
+      ],
+      "origem_id_seq": [
+        null,
+        1
+      ],
+      "origem_lugar_id_seq": [
+        null,
+        1
+      ],
+      "pessoa_id_seq": [
+        null,
+        1
+      ],
+      "pessoa_identificador_id_seq": [
+        null,
+        1
+      ],
+      "raw_asset_id_seq": [
+        1,
+        1
+      ],
+      "registro_regulatorio_id_seq": [
+        null,
+        1
+      ],
+      "registro_uso_id_seq": [
+        null,
+        1
+      ],
+      "registro_uso_janela_id_seq": [
+        null,
+        1
+      ],
+      "resistencia_confirmada_id_seq": [
+        null,
+        1
+      ],
+      "resposta_registrada_id_seq": [
+        null,
+        1
+      ],
+      "sinal_regulatorio_futuro_id_seq": [
+        null,
+        1
+      ],
+      "storage_object_id_seq": [
+        1,
+        1
+      ],
+      "substancia_aprovacao_ue_id_seq": [
+        null,
+        1
+      ],
+      "substancia_ativa_id_seq": [
+        null,
+        1
+      ],
+      "tentativa_de_coleta_id_seq": [
+        null,
+        1
+      ],
+      "transcricao_id_seq": [
+        null,
+        1
+      ]
+    }
+  },
+  "RESTAURO": {
+    "CADEIA_CANONICA_EXIT": 0,
+    "CADEIA_SKIP_HASH_MATCH": 29,
+    "CADEIA_REAPLICADAS": 0,
+    "CONFERENCIA_008": "PASS",
+    "LINHAGEM_LIDA_ATE_A_OBSERVACAO": "RESTAURO-FISICO-DOC-1",
+    "CORRIDA_DA_ARESTA_E_A_DA_DERIVACAO": "SIM",
+    "TRAVAS_MORDEM": {
+      "CHECK forward_identificado_exige_identidade": "RECUSOU",
+      "PK sala_de_espera (run_id, ordem)": "RECUSOU",
+      "FK sala_de_espera -> collection_run": "RECUSOU",
+      "FK sala_de_espera -> raw_asset": "RECUSOU",
+      "CHECK consumo_diz_quem_e_quando": "RECUSOU",
+      "CHECK corrida_sha_tem_formato": "RECUSOU",
+      "PK participacao_na_derivacao": "RECUSOU",
+      "FK etapa_da_corrida -> collection_run": "RECUSOU"
+    },
+    "SESSAO_SO_LEITURA_RECUSA_ESCRITA": "SIM",
+    "REPAROS_MANUAIS_ANTES_DA_CONFERENCIA": 0
+  },
+  "IDENTIDADE": {
+    "PRIMARIA_VIVA": "NAO",
+    "PORTA_VERIFICADA": 5434,
+    "SYSTEM_IDENTIFIER_DO_BACKUP": "7685191157955730432",
+    "SYSTEM_IDENTIFIER_DO_RESTAURADO": "7685191157955730432",
+    "SYSTEM_IDENTIFIER_CONFERE": "SIM"
+  },
+  "TEMPOS": {
+    "DISPOSABLE_RTO_SEGUNDOS": 0.56,
+    "DISPOSABLE_RPO_SEGUNDOS": 2.61,
+    "O_QUE_O_RPO_MEDE": "o intervalo entre o ponto de recuperacao e o selamento do arquivo apos o desastre, NESTA bancada",
+    "NAO_E_O_RTO_DO_LIVE": "o LIVE tem outro tamanho, outra rede e outro orquestrador. Este numero e da bancada e so dela."
+  },
+  "CONTRAPROVA": {
+    "A07_schema_volta_dados_nao": {
+      "SECAO": "LINHAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A08_dados_voltam_travas_nao": {
+      "SECAO": "TRAVAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A09_contagens_iguais_linhas_erradas": {
+      "SECAO": "SENTINELAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A10_restore_sem_migration_history": {
+      "SECAO": "LEDGER",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A11_indice_ausente": {
+      "SECAO": "INDICES",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A13_fk_quebrada": {
+      "SECAO": "TRAVAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A14_timezone_alterado": {
+      "SECAO": "AMBIENTE",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A15_json_alterado": {
+      "SECAO": "SENTINELAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A16_owner_grant_diferente": {
+      "SECAO": "DONOS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A17_extensao_ausente": {
+      "SECAO": "EXTENSOES",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A18_restore_parcial_como_pass": {
+      "SECAO": "TABELAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "A28_impressao_fraca": {
+      "SECAO": "SENTINELAS",
+      "VERIFICADOR": "ACUSOU"
+    },
+    "ARENA_INTACTA_DEPOIS_DAS_SABOTAGENS": "SIM"
+  },
+  "COUNTERPROOF_WORKS": "YES",
+  "INTERRUPCAO": {
+    "MORTO_DURANTE_A_REPRODUCAO": "SIM",
+    "ESTADO_INTERMEDIO_UTILIZAVEL": "NAO",
+    "PODE_SER_RETOMADO": "SIM",
+    "PRECISA_REINICIAR_DO_ZERO": "NAO",
+    "SEGUNDOS_ATE_RETOMAR": 0.48,
+    "COMO_SABEMOS_QUE_TERMINOU": "pg_is_in_recovery() devolve `f` e o log diz «database system is ready to accept connections». Antes disso o servidor RECUSA ligacoes — o estado intermedio e bloqueado, nao meio-aberto.",
+    "IMPRESSAO_IGUAL_A_DO_RESTAURO_LIMPO": "SIM"
+  },
+  "LIVE": {
+    "CREDENCIAIS": {
+      "SUPABASE_ACCESS_TOKEN": "AUSENTE",
+      "SUPABASE_MANAGEMENT_TOKEN": "AUSENTE",
+      "SUPABASE_DB_URL": "AUSENTE",
+      "SUPABASE_SERVICE_ROLE_KEY": "AUSENTE"
+    },
+    "WORKFLOW_QUE_PRODUZ_BACKUP": "NENHUM",
+    "MANAGEMENT_API_ALCANCAVEL": "NAO",
+    "LIVE_READS": 0,
+    "LIVE_WRITES": 0,
+    "LIVE_DDL": 0,
+    "LIVE_BACKUP_CAPABILITY": "PROVIDER_PHYSICAL (politica do plano Pro, lida em documentacao)",
+    "LIVE_BACKUP_ENABLED": "NOT_MEASURED",
+    "LIVE_BACKUP_EXISTS": "NOT_MEASURED",
+    "PITR_STATUS": "NOT_MEASURED",
+    "LATEST_BACKUP_AVAILABLE": "NOT_MEASURED",
+    "RETENTION_WINDOW": "NOT_MEASURED",
+    "RESTORE_MECHANISM_AVAILABLE": "NOT_MEASURED",
+    "RESTORE_EXECUTED_NO_LIVE": "NO",
+    "RESTORE_VERIFIED_NO_LIVE": "NO"
+  },
+  "CUSTO": {
+    "RECURSO_PAGO_CRIADO": "NAO",
+    "PROJETO_SUPABASE_DESCARTAVEL_CRIADO": "NAO",
+    "PORQUE": "criar um projeto Supabase da mesma classe do LIVE exige plano Pro, que e pago. Esta prova nao gasta, e por isso nao exerce a PLATAFORMA."
+  },
+  "PORTAO": {
+    "RESTORE_EXECUTED": "YES",
+    "RESTORE_VERIFIED": "YES",
+    "DISPOSABLE_ONLY": "YES",
+    "DISPOSABLE_BACKUP_CLASS": "PHYSICAL",
+    "LIVE_BACKUP_CLASS": "PHYSICAL",
+    "SAME_CLASS_RESTORE": "YES",
+    "SAME_PLATFORM_RESTORE": "NO",
+    "COUNTERPROOF_WORKS": "YES",
+    "RED_TEAM_SURVIVORS": 0
+  },
+  "RED_TEAM": {
+    "ATAQUES": {
+      "A01": {
+        "ATAQUE": "backup declarado mas inexistente",
+        "RESULTADO": "APANHADO",
+        "COMO": "pg_verifybackup recusa um caminho que nao existe"
+      },
+      "A02": {
+        "ATAQUE": "backup antigo demais / alvo fora da janela",
+        "RESULTADO": "APANHADO",
+        "COMO": "o servidor PROMOVE na mesma; quem acusa e a impressao — o marco pos-backup, que so existe no WAL, nao volta"
+      },
+      "A03": {
+        "ATAQUE": "PITR desabilitado / arquivo de WAL vazio",
+        "RESULTADO": "APANHADO",
+        "COMO": "o servidor recusa promover — «recovery ended before configured recovery target was reached» — e, se promovesse, o marco pos-backup em falta fazia a impressao acusar"
+      },
+      "A04": {
+        "ATAQUE": "credencial sem permissao tratada como medicao",
+        "RESULTADO": "APANHADO",
+        "COMO": "sem credencial de gestao a medicao devolve NOT_MEASURED, nao um palpite"
+      },
+      "A05": {
+        "ATAQUE": "restore documentado tratado como restore executado",
+        "RESULTADO": "APANHADO",
+        "COMO": "o portao exige RESTORE_EXECUTED=YES; documentacao nao o compra"
+      },
+      "A06": {
+        "ATAQUE": "backup de versao PostgreSQL incompativel",
+        "RESULTADO": "APANHADO",
+        "COMO": "PG_VERSION alterado para 14: o servidor 17 recusa arrancar"
+      },
+      "A07": {
+        "ATAQUE": "schema volta mas dados nao",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao LINHAS da impressao acusa a sabotagem"
+      },
+      "A08": {
+        "ATAQUE": "dados voltam mas travas nao",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao TRAVAS da impressao acusa a sabotagem"
+      },
+      "A09": {
+        "ATAQUE": "contagens iguais com linhas erradas",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao SENTINELAS da impressao acusa a sabotagem"
+      },
+      "A10": {
+        "ATAQUE": "restore sem migration history",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao LEDGER da impressao acusa a sabotagem"
+      },
+      "A11": {
+        "ATAQUE": "indice ausente",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao INDICES da impressao acusa a sabotagem"
+      },
+      "A13": {
+        "ATAQUE": "FK quebrada",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao TRAVAS da impressao acusa a sabotagem"
+      },
+      "A14": {
+        "ATAQUE": "timezone alterado",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao AMBIENTE da impressao acusa a sabotagem"
+      },
+      "A15": {
+        "ATAQUE": "JSON alterado",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao SENTINELAS da impressao acusa a sabotagem"
+      },
+      "A16": {
+        "ATAQUE": "owner/grant diferente",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao DONOS da impressao acusa a sabotagem"
+      },
+      "A17": {
+        "ATAQUE": "extensao necessaria ausente",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao EXTENSOES da impressao acusa a sabotagem"
+      },
+      "A18": {
+        "ATAQUE": "restore parcial tratado como PASS",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao TABELAS da impressao acusa a sabotagem"
+      },
+      "A28": {
+        "ATAQUE": "impressao calculada de forma fraca",
+        "RESULTADO": "APANHADO",
+        "COMO": "seccao SENTINELAS da impressao acusa a sabotagem"
+      },
+      "A12": {
+        "ATAQUE": "sequence/identity errada",
+        "RESULTADO": "APANHADO",
+        "COMO": "a regra acusa a sequencia atrasada (id duplicado a espera), a disparada alem de um bloco de WAL e a que desapareceu — e aprova o adiantamento legitimo, que e o que a torna uma regra e nao um nao"
+      },
+      "A19": {
+        "ATAQUE": "rebuild por migrations chamado de restore",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhuma migration correu para o banco voltar: 0 reaplicadas, 29 SKIP HASH=MATCH"
+      },
+      "A20": {
+        "ATAQUE": "pg_dump chamado de restore fisico sem contrato",
+        "RESULTADO": "APANHADO",
+        "COMO": "a classe e declarada e comparada; LOGICAL nao passa por PHYSICAL"
+      },
+      "A21": {
+        "ATAQUE": "backup local tratado como backup gerenciado",
+        "RESULTADO": "APANHADO",
+        "COMO": "o backup desta bancada nao promove LIVE_BACKUP_EXISTS"
+      },
+      "A22": {
+        "ATAQUE": "documentacao oficial tratada como prova de execucao",
+        "RESULTADO": "APANHADO",
+        "COMO": "capacidade e prova vivem em campos diferentes, e so o segundo conta"
+      },
+      "A23": {
+        "ATAQUE": "restore de banco local tratado como prova de Supabase",
+        "RESULTADO": "APANHADO",
+        "COMO": "o portao exige SAME_PLATFORM_RESTORE=YES, e esta missao NAO o tem"
+      },
+      "A24": {
+        "ATAQUE": "teste contra producao",
+        "RESULTADO": "APANHADO",
+        "COMO": "8/8 URLs hostis recusadas antes de qualquer ligacao"
+      },
+      "A25": {
+        "ATAQUE": "segredo a vazar para o log",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhum padrao de segredo no relatorio; a DSN local nao leva senha"
+      },
+      "A26": {
+        "ATAQUE": "recurso pago criado sem autorizacao",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhum projeto, plano ou add-on foi criado; a bancada e local e gratuita"
+      },
+      "A27": {
+        "ATAQUE": "restore termina mas a aplicacao liga ao banco errado",
+        "RESULTADO": "APANHADO",
+        "COMO": "a primaria esta morta, a porta verificada e a do restauro, e o system_identifier do cluster lido bate com o do base backup"
+      }
+    },
+    "RED_TEAM_ATTACKS": 28,
+    "RED_TEAM_SURVIVORS": 0,
+    "SOBREVIVENTES": [],
+    "NOTA_APRENDIDA_NO_A02_E_A03": {
+      "SERVIDOR_PROMOVEU_COM_ALVO_IMPOSSIVEL": "SIM",
+      "MARCO_POS_BACKUP_PRESENTE": "0",
+      "LICAO": "o arranque do servidor NAO e prova de que o alvo foi atingido"
+    },
+    "DETALHE_DO_A12": {
+      "SEQUENCIA_ATACADA": "collection_run_id_seq",
+      "VALOR_DE_PARTIDA": 35,
+      "ATRASADA_ACUSADA": true,
+      "ADIANTADA_ALEM_DA_FOLGA_ACUSADA": true,
+      "EM_FALTA_ACUSADA": true,
+      "ADIANTADA_DENTRO_DA_FOLGA_APROVADA": true,
+      "IGUAL_APROVADA": true
+    }
+  },
+  "VEREDITO": {
+    "PHYSICAL_CLASS_RESTORE": "PASS",
+    "SAME_CLASS_RESTORE": "YES",
+    "SAME_PLATFORM_RESTORE": "NO",
+    "PLATFORM_RESTORE_EXERCISED": "NO",
+    "RESTORE_PROOF": "BLOCKED",
+    "BLOCKER": "PLATFORM_RESTORE_NOT_EXERCISED",
+    "LIVE_WRITES": 0,
+    "LIVE_DDL": 0,
+    "LIVE_READS": 0,
+    "MIGRATION_031_APPLIED_NO_LIVE": "NO"
+  }
+}
