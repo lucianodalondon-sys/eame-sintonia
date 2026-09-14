@@ -58,6 +58,26 @@ def prova(chave: str, frase: str, ok: bool, detalhe: list[str] | None = None) ->
      else falhas.append((chave, frase, detalhe or [])))
 
 
+def sem_carimbo(bruto: bytes) -> str:
+    """O mesmo conteúdo, sem o bloco que muda a cada commit.
+
+    `PROVENANCE` carrega HEAD e a data do commit. Comparar bytes crus faria o
+    portão reprovar TODA A GENTE, sempre — inclusive o commit que acabou de
+    regerar o mapa, porque o acto de commitar muda o HEAD que o mapa carimba.
+
+        UM PORTÃO QUE REPROVA O TRABALHO JÁ FEITO ENSINA A IGNORÁ-LO.
+
+    Foi por isto que o validador do mapa V1 já comparava a arquitetura e não o
+    carimbo; este repete a decisão em vez de a redescobrir pela segunda vez.
+    """
+    try:
+        d = json.loads(bruto.decode("utf-8"))
+    except (ValueError, UnicodeDecodeError):
+        return bruto.decode("utf-8", "replace")
+    d.pop("PROVENANCE", None)
+    return json.dumps(d, ensure_ascii=False, sort_keys=True)
+
+
 def git(*a: str) -> str:
     return subprocess.run(["git", "-C", str(RAIZ), *a], capture_output=True,
                           text=True, encoding="utf-8", errors="replace").stdout
@@ -74,7 +94,7 @@ def main() -> int:
     C = S["CONCEITOS"]
 
     # ── V1 · o mapa commitado é o que o repositório de hoje produz ──────────
-    antes_m, antes_e = MEDIDO.read_bytes(), ESTADO.read_bytes()
+    antes_m, antes_e = sem_carimbo(MEDIDO.read_bytes()), sem_carimbo(ESTADO.read_bytes())
     for passo in ("scan_machine.py", "generate_map_v2.py"):
         r = subprocess.run([sys.executable, str(V2 / "scripts" / passo)],
                            capture_output=True, text=True)
@@ -83,8 +103,9 @@ def main() -> int:
                   False, [f"{passo} falhou: {r.stderr.strip()[:300]}"])
             break
     else:
-        mudou = [n for n, a, b in (("machine.measured.json", antes_m, MEDIDO.read_bytes()),
-                                   ("state.v2.generated.json", antes_e, ESTADO.read_bytes()))
+        mudou = [n for n, a, b in
+                 (("machine.measured.json", antes_m, sem_carimbo(MEDIDO.read_bytes())),
+                  ("state.v2.generated.json", antes_e, sem_carimbo(ESTADO.read_bytes())))
                  if a != b]
         prova("V1_SEM_DRIFT", "o mapa commitado corresponde ao repositório de hoje",
               not mudou,

@@ -110,14 +110,22 @@ teste("nenhum tamanho de letra desce abaixo de 11px",
       _tams and min(_tams) >= 11.0, f"menor = {min(_tams) if _tams else '?'}px")
 
 # ── 7 · determinismo: mesma árvore, mesmos bytes ────────────────────────────
+# Sem o carimbo: `PROVENANCE` carrega HEAD, e commitar muda o HEAD. Comparar
+# bytes crus mediria o acto de commitar, não o determinismo do gerador.
+def _sem_carimbo(p):
+    d = json.loads(p.read_text(encoding="utf-8"))
+    d.pop("PROVENANCE", None)
+    return json.dumps(d, ensure_ascii=False, sort_keys=True)
+
+
 alvo = V2 / "data" / "state.v2.generated.json"
-a = alvo.read_bytes()
+a = _sem_carimbo(alvo)
 subprocess.run([sys.executable, str(V2 / "scripts" / "scan_machine.py")],
                capture_output=True, check=True)
 subprocess.run([sys.executable, str(V2 / "scripts" / "generate_map_v2.py")],
                capture_output=True, check=True)
-teste("regerar duas vezes na mesma árvore devolve byte a byte o mesmo ficheiro",
-      alvo.read_bytes() == a)
+teste("regerar duas vezes na mesma árvore devolve exatamente o mesmo mapa",
+      _sem_carimbo(alvo) == a)
 
 # ── 8 · as metas que a missão exige ─────────────────────────────────────────
 c = S["CONTAS"]
