@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
-    "GENERATED_AT": "2026-09-14T12:56:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8"
+    "BRANCH": "claude/system-map-v2-canonical-rebuild",
+    "HEAD": "ac54e70dee008943620417b50ae3f68529b936a1",
+    "GENERATED_AT": "2026-09-14T15:41:32+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b422b8ee2bbf51b550039a05b6eed5cac358d1eec8fb955911c01d7263f3f882"
   },
   "FILES": [
     {
@@ -81,6 +81,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/mapa-da-maquina-v2.yml",
+      "sha": "cbb0d91f725a472a4d7b8949ad4389d90654bea3",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4931,7 +4938,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "1fdd1e7a0be5de7002572d4480f9a0450ee8ace7",
+      "sha": "9e5c53514f031855309f3ebbb62e50a9020f9128",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10573,7 +10580,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "650ae695e8dd9d7fc0b73ec84d04eff559d85fa2",
+      "sha": "7d011aeaf28aa464e3df15072ce106917cb01a5b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10825,7 +10832,7 @@
     },
     {
       "path": "system-map/scripts/scan_repo.py",
-      "sha": "20523161e08aab212a8609a95dc07b8d9041410a",
+      "sha": "d05d1c8af914913fa7d83020509639226faefbea",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10953,6 +10960,97 @@
       "path": "system-map/tests/verificar_a_tela.mjs",
       "sha": "41fcb4d55c704f5882daef3eb5544408e96ad958",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/FUNDACAO.md",
+      "sha": "0f3e1355bce850cc68218bf6ed172a7b5061df23",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/app/index.html",
+      "sha": "71adf900f41646393acc9fa88fa0a09b90146662",
+      "ext": ".html",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/app/map.css",
+      "sha": "67afa085e0e23f650a965da5ab341e01c1b659a0",
+      "ext": ".css",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/app/map.js",
+      "sha": "876cd6a15f968bf190877b27ab7c0398925a6bc2",
+      "ext": ".js",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/data/estado.gerado.json",
+      "sha": "30580159ba85d3c36e02fc97bd024a9580a79cdf",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/data/maquina.medida.json",
+      "sha": "fb4855e2fc99ba1ce672b95c7b45e05fd2c21a05",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/model/maquina.model.json",
+      "sha": "4ce5968e4c8e143d812e1a6a0ec0b42d0bac6273",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/gerar_mapa.py",
+      "sha": "19907385aee4aab8b8a3886e0412c1652b4f3388",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/medir_maquina.py",
+      "sha": "545386faeeada8461ba7422902307aa60664d3d9",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/publicar_v2.py",
+      "sha": "8fa20882e9b0d00b1bd7c242fc81d7271dac4a4f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/scripts/validar_mapa.py",
+      "sha": "37b59dc38143714a62a7c7d740e6943c9bffee8d",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/tests/red_team.py",
+      "sha": "dc9e7b039519a9e2ec41726fa47551d339935f12",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/v2/tests/testa_mapa.py",
+      "sha": "4cf4ddad0ffd204e1f464d366ecfb1042fd380f6",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -39942,7 +40040,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/scan_repo.py",
-        "line": 780,
+        "line": 785,
         "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\""
       }
     },
@@ -40256,17 +40354,6 @@
     },
     {
       "from_file": "system-map/tests/test_impressao_da_arvore.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_impressao_da_arvore.py",
-        "line": 199,
-        "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_impressao_da_arvore.py",
       "to_file": "system-map/scripts/CADEIA-DO-MAPA.json",
       "type": "READS",
       "payload": "artefacto",
@@ -40509,28 +40596,6 @@
     },
     {
       "from_file": "system-map/tests/test_papel_e_leitura_humana.py",
-      "to_file": "system-map/app/map.css",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_papel_e_leitura_humana.py",
-        "line": 51,
-        "snippet": "FOLHA = RAIZ / \"system-map\" / \"app\" / \"map.css\""
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_papel_e_leitura_humana.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_papel_e_leitura_humana.py",
-        "line": 49,
-        "snippet": "TELA = RAIZ / \"system-map\" / \"app\" / \"map.js\""
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_papel_e_leitura_humana.py",
       "to_file": "system-map/scripts/generate_system_map.py",
       "type": "READS",
       "payload": "artefacto",
@@ -40563,17 +40628,6 @@
       }
     },
     {
-      "from_file": "system-map/tests/test_quatro_planos.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_quatro_planos.py",
-        "line": 191,
-        "snippet": "TELA = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
-      }
-    },
-    {
       "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
       "to_file": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "type": "READS",
@@ -40593,17 +40647,6 @@
         "file": "system-map/tests/test_reconciliacao_do_universo.py",
         "line": 34,
         "snippet": "ARTEFATO = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json\""
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_reconciliacao_do_universo.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_reconciliacao_do_universo.py",
-        "line": 429,
-        "snippet": "MAPJS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -40747,28 +40790,6 @@
         "file": "system-map/tests/test_system_map.py",
         "line": 963,
         "snippet": "FRESH = RAIZ / \"system-map\" / \"app\" / \"freshness.js\""
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_system_map.py",
-      "to_file": "system-map/app/map.css",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_system_map.py",
-        "line": 507,
-        "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")"
-      }
-    },
-    {
-      "from_file": "system-map/tests/test_system_map.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "system-map/tests/test_system_map.py",
-        "line": 258,
-        "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -41275,6 +41296,314 @@
         "file": "system-map/tests/test_verdade_das_ligacoes.py",
         "line": 56,
         "snippet": "(d / \"system-map\" / \"data\" / \"provas-de-execucao.json\").write_text("
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/index.html",
+      "to_file": "system-map/v2/app/map.css",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/index.html",
+        "line": 10,
+        "snippet": "<link rel=\"stylesheet\" href=\"map.css\">"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/index.html",
+      "to_file": "system-map/v2/app/map.js",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/index.html",
+        "line": 63,
+        "snippet": "<script src=\"map.js\"></script>"
+      }
+    },
+    {
+      "from_file": "system-map/v2/app/map.js",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/app/map.js",
+        "line": 44,
+        "snippet": "fetch('estado.gerado.json')"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/gerar_mapa.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/gerar_mapa.py",
+        "line": 43,
+        "snippet": "SAIDA = V2 / \"data\" / \"estado.gerado.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/gerar_mapa.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/gerar_mapa.py",
+        "line": 330,
+        "snippet": "SAIDA.write_text(json.dumps(estado, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/gerar_mapa.py",
+      "to_file": "system-map/v2/data/maquina.medida.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/gerar_mapa.py",
+        "line": 42,
+        "snippet": "MEDIDA = V2 / \"data\" / \"maquina.medida.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/gerar_mapa.py",
+      "to_file": "system-map/v2/model/maquina.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/gerar_mapa.py",
+        "line": 41,
+        "snippet": "MODELO = V2 / \"model\" / \"maquina.model.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "docs/biblia/leis.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 58,
+        "snippet": "LEIS = RAIZ / \"docs\" / \"biblia\" / \"leis.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "docs/fontes/INDICE-DE-FONTES.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 68,
+        "snippet": "\"docs/fontes/INDICE-DE-FONTES.md\","
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "regras/LEIA-ANTES-DE-COLETAR.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 67,
+        "snippet": "\"regras/LEIA-ANTES-DE-COLETAR.md\","
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "system-map/v2/data/maquina.medida.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 59,
+        "snippet": "SAIDA = V2 / \"data\" / \"maquina.medida.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "system-map/v2/data/maquina.medida.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 327,
+        "snippet": "SAIDA.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "system-map/v2/model/maquina.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 57,
+        "snippet": "MODELO = V2 / \"model\" / \"maquina.model.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/publicar_v2.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/publicar_v2.py",
+        "line": 34,
+        "snippet": "ESTADO = RAIZ / \"system-map\" / \"v2\" / \"data\" / \"estado.gerado.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/data/pedido.observado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 39,
+        "snippet": "ESTRADA = RAIZ / \"system-map\" / \"data\" / \"pedido.observado.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 38,
+        "snippet": "ESTADO = V2 / \"data\" / \"estado.gerado.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/v2/data/maquina.medida.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 37,
+        "snippet": "MEDIDA = V2 / \"data\" / \"maquina.medida.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/v2/model/maquina.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 36,
+        "snippet": "MODELO = V2 / \"model\" / \"maquina.model.json\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/v2/scripts/gerar_mapa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 77,
+        "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/validar_mapa.py",
+      "to_file": "system-map/v2/scripts/medir_maquina.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/validar_mapa.py",
+        "line": 77,
+        "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/data/architecture.declared.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 110,
+        "snippet": "v1 = json.loads((RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\")"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 25,
+        "snippet": "S = json.loads((V2 / \"data\" / \"estado.gerado.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/v2/data/maquina.medida.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 27,
+        "snippet": "MED = json.loads((V2 / \"data\" / \"maquina.medida.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/red_team.py",
+      "to_file": "system-map/v2/model/maquina.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/red_team.py",
+        "line": 26,
+        "snippet": "MOD = json.loads((V2 / \"model\" / \"maquina.model.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/testa_mapa.py",
+      "to_file": "system-map/v2/data/estado.gerado.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/testa_mapa.py",
+        "line": 40,
+        "snippet": "S = json.loads((V2 / \"data\" / \"estado.gerado.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/testa_mapa.py",
+      "to_file": "system-map/v2/model/maquina.model.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/testa_mapa.py",
+        "line": 41,
+        "snippet": "MOD = json.loads((V2 / \"model\" / \"maquina.model.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/testa_mapa.py",
+      "to_file": "system-map/v2/scripts/gerar_mapa.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/testa_mapa.py",
+        "line": 108,
+        "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):"
+      }
+    },
+    {
+      "from_file": "system-map/v2/tests/testa_mapa.py",
+      "to_file": "system-map/v2/scripts/medir_maquina.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/tests/testa_mapa.py",
+        "line": 108,
+        "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):"
       }
     },
     {
@@ -50266,17 +50595,6 @@
     },
     {
       "from_file": "tests/test_observabilidade_estrada.py",
-      "to_file": "system-map/app/map.js",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_observabilidade_estrada.py",
-        "line": 382,
-        "snippet": "'system-map', 'map.js')),"
-      }
-    },
-    {
-      "from_file": "tests/test_observabilidade_estrada.py",
       "to_file": "system-map/scripts/censo_do_corpus_it.py",
       "type": "READS",
       "payload": "artefacto",
@@ -54608,10 +54926,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1731,
-    "files_readable": 726,
-    "files_code_dir": 778,
-    "file_edges": 3817,
+    "files_tracked": 1745,
+    "files_readable": 735,
+    "files_code_dir": 792,
+    "file_edges": 3837,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

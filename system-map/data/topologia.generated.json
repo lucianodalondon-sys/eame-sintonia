@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-14T13:37:37+00:00",
-  "HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
-  "BRANCH": "claude/system-map-current-collection-truth-v2",
+  "GENERATED_AT": "2026-09-14T16:22:59+00:00",
+  "HEAD": "ac54e70dee008943620417b50ae3f68529b936a1",
+  "BRANCH": "claude/system-map-v2-canonical-rebuild",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8",
-  "FICHEIROS_NA_IMPRESSAO": 1867,
+  "SOURCE_TREE_FINGERPRINT": "b422b8ee2bbf51b550039a05b6eed5cac358d1eec8fb955911c01d7263f3f882",
+  "FICHEIROS_NA_IMPRESSAO": 1898,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -77,6 +77,13 @@
     "PATH": ".github/workflows/comunicacao-publica.yml",
     "PAPEL": "FONTE",
     "VERSAO": "b28cccef69e6fc815e3ccebcf598292ad8bd8f36",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "alcancaveis_do_runtime() · open"
+   },
+   {
+    "PATH": ".github/workflows/mapa-da-maquina-v2.yml",
+    "PAPEL": "FONTE",
+    "VERSAO": "cbb0d91f725a472a4d7b8949ad4389d90654bea3",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "alcancaveis_do_runtime() · open"
    },
@@ -2295,14 +2302,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8",
+    "VERSAO": "b422b8ee2bbf51b550039a05b6eed5cac358d1eec8fb955911c01d7263f3f882",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8",
+    "VERSAO": "b422b8ee2bbf51b550039a05b6eed5cac358d1eec8fb955911c01d7263f3f882",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -2421,7 +2428,7 @@
    {
     "PATH": "system-map/scripts/scan_repo.py",
     "PAPEL": "FONTE",
-    "VERSAO": "20523161e08aab212a8609a95dc07b8d9041410a",
+    "VERSAO": "d05d1c8af914913fa7d83020509639226faefbea",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2534,6 +2541,13 @@
     "PATH": "system-map/tests/verificar_a_tela.mjs",
     "PAPEL": "FONTE",
     "VERSAO": "41fcb4d55c704f5882daef3eb5544408e96ad958",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "system-map/v2/scripts/medir_maquina.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "545386faeeada8461ba7422902307aa60664d3d9",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3658,8 +3672,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 517,
-  "INPUTS_DIGEST": "f1f66cb6f47102742a33e336f1cf1119fa43e28b43db126bbb792437279c5189",
+  "INPUTS_COUNT": 519,
+  "INPUTS_DIGEST": "065d0c0fbd223ff91654fa74fff71003ac2f26ce34e5e409acf891328496eab2",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -3685,15 +3699,15 @@
   ],
   "CAMPOS_FORA_DO_MEASUREMENT_HASH": {},
   "CAMPOS_FORA_DO_MEASUREMENT_HASH_PORQUE": "nenhum. O G2 tinha excluido DOCUMENTADO_COMO_CLI e os dois campos do RESUMO que dele derivam, por a medicao depender da ordem do sistema de ficheiros; o G2B fechou essa dependencia na origem e a excepcao foi removida. Todo campo medido entra nesta conta.",
-  "DOCUMENTOS_LIDOS": 340,
+  "DOCUMENTOS_LIDOS": 341,
   "DOCUMENTOS_AUSENTES_DO_DISCO": [],
   "FONTE_DOS_DOCUMENTOS": "git ls-files · so o que esta rastreado · ordem lexical",
   "DEPENDENCIES": [
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "ac22a7b6153a03de2bc308016b30be9a34e506c2fe47a763243de4a57848f1b0",
-  "SEMANTIC_HASH": "0afb91f35f0f757be11393d277c8421062c42fe2e2904f64b020ebfedfd938c8"
+  "MEASUREMENT_HASH": "f0fbeac0b4f7153e51f149d5bd588d89c1ea5aac0876a1a07eca068f2930625e",
+  "SEMANTIC_HASH": "85bcceca55350c5f3b9a93ee2f1b5ea1cec90fda1ec96aeb02549a3a814636e1"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -3814,6 +3828,7 @@
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
    "C-MAPA-TESTES",
+   "C-MAPAV2-MEDIDOR",
    "C-MEDICAO",
    "C-PACOTE-CAMADAS",
    "C-PROVA-ASR-LOCAL",
@@ -3850,7 +3865,7 @@
    "C-V21-CRUZAMENTO",
    "C-V21-INGEST"
   ],
-  "COUNT": 64
+  "COUNT": 65
  },
  "EXPANDED": {
   "UNIVERSE_ID": "TOPOLOGY_EXPANDED_UNIVERSE",
@@ -3926,6 +3941,7 @@
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
    "C-MAPA-TESTES",
+   "C-MAPAV2-MEDIDOR",
    "C-MEDICAO",
    "C-NAVEGADOR",
    "C-ORQUESTRADOR",
@@ -3992,16 +4008,16 @@
    "V-LINKEDIN",
    "V-YOUTUBE"
   ],
-  "COUNT": 134
+  "COUNT": 135
  },
  "ARITMETICA": {
   "COLLECTION": 70,
-  "BOUNDARY": 64,
-  "SOMA": 134,
-  "EXPANDED": 134,
+  "BOUNDARY": 65,
+  "SOMA": 135,
+  "EXPANDED": 135,
   "FECHA": true,
   "INTERSECAO": [],
-  "RESUMO_CARTOES_NO_UNIVERSO": 134,
+  "RESUMO_CARTOES_NO_UNIVERSO": 135,
   "NOTA": "`RESUMO.CARTOES_NO_UNIVERSO` conta o EXPANDIDO, e sempre contou. O nome e anterior a esta missao e nao foi mudado aqui."
  },
  "EDGES": {
@@ -6157,6 +6173,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-BIBLIA--READS-->C-ESTRADA-PDF",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-BIBLIA--READS-->C-MAPAV2-MEDIDOR",
+    "FROM": "C-BIBLIA",
+    "TO": "C-MAPAV2-MEDIDOR",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/v2/scripts/medir_maquina.py",
+      "LINHA": 58,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-BIBLIA--READS-->C-MAPAV2-MEDIDOR",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -16466,89 +16504,11 @@
       "ASSERTION_PLANE": "CODE"
      },
      {
-      "FICHEIRO": "system-map/tests/test_impressao_da_arvore.py",
-      "LINHA": 199,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_papel_e_leitura_humana.py",
-      "LINHA": 49,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_papel_e_leitura_humana.py",
-      "LINHA": 51,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_quatro_planos.py",
-      "LINHA": 191,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_reconciliacao_do_universo.py",
-      "LINHA": 429,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_system_map.py",
-      "LINHA": 258,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
-      "FICHEIRO": "system-map/tests/test_system_map.py",
-      "LINHA": 507,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     },
-     {
       "FICHEIRO": "system-map/tests/test_system_map.py",
       "LINHA": 963,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-      "ASSERTION_PLANE": "CODE"
-     }
-    ]
-   },
-   {
-    "EDGE_ID": "C-MAPA-APP--READS-->C-TESTES",
-    "FROM": "C-MAPA-APP",
-    "TO": "C-TESTES",
-    "RELATION_TYPE": "READS",
-    "CATEGORIA": "PROOF",
-    "PROVEN_PLANE": "CODE",
-    "DECLARED": "UNKNOWN",
-    "CODE": "YES",
-    "OBSERVED": "UNKNOWN",
-    "PROVEN": "YES",
-    "EVIDENCE_BINDING": [
-     {
-      "FICHEIRO": "tests/test_observabilidade_estrada.py",
-      "LINHA": 382,
-      "SUPPORTS": "YES",
-      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-      "ASSERTION_EDGE_ID": "C-MAPA-APP--READS-->C-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -16801,6 +16761,36 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-VALIDADOR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPAV2-MEDIDOR",
+    "FROM": "C-MAPA-GERADOR",
+    "TO": "C-MAPAV2-MEDIDOR",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/v2/scripts/medir_maquina.py",
+      "LINHA": 67,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPAV2-MEDIDOR",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/v2/scripts/medir_maquina.py",
+      "LINHA": 68,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPAV2-MEDIDOR",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -17361,6 +17351,110 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-VALIDADOR--READS-->C-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-GERADOR",
+    "FROM": "C-MAPAV2-MEDIDOR",
+    "TO": "C-MAPAV2-GERADOR",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/v2/scripts/gerar_mapa.py",
+      "LINHA": 42,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-GERADOR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-TESTES",
+    "FROM": "C-MAPAV2-MEDIDOR",
+    "TO": "C-MAPAV2-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/v2/tests/red_team.py",
+      "LINHA": 27,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/v2/tests/testa_mapa.py",
+      "LINHA": 108,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-VALIDADOR",
+    "FROM": "C-MAPAV2-MEDIDOR",
+    "TO": "C-MAPAV2-VALIDADOR",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/v2/scripts/validar_mapa.py",
+      "LINHA": 37,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-VALIDADOR",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/v2/scripts/validar_mapa.py",
+      "LINHA": 77,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-VALIDADOR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-MEDIDOR",
+    "FROM": "C-MAPAV2-MODELO",
+    "TO": "C-MAPAV2-MEDIDOR",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "READ",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/v2/scripts/medir_maquina.py",
+      "LINHA": 57,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-MEDIDOR",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -20750,7 +20844,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/scan_repo.py",
-      "LINHA": 780,
+      "LINHA": 785,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPA-SCAN",
@@ -29233,12 +29327,12 @@
     ]
    }
   ],
-  "COUNT": 831
+  "COUNT": 836
  },
  "RESUMO": {
-  "CARTOES_NO_UNIVERSO": 134,
-  "CARTOES_AUDITADOS": 134,
-  "ARESTAS_RELACIONADAS": 831,
+  "CARTOES_NO_UNIVERSO": 135,
+  "CARTOES_AUDITADOS": 135,
+  "ARESTAS_RELACIONADAS": 836,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -29395,6 +29489,7 @@
    "C-LUGAR-COLETA",
    "C-MAPA-GERADOR",
    "C-MAPA-SCAN",
+   "C-MAPAV2-MEDIDOR",
    "C-PORTA-FONTE",
    "C-PROVA-ASR-LOCAL",
    "C-PROVA-AUDIO-ONLY",
@@ -29556,7 +29651,7 @@
    "CONTROL": 68,
    "DATA": 27,
    "PROOF": 317,
-   "READ": 162,
+   "READ": 167,
    "RULE": 127,
    "WRITE": 7
   },
@@ -30033,6 +30128,7 @@
     "provas/medir_admission_t3_atual.py",
     "provas/os_portoes_da_collection.py",
     "provas/valida_biblia.py",
+    "system-map/v2/scripts/medir_maquina.py",
     "tests/test_a_linhagem_do_ready.py",
     "tests/test_a_sala_de_espera_nao_tem_morada.py",
     "tests/test_biblia.py",
@@ -30049,7 +30145,7 @@
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 1,
-   "SAEM": 6,
+   "SAEM": 7,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -30533,6 +30629,7 @@
     ".github/workflows/system-map.yml"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/mapa-da-maquina-v2.yml",
     ".github/workflows/system-map-deploy-verify.yml"
    ],
    "SO_MEDEM_ESTE": [
@@ -30711,6 +30808,7 @@
     "provas/raw_entre_jobs.py",
     "provas/red_team_da_release_v1.py",
     "system-map/scripts/generate_system_map.py",
+    "system-map/v2/scripts/gerar_mapa.py",
     "tests/test_autorizacao_de_gasto.py",
     "tests/test_c10_6b_run_duravel.py",
     "tests/test_c10_8af_orcamento_financeiro.py",
@@ -32495,7 +32593,7 @@
     "pathlib"
    ],
    "ENTRAM": 16,
-   "SAEM": 7,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF",
     "READ",
@@ -32637,6 +32735,43 @@
    ],
    "CATEGORIAS_QUE_SAEM": [
     "PROOF"
+   ],
+   "PORQUE_SOZINHO": null,
+   "ORFAO_FALSO_NAS_VISTAS": [],
+   "GAP": null
+  },
+  {
+   "CARD_ID": "C-MAPAV2-MEDIDOR",
+   "NOME": "Medidor da máquina (V2)",
+   "FAMILIA": "F-GOVERNANCA",
+   "TERRITORIO": "Z-PROVA",
+   "KIND": "engine",
+   "STATUS": "PENDING",
+   "FICHEIROS": [
+    "system-map/v2/scripts/medir_maquina.py"
+   ],
+   "CHAMADORES_DE_RUNTIME": [],
+   "SO_MEDEM_ESTE": [
+    "system-map/v2/scripts/validar_mapa.py",
+    "system-map/v2/tests/testa_mapa.py"
+   ],
+   "DOCUMENTADO_COMO_CLI": [],
+   "E_ENTRYPOINT": false,
+   "ALCANCADO_POR_CORRIDA": false,
+   "RUNTIME_OBSERVADO": false,
+   "ESCREVE_EM": [],
+   "LE_DE": [
+    "__future__",
+    "pathlib"
+   ],
+   "ENTRAM": 3,
+   "SAEM": 3,
+   "CATEGORIAS_QUE_ENTRAM": [
+    "READ"
+   ],
+   "CATEGORIAS_QUE_SAEM": [
+    "PROOF",
+    "READ"
    ],
    "PORQUE_SOZINHO": null,
    "ORFAO_FALSO_NAS_VISTAS": [],
@@ -35725,7 +35860,7 @@
     "v_saude_da_rota",
     "x"
    ],
-   "ENTRAM": 152,
+   "ENTRAM": 151,
    "SAEM": 18,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"

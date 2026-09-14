@@ -1,0 +1,72 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# O MAPA DA MÁQUINA (V2) — o portão do candidato.
+#
+# Workflow SEPARADO do `system-map.yml` de propósito. O V2 é um candidato: se
+# partilhasse o portão do mapa oficial, um defeito do candidato reprovaria a
+# linha que já está de pé, e um defeito da linha de pé apagaria as provas do
+# candidato.
+#
+#     UM VEREDITO SOBRE DUAS PERGUNTAS NÃO RESPONDE A NENHUMA.
+#
+# O que ele prova, em três passos separados:
+#   1. o mapa commitado é o que esta árvore produz hoje (16 provas);
+#   2. as regras não afrouxaram, e o leigo responde às 20 perguntas;
+#   3. os 40 ataques do red team continuam repelidos.
+#
+# NÃO PUBLICA NADA. A publicação do preview é a integração Git da Vercel, que
+# já existe; criar aqui um segundo caminho de deploy seria criar infraestrutura
+# paralela para o mesmo destino.
+# ═══════════════════════════════════════════════════════════════════════════
+name: system-map-v2
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidato:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Sem dependências: só biblioteca padrão. Um mapa de arquitetura que
+      # precisa de pacote de terceiro para ser gerado tem uma dependência que
+      # ele próprio não consegue explicar.
+      - name: 1 · o mapa da máquina corresponde a esta árvore
+        run: python3 system-map/v2/scripts/validar_mapa.py
+
+      - name: 2 · as regras não afrouxaram, e o leigo responde
+        run: python3 system-map/v2/tests/testa_mapa.py
+
+      - name: 3 · o red team não encontra brecha
+        run: python3 system-map/v2/tests/red_team.py
+
+      - name: 4 · o que vai ser servido existe, e o mapa oficial não foi tocado
+        run: |
+          set -e
+          for f in index.html map.js map.css estado.gerado.json; do
+            test -s "italia-portale/client/system-map-v2/$f" \
+              || { echo "::error::falta italia-portale/client/system-map-v2/$f"; exit 1; }
+          done
+          # A app carrega os tokens oficiais em `../_ds/`. Se esse caminho não
+          # existir no que é servido, a página sai sem a marca ADAMA.
+          test -f italia-portale/client/_ds/adama-brandwell/tokens/colors.css \
+            || { echo "::error::o Design System não está no caminho servido"; exit 1; }
+          # O mapa oficial continua a ser o de `/system-map/`, e este portão não
+          # o substitui nem o toca.
+          test -f italia-portale/client/system-map/index.html \
+            || { echo "::error::o mapa oficial desapareceu"; exit 1; }
+          echo "CANDIDATO_SERVIVEL=YES · OFICIAL_INTACTO=YES"

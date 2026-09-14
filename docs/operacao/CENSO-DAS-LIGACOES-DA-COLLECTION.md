@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  709a1e20c3762f51b3288f12cd17d26c108b022e
-BRANCH           claude/system-map-current-collection-truth-v2
-GERADO_EM        2026-09-14T12:56:11+00:00
+HEAD_DA_MEDICAO  ac54e70dee008943620417b50ae3f68529b936a1
+BRANCH           claude/system-map-v2-canonical-rebuild
+GERADO_EM        2026-09-14T15:41:32+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -492,13 +492,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 6 |
-| **arestas provadas** | entram 1 · saem 6 |
+| **arestas no mapa** | entram 1 · saem 7 |
+| **arestas provadas** | entram 1 · saem 7 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 7 |
+| **prova das ligações** | CODE 8 |
 | **lei da Bíblia** | COL-LAW-005 · COLETAR != ADMITIR != JULGAR |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 

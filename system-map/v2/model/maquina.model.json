@@ -1,0 +1,1524 @@
+{
+  "SCHEMA": "sintonia.system-map-v2.model/2",
+  "LEI": "Este ficheiro é a ÚNICA entrada escrita por gente. Declara CONCEITOS da máquina e aponta, para cada um, a AUTORIDADE que o sustenta. Não contém estado: DECLARED, CODE, OBSERVED e BIBLE são calculados pelo gerador a partir da medição. Escrever um estado aqui seria maquiagem.",
+  "AS_QUATRO_VERDADES": "COL-LAW-102 — DECLARED (o contrato diz que pode existir) · CODE (há implementação que permite) · OBSERVED (uma execução real provou) · BIBLE (a Bíblia exige). Nunca se fundem.",
+  "ARTEFATO_GERADO_NAO_E_AUTORIDADE": "COL-LAW-047. Um ficheiro produzido pelo próprio sistema do mapa pode provar «o scanner viu isto»; nunca prova «isto é a arquitetura». O validador recusa.",
+  "FAMILIAS": [
+    {
+      "id": "F-ENTRADA",
+      "nome": "DE ONDE VEM",
+      "frase": "O que a casa sabe onde encontrar, e o pedido que manda ir buscar."
+    },
+    {
+      "id": "F-COLETA",
+      "nome": "COLETA",
+      "frase": "Trazer para dentro o que existe lá fora, e guardar a prova."
+    },
+    {
+      "id": "F-ESPERA",
+      "nome": "A ESPERA",
+      "frase": "O que já foi admitido, à espera. Nada é transformado aqui."
+    },
+    {
+      "id": "F-INTELIGENCIA",
+      "nome": "INTELIGÊNCIA",
+      "frase": "Transformar o que foi guardado em caso com dono, lugar e momento."
+    },
+    {
+      "id": "F-ENTREGA",
+      "nome": "ENTREGA",
+      "frase": "Provar, e levar até quem precisa — sem deixar passar o que está errado."
+    }
+  ],
+  "DEPARTAMENTOS": [
+    {
+      "id": "D-ENTRADA",
+      "ordem": 1,
+      "familia": "F-ENTRADA",
+      "nome": "DE ONDE VEM, E QUEM PEDE",
+      "frase": "As fontes que a casa conhece, e o pedido que dispara uma coleta.",
+      "papel_de_fluxo": "SOURCE",
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "FONTE, ENDPOINT, ROTA, EXECUTOR, ITEM E ARTEFATO SAO SEIS COISAS"
+      }
+    },
+    {
+      "id": "D-COLETA",
+      "ordem": 2,
+      "familia": "F-COLETA",
+      "nome": "A COLETA",
+      "frase": "Quem sai buscar, o que traz, onde o original fica, e a porta que decide se entra.",
+      "papel_de_fluxo": "FLUXO",
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "COLETAR NAO E ADMITIR NEM JULGAR"
+      }
+    },
+    {
+      "id": "D-ESPERA",
+      "ordem": 3,
+      "familia": "F-ESPERA",
+      "nome": "A SALA DE ESPERA",
+      "frase": "Onde o material admitido espera. Não é coleta, não é inteligência.",
+      "papel_de_fluxo": "FLUXO",
+      "declarado_por": {
+        "file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+        "anchor": "Sala de Espera"
+      }
+    },
+    {
+      "id": "D-INTELIGENCIA",
+      "ordem": 4,
+      "familia": "F-INTELIGENCIA",
+      "nome": "A INTELIGÊNCIA",
+      "frase": "Onde o material vira caso: as leis, os cruzamentos e os sinais.",
+      "papel_de_fluxo": "FLUXO",
+      "declarado_por": {
+        "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+        "anchor": "O contrato que impede a inteligencia de comecar antes de a coleta fechar"
+      }
+    },
+    {
+      "id": "D-PROVAS",
+      "ordem": 5,
+      "familia": "F-ENTREGA",
+      "nome": "AS PROVAS E OS PORTÕES",
+      "frase": "O que separa «está escrito» de «está provado», e o que impede coisa errada de atravessar.",
+      "papel_de_fluxo": "FLUXO",
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "TODA AFIRMACAO DO MAPA TEM EVIDENCIA NAVEGAVEL"
+      }
+    },
+    {
+      "id": "D-PORTAL",
+      "ordem": 6,
+      "familia": "F-ENTREGA",
+      "nome": "O PORTAL",
+      "frase": "O que o cliente vê. Apresenta decisão já tomada; não recalcula nada.",
+      "papel_de_fluxo": "SINK",
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O MAPA NAO E FONTE DE VERDADE PRIMARIA"
+      }
+    }
+  ],
+  "CONCEITOS": [
+    {
+      "id": "M-FONTE",
+      "nivel": 1,
+      "departamento": "D-ENTRADA",
+      "parent": null,
+      "tipo": "acervo",
+      "nome": "As fontes",
+      "papel_canonico": "SOURCE",
+      "frase": "Quem publica lá fora aquilo que a casa quer saber.",
+      "porque": "A fonte é estável; o endereço é substituível. Consulta-se o acervo antes de coletar, para não gastar uma coleta a descobrir o que já se sabia.",
+      "entra": "nada — é o começo de tudo",
+      "sai": "para o pedido e para a receita",
+      "dono": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "papel_de_fluxo": "SOURCE",
+      "leis": [
+        "COL-LAW-009",
+        "COL-LAW-205",
+        "COL-LAW-208",
+        "COL-LAW-053"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "A FONTE E ESTAVEL; O ENDPOINT E SUBSTITUIVEL"
+      },
+      "codigo": [
+        "fontes/**",
+        "docs/fontes/ATLAS-DE-FONTES-EAME.md"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/sources.generated.json",
+          "caminho": "COUNTS.sources",
+          "espera": ">0",
+          "prova": "o cadastro de fontes foi medido e tem linhas"
+        }
+      ]
+    },
+    {
+      "id": "M-PEDIDO",
+      "nivel": 1,
+      "departamento": "D-ENTRADA",
+      "parent": null,
+      "tipo": "contrato",
+      "nome": "O pedido",
+      "papel_canonico": "REQUEST",
+      "frase": "Uma frase que diz O QUE se quer, sem dizer COMO se faz.",
+      "porque": "Um pedido não conhece implementação. Trocar o executor por outro melhor não pode obrigar quem pede a mudar o pedido.",
+      "entra": "uma pessoa, ou o relógio",
+      "sai": "para o orquestrador",
+      "dono": "pedido/pedido.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-010",
+        "COL-LAW-045"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "UM PEDIDO NAO CONHECE IMPLEMENTACAO"
+      },
+      "codigo": [
+        "pedido/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.REQUEST.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real o recibo guardou o pedido que a originou"
+        }
+      ],
+      "etapa_medida": "REQUEST"
+    },
+    {
+      "id": "M-ORQUESTRADOR",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "O orquestrador",
+      "papel_canonico": "ORCHESTRATOR",
+      "frase": "Quem escolhe o caminho para atender o pedido — e não transporta o dado.",
+      "porque": "Um único dono da orquestração. Ele controla; quem carrega o dado é o executor. Misturar os dois faz o controlo e a carga partilharem o mesmo defeito.",
+      "entra": "o pedido",
+      "sai": "manda o executor sair, e assina o recibo da corrida",
+      "dono": "orquestrador/orquestrador.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-011",
+        "COL-LAW-012",
+        "COL-LAW-015"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O ORQUESTRADOR CONTROLA, NAO TRANSPORTA DADO"
+      },
+      "codigo": [
+        "orquestrador/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.ORCHESTRATOR.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real a receita foi resolvida e nomeou o executor e a rota"
+        }
+      ],
+      "etapa_medida": "ORCHESTRATOR"
+    },
+    {
+      "id": "M-EXECUTOR",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "acao",
+      "nome": "Quem sai e traz",
+      "papel_canonico": "EXECUTOR",
+      "frase": "A peça da casa que vai buscar o material lá fora.",
+      "porque": "Todo executor tem um contrato comum: declara o que sabe percorrer, o que traz, e o que é colheita e o que é suporte.",
+      "entra": "a ordem do orquestrador",
+      "sai": "a colheita, e o original para preservar",
+      "dono": "coleta/",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-013",
+        "COL-LAW-014",
+        "COL-LAW-505",
+        "COL-LAW-009"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "TODO EXECUTOR TEM UM CONTRATO COMUM"
+      },
+      "codigo": [
+        "coleta/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.EXECUTOR.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real o executor correu, com versão, e devolveu colheita"
+        }
+      ],
+      "etapa_medida": "EXECUTOR"
+    },
+    {
+      "id": "M-RUN",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "registo",
+      "nome": "A corrida",
+      "papel_canonico": "RUN",
+      "frase": "Cada ida ao mundo tem identidade própria, e um recibo que diz o que aconteceu.",
+      "porque": "O que não tem recibo não aconteceu: não se audita, não se repete e não se cobra. E a corrida é história — história não se reescreve.",
+      "entra": "a decisão do orquestrador",
+      "sai": "o recibo, que liga o conteúdo à execução que o trouxe",
+      "dono": "data/samples/RUN-MANIFEST.json",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-022",
+        "COL-LAW-106",
+        "COL-LAW-209",
+        "COL-LAW-210",
+        "COL-LAW-211"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "TODA CORRIDA TEM IDENTIDADE"
+      },
+      "codigo": [
+        "data/collection-ledger/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/fluxo.generated.json",
+          "caminho": "CORRIDAS",
+          "espera": ">0",
+          "prova": "há corridas reais no ledger da coleta, com início, fim e país de saída"
+        },
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.RUN.OBSERVED",
+          "espera": true,
+          "prova": "a corrida ficou registada no banco"
+        }
+      ],
+      "etapa_medida": "RUN"
+    },
+    {
+      "id": "M-RAW",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "artefato",
+      "nome": "O original",
+      "papel_canonico": "RAW_OBSERVATION",
+      "frase": "O que a fonte entregou, guardado exatamente como veio — antes de qualquer transformação.",
+      "porque": "Se o leitor quebrar depois de o original estar guardado, a evidência sobrevive e o leitor conserta-se. Na ordem inversa, um leitor com defeito apaga a única cópia.",
+      "entra": "o que o executor trouxe",
+      "sai": "para o armazém, e para a derivação",
+      "dono": "coleta/coletor.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-006",
+        "COL-LAW-007",
+        "COL-LAW-501",
+        "COL-LAW-311"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "PRESERVA O ORIGINAL"
+      },
+      "codigo": [
+        "coleta/coletor.py",
+        "guarda/preservar_documento.py"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.RAW.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real nasceram originais ligados àquela corrida"
+        },
+        {
+          "artefato": "system-map/data/fluxo.generated.json",
+          "caminho": "OBSERVACOES",
+          "espera": ">0",
+          "prova": "o ledger tem observações registadas"
+        }
+      ],
+      "etapa_medida": "RAW"
+    },
+    {
+      "id": "M-STORAGE",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "armazem",
+      "nome": "O armazém",
+      "papel_canonico": "STORAGE_OBJECT",
+      "frase": "Onde os bytes do original ficam pousados — o endereço, não a identidade.",
+      "porque": "Armazenamento não é estado lógico. O caminho onde um ficheiro está não diz o que ele é, nem se ele foi aceite.",
+      "entra": "os bytes do original",
+      "sai": "o endereço de onde relê-los",
+      "dono": "guarda/",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-044",
+        "COL-LAW-311",
+        "COL-LAW-206"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "ARMAZENAMENTO NAO E ESTADO LOGICO"
+      },
+      "codigo": [
+        "guarda/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.STORAGE.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real os objetos de armazenamento ficaram ligados à corrida"
+        }
+      ],
+      "etapa_medida": "STORAGE"
+    },
+    {
+      "id": "M-DERIVED",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "artefato",
+      "nome": "O derivado",
+      "papel_canonico": "DERIVED",
+      "frase": "O que se tira de dentro do original: o texto de um PDF, a fala de um vídeo.",
+      "porque": "Derivado não é original, e não ocupa o mesmo campo. Um extrato de navegador é o que o navegador mostrou, não o que o servidor entregou — tratá-lo como original faz interpretação passar por evidência.",
+      "entra": "o original preservado",
+      "sai": "para a estruturação",
+      "dono": "coleta/derivacao_forward.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-007",
+        "COL-LAW-008",
+        "COL-LAW-207"
+      ],
+      "declarado_por": {
+        "file": "docs/operacao/A-CASA-DO-DERIVADO.md",
+        "anchor": "derivado"
+      },
+      "codigo": [
+        "coleta/derivacao_forward.py",
+        "coleta/executor_texto_de_pdf.py",
+        "data/derivados/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.DERIVED.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real nasceram derivados ligados àquela corrida"
+        },
+        {
+          "artefato": "system-map/data/linhagem.observada.json",
+          "caminho": "DERIVED_REUSE_LINEAGE",
+          "espera": "ALREADY_PROVEN",
+          "prova": "a linhagem do derivado até ao original foi medida no banco"
+        }
+      ],
+      "etapa_medida": "DERIVED"
+    },
+    {
+      "id": "M-STRUCTURED",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "artefato",
+      "nome": "O documento organizado",
+      "papel_canonico": "STRUCTURED",
+      "frase": "O derivado posto em forma: campos com nome, prontos para alguém decidir sobre eles.",
+      "porque": "Documento pronto não é facto pronto. Organizar é dar forma — não é ainda afirmar nada sobre o mundo.",
+      "entra": "o derivado",
+      "sai": "para a porta de admissão",
+      "dono": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-502",
+        "COL-LAW-201"
+      ],
+      "declarado_por": {
+        "file": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+        "anchor": "STRUCTURED"
+      },
+      "codigo": [
+        "coleta/rota_forward_documento.py"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.STRUCTURED.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real nasceram documentos estruturados"
+        },
+        {
+          "artefato": "system-map/data/rota-m2.observada.json",
+          "caminho": "END_TO_END",
+          "espera": true,
+          "prova": "a rota do documento atravessou de ponta a ponta, medida no banco"
+        }
+      ],
+      "etapa_medida": "STRUCTURED"
+    },
+    {
+      "id": "M-ADMISSION",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "porta",
+      "nome": "A porta de admissão",
+      "papel_canonico": "ADMISSION",
+      "frase": "A peneira: para cada item e cada universo — SIM, NÃO, NÃO SEI ou NÃO SE APLICA.",
+      "porque": "Coletar não é admitir nem julgar. O coletor traz; a porta decide, uma vez por par (item, universo) — e guarda o motivo de cada não.",
+      "entra": "o documento organizado",
+      "sai": "o que passou vai para a sala de espera; o que não passou fica no livro",
+      "dono": "admissao/admissao.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-005",
+        "COL-LAW-042",
+        "COL-LAW-038",
+        "COL-LAW-035"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "A LEI DA ADMISSAO"
+      },
+      "codigo": [
+        "admissao/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.ADMISSION.OBSERVED",
+          "espera": true,
+          "prova": "numa corrida real a porta julgou os itens e escreveu o resultado"
+        }
+      ],
+      "etapa_medida": "ADMISSION"
+    },
+    {
+      "id": "M-SCRAP",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "capacidade",
+      "nome": "SINTONIA SCRAP",
+      "papel_canonico": "ACQUISITION_CAPABILITY",
+      "frase": "A capacidade especializada de ir buscar em canais sociais — despachável sem ninguém estar na máquina.",
+      "porque": "É uma capacidade de aquisição DENTRO da coleta, não uma segunda coleta. A rota mais barata capaz vem primeiro; a paga é escalada, e tem de se explicar.",
+      "entra": "um despacho",
+      "sai": "material colhido, que segue o mesmo caminho canónico",
+      "dono": ".github/workflows/sintonia-scrap.yml",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-018",
+        "COL-LAW-019",
+        "COL-LAW-014"
+      ],
+      "declarado_por": {
+        "file": "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
+        "anchor": "SCRAP"
+      },
+      "codigo": [
+        "coleta/scrap_colheita.py",
+        "coleta/scrap_executor.py",
+        "coleta/scrap_registo.py",
+        ".github/workflows/sintonia-scrap.yml",
+        ".github/workflows/scrap-social.yml"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-SCRAP-ROTAS",
+      "nivel": 2,
+      "departamento": "D-COLETA",
+      "parent": "M-SCRAP",
+      "tipo": "capacidade",
+      "nome": "As rotas e os adaptadores",
+      "papel_canonico": "ROUTE",
+      "frase": "Por que meio se chega a cada canal: a rota pública, o navegador, a rota paga.",
+      "porque": "Rota não é fonte nem executor. A mesma fonte pode ser alcançada por rotas diferentes, e o custo de cada uma é diferente.",
+      "entra": "o pedido de aquisição",
+      "sai": "o material bruto do canal",
+      "dono": "coleta/scrap_fornecedores.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-009",
+        "COL-LAW-018"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "A ROTA MAIS BARATA CAPAZ VEM PRIMEIRO"
+      },
+      "codigo": [
+        "coleta/scrap_http.py",
+        "coleta/scrap_fornecedores.py",
+        "coleta/scrap_capacidades.py",
+        "coleta/adaptador_*.py"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-REGUAS",
+      "nivel": 1,
+      "departamento": "D-COLETA",
+      "parent": null,
+      "tipo": "lei",
+      "nome": "As réguas que carimbam",
+      "papel_canonico": "RULE",
+      "frase": "As leis que trabalham no momento em que o item entra: de onde veio, quando foi, onde é o facto.",
+      "porque": "Procedência, tempo e geografia só valem se forem postos na coleta. Depois é tarde: o dado já entrou sem eles, e a origem não se recupera.",
+      "entra": "o item a ser colhido",
+      "sai": "o mesmo item, carimbado",
+      "dono": "regras/",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-031",
+        "COL-LAW-032",
+        "COL-LAW-033",
+        "COL-LAW-034"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "LEI DE PROCEDENCIA"
+      },
+      "codigo": [
+        "regras/**",
+        "leis/**"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-READY",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "bandeja",
+      "nome": "A unidade pronta",
+      "papel_canonico": "READY",
+      "frase": "O material que a porta admitiu, posto na bandeja à espera da inteligência.",
+      "porque": "READY não é «o script terminou». É um estado declarado, com campos próprios, sobre material que passou na porta.",
+      "entra": "o que a porta admitiu",
+      "sai": "para a inteligência",
+      "dono": "admissao/admissao.py :: pronto_para_inteligencia()",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-043",
+        "COL-LAW-042"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "READY_FOR_INTELIGENCIA significa que os contratos obrigatorios"
+      },
+      "codigo": [],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/fronteira.observada.json",
+          "caminho": "READY_PRODUZIDO",
+          "espera": true,
+          "prova": "teria de existir pelo menos um READY produzido"
+        }
+      ],
+      "codigo_em": [
+        {
+          "file": "admissao/admissao.py",
+          "simbolo": "def pronto_para_inteligencia"
+        }
+      ],
+      "etapa_medida": "READY"
+    },
+    {
+      "id": "M-SALA",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "bandeja",
+      "nome": "A sala de espera",
+      "papel_canonico": "WAITING_ROOM",
+      "frase": "O lugar onde as unidades prontas ficam até a inteligência as vir buscar.",
+      "porque": "Entre colher e analisar há uma faixa neutra. Enquanto ela não existir de facto, a coleta não tem onde pousar o que admitiu.",
+      "entra": "as unidades prontas",
+      "sai": "para a inteligência",
+      "dono": "admissao/sala_de_espera.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-043"
+      ],
+      "declarado_por": {
+        "file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+        "anchor": "Sala de Espera"
+      },
+      "codigo": [
+        "admissao/sala_de_espera.py"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "ESTRADA.WAITING_ROOM.OBSERVED",
+          "espera": true,
+          "prova": "teria de haver ficheiros na sala depois de uma corrida"
+        }
+      ],
+      "etapa_medida": "WAITING_ROOM"
+    },
+    {
+      "id": "M-BANCO",
+      "nivel": 1,
+      "departamento": "D-ESPERA",
+      "parent": null,
+      "tipo": "armazem",
+      "nome": "A memória operacional",
+      "papel_canonico": "OPERATIONAL_MEMORY",
+      "frase": "O banco onde a coleta guarda o que colheu, entre uma corrida e outra.",
+      "porque": "O banco guarda; não julga. E ficheiro de migração no Git não é estado aplicado no banco — são duas coisas, e confundi-las faz o mapa mentir sobre o que está de pé.",
+      "entra": "o que a coleta produziu",
+      "sai": "consulta para quem precisar",
+      "dono": "supabase/",
+      "papel_de_fluxo": "TERMINAL",
+      "leis": [
+        "COL-LAW-304",
+        "COL-LAW-305",
+        "COL-LAW-308",
+        "COL-LAW-306"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O SUPABASE GUARDA; NAO JULGA"
+      },
+      "codigo": [
+        "supabase/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/rota-m2.observada.json",
+          "caminho": "ETAPAS_OBSERVADAS",
+          "espera": "nao-vazio",
+          "prova": "as etapas da rota foram lidas do próprio banco"
+        }
+      ]
+    },
+    {
+      "id": "M-TRAVA",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "lei",
+      "nome": "A trava da inteligência",
+      "papel_canonico": "GATE",
+      "frase": "O contrato que impede a inteligência de começar antes de a coleta fechar a fundação.",
+      "porque": "Construir interpretação sobre uma coleta que ainda não sabe guardar a verdade é construir o andar de cima antes da fundação — e depois ninguém volta a mexer na fundação.",
+      "entra": "a medição do estado da coleta",
+      "sai": "autorização, ou bloqueio",
+      "dono": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "papel_de_fluxo": "TERMINAL",
+      "leis": [
+        "COL-LAW-050"
+      ],
+      "declarado_por": {
+        "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+        "anchor": "COLLECTION_FOUNDATION_CLOSED"
+      },
+      "codigo": [
+        "provas/trava_da_inteligencia_morde.py",
+        "docs/operacao/TRAVA-DA-INTELIGENCIA.json"
+      ],
+      "observado_por": [
+        {
+          "artefato": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+          "caminho": "COLLECTION_FOUNDATION_CLOSED",
+          "espera": "SIM",
+          "prova": "a trava só abre quando a fundação da coleta fechar"
+        }
+      ]
+    },
+    {
+      "id": "M-MOTOR",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "O motor de casos",
+      "papel_canonico": "INTELLIGENCE_ENGINE",
+      "frase": "A cadeia que transforma material guardado em caso com dono, lugar e momento.",
+      "porque": "A ordem é lei, não convenção: o passo que apaga sem avisar é pior que o passo que falha — o que falha, vê-se.",
+      "entra": "o material da sala de espera",
+      "sai": "o pacote fechado",
+      "dono": "motor/",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-050"
+      ],
+      "declarado_por": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "a inteligencia tem UM dono"
+      },
+      "codigo": [
+        "motor/**"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-CRUZAMENTOS",
+      "nivel": 2,
+      "departamento": "D-INTELIGENCIA",
+      "parent": "M-MOTOR",
+      "tipo": "motor",
+      "nome": "Os cruzamentos",
+      "papel_canonico": "CROSSING",
+      "frase": "Onde duas camadas diferentes se encontram sobre a mesma chave.",
+      "porque": "Um caso de convergência cruza campo, ciência, clima, regulatório, portfólio e concorrência — e nenhuma dessas camadas sozinha sustenta a conclusão.",
+      "entra": "os registos já normalizados",
+      "sai": "os pares que se tocam",
+      "dono": "motor/pacote_convergencia.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-048"
+      ],
+      "declarado_por": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "Um caso de convergencia cruza"
+      },
+      "codigo": [
+        "motor/pacote_convergencia.py",
+        "motor/v21_crossings.py"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-SINAIS",
+      "nivel": 2,
+      "departamento": "D-INTELIGENCIA",
+      "parent": "M-MOTOR",
+      "tipo": "motor",
+      "nome": "Os sinais e os achados",
+      "papel_canonico": "SIGNAL_FINDING",
+      "frase": "O que merece ser investigado primeiro — e nunca «oportunidade de venda».",
+      "porque": "A saída é prioridade a investigar. Chamar-lhe venda seria transformar um índice de exposição relativa numa afirmação económica que ninguém mediu.",
+      "entra": "os cruzamentos",
+      "sai": "os casos, cada um com o seu estado",
+      "dono": "motor/v21_oportunidades.py",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-201"
+      ],
+      "declarado_por": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "PRIORITY TO INVESTIGATE"
+      },
+      "codigo": [
+        "motor/v21_oportunidades.py",
+        "motor/v21_comercial.py"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-LACUNA",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "retorno",
+      "nome": "A falta de coleta",
+      "papel_canonico": "COLLECTION_GAP",
+      "frase": "Quando a inteligência descobre que lhe falta material, ela pede nova coleta — pela porta da frente.",
+      "porque": "Pedir é diferente de ir buscar. A inteligência não chama o coletor: ela faz um pedido, e o pedido entra pelo caminho canónico como qualquer outro.",
+      "entra": "a constatação de que falta material",
+      "sai": "um pedido de coleta",
+      "dono": "NÃO SEI",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-010",
+        "COL-LAW-021"
+      ],
+      "declarado_por": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "COLLECT MORE"
+      },
+      "codigo": [],
+      "observado_por": []
+    },
+    {
+      "id": "M-PACOTE",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "artefato",
+      "nome": "O pacote canónico",
+      "papel_canonico": "PACKAGE",
+      "frase": "O artefato fechado que sai da inteligência — derivado e reproduzível, nunca dono da lei.",
+      "porque": "Contrato tem um dono; o retrato é derivado. Um artefato gerado que passe a mandar seria uma segunda verdade.",
+      "entra": "do motor, na linhagem que tem o direito de gerar",
+      "sai": "para o portão da build",
+      "dono": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-047",
+        "COL-LAW-201"
+      ],
+      "declarado_por": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "EXPECTED_BUILD_ID"
+      },
+      "codigo": [
+        "pacote/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+          "caminho": "EXPECTED_BUILD_ID",
+          "espera": "nao-vazio",
+          "prova": "o contrato nomeia a identidade do pacote que se espera"
+        }
+      ]
+    },
+    {
+      "id": "M-PORTAO",
+      "nivel": 1,
+      "departamento": "D-PROVAS",
+      "parent": null,
+      "tipo": "portao",
+      "nome": "O portão da entrega",
+      "papel_canonico": "GATE",
+      "frase": "O único ponto por onde o pacote atravessa para a tela — e ele fecha quando a procedência não se prova.",
+      "porque": "Um portão que avisa é um portão que se ignora na sexta à noite. Se a procedência não se prova, a build para.",
+      "entra": "o pacote",
+      "sai": "autorização para atravessar, ou a build parada",
+      "dono": "italia-portale/audit/build-gate.mjs",
+      "papel_de_fluxo": "FLUXO",
+      "leis": [
+        "COL-LAW-314"
+      ],
+      "declarado_por": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "FAIL_CLOSED"
+      },
+      "codigo": [
+        "italia-portale/audit/build-gate.mjs",
+        "portoes/**"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-PROVAS",
+      "nivel": 1,
+      "departamento": "D-PROVAS",
+      "parent": null,
+      "tipo": "prova",
+      "nome": "As provas executáveis",
+      "papel_canonico": "VALIDATION",
+      "frase": "Os programas que medem a máquina e escrevem o que viram — incluindo quando ela falha.",
+      "porque": "Toda afirmação importante tem de carregar evidência que se possa abrir. E teste que nunca viu vermelho não é teste.",
+      "entra": "a máquina",
+      "sai": "medições que o mapa cita como prova",
+      "dono": "provas/",
+      "papel_de_fluxo": "TERMINAL",
+      "leis": [
+        "COL-LAW-112",
+        "COL-LAW-110",
+        "COL-LAW-111"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "TODA AFIRMACAO DO MAPA TEM EVIDENCIA NAVEGAVEL"
+      },
+      "codigo": [
+        "provas/**",
+        "tests/**"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/pedido.observado.json",
+          "caminho": "RUN_ID",
+          "espera": "nao-vazio",
+          "prova": "uma prova executável mediu uma corrida real e nomeou-a"
+        }
+      ]
+    },
+    {
+      "id": "M-MAPA",
+      "nivel": 1,
+      "departamento": "D-PROVAS",
+      "parent": null,
+      "tipo": "instrumento",
+      "nome": "O mapa da máquina",
+      "papel_canonico": "OBSERVER",
+      "frase": "O instrumento que observa a máquina e a desenha — e que não pode inventar o que observa.",
+      "porque": "O mapa não é fonte de verdade primária. Ele lê as autoridades e mede o repositório; quando declara a própria medição como lei, deixa de observar.",
+      "entra": "as autoridades e o repositório",
+      "sai": "um desenho navegável, e um portão que reprova quando ele mente",
+      "dono": "system-map/",
+      "papel_de_fluxo": "INSTRUMENTO",
+      "leis": [
+        "COL-LAW-047",
+        "COL-LAW-101",
+        "COL-LAW-102",
+        "COL-LAW-109"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O MAPA NAO E FONTE DE VERDADE PRIMARIA"
+      },
+      "codigo": [
+        "system-map/scripts/**",
+        "system-map/v2/scripts/**",
+        "system-map/v2/tests/**"
+      ],
+      "observado_por": []
+    },
+    {
+      "id": "M-CASCO",
+      "nivel": 1,
+      "departamento": "D-PORTAL",
+      "parent": null,
+      "tipo": "superficie",
+      "nome": "O casco do portal",
+      "papel_canonico": "SURFACE",
+      "frase": "A casca: a navegação, os idiomas e as páginas que seguram as ferramentas.",
+      "porque": "A tela apresenta decisão já tomada. Ela não recalcula nada, e não pode passar a definir a arquitetura anterior a ela.",
+      "entra": "o pacote embarcado",
+      "sai": "as telas que o cliente abre",
+      "dono": "italia-portale/client/portale.html",
+      "papel_de_fluxo": "SINK",
+      "leis": [
+        "COL-LAW-316"
+      ],
+      "declarado_por": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O MAPA MOSTRA RESPONSABILIDADE, NAO SCHEMA"
+      },
+      "codigo": [
+        "italia-portale/client/portale.html",
+        "italia-portale/client/italy-app-model.js",
+        "italia-portale/client/italy-i18n.js"
+      ],
+      "observado_por": [
+        {
+          "artefato": "system-map/data/casco.generated.json",
+          "caminho": "COUNTS.ferramentas",
+          "espera": ">0",
+          "prova": "as ferramentas do portal foram medidas na própria tela"
+        }
+      ]
+    },
+    {
+      "id": "M-MOTOR-V2-LEGADO",
+      "nivel": 1,
+      "departamento": "D-INTELIGENCIA",
+      "parent": null,
+      "tipo": "motor",
+      "nome": "A cadeia V2 (legado)",
+      "papel_canonico": "LEGACY",
+      "frase": "A geração anterior do motor, antes da V2.1.",
+      "porque": "Fica no histórico porque a sua ordem é conhecimento; apagá-la perderia a razão de cada passo. Mas não é a rota de hoje.",
+      "entra": "—",
+      "sai": "—",
+      "dono": "motor/",
+      "papel_de_fluxo": "LEGADO",
+      "legacy": true,
+      "leis": [],
+      "declarado_por": {
+        "file": "AGENTS.md",
+        "anchor": "legacy"
+      },
+      "codigo": [
+        "motor/v2_*.py"
+      ],
+      "observado_por": []
+    }
+  ],
+  "LIGACOES": [
+    {
+      "de": "D-ENTRADA",
+      "para": "D-COLETA",
+      "nivel": 0,
+      "tipo": "CONTROL",
+      "significado": "o pedido manda a coleta ir buscar",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "UM PEDIDO NAO CONHECE IMPLEMENTACAO"
+      },
+      "codigo": {
+        "file": "orquestrador/orquestrador.py",
+        "contem": "pedido"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.ORCHESTRATOR.OBSERVED",
+        "espera": true,
+        "prova": "numa corrida real o pedido chegou ao orquestrador e resolveu-se numa receita"
+      }
+    },
+    {
+      "de": "D-COLETA",
+      "para": "D-ESPERA",
+      "nivel": 0,
+      "tipo": "DATA",
+      "significado": "o que a porta admitiu vai para a sala de espera",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "READY_FOR_INTELIGENCIA significa que os contratos obrigatorios"
+      },
+      "codigo": {
+        "file": "admissao/admissao.py",
+        "contem": "pronto_para_inteligencia"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.READY.OBSERVED",
+        "espera": true,
+        "prova": "teria de haver unidades prontas produzidas por uma corrida"
+      }
+    },
+    {
+      "de": "D-ESPERA",
+      "para": "D-INTELIGENCIA",
+      "nivel": 0,
+      "tipo": "DATA",
+      "significado": "a inteligência vem buscar o que está pronto",
+      "declarada": {
+        "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+        "anchor": "SO DEPOIS interpretar"
+      },
+      "codigo": null,
+      "observada": null
+    },
+    {
+      "de": "D-INTELIGENCIA",
+      "para": "D-PROVAS",
+      "nivel": 0,
+      "tipo": "DATA",
+      "significado": "o pacote só atravessa se provar de onde veio",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "atravessar a fronteira do site"
+      },
+      "codigo": {
+        "file": "italia-portale/audit/build-gate.mjs",
+        "contem": "EXPECTED_BUILD_ID"
+      },
+      "observada": null
+    },
+    {
+      "de": "D-PROVAS",
+      "para": "D-PORTAL",
+      "nivel": 0,
+      "tipo": "DATA",
+      "significado": "o que passou no portão chega à tela",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "FAIL_CLOSED"
+      },
+      "codigo": {
+        "file": "italia-portale/client/italy-app-model.js",
+        "contem": "ITALY_HANDOFF_V21"
+      },
+      "observada": {
+        "artefato": "system-map/data/casco.generated.json",
+        "caminho": "COUNTS.ferramentas",
+        "espera": ">0",
+        "prova": "as ferramentas que o cliente abre foram medidas na tela servida"
+      }
+    },
+    {
+      "de": "D-INTELIGENCIA",
+      "para": "D-ENTRADA",
+      "nivel": 0,
+      "tipo": "CONTROL",
+      "retorno": true,
+      "significado": "quando falta material, a inteligência pede nova coleta",
+      "declarada": {
+        "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+        "anchor": "COLLECT MORE"
+      },
+      "codigo": null,
+      "observada": null
+    },
+    {
+      "de": "M-FONTE",
+      "para": "M-PEDIDO",
+      "nivel": 1,
+      "tipo": "READ",
+      "significado": "quem pede escolhe o assunto a partir do que a casa já conhece",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O SOURCE REGISTRY E A MEMORIA DA COLETA"
+      },
+      "codigo": {
+        "file": "pedido/receitas.py",
+        "contem": "sources"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.REQUEST.OBSERVED",
+        "espera": true,
+        "prova": "o pedido observado nomeia a fonte que pediu"
+      }
+    },
+    {
+      "de": "M-PEDIDO",
+      "para": "M-ORQUESTRADOR",
+      "nivel": 1,
+      "tipo": "CONTROL",
+      "significado": "quem pede diz o que quer; o orquestrador decide como",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "UM UNICO DONO DA ORQUESTRACAO"
+      },
+      "codigo": {
+        "file": "orquestrador/orquestrador.py",
+        "contem": "pedido"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.ORCHESTRATOR.OBSERVED",
+        "espera": true,
+        "prova": "a receita foi resolvida a partir do pedido, numa corrida real"
+      }
+    },
+    {
+      "de": "M-ORQUESTRADOR",
+      "para": "M-EXECUTOR",
+      "nivel": 1,
+      "tipo": "CONTROL",
+      "significado": "o orquestrador manda o executor sair",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O ORQUESTRADOR CONTROLA, NAO TRANSPORTA DADO"
+      },
+      "codigo": {
+        "file": "orquestrador/orquestrador.py",
+        "contem": "subprocess"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.EXECUTOR.OBSERVED",
+        "espera": true,
+        "prova": "o executor correu, com comando e versão registados"
+      }
+    },
+    {
+      "de": "M-ORQUESTRADOR",
+      "para": "M-RUN",
+      "nivel": 1,
+      "tipo": "WRITE",
+      "significado": "cada ida ao mundo ganha identidade e recibo",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "TODA CORRIDA TEM IDENTIDADE"
+      },
+      "codigo": {
+        "file": "orquestrador/orquestrador.py",
+        "contem": "RUN"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.RUN.OBSERVED",
+        "espera": true,
+        "prova": "a corrida ficou registada no banco, com estado e executor"
+      }
+    },
+    {
+      "de": "M-EXECUTOR",
+      "para": "M-RAW",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "o que o executor traz é preservado como veio, antes de tudo",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "PRESERVA O ORIGINAL"
+      },
+      "codigo": {
+        "file": "coleta/coletor.py",
+        "contem": "RAW"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.RAW.OBSERVED",
+        "espera": true,
+        "prova": "nasceram originais ligados à corrida"
+      }
+    },
+    {
+      "de": "M-RAW",
+      "para": "M-STORAGE",
+      "nivel": 1,
+      "tipo": "WRITE",
+      "significado": "os bytes do original ficam pousados num endereço",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "ARMAZENAMENTO NAO E ESTADO LOGICO"
+      },
+      "codigo": {
+        "file": "guarda/preservar_documento.py",
+        "contem": "storage"
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.STORAGE.OBSERVED",
+        "espera": true,
+        "prova": "os objetos de armazenamento ficaram ligados à corrida"
+      }
+    },
+    {
+      "de": "M-RAW",
+      "para": "M-DERIVED",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "de dentro do original tira-se o texto, a fala, o conteúdo",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "RAW NAO E DERIVADO"
+      },
+      "codigo": {
+        "file": "coleta/derivacao_forward.py",
+        "contem": "raw"
+      },
+      "observada": {
+        "artefato": "system-map/data/rota-m2.observada.json",
+        "caminho": "ARESTAS_OBSERVADAS",
+        "espera": "contem:RAW>DERIVED",
+        "prova": "a passagem do original para o derivado foi lida no banco"
+      }
+    },
+    {
+      "de": "M-DERIVED",
+      "para": "M-STRUCTURED",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "o derivado é posto em forma, com campos que têm nome",
+      "declarada": {
+        "file": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+        "anchor": "STRUCTURED"
+      },
+      "codigo": {
+        "file": "coleta/rota_forward_documento.py",
+        "contem": "estruturado"
+      },
+      "observada": {
+        "artefato": "system-map/data/rota-m2.observada.json",
+        "caminho": "ARESTAS_OBSERVADAS",
+        "espera": "contem:DERIVED>STRUCTURED",
+        "prova": "a passagem do derivado para o documento organizado foi lida no banco"
+      }
+    },
+    {
+      "de": "M-STRUCTURED",
+      "para": "M-ADMISSION",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "o documento organizado é levado à porta",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "COLETAR NAO E ADMITIR NEM JULGAR"
+      },
+      "codigo": {
+        "file": "admissao/admissao.py",
+        "contem": "decidir"
+      },
+      "observada": {
+        "artefato": "system-map/data/rota-m2.observada.json",
+        "caminho": "ARESTAS_OBSERVADAS",
+        "espera": "contem:STRUCTURED>ADMISSION",
+        "prova": "a chegada do documento à porta foi lida no banco"
+      }
+    },
+    {
+      "de": "M-ADMISSION",
+      "para": "M-READY",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "o que a porta admitiu vira unidade pronta",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "READY_FOR_INTELIGENCIA significa que os contratos obrigatorios"
+      },
+      "codigo": {
+        "file": "admissao/admissao.py",
+        "contem": "pronto_para_inteligencia"
+      },
+      "observada": {
+        "artefato": "system-map/data/fronteira.observada.json",
+        "caminho": "READY_PRODUZIDO",
+        "espera": true,
+        "prova": "teria de existir um READY produzido por uma corrida"
+      }
+    },
+    {
+      "de": "M-READY",
+      "para": "M-SALA",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "a unidade pronta pousa na sala de espera",
+      "declarada": {
+        "file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+        "anchor": "Sala de Espera"
+      },
+      "codigo": {
+        "file": "admissao/sala_de_espera.py",
+        "contem": "def "
+      },
+      "observada": {
+        "artefato": "system-map/data/pedido.observado.json",
+        "caminho": "ESTRADA.WAITING_ROOM.OBSERVED",
+        "espera": true,
+        "prova": "teria de haver ficheiros na sala depois da corrida"
+      }
+    },
+    {
+      "de": "M-SCRAP",
+      "para": "M-EXECUTOR",
+      "nivel": 1,
+      "tipo": "CONTROL",
+      "significado": "o despacho do SCRAP manda rodar a aquisição social",
+      "declarada": {
+        "file": "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
+        "anchor": "SCRAP"
+      },
+      "codigo": {
+        "file": ".github/workflows/scrap-social.yml",
+        "contem": "coleta/social_scrap.py"
+      },
+      "observada": null
+    },
+    {
+      "de": "M-REGUAS",
+      "para": "M-RAW",
+      "nivel": 1,
+      "tipo": "RULE",
+      "significado": "a régua carimba a procedência no momento em que o item entra",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "LEI DE PROCEDENCIA"
+      },
+      "codigo": {
+        "file": "coleta/coletor.py",
+        "contem": "proveniencia"
+      },
+      "observada": null
+    },
+    {
+      "de": "M-EXECUTOR",
+      "para": "M-BANCO",
+      "nivel": 1,
+      "tipo": "WRITE",
+      "significado": "o que a coleta produz fica guardado na memória operacional",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "O SUPABASE E A MEMORIA OPERACIONAL"
+      },
+      "codigo": {
+        "file": "guarda/catalogo_importar.py",
+        "contem": "supabase"
+      },
+      "observada": {
+        "artefato": "system-map/data/rota-m2.observada.json",
+        "caminho": "END_TO_END",
+        "espera": true,
+        "prova": "as etapas foram lidas do banco depois de a rota correr"
+      }
+    },
+    {
+      "de": "M-TRAVA",
+      "para": "M-MOTOR",
+      "nivel": 1,
+      "tipo": "RULE",
+      "significado": "a trava decide se a inteligência pode avançar",
+      "declarada": {
+        "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+        "anchor": "INTELLIGENCE_IMPLEMENTATION_BLOCKED"
+      },
+      "codigo": {
+        "file": "provas/trava_da_inteligencia_morde.py",
+        "contem": "TRAVA"
+      },
+      "observada": {
+        "artefato": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+        "caminho": "COLLECTION_FOUNDATION_CLOSED",
+        "espera": "SIM",
+        "prova": "a trava só deixa passar quando a fundação fechar"
+      }
+    },
+    {
+      "de": "M-MOTOR",
+      "para": "M-PACOTE",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "o motor fecha o pacote canónico",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "CANONICAL_GENERATOR"
+      },
+      "codigo": {
+        "file": "motor/v21_cadeia.sh",
+        "contem": "v21_fechar.py"
+      },
+      "observada": null
+    },
+    {
+      "de": "M-LACUNA",
+      "para": "M-PEDIDO",
+      "nivel": 1,
+      "tipo": "CONTROL",
+      "retorno": true,
+      "significado": "a falta de material vira um pedido, pela porta da frente",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "NAO COLETAR DE NOVO SEM NECESSIDADE"
+      },
+      "codigo": null,
+      "observada": null
+    },
+    {
+      "de": "M-PACOTE",
+      "para": "M-PORTAO",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "o pacote apresenta-se ao portão",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "FAIL_CLOSED"
+      },
+      "codigo": {
+        "file": "italia-portale/audit/build-gate.mjs",
+        "contem": "EXPECTED_BUILD_ID"
+      },
+      "observada": null
+    },
+    {
+      "de": "M-PORTAO",
+      "para": "M-CASCO",
+      "nivel": 1,
+      "tipo": "DATA",
+      "significado": "aprovado no portão, o pacote chega à tela",
+      "declarada": {
+        "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+        "anchor": "atravessar a fronteira do site"
+      },
+      "codigo": {
+        "file": "italia-portale/client/italy-app-model.js",
+        "contem": "ITALY_HANDOFF_V21"
+      },
+      "observada": {
+        "artefato": "system-map/data/casco.generated.json",
+        "caminho": "COUNTS.ferramentas",
+        "espera": ">0",
+        "prova": "as ferramentas do portal foram medidas na tela"
+      }
+    },
+    {
+      "de": "M-PROVAS",
+      "para": "M-MAPA",
+      "nivel": 1,
+      "tipo": "PROOF",
+      "significado": "o mapa cita as medições das provas como evidência",
+      "declarada": {
+        "file": "BIBLIA-CANONICA-DA-COLETA.md",
+        "anchor": "A CAMADA DE OBSERVABILIDADE NAO E UMA SEGUNDA VERDADE"
+      },
+      "codigo": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "contem": "observado_por"
+      },
+      "observada": null
+    }
+  ]
+}

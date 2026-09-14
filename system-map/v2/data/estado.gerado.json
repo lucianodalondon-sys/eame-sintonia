@@ -1,0 +1,4447 @@
+{
+ "SCHEMA": "sintonia.system-map-v2.estado/2",
+ "LEI": "Este ficheiro é a ÚNICA entrada escrita por gente. Declara CONCEITOS da máquina e aponta, para cada um, a AUTORIDADE que o sustenta. Não contém estado: DECLARED, CODE, OBSERVED e BIBLE são calculados pelo gerador a partir da medição. Escrever um estado aqui seria maquiagem.",
+ "AS_QUATRO_VERDADES": "COL-LAW-102 — DECLARED (o contrato diz que pode existir) · CODE (há implementação que permite) · OBSERVED (uma execução real provou) · BIBLE (a Bíblia exige). Nunca se fundem.",
+ "PROVENANCE": {
+  "REPO": "lucianodalondon-sys/eame-sintonia",
+  "BRANCH": "claude/system-map-v2-canonical-rebuild",
+  "HEAD": "ac54e70dee008943620417b50ae3f68529b936a1",
+  "GENERATED_AT": "2026-09-14T15:41:32+00:00"
+ },
+ "BIBLIA": {
+  "ficheiro": "docs/biblia/leis.json",
+  "leis_conhecidas": 105
+ },
+ "ROTULOS": {
+  "OK": "OK",
+  "ATENCAO": "ATENÇÃO",
+  "BLOQUEADO": "BLOQUEADO",
+  "NAO_IMPLEMENTADO": "NÃO IMPLEMENTADO",
+  "UNKNOWN": "NÃO SEI",
+  "LEGADO": "LEGADO",
+  "SIM": "SIM",
+  "NAO": "NÃO",
+  "PARCIAL": "PARCIAL",
+  "NAO_SEI": "NÃO SEI",
+  "OBSERVED": "JÁ CORREU",
+  "IMPLEMENTED": "HÁ CÓDIGO",
+  "DECLARED": "SÓ ESCRITO",
+  "UNKNOWN_EDGE": "NÃO SEI"
+ },
+ "FAMILIAS": [
+  {
+   "id": "F-ENTRADA",
+   "nome": "DE ONDE VEM",
+   "frase": "O que a casa sabe onde encontrar, e o pedido que manda ir buscar."
+  },
+  {
+   "id": "F-COLETA",
+   "nome": "COLETA",
+   "frase": "Trazer para dentro o que existe lá fora, e guardar a prova."
+  },
+  {
+   "id": "F-ESPERA",
+   "nome": "A ESPERA",
+   "frase": "O que já foi admitido, à espera. Nada é transformado aqui."
+  },
+  {
+   "id": "F-INTELIGENCIA",
+   "nome": "INTELIGÊNCIA",
+   "frase": "Transformar o que foi guardado em caso com dono, lugar e momento."
+  },
+  {
+   "id": "F-ENTREGA",
+   "nome": "ENTREGA",
+   "frase": "Provar, e levar até quem precisa — sem deixar passar o que está errado."
+  }
+ ],
+ "DEPARTAMENTOS": [
+  {
+   "id": "D-ENTRADA",
+   "nome": "DE ONDE VEM, E QUEM PEDE",
+   "ordem": 1,
+   "familia": "F-ENTRADA",
+   "frase": "As fontes que a casa conhece, e o pedido que dispara uma coleta.",
+   "papel_de_fluxo": "SOURCE",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "FONTE, ENDPOINT, ROTA, EXECUTOR, ITEM E ARTEFATO SAO SEIS COISAS",
+    "gerado_pelo_mapa": false
+   },
+   "status": "OK",
+   "n1": [
+    "M-FONTE",
+    "M-PEDIDO"
+   ],
+   "conta_n1": 2,
+   "conta_n2": 0,
+   "engenharia": 12
+  },
+  {
+   "id": "D-COLETA",
+   "nome": "A COLETA",
+   "ordem": 2,
+   "familia": "F-COLETA",
+   "frase": "Quem sai buscar, o que traz, onde o original fica, e a porta que decide se entra.",
+   "papel_de_fluxo": "FLUXO",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "COLETAR NAO E ADMITIR NEM JULGAR",
+    "gerado_pelo_mapa": false
+   },
+   "status": "UNKNOWN",
+   "n1": [
+    "M-ORQUESTRADOR",
+    "M-SCRAP",
+    "M-REGUAS",
+    "M-EXECUTOR",
+    "M-RUN",
+    "M-RAW",
+    "M-STORAGE",
+    "M-DERIVED",
+    "M-STRUCTURED",
+    "M-ADMISSION"
+   ],
+   "conta_n1": 10,
+   "conta_n2": 1,
+   "engenharia": 181
+  },
+  {
+   "id": "D-ESPERA",
+   "nome": "A SALA DE ESPERA",
+   "ordem": 3,
+   "familia": "F-ESPERA",
+   "frase": "Onde o material admitido espera. Não é coleta, não é inteligência.",
+   "papel_de_fluxo": "FLUXO",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+    "anchor": "Sala de Espera",
+    "gerado_pelo_mapa": false
+   },
+   "status": "BLOQUEADO",
+   "n1": [
+    "M-READY",
+    "M-BANCO",
+    "M-SALA"
+   ],
+   "conta_n1": 3,
+   "conta_n2": 0,
+   "engenharia": 53
+  },
+  {
+   "id": "D-INTELIGENCIA",
+   "nome": "A INTELIGÊNCIA",
+   "ordem": 4,
+   "familia": "F-INTELIGENCIA",
+   "frase": "Onde o material vira caso: as leis, os cruzamentos e os sinais.",
+   "papel_de_fluxo": "FLUXO",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "anchor": "O contrato que impede a inteligencia de comecar antes de a coleta fechar",
+    "gerado_pelo_mapa": false
+   },
+   "status": "BLOQUEADO",
+   "n1": [
+    "M-TRAVA",
+    "M-LACUNA",
+    "M-MOTOR",
+    "M-PACOTE"
+   ],
+   "conta_n1": 4,
+   "conta_n2": 2,
+   "engenharia": 50
+  },
+  {
+   "id": "D-PROVAS",
+   "nome": "AS PROVAS E OS PORTÕES",
+   "ordem": 5,
+   "familia": "F-ENTREGA",
+   "frase": "O que separa «está escrito» de «está provado», e o que impede coisa errada de atravessar.",
+   "papel_de_fluxo": "FLUXO",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "TODA AFIRMACAO DO MAPA TEM EVIDENCIA NAVEGAVEL",
+    "gerado_pelo_mapa": false
+   },
+   "status": "UNKNOWN",
+   "n1": [
+    "M-PORTAO",
+    "M-PROVAS",
+    "M-MAPA"
+   ],
+   "conta_n1": 3,
+   "conta_n2": 0,
+   "engenharia": 323
+  },
+  {
+   "id": "D-PORTAL",
+   "nome": "O PORTAL",
+   "ordem": 6,
+   "familia": "F-ENTREGA",
+   "frase": "O que o cliente vê. Apresenta decisão já tomada; não recalcula nada.",
+   "papel_de_fluxo": "SINK",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O MAPA NAO E FONTE DE VERDADE PRIMARIA",
+    "gerado_pelo_mapa": false
+   },
+   "status": "OK",
+   "n1": [
+    "M-CASCO"
+   ],
+   "conta_n1": 1,
+   "conta_n2": 0,
+   "engenharia": 3
+  }
+ ],
+ "CONCEITOS": {
+  "M-FONTE": {
+   "id": "M-FONTE",
+   "nome": "As fontes",
+   "nivel": 1,
+   "departamento": "D-ENTRADA",
+   "parent": null,
+   "tipo": "acervo",
+   "papel_canonico": "SOURCE",
+   "frase": "Quem publica lá fora aquilo que a casa quer saber.",
+   "porque": "A fonte é estável; o endereço é substituível. Consulta-se o acervo antes de coletar, para não gastar uma coleta a descobrir o que já se sabia.",
+   "entra": "nada — é o começo de tudo",
+   "sai": "para o pedido e para a receita",
+   "dono": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+   "papel_de_fluxo": "SOURCE",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-009, COL-LAW-205, COL-LAW-208, COL-LAW-053), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-009",
+     "nome": "FONTE, ENDPOINT, ROTA, EXECUTOR, ITEM E ARTEFATO SÃO SEIS COISAS",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-205",
+     "nome": "A FONTE É ESTÁVEL; O ENDPOINT É SUBSTITUÍVEL",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-208",
+     "nome": "O SOURCE REGISTRY É A MEMÓRIA DA COLETA",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-053",
+     "nome": "A FONTE TEM UM CADASTRO ÚNICO, E ELE É RECONCILIADO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "10 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "o cadastro de fontes foi medido e tem linhas (medido: 23)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "A FONTE E ESTAVEL; O ENDPOINT E SUBSTITUIVEL",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/sources.generated.json",
+     "caminho": "COUNTS.sources",
+     "espera": ">0",
+     "prova": "o cadastro de fontes foi medido e tem linhas",
+     "gerado_pelo_mapa": true,
+     "valor": 23,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+    "fontes/adama_catalogo_ler.py",
+    "fontes/adama_catalogo_montar.py",
+    "fontes/adama_it_eu.py",
+    "fontes/adama_it_frac.py",
+    "fontes/adama_it_gaps.py",
+    "fontes/adama_it_intelligence.py",
+    "fontes/adama_it_labels.py",
+    "fontes/adama_it_moa.py",
+    "fontes/adama_it_qa.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+    "fontes/adama_catalogo_ler.py",
+    "fontes/adama_catalogo_montar.py",
+    "fontes/adama_it_eu.py",
+    "fontes/adama_it_frac.py",
+    "fontes/adama_it_gaps.py",
+    "fontes/adama_it_intelligence.py",
+    "fontes/adama_it_labels.py",
+    "fontes/adama_it_moa.py",
+    "fontes/adama_it_qa.py"
+   ],
+   "engenharia": 10,
+   "entra_de": [],
+   "sai_para": [
+    {
+     "id": "M-PEDIDO",
+     "nome": "O pedido",
+     "status": "OBSERVED",
+     "tipo": "READ",
+     "significado": "quem pede escolhe o assunto a partir do que a casa já conhece"
+    }
+   ]
+  },
+  "M-PEDIDO": {
+   "id": "M-PEDIDO",
+   "nome": "O pedido",
+   "nivel": 1,
+   "departamento": "D-ENTRADA",
+   "parent": null,
+   "tipo": "contrato",
+   "papel_canonico": "REQUEST",
+   "frase": "Uma frase que diz O QUE se quer, sem dizer COMO se faz.",
+   "porque": "Um pedido não conhece implementação. Trocar o executor por outro melhor não pode obrigar quem pede a mudar o pedido.",
+   "entra": "uma pessoa, ou o relógio",
+   "sai": "para o orquestrador",
+   "dono": "pedido/pedido.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "REQUEST",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-010, COL-LAW-045), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-010",
+     "nome": "UM PEDIDO NÃO CONHECE IMPLEMENTAÇÃO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-045",
+     "nome": "COLETA MANUAL OU ASSISTIDA TAMBÉM TEM CONTRATO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real o recibo guardou o pedido que a originou (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "UM PEDIDO NAO CONHECE IMPLEMENTACAO",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.REQUEST.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real o recibo guardou o pedido que a originou",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "pedido/pedido.py",
+    "pedido/receitas.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "pedido/pedido.py",
+    "pedido/receitas.py"
+   ],
+   "engenharia": 2,
+   "entra_de": [
+    {
+     "id": "M-FONTE",
+     "nome": "As fontes",
+     "status": "OBSERVED",
+     "tipo": "READ",
+     "significado": "quem pede escolhe o assunto a partir do que a casa já conhece"
+    },
+    {
+     "id": "M-LACUNA",
+     "nome": "A falta de coleta",
+     "status": "DECLARED",
+     "tipo": "CONTROL",
+     "significado": "a falta de material vira um pedido, pela porta da frente"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-ORQUESTRADOR",
+     "nome": "O orquestrador",
+     "status": "OBSERVED",
+     "tipo": "CONTROL",
+     "significado": "quem pede diz o que quer; o orquestrador decide como"
+    }
+   ]
+  },
+  "M-ORQUESTRADOR": {
+   "id": "M-ORQUESTRADOR",
+   "nome": "O orquestrador",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "motor",
+   "papel_canonico": "ORCHESTRATOR",
+   "frase": "Quem escolhe o caminho para atender o pedido — e não transporta o dado.",
+   "porque": "Um único dono da orquestração. Ele controla; quem carrega o dado é o executor. Misturar os dois faz o controlo e a carga partilharem o mesmo defeito.",
+   "entra": "o pedido",
+   "sai": "manda o executor sair, e assina o recibo da corrida",
+   "dono": "orquestrador/orquestrador.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "ORCHESTRATOR",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-011, COL-LAW-012, COL-LAW-015), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-011",
+     "nome": "UM ÚNICO DONO DA ORQUESTRAÇÃO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-012",
+     "nome": "O ORQUESTRADOR CONTROLA, NÃO TRANSPORTA DADO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-015",
+     "nome": "RECEITA É POLÍTICA, NÃO SEGUNDO CÉREBRO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "1 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real a receita foi resolvida e nomeou o executor e a rota (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O ORQUESTRADOR CONTROLA, NAO TRANSPORTA DADO",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.ORCHESTRATOR.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real a receita foi resolvida e nomeou o executor e a rota",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "orquestrador/orquestrador.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "orquestrador/orquestrador.py"
+   ],
+   "engenharia": 1,
+   "entra_de": [
+    {
+     "id": "M-PEDIDO",
+     "nome": "O pedido",
+     "status": "OBSERVED",
+     "tipo": "CONTROL",
+     "significado": "quem pede diz o que quer; o orquestrador decide como"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-EXECUTOR",
+     "nome": "Quem sai e traz",
+     "status": "OBSERVED",
+     "tipo": "CONTROL",
+     "significado": "o orquestrador manda o executor sair"
+    },
+    {
+     "id": "M-RUN",
+     "nome": "A corrida",
+     "status": "OBSERVED",
+     "tipo": "WRITE",
+     "significado": "cada ida ao mundo ganha identidade e recibo"
+    }
+   ]
+  },
+  "M-EXECUTOR": {
+   "id": "M-EXECUTOR",
+   "nome": "Quem sai e traz",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "acao",
+   "papel_canonico": "EXECUTOR",
+   "frase": "A peça da casa que vai buscar o material lá fora.",
+   "porque": "Todo executor tem um contrato comum: declara o que sabe percorrer, o que traz, e o que é colheita e o que é suporte.",
+   "entra": "a ordem do orquestrador",
+   "sai": "a colheita, e o original para preservar",
+   "dono": "coleta/",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "EXECUTOR",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-013, COL-LAW-014, COL-LAW-505, COL-LAW-009), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-013",
+     "nome": "TODO EXECUTOR TEM UM CONTRATO COMUM",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-014",
+     "nome": "CAPACIDADES DECLARADAS",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-505",
+     "nome": "O EXECUTOR DECLARA O QUE É COLHEITA E O QUE É SUPORTE",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-009",
+     "nome": "FONTE, ENDPOINT, ROTA, EXECUTOR, ITEM E ARTEFATO SÃO SEIS COISAS",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "62 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real o executor correu, com versão, e devolveu colheita (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "TODO EXECUTOR TEM UM CONTRATO COMUM",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.EXECUTOR.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real o executor correu, com versão, e devolveu colheita",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "coleta/adaptador_aberto.py",
+    "coleta/adaptador_facebook.py",
+    "coleta/adaptador_instagram.py",
+    "coleta/adaptador_linkedin.py",
+    "coleta/adaptador_x.py",
+    "coleta/adaptador_youtube.py",
+    "coleta/agrifood_ue.py",
+    "coleta/cellar.sh",
+    "coleta/coleta_checkpoint.py",
+    "coleta/coletor.py",
+    "coleta/comunicacao_classificar.py",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/corpus_pesquisador.py",
+    "coleta/cruzar_regua_rotulo.py",
+    "coleta/denominaciones.py",
+    "coleta/derivacao_forward.py",
+    "coleta/ephy.sh",
+    "coleta/eppo_gd.py",
+    "coleta/es/corpus_es.py",
+    "coleta/eu_regulatorio_executor.py",
+    "coleta/eu_substancia_adama_it.py",
+    "coleta/executor_texto_de_pdf.py",
+    "coleta/filas.py",
+    "coleta/gire_mapas.py",
+    "coleta/golden_path_pdf.py",
+    "coleta/ingresso.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_diario.py",
+    "coleta/instagram_janela.py",
+    "coleta/instagram_pessoal.py",
+    "coleta/italy_executor.py",
+    "coleta/italy_find_docs.mjs",
+    "coleta/italy_pilot_collect.mjs",
+    "coleta/italy_probe.mjs",
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/mapa_regfi.py",
+    "coleta/pdf_text.py",
+    "coleta/preservar_pdf.py",
+    "coleta/regulatorio_importar.py",
+    "coleta/ropf_pre_requisito.py",
+    "coleta/rota_forward_documento.py",
+    "coleta/rotulos_baixar.py",
+    "coleta/rotulos_ler.py",
+    "coleta/scrap_capacidades.py",
+    "coleta/scrap_colheita.py",
+    "coleta/scrap_executor.py",
+    "coleta/scrap_fornecedores.py",
+    "coleta/scrap_http.py",
+    "coleta/scrap_registo.py",
+    "coleta/sensor_canal_identidade.py",
+    "coleta/social_envelope.py",
+    "coleta/social_persistencia.py",
+    "coleta/social_rotas.py",
+    "coleta/social_scrap.py",
+    "coleta/speaker_identidade.py",
+    "coleta/speaker_universo.py",
+    "coleta/texto_fonte.py",
+    "coleta/universo_ciencia_it.py",
+    "coleta/youtube_janela.py",
+    "coleta/youtube_oficial.py",
+    "coleta/youtube_relevancia.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "coleta/agrifood_ue.py",
+    "coleta/cellar.sh",
+    "coleta/coleta_checkpoint.py",
+    "coleta/comunicacao_classificar.py",
+    "coleta/comunicacao_coleta.py",
+    "coleta/comunicacao_medir.py",
+    "coleta/corpus_pesquisador.py",
+    "coleta/cruzar_regua_rotulo.py",
+    "coleta/denominaciones.py",
+    "coleta/ephy.sh",
+    "coleta/eppo_gd.py",
+    "coleta/es/corpus_es.py",
+    "coleta/eu_regulatorio_executor.py",
+    "coleta/eu_substancia_adama_it.py",
+    "coleta/filas.py",
+    "coleta/gire_mapas.py",
+    "coleta/golden_path_pdf.py",
+    "coleta/ingresso.py",
+    "coleta/instagram_coleta.py",
+    "coleta/instagram_diario.py",
+    "coleta/instagram_janela.py",
+    "coleta/instagram_pessoal.py",
+    "coleta/italy_executor.py",
+    "coleta/italy_find_docs.mjs",
+    "coleta/italy_pilot_collect.mjs",
+    "coleta/italy_probe.mjs",
+    "coleta/italy_recurrent_collect.mjs",
+    "coleta/mapa_regfi.py",
+    "coleta/pdf_text.py",
+    "coleta/preservar_pdf.py",
+    "coleta/regulatorio_importar.py",
+    "coleta/ropf_pre_requisito.py",
+    "coleta/rotulos_baixar.py",
+    "coleta/rotulos_ler.py",
+    "coleta/sensor_canal_identidade.py",
+    "coleta/social_envelope.py",
+    "coleta/social_persistencia.py",
+    "coleta/social_rotas.py",
+    "coleta/social_scrap.py",
+    "coleta/speaker_identidade.py",
+    "coleta/speaker_universo.py",
+    "coleta/texto_fonte.py",
+    "coleta/universo_ciencia_it.py",
+    "coleta/youtube_janela.py",
+    "coleta/youtube_oficial.py",
+    "coleta/youtube_relevancia.py"
+   ],
+   "engenharia": 46,
+   "entra_de": [
+    {
+     "id": "M-ORQUESTRADOR",
+     "nome": "O orquestrador",
+     "status": "OBSERVED",
+     "tipo": "CONTROL",
+     "significado": "o orquestrador manda o executor sair"
+    },
+    {
+     "id": "M-SCRAP",
+     "nome": "SINTONIA SCRAP",
+     "status": "IMPLEMENTED",
+     "tipo": "CONTROL",
+     "significado": "o despacho do SCRAP manda rodar a aquisição social"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-RAW",
+     "nome": "O original",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "o que o executor traz é preservado como veio, antes de tudo"
+    },
+    {
+     "id": "M-BANCO",
+     "nome": "A memória operacional",
+     "status": "OBSERVED",
+     "tipo": "WRITE",
+     "significado": "o que a coleta produz fica guardado na memória operacional"
+    }
+   ]
+  },
+  "M-RUN": {
+   "id": "M-RUN",
+   "nome": "A corrida",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "registo",
+   "papel_canonico": "RUN",
+   "frase": "Cada ida ao mundo tem identidade própria, e um recibo que diz o que aconteceu.",
+   "porque": "O que não tem recibo não aconteceu: não se audita, não se repete e não se cobra. E a corrida é história — história não se reescreve.",
+   "entra": "a decisão do orquestrador",
+   "sai": "o recibo, que liga o conteúdo à execução que o trouxe",
+   "dono": "data/samples/RUN-MANIFEST.json",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "RUN",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-022, COL-LAW-106, COL-LAW-209, COL-LAW-210), e declara alguma delas AUSENTE na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-022",
+     "nome": "TODA CORRIDA TEM IDENTIDADE",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-106",
+     "nome": "CONTRATO DE CORRIDA RENDERIZÁVEL",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-209",
+     "nome": "A CORRIDA É HISTÓRIA, E HISTÓRIA NÃO SE REESCREVE",
+     "law_status": "CANONICAL",
+     "italia": "ABSENT"
+    },
+    {
+     "id": "COL-LAW-210",
+     "nome": "A CORRIDA SÓ FICA COMPLETE NO FIM",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-211",
+     "nome": "A CONFIGURAÇÃO DA CORRIDA FICA CONGELADA",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "há corridas reais no ledger da coleta, com início, fim e país de saída (medido: 6); a corrida ficou registada no banco (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "TODA CORRIDA TEM IDENTIDADE",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/fluxo.generated.json",
+     "caminho": "CORRIDAS",
+     "espera": ">0",
+     "prova": "há corridas reais no ledger da coleta, com início, fim e país de saída",
+     "gerado_pelo_mapa": true,
+     "valor": 6,
+     "estado": "CONFIRMA"
+    },
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.RUN.OBSERVED",
+     "espera": true,
+     "prova": "a corrida ficou registada no banco",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "data/collection-ledger/italy/observations.ndjson",
+    "data/collection-ledger/italy/runs.ndjson"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "data/collection-ledger/italy/observations.ndjson",
+    "data/collection-ledger/italy/runs.ndjson"
+   ],
+   "engenharia": 2,
+   "entra_de": [
+    {
+     "id": "M-ORQUESTRADOR",
+     "nome": "O orquestrador",
+     "status": "OBSERVED",
+     "tipo": "WRITE",
+     "significado": "cada ida ao mundo ganha identidade e recibo"
+    }
+   ],
+   "sai_para": []
+  },
+  "M-RAW": {
+   "id": "M-RAW",
+   "nome": "O original",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "artefato",
+   "papel_canonico": "RAW_OBSERVATION",
+   "frase": "O que a fonte entregou, guardado exatamente como veio — antes de qualquer transformação.",
+   "porque": "Se o leitor quebrar depois de o original estar guardado, a evidência sobrevive e o leitor conserta-se. Na ordem inversa, um leitor com defeito apaga a única cópia.",
+   "entra": "o que o executor trouxe",
+   "sai": "para o armazém, e para a derivação",
+   "dono": "coleta/coletor.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "RAW",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-006, COL-LAW-007, COL-LAW-501, COL-LAW-311), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-006",
+     "nome": "RAW PRIMEIRO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-007",
+     "nome": "RAW NÃO É DERIVADO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-501",
+     "nome": "OCORRÊNCIA NÃO É CONTEÚDO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-311",
+     "nome": "BYTES NÃO SÃO METADATA",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real nasceram originais ligados àquela corrida (medido: True); o ledger tem observações registadas (medido: 144)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "PRESERVA O ORIGINAL",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.RAW.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real nasceram originais ligados àquela corrida",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    },
+    {
+     "artefato": "system-map/data/fluxo.generated.json",
+     "caminho": "OBSERVACOES",
+     "espera": ">0",
+     "prova": "o ledger tem observações registadas",
+     "gerado_pelo_mapa": true,
+     "valor": 144,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "coleta/coletor.py",
+    "guarda/preservar_documento.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "coleta/coletor.py",
+    "guarda/preservar_documento.py"
+   ],
+   "engenharia": 2,
+   "entra_de": [
+    {
+     "id": "M-EXECUTOR",
+     "nome": "Quem sai e traz",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "o que o executor traz é preservado como veio, antes de tudo"
+    },
+    {
+     "id": "M-REGUAS",
+     "nome": "As réguas que carimbam",
+     "status": "IMPLEMENTED",
+     "tipo": "RULE",
+     "significado": "a régua carimba a procedência no momento em que o item entra"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-STORAGE",
+     "nome": "O armazém",
+     "status": "OBSERVED",
+     "tipo": "WRITE",
+     "significado": "os bytes do original ficam pousados num endereço"
+    },
+    {
+     "id": "M-DERIVED",
+     "nome": "O derivado",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "de dentro do original tira-se o texto, a fala, o conteúdo"
+    }
+   ]
+  },
+  "M-STORAGE": {
+   "id": "M-STORAGE",
+   "nome": "O armazém",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "armazem",
+   "papel_canonico": "STORAGE_OBJECT",
+   "frase": "Onde os bytes do original ficam pousados — o endereço, não a identidade.",
+   "porque": "Armazenamento não é estado lógico. O caminho onde um ficheiro está não diz o que ele é, nem se ele foi aceite.",
+   "entra": "os bytes do original",
+   "sai": "o endereço de onde relê-los",
+   "dono": "guarda/",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "STORAGE",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-044, COL-LAW-311, COL-LAW-206), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-044",
+     "nome": "ARMAZENAMENTO NÃO É ESTADO LÓGICO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-311",
+     "nome": "BYTES NÃO SÃO METADATA",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-206",
+     "nome": "TRÊS IDENTIDADES, E A URL NÃO É UMA DELAS",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "15 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real os objetos de armazenamento ficaram ligados à corrida (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "ARMAZENAMENTO NAO E ESTADO LOGICO",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.STORAGE.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real os objetos de armazenamento ficaram ligados à corrida",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "guarda/catalogo_importar.py",
+    "guarda/es/adama_es_gate.py",
+    "guarda/es/adama_es_import_rules.py",
+    "guarda/es/workflows/LEIA.md",
+    "guarda/es/workflows/adama-es-gate.yml",
+    "guarda/importar_italia.py",
+    "guarda/italy_preserve.mjs",
+    "guarda/memoria_descartavel.py",
+    "guarda/portas_live.py",
+    "guarda/preservar_coleta.py",
+    "guarda/preservar_derivado.py",
+    "guarda/preservar_documento.py",
+    "guarda/social_guarda.py",
+    "guarda/social_sessao.py",
+    "guarda/sql_conferir.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "guarda/catalogo_importar.py",
+    "guarda/es/adama_es_gate.py",
+    "guarda/es/adama_es_import_rules.py",
+    "guarda/es/workflows/LEIA.md",
+    "guarda/es/workflows/adama-es-gate.yml",
+    "guarda/importar_italia.py",
+    "guarda/italy_preserve.mjs",
+    "guarda/memoria_descartavel.py",
+    "guarda/portas_live.py",
+    "guarda/preservar_coleta.py",
+    "guarda/preservar_derivado.py",
+    "guarda/social_guarda.py",
+    "guarda/social_sessao.py",
+    "guarda/sql_conferir.py"
+   ],
+   "engenharia": 14,
+   "entra_de": [
+    {
+     "id": "M-RAW",
+     "nome": "O original",
+     "status": "OBSERVED",
+     "tipo": "WRITE",
+     "significado": "os bytes do original ficam pousados num endereço"
+    }
+   ],
+   "sai_para": []
+  },
+  "M-DERIVED": {
+   "id": "M-DERIVED",
+   "nome": "O derivado",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "artefato",
+   "papel_canonico": "DERIVED",
+   "frase": "O que se tira de dentro do original: o texto de um PDF, a fala de um vídeo.",
+   "porque": "Derivado não é original, e não ocupa o mesmo campo. Um extrato de navegador é o que o navegador mostrou, não o que o servidor entregou — tratá-lo como original faz interpretação passar por evidência.",
+   "entra": "o original preservado",
+   "sai": "para a estruturação",
+   "dono": "coleta/derivacao_forward.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "DERIVED",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-007, COL-LAW-008, COL-LAW-207), e declara alguma delas AUSENTE na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-007",
+     "nome": "RAW NÃO É DERIVADO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-008",
+     "nome": "DERIVAÇÃO TEM LINHAGEM",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-207",
+     "nome": "DESCOBRIR ≠ BUSCAR ≠ DERIVAR",
+     "law_status": "CANONICAL",
+     "italia": "ABSENT"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/operacao/A-CASA-DO-DERIVADO.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "62 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real nasceram derivados ligados àquela corrida (medido: True); a linhagem do derivado até ao original foi medida no banco (medido: ALREADY_PROVEN)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/A-CASA-DO-DERIVADO.md",
+    "anchor": "derivado",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.DERIVED.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real nasceram derivados ligados àquela corrida",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    },
+    {
+     "artefato": "system-map/data/linhagem.observada.json",
+     "caminho": "DERIVED_REUSE_LINEAGE",
+     "espera": "ALREADY_PROVEN",
+     "prova": "a linhagem do derivado até ao original foi medida no banco",
+     "gerado_pelo_mapa": true,
+     "valor": "ALREADY_PROVEN",
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "coleta/derivacao_forward.py",
+    "coleta/executor_texto_de_pdf.py",
+    "data/derivados/A-MAQUINA-SOB-CARGA.json",
+    "data/derivados/A-REGRA-DE-T2.json",
+    "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
+    "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+    "data/derivados/BENCHMARK-TEMATICO-V1.json",
+    "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+    "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
+    "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
+    "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
+    "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+    "data/derivados/O-CANARIO-DA-COLLECTION.json",
+    "data/derivados/O-CENSO-DO-ACERVO.json",
+    "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+    "data/derivados/REGISTO-DE-ARTEFATOS.json",
+    "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+    "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+    "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+    "data/derivados/texto/RAW-024abdb692be926a.txt",
+    "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+    "data/derivados/texto/RAW-0c2723e66201f966.txt",
+    "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+    "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+    "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+    "data/derivados/texto/RAW-223510588786a4de.txt",
+    "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+    "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+    "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+    "data/derivados/texto/RAW-3e941738599367d7.txt",
+    "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+    "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+    "data/derivados/texto/RAW-445e41701f737d73.txt",
+    "data/derivados/texto/RAW-48e76a696be6831d.txt",
+    "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+    "data/derivados/texto/RAW-59da05274359eff6.txt",
+    "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+    "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+    "data/derivados/texto/RAW-699a073ace4361ea.txt",
+    "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+    "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+    "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+    "data/derivados/texto/RAW-8c13500d43502e64.txt",
+    "data/derivados/texto/RAW-924aabd94168c53a.txt",
+    "data/derivados/texto/RAW-9488589cfc657b95.txt",
+    "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+    "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+    "data/derivados/texto/RAW-a6515948880d173a.txt",
+    "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+    "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+    "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+    "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+    "data/derivados/texto/RAW-ded546686d61dc91.txt",
+    "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+    "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+    "data/derivados/texto/RAW-e612807928b5ada9.txt",
+    "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+    "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+    "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+    "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+    "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+    "data/derivados/texto/RAW-fe3c922bfdfd7999.txt"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "coleta/derivacao_forward.py",
+    "coleta/executor_texto_de_pdf.py",
+    "data/derivados/A-MAQUINA-SOB-CARGA.json",
+    "data/derivados/A-REGRA-DE-T2.json",
+    "data/derivados/ALCANCE-PERGUNTA-TEMATICA-T3-V1.json",
+    "data/derivados/BASELINE-ADMISSION-T3-V1.json",
+    "data/derivados/BENCHMARK-TEMATICO-V1.json",
+    "data/derivados/CANDIDATOS-TEMATICOS-V1.json",
+    "data/derivados/COLLECTION-V1-CLOSE-GATES.json",
+    "data/derivados/FONTE-ATRAVESSA-FORWARD-V1.json",
+    "data/derivados/GATE-ACEITACAO-TEMATICA-V1.json",
+    "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+    "data/derivados/O-CANARIO-DA-COLLECTION.json",
+    "data/derivados/O-CENSO-DO-ACERVO.json",
+    "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
+    "data/derivados/REGISTO-DE-ARTEFATOS.json",
+    "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+    "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+    "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+    "data/derivados/texto/RAW-024abdb692be926a.txt",
+    "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
+    "data/derivados/texto/RAW-0c2723e66201f966.txt",
+    "data/derivados/texto/RAW-144fdb152b1a6ae4.txt",
+    "data/derivados/texto/RAW-178ebe9e0ea7dd83.txt",
+    "data/derivados/texto/RAW-221ab4a8d6ebec30.txt",
+    "data/derivados/texto/RAW-223510588786a4de.txt",
+    "data/derivados/texto/RAW-2a12cb316622a9a5.txt",
+    "data/derivados/texto/RAW-392840d3e13d1b15.txt",
+    "data/derivados/texto/RAW-3d3c1bc0e96332e8.txt",
+    "data/derivados/texto/RAW-3e941738599367d7.txt",
+    "data/derivados/texto/RAW-3ef48aaa830edf3b.txt",
+    "data/derivados/texto/RAW-420e08ef15bec6e4.txt",
+    "data/derivados/texto/RAW-445e41701f737d73.txt",
+    "data/derivados/texto/RAW-48e76a696be6831d.txt",
+    "data/derivados/texto/RAW-4e12affad7fedd91.txt",
+    "data/derivados/texto/RAW-59da05274359eff6.txt",
+    "data/derivados/texto/RAW-5dcfb75ac38390c3.txt",
+    "data/derivados/texto/RAW-6377ac2f8419d905.txt",
+    "data/derivados/texto/RAW-699a073ace4361ea.txt",
+    "data/derivados/texto/RAW-6d12bcb5fa2b0905.txt",
+    "data/derivados/texto/RAW-7a51732e87f0f319.txt",
+    "data/derivados/texto/RAW-823e18ebb232eb36.txt",
+    "data/derivados/texto/RAW-8c13500d43502e64.txt",
+    "data/derivados/texto/RAW-924aabd94168c53a.txt",
+    "data/derivados/texto/RAW-9488589cfc657b95.txt",
+    "data/derivados/texto/RAW-99cb44a67f6b4e9a.txt",
+    "data/derivados/texto/RAW-9a01cc17889e1f40.txt",
+    "data/derivados/texto/RAW-a6515948880d173a.txt",
+    "data/derivados/texto/RAW-a927e846ba8e78b0.txt",
+    "data/derivados/texto/RAW-b631f6eecfbc1db0.txt",
+    "data/derivados/texto/RAW-c6377f6951bfeb2e.txt",
+    "data/derivados/texto/RAW-ccd8ea9c8e9c4caf.txt",
+    "data/derivados/texto/RAW-ded546686d61dc91.txt",
+    "data/derivados/texto/RAW-df4adcb5d78929e1.txt",
+    "data/derivados/texto/RAW-e5176df66216dfd0.txt",
+    "data/derivados/texto/RAW-e612807928b5ada9.txt",
+    "data/derivados/texto/RAW-e6ec962a8a730ee4.txt",
+    "data/derivados/texto/RAW-e9395a7ea894c1d2.txt",
+    "data/derivados/texto/RAW-ec3108a2ed424702.txt",
+    "data/derivados/texto/RAW-f88c89d73d6a132a.txt",
+    "data/derivados/texto/RAW-fd5b5e465457e4d6.txt",
+    "data/derivados/texto/RAW-fe3c922bfdfd7999.txt"
+   ],
+   "engenharia": 62,
+   "entra_de": [
+    {
+     "id": "M-RAW",
+     "nome": "O original",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "de dentro do original tira-se o texto, a fala, o conteúdo"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-STRUCTURED",
+     "nome": "O documento organizado",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "o derivado é posto em forma, com campos que têm nome"
+    }
+   ]
+  },
+  "M-STRUCTURED": {
+   "id": "M-STRUCTURED",
+   "nome": "O documento organizado",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "artefato",
+   "papel_canonico": "STRUCTURED",
+   "frase": "O derivado posto em forma: campos com nome, prontos para alguém decidir sobre eles.",
+   "porque": "Documento pronto não é facto pronto. Organizar é dar forma — não é ainda afirmar nada sobre o mundo.",
+   "entra": "o derivado",
+   "sai": "para a porta de admissão",
+   "dono": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "STRUCTURED",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-502, COL-LAW-201), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-502",
+     "nome": "DOCUMENTO PRONTO NÃO É FATO PRONTO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-201",
+     "nome": "ARTEFATO NÃO É FATO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "1 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real nasceram documentos estruturados (medido: True); a rota do documento atravessou de ponta a ponta, medida no banco (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+    "anchor": "STRUCTURED",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.STRUCTURED.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real nasceram documentos estruturados",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    },
+    {
+     "artefato": "system-map/data/rota-m2.observada.json",
+     "caminho": "END_TO_END",
+     "espera": true,
+     "prova": "a rota do documento atravessou de ponta a ponta, medida no banco",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "coleta/rota_forward_documento.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "coleta/rota_forward_documento.py"
+   ],
+   "engenharia": 1,
+   "entra_de": [
+    {
+     "id": "M-DERIVED",
+     "nome": "O derivado",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "o derivado é posto em forma, com campos que têm nome"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-ADMISSION",
+     "nome": "A porta de admissão",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "o documento organizado é levado à porta"
+    }
+   ]
+  },
+  "M-ADMISSION": {
+   "id": "M-ADMISSION",
+   "nome": "A porta de admissão",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "porta",
+   "papel_canonico": "ADMISSION",
+   "frase": "A peneira: para cada item e cada universo — SIM, NÃO, NÃO SEI ou NÃO SE APLICA.",
+   "porque": "Coletar não é admitir nem julgar. O coletor traz; a porta decide, uma vez por par (item, universo) — e guarda o motivo de cada não.",
+   "entra": "o documento organizado",
+   "sai": "o que passou vai para a sala de espera; o que não passou fica no livro",
+   "dono": "admissao/admissao.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "ADMISSION",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-005, COL-LAW-042, COL-LAW-038, COL-LAW-035), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-005",
+     "nome": "COLETAR NÃO É ADMITIR NEM JULGAR",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-042",
+     "nome": "A LEI DA ADMISSÃO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-038",
+     "nome": "RESULTADOS CANÔNICOS — DOIS EIXOS, NUNCA MISTURADOS",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-035",
+     "nome": "A LEI DO UNKNOWN",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "numa corrida real a porta julgou os itens e escreveu o resultado (medido: True)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "A LEI DA ADMISSAO",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.ADMISSION.OBSERVED",
+     "espera": true,
+     "prova": "numa corrida real a porta julgou os itens e escreveu o resultado",
+     "gerado_pelo_mapa": true,
+     "valor": true,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "admissao/admissao.py",
+    "admissao/sala_de_espera.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "admissao/admissao.py"
+   ],
+   "engenharia": 1,
+   "entra_de": [
+    {
+     "id": "M-STRUCTURED",
+     "nome": "O documento organizado",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "o documento organizado é levado à porta"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-READY",
+     "nome": "A unidade pronta",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "o que a porta admitiu vira unidade pronta"
+    }
+   ]
+  },
+  "M-SCRAP": {
+   "id": "M-SCRAP",
+   "nome": "SINTONIA SCRAP",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "capacidade",
+   "papel_canonico": "ACQUISITION_CAPABILITY",
+   "frase": "A capacidade especializada de ir buscar em canais sociais — despachável sem ninguém estar na máquina.",
+   "porque": "É uma capacidade de aquisição DENTRO da coleta, não uma segunda coleta. A rota mais barata capaz vem primeiro; a paga é escalada, e tem de se explicar.",
+   "entra": "um despacho",
+   "sai": "material colhido, que segue o mesmo caminho canónico",
+   "dono": ".github/workflows/sintonia-scrap.yml",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-018, COL-LAW-019, COL-LAW-014), e declara alguma delas AUSENTE na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-018",
+     "nome": "A ROTA MAIS BARATA CAPAZ VEM PRIMEIRO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-019",
+     "nome": "APIFY É ROTA PAGA DE ESCALADA",
+     "law_status": "CANONICAL",
+     "italia": "ABSENT"
+    },
+    {
+     "id": "COL-LAW-014",
+     "nome": "CAPACIDADES DECLARADAS",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "5 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
+    "anchor": "SCRAP",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/sintonia-scrap.yml",
+    "coleta/scrap_colheita.py",
+    "coleta/scrap_executor.py",
+    "coleta/scrap_registo.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/sintonia-scrap.yml",
+    "coleta/scrap_colheita.py",
+    "coleta/scrap_executor.py",
+    "coleta/scrap_registo.py"
+   ],
+   "engenharia": 5,
+   "entra_de": [],
+   "sai_para": [
+    {
+     "id": "M-EXECUTOR",
+     "nome": "Quem sai e traz",
+     "status": "IMPLEMENTED",
+     "tipo": "CONTROL",
+     "significado": "o despacho do SCRAP manda rodar a aquisição social"
+    }
+   ]
+  },
+  "M-SCRAP-ROTAS": {
+   "id": "M-SCRAP-ROTAS",
+   "nome": "As rotas e os adaptadores",
+   "nivel": 2,
+   "departamento": "D-COLETA",
+   "parent": "M-SCRAP",
+   "tipo": "capacidade",
+   "papel_canonico": "ROUTE",
+   "frase": "Por que meio se chega a cada canal: a rota pública, o navegador, a rota paga.",
+   "porque": "Rota não é fonte nem executor. A mesma fonte pode ser alcançada por rotas diferentes, e o custo de cada uma é diferente.",
+   "entra": "o pedido de aquisição",
+   "sai": "o material bruto do canal",
+   "dono": "coleta/scrap_fornecedores.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-009, COL-LAW-018), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-009",
+     "nome": "FONTE, ENDPOINT, ROTA, EXECUTOR, ITEM E ARTEFATO SÃO SEIS COISAS",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-018",
+     "nome": "A ROTA MAIS BARATA CAPAZ VEM PRIMEIRO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "9 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "A ROTA MAIS BARATA CAPAZ VEM PRIMEIRO",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "coleta/adaptador_aberto.py",
+    "coleta/adaptador_facebook.py",
+    "coleta/adaptador_instagram.py",
+    "coleta/adaptador_linkedin.py",
+    "coleta/adaptador_x.py",
+    "coleta/adaptador_youtube.py",
+    "coleta/scrap_capacidades.py",
+    "coleta/scrap_fornecedores.py",
+    "coleta/scrap_http.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "coleta/adaptador_aberto.py",
+    "coleta/adaptador_facebook.py",
+    "coleta/adaptador_instagram.py",
+    "coleta/adaptador_linkedin.py",
+    "coleta/adaptador_x.py",
+    "coleta/adaptador_youtube.py",
+    "coleta/scrap_capacidades.py",
+    "coleta/scrap_fornecedores.py",
+    "coleta/scrap_http.py"
+   ],
+   "engenharia": 9,
+   "entra_de": [],
+   "sai_para": []
+  },
+  "M-REGUAS": {
+   "id": "M-REGUAS",
+   "nome": "As réguas que carimbam",
+   "nivel": 1,
+   "departamento": "D-COLETA",
+   "parent": null,
+   "tipo": "lei",
+   "papel_canonico": "RULE",
+   "frase": "As leis que trabalham no momento em que o item entra: de onde veio, quando foi, onde é o facto.",
+   "porque": "Procedência, tempo e geografia só valem se forem postos na coleta. Depois é tarde: o dado já entrou sem eles, e a origem não se recupera.",
+   "entra": "o item a ser colhido",
+   "sai": "o mesmo item, carimbado",
+   "dono": "regras/",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-031, COL-LAW-032, COL-LAW-033, COL-LAW-034), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-031",
+     "nome": "LEI CANÔNICA DE TEMPORALIDADE",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-032",
+     "nome": "LEI CANÔNICA DE GEOGRAFIA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-033",
+     "nome": "LEI DE PROCEDÊNCIA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-034",
+     "nome": "LEI DE IDENTIDADE",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "38 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "LEI DE PROCEDENCIA",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "leis/adama_relevance.py",
+    "leis/aprender_com_a_fonte.py",
+    "leis/artefato.py",
+    "leis/auditoria_regua_comercial.py",
+    "leis/autorizacao_de_gasto.py",
+    "leis/calendario_handoff.py",
+    "leis/data_clock.py",
+    "leis/diagnostico.py",
+    "leis/evolucao.py",
+    "leis/falhas.py",
+    "leis/fato_local.py",
+    "leis/fundacao_da_coleta.py",
+    "leis/gestao_da_coleta.py",
+    "leis/lugar_do_fato.py",
+    "leis/politica_da_coleta.py",
+    "leis/regua_italia.py",
+    "leis/relevancia_da_fonte.py",
+    "leis/retorno_da_coleta.py",
+    "leis/social_matriz.py",
+    "leis/telemetria.py",
+    "leis/v21_carimbar_origem.py",
+    "leis/v21_datas.py",
+    "leis/v21_geografia_contrato.py",
+    "leis/v21_procedencia_contrato.py",
+    "leis/v21_procedencia_religar.py",
+    "regras/LEIA-ANTES-DE-COLETAR.md",
+    "regras/comunicacao_identidade.py",
+    "regras/comunicacao_lote.py",
+    "regras/comunicacao_universo.py",
+    "regras/italy_contract_test.mjs",
+    "regras/italy_contracts.mjs",
+    "regras/italy_pilot_guards.mjs",
+    "regras/italy_scheduling_guards.mjs",
+    "regras/italy_source_health.mjs",
+    "regras/proveniencia.py",
+    "regras/rotulos_censo.py",
+    "regras/sensor_coleta.py",
+    "regras/sensor_medir.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "leis/adama_relevance.py",
+    "leis/aprender_com_a_fonte.py",
+    "leis/artefato.py",
+    "leis/auditoria_regua_comercial.py",
+    "leis/autorizacao_de_gasto.py",
+    "leis/calendario_handoff.py",
+    "leis/data_clock.py",
+    "leis/diagnostico.py",
+    "leis/evolucao.py",
+    "leis/falhas.py",
+    "leis/fato_local.py",
+    "leis/fundacao_da_coleta.py",
+    "leis/gestao_da_coleta.py",
+    "leis/lugar_do_fato.py",
+    "leis/politica_da_coleta.py",
+    "leis/regua_italia.py",
+    "leis/relevancia_da_fonte.py",
+    "leis/retorno_da_coleta.py",
+    "leis/social_matriz.py",
+    "leis/telemetria.py",
+    "leis/v21_carimbar_origem.py",
+    "leis/v21_datas.py",
+    "leis/v21_geografia_contrato.py",
+    "leis/v21_procedencia_contrato.py",
+    "leis/v21_procedencia_religar.py",
+    "regras/LEIA-ANTES-DE-COLETAR.md",
+    "regras/comunicacao_identidade.py",
+    "regras/comunicacao_lote.py",
+    "regras/comunicacao_universo.py",
+    "regras/italy_contract_test.mjs",
+    "regras/italy_contracts.mjs",
+    "regras/italy_pilot_guards.mjs",
+    "regras/italy_scheduling_guards.mjs",
+    "regras/italy_source_health.mjs",
+    "regras/proveniencia.py",
+    "regras/rotulos_censo.py",
+    "regras/sensor_coleta.py",
+    "regras/sensor_medir.py"
+   ],
+   "engenharia": 38,
+   "entra_de": [],
+   "sai_para": [
+    {
+     "id": "M-RAW",
+     "nome": "O original",
+     "status": "IMPLEMENTED",
+     "tipo": "RULE",
+     "significado": "a régua carimba a procedência no momento em que o item entra"
+    }
+   ]
+  },
+  "M-READY": {
+   "id": "M-READY",
+   "nome": "A unidade pronta",
+   "nivel": 1,
+   "departamento": "D-ESPERA",
+   "parent": null,
+   "tipo": "bandeja",
+   "papel_canonico": "READY",
+   "frase": "O material que a porta admitiu, posto na bandeja à espera da inteligência.",
+   "porque": "READY não é «o script terminou». É um estado declarado, com campos próprios, sobre material que passou na porta.",
+   "entra": "o que a porta admitiu",
+   "sai": "para a inteligência",
+   "dono": "admissao/admissao.py :: pronto_para_inteligencia()",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "READY",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-043, COL-LAW-042), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-043",
+     "nome": "READY NÃO É «O SCRIPT TERMINOU»",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-042",
+     "nome": "A LEI DA ADMISSÃO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "implementado dentro de ficheiro de outro dono — def pronto_para_inteligencia em admissao/admissao.py:563",
+   "observado": "NAO",
+   "observado_motivo": "system-map/data/fronteira.observada.json::READY_PRODUZIDO = False — esperava True",
+   "status": "BLOQUEADO",
+   "status_motivo": "a medição diz que este passo não aconteceu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "READY_FOR_INTELIGENCIA significa que os contratos obrigatorios",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/fronteira.observada.json",
+     "caminho": "READY_PRODUZIDO",
+     "espera": true,
+     "prova": "teria de existir pelo menos um READY produzido",
+     "gerado_pelo_mapa": true,
+     "valor": false,
+     "estado": "NAO_CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [],
+   "engenharia": 0,
+   "entra_de": [
+    {
+     "id": "M-ADMISSION",
+     "nome": "A porta de admissão",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "o que a porta admitiu vira unidade pronta"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-SALA",
+     "nome": "A sala de espera",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "a unidade pronta pousa na sala de espera"
+    }
+   ]
+  },
+  "M-SALA": {
+   "id": "M-SALA",
+   "nome": "A sala de espera",
+   "nivel": 1,
+   "departamento": "D-ESPERA",
+   "parent": null,
+   "tipo": "bandeja",
+   "papel_canonico": "WAITING_ROOM",
+   "frase": "O lugar onde as unidades prontas ficam até a inteligência as vir buscar.",
+   "porque": "Entre colher e analisar há uma faixa neutra. Enquanto ela não existir de facto, a coleta não tem onde pousar o que admitiu.",
+   "entra": "as unidades prontas",
+   "sai": "para a inteligência",
+   "dono": "admissao/sala_de_espera.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": "WAITING_ROOM",
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-043), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-043",
+     "nome": "READY NÃO É «O SCRIPT TERMINOU»",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "1 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO",
+   "observado_motivo": "system-map/data/pedido.observado.json::ESTRADA.WAITING_ROOM.OBSERVED = False — esperava True",
+   "status": "BLOQUEADO",
+   "status_motivo": "a medição diz que este passo não aconteceu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+    "anchor": "Sala de Espera",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "ESTRADA.WAITING_ROOM.OBSERVED",
+     "espera": true,
+     "prova": "teria de haver ficheiros na sala depois de uma corrida",
+     "gerado_pelo_mapa": true,
+     "valor": false,
+     "estado": "NAO_CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "admissao/sala_de_espera.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "admissao/sala_de_espera.py"
+   ],
+   "engenharia": 1,
+   "entra_de": [
+    {
+     "id": "M-READY",
+     "nome": "A unidade pronta",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "a unidade pronta pousa na sala de espera"
+    }
+   ],
+   "sai_para": []
+  },
+  "M-BANCO": {
+   "id": "M-BANCO",
+   "nome": "A memória operacional",
+   "nivel": 1,
+   "departamento": "D-ESPERA",
+   "parent": null,
+   "tipo": "armazem",
+   "papel_canonico": "OPERATIONAL_MEMORY",
+   "frase": "O banco onde a coleta guarda o que colheu, entre uma corrida e outra.",
+   "porque": "O banco guarda; não julga. E ficheiro de migração no Git não é estado aplicado no banco — são duas coisas, e confundi-las faz o mapa mentir sobre o que está de pé.",
+   "entra": "o que a coleta produziu",
+   "sai": "consulta para quem precisar",
+   "dono": "supabase/",
+   "papel_de_fluxo": "TERMINAL",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-304, COL-LAW-305, COL-LAW-308, COL-LAW-306), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-304",
+     "nome": "O SUPABASE É A MEMÓRIA OPERACIONAL",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-305",
+     "nome": "O SUPABASE GUARDA; NÃO JULGA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-308",
+     "nome": "MIGRATION VERSIONADA, E FICHEIRO NÃO É ESTADO APLICADO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-306",
+     "nome": "NINGUÉM ESCREVE NO CANÔNICO POR CONHECER A TABELA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "52 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "as etapas da rota foram lidas do próprio banco (medido: <list:4>)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O SUPABASE GUARDA; NAO JULGA",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/rota-m2.observada.json",
+     "caminho": "ETAPAS_OBSERVADAS",
+     "espera": "nao-vazio",
+     "prova": "as etapas da rota foram lidas do próprio banco",
+     "gerado_pelo_mapa": true,
+     "valor": "<list:4>",
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+    "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+    "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
+    "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
+    "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+    "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
+    "supabase/fixtures/es_calendario_mvp.sql",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+    "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+    "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
+    "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+    "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+    "supabase/migrations/002_identidade_pessoa_org_canal.sql",
+    "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
+    "supabase/migrations/004_crop_issue_par_explicito.sql",
+    "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql",
+    "supabase/migrations/006_regulatorio_e_rls.sql",
+    "supabase/migrations/007_views_de_apoio.sql",
+    "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+    "supabase/migrations/009_semantica_de_pais.sql",
+    "supabase/migrations/010_calendario_agronomico.sql",
+    "supabase/migrations/011_calendario_consultas.sql",
+    "supabase/migrations/012_contexto_temporal_do_caso.sql",
+    "supabase/migrations/013_captura_nao_e_registro.sql",
+    "supabase/migrations/014_catalogo_publico_fabricante.sql",
+    "supabase/migrations/015_cicatrizes_do_brasil.sql",
+    "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
+    "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql",
+    "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
+    "supabase/migrations/019_camada_ue_e_resistencia.sql",
+    "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
+    "supabase/migrations/021_fato_externo_publicado.sql",
+    "supabase/migrations/022_o_derivado_ganha_casa.sql",
+    "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
+    "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+    "supabase/migrations/025_o_objeto_ganha_casa.sql",
+    "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+    "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+    "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
+    "supabase/migrations/029_a_observacao_declara_que_participou.sql",
+    "supabase/migrations/030_o_documento_ganha_registo.sql",
+    "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+    "supabase/tests/mutacao_cicatrizes.sql",
+    "supabase/tests/mutacao_coleta.sql",
+    "supabase/tests/mutacao_lugar_do_fato.sql",
+    "supabase/tests/regressoes_calendario.sql",
+    "supabase/tests/regressoes_captura.sql",
+    "supabase/tests/regressoes_catalogo_es.sql",
+    "supabase/tests/regressoes_cicatrizes.sql",
+    "supabase/tests/regressoes_coleta.sql",
+    "supabase/tests/regressoes_lugar_do_fato.sql",
+    "supabase/tests/regressoes_regulatorio_es.sql"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "supabase/consultas/ADAMA-ES-CATALOGO-14-PERGUNTAS.sql",
+    "supabase/ensaios/ADAMA-ES-ENSAIO-CINCO-CASOS.sql",
+    "supabase/ensaios/CAPTURA-AS-OF-DUAS-CAPTURAS.sql",
+    "supabase/ensaios/CICATRIZES-LOCALIZACAO-E-RELEVANCIA.sql",
+    "supabase/ensaios/ES-ROPF-PRE-REQUISITO-DO-CATALOGO.sql",
+    "supabase/ensaios/SENSOR-HUMANO-CINCO-PERFIS.sql",
+    "supabase/fixtures/es_calendario_mvp.sql",
+    "supabase/importacoes/ADAMA-ES-CATALOGO-2026-08-30.sql",
+    "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
+    "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
+    "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+    "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
+    "supabase/migrations/002_identidade_pessoa_org_canal.sql",
+    "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
+    "supabase/migrations/004_crop_issue_par_explicito.sql",
+    "supabase/migrations/005_camada_analitica_observado_vs_derivado.sql",
+    "supabase/migrations/006_regulatorio_e_rls.sql",
+    "supabase/migrations/007_views_de_apoio.sql",
+    "supabase/migrations/008_verificacao_pos_aplicacao.sql",
+    "supabase/migrations/009_semantica_de_pais.sql",
+    "supabase/migrations/010_calendario_agronomico.sql",
+    "supabase/migrations/011_calendario_consultas.sql",
+    "supabase/migrations/012_contexto_temporal_do_caso.sql",
+    "supabase/migrations/013_captura_nao_e_registro.sql",
+    "supabase/migrations/014_catalogo_publico_fabricante.sql",
+    "supabase/migrations/015_cicatrizes_do_brasil.sql",
+    "supabase/migrations/016_checkpoint_e_unidade_analitica.sql",
+    "supabase/migrations/017_o_que_a_conferencia_de_localizacao_achou.sql",
+    "supabase/migrations/018_o_lugar_do_fato_ganha_dono.sql",
+    "supabase/migrations/019_camada_ue_e_resistencia.sql",
+    "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
+    "supabase/migrations/021_fato_externo_publicado.sql",
+    "supabase/migrations/022_o_derivado_ganha_casa.sql",
+    "supabase/migrations/023_comentario_tem_id_e_a_thread_tem_pai.sql",
+    "supabase/migrations/024_a_corrida_conta_o_que_passou.sql",
+    "supabase/migrations/025_o_objeto_ganha_casa.sql",
+    "supabase/migrations/026_a_observacao_ganha_identidade.sql",
+    "supabase/migrations/027_a_observacao_deixa_de_ser_o_endereco.sql",
+    "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
+    "supabase/migrations/029_a_observacao_declara_que_participou.sql",
+    "supabase/migrations/030_o_documento_ganha_registo.sql",
+    "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+    "supabase/tests/mutacao_cicatrizes.sql",
+    "supabase/tests/mutacao_coleta.sql",
+    "supabase/tests/mutacao_lugar_do_fato.sql",
+    "supabase/tests/regressoes_calendario.sql",
+    "supabase/tests/regressoes_captura.sql",
+    "supabase/tests/regressoes_catalogo_es.sql",
+    "supabase/tests/regressoes_cicatrizes.sql",
+    "supabase/tests/regressoes_coleta.sql",
+    "supabase/tests/regressoes_lugar_do_fato.sql",
+    "supabase/tests/regressoes_regulatorio_es.sql"
+   ],
+   "engenharia": 52,
+   "entra_de": [
+    {
+     "id": "M-EXECUTOR",
+     "nome": "Quem sai e traz",
+     "status": "OBSERVED",
+     "tipo": "WRITE",
+     "significado": "o que a coleta produz fica guardado na memória operacional"
+    }
+   ],
+   "sai_para": []
+  },
+  "M-TRAVA": {
+   "id": "M-TRAVA",
+   "nome": "A trava da inteligência",
+   "nivel": 1,
+   "departamento": "D-INTELIGENCIA",
+   "parent": null,
+   "tipo": "lei",
+   "papel_canonico": "GATE",
+   "frase": "O contrato que impede a inteligência de começar antes de a coleta fechar a fundação.",
+   "porque": "Construir interpretação sobre uma coleta que ainda não sabe guardar a verdade é construir o andar de cima antes da fundação — e depois ninguém volta a mexer na fundação.",
+   "entra": "a medição do estado da coleta",
+   "sai": "autorização, ou bloqueio",
+   "dono": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+   "papel_de_fluxo": "TERMINAL",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-050), e declara-a cumprida na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-050",
+     "nome": "CURRENT ≠ TARGET",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/operacao/TRAVA-DA-INTELIGENCIA.json diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO",
+   "observado_motivo": "docs/operacao/TRAVA-DA-INTELIGENCIA.json::COLLECTION_FOUNDATION_CLOSED = NAO — esperava SIM",
+   "status": "BLOQUEADO",
+   "status_motivo": "a medição diz que este passo não aconteceu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "anchor": "COLLECTION_FOUNDATION_CLOSED",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+     "caminho": "COLLECTION_FOUNDATION_CLOSED",
+     "espera": "SIM",
+     "prova": "a trava só abre quando a fundação da coleta fechar",
+     "gerado_pelo_mapa": false,
+     "valor": "NAO",
+     "estado": "NAO_CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "provas/trava_da_inteligencia_morde.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "provas/trava_da_inteligencia_morde.py"
+   ],
+   "engenharia": 2,
+   "entra_de": [],
+   "sai_para": [
+    {
+     "id": "M-MOTOR",
+     "nome": "O motor de casos",
+     "status": "IMPLEMENTED",
+     "tipo": "RULE",
+     "significado": "a trava decide se a inteligência pode avançar"
+    }
+   ]
+  },
+  "M-MOTOR": {
+   "id": "M-MOTOR",
+   "nome": "O motor de casos",
+   "nivel": 1,
+   "departamento": "D-INTELIGENCIA",
+   "parent": null,
+   "tipo": "motor",
+   "papel_canonico": "INTELLIGENCE_ENGINE",
+   "frase": "A cadeia que transforma material guardado em caso com dono, lugar e momento.",
+   "porque": "A ordem é lei, não convenção: o passo que apaga sem avisar é pior que o passo que falha — o que falha, vê-se.",
+   "entra": "o material da sala de espera",
+   "sai": "o pacote fechado",
+   "dono": "motor/",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-050), e declara-a cumprida na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-050",
+     "nome": "CURRENT ≠ TARGET",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "38 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "a inteligencia tem UM dono",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "motor/cadeia_canonica.sh",
+    "motor/consolidar_leque.py",
+    "motor/matriz_recorte.py",
+    "motor/normalize_agro.py",
+    "motor/normalize_substance.py",
+    "motor/pacote_convergencia.py",
+    "motor/pacote_normalizar.py",
+    "motor/v21_aceitacao.py",
+    "motor/v21_adama_registro_validar.py",
+    "motor/v21_antes_e_depois.py",
+    "motor/v21_cadeia.sh",
+    "motor/v21_campos_de_lingua.py",
+    "motor/v21_comercial.py",
+    "motor/v21_completude_oportunidade.py",
+    "motor/v21_contrato_do_pacote.py",
+    "motor/v21_crossings.py",
+    "motor/v21_dominio_da_alegacao.py",
+    "motor/v21_fechar.py",
+    "motor/v21_fontes_faltantes.py",
+    "motor/v21_fontes_rechavear.py",
+    "motor/v21_ingest.py",
+    "motor/v21_ingest_b.py",
+    "motor/v21_ingest_c.py",
+    "motor/v21_necessidade.py",
+    "motor/v21_normalizar.py",
+    "motor/v21_oportunidades.py",
+    "motor/v21_reavaliar_35.py",
+    "motor/v21_reverificacao_ledger.py",
+    "motor/v21_tm_colher.py",
+    "motor/v21_traducao_trava.py",
+    "motor/v21_vozes_reconciliar.py",
+    "motor/v2_conflitos.py",
+    "motor/v2_cruzamentos.py",
+    "motor/v2_dedup_e_familias.py",
+    "motor/v2_fechar.py",
+    "motor/v2_montar_handoff.py",
+    "motor/v2_qa_atribuir.py",
+    "motor/v2_relatorio.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "motor/cadeia_canonica.sh",
+    "motor/consolidar_leque.py",
+    "motor/matriz_recorte.py",
+    "motor/normalize_agro.py",
+    "motor/normalize_substance.py",
+    "motor/pacote_normalizar.py",
+    "motor/v21_aceitacao.py",
+    "motor/v21_adama_registro_validar.py",
+    "motor/v21_antes_e_depois.py",
+    "motor/v21_cadeia.sh",
+    "motor/v21_campos_de_lingua.py",
+    "motor/v21_completude_oportunidade.py",
+    "motor/v21_contrato_do_pacote.py",
+    "motor/v21_dominio_da_alegacao.py",
+    "motor/v21_fechar.py",
+    "motor/v21_fontes_faltantes.py",
+    "motor/v21_fontes_rechavear.py",
+    "motor/v21_ingest.py",
+    "motor/v21_ingest_b.py",
+    "motor/v21_ingest_c.py",
+    "motor/v21_necessidade.py",
+    "motor/v21_normalizar.py",
+    "motor/v21_reavaliar_35.py",
+    "motor/v21_reverificacao_ledger.py",
+    "motor/v21_tm_colher.py",
+    "motor/v21_traducao_trava.py",
+    "motor/v21_vozes_reconciliar.py"
+   ],
+   "engenharia": 27,
+   "entra_de": [
+    {
+     "id": "M-TRAVA",
+     "nome": "A trava da inteligência",
+     "status": "IMPLEMENTED",
+     "tipo": "RULE",
+     "significado": "a trava decide se a inteligência pode avançar"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-PACOTE",
+     "nome": "O pacote canónico",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "o motor fecha o pacote canónico"
+    }
+   ]
+  },
+  "M-CRUZAMENTOS": {
+   "id": "M-CRUZAMENTOS",
+   "nome": "Os cruzamentos",
+   "nivel": 2,
+   "departamento": "D-INTELIGENCIA",
+   "parent": "M-MOTOR",
+   "tipo": "motor",
+   "papel_canonico": "CROSSING",
+   "frase": "Onde duas camadas diferentes se encontram sobre a mesma chave.",
+   "porque": "Um caso de convergência cruza campo, ciência, clima, regulatório, portfólio e concorrência — e nenhuma dessas camadas sozinha sustenta a conclusão.",
+   "entra": "os registos já normalizados",
+   "sai": "os pares que se tocam",
+   "dono": "motor/pacote_convergencia.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-048), e declara-a cumprida na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-048",
+     "nome": "TIPOS DE CONEXÃO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "Um caso de convergencia cruza",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "motor/pacote_convergencia.py",
+    "motor/v21_crossings.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "motor/pacote_convergencia.py",
+    "motor/v21_crossings.py"
+   ],
+   "engenharia": 2,
+   "entra_de": [],
+   "sai_para": []
+  },
+  "M-SINAIS": {
+   "id": "M-SINAIS",
+   "nome": "Os sinais e os achados",
+   "nivel": 2,
+   "departamento": "D-INTELIGENCIA",
+   "parent": "M-MOTOR",
+   "tipo": "motor",
+   "papel_canonico": "SIGNAL_FINDING",
+   "frase": "O que merece ser investigado primeiro — e nunca «oportunidade de venda».",
+   "porque": "A saída é prioridade a investigar. Chamar-lhe venda seria transformar um índice de exposição relativa numa afirmação económica que ninguém mediu.",
+   "entra": "os cruzamentos",
+   "sai": "os casos, cada um com o seu estado",
+   "dono": "motor/v21_oportunidades.py",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-201), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-201",
+     "nome": "ARTEFATO NÃO É FATO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "2 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "PRIORITY TO INVESTIGATE",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "motor/v21_comercial.py",
+    "motor/v21_oportunidades.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "motor/v21_comercial.py",
+    "motor/v21_oportunidades.py"
+   ],
+   "engenharia": 2,
+   "entra_de": [],
+   "sai_para": []
+  },
+  "M-LACUNA": {
+   "id": "M-LACUNA",
+   "nome": "A falta de coleta",
+   "nivel": 1,
+   "departamento": "D-INTELIGENCIA",
+   "parent": null,
+   "tipo": "retorno",
+   "papel_canonico": "COLLECTION_GAP",
+   "frase": "Quando a inteligência descobre que lhe falta material, ela pede nova coleta — pela porta da frente.",
+   "porque": "Pedir é diferente de ir buscar. A inteligência não chama o coletor: ela faz um pedido, e o pedido entra pelo caminho canónico como qualquer outro.",
+   "entra": "a constatação de que falta material",
+   "sai": "um pedido de coleta",
+   "dono": "NÃO SEI",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-010, COL-LAW-021), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-010",
+     "nome": "UM PEDIDO NÃO CONHECE IMPLEMENTAÇÃO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-021",
+     "nome": "NÃO COLETAR DE NOVO SEM NECESSIDADE",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md diz isto, com a frase citada.",
+   "codigo": "NAO",
+   "codigo_motivo": "nenhum caminho de implementação foi declarado — não há código para isto.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "NAO_IMPLEMENTADO",
+   "status_motivo": "a Bíblia exige, e não existe implementação aqui.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "COLLECT MORE",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [],
+   "engenharia": 0,
+   "entra_de": [],
+   "sai_para": [
+    {
+     "id": "M-PEDIDO",
+     "nome": "O pedido",
+     "status": "DECLARED",
+     "tipo": "CONTROL",
+     "significado": "a falta de material vira um pedido, pela porta da frente"
+    }
+   ]
+  },
+  "M-PACOTE": {
+   "id": "M-PACOTE",
+   "nome": "O pacote canónico",
+   "nivel": 1,
+   "departamento": "D-INTELIGENCIA",
+   "parent": null,
+   "tipo": "artefato",
+   "papel_canonico": "PACKAGE",
+   "frase": "O artefato fechado que sai da inteligência — derivado e reproduzível, nunca dono da lei.",
+   "porque": "Contrato tem um dono; o retrato é derivado. Um artefato gerado que passe a mandar seria uma segunda verdade.",
+   "entra": "do motor, na linhagem que tem o direito de gerar",
+   "sai": "para o portão da build",
+   "dono": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-047, COL-LAW-201), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-047",
+     "nome": "O MAPA NÃO É FONTE DE VERDADE PRIMÁRIA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-201",
+     "nome": "ARTEFATO NÃO É FATO",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "17 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "o contrato nomeia a identidade do pacote que se espera (medido: V21-06c6421d001ea52a)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "EXPECTED_BUILD_ID",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+     "caminho": "EXPECTED_BUILD_ID",
+     "espera": "nao-vazio",
+     "prova": "o contrato nomeia a identidade do pacote que se espera",
+     "gerado_pelo_mapa": false,
+     "valor": "V21-06c6421d001ea52a",
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "pacote/lastmile_entregar.py",
+    "pacote/lastmile_inventario.py",
+    "pacote/lastmile_para_supabase.py",
+    "pacote/lastmile_relatorio.py",
+    "pacote/ler_saida_leque.py",
+    "pacote/meeting_snapshot.py",
+    "pacote/metricas_canonicas.py",
+    "pacote/pacote.py",
+    "pacote/pacote_camadas.py",
+    "pacote/pacote_camadas2.py",
+    "pacote/pacote_camadas3.py",
+    "pacote/pacote_docs.py",
+    "pacote/pacote_fenologia.py",
+    "pacote/pacote_mercado.py",
+    "pacote/pacote_montar.py",
+    "pacote/pacote_relacoes_convergencia.py",
+    "pacote/v21_handoff_json.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "pacote/lastmile_entregar.py",
+    "pacote/lastmile_inventario.py",
+    "pacote/lastmile_para_supabase.py",
+    "pacote/lastmile_relatorio.py",
+    "pacote/ler_saida_leque.py",
+    "pacote/meeting_snapshot.py",
+    "pacote/metricas_canonicas.py",
+    "pacote/pacote.py",
+    "pacote/pacote_camadas.py",
+    "pacote/pacote_camadas2.py",
+    "pacote/pacote_camadas3.py",
+    "pacote/pacote_docs.py",
+    "pacote/pacote_fenologia.py",
+    "pacote/pacote_mercado.py",
+    "pacote/pacote_montar.py",
+    "pacote/pacote_relacoes_convergencia.py",
+    "pacote/v21_handoff_json.py"
+   ],
+   "engenharia": 17,
+   "entra_de": [
+    {
+     "id": "M-MOTOR",
+     "nome": "O motor de casos",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "o motor fecha o pacote canónico"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-PORTAO",
+     "nome": "O portão da entrega",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "o pacote apresenta-se ao portão"
+    }
+   ]
+  },
+  "M-PORTAO": {
+   "id": "M-PORTAO",
+   "nome": "O portão da entrega",
+   "nivel": 1,
+   "departamento": "D-PROVAS",
+   "parent": null,
+   "tipo": "portao",
+   "papel_canonico": "GATE",
+   "frase": "O único ponto por onde o pacote atravessa para a tela — e ele fecha quando a procedência não se prova.",
+   "porque": "Um portão que avisa é um portão que se ignora na sexta à noite. Se a procedência não se prova, a build para.",
+   "entra": "o pacote",
+   "sai": "autorização para atravessar, ou a build parada",
+   "dono": "italia-portale/audit/build-gate.mjs",
+   "papel_de_fluxo": "FLUXO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-314), e declara-a cumprida na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-314",
+     "nome": "DEPLOY NÃO DECIDE QUAL DADO É VERDADE",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "3 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "FAIL_CLOSED",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "italia-portale/audit/build-gate.mjs",
+    "portoes/build_portal.py",
+    "portoes/site_v21_ingest.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "italia-portale/audit/build-gate.mjs",
+    "portoes/build_portal.py",
+    "portoes/site_v21_ingest.py"
+   ],
+   "engenharia": 3,
+   "entra_de": [
+    {
+     "id": "M-PACOTE",
+     "nome": "O pacote canónico",
+     "status": "IMPLEMENTED",
+     "tipo": "DATA",
+     "significado": "o pacote apresenta-se ao portão"
+    }
+   ],
+   "sai_para": [
+    {
+     "id": "M-CASCO",
+     "nome": "O casco do portal",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "aprovado no portão, o pacote chega à tela"
+    }
+   ]
+  },
+  "M-PROVAS": {
+   "id": "M-PROVAS",
+   "nome": "As provas executáveis",
+   "nivel": 1,
+   "departamento": "D-PROVAS",
+   "parent": null,
+   "tipo": "prova",
+   "papel_canonico": "VALIDATION",
+   "frase": "Os programas que medem a máquina e escrevem o que viram — incluindo quando ela falha.",
+   "porque": "Toda afirmação importante tem de carregar evidência que se possa abrir. E teste que nunca viu vermelho não é teste.",
+   "entra": "a máquina",
+   "sai": "medições que o mapa cita como prova",
+   "dono": "provas/",
+   "papel_de_fluxo": "TERMINAL",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-112, COL-LAW-110, COL-LAW-111), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-112",
+     "nome": "TODA AFIRMAÇÃO DO MAPA TEM EVIDÊNCIA NAVEGÁVEL",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-110",
+     "nome": "OBSERVABILIDADE POR NASCIMENTO",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-111",
+     "nome": "A CAMADA DE OBSERVABILIDADE NÃO É UMA SEGUNDA VERDADE",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "283 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "uma prova executável mediu uma corrida real e nomeou-a (medido: IT-T2-2026-09-13-010346)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "TODA AFIRMACAO DO MAPA TEM EVIDENCIA NAVEGAVEL",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/pedido.observado.json",
+     "caminho": "RUN_ID",
+     "espera": "nao-vazio",
+     "prova": "uma prova executável mediu uma corrida real e nomeou-a",
+     "gerado_pelo_mapa": true,
+     "valor": "IT-T2-2026-09-13-010346",
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "provas/_c106b_filho.py",
+    "provas/_c106c_filho.py",
+    "provas/_c108a_ensaio_a_seco.json",
+    "provas/_c108a_ultima_corrida.json",
+    "provas/_e2e01_janela_admissivel.py",
+    "provas/_e2e02_janela_dois_posts.py",
+    "provas/_flow01_janela_falsa.py",
+    "provas/_rc01_mundo_falso.py",
+    "provas/a_autoridade_da_fonte.py",
+    "provas/a_fase_10_entra_no_acervo.py",
+    "provas/a_fonte_atravessa_ate_a_porta.py",
+    "provas/a_fronteira_da_coleta.py",
+    "provas/a_lei_da_fase_10.py",
+    "provas/a_linhagem_do_ready.py",
+    "provas/a_linhagem_do_ready_social.py",
+    "provas/a_linhagem_do_reaproveitamento.py",
+    "provas/a_maquina_depois_do_crash.py",
+    "provas/a_maquina_sob_carga.py",
+    "provas/a_regra_de_t2.py",
+    "provas/a_repeticao_do_scrap.py",
+    "provas/a_rota_m2_atravessa.py",
+    "provas/a_sala_de_espera_nao_tem_morada.py",
+    "provas/a_sala_sobrevive_ao_processo.py",
+    "provas/a_unidade_pousa_na_espera.py",
+    "provas/alcance_da_pergunta_tematica.py",
+    "provas/amostragem_neutra_t3.py",
+    "provas/as_corridas_nao_se_cruzam.py",
+    "provas/as_travas_do_scrap_no_postgres.py",
+    "provas/asr_banco.py",
+    "provas/auditoria.py",
+    "provas/auditoria_live.sh",
+    "provas/benchmark_tematico.py",
+    "provas/bluesky_trial_ao_vivo.py",
+    "provas/candidatos_tematicos.py",
+    "provas/censo_corpus_rotulado_admission.py",
+    "provas/censo_executavel_da_v1.py",
+    "provas/chain.py",
+    "provas/corrigir_custo.py",
+    "provas/coverage.py",
+    "provas/derived_artifact_no_postgres.py",
+    "provas/ensaio_canonico_de_capacidade.py",
+    "provas/ensaio_do_texto_na_collection.py",
+    "provas/ensaio_scrap_para_a_collection.py",
+    "provas/entradas_do_scrap_v1.py",
+    "provas/es/freeze_es.py",
+    "provas/especie_do_texto_auditoria.py",
+    "provas/fechar_ground_truth_t3.py",
+    "provas/fluxo_no_seco.py",
+    "provas/gate_de_aceitacao_tematica.py",
+    "provas/gpu_asr_smoke.py",
+    "provas/hardware_local.py",
+    "provas/implementacoes_candidatas.py",
+    "provas/instagram_audio_only.py",
+    "provas/inventario_esperado.py",
+    "provas/italy_accounting.mjs",
+    "provas/italy_pilot_negativos.mjs",
+    "provas/linkedin_local_first.py",
+    "provas/medir_admission_t3_atual.py",
+    "provas/medir_source_id_wiring_gap.py",
+    "provas/mutacao_da_autorizacao.py",
+    "provas/mutacao_da_linhagem_do_ready.py",
+    "provas/mutacao_da_linhagem_social.py",
+    "provas/mutacao_da_release_v1.py",
+    "provas/mutacao_da_sala_duravel.py",
+    "provas/mutacao_do_fluxo_canonico.py",
+    "provas/mutacao_do_gate.py",
+    "provas/nenhuma_compra_sem_autorizacao.py",
+    "provas/o_canario_da_collection.py",
+    "provas/o_canario_do_scrap_v1.py",
+    "provas/o_censo_do_acervo.py",
+    "provas/o_corte_de_cr1.py",
+    "provas/o_dedupe_tem_constraint.py",
+    "provas/o_egresso_antes_da_aquisicao.py",
+    "provas/o_encanamento_tem_uma_porta.py",
+    "provas/o_executor_conta_se.py",
+    "provas/o_fluxo_canonico_do_scrap.py",
+    "provas/o_forward_conta_se.py",
+    "provas/o_legado_fora_do_fluxo.py",
+    "provas/o_mapa_nao_mente.py",
+    "provas/o_pedido_atravessa.py",
+    "provas/o_pedido_t4_atravessa.py",
+    "provas/o_raw_fala.py",
+    "provas/o_retry_do_scrap.py",
+    "provas/o_scrap_chega_ao_acervo.py",
+    "provas/objeto_e_observacao_no_postgres.py",
+    "provas/orcamento_de_rede.py",
+    "provas/orcamento_financeiro.py",
+    "provas/os_portoes_da_collection.py",
+    "provas/pacote_de_revisao_t3.py",
+    "provas/paridade_da_lingua.py",
+    "provas/portas_canonicas_no_postgres.py",
+    "provas/preflight_022_live.sh",
+    "provas/preservar_coleta_no_postgres.py",
+    "provas/primeira_rota_paga.py",
+    "provas/qualidade_t3.py",
+    "provas/queda_e_repeticao_da_v1.py",
+    "provas/quem_pode_comprar.py",
+    "provas/rastro_no_postgres.py",
+    "provas/raw_entre_jobs.py",
+    "provas/readback_022_live.sh",
+    "provas/red_team_da_release_v1.py",
+    "provas/reel_fala_qualidade.py",
+    "provas/rls_censo_metadados.sql",
+    "provas/rls_censo_portao.py",
+    "provas/run_duravel_no_postgres.py",
+    "provas/runtime_comum_no_postgres.py",
+    "provas/runtime_pago_no_postgres.py",
+    "provas/so_a_colheita_atravessa.py",
+    "provas/social_persistencia_no_postgres.py",
+    "provas/superficie_do_scrap_v1.py",
+    "provas/testa_coleta_canonica.py",
+    "provas/testa_golden_path_pdf.py",
+    "provas/testa_rota_italia.py",
+    "provas/trava_da_inteligencia_morde.py",
+    "provas/trava_de_drift_de_migration.sh",
+    "provas/ui_revisao_t3_ptbr.py",
+    "provas/valida_biblia.py",
+    "tests/.gitkeep",
+    "tests/es/test_adama_es_gate.py",
+    "tests/es/test_adama_es_import_rules.py",
+    "tests/fixtures/ARESTAS/README.md",
+    "tests/fixtures/ARESTAS/ajudante.py",
+    "tests/fixtures/ARESTAS/codigo_real.py",
+    "tests/fixtures/ARESTAS/owner_indireto.py",
+    "tests/fixtures/ARESTAS/so_comentario.py",
+    "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
+    "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
+    "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+    "tests/fixtures/yt-raw-minimo.json",
+    "tests/test_a_fase_10_entra_no_acervo.py",
+    "tests/test_a_linhagem_do_ready.py",
+    "tests/test_a_linhagem_do_reaproveitamento.py",
+    "tests/test_a_operacao_aguenta_concorrencia.py",
+    "tests/test_a_ponte_do_derived.py",
+    "tests/test_a_prova_e2e_segue_a_producao.py",
+    "tests/test_a_regra_de_t2.py",
+    "tests/test_a_sala_de_espera_nao_tem_morada.py",
+    "tests/test_a_sala_de_espera_tem_um_dono.py",
+    "tests/test_adama_relevance.py",
+    "tests/test_alcance_tematico.py",
+    "tests/test_alvo_estruturado_resolvido.py",
+    "tests/test_amostragem_neutra_t3.py",
+    "tests/test_aprender_com_a_fonte.py",
+    "tests/test_arestas.py",
+    "tests/test_armazem_italiano.py",
+    "tests/test_ausencia_na_fronteira_da_corrida.py",
+    "tests/test_autoridade_da_fonte.py",
+    "tests/test_autorizacao_de_gasto.py",
+    "tests/test_biblia.py",
+    "tests/test_c10_1_source_id.py",
+    "tests/test_c10_2_origin_gate.py",
+    "tests/test_c10_3_location.py",
+    "tests/test_c10_4_route_gate.py",
+    "tests/test_c10_4b_um_caminho_so.py",
+    "tests/test_c10_4c_janela_preservada.py",
+    "tests/test_c10_4c_rota_aposentada.py",
+    "tests/test_c10_5_collection_flow.py",
+    "tests/test_c10_5d_decisao_instagram.py",
+    "tests/test_c10_6_crash_retry.py",
+    "tests/test_c10_6b_run_duravel.py",
+    "tests/test_c10_6c_runtime_comum.py",
+    "tests/test_c10_6d_portas_canonicas.py",
+    "tests/test_c10_6e_runtime_pago.py",
+    "tests/test_c10_7_ensaio_canonico.py",
+    "tests/test_c10_8a_bluesky_ao_vivo.py",
+    "tests/test_c10_8af_orcamento_financeiro.py",
+    "tests/test_c10_8ar_orcamento_de_rede.py",
+    "tests/test_c10_8b_live_disparador.py",
+    "tests/test_c10_8b_r_raw_entre_jobs.py",
+    "tests/test_c10_8b_rota_paga_canonica.py",
+    "tests/test_c10_audio_only.py",
+    "tests/test_c12_x_censo.py",
+    "tests/test_c2_youtube_oficial.py",
+    "tests/test_c3_youtube_cutover.py",
+    "tests/test_c4_gpu_local.py",
+    "tests/test_c4b_gpu_execucao.py",
+    "tests/test_c5_transcript_gate.py",
+    "tests/test_c6_especie_do_texto.py",
+    "tests/test_c7_lugar_do_fato.py",
+    "tests/test_c8_convergencia.py",
+    "tests/test_calendario_temporal.py",
+    "tests/test_candidatos_tematicos.py",
+    "tests/test_canonico.py",
+    "tests/test_censo_cards_sensores.py",
+    "tests/test_censo_corpus_rotulado_admission.py",
+    "tests/test_censo_dos_donos.py",
+    "tests/test_cicatrizes_brasil.py",
+    "tests/test_col_e7_contrato_do_texto.py",
+    "tests/test_coleta_externa.py",
+    "tests/test_coleta_resiliente.py",
+    "tests/test_competitor_layer.py",
+    "tests/test_completude_oportunidade.py",
+    "tests/test_comunicacao.py",
+    "tests/test_estagio_atravessa_a_fronteira.py",
+    "tests/test_estradas_it.py",
+    "tests/test_evidence.py",
+    "tests/test_evolucao.py",
+    "tests/test_execucao_standalone.py",
+    "tests/test_falhas.py",
+    "tests/test_fechar_ground_truth_t3.py",
+    "tests/test_fonte_atravessa.py",
+    "tests/test_forward_instrumentado.py",
+    "tests/test_fronteira_mede_producao.py",
+    "tests/test_fundacao_da_coleta.py",
+    "tests/test_gate_de_aceitacao_tematica.py",
+    "tests/test_gestao_da_coleta.py",
+    "tests/test_handoff.py",
+    "tests/test_hero_cases_v1.py",
+    "tests/test_identidade_do_artefato.py",
+    "tests/test_implementacoes_candidatas.py",
+    "tests/test_integracao_biblia.py",
+    "tests/test_integracao_e7_contrato_na_linha_funcional.py",
+    "tests/test_italia_na_porta_canonica.py",
+    "tests/test_legado_fora_do_fluxo.py",
+    "tests/test_leitores_depois_da_fase_10.py",
+    "tests/test_lingua_da_porta.py",
+    "tests/test_lingua_unica.py",
+    "tests/test_linkedin_build_01_local_first.py",
+    "tests/test_linkedin_op_01_operacional.py",
+    "tests/test_lugar_do_fato.py",
+    "tests/test_m2_aresta_observada.py",
+    "tests/test_m2_rota_forward.py",
+    "tests/test_mapa_nao_mente.py",
+    "tests/test_medir_admission_t3_atual.py",
+    "tests/test_metricas.py",
+    "tests/test_migrations.py",
+    "tests/test_navegador.py",
+    "tests/test_o10r_a_verdade_dos_nomes.py",
+    "tests/test_o9_caminho_instrumentado.py",
+    "tests/test_o_canario_da_collection.py",
+    "tests/test_o_pedido_atravessa.py",
+    "tests/test_o_pedido_t4_atravessa.py",
+    "tests/test_o_raw_fala.py",
+    "tests/test_observabilidade.py",
+    "tests/test_observabilidade_estrada.py",
+    "tests/test_operacao.py",
+    "tests/test_pacote_de_revisao_t3.py",
+    "tests/test_pipeline.py",
+    "tests/test_politica_da_coleta.py",
+    "tests/test_porta_de_producao.py",
+    "tests/test_portao.py",
+    "tests/test_portoes_da_collection.py",
+    "tests/test_portoes_eame.py",
+    "tests/test_preflight_de_egresso.py",
+    "tests/test_preservar_coleta.py",
+    "tests/test_preservar_coleta_no_banco.py",
+    "tests/test_preservar_derivado.py",
+    "tests/test_prioridade_comercial.py",
+    "tests/test_proveniencia.py",
+    "tests/test_qualidade_t3.py",
+    "tests/test_radar_futuro.py",
+    "tests/test_rastro_pg.py",
+    "tests/test_raw_observation_id_volta.py",
+    "tests/test_red_team_estrada.py",
+    "tests/test_reel_transcricao.py",
+    "tests/test_relatorio_do_fluxo.py",
+    "tests/test_retorno_da_coleta.py",
+    "tests/test_route_membership.py",
+    "tests/test_runtime_so_deixa_passar_colheita.py",
+    "tests/test_sala_duravel.py",
+    "tests/test_scrap_convergencia.py",
+    "tests/test_scrap_flow01_caminho_canonico.py",
+    "tests/test_scrap_rc01_release_candidate.py",
+    "tests/test_scrap_sr02_autorizacao_de_gasto.py",
+    "tests/test_security_drift_db.py",
+    "tests/test_security_ratchet.py",
+    "tests/test_security_secret_shapes.py",
+    "tests/test_social_persistencia_pg.py",
+    "tests/test_social_sessao.py",
+    "tests/test_source_id_wiring_gap.py",
+    "tests/test_telemetria.py",
+    "tests/test_thread_parcial.py",
+    "tests/test_trava_da_inteligencia.py",
+    "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_v21_datas.py",
+    "tests/test_v21_geografia.py",
+    "tests/test_v21_mercado.py",
+    "tests/test_v21_traducao_trava.py",
+    "tests/test_voz.py",
+    "tests/test_youtube_antidrift.py",
+    "tests/test_youtube_checkpoint_pg.py",
+    "tests/test_youtube_oficial.py",
+    "tests/test_youtube_piloto.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "provas/_c106b_filho.py",
+    "provas/_c106c_filho.py",
+    "provas/_c108a_ensaio_a_seco.json",
+    "provas/_c108a_ultima_corrida.json",
+    "provas/_e2e01_janela_admissivel.py",
+    "provas/_e2e02_janela_dois_posts.py",
+    "provas/_flow01_janela_falsa.py",
+    "provas/_rc01_mundo_falso.py",
+    "provas/a_autoridade_da_fonte.py",
+    "provas/a_fase_10_entra_no_acervo.py",
+    "provas/a_fonte_atravessa_ate_a_porta.py",
+    "provas/a_fronteira_da_coleta.py",
+    "provas/a_lei_da_fase_10.py",
+    "provas/a_linhagem_do_ready.py",
+    "provas/a_linhagem_do_ready_social.py",
+    "provas/a_linhagem_do_reaproveitamento.py",
+    "provas/a_maquina_depois_do_crash.py",
+    "provas/a_maquina_sob_carga.py",
+    "provas/a_regra_de_t2.py",
+    "provas/a_repeticao_do_scrap.py",
+    "provas/a_rota_m2_atravessa.py",
+    "provas/a_sala_de_espera_nao_tem_morada.py",
+    "provas/a_sala_sobrevive_ao_processo.py",
+    "provas/a_unidade_pousa_na_espera.py",
+    "provas/alcance_da_pergunta_tematica.py",
+    "provas/amostragem_neutra_t3.py",
+    "provas/as_corridas_nao_se_cruzam.py",
+    "provas/as_travas_do_scrap_no_postgres.py",
+    "provas/asr_banco.py",
+    "provas/auditoria.py",
+    "provas/auditoria_live.sh",
+    "provas/benchmark_tematico.py",
+    "provas/bluesky_trial_ao_vivo.py",
+    "provas/candidatos_tematicos.py",
+    "provas/censo_corpus_rotulado_admission.py",
+    "provas/censo_executavel_da_v1.py",
+    "provas/chain.py",
+    "provas/corrigir_custo.py",
+    "provas/coverage.py",
+    "provas/derived_artifact_no_postgres.py",
+    "provas/ensaio_canonico_de_capacidade.py",
+    "provas/ensaio_do_texto_na_collection.py",
+    "provas/ensaio_scrap_para_a_collection.py",
+    "provas/entradas_do_scrap_v1.py",
+    "provas/es/freeze_es.py",
+    "provas/especie_do_texto_auditoria.py",
+    "provas/fechar_ground_truth_t3.py",
+    "provas/fluxo_no_seco.py",
+    "provas/gate_de_aceitacao_tematica.py",
+    "provas/gpu_asr_smoke.py",
+    "provas/hardware_local.py",
+    "provas/implementacoes_candidatas.py",
+    "provas/instagram_audio_only.py",
+    "provas/inventario_esperado.py",
+    "provas/italy_accounting.mjs",
+    "provas/italy_pilot_negativos.mjs",
+    "provas/linkedin_local_first.py",
+    "provas/medir_admission_t3_atual.py",
+    "provas/medir_source_id_wiring_gap.py",
+    "provas/mutacao_da_autorizacao.py",
+    "provas/mutacao_da_linhagem_do_ready.py",
+    "provas/mutacao_da_linhagem_social.py",
+    "provas/mutacao_da_release_v1.py",
+    "provas/mutacao_da_sala_duravel.py",
+    "provas/mutacao_do_fluxo_canonico.py",
+    "provas/mutacao_do_gate.py",
+    "provas/nenhuma_compra_sem_autorizacao.py",
+    "provas/o_canario_da_collection.py",
+    "provas/o_canario_do_scrap_v1.py",
+    "provas/o_censo_do_acervo.py",
+    "provas/o_corte_de_cr1.py",
+    "provas/o_dedupe_tem_constraint.py",
+    "provas/o_egresso_antes_da_aquisicao.py",
+    "provas/o_encanamento_tem_uma_porta.py",
+    "provas/o_executor_conta_se.py",
+    "provas/o_fluxo_canonico_do_scrap.py",
+    "provas/o_forward_conta_se.py",
+    "provas/o_legado_fora_do_fluxo.py",
+    "provas/o_mapa_nao_mente.py",
+    "provas/o_pedido_atravessa.py",
+    "provas/o_pedido_t4_atravessa.py",
+    "provas/o_raw_fala.py",
+    "provas/o_retry_do_scrap.py",
+    "provas/o_scrap_chega_ao_acervo.py",
+    "provas/objeto_e_observacao_no_postgres.py",
+    "provas/orcamento_de_rede.py",
+    "provas/orcamento_financeiro.py",
+    "provas/os_portoes_da_collection.py",
+    "provas/pacote_de_revisao_t3.py",
+    "provas/paridade_da_lingua.py",
+    "provas/portas_canonicas_no_postgres.py",
+    "provas/preflight_022_live.sh",
+    "provas/preservar_coleta_no_postgres.py",
+    "provas/primeira_rota_paga.py",
+    "provas/qualidade_t3.py",
+    "provas/queda_e_repeticao_da_v1.py",
+    "provas/quem_pode_comprar.py",
+    "provas/rastro_no_postgres.py",
+    "provas/raw_entre_jobs.py",
+    "provas/readback_022_live.sh",
+    "provas/red_team_da_release_v1.py",
+    "provas/reel_fala_qualidade.py",
+    "provas/rls_censo_metadados.sql",
+    "provas/rls_censo_portao.py",
+    "provas/run_duravel_no_postgres.py",
+    "provas/runtime_comum_no_postgres.py",
+    "provas/runtime_pago_no_postgres.py",
+    "provas/so_a_colheita_atravessa.py",
+    "provas/social_persistencia_no_postgres.py",
+    "provas/superficie_do_scrap_v1.py",
+    "provas/testa_coleta_canonica.py",
+    "provas/testa_golden_path_pdf.py",
+    "provas/testa_rota_italia.py",
+    "provas/trava_de_drift_de_migration.sh",
+    "provas/ui_revisao_t3_ptbr.py",
+    "provas/valida_biblia.py",
+    "tests/.gitkeep",
+    "tests/es/test_adama_es_gate.py",
+    "tests/es/test_adama_es_import_rules.py",
+    "tests/fixtures/ARESTAS/README.md",
+    "tests/fixtures/ARESTAS/ajudante.py",
+    "tests/fixtures/ARESTAS/codigo_real.py",
+    "tests/fixtures/ARESTAS/owner_indireto.py",
+    "tests/fixtures/ARESTAS/so_comentario.py",
+    "tests/fixtures/YT-RUN-34258433872/PROCEDENCIA.md",
+    "tests/fixtures/YT-RUN-34258433872/commentThreads-ezRyN8vLVvc.json",
+    "tests/fixtures/YT-RUN-34258433872/comments-UgxoP_4_qUyfVrsKV6V4AaABAg.json",
+    "tests/fixtures/yt-raw-minimo.json",
+    "tests/test_a_fase_10_entra_no_acervo.py",
+    "tests/test_a_linhagem_do_ready.py",
+    "tests/test_a_linhagem_do_reaproveitamento.py",
+    "tests/test_a_operacao_aguenta_concorrencia.py",
+    "tests/test_a_ponte_do_derived.py",
+    "tests/test_a_prova_e2e_segue_a_producao.py",
+    "tests/test_a_regra_de_t2.py",
+    "tests/test_a_sala_de_espera_nao_tem_morada.py",
+    "tests/test_a_sala_de_espera_tem_um_dono.py",
+    "tests/test_adama_relevance.py",
+    "tests/test_alcance_tematico.py",
+    "tests/test_alvo_estruturado_resolvido.py",
+    "tests/test_amostragem_neutra_t3.py",
+    "tests/test_aprender_com_a_fonte.py",
+    "tests/test_arestas.py",
+    "tests/test_armazem_italiano.py",
+    "tests/test_ausencia_na_fronteira_da_corrida.py",
+    "tests/test_autoridade_da_fonte.py",
+    "tests/test_autorizacao_de_gasto.py",
+    "tests/test_biblia.py",
+    "tests/test_c10_1_source_id.py",
+    "tests/test_c10_2_origin_gate.py",
+    "tests/test_c10_3_location.py",
+    "tests/test_c10_4_route_gate.py",
+    "tests/test_c10_4b_um_caminho_so.py",
+    "tests/test_c10_4c_janela_preservada.py",
+    "tests/test_c10_4c_rota_aposentada.py",
+    "tests/test_c10_5_collection_flow.py",
+    "tests/test_c10_5d_decisao_instagram.py",
+    "tests/test_c10_6_crash_retry.py",
+    "tests/test_c10_6b_run_duravel.py",
+    "tests/test_c10_6c_runtime_comum.py",
+    "tests/test_c10_6d_portas_canonicas.py",
+    "tests/test_c10_6e_runtime_pago.py",
+    "tests/test_c10_7_ensaio_canonico.py",
+    "tests/test_c10_8a_bluesky_ao_vivo.py",
+    "tests/test_c10_8af_orcamento_financeiro.py",
+    "tests/test_c10_8ar_orcamento_de_rede.py",
+    "tests/test_c10_8b_live_disparador.py",
+    "tests/test_c10_8b_r_raw_entre_jobs.py",
+    "tests/test_c10_8b_rota_paga_canonica.py",
+    "tests/test_c10_audio_only.py",
+    "tests/test_c12_x_censo.py",
+    "tests/test_c2_youtube_oficial.py",
+    "tests/test_c3_youtube_cutover.py",
+    "tests/test_c4_gpu_local.py",
+    "tests/test_c4b_gpu_execucao.py",
+    "tests/test_c5_transcript_gate.py",
+    "tests/test_c6_especie_do_texto.py",
+    "tests/test_c7_lugar_do_fato.py",
+    "tests/test_c8_convergencia.py",
+    "tests/test_calendario_temporal.py",
+    "tests/test_candidatos_tematicos.py",
+    "tests/test_canonico.py",
+    "tests/test_censo_cards_sensores.py",
+    "tests/test_censo_corpus_rotulado_admission.py",
+    "tests/test_censo_dos_donos.py",
+    "tests/test_cicatrizes_brasil.py",
+    "tests/test_col_e7_contrato_do_texto.py",
+    "tests/test_coleta_externa.py",
+    "tests/test_coleta_resiliente.py",
+    "tests/test_competitor_layer.py",
+    "tests/test_completude_oportunidade.py",
+    "tests/test_comunicacao.py",
+    "tests/test_estagio_atravessa_a_fronteira.py",
+    "tests/test_estradas_it.py",
+    "tests/test_evidence.py",
+    "tests/test_evolucao.py",
+    "tests/test_execucao_standalone.py",
+    "tests/test_falhas.py",
+    "tests/test_fechar_ground_truth_t3.py",
+    "tests/test_fonte_atravessa.py",
+    "tests/test_forward_instrumentado.py",
+    "tests/test_fronteira_mede_producao.py",
+    "tests/test_fundacao_da_coleta.py",
+    "tests/test_gate_de_aceitacao_tematica.py",
+    "tests/test_gestao_da_coleta.py",
+    "tests/test_handoff.py",
+    "tests/test_hero_cases_v1.py",
+    "tests/test_identidade_do_artefato.py",
+    "tests/test_implementacoes_candidatas.py",
+    "tests/test_integracao_biblia.py",
+    "tests/test_integracao_e7_contrato_na_linha_funcional.py",
+    "tests/test_italia_na_porta_canonica.py",
+    "tests/test_legado_fora_do_fluxo.py",
+    "tests/test_leitores_depois_da_fase_10.py",
+    "tests/test_lingua_da_porta.py",
+    "tests/test_lingua_unica.py",
+    "tests/test_linkedin_build_01_local_first.py",
+    "tests/test_linkedin_op_01_operacional.py",
+    "tests/test_lugar_do_fato.py",
+    "tests/test_m2_aresta_observada.py",
+    "tests/test_m2_rota_forward.py",
+    "tests/test_mapa_nao_mente.py",
+    "tests/test_medir_admission_t3_atual.py",
+    "tests/test_metricas.py",
+    "tests/test_migrations.py",
+    "tests/test_navegador.py",
+    "tests/test_o10r_a_verdade_dos_nomes.py",
+    "tests/test_o9_caminho_instrumentado.py",
+    "tests/test_o_canario_da_collection.py",
+    "tests/test_o_pedido_atravessa.py",
+    "tests/test_o_pedido_t4_atravessa.py",
+    "tests/test_o_raw_fala.py",
+    "tests/test_observabilidade.py",
+    "tests/test_observabilidade_estrada.py",
+    "tests/test_operacao.py",
+    "tests/test_pacote_de_revisao_t3.py",
+    "tests/test_pipeline.py",
+    "tests/test_politica_da_coleta.py",
+    "tests/test_porta_de_producao.py",
+    "tests/test_portao.py",
+    "tests/test_portoes_da_collection.py",
+    "tests/test_portoes_eame.py",
+    "tests/test_preflight_de_egresso.py",
+    "tests/test_preservar_coleta.py",
+    "tests/test_preservar_coleta_no_banco.py",
+    "tests/test_preservar_derivado.py",
+    "tests/test_prioridade_comercial.py",
+    "tests/test_proveniencia.py",
+    "tests/test_qualidade_t3.py",
+    "tests/test_radar_futuro.py",
+    "tests/test_rastro_pg.py",
+    "tests/test_raw_observation_id_volta.py",
+    "tests/test_red_team_estrada.py",
+    "tests/test_reel_transcricao.py",
+    "tests/test_relatorio_do_fluxo.py",
+    "tests/test_retorno_da_coleta.py",
+    "tests/test_route_membership.py",
+    "tests/test_runtime_so_deixa_passar_colheita.py",
+    "tests/test_sala_duravel.py",
+    "tests/test_scrap_convergencia.py",
+    "tests/test_scrap_flow01_caminho_canonico.py",
+    "tests/test_scrap_rc01_release_candidate.py",
+    "tests/test_scrap_sr02_autorizacao_de_gasto.py",
+    "tests/test_security_drift_db.py",
+    "tests/test_security_ratchet.py",
+    "tests/test_security_secret_shapes.py",
+    "tests/test_social_persistencia_pg.py",
+    "tests/test_social_sessao.py",
+    "tests/test_source_id_wiring_gap.py",
+    "tests/test_telemetria.py",
+    "tests/test_thread_parcial.py",
+    "tests/test_trava_da_inteligencia.py",
+    "tests/test_ui_revisao_t3_ptbr.py",
+    "tests/test_v21_datas.py",
+    "tests/test_v21_geografia.py",
+    "tests/test_v21_mercado.py",
+    "tests/test_v21_traducao_trava.py",
+    "tests/test_voz.py",
+    "tests/test_youtube_antidrift.py",
+    "tests/test_youtube_checkpoint_pg.py",
+    "tests/test_youtube_oficial.py",
+    "tests/test_youtube_piloto.py"
+   ],
+   "engenharia": 282,
+   "entra_de": [],
+   "sai_para": [
+    {
+     "id": "M-MAPA",
+     "nome": "O mapa da máquina",
+     "status": "IMPLEMENTED",
+     "tipo": "PROOF",
+     "significado": "o mapa cita as medições das provas como evidência"
+    }
+   ]
+  },
+  "M-MAPA": {
+   "id": "M-MAPA",
+   "nome": "O mapa da máquina",
+   "nivel": 1,
+   "departamento": "D-PROVAS",
+   "parent": null,
+   "tipo": "instrumento",
+   "papel_canonico": "OBSERVER",
+   "frase": "O instrumento que observa a máquina e a desenha — e que não pode inventar o que observa.",
+   "porque": "O mapa não é fonte de verdade primária. Ele lê as autoridades e mede o repositório; quando declara a própria medição como lei, deixa de observar.",
+   "entra": "as autoridades e o repositório",
+   "sai": "um desenho navegável, e um portão que reprova quando ele mente",
+   "dono": "system-map/",
+   "papel_de_fluxo": "INSTRUMENTO",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-047, COL-LAW-101, COL-LAW-102, COL-LAW-109), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-047",
+     "nome": "O MAPA NÃO É FONTE DE VERDADE PRIMÁRIA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    },
+    {
+     "id": "COL-LAW-101",
+     "nome": "TUDO DEVE SER RENDERIZÁVEL",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-102",
+     "nome": "AS QUATRO VERDADES",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    },
+    {
+     "id": "COL-LAW-109",
+     "nome": "NÍVEIS DE ZOOM, E O LAYOUT NÃO MANDA",
+     "law_status": "CANONICAL",
+     "italia": "IMPLEMENTED"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "38 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "UNKNOWN",
+   "status_motivo": "existe no código, e ninguém provou que já correu.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O MAPA NAO E FONTE DE VERDADE PRIMARIA",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "system-map/scripts/CADEIA-DO-MAPA.json",
+    "system-map/scripts/cadeia_do_mapa.py",
+    "system-map/scripts/censo_cards_sensores.py",
+    "system-map/scripts/censo_da_coleta.py",
+    "system-map/scripts/censo_da_observabilidade.py",
+    "system-map/scripts/censo_da_topologia.py",
+    "system-map/scripts/censo_das_derivacoes.py",
+    "system-map/scripts/censo_das_estradas_it.py",
+    "system-map/scripts/censo_de_identidade_it.py",
+    "system-map/scripts/censo_do_armazem_it.py",
+    "system-map/scripts/censo_do_congelamento.py",
+    "system-map/scripts/censo_do_corpus_it.py",
+    "system-map/scripts/censo_dos_buracos.py",
+    "system-map/scripts/censo_dos_donos.py",
+    "system-map/scripts/censo_dos_executores.py",
+    "system-map/scripts/censo_semantico_it.py",
+    "system-map/scripts/correr_a_cadeia.py",
+    "system-map/scripts/generate_system_map.py",
+    "system-map/scripts/impressao_da_arvore.py",
+    "system-map/scripts/mudar_gaveta.py",
+    "system-map/scripts/pente_fino_da_coleta.py",
+    "system-map/scripts/portao_da_promocao.py",
+    "system-map/scripts/publicar_no_deploy.mjs",
+    "system-map/scripts/recall_da_porta_it.py",
+    "system-map/scripts/reconciliacao_do_universo.py",
+    "system-map/scripts/relatorio_do_fluxo.py",
+    "system-map/scripts/revisao_da_evidencia.py",
+    "system-map/scripts/scan_casco.py",
+    "system-map/scripts/scan_repo.py",
+    "system-map/scripts/scan_sources.py",
+    "system-map/scripts/validate_system_map.py",
+    "system-map/scripts/verificar_deploy.py",
+    "system-map/v2/scripts/gerar_mapa.py",
+    "system-map/v2/scripts/medir_maquina.py",
+    "system-map/v2/scripts/publicar_v2.py",
+    "system-map/v2/scripts/validar_mapa.py",
+    "system-map/v2/tests/red_team.py",
+    "system-map/v2/tests/testa_mapa.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "system-map/scripts/CADEIA-DO-MAPA.json",
+    "system-map/scripts/cadeia_do_mapa.py",
+    "system-map/scripts/censo_cards_sensores.py",
+    "system-map/scripts/censo_da_coleta.py",
+    "system-map/scripts/censo_da_observabilidade.py",
+    "system-map/scripts/censo_da_topologia.py",
+    "system-map/scripts/censo_das_derivacoes.py",
+    "system-map/scripts/censo_das_estradas_it.py",
+    "system-map/scripts/censo_de_identidade_it.py",
+    "system-map/scripts/censo_do_armazem_it.py",
+    "system-map/scripts/censo_do_congelamento.py",
+    "system-map/scripts/censo_do_corpus_it.py",
+    "system-map/scripts/censo_dos_buracos.py",
+    "system-map/scripts/censo_dos_donos.py",
+    "system-map/scripts/censo_dos_executores.py",
+    "system-map/scripts/censo_semantico_it.py",
+    "system-map/scripts/correr_a_cadeia.py",
+    "system-map/scripts/generate_system_map.py",
+    "system-map/scripts/impressao_da_arvore.py",
+    "system-map/scripts/mudar_gaveta.py",
+    "system-map/scripts/pente_fino_da_coleta.py",
+    "system-map/scripts/portao_da_promocao.py",
+    "system-map/scripts/publicar_no_deploy.mjs",
+    "system-map/scripts/recall_da_porta_it.py",
+    "system-map/scripts/reconciliacao_do_universo.py",
+    "system-map/scripts/relatorio_do_fluxo.py",
+    "system-map/scripts/revisao_da_evidencia.py",
+    "system-map/scripts/scan_casco.py",
+    "system-map/scripts/scan_repo.py",
+    "system-map/scripts/scan_sources.py",
+    "system-map/scripts/validate_system_map.py",
+    "system-map/scripts/verificar_deploy.py",
+    "system-map/v2/scripts/gerar_mapa.py",
+    "system-map/v2/scripts/medir_maquina.py",
+    "system-map/v2/scripts/publicar_v2.py",
+    "system-map/v2/scripts/validar_mapa.py",
+    "system-map/v2/tests/red_team.py",
+    "system-map/v2/tests/testa_mapa.py"
+   ],
+   "engenharia": 38,
+   "entra_de": [
+    {
+     "id": "M-PROVAS",
+     "nome": "As provas executáveis",
+     "status": "IMPLEMENTED",
+     "tipo": "PROOF",
+     "significado": "o mapa cita as medições das provas como evidência"
+    }
+   ],
+   "sai_para": []
+  },
+  "M-CASCO": {
+   "id": "M-CASCO",
+   "nome": "O casco do portal",
+   "nivel": 1,
+   "departamento": "D-PORTAL",
+   "parent": null,
+   "tipo": "superficie",
+   "papel_canonico": "SURFACE",
+   "frase": "A casca: a navegação, os idiomas e as páginas que seguram as ferramentas.",
+   "porque": "A tela apresenta decisão já tomada. Ela não recalcula nada, e não pode passar a definir a arquitetura anterior a ela.",
+   "entra": "o pacote embarcado",
+   "sai": "as telas que o cliente abre",
+   "dono": "italia-portale/client/portale.html",
+   "papel_de_fluxo": "SINK",
+   "etapa_medida": null,
+   "legacy": false,
+   "biblia": "SIM",
+   "biblia_motivo": "a Bíblia exige (COL-LAW-316), e declara-a PARCIAL na Itália.",
+   "leis": [
+    {
+     "id": "COL-LAW-316",
+     "nome": "O MAPA MOSTRA RESPONSABILIDADE, NÃO SCHEMA",
+     "law_status": "CANONICAL",
+     "italia": "PARTIAL"
+    }
+   ],
+   "declarado": "SIM",
+   "declarado_motivo": "BIBLIA-CANONICA-DA-COLETA.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "3 ficheiro(s) reais sustentam esta peça.",
+   "observado": "SIM",
+   "observado_motivo": "as ferramentas do portal foram medidas na própria tela (medido: 11)",
+   "status": "OK",
+   "status_motivo": "exigida, contratada, implementada e provada a correr.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O MAPA MOSTRA RESPONSABILIDADE, NAO SCHEMA",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [
+    {
+     "artefato": "system-map/data/casco.generated.json",
+     "caminho": "COUNTS.ferramentas",
+     "espera": ">0",
+     "prova": "as ferramentas do portal foram medidas na própria tela",
+     "gerado_pelo_mapa": true,
+     "valor": 11,
+     "estado": "CONFIRMA"
+    }
+   ],
+   "ficheiros_todos": [
+    "italia-portale/client/italy-app-model.js",
+    "italia-portale/client/italy-i18n.js",
+    "italia-portale/client/portale.html"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "italia-portale/client/italy-app-model.js",
+    "italia-portale/client/italy-i18n.js",
+    "italia-portale/client/portale.html"
+   ],
+   "engenharia": 3,
+   "entra_de": [
+    {
+     "id": "M-PORTAO",
+     "nome": "O portão da entrega",
+     "status": "OBSERVED",
+     "tipo": "DATA",
+     "significado": "aprovado no portão, o pacote chega à tela"
+    }
+   ],
+   "sai_para": []
+  },
+  "M-MOTOR-V2-LEGADO": {
+   "id": "M-MOTOR-V2-LEGADO",
+   "nome": "A cadeia V2 (legado)",
+   "nivel": 1,
+   "departamento": "D-INTELIGENCIA",
+   "parent": null,
+   "tipo": "motor",
+   "papel_canonico": "LEGACY",
+   "frase": "A geração anterior do motor, antes da V2.1.",
+   "porque": "Fica no histórico porque a sua ordem é conhecimento; apagá-la perderia a razão de cada passo. Mas não é a rota de hoje.",
+   "entra": "—",
+   "sai": "—",
+   "dono": "motor/",
+   "papel_de_fluxo": "LEGADO",
+   "etapa_medida": null,
+   "legacy": true,
+   "biblia": "NAO_SEI",
+   "biblia_motivo": "nenhuma lei da Bíblia foi apontada para esta peça.",
+   "leis": [],
+   "declarado": "SIM",
+   "declarado_motivo": "AGENTS.md diz isto, com a frase citada.",
+   "codigo": "SIM",
+   "codigo_motivo": "7 ficheiro(s) reais sustentam esta peça.",
+   "observado": "NAO_SEI",
+   "observado_motivo": "ninguém apontou uma medição que provasse que isto correu.",
+   "status": "LEGADO",
+   "status_motivo": "ficou para trás; está fora do fluxo de hoje.",
+   "contrato": {
+    "estado": "CONFIRMADA",
+    "file": "AGENTS.md",
+    "anchor": "legacy",
+    "gerado_pelo_mapa": false
+   },
+   "medicoes": [],
+   "ficheiros_todos": [
+    "motor/v2_conflitos.py",
+    "motor/v2_cruzamentos.py",
+    "motor/v2_dedup_e_familias.py",
+    "motor/v2_fechar.py",
+    "motor/v2_montar_handoff.py",
+    "motor/v2_qa_atribuir.py",
+    "motor/v2_relatorio.py"
+   ],
+   "caminhos_ausentes": [],
+   "ficheiros_proprios": [
+    "motor/v2_conflitos.py",
+    "motor/v2_cruzamentos.py",
+    "motor/v2_dedup_e_familias.py",
+    "motor/v2_fechar.py",
+    "motor/v2_montar_handoff.py",
+    "motor/v2_qa_atribuir.py",
+    "motor/v2_relatorio.py"
+   ],
+   "engenharia": 7,
+   "entra_de": [],
+   "sai_para": []
+  }
+ },
+ "LIGACOES": [
+  {
+   "de": "D-ENTRADA",
+   "para": "D-COLETA",
+   "nivel": 0,
+   "tipo": "CONTROL",
+   "retorno": false,
+   "significado": "o pedido manda a coleta ir buscar",
+   "status": "OBSERVED",
+   "motivo": "numa corrida real o pedido chegou ao orquestrador e resolveu-se numa receita (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "UM PEDIDO NAO CONHECE IMPLEMENTACAO",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "orquestrador/orquestrador.py",
+    "line": 4,
+    "snippet": "O ORQUESTRADOR — quem responde «qual caminho executar para este pedido».",
+    "contem": "pedido"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.ORCHESTRATOR.OBSERVED",
+    "espera": true,
+    "prova": "numa corrida real o pedido chegou ao orquestrador e resolveu-se numa receita",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "D-COLETA",
+   "para": "D-ESPERA",
+   "nivel": 0,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o que a porta admitiu vai para a sala de espera",
+   "status": "IMPLEMENTED",
+   "motivo": "admissao/admissao.py:180 · a medição apontada não confirma: ESTRADA.READY.OBSERVED=False, esperava True",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "READY_FOR_INTELIGENCIA significa que os contratos obrigatorios",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "admissao/admissao.py",
+    "line": 180,
+    "snippet": "#   3. e a prova que fecha o assunto: `pronto_para_inteligencia` monta o",
+    "contem": "pronto_para_inteligencia"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.READY.OBSERVED",
+    "espera": true,
+    "prova": "teria de haver unidades prontas produzidas por uma corrida",
+    "gerado_pelo_mapa": true,
+    "valor": false,
+    "estado": "NAO_CONFIRMA"
+   }
+  },
+  {
+   "de": "D-ESPERA",
+   "para": "D-INTELIGENCIA",
+   "nivel": 0,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "a inteligência vem buscar o que está pronto",
+   "status": "DECLARED",
+   "motivo": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "anchor": "SO DEPOIS interpretar",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "NAO_DECLARADA",
+    "file": null
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "D-INTELIGENCIA",
+   "para": "D-PROVAS",
+   "nivel": 0,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o pacote só atravessa se provar de onde veio",
+   "status": "IMPLEMENTED",
+   "motivo": "italia-portale/audit/build-gate.mjs:61",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "atravessar a fronteira do site",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/audit/build-gate.mjs",
+    "line": 61,
+    "snippet": "if (H.buildId !== CONTRATO.EXPECTED_BUILD_ID) r.push(`BUILD_ID ${H.buildId || '(ausente)'} != ${CONTRATO.EXPECTED_BUILD_ID}`);",
+    "contem": "EXPECTED_BUILD_ID"
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "D-PROVAS",
+   "para": "D-PORTAL",
+   "nivel": 0,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o que passou no portão chega à tela",
+   "status": "OBSERVED",
+   "motivo": "as ferramentas que o cliente abre foram medidas na tela servida (medido: 11)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "FAIL_CLOSED",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/italy-app-model.js",
+    "line": 46,
+    "snippet": "HANDOFF_V21: (typeof window !== 'undefined' && window.ITALY_HANDOFF_V21) || null,",
+    "contem": "ITALY_HANDOFF_V21"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/casco.generated.json",
+    "caminho": "COUNTS.ferramentas",
+    "espera": ">0",
+    "prova": "as ferramentas que o cliente abre foram medidas na tela servida",
+    "gerado_pelo_mapa": true,
+    "valor": 11,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "D-INTELIGENCIA",
+   "para": "D-ENTRADA",
+   "nivel": 0,
+   "tipo": "CONTROL",
+   "retorno": true,
+   "significado": "quando falta material, a inteligência pede nova coleta",
+   "status": "DECLARED",
+   "motivo": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/piloto/ARQUITETURA-DE-PRODUTO-ATUAL.md",
+    "anchor": "COLLECT MORE",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "NAO_DECLARADA",
+    "file": null
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "M-FONTE",
+   "para": "M-PEDIDO",
+   "nivel": 1,
+   "tipo": "READ",
+   "retorno": false,
+   "significado": "quem pede escolhe o assunto a partir do que a casa já conhece",
+   "status": "OBSERVED",
+   "motivo": "o pedido observado nomeia a fonte que pediu (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O SOURCE REGISTRY E A MEMORIA DA COLETA",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "pedido/receitas.py",
+    "line": 48,
+    "snippet": "FONTES_MEDIDAS = RAIZ / \"system-map\" / \"data\" / \"sources.generated.json\"",
+    "contem": "sources"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.REQUEST.OBSERVED",
+    "espera": true,
+    "prova": "o pedido observado nomeia a fonte que pediu",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-PEDIDO",
+   "para": "M-ORQUESTRADOR",
+   "nivel": 1,
+   "tipo": "CONTROL",
+   "retorno": false,
+   "significado": "quem pede diz o que quer; o orquestrador decide como",
+   "status": "OBSERVED",
+   "motivo": "a receita foi resolvida a partir do pedido, numa corrida real (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "UM UNICO DONO DA ORQUESTRACAO",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "orquestrador/orquestrador.py",
+    "line": 4,
+    "snippet": "O ORQUESTRADOR — quem responde «qual caminho executar para este pedido».",
+    "contem": "pedido"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.ORCHESTRATOR.OBSERVED",
+    "espera": true,
+    "prova": "a receita foi resolvida a partir do pedido, numa corrida real",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-ORQUESTRADOR",
+   "para": "M-EXECUTOR",
+   "nivel": 1,
+   "tipo": "CONTROL",
+   "retorno": false,
+   "significado": "o orquestrador manda o executor sair",
+   "status": "OBSERVED",
+   "motivo": "o executor correu, com comando e versão registados (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O ORQUESTRADOR CONTROLA, NAO TRANSPORTA DADO",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "orquestrador/orquestrador.py",
+    "line": 44,
+    "snippet": "import subprocess",
+    "contem": "subprocess"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.EXECUTOR.OBSERVED",
+    "espera": true,
+    "prova": "o executor correu, com comando e versão registados",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-ORQUESTRADOR",
+   "para": "M-RUN",
+   "nivel": 1,
+   "tipo": "WRITE",
+   "retorno": false,
+   "significado": "cada ida ao mundo ganha identidade e recibo",
+   "status": "OBSERVED",
+   "motivo": "a corrida ficou registada no banco, com estado e executor (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "TODA CORRIDA TEM IDENTIDADE",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "orquestrador/orquestrador.py",
+    "line": 16,
+    "snippet": "O censo encontrou o achado mais util desta missao: o `RUN-MANIFEST.json` ja tem",
+    "contem": "RUN"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.RUN.OBSERVED",
+    "espera": true,
+    "prova": "a corrida ficou registada no banco, com estado e executor",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-EXECUTOR",
+   "para": "M-RAW",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o que o executor traz é preservado como veio, antes de tudo",
+   "status": "OBSERVED",
+   "motivo": "nasceram originais ligados à corrida (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "PRESERVA O ORIGINAL",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/coletor.py",
+    "line": 10,
+    "snippet": "· normalizar antes de gravar o bruto — o RAW é escrito primeiro, sempre;",
+    "contem": "RAW"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.RAW.OBSERVED",
+    "espera": true,
+    "prova": "nasceram originais ligados à corrida",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-RAW",
+   "para": "M-STORAGE",
+   "nivel": 1,
+   "tipo": "WRITE",
+   "retorno": false,
+   "significado": "os bytes do original ficam pousados num endereço",
+   "status": "OBSERVED",
+   "motivo": "os objetos de armazenamento ficaram ligados à corrida (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "ARMAZENAMENTO NAO E ESTADO LOGICO",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "guarda/preservar_documento.py",
+    "line": 34,
+    "snippet": "`sha256`, URL, filename, timestamp, slug nem `storage_path`.",
+    "contem": "storage"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.STORAGE.OBSERVED",
+    "espera": true,
+    "prova": "os objetos de armazenamento ficaram ligados à corrida",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-RAW",
+   "para": "M-DERIVED",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "de dentro do original tira-se o texto, a fala, o conteúdo",
+   "status": "OBSERVED",
+   "motivo": "a passagem do original para o derivado foi lida no banco (medido: <list:3>)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "RAW NAO E DERIVADO",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/derivacao_forward.py",
+    "line": 18,
+    "snippet": "collection_run  ->  raw_asset (o pai, no banco)",
+    "contem": "raw"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/rota-m2.observada.json",
+    "caminho": "ARESTAS_OBSERVADAS",
+    "espera": "contem:RAW>DERIVED",
+    "prova": "a passagem do original para o derivado foi lida no banco",
+    "gerado_pelo_mapa": true,
+    "valor": "<list:3>",
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-DERIVED",
+   "para": "M-STRUCTURED",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o derivado é posto em forma, com campos que têm nome",
+   "status": "OBSERVED",
+   "motivo": "a passagem do derivado para o documento organizado foi lida no banco (medido: <list:3>)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/CONTRATO-DOS-STRUCTURED-TARGETS.md",
+    "anchor": "STRUCTURED",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/rota_forward_documento.py",
+    "line": 64,
+    "snippet": "GRAO_REGISTO = 'registo estruturado'",
+    "contem": "estruturado"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/rota-m2.observada.json",
+    "caminho": "ARESTAS_OBSERVADAS",
+    "espera": "contem:DERIVED>STRUCTURED",
+    "prova": "a passagem do derivado para o documento organizado foi lida no banco",
+    "gerado_pelo_mapa": true,
+    "valor": "<list:3>",
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-STRUCTURED",
+   "para": "M-ADMISSION",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o documento organizado é levado à porta",
+   "status": "OBSERVED",
+   "motivo": "a chegada do documento à porta foi lida no banco (medido: <list:3>)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "COLETAR NAO E ADMITIR NEM JULGAR",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "admissao/admissao.py",
+    "line": 428,
+    "snippet": "def decidir(item: dict, universo: str, corrida: str = \"NAO SEI\") -> Decisao:",
+    "contem": "decidir"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/rota-m2.observada.json",
+    "caminho": "ARESTAS_OBSERVADAS",
+    "espera": "contem:STRUCTURED>ADMISSION",
+    "prova": "a chegada do documento à porta foi lida no banco",
+    "gerado_pelo_mapa": true,
+    "valor": "<list:3>",
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-ADMISSION",
+   "para": "M-READY",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o que a porta admitiu vira unidade pronta",
+   "status": "IMPLEMENTED",
+   "motivo": "admissao/admissao.py:180 · a medição apontada não confirma: READY_PRODUZIDO=False, esperava True",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "READY_FOR_INTELIGENCIA significa que os contratos obrigatorios",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "admissao/admissao.py",
+    "line": 180,
+    "snippet": "#   3. e a prova que fecha o assunto: `pronto_para_inteligencia` monta o",
+    "contem": "pronto_para_inteligencia"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/fronteira.observada.json",
+    "caminho": "READY_PRODUZIDO",
+    "espera": true,
+    "prova": "teria de existir um READY produzido por uma corrida",
+    "gerado_pelo_mapa": true,
+    "valor": false,
+    "estado": "NAO_CONFIRMA"
+   }
+  },
+  {
+   "de": "M-READY",
+   "para": "M-SALA",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "a unidade pronta pousa na sala de espera",
+   "status": "IMPLEMENTED",
+   "motivo": "admissao/sala_de_espera.py:169 · a medição apontada não confirma: ESTRADA.WAITING_ROOM.OBSERVED=False, esperava True",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/decisoes/ADR-SALA-DE-ESPERA-V1.md",
+    "anchor": "Sala de Espera",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "admissao/sala_de_espera.py",
+    "line": 169,
+    "snippet": "def _corpo(run_id, unidades):",
+    "contem": "def "
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/pedido.observado.json",
+    "caminho": "ESTRADA.WAITING_ROOM.OBSERVED",
+    "espera": true,
+    "prova": "teria de haver ficheiros na sala depois da corrida",
+    "gerado_pelo_mapa": true,
+    "valor": false,
+    "estado": "NAO_CONFIRMA"
+   }
+  },
+  {
+   "de": "M-SCRAP",
+   "para": "M-EXECUTOR",
+   "nivel": 1,
+   "tipo": "CONTROL",
+   "retorno": false,
+   "significado": "o despacho do SCRAP manda rodar a aquisição social",
+   "status": "IMPLEMENTED",
+   "motivo": ".github/workflows/scrap-social.yml:267",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
+    "anchor": "SCRAP",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": ".github/workflows/scrap-social.yml",
+    "line": 267,
+    "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\",
+    "contem": "coleta/social_scrap.py"
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "M-REGUAS",
+   "para": "M-RAW",
+   "nivel": 1,
+   "tipo": "RULE",
+   "retorno": false,
+   "significado": "a régua carimba a procedência no momento em que o item entra",
+   "status": "IMPLEMENTED",
+   "motivo": "coleta/coletor.py:76",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "LEI DE PROCEDENCIA",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "coleta/coletor.py",
+    "line": 76,
+    "snippet": "import proveniencia as pv  # noqa: E402",
+    "contem": "proveniencia"
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "M-EXECUTOR",
+   "para": "M-BANCO",
+   "nivel": 1,
+   "tipo": "WRITE",
+   "retorno": false,
+   "significado": "o que a coleta produz fica guardado na memória operacional",
+   "status": "OBSERVED",
+   "motivo": "as etapas foram lidas do banco depois de a rota correr (medido: True)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "O SUPABASE E A MEMORIA OPERACIONAL",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "guarda/catalogo_importar.py",
+    "line": 54,
+    "snippet": "SQL_OUT = os.path.join(ROOT, 'supabase', 'importacoes',",
+    "contem": "supabase"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/rota-m2.observada.json",
+    "caminho": "END_TO_END",
+    "espera": true,
+    "prova": "as etapas foram lidas do banco depois de a rota correr",
+    "gerado_pelo_mapa": true,
+    "valor": true,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-TRAVA",
+   "para": "M-MOTOR",
+   "nivel": 1,
+   "tipo": "RULE",
+   "retorno": false,
+   "significado": "a trava decide se a inteligência pode avançar",
+   "status": "IMPLEMENTED",
+   "motivo": "provas/trava_da_inteligencia_morde.py:2 · a medição apontada não confirma: COLLECTION_FOUNDATION_CLOSED=NAO, esperava SIM",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "anchor": "INTELLIGENCE_IMPLEMENTATION_BLOCKED",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "provas/trava_da_inteligencia_morde.py",
+    "line": 2,
+    "snippet": "\"\"\"A TRAVA MORDE? — a prova de que ela reprova quando tem de reprovar.",
+    "contem": "TRAVA"
+   },
+   "prova_observada": {
+    "artefato": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+    "caminho": "COLLECTION_FOUNDATION_CLOSED",
+    "espera": "SIM",
+    "prova": "a trava só deixa passar quando a fundação fechar",
+    "gerado_pelo_mapa": false,
+    "valor": "NAO",
+    "estado": "NAO_CONFIRMA"
+   }
+  },
+  {
+   "de": "M-MOTOR",
+   "para": "M-PACOTE",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o motor fecha o pacote canónico",
+   "status": "IMPLEMENTED",
+   "motivo": "motor/v21_cadeia.sh:141",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "CANONICAL_GENERATOR",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "motor/v21_cadeia.sh",
+    "line": 141,
+    "snippet": "\"$PY\" motor/v21_fechar.py",
+    "contem": "v21_fechar.py"
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "M-LACUNA",
+   "para": "M-PEDIDO",
+   "nivel": 1,
+   "tipo": "CONTROL",
+   "retorno": true,
+   "significado": "a falta de material vira um pedido, pela porta da frente",
+   "status": "DECLARED",
+   "motivo": "BIBLIA-CANONICA-DA-COLETA.md",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "NAO COLETAR DE NOVO SEM NECESSIDADE",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "NAO_DECLARADA",
+    "file": null
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "M-PACOTE",
+   "para": "M-PORTAO",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "o pacote apresenta-se ao portão",
+   "status": "IMPLEMENTED",
+   "motivo": "italia-portale/audit/build-gate.mjs:61",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "FAIL_CLOSED",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/audit/build-gate.mjs",
+    "line": 61,
+    "snippet": "if (H.buildId !== CONTRATO.EXPECTED_BUILD_ID) r.push(`BUILD_ID ${H.buildId || '(ausente)'} != ${CONTRATO.EXPECTED_BUILD_ID}`);",
+    "contem": "EXPECTED_BUILD_ID"
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  },
+  {
+   "de": "M-PORTAO",
+   "para": "M-CASCO",
+   "nivel": 1,
+   "tipo": "DATA",
+   "retorno": false,
+   "significado": "aprovado no portão, o pacote chega à tela",
+   "status": "OBSERVED",
+   "motivo": "as ferramentas do portal foram medidas na tela (medido: 11)",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
+    "anchor": "atravessar a fronteira do site",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "italia-portale/client/italy-app-model.js",
+    "line": 46,
+    "snippet": "HANDOFF_V21: (typeof window !== 'undefined' && window.ITALY_HANDOFF_V21) || null,",
+    "contem": "ITALY_HANDOFF_V21"
+   },
+   "prova_observada": {
+    "artefato": "system-map/data/casco.generated.json",
+    "caminho": "COUNTS.ferramentas",
+    "espera": ">0",
+    "prova": "as ferramentas do portal foram medidas na tela",
+    "gerado_pelo_mapa": true,
+    "valor": 11,
+    "estado": "CONFIRMA"
+   }
+  },
+  {
+   "de": "M-PROVAS",
+   "para": "M-MAPA",
+   "nivel": 1,
+   "tipo": "PROOF",
+   "retorno": false,
+   "significado": "o mapa cita as medições das provas como evidência",
+   "status": "IMPLEMENTED",
+   "motivo": "system-map/v2/scripts/medir_maquina.py:293",
+   "prova_declarada": {
+    "estado": "CONFIRMADA",
+    "file": "BIBLIA-CANONICA-DA-COLETA.md",
+    "anchor": "A CAMADA DE OBSERVABILIDADE NAO E UMA SEGUNDA VERDADE",
+    "gerado_pelo_mapa": false
+   },
+   "prova_codigo": {
+    "estado": "ENCONTRADA",
+    "file": "system-map/v2/scripts/medir_maquina.py",
+    "line": 293,
+    "snippet": "\"observado\": m.observado(c.get(\"observado_por\", [])),",
+    "contem": "observado_por"
+   },
+   "prova_observada": {
+    "estado": "SEM_OBSERVACAO",
+    "artefato": null,
+    "gerado_pelo_mapa": false
+   }
+  }
+ ],
+ "ORFAOS_INEXPLICADOS": [],
+ "CONFLITOS_DE_DONO": [],
+ "CONTAS": {
+  "NIVEL_0": 6,
+  "NIVEL_1_POR_DEPARTAMENTO": {
+   "D-ENTRADA": 2,
+   "D-COLETA": 10,
+   "D-ESPERA": 3,
+   "D-INTELIGENCIA": 4,
+   "D-PROVAS": 3,
+   "D-PORTAL": 1
+  },
+  "NIVEL_2": 3,
+  "LEGADO": 1,
+  "ENGENHARIA": 629,
+  "FILES_TRACKED": 1929,
+  "ARESTAS": {
+   "OBSERVED": 13,
+   "IMPLEMENTED": 10,
+   "DECLARED": 3,
+   "UNKNOWN": 0,
+   "TOTAL": 26
+  },
+  "ORFAOS": 0,
+  "CONFLITOS_DE_DONO": 0,
+  "SAUDE": {
+   "OK": 14,
+   "ATENCAO": 0,
+   "BLOQUEADO": 3,
+   "NAO_IMPLEMENTADO": 1,
+   "UNKNOWN": 8,
+   "LEGADO": 1
+  },
+  "VERDADES": {
+   "biblia": {
+    "SIM": 26,
+    "NAO": 0,
+    "PARCIAL": 0,
+    "NAO_SEI": 1
+   },
+   "declarado": {
+    "SIM": 27,
+    "NAO": 0,
+    "PARCIAL": 0,
+    "NAO_SEI": 0
+   },
+   "codigo": {
+    "SIM": 26,
+    "NAO": 1,
+    "PARCIAL": 0,
+    "NAO_SEI": 0
+   },
+   "observado": {
+    "SIM": 14,
+    "NAO": 3,
+    "PARCIAL": 0,
+    "NAO_SEI": 10
+   }
+  }
+ }
+}

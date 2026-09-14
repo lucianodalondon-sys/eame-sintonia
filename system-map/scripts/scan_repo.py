@@ -91,6 +91,11 @@ IGNORAR = re.compile(
     # a encontrar.
     r"^system-map/data/[\w-]+\.generated\.json$|"
     r"^italia-portale/client/system-map/|"
+    # A copia publicada do CANDIDATO (V2) segue a mesma regra que a do mapa
+    # oficial, e pela mesma razao: copia derivada nao e componente. Media-la
+    # faria a mesma app aparecer duas vezes no mapa, com dois donos para a
+    # mesma linha. A fonte vive em `system-map/v2/app/` e e essa que se declara.
+    r"^italia-portale/client/system-map-v2/|"
     r"(^|/)(vendor|node_modules|__pycache__|\.venv)/|"
     r"\.(png|jpg|jpeg|gif|pdf|otf|ttf|woff2?|gz|zip|ase)$"
 )

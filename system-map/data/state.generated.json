@@ -2,7 +2,7 @@
   "SCHEMA": "sintonia.system-map.state/1",
   "WORLD": {
     "w": 21495,
-    "h": 7292
+    "h": 7936
   },
   "INVENTORY": {
     ".claude": [
@@ -38,6 +38,7 @@
       ".github/workflows/banco-descartavel.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/mapa-da-maquina-v2.yml",
       ".github/workflows/regressao-de-navegador.yml",
       ".github/workflows/rls-censo-metadados.yml",
       ".github/workflows/scrap-evidencia.yml",
@@ -1628,7 +1629,20 @@
       "system-map/tests/test_uma_cadeia_um_dono.py",
       "system-map/tests/test_verdade_da_collection_actual.py",
       "system-map/tests/test_verdade_das_ligacoes.py",
-      "system-map/tests/verificar_a_tela.mjs"
+      "system-map/tests/verificar_a_tela.mjs",
+      "system-map/v2/FUNDACAO.md",
+      "system-map/v2/app/index.html",
+      "system-map/v2/app/map.css",
+      "system-map/v2/app/map.js",
+      "system-map/v2/data/estado.gerado.json",
+      "system-map/v2/data/maquina.medida.json",
+      "system-map/v2/model/maquina.model.json",
+      "system-map/v2/scripts/gerar_mapa.py",
+      "system-map/v2/scripts/medir_maquina.py",
+      "system-map/v2/scripts/publicar_v2.py",
+      "system-map/v2/scripts/validar_mapa.py",
+      "system-map/v2/tests/red_team.py",
+      "system-map/v2/tests/testa_mapa.py"
     ],
     "tests": [
       "tests/.gitkeep",
@@ -2316,10 +2330,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
-    "GENERATED_AT": "2026-09-14T12:56:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8"
+    "BRANCH": "claude/system-map-v2-canonical-rebuild",
+    "HEAD": "ac54e70dee008943620417b50ae3f68529b936a1",
+    "GENERATED_AT": "2026-09-14T15:41:32+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b422b8ee2bbf51b550039a05b6eed5cac358d1eec8fb955911c01d7263f3f882"
   },
   "FAMILIES": [
     {
@@ -2329,7 +2343,7 @@
       "x": 260,
       "y": 60,
       "w": 11725,
-      "h": 6972,
+      "h": 7616,
       "zones": [
         "Z-BIBLIA",
         "Z-ENTRADA",
@@ -2355,7 +2369,7 @@
       "x": 12205,
       "y": 60,
       "w": 485,
-      "h": 6972,
+      "h": 7616,
       "zones": [
         "Z-ESPERA"
       ],
@@ -2368,7 +2382,7 @@
       "x": 12910,
       "y": 60,
       "w": 1605,
-      "h": 6972,
+      "h": 7616,
       "zones": [
         "Z-MOTOR",
         "Z-LINEAGE"
@@ -2383,12 +2397,12 @@
       "x": 18385,
       "y": 60,
       "w": 2850,
-      "h": 6972,
+      "h": 7616,
       "zones": [
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 77
+      "count": 84
     },
     {
       "id": "F-ENTREGA",
@@ -2397,7 +2411,7 @@
       "x": 14735,
       "y": 60,
       "w": 3430,
-      "h": 6972,
+      "h": 7616,
       "zones": [
         "Z-PACOTE",
         "Z-PORTOES",
@@ -2419,7 +2433,7 @@
       "x": 300,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 1
     },
     {
@@ -2433,7 +2447,7 @@
       "x": 1005,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 1
     },
     {
@@ -2448,7 +2462,7 @@
       "x": 1710,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 2
     },
     {
@@ -2463,7 +2477,7 @@
       "x": 2415,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 1
     },
     {
@@ -2478,7 +2492,7 @@
       "x": 3120,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 2
     },
     {
@@ -2493,7 +2507,7 @@
       "x": 3825,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 2
     },
     {
@@ -2507,7 +2521,7 @@
       "x": 4530,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 3
     },
     {
@@ -2521,7 +2535,7 @@
       "x": 5235,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 5
     },
     {
@@ -2537,7 +2551,7 @@
       "x": 5940,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 4
     },
     {
@@ -2553,7 +2567,7 @@
       "x": 6645,
       "y": 190,
       "w": 1235,
-      "h": 6802,
+      "h": 7446,
       "count": 16
     },
     {
@@ -2569,7 +2583,7 @@
       "x": 8180,
       "y": 190,
       "w": 1235,
-      "h": 6802,
+      "h": 7446,
       "count": 14
     },
     {
@@ -2585,7 +2599,7 @@
       "x": 9715,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 5
     },
     {
@@ -2600,7 +2614,7 @@
       "x": 10420,
       "y": 190,
       "w": 820,
-      "h": 6802,
+      "h": 7446,
       "count": 11
     },
     {
@@ -2615,7 +2629,7 @@
       "x": 11540,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 2
     },
     {
@@ -2630,7 +2644,7 @@
       "x": 12245,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 1
     },
     {
@@ -2646,7 +2660,7 @@
       "x": 12950,
       "y": 190,
       "w": 820,
-      "h": 6802,
+      "h": 7446,
       "count": 8
     },
     {
@@ -2662,7 +2676,7 @@
       "x": 14070,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 4
     },
     {
@@ -2678,7 +2692,7 @@
       "x": 14775,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 3
     },
     {
@@ -2694,7 +2708,7 @@
       "x": 15480,
       "y": 190,
       "w": 820,
-      "h": 6802,
+      "h": 7446,
       "count": 7
     },
     {
@@ -2710,7 +2724,7 @@
       "x": 16600,
       "y": 190,
       "w": 405,
-      "h": 6802,
+      "h": 7446,
       "count": 5
     },
     {
@@ -2725,7 +2739,7 @@
       "x": 17305,
       "y": 190,
       "w": 820,
-      "h": 6802,
+      "h": 7446,
       "count": 11
     },
     {
@@ -2741,7 +2755,7 @@
       "x": 18425,
       "y": 190,
       "w": 1235,
-      "h": 6802,
+      "h": 7446,
       "count": 16
     },
     {
@@ -2757,8 +2771,8 @@
       "x": 19960,
       "y": 190,
       "w": 1235,
-      "h": 6802,
-      "count": 61
+      "h": 7446,
+      "count": 68
     }
   ],
   "DEPARTMENTS": {
@@ -7095,6 +7109,7 @@
       ],
       "outbound": [
         "C-ESTRADA-PDF",
+        "C-MAPAV2-MEDIDOR",
         "C-PROVA-BIBLIA",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
@@ -14115,8 +14130,7 @@
       "inbound": [],
       "outbound": [
         "C-MAPA-TESTES",
-        "C-RECONCILIACAO-UNIVERSO",
-        "C-TESTES"
+        "C-RECONCILIACAO-UNIVERSO"
       ],
       "paises": {},
       "paises_dado": {},
@@ -14161,14 +14175,12 @@
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
           "C-MAPA-TESTES",
-          "C-RECONCILIACAO-UNIVERSO",
-          "C-TESTES"
+          "C-RECONCILIACAO-UNIVERSO"
         ],
         "PLANO": "CODE",
         "PROVA": [
           "system-map/scripts/reconciliacao_do_universo.py:712",
-          "system-map/tests/test_freshness.mjs:36",
-          "tests/test_observabilidade_estrada.py:382"
+          "system-map/tests/test_freshness.mjs:36"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -14333,6 +14345,7 @@
       "outbound": [
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-MAPAV2-MEDIDOR",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-RECONCILIACAO-UNIVERSO",
         "C-REVISAO-DA-EVIDENCIA",
@@ -14453,6 +14466,7 @@
         "QUEM": [
           "C-MAPA-TESTES",
           "C-MAPA-VALIDADOR",
+          "C-MAPAV2-MEDIDOR",
           "C-PROVA-MAPA-NAO-MENTE",
           "C-RECONCILIACAO-UNIVERSO",
           "C-REVISAO-DA-EVIDENCIA",
@@ -14811,8 +14825,6 @@
         "system-map/CANONICAL-PUBLICATION.json",
         "system-map/COLLECTION-AUDIT-BASE.json",
         "system-map/app/freshness.js",
-        "system-map/app/map.css",
-        "system-map/app/map.js",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
         "system-map/scripts/censo_da_topologia.py",
@@ -14948,6 +14960,634 @@
       "y": 3258
     },
     {
+      "id": "C-MAPAV2-APP",
+      "name": "Interface do mapa da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "surface",
+      "what": "A tela do candidato: quatro níveis, zoom, foco com montante e jusante, busca, legado recolhido e as quatro verdades no detalhe.",
+      "why_here": "Só renderiza. Nenhum facto sobre a máquina mora dentro dela — há prova que o verifica.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "green",
+      "icon": "▣",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "system-map/v2/app/index.html",
+        "system-map/v2/app/map.css",
+        "system-map/v2/app/map.js"
+      ],
+      "file_count": 3,
+      "status": "PROVEN",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPAV2-GERADOR"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "SURFACE",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 3 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "SURFACE",
+        "DECLARED_WHY": "declarado `kind: surface` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 3 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz SURFACE (declarado `kind: surface` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "system-map/v2/app/map.css",
+        "system-map/v2/app/map.js",
+        "system-map/v2/data/estado.gerado.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 20435,
+      "y": 3258
+    },
+    {
+      "id": "C-MAPAV2-CI",
+      "name": "Portão do mapa da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "workflow",
+      "what": "O workflow que corre o validador, os testes e o red team do candidato em cada push.",
+      "why_here": "Separado do portão do mapa oficial de propósito: um defeito do candidato não pode reprovar a linha que já está de pé.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⚑",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        ".github/workflows/mapa-da-maquina-v2.yml"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "DISPATCH_ENTRYPOINT",
+      "ROLE_DECLARED": "DISPATCH_ENTRYPOINT",
+      "ROLE_RULE": "M1_SO_WORKFLOW",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "DISPATCH_ENTRYPOINT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "1 ficheiro(s), todos manifestos de workflow: quem os corre e o GitHub Actions, e nada na arvore os importa",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "EXTERNO_EVENTO",
+        "QUEM": [
+          "EXTERNO"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/mapa-da-maquina-v2.yml · on: pull_request, push, workflow_dispatch"
+        ],
+        "PORQUE": "um acontecimento do repositorio acorda este botao."
+      },
+      "x": 20850,
+      "y": 3258
+    },
+    {
+      "id": "C-MAPAV2-GERADOR",
+      "name": "Gerador do mapa da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Cruza o modelo canónico com o estado medido e calcula as quatro verdades e a saúde de cada conceito.",
+      "why_here": "Um conceito que a Bíblia exige e o repositório não implementa continua a aparecer — é essa a razão de a dimensão BIBLE existir.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "system-map/v2/scripts/gerar_mapa.py",
+        "system-map/v2/scripts/publicar_v2.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [
+        "system-map/v2/data/estado.gerado.json"
+      ],
+      "inbound": [
+        "C-MAPAV2-MEDIDOR",
+        "C-MAPAV2-MODELO"
+      ],
+      "outbound": [
+        "C-MAPAV2-APP",
+        "C-MAPAV2-TESTES",
+        "C-MAPAV2-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ROTULOS"
+        ],
+        "palavras": 21,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 21,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "system-map/v2/data/estado.gerado.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "escreve system-map/v2/data/estado.gerado.json, e C-MAPAV2-APP le isso: entrega trabalho a peca seguinte",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "system-map/v2/data/estado.gerado.json",
+        "system-map/v2/data/maquina.medida.json",
+        "system-map/v2/model/maquina.model.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPAV2-APP",
+          "C-MAPAV2-TESTES",
+          "C-MAPAV2-VALIDADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/v2/app/map.js:44",
+          "system-map/v2/scripts/validar_mapa.py:38",
+          "system-map/v2/tests/red_team.py:25"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 20020,
+      "y": 3580
+    },
+    {
+      "id": "C-MAPAV2-MEDIDOR",
+      "name": "Medidor da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Mede as quatro verdades da COL-LAW-102 — BIBLE, DECLARED, CODE e OBSERVED — e recusa observação cujo caminho dentro do artefato não exista ou cujo valor não bata.",
+      "why_here": "ARTEFATO QUE EXISTE NÃO É ARTEFATO QUE PROVA. A observação aponta um caminho dentro do ficheiro e o valor esperado, e é isso que se confere.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⌕",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "system-map/v2/scripts/medir_maquina.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [
+        "system-map/v2/data/maquina.medida.json"
+      ],
+      "inbound": [
+        "C-BIBLIA",
+        "C-MAPA-GERADOR",
+        "C-MAPAV2-MODELO"
+      ],
+      "outbound": [
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-TESTES",
+        "C-MAPAV2-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "GERADO_PELO_MAPA"
+        ],
+        "palavras": 5,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 5,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "system-map/v2/data/maquina.medida.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "escreve system-map/v2/data/maquina.medida.json, e C-MAPAV2-GERADOR le isso: entrega trabalho a peca seguinte",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "docs/biblia/leis.json",
+        "docs/fontes/INDICE-DE-FONTES.md",
+        "regras/LEIA-ANTES-DE-COLETAR.md",
+        "system-map/v2/data/maquina.medida.json",
+        "system-map/v2/model/maquina.model.json"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPAV2-GERADOR",
+          "C-MAPAV2-TESTES",
+          "C-MAPAV2-VALIDADOR"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/v2/scripts/gerar_mapa.py:42",
+          "system-map/v2/scripts/validar_mapa.py:37",
+          "system-map/v2/tests/red_team.py:27"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
+      },
+      "x": 20435,
+      "y": 3580
+    },
+    {
+      "id": "C-MAPAV2-MODELO",
+      "name": "Modelo canónico do mapa da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "contract",
+      "what": "O único ficheiro do V2 escrito por gente: declara os conceitos da máquina e, para cada um, a lei da Bíblia e o contrato que o sustentam. Não contém estado.",
+      "why_here": "Estado derivável não se escreve à mão (COL-LAW-103). Quem declara diz o que a peça é e onde se confere; quem calcula é o gerador.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "◇",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "system-map/v2/model/maquina.model.json"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "e uma lei sem prova executavel apontando para ela.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-MEDIDOR",
+        "C-MAPAV2-TESTES",
+        "C-MAPAV2-VALIDADOR"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "STORAGE",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M9_NADA_AQUI_CORRE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "STORAGE",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "1 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SE_ATIVA",
+        "QUEM": [],
+        "PLANO": "CODE",
+        "PROVA": [
+          "1 ficheiro(s) e nenhum executavel: aqui guarda-se, nao se corre"
+        ],
+        "PORQUE": "esta peca nao corre: e consultada. Perguntar quem a ativa e perguntar quem acende um livro."
+      },
+      "x": 20850,
+      "y": 3580
+    },
+    {
+      "id": "C-MAPAV2-TESTES",
+      "name": "Testes e red team do mapa da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "test",
+      "what": "As regras do mapa, o teste do leigo com 20 perguntas, e os 40 ataques do red team.",
+      "why_here": "Teste que nunca viu vermelho não é teste: metade constrói de propósito o caso mau e exige que o sistema o recuse.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "✓",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "system-map/v2/tests/red_team.py",
+        "system-map/v2/tests/testa_mapa.py"
+      ],
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "teste que nao toca em nada do repositorio.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-MEDIDOR",
+        "C-MAPAV2-MODELO",
+        "C-PROVA-MAPA-NAO-MENTE"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PERG"
+        ],
+        "palavras": 103,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 103,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "PROOF",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_CONFLICT": {
+        "MEASURED": "MEASUREMENT_INSTRUMENT",
+        "MEASURED_WHY": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+        "DECLARED": "PROOF",
+        "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
+        "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
+      },
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz MEASUREMENT_INSTRUMENT (le 6 artefato(s) e nao escreve nenhum medido: olha e da nota) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "system-map/data/architecture.declared.json",
+        "system-map/v2/data/estado.gerado.json",
+        "system-map/v2/data/maquina.medida.json",
+        "system-map/v2/model/maquina.model.json",
+        "system-map/v2/scripts/gerar_mapa.py",
+        "system-map/v2/scripts/medir_maquina.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 20020,
+      "y": 3902
+    },
+    {
+      "id": "C-MAPAV2-VALIDADOR",
+      "name": "Validador do mapa da máquina (V2)",
+      "territory": "Z-PROVA",
+      "kind": "gate",
+      "what": "As 16 provas do candidato: sem drift, contrato confirmado, nenhum artefato gerado como autoridade, evidência relevante, e nenhuma etapa medida sem cartão.",
+      "why_here": "Um mapa de auditoria que não é auditado não vale nada. Falha fechado.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚖",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "system-map/v2/scripts/validar_mapa.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "portao que ninguem chama.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-MAPAV2-GERADOR",
+        "C-MAPAV2-MEDIDOR",
+        "C-MAPAV2-MODELO"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 6 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "system-map/data/pedido.observado.json",
+        "system-map/v2/data/estado.gerado.json",
+        "system-map/v2/data/maquina.medida.json",
+        "system-map/v2/model/maquina.model.json",
+        "system-map/v2/scripts/gerar_mapa.py",
+        "system-map/v2/scripts/medir_maquina.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 20435,
+      "y": 3902
+    },
+    {
       "id": "C-MEDICAO",
       "name": "Auditoria, cobertura e custo",
       "territory": "Z-PROVA",
@@ -15054,8 +15694,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
-      "y": 3258
+      "x": 20850,
+      "y": 3902
     },
     {
       "id": "C-NAVEGADOR",
@@ -16887,8 +17527,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
-      "y": 3258
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVA-AUDIO-ONLY",
@@ -16958,8 +17598,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20020,
-      "y": 3580
+      "x": 20435,
+      "y": 4224
     },
     {
       "id": "C-PROVA-AUTORIDADE-FONTE",
@@ -17048,8 +17688,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
-      "y": 3580
+      "x": 20850,
+      "y": 4224
     },
     {
       "id": "C-PROVA-BIBLIA",
@@ -17164,8 +17804,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
-      "y": 3580
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-PROVA-COLETA",
@@ -17673,8 +18313,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 3902
+      "x": 20435,
+      "y": 4546
     },
     {
       "id": "C-PROVA-DEDUPE",
@@ -17763,8 +18403,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
-      "y": 3902
+      "x": 20850,
+      "y": 4546
     },
     {
       "id": "C-PROVA-ENCANAMENTO",
@@ -17854,8 +18494,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4868
     },
     {
       "id": "C-PROVA-EXECUTOR-CONTA",
@@ -17933,8 +18573,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 4224
+      "x": 20435,
+      "y": 4868
     },
     {
       "id": "C-PROVA-FALA-QUALIDADE",
@@ -18050,8 +18690,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
-      "y": 4224
+      "x": 20850,
+      "y": 4868
     },
     {
       "id": "C-PROVA-FORWARD-CONTA",
@@ -18144,8 +18784,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 5190
     },
     {
       "id": "C-PROVA-FRONTEIRA",
@@ -18239,8 +18879,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 4546
+      "x": 20435,
+      "y": 5190
     },
     {
       "id": "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
@@ -18329,8 +18969,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
-      "y": 4546
+      "x": 20850,
+      "y": 5190
     },
     {
       "id": "C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -18441,8 +19081,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
-      "y": 4546
+      "x": 20020,
+      "y": 5512
     },
     {
       "id": "C-PROVA-MAPA-NAO-MENTE",
@@ -18483,6 +19123,7 @@
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-MAPAV2-TESTES",
         "C-RECONCILIACAO-UNIVERSO",
         "C-TESTES"
       ],
@@ -18577,8 +19218,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 4868
+      "x": 20435,
+      "y": 5512
     },
     {
       "id": "C-PROVA-O-PEDIDO-ATRAVESSA",
@@ -18690,8 +19331,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
-      "y": 4868
+      "x": 20850,
+      "y": 5512
     },
     {
       "id": "C-PROVA-O-RAW-FALA",
@@ -18777,8 +19418,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
-      "y": 4868
+      "x": 20020,
+      "y": 5834
     },
     {
       "id": "C-PROVA-RETRY-DO-SCRAP",
@@ -18865,8 +19506,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 5190
+      "x": 20435,
+      "y": 5834
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -18967,8 +19608,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
-      "y": 5190
+      "x": 20850,
+      "y": 5834
     },
     {
       "id": "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
@@ -19064,8 +19705,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
-      "y": 5190
+      "x": 20020,
+      "y": 6156
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -19175,8 +19816,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 5512
+      "x": 20435,
+      "y": 6156
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -19263,8 +19904,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20435,
-      "y": 5512
+      "x": 20850,
+      "y": 6156
     },
     {
       "id": "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -19347,8 +19988,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20850,
-      "y": 5512
+      "x": 20020,
+      "y": 6478
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -19443,8 +20084,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20020,
-      "y": 5834
+      "x": 20435,
+      "y": 6478
     },
     {
       "id": "C-PROVENIENCIA",
@@ -19819,8 +20460,8 @@
         "PROVA": [],
         "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
       },
-      "x": 20435,
-      "y": 5834
+      "x": 20850,
+      "y": 6478
     },
     {
       "id": "C-RECEITAS",
@@ -20081,8 +20722,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
-      "y": 5834
+      "x": 20020,
+      "y": 6800
     },
     {
       "id": "C-RECORRENCIA",
@@ -20180,8 +20821,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20020,
-      "y": 6156
+      "x": 20435,
+      "y": 6800
     },
     {
       "id": "C-REGRA-COLETA",
@@ -20405,8 +21046,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20435,
-      "y": 6156
+      "x": 20850,
+      "y": 6800
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -20816,8 +21457,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
-      "y": 6156
+      "x": 20020,
+      "y": 7122
     },
     {
       "id": "C-ROTA-M2",
@@ -22114,8 +22755,8 @@
         ],
         "PORQUE": "um acontecimento do repositorio acorda este botao."
       },
-      "x": 20020,
-      "y": 6478
+      "x": 20435,
+      "y": 7122
     },
     {
       "id": "C-SENSOR-COLETA",
@@ -22584,8 +23225,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20435,
-      "y": 6478
+      "x": 20850,
+      "y": 7122
     },
     {
       "id": "C-SUPABASE",
@@ -22842,8 +23483,8 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 20850,
-      "y": 6478
+      "x": 20020,
+      "y": 7444
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -24706,7 +25347,6 @@
         "C-IT-PRESERVAR",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
-        "C-MAPA-APP",
         "C-MAPA-GERADOR",
         "C-MAPA-VALIDADOR",
         "C-MEDICAO",
@@ -25218,7 +25858,6 @@
         "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
         "supabase/tests/regressoes_calendario.sql",
         "superficie/rede.py",
-        "system-map/app/map.js",
         "system-map/data/architecture.declared.json",
         "system-map/data/estradas-it.model.json",
         "system-map/data/pedido-t4.observado.json",
@@ -25262,8 +25901,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 20020,
-      "y": 6800
+      "x": 20435,
+      "y": 7444
     },
     {
       "id": "C-TRANSCRICAO",
@@ -27196,7 +27835,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-current-collection-truth-v2"
+        "branch claude/system-map-v2-canonical-rebuild"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -32470,6 +33109,41 @@
             "EDGE_ID": "C-BIBLIA--READS-->C-ESTRADA-PDF",
             "FROM": "C-BIBLIA",
             "TO": "C-ESTRADA-PDF",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-BIBLIA",
+      "to": "C-MAPAV2-MEDIDOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A Bíblia canônica da coleta alimenta Medidor da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/medir_maquina.py",
+          "line": 58,
+          "snippet": "LEIS = RAIZ / \"docs\" / \"biblia\" / \"leis.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-BIBLIA--READS-->C-MAPAV2-MEDIDOR",
+            "FROM": "C-BIBLIA",
+            "TO": "C-MAPAV2-MEDIDOR",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -50444,124 +51118,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 9 linhas de codigo.",
+      "reason": "Interface do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "system-map/tests/test_freshness.mjs",
           "line": 36,
           "snippet": "runInContext(readFileSync(join(RAIZ, 'system-map', 'app', 'freshness.js'), 'utf8'), ctx);",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_impressao_da_arvore.py",
-          "line": 199,
-          "snippet": "js = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_papel_e_leitura_humana.py",
-          "line": 49,
-          "snippet": "TELA = RAIZ / \"system-map\" / \"app\" / \"map.js\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_papel_e_leitura_humana.py",
-          "line": 51,
-          "snippet": "FOLHA = RAIZ / \"system-map\" / \"app\" / \"map.css\"",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_quatro_planos.py",
-          "line": 191,
-          "snippet": "TELA = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_reconciliacao_do_universo.py",
-          "line": 429,
-          "snippet": "MAPJS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_system_map.py",
-          "line": 258,
-          "snippet": "MAPA_JS = (RAIZ / \"system-map\" / \"app\" / \"map.js\").read_text(encoding=\"utf-8\")",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-MAPA-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        },
-        {
-          "file": "system-map/tests/test_system_map.py",
-          "line": 507,
-          "snippet": "css = (RAIZ / \"system-map\" / \"app\" / \"map.css\").read_text(encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-APP--READS-->C-MAPA-TESTES",
             "FROM": "C-MAPA-APP",
@@ -50627,41 +51189,6 @@
         }
       ],
       "categoria": "READ",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-MAPA-APP",
-      "to": "C-TESTES",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Interface do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "tests/test_observabilidade_estrada.py",
-          "line": 382,
-          "snippet": "'system-map', 'map.js')),",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-MAPA-APP--READS-->C-TESTES",
-            "FROM": "C-MAPA-APP",
-            "TO": "C-TESTES",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -51172,6 +51699,57 @@
             "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPA-VALIDADOR",
             "FROM": "C-MAPA-GERADOR",
             "TO": "C-MAPA-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-GERADOR",
+      "to": "C-MAPAV2-MEDIDOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do System Map alimenta Medidor da máquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/medir_maquina.py",
+          "line": 67,
+          "snippet": "\"regras/LEIA-ANTES-DE-COLETAR.md\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPAV2-MEDIDOR",
+            "FROM": "C-MAPA-GERADOR",
+            "TO": "C-MAPAV2-MEDIDOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/scripts/medir_maquina.py",
+          "line": 68,
+          "snippet": "\"docs/fontes/INDICE-DE-FONTES.md\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-GERADOR--READS-->C-MAPAV2-MEDIDOR",
+            "FROM": "C-MAPA-GERADOR",
+            "TO": "C-MAPAV2-MEDIDOR",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -52192,6 +52770,452 @@
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-GERADOR",
+      "to": "C-MAPAV2-APP",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do mapa da máquina (V2) alimenta Interface do mapa da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/app/map.js",
+          "line": 44,
+          "snippet": "fetch('estado.gerado.json')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPAV2-APP",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPAV2-APP",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-GERADOR",
+      "to": "C-MAPAV2-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do mapa da máquina (V2) alimenta Testes e red team do mapa da máquina (V2). Provado por 3 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/tests/red_team.py",
+          "line": 25,
+          "snippet": "S = json.loads((V2 / \"data\" / \"estado.gerado.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/tests/testa_mapa.py",
+          "line": 40,
+          "snippet": "S = json.loads((V2 / \"data\" / \"estado.gerado.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/tests/testa_mapa.py",
+          "line": 108,
+          "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-GERADOR",
+      "to": "C-MAPAV2-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Gerador do mapa da máquina (V2) alimenta Validador do mapa da máquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 38,
+          "snippet": "ESTADO = V2 / \"data\" / \"estado.gerado.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 77,
+          "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-GERADOR--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPAV2-GERADOR",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MEDIDOR",
+      "to": "C-MAPAV2-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Medidor da máquina (V2) alimenta Gerador do mapa da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/gerar_mapa.py",
+          "line": 42,
+          "snippet": "MEDIDA = V2 / \"data\" / \"maquina.medida.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-GERADOR",
+            "FROM": "C-MAPAV2-MEDIDOR",
+            "TO": "C-MAPAV2-GERADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MEDIDOR",
+      "to": "C-MAPAV2-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Medidor da máquina (V2) alimenta Testes e red team do mapa da máquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/tests/red_team.py",
+          "line": 27,
+          "snippet": "MED = json.loads((V2 / \"data\" / \"maquina.medida.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-MEDIDOR",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/tests/testa_mapa.py",
+          "line": 108,
+          "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-MEDIDOR",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MEDIDOR",
+      "to": "C-MAPAV2-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Medidor da máquina (V2) alimenta Validador do mapa da máquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 37,
+          "snippet": "MEDIDA = V2 / \"data\" / \"maquina.medida.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPAV2-MEDIDOR",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 77,
+          "snippet": "for passo in (\"medir_maquina.py\", \"gerar_mapa.py\"):",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MEDIDOR--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPAV2-MEDIDOR",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MODELO",
+      "to": "C-MAPAV2-GERADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo canónico do mapa da máquina (V2) alimenta Gerador do mapa da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/gerar_mapa.py",
+          "line": 41,
+          "snippet": "MODELO = V2 / \"model\" / \"maquina.model.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-GERADOR",
+            "FROM": "C-MAPAV2-MODELO",
+            "TO": "C-MAPAV2-GERADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MODELO",
+      "to": "C-MAPAV2-MEDIDOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo canónico do mapa da máquina (V2) alimenta Medidor da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/medir_maquina.py",
+          "line": 57,
+          "snippet": "MODELO = V2 / \"model\" / \"maquina.model.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-MEDIDOR",
+            "FROM": "C-MAPAV2-MODELO",
+            "TO": "C-MAPAV2-MEDIDOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MODELO",
+      "to": "C-MAPAV2-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo canónico do mapa da máquina (V2) alimenta Testes e red team do mapa da máquina (V2). Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/tests/red_team.py",
+          "line": 26,
+          "snippet": "MOD = json.loads((V2 / \"model\" / \"maquina.model.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-MODELO",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/v2/tests/testa_mapa.py",
+          "line": 41,
+          "snippet": "MOD = json.loads((V2 / \"model\" / \"maquina.model.json\").read_text(encoding=\"utf-8\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-MAPAV2-MODELO",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPAV2-MODELO",
+      "to": "C-MAPAV2-VALIDADOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Modelo canónico do mapa da máquina (V2) alimenta Validador do mapa da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/validar_mapa.py",
+          "line": 36,
+          "snippet": "MODELO = V2 / \"model\" / \"maquina.model.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPAV2-MODELO--READS-->C-MAPAV2-VALIDADOR",
+            "FROM": "C-MAPAV2-MODELO",
+            "TO": "C-MAPAV2-VALIDADOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -59377,7 +60401,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_repo.py",
-          "line": 780,
+          "line": 785,
           "snippet": "decl = RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPA-SCAN",
@@ -59495,6 +60519,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-MAPA-NAO-MENTE",
+      "to": "C-MAPAV2-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova de que o mapa não mente sobre existência alimenta Testes e red team do mapa da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/tests/red_team.py",
+          "line": 110,
+          "snippet": "v1 = json.loads((RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPAV2-TESTES",
+            "FROM": "C-PROVA-MAPA-NAO-MENTE",
+            "TO": "C-MAPAV2-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -74606,7 +75665,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 835,
+  "UNCLAIMED_FILES_COUNT": 836,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -74770,7 +75829,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 147,
+      "PECAS_EM_DESACORDO": 153,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -74782,26 +75841,26 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 185
+      "TOTAL_DE_PECAS": 192
     }
   ],
   "COUNTS": {
-    "components": 185,
-    "components_proven": 44,
-    "components_pending": 134,
+    "components": 192,
+    "components_proven": 45,
+    "components_pending": 139,
     "components_broken": 0,
-    "components_unknown": 7,
-    "edges": 910,
-    "edges_proven": 862,
+    "components_unknown": 8,
+    "edges": 922,
+    "edges_proven": 874,
     "edges_unknown": 48,
     "business_edges": 4,
-    "files_tracked": 1731,
-    "files_covered": 896,
+    "files_tracked": 1745,
+    "files_covered": 909,
     "files_code_unclaimed": 0,
-    "roles_proven": 134,
+    "roles_proven": 139,
     "roles_declared_only": 5,
-    "roles_unknown": 46,
-    "roles_conflict": 19,
+    "roles_unknown": 48,
+    "roles_conflict": 21,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 9,
     "concept_owner_single": 3,

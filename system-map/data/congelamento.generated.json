@@ -1,15 +1,16 @@
 {
   "O_QUE_E": "A fotografia da inteligencia que JA EXISTIA. A trava nao prova que ela nao existe — prova que ela nao avancou enquanto a coleta nao fechar.",
   "PORQUE_A_TRAVA_ANTIGA_NAO_BASTAVA": "ela procurava PASTAS com certos nomes, nao encontrava nenhuma, e dai eu escrevi «zero areas implementadas». A afirmacao era maior do que a prova: nao havia pasta, havia artefatos espalhados.",
-  "FROZEN_AT_HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
+  "FROZEN_AT_HEAD": "ac54e70dee008943620417b50ae3f68529b936a1",
   "O_QUE_FROZEN_AT_HEAD_E": "a marca historica: o ponto em que a fotografia foi tirada. NAO e o ponto em que se mede — mede-se sempre a arvore de trabalho de agora, contra os sha que essa fotografia guardou.",
-  "ARTEFATOS": 225,
+  "ARTEFATOS": 229,
   "POR_ESPECIE": {
+    "CONTRACT": 3,
     "DATA_SAMPLE": 82,
     "GENERATED_OUTPUT": 25,
     "IMPLEMENTATION": 10,
     "INSTRUMENT": 4,
-    "MENCAO_FRACA_APENAS": 34,
+    "MENCAO_FRACA_APENAS": 35,
     "PORTAL_UI": 62,
     "TEST": 8
   },
@@ -394,6 +395,12 @@
       ]
     },
     {
+      "PATH": "italia-portale/client/system-map-v2/estado.gerado.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "30580159ba85d3c36e02fc97bd024a9580a79cdf",
+      "MARCAS_FORTES": []
+    },
+    {
       "PATH": "leis/auditoria_regua_comercial.py",
       "SPECIES": "IMPLEMENTATION",
       "GIT_BLOB_SHA": "0b74e427335ff870fb7c815426e92832e67127d4",
@@ -525,6 +532,18 @@
       "MARCAS_FORTES": [
         "RECOMMENDATION"
       ]
+    },
+    {
+      "PATH": "system-map/v2/data/estado.gerado.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "30580159ba85d3c36e02fc97bd024a9580a79cdf",
+      "MARCAS_FORTES": []
+    },
+    {
+      "PATH": "system-map/v2/model/maquina.model.json",
+      "SPECIES": "CONTRACT",
+      "GIT_BLOB_SHA": "4ce5968e4c8e143d812e1a6a0ec0b42d0bac6273",
+      "MARCAS_FORTES": []
     }
   ],
   "OUTROS_ARTEFATOS": [
@@ -1103,6 +1122,10 @@
     {
       "PATH": "system-map/scripts/censo_do_congelamento.py",
       "SPECIES": "INSTRUMENT"
+    },
+    {
+      "PATH": "system-map/v2/tests/testa_mapa.py",
+      "SPECIES": "MENCAO_FRACA_APENAS"
     },
     {
       "PATH": "tests/test_adama_relevance.py",
