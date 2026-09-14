@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "867a6f975a9635470e097aa919487624b6071468",
-    "GENERATED_AT": "2026-09-14T16:31:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "13ec3bd3866f0935404081f1c3b2ac2cf3810bd3f0d0375f0770ec3e2cec4f14"
+    "HEAD": "0c6b7c1db5e1a6764513dba04ddfcd4fa6cc20fd",
+    "GENERATED_AT": "2026-09-14T17:26:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "32f9907f0d64d8a1ab9b5766cf271abccbae6c3d08e58891242638f02e9b48db"
   },
   "FILES": [
     {
@@ -1277,7 +1277,7 @@
     },
     {
       "path": "coleta/executor_transcricao_midia.py",
-      "sha": "f627266a7bdf7d7445ede97c4dfb5c4cc9713a71",
+      "sha": "331b1910f2ac7463f65fc3435dc7f8994cdd7f23",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4945,7 +4945,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "424b832ba63d126f16bc997b06284acb39d94614",
+      "sha": "f6e0cb4670949eceff4863edd67eb74f19edb5f8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9474,7 +9474,7 @@
     },
     {
       "path": "regras/LEIA-ANTES-DE-COLETAR.md",
-      "sha": "d12a9fdfbe26976f720b7c49f0fcfe9a7d09483c",
+      "sha": "01361eaa68d16c63ddad2c7654624f7cfa1d183f",
       "ext": ".md",
       "readable": false,
       "code_dir": true
@@ -11518,7 +11518,7 @@
     },
     {
       "path": "tests/test_c4h_executor_de_midia.py",
-      "sha": "e219c9b8484361b4b24a162bfabaa6f16aa2c16d",
+      "sha": "9f5cab9cbd5b3793d3def279391ecc1f6ac901b1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14807,7 +14807,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_transcricao_midia.py",
-        "line": 200,
+        "line": 245,
         "snippet": "import fala_local as fl                                 # noqa: PLC0415"
       }
     },
@@ -14818,7 +14818,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_transcricao_midia.py",
-        "line": 157,
+        "line": 170,
         "snippet": "\"ASR_OWNER\": \"ferramentas/fala_local.py\","
       }
     },
@@ -14829,7 +14829,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/executor_transcricao_midia.py",
-        "line": 198,
+        "line": 243,
         "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
       }
     },
@@ -14840,7 +14840,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/executor_transcricao_midia.py",
-        "line": 158,
+        "line": 171,
         "snippet": "\"ESCRITA_DO_DERIVADO\": \"guarda/preservar_derivado.py\","
       }
     },
@@ -14853,6 +14853,17 @@
         "file": "coleta/executor_transcricao_midia.py",
         "line": 90,
         "snippet": "import artefato as art                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 94,
+        "snippet": "import proveniencia as pv                                  # noqa: E402"
       }
     },
     {
@@ -46795,7 +46806,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 137,
+        "line": 141,
         "snippet": "self.assertIn(\"'TEXT_KIND': 'CAPTION'\", _fonte(\"coleta/comunicacao_coleta.py\"))"
       }
     },
@@ -46817,7 +46828,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 332,
+        "line": 340,
         "snippet": "\"coleta/derivacao_forward.py\","
       }
     },
@@ -46850,8 +46861,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 129,
-        "snippet": "fonte = _fonte(\"coleta/executor_transcricao_midia.py\")"
+        "line": 132,
+        "snippet": "corpo = _codigo_de(\"coleta/executor_transcricao_midia.py\", \"derivar_um\")"
       }
     },
     {
@@ -46872,7 +46883,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 331,
+        "line": 339,
         "snippet": "\"coleta/ingresso.py\","
       }
     },
@@ -46883,7 +46894,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 310,
+        "line": 318,
         "snippet": "import fala_local as fl                              # noqa: PLC0415"
       }
     },
@@ -46894,7 +46905,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 349,
+        "line": 357,
         "snippet": "fonte = _fonte(\"ferramentas/fala_local.py\")"
       }
     },
@@ -46905,7 +46916,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 256,
+        "line": 264,
         "snippet": "self.assertIn(\"REUSED\", _fonte(\"guarda/preservar_derivado.py\"))"
       }
     },
@@ -46922,12 +46933,23 @@
     },
     {
       "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 127,
+        "snippet": "import proveniencia as pv                             # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
       "to_file": "supabase/migrations/022_o_derivado_ganha_casa.sql",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4h_executor_de_midia.py",
-        "line": 264,
+        "line": 272,
         "snippet": "sql = _fonte(\"supabase/migrations/022_o_derivado_ganha_casa.sql\")"
       }
     },
@@ -55817,7 +55839,7 @@
     "files_tracked": 1753,
     "files_readable": 740,
     "files_code_dir": 793,
-    "file_edges": 3912,
+    "file_edges": 3914,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

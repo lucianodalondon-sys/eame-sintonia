@@ -2339,9 +2339,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "867a6f975a9635470e097aa919487624b6071468",
-    "GENERATED_AT": "2026-09-14T16:31:03-03:00",
-    "SOURCE_TREE_FINGERPRINT": "13ec3bd3866f0935404081f1c3b2ac2cf3810bd3f0d0375f0770ec3e2cec4f14"
+    "HEAD": "0c6b7c1db5e1a6764513dba04ddfcd4fa6cc20fd",
+    "GENERATED_AT": "2026-09-14T17:26:11-03:00",
+    "SOURCE_TREE_FINGERPRINT": "32f9907f0d64d8a1ab9b5766cf271abccbae6c3d08e58891242638f02e9b48db"
   },
   "FAMILIES": [
     {
@@ -11003,8 +11003,8 @@
         "PLANO": null,
         "PROVA": [
           "coleta/executor_texto_de_pdf.py:299",
-          "coleta/executor_transcricao_midia.py:198",
-          "coleta/executor_transcricao_midia.py:158",
+          "coleta/executor_transcricao_midia.py:243",
+          "coleta/executor_transcricao_midia.py:171",
           "guarda/memoria_descartavel.py:43"
         ],
         "PORQUE": "estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -11852,6 +11852,7 @@
       "inbound": [
         "C-CONTRATO-ARTEFATO",
         "C-DONO-DO-DERIVADO",
+        "C-PROCEDENCIA",
         "C-TRANSCRICAO"
       ],
       "outbound": [
@@ -11867,11 +11868,12 @@
         "papel": "NAO SEI",
         "listas": [
           "ACEITA",
-          "CAPACIDADE"
+          "CAPACIDADE",
+          "DESTINO_DOS_MOTIVOS"
         ],
-        "palavras": 28,
+        "palavras": 34,
         "por_lingua": {},
-        "sem_marca_de_lingua": 28,
+        "sem_marca_de_lingua": 34,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11911,7 +11913,7 @@
         "PROVA": [
           "coleta/derivacao_forward.py:163",
           "tests/test_c4h_executor_de_midia.py:28",
-          "tests/test_c4h_executor_de_midia.py:129"
+          "tests/test_c4h_executor_de_midia.py:132"
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -16908,7 +16910,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-EXECUTOR-TRANSCRICAO-MIDIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "regras/proveniencia.py"
       ],
@@ -16924,6 +16926,7 @@
         "C-DATA-CLOCK",
         "C-ESPECIE-DO-TEXTO",
         "C-ESTRADA-PDF",
+        "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-INGRESSO",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
@@ -17022,9 +17025,9 @@
         "PLANO": null,
         "PROVA": [
           "coleta/coletor.py:76",
+          "coleta/executor_transcricao_midia.py:94",
           "coleta/golden_path_pdf.py:52",
-          "coleta/ingresso.py:97",
-          "coleta/instagram_janela.py:74"
+          "coleta/ingresso.py:97"
         ],
         "PORQUE": "estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -40164,7 +40167,7 @@
         },
         {
           "file": "tests/test_c4h_executor_de_midia.py",
-          "line": 137,
+          "line": 141,
           "snippet": "self.assertIn(\"'TEXT_KIND': 'CAPTION'\", _fonte(\"coleta/comunicacao_coleta.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-TESTES",
@@ -43423,7 +43426,7 @@
       "evidence": [
         {
           "file": "tests/test_c4h_executor_de_midia.py",
-          "line": 332,
+          "line": 340,
           "snippet": "\"coleta/derivacao_forward.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
@@ -45071,7 +45074,7 @@
       "evidence": [
         {
           "file": "coleta/executor_transcricao_midia.py",
-          "line": 198,
+          "line": 243,
           "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -45106,7 +45109,7 @@
       "evidence": [
         {
           "file": "coleta/executor_transcricao_midia.py",
-          "line": 158,
+          "line": 171,
           "snippet": "\"ESCRITA_DO_DERIVADO\": \"guarda/preservar_derivado.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--READS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -45262,7 +45265,7 @@
         },
         {
           "file": "tests/test_c4h_executor_de_midia.py",
-          "line": 256,
+          "line": 264,
           "snippet": "self.assertIn(\"REUSED\", _fonte(\"guarda/preservar_derivado.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--READS-->C-TESTES",
@@ -47464,8 +47467,8 @@
       "evidence": [
         {
           "file": "tests/test_c4h_executor_de_midia.py",
-          "line": 129,
-          "snippet": "fonte = _fonte(\"coleta/executor_transcricao_midia.py\")",
+          "line": 132,
+          "snippet": "corpo = _codigo_de(\"coleta/executor_transcricao_midia.py\", \"derivar_um\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--READS-->C-TESTES",
             "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -49528,7 +49531,7 @@
         },
         {
           "file": "tests/test_c4h_executor_de_midia.py",
-          "line": 331,
+          "line": 339,
           "snippet": "\"coleta/ingresso.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -59164,6 +59167,41 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Executor · transcrição a partir de áudio e vídeo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_transcricao_midia.py",
+          "line": 94,
+          "snippet": "import proveniencia as pv                                  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-INGRESSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -59743,8 +59781,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 127,
+          "snippet": "import proveniencia as pv                             # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-TESTES",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_c6_especie_do_texto.py",
           "line": 30,
@@ -73325,7 +73379,7 @@
         },
         {
           "file": "tests/test_c4h_executor_de_midia.py",
-          "line": 264,
+          "line": 272,
           "snippet": "sql = _fonte(\"supabase/migrations/022_o_derivado_ganha_casa.sql\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-TESTES",
@@ -74640,7 +74694,7 @@
       "evidence": [
         {
           "file": "coleta/executor_transcricao_midia.py",
-          "line": 200,
+          "line": 245,
           "snippet": "import fala_local as fl                                 # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -74675,7 +74729,7 @@
       "evidence": [
         {
           "file": "coleta/executor_transcricao_midia.py",
-          "line": 157,
+          "line": 170,
           "snippet": "\"ASR_OWNER\": \"ferramentas/fala_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--READS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -77632,8 +77686,8 @@
     "components_pending": 142,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 963,
-    "edges_proven": 911,
+    "edges": 964,
+    "edges_proven": 912,
     "edges_unknown": 52,
     "business_edges": 4,
     "files_tracked": 1753,

@@ -88,6 +88,10 @@ RAIZ = os.path.dirname(HERE)
 sys.path.insert(0, RAIZ)
 import _gavetas                                            # noqa: E402,F401
 import artefato as art                                     # noqa: E402
+# O DONO DO VOCABULARIO DE PROVENIENCIA DO TEXTO. Nao se duplica constante
+# dele aqui: `TEXT_KINDS`, `TEXT_RELATIONS` e a base do reconhecimento sao
+# dele, e o construtor da unidade tambem.
+import proveniencia as pv                                  # noqa: E402
 
 EXECUTOR_ID = "transcricao-midia"
 EXECUTOR_VERSION = "1"
@@ -115,6 +119,12 @@ SEM_TEXTO_RECONHECIDO = "SEM_TEXTO_RECONHECIDO"
 ASR_INDISPONIVEL = "ASR_INDISPONIVEL"
 ASR_FALHOU = "ASR_FALHOU"
 AUDIO_NAO_OBTIDO = "AUDIO_NAO_OBTIDO"
+#: O dono do vocabulario recusou a unidade que montamos. E facto sobre NOS —
+#: o audio nao tem culpa de a nossa ficha estar mal feita.
+UNIDADE_RECUSADA = "UNIDADE_DE_TEXTO_RECUSADA"
+#: O contentor nao traz faixa de som. E facto sobre o ORIGINAL — exactamente
+#: como `TEXT_LAYER_ABSENT` e facto sobre o PDF. A ferramenta nao falhou.
+SEM_FAIXA_DE_SOM = "SEM_FAIXA_DE_SOM"
 
 #: O que cada motivo é, na língua de `derivacao_forward`. Registado aqui e lido
 #: lá — um executor novo diz por que porta sai, e não deixa o `UNKNOWN` apanhá-lo.
@@ -125,6 +135,9 @@ DESTINO_DOS_MOTIVOS = {
     ASR_INDISPONIVEL: "ERROR",
     ASR_FALHOU: "ERROR",
     AUDIO_NAO_OBTIDO: "ERROR",
+    UNIDADE_RECUSADA: "ERROR",
+    # Propriedade do ITEM, como o PDF que e fotografia de papel.
+    SEM_FAIXA_DE_SOM: "REJECTED",
 }
 
 # ── O QUE ESTE EXECUTOR SABE ABRIR ──────────────────────────────────────────
@@ -183,6 +196,38 @@ def _e_video(media_type) -> bool:
     return str(media_type or "").split("/")[0].strip().lower() == "video"
 
 
+def tem_faixa_de_som(caminho, fl) -> tuple:
+    """Há faixa de áudio neste contentor? → (bool, porquê).
+
+    ⚠️ IDEIA PORTADA DA IMPLEMENTAÇÃO CONCORRENTE, NA ARBITRAGEM C4H-ARB.
+    Ela estava certa e esta não a tinha: um MP4 só de imagem existe, e mandá-lo
+    ao reconhecedor devolve `REQUESTED_EMPTY` — verdade, e verdade CARA. Paga-se
+    o carregamento do modelo para descobrir uma coisa que o contentor dizia de
+    graça.
+
+    E pergunta-se ao DONO DA MÍDIA (`fala_local.fluxos`), que já chama o
+    `ffprobe`. Um segundo sítio a chamá-lo seria um segundo dono da mesma
+    pergunta — e é por isso que o que se porta é a ideia, não o código.
+
+        NÃO CONSEGUI VER != VI QUE NÃO HÁ.
+
+    Quando a medição falha, responde-se **sim, tenta** — ausência de medição
+    nunca autoriza concluir ausência de som.
+    """
+    try:
+        imagem, som, porque = fl.fluxos(caminho)
+    except Exception as e:                                     # noqa: BLE001
+        return True, ("nao deu para ler os fluxos (%s) — e NAO SEI nao "
+                      "autoriza concluir que nao ha audio" % type(e).__name__)
+    if porque:
+        return True, ("nao deu para medir os fluxos (%s) — tenta-se, porque "
+                      "ausencia de medicao nao e ausencia de som" % porque)
+    if not som:
+        return False, ("o ffprobe leu os fluxos e nao ha faixa de som "
+                       "(imagem=%s, som=%s)" % (imagem, som))
+    return True, "o ffprobe encontrou %s faixa(s) de som" % som
+
+
 def derivar_um(raw_asset_id, caminho, armazem, memoria, relogio=None,
                contexto_da_passagem=None, media_type=None) -> dict:
     """Um áudio/vídeo, um pai canónico, uma transcrição — pelo dono da escrita.
@@ -208,6 +253,16 @@ def derivar_um(raw_asset_id, caminho, armazem, memoria, relogio=None,
 
     # ── O ÁUDIO, QUANDO O QUE VEIO FOI VÍDEO ────────────────────────────
     # Pasta temporária: o WAV é meio, não produto. Ver o cabeçalho e a 022.
+    # ── A PERGUNTA BARATA ANTES DA CARA ─────────────────────────────────
+    # Carregar o modelo custa segundos; ler os fluxos custa milissegundos.
+    tem_som, porque_som = tem_faixa_de_som(caminho, fl)
+    if not tem_som:
+        return {"ESTADO": "SEM_DERIVADO",
+                "MOTIVO_DO_EXECUTOR": SEM_FAIXA_DE_SOM,
+                "ERRO": "", "MEDIDAS": {"FLUXOS": porque_som},
+                "NAO_SIGNIFICA": "que o ficheiro esta corrompido, nem que a "
+                                 "ferramenta falhou. Ele nao traz som."}
+
     temporaria = None
     try:
         alvo = caminho
@@ -294,22 +349,79 @@ def derivar_um(raw_asset_id, caminho, armazem, memoria, relogio=None,
     #
     # Então isto sobe no RESULTADO, para quem monta a unidade usar — e o
     # derivado guarda o que o derivado guarda: bytes, espécie e régua.
-    fora["TEXT_UNIT"] = {
-        # Fala reconhecida por NÓS. `CAPTION` é texto que o autor escreveu, e
-        # nunca passa por aqui — somar os dois apaga qual deles sustentou uma
+    # ⚠️ ISTO ERA UM DICIONÁRIO ESCRITO À MÃO, COM `"TRANSCRIPT"` E
+    # `"ORIGINAL"` EM LITERAL — E ERA UM SEGUNDO DONO DO MESMO VOCABULÁRIO.
+    #
+    # `regras/proveniencia.py` existe nesta árvore, tem 56 KB, e é o dono
+    # declarado da espécie do texto: `TEXT_KINDS`, `TEXT_RELATIONS`,
+    # `PRODUCED_BY_LOCAL_ASR`. Mais do que as constantes, ele tem o
+    # CONSTRUTOR (`unidade_de_texto`) e o VALIDADOR
+    # (`conferir_unidade_de_texto`) — e nenhuma das duas implementações
+    # concorrentes desta ponte os usava.
+    #
+    # Os valores que eu escrevia à mão estavam CERTOS hoje. O defeito não era o
+    # valor: era haver dois sítios a decidi-lo.
+    #
+    #     UM VALOR CERTO ESCRITO NO SÍTIO ERRADO É UM VALOR QUE VAI DERIVAR.
+    #     E UM CONSTRUTOR QUE NINGUÉM CHAMA NÃO GUARDA NADA.
+    #
+    # A arbitragem C4H-ARB mediu isto como a única violação de contrato desta
+    # implementação. É esta linha que a fecha.
+    unidade = pv.unidade_de_texto(
+        texto=texto,
+        # Fala reconhecida por NÓS. `NATIVE_CAPTION` é o que o autor escreveu,
+        # e nunca passa por aqui — somar os dois apaga qual deles sustentou uma
         # classificação, que é a primeira pergunta que a inteligência faz.
-        "TEXT_KIND": "TRANSCRIPT",
+        kind=pv.TRANSCRIPT,
+        kind_basis=pv.PRODUCED_BY_LOCAL_ASR,
         # Fala na língua em que foi dita. Tradução, se um dia existir, é outra
         # unidade que APONTA para esta — nunca uma substituição dela.
-        "TEXT_RELATION": "ORIGINAL",
-        # A língua vem da EVIDÊNCIA do reconhecedor. Não do país da conta, não
-        # do `SOURCE_LOCATION`, não do domínio do endereço.
-        "LANGUAGE": r.get("LANGUAGE"),
-        "LANGUAGE_SOURCE": r.get("LANGUAGE_SOURCE"),
-        "LANGUAGE_CONFIDENCE": r.get("LANGUAGE_CONFIDENCE"),
-        "TEXT_CHARS": len(texto),
-        "DERIVATION_METHOD": "%s/%s" % (EXECUTOR_ID, EXECUTOR_VERSION),
-    }
+        relation=pv.ORIGINAL,
+        # A língua vem da EVIDÊNCIA do reconhecedor, e o `kind_basis` acima diz
+        # que a evidência é ASR local — logo quem lê sabe o grau de prova dela.
+        # Não vem do país da conta, do `SOURCE_LOCATION` nem do endereço.
+        language=r.get("LANGUAGE"),
+        # O pai canónico, tal como ele chegou. NÃO é o sha, NÃO é o caminho:
+        # o próprio dono avisa que 35 valores de `sha256` aparecem em
+        # observações distintas desta árvore.
+        raw_observation_id=raw_asset_id,
+        # ⚠️ EU ESCREVI AQUI `"transcricao-midia/1"`, E O DONO RECUSOU.
+        # `METODOS_DE_DERIVACAO` é uma lista FECHADA — o mesmo tipo de contrato
+        # que a `022` tem para `kind`, e o mesmo tipo de erro que a arbitragem
+        # encontrou na outra implementação. O validador apanhou-o ANTES de
+        # qualquer byte ser escrito, que é para o que ele serve.
+        #
+        #     UM MÉTODO INVENTADO NÃO É MAIS DESCRITIVO: É INVÁLIDO.
+        #
+        # Quem produziu isto foi ASR local, e o vocabulário tem essa palavra.
+        derivation_method=pv.ASR_DA_CASA,
+        # ── E A MORADA DENTRO DESTA OBSERVAÇÃO ──────────────────────────
+        # Sem ela, nenhuma tradução futura pode apontar para esta unidade e
+        # nenhum recibo a pode nomear. **NÃO é um sha**: o próprio dono avisa
+        # que 35 valores de `sha256` aparecem em observações distintas desta
+        # árvore, e uma identidade tirada do hash colaria duas em uma.
+        #
+        # Ela leva o produtor e a versão porque duas transcrições do MESMO
+        # áudio por modelos diferentes são duas unidades legítimas — a mesma
+        # razão pela qual a `022` põe `producer_version` na chave.
+        unit_id="TU-%s-%s" % (EXECUTOR_ID, EXECUTOR_VERSION),
+        tool=r.get("ASR_ENGINE"),
+        model=r.get("ASR_MODEL"))
+    # E o dono também confere. Uma unidade que ele recusa não sai daqui com
+    # cara de boa.
+    problemas = pv.conferir_unidade_de_texto(unidade)
+    if problemas:
+        return {"ESTADO": "SEM_DERIVADO",
+                "MOTIVO_DO_EXECUTOR": UNIDADE_RECUSADA,
+                "ERRO": "; ".join(str(p) for p in problemas)[:300],
+                "MEDIDAS": _medidas(r),
+                "NAO_SIGNIFICA": "que o áudio não tem fala. A unidade de texto "
+                                 "é que não passou no dono do vocabulário."}
+    fora["TEXT_UNIT"] = unidade
+    # A confiança da deteção NÃO cabe na unidade — o dono não tem campo para
+    # ela, e acrescentar um seria inventar vocabulário outra vez. Ela viaja nas
+    # medidas, ao lado de `LANGUAGE_SOURCE`, que é onde «detetado» e
+    # «declarado» já se distinguem.
     fora["MEDIDAS"] = _medidas(r)
     return fora
 

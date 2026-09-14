@@ -124,10 +124,14 @@ class T6aT8OContratoDoTexto(unittest.TestCase):
     """E7 — a espécie do texto, a relação, e a língua."""
 
     def test_T6_o_produto_e_TRANSCRIPT_e_a_especie_do_derivado_e_TRANSCRIPTION(self):
+        import proveniencia as pv                             # noqa: PLC0415
         self.assertEqual(em.ESPECIE, "TRANSCRIPTION")
         self.assertIn(em.ESPECIE, em.CAPACIDADE["PRODUCES"])
-        fonte = _fonte("coleta/executor_transcricao_midia.py")
-        self.assertIn('"TEXT_KIND": "TRANSCRIPT"', fonte)
+        # A especie do TEXTO vem do dono; a do DERIVADO vem da 022. Sao duas
+        # listas fechadas diferentes, e as duas sao respeitadas.
+        corpo = _codigo_de("coleta/executor_transcricao_midia.py", "derivar_um")
+        self.assertIn("pv.TRANSCRIPT", corpo)
+        self.assertIn(pv.TRANSCRIPT, pv.TEXT_KINDS)
 
     def test_T7_caption_nunca_e_rebatizada_transcript(self):
         """O executor não produz, não lê e não converte CAPTION."""
@@ -138,16 +142,20 @@ class T6aT8OContratoDoTexto(unittest.TestCase):
 
     def test_T8_a_lingua_vem_da_evidencia_e_nao_do_pais(self):
         corpo = _codigo_de("coleta/executor_transcricao_midia.py", "derivar_um")
-        self.assertIn("'LANGUAGE'", corpo)
-        self.assertIn("'LANGUAGE_SOURCE'", corpo)
+        self.assertIn("language=r.get('LANGUAGE')", corpo)
+        # E a confianca/fonte da deteccao continuam visiveis nas medidas.
+        self.assertIn("LANGUAGE_SOURCE",
+                      _codigo_de("coleta/executor_transcricao_midia.py", "_medidas"))
         for proibido in ("COUNTRY_SCOPE", "SOURCE_LOCATION", "FACT_LOCATION"):
             self.assertNotIn(proibido, corpo,
                              "a lingua nao nasce de %s" % proibido)
 
     def test_a_traducao_nao_substitui_o_original(self):
-        fonte = _fonte("coleta/executor_transcricao_midia.py")
-        self.assertIn('"TEXT_RELATION": "ORIGINAL"', fonte)
-        self.assertNotIn("TRANSLATION", fonte.split("def derivar_um")[1])
+        import proveniencia as pv                             # noqa: PLC0415
+        corpo = _codigo_de("coleta/executor_transcricao_midia.py", "derivar_um")
+        self.assertIn("pv.ORIGINAL", corpo)
+        self.assertIn(pv.ORIGINAL, pv.TEXT_RELATIONS)
+        self.assertNotIn("TRANSLAT", corpo, "o executor nao traduz")
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -350,6 +358,110 @@ class OQueEstaMissaoNaoTocou(unittest.TestCase):
         self.assertNotIn("executor_transcricao_midia", fonte,
                          "o owner do ASR passou a conhecer a ponte — a "
                          "dependencia tem de ser numa direccao so")
+
+
+# ══════════════════════════════════════════════════════════════════════════
+class SinteseC4HArbitragem(unittest.TestCase):
+    """O que a arbitragem C4H-ARB mandou corrigir, e o que ela mandou portar."""
+
+    def test_o_vocabulario_vem_do_DONO_e_nao_de_literais(self):
+        """⚠️ ERA A ÚNICA VIOLAÇÃO DE CONTRATO DESTA IMPLEMENTAÇÃO.
+
+        `regras/proveniencia.py` existe, tem `TEXT_KINDS`, `TEXT_RELATIONS` e
+        `METODOS_DE_DERIVACAO` — e tem CONSTRUTOR e VALIDADOR. Escrever
+        `"TRANSCRIPT"` à mão era um segundo dono do mesmo vocabulário.
+
+            UM VALOR CERTO ESCRITO NO SÍTIO ERRADO É UM VALOR QUE VAI DERIVAR.
+        """
+        import proveniencia as pv                             # noqa: PLC0415
+        corpo = _codigo_de("coleta/executor_transcricao_midia.py", "derivar_um")
+        self.assertIn("pv.unidade_de_texto", corpo)
+        self.assertIn("pv.TRANSCRIPT", corpo)
+        self.assertIn("pv.ORIGINAL", corpo)
+        self.assertIn("pv.PRODUCED_BY_LOCAL_ASR", corpo)
+        self.assertIn("pv.ASR_DA_CASA", corpo)
+        # ⚠️ A ASSERCAO E POSITIVA DE PROPOSITO.
+        # A primeira versao proibia a string `'TRANSCRIPT'` e apanhou
+        # `r.get('TRANSCRIPT')` — que e a CHAVE DE SAIDA do reconhecedor, nao
+        # o vocabulario. Proibir uma string apanha strings parecidas.
+        #
+        #     PERGUNTAR «QUE SIMBOLO E USADO» E PRECISO.
+        #     PROIBIR UM TEXTO E UM PALPITE COM CARA DE REGRA.
+        self.assertNotIn("TEXT_KIND': 'TRANSCRIPT'", corpo)
+        self.assertNotIn("TEXT_RELATION': 'ORIGINAL'", corpo)
+
+    def test_o_dono_confere_a_unidade_antes_de_ela_sair(self):
+        corpo = _codigo_de("coleta/executor_transcricao_midia.py", "derivar_um")
+        self.assertIn("pv.conferir_unidade_de_texto", corpo)
+        self.assertIn("UNIDADE_RECUSADA", corpo)
+
+    def test_a_unidade_que_este_executor_monta_passa_no_dono(self):
+        """A prova que o validador do dono faz, feita aqui também."""
+        import proveniencia as pv                             # noqa: PLC0415
+        u = pv.unidade_de_texto(
+            texto="uma frase", kind=pv.TRANSCRIPT,
+            kind_basis=pv.PRODUCED_BY_LOCAL_ASR, relation=pv.ORIGINAL,
+            language="it", raw_observation_id=1,
+            derivation_method=pv.ASR_DA_CASA,
+            unit_id="TU-%s-%s" % (em.EXECUTOR_ID, em.EXECUTOR_VERSION),
+            tool="faster-whisper", model="small")
+        self.assertEqual(pv.conferir_unidade_de_texto(u), [])
+        self.assertEqual(u["LINEAGE"]["DERIVATION_METHOD"], "LOCAL_ASR")
+
+    def test_o_metodo_de_derivacao_esta_na_lista_fechada(self):
+        """O mesmo tipo de contrato que `kind` tem na 022 — e o que derrubou B."""
+        import proveniencia as pv                             # noqa: PLC0415
+        self.assertIn(pv.ASR_DA_CASA, pv.METODOS_DE_DERIVACAO)
+
+    def test_o_kind_continua_na_lista_fechada_da_022(self):
+        sql = _fonte("supabase/migrations/022_o_derivado_ganha_casa.sql")
+        i = sql.index("kind            text not null check (kind in (")
+        self.assertIn("'%s'" % em.ESPECIE, sql[i:i + 400])
+        self.assertNotIn("AUDIO_TRANSCRIPTION", sql[i:i + 400])
+
+    def test_ficheiro_sem_faixa_de_som_e_facto_do_ORIGINAL(self):
+        """Ideia portada da implementação concorrente, e ela estava certa.
+
+        Um MP4 só de imagem existe. Mandá-lo ao reconhecedor devolve
+        `REQUESTED_EMPTY` — verdade, e verdade CARA: paga-se o carregamento do
+        modelo para saber o que o contentor dizia de graça.
+        """
+        self.assertEqual(df.DESTINO_DO_MOTIVO[em.SEM_FAIXA_DE_SOM], "REJECTED")
+        corpo = _codigo_de("coleta/executor_transcricao_midia.py", "derivar_um")
+        self.assertIn("tem_faixa_de_som", corpo)
+
+    def test_a_pergunta_dos_fluxos_vai_ao_DONO_da_midia(self):
+        """Porta-se a ideia, não o código: um segundo `ffprobe` seria 2 donos."""
+        corpo = _codigo_de("coleta/executor_transcricao_midia.py",
+                           "tem_faixa_de_som")
+        self.assertIn("fl.fluxos", corpo)
+        # `ffprobe` aparece nas MENSAGENS, e isso e diagnostico para quem le.
+        # O que nao pode existir e um segundo sitio a CHAMAR a ferramenta.
+        self.assertNotIn("subprocess", corpo)
+        self.assertNotIn("Popen", corpo)
+        self.assertNotIn("shutil.which", corpo)
+
+    def test_nao_medir_nao_autoriza_concluir_que_nao_ha_som(self):
+        import fala_local as fl                               # noqa: PLC0415
+
+        class _Mudo:
+            @staticmethod
+            def fluxos(_c):
+                return fl.NAO_SEI, fl.NAO_SEI, "ffprobe recusou"
+        ok, porque = em.tem_faixa_de_som("x", _Mudo)
+        self.assertTrue(ok, "ausencia de medicao virou ausencia de som")
+        self.assertIn("ausencia de medicao", porque)
+
+    def test_familias_NAO_foram_portadas(self):
+        """§4B — famílias abririam media types que esta casa nunca provou.
+
+        `audio/*` aceitaria `audio/x-inventado`. A lista explícita aceita
+        apenas o que se pode provar, e é essa que fica.
+        """
+        self.assertNotIn("ACEITA_FAMILIAS", em.CAPACIDADE)
+        self.assertFalse(hasattr(em, "FAMILIAS"))
+        self.assertTrue(em.CAPACIDADE["ACEITA_MEDIA_TYPES"])
+        self.assertFalse(em.aceita("audio/x-inventado"))
 
 
 if __name__ == "__main__":

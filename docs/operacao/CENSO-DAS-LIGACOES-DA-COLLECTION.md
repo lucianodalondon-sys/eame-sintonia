@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  867a6f975a9635470e097aa919487624b6071468
+HEAD_DA_MEDICAO  0c6b7c1db5e1a6764513dba04ddfcd4fa6cc20fd
 BRANCH           claude/local-gpu-on-current-collection-v1
-GERADO_EM        2026-09-14T16:31:03-03:00
+GERADO_EM        2026-09-14T17:26:11-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -257,19 +257,19 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/derivacao_forward.py:163; tests/test_c4h_executor_de_midia.py:28; tests/test_c4h_executor_de_midia.py:129 |
+| **prova de quem ativa** | coleta/derivacao_forward.py:163; tests/test_c4h_executor_de_midia.py:28; tests/test_c4h_executor_de_midia.py:132 |
 | **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | C-TRANSCRICAO |
 | **o que entra · ficheiros** | `ferramentas/fala_local.py`, `guarda/preservar_derivado.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 5 · saem 3 |
-| **arestas provadas** | entram 5 · saem 3 |
+| **arestas no mapa** | entram 6 · saem 3 |
+| **arestas provadas** | entram 6 · saem 3 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 8 |
+| **prova das ligações** | CODE 9 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -973,7 +973,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:198; coleta/executor_transcricao_midia.py:158 |
+| **prova de quem ativa** | coleta/executor_texto_de_pdf.py:299; coleta/executor_transcricao_midia.py:243; coleta/executor_transcricao_midia.py:171 |
 | **porquê** | estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
@@ -1629,21 +1629,21 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `regras/proveniencia.py` |
 | **papel** | OPERATIONAL_STEP · medido no plano CODE |
 | **dono** | ENGENHARIA · INTELIGENCIA |
-| **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descric |
+| **status operacional** | yellow — o sistema importa esta lei em runtime para decidir: C-COLETA-BASE, C-COLETA-INSTAGRAM, C-ESTRADA-PDF, C-EXECUTOR-TRANSCRICAO-MIDIA.  Mas 1 ficheiro(s) mudaram d |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/coletor.py:76; coleta/golden_path_pdf.py:52; coleta/ingresso.py:97 |
+| **prova de quem ativa** | coleta/coletor.py:76; coleta/executor_transcricao_midia.py:94; coleta/golden_path_pdf.py:52 |
 | **porquê** | estas pecas importam-na — C-CICATRIZES-BR · C-COLETA-BASE · C-COLETA-INSTAGRAM · C-DATA-CLOCK · C-ESTRADA-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/samples/POLITICA-RAW-ROTA-PAGA.json`, `data/samples/RUN-MANIFEST.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | `data/samples/POLITICA-RAW-ROTA-PAGA.json`, `data/samples/RUN-MANIFEST.json` |
-| **arestas no mapa** | entram 0 · saem 23 |
-| **arestas provadas** | entram 0 · saem 23 |
+| **arestas no mapa** | entram 0 · saem 24 |
+| **arestas provadas** | entram 0 · saem 24 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 23 |
+| **prova das ligações** | CODE 24 |
 | **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
