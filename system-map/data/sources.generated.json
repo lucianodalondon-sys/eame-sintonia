@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-14T19:33:40+00:00",
-    "HEAD": "611e7cbf406147c0ab057e9ffa7775f6fa11e8a1",
+    "GENERATED_AT": "2026-09-14T19:53:32+00:00",
+    "HEAD": "6d52109e57b081c0f994b6cf5374b7bbff0a3de4",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "c21fc6e1b0621b449eed2fdf5975eddf6954f8309ebf4bb75f0cde4455dcc6cb",
-    "FICHEIROS_NA_IMPRESSAO": 1893,
+    "SOURCE_TREE_FINGERPRINT": "ffbcc7cab2e7e6ca186b3978a0f38a50dddfaeb1ce48f2a5a36e9e0d3f3d8706",
+    "FICHEIROS_NA_IMPRESSAO": 1896,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -4894,6 +4894,19 @@
       ]
     },
     {
+      "endpoint": "https://developers.google.com/youtube",
+      "usado_por": [
+        {
+          "file": "leis/social_matriz.py",
+          "line": 175
+        },
+        {
+          "file": "provas/a_legenda_e_o_audio_do_youtube.py",
+          "line": 124
+        }
+      ]
+    },
+    {
       "endpoint": "https://learn.microsoft.com/en-us",
       "usado_por": [
         {
@@ -4994,19 +5007,6 @@
         {
           "file": "provas/o_legado_fora_do_fluxo.py",
           "line": 450
-        }
-      ]
-    },
-    {
-      "endpoint": "https://it.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "provas/linkedin_local_first.py",
-          "line": 267
-        },
-        {
-          "file": "tests/test_linkedin_build_01_local_first.py",
-          "line": 340
         }
       ]
     }
