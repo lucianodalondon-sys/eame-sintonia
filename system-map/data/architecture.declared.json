@@ -764,6 +764,29 @@
       ]
     },
     {
+      "id": "C-REGISTO-IDENTIDADE",
+      "name": "O censo da identidade das fontes",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "⊜",
+      "views": [
+        "acervo"
+      ],
+      "what": "Conta a populacao INTEIRA de SOURCE_ID do projeto e diz de onde cada numero veio. Separa quem EMITE identidade (o atlas, o master JSON historico) de quem apenas a CITA (runs, amostras, relatorios — 192 ficheiros so na main). Le a HISTORIA dos emissores, nao as pontas das branches, porque identidade emitida e depois removida continua gasta. Reconstroi a primeira atribuicao de cada ID, classifica cada um em sete estados, e escreve o plano de reconciliacao em build/source-registry-reconciliation/. Nao escreve o atlas, nao atribui numero, nao resolve colisao.",
+      "why_here": "Existe porque o SOURCE_ID e a unica coisa deste projeto que nao se conserta depois: um numero trocado faz uma fonte responder pelo dado de outra, e a troca nao aparece — quem indexa por dict[SOURCE_ID] fica com a ultima ficha e perde a primeira em silencio. Medido: 255 identidades emitidas, 18 usadas sem ficha nenhuma, e CINCO numeros com afirmacoes diferentes vivas em pontas ativas. A pior e IT-T4-001, com 4.033 citacoes, apontada para o Ministero della Salute em 28 versoes do atlas e para a ARPAV noutra branch. Por isso esta peca mede e PARA: o §16 da missao proibe publicar atlas final com colisao viva, e escolher por conta propria seria o unico erro irreversivel possivel aqui.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "candidatas/registry_censo.py",
+        "candidatas/registry_classificar.py",
+        "candidatas/registry_colisoes.py",
+        "candidatas/registry_plano.py",
+        "candidatas/registry_red_team.py"
+      ]
+    },
+    {
       "id": "C-APIFY-POOL",
       "name": "Apify — a rota paga",
       "territory": "Z-FERRAMENTAS",

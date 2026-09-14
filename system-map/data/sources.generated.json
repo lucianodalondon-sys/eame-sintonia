@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "f055fc87bd21735c8d96f8524ecf039e2096fdd9",
+    "HEAD": "0a30bffea142a0b481f68bb971ac2c4663fb7b68",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3942,6 +3942,27 @@
       ]
     },
     {
+      "endpoint": "https://www.coeweb.istat.it/",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_red_team.py",
+          "line": 134
+        },
+        {
+          "file": "candidatas/italy_fechar_sonda.py",
+          "line": 347
+        },
+        {
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 832
+        },
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 158
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.fitosanitari.salute.gov.it/",
       "usado_por": [
         {
@@ -4001,23 +4022,6 @@
         {
           "file": "ferramentas/instagram_transcrever.py",
           "line": 187
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.coeweb.istat.it/",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_fechar_red_team.py",
-          "line": 134
-        },
-        {
-          "file": "candidatas/italy_fechar_sonda.py",
-          "line": 347
-        },
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 832
         }
       ]
     },
@@ -4133,6 +4137,19 @@
         {
           "file": "candidatas/italy_gap_novas_fontes.py",
           "line": 484
+        }
+      ]
+    },
+    {
+      "endpoint": "https://facebook.com/x",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_red_team.py",
+          "line": 196
+        },
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 111
         }
       ]
     },
@@ -4431,15 +4448,6 @@
         {
           "file": "candidatas/italy_fechar_descoberta.py",
           "line": 374
-        }
-      ]
-    },
-    {
-      "endpoint": "https://exemplo.it/pagina",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_fechar_red_team.py",
-          "line": 56
         }
       ]
     }

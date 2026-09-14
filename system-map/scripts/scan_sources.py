@@ -174,6 +174,43 @@ def do_atlas() -> list[dict]:
     # vazio — e um numero inflado e pior do que um numero pequeno.
     RE_ID = re.compile(r"^(EU|FR|ES|IT)-T\d{1,2}-\d{3}$")
     saida = []
+    # ── A TRAVA CONTRA A SOBRESCRITA SILENCIOSA ───────────────────────────
+    # O `SOURCE_ID` e identidade. Duas fichas com o mesmo numero nao sao um
+    # detalhe de formatacao: sao duas fontes a responder pelo mesmo dado. E o
+    # perigo desta casa e que a colisao nao APARECE — quem indexa por
+    # `dict[SOURCE_ID]` fica com a ultima e perde a primeira, e o mapa mostra
+    # uma fonte a menos sem acusar erro nenhum.
+    #
+    # Medido em 14/09/2026, na populacao inteira de 255 IDs emitidos: CINCO
+    # numeros tem afirmacoes diferentes vivas em pontas ativas, e o pior deles
+    # — IT-T4-001, com 4.033 citacoes no repositorio — aponta para o Ministero
+    # em 28 versoes do atlas e para a ARPAV noutra branch.
+    #
+    # A trava e' de FALHAR, nao de escolher. Escolher o ultimo e' o que ja se
+    # fazia, e foi assim que o problema chegou aqui.
+    ja_visto: dict[str, int] = {}
+    colisoes: list[str] = []
+    for f in fontes:
+        sid = f["SOURCE_ID"].strip()
+        if not RE_ID.match(sid):
+            continue
+        if sid in ja_visto:
+            colisoes.append(
+                f"{sid} aparece na linha {ja_visto[sid]} e outra vez na "
+                f"linha {f.get('_line', '?')}")
+        else:
+            ja_visto[sid] = f.get("_line", 0)
+    if colisoes:
+        raise SystemExit(
+            "SOURCE_ID DUPLICADO NO ATLAS — o mapa nao e gerado com identidade "
+            "ambigua.\n  "
+            + "\n  ".join(colisoes)
+            + "\n\nO SOURCE_ID e identidade, e identidade nao se resolve "
+              "escolhendo a ultima ficha: a fonte que perder o numero "
+              "desaparece do mapa sem erro. Conserte o atlas — funda as duas "
+              "fichas, ou de um numero novo a fonte que ainda nao tem "
+              "(contra a POPULACAO INTEIRA, nunca contra este ficheiro so).")
+
     for f in fontes:
         sid = f["SOURCE_ID"].strip()
         if not RE_ID.match(sid):

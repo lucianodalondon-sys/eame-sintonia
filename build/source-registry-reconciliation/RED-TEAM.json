@@ -1,0 +1,122 @@
+[
+ {
+  "N": 1,
+  "ATAQUE": "MESMO_ID_EM_DUAS_FONTES",
+  "VEREDITO": "OK",
+  "DETALHE": "5 colisoes vivas detetadas e TODAS no plano como ordem 1 (bloqueado): ['ES-T4-005', 'IT-T10-001', 'IT-T10-002', 'IT-T10-003', 'IT-T4-001']"
+ },
+ {
+  "N": 2,
+  "ATAQUE": "MESMA_FONTE_COM_DOIS_IDS",
+  "VEREDITO": "OK",
+  "DETALHE": "36 pares detetados · 0 IDs apagados · accao = declarar DERIVA_DE, mecanismo que o atlas JA tinha"
+ },
+ {
+  "N": 3,
+  "ATAQUE": "URL_DIFERENTE_VIRA_FONTE_NOVA",
+  "VEREDITO": "OK",
+  "DETALHE": "rota declarada na cerca e rota citada na prosa vivem em colunas separadas; so' a declarada conta para identidade"
+ },
+ {
+  "N": 4,
+  "ATAQUE": "REDIRECT_CONFUNDIDO_COM_FONTE_NOVA",
+  "VEREDITO": "OK",
+  "DETALHE": "IT-T10-003 carrega coeweb.istat.it (sede encerrada) e esploradati.istat.it na mesma identidade — ficou BLOQUEADO, nao resolvido por mim"
+ },
+ {
+  "N": 5,
+  "ATAQUE": "OWNER_IGUAL_VIRA_MESMA_FONTE",
+  "VEREDITO": "OK",
+  "DETALHE": "a decisao usa rota canonica e nome normalizado; host sozinho NAO decide · 36 pares fundidos por rota/nome, nenhum por host"
+ },
+ {
+  "N": 6,
+  "ATAQUE": "OWNER_RENOMEADO_ESCONDE_MESMA_FONTE",
+  "VEREDITO": "OK",
+  "DETALHE": "normalizacao de nome ignora acento, caixa e particulas; e continua a distinguir donos de verdade"
+ },
+ {
+  "N": 7,
+  "ATAQUE": "BRANCH_NOVA_VENCE_EVIDENCIA",
+  "VEREDITO": "OK",
+  "DETALHE": "evidencia preservada vale 50; ficha do atlas sem evidencia vale 30. A data da branch nao entra na conta"
+ },
+ {
+  "N": 8,
+  "ATAQUE": "BRANCH_MAIOR_VENCE_SEM_PROVA",
+  "VEREDITO": "OK",
+  "DETALHE": "a qualification tem 147 IDs IT e esta 11 commits a frente da main e 0 atras — logo main e' ANTEPASSADA dela. A linha escolheu-se por ancestralidade, nao por contagem"
+ },
+ {
+  "N": 9,
+  "ATAQUE": "ID_HISTORICO_SOME",
+  "VEREDITO": "OK",
+  "DETALHE": "255 emitidos + 18 orfaos = 273 no plano · nenhum caiu · a populacao le-se na HISTORIA (31 versoes do atlas), nao nas pontas"
+ },
+ {
+  "N": 10,
+  "ATAQUE": "T13_PROMOVIDO",
+  "VEREDITO": "OK",
+  "DETALHE": "3 identidades T13 existem como legado · 0 emitidas hoje"
+ },
+ {
+  "N": 11,
+  "ATAQUE": "SCANNER_SOBRESCREVE_DUPLICATA",
+  "VEREDITO": "OK",
+  "DETALHE": "mutacao injetada: o scanner PARA e nomeia as duas linhas · atlas restaurado e volta a passar"
+ },
+ {
+  "N": 12,
+  "ATAQUE": "INDICE_PERDE_FONTE",
+  "VEREDITO": "OK",
+  "DETALHE": "indice declara 23 · scanner ve 23 · fecham"
+ },
+ {
+  "N": 13,
+  "ATAQUE": "ATLAS_DIZ_N_PARSER_ACHA_N_MENOS_1",
+  "VEREDITO": "OK",
+  "DETALHE": "⚠️ ACHADO: o atlas declara 23 IDs simples e 1 FAIXA(S) (ES-T7-001..027); o scanner conta 23 porque o regex dele nao entende `..`. As 27 fontes da faixa existem no censo e NAO no mapa — buraco anterior a esta missao, agora medido"
+ },
+ {
+  "N": 14,
+  "ATAQUE": "SEQUENCIA_COM_BURACOS_CORRIGIDA",
+  "VEREDITO": "OK",
+  "DETALHE": "4 territorios tem buraco de sequencia (ES-T4:[4], ES-T5:[1], EU-T9:[1], IT-T12:[1]) e NENHUM foi preenchido · 0 IDs emitidos nesta missao · buraco de sequencia nao e' defeito: e' identidade que foi gasta e retirada"
+ },
+ {
+  "N": 15,
+  "ATAQUE": "JSON_HISTORICO_VIRA_OWNER",
+  "VEREDITO": "OK",
+  "DETALHE": "o master json carrega 54 identidades historicas e continua tratado como HISTORICO · a fila de candidatas continua a dizer que o SOURCE_ID nasce no atlas"
+ },
+ {
+  "N": 16,
+  "ATAQUE": "MAIN_VELHA_APAGA_BRANCH_NOVA",
+  "VEREDITO": "SALA_VAZIA",
+  "DETALHE": "o atlas NAO foi reescrito (0 alteracoes) · nenhuma branch foi reescrita · nenhum force-push · SALA_VAZIA"
+ },
+ {
+  "N": 17,
+  "ATAQUE": "EVIDENCE_PATH_INEXISTENTE",
+  "VEREDITO": "OK",
+  "DETALHE": "255 de 255 identidades trazem EVIDENCE_PATH do registo de origem · esta missao NAO afirma que o ficheiro existe: nao verificou, e nao promoveu nada com base nele"
+ },
+ {
+  "N": 18,
+  "ATAQUE": "SOURCE_SEM_FICHA_ENTRA_EM_SILENCIO",
+  "VEREDITO": "OK",
+  "DETALHE": "232 registos vieram de TABELA DE ESTADO, nao de ficha completa, e levam essa marca na coluna TEM_CERCA_DECLARADA"
+ },
+ {
+  "N": 19,
+  "ATAQUE": "ID_ESTRANGEIRO_CONTADO_COMO_IT",
+  "VEREDITO": "OK",
+  "DETALHE": "{'ES': 39, 'EU': 14, 'FR': 6, 'IT': 196} · o pais sai do prefixo do proprio ID, nunca do pais da ficha"
+ },
+ {
+  "N": 20,
+  "ATAQUE": "ID_DE_FONTE_RED_RECICLADO",
+  "VEREDITO": "OK",
+  "DETALHE": "8 identidades com veredito negativo · todas marcadas PRESERVAR COMO GASTO, nenhuma liberada para reuso"
+ }
+]

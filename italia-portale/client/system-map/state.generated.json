@@ -152,7 +152,16 @@
       "build/ITALY-REALITY-HANDOFF-V2/SOURCES.json",
       "build/ITALY-REALITY-HANDOFF-V2/TOP-CROSSINGS.json",
       "build/ITALY-REALITY-HANDOFF-V2/VALIDATION-MANIFEST.json",
-      "build/sintonia-es.html"
+      "build/sintonia-es.html",
+      "build/source-registry-reconciliation/ALL-SOURCE-IDS.csv",
+      "build/source-registry-reconciliation/BRANCH-COVERAGE.csv",
+      "build/source-registry-reconciliation/COLLISIONS.csv",
+      "build/source-registry-reconciliation/DUPLICATE-SOURCES.csv",
+      "build/source-registry-reconciliation/RECONCILIATION-PLAN.csv",
+      "build/source-registry-reconciliation/RED-TEAM.json",
+      "build/source-registry-reconciliation/censo.json",
+      "build/source-registry-reconciliation/classificacao.json",
+      "build/source-registry-reconciliation/colisoes.json"
     ],
     "candidatas": [
       "candidatas/FONTES-CANDIDATAS.json",
@@ -165,6 +174,8 @@
       "candidatas/ITALY-SOURCE-GAP-CLOSURE-2026-09-14.xlsx",
       "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "candidatas/ITALY-SOURCE-MASTER-V1.md",
+      "candidatas/ITALY-SOURCE-REGISTRATION-2026-09-14.md",
+      "candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv",
       "candidatas/fonte_nova.py",
       "candidatas/italy_deep_baseline.py",
       "candidatas/italy_deep_crawl.py",
@@ -197,8 +208,17 @@
       "candidatas/italy_gap_red_team.py",
       "candidatas/italy_gap_xlsx.py",
       "candidatas/italy_profiles.mjs",
+      "candidatas/italy_promover_auditoria.py",
+      "candidatas/italy_promover_dedupe.py",
+      "candidatas/italy_promover_evidencia.py",
+      "candidatas/italy_promover_red_team.py",
       "candidatas/italy_update_master_browser.mjs",
-      "candidatas/italy_write_matrix.mjs"
+      "candidatas/italy_write_matrix.mjs",
+      "candidatas/registry_censo.py",
+      "candidatas/registry_classificar.py",
+      "candidatas/registry_colisoes.py",
+      "candidatas/registry_plano.py",
+      "candidatas/registry_red_team.py"
     ],
     "coleta": [
       "coleta/agrifood_ue.py",
@@ -435,6 +455,52 @@
       "data/samples/IT-REGUA/IT-PARES-CULTURA-ALVO-V0.json",
       "data/samples/IT-ROTULOS/IT-CENSO-DE-TERMOS.json",
       "data/samples/IT-ROTULOS/IT-ROTULOS-PARES.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/avvisi-fitosanitari-per-viticoltori-e-per-frutticoltori/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/avvisi-fitosanitari-per-viticoltori-e-per-frutticoltori/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/banca-dati-dei-prodotti-fitosanitari/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/banca-dati-dei-prodotti-fitosanitari/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-agronomici-per-vite-dell-ufficio-agronomico/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-agronomici-per-vite-dell-ufficio-agronomico/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-colture-estensive-seminativi/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-colture-estensive-seminativi/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-di-produzione-integrata-pomodoro-da-industria/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-di-produzione-integrata-pomodoro-da-industria/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-fenologici-di-uno-studio-agronomico-privato-agr/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-fenologici-di-uno-studio-agronomico-privato-agr/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-fitosanitari-unita-territoriali-di-monitoraggio/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-fitosanitari-unita-territoriali-di-monitoraggio/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-interprovinciali-di-produzione-integrata-e-biol/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-interprovinciali-di-produzione-integrata-e-biol/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-viticoli-del-servizio-fitosanitario-del-veneto/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettini-viticoli-del-servizio-fitosanitario-del-veneto/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-agrometeorologico-e-fitosanitario-arsac/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-agrometeorologico-e-fitosanitario-arsac/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-mais/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-mais/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-nazionale-di-fenologia/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-nazionale-di-fenologia/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-seminativi-biologici/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/bollettino-seminativi-biologici/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/cantina-italia-giacenze-di-vino/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/cantina-italia-giacenze-di-vino/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/convegno-prodotti-fitosanitari-le-novit/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/convegno-prodotti-fitosanitari-le-novit/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/dataflow-dcsp-coltivazioni-coltivazioni-superficie-produzi/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/dataflow-dcsp-coltivazioni-coltivazioni-superficie-produzi/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/dati-di-maturazione-dell-uva-e-scelta-della-data-di-vendem/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/dati-di-maturazione-dell-uva-e-scelta-della-data-di-vendem/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/indice-dei-prezzi-dei-mezzi-correnti-di-produzione/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/indice-dei-prezzi-dei-mezzi-correnti-di-produzione/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/monitoraggio-dei-costi-medi-di-produzione/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/monitoraggio-dei-costi-medi-di-produzione/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/notiziario-agrometeorologico-e-fitosanitario-delle-marche/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/notiziario-agrometeorologico-e-fitosanitario-delle-marche/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/protezione-delle-piante-emergenze-sorveglianza-barriere/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/protezione-delle-piante-emergenze-sorveglianza-barriere/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/rete-agrometeorologica-regionale-archivio-dati/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/rete-agrometeorologica-regionale-archivio-dati/pagina.txt",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/salute-delle-piante-in-lombardia-app-fitodetective/exemplo.json",
+      "data/samples/IT-SOURCE-EVIDENCE-2026-09-14/salute-delle-piante-in-lombardia-app-fitodetective/pagina.txt",
       "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/ISTAT_101_1015_COLTIVAZIONI_2_2025.csv",
       "data/samples/IT-SOURCE-SAMPLES/IT-T1-001/MANIFEST.json",
       "data/samples/IT-SOURCE-SAMPLES/IT-T10-002/46622",
@@ -1235,6 +1301,7 @@
       "tests/test_prioridade_comercial.py",
       "tests/test_proveniencia.py",
       "tests/test_radar_futuro.py",
+      "tests/test_source_registry.py",
       "tests/test_territorios.py",
       "tests/test_v21_datas.py",
       "tests/test_v21_geografia.py",
@@ -1247,8 +1314,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 572 ficheiros (86%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 572 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 624 ficheiros (87%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 624 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1285,16 +1352,16 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "7 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "titulo": "13 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: ALL-SOURCE-IDS.csv · COLLISIONS.csv · DUPLICATE-SOURCES.csv · RECONCILIATION-PLAN.csv · RED-TEAM.json · classificacao.json · UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json … e mais 5",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
-        "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
-        "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-        "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
-        "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-        "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json"
+        "build/source-registry-reconciliation/ALL-SOURCE-IDS.csv",
+        "build/source-registry-reconciliation/COLLISIONS.csv",
+        "build/source-registry-reconciliation/DUPLICATE-SOURCES.csv",
+        "build/source-registry-reconciliation/RECONCILIATION-PLAN.csv",
+        "build/source-registry-reconciliation/RED-TEAM.json",
+        "build/source-registry-reconciliation/classificacao.json"
       ]
     },
     {
@@ -1623,8 +1690,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "f055fc87bd21735c8d96f8524ecf039e2096fdd9",
-    "GENERATED_AT": "2026-09-14T17:05:22-03:00"
+    "HEAD": "0a30bffea142a0b481f68bb971ac2c4663fb7b68",
+    "GENERATED_AT": "2026-09-14T18:03:51-03:00"
   },
   "FAMILIES": [
     {
@@ -1646,7 +1713,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 41
+      "count": 42
     },
     {
       "id": "F-ESPERA",
@@ -1723,7 +1790,7 @@
       "y": 190,
       "w": 820,
       "h": 1972,
-      "count": 6
+      "count": 7
     },
     {
       "id": "Z-FONTES",
@@ -2353,11 +2420,13 @@
         "C-IDENTIDADE",
         "C-IT-DESCOBERTA-PROFUNDA",
         "C-IT-GAP-POR-FERRAMENTA",
+        "C-IT-PROMOVER-FONTE",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
         "C-PACOTE-CAMADAS",
         "C-PADRAO-COLETA",
+        "C-REGISTO-IDENTIDADE",
         "C-SITE-INGEST",
         "C-TESTES",
         "V-FACEBOOK",
@@ -4529,7 +4598,7 @@
       "file_count": 3,
       "paises": {},
       "paises_dado": {
-        "ITALIA": 3
+        "ITALIA": 5
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -6149,14 +6218,17 @@
         "C-IT-CONTAS",
         "C-IT-CONTRATOS",
         "C-IT-DESCOBERTA-PROFUNDA",
+        "C-IT-PROMOVER-FONTE",
         "C-MAPA-GERADOR",
-        "C-MAPA-SCAN"
+        "C-MAPA-SCAN",
+        "C-REGISTO-IDENTIDADE",
+        "C-TESTES"
       ],
       "paises": {
         "ITALIA": 8
       },
       "paises_dado": {
-        "ITALIA": 14
+        "ITALIA": 15
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -6404,13 +6476,17 @@
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "build/source-registry-reconciliation/RED-TEAM.json"
+      ],
       "inbound": [
         "C-AS-FONTES",
         "C-IDENTIDADE",
         "C-IT-CATALOGO",
         "C-IT-CONTRATOS",
-        "C-PORTA-FONTE"
+        "C-IT-GAP-POR-FERRAMENTA",
+        "C-PORTA-FONTE",
+        "C-REGISTO-IDENTIDADE"
       ],
       "outbound": [
         "C-TESTES"
@@ -6419,16 +6495,24 @@
         "ITALIA": 11
       },
       "paises_dado": {
-        "ITALIA": 11
+        "ITALIA": 13
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
-      "parado_na_coleta": [],
+      "parado_na_coleta": [
+        "build/source-registry-reconciliation/RED-TEAM.json"
+      ],
       "escreve_na_pasta": [],
       "destino": [
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "build/source-registry-reconciliation/RED-TEAM.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
         {
           "onde": "GIT",
           "file": "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
@@ -6472,18 +6556,20 @@
       ],
       "file_count": 9,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-IT-GAP-POR-FERRAMENTA"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-IT-PROMOVER-FONTE"
+      ],
       "paises": {
         "ITALIA": 9
       },
       "paises_dado": {
-        "ITALIA": 17
+        "ITALIA": 21
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -6538,6 +6624,7 @@
         "C-TELA-SCIENCE"
       ],
       "outbound": [
+        "C-IT-DESCOBERTA-PROFUNDA",
         "C-IT-FECHAR-GAP"
       ],
       "paises": {
@@ -6550,9 +6637,18 @@
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "build/source-registry-reconciliation/RED-TEAM.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 1480,
       "y": 682
     },
@@ -6618,30 +6714,64 @@
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "⊞",
       "views": [
         "acervo"
       ],
       "lane": "official",
       "family": "F-COLETA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com candidatas/italy_promover_dedupe.py, candidatas/italy_promover_evidencia.py, candidatas/italy_promover_auditoria.py, candidatas/italy_promover_red_team.py, candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv.",
+      "files": [
+        "candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv",
+        "candidatas/italy_promover_auditoria.py",
+        "candidatas/italy_promover_dedupe.py",
+        "candidatas/italy_promover_evidencia.py",
+        "candidatas/italy_promover_red_team.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-IT-CATALOGO",
+        "C-IT-FECHAR-GAP",
+        "C-PORTA-FONTE",
+        "C-SUPABASE"
+      ],
       "outbound": [],
-      "paises": {},
-      "paises_dado": {},
-      "pais": "TRANSVERSAL",
+      "paises": {
+        "ITALIA": 5
+      },
+      "paises_dado": {
+        "ITALIA": 13
+      },
+      "pais": "ITALIA",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "escreve_na_pasta": [
+        {
+          "pasta": "candidatas",
+          "prova": {
+            "file": "candidatas/italy_promover_auditoria.py",
+            "line": 122,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 1065,
       "y": 1004
     },
@@ -7009,7 +7139,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "audit",
@@ -7024,9 +7154,11 @@
         "system-map/scripts/scan_sources.py"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/scripts/scan_sources.py"
+      ],
       "produces": [],
       "inbound": [
         "C-AS-FONTES",
@@ -7044,6 +7176,7 @@
         "C-MAPA-GERADOR",
         "C-MAPA-TESTES",
         "C-MAPA-VALIDADOR",
+        "C-REGISTO-IDENTIDADE",
         "C-TESTES"
       ],
       "paises": {},
@@ -7682,11 +7815,14 @@
       ],
       "outbound": [
         "C-IT-DESCOBERTA-PROFUNDA",
-        "C-MAPA-SCAN"
+        "C-IT-PROMOVER-FONTE",
+        "C-MAPA-SCAN",
+        "C-REGISTO-IDENTIDADE",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -8260,6 +8396,115 @@
       "y": 1326
     },
     {
+      "id": "C-REGISTO-IDENTIDADE",
+      "name": "O censo da identidade das fontes",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "what": "Conta a populacao INTEIRA de SOURCE_ID do projeto e diz de onde cada numero veio. Separa quem EMITE identidade (o atlas, o master JSON historico) de quem apenas a CITA (runs, amostras, relatorios — 192 ficheiros so na main). Le a HISTORIA dos emissores, nao as pontas das branches, porque identidade emitida e depois removida continua gasta. Reconstroi a primeira atribuicao de cada ID, classifica cada um em sete estados, e escreve o plano de reconciliacao em build/source-registry-reconciliation/. Nao escreve o atlas, nao atribui numero, nao resolve colisao.",
+      "why_here": "Existe porque o SOURCE_ID e a unica coisa deste projeto que nao se conserta depois: um numero trocado faz uma fonte responder pelo dado de outra, e a troca nao aparece — quem indexa por dict[SOURCE_ID] fica com a ultima ficha e perde a primeira em silencio. Medido: 255 identidades emitidas, 18 usadas sem ficha nenhuma, e CINCO numeros com afirmacoes diferentes vivas em pontas ativas. A pior e IT-T4-001, com 4.033 citacoes, apontada para o Ministero della Salute em 28 versoes do atlas e para a ARPAV noutra branch. Por isso esta peca mede e PARA: o §16 da missao proibe publicar atlas final com colisao viva, e escolher por conta propria seria o unico erro irreversivel possivel aqui.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊜",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "candidatas/registry_censo.py",
+        "candidatas/registry_classificar.py",
+        "candidatas/registry_colisoes.py",
+        "candidatas/registry_plano.py",
+        "candidatas/registry_red_team.py"
+      ],
+      "file_count": 5,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [
+        "build/source-registry-reconciliation/ALL-SOURCE-IDS.csv",
+        "build/source-registry-reconciliation/COLLISIONS.csv",
+        "build/source-registry-reconciliation/DUPLICATE-SOURCES.csv",
+        "build/source-registry-reconciliation/RECONCILIATION-PLAN.csv",
+        "build/source-registry-reconciliation/censo.json",
+        "build/source-registry-reconciliation/classificacao.json",
+        "build/source-registry-reconciliation/colisoes.json"
+      ],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-IT-CATALOGO",
+        "C-MAPA-SCAN",
+        "C-PORTA-FONTE",
+        "C-V21-FONTES"
+      ],
+      "outbound": [
+        "C-IT-DESCOBERTA-PROFUNDA",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 5
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [
+        "build/source-registry-reconciliation/censo.json",
+        "build/source-registry-reconciliation/colisoes.json"
+      ],
+      "parado_na_coleta": [
+        "build/source-registry-reconciliation/ALL-SOURCE-IDS.csv",
+        "build/source-registry-reconciliation/COLLISIONS.csv",
+        "build/source-registry-reconciliation/DUPLICATE-SOURCES.csv",
+        "build/source-registry-reconciliation/RECONCILIATION-PLAN.csv",
+        "build/source-registry-reconciliation/classificacao.json"
+      ],
+      "escreve_na_pasta": [
+        {
+          "pasta": "build",
+          "prova": {
+            "file": "candidatas/registry_censo.py",
+            "line": 377,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "build/source-registry-reconciliation/ALL-SOURCE-IDS.csv",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/source-registry-reconciliation/COLLISIONS.csv",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/source-registry-reconciliation/DUPLICATE-SOURCES.csv",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "build/source-registry-reconciliation/RECONCILIATION-PLAN.csv",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 1065,
+      "y": 1326
+    },
+    {
       "id": "C-REGRA-COLETA",
       "name": "A regra de coleta externa",
       "territory": "Z-MEDIDAS",
@@ -8780,6 +9025,7 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-IMPORTAR",
+        "C-IT-PROMOVER-FONTE",
         "C-REGRA-COLETA",
         "C-ROTULOS",
         "C-TESTES"
@@ -8789,7 +9035,8 @@
         "ITALIA": 2
       },
       "paises_dado": {
-        "ESPANHA": 15
+        "ESPANHA": 15,
+        "ITALIA": 1
       },
       "pais": "TRANSVERSAL",
       "escreve_na_pasta": [],
@@ -9909,6 +10156,7 @@
         "tests/test_prioridade_comercial.py",
         "tests/test_proveniencia.py",
         "tests/test_radar_futuro.py",
+        "tests/test_source_registry.py",
         "tests/test_territorios.py",
         "tests/test_v21_datas.py",
         "tests/test_v21_geografia.py",
@@ -9916,7 +10164,7 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 31,
+      "file_count": 32,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -9939,6 +10187,7 @@
         "C-DATA-CLOCK",
         "C-FONTES-EU",
         "C-IDENTIDADE",
+        "C-IT-CATALOGO",
         "C-IT-DESCOBERTA-PROFUNDA",
         "C-LASTMILE",
         "C-LUGAR-COLETA",
@@ -9947,8 +10196,10 @@
         "C-NAVEGADOR",
         "C-PACOTE-CAMADAS",
         "C-PEDIDO",
+        "C-PORTA-FONTE",
         "C-PROCEDENCIA",
         "C-RECORRENCIA",
+        "C-REGISTO-IDENTIDADE",
         "C-REGRA-COLETA",
         "C-RELEVANCIA",
         "C-ROTULOS",
@@ -9971,7 +10222,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 5,
+        "ITALIA": 6,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -10464,6 +10715,7 @@
         "C-AUDIT-GERAL",
         "C-PORTAL-MODELO",
         "C-PROVENIENCIA",
+        "C-REGISTO-IDENTIDADE",
         "C-SITE-INGEST",
         "C-V2-LEGADO",
         "C-V21-COMERCIAL",
@@ -11367,7 +11619,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italy-agricultural-sources-discovery-dfba81",
-        "HEAD f055fc87bd21735c8d96f8524ecf039e2096fdd9"
+        "HEAD 0a30bffea142a0b481f68bb971ac2c4663fb7b68"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12121,6 +12373,28 @@
     },
     {
       "from": "C-AS-FONTES",
+      "to": "C-IT-PROMOVER-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta A porta entre candidata e fonte registada. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_promover_dedupe.py",
+          "line": 74,
+          "snippet": "meu = (RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\").read_text("
+        },
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 39,
+          "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -12163,7 +12437,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 339,
+          "line": 376,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
         }
       ]
@@ -12226,6 +12500,38 @@
     },
     {
       "from": "C-AS-FONTES",
+      "to": "C-REGISTO-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta O censo da identidade das fontes. Provado por 4 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/registry_censo.py",
+          "line": 41,
+          "snippet": "\"docs/fontes/ATLAS-DE-FONTES-EAME.md\","
+        },
+        {
+          "file": "candidatas/registry_censo.py",
+          "line": 49,
+          "snippet": "\"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\","
+        },
+        {
+          "file": "candidatas/registry_classificar.py",
+          "line": 53,
+          "snippet": "ATLAS_CORRENTE = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+        },
+        {
+          "file": "candidatas/registry_red_team.py",
+          "line": 26,
+          "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
       "to": "C-SITE-INGEST",
       "type": "READS",
       "payload": "artefacto",
@@ -12249,7 +12555,7 @@
       "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "AS FONTES alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "AS FONTES alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -12260,6 +12566,11 @@
           "file": "tests/test_competitor_layer.py",
           "line": 334,
           "snippet": "t = doc('fontes', 'ATLAS-DE-FONTES-EAME.md')"
+        },
+        {
+          "file": "tests/test_source_registry.py",
+          "line": 31,
+          "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
         },
         {
           "file": "tests/test_territorios.py",
@@ -14370,6 +14681,23 @@
     },
     {
       "from": "C-IT-CATALOGO",
+      "to": "C-IT-PROMOVER-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta A porta entre candidata e fonte registada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_promover_dedupe.py",
+          "line": 78,
+          "snippet": "mj = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
       "to": "C-MAPA-GERADOR",
       "type": "READS",
       "payload": "artefacto",
@@ -14397,8 +14725,47 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 213,
+          "line": 250,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-REGISTO-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta O censo da identidade das fontes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/registry_censo.py",
+          "line": 42,
+          "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\","
+        },
+        {
+          "file": "candidatas/registry_red_team.py",
+          "line": 276,
+          "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\", [])"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_registry.py",
+          "line": 228,
+          "snippet": "p = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\""
         }
       ]
     },
@@ -14620,6 +14987,67 @@
       ]
     },
     {
+      "from": "C-IT-FECHAR-GAP",
+      "to": "C-IT-PROMOVER-FONTE",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Abrir a rota e provar que a fonte existe importa A porta entre candidata e fonte registada. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_promover_evidencia.py",
+          "line": 55,
+          "snippet": "from italy_fechar_sonda import baixar, CAB                      # noqa: E402"
+        },
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 157,
+          "snippet": "from italy_fechar_sonda import julgar"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-FECHAR-GAP",
+      "to": "C-IT-PROMOVER-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Abrir a rota e provar que a fonte existe alimenta A porta entre candidata e fonte registada. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_promover_dedupe.py",
+          "line": 180,
+          "snippet": "\"ITALY-SOURCE-GAP-CLOSURE-2026-09-14.xlsx\","
+        },
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 142,
+          "snippet": "\"ITALY-SOURCE-GAP-CLOSURE-2026-09-14.xlsx\","
+        }
+      ]
+    },
+    {
+      "from": "C-IT-GAP-POR-FERRAMENTA",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O buraco de materia-prima, ferramenta por ferramenta escreve em A descoberta profunda de fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_gap_red_team.py",
+          "line": 303,
+          "snippet": "(TRAB / \"RED-TEAM.json\").write_text("
+        }
+      ]
+    },
+    {
       "from": "C-IT-GAP-POR-FERRAMENTA",
       "to": "C-IT-FECHAR-GAP",
       "type": "IMPORTS",
@@ -14687,12 +15115,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 538,
+          "line": 575,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 539,
+          "line": 576,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
         }
       ]
@@ -15100,14 +15528,36 @@
     },
     {
       "from": "C-MAPA-SCAN",
+      "to": "C-REGISTO-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Scanner do System Map alimenta O censo da identidade das fontes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/registry_red_team.py",
+          "line": 28,
+          "snippet": "SCANNER = RAIZ / \"system-map\" / \"scripts\" / \"scan_sources.py\""
+        }
+      ]
+    },
+    {
+      "from": "C-MAPA-SCAN",
       "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "natureza": "FLUXO",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Scanner do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Scanner do System Map alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_source_registry.py",
+          "line": 33,
+          "snippet": "SCANNER = RAIZ / \"system-map\" / \"scripts\" / \"scan_sources.py\""
+        },
         {
           "file": "tests/test_territorios.py",
           "line": 234,
@@ -15512,6 +15962,23 @@
     },
     {
       "from": "C-PORTA-FONTE",
+      "to": "C-IT-PROMOVER-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta A porta entre candidata e fonte registada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 276,
+          "snippet": "fila = RAIZ / \"candidatas\" / \"FONTES-CANDIDATAS.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-PORTA-FONTE",
       "to": "C-MAPA-SCAN",
       "type": "READS",
       "payload": "artefacto",
@@ -15522,13 +15989,52 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 388,
+          "line": 425,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 417,
+          "line": 454,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\","
+        }
+      ]
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-REGISTO-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta O censo da identidade das fontes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/registry_censo.py",
+          "line": 43,
+          "snippet": "\"candidatas/FONTES-CANDIDATAS.json\","
+        },
+        {
+          "file": "candidatas/registry_red_team.py",
+          "line": 273,
+          "snippet": "t = (RAIZ / \"candidatas\" / \"fonte_nova.py\").read_text(encoding=\"utf-8\")"
+        }
+      ]
+    },
+    {
+      "from": "C-PORTA-FONTE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada de fonte nova alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_registry.py",
+          "line": 242,
+          "snippet": "(RAIZ / \"candidatas\" / \"fonte_nova.py\").read_text(encoding=\"utf-8\")"
         }
       ]
     },
@@ -16332,7 +16838,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 448,
+          "line": 485,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
         }
       ]
@@ -16563,6 +17069,45 @@
           "file": "tests/test_operacao.py",
           "line": 428,
           "snippet": "fonte = open(os.path.join(ROOT, 'motor', 'chain.py'), encoding='utf-8').read()"
+        }
+      ]
+    },
+    {
+      "from": "C-REGISTO-IDENTIDADE",
+      "to": "C-IT-DESCOBERTA-PROFUNDA",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O censo da identidade das fontes escreve em A descoberta profunda de fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/registry_red_team.py",
+          "line": 358,
+          "snippet": "(SAIDA / \"RED-TEAM.json\").write_text("
+        }
+      ]
+    },
+    {
+      "from": "C-REGISTO-IDENTIDADE",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O censo da identidade das fontes alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_source_registry.py",
+          "line": 47,
+          "snippet": "p = PROVA / \"censo.json\""
+        },
+        {
+          "file": "tests/test_source_registry.py",
+          "line": 146,
+          "snippet": "p = PROVA / \"colisoes.json\""
         }
       ]
     },
@@ -17298,6 +17843,23 @@
     },
     {
       "from": "C-SUPABASE",
+      "to": "C-IT-PROMOVER-FONTE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco onde o dado fica guardado alimenta A porta entre candidata e fonte registada. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_promover_red_team.py",
+          "line": 290,
+          "snippet": "m = RAIZ / \"supabase\" / \"migrations\" / \"020_fonte_externa_e_estado_de_rota.sql\""
+        }
+      ]
+    },
+    {
+      "from": "C-SUPABASE",
       "to": "C-REGRA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -17901,6 +18463,23 @@
           "file": "leis/v21_procedencia_religar.py",
           "line": 136,
           "snippet": "fontes = json.load(open(os.path.join(ING, 'SOURCES.json'), encoding='utf-8'))"
+        }
+      ]
+    },
+    {
+      "from": "C-V21-FONTES",
+      "to": "C-REGISTO-IDENTIDADE",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Religacao de fontes do pacote alimenta O censo da identidade das fontes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/registry_censo.py",
+          "line": 46,
+          "snippet": "\"build/ITALY-REALITY-HANDOFF-V2/SOURCES.json\","
         }
       ]
     },
@@ -18599,20 +19178,20 @@
   "UNCLAIMED_CODE_FILES": [
     ".github/workflows/scrap-social.yml"
   ],
-  "UNCLAIMED_FILES_COUNT": 652,
+  "UNCLAIMED_FILES_COUNT": 700,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 101,
-    "components_proven": 67,
-    "components_pending": 29,
-    "components_broken": 1,
+    "components": 102,
+    "components_proven": 66,
+    "components_pending": 32,
+    "components_broken": 0,
     "components_unknown": 4,
-    "edges": 338,
-    "edges_proven": 338,
+    "edges": 354,
+    "edges_proven": 354,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1181,
-    "files_covered": 529,
+    "files_tracked": 1248,
+    "files_covered": 548,
     "files_code_unclaimed": 1
   }
 }
