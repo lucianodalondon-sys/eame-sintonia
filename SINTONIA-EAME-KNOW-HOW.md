@@ -13206,3 +13206,170 @@ PRECO LIDO != PRECO PRESUMIDO.
 E DUAS PAGINAS OFICIAIS DO MESMO FORNECEDOR PODEM DISCORDAR — registe a
 divergencia, nao escolha a que lhe convem.
 ```
+
+---
+
+# §113 · A CHAVE FOI USADA, E O QUE ELA VIU
+
+**Missão:** `C-SUPABASE-BACKUP-READONLY-MEASURE-V1`, a fechar a previsão que
+o `§112` deixou escrita.
+
+## 113.1 · O `§112` ACERTOU, E ISSO MEDE-SE
+
+O `§112` disse que a API respondia `401` — e não `404` — e que o que faltava
+era **a chave, não o recurso**. Nomeou a credencial exacta: um *scoped token*
+de `Database → Backups → Read`. Ela foi criada e usada.
+
+```
+GET /v1/projects/{ref}/database/backups     ->  200
+```
+
+```
+UMA PREVISAO QUE SE PODE MEDIR E UM ATIVO. UMA QUE NAO SE PODE E UMA OPINIAO.
+```
+
+O escopo mínimo foi **suficiente**: nenhum `403`, nenhum pedido de mais
+permissão. Vale a lição inversa, que é a que poupa acessos: **pedir o escopo
+estreito primeiro**, e só alargar contra um `403` real.
+
+## 113.2 · O ESTADO REAL, QUE AGORA É FACTO E NÃO POLÍTICA
+
+```
+BACKUP_COUNT              7, todos COMPLETED, todos FISICOS
+LATEST                    2026-09-13T03:05:36Z
+OLDEST                    2026-09-07T03:07:43Z
+RETENCAO OBSERVADA        6,00 dias de janela visivel
+WALG_ENABLED              true          REGION   eu-west-1
+PITR_ENABLED              NO   —  medido: o campo veio `false`
+```
+
+> **`PITR_ENABLED = NO` é diferente de `PITR_ENABLED = UNKNOWN`.** Ficaria
+> `UNKNOWN` se o campo não tivesse vindo. Veio, e veio `false`. Só um valor
+> explícito promove um `UNKNOWN` a `NO` — colapsar os dois inventa
+> conhecimento que ninguém tem.
+
+### A consequência que custa dados
+
+```
+RPO REAL DESTE PROJETO = ATE ~24 HORAS.
+```
+
+E a precisão que a média esconde: o backup é das **~03:07 UTC**. Uma perda às
+02:00 UTC custa ~23 horas de escritas; uma às 04:00 UTC custa ~1 hora.
+
+```
+UM RPO MEDIO NAO E UM RPO. DIGA A HORA, E NAO SO O NUMERO.
+```
+
+## 113.3 · CADÊNCIA OBSERVADA NÃO É AGENDAMENTO DECLARADO
+
+A Management API **não tem rota read-only** que devolva o agendamento de
+backup. `BACKUP_SCHEDULE` ficou `UNKNOWN` — e o motivo importa:
+
+```
+UNKNOWN POR AUSENCIA DE ROTA  !=  UNKNOWN POR 403  !=  UNKNOWN POR FALHA.
+```
+
+O primeiro não se resolve pedindo mais permissão. Registar *qual* dos três é
+que se tem evita a missão seguinte gastar tempo a pedir um acesso que não
+existe.
+
+O que se pode dizer é aritmética sobre os sete carimbos — seis intervalos
+entre 23,94 h e 24,04 h, sempre às 03:05–03:08 UTC — e diz-se como o que é:
+um backup diário **a acontecer**, e não um backup diário **agendado**.
+
+## 113.4 · UM VARREDOR QUE NUNCA FICA VERMELHO É UM ENFEITE
+
+Esta é a lição de engenharia da missão, e nasceu de um erro meu.
+
+O varredor de vazamento procurava as **palavras** `sbp_`, `Bearer` e
+`Authorization:`. Reprovou o artefacto — e o que lá estava era o **texto do
+red team**, que nomeia esses padrões para explicar que os procura.
+
+```
+NOME DO PADRAO != VALOR DO PADRAO.
+```
+
+A correcção foi procurar a **forma** de uma credencial. Mas a regra durável é
+a seguinte, e é mais geral:
+
+> Uma verificação que nunca pode ficar vermelha não é uma verificação. Ponha
+> **iscas conhecidas** a atravessá-la antes de ela julgar seja o que for, e
+> **textos legítimos** a atravessá-la para medir o falso positivo.
+
+Esse autoteste apanhou **dois buracos reais** no próprio varredor, ambos no
+mesmo sítio: `Authorization: Bearer <x>` escapava porque `Bearer` tem seis
+caracteres e o padrão exigia oito colados aos dois pontos. Nenhum deles teria
+aparecido sem as iscas.
+
+### E as iscas não se escrevem por extenso
+
+Os guardas desta casa — `test_security_secret_shapes`, `test_handoff`,
+`test_social_sessao` — varrem a **árvore versionada** à procura da forma de
+uma credencial, e reprovaram as iscas. **Tinham razão.**
+
+```
+UM GUARDA QUE ABRE EXCECAO PARA «E SO UM TESTE» PASSA A TER EXCECOES
+ATE DEIXAR DE SER GUARDA.
+```
+
+A isca precisa de existir **em memória**, e não no ficheiro: monta-se em
+tempo de execução. O varredor recebe os bytes exactos; a árvore deixa de os
+conter.
+
+## 113.5 · DUAS ARMADILHAS DE FERRAMENTA, MEDIDAS E NÃO SUPOSTAS
+
+### `workflow_dispatch` não existe fora do ramo por omissão
+
+A API de dispatch devolveu `404`. Não era permissão nem atraso de indexação:
+a lista de workflows do repositório devolveu **22 nomes, todos com
+`blob/main/`**, e o novo não estava lá.
+
+```
+workflow_dispatch SO EXISTE PARA FICHEIROS QUE JA VIVEM NO RAMO POR OMISSAO.
+```
+
+O caminho certo **não** é fazer merge para `main` só para conseguir disparar
+— isso troca um problema de execução por uma alteração de linha funcional sem
+decisão de gente. É um `push` com `paths` estreito, que corre a versão **do
+ramo**.
+
+### `cmd | tee` devolve o estado do `tee`
+
+```
+shell por omissao do GitHub Actions = bash -e {0}   —  SEM pipefail.
+```
+
+Sem `set -o pipefail`, um script que aborta por vazamento detectado dá o
+passo por **verde**. Um `| tee "$GITHUB_STEP_SUMMARY"` bem-intencionado apaga
+o código de saída que é a única coisa que interessa.
+
+## 113.6 · E O QUE ISTO NÃO PROVOU
+
+```
+BACKUP LISTADO           != RESTAURO PROVADO.
+SETE BACKUPS FISICOS     != O BOTAO «RESTORE TO A NEW PROJECT» EXISTE AQUI.
+`COMPLETED` NA API       != OS BYTES LEEM-SE.
+```
+
+`SAME_PLATFORM_RESTORE` continua `NOT_RUN` e `READY_FOR_LIVE_APPLY` continua
+`NO` — e não por falta de informação.
+
+```
+MEDIR REMOVE UNKNOWN. NAO RELAXA PORTAO.
+```
+
+Uma missão que mede bem sente a tentação de cobrar o portão como prémio. O
+portão não é pago em medições; é pago na coisa que ele exige.
+
+### O corolário do `A20`, aprendido a sério
+
+Correr a prova à mão **sobrescreve o artefacto commitado**. Nesta missão um
+ensaio com token inválido substituiu a medição de `200` por um `401` de
+cobaia, e só não foi commitado porque o `sha256` não batia com o digest que o
+GitHub publicou.
+
+```
+O ARTEFACTO QUE VALE E O QUE A CORRIDA PRODUZIU.
+Descarregue-o do run e confira o digest — nao o regenere localmente.
+```
