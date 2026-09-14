@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-008",
+ "SOURCE": "Agricoltura Regione Lombardia",
+ "OWNER": "Regione Lombardia",
+ "URL": "https://www.ersaf.lombardia.it/montagna/rifugi/it-servizi-alla-montagna-attivita-per-i-territori-montani-2022/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:48Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 709669 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.ersaf.lombardia.it/montagna/rifugi/it-servizi-alla-montagna-attivita-per-i-territori-montani-2022/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Iscrizione all&#039;elenco regionale dei rifugi alpinistici ed escursionistici - Ersaf",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-04-06",
+  "BYTES_LIDOS": 409399
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.ersaf.lombardia.it/wp-content/uploads/2024/08/SEO31_31-07-20241.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Clicca per scaricare il Decreto iscrizione Elenco rifugi 2025",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 709669,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "2063045880bc9abe2012db120e4d8388128ff337164db544356aeaac2ff1ce81",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

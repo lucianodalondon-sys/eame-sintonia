@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-016",
+ "SOURCE": "Italia Olivicola",
+ "OWNER": "Italia Olivicola Consorzio Nazionale",
+ "URL": "https://www.italiaolivicola.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:33Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 109122 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.italiaolivicola.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Italia Olivicola &#8211; Consorzio Nazionale degli Olivicoltori",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-03-20",
+  "BYTES_LIDOS": 137814
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.italiaolivicola.it/category/news/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "News",
+  "TITULO": "News &#8211; Italia Olivicola",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 109122,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "1bf0e90d49323a23a1744b3f1096c4db7eb2575313cb49cf4d9ce6e331847275",
+  "DATA_VISIVEL": "2023-10-20",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-027",
+ "SOURCE": "UNIPD DAFNAE — Dipartimento di Agronomia Animali Alimenti Risorse Naturali e Ambiente",
+ "OWNER": "Universita di Padova",
+ "URL": "https://www.dafnae.unipd.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:18Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 53705 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.dafnae.unipd.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "| Università di Padova",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 63924
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.dafnae.unipd.it/news/termine/2",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Bandi",
+  "TITULO": "|  | Università di Padova",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 53705,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "026f75eaa46b3fb3260df127d2e45f8068718a3785efbece88e36e4901918646",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

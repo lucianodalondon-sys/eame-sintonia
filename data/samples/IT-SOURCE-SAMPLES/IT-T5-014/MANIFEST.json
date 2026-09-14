@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-014",
+ "SOURCE": "UNITUS DAFNE — Dipartimento di Scienze Agrarie e Forestali",
+ "OWNER": "Universita della Tuscia",
+ "URL": "https://www.unitus.it/dipartimenti/dafne/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:01Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 498310 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.unitus.it/dipartimenti/dafne/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "DAFNE - Unitus",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 409600
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.unitus.it/wp-content/uploads/2024/02/Linee-guida-con-allegati_2023.24-2.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Linee guida internazionalizzazione CdL",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 498310,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "fda79eb0625a3f4f7fa115c396a33debdf6e25e73e410d62330a5c55b04361bb",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

@@ -6,8 +6,8 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-08-30 — **<!--M:SOURCE_ID_COUNT-->37<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 17 NÃO SEI).
-**Última atualização:** 2026-08-29
+**Estado:** atualizado em 2026-09-14 — **<!--M:SOURCE_ID_COUNT-->177<!--/M--> fontes registradas** (79 GREEN, 81 YELLOW, 17 NÃO SEI).
+**Última atualização:** 2026-09-14
 
 ---
 
@@ -1317,13 +1317,4981 @@ mudanças de catálogo, acordos comerciais e culturas atendidas. Ela dá **a red
 
 ---
 
+### T1 · CROP & PRODUCTION — ITALY · onda 1 (2026-09-14)
+
+*22 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T1-002 · Provincia autonoma di Trento — Agricoltura
+
+```
+SOURCE_ID:                    IT-T1-002
+SOURCE_NAME:                  Provincia autonoma di Trento — Agricoltura
+SOURCE_OWNER:                 Provincia autonoma di Trento
+COUNTRY:                      ITALY
+REGION:                       TRENTINO-ALTO ADIGE
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.provincia.tn.it/
+ACCESS_METHOD:                HTML
+CROPS:                        melo;vite
+TOPICS:                       agricoltura;melo;vite
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TRENTINO-ALTO ADIGE
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-12
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-10
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «AUTONOMIA 2026. Il Cammino della Comunità trentina - Provincia autonoma di
+                              Trento» https://www.provincia.tn.it/News/Eventi/AUTONOMIA-2026.-Il-Cammino-
+                              della-Comunita-trentina — HTML, 105599 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T1 (cultura e producao), T4
+                              (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-002/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-003 · Regione Toscana — Agricoltura
+
+```
+SOURCE_ID:                    IT-T1-003
+SOURCE_NAME:                  Regione Toscana — Agricoltura
+SOURCE_OWNER:                 Regione Toscana
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T4, T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.toscana.it/agricoltura-e-alimentazione
+ACCESS_METHOD:                HTML
+CROPS:                        olivo;vite
+TOPICS:                       agricoltura;PSR;olivo;vite
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-12
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Approfondimenti - Regione Toscana»
+                              https://www.regione.toscana.it/regione/approfondimenti — HTML, 165734 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio), T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-003/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-004 · Liguria — Regione Liguria agricoltura
+
+```
+SOURCE_ID:                    IT-T1-004
+SOURCE_NAME:                  Liguria — Regione Liguria agricoltura
+SOURCE_OWNER:                 Regione Liguria
+COUNTRY:                      ITALY
+REGION:                       LIGURIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.liguria.it/homepage-agricoltura.html
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura;floricoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LIGURIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2023-06-28
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «attività istituzionale - avvisi - Regione Liguria»
+                              https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-
+                              notifica/avvisi-atti-notifica.html — HTML, 178556 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-004/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T1-005 · Umbria — Agricoltura e foreste
+
+```
+SOURCE_ID:                    IT-T1-005
+SOURCE_NAME:                  Umbria — Agricoltura e foreste
+SOURCE_OWNER:                 Regione Umbria
+COUNTRY:                      ITALY
+REGION:                       UMBRIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.umbria.it/home
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura;PSR
+GEOGRAPHIC_GRANULARITY:       REGIÃO — UMBRIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Celebrazioni del 165 anniversario dell’Ente Santa Croce Maria Montessori di
+                              Perugia - Notizie - Regione Umbria» https://www.regione.umbria.it/notizie/-
+                              /asset_publisher/54m7RxsCDsHr/content/celebrazioni-del-165-anniversario-
+                              dell-ente-santa-croce-maria-montessori-di-perugia?read_more=true — HTML,
+                              44288 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-005/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T1-006 · ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura Calabrese
+
+```
+SOURCE_ID:                    IT-T1-006
+SOURCE_NAME:                  ARSAC Calabria — Azienda Regionale per lo Sviluppo dell'Agricoltura
+                              Calabrese
+SOURCE_OWNER:                 Regione Calabria
+COUNTRY:                      ITALY
+REGION:                       CALABRIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T7, T3)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arsac.calabria.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       assistenza tecnica;divulgazione;fitosanitario
+GEOGRAPHIC_GRANULARITY:       REGIÃO — CALABRIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «BOLLETTINO agrometeorologico e fitosanitario – agrumi, olivo, vite e kiwi
+                              &#8211; valido fino al 4 agosto 2026 &#8211; ARSAC»
+                              https://arsac.calabria.it/bollettino-agrometeorologico-e-fitosanitario-
+                              agrumi-olivo-vite-e-kiwi-valido-fino-al-4-agosto-2026/ — HTML, 183249 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T1 (cultura e producao), T7 (rede
+                              tecnica), T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-006/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-007 · ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio
+
+```
+SOURCE_ID:                    IT-T1-007
+SOURCE_NAME:                  ARSIAL — Agenzia Regionale Sviluppo Innovazione Agricoltura Lazio
+SOURCE_OWNER:                 Regione Lazio
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T7, T3)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arsial.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       sviluppo agricolo;biodiversita;assistenza
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-11
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-08-31
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Avvisi per privati Archive - Arsial» https://www.arsial.it/bandi-e-
+                              avvisi/avvisi-per-privati/ — HTML, 362452 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T1 (cultura e producao), T7 (rede
+                              tecnica), T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-007/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-008 · Agricoltura Regione Lombardia
+
+```
+SOURCE_ID:                    IT-T1-008
+SOURCE_NAME:                  Agricoltura Regione Lombardia
+SOURCE_OWNER:                 Regione Lombardia
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T4, T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.ersaf.lombardia.it/montagna/rifugi/it-servizi-alla-montagna-
+                              attivita-per-i-territori-montani-2022/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura;PSR;fitosanitario
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-04-06
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Clicca per scaricare il Decreto iscrizione Elenco rifugi 2025»
+                              https://www.ersaf.lombardia.it/wp-
+                              content/uploads/2024/08/SEO31_31-07-20241.pdf — PDF, 709669 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T1 (cultura e producao), T4
+                              (regulatorio), T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-008/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-009 · Lazio — Agricoltura Regione Lazio
+
+```
+SOURCE_ID:                    IT-T1-009
+SOURCE_NAME:                  Lazio — Agricoltura Regione Lazio
+SOURCE_OWNER:                 Regione Lazio
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.lazio.it/cittadini/agricoltura
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura;PSR
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-11
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-08-04
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «| Regione Lazio | PN FEAMPA 2021/2027 Intervento 222507 – Approvazione
+                              Bando» https://www.regione.lazio.it/notizie/agricoltura/pn-
+                              feampa-2021-2027-intervento-222507-approvazione-bando — HTML, 103903 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-009/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-010 · Regione Abruzzo — Agricoltura
+
+```
+SOURCE_ID:                    IT-T1-010
+SOURCE_NAME:                  Regione Abruzzo — Agricoltura
+SOURCE_OWNER:                 Regione Abruzzo
+COUNTRY:                      ITALY
+REGION:                       ABRUZZO
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.abruzzo.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura;PSR
+GEOGRAPHIC_GRANULARITY:       REGIÃO — ABRUZZO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Sanità, validati i nuovi atti aziendali delle quattro Asl regionali |
+                              Regione Abruzzo» http://www.regione.abruzzo.it/notizie/validati-i-nuovi-
+                              atti-aziendali-delle-4-asl-regionali — HTML, 100666 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-010/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-011 · Regione Umbria — Agricoltura
+
+```
+SOURCE_ID:                    IT-T1-011
+SOURCE_NAME:                  Regione Umbria — Agricoltura
+SOURCE_OWNER:                 Regione Umbria
+COUNTRY:                      ITALY
+REGION:                       UMBRIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.umbria.it/agricoltura
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura;PSR
+GEOGRAPHIC_GRANULARITY:       REGIÃO — UMBRIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-11-10
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Legge Serpieri - Notizia - Regione Umbria» https://www.regione.umbria.it/ag
+                              ricoltura/notizia/-/asset_publisher/PVUq7ammJALj/content/legge-
+                              serpieri?read_more=true — HTML, 46991 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-011/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-012 · Regione Valle d'Aosta — Agricoltura
+
+```
+SOURCE_ID:                    IT-T1-012
+SOURCE_NAME:                  Regione Valle d'Aosta — Agricoltura
+SOURCE_OWNER:                 Regione Autonoma Valle d'Aosta
+COUNTRY:                      ITALY
+REGION:                       VALLE D'AOSTA
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.vda.it/agricoltura/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura di montagna;viticoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VALLE D'AOSTA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-03-09
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Avvisi di incarichi dirigenziali - Pubblicità - Regione Autonoma Valle
+                              d'Aosta» https://www.regione.vda.it/amministrazionetrasparente/personale/pub
+                              blicazioneincarichidirigenziali/default_i.aspx — HTML, 36254 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               orgao agricola regional / politica agricola; alimenta T1 (cultura e
+                              producao), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-012/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-013 · Assosementi
+
+```
+SOURCE_ID:                    IT-T1-013
+SOURCE_NAME:                  Assosementi
+SOURCE_OWNER:                 Assosementi
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.sementi.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       sementi;varieta
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-07-10
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-05-15
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Seme in natura certificato e pulito (tara 0%) di erba medica: confermato a
+                              2,80 €/kg il prezzo orientativo per la campagna 2026 - Assosementi»
+                              https://www.sementi.it/comunicati_stampa/seme-in-natura-certificato-e-
+                              pulito-tara-0-di-erba-medica-confermato-a-280-e-kg-il-prezzo-orientativo-
+                              per-la-campagna-2026/ — HTML, 67258 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T1 (cultura e producao), T10
+                              (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-013/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-014 · Ente Nazionale Risi
+
+```
+SOURCE_ID:                    IT-T1-014
+SOURCE_NAME:                  Ente Nazionale Risi
+SOURCE_OWNER:                 Ente Nazionale Risi
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T10, T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          http://www.enterisi.it/servizi/notizie/notizie_homepage.aspx
+ACCESS_METHOD:                HTML
+CROPS:                        riso
+TOPICS:                       riso;mercato;statistiche;varieta
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Ente Nazionale Risi» http://www.enterisi.it/servizi/notizie/notizie_fase01.
+                              aspx?categoriaVisualizzata=19 — HTML, 266233 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T1 (cultura e producao), T10
+                              (mercado e industria), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-014/MANIFEST.json
+VERDICT:                      YELLOW — so responde em HTTP
+```
+
+#### IT-T1-015 · Terra e Vita — Edagricole
+
+```
+SOURCE_ID:                    IT-T1-015
+SOURCE_NAME:                  Terra e Vita — Edagricole
+SOURCE_OWNER:                 Edagricole — New Business Media
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     EN
+TERRITORY:                    T1 (também serve T3, T10)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://terraevita.edagricole.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       rivista tecnica;seminativi;difesa
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-03-03
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-03-03
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Dublino mette alla prova la nuova agricoltura europea - Terra e Vita»
+                              https://terraevita.edagricole.it/agridaily-guida-pac/pac-per-gli-
+                              agricoltori/approfondimenti-pac/dublino-mette-alla-prova-la-nuova-
+                              agricoltura-europea-sicurezza-innovazione-e-risorse/ — HTML, 268860 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T1 (cultura e producao), T3
+                              (praga, doenca e infestantes), T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-015/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-016 · Italia Olivicola
+
+```
+SOURCE_ID:                    IT-T1-016
+SOURCE_NAME:                  Italia Olivicola
+SOURCE_OWNER:                 Italia Olivicola Consorzio Nazionale
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.italiaolivicola.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       olivicoltura;OP
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-03-20
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2023-10-20
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «News &#8211; Italia Olivicola»
+                              https://www.italiaolivicola.it/category/news/ — HTML, 109122 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               organizacao de produtores; alimenta T1 (cultura e producao), T10 (mercado e
+                              industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-016/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-017 · Olivo e Olio — Edagricole
+
+```
+SOURCE_ID:                    IT-T1-017
+SOURCE_NAME:                  Olivo e Olio — Edagricole
+SOURCE_OWNER:                 Edagricole — New Business Media
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     EN
+TERRITORY:                    T1 (também serve T3)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://olivoeolio.edagricole.it/
+ACCESS_METHOD:                HTML
+CROPS:                        olio;olivo
+TOPICS:                       olivo;olio;difesa
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2014-03-05
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2014-03-05
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «EVOLIO Expo conquista gli USA: buyer pronti per Bari 2027 - Olivo e Olio»
+                              https://olivoeolio.edagricole.it/notizie-dalle-aziende/evolio-expo-
+                              conquista-usa-buyer-pronti-per-bari-2027/ — HTML, 265128 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T1 (cultura e producao), T3
+                              (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-017/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-018 · Rivista di Agraria
+
+```
+SOURCE_ID:                    IT-T1-018
+SOURCE_NAME:                  Rivista di Agraria
+SOURCE_OWNER:                 Rivista di Agraria
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T5, T12)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://www.rivistadiagraria.org/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       divulgazione agraria
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Il sapore della salute - Rivista di Agraria.org»
+                              https://www.rivistadiagraria.org/articoli/anno-2026/sapore-della-salute/ —
+                              HTML, 75280 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               imprensa tecnica agricola; alimenta T1 (cultura e producao), T5 (ciencia),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-018/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-019 · SIA — Societa Italiana di Agronomia
+
+```
+SOURCE_ID:                    IT-T1-019
+SOURCE_NAME:                  SIA — Societa Italiana di Agronomia
+SOURCE_OWNER:                 Societa Italiana di Agronomia
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T5)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.siagr.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agronomia;congresso
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-04-06
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Scarica lo Statuto della SIA» https://siagr.it/wp-
+                              content/uploads/2025/01/Statuto-della-Societa-Italiana-di-
+                              Agronomia19.06.2023.pdf — PDF, 134455 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               sociedade cientifica / academia; alimenta T1 (cultura e producao), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-019/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-020 · Agriligurianet — Regione Liguria agricoltura
+
+```
+SOURCE_ID:                    IT-T1-020
+SOURCE_NAME:                  Agriligurianet — Regione Liguria agricoltura
+SOURCE_OWNER:                 Regione Liguria
+COUNTRY:                      ITALY
+REGION:                       LIGURIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T3, T7)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.agriligurianet.it/it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura ligure;floricoltura;fitosanitario
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LIGURIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2013-04-04
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025-11-19
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Generale - Agriligurianet» https://www.agriligurianet.it/it/impresa/2013-
+                              04-04-08-54-42/approfondimenti.html — HTML, 108646 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T1 (cultura e producao), T3 (praga,
+                              doenca e infestantes), T7 (rede tecnica)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-020/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-021 · AgroNotizie — Image Line
+
+```
+SOURCE_ID:                    IT-T1-021
+SOURCE_NAME:                  AgroNotizie — Image Line
+SOURCE_OWNER:                 Image Line
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T3, T4, T10)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://agronotizie.imagelinenetwork.com/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       notizie agricole;difesa;fitofarmaci
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «AgroNotizie - Newsletter»
+                              https://agronotizie.imagelinenetwork.com/newsletter/ — HTML, 54095 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               imprensa tecnica agricola; alimenta T1 (cultura e producao), T3 (praga,
+                              doenca e infestantes), T4 (regulatorio), T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-021/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T1-022 · OlivoNews — giornale di olivicoltura
+
+```
+SOURCE_ID:                    IT-T1-022
+SOURCE_NAME:                  OlivoNews — giornale di olivicoltura
+SOURCE_OWNER:                 OlivoNews
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T1 (também serve T3, T10)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://www.olivonews.it/
+ACCESS_METHOD:                HTML
+CROPS:                        olio;olivo
+TOPICS:                       olivo;olio;tecnica
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-04-27
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025-04-27
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Attualità Archivi - l&#039;OlivoNews»
+                              https://olivonews.it/category/attualita/ — HTML, 150226 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               imprensa tecnica agricola; alimenta T1 (cultura e producao), T3 (praga,
+                              doenca e infestantes), T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-022/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T1-023 · SOI — Societa di Ortoflorofrutticoltura Italiana
+
+```
+SOURCE_ID:                    IT-T1-023
+SOURCE_NAME:                  SOI — Societa di Ortoflorofrutticoltura Italiana
+SOURCE_OWNER:                 SOI
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T1 (também serve T5, T11)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.soihs.it/
+ACCESS_METHOD:                HTML
+CROPS:                        ortofrutta
+TOPICS:                       ortofrutta;floricoltura;congressi
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Olivo - SOI» https://www.soihs.it/pubblicazioni/0000001920/video/olivo.aspx
+                              — HTML, 46163 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               imprensa tecnica agricola; alimenta T1 (cultura e producao), T5 (ciencia),
+                              T11 (eventos)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T1-023/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+### T2 · CLIMATE / WATER / SOIL — ITALY · onda 1 (2026-09-14)
+
+*19 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T2-006 · ARPA Campania
+
+```
+SOURCE_ID:                    IT-T2-006
+SOURCE_NAME:                  ARPA Campania
+SOURCE_OWNER:                 ARPAC
+COUNTRY:                      ITALY
+REGION:                       CAMPANIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpacampania.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;acque;meteo
+GEOGRAPHIC_GRANULARITY:       REGIÃO — CAMPANIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-08
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-08
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «News - Arpac» https://www.arpacampania.it/web/guest/news — HTML, 472011
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-006/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-007 · ARPA Sicilia
+
+```
+SOURCE_ID:                    IT-T2-007
+SOURCE_NAME:                  ARPA Sicilia
+SOURCE_OWNER:                 ARPA Sicilia
+COUNTRY:                      ITALY
+REGION:                       SICILIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpa.sicilia.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;monitoraggio
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SICILIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Pubblicazioni - Arpa Sicilia»
+                              https://www.arpa.sicilia.it/attivita/educazione-ambientale/pubblicazioni/ —
+                              HTML, 158336 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-007/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-008 · ARPAT Toscana
+
+```
+SOURCE_ID:                    IT-T2-008
+SOURCE_NAME:                  ARPAT Toscana
+SOURCE_OWNER:                 ARPAT
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpat.toscana.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;acque;monitoraggio
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-08-22
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-08-22
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Centrali geotermiche della Toscana – Anno 2025 - ARPAT»
+                              https://www.arpat.toscana.it/pubblicazione/centrali-geotermiche-della-
+                              toscana-anno-2025/ — HTML, 255196 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-008/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-009 · ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale
+
+```
+SOURCE_ID:                    IT-T2-009
+SOURCE_NAME:                  ISPRA — Istituto Superiore per la Protezione e la Ricerca Ambientale
+SOURCE_OWNER:                 ISPRA
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.isprambiente.gov.it/it
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;acque;suolo;indicatori
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-11
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.isprambiente.gov.it/it/files/iso_9001-ita-c859101-2-20260709.pdf
+                              — PDF, 129270 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T2 (clima/agua/solo), T12
+                              (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-009/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-010 · APPA Trento — Agenzia provinciale protezione ambiente
+
+```
+SOURCE_ID:                    IT-T2-010
+SOURCE_NAME:                  APPA Trento — Agenzia provinciale protezione ambiente
+SOURCE_OWNER:                 Provincia autonoma di Trento
+COUNTRY:                      ITALY
+REGION:                       TRENTINO-ALTO ADIGE
+LANGUAGE:                     IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://appa.provincia.tn.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;acque
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TRENTINO-ALTO ADIGE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-07-15
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Voluntary local review (VLR) 2026 / Approfondimenti / News / Homepage -
+                              APPA» https://www.appa.provincia.tn.it/News/Approfondimenti/Voluntary-local-
+                              review-VLR-2026 — HTML, 69245 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-010/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T2-011 · ARPA Lombardia
+
+```
+SOURCE_ID:                    IT-T2-011
+SOURCE_NAME:                  ARPA Lombardia
+SOURCE_OWNER:                 ARPA Lombardia
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpalombardia.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       meteo;aria;acqua;agrometeo
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Approfondisci qui
+                              » https://www.arpalombardia.it/media/3filtsmf/la-montagna-che-cambia-crnv-
+                              ottobre-2026.pdf — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-011/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T2-012 · ARPA Friuli Venezia Giulia — OSMER
+
+```
+SOURCE_ID:                    IT-T2-012
+SOURCE_NAME:                  ARPA Friuli Venezia Giulia — OSMER
+SOURCE_OWNER:                 ARPA FVG
+COUNTRY:                      ITALY
+REGION:                       FRIULI-VENEZIA GIULIA
+LANGUAGE:                     IT
+TERRITORY:                    T2
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpa.fvg.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       meteo;agrometeo;OSMER
+GEOGRAPHIC_GRANULARITY:       REGIÃO — FRIULI-VENEZIA GIULIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-08-19
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-09
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Le proposte per le scuole 2026/27
+                              - ARPA FVG» https://www.arpa.fvg.it/temi/temi/educazione-ambientale/news/le-
+                              proposte-per-le-scuole-202627/ — HTML, 99444 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-012/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-013 · ARPA Lazio
+
+```
+SOURCE_ID:                    IT-T2-013
+SOURCE_NAME:                  ARPA Lazio
+SOURCE_OWNER:                 ARPA Lazio
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpalazio.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;aria;acque
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-13
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Pubblicazioni - RIR - ARPA Lazio»
+                              https://www.arpalazio.it/web/guest/ambiente/rir/pubblicazioni — HTML, 134725
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-013/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-014 · ARPA Molise
+
+```
+SOURCE_ID:                    IT-T2-014
+SOURCE_NAME:                  ARPA Molise
+SOURCE_OWNER:                 ARPA Molise
+COUNTRY:                      ITALY
+REGION:                       MOLISE
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpamolise.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;meteo
+GEOGRAPHIC_GRANULARITY:       REGIÃO — MOLISE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.arpamolise.it/Comunicazione/Pubblicazioni/pdf/cartaservizi.pdf —
+                              PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-014/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T2-015 · AIAM — Associazione Italiana di Agrometeorologia
+
+```
+SOURCE_ID:                    IT-T2-015
+SOURCE_NAME:                  AIAM — Associazione Italiana di Agrometeorologia
+SOURCE_OWNER:                 AIAM
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T5, T11)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.agrometeorologia.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agrometeorologia;convegno
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Brochure» https://www.agrometeorologia.it/wp-
+                              content/uploads/2021/03/2021_brochure_it.pdf — PDF, 534701 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T5 (ciencia), T11 (eventos)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-015/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-016 · ARPA Marche
+
+```
+SOURCE_ID:                    IT-T2-016
+SOURCE_NAME:                  ARPA Marche
+SOURCE_OWNER:                 ARPAM
+COUNTRY:                      ITALY
+REGION:                       MARCHE
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpa.marche.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;meteo
+GEOGRAPHIC_GRANULARITY:       REGIÃO — MARCHE
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-08-18
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Tariffario»
+                              https://www.arpa.marche.it/images/pdf/agenzia/TARIFFARIO_2026.pdf — PDF,
+                              704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-016/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-017 · CNR IRET — Istituto di Ricerca sugli Ecosistemi Terrestri
+
+```
+SOURCE_ID:                    IT-T2-017
+SOURCE_NAME:                  CNR IRET — Istituto di Ricerca sugli Ecosistemi Terrestri
+SOURCE_OWNER:                 CNR
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.iret.cnr.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ecosistemi;suolo
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-05-22
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «News - IRET» https://www.iret.cnr.it/news/ — HTML, 86868 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T2 (clima/agua/solo), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-017/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-018 · CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo
+
+```
+SOURCE_ID:                    IT-T2-018
+SOURCE_NAME:                  CNR ISAFOM — Istituto per i Sistemi Agricoli e Forestali del Mediterraneo
+SOURCE_OWNER:                 CNR
+COUNTRY:                      ITALY
+REGION:                       CAMPANIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T1, T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.isafom.cnr.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agrosistemi mediterranei;acqua;suolo
+GEOGRAPHIC_GRANULARITY:       REGIÃO — CAMPANIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-06-27
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025-06-27
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «News Archivi - CNR - ISAFOM» https://isafom.cnr.it/category/news/ — HTML,
+                              101741 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T2 (clima/agua/solo), T1
+                              (cultura e producao), T5 (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-018/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-019 · ARPA Piemonte
+
+```
+SOURCE_ID:                    IT-T2-019
+SOURCE_NAME:                  ARPA Piemonte
+SOURCE_OWNER:                 ARPA Piemonte
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpa.piemonte.it/home
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       meteo;clima;agrometeorologia
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «La Relazione sullo Stato dell&#039;Ambiente del Piemonte 2026 | Arpa
+                              Piemonte» https://www.arpa.piemonte.it/notizia/relazione-sullo-stato-
+                              dellambiente-piemonte-2026 — HTML, 84390 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-019/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T2-020 · ARTA Abruzzo
+
+```
+SOURCE_ID:                    IT-T2-020
+SOURCE_NAME:                  ARTA Abruzzo
+SOURCE_OWNER:                 ARTA Abruzzo
+COUNTRY:                      ITALY
+REGION:                       ABRUZZO
+LANGUAGE:                     IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.artaabruzzo.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;monitoraggio
+GEOGRAPHIC_GRANULARITY:       REGIÃO — ABRUZZO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-07-27
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 NÃO REPRESENTATIVO — o item que se conseguiu confirmar por HTTP e' papelada administrativa (codigo etico, termos, formulario) — prova que a organizacao existe, NAO prova o que ela publica na sua area tecnica. Um exemplo representativo exige navegador ou leitura humana da seccao de noticias.
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-020/MANIFEST.json
+VERDICT:                      YELLOW — registada como real e util, mas sem exemplo representativo do que entrega; rever com navegador antes de contratar coleta.
+```
+
+#### IT-T2-021 · ARPA Liguria
+
+```
+SOURCE_ID:                    IT-T2-021
+SOURCE_NAME:                  ARPA Liguria
+SOURCE_OWNER:                 ARPAL
+COUNTRY:                      ITALY
+REGION:                       LIGURIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpal.liguria.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       meteo;ambiente;allerta
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LIGURIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-07
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Notizie tematiche - Estate 2026, a Genova quasi 90 notti tropicali e 60
+                              “più che tropicali” - Arpal Liguria» https://www.arpal.liguria.it/home-
+                              page/notizie-tematiche/item/estate-2026-a-genova-quasi-90-notti-
+                              tropicali-e-60-piu-che-tropicali.html — HTML, 37187 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-021/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T2-022 · ARPA Valle d'Aosta
+
+```
+SOURCE_ID:                    IT-T2-022
+SOURCE_NAME:                  ARPA Valle d'Aosta
+SOURCE_OWNER:                 ARPA Valle d'Aosta
+COUNTRY:                      ITALY
+REGION:                       VALLE D'AOSTA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpa.vda.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;meteo alpino;neve
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VALLE D'AOSTA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Agenzia Regionale della Protezione dell'Ambiente - Valle D'Aosta»
+                              https://www.arpa.vda.it/component/tags/tag/bollettini — HTML, 108827 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-022/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T2-023 · ARPA Basilicata
+
+```
+SOURCE_ID:                    IT-T2-023
+SOURCE_NAME:                  ARPA Basilicata
+SOURCE_OWNER:                 ARPAB
+COUNTRY:                      ITALY
+REGION:                       BASILICATA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.arpab.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ambiente;monitoraggio
+GEOGRAPHIC_GRANULARITY:       REGIÃO — BASILICATA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-04
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — TEXTO obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «VEDI TUTTE                                                       VEDI
+                              TUTTE» https://www.arpab.it/articoli/news/arpa-informa/ — TEXTO, 397716
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agrometeorologia / clima / ambiente regional; alimenta T2 (clima/agua/solo),
+                              T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-023/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T2-024 · ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e acque irrigue
+
+```
+SOURCE_ID:                    IT-T2-024
+SOURCE_NAME:                  ANBI — Associazione Nazionale Consorzi di gestione e tutela del territorio e
+                              acque irrigue
+SOURCE_OWNER:                 ANBI
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T2 (também serve T12)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.anbi.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       consorzi di bonifica;irrigazione
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «LIPU» https://www.anbi.it/public/sezioni/protocollolipu-firmato-
+                              pdf-20260303161103.pdf — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T2
+                              (clima/agua/solo), T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T2-024/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+### T3 · PEST / DISEASE / WEEDS — ITALY · onda 1 (2026-09-14)
+
+*9 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T3-013 · Emilia-Romagna — Servizio Fitosanitario
+
+```
+SOURCE_ID:                    IT-T3-013
+SOURCE_NAME:                  Emilia-Romagna — Servizio Fitosanitario
+SOURCE_OWNER:                 Regione Emilia-Romagna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T3 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://agricoltura.regione.emilia-romagna.it/fitosanitario
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       servizio fitosanitario;bollettini
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-02-05
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Bollettini interprovinciali di produzione integrata e biologica 2026 -
+                              Fitosanitario e difesa delle produzioni - Agricoltura, caccia e pesca»
+                              https://agricoltura.regione.emilia-romagna.it/fitosanitario/difesa-
+                              sostenibile/bollettini/bollettini-interprovinciali-di-produzione-integrata-
+                              e-biologica-2026 — HTML, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               servico fitossanitario / defesa vegetal; alimenta T3 (praga, doenca e
+                              infestantes), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-013/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T3-014 · Servizio Fitosanitario Nazionale — Protezione delle Piante
+
+```
+SOURCE_ID:                    IT-T3-014
+SOURCE_NAME:                  Servizio Fitosanitario Nazionale — Protezione delle Piante
+SOURCE_OWNER:                 MASAF — Servizio Fitosanitario Centrale
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T3 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.protezionedellepiante.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       fitosanitario;organismi nocivi;quarantena
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Articoli Archivi - Protezione delle piante»
+                              https://www.protezionedellepiante.it/category/articoli/ — HTML, 416737 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               servico fitossanitario / defesa vegetal; alimenta T3 (praga, doenca e
+                              infestantes), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-014/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T3-015 · Toscana — Servizio Fitosanitario Regionale
+
+```
+SOURCE_ID:                    IT-T3-015
+SOURCE_NAME:                  Toscana — Servizio Fitosanitario Regionale
+SOURCE_OWNER:                 Regione Toscana
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T3 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.toscana.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       servizio fitosanitario
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Approfondimenti - Regione Toscana»
+                              https://www.regione.toscana.it/regione/approfondimenti — HTML, 164237 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               servico fitossanitario / defesa vegetal; alimenta T3 (praga, doenca e
+                              infestantes), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-015/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T3-016 · Veneto — Servizio Fitosanitario Regionale
+
+```
+SOURCE_ID:                    IT-T3-016
+SOURCE_NAME:                  Veneto — Servizio Fitosanitario Regionale
+SOURCE_OWNER:                 Regione Veneto
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT-IT
+TERRITORY:                    T3 (também serve T4)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.regione.veneto.it/web/agricoltura-e-foreste
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       servizio fitosanitario
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-08-17
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Newsletter - Regione del Veneto»
+                              https://www.regione.veneto.it/web/guest/newsletter — HTML, 41256 bytes lidos
+                              em 2026-09-14
+ADAMA_USE_CASE:               servico fitossanitario / defesa vegetal; alimenta T3 (praga, doenca e
+                              infestantes), T4 (regulatorio)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-016/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T3-017 · CNR IPSP — Istituto per la Protezione Sostenibile delle Piante
+
+```
+SOURCE_ID:                    IT-T3-017
+SOURCE_NAME:                  CNR IPSP — Istituto per la Protezione Sostenibile delle Piante
+SOURCE_OWNER:                 CNR
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T3 (também serve T5, T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          http://www.ipsp.cnr.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       patologia vegetale;entomologia;biocontrollo
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-07-04
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-07-04
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Notizie &#8211; IPSP» http://www.ipsp.cnr.it/notizie/ — HTML, 72467 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T3 (praga, doenca e
+                              infestantes), T5 (ciencia), T6 (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-017/MANIFEST.json
+VERDICT:                      YELLOW — so responde em HTTP
+```
+
+#### IT-T3-018 · CNR ISPA — Istituto di Scienze delle Produzioni Alimentari
+
+```
+SOURCE_ID:                    IT-T3-018
+SOURCE_NAME:                  CNR ISPA — Istituto di Scienze delle Produzioni Alimentari
+SOURCE_OWNER:                 CNR
+COUNTRY:                      ITALY
+REGION:                       PUGLIA
+LANGUAGE:                     EN-US
+TERRITORY:                    T3 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.ispa.cnr.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       micotossine;sicurezza alimentare;Fusarium
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PUGLIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «ISPA - CNR News & Eventi ISPA» https://www.ispa.cnr.it/news-e-eventi —
+                              HTML, 12265 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T3 (praga, doenca e
+                              infestantes), T5 (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-018/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T3-019 · Agroinnova — Centro di Competenza per l'Innovazione in campo agro-ambientale
+
+```
+SOURCE_ID:                    IT-T3-019
+SOURCE_NAME:                  Agroinnova — Centro di Competenza per l'Innovazione in campo agro-ambientale
+SOURCE_OWNER:                 Universita di Torino
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T3 (também serve T5, T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.agroinnova.unito.it/it
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       patologia vegetale;difesa;sostenibilita
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-06-04
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Progetti di Ricerca | Centro Interdipartimentale per l&#039;Innovazione in
+                              campo Agro-ambientale – AGROINNOVA»
+                              https://www.agroinnova.unito.it/it/ricerca/progetti-di-ricerca — HTML, 69444
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T3 (praga, doenca e
+                              infestantes), T5 (ciencia), T6 (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-019/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T3-020 · Societa Entomologica Italiana
+
+```
+SOURCE_ID:                    IT-T3-020
+SOURCE_NAME:                  Societa Entomologica Italiana
+SOURCE_OWNER:                 SEI
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T3 (também serve T5)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.societaentomologicaitaliana.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       entomologia;insetti
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-07-07
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Approfondisci» https://www.societaentomologicaitaliana.it/wp-
+                              content/uploads/2024/11/Volantino_Esapodi.pdf — PDF, 716081 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               sociedade cientifica / academia; alimenta T3 (praga, doenca e infestantes),
+                              T5 (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-020/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T3-021 · SIPaV — Societa Italiana di Patologia Vegetale
+
+```
+SOURCE_ID:                    IT-T3-021
+SOURCE_NAME:                  SIPaV — Societa Italiana di Patologia Vegetale
+SOURCE_OWNER:                 SIPaV
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T3 (também serve T5, T6)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.sipav.org/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       patologia vegetale;congresso
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «SIPaV News» https://www.sipav.org/it/12/News/ — HTML, 22197 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               sociedade cientifica / academia; alimenta T3 (praga, doenca e infestantes),
+                              T5 (ciencia), T6 (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T3-021/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+### T5 · SCIENCE — ITALY · onda 1 (2026-09-14)
+
+*31 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T5-006 · CNR — Consiglio Nazionale delle Ricerche
+
+```
+SOURCE_ID:                    IT-T5-006
+SOURCE_NAME:                  CNR — Consiglio Nazionale delle Ricerche
+SOURCE_OWNER:                 CNR
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.cnr.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ricerca;istituti
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-11
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «L&#039;enigma del Medioevo a Grotta Romanelli: tre corpi e un mistero lungo
+                              millenni | Consiglio Nazionale delle Ricerche»
+                              https://www.cnr.it/it/news/14617/l-enigma-del-medioevo-a-grotta-romanelli-
+                              tre-corpi-e-un-mistero-lungo-millenni — HTML, 45559 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-006/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-007 · Institut Agricole Regional — Aosta
+
+```
+SOURCE_ID:                    IT-T5-007
+SOURCE_NAME:                  Institut Agricole Regional — Aosta
+SOURCE_OWNER:                 Institut Agricole Regional
+COUNTRY:                      ITALY
+REGION:                       VALLE D'AOSTA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T1, T7)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.iaraosta.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       ricerca;formazione;viticoltura alpina
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VALLE D'AOSTA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-08-12
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Carta della Qualità» https://www.iaraosta.it/wp-
+                              content/uploads/2026/07/Carta-della-qualita-FIRMATA.pdf — PDF, 704512 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T5 (ciencia), T1 (cultura e producao),
+                              T7 (rede tecnica)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-007/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-008 · Fondazione Agrion — Fondazione per la ricerca l'innovazione e lo sviluppo tecnologico dell'agricoltura piemontese
+
+```
+SOURCE_ID:                    IT-T5-008
+SOURCE_NAME:                  Fondazione Agrion — Fondazione per la ricerca l'innovazione e lo sviluppo
+                              tecnologico dell'agricoltura piemontese
+SOURCE_OWNER:                 Fondazione Agrion
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T3, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.agrion.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       frutticoltura;viticoltura;sperimentazione
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-06-10
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 NÃO REPRESENTATIVO — o item que se conseguiu confirmar por HTTP e' papelada administrativa (codigo etico, termos, formulario) — prova que a organizacao existe, NAO prova o que ela publica na sua area tecnica. Um exemplo representativo exige navegador ou leitura humana da seccao de noticias.
+ADAMA_USE_CASE:               centro de investigacao aplicada / experimentacao; alimenta T5 (ciencia), T3
+                              (praga, doenca e infestantes), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-008/MANIFEST.json
+VERDICT:                      YELLOW — registada como real e util, mas sem exemplo representativo do que entrega; rever com navegador antes de contratar coleta.
+```
+
+#### IT-T5-009 · Fondazione Minoprio
+
+```
+SOURCE_ID:                    IT-T5-009
+SOURCE_NAME:                  Fondazione Minoprio
+SOURCE_OWNER:                 Fondazione Minoprio
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T7, T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.fondazioneminoprio.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       formazione;floricoltura;sperimentazione
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-05-15
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Regolamento» https://www.fondazioneminoprio.it/wp-
+                              content/uploads/2025/04/REGOLAMENTO-FM-2025-26.pdf — PDF, 445797 bytes lidos
+                              em 2026-09-14
+ADAMA_USE_CASE:               centro de investigacao aplicada / experimentacao; alimenta T5 (ciencia), T7
+                              (rede tecnica), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-009/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-010 · Fondazione per l'Agricoltura F.lli Navarra
+
+```
+SOURCE_ID:                    IT-T5-010
+SOURCE_NAME:                  Fondazione per l'Agricoltura F.lli Navarra
+SOURCE_OWNER:                 Fondazione Navarra
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.fondazionenavarra.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       frutticoltura;sperimentazione
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-05-15
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «La Pianura» https://www.fondazionenavarra.it/images/pdf/la_pianura_n_3_2010
+                              _copertina.pdf — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               centro de investigacao aplicada / experimentacao; alimenta T5 (ciencia), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-010/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-011 · UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli Alimenti
+
+```
+SOURCE_ID:                    IT-T5-011
+SOURCE_NAME:                  UNIBA DiSSPA — Dipartimento di Scienze del Suolo della Pianta e degli
+                              Alimenti
+SOURCE_OWNER:                 Universita di Bari Aldo Moro
+COUNTRY:                      ITALY
+REGION:                       PUGLIA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T3)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.uniba.it/it/ricerca/dipartimenti/disspa
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        olivo;vite
+TOPICS:                       patologia;Xylella;olivo;vite
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PUGLIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-08-26
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Processi e subprocessi associati ai Dipartimenti di ricerca»
+                              https://www.uniba.it/it/ricerca/dipartimenti/processi-e-subprocessi-dei-
+                              dipartimenti-di-ricerca.pdf — PDF, 126187 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-011/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-012 · UNIPI DiSAAA-a — Dipartimento di Scienze Agrarie Alimentari e Agro-ambientali
+
+```
+SOURCE_ID:                    IT-T5-012
+SOURCE_NAME:                  UNIPI DiSAAA-a — Dipartimento di Scienze Agrarie Alimentari e Agro-
+                              ambientali
+SOURCE_OWNER:                 Universita di Pisa
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.agr.unipi.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agraria;agronomia;difesa
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.agr.unipi.it/wp-content/uploads/2026/07/ad-agraria.pdf — PDF,
+                              211583 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-012/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-013 · CRPA — Centro Ricerche Produzioni Animali
+
+```
+SOURCE_ID:                    IT-T5-013
+SOURCE_NAME:                  CRPA — Centro Ricerche Produzioni Animali
+SOURCE_OWNER:                 CRPA
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.crpa.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       zootecnia;ambiente;biogas
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Codice SDI Agenzia delle Entrate» https://www.crpa.it/media/crpa_www/images
+                              /contattaci/QRCode_01253030355_CRPA.pdf — PDF, 51027 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               centro de investigacao aplicada / experimentacao; alimenta T5 (ciencia), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-013/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-014 · UNITUS DAFNE — Dipartimento di Scienze Agrarie e Forestali
+
+```
+SOURCE_ID:                    IT-T5-014
+SOURCE_NAME:                  UNITUS DAFNE — Dipartimento di Scienze Agrarie e Forestali
+SOURCE_OWNER:                 Universita della Tuscia
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.unitus.it/dipartimenti/dafne/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        nocciolo
+TOPICS:                       agraria;nocciolo;difesa
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Linee guida internazionalizzazione CdL» https://www.unitus.it/wp-
+                              content/uploads/2024/02/Linee-guida-con-allegati_2023.24-2.pdf — PDF, 498310
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-014/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-015 · CNR IBBR — Istituto di Bioscienze e Biorisorse
+
+```
+SOURCE_ID:                    IT-T5-015
+SOURCE_NAME:                  CNR IBBR — Istituto di Bioscienze e Biorisorse
+SOURCE_OWNER:                 CNR
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.ibbr.cnr.it/ibbr/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       germoplasma;genetica vegetale
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-12-09
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «IBBR News: European Biotech Week 2026 - IBBR-CNR»
+                              https://www.ibbr.cnr.it/ibbr/news/european-biotech-week-2026 — HTML, 57204
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               instituto nacional de investigacao; alimenta T5 (ciencia), T1 (cultura e
+                              producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-015/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-016 · AIR UNIMI — Archivio Istituzionale della Ricerca
+
+```
+SOURCE_ID:                    IT-T5-016
+SOURCE_NAME:                  AIR UNIMI — Archivio Istituzionale della Ricerca
+SOURCE_OWNER:                 Universita degli Studi di Milano
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://air.unimi.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       repositorio scientifico
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Guida alla nuova interfaccia» https://air.unimi.it/sr/static/DS6/AIR-
+                              nuova_interfaccia.pdf — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-016/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-017 · FLORE UNIFI — Archivio istituzionale della ricerca
+
+```
+SOURCE_ID:                    IT-T5-017
+SOURCE_NAME:                  FLORE UNIFI — Archivio istituzionale della ricerca
+SOURCE_OWNER:                 Universita di Firenze
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://flore.unifi.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       repositorio scientifico
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «REG. TESI DOTTORATO (ARTT. 29, 30)» https://www.unifi.it/sites/default/file
+                              s/migrated/documents/dr_575_2022_regolamento_dottorato.pdf — PDF, 577677
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-017/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-018 · IRIS UNIBO — Archivio istituzionale della ricerca
+
+```
+SOURCE_ID:                    IT-T5-018
+SOURCE_NAME:                  IRIS UNIBO — Archivio istituzionale della ricerca
+SOURCE_OWNER:                 Universita di Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://cris.unibo.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       repositorio scientifico;pubblicazioni
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Policy di Ateneo per l’accesso aperto alle pubblicazioni e ai dati della
+                              ricerca» https://www.unibo.it/it/allegati/policy-di-ateneo-per-l2019accesso-
+                              aperto-alle-pubblicazioni-e-ai-dati-della-ricerca/@@download/file/PolicyAten
+                              eoAccessoApertoPubblicazioniDatiRicerca.pdf — PDF, 135160 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-018/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-019 · IRIS UNIPD — Archivio della ricerca
+
+```
+SOURCE_ID:                    IT-T5-019
+SOURCE_NAME:                  IRIS UNIPD — Archivio della ricerca
+SOURCE_OWNER:                 Universita di Padova
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.research.unipd.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       repositorio scientifico
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Policy Open Access» https://wwwassets.unipd.it/sites/default/files/2026-
+                              04/Policy_accesso_aperto.pdf — PDF, 315249 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-019/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-020 · IRIS UNITO — Archivio istituzionale
+
+```
+SOURCE_ID:                    IT-T5-020
+SOURCE_NAME:                  IRIS UNITO — Archivio istituzionale
+SOURCE_OWNER:                 Universita di Torino
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://iris.unito.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       repositorio scientifico
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Come allegare il file Open Access [istruzioni]»
+                              https://iris.unito.it/sr/htm/pdf/come_allegare_2023.pdf — PDF, 148662 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-020/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-021 · UNIFI DAGRI — Dipartimento di Scienze e Tecnologie Agrarie Alimentari Ambientali e Forestali
+
+```
+SOURCE_ID:                    IT-T5-021
+SOURCE_NAME:                  UNIFI DAGRI — Dipartimento di Scienze e Tecnologie Agrarie Alimentari
+                              Ambientali e Forestali
+SOURCE_OWNER:                 Universita di Firenze
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.dagri.unifi.it/
+ACCESS_METHOD:                HTML
+CROPS:                        olivo;vite
+TOPICS:                       agraria;olivo;vite
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «News | Dipartimento di Scienze e Tecnologie Agrarie, Alimentari, Ambientali
+                              e Forestali (DAGRI) | UniFI» https://www.dagri.unifi.it/avvisi — HTML,
+                              167376 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-021/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-022 · Advances in Horticultural Science
+
+```
+SOURCE_ID:                    IT-T5-022
+SOURCE_NAME:                  Advances in Horticultural Science
+SOURCE_OWNER:                 Firenze University Press
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     EN-US
+TERRITORY:                    T5 (também serve T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://oaj.fupress.net/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       journal;orticoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-05-07
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «PDF» https://journals.fupress.net/wp-content/uploads/2025/10/Call-N31.pdf —
+                              PDF, 327650 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T1 (cultura e
+                              producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-022/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-023 · SSICA — Stazione Sperimentale per l'Industria delle Conserve Alimentari
+
+```
+SOURCE_ID:                    IT-T5-023
+SOURCE_NAME:                  SSICA — Stazione Sperimentale per l'Industria delle Conserve Alimentari
+SOURCE_OWNER:                 SSICA
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T5 (também serve T10)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.ssica.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        pomodoro
+TOPICS:                       pomodoro;conserve;trasformazione
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2011-06-20
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.ssica.it/wp-content/uploads/2025/03/PROGETTO-ACTION.pdf — PDF,
+                              194972 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               centro de investigacao aplicada / experimentacao; alimenta T5 (ciencia), T10
+                              (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-023/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-024 · UNIMI DiSAA — Dipartimento di Scienze Agrarie e Ambientali
+
+```
+SOURCE_ID:                    IT-T5-024
+SOURCE_NAME:                  UNIMI DiSAA — Dipartimento di Scienze Agrarie e Ambientali
+SOURCE_OWNER:                 Universita degli Studi di Milano
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://disaa.unimi.it/it
+ACCESS_METHOD:                HTML
+CROPS:                        mais;riso
+TOPICS:                       agronomia;difesa;riso;mais
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-11
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-06-18
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Pubblicazioni | Dipartimento di Scienze Agrarie e Ambientali - Produzione,
+                              Territorio, Agroenergia» https://disaa.unimi.it/it/ricerca/attivita-e-
+                              risultati-di-ricerca/pubblicazioni — HTML, 88512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-024/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-025 · Scuola Superiore Sant'Anna — Istituto di Scienze delle Produzioni Vegetali
+
+```
+SOURCE_ID:                    IT-T5-025
+SOURCE_NAME:                  Scuola Superiore Sant'Anna — Istituto di Scienze delle Produzioni Vegetali
+SOURCE_OWNER:                 Scuola Superiore Sant'Anna Pisa
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.santannapisa.it/it/istituto/produzioni-vegetali
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agricoltura sostenibile;precision farming
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-06-24
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Al via il progetto INNOFLORENERG con il contributo scientifico
+                              dell’Istituto di Produzioni Vegetali della Scuola Sant’Anna. Tecnologie
+                              innovative per una floricoltura più sostenibi»
+                              https://www.santannapisa.it/it/news/progetto-innoflorenerg — HTML, 54711
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-025/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-026 · UNIPA SAAF — Dipartimento Scienze Agrarie Alimentari e Forestali
+
+```
+SOURCE_ID:                    IT-T5-026
+SOURCE_NAME:                  UNIPA SAAF — Dipartimento Scienze Agrarie Alimentari e Forestali
+SOURCE_OWNER:                 Universita di Palermo
+COUNTRY:                      ITALY
+REGION:                       SICILIA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.unipa.it/dipartimenti/saaf/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        olivo;vite
+TOPICS:                       agraria;vite;olivo
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SICILIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.unipa.it/dipartimenti/saaf/.content/documenti/Linee-guida-
+                              semestre-aperto-2025.pdf — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-026/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-027 · UNIPD DAFNAE — Dipartimento di Agronomia Animali Alimenti Risorse Naturali e Ambiente
+
+```
+SOURCE_ID:                    IT-T5-027
+SOURCE_NAME:                  UNIPD DAFNAE — Dipartimento di Agronomia Animali Alimenti Risorse Naturali e
+                              Ambiente
+SOURCE_OWNER:                 Universita di Padova
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T3)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.dafnae.unipd.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agronomia;entomologia;patologia
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «|  | Università di Padova» https://www.dafnae.unipd.it/news/termine/2 —
+                              HTML, 53705 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-027/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-028 · UNIUD DI4A — Dipartimento di Scienze Agroalimentari Ambientali e Animali
+
+```
+SOURCE_ID:                    IT-T5-028
+SOURCE_NAME:                  UNIUD DI4A — Dipartimento di Scienze Agroalimentari Ambientali e Animali
+SOURCE_OWNER:                 Universita di Udine
+COUNTRY:                      ITALY
+REGION:                       FRIULI-VENEZIA GIULIA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T3)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.di4a.uniud.it/it
+ACCESS_METHOD:                HTML
+CROPS:                        vite
+TOPICS:                       vite;flavescenza;agronomia
+GEOGRAPHIC_GRANULARITY:       REGIÃO — FRIULI-VENEZIA GIULIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Pubblicazioni — Italiano» https://di4a.uniud.it/it/ricerca/pubblicazioni-
+                              dipartimento — HTML, 38408 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-028/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-029 · UNIVR Dipartimento di Biotecnologie
+
+```
+SOURCE_ID:                    IT-T5-029
+SOURCE_NAME:                  UNIVR Dipartimento di Biotecnologie
+SOURCE_OWNER:                 Universita di Verona
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.dbt.univr.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        vite
+TOPICS:                       biotecnologie;vite
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «2026-28 " />                       Piano Operativo del Dipartimento
+                              2026-28»
+                              https://cdn.docs.univr.it/documenti/Documento/allegati/allegati375197.pdf —
+                              PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-029/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-030 · UNITE Facolta di Bioscienze e Tecnologie Agro-alimentari e Ambientali
+
+```
+SOURCE_ID:                    IT-T5-030
+SOURCE_NAME:                  UNITE Facolta di Bioscienze e Tecnologie Agro-alimentari e Ambientali
+SOURCE_OWNER:                 Universita di Teramo
+COUNTRY:                      ITALY
+REGION:                       ABRUZZO
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-
+                              Alimentari_e_Ambientali
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       bioscienze;agroalimentare
+GEOGRAPHIC_GRANULARITY:       REGIÃO — ABRUZZO
+UPDATE_FREQUENCY:             observada por data visível na página: 2023-10-19
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2023-10-19
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «UniTE -                        News ed Eventi - Dipartimento di Bioscienze
+                              e tecnologie agroalimentari e ambientali»
+                              https://www.unite.it/UniTE/Bioscienze_e_Tecnologie_Agro-
+                              Alimentari_e_Ambientali/News_ed_Eventi_-
+                              _Dipartimento_di_Bioscienze_e_tecnologie_agroalimentari_e_ambientali — HTML,
+                              103497 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-030/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-031 · UNIVPM D3A — Dipartimento di Scienze Agrarie Alimentari e Ambientali
+
+```
+SOURCE_ID:                    IT-T5-031
+SOURCE_NAME:                  UNIVPM D3A — Dipartimento di Scienze Agrarie Alimentari e Ambientali
+SOURCE_OWNER:                 Universita Politecnica delle Marche
+COUNTRY:                      ITALY
+REGION:                       MARCHE
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://www.d3a.univpm.it/
+ACCESS_METHOD:                TEXTO
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agraria;agronomia
+GEOGRAPHIC_GRANULARITY:       REGIÃO — MARCHE
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-03
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — TEXTO obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.d3a.univpm.it/sites/www.d3a.univpm.it/files/d3a/news_didattica/n
+                              ew2026/insegnamenti%20a%20scelta_14sett20262.png — TEXTO, 704512 bytes lidos
+                              em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-031/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-032 · UNIPG DSA3 — Dipartimento di Scienze Agrarie Alimentari e Ambientali
+
+```
+SOURCE_ID:                    IT-T5-032
+SOURCE_NAME:                  UNIPG DSA3 — Dipartimento di Scienze Agrarie Alimentari e Ambientali
+SOURCE_OWNER:                 Universita di Perugia
+COUNTRY:                      ITALY
+REGION:                       UMBRIA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://dsa3.unipg.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agraria;agronomia;difesa
+GEOGRAPHIC_GRANULARITY:       REGIÃO — UMBRIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-08-25
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Bandi - Dipartimento di Scienze Agrarie, Alimentari e Ambientali»
+                              https://dsa3.unipg.it/home/news/bandi?view=elenco — HTML, 61402 bytes lidos
+                              em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-032/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-033 · UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari
+
+```
+SOURCE_ID:                    IT-T5-033
+SOURCE_NAME:                  UNIBO DISTAL — Dipartimento di Scienze e Tecnologie Agro-Alimentari
+SOURCE_OWNER:                 Universita di Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T6, T1)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://distal.unibo.it/it
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agraria;patologia;entomologia;agronomia
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-12-09
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025-12-09
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Bollettino agrofenologico — Scienze e Tecnologie Agro-Alimentari»
+                              https://distal.unibo.it/it/con-societa-e-impresa/territorio-e-
+                              comunita/bollettino-agrofenologico — HTML, 88190 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               universidade / departamento agrario; alimenta T5 (ciencia), T6
+                              (pesquisadores), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-033/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-034 · Accademia dei Georgofili
+
+```
+SOURCE_ID:                    IT-T5-034
+SOURCE_NAME:                  Accademia dei Georgofili
+SOURCE_OWNER:                 Accademia dei Georgofili
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T11, T12)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.georgofili.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       accademia;convegni;agricoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-08
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Benvenuti nella Sezione dell'Ufficio Stampa dei Georgofili  | Georgofili»
+                              https://www.georgofili.it/contenuti/notiziario-accademia/620 — HTML, 33731
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               sociedade cientifica / academia; alimenta T5 (ciencia), T11 (eventos), T12
+                              (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-034/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T5-035 · Georgofili INFO — notiziario
+
+```
+SOURCE_ID:                    IT-T5-035
+SOURCE_NAME:                  Georgofili INFO — notiziario
+SOURCE_OWNER:                 Accademia dei Georgofili
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T12, T11)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://www.georgofili.info/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       notiziario tecnico;divulgazione
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «“Notizie Forestali” - Australia e Nuova Zelanda adottano uno standard
+                              comune per valutare le foreste - Accademia dei Georgofili»
+                              https://www.georgofili.info/contenuti/notizie-forestali-australia-e-nuova-
+                              zelanda-adottano-uno-standard-comune-per-valutare-le-foreste/33685 — HTML,
+                              34898 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               imprensa tecnica agricola; alimenta T5 (ciencia), T12 (politica e ambiente
+                              agricola), T11 (eventos)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-035/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T5-036 · Georgofili — Accademia dei Georgofili (portale .net)
+
+```
+SOURCE_ID:                    IT-T5-036
+SOURCE_NAME:                  Georgofili — Accademia dei Georgofili (portale .net)
+SOURCE_OWNER:                 Accademia dei Georgofili
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T5 (também serve T11)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.georgofili.net/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       accademia;pubblicazioni
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Agrifood tra credito e sostenibilit&#224; - Accademia dei Georgofili»
+                              https://www.georgofili.net/articoli/agrifood-tra-credito-e-
+                              sostenibilit/15465 — HTML, 20305 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               sociedade cientifica / academia; alimenta T5 (ciencia), T11 (eventos)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T5-036/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+### T6 · RESEARCHERS — ITALY · onda 1 (2026-09-14)
+
+*36 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T6-001 · Andrea Lentini — registo cientifico ORCID (Università degli Studi di Sassari)
+
+```
+SOURCE_ID:                    IT-T6-001
+SOURCE_NAME:                  Andrea Lentini — registo cientifico ORCID (Università degli Studi di
+                              Sassari)
+SOURCE_OWNER:                 Andrea Lentini · Università degli Studi di Sassari
+COUNTRY:                      ITALY
+REGION:                       SARDEGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-2089-1026
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        mais
+TOPICS:                       mais;piralide
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SARDEGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «From waste to opportunity: evaluating the pesticidal properties of a waste
+                              cooking oil and its derivates» https://doi.org/10.1007/s41348-025-01103-3
+                              (2025) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-001/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-002 · Anita Nencioni — registo cientifico ORCID (Consiglio per la ricerca in agricoltura e l’analisi dell’economia agraria)
+
+```
+SOURCE_ID:                    IT-T6-002
+SOURCE_NAME:                  Anita Nencioni — registo cientifico ORCID (Consiglio per la ricerca in
+                              agricoltura e l’analisi dell’economia agraria)
+SOURCE_OWNER:                 Anita Nencioni · Consiglio per la ricerca in agricoltura e l’analisi
+                              dell’economia agraria
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-1585-0529
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        olivo
+TOPICS:                       olivo;Xylella;batteriosi
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Visual adaptation of a biting fly that permanently foregoes flight»
+                              https://doi.org/10.1242/jeb.251571 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-002/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-003 · Anna Aldrighetti — registo cientifico ORCID (University of Trento)
+
+```
+SOURCE_ID:                    IT-T6-003
+SOURCE_NAME:                  Anna Aldrighetti — registo cientifico ORCID (University of Trento)
+SOURCE_OWNER:                 Anna Aldrighetti · University of Trento
+COUNTRY:                      ITALY
+REGION:                       TRENTINO-ALTO ADIGE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-9018-3343
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        vite
+TOPICS:                       vite;Plasmopara viticola
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TRENTINO-ALTO ADIGE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Sequential use of pre-flowering chemical fungicides and post-flowering
+                              natural products effectively controls strawberry powdery mildew while
+                              resulting in low residues in fruit»
+                              https://doi.org/10.1016/j.cropro.2026.107572 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-003/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-004 · Antonio Masetti — registo cientifico ORCID (University of Bologna)
+
+```
+SOURCE_ID:                    IT-T6-004
+SOURCE_NAME:                  Antonio Masetti — registo cientifico ORCID (University of Bologna)
+SOURCE_OWNER:                 Antonio Masetti · University of Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-6061-2752
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       Halyomorpha;cimice asiatica
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Smartphone and web apps for pest and disease management in viticulture: A
+                              mapping of functionality, AI integration, and accessibility»
+                              https://doi.org/10.1016/j.atech.2026.102480 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-004/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-005 · Antonio Pietro GARONNA — registo cientifico ORCID (Università degli Studi di Napoli Federico II)
+
+```
+SOURCE_ID:                    IT-T6-005
+SOURCE_NAME:                  Antonio Pietro GARONNA — registo cientifico ORCID (Università degli Studi di
+                              Napoli Federico II)
+SOURCE_OWNER:                 Antonio Pietro GARONNA · Università degli Studi di Napoli Federico II
+COUNTRY:                      ITALY
+REGION:                       CAMPANIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-8441-5208
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        olivo
+TOPICS:                       olivo;mosca delle olive
+GEOGRAPHIC_GRANULARITY:       REGIÃO — CAMPANIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «A Probe-Based qPCR Method for Rapid Detection of Ips typographus
+                              (Coleoptera: Curculionidae, Scolytinae) in Border Inspections and Forest
+                              Surveillance» https://doi.org/10.3390/f17040440 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-005/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-006 · Antonio Prodi — registo cientifico ORCID (University of Bologna)
+
+```
+SOURCE_ID:                    IT-T6-006
+SOURCE_NAME:                  Antonio Prodi — registo cientifico ORCID (University of Bologna)
+SOURCE_OWNER:                 Antonio Prodi · University of Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-7221-7271
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        grano
+TOPICS:                       grano duro;Fusarium;micotossine
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Seed Priming with Antagonistic Bacteria for Managing Fusarium Crown and
+                              Root Rot in Durum Wheat» https://doi.org/10.1094/PDIS-10-25-2171-RE (2026) —
+                              ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-006/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-007 · Aparna S Balan — registo cientifico ORCID (University of Palermo)
+
+```
+SOURCE_ID:                    IT-T6-007
+SOURCE_NAME:                  Aparna S Balan — registo cientifico ORCID (University of Palermo)
+SOURCE_OWNER:                 Aparna S Balan · University of Palermo
+COUNTRY:                      ITALY
+REGION:                       SICILIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0009-0001-5306-0125
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        olivo
+TOPICS:                       olivo;Xylella;batteriosi
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SICILIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Omics approaches to unveil biotic stress responses in olive: current
+                              knowledge and the future» https://doi.org/10.1093/jxb/erag337 (2026) — ORCID
+                              public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-007/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-008 · CLAUDIO RATTI — registo cientifico ORCID (Alma Mater Studiorum  Universita' di Bologna)
+
+```
+SOURCE_ID:                    IT-T6-008
+SOURCE_NAME:                  CLAUDIO RATTI — registo cientifico ORCID (Alma Mater Studiorum  Universita'
+                              di Bologna)
+SOURCE_OWNER:                 CLAUDIO RATTI · Alma Mater Studiorum  Universita' di Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-5640-2143
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        vite
+TOPICS:                       vite;flavescenza dorata
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Metabarcoding of Pollen Carried by Syrphids Reveals Novel Plant–Pollinator
+                              Interactions in a Protected Natural Area and Agricultural Sites»
+                              https://doi.org/10.1111/eea.70092 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-008/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-009 · Chiara D'ERRICO — registo cientifico ORCID (Istituto per la Protezione Sostenibile delle Piante IPSP - CNR)
+
+```
+SOURCE_ID:                    IT-T6-009
+SOURCE_NAME:                  Chiara D'ERRICO — registo cientifico ORCID (Istituto per la Protezione
+                              Sostenibile delle Piante IPSP - CNR)
+SOURCE_OWNER:                 Chiara D'ERRICO · Istituto per la Protezione Sostenibile delle Piante IPSP -
+                              CNR
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-0546-9900
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        vite
+TOPICS:                       vite;flavescenza dorata
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Development of a Field-Deployable Loop-Mediated Isothermal Amplification
+                              Assay for the Rapid Detection of <i>Erysiphe corylacearum</i> in Hazelnut»
+                              https://doi.org/10.3390/jof12010079 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-009/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-010 · Daniele Daffonchio — registo cientifico ORCID (University of Turin)
+
+```
+SOURCE_ID:                    IT-T6-010
+SOURCE_NAME:                  Daniele Daffonchio — registo cientifico ORCID (University of Turin)
+SOURCE_OWNER:                 Daniele Daffonchio · University of Turin
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-0947-925X
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       Popillia japonica
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «A Seasonal Record of Bacterial Communities in Micritized Carbonate
+                              Sediments of the Eastern Red Sea» https://doi.org/10.1111/1462-2920.70313
+                              (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-010/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-011 · Dumitru Scutelnic — registo cientifico ORCID (University of Verona)
+
+```
+SOURCE_ID:                    IT-T6-011
+SOURCE_NAME:                  Dumitru Scutelnic — registo cientifico ORCID (University of Verona)
+SOURCE_OWNER:                 Dumitru Scutelnic · University of Verona
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-6935-7540
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       precision farming;telerilevamento
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Multi-model ensembles for object detection in multispectral images: A case
+                              study for precision agriculture»
+                              https://doi.org/10.1016/j.compag.2025.111213 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-011/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-012 · Emilio Balducci — registo cientifico ORCID (University of Perugia)
+
+```
+SOURCE_ID:                    IT-T6-012
+SOURCE_NAME:                  Emilio Balducci — registo cientifico ORCID (University of Perugia)
+SOURCE_OWNER:                 Emilio Balducci · University of Perugia
+COUNTRY:                      ITALY
+REGION:                       UMBRIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-8656-7870
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        grano
+TOPICS:                       grano duro;Fusarium;micotossine
+GEOGRAPHIC_GRANULARITY:       REGIÃO — UMBRIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «High-Throughput Sequencing Study of the Mycobiota of Barley Grain Collected
+                              in Northern and Central Italy and Accumulation of Fungal Secondary
+                              Metabolites» https://doi.org/10.3390/toxins18090363 (2026) — ORCID public
+                              API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-012/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-013 · Francesco Nardi — registo cientifico ORCID (University of Siena)
+
+```
+SOURCE_ID:                    IT-T6-013
+SOURCE_NAME:                  Francesco Nardi — registo cientifico ORCID (University of Siena)
+SOURCE_OWNER:                 Francesco Nardi · University of Siena
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-0271-9855
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       Popillia japonica
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Echoes of Gondwana: Antarctic mite, <i></i>Maudheimia petronia<i></i>
+                              (Acari: Maudheimiidae), reveals deep-time isolation and highly modified
+                              mitochondrial tRNAs» https://doi.org/10.1093/zoolinnean/zlag163 (2026) —
+                              ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-013/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-014 · Gerardo Puopolo — registo cientifico ORCID (University of Trento)
+
+```
+SOURCE_ID:                    IT-T6-014
+SOURCE_NAME:                  Gerardo Puopolo — registo cientifico ORCID (University of Trento)
+SOURCE_OWNER:                 Gerardo Puopolo · University of Trento
+COUNTRY:                      ITALY
+REGION:                       TRENTINO-ALTO ADIGE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-4864-4396
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       biocontrollo;difesa biologica
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TRENTINO-ALTO ADIGE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Heat-inactivated Lysobacter capsici AZ78 cells effectively control
+                              Peronospora belbahrii and Plasmopara viticola through direct and indirect
+                              mechanisms» https://doi.org/10.1007/s10658-026-03207-4 (2026) — ORCID public
+                              API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-014/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-015 · Gianfranco ANFORA — registo cientifico ORCID (University of Trento)
+
+```
+SOURCE_ID:                    IT-T6-015
+SOURCE_NAME:                  Gianfranco ANFORA — registo cientifico ORCID (University of Trento)
+SOURCE_OWNER:                 Gianfranco ANFORA · University of Trento
+COUNTRY:                      ITALY
+REGION:                       TRENTINO-ALTO ADIGE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-2545-1409
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       Halyomorpha;cimice asiatica
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TRENTINO-ALTO ADIGE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «A general DDE model for terrestrial arthropods: from theory to validation
+                              guidelines under controlled conditions»
+                              https://doi.org/10.1016/j.ecolmodel.2026.111619 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-015/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-016 · Giulia Mandalà — registo cientifico ORCID (Verona University )
+
+```
+SOURCE_ID:                    IT-T6-016
+SOURCE_NAME:                  Giulia Mandalà — registo cientifico ORCID (Verona University )
+SOURCE_OWNER:                 Giulia Mandalà · Verona University
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-7697-8310
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        grano
+TOPICS:                       grano duro;Fusarium;micotossine
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2023
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Untargeted Metabolomics Reveals a Multi-Faceted Resistance Response to
+                              Fusarium Head Blight Mediated by the Thinopyrum elongatum Fhb7E Locus
+                              Transferred via Chromosome Engineering into Wheat»
+                              https://doi.org/10.3390/cells12081113 (2023) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-016/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-017 · Graziella Amendola — registo cientifico ORCID (National Institute of Health)
+
+```
+SOURCE_ID:                    IT-T6-017
+SOURCE_NAME:                  Graziella Amendola — registo cientifico ORCID (National Institute of Health)
+SOURCE_OWNER:                 Graziella Amendola · National Institute of Health
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-5461-0312
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       residui;fitofarmaci
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Experimental determination of pesticide processing factors in milk during
+                              soft cheese and ricotta cheese production»
+                              https://doi.org/10.1016/j.foodcont.2025.111814 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-017/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-018 · Leonardo Caproni — registo cientifico ORCID (Scuola Superiore Sant'Anna)
+
+```
+SOURCE_ID:                    IT-T6-018
+SOURCE_NAME:                  Leonardo Caproni — registo cientifico ORCID (Scuola Superiore Sant'Anna)
+SOURCE_OWNER:                 Leonardo Caproni · Scuola Superiore Sant'Anna
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-7129-8575
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        nocciolo
+TOPICS:                       nocciolo;frutticoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Genotypic and transcriptomic characterization of a SAD gene cluster in
+                              European hazelnut (Corylus avellana L.)»
+                              https://doi.org/10.1016/j.jafr.2026.103294 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-018/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-019 · Leonardo Cera — registo cientifico ORCID (University of Padua)
+
+```
+SOURCE_ID:                    IT-T6-019
+SOURCE_NAME:                  Leonardo Cera — registo cientifico ORCID (University of Padua)
+SOURCE_OWNER:                 Leonardo Cera · University of Padua
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0009-0005-6118-7432
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        vite
+TOPICS:                       vite;flavescenza dorata
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Natural Products for the Control of <i>Scaphoideus titanus</i> in
+                              Vineyards: A Summary of Five-Year Field Trials»
+                              https://doi.org/10.3390/insects17010083 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-019/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-020 · Lorenzo Baglieri — registo cientifico ORCID (Politecnico di Torino)
+
+```
+SOURCE_ID:                    IT-T6-020
+SOURCE_NAME:                  Lorenzo Baglieri — registo cientifico ORCID (Politecnico di Torino)
+SOURCE_OWNER:                 Lorenzo Baglieri · Politecnico di Torino
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-5022-5326
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       precision farming;telerilevamento
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2024
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Design of an Under-Actuated Mechanism for Collecting and Cutting Crop
+                              Samples in Precision Agriculture»
+                              https://doi.org/10.1007/978-3-031-59257-7_53 (2024) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-020/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-021 · Luca Finetti — registo cientifico ORCID (University of Ferrara)
+
+```
+SOURCE_ID:                    IT-T6-021
+SOURCE_NAME:                  Luca Finetti — registo cientifico ORCID (University of Ferrara)
+SOURCE_OWNER:                 Luca Finetti · University of Ferrara
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-5558-9156
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       Halyomorpha;cimice asiatica
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2021
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Characterization of Halyomorpha halys TAR1 reveals its involvement in
+                              (E)-2-decenal pheromone perception» https://doi.org/10.1242/jeb.238816
+                              (2021) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-021/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-022 · Luca Mazzon — registo cientifico ORCID (Università degli Studi di Padova)
+
+```
+SOURCE_ID:                    IT-T6-022
+SOURCE_NAME:                  Luca Mazzon — registo cientifico ORCID (Università degli Studi di Padova)
+SOURCE_OWNER:                 Luca Mazzon · Università degli Studi di Padova
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-8459-893X
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        olivo
+TOPICS:                       olivo;mosca delle olive
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Antimicrobial treatment of egg-infested olives is associated with
+                              perturbation and carry-over changes on bacterial communities in the olive
+                              fly Bactrocera oleae (Rossi) (Diptera, Tephritidae)»
+                              https://doi.org/10.1093/jisesa/ieag108 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-022/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-023 · Marco Mancini — registo cientifico ORCID (University of Florence)
+
+```
+SOURCE_ID:                    IT-T6-023
+SOURCE_NAME:                  Marco Mancini — registo cientifico ORCID (University of Florence)
+SOURCE_OWNER:                 Marco Mancini · University of Florence
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-1454-4995
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agrometeorologia;modelli
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2020
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Integrating satellite data with a Nitrogen Nutrition Curve for precision
+                              top-dress fertilization of durum wheat»
+                              https://doi.org/10.1016/j.eja.2020.126148 (2020) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-023/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-024 · Marco Perfetto — registo cientifico ORCID (University of Milan)
+
+```
+SOURCE_ID:                    IT-T6-024
+SOURCE_NAME:                  Marco Perfetto — registo cientifico ORCID (University of Milan)
+SOURCE_OWNER:                 Marco Perfetto · University of Milan
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-9370-2500
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       cover crop;rigenerativa
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Estimating spatial and temporal variability of crop growth by radiation-
+                              driven models based on satellite data assimilation»
+                              https://air.unimi.it/handle/2434/1223355 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-024/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-025 · Marwa Mourou — registo cientifico ORCID (Università degli Studi di Bari Aldo Moro)
+
+```
+SOURCE_ID:                    IT-T6-025
+SOURCE_NAME:                  Marwa Mourou — registo cientifico ORCID (Università degli Studi di Bari Aldo
+                              Moro)
+SOURCE_OWNER:                 Marwa Mourou · Università degli Studi di Bari Aldo Moro
+COUNTRY:                      ITALY
+REGION:                       PUGLIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-9925-3520
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        olivo
+TOPICS:                       olivo;Xylella;batteriosi
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PUGLIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Insight into biological strategies and main challenges to control the
+                              phytopathogenic bacterium Xylella fastidiosa»
+                              https://doi.org/10.3389/fpls.2025.1608687 (2025) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-025/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-026 · Paolo Boccacci — registo cientifico ORCID (Consiglio Nazionale delle Ricerche)
+
+```
+SOURCE_ID:                    IT-T6-026
+SOURCE_NAME:                  Paolo Boccacci — registo cientifico ORCID (Consiglio Nazionale delle
+                              Ricerche)
+SOURCE_OWNER:                 Paolo Boccacci · Consiglio Nazionale delle Ricerche
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-8574-0478
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        nocciolo
+TOPICS:                       nocciolo;frutticoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2024
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Grafting with non‐suckering rootstock increases drought tolerance in
+                              Corylus avellana L. through physiological and biochemical adjustments»
+                              https://doi.org/10.1111/ppl.70003 (2024) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-026/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-027 · Paolo Grazieschi — registo cientifico ORCID (Fondazione Bruno Kessler)
+
+```
+SOURCE_ID:                    IT-T6-027
+SOURCE_NAME:                  Paolo Grazieschi — registo cientifico ORCID (Fondazione Bruno Kessler)
+SOURCE_OWNER:                 Paolo Grazieschi · Fondazione Bruno Kessler
+COUNTRY:                      ITALY
+REGION:                       TRENTINO-ALTO ADIGE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0009-0009-6027-471X
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       precision farming;telerilevamento
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TRENTINO-ALTO ADIGE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2025
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Soilcast: a Multitask Encoder-Decoder AI Model for Precision Agriculture»
+                              https://doi.org/10.1145/3672608.3707808 (2025) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-027/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-028 · ROBERTO RIZZO — registo cientifico ORCID (CREA - Research Centre for Plant Protection and Certification)
+
+```
+SOURCE_ID:                    IT-T6-028
+SOURCE_NAME:                  ROBERTO RIZZO — registo cientifico ORCID (CREA - Research Centre for Plant
+                              Protection and Certification)
+SOURCE_OWNER:                 ROBERTO RIZZO · CREA - Research Centre for Plant Protection and
+                              Certification
+COUNTRY:                      ITALY
+REGION:                       SICILIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-1628-643X
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        olivo
+TOPICS:                       olivo;mosca delle olive
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SICILIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Encapsulation of a <i>N</i>-Alkylamide-Enriched Fraction from <i>Acmella
+                              oleracea</i> and Its Efficacy Against <i>Tuta absoluta</i>, the Invasive Key
+                              Tomato Pest» https://doi.org/10.3390/insects17050455 (2026) — ORCID public
+                              API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-028/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-029 · Roberta Maria Gravagno — registo cientifico ORCID (University of Catania)
+
+```
+SOURCE_ID:                    IT-T6-029
+SOURCE_NAME:                  Roberta Maria Gravagno — registo cientifico ORCID (University of Catania)
+SOURCE_OWNER:                 Roberta Maria Gravagno · University of Catania
+COUNTRY:                      ITALY
+REGION:                       SICILIA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0009-0005-2447-3608
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        vite
+TOPICS:                       vite;Plasmopara viticola
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SICILIA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Sicilian Wineries' Intention to Comply With Sustainability Certification as
+                              a Strategic Business Behavior» https://doi.org/10.1002/sd.71410 (2026) —
+                              ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-029/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-030 · Roberta Paris — registo cientifico ORCID (Council for Agricultural Research and Economics Analysis (CREA) )
+
+```
+SOURCE_ID:                    IT-T6-030
+SOURCE_NAME:                  Roberta Paris — registo cientifico ORCID (Council for Agricultural Research
+                              and Economics Analysis (CREA) )
+SOURCE_OWNER:                 Roberta Paris · Council for Agricultural Research and Economics Analysis
+                              (CREA)
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-7823-2475
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        melo
+TOPICS:                       melo;Venturia inaequalis
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Exploiting Exhausted Biomasses from Essential Oil Distillation in Animal
+                              Feeding: Chemical Characterisation and Volatile Profile of Laurel Bay
+                              (<i>Laurus nobilis</i>), Lavender (<i>Lavandula angustifo»
+                              https://doi.org/10.3390/pr14172779 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-030/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-031 · Roberto Ferrise — registo cientifico ORCID (University of Florence)
+
+```
+SOURCE_ID:                    IT-T6-031
+SOURCE_NAME:                  Roberto Ferrise — registo cientifico ORCID (University of Florence)
+SOURCE_OWNER:                 Roberto Ferrise · University of Florence
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-8236-7823
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agrometeorologia;modelli
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «The FraNchEstYN framework for modelling crop yield losses due to fungal
+                              diseases» https://doi.org/10.2139/ssrn.7228923 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-031/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-032 · Rosa Francaviglia — registo cientifico ORCID (Consiglio per la ricerca in agricoltura e l'analisi dell'economia agraria (CREA))
+
+```
+SOURCE_ID:                    IT-T6-032
+SOURCE_NAME:                  Rosa Francaviglia — registo cientifico ORCID (Consiglio per la ricerca in
+                              agricoltura e l'analisi dell'economia agraria (CREA))
+SOURCE_OWNER:                 Rosa Francaviglia · Consiglio per la ricerca in agricoltura e l'analisi
+                              dell'economia agraria (CREA)
+COUNTRY:                      ITALY
+REGION:                       LAZIO
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-4362-5428
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       suolo;sostanza organica
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LAZIO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Prediction of soil organic carbon increase in the transition from shifting
+                              cultivation to agroforestry in the Indian East Himalayas»
+                              https://doi.org/10.1002/eap.70286 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-032/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-033 · Stefano Maini — registo cientifico ORCID (Alma Mater Studiorum - Università di Bologna)
+
+```
+SOURCE_ID:                    IT-T6-033
+SOURCE_NAME:                  Stefano Maini — registo cientifico ORCID (Alma Mater Studiorum - Università
+                              di Bologna)
+SOURCE_OWNER:                 Stefano Maini · Alma Mater Studiorum - Università di Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-7272-1243
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        mais
+TOPICS:                       mais;piralide
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «In memory of Jerome Anthony Klun (1939&ndash;2026)»
+                              https://doi.org/10.3897/bull.insectology.195590 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-033/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-034 · Tito Caffi — registo cientifico ORCID (Università Cattolica del Sacro Cuore)
+
+```
+SOURCE_ID:                    IT-T6-034
+SOURCE_NAME:                  Tito Caffi — registo cientifico ORCID (Università Cattolica del Sacro Cuore)
+SOURCE_OWNER:                 Tito Caffi · Università Cattolica del Sacro Cuore
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0001-9929-4130
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        vite
+TOPICS:                       vite;Plasmopara viticola
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2022
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Development of an online pan-European Integrated Pest Management Resource
+                              Toolbox» https://doi.org/10.12688/openreseurope.14679.2 (2022) — ORCID
+                              public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-034/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-035 · Vera Pavese — registo cientifico ORCID (University of Turin)
+
+```
+SOURCE_ID:                    IT-T6-035
+SOURCE_NAME:                  Vera Pavese — registo cientifico ORCID (University of Turin)
+SOURCE_OWNER:                 Vera Pavese · University of Turin
+COUNTRY:                      ITALY
+REGION:                       PIEMONTE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0002-6863-3950
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        nocciolo
+TOPICS:                       nocciolo;frutticoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — PIEMONTE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Into the Unknown: Hints to Overcome Recalcitrance in Woody Fruit Crops»
+                              https://doi.org/10.1007/s00344-026-12211-1 (2026) — ORCID public API /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-035/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T6-036 · sara ruschioni — registo cientifico ORCID (Marche Polytechnic University)
+
+```
+SOURCE_ID:                    IT-T6-036
+SOURCE_NAME:                  sara ruschioni — registo cientifico ORCID (Marche Polytechnic University)
+SOURCE_OWNER:                 sara ruschioni · Marche Polytechnic University
+COUNTRY:                      ITALY
+REGION:                       MARCHE
+LANGUAGE:                     IT
+TERRITORY:                    T6 (também serve T5)
+SOURCE_TYPE:                  CIENCIA
+URL:                          https://orcid.org/0000-0003-2965-6364
+ACCESS_METHOD:                API pública ORCID (JSON) + página pública do registo
+CROPS:                        mais
+TOPICS:                       mais;piralide
+GEOGRAPHIC_GRANULARITY:       REGIÃO — MARCHE
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        SIM — DOI
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026
+RAW_EVIDENCE_PRESERVABLE:     SIM — registo público legível por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       NÃO SEI — o exemplo veio de API pública, não de descarga direta
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Species Composition and Emergence Patterns of <i>Agriotes litigiosus</i>,
+                              <i>A. brevis</i> and <i>A. sordidus</i> (Coleoptera: Elateridae) in Central
+                              Italy» https://doi.org/10.3390/insects17020172 (2026) — ORCID public API
+                              /works
+ADAMA_USE_CASE:               pesquisador com afiliacao italiana atual; alimenta T6 (pesquisadores), T5
+                              (ciencia)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T6-036/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+### T7 · TECHNICAL NETWORK — ITALY · onda 1 (2026-09-14)
+
+*2 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T7-013 · CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali
+
+```
+SOURCE_ID:                    IT-T7-013
+SOURCE_NAME:                  CONAF — Consiglio Ordine Nazionale Dottori Agronomi e Forestali
+SOURCE_OWNER:                 CONAF
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T7 (também serve T12)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.conaf.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agronomi;ordine professionale
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2022-10-04
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Circolari e Delibere - CONAF» https://www.conaf.it/formazione-
+                              professionale-continua/normativa-formazione-professionale-
+                              continua/circolari-2/ — HTML, 107524 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ordem profissional / rede tecnica; alimenta T7 (rede tecnica), T12 (politica
+                              e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T7-013/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T7-014 · Consorzi Agrari d'Italia — CAI
+
+```
+SOURCE_ID:                    IT-T7-014
+SOURCE_NAME:                  Consorzi Agrari d'Italia — CAI
+SOURCE_OWNER:                 Consorzi Agrari d'Italia
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     EN
+TERRITORY:                    T7 (também serve T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.consorziagrariditalia.it/chi-siamo/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       consorzio agrario;distribuzione
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-06-30
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 NÃO REPRESENTATIVO — o item que se conseguiu confirmar por HTTP e' papelada administrativa (codigo etico, termos, formulario) — prova que a organizacao existe, NAO prova o que ela publica na sua area tecnica. Um exemplo representativo exige navegador ou leitura humana da seccao de noticias.
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T7 (rede
+                              tecnica), T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T7-014/MANIFEST.json
+VERDICT:                      YELLOW — registada como real e util, mas sem exemplo representativo do que entrega; rever com navegador antes de contratar coleta.
+```
+
+### T9 · COMPETITORS — ITALY · onda 1 (2026-09-14)
+
+*5 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T9-009 · Cifo
+
+```
+SOURCE_ID:                    IT-T9-009
+SOURCE_NAME:                  Cifo
+SOURCE_OWNER:                 Cifo
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T9 (também serve T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.cifo.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       nutrizione vegetale
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Newsroom - Cifo» https://www.cifo.it/newsroom/ — HTML, 39244 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               concorrente / industria de protecao e nutricao; alimenta T9 (concorrentes),
+                              T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-009/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T9-010 · Serbios
+
+```
+SOURCE_ID:                    IT-T9-010
+SOURCE_NAME:                  Serbios
+SOURCE_OWNER:                 Serbios
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT
+TERRITORY:                    T9 (também serve T3)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.serbios.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       biocontrollo;fitosanitari
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 NÃO REPRESENTATIVO — o item que se conseguiu confirmar por HTTP e' papelada administrativa (codigo etico, termos, formulario) — prova que a organizacao existe, NAO prova o que ela publica na sua area tecnica. Um exemplo representativo exige navegador ou leitura humana da seccao de noticias.
+ADAMA_USE_CASE:               concorrente / industria de protecao e nutricao; alimenta T9 (concorrentes),
+                              T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-010/MANIFEST.json
+VERDICT:                      YELLOW — registada como real e util, mas sem exemplo representativo do que entrega; rever com navegador antes de contratar coleta.
+```
+
+#### IT-T9-011 · Koppert Italia
+
+```
+SOURCE_ID:                    IT-T9-011
+SOURCE_NAME:                  Koppert Italia
+SOURCE_OWNER:                 Koppert Biological Systems
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T9 (também serve T3)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.koppert.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       biocontrollo;insetti utili
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Newsletter Koppert - Ricevere aggiornamenti sulla protezione delle colture
+                              e l'impollinazione» https://www.koppert.it/notizie-eventi/newsletter/ —
+                              HTML, 115080 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               concorrente / industria de protecao e nutricao; alimenta T9 (concorrentes),
+                              T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-011/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T9-012 · CBC Biogard
+
+```
+SOURCE_ID:                    IT-T9-012
+SOURCE_NAME:                  CBC Biogard
+SOURCE_OWNER:                 CBC Europe — Biogard
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T9 (também serve T3)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.biogard.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       biocontrollo;difesa biologica
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «CURVE DI SCARICO E DI RILASCIO DEI DIFFUSORI SHIN-ETSUscarica il report»
+                              https://www.biogard.it/wp-content/uploads/2026/08/Report-Curve_30.07.26.pdf
+                              — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               concorrente / industria de protecao e nutricao; alimenta T9 (concorrentes),
+                              T3 (praga, doenca e infestantes)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-012/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T9-013 · Certis Belchim Italia
+
+```
+SOURCE_ID:                    IT-T9-013
+SOURCE_NAME:                  Certis Belchim Italia
+SOURCE_OWNER:                 Certis Belchim
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     EN-US
+TERRITORY:                    T9 (também serve T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.certisbelchim.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       agrofarmaci;concorrente
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 NÃO REPRESENTATIVO — o item que se conseguiu confirmar por HTTP e' papelada administrativa (codigo etico, termos, formulario) — prova que a organizacao existe, NAO prova o que ela publica na sua area tecnica. Um exemplo representativo exige navegador ou leitura humana da seccao de noticias.
+ADAMA_USE_CASE:               concorrente / industria de protecao e nutricao; alimenta T9 (concorrentes),
+                              T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T9-013/MANIFEST.json
+VERDICT:                      YELLOW — registada como real e util, mas sem exemplo representativo do que entrega; rever com navegador antes de contratar coleta.
+```
+
+### T10 · MARKET / TRADE / INDUSTRY — ITALY · onda 1 (2026-09-14)
+
+*11 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T10-006 · Agrisole — quotidiano agricolo del Sole 24 Ore
+
+```
+SOURCE_ID:                    IT-T10-006
+SOURCE_NAME:                  Agrisole — quotidiano agricolo del Sole 24 Ore
+SOURCE_OWNER:                 Il Sole 24 Ore
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T10 (também serve T12)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://www.agrisole.ilsole24ore.com/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       economia agricola;mercati;policy
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «My24 - Il Sole 24 ORE» https://areautente.ilsole24ore.com/ — HTML, 118331
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               agencia regional agricola; alimenta T10 (mercado e industria), T12 (politica
+                              e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-006/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-007 · ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare
+
+```
+SOURCE_ID:                    IT-T10-007
+SOURCE_NAME:                  ISMEA — Istituto di Servizi per il Mercato Agricolo Alimentare
+SOURCE_OWNER:                 ISMEA
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T10 (também serve T12)
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.ismea.it/istituto-di-servizi-per-il-mercato-agricolo-alimentare
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       mercati;credito;filiere
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-11
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-11
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Comunicati stampa e news - Ismea» https://www.ismea.it/Press-
+                              Area/Comunicati-Stampa — HTML, 102783 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T10 (mercado e industria), T12
+                              (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-007/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-008 · Italmopa — Associazione Industriali Mugnai d'Italia
+
+```
+SOURCE_ID:                    IT-T10-008
+SOURCE_NAME:                  Italmopa — Associazione Industriali Mugnai d'Italia
+SOURCE_OWNER:                 Italmopa
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T10 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.italmopa.com/
+ACCESS_METHOD:                HTML
+CROPS:                        grano
+TOPICS:                       grano;molini;mercato
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Pubblicazioni - Italmopa» https://italmopa.com/pubblicazioni/ — HTML,
+                              104454 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T10 (mercado e industria), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-008/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-009 · Borsa Merci Bologna — Camera di Commercio
+
+```
+SOURCE_ID:                    IT-T10-009
+SOURCE_NAME:                  Borsa Merci Bologna — Camera di Commercio
+SOURCE_OWNER:                 Camera di Commercio di Bologna
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT
+TERRITORY:                    T10
+SOURCE_TYPE:                  BASE_OFICIAL
+URL:                          https://www.bo.camcom.gov.it/
+ACCESS_METHOD:                HTML
+CROPS:                        cereali
+TOPICS:                       prezzi;cereali;borsa merci
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2025-12-31
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA — site navegável, sem rota estruturada declarada
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Sicurezza e Etichettatura dei Prodotti | Camera di Commercio di Bologna»
+                              https://www.bo.camcom.gov.it/it/servizio-ispettivo/home — HTML, 55090 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-009/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-010 · CSO Italy — Centro Servizi Ortofrutticoli
+
+```
+SOURCE_ID:                    IT-T10-010
+SOURCE_NAME:                  CSO Italy — Centro Servizi Ortofrutticoli
+SOURCE_OWNER:                 CSO Italy
+COUNTRY:                      ITALY
+REGION:                       EMILIA-ROMAGNA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T10 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.csoservizi.com/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        ortofrutta
+TOPICS:                       ortofrutta;mercato;dati
+GEOGRAPHIC_GRANULARITY:       REGIÃO — EMILIA-ROMAGNA
+UPDATE_FREQUENCY:             observada por data visível na página: 2023-12-22
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «CLICCARE QUI» https://www.csoservizi.com/wp-
+                              content/uploads/2025/03/AGRIPAT_SCH_SINTESI_INIZIALE_DEF.pdf — PDF, 496652
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T10 (mercado e industria), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-010/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-011 · Ruminantia — web magazine dei ruminanti
+
+```
+SOURCE_ID:                    IT-T10-011
+SOURCE_NAME:                  Ruminantia — web magazine dei ruminanti
+SOURCE_OWNER:                 Ruminantia
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T10 (também serve T1, T7)
+SOURCE_TYPE:                  IMPRENSA
+URL:                          https://www.ruminantia.it/
+ACCESS_METHOD:                HTML
+CROPS:                        latte
+TOPICS:                       bovini;latte;zootecnia
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «News &#8211; Ruminantia &#8211; Web Magazine del mondo dei Ruminanti»
+                              https://www.ruminantia.it/category/news/ — HTML, 144696 bytes lidos em
+                              2026-09-14
+ADAMA_USE_CASE:               imprensa tecnica agricola; alimenta T10 (mercado e industria), T1 (cultura e
+                              producao), T7 (rede tecnica)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-011/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-012 · Consorzio Tutela Vini d'Abruzzo
+
+```
+SOURCE_ID:                    IT-T10-012
+SOURCE_NAME:                  Consorzio Tutela Vini d'Abruzzo
+SOURCE_OWNER:                 Consorzio Tutela Vini d'Abruzzo
+COUNTRY:                      ITALY
+REGION:                       ABRUZZO
+LANGUAGE:                     IT-IT
+TERRITORY:                    T10 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.vinidabruzzo.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        vino
+TOPICS:                       vino;DOC
+GEOGRAPHIC_GRANULARITY:       REGIÃO — ABRUZZO
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-01
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Press                                  La nuova terra dei Winelovers
+                              Scarica PDF» https://www.vinidabruzzo.it/wp-content/uploads/2024/04/QN-
+                              ITINERARI-1.pdf — PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               consorcio de tutela / bonifica; alimenta T10 (mercado e industria), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-012/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-013 · Consorzio di Tutela Arancia Rossa di Sicilia IGP
+
+```
+SOURCE_ID:                    IT-T10-013
+SOURCE_NAME:                  Consorzio di Tutela Arancia Rossa di Sicilia IGP
+SOURCE_OWNER:                 Consorzio Arancia Rossa di Sicilia
+COUNTRY:                      ITALY
+REGION:                       SICILIA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T10 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.tutelaaranciarossa.it/
+ACCESS_METHOD:                HTML
+CROPS:                        agrumi
+TOPICS:                       agrumi;IGP
+GEOGRAPHIC_GRANULARITY:       REGIÃO — SICILIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-14
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Rassegna stampa - Tutela Arancia Rossa di Sicilia IGP»
+                              https://www.tutelaaranciarossa.it/rassegna-stampa/ — HTML, 81643 bytes lidos
+                              em 2026-09-14
+ADAMA_USE_CASE:               consorcio de tutela / bonifica; alimenta T10 (mercado e industria), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-013/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-014 · Consorzio di Tutela del Grana Padano
+
+```
+SOURCE_ID:                    IT-T10-014
+SOURCE_NAME:                  Consorzio di Tutela del Grana Padano
+SOURCE_OWNER:                 Consorzio Tutela Grana Padano
+COUNTRY:                      ITALY
+REGION:                       LOMBARDIA
+LANGUAGE:                     IT
+TERRITORY:                    T10 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.granapadano.it/it-it/
+ACCESS_METHOD:                HTML
+CROPS:                        latte
+TOPICS:                       DOP;latte;filiera
+GEOGRAPHIC_GRANULARITY:       REGIÃO — LOMBARDIA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-11
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-09-11
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Progetti Finanziati - Grana Padano» https://www.granapadano.it/it-it/il-
+                              mondo-di-grana-padano/partnership-e-
+                              sponsorizzazioni/sponsorizzazioni/progetti-finanziati/ — HTML, 154883 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               consorcio de tutela / bonifica; alimenta T10 (mercado e industria), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-014/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T10-015 · Consorzio Tutela Prosecco DOC
+
+```
+SOURCE_ID:                    IT-T10-015
+SOURCE_NAME:                  Consorzio Tutela Prosecco DOC
+SOURCE_OWNER:                 Consorzio Tutela Prosecco DOC
+COUNTRY:                      ITALY
+REGION:                       VENETO
+LANGUAGE:                     IT-IT
+TERRITORY:                    T10 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.prosecco.it/it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        vino
+TOPICS:                       vino;DOC;viticoltura
+GEOGRAPHIC_GRANULARITY:       REGIÃO — VENETO
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.prosecco.it/wp-content/uploads/2023/07/Pagina-per-sito-web.pdf —
+                              PDF, 704512 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               consorcio de tutela / bonifica; alimenta T10 (mercado e industria), T1
+                              (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-015/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T10-016 · Alleanza delle Cooperative Italiane Agroalimentare
+
+```
+SOURCE_ID:                    IT-T10-016
+SOURCE_NAME:                  Alleanza delle Cooperative Italiane Agroalimentare
+SOURCE_OWNER:                 Alleanza Cooperative
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T10 (também serve T12)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.alleanzacooperative.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       cooperative
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Alleanza Cooperative Italiane» https://www.alleanzacooperative.it/news-
+                              eventi — HTML, 38843 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T10 (mercado e
+                              industria), T12 (politica e ambiente agricola)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T10-016/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+### T11 · EVENTS — ITALY · onda 1 (2026-09-14)
+
+*1 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T11-005 · SIMEI — Salone Internazionale Macchine per Enologia e Imbottigliamento
+
+```
+SOURCE_ID:                    IT-T11-005
+SOURCE_NAME:                  SIMEI — Salone Internazionale Macchine per Enologia e Imbottigliamento
+SOURCE_OWNER:                 Unione Italiana Vini
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T11 (também serve T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.simei.it/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       fiera enologia
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2024-09-16
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Distillo 2026 - SIMEI» https://www.simei.it/news-media/news/distillo-2026 —
+                              HTML, 30177 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               ente de filiera / mercado oficial; alimenta T11 (eventos), T10 (mercado e
+                              industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T11-005/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+### T12 · POLICY / AGRICULTURAL ENVIRONMENT — ITALY · onda 1 (2026-09-14)
+
+*4 fontes registradas nesta secção. Cada uma foi aberta, observada e tem exemplo real preservado em `data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Registada ≠ contratada: nenhuma tem contrato de busca, e nenhuma coleta foi corrida.*
+
+#### IT-T12-003 · CIA — Agricoltori Italiani
+
+```
+SOURCE_ID:                    IT-T12-003
+SOURCE_NAME:                  CIA — Agricoltori Italiani
+SOURCE_OWNER:                 CIA
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T12 (também serve T7)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.cia.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       organizzazione agricola;policy
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 NÃO REPRESENTATIVO — o item que se conseguiu confirmar por HTTP e' papelada administrativa (codigo etico, termos, formulario) — prova que a organizacao existe, NAO prova o que ela publica na sua area tecnica. Um exemplo representativo exige navegador ou leitura humana da seccao de noticias.
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T12 (politica e
+                              ambiente agricola), T7 (rede tecnica)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T12-003/MANIFEST.json
+VERDICT:                      YELLOW — registada como real e util, mas sem exemplo representativo do que entrega; rever com navegador antes de contratar coleta.
+```
+
+#### IT-T12-004 · Confagricoltura
+
+```
+SOURCE_ID:                    IT-T12-004
+SOURCE_NAME:                  Confagricoltura
+SOURCE_OWNER:                 Confagricoltura
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT
+TERRITORY:                    T12 (também serve T7, T10)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.confagricoltura.it/ita/
+ACCESS_METHOD:                HTML
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       organizzazione agricola;policy
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             NÃO SEI — nenhuma data de publicação legível na página
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   SIM — 2026-06-04
+RAW_EVIDENCE_PRESERVABLE:     SIM — HTML obtido por HTTP
+AUTOMATION_FEASIBILITY:       MÉDIA-ALTA — feed ou ficheiro previsível
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «AgriFoodTech e IA: 2° Rapporto 2026 dedicato alla trasformazione
+                              tecnologica dell'agroalimentare Made in Italy - Notizie Brevi |
+                              Confagricoltura» https://www.confagricoltura.it/ita/area-stampa/notizie-
+                              brevi/agrifoodtech-e-ia-presentato-il-2%C2%B0-rapporto-2026-dedicato-alla-
+                              trasformazione-tecnologica-dell-agroalimentare-made-in-italy — HTML, 85962
+                              bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T12 (politica e
+                              ambiente agricola), T7 (rede tecnica), T10 (mercado e industria)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T12-004/MANIFEST.json
+VERDICT:                      YELLOW — frequencia de atualizacao por provar
+```
+
+#### IT-T12-005 · AIAB — Associazione Italiana Agricoltura Biologica
+
+```
+SOURCE_ID:                    IT-T12-005
+SOURCE_NAME:                  AIAB — Associazione Italiana Agricoltura Biologica
+SOURCE_OWNER:                 AIAB
+COUNTRY:                      ITALY
+REGION:                       NAZIONALE (sem recorte regional)
+LANGUAGE:                     IT-IT
+TERRITORY:                    T12 (também serve T1)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://aiab.it/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       biologico;agroecologia
+GEOGRAPHIC_GRANULARITY:       PAÍS — a fonte publica com alcance nacional
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-05-15
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 «Aiuti di Stato» https://aiab.it/wp-content/uploads/2023/01/AIAB-Aiuti-di-
+                              Stato.pdf — PDF, 103612 bytes lidos em 2026-09-14
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T12 (politica e
+                              ambiente agricola), T1 (cultura e producao)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T12-005/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+#### IT-T12-006 · CIA Toscana
+
+```
+SOURCE_ID:                    IT-T12-006
+SOURCE_NAME:                  CIA Toscana
+SOURCE_OWNER:                 CIA Agricoltori Italiani
+COUNTRY:                      ITALY
+REGION:                       TOSCANA
+LANGUAGE:                     IT-IT
+TERRITORY:                    T12 (também serve T7)
+SOURCE_TYPE:                  ORGANIZACAO
+URL:                          https://www.ciatoscana.eu/home/
+ACCESS_METHOD:                PDF ligado a partir da página da fonte
+CROPS:                        NÃO SEI — a fonte não declara cultura nesta camada
+TOPICS:                       organizzazione agricola regionale
+GEOGRAPHIC_GRANULARITY:       REGIÃO — TOSCANA
+UPDATE_FREQUENCY:             observada por data visível na página: 2026-09-14
+HISTORICAL_DEPTH:             NÃO SEI — não foi medido nesta missão (registar ≠ coletar)
+SOURCE_IDENTITY_PRESERVABLE:  SIM — URL canónica estável
+DOCUMENT_ID_AVAILABLE:        NÃO SEI — o item observado não expõe identificador próprio
+PUBLICATION_DATE_AVAILABLE:   NÃO SEI — nenhuma data legível no item observado
+RAW_EVIDENCE_PRESERVABLE:     SIM — PDF obtido por HTTP
+AUTOMATION_FEASIBILITY:       ALTA — rota estruturada declarada (API/opendata)
+COLLECTION_FEASIBILITY:       ALTA — o exemplo real foi obtido por HTTP simples nesta missão
+LEGAL_OR_ACCESS_RISK:         NÃO SEI — termos de uso não lidos nesta missão. Nenhuma autenticação foi
+                              tentada e nenhum paywall foi contornado.
+REAL_EXAMPLE:                 https://www.ciatoscana.eu/home/wp-content/uploads/2026/02/inn-
+                              pratica_volume_il-futuro-dell-agricoltura_IT_web.pdf — PDF, 704512 bytes
+                              lidos em 2026-09-14
+ADAMA_USE_CASE:               organizacao agricola / representacao de produtores; alimenta T12 (politica e
+                              ambiente agricola), T7 (rede tecnica)
+EVIDENCE:                     data/samples/IT-SOURCE-SAMPLES/IT-T12-006/MANIFEST.json
+VERDICT:                      GREEN — fonte aberta, exemplo real observado e preservado
+```
+
+---
+
 ### Regra de contagem (declarada para evitar leitura ambígua)
 
 O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOURCE_ID
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->37<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->177<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -1338,8 +6306,8 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 1 | 2 | 0 | 3 | 6 |
-| **Total** | **16** | **4** | **0** | **17** | **37** |
+| ITALY | 64 | 79 | 0 | 3 | 146 |
+| **Total** | **79** | **81** | **0** | **17** | **177** |
 
 ### Cobertura por território
 
@@ -1348,6 +6316,6 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | – | 1Y | – |
+| ITALY | 1?/17G/5Y | 13G/6Y | 1Y/4G/5Y | 1G | 15G/16Y | 36Y | 2G | – | 1?/3G/2Y | 10G/1Y | 1Y/1G | 2G/2Y |
 
 *(– = não investigado)*

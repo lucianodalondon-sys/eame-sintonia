@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T1-004",
+ "SOURCE": "Liguria — Regione Liguria agricoltura",
+ "OWNER": "Regione Liguria",
+ "URL": "https://www.regione.liguria.it/homepage-agricoltura.html",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:37Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 178556 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.regione.liguria.it/homepage-agricoltura.html",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "homepage agricoltura - Regione Liguria",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 97780
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.regione.liguria.it/homepage-attivita-istituzionale/atti-di-notifica/avvisi-atti-notifica.html",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "atti di notifica",
+  "TITULO": "attività istituzionale - avvisi - Regione Liguria",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 178556,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "d0724616f69d58b37d75808dfb6b763159d2e86a6eb87a23c097fd7e3e2366c2",
+  "DATA_VISIVEL": "2023-06-28",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

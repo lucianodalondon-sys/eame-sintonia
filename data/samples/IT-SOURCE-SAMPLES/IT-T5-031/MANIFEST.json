@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T5-031",
+ "SOURCE": "UNIVPM D3A — Dipartimento di Scienze Agrarie Alimentari e Ambientali",
+ "OWNER": "Universita Politecnica delle Marche",
+ "URL": "https://www.d3a.univpm.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:23Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: image/png, 704512 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.d3a.univpm.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Dipartimento di Scienze Agrarie, Alimentari ed Ambientali",
+  "IDIOMA": null,
+  "DATA_VISIVEL": "2026-09-03",
+  "BYTES_LIDOS": 56442
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.d3a.univpm.it/sites/www.d3a.univpm.it/files/d3a/news_didattica/new2026/insegnamenti%20a%20scelta_14sett20262.png",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": null,
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "image/png",
+  "BYTES_LIDOS": 704512,
+  "ASSINATURA_REAL_DOS_BYTES": "TEXTO",
+  "SHA256_DO_QUE_FOI_LIDO": "892915faff330c96a0e99db4145c8c1b983198800a7a8a7356597b16cf5b6642",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T9-011",
+ "SOURCE": "Koppert Italia",
+ "OWNER": "Koppert Biological Systems",
+ "URL": "https://www.koppert.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:30Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 115080 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.koppert.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Koppert Italia | Protezione biologica delle colture | Impollinazione | Oltre 50 anni di esperienza",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 187434
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.koppert.it/notizie-eventi/newsletter/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Iscriviti qui",
+  "TITULO": "Newsletter Koppert - Ricevere aggiornamenti sulla protezione delle colture e l'impollinazione",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 115080,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "8fc3de161c9c49c3afb6c050945981f5a5ec6c52414f6444d5addc12b08450af",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T12-004",
+ "SOURCE": "Confagricoltura",
+ "OWNER": "Confagricoltura",
+ "URL": "https://www.confagricoltura.it/ita/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:48:54Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 85962 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.confagricoltura.it/ita/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Confagricoltura - Confederazione Generale dell'Agricoltura Italiana",
+  "IDIOMA": "it",
+  "DATA_VISIVEL": null,
+  "BYTES_LIDOS": 142487
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.confagricoltura.it/ita/area-stampa/notizie-brevi/agrifoodtech-e-ia-presentato-il-2%C2%B0-rapporto-2026-dedicato-alla-trasformazione-tecnologica-dell-agroalimentare-made-in-italy",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": null,
+  "TITULO": "AgriFoodTech e IA: 2° Rapporto 2026 dedicato alla trasformazione tecnologica dell'agroalimentare Made in Italy - Notizie Brevi | Confagricoltura",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 85962,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "c816d1c2a34bcefa643131937f38850211d264a8851d179ebfe39e5564ee5ce6",
+  "DATA_VISIVEL": "2026-06-04",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "YELLOW",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

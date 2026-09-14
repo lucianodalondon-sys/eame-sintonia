@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T2-008",
+ "SOURCE": "ARPAT Toscana",
+ "OWNER": "ARPAT",
+ "URL": "https://www.arpat.toscana.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:44:35Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica ARTIGO; exemplo confirmado: text/html, 255196 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.arpat.toscana.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Homepage - ARPAT",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-08-22",
+  "BYTES_LIDOS": 288272
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.arpat.toscana.it/pubblicazione/centrali-geotermiche-della-toscana-anno-2025/",
+  "TIPO_ITEM": "ARTIGO",
+  "ROTULO_NO_SITE": "Centrali geotermiche della Toscana – Anno 2025",
+  "TITULO": "Centrali geotermiche della Toscana – Anno 2025 - ARPAT",
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "text/html",
+  "BYTES_LIDOS": 255196,
+  "ASSINATURA_REAL_DOS_BYTES": "HTML",
+  "SHA256_DO_QUE_FOI_LIDO": "d1c6a557fb06fa76cecbac3ff72d312ddb92962da46a3da68406e8dbf5c26196",
+  "DATA_VISIVEL": "2026-08-22",
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}

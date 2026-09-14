@@ -1,0 +1,38 @@
+{
+ "MANIFEST_VERSION": "1",
+ "SOURCE_ID": "IT-T10-012",
+ "SOURCE": "Consorzio Tutela Vini d'Abruzzo",
+ "OWNER": "Consorzio Tutela Vini d'Abruzzo",
+ "URL": "https://www.vinidabruzzo.it/",
+ "OBSERVACAO": {
+  "OBSERVED_AT": "2026-09-14T15:45:40Z",
+  "METODO": "HTTP GET read-only, User-Agent de navegador, teto de bytes; payload nao preservado",
+  "WHAT_WAS_OBSERVED": "a fonte publica BOLETIM_PDF; exemplo confirmado: application/pdf, 704512 bytes lidos",
+  "AUTH_USED": "NENHUMA. Não se tentou contornar autenticação nem paywall.",
+  "ROTA_DE_SAIDA": "datacenter do agente (não-italiano); bloqueio daqui não prova ausência"
+ },
+ "PAGINA_DA_FONTE": {
+  "HTTP_STATUS": 200,
+  "URL_EFETIVA": "https://www.vinidabruzzo.it/",
+  "CONTENT_TYPE": "text/html",
+  "TITULO": "Consorzio Vini d&#039;Abruzzo",
+  "IDIOMA": "it-it",
+  "DATA_VISIVEL": "2026-09-01",
+  "BYTES_LIDOS": 107639
+ },
+ "REAL_EXAMPLE": {
+  "EXAMPLE_URL": "https://www.vinidabruzzo.it/wp-content/uploads/2024/04/QN-ITINERARI-1.pdf",
+  "TIPO_ITEM": "BOLETIM_PDF",
+  "ROTULO_NO_SITE": "Press            \n              \n      La nuova terra dei Winelovers\n\n      \n      \n      \n      \n          \nScarica PDF",
+  "TITULO": null,
+  "HTTP_STATUS": 200,
+  "CONTENT_TYPE": "application/pdf",
+  "BYTES_LIDOS": 704512,
+  "ASSINATURA_REAL_DOS_BYTES": "PDF",
+  "SHA256_DO_QUE_FOI_LIDO": "be565bbdbe91770a73adb50cf0cdb27bce2cded1cf5c894d4a8802f4938f51ff",
+  "DATA_VISIVEL": null,
+  "COMO_FOI_OBTIDO": "link seguido a partir da propria pagina da fonte"
+ },
+ "VERDICT": "GREEN",
+ "NAO_E_COLETA": "Esta observação é VALIDAÇÃO DE FONTE. Não é COLLECTION_RUN, não gerou RAW_OBSERVATION, não foi para Admission nem para a Sala de Espera. Guardou-se o sinal do que a fonte entrega, não o acervo dela."
+}
