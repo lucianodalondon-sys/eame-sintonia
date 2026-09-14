@@ -37,8 +37,29 @@
 # ═══════════════════════════════════════════════════════════════════════
 name: supabase-backup-readonly
 
+# ── POR QUE HA UM GATILHO DE `push` AQUI ──────────────────────────────
+# `workflow_dispatch` SO existe para ficheiros que ja estao no ramo por
+# omissao: a API de dispatch devolve `404` para um workflow que vive so
+# num ramo de missao, e o botao «Run workflow» nem aparece. Medido nesta
+# missao, e nao suposto — a lista de workflows do repositorio devolveu 22
+# nomes, todos com `blob/main/`, e este nao estava la.
+#
+#     E LIMITACAO DO GITHUB, E NAO FALTA DE PERMISSAO.
+#
+# Fazer merge para `main` so para conseguir disparar seria trocar um
+# problema de execucao por uma alteracao de linha funcional sem decisao
+# de gente. O `push` com `paths` estreito corre a versao DO RAMO, que e
+# exactamente o que esta missao precisa de medir.
+#
+# Um empurrao por esta porta nao escreve nada: o pior que acontece e
+# alguem ficar a saber o estado dos backups. `workflow_dispatch` fica,
+# para o dia em que o ficheiro chegar a `main`.
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/supabase-backup-readonly.yml'
+      - 'provas/backup_do_live_medido.py'
 
 permissions:
   contents: read
