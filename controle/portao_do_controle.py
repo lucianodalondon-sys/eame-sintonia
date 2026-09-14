@@ -5,6 +5,7 @@ O PORTAO DO CONTROL PLANE — os dentes do registo das autoridades.
 
     py controle/portao_do_controle.py           mede e compara com o chao
     py controle/portao_do_controle.py --fixar   grava o estado de hoje como chao
+    py controle/portao_do_controle.py --migrar  traz o chao para esta linhagem, com prova
 
 POR QUE ESTE FICHEIRO EXISTE
 -----------------------------
@@ -42,6 +43,7 @@ que o registo minta sobre si mesmo, e conta o que dói.
 """
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -63,10 +65,63 @@ CENSO = _caminho("SINTONIA_CONTROLE_CENSO",
                  RAIZ / "system-map" / "data" / "controle.generated.json")
 CHAO = _caminho("SINTONIA_CONTROLE_CHAO", RAIZ / "controle" / "CHAO-DO-CONTROLE.json")
 
-# Palavras com que um documento se declara autoridade. Quem escreve uma destas
-# esta a dizer «eu mando» — e quem manda tem de estar no registo.
-SE_DIZ_LEI = ("dono canónico", "dono canonico", "CANONICAL_OWNER",
-              "SOURCE_OF_TRUTH", "DESIGN_SOURCE_OF_TRUTH")
+# ══ QUANDO E QUE UM DOCUMENTO SE DECLARA LEI ════════════════════════════════
+#
+# Este detector ja foi uma procura de subcadeia: se o texto continha
+# «CANONICAL_OWNER» em qualquer sitio, o documento era acusado de ser uma
+# autoridade nao registada. Ele acusou dez, e os dez estavam inocentes:
+#
+#     DUPLICATE_CANONICAL_OWNERS = 0            um nome de metrica
+#     CANONICAL_OWNER_FOUND?  SIM               uma pergunta respondida
+#     o executor produz, o dono canonico persiste    prosa sobre OUTRO ficheiro
+#     O3 escreve raw_asset fora do dono canonico     uma linha de red team
+#
+#     MENCIONAR UMA LEI NAO E PROMULGAR UMA.
+#
+# Um portao que conta mencoes cobra divida que nao existe, e a divida falsa
+# esconde a verdadeira. A separacao tem de ser estrutural — nunca uma lista de
+# ficheiros a ignorar, que so faz o defeito mudar de nome no dia seguinte.
+#
+# Tres formas contam, e todas as tres foram tiradas das autoridades REAIS deste
+# repositorio, nao inventadas:
+#
+#   1 · RECLAMA-SE          a linha nomeia a chave E fala de si propria
+#                           AGENTS.md:5  «Este ficheiro e o dono canonico das...»
+#   2 · LEGISLA             a chave e o SUJEITO da linha, com valor a seguir
+#                           BIBLIA-CANONICA-DA-COLETA.md:9  «CANONICAL_OWNER  este ficheiro»
+#                           CLAUDE.md:33  «DESIGN_SOURCE_OF_TRUTH = ADAMA_...»
+#   3 · NOMEIA-SE           a linha nomeia a chave E o proprio caminho do
+#                           documento — o caso da tabela que se aponta a si
+#
+# E a palavra tem de ser a PALAVRA INTEIRA. `DUPLICATE_CANONICAL_OWNERS` nao
+# contem a chave `CANONICAL_OWNER`: contem um identificador diferente que a
+# carrega dentro. Foi assim que cinco dos dez entraram.
+CHAVES_DE_LEI = (r"(?:CANONICAL_OWNER|DESIGN_SOURCE_OF_TRUTH|SOURCE_OF_TRUTH"
+                 r"|dono can[oó]nico)")
+PALAVRA_DE_LEI = re.compile(r"(?<![A-Za-z0-9_])" + CHAVES_DE_LEI + r"(?![A-Za-z0-9_])")
+LEGISLA = re.compile(r"^[\s>*#_`-]*" + CHAVES_DE_LEI + r"(?![A-Za-z0-9_])\s*[:=]?\s+\S")
+FALA_DE_SI = re.compile(
+    r"est[ea]s? (?:ficheiro|documento|arquivo|lei|b[ií]blia|contrato|registo|registro)"
+    r"|this (?:file|document)", re.I)
+
+
+def declara_se_lei(caminho: str, linhas: list) -> tuple:
+    """A linha em que este documento se promulga lei. `()` quando nenhuma.
+
+    Devolve `(forma, numero_da_linha, trecho)` — e nunca um booleano, de
+    proposito: quem for acusado por este portao tem direito a ver a linha.
+    """
+    nome = caminho.rsplit("/", 1)[-1]
+    for i, ln in enumerate(linhas, 1):
+        if not PALAVRA_DE_LEI.search(ln):
+            continue
+        if LEGISLA.match(ln):
+            return ("LEGISLA", i, ln.strip()[:120])
+        if FALA_DE_SI.search(ln):
+            return ("RECLAMA_SE", i, ln.strip()[:120])
+        if caminho in ln or nome in ln:
+            return ("NOMEIA_SE", i, ln.strip()[:120])
+    return ()
 
 # O mapa e um CONSUMIDOR da arquitetura, nunca o dono dela.
 #
@@ -182,13 +237,54 @@ def main() -> int:
     prova("OBSERVED_EDGE_HAS_LOCATION", "toda aresta observada diz ficheiro e linha",
           not sem_linha, sem_linha)
 
-    # ── 9 · PONTEIRO QUEBRADO ────────────────────────────────────────────────
+    # ── 9 · PONTEIRO QUEBRADO — E SO O QUE E MESMO UM CAMINHO ────────────────
     # So conta para autoridade que ESTA nesta arvore: cobrar o alvo de uma lei
     # que nem ca esta seria cobrar duas vezes o mesmo defeito.
+    #
+    # E so conta para aresta cujo ALVO E UM CAMINHO. Esta prova ja reprovou uma
+    # supersessao — `A-BIBLIA-ENG-INTELIGENCIA SUPERSEDES A-BIBLIA-INTELIGENCIA`
+    # — por «ponteiro quebrado», quando o alvo nunca foi um ponteiro: e o id de
+    # uma autoridade. O censo mandava-o pelo laco dos caminhos, nao encontrava
+    # ficheiro nenhum com aquele nome, e chamava defeito aquilo que era a forma
+    # certa de dizer «substitui uma lei que ja nao vive aqui».
+    #
+    #     IDENTIDADE != MORADA. AUTHORITY_ID != CANONICAL_PATH.
+    #
+    # Tres coisas diferentes estavam com o mesmo nome, e por isso nenhuma delas
+    # se conseguia consertar. Agora sao tres provas:
+    #
+    #     BROKEN_POINTER          um CAMINHO declarado que nao existe
+    #     UNKNOWN_AUTHORITY_ID    um ID declarado que o registo nao conhece
+    #     SUPERSESSION_RECIPROCAL uma metade de supersessao sem a outra metade
     quebrados = [f"{e['FROM']} -> {e['TO_PATH']}" for e in arestas
-                 if e["PROOF_KIND"] == "ABSENT" and por_id[e["FROM"]]["IN_TREE"]]
+                 if e["PROOF_KIND"] == "ABSENT"
+                 and e.get("TO_KIND", "PATH") == "PATH"
+                 and por_id[e["FROM"]]["IN_TREE"]]
     prova("BROKEN_POINTER", "nenhuma autoridade presente aponta para caminho inexistente",
           not quebrados, quebrados)
+
+    # ── 9b · UM ID QUE O REGISTO NAO CONHECE ─────────────────────────────────
+    # Isto e um defeito real, e o unico que a confusao anterior escondia: uma
+    # aresta de identidade a nomear um cartao que nao existe em lado nenhum.
+    fantasmas = [f"{e['FROM']} -{e['EDGE_TYPE']}-> {e['TO_PATH']}" for e in arestas
+                 if e["PROOF_KIND"] == "UNKNOWN_AUTHORITY_ID"]
+    prova("UNKNOWN_AUTHORITY_ID", "nenhuma aresta de identidade nomeia cartao inexistente",
+          not fantasmas, fantasmas)
+
+    # ── 9c · AS DUAS METADES DE UMA SUPERSESSAO TEM DE COINCIDIR ─────────────
+    # `A SUPERSEDES B` escrito so num lado e uma declaracao a provar-se a si
+    # propria. B tem de dizer `SUPERSEDED_BY: A` — e o inverso tambem: um cartao
+    # que se diz substituido por alguem que nao o reivindica fica sem historia.
+    sup = {a["CARD_ID"]: set(a.get("SUPERSEDES", [])) for a in R["AUTHORITIES"]}
+    por_quem = {a["CARD_ID"]: set(a.get("SUPERSEDED_BY", [])) for a in R["AUTHORITIES"]}
+    mancas = [f"{x} diz SUPERSEDES {y}, e {y} nao diz SUPERSEDED_BY {x}"
+              for x, alvos in sup.items() for y in alvos
+              if y in por_quem and x not in por_quem[y]]
+    mancas += [f"{y} diz SUPERSEDED_BY {x}, e {x} nao diz SUPERSEDES {y}"
+               for y, quem in por_quem.items() for x in quem
+               if x in sup and y not in sup[x]]
+    prova("SUPERSESSION_RECIPROCAL", "toda supersessao esta escrita nas duas pontas",
+          not mancas, mancas)
 
     # ── 10 · o censo esta atual ──────────────────────────────────────────────
     drift = [a["CARD_ID"] for a in R["AUTHORITIES"] if a["CARD_ID"] not in por_id]
@@ -227,6 +323,25 @@ def main() -> int:
 
     # ══ DIVIDA — medida, contada, e com teto que nao sobe ══════════════════
 
+    # A EXPLICACAO ANDA AO LADO DO MEMBRO, E NUNCA DENTRO DELE.
+    #
+    # Os membros ja foram cadeias como «A-DIARIO (6)» e «A-KNOWHOW (canonica em
+    # origin/..., fora deste HEAD)». Isso torna a IDENTIDADE do defeito refem de
+    # um numero e de um nome de ramo: o dia em que `A-DIARIO` passasse a ter 7
+    # copias, o membro antigo desaparecia e nascia um «novo» — e uma comparacao
+    # de conjuntos via divida nova onde so havia a mesma divida a mudar de
+    # tamanho. Pior: o inverso tambem, e ai a divida nova passava despercebida.
+    #
+    #     O MEMBRO E QUEM. O PORQUE E OUTRA COLUNA.
+    #
+    # E A CHAVE E O PAR, NUNCA SO O MEMBRO. `A-KNOWHOW` esta em duas categorias
+    # ao mesmo tempo — tem copias divergentes E e canonica fora deste HEAD — e
+    # com o membro sozinho por chave a segunda explicacao apagava a primeira. A
+    # saida imprimia, debaixo de DIVERGENT_CANONICAL_COPY, a razao do STALE.
+    #
+    #     UM CONCEITO, UM DONO: a razao pertence ao PAR (categoria, membro).
+    porques: dict = {}
+
     ausentes = sorted(c["CARD_ID"] for c in cartoes
                       if c["LIFECYCLE"] == "CANONICAL"
                       and c["OBSERVED_STATE"] in ("ABSENT_FROM_SNAPSHOT", "ABSENT"))
@@ -234,8 +349,11 @@ def main() -> int:
     # muito pior: nem branch lateral a guarda.
     perdidas = sorted(c["CARD_ID"] for c in cartoes
                       if c["LIFECYCLE"] == "CANONICAL" and c["OBSERVED_STATE"] == "ABSENT")
-    divergentes = sorted(f"{c['CARD_ID']} ({len(c['DIVERGENT_COPIES'])})"
-                         for c in cartoes if c["DIVERGENT_COPIES"])
+    divergentes = sorted(c["CARD_ID"] for c in cartoes if c["DIVERGENT_COPIES"])
+    for c in cartoes:
+        if c["DIVERGENT_COPIES"]:
+            porques[("DIVERGENT_CANONICAL_COPY", c["CARD_ID"])] = \
+                f"{len(c['DIVERGENT_COPIES'])} copia(s) divergente(s)"
     orfas = sorted(c["CARD_ID"] for c in cartoes
                    if c["OBSERVED_STATE"] == "ORPHAN_IN_TREE")
 
@@ -254,7 +372,9 @@ def main() -> int:
             ["git", "-C", str(RAIZ), "merge-base", "--is-ancestor", alvo, "HEAD"],
             capture_output=True).returncode == 0
         if not antepassado:
-            stale.append(f"{c['CARD_ID']} (canonica em {ref}, fora deste HEAD)")
+            stale.append(c["CARD_ID"])
+            porques[("STALE_AUTHORITY", c["CARD_ID"])] = \
+                f"canonica em {ref}, fora deste HEAD"
 
     # Documento que se diz lei e nao esta no registo.
     registados = {a["CANONICAL_PATH"] for a in R["AUTHORITIES"]}
@@ -265,11 +385,14 @@ def main() -> int:
         if p.startswith(("build/", "research/", "data/", "italia-portale/BASELINE/")):
             continue
         try:
-            txt = (RAIZ / p).read_text(encoding="utf-8", errors="replace")
+            linhas = (RAIZ / p).read_text(encoding="utf-8", errors="replace").split("\n")
         except OSError:
             continue
-        if any(w in txt for w in SE_DIZ_LEI):
+        onde = declara_se_lei(p, linhas)
+        if onde:
             nao_registados.append(p)
+            porques[("UNREGISTERED_CANONICAL_DOCUMENT", p)] = \
+                f"{onde[0]} L{onde[1]}: {onde[2]}"
 
     medido = {
         "CANONICAL_AUTHORITY_MISSING": len(ausentes),
@@ -288,16 +411,185 @@ def main() -> int:
         "ORPHAN_AUTHORITY": orfas,
     }
 
-    if fixar or not CHAO.exists():
+    # ── O CHAO, E A LINHAGEM DELE ────────────────────────────────────────────
+    #
+    # UMA FOTOGRAFIA DE DIVIDA TIRADA NOUTRA LINHA NAO MEDE ESTA ARVORE.
+    #
+    # O chao desta casa foi fixado em `a885769c54`, que vive so em
+    # `origin/claude/funny-hypatia-y7ho5s` e NAO e antepassado deste HEAD. Durante
+    # uma missao inteira o portao comparou os defeitos de hoje com o tecto de um
+    # snapshot que nunca esteve aqui — e o tecto `UNREGISTERED_CANONICAL_DOCUMENT
+    # = 0` era verdade la, onde aqueles dez documentos da Collection nem existiam.
+    #
+    #     UM NUMERO CERTO LIDO CONTRA A FOTOGRAFIA ERRADA.
+    #
+    # Um chao so vale se a arvore onde ele foi medido estiver ATRAS desta. Quando
+    # nao estiver, ele tem de dizer de onde veio e porque continua a valer — e
+    # isso e uma frase escrita por gente, nao um campo que o `--fixar` preenche
+    # sozinho.
+    antepassado_do_chao = None
+    if CHAO.exists():
+        C_ = json.loads(CHAO.read_text(encoding="utf-8"))
+        chao_head = (C_.get("MEDIDO_EM") or {}).get("HEAD") or C_.get("HEAD", "")
+        migrado = (C_.get("MEDIDO_EM") or {}).get("MIGRADO_DE")
+        if chao_head:
+            antepassado_do_chao = subprocess.run(
+                ["git", "-C", str(RAIZ), "merge-base", "--is-ancestor", chao_head, "HEAD"],
+                capture_output=True).returncode == 0
+        prova("CHAO_DA_LINHAGEM",
+              f"o chao foi medido numa arvore atras desta ({chao_head})",
+              bool(antepassado_do_chao) or bool(migrado),
+              [f"{chao_head} nao e antepassado de HEAD, e o chao nao declara "
+               "MEDIDO_EM.MIGRADO_DE com a razao de continuar a valer"]
+              if not antepassado_do_chao else [])
+
+    # ── MEMBROS, E NAO SO CONTAGENS ──────────────────────────────────────────
+    #
+    #     TRES DEFEITOS ANTIGOS DESAPARECEM, TRES NOVOS APARECEM,
+    #     A CONTAGEM NAO MEXE, E NADA REPROVA.
+    #
+    # Era o buraco desta divida: o tecto e um numero, e um numero nao ve
+    # substituicao. Quem entra tem de ser alguem que ja la estava.
+    chao_membros = {}
+    if CHAO.exists():
+        C_ = json.loads(CHAO.read_text(encoding="utf-8"))
+        chao_membros = C_.get("MEMBROS") or C_.get("QUEM") or {}
+    novos = []
+    for k, quem in detalhes.items():
+        antes = set(chao_membros.get(k, []))
+        for m in quem:
+            if m not in antes:
+                razao = porques.get((k, m), "")
+                novos.append(f"{k}: {m}" + (f"  ({razao})" if razao else ""))
+
+    # ── MIGRAR O CHAO PARA ESTA LINHAGEM, COM PROVA ──────────────────────────
+    #
+    #     UMA FOTOGRAFIA DE DIVIDA PODE MUDAR DE LINHA. NAO PODE MUDAR SOZINHA.
+    #
+    # `--fixar` grava o estado de hoje. Nao serve aqui: o chao de `a885769c54`
+    # nao mede esta arvore, e re-fixar por cima apagava a comparacao — ficava um
+    # tecto novo sem ninguem provar que ele nao e pior do que o antigo.
+    #
+    # `--migrar` faz a unica coisa que legitima trocar de fotografia: compara,
+    # CATEGORIA A CATEGORIA E MEMBRO A MEMBRO, e so entao grava. Ele recusa
+    # quando qualquer contagem subiu ou quando entrou um membro que nao estava
+    # la — que e exatamente o caso que a contagem sozinha nao ve.
+    #
+    # A unica normalizacao que ele faz e documentada e estreita: os membros do
+    # chao antigo traziam a razao colada ao nome — `A-DIARIO (6)` — e a razao
+    # passou a viver noutra coluna. `A-DIARIO (6)` e `A-DIARIO` sao o MESMO
+    # defeito com a mesma identidade, e o parentesis cai. Nada mais e tocado: um
+    # membro que nao tenha correspondente antigo depois disto e divida nova, e
+    # divida nova nao migra.
+    if "--migrar" in sys.argv:
+        if not CHAO.exists():
+            print("CHAO_MIGRADO=RECUSADO · nao ha chao para migrar")
+            return 1
+        C_ = json.loads(CHAO.read_text(encoding="utf-8"))
+        antigo_teto = C_.get("TETO", {})
+        antigo_membros = C_.get("MEMBROS") or C_.get("QUEM") or {}
+        antigo_head = (C_.get("MEDIDO_EM") or {}).get("HEAD") or C_.get("HEAD", "")
+
+        def sem_parentesis(m: str) -> str:
+            return m.split("  (")[0].split(" (")[0].strip()
+
+        equivalencia, recusas = {}, []
+        for k in medido:
+            antes = {sem_parentesis(m) for m in antigo_membros.get(k, [])}
+            equivalencia[k] = {
+                "TETO_ANTIGO": antigo_teto.get(k, 0), "HOJE": medido[k],
+                "MEMBROS_ANTES": sorted(antes),
+                "MEMBROS_HOJE": sorted(detalhes[k]),
+                "PAGOS": sorted(antes - set(detalhes[k])),
+                "NOVOS": sorted(set(detalhes[k]) - antes),
+            }
+            if medido[k] > antigo_teto.get(k, 0):
+                recusas.append(f"{k}: hoje {medido[k]}, teto antigo {antigo_teto.get(k, 0)}")
+            for m in equivalencia[k]["NOVOS"]:
+                recusas.append(f"{k}: membro novo `{m}` nao existia no chao antigo")
+        # Toda a integridade tem de estar verde — MENOS `CHAO_DA_LINHAGEM`, que e
+        # exatamente o defeito que esta migracao existe para pagar. Exigi-lo aqui
+        # fazia o conserto depender de ja estar consertado, e o chao ficava preso
+        # noutra linhagem para sempre.
+        recusas += [f"integridade reprovada: {n}" for n, _, _ in falhas
+                    if n != "CHAO_DA_LINHAGEM"]
+
+        if recusas:
+            print("CHAO_MIGRADO=RECUSADO · a divida de hoje nao e igual nem melhor")
+            for x in recusas[:12]:
+                print(f"    · {x}")
+            return 1
+
         CHAO.write_text(json.dumps({
             "NOTA": ["O TETO DA DIVIDA DO CONTROL PLANE. Nao e meta: e teto.",
-                     "Um numero que sobe reprova. Quando alguem pagar a divida,",
-                     "`--fixar` desce o teto — e ele nunca mais sobe."],
-            "HEAD": git("rev-parse", "HEAD")[:10],
+                     "Um numero que sobe reprova, e um MEMBRO novo reprova mesmo",
+                     "que o numero nao suba.",
+                     "",
+                     "MEDIDO_EM diz em que arvore isto foi medido. Um chao cuja",
+                     "arvore nao esta atras desta nao mede esta."],
+            "MEDIDO_EM": {
+                "HEAD": git("rev-parse", "HEAD"),
+                "BRANCH": git("rev-parse", "--abbrev-ref", "HEAD"),
+                "MIGRADO_DE": {
+                    "HEAD": antigo_head,
+                    "PORQUE": [
+                        f"`{antigo_head}` nao e antepassado deste HEAD: foi medido"
+                        " noutra linha, e um tecto de outra fotografia nao mede esta.",
+                        "A migracao so passou porque nenhuma categoria subiu e",
+                        "nenhum membro novo entrou — provado membro a membro abaixo.",
+                        "A unica normalizacao aplicada: a razao deixou de viver",
+                        "colada ao nome do membro (`A-DIARIO (6)` -> `A-DIARIO`).",
+                    ],
+                    "PROVA": equivalencia,
+                },
+            },
             "TETO": medido,
-            "QUEM": detalhes,
+            "MEMBROS": detalhes,
+            "PORQUE": {f"{k}/{m}": porques[(k, m)] for k in detalhes
+                       for m in detalhes[k] if (k, m) in porques},
         }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"CHAO_FIXADO=OK · controle/CHAO-DO-CONTROLE.json")
+        print(f"CHAO_MIGRADO=OK · de {antigo_head} para {git('rev-parse', 'HEAD')[:10]}")
+        for k, v in medido.items():
+            print(f"    {k:<34} {v:>3}  (teto antigo {antigo_teto.get(k, 0)}"
+                  f" · pagos {len(equivalencia[k]['PAGOS'])})")
+        return 0
+
+    if fixar or not CHAO.exists():
+        # `--fixar` NAO E UM BOTAO DE PASSAR. Ele grava o estado de hoje como
+        # tecto, e por isso so pode correr quando hoje ja e melhor ou igual: se
+        # ele aceitasse um numero pior, «teto que nunca sobe» virava uma frase.
+        #
+        #     FIXAR UM DEFEITO COMO NOVO NORMAL != CORRIGIR O DEFEITO.
+        if CHAO.exists():
+            teto_ = json.loads(CHAO.read_text(encoding="utf-8")).get("TETO", {})
+            piores = [f"{k}: hoje {v}, teto {teto_.get(k, 0)}"
+                      for k, v in medido.items() if v > teto_.get(k, 0)]
+            if piores or novos or falhas:
+                print("CHAO_FIXADO=RECUSADO · o chao nao desce sobre divida por pagar")
+                for x in piores:
+                    print(f"    PIOROU          {x}")
+                for x in novos[:8]:
+                    print(f"    MEMBRO NOVO     {x}")
+                for nome, _, _ in falhas:
+                    print(f"    INTEGRIDADE     {nome}")
+                return 1
+        CHAO.write_text(json.dumps({
+            "NOTA": ["O TETO DA DIVIDA DO CONTROL PLANE. Nao e meta: e teto.",
+                     "Um numero que sobe reprova, e um MEMBRO novo reprova mesmo",
+                     "que o numero nao suba. Quando alguem pagar a divida,",
+                     "`--fixar` desce o teto — e ele nunca mais sobe.",
+                     "",
+                     "MEDIDO_EM diz em que arvore isto foi medido. Um chao cuja",
+                     "arvore nao esta atras desta nao mede esta: ou e re-fixado",
+                     "aqui, ou declara MIGRADO_DE com a razao de continuar a valer."],
+            "MEDIDO_EM": {"HEAD": git("rev-parse", "HEAD"),
+                          "BRANCH": git("rev-parse", "--abbrev-ref", "HEAD")},
+            "TETO": medido,
+            "MEMBROS": detalhes,
+            "PORQUE": {f"{k}/{m}": porques[(k, m)] for k in detalhes
+                       for m in detalhes[k] if (k, m) in porques},
+        }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print("CHAO_FIXADO=OK · controle/CHAO-DO-CONTROLE.json")
         for k, v in medido.items():
             print(f"    {k:<34} {v}")
         return 0
@@ -307,6 +599,9 @@ def main() -> int:
         limite = teto.get(k, 0)
         prova(k, f"nao piorou desde o chao (teto {limite}, hoje {v})",
               v <= limite, detalhes[k] if v > limite else [])
+    prova("MEMBRO_NOVO_NAO_EXPLICADO",
+          "nenhum defeito novo entrou por baixo de uma contagem que nao mexeu",
+          not novos, novos)
 
     # ── impressao ────────────────────────────────────────────────────────────
     print("=" * 70)
@@ -324,7 +619,8 @@ def main() -> int:
     for k, v in medido.items():
         print(f"    {k:<34} {v:>3}   (teto {teto.get(k, 0)})")
         for d in detalhes[k][:4]:
-            print(f"        · {d}")
+            razao = porques.get((k, d), "")
+            print(f"        · {d}" + (f"   — {razao}" if razao else ""))
 
     print()
     print("=" * 70)

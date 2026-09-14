@@ -220,12 +220,16 @@ def resolver_peca(alvo: str, dono: dict) -> str:
     return ""
 
 
-PROMOVE = {
-    "GOVERNS": "TEXT_POINTER", "CONSTRAINS": "TEXT_POINTER",
-    "REFERENCES": "TEXT_POINTER", "SUPERSEDES": "TEXT_POINTER",
-    "VALIDATES": "CODE_REFERENCE", "OBSERVES": "CODE_REFERENCE",
-    "GENERATES": "CODE_REFERENCE", "IMPLEMENTS": "MAP_OWNERSHIP",
-}
+# O QUE CADA TIPO DE ARESTA EXIGE PARA SER OBSERVADA, E O QUE O ALVO DELA E,
+# LIDOS DO REGISTO — nunca copiados para aqui.
+#
+# Isto ja esteve escrito duas vezes: um dicionario `PROMOVE` aqui e o campo
+# `observed_needs` la. Duas copias da mesma lei divergem, e no dia em que
+# divergissem o censo media uma coisa e o portao cobrava outra.
+def exigencias(reg: dict) -> tuple:
+    tipos = reg["EDGE_TYPES"]
+    return ({t: d["observed_needs"] for t, d in tipos.items()},
+            {t for t, d in tipos.items() if d.get("target") == "AUTHORITY_ID"})
 
 
 MARCA = {"PRESENT_AND_POINTED": "🟢", "PRESENT_ENTRY_POINT": "🟢",
@@ -434,9 +438,11 @@ def sala_de_controle(cartoes: list, arestas: list, resumo: dict,
 
 
 def main() -> int:
-    global RASTREADOS
+    global RASTREADOS, PROMOVE, ALVO_E_IDENTIDADE, POR_ID_DECLARADO
     RASTREADOS = set(rastreados())
     reg = json.loads(REGISTO.read_text(encoding="utf-8"))
+    PROMOVE, ALVO_E_IDENTIDADE = exigencias(reg)
+    POR_ID_DECLARADO = {a["CARD_ID"]: a for a in reg["AUTHORITIES"]}
     textos = carregar_textos(sorted(RASTREADOS))
     dono = dono_do_ficheiro()
 
@@ -499,9 +505,44 @@ def main() -> int:
         for tipo in ("GOVERNS", "CONSTRAINS", "REFERENCES", "VALIDATES",
                      "OBSERVES", "GENERATES", "IMPLEMENTS", "SUPERSEDES"):
             for alvo in a.get(tipo, []):
+                exige = PROMOVE[tipo]
+
+                # ── ARESTA DE IDENTIDADE ─────────────────────────────────────
+                # O alvo e um CARD_ID, e a resolucao dele nao passa pelo disco.
+                #
+                #     IDENTIDADE != MORADA.
+                #
+                # Mandar um CARD_ID pelo laco de caminho abaixo daria
+                # `PROOF_KIND=ABSENT` — «ponteiro quebrado» — para a unica
+                # coisa que uma supersessao quase sempre e: uma lei que ja nao
+                # vive aqui, substituida por outra que vive. O defeito estava
+                # no medidor, nao na relacao.
+                if tipo in ALVO_E_IDENTIDADE:
+                    alvo_card = POR_ID_DECLARADO.get(alvo)
+                    if alvo_card is None:
+                        prova_kind, prova_loc = "UNKNOWN_AUTHORITY_ID", ""
+                    elif a["CARD_ID"] in alvo_card.get("SUPERSEDED_BY", []):
+                        # A OUTRA PONTA CONFIRMA. Uma declaracao nao se prova a
+                        # si propria: quem prova que A substituiu B e B a
+                        # dizer que foi substituida por A, escrito noutro sitio.
+                        prova_kind = "REGISTRY_RECIPROCAL"
+                        prova_loc = f"registo:{alvo}.SUPERSEDED_BY"
+                    else:
+                        prova_kind, prova_loc = "MISSING_RECIPROCAL", ""
+                    arestas.append({
+                        "FROM": a["CARD_ID"], "TO_PATH": alvo,
+                        "TO_KIND": "AUTHORITY_ID",
+                        "TO_COMPONENT": "",
+                        "TO_IN_TREE": bool(alvo_card) and alvo_card["CANONICAL_PATH"] in RASTREADOS,
+                        "EDGE_TYPE": tipo,
+                        "EDGE_PLANE": reg["EDGE_TYPES"][tipo]["plane"],
+                        "EDGE_STATE": "OBSERVED" if prova_kind == exige else "DECLARED",
+                        "PROOF_KIND": prova_kind, "PROOF_LOCATION": prova_loc,
+                    })
+                    continue
+
                 alvo_existe = alvo in RASTREADOS
                 peca = resolver_peca(alvo, dono)
-                exige = PROMOVE[tipo]
 
                 # A PROVA. Procurada DENTRO da autoridade, nunca no mundo: uma
                 # lei que nao nomeia o que governa nao o governa de forma
@@ -527,7 +568,9 @@ def main() -> int:
 
                 estado = "OBSERVED" if prova_kind == exige else "DECLARED"
                 arestas.append({
-                    "FROM": a["CARD_ID"], "TO_PATH": alvo, "TO_COMPONENT": peca,
+                    "FROM": a["CARD_ID"], "TO_PATH": alvo,
+                    "TO_KIND": "PATH",
+                    "TO_COMPONENT": peca,
                     "EDGE_TYPE": tipo,
                     "EDGE_PLANE": reg["EDGE_TYPES"][tipo]["plane"],
                     "EDGE_STATE": estado,

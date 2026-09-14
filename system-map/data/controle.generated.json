@@ -1,8 +1,8 @@
 {
   "SCHEMA": "sintonia.control-plane.generated/1",
   "PROVENANCE": {
-    "HEAD": "30b02332cab20dcd280e0e036f8c0335f1105461",
-    "BRANCH": "claude/intelligence-night-v1"
+    "HEAD": "207745da380b3cba29b6417e7044874ef0a0c57b",
+    "BRANCH": "claude/control-plane-intelligence-night-v2"
   },
   "PLANES": [
     {
@@ -23,44 +23,63 @@
   ],
   "EDGE_TYPES": {
     "GOVERNS": {
+      "target": "PATH",
       "plane": "CONTROL",
       "why": "a autoridade manda nesta peca",
       "observed_needs": "TEXT_POINTER"
     },
     "CONSTRAINS": {
+      "target": "PATH",
       "plane": "CONTROL",
       "why": "a autoridade limita o que esta peca pode",
       "observed_needs": "TEXT_POINTER"
     },
     "REFERENCES": {
+      "target": "PATH",
       "plane": "CONTROL",
       "why": "a autoridade cita, sem mandar",
       "observed_needs": "TEXT_POINTER"
     },
     "IMPLEMENTS": {
+      "target": "PATH",
       "plane": "CONTROL",
       "why": "esta peca realiza o que a autoridade manda",
       "observed_needs": "MAP_OWNERSHIP"
     },
     "VALIDATES": {
+      "target": "PATH",
       "plane": "PROOF",
       "why": "este portao reprova quem desobedece",
       "observed_needs": "CODE_REFERENCE"
     },
     "OBSERVES": {
+      "target": "PATH",
       "plane": "PROOF",
       "why": "este medidor olha e escreve o que viu",
       "observed_needs": "CODE_REFERENCE"
     },
     "GENERATES": {
+      "target": "PATH",
       "plane": "PROOF",
       "why": "este artefacto nasce dali, derivado",
       "observed_needs": "CODE_REFERENCE"
     },
     "SUPERSEDES": {
+      "target": "AUTHORITY_ID",
       "plane": "HISTORY",
-      "why": "este documento substituiu aquele",
-      "observed_needs": "TEXT_POINTER"
+      "why": "esta autoridade substituiu aquela — IDENTIDADE, nunca morada",
+      "observed_needs": "REGISTRY_RECIPROCAL",
+      "nota": [
+        "O ALVO E UM CARD_ID, E NAO UM CAMINHO. Uma autoridade substituida pode ter",
+        "deixado de existir nesta arvore — e quase sempre esse o caso: e por isso que",
+        "alguem a substituiu. Exigir que o caminho dela esteja rastreado aqui torna",
+        "«substitui uma lei que se perdeu» impossivel de declarar.",
+        "",
+        "A prova de uma aresta de identidade nao pode ser o texto de quem a declara:",
+        "isso seria a declaracao a provar-se a si propria. E a OUTRA ponta que prova —",
+        "a autoridade-alvo tem de declarar SUPERSEDED_BY de volta. Duas metades",
+        "escritas em sitios diferentes que tem de coincidir."
+      ]
     }
   },
   "EVIDENCE_KINDS": {
@@ -69,7 +88,11 @@
     "TEXT_POINTER": "o texto da autoridade nomeia o caminho do alvo, com ficheiro e linha",
     "CODE_REFERENCE": "um ficheiro executavel nomeia o caminho, com ficheiro e linha",
     "GIT_MEASUREMENT": "medido no git: SHA do blob, commit, data, ancestralidade",
-    "MAP_OWNERSHIP": "o System Map ja reivindica este ficheiro para uma peca"
+    "MAP_OWNERSHIP": "o System Map ja reivindica este ficheiro para uma peca",
+    "REGISTRY_RECIPROCAL": "a autoridade-alvo declara a relacao inversa no registo",
+    "MISSING_RECIPROCAL": "a autoridade-alvo existe e NAO declara a relacao inversa",
+    "UNKNOWN_AUTHORITY_ID": "o alvo nao e um CARD_ID deste registo — nem id, nem caminho",
+    "AUTHORITY_TARGET_OUT_OF_TREE": "a autoridade-alvo existe no registo e o ficheiro dela nao esta nesta arvore"
   },
   "CARDS": [
     {
@@ -159,6 +182,7 @@
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
+        "controle/portao_do_controle.py",
         "controle/red_team_do_controle.py",
         "docs/biblia/CENSO-DAS-LEIS-DA-COLETA.md",
         "docs/decisoes/DIARIO-DE-DECISOES.md",
@@ -169,7 +193,7 @@
         "system-map/tests/test_system_map.py",
         "tests/test_handoff.py"
       ],
-      "REFERENCED_BY_COUNT": 15
+      "REFERENCED_BY_COUNT": 16
     },
     {
       "CARD_ID": "A-README",
@@ -284,6 +308,7 @@
         "SINTONIA-EAME-KNOW-HOW.md",
         "controle/AUTORIDADES-CANONICAS.json",
         "controle/censo_do_controle.py",
+        "controle/portao_do_controle.py",
         "controle/red_team_do_controle.py",
         "docs/biblia/CONFORMIDADE-ITALIA.md",
         "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
@@ -308,7 +333,7 @@
         "tests/test_o10r_a_verdade_dos_nomes.py",
         "tests/test_o9_caminho_instrumentado.py"
       ],
-      "REFERENCED_BY_COUNT": 29
+      "REFERENCED_BY_COUNT": 30
     },
     {
       "CARD_ID": "A-BIBLIA-INTELIGENCIA",
@@ -957,7 +982,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "746b8846bb",
+      "SHA": "a608977d9f",
       "LAST_VERIFIED": "2026-09-14T01:14:19+00:00",
       "LAST_COMMIT": "0b7ed8a68e",
       "LAST_SUBJECT": "integracao 1/5: o control plane e o registo de quem manda",
@@ -1238,7 +1263,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "9c14af304f",
+      "SHA": "282a4285d9",
       "LAST_VERIFIED": "2026-09-14T01:14:19+00:00",
       "LAST_COMMIT": "0b7ed8a68e",
       "LAST_SUBJECT": "integracao 1/5: o control plane e o registo de quem manda",
@@ -1344,7 +1369,7 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "baff7e01af",
+      "SHA": "a47aed3777",
       "LAST_VERIFIED": "2026-09-14T03:31:25+00:00",
       "LAST_COMMIT": "30b02332ca",
       "LAST_SUBJECT": "G2 — a Biblia NAO foi promovida: oito gates passam, o sexto reprova",
@@ -1381,10 +1406,10 @@
       "DIVERGENT_COPIES": [],
       "OBSERVED_STATE": "PRESENT_AND_POINTED",
       "IN_TREE": true,
-      "SHA": "0f7c456c96",
-      "LAST_VERIFIED": "2026-09-14T03:31:25+00:00",
-      "LAST_COMMIT": "30b02332ca",
-      "LAST_SUBJECT": "G2 — a Biblia NAO foi promovida: oito gates passam, o sexto reprova",
+      "SHA": "9647a78100",
+      "LAST_VERIFIED": "2026-09-14T03:47:57+00:00",
+      "LAST_COMMIT": "2ff5757c73",
+      "LAST_SUBJECT": "a Sala de Controle regenerada, e o carimbo do mapa",
       "LIVES_AT": "HEAD",
       "PROOF": "git:HEAD:SALA-DE-CONTROLE-SINTONIA.md",
       "REFERENCED_BY": [
@@ -1566,6 +1591,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "system-map/scripts/generate_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-MAPA-GERADOR",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1576,6 +1602,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "system-map/scripts/validate_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-MAPA-VALIDADOR",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1586,6 +1613,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "system-map/data/architecture.declared.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1596,6 +1624,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "system-map/tests/test_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1606,6 +1635,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "_gavetas.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1616,6 +1646,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "regras/LEIA-ANTES-DE-COLETAR.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1626,6 +1657,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "candidatas/fonte_nova.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-PORTA-FONTE",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1636,6 +1668,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "controle/AUTORIDADES-CANONICAS.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1646,6 +1679,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "controle/censo_do_controle.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1656,6 +1690,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "controle/portao_do_controle.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1666,6 +1701,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1676,6 +1712,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1686,6 +1723,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "docs/fontes/INDICE-DE-FONTES.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1696,6 +1734,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "system-map/README.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1706,6 +1745,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "CLAUDE.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1716,6 +1756,7 @@
     {
       "FROM": "A-AGENTS",
       "TO_PATH": "README.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1726,6 +1767,7 @@
     {
       "FROM": "A-CLAUDE",
       "TO_PATH": "docs/design/CONTRATO-DE-DESIGN-SINTONIA.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1736,6 +1778,7 @@
     {
       "FROM": "A-CLAUDE",
       "TO_PATH": "italia-portale/client/_ds/adama-brandwell/tokens/colors.css",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1746,6 +1789,7 @@
     {
       "FROM": "A-CLAUDE",
       "TO_PATH": "italia-portale/client/_ds/adama-brandwell/styles.css",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1756,6 +1800,7 @@
     {
       "FROM": "A-CLAUDE",
       "TO_PATH": "AGENTS.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1766,6 +1811,7 @@
     {
       "FROM": "A-CLAUDE",
       "TO_PATH": "README.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1776,6 +1822,7 @@
     {
       "FROM": "A-README",
       "TO_PATH": "AGENTS.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1786,6 +1833,7 @@
     {
       "FROM": "A-README",
       "TO_PATH": "CLAUDE.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1796,6 +1844,7 @@
     {
       "FROM": "A-README",
       "TO_PATH": "docs/descoberta/MISSAO-EAME-01.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1806,6 +1855,7 @@
     {
       "FROM": "A-README",
       "TO_PATH": "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1816,6 +1866,7 @@
     {
       "FROM": "A-COPILOT",
       "TO_PATH": "AGENTS.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1826,6 +1877,7 @@
     {
       "FROM": "A-BIBLIA-COLETA",
       "TO_PATH": "admissao/admissao.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-ADMISSAO",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1836,6 +1888,7 @@
     {
       "FROM": "A-BIBLIA-COLETA",
       "TO_PATH": "regras/proveniencia.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-PROCEDENCIA",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1846,6 +1899,7 @@
     {
       "FROM": "A-BIBLIA-COLETA",
       "TO_PATH": "regras/sensor_coleta.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-SENSOR-COLETA",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1856,6 +1910,7 @@
     {
       "FROM": "A-BIBLIA-COLETA",
       "TO_PATH": "coleta/coletor.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-COLETA-BASE",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1866,6 +1921,7 @@
     {
       "FROM": "A-BIBLIA-COLETA",
       "TO_PATH": "pedido/pedido.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-PEDIDO",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1876,6 +1932,7 @@
     {
       "FROM": "A-BIBLIA-ENTREGA",
       "TO_PATH": "portoes/build_portal.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-SITE-INGEST",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1886,6 +1943,7 @@
     {
       "FROM": "A-BIBLIA-ENTREGA",
       "TO_PATH": "portoes/site_v21_ingest.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-SITE-INGEST",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1896,6 +1954,7 @@
     {
       "FROM": "A-BIBLIA-ENTREGA",
       "TO_PATH": "superficie/ask_sintonia.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-ASK-SINTONIA",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1906,6 +1965,7 @@
     {
       "FROM": "A-CONTRATO-DESIGN",
       "TO_PATH": "superficie/ask_sintonia.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-ASK-SINTONIA",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1916,6 +1976,7 @@
     {
       "FROM": "A-CONTRATO-DESIGN",
       "TO_PATH": "italia-portale/client/italy-app-model.js",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-PORTAL-MODELO",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1926,6 +1987,7 @@
     {
       "FROM": "A-CONTRATOS-FONTES",
       "TO_PATH": "regras/italy_contracts.mjs",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-IT-CONTRATOS",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -1936,6 +1998,7 @@
     {
       "FROM": "G-VALIDADOR-MAPA",
       "TO_PATH": "system-map/data/architecture.declared.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "VALIDATES",
       "EDGE_PLANE": "PROOF",
@@ -1946,6 +2009,7 @@
     {
       "FROM": "G-VALIDADOR-MAPA",
       "TO_PATH": "system-map/data/state.generated.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "VALIDATES",
       "EDGE_PLANE": "PROOF",
@@ -1956,16 +2020,18 @@
     {
       "FROM": "G-PORTAO-CONTROLE",
       "TO_PATH": "controle/AUTORIDADES-CANONICAS.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "VALIDATES",
       "EDGE_PLANE": "PROOF",
       "EDGE_STATE": "OBSERVED",
       "PROOF_KIND": "CODE_REFERENCE",
-      "PROOF_LOCATION": "controle/portao_do_controle.py:11"
+      "PROOF_LOCATION": "controle/portao_do_controle.py:12"
     },
     {
       "FROM": "G-PORTAO-CONTROLE",
       "TO_PATH": "system-map/data/controle.generated.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "VALIDATES",
       "EDGE_PLANE": "PROOF",
@@ -1976,6 +2042,7 @@
     {
       "FROM": "G-TESTES-MAPA",
       "TO_PATH": "system-map/scripts/generate_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-MAPA-GERADOR",
       "EDGE_TYPE": "VALIDATES",
       "EDGE_PLANE": "PROOF",
@@ -1986,6 +2053,7 @@
     {
       "FROM": "G-CI-MAPA",
       "TO_PATH": "system-map/scripts/scan_repo.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-MAPA-SCAN",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -1996,6 +2064,7 @@
     {
       "FROM": "G-CI-MAPA",
       "TO_PATH": "system-map/scripts/generate_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-MAPA-GERADOR",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2006,6 +2075,7 @@
     {
       "FROM": "G-CI-MAPA",
       "TO_PATH": "system-map/scripts/validate_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-MAPA-VALIDADOR",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2016,6 +2086,7 @@
     {
       "FROM": "G-CI-MAPA",
       "TO_PATH": "medidas/padrao_da_coleta.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-PADRAO-COLETA",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2026,6 +2097,7 @@
     {
       "FROM": "G-CI-MAPA",
       "TO_PATH": "system-map/tests/test_system_map.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2036,6 +2108,7 @@
     {
       "FROM": "G-CI-MAPA",
       "TO_PATH": "provas/testa_coleta_canonica.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-PROVA-COLETA",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2046,6 +2119,7 @@
     {
       "FROM": "O-SCAN-REPO",
       "TO_PATH": "_gavetas.py",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "OBSERVES",
       "EDGE_PLANE": "PROOF",
@@ -2056,6 +2130,7 @@
     {
       "FROM": "O-GERADOR",
       "TO_PATH": "system-map/data/architecture.declared.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "OBSERVES",
       "EDGE_PLANE": "PROOF",
@@ -2066,6 +2141,7 @@
     {
       "FROM": "O-GERADOR",
       "TO_PATH": "controle/AUTORIDADES-CANONICAS.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "OBSERVES",
       "EDGE_PLANE": "PROOF",
@@ -2076,6 +2152,7 @@
     {
       "FROM": "O-CENSO-CONTROLE",
       "TO_PATH": "controle/AUTORIDADES-CANONICAS.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "OBSERVES",
       "EDGE_PLANE": "PROOF",
@@ -2086,6 +2163,7 @@
     {
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2096,6 +2174,7 @@
     {
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
       "TO_PATH": "BIBLIA-CANONICA-DA-COLETA.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "C-BIBLIA",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2106,6 +2185,7 @@
     {
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2116,16 +2196,19 @@
     {
       "FROM": "A-BIBLIA-ENG-INTELIGENCIA",
       "TO_PATH": "A-BIBLIA-INTELIGENCIA",
+      "TO_KIND": "AUTHORITY_ID",
       "TO_COMPONENT": "",
+      "TO_IN_TREE": false,
       "EDGE_TYPE": "SUPERSEDES",
       "EDGE_PLANE": "HISTORY",
-      "EDGE_STATE": "DECLARED",
-      "PROOF_KIND": "ABSENT",
-      "PROOF_LOCATION": ""
+      "EDGE_STATE": "OBSERVED",
+      "PROOF_KIND": "REGISTRY_RECIPROCAL",
+      "PROOF_LOCATION": "registo:A-BIBLIA-INTELIGENCIA.SUPERSEDED_BY"
     },
     {
       "FROM": "A-MOTOR-V2-REQUISITOS",
       "TO_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2136,6 +2219,7 @@
     {
       "FROM": "A-MOTOR-V2-REQUISITOS",
       "TO_PATH": "docs/intelligence/BACKLOG-OBRIGATORIO.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2146,6 +2230,7 @@
     {
       "FROM": "A-ARBITRAGEM-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "GOVERNS",
       "EDGE_PLANE": "CONTROL",
@@ -2156,6 +2241,7 @@
     {
       "FROM": "A-ARBITRAGEM-INTELIGENCIA",
       "TO_PATH": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2166,6 +2252,7 @@
     {
       "FROM": "A-ARBITRAGEM-INTELIGENCIA",
       "TO_PATH": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
+      "TO_KIND": "PATH",
       "TO_COMPONENT": "",
       "EDGE_TYPE": "REFERENCES",
       "EDGE_PLANE": "CONTROL",
@@ -2180,7 +2267,7 @@
     "absent_from_snapshot": 2,
     "orphan_in_tree": 0,
     "edges": 61,
-    "edges_observed": 38,
-    "edges_declared": 23
+    "edges_observed": 39,
+    "edges_declared": 22
   }
 }

@@ -199,13 +199,32 @@ def rt07(reg, td):
     a["VERSION"] = "a mais recente de todas"
     censo, _, saida = correr(reg, td)
     c = next(x for x in censo["CARDS"] if x["CARD_ID"] == "A-KNOWHOW")
-    # A defesa e por CLASSIFICACAO: o estado medido contradiz a frase declarada,
-    # e o portao conta-a como STALE_AUTHORITY por regra objetiva — a ref
-    # canonica nao e antepassada deste HEAD.
-    return (c["OBSERVED_STATE"] == "ABSENT_FROM_SNAPSHOT"
+
+    # O MESMO CARTAO, MEDIDO SEM O ATAQUE. A defesa e a COMPARACAO: o estado
+    # medido tem de ser identico com e sem a bravata declarada.
+    #
+    # Esta asserção ja foi `OBSERVED_STATE == "ABSENT_FROM_SNAPSHOT"`, e passou a
+    # dizer que o ataque atravessava — sem nada ter mudado no portao. O que mudou
+    # foi a arvore: `SINTONIA-EAME-KNOW-HOW.md` vive aqui desde a integracao, e o
+    # cartao passou legitimamente a PRESENT_AND_POINTED.
+    #
+    #     UMA ASSERCAO CERTA LIDA CONTRA A FOTOGRAFIA ERRADA.
+    #
+    # O ataque nunca foi «o ficheiro esta ausente»: e «o texto declarado consegue
+    # mover o estado medido?». Fixar o valor de um estado em vez de comparar dois
+    # era medir a arvore, e nao a defesa.
+    with tempfile.TemporaryDirectory() as limpo:
+        sem_ataque = json.loads(REGISTO_REAL.read_text(encoding="utf-8"))
+        censo0, _, saida0 = correr(sem_ataque, Path(limpo))
+    c0 = next(x for x in censo0["CARDS"] if x["CARD_ID"] == "A-KNOWHOW")
+
+    return (c["OBSERVED_STATE"] == c0["OBSERVED_STATE"]
+            and c["LIVES_AT"] == c0["LIVES_AT"]
+            and c["SHA"] == c0["SHA"]
             and "STALE_AUTHORITY" in saida,
-            "o texto declarado nao move o estado medido: continua "
-            "ABSENT_FROM_SNAPSHOT e contado em STALE_AUTHORITY")
+            f"o texto declarado nao moveu nada: o cartao ficou "
+            f"{c['OBSERVED_STATE']} com e sem a bravata, e a regra objetiva "
+            "continua a conta-lo em STALE_AUTHORITY")
 
 
 # ══ RT08 ════════════════════════════════════════════════════════════════════

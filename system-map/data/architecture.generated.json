@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/intelligence-night-v1",
-    "HEAD": "47f1ffbe7c78ccf2ce3471fee4b60f75c283ccb3",
-    "GENERATED_AT": "2026-09-14T03:51:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "43b9a2cc30097676bcedbdea0dc25c628e373cdcc94f7ff2c32e2f0808307aef"
+    "BRANCH": "claude/control-plane-intelligence-night-v2",
+    "HEAD": "207745da380b3cba29b6417e7044874ef0a0c57b",
+    "GENERATED_AT": "2026-09-14T03:53:26+00:00",
+    "SOURCE_TREE_FINGERPRINT": "30ded2ed786876dce8a73a0e543fd0f7edd97733ae042d649555bc74a9cc0893"
   },
   "FILES": [
     {
@@ -269,7 +269,7 @@
     },
     {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
-      "sha": "9499f7068a775329ba6488ac721a9a4cb723b1df",
+      "sha": "9647a781006574774672489656b193a422c44f37",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1571,35 +1571,35 @@
     },
     {
       "path": "controle/AUTORIDADES-CANONICAS.json",
-      "sha": "baff7e01aff22373539c865220fdc0e1fb75855d",
+      "sha": "a47aed3777ad8aa43e270f49dceadc52eb9f4133",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "controle/CHAO-DO-CONTROLE.json",
-      "sha": "13e95e3c04506ebbedfb89d71d9fda6e31db5411",
+      "sha": "da7812a9ea0d1cbab8407d62a6d42e756fc176d9",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "controle/censo_do_controle.py",
-      "sha": "9c14af304f2d9ecd8adf20ad3122cd266ed36993",
+      "sha": "282a4285d99333b7485e2a0c9f316653312d3298",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "controle/portao_do_controle.py",
-      "sha": "746b8846bb4cfa3fa52f6a8f486328d65fd6db94",
+      "sha": "a608977d9f9f7eea3c0078f79d2c85409d8b6e35",
       "ext": ".py",
       "readable": true,
       "code_dir": false
     },
     {
       "path": "controle/red_team_do_controle.py",
-      "sha": "e3f39936da2e38965b8a367468cd89436a35eaa8",
+      "sha": "ee1b497cf319a3132041a2796c2bb6dc78136997",
       "ext": ".py",
       "readable": true,
       "code_dir": false
@@ -16607,7 +16607,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/censo_do_controle.py",
-        "line": 433,
+        "line": 437,
         "snippet": "SALA.write_text(\"\\n\".join(L) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -16640,7 +16640,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 214,
+        "line": 310,
         "snippet": "sala = RAIZ / \"SALA-DE-CONTROLE-SINTONIA.md\""
       }
     },
@@ -16651,7 +16651,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 61,
+        "line": 63,
         "snippet": "RAIZ / \"controle\" / \"AUTORIDADES-CANONICAS.json\")"
       }
     },
@@ -16662,7 +16662,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 64,
+        "line": 66,
         "snippet": "CHAO = _caminho(\"SINTONIA_CONTROLE_CHAO\", RAIZ / \"controle\" / \"CHAO-DO-CONTROLE.json\")"
       }
     },
@@ -16673,7 +16673,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 292,
+        "line": 523,
         "snippet": "CHAO.write_text(json.dumps({"
       }
     },
@@ -16684,7 +16684,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/portao_do_controle.py",
-        "line": 218,
+        "line": 314,
         "snippet": "[sys.executable, str(RAIZ / \"controle\" / \"censo_do_controle.py\")],"
       }
     },
@@ -16695,7 +16695,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/red_team_do_controle.py",
-        "line": 252,
+        "line": 271,
         "snippet": "alvo = \"_gavetas.py\""
       }
     },
@@ -16706,7 +16706,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/red_team_do_controle.py",
-        "line": 279,
+        "line": 298,
         "snippet": "g[\"GOVERNS\"] = [\"motor/v21_cadeia.sh\", \"admissao/admissao.py\"]"
       }
     },
@@ -16772,7 +16772,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "controle/red_team_do_controle.py",
-        "line": 234,
+        "line": 253,
         "snippet": "and x[\"TO_PATH\"] == \"superficie/ask_sintonia.py\")"
       }
     },

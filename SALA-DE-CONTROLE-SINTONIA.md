@@ -92,7 +92,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `b38c2989c5`
 - **prova** — `git:HEAD:CLAUDE.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+11)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-CANONICA-DA-COLETA.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+12)*
 - **o que ela diz de si** — Aponta para AGENTS.md como dono da lei do mapa, e possui sozinha a lei de design.
 
   | relação | alvo | estado | prova |
@@ -153,7 +153,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `909ba45bac`
 - **prova** — `git:HEAD:BIBLIA-CANONICA-DA-COLETA.md`
-- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+25)*
+- **quem aponta para ela** — `AGENTS.md`, `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `README.md`, `SINTONIA-EAME-KNOW-HOW.md` *(+26)*
 - **cópias divergentes medidas** — 3: `origin/claude/sintonia-eame-know-how-v1`, `origin/release/canonical`, `origin/claude/biblia-canonica-da-coleta`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. A lei da coleta existe no Git e nao existe em `main` — quem clona `main` e le CLAUDE.md e mandado consultar um ficheiro que ali nao esta.
 
@@ -219,7 +219,7 @@ A leitura desta tabela é o resultado principal desta missão:
   | `REFERENCES` | `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1201` |
   | `REFERENCES` | `BIBLIA-CANONICA-DA-COLETA.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:25` |
   | `REFERENCES` | `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` | **DECLARED** | *path_exists* |
-  | `SUPERSEDES` | `A-BIBLIA-INTELIGENCIA` | **DECLARED** | *absent* |
+  | `SUPERSEDES` | `A-BIBLIA-INTELIGENCIA` | **OBSERVED** | `registo:A-BIBLIA-INTELIGENCIA.SUPERSEDED_BY` |
 
 ### CONTRATOS
 
@@ -380,7 +380,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `baff7e01af`
+- **impressão do conteúdo medido** — `a47aed3777`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
 - **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` *(+3)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
@@ -426,14 +426,14 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/portao_do_controle.py`](controle/portao_do_controle.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `746b8846bb`
+- **impressão do conteúdo medido** — `a608977d9f`
 - **prova** — `git:HEAD:controle/portao_do_controle.py`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `tests/test_atomicidade_da_intelligence.py`
 - **o que ela diz de si** — Falha fechado.
 
   | relação | alvo | estado | prova |
   |---|---|---|---|
-  | `VALIDATES` | `controle/AUTORIDADES-CANONICAS.json` | **OBSERVED** | `controle/portao_do_controle.py:11` |
+  | `VALIDATES` | `controle/AUTORIDADES-CANONICAS.json` | **OBSERVED** | `controle/portao_do_controle.py:12` |
   | `VALIDATES` | `system-map/data/controle.generated.json` | **DECLARED** | *path_exists* |
 
 #### 🟢 Testes das regras do mapa
@@ -548,7 +548,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/censo_do_controle.py`](controle/censo_do_controle.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `9c14af304f`
+- **impressão do conteúdo medido** — `282a4285d9`
 - **prova** — `git:HEAD:controle/censo_do_controle.py`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/portao_do_controle.py`, `tests/test_atomicidade_da_intelligence.py`
 - **o que ela diz de si** — Ele e quem escreve OBSERVED. O registo declarado nunca escreve.
@@ -722,9 +722,9 @@ presumidas: cada uma diz a ref onde a autoridade realmente está.
 ## DECLARADO ≠ OBSERVADO
 
 O censo mediu **61** relações de governo declaradas neste
-registo. Delas, **38** têm prova apontável
+registo. Delas, **39** têm prova apontável
 (ficheiro e linha dentro do texto da própria autoridade) e
-**23** continuam apenas declaradas.
+**22** continuam apenas declaradas.
 
 Uma relação declarada **não passa a observada por estar desenhada**. Quem
 prova que uma lei governa uma peça é o texto da lei a nomear a peça — não o

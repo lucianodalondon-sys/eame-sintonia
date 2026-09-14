@@ -42,48 +42,71 @@
   "TEXT_POINTER": "o texto da autoridade nomeia o caminho do alvo, com ficheiro e linha",
   "CODE_REFERENCE": "um ficheiro executavel nomeia o caminho, com ficheiro e linha",
   "GIT_MEASUREMENT": "medido no git: SHA do blob, commit, data, ancestralidade",
-  "MAP_OWNERSHIP": "o System Map ja reivindica este ficheiro para uma peca"
+  "MAP_OWNERSHIP": "o System Map ja reivindica este ficheiro para uma peca",
+  "REGISTRY_RECIPROCAL": "a autoridade-alvo declara a relacao inversa no registo",
+  "MISSING_RECIPROCAL": "a autoridade-alvo existe e NAO declara a relacao inversa",
+  "UNKNOWN_AUTHORITY_ID": "o alvo nao e um CARD_ID deste registo — nem id, nem caminho",
+  "AUTHORITY_TARGET_OUT_OF_TREE": "a autoridade-alvo existe no registo e o ficheiro dela nao esta nesta arvore"
  },
  "EDGE_TYPES": {
   "GOVERNS": {
+   "target": "PATH",
    "plane": "CONTROL",
    "why": "a autoridade manda nesta peca",
    "observed_needs": "TEXT_POINTER"
   },
   "CONSTRAINS": {
+   "target": "PATH",
    "plane": "CONTROL",
    "why": "a autoridade limita o que esta peca pode",
    "observed_needs": "TEXT_POINTER"
   },
   "REFERENCES": {
+   "target": "PATH",
    "plane": "CONTROL",
    "why": "a autoridade cita, sem mandar",
    "observed_needs": "TEXT_POINTER"
   },
   "IMPLEMENTS": {
+   "target": "PATH",
    "plane": "CONTROL",
    "why": "esta peca realiza o que a autoridade manda",
    "observed_needs": "MAP_OWNERSHIP"
   },
   "VALIDATES": {
+   "target": "PATH",
    "plane": "PROOF",
    "why": "este portao reprova quem desobedece",
    "observed_needs": "CODE_REFERENCE"
   },
   "OBSERVES": {
+   "target": "PATH",
    "plane": "PROOF",
    "why": "este medidor olha e escreve o que viu",
    "observed_needs": "CODE_REFERENCE"
   },
   "GENERATES": {
+   "target": "PATH",
    "plane": "PROOF",
    "why": "este artefacto nasce dali, derivado",
    "observed_needs": "CODE_REFERENCE"
   },
   "SUPERSEDES": {
+   "target": "AUTHORITY_ID",
    "plane": "HISTORY",
-   "why": "este documento substituiu aquele",
-   "observed_needs": "TEXT_POINTER"
+   "why": "esta autoridade substituiu aquela — IDENTIDADE, nunca morada",
+   "observed_needs": "REGISTRY_RECIPROCAL",
+   "nota": [
+    "O ALVO E UM CARD_ID, E NAO UM CAMINHO. Uma autoridade substituida pode ter",
+    "deixado de existir nesta arvore — e quase sempre esse o caso: e por isso que",
+    "alguem a substituiu. Exigir que o caminho dela esteja rastreado aqui torna",
+    "«substitui uma lei que se perdeu» impossivel de declarar.",
+    "",
+    "A prova de uma aresta de identidade nao pode ser o texto de quem a declara:",
+    "isso seria a declaracao a provar-se a si propria. E a OUTRA ponta que prova —",
+    "a autoridade-alvo tem de declarar SUPERSEDED_BY de volta. Duas metades",
+    "escritas em sitios diferentes que tem de coincidir."
+   ]
   }
  },
  "LIFECYCLE_VALUES": [
