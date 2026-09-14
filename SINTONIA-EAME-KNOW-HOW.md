@@ -13100,3 +13100,109 @@ E, para a operação: **rollback não é restore.** Uma migration precisa de
 `FORWARD_RECOVERY_PLAN`; a operação precisa de `DISASTER_RESTORE_PLAN`. Tratar
 os dois como um leva a restaurar o banco inteiro — apagando tudo o que veio
 depois — para desfazer um `create table`.
+
+---
+
+# §112 · O QUE FALTA É A CHAVE, E NÃO O RECURSO
+
+**Missão:** `C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1`, a medir o que a
+`C-RESTORE-PROOF-BEFORE-LIVE-V2` deixou em `NOT_MEASURED`.
+
+## 112.1 · O QUE MUDOU
+
+Três regras nasceram, e nenhuma é sobre backups — são sobre **como se mede**.
+
+## 112.2 · A PRIMEIRA · `401` NÃO É `404`
+
+```
+CREDENCIAL AUSENTE != RECURSO AUSENTE.
+```
+
+Durante duas missões esta casa escreveu «a API de gestão do Supabase não é
+alcançável daqui». Medido agora, a frase era falsa no sítio que importa:
+
+```
+GET https://api.supabase.com/v1/projects                  ->  401
+GET .../v1/projects/{ref}/database/backups                ->  401
+```
+
+`401` — e não `404`, e não *timeout*. **A rota existe e a rede chega lá.** O
+que falta é a chave. A diferença entre as duas leituras é a diferença entre
+«falta comprar» e «falta pedir», e elas levam a decisões opostas.
+
+> Sempre que uma peça desta casa disser «não temos acesso a X», a pergunta
+> seguinte é **qual foi o código de resposta**. «Não consegui» é um
+> sentimento; `401`, `403`, `404` e *timeout* são quatro diagnósticos
+> diferentes, e só um deles quer dizer que o recurso não existe.
+
+## 112.3 · A SEGUNDA · NÚMERO MAIOR NÃO É DEPENDÊNCIA
+
+O LIVE está declarado em `027`. A Sala é a `031`. Toda a gente — incluindo
+duas missões desta casa — leu isso como «faltam três migrations e a `031`
+precisa delas». Medido a **executar**, sobre o estado `027` construído num
+banco descartável:
+
+```
+A_031_SOBRE_A_027_SEM_AS_TRES     PASS
+A_031_DEPENDE_DE_028_029_030      NAO
+```
+
+A `031` toca `collection_run` e `raw_asset`, e **as duas nascem na `001`**.
+As três do meio mexem em tabelas que ela não usa.
+
+```
+NUMERO MAIOR NAO E DEPENDENCIA.
+ORDEM DE APLICACAO != GRAFO DE DEPENDENCIA.
+```
+
+E o remate, que é o que impede a lição de virar desculpa:
+
+> **Não há dependência, e continua a não se saltar.** O aplicador canónico
+> tem uma ordem só e um livro-razão com buraco é *drift* por construção. As
+> duas frases são verdade ao mesmo tempo, e confundi-las erra nos dois
+> sentidos: inventa um *blocker* que não existe, ou autoriza um salto que
+> ninguém pode dar.
+
+## 112.4 · A TERCEIRA · UMA LEI SÓ MORDE DEPOIS DO COMMIT
+
+Esta foi apanhada em casa, e contra a missão anterior.
+
+A `V2` correu `validate_system_map.py` e recebeu `PASS`, incluindo
+`P9_CODIGO_DECLARADO`. Só que o ficheiro de prova ainda estava **por
+versionar**, e o censo do mapa lê o **Git**, não a árvore de trabalho. O
+verde era sobre um repositório onde o ficheiro não existia.
+
+```
+VALIDADOR VERDE SOBRE FICHEIRO POR VERSIONAR E VERDE SOBRE OUTRO REPOSITORIO.
+```
+
+A violação só apareceu na missão seguinte, quando o ficheiro já estava
+commitado — e então o `P9` reprovou, com razão, código da missão anterior.
+
+> A regra que fica: **valide depois de `git add`, nunca antes.** E, mais
+> geral: quando uma conferência lê o Git e a mudança ainda está na árvore de
+> trabalho, ela não está a conferir o que você fez — está a conferir o que
+> havia antes de o fazer. É a mesma família do `§110` (`PROVA DENTRO DO
+> PROCESSO != DURABILIDADE`), aplicada à fronteira entre a árvore e o
+> índice.
+
+## 112.5 · CONSEQUÊNCIA
+
+```
+LIVE_BACKUP_PREFLIGHT     BLOCKED   (12 campos, 12 NOT_MEASURED)
+CREDENCIAL_QUE_FALTA      Personal Access Token de LEITURA
+                          (`backups_read` / escopo `database:read`)
+CUSTO_DE_A_USAR           zero — nao escreve nada
+```
+
+E uma correcção de dinheiro, que é onde um erro de leitura fica caro:
+**o PITR não é pré-requisito** para provar a plataforma. O «Restore to a New
+Project» do Supabase funciona a partir do **backup diário físico**. A `V2`
+tinha deixado no ar que provar a plataforma implicava o add-on — implicava
+**100 USD/mês** que não são precisos.
+
+```
+PRECO LIDO != PRECO PRESUMIDO.
+E DUAS PAGINAS OFICIAIS DO MESMO FORNECEDOR PODEM DISCORDAR — registe a
+divergencia, nao escolha a que lhe convem.
+```
