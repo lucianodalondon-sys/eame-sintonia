@@ -1,0 +1,329 @@
+{
+  "data": {
+    "id": "sLHbdSml2RJ1H4Zay",
+    "actId": "S9A11NvceWaGorwwh",
+    "userId": "i31sBZIzNwpM6mPMx",
+    "startedAt": "2026-07-25T10:04:13.685Z",
+    "finishedAt": "2026-07-25T10:05:22.467Z",
+    "status": "SUCCEEDED",
+    "meta": {
+      "origin": "WEB"
+    },
+    "stats": {
+      "durationMillis": 68723,
+      "runTimeSecs": 68.723,
+      "computeUnits": 0.07635888888888889,
+      "imageSizeBytes": 540965888
+    },
+    "options": {
+      "useCache": true,
+      "betaPackages": false,
+      "memoryMbytes": 4096,
+      "diskMbytes": 8192
+    },
+    "createdByOrganizationMemberUserId": "HdufT2VeQIWhUNfkP",
+    "exitCode": 0,
+    "inputSchema": "{\n  \"title\": \"input parameters\",\n  \"type\": \"object\",\n  \"schemaVersion\": 1,\n  \"description\": \"Turn Instagram videos into clean, structured transcripts with ease.\\nThis API helps you extract spoken content (auto-generated transcripts) from public Instagram videos — designed for developers, data teams, and AI agents that need text, not just media.\",\n  \"properties\": {\n    \"videoUrl\": {\n      \"title\": \"The URL of the instagram\",\n      \"type\": \"string\",\n      \"description\": \"The URL of the instagram you want to get the data from.\",\n      \"editor\": \"textfield\",\n      \"prefill\": \"https://www.instagram.com/p/DULBkEngpxg\"\n    },\n    \"bulkUrls\": {\n      \"title\": \"The URLs of the instagram\",\n      \"type\": \"array\",\n      \"description\": \"🚀 BULK PROCESSING: Extract transcripts from multiple Instagram videos at once.\\n✨ Perfect for content creators, marketers & social media analysts\\n💰 TIER-BASED LIMITS:\\n• FREE users: Up to 5 URLs per run\\n• PAID users: Unlimited URLs\",\n      \"editor\": \"stringList\",\n      \"prefill\": []\n    },\n    \"usernames\": {\n      \"title\": \"The usernames of the instagram\",\n      \"type\": \"array\",\n      \"description\": \"The usernames of the instagram you want to get the data from.\",\n      \"editor\": \"stringList\",\n      \"prefill\": [\n        \"bbcnews\"\n      ],\n      \"sectionCaption\": \"Channel Scrape\",\n      \"sectionDescription\": \"Automatically scrape multiple reels from an Instagram profile\"\n    },\n    \"resultsLimit\": {\n      \"title\": \"The results limit\",\n      \"type\": \"integer\",\n      \"description\": \"The maximum number of results to return.\",\n      \"editor\": \"number\",\n      \"prefill\": 12\n    },\n    \"onlyPostsNewerThan\": {\n      \"title\": \"Scrape reels newer than\",\n      \"type\": \"string\",\n      \"editor\": \"datepicker\",\n      \"dateType\": \"absoluteOrRelative\",\n      \"description\": \"Scrape reels from the provided date up to the present. Supported formats include YYYY-MM-DD, full ISO timestamps (e.g. 2025-09-23T10:02:01), or relative time such as 1 day, 2 weeks, or 3 months. All times are evaluated in UTC.\",\n      \"pattern\": \"^(\\\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\\\d|3[01])$|^(\\\\d+)\\\\s*(day|week|month|year)s?$\"\n    },\n    \"skipPinnedPosts\": {\n      \"title\": \" Skip pinned reels\",\n      \"type\": \"boolean\",\n      \"description\": \"Enable this option if you want to exclude pinned reels from the overall results.\",\n      \"editor\": \"checkbox\",\n      \"prefill\": false\n    },\n    \"includeSharesCount\": {\n      \"title\": \"Include Shares Count\",\n      \"type\": \"boolean\",\n      \"description\": \"Whether to include the shares count in the results.Available for paying users only. Upgrade to the Starter plan to unlock it.\",\n      \"editor\": \"checkbox\",\n      \"prefill\": false\n    }\n  },\n  \"required\": []\n}",
+    "readme": "# Instagram Transcript API and Profile Scraper\n\nExtract Instagram Reel and video transcripts, process URLs in batch, or collect structured posts from public Instagram profiles.\n\nUse this Actor when you want production-ready Instagram transcript data without building your own scraping, media extraction, and speech-to-text pipeline. Start with one URL in the Apify Console, inspect the dataset output, then scale the same workflow to batches, Tasks, schedules, or API calls.\n\nIf your workflow depends on Instagram content for AI, research, monitoring, or internal tools, this Actor gives you a faster path from public Instagram content to clean, structured data. It is designed to be easy to try, predictable to integrate, and practical for both small tests and larger automation workflows.\n\nThis Actor has two modes:\n\n| Mode | What it does | Use it when you need |\n| --- | --- | --- |\n| **Instagram transcript extraction** | Transcribes one or more public Instagram Reels, videos, or posts and returns transcript text, timestamped segments, media URLs, and post metadata. | Instagram transcript API, Instagram Reel transcript, Instagram video transcript, Instagram video to text, LLM ingestion, captions, subtitles, or AI-ready content data. |\n| **Instagram profile scraper** | Scrapes public posts from one or more creator profiles and returns structured post metadata. This mode does not generate transcripts. | Creator research, competitor research, recurring content collection, Instagram post scraper workflows, or content analysis. |\n\nThe main use case for this Actor is still Instagram transcript extraction. The profile scraper mode was added to support a more complete Instagram content collection workflow when you also need to collect posts from public creator profiles. In practice, you can start with transcripts and expand into profile-based collection without switching tools.\n\n## What can this Actor do?\n\nWith this Actor, you can:\n\n- Extract Instagram transcript text from a public Reel, video, or post URL\n- Convert Instagram video to text for AI, search, captions, and content analysis\n- Process multiple Instagram URLs in one batch run\n- Get timestamped transcript segments for subtitle and alignment workflows\n- Extract media URLs, thumbnail URLs, creator metadata, and engagement metrics\n- Scrape public Instagram profile posts from one or more usernames\n- Filter profile scraping results by publish date or relative time\n- Limit the number of profile posts returned\n- Skip pinned posts when collecting recent creator content\n- Optionally include share count for eligible premium usage\n- Export results from Apify datasets in JSON, CSV, Excel, XML, RSS, or HTML\n- Run the Actor from the Apify Console, API, SDKs, Tasks, schedules, and webhooks\n\nInstead of stitching together separate tools for Instagram scraping, media download, transcription, and data cleanup, you can get transcript-ready and analysis-ready output from one Actor run. That means less integration work and a shorter path from Instagram URL to usable data.\n\n## What data can I extract?\n\nThe Actor returns structured Instagram data that is ready for databases, LLM ingestion, analytics pipelines, and automation tools.\n\n| Data category | Fields |\n| --- | --- |\n| Post identity | Post URL, shortcode, Instagram media ID, internal post ID |\n| Transcript data | Full transcript text, timestamped transcript segments |\n| Media data | Thumbnail image URL, video URL, audio URL |\n| Engagement data | Like count, comment count, optional share count when available |\n| Creator data | Creator user ID, username, full name, avatar URL |\n| Run status | Error message field, extraction timestamp |\n\nTranscript fields are returned when you use `videoUrl` or `bulkUrls`. Profile scraping with `usernames` collects public post metadata and does not generate transcripts.\n\n## How do I try it?\n\nYou can test the Actor directly in the Apify Console without writing code.\n\n1. Open the Actor on Apify.\n2. Click **Try for free**.\n3. In the **Input** form, choose the workflow you want:\n   - Paste one Instagram URL into **Video URL** to transcribe a single Reel, video, or post.\n   - Add multiple URLs into **Bulk URLs** to run batch transcription.\n   - Enter one or more usernames into **Usernames** to scrape public profile posts.\n4. For profile scraping, set **Results limit** and optionally add a date filter in **Only posts newer than**.\n5. Click **Start**.\n6. Open the **Dataset** in the Storage tab to preview, download, or export the results.\n\nThe fastest way to evaluate the Actor is to run a single Instagram URL first. You can confirm the transcript text, timestamped segments, media URLs, and metadata before spending time or budget on a larger batch. If the output fits your workflow, the same setup can be reused for batch runs or saved as an Apify Task.\n\n![Apify Console Quick Start](https://raw.githubusercontent.com/daka18/instagram-reels-transcript-api/main/images/apify-console-screenshot.png)\n\n\n## Table of Contents\n\n- [Input workflows](#input-workflows)\n- [Complete input parameter reference](#complete-input-parameter-reference)\n- [Input examples for API users](#input-examples-for-api-users)\n- [Output overview](#output-overview)\n- [Complete output field reference](#complete-output-field-reference)\n- [Output example](#output-example)\n- [Common use cases](#common-use-cases)\n- [Pricing](#pricing)\n- [Why choose this Actor](#why-choose-this-actor)\n- [FAQ](#faq)\n- [Notes and limitations](#notes-and-limitations)\n- [Support](#support)\n\n## Input workflows\n\nChoose the input mode based on the task you want to complete.\n\n### Transcribe one Instagram Reel or video\n\nUse this mode when you already have one Instagram URL and need an Instagram transcript, media URLs, and post metadata.\n\nIn the Apify Input form:\n\n- Add the URL to **Video URL**\n- Leave **Bulk URLs** and **Usernames** empty\n- Optionally provide `sessionid` if needed\n\nAPI field:\n\n- `videoUrl`\n\n### Batch transcribe multiple Instagram URLs\n\nUse this mode when you have a list of Instagram Reels, videos, or posts and want one dataset item per URL.\n\nIn the Apify Input form:\n\n- Add URLs to **Bulk URLs**\n- Use the bulk edit option if you already have a prepared list\n- Leave **Video URL** and **Usernames** empty\n- Optionally provide `sessionid` if needed\n\nAPI field:\n\n- `bulkUrls`\n\n### Scrape public creator profile posts\n\nUse this mode when you want to collect public posts from one or more Instagram creator profiles. This is useful for creator research, competitor research, recurring content collection, social media intelligence, and content analysis workflows.\n\nThis mode does not generate transcripts.\n\nIn the Apify Input form:\n\n- Add one or more usernames to **Usernames**\n- Set **Results limit** to control how many posts to collect\n- Use **Only posts newer than** to collect recent posts only\n- Use pinned-post settings if you want to avoid older pinned content\n- Enable share count only if your plan supports it\n\nAPI fields:\n\n- `usernames`\n- `resultsLimit`\n- `onlyPostsNewerThan`\n- `skipPinnedPosts`\n- `includeSharesCount`\n\n### Collect only recent posts\n\nUse `onlyPostsNewerThan` with `usernames` to collect posts newer than a specific date or relative time window.\n\nSupported relative formats:\n\n- `<number> day` or `<number> days`\n- `<number> week` or `<number> weeks`\n- `<number> month` or `<number> months`\n- `<number> year` or `<number> years`\n\nUse the singular form for `1` and the plural form for numbers greater than `1`.\n\nExamples:\n\n- `1 day`\n- `1 week`\n- `1 month`\n- `1 year`\n- `7 days`\n- `2 weeks`\n- `3 months`\n- `2 years`\n\nSupported absolute formats:\n\n- `YYYY-MM-DD`\n- Full ISO timestamp, such as `2026-07-01T10:30:00Z`\n\nAll time values are interpreted in UTC.\n\n## Complete input parameter reference\n\n| Field | Type | Required | Default | Description | When to use it |\n| --- | --- | --- | --- | --- | --- |\n| `videoUrl` | string | No | Not set | A single public Instagram Reel, video, or post URL to transcribe. | Use when you need one Instagram Reel transcript or Instagram video transcript. |\n| `bulkUrls` | array of strings | No | `[]` | Multiple public Instagram Reel, video, or post URLs to process in one run. | Use for batch Instagram transcript scraping. URLs can be added one by one or through bulk edit in the Apify form. |\n| `usernames` | array of strings | No | `[]` | One or more public Instagram usernames to scrape. | Use for Instagram profile scraper, Instagram post scraper, or Instagram creator scraper workflows. This mode does not generate transcripts. |\n| `resultsLimit` | integer | No | `12` | Maximum number of profile posts to return. | Use with `usernames` to control dataset size, runtime, and cost. |\n| `onlyPostsNewerThan` | string | No | Not set | Date filter for profile scraping. Accepts relative values using days, weeks, months, or years, and absolute dates in `YYYY-MM-DD` or ISO format. | Use with `usernames` when you only want newer posts. |\n| `skipPinnedPosts` | boolean | No | `false` | Skip pinned posts while scraping profiles. | Use when pinned posts are old or not relevant to recent-content analysis. |\n| `includeSharesCount` | boolean | No | `false` | Include share count when available. This is a premium-only option. | Use when share count is required for engagement analysis and your plan supports it. |\n| `sessionid` | string | No | `\"\"` | Instagram session ID for authenticated access. It can improve scraping stability and may help the Actor retrieve a higher-quality video URL when Instagram makes one available. | Use when runs are unstable, URLs fail often, or you want to give the Actor the best chance of retrieving higher-quality media. Store it securely. |\n\nAt least one of `videoUrl`, `bulkUrls`, or `usernames` should be provided.\n\n### How to get `sessionid`\n\n`sessionid` is optional, but it can help when scraping is unstable or when you want to give the Actor the best chance of retrieving a higher-quality video URL.\n\nIn Chrome, log in to Instagram, open **Developer Tools**, go to **Application** -> **Storage** -> **Cookies** -> `https://www.instagram.com`, then copy the value of the `sessionid` cookie and pass it as the `sessionid` input.\n\n## Quick Start\n\n![Instagram Session ID Configuration Guide](https://raw.githubusercontent.com/daka18/instagram-reels-transcript-api/main/images/sessionid-screenshot.png)  \n\nHigher-quality video retrieval is not guaranteed. If a higher-quality video is not returned, the target post may not have one available, or Instagram may not have returned it due to a temporary or access-related issue.\n\n## Input examples for API users\n\nThe Apify Console form is the fastest way to test the Actor. Use JSON input when running the Actor through the API, SDKs, saved Tasks, or advanced Apify settings.\n\n### Single Instagram URL\n\n```json\n{\n  \"videoUrl\": \"https://www.instagram.com/p/DULBkEngpxg\",\n  \"sessionid\": \"\"\n}\n```\n\n### Batch Instagram URLs\n\n```json\n{\n  \"bulkUrls\": [\n    \"https://www.instagram.com/reel/EXAMPLE_SHORTCODE_1/\",\n    \"https://www.instagram.com/reel/EXAMPLE_SHORTCODE_2/\",\n    \"https://www.instagram.com/p/EXAMPLE_SHORTCODE_3/\"\n  ],\n  \"sessionid\": \"\"\n}\n```\n\n### Scrape one public profile\n\n```json\n{\n  \"usernames\": [\"bbcnews\"],\n  \"resultsLimit\": 12,\n  \"skipPinnedPosts\": false,\n  \"includeSharesCount\": false\n}\n```\n\n### Scrape multiple profiles with a date filter\n\n```json\n{\n  \"usernames\": [\"bbcnews\", \"natgeo\"],\n  \"resultsLimit\": 50,\n  \"onlyPostsNewerThan\": \"2026-07-01\",\n  \"skipPinnedPosts\": true,\n  \"includeSharesCount\": false\n}\n```\n\n### Scrape posts from the last 2 weeks\n\n```json\n{\n  \"usernames\": [\"bbcnews\"],\n  \"resultsLimit\": 25,\n  \"onlyPostsNewerThan\": \"2 weeks\",\n  \"skipPinnedPosts\": true\n}\n```\n\n### Run with the Apify Python client\n\n```python\nfrom apify_client import ApifyClient\n\nclient = ApifyClient(\"<YOUR_API_TOKEN>\")\n\nrun_input = {\n    \"bulkUrls\": [\n        \"https://www.instagram.com/reel/EXAMPLE_SHORTCODE_1/\",\n        \"https://www.instagram.com/p/EXAMPLE_SHORTCODE_2/\"\n    ],\n    \"sessionid\": \"\"\n}\n\nrun = client.actor(\"apple_yang/instagram-transcripts-scraper\").call(run_input=run_input)\n\nfor item in client.dataset(run[\"defaultDatasetId\"]).iterate_items():\n    print(item)\n```\n\n## Output overview\n\nThe results are stored in an Apify dataset. You can preview the dataset in the Storage tab or export it as JSON, CSV, Excel, XML, RSS, or HTML.\n\nFor transcript extraction, each dataset item represents one processed Instagram URL and can include:\n\n- Instagram URL and identifiers\n- Thumbnail, video URL, and audio URL\n- Creator username, full name, user ID, and avatar URL\n- Like count and comment count\n- Full Instagram transcript text\n- Timestamped transcript segments\n- Error message field for failed items\n- Extraction timestamp\n\nFor profile scraping, each dataset item represents a collected public Instagram post from the requested profile workflow. Profile scraping focuses on post and creator metadata and does not generate transcript text or timestamped transcript segments.\n\nBecause the output is already structured, you can send it directly to your database, spreadsheet, search index, BI workflow, or LLM pipeline without first cleaning raw HTML or media responses.\n\n## Complete output field reference\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `url` | string | Instagram post, Reel, or video URL. |\n| `code` | string | Instagram shortcode. |\n| `pk` | string | Instagram internal post ID. |\n| `id` | string | Combined Instagram media identifier. |\n| `title` | string | Title-like text returned for the post, often a caption excerpt or hashtag. |\n| `img` | string | Thumbnail or preview image URL. |\n| `videoUrl` | string | Direct video file URL when available. |\n| `audioUrl` | string | Direct audio file URL when available. |\n| `createTime` | integer | Instagram creation timestamp. |\n| `likeCount` | integer | Number of likes when available. |\n| `commentCount` | integer | Number of comments when available. |\n| `userPk` | string | Creator Instagram user ID. |\n| `userName` | string | Creator username. |\n| `userFullName` | string | Creator display name. |\n| `avatarUri` | string | Creator avatar image URL. |\n| `text` | string | Full Instagram transcript text. Present for transcript extraction when transcription succeeds. |\n| `segments` | array of objects | Timestamped transcript segments. |\n| `segments[].start` | number | Segment start time in seconds. |\n| `segments[].end` | number | Segment end time in seconds. |\n| `segments[].text` | string | Transcript text for the segment. |\n| `errMsg` | string | Error message. Empty string usually means the item processed successfully. |\n| `timestamp` | string | Actor response timestamp in ISO format. |\n\n## Output example\n\n```json\n{\n  \"url\": \"https://www.instagram.com/p/DTxiM0Ijqvz/\",\n  \"code\": \"DTxiM0Ijqvz\",\n  \"pk\": \"3814980773552761843\",\n  \"id\": \"3814980773552761843_48143082417\",\n  \"title\": \"#explore\",\n  \"img\": \"https://scontent-iad3-1.cdninstagram.com/v/t51.71878-15/619803343_1676825200367728_8092852255612155538_n.jpg\",\n  \"videoUrl\": \"https://scontent-iad3-1.cdninstagram.com/o1/v/t2/f2/m367/example-video.mp4\",\n  \"audioUrl\": \"https://scontent-iad3-1.cdninstagram.com/o1/v/t2/f2/m78/example-audio.mp4\",\n  \"createTime\": 1769001195,\n  \"likeCount\": 171650,\n  \"commentCount\": 781,\n  \"userPk\": \"48143082417\",\n  \"userName\": \"theavamariee\",\n  \"userFullName\": \"Ava Marie\",\n  \"avatarUri\": \"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/572902973_18067009538602418_5617968281035790488_n.jpg\",\n  \"text\": \"Excuse me, miss. What? Your shirt's backwards.\",\n  \"segments\": [\n    {\n      \"start\": 0.3,\n      \"end\": 1.16,\n      \"text\": \" Excuse me, miss.\"\n    },\n    {\n      \"start\": 1.32,\n      \"end\": 1.62,\n      \"text\": \" What?\"\n    },\n    {\n      \"start\": 2.04,\n      \"end\": 2.96,\n      \"text\": \" Your shirt's backwards.\"\n    }\n  ],\n  \"errMsg\": \"\",\n  \"timestamp\": \"2026-02-04T06:38:58.379Z\"\n}\n```\n\n## Common use cases\n\nUse this Actor when Instagram content is valuable, but manual copying, downloading, and transcribing would slow down your workflow.\n\n| Use case | How this Actor helps |\n| --- | --- |\n| AI and LLM pipelines | Turn Instagram Reel and video content into transcript text that can be summarized, embedded, classified, or searched. |\n| Dataset creation | Collect structured transcript and post metadata for analysis without building a custom Instagram scraping pipeline. |\n| Knowledge base creation | Convert creator videos into text that can be stored, indexed, and reused in internal tools. |\n| Subtitle and caption workflows | Use timestamped segments to support captions, subtitles, clipping, and video understanding workflows. |\n| Creator research | Scrape public creator profile posts and analyze posting patterns, topics, and engagement signals. |\n| Competitor research | Collect recent public posts from relevant profiles for repeatable content analysis. |\n| Social media intelligence | Combine transcript text, metadata, media URLs, and engagement metrics for trend or campaign analysis. |\n| Automation workflows | Run the same setup through Apify Tasks, API clients, schedules, webhooks, or dataset exports. |\n\nFor most users, the simplest first test is clear: run one Instagram URL, check whether the transcript and metadata match your workflow, then scale to batch URLs or profile scraping.\n\n## Pricing\n\nThis Actor uses pay-per-event pricing, so you can start small and scale only when the output fits your workflow. The exact price for your run is shown in the Actor's **Pricing** tab on Apify; this section explains what you pay for before you try it.\n\nThere are two possible cost components:\n\n- **Result pricing**: charged for each dataset item returned by the Actor.\n- **Audio-to-text pricing**: charged only when the Actor performs speech recognition to generate an Instagram transcript.\n\nThere is no separate platform-usage fee listed for this Actor. In other words, the pricing is designed to stay tied to the work you actually run: returned results for all modes, plus speech recognition only for transcript extraction.\n\nHow pricing applies by mode:\n\n| Mode | Input fields | Cost components |\n| --- | --- | --- |\n| Transcript extraction | `videoUrl` or `bulkUrls` | Result pricing + audio-to-text pricing |\n| Profile scraper | `usernames` | Result pricing only |\n\nThe result price is currently `$1.00 / 1,000 results`, which is as low as `$0.001` per returned result. Profile scraping uses this result-based pricing only, making it a low-cost way to test creator and competitor research workflows.\n\nTranscript extraction also includes audio-to-text pricing because the Actor performs speech recognition to generate the transcript. Audio-to-text pricing depends on your Apify subscription plan, with higher tiers receiving better rates. This keeps small tests accessible while giving higher-volume users lower unit costs.\n\nIf you only need profile post metadata, use `usernames` and you will not trigger audio-to-text pricing. If you need transcripts, use `videoUrl` or `bulkUrls` and you will get the full transcript workflow in one run.\n\nFor a quick test, start with one Instagram URL in `videoUrl` or a small `resultsLimit` for profile scraping. This lets you verify the output structure before running larger batches, and keeps your first run easy to evaluate.\n\nBecause pricing is tied to returned results and transcript processing, you can control cost directly through your input: use fewer URLs, lower `resultsLimit`, or profile scraping mode when transcripts are not needed.\n\nCheck the Actor's **Pricing** tab on Apify for the current rates for your plan.\n\n## Why choose this Actor\n\n- Built for the core job most users need first: reliable Instagram transcript extraction\n- Saves engineering time by combining Instagram scraping, media extraction, speech recognition, and structured output in one workflow\n- Starts at `$0.001` per returned result for result-based pricing\n- Lets you test with one URL before scaling to batch transcription or recurring profile collection\n- Keeps profile scraping cost simple by charging only for returned results, with no audio-to-text cost in that mode\n- Returns structured, AI-ready output that is easy to send into LLM pipelines, databases, search indexes, and automation tools\n- Includes timestamped transcript segments for captions, subtitles, clipping, and content analysis\n- Provides media URLs, creator data, post metadata, and error status in one dataset item\n- Adds profile scraping when you need public creator post collection without paying for speech recognition\n- Works with Apify datasets, exports, API clients, Tasks, schedules, and webhooks\n\nThis makes the Actor useful as both a quick transcript API for individual Instagram videos and a scalable data collection component for larger content intelligence workflows.\n\n## FAQ\n\n### Does it support Instagram Reels?\n\nYes. The Actor supports public Instagram Reels, videos, and supported post URLs.\n\n### Does it support batch transcription?\n\nYes. Use **Bulk URLs** in the Apify Input form or `bulkUrls` in JSON input to process multiple Instagram URLs in one run.\n\n### Does it support Instagram profile scraping?\n\nYes. Use **Usernames** in the Apify Input form or `usernames` in JSON input to scrape public creator profile posts. Profile scraping does not generate transcripts.\n\n### Does it require `sessionid`?\n\n`sessionid` is optional. A valid Instagram session ID can improve stability and access success for some runs. It may also help the Actor retrieve a higher-quality video URL when Instagram makes one available.\n\nThis is not guaranteed. If a higher-quality video is not returned, it usually means either the target post does not have a higher-quality version available, or Instagram did not return it due to a temporary or access-related issue.\n\n### How does `onlyPostsNewerThan` work?\n\nUse `onlyPostsNewerThan` with profile scraping to collect only posts newer than a time restriction. It supports relative values using days, weeks, months, and years, such as `7 days`, `2 weeks`, `3 months`, or `1 year`. It also supports absolute dates such as `2026-07-01` and full ISO timestamps. All time values are interpreted in UTC.\n\n### Can I skip pinned posts?\n\nYes. Set `skipPinnedPosts` to `true` when pinned posts are old or not relevant to the collection. This is useful when you want recent posts only and do not want older pinned content mixed into the dataset.\n\n### Does it scrape Stories?\n\nNo. This Actor is for public Instagram Reels, videos, supported post URLs, and public profile post scraping. Stories are not listed as a supported workflow.\n\n### What happens if one URL fails in a batch?\n\nFailed items can include an `errMsg` value, so your pipeline can inspect errors per item instead of treating the whole dataset as a single success or failure.\n\n### Can I automate it with Apify Tasks?\n\nYes. You can save a configured input as an Apify Task and run it manually, on a schedule, through the Apify API, or as part of a larger automation workflow.\n\n### Does profile scraping generate Instagram transcripts?\n\nNo. Transcript extraction and profile scraping are separate workflows. Use `videoUrl` or `bulkUrls` when you need transcript output. Use `usernames` when you need public profile post collection.\n\n### Can I include share count?\n\nYes, use `includeSharesCount: true` when eligible. Share count is a premium-only option.\n\n## Notes and limitations\n\n- Only public Instagram content is supported.\n- Transcript quality depends on the source audio, language, background noise, and available speech signal.\n- Some media URLs may be temporary or expire.\n- A valid `sessionid` can improve stability and may help retrieve higher-quality video URLs, but it does not guarantee higher-quality media for every post.\n- Treat `sessionid` as sensitive authentication data. Do not share it publicly or commit it to code.\n- `includeSharesCount` is available for paying users only.\n- Free users may have limits on video duration or batch size.\n- Make sure your usage complies with Instagram's terms, Apify's terms, and applicable laws.\n\n## Support\n\nQuestions, feedback, or feature requests?\n\nEmail: support@apismith.online",
+    "actorDefinition": {
+      "actorSpecification": 1,
+      "name": "instagram-transcripts-scraper",
+      "title": "Instagram Transcripts Scraper",
+      "description": "Extract spoken transcripts from Instagram video with Instagram Transcripts Scraper. Just enter video URLs to get transcripts. Perfect for content analysis, AI pipelines, or trend research.",
+      "version": "0.0",
+      "buildTag": "latest",
+      "minMemoryMbytes": 512,
+      "maxMemoryMbytes": 1024,
+      "dockerfile": "../Dockerfile",
+      "input": {
+        "title": "input parameters",
+        "type": "object",
+        "schemaVersion": 1,
+        "description": "Turn Instagram videos into clean, structured transcripts with ease.\nThis API helps you extract spoken content (auto-generated transcripts) from public Instagram videos — designed for developers, data teams, and AI agents that need text, not just media.",
+        "properties": {
+          "videoUrl": {
+            "title": "The URL of the instagram",
+            "type": "string",
+            "description": "The URL of the instagram you want to get the data from.",
+            "editor": "textfield",
+            "prefill": "https://www.instagram.com/p/DULBkEngpxg"
+          },
+          "bulkUrls": {
+            "title": "The URLs of the instagram",
+            "type": "array",
+            "description": "🚀 BULK PROCESSING: Extract transcripts from multiple Instagram videos at once.\n✨ Perfect for content creators, marketers & social media analysts\n💰 TIER-BASED LIMITS:\n• FREE users: Up to 5 URLs per run\n• PAID users: Unlimited URLs",
+            "editor": "stringList",
+            "prefill": []
+          },
+          "usernames": {
+            "title": "The usernames of the instagram",
+            "type": "array",
+            "description": "The usernames of the instagram you want to get the data from.",
+            "editor": "stringList",
+            "prefill": [
+              "bbcnews"
+            ],
+            "sectionCaption": "Channel Scrape",
+            "sectionDescription": "Automatically scrape multiple reels from an Instagram profile"
+          },
+          "resultsLimit": {
+            "title": "The results limit",
+            "type": "integer",
+            "description": "The maximum number of results to return.",
+            "editor": "number",
+            "prefill": 12
+          },
+          "onlyPostsNewerThan": {
+            "title": "Scrape reels newer than",
+            "type": "string",
+            "editor": "datepicker",
+            "dateType": "absoluteOrRelative",
+            "description": "Scrape reels from the provided date up to the present. Supported formats include YYYY-MM-DD, full ISO timestamps (e.g. 2025-09-23T10:02:01), or relative time such as 1 day, 2 weeks, or 3 months. All times are evaluated in UTC.",
+            "pattern": "^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$|^(\\d+)\\s*(day|week|month|year)s?$"
+          },
+          "skipPinnedPosts": {
+            "title": " Skip pinned reels",
+            "type": "boolean",
+            "description": "Enable this option if you want to exclude pinned reels from the overall results.",
+            "editor": "checkbox",
+            "prefill": false
+          },
+          "includeSharesCount": {
+            "title": "Include Shares Count",
+            "type": "boolean",
+            "description": "Whether to include the shares count in the results.Available for paying users only. Upgrade to the Starter plan to unlock it.",
+            "editor": "checkbox",
+            "prefill": false
+          }
+        },
+        "required": []
+      },
+      "output": {
+        "actorOutputSchemaVersion": 1,
+        "title": "Output schema of Social media scraper",
+        "properties": {
+          "results": {
+            "type": "string",
+            "title": "Results",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+          }
+        }
+      },
+      "storages": {
+        "dataset": {
+          "actorSpecification": 1,
+          "fields": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "pk": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "img": {
+                "type": "string"
+              },
+              "videoUrl": {
+                "type": "string"
+              },
+              "audioUrl": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "createTime": {
+                "type": "integer"
+              },
+              "likeCount": {
+                "type": "integer"
+              },
+              "commentCount": {
+                "type": "integer"
+              },
+              "userPk": {
+                "type": "string"
+              },
+              "userName": {
+                "type": "string"
+              },
+              "userFullName": {
+                "type": "string"
+              },
+              "avatarUri": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "segments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "start": {
+                      "type": "number"
+                    },
+                    "end": {
+                      "type": "number"
+                    },
+                    "text": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "errMsg": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "url",
+              "pk",
+              "id",
+              "videoUrl",
+              "audioUrl"
+            ]
+          },
+          "views": {
+            "overview": {
+              "title": "Overview",
+              "transformation": {
+                "fields": [
+                  "url",
+                  "code",
+                  "pk",
+                  "id",
+                  "title",
+                  "img",
+                  "videoUrl",
+                  "audioUrl",
+                  "duration",
+                  "createTime",
+                  "likeCount",
+                  "commentCount",
+                  "userPk",
+                  "userName",
+                  "userFullName",
+                  "avatarUri",
+                  "text",
+                  "segments",
+                  "errMsg",
+                  "timestamp"
+                ]
+              },
+              "display": {
+                "component": "table",
+                "properties": {
+                  "url": {
+                    "label": "url",
+                    "format": "text"
+                  },
+                  "code": {
+                    "label": "code",
+                    "format": "text"
+                  },
+                  "pk": {
+                    "label": "pk",
+                    "format": "text"
+                  },
+                  "id": {
+                    "label": "id",
+                    "format": "text"
+                  },
+                  "title": {
+                    "label": "title",
+                    "format": "text"
+                  },
+                  "img": {
+                    "label": "img",
+                    "format": "text"
+                  },
+                  "videoUrl": {
+                    "label": "videoUrl",
+                    "format": "text"
+                  },
+                  "audioUrl": {
+                    "label": "audioUrl",
+                    "format": "text"
+                  },
+                  "duration": {
+                    "label": "duration",
+                    "format": "number"
+                  },
+                  "createTime": {
+                    "label": "createTime",
+                    "format": "text"
+                  },
+                  "likeCount": {
+                    "label": "likeCount",
+                    "format": "number"
+                  },
+                  "commentCount": {
+                    "label": "commentCount",
+                    "format": "number"
+                  },
+                  "userPk": {
+                    "label": "userPk",
+                    "format": "text"
+                  },
+                  "userName": {
+                    "label": "userName",
+                    "format": "text"
+                  },
+                  "userFullName": {
+                    "label": "userFullName",
+                    "format": "text"
+                  },
+                  "avatarUri": {
+                    "label": "avatarUri",
+                    "format": "text"
+                  },
+                  "text": {
+                    "label": "text",
+                    "format": "text"
+                  },
+                  "segments": {
+                    "label": "segments",
+                    "format": "object"
+                  },
+                  "errMsg": {
+                    "label": "errMsg",
+                    "format": "text"
+                  },
+                  "timestamp": {
+                    "label": "timestamp",
+                    "format": "text"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "readme": "# Instagram Transcript API and Profile Scraper\n\nExtract Instagram Reel and video transcripts, process URLs in batch, or collect structured posts from public Instagram profiles.\n\nUse this Actor when you want production-ready Instagram transcript data without building your own scraping, media extraction, and speech-to-text pipeline. Start with one URL in the Apify Console, inspect the dataset output, then scale the same workflow to batches, Tasks, schedules, or API calls.\n\nIf your workflow depends on Instagram content for AI, research, monitoring, or internal tools, this Actor gives you a faster path from public Instagram content to clean, structured data. It is designed to be easy to try, predictable to integrate, and practical for both small tests and larger automation workflows.\n\nThis Actor has two modes:\n\n| Mode | What it does | Use it when you need |\n| --- | --- | --- |\n| **Instagram transcript extraction** | Transcribes one or more public Instagram Reels, videos, or posts and returns transcript text, timestamped segments, media URLs, and post metadata. | Instagram transcript API, Instagram Reel transcript, Instagram video transcript, Instagram video to text, LLM ingestion, captions, subtitles, or AI-ready content data. |\n| **Instagram profile scraper** | Scrapes public posts from one or more creator profiles and returns structured post metadata. This mode does not generate transcripts. | Creator research, competitor research, recurring content collection, Instagram post scraper workflows, or content analysis. |\n\nThe main use case for this Actor is still Instagram transcript extraction. The profile scraper mode was added to support a more complete Instagram content collection workflow when you also need to collect posts from public creator profiles. In practice, you can start with transcripts and expand into profile-based collection without switching tools.\n\n## What can this Actor do?\n\nWith this Actor, you can:\n\n- Extract Instagram transcript text from a public Reel, video, or post URL\n- Convert Instagram video to text for AI, search, captions, and content analysis\n- Process multiple Instagram URLs in one batch run\n- Get timestamped transcript segments for subtitle and alignment workflows\n- Extract media URLs, thumbnail URLs, creator metadata, and engagement metrics\n- Scrape public Instagram profile posts from one or more usernames\n- Filter profile scraping results by publish date or relative time\n- Limit the number of profile posts returned\n- Skip pinned posts when collecting recent creator content\n- Optionally include share count for eligible premium usage\n- Export results from Apify datasets in JSON, CSV, Excel, XML, RSS, or HTML\n- Run the Actor from the Apify Console, API, SDKs, Tasks, schedules, and webhooks\n\nInstead of stitching together separate tools for Instagram scraping, media download, transcription, and data cleanup, you can get transcript-ready and analysis-ready output from one Actor run. That means less integration work and a shorter path from Instagram URL to usable data.\n\n## What data can I extract?\n\nThe Actor returns structured Instagram data that is ready for databases, LLM ingestion, analytics pipelines, and automation tools.\n\n| Data category | Fields |\n| --- | --- |\n| Post identity | Post URL, shortcode, Instagram media ID, internal post ID |\n| Transcript data | Full transcript text, timestamped transcript segments |\n| Media data | Thumbnail image URL, video URL, audio URL |\n| Engagement data | Like count, comment count, optional share count when available |\n| Creator data | Creator user ID, username, full name, avatar URL |\n| Run status | Error message field, extraction timestamp |\n\nTranscript fields are returned when you use `videoUrl` or `bulkUrls`. Profile scraping with `usernames` collects public post metadata and does not generate transcripts.\n\n## How do I try it?\n\nYou can test the Actor directly in the Apify Console without writing code.\n\n1. Open the Actor on Apify.\n2. Click **Try for free**.\n3. In the **Input** form, choose the workflow you want:\n   - Paste one Instagram URL into **Video URL** to transcribe a single Reel, video, or post.\n   - Add multiple URLs into **Bulk URLs** to run batch transcription.\n   - Enter one or more usernames into **Usernames** to scrape public profile posts.\n4. For profile scraping, set **Results limit** and optionally add a date filter in **Only posts newer than**.\n5. Click **Start**.\n6. Open the **Dataset** in the Storage tab to preview, download, or export the results.\n\nThe fastest way to evaluate the Actor is to run a single Instagram URL first. You can confirm the transcript text, timestamped segments, media URLs, and metadata before spending time or budget on a larger batch. If the output fits your workflow, the same setup can be reused for batch runs or saved as an Apify Task.\n\n![Apify Console Quick Start](https://raw.githubusercontent.com/daka18/instagram-reels-transcript-api/main/images/apify-console-screenshot.png)\n\n\n## Table of Contents\n\n- [Input workflows](#input-workflows)\n- [Complete input parameter reference](#complete-input-parameter-reference)\n- [Input examples for API users](#input-examples-for-api-users)\n- [Output overview](#output-overview)\n- [Complete output field reference](#complete-output-field-reference)\n- [Output example](#output-example)\n- [Common use cases](#common-use-cases)\n- [Pricing](#pricing)\n- [Why choose this Actor](#why-choose-this-actor)\n- [FAQ](#faq)\n- [Notes and limitations](#notes-and-limitations)\n- [Support](#support)\n\n## Input workflows\n\nChoose the input mode based on the task you want to complete.\n\n### Transcribe one Instagram Reel or video\n\nUse this mode when you already have one Instagram URL and need an Instagram transcript, media URLs, and post metadata.\n\nIn the Apify Input form:\n\n- Add the URL to **Video URL**\n- Leave **Bulk URLs** and **Usernames** empty\n- Optionally provide `sessionid` if needed\n\nAPI field:\n\n- `videoUrl`\n\n### Batch transcribe multiple Instagram URLs\n\nUse this mode when you have a list of Instagram Reels, videos, or posts and want one dataset item per URL.\n\nIn the Apify Input form:\n\n- Add URLs to **Bulk URLs**\n- Use the bulk edit option if you already have a prepared list\n- Leave **Video URL** and **Usernames** empty\n- Optionally provide `sessionid` if needed\n\nAPI field:\n\n- `bulkUrls`\n\n### Scrape public creator profile posts\n\nUse this mode when you want to collect public posts from one or more Instagram creator profiles. This is useful for creator research, competitor research, recurring content collection, social media intelligence, and content analysis workflows.\n\nThis mode does not generate transcripts.\n\nIn the Apify Input form:\n\n- Add one or more usernames to **Usernames**\n- Set **Results limit** to control how many posts to collect\n- Use **Only posts newer than** to collect recent posts only\n- Use pinned-post settings if you want to avoid older pinned content\n- Enable share count only if your plan supports it\n\nAPI fields:\n\n- `usernames`\n- `resultsLimit`\n- `onlyPostsNewerThan`\n- `skipPinnedPosts`\n- `includeSharesCount`\n\n### Collect only recent posts\n\nUse `onlyPostsNewerThan` with `usernames` to collect posts newer than a specific date or relative time window.\n\nSupported relative formats:\n\n- `<number> day` or `<number> days`\n- `<number> week` or `<number> weeks`\n- `<number> month` or `<number> months`\n- `<number> year` or `<number> years`\n\nUse the singular form for `1` and the plural form for numbers greater than `1`.\n\nExamples:\n\n- `1 day`\n- `1 week`\n- `1 month`\n- `1 year`\n- `7 days`\n- `2 weeks`\n- `3 months`\n- `2 years`\n\nSupported absolute formats:\n\n- `YYYY-MM-DD`\n- Full ISO timestamp, such as `2026-07-01T10:30:00Z`\n\nAll time values are interpreted in UTC.\n\n## Complete input parameter reference\n\n| Field | Type | Required | Default | Description | When to use it |\n| --- | --- | --- | --- | --- | --- |\n| `videoUrl` | string | No | Not set | A single public Instagram Reel, video, or post URL to transcribe. | Use when you need one Instagram Reel transcript or Instagram video transcript. |\n| `bulkUrls` | array of strings | No | `[]` | Multiple public Instagram Reel, video, or post URLs to process in one run. | Use for batch Instagram transcript scraping. URLs can be added one by one or through bulk edit in the Apify form. |\n| `usernames` | array of strings | No | `[]` | One or more public Instagram usernames to scrape. | Use for Instagram profile scraper, Instagram post scraper, or Instagram creator scraper workflows. This mode does not generate transcripts. |\n| `resultsLimit` | integer | No | `12` | Maximum number of profile posts to return. | Use with `usernames` to control dataset size, runtime, and cost. |\n| `onlyPostsNewerThan` | string | No | Not set | Date filter for profile scraping. Accepts relative values using days, weeks, months, or years, and absolute dates in `YYYY-MM-DD` or ISO format. | Use with `usernames` when you only want newer posts. |\n| `skipPinnedPosts` | boolean | No | `false` | Skip pinned posts while scraping profiles. | Use when pinned posts are old or not relevant to recent-content analysis. |\n| `includeSharesCount` | boolean | No | `false` | Include share count when available. This is a premium-only option. | Use when share count is required for engagement analysis and your plan supports it. |\n| `sessionid` | string | No | `\"\"` | Instagram session ID for authenticated access. It can improve scraping stability and may help the Actor retrieve a higher-quality video URL when Instagram makes one available. | Use when runs are unstable, URLs fail often, or you want to give the Actor the best chance of retrieving higher-quality media. Store it securely. |\n\nAt least one of `videoUrl`, `bulkUrls`, or `usernames` should be provided.\n\n### How to get `sessionid`\n\n`sessionid` is optional, but it can help when scraping is unstable or when you want to give the Actor the best chance of retrieving a higher-quality video URL.\n\nIn Chrome, log in to Instagram, open **Developer Tools**, go to **Application** -> **Storage** -> **Cookies** -> `https://www.instagram.com`, then copy the value of the `sessionid` cookie and pass it as the `sessionid` input.\n\n## Quick Start\n\n![Instagram Session ID Configuration Guide](https://raw.githubusercontent.com/daka18/instagram-reels-transcript-api/main/images/sessionid-screenshot.png)  \n\nHigher-quality video retrieval is not guaranteed. If a higher-quality video is not returned, the target post may not have one available, or Instagram may not have returned it due to a temporary or access-related issue.\n\n## Input examples for API users\n\nThe Apify Console form is the fastest way to test the Actor. Use JSON input when running the Actor through the API, SDKs, saved Tasks, or advanced Apify settings.\n\n### Single Instagram URL\n\n```json\n{\n  \"videoUrl\": \"https://www.instagram.com/p/DULBkEngpxg\",\n  \"sessionid\": \"\"\n}\n```\n\n### Batch Instagram URLs\n\n```json\n{\n  \"bulkUrls\": [\n    \"https://www.instagram.com/reel/EXAMPLE_SHORTCODE_1/\",\n    \"https://www.instagram.com/reel/EXAMPLE_SHORTCODE_2/\",\n    \"https://www.instagram.com/p/EXAMPLE_SHORTCODE_3/\"\n  ],\n  \"sessionid\": \"\"\n}\n```\n\n### Scrape one public profile\n\n```json\n{\n  \"usernames\": [\"bbcnews\"],\n  \"resultsLimit\": 12,\n  \"skipPinnedPosts\": false,\n  \"includeSharesCount\": false\n}\n```\n\n### Scrape multiple profiles with a date filter\n\n```json\n{\n  \"usernames\": [\"bbcnews\", \"natgeo\"],\n  \"resultsLimit\": 50,\n  \"onlyPostsNewerThan\": \"2026-07-01\",\n  \"skipPinnedPosts\": true,\n  \"includeSharesCount\": false\n}\n```\n\n### Scrape posts from the last 2 weeks\n\n```json\n{\n  \"usernames\": [\"bbcnews\"],\n  \"resultsLimit\": 25,\n  \"onlyPostsNewerThan\": \"2 weeks\",\n  \"skipPinnedPosts\": true\n}\n```\n\n### Run with the Apify Python client\n\n```python\nfrom apify_client import ApifyClient\n\nclient = ApifyClient(\"<YOUR_API_TOKEN>\")\n\nrun_input = {\n    \"bulkUrls\": [\n        \"https://www.instagram.com/reel/EXAMPLE_SHORTCODE_1/\",\n        \"https://www.instagram.com/p/EXAMPLE_SHORTCODE_2/\"\n    ],\n    \"sessionid\": \"\"\n}\n\nrun = client.actor(\"apple_yang/instagram-transcripts-scraper\").call(run_input=run_input)\n\nfor item in client.dataset(run[\"defaultDatasetId\"]).iterate_items():\n    print(item)\n```\n\n## Output overview\n\nThe results are stored in an Apify dataset. You can preview the dataset in the Storage tab or export it as JSON, CSV, Excel, XML, RSS, or HTML.\n\nFor transcript extraction, each dataset item represents one processed Instagram URL and can include:\n\n- Instagram URL and identifiers\n- Thumbnail, video URL, and audio URL\n- Creator username, full name, user ID, and avatar URL\n- Like count and comment count\n- Full Instagram transcript text\n- Timestamped transcript segments\n- Error message field for failed items\n- Extraction timestamp\n\nFor profile scraping, each dataset item represents a collected public Instagram post from the requested profile workflow. Profile scraping focuses on post and creator metadata and does not generate transcript text or timestamped transcript segments.\n\nBecause the output is already structured, you can send it directly to your database, spreadsheet, search index, BI workflow, or LLM pipeline without first cleaning raw HTML or media responses.\n\n## Complete output field reference\n\n| Field | Type | Description |\n| --- | --- | --- |\n| `url` | string | Instagram post, Reel, or video URL. |\n| `code` | string | Instagram shortcode. |\n| `pk` | string | Instagram internal post ID. |\n| `id` | string | Combined Instagram media identifier. |\n| `title` | string | Title-like text returned for the post, often a caption excerpt or hashtag. |\n| `img` | string | Thumbnail or preview image URL. |\n| `videoUrl` | string | Direct video file URL when available. |\n| `audioUrl` | string | Direct audio file URL when available. |\n| `createTime` | integer | Instagram creation timestamp. |\n| `likeCount` | integer | Number of likes when available. |\n| `commentCount` | integer | Number of comments when available. |\n| `userPk` | string | Creator Instagram user ID. |\n| `userName` | string | Creator username. |\n| `userFullName` | string | Creator display name. |\n| `avatarUri` | string | Creator avatar image URL. |\n| `text` | string | Full Instagram transcript text. Present for transcript extraction when transcription succeeds. |\n| `segments` | array of objects | Timestamped transcript segments. |\n| `segments[].start` | number | Segment start time in seconds. |\n| `segments[].end` | number | Segment end time in seconds. |\n| `segments[].text` | string | Transcript text for the segment. |\n| `errMsg` | string | Error message. Empty string usually means the item processed successfully. |\n| `timestamp` | string | Actor response timestamp in ISO format. |\n\n## Output example\n\n```json\n{\n  \"url\": \"https://www.instagram.com/p/DTxiM0Ijqvz/\",\n  \"code\": \"DTxiM0Ijqvz\",\n  \"pk\": \"3814980773552761843\",\n  \"id\": \"3814980773552761843_48143082417\",\n  \"title\": \"#explore\",\n  \"img\": \"https://scontent-iad3-1.cdninstagram.com/v/t51.71878-15/619803343_1676825200367728_8092852255612155538_n.jpg\",\n  \"videoUrl\": \"https://scontent-iad3-1.cdninstagram.com/o1/v/t2/f2/m367/example-video.mp4\",\n  \"audioUrl\": \"https://scontent-iad3-1.cdninstagram.com/o1/v/t2/f2/m78/example-audio.mp4\",\n  \"createTime\": 1769001195,\n  \"likeCount\": 171650,\n  \"commentCount\": 781,\n  \"userPk\": \"48143082417\",\n  \"userName\": \"theavamariee\",\n  \"userFullName\": \"Ava Marie\",\n  \"avatarUri\": \"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/572902973_18067009538602418_5617968281035790488_n.jpg\",\n  \"text\": \"Excuse me, miss. What? Your shirt's backwards.\",\n  \"segments\": [\n    {\n      \"start\": 0.3,\n      \"end\": 1.16,\n      \"text\": \" Excuse me, miss.\"\n    },\n    {\n      \"start\": 1.32,\n      \"end\": 1.62,\n      \"text\": \" What?\"\n    },\n    {\n      \"start\": 2.04,\n      \"end\": 2.96,\n      \"text\": \" Your shirt's backwards.\"\n    }\n  ],\n  \"errMsg\": \"\",\n  \"timestamp\": \"2026-02-04T06:38:58.379Z\"\n}\n```\n\n## Common use cases\n\nUse this Actor when Instagram content is valuable, but manual copying, downloading, and transcribing would slow down your workflow.\n\n| Use case | How this Actor helps |\n| --- | --- |\n| AI and LLM pipelines | Turn Instagram Reel and video content into transcript text that can be summarized, embedded, classified, or searched. |\n| Dataset creation | Collect structured transcript and post metadata for analysis without building a custom Instagram scraping pipeline. |\n| Knowledge base creation | Convert creator videos into text that can be stored, indexed, and reused in internal tools. |\n| Subtitle and caption workflows | Use timestamped segments to support captions, subtitles, clipping, and video understanding workflows. |\n| Creator research | Scrape public creator profile posts and analyze posting patterns, topics, and engagement signals. |\n| Competitor research | Collect recent public posts from relevant profiles for repeatable content analysis. |\n| Social media intelligence | Combine transcript text, metadata, media URLs, and engagement metrics for trend or campaign analysis. |\n| Automation workflows | Run the same setup through Apify Tasks, API clients, schedules, webhooks, or dataset exports. |\n\nFor most users, the simplest first test is clear: run one Instagram URL, check whether the transcript and metadata match your workflow, then scale to batch URLs or profile scraping.\n\n## Pricing\n\nThis Actor uses pay-per-event pricing, so you can start small and scale only when the output fits your workflow. The exact price for your run is shown in the Actor's **Pricing** tab on Apify; this section explains what you pay for before you try it.\n\nThere are two possible cost components:\n\n- **Result pricing**: charged for each dataset item returned by the Actor.\n- **Audio-to-text pricing**: charged only when the Actor performs speech recognition to generate an Instagram transcript.\n\nThere is no separate platform-usage fee listed for this Actor. In other words, the pricing is designed to stay tied to the work you actually run: returned results for all modes, plus speech recognition only for transcript extraction.\n\nHow pricing applies by mode:\n\n| Mode | Input fields | Cost components |\n| --- | --- | --- |\n| Transcript extraction | `videoUrl` or `bulkUrls` | Result pricing + audio-to-text pricing |\n| Profile scraper | `usernames` | Result pricing only |\n\nThe result price is currently `$1.00 / 1,000 results`, which is as low as `$0.001` per returned result. Profile scraping uses this result-based pricing only, making it a low-cost way to test creator and competitor research workflows.\n\nTranscript extraction also includes audio-to-text pricing because the Actor performs speech recognition to generate the transcript. Audio-to-text pricing depends on your Apify subscription plan, with higher tiers receiving better rates. This keeps small tests accessible while giving higher-volume users lower unit costs.\n\nIf you only need profile post metadata, use `usernames` and you will not trigger audio-to-text pricing. If you need transcripts, use `videoUrl` or `bulkUrls` and you will get the full transcript workflow in one run.\n\nFor a quick test, start with one Instagram URL in `videoUrl` or a small `resultsLimit` for profile scraping. This lets you verify the output structure before running larger batches, and keeps your first run easy to evaluate.\n\nBecause pricing is tied to returned results and transcript processing, you can control cost directly through your input: use fewer URLs, lower `resultsLimit`, or profile scraping mode when transcripts are not needed.\n\nCheck the Actor's **Pricing** tab on Apify for the current rates for your plan.\n\n## Why choose this Actor\n\n- Built for the core job most users need first: reliable Instagram transcript extraction\n- Saves engineering time by combining Instagram scraping, media extraction, speech recognition, and structured output in one workflow\n- Starts at `$0.001` per returned result for result-based pricing\n- Lets you test with one URL before scaling to batch transcription or recurring profile collection\n- Keeps profile scraping cost simple by charging only for returned results, with no audio-to-text cost in that mode\n- Returns structured, AI-ready output that is easy to send into LLM pipelines, databases, search indexes, and automation tools\n- Includes timestamped transcript segments for captions, subtitles, clipping, and content analysis\n- Provides media URLs, creator data, post metadata, and error status in one dataset item\n- Adds profile scraping when you need public creator post collection without paying for speech recognition\n- Works with Apify datasets, exports, API clients, Tasks, schedules, and webhooks\n\nThis makes the Actor useful as both a quick transcript API for individual Instagram videos and a scalable data collection component for larger content intelligence workflows.\n\n## FAQ\n\n### Does it support Instagram Reels?\n\nYes. The Actor supports public Instagram Reels, videos, and supported post URLs.\n\n### Does it support batch transcription?\n\nYes. Use **Bulk URLs** in the Apify Input form or `bulkUrls` in JSON input to process multiple Instagram URLs in one run.\n\n### Does it support Instagram profile scraping?\n\nYes. Use **Usernames** in the Apify Input form or `usernames` in JSON input to scrape public creator profile posts. Profile scraping does not generate transcripts.\n\n### Does it require `sessionid`?\n\n`sessionid` is optional. A valid Instagram session ID can improve stability and access success for some runs. It may also help the Actor retrieve a higher-quality video URL when Instagram makes one available.\n\nThis is not guaranteed. If a higher-quality video is not returned, it usually means either the target post does not have a higher-quality version available, or Instagram did not return it due to a temporary or access-related issue.\n\n### How does `onlyPostsNewerThan` work?\n\nUse `onlyPostsNewerThan` with profile scraping to collect only posts newer than a time restriction. It supports relative values using days, weeks, months, and years, such as `7 days`, `2 weeks`, `3 months`, or `1 year`. It also supports absolute dates such as `2026-07-01` and full ISO timestamps. All time values are interpreted in UTC.\n\n### Can I skip pinned posts?\n\nYes. Set `skipPinnedPosts` to `true` when pinned posts are old or not relevant to the collection. This is useful when you want recent posts only and do not want older pinned content mixed into the dataset.\n\n### Does it scrape Stories?\n\nNo. This Actor is for public Instagram Reels, videos, supported post URLs, and public profile post scraping. Stories are not listed as a supported workflow.\n\n### What happens if one URL fails in a batch?\n\nFailed items can include an `errMsg` value, so your pipeline can inspect errors per item instead of treating the whole dataset as a single success or failure.\n\n### Can I automate it with Apify Tasks?\n\nYes. You can save a configured input as an Apify Task and run it manually, on a schedule, through the Apify API, or as part of a larger automation workflow.\n\n### Does profile scraping generate Instagram transcripts?\n\nNo. Transcript extraction and profile scraping are separate workflows. Use `videoUrl` or `bulkUrls` when you need transcript output. Use `usernames` when you need public profile post collection.\n\n### Can I include share count?\n\nYes, use `includeSharesCount: true` when eligible. Share count is a premium-only option.\n\n## Notes and limitations\n\n- Only public Instagram content is supported.\n- Transcript quality depends on the source audio, language, background noise, and available speech signal.\n- Some media URLs may be temporary or expire.\n- A valid `sessionid` can improve stability and may help retrieve higher-quality video URLs, but it does not guarantee higher-quality media for every post.\n- Treat `sessionid` as sensitive authentication data. Do not share it publicly or commit it to code.\n- `includeSharesCount` is available for paying users only.\n- Free users may have limits on video duration or batch size.\n- Make sure your usage complies with Instagram's terms, Apify's terms, and applicable laws.\n\n## Support\n\nQuestions, feedback, or feature requests?\n\nEmail: support@apismith.online"
+    },
+    "buildNumber": "0.0.45",
+    "actVersion": {
+      "sourceType": "SOURCE_FILES",
+      "buildTag": "latest",
+      "versionNumber": "0.0"
+    },
+    "usage": {
+      "ACTOR_COMPUTE_UNITS": 0.07635888888888889
+    }
+  }
+}

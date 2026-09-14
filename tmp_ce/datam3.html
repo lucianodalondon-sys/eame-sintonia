@@ -1,0 +1,241 @@
+<!doctype html>
+<html qva-bootstrap="false">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>DataM</title>
+		<meta name="HandheldFriendly" content="True" />
+		<meta name="MobileOptimized" content="320" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-status-bar-style" content="black" />
+		<meta name="Author" content="JRC D4 Data For Science Team: Saulius Tamošiūnas, Celso Gorrín, Arnaldo Caivano, Javier Castro" />
+		<meta content="en" http-equiv="Content-Language" />
+		<meta http-equiv="cleartype" content="on" />
+
+		<meta http-equiv="refresh" content="0;url=https://datam.jrc.ec.europa.eu/datam/mashup/EU_ESTIMATED_AGRICULTURAL_BALANCE_SHEETS" />
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/commons.js?ts=20240821114340"></script>
+		
+		<link rel="shortcut icon" type="image/png" href="img/favicon.ico"/>
+		
+		<script type="text/javascript">
+			var metadata = {"url":"https://datam.jrc.ec.europa.eu/datam/mashup/EU_ESTIMATED_AGRICULTURAL_BALANCE_SHEETS"};
+			if (!metadata.delay) {
+				window.location.replace("https://datam.jrc.ec.europa.eu/datam/mashup/EU_ESTIMATED_AGRICULTURAL_BALANCE_SHEETS");
+			}
+		</script>
+
+		<script src="../../embed/DATAM_ECL/scripts/ecl-ec-preset-website.js?ts=1762436310000"></script>
+<script src="../../embed/DATAM_ECL/scripts/ecl-ec-preset-website-datam.js?ts=1762436310000"></script>
+		
+<link href="../../embed/DATAM_ECL/styles/ecl-ec-preset-website.css?ts=1762436310000" media="all" rel="stylesheet" type="text/css" />
+<link href="../../embed/DATAM_ECL/styles/ecl-ec-preset-website-datam.css?ts=1762436310000" media="all" rel="stylesheet" type="text/css" />
+		
+<link href="../../embed/DATAM_ECL/europa-icons/europa-icons-codes.css?ts=1762436310000" media="all" rel="stylesheet" type="text/css" />
+
+
+		<link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
+		
+	</head>
+	
+<body class="euShortContent layout-noright" role="document" ng-controller="main-controller">
+	<script>
+					
+	</script>
+	<a id="top-page" name="top-page"></a>
+	
+	<span class="header-on">
+	<header data-ecl-auto-init="SiteHeaderHarmonised" class="ecl-site-header-harmonised ecl-site-header-harmonised--group1">
+		<div class="ecl-site-header-harmonised__container ecl-container">
+			<div class="ecl-site-header-harmonised__top">
+				<a class="ecl-link ecl-link--standalone ecl-site-header-harmonised__logo-link" href="https://ec.europa.eu/" aria-label="European Commission">
+					<img alt="European Commission logo" title="European Commission" class="ecl-site-header-harmonised__logo-image" src="../../embed/DATAM_ECL/images/logo/logo--en.svg" />
+				</a>
+				<div class="ecl-site-header-harmonised__action">
+					
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<nav class="ecl-menu" aria-expanded="false">
+		<div class="ecl-container ecl-menu__container">
+			<div class="ecl-menu__site-name" id="header-site">&nbsp;</div>
+			<section class="ecl-menu__inner" data-ecl-menu-inner="true">
+				<ul class="ecl-menu__list"></ul>
+			</section>
+		</div>
+	</nav>
+
+	<div>
+		<div class="ecl-page-header-harmonised">
+			<div class="ecl-container">
+				<nav data-ecl-auto-init="BreadcrumbHarmonised" class="ecl-page-header-harmonised__breadcrumb ecl-breadcrumb-harmonised" aria-label="You are here:" data-ecl-breadcrumb-harmonised="true">
+					<ol class="ecl-breadcrumb-harmonised__container">
+						<li class="ecl-breadcrumb-harmonised__segment">
+							<a class="ecl-breadcrumb-harmonised__link ecl-link ecl-link--standalone"></a>
+							<svg focusable="false" aria-hidden="true" role="presentation" class="ecl-breadcrumb-harmonised__icon ecl-icon ecl-icon--2xs ecl-icon--rotate-90">
+								<use xlink:href="../../embed/DATAM_ECL/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+							</svg>
+						</li>
+						
+						<li class="ecl-breadcrumb-harmonised__segment ecl-breadcrumb-harmonised__segment--ellipsis" data-ecl-breadcrumb-harmonised-ellipsis="true">
+							<button type="button" class="ecl-breadcrumb-harmonised__ellipsis" aria-label="Click to expand" data-ecl-breadcrumb-harmonised-ellipsis-button="true">…</button>
+							<svg focusable="false" aria-hidden="true" role="presentation" class="ecl-breadcrumb-harmonised__icon ecl-icon ecl-icon--2xs ecl-icon--rotate-90">
+								<use xlink:href="../../embed/DATAM_ECL/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+							</svg>
+						</li>
+					</ol>
+				</nav>
+				<h1 class="ecl-page-header-harmonised__title" id="header-title" style="display: none">Page title</h1>
+			</div>
+		</div>
+	</div>
+</span>
+
+
+	<div style="height: 0" id="top-position"></div>
+	<div id="main" class="">
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+			
+				function autosizeContent() {
+					if (isLandscape() && $('body').hasClass('landscape-full-screen')) {
+						$("#main").css('min-height', '');
+					} else {
+						$("#main").css('min-height', h('.ecl-site-header-harmonised') + h('.ecl-footer-harmonised') + 150 > $(window).height() ? '150px' : 'calc(100vh - ' + (h('.ecl-site-header-harmonised') + h('.ecl-footer-harmonised')) + 'px)');
+					}
+				}
+				autosizeContent();
+				$(window).resize(function() { autosizeContent(); });
+				
+				function h(s) {
+					if ($(s).is(":visible")) {
+						return $(s).outerHeight();
+					}
+					return 0;
+				}
+				
+				if (metadata.delay > 0) {
+					$("#countdown").show();
+					var remainingTime = metadata.delay;
+					$("#remaining").text(remainingTime);
+					
+					var id = setInterval(function() {
+						remainingTime = remainingTime - 1;
+						$("#remaining").text(remainingTime);
+						if (remainingTime <= 0) {
+							clearInterval(id);
+							$("#countdown").text("Redirecting...");
+							window.location.replace(metadata.url);
+						}
+					}, 1000);
+				}
+				
+				$.getJSON("mashup-config.json", function(cfg) {
+					if (metadata && metadata.site) {
+						ECL2.initSite(metadata.site, cfg.mashup.name);
+					} else {
+						ECL2.initSite(cfg.site, cfg.mashup.name);
+					}
+					document.title = cfg.mashup.name;
+				});
+
+
+			});
+			
+		</script>
+		
+		<div style="text-align: center; padding: 2rem">
+			<div id="message"></div>
+			<div>The page has moved <a href="https://datam.jrc.ec.europa.eu/datam/mashup/EU_ESTIMATED_AGRICULTURAL_BALANCE_SHEETS" id="new-url">here</a>.</div>
+			
+			<div style="display: none; font-size: 90%" id="countdown">Redirecting in <span id="remaining"></span> seconds...</div>
+		</div>
+
+
+	</div>
+	<!-- end of main -->
+
+		
+	<!-- Footer -->
+	<!-- Footer -->
+
+<footer class="ecl-footer-harmonised ecl-footer-harmonised--group1 header-on">
+	<div class="ecl-container ecl-footer-harmonised__container">
+		<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section1">
+			<a class="ecl-footer-harmonised__title ecl-link ecl-link--standalone" aria-label="Link to site name" id="footer-site"></a>
+			<div class="ecl-footer-harmonised__description">This site is managed by the Joint Research Centre</div>
+          
+          <ul class="ecl-footer-harmonised__list">
+            <li class="ecl-footer-harmonised__list-item">
+              <a class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" href="https://datam.jrc.ec.europa.eu/datam/public/pages/accessibility.xhtml" target="_blank" aria-label="Link to accesibility statement">Accesibility</a>
+            </li>
+          </ul>
+		</section>
+		<div class="ecl-footer-harmonised__section2">
+			<section class="ecl-footer-harmonised__section">
+				<div class="ecl-footer-harmonised__title ecl-footer-harmonised__title--separator">About us</div>
+				<ul class="ecl-footer-harmonised__list" id="footer-links">
+				</ul>
+			</section>
+		</div>
+		<div class="ecl-footer-harmonised__section3">
+			<section class="ecl-footer-harmonised__section">
+				<div class="ecl-footer-harmonised__title ecl-footer-harmonised__title--separator">Version</div>
+				<ul class="ecl-footer-harmonised__list">
+					<li class="ecl-footer-harmonised__list-item">
+						<span class="ecl-footer-harmonised__link" id='last-update'></span>
+					</li>
+				</ul>
+			</section>
+		</div>
+		<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section6"></section>
+		<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section7">
+			<a href="https://ec.europa.eu/info/index_en" class="ecl-footer-harmonised__title ecl-link ecl-link--standalone" aria-label="Link to European Commission">European Commission</a>
+		</section>
+		<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section8">
+			<ul class="ecl-footer-harmonised__list">
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://ec.europa.eu/info/about-european-commission/contact_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Contact the European Commission">Contact the European Commission</a>
+				</li>
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://europa.eu/european-union/contact/social-networks_en#n:+i:4+e:1+t:+s" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone ecl-link--icon ecl-link--icon-after" aria-label="Link to Follow the European Commission on social media">
+						<span class="ecl-link__label">Follow the European Commission on social media</span> 
+						<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+							<use xlink:href="../../embed/DATAM_ECL/images/icons/sprites/icons.svg#ui--external"></use>
+						</svg>
+					</a>
+				</li>
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://ec.europa.eu/info/resources-partners_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone">Resources for partners</a>
+				</li>
+			</ul>
+		</section>
+		<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section9">
+			<ul class="ecl-footer-harmonised__list">
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://ec.europa.eu/info/language-policy_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Language policy">Language policy</a>
+				</li>
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://ec.europa.eu/info/cookies_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Cookies">Cookies</a>
+				</li>
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://ec.europa.eu/info/privacy-policy_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Privacy policy">Privacy policy</a>
+				</li>
+				<li class="ecl-footer-harmonised__list-item">
+					<a href="https://ec.europa.eu/info/legal-notice_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Legal notice">Legal notice</a>
+				</li>
+			</ul>
+		</section>
+	</div>
+</footer>
+
+
+</body>
+</html>

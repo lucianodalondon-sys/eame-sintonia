@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Wine short-term outlook</title>
+	  <script> window.location.href = "../DashboardSTO/ShortTermOutlook.html"</script>
+      <meta name="agrititle" content="Agri-food data portal | Wine short-term outlook" />
+      <meta name="description" content="Wine short-term outlook">
+      <meta name="keywords" content="outlook, wine, volume, value, average , unit, import, export, extra, imports, exports, european union, wine production, wine trade, wine oil short-term outlook, data, stocks of wine , partner country, eurostat, comext, market experts">
+      <meta name="author" content="European Commission - Directorate-General for Agriculture and Rural Development">
+      <script defer src="https://webtools.europa.eu/load.js" type="text/javascript"></script>
+      <script type="application/json">
+         {"utility":"piwik","siteID":"527","sitePath":["agridata.ec.europa.eu"]}
+      </script>
+      <script type="application/json">
+         {"utility":"cck","url":"https://commission.europa.eu/cookies-policy_en","target":true}
+      </script>
+   </head>
+   <body onload="init();">
+      <div id="divMainContainer" class="mainContainer"></div>
+      <script src="../CommonScripts/jquery.min.js"></script>
+      <script src="../CommonScripts/bootstrap.min.js"></script>
+      <script src="../CommonScripts/common-iframe-alt.js"></script>
+      <script src="../CommonScripts/app-id-retrieval.js"></script>
+      <script src="../CommonScripts/jquery.scrolltabs.js"></script>
+      <script src="../CommonScripts/jquery.mousewheel.js"></script>
+      <script>
+         async function init() {
+             strPageTitle='Wine short-term outlook';
+             tabs = ['Balance Sheet Table',
+					 'Balance Sheet Charts',
+					 'Info'];
+             options = [];
+             strThemeID='';
+             addHeaderHTMLScrollTab(strPageTitle,tabs,options);
+             disableTabs();
+             try {
+                 const strAppID = await getAppIDJson('STO Wine (External)','Everyone');
+                 setupApp(strAppID);
+             } catch(err) { console.error(err); }
+         }
+         
+         function setupApp(strAppID) {
+             const strProtocol='https://';
+             const strServerName = window.location.hostname;
+         
+         strSheet1 = '9cc5fa14-405d-4dd4-acac-f13af1db4933';//table
+         strSheet2 = 'c199c079-a1a0-4b6c-93fe-1d9a0317b8e4';//charts
+         strSheet3 = '97bf75a3-21e4-4d7d-b6e1-722f872ce307';//info
+         
+         strSelections='';
+         strBookMarkID='';
+         strBookMarkID1='';
+         
+         strIdentity= Math.floor((Math.random() * 1000000000) + 1);
+         strIdentity2= Math.floor((Math.random() * 1000000000) + 2);
+         strIdentity3= Math.floor((Math.random() * 1000000000) + 3);
+         
+         updateInitialIframeURL('iFrm1',strProtocol,strServerName,strAppID,strSheet1,strBookMarkID,strSelections,strThemeID,strIdentity);
+         updateInitialIframeURL('iFrm2',strProtocol,strServerName,strAppID,strSheet2,strBookMarkID,strSelections,strThemeID,strIdentity2);
+         updateInitialIframeURL('iFrm3',strProtocol,strServerName,strAppID,strSheet3,strBookMarkID,strSelections,strThemeID,strIdentity3);
+         
+             function delayLoad() {
+                 if(pageLoading(interval)===false) { enableTabs(); }
+             }
+             interval = window.setInterval(delayLoad,1000);
+         }
+      </script>
+   </body>
+</html>

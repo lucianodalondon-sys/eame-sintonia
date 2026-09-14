@@ -1,0 +1,151 @@
+{
+  "data": {
+    "id": "gBrhIXyfmlL3FiC9V",
+    "userId": "ngn8vRESTkseyWE6p",
+    "name": "instagram-transcript-scraper",
+    "username": "memo23",
+    "description": "Transcribe Instagram Reels, posts & IGTV to text — even videos with no captions. Flat $0.05 per video, any length: no per-second metering. On-device Whisper ASR returns the full transcript, subtitle-style timestamps and creator metadata. Paste URLs, no login, 30+ languages. JSON/CSV out.",
+    "isPublic": true,
+    "createdAt": "2026-07-18T11:47:22.427Z",
+    "modifiedAt": "2026-09-01T16:19:19.507Z",
+    "taggedBuilds": {
+      "latest": {
+        "buildId": "LI4LJYOtuGgAavehl",
+        "finishedAt": "2026-09-01T16:19:19.507Z",
+        "buildNumberInt": 24,
+        "buildNumber": "0.0.24"
+      }
+    },
+    "stats": {
+      "totalBuilds": 24,
+      "totalRuns": 738,
+      "totalUsers": 66,
+      "totalUsers7Days": 20,
+      "totalUsers30Days": 41,
+      "totalUsers90Days": 42,
+      "lastRunStartedAt": "2026-09-02T05:30:47.202Z",
+      "actorReviewCount": 0,
+      "actorReviewRating": 0,
+      "bookmarkCount": 0,
+      "publicActorRunStats30Days": {
+        "ABORTED": 3,
+        "FAILED": 3,
+        "SUCCEEDED": 486,
+        "TIMED-OUT": 0,
+        "TOTAL": 492
+      }
+    },
+    "versions": [
+      {
+        "versionNumber": "0.0",
+        "sourceType": "SOURCE_FILES",
+        "buildTag": "latest"
+      }
+    ],
+    "defaultRunOptions": {
+      "build": "latest",
+      "timeoutSecs": 3600,
+      "memoryMbytes": 2048
+    },
+    "exampleRunInput": {
+      "body": "{ \"helloWorld\": 123 }",
+      "contentType": "application/json; charset=utf-8"
+    },
+    "categories": [
+      "AI",
+      "SOCIAL_MEDIA",
+      "AGENTS"
+    ],
+    "isDeprecated": false,
+    "title": "Instagram Transcript Scraper — Reels, Posts & IGTV to Text",
+    "pictureUrl": "https://apify-image-uploads-prod.s3.us-east-1.amazonaws.com/ngn8vRESTkseyWE6p-actor-gBrhIXyfmlL3FiC9V-07p6ieboLs-instagram.jpg",
+    "seoTitle": "Instagram Transcript Scraper — Reels & Video to Text",
+    "seoDescription": "Transcribe Instagram Reels, posts and IGTV to text, including videos with no captions. Full transcript, subtitle timestamps and creator metadata. No login, 30+ languages. Flat $0.05 per video.",
+    "pricingInfos": [
+      {
+        "pricingModel": "PAY_PER_EVENT",
+        "apifyMarginPercentage": 0.2,
+        "minimalMaxTotalChargeUsd": null,
+        "isPriceChangeNotificationSuppressed": false,
+        "pricingPerEvent": {
+          "actorChargeEvents": {
+            "apify-actor-start": {
+              "eventTitle": "Actor Start",
+              "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+              "isOneTimeEvent": true,
+              "eventPriceUsd": 0.005
+            },
+            "transcript": {
+              "eventTitle": "Transcript delivered",
+              "eventDescription": "Charged once for each Instagram video successfully transcribed and returned as a result row (full transcript + detected language + timestamped segments).",
+              "isOneTimeEvent": false,
+              "isPrimaryEvent": true,
+              "eventPriceUsd": 0.04
+            }
+          }
+        },
+        "createdAt": "2026-07-18T21:47:47.425Z",
+        "startedAt": "2026-07-18T21:47:47.425Z"
+      },
+      {
+        "minimalMaxTotalChargeUsd": null,
+        "pricingModel": "PAY_PER_EVENT",
+        "isPriceChangeNotificationSuppressed": false,
+        "pricingPerEvent": {
+          "actorChargeEvents": {
+            "transcript": {
+              "eventTitle": "Transcript delivered",
+              "eventDescription": "Charged once for each Instagram video successfully transcribed and returned as a result row (full transcript + detected language + timestamped segments).",
+              "isOneTimeEvent": false,
+              "eventPriceUsd": 0.005,
+              "isPrimaryEvent": true
+            },
+            "apify-actor-start": {
+              "eventTitle": "Actor Start",
+              "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+              "isOneTimeEvent": true,
+              "eventPriceUsd": 0.005
+            }
+          }
+        },
+        "startedAt": "2026-07-18T22:08:54.830Z",
+        "createdAt": "2026-07-18T22:08:55.196Z",
+        "apifyMarginPercentage": 0.2
+      },
+      {
+        "minimalMaxTotalChargeUsd": null,
+        "pricingModel": "PAY_PER_EVENT",
+        "isPriceChangeNotificationSuppressed": true,
+        "pricingPerEvent": {
+          "actorChargeEvents": {
+            "transcript": {
+              "eventTitle": "Transcript delivered",
+              "eventDescription": "Charged once for each Instagram video successfully transcribed and returned as a result row (full transcript + detected language + timestamped segments).",
+              "isOneTimeEvent": false,
+              "eventPriceUsd": 0.05,
+              "isPrimaryEvent": true
+            },
+            "apify-actor-start": {
+              "eventTitle": "Actor Start",
+              "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+              "isOneTimeEvent": true,
+              "eventPriceUsd": 0.005
+            }
+          }
+        },
+        "createdAt": "2026-08-04T16:18:18.845Z",
+        "startedAt": "2026-08-04T16:18:18.845Z",
+        "apifyMarginPercentage": 0.2
+      }
+    ],
+    "notice": "NONE",
+    "isCritical": false,
+    "isGeneric": false,
+    "hasNoDataset": false,
+    "isSourceCodeHidden": true,
+    "standbyUrl": null,
+    "actorPermissionLevel": "LIMITED_PERMISSIONS",
+    "readmeSummary": "## Instagram Transcript Scraper\n\nTranscribes Instagram Reels, video posts and IGTV into searchable, timestamped text and rich metadata using on-device speech-to-text. The Actor extracts video audio, runs local Whisper-based transcription (configurable model size for speed/accuracy trade-offs), performs language detection across 30+ languages, and returns per-video results that include the full spoken text, subtitle-ready timestamped segments, SubRip/WebVTT subtitle text, transcription timestamp and model info, plus creator and post metadata such as handle and display name, written caption, engagement metrics, duration, thumbnail and upload date. Technical capabilities include audio extraction from Instagram video URLs via a resolver tool, faster Whisper transcription on-device (no third-party audio upload), generation of SRT/VTT subtitle formats, and configurable concurrency and duration guards for batch processing.\n\n## Use cases\n\n- Content research and repurposing: convert creator videos into searchable text, blog drafts, or scripts.  \n- Social listening and brand monitoring: analyze spoken content in videos for mentions, sentiment, and topics.  \n- Accessibility: produce subtitle files and timestamped segments for captions in workflows and editors.  \n- Competitive and influencer analysis: mine talking points, hooks and calls-to-action across video collections.  \n- Dataset building for NLP and ML: collect speech transcripts for trend detection, training, or LLM fine-tuning.",
+    "deploymentKey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLsN5xQtrvMwJlz6UQhLrAo3/SZMNYD+9sDVl6TW4T0OeSrhqbwX+qqXmGNQY4eCGDoALetE/YaBBoUg4/5fev/9akoyDSBU38flw0L1roCqrmty5+fyj/AUqzIcNI8HNVjIQFwhceye7pF3Iqxyu6xbuyYye+uB8avDWJ40Jsx4Sb1wWlUP6nSQcq96z7PQ7XPlqVSSxfUFMQCvaXpHPDl900EhYc+dEPVRJzaVDDFqsac6+Z6wQsBIyqnrVKGyiORGP7dI2W83EaJvi5gcHHESTqqyPEwEkBOlhWwcehe1DLQcYJbmEzmJoqDjy9RGXz7+xdigkz5m6eLEuqonkp \n"
+  }
+}

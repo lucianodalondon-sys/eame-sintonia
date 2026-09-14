@@ -1,0 +1,2166 @@
+{
+  "data": {
+    "total": 808,
+    "count": 30,
+    "offset": 0,
+    "limit": 30,
+    "desc": false,
+    "items": [
+      {
+        "title": "Instagram Transcript Scraper",
+        "name": "instagram-transcript-scraper",
+        "username": "crawlerbros",
+        "stats": {
+          "totalBuilds": 14,
+          "totalRuns": 16241,
+          "totalUsers": 1166,
+          "totalUsers7Days": 68,
+          "totalUsers30Days": 174,
+          "totalUsers90Days": 458,
+          "lastRunStartedAt": "2026-09-01T20:35:32.065Z",
+          "actorReviewCount": 7,
+          "actorReviewRating": 4.523698194465194,
+          "bookmarkCount": 11,
+          "publicActorRunStats30Days": {
+            "ABORTED": 104,
+            "FAILED": 29,
+            "SUCCEEDED": 5150,
+            "TIMED-OUT": 278,
+            "TOTAL": 5561
+          }
+        },
+        "description": "Extract transcripts from Instagram videos and reels using auto-generated captions or AI-powered speech-to-text. Returns clean, timestamped transcript segments with full video metadata.",
+        "categories": [
+          "DEVELOPER_TOOLS",
+          "SOCIAL_MEDIA",
+          "OTHER"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/RwEHXes6kigEBFzvxbwrltiolLa5xZyTin6Q8WbkK28/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vMDdpWEluck1jaXVPUzEyaFUtYWN0b3ItYmhxZk9nTWRGdzlhYjRENFMtbXpkQ2phUm5oMC1DaGF0R1BUX0ltYWdlX01hcl8xNV9fMjAyNl9fMTJfMjBfNTdfQU0ucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 11,
+        "actorReviewRating": 4.523698194465193,
+        "actorReviewCount": 7,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "Crawler Bros",
+        "userPictureUrl": "https://images.apifyusercontent.com/hVYjvC4925v8WlisGKmn3M3Kt4_rwKbDCBrNuGNCv5k/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vbi1rdTRfVWpwQnFkb00yRFNoWm45LXRZeVRSNjJTb0Nyb29HN2RWb1dHay9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZNRGRwV0VsdWNrMWphWFZQVXpFeWFGVXRjSEp2Wm1sc1pTMDNWMDlVZGxWVmREVlVMV055WVhkc1pYSmljbTl6TFd4dloyOHVhbkJsWncuanBlZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "isPPEPlatformUsagePaidByUser": true,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "reasonForChange": "We've updated the pricing model to be fairer and more transparent you now only pay for what you actually use. Most users will pay significantly less than before.",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-default-dataset-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.00833
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.00667
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.005
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.005
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.005
+                  }
+                },
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.025
+              },
+              "transcription-10s": {
+                "eventTitle": "Transcription cost",
+                "eventDescription": "Charged once per 10 seconds of video transcribed.",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.01
+              },
+              "transcription-segment": {
+                "eventTitle": "Transcription segments",
+                "eventDescription": "Charged once per run when timestamped segment breakdown is included in the output.",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.5
+              }
+            }
+          },
+          "startedAt": "2026-06-30T06:58:48.036Z",
+          "createdAt": "2026-06-16T06:58:49.196Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2026-06-16T06:59:13.711Z"
+        },
+        "id": "bhqfOgMdFw9ab4D4S",
+        "url": "https://apify.com/crawlerbros/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram AI Transcript Extractor",
+        "name": "instagram-ai-transcript-extractor",
+        "username": "sian.agency",
+        "stats": {
+          "totalBuilds": 329,
+          "totalRuns": 198954,
+          "totalUsers": 3068,
+          "totalUsers7Days": 136,
+          "totalUsers30Days": 374,
+          "totalUsers90Days": 936,
+          "lastRunStartedAt": "2026-09-01T10:13:11.828Z",
+          "publicActorRunStats30Days": {
+            "ABORTED": 14,
+            "FAILED": 0,
+            "SUCCEEDED": 22647,
+            "TIMED-OUT": 65,
+            "TOTAL": 22726
+          },
+          "actorReviewCount": 12,
+          "actorReviewRating": 2.272178098476657,
+          "bookmarkCount": 71
+        },
+        "description": "Instagram Reel transcript extractor. Address by Reel URL, bulk list or whole channel. Returns AI transcription with speaker diarization, word-level timestamps, detected language, SRT and WebVTT subtitles, and 30+ metadata fields per reel.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/6m00dxmVfFdUmD5jw-L_6VVzXwfKNqcNjxBpfHTNlQ4/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vU0hhYnZOYkU3NlUxYVFhR2QtYWN0b3ItM0M3TDhJTVFPa3EzaXNWMlktQWRiMFlPajg3Qy0yMDI1MDgyNV8xMDA2X0luc3RhZ3JhbV9UcmFuc2NyaXB0X0ljb25fc2ltcGxlX2NvbXBvc2VfMDFrM2Zma3Yz.webp",
+        "notice": "NONE",
+        "bookmarkCount": 71,
+        "actorReviewRating": 2.272178098476657,
+        "actorReviewCount": 12,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "SIÁN OÜ",
+        "userPictureUrl": "https://images.apifyusercontent.com/3-IKZ7tIOa05lY7MEtwSbfqDeQBl6ukkcNU3pSphMaY/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vaU1mYTktaWVrWlVUTHJKci1jcV9tcDFPdGRkU2lUXzEtZVc5MjJ5ek92NC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZVMGhoWW5aT1lrVTNObFV4WVZGaFIyUXRjSEp2Wm1sc1pTMTVlSFYyYWtwNVkyWmxMVFV1Y0c1bi5wbmc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "apifyMarginPercentage": 0.2,
+          "createdAt": "2026-08-15T08:36:30.076Z",
+          "startedAt": "2026-08-29T08:36:25.606Z",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.005
+              },
+              "InstagramContentProcessed": {
+                "eventTitle": "Transcribed reel",
+                "eventDescription": "Fee charged for each Instagram reel or post successfully processed with AI transcription and comprehensive data extraction (30+ fields). Only charged on successful completion.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.028
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.026
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.023
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.02
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.018
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.016
+                  }
+                },
+                "isPrimaryEvent": true
+              },
+              "FastProcessingUpgrade": {
+                "eventTitle": "Fast processing upgrade",
+                "eventDescription": "Speed boost fee for 50%+ faster Instagram processing. Only charged when explicitly enabled.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.022
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.007
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.006
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.005
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0045
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.004
+                  }
+                }
+              },
+              "TranslationProcessed": {
+                "eventTitle": "Translated 1,000 characters",
+                "eventDescription": "Translation of the transcript into your selected language, charged per 1,000 characters",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.045
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.015
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.014
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.013
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.012
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.011
+                  }
+                }
+              },
+              "CommentsExtraction": {
+                "eventTitle": "Extracted comments",
+                "eventDescription": "Pinned and creator comments for one post. Opt-in via includeComments; charged only when at least one comment is returned.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.003
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.003
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0027
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0025
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0022
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.002
+                  }
+                }
+              }
+            }
+          },
+          "reasonForChange": "💰 Translation 4x cheaper, Fast Processing 45%+ cheaper, Diamond reel -11%. NEW: Comments Extraction $0.003, free until now. Bronze reel $0.023→$0.026.",
+          "notifiedAboutFutureChangeAt": "2026-08-15T08:36:59.979Z",
+          "notifiedAboutChangeAt": "2026-08-29T09:05:50.697Z"
+        },
+        "id": "3C7L8IMQOkq3isV2Y",
+        "url": "https://apify.com/sian.agency/instagram-ai-transcript-extractor"
+      },
+      {
+        "title": "Instagram Transcript API & Profile Scraper - AI Video to Text",
+        "name": "instagram-transcripts-scraper",
+        "username": "apple_yang",
+        "stats": {
+          "totalBuilds": 45,
+          "totalRuns": 966751,
+          "totalUsers": 2349,
+          "totalUsers7Days": 255,
+          "totalUsers30Days": 581,
+          "totalUsers90Days": 1431,
+          "lastRunStartedAt": "2026-09-01T10:20:27.653Z",
+          "actorReviewCount": 12,
+          "actorReviewRating": 4.321118433355022,
+          "bookmarkCount": 15,
+          "publicActorRunStats30Days": {
+            "ABORTED": 20,
+            "FAILED": 0,
+            "SUCCEEDED": 503441,
+            "TIMED-OUT": 155,
+            "TOTAL": 503616
+          }
+        },
+        "description": "Instagram Reels Transcript API for converting video audio into structured text using AI. Extract transcripts, timestamped segments, media URLs, and metadata from public Reels and videos. Also supports public profile post scraping for creator research, competitor research, and automation workflows.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/H36w0vCgEF8jrBSsCz42pUwy4h-bDlcefpKadEHG97Y/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vaTMxc0JaSXpOd3BNNm1QTXgtYWN0b3ItUzlBMTFOdmNlV2FHb3J3d2gtT1RLcW5LR2tmTS1pbnN0YWdyYW0ucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 19,
+        "actorReviewRating": 4.321118433355021,
+        "actorReviewCount": 12,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "APISmith",
+        "userPictureUrl": "https://images.apifyusercontent.com/kiKMWakKQslIJ36bfzDqBeSH-WMaN_-LEjnO1e9yqhc/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vQ3dXY3M1VDFQR0lwQWNaWmRCdkUxd3VpVjI2TnB1TlVKa2JRcVRKUEhWWS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZhVE14YzBKYVNYcE9kM0JOTm0xUVRYZ3RjSEp2Wm1sc1pTMVBPWG93WTJodWFHVjBMV0Z3YVhOdGFYUm9MV3h2WjI4dE1pNHhMbkJ1WncucG5n.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "reasonForChange": "We’ve upgraded our transcription accuracy from 92% to over 95% and boosted speed by 50%, resulting in a slight price adjustment.",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-default-dataset-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.001,
+                "isPrimaryEvent": true
+              },
+              "speech2text": {
+                "eventTitle": "Cost-Effective Audio-to-Text (Auto)",
+                "eventDescription": "Convert audio to text at a cost of $0.001 to $0.003 per minute, with any duration less than 1 minute being charged as 1 minute.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0045
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.0035
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.003
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.002
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.002
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.002
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-04-22T08:16:55.766Z",
+          "createdAt": "2026-04-08T08:16:56.768Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2026-04-08T08:17:17.737Z"
+        },
+        "id": "S9A11NvceWaGorwwh",
+        "url": "https://apify.com/apple_yang/instagram-transcripts-scraper"
+      },
+      {
+        "title": "Instagram Video Transcript",
+        "name": "instagram-video-transcript",
+        "username": "truefetch",
+        "stats": {
+          "totalBuilds": 383,
+          "totalRuns": 4365,
+          "totalUsers": 348,
+          "totalUsers7Days": 14,
+          "totalUsers30Days": 56,
+          "totalUsers90Days": 194,
+          "lastRunStartedAt": "2026-09-01T09:31:21.373Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 1,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 3,
+            "SUCCEEDED": 547,
+            "TIMED-OUT": 0,
+            "TOTAL": 550
+          }
+        },
+        "description": "Instagram Video Transcript extracts the spoken words from one public Reel or video post for hook research, captions, and content repurposing. It returns detected-language text, ordered timestamps, post metadata, and optional translation into 133 languages. Entry transcript price: $0.36.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "AI"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/JEg7g_9aaTwZbVdCKQ2siAu7mCoXij7o6XMqqGuOkxI/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vVXJjNjZsRXliWHdyTHhTSXktYWN0b3ItRFdseGlSOHJHU2lsWThHSGQtUzhWaGdETzk0YS0xMDExNDY4XzEuanBn.webp",
+        "notice": "NONE",
+        "bookmarkCount": 2,
+        "actorReviewRating": 5,
+        "actorReviewCount": 1,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "TrueFetch",
+        "userPictureUrl": "https://images.apifyusercontent.com/eZX90taff0f7gwH3UX3o59MCGkU_ZTI6djmuoiEfCE0/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vYzVsVUtqUmVnM1VTRzdvb1p4N2tvaFdhRjBlMWVrM21lZnB6TGk4bTRLMC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZWWEpqTmpac1JYbGlXSGR5VEhoVFNYa3RjSEp2Wm1sc1pTMUliME4xTm5veVVFbDNMVEV6TVdNd056UmhMV0l6TURFdE5HUTVZaTFoWlRNMkxUSTFNek0xT0dFM1lUaGpOeTVxY0djLmpwZw.webp",
+        "currentPricingInfo": {
+          "apifyMarginPercentage": 0.2,
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "actor_usage": {
+                "eventTitle": "Actor Usage",
+                "eventDescription": "Charged for Actor runtime, proxy and storage. Cost depends on resource consumption during execution",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.00001
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.001
+              },
+              "transcript": {
+                "eventTitle": "Transcript",
+                "eventDescription": "One source-aware timestamped transcript in the default dataset.",
+                "isPrimaryEvent": true,
+                "isOneTimeEvent": true,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.4
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.38667
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.37333
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.36
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.36
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.36
+                  }
+                }
+              },
+              "translation": {
+                "eventTitle": "Translation",
+                "eventDescription": "One requested translation preserving transcript segment alignment in the default dataset.",
+                "isOneTimeEvent": true,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.12
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.116
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.112
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.108
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.108
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.108
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-08-05T03:05:03.248Z",
+          "createdAt": "2026-07-22T02:55:04.869Z",
+          "notifiedAboutFutureChangeAt": "2026-07-22T02:55:26.740Z",
+          "notifiedAboutChangeAt": "2026-08-05T15:06:39.990Z"
+        },
+        "id": "DWlxiR8rGSilY8GHd",
+        "url": "https://apify.com/truefetch/instagram-video-transcript"
+      },
+      {
+        "title": "Instagram Reels Transcript Scraper (No Login)",
+        "name": "instagram-reels-transcript-scraper",
+        "username": "makework36",
+        "stats": {
+          "totalBuilds": 8,
+          "totalRuns": 802,
+          "totalUsers": 267,
+          "totalUsers7Days": 18,
+          "totalUsers30Days": 77,
+          "totalUsers90Days": 187,
+          "lastRunStartedAt": "2026-09-02T03:47:39.389Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 2,
+            "FAILED": 0,
+            "SUCCEEDED": 255,
+            "TIMED-OUT": 0,
+            "TOTAL": 257
+          }
+        },
+        "description": "Scrape Instagram reels from any public profile and get AI transcripts — no login, no cookies. HTTP-pure via mirror + Groq Whisper.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AI",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/izCnhDl7S22LthyDm-j4SdgGLFpfk7vEuNFNKLS9Mo8/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vSHRnc3JBOEZ1U3Nlakpob1YtYWN0b3ItSEk5NlZSVWZXUDVGTHVQNmQtUWV6WnpyUGIxOC1mZWF0dXJlZC1pbWFnZS1pbnN0YWdyYW0tdGV4dC5qcGc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 2,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "deusex machine",
+        "userPictureUrl": "https://images.apifyusercontent.com/i46XegFeFyrHQby3--nK6__xv6_w9FTFjUOUT2nFp10/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vMEh5cE54M2F0UTZjNTJpajhjeVBndDJGWFFhenFjU0NzdFhabTkxeDdOdy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZTSFJuYzNKQk9FWjFVM05sYWtwb2IxWXRjSEp2Wm1sc1pTMTNOR1JITmxCblFqVlFMVU5vWVhSSFVGUmZTVzFoWjJWZk1UTmZibTkyWHpJd01qVmZYekEwWHpFMVh6TTVYM0F1YlM0dWNHNW4ucG5n.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "actor-start": {
+                "eventTitle": "Actor start",
+                "eventDescription": "Pipeline initialization (once per run).",
+                "eventPriceUsd": 0.005
+              },
+              "reel-scraped": {
+                "eventTitle": "Reel scraped",
+                "eventDescription": "Each reel with full metadata: caption, likes, comments, video URL, thumbnail.",
+                "eventPriceUsd": 0.003
+              },
+              "transcription": {
+                "eventTitle": "AI transcript",
+                "eventDescription": "Whisper transcript per reel. Only charged when the reel has speech.",
+                "eventPriceUsd": 0.012
+              }
+            }
+          },
+          "createdAt": "2026-06-07T07:59:13.905Z",
+          "startedAt": "2026-06-07T07:59:13.905Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "HI96VRUfWP5FLuP6d",
+        "url": "https://apify.com/makework36/instagram-reels-transcript-scraper"
+      },
+      {
+        "title": "Instagram Reels Transcript Scraper | Audio to Text",
+        "name": "instagram-reels-transcript-scraper-audio-to-text",
+        "username": "scraping_solutions",
+        "stats": {
+          "totalBuilds": 22,
+          "totalRuns": 470,
+          "totalUsers": 123,
+          "totalUsers7Days": 40,
+          "totalUsers30Days": 98,
+          "totalUsers90Days": 98,
+          "lastRunStartedAt": "2026-09-01T09:17:28.213Z",
+          "actorReviewCount": 1,
+          "actorReviewRating": 5,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 26,
+            "FAILED": 4,
+            "SUCCEEDED": 407,
+            "TIMED-OUT": 0,
+            "TOTAL": 437
+          }
+        },
+        "description": "Transcribe public Instagram Reels into clean text, timestamped segments, and WebVTT subtitles. Process Reel URLs or entire public profiles and export transcripts with creator, post, and engagement metadata.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AUTOMATION",
+          "AI"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/QvoeZ3MlW-dFZwd8guZ2LY0hNflW_ZYcwHZyCjUcU6I/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vUlZaTGoxVjRsRjZla3RvWDMtYWN0b3ItbEJicUo4NzhWWTRObk9zb2YtVXFXZEZaWHhvRy1HZW5lcmF0ZWRfaW1hZ2VfMS5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 5,
+        "actorReviewCount": 2,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Scraping Solutions",
+        "userPictureUrl": "https://images.apifyusercontent.com/tTqHFyWVYe6olg7m6h6-hlMeJTpBz1XykTaHTNYG9lQ/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vZFg5Q2RXX0t0cmJjTFV2QW9ua2JHZTV3aUdYZmdmczZLTmlkaV9wT3psTS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpURWhyUVRVNVgyRXRVamhwVFZWMVpHdENjMlZMUW1oNU1VTXlUVFpqTUc1QmRGcDZNMkYzVlZOcmRFZHlZamQxY0RR.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-default-dataset-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0028
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.0027
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0026
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0025
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0025
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.0025
+                  }
+                },
+                "isPrimaryEvent": true
+              },
+              "audio-minute": {
+                "eventTitle": "AI audio minute",
+                "eventDescription": "Charged for each started minute of Reel audio successfully processed by AI.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0065
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.00551
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0052
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0049
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0049
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.0049
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-08-03T08:50:45.345Z",
+          "createdAt": "2026-08-03T08:50:45.502Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "lBbqJ878VY4NnOsof",
+        "url": "https://apify.com/scraping_solutions/instagram-reels-transcript-scraper-audio-to-text"
+      },
+      {
+        "title": "Instagram Transcript Scraper — Reels, Posts & IGTV to Text",
+        "name": "instagram-transcript-scraper",
+        "username": "memo23",
+        "stats": {
+          "totalBuilds": 24,
+          "totalRuns": 734,
+          "totalUsers": 66,
+          "totalUsers7Days": 20,
+          "totalUsers30Days": 41,
+          "totalUsers90Days": 42,
+          "lastRunStartedAt": "2026-09-01T14:06:34.828Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 3,
+            "FAILED": 4,
+            "SUCCEEDED": 485,
+            "TIMED-OUT": 0,
+            "TOTAL": 492
+          }
+        },
+        "description": "Transcribe Instagram Reels, posts & IGTV to text — even videos with no captions. Flat $0.05 per video, any length: no per-second metering. On-device Whisper ASR returns the full transcript, subtitle-style timestamps and creator metadata. Paste URLs, no login, 30+ languages. JSON/CSV out.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "AGENTS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/XeKSKv_pSQFNzV-04YiQGXlvnrIgJ1RZQAkKp5UJ44c/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vbmduOHZSRVNUa3NleVdFNnAtYWN0b3ItZ0JyaElYeWZtbEwzRmlDOVYtMDdwNmllYm9Mcy1pbnN0YWdyYW0uanBn.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Muhamed Didovic",
+        "userPictureUrl": "https://images.apifyusercontent.com/UWS1pm5ZK_CTekVvsOq-WWGxQTL9CtDAmNs39dAoxOQ/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vVWV2Smp2aUpCclh6Q1NrRUhpZ1pYWnlhYU1MMkhjUmlwSE9YSl9aVi1LNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZibWR1T0haU1JWTlVhM05sZVZkRk5uQXZTM0ZpY21RM2NuTk1ZbVJzVTFsa2FGY3RNVFl5T1RJNE5URXdNakU1TkM1cWNHVm4uanBlZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": true,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "transcript": {
+                "eventTitle": "Transcript delivered",
+                "eventDescription": "Charged once for each Instagram video successfully transcribed and returned as a result row (full transcript + detected language + timestamped segments).",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.05,
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.005
+              }
+            }
+          },
+          "createdAt": "2026-08-04T16:18:18.845Z",
+          "startedAt": "2026-08-04T16:18:18.845Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "gBrhIXyfmlL3FiC9V",
+        "url": "https://apify.com/memo23/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram AI Transcript Scraper",
+        "name": "insta-reel-transcriber",
+        "username": "skyline_scrapers",
+        "stats": {
+          "totalBuilds": 12,
+          "totalRuns": 191,
+          "totalUsers": 54,
+          "totalUsers7Days": 1,
+          "totalUsers30Days": 9,
+          "totalUsers90Days": 35,
+          "lastRunStartedAt": "2026-09-01T07:35:34.147Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 50,
+            "TIMED-OUT": 3,
+            "TOTAL": 53
+          }
+        },
+        "description": "Scrape Instagram Reels and generate accurate AI-powered transcripts in seconds. Extract captions, subtitles, timestamps, hashtags, engagement, audio, and metadata. Export structured data for research, content creation, analytics, and automation.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/5WEZVteA-0nx45kf5jof6FSrRdqUW4wI-LqRr3jBrQY/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vWFJiUWZvZ1hLd3k3Z2FNNngtYWN0b3ItYmxLck1GVUhLa01mSUlCY08tTFRJd2hsdjBEUy1pbnN0YXNjcmFwZXJpY29uLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 5,
+        "actorReviewCount": 6,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "Skyline Scrapers",
+        "userPictureUrl": "https://images.apifyusercontent.com/Ka55CVEjcjlhDAjohJCX7uYm17wkqCZ26qrtF5lFdUk/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vOHk2VjFfSFlKTHpoX21LUlg2OWtna3lGczNLNlNTMlAtMFItNW5ZYU0yRS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZXRkppVVdadloxaExkM2szWjJGTk5uZ3RjSEp2Wm1sc1pTMXBTMHhrZG5SMlNtSkZMV0pzZFdVdFlXbHljR3hoYm1VdGJHOW5ieTFrWlhOcFoyNHROakF3Ym5jdE1qYzFNek00TnpRNE55NTNaV0p3LndlYnA.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "isPPEPlatformUsagePaidByUser": true,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "reasonForChange": "The price is to cover the ai api expenses for the actor.",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-default-dataset-item": {
+                "eventTitle": "reels",
+                "eventDescription": "Single reels extraction",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.05,
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00001
+              }
+            }
+          },
+          "startedAt": "2026-07-25T09:29:49.951Z",
+          "createdAt": "2026-07-11T09:29:49.696Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2026-07-11T09:30:09.987Z",
+          "notifiedAboutChangeAt": "2026-07-25T09:35:32.220Z"
+        },
+        "id": "blKrMFUHKkMfIIBcO",
+        "url": "https://apify.com/skyline_scrapers/insta-reel-transcriber"
+      },
+      {
+        "title": "Bulk Instagram Transcript API",
+        "name": "bulk-instagram-transcript-api",
+        "username": "exporter24",
+        "stats": {
+          "totalBuilds": 13,
+          "totalRuns": 333,
+          "totalUsers": 36,
+          "totalUsers7Days": 1,
+          "totalUsers30Days": 2,
+          "totalUsers90Days": 6,
+          "lastRunStartedAt": "2026-09-01T01:24:51.721Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 48,
+            "TIMED-OUT": 4,
+            "TOTAL": 52
+          }
+        },
+        "description": null,
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/EBi8ODi4N0ld9Ef1zg2zSULwt9COR_PaKSAK4J_BDM4/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vdENadmNOeGdJUUlWVXlVN2YtYWN0b3ItRFV5bVRqM1dkekp4akZqaEktaEpGbnBtd2FJYy1pY29uLWlucy5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "exporter24",
+        "userPictureUrl": "https://images.apifyusercontent.com/VYD_YiAhGuRHwFnH9p3m3WnC-ZXxzLcgoDaDs4OZiMw/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vQ25oSkN1eVVQV3FYT05LazlHWF9RLXFheEVUTzZkNlVTWTdrcFJwRklrUS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZkRU5hZG1OT2VHZEpVVWxXVlhsVk4yWXRjSEp2Wm1sc1pTMVNNak5xUTJkS1JHeDNMV2xqYjI0dWNHNW4ucG5n.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "apify-default-dataset-item": {
+                "eventTitle": "Video",
+                "eventDescription": "Single result in the default dataset.",
+                "eventPriceUsd": 0.01
+              },
+              "credit": {
+                "eventTitle": "Credit",
+                "eventDescription": "duration based, 1 credit per minute (rounded up)",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.05,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-02-25T07:26:40.160Z",
+          "createdAt": "2026-02-25T07:26:40.598Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "DUymTj3WdzJxjFjhI",
+        "url": "https://apify.com/exporter24/bulk-instagram-transcript-api"
+      },
+      {
+        "title": "Instagram Ai Transcript Extractora",
+        "name": "instagram-ai-transcript-extractor",
+        "username": "scrapers-hub",
+        "stats": {
+          "totalBuilds": 16,
+          "totalRuns": 166,
+          "totalUsers": 13,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 3,
+          "lastRunStartedAt": "2026-08-31T19:50:29.827Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 31,
+            "TIMED-OUT": 0,
+            "TOTAL": 31
+          }
+        },
+        "description": "🎥 Instagram AI Transcript Extractor pulls accurate transcripts from Reels, posts & Lives in seconds. 🤖 Auto timestamps, speaker tags & multilingual captions. 📄 Export SRT, VTT, TXT or CSV. 🚀 Perfect for creators, marketers & researchers—repurpose, subtitle & boost SEO.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AUTOMATION",
+          "OTHER"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/ggvwA5vJbhmvPPIow329n-VSpKo16l4enjDf7s3wqOc/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vSTgwU2FHVUdacWhpdlhRZWYtYWN0b3ItSVl6SGxiaFhValdEeVZmZEQtcEdLQnhZMDlWeC1JbnN0YWdyYW1fQUlfVHJhbnNjcmlwdF9FeHRyYWN0b3J1dC5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "Scrapers Hub",
+        "userPictureUrl": "https://images.apifyusercontent.com/kiu0qs5r2lVmaVKwwTX0zpFju76ZndY_a-d2LdDdxEw/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vUUNUS0dINGdpY0JZWHNHRTZOWTEzUUpPbE1TbDBhaXBXNGJWbGpVU1EwOC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZTVGd3VTJGSFZVZGFjV2hwZGxoUlpXWXRjSEp2Wm1sc1pTMXNiamgxTTNaUVYyeE9MWE5qY21Gd1pYSXRhSFZpTG5CdVp3LnBuZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "isPPEPlatformUsagePaidByUser": true,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "result": {
+                "eventTitle": "result",
+                "eventDescription": "Every single result cost",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.00199,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-04-27T14:01:32.736Z",
+          "createdAt": "2026-04-27T14:01:33.327Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "IYzHlbhXUjWDyVfdD",
+        "url": "https://apify.com/scrapers-hub/instagram-ai-transcript-extractor"
+      },
+      {
+        "title": "Instagram Transcript Scraper",
+        "name": "instagram-transcript-scraper",
+        "username": "khadinakbar",
+        "stats": {
+          "totalBuilds": 4,
+          "totalRuns": 126,
+          "totalUsers": 8,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 4,
+          "totalUsers90Days": 5,
+          "lastRunStartedAt": "2026-08-20T17:03:54.229Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 18,
+            "TIMED-OUT": 0,
+            "TOTAL": 18
+          }
+        },
+        "description": "AI transcript extractor for Instagram Reels and video posts. No cookies, no login. MCP/API-ready.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AI",
+          "MCP_SERVERS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/Led1PSMKI0e9etTrw2JC-7QXMoQPnOkYr58nOU9mwyg/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vcU5IdjFhTkZKZGk3cUNwV2UtYWN0b3ItS3luaG00RmxsaEJSNmp4M3MtVzR1UDNTZGtmSi04ZmVlZWE1Ny1hMWVkLTQzZjMtYWRhNy02MDJmYzJkY2Y2ZTdfJTI4MSUyOS5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "Khadin Akbar",
+        "userPictureUrl": "https://images.apifyusercontent.com/HbwQpQhiljFdnh_PO70uT83X5JYxLKszGnmTkdJFssQ/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20veWdCaE5vQ05rTzJNYmI1ZFpkdEJlX3JaSEZ1b2llWTBHS1V1Z2JOZVROdy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZjVTVJZGpGaFRrWktaR2szY1VOd1YyVXRjSEp2Wm1sc1pTMXZPWGhqUmtwVlNFNUpMVGs1TmtSRE1UZ3lMVGt6UlVNdE5EQTVNaTA1UlRORExUa3dOa1UwTmpJd1JqWkJRbDgwWHpVd01EVmZZeTVxY0dWbi5qcGVn.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "transcript-extracted": {
+                "eventTitle": "Transcript extracted",
+                "eventDescription": "Charged once per Instagram video successfully transcribed (carousel items share the charge).",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.01,
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "apifyMarginPercentage": 0.2,
+          "minimalMaxTotalChargeUsd": null,
+          "isPPEPlatformUsagePaidByUser": true,
+          "reasonForChange": "Restore required Pay per event plus platform usage pass-through.",
+          "startedAt": "2026-08-04T20:29:34.070Z",
+          "createdAt": "2026-07-21T20:18:51.745Z",
+          "notifiedAboutFutureChangeAt": "2026-07-21T20:19:11.892Z",
+          "notifiedAboutChangeAt": "2026-08-05T15:06:38.303Z"
+        },
+        "id": "Kynhm4FllhBR6jx3s",
+        "url": "https://apify.com/khadinakbar/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram Reels Transcript 🎙️ Speech to Text — $0.02/reel",
+        "name": "instagram-transcript-scraper",
+        "username": "viralanalyzer",
+        "stats": {
+          "totalBuilds": 9,
+          "totalRuns": 32,
+          "totalUsers": 6,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 4,
+          "totalUsers90Days": 4,
+          "lastRunStartedAt": "2026-09-01T09:39:09.265Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 1,
+            "FAILED": 2,
+            "SUCCEEDED": 20,
+            "TIMED-OUT": 0,
+            "TOTAL": 23
+          }
+        },
+        "description": "Transcribe Instagram Reels to text with Whisper: give a profile or Reel URLs and get the spoken words, timestamped segments, SRT, language plus caption, plays, likes and comments. No login, no cookies, no proxy setup. $0.02 per Reel with speech; silent Reels are free.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "DEVELOPER_TOOLS"
+        ],
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "viralanalyzer",
+        "userPictureUrl": "https://images.apifyusercontent.com/bq9e3NfkGUj5WU5BZQ3_ugsv8Wo1tahZWFfZU7qKtb0/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20veDNhdXVLLVNJTi1Ba0YxU09iQl8zMi1OUU9aTjBzMVBudnVTSE1HVEpScy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZjbkJVWVRNM2J6RmpkR1prUmxkYWF6a3RjSEp2Wm1sc1pTMU1lWGRHUlU4eU9HOWhMV3h2WjI4dE5URXlMV0pzWVdOckxYQmhaR1JsWkM1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "reasonForChange": "v2.0: Whisper speech-to-text replaces the native-transcript attempt (which never delivered a transcript); flat $0.02 per Reel with speech, platform usage now included in the price (user-pays off).",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "reel-transcripted": {
+                "eventTitle": "Reel transcribed",
+                "eventDescription": "One Instagram Reel whose speech was transcribed by Whisper (text, segments, SRT, language + metadata). Reels without speech, unavailable media, provider errors and diagnostics are free.",
+                "eventPriceUsd": 0.02,
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "createdAt": "2026-08-29T22:41:31.450Z",
+          "startedAt": "2026-08-29T22:41:31.450Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-08-29T23:05:53.295Z"
+        },
+        "id": "X72IASeSpP4e81W8L",
+        "url": "https://apify.com/viralanalyzer/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram Transcript Scraper",
+        "name": "instagram-transcript-scraper",
+        "username": "x402farm",
+        "stats": {
+          "totalBuilds": 7,
+          "totalRuns": 43,
+          "totalUsers": 5,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 3,
+          "totalUsers90Days": 3,
+          "lastRunStartedAt": "2026-08-31T18:52:34.788Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 1,
+            "SUCCEEDED": 35,
+            "TIMED-OUT": 0,
+            "TOTAL": 36
+          }
+        },
+        "description": "Transcribes the actual audio of Instagram Reels with Whisper large-v3. Any language, no captions needed. $0.004 per minute.",
+        "categories": [
+          "VIDEOS",
+          "SOCIAL_MEDIA",
+          "AI"
+        ],
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Laurent Halbrun",
+        "userPictureUrl": "https://images.apifyusercontent.com/KEfIy9iSndJeJxUft3RWWPkwgh_XX2KdAXke7sgDn3s/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vVUhrZGw5NFcyTXRzSlp1SEh5MXhoakw0N2VzMjBlTWpiZzg5XzhCUVRnNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpTMnREVkVzemEwMHlTRTVsT0hRMFozVkdUWE4xT0VKdlNtcHFTVXhxZFMxeVlYQm9kRVZXT1ZkWGF6UnRjak4zUFhNNU5pMWo.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "reasonForChange": "Initial pricing.",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "audio-minute": {
+                "eventTitle": "Minute of audio transcribed",
+                "eventDescription": "Charged per minute of audio actually transcribed, rounded up. Nothing charged for silent videos or photo posts.",
+                "eventPriceUsd": 0.004
+              }
+            }
+          },
+          "createdAt": "2026-08-06T17:47:45.809Z",
+          "startedAt": "2026-08-06T17:47:45.809Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-08-06T18:05:39.566Z"
+        },
+        "id": "gEAqbw2cWUcU4kX76",
+        "url": "https://apify.com/x402farm/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram Reel Transcript Scraper — Reels to Text with 3s Hooks",
+        "name": "instagram-reel-transcript-scraper",
+        "username": "steadyfetch",
+        "stats": {
+          "totalBuilds": 44,
+          "totalRuns": 147,
+          "totalUsers": 5,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 2,
+          "totalUsers90Days": 2,
+          "lastRunStartedAt": "2026-09-01T23:39:52.822Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 25,
+            "TIMED-OUT": 0,
+            "TOTAL": 25
+          }
+        },
+        "description": "A creator's reels as text: full speech-to-text, the first-3s hook, language and timestamps, one row per reel with its date, plays and likes. Handle in, or paste reel links, or chain a dataset ID. No login, any length. Music-only, private and failed reels are never charged.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/6t3mVqbn_qL3JNJCWZPpz-3cDhKyIuSKqSk06zFmFW4/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vUEVWQ2Z1a2dyekV5OHAyQmYtYWN0b3ItNU5QWWp1UVJhUmNrdUZYUkktQ0Zsc1VSUktXRS1pbnN0YWdyYW0tcmVlbC10cmFuc2NyaXB0LXNjcmFwZXIucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Steadyfetch Team",
+        "userPictureUrl": "https://images.apifyusercontent.com/8Z-ZzrPTv7I0J9zt9R5cO2FB4B6LE4IQ092x5T34-jM/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vbVVsR3FROVZDMmlQRDBzaEpJS3ZTVXROTlI1QVF3LTRDZWllb1pTZ0Rqay9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZVRVZXUTJaMWEyZHlla1Y1T0hBeVFtWXRjSEp2Wm1sc1pTMUZZV05hY2xoSFJuSmFMV3h2WjI4dWNHNW4ucG5n.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "minimalMaxTotalChargeUsd": 0.05,
+          "startedAt": "2026-08-29T20:22:34.202Z",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "reel-transcript": {
+                "eventTitle": "Reel transcript",
+                "eventDescription": "One Instagram reel or video transcribed: full speech-to-text, first-3-seconds hook, language, timestamped segments and the reel's metadata. The first 3 minutes of each video are included. Music-only reels are free unless you enable on-screen text extraction — then a reel with readable on-screen text delivers as a charged row. Charged only when a transcript or extracted on-screen text is delivered — expired links, text-free music-only reels, image posts and failures are never charged.",
+                "isPrimaryEvent": true,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.015
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.007
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.005
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.005
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.005
+                  }
+                }
+              },
+              "long-video-surcharge": {
+                "eventTitle": "Long video minute",
+                "eventDescription": "Each started minute of video beyond the first 3 included minutes. Only applies to transcribed long-form videos.",
+                "eventPriceUsd": 0.005
+              }
+            }
+          },
+          "createdAt": "2026-08-29T20:22:34.328Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-08-29T20:35:53.762Z"
+        },
+        "id": "5NPYjuQRaRckuFXRI",
+        "url": "https://apify.com/steadyfetch/instagram-reel-transcript-scraper"
+      },
+      {
+        "title": "Instagram Transcript Scraper",
+        "name": "instagram-transcript-scraper",
+        "username": "reapx",
+        "stats": {
+          "totalBuilds": 46,
+          "totalRuns": 2665,
+          "totalUsers": 3,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 0,
+          "lastRunStartedAt": "2026-09-01T03:24:28.700Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 34,
+            "TIMED-OUT": 0,
+            "TOTAL": 34
+          }
+        },
+        "description": "Put Instagram spoken content into searchable text. Start with Instagram video URLs; each returned transcript keeps transcript text, transcript source, has platform transcript, word count, and post shortcode.",
+        "categories": [
+          "VIDEOS",
+          "SOCIAL_MEDIA",
+          "FOR_CREATORS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/iAO8l8hbWcfOJx1r0QI5tLTitV7OGK9xQnaqr5Kzk0o/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vNldsM0NoSDltbmd5Mm9NcmItYWN0b3ItYVRQUWl3eHB6NURmYzlmbmQtczNjYUZCRnI5dS1pbnN0YWdyYW1fbWFzdGVyXzUxMng1MTIucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "ReapX",
+        "userPictureUrl": "https://images.apifyusercontent.com/zKMLg3gtbveE4dIjCbyI42zXWw-jjcYtDo2cOc7SaQk/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vUnhtWVlTRkJZRmZzTG94bDJFaEpjWFNUYXJaaVZGejMxbFJFUGw2M0lQZy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZObGRzTTBOb1NEbHRibWQ1TW05TmNtSXRjSEp2Wm1sc1pTMW9TRTlMU0Zwb2JVZFlMWEpsWVhCNExXRjJZWFJoY2k1bmFXWS5naWY.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "minimalMaxTotalChargeUsd": 0.01,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "growth_item": {
+                "eventTitle": "Video",
+                "eventDescription": "Charged once for each video that returned data. Targets that return nothing, blocked fetches and failed runs are never charged.",
+                "isPrimaryEvent": true,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.00225
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.001928
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.001593
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.001285
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.001125
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.001125
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-08-26T17:39:25.729Z",
+          "createdAt": "2026-08-26T17:40:19.611Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-08-26T18:05:43.957Z"
+        },
+        "id": "I5Gx5qLNN0GLFjFux",
+        "url": "https://apify.com/reapx/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram Transcript Scraper",
+        "name": "instagram-reel-video-transcripts",
+        "username": "automation-lab",
+        "stats": {
+          "totalBuilds": 8,
+          "totalRuns": 32,
+          "totalUsers": 3,
+          "totalUsers7Days": 1,
+          "totalUsers30Days": 2,
+          "totalUsers90Days": 2,
+          "lastRunStartedAt": "2026-08-31T23:08:32.179Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 4,
+            "SUCCEEDED": 21,
+            "TIMED-OUT": 0,
+            "TOTAL": 25
+          }
+        },
+        "description": "Turn public Instagram Reels and video posts into transcript text, detected language, timestamped segments, and source metadata.",
+        "categories": [
+          "SOCIAL_MEDIA"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/CzYgbyuvGB6OG2p6KU125qjVBeJhvBj7hBatS7fjpOU/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vbnRIQ25oTlVrelhSN25iVVotYWN0b3ItWnlUSWdtZUJiOVBLMmFBdkgtUjdiTmw5U3dRdi1hY3Rvci1pY29uLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Stas Persiianenko",
+        "userPictureUrl": "https://images.apifyusercontent.com/2BFUHuGfbLY2pRm_Mp4LyoIgIzEX6NVldfIQNo9wi9E/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vVGVzYlZ0a2twdnh2M09nRWxvYThCdkdLX1NrNXdTck1sZWl2Ni1jeG9hSS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloZG1GMFlYSnpMbWRwZEdoMVluVnpaWEpqYjI1MFpXNTBMbU52YlM5MUx6Z3pNekU1TWo5MlBUUQ.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "startedAt": "2026-08-25T20:04:49.942Z",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "start": {
+                "eventTitle": "Run started",
+                "eventDescription": "One-time fee when transcript processing begins.",
+                "eventPriceUsd": 0.005,
+                "isOneTimeEvent": true
+              },
+              "transcript": {
+                "eventTitle": "Instagram transcript extracted",
+                "eventDescription": "Charged for each public Instagram video that produces a non-empty timestamped transcript.",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0184
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.016
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.01248
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0096
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0064
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.00448
+                  }
+                },
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "apifyMarginPercentage": 0.2,
+          "createdAt": "2026-08-25T20:04:50.035Z"
+        },
+        "id": "ZyTIgmeBb9PK2aAvH",
+        "url": "https://apify.com/automation-lab/instagram-reel-video-transcripts"
+      },
+      {
+        "title": "Instagram Reel Transcript Scraper — Speech to Text, No Login",
+        "name": "instagram-transcript-scraper",
+        "username": "scrapersdelight",
+        "stats": {
+          "totalBuilds": 8,
+          "totalRuns": 29,
+          "totalUsers": 3,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 2,
+          "totalUsers90Days": 2,
+          "lastRunStartedAt": "2026-08-31T22:04:59.354Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 3,
+            "TIMED-OUT": 0,
+            "TOTAL": 3
+          }
+        },
+        "description": "Get the transcript of Instagram Reels by URL or username: spoken words (faster-whisper, on-actor), caption, hashtags, views, likes, comments, duration, owner, music, mp4 URL. No login, no cookies, no crawler spoofing. Music-only reels are never billed for transcription.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AI",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/4XAGpPs3jTiwcZoYcqZNt0BOCxp9cck_Y4p20y4z0mw/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vQlRna3dMRUM0YlpWemI4VmItYWN0b3ItcktpY0o4WmZjYlR4T2hIUnItM29xaHZaNzdYQi04My1pbnN0YWdyYW0tdHJhbnNjcmlwdC1zY3JhcGVyLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Scrapers Delight",
+        "userPictureUrl": "https://images.apifyusercontent.com/SjUfVS2plLJy6kHfthU67C5f9v0e6wVrAbVTS2w1R3A/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vRmxwWnZpaF9memhGWnlPTEI4Ml9FRGhTQm1pUFRiYWJUWWNia00ySUhnNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZRbFJuYTNkTVJVTTBZbHBXZW1JNFZtSXRjSEp2Wm1sc1pTMWxTRVJxZW5BMU4wOVlMVWRsYldsdWFWOUhaVzVsY21GMFpXUmZTVzFoWjJWZmFuVXhhek5tYW5VeGF6Tm1hblV4YXkxamJHVmhiaTV3Ym1jLnBuZw.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "minimalMaxTotalChargeUsd": null,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "reel-scraped": {
+                "eventTitle": "Per reel returned",
+                "eventDescription": "Charged once for each unique Instagram reel/video row returned — caption, hashtags, views, likes, comments, duration, posted-at, owner, music attribution and media URLs. Duplicates are dropped before billing.",
+                "isOneTimeEvent": false,
+                "isPrimaryEvent": true,
+                "eventPriceUsd": 0.002
+              },
+              "transcript-minute": {
+                "eventTitle": "Per audio minute transcribed",
+                "eventDescription": "Charged per started minute of audio transcribed, only when spoken words were found. A reel with no speech (music, ambient) is returned with transcriptStatus no-speech and is not charged this event.",
+                "isOneTimeEvent": false,
+                "isPrimaryEvent": false,
+                "eventPriceUsd": 0.006
+              }
+            }
+          },
+          "startedAt": "2026-08-22T17:35:48.000Z",
+          "createdAt": "2026-08-22T17:35:55.892Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "rKicJ8ZfcbTxOhHRr",
+        "url": "https://apify.com/scrapersdelight/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram Reel Transcript Scraper API",
+        "name": "instagram-transcript-scraper",
+        "username": "shakamize",
+        "stats": {
+          "totalBuilds": 5,
+          "totalRuns": 5,
+          "totalUsers": 2,
+          "totalUsers7Days": 1,
+          "totalUsers30Days": 1,
+          "totalUsers90Days": 1,
+          "lastRunStartedAt": "2026-09-01T09:36:52.529Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 1,
+            "TIMED-OUT": 0,
+            "TOTAL": 1
+          }
+        },
+        "description": "Transcribe Instagram reels with a large speech model. Every row carries a receipt: the media id, the seconds and bytes transcribed against what the manifest declared, and whether the model heard real speech rather than inventing it. Word timestamps, SRT, WebVTT, translation.",
+        "categories": [],
+        "pictureUrl": "https://images.apifyusercontent.com/3G3Nmk8Etdm9ZGMeZHCIfRsiK4T0zYl5lJCv1iXxNWg/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vcVBDN3ZzNkcycnJnZDZwaFYtYWN0b3ItWG05Y1ZwTEVhQjlsWmlXNmQtTm42YlNCaFdwSy1pbnN0YWdyYW0tdHJhbnNjcmlwdC10cmFuc2NyaXB0LWNyZWFtLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Shakamize",
+        "userPictureUrl": "https://images.apifyusercontent.com/Q20hHqiWYIzYxm59oX_S2kF7QEd6VkCESJ4Ge-ym7Ks/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vMlVYQWZ4TExLV0VyNGlXdmFydHN5cHFhajRHYm1LZnEzc3V6anZHbjFFWS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZjVkJETjNaek5rY3ljbkpuWkRad2FGWXRjSEp2Wm1sc1pTMUNNa1pLYmxjMVRrOTNMV0YyTWw5aWNtRmphMlYwY3k1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "transcript-minute": {
+                "eventTitle": "Minute of transcribed audio",
+                "eventDescription": "One minute of a reel transcribed by a large speech model, rounded up, with segment and word timestamps, SRT and WebVTT, the detected language, and the receipt showing which media id the transcript came from and how many seconds and bytes of it were actually heard. A post with no audio is never charged.",
+                "eventPriceUsd": 0.01,
+                "isPrimaryEvent": true,
+                "isOneTimeEvent": false
+              },
+              "translated-minute": {
+                "eventTitle": "Minute of translated audio",
+                "eventDescription": "The same minute translated into English, which runs on a larger and slower model because it is the only one the vendor will translate with. Charged instead of the standard minute, never alongside it, and only when the run asked for a translation. A post with no audio is never charged.",
+                "eventPriceUsd": 0.02,
+                "isPrimaryEvent": false,
+                "isOneTimeEvent": false
+              }
+            }
+          },
+          "apifyMarginPercentage": 0.2,
+          "createdAt": "2026-09-01T03:48:17.159Z",
+          "startedAt": "2026-09-01T03:48:17.159Z"
+        },
+        "id": "Xm9cVpLEaB9lZiW6d",
+        "url": "https://apify.com/shakamize/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram AI Transcript Scraper",
+        "name": "instagram-ai-transcript-scraper",
+        "username": "hgservices",
+        "stats": {
+          "totalBuilds": 12,
+          "totalRuns": 40,
+          "totalUsers": 2,
+          "totalUsers7Days": 1,
+          "totalUsers30Days": 2,
+          "totalUsers90Days": 2,
+          "lastRunStartedAt": "2026-09-01T03:32:37.960Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 1,
+            "FAILED": 0,
+            "SUCCEEDED": 26,
+            "TIMED-OUT": 0,
+            "TOTAL": 27
+          }
+        },
+        "description": "Transcribe audio and video from Instagram into accurate, speaker-labeled text. Uses world's best AI Models with automatic language detection, multilingual support, and smart formatting.",
+        "categories": [
+          "VIDEOS",
+          "SOCIAL_MEDIA",
+          "AI"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/MCh1L9MHLoT5C1BQe4LncFRaDKiZirrIYrRsJsGHtvg/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vNnZ4OXQ5OVhibmg2cG9yNnctYWN0b3Itb1N1ZE9GYXFvMmZFaElLa2ctVEVOdFp0b1pZNy1pbnN0YWdyYW0tdHJhc2NyaXB0LnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Harish Garg",
+        "userPictureUrl": "https://images.apifyusercontent.com/AHA3olMZno20pdkff0KpJtXraxLgAD4bimM2VJkJbYM/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vcUpNWjhrZW4yM1R0enh6R254VE8yeVNqZGlJMGp5Zi0tT0M5X05JeDVYNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZOblo0T1hRNU9WaGlibWcyY0c5eU5uY3RjSEp2Wm1sc1pTMUROR2xvWkVWM1VYZEhMVWhITG5CdVp3LnBuZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "video-processed": {
+                "eventTitle": "Video Processed",
+                "eventDescription": "Flat fee, charged once per video",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.005
+              },
+              "video-second": {
+                "eventTitle": "Video Second",
+                "eventDescription": "Per second of video length (rounded up, 30-second minimum), charged only after transcript delivery",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0006
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0006
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.0006
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0007
+                  },
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0009
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.0008
+                  }
+                },
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-08-12T01:26:13.954Z",
+          "createdAt": "2026-08-12T01:26:13.619Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "oSudOFaqo2fEhIKkg",
+        "url": "https://apify.com/hgservices/instagram-ai-transcript-scraper"
+      },
+      {
+        "title": "Instagram Reels Transcript Extractor — Audio to Text",
+        "name": "instagram-reels-transcript-scraper",
+        "username": "seemuapps",
+        "stats": {
+          "totalBuilds": 3,
+          "totalRuns": 24,
+          "totalUsers": 2,
+          "totalUsers7Days": 1,
+          "totalUsers30Days": 1,
+          "totalUsers90Days": 1,
+          "lastRunStartedAt": "2026-08-31T15:18:55.623Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 22,
+            "TIMED-OUT": 0,
+            "TOTAL": 22
+          }
+        },
+        "description": "Turn Instagram reels into text — full spoken transcript with timestamps, on-screen text overlays, caption, and engagement stats for any public reel. No login.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AI",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/G7HKTwvPzpDt27QL9KH7E2ibW35-yQlk-7HnMAtO2No/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vZkxFclF3Y3NsR2VjeVFpS0ktYWN0b3ItNGp6alVVdm9rRWRaWkl1N24tWjNsRWpXZnBSWC1pbnN0YWdyYW0tcmVlbHMtdHJhbnNjcmlwdC1zY3JhcGVyLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Andrew",
+        "userPictureUrl": "https://images.apifyusercontent.com/JCCO_vrWRVqCP3Uw8G9PASYrhFSCuFpKHD8VKDg18Yw/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vU3UxV1N5RVd6aHROY2twdlFsVjNsczlUdTR5Qy02aDBGc2JKOVB5TjdSWS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZaa3hGY2xGM1kzTnNSMlZqZVZGcFMwa3RjSEp2Wm1sc1pTMURkalUyWWpKVldVOVVMV0Z1WkhKbGR5NXdibWMucG5n.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "transcript": {
+                "eventTitle": "Reel transcript",
+                "eventDescription": "One reel transcribed: full transcript, timestamped segments, and on-screen text.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.05,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-08-09T13:56:12.207Z",
+          "createdAt": "2026-08-09T13:56:12.612Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "4jzjUUvokEdZZIu7n",
+        "url": "https://apify.com/seemuapps/instagram-reels-transcript-scraper"
+      },
+      {
+        "title": "Instagram AI Transcript Extractor",
+        "name": "instagram-ai-transcript-extractor",
+        "username": "fetch_cat",
+        "stats": {
+          "totalBuilds": 13,
+          "totalRuns": 59,
+          "totalUsers": 1,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 0,
+          "lastRunStartedAt": "2026-08-31T21:32:29.845Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 31,
+            "TIMED-OUT": 2,
+            "TOTAL": 33
+          }
+        },
+        "description": "Extract transcript-ready text, public captions, shortcodes, hashtags, mentions, and status rows from public Instagram Reels and videos.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "AI"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/qNicaDW_4UYKBZ9p7aTM0wPzPuJDp6EcEFXX3sv57pI/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vSElNVTB4a3R1MUplWmI0WGwtYWN0b3ItQXVvMHpRVHlaYU5DTWZIY2MteUVGek9jcmR1Ry1hY3Rvci1pY29uLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Hanna Nosova",
+        "userPictureUrl": "https://images.apifyusercontent.com/LM3TZn9OdGFJeuSWijLo_ZDYgwa7fAVwgwiyBiL2Nqs/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20veEtyYUtqbmtCQjFZYWphV1hwUXdUM2w4aTVYQ0VuSE1RSGZaT0Z1TWZLQS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZTRWxOVlRCNGEzUjFNVXBsV21JMFdHd3RjSEp2Wm1sc1pTMW1ZVVJhYjFWbGJHZHlMVWRsYm1WeVlYUmxaRjlwYldGblpWOHhYeVV5T0RFbE1qa3VjRzVuLnBuZw.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "start": {
+                "eventTitle": "Start",
+                "eventDescription": "One-time fee per run",
+                "eventPriceUsd": 0.01,
+                "isOneTimeEvent": true
+              },
+              "item": {
+                "eventTitle": "Item extracted",
+                "eventDescription": "Charged per item extracted.",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0024
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.002
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0016
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0012
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0009
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.0007
+                  }
+                },
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-08-02T19:30:01.282Z",
+          "apifyMarginPercentage": 0.2,
+          "reasonForChange": "Updated launch pricing for transcript extraction to reflect the compute required for audio transcription while keeping the example one-video run below comparable alternatives.",
+          "createdAt": "2026-08-02T19:30:01.372Z"
+        },
+        "id": "Auo0zQTyZaNCMfHcc",
+        "url": "https://apify.com/fetch_cat/instagram-ai-transcript-extractor"
+      },
+      {
+        "title": "Instagram Transcript Scraper",
+        "name": "instagram-transcript-scraper",
+        "username": "dami_studio",
+        "stats": {
+          "totalBuilds": 9,
+          "totalRuns": 34,
+          "totalUsers": 1,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 0,
+          "lastRunStartedAt": "2026-09-01T09:56:33.086Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 16,
+            "TIMED-OUT": 0,
+            "TOTAL": 16
+          }
+        },
+        "description": "The words spoken in a reel are not in its caption, and Instagram puts them nowhere you can copy. This returns them: full text, timestamps, SRT and WebVTT, detected language, plus the caption, author and engagement counts. Flat per transcript, no per-minute fee. No cookies.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "AI"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/Z6x9dH34LnMpHLp1MZNb7yiKuwbgGLQzxCUCu0pawMY/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vQ1ZLZnBubVZTSkxQVWVHa1QtYWN0b3ItdTNvMUNobmVvaDZ2eFlxajItQU1PdlROOFdvcy1pZ3RzLWljb24uanBn.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Dami's Studio",
+        "userPictureUrl": "https://images.apifyusercontent.com/YUEyVQ4w3LNN7SR7CGhx1DkmkdjSHXYxL4yAR0OqwsM/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vazIzQzJKcGFZclJXOHFLWE5RSWY4SHFhalF2NjhwTTYtYW0tdnlWRC12SS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZRMVpMWm5CdWJWWlRTa3hRVldWSGExUXRjSEp2Wm1sc1pTMTBNMVYyUzFCd1ZXVnFMV2xqYjI0dWNHNW4ucG5n.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "transcript-scraped": {
+                "eventTitle": "Transcript scraped",
+                "eventDescription": "One Instagram reel or video transcript delivered as a dataset row. Flat rate regardless of how long the video is. Posts with no speech, photo posts, dead links and private accounts are never charged.",
+                "eventPriceUsd": 0.0025,
+                "isPrimaryEvent": true,
+                "isOneTimeEvent": false
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "eventPriceUsd": 0.0005,
+                "isOneTimeEvent": true
+              }
+            }
+          },
+          "createdAt": "2026-08-16T23:16:48.850Z",
+          "startedAt": "2026-08-16T23:16:48.688Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "u3o1Chneoh6vxYqj2",
+        "url": "https://apify.com/dami_studio/instagram-transcript-scraper"
+      },
+      {
+        "title": "Instagram Reels Transcript - Reel to Text & SRT",
+        "name": "instagram-reels-transcript",
+        "username": "sauliusautomatesit",
+        "stats": {
+          "totalBuilds": 2,
+          "totalRuns": 10,
+          "totalUsers": 1,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 0,
+          "lastRunStartedAt": "2026-09-01T07:36:14.174Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 6,
+            "TIMED-OUT": 0,
+            "TOTAL": 6
+          }
+        },
+        "description": "Transcribe public Instagram Reels to text, timestamped segments, SRT and VTT. Instagram publishes no caption track, so every Reel is transcribed with Whisper speech-to-text — which is exactly why Reels without captions still come back as text. Public content only: no login, no cookies.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "AI"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/hMAjJNy6KYWHSSCMdUa3EzeeGJGDzbP1BErtnfMF6S0/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vd1VXajB6QWZkemFpR2lWVTgtYWN0b3ItaE1sSXhDeU9pZlR4VDhOcGotZDBnc3hDeml3RC1pY29uLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Saulius Saulenas",
+        "userPictureUrl": "https://images.apifyusercontent.com/lW00CUCiw0rcbnjj0QTRURmtXMwhmVFpSKbfq566lr4/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vUkhYTzN0MFFER2xVNFROVzBNLUd2V1ZHM3JRd21xWXViT3VlZUl5b2hiNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpURGRwY25Fd1pYTkRRalpqWDFwWVZrbHVPVEp2UTNKdFUwMXljM05STFZKcFNVdFVWbHBEYVVwNU1FMXFaMmhSUFhNNU5pMWo.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "caption_transcript": {
+                "eventTitle": "Transcript from native captions",
+                "eventDescription": "Charged once per video transcribed from the platform's own caption track. Failed, private, too-long and no-speech videos are never charged.",
+                "isOneTimeEvent": false,
+                "isPrimaryEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.002
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.0019
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0018
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0017
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0017
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.0017
+                  }
+                }
+              },
+              "asr_transcript": {
+                "eventTitle": "Transcript from Whisper speech-to-text",
+                "eventDescription": "Charged once per video that had no native captions and was transcribed with Whisper. Videos with no speech, and videos over the Whisper length limit, are never charged.",
+                "isOneTimeEvent": false,
+                "isPrimaryEvent": true,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.04
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.038
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.036
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.034
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.034
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.034
+                  }
+                }
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "createdAt": "2026-08-28T09:18:27.673Z",
+          "startedAt": "2026-08-28T09:18:27.673Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "hMlIxCyOifTxT8Npj",
+        "url": "https://apify.com/sauliusautomatesit/instagram-reels-transcript"
+      },
+      {
+        "title": "Instagram Transcript Extractor",
+        "name": "instagram-transcript-extractor",
+        "username": "scriptbase",
+        "stats": {
+          "totalBuilds": 30,
+          "totalRuns": 15935,
+          "totalUsers": 610,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 18,
+          "totalUsers90Days": 155,
+          "lastRunStartedAt": "2026-09-01T00:44:58.969Z",
+          "actorReviewCount": 1,
+          "actorReviewRating": 5,
+          "bookmarkCount": 4,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 178,
+            "SUCCEEDED": 235,
+            "TIMED-OUT": 0,
+            "TOTAL": 413
+          }
+        },
+        "description": "📸 Convert any Instagram Reel, IGTV, or video post to text. Extract transcripts and subtitles with timestamps. Outputs JSON, SRT, or plain text. Auto-captions + speech-to-text fallback. 14+ languages. No login needed.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/EXB3aUOrboMElbnWBmK8u-h3Sc2ReIm8xhF3X65TLM4/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vVGpNM3BtZjc4aElwN3FMMlktYWN0b3ItVldyS05kQTNnU2c0a1JhazYtZGhQTjk3NnU4TS1pbnN0YWdyYW0tdjIucG5n.webp",
+        "notice": "UNDER_MAINTENANCE",
+        "bookmarkCount": 4,
+        "actorReviewRating": 5,
+        "actorReviewCount": 1,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Scriptbase",
+        "userPictureUrl": "https://images.apifyusercontent.com/PzlVG7v1V1D37YxCV35VLEbAuhuD3V5jMzMu0_EDK8o/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vRkZKNW84WlJRSEJJU2tzdFNMeHlUb2RwYkJ4QW5MZnQ0aDVaOURDbFJ4cy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZWR3BOTTNCdFpqYzRhRWx3TjNGTU1sa3RjSEp2Wm1sc1pTMXpWMFJYYTI0MVdrcElMV0Z3Y0d4bExXbGpiMjR1Y0c1bi5wbmc.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "reasonForChange": "Until now a 30-second Reel and a 30-minute video both cost $0.01. That\novercharged short videos and undercharged long ones: our upstream\ntranscription cost scales with audio length, so a flat per-result price\ncould not hold at either end.",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "video-minute": {
+                "eventTitle": "Video Minute",
+                "eventDescription": "Charged per minute of video processed.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.02,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-08-12T11:43:56.948Z",
+          "createdAt": "2026-07-29T11:43:57.679Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2026-07-29T11:44:20.847Z",
+          "notifiedAboutChangeAt": "2026-08-19T08:06:09.778Z"
+        },
+        "id": "VWrKNdA3gSg4kRak6",
+        "url": "https://apify.com/scriptbase/instagram-transcript-extractor"
+      },
+      {
+        "title": "Instagram Reel Transcript Extractor 📸",
+        "name": "instagram-reel-transcript-extractor",
+        "username": "scriptbase",
+        "stats": {
+          "totalBuilds": 2,
+          "totalRuns": 547,
+          "totalUsers": 84,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 60,
+          "totalUsers90Days": 67,
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "lastRunStartedAt": "2026-08-31T20:22:33.720Z",
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 52,
+            "SUCCEEDED": 91,
+            "TIMED-OUT": 0,
+            "TOTAL": 143
+          }
+        },
+        "description": "📸 Convert any Instagram Reel to text. Extract the transcript and subtitles with timestamps. Outputs JSON, SRT, or plain text. Auto-captions + speech-to-text fallback. 14+ languages. No login needed.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/QG4uLWGan2XIO7tS5hwWpdgWHsx7NEzcvOqjaEbrXgc/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vVGpNM3BtZjc4aElwN3FMMlktYWN0b3ItME9jN2FFWEszSElEM1hIOFQtM2JwZ0ZqSnBhQy1pbnN0YWdyYW0ucG5n.webp",
+        "notice": "UNDER_MAINTENANCE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "Scriptbase",
+        "userPictureUrl": "https://images.apifyusercontent.com/PzlVG7v1V1D37YxCV35VLEbAuhuD3V5jMzMu0_EDK8o/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vRkZKNW84WlJRSEJJU2tzdFNMeHlUb2RwYkJ4QW5MZnQ0aDVaOURDbFJ4cy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZWR3BOTTNCdFpqYzRhRWx3TjNGTU1sa3RjSEp2Wm1sc1pTMXpWMFJYYTI0MVdrcElMV0Z3Y0d4bExXbGpiMjR1Y0c1bi5wbmc.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "isPPEPlatformUsagePaidByUser": true,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "apify-default-dataset-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.01,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-07-26T19:05:47.871Z",
+          "createdAt": "2026-07-26T19:05:48.209Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "0Oc7aEXK3HID3XH8T",
+        "url": "https://apify.com/scriptbase/instagram-reel-transcript-extractor"
+      },
+      {
+        "title": "Instagram Reel & Video Transcript — On-Screen Text & Hooks",
+        "name": "instagram-reel-script-extractor",
+        "username": "afanasenko",
+        "stats": {
+          "totalBuilds": 34,
+          "totalRuns": 905,
+          "totalUsers": 212,
+          "totalUsers7Days": 59,
+          "totalUsers30Days": 166,
+          "totalUsers90Days": 168,
+          "lastRunStartedAt": "2026-09-01T09:42:17.409Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 1,
+          "publicActorRunStats30Days": {
+            "ABORTED": 7,
+            "FAILED": 0,
+            "SUCCEEDED": 745,
+            "TIMED-OUT": 0,
+            "TOTAL": 752
+          }
+        },
+        "description": "Extract Instagram reel and video transcripts — the spoken words plus the on-screen text audio-only tools miss, with hook, call to action, beats, hashtags and view counts. Transcribes silent music-only reels too. No login. Reel links or a creator handle; CSV, JSON, Excel or API.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "AI",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/mtpsLe5SUhtfqDw8VM4PrAsRQPw8gZDE-b6tGtOglrI/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vaTY5blVkUnp4cE1FbjJ5QzItYWN0b3ItREpYMTdHZUNiZTNLMkxQdlMtZ2tjTFJ4eHdNYS1Hcm91cF8xNC5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Andrey Afanasenko",
+        "userPictureUrl": "https://images.apifyusercontent.com/gPADO5bo0DpMmUdzRMjHodvtgK7XV4vb58KJXOzflAc/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vT0pzS0xUM1o1c2lYYlBpNlhrQVJaU3lzOWlsRXRQME0yWkJ5bmNfZ081by9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZhVFk1YmxWa1VucDRjRTFGYmpKNVF6SXZVWFpIT0RSVlIyZEZhRzFKUmpRd1VEa3RWMFZDWDE5ZlgxOWZYMTlmTWw4eUxtcHdady5qcGc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "REEL_ANALYZED": {
+                "eventTitle": "Reel",
+                "eventDescription": "Charged once for each reel that is successfully analyzed, at any length up to 3 minutes. $0.075 per reel on every plan, dropping to $0.06 at the highest volume tiers. Private, deleted, photo, carousel, longer-than-3-minute, expired-link and failed reels are delivered as free rows with the reason in the error column and are not charged. Results the built-in quality check flags as low quality are delivered but not charged.",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.075
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.075
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.07
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.066
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.063
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.06
+                  }
+                },
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "apifyMarginPercentage": 0.2,
+          "createdAt": "2026-07-30T06:05:48.586Z",
+          "startedAt": "2026-07-30T06:05:48.454Z"
+        },
+        "id": "DJX17GeCbe3K2LPvS",
+        "url": "https://apify.com/afanasenko/instagram-reel-script-extractor"
+      },
+      {
+        "title": "Instagram Reel AI Transcript Extractor",
+        "name": "instagram-reel-transcript-ai-extractor",
+        "username": "linen_snack",
+        "stats": {
+          "totalBuilds": 3,
+          "totalRuns": 2130,
+          "totalUsers": 429,
+          "totalUsers7Days": 18,
+          "totalUsers30Days": 70,
+          "totalUsers90Days": 191,
+          "lastRunStartedAt": "2026-09-01T06:12:44.713Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 1,
+            "FAILED": 3,
+            "SUCCEEDED": 363,
+            "TIMED-OUT": 7,
+            "TOTAL": 374
+          }
+        },
+        "description": "Extract word-perfect transcripts from Instagram Reels with AI-powered sentiment analysis, entity detection, SRT/VTT subtitle export, and full channel scraping. 10 free reels included.",
+        "categories": [
+          "AI",
+          "SOCIAL_MEDIA",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/AJyb9WIJ3ei5NNxhsrZoBXoSY5RvoraR57jyqhsRrzs/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vdGs1c2ZRekVjbldGUm9Gb0stYWN0b3ItdGNsa0tPZnMzdUFhQklrS0stS0pDcGY1Ylo4ZC1HZW1pbmlfR2VuZXJhdGVkX0ltYWdlX2FveGY5eGFveGY5eGFveGYucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "ius iyb",
+        "userPictureUrl": "https://images.apifyusercontent.com/azBkw_zaQD_Mrcnj3KPJcVk2pGtrqxPf45o41iANkcA/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vMDRHYlBjR3Q2VUsxTlBLeGo0WnM5bk9kMVkwR04xc1ViRkRlc3ZPU1hYOC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVkT2JYbDRZbTFDVmxwcVJHUjJUblJSUW5kVFVHSkxaVXd4TWs1U2MwWlljMjlFTm1GdmRXUkpZbWs.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "reel-transcribed": {
+                "eventTitle": "Reel transcribed",
+                "eventDescription": "Charged once per successfully transcribed Instagram Reel",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.02,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-03-04T05:14:00.634Z",
+          "createdAt": "2026-03-04T05:14:00.930Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "tclkKOfs3uAaBIkKK",
+        "url": "https://apify.com/linen_snack/instagram-reel-transcript-ai-extractor"
+      }
+    ]
+  }
+}

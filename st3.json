@@ -1,0 +1,1204 @@
+{
+  "data": {
+    "total": 581,
+    "count": 20,
+    "offset": 0,
+    "limit": 20,
+    "desc": false,
+    "items": [
+      {
+        "title": "Speech-to-Text Transcription",
+        "name": "speech-to-text",
+        "username": "hgservices",
+        "stats": {
+          "totalBuilds": 116,
+          "totalRuns": 7709,
+          "totalUsers": 325,
+          "totalUsers7Days": 26,
+          "totalUsers30Days": 83,
+          "totalUsers90Days": 236,
+          "lastRunStartedAt": "2026-09-02T02:50:40.259Z",
+          "actorReviewCount": 4,
+          "actorReviewRating": 5,
+          "bookmarkCount": 3,
+          "publicActorRunStats30Days": {
+            "ABORTED": 14,
+            "FAILED": 0,
+            "SUCCEEDED": 1408,
+            "TIMED-OUT": 118,
+            "TOTAL": 1540
+          }
+        },
+        "description": "Transcribe audio and video from YouTube, TikTok, podcasts, X, and 1,000+ other sites or any direct media URL into accurate, speaker-labeled text. Uses World's best speech to text AI models with automatic language detection, multilingual support, and smart formatting.",
+        "categories": [
+          "VIDEOS",
+          "AI",
+          "MCP_SERVERS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/zirjy2AtnGyzE7agdVwip1sNQdvz12C0X-DqsvSbUno/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vNnZ4OXQ5OVhibmg2cG9yNnctYWN0b3ItVlpURU5IRkpPeUpFR0lLQ3YtcktlWGRvZDNEbC12aWRlb18lMjgxJTI5LnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 3,
+        "actorReviewRating": 5,
+        "actorReviewCount": 4,
+        "badge": "risingStar",
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Harish Garg",
+        "userPictureUrl": "https://images.apifyusercontent.com/AHA3olMZno20pdkff0KpJtXraxLgAD4bimM2VJkJbYM/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vcUpNWjhrZW4yM1R0enh6R254VE8yeVNqZGlJMGp5Zi0tT0M5X05JeDVYNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZOblo0T1hRNU9WaGlibWcyY0c5eU5uY3RjSEp2Wm1sc1pTMUROR2xvWkVWM1VYZEhMVWhITG5CdVp3LnBuZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "video-processed": {
+                "eventTitle": "Youtube Video processed",
+                "eventDescription": "Charged once per Youtube video after the audio has been successfully downloaded. Covers the fixed cost of metadata lookup and audio retrieval",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.055
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.055
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.055
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.06
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.065
+                  },
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.09
+                  }
+                }
+              },
+              "audio-minute": {
+                "eventTitle": "Minute of audio transcribed",
+                "eventDescription": "Charged per minute of audio transcribed by Deepgram, rounded up to the nearest whole minute. Only charged after transcription succeeds.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.024
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.024
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.024
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.026
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.028
+                  },
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.042
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-05-22T03:39:59.703Z",
+          "createdAt": "2026-05-22T03:39:59.666Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "VZTENHFJOyJEGIKCv",
+        "url": "https://apify.com/hgservices/speech-to-text"
+      },
+      {
+        "title": "Video & Audio Transcriber · Whisper Speech-to-Text",
+        "name": "video-audio-transcriber",
+        "username": "memo23",
+        "stats": {
+          "totalBuilds": 34,
+          "totalRuns": 2248,
+          "totalUsers": 248,
+          "totalUsers7Days": 42,
+          "totalUsers30Days": 175,
+          "totalUsers90Days": 204,
+          "lastRunStartedAt": "2026-09-01T14:40:26.251Z",
+          "actorReviewCount": 2,
+          "actorReviewRating": 4.954910215788066,
+          "bookmarkCount": 1,
+          "publicActorRunStats30Days": {
+            "ABORTED": 75,
+            "FAILED": 30,
+            "SUCCEEDED": 1585,
+            "TIMED-OUT": 5,
+            "TOTAL": 1695
+          }
+        },
+        "description": "Transcribe any video or audio URL to text with Whisper running inside the Actor — no API key. YouTube, TikTok, Instagram, Facebook, X, Rumble, SoundCloud, Dailymotion, podcast RSS feeds & direct media files. Full text, timestamped segments, SRT + VTT subtitles, 99+ languages auto-detected.",
+        "categories": [
+          "AI",
+          "VIDEOS",
+          "SOCIAL_MEDIA"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/7Fuiyv5g2x4L9DNdre2R5KL-1KyZnpjy3hkBGLDf2PE/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vbmduOHZSRVNUa3NleVdFNnAtYWN0b3ItZVBHNWJCa09SWXJJRmZxeVQtcXhPYUdYY0RGRC1sb2dvXzJ4LnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 4.954910215788066,
+        "actorReviewCount": 2,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Muhamed Didovic",
+        "userPictureUrl": "https://images.apifyusercontent.com/UWS1pm5ZK_CTekVvsOq-WWGxQTL9CtDAmNs39dAoxOQ/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vVWV2Smp2aUpCclh6Q1NrRUhpZ1pYWnlhYU1MMkhjUmlwSE9YSl9aVi1LNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZibWR1T0haU1JWTlVhM05sZVZkRk5uQXZTM0ZpY21RM2NuTk1ZbVJzVTFsa2FGY3RNVFl5T1RJNE5URXdNakU1TkM1cWNHVm4uanBlZw.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "apifyMarginPercentage": 0.2,
+          "minimalMaxTotalChargeUsd": null,
+          "isPriceChangeNotificationSuppressed": false,
+          "startedAt": "2026-08-08T12:00:00.000Z",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.01
+              },
+              "media-minute-transcribed": {
+                "eventTitle": "Minute of media transcribed",
+                "eventDescription": "Charged per started minute of video or audio actually transcribed (rounded up per item). Same flat rate for video and audio; failed items are never charged.",
+                "isOneTimeEvent": false,
+                "isPrimaryEvent": true,
+                "eventPriceUsd": 0.05
+              }
+            }
+          },
+          "createdAt": "2026-07-24T17:18:06.091Z",
+          "notifiedAboutFutureChangeAt": "2026-07-24T17:18:26.358Z",
+          "notifiedAboutChangeAt": "2026-08-08T12:05:38.794Z"
+        },
+        "id": "ePG5bBkORYrIFfqyT",
+        "url": "https://apify.com/memo23/video-audio-transcriber"
+      },
+      {
+        "title": "Audio Transcription - Speech to Text, SRT, Diarization",
+        "name": "audio-transcriber",
+        "username": "kaz_kakyo",
+        "stats": {
+          "totalBuilds": 30,
+          "totalRuns": 737,
+          "totalUsers": 160,
+          "totalUsers7Days": 21,
+          "totalUsers30Days": 86,
+          "totalUsers90Days": 135,
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 1,
+          "lastRunStartedAt": "2026-09-01T09:57:29.748Z",
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 1,
+            "SUCCEEDED": 436,
+            "TIMED-OUT": 1,
+            "TOTAL": 438
+          }
+        },
+        "description": "Transcribe audio/video file URLs via API, MCP, or schedule — fast, accurate speech to text and video to text. Whisper alternative for meetings, podcast mp3/mp4 files, SRT subtitles, speaker diarization, summaries. Zero setup $0.010/min or BYOK $0.004/min. One JSON row per file.",
+        "categories": [
+          "AI",
+          "VIDEOS",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/ua26iLsakV0Fa5EGBrqqik903vQLiz3WFojghOZsaPQ/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vbkxKczVwYTJnYzlEa3lDM2MtYWN0b3ItOVdLalU1ZnhSQkhEbDRQS3UtWTBTOTd4ZkxHMS1hdWRpb19jYXB0dXJlXzEwMGRwX0UzRTNFM19GSUxMMF93Z2h0NDAwX0dSQUQwX29wc3o0OC5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Heim AI",
+        "userPictureUrl": "https://images.apifyusercontent.com/LNscMJFUE_amLslSHAUye7I1covaoDJYjOpBrhmQ-k8/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vY0VKaTM1U25FbkNXdTNRVFNWUlVaZnRKVGV0U0x0dnJKQnY5NnBpczlycy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZia3hLY3pWd1lUSm5ZemxFYTNsRE0yTXRjSEp2Wm1sc1pTMWpRWGRvYVhkeWVWZ3dMV2hsYVcxZllXbGZiRzluYnk1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "audio-minute-transcribed": {
+                "eventTitle": "Audio minute (zero setup)",
+                "eventDescription": "One minute of audio transcribed, rounded up per file. Transcription cost included — no API key needed.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.01,
+                "isPrimaryEvent": true
+              },
+              "audio-minute-byok": {
+                "eventTitle": "Audio minute (your Deepgram key)",
+                "eventDescription": "One minute of audio transcribed, rounded up per file. Discounted rate when you provide your own Deepgram API key.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.004
+              }
+            }
+          },
+          "startedAt": "2026-07-06T08:50:49.650Z",
+          "createdAt": "2026-07-06T08:50:49.796Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "9WKjU5fxRBHDl4PKu",
+        "url": "https://apify.com/kaz_kakyo/audio-transcriber"
+      },
+      {
+        "title": "Universal Media Transcriber · Whisper Speech-to-Text",
+        "name": "media-transcriber",
+        "username": "sauliusautomatesit",
+        "stats": {
+          "totalBuilds": 8,
+          "totalRuns": 320,
+          "totalUsers": 34,
+          "totalUsers7Days": 17,
+          "totalUsers30Days": 28,
+          "totalUsers90Days": 28,
+          "lastRunStartedAt": "2026-09-01T08:56:03.664Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 5,
+            "FAILED": 17,
+            "SUCCEEDED": 207,
+            "TIMED-OUT": 4,
+            "TOTAL": 233
+          }
+        },
+        "description": "AI transcription for any audio or video URL - YouTube, podcasts, interviews, meetings, MP3 files and hundreds of sites - powered by Whisper. Audio to text, subtitles (SRT & VTT), timestamped segments, 90+ languages, translate to English. No API key. Only successful minutes are charged.",
+        "categories": [
+          "AI",
+          "VIDEOS",
+          "DEVELOPER_TOOLS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/sACn0c2sp6w6d_HFWe_7fh8Qv2CJM43SndeiPfWM2fY/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vd1VXajB6QWZkemFpR2lWVTgtYWN0b3ItejNPSmZtQlBRUXo5c3ZGRkItMUpPMzVqSjFmdS10cmFuc2NyaWJlci1pY29uLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Saulius Saulenas",
+        "userPictureUrl": "https://images.apifyusercontent.com/lW00CUCiw0rcbnjj0QTRURmtXMwhmVFpSKbfq566lr4/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vUkhYTzN0MFFER2xVNFROVzBNLUd2V1ZHM3JRd21xWXViT3VlZUl5b2hiNC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpURGRwY25Fd1pYTkRRalpqWDFwWVZrbHVPVEp2UTNKdFUwMXljM05STFZKcFNVdFVWbHBEYVVwNU1FMXFaMmhSUFhNNU5pMWo.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "audio_minute": {
+                "eventTitle": "Audio minute",
+                "eventDescription": "Charged per minute of audio successfully transcribed (rounded up).",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.04
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.038
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.036
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.034
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.034
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.034
+                  }
+                },
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "startedAt": "2026-08-17T13:20:50.775Z",
+          "createdAt": "2026-08-17T13:20:47.757Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-08-19T08:06:28.160Z"
+        },
+        "id": "z3OJfmBPQQz9svFFB",
+        "url": "https://apify.com/sauliusautomatesit/media-transcriber"
+      },
+      {
+        "title": "Audio Transcriber - Speech to Text",
+        "name": "audio-transcriber",
+        "username": "parseforge",
+        "stats": {
+          "totalBuilds": 37,
+          "totalRuns": 767,
+          "totalUsers": 152,
+          "totalUsers7Days": 4,
+          "totalUsers30Days": 6,
+          "totalUsers90Days": 43,
+          "lastRunStartedAt": "2026-09-01T05:31:38.381Z",
+          "actorReviewCount": 1,
+          "actorReviewRating": 5,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 104,
+            "TIMED-OUT": 0,
+            "TOTAL": 104
+          }
+        },
+        "description": "Transcribes audio files from URL or upload into text with timestamps, language, and confidence. Supports WAV, MP3, AIFF, AAC, OGG, FLAC, and more.",
+        "categories": [
+          "AI",
+          "DEVELOPER_TOOLS",
+          "OTHER"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/eVqciqDQxPDlbEk0tgyLZKtC4vRcXFUD1rbpqvEAer8/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vY1ZNRVRxQUhSTmJuT0N6QXEtYWN0b3ItTVA5SEJDTmtuS2hnWDF5aGstMVZMV255MzhNRS1hdWRpby10cmFuc2NyaWJlci5qcGc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 5,
+        "actorReviewCount": 1,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "ParseForge",
+        "userPictureUrl": "https://images.apifyusercontent.com/7v_fw1tYOZK4ZaPIPpFJPq4bd1wmXxpvscQbD-yADiU/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vWkphSmZPeFdyX3NPNFdCNU0wNEpfRWYyc1BlaWxmN0JyWUJGTkt5TmNFdy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZZMVpOUlZSeFFVaFNUbUp1VDBONlFYRXRjSEp2Wm1sc1pTMW5VbmxJWTBGSlFXNWtMWEJoY25ObFptOXlaMlZmYkc5bmJ5NXdibWMucG5n.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.012
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.008
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.006
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.006
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.006
+                  }
+                }
+              },
+              "result-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.44
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.34
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.24
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.14
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.14
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.14
+                  }
+                },
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-08-08T17:21:24.000Z",
+          "apifyMarginPercentage": 0.2,
+          "createdAt": "2026-07-24T17:23:05.340Z"
+        },
+        "id": "MP9HBCNknKhgX1yhk",
+        "url": "https://apify.com/parseforge/audio-transcriber"
+      },
+      {
+        "title": "Audio Transcriber — Speech to Text (Whisper)",
+        "name": "audio-transcriber",
+        "username": "viralanalyzer",
+        "stats": {
+          "totalBuilds": 22,
+          "totalRuns": 325,
+          "totalUsers": 49,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 14,
+          "totalUsers90Days": 37,
+          "lastRunStartedAt": "2026-08-31T22:36:37.254Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 1,
+            "FAILED": 16,
+            "SUCCEEDED": 141,
+            "TIMED-OUT": 8,
+            "TOTAL": 166
+          }
+        },
+        "description": "Transcribe audio to text with Whisper running locally — no API key. Give any media URL (podcast, TikTok, Instagram, YouTube, or a direct audio file) and get text, timestamped segments, SRT subtitles and auto-detected language. Pay per minute transcribed.",
+        "categories": [
+          "AI",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/JUWsTXjCgMOU-dCHZi1oDN5tf7Q0YcxDn5hYtjkK02o/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vcnBUYTM3bzFjdGZkRldaazktYWN0b3ItUDhsd0VvUWh5bmR2S1ZUeGktNUM0ZlpYZXN6eC1sb2dvLnBuZw.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "viralanalyzer",
+        "userPictureUrl": "https://images.apifyusercontent.com/bq9e3NfkGUj5WU5BZQ3_ugsv8Wo1tahZWFfZU7qKtb0/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20veDNhdXVLLVNJTi1Ba0YxU09iQl8zMi1OUU9aTjBzMVBudnVTSE1HVEpScy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZjbkJVWVRNM2J6RmpkR1prUmxkYWF6a3RjSEp2Wm1sc1pTMU1lWGRHUlU4eU9HOWhMV3h2WjI4dE5URXlMV0pzWVdOckxYQmhaR1JsWkM1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "apifyMarginPercentage": 0.2,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "audio-minute-transcribed": {
+                "eventTitle": "Minute of audio transcribed",
+                "eventDescription": "Charged per minute of audio transcribed to text.",
+                "eventPriceUsd": 0.015,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "createdAt": "2026-08-14T01:59:32.796Z",
+          "startedAt": "2026-08-29T01:59:31.000Z",
+          "isPPEPlatformUsagePaidByUser": true,
+          "notifiedAboutFutureChangeAt": "2026-08-14T01:59:53.542Z",
+          "notifiedAboutChangeAt": "2026-08-29T02:05:40.817Z"
+        },
+        "id": "P8lwEoQhyndvKVTxi",
+        "url": "https://apify.com/viralanalyzer/audio-transcriber"
+      },
+      {
+        "title": "Universal Speech to Text Transcriber",
+        "name": "vanzi-universal-transcriber",
+        "username": "tictechid",
+        "stats": {
+          "totalBuilds": 51,
+          "totalRuns": 1349,
+          "totalUsers": 202,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 9,
+          "totalUsers90Days": 57,
+          "lastRunStartedAt": "2026-08-31T23:34:29.656Z",
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 23,
+            "SUCCEEDED": 33,
+            "TIMED-OUT": 0,
+            "TOTAL": 56
+          },
+          "actorReviewCount": 1,
+          "actorReviewRating": 5,
+          "bookmarkCount": 4
+        },
+        "description": "Transcribe audio from videos stored on Google Drive, Dropbox, GitHub raw, OneDrive, Sound Cloud, iCloud, AWS S3, GCS, X, Tiktok and much more. Convert share links to direct downloads for fast, accurate transcripts with timestamps and easy API integration.",
+        "categories": [
+          "AUTOMATION",
+          "SEO_TOOLS",
+          "VIDEOS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/ycxEjJmGWrfrBOMVcRRKSM7sXPFpYjsi5f1v8nB0Rxo/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vMG9YcGhBZ1FxVzdQcFdsVVYtYWN0b3ItVUdJUzY2cGhxVFV0Z2h2bGkteHNabTFWYjNDWC11bml2ZXJzYWwtdHJhbnNjcmliZXIucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 4,
+        "actorReviewRating": 5,
+        "actorReviewCount": 1,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "TicTech",
+        "userPictureUrl": "https://images.apifyusercontent.com/1k5I5mS0MCE-77Ssmfzti9bxyC5NvmnHMCPDlGegFqE/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vY1cwb3U4NTNSNHVJeV9KQ1QtUTYza2lfVi1Bc21WSXRVUWFtY2RqTTFaUS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZNRzlZY0doQloxRnhWemRRY0Zkc1ZWWXRjSEp2Wm1sc1pTMWhhVWwxT1ZaRGVXSkhMVWR5YjNWd1h6VXVjRzVuLnBuZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "base-pay": {
+                "eventTitle": "Actor start",
+                "eventDescription": "Flat fee for starting an Actor run",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.008
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.007
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.006
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.006
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.006
+                  }
+                },
+                "isOneTimeEvent": true
+              },
+              "transcription-second": {
+                "eventTitle": "Per second of transcription",
+                "eventDescription": "Charged per second of audio/video duration (rounded to nearest second)",
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.0025
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.002
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.0018
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.0015
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.0015
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.0015
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-02-21T16:29:08.437Z",
+          "createdAt": "2026-02-21T16:29:08.437Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2025-10-04T07:05:24.040Z"
+        },
+        "id": "UGIS66phqTUtghvli",
+        "url": "https://apify.com/tictechid/vanzi-universal-transcriber"
+      },
+      {
+        "title": "Whisper Speech to Text — Audio & Video Transcriber, Diarization",
+        "name": "whisper-speech-to-text",
+        "username": "ntriqpro",
+        "stats": {
+          "totalBuilds": 9,
+          "totalRuns": 169,
+          "totalUsers": 36,
+          "totalUsers7Days": 19,
+          "totalUsers30Days": 28,
+          "totalUsers90Days": 28,
+          "lastRunStartedAt": "2026-09-01T05:12:25.993Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 1,
+            "FAILED": 0,
+            "SUCCEEDED": 154,
+            "TIMED-OUT": 0,
+            "TOTAL": 155
+          }
+        },
+        "description": "Transcribe audio & video to text with Whisper — now with speaker diarization. Who-spoke-when labels (SPEAKER_1, SPEAKER_2…) on every segment, per-speaker summary rows, timestamped transcript, SRT/VTT subtitles, word-level detail, 99 languages. Batch URLs in, structured result rows out.",
+        "categories": [
+          "VIDEOS",
+          "AI",
+          "AUTOMATION"
+        ],
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "daehwan kim",
+        "userPictureUrl": "https://images.apifyusercontent.com/XZsFut_JYANYk5SmHOyei7x0BNsRxxziH_UKq_ifhoI/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vQXZrZFZvSUxCUGl4SFN5ZmY2UEI2MnRCLUtxVW9iTTQybUNxa3JSRE82Zy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZlWGwwYmxGWFkxVkpaMVZYVUVKTWMyc3RjSEp2Wm1sc1pTMXhPVEZCVkZsYWJteEJMVWRsYldsdWFWOUhaVzVsY21GMFpXUmZTVzFoWjJWZmMzWnJaMjlxYzNacloyOXFjM1pyWnk1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "apifyMarginPercentage": 0.2,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "transcribed-minute": {
+                "eventTitle": "Result row",
+                "eventDescription": "Charged once per result row delivered. Rows include the file summary, chapter rows, keyword rows and minute-block rows (each minute-block row carries one minute of audio with its transcript, segments and timestamps). Optional sentence-level segment rows are off by default and charged the same way when enabled.",
+                "eventPriceUsd": 0.04
+              }
+            }
+          },
+          "createdAt": "2026-08-15T06:00:37.077Z",
+          "startedAt": "2026-08-15T06:00:37.077Z"
+        },
+        "id": "HvYiLfPUljByfVfHj",
+        "url": "https://apify.com/ntriqpro/whisper-speech-to-text"
+      },
+      {
+        "title": "Speech to Text — YouTube, TikTok, Instagram, 99+ Languages",
+        "name": "speech-to-text-transcriber",
+        "username": "andronixmd",
+        "stats": {
+          "totalBuilds": 27,
+          "totalRuns": 102,
+          "totalUsers": 1,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 0,
+          "lastRunStartedAt": "2026-08-31T13:40:43.842Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 48,
+            "TIMED-OUT": 0,
+            "TOTAL": 48
+          }
+        },
+        "description": "Multi-engine speech-to-text for YouTube, TikTok, Instagram, podcasts, X, and direct media URLs. Auto-detects 99+ languages, routes across Groq/OpenAI/ElevenLabs/Google with automatic failover, and returns text, SRT/VTT subtitles, and optional speaker diarization. Pay-per-event — no subscription.",
+        "categories": [
+          "VIDEOS",
+          "AI",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/0z8qvMFt7SUtxSypwRvMwTSbKGYNnxfxmXtZVfESazw/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vcHBmY1JrS0JFWGUwaFhtNGktYWN0b3ItOWdHSEFGb0R0MUhnWDM1QTUtQ01GM2VFc1BIdS12YXItMDEtb25icmFuZC5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Sergey Andronik",
+        "userPictureUrl": "https://images.apifyusercontent.com/gI42Nz_9EZU5a0Z1vcuyWXDZcjeBnn9eJpjXF8ZF2Ks/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vc0puclNiUTU4VHVGV1p2N3dOYUdTQmZBSjJjc2NjWGxLR09LQy1kNGpCUS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpTa2gxZUdFMVYxaGlhVzFhZG1wT2VUTkxPRUpFZERWM1VYSm5UMHhZTkZGM1RqRXhiM1JzY25GcldYVndkVmszT0Qxek9UWXRZdw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "audio-minute": {
+                "eventTitle": "Minute of audio transcribed",
+                "eventDescription": "Per started minute, charged only after transcription succeeds.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.03,
+                "isPrimaryEvent": true
+              },
+              "actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Flat fee per run.",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.005
+              },
+              "platform-video-fetch": {
+                "eventTitle": "Platform video fetched",
+                "eventDescription": "Charged once per successfully downloaded platform video/audio (yt-dlp).",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.02
+              },
+              "audio-minute-diarized": {
+                "eventTitle": "Minute of audio transcribed with diarization",
+                "eventDescription": "Per started minute with speaker labels, charged only after transcription succeeds.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.05
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "transcript-summary": {
+                "eventTitle": "Transcript summary",
+                "eventDescription": "Charged once per item, only if summarize is set and the summary succeeds.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.015
+              },
+              "transcript-translation": {
+                "eventTitle": "Transcript translation",
+                "eventDescription": "Charged once per item, only if translateTo is set and the translation succeeds.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.015
+              },
+              "transcript-keywords": {
+                "eventTitle": "Transcript keywords",
+                "eventDescription": "Charged once per item, only if extractKeywords is set and extraction succeeds.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.008
+              }
+            }
+          },
+          "startedAt": "2026-07-18T12:56:36.662Z",
+          "createdAt": "2026-07-18T12:56:37.062Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-07-18T13:05:38.169Z"
+        },
+        "id": "9gGHAFoDt1HgX35A5",
+        "url": "https://apify.com/andronixmd/speech-to-text-transcriber"
+      },
+      {
+        "title": "Text to Speech Generator",
+        "name": "my-actor-30",
+        "username": "moving_beacon-owner1",
+        "stats": {
+          "totalBuilds": 21,
+          "totalRuns": 570,
+          "totalUsers": 28,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 0,
+          "totalUsers90Days": 4,
+          "lastRunStartedAt": "2026-08-31T19:02:34.343Z",
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 30,
+            "TIMED-OUT": 0,
+            "TOTAL": 30
+          },
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 1
+        },
+        "description": "Convert text into natural-sounding speech in multiple languages with ease.",
+        "categories": [
+          "AGENTS",
+          "AUTOMATION",
+          "DEVELOPER_TOOLS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/fPuiQSMDzCjGShw5xCUbbru4hI_YZk6ZwP4ta3jacXs/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vcExzcGFDS2ptZ1JOZDNhb3AtYWN0b3ItdHNCSkVjemJBbEtvOW5JZzQtTlJ0bGlKU1d1aS1DaGF0R1BUX0ltYWdlX1NlcF84X18yMDI1X18wNV80N18wNF9QTS5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Jamshaid Arif",
+        "userPictureUrl": "https://images.apifyusercontent.com/XyvR67NX5h8OU9SvxhUxhSDre9IrWyK4hFmyULjHn_E/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vV2NHaTMwclVtUXlyWFZxbDFOTEVXSWVWNGR2My1XazN0V19yQ3RoQk1HRS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpTblJJT1RscFpUUmtXRXMzV0VjM1REaEZhVlpWTjFCUVZXOHpjek5oWTBoeFgwdERSa0phVDBvd2VrcHBlV2xHZFRj.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              },
+              "apify-default-dataset-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "eventPriceUsd": 0.01
+              }
+            }
+          },
+          "startedAt": "2026-06-10T12:57:20.063Z",
+          "createdAt": "2026-05-27T12:57:20.496Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2026-05-27T12:57:40.722Z"
+        },
+        "id": "tsBJEczbAlKo9nIg4",
+        "url": "https://apify.com/moving_beacon-owner1/my-actor-30"
+      },
+      {
+        "title": "TikTok Video Transcriber – Speech to Text & Captions",
+        "name": "tiktok-transcriber",
+        "username": "linen_snack",
+        "stats": {
+          "totalBuilds": 15,
+          "totalRuns": 206,
+          "totalUsers": 19,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 3,
+          "totalUsers90Days": 8,
+          "lastRunStartedAt": "2026-09-01T01:00:55.086Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 34,
+            "TIMED-OUT": 0,
+            "TOTAL": 34
+          }
+        },
+        "description": "Convert any TikTok video to text instantly. Paste one or more TikTok video URLs and get back a full\ntranscript with timestamped captions — ready for subtitles, content repurposing, research, or accessibility.",
+        "categories": [
+          "VIDEOS",
+          "SOCIAL_MEDIA",
+          "AUTOMATION"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/LGylTr5qz2EavvQgp9ZtpnVpPqk5R5-HchYasuF1vVc/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vdGs1c2ZRekVjbldGUm9Gb0stYWN0b3ItNHdGQjFqOThtMWNnUmdBb3YtalRwTkhsc0NPOS1TY3JlZW5zaG90XzIwMjYtMDMtMTVfMDMzNDU4LXJlbW92ZWJnLXByZXZpZXcucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "ius iyb",
+        "userPictureUrl": "https://images.apifyusercontent.com/azBkw_zaQD_Mrcnj3KPJcVk2pGtrqxPf45o41iANkcA/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vMDRHYlBjR3Q2VUsxTlBLeGo0WnM5bk9kMVkwR04xc1ViRkRlc3ZPU1hYOC9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVkT2JYbDRZbTFDVmxwcVJHUjJUblJSUW5kVFVHSkxaVXd4TWs1U2MwWlljMjlFTm1GdmRXUkpZbWs.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "video-transcribed": {
+                "eventTitle": "Video Transcribed",
+                "eventDescription": "Charged per successfully transcribed video.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.03,
+                "isPrimaryEvent": true
+              }
+            }
+          },
+          "startedAt": "2026-03-19T06:50:58.204Z",
+          "createdAt": "2026-03-19T06:50:58.409Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "4wFB1j98m1cgRgAov",
+        "url": "https://apify.com/linen_snack/tiktok-transcriber"
+      },
+      {
+        "title": "Speech-to-Text Converter",
+        "name": "my-actor-72",
+        "username": "moving_beacon-owner1",
+        "stats": {
+          "totalBuilds": 6,
+          "totalRuns": 233,
+          "totalUsers": 19,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 2,
+          "totalUsers90Days": 9,
+          "lastRunStartedAt": "2026-09-01T08:36:44.144Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 2,
+            "SUCCEEDED": 30,
+            "TIMED-OUT": 6,
+            "TOTAL": 38
+          }
+        },
+        "description": "Introducing the Speech-to-Text Converter — Apify Actor! Transform your audio into text effortlessly with our powerful, serverless multi-engine transcription solution on Apify. Experience seamless and accurate transcription like never before!",
+        "categories": [
+          "AI",
+          "AUTOMATION",
+          "DEVELOPER_TOOLS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/XjQ5XrFLPqvHHYkucakAUs4DTIeDnLkq1KUHgWGgA7Y/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vcExzcGFDS2ptZ1JOZDNhb3AtYWN0b3ItSGJkYWhabHhLd3ZnZVZoU2cteUU2VXZhYTJheC1DaGF0R1BUX0ltYWdlX0Fwcl81X18yMDI2X18xMV81N18zNF9QTS5wbmc.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "Jamshaid Arif",
+        "userPictureUrl": "https://images.apifyusercontent.com/XyvR67NX5h8OU9SvxhUxhSDre9IrWyK4hFmyULjHn_E/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vV2NHaTMwclVtUXlyWFZxbDFOTEVXSWVWNGR2My1XazN0V19yQ3RoQk1HRS9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTlzYURNdVoyOXZaMnhsZFhObGNtTnZiblJsYm5RdVkyOXRMMkV2UVVObk9HOWpTblJJT1RscFpUUmtXRXMzV0VjM1REaEZhVlpWTjFCUVZXOHpjek5oWTBoeFgwdERSa0phVDBvd2VrcHBlV2xHZFRj.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": 10,
+          "isPPEPlatformUsagePaidByUser": true,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "apify-default-dataset-item": {
+                "eventTitle": "result",
+                "eventDescription": "Single result in the default dataset.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.3,
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "startedAt": "2026-08-18T09:00:06.732Z",
+          "createdAt": "2026-08-04T09:00:07.685Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutFutureChangeAt": "2026-08-04T09:00:27.858Z",
+          "notifiedAboutChangeAt": "2026-08-19T08:06:30.790Z"
+        },
+        "id": "HbdahZlxKwvgeVhSg",
+        "url": "https://apify.com/moving_beacon-owner1/my-actor-72"
+      },
+      {
+        "title": "Bulk Text to Speech MP3 + SRT Subtitles (No API Key)",
+        "name": "bulk-text-to-speech",
+        "username": "fayoussef",
+        "stats": {
+          "totalBuilds": 3,
+          "totalRuns": 83,
+          "totalUsers": 18,
+          "totalUsers7Days": 0,
+          "totalUsers30Days": 3,
+          "totalUsers90Days": 12,
+          "lastRunStartedAt": "2026-08-31T01:10:06.164Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 20,
+            "TIMED-OUT": 0,
+            "TOTAL": 20
+          }
+        },
+        "description": "Convert text to natural AI speech in bulk. 322 neural voices, 75+ languages, no API key. Every text becomes an MP3 voiceover plus perfectly timed SRT/VTT subtitles ideal for TikTok & YouTube faceless videos, e-learning and podcasts.",
+        "categories": [
+          "AUTOMATION",
+          "MCP_SERVERS",
+          "INTEGRATIONS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/79JW0GpAtwbN3tjj2nJyMrwC__lIiTrhsqTcDsE7vx8/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vb0ppZHBuOEhxS3pidHVOZkUtYWN0b3ItSzZ6dFpsNGI3aXM2Z0E3MHYtdjZUN1l4OWdkYS1HZW1pbmlfR2VuZXJhdGVkX0ltYWdlX2FsNWh6MmFsNWh6MmFsNWgucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": false,
+        "userFullName": "youssef farhan",
+        "userPictureUrl": "https://images.apifyusercontent.com/j7tAY5dhI5WpI6MNv_sfIgj9xNh47XGz8O_HNoqakfk/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vRlJTNXlXUGtRcExpMk4yRDNrd1hVNFhicXA3dVFJZV85Q0ljbzFWVldhcy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZiMHBwWkhCdU9FaHhTM3BpZEhWT1prVXRjSEp2Wm1sc1pTMUtZMDlZYjI1QmNXUm5MWFZ1Ym1GdFpXUXVhbkJuLmpwZw.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "isPPEPlatformUsagePaidByUser": true,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "tts-1000-chars": {
+                "eventTitle": "1,000 characters converted",
+                "eventDescription": "Charged per 1,000 characters of text converted to speech (rounded up per clip). Covers the MP3 voiceover and its SRT/VTT subtitle file.",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.012
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.012
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.009
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.009
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.009
+                  }
+                },
+                "isPrimaryEvent": true
+              },
+              "combined-file": {
+                "eventTitle": "Combined file created",
+                "eventDescription": "Charged once per run when 'merge into one file' is enabled — all clips joined into a single MP3 with one continuous subtitle track",
+                "isOneTimeEvent": false,
+                "eventTieredPricingUsd": {
+                  "FREE": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "BRONZE": {
+                    "tieredEventPriceUsd": 0.01
+                  },
+                  "SILVER": {
+                    "tieredEventPriceUsd": 0.009
+                  },
+                  "GOLD": {
+                    "tieredEventPriceUsd": 0.008
+                  },
+                  "PLATINUM": {
+                    "tieredEventPriceUsd": 0.008
+                  },
+                  "DIAMOND": {
+                    "tieredEventPriceUsd": 0.008
+                  }
+                }
+              }
+            }
+          },
+          "startedAt": "2026-07-29T10:55:43.050Z",
+          "createdAt": "2026-07-29T10:55:43.319Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-07-29T17:05:41.742Z"
+        },
+        "id": "K6ztZl4b7is6gA70v",
+        "url": "https://apify.com/fayoussef/bulk-text-to-speech"
+      },
+      {
+        "title": "Instagram Reels Transcript 🎙️ Speech to Text — $0.02/reel",
+        "name": "instagram-transcript-scraper",
+        "username": "viralanalyzer",
+        "stats": {
+          "totalBuilds": 9,
+          "totalRuns": 32,
+          "totalUsers": 6,
+          "totalUsers7Days": 2,
+          "totalUsers30Days": 4,
+          "totalUsers90Days": 4,
+          "lastRunStartedAt": "2026-09-01T09:39:09.265Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 0,
+          "publicActorRunStats30Days": {
+            "ABORTED": 1,
+            "FAILED": 2,
+            "SUCCEEDED": 20,
+            "TIMED-OUT": 0,
+            "TOTAL": 23
+          }
+        },
+        "description": "Transcribe Instagram Reels to text with Whisper: give a profile or Reel URLs and get the spoken words, timestamped segments, SRT, language plus caption, plays, likes and comments. No login, no cookies, no proxy setup. $0.02 per Reel with speech; silent Reels are free.",
+        "categories": [
+          "SOCIAL_MEDIA",
+          "VIDEOS",
+          "DEVELOPER_TOOLS"
+        ],
+        "notice": "NONE",
+        "bookmarkCount": 0,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "viralanalyzer",
+        "userPictureUrl": "https://images.apifyusercontent.com/bq9e3NfkGUj5WU5BZQ3_ugsv8Wo1tahZWFfZU7qKtb0/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20veDNhdXVLLVNJTi1Ba0YxU09iQl8zMi1OUU9aTjBzMVBudnVTSE1HVEpScy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZjbkJVWVRNM2J6RmpkR1prUmxkYWF6a3RjSEp2Wm1sc1pTMU1lWGRHUlU4eU9HOWhMV3h2WjI4dE5URXlMV0pzWVdOckxYQmhaR1JsWkM1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "pricingModel": "PAY_PER_EVENT",
+          "reasonForChange": "v2.0: Whisper speech-to-text replaces the native-transcript attempt (which never delivered a transcript); flat $0.02 per Reel with speech, platform usage now included in the price (user-pays off).",
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "reel-transcripted": {
+                "eventTitle": "Reel transcribed",
+                "eventDescription": "One Instagram Reel whose speech was transcribed by Whisper (text, segments, SRT, language + metadata). Reels without speech, unavailable media, provider errors and diagnostics are free.",
+                "eventPriceUsd": 0.02,
+                "isPrimaryEvent": true
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "createdAt": "2026-08-29T22:41:31.450Z",
+          "startedAt": "2026-08-29T22:41:31.450Z",
+          "apifyMarginPercentage": 0.2,
+          "notifiedAboutChangeAt": "2026-08-29T23:05:53.295Z"
+        },
+        "id": "X72IASeSpP4e81W8L",
+        "url": "https://apify.com/viralanalyzer/instagram-transcript-scraper"
+      },
+      {
+        "title": "TikTok Transcript Scraper - Captions, SRT, Speech-to-Text",
+        "name": "tiktok-transcripts",
+        "username": "kaz_kakyo",
+        "stats": {
+          "totalBuilds": 15,
+          "totalRuns": 85,
+          "totalUsers": 7,
+          "totalUsers7Days": 3,
+          "totalUsers30Days": 4,
+          "totalUsers90Days": 4,
+          "lastRunStartedAt": "2026-08-31T19:48:45.427Z",
+          "actorReviewCount": 0,
+          "actorReviewRating": 0,
+          "bookmarkCount": 1,
+          "publicActorRunStats30Days": {
+            "ABORTED": 0,
+            "FAILED": 0,
+            "SUCCEEDED": 50,
+            "TIMED-OUT": 0,
+            "TOTAL": 50
+          }
+        },
+        "description": "TikTok transcript scraper: extract video captions with timestamps, SRT subtitles, multi-language, optional speech-to-text fallback for videos without captions — via API, MCP, or schedule. $0.005 per captioned video. One JSON row per URL. No browser, no login.",
+        "categories": [
+          "VIDEOS",
+          "SOCIAL_MEDIA",
+          "AGENTS"
+        ],
+        "pictureUrl": "https://images.apifyusercontent.com/vvyplKedyZ7x8E8c-vx1QKx6GP5HNzxfO87jNiMJFf4/rs:fill:76:76/cb:1/aHR0cHM6Ly9hcGlmeS1pbWFnZS11cGxvYWRzLXByb2QuczMudXMtZWFzdC0xLmFtYXpvbmF3cy5jb20vbkxKczVwYTJnYzlEa3lDM2MtYWN0b3ItZWNyOUk5MnpIcDkyZnp6UVotVGZjTk9rZWx6SS10aWt0b2sucG5n.webp",
+        "notice": "NONE",
+        "bookmarkCount": 1,
+        "actorReviewRating": 0,
+        "actorReviewCount": 0,
+        "badge": null,
+        "isWhiteListedForAgenticPayments": true,
+        "userFullName": "Heim AI",
+        "userPictureUrl": "https://images.apifyusercontent.com/LNscMJFUE_amLslSHAUye7I1covaoDJYjOpBrhmQ-k8/rs:fill:32:32/cb:1/aHR0cHM6Ly9pbWFnZXMuYXBpZnl1c2VyY29udGVudC5jb20vY0VKaTM1U25FbkNXdTNRVFNWUlVaZnRKVGV0U0x0dnJKQnY5NnBpczlycy9yczpmaWxsOjMyOjMyL2NiOjEvYUhSMGNITTZMeTloY0dsbWVTMXBiV0ZuWlMxMWNHeHZZV1J6TFhCeWIyUXVjek11ZFhNdFpXRnpkQzB4TG1GdFlYcHZibUYzY3k1amIyMHZia3hLY3pWd1lUSm5ZemxFYTNsRE0yTXRjSEp2Wm1sc1pTMWpRWGRvYVhkeWVWZ3dMV2hsYVcxZllXbGZiRzluYnk1d2JtYy5wbmc.webp",
+        "currentPricingInfo": {
+          "minimalMaxTotalChargeUsd": null,
+          "pricingModel": "PAY_PER_EVENT",
+          "isPriceChangeNotificationSuppressed": false,
+          "pricingPerEvent": {
+            "actorChargeEvents": {
+              "captioned-video": {
+                "eventTitle": "Captioned video transcript",
+                "eventDescription": "One successful caption-derived transcript delivered for a TikTok video.",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.005,
+                "isPrimaryEvent": true
+              },
+              "stt-minute": {
+                "eventTitle": "Speech-to-text minute",
+                "eventDescription": "One started audio-minute of speech-to-text fallback transcription when captions are absent (ceil(duration/60), minimum 1).",
+                "isOneTimeEvent": false,
+                "eventPriceUsd": 0.012
+              },
+              "apify-actor-start": {
+                "eventTitle": "Actor Start",
+                "eventDescription": "Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event).",
+                "isOneTimeEvent": true,
+                "eventPriceUsd": 0.00005
+              }
+            }
+          },
+          "startedAt": "2026-08-22T14:13:25.635Z",
+          "createdAt": "2026-08-22T14:13:27.080Z",
+          "apifyMarginPercentage": 0.2
+        },
+        "id": "ecr9I92zHp92fzzQZ",
+        "url": "https://apify.com/kaz_kakyo/tiktok-transcripts"
+      }
+    ]
+  }
+}

@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en"><head id="j_idt2"><link type="text/css" rel="stylesheet" href="/datam/javax.faces.resource/theme.css.xhtml?ln=primefaces-barcelona-blue" /><link type="text/css" rel="stylesheet" href="/datam/javax.faces.resource/fa/font-awesome.css.xhtml?ln=primefaces&amp;v=6.2" /><link type="text/css" rel="stylesheet" href="/datam/javax.faces.resource/components.css.xhtml?ln=primefaces&amp;v=6.2" /><script type="text/javascript" src="/datam/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=6.2"></script><script type="text/javascript" src="/datam/javax.faces.resource/core.js.xhtml?ln=primefaces&amp;v=6.2"></script><script type="text/javascript" src="/datam/javax.faces.resource/components.js.xhtml?ln=primefaces&amp;v=6.2"></script><script type="text/javascript" src="/datam/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=6.2"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';}</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="/datam/css/fonts/material-icons/material-icons.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="/datam/img/favicon.ico" type="image/vnd.microsoft.icon" />
+	<title>DataM - An error occurred... - European Commission</title>
+	<meta content="en" http-equiv="Content-Language" />
+	<meta name="Creator" content="COMM/DG/D4" />
+	<meta name="Reference" content="DataM" />
+	<meta name="Content-Language" content="en" />
+	<meta name="Classification" content="01000" />
+	<meta name="Keywords" content="Agriculture, Bioeconomy, Climate change, Economics, Farms, Food security, Modelling, Nutrition, OGM, Rural development, Trade, European Commission, European Union, EU" />
+	<meta name="Description" content="Data-Modelling platform of resource economics" />
+	<meta name="viewport" content="width=device-width" />
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta name="Date" content="27/08/2026" /> 
+	
+	<link href="/datam/css/europa_layout/styles/ecl-ec-preset-website.css?ts=1788278984042" media="all" rel="stylesheet" type="text/css" />
+	<link href="/datam/css/europa_layout/styles/ecl-ec-preset-website-datam.css?ts=1788278984042" media="all" rel="stylesheet" type="text/css" />
+
+	<link href="/datam/css/style.css?ts=1788278984042" media="all" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript" src="/datam/js/datamic.js?ts=1788278984042"></script>
+	<script type="text/javascript" src="/datam/js/overlayPanel.js?ts=1788278984042"></script>
+	<script type="text/javascript" src="/datam/js/datasetActionMenu.js?ts=1788278984042"></script>
+	<script type="text/javascript" src="/datam/js/contentButtons.js?ts=1788278984042"></script>
+	
+	
+    <link rel="stylesheet" type="text/css" href="/datam/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="/datam/css/tooltipster-datam.min.css?ts=1788278984042" />
+    
+    <script src="/datam/css/europa_layout/scripts/ecl-ec-preset-website.js?ts=1788278984042"></script>
+    
+    <script type="text/javascript" src="/datam/js/tooltipster.bundle.min.js"></script>
+    
+	<script type="text/javascript" src="/datam/js/jquery.color-2.1.0.js"></script>
+		
+		<link href="/datam/css/leaflet-1.3.4.css?ts=1788278984042" media="all" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="/datam/js/leaflet-1.3.4.js?ts=1788278984042"></script>
+		<script type="text/javascript" src="/datam/js/proj4-compressed.js?ts=1788278984042"></script>
+		<script type="text/javascript" src="/datam/js/proj4leaflet.js?ts=1788278984042"></script>
+	
+		
+		<link rel="stylesheet" type="text/css" href="/datam/css/jqcloud.css" />
+		<script type="text/javascript" src="/datam/js/jqcloud.js"></script>
+
+		
+		<link rel="stylesheet" href="/datam/css/jquery-jvectormap-2.0.2.css" type="text/css" media="screen" />
+		<script src="/datam/js/jquery-jvectormap-2.0.2.min.js"></script>
+		<script src="/datam/js/jquery-jvectormap-world-mill-en.js"></script>
+		
+		<script src="/datam/js/jquery-datam.js"></script>
+	
+	<script type="text/javascript">
+		// When the window is resized, floating components are not updated until screen is scrolled. We force the
+		// resize event to trigger also the scroll event to fix this problem.
+		$(window).resize(function() {
+			$(window).scroll();
+		})
+		
+		function recalculateTooltips() {
+			$('.tooltip').tooltipster({
+				theme : 'tooltipster-datam'
+			});
+		}
+		
+		function getWidgetVarById(id) {
+		   for (var propertyName in PrimeFaces.widgets) {
+		     if (PrimeFaces.widgets[propertyName].id === id) {
+		       return PrimeFaces.widgets[propertyName];
+		     }
+		   }
+		}
+		
+		function filterTree(searchInput) {
+			var wid = getWidgetVarById(searchInput.parents(".ui-tree").attr("id"));
+	        if (wid.filterTimeout) {
+	            clearTimeout(wid.filterTimeout);
+	        }
+	        wid.filterTimeout = setTimeout(function() {
+	        	wid.filter();
+	        	wid.filterTimeout = null
+	        }, 300)
+		} 
+
+
+		$(document).ready(function() {
+			$(function() {
+    			$("body").on("click", ".wrapped-text-container", function() {
+    				$(this).toggleClass("wrapped-text");
+    			})
+			});
+			
+			// Fix for tree filtering.
+			$("body").on("keyup", ".ui-tree-filter", function(e) {
+				//console.log(e.metaKey ,e.ctrlKey , e.shiftKey);
+				if (e.which == 46 || e.shiftKey) { // delete button or any shift+ combination 
+					filterTree($(this));
+				}
+			}).on("paste", ".ui-tree-filter", function() {
+				filterTree($(this));
+			});
+
+			recalculateTooltips();
+			
+			// Redefine opening of dialog. 
+			var oldEnableModality = PrimeFaces.widget.Dialog.prototype.enableModality;
+			var scrollTop;
+			PrimeFaces.widget.Dialog.prototype.enableModality = function() {
+				if ($('.ui-widget-overlay').length == 0) {
+					scrollTop = $(document).scrollTop();
+					$("html, body").addClass("body-with-dialog");
+					$(document).scrollTop(scrollTop);
+				}
+				oldEnableModality.apply(this,arguments);
+			};
+			
+			// Redefine closing of dialog.
+			var oldDisableModality = PrimeFaces.widget.Dialog.prototype.disableModality;
+			PrimeFaces.widget.Dialog.prototype.disableModality = function() {
+				if ($('.ui-widget-overlay').length == 1) {
+					// It is the only dialog.
+					$("html, body").removeClass("body-with-dialog");
+					$(document).scrollTop(scrollTop);
+				}
+				oldDisableModality.apply(this,arguments);
+			};
+			
+			// Disable auto submit with ENTER/INTRO
+			$('form').off('keypress.disableAutoSubmitOnEnter').on('keypress.disableAutoSubmitOnEnter', function(event) {
+			    if (event.which === $.ui.keyCode.ENTER && $(event.target).is(':input:not(textarea,:button,:submit,:reset)')) {
+			        event.preventDefault();
+			    }
+			});
+		});
+		
+		
+		
+		function startPartialAjax(){
+			$(".partialAjaxLoadingIndicator").show();
+		}
+		
+		function stopPartialAjax(){
+			$(".partialAjaxLoadingIndicator").hide();
+			recalculateTooltips();
+		}
+		
+		function showBlockScreenDialog(){
+			PF("blockScreenDialog").show();
+		}
+
+		function hideBlockScreenDialog(){
+			PF("blockScreenDialog").hide();
+		}
+	</script>
+		
+		<script defer="defer" src="https://webtools.europa.eu/load.js" type="text/javascript"></script>
+			<script type="application/json">
+				{
+					"utility": "analytics",
+					"siteID":"c7b11de6-aa14-4db3-a760-9ab58ee2ce46",
+					"sitePath":["datam.jrc.ec.europa.eu"],
+					"instance":"ec"
+					
+				}
+			</script></head><body class="euShortContent layout-noright">
+	
+	<img src="/datam/img/spin.svg" class="partialAjaxLoadingIndicator" style="display:none;" alt="loading" />
+		<div id="globan-here">
+			<script type="application/json">
+				{   
+    				"utility": "globan",
+    				"theme": "dark",
+					"lang": "en",
+					"logo": "true"
+				}
+			</script>
+		</div>
+		<script>
+			$('#globan-here').bind('DOMNodeInserted', function(){
+			  $(window).resize();
+			});
+		</script>
+		<style>
+			#globan-here {
+				
+					height: 28px
+				
+			}
+		</style>
+
+		<script type="application/json">
+			{   
+    			"utility" : "cck"
+				
+			}
+		</script>
+		
+		<script>
+			PreviewGeo.map_tile_background = "https://gisco-services.ec.europa.eu/maps/tiles/CountriesWorld/EPSG{projection}/{z}/{x}/{y}.png";
+			
+			// positions dataset's sticky headers when the window is resized 
+			$(window).resize(function() {
+				for (var widgetVar in PrimeFaces.widgets) {
+					var widget = PrimeFaces.widgets[widgetVar];
+					if (widget && widget.stickyContainer) {
+						widget.stickyContainer
+							.css('left', widget.jq.offset().left + 'px')
+							.css('top', widget.jq.find('.ui-datatable-tablewrapper').offset().top);
+						$(window).scroll();
+					}
+				}
+			});
+		</script>
+	
+		<a id="top-page" name="top-page"></a>
+	
+		<div id="europa-header">
+			
+			<header data-ecl-auto-init="SiteHeaderHarmonised" class="ecl-site-header-harmonised ecl-site-header-harmonised--group1">
+				<div class="ecl-site-header-harmonised__container ecl-container">
+					<div class="ecl-site-header-harmonised__top">
+						<a class="ecl-link ecl-link--standalone ecl-site-header-harmonised__logo-link" href="https://ec.europa.eu/" aria-label="European Commission">
+							<img alt="European Commission logo" title="European Commission" class="ecl-site-header-harmonised__logo-image" src="/datam/css/europa_layout/images/logo/logo--en.svg" />
+						</a>
+						<div class="ecl-site-header-harmonised__action">
+							
+							<div class="ecl-site-header-harmonised__login-container">
+									<a class="ecl-link ecl-link--standalone ecl-site-header-harmonised__login-toggle" href="/datam/login">
+										<svg focusable="false" aria-hidden="true" class="ecl-site-header-harmonised__icon ecl-icon ecl-icon--s">
+											<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#general--log-in"></use>
+										</svg>Log in
+									</a>
+								
+							</div>
+							
+							<div class="ecl-site-header-harmonised__search-container">
+								<a class="ecl-link ecl-link--standalone ecl-site-header-harmonised__search-toggle" href="/example" data-ecl-search-toggle="true" aria-controls="search-form-id" aria-expanded="false">
+									<svg focusable="false" aria-hidden="true" class="ecl-icon ecl-icon--s">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#general--search"></use>
+									</svg>Search
+								</a>
+								
+								
+								<form id="search-form-id" data-ecl-search-form="true" class="ecl-site-header-harmonised__search ecl-search-form" role="search">
+<form id="j_idt48" name="j_idt48" method="post" action="/datam/public/pages/infrastructure/messages/cookiesNotSupported.xhtml" class="ecl-site-header-harmonised__search ecl-search-form" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt48" value="j_idt48" />
+
+									
+										<div class="ecl-form-group"><label for="j_idt48:search-input-id" class="ecl-search-form__label ecl-form-label">Search</label><input id="j_idt48:search-input-id" name="j_idt48:search-input-id" type="text" maxlength="128" onkeydown="if (event.keyCode === 13) { $(this).parents('.ecl-search-form').find('.ecl-search-form__button').click(); }" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ecl-search-form__text-input ecl-text-input" /><script id="j_idt48:search-input-id_s" type="text/javascript">PrimeFaces.cw("InputText","widget_j_idt48_search_input_id",{id:"j_idt48:search-input-id"});</script>
+										</div><button id="j_idt48:j_idt53" name="j_idt48:j_idt53" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ecl-search-form__button ecl-button ecl-button--search ecl-button__label" onclick="PrimeFaces.ab({s:&quot;j_idt48:j_idt53&quot;,onsu:function(data,status,xhr){showBlockScreenDialog();;}});return false;" type="submit"><span class="ui-button-icon-left ui-icon ui-c fa fa-search"></span><span class="ui-button-text ui-c">Search</span></button><script id="j_idt48:j_idt53_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt48_j_idt53",{id:"j_idt48:j_idt53"});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="3073556228450152053:-7357103637188639983" autocomplete="off" />
+</form>
+								</form>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</header>
+			
+			
+			<nav class="ecl-menu" aria-expanded="false" data-ecl-menu="true" data-ecl-auto-init="Menu">
+				<div class="ecl-menu__overlay" data-ecl-menu-overlay="true"></div>
+				<div class="ecl-container ecl-menu__container">
+					<a class="ecl-link ecl-link--standalone ecl-menu__open" href="/example" data-ecl-menu-open="true">
+						<svg focusable="false" aria-hidden="true" class="ecl-icon ecl-icon--s">
+							<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#general--hamburger"></use>
+						</svg>Menu
+					</a>
+					<div class="ecl-menu__site-name">Data-Modelling platform of resource economics</div>
+					<section class="ecl-menu__inner" data-ecl-menu-inner="true">
+						<header class="ecl-menu__inner-header">
+							<button data-ecl-menu-close="true" type="submit" class="ecl-menu__close ecl-button ecl-button--text">
+								<span class="ecl-menu__close-container ecl-button__container">
+									<svg focusable="false" aria-hidden="true" data-ecl-icon="true" class="ecl-button__icon ecl-button__icon--before ecl-icon ecl-icon--s">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--close-filled"></use>
+									</svg>
+									<span class="ecl-button__label" data-ecl-label="true">Close</span>
+								</span>
+							</button>
+							<div class="ecl-menu__title">Menu</div>
+							<button data-ecl-menu-back="true" type="submit" class="ecl-menu__back ecl-button ecl-button--text">
+								<span class="ecl-button__container">
+									<svg focusable="false" aria-hidden="true" data-ecl-icon="true" class="ecl-button__icon ecl-button__icon--before ecl-icon ecl-icon--s ecl-icon--rotate-270">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+									</svg>
+									<span class="ecl-button__label" data-ecl-label="true">Back</span>
+								</span>
+							</button>
+						</header>
+						
+						<ul class="ecl-menu__list">
+							<li class="ecl-menu__item" data-ecl-menu-item="true" id="menu_HOME">
+								<a href="/datam/public/pages/index.xhtml" class="ecl-menu__link" data-ecl-menu-link="true">Home</a>
+							</li>
+							
+							<li class="ecl-menu__item" data-ecl-menu-item="true" id="menu_OPEN_DATA">
+								<a href="/datam/public/pages/openData.xhtml" class="ecl-menu__link" data-ecl-menu-link="true">Data</a>
+							</li>
+							
+							<li class="ecl-menu__item" data-ecl-has-children="true" data-ecl-menu-item="true" id="menu_CATEGORY">
+								<a href="#" class="ecl-menu__link" data-ecl-menu-link="true">Sections
+									<svg focusable="false" aria-hidden="true" class="ecl-menu__link-icon ecl-icon ecl-icon--xs ecl-icon--rotate-90">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+									</svg>
+								</a>
+								<div class="ecl-menu__mega" data-ecl-menu-mega="true">
+									<ul class="ecl-menu__sublist">
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/IMAP">Agriculture &amp; economics</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/BIOECONOMY">Bioeconomy</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/CLIMATE_CHANGE">Climate change</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/FS_MONITORING">EU Food System Monitoring</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/FOOD_NUTRITION">Food and nutrition security</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/FOOD_CHAIN">Food chain</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/RESILIENCE">Monitoring Frameworks</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/PANAP">PANAP official website</a>
+											</li>
+											<li class="ecl-menu__subitem">
+												<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/TECHNOLOGIES">Technologies in agriculture and food safety</a>
+											</li>
+									</ul>
+								</div>
+							</li>
+								<li class="ecl-menu__item" data-ecl-has-children="true" data-ecl-menu-item="true" id="menu_MODEL">
+									<a href="#" class="ecl-menu__link" data-ecl-menu-link="true">Models
+										<svg focusable="false" aria-hidden="true" class="ecl-menu__link-icon ecl-icon ecl-icon--xs ecl-icon--rotate-90">
+											<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+										</svg>
+									</a>
+									<div class="ecl-menu__mega" data-ecl-menu-mega="true">
+										<ul class="ecl-menu__sublist ecl-menu__sublist--5">
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.agri-outlook.org/en/about.html" target="_blank">AGLINK-COSIMO
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://agmemod.eu" target="_blank">AGMEMOD 
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www-iam.nies.go.jp/aim" target="_blank">AIM
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.capri-model.org" target="_blank">CAPRI
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/model/DEMETRA" target="_blank">DEMETRA
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/model/FSSIM_DEV" target="_blank">FSSIM-Dev
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="http://www.globiom.org" target="_blank">GLOBIOM
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/model/IFM_CAP" target="_blank">IFM-CAP
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://models.pbl.nl/image/index.php/Welcome_to_IMAGE_3.0_Documentation" target="_blank">IMAGE
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.ifpri.org/project/ifpri-impact-model" target="_blank">IMPACT
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.magnet-model.eu" target="_blank">MAGNET
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.pik-potsdam.de/en/institute/departments/activities/land-use-modelling/magpie" target="_blank">MAgPIE
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://ruc.noaa.gov/wrf/wrf-chem" target="_blank">WRF-Chem
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+										</ul>
+									</div>
+								</li>
+								<li class="ecl-menu__item" data-ecl-has-children="true" data-ecl-menu-item="true" id="menu_PARTNER">
+									<a href="#" class="ecl-menu__link" data-ecl-menu-link="true">Partners
+										<svg focusable="false" aria-hidden="true" class="ecl-menu__link-icon ecl-icon ecl-icon--xs ecl-icon--rotate-90">
+											<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+										</svg>
+									</a>
+									<div class="ecl-menu__mega" data-ecl-menu-mega="true">
+										<ul class="ecl-menu__sublist ecl-menu__sublist--4">
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/IMAP#section-PARTNER">For Agriculture &amp; economics
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/BIOECONOMY#section-PARTNER">For Bioeconomy
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/CLIMATE_CHANGE#section-PARTNER">For Climate change
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/FOOD_NUTRITION#section-PARTNER">For Food and nutrition security
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/FOOD_CHAIN#section-PARTNER">For Food chain
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/area/PANAP#section-PARTNER">For PANAP official website
+													</a>
+												</li>
+										</ul>
+									</div>
+								</li>
+								<li class="ecl-menu__item" data-ecl-has-children="true" data-ecl-menu-item="true" id="menu_PROJECT">
+									<a href="#" class="ecl-menu__link" data-ecl-menu-link="true">Projects
+										<svg focusable="false" aria-hidden="true" class="ecl-menu__link-icon ecl-icon ecl-icon--xs ecl-icon--rotate-90">
+											<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+										</svg>
+									</a>
+									<div class="ecl-menu__mega" data-ecl-menu-mega="true">
+										<ul class="ecl-menu__sublist ecl-menu__sublist--4">
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="http://www.agmip.org" target="_blank">AgMIP
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://batmodel.org/" target="_blank">BATmodel
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://datam.jrc.ec.europa.eu/datam/project/BIOMONITOR" target="_blank">BioMonitor
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.gtap.agecon.purdue.edu" target="_blank">GTAP
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.cartif.es/en/in-pact-en/" target="_blank">IN-PACT
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.lamasus.de" target="_blank">LAMASUS
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://agriculture.ec.europa.eu/data-and-analysis/markets/outlook/medium-term_en" target="_blank">Medium-term agricultural outlook
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="http://www.agri-outlook.org" target="_blank">OECD-FAO Agricultural Outlook
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://agriculture.ec.europa.eu/data-and-analysis/markets/outlook/short-term_en" target="_blank">Short-term agricultural outlook
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+												<li class="ecl-menu__subitem">
+													<a class="ecl-menu__sublink" href="https://www.suprema-project.eu" target="_blank">SUPREMA
+															<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+																<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+															</svg>
+													</a>
+												</li>
+										</ul>
+									</div>
+								</li>
+							
+							<li class="ecl-menu__item" data-ecl-has-children="true" data-ecl-menu-item="true" id="menu_NEWS">
+								<a href="#" class="ecl-menu__link" data-ecl-menu-link="true">News
+									<svg focusable="false" aria-hidden="true" class="ecl-menu__link-icon ecl-icon ecl-icon--xs ecl-icon--rotate-90">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+									</svg>
+								</a>
+								<div class="ecl-menu__mega" data-ecl-menu-mega="true">
+									<ul class="ecl-menu__sublist">
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/public/pages/newsList.xhtml">All news</a>
+										</li>
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/public/pages/newsletterList.xhtml">Old newsletters</a>
+										</li>
+										<li class="ecl-menu__subitem">
+	
+		<script>
+			function generateCaptcha() {
+				var captchaImg = $("img[id$=':captchaImg']");
+				$("input[id$=':captcha']").val("");
+				if (!captchaImg.attr("original-src")) {
+					captchaImg.attr("original-src", captchaImg.attr("src"));
+				} 
+				captchaImg.attr('src', captchaImg.attr("original-src") + "?ts=" + new Date().getTime());
+			}
+		</script><div id="subscribeButtons:j_idt69" class="ui-outputpanel ui-widget subscribe-control ecl-menu__sublink" style=""><a id="subscribeButtons:j_idt77" href="#" class="ui-commandlink ui-widget tooltip" aria-label="Subscribe to DataM newsletter" onclick="PF('confirmAnonymousSubscribeDialog').show(); generateCaptcha(); return;;PrimeFaces.ab({s:&quot;subscribeButtons:j_idt77&quot;,u:&quot;subscribeAnonymousForm:confirmNewsletterSendingDialogContents&quot;});return false;" title="Subscribe to DataM newsletter">Subscribe to newsletter</a></div>
+										</li>
+									</ul>
+								</div>
+							</li>
+							
+							<li class="ecl-menu__item" data-ecl-menu-item="true" id="menu_PUBLICATIONS">
+								<a href="https://datam.jrc.ec.europa.eu/datam/mashup/DATAM_PUBLICATIONS/" class="ecl-menu__link" data-ecl-menu-link="true" target="_blank">Publications</a>
+							</li>
+							
+							<li class="ecl-menu__item ecl-custom-menu__long" data-ecl-has-children="true" data-ecl-menu-item="true" id="menu_ABOUT">
+								<a href="#" class="ecl-menu__link" data-ecl-menu-link="true">About
+									<svg focusable="false" aria-hidden="true" class="ecl-menu__link-icon ecl-icon ecl-icon--xs ecl-icon--rotate-90">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+									</svg>
+								</a>
+								<div class="ecl-menu__mega" data-ecl-menu-mega="true">
+									<ul class="ecl-menu__sublist  ecl-menu__sublist--6">
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/public/pages/about.xhtml">About DataM</a>
+										</li>
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/public/pages/legal.xhtml">Legal notice and data copyrights</a>
+										</li>
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="https://ec.europa.eu/dpo-register/detail/DPR-EC-00258" target="_blank">Privacy statement</a>
+										</li>
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/public/pages/apiReference.xhtml">API documentation</a>
+										</li>
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/mashup/HOW_TO_EMBED/" target="_blank">How to embed our dashboards</a>
+										</li>
+										<li class="ecl-menu__subitem">
+											<a class="ecl-menu__sublink" href="/datam/mashup/DATAM_USAGE_STATISTICS/" target="_blank">Statistics of usage</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</section>
+				</div>
+			</nav>
+			
+		
+			
+			<div>
+				<div class="ecl-page-header-harmonised">
+					<div class="ecl-container">
+						<nav data-ecl-auto-init="BreadcrumbHarmonised" class="ecl-page-header-harmonised__breadcrumb ecl-breadcrumb-harmonised" aria-label="You are here:" data-ecl-breadcrumb-harmonised="true">
+							<ol class="ecl-breadcrumb-harmonised__container">
+									
+									<li class="ecl-breadcrumb-harmonised__segment">
+										<a href="/datam" class="ecl-breadcrumb-harmonised__link ecl-link ecl-link--standalone">Home
+										</a>
+										<svg focusable="false" aria-hidden="true" role="presentation" class="ecl-breadcrumb-harmonised__icon ecl-icon ecl-icon--2xs ecl-icon--rotate-90">
+											<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--corner-arrow"></use>
+										</svg>
+									</li>
+									<li class="ecl-breadcrumb-harmonised__segment ecl-breadcrumb-harmonised__current-page" aria-current="page">
+										<span>An error occurred...</span>
+									</li>
+							</ol>
+						</nav>
+						
+						<div class="ecl-page-header-harmonised__meta"><span class="ecl-u-type-uppercase"></span></div>
+								<div class="ecl-row">
+									<h1 class="ecl-page-header-harmonised__title ecl-col-12">An error occurred...</h1>
+								</div>
+	
+							<div class="ecl-page-header-harmonised__description"></div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<script type="text/javascript">
+				$(document).ready(function() {
+
+					// We select the active menu
+					$(".ecl-menu li[id='menu_']").toggleClass('ecl-menu__item--current');
+					
+					// prepare the breadcrumb before autoInit. The first, last and second to last elemenets should be static. The rest should be expandable					
+					$('.ecl-breadcrumb-harmonised li:not(.ecl-breadcrumb-harmonised__segment--ellipsis):not(:first-child):not(:last-child):not(:nth-last-child(2))').attr('data-ecl-breadcrumb-harmonised-item', 'expandable');
+					$('.ecl-breadcrumb-harmonised li:first-child, .ecl-breadcrumb-harmonised li:last-child, .ecl-breadcrumb-harmonised li:nth-last-child(2)').attr('data-ecl-breadcrumb-harmonised-item', 'static');
+					
+					ECL.autoInit();
+					
+					// functions needed to fix problems with Menu and sticky datatables
+					function disableStickyDatatable() {
+						$('.ui-datatable .ui-datatable.ui-datatable-sticky').addClass('ecl-u-d-none');
+					}
+					function enableStickyDatatable() {
+						$('.ui-datatable .ui-datatable.ui-datatable-sticky').removeClass('ecl-u-d-none');
+					}
+					
+					$('.ecl-menu .ecl-menu__item[data-ecl-has-children="true"]').on('mouseenter', function() {
+						// this code prevents problems with expandable options in the Menu and sticky headers in datatables. Desktop mode
+						if($('.ecl-menu .ecl-menu__open:visible').length == 0) {
+							disableStickyDatatable();
+						}
+					}).on('mouseleave', function() {
+						// same as previous
+						if($('.ecl-menu .ecl-menu__open:visible').length == 0) {
+							enableStickyDatatable();
+						}
+					}).find('a[data-ecl-menu-link="true"]').on('click', function(e) {
+						// this code prevents the browser from scrolling up if the user clicks on an expandable menu option
+						e.preventDefault();
+					});
+					
+					// this code prevents problems with expandable options in the Menu and sticky headers in datatables. Mobile mode
+					$('.ecl-menu .ecl-menu__open').on('click', function() {
+						disableStickyDatatable();
+						$('html').css('overflow-y', 'hidden'); // disable scroll
+					});
+					$('.ecl-menu .ecl-menu__close').on('click', function() {
+						enableStickyDatatable();
+						$('html').css('overflow-y', ''); // enable scroll
+					});
+				});
+
+				function checkComponentFormFilled(node, formName) {
+					var filled = false;
+					
+					$(node).find('input[type=text]:visible').each(function(i, el) {
+						filled = filled || $(el).val();
+					}); 
+					if(filled) {
+						$('#checkNotFillingComponentDialog--formName').text(formName || ('"' + $(node).find('.ui-panel-title').text().trim() + '"'));
+						PF('checkNotFillingComponentDialog').show();
+					}
+					return !filled;
+				}
+			</script>
+		</div>
+			
+		<div class="layout ui-fluid" id="layout" style="height: 100%; background-color: transparent;">
+				
+			<div class="layout-body">
+				<div class="">
+					<div class="ecl-container full-width" style="background: #FFF; position: initial; padding-bottom: 1rem">
+<form id="form" name="form" method="post" action="/datam/public/pages/infrastructure/messages/cookiesNotSupported.xhtml" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="form" value="form" />
+<div id="form:globalMessages" class="ui-messages ui-widget" aria-live="polite"></div><span id="form:msgs"></span><script id="form:msgs_s" type="text/javascript">$(function(){PrimeFaces.cw("Growl","msgsGrowl",{id:"form:msgs",sticky:false,life:6000,escape:true,keepAlive:false,msgs:[]});});</script>
+		<div class="ecl-container">
+			<div class="ecl-row">
+			  <div class="ecl-col-sm-12" style="margin-top: 1.5rem">
+				<div class="ecl-message ecl-message--warning" role="alert">
+				  <span class="ecl-u-sr-only">Warning message</span>
+				  <div class="ecl-message__title">Cookies are disabled in your browser.</div>
+				  <div>
+					 In order to use DataM please enable cookies in your browser.
+					 <br /> To know more about usage of cookies please follow this <a href="http://ec.europa.eu/info/cookies_en" class="ecl-link">link</a>.
+				  </div>
+				</div>
+			  </div>
+		  </div>
+		</div><div id="form:j_idt120"></div><script id="form:j_idt120_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_form_j_idt120",{id:"form:j_idt120",start:function(){PF('ajaxDialog').show()},error:function(){PF('sessionLostDialog').show();},complete:function(){PF('ajaxDialog').hide(); recalculateTooltips();}});});</script>
+								
+								
+							<script>
+								$(document).on('pfAjaxComplete', function(xhr, ajaxObj, error) {
+									if(ajaxObj.statusText == 'ECAS Authentication Required') {
+										$('#exceptionDialog_title').text('Session lost');
+										$('#errorMessage').text('Your session expired due to inactivity. Please, click the button below to be redirected to the home page.');
+										PF('exceptionDialog').show();
+									}
+								});
+							</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="3073556228450152053:-7357103637188639983" autocomplete="off" />
+</form>
+					</div>
+				</div>
+			</div>
+			
+			
+			<footer class="ecl-footer-harmonised ecl-footer-harmonised--group1">
+				<div class="ecl-container ecl-footer-harmonised__container">
+					<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section1">
+						<a href="/datam" class="ecl-footer-harmonised__title ecl-link ecl-link--standalone" aria-label="Link to site name">Data-Modelling platform of resource economics</a>
+						<div class="ecl-footer-harmonised__description">This site is managed by the Joint Research Centre</div>
+						<ul class="ecl-footer-harmonised__list">
+							<li class="ecl-footer-harmonised__list-item">
+								<a class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" href="/datam/public/pages/accessibility.xhtml" aria-label="Link to accesibility statement">Accesibility</a>
+							</li>
+						</ul>
+					</section>
+					<div class="ecl-footer-harmonised__section2">
+						<section class="ecl-footer-harmonised__section">
+							<div class="ecl-footer-harmonised__title ecl-footer-harmonised__title--separator">About us</div>
+							<ul class="ecl-footer-harmonised__list">
+									<li class="ecl-footer-harmonised__list-item">
+										<a class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" href="mailto:JRC-DATAM@ec.europa.eu" aria-label="Contact">Contact</a>
+									</li>
+									<li class="ecl-footer-harmonised__list-item">
+										<a class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" href="https://datam.jrc.ec.europa.eu/datam/public/pages/legal.xhtml" aria-label="Legal notice">Legal notice</a>
+									</li>
+									<li class="ecl-footer-harmonised__list-item">
+										<a class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" href="https://ec.europa.eu/dpo-register/detail/DPR-EC-00258" aria-label="Privacy statement">Privacy statement</a>
+									</li>
+							</ul>
+						</section>
+					</div>
+					<div class="ecl-footer-harmonised__section3">
+						<section class="ecl-footer-harmonised__section">
+							<div class="ecl-footer-harmonised__title ecl-footer-harmonised__title--separator">Version</div>
+							<ul class="ecl-footer-harmonised__list">
+								<li class="ecl-footer-harmonised__list-item">
+									<span class="ecl-footer-harmonised__link ecl-link ecl-link--standalone">DataM v6.07.01</span>
+								</li>
+								<li class="ecl-footer-harmonised__list-item">
+									<span class="ecl-footer-harmonised__link ecl-link ecl-link--standalone">Last update: 27/08/2026</span>
+								</li>
+							</ul>
+						</section>
+					</div>
+					<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section6"></section>
+					<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section7">
+						<a href="https://ec.europa.eu/info/index_en" class="ecl-footer-harmonised__title ecl-link ecl-link--standalone" aria-label="Link to European Commission">European Commission</a>
+					</section>
+					<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section8">
+						<ul class="ecl-footer-harmonised__list">
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://ec.europa.eu/info/about-european-commission/contact_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Contact the European Commission">Contact the European Commission</a>
+							</li>
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://europa.eu/european-union/contact/social-networks_en#n:+i:4+e:1+t:+s" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone ecl-link--icon ecl-link--icon-after" aria-label="Link to Follow the European Commission on social media">
+									<span class="ecl-link__label">Follow the European Commission on social media</span> 
+									<svg focusable="false" aria-hidden="true" class="ecl-link__icon ecl-icon ecl-icon--xs">
+										<use xlink:href="/datam/css/europa_layout/images/icons/sprites/icons.svg#ui--external"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://ec.europa.eu/info/resources-partners_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone">Resources for partners</a>
+							</li>
+						</ul>
+					</section>
+					<section class="ecl-footer-harmonised__section ecl-footer-harmonised__section9">
+						<ul class="ecl-footer-harmonised__list">
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://ec.europa.eu/info/language-policy_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Language policy">Language policy</a>
+							</li>
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://ec.europa.eu/info/cookies_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Cookies">Cookies</a>
+							</li>
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://ec.europa.eu/info/privacy-policy_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Privacy policy">Privacy policy</a>
+							</li>
+							<li class="ecl-footer-harmonised__list-item">
+								<a href="https://ec.europa.eu/info/legal-notice_en" class="ecl-footer-harmonised__link ecl-link ecl-link--standalone" aria-label="Link to Legal notice">Legal notice</a>
+							</li>
+						</ul>
+					</section>
+				</div>
+			</footer><div id="j_idt132" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt132_title" class="ui-dialog-title">Please wait...</span></div><div class="ui-dialog-content ui-widget-content"><img id="j_idt133" src="/datam/img/ajaxloadingbar.gif?pfdrid_c=true" alt="loading" /></div></div><script id="j_idt132_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","ajaxDialog",{id:"j_idt132",draggable:false,resizable:false,modal:true});});</script><div id="exceptionDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container exception-dialog"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="exceptionDialog_title" class="ui-dialog-title">Exception '' occured!</span></div><div class="ui-dialog-content ui-widget-content">
+		 		<div style="text-align: center; margin: 10px"><span id="errorMessage" style="display:block; margin: 10px"></span><button id="j_idt135" name="j_idt135" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="window.location.href='/datam/';return false;;window.open('\/datam\/public\/pages\/infrastructure\/messages\/cookiesNotSupported.xhtml','_self')"><span class="ui-button-text ui-c">Go to homepage</span></button><script id="j_idt135_s" type="text/javascript">PrimeFaces.cw("Button","widget_j_idt135",{id:"j_idt135"});</script>
+		        </div></div></div><script id="exceptionDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","exceptionDialog",{id:"exceptionDialog",resizable:false,modal:true});});</script><div id="j_idt137" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt137_title" class="ui-dialog-title">Please wait...</span></div><div class="ui-dialog-content ui-widget-content"><img id="j_idt138" src="/datam/img/ajaxloadingbar.gif?pfdrid_c=true" alt="loading" /></div></div><script id="j_idt137_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","blockScreenDialog",{id:"j_idt137",draggable:false,resizable:false,modal:true});});</script><div id="j_idt139" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container exception-dialog"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt139_title" class="ui-dialog-title">Session lost</span></div><div class="ui-dialog-content ui-widget-content">
+				<p>Your session expired. Please, click the button below to be redirected to the home page.</p><button id="j_idt141" name="j_idt141" type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="margin-top: 2em; margin-left: auto; margin-right: auto; display: block;" onclick="window.open('\/datam\/public\/pages\/index.xhtml','_self')"><span class="ui-button-text ui-c">OK</span></button><script id="j_idt141_s" type="text/javascript">PrimeFaces.cw("Button","widget_j_idt141",{id:"j_idt141"});</script></div></div><script id="j_idt139_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","sessionLostDialog",{id:"j_idt139",draggable:false,resizable:false,modal:true});});</script><div id="checkNotFillingComponentDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="checkNotFillingComponentDialog_title" class="ui-dialog-title">Component form being filled</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content">
+						<p>
+							This action cannot be performed while <span id="checkNotFillingComponentDialog--formName"></span> form has unsaved changes.
+						</p>
+						<p>Please, submit or clear entered information and try again.
+						</p><div style="text-align: center; margin-top:1em;"><button id="j_idt148" name="j_idt148" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="PrimeFaces.ab({s:&quot;j_idt148&quot;,p:&quot;j_idt148&quot;,g:false,onco:function(xhr,status,args){PF('checkNotFillingComponentDialog').hide();;}});return false;" type="submit"><span class="ui-button-text ui-c">Close</span></button><script id="j_idt148_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt148",{id:"j_idt148"});</script></div></div></div><script id="checkNotFillingComponentDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","checkNotFillingComponentDialog",{id:"checkNotFillingComponentDialog",modal:true,closeOnEscape:true});});</script>
+<form id="subscribeAnonymousForm" name="subscribeAnonymousForm" method="post" action="/datam/public/pages/infrastructure/messages/cookiesNotSupported.xhtml" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="subscribeAnonymousForm" value="subscribeAnonymousForm" />
+<div id="subscribeAnonymousForm:confirmAnonymousSubscribeDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container small-dialog"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="subscribeAnonymousForm:confirmAnonymousSubscribeDialog_title" class="ui-dialog-title">Subscribe to newsletter</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="subscribeAnonymousForm:confirmAnonymousSubscribeDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","confirmAnonymousSubscribeDialog",{id:"subscribeAnonymousForm:confirmAnonymousSubscribeDialog",modal:true,dynamic:true,position:"center",closeOnEscape:true});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="3073556228450152053:-7357103637188639983" autocomplete="off" />
+</form>
+<form id="subscribeForm" name="subscribeForm" method="post" action="/datam/public/pages/infrastructure/messages/cookiesNotSupported.xhtml" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="subscribeForm" value="subscribeForm" />
+<div id="subscribeForm:confirmSubscribeDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container small-dialog"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="subscribeForm:confirmSubscribeDialog_title" class="ui-dialog-title">Subscribe to newsletter</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="subscribeForm:confirmSubscribeDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","confirmSubscribeDialog",{id:"subscribeForm:confirmSubscribeDialog",modal:true,dynamic:true,position:"center",closeOnEscape:true});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:3" value="3073556228450152053:-7357103637188639983" autocomplete="off" />
+</form>
+<form id="unsubscribeForm" name="unsubscribeForm" method="post" action="/datam/public/pages/infrastructure/messages/cookiesNotSupported.xhtml" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="unsubscribeForm" value="unsubscribeForm" />
+<div id="unsubscribeForm:confirmUnsubscribeDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container small-dialog"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="unsubscribeForm:confirmUnsubscribeDialog_title" class="ui-dialog-title">Unsubscribe from newsletter</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="unsubscribeForm:confirmUnsubscribeDialog_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","confirmUnsubscribeDialog",{id:"unsubscribeForm:confirmUnsubscribeDialog",modal:true,dynamic:true,position:"center",closeOnEscape:true});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:4" value="3073556228450152053:-7357103637188639983" autocomplete="off" />
+</form>
+		</div></body>
+</html>
