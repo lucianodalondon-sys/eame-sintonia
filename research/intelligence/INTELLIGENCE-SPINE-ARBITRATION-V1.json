@@ -1,0 +1,249 @@
+{
+  "DATASET": "SINTONIA-INTELLIGENCE-SPINE-ARBITRATION-V1",
+  "AVISO": "ARBITRAGEM DE ESPINHA. Nao autoriza implementacao, nao promove Biblia, nao altera Collection.",
+  "MISSAO": "C-INT-SPINE-01",
+  "MEDIDO_EM": "2026-09-14",
+  "BRANCH": "claude/label-intelligence-v1-italy",
+  "INITIAL_HEAD": "6afba2efd0aad240df1aac3e7143501041478788",
+  "CONSTITUICAO": "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md V0.2 (CANDIDATE) @ 7ae1b510",
+  "ARBITRAGEM_ANTERIOR": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json @ 87712a01",
+  "FRONTEIRA_UPSTREAM": "BIBLIA-CANONICA-DA-COLETA.md V1.4 · admissao.pronto_para_inteligencia() (12 campos)",
+  "FUNCTIONAL_HEAD_MEDIDO": "f888776dffd789053fbaf39fc9fe630c74dde3ef",
+  "MEDIDO_CONTRA": "origin/claude/epic-archimedes-ryo0ms @ dc00583d",
+  "CONTROL_PLANE_ATOMICITY": "FAIL",
+
+  "ESPINHA": [
+    "INTELLIGENCE_REQUEST",
+    "INTELLIGENCE_RUN",
+    "EVIDENCE_SELECTION",
+    "G0_IDENTIDADE_E_ESPECIE",
+    "SIGNAL",
+    "G1_SCREENING",
+    "G2_CROSSING",
+    "G3_HYPOTHESIS",
+    "G4_VALIDACAO_E_PROMOCAO",
+    "FINDING",
+    "G5_WATCH | G6_OPPORTUNITY",
+    "RECOMMENDATION",
+    "OUTCOME_LOOP / DEMOTED_BY"
+  ],
+
+  "DECISOES_DESTA_MISSAO": {
+    "EVIDENCE": {
+      "VEREDITO": "NAO_E_ENTIDADE_DA_INTELLIGENCE",
+      "PORQUE": "o que atravessa a fronteira e o READY_ITEM de 12 campos, dono COLLECTION. A Intelligence possui apenas a aresta EVIDENCE_SELECTION (RUN_ID -> ITEM_ID).",
+      "LEI": "INT-LAW-000 · INT-LAW-031 · COL-LAW-043"
+    },
+    "JUDGMENT": {
+      "VEREDITO": "NAO_E_ESTAGIO",
+      "PORQUE": "a arbitragem V1 ja escreveu 'FINDING / ANALYTIC_JUDGMENT' como UMA entrada com UM dono. O julgamento e o ATO, materializado em arestas APOIA/CONTRADIZ que nascem em G3.",
+      "LEI": "INT-LAW-032 · INT-LAW-033 · INT-LAW-038"
+    },
+    "CANDIDATE_FINDING": {
+      "VEREDITO": "RENOMEADO_PARA_ANALYTIC_HYPOTHESIS",
+      "PORQUE": "o nome canonico ja existe. Dois nomes para o mesmo objeto e o comeco de dois donos.",
+      "LEI": "INT-LAW-035"
+    },
+    "VALIDATION_QUEUE": {
+      "VEREDITO": "NAO_E_ENTIDADE",
+      "PORQUE": "e a projecao { h : portao exige humano AND h.VALIDACAO = PENDENTE }. O estado vive no objeto. Uma fila com armazenamento proprio e um segundo dono da mesma verdade.",
+      "LEI": "INT-LAW-170 · INT-LAW-172 · INT-LAW-173",
+      "SINAL_A_VIGIAR": "se a fila ganhar um id, deixou de ser projecao"
+    },
+    "REVERSAL": {
+      "VEREDITO": "NAO_E_ENTIDADE_E_CLASSE_DE_TRANSICAO",
+      "PORQUE": "sete causas canonicas com destino fixo, materializadas na aresta DEMOTED_BY e num evento append-only.",
+      "LEI": "INT-LAW-210 · INT-LAW-211 · INT-LAW-213"
+    },
+    "COLLECTION_GAP": {
+      "VEREDITO": "PARTE_SE_EM_DOIS_DONOS",
+      "PORQUE": "leis/gestao_da_coleta.py (CONTRATO GESTAO_DA_COLETA/v1, adicionado em 220e0e7a 2026-09-08) ja possui GAP_ID, SATISFACTION_STATE, DECISOES e a fronteira GESTOR/ORQUESTRADOR. A Intelligence emite NECESSIDADE; a Collection mede o GAP e decide a rota.",
+      "CORRIGE": "INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json, que declarou COLLECTION_GAP como '0 ficheiros na arvore' — literalmente verdade para o token, e errado para o conceito.",
+      "CAUSA_DO_ERRO": "a branch da arbitragem (87712a01) nao contem leis/gestao_da_coleta.py. CONTROL_PLANE_ATOMICITY = FAIL produziu uma medicao correta sobre fotografia incompleta.",
+      "LEI": "INT-LAW-020 · INT-LAW-151 · INT-LAW-152"
+    },
+    "SCREENING": {
+      "VEREDITO": "ACRESCENTADO_COMO_PORTAO",
+      "PORQUE": "EFSA 2017-2024: 392 pragas novas, 27 rementionadas (~7%). Sem rastreio barato feito para descartar, 93% de intelligence falsa com aparencia impecavel.",
+      "HARD_GATE": "um rastreio que nunca descarta nao e um rastreio; NAO SEI num criterio duro nao passa"
+    },
+    "INTELLIGENCE_REQUEST": {
+      "VEREDITO": "RECUPERADO_NAO_INVENTADO",
+      "PORQUE": "ja existe na arbitragem V1 com dono e estado NOT_IMPLEMENTED, e no know-how §14 como KIT/KIQ."
+    }
+  },
+
+  "CONCEITOS": {
+    "INTELLIGENCE_REQUEST": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "REQUEST_ID",
+      "CURRENT": "NOT_IMPLEMENTED", "TARGET": "objeto de primeira classe"
+    },
+    "INTELLIGENCE_RUN": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "INTELLIGENCE_RUN_ID",
+      "CURRENT": "NOT_IMPLEMENTED — grep INTELLIGENCE_RUN = 0 ficheiros em dc00583d",
+      "TARGET": "execucao identificada com config efetiva e historia append-only",
+      "LEI": "INT-LAW-050..054"
+    },
+    "EVIDENCE / READY_ITEM": {
+      "OWNER": "COLLECTION", "IDENTITY": "ITEM_ID + RAW_OBSERVATION_ID",
+      "CURRENT": "IMPLEMENTED + OBSERVED — 12 campos",
+      "TARGET": "+1 campo: EVIDENCE_SPECIES (pedido, nao alteracao)",
+      "INTELLIGENCE_POSSUI": "EVIDENCE_SELECTION (RUN_ID -> ITEM_ID)"
+    },
+    "SIGNAL": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "SIGNAL_ID",
+      "DEFINICAO": "leitura tipada de UM item READY dentro de UMA corrida; classificacao com proveniencia, nao registo nem interpretacao nem relacao",
+      "STATE": ["SINAL", "RASTREADO", "DESCARTADO"],
+      "CURRENT": "NOT_IMPLEMENTED — ANALYTIC_SIGNAL = 0 ficheiros; SIGNAL_ID em 9 ficheiros sem dono",
+      "TARGET": "objeto de primeira classe com espécie obrigatoria",
+      "BLOQUEIO": "EVIDENCE_SPECIES nao atravessa a fronteira (0 de 12 campos)"
+    },
+    "CROSSING": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "CROSSING_ID",
+      "DEFINICAO": "coincidencia estrutural com chave de juncao provada, SEM julgamento",
+      "STATE": ["PROVADO", "PARCIAL", "NOT_POSSIBLE", "UNKNOWN"],
+      "CURRENT": "IMPLEMENTED + OBSERVED — motor/v21_crossings.py, 8 invariantes",
+      "TARGET": "o mesmo, com especie e metodo a viajarem nos sinais",
+      "LEI_QUE_CARREGA": "um cruzamento nao pode alegar mais do que o seu apoio mais fraco"
+    },
+    "JUDGMENT": {
+      "OWNER": "INTELLIGENCE (o mesmo do FINDING)", "IDENTITY": "nenhuma propria",
+      "CURRENT": "NOT_IMPLEMENTED — SUPPORT/CONTRADICTION = 0 como 1a classe",
+      "TARGET": "relacao dirigida de primeira classe, com regra e motivo por aresta"
+    },
+    "CANDIDATE_FINDING / ANALYTIC_HYPOTHESIS": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "HYPOTHESIS_ID",
+      "STATE": ["HIPOTESE", "REJEITADA", "PROMOVIDA"],
+      "VALIDACAO": ["NAO_EXIGIDA", "PENDENTE", "APROVADA", "RECUSADA"],
+      "HARD_GATE": "falsificavel — escreve-se o que a derrubaria, ou nao se abre",
+      "CURRENT": "NOT_IMPLEMENTED", "TARGET": "objeto de primeira classe"
+    },
+    "VALIDATION_QUEUE": {
+      "OWNER": "o estado vive na HIPOTESE; a projecao nao tem dono proprio",
+      "IDENTITY": "nenhuma — uma fila com identidade e uma caixa de entrada",
+      "CURRENT": "NOT_IMPLEMENTED", "TARGET": "projecao, e so projecao"
+    },
+    "FINDING": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "FINDING_ID",
+      "STATE": ["CONFIRMADO", "REBAIXADO", "REABERTO", "REJEITADO", "SUBSTITUIDO"],
+      "CURRENT": "PARCIAL — motor/v21_fechar.py fecha estados, sem traco formal; FINDING_ID = 0 ficheiros",
+      "TARGET": "objeto de primeira classe com TRACO_DE_DECISAO obrigatorio",
+      "LEI": "INT-LAW-038 · INT-LAW-140"
+    },
+    "REVERSAL": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "evento + aresta DEMOTED_BY",
+      "CAUSAS": {
+        "RECORD_INVALIDATED": "REJEITADO",
+        "NO_LONGER_PRESENT": "REBAIXADO",
+        "NORMALIZATION_REVISED": "REABERTO",
+        "SOURCE_RETRACTED": "REJEITADO",
+        "DEPENDENCY_DISCOVERED": "REBAIXADO",
+        "AUTHORIZATION_CHANGED": "SUBSTITUIDO",
+        "WINDOW_CLOSED": "REBAIXADO"
+      },
+      "CURRENT": "NOT_IMPLEMENTED — REVERSAL = 0 ficheiros; DEMOTED_BY so no documento agro",
+      "TARGET": "transicao de primeira classe, append-only"
+    },
+    "INTELLIGENCE_REQUIREMENT": {
+      "OWNER": "INTELLIGENCE", "IDENTITY": "REQUIREMENT_ID",
+      "CAMPOS": ["REQUIREMENT_ID", "O_QUE", "JANELA", "FRESCURA_EXIGIDA", "GRAO", "PORQUE_IMPORTA", "POLICY_VERSION", "LEVANTADO_POR"],
+      "RECUSA": ["GAP_ID", "SATISFACTION_STATE", "DECISION", "DECISION_ID", "ROTA", "ROUTE", "EXECUTOR", "COLETOR", "COLLECTOR", "SCRAPER", "API", "URL", "ENDPOINT", "PRIORITY"],
+      "CURRENT": "NOT_IMPLEMENTED do lado da Intelligence",
+      "TARGET": "escreve NECESSIDADE no vocabulario de GESTAO_DA_COLETA/v1"
+    },
+    "GAP / DECISION / ROTA": {
+      "OWNER": "COLLECTION (GESTAO_DA_COLETA/v1)",
+      "CURRENT": "IMPLEMENTED como contrato (leis/gestao_da_coleta.py); declara SEM_IA_VIVA",
+      "INTELLIGENCE_PODE": "ler", "INTELLIGENCE_NAO_PODE": "escrever nenhum deles"
+    },
+    "OPPORTUNITY": {
+      "OWNER": "INTELLIGENCE — motor/v21_oportunidades.py, E SO ELE",
+      "NIVEIS": {
+        "A": "OPORTUNIDADE AGRONOMICA — publico SIM",
+        "B": "OPORTUNIDADE DE PORTFOLIO REGISTADO — publico SIM",
+        "C": "OPORTUNIDADE COMERCIAL — exige dado interno com contrato",
+        "D": "OPORTUNIDADE DE VENDA — exige identidade do agricultor"
+      },
+      "CURRENT": "IMPLEMENTED + OBSERVED",
+      "NAO_REDESENHADO_NESTA_MISSAO": true
+    },
+    "RELEVANCE": {
+      "OWNER": "HUMAN_DECISION_REQUIRED",
+      "NOTA": "157 ficheiros a toca-lo e nenhuma lei a nomear dono. Nenhum portao G0..G6 o consulta; a espinha nao depende dele."
+    },
+    "PRIORITY": {
+      "OWNER": "HUMAN_DECISION_REQUIRED",
+      "NOTA": "126 ficheiros. Idem. Fica explicitamente aberto."
+    }
+  },
+
+  "PROVAS": {
+    "RUNNER": "provas/espinha_da_intelligence.py",
+    "TESTES": "tests/test_espinha_da_intelligence.py",
+    "CONTAGEM": 39,
+    "SUITE_DA_BRANCH": 368,
+    "RESULTADO": "OK",
+    "MAPA": {
+      "P1": "clima favoravel NAO vira ocorrencia",
+      "P2": "signal NAO vira finding sem promocao",
+      "P3": "crossing preserva evidencias, herda o pior lado, nao julga",
+      "P4": "judgment tem provenance por decisao; o traco chega ao achado",
+      "P5": "candidato rejeitado nao vira finding",
+      "P6": "finding pode ser reaberto; 7 causas canonicas",
+      "P7": "reversao nao apaga historico; eventos imutaveis",
+      "P8": "ontologia 1:N nao escolhe em silencio",
+      "P9": "UNKNOWN nao vira FALSE, em tres camadas",
+      "P10": "falta de evidencia produz REQUISITO, nunca rota",
+      "P11": "dois dominios na mesma espinha; pacote nao traz comportamento",
+      "P12": "dado publico nao ganha factos comerciais",
+      "FronteiraMedida": "o CURRENT escrito como teste"
+    }
+  },
+
+  "RED_TEAM": {
+    "KILLED": 11,
+    "PARTIAL": 3,
+    "SURVIVED": 0,
+    "PARTIAL_NOMEADOS": [
+      "13 · dois donos — nucleo verdadeiro: COLLECTION_GAP tinha mesmo dois donos, resolvido no §4.10",
+      "PARTIAL-A · G0 nao recebe EVIDENCE_SPECIES: o argumento cai, o estado do repositorio sobrevive",
+      "PARTIAL-B · a arbitragem V1 foi feita sobre fotografia incompleta; 1 de 22 conceitos ja mudou de veredito"
+    ]
+  },
+
+  "VEREDITOS": {
+    "INTELLIGENCE_SPINE_CONTRACT_READY": "YES",
+    "PROMOTION_MODEL_READY": "YES (contrato) · NO (materia-prima)",
+    "REVERSAL_MODEL_READY": "YES",
+    "VALIDATION_MODEL_READY": "YES",
+    "COLLECTION_GAP_CONTRACT_READY": "YES",
+    "ONTOLOGY_BOUNDARY_READY": "YES",
+    "OPPORTUNITY_BOUNDARY_READY": "YES",
+    "CONTROL_PLANE_ATOMICITY": "FAIL",
+    "INTELLIGENCE_RUNTIME_IMPLEMENTED": "NO",
+    "DISEASE_INTELLIGENCE_MAX_DEFENSIBLE_LEVEL": "NIVEL 2 — confirmado, nao alterado"
+  },
+
+  "O_QUE_NAO_MUDOU": {
+    "COLLECTION_RUNTIME": "INTACTO",
+    "SALA_DE_ESPERA": "INTACTA — 0 leituras, 0 escritas",
+    "PORTAL": "INTACTO",
+    "LIVE": "0 leituras · 0 escritas",
+    "MIGRATIONS": "INTACTAS",
+    "BIBLIA_DA_COLETA": "NAO ALTERADA",
+    "BIBLIA_DA_INTELLIGENCE": "NAO ALTERADA, NAO PROMOVIDA",
+    "MOTOR": "INTACTO — esta branch nao o contem"
+  },
+
+  "NAO_SEI": [
+    "quem possui RELEVANCE e PRIORITY",
+    "se KIT/KIQ, FIELD_VOICES e DECISION_TELEMETRY entram na Biblia antes da promocao",
+    "se CONFIDENCE deve ter escala congelada (red team da Biblia: NEEDS_CONTRACT)",
+    "quantos dos 22 conceitos da arbitragem V1 mudam de veredito contra um tronco completo — um mudou, e nao sei se e o unico",
+    "se o campo UNIVERSO do contrato READY chega para o universo analitico de INT-LAW-110/111",
+    "o custo real dos sete portoes em corpus real — nada correu contra a Sala de Espera"
+  ],
+
+  "PROXIMA_MISSAO": "C-INT-ATOMICITY-01 — construir o tronco unico e re-medir a arbitragem contra ele. NAO promove Biblia, NAO implementa INTELLIGENCE_RUN, NAO toca Collection.",
+  "KNOW_HOW_DELTA": "ATUALIZACAO NECESSARIA — handoff/KNOW-HOW-DELTA-INTELLIGENCE-SPINE.md"
+}
