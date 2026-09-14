@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "bb8f0c66c6795aae004ddd88e05711712bbf4ab4",
-    "GENERATED_AT": "2026-09-14T01:54:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b37e8aacb4e419498a780674acea7d7112ae0711c929c3a523da16f82d16371d"
+    "HEAD": "d855ec59f2580ae9b267ff9e446a27946a7a2f8c",
+    "GENERATED_AT": "2026-09-14T02:00:31+00:00",
+    "SOURCE_TREE_FINGERPRINT": "05ff2f1e1dfc05f603f22ae4aa68f2ca13c97fd1dd3814a4cd9b4349141ed2b1"
   },
   "FILES": [
     {
@@ -11434,7 +11434,7 @@
     },
     {
       "path": "tests/test_atomicidade_da_intelligence.py",
-      "sha": "7bd71f824bb9567b105308c0680995faac8d8e8b",
+      "sha": "d3035d1d9d9043a7959e2c18ab710042a31e71de",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -41894,7 +41894,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 457,
+        "line": 471,
         "snippet": "\"HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md\","
       }
     },
@@ -41971,7 +41971,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 458,
+        "line": 472,
         "snippet": "\"docs/apresentacao/PILOTO-CLASSIFICACAO.md\","
       }
     },
@@ -41982,7 +41982,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 459,
+        "line": 473,
         "snippet": "\"docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md\","
       }
     },
@@ -42004,7 +42004,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 460,
+        "line": 474,
         "snippet": "\"docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md\","
       }
     },
@@ -42015,7 +42015,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 461,
+        "line": 475,
         "snippet": "\"docs/piloto/O-QUE-PODEMOS-DIZER.md\","
       }
     },
@@ -42026,7 +42026,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 462,
+        "line": 476,
         "snippet": "\"docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md\","
       }
     },
@@ -42037,7 +42037,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 463,
+        "line": 477,
         "snippet": "\"docs/piloto/VEREDITO-M10-HANDOFF.md\","
       }
     },
@@ -42048,7 +42048,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 464,
+        "line": 478,
         "snippet": "\"docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md\","
       }
     },
@@ -42114,8 +42114,19 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 490,
-        "snippet": "self.assertIn(\"system-map/data/architecture.declared.json\", tocados,"
+        "line": 465,
+        "snippet": "\"system-map/data/architecture.declared.json\":"
+      }
+    },
+    {
+      "from_file": "tests/test_atomicidade_da_intelligence.py",
+      "to_file": "system-map/scripts/censo_do_congelamento.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_atomicidade_da_intelligence.py",
+        "line": 467,
+        "snippet": "\"system-map/scripts/censo_do_congelamento.py\":"
       }
     },
     {
@@ -54205,7 +54216,7 @@
     "files_tracked": 1771,
     "files_readable": 713,
     "files_code_dir": 760,
-    "file_edges": 3754,
+    "file_edges": 3755,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

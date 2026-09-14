@@ -2223,9 +2223,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "bb8f0c66c6795aae004ddd88e05711712bbf4ab4",
-    "GENERATED_AT": "2026-09-14T01:54:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b37e8aacb4e419498a780674acea7d7112ae0711c929c3a523da16f82d16371d"
+    "HEAD": "d855ec59f2580ae9b267ff9e446a27946a7a2f8c",
+    "GENERATED_AT": "2026-09-14T02:00:31+00:00",
+    "SOURCE_TREE_FINGERPRINT": "05ff2f1e1dfc05f603f22ae4aa68f2ca13c97fd1dd3814a4cd9b4349141ed2b1"
   },
   "FAMILIES": [
     {
@@ -6678,7 +6678,8 @@
         "C-TESTES"
       ],
       "outbound": [
-        "C-PROVA-TRAVA-MORDE"
+        "C-PROVA-TRAVA-MORDE",
+        "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {},
@@ -17672,6 +17673,7 @@
         "C-CADEIA-V21",
         "C-CENSO-ARMAZEM-IT",
         "C-CENSO-CARDS-SENSORES",
+        "C-CENSO-CONGELAMENTO",
         "C-CENSO-CORPUS-IT",
         "C-CENSO-DA-MAQUINA",
         "C-CENSO-EXECUTORES",
@@ -22339,6 +22341,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-CENSO-CONGELAMENTO",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Censo do congelamento da inteligência alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_atomicidade_da_intelligence.py",
+          "line": 467,
+          "snippet": "\"system-map/scripts/censo_do_congelamento.py\":"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-CENSO-CORPUS-IT",
@@ -33428,8 +33448,8 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 490,
-          "snippet": "self.assertIn(\"system-map/data/architecture.declared.json\", tocados,"
+          "line": 465,
+          "snippet": "\"system-map/data/architecture.declared.json\":"
         },
         {
           "file": "tests/test_mapa_nao_mente.py",
@@ -40037,8 +40057,8 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 880,
-    "edges_proven": 877,
+    "edges": 881,
+    "edges_proven": 878,
     "edges_unknown": 3,
     "business_edges": 4,
     "files_tracked": 1771,
