@@ -626,7 +626,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`](HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `6c5b166951`
+- **impressão do conteúdo medido** — `c130434137`
 - **prova** — `git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`
 - **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `tests/test_atomicidade_da_intelligence.py` *(+2)*
 - **o que ela diz de si** — MEMORIA.

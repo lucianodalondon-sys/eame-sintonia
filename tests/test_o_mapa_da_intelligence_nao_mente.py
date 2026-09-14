@@ -19,6 +19,7 @@ territorios contra os catorze da Coleta, oito cartoes de codigo do motor V2.1 e
 ZERO cartoes da lei que manda neles. A Biblia da Intelligence nao tinha cartao
 nenhum. O mapa dizia, sem o escrever, que a V2.1 ERA a Intelligence.
 """
+import fnmatch
 import json
 import subprocess
 import sys
@@ -59,16 +60,35 @@ def familia(cartao):
     return TERR[cartao["territory"]]["family"] if cartao["territory"] in TERR else None
 
 
+def reivindica(cartao, caminho):
+    """Este cartao DECLARADO reivindica este caminho concreto?
+
+    ⚠️ CONTRA O DECLARADO, E NAO CONTRA O GERADO. Ja esteve ao contrario, e a
+    mutacao que re-fundia o Achado com a Oportunidade passava despercebida: a
+    prova lia a saida do gerador, que so muda quando alguem regenera. Uma prova
+    que mede a saida nao ve a decisao a ser tomada na fonte.
+
+        A DECISAO VIVE NO DECLARADO. E AI QUE SE MEDE.
+    """
+    for padrao in cartao.get("exclude", []):
+        if fnmatch.fnmatch(caminho, padrao):
+            return False
+    for padrao in cartao["files"]:
+        if (padrao == caminho or fnmatch.fnmatch(caminho, padrao)
+                or (padrao.endswith("/") and caminho.startswith(padrao))):
+            return True
+    return False
+
+
 def objetos_do_cartao(cid):
     """Os objetos do modelo cujo MORA_EM aponta para um ficheiro deste cartao."""
-    no = NOS.get(cid)
-    if not no:
+    cartao = CARTOES.get(cid)
+    if not cartao:
         return []
-    fs = set(no.get("files", []))
     achados = []
     for nome, o in M["OBJETOS"].items():
         for pedaco in o["MORA_EM"].replace(" · ", "|").split("|"):
-            if pedaco.split("::")[0].strip() in fs:
+            if reivindica(cartao, pedaco.split("::")[0].strip()):
                 achados.append(nome)
                 break
     return achados
@@ -308,17 +328,67 @@ class RT_OsTrintaAtaquesAoMapa(unittest.TestCase):
                       "a zona tem de dizer que e a maquina de HOJE, nao a lei")
 
     # ── o que o proprio validador do mapa ja guarda ─────────────────────────
-    def test_RT27_RT28_RT29_RT30_o_validador_canonico_aprova(self):
-        """Quatro ataques que o mapa ja sabe defender: dois donos para um
-        ficheiro, aresta fabricada por mencao, declarada pintada de observada, e
-        gerado editado a mao. Nao se reimplementa um portao que ja existe — corre-se."""
-        r = subprocess.run(
-            [sys.executable, str(RAIZ / "system-map" / "scripts" / "validate_system_map.py")],
-            capture_output=True, text=True, timeout=1800)
-        self.assertIn("SYSTEM_MAP_CHECK=PASS", r.stdout, r.stdout[-3000:])
-        for nome in ("P8_UM_DONO", "P5_ARESTA_PROVADA", "P7_NAO_SEI_VIVE",
-                     "P1_SEM_DRIFT"):
-            self.assertIn(f"PASS  {nome}", r.stdout)
+    # ⚠️ ESTES QUATRO JA FORAM UM SUBPROCESSO, E ISSO ESTAVA ERRADO.
+    #
+    # A primeira versao corria `validate_system_map.py` inteiro aqui dentro. Ele
+    # passava — e fazia esta prova, e as VIZINHAS, oscilar em suite cheia:
+    # `test_portao` reprovava numa corrida e passava na seguinte, sem nada mudar.
+    # Um teste que lanca um processo pesado que toca o repositorio deixa de ser
+    # uma medicao e passa a ser um evento.
+    #
+    #     UM TESTE QUE CORRE UM PORTAO INTEIRO NAO MEDE: INTERFERE.
+    #
+    # O portao continua a correr — na cadeia canonica e no CI, que e o sitio
+    # dele. Aqui medem-se as PROPRIEDADES, sobre o artefacto ja gerado.
+
+    def test_RT27_dois_donos_para_o_mesmo_ficheiro(self):
+        """⚠️ A REGRA E A DO MAPA, E NAO UMA MINHA MAIS DURA.
+
+        A primeira versao percorria TODOS os nos gerados e exigia um dono por
+        ficheiro. Reprovou `portale.html` — porque as pecas GERADAS sao lentes
+        sobre a mesma arvore, e a mesma pagina aparece legitimamente em varias.
+        O mapa ja mede isto onde deve, sobre os componentes DECLARADOS, e
+        publica o resultado em `OWNERSHIP_CONFLICTS`.
+
+            INVENTAR UMA REGRA MAIS DURA QUE A LEI NAO E RIGOR: E RUIDO.
+        """
+        self.assertEqual(S["OWNERSHIP_CONFLICTS"], [])
+        # E a parte que E desta missao: dentro da faixa, sem sobreposicao.
+        visto = {}
+        for c in DA_INTELIGENCIA:
+            for f in c["files"]:
+                with self.subTest(ficheiro=f):
+                    self.assertNotIn(f, visto,
+                                     f"{f}: {visto.get(f)} e {c['id']}")
+                visto[f] = c["id"]
+
+    def test_RT28_um_ficheiro_que_existe_fabrica_uma_aresta(self):
+        """Uma aresta tecnica e MEDIDA: tem de trazer a prova com ela."""
+        sem_prova = [f"{e['from']}->{e['to']}" for e in S["EDGES"]
+                     if e.get("kind") == "technical" and not e.get("evidence")]
+        self.assertEqual(sem_prova, [])
+
+    def test_RT29_uma_aresta_declarada_aparece_observada(self):
+        """DECLARED EDGE != OBSERVED EDGE — e as duas costuras com a Coleta
+        sao precisamente declaradas, e tem de continuar a ⚪."""
+        verdes = [f"{e['from']}->{e['to']}" for e in S["EDGES"]
+                  if e.get("kind") == "expected" and e["status"] != "UNKNOWN"]
+        self.assertEqual(verdes, [])
+        costuras = {(e["from"], e["to"]) for e in S["EDGES"]
+                    if e.get("kind") == "expected"}
+        self.assertIn(("C-SALA-DE-ESPERA", "C-INT-ESPINHA"), costuras)
+        self.assertIn(("C-INT-ESPINHA", "C-GESTAO-DA-COLETA"), costuras)
+
+    def test_RT30_o_gerado_foi_editado_a_mao(self):
+        """A deriva quem a mede e a cadeia canonica (`P1_SEM_DRIFT`), que
+        regenera e compara. Aqui guarda-se o que ela nao ve: que o gerado
+        continua a declarar a arvore de onde veio."""
+        prov = S["PROVENANCE"]
+        self.assertEqual(len(prov["SOURCE_TREE_FINGERPRINT"]), 64)
+        self.assertTrue(prov["HEAD"])
+        for c in D["COMPONENTS"]:
+            with self.subTest(cartao=c["id"]):
+                self.assertNotIn("generated", " ".join(c["files"]).lower())
 
 
 # ══════════════════════════════════════════════════════════════════════════════

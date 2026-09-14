@@ -2234,9 +2234,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-system-map-audit-v1",
-    "HEAD": "c328086ccfadddb9bfffd15500a847f35b2a9539",
-    "GENERATED_AT": "2026-09-14T12:44:55+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5ce844ed728e90087b75ea0138469570d7948ab455264fc9cd9325056f8170b7"
+    "HEAD": "8854a2f05ee9922979facdaed322944dd47d0424",
+    "GENERATED_AT": "2026-09-14T12:58:34+00:00",
+    "SOURCE_TREE_FINGERPRINT": "406582dd31e98826ee33544c8ea1460bc3ae52a72f86bfc079a1a8c2b418d738"
   },
   "FAMILIES": [
     {
@@ -28654,7 +28654,7 @@
         },
         {
           "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
-          "line": 201,
+          "line": 221,
           "snippet": "n = dono_do_ficheiro(\"leis/gestao_da_coleta.py\")"
         }
       ],
@@ -29401,7 +29401,7 @@
         },
         {
           "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
-          "line": 90,
+          "line": 110,
           "snippet": "biblia = dono_do_ficheiro(\"BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md\")"
         }
       ],
@@ -29647,7 +29647,7 @@
       "evidence": [
         {
           "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
-          "line": 39,
+          "line": 40,
           "snippet": "M = carregar(\"docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json\")"
         }
       ],
@@ -31292,17 +31292,12 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Validador do System Map alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "Validador do System Map alimenta Suite de testes. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "tests/test_mapa_nao_mente.py",
           "line": 129,
           "snippet": "\"validate_system_map.py\"), encoding=\"utf-8\") as f:"
-        },
-        {
-          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
-          "line": 316,
-          "snippet": "[sys.executable, str(RAIZ / \"system-map\" / \"scripts\" / \"validate_system_map.py\")],"
         }
       ],
       "categoria": "PROOF"
@@ -34369,7 +34364,7 @@
         },
         {
           "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
-          "line": 37,
+          "line": 38,
           "snippet": "D = carregar(\"system-map/data/architecture.declared.json\")"
         }
       ],
@@ -36140,7 +36135,7 @@
         },
         {
           "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
-          "line": 194,
+          "line": 214,
           "snippet": "n = dono_do_ficheiro(\"admissao/sala_de_espera.py\")"
         }
       ],
