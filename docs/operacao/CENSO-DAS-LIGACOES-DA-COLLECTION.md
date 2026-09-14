@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  cd701c973bc5587e20f3bdf0b0ab25819a795abf
+HEAD_DA_MEDICAO  f5434f5e39615cb8be48e33f1e76320a7dd097f2
 BRANCH           claude/local-gpu-on-current-collection-v1
-GERADO_EM        2026-09-14T15:00:36-03:00
+GERADO_EM        2026-09-14T15:13:31-03:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -413,13 +413,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 24 · saem 19 |
-| **arestas provadas** | entram 21 · saem 19 |
+| **arestas no mapa** | entram 24 · saem 20 |
+| **arestas provadas** | entram 21 · saem 20 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 37 · OBSERVED 3 · NÃO SEI 3 |
+| **prova das ligações** | CODE 38 · OBSERVED 3 · NÃO SEI 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 

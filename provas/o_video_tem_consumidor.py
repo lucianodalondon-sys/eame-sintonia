@@ -53,6 +53,111 @@ DONO_DO_VIDEO = os.path.join("ferramentas", "reel_transcricao.py")
 FALHAS, PASSOU = [], []
 achados = {}
 
+#: Os hospedeiros que esta prova pergunta se alcanca. O pedido e SEMPRE o
+#: `robots.txt` — o unico ficheiro que todo agente tem direito de ler, e o
+#: mesmo que a casa ja le antes de qualquer outra coisa. Nao e coleta: e a
+#: pergunta «posso?», feita a quem responde.
+HOSPEDEIROS = ("www.youtube.com", "www.instagram.com")
+
+
+def _egresso():
+    """→ (OPEN | BLOCKED | NOT_MEASURED, porque, [(host, estado)]).
+
+    ⚠️ ISTO ERA UM LITERAL, E O LITERAL FICOU FALSO.
+
+    Ate aqui a linha dizia, escrita a mao, `EGRESSO = BLOCKED`, com a
+    justificacao «a politica desta sessao responde 403 CONNECT a todos os
+    hospedeiros externos». Era verdade sobre a sessao em que foi escrita. Numa
+    maquina local com rede aberta e falso — medido a 2026-09-14: `example.com`
+    devolveu 200 e `www.youtube.com` devolveu 200, no mesmo minuto em que este
+    ficheiro continuava a publicar BLOCKED.
+
+        UM AMBIENTE ESCRITO A MAO ENVELHECE NA PRIMEIRA MAQUINA DIFERENTE,
+        E UM CAMPO QUE DIZ «BLOCKED» SEM TENTAR NAO E UMA MEDICAO: E UMA
+        LEMBRANCA DE OUTRO SITIO.
+
+    E o preco nao era cosmetico. `VIDEO_TO_WAITING_ROOM` derivava dali: quem
+    lesse o artefato ia consertar a REDE, que nao esta partida — em vez de
+    olhar para o `robots.txt` e para a credencial ausente, que e onde a estrada
+    de facto para.
+
+        ATRIBUIR O BLOQUEIO AO SITIO ERRADO CUSTA A MISSAO SEGUINTE INTEIRA.
+    """
+    import scrap_http as http                                  # noqa: PLC0415
+    alcance, vivos = [], 0
+    for host in HOSPEDEIROS:
+        try:
+            ok, _porque = http.permitido("https://%s/" % host)
+        except Exception as e:                                 # noqa: BLE001
+            alcance.append((host, "NOT_REACHABLE(%s)" % type(e).__name__))
+            continue
+        # `permitido()` so responde depois de LER o robots.txt vivo do host.
+        # Uma resposta — qualquer resposta, inclusive `RECUSA` — prova que a
+        # rede chegou la. RECUSA E POLITICA, NAO E AUSENCIA DE REDE.
+        vivos += 1
+        alcance.append((host, "ROBOTS_ALLOWS" if ok else "ROBOTS_DISALLOWS"))
+    if vivos == len(HOSPEDEIROS):
+        return ("OPEN", "os %d hospedeiros responderam ao pedido de robots.txt "
+                        "desta maquina" % vivos, alcance)
+    if vivos:
+        return ("PARTIAL", "%d de %d hospedeiros responderam"
+                % (vivos, len(HOSPEDEIROS)), alcance)
+    return ("BLOCKED", "nenhum hospedeiro respondeu ao pedido de robots.txt",
+            alcance)
+
+
+def _porta_de_midia():
+    """Com a rede aberta, ONDE e que a estrada de video para de facto? → dict.
+
+    A pergunta e da POLITICA DE ROTA, e nao minha: `social_matriz` e o dono.
+    Esta funcao le o que ele declara e nao inventa nenhum estado novo.
+    """
+    try:
+        import social_matriz as mz                             # noqa: PLC0415
+    except Exception as e:                                     # noqa: BLE001
+        return {"ESTADO": "NOT_MEASURED",
+                "PORQUE": "nao consegui ler a politica de rota (%s)"
+                          % type(e).__name__}
+    permitidas = []
+    for plataforma, capacidades in (mz.MATRIZ or {}).items():
+        if not isinstance(capacidades, dict):
+            continue
+        for nome, rotas in capacidades.items():
+            if nome.startswith("_") or not isinstance(rotas, list):
+                continue
+            # ⚠️ «VIDEO» NO NOME NAO QUER DIZER BYTES DE VIDEO.
+            # A primeira versao desta regra aceitava qualquer capacidade com
+            # «VIDEO» dentro, e apanhou `FETCH_VIDEO_METADATA` — que e
+            # PERMITIDA e traz um titulo, uma duracao e um `thumbnail`. Com
+            # ela na lista, esta prova publicava «ha rota permitida para
+            # adquirir video» quando o que ha e rota para saber o NOME do
+            # video.
+            #
+            #     METADADO DO VIDEO != VIDEO. Confundi-los aqui seria
+            #     escrever, no artefato, a mentira que esta prova existe
+            #     para apanhar.
+            alvo = nome.upper()
+            if "METADATA" in alvo or not any(p in alvo for p in ("MEDIA", "BYTES")):
+                continue
+            for r in rotas:
+                if r.get("PERMITIDA") not in ("SIM", "CONDICIONAL"):
+                    continue
+                # Uma rota cujo unico acto e CARIMBAR a ausencia nao adquire
+                # nada: `marcar:MEDIA_FETCH_UNAVAILABLE` esta PERMITIDA e e
+                # NOT_APPLICABLE de proposito.
+                if r.get("ESTADO") in ("NOT_APPLICABLE",):
+                    continue
+                permitidas.append("%s/%s:%s [%s]" % (plataforma, nome,
+                                                     r.get("ROTA"),
+                                                     r.get("ESTADO")))
+    if not permitidas:
+        return {"ESTADO": "ROUTE_NOT_ALLOWED",
+                "PORQUE": "a rede esta aberta e a politica de rota nao declara "
+                          "NENHUMA rota permitida que adquira bytes de video"}
+    return {"ESTADO": "ROUTE_ALLOWED_NOT_EXERCISED",
+            "PORQUE": "ha rota(s) permitida(s) e nao exercitada(s): %s"
+                      % " · ".join(permitidas[:4])}
+
 
 def T(nome, condicao, detalhe=""):
     (PASSOU if condicao else FALHAS).append(nome)
@@ -164,15 +269,27 @@ T("a rota social canonica existe e declara ENVELOPE", rota_canonica,
 # ── 7 · E A AQUISICAO, NESTA SESSAO ──────────────────────────────────────
 print()
 print("  A AQUISICAO, NESTE AMBIENTE")
-_mede("EGRESSO", "BLOCKED",
-      "a politica desta sessao responde 403 CONNECT a todos os hospedeiros "
-      "externos medidos (eur-lex, arpa.veneto, youtube, openalex, orcid, "
-      "crossref, ipinfo). Isto e o AMBIENTE, e nao uma fonte morta.")
-_mede("SOCIAL_TO_WAITING_ROOM", "BLOCKED_BY_REAL_EXTERNAL_CONDITION",
-      "sem egresso nao ha janela publica para observar")
-_mede("VIDEO_TO_WAITING_ROOM", "BLOCKED_BY_REAL_EXTERNAL_CONDITION",
-      "sem bytes de video nesta arvore e sem egresso, e sem consumidor "
-      "declarado do lado de la")
+egresso, detalhe_do_egresso, alcance = _egresso()
+_mede("EGRESSO", egresso, detalhe_do_egresso)
+for host, estado_do_host in alcance:
+    _mede("ALCANCE_%s" % host.replace(".", "_").upper(), estado_do_host,
+          "lido agora, nesta maquina, pelo robots.txt do proprio hospedeiro")
+
+# ── E AGORA O BLOQUEIO, DERIVADO E NAO AFIRMADO ─────────────────────────
+# Com egresso ABERTO, «sem egresso» deixa de explicar coisa nenhuma — e o
+# bloqueio real passa a ser o que a POLITICA diz, que e outra coisa e tem
+# outro conserto.
+porta = _porta_de_midia()
+if egresso != "OPEN":
+    social = video = "BLOCKED_BY_REAL_EXTERNAL_CONDITION"
+    porque_social = "sem egresso nao ha janela publica para observar"
+    porque_video = ("sem bytes de video nesta arvore e sem egresso, e sem "
+                    "consumidor declarado do lado de la")
+else:
+    social = video = porta["ESTADO"]
+    porque_social = porque_video = porta["PORQUE"]
+_mede("SOCIAL_TO_WAITING_ROOM", social, porque_social)
+_mede("VIDEO_TO_WAITING_ROOM", video, porque_video)
 
 estado = {
     "O_QUE_ISTO_E": ("Se as rotas de video e social EXISTEM de facto — nao se "

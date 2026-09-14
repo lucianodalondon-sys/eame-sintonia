@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "cd701c973bc5587e20f3bdf0b0ab25819a795abf",
-    "GENERATED_AT": "2026-09-14T15:00:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4d998b4f33b79582dac0f83bba2ce25538eebe8d44586c2629feed5560aa64e8"
+    "HEAD": "f5434f5e39615cb8be48e33f1e76320a7dd097f2",
+    "GENERATED_AT": "2026-09-14T15:13:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cc3f48b9b72a128b586b12cb97c8bfd22e39d8d1a380b1e5707b95d6aa712991"
   },
   "FILES": [
     {
@@ -4938,7 +4938,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "e7cb3656698eaa9a4e40f33b5069ec8ea879b808",
+      "sha": "a2a7cf3799deaf515efaf9263b07f5738026836e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5758,6 +5758,13 @@
     {
       "path": "docs/sintonia-scrap/C4E-GPU-NA-LINHA-DA-COLLECTION.md",
       "sha": "1dd4d01de33f1d2ce2bb791b5f4ae3a30baf904c",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C4F-CANARIO-DE-VIDEO-ITALIANO-BLOQUEADO.md",
+      "sha": "a1d9929353a60d8b069ef7559cb0ffaff902bfe7",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -9201,7 +9208,7 @@
     },
     {
       "path": "provas/o_video_tem_consumidor.py",
-      "sha": "ae7036d3d95902df505933b61720728cc3c5d200",
+      "sha": "cdc24e3ae33a2f9ca88d5dee3eb10fab6bab4d60",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -35913,12 +35920,23 @@
     },
     {
       "from_file": "provas/o_video_tem_consumidor.py",
+      "to_file": "coleta/scrap_http.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_video_tem_consumidor.py",
+        "line": 86,
+        "snippet": "import scrap_http as http                                  # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "provas/o_video_tem_consumidor.py",
       "to_file": "coleta/social_scrap.py",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_video_tem_consumidor.py",
-        "line": 144,
+        "line": 249,
         "snippet": "CHAMADOS = (\"coleta/social_scrap.py\", \"guarda/social_guarda.py\","
       }
     },
@@ -35929,7 +35947,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_video_tem_consumidor.py",
-        "line": 145,
+        "line": 250,
         "snippet": "\"coleta/youtube_oficial.py\")"
       }
     },
@@ -35951,7 +35969,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/o_video_tem_consumidor.py",
-        "line": 144,
+        "line": 249,
         "snippet": "CHAMADOS = (\"coleta/social_scrap.py\", \"guarda/social_guarda.py\","
       }
     },
@@ -35964,6 +35982,17 @@
         "file": "provas/o_video_tem_consumidor.py",
         "line": 45,
         "snippet": "import retorno_da_coleta as rdc                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/o_video_tem_consumidor.py",
+      "to_file": "leis/social_matriz.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/o_video_tem_consumidor.py",
+        "line": 116,
+        "snippet": "import social_matriz as mz                             # noqa: PLC0415"
       }
     },
     {
@@ -55453,10 +55482,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1747,
+    "files_tracked": 1748,
     "files_readable": 737,
     "files_code_dir": 790,
-    "file_edges": 3883,
+    "file_edges": 3885,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

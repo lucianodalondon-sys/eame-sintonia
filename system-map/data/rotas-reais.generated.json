@@ -32,16 +32,24 @@
    "PORQUE": "`scrap-colheita` recebe a corrida do orquestrador e devolve ENVELOPE — a especie que atravessa"
   },
   "EGRESSO": {
-   "VALOR": "BLOCKED",
-   "PORQUE": "a politica desta sessao responde 403 CONNECT a todos os hospedeiros externos medidos (eur-lex, arpa.veneto, youtube, openalex, orcid, crossref, ipinfo). Isto e o AMBIENTE, e nao uma fonte morta."
+   "VALOR": "OPEN",
+   "PORQUE": "os 2 hospedeiros responderam ao pedido de robots.txt desta maquina"
+  },
+  "ALCANCE_WWW_YOUTUBE_COM": {
+   "VALOR": "ROBOTS_ALLOWS",
+   "PORQUE": "lido agora, nesta maquina, pelo robots.txt do proprio hospedeiro"
+  },
+  "ALCANCE_WWW_INSTAGRAM_COM": {
+   "VALOR": "ROBOTS_DISALLOWS",
+   "PORQUE": "lido agora, nesta maquina, pelo robots.txt do proprio hospedeiro"
   },
   "SOCIAL_TO_WAITING_ROOM": {
-   "VALOR": "BLOCKED_BY_REAL_EXTERNAL_CONDITION",
-   "PORQUE": "sem egresso nao ha janela publica para observar"
+   "VALOR": "ROUTE_NOT_ALLOWED",
+   "PORQUE": "a rede esta aberta e a politica de rota nao declara NENHUMA rota permitida que adquira bytes de video"
   },
   "VIDEO_TO_WAITING_ROOM": {
-   "VALOR": "BLOCKED_BY_REAL_EXTERNAL_CONDITION",
-   "PORQUE": "sem bytes de video nesta arvore e sem egresso, e sem consumidor declarado do lado de la"
+   "VALOR": "ROUTE_NOT_ALLOWED",
+   "PORQUE": "a rede esta aberta e a politica de rota nao declara NENHUMA rota permitida que adquira bytes de video"
   }
  },
  "O_BLOQUEIO_EXACTO_DO_VIDEO": "`ferramentas/reel_transcricao.py` escreve em `data/samples/REEL-TRANSCRICOES`; `pedido/receitas.py` nomeia essa pasta em `larga_em`; e o `retorno` do mesmo executor declara SEIS ficheiros, NENHUM deles nessa pasta, e todos da especie LEGADO — que `leis/retorno_da_coleta.ENTRAM_NO_INGRESSO` nao deixa atravessar. O ficheiro e escrito e ninguem o le como colheita.",

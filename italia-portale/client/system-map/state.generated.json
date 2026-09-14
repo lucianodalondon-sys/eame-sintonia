@@ -846,6 +846,7 @@
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
       "docs/sintonia-scrap/C4E-GPU-NA-LINHA-DA-COLLECTION.md",
+      "docs/sintonia-scrap/C4F-CANARIO-DE-VIDEO-ITALIANO-BLOQUEADO.md",
       "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
       "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
@@ -2333,9 +2334,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "cd701c973bc5587e20f3bdf0b0ab25819a795abf",
-    "GENERATED_AT": "2026-09-14T15:00:36-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4d998b4f33b79582dac0f83bba2ce25538eebe8d44586c2629feed5560aa64e8"
+    "HEAD": "f5434f5e39615cb8be48e33f1e76320a7dd097f2",
+    "GENERATED_AT": "2026-09-14T15:13:31-03:00",
+    "SOURCE_TREE_FINGERPRINT": "cc3f48b9b72a128b586b12cb97c8bfd22e39d8d1a380b1e5707b95d6aa712991"
   },
   "FAMILIES": [
     {
@@ -19228,6 +19229,7 @@
         "C-RECEITAS",
         "C-ROTULOS",
         "C-SCRAP-GUARDA",
+        "C-SCRAP-LEIS",
         "C-SCRAP-SOCIAL",
         "C-TRANSCRICAO"
       ],
@@ -22083,6 +22085,7 @@
         "C-FRONTEIRA-TELEMETRIA",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
+        "C-PROVA-ROTAS-REAIS",
         "C-RASTRO",
         "C-ROTA-M2",
         "C-SCRAP-GUARDA",
@@ -66339,7 +66342,7 @@
       "evidence": [
         {
           "file": "provas/o_video_tem_consumidor.py",
-          "line": 144,
+          "line": 249,
           "snippet": "CHAMADOS = (\"coleta/social_scrap.py\", \"guarda/social_guarda.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-PROVA-ROTAS-REAIS",
@@ -67445,6 +67448,41 @@
             "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-FORWARD-CONTA",
             "FROM": "C-SCRAP-LEIS",
             "TO": "C-PROVA-FORWARD-CONTA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-LEIS",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "As leis do SCRAP — a taxonomia canonica da falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_video_tem_consumidor.py",
+          "line": 116,
+          "snippet": "import social_matriz as mz                             # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-LEIS--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-LEIS",
+            "TO": "C-PROVA-ROTAS-REAIS",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -69309,6 +69347,41 @@
     {
       "from": "C-SCRAP-SOCIAL",
       "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_video_tem_consumidor.py",
+          "line": 86,
+          "snippet": "import scrap_http as http                                  # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-PROVA-ROTAS-REAIS",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -69318,7 +69391,7 @@
       "evidence": [
         {
           "file": "provas/o_video_tem_consumidor.py",
-          "line": 144,
+          "line": 249,
           "snippet": "CHAMADOS = (\"coleta/social_scrap.py\", \"guarda/social_guarda.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-ROTAS-REAIS",
@@ -69334,7 +69407,7 @@
         },
         {
           "file": "provas/o_video_tem_consumidor.py",
-          "line": 145,
+          "line": 250,
           "snippet": "\"coleta/youtube_oficial.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-PROVA-ROTAS-REAIS",
@@ -76822,7 +76895,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 840,
+  "UNCLAIMED_FILES_COUNT": 841,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -77007,11 +77080,11 @@
     "components_pending": 141,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 953,
-    "edges_proven": 901,
+    "edges": 955,
+    "edges_proven": 903,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1747,
+    "files_tracked": 1748,
     "files_covered": 907,
     "files_code_unclaimed": 0,
     "roles_proven": 137,
