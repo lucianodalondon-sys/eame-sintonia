@@ -2336,9 +2336,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-preserve-facts-2139eb",
-    "HEAD": "ee3c198918f607a188f8679b6fc437a38194026f",
-    "GENERATED_AT": "2026-09-14T17:42:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582"
+    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
+    "GENERATED_AT": "2026-09-14T17:57:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378"
   },
   "FAMILIES": [
     {
@@ -13472,7 +13472,7 @@
         "PROVA": [
           "coleta/italy_executor.py:87",
           "medidas/padrao_da_coleta.py:65",
-          "provas/a_collection_preserva_o_fato.py:77",
+          "provas/a_collection_preserva_o_fato.py:85",
           "provas/italy_pilot_negativos.mjs:30"
         ],
         "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -17576,7 +17576,7 @@
           "pasta": "data/derivados",
           "prova": {
             "file": "provas/a_collection_preserva_o_fato.py",
-            "line": 327,
+            "line": 335,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -28465,8 +28465,8 @@
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
-          "line": 48,
-          "snippet": "from admissao import admissao  # noqa: E402",
+          "line": 56,
+          "snippet": "import admissao  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--IMPORTS-->C-PROVA-COLETA",
             "FROM": "C-ADMISSAO",
@@ -51064,7 +51064,7 @@
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
-          "line": 77,
+          "line": 85,
           "snippet": "with open(LIVRO, encoding=\"utf-8\") as fh:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-PROVA-COLETA",
@@ -60408,8 +60408,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Provas da coleta canonica tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_collection_preserva_o_fato.py",
+          "line": 472,
+          "snippet": "import a_collection_preserva_o_fato as prova  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--IMPORTS-->C-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_autorizacao_de_gasto.py",
           "line": 572,
@@ -64896,8 +64912,24 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 6 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_collection_preserva_o_fato.py",
+          "line": 57,
+          "snippet": "import sala_de_espera as espera  # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SALA-DE-ESPERA--IMPORTS-->C-PROVA-COLETA",
+            "FROM": "C-SALA-DE-ESPERA",
+            "TO": "C-PROVA-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "provas/a_linhagem_do_ready.py",
           "line": 61,
@@ -76059,7 +76091,7 @@
       "evidence": [
         {
           "file": "provas/a_collection_preserva_o_fato.py",
-          "line": 55,
+          "line": 63,
           "snippet": "import motor.normalize_agro as agro  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-V21-INGEST--IMPORTS-->C-PROVA-COLETA",

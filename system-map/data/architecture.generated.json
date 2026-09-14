@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-preserve-facts-2139eb",
-    "HEAD": "ee3c198918f607a188f8679b6fc437a38194026f",
-    "GENERATED_AT": "2026-09-14T17:42:21-03:00",
-    "SOURCE_TREE_FINGERPRINT": "fa48141898607b85d2f4df4dc809c21b17287517c10f7d6c60ee922f26fb1582"
+    "HEAD": "3a403ed4d6f397dc873f90b30f7999dd29d615b6",
+    "GENERATED_AT": "2026-09-14T17:57:54-03:00",
+    "SOURCE_TREE_FINGERPRINT": "69b082e1cb414a3cd277754d07dcfded1cced908a70116444a219575a30a0378"
   },
   "FILES": [
     {
@@ -4945,7 +4945,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "2ce0b6fb6b71dffe32604e90669204dedbbd6c37",
+      "sha": "cc076e29eff81c08a179eae0013e46c88c1a6cd2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8627,7 +8627,7 @@
     },
     {
       "path": "provas/a_collection_preserva_o_fato.py",
-      "sha": "44cd7b64c52ce572d628ffe02dba68659a99c889",
+      "sha": "23225e117e7b0ee4c20f81a8093f044339466769",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11168,7 +11168,7 @@
     },
     {
       "path": "tests/test_a_collection_preserva_o_fato.py",
-      "sha": "eb9fb3eb8e9c74f5c0a6107deb52768a603944d4",
+      "sha": "62c18c23220dfcc889a7d6a504ae99b63710af9e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -29834,8 +29834,19 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_collection_preserva_o_fato.py",
-        "line": 48,
-        "snippet": "from admissao import admissao  # noqa: E402"
+        "line": 56,
+        "snippet": "import admissao  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "provas/a_collection_preserva_o_fato.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "provas/a_collection_preserva_o_fato.py",
+        "line": 57,
+        "snippet": "import sala_de_espera as espera  # noqa: E402"
       }
     },
     {
@@ -29845,7 +29856,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_collection_preserva_o_fato.py",
-        "line": 77,
+        "line": 85,
         "snippet": "with open(LIVRO, encoding=\"utf-8\") as fh:"
       }
     },
@@ -29856,7 +29867,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_collection_preserva_o_fato.py",
-        "line": 61,
+        "line": 69,
         "snippet": "\"A-COLLECTION-PRESERVA-O-FATO.json\")"
       }
     },
@@ -29867,7 +29878,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "provas/a_collection_preserva_o_fato.py",
-        "line": 327,
+        "line": 335,
         "snippet": "with open(SAIDA, \"w\", encoding=\"utf-8\") as fh:"
       }
     },
@@ -29878,7 +29889,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "provas/a_collection_preserva_o_fato.py",
-        "line": 55,
+        "line": 63,
         "snippet": "import motor.normalize_agro as agro  # noqa: E402"
       }
     },
@@ -42299,6 +42310,17 @@
         "file": "tests/test_a_collection_preserva_o_fato.py",
         "line": 41,
         "snippet": "import motor.normalize_agro as agro  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_a_collection_preserva_o_fato.py",
+      "to_file": "provas/a_collection_preserva_o_fato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_collection_preserva_o_fato.py",
+        "line": 472,
+        "snippet": "import a_collection_preserva_o_fato as prova  # noqa: E402"
       }
     },
     {
@@ -55339,7 +55361,7 @@
     "provas/a_collection_preserva_o_fato.py": [
       {
         "pasta": "data/derivados",
-        "line": 327,
+        "line": 335,
         "constante": "SAIDA"
       }
     ],
@@ -55521,7 +55543,7 @@
     "files_tracked": 1750,
     "files_readable": 739,
     "files_code_dir": 792,
-    "file_edges": 3887,
+    "file_edges": 3889,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

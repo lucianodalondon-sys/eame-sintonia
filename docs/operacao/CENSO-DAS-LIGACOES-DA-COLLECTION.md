@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  ee3c198918f607a188f8679b6fc437a38194026f
+HEAD_DA_MEDICAO  3a403ed4d6f397dc873f90b30f7999dd29d615b6
 BRANCH           claude/collection-preserve-facts-2139eb
-GERADO_EM        2026-09-14T17:42:21-03:00
+GERADO_EM        2026-09-14T17:57:54-03:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1048,7 +1048,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/italy_executor.py:87; medidas/padrao_da_coleta.py:65; provas/a_collection_preserva_o_fato.py:77 |
+| **prova de quem ativa** | coleta/italy_executor.py:87; medidas/padrao_da_coleta.py:65; provas/a_collection_preserva_o_fato.py:85 |
 | **porquê** | estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS · C-PADRAO-COLETA · C-RELATORIO-FLUXO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `superficie/rede.py` |
