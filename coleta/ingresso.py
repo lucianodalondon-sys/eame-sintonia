@@ -155,6 +155,109 @@ DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
 # Vive AQUI porque aqui e a fronteira: esta peca ja «transforma o que o coletor
 # largou numa ficha do contrato comum». Traduzir para a lingua de quem julga e
 # a mesma travessia, no mesmo sitio, uma vez.
+# ═══════════════════════════════════════════════════════════════════════════
+# A FRONTEIRA STRUCTURED → ADMISSION, DECLARADA
+# ═══════════════════════════════════════════════════════════════════════════
+# ⚠️ PORQUE ISTO NASCE AQUI, E NAO NUM FICHEIRO NOVO.
+#
+# A prova de fogo da Collection procurou, no repositorio inteiro, o contrato do
+# registo STRUCTURED. Nao existe esquema nenhum, e a porta le chaves por
+# tentativa e erro. O dano ficou medido no mesmo dia: o produtor escreveu
+# `collected_time`, a porta leu `captured_at`, e SEIS unidades chegaram a Sala
+# de Espera com `CAPTURED_AT = NAO SEI` — com o valor a existir e medido.
+#
+#     PRODUTOR E CONSUMIDOR SEM CONTRATO PARTILHADO
+#     PERDEM DADO SEM DAR ERRO.
+#
+# O remendo obvio — aceitar tambem `collected_time` — seria o pior conserto
+# possivel: cada nome novo que alguem inventasse passaria a ser suportado, e a
+# fronteira deixaria de ter forma nenhuma.
+#
+#     ACEITAR MAIS NOMES NAO E TER UM CONTRATO. E DESISTIR DE TER UM.
+#
+# E nao se cria uma segunda arquitectura. Os DOIS donos ja existiam:
+#
+#     leis/artefato.py       o VOCABULARIO — cinco tempos, tres geografias,
+#                            duas especies, e as proibicoes em codigo
+#     coleta/ingresso.py     a TRAVESSIA — `PARA_A_PORTA`, o unico tradutor
+#                            da fronteira, ja usado pelas tres rotas
+#
+# O que faltava nao era um dono: era a DECLARACAO de o que tem de atravessar.
+# `PARA_A_PORTA` diz como um nome vira outro; nao dizia quais fazem falta, e
+# por isso ninguem reparava quando um deles nao vinha.
+#
+#     UM MAPA DE NOMES NAO E UM CONTRATO: DIZ COMO TRADUZIR, NAO O QUE EXIGIR.
+#
+# ⚠️ E ISTO NAO PREENCHE NADA. `conferir_fronteira()` MEDE e escreve o que
+# falta. Ausencia continua `NAO SEI`, e `NAO SEI` continua a nao ser `NAO`.
+
+#: O que a unidade STRUCTURED tem de trazer para a admissao poder julgar. São
+#: os nomes do CONTRATO COMUM (`leis/artefato.py`), porque é essa a língua em
+#: que a unidade chega — `para_a_porta()` é que a traduz para a da porta.
+FRONTEIRA_EXIGE = ("SOURCE_ID", "ARTIFACT_TYPE")
+
+#: O que a fronteira TRANSPORTA quando existe, e que nunca se fabrica quando
+#: não existe. Cada um é um facto diferente, e o mapa diz de que espécie é —
+#: para que ninguém volte a encher um com o outro.
+FRONTEIRA_TRANSPORTA = {
+    "FACT_TIME": "quando o fato aconteceu",
+    "PUBLISHED_AT": "quando a fonte publicou — NAO e quando o fato aconteceu",
+    "OBSERVED_AT": "quando a fonte registou ter observado",
+    "COLLECTED_AT": "quando ESTA maquina recebeu os bytes (raw_asset.captured_at)",
+    "SOURCE_LOCATION": "onde esta quem publica",
+    "FACT_LOCATION": "onde o fato aconteceu — PODE ser outro",
+    "PARENT_SHA256": "a impressao do original de que este texto nasceu",
+}
+
+#: A linhagem. Não está em `FRONTEIRA_EXIGE` porque a rota documental a põe no
+#: item já na língua da porta (`raw_asset_id`), e não como nome do contrato
+#: comum. `admissao.pronto_para_inteligencia()` é quem a lê, e é lá que a
+#: ausência vira `NAO SEI` — nunca um id fabricado.
+FRONTEIRA_LINHAGEM = "raw_asset_id"
+
+#: Os quatro tempos, escritos juntos uma vez, para que a proibição seja legível
+#: no sítio onde ela pode ser quebrada.
+TEMPOS_QUE_NAO_SE_MISTURAM = (
+    "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT")
+
+
+def conferir_fronteira(item: dict) -> dict:
+    """O que atravessou esta fronteira, e o que NAO atravessou. Nao preenche.
+
+    Devolve o recibo da travessia — nunca levanta, nunca escreve, nunca
+    adivinha. Quem chama decide o que fazer com um `EXIGIDOS_EM_FALTA` não
+    vazio; esta função só se recusa a deixar a perda ser silenciosa.
+
+        UMA PERDA MEDIDA E UM DEFEITO. UMA PERDA CALADA E UMA ARQUITECTURA.
+
+    Aceita o item em QUALQUER das duas línguas — a do contrato comum e a da
+    porta — porque a fronteira é exactamente o sítio onde as duas se encontram,
+    e um recibo que só soubesse ler uma delas mediria metade da travessia.
+    """
+    def _tem(nome):
+        for chave in (nome, PARA_A_PORTA.get(nome, nome)):
+            v = item.get(chave)
+            if v not in NAO_E_AFIRMACAO:
+                return True
+        return False
+
+    faltam = [c for c in FRONTEIRA_EXIGE if not _tem(c)]
+    return {
+        "FRONTEIRA": "STRUCTURED -> ADMISSION",
+        "DONO": "coleta/ingresso.py",
+        "VOCABULARIO": "leis/artefato.py",
+        "EXIGIDOS": list(FRONTEIRA_EXIGE),
+        "EXIGIDOS_EM_FALTA": faltam,
+        "TRANSPORTADOS": sorted(c for c in FRONTEIRA_TRANSPORTA if _tem(c)),
+        "AUSENTES": sorted(c for c in FRONTEIRA_TRANSPORTA if not _tem(c)),
+        "LINHAGEM": ("PRESENTE" if item.get(FRONTEIRA_LINHAGEM) is not None
+                     else "NAO SEI"),
+        "A_LEI": TEMPOS_QUE_NAO_SE_MISTURAM,
+        "O_QUE_ISTO_NAO_FAZ": ("nao preenche, nao adivinha e nao converte um "
+                               "tempo no outro. Ausencia sai como ausencia."),
+    }
+
+
 PARA_A_PORTA = {
     "SOURCE_ID": "source_id",
     "SOURCE_URL": "url",
@@ -479,7 +582,19 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
                               "MEDIA_TYPE": o.get("MEDIA_TYPE"),
                               "PORQUE": DERIVACAO_ESPECIE_NAO_SUPORTADA})
             continue
+        # ⚠️ `CAPTURED_AT` VIAJA COM A UNIDADE, E NAO SE MEDE OUTRA VEZ.
+        # Ele e `raw_asset.captured_at` — o instante em que ESTA maquina
+        # recebeu os bytes, escrito pelo dono do RAW. Medi-lo de novo aqui
+        # daria a hora em que a DERIVACAO comecou, que e outro facto:
+        #
+        #     COLLECTED_AT != DERIVED_AT.
+        #
+        # Sem ele, a rota documental chegava a admissao sem saber quando o
+        # documento foi colhido, e a Sala recebia `CAPTURED_AT = NAO SEI` com
+        # o valor guardado tres degraus atras. Ausente continua ausente: uma
+        # linha sem `captured_at` poe `None` aqui, e ninguem o enche.
         unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
+                         "CAPTURED_AT": o.get("CAPTURED_AT"),
                          "PDF": local})
     return unidades, sem_bytes
 

@@ -26,8 +26,8 @@ import { execFile, execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { promisify } from "node:util";
 import { openSync, closeSync, unlinkSync, existsSync, writeFileSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
-import { PROFILES, PERFIL_PADRAO } from "./italy_profiles.mjs";
-import { CONTRACTS } from "./italy_contracts.mjs";
+import { PROFILES, PERFIL_PADRAO } from "../candidatas/italy_profiles.mjs";
+import { CONTRACTS } from "../regras/italy_contracts.mjs";
 
 const run = promisify(execFile);
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };

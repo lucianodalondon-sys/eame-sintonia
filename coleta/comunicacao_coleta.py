@@ -598,6 +598,54 @@ def _colher_pelo_scrap(plataforma, contas, dias):
     return itens, mans
 
 
+def portao_do_contrato(plataforma, ator, exemplo=None):
+    """O PORTAO QUE JA ESTAVA ESCRITO E QUE NUNCA CORRIA. → (ok, porque).
+
+    `fase_contratos()` grava, desde sempre, esta linha em `CONTRATOS.json`:
+
+        'REGRA': 'nenhuma fase paga roda com ALL_APPROVED = NO'
+
+    So que `fase_posts` nunca a leu. A regra vivia no ARTEFATO, nao no CAMINHO —
+    e uma regra que o caminho nao consulta nao e uma regra, e um comentario.
+    Medido na prova de fogo da Collection, com o pool vazio: `contratos`
+    REPROVOU YOUTUBE e LINKEDIN, e as duas fases pagas correram logo a seguir na
+    mesma sessao, sem nada as travar. Nada foi gasto porque nao havia chave — a
+    trava foi a falta de dinheiro, e nao o portao.
+
+        REGRA ESCRITA NO ARTEFATO != REGRA EXECUTADA NO CAMINHO.
+
+    ⚠️ E ELE NAO LE O FICHEIRO, LE O BUILD. Conferir `CONTRATOS.json` seria
+    confiar num recibo que pode ser de ontem: um contrato aprovado ontem nao
+    prova que o build de hoje aceita a mesma entrada. A leitura do schema e um
+    GET publico, custa ZERO e nao precisa de chave — o mesmo GET que a fase
+    `contratos` ja faz. Por isso a conferencia corre AQUI, ao vivo.
+
+        UM RECIBO NAO E UM PORTAO.
+
+    ⚠️ E ELE E POR ATOR, E NAO PELO `ALL_APPROVED` GLOBAL. Reprovar o Instagram
+    porque o ator do LinkedIn mudou de schema seria bloquear pelo motivo errado,
+    e a casa nao deixa colapsar factos diferentes.
+    """
+    import contrato_ator as ca
+    chaves = ap.pool()
+    exemplo = exemplo or {'ACCOUNT_URL': 'https://exemplo.invalido/conta',
+                          'ACCOUNT_HANDLE': 'exemplo', 'COUNTRY': 'XX'}
+    try:
+        ent = entrada(plataforma, exemplo, JANELA_INICIAL_DIAS)
+    except ValueError as ex:
+        return False, ('esta casa nao sabe montar entrada para %s: %s'
+                       % (plataforma, ex))
+    r, ok = ca.portao(ator, ent, token=(chaves[0] if chaves else None))
+    if ok:
+        return True, 'contrato do build %s aceita a entrada' % r.get('BUILD_NUMBER')
+    porques = '; '.join(('%s %s' % (x['CODIGO'], x.get('CAMPO') or '')).strip()
+                        for x in r['PROBLEMS'] if x['GRAVIDADE'] == 'REPROVA')
+    return False, ('o build %s do ator `%s` NAO aceita a entrada que esta casa '
+                   'monta (%s). A Apify nao recusa campo estranho: descarta em '
+                   'silencio e cobra o run.'
+                   % (r.get('BUILD_NUMBER'), ator, porques or r['CONTRACT_STATE']))
+
+
 def fase_posts(plataforma, autorizacao=None):
     """⚠️ `autorizacao` NAO NASCE AQUI, E ESSE E O PONTO.
 
@@ -725,6 +773,37 @@ def fase_posts(plataforma, autorizacao=None):
         return None
 
     ator, _ = ATORES[plataforma]
+
+    # ── O PORTAO DO CONTRATO, ANTES DO DINHEIRO ────────────────────────────
+    # Aqui, e nao mais acima: acima o `ator` ainda nao esta escolhido, e
+    # conferir o bilhete de um ator que nao e o desta viagem nao confere nada.
+    # Abaixo disto ja se gasta.
+    ok_contrato, porque_contrato = portao_do_contrato(plataforma, ator)
+    if not ok_contrato:
+        print('CONTRATO REPROVADO · %s — nenhuma execucao paga foi disparada.'
+              % plataforma)
+        print('  %s' % porque_contrato)
+        print('  Isto e BLOQUEIO DE CONTRATO, nao ausencia de conteudo: ninguem '
+              'olhou a conta.')
+        print('  APIFY_RUNS=0 · COST_USD=0 — nada saiu desta maquina.')
+        _gravar('POSTS-%s.json' % plataforma, {
+            'SOURCE_ID': 'COMPETITOR-PUBLIC-COMM/POSTS-%s' % plataforma,
+            'DATASET_OWNER': DATASET_OWNER,
+            'source': 'nenhuma coleta — o portao de contrato reprovou antes de gastar',
+            'SOURCE_LOCATION': plataforma,
+            'FACT_LOCATION': NAO_SEI,
+            'EVIDENCE_CLASS': 'NOT_COLLECTED',
+            'COLLECTION_STATE': 'BLOCKED_BY_ACTOR_CONTRACT',
+            'BLOCKED_WHY': porque_contrato,
+            'ACCOUNTS_ATTEMPTED': len(contas), 'ACCOUNTS_DONE': 0,
+            'ACCOUNTS_PENDING': len(contas),
+            'APIFY_RUNS': 0, 'COST_USD': 0, 'ITEM_COUNT': 0,
+            'ITEMS': [], 'RUNS': [],
+            'ZERO_SIGNIFICA': ('NENHUMA CONTA FOI OLHADA. Este zero fala do '
+                               'nosso contrato com o ator, nunca da empresa '
+                               'observada.'),
+        })
+        return None
 
     def trabalho(conta, token):
         """A chamada da porta paga. QUATRO defeitos consertados aqui em 2026-09-02.

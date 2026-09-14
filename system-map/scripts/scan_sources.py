@@ -50,12 +50,26 @@ ATLAS = "docs/fontes/ATLAS-DE-FONTES-EAME.md"
 CONTRATOS = "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
 
 PAIS = {"EU": "EUROPA", "FR": "FRANCA", "ES": "ESPANHA", "IT": "ITALIA"}
-TERRITORIO = {
-    "T1": "Cultura e producao", "T2": "Clima e tempo", "T3": "Praga e doenca",
-    "T4": "Regulatorio", "T5": "Preco e mercado", "T6": "Comercio e distribuicao",
-    "T7": "Ciencia e ensaio", "T8": "Voz do campo", "T9": "Concorrente",
-    "T10": "Politica e subsidio", "T11": "Solo e agua", "T12": "Substancia ativa",
-}
+# ⚠️ A TERCEIRA TABELA. Esta era a pior das tres, porque ESCREVIA.
+#
+# `territory_name` sai daqui para `sources.generated.json`, e de la para o
+# portal e para o mapa. Com a copia que aqui estava, o artefato gerado dizia,
+# a serio e por escrito:
+#
+#     EU-T5-001  «OpenAlex»  ->  territory_name: «Preco e mercado»
+#
+# Uma base de literatura cientifica rotulada como preco de mercado, gerada, e
+# sem ninguem perguntar porque — porque o rotulo vinha de uma tabela que
+# parecia autoridade e nao era.
+#
+#     UMA COPIA QUE ESCREVE NAO E UMA COPIA: E UMA SEGUNDA AUTORIDADE.
+#
+# O dono e `leis/territorios.py`, que le o MESMO Atlas de onde este scanner ja
+# extrai cada ficha de fonte — o ficheiro que a linha abaixo chama `ATLAS`.
+sys.path.insert(0, str(RAIZ / "leis"))
+import territorios as _terr                      # noqa: E402
+
+TERRITORIO = {c: d["NOME"] for c, d in _terr.TERRITORIOS.items()}
 
 
 def ler(rel: str) -> list[str]:

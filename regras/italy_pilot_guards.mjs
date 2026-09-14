@@ -2,7 +2,7 @@
 // Exportados para serem rodados dentro de italy_contract_test.mjs, no mesmo placar.
 import { readFileSync } from "node:fs";
 import { CONTRACTS } from "./italy_contracts.mjs";
-import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from "./italy_pilot_collect.mjs";
+import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from "../coleta/italy_pilot_collect.mjs";
 
 export function guardasDoPiloto(T) {
   const led = lerLedger();

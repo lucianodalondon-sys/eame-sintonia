@@ -77,7 +77,32 @@ FONTES_MEDIDAS = RAIZ / "system-map" / "data" / "sources.generated.json"
 #     DECLARAR SUPORTE E INOFENSIVO MESMO QUANDO ERRADO: SUPORTE NAO ATRAVESSA.
 #     DECLARAR COLHEITA NAO E — E POR ISSO NAO SE PODE.
 EXECUTORES = {
-    "T7": [{
+    # ⚠️ ESTE REGISTO MUDOU DE CHAVE, E A MUDANCA E UM CONSERTO DE VERDADE.
+    # Estava em `"T7"` porque `pedido/pedido.py` declarava `T7 = «Ciencia e
+    # ensaio»`. No Atlas — que e o dono — `T7` e TECHNICAL NETWORK, e as doze
+    # fontes italianas classificadas la sao COOPERATIVAS E CONSORCIOS. Pedir
+    # ciencia mandava este coletor cientifico correr sobre cooperativas.
+    #
+    # A chave certa nao e `T5` (SCIENCE) e sim `T6` (RESEARCHERS), e o criterio
+    # nao e gosto: e a separacao que o proprio Atlas impoe e que o
+    # `ITALY-SOURCE-MASTER-V1.json` repete —
+    #
+    #     TERRITORY = o que a rota MEDE.  ACCESS_METHOD = como se acessa.
+    #
+    # O que esta rota MEDE esta escrito no `retorno` dela, e foi contado: doze
+    # fichas de PESSOA, zero unidades de obra. Ela mede pesquisadores. Que o
+    # faca atraves de registos cientificos (OpenAlex, ORCID, que sao T5) e a
+    # rota, e rota nao e territorio — confundir os dois foi exactamente o que
+    # produziu esta colisao.
+    #
+    # ⚠️ E ISTO DEIXA `T5` SEM EXECUTOR, O QUE E A VERDADE E NAO UM BURACO NOVO.
+    # As seis fontes de SCIENCE em ficha — `IT-T5-001..005` e `EU-T5-001` —
+    # nunca tiveram executor nesta casa; tinham um coletor a correr sobre as
+    # fontes ERRADAS e ninguem via. O plano passa a dizer «NAO SEI COMO», que e
+    # o que sempre foi verdade.
+    #
+    #     UM BURACO QUE APARECE NAO E UM BURACO NOVO: E UM BURACO QUE ERA CEGO.
+    "T6": [{
         "id": "corpus-pesquisador",
         # F3 · o retorno e o CATALOGO das pessoas de quem se PODE colher
         # obra — nao as obras. Medido: 12 fichas de pessoa, zero unidades.

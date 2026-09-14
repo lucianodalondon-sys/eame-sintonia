@@ -278,6 +278,10 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
         linha = (r.get("LINHA_ESCRITA") or r.get("LINHA_EXISTENTE") or {}) \
             if porta in ("PASSED", "REUSED") else {}
         resultados.append({"RAW_ASSET_ID": u["RAW_ASSET_ID"], "PDF": u["PDF"],
+                           # A hora da CAPTURA do original, tal como veio da
+                           # unidade. Este runner nao a mede e nao a substitui
+                           # pela sua: COLLECTED_AT != DERIVED_AT.
+                           "CAPTURED_AT": u.get("CAPTURED_AT"),
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
                            "LINHA": linha or None,
