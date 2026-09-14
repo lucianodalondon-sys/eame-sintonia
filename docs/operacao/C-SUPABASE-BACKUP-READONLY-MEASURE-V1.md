@@ -2,12 +2,13 @@
 
 ```
 MISSAO             C-SUPABASE-BACKUP-READONLY-MEASURE-V1
-MEDIDO_EM          2026-09-14T02:11:39Z
+MEDIDO_EM          2026-09-14T02:26:28Z
 RAMO_DESTA_MISSAO  claude/supabase-backup-readonly-measure-v1
 BASE               99e97d9281fb4d4fc3ca7b164ec1f48c39c6cf3b
                    (claude/supabase-live-recovery-preflight-v1)
-WORKFLOW_RUN_ID    34798372262
-LIVE_READS         1      (um GET a Management API)
+WORKFLOW_RUN_ID    34799205252   (corrida de registo)
+CORRIDA_ANTERIOR   34798372262   (02:11:39Z — mesmos numeros)
+LIVE_READS         2      (um GET por corrida, a Management API)
 LIVE_WRITES        0
 LIVE_DDL           0
 ```
@@ -29,7 +30,7 @@ documentação, não é o plano: são sete backups listados pela API, cada um co
 
 **3. Quantos?** **Sete.** Todos `COMPLETED`. Todos **físicos**.
 
-**4. Qual o mais recente?** **2026-09-13 03:05:36 UTC** — tinha **23,1 horas**
+**4. Qual o mais recente?** **2026-09-13 03:05:36 UTC** — tinha **23,3 horas**
 na hora da medição.
 
 **5. Qual o mais antigo?** **2026-09-07 03:07:43 UTC**.
@@ -293,6 +294,26 @@ LIVE_WRITES                 = 0
 LIVE_DDL                    = 0
 REAL_COLLECTION             = 0
 ```
+
+### A medição correu duas vezes, e isso não foi desperdício
+
+| | `34798372262` | `34799205252` |
+|---|---|---|
+| às | 02:11:39Z | 02:26:28Z |
+| `HTTP_STATUS` | 200 | 200 |
+| `BACKUP_COUNT` | 7 | 7 |
+| `LATEST` | 2026-09-13 03:05:36 | 2026-09-13 03:05:36 |
+| `OLDEST` | 2026-09-07 03:07:43 | 2026-09-07 03:07:43 |
+| `PITR_ENABLED` | NO | NO |
+
+A segunda correu porque o *commit* seguinte tocou o script, e não para
+insistir. Serve na mesma para duas coisas: os números **não são acaso de uma
+chamada**, e o artefacto commitado passa a ser produto do script **tal como
+está commitado** — e não de uma versão que já não existe.
+
+> O artefacto em `provas/` foi **descarregado da corrida** e o seu `sha256`
+> confere com o digest que o GitHub publicou
+> (`62122ebb…`). Não foi regenerado localmente. Ver `A20`.
 
 `PASS` e não `PARTIAL`: os cinco campos críticos do portão
 (`BACKUPS_VISIBLE`, `LATEST_BACKUP_TIMESTAMP`, `BACKUP_RETENTION_OBSERVED`,
