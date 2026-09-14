@@ -156,9 +156,11 @@
     "candidatas": [
       "candidatas/FONTES-CANDIDATAS.json",
       "candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx",
+      "candidatas/ITALY-SOURCE-FIRST-WAVE-2026-09-14.csv",
       "candidatas/ITALY-SOURCE-IMPORT-2026-09-14.csv",
       "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "candidatas/ITALY-SOURCE-MASTER-V1.md",
+      "candidatas/ITALY-SOURCE-QUALIFICATION-2026-09-14.xlsx",
       "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
@@ -1212,8 +1214,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 540 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 540 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 542 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 542 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1587,9 +1589,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/fix-source-candidate-door-v1",
-    "HEAD": "1a4d31d82aeb098fc07017e4d6100d43f9b45a33",
-    "GENERATED_AT": "2026-09-14T12:29:23+00:00"
+    "BRANCH": "claude/italy-source-qualification-v1",
+    "HEAD": "d953578331f0cd4482f43f9b9ccf255ee97ef517",
+    "GENERATED_AT": "2026-09-14T13:23:47+00:00"
   },
   "FAMILIES": [
     {
@@ -11075,8 +11077,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/fix-source-candidate-door-v1",
-        "HEAD 1a4d31d82aeb098fc07017e4d6100d43f9b45a33"
+        "branch claude/italy-source-qualification-v1",
+        "HEAD d953578331f0cd4482f43f9b9ccf255ee97ef517"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -18040,7 +18042,7 @@
   "UNCLAIMED_CODE_FILES": [
     ".github/workflows/scrap-social.yml"
   ],
-  "UNCLAIMED_FILES_COUNT": 646,
+  "UNCLAIMED_FILES_COUNT": 648,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
@@ -18052,7 +18054,7 @@
     "edges_proven": 324,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1146,
+    "files_tracked": 1148,
     "files_covered": 500,
     "files_code_unclaimed": 1
   }
