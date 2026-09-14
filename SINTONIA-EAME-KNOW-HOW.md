@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §111-§113: um grafo truncado responde «não existe»; um contrato com chave estrangeira para ninguém descreve um dono que ainda não chegou; a exceção a um portão paga-se com prova.
+**Última atualização material:** 2026-09-14 — §114: um conceito sem dono e um nome com donos a mais dão a mesma leitura numa contagem por ficheiro, e exigem o contrário — adoptar dono para o segundo caso é o pior desfecho.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13182,3 +13182,129 @@ E o corolário para quem integrar autoridades no futuro: **o portão da outra
 frente é informação, não obstáculo.** Ele apanhou exatamente o que existe para
 apanhar; o que estava errado era a espécie que o classificador atribuía, e o
 conserto foi na fonte — nunca no JSON gerado, nunca na baseline.
+
+---
+
+# §114 · UM CONCEITO SEM DONO E UM NOME COM DONOS A MAIS DÃO A MESMA LEITURA — E EXIGEM O CONTRÁRIO
+
+## O QUE MUDOU
+
+A arbitragem V2 declarou dois conceitos em `HUMAN_DECISION_REQUIRED`:
+
+```
+RELEVANCE  105 ficheiros · COLLECTION 8 · INTELLIGENCE 3 · DELIVERY 32 · OUTRA 38
+PRIORITY   114 ficheiros · COLLECTION 6 · INTELLIGENCE 5 · DELIVERY 21 · OUTRA 66
+```
+
+Espalhados por quatro camadas, sem módulo dono. A leitura óbvia é «ninguém
+decidiu quem possui isto».
+
+**A leitura estava errada.** Medido, conceito a conceito:
+
+```
+RELEVANCE  = CINCO perguntas diferentes · QUATRO ja com dono em lei e codigo
+PRIORITY   = QUATRO perguntas diferentes · TRES ja com dono em lei e codigo
+```
+
+Sete dos nove tinham dono. O que não tinha dono era **a palavra**.
+
+## POR QUÊ
+
+As duas situações produzem exatamente o mesmo sintoma numa contagem por
+ficheiro:
+
+```
+UM CONCEITO SEM DONO        aparece em muitos sitios porque ninguem o reclamou
+UM NOME COM DONOS A MAIS    aparece em muitos sitios porque cada dono reclamou
+                            uma coisa DIFERENTE com o mesmo nome
+```
+
+E exigem tratamentos opostos:
+
+```
+o primeiro pede-se que ALGUEM O ADOPTE
+o segundo pede-se que O NOME SEJA APOSENTADO
+```
+
+Adoptar um dono para o segundo caso é o pior desfecho possível: cria um sétimo
+proprietário para uma palavra que já tinha seis significados, e o novo dono
+passa a responder por perguntas que nunca foram dele.
+
+## PROVA
+
+A prova mais dura não veio de código novo. Veio de ler o cabeçalho de uma lei
+da **Collection**, escrita antes desta missão:
+
+```
+leis/relevancia_da_fonte.py
+
+    SOURCE_RELEVANCE != ITEM_RELEVANCE       -> admissao/admissao.py
+    SOURCE_RELEVANCE != SOURCE_HEALTH        -> medidas/source_health.py
+    SOURCE_RELEVANCE != ACCESSIBILITY        -> pedido/receitas.py
+    SOURCE_RELEVANCE != SOURCE_RELIABILITY   -> COL-LAW-216
+    SOURCE_RELEVANCE != COST                 -> COL-LAW-018 · COL-LAW-019
+    SOURCE_RELEVANCE != COLLECTION_PRIORITY  -> leis/politica_da_coleta.py
+    SOURCE_RELEVANCE != CASE_RELEVANCE       -> leis/adama_relevance.py
+```
+
+**Sete fronteiras, com o dono de cada uma, já escritas.** A arbitragem que
+declarou «sem dono» correu um `grep` por cima deste ficheiro sem o abrir.
+
+E os vocabulários confirmam-no sem ambiguidade:
+
+```
+SOURCE_RELEVANCE   AUTORIZA · BARRA · EXIGE_AVALIACAO
+CASE_RELEVANCE     A · B · C · D · E
+interseccao        VAZIA
+```
+
+Duas escalas sem um único valor em comum não são o mesmo conceito com
+granularidade diferente. São perguntas diferentes.
+
+## CONSEQUÊNCIA
+
+**Três, e a terceira é a que fica.**
+
+### 1 · A regra de leitura
+
+```
+ANTES DE DECLARAR UM CONCEITO «SEM DONO», ABRIR OS TRES FICHEIROS QUE
+MAIS O MENCIONAM E LER O CABECALHO.
+
+Uma lei desta casa costuma declarar as suas proprias fronteiras — e quem
+as declarou ja fez metade da arbitragem que se ia pedir a outra pessoa.
+```
+
+### 2 · O sintoma distingue-se por uma pergunta só
+
+```
+«AS OCORRENCIAS RESPONDEM A MESMA PERGUNTA?»
+
+SIM  -> conceito sem dono. Procurar quem o adopta.
+NAO  -> nome sobrecarregado. Aposentar o nome, e nao arranjar-lhe dono.
+```
+
+### 3 · É a terceira vez, e as três tiveram a mesma forma
+
+```
+COLLECTION_GAP   um nome, dois conceitos, dois donos   (§112)
+RELEVANCE        um nome, cinco conceitos, quatro donos
+PRIORITY         um nome, quatro conceitos, tres donos
+```
+
+Nos três casos o sintoma foi «conceito sem dono», e nos três a causa foi a
+mesma: **contámos a palavra e chamámos-lhe conceito.**
+
+```
+UM CENSO QUE CONTA PALAVRAS MEDE O VOCABULARIO, NAO A ARQUITETURA.
+E VOCABULARIO SOBRECARREGADO PARECE-SE, NA TABELA,
+EXACTAMENTE COM ARQUITETURA POR DECIDIR.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra escolha de owner para RELEVANCE nem para PRIORITY.
+As duas continuam AWAITING_HUMAN_DECISION, e uma decisao que ainda
+nao foi tomada nao se escreve na memoria como se tivesse sido.
+```
