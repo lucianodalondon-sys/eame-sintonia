@@ -689,6 +689,7 @@
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
       "docs/operacao/CENSO-DA-COLETA.md",
+      "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
       "docs/operacao/CENSO-DOS-CONTRATOS-DE-ARTEFATO.md",
       "docs/operacao/CIRURGIA-OBJETO-E-OBSERVACAO.md",
       "docs/operacao/COLLECTION-V1-CLOSE-GATES.md",
@@ -814,6 +815,7 @@
       "guarda/sql_conferir.py"
     ],
     "handoff": [
+      "handoff/KNOW-HOW-DELTA-A-TRAVESSIA-OBSERVADA.md",
       "handoff/KNOW-HOW-DELTA-ORDEM-POR-DEPENDENCIA.md",
       "handoff/KNOW-HOW-DELTA-PAPEL-E-LEITURA-HUMANA.md",
       "handoff/S2A-R-RECONCILIACAO.md",
@@ -1466,6 +1468,7 @@
       "system-map/tests/test_system_map.py",
       "system-map/tests/test_topologia_persistida.py",
       "system-map/tests/test_uma_cadeia_um_dono.py",
+      "system-map/tests/test_verdade_das_ligacoes.py",
       "system-map/tests/verificar_a_tela.mjs"
     ],
     "tests": [
@@ -1963,9 +1966,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-collection-truth-v1",
-    "HEAD": "d016e5e4876d99340b84e386eec64b99c0699b33",
-    "GENERATED_AT": "2026-09-14T04:01:08+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f2beabf1a2edf0cf8018014d919d028e6c78938dc97b63eb77494dac74833113"
+    "HEAD": "f4a5b06249194e732a8d35be4e89889e15371530",
+    "GENERATED_AT": "2026-09-14T04:43:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c9c80ac302ab516d883186008e2308b3cc38f88224912dd69bca61bfde80ee04"
   },
   "FAMILIES": [
     {
@@ -2777,6 +2780,7 @@
         "C-CENSO-SEMANTICO-IT",
         "C-ESTRADA-PDF",
         "C-MAPA-GERADOR",
+        "C-MAPA-TESTES",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
         "C-PROVA-FRONTEIRA",
@@ -7549,10 +7553,11 @@
       ],
       "file_count": 2,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
+        "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA"
       ],
@@ -9804,6 +9809,7 @@
         "C-SCRAP-LEIS"
       ],
       "outbound": [
+        "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -13385,6 +13391,7 @@
       ],
       "produces": [
         "docs/fontes/INDICE-DE-FONTES.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "regras/LEIA-ANTES-DE-COLETAR.md"
       ],
       "inbound": [
@@ -13459,6 +13466,12 @@
         },
         {
           "onde": "GIT",
+          "file": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
           "file": "regras/LEIA-ANTES-DE-COLETAR.md",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
@@ -13492,6 +13505,7 @@
         "data/samples/SUPABASE-LIVE-MEDICAO-EXTERNA.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "docs/fontes/INDICE-DE-FONTES.md",
+        "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
         "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
         "italia-portale/audit/CANONICAL-PACKAGE-CONTRACT.json",
         "orquestrador/orquestrador.py",
@@ -13709,9 +13723,10 @@
         "system-map/tests/test_system_map.py",
         "system-map/tests/test_topologia_persistida.py",
         "system-map/tests/test_uma_cadeia_um_dono.py",
+        "system-map/tests/test_verdade_das_ligacoes.py",
         "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 12,
+      "file_count": 13,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -13721,12 +13736,14 @@
         "AGENTS.md"
       ],
       "inbound": [
+        "C-ADMISSAO",
         "C-AS-FONTES",
         "C-CENSO-CARDS-SENSORES",
         "C-CENSO-TOPOLOGIA",
         "C-CI-MAPA",
         "C-COLETA-PUBLICA",
         "C-CORPUS",
+        "C-DERIVACAO-FORWARD",
         "C-LEITOR-DA-CADEIA",
         "C-MAPA-APP",
         "C-MAPA-DEPLOY",
@@ -13736,15 +13753,23 @@
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
         "C-PROCEDENCIA",
+        "C-PROVA-COLETA",
+        "C-PROVA-ENCANAMENTO",
+        "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
         "C-RECONCILIACAO-UNIVERSO",
-        "C-REVISAO-DA-EVIDENCIA"
+        "C-REVISAO-DA-EVIDENCIA",
+        "C-ROTA-M2",
+        "C-SCRAP-SOCIAL"
       ],
       "outbound": [
+        "C-CENSO-EXECUTORES",
         "C-CENSO-TOPOLOGIA",
         "C-MAPA-DEPLOY",
         "C-MAPA-GERADOR",
-        "C-PROVA-COLETA"
+        "C-ORQUESTRADOR",
+        "C-PROVA-COLETA",
+        "C-RECEITAS"
       ],
       "paises": {},
       "paises_dado": {},
@@ -13756,7 +13781,10 @@
           "CAMPOS_DA_15",
           "CAMPOS_DO_CASO",
           "CATEGORIAS_CONHECIDAS",
+          "DONOS_DE_LEI",
+          "DONO_BOM",
           "DONO_DA_ESPECIE",
+          "LEDGER_BOM",
           "LINHA",
           "NAO_SAO_CATEGORIA",
           "OBRIGATORIO",
@@ -13772,9 +13800,9 @@
           "_DO_UNIVERSO",
           "_ESPINHA"
         ],
-        "palavras": 186,
+        "palavras": 221,
         "por_lingua": {},
-        "sem_marca_de_lingua": 186,
+        "sem_marca_de_lingua": 221,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13792,19 +13820,19 @@
         },
         {
           "onde": "GIT",
-          "file": "system-map/scripts/CADEIA-DO-MAPA.json",
+          "file": "orquestrador/orquestrador.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "system-map/scripts/censo_da_topologia.py",
+          "file": "pedido/receitas.py",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
         {
           "onde": "GIT",
-          "file": "system-map/scripts/generate_system_map.py",
+          "file": "system-map/data/provas-de-execucao.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -13818,12 +13846,12 @@
       "ROLE_PLANE": "UNKNOWN",
       "ROLE_CONFLICT": {
         "MEASURED": "OPERATIONAL_STEP",
-        "MEASURED_WHY": "escreve AGENTS.md, e C-CI-MAPA le isso: entrega trabalho a peca seguinte",
+        "MEASURED_WHY": "escreve AGENTS.md, e C-CENSO-CARDS-SENSORES le isso: entrega trabalho a peca seguinte",
         "DECLARED": "PROOF",
         "DECLARED_WHY": "declarado `kind: test` em architecture.declared.json",
         "RESOLUTION": "NAO_RESOLVIDO · o mapa nao escolhe: quem decide e gente"
       },
-      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve AGENTS.md, e C-CI-MAPA le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
+      "ROLE_EVIDENCE": "CONFLITO · a medicao diz OPERATIONAL_STEP (escreve AGENTS.md, e C-CENSO-CARDS-SENSORES le isso: entrega trabalho a peca seguinte) e a ficha diz PROOF (declarado `kind: test` em architecture.declared.json). Enquanto nao houver decisao, NAO SEI.",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -13834,8 +13862,12 @@
         "CLAUDE.md",
         "README.md",
         "_gavetas.py",
+        "admissao/admissao.py",
         "coleta/comunicacao_coleta.py",
+        "coleta/derivacao_forward.py",
+        "coleta/rota_forward_documento.py",
         "coleta/sensor_canal_identidade.py",
+        "coleta/social_persistencia.py",
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
         "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
         "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
@@ -13844,6 +13876,10 @@
         "medidas/padrao_da_coleta.py",
         "orquestrador/orquestrador.py",
         "package.json",
+        "provas/a_fronteira_da_coleta.py",
+        "provas/derived_artifact_no_postgres.py",
+        "provas/o_encanamento_tem_uma_porta.py",
+        "provas/objeto_e_observacao_no_postgres.py",
         "regras/proveniencia.py",
         "system-map/app/freshness.js",
         "system-map/app/map.css",
@@ -14222,6 +14258,7 @@
         "C-CI-COLETA",
         "C-CONTRATO-DE-RETORNO",
         "C-INGRESSO",
+        "C-MAPA-TESTES",
         "C-PEDIDO",
         "C-PROCEDENCIA",
         "C-RECEITAS"
@@ -16113,6 +16150,7 @@
         "C-CADEIA-V21",
         "C-CENSO-EXECUTORES",
         "C-CENSO-OBSERVABILIDADE",
+        "C-MAPA-TESTES",
         "C-PROVA-AUTORIDADE-FONTE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -16493,7 +16531,9 @@
         "C-INGRESSO",
         "C-ORQUESTRADOR"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-MAPA-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -16764,6 +16804,7 @@
       ],
       "outbound": [
         "C-MAPA-GERADOR",
+        "C-MAPA-TESTES",
         "C-TESTES"
       ],
       "paises": {},
@@ -17558,6 +17599,7 @@
         "C-IDENTIDADE",
         "C-IT-COLETA",
         "C-LUGAR-COLETA",
+        "C-MAPA-TESTES",
         "C-PEDIDO",
         "C-PROCEDENCIA",
         "C-ROTULOS"
@@ -18462,6 +18504,7 @@
       "outbound": [
         "C-ADMISSAO",
         "C-DERIVACAO-FORWARD",
+        "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-SCRAP-SOCIAL",
@@ -18520,6 +18563,7 @@
       "ATIVACAO": {
         "CLASSE": "SO_A_PROVA_A_CORRE",
         "QUEM": [
+          "C-MAPA-TESTES",
           "C-PROVA-COLETA",
           "C-PROVA-ROTA-M2-ATRAVESSA",
           "C-TESTES"
@@ -18529,7 +18573,7 @@
           "provas/a_rota_m2_atravessa.py:72",
           "provas/a_rota_m2_atravessa.py:471",
           "provas/medir_admission_t3_atual.py:76",
-          "tests/test_lingua_da_porta.py:203"
+          "system-map/tests/test_verdade_das_ligacoes.py:294"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -19152,6 +19196,7 @@
       ],
       "outbound": [
         "C-ADMISSAO",
+        "C-MAPA-TESTES",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-ROTA-M2",
         "C-TESTES"
@@ -24598,6 +24643,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ADMISSAO",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de admissao alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 293,
+          "snippet": "\"admissao/admissao.py\": \"C-ADMISSAO\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ADMISSAO--READS-->C-MAPA-TESTES",
+            "FROM": "C-ADMISSAO",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -34564,6 +34644,41 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 291,
+          "snippet": "\"coleta/derivacao_forward.py\": \"C-DERIVACAO-FORWARD\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-MAPA-TESTES",
+            "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -43098,6 +43213,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-CENSO-EXECUTORES",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map escreve em Censo dos executores — caminhos, papeis e cobertura. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 56,
+          "snippet": "(d / \"system-map\" / \"data\" / \"provas-de-execucao.json\").write_text(",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-EXECUTORES",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-CENSO-EXECUTORES",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-CENSO-TOPOLOGIA",
       "type": "WRITES",
       "payload": "artefacto",
@@ -43203,6 +43353,41 @@
     },
     {
       "from": "C-MAPA-TESTES",
+      "to": "C-ORQUESTRADOR",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map escreve em O orquestrador. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 63,
+          "snippet": "(d / \"orquestrador\" / \"orquestrador.py\").write_text(orq, encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-ORQUESTRADOR",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-ORQUESTRADOR",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
       "to": "C-PROVA-COLETA",
       "type": "READS",
       "payload": "artefacto",
@@ -43240,6 +43425,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-MAPA-TESTES",
+      "to": "C-RECEITAS",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "raw_type": "WRITES",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Testes do System Map escreve em A receita da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 60,
+          "snippet": "(d / \"pedido\" / \"receitas.py\").write_text(receitas, encoding=\"utf-8\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-RECEITAS",
+            "FROM": "C-MAPA-TESTES",
+            "TO": "C-RECEITAS",
+            "RELATION_TYPE": "WRITES",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `WRITES`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -47559,6 +47779,57 @@
     },
     {
       "from": "C-PROVA-COLETA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta Testes do System Map. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 261,
+          "snippet": "(\"provas/objeto_e_observacao_no_postgres.py\", \"storage_path\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-MAPA-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 263,
+          "snippet": "(\"provas/derived_artifact_no_postgres.py\", \"sha256\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-MAPA-TESTES",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-COLETA",
       "to": "C-PROVA-AUTORIDADE-FONTE",
       "type": "READS",
       "payload": "artefacto",
@@ -47909,6 +48180,41 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-PROVA-ENCANAMENTO",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prova do encanamento — uma porta, uma ordem, um dono alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 267,
+          "snippet": "(\"provas/o_encanamento_tem_uma_porta.py\", \"FACT_TIME\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ENCANAMENTO--READS-->C-MAPA-TESTES",
+            "FROM": "C-PROVA-ENCANAMENTO",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-PROVA-EXECUTOR-CONTA",
       "to": "C-CENSO-OBSERVABILIDADE",
       "type": "READS",
@@ -47971,6 +48277,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-FRONTEIRA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A medição da fronteira com a Inteligência alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 265,
+          "snippet": "(\"provas/a_fronteira_da_coleta.py\", \"FACT_LOCATION\"),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-MAPA-TESTES",
+            "FROM": "C-PROVA-FRONTEIRA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -49683,6 +50024,41 @@
       },
       "PROVEN": "YES",
       "PROVEN_PLANE": "OBSERVED",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 294,
+          "snippet": "\"coleta/rota_forward_documento.py\": \"C-ROTA-M2\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--READS-->C-MAPA-TESTES",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -51883,6 +52259,41 @@
       },
       "PROVEN": "YES",
       "PROVEN_PLANE": "OBSERVED",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-SCRAP-SOCIAL",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor do SCRAP · a aquisicao social alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_verdade_das_ligacoes.py",
+          "line": 292,
+          "snippet": "\"coleta/social_persistencia.py\": \"C-SCRAP-SOCIAL\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-MAPA-TESTES",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -56960,7 +57371,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 764,
+  "UNCLAIMED_FILES_COUNT": 765,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -57153,12 +57564,12 @@
     "components_pending": 101,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 671,
-    "edges_proven": 624,
+    "edges": 681,
+    "edges_proven": 634,
     "edges_unknown": 47,
     "business_edges": 4,
-    "files_tracked": 1515,
-    "files_covered": 751,
+    "files_tracked": 1518,
+    "files_covered": 753,
     "files_code_unclaimed": 0,
     "roles_proven": 119,
     "roles_declared_only": 4,

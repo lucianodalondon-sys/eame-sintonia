@@ -253,6 +253,12 @@ button,input{font:inherit}.topbar{height:76px;background:#fff;border-bottom:1px 
   stroke-dasharray:none;opacity:.92}
 .dyn.prova-observada .edgePath.semprova{stroke:var(--adama-dark);
   stroke-dasharray:none;marker-end:none}
+
+/* ── A LEGENDA DA LINGUA DAS SETAS ───────────────────────────────────────── */
+.legendaArestas{font-size:9px;line-height:1.65;color:#5c6663;margin:2px 0 6px}
+.legendaArestas div{display:flex;gap:5px;align-items:baseline}
+.legendaArestas b{color:#3d3936;font-weight:800;min-width:58px;flex:none}
+.legendaArestas i{color:#8a827e;font-style:normal;font-size:8.4px;min-width:78px;flex:none}
 .dyn.catUNKNOWN .edgePath{stroke:var(--unknown);stroke-dasharray:4 6;opacity:.34}
 
 /* com o foco num cartao, a seta acesa volta a ser inteira, seja qual for a

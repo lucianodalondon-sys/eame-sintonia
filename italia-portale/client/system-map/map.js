@@ -1184,6 +1184,20 @@ function renderMini() {
 }
 
 /* ══ 6 · INVENTARIO — o repositorio inteiro, sem acreditar na palavra do mapa ═ */
+/* A CONTA DAS SETAS SEM PROVA — DERIVADA, e nunca escrita na casca.
+   Estava «47 de 659» à mão no HTML, e o mapa já ia em 671 arestas. Um número
+   escrito à mão numa tela é um facto a esconder-se onde nenhum validador o
+   alcança — que é exactamente o que o cabeçalho do `index.html` proíbe.
+
+       O MAPA É DERIVADO DO REPO. A CONTAGEM DELE TAMBÉM. */
+function contarSemProva() {
+  const el = $('contaSemProva'); if (!el) return;
+  const sem = edges.filter(e => !arestaProvada(e)).length;
+  const obs = edges.filter(e => e.OBSERVED === 'YES').length;
+  el.textContent = `${sem} de ${edges.length}`
+    + (obs ? ` · e ${obs} são OBSERVADAS` : '');
+}
+
 function renderInventory(q = '') {
   q = q.toLowerCase();
   $('inventoryBody').innerHTML = Object.entries(S.INVENTORY).map(([grupo, arr]) => {
@@ -1810,7 +1824,7 @@ async function arrancar() {
       `<label class="check" title="${esc(desc)}"><input type="radio" name="dept"
         value="${esc(k)}">${esc(k.replace(/_/g, ' '))}</label>`).join('');
 
-  render(); bind(); renderMini(); applyFilters();
+  render(); bind(); renderMini(); contarSemProva(); applyFilters();
   requestAnimationFrame(() => enquadrarFaixa((S.FAMILIES || [])[0]?.id));
 
   const alvo = location.hash.slice(1);

@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d016e5e4876d99340b84e386eec64b99c0699b33
+HEAD_DA_MEDICAO  f4a5b06249194e732a8d35be4e89889e15371530
 BRANCH           claude/system-map-collection-truth-v1
-GERADO_EM        2026-09-14T04:01:08+00:00
+GERADO_EM        2026-09-14T04:43:38+00:00
 CARDS            64
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -148,8 +148,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 7 |
-| **arestas provadas** | entram 6 · saem 7 |
+| **arestas no mapa** | entram 6 · saem 8 |
+| **arestas provadas** | entram 6 · saem 8 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
@@ -273,15 +273,15 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-TESTES |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-MAPA-TESTES, C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-TESTES |
 | **prova de quem ativa** | provas/a_rota_m2_atravessa.py:72; provas/a_rota_m2_atravessa.py:471; provas/medir_admission_t3_atual.py:76 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 8 |
-| **arestas provadas** | entram 7 · saem 8 |
+| **arestas no mapa** | entram 7 · saem 9 |
+| **arestas provadas** | entram 7 · saem 9 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 0 · saem 3 |
 | **data plane** | entram 0 · saem 0 |
@@ -324,8 +324,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/SOCIAL-IT/YOUTUBE-PILOTO-IT.json` |
 | **o que sai · dado** | C-ADMISSAO |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 9 · saem 5 |
-| **arestas provadas** | entram 7 · saem 5 |
+| **arestas no mapa** | entram 9 · saem 6 |
+| **arestas provadas** | entram 7 · saem 6 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
@@ -348,8 +348,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/LIVRO-DE-DECISOES.json` |
 | **o que sai · dado** | C-READY |
 | **o que sai · ficheiros** | `data/samples/LIVRO-DE-DECISOES.json` |
-| **arestas no mapa** | entram 5 · saem 15 |
-| **arestas provadas** | entram 3 · saem 14 |
+| **arestas no mapa** | entram 5 · saem 16 |
+| **arestas provadas** | entram 3 · saem 15 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
@@ -950,7 +950,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **peça real** | `system-map/data/provas-de-execucao.json`, `system-map/scripts/censo_dos_executores.py` |
 | **papel** | MEASUREMENT_INSTRUMENT · medido no plano CODE |
 | **dono** | ENGENHARIA |
-| **status operacional** | yellow — existe, mas nada no repositorio manda rodar nem importa — pode estar desligado. |
+| **status operacional** | yellow — existe teste que exercita isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-CENSO-CARDS-SENSORES, C-CENSO-DOS-BURACOS, C-MAPA-GERADOR, C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-TESTES |
 | **prova de quem ativa** | provas/a_rota_m2_atravessa.py:120; provas/os_portoes_da_collection.py:46; system-map/scripts/censo_cards_sensores.py:140 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
@@ -958,8 +958,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `provas/a_rota_m2_atravessa.py`, `provas/paridade_da_lingua.py`, `system-map/data/provas-de-execucao.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 6 |
-| **arestas provadas** | entram 2 · saem 6 |
+| **arestas no mapa** | entram 3 · saem 6 |
+| **arestas provadas** | entram 3 · saem 6 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
@@ -1180,8 +1180,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 13 |
-| **arestas provadas** | entram 7 · saem 13 |
+| **arestas no mapa** | entram 8 · saem 13 |
+| **arestas provadas** | entram 8 · saem 13 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 5 |
 | **data plane** | entram 0 · saem 0 |
@@ -1226,8 +1226,8 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `coleta/comunicacao_coleta.py`, `coleta/corpus_pesquisador.py`, `coleta/eppo_gd.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 11 · saem 5 |
-| **arestas provadas** | entram 11 · saem 5 |
+| **arestas no mapa** | entram 12 · saem 5 |
+| **arestas provadas** | entram 12 · saem 5 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
