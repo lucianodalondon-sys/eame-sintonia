@@ -1299,6 +1299,7 @@
       "provas/a_maquina_depois_do_crash.py",
       "provas/a_maquina_sob_carga.py",
       "provas/a_ponte_de_midia_atravessa.py",
+      "provas/a_ponte_de_midia_no_postgres.py",
       "provas/a_porta_le_italiano.py",
       "provas/a_regra_de_t2.py",
       "provas/a_repeticao_do_scrap.py",
@@ -2342,9 +2343,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-italia-caption-audio-8b460b",
-    "HEAD": "258b8e2a96b3ca5c72c849b2d29b008612896a24",
-    "GENERATED_AT": "2026-09-14T17:19:13-03:00",
-    "SOURCE_TREE_FINGERPRINT": "4c9f49f3555fc014b639e947e3f9e957faae3f5f86abbb4a19039802ea0ca44b"
+    "HEAD": "0d44e9af6329a9cfca3f84a855bde2234e1f663b",
+    "GENERATED_AT": "2026-09-14T17:36:34-03:00",
+    "SOURCE_TREE_FINGERPRINT": "f2288cd6a49f73a632604240d0cc6700dfddf2ac04bd4d80ada7475287c11551"
   },
   "FAMILIES": [
     {
@@ -8934,6 +8935,7 @@
         "C-PROVA-LINHAGEM-READY-SOCIAL",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
         "C-REGRA-COLETA",
@@ -10549,6 +10551,7 @@
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-ROTAS-REAIS",
         "C-ROTA-M2",
         "C-SCRAP-SOCIAL",
         "C-TESTES"
@@ -17284,7 +17287,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:504"
+          ".github/workflows/banco-descartavel.yml:545"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17578,6 +17581,7 @@
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SALA-ITALIANA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
         "C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -17909,7 +17913,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/auditoria-live.yml:54",
-          ".github/workflows/banco-descartavel.yml:147",
+          ".github/workflows/banco-descartavel.yml:152",
           ".github/workflows/system-map.yml:551",
           ".github/workflows/system-map.yml:625"
         ],
@@ -18000,7 +18004,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:545",
+          ".github/workflows/banco-descartavel.yml:586",
           ".github/workflows/system-map.yml:651"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -18382,7 +18386,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:332"
+          ".github/workflows/banco-descartavel.yml:337"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18678,8 +18682,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:468",
-          ".github/workflows/banco-descartavel.yml:487"
+          ".github/workflows/banco-descartavel.yml:509",
+          ".github/workflows/banco-descartavel.yml:528"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19202,7 +19206,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:438"
+          ".github/workflows/banco-descartavel.yml:479"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19304,7 +19308,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:341"
+          ".github/workflows/banco-descartavel.yml:346"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19334,19 +19338,22 @@
         "provas/a_corrida_existe_em_cada_rota.py",
         "provas/a_legenda_e_o_audio_do_youtube.py",
         "provas/a_ponte_de_midia_atravessa.py",
+        "provas/a_ponte_de_midia_no_postgres.py",
         "provas/a_rota_gratuita_ainda_e_gratuita.py",
         "provas/o_raw_local_nao_e_duravel.py",
         "provas/o_video_tem_consumidor.py"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-ASK-SINTONIA",
+        "C-CI-PERSIST",
         "C-COLETA-BASE",
         "C-CONTRATO-DE-RETORNO",
+        "C-DERIVACAO-FORWARD",
         "C-DONO-DA-ESCRITA",
         "C-EXECUTOR-TEXTO-PDF",
         "C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -19355,7 +19362,10 @@
         "C-INGRESSO",
         "C-IT-PRESERVAR",
         "C-PROCEDENCIA",
+        "C-PROVA-COLETA",
+        "C-RASTRO",
         "C-RECEITAS",
+        "C-ROTA-M2",
         "C-ROTULOS",
         "C-SCRAP-GUARDA",
         "C-SCRAP-LEIS",
@@ -19373,13 +19383,14 @@
           "CAMINHOS",
           "CANDIDATOS",
           "CLAUSULAS",
+          "COLUNAS",
           "DONOS_DO_RUN",
           "ESPERADO",
           "ULTIMA_MEDICAO_CONHECIDA"
         ],
-        "palavras": 59,
+        "palavras": 66,
         "por_lingua": {},
-        "sem_marca_de_lingua": 59,
+        "sem_marca_de_lingua": 66,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -19418,6 +19429,7 @@
         "guarda/catalogo_importar.py",
         "guarda/preservar_coleta.py",
         "guarda/social_guarda.py",
+        "provas/preservar_coleta_no_postgres.py",
         "superficie/rede.py"
       ],
       "consumes_plane": "CODE",
@@ -19429,11 +19441,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "PECA_INTERNA",
+        "QUEM": [
+          "C-CI-PERSIST"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          ".github/workflows/banco-descartavel.yml:380"
+        ],
+        "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
       "x": 20020,
       "y": 5512
@@ -19747,7 +19763,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:376"
+          ".github/workflows/banco-descartavel.yml:417"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19918,8 +19934,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/banco-descartavel.yml:397",
-          ".github/workflows/banco-descartavel.yml:415"
+          ".github/workflows/banco-descartavel.yml:438",
+          ".github/workflows/banco-descartavel.yml:456"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -20182,6 +20198,7 @@
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-O-RAW-FALA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-ROTAS-REAIS",
         "C-ROTA-M2",
         "C-TESTES"
       ],
@@ -21445,6 +21462,7 @@
         "C-MAPA-TESTES",
         "C-PROVA-COLETA",
         "C-PROVA-ROTA-M2-ATRAVESSA",
+        "C-PROVA-ROTAS-REAIS",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
         "C-SCRAP-SOCIAL",
@@ -21506,6 +21524,7 @@
           "C-MAPA-TESTES",
           "C-PROVA-COLETA",
           "C-PROVA-ROTA-M2-ATRAVESSA",
+          "C-PROVA-ROTAS-REAIS",
           "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
           "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
           "C-TESTES"
@@ -21513,9 +21532,9 @@
         "PLANO": "CODE",
         "PROVA": [
           "provas/a_linhagem_do_ready.py:60",
+          "provas/a_ponte_de_midia_no_postgres.py:67",
           "provas/a_rota_m2_atravessa.py:72",
-          "provas/a_rota_m2_atravessa.py:484",
-          "provas/a_sala_de_espera_nao_tem_morada.py:145"
+          "provas/a_rota_m2_atravessa.py:484"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -36811,7 +36830,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 504,
+          "line": 545,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-AUTORIDADE-FONTE",
@@ -36862,7 +36881,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 147,
+          "line": 152,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36878,7 +36897,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 160,
+          "line": 165,
           "snippet": "python3 provas/derived_artifact_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36894,7 +36913,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 175,
+          "line": 180,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36910,7 +36929,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 188,
+          "line": 193,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36926,7 +36945,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 201,
+          "line": 206,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36942,7 +36961,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 223,
+          "line": 228,
           "snippet": "python3 provas/a_sala_sobrevive_ao_processo.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36958,7 +36977,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 234,
+          "line": 239,
           "snippet": "run: python3 provas/o_egresso_antes_da_aquisicao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36974,7 +36993,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 245,
+          "line": 250,
           "snippet": "run: python3 provas/mutacao_da_sala_duravel.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -36990,7 +37009,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 250,
+          "line": 255,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37006,7 +37025,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 282,
+          "line": 287,
           "snippet": "python3 provas/social_persistencia_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37022,7 +37041,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 306,
+          "line": 311,
           "snippet": "python3 provas/rastro_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-COLETA",
@@ -37057,7 +37076,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 545,
+          "line": 586,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-DEDUPE",
@@ -37092,7 +37111,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 332,
+          "line": 337,
           "snippet": "python3 provas/o_forward_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-FORWARD-CONTA",
@@ -37127,7 +37146,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 468,
+          "line": 509,
           "snippet": "python3 provas/a_linhagem_do_ready_social.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -37143,7 +37162,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 487,
+          "line": 528,
           "snippet": "python3 provas/mutacao_da_linhagem_social.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-LINHAGEM-READY-SOCIAL",
@@ -37178,7 +37197,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 438,
+          "line": 479,
           "snippet": "python3 provas/o_retry_do_scrap.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-RETRY-DO-SCRAP",
@@ -37213,12 +37232,47 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 341,
+          "line": 346,
           "snippet": "python3 provas/a_rota_m2_atravessa.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-ROTA-M2-ATRAVESSA",
             "FROM": "C-CI-PERSIST",
             "TO": "C-PROVA-ROTA-M2-ATRAVESSA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CONTROL",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 380,
+          "snippet": "python3 provas/a_ponte_de_midia_no_postgres.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-CI-PERSIST",
+            "TO": "C-PROVA-ROTAS-REAIS",
             "RELATION_TYPE": "RUNS",
             "PLANE": "CODE"
           },
@@ -37248,7 +37302,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 376,
+          "line": 417,
           "snippet": "python3 provas/o_scrap_chega_ao_acervo.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -37283,7 +37337,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 397,
+          "line": 438,
           "snippet": "python3 provas/as_travas_do_scrap_no_postgres.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -37299,7 +37353,7 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 415,
+          "line": 456,
           "snippet": "python3 provas/a_repeticao_do_scrap.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--RUNS-->C-PROVA-TRAVAS-E-REPETICAO-DO-SCRAP",
@@ -38440,6 +38494,41 @@
             "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-ROTA-M2-ATRAVESSA",
             "FROM": "C-COLETA-BASE",
             "TO": "C-PROVA-ROTA-M2-ATRAVESSA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-COLETA-BASE",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O motor de buscar tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 62,
+          "snippet": "import coleta_checkpoint as cc                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-BASE--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-COLETA-BASE",
+            "TO": "C-PROVA-ROTAS-REAIS",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -43247,6 +43336,41 @@
     },
     {
       "from": "C-DERIVACAO-FORWARD",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 63,
+          "snippet": "import derivacao_forward as fwd                   # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DERIVACAO-FORWARD",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -44454,6 +44578,41 @@
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-ROTA-M2-ATRAVESSA",
             "FROM": "C-DONO-DA-ESCRITA",
             "TO": "C-PROVA-ROTA-M2-ATRAVESSA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DONO-DA-ESCRITA",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do bruto (OBSERVED) tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 71,
+          "snippet": "from guarda.preservar_coleta import (             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-DONO-DA-ESCRITA",
+            "TO": "C-PROVA-ROTAS-REAIS",
             "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
@@ -47370,12 +47529,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · transcrição de mídia tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "reason": "Executor · transcrição de mídia tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_ponte_de_midia_atravessa.py",
           "line": 46,
           "snippet": "import executor_transcricao_midia as midia         # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 64,
+          "snippet": "import executor_transcricao_midia as midia        # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--IMPORTS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
@@ -49188,12 +49363,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_ponte_de_midia_atravessa.py",
           "line": 45,
           "snippet": "import ingresso as ing                             # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-INGRESSO",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 65,
+          "snippet": "import ingresso as ing                            # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-INGRESSO",
@@ -59497,12 +59688,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "reason": "De onde veio — carimbado na coleta tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_ponte_de_midia_atravessa.py",
           "line": 48,
           "snippet": "import proveniencia as pv                          # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-PROCEDENCIA",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 69,
+          "snippet": "import proveniencia as pv                         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--IMPORTS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-PROCEDENCIA",
@@ -60718,6 +60925,41 @@
             "EDGE_ID": "C-PROVA-COLETA--READS-->C-PROVA-ROTA-M2-ATRAVESSA",
             "FROM": "C-PROVA-COLETA",
             "TO": "C-PROVA-ROTA-M2-ATRAVESSA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-COLETA",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Provas da coleta canonica alimenta As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 58,
+          "snippet": "\"prova_pg\", os.path.join(RAIZ, \"provas\", \"preservar_coleta_no_postgres.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-COLETA--READS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-PROVA-COLETA",
+            "TO": "C-PROVA-ROTAS-REAIS",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -62770,6 +63012,41 @@
     },
     {
       "from": "C-RASTRO",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O rastro da coleta — etapa, aresta, contagem e falha tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 66,
+          "snippet": "import rastro_da_coleta as rastro                 # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RASTRO--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-RASTRO",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-RASTRO",
       "to": "C-ROTA-M2",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -64740,6 +65017,41 @@
         }
       ],
       "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ROTA-M2",
+      "to": "C-PROVA-ROTAS-REAIS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A rota forward do documento (M2) tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 67,
+          "snippet": "import rota_forward_documento as m2               # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ROTA-M2--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-ROTA-M2",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -69931,12 +70243,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 2 linhas de codigo.",
+      "reason": "SINTONIA SCRAP · o executor da aquisicao social tem o seu codigo importado por As rotas existem de facto? — corrida, consumidor e durabilidade. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_legenda_e_o_audio_do_youtube.py",
           "line": 154,
           "snippet": "import scrap_http as http                                      # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-ROTAS-REAIS",
+            "FROM": "C-SCRAP-SOCIAL",
+            "TO": "C-PROVA-ROTAS-REAIS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "provas/a_ponte_de_midia_no_postgres.py",
+          "line": 68,
+          "snippet": "import social_persistencia as sp                  # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-ROTAS-REAIS",
             "FROM": "C-SCRAP-SOCIAL",
@@ -77746,12 +78074,12 @@
     "components_pending": 142,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 965,
-    "edges_proven": 913,
+    "edges": 972,
+    "edges_proven": 920,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1756,
-    "files_covered": 912,
+    "files_tracked": 1757,
+    "files_covered": 913,
     "files_code_unclaimed": 0,
     "roles_proven": 138,
     "roles_declared_only": 5,

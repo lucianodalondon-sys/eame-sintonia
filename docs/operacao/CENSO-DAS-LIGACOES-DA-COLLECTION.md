@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  258b8e2a96b3ca5c72c849b2d29b008612896a24
+HEAD_DA_MEDICAO  0d44e9af6329a9cfca3f84a855bde2234e1f663b
 BRANCH           claude/youtube-italia-caption-audio-8b460b
-GERADO_EM        2026-09-14T17:19:13-03:00
+GERADO_EM        2026-09-14T17:36:34-03:00
 CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -38,13 +38,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `data/samples/ES-RESEARCHERS-OLIVE.json`, `data/samples/ES-VOICE-LINKEDIN.json` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 23 |
-| **arestas provadas** | entram 7 · saem 23 |
+| **arestas no mapa** | entram 7 · saem 24 |
+| **arestas provadas** | entram 7 · saem 24 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 30 |
+| **prova das ligações** | CODE 31 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
@@ -163,13 +163,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 12 |
-| **arestas provadas** | entram 7 · saem 12 |
+| **arestas no mapa** | entram 7 · saem 13 |
+| **arestas provadas** | entram 7 · saem 13 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 17 · OBSERVED 2 |
+| **prova das ligações** | CODE 18 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -356,20 +356,20 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **papel** | UNKNOWN · medido no plano UNKNOWN |
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
-| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-MAPA-TESTES, C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-PROVA-SALA-DE-ESPERA-SEM-MORADA, C-PROVA-UNIDADE-POUSA-NA-ESPERA, C-TESTES |
-| **prova de quem ativa** | provas/a_linhagem_do_ready.py:60; provas/a_rota_m2_atravessa.py:72; provas/a_rota_m2_atravessa.py:484 _(plano CODE)_ |
+| **QUEM ATIVA** | **SO_A_PROVA_A_CORRE** — C-MAPA-TESTES, C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-PROVA-ROTAS-REAIS, C-PROVA-SALA-DE-ESPERA-SEM-MORADA, C-PROVA-UNIDADE-POUSA-NA-ESPERA, C-TESTES |
+| **prova de quem ativa** | provas/a_linhagem_do_ready.py:60; provas/a_ponte_de_midia_no_postgres.py:67; provas/a_rota_m2_atravessa.py:72 _(plano CODE)_ |
 | **porquê** | na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 8 · saem 12 |
-| **arestas provadas** | entram 8 · saem 12 |
+| **arestas no mapa** | entram 8 · saem 13 |
+| **arestas provadas** | entram 8 · saem 13 |
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 0 · saem 3 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED YES · PROVEN YES _(no plano OBSERVED)_ |
-| **prova das ligações** | CODE 17 · OBSERVED 3 |
+| **prova das ligações** | CODE 18 · OBSERVED 3 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
@@ -904,13 +904,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | `supabase/migrations/008_verificacao_pos_aplicacao.sql`, `supabase/tests/regressoes_catalogo_es.sql`, `supabase/tests/regressoes_regulatorio_es.sql` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 2 · saem 13 |
-| **arestas provadas** | entram 2 · saem 13 |
+| **arestas no mapa** | entram 2 · saem 14 |
+| **arestas provadas** | entram 2 · saem 14 |
 | **OBSERVADAS** | 0 |
-| **control plane** | entram 0 · saem 10 |
+| **control plane** | entram 0 · saem 11 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 15 |
+| **prova das ligações** | CODE 16 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
@@ -954,13 +954,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 1 · saem 18 |
-| **arestas provadas** | entram 1 · saem 18 |
+| **arestas no mapa** | entram 1 · saem 19 |
+| **arestas provadas** | entram 1 · saem 19 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 19 |
+| **prova das ligações** | CODE 20 |
 | **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
@@ -1381,13 +1381,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 5 · saem 13 |
-| **arestas provadas** | entram 5 · saem 13 |
+| **arestas no mapa** | entram 5 · saem 14 |
+| **arestas provadas** | entram 5 · saem 14 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 18 |
+| **prova das ligações** | CODE 19 |
 | **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
