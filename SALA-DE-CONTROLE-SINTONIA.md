@@ -327,7 +327,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
 - **impressão do conteúdo medido** — `98d105e0bb`
 - **prova** — `git:HEAD:docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `provas/arbitragem_da_intelligence.py`
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `provas/arbitragem_da_intelligence.py`
 - **o que ela diz de si** — CANONICAL
 - **nota** — Integrada por C-INT-ATOMICITY-01. O resultado VIVO da arbitragem e INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json, gerado por provas/arbitragem_da_intelligence.py; o V1 e V2 ficam como historia.
 
@@ -363,7 +363,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`SINTONIA-EAME-KNOW-HOW.md`](SINTONIA-EAME-KNOW-HOW.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `4d599b2f2f`
+- **impressão do conteúdo medido** — `0f057a40e7`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `provas/arbitragem_da_intelligence.py`, `tests/test_atomicidade_da_intelligence.py` *(+1)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
@@ -606,7 +606,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`](HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `b3b97adf88`
+- **impressão do conteúdo medido** — `8caf4da67b`
 - **prova** — `git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`
 - **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `tests/test_atomicidade_da_intelligence.py` *(+2)*
 - **o que ela diz de si** — MEMORIA.
