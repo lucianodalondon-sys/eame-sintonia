@@ -234,12 +234,41 @@ def raw_do_disco(caminho_abs: str, raiz: str, **campos) -> Artefato:
     ext = os.path.splitext(caminho_abs)[1].lower()
     tipos = {".pdf": "application/pdf", ".txt": "text/plain",
              ".json": "application/json", ".html": "text/html"}
+    # ── QUEM OBSERVOU OS BYTES SABE MAIS DO QUE O NOME DO FICHEIRO ───────────
+    # ⚠️ O COLETOR DECLARAVA A ESPECIE, E ESTA FUNCAO DEITAVA-A FORA.
+    #
+    # Medido a 2026-09-14 com um `.mp4` real de 9,2 MB: o item trazia
+    # `CONTENT_TYPE: video/mp4` e a ficha saia `NAO SEI`, porque a tabela acima
+    # tem quatro extensoes e nenhuma delas e video. E `NAO SEI` nao e neutro —
+    # `ingresso._quem_deriva_aceita` trata a ausencia como «tenta», de
+    # proposito e com razao:
+    #
+    #     AUSENCIA DE EVIDENCIA NAO E EVIDENCIA DE AUSENCIA.
+    #
+    # Resultado: o video seguia para `executor_texto_de_pdf`, e o `pdftotext`
+    # era chamado sobre um MP4. E a lei que evita isso — a porta da especie —
+    # existia, estava certa, e nunca recebia o dado de que precisava.
+    #
+    #     UMA TRAVA DE ESPECIE COM A ESPECIE APAGADA A MONTANTE
+    #     NAO PROTEGE NADA: ELA SO NAO TEM O QUE LER.
+    #
+    # E NAO SE ACRESCENTA `.mp4` A TABELA. Esta casa ja pagou por confiar na
+    # extensao: 46 ficheiros `.pdf` que eram a pagina HTML do site, e o registo
+    # diz «a extensao tambem mente». A extensao continua a ser o ULTIMO
+    # recurso; o que passa a valer primeiro e o que o coletor DECLAROU, porque
+    # ele viu os bytes chegarem e a extensao nao viu nada.
+    #
+    #     DECLARADO PELO OBSERVADOR  >  DEDUZIDO DO NOME  >  NAO SEI.
+    declarado = campos.pop("CONTENT_TYPE", None)
+    if declarado is None or str(declarado).strip().upper() in (
+            NAO_SEI.upper(), "NAO_SEI", "NÃO SEI", NAO_SE_APLICA, ""):
+        declarado = None
     return Artefato(
         ARTIFACT_ID=artifact_id(sha, RAW),
         ARTIFACT_TYPE=RAW,
         STORAGE_LOCATION=rel,
         SHA256=sha,
-        CONTENT_TYPE=tipos.get(ext, NAO_SEI),
+        CONTENT_TYPE=declarado or tipos.get(ext, NAO_SEI),
         BYTES=os.path.getsize(caminho_abs),
         **campos,
     )

@@ -847,6 +847,7 @@
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
       "docs/sintonia-scrap/C4E-GPU-NA-LINHA-DA-COLLECTION.md",
       "docs/sintonia-scrap/C4F-CANARIO-DE-VIDEO-ITALIANO-BLOQUEADO.md",
+      "docs/sintonia-scrap/C4G-O-CANO-INTERNO-DO-VIDEO.md",
       "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
       "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
@@ -1707,6 +1708,7 @@
       "tests/test_c4_gpu_local.py",
       "tests/test_c4b_gpu_execucao.py",
       "tests/test_c4d_ferro_negociado.py",
+      "tests/test_c4g_a_especie_do_video.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
       "tests/test_c7_lugar_do_fato.py",
@@ -2334,9 +2336,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "f5434f5e39615cb8be48e33f1e76320a7dd097f2",
-    "GENERATED_AT": "2026-09-14T15:13:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cc3f48b9b72a128b586b12cb97c8bfd22e39d8d1a380b1e5707b95d6aa712991"
+    "HEAD": "611e7cbf406147c0ab057e9ffa7775f6fa11e8a1",
+    "GENERATED_AT": "2026-09-14T15:48:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c4916721e5f58b63a80563f772e085f191ec453dee5054ac2202c62cd4a7095d"
   },
   "FAMILIES": [
     {
@@ -11805,7 +11807,7 @@
         "PROVA": [
           "coleta/derivacao_forward.py:83",
           "coleta/golden_path_pdf.py:53",
-          "coleta/ingresso.py:501",
+          "coleta/ingresso.py:516",
           "medidas/corrida_instrumentada.py:122"
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -12760,9 +12762,9 @@
           "PARA_A_PORTA",
           "_SENTINELAS"
         ],
-        "palavras": 65,
+        "palavras": 66,
         "por_lingua": {},
-        "sem_marca_de_lingua": 65,
+        "sem_marca_de_lingua": 66,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -25071,6 +25073,7 @@
         "tests/test_c4_gpu_local.py",
         "tests/test_c4b_gpu_execucao.py",
         "tests/test_c4d_ferro_negociado.py",
+        "tests/test_c4g_a_especie_do_video.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
@@ -25179,7 +25182,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 157,
+      "file_count": 158,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -25695,6 +25698,7 @@
         "motor/v21_tm_colher.py",
         "motor/v21_traducao_trava.py",
         "orquestrador/orquestrador.py",
+        "package.json",
         "pedido/receitas.py",
         "provas/_c108a_ultima_corrida.json",
         "provas/a_fase_10_entra_no_acervo.py",
@@ -40365,7 +40369,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 269,
+          "line": 284,
           "snippet": "\"VOCABULARIO\": \"leis/artefato.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
@@ -40571,7 +40575,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -40593,6 +40597,22 @@
           "file": "tests/test_c10_3_location.py",
           "line": 34,
           "snippet": "import artefato as art            # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TESTES",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4g_a_especie_do_video.py",
+          "line": 50,
+          "snippet": "import artefato as art                                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TESTES",
             "FROM": "C-CONTRATO-ARTEFATO",
@@ -46301,7 +46321,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 501,
+          "line": 516,
           "snippet": "import executor_texto_de_pdf as _ex",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-INGRESSO",
@@ -48880,7 +48900,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -48902,6 +48922,22 @@
           "file": "tests/test_alvo_estruturado_resolvido.py",
           "line": 249,
           "snippet": "import ingresso as ing",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
+            "FROM": "C-INGRESSO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4g_a_especie_do_video.py",
+          "line": 51,
+          "snippet": "import ingresso as ing                                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
             "FROM": "C-INGRESSO",
@@ -49027,7 +49063,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A porta de entrada da coleta alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -49049,6 +49085,22 @@
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 151,
           "snippet": "chamadas = _chamadas(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
+            "FROM": "C-INGRESSO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4g_a_especie_do_video.py",
+          "line": 156,
+          "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
             "FROM": "C-INGRESSO",
@@ -76895,7 +76947,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 841,
+  "UNCLAIMED_FILES_COUNT": 842,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -77084,8 +77136,8 @@
     "edges_proven": 903,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1748,
-    "files_covered": 907,
+    "files_tracked": 1750,
+    "files_covered": 908,
     "files_code_unclaimed": 0,
     "roles_proven": 137,
     "roles_declared_only": 5,

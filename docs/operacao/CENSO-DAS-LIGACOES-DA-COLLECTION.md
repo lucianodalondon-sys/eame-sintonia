@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f5434f5e39615cb8be48e33f1e76320a7dd097f2
+HEAD_DA_MEDICAO  611e7cbf406147c0ab057e9ffa7775f6fa11e8a1
 BRANCH           claude/local-gpu-on-current-collection-v1
-GERADO_EM        2026-09-14T15:13:31-03:00
+GERADO_EM        2026-09-14T15:48:12-03:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -232,7 +232,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/derivacao_forward.py:83; coleta/golden_path_pdf.py:53; coleta/ingresso.py:501 |
+| **prova de quem ativa** | coleta/derivacao_forward.py:83; coleta/golden_path_pdf.py:53; coleta/ingresso.py:516 |
 | **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | C-IT-PDF-BRUTO |
 | **o que entra · ficheiros** | `data/derivados/REGISTO-DE-ARTEFATOS.json` |

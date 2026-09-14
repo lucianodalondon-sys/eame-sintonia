@@ -133,7 +133,22 @@ NAO_SEI_ID = "NAO SEI"
 DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "SOURCE_LOCATION", "FACT_LOCATION", "ITEM_LANGUAGE",
               "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT", "COLLECTED_AT",
-              "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION")
+              "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION",
+              # ⚠️ `CONTENT_TYPE` ENTROU, E NAO E «MAIS UM CAMPO A VIAJAR».
+              # A regra escrita a seguir continua a valer: um campo nao entra
+              # aqui por precisar de boleia. Este entra porque e METADADO DA
+              # FICHA — `Artefato` sempre teve a coluna — e porque a ficha
+              # nascia com ela VAZIA enquanto o coletor a trazia preenchida.
+              #
+              # Medido a 2026-09-14 com um `.mp4` real de 9,2 MB: o item
+              # declarava `video/mp4`, a ficha saia `NAO SEI`, e
+              # `_quem_deriva_aceita` trata a ausencia como «tenta» — de
+              # proposito, porque ausencia de evidencia nao e evidencia de
+              # ausencia. Logo o video seguia para o extrator de PDF.
+              #
+              #     UMA TRAVA DE ESPECIE COM A ESPECIE APAGADA A MONTANTE
+              #     NAO PROTEGE NADA: ELA SO NAO TEM O QUE LER.
+              "CONTENT_TYPE")
 
 # ⚠️ `TEXT_UNITS` NAO ESTA NA LISTA ACIMA, E A AUSENCIA E A DECISAO.
 # Medido ao ligar: por-lo la levanta

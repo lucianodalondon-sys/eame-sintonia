@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "f5434f5e39615cb8be48e33f1e76320a7dd097f2",
-    "GENERATED_AT": "2026-09-14T15:13:31-03:00",
-    "SOURCE_TREE_FINGERPRINT": "cc3f48b9b72a128b586b12cb97c8bfd22e39d8d1a380b1e5707b95d6aa712991"
+    "HEAD": "611e7cbf406147c0ab057e9ffa7775f6fa11e8a1",
+    "GENERATED_AT": "2026-09-14T15:48:12-03:00",
+    "SOURCE_TREE_FINGERPRINT": "c4916721e5f58b63a80563f772e085f191ec453dee5054ac2202c62cd4a7095d"
   },
   "FILES": [
     {
@@ -1298,7 +1298,7 @@
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "37c7b0b16d18c6fde1eb9cdcce15079e2863e1f5",
+      "sha": "5a242d88491cc6e5df65fa12649b3738f57c9f28",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4938,7 +4938,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "a2a7cf3799deaf515efaf9263b07f5738026836e",
+      "sha": "488e65cb39e26248b107dba2030bccb4d46d8f38",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5765,6 +5765,13 @@
     {
       "path": "docs/sintonia-scrap/C4F-CANARIO-DE-VIDEO-ITALIANO-BLOQUEADO.md",
       "sha": "a1d9929353a60d8b069ef7559cb0ffaff902bfe7",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C4G-O-CANO-INTERNO-DO-VIDEO.md",
+      "sha": "8045490dd14525360cef9c833d8499bbf20d0938",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7864,7 +7871,7 @@
     },
     {
       "path": "leis/artefato.py",
-      "sha": "f486aa5f6d96c56d5a16cb19f6d118a052de278c",
+      "sha": "a7b9ceb0afa499c1925208f7e14957980173046b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11489,6 +11496,13 @@
       "code_dir": true
     },
     {
+      "path": "tests/test_c4g_a_especie_do_video.py",
+      "sha": "0c5d296c1c969e1233f505088e8d72c8a5639bae",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "tests/test_c5_transcript_gate.py",
       "sha": "a5e6beb154b627baaf7b9043ce755b59501ada1a",
       "ext": ".py",
@@ -14849,7 +14863,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "coleta/ingresso.py",
-        "line": 501,
+        "line": 516,
         "snippet": "import executor_texto_de_pdf as _ex"
       }
     },
@@ -14882,7 +14896,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/ingresso.py",
-        "line": 269,
+        "line": 284,
         "snippet": "\"VOCABULARIO\": \"leis/artefato.py\","
       }
     },
@@ -46600,6 +46614,72 @@
       }
     },
     {
+      "from_file": "tests/test_c4g_a_especie_do_video.py",
+      "to_file": "README.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4g_a_especie_do_video.py",
+        "line": 55,
+        "snippet": "UM_FICHEIRO = \"README.md\""
+      }
+    },
+    {
+      "from_file": "tests/test_c4g_a_especie_do_video.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4g_a_especie_do_video.py",
+        "line": 49,
+        "snippet": "import _gavetas                                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c4g_a_especie_do_video.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4g_a_especie_do_video.py",
+        "line": 51,
+        "snippet": "import ingresso as ing                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4g_a_especie_do_video.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4g_a_especie_do_video.py",
+        "line": 156,
+        "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_c4g_a_especie_do_video.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4g_a_especie_do_video.py",
+        "line": 50,
+        "snippet": "import artefato as art                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4g_a_especie_do_video.py",
+      "to_file": "package.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4g_a_especie_do_video.py",
+        "line": 79,
+        "snippet": "_ficha(STORAGE_LOCATION=\"package.json\","
+      }
+    },
+    {
       "from_file": "tests/test_c5_transcript_gate.py",
       "to_file": "_gavetas.py",
       "type": "IMPORTS",
@@ -55482,10 +55562,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1748,
-    "files_readable": 737,
-    "files_code_dir": 790,
-    "file_edges": 3885,
+    "files_tracked": 1750,
+    "files_readable": 738,
+    "files_code_dir": 791,
+    "file_edges": 3891,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
