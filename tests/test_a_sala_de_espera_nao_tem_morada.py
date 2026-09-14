@@ -28,7 +28,7 @@ def _fonte(caminho):
 
 
 class OContratoREADYNaoMudou(unittest.TestCase):
-    """Os 11 campos da COL-LAW-043, e um dono só."""
+    """Os 12 campos da COL-LAW-043, e um dono só."""
 
     CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
               "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
@@ -148,23 +148,31 @@ class AMedicaoNaoFechaNada(unittest.TestCase):
                              "a medicao passou a escrever esquema: %s"
                              % proibido)
 
-    def test_nenhuma_migration_deu_MORADA_a_sala_de_espera(self):
-        """⚠️ ISTO EXIGIA QUE NÃO EXISTISSE UMA MIGRATION `029`, E REPROVOU.
+    def test_a_morada_em_SQL_e_exactamente_UMA_e_declarada(self):
+        """⚠️ ESTA GUARDA MUDOU DE LADO, E A RAZÃO FICA ESCRITA.
 
-        O número seguinte era, na altura, um bom atalho para «ninguém escolheu
-        a morada por baixo». Deixou de o ser no dia em que a `029` nasceu para
-        outra coisa — a linhagem material da derivação, que nada tem a ver com
-        a Sala de Espera.
+        Ela chamava-se `test_nenhuma_migration_deu_MORADA_a_sala_de_espera` e
+        exigia ZERO tabelas para a Sala. Estava certa: a `ADR-SALA-DE-ESPERA-V1`
+        dizia filesystem, e uma tabela a aparecer por baixo seria a decisão a
+        ser trocada sem ninguém decidir.
 
-            UM NÚMERO DE MIGRATION NÃO É UMA PROPRIEDADE.
-            PRENDER A GUARDA AO NÚMERO SEGUINTE FAZ O VIZINHO REPROVAR.
+        A decisão mudou — com facto novo, medição e emenda na própria ADR
+        (`C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1`): o ficheiro não sobrevivia ao
+        fim do job, e isso bloqueou a primeira coleta real italiana.
 
-        O que ela protege de verdade é que **nenhuma** migration — seja qual
-        for o número — dê casa em SQL à Sala de Espera ou ao READY. A decisão
-        (`ADR-SALA-DE-ESPERA-V1`) diz filesystem, e continua a dizer.
+            UM GAP QUE FECHA FICA NA LISTA COM O ESTADO NOVO.
+            UM TESTE QUE O GUARDAVA MUDA DE LADO COM A RAZÃO À VISTA.
+
+        O que ela guarda agora é o que continua a importar, e é mais forte do
+        que «zero»: a morada em SQL é **exactamente uma**, e é a declarada. Duas
+        seriam duas verdades sobre a mesma espera — que foi sempre o perigo real
+        que esta guarda existia para apanhar.
         """
         import re
         pasta = os.path.join(RAIZ, "supabase", "migrations")
+        # A UNICA morada canonica em SQL, e o ficheiro que a declara.
+        MORADA_CANONICA = "sala_de_espera"
+        MIGRATION_DA_MORADA = "031_a_sala_de_espera_ganha_dono_duravel.sql"
         proibidas = ("waiting_room", "sala_de_espera", "ready",
                      "pronto_para_inteligencia", "unidade_pronta")
         # ⚠️ E O QUE SE OLHA É O NOME DA TABELA CRIADA, e não a presença da
@@ -184,11 +192,11 @@ class AMedicaoNaoFechaNada(unittest.TestCase):
                     r"create table\s+(?:if not exists\s+)?(?:public\.)?(\w+)",
                     sql):
                 nomes_criados.append((f, nome))
-        achados = ["%s: %s" % (f, nome) for f, nome in nomes_criados
+        achados = [(f, nome) for f, nome in nomes_criados
                    if any(pr in nome for pr in proibidas)]
-        self.assertEqual([], achados,
-                         "a morada foi escolhida em SQL sem a decisao mudar: %s"
-                         % achados)
+        self.assertEqual([(MIGRATION_DA_MORADA, MORADA_CANONICA)], achados,
+                         "a morada em SQL deixou de ser exactamente UMA, ou "
+                         "mudou de ficheiro sem a decisao mudar: %s" % achados)
         self.assertTrue(nomes_criados, "a varredura nao encontrou tabela nenhuma")
 
     def test_a_medicao_apresenta_as_DUAS_saidas(self):
@@ -263,7 +271,7 @@ class ALeiNaoEscolheAMorada(unittest.TestCase):
         trecho = b[b.find("COL-LAW-043"):b.find("COL-LAW-044")]
         self.assertNotIn("PRONTO-PARA-INTELIGENCIA", trecho)
         self.assertIn("ADMITIDO_POR", trecho,
-                      "a lei deixou de declarar os 11 campos")
+                      "a lei deixou de declarar os 12 campos")
 
 
 if __name__ == "__main__":

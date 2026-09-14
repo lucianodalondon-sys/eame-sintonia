@@ -720,6 +720,7 @@
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
+      "docs/operacao/C-SALA-PERSISTENTE-E-PREFLIGHT-REAL-V1.md",
       "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
@@ -1285,6 +1286,7 @@
       "provas/a_repeticao_do_scrap.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/a_sala_de_espera_nao_tem_morada.py",
+      "provas/a_sala_sobrevive_ao_processo.py",
       "provas/a_unidade_pousa_na_espera.py",
       "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
@@ -1325,6 +1327,7 @@
       "provas/mutacao_da_linhagem_do_ready.py",
       "provas/mutacao_da_linhagem_social.py",
       "provas/mutacao_da_release_v1.py",
+      "provas/mutacao_da_sala_duravel.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/mutacao_do_gate.py",
       "provas/nenhuma_compra_sem_autorizacao.py",
@@ -1333,6 +1336,7 @@
       "provas/o_censo_do_acervo.py",
       "provas/o_corte_de_cr1.py",
       "provas/o_dedupe_tem_constraint.py",
+      "provas/o_egresso_antes_da_aquisicao.py",
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
       "provas/o_fluxo_canonico_do_scrap.py",
@@ -1539,6 +1543,7 @@
       "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
       "supabase/migrations/029_a_observacao_declara_que_participou.sql",
       "supabase/migrations/030_o_documento_ganha_registo.sql",
+      "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1730,6 +1735,7 @@
       "tests/test_portao.py",
       "tests/test_portoes_da_collection.py",
       "tests/test_portoes_eame.py",
+      "tests/test_preflight_de_egresso.py",
       "tests/test_preservar_coleta.py",
       "tests/test_preservar_coleta_no_banco.py",
       "tests/test_preservar_derivado.py",
@@ -1745,6 +1751,7 @@
       "tests/test_retorno_da_coleta.py",
       "tests/test_route_membership.py",
       "tests/test_runtime_so_deixa_passar_colheita.py",
+      "tests/test_sala_duravel.py",
       "tests/test_scrap_convergencia.py",
       "tests/test_scrap_flow01_caminho_canonico.py",
       "tests/test_scrap_rc01_release_candidate.py",
@@ -2149,10 +2156,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/scrap-ready-raw-lineage-v1-ywwn15",
-    "HEAD": "84186dfaf6be8a52866efc4a440609985f7f4401",
-    "GENERATED_AT": "2026-09-13T21:43:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "93c96fc0e9ee57a8afc60789c2602d3849e66a69d571d365ed6ba5deeec67304"
+    "BRANCH": "claude/sala-persistente-preflight-real-v1",
+    "HEAD": "f888776dffd789053fbaf39fc9fe630c74dde3ef",
+    "GENERATED_AT": "2026-09-13T22:53:11+00:00",
+    "SOURCE_TREE_FINGERPRINT": "1949e502f11afab6fc35d9d5dc4692a8c0d5c1e255afaa46f0d420751caf3900"
   },
   "FAMILIES": [
     {
@@ -5705,7 +5712,7 @@
         "LIDERANCA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "meeting",
@@ -5718,18 +5725,22 @@
         "superficie/rede.py"
       ],
       "file_count": 2,
-      "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "superficie/rede.py"
+      ],
       "produces": [
         "data/samples/ASK-SINTONIA-benchmark.json",
         "data/samples/ASK-SINTONIA-teste.json"
       ],
       "inbound": [
+        "C-SINTONIA-SCRAP",
         "C-TESTES"
       ],
       "outbound": [
         "C-PACOTE-CAMADAS",
+        "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
@@ -12692,6 +12703,7 @@
         "provas/a_maquina_depois_do_crash.py",
         "provas/a_maquina_sob_carga.py",
         "provas/a_regra_de_t2.py",
+        "provas/a_sala_sobrevive_ao_processo.py",
         "provas/alcance_da_pergunta_tematica.py",
         "provas/amostragem_neutra_t3.py",
         "provas/as_corridas_nao_se_cruzam.py",
@@ -12714,6 +12726,7 @@
         "provas/mutacao_da_autorizacao.py",
         "provas/mutacao_da_linhagem_do_ready.py",
         "provas/mutacao_da_release_v1.py",
+        "provas/mutacao_da_sala_duravel.py",
         "provas/mutacao_do_fluxo_canonico.py",
         "provas/mutacao_do_gate.py",
         "provas/nenhuma_compra_sem_autorizacao.py",
@@ -12721,6 +12734,7 @@
         "provas/o_canario_do_scrap_v1.py",
         "provas/o_censo_do_acervo.py",
         "provas/o_corte_de_cr1.py",
+        "provas/o_egresso_antes_da_aquisicao.py",
         "provas/o_fluxo_canonico_do_scrap.py",
         "provas/o_legado_fora_do_fluxo.py",
         "provas/o_pedido_t4_atravessa.py",
@@ -12751,7 +12765,7 @@
         "provas/trava_de_drift_de_migration.sh",
         "provas/ui_revisao_t3_ptbr.py"
       ],
-      "file_count": 69,
+      "file_count": 72,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 4 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -12765,6 +12779,7 @@
         "C-ADAMA-ES",
         "C-ADMISSAO",
         "C-APIFY-POOL",
+        "C-ASK-SINTONIA",
         "C-AUTORIZACAO-DE-GASTO",
         "C-BIBLIA",
         "C-CADEIA-V21",
@@ -12890,6 +12905,7 @@
           "MIGRATIONS",
           "MUNDO",
           "MUTACOES",
+          "MUTANTES",
           "NEGACOES",
           "ONDE_SE_FALA",
           "PESADAS",
@@ -12909,11 +12925,11 @@
           "_REDE",
           "_USO_APIFY"
         ],
-        "palavras": 1391,
+        "palavras": 1407,
         "por_lingua": {
           "IT": 2
         },
-        "sem_marca_de_lingua": 1389,
+        "sem_marca_de_lingua": 1405,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13752,7 +13768,7 @@
       "name": "A medição de que a Sala de Espera não tem morada",
       "territory": "Z-PROVA",
       "kind": "engine",
-      "what": "Mede o que falta para fechar `G-READY-01` e `G-READY-02`, e para antes de escolher. Prova que o contrato READY existe (COL-LAW-043, 11 campos), que tem UM construtor, que a rota forward já tem em mãos o `item` e a `Decisao` que o dono pede, que a morada declarada no mapa JÁ TEM escritor (o orquestrador), que a decisão de admissão não carrega identidade persistida, e que a lei aceita ficheiro E banco sem escolher entre os dois.",
+      "what": "Mede o que falta para fechar `G-READY-01` e `G-READY-02`, e para antes de escolher. Prova que o contrato READY existe (COL-LAW-043, 12 campos), que tem UM construtor, que a rota forward já tem em mãos o `item` e a `Decisao` que o dono pede, que a morada declarada no mapa JÁ TEM escritor (o orquestrador), que a decisão de admissão não carrega identidade persistida, e que a lei aceita ficheiro E banco sem escolher entre os dois.",
       "why_here": "DUAS SAÍDAS LEGÍTIMAS COM CONSEQUÊNCIAS DIFERENTES NÃO SÃO UM DETALHE DE IMPLEMENTAÇÃO: SÃO UMA DECISÃO. Fechar `G-READY-02` antes de a morada estar escolhida seria escolher em silêncio — e uma morada escolhida em silêncio é uma que ninguém pode discutir depois.",
       "departments": [
         "ENGENHARIA"
@@ -15002,7 +15018,7 @@
       "name": "A Sala de Espera",
       "territory": "Z-ADMISSAO",
       "kind": "engine",
-      "what": "O dono unico da morada onde a unidade READY pousa: data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json. Escrita atomica por troca (fsync + os.replace), retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e uma trava por corrida contra duas maos simultaneas.",
+      "what": "O dono unico da fila onde a unidade READY pousa. O backend canonico e PostgreSQL (public.sala_de_espera, migration 031): uma transacao por pouso, trava por CORRIDA com pg_advisory_xact_lock que morre com a transacao, retry idempotente (REUSED), conflito explicito quando a mesma corrida traz outra historia (RUN_ID_CONFLICT), e a fila WAITING -> CONSUMED sem apagar a linha. O backend de FICHEIRO (data/samples/PRONTO-PARA-INTELIGENCIA/<RUN_ID>.json, escrita atomica por fsync + os.replace) continua atras do MESMO dono e esta declarado NAO CANONICO: ele nao sobrevive ao fim do job, e foi isso que bloqueou a primeira coleta real italiana.",
       "why_here": "A escrita vivia dentro do orquestrador, e isso contradizia a COL-LAW-012: o orquestrador CONTROLA, nao transporta dado. Enquanto a unica escrita estivesse no control plane, a rota forward nao tinha como pousar a unidade sem escrever uma SEGUNDA. ONE CONCEPT -> ONE OWNER.",
       "departments": [
         "ENGENHARIA"
@@ -15022,12 +15038,13 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-CONTRATO-TELEMETRIA",
-        "C-DONO-DA-ESCRITA"
+        "C-DONO-DA-ESCRITA",
+        "C-SINTONIA-SCRAP"
       ],
       "outbound": [
         "C-ORQUESTRADOR",
@@ -15045,6 +15062,17 @@
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "CAMPOS_READY"
+        ],
+        "palavras": 12,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 12,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
       "nivel": "PRINCIPAL",
       "escreve_na_pasta": [],
       "destino": [],
@@ -15761,12 +15789,14 @@
       ],
       "outbound": [
         "C-APIFY-POOL",
+        "C-ASK-SINTONIA",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-NAVEGADOR",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
+        "C-SALA-DE-ESPERA",
         "C-SCRAP-SOCIAL",
         "C-TESTES",
         "C-TRANSCRICAO"
@@ -15999,6 +16029,7 @@
         "supabase/migrations/028_a_etapa_raw_aponta_para_a_observacao.sql",
         "supabase/migrations/029_a_observacao_declara_que_participou.sql",
         "supabase/migrations/030_o_documento_ganha_registo.sql",
+        "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -16010,9 +16041,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 52,
+      "file_count": 53,
       "status": "PENDING",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 8 ficheiro(s) novos que nunca foram lidos por gente.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 9 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -17308,6 +17339,7 @@
         "tests/test_portao.py",
         "tests/test_portoes_da_collection.py",
         "tests/test_portoes_eame.py",
+        "tests/test_preflight_de_egresso.py",
         "tests/test_preservar_coleta.py",
         "tests/test_preservar_coleta_no_banco.py",
         "tests/test_preservar_derivado.py",
@@ -17323,6 +17355,7 @@
         "tests/test_retorno_da_coleta.py",
         "tests/test_route_membership.py",
         "tests/test_runtime_so_deixa_passar_colheita.py",
+        "tests/test_sala_duravel.py",
         "tests/test_scrap_convergencia.py",
         "tests/test_scrap_flow01_caminho_canonico.py",
         "tests/test_scrap_rc01_release_candidate.py",
@@ -17347,7 +17380,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 154,
+      "file_count": 156,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -18550,11 +18583,11 @@
       "files": [],
       "facts": [
         "acoes da coleta que nomeiam este canal: 7",
-        "prova: coleta/eu_regulatorio_executor.py:72",
-        "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
-        "prova: coleta/agrifood_ue.py:29",
-        "prova: coleta/corpus_pesquisador.py:92"
+        "prova: coleta/youtube_janela.py:61",
+        "prova: coleta/corpus_pesquisador.py:92",
+        "prova: coleta/eu_regulatorio_executor.py:72",
+        "prova: coleta/agrifood_ue.py:29"
       ],
       "status_reason": "7 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -18777,8 +18810,8 @@
         "contas publicas mapeadas neste canal: 7",
         "dessas, autorizadas a coletar: 5",
         "acoes da coleta que nomeiam este canal: 2",
-        "prova: coleta/comunicacao_coleta.py:132",
-        "prova: coleta/instagram_coleta.py:73"
+        "prova: coleta/instagram_coleta.py:73",
+        "prova: coleta/comunicacao_coleta.py:132"
       ],
       "status_reason": "2 acao(oes) NOMEIAM este canal no codigo, cada uma com ficheiro e linha. Isto e rota DECLARADA: nao diz que algo passou por aqui, so que o caminho esta escrito.",
       "evidence_text": "",
@@ -18991,7 +19024,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/scrap-ready-raw-lineage-v1-ywwn15"
+        "branch claude/sala-persistente-preflight-real-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -19345,7 +19378,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 20 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Provas da coleta canonica. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fonte_atravessa_ate_a_porta.py",
@@ -19371,6 +19404,11 @@
           "file": "provas/a_regra_de_t2.py",
           "line": 40,
           "snippet": "import admissao as adm  # noqa: E402"
+        },
+        {
+          "file": "provas/a_sala_sobrevive_ao_processo.py",
+          "line": 153,
+          "snippet": "import admissao as adm"
         },
         {
           "file": "provas/alcance_da_pergunta_tematica.py",
@@ -19401,11 +19439,6 @@
           "file": "provas/ensaio_scrap_para_a_collection.py",
           "line": 70,
           "snippet": "import admissao as adm"
-        },
-        {
-          "file": "provas/implementacoes_candidatas.py",
-          "line": 25,
-          "snippet": "import admissao as adm  # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -19697,7 +19730,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 23 linhas de codigo.",
+      "reason": "A porta de admissao tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -20001,9 +20034,9 @@
       "reason": "E por esta ferramenta que se chega a este canal. Um canal pode ter mais de uma rota — e saber qual e saber se aquela coleta custa dinheiro. MEDIDO NO MESMO FICHEIRO: um coletor que usa duas rotas e dois canais aparece ligado aos quatro pares, e o mapa nao consegue dizer qual rota serviu qual canal.",
       "evidence": [
         {
-          "file": "coleta/comunicacao_coleta.py",
-          "line": 57,
-          "snippet": "import apify_pool as ap        # noqa: E402  — dono único da rotação de chave"
+          "file": "coleta/instagram_coleta.py",
+          "line": 17,
+          "snippet": "Lido na Apify em 2026-09-02, nos builds vivos:"
         }
       ],
       "categoria": "CONTROL"
@@ -20647,18 +20680,64 @@
     },
     {
       "from": "C-ASK-SINTONIA",
+      "to": "C-PROVA-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia tem o seu codigo importado por Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/o_egresso_antes_da_aquisicao.py",
+          "line": 51,
+          "snippet": "import rede                                                # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-PROVA-COLETA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "provas/mutacao_da_sala_duravel.py",
+          "line": 34,
+          "snippet": "REDE = os.path.join(\"superficie\", \"rede.py\")"
+        },
+        {
+          "file": "provas/o_egresso_antes_da_aquisicao.py",
+          "line": 74,
+          "snippet": "fonte_rede = _ler(os.path.join(RAIZ, \"superficie\", \"rede.py\"))"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-ASK-SINTONIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "Ask Sintonia tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_coleta_externa.py",
           "line": 568,
           "snippet": "import rede"
+        },
+        {
+          "file": "tests/test_preflight_de_egresso.py",
+          "line": 25,
+          "snippet": "import rede                                                # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -20671,7 +20750,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Ask Sintonia alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_canonico.py",
@@ -20687,6 +20766,11 @@
           "file": "tests/test_metricas.py",
           "line": 209,
           "snippet": "with open(os.path.join(ROOT, 'data', 'samples', 'ASK-SINTONIA-benchmark.json'),"
+        },
+        {
+          "file": "tests/test_preflight_de_egresso.py",
+          "line": 54,
+          "snippet": "s = _fonte(os.path.join(RAIZ, \"superficie\", \"rede.py\"))"
         }
       ],
       "categoria": "PROOF"
@@ -21567,7 +21651,7 @@
         },
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 255,
+          "line": 263,
           "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))"
         },
         {
@@ -21685,12 +21769,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 2 linhas de codigo.",
+      "reason": "Cadeia canonica V2.1 alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
           "line": 76,
           "snippet": "CADEIA = os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\")"
+        },
+        {
+          "file": "provas/a_sala_sobrevive_ao_processo.py",
+          "line": 97,
+          "snippet": "r = subprocess.run([\"bash\", os.path.join(RAIZ, \"motor\", \"cadeia_canonica.sh\"),"
         },
         {
           "file": "provas/objeto_e_observacao_no_postgres.py",
@@ -23084,7 +23173,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 454,
+          "line": 504,
           "snippet": "run: python3 provas/a_autoridade_da_fonte.py"
         }
       ],
@@ -23098,7 +23187,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 14 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -23107,53 +23196,58 @@
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 138,
+          "line": 147,
           "snippet": "run: python3 provas/preservar_coleta_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 151,
+          "line": 160,
           "snippet": "python3 provas/derived_artifact_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 166,
+          "line": 175,
           "snippet": "python3 provas/objeto_e_observacao_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 179,
+          "line": 188,
           "snippet": "run: python3 provas/a_lei_da_fase_10.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 192,
+          "line": 201,
           "snippet": "run: python3 provas/a_fase_10_entra_no_acervo.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 200,
+          "line": 223,
+          "snippet": "python3 provas/a_sala_sobrevive_ao_processo.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 234,
+          "snippet": "run: python3 provas/o_egresso_antes_da_aquisicao.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 245,
+          "snippet": "run: python3 provas/mutacao_da_sala_duravel.py"
+        },
+        {
+          "file": ".github/workflows/banco-descartavel.yml",
+          "line": 250,
           "snippet": "run: bash provas/trava_de_drift_de_migration.sh"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 232,
+          "line": 282,
           "snippet": "python3 provas/social_persistencia_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 256,
+          "line": 306,
           "snippet": "python3 provas/rastro_no_postgres.py"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 471,
-          "snippet": "run: python3 provas/run_duravel_no_postgres.py"
-        },
-        {
-          "file": ".github/workflows/banco-descartavel.yml",
-          "line": 484,
-          "snippet": "run: python3 provas/runtime_comum_no_postgres.py"
         }
       ],
       "categoria": "PROOF"
@@ -23170,7 +23264,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 495,
+          "line": 545,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py"
         }
       ],
@@ -23188,7 +23282,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 282,
+          "line": 332,
           "snippet": "python3 provas/o_forward_conta_se.py"
         }
       ],
@@ -23206,12 +23300,12 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 418,
+          "line": 468,
           "snippet": "python3 provas/a_linhagem_do_ready_social.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 437,
+          "line": 487,
           "snippet": "python3 provas/mutacao_da_linhagem_social.py"
         }
       ],
@@ -23229,7 +23323,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 388,
+          "line": 438,
           "snippet": "python3 provas/o_retry_do_scrap.py"
         }
       ],
@@ -23247,7 +23341,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 291,
+          "line": 341,
           "snippet": "python3 provas/a_rota_m2_atravessa.py"
         }
       ],
@@ -23265,7 +23359,7 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 326,
+          "line": 376,
           "snippet": "python3 provas/o_scrap_chega_ao_acervo.py"
         }
       ],
@@ -23283,12 +23377,12 @@
       "evidence": [
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 347,
+          "line": 397,
           "snippet": "python3 provas/as_travas_do_scrap_no_postgres.py"
         },
         {
           "file": ".github/workflows/banco-descartavel.yml",
-          "line": 365,
+          "line": 415,
           "snippet": "python3 provas/a_repeticao_do_scrap.py"
         }
       ],
@@ -23320,7 +23414,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco alimenta Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_armazem_italiano.py",
@@ -23351,6 +23445,11 @@
           "file": "tests/test_porta_de_producao.py",
           "line": 356,
           "snippet": "self.assertNotIn(\"auditoria-live.yml\", achados)"
+        },
+        {
+          "file": "tests/test_sala_duravel.py",
+          "line": 309,
+          "snippet": "\"banco-descartavel.yml\"))"
         },
         {
           "file": "tests/test_youtube_antidrift.py",
@@ -25279,7 +25378,7 @@
       "evidence": [
         {
           "file": "admissao/sala_de_espera.py",
-          "line": 57,
+          "line": 85,
           "snippet": "import telemetria as tel                           # noqa: E402"
         }
       ],
@@ -26362,7 +26461,7 @@
       "evidence": [
         {
           "file": "admissao/sala_de_espera.py",
-          "line": 61,
+          "line": 89,
           "snippet": "from preservar_coleta import RUN_ID_CONFLICT     # noqa: E402"
         }
       ],
@@ -26385,7 +26484,7 @@
         },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
-          "line": 202,
+          "line": 209,
           "snippet": "from preservar_coleta import RUN_ID_CONFLICT"
         },
         {
@@ -27897,7 +27996,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 202,
+          "line": 217,
           "snippet": "if [ ! -f data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json ]; then"
         }
       ],
@@ -30255,7 +30354,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "O orquestrador alimenta Provas da coleta canonica. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/medir_admission_t3_atual.py",
@@ -30266,6 +30365,11 @@
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 27,
           "snippet": "ORQ = 'orquestrador/orquestrador.py'"
+        },
+        {
+          "file": "provas/o_egresso_antes_da_aquisicao.py",
+          "line": 135,
+          "snippet": "pos_orq = yml.find(\"orquestrador/orquestrador.py\")"
         },
         {
           "file": "provas/testa_golden_path_pdf.py",
@@ -30495,7 +30599,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O orquestrador alimenta Suite de testes. Provado por 16 linhas de codigo.",
+      "reason": "O orquestrador alimenta Suite de testes. Provado por 18 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -32651,7 +32755,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 38 linhas de codigo.",
+      "reason": "Provas da coleta canonica alimenta Suite de testes. Provado por 40 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_fase_10_entra_no_acervo.py",
@@ -34155,7 +34259,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "A rota forward do documento (M2) alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
@@ -34186,6 +34290,11 @@
           "file": "tests/test_medir_admission_t3_atual.py",
           "line": 57,
           "snippet": "self.assertIn(\"coleta/rota_forward_documento.py\", ficheiros)"
+        },
+        {
+          "file": "tests/test_sala_duravel.py",
+          "line": 211,
+          "snippet": "os.path.join(RAIZ, \"coleta\", \"rota_forward_documento.py\")):"
         }
       ],
       "categoria": "PROOF"
@@ -34393,7 +34502,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 4 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_linhagem_do_ready.py",
@@ -34411,6 +34520,11 @@
           "snippet": "import sala_de_espera as espera                     # noqa: E402"
         },
         {
+          "file": "provas/a_sala_sobrevive_ao_processo.py",
+          "line": 171,
+          "snippet": "import sala_de_espera as espera"
+        },
+        {
           "file": "provas/o_pedido_t4_atravessa.py",
           "line": 51,
           "snippet": "import sala_de_espera as espera                     # noqa: E402"
@@ -34426,8 +34540,18 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 1 linha de codigo.",
+      "reason": "A Sala de Espera alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "provas/a_sala_sobrevive_ao_processo.py",
+          "line": 536,
+          "snippet": "[sys.executable, os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"),"
+        },
+        {
+          "file": "provas/mutacao_da_sala_duravel.py",
+          "line": 33,
+          "snippet": "SALA = os.path.join(\"admissao\", \"sala_de_espera.py\")"
+        },
         {
           "file": "provas/os_portoes_da_collection.py",
           "line": 406,
@@ -34570,12 +34694,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 24,
           "snippet": "import sala_de_espera as espera       # noqa: E402"
+        },
+        {
+          "file": "tests/test_sala_duravel.py",
+          "line": 31,
+          "snippet": "import sala_de_espera as espera                            # noqa: E402"
         }
       ],
       "categoria": "PROOF"
@@ -34588,7 +34717,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A Sala de Espera alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -34598,6 +34727,16 @@
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 29,
+          "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
+        },
+        {
+          "file": "tests/test_preflight_de_egresso.py",
+          "line": 214,
+          "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
+        },
+        {
+          "file": "tests/test_sala_duravel.py",
+          "line": 33,
           "snippet": "DONO = os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\")"
         }
       ],
@@ -36652,13 +36791,31 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 190,
+          "line": 205,
           "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 266,
+          "line": 281,
           "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-ASK-SINTONIA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar Ask Sintonia. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/sintonia-scrap.yml",
+          "line": 343,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY superficie/rede.py --portao-de-egresso IT"
         }
       ],
       "categoria": "CONTROL"
@@ -36675,7 +36832,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 193,
+          "line": 208,
           "snippet": "coleta/coletor.py; do"
         }
       ],
@@ -36693,22 +36850,22 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 187,
+          "line": 202,
           "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 187,
+          "line": 202,
           "snippet": "for f in coleta/instagram_coleta.py coleta/instagram_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 188,
+          "line": 203,
           "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 188,
+          "line": 203,
           "snippet": "coleta/instagram_diario.py coleta/instagram_pessoal.py \\"
         }
       ],
@@ -36726,12 +36883,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 190,
+          "line": 205,
           "snippet": "ferramentas/contrato_ator.py coleta/youtube_janela.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 191,
+          "line": 206,
           "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
         }
       ],
@@ -36749,12 +36906,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 189,
+          "line": 204,
           "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 189,
+          "line": 204,
           "snippet": "ferramentas/cdp.py ferramentas/navegador.py \\"
         }
       ],
@@ -36772,7 +36929,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 333,
+          "line": 400,
           "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\"
         }
       ],
@@ -36786,7 +36943,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Provas da coleta canonica. Provado por 3 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Provas da coleta canonica. Provado por 5 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/mutacao_da_release_v1.py",
@@ -36794,9 +36951,19 @@
           "snippet": "WF = '.github/workflows/sintonia-scrap.yml'"
         },
         {
+          "file": "provas/mutacao_da_sala_duravel.py",
+          "line": 37,
+          "snippet": "FLUXO = os.path.join(\".github\", \"workflows\", \"sintonia-scrap.yml\")"
+        },
+        {
           "file": "provas/mutacao_do_fluxo_canonico.py",
           "line": 25,
           "snippet": "WF = '.github/workflows/sintonia-scrap.yml'"
+        },
+        {
+          "file": "provas/o_egresso_antes_da_aquisicao.py",
+          "line": 131,
+          "snippet": "\"sintonia-scrap.yml\"), encoding=\"utf-8\") as f:"
         },
         {
           "file": "provas/portas_canonicas_no_postgres.py",
@@ -36805,6 +36972,24 @@
         }
       ],
       "categoria": "PROOF"
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-SALA-DE-ESPERA",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) manda rodar A Sala de Espera. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/sintonia-scrap.yml",
+          "line": 331,
+          "snippet": "PYTHONIOENCODING=utf-8 $PY admissao/sala_de_espera.py --portao"
+        }
+      ],
+      "categoria": "CONTROL"
     },
     {
       "from": "C-SINTONIA-SCRAP",
@@ -36818,12 +37003,12 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 192,
+          "line": 207,
           "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
         },
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 192,
+          "line": 207,
           "snippet": "coleta/social_scrap.py coleta/scrap_executor.py \\"
         }
       ],
@@ -36837,7 +37022,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "SCRAP aquisicao · o despachador (Instagram, YouTube) alimenta Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -36858,6 +37043,11 @@
           "file": "tests/test_c10_8b_live_disparador.py",
           "line": 30,
           "snippet": "WORKFLOW = '.github/workflows/sintonia-scrap.yml'"
+        },
+        {
+          "file": "tests/test_preflight_de_egresso.py",
+          "line": 167,
+          "snippet": "YML = os.path.join(RAIZ, \".github\", \"workflows\", \"sintonia-scrap.yml\")"
         },
         {
           "file": "tests/test_scrap_flow01_caminho_canonico.py",
@@ -36884,7 +37074,7 @@
       "evidence": [
         {
           "file": ".github/workflows/sintonia-scrap.yml",
-          "line": 191,
+          "line": 206,
           "snippet": "coleta/youtube_relevancia.py ferramentas/youtube_transcrever.py \\"
         }
       ],
@@ -37267,7 +37457,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 20 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Provas da coleta canonica. Provado por 21 linhas de codigo.",
       "evidence": [
         {
           "file": "provas/a_fase_10_entra_no_acervo.py",
@@ -37409,7 +37599,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 23 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -37452,6 +37642,11 @@
           "snippet": "\"005_camada_analitica_observado_vs_derivado.sql\"))"
         },
         {
+          "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
+          "line": 175,
+          "snippet": "MIGRATION_DA_MORADA = \"031_a_sala_de_espera_ganha_dono_duravel.sql\""
+        },
+        {
           "file": "tests/test_armazem_italiano.py",
           "line": 187,
           "snippet": "\"001_fundacao_geografia_e_proveniencia.sql\"))"
@@ -37465,11 +37660,6 @@
           "file": "tests/test_calendario_temporal.py",
           "line": 51,
           "snippet": "self.m010 = sql('010_calendario_agronomico.sql')"
-        },
-        {
-          "file": "tests/test_calendario_temporal.py",
-          "line": 75,
-          "snippet": "m011 = sql('011_calendario_consultas.sql')"
         }
       ],
       "categoria": "PROOF"
@@ -39306,7 +39496,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 833,
+  "UNCLAIMED_FILES_COUNT": 834,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -39462,16 +39652,16 @@
   },
   "COUNTS": {
     "components": 182,
-    "components_proven": 48,
-    "components_pending": 128,
+    "components_proven": 47,
+    "components_pending": 129,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 867,
-    "edges_proven": 864,
+    "edges": 871,
+    "edges_proven": 868,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1702,
-    "files_covered": 869,
+    "files_tracked": 1709,
+    "files_covered": 875,
     "files_code_unclaimed": 0
   }
 }

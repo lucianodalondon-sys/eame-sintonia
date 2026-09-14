@@ -163,6 +163,21 @@ jobs:
       IG_MODELO: ${{ inputs.modelo }}
       YT_MODELO: ${{ inputs.modelo }}
       YT_ORCAMENTO_H: ${{ inputs.orcamento_h }}
+      # ── A SALA CANÓNICA, NO NÍVEL DO JOB E NÃO DE UM PASSO ────────────
+      # ⚠️ ESTA LINHA ESTEVE A UM PASSO DE SER UM PORTÃO INÚTIL.
+      # A primeira versão declarava o backend só dentro do passo do preflight.
+      # O preflight passava — e o passo SEGUINTE, o que adquire de verdade,
+      # corria sem a variável e escrevia o READY no ficheiro efémero.
+      #
+      #     UM PORTÃO QUE MEDE UM AMBIENTE E DEIXA PASSAR PARA OUTRO
+      #     NÃO MEDIU NADA.
+      #
+      # No nível do job, o que o preflight aprova é exactamente o ambiente em
+      # que a aquisição corre.
+      SINTONIA_SALA_BACKEND: POSTGRES
+      # O MESMO secret que o resto da casa já usa. Um nome novo seria um
+      # segundo cofre para a mesma chave, e dois cofres divergem.
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -274,6 +289,58 @@ jobs:
           PYTHONIOENCODING=utf-8 $PY coleta/instagram_pessoal.py estado
           echo "--- este workflow NAO define IG_COMENTARIOS_AUTORIZADO ---"
           echo "Se o portao estiver CLOSED, a fase abaixo para sozinha. E' o desenho."
+
+      # ══════════════════════════════════════════════════════════════════
+      # 5b · O PREFLIGHT — as duas perguntas que vêm ANTES de adquirir
+      # ══════════════════════════════════════════════════════════════════
+      # Nasceu de duas medições da `C-ITALIA-FIRST-REAL-COLLECTION-CANARY-V1`,
+      # e as duas pararam a primeira coleta real italiana:
+      #
+      #   1. o READY era escrito no workspace do runner e ninguém o guardava —
+      #      nenhum `git add`, nenhum artefato, nenhum dono em banco, e o
+      #      `checkout` seguinte limpa o que não está versionado;
+      #   2. o único medidor de egresso desta casa vivia DENTRO de uma rota de
+      #      aquisição, o que tornava impossível exigir `IT` ANTES de adquirir.
+      #
+      #     COLETAR PARA UMA SALA QUE NÃO SOBREVIVE É PAGAR REDE POR NADA.
+      #     UM PREFLIGHT QUE SÓ CORRE DEPOIS DE COMEÇAR NÃO É UM PREFLIGHT.
+      #
+      # ⚠️ A CONDIÇÃO É UMA LISTA DE EXCLUSÃO, E AQUI ISSO É DE PROPÓSITO.
+      # O `scrap` de cima já pagou por uma lista de exclusão que não sabia o que
+      # ainda não tinha nascido. Aqui a direção é a inversa, e é a segura: só as
+      # fases que NÃO tocam rede de aquisição ficam de fora. Uma fase nova nasce
+      # com o portão ligado, e não sem ele.
+      #
+      #     FALHA FECHADA POR OMISSÃO.
+      #
+      # ⚠️ E ELE NÃO ADQUIRE NADA. A única rede que usa é o checker público de
+      # egresso, sem credencial e sem custo.
+      # ⚠️ DOIS PASSOS, E NAO UM COMPOSITOR. Houve uma versao desta missão com um
+      # `motor/preflight_da_coleta.py` a encadear os dois portões. Foi deitada
+      # fora: cada dono já sabe responder por si, e a ORDEM mora aqui — que é o
+      # único sítio onde ela é observável.
+      #
+      #     UM COMPOSITOR QUE SÓ ENCADEIA DOIS DONOS
+      #     É UM TERCEIRO SÍTIO ONDE A VERDADE PODE DIVERGIR.
+      #
+      # A SALA VEM PRIMEIRO de propósito: não custa rede nenhuma, e é a pergunta
+      # cuja resposta errada torna toda a aquisição desperdício.
+      - name: 5b · a sala onde o READY vai pousar sobrevive a este job?
+        if: "!contains(fromJSON('[\"contratos\",\"plano\",\"semaforo\",\"liquidar\",\"portao-pessoal\",\"yt-legenda-bruto\"]'), inputs.fase)"
+        run: |
+          PYTHONIOENCODING=utf-8 $PY admissao/sala_de_espera.py --portao
+
+      # ⚠️ E SÓ AGORA A REDE. `UNKNOWN` bloqueia tal como `FR` ou `US`: não se
+      # adquire material real sobre um ambiente de rede por medir.
+      #
+      #     UNKNOWN != IT.
+      #
+      # Isto prova o AMBIENTE DE EXECUÇÃO, e nunca a geografia do dado:
+      # `VPN_LOCATION != SOURCE_LOCATION` e `VPN_LOCATION != FACT_LOCATION`.
+      - name: 5c · e este runner sai mesmo por Itália?
+        if: "!contains(fromJSON('[\"contratos\",\"plano\",\"semaforo\",\"liquidar\",\"portao-pessoal\",\"yt-legenda-bruto\"]'), inputs.fase)"
+        run: |
+          PYTHONIOENCODING=utf-8 $PY superficie/rede.py --portao-de-egresso IT
 
       - name: 6 · rodar a fase
         run: |
