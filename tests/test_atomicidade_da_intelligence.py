@@ -447,12 +447,26 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         self.assertEqual([], maus,
                          "a integracao de autoridades modificou ou apagou: %s" % maus)
 
-    #: O que PODE ser modificado depois da integracao, e porque. Cada entrada e
-    #: uma saida de gerador canonico. Nao ha aqui nenhum ficheiro de logica.
+    #: ⚠️ TRES CATEGORIAS, E NAO DUAS. A primeira versao desta prova tinha so
+    #: «gerado» e «ledger», e apanhou as minhas proprias edicoes de FONTE —
+    #: correctamente. Um ficheiro `.declared.json` e fonte; um `.generated.json`
+    #: e saida; e um scanner que eu editei e fonte tambem. Meter os tres no
+    #: mesmo saco tornaria a prova incapaz de ver uma edicao a mao dentro de um
+    #: gerado, que e exactamente o que ela existe para ver.
+    #:
+    #:     O QUE E GERADO DECLARA-SE PELO SUFIXO, NAO PELA PASTA.
     REGENERADO_POR_CADEIA_CANONICA = (
-        "system-map/data/",                        # a cadeia do mapa
-        "italia-portale/client/system-map/",       # o espelho da mesma cadeia
+        ".generated.json",                         # a cadeia do mapa e o espelho
     )
+
+    #: Edicoes de FONTE que esta missao fez de proposito, uma a uma, com razao.
+    #: Lista curta e visivel: qualquer nome a mais aparece no diff.
+    EDITADO_NA_FONTE = {
+        "system-map/data/architecture.declared.json":
+            "declarei C-INT-ESPINHA e C-INT-ARBITRAGEM (§17: consertar na fonte)",
+        "system-map/scripts/censo_do_congelamento.py":
+            "declarei os dois INSTRUMENTOS da trava, pagos com P10b",
+    }
     REGENERADO_PELO_LEDGER = (
         "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
         "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
@@ -474,10 +488,11 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         modificados = [l.split("\t", 1)[1] for l in saida.splitlines()
                        if l and l[0] in ("M", "D")]
         orfaos = [f for f in modificados
-                  if not f.startswith(self.REGENERADO_POR_CADEIA_CANONICA)
-                  and f not in self.REGENERADO_PELO_LEDGER]
+                  if not f.endswith(self.REGENERADO_POR_CADEIA_CANONICA)
+                  and f not in self.REGENERADO_PELO_LEDGER
+                  and f not in self.EDITADO_NA_FONTE]
         self.assertEqual([], orfaos,
-                         "modificado sem gerador que o explique: %s" % orfaos)
+                         "modificado sem gerador nem razao escrita: %s" % orfaos)
 
     def test_nenhum_gerado_foi_editado_a_mao(self):
         """O `.declared.json` e fonte; os `.generated.json` sao saida.
