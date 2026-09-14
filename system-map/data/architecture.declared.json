@@ -741,6 +741,29 @@
       ]
     },
     {
+      "id": "C-IT-PROMOVER-FONTE",
+      "name": "A porta entre candidata e fonte registada",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "⊞",
+      "views": [
+        "acervo"
+      ],
+      "what": "Mede se uma candidata validada pode virar FICHA no atlas. Faz tres coisas e para: (1) conta a populacao INTEIRA de SOURCE_ID, atravessando as branches remotas, e calcula o proximo numero livre por territorio contra essa uniao; (2) cruza cada candidata contra as fichas existentes por rota exata e por host, separando ALREADY_REGISTERED de SAME_OWNER_DIFFERENT_SOURCE; (3) PRESERVA a evidencia em ficheiro — pagina, titulo do exemplo, sha256 e a rota de saida por onde a medicao saiu — e GRADUA essa evidencia em FORTE, FORTE_MAS_ANTIGA, FRACA e INSUFICIENTE. Nao atribui SOURCE_ID, nao escreve no atlas, nao toca no banco.",
+      "why_here": "Existe porque a escada CANDIDATA -> REGISTADA -> CONTRATADA -> AUTOMATICA tem um degrau que ninguem media: a identidade. O atlas declara-se dono do SOURCE_ID, e a populacao real de IDs vive em quatro sitios espalhados por tres branches paralelas que nao se contem — a uniao tem 245 IDs e o atlas desta branch conhece 42. A lei do know-how §119 manda alocar contra a populacao inteira, nunca contra o dono declarado; medido, alocar por este atlas daria numero JA EM USO em 11 dos 12 territorios. E `scan_sources.py` indexa fichas por SOURCE_ID num dicionario, logo uma colisao SOBRESCREVE EM SILENCIO: aparece como fonte que desapareceu, nao como erro. Por isso esta peca mede e PARA, em vez de escrever um quarto registo divergente.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "candidatas/italy_promover_dedupe.py",
+        "candidatas/italy_promover_evidencia.py",
+        "candidatas/italy_promover_auditoria.py",
+        "candidatas/italy_promover_red_team.py",
+        "candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv"
+      ]
+    },
+    {
       "id": "C-APIFY-POOL",
       "name": "Apify — a rota paga",
       "territory": "Z-FERRAMENTAS",

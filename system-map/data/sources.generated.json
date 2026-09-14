@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "581b5059c4f3a310a8c60476939639a16e99027c",
+    "HEAD": "f055fc87bd21735c8d96f8524ecf039e2096fdd9",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -3921,6 +3921,48 @@
       ]
     },
     {
+      "endpoint": "https://www.regione.veneto.it/web",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 46
+        },
+        {
+          "file": "candidatas/italy_fechar_sonda.py",
+          "line": 341
+        },
+        {
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 65
+        },
+        {
+          "file": "provas/testa_rota_italia.py",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.fitosanitari.salute.gov.it/",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_sonda.py",
+          "line": 337
+        },
+        {
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 439
+        },
+        {
+          "file": "coleta/rotulos_baixar.py",
+          "line": 125
+        },
+        {
+          "file": "fontes/adama_it_labels.py",
+          "line": 72
+        }
+      ]
+    },
+    {
       "endpoint": "https://api.openalex.org/works'",
       "usado_por": [
         {
@@ -3963,19 +4005,36 @@
       ]
     },
     {
-      "endpoint": "https://www.fitosanitari.salute.gov.it/",
+      "endpoint": "https://www.coeweb.istat.it/",
       "usado_por": [
         {
+          "file": "candidatas/italy_fechar_red_team.py",
+          "line": 134
+        },
+        {
+          "file": "candidatas/italy_fechar_sonda.py",
+          "line": 347
+        },
+        {
           "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 439
-        },
+          "line": 832
+        }
+      ]
+    },
+    {
+      "endpoint": "https://esploradati.istat.it/SDMXWS",
+      "usado_por": [
         {
-          "file": "coleta/rotulos_baixar.py",
-          "line": 125
-        },
-        {
-          "file": "fontes/adama_it_labels.py",
+          "file": "candidatas/italy_fechar_validar37.py",
           "line": 72
+        },
+        {
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 253
+        },
+        {
+          "file": "data/samples/IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py",
+          "line": 3
         }
       ]
     },
@@ -4065,15 +4124,54 @@
       ]
     },
     {
-      "endpoint": "https://www.regione.veneto.it/web",
+      "endpoint": "https://agricoltura.regione.emilia-romagna.it/fitosanitario",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 65
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 68
         },
         {
-          "file": "provas/testa_rota_italia.py",
-          "line": 62
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 484
+        }
+      ]
+    },
+    {
+      "endpoint": "https://nao-existe-este-dominio-sintonia-2026.it/",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_red_team.py",
+          "line": 283
+        },
+        {
+          "file": "candidatas/italy_fechar_sonda.py",
+          "line": 345
+        }
+      ]
+    },
+    {
+      "endpoint": "https://meteo.regione.marche.it/",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_validar37.py",
+          "line": 50
+        },
+        {
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 149
+        }
+      ]
+    },
+    {
+      "endpoint": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite",
+      "usado_por": [
+        {
+          "file": "candidatas/italy_fechar_validar37.py",
+          "line": 57
+        },
+        {
+          "file": "candidatas/italy_gap_novas_fontes.py",
+          "line": 84
         }
       ]
     },
@@ -4087,19 +4185,6 @@
         {
           "file": "pacote/pacote_camadas3.py",
           "line": 84
-        }
-      ]
-    },
-    {
-      "endpoint": "https://esploradati.istat.it/SDMXWS",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 253
-        },
-        {
-          "file": "data/samples/IT-ISTAT-COLTIVAZIONI/pull_istat_coltivazioni.py",
-          "line": 3
         }
       ]
     },
@@ -4260,146 +4345,101 @@
       ]
     },
     {
-      "endpoint": "https://www.reterurale.it/bollettinofeno",
+      "endpoint": "https://www.fitosanitario.regione.lombardia.it/wps",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 48
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 121
         }
       ]
     },
     {
-      "endpoint": "https://www.arsacweb.it/bollettino-agrometeorologico-e-fitosanitario-agrumi-olivo-e-vite",
+      "endpoint": "https://www.venetoagricoltura.org/",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 84
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 146
         }
       ]
     },
     {
-      "endpoint": "https://www.agriligurianet.it/it",
+      "endpoint": "https://agricoltura.regione.campania.it/difesa",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 109
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 174
         }
       ]
     },
     {
-      "endpoint": "https://www.lamma.toscana.it/previ",
+      "endpoint": "https://www.fitosanitario.re.it/bollettino-singole-colture",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 130
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 200
         }
       ]
     },
     {
-      "endpoint": "https://meteo.regione.marche.it/",
+      "endpoint": "https://www.aiab.fvg.it/aziende-e-tecnici",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 149
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 229
         }
       ]
     },
     {
-      "endpoint": "https://www.agralia.it/",
+      "endpoint": "https://www.irriframe.it/",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 164
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 250
         }
       ]
     },
     {
-      "endpoint": "https://www.terretruria.it/agronomi",
+      "endpoint": "https://www.alsia.it/opencms",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 201
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 282
         }
       ]
     },
     {
-      "endpoint": "https://www.condifesatvb.it/forum-fitoiatrico",
+      "endpoint": "https://www.regione.vda.it/agricoltura",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 217
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 319
         }
       ]
     },
     {
-      "endpoint": "https://statistica.regione.emilia-romagna.it/",
+      "endpoint": "https://www.iaraosta.it/",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 273
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 350
         }
       ]
     },
     {
-      "endpoint": "https://esploradati.istat.it/coeweb",
+      "endpoint": "https://agroambiente.regione.abruzzo.it/",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 291
+          "file": "candidatas/italy_fechar_descoberta.py",
+          "line": 374
         }
       ]
     },
     {
-      "endpoint": "https://www.ismeamercati.it/dati-agroalimentare",
+      "endpoint": "https://exemplo.it/pagina",
       "usado_por": [
         {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 307
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.ismeamercati.it/",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 330
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.ismea.it/",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 349
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.politicheagricole.it/",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 369
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.sian.it/",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 387
-        }
-      ]
-    },
-    {
-      "endpoint": "https://www.ismea.it/flex",
-      "usado_por": [
-        {
-          "file": "candidatas/italy_gap_novas_fontes.py",
-          "line": 399
+          "file": "candidatas/italy_fechar_red_team.py",
+          "line": 56
         }
       ]
     }
