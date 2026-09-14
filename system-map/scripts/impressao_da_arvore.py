@@ -191,8 +191,51 @@ def do_disco() -> tuple[str, int, list[str]]:
         if excluido(caminho):
             continue
         (presentes if (RAIZ / caminho).exists() else ausentes).append(caminho)
-    linhas = [f"{sha} {caminho}"
-              for sha, caminho in zip(sha_do_disco(presentes), presentes)]
+
+    # ── O QUE O GIT JA GUARDA GANHA A ESTIMATIVA DO QUE ELE GUARDARIA ────────
+    # ⚠️ `git hash-object` NAO e sempre a resposta do git. Medido a 2026-09-14,
+    # numa maquina Windows com `core.autocrlf` ligado, sobre UM unico ficheiro
+    # de 1887:
+    #
+    #   data/samples/SOCIAL-IT/raw-free/LINKEDIN/identidade-...imagelinenetwork...txt
+    #     bytes no disco == bytes no indice        (`cmp` byte a byte: iguais)
+    #     git hash-object <ficheiro>   -> 549d2e78   (com filtros)
+    #     git hash-object --no-filters -> 81957b46
+    #     o blob que o git TEM         -> 81957b46
+    #     depois de `update-index --really-refresh` E `git add` -> 81957b46
+    #
+    # Ou seja: o git recusa-se a reescrever aquele blob, e `hash-object`
+    # respondia um SHA que o git nunca guardaria. O ficheiro tem NUL depois dos
+    # primeiros 8 KiB — a deteccao de binario do git so olha para o comeco, e
+    # por isso o filtro entra onde nao devia.
+    #
+    #     PERGUNTAR «QUE SHA TERIA ISTO» NAO E O MESMO QUE PERGUNTAR
+    #     «QUE SHA TENS TU GUARDADO PARA ISTO».
+    #
+    # Efeito: a impressao de quem GERA nunca batia com a de quem IMPLANTA nesta
+    # maquina, e o ponto fixo era inalcancavel — o mapa regerado aqui saia
+    # sempre com `IMPRESSAO_DO_CARIMBO=DIFERENTE`, sem nenhum ficheiro estar
+    # fora do sitio.
+    #
+    # A correcao nao muda a lei: ficheiro NOVO ou EDITADO continua a mover a
+    # impressao, que e o efeito lateral desejado acima. O que muda e a fonte da
+    # resposta para o ficheiro que o git ja tem e que nao mudou — e para esse,
+    # quem sabe e o indice.
+    guardado = {}
+    for ln in git("ls-files", "-s").splitlines():
+        meta, caminho = ln.split("\t", 1)
+        _modo, sha, _andar = meta.split()
+        guardado[caminho] = sha
+    sujos = set(git("diff", "--name-only").splitlines())
+
+    linhas, a_perguntar = [], []
+    for caminho in presentes:
+        if caminho in guardado and caminho not in sujos:
+            linhas.append(f"{guardado[caminho]} {caminho}")
+        else:
+            a_perguntar.append(caminho)
+    linhas += [f"{sha} {caminho}"
+               for sha, caminho in zip(sha_do_disco(a_perguntar), a_perguntar)]
     return _selar(linhas), len(linhas), ausentes
 
 

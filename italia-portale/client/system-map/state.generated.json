@@ -1703,6 +1703,7 @@
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
       "tests/test_c4b_gpu_execucao.py",
+      "tests/test_c4d_ferro_negociado.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
       "tests/test_c7_lugar_do_fato.py",
@@ -2329,10 +2330,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-to-waiting-room-v1",
-    "HEAD": "d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c",
-    "GENERATED_AT": "2026-09-14T16:51:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a77835ef989ebd905aead3215e817b6e572fc01c54e4c4712813b52d88fb48f9"
+    "BRANCH": "claude/local-gpu-on-current-collection-v1",
+    "HEAD": "260b6e9b38c7584b3a353baf5f7cc4a0a1c3d826",
+    "GENERATED_AT": "2026-09-14T14:55:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "22a13788f7387fe8772ae34a69e17fcb5d26deedca21e98bc7f508307f8bab8a"
   },
   "FAMILIES": [
     {
@@ -14484,7 +14485,16 @@
         "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
-      "escreve_na_pasta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "system-map",
+          "prova": {
+            "file": "system-map/scripts/generate_system_map.py",
+            "line": 4669,
+            "snippet": "escreve em caminho"
+          }
+        }
+      ],
       "destino": [
         "GIT"
       ],
@@ -14517,12 +14527,12 @@
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
+      "ROLE_RULE": "M6_ESCREVE_NUMA_PASTA",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
       "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "escreve docs/fontes/INDICE-DE-FONTES.md, e C-MAPA-SCAN le isso: entrega trabalho a peca seguinte",
+      "ROLE_EVIDENCE": "escreve na pasta system-map (system-map/scripts/generate_system_map.py:4669): produz dado",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
@@ -14711,7 +14721,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/generate_system_map.py:5329",
+          "system-map/scripts/generate_system_map.py:5370",
           "system-map/scripts/publicar_no_deploy.mjs:56",
           "system-map/scripts/reconciliacao_do_universo.py:80",
           "system-map/scripts/reconciliacao_do_universo.py:407"
@@ -16938,7 +16948,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -16986,7 +16996,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "tests/test_c4_gpu_local.py:80"
+          "tests/test_c4_gpu_local.py:93",
+          "tests/test_c4d_ferro_negociado.py:374"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -22015,7 +22026,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/scrap-social.yml:267",
+          ".github/workflows/scrap-social.yml:277",
           ".github/workflows/security-check.yml:58"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
@@ -22416,8 +22427,8 @@
         "PLANO": "OBSERVED",
         "PROVA": [
           ".github/workflows/scrap-evidencia.yml:82",
-          ".github/workflows/scrap-social.yml:267",
-          ".github/workflows/scrap-social.yml:268",
+          ".github/workflows/scrap-social.yml:277",
+          ".github/workflows/scrap-social.yml:278",
           ".github/workflows/sintonia-scrap.yml:207",
           ".github/workflows/sintonia-scrap.yml:207",
           "tests/test_m2_rota_forward.py:1"
@@ -23015,7 +23026,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/scrap-social.yml:218"
+          ".github/workflows/scrap-social.yml:228"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -25054,6 +25065,7 @@
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
         "tests/test_c4b_gpu_execucao.py",
+        "tests/test_c4d_ferro_negociado.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
@@ -25162,7 +25174,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 156,
+      "file_count": 157,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -25860,13 +25872,14 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "COMPUTE_DEGRADACAO",
           "EXT_AUDIO",
           "MODELOS_POR_CHAMADOR",
           "_LEITURA_DO_YTDLP"
         ],
-        "palavras": 53,
+        "palavras": 63,
         "por_lingua": {},
-        "sem_marca_de_lingua": 53,
+        "sem_marca_de_lingua": 63,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -27732,7 +27745,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-to-waiting-room-v1"
+        "branch claude/local-gpu-on-current-collection-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -34779,7 +34792,7 @@
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 571,
+          "line": 584,
           "snippet": "import hardware_local as hw                             # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-DA-MAQUINA--IMPORTS-->C-TESTES",
@@ -34810,12 +34823,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que esta máquina tem, perguntado em vez de lembrado alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O que esta máquina tem, perguntado em vez de lembrado alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 402,
+          "line": 415,
           "snippet": "arvore = ast.parse(_fonte('provas/hardware_local.py'))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CENSO-DA-MAQUINA--READS-->C-TESTES",
+            "FROM": "C-CENSO-DA-MAQUINA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 403,
+          "snippet": "'provas/hardware_local.py', 'tests/test_c4d_ferro_negociado.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-DA-MAQUINA--READS-->C-TESTES",
             "FROM": "C-CENSO-DA-MAQUINA",
@@ -39888,7 +39917,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 295,
+          "line": 300,
           "snippet": "import comunicacao_classificar as cc",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--IMPORTS-->C-TESTES",
@@ -52698,7 +52727,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5316,
+          "line": 5357,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -52921,7 +52950,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5329,
+          "line": 5370,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -52937,7 +52966,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5329,
+          "line": 5370,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -59501,17 +59530,68 @@
     {
       "from": "C-PROVA-ASR-LOCAL",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco de prova do reconhecedor, ferro a ferro tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 374,
+          "snippet": "import asr_banco as ab                                 # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ASR-LOCAL--IMPORTS-->C-TESTES",
+            "FROM": "C-PROVA-ASR-LOCAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-PROVA-ASR-LOCAL",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco de prova do reconhecedor, ferro a ferro alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O banco de prova do reconhecedor, ferro a ferro alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 80,
+          "line": 93,
           "snippet": "t = _fonte('provas/asr_banco.py')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-PROVA-ASR-LOCAL--READS-->C-TESTES",
+            "FROM": "C-PROVA-ASR-LOCAL",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 350,
+          "snippet": "corpo = _fonte('provas/asr_banco.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-ASR-LOCAL--READS-->C-TESTES",
             "FROM": "C-PROVA-ASR-LOCAL",
@@ -66477,7 +66557,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 326,
+          "line": 331,
           "snippet": "import social_sessao as ss",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-GUARDA--IMPORTS-->C-TESTES",
@@ -66560,7 +66640,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 354,
+          "line": 359,
           "snippet": "_fonte('guarda/social_sessao.py'))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-TESTES",
@@ -68238,7 +68318,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 277,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-GUARDA",
@@ -68273,7 +68353,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 277,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-SOCIAL",
@@ -68289,7 +68369,7 @@
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 268,
+          "line": 278,
           "snippet": "coleta/youtube_oficial.py; do",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SCRAP-SOCIAL",
@@ -68324,7 +68404,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 218,
+          "line": 228,
           "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-ROTA--RUNS-->C-SMOKE-GPU-ASR",
@@ -68375,8 +68455,8 @@
         },
         {
           "file": "tests/test_c4b_gpu_execucao.py",
-          "line": 241,
-          "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')",
+          "line": 261,
+          "snippet": "wf = '\\n'.join(l for l in _fonte('.github/workflows/scrap-social.yml').splitlines()",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-ROTA--READS-->C-TESTES",
             "FROM": "C-SCRAP-ROTA",
@@ -70420,7 +70500,7 @@
         },
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 437,
+          "line": 450,
           "snippet": "t = _fonte('regras/sensor_coleta.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SENSOR-COLETA--READS-->C-TESTES",
@@ -71293,12 +71373,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A placa leva uma inferencia ate ao fim? alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A placa leva uma inferencia ate ao fim? alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4b_gpu_execucao.py",
           "line": 35,
           "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-SMOKE-GPU-ASR--READS-->C-TESTES",
+            "FROM": "C-SMOKE-GPU-ASR",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 330,
+          "snippet": "corpo = _fonte('provas/gpu_asr_smoke.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SMOKE-GPU-ASR--READS-->C-TESTES",
             "FROM": "C-SMOKE-GPU-ASR",
@@ -74329,7 +74425,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -74540,7 +74636,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 32 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 33 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -76909,12 +77005,12 @@
     "components_pending": 141,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 952,
-    "edges_proven": 900,
+    "edges": 953,
+    "edges_proven": 901,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1744,
-    "files_covered": 906,
+    "files_tracked": 1745,
+    "files_covered": 907,
     "files_code_unclaimed": 0,
     "roles_proven": 137,
     "roles_declared_only": 5,

@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-to-waiting-room-v1",
-    "HEAD": "d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c",
-    "GENERATED_AT": "2026-09-14T16:51:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a77835ef989ebd905aead3215e817b6e572fc01c54e4c4712813b52d88fb48f9"
+    "BRANCH": "claude/local-gpu-on-current-collection-v1",
+    "HEAD": "260b6e9b38c7584b3a353baf5f7cc4a0a1c3d826",
+    "GENERATED_AT": "2026-09-14T14:55:32-03:00",
+    "SOURCE_TREE_FINGERPRINT": "22a13788f7387fe8772ae34a69e17fcb5d26deedca21e98bc7f508307f8bab8a"
   },
   "FILES": [
     {
@@ -108,7 +108,7 @@
     },
     {
       "path": ".github/workflows/scrap-social.yml",
-      "sha": "bbbb1cd8972fec84c11c1fa9a4cce4dd75993a9e",
+      "sha": "6c33bc2165e38becda78d36c81e2a2ad33e6199a",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -1557,14 +1557,14 @@
     },
     {
       "path": "data/collection-ledger/italy/observations.ndjson",
-      "sha": "b1dcc7d4269a12b06cc2808a390d7ee09d1c1af8",
+      "sha": "946c37adfd85fad1c5e7b71df2558f5f4bbce46a",
       "ext": ".ndjson",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/collection-ledger/italy/runs.ndjson",
-      "sha": "be0f9022b4c472cc7cde71dc756b92b78b4545c4",
+      "sha": "0d9dda3b8f6dab604aa0516071b982ec22d6d195",
       "ext": ".ndjson",
       "readable": false,
       "code_dir": false
@@ -4938,7 +4938,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "cd52ac6621cc79553051236129e7cb53069e5ac8",
+      "sha": "e7e535e9ba83c3fc213f54feb29ee48e61c9a0a1",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5883,7 +5883,7 @@
     },
     {
       "path": "ferramentas/fala_local.py",
-      "sha": "53fa2b80a754880bd93ebf204f393fd276709e49",
+      "sha": "e3363d354f3f6b6f8f0bad0be6661925ff7fa18e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8774,7 +8774,7 @@
     },
     {
       "path": "provas/asr_banco.py",
-      "sha": "414dc5effd336ecfaa53811afc75f9c975bd1233",
+      "sha": "cafa15fef315cc657579d680499b8dbb201bc35b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8921,7 +8921,7 @@
     },
     {
       "path": "provas/gpu_asr_smoke.py",
-      "sha": "a6dd7cc0969f41326a3c989be82906756f1a3c34",
+      "sha": "ff2feba67d4dc6373b6b4bfdcfa041575b111b1a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10685,7 +10685,7 @@
     },
     {
       "path": "system-map/data/material-italiano-na-sala.observado.json",
-      "sha": "1f514bd7961c230ee5724b2fa92dcaee69abd253",
+      "sha": "94824585bcc10f81c88671c7981e4974f351208b",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10839,14 +10839,14 @@
     },
     {
       "path": "system-map/scripts/generate_system_map.py",
-      "sha": "b6e4d60d5ffea97d7d32e26d9c7e617aea12eebd",
+      "sha": "30eb60216288a9d71d2ac962d96d6dcad8a5732a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/scripts/impressao_da_arvore.py",
-      "sha": "4c58b111927accb7afe5d5975a049a4a9684468b",
+      "sha": "35569810ca6f78a9169b9a54a1bee8d9725e53c7",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11448,14 +11448,21 @@
     },
     {
       "path": "tests/test_c4_gpu_local.py",
-      "sha": "5c65efbe2342949e1b0fba38e48f2b3e2cf15703",
+      "sha": "a8cd6c10893a8f25bf0fa59d741336eb1f270054",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "tests/test_c4b_gpu_execucao.py",
-      "sha": "eac35b9cec75e459ddcf6ca12a8ef372de54f305",
+      "sha": "c00b3d60b891afa8693d54bdffd6d42dec9645e8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c4d_ferro_negociado.py",
+      "sha": "f2092ec4261823e862bc1db8192fa9ff643b609b",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12050,7 +12057,7 @@
     },
     {
       "path": "tests/test_scrap_convergencia.py",
-      "sha": "cbd3352612f14ab0a07b7af544c2ee61c8d87abd",
+      "sha": "dc6b33cc9da70170a564ab47c355711d8aebf7c9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12874,7 +12881,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 267,
+        "line": 277,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
       }
     },
@@ -12885,7 +12892,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 268,
+        "line": 278,
         "snippet": "coleta/youtube_oficial.py; do"
       }
     },
@@ -12896,7 +12903,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 349,
+        "line": 359,
         "snippet": "rel = env.ler('YOUTUBE-PILOTO-IT.json') or {}"
       }
     },
@@ -12907,7 +12914,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 267,
+        "line": 277,
         "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
       }
     },
@@ -12918,7 +12925,7 @@
       "payload": "execucao",
       "evidence": {
         "file": ".github/workflows/scrap-social.yml",
-        "line": 218,
+        "line": 228,
         "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json"
       }
     },
@@ -40220,7 +40227,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 5316,
+        "line": 5357,
         "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -40264,7 +40271,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 5329,
+        "line": 5370,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -40275,7 +40282,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/scripts/generate_system_map.py",
-        "line": 5329,
+        "line": 5370,
         "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
       }
     },
@@ -46369,7 +46376,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4_gpu_local.py",
-        "line": 80,
+        "line": 93,
         "snippet": "t = _fonte('provas/asr_banco.py')"
       }
     },
@@ -46380,7 +46387,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4_gpu_local.py",
-        "line": 571,
+        "line": 584,
         "snippet": "import hardware_local as hw                             # noqa: PLC0415"
       }
     },
@@ -46391,7 +46398,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4_gpu_local.py",
-        "line": 402,
+        "line": 415,
         "snippet": "arvore = ast.parse(_fonte('provas/hardware_local.py'))"
       }
     },
@@ -46402,7 +46409,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4_gpu_local.py",
-        "line": 437,
+        "line": 450,
         "snippet": "t = _fonte('regras/sensor_coleta.py')"
       }
     },
@@ -46413,8 +46420,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4b_gpu_execucao.py",
-        "line": 241,
-        "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+        "line": 261,
+        "snippet": "wf = '\\n'.join(l for l in _fonte('.github/workflows/scrap-social.yml').splitlines()"
       }
     },
     {
@@ -46457,7 +46464,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4b_gpu_execucao.py",
-        "line": 352,
+        "line": 379,
         "snippet": "'ferramentas/instagram_transcrever.py'):"
       }
     },
@@ -46468,7 +46475,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4b_gpu_execucao.py",
-        "line": 351,
+        "line": 378,
         "snippet": "for rel in ('ferramentas/youtube_transcrever.py',"
       }
     },
@@ -46481,6 +46488,72 @@
         "file": "tests/test_c4b_gpu_execucao.py",
         "line": 35,
         "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c4d_ferro_negociado.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4d_ferro_negociado.py",
+        "line": 38,
+        "snippet": "import fala_local as fl                                        # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4d_ferro_negociado.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4d_ferro_negociado.py",
+        "line": 40,
+        "snippet": "DONO_DO_ASR = 'ferramentas/fala_local.py'"
+      }
+    },
+    {
+      "from_file": "tests/test_c4d_ferro_negociado.py",
+      "to_file": "provas/asr_banco.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4d_ferro_negociado.py",
+        "line": 374,
+        "snippet": "import asr_banco as ab                                 # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_c4d_ferro_negociado.py",
+      "to_file": "provas/asr_banco.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4d_ferro_negociado.py",
+        "line": 350,
+        "snippet": "corpo = _fonte('provas/asr_banco.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4d_ferro_negociado.py",
+      "to_file": "provas/gpu_asr_smoke.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4d_ferro_negociado.py",
+        "line": 330,
+        "snippet": "corpo = _fonte('provas/gpu_asr_smoke.py')"
+      }
+    },
+    {
+      "from_file": "tests/test_c4d_ferro_negociado.py",
+      "to_file": "provas/hardware_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4d_ferro_negociado.py",
+        "line": 403,
+        "snippet": "'provas/hardware_local.py', 'tests/test_c4d_ferro_negociado.py')"
       }
     },
     {
@@ -52859,7 +52932,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 114,
+        "line": 119,
         "snippet": "fonte = _fonte('coleta/adaptador_instagram.py')"
       }
     },
@@ -52870,7 +52943,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 411,
+        "line": 416,
         "snippet": "import adaptador_youtube as ay"
       }
     },
@@ -52881,7 +52954,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 295,
+        "line": 300,
         "snippet": "import comunicacao_classificar as cc"
       }
     },
@@ -52903,7 +52976,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 205,
+        "line": 210,
         "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
       }
     },
@@ -52925,7 +52998,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 204,
+        "line": 209,
         "snippet": "FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',"
       }
     },
@@ -52947,7 +53020,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 205,
+        "line": 210,
         "snippet": "'coleta/scrap_capacidades.py', 'coleta/scrap_fornecedores.py',"
       }
     },
@@ -52958,7 +53031,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 405,
+        "line": 410,
         "snippet": "import scrap_http as http"
       }
     },
@@ -52969,7 +53042,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 392,
+        "line": 397,
         "snippet": "'coleta/scrap_http.py', 'coleta/social_rotas.py'):"
       }
     },
@@ -52991,7 +53064,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 204,
+        "line": 209,
         "snippet": "FICHEIROS = ('coleta/scrap_executor.py', 'coleta/scrap_registo.py',"
       }
     },
@@ -53035,7 +53108,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 284,
+        "line": 289,
         "snippet": "import reel_transcricao as rt"
       }
     },
@@ -53046,7 +53119,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 287,
+        "line": 292,
         "snippet": "self.assertNotIn('WhisperModel(', _fonte('ferramentas/reel_transcricao.py'))"
       }
     },
@@ -53057,7 +53130,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 326,
+        "line": 331,
         "snippet": "import social_sessao as ss"
       }
     },
@@ -53068,7 +53141,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_scrap_convergencia.py",
-        "line": 354,
+        "line": 359,
         "snippet": "_fonte('guarda/social_sessao.py'))"
       }
     },
@@ -55336,6 +55409,13 @@
         "constante": "destino"
       }
     ],
+    "system-map/scripts/generate_system_map.py": [
+      {
+        "pasta": "system-map",
+        "line": 4669,
+        "constante": "caminho"
+      }
+    ],
     "system-map/scripts/relatorio_do_fluxo.py": [
       {
         "pasta": "system-map",
@@ -55359,11 +55439,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1744,
-    "files_readable": 736,
-    "files_code_dir": 789,
-    "file_edges": 3877,
-    "escritas_em_pasta": 72,
+    "files_tracked": 1745,
+    "files_readable": 737,
+    "files_code_dir": 790,
+    "file_edges": 3883,
+    "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

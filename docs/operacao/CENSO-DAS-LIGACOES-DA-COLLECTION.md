@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c
-BRANCH           claude/collection-to-waiting-room-v1
-GERADO_EM        2026-09-14T16:51:26+00:00
+HEAD_DA_MEDICAO  260b6e9b38c7584b3a353baf5f7cc4a0a1c3d826
+BRANCH           claude/local-gpu-on-current-collection-v1
+GERADO_EM        2026-09-14T14:55:32-03:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -407,7 +407,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | yellow — algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 16 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-ROTA-M2, C-SCRAP-EVIDENCIA, C-SCRAP-ROTA, C-SINTONIA-SCRAP |
-| **prova de quem ativa** | .github/workflows/scrap-evidencia.yml:82; .github/workflows/scrap-social.yml:267; .github/workflows/scrap-social.yml:268 _(plano OBSERVED)_ |
+| **prova de quem ativa** | .github/workflows/scrap-evidencia.yml:82; .github/workflows/scrap-social.yml:277; .github/workflows/scrap-social.yml:278 _(plano OBSERVED)_ |
 | **porquê** | uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar. |
 | **o que entra · dado** | C-DERIVACAO-FORWARD, C-ORQUESTRADOR, C-TRANSCRICAO, V-HTTP, V-YOUTUBE |
 | **o que entra · ficheiros** | `coleta/coleta_checkpoint.py`, `coleta/coletor.py`, `coleta/instagram_janela.py` |
@@ -1123,7 +1123,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-SCRAP-ROTA, C-SECURITY-CHECK |
-| **prova de quem ativa** | .github/workflows/scrap-social.yml:267; .github/workflows/security-check.yml:58 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/scrap-social.yml:277; .github/workflows/security-check.yml:58 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `coleta/instagram_janela.py`, `docs/operacao/HOW-TO-PROVISION-LOCAL-SESSION.md`, `guarda/social_sessao.py` |
