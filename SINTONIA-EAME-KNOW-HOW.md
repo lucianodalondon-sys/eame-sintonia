@@ -13622,3 +13622,295 @@ para qualquer tabela de despacho desta casa.
 - Não autoriza automatizar um regenerador para fechar uma contagem: medido quatro
   vezes, isso troca um número por uma cadeia que nunca mais assenta.
 - Não autoriza usar «ciclo atrasado» como nome para *stale* que ninguém explicou.
+
+---
+
+# §115 · O PAPEL VEM DA EVIDÊNCIA, E A TELA NÃO PROMOVE NADA
+
+**Missão:** `C-SYSTEM-MAP-G7-G8-G8B-VISUAL-CLARITY-V1`
+**Linha:** `claude/system-map-g7-g8-visual-clarity-v1` · **base:** `G6` @ `4224a234`
+**Delta de origem:** `handoff/KNOW-HOW-DELTA-PAPEL-E-LEITURA-HUMANA.md`
+
+Esta secção vem **depois** da `§114` porque a missão veio depois, e a dependência
+é conceptual e não apenas cronológica: a guarda que o `G6` deixou — *«quem nomeia
+no código, nomeia no contrato»* — mordeu dentro desta missão, quando o gerador
+passou a ler o censo dos donos sem o declarar. A lei do `G6` provou-se fora da
+missão que a escreveu.
+
+O know-how já tinha os quatro planos, a proibição de promoção entre eles, e
+`ANÁLISE ESTÁTICA PROVA CAN DO · SÓ TELEMETRIA PROVA DID DO`. O que faltava era o
+lado da **tela**: o que acontece a uma lei correcta que nunca chega ao pixel.
+
+## 115.1 · UMA LEI NÃO LIGADA A UM CAMPO DA TELA SÓ EXISTE PARA QUEM LÊ O CONTRATO
+
+A `§20` do contrato de confiança está escrita desde o `G1` e diz, em maiúsculas,
+*«uma seta verde não pode continuar a significar quatro coisas»*. O backend
+cumpria-a: cada aresta publicava `DECLARED · CODE · OBSERVED · PROVEN` desde
+então.
+
+Medido nesta árvore, no mesmo dia (**estado da missão, não constante do
+sistema**):
+
+```
+612 arestas PROVEN=YES
+ 47 arestas PROVEN=UNKNOWN
+659 arestas desenhadas com o mesmo traço
+657 arestas com a dica a dizer «LIGAÇÃO PROVADA»
+```
+
+A causa cabe numa linha de JavaScript:
+
+```js
+const cls = e.kind === 'expected' ? 'unknown' : '';
+```
+
+`kind` separa `expected` de `technical`. **Não é a pergunta da prova**, e nunca
+foi. A tela perguntava a um campo que não sabe a resposta, e recebia uma resposta
+na mesma.
+
+```
+    UM CAMPO QUE SEPARA DUAS COISAS
+    NÃO RESPONDE POR UMA TERCEIRA.
+```
+
+O nome do defeito é este, e é o que fica:
+
+```
+    UMA LEI ESCRITA NUM CONTRATO E NÃO LIGADA A UM CAMPO DA TELA
+    É UMA LEI QUE SÓ EXISTE PARA QUEM LÊ O CONTRATO.
+```
+
+**Consequência de método.** Ao fechar uma reforma de modelo (planos, espécies,
+universos), a lista de sítios a actualizar não acaba no gerador: acaba no
+**último consumidor**. E o consumidor mais perigoso é a interface, porque é o
+único que não reprova nada quando fica para trás — ele continua a desenhar.
+
+> **Corolário.** *«O card precisa de PODER mostrar X»* nunca é o mesmo que *«o
+> card mostra X»*. Uma secção de contrato escrita com «poder» não fecha nada.
+
+## 115.2 · UM CAMINHO QUE ATRAVESSA O QUE NÃO ESTÁ PROVADO MOSTRA UM CAMINHO FALSO
+
+A função que desenha o «caminho completo» tinha, no seu próprio comentário, a
+regra certa: *«sobe e desce a partir da peça, mas NUNCA atravessa uma ligação NÃO
+SEI. Atravessar seria transformar "talvez" em "portanto"»*.
+
+E atravessava 45 das 47.
+
+```js
+if (e.kind === 'expected') return;   // apanha 2 de 47
+```
+
+Um filtro que exclui 2 quando devia excluir 47 **não é um filtro parcial**: é um
+filtro que dá autorização a 45. E cada travessia dessas costura um buraco que a
+pessoa devia estar a ver.
+
+```
+    UM CAMINHO QUE ATRAVESSA O QUE NÃO ESTÁ PROVADO
+    NÃO MOSTRA UM CAMINHO MAIS LONGO: MOSTRA UM CAMINHO FALSO.
+```
+
+**Consequência de método.** Quando a mesma pergunta aparece em dois sítios do
+código (desenhar a seta · atravessar a seta), ela tem de sair da **mesma
+função**. Duas cópias da mesma pergunta divergem, e a que diverge em silêncio é
+sempre a que ninguém está a olhar.
+
+## 115.3 · PAPEL É MEDIÇÃO, E A GAVETA NÃO É UM MEDIDOR
+
+`ROLE` estava por atribuir desde o `G0` — o know-how registou-o como dívida
+aberta, e é esta a secção que a fecha. Atribuí-lo parecia trabalho de arrumação e
+é trabalho de medição — e a tentação, em cada peça, é lê-lo no sítio errado:
+
+```
+NOME DO FICHEIRO   →   não é papel
+GAVETA             →   não é papel  (regras/sensor_coleta.py é um COLETOR)
+FICHA (`kind`)     →   é uma AFIRMAÇÃO, e afirmação não é medição
+```
+
+O que é medição: *é um manifesto de workflow? está dentro da raiz servida pelo
+deploy? corre outra peça por subprocesso? abre ligação de rede? escreve numa
+pasta medida? quem lê o que ele escreve?*
+
+E a regra que impede o resto de entrar:
+
+```
+    UM PAPEL SEM A REGRA QUE O DECIDIU AO LADO É UM RÓTULO.
+```
+
+Cada peça publica `ROLE`, `ROLE_RULE` (qual das nove regras disparou),
+`ROLE_PLANE` (`CODE` quando a árvore mediu, `DECLARED` quando só a ficha afirma)
+e `ROLE_LIMITATIONS` (o que aquilo **não** prova). Nenhum dos quatro é opcional.
+
+## 115.4 · DUAS FONTES QUE DISCORDAM NÃO SE FUNDEM: PUBLICAM-SE
+
+Quando a medição diz uma coisa e a ficha diz outra, há três saídas e duas são
+armadilhas:
+
+| saída | o que acontece |
+|---|---|
+| a medição ganha | o mapa arbitra uma decisão humana, calado |
+| a ficha ganha | o mapa herda o engano de quem escreveu a ficha |
+| **nenhuma ganha** | o papel fica `UNKNOWN` e o conflito sai com os dois lados |
+
+```
+    NÃO SEI HONESTO É MELHOR DO QUE UM PAPEL ARBITRADO —
+    E O CONFLITO PUBLICADO É MELHOR DO QUE OS DOIS.
+```
+
+**Consequência de método.** Um conflito publicado é a única forma de um
+desacordo produzir trabalho. Escondido, produz confiança falsa; arbitrado,
+produz uma decisão sem dono.
+
+## 115.5 · MEDIDO E INVISÍVEL VALE O MESMO QUE NÃO MEDIDO
+
+`censo_dos_donos.py` media, desde a missão da observabilidade, os conceitos
+canónicos e o estado de cada um — incluindo os que têm **dono duplicado**. O
+número existia, estava num artefacto versionado, era regenerado em cada corrida —
+e **nunca tinha aparecido em ecrã nenhum**.
+
+```
+    UM NÚMERO QUE NINGUÉM VÊ NÃO ESTÁ A DENUNCIAR NADA.
+    ESTÁ A ESPERAR QUE ALGUÉM O PROCURE.
+```
+
+A correcção não foi medir outra vez: foi **ler** de quem já media. Recontar teria
+criado uma segunda contagem do mesmo universo — e a `§5.2` do contrato de
+confiança existe por causa de um caso em que isso já aconteceu três vezes com o
+mesmo nome.
+
+> **Corolário.** Ao fechar uma auditoria, a pergunta final não é *«medi?»*. É
+> *«onde é que este número aparece para quem não corre o script?»*.
+
+## 115.6 · DOIS EIXOS ORTOGONAIS PRECISAM DE DOIS CANAIS VISUAIS
+
+Um estado comunicado só por cor não é comunicado a quem imprime a preto e branco,
+a quem tem daltonismo, ou a quem está a olhar para centenas de setas ao mesmo
+tempo. A ligação sem prova passou a ter:
+
+```
+COR      cinzento em vez de tinta
+TRAÇO    tracejado curto
+MARCA    anel vazado no meio da curva + ponta de seta vazada
+PALAVRA  selo com texto no painel: PROVADA · DECLARADA · NÃO SEI
+```
+
+E a lição fina: **o traço já estava ocupado**. A categoria da ligação (`DATA`,
+`CONTROL`, `READ`, …) usa o `stroke-dasharray` desde antes. Empilhar a prova no
+mesmo canal teria destruído a leitura que já existia.
+
+```
+    DOIS EIXOS ORTOGONAIS PRECISAM DE DOIS CANAIS VISUAIS.
+    REUTILIZAR O CANAL DO PRIMEIRO APAGA-O PARA PAGAR O SEGUNDO.
+```
+
+A `§96.6` tem a versão desta regra no modelo de dados — dois eixos que
+correspondem um a um continuam a ser dois eixos. Esta é a versão na tela, e o
+canal visual é um recurso ainda mais escasso do que um campo.
+
+## 115.7 · O DEFAULT DE UM FILTRO É A AFIRMAÇÃO QUE O PAINEL FAZ A QUEM NÃO MEXE EM NADA
+
+A maioria de quem abre um painel nunca mexe num filtro. O estado por omissão **é**
+o painel, para essa pessoa. Um filtro que arranca com `NÃO SEI` desligado mente
+por omissão.
+
+```
+    O DEFAULT DE UM FILTRO NÃO É UMA CONVENIÊNCIA:
+    É A AFIRMAÇÃO QUE O PAINEL FAZ A QUEM NÃO MEXE EM NADA.
+```
+
+As quatro classes de prova arrancam ligadas, e há uma guarda que lê o HTML e
+reprova se alguma perder o `checked`.
+
+## 115.8 · ENQUADRAR TUDO NÃO É MOSTRAR TUDO
+
+O mapa abria com um `fit()` sobre o mundo inteiro. Medido a 1600×1000: escala
+**0,06** — cada cartão com 17 píxeis de largura. Tecnicamente, tudo estava no
+ecrã. Na prática, o que estava no ecrã eram colunas coloridas.
+
+```
+    UM PAINEL QUE ABRE ILEGÍVEL OBRIGA TODA A GENTE
+    A FAZER ZOOM ANTES DA PRIMEIRA PERGUNTA.
+```
+
+A correcção é de câmara, não de conteúdo: nenhum cartão saiu do DOM, nenhum
+filtro mudou, o botão de enquadrar continua a mostrar o mundo inteiro. Mudou onde
+a câmara pousa.
+
+> **Corolário, e merece o seu próprio nome.** Arrumação de **leitura** é diferente
+> de arrumação de **posição**. A primeira é barata e não altera semântica. A
+> segunda é cara e altera — e continua por fazer, de propósito.
+
+## 115.9 · `CAN DO` MEDIDO CORRECTAMENTE CONTINUA A NÃO SER `DID DO`
+
+O red team desta missão encontrou uma linha de teste que acrescenta texto a um
+ficheiro da raiz. O scanner mede-a como `WRITES`. E **não está errado**: a linha
+prova que o código consegue escrever ali. O que ela não prova é que escreve na
+árvore rastreada — o teste opera sobre um clone.
+
+A tentação é «corrigir o scanner». A resposta certa foi outra: a evidência já
+declarava o seu limite (`STATIC_CODE_ANALYSIS · prova CODE`), e a limitação
+estava escrita antes de alguém dar por ela.
+
+```
+    UMA MEDIÇÃO QUE DECLARA O SEU LIMITE NÃO PRECISA DE SER CORRIGIDA
+    QUANDO ALGUÉM A LÊ FORA DELE — PRECISA DE SER LIDA COM O LIMITE.
+```
+
+Isto não relaxa `ANÁLISE ESTÁTICA PROVA CAN DO · SÓ TELEMETRIA PROVA DID DO`:
+aperta-a. O limite tem de **viajar com a conclusão**, senão o primeiro leitor de
+boa-fé promove-a sem dar por isso.
+
+## 115.10 · UM ATAQUE QUE SOBREVIVE VALE MAIS DO QUE VINTE E TRÊS QUE MORREM
+
+O red team correu 24 ataques. Vinte e três morreram à primeira. O `#3` — *«import
+tratado como fluxo de dado»* — sobreviveu, e obrigou a uma correcção real.
+
+A regra que promove a ligação de uma ferramenta de `PREPARO` a `DATA` aceitava
+`categoria in (CODE, READ)`. Medido: as **únicas duas** ligações que ela promovia
+nesta árvore eram as duas de `import`.
+
+```
+    UMA REGRA JUSTIFICA-SE COM O CASO QUE A INSPIROU
+    E APLICA-SE AO CASO QUE ELA APANHA. OS DOIS PODEM SER DIFERENTES.
+```
+
+Ela passa a recusar `CODE`. Hoje promove **zero** ligações, e zero é a resposta
+certa: nenhuma leitura dessas está medida.
+
+A `§49.6` e a `§96.7` já diziam que um sobrevivente acusa a bateria. Esta
+acrescenta o terceiro destino possível de um sobrevivente: **ele pode estar a
+acusar a própria lei**, escrita com uma condição mais larga do que o caso que a
+inspirou. Um sobrevivente nunca é ruído.
+
+> **Corolário operacional.** Ao escrever uma regra com uma condição larga
+> (`x in (A, B)`), medir **quais** dos membros disparam de facto. Se um membro
+> nunca dispara e o outro dispara sempre, a regra não é a que foi escrita.
+
+## 115.11 · O QUE ESTA SECÇÃO NÃO DIZ, E OS NÚMEROS QUE NÃO SÃO CONSTANTES
+
+Estes números são **prova histórica da missão `G7`/`G8`/`G8B`**, medidos na árvore
+dela. Não são estado actual do mapa, e quem os quiser hoje tem de os medir outra
+vez:
+
+```
+MEDIDO NA MISSÃO G7/G8/G8B      (não é constante do sistema)
+
+peças                    162
+papéis provados          119      só declarados          4
+papéis UNKNOWN            39      papéis em conflito    15
+conceitos canónicos       15      com dono duplicado     9
+ligações                 659      ligações NÃO SEI      47
+cobertura humana medida  78%
+```
+
+- Não diz que o mapa passou a ser compreensível por toda a gente: **39 das 162**
+  peças continuavam sem papel medido.
+- Não diz que os 15 conflitos de papel ficaram resolvidos. Ficaram **publicados**,
+  que é outra coisa, e é a coisa certa (`115.4`).
+- Não diz que o layout ficou arrumado. Não se mexeu no layout.
+- Não diz `PASS` ao `G8B`. As fotografias de antes e depois provam que a lei
+  chegou ao pixel e trazem a lista escrita do que **não** provam — frescura,
+  árvore implantada, papéis em falta. Uma prova visual não é um portão, e dizê-lo
+  faz parte do trabalho.
+- Não diz nada sobre a Collection. **O mapa observou; não corrigiu.** Um defeito
+  que o mapa vê na Collection é um achado para a Collection tratar na linha dela,
+  e nunca uma autorização para o mapa lá mexer.
