@@ -3381,6 +3381,24 @@
       "files": [
         "provas/instagram_audio_only.py"
       ]
+    },
+    {
+      "id": "C-PROVA-AGRO-FRONTEIRA",
+      "name": "A auditoria da fronteira agronomica — o que a Intelligence agricola recebe",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "⊘",
+      "views": [
+        "audit"
+      ],
+      "what": "Corre o caminho real da porta (`admissao.decidir` -> `admissao.pronto_para_inteligencia`) com casos DESCARTAVEIS e mede o que sobrevive a fronteira: a estrutura de um FATO agronomico, o tempo do fato, o contexto agronomico estruturado, as identidades, o lexico do universo e o vocabulario da travessia. NAO escreve na Sala de Espera, NAO toca no livro de decisoes, NAO altera nada.",
+      "why_here": "Missao C-INT-AGRO-BENCH-01 mediu que 39 campos de um facto agronomico entram e 12 saem, que 0 de 23 campos agronomicos tem chave propria no READY, e que `published_at` satisfaz a pergunta do tempo do FACTO sem que essa evidencia chegue ao livro de decisoes. UM INSTRUMENTO QUE MEDE A PERDA TEM DE EXISTIR ANTES DE ALGUEM DECIDIR SE A PERDA IMPORTA. O pedido de mudanca vive em docs/operacao/COLLECTION-P0-CHANGE-REQUEST.md e o dono e a Collection.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/auditoria_agro_fronteira.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [

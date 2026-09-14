@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "84186dfaf6be8a52866efc4a440609985f7f4401",
+    "HEAD": "f888776dffd789053fbaf39fc9fe630c74dde3ef",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -4831,6 +4831,19 @@
       ]
     },
     {
+      "endpoint": "https://exemplo.invalido/boletim",
+      "usado_por": [
+        {
+          "file": "provas/a_fonte_atravessa_ate_a_porta.py",
+          "line": 69
+        },
+        {
+          "file": "provas/auditoria_agro_fronteira.py",
+          "line": 87
+        }
+      ]
+    },
+    {
       "endpoint": "https://social.example/p",
       "usado_por": [
         {
@@ -4866,19 +4879,6 @@
         {
           "file": "provas/o_legado_fora_do_fluxo.py",
           "line": 450
-        }
-      ]
-    },
-    {
-      "endpoint": "https://it.linkedin.com/in",
-      "usado_por": [
-        {
-          "file": "provas/linkedin_local_first.py",
-          "line": 267
-        },
-        {
-          "file": "tests/test_linkedin_build_01_local_first.py",
-          "line": 340
         }
       ]
     }
