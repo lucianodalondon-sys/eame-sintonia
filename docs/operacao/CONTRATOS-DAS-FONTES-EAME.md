@@ -10,6 +10,21 @@ Aqui está **como se busca, o que se espera de volta, e o que acontece quando n�
 
 ---
 
+> ## ⚖️ CONTRATO ESCRITO ≠ FONTE AUTORIZADA A CORRER
+>
+> Destes contratos, **quatro dos cinco não são italianos** (`FR-T4-001`,
+> `ES-T4-005`, `ES-T3-001`, `EU-T4-001`). Um contrato diz **como** se busca; ele
+> **não** diz que a operação de hoje pode buscar.
+>
+> O país operacional ativo é `IT`. A autorização vive em
+> [`../../regras/ESCOPO-DE-FONTES.json`](../../regras/ESCOPO-DE-FONTES.json) e o
+> veredito de cada fonte em
+> [`../fontes/CENSO-DE-ESCOPO-DE-FONTES.md`](../fontes/CENSO-DE-ESCOPO-DE-FONTES.md).
+> Os contratos de Espanha e França ficam **inteiros e intactos** aqui, para o dia
+> em que essas operações abrirem.
+
+---
+
 ## SAÚDE DE FONTE — definição objetiva
 
 Implementada em `medidas/source_health.py`, não em prosa.

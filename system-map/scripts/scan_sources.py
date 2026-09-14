@@ -56,6 +56,14 @@ TERRITORIO = {
 }
 
 
+def escopo_operacional(dados: dict) -> dict:
+    """→ o censo de escopo, pelo dono da regra. Zero copias da lei aqui."""
+    sys.path.insert(0, str(RAIZ))
+    import _gavetas  # noqa: F401
+    import escopo_de_fontes as esc
+    return esc.censo(medido=dados)
+
+
 def ler(rel: str) -> list[str]:
     p = RAIZ / rel
     if not p.exists():
@@ -801,6 +809,25 @@ def main() -> int:
     dados["COUNTS"]["accounts"] = dados["ACCOUNTS"].get("total", 0)
     dados["COUNTS"]["accounts_authorized"] = dados["ACCOUNTS"].get("autorizadas", 0)
 
+    # ── O ESCOPO OPERACIONAL — quem pode ser CHAMADO, e nao quem existe ──────
+    #
+    #     CATALOGO GLOBAL != REGISTO OPERACIONAL DO PAIS.
+    #
+    # Este scanner e o dono do censo das fontes, e a pergunta «de que pais e» ja
+    # vivia aqui (`PAIS`). O que faltava era a OUTRA pergunta, que nao e a mesma:
+    # esta fonte pode ser executada pela operacao de hoje? Um catalogo que nao
+    # separa as duas deixa uma ficha espanhola parecer uma instrucao de coleta.
+    #
+    # A REGRA NAO ESTA ESCRITA AQUI. Ela e de `regras/escopo_de_fontes.py`, e
+    # e a mesma que o seletor e o coletor Node obedecem. Um scanner com a sua
+    # propria copia da lei seria a terceira verdade da casa.
+    #
+    # E passa-se-lhe `dados` DE PROPOSITO: o censo do escopo le a medicao das
+    # fontes, e essa medicao e esta, que ainda nao foi escrita no disco. Ler o
+    # ficheiro daria a foto da corrida anterior.
+    dados["ESCOPO"] = escopo_operacional(dados)
+    dados["COUNTS"].update(dados["ESCOPO"]["CONTAGENS"])
+
     # A DIVERGENCIA, dita na cara. Nao corrijo o documento nem escondo o numero:
     # registo os dois e deixo a diferenca visivel, porque quem tem de decidir o
     # que fazer com ela e gente, nao este script.
@@ -859,6 +886,16 @@ def main() -> int:
         print(f"  levantamento italiano: {len(master)} fontes · "
               f"{len(dados['RECONCILIACAO']['nos_dois'])} tambem no atlas · "
               f"{len(dados['RECONCILIACAO']['so_no_master_italiano'])} so no levantamento")
+    E = dados["ESCOPO"]
+    print(f"  escopo operacional: pais ativo = {E['PAIS_OPERACIONAL_ATIVO']} · "
+          f"{c['ATIVAS_NA_ITALIA']} fonte(s), {c['CONTAS_ATIVAS_NA_ITALIA']} conta(s) e "
+          f"{c['RECORTES_ATIVOS_NA_ITALIA']} recorte(s) podem ser chamados")
+    for grupo in ("SPAIN_FUTURE", "FRANCE_FUTURE", "SHARED_EUROPE_INACTIVE", "UNKNOWN"):
+        n = (len([x for x in E["FONTES"] if x["GRUPO"] == grupo])
+             + len([x for x in E["CONTAS"] if x["GRUPO"] == grupo])
+             + len([x for x in E["RECORTES"] if x["GRUPO"] == grupo]))
+        if n:
+            print(f"     {grupo:24s} {n:3d} preservado(s) e fora do caminho operacional")
     if so_em_tabela:
         print(f"  ATENCAO: {len(so_em_tabela)} fonte(s) citadas em tabela, sem ficha: "
               + ", ".join(c["source_id"] for c in so_em_tabela[:8]))

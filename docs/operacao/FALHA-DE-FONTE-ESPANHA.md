@@ -1,5 +1,20 @@
 # SE AMANHÃ O `regfiweb` DEVOLVER 404
 
+> ## 🗄️ PRESERVADO E INATIVO
+>
+> ```
+> COUNTRY_SCOPE        = ES
+> STATUS_OPERACIONAL   = FUTURE
+> ATIVO_NA_OPERACAO_IT = NAO
+> ```
+>
+> Este documento **não foi apagado e não vai ser**: é conhecimento pago e fica
+> inteiro, pesquisável por gente. O que ele deixou de poder fazer é entrar numa
+> corrida italiana — o país operacional ativo é `IT`, e a lei está em
+> `regras/ESCOPO-DE-FONTES.json`. Quando a operação de Espanha abrir, isto está aqui.
+
+---
+
 Contrato operacional para a perda da fonte espanhola crítica. **Não é pessimismo:** a
 `ES-T4-005` é a fonte que mais sustenta o piloto e a que tem a rota menos garantida.
 

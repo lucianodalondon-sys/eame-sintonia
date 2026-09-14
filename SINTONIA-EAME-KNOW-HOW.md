@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §117: promover é uma edição em vários sítios, e um portão que compara dois documentos não vê um documento a contradizer-se.
+**Última atualização material:** 2026-09-14 — §118: conhecer uma fonte e autorizar uma fonte são a mesma pergunta até alguém as separar.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13789,4 +13789,137 @@ NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
 NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, 0/12 classes.
 NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
 Esta missao corrigiu a constituicao. Nao construiu nada.
+```
+
+---
+
+# §118 · CONHECER UMA FONTE E AUTORIZAR UMA FONTE SÃO A MESMA PERGUNTA ATÉ ALGUÉM AS SEPARAR
+
+## O QUE MUDOU
+
+O SINTONIA tinha **um** registo de fontes a responder por **duas** perguntas
+diferentes, e ninguém tinha reparado porque a resposta certa das duas era, até
+hoje, a mesma:
+
+```
+esta fonte EXISTE e nós conhecemo-la?       <- o ATLAS responde
+esta fonte pode ser CHAMADA pela operação?  <- ninguém respondia
+```
+
+Agora são dois objetos. O atlas continua a ser o **catálogo global** e continua
+a conhecer França, Espanha, Itália e a camada europeia. A segunda pergunta
+ganhou dono: `regras/ESCOPO-DE-FONTES.json` (a lei) e
+`regras/escopo_de_fontes.py` + `.mjs` (o portão), com o censo derivado em
+`docs/fontes/CENSO-DE-ESCOPO-DE-FONTES.md`.
+
+```
+CATÁLOGO GLOBAL  ≠  REGISTO OPERACIONAL DO PAÍS
+```
+
+## POR QUÊ
+
+`pedido/receitas.py::resolver` é o sítio onde uma fonte é **escolhida** — tudo
+o que sai dali vai ser aberto. Ele lia as 77 fontes do censo e filtrava por
+país assim:
+
+```python
+pais = (p.filtros.get("pais") or "").upper()
+...
+if pais:
+    ...
+```
+
+**O filtro só existia quando alguém escrevia o país.** Não havia nada de errado
+com o pedido: bastava não dizer nada.
+
+E havia um segundo buraco, este ativo **mesmo com** o país escrito:
+
+```python
+and c not in ("EU", "EUROPA")
+```
+
+«EUROPA serve qualquer país europeu» — escrito com boa intenção, e é exatamente
+a lei que não pode existir:
+
+```
+EU SOURCE  ≠  ITALY SOURCE automaticamente
+```
+
+## PROVA
+
+Medido nesta árvore, com o seletor real a correr, **antes**:
+
+```text
+«colete regulatorio»        -> 9 fontes:  4 ES · 1 FR · 2 EU · 2 IT
+«colete boletins de praga»  -> 17 fontes: 1 ES · 2 FR · 1 EU · 13 IT
+«colete regulatorio» COM pais=IT -> ainda traz EU-T4-002, sem contrato
+                                     e sem chamador italiano
+```
+
+**Depois**, com o preflight no mesmo sítio:
+
+```text
+«colete regulatorio»        -> 3 fontes: 2 IT + EU-T4-001 (autorizada, com prova)
+«colete boletins de praga»  -> 13 fontes, todas IT · 4 barradas, com motivo escrito
+ES_ACTIVE_IN_ITALY = 0 · FR_ACTIVE_IN_ITALY = 0
+UNKNOWN_ACTIVE_IN_ITALY = 0 · EU_UNAPPROVED_ACTIVE_IN_ITALY = 0
+```
+
+`tests/test_escopo_de_fontes.py` — 41 provas, das quais 22 são red team.
+Nenhuma sobreviveu.
+
+## CONSEQUÊNCIA
+
+```
+UMA FONTE DE OUTRO PAÍS PODE SER PRESERVADA
+SEM ESTAR AUTORIZADA PARA A OPERAÇÃO ATUAL.
+```
+
+Preservar e autorizar deixaram de ser a mesma coisa. Espanha e França ficam
+**inteiras** — fichas, contratos, evidências, source packs, contas e recortes de
+busca —, continuam pesquisáveis por gente, e ganharam um selo que diz de si
+`STATUS_OPERACIONAL = FUTURE`. O que perderam foi o acesso ao caminho
+operacional italiano.
+
+E a camada europeia ganhou a regra que lhe faltava: **INATIVA POR OMISSÃO.** Uma
+fonte EU só entra na operação italiana pela allowlist explícita, e entrar exige
+as duas condições, escritas antes de se olhar para o resultado — contrato escrito
+**e** um chamador nesta árvore que declare aquele `SOURCE_ID` com recorte
+italiano. Medido sobre as 11 fontes EU: **uma** fecha as duas (`EU-T4-001`). As
+outras dez ficam `INACTIVE` — não por serem más, mas porque ninguém escreveu
+ainda por que é que a Itália precisa delas.
+
+```
+ITALY_USE_ALLOWED = UNKNOWN  =>  NÃO ATIVAR
+```
+
+## AS TRÊS ARMADILHAS QUE ESTA MISSÃO APANHOU A SI PRÓPRIA
+
+**1 · O país da célula não é o país da conta.** O cadastro de contas tem
+`COUNTRY` (a célula do lote: «BASF em IT») e `COUNTRY_SCOPE` (a localidade
+**provada**). Ler o primeiro dava `IT` à conta `basf_global`, que é global.
+
+```
+ALVO DA BUSCA  ≠  MEDIÇÃO
+```
+
+**2 · `ACCOUNT_CELL_ID` não é uma identidade.** 44 linhas, 36 células: **oito
+células levam duas contas diferentes** — a provada e a candidata rejeitada que
+caiu na mesma casa da matriz. Indexar por célula fazia uma das duas desaparecer
+em silêncio, e qual delas dependia da ordem do ficheiro. Célula ambígua fecha em
+`UNKNOWN`, e não se cunhou identificador novo para desempatar (§5 da missão).
+
+**3 · Um portão depois da aquisição mede o estrago, não o evita.** No coletor
+documental italiano o portão ficou **acima** de `alvosDe()`, e não entre a
+descoberta e o download: descobrir já é ir à fonte.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra coleta real. Nenhuma corrida foi disparada.
+NAO registra Espanha nem Franca abertas. STATUS_OPERACIONAL = FUTURE nas duas.
+NAO registra Intelligence. Nada foi tocado ali.
+NAO registra FACT_LOCATION. O portao e de ESCOPO OPERACIONAL, e nao de
+geografia do fato: SOURCE_LOCATION != FACT_LOCATION continua intacta, e
+`leis/lugar_do_fato.py` nao foi tocado — ha uma prova que exige que nao seja.
 ```

@@ -2067,7 +2067,7 @@
     },
     {
       "file": "regras/sensor_coleta.py",
-      "line": 213,
+      "line": 233,
       "variavel": "TERMOS",
       "grupos": [
         {
@@ -2229,10 +2229,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/control-plane-intelligence-night-v2",
-    "HEAD": "b1029ce6763bfb89d1630b7d4697797f82bf02d0",
-    "GENERATED_AT": "2026-09-14T05:16:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2e6cf8b6231f299b74093e29b2f4956067a3a3be1e93666777a0f05cdb84b1bc"
+    "BRANCH": "claude/italy-source-isolation-jb6wed",
+    "HEAD": "2b3d58d86c6632ef7f1317bf12ba86a901eed7a9",
+    "GENERATED_AT": "2026-09-14T10:12:19+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3c18aa4623db0ae2dcf4023337a3854aa633375b2c6752ca21f1cd1c9f4f282b"
   },
   "FAMILIES": [
     {
@@ -3334,7 +3334,7 @@
                 "criticality": "PRIMARY · OPEN DATA (CKAN), CC BY 4.0",
                 "evidence": {
                   "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-                  "line": 173,
+                  "line": 188,
                   "snippet": "contrato de ES-T3-001"
                 }
               }
@@ -3414,7 +3414,7 @@
                 "criticality": "PRIMARY · **PUBLIC APPLICATION ROUTE**",
                 "evidence": {
                   "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-                  "line": 69,
+                  "line": 84,
                   "snippet": "contrato de ES-T4-005"
                 }
               }
@@ -3584,7 +3584,7 @@
                 "criticality": "PRIMARY · OPEN DATA (SPARQL + content negotiation)",
                 "evidence": {
                   "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-                  "line": 208,
+                  "line": 223,
                   "snippet": "contrato de EU-T4-001"
                 }
               }
@@ -3694,7 +3694,7 @@
                 "criticality": "PRIMARY · OPEN DATA",
                 "evidence": {
                   "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-                  "line": 34,
+                  "line": 49,
                   "snippet": "contrato de FR-T4-001"
                 }
               }
@@ -3744,7 +3744,7 @@
                 "criticality": "PRIMARY · WEB (arquivo estático datado)",
                 "evidence": {
                   "file": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-                  "line": 136,
+                  "line": 151,
                   "snippet": "contrato de IT-T4-001"
                 }
               }
@@ -11238,9 +11238,9 @@
           "TRADUZ_PAIS",
           "_NOMES_DE_CANAL"
         ],
-        "palavras": 150,
+        "palavras": 158,
         "por_lingua": {},
-        "sem_marca_de_lingua": 150,
+        "sem_marca_de_lingua": 158,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -16022,7 +16022,7 @@
           "pasta": "data/samples/SENSOR-PILOT",
           "prova": {
             "file": "regras/sensor_coleta.py",
-            "line": 420,
+            "line": 440,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -19317,7 +19317,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/control-plane-intelligence-night-v2"
+        "branch claude/italy-source-isolation-jb6wed"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20741,7 +20741,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2978,
+          "line": 3135,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],"
         }
       ],
@@ -20769,7 +20769,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 320,
+          "line": 328,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
         }
       ],
@@ -20869,7 +20869,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 196,
+          "line": 201,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\","
         }
       ],
@@ -24757,7 +24757,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 202,
+          "line": 207,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],"
         }
       ],
@@ -25860,12 +25860,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 85,
+          "line": 90,
           "snippet": "\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\": \"CATALOG\"}},"
         },
         {
           "file": "pedido/receitas.py",
-          "line": 86,
+          "line": 91,
           "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],"
         }
       ],
@@ -25883,7 +25883,7 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 410,
+          "line": 430,
           "snippet": "with open(UNIVERSO, encoding='utf-8') as f:"
         }
       ],
@@ -25901,7 +25901,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 326,
+          "line": 331,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\","
         }
       ],
@@ -27346,7 +27346,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 116,
+          "line": 121,
           "snippet": "\"roda\": [\"coleta/eu_regulatorio_executor.py\"],"
         }
       ],
@@ -27969,7 +27969,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 152,
+          "line": 157,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],"
         }
       ],
@@ -28305,12 +28305,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 197,
+          "line": 202,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 198,
+          "line": 203,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\","
         }
       ],
@@ -29067,7 +29067,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3000,
+          "line": 3157,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],"
         }
       ],
@@ -29085,7 +29085,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 194,
+          "line": 202,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\""
         }
       ],
@@ -29321,7 +29321,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 170,
+          "line": 175,
           "snippet": "\"roda\": [\"coleta/italy_executor.py\"],"
         }
       ],
@@ -29690,12 +29690,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 519,
+          "line": 527,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 520,
+          "line": 528,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
         }
       ],
@@ -30040,7 +30040,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 328,
+          "line": 333,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\","
         }
       ],
@@ -30191,7 +30191,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3220,
+          "line": 3377,
           "snippet": "cadeia = json.loads((Path(__file__).with_name(\"CADEIA-DO-MAPA.json\"))"
         }
       ],
@@ -30342,7 +30342,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3842,
+          "line": 4000,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -30398,12 +30398,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3855,
+          "line": 4013,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3855,
+          "line": 4013,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -31665,12 +31665,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 369,
+          "line": 377,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 398,
+          "line": 406,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\","
         }
       ],
@@ -32574,7 +32574,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 429,
+          "line": 437,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
         }
       ],
@@ -32723,12 +32723,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 324,
+          "line": 329,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\","
         },
         {
           "file": "pedido/receitas.py",
-          "line": 330,
+          "line": 335,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\","
         }
       ],
@@ -35014,12 +35014,12 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 138,
+          "line": 143,
           "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},"
         },
         {
           "file": "pedido/receitas.py",
-          "line": 139,
+          "line": 144,
           "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],"
         }
       ],
@@ -35577,7 +35577,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 242,
+          "line": 247,
           "snippet": "\"roda\": [\"coleta/scrap_colheita.py\"],"
         }
       ],
@@ -36953,12 +36953,12 @@
       "evidence": [
         {
           "file": "regras/sensor_coleta.py",
-          "line": 354,
+          "line": 374,
           "snippet": "import scrap_http as _http"
         },
         {
           "file": "regras/sensor_coleta.py",
-          "line": 542,
+          "line": 562,
           "snippet": "import scrap_executor as scrap"
         }
       ],
@@ -38577,7 +38577,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2940,
+          "line": 3097,
           "snippet": "vj = RAIZ / \"vercel.json\""
         }
       ],

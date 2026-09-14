@@ -155,18 +155,38 @@ LOTES = {
 # Agora o escopo e verificado no CODIGO, na unica porta por onde se entra. O
 # conteudo espanhol e frances FICA guardado — nao se apaga trabalho feito — mas
 # nao chega a uma corrida italiana sem alguem pedir isso por escrito.
-PAIS_DA_ROTA = 'IT'
+# ⚠️ O PAIS DA ROTA DEIXOU DE ESTAR ESCRITO AQUI.
+# Ele era a string `'IT'` neste ficheiro, e `pedido/receitas.py` tinha a sua
+# propria ideia do assunto, e o coletor documental Node tinha uma terceira. Tres
+# sitios a responder «qual e o pais da operacao?» sao tres respostas a espera de
+# divergir — e quem diverge primeiro autoriza em silencio.
+#
+#     UM CONCEITO, UM DONO. O dono e `regras/ESCOPO-DE-FONTES.json`.
+#
+# O nome fica, e continua a atender por ele: codigo vivo e provas ja chamam
+# `sensor_coleta.PAIS_DA_ROTA`, e mudar o dono de um valor nao e razao para
+# lhes partir a chamada.
+import escopo_de_fontes as _esc  # noqa: E402
+
+PAIS_DA_ROTA = _esc.PAIS_OPERACIONAL_ATIVO
 
 
-def recortes_no_escopo(lote: str, pais: str = PAIS_DA_ROTA, permitir_fora=False):
+def recortes_no_escopo(lote: str, pais: str = None, permitir_fora=False):
     """Os recortes deste lote que pertencem ao pais da rota.
 
     Devolve (recortes, deixados_de_fora). Nao apaga nada: filtra, e diz o que
     filtrou. `permitir_fora=True` existe para quem QUISER mesmo correr um lote
     de outro pais — mas tem de o dizer, e fica escrito no log.
+
+    A REGRA E A MESMA DE SEMPRE, E AGORA E LIDA DE UM SITIO SO. O veredito de
+    cada recorte vem de `escopo_de_fontes.veredito_de_grupo_de_busca`, que e o
+    mesmo que responde pelas fontes e pelas contas. O que mudou nao foi o
+    comportamento — mudou o numero de sitios onde ele esta escrito.
     """
+    pais = (pais or PAIS_DA_ROTA).upper()
     todos = LOTES[lote]
-    dentro = [c for c in todos if c.startswith(pais + '-')]
+    dentro = [c for c in todos
+              if _esc.veredito_de_grupo_de_busca(c, pais_da_operacao=pais).permitido]
     fora = [c for c in todos if c not in dentro]
     if permitir_fora:
         return todos, fora

@@ -1,0 +1,118 @@
+{
+  "SCHEMA": "sintonia.escopo-de-fontes/1",
+  "NOTA": [
+    "O ESCOPO OPERACIONAL DAS FONTES — quem pode ser CHAMADO pela operacao ativa.",
+    "",
+    "    CATALOGO GLOBAL  !=  REGISTO OPERACIONAL DO PAIS",
+    "",
+    "O `docs/fontes/ATLAS-DE-FONTES-EAME.md` e o catalogo: ele CONHECE Espanha,",
+    "Franca, Italia e a camada europeia, e tem de continuar a conhecer. Este",
+    "ficheiro e outra pergunta, e so essa:",
+    "",
+    "    ESTA FONTE PODE SER EXECUTADA PELA OPERACAO ATIVA DE HOJE?",
+    "",
+    "Conhecer uma fonte e saber que ela existe. Autorizar uma fonte e deixa-la",
+    "ser chamada. Enquanto as duas perguntas tiveram a mesma resposta, um pedido",
+    "sem pais escrito trazia fontes espanholas e francesas para dentro de uma",
+    "corrida italiana — medido em `pedido/receitas.py::resolver`, que filtrava",
+    "por pais SO QUANDO alguem escrevia o pais, e deixava EU passar sempre.",
+    "",
+    "    UMA PROTECAO QUE DEPENDE DE ALGUEM SE LEMBRAR NAO E UMA PROTECAO.",
+    "",
+    "O QUE ESTE FICHEIRO NAO FAZ",
+    "---------------------------",
+    "Nao apaga nada. Espanha e Franca continuam inteiras no atlas, nos contratos,",
+    "nas evidencias e nos source packs — e continuam pesquisaveis por gente. Elas",
+    "so deixam de ser ALCANCAVEIS pelo seletor da operacao italiana.",
+    "",
+    "Nao decide onde o facto aconteceu. `SOURCE_LOCATION != FACT_LOCATION`, e",
+    "continua a ser verdade: uma fonte italiana pode publicar um facto frances,",
+    "e o facto nao muda de pais por causa disso. Este ficheiro so diz QUEM PODE",
+    "SER CHAMADO.",
+    "",
+    "Nao cunha identidade. O pais le-se do SOURCE_ID que o atlas ja atribuiu —",
+    "o mesmo prefixo que `system-map/scripts/scan_sources.py::PAIS` ja lia antes",
+    "desta missao. Fonte sem identidade canonica fica UNKNOWN, e UNKNOWN e",
+    "BLOQUEADO. Nunca se deriva pais de URL, host, slug, nome, caminho ou hash."
+  ],
+
+  "PAIS_OPERACIONAL_ATIVO": "IT",
+
+  "PAISES": {
+    "IT": { "GRUPO": "ITALY_ACTIVE", "STATUS_OPERACIONAL": "ACTIVE",
+            "PORQUE": "a unica operacao em desenvolvimento hoje" },
+    "ES": { "GRUPO": "SPAIN_FUTURE", "STATUS_OPERACIONAL": "FUTURE",
+            "PORQUE": "preservada inteira para trabalho futuro; fora do caminho operacional italiano" },
+    "FR": { "GRUPO": "FRANCE_FUTURE", "STATUS_OPERACIONAL": "FUTURE",
+            "PORQUE": "preservada inteira para trabalho futuro; fora do caminho operacional italiano" },
+    "EU": { "GRUPO": "SHARED_EUROPE_INACTIVE", "STATUS_OPERACIONAL": "INACTIVE",
+            "PORQUE": "camada partilhada. INATIVA POR OMISSAO — so entra na operacao italiana com autorizacao explicita em ITALY_ALLOWLIST" }
+  },
+
+  "ITALY_ALLOWLIST": {
+    "NOTA": [
+      "A UNICA PORTA por onde uma fonte europeia/partilhada entra na operacao",
+      "italiana. Entrar aqui e um ACTO DECLARADO, nunca uma deducao.",
+      "",
+      "    EU SOURCE  !=  ITALY SOURCE automaticamente.",
+      "",
+      "O criterio foi escrito ANTES de se olhar para o resultado, e sao duas",
+      "condicoes que tem de fechar as duas:",
+      "",
+      "  1. existe CONTRATO escrito para a fonte (ficha + contrato de busca);",
+      "  2. existe, NESTA arvore, um chamador que declara aquele SOURCE_ID e",
+      "     corre com recorte italiano — nomeado abaixo, com ficheiro e linha.",
+      "",
+      "Medido com esse criterio sobre as 11 fontes EU do atlas: UMA fecha as",
+      "duas. As outras dez ficam INACTIVE — nao porque sejam mas, mas porque",
+      "ninguem escreveu ainda porque e que a Italia precisa delas.",
+      "",
+      "    ITALY_USE_ALLOWED = UNKNOWN  =>  NAO ATIVAR."
+    ],
+    "EU-T4-001": {
+      "ITALY_USE_ALLOWED": "YES",
+      "PORQUE": "a aprovacao europeia da substancia ativa governa o registo nacional italiano do produto: se a substancia cai na UE, o produto italiano cai junto. Sem esta camada, o regulatorio italiano do acervo e so metade da verdade.",
+      "PROVA_CONTRATO": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md — contrato escrito para EU-T4-001 (CELLAR / Publications Office)",
+      "PROVA_CHAMADOR": [
+        "coleta/eu_regulatorio_executor.py — SOURCE_ID = \"EU-T4-001\", IDIOMA = \"IT\"",
+        "coleta/eu_substancia_adama_it.py — camada EU ACTIVE SUBSTANCE x portfolio ADAMA Italia"
+      ],
+      "LIMITE": "autoriza a FONTE a ser chamada pela operacao italiana. NAO transforma o que ela devolve em facto italiano: FACT_LOCATION continua a sair do documento."
+    }
+  },
+
+  "GRUPOS_DE_BUSCA": {
+    "NOTA": [
+      "Os recortes de busca sao selecao de fonte tambem: o termo decide o que se",
+      "vai procurar e em que lingua. `regras/sensor_coleta.py` ja tinha a trava",
+      "(`PAIS_DA_ROTA`, desde a missao do portao de escopo) e ela CONTINUA a ser",
+      "a dona da decisao. O que esta aqui e a DECLARACAO do censo — para que o",
+      "grupo espanhol tenha um sitio onde diz de si que esta guardado, e nao",
+      "apenas um prefixo no nome. `tests/test_escopo_de_fontes.py` reprova se as",
+      "duas divergirem."
+    ],
+    "ITALY_SEARCH_GROUPS": "prefixo IT- em regras/sensor_coleta.py::TERMOS e regras/rotulos_censo.py::TERMOS",
+    "SPAIN_SEARCH_GROUPS": "prefixo ES- — PRESERVADOS, inativos na operacao italiana",
+    "FRANCE_SEARCH_GROUPS": "prefixo FR- — PRESERVADOS, inativos na operacao italiana"
+  },
+
+  "ONDE_ESPANHA_E_FRANCA_FICAM_GUARDADAS": {
+    "NOTA": "Nada foi movido de sitio. Preservar aqui e DECLARAR onde ja esta, para que ninguem procure noutro lado nem julgue que se apagou.",
+    "ES": [
+      "docs/fontes/ATLAS-DE-FONTES-EAME.md — as 6 fichas ES, intactas",
+      "docs/fontes/SOURCE-PACK-ESPANHA-CIENCIA-E-VOZ.md — o source pack",
+      "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md — contratos ES-T4-005 e ES-T3-001",
+      "docs/operacao/FALHA-DE-FONTE-ESPANHA.md · docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md",
+      "coleta/es/ · guarda/es/ · provas/es/ · superficie/es/ · tests/es/",
+      "regras/sensor_coleta.py::TERMOS — grupos ES-*, guardados",
+      "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json — as contas ES, guardadas"
+    ],
+    "FR": [
+      "docs/fontes/ATLAS-DE-FONTES-EAME.md — as 4 fichas FR, intactas",
+      "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md — contrato FR-T4-001",
+      "coleta/ephy.sh — a rota E-Phy, guardada",
+      "regras/sensor_coleta.py::TERMOS — grupos FR-*, guardados",
+      "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json — as contas FR, guardadas"
+    ]
+  }
+}

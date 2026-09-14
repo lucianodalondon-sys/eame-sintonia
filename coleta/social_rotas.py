@@ -60,6 +60,13 @@ import scrap_registo as reg        # noqa: E402  — o mapa, dono unico
 import scrap_capacidades as cap    # noqa: E402  — a declaracao
 import coletor                     # noqa: E402  — o dono do dinheiro
 import autorizacao_de_gasto as az  # noqa: E402  — a recusa de gasto tem nome
+# ⚠️ O DONO DO ESCOPO OPERACIONAL. A regra e uma so, e mora la.
+import escopo_de_fontes as esc     # noqa: E402
+
+#: A recusa desta missao, com nome proprio no vocabulario ja existente.
+#: Nao e `ROUTE_NOT_ALLOWED` (a rota estava boa) nem `BLOCKED` (ninguem nos
+#: bloqueou): a casa e que decidiu nao ir.
+ESCOPO_NAO_PERMITIDO = 'COUNTRY_SCOPE_NOT_ALLOWED'
 
 # ── O QUE MUDOU DE SITIO, E CONTINUA A ATENDER PELO NOME ANTIGO ───────────
 # Codigo vivo e testes ja chamam `social_rotas.permitido`. Mudar o ficheiro de
@@ -151,6 +158,30 @@ def _executar(*, platform, capability, run_id, country_scope='IT',
         # haver: quem sabe o preco da chamada e o dono da chamada.
         'MEDIDA': {},
     }
+
+    # ── O PORTAO DE ESCOPO DE PAIS · O PRIMEIRO DE TODOS ─────────────────────
+    # Ele corre ANTES da escolha da rota, antes da trava da sessao e antes da
+    # trava do gasto — porque todas essas perguntam COMO se vai buscar, e esta
+    # pergunta e se SE PODE IR BUSCAR DE TODO.
+    #
+    #     PREFLIGHT DE PAIS VEM ANTES DA AQUISICAO, NUNCA DEPOIS DO DOWNLOAD.
+    #
+    # `country_scope` ja viajava ate aqui e ja era escrito no registo. Era
+    # descritivo: ninguem o lia para decidir. Um campo que so se escreve nao e
+    # um portao, e um rotulo.
+    #
+    # E ele nao julga o CONTEUDO. Um post italiano numa conta espanhola nao
+    # torna a conta italiana, e um post frances numa conta italiana nao move o
+    # facto — `leis/lugar_do_fato.py` continua a responder por isso. Aqui so se
+    # decide QUEM PODE SER CHAMADO.
+    ve = esc.veredito_do_pedido(country_scope=country_scope,
+                                source_id=kwargs.get('source_id'))
+    if not ve.permitido:
+        registro['ESTADO'] = ESCOPO_NAO_PERMITIDO
+        registro['ERRO'] = ve.motivo
+        registro['COUNTRY_SCOPE_VEREDITO'] = ve.como_dicionario()
+        return [], registro
+
     if not rotas:
         registro['ESTADO'] = 'NOT_APPLICABLE'
         registro['ERRO'] = 'capacidade não declarada na matriz para esta plataforma'

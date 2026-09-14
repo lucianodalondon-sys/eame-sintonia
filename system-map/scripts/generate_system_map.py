@@ -2667,6 +2667,43 @@ def indice_de_fontes() -> None:
          f"| palavras de busca medidas no código | **{c['search_terms']}** em {c['search_term_groups']} grupos |",
          f"| endereços que o código realmente chama | **{c['endpoints']}** |", ""]
 
+    E = S.get("ESCOPO") or {}
+    if E:
+        op = E["PAIS_OPERACIONAL_ATIVO"]
+        L += ["---", "", "## QUEM PODE SER CHAMADO HOJE", "",
+              "Conhecer uma fonte e autorizar uma fonte são perguntas diferentes, e",
+              "esta página responde as duas separadas.", "",
+              "```",
+              "CATÁLOGO GLOBAL  ≠  REGISTO OPERACIONAL DO PAÍS",
+              "```", "",
+              f"O país operacional ativo é **{op}**. O catálogo continua a conhecer",
+              "Espanha, França e a camada europeia — e tem de continuar. O que elas",
+              "deixaram de poder fazer é **ser executadas** pela operação ativa.", "",
+              "| grupo | fichas | contas | recortes | pode ser chamado? |",
+              "|---|---|---|---|---|"]
+        for grupo, pode in (("ITALY_ACTIVE", "**sim**"),
+                            ("SPAIN_FUTURE", "não · preservado"),
+                            ("FRANCE_FUTURE", "não · preservado"),
+                            ("SHARED_EUROPE_INACTIVE", "não · salvo autorização"),
+                            ("UNKNOWN", "não · sem identidade provada")):
+            nf = len([x for x in E["FONTES"] if x["GRUPO"] == grupo])
+            nc = len([x for x in E["CONTAS"] if x["GRUPO"] == grupo])
+            nr = len([x for x in E["RECORTES"] if x["GRUPO"] == grupo])
+            L.append(f"| `{grupo}` | {nf} | {nc} | {nr} | {pode} |")
+        cg = E["CONTAGENS"]
+        L += ["",
+              "**Organização não é canal.** Uma organização tem site, Instagram,",
+              "LinkedIn, YouTube, API, PDF e RSS — e continua a ser uma organização.",
+              "", "| | organizações | canais |", "|---|---|---|"]
+        for rot, nome in (("ITALY", "Itália"), ("SPAIN", "Espanha"),
+                          ("FRANCE", "França"), ("EU_SHARED", "Europa partilhada"),
+                          ("UNKNOWN", "sem identidade provada")):
+            L.append(f"| **{nome}** | {cg[f'{rot}_OWNER_COUNT']} "
+                     f"| {cg[f'{rot}_SOURCE_CHANNEL_COUNT']} |")
+        L += ["",
+              "A ficha inteira de cada uma, com o motivo de cada recusa, está em",
+              "[`CENSO-DE-ESCOPO-DE-FONTES.md`](CENSO-DE-ESCOPO-DE-FONTES.md).", ""]
+
     if S.get("HEADER_CLAIM", {}).get("divergencia"):
         h = S["HEADER_CLAIM"]
         L += ["> ### ⚠ O cabeçalho do atlas e as fichas não batem", ">",
@@ -2757,6 +2794,126 @@ def indice_de_fontes() -> None:
           "faz a coleta, no **System Map** em `/system-map/` (bloco **COLETA**).", ""]
 
     destino = RAIZ / "docs" / "fontes" / "INDICE-DE-FONTES.md"
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_text(chr(10).join(L), encoding="utf-8")
+
+
+def censo_de_escopo() -> None:
+    """Escreve `docs/fontes/CENSO-DE-ESCOPO-DE-FONTES.md` — o censo do §6.
+
+    Uma linha por fonte, por conta e por recorte, com o grupo onde cada um cai e
+    o MOTIVO ESCRITO de cada recusa. Uma recusa sem motivo e indistinguivel de
+    um desaparecimento — e o medo de que algo tenha desaparecido e exactamente o
+    que este ficheiro existe para responder.
+
+    GERADO. Nao se edita a mao: edita-se `regras/ESCOPO-DE-FONTES.json` (a lei)
+    ou a ficha da fonte, e regera-se.
+    """
+    f = DADOS / "sources.generated.json"
+    if not f.exists():
+        return
+    S = json.loads(f.read_text(encoding="utf-8"))
+    E = S.get("ESCOPO")
+    if not E:
+        return
+    op = E["PAIS_OPERACIONAL_ATIVO"]
+    cg = E["CONTAGENS"]
+
+    L = ["# CENSO DE ESCOPO DE FONTES — SINTONIA EAME", "",
+         "> **Este ficheiro é gerado.** Não o edite à mão: edite a lei em",
+         "> [`../../regras/ESCOPO-DE-FONTES.json`](../../regras/ESCOPO-DE-FONTES.json)",
+         "> ou a ficha da fonte, e rode `py system-map/scripts/generate_system_map.py`.",
+         "",
+         "Este censo responde a UMA pergunta, e não à outra parecida:", "",
+         "```",
+         "esta fonte EXISTE e nós conhecemo-la?      <- o ATLAS responde",
+         "esta fonte pode ser CHAMADA pela operação? <- esta página responde",
+         "```", "",
+         f"País operacional ativo: **{op}**.", "",
+         "Nada aqui foi apagado. Espanha e França continuam inteiras no atlas, nos",
+         "contratos, nas evidências e nos source packs, e continuam pesquisáveis por",
+         "gente. O que elas deixaram de poder fazer é entrar numa corrida italiana.",
+         "", "---", "", "## OS CINCO GRUPOS", "",
+         "| grupo | fichas | contas | recortes |", "|---|---|---|---|"]
+    for grupo in ("ITALY_ACTIVE", "SPAIN_FUTURE", "FRANCE_FUTURE",
+                  "SHARED_EUROPE_INACTIVE", "UNKNOWN"):
+        L.append(f"| `{grupo}` "
+                 f"| {len([x for x in E['FONTES'] if x['GRUPO'] == grupo])} "
+                 f"| {len([x for x in E['CONTAS'] if x['GRUPO'] == grupo])} "
+                 f"| {len([x for x in E['RECORTES'] if x['GRUPO'] == grupo])} |")
+
+    L += ["", "---", "", "## ORGANIZAÇÃO NÃO É CANAL", "",
+          "```", "54 CANAIS  ≠  54 ORGANIZAÇÕES", "```", "",
+          "| | organizações | canais | fichas | contas | recortes |",
+          "|---|---|---|---|---|---|"]
+    for rot, nome in (("ITALY", "Itália"), ("SPAIN", "Espanha"),
+                      ("FRANCE", "França"), ("EU_SHARED", "Europa partilhada"),
+                      ("UNKNOWN", "sem identidade provada")):
+        L.append(f"| **{nome}** | {cg[f'{rot}_OWNER_COUNT']} "
+                 f"| {cg[f'{rot}_SOURCE_CHANNEL_COUNT']} | {cg[f'{rot}_FICHAS']} "
+                 f"| {cg[f'{rot}_CONTAS']} | {cg[f'{rot}_RECORTES']} |")
+
+    L += ["", "---", "", "## O TESTE DE CONTAMINAÇÃO", "",
+          "O que o seletor italiano **conseguiria** executar hoje:", "",
+          "| medida | valor |", "|---|---|"]
+    ativos = ([x for x in E["FONTES"] if x["ATIVO_NA_ITALIA"]]
+              + [x for x in E["CONTAS"] if x["ATIVO_NA_ITALIA"]]
+              + [x for x in E["RECORTES"] if x["ATIVO_NA_ITALIA"]])
+    aut = {k for k in (json.loads((RAIZ / "regras" / "ESCOPO-DE-FONTES.json")
+                                  .read_text(encoding="utf-8"))["ITALY_ALLOWLIST"])
+           if k != "NOTA"}
+    for rotulo, n in (
+            ("ES_ACTIVE_IN_ITALY", len([x for x in ativos if x["COUNTRY_SCOPE"] == "ES"])),
+            ("FR_ACTIVE_IN_ITALY", len([x for x in ativos if x["COUNTRY_SCOPE"] == "FR"])),
+            ("UNKNOWN_ACTIVE_IN_ITALY",
+             len([x for x in ativos if x["COUNTRY_SCOPE"] == "NAO SEI"])),
+            ("EU_UNAPPROVED_ACTIVE_IN_ITALY",
+             len([x for x in ativos if x["COUNTRY_SCOPE"] == "EU"
+                  and x.get("SOURCE_ID") not in aut]))):
+        L.append(f"| `{rotulo}` | **{n}** {'✅' if n == 0 else '🔴'} |")
+    L += ["", f"Ativos hoje: **{cg['ATIVAS_NA_ITALIA']}** fichas · "
+          f"**{cg['CONTAS_ATIVAS_NA_ITALIA']}** contas · "
+          f"**{cg['RECORTES_ATIVOS_NA_ITALIA']}** recortes.", ""]
+
+    L += ["---", "", "## AS FONTES, UMA A UMA", "",
+          "| SOURCE_ID | dono | escopo | grupo | contrato | chamável | motivo |",
+          "|---|---|---|---|---|---|---|"]
+    for x in sorted(E["FONTES"], key=lambda y: (y["GRUPO"] != "ITALY_ACTIVE",
+                                                y["SOURCE_ID"])):
+        L.append(f"| `{x['SOURCE_ID']}` | {str(x['OWNER'])[:34]} "
+                 f"| {x['COUNTRY_SCOPE']} | `{x['GRUPO']}` "
+                 f"| {'sim' if x['CONTRATO_EXISTE'] else 'não'} "
+                 f"| {'**sim**' if x['ATIVO_NA_ITALIA'] else 'não'} "
+                 f"| {x['MOTIVO'][:78]} |")
+
+    L += ["", "---", "", "## AS CONTAS PÚBLICAS, UMA A UMA", "",
+          "A célula do lote (`EMPRESA|PAÍS|PLATAFORMA`) é a **pergunta** que se foi",
+          "fazer, não a identidade da conta que se encontrou: oito células levam duas",
+          "contas diferentes. Por isso o censo conta **linhas**, e uma célula ambígua",
+          "fecha em `UNKNOWN`.", "",
+          "| célula | dono | canal | escopo provado | grupo | chamável | motivo |",
+          "|---|---|---|---|---|---|---|"]
+    for x in E["CONTAS"]:
+        L.append(f"| `{x['ACCOUNT_CELL_ID']}` | {x['OWNER']} | {x['CANAL']} "
+                 f"| {x['ESCOPO_PROVADO']} | `{x['GRUPO']}` "
+                 f"| {'**sim**' if x['ATIVO_NA_ITALIA'] else 'não'} "
+                 f"| {x['MOTIVO'][:70]} |")
+
+    L += ["", "---", "", "## OS RECORTES DE BUSCA", "",
+          "O termo decide o que se procura e em que língua — é seleção de fonte",
+          "também. Os recortes ES e FR **não foram apagados**: continuam declarados",
+          "em `regras/sensor_coleta.py`, e o runner italiano não os carrega.", "",
+          "| recorte | escopo | grupo | carregado pelo runner IT? |", "|---|---|---|---|"]
+    for x in E["RECORTES"]:
+        L.append(f"| `{x['GRUPO_DE_BUSCA']}` | {x['COUNTRY_SCOPE']} | `{x['GRUPO']}` "
+                 f"| {'**sim**' if x['ATIVO_NA_ITALIA'] else 'não'} |")
+
+    L += ["", "---", "",
+          "Veja também: [`INDICE-DE-FONTES.md`](INDICE-DE-FONTES.md) — a porta de",
+          "entrada, e [`ATLAS-DE-FONTES-EAME.md`](ATLAS-DE-FONTES-EAME.md) — a ficha",
+          "inteira de cada fonte.", ""]
+
+    destino = RAIZ / "docs" / "fontes" / "CENSO-DE-ESCOPO-DE-FONTES.md"
     destino.parent.mkdir(parents=True, exist_ok=True)
     destino.write_text(chr(10).join(L), encoding="utf-8")
 
@@ -3834,6 +3991,7 @@ def main_uma_vez(stamp: bool) -> int:
     construir(estado)
     leia_antes_de_coletar(estado)
     indice_de_fontes()
+    censo_de_escopo()
 
     if stamp:
         D["DECLARED_BLOBS"] = dict(sorted(novos_blobs.items()))

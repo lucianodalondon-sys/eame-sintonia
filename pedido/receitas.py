@@ -44,6 +44,11 @@ sys.path.insert(0, str(RAIZ))
 import _gavetas  # noqa: E402,F401 — poe as gavetas no caminho de importacao
 
 from pedido import Pedido, ALVOS  # noqa: E402
+# ⚠️ O DONO DO ESCOPO OPERACIONAL, E NAO UMA SEGUNDA COPIA DA REGRA.
+# `regras/escopo_de_fontes.py` responde «esta fonte pode ser CHAMADA?». Escrever
+# aqui um segundo `if pais ==` daria dois donos a mesma lei, e no dia em que um
+# mudasse o outro continuava a autorizar em silencio.
+import escopo_de_fontes as esc  # noqa: E402
 
 FONTES_MEDIDAS = RAIZ / "system-map" / "data" / "sources.generated.json"
 
@@ -354,6 +359,11 @@ class Plano:
     fontes_do_assunto: list = field(default_factory=list)
     com_caminho: list = field(default_factory=list)
     sem_caminho: list = field(default_factory=list)
+    # ⚠️ O QUE O PORTAO BARROU VIAJA NO PLANO, E NAO DESAPARECE DELE.
+    # Um plano que devolve 13 fontes sem dizer que barrou 4 faz uma selecao
+    # parcial parecer completa — o erro mais caro que esta casa pode cometer,
+    # e esta escrito no cabecalho deste ficheiro. Cada item leva o veredito.
+    fora_do_escopo: list = field(default_factory=list)
     executores: list = field(default_factory=list)
     contratos: tuple = CONTRATOS_OBRIGATORIOS
     saida_esperada: str = ""
@@ -379,6 +389,11 @@ class Plano:
         L.append(f"  fontes deste assunto em ficha : {len(self.fontes_do_assunto)}")
         L.append(f"  destas, com caminho escrito   : {len(self.com_caminho)}")
         L.append(f"  destas, NAO SEI como se chega : {len(self.sem_caminho)}")
+        if self.fora_do_escopo:
+            L.append(f"  barradas pelo escopo de {esc.PAIS_OPERACIONAL_ATIVO}"
+                     f"        : {len(self.fora_do_escopo)}")
+            for x in self.fora_do_escopo[:6]:
+                L.append(f"      {x['source_id']}  {x['veredito']['MOTIVO']}")
         if self.sem_caminho:
             nomes = ", ".join(x.get("source_id") or x.get("name", "?")
                               for x in self.sem_caminho[:6])
@@ -403,26 +418,66 @@ class Plano:
 
 
 def resolver(p: Pedido) -> Plano:
-    """Do pedido ao caminho. Tudo medido do atlas; nada adivinhado."""
+    """Do pedido ao caminho. Tudo medido do atlas; nada adivinhado.
+
+    ── O PREFLIGHT DE PAIS, E POR QUE ELE ESTA AQUI E NAO MAIS ABAIXO ───────
+    Este e o sitio onde uma FONTE E ESCOLHIDA. Tudo o que sair daqui vai ser
+    aberto: o executor recebe a lista e vai la buscar. Por isso a pergunta
+    «esta fonte pode ser chamada por esta operacao?» tem de ser respondida
+    ANTES, e nao depois do download — depois do download ja se gastou rede,
+    ja se gastou dinheiro, e ja se tocou na fonte, que e a parte que nao se
+    desfaz.
+
+        UM PORTAO DEPOIS DA AQUISICAO MEDE O ESTRAGO. NAO O EVITA.
+
+    O QUE ESTAVA AQUI ANTES, E O QUE ELE DEIXAVA PASSAR
+    ---------------------------------------------------
+    O filtro de pais era `if pais:` — existia SO QUANDO alguem escrevia o pais
+    no pedido. Medido nesta arvore, com este seletor a correr:
+
+        «colete regulatorio»        -> 9 fontes: 4 ES · 1 FR · 2 EU · 2 IT
+        «colete boletins de praga»  -> 17 fontes: 1 ES · 2 FR · 1 EU · 13 IT
+
+    Nenhum destes pedidos estava errado. Bastou nao dizerem nada.
+
+    E havia um segundo buraco, este ativo mesmo COM o pais escrito:
+
+        and c not in ("EU", "EUROPA")
+
+    «EUROPA serve qualquer pais europeu» — e por isso `EU-T4-002` entrava numa
+    corrida italiana sozinha, sem contrato e sem ninguem ter escrito porque.
+
+        EU SOURCE != ITALY SOURCE automaticamente.
+
+    Agora o pais da operacao NAO vem do pedido: vem do registo de escopo, e o
+    pedido nao o pode afrouxar. `filtros["pais"]` continua a existir e continua
+    a estreitar — o que ele deixou de poder fazer e ALARGAR.
+    """
     pais = (p.filtros.get("pais") or "").upper()
     tema = (p.filtros.get("tema") or "").lower()
 
-    do_assunto = []
+    do_assunto, barradas = [], []
     for f in _fontes():
         if str(f.get("territory") or "").upper() != p.alvo:
             continue
-        if pais:
-            c = str(f.get("country") or "").upper()
-            mapa = {"ES": ("ES", "ESPANHA"), "IT": ("IT", "ITALIA"),
-                    "FR": ("FR", "FRANCA"), "EU": ("EU", "EUROPA")}
-            # EUROPA serve qualquer pais europeu: nao se descarta uma base
-            # continental so porque o pedido nomeou um pais dela.
-            if c not in mapa.get(pais, (pais,)) and c not in ("EU", "EUROPA"):
-                continue
         if tema:
             texto = " ".join(str(f.get(k) or "") for k in
                              ("crops", "topics", "name", "use_case")).lower()
             if tema not in texto:
+                continue
+        # ── O PORTAO. Fecha por omissao, e a recusa fica escrita. ──────────
+        v = esc.veredito(f.get("source_id"))
+        if not v.permitido:
+            barradas.append({"source_id": f.get("source_id"),
+                             "name": f.get("name"), "veredito": v.como_dicionario()})
+            continue
+        # O filtro do pedido so ESTREITA. Pedir `pais=ES` numa operacao
+        # italiana nao abre Espanha: devolve vazio, que e a verdade.
+        if pais:
+            c = str(f.get("country") or "").upper()
+            mapa = {"ES": ("ES", "ESPANHA"), "IT": ("IT", "ITALIA"),
+                    "FR": ("FR", "FRANCA"), "EU": ("EU", "EUROPA")}
+            if c not in mapa.get(pais, (pais,)):
                 continue
         do_assunto.append(f)
 
@@ -449,6 +504,7 @@ def resolver(p: Pedido) -> Plano:
         fontes_do_assunto=do_assunto,
         com_caminho=com,
         sem_caminho=sem,
+        fora_do_escopo=barradas,
         executores=execs,
         saida_esperada=(f"itens de «{p.assunto}» com procedencia, tempo do fato e "
                         f"lugar do fato carimbados, prontos para a porta de admissao"),

@@ -1,4 +1,20 @@
 # SINTONIA EAME — SOURCE PACK ESPANHA
+
+> ## 🗄️ PRESERVADO E INATIVO
+>
+> ```
+> COUNTRY_SCOPE        = ES
+> STATUS_OPERACIONAL   = FUTURE
+> ATIVO_NA_OPERACAO_IT = NAO
+> ```
+>
+> Este documento **não foi apagado e não vai ser**: é conhecimento pago e fica
+> inteiro, pesquisável por gente. O que ele deixou de poder fazer é entrar numa
+> corrida italiana — o país operacional ativo é `IT`, e a lei está em
+> `regras/ESCOPO-DE-FONTES.json`. Quando a operação de Espanha abrir, isto está aqui.
+
+---
+
 ## Ciência → pesquisadores → voz pública + APIs + creators
 Curadoria: 2026-08-29
 

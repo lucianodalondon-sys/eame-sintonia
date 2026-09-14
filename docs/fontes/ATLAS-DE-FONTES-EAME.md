@@ -9,6 +9,25 @@ camada comum europeia.
 **Estado:** atualizado em 2026-08-30 — **<!--M:SOURCE_ID_COUNT-->37<!--/M--> fontes registradas** (16 GREEN, 4 YELLOW, 17 NÃO SEI).
 **Última atualização:** 2026-08-29
 
+> ## ⚖️ ESTE ATLAS É O CATÁLOGO GLOBAL — NÃO É A LISTA OPERACIONAL
+>
+> ```
+> CATÁLOGO GLOBAL  ≠  REGISTO OPERACIONAL DO PAÍS
+> ```
+>
+> O atlas **conhece** França, Espanha, Itália e a camada europeia, e tem de
+> continuar a conhecer: é o registo canónico de tudo o que alguém abriu, olhou e
+> guardou evidência. **Nada aqui foi apagado, e nada aqui deve ser apagado.**
+>
+> Mas ele **não pode ser usado directamente como lista de coleta**. Quem responde
+> «esta fonte pode ser CHAMADA pela operação de hoje?» é
+> [`../../regras/ESCOPO-DE-FONTES.json`](../../regras/ESCOPO-DE-FONTES.json), e o
+> censo dessa resposta, fonte a fonte, está em
+> [`CENSO-DE-ESCOPO-DE-FONTES.md`](CENSO-DE-ESCOPO-DE-FONTES.md).
+>
+> **País operacional ativo: `IT`.** Espanha e França estão `FUTURE`; a camada
+> europeia está `INACTIVE` salvo autorização italiana explícita e com prova.
+
 ---
 
 ## REGRA DAS CINCO FONTES

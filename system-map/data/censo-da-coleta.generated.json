@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.censo-da-coleta/1",
   "PROVENANCE": {
-    "HEAD": "812690c1e5940c9cad393beb1bcf69eea5e4e483",
+    "HEAD": "2b3d58d86c6632ef7f1317bf12ba86a901eed7a9",
     "GAVETAS": [
       "pedido",
       "candidatas",
@@ -28,7 +28,8 @@
       "grava_no_banco": false,
       "escreve_ficheiro": false,
       "chamado_por": [
-        "pedido/receitas.py"
+        "pedido/receitas.py",
+        "regras/escopo_de_fontes.py"
       ],
       "citado_por": [],
       "no_ci": false
@@ -36,7 +37,7 @@
     {
       "ficheiro": "pedido/receitas.py",
       "gaveta": "pedido",
-      "linhas": 462,
+      "linhas": 518,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [
@@ -49,13 +50,18 @@
         "APIFY (rota paga)",
         "TRANSCRICAO"
       ],
-      "descarta": true,
-      "escreve_o_motivo_do_descarte": true,
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
       "decisoes_escondidas": [],
       "grava_no_banco": false,
       "escreve_ficheiro": false,
-      "chamado_por": [],
-      "citado_por": [],
+      "chamado_por": [
+        "regras/escopo_de_fontes.py"
+      ],
+      "citado_por": [
+        "regras/escopo_de_fontes.py",
+        "regras/sensor_coleta.py"
+      ],
       "no_ci": false
     },
     {
@@ -1404,7 +1410,7 @@
     {
       "ficheiro": "coleta/italy_pilot_collect.mjs",
       "gaveta": "coleta",
-      "linhas": 525,
+      "linhas": 548,
       "e_ponto_de_entrada": true,
       "sai_para_fora": false,
       "veiculos": [],
@@ -1870,7 +1876,7 @@
     {
       "ficheiro": "coleta/social_rotas.py",
       "gaveta": "coleta",
-      "linhas": 410,
+      "linhas": 441,
       "e_ponto_de_entrada": false,
       "sai_para_fora": false,
       "veiculos": [
@@ -2103,7 +2109,9 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "citado_por": [],
+      "citado_por": [
+        "regras/escopo_de_fontes.py"
+      ],
       "no_ci": true
     },
     {
@@ -2155,6 +2163,54 @@
       "chamado_por": [],
       "citado_por": [
         "coleta/comunicacao_coleta.py"
+      ],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/escopo_de_fontes.mjs",
+      "gaveta": "regras",
+      "linhas": 102,
+      "e_ponto_de_entrada": false,
+      "sai_para_fora": false,
+      "veiculos": [],
+      "ferramentas": [],
+      "descarta": false,
+      "escreve_o_motivo_do_descarte": false,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/italy_pilot_collect.mjs"
+      ],
+      "citado_por": [],
+      "no_ci": false
+    },
+    {
+      "ficheiro": "regras/escopo_de_fontes.py",
+      "gaveta": "regras",
+      "linhas": 593,
+      "e_ponto_de_entrada": true,
+      "sai_para_fora": false,
+      "veiculos": [
+        "FACEBOOK",
+        "INSTAGRAM",
+        "LINKEDIN",
+        "YOUTUBE"
+      ],
+      "ferramentas": [],
+      "descarta": true,
+      "escreve_o_motivo_do_descarte": true,
+      "decisoes_escondidas": [],
+      "grava_no_banco": false,
+      "escreve_ficheiro": false,
+      "chamado_por": [
+        "coleta/social_rotas.py",
+        "pedido/receitas.py",
+        "regras/escopo_de_fontes.mjs",
+        "regras/sensor_coleta.py"
+      ],
+      "citado_por": [
+        "pedido/receitas.py"
       ],
       "no_ci": false
     },
@@ -2305,13 +2361,15 @@
       "grava_no_banco": false,
       "escreve_ficheiro": true,
       "chamado_por": [],
-      "citado_por": [],
+      "citado_por": [
+        "regras/escopo_de_fontes.py"
+      ],
       "no_ci": false
     },
     {
       "ficheiro": "regras/sensor_coleta.py",
       "gaveta": "regras",
-      "linhas": 1230,
+      "linhas": 1250,
       "e_ponto_de_entrada": true,
       "sai_para_fora": true,
       "veiculos": [
@@ -2333,7 +2391,8 @@
       ],
       "citado_por": [
         "coleta/adaptador_youtube.py",
-        "coleta/coletor.py"
+        "coleta/coletor.py",
+        "regras/escopo_de_fontes.py"
       ],
       "no_ci": true
     },
@@ -2684,11 +2743,11 @@
     }
   ],
   "RESUMO": {
-    "ficheiros_de_codigo": 119,
-    "pontos_de_entrada": 88,
+    "ficheiros_de_codigo": 121,
+    "pontos_de_entrada": 89,
     "executores_que_saem_para_fora": 23,
-    "sem_chamador_e_fora_do_ci": 47,
-    "sem_aresta_medida_e_fora_do_ci": 65,
+    "sem_chamador_e_fora_do_ci": 45,
+    "sem_aresta_medida_e_fora_do_ci": 64,
     "gravam_no_banco": 2,
     "escrevem_ficheiro": 70,
     "deitam_fora_alguma_coisa": 30,
@@ -2770,6 +2829,7 @@
       "regras/comunicacao_identidade.py",
       "regras/comunicacao_lote.py",
       "regras/comunicacao_universo.py",
+      "regras/escopo_de_fontes.py",
       "regras/italy_source_health.mjs",
       "regras/proveniencia.py",
       "regras/rotulos_censo.py",
@@ -2813,7 +2873,6 @@
       "guarda/portas_live.py"
     ],
     "orfaos": [
-      "pedido/receitas.py",
       "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
@@ -2854,7 +2913,6 @@
       "coleta/universo_ciencia_it.py",
       "regras/italy_pilot_guards.mjs",
       "regras/italy_scheduling_guards.mjs",
-      "regras/rotulos_censo.py",
       "guarda/es/adama_es_gate.py",
       "guarda/italy_preserve.mjs",
       "guarda/portas_live.py",
@@ -2862,7 +2920,6 @@
       "guarda/sql_conferir.py"
     ],
     "sem_aresta_medida": [
-      "pedido/receitas.py",
       "candidatas/fonte_nova.py",
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",

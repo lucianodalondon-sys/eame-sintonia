@@ -20,6 +20,43 @@ sabe buscar sozinha.
 | palavras de busca medidas no código | **103** em 34 grupos |
 | endereços que o código realmente chama | **40** |
 
+---
+
+## QUEM PODE SER CHAMADO HOJE
+
+Conhecer uma fonte e autorizar uma fonte são perguntas diferentes, e
+esta página responde as duas separadas.
+
+```
+CATÁLOGO GLOBAL  ≠  REGISTO OPERACIONAL DO PAÍS
+```
+
+O país operacional ativo é **IT**. O catálogo continua a conhecer
+Espanha, França e a camada europeia — e tem de continuar. O que elas
+deixaram de poder fazer é **ser executadas** pela operação ativa.
+
+| grupo | fichas | contas | recortes | pode ser chamado? |
+|---|---|---|---|---|
+| `ITALY_ACTIVE` | 55 | 8 | 13 | **sim** |
+| `SPAIN_FUTURE` | 6 | 10 | 2 | não · preservado |
+| `FRANCE_FUTURE` | 4 | 5 | 2 | não · preservado |
+| `SHARED_EUROPE_INACTIVE` | 10 | 0 | 0 | não · salvo autorização |
+| `UNKNOWN` | 0 | 21 | 0 | não · sem identidade provada |
+
+**Organização não é canal.** Uma organização tem site, Instagram,
+LinkedIn, YouTube, API, PDF e RSS — e continua a ser uma organização.
+
+| | organizações | canais |
+|---|---|---|
+| **Itália** | 48 | 62 |
+| **Espanha** | 9 | 16 |
+| **França** | 7 | 9 |
+| **Europa partilhada** | 8 | 11 |
+| **sem identidade provada** | 5 | 21 |
+
+A ficha inteira de cada uma, com o motivo de cada recusa, está em
+[`CENSO-DE-ESCOPO-DE-FONTES.md`](CENSO-DE-ESCOPO-DE-FONTES.md).
+
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
 > O cabeçalho do atlas diz **37 fontes registradas**
@@ -168,7 +205,7 @@ internacional, não a conversa técnica local.
 | `POPILLIA` | popillia japonica |
 | `XYLELLA` | xylella |
 
-### `regras/sensor_coleta.py:213` · 68 palavras
+### `regras/sensor_coleta.py:233` · 68 palavras
 
 | grupo | palavras |
 |---|---|

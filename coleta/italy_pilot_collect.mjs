@@ -36,6 +36,10 @@ import { pathToFileURL } from "node:url";
 // resolver os nomes curtos; o lado Node ficou com os imports da pasta unica, e
 // por isso este coletor NAO CARREGAVA — nao e sintaxe, e o caminho.
 import { CONTRACTS } from "../regras/italy_contracts.mjs";
+// ⚠️ O PORTAO DE ESCOPO, DO MESMO SITIO DE ONDE O PYTHON O LE.
+// Este coletor e Node, e e ele que realmente vai buscar PDFs a Italia. Uma
+// trava que vivesse so no lado Python teria esta porta aberta por baixo dela.
+import * as escopo from "../regras/escopo_de_fontes.mjs";
 
 const run = promisify(execFile);
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36";
@@ -317,6 +321,25 @@ export async function executarRodada({ runId = null, nota = "", forcarBuf = null
   const detalhes = [];
 
   for (const sourceId of FONTES) {
+    // ── O PREFLIGHT DE PAIS · ANTES DA DESCOBERTA, E NAO SO ANTES DO DOWNLOAD ──
+    // `alvosDe()` ja vai a fonte: descobrir e ir la. Por isso o portao esta
+    // ACIMA dele, e nao entre a descoberta e o `baixar()`.
+    //
+    //     DESCOBRIR JA E TOCAR NA FONTE.
+    //
+    // A recusa e contada e escrita no livro como observacao, como qualquer
+    // outro resultado medido — uma fonte que nao correu por decisao da casa
+    // nao pode sumir do livro, senao a corrida seguinte nao sabe porque.
+    const vEscopo = escopo.veredito(sourceId);
+    if (!vEscopo.permitido) {
+      const obs = { RUN_ID, SOURCE_ID: sourceId, DOCUMENT_ID: null,
+                    HEALTH_STATE: "UNKNOWN", OBSERVATION_RESULT: "COUNTRY_SCOPE_NOT_ALLOWED",
+                    COUNTRY_SCOPE: vEscopo.pais, SCOPE_GROUP: vEscopo.grupo,
+                    motivo: vEscopo.motivo, CAPTURED_AT: agora(),
+                    COLLECTION_RUN_STARTED_AT: STARTED_AT };
+      cont.BLOCKED_BY_COUNTRY_SCOPE = (cont.BLOCKED_BY_COUNTRY_SCOPE ?? 0) + 1;
+      gravar(obs); detalhes.push(obs); continue;
+    }
     cont.SOURCES_ATTEMPTED++;
     const c = CONTRACTS[sourceId];
     const alvos = await alvosDe(sourceId);
