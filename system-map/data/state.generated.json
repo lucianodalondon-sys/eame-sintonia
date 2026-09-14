@@ -864,6 +864,7 @@
       "docs/sintonia-scrap/C2-YOUTUBE-OFFICIAL-FIRST.md",
       "docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md",
       "docs/sintonia-scrap/C4-RUNNER-LOCAL-GPU-ASR.md",
+      "docs/sintonia-scrap/C4D-FERRO-NEGOCIADO-LOCAL.md",
       "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
       "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
@@ -1740,6 +1741,7 @@
       "tests/test_c3_youtube_cutover.py",
       "tests/test_c4_gpu_local.py",
       "tests/test_c4b_gpu_execucao.py",
+      "tests/test_c4d_ferro_negociado.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
       "tests/test_c7_lugar_do_fato.py",
@@ -2229,10 +2231,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/control-plane-intelligence-night-v2",
-    "HEAD": "b1029ce6763bfb89d1630b7d4697797f82bf02d0",
-    "GENERATED_AT": "2026-09-14T05:16:48+00:00",
-    "SOURCE_TREE_FINGERPRINT": "2e6cf8b6231f299b74093e29b2f4956067a3a3be1e93666777a0f05cdb84b1bc"
+    "BRANCH": "claude/sintonia-local-runner-514cdc",
+    "HEAD": "2b3d58d86c6632ef7f1317bf12ba86a901eed7a9",
+    "GENERATED_AT": "2026-09-14T10:12:19Z",
+    "SOURCE_TREE_FINGERPRINT": "71ccf9696fdab2060eeca2c0dbbddb748fb8c188fee5d02edf7f5146debb951c"
   },
   "FAMILIES": [
     {
@@ -12785,7 +12787,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -17551,6 +17553,7 @@
         "tests/test_c3_youtube_cutover.py",
         "tests/test_c4_gpu_local.py",
         "tests/test_c4b_gpu_execucao.py",
+        "tests/test_c4d_ferro_negociado.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
@@ -17660,7 +17663,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 158,
+      "file_count": 159,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -18011,13 +18014,14 @@
       "vocabulario": {
         "papel": "NAO SEI",
         "listas": [
+          "COMPUTE_DEGRADACAO",
           "EXT_AUDIO",
           "MODELOS_POR_CHAMADOR",
           "_LEITURA_DO_YTDLP"
         ],
-        "palavras": 53,
+        "palavras": 63,
         "por_lingua": {},
-        "sem_marca_de_lingua": 53,
+        "sem_marca_de_lingua": 63,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -19317,7 +19321,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/control-plane-intelligence-night-v2"
+        "branch claude/sintonia-local-runner-514cdc"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -22440,7 +22444,7 @@
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 571,
+          "line": 584,
           "snippet": "import hardware_local as hw                             # noqa: PLC0415"
         }
       ],
@@ -22454,12 +22458,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O que esta máquina tem, perguntado em vez de lembrado alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O que esta máquina tem, perguntado em vez de lembrado alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 402,
+          "line": 415,
           "snippet": "arvore = ast.parse(_fonte('provas/hardware_local.py'))"
+        },
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 403,
+          "snippet": "'provas/hardware_local.py', 'tests/test_c4d_ferro_negociado.py')"
         }
       ],
       "categoria": "PROOF"
@@ -24833,7 +24842,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 295,
+          "line": 300,
           "snippet": "import comunicacao_classificar as cc"
         }
       ],
@@ -30342,7 +30351,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3842,
+          "line": 3882,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")"
         },
         {
@@ -30398,12 +30407,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3855,
+          "line": 3895,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3855,
+          "line": 3895,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):"
         }
       ],
@@ -32933,17 +32942,40 @@
     {
       "from": "C-PROVA-ASR-LOCAL",
       "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O banco de prova do reconhecedor, ferro a ferro tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 374,
+          "snippet": "import asr_banco as ab                                 # noqa: PLC0415"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-PROVA-ASR-LOCAL",
+      "to": "C-TESTES",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco de prova do reconhecedor, ferro a ferro alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "O banco de prova do reconhecedor, ferro a ferro alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 80,
+          "line": 93,
           "snippet": "t = _fonte('provas/asr_banco.py')"
+        },
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 350,
+          "snippet": "corpo = _fonte('provas/asr_banco.py')"
         }
       ],
       "categoria": "PROOF"
@@ -35820,7 +35852,7 @@
         },
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 326,
+          "line": 331,
           "snippet": "import social_sessao as ss"
         },
         {
@@ -35853,7 +35885,7 @@
       "evidence": [
         {
           "file": "tests/test_scrap_convergencia.py",
-          "line": 354,
+          "line": 359,
           "snippet": "_fonte('guarda/social_sessao.py'))"
         },
         {
@@ -36561,7 +36593,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 277,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         }
       ],
@@ -36579,12 +36611,12 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 267,
+          "line": 277,
           "snippet": "for f in coleta/social_scrap.py guarda/social_guarda.py \\"
         },
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 268,
+          "line": 278,
           "snippet": "coleta/youtube_oficial.py; do"
         }
       ],
@@ -36602,7 +36634,7 @@
       "evidence": [
         {
           "file": ".github/workflows/scrap-social.yml",
-          "line": 218,
+          "line": 228,
           "snippet": "& $env:PY provas/gpu_asr_smoke.py --device GPU --json"
         }
       ],
@@ -36625,8 +36657,8 @@
         },
         {
           "file": "tests/test_c4b_gpu_execucao.py",
-          "line": 241,
-          "snippet": "wf = _fonte('.github/workflows/scrap-social.yml')"
+          "line": 261,
+          "snippet": "wf = '\\n'.join(l for l in _fonte('.github/workflows/scrap-social.yml').splitlines()"
         },
         {
           "file": "tests/test_c8_convergencia.py",
@@ -37377,7 +37409,7 @@
         },
         {
           "file": "tests/test_c4_gpu_local.py",
-          "line": 437,
+          "line": 450,
           "snippet": "t = _fonte('regras/sensor_coleta.py')"
         },
         {
@@ -37702,12 +37734,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A placa leva uma inferencia ate ao fim? alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A placa leva uma inferencia ate ao fim? alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c4b_gpu_execucao.py",
           "line": 35,
           "snippet": "SMOKE = 'provas/gpu_asr_smoke.py'"
+        },
+        {
+          "file": "tests/test_c4d_ferro_negociado.py",
+          "line": 330,
+          "snippet": "corpo = _fonte('provas/gpu_asr_smoke.py')"
         },
         {
           "file": "tests/test_c8_convergencia.py",
@@ -38930,7 +38967,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 24 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -39003,7 +39040,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 32 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 33 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -40143,7 +40180,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 897,
+  "UNCLAIMED_FILES_COUNT": 898,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -40303,12 +40340,12 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 889,
-    "edges_proven": 886,
+    "edges": 890,
+    "edges_proven": 887,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1778,
-    "files_covered": 881,
+    "files_tracked": 1780,
+    "files_covered": 882,
     "files_code_unclaimed": 0
   }
 }

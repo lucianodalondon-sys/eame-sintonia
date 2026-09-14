@@ -110,14 +110,60 @@ def verdade():
     return fora
 
 
-def amostras():
-    """Os `.wav` ja preservados que tem verdade de referencia declarada."""
+def _sem_o_dono(caminho):
+    """O caminho sem o nome de quem usa a maquina — a mesma lei da C4.
+
+    Um banco de prova pode dizer QUE pasta leu; nunca DE QUEM ela e. E este
+    relatorio vai para documento versionado, onde um `C:\\Users\\<nome>` ficaria
+    para sempre.
+    """
+    t = str(caminho or '')
+    perfil = os.environ.get('USERPROFILE') or os.path.expanduser('~')
+    if perfil and perfil in t:
+        t = t.replace(perfil, '<perfil>')
+    return re.sub(r'(?i)([A-Z]:\\Users\\)[^\\/]+', r'\1<perfil>', t)
+
+
+def amostras(midia=None):
+    """Os `.wav` ja preservados. → lista. NADA NOVO E BAIXADO, em caminho nenhum.
+
+    DUAS PROCEDENCIAS, E ELAS NAO VALEM O MESMO
+    ---------------------------------------------
+    A primeira e o corpus canonico: `.wav` com **verdade de referencia
+    declarada** em `QUALIDADE-DA-FALA-V1.json`. So com ele se pode falar de
+    acerto de termo, de marca e de lingua.
+
+    A segunda existe porque a maquina que tem a PLACA pode nao ter o CORPUS —
+    e foi exactamente o caso medido a 2026-09-14: `data/raw/REEL-MIDIA` estava
+    vazia nesta maquina, e havia audio real ja preservado noutra pasta da
+    operacao. Sem esta porta, a unica alternativa seria baixar midia nova, que
+    e adquirir conteudo por uma rota que nenhuma missao de hardware autoriza.
+
+        MEDIR O FERRO PRECISA DE AUDIO. NAO PRECISA DE VERDADE DECLARADA.
+        MEDIR A QUALIDADE PRECISA DAS DUAS, E POR ISSO SO A PRIMEIRA A MEDE.
+
+    Quem entra pela segunda porta sai com `QUALITY = NOT_MEASURED` colado, e
+    `TERMOS` vazio. Ler acerto dali seria inventar a verdade que falta.
+    """
+    raiz = midia or MIDIA
     v = verdade()
     fora = []
     for reel, meta in sorted(v.items()):
-        wav = os.path.join(MIDIA, '%s.wav' % reel)
+        wav = os.path.join(raiz, '%s.wav' % reel)
         if os.path.exists(wav):
-            fora.append({'REEL': reel, 'WAV': wav, **meta})
+            fora.append({'REEL': reel, 'WAV': wav, 'QUALITY': 'MEASURED', **meta})
+    if fora or not midia or not os.path.isdir(raiz):
+        return fora
+    for nome in sorted(os.listdir(raiz)):
+        if not nome.lower().endswith('.wav'):
+            continue
+        fora.append({'REEL': os.path.splitext(nome)[0],
+                     'WAV': os.path.join(raiz, nome),
+                     # `None` aqui NAO e descuido: e o que faz o reconhecedor
+                     # detectar a lingua em vez de a receber. Declarar uma
+                     # lingua que ninguem provou seria inventar metade do dado.
+                     'IDIOMA': None, 'CONTA': NAO_SE_APLICA, 'TERMOS': [],
+                     'QUALITY': NAO_MEDIDO})
     return fora
 
 
@@ -188,7 +234,12 @@ def uma(amostra, *, modelo, dispositivo):
     # Tres estados, e nao dois. `DECLARED_ONLY` quer dizer que o motor nao
     # devolveu deteccao para comparar — o que nao e nem estavel nem instavel.
     det = r.get('LANGUAGE_DETECTED')
-    if det in (None, fl.NAO_SEI):
+    if amostra.get('IDIOMA') in (None, '', fl.NAO_SEI):
+        # ⚠️ SEM LINGUA DECLARADA NAO HA ESTABILIDADE PARA MEDIR.
+        # Comparar o detectado com `None` dava `DRIFT` em toda a linha — uma
+        # deriva publicada onde nunca houve ponto de partida para derivar.
+        estabilidade = 'NOT_DECLARED'
+    elif det in (None, fl.NAO_SEI):
         estabilidade = 'DECLARED_ONLY'
     elif str(det).lower() == str(amostra['IDIOMA']).lower():
         estabilidade = 'STABLE'
@@ -197,6 +248,9 @@ def uma(amostra, *, modelo, dispositivo):
 
     linha = {
         'REEL': amostra['REEL'],
+        # De que porta veio esta amostra. Sem verdade declarada nao ha acerto
+        # para ler, e o campo di-lo antes de alguem tentar.
+        'QUALITY': amostra.get('QUALITY', NAO_MEDIDO),
         'LANGUAGE_REQUESTED': amostra['IDIOMA'],
         'LANGUAGE_DETECTED': det,
         'LANGUAGE_BASIS': r.get('LANGUAGE_SOURCE'),
@@ -219,6 +273,9 @@ def uma(amostra, *, modelo, dispositivo):
         'PEAK_RAM_MB': _pico_de_ram(),
         'TRANSCRIPT_STATE': r.get('TRANSCRIPT_STATE'),
         'TRANSCRIPT_CHARS': r.get('TRANSCRIPT_CHARS'),
+        # O TEXTO FICA. Um banco que publica so o numero do acerto obriga a
+        # acreditar no numero; com o texto ao lado, quem le confere.
+        'TRANSCRIPT': texto,
         'TERMS': achados,
         'TERM_ACCURACY': '%d/%d' % tuple(tipos['TERM']) if tipos['TERM'][1] else NAO_SE_APLICA,
         'BRAND_ACCURACY': '%d/%d' % tuple(tipos['BRAND']) if tipos['BRAND'][1] else NAO_SE_APLICA,
@@ -232,13 +289,94 @@ def uma(amostra, *, modelo, dispositivo):
     return linha
 
 
-def correr(modelos, dispositivo):
-    ams = amostras()
+def correr(modelos, dispositivo, midia=None):
+    ams = amostras(midia)
     linhas = []
     for m in modelos:
         for a in ams:
             linhas.append(uma(a, modelo=m, dispositivo=dispositivo))
     return linhas
+
+
+def ferro_a_ferro(modelos, midia=None):
+    """O MESMO audio, nos dois ferros, na mesma corrida. → lista de pares.
+
+    POR QUE ISTO NAO E «CORRER O BANCO DUAS VEZES»
+    -----------------------------------------------
+    Duas corridas separadas medem duas maquinas em dois momentos, e a diferenca
+    de texto entre elas fica sem dono: foi o ferro, foi o modelo a recarregar,
+    foi outra coisa a mexer na maquina. Aqui a unica variavel que muda e o
+    dispositivo, peca a peca, no mesmo processo.
+
+    E A PERGUNTA QUE ELE RESPONDE E ESTREITA, DE PROPOSITO
+    -------------------------------------------------------
+        «O TEXTO MUDA QUANDO SAI DO PROCESSADOR PARA A PLACA?»
+
+    Nao responde se o texto esta CERTO — isso precisa de verdade de referencia
+    declarada, e so o corpus canonico a tem.
+
+        DOIS FERROS QUE CONCORDAM PODEM ESTAR ERRADOS OS DOIS,
+        E CONCORDAR NAO E ACERTAR.
+
+    A semelhanca e de caracteres (`difflib`), nao de sentido. Ela apanha a
+    troca de uma palavra e nao sabe se a palavra trocada era a importante —
+    por isso o texto dos dois lados sai inteiro no artefato, para se ler.
+    """
+    import difflib                                             # noqa: PLC0415
+    pares = []
+    for m in modelos:
+        for a in amostras(midia):
+            linhas = {d: uma(a, modelo=m, dispositivo=d) for d in (fl.CPU, fl.GPU)}
+            t_cpu = linhas[fl.CPU].get('TRANSCRIPT') or ''
+            t_gpu = linhas[fl.GPU].get('TRANSCRIPT') or ''
+            s_cpu, s_gpu = (linhas[fl.CPU].get('WALL_TIME_S'),
+                            linhas[fl.GPU].get('WALL_TIME_S'))
+            pares.append({
+                'REEL': a['REEL'],
+                'ASR_MODEL': m,
+                'QUALITY': a.get('QUALITY', NAO_MEDIDO),
+                'AUDIO_DURATION_S': linhas[fl.CPU].get('AUDIO_DURATION_S'),
+                'CPU_DEVICE_USED': linhas[fl.CPU].get('DEVICE_USED'),
+                'GPU_DEVICE_USED': linhas[fl.GPU].get('DEVICE_USED'),
+                'CPU_COMPUTE': linhas[fl.CPU].get('COMPUTE_TYPE'),
+                'GPU_COMPUTE': linhas[fl.GPU].get('COMPUTE_TYPE'),
+                'CPU_SECONDS': s_cpu,
+                'GPU_SECONDS': s_gpu,
+                'CPU_REALTIME_FACTOR': linhas[fl.CPU].get('REALTIME_FACTOR'),
+                'GPU_REALTIME_FACTOR': linhas[fl.GPU].get('REALTIME_FACTOR'),
+                'SPEEDUP': (round(s_cpu / s_gpu, 2)
+                            if isinstance(s_cpu, (int, float))
+                            and isinstance(s_gpu, (int, float)) and s_gpu else NAO_MEDIDO),
+                'CPU_STATE': linhas[fl.CPU].get('TRANSCRIPT_STATE'),
+                'GPU_STATE': linhas[fl.GPU].get('TRANSCRIPT_STATE'),
+                'CPU_LANGUAGE_DETECTED': linhas[fl.CPU].get('LANGUAGE_DETECTED'),
+                'GPU_LANGUAGE_DETECTED': linhas[fl.GPU].get('LANGUAGE_DETECTED'),
+                'SAME_LANGUAGE': ('YES' if linhas[fl.CPU].get('LANGUAGE_DETECTED')
+                                  == linhas[fl.GPU].get('LANGUAGE_DETECTED') else 'NO'),
+                # ⚠️ DOIS VAZIOS NAO SAO UM ACORDO.
+                # Medido a 2026-09-14: de 8 pecas, 4 saiam `TEXT_IDENTICAL=YES`
+                # — e duas delas eram `REQUESTED_EMPTY` dos dois lados. Zero
+                # caracteres iguais a zero caracteres e uma verdade aritmetica
+                # que, somada na manchete, dizia «os dois ferros concordam em
+                # metade» quando o que havia era «em duas nao houve texto».
+                #
+                #     COMPARAR PRECISA DE DUAS COISAS PARA COMPARAR.
+                #
+                # Por isso `COMPARABLE`, e por isso o total conta so as pecas
+                # em que os dois lados escreveram alguma coisa.
+                'COMPARABLE': 'YES' if (t_cpu and t_gpu) else 'NO',
+                'BOTH_EMPTY': 'YES' if not (t_cpu or t_gpu) else 'NO',
+                'TEXT_IDENTICAL': 'YES' if t_cpu == t_gpu else 'NO',
+                'TEXT_SIMILARITY': (round(
+                    difflib.SequenceMatcher(None, t_cpu, t_gpu).ratio(), 4)
+                    if (t_cpu and t_gpu) else NAO_SE_APLICA),
+                'CPU_TRANSCRIPT': t_cpu,
+                'GPU_TRANSCRIPT': t_gpu,
+                'QUALITY_VERDICT': NAO_MEDIDO,
+                'QUALITY_WHY': ('semelhanca nao e acerto: sem verdade de referencia '
+                                'declarada, esta linha nao diz se o texto esta certo'),
+            })
+    return pares
 
 
 def cobertura(linhas):
@@ -260,12 +398,82 @@ def _tabela(linhas):
                  l['LANGUAGE_STABILITY'][:6], l['AUDIO_DURATION_S']))
 
 
+def _ferro_a_ferro_main(modelos, midia, ams, json_=False):
+    pares = ferro_a_ferro(modelos, midia)
+    audio = sum(p['AUDIO_DURATION_S'] for p in pares
+                if isinstance(p.get('AUDIO_DURATION_S'), (int, float)))
+    cpu_s = sum(p['CPU_SECONDS'] for p in pares
+                if isinstance(p.get('CPU_SECONDS'), (int, float)))
+    gpu_s = sum(p['GPU_SECONDS'] for p in pares
+                if isinstance(p.get('GPU_SECONDS'), (int, float)))
+    comparaveis = [p for p in pares if p['COMPARABLE'] == 'YES']
+    iguais = sum(1 for p in comparaveis if p['TEXT_IDENTICAL'] == 'YES')
+    vazios = sum(1 for p in pares if p['BOTH_EMPTY'] == 'YES')
+    fora = {
+        'BANCO': 'ASR-FERRO-A-FERRO-V1',
+        'O_QUE_ISTO_RESPONDE': 'se o TEXTO muda entre o processador e a placa',
+        'O_QUE_ISTO_NAO_RESPONDE': ('se o texto esta CERTO — isso exige verdade de '
+                                    'referencia declarada, e as amostras sem ela '
+                                    'saem QUALITY=NOT_MEASURED'),
+        'CORPUS': _sem_o_dono(midia or MIDIA),
+        'CORPUS_NOTE': 'audio JA preservado. Nada novo foi baixado.',
+        'RUNNER_NAME': os.environ.get('RUNNER_NAME') or NAO_SE_APLICA,
+        'MODELOS': modelos,
+        'AMOSTRAS': len(ams),
+        'AUDIO_SECONDS_TOTAL': round(audio, 1),
+        'CPU_SECONDS_TOTAL': round(cpu_s, 2),
+        'GPU_SECONDS_TOTAL': round(gpu_s, 2),
+        'CPU_REALTIME_FACTOR_TOTAL': round(audio / cpu_s, 2) if cpu_s else NAO_MEDIDO,
+        'GPU_REALTIME_FACTOR_TOTAL': round(audio / gpu_s, 2) if gpu_s else NAO_MEDIDO,
+        'SPEEDUP_TOTAL': round(cpu_s / gpu_s, 2) if gpu_s else NAO_MEDIDO,
+        # A manchete conta so onde havia o que comparar, e diz o denominador
+        # ao lado — nunca «metade», nunca «quase sempre».
+        'TEXT_IDENTICAL': '%d/%d' % (iguais, len(comparaveis)),
+        'COMPARABLE_PAIRS': len(comparaveis),
+        'BOTH_EMPTY_PAIRS': vazios,
+        'PARES': pares,
+    }
+    if json_:
+        print(json.dumps(fora, ensure_ascii=False, indent=1))
+        return 0
+    print('\nFERRO A FERRO — o mesmo audio, nos dois, na mesma corrida')
+    print('=' * 92)
+    print('  corpus      %s' % fora['CORPUS'])
+    print('  modelos     %s' % ', '.join(modelos))
+    print('\n  %-16s %-8s %-9s %-9s %-7s %-7s %-6s %s'
+          % ('PECA', 'AUDIO_S', 'CPU_S', 'GPU_S', 'GANHO', 'IGUAL', 'SEMEL', 'LINGUA'))
+    print('  ' + '-' * 88)
+    for p in pares:
+        print('  %-16s %-8s %-9s %-9s %-7s %-7s %-6s %s/%s'
+              % (p['REEL'][:16], p['AUDIO_DURATION_S'], p['CPU_SECONDS'],
+                 p['GPU_SECONDS'], p['SPEEDUP'], p['TEXT_IDENTICAL'],
+                 p['TEXT_SIMILARITY'], p['CPU_LANGUAGE_DETECTED'],
+                 p['GPU_LANGUAGE_DETECTED']))
+    print('  ' + '-' * 88)
+    print('  %-16s %-8s %-9s %-9s %-7s %s'
+          % ('TOTAL', fora['AUDIO_SECONDS_TOTAL'], fora['CPU_SECONDS_TOTAL'],
+             fora['GPU_SECONDS_TOTAL'], fora['SPEEDUP_TOTAL'], fora['TEXT_IDENTICAL']))
+    print('\n  RTF  cpu %s x tempo real  ·  gpu %s x tempo real'
+          % (fora['CPU_REALTIME_FACTOR_TOTAL'], fora['GPU_REALTIME_FACTOR_TOTAL']))
+    print('  texto igual nos dois ferros: %s das pecas COM texto dos dois lados'
+          % fora['TEXT_IDENTICAL'])
+    print('  pecas sem texto nenhum dos dois lados: %d — nao entram na conta, '
+          'porque dois vazios nao sao um acordo' % fora['BOTH_EMPTY_PAIRS'])
+    print('\n  QUALITY_VERDICT = NOT_MEASURED — %s\n' % fora['O_QUE_ISTO_NAO_RESPONDE'])
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--modelos', default=fl.MODELO_PADRAO)
     ap.add_argument('--device', default=None,
                     help='AUTO · CPU · GPU. Ausente = o padrao do dono.')
     ap.add_argument('--json', action='store_true')
+    ap.add_argument('--midia', default=None,
+                    help='pasta de .wav JA PRESERVADOS, quando o corpus canonico '
+                         'nao esta nesta maquina. Nao baixa nada.')
+    ap.add_argument('--ferro-a-ferro', action='store_true',
+                    help='o mesmo audio no processador e na placa, lado a lado')
     a = ap.parse_args()
     modelos = [m.strip() for m in a.modelos.split(',') if m.strip()]
 
@@ -274,18 +482,22 @@ def main():
         print('ASR_INDISPONIVEL · %s' % porque)
         return 1
 
-    ams = amostras()
+    ams = amostras(a.midia)
     if not ams:
         print('SEM_CORPUS · nenhum .wav preservado com verdade de referencia '
               'declarada. Isto NAO autoriza baixar midia nova.')
         return 1
 
-    linhas = correr(modelos, a.device)
+    if a.ferro_a_ferro:
+        return _ferro_a_ferro_main(modelos, a.midia, ams, json_=a.json)
+
+    linhas = correr(modelos, a.device, a.midia)
     cob = cobertura(linhas)
     fora = {
         'BANCO': 'ASR-LOCAL-V1',
         'RUNNER_NAME': os.environ.get('RUNNER_NAME') or NAO_SE_APLICA,
-        'CORPUS': 'data/raw/REEL-MIDIA — ja preservado, nada novo foi baixado',
+        'CORPUS': '%s — ja preservado, nada novo foi baixado'
+                  % _sem_o_dono(a.midia or 'data/raw/REEL-MIDIA'),
         'GROUND_TRUTH': 'data/samples/REEL-TRANSCRICOES/QUALIDADE-DA-FALA-V1.json',
         'MODELOS': modelos,
         'DEVICE_ARG': a.device or fl.DISPOSITIVO_PADRAO,

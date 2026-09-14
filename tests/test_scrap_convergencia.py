@@ -90,7 +90,12 @@ class T3UmDonoDeASR(unittest.TestCase):
             for pasta, _d, ficheiros in os.walk(base):
                 for f in ficheiros:
                     if f.endswith('.py'):
-                        yield os.path.relpath(os.path.join(pasta, f), RAIZ)
+                        # Barra para a frente SEMPRE: no Windows o `relpath`
+                        # devolve `ferramentas\\fala_local.py` e a comparacao
+                        # com o DONO falhava — a sentinela do motor unico
+                        # apitava todos os dias na maquina que tem a placa.
+                        yield os.path.relpath(os.path.join(pasta, f),
+                                              RAIZ).replace(os.sep, '/')
 
     def test_so_um_ficheiro_abre_motor(self):
         donos = []

@@ -3227,9 +3227,49 @@ def construir(estado: dict) -> None:
         if not origem.exists():
             print(f"FALTA={origem} · a app esta incompleta", file=sys.stderr)
             raise SystemExit(2)
-        shutil.copyfile(origem, destino / Path(nome).name)
-    (destino / "state.generated.json").write_text(
-        json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        _publicar(origem, destino / Path(nome).name)
+    _escrever_lf(destino / "state.generated.json",
+                 json.dumps(estado, ensure_ascii=False, indent=2) + "\n")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# O FIM DE LINHA AQUI E BYTE, E NAO ESTILO
+# ─────────────────────────────────────────────────────────────────────────────
+# `.gitattributes` declara `italia-portale/client/** -text`: o Git guarda esta
+# pasta BYTE A BYTE, sem normalizar nada. E `core.autocrlf` esta ligado neste
+# ambiente. As duas coisas juntas produziam isto numa maquina Windows:
+#
+#   · `system-map/app/map.css` NAO e `-text`, logo sai do checkout com CRLF;
+#   · `shutil.copyfile` copiava esses CRLF para dentro da pasta `-text`;
+#   · `Path.write_text` traduzia `\n` em `\r\n` ao gravar o estado.
+#
+# Resultado medido a 2026-09-14: regenerar o mapa nesta maquina abria um diff
+# de 80.629 linhas em quatro ficheiros que NAO tinham mudado uma virgula.
+#
+#     UM GERADOR QUE PRODUZ BYTES DIFERENTES EM CADA SISTEMA OPERATIVO
+#     NAO E DETERMINISTICO — E A LEI DESTA CASA MANDA CORRE-LO ANTES DE
+#     FECHAR QUALQUER TAREFA.
+#
+# Quem corresse a lei no Windows tinha de escolher entre desobedecer a lei e
+# empurrar 80 mil linhas de ruido. Agora escreve-se LF explicitamente, e o
+# ficheiro publicado fica igual nos dois sistemas.
+def _escrever_lf(caminho: Path, texto: str) -> None:
+    """Grava texto com `\\n`, em qualquer sistema. `newline=''` desliga a traducao."""
+    with open(caminho, "w", encoding="utf-8", newline="") as f:
+        f.write(texto.replace("\r\n", "\n"))
+
+
+def _publicar(origem: Path, destino: Path) -> None:
+    """Copia para a pasta `-text` com os fins de linha normalizados.
+
+    Binario passa intacto: um `.png` ou uma fonte com `\\r\\n` la dentro sao
+    bytes do formato, e substitui-los corromperia o ficheiro.
+    """
+    bruto = origem.read_bytes()
+    if b"\x00" in bruto[:4096]:
+        destino.write_bytes(bruto)
+        return
+    destino.write_bytes(bruto.replace(b"\r\n", b"\n"))
 
 
 # ─────────────────────────────────────────────────────────────────────────────

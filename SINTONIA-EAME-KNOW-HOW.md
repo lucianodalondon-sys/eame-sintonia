@@ -13790,3 +13790,125 @@ NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, 0/12 classes.
 NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
 Esta missao corrigiu a constituicao. Nao construiu nada.
 ```
+
+---
+
+# §118 · ESCOLHER O FERRO NÃO É SÓ ESCOLHER ONDE — É ESCOLHER COM QUE ARITMÉTICA, E O SEGUNDO CAMPO FALTAVA
+
+## O QUE MUDOU
+
+O dono único do reconhecedor (`ferramentas/fala_local.py`) passou a **negociar o
+tipo de cálculo** contra o que a biblioteca declara para a placa que existir, em
+vez de o afirmar por constante. E a queda ganhou o nome que lhe faltava:
+
+```text
+GPU_UNAVAILABLE           nao ha placa, ou a biblioteca nao a ve
+COMPUTE_TYPE_UNSUPPORTED  ha placa, conta-se, e ela nao faz ESTA aritmetica
+GPU_OOM                   ha placa, faz a aritmetica, e o modelo nao coube
+```
+
+Três estados novos no carimbo, pela mesma razão que o dispositivo já tinha três:
+`ASR_COMPUTE_REQUESTED` · `ASR_COMPUTE_SELECTED` · `ASR_COMPUTE_SOURCE`.
+
+E saiu do Git um valor que só era verdade numa máquina:
+`SINTONIA_ASR_COMPUTE: int8_float32`, que vivia dentro de
+`.github/workflows/scrap-social.yml`.
+
+## POR QUÊ — A CAUSA, MEDIDA
+
+A C4B provou a GPU **pelo workflow**, com aquele override declarado no job. Esta
+missão correu a mesma coisa **na máquina, à mão**, sem ele — e o que saiu foi:
+
+```text
+CTRANSLATE2_CUDA_DEVICE_COUNT = 1
+resolver_dispositivo('GPU')   -> cuda/float16
+WhisperModel(...)             -> ValueError: Requested float16 compute type, but
+                                 the target device or backend do not support
+                                 efficient float16 computation
+o apanha-tudo da carga        -> cai para o processador
+o carimbo                     -> ASR_WHY_FALLBACK = GPU_UNAVAILABLE
+```
+
+O artefato ficava a afirmar que **não havia placa**, com a placa ali, ligada,
+contada e disponível.
+
+```text
+«NAO HA PLACA» E «ESTA PLACA NAO FAZ ESTA ARITMETICA» SAO DIAGNOSTICOS
+DIFERENTES. O PRIMEIRO MANDA COMPRAR HARDWARE QUE JA ESTA NA MAQUINA;
+O SEGUNDO MANDA TROCAR UMA PALAVRA.
+```
+
+A correcção **não** foi mudar o padrão. `COMPUTE_GPU` continua `float16` e
+`COMPUTE_CPU` continua `int8` — uma placa não escreve regra para todo o hardware
+futuro, e a C4B tinha razão em recusar promover uma amostra de um. O que mudou
+foi aplicar ao **tipo de cálculo** o princípio que já governava o **dispositivo**:
+
+```text
+`AUTO` pergunta a biblioteca QUANTAS placas ha.
+O tipo de calculo PADRAO pergunta a biblioteca QUAIS ela suporta.
+
+UM PEDIDO EXPLICITO E UMA PROMESSA — honra-se ou reporta-se.
+UM PADRAO DA CASA E UM PONTO DE PARTIDA — negocia-se, e a troca fica escrita.
+```
+
+## PROVA
+
+Corrida local, nesta máquina, **sem** o runner do GitHub e **sem** variável de
+ambiente nenhuma declarada à mão:
+
+```text
+provas/gpu_asr_smoke.py --device GPU   RESULT = PASS
+  ASR_DEVICE_SELECTED  GPU      ASR_DEVICE_EXECUTION  PROVEN
+  ASR_DEVICE_USED      GPU      ASR_ACCELERATOR       CUDA
+  ASR_DEVICE           cuda/int8_float32
+  ASR_COMPUTE_REQUESTED float16 -> ASR_COMPUTE_SELECTED int8_float32
+  ASR_WHY_COMPUTE_FALLBACK      COMPUTE_TYPE_UNSUPPORTED
+
+provas/gpu_asr_smoke.py --device CPU   RESULT = PASS   (contraprova)
+  ASR_DEVICE_USED      CPU      ASR_DEVICE  cpu/int8/16 threads
+```
+
+E o ferro a ferro sobre **áudio real já preservado** — 8 peças, 460,9 s, ES e IT,
+nenhum byte novo adquirido (`provas/asr_banco.py --ferro-a-ferro`):
+
+```text
+CPU  95,28 s   RTF  4,84x
+GPU  13,53 s   RTF 34,07x        GANHO 7,04x
+TEXTO IGUAL NOS DOIS FERROS:  2/6 das pecas COM texto dos dois lados
+                              (2 pecas sem texto nenhum nao entram na conta)
+```
+
+## CONSEQUÊNCIA
+
+**A capacidade fecha; a decisão não.** `DISPOSITIVO_PADRAO` continua `CPU`, e
+agora por um motivo medido e não por falta de medição:
+
+```text
+O TEXTO DA PLACA NAO E O TEXTO DO PROCESSADOR.
+Em 4 das 6 pecas com texto houve diferenca — virgulas, maiusculas, e duas
+trocas de palavra: «agricultora» -> «agricultura», «llegamos» -> «llevamos».
+
+QUAL DOS DOIS ESTA CERTO = NOT_MEASURED.
+As pecas deste corpus nao tem verdade de referencia declarada, e
+CONCORDAR NAO E ACERTAR — dois ferros podem estar errados os dois.
+```
+
+Trocar o padrão agora mudaria o texto de **toda a coleta futura** com base num
+ganho de velocidade e em nenhuma medição de acerto. Quem quiser a placa hoje
+declara `SINTONIA_ASR_DEVICE=AUTO` ou `=GPU` — e o carimbo diz exactamente o que
+correu.
+
+O que **destrava** a decisão é uma coisa só, e está nomeada: correr
+`provas/asr_banco.py --ferro-a-ferro` sobre `data/raw/REEL-MIDIA`, que **tem**
+verdade de referência declarada em `QUALIDADE-DA-FALA-V1.json` — e que não está
+nesta máquina.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra coleta. REAL_COLLECTION_RUNS = 0. PAID_USD = 0.
+NAO registra rota de midia: transcrever != obter audio, e continua assim.
+NAO registra qualidade: GPU_QUALITY_BENCHMARK = NOT_RUN, sem corpus com verdade.
+NAO registra mudanca de padrao: DISPOSITIVO_PADRAO = CPU, e por medicao.
+Esta missao provou a maquina. Nao ligou nada.
+```
