@@ -1,0 +1,281 @@
+{
+  "CONTRACT_ID": "FICHA-DO-COMPRADOR-EAME-V0",
+  "BUILT_AT": "2026-09-14",
+  "PARA_QUE_SERVE": "Uma linha por comprador de agrofarmaco (canal), com o que o RTV precisa para trabalhar o territorio: quem e, onde esta, o que compra, que tamanho tem, e o que do portfolio ADAMA responde ao problema daquele territorio.",
+  "LEI_DE_PREENCHIMENTO": [
+    "Todo campo carrega FONTE + DATA + ESTADO (COMPROVADO | INFERENCIA | HIPOTESE | NAO SEI).",
+    "Campo sem fonte fica NAO SEI. Nao se preenche por plausibilidade.",
+    "Idade do dado viaja junto do numero: bilancio 2024 e 2024, nao 'atual'.",
+    "Dado de pessoa fisica (titular de empresa individual, beneficiario PAC) so entra sob a regra de LIMITES-DE-DADO-PESSOAL-EAME.md — P-008 continua aberta.",
+    "Nada de dado interno da ADAMA (venda, margem, prontidao): P-003 EXTERNAL-ONLY."
+  ],
+  "CHAVE_PRIMARIA": {
+    "CAMPO": "PARTITA_IVA",
+    "POR_QUE": "e a unica chave nacional estavel; nome comercial muda, sede muda, P.IVA nao",
+    "LIGA_COM": "Registro Imprese, bilanci, PEC, e o proprio registro fitossanitario quando o comprador e titular"
+  },
+  "BLOCOS": {
+    "A_IDENTIDADE": [
+      {
+        "CAMPO": "PARTITA_IVA",
+        "O_QUE_E": "chave primaria",
+        "FONTE_TIPICA": "Registro Imprese",
+        "METODO": "M2 / M1",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO para os 6 candidatos nomeados; NAO SEI para o resto dos 531"
+      },
+      {
+        "CAMPO": "RAGIONE_SOCIALE",
+        "O_QUE_E": "razao social exata",
+        "FONTE_TIPICA": "Registro Imprese",
+        "METODO": "M1/M2",
+        "ESTADO_HOJE_NO_VENETO": "idem"
+      },
+      {
+        "CAMPO": "TIPO_DE_CANAL",
+        "O_QUE_E": "consorzio agrario | rivendita privada | cooperativa | OP | gruppo d'acquisto",
+        "FONTE_TIPICA": "classificacao propria a partir da forma juridica",
+        "METODO": "M2/M10",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO para os nomeados"
+      },
+      {
+        "CAMPO": "REDE_OU_GRUPO",
+        "O_QUE_E": "CAI, Compag, Confcooperative, independente",
+        "FONTE_TIPICA": "site proprio + associacoes",
+        "METODO": "M10",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL — CAI confirmado para Agrinordest"
+      },
+      {
+        "CAMPO": "ATECO",
+        "O_QUE_E": "46.75.0 / 46.85.01 / 47.76.1",
+        "FONTE_TIPICA": "Registro Imprese",
+        "METODO": "M2",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO so para Geofin (46.85.01)"
+      },
+      {
+        "CAMPO": "CONTATOS",
+        "O_QUE_E": "PEC, telefone, site, e-mail",
+        "FONTE_TIPICA": "Registro Imprese + site",
+        "METODO": "M2/M4",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL"
+      }
+    ],
+    "B_LOCALIZACAO": [
+      {
+        "CAMPO": "SEDE_ENDERECO",
+        "O_QUE_E": "via, numero, CAP, comune, provincia",
+        "FONTE_TIPICA": "Registro Imprese / site",
+        "METODO": "M2/M4",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO para os nomeados"
+      },
+      {
+        "CAMPO": "SEDE_LAT_LON",
+        "O_QUE_E": "coordenada da sede",
+        "FONTE_TIPICA": "geocodificacao Nominatim do endereco",
+        "METODO": "M5",
+        "ESTADO_HOJE_NO_VENETO": "EXECUTAVEL — testado nesta sessao"
+      },
+      {
+        "CAMPO": "PONTOS_DE_VENDA",
+        "O_QUE_E": "lista de filiais com endereco e coordenada",
+        "FONTE_TIPICA": "store locator do proprio grupo; OSM",
+        "METODO": "M4/M5",
+        "ESTADO_HOJE_NO_VENETO": "NAO SEI para Agrinordest: o site declara ~80 e nao publica a lista"
+      },
+      {
+        "CAMPO": "AREA_DE_INFLUENCIA",
+        "O_QUE_E": "comuni no raio de 20-30 km de cada ponto",
+        "FONTE_TIPICA": "calculo sobre a coordenada + limites ISTAT",
+        "METODO": "M5",
+        "ESTADO_HOJE_NO_VENETO": "EXECUTAVEL"
+      },
+      {
+        "CAMPO": "PROVINCIA_CHAVE",
+        "O_QUE_E": "provincia que manda no negocio dele",
+        "FONTE_TIPICA": "derivada",
+        "METODO": "M5/M8",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO"
+      }
+    ],
+    "C_TAMANHO": [
+      {
+        "CAMPO": "FATURAMENTO",
+        "O_QUE_E": "valor e ano",
+        "FONTE_TIPICA": "bilancio depositado",
+        "METODO": "M2/M3",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: CATB 118 mi (2024), Agrinordest 398 mi (2022), Geofin 12,7 mi (2024)"
+      },
+      {
+        "CAMPO": "COMPRA_DE_AGROFARMACO",
+        "O_QUE_E": "receita ou volume de defesa",
+        "FONTE_TIPICA": "bilancio setorial quando publicado",
+        "METODO": "M3/M11",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO so para CATB: 18,1 mi EUR em 2024"
+      },
+      {
+        "CAMPO": "FUNCIONARIOS",
+        "O_QUE_E": "faixa ou numero",
+        "FONTE_TIPICA": "bilancio / Registro Imprese",
+        "METODO": "M2/M3",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL: Geofin 20-49"
+      },
+      {
+        "CAMPO": "PONTOS_DE_VENDA_N",
+        "O_QUE_E": "quantos",
+        "FONTE_TIPICA": "site / imprensa",
+        "METODO": "M4",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL: Agrinordest ~80"
+      },
+      {
+        "CAMPO": "SOCIOS_OU_CLIENTES",
+        "O_QUE_E": "base atendida",
+        "FONTE_TIPICA": "site / imprensa / balanco social",
+        "METODO": "M4/M11",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: Agrinordest >50.000; Soave 2.300; Collis 2.450"
+      },
+      {
+        "CAMPO": "HECTARES_SERVIDOS",
+        "O_QUE_E": "ha dos socios ou da area de influencia",
+        "FONTE_TIPICA": "cooperativa: balanco; canal: estimativa por SAU do raio",
+        "METODO": "M4/M9",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL"
+      },
+      {
+        "CAMPO": "TIER",
+        "O_QUE_E": "A/B/C derivado de faturamento x pontos de venda x base",
+        "FONTE_TIPICA": "derivado",
+        "METODO": "-",
+        "ESTADO_HOJE_NO_VENETO": "EXECUTAVEL quando C estiver preenchido"
+      }
+    ],
+    "D_O_QUE_COMPRA": [
+      {
+        "CAMPO": "CATEGORIAS",
+        "O_QUE_E": "fungicida, diserbante, insetticida, nutricional, sementes, fertilizante",
+        "FONTE_TIPICA": "site / catalogo",
+        "METODO": "M6",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: CAI publica as 4 categorias; Geofin linha inteira"
+      },
+      {
+        "CAMPO": "MARCAS_CONHECIDAS",
+        "O_QUE_E": "titulares/fornecedores que ele ja trabalha",
+        "FONTE_TIPICA": "pagina de partner, catalogo, e-commerce, anuncios",
+        "METODO": "M6/M7",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO para Geofin (10 marcas nomeadas); NAO SEI para os consorzi"
+      },
+      {
+        "CAMPO": "MARCA_PROPRIA",
+        "O_QUE_E": "private label e quem a registra",
+        "FONTE_TIPICA": "registro fitossanitario pelo nome do produto",
+        "METODO": "M6 + IT-T4-001",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: CAI = Manica, Sumitomo, Agrauxine"
+      },
+      {
+        "CAMPO": "SKUS_LISTADOS",
+        "O_QUE_E": "cada produto do e-commerce ligado ao numero de registro",
+        "FONTE_TIPICA": "catalogo web do revendedor x registro oficial",
+        "METODO": "M6",
+        "ESTADO_HOJE_NO_VENETO": "EXECUTAVEL — nao executado nesta sessao"
+      },
+      {
+        "CAMPO": "JANELA_DE_COMPRA",
+        "O_QUE_E": "quando ele compra cada categoria",
+        "FONTE_TIPICA": "calendario da cultura dominante do raio",
+        "METODO": "M8 + acervo de janelas",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL"
+      }
+    ],
+    "E_TERRITORIO_QUE_ELE_ATENDE": [
+      {
+        "CAMPO": "CULTURAS_DOMINANTES",
+        "O_QUE_E": "o que se planta no raio",
+        "FONTE_TIPICA": "ISTAT / Veneto Agricoltura",
+        "METODO": "M9",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO em nivel de provincia"
+      },
+      {
+        "CAMPO": "PROBLEMAS_ATIVOS",
+        "O_QUE_E": "o que esta atacando agora, e o que e obrigacao legal",
+        "FONTE_TIPICA": "bollettino do Servizio Fitosanitario + decretos",
+        "METODO": "acervo IT-T3",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: flavescencia dourada (DDR 13645/2026), Amaranthus ALS-R, etc."
+      },
+      {
+        "CAMPO": "DEMANDA_DECLARADA_DA_PROVINCIA",
+        "O_QUE_E": "kg/l por tipo e por titular",
+        "FONTE_TIPICA": "ARPAV IT-T10-001",
+        "METODO": "M8",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO — 2025"
+      },
+      {
+        "CAMPO": "PORTFOLIO_ADAMA_QUE_RESPONDE",
+        "O_QUE_E": "que produto ADAMA atende aquele problema naquela cultura",
+        "FONTE_TIPICA": "cruzamento cultura x alvo x rotulo do acervo",
+        "METODO": "X-004/X-006",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO"
+      },
+      {
+        "CAMPO": "WHITE_SPACE",
+        "O_QUE_E": "produto ADAMA ativo SEM venda declarada na provincia",
+        "FONTE_TIPICA": "ARPAV x registro ADAMA",
+        "METODO": "M8",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO — 68 registros ativos sem venda no Veneto"
+      },
+      {
+        "CAMPO": "FAZENDAS_NO_RAIO",
+        "O_QUE_E": "quem sao e que tamanho tem os clientes dele",
+        "FONTE_TIPICA": "beneficiarios PAC (AVEPA/AGEA) + SQNPI + censo ISTAT",
+        "METODO": "M9",
+        "ESTADO_HOJE_NO_VENETO": "EXECUTAVEL com ressalva de GDPR"
+      }
+    ],
+    "F_ATIVACAO": [
+      {
+        "CAMPO": "TECNICOS_PROPRIOS",
+        "O_QUE_E": "quantos agronomos ele tem",
+        "FONTE_TIPICA": "site / imprensa",
+        "METODO": "M4/M11",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL: CAI declara ~40 tecnici fitoiatrici"
+      },
+      {
+        "CAMPO": "CAMPO_EXPERIMENTAL",
+        "O_QUE_E": "ele faz campo? com quem?",
+        "FONTE_TIPICA": "site / imprensa",
+        "METODO": "M4/M11",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: Agrinordest >100 campos/ano em 7 provincias, parceiros NAO nomeados"
+      },
+      {
+        "CAMPO": "EVENTOS",
+        "O_QUE_E": "feiras e giornate em que aparece",
+        "FONTE_TIPICA": "acervo T11 + imprensa",
+        "METODO": "M11",
+        "ESTADO_HOJE_NO_VENETO": "PARCIAL"
+      },
+      {
+        "CAMPO": "PUBLICIDADE_ATIVA",
+        "O_QUE_E": "o que ele anuncia e de que marca",
+        "FONTE_TIPICA": "Meta Ads Library",
+        "METODO": "M7",
+        "ESTADO_HOJE_NO_VENETO": "EXECUTAVEL — o acervo ja tem 414 anuncios italianos"
+      },
+      {
+        "CAMPO": "ADAMA_PRESENTE",
+        "O_QUE_E": "ha evidencia publica de relacao com a ADAMA?",
+        "FONTE_TIPICA": "site, evento, catalogo",
+        "METODO": "M4/M6",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO NEGATIVO para Geofin; NAO SEI para os demais"
+      },
+      {
+        "CAMPO": "MOVIMENTO_RECENTE",
+        "O_QUE_E": "fusao, investimento, novo ponto, troca de gestao",
+        "FONTE_TIPICA": "imprensa local",
+        "METODO": "M11",
+        "ESTADO_HOJE_NO_VENETO": "COMPROVADO: Collis incorporou Monteforte em 11/2025"
+      }
+    ]
+  },
+  "O_QUE_NAO_ENTRA_NA_FICHA": [
+    "venda, margem, share ou prontidao comercial da ADAMA (P-003 EXTERNAL-ONLY)",
+    "de quem o comprador compra hoje, quando isso nao e publico — NAO SEI e a resposta",
+    "nome de pessoa fisica sem passar pela regra de dado pessoal (P-008 aberta)"
+  ]
+}

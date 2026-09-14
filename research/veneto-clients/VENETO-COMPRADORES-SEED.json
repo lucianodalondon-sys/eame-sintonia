@@ -1,0 +1,623 @@
+{
+  "ARTIFACT_ID": "VENETO-COMPRADORES-SEED",
+  "CONTRACT": "FICHA-DO-COMPRADOR-EAME-V0",
+  "BUILT_AT": "2026-09-14",
+  "AVISO": "Semente, nao carteira. 6 fichas nomeadas de um universo de 531 titulares de autorizacao de venda. Nenhuma afirma relacao comercial com a ADAMA.",
+  "COMPRADORES": [
+    {
+      "BUYER_ID": "IT-VEN-001",
+      "A_IDENTIDADE": {
+        "PARTITA_IVA": {
+          "VALOR": "03335760231",
+          "FONTE": "Registro Imprese via ufficiocamerale + site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "RAGIONE_SOCIALE": {
+          "VALOR": "CONSORZIO AGRARIO DEL NORDEST SOCIETA' COOPERATIVA (Agrinordest)",
+          "FONTE": "site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIPO_DE_CANAL": {
+          "VALOR": "consorzio agrario",
+          "FONTE": "forma juridica",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "REDE_OU_GRUPO": {
+          "VALOR": "CAI — Consorzi Agrari d'Italia, desde 28/07/2022",
+          "FONTE": "site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "ATECO": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "nao consultado — exige Registro Imprese (M2)"
+        }
+      },
+      "B_LOCALIZACAO": {
+        "SEDE": {
+          "VALOR": "Via Francia 2, 37135 Verona (VR)",
+          "FONTE": "site proprio + Unioncamere",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "PONTOS_DE_VENDA_LISTA": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "o site declara ~80 pontos e agencias mas NAO publica a lista de enderecos — fecha-se por pedido (M4)"
+        },
+        "PROVINCIA_CHAVE": {
+          "VALOR": "VR (sede); territorio BS, MN, PD, RO, VE, VR, VI",
+          "FONTE": "Unioncamere",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "PONTOS_DE_VENDA_GEOLOCALIZADOS": {
+          "VALOR": [
+            {
+              "comune": "Montecchia di Crosara (VR)",
+              "lat": 45.4497848,
+              "lon": 11.3032217
+            },
+            {
+              "comune": "Conselve (PD)",
+              "lat": 45.2094825,
+              "lon": 11.8931036
+            }
+          ],
+          "FONTE": "OpenStreetMap via Overpass (ODbL)",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO",
+          "NOTA": "2 de ~80 pontos declarados — o OSM nao e censo"
+        }
+      },
+      "C_TAMANHO": {
+        "FATURAMENTO": {
+          "VALOR": "398.192.832 EUR (2022); outras fontes citam >450 mi — divergencia registrada",
+          "FONTE": "ufficiocamerale / imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO COM DIVERGENCIA"
+        },
+        "SOCIOS_OU_CLIENTES": {
+          "VALOR": "mais de 50.000 socios e clientes",
+          "FONTE": "Unioncamere",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "PONTOS_DE_VENDA_N": {
+          "VALOR": "~80+",
+          "FONTE": "site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "COMPRA_DE_AGROFARMACO": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "36% da receita seria do setor agronomico — resumo de busca, NAO lido na fonte"
+        },
+        "TIER": {
+          "VALOR": "A",
+          "FONTE": "derivado de faturamento x pontos de venda x base de clientes",
+          "DATA": "2026-09-14",
+          "ESTADO": "INFERENCIA"
+        }
+      },
+      "D_O_QUE_COMPRA": {
+        "CATEGORIAS": {
+          "VALOR": [
+            "fungicidi",
+            "insetticidi",
+            "erbicidi",
+            "nutrizionali"
+          ],
+          "FONTE": "CAI — pagina prodotti fitosanitari",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "MARCAS_CONHECIDAS": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "nao publica lista de fornecedores"
+        },
+        "MARCA_PROPRIA": {
+          "VALOR": {
+            "Maniflow": "titular MANICA S.P.A. (reg. 015120/018243) — fungicida",
+            "Sequra WG": "titular SUMITOMO CHEMICAL AGRO EUROPE (reg. 009531/018247) — insetticida Bt",
+            "Actileaf": "titular AGRAUXINE (reg. 017810) — fungicida cerevisane"
+          },
+          "FONTE": "site CAI x registro oficial IT-T4-001",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "E_TERRITORIO": {
+        "DEMANDA_DAS_PROVINCIAS_QUE_ATENDE": {
+          "VALOR": "VR 6.530.580 · PD 1.397.895 · RO 1.191.659 · VE 1.477.462 · VI 831.376 kg/l declarados em 2025",
+          "FONTE": "ARPAV IT-T10-001",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "F_ATIVACAO": {
+        "TECNICOS_PROPRIOS": {
+          "VALOR": "~40 tecnici fitoiatrici (declarado pelo CAI)",
+          "FONTE": "site CAI",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "CAMPO_EXPERIMENTAL": {
+          "VALOR": "mais de 100 campos experimentais/ano em BS, MN, PD, RO, VE, VR, VI, com ditte sementiere e di agrofarmaci NAO nomeadas e com as universidades de Padova e Piacenza",
+          "FONTE": "site proprio / imprensa",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "ADAMA_PRESENTE": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "nenhuma evidencia publica encontrada; a ADAMA faz campo com a CAI em outras regioes (4 dos 29 eventos ADAMA in Campo)"
+        },
+        "PORTA_DE_ENTRADA_SUGERIDA": {
+          "VALOR": "campo experimental + private label: as duas portas que ele mesmo declara ter",
+          "FONTE": "derivado",
+          "DATA": "2026-09-14",
+          "ESTADO": "INFERENCIA"
+        }
+      }
+    },
+    {
+      "BUYER_ID": "IT-VEN-002",
+      "A_IDENTIDADE": {
+        "PARTITA_IVA": {
+          "VALOR": "00329080261 (a confirmar: uma fonte cita 00194950267)",
+          "FONTE": "agregadores",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO COM DIVERGENCIA"
+        },
+        "RAGIONE_SOCIALE": {
+          "VALOR": "CONSORZIO AGRARIO DI TREVISO E BELLUNO - SOCIETA' COOPERATIVA",
+          "FONTE": "imprensa + agregadores",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIPO_DE_CANAL": {
+          "VALOR": "consorzio agrario",
+          "FONTE": "forma juridica",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "B_LOCALIZACAO": {
+        "SEDE": {
+          "VALOR": "territorio TV + BL; uma sede conhecida em Via S. Rocco 99, Roncade (TV)",
+          "FONTE": "diretorios",
+          "DATA": "2026-09-13",
+          "ESTADO": "PARCIAL"
+        },
+        "PROVINCIA_CHAVE": {
+          "VALOR": "TV — a provincia com mais declaracoes de venda do Veneto (126 em 2022)",
+          "FONTE": "ARPAV 2022",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "PONTOS_DE_VENDA_GEOLOCALIZADOS": {
+          "VALOR": [
+            {
+              "comune": "Treviso (TV)",
+              "lat": 45.6665513,
+              "lon": 12.2553422
+            },
+            {
+              "comune": "Montebelluna (TV)",
+              "lat": 45.7827338,
+              "lon": 12.0532939
+            },
+            {
+              "comune": "Feltre (BL)",
+              "lat": 46.0198456,
+              "lon": 11.9003937
+            }
+          ],
+          "FONTE": "OpenStreetMap via Overpass (ODbL)",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO",
+          "NOTA": "preenche o campo B de um comprador que nao publica a lista de sedes"
+        }
+      },
+      "C_TAMANHO": {
+        "FATURAMENTO": {
+          "VALOR": "valor da producao 118.000.000 EUR (2024); EBITDA 3,9 mi; patrimonio liquido 28,3 mi",
+          "FONTE": "imprensa local lida na fonte (qdpnews 27/06/2025)",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO VIA IMPRENSA"
+        },
+        "COMPRA_DE_AGROFARMACO": {
+          "VALOR": "18.100.000 EUR de receita em antiparassitari em 2024",
+          "FONTE": "idem",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO VIA IMPRENSA"
+        },
+        "OUTROS": {
+          "VALOR": {
+            "petroliferi": "22,0 mi EUR",
+            "macchine": "16,4 mi EUR",
+            "impianti vigneto": "8,9 mi EUR",
+            "mangimi": "49.000 t"
+          },
+          "FONTE": "idem",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO VIA IMPRENSA"
+        },
+        "TIER": {
+          "VALOR": "A",
+          "FONTE": "derivado",
+          "DATA": "2026-09-14",
+          "ESTADO": "INFERENCIA"
+        }
+      },
+      "D_O_QUE_COMPRA": {
+        "CATEGORIAS": {
+          "VALOR": "defesa com peso em fungicida — o proprio balanco atribui o ano a chuva e ao consumo de fungicidas",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "INFERENCIA"
+        },
+        "MARCAS_CONHECIDAS": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "site devolve HTTP 202 vazio a acesso automatizado; catalogo nao lido"
+        }
+      },
+      "E_TERRITORIO": {
+        "DEMANDA_DA_PROVINCIA": {
+          "VALOR": "TV 4.818.508 kg/l em 2025; ADAMA 272.900 (5,66%); lideres UPL 27,7%, BASF 7,6%, Syngenta 6,0%",
+          "FONTE": "ARPAV x registro",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "PROBLEMA_ANCORA": {
+          "VALOR": "vinha do Prosecco: peronospora e flavescencia dourada (DDR 13645 de 14/05/2026, obrigacao legal)",
+          "FONTE": "acervo IT-T3",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "F_ATIVACAO": {
+        "ADAMA_PRESENTE": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "sem evidencia publica"
+        },
+        "PORTA_DE_ENTRADA_SUGERIDA": {
+          "VALOR": "e o unico comprador do Veneto com a compra de agrofarmaco em numero publico: 18,1 mi EUR. Prioridade 1.",
+          "FONTE": "derivado",
+          "DATA": "2026-09-14",
+          "ESTADO": "INFERENCIA"
+        }
+      }
+    },
+    {
+      "BUYER_ID": "IT-VEN-003",
+      "A_IDENTIDADE": {
+        "PARTITA_IVA": {
+          "VALOR": "02803700232",
+          "FONTE": "site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "RAGIONE_SOCIALE": {
+          "VALOR": "GEOFIN S.P.A.",
+          "FONTE": "site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIPO_DE_CANAL": {
+          "VALOR": "distribuidor privado — e tambem titular de registro",
+          "FONTE": "site + registro oficial",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "ATECO": {
+          "VALOR": "46.85.01",
+          "FONTE": "agregadores",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "B_LOCALIZACAO": {
+        "SEDE": {
+          "VALOR": "Via Crear 15, 37050 Oppeano (VR), loc. Mazzantica",
+          "FONTE": "site proprio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "PROVINCIA_CHAVE": {
+          "VALOR": "VR",
+          "FONTE": "site",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "C_TAMANHO": {
+        "FATURAMENTO": {
+          "VALOR": "12.685.423 EUR (2024); 12.680.315 (2023)",
+          "FONTE": "agregadores de bilancio",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "FUNCIONARIOS": {
+          "VALOR": "faixa 20-49",
+          "FONTE": "agregadores",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIER": {
+          "VALOR": "B",
+          "FONTE": "derivado",
+          "DATA": "2026-09-14",
+          "ESTADO": "INFERENCIA"
+        }
+      },
+      "D_O_QUE_COMPRA": {
+        "MARCAS_CONHECIDAS": {
+          "VALOR": [
+            "BASF",
+            "Bayer",
+            "FMC",
+            "Gowan",
+            "Sapec/Ascenza",
+            "Sharda",
+            "Sipcam",
+            "Syngenta",
+            "Agrobio",
+            "Cheminova"
+          ],
+          "FONTE": "pagina Partner Multinazionali do proprio site",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "LINHA_PROPRIA": {
+          "VALOR": [
+            "ATTAK",
+            "CUPPER 400",
+            "GEN RAME",
+            "TRICHOPROTECT",
+            "PROPOLIS",
+            "NEMATODI",
+            "SOLE STOP",
+            "SUNPOWER",
+            "FOLIAR 20-20-20",
+            "BICARBONATO DI SODIO",
+            "EISENCHELAT 6%"
+          ],
+          "FONTE": "catalogo do proprio site",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        },
+        "REGISTRO_PROPRIO": {
+          "VALOR": "DIGEO XXIII (reg. 019321) — NEMATOCIDA, 1,3-dicloropropeno",
+          "FONTE": "registro oficial",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "E_TERRITORIO": {
+        "POSICAO_NO_MERCADO": {
+          "VALOR": "1o titular de NEMATOCIDA do Veneto em volume declarado 2025: 104.480 kg/l de 256.032 da categoria",
+          "FONTE": "ARPAV x registro",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "F_ATIVACAO": {
+        "ADAMA_PRESENTE": {
+          "VALOR": "NAO — a ADAMA nao consta entre os parceiros publicados",
+          "FONTE": "site",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO NEGATIVO"
+        },
+        "AMBIGUIDADE": {
+          "VALOR": "e cliente potencial e concorrente na prateleira ao mesmo tempo",
+          "FONTE": "derivado",
+          "DATA": "2026-09-14",
+          "ESTADO": "COMPROVADO"
+        }
+      }
+    },
+    {
+      "BUYER_ID": "IT-VEN-004",
+      "A_IDENTIDADE": {
+        "RAGIONE_SOCIALE": {
+          "VALOR": "CANTINA DI SOAVE (CADIS 1898) - societa cooperativa",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIPO_DE_CANAL": {
+          "VALOR": "cooperativa vitivinicola",
+          "FONTE": "-",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "B_LOCALIZACAO": {
+        "PROVINCIA_CHAVE": {
+          "VALOR": "VR — Soave, Valpolicella, Lessini Durello, Garda",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "C_TAMANHO": {
+        "SOCIOS_OU_CLIENTES": {
+          "VALOR": "2.300 viticultores",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "HECTARES_SERVIDOS": {
+          "VALOR": "6.500 ha vitados",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "FATURAMENTO": {
+          "VALOR": "141.000.000 EUR consolidado",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIER": {
+          "VALOR": "A por hectare, ? por compra de defesa",
+          "FONTE": "derivado",
+          "DATA": "2026-09-14",
+          "ESTADO": "HIPOTESE"
+        }
+      },
+      "D_O_QUE_COMPRA": {
+        "MARCAS_CONHECIDAS": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "nao publica"
+        },
+        "PAPEL_DE_COMPRADOR": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "que compre e distribua defesa aos socios e pratica comum do setor, NAO provado aqui"
+        }
+      },
+      "E_TERRITORIO": {
+        "PROBLEMA_ANCORA": {
+          "VALOR": "peronospora e flavescencia dourada na maior provincia vitivinicola do Veneto",
+          "FONTE": "acervo IT-T3",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      }
+    },
+    {
+      "BUYER_ID": "IT-VEN-005",
+      "A_IDENTIDADE": {
+        "RAGIONE_SOCIALE": {
+          "VALOR": "COLLIS VENETO WINE GROUP - societa cooperativa agricola",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIPO_DE_CANAL": {
+          "VALOR": "cooperativa vitivinicola",
+          "FONTE": "-",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "B_LOCALIZACAO": {
+        "PROVINCIA_CHAVE": {
+          "VALOR": "VR",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "C_TAMANHO": {
+        "SOCIOS_OU_CLIENTES": {
+          "VALOR": "2.450 socios apos a fusao",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "HECTARES_SERVIDOS": {
+          "VALOR": "7.200 ha vitados",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "FATURAMENTO": {
+          "VALOR": "mais de 220.000.000 EUR",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "D_O_QUE_COMPRA": {
+        "MARCAS_CONHECIDAS": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "nao publica"
+        }
+      },
+      "F_ATIVACAO": {
+        "MOVIMENTO_RECENTE": {
+          "VALOR": "incorporou a Cantina Sociale di Monteforte d'Alpone em novembro de 2025 (+450 socios, +1.200 ha)",
+          "FONTE": "imprensa",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      }
+    },
+    {
+      "BUYER_ID": "IT-VEN-006",
+      "A_IDENTIDADE": {
+        "RAGIONE_SOCIALE": {
+          "VALOR": "Organizzazioni di Produttori ortofrutticole do Veneto (16 OP + 1 AOP)",
+          "FONTE": "ficha oficial da Regione",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        },
+        "TIPO_DE_CANAL": {
+          "VALOR": "OP/AOP",
+          "FONTE": "-",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO"
+        }
+      },
+      "C_TAMANHO": {
+        "SOCIOS_OU_CLIENTES": {
+          "VALOR": "3.356 produtores (2017)",
+          "FONTE": "Regione del Veneto",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO MAS DESATUALIZADO"
+        },
+        "HECTARES_SERVIDOS": {
+          "VALOR": "14.765 ha (2017)",
+          "FONTE": "idem",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO MAS DESATUALIZADO"
+        },
+        "MAIORES": {
+          "VALOR": {
+            "Ortoromi": "VPC 89 mi EUR (21%) — Borgoricco (PD), 10 empresas socias, 700+ ha",
+            "OPO Veneto": "43,8 mi (10,3%) — 400 socios diretos + 100 indiretos",
+            "APO Scaligera": "36,7 mi (8,6%)",
+            "Consorzio Ortofrutticolo Padano": "~25 mi — VR/PD/RO/MN"
+          },
+          "FONTE": "Regione + sites",
+          "DATA": "2026-09-13",
+          "ESTADO": "COMPROVADO MAS DESATUALIZADO"
+        }
+      },
+      "D_O_QUE_COMPRA": {
+        "MARCAS_CONHECIDAS": {
+          "VALOR": null,
+          "ESTADO": "NAO SEI",
+          "MOTIVO": "nao publicam"
+        }
+      },
+      "E_TERRITORIO": {
+        "NOTA": {
+          "VALOR": "OP tem programa operacional que financia defesa integrada — por isso e canal, nao so cliente final",
+          "FONTE": "Reg. UE ortofrutta",
+          "DATA": "2026-09-14",
+          "ESTADO": "INFERENCIA"
+        }
+      }
+    }
+  ],
+  "CAMADA_DE_LOCALIZACAO": {
+    "ARQUIVO": "data/samples/IT-VENETO-CANALE/IT-VENETO-OSM-PONTOS-CANAL.json",
+    "PONTOS": 177,
+    "LICENCA": "ODbL"
+  }
+}

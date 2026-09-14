@@ -6,8 +6,8 @@ juntas** revelam e nenhuma delas revela sozinha.
 > **Não afirmar cruzamento apenas porque semanticamente parece interessante.**
 > Clima + doença "parece" cruzar. A pergunta real é: **qual chave os une?**
 
-**Estado:** MISSÃO 02 em curso — **3 COMPROVADOS, 4 PARCIAIS, 3 NÃO COMPÕEM, 1 POSSÍVEL NÃO TESTADO**.
-**Última atualização:** 2026-08-28
+**Estado:** **3 COMPROVADOS, 5 PARCIAIS, 3 NÃO COMPÕEM, 2 POSSÍVEIS NÃO TESTADOS**.
+**Última atualização:** 2026-09-14 — entrou **X-013** (problema → portfólio → demanda declarada → comprador).
 
 ---
 
@@ -66,6 +66,7 @@ Listados como **candidatos a testar**, não como afirmações. Todos partem em `
 | X-002 | RESEARCHER + PAPER + CROP + PROBLEM | **COMPROVADO** |
 | X-003 | COMPETITOR + PRODUCT + CROP + COMMUNICATION | **NÃO COMPÕE** (camada COMMUNICATION inacessível) |
 | X-004 | REGULATORY + ADAMA PORTFOLIO + CROP + PEST | **COMPROVADO (FR)** |
+| X-013 | PROBLEMA + PORTFÓLIO + DEMANDA DECLARADA POR PROVÍNCIA + COMPRADOR | **PARCIAL** (as três primeiras pernas fecham; o comprador não está na fonte — ver X-013 abaixo) |
 
 > X-004 **foi resolvido para a França** sem dado interno: o registro oficial francês nomeia
 > ADAMA FRANCE SAS como titular. Ver o registro abaixo. A camada de portfólio **comercial**
@@ -608,12 +609,53 @@ A taxa de acerto teria de ser medida antes de qualquer afirmação, e o catálog
 entre as investigadas.
 
 
+### X-013 · PROBLEMA + PORTFÓLIO ADAMA + DEMANDA DECLARADA + COMPRADOR — **PARCIAL (fecha na província, não no comprador)**
+
+```
+CROSSING_ID:        X-013
+COMPONENTS:         problema/obrigação legal (T3) + portfólio ADAMA (T4) +
+                    venda declarada por província (T10) + comprador do canal (não coberto)
+SOURCES:            IT-T3-001 · IT-T4-001 · IT-T10-001
+KEY:                três chaves funcionam e uma falta.
+                    (1) NÚMERO DE REGISTRAZIONE une portfólio ↔ venda declarada — 100,00% do
+                        volume vêneto de 2025 casou com o registro, 0 kg órfãos;
+                    (2) PROVÍNCIA une venda ↔ território, e bate com a granularidade do
+                        bollettino e dos decretos regionais;
+                    (3) CULTURA × ALVO une problema ↔ portfólio (a chave do X-004/X-006);
+                    (4) IDENTIDADE DO VENDEDOR — NÃO EXISTE na fonte. A declaração do
+                        D.Lgs 150/2012 é publicada agregada por província; o nome do
+                        titular da autorização é exatamente o campo omitido.
+GRANULARITY_MATCH:  registro = exato · província = compatível · comprador = INCOMPATÍVEL
+                    (a fonte agrega acima do objeto que se quer)
+WHAT_IT_REVEALS:    por província: quanto se vende, de que tipo, de quem, onde a ADAMA está,
+                    e quais produtos ADAMA ativos NÃO aparecem ali. Nenhuma fonte sozinha
+                    mostra isso — o registro não sabe de venda, e a venda não sabe de titular.
+REAL_EXAMPLE:       Rovigo 2025: 1.191.659 kg/l declarados, ADAMA com 14,72% do volume (o
+                    dobro da média regional de 6,88%), perfil de milho/soja/beterraba, e
+                    SOLOFOL — vendido em TV e VE — sem nenhum quilo declarado ali.
+                    Verona: 6.530.580 kg/l, ADAMA 5,48%, UPL com 25,5%.
+CAPABILITY:         pacote de rota por província para o RTV (problema com base legal +
+                    produto ADAMA que responde + demanda + quem domina + white space).
+                    NÃO habilita carteira nominal de clientes.
+CLASS:              PARCIAL — a quarta perna exige entrar por outra porta: M1 (accesso
+                    civico às 9 ULSS, €0) ou M2 (Registro Imprese por ATECO, pago).
+                    Catálogo dos 12 métodos em
+                    research/veneto-clients/METODOS-PARA-LISTA-DE-COMPRADORES.md
+```
+
+**Por que isto não é um X-004 com outro nome:** o X-004 prova que o portfólio responde ao problema.
+O X-013 pergunta **onde esse portfólio efetivamente se move e onde não se move** — e é a primeira vez
+que uma perna de **venda real** entra no SINTONIA EAME sem violar o `EXTERNAL-ONLY` (ver **D-027** no
+diário de decisões: fonte pública de venda declarada ≠ dado interno da ADAMA).
+
+---
+
 ### Placar
 
 | Classe | Quantidade |
 |---|---|
 | COMPROVADO | 3 |
-| PARCIAL | 4 |
+| PARCIAL | 5 |
 | POSSÍVEL MAS NÃO TESTADO | 2 |
 | NÃO COMPÕE | 3 |
 | NÃO SEI | 0 |
