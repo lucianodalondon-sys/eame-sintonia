@@ -3119,7 +3119,8 @@ def observar_as_travessias(ligacoes: dict, dono: dict, raiz) -> dict:
                             lg["evidence"].append({
                                 "file": prova, "line": 1,
                                 "snippet": f"{corrida} · chama o dono de {etapa_de}/{etapa_para}",
-                                "EVIDENCE_TYPE": "OBSERVED_RUN", "SUPPORTS": SIM,
+                                "EVIDENCE_TYPE": "OBSERVED_RUN",
+                                "RUN_ID": corrida, "SUPPORTS": SIM,
                                 "WHY": ("o ledger nomeia esta peca como FRONTEIRA da "
                                         "travessia e a outra como DONO da etapa."),
                                 "LIMITATIONS": ("prova OBSERVED nesta corrida. Nao "
@@ -3136,7 +3137,7 @@ def observar_as_travessias(ligacoes: dict, dono: dict, raiz) -> dict:
                     "file": prova, "line": 1,
                     "snippet": (f"{corrida} · {etapa_de} -> {etapa_para} "
                                 f"lido do banco"),
-                    "EVIDENCE_TYPE": "OBSERVED_RUN",
+                    "EVIDENCE_TYPE": "OBSERVED_RUN", "RUN_ID": corrida,
                     "SUPPORTS": SIM,
                     "WHY": (f"a corrida `{corrida}` deixou passagem nas duas "
                             f"etapas, e a aresta foi LIDA do banco — nao "
@@ -3507,8 +3508,18 @@ def os_quatro_planos(ligacoes: dict, nos: list, raiz,
     runtime = observado_em_runtime(raiz)
 
     for lig in ligacoes.values():
+        # ⚠️ A GUARDA `rotulo_narrativo_nunca_recebe_CODE_YES` APANHOU ISTO.
+        # Ao dar `SUPPORTS=YES` a evidencia de corrida, ela passou a contar
+        # tambem para CODE — e uma aresta narrativa (`ALIMENTA`, sem medidor
+        # estatico) ficou CODE=YES por causa de um recibo de PostgreSQL.
+        #
+        #     UMA CORRIDA PROVA QUE ACONTECEU. NAO PROVA QUE HA UMA LINHA
+        #     QUE A PERMITE — E SAO PLANOS DIFERENTES POR ISSO MESMO.
+        #
+        # CODE conta so evidencia estatica; a de corrida vai toda para OBSERVED.
         apoiadas = [ev for ev in lig.get("evidence", [])
-                    if ev.get("SUPPORTS") == SIM]
+                    if ev.get("SUPPORTS") == SIM
+                    and ev.get("EVIDENCE_TYPE") != "OBSERVED_RUN"]
         declarada = bool(lig.get("declared_reason")) or lig.get("kind") == "expected"
 
         lig["DECLARED"] = SIM if declarada else NAO_SEI
@@ -3639,6 +3650,139 @@ def desenhar(zonas: list, nos: list, familias: list) -> tuple[list, list, list, 
                        "zones": [c["id"] for c in minhas],
                        "count": sum(c["count"] for c in minhas)})
     return caixas, nos, faixas, x, altura
+
+
+def censo_das_ligacoes_da_collection(estado: dict) -> None:
+    """Escreve `docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md` — card a card.
+
+    A auditoria da Collection cabia num relatorio de missao, e um relatorio de
+    missao nasce certo e envelhece em silencio: no dia em que uma aresta muda,
+    ele continua a dizer o que dizia, e ninguem sabe qual dos dois esta errado.
+
+        UM CENSO ESCRITO A MAO E UMA FOTOGRAFIA.
+        UM CENSO DERIVADO E UM ESPELHO.
+
+    Por isso ele sai daqui, da mesma corrida que produz o estado: as respostas
+    que ele publica — quem ativa, o que entra, o que sai, com que prova — sao as
+    MESMAS que a tela mostra, porque sao lidas do mesmo sitio. Nao ha segunda
+    medicao, e por isso nao ha segunda verdade.
+
+    O VEREDITO de cada card e derivado, e a regra de cada um esta escrita ao
+    lado. Nenhum card fica sem veredito, e `UNKNOWN` e um veredito.
+    """
+    nos = estado["NODES"]
+    col = sorted([n for n in nos if n.get("family") == "F-COLETA"],
+                 key=lambda x: (x["territory"], x["id"]))
+    if not col:
+        return
+    ar = estado["EDGES"]
+    terr = {t["id"]: t["name"] for t in estado["TERRITORIES"]}
+    entra: dict = {}
+    sai: dict = {}
+    for e in ar:
+        entra.setdefault(e["to"], []).append(e)
+        sai.setdefault(e["from"], []).append(e)
+
+    def provada(e):
+        return e.get("PROVEN") == SIM or e.get("OBSERVED") == SIM
+
+    def veredito(n):
+        a = n.get("ATIVACAO") or {}
+        c, ins, outs = a.get("CLASSE"), entra.get(n["id"], []), sai.get(n["id"], [])
+        obs = [e for e in ins + outs if e.get("OBSERVED") == SIM]
+        if not ins and not outs:
+            return "ORPHAN", "sem entrada e sem saida medidas"
+        if c == "SO_A_PROVA_A_CORRE":
+            return "SYSTEM_GAP", "construida e medida; na coleta ninguem a corre"
+        if c in ("EXTERNO_MANUAL", "EXTERNO_AGENDADO", "EXTERNO_EVENTO"):
+            return "EXTERNAL_ENTRY", "entrada legitima, e o mapa di-lo com a prova"
+        if not outs:
+            return "TERMINAL", "saida terminal neste escopo"
+        if obs:
+            return "OK", "travessia OBSERVADA numa corrida real"
+        if c == "NAO_SE_ATIVA":
+            return "OK", "contrato ou acervo: consulta-se, nao corre"
+        if c == "CANAL_ABERTO_POR_ROTA":
+            return "OK", "canal, aberto por rota medida"
+        if c == "PECA_INTERNA":
+            return "OK", "activador provado, e o mapa mostra-o"
+        return "UNKNOWN", "nada medido diz quem lhe da a ordem"
+
+    L = ["# CENSO DAS LIGAÇÕES DA COLLECTION — card por card\n\n",
+         "> **Este ficheiro é GERADO.** Não se edita à mão: edita-se o repositório e\n"
+         "> regenera-se. Ele sai da mesma corrida que produz `state.generated.json`, e\n"
+         "> por isso nunca fica a discordar da tela.\n>\n"
+         "> Cada linha diz **quem ativa**, **o que entra**, **o que sai** e **qual é a\n"
+         "> prova** — e diz `NÃO SEI` onde não há prova, em vez de deixar o campo em\n"
+         "> branco, que é a mesma coisa dita de um modo que ninguém vai investigar.\n>\n"
+         "> **STATUS OPERACIONAL e STATUS DA ROTA são eixos diferentes.** Um card verde\n"
+         "> não promove as ligações dele, e uma rota em `NÃO SEI` não rebaixa uma peça\n"
+         "> que funciona.\n\n",
+         "```\n",
+         f"HEAD_DA_MEDICAO  {estado['PROVENANCE'].get('HEAD')}\n",
+         f"BRANCH           {estado['PROVENANCE'].get('BRANCH')}\n",
+         f"GERADO_EM        {estado['PROVENANCE'].get('GENERATED_AT')}\n",
+         f"CARDS            {len(col)}\n",
+         "FONTE            system-map/data/state.generated.json\n",
+         "COMO_REFAZER     py system-map/scripts/generate_system_map.py\n```\n"]
+    placar: dict = {}
+    for z in dict.fromkeys(n["territory"] for n in col):
+        L.append(f"\n## {z} · {terr.get(z, '').lstrip('· ').strip()}\n")
+        for n in [x for x in col if x["territory"] == z]:
+            a = n.get("ATIVACAO") or {}
+            v, porque = veredito(n)
+            placar[v] = placar.get(v, 0) + 1
+            ins, outs = entra.get(n["id"], []), sai.get(n["id"], [])
+            din = [e["from"] for e in ins if e.get("categoria") == DATA]
+            dout = [e["to"] for e in outs if e.get("categoria") in (DATA, WRITE)]
+            obs = [e for e in ins + outs if e.get("OBSERVED") == SIM]
+            fs = n.get("files") or []
+            L.append(f"\n### `{n['id']}` · {n['name']}\n\n| | |\n|---|---|\n")
+            L.append("| **peça real** | " + (", ".join(f"`{f}`" for f in fs[:5])
+                     + (f" _(e mais {len(fs) - 5})_" if len(fs) > 5 else "")
+                     if fs else "— nenhum ficheiro") + " |\n")
+            L.append(f"| **papel** | {n.get('ROLE')} · medido no plano "
+                     f"{n.get('ROLE_PLANE') or 'NÃO SEI'} |\n")
+            L.append(f"| **dono** | {n.get('OWNER') or 'NÃO SEI'} |\n")
+            L.append(f"| **status operacional** | {n.get('ui_status')} — "
+                     f"{(n.get('status_reason') or 'NÃO SEI')[:160]} |\n")
+            L.append(f"| **QUEM ATIVA** | **{a.get('CLASSE', 'NÃO SEI')}**"
+                     + (" — " + ", ".join(a["QUEM"]) if a.get("QUEM") else "") + " |\n")
+            L.append("| **prova de quem ativa** | "
+                     + ("; ".join(x for x in (a.get("PROVA") or [])[:3] if x)
+                        or "— NÃO SEI")
+                     + (f" _(plano {a['PLANO']})_" if a.get("PLANO") else "") + " |\n")
+            L.append(f"| **porquê** | {a.get('PORQUE', 'NÃO SEI')} |\n")
+            L.append("| **o que entra · dado** | " + (", ".join(din)
+                     or "— NÃO SEI: nenhuma aresta de dado medida") + " |\n")
+            L.append("| **o que entra · ficheiros** | "
+                     + (", ".join(f"`{x}`" for x in (n.get("consumes") or [])[:3])
+                        or "— NÃO SEI") + " |\n")
+            L.append("| **o que sai · dado** | " + (", ".join(dout)
+                     or "— NÃO SEI: nenhuma aresta de dado medida") + " |\n")
+            L.append("| **o que sai · ficheiros** | "
+                     + (", ".join(f"`{x}`" for x in (n.get("produces") or [])[:3])
+                        or "— NÃO SEI") + " |\n")
+            L.append(f"| **arestas no mapa** | entram {len(ins)} · saem {len(outs)} |\n")
+            L.append(f"| **arestas provadas** | entram "
+                     f"{sum(1 for e in ins if provada(e))} · "
+                     f"saem {sum(1 for e in outs if provada(e))} |\n")
+            L.append(f"| **OBSERVADAS** | {len(obs)}"
+                     + (" — corrida `"
+                        + str((obs[0].get("OBSERVED_EVIDENCE") or {}).get("RUN", "?")
+                              ).split(" —")[0] + "`" if obs else "") + " |\n")
+            L.append(f"| **control plane** | entram "
+                     f"{sum(1 for e in ins if e.get('categoria') == CONTROL)} · saem "
+                     f"{sum(1 for e in outs if e.get('categoria') == CONTROL)} |\n")
+            L.append(f"| **data plane** | entram {len(din)} · saem {len(dout)} |\n")
+            L.append(f"| **VEREDITO** | **{v}** — {porque} |\n")
+    L.append("\n---\n\n## O PLACAR\n\n```\n")
+    for k in sorted(placar, key=lambda x: -placar[x]):
+        L.append(f"{k:18s} {placar[k]}\n")
+    L.append(f"{'TOTAL':18s} {sum(placar.values())}\n```\n")
+    destino = RAIZ / "docs" / "operacao" / "CENSO-DAS-LIGACOES-DA-COLLECTION.md"
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    destino.write_text("".join(L), encoding="utf-8")
 
 
 def indice_de_fontes() -> None:
@@ -4971,6 +5115,7 @@ def main_uma_vez(stamp: bool) -> int:
     construir(estado)
     leia_antes_de_coletar(estado)
     indice_de_fontes()
+    censo_das_ligacoes_da_collection(estado)
 
     if stamp:
         D["DECLARED_BLOBS"] = dict(sorted(novos_blobs.items()))

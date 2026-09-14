@@ -6,10 +6,10 @@
     "UNKNOWN nao e NO: nao ter prova nao e ter prova de que nao existe."
   ],
   "PROVENANCE": {
-    "HEAD": "ac5bdd1f33f62164f65693c5054694d5be93b767",
-    "BRANCH": "claude/system-map-g5-one-chain-owner-v1",
-    "GENERATED_AT": "2026-09-13T15:36:30+00:00",
-    "SOURCE_TREE_FINGERPRINT": "d5b1efcbd8232599b3a802353824405bad95edfb1491da6ab8cec10980cd6f47"
+    "HEAD": "d016e5e4876d99340b84e386eec64b99c0699b33",
+    "BRANCH": "claude/system-map-collection-truth-v1",
+    "GENERATED_AT": "2026-09-14T04:02:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "ab9da05fb2ac84c6eaefc903c3903c4ff71a754bf89bc3dc49332bd15f2be492"
   },
   "CARIMBOS_NAO_COMPARAVEIS": [
     "HEAD",
@@ -20,19 +20,20 @@
     "PROVENANCE"
   ],
   "RESUMO": {
-    "ARESTAS_TOTAL": 657,
-    "LINHAS_PARTILHADAS": 55,
-    "LINHAS_PARTILHADAS_ENTRE_TIPOS": 37,
-    "ARESTAS_REVISTAS": 52,
-    "SUPPORTED": 30,
+    "ARESTAS_TOTAL": 671,
+    "LINHAS_PARTILHADAS": 57,
+    "LINHAS_PARTILHADAS_ENTRE_TIPOS": 38,
+    "ARESTAS_REVISTAS": 62,
+    "SUPPORTED": 40,
     "AMBIGUOUS": 7,
     "UNSUPPORTED": 15,
     "SEM_PORQUE": [],
     "POR_DECISAO_E_TIPO": {
       "AMBIGUOUS·READS": 7,
+      "SUPPORTED·ALIMENTA": 2,
       "SUPPORTED·IMPORTS": 10,
       "SUPPORTED·READS": 18,
-      "SUPPORTED·RUNS": 2,
+      "SUPPORTED·RUNS": 10,
       "UNSUPPORTED·ABRE_O_CANAL": 3,
       "UNSUPPORTED·ENTREGA_A_LISTA": 4,
       "UNSUPPORTED·FEEDS": 8
@@ -1079,6 +1080,34 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-DERIVACAO-FORWARD--ALIMENTA-->C-SCRAP-SOCIAL",
+      "FROM": "C-DERIVACAO-FORWARD",
+      "TO": "C-SCRAP-SOCIAL",
+      "RELATION_TYPE": "ALIMENTA",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-DERIVACAO-FORWARD--ALIMENTA-->C-SCRAP-SOCIAL",
+        "FROM": "C-DERIVACAO-FORWARD",
+        "TO": "C-SCRAP-SOCIAL",
+        "RELATION_TYPE": "ALIMENTA",
+        "PLANE": "OBSERVED"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "YES",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "OBSERVED",
+      "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada."
+    },
+    {
       "EDGE_ID": "C-DONO-DA-ESCRITA--READS-->C-TESTES",
       "FROM": "C-DONO-DA-ESCRITA",
       "TO": "C-TESTES",
@@ -1244,12 +1273,12 @@
       "OLD_EVIDENCE": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4125,
+          "line": 4992,
           "SUPPORTS": "YES"
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4125,
+          "line": 4992,
           "SUPPORTS": "YES"
         }
       ],
@@ -1386,6 +1415,171 @@
       "PROVEN_AFTER": "YES",
       "PROVEN_PLANE_AFTER": "CODE",
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-COLETA-PUBLICA",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 152,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-COLETA-PUBLICA",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-CORPUS",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 80,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-CORPUS",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-FONTES-EU",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 111,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-FONTES-EU",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-IT-COLETA",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 124,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-IT-COLETA",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
+      "FROM": "C-ORQUESTRADOR",
+      "TO": "C-ROTULOS",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "pedido/receitas.py",
+          "line": 97,
+          "SUPPORTS": "YES"
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 359,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
+        "FROM": "C-ORQUESTRADOR",
+        "TO": "C-ROTULOS",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "CODE"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "YES",
+      "OBSERVED_AFTER": "UNKNOWN",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "CODE",
+      "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
     },
     {
       "EDGE_ID": "C-PORTAL-DADOS--FEEDS-->C-TELA-ARCHIVE",
@@ -1675,6 +1869,90 @@
       "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada."
     },
     {
+      "EDGE_ID": "C-ROTA-M2--RUNS-->C-ADMISSAO",
+      "FROM": "C-ROTA-M2",
+      "TO": "C-ADMISSAO",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ROTA-M2--RUNS-->C-ADMISSAO",
+        "FROM": "C-ROTA-M2",
+        "TO": "C-ADMISSAO",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "OBSERVED"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "YES",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "OBSERVED",
+      "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa."
+    },
+    {
+      "EDGE_ID": "C-ROTA-M2--RUNS-->C-DERIVACAO-FORWARD",
+      "FROM": "C-ROTA-M2",
+      "TO": "C-DERIVACAO-FORWARD",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ROTA-M2--RUNS-->C-DERIVACAO-FORWARD",
+        "FROM": "C-ROTA-M2",
+        "TO": "C-DERIVACAO-FORWARD",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "OBSERVED"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "YES",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "OBSERVED",
+      "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa."
+    },
+    {
+      "EDGE_ID": "C-ROTA-M2--RUNS-->C-SCRAP-SOCIAL",
+      "FROM": "C-ROTA-M2",
+      "TO": "C-SCRAP-SOCIAL",
+      "RELATION_TYPE": "RUNS",
+      "RAW_TYPE_MEDIDO": "RUNS",
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-ROTA-M2--RUNS-->C-SCRAP-SOCIAL",
+        "FROM": "C-ROTA-M2",
+        "TO": "C-SCRAP-SOCIAL",
+        "RELATION_TYPE": "RUNS",
+        "PLANE": "OBSERVED"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "YES",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "OBSERVED",
+      "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa."
+    },
+    {
       "EDGE_ID": "C-SCRAP-GUARDA--READS-->C-TESTES",
       "FROM": "C-SCRAP-GUARDA",
       "TO": "C-TESTES",
@@ -1777,6 +2055,34 @@
       "PROVEN_AFTER": "YES",
       "PROVEN_PLANE_AFTER": "CODE",
       "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada."
+    },
+    {
+      "EDGE_ID": "C-SCRAP-SOCIAL--ALIMENTA-->C-ADMISSAO",
+      "FROM": "C-SCRAP-SOCIAL",
+      "TO": "C-ADMISSAO",
+      "RELATION_TYPE": "ALIMENTA",
+      "RAW_TYPE_MEDIDO": null,
+      "OLD_EVIDENCE": [
+        {
+          "file": "tests/test_m2_rota_forward.py",
+          "line": 1,
+          "SUPPORTS": "YES"
+        }
+      ],
+      "ASSERTION_SUPPORTED": {
+        "EDGE_ID": "C-SCRAP-SOCIAL--ALIMENTA-->C-ADMISSAO",
+        "FROM": "C-SCRAP-SOCIAL",
+        "TO": "C-ADMISSAO",
+        "RELATION_TYPE": "ALIMENTA",
+        "PLANE": "OBSERVED"
+      },
+      "DECISION": "SUPPORTED",
+      "DECLARED_AFTER": "UNKNOWN",
+      "CODE_AFTER": "UNKNOWN",
+      "OBSERVED_AFTER": "YES",
+      "PROVEN_AFTER": "YES",
+      "PROVEN_PLANE_AFTER": "OBSERVED",
+      "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada."
     },
     {
       "EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-TESTES",

@@ -26,8 +26,8 @@
    "NODE": "C-ADMISSAO",
    "TYPE": "PORTA_SEM_ENTREGA",
    "DESCRIPTION": "A porta de admissao nao recebe de ninguem. Ela funciona quando o orquestrador a chama por dentro, mas NENHUMA acao entrega nela: as acoes largam ficheiro numa pasta e param ali. Uma porta por onde ninguem passa nao e uma porta.",
-   "EVIDENCE": "state.generated.json — C-ADMISSAO.inbound = []",
-   "STATUS": "OPEN"
+   "EVIDENCE": "state.generated.json — C-ADMISSAO.inbound = [] · FECHADO NA MISSAO system-map-collection-truth-v1, e com o limite escrito: a porta RECEBE, e a entrega esta OBSERVADA — `C-SCRAP-SOCIAL --ALIMENTA--> C-ADMISSAO`, lida do PostgreSQL na corrida RUN-M2-E2E e provada por tests/test_m2_rota_forward.py. O ledger ja a media; o gerador e que escrevia `OBSERVED = NAO SEI` em todas as 659 arestas por linha fixa. O QUE ISTO NAO FECHA: quem faz a rota andar e `provas/a_rota_m2_atravessa.py`. A porta tem por onde receber, e na coleta ninguem lhe entrega ainda — ver COL-033.",
+   "STATUS": "CLOSED_AS_MEASURED"
   },
   {
    "ISSUE_ID": "COL-004",
@@ -122,8 +122,8 @@
    "NODE": "C-ORQUESTRADOR",
    "TYPE": "CANONICAL_PATH_BROKEN",
    "DESCRIPTION": "O caminho canonico ENTRADA -> ORQUESTRADOR -> EXECUCAO -> PORTA tem QUATRO estacoes e apenas DUAS ligacoes. Medido: ENTRADA -> ORQUESTRADOR existe; ORQUESTRADOR -> EXECUCAO esta CORTADO; EXECUCAO -> PORTA esta CORTADO. O mapa mostra o corte em vez de o completar com seta inventada — desenhar a arquitetura desejada como se existisse seria a unica coisa pior do que nao a ter.",
-   "EVIDENCE": "vista «Caminho canonico»: 4 pecas, 2 ligacoes",
-   "STATUS": "OPEN"
+   "EVIDENCE": "vista «Caminho canonico»: 4 pecas, 2 ligacoes · REMEDIDO na missao system-map-collection-truth-v1: das duas estradas dadas por CORTADAS, NENHUMA estava cortada no codigo. ORQUESTRADOR -> EXECUCAO sao 5 arestas RUNS provadas no plano CODE (`pedido/receitas.py` declara `roda` para T2,T3,T4,T7,T9 e o orquestrador corre `list(e[\"roda\"])` por subprocess); EXECUCAO -> PORTA sao 2 arestas OBSERVADAS. O mapa nao as via porque o executor se escolhe por TABELA, e um casador de `import` nunca ve um nome dentro de uma lista de dados. AS QUE CONTINUAM CORTADAS, e sao verdade: ENTRADA -> PEDIDO (0), PEDIDO -> ORQUESTRADOR (0 de controlo ou dado — o pedido e biblioteca que o orquestrador importa, e nao uma etapa que lhe entrega) e PORTA -> READY (1 declarada, 0 provadas).",
+   "STATUS": "CLOSED_AS_MEASURED"
   },
   {
    "ISSUE_ID": "COL-016",
@@ -244,11 +244,59 @@
    "DESCRIPTION": "Dos 6 textos tirados de PDF a mao, so 3 tem pai comprovado — o texto do ficheiro aparece mesmo dentro do PDF vizinho. Nos outros 3 nao aparece: podem vir de outra versao do documento, de outro documento, ou ter sido escritos a partir do que alguem leu. Ficaram com PARENT_ARTIFACT_ID = NAO SEI. NAO SE MELHOROU A HISTORIA: estar ao lado com o mesmo nome e indicio, nao prova. Nao apagar — os 6 ficheiros continuam guardados ate se provar que o caminho novo os substitui.",
    "EVIDENCE": "golden-path-pdf.generated.json TEXTOS_A_MAO",
    "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-031",
+   "NODE": "C-ROTA-M2",
+   "TYPE": "SO_A_PROVA_ATRAVESSA",
+   "DESCRIPTION": "A unica rota forward da coleta com travessia OBSERVADA ponta-a-ponta e corrida SO pela sua propria prova. `coleta/rota_forward_documento.py` chama os tres donos (derivacao, estruturacao, admissao) e as tres etapas deixam passagem no mesmo collection_run — e quem carrega no botao e `provas/a_rota_m2_atravessa.py`, dentro de banco-descartavel.yml. A ESTRADA ESTA PROVADA; O TRANSITO NAO. Nenhum pedido, nenhum orquestrador e nenhum workflow de coleta a manda correr.",
+   "EVIDENCE": "state.generated.json — C-ROTA-M2.ATIVACAO.CLASSE = SO_A_PROVA_A_CORRE, QUEM = [C-PROVA-COLETA, C-PROVA-ROTA-M2-ATRAVESSA, C-TESTES]. Os consumidores vivem todos em Z-PROVA. As 3 arestas RUNS que saem dela sao OBSERVED=YES.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-032",
+   "NODE": "C-RECEITAS",
+   "TYPE": "DESTINO_DECLARADO_NAO_EXISTE",
+   "DESCRIPTION": "Duas das cinco receitas declaram `larga_em` para um sitio que nao existe nesta arvore: `data/samples/IT-PRAGAS` (eppo) e `data/colheita/italia/` (italia-recorrente). A COL-LAW-012 ja nomeou esta regra — quando o sitio declarado nao existe, isso e o facto mais util que a corrida produz e sai escrito no recibo (COLHEITA_NAO_ENCONTRADA). O mapa passa a desenhar a aresta de controlo ORQUESTRADOR -> EXECUTOR, e NAO desenha a de dado para o destino: um destino que nao existe nao recebe nada, e desenha-lo seria inventar.",
+   "EVIDENCE": "pedido/receitas.py — `larga_em` de eppo e italia-recorrente; medido no disco em 2026-09-14: os outros tres existem, estes dois nao.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-033",
+   "NODE": "C-SCRAP-SOCIAL",
+   "TYPE": "CARTAO_GROSSO_DEMAIS",
+   "DESCRIPTION": "O dono canonico da etapa STRUCTURED (`coleta/social_persistencia.py`, dono de public.conteudo) esta dentro do cartao «Executor do SCRAP · a aquisicao social», junto com quatro ficheiros de raspagem social. A travessia OBSERVADA do documento italiano (um boletim da ARPAV, que nao tem nada de social) sai por isso desenhada a entrar no cartao do SCRAP. A ligacao esta CERTA — o ficheiro e mesmo o dono — e o CARTAO e que e grosso demais para a distinguir.",
+   "EVIDENCE": "provas-de-execucao.json — FORWARD.DONOS.STRUCTURED = coleta/social_persistencia.py; state.generated.json — esse ficheiro pertence a C-SCRAP-SOCIAL, que tem 5 ficheiros. Recartear e decisao de gente e NAO foi feita aqui: esta missao era de verdade das ligacoes, e nao de desenho.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-034",
+   "NODE": "C-MAPA-GERADOR",
+   "TYPE": "MAPA_MEDE_OUTRA_ARVORE",
+   "DESCRIPTION": "A linha do System Map e a linha funcional da Collection sao duas linhas diferentes, e a do mapa esta 822 commits atras. O mapa mede uma Collection que ja nao e a de hoje: nesta arvore NAO existem `coleta/scrap_executor.py`, `scrap_http.py`, `scrap_colheita.py`, `adaptador_linkedin.py`, `adaptador_youtube.py`, `adaptador_instagram.py` nem `eu_regulatorio_executor.py`. TUDO o que este mapa diz sobre a Collection e verdade sobre a arvore de 2026-09-12, e nao sobre a de hoje.",
+   "EVIDENCE": "git merge-base = a93acfdf (2026-09-12 11:17). Da base ate f888776d sao 822 commits e +10.759 linhas em coleta/ orquestrador/ pedido/; deste lado, 41 commits e ZERO linhas nessas gavetas. O gerador desta linha tem 31 scripts e 231KB; o da linha funcional tem 27 e 200KB. NENHUMA DAS DUAS CONTEM A OUTRA.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-035",
+   "NODE": "C-MAPA-DEPLOY",
+   "TYPE": "ENDERECO_OFICIAL_VELHO",
+   "DESCRIPTION": "O endereco oficial serve um mapa gerado a 2026-09-09, de outra branch. Quem abre https://sintonia-eame-preview.vercel.app/system-map/ nao ve nada do que as missoes G0..G9 mediram — ve a fotografia de ha cinco dias.",
+   "EVIDENCE": "GET /system-map/deployment.generated.json em 2026-09-14: SOURCE_BRANCH = release/canonical · DEPLOYED_COMMIT = 9ae641bd · BUILD_TIME = 2026-09-09T04:37:01Z · ARCHITECTURE_SOURCE_PROVENANCE.BRANCH = claude/system-map-canonical-url-v1 · SYSTEM_MAP_CHECK = UNKNOWN.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-036",
+   "NODE": "C-PROVA-COLETA",
+   "TYPE": "PROVA_CEGA_POR_LINHAGEM",
+   "DESCRIPTION": "`T18_nenhum_pais_fora_da_italia_foi_alterado` reprova sempre nesta linha, e nao por ter encontrado nada: ela mede `git diff origin/main...HEAD`, e `origin/main` NAO TEM ANCESTRAL COMUM com esta linha. O git responde «no merge base», a lista sai vazia, e a prova — que exige lista nao-vazia justamente para nao passar por nao medir — reprova por nao conseguir medir. A guarda esta certa; o que falta e ela dizer NAO CONSIGO MEDIR em vez de REPROVADO.",
+   "EVIDENCE": "provas/testa_coleta_canonica.py:538-555. Reproduzido no HEAD limpo 85a24528, ANTES de qualquer alteracao desta missao: mesma reprovacao, mesma mensagem «Ficheiros de outro pais alterados: nenhum».",
+   "STATUS": "OPEN"
   }
  ],
  "COUNTS": {
-  "abertos": 23,
-  "fechados": 7,
-  "total": 30
+  "abertos": 27,
+  "fechados": 9,
+  "total": 36
  }
 }

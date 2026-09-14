@@ -1963,9 +1963,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-collection-truth-v1",
-    "HEAD": "85a245282864af5849fc83dec084ea93eb22bf35",
-    "GENERATED_AT": "2026-09-14T01:20:28+00:00",
-    "SOURCE_TREE_FINGERPRINT": "1b6b0ef94df339fa028a0524657446abae3c1635de531eb998b4a4c6666eb563"
+    "HEAD": "d016e5e4876d99340b84e386eec64b99c0699b33",
+    "GENERATED_AT": "2026-09-14T04:01:08+00:00",
+    "SOURCE_TREE_FINGERPRINT": "f2beabf1a2edf0cf8018014d919d028e6c78938dc97b63eb77494dac74833113"
   },
   "FAMILIES": [
     {
@@ -13439,9 +13439,9 @@
           "_GATILHOS",
           "_NOMES_DE_CANAL"
         ],
-        "palavras": 185,
+        "palavras": 196,
         "por_lingua": {},
-        "sem_marca_de_lingua": 185,
+        "sem_marca_de_lingua": 196,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13668,7 +13668,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/generate_system_map.py:4992",
+          "system-map/scripts/generate_system_map.py:5137",
           "system-map/scripts/publicar_no_deploy.mjs:56",
           "system-map/scripts/reconciliacao_do_universo.py:80",
           "system-map/scripts/reconciliacao_do_universo.py:407"
@@ -17653,7 +17653,7 @@
           "orquestrador/orquestrador.py:53",
           "provas/o_corte_de_cr1.py:59",
           "system-map/scripts/censo_das_estradas_it.py:693",
-          "system-map/scripts/generate_system_map.py:3202"
+          "system-map/scripts/generate_system_map.py:3203"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -26429,7 +26429,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3984,
+          "line": 4128,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -34716,6 +34716,7 @@
           "line": 1,
           "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · DERIVED -> STRUCTURED lido do banco",
           "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "RUN_ID": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
           "SUPPORTS": "YES",
           "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada.",
           "LIMITATIONS": "prova OBSERVED nesta corrida e neste ambiente. Nao prova que volte a acontecer, nem prova producao.",
@@ -34730,7 +34731,7 @@
       ],
       "categoria": "DATA",
       "DECLARED": "UNKNOWN",
-      "CODE": "YES",
+      "CODE": "UNKNOWN",
       "OBSERVED": "YES",
       "OBSERVED_EVIDENCE": {
         "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
@@ -39750,7 +39751,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4006,
+          "line": 4150,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -42179,7 +42180,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3338,
+          "line": 3339,
           "snippet": "\"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-GERADOR",
@@ -42613,7 +42614,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4979,
+          "line": 5124,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -42836,7 +42837,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4992,
+          "line": 5137,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -42852,7 +42853,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4992,
+          "line": 5137,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -44093,7 +44094,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3203,
+          "line": 3204,
           "snippet": "orq = raiz / \"orquestrador\" / \"orquestrador.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-GERADOR",
@@ -48913,7 +48914,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3202,
+          "line": 3203,
           "snippet": "reg = raiz / \"pedido\" / \"receitas.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--READS-->C-MAPA-GERADOR",
@@ -49606,6 +49607,7 @@
           "line": 1,
           "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · chama o dono de STRUCTURED/ADMISSION",
           "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "RUN_ID": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
           "SUPPORTS": "YES",
           "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa.",
           "LIMITATIONS": "prova OBSERVED nesta corrida. Nao prova producao.",
@@ -49621,7 +49623,7 @@
       "reason": "Esta peca CHAMA aquela dentro da corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto`: o ledger nomeia-a como a fronteira da travessia, e o dono da etapa como quem faz o trabalho. Quem costura nao deriva, nao escreve e nao julga.",
       "categoria": "CONTROL",
       "DECLARED": "UNKNOWN",
-      "CODE": "YES",
+      "CODE": "UNKNOWN",
       "OBSERVED": "YES",
       "OBSERVED_EVIDENCE": {
         "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
@@ -49651,6 +49653,7 @@
           "line": 1,
           "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · chama o dono de DERIVED/STRUCTURED",
           "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "RUN_ID": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
           "SUPPORTS": "YES",
           "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa.",
           "LIMITATIONS": "prova OBSERVED nesta corrida. Nao prova producao.",
@@ -49666,7 +49669,7 @@
       "reason": "Esta peca CHAMA aquela dentro da corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto`: o ledger nomeia-a como a fronteira da travessia, e o dono da etapa como quem faz o trabalho. Quem costura nao deriva, nao escreve e nao julga.",
       "categoria": "CONTROL",
       "DECLARED": "UNKNOWN",
-      "CODE": "YES",
+      "CODE": "UNKNOWN",
       "OBSERVED": "YES",
       "OBSERVED_EVIDENCE": {
         "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
@@ -49817,6 +49820,7 @@
           "line": 1,
           "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · chama o dono de DERIVED/STRUCTURED",
           "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "RUN_ID": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
           "SUPPORTS": "YES",
           "WHY": "o ledger nomeia esta peca como FRONTEIRA da travessia e a outra como DONO da etapa.",
           "LIMITATIONS": "prova OBSERVED nesta corrida. Nao prova producao.",
@@ -49832,7 +49836,7 @@
       "reason": "Esta peca CHAMA aquela dentro da corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto`: o ledger nomeia-a como a fronteira da travessia, e o dono da etapa como quem faz o trabalho. Quem costura nao deriva, nao escreve e nao julga.",
       "categoria": "CONTROL",
       "DECLARED": "UNKNOWN",
-      "CODE": "YES",
+      "CODE": "UNKNOWN",
       "OBSERVED": "YES",
       "OBSERVED_EVIDENCE": {
         "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
@@ -51851,6 +51855,7 @@
           "line": 1,
           "snippet": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto · STRUCTURED -> ADMISSION lido do banco",
           "EVIDENCE_TYPE": "OBSERVED_RUN",
+          "RUN_ID": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
           "SUPPORTS": "YES",
           "WHY": "a corrida `RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto` deixou passagem nas duas etapas, e a aresta foi LIDA do banco — nao declarada.",
           "LIMITATIONS": "prova OBSERVED nesta corrida e neste ambiente. Nao prova que volte a acontecer, nem prova producao.",
@@ -51865,7 +51870,7 @@
       ],
       "categoria": "DATA",
       "DECLARED": "UNKNOWN",
-      "CODE": "YES",
+      "CODE": "UNKNOWN",
       "OBSERVED": "YES",
       "OBSERVED_EVIDENCE": {
         "RUN": "RUN-M2-E2E — as tres etapas no mesmo collection_run, criado pelo dono do bruto",
