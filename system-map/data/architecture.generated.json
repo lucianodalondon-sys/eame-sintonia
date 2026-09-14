@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "cd70e280cfa6aa558f00fe04a1cac5ee8efe44bd",
-    "GENERATED_AT": "2026-09-14T10:34:01+00:00",
-    "SOURCE_TREE_FINGERPRINT": "8bcf99e41386f655958c38e1dbb04b36be6eb5b1e0564a84bc50e878d0a5c94c"
+    "HEAD": "a8564df74e17eb2ee04c4426cdcafc83d6936400",
+    "GENERATED_AT": "2026-09-14T10:40:25+00:00",
+    "SOURCE_TREE_FINGERPRINT": "74b8b759dfcc8165c1e537facf3b34c8acecb1743902536dbce9f6c662898e21"
   },
   "FILES": [
     {
@@ -1655,7 +1655,7 @@
     },
     {
       "path": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
-      "sha": "11afde137d11cfc0f43983011b3b5d37c52a74b7",
+      "sha": "82ef8e65bebccbe6c2405460e731cba67df28b64",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -1697,14 +1697,14 @@
     },
     {
       "path": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
-      "sha": "c867a5306a23cc6b1f5ca8f028086e19eab3fb80",
+      "sha": "213dce4af319ecf84d90390664950a1cdccc66ce",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
-      "sha": "997c0678f56ec154056a927818b32b9487590d7c",
+      "sha": "a1a5f8d519d44eeaa35114da081edf19fd9f038f",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4931,7 +4931,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "e10ed83db654a24834557e53c680192f59cc7004",
+      "sha": "5f8d772cc2b598667f59fcc009449f9f905d4f9d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10559,7 +10559,7 @@
     },
     {
       "path": "system-map/data/SYSTEM-MAP-COLLECTION-ISSUES.json",
-      "sha": "6fcbb799a06216fdd4cb8efae3ee4c4f85530f2a",
+      "sha": "a828523c0cfef196dfdfe276c8bc8139db66169a",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10924,6 +10924,13 @@
     {
       "path": "system-map/tests/test_uma_cadeia_um_dono.py",
       "sha": "1a7d7db010ff38e78804a69feb0d1e6d812ccc26",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "system-map/tests/test_verdade_da_collection_actual.py",
+      "sha": "b09f18357c77550042bd3acaf535f489f6dcf82a",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -13530,6 +13537,17 @@
         "file": ".github/workflows/system-map.yml",
         "line": 314,
         "snippet": "run: python3 system-map/tests/test_system_map.py"
+      }
+    },
+    {
+      "from_file": ".github/workflows/system-map.yml",
+      "to_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/system-map.yml",
+        "line": 320,
+        "snippet": "run: python3 system-map/tests/test_verdade_da_collection_actual.py"
       }
     },
     {
@@ -41110,6 +41128,171 @@
       }
     },
     {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "coleta/scrap_colheita.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 164,
+        "snippet": "and e[\"to\"] == DONO.get(\"coleta/scrap_colheita.py\")]"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 120,
+        "snippet": "alvo = d / \"w\" / \"coleta\" / \"scrap_executor.py\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "coleta/scrap_executor.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 122,
+        "snippet": "alvo.write_text(alvo.read_text(encoding=\"utf-8\") + \"\\n# mutante\\n\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "coleta/scrap_registo.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 143,
+        "snippet": "import scrap_registo as reg                                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "orquestrador/orquestrador.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 180,
+        "snippet": "(tmp / \"orquestrador\" / \"orquestrador.py\").write_text(\"# sem subprocess\\n\","
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "pedido/receitas.py",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 178,
+        "snippet": "(tmp / \"pedido\" / \"receitas.py\").write_text("
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "provas/a_fronteira_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 315,
+        "snippet": "(\"provas/a_fronteira_da_coleta.py\", \"FACT_LOCATION\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "provas/derived_artifact_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 311,
+        "snippet": "(\"provas/derived_artifact_no_postgres.py\", \"sha256\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "provas/o_encanamento_tem_uma_porta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 317,
+        "snippet": "(\"provas/o_encanamento_tem_uma_porta.py\", \"FACT_TIME\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "provas/objeto_e_observacao_no_postgres.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 313,
+        "snippet": "(\"provas/objeto_e_observacao_no_postgres.py\", \"storage_path\"),"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "supabase/migrations/031_a_sala_de_espera_ganha_dono_duravel.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 280,
+        "snippet": "mig = RAIZ / \"supabase\" / \"migrations\" / \"031_a_sala_de_espera_ganha_dono_duravel.sql\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "system-map/CANONICAL-PUBLICATION.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 326,
+        "snippet": "pub = RAIZ / \"system-map\" / \"CANONICAL-PUBLICATION.json\""
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "system-map/COLLECTION-AUDIT-BASE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 39,
+        "snippet": "\"COLLECTION-AUDIT-BASE.json\").read_text(encoding=\"utf-8\"))"
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "system-map/data/provas-de-execucao.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 224,
+        "snippet": "(vazio / \"system-map\" / \"data\" / \"provas-de-execucao.json\").write_text("
+      }
+    },
+    {
+      "from_file": "system-map/tests/test_verdade_da_collection_actual.py",
+      "to_file": "system-map/tests/test_base_da_auditoria.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/tests/test_verdade_da_collection_actual.py",
+        "line": 68,
+        "snippet": "alvo = raiz / \"system-map\" / \"tests\" / \"test_base_da_auditoria.py\""
+      }
+    },
+    {
       "from_file": "system-map/tests/test_verdade_das_ligacoes.py",
       "to_file": "admissao/admissao.py",
       "type": "READS",
@@ -54561,10 +54744,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1729,
-    "files_readable": 725,
-    "files_code_dir": 777,
-    "file_edges": 3814,
+    "files_tracked": 1730,
+    "files_readable": 726,
+    "files_code_dir": 778,
+    "file_edges": 3830,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

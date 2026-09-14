@@ -29,13 +29,13 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-14T10:39:43+00:00",
-  "HEAD": "cd70e280cfa6aa558f00fe04a1cac5ee8efe44bd",
+  "GENERATED_AT": "2026-09-14T10:46:27+00:00",
+  "HEAD": "a8564df74e17eb2ee04c4426cdcafc83d6936400",
   "BRANCH": "claude/system-map-current-collection-truth-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "8bcf99e41386f655958c38e1dbb04b36be6eb5b1e0564a84bc50e878d0a5c94c",
-  "FICHEIROS_NA_IMPRESSAO": 1866,
+  "SOURCE_TREE_FINGERPRINT": "74b8b759dfcc8165c1e537facf3b34c8acecb1743902536dbce9f6c662898e21",
+  "FICHEIROS_NA_IMPRESSAO": 1867,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
    {
@@ -2295,14 +2295,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8bcf99e41386f655958c38e1dbb04b36be6eb5b1e0564a84bc50e878d0a5c94c",
+    "VERSAO": "74b8b759dfcc8165c1e537facf3b34c8acecb1743902536dbce9f6c662898e21",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "8bcf99e41386f655958c38e1dbb04b36be6eb5b1e0564a84bc50e878d0a5c94c",
+    "VERSAO": "74b8b759dfcc8165c1e537facf3b34c8acecb1743902536dbce9f6c662898e21",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -2513,6 +2513,13 @@
     "PATH": "system-map/tests/test_uma_cadeia_um_dono.py",
     "PAPEL": "FONTE",
     "VERSAO": "1a7d7db010ff38e78804a69feb0d1e6d812ccc26",
+    "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
+    "LIDO_POR": "escreve_le() · open"
+   },
+   {
+    "PATH": "system-map/tests/test_verdade_da_collection_actual.py",
+    "PAPEL": "FONTE",
+    "VERSAO": "b09f18357c77550042bd3acaf535f489f6dcf82a",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -3651,8 +3658,8 @@
     "LIDO_POR": "escreve_le() · open"
    }
   ],
-  "INPUTS_COUNT": 516,
-  "INPUTS_DIGEST": "5febe686343526cb6bf9f9bd15a9c4cb090402c4da2d1d487dab7cc49b8b2dde",
+  "INPUTS_COUNT": 517,
+  "INPUTS_DIGEST": "2b124090f1090ea8ac2204c10f56dc4060419e61bb1bd7693f7654b13d196561",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -3685,8 +3692,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "fd55a7185514b970023bb0f5dd0f2eec4d630fc0867cdff6bb69315460853501",
-  "SEMANTIC_HASH": "b129ea0305446e8be23631b382b1b69dd1b7848792bae1cfd055772dd123e04c"
+  "MEASUREMENT_HASH": "b3214ffb6e7562ff9739b1d0a69c9ec3d236460ab65ab5e05de3c9d53af238e1",
+  "SEMANTIC_HASH": "1550439715b24b2034898a8889841533ea20cc03d5e08e6d64c0f80f4c7331ca"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -7987,6 +7994,14 @@
      {
       "FICHEIRO": ".github/workflows/system-map.yml",
       "LINHA": 314,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": ".github/workflows/system-map.yml",
+      "LINHA": 320,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -17037,6 +17052,14 @@
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
       "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 326,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
      }
     ]
    },
@@ -17481,6 +17504,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 224,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-CENSO-EXECUTORES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 56,
       "SUPPORTS": "YES",
@@ -17569,6 +17600,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 180,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-ORQUESTRADOR",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 63,
       "SUPPORTS": "YES",
@@ -17591,11 +17630,41 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 178,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-RECEITAS",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 60,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-RECEITAS",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-MAPA-TESTES--WRITES-->C-SCRAP-SOCIAL",
+    "FROM": "C-MAPA-TESTES",
+    "TO": "C-SCRAP-SOCIAL",
+    "RELATION_TYPE": "WRITES",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 122,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-TESTES--WRITES-->C-SCRAP-SOCIAL",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -17623,6 +17692,14 @@
      {
       "FICHEIRO": "system-map/tests/test_system_map.py",
       "LINHA": 493,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-MAPA-VALIDADOR--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 39,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-VALIDADOR--READS-->C-MAPA-TESTES",
@@ -20332,6 +20409,22 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 311,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-COLETA--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 313,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-COLETA--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 261,
       "SUPPORTS": "YES",
@@ -20798,6 +20891,14 @@
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
      {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 317,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-ENCANAMENTO--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
+     {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 267,
       "SUPPORTS": "YES",
@@ -20907,6 +21008,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 315,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 265,
@@ -23652,6 +23761,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-MAPA-TESTES",
+    "FROM": "C-SCRAP-COLHEITA",
+    "TO": "C-MAPA-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 164,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-PROVA-COLETA",
     "FROM": "C-SCRAP-COLHEITA",
     "TO": "C-PROVA-COLETA",
@@ -25208,6 +25339,28 @@
     ]
    },
    {
+    "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-MAPA-TESTES",
+    "FROM": "C-SCRAP-SOCIAL",
+    "TO": "C-MAPA-TESTES",
+    "RELATION_TYPE": "IMPORTS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 143,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
     "EDGE_ID": "C-SCRAP-SOCIAL--IMPORTS-->C-PROVA-COLETA",
     "FROM": "C-SCRAP-SOCIAL",
     "TO": "C-PROVA-COLETA",
@@ -25611,6 +25764,14 @@
     "OBSERVED": "UNKNOWN",
     "PROVEN": "YES",
     "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 120,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SCRAP-SOCIAL--READS-->C-MAPA-TESTES",
+      "ASSERTION_PLANE": "CODE"
+     },
      {
       "FICHEIRO": "system-map/tests/test_verdade_das_ligacoes.py",
       "LINHA": 292,
@@ -27101,6 +27262,28 @@
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-SUPABASE--READS-->C-MAPA-GERADOR",
+      "ASSERTION_PLANE": "CODE"
+     }
+    ]
+   },
+   {
+    "EDGE_ID": "C-SUPABASE--READS-->C-MAPA-TESTES",
+    "FROM": "C-SUPABASE",
+    "TO": "C-MAPA-TESTES",
+    "RELATION_TYPE": "READS",
+    "CATEGORIA": "PROOF",
+    "PROVEN_PLANE": "CODE",
+    "DECLARED": "UNKNOWN",
+    "CODE": "YES",
+    "OBSERVED": "UNKNOWN",
+    "PROVEN": "YES",
+    "EVIDENCE_BINDING": [
+     {
+      "FICHEIRO": "system-map/tests/test_verdade_da_collection_actual.py",
+      "LINHA": 280,
+      "SUPPORTS": "YES",
+      "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+      "ASSERTION_EDGE_ID": "C-SUPABASE--READS-->C-MAPA-TESTES",
       "ASSERTION_PLANE": "CODE"
      }
     ]
@@ -29414,12 +29597,12 @@
     ]
    }
   ],
-  "COUNT": 845
+  "COUNT": 849
  },
  "RESUMO": {
   "CARTOES_NO_UNIVERSO": 134,
   "CARTOES_AUDITADOS": 134,
-  "ARESTAS_RELACIONADAS": 845,
+  "ARESTAS_RELACIONADAS": 849,
   "ENTRYPOINTS": [
    "C-ADMISSAO",
    "C-APIFY-POOL",
@@ -29738,7 +29921,7 @@
    "CODE": 123,
    "CONTROL": 86,
    "DATA": 27,
-   "PROOF": 313,
+   "PROOF": 317,
    "READ": 162,
    "RULE": 127,
    "WRITE": 7
@@ -32715,6 +32898,7 @@
     "system-map/tests/test_system_map.py",
     "system-map/tests/test_topologia_persistida.py",
     "system-map/tests/test_uma_cadeia_um_dono.py",
+    "system-map/tests/test_verdade_da_collection_actual.py",
     "system-map/tests/test_verdade_das_ligacoes.py",
     "system-map/tests/verificar_a_tela.mjs"
    ],
@@ -32750,8 +32934,8 @@
     "pathlib",
     "pente_fino_da_coleta"
    ],
-   "ENTRAM": 26,
-   "SAEM": 7,
+   "ENTRAM": 29,
+   "SAEM": 8,
    "CATEGORIAS_QUE_ENTRAM": [
     "PROOF"
    ],
@@ -34819,7 +35003,7 @@
     "__future__"
    ],
    "ENTRAM": 4,
-   "SAEM": 11,
+   "SAEM": 12,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
@@ -35108,12 +35292,13 @@
     "novo",
     "the"
    ],
-   "ENTRAM": 23,
-   "SAEM": 17,
+   "ENTRAM": 24,
+   "SAEM": 18,
    "CATEGORIAS_QUE_ENTRAM": [
     "CODE",
     "CONTROL",
     "DATA",
+    "PROOF",
     "READ",
     "RULE"
    ],
@@ -35453,7 +35638,7 @@
    ],
    "LE_DE": [],
    "ENTRAM": 4,
-   "SAEM": 15,
+   "SAEM": 16,
    "CATEGORIAS_QUE_ENTRAM": [
     "CONTROL",
     "WRITE"

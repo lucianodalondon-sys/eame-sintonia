@@ -244,11 +244,43 @@
    "DESCRIPTION": "Dos 6 textos tirados de PDF a mao, so 3 tem pai comprovado — o texto do ficheiro aparece mesmo dentro do PDF vizinho. Nos outros 3 nao aparece: podem vir de outra versao do documento, de outro documento, ou ter sido escritos a partir do que alguem leu. Ficaram com PARENT_ARTIFACT_ID = NAO SEI. NAO SE MELHOROU A HISTORIA: estar ao lado com o mesmo nome e indicio, nao prova. Nao apagar — os 6 ficheiros continuam guardados ate se provar que o caminho novo os substitui.",
    "EVIDENCE": "golden-path-pdf.generated.json TEXTOS_A_MAO",
    "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-039",
+   "NODE": "C-MAPA-DEPLOY",
+   "TYPE": "PORTAL_E_COLLECTION_DIVERGIRAM",
+   "DESCRIPTION": "NENHUMA branch deste repositorio contem ao mesmo tempo o PORTAL e a COLLECTION actual. Medido em 2026-09-14 sobre as 223 branches remotas: 5 tem `italia-portale/client/italy-label-intelligence.js` (a Label Intelligence do portal), 56 tem `coleta/scrap_executor.py` (a Collection actual), e a interseccao e ZERO. O endereco oficial e servido pela linha do PORTAL; a Collection auditada vive na outra. Por isso o mapa nao pode, hoje, publicar a verdade da Collection actual no endereco oficial: nao ha arvore onde as duas coisas existam juntas.",
+   "EVIDENCE": "Promover esta linha apagaria do portal `italy-label-intelligence.js` e `italy-label-lexicon.js` e reverteria `portale.html` em 22.144 linhas, `meeting-surface.js` em 1.404 e o snapshot da reuniao em 37.948 — que e exactamente o que `system-map/scripts/portao_da_promocao.py` existe para recusar. E a guarda da base corrida sobre `release/canonical@27b9e674` REPROVA em tres pontos: nao contem 12c919af, os seis marcos nao estao no disco, e os workflows da Collection diferem. Medido a correr, nao arguido.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-040",
+   "NODE": "C-SCRAP-COLHEITA",
+   "TYPE": "SCRAP_LIGADO_MAS_SEM_CORRIDA",
+   "DESCRIPTION": "O SCRAP esta LIGADO ao caminho canonico e NUNCA correu por ele. `pedido/receitas.py` regista `scrap-colheita -> coleta/scrap_colheita.py` e o orquestrador corre o que a receita declara: a aresta de controlo existe e esta provada no plano CODE. O que nao existe e recibo: nenhum `*.observado.json` desta arvore nomeia uma corrida do SCRAP. CAN DO != DID DO, e a distancia entre os dois e exactamente esta.",
+   "EVIDENCE": "pedido/receitas.py:241 `\"id\": \"scrap-colheita\"`; state.generated.json C-ORQUESTRADOR --RUNS--> C-SCRAP-COLHEITA com CODE=YES e OBSERVED=UNKNOWN. Os dois recibos de corrida inteira desta arvore sao de `italy_executor.py` (T2) e `eu_regulatorio_executor.py` (T4).",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-041",
+   "NODE": "V-LINKEDIN",
+   "TYPE": "ADAPTER_REGISTADO_SEM_ROTA",
+   "DESCRIPTION": "O adaptador do LinkedIn EXISTE, esta REGISTADO e declara oito capacidades — e SETE delas estao `DECLARED_WITHOUT_ROUTE`. So `linkedin.identity.discovery` tem rota, e NENHUMA tem `executa`. Medido a correr o registo, nao lido no codigo. Comparar: Instagram tem 2 com `executa`, YouTube tem 1. ADAPTER EXISTS != ROUTE EXISTS != FLOW OBSERVED.",
+   "EVIDENCE": "`scrap_registo.carregar_adaptadores()` seguido de `_MAPA`: 36 capacidades em 8 plataformas. LINKEDIN: 8 entradas, 7 SEM ROTA, 1 com rota, 0 com executa. Nenhuma aresta de dado PROVADA sai de V-LINKEDIN no mapa.",
+   "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-042",
+   "NODE": "C-READY",
+   "TYPE": "ESTRADA_FECHA_SEM_REDE_PROVADA",
+   "DESCRIPTION": "A estrada canonica FECHA — e os bytes nao vieram da rede. O recibo `pedido-t4.observado.json` tem CANONICAL_E2E=PASS com as onze etapas observadas, READY produzido e o ficheiro na Sala com nome. E o mesmo recibo declara `ORIGEM_DOS_BYTES = ARQUIVO_LOCAL` e `AQUISICAO_PELA_REDE = NOT_PROVEN`. A canalizacao esta provada de ponta a ponta; a TORNEIRA nao.",
+   "EVIDENCE": "system-map/data/pedido-t4.observado.json · RUN IT-T4-2026-09-13-035053-2b7e8c7e0d9bf4d7. O ataque 12 do red team reprova quem publicar isto como aquisicao pela rede provada.",
+   "STATUS": "OPEN"
   }
  ],
  "COUNTS": {
-  "abertos": 23,
+  "abertos": 27,
   "fechados": 7,
-  "total": 30
+  "total": 34
  }
 }
