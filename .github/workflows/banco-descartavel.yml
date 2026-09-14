@@ -154,7 +154,20 @@ jobs:
       # ela se mede.
       - name: 1 · as ferramentas da fala existem, ou isto nao corre
         run: |
-          sudo apt-get update -qq
+          # ⚠️ O `update` PODE FALHAR POR CULPA DE UM ESPELHO DE TERCEIRO, E
+          # ISSO NAO E UMA FALHA DESTA CASA. Medido a 2026-09-14: o repositorio
+          # do Chrome devolveu «File has unexpected size (1410 != 1413)» —
+          # sincronizacao a meio, do lado deles — e o job inteiro morreu antes
+          # de tocar no Postgres.
+          #
+          #     UM ESPELHO DESALINHADO NAO E UMA PROVA REPROVADA.
+          #
+          # O `|| true` NAO esconde nada: se o pacote faltar mesmo, o `install`
+          # abaixo falha, e as tres conferencias no fim falham a seguir. O que
+          # ele evita e que um soluco de rede de terceiro se leia como veredito
+          # sobre a ponte de midia.
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update -qq || true
           sudo apt-get install -y espeak-ng ffmpeg
           python3 -m pip install --quiet faster-whisper
           espeak-ng --version
