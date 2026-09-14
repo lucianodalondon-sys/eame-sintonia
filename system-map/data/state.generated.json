@@ -176,6 +176,7 @@
       "candidatas/ITALY-SOURCE-MASTER-V1.md",
       "candidatas/ITALY-SOURCE-REGISTRATION-2026-09-14.md",
       "candidatas/ITALY-SOURCE-REGISTRATION-AUDIT-2026-09-14.csv",
+      "candidatas/SOURCE-REGISTRY-RECONCILIATION-2026-09-14.md",
       "candidatas/fonte_nova.py",
       "candidatas/italy_deep_baseline.py",
       "candidatas/italy_deep_crawl.py",
@@ -1314,8 +1315,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 624 ficheiros (87%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 624 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 624 ficheiros (87%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 34 · EUROPA 13 · FRANCA 6 · ITALIA 4. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 624 ficheiros e 4 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1323,8 +1324,8 @@
     },
     {
       "id": "duas-listas-de-fontes",
-      "titulo": "52 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
-      "texto": "23 tem ficha no atlas, 54 estao no levantamento italiano, 2 estao nos dois. 52 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
+      "titulo": "50 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
+      "texto": "57 tem ficha no atlas, 54 estao no levantamento italiano, 4 estao nos dois. 50 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
       "porque_importa": "O levantamento italiano tem campos que o atlas nao tem — o dono normalizado, o papel da fonte, e o melhor de todos: o que ela NAO prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1343,8 +1344,8 @@
     },
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
-      "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "titulo": "56 fontes nunca foram coletadas. Todas as corridas foram num país só.",
+      "texto": "Há 13 corridas registadas, e o país delas é: ES 10 · NAO SEI 3. Elas trouxeram 3400 itens e 2963 atravessaram a régua. As outras 56 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1690,8 +1691,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "0a30bffea142a0b481f68bb971ac2c4663fb7b68",
-    "GENERATED_AT": "2026-09-14T18:03:51-03:00"
+    "HEAD": "6eba72b8a5ad41845e221b4b4bfc62b472e32769",
+    "GENERATED_AT": "2026-09-14T19:04:11-03:00"
   },
   "FAMILIES": [
     {
@@ -2389,7 +2390,7 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "O capital parado da casa: 23 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
+      "what": "O capital parado da casa: 57 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
       "why_here": "Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so entra depois de alguem a abrir, olhar o que ela entrega e guardar evidencia disso — e coleta nenhuma comeca sem consultar o que ja esta aqui.",
       "files": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2397,14 +2398,14 @@
         "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
       ],
       "facts": [
-        "bases oficiais com ficha: 23",
+        "bases oficiais com ficha: 57",
         "dessas, a maquina sabe buscar sozinha: 5",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
         "enderecos que o codigo realmente chama: 40"
       ],
-      "status_reason": "23 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "status_reason": "57 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 5 das bases tem contrato de busca escrito: nas outras 52, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -2437,7 +2438,7 @@
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
-          "subtitulo": "23 fichas no atlas · 5 com contrato de busca escrito",
+          "subtitulo": "57 fichas no atlas · 5 com contrato de busca escrito",
           "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
           "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
           "itens": [
@@ -2569,6 +2570,426 @@
               "url": "",
               "atualiza": "",
               "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-001",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-002",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-003",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-004",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-005",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-006",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-007",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-008",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-009",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-010",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-011",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-012",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-013",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-014",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-015",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-016",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-017",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-018",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-019",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-020",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-021",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-022",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-023",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-024",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-025",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-026",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T7-027",
+              "nome": "feeds de imprensa técnica espanhola, associações agrárias, e origens de assessoria técnica identificadas no LinkedIn",
+              "pais": "ESPANHA",
+              "assunto": "T7 · TECHNICAL NETWORK",
+              "estado": "PARCIAL",
+              "estado_texto": "",
+              "sabe_coletar": false,
+              "como_se_entra": "PUBLIC APPLICATION ROUTE (RSS/Atom) · rota paga de plataforma",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "Oleo Revista, 50 itens datados, 29 on-topic",
+              "contrato": null
+            },
+            {
+              "id": "ES-T9-001",
+              "nome": "páginas de atualidades de BASF, Bayer, Syngenta, Corteva…",
+              "pais": "ESPANHA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
               "contrato": null
             },
             {
@@ -2757,6 +3178,51 @@
               "contrato": null
             },
             {
+              "id": "EU-T8-001",
+              "nome": "EU-T8-001",
+              "pais": "EUROPA",
+              "assunto": "T8 · FARMERS & INFLUENCERS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
+              "id": "EU-T9-002",
+              "nome": "Meta Ads Library",
+              "pais": "EUROPA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "NÃO SEI — rota não executada nesta rodada",
+              "dono": "Meta Platforms",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
+            },
+            {
+              "id": "FR-T11-001",
+              "nome": "FR-T11-001",
+              "pais": "FRANCA",
+              "assunto": "T11 · EVENTS",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional do evento (HTML)",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
               "id": "FR-T13-001",
               "nome": "recherche-entreprises.api.gouv.fr (base SIRENE)",
               "pais": "FRANCA",
@@ -2837,6 +3303,36 @@
               }
             },
             {
+              "id": "FR-T9-001",
+              "nome": "páginas de atualidades de BASF, Bayer, Syngenta, Corteva…",
+              "pais": "FRANCA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
+            },
+            {
+              "id": "IT-T11-001",
+              "nome": "IT-T11-001",
+              "pais": "ITALIA",
+              "assunto": "T11 · EVENTS",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional do evento (HTML)",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "",
+              "contrato": null
+            },
+            {
               "id": "IT-T3-001",
               "nome": "IT-T3-001",
               "pais": "ITALIA",
@@ -2885,6 +3381,21 @@
                   "snippet": "contrato de IT-T4-001"
                 }
               }
+            },
+            {
+              "id": "IT-T9-001",
+              "nome": "páginas de atualidades de BASF, Bayer, Syngenta, Corteva…",
+              "pais": "ITALIA",
+              "assunto": "T9 · COMPETITORS",
+              "estado": "NAO SEI",
+              "estado_texto": "nao foi possivel verificar — NAO SEI",
+              "sabe_coletar": false,
+              "como_se_entra": "site institucional",
+              "dono": "",
+              "url": "",
+              "atualiza": "",
+              "exemplo": "nenhum",
+              "contrato": null
             }
           ]
         },
@@ -3587,9 +4098,9 @@
         "green": 16,
         "yellow": 4,
         "nao_sei": 17,
-        "fichas_completas": 23,
-        "divergencia": 14,
-        "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 23. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "fichas_completas": 57,
+        "divergencia": -20,
+        "leitura": "O cabecalho do atlas diz 37 fontes registradas; fichas completas, com SOURCE_ID valido, ha 57. Faltam -20 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -4041,6 +4552,34 @@
           "ES-T4-002",
           "ES-T4-003",
           "ES-T4-005",
+          "ES-T7-001",
+          "ES-T7-002",
+          "ES-T7-003",
+          "ES-T7-004",
+          "ES-T7-005",
+          "ES-T7-006",
+          "ES-T7-007",
+          "ES-T7-008",
+          "ES-T7-009",
+          "ES-T7-010",
+          "ES-T7-011",
+          "ES-T7-012",
+          "ES-T7-013",
+          "ES-T7-014",
+          "ES-T7-015",
+          "ES-T7-016",
+          "ES-T7-017",
+          "ES-T7-018",
+          "ES-T7-019",
+          "ES-T7-020",
+          "ES-T7-021",
+          "ES-T7-022",
+          "ES-T7-023",
+          "ES-T7-024",
+          "ES-T7-025",
+          "ES-T7-026",
+          "ES-T7-027",
+          "ES-T9-001",
           "EU-T1-001",
           "EU-T1-002",
           "EU-T10-001",
@@ -4052,12 +4591,18 @@
           "EU-T4-001",
           "EU-T4-002",
           "EU-T5-001",
+          "EU-T8-001",
+          "EU-T9-002",
+          "FR-T11-001",
           "FR-T13-001",
           "FR-T3-001",
           "FR-T3-002",
           "FR-T4-001",
+          "FR-T9-001",
+          "IT-T11-001",
           "IT-T3-001",
-          "IT-T4-001"
+          "IT-T4-001",
+          "IT-T9-001"
         ],
         "com_rendimento_medido": 12,
         "com_custo_medido": 7,
@@ -4570,7 +5115,7 @@
             "degrau": 2,
             "nome": "REGISTADA",
             "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-            "quantas": 18,
+            "quantas": 20,
             "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
             "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
           },
@@ -4593,7 +5138,7 @@
         ],
         "por_tipo": {},
         "candidatas": [],
-        "nao_verificadas": 5
+        "nao_verificadas": 10
       },
       "file_count": 3,
       "paises": {},
@@ -8466,7 +9011,7 @@
           "pasta": "build",
           "prova": {
             "file": "candidatas/registry_censo.py",
-            "line": 377,
+            "line": 472,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -11619,7 +12164,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italy-agricultural-sources-discovery-dfba81",
-        "HEAD 0a30bffea142a0b481f68bb971ac2c4663fb7b68"
+        "HEAD 6eba72b8a5ad41845e221b4b4bfc62b472e32769"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12437,7 +12982,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 376,
+          "line": 434,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\""
         }
       ]
@@ -14725,7 +15270,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 250,
+          "line": 308,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\""
         }
       ]
@@ -14764,7 +15309,7 @@
       "evidence": [
         {
           "file": "tests/test_source_registry.py",
-          "line": 228,
+          "line": 248,
           "snippet": "p = RAIZ / \"candidatas\" / \"ITALY-SOURCE-MASTER-V1.json\""
         }
       ]
@@ -15115,12 +15660,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 575,
+          "line": 633,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 576,
+          "line": 634,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
         }
       ]
@@ -15989,12 +16534,12 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 425,
+          "line": 483,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\""
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 454,
+          "line": 512,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\","
         }
       ]
@@ -16033,7 +16578,7 @@
       "evidence": [
         {
           "file": "tests/test_source_registry.py",
-          "line": 242,
+          "line": 262,
           "snippet": "(RAIZ / \"candidatas\" / \"fonte_nova.py\").read_text(encoding=\"utf-8\")"
         }
       ]
@@ -16838,7 +17383,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 485,
+          "line": 543,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
         }
       ]
@@ -17101,12 +17646,12 @@
       "evidence": [
         {
           "file": "tests/test_source_registry.py",
-          "line": 47,
+          "line": 67,
           "snippet": "p = PROVA / \"censo.json\""
         },
         {
           "file": "tests/test_source_registry.py",
-          "line": 146,
+          "line": 166,
           "snippet": "p = PROVA / \"colisoes.json\""
         }
       ]
@@ -19178,7 +19723,7 @@
   "UNCLAIMED_CODE_FILES": [
     ".github/workflows/scrap-social.yml"
   ],
-  "UNCLAIMED_FILES_COUNT": 700,
+  "UNCLAIMED_FILES_COUNT": 701,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 102,
@@ -19190,7 +19735,7 @@
     "edges_proven": 354,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1248,
+    "files_tracked": 1249,
     "files_covered": 548,
     "files_code_unclaimed": 1
   }

@@ -90,6 +90,36 @@ def expandir_faixas(texto):
     return fora
 
 
+def sem_parenteses(s: str) -> str:
+    """Tira o que esta entre parenteses, e deixa a lista de identidades.
+
+    ⚠️ ESTA E A SETIMA VOLTA DESTA REGRA, e cada volta consertou um lado sem
+    ver o outro. O atlas declara identidade em quatro formas, e todas na MESMA
+    linha `SOURCE_ID:`:
+
+        IT-T11-001                                       uma
+        ES-T7-001..027                                   faixa de 27
+        FR-T9-001 / ES-T9-001 / IT-T9-001 (mesma natureza)   tres paises
+        IT-T11-001 (EIMA) · FR-T11-001 (Vinitech-SIFEL)      duas, com nota
+
+    Ler a linha inteira fazia um numero MENCIONADO num parentese herdar a
+    ficha alheia. Ler so' o primeiro token perdia as outras tres formas — e
+    foi assim que eu criei uma ficha redundante para `IT-T11-001`, que ja
+    existia na forma com nota, e a trava de duplicata apanhou-me.
+
+    A regra que serve as quatro: apagar os parenteses, extrair o que sobra.
+    """
+    fora, prof = [], 0
+    for c in s:
+        if c in "([{":
+            prof += 1
+        elif c in ")]}":
+            prof = max(0, prof - 1)
+        elif prof == 0:
+            fora.append(c)
+    return "".join(fora)
+
+
 def ler_tabelas(texto):
     """IDs declarados em TABELA de estado — emissao com menos detalhe.
 
@@ -119,6 +149,7 @@ def ler_tabelas(texto):
             "SOURCE_NAME": " · ".join(x for x in cels[1:3] if x)[:160],
             "SOURCE_OWNER": "", "COUNTRY": "", "TERRITORY": ids[0].split("-")[1],
             "URL": "", "URLS_TODAS": "", "URLS_NA_PROSA": "", "DERIVA_DE": "",
+            "SUPERSEDED_BY": "", "SUPERSEDES": "",
             "VERDICT": (cels[-1] if len(cels) > 2 else "")[:90],
             "EVIDENCE_PATH": "", "IDS_NO_MESMO_BLOCO": ids[0],
             "TEM_CERCA_DECLARADA": "TABELA_DE_ESTADO",
@@ -135,6 +166,14 @@ def ler_tabelas(texto):
 # existiram — incluindo `IT-T12-001`, que nao tem ficha nenhuma.
 PREAMBULO_EXEMPLO = re.compile(r"^Exemplos?:.*", re.M)
 
+# Campos que APONTAM para outra identidade. A linha inteira sai da extracao de
+# IDs — mas o valor fica guardado, porque e' ele que resolve os pares
+# «mesma fonte, dois numeros» sem apagar nenhum.
+REF_CRUZADA = re.compile(
+    r"^(?:DERIVA_DE|DERIVES_FROM|SUPERSEDED_BY|SUPERSEDES|SUBSTITUIDA_POR|"
+    r"SUBSTITUI|VER_TAMBEM|SEE_ALSO|RELACIONADA_A)\s*:.*(?:\n[ \t]+\S.*)*",
+    re.M)
+
 
 def ler_atlas(texto):
     """Uma ficha por bloco `#### `, e os CAMPOS saem so' da cerca declarada.
@@ -149,16 +188,69 @@ def ler_atlas(texto):
     atlas os declara (26 dos 29 blocos tem-na). Rota que nao esteja na cerca
     NAO conta para identidade — fica em URLS_NA_PROSA, para leitura.
     """
+    # ⚠️ LER CERCAS, NAO BLOCOS `#### `. Este leitor partia o texto em blocos
+    # de titulo nivel 4 — e as fichas que vivem sob `### ` ficavam invisiveis.
+    # Efeito medido: `EU-T8-001` e `FR-T11-001` apareciam como «citados e nunca
+    # emitidos» quando estao declarados, em forma agrupada, numa cerca sob
+    # `### `. O censo dizia 255 e o atlas montado tinha 257. O montador, o
+    # verificador e o scanner leem cercas; este passa a ler o mesmo.
     fora = []
-    for p in re.split(r"\n(?=#### )", texto):
-        if not p.startswith("#### "):
+    blocos = []
+    linhas = texto.splitlines()
+    dentro, campos, inicio = False, [], 0
+    for n, cru in enumerate(linhas):
+        if cru.strip().startswith("```"):
+            if dentro:
+                topo = inicio
+                while topo > 0 and not linhas[topo].lstrip().startswith("#"):
+                    topo -= 1
+                blocos.append(("\n".join(linhas[topo:n + 1]),
+                               "\n".join(campos),
+                               linhas[topo].lstrip("# ").strip()))
+                dentro, campos = False, []
+            else:
+                dentro, campos, inicio = True, [], n
             continue
-        titulo = p.splitlines()[0].removeprefix("#### ").strip()
-        cerca = re.search(r"^#### .*?\n+```\n(.*?)\n```", p, re.S)
-        decl = cerca.group(1) if cerca else ""
-        # os IDs da ficha vem do titulo e da cerca — nunca da prosa
-        cabeca = titulo + "\n" + decl
-        ids = list(dict.fromkeys(ID.findall(cabeca) + expandir_faixas(cabeca)))
+        if dentro:
+            campos.append(cru)
+
+    for p, decl, titulo in blocos:
+        # ⚠️ REFERENCIA CRUZADA NAO E DECLARACAO DE IDENTIDADE, e confundir as
+        # duas inventou uma colisao inteira. A ficha `ES-T4-003` escreve
+        #     SUPERSEDED_BY: ES-T4-005 (MISSAO 07)
+        # e o leitor original lia `ES-T4-005` dentro da cerca da 003 e atribuia
+        # a 005 os campos da 003 — nome, rota e tudo. Resultado: `ES-T4-005`
+        # aparecia com DUAS fontes diferentes e entrava na lista de colisoes.
+        # Nunca foi colisao: era o atlas a dizer, corretamente, que uma ficha
+        # substitui a outra.
+        #
+        # O atlas tem TRES campos de ligacao entre identidades, e nenhum deles
+        # emite identidade nova:
+        #     DERIVA_DE       mesma fonte, recorte proprio
+        #     SUPERSEDED_BY   esta ficha foi substituida por aquela
+        #     SUPERSEDES      o inverso
+        # ⚠️ E O SEXTO DEFEITO, QUE SOBREVIVEU A TODOS OS OUTROS CONSERTOS.
+        # Eu extraia IDs de TODA a cerca. Uma ficha que MENCIONA outro numero
+        # num campo qualquer — «cruza com IT-T4-001», «ver IT-T10-001» — fazia
+        # esse numero herdar os campos DESTA ficha. Efeito medido: no blob
+        # `e4845ccfeaac`, o `IT-T4-001` aparecia com a ARPAV E com o Ministero,
+        # e o `IT-T10-001` com a ARPAV E com o ISTAT — um padrao de desvio de
+        # um bloco. Mas eu abri aquele atlas a mao: a ficha do IT-T4-001 diz
+        # Ministero, sem ambiguidade. A colisao era minha, nao dele.
+        #
+        # A regra certa e' estreita e obvia depois de escrita:
+        #     UM ID E' DECLARADO PELA LINHA `SOURCE_ID:`, NAO POR APARECER
+        #     NA FICHA.
+        # Excluir campos de referencia um a um seria uma lista infinita —
+        # qualquer campo novo reintroduziria o defeito.
+        linha_id = re.search(r"^SOURCE_ID:\s*(.+?)\s*$", decl, re.M)
+        fonte_dos_ids = sem_parenteses(
+            (linha_id.group(1) if linha_id else titulo).split("#")[0])
+        ids = list(dict.fromkeys(ID.findall(fonte_dos_ids)
+                                 + expandir_faixas(fonte_dos_ids)))
+        if not ids:                       # ficha sem campo: cai no titulo
+            ids = list(dict.fromkeys(ID.findall(titulo)
+                                     + expandir_faixas(titulo)))
         if not ids:
             continue
 
@@ -170,11 +262,12 @@ def ler_atlas(texto):
             return ""
         urls_decl = re.findall(r"https?://[^\s)\]`<>\"']+", decl)
         urls_prosa = re.findall(r"https?://[^\s)\]`<>\"']+",
-                                p[len(titulo):] if not cerca else
                                 p.replace(decl, ""))
         # `DERIVA_DE` e' o mecanismo que o atlas JA TEM para «mesma fonte,
         # recorte proprio». O §8 manda nao inventar alias — nao e' preciso.
         deriva = campo("DERIVA_DE", "DERIVES_FROM")
+        substituida = campo("SUPERSEDED_BY", "SUBSTITUIDA_POR")
+        substitui = campo("SUPERSEDES", "SUBSTITUI")
         for i in ids:
             fora.append({
                 "SOURCE_ID": i,
@@ -186,11 +279,13 @@ def ler_atlas(texto):
                 "URLS_TODAS": " | ".join(dict.fromkeys(urls_decl))[:400],
                 "URLS_NA_PROSA": " | ".join(dict.fromkeys(urls_prosa))[:300],
                 "DERIVA_DE": deriva,
+                "SUPERSEDED_BY": substituida,
+                "SUPERSEDES": substitui,
                 "VERDICT": campo("VERDICT", "VEREDITO"),
                 "EVIDENCE_PATH": campo("EVIDENCE_PATH", "REAL_EXAMPLE",
                                        "EXEMPLO_REAL"),
                 "IDS_NO_MESMO_BLOCO": " ".join(ids),
-                "TEM_CERCA_DECLARADA": "SIM" if cerca else "NAO",
+                "TEM_CERCA_DECLARADA": "SIM",
                 "TITULO_DO_BLOCO": titulo[:120],
             })
     return fora
@@ -219,7 +314,7 @@ def ler_json(texto):
                                      or sid.split("-")[1]),
                     "URL": str(o.get("URL") or o.get("URL_CANONICAL")
                                or o.get("url") or "")[:300],
-                    "URLS_TODAS": "",
+                    "URLS_TODAS": "", "SUPERSEDED_BY": "", "SUPERSEDES": "",
                     "VERDICT": str(o.get("VERDICT") or o.get("QUALITY_CLASS")
                                    or o.get("ESTADO") or "")[:80],
                     "EVIDENCE_PATH": str(o.get("EVIDENCE_PATH")
@@ -368,7 +463,7 @@ def main():
     # ── 4 · ESCREVER A PROVA ──────────────────────────────────────────────
     cab = ["SOURCE_ID", "SOURCE_NAME", "SOURCE_OWNER", "COUNTRY", "TERRITORY",
            "URL", "URLS_TODAS", "URLS_NA_PROSA", "DERIVA_DE",
-           "TEM_CERCA_DECLARADA", "VERDICT", "EVIDENCE_PATH", "FILE", "BLOB",
+           "SUPERSEDED_BY", "SUPERSEDES", "TEM_CERCA_DECLARADA", "VERDICT", "EVIDENCE_PATH", "FILE", "BLOB",
            "REFS", "N_REFS", "IDS_NO_MESMO_BLOCO", "TITULO_DO_BLOCO",
            "FIRST_ASSIGNMENT_COMMIT", "FIRST_ASSIGNMENT_DATE",
            "FIRST_ASSIGNMENT_FILE", "FIRST_ASSIGNMENT_BRANCH",

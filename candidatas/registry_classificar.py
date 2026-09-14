@@ -163,6 +163,48 @@ def main():
                   if x.split("-")[0] == i.split("-")[0]
                   and x.split("-")[1] == i.split("-")[1]}
 
+        # ⚠️ TRES COISAS DIFERENTES ESTAVAM A ENTRAR COMO «MESMA FONTE», e
+        # nenhuma das tres era. Medido em 14/09/2026 nos «33 pares»:
+        #
+        #   1 · MEMBROS DA MESMA FAIXA. `ES-T7-001..027` e' UMA ficha que
+        #       declara 27 fontes da mesma natureza — 27 orgaos de imprensa
+        #       tecnica, nao 27 copias de um. Ligar-los com DERIVA_DE seria
+        #       exatamente o que o §8 proibe.
+        #   2 · MESMO DONO, FONTES DIFERENTES. `IT-T10-004` e' o registo do
+        #       VINHO (Cantina Italia) e `IT-T10-005` o do AZEITE (Frantoio
+        #       Italia): mesmo ICQRF, mesmo portal, produtos diferentes.
+        #   3 · NOME TIRADO DA PROSA. `IT-T3-003` (SIMFITO Campania) e
+        #       `IT-T3-010` (APOL Lecce) casaram porque o meu leitor apanhou
+        #       uma referencia de ficheiro como nome.
+        #
+        # Regra nova: irmao exige ROTA igual E dono compativel, e nunca vale
+        # entre membros de uma faixa.
+        mesma_faixa = {x for x in irmaos
+                       if any(i in (r.get("IDS_NO_MESMO_BLOCO") or "").split()
+                              and x in (r.get("IDS_NO_MESMO_BLOCO") or "").split()
+                              for r in regs)}
+        irmaos -= mesma_faixa
+        donos_meus = {(r.get("SOURCE_OWNER") or "").strip().lower()
+                      for r in recs if r.get("SOURCE_OWNER")}
+        confirmados = set()
+        for x in irmaos:
+            rx = por_id[x]
+            rotas_x = {rota(r["URL"]) for r in rx if r.get("URL")}
+            rotas_i = {rota(r["URL"]) for r in recs if r.get("URL")}
+            if not (rotas_x and rotas_i and rotas_x & rotas_i):
+                continue                      # sem rota comum, nao decide
+            nomes_x = {norm_nome(r.get("SOURCE_NAME")) for r in rx}
+            nomes_i = {norm_nome(r.get("SOURCE_NAME")) for r in recs}
+            if not (nomes_x & nomes_i):
+                continue                      # rota igual e nome diferente ->
+                                              # mesmo dono, outra fonte
+            donos_x = {(r.get("SOURCE_OWNER") or "").strip().lower()
+                       for r in rx if r.get("SOURCE_OWNER")}
+            if donos_meus and donos_x and not (donos_meus & donos_x):
+                continue
+            confirmados.add(x)
+        irmaos = confirmados
+
         # o mesmo numero em fontes diferentes?
         rotas = {rota(r["URL"]) for r in recs if r.get("URL")}
         nomes = {norm_nome(r.get("SOURCE_NAME")) for r in recs

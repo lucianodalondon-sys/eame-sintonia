@@ -38,9 +38,29 @@ ID = re.compile(r"\b(?:IT|ES|FR|EU|XX|PT|DE)-T\d{1,2}-\d{3}\b")
 # Nao e' um alvo a bater: e' o retrato do dia em que se mediu. Se a populacao
 # encolher, alguem perdeu identidade — e isso e' o que este numero apanha.
 EMITIDOS_EM_2026_09_14 = 255
-COLISOES_VIVAS_CONHECIDAS = {
-    "ES-T4-005", "IT-T4-001", "IT-T10-001", "IT-T10-002", "IT-T10-003",
-}
+# As TRES colisoes de identidade REAIS, decididas por gente em 14/09/2026:
+#   IT-T10-001 -> ARPAV          (nao ISMEA, que ja' e' IT-T10-007)
+#   IT-T10-002 -> OpenStreetMap  (nao BMTI)
+#   IT-T10-003 -> ISTAT Distribuzione (nao o coeweb, encerrado)
+COLISOES_DECIDIDAS = {"IT-T10-001", "IT-T10-002", "IT-T10-003"}
+
+# ⚠️ E DUAS QUE O DETETOR CHAMA DE COLISAO E NAO SAO — diagnostico medido:
+# sao a MESMA fonte descrita em DOIS ficheiros, um pela pagina e outro pela
+# API. `ES-T3-001` e' o RAIF da Andaluzia (atlas: pagina do dataset;
+# contratos: endpoint da API) e `FR-T4-001` e' o E-Phy da ANSES (idem). O
+# padrao e' o do `ES-T4-005`: SAME_SOURCE_MULTIPLE_ROUTES. O classificador
+# compara nome+rota e conta «nomes diferentes» quando um ficheiro usa o titulo
+# do dataset e o outro o nome do dono.
+#
+# Ficam aqui LISTADAS, e nao apagadas: a proxima missao afina o classificador
+# para as reclassificar, e ate la' o teste continua a guardar contra uma
+# SEXTA aparecer.
+FALSOS_POSITIVOS_A_RECLASSIFICAR = {"ES-T3-001", "FR-T4-001"}
+
+# `IT-T4-001` e `ES-T4-005` sairam da lista: medido que NUNCA estiveram em
+# disputa — eram defeitos do leitor (ID mencionado na ficha alheia, e campo
+# `SUPERSEDED_BY` lido como declaracao).
+COLISOES_VIVAS_CONHECIDAS = COLISOES_DECIDIDAS | FALSOS_POSITIVOS_A_RECLASSIFICAR
 
 
 def _censo():

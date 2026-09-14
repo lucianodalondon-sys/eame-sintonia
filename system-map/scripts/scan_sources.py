@@ -173,6 +173,64 @@ def do_atlas() -> list[dict]:
     # filtro, o mapa passaria a contar 30 fontes e uma delas seria um formulario
     # vazio — e um numero inflado e pior do que um numero pequeno.
     RE_ID = re.compile(r"^(EU|FR|ES|IT)-T\d{1,2}-\d{3}$")
+    # ── A FAIXA E POPULACAO, NAO DOIS NUMEROS ─────────────────────────────
+    # O atlas declara `SOURCE_ID: ES-T7-001..027` — UMA ficha, 27 identidades
+    # (27 orgaos de imprensa tecnica e associacoes, nao 27 copias de um). O
+    # regex acima nao entende `..`, e por isso as 27 existiam no atlas e NAO
+    # no mapa: uma ficha em vez de vinte e sete. Expandir aqui nao
+    # reinterpreta identidade nenhuma — le o que o atlas ja declarava.
+    RE_FAIXA = re.compile(r"^(EU|FR|ES|IT)-T(\d{1,2})-(\d{3})\.\.(\d{3})$")
+
+    # ── E A FICHA MULTI-PAIS TAMBEM DECLARA VARIOS NUMEROS ────────────────
+    # O atlas escreve, numa unica linha:
+    #     SOURCE_ID:  FR-T9-001 / ES-T9-001 / IT-T9-001 (mesma natureza)
+    #     SOURCE_ID:  EU-T9-002 (uma ficha, quatro recortes: EU · ES · IT · FR)
+    # O regex ancorado nao casa a linha inteira e SALTAVA a ficha toda: quatro
+    # identidades existiam no atlas e nao no mapa. O pais de cada uma sai do
+    # PREFIXO do proprio ID — que e' a convencao declarada no preambulo do
+    # atlas — e nao do campo COUNTRY partilhado, que nomeia os tres.
+    RE_SOLTO = re.compile(r"\b(EU|FR|ES|IT)-T\d{1,2}-\d{3}(?:\.\.\d{3})?\b")
+
+    def sem_parenteses(s: str) -> str:
+        """O que esta entre parenteses e nota, nao identidade."""
+        fora, prof = [], 0
+        for c in s:
+            if c in "([{":
+                prof += 1
+            elif c in ")]}":
+                prof = max(0, prof - 1)
+            elif prof == 0:
+                fora.append(c)
+        return "".join(fora)
+
+    def expandir(sid: str) -> list[str]:
+        # ⚠️ O MODELO DE FICHA EM BRANCO NAO E UMA FONTE, e eu quase o
+        # transformei numa. O atlas oferece, sob «## FICHA OBRIGATORIA DA
+        # FONTE», uma cerca para copiar, com `SOURCE_ID: # ex.: FR-T3-001`. O
+        # regex ancorado original rejeitava-a de graca; o meu, mais largo para
+        # ler faixas e fichas multi-pais, passou a encontrar o `FR-T3-001` do
+        # COMENTARIO e a reclamar o modelo como ficha — criando uma duplicata
+        # com a ficha verdadeira do BSV. A trava apanhou-me, e foi ela que
+        # apontou o sitio.
+        #
+        # Regra: o que vem depois de `#` na linha e' comentario, nao identidade.
+        sid = sid.split("#")[0]
+        fora = []
+        for pedaco in RE_SOLTO.finditer(sem_parenteses(sid)):
+            token = pedaco.group(0)
+            m = RE_FAIXA.match(token)
+            if m:
+                pais, terr = m.group(1), m.group(2)
+                a, b = int(m.group(3)), int(m.group(4))
+                if 0 < b - a <= 200:
+                    fora += [f"{pais}-T{terr}-{n:03d}" for n in range(a, b + 1)]
+                    continue
+            fora.append(token)
+        return list(dict.fromkeys(fora)) or [sid]
+
+    fontes = [{**f, "SOURCE_ID": novo}
+              for f in fontes
+              for novo in expandir(f["SOURCE_ID"].strip())]
     saida = []
     # ── A TRAVA CONTRA A SOBRESCRITA SILENCIOSA ───────────────────────────
     # O `SOURCE_ID` e identidade. Duas fichas com o mesmo numero nao sao um
