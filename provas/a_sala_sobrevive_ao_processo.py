@@ -733,20 +733,51 @@ def main():
     _psql(url, "insert into public.collection_run (run_id, platform, started_at, "
                "rule_version) values ('RUN-AMBIGUO','prova', now(),'v1') "
                "on conflict do nothing;", ler=False)
-    # `admissao.decidir()` devolve "?" quando o item nao traz id nem url.
-    sem_id = [{"texto": "Ensaio um com DOI", "source_id": "IT-T7-001",
-               "fact_time": "2026-05-02", "raw_asset_id": observacao},
-              {"texto": "Ensaio dois com DOI", "source_id": "IT-T7-001",
-               "fact_time": "2026-05-02", "raw_asset_id": observacao}]
+    # ⚠️ ESTE BLOCO MONTAVA A AMBIGUIDADE COM ITENS SEM `id`, E ISSO DEIXOU
+    # DE PASSAR A PORTA. `COL-LAW-034` fechou-a nesta mesma linha funcional, e
+    # a `031` ate o escreve por extenso: «ele pode valer "?"» deixou de ser
+    # verdade. O comentario aqui ainda dizia o contrario, e a prova morria com
+    # `item NAO SEI nao passou a porta (NAO_SEI)` — medido no CI, na base,
+    # ANTES desta missao.
+    #
+    #     UMA PROVA QUE MONTA O CENARIO POR UMA PORTA QUE FECHOU
+    #     DEIXA DE MEDIR O QUE ELA GUARDAVA.
+    #
+    # O que ela guarda e o ATAQUE 26: retirar por um `ITEM_ID` ambiguo tem de
+    # ser RECUSADO. A ambiguidade continua a existir, e agora nasce por um
+    # caminho LEGITIMO — dois itens que a fonte nomeou igual. Isso acontece no
+    # mundo real e e exactamente o caso que o ataque existe para apanhar.
+    mesma_morada = [{"id": "doc-repetido", "texto": "Ensaio um com DOI",
+                     "source_id": "IT-T7-001", "fact_time": "2026-05-02",
+                     "raw_asset_id": observacao,
+                     "captured_at": "2026-05-03T00:00:00Z"},
+                    {"id": "doc-repetido", "texto": "Ensaio dois com DOI",
+                     "source_id": "IT-T7-001", "fact_time": "2026-05-02",
+                     "raw_asset_id": observacao,
+                     "captured_at": "2026-05-03T00:00:00Z"}]
     dois = [adm.pronto_para_inteligencia(b, adm.decidir(b, "T5", corrida="RUN-AMBIGUO"))
-            for b in sem_id]
-    caso("dois itens sem id trazem o MESMO ITEM_ID",
-         [x["ITEM_ID"] for x in dois], ["?", "?"])
+            for b in mesma_morada]
+    caso("dois itens que a fonte nomeou igual trazem o MESMO ITEM_ID",
+         [x["ITEM_ID"] for x in dois], ["doc-repetido", "doc-repetido"])
+    # E a lei NOVA ganha caso proprio, em vez de desaparecer com a antiga:
+    # sem `id` e sem `url`, o item NAO entra.
+    try:
+        adm.pronto_para_inteligencia(
+            {"texto": "sem morada", "source_id": "IT-T7-001",
+             "fact_time": "2026-05-02", "raw_asset_id": observacao},
+            adm.decidir({"texto": "sem morada", "source_id": "IT-T7-001",
+                         "fact_time": "2026-05-02", "raw_asset_id": observacao},
+                        "T5", corrida="RUN-AMBIGUO"))
+        entrou_sem_morada = True
+    except ValueError:
+        entrou_sem_morada = False
+    caso("COL-LAW-034 · item sem id e sem url NAO passa a porta",
+         entrou_sem_morada, False)
     espera.pousar("RUN-AMBIGUO", dois)
     caso("e os dois pousaram, sem nenhum ser deitado fora",
          len(espera.ler("RUN-AMBIGUO")["ITENS"]), 2)
     try:
-        espera.retirar("RUN-AMBIGUO", "?", por="prova"); retirou = True
+        espera.retirar("RUN-AMBIGUO", "doc-repetido", por="prova"); retirou = True
     except espera.ItemAmbiguo:
         retirou = False
     caso("ataque 26 · retirar por ITEM_ID ambiguo e RECUSADO", retirou, False)
