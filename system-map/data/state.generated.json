@@ -167,6 +167,7 @@
     ],
     "coleta": [
       "coleta/agrifood_ue.py",
+      "coleta/canal_compradores.py",
       "coleta/canal_mercado.py",
       "coleta/cellar.sh",
       "coleta/coleta_checkpoint.py",
@@ -210,7 +211,30 @@
       "data/collection-ledger/italy/observations.ndjson",
       "data/collection-ledger/italy/runs.ndjson",
       "data/collection-store/.gitattributes",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2015/v1_4ed4f0b0ef47/vendita_agrofarmaci_veneto_2015.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2016/v1_02a2c4c8fb80/vendita_agrofarmaci_veneto_2016.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2017/v1_03e069a564d7/vendita_agrofarmaci_veneto_2017.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2018/v1_31ce67d5dfd9/vendita_agrofarmaci_veneto_2018.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2019/v1_eccb42b26157/vendita_agrofarmaci_veneto_2019.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2020/v1_d1bd785658bd/vendita_agrofarmaci_veneto_2020.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2021/v1_a9c2a3bdda75/vendita_agrofarmaci_veneto_2021.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2022/v1_c00d1e3e4195/vendita_agrofarmaci_veneto_2022.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2023/v1_7383b04c3a9e/vendita_agrofarmaci_veneto_2023.csv",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2024/v1_2f27ea4780b9/vendita_agrofarmaci_veneto_2024.csv",
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv",
+      "data/collection-store/italy/IT-T10-002/OSM_name_Consorzio_Agrario/v1_500c8edaf69a/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_name_Consorzio_Agrario/v1_89019e165e0a/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_name_Consorzio_Agrario/v1_c7307049456c/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_agrarian/v1_59eb40cbef9d/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_agrarian/v1_d1ef6a4ab154/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_agrarian/v1_eee701e40758/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_farm/v1_3991b7398a4a/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_farm/v1_435097a55098/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_farm/v1_7156234fa979/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_farm/v1_93225989aeb7/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_22967f8e444b/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_2d2b04dd7d33/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_5a2ee6c41441/overpass.json",
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
@@ -457,15 +481,17 @@
       "data/samples/IT-V2/IT-V2-CANONICO.json",
       "data/samples/IT-V2/IT-V2-CONFLITOS.json",
       "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
+      "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
       "data/samples/IT-VENETO-CANALE/DIM-PRODUTO.json",
       "data/samples/IT-VENETO-CANALE/DIM-TERRITORIO.json",
       "data/samples/IT-VENETO-CANALE/DIM-TITOLARE.json",
       "data/samples/IT-VENETO-CANALE/FATO-FORCA-DE-MARCA.json",
       "data/samples/IT-VENETO-CANALE/FATO-OPORTUNIDADE.json",
       "data/samples/IT-VENETO-CANALE/FATO-VENDA-DECLARADA.json",
-      "data/samples/IT-VENETO-CANALE/IT-VENETO-OSM-PONTOS-CANAL.json",
       "data/samples/IT-VENETO-CANALE/MANIFESTO-DAS-TABELAS.json",
       "data/samples/IT-VENETO-CANALE/PACOTE-RTV-POR-PROVINCIA.json",
+      "data/samples/IT-VENETO-CANALE/SERIE-POR-ANO.json",
+      "data/samples/IT-VENETO-CANALE/SONDAGEM-DE-FONTES-GRATIS.json",
       "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
       "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
       "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
@@ -1114,6 +1140,7 @@
       "research/veneto-clients/ESTUDO-DA-ABA-CANAL-E-MERCADO.md",
       "research/veneto-clients/FICHA-DO-COMPRADOR-CONTRATO.json",
       "research/veneto-clients/METODOS-PARA-LISTA-DE-COMPRADORES.md",
+      "research/veneto-clients/O-QUE-O-GRATIS-DEU.md",
       "research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md",
       "research/veneto-clients/VENETO-CLIENTI-CANDIDATI.json",
       "research/veneto-clients/VENETO-COMPRADORES-SEED.json"
@@ -1229,8 +1256,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 549 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 3. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 549 ficheiros e 3 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 574 ficheiros (86%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 4. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 574 ficheiros e 4 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1238,8 +1265,8 @@
     },
     {
       "id": "duas-listas-de-fontes",
-      "titulo": "51 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
-      "texto": "24 tem ficha no atlas, 54 estao no levantamento italiano, 3 estao nos dois. 51 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
+      "titulo": "50 fontes foram levantadas em Italia e nunca ganharam ficha no atlas.",
+      "texto": "25 tem ficha no atlas, 54 estao no levantamento italiano, 4 estao nos dois. 50 foram levantadas em Italia e nunca ganharam ficha no atlas — e o atlas e o registo canonico.",
       "porque_importa": "O levantamento italiano tem campos que o atlas nao tem — o dono normalizado, o papel da fonte, e o melhor de todos: o que ela NAO prova. Mas nasceu ao lado do atlas, e nao dentro dele. Duas listas a responder «que fontes temos» sao duas verdades, e a segunda envelhece calada.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1249,7 +1276,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 18 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 40 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1258,8 +1285,8 @@
     },
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
-      "titulo": "23 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 18 corridas registadas, e o país delas é: ES 10 · IT 5 · NAO SEI 3. Elas trouxeram 56986 itens e 2963 atravessaram a régua. As outras 23 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "titulo": "24 fontes nunca foram coletadas. Todas as corridas foram num país só.",
+      "texto": "Há 40 corridas registadas, e o país delas é: ES 10 · IT 27 · NAO SEI 3. Elas trouxeram 248862 itens e 2963 atravessaram a régua. As outras 24 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1267,22 +1294,22 @@
     },
     {
       "id": "parado-na-coleta",
-      "titulo": "7 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "titulo": "8 artefatos da coleta nunca chegaram a inteligencia.",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · DIM-PONTO-DE-CANAL.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
+        "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
-        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json",
-        "research/adama-italy-product-intelligence-deep/EU-SOURCE-540-2011.json"
+        "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
       ]
     },
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "14 coletores gravam registo sem data nem lugar.",
-      "texto": "14 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1605,8 +1632,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cool-dijkstra-4agznu",
-    "HEAD": "6d331fde085a5ad8bc3ef307f086b0589c342322",
-    "GENERATED_AT": "2026-09-14T00:48:58+00:00"
+    "HEAD": "392877656b6b8b1992358b495710497ae4147802",
+    "GENERATED_AT": "2026-09-14T01:15:26+00:00"
   },
   "FAMILIES": [
     {
@@ -1628,7 +1655,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 38
+      "count": 39
     },
     {
       "id": "F-ESPERA",
@@ -1781,7 +1808,7 @@
       "y": 190,
       "w": 820,
       "h": 1972,
-      "count": 9
+      "count": 10
     },
     {
       "id": "Z-ADMISSAO",
@@ -2304,7 +2331,7 @@
       "status": "PENDING",
       "ui_status": "yellow",
       "proof": "document",
-      "what": "O capital parado da casa: 24 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
+      "what": "O capital parado da casa: 25 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.",
       "why_here": "Nada existe no SINTONIA sem passar por aqui primeiro. Uma fonte so entra depois de alguem a abrir, olhar o que ela entrega e guardar evidencia disso — e coleta nenhuma comeca sem consultar o que ja esta aqui.",
       "files": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2312,14 +2339,14 @@
         "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
       ],
       "facts": [
-        "bases oficiais com ficha: 24",
+        "bases oficiais com ficha: 25",
         "dessas, a maquina sabe buscar sozinha: 6",
         "contas publicas mapeadas: 44",
         "dessas, autorizadas a coletar: 22",
         "palavras de busca medidas no codigo: 103",
         "enderecos que o codigo realmente chama: 40"
       ],
-      "status_reason": "24 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 6 das bases tem contrato de busca escrito: nas outras 18, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
+      "status_reason": "25 bases oficiais com ficha e 44 contas publicas mapeadas. Mas so 6 das bases tem contrato de busca escrito: nas outras 19, hoje so uma pessoa consegue ir la — a maquina nao. Enquanto isso for verdade, isto nao pode ser verde.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -2348,7 +2375,7 @@
       "groups": [
         {
           "titulo": "BASES OFICIAIS E ABERTAS",
-          "subtitulo": "24 fichas no atlas · 6 com contrato de busca escrito",
+          "subtitulo": "25 fichas no atlas · 6 com contrato de busca escrito",
           "porque": "Registro publico, dado aberto, base regulatoria, estatistica e ciencia. Fonte que nao depende de ninguem ter postado.",
           "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
           "itens": [
@@ -2781,6 +2808,21 @@
                   "snippet": "contrato de IT-T10-001"
                 }
               }
+            },
+            {
+              "id": "IT-T10-002",
+              "nome": "OpenStreetMap, via Overpass API + Nominatim",
+              "pais": "ITALIA",
+              "assunto": "T10 · Politica e subsidio",
+              "estado": "YELLOW",
+              "estado_texto": "real, mas com atrito registrado",
+              "sabe_coletar": false,
+              "como_se_entra": "py coleta/canal_compradores.py --coletar 4 consultas: shop=agrarian · shop=garden_centre · shop=farm · name~\"Consorzio Agrario\"",
+              "dono": "comunidade OSM (base colaborativa)",
+              "url": "https://overpass.kumi.systems/api/interpreter",
+              "atualiza": "contínua e sem versão: o OSM muda a qualquer hora",
+              "exemplo": "294 pontos no Vêneto, 69 de provável canal profissional, 103 com telefone. Entre eles **25 consorzi agrari nomeados**, com comune e telefone — incluindo filiais que nem o Consorzio Agrario di Treviso e Belluno nem o do Nordest publicam. WHAT_IT_CANNOT_PROVE          que o ponto existe hoje · que ven",
+              "contrato": null
             },
             {
               "id": "IT-T3-001",
@@ -3528,14 +3570,14 @@
         }
       ],
       "header_claim": {
-        "total": 38,
+        "total": 39,
         "line": 9,
         "green": 17,
-        "yellow": 4,
+        "yellow": 5,
         "nao_sei": 17,
-        "fichas_completas": 24,
+        "fichas_completas": 25,
         "divergencia": 14,
-        "leitura": "O cabecalho do atlas diz 38 fontes registradas; fichas completas, com SOURCE_ID valido, ha 24. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
+        "leitura": "O cabecalho do atlas diz 39 fontes registradas; fichas completas, com SOURCE_ID valido, ha 25. Faltam 14 fichas — as fontes podem existir, mas sem ficha ninguem consegue saber o que elas tem."
       },
       "runs": {
         "ficheiro": "data/samples/RUN-MANIFEST.json",
@@ -4069,12 +4111,496 @@
             "erro": null,
             "prova": null,
             "bruto": null
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011133",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2015.csv/@@download/file",
+              "ano": 2015,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2015",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; 199 linhas fora do conjunto de provincias — rodape demais para ser rodape; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2015/v1_4ed4f0b0ef47/vendita_agrofarmaci_veneto_2015.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011135",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2016.csv/@@download/file",
+              "ano": 2016,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2016",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; 8 linhas fora do conjunto de provincias — rodape demais para ser rodape; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2016/v1_02a2c4c8fb80/vendita_agrofarmaci_veneto_2016.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011137",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2017.csv/@@download/file",
+              "ano": 2017,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2017",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2017/v1_03e069a564d7/vendita_agrofarmaci_veneto_2017.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011139",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2018.csv/@@download/file",
+              "ano": 2018,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2018",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2018/v1_31ce67d5dfd9/vendita_agrofarmaci_veneto_2018.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011141",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2019.csv/@@download/file",
+              "ano": 2019,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2019",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2019/v1_eccb42b26157/vendita_agrofarmaci_veneto_2019.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011143",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2020.csv/@@download/file",
+              "ano": 2020,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2020",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2020/v1_d1bd785658bd/vendita_agrofarmaci_veneto_2020.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011145",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2021.csv/@@download/file",
+              "ano": 2021,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2021",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2021/v1_a9c2a3bdda75/vendita_agrofarmaci_veneto_2021.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011146",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2022.csv/@@download/file",
+              "ano": 2022,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2022",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 0,
+            "sobrou": 0,
+            "rendimento": null,
+            "custou_usd": 0,
+            "estado": "PARTIAL",
+            "erro": "ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: campo do contrato ausente no cabecalho: 'provincia di vendita'; campo do contrato ausente no cabecalho: 'n. reg.'; campo do contrato ausente no cabecalho: 'prodotto fitosanitario venduto'; campo do contrato ausente no cabecalho: 'quantita'; provincia do Veneto sem nenhuma linha: ['BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR']; nenhuma linha de dado",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2022/v1_c00d1e3e4195/vendita_agrofarmaci_veneto_2022.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011148",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2023.csv/@@download/file",
+              "ano": 2023,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2023",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 11018,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "FAILED",
+            "erro": "campo do contrato ausente no cabecalho: 'provincia di vendita'",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2023/v1_7383b04c3a9e/vendita_agrofarmaci_veneto_2023.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011150",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2024.csv/@@download/file",
+              "ano": 2024,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2024",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10951,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2024/v1_2f27ea4780b9/vendita_agrofarmaci_veneto_2024.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011151",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10716,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011359",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2015.csv/@@download/file",
+              "ano": 2015,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2015",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 28105,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2015/v1_4ed4f0b0ef47/vendita_agrofarmaci_veneto_2015.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011401",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2016.csv/@@download/file",
+              "ano": 2016,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2016",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 17347,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2016/v1_02a2c4c8fb80/vendita_agrofarmaci_veneto_2016.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011403",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2017.csv/@@download/file",
+              "ano": 2017,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2017",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 18371,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2017/v1_03e069a564d7/vendita_agrofarmaci_veneto_2017.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011404",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2018.csv/@@download/file",
+              "ano": 2018,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2018",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 13569,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2018/v1_31ce67d5dfd9/vendita_agrofarmaci_veneto_2018.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011406",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2019.csv/@@download/file",
+              "ano": 2019,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2019",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 12893,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2019/v1_eccb42b26157/vendita_agrofarmaci_veneto_2019.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011407",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2020.csv/@@download/file",
+              "ano": 2020,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2020",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 12794,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2020/v1_d1bd785658bd/vendita_agrofarmaci_veneto_2020.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011409",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2021.csv/@@download/file",
+              "ano": 2021,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2021",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 11879,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2021/v1_a9c2a3bdda75/vendita_agrofarmaci_veneto_2021.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011410",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2022.csv/@@download/file",
+              "ano": 2022,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2022",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 11548,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": "ficheiro em cp1252, nao utf-8 — lido, mas a fonte mudou de codificacao",
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2022/v1_c00d1e3e4195/vendita_agrofarmaci_veneto_2022.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011412",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2023.csv/@@download/file",
+              "ano": 2023,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2023",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 11018,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2023/v1_7383b04c3a9e/vendita_agrofarmaci_veneto_2023.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011413",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2024.csv/@@download/file",
+              "ano": 2024,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2024",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10951,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2024/v1_2f27ea4780b9/vendita_agrofarmaci_veneto_2024.csv"
+          },
+          {
+            "run_id": "IT-T10-2026-09-14-011415",
+            "fonte": null,
+            "plataforma": "open data regional (HTTP)",
+            "quem_foi_buscar": "coleta/canal_mercado.py",
+            "com_que_parametros": {
+              "url": "https://www.arpa.veneto.it/dati-ambientali/open-data/file-e-allegati/vendite-fitosanitari/vendita_agrofarmaci_veneto_2025.csv/@@download/file",
+              "ano": 2025,
+              "regiao": "Veneto"
+            },
+            "que_pergunta": "venda declarada de fitossanitarios, Veneto 2025",
+            "pais": "IT",
+            "missao": "Canal e mercado regional",
+            "trouxe": 10716,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "data/samples/IT-VENETO-CANALE",
+            "bruto": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv"
           }
         ],
-        "total": 18,
+        "total": 40,
         "por_pais": {
           "ES": 10,
-          "IT": 5,
+          "IT": 27,
           "NAO SEI": 3
         },
         "por_plataforma": {
@@ -4084,7 +4610,7 @@
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
           "YouTube, Instagram, LinkedIn, Facebook": 1,
-          "open data regional (HTTP)": 5,
+          "open data regional (HTTP)": 27,
           "registro oficial (HTTP)": 1
         },
         "fontes_ja_coletadas": [
@@ -4115,13 +4641,14 @@
           "FR-T3-002",
           "FR-T4-001",
           "IT-T10-001",
+          "IT-T10-002",
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 17,
-        "com_custo_medido": 12,
+        "com_rendimento_medido": 31,
+        "com_custo_medido": 34,
         "custo_total_usd": 0.48,
-        "trouxe_total": 56986,
+        "trouxe_total": 248862,
         "sobrou_total": 2963
       },
       "memoria": [
@@ -4138,6 +4665,25 @@
           "separa_fonte_do_fato": true,
           "leis_que_obedece": [],
           "regista_descarte": []
+        },
+        {
+          "ficheiro": "coleta/canal_compradores.py",
+          "como_se_chama": "coleta/canal_compradores.py --coletar      puxa o OSM e geocodifica",
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
+          "carimba_lugar": [
+            "COUNTRY",
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
+          "regista_descarte": [
+            "DESCARTAD"
+          ]
         },
         {
           "ficheiro": "coleta/canal_mercado.py",
@@ -4650,7 +5196,7 @@
             "degrau": 2,
             "nome": "REGISTADA",
             "o_que_e": "tem ficha no atlas, com exemplo real guardado.",
-            "quantas": 19,
+            "quantas": 20,
             "onde": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
             "sobe_como": "escrever COMO se busca e o que fazer quando quebrar"
           },
@@ -5200,7 +5746,7 @@
       ],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 1
+        "ITALIA": 2
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -5210,7 +5756,7 @@
           "pasta": "data/samples/IT-VENETO-CANALE",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 582,
+            "line": 633,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -5218,7 +5764,7 @@
           "pasta": "data/collection-ledger",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 261,
+            "line": 330,
             "snippet": "escreve em LEDGER"
           }
         }
@@ -5236,6 +5782,85 @@
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4590,
+      "y": 360
+    },
+    {
+      "id": "C-CANAL-PONTOS",
+      "name": "Onde o comprador esta, quando a fonte oficial nao diz quem ele e",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Puxa do OpenStreetMap os pontos do canal agricola do Veneto — loja agraria, garden centre, ponto de venda de consorzio agrario — geocodifica por provincia e guarda a UNIAO do que ja foi visto, com data da primeira e da ultima vez.",
+      "why_here": "A declaracao oficial de venda e publicada agregada por provincia e OMITE o nome do vendedor. Enquanto o nome nao chega pela porta certa, a coordenada e a unica coisa que da para ter de graca e hoje — e ja localizou filiais que os proprios consorzi nao publicam. A peca vive na coleta e carrega o seu proprio limite: 294 pontos contra 531 titulares de autorizacao NAO e censo, e o artefato diz isso em vez de esconder.",
+      "departments": [
+        "FIELD_SALES",
+        "COMERCIAL",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/canal_compradores.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [
+        "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json"
+      ],
+      "inbound": [
+        "C-IT-PRESERVAR",
+        "C-PROCEDENCIA",
+        "V-HTTP"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [
+        "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json"
+      ],
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/collection-ledger",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
+            "line": 247,
+            "snippet": "escreve em LEDGER"
+          }
+        },
+        {
+          "pasta": "data/samples/IT-VENETO-CANALE",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
+            "line": 287,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 5005,
       "y": 360
     },
     {
@@ -5602,8 +6227,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 360
+      "x": 4590,
+      "y": 682
     },
     {
       "id": "C-COLETA-INSTAGRAM",
@@ -5659,7 +6284,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5005,
       "y": 682
     },
     {
@@ -5725,8 +6350,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 682
+      "x": 4590,
+      "y": 1004
     },
     {
       "id": "C-COLETA-YOUTUBE",
@@ -5775,7 +6400,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 4590,
+      "x": 5005,
       "y": 1004
     },
     {
@@ -5930,8 +6555,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
-      "y": 1004
+      "x": 4590,
+      "y": 1326
     },
     {
       "id": "C-DATA-CLOCK",
@@ -6168,7 +6793,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 4590,
+      "x": 5005,
       "y": 1326
     },
     {
@@ -6451,8 +7076,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 5005,
-      "y": 1326
+      "x": 4590,
+      "y": 1648
     },
     {
       "id": "C-IT-CONTAS",
@@ -6626,6 +7251,7 @@
       ],
       "outbound": [
         "C-CANAL-MERCADO",
+        "C-CANAL-PONTOS",
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA"
@@ -8001,6 +8627,7 @@
       "inbound": [],
       "outbound": [
         "C-CANAL-MERCADO",
+        "C-CANAL-PONTOS",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
@@ -8522,7 +9149,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 4590,
+      "x": 5005,
       "y": 1648
     },
     {
@@ -10709,18 +11336,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 6 acao(oes) da coleta passam por aqui.",
+      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 7 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
-        "acoes da coleta que passam por aqui: 6",
+        "acoes da coleta que passam por aqui: 7",
         "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
         "prova: coleta/agrifood_ue.py:29",
         "prova: coleta/corpus_pesquisador.py:92",
         "prova: coleta/mapa_regfi.py:42"
       ],
-      "status_reason": "6 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "7 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -10732,6 +11359,7 @@
       "inbound": [],
       "outbound": [
         "C-CANAL-MERCADO",
+        "C-CANAL-PONTOS",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-CORPUS",
@@ -10747,7 +11375,7 @@
           "ficheiro": "data/samples/IT-VENETO-CANALE/  (pasta inteira)",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 582,
+            "line": 633,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -10757,7 +11385,7 @@
           "ficheiro": "data/collection-ledger/  (pasta inteira)",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 261,
+            "line": 330,
             "snippet": "escreve em LEDGER"
           }
         },
@@ -10767,6 +11395,16 @@
           "ficheiro": "data/collection-ledger/italy/observations.ndjson",
           "prova": {
             "file": "coleta/canal_mercado.py",
+            "line": 1,
+            "snippet": ""
+          }
+        },
+        {
+          "_chave": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+          "acao": "C-CANAL-PONTOS",
+          "ficheiro": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
             "line": 1,
             "snippet": ""
           }
@@ -11379,7 +12017,7 @@
       "icon": "B",
       "facts": [
         "branch claude/cool-dijkstra-4agznu",
-        "HEAD 6d331fde085a5ad8bc3ef307f086b0589c342322"
+        "HEAD 392877656b6b8b1992358b495710497ae4147802"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13080,7 +13718,7 @@
       "evidence": [
         {
           "file": "coleta/canal_mercado.py",
-          "line": 551,
+          "line": 602,
           "snippet": "open(caminho, 'w')  # caminho = data/collection-ledger/italy/observations.ndjson"
         }
       ]
@@ -14550,13 +15188,35 @@
       "evidence": [
         {
           "file": "coleta/canal_mercado.py",
-          "line": 260,
+          "line": 329,
           "snippet": "for ficheiro, linha in (('observations.ndjson', obs), ('runs.ndjson', corrida)):"
         },
         {
           "file": "coleta/canal_mercado.py",
-          "line": 340,
-          "snippet": "open(caminho, 'leitura')  # caminho = data/collection-ledger/italy/observations.ndjson"
+          "line": 810,
+          "snippet": "open(caminho, 'rb')  # caminho = data/collection-ledger/italy/observations.ndjson"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-CANAL-PONTOS",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Onde o comprador esta, quando a fonte oficial nao diz quem ele e. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/canal_compradores.py",
+          "line": 247,
+          "snippet": "with open(os.path.join(LEDGER, 'observations.ndjson'), 'a', encoding='utf-8') as f:"
+        },
+        {
+          "file": "coleta/canal_compradores.py",
+          "line": 249,
+          "snippet": "with open(os.path.join(LEDGER, 'runs.ndjson'), 'a', encoding='utf-8') as f:"
         }
       ]
     },
@@ -16099,6 +16759,23 @@
         {
           "file": "coleta/canal_mercado.py",
           "line": 64,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-CANAL-PONTOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa Onde o comprador esta, quando a fonte oficial nao diz quem ele e. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/canal_compradores.py",
+          "line": 46,
           "snippet": "import proveniencia as pv  # noqa: E402"
         }
       ]
@@ -18065,6 +18742,23 @@
     },
     {
       "from": "V-HTTP",
+      "to": "C-CANAL-PONTOS",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Onde o comprador esta, quando a fonte oficial nao diz quem ele e», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/canal_compradores.py",
+          "line": 40,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
       "to": "C-COLETA-INSTAGRAM",
       "type": "VIAJA_POR",
       "payload": "coleta",
@@ -18409,20 +19103,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 659,
+  "UNCLAIMED_FILES_COUNT": 684,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 98,
+    "components": 99,
     "components_proven": 65,
-    "components_pending": 29,
+    "components_pending": 30,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 328,
-    "edges_proven": 328,
+    "edges": 331,
+    "edges_proven": 331,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1163,
-    "files_covered": 504,
+    "files_tracked": 1190,
+    "files_covered": 506,
     "files_code_unclaimed": 0
   }
 }

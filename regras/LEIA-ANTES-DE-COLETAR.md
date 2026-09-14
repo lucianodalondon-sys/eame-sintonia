@@ -14,7 +14,7 @@ e o caminho de cada uma é onde ela realmente vive.
 O acervo de fontes é **capital parado** — consulta-se antes de coletar. Não se
 coleta para descobrir o que já se sabe.
 
-- **AS FONTES** — O capital parado da casa: 24 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
+- **AS FONTES** — O capital parado da casa: 25 bases oficiais e abertas, mais 44 contas publicas do concorrente em 4 plataformas. Consulta-se antes de coletar.
   - `docs/fontes/ATLAS-DE-FONTES-EAME.md`
   - `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md`
   - `data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json`

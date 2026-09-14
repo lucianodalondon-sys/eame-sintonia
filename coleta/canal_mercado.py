@@ -343,7 +343,7 @@ def coletar(ano):
         MISSION='Canal e mercado regional', QUERY='venda declarada de fitossanitarios, %s %d' % (REGIAO, ano),
         DATASET_ID='%s:%s' % (SOURCE_ID, versao), ITEM_COUNT_RAW=len(dados),
         ITEM_COUNT_NORMALIZED=0, COST_USD=0, SOURCE_VERSION=versao,
-        STATUS='SUCCESS' if saude != 'FAILED' else 'FAILED', ERROR='; '.join(motivos),
+        STATUS=_status_da_corrida(saude, len(dados)), ERROR=_erro_da_corrida(saude, dados, motivos),
         CAPTURE_METHOD='gratuito', EVIDENCE_PATH=os.path.relpath(SAIDA, ROOT).replace(os.sep, '/'),
         RAW_EVIDENCE_PATH=caminho, RAW_EVIDENCE_STATE='PRESERVED', OUTPUT_WRITTEN_AT=fim)
     _anexar_ao_manifesto(meu, fim)
@@ -852,6 +852,27 @@ def _ler_linhas(caminho):
                 substancias.append({'PROVINCIA': r[cs - 2].strip() if cs >= 2 else None,
                                     'SUBSTANCIA': nome, 'QUANTIDADE_KG': qs})
     return esq, registros, substancias, descartadas
+
+
+def _status_da_corrida(saude, itens):
+    """Zero item com bruto preservado e PARTIAL, nunca FAILED e nunca SUCCESS.
+
+    A regra e da casa e esta provada em tests/test_proveniencia.py: o documento existe (foi
+    guardado), o que faltou foi a leitura. Chamar isso de FAILED apaga a evidencia que esta
+    no disco; chamar de SUCCESS mente sobre o que se leu.
+    """
+    if itens == 0:
+        return 'PARTIAL'
+    if saude == 'FAILED':
+        return 'FAILED'
+    return 'SUCCESS'
+
+
+def _erro_da_corrida(saude, dados, motivos):
+    if not dados:
+        return 'ZERO itens lidos — o bruto ficou preservado, o contrato nao reconheceu o formato: %s' \
+            % '; '.join(motivos)
+    return '; '.join(motivos)
 
 
 def _anexar_ao_manifesto(run, captured_at):

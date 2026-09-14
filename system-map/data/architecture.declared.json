@@ -1757,6 +1757,24 @@
       "files": [
         "coleta/canal_mercado.py"
       ]
+    },
+    {
+      "id": "C-CANAL-PONTOS",
+      "name": "Onde o comprador esta, quando a fonte oficial nao diz quem ele e",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "views": [],
+      "what": "Puxa do OpenStreetMap os pontos do canal agricola do Veneto — loja agraria, garden centre, ponto de venda de consorzio agrario — geocodifica por provincia e guarda a UNIAO do que ja foi visto, com data da primeira e da ultima vez.",
+      "why_here": "A declaracao oficial de venda e publicada agregada por provincia e OMITE o nome do vendedor. Enquanto o nome nao chega pela porta certa, a coordenada e a unica coisa que da para ter de graca e hoje — e ja localizou filiais que os proprios consorzi nao publicam. A peca vive na coleta e carrega o seu proprio limite: 294 pontos contra 531 titulares de autorizacao NAO e censo, e o artefato diz isso em vez de esconder.",
+      "departments": [
+        "FIELD_SALES",
+        "COMERCIAL",
+        "INTELIGENCIA"
+      ],
+      "files": [
+        "coleta/canal_compradores.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [

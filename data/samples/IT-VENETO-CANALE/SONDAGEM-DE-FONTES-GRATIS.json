@@ -1,0 +1,147 @@
+{
+ "ARTIFACT_ID": "IT-VENETO-SONDAGEM-DE-FONTES-GRATIS",
+ "DATA": "2026-09-14",
+ "PERGUNTA": "puxar TUDO o que e gratis para montar a lista de compradores do Veneto, e ver o que vem",
+ "LEI_QUE_GOVERNA": "rota bloqueada != fonte inexistente; HTTP 200 != conteudo lido; \"nao encontramos nesta leitura\" != \"nao existe\"",
+ "ROTAS": [
+  {
+   "ROTA": "G-01",
+   "NOME": "ARPAV — venda declarada de fitossanitarios no Veneto (IT-T10-001)",
+   "URL": "https://www.arpa.veneto.it/dati-ambientali/open-data/fitosanitari",
+   "VEREDITO": "VEIO INTEIRO",
+   "O_QUE_VEIO": "11 anos (2015-2025), todos preservados com sha256. 2015 traz ainda AZIENDA ULSS e 356 substancias ativas com quantidade.",
+   "MOTIVO_OU_LIMITE": "volume, nunca valor; agrega por provincia e OMITE o vendedor",
+   "CAMPOS": [
+    "provincia",
+    "num_registrazione",
+    "produto",
+    "quantidade kg/l",
+    "(2015) ULSS",
+    "(2015) substancia ativa"
+   ]
+  },
+  {
+   "ROTA": "G-02",
+   "NOME": "Ministero della Salute — registro dos produtos (IT-T4-001)",
+   "URL": "https://www.dati.salute.gov.it/it/dataset/fitosanitari/",
+   "VEREDITO": "JA ESTAVA NA CASA",
+   "O_QUE_VEIO": "17.695 registos: titular, tipo, substancia, estado, validade. E o que da NOME a marca em cima do numero de registrazione.",
+   "MOTIVO_OU_LIMITE": "nao diz venda, nao diz cultura"
+  },
+  {
+   "ROTA": "G-03",
+   "NOME": "OpenStreetMap — pontos de canal (IT-T10-002)",
+   "URL": "https://overpass.kumi.systems/api/interpreter",
+   "VEREDITO": "VEIO PARCIAL",
+   "O_QUE_VEIO": "292 pontos no Veneto, dos quais 69 de provavel canal profissional; 103 com telefone, 68 com site. Inclui 25 pontos de consorzio agrario nomeados, com comune e telefone — que nenhum dos consorzi publica.",
+   "MOTIVO_OU_LIMITE": "NAO e censo: 292 pontos contra 531 titulares de autorizacao = 55.0% de cobertura maxima. Rovigo tem apenas 2 pontos — ausencia do mapa, nao do mercado. Espelho publico cai com 504 sob carga: por isso o coletor tenta quatro espelhos e o artefato e a UNIAO do que ja foi visto.",
+   "CAMPOS": [
+    "nome",
+    "lat/lon",
+    "rua",
+    "comune",
+    "provincia",
+    "telefone",
+    "site",
+    "horario"
+   ]
+  },
+  {
+   "ROTA": "G-04",
+   "NOME": "AVEPA — elenco dei beneficiari (PAC)",
+   "URL": "https://www.avepa.it/elenco-beneficiari",
+   "VEREDITO": "NAO VEIO — ROTA BLOQUEADA HOJE",
+   "O_QUE_VEIO": "nada: HTTP 503 no primeiro teste e conexao resetada no segundo, em dois momentos diferentes.",
+   "MOTIVO_OU_LIMITE": "ROUTE_BLOCKED_FROM_THIS_ENVIRONMENT. Isto NAO e prova de que a fonte nao serve — e prova de que nao a li.",
+   "FREIO": "alem do bloqueio: a lista contem PESSOA FISICA (P-008 aberta)"
+  },
+  {
+   "ROTA": "G-05",
+   "NOME": "AGEA — pubblicazione dei beneficiari PAC",
+   "URL": "https://www.agea.gov.it/pubb24aimu/beneficiari",
+   "VEREDITO": "NAO PUXADO POR DECISAO",
+   "O_QUE_VEIO": "nada. O portal existe e e obrigatorio por Reg. (UE) 2021/2116.",
+   "MOTIVO_OU_LIMITE": "e consulta web, nao dump; e o conteudo e majoritariamente PESSOA FISICA",
+   "FREIO": "LIMITES-DE-DADO-PESSOAL-EAME.md + P-008: coletar para agregar por comune e uma coisa, lista nominal de agricultor e outra, e nao esta liberada"
+  },
+  {
+   "ROTA": "G-06",
+   "NOME": "SQNPI — aziende certificate in produzione integrata",
+   "URL": "https://www.reterurale.it/flex/cm/pages/ServeBLOB.php/L/IT/IDPagina/17815",
+   "VEREDITO": "VEIO VELHO",
+   "O_QUE_VEIO": "dois PDFs: aziende agricole certificate (3,11 MB) e trasformatori-confezionatori (688 KB).",
+   "MOTIVO_OU_LIMITE": "anos 2016-2017, em PDF. Nome de empresa agricola e, muitas vezes, nome de pessoa",
+   "IDADE_DO_DADO": "2016-2017 — 9 anos"
+  },
+  {
+   "ROTA": "G-07",
+   "NOME": "dati.veneto.it — operatori del sistema biologico",
+   "URL": "https://dati.veneto.it/opendata/operatori_del_sistema_biologico_reg_ce_n_834_2007",
+   "VEREDITO": "VEIO E FICOU DE FORA",
+   "O_QUE_VEIO": "CSV de 276 KB com 1.611 registos e campos fortes: DENOMINAZIONE, INDIRIZZO, COMUNE, PROVINCIA, CUAA e PARTITA IVA.",
+   "MOTIVO_OU_LIMITE": "o dado e «al 31/12/2010» — 15 anos. E sao produtores, nao canal.",
+   "IDADE_DO_DADO": "31/12/2010 — 15 anos",
+   "FREIO": "NAO foi guardado no repositorio: boa parte dos registos e PESSOA FISICA (empresario individual). A ficha da fonte fica; o ficheiro, nao. P-008 decide se e quando ele entra."
+  },
+  {
+   "ROTA": "G-08",
+   "NOME": "Regione Veneto — elenco das revendas autorizadas",
+   "URL": "https://www.regione.veneto.it/web/fitosanitario/banche-dati",
+   "VEREDITO": "NAO EXISTE PUBLICO",
+   "O_QUE_VEIO": "nada. A pagina de bancos de dados do Servizio Fitosanitario foi lida inteira.",
+   "MOTIVO_OU_LIMITE": "a autorizacao e emitida pelo Dipartimento di Prevenzione de cada ULSS e a regiao nao publica o elenco. Caminho que resta: accesso civico generalizzato as 9 ULSS"
+  },
+  {
+   "ROTA": "G-09",
+   "NOME": "Compag — federacao nacional das revendas agrarias",
+   "URL": "https://compag.org/",
+   "VEREDITO": "NAO PUBLICO",
+   "O_QUE_VEIO": "nada: a federacao nao publica a lista de associados.",
+   "MOTIVO_OU_LIMITE": "fecha-se com um pedido a federacao, em Bolonha"
+  },
+  {
+   "ROTA": "G-10",
+   "NOME": "CAI / Consorzio Agrario del Nordest — localizador de lojas",
+   "URL": "https://www.agrinordest.it/",
+   "VEREDITO": "NAO PUBLICA",
+   "O_QUE_VEIO": "o site declara ~80 pontos de venda e agencias, e a pagina de contactos so traz a sede de Verona.",
+   "MOTIVO_OU_LIMITE": "sem lista de enderecos publicada; fecha-se pedindo, ou pelo OSM (G-03), que ja achou 2 pontos deles"
+  },
+  {
+   "ROTA": "G-11",
+   "NOME": "InfoCamere / dati.gov.it — imprese por ATECO",
+   "URL": "https://www.dati.gov.it/",
+   "VEREDITO": "SO AGREGADO",
+   "O_QUE_VEIO": "contagens de empresas por territorio e setor. Nenhum nome.",
+   "MOTIVO_OU_LIMITE": "nome exige extracao paga (Registro Imprese: 5 EUR fixos + 0,12 EUR por empresa na lista Esteso)"
+  },
+  {
+   "ROTA": "G-12",
+   "NOME": "BNV-D — venda declarada pelos distribuidores em FRANCA",
+   "URL": "https://www.data.gouv.fr/datasets/achats-et-ventes-de-produits-phytosanitaires-a-lechelle-departementale/",
+   "VEREDITO": "EXISTE E ESTA ABERTO — FORA DO RECORTE DE HOJE",
+   "O_QUE_VEIO": "dataset nacional frances, por departamento, Licence Ouverte, ficheiro atualizado em 13/09/2026.",
+   "MOTIVO_OU_LIMITE": "e a MESMA capacidade do G-01 em escala nacional. O site BNV-D Tracabilite fala em granularidade por codigo postal do comprador, mas isso NAO foi lido na fonte"
+  },
+  {
+   "ROTA": "G-13",
+   "NOME": "Outras regioes italianas — equivalente ao G-01",
+   "URL": "https://www.regione.lombardia.it/",
+   "VEREDITO": "NAO ACHADO NESTA LEITURA",
+   "O_QUE_VEIO": "so relatorios em PDF (Lombardia, ano 2011). Nenhum open data equivalente localizado.",
+   "MOTIVO_OU_LIMITE": "o Veneto pode ser a excecao em abertura, mas isso NAO foi testado regiao a regiao"
+  }
+ ],
+ "PLACAR": {
+  "VEIO_INTEIRO": 2,
+  "VEIO_PARCIAL": 1,
+  "VEIO_VELHO": 1,
+  "VEIO_E_FICOU_DE_FORA": 1,
+  "BLOQUEADO_HOJE": 1,
+  "NAO_PUXADO_POR_DECISAO": 1,
+  "NAO_PUBLICO_OU_INEXISTENTE": 4,
+  "FORA_DO_RECORTE": 1,
+  "NAO_TESTADO_A_FUNDO": 1
+ },
+ "O_QUE_O_GRATIS_NAO_DA": "o NOME de quem compra. Nenhuma das 13 rotas devolve o elenco dos 531 titulares de autorizacao de venda. Isso continua custando um pedido (accesso civico, 0 EUR, ~30 dias) ou uma extracao (Registro Imprese, dezenas a poucas centenas de euros)."
+}

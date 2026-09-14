@@ -80,7 +80,7 @@ python3 regras/proveniencia.py
 Confira estas sentinelas contra o que o handoff afirma:
 
   TEST_COUNT_CURRENT              = 721
-  SOURCE_ID_COUNT                 = 38
+  SOURCE_ID_COUNT                 = 39
   RAIF_SEASONS_AVAILABLE          = 23
   RAIF_READINGS_TOTAL             = 148964
   ES_EXPIRING_6M                  = 486     (ADAMA 36)

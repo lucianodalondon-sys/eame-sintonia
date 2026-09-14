@@ -6,8 +6,8 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-09-13 — **<!--M:SOURCE_ID_COUNT-->38<!--/M--> fontes registradas** (17 GREEN, 4 YELLOW, 17 NÃO SEI).
-**Última atualização:** 2026-09-13
+**Estado:** atualizado em 2026-09-14 — **<!--M:SOURCE_ID_COUNT-->39<!--/M--> fontes registradas** (17 GREEN, 5 YELLOW, 17 NÃO SEI).
+**Última atualização:** 2026-09-14
 
 ---
 
@@ -1076,6 +1076,48 @@ VERDICT:                      GREEN
 ⚠️ **Limite de generalização:** esta fonte é **regional**. Outras regiões italianas publicam
 dados equivalentes? **NÃO SEI** — não foi investigado nesta rodada.
 
+#### IT-T10-002 · OpenStreetMap — os pontos do canal agrícola no Vêneto
+
+```
+SOURCE_ID:                    IT-T10-002
+SOURCE_NAME:                  OpenStreetMap, via Overpass API + Nominatim
+SOURCE_OWNER:                 comunidade OSM (base colaborativa)
+COUNTRY:                      ITALY — recorte Vêneto
+LANGUAGE:                     IT
+TERRITORY:                    T10
+SOURCE_TYPE:                  base geográfica colaborativa
+URL:                          https://overpass.kumi.systems/api/interpreter (+ 3 espelhos)
+ACCESS_METHOD:                py coleta/canal_compradores.py --coletar
+                              4 consultas: shop=agrarian · shop=garden_centre · shop=farm ·
+                              name~"Consorzio Agrario"
+LICENSE:                      **ODbL** — atribuição obrigatória a © OpenStreetMap contributors
+CROPS:                        n/a
+TOPICS:                       nome, coordenada, endereço, telefone, site, horário, operador
+GEOGRAPHIC_GRANULARITY:       **COORDENADA** — mais fino que tudo o mais que temos na Itália
+UPDATE_FREQUENCY:             contínua e sem versão: o OSM muda a qualquer hora
+HISTORICAL_DEPTH:             nenhuma. Por isso o artefato é a UNIÃO do que já foi visto,
+                              com PRIMEIRA_VEZ_VISTO e ULTIMA_VEZ_VISTO por ponto
+SOURCE_IDENTITY_PRESERVABLE:  SIM — tipo + id do objeto OSM
+PUBLICATION_DATE_AVAILABLE:   NÃO — o OSM não data o ponto. A data é a da captura
+RAW_EVIDENCE_PRESERVABLE:     SIM — resposta bruta de cada consulta, com sha256
+AUTOMATION_FEASIBILITY:       ALTA
+COLLECTION_FEASIBILITY:       MÉDIA — o espelho público devolve 504 sob carga; o coletor
+                              tenta quatro espelhos antes de declarar falha
+LEGAL_OR_ACCESS_RISK:         BAIXO, com atribuição ODbL obrigatória em qualquer tela
+REAL_EXAMPLE:                 294 pontos no Vêneto, 69 de provável canal profissional,
+                              103 com telefone. Entre eles **25 consorzi agrari nomeados**,
+                              com comune e telefone — incluindo filiais que nem o Consorzio
+                              Agrario di Treviso e Belluno nem o do Nordest publicam.
+WHAT_IT_CANNOT_PROVE          que o ponto existe hoje · que vende agrofármaco · quanto vende ·
+                              a quem pertence · e **não é censo**: 294 contra 531 titulares de
+                              autorização é teto de cobertura, e Rovigo aparece com 2 pontos
+ADAMA_USE_CASE:               COMMERCIAL / FIELD SALES: a camada de localização do comprador,
+                              enquanto o nome não chega pela porta certa (ULSS ou Registro
+                              Imprese).
+EVIDENCE:                     data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json
+VERDICT:                      YELLOW
+```
+
 ---
 
 ### T9 · COMPETITORS — camada de comunicação
@@ -1376,9 +1418,9 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->38<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Atualizado em **2026-09-13**: entrou a ficha **IT-T10-001** (ARPAV, venda declarada de
-fitossanitários no Vêneto) — **27 fichas · <!--M:SOURCE_ID_COUNT-->38<!--/M--> SOURCE_IDs · 17 GREEN · 4 YELLOW · 0 RED · 17 NÃO SEI**.
+fitossanitários no Vêneto) — **27 fichas · <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · 17 GREEN · 4 YELLOW · 0 RED · 17 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -1393,8 +1435,8 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 2 | 2 | 0 | 3 | 7 |
-| **Total** | **17** | **4** | **0** | **17** | **38** |
+| ITALY | 2 | 3 | 0 | 3 | 8 |
+| **Total** | **17** | **5** | **0** | **17** | **39** |
 
 ### Cobertura por território
 
@@ -1403,6 +1445,6 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | **1G** | 1Y | – |
+| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | **1G/1Y** | 1Y | – |
 
 *(– = não investigado)*
