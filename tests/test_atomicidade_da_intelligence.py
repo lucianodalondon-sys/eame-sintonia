@@ -502,14 +502,25 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
         # exactamente o que esta prova existe para apanhar.
         with open(ficheiro("system-map/data/architecture.declared.json"),
                   encoding="utf-8") as fh:
-            declarados = {c["id"] for c in json.load(fh)["COMPONENTS"]}
+                F = json.load(fh)
+        # ⚠️ `"id":` NAO E SO DE PECA — e a segunda vez que esta prova tropeca na
+        # forma do ficheiro em vez de na propriedade. O espelho declara
+        # territorios e familias com a mesma chave, e a missao do mapa
+        # acrescentou `Z-INT-LEI`: um territorio legitimo, declarado na FONTE,
+        # que esta prova acusou de nao ser uma peca da Intelligence.
+        #
+        #     A PROPRIEDADE E «SO GANHA O QUE A FONTE DECLARA», E A FONTE
+        #     DECLARA PECAS, TERRITORIOS E FAMILIAS.
+        declarados = ({c["id"] for c in F["COMPONENTS"]}
+                      | {t["id"] for t in F["TERRITORIES"]}
+                      | {f["id"] for f in F.get("FAMILIES", [])})
         for linha in sorted(so_entram):
             cid = linha.split('"')[3]
             with self.subTest(peca=cid):
                 self.assertIn(cid, declarados,
-                              "o espelho ganhou uma peca que a FONTE nao declara")
-                self.assertTrue(cid.startswith("C-INT-"),
-                                "esta faixa so declara pecas da Intelligence")
+                              "o espelho ganhou algo que a FONTE nao declara")
+                self.assertTrue(cid.startswith(("C-INT-", "Z-INT-")),
+                                "esta faixa so declara Intelligence")
 
     def test_a_integracao_de_autoridades_so_acrescentou(self):
         """Ataques 1 e 14 do red team, guardados no sitio certo.
