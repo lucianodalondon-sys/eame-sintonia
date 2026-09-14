@@ -13319,20 +13319,47 @@ conter.
 
 ## 113.5 · DUAS ARMADILHAS DE FERRAMENTA, MEDIDAS E NÃO SUPOSTAS
 
-### `workflow_dispatch` não existe fora do ramo por omissão
+### `workflow_dispatch` precisa que o workflow esteja REGISTADO
 
-A API de dispatch devolveu `404`. Não era permissão nem atraso de indexação:
-a lista de workflows do repositório devolveu **22 nomes, todos com
-`blob/main/`**, e o novo não estava lá.
+> ⚠️ **ESTA SECÇÃO FOI CORRIGIDA EM 2026-09-14 pela
+> `C-SUPABASE-SAME-PLATFORM-RESTORE-V1`.** A regra original dizia
+> «`workflow_dispatch` só existe para ficheiros que já vivem no ramo por
+> omissão». **Está errada**, e a medição que a desmente é simples: o
+> `supabase-backup-readonly.yml` continua a **não** estar em `main`
+> (`git cat-file -e origin/main:...` falha) e mesmo assim a API de dispatch
+> aceitou-o. O que mudou entretanto foi ele ter **corrido uma vez**.
+
+A observação original estava certa; a **generalização** é que não estava.
+O que se mediu foi:
 
 ```
-workflow_dispatch SO EXISTE PARA FICHEIROS QUE JA VIVEM NO RAMO POR OMISSAO.
+dispatch a um workflow acabado de empurrar num ramo   ->  404
+a lista de workflows do repositorio                   ->  22 nomes, nenhum deles o novo
+depois de UMA corrida por `push`                      ->  23 nomes, e o novo la esta
+                                                          registado exactamente a hora da corrida
+dispatch ao mesmo workflow, no mesmo ramo             ->  204, e corre
 ```
 
-O caminho certo **não** é fazer merge para `main` só para conseguir disparar
-— isso troca um problema de execução por uma alteração de linha funcional sem
-decisão de gente. É um `push` com `paths` estreito, que corre a versão **do
-ramo**.
+```
+O QUE FALTA NAO E O RAMO POR OMISSAO: E O REGISTO.
+O GitHub REGISTA um workflow quando ele CORRE pela primeira vez
+(ou quando o ficheiro aterra no ramo por omissao).
+```
+
+Consequência prática, e é a mesma de antes por outro motivo: um workflow
+novo num ramo de missão **não é despachável à primeira**. O caminho continua
+a ser um `push` com `paths` estreito — não para contornar o ramo por
+omissão, mas para **provocar a primeira corrida que o regista**. Depois
+disso, `workflow_dispatch` funciona nesse ramo.
+
+E fazer merge para `main` só para conseguir disparar continua errado: troca
+um problema de execução por uma alteração de linha funcional sem decisão de
+gente.
+
+> A lição por trás da correcção vale mais do que o facto: **uma observação
+> num único ponto do tempo não é uma regra.** «Não está na lista» e «não
+> pode estar na lista» são frases diferentes, e eu escrevi a segunda tendo
+> medido a primeira.
 
 ### `cmd | tee` devolve o estado do `tee`
 
@@ -13914,3 +13941,144 @@ cobertura humana medida  78%
 - Não diz nada sobre a Collection. **O mapa observou; não corrigiu.** Um defeito
   que o mapa vê na Collection é um achado para a Collection tratar na linha dela,
   e nunca uma autorização para o mapa lá mexer.
+
+---
+
+# §116 · O ÚNICO PROJETO EXISTENTE QUE A PLATAFORMA ACEITA É A FONTE
+
+**Missão:** `C-SUPABASE-SAME-PLATFORM-RESTORE-V1`, a tentar executar o
+restauro que o `§113` deixou por executar.
+
+## 116.1 · A PERGUNTA, E ONDE ELA PARA
+
+O `§113` fechou com sete backups físicos medidos e `SAME_PLATFORM_RESTORE`
+por correr. Esta missão foi executá-lo. Não executou — e o motivo não é
+permissão.
+
+```
+«Restore to a New Project» E OPERACAO DE CONSOLA.
+Nao ha rota na Management API. Nao ha rota no CLI.
+```
+
+```
+AUSENCIA DE ROTA != FALTA DE PERMISSAO.
+```
+
+A distinção decide o passo seguinte, e por isso é a lição: falta de
+permissão resolve-se **pedindo escopo**; ausência de rota não se resolve com
+escopo nenhum. Ampliar o token não aproximaria isto um milímetro.
+
+## 116.2 · A ARMADILHA QUE QUASE SE ARMA SOZINHA
+
+A meio da missão chegou uma correcção sensata: *«existe um projeto dev
+parado, usa-o em vez de criar outro pago»*. Medido na documentação oficial,
+para um projeto de backups **físicos** a plataforma oferece **dois**
+destinos, e só dois:
+
+| destino | qual projeto ele aceita |
+|---|---|
+| **in-place** | **o próprio projeto de origem** |
+| **Restore to a New Project** | um projeto **que ainda não existe** |
+| para outro projeto já existente | **não existe no produto** |
+
+Ou seja:
+
+```
+A UNICA OPCAO QUE APONTA A UM PROJETO QUE JA EXISTE E O IN-PLACE,
+E O PROJETO QUE JA EXISTE QUE ELA ACEITA E A PROPRIA FONTE.
+```
+
+Ler *«reutiliza um projeto que já existe»* como *«usa o in-place»* teria
+**restaurado por cima da produção**. O pedido era razoável, a intenção era
+poupar dinheiro, e a execução literal era destrutiva.
+
+> **Um pedido razoável pode ter uma execução destrutiva.** A ponte entre os
+> dois é sempre a mesma pergunta: *qual é, exactamente, o alvo que este
+> mecanismo aceita?* — e essa pergunta responde-se na documentação do
+> mecanismo, não na intenção de quem pediu.
+
+E o atalho vizinho também não serve: descarregar o backup e repô-lo com
+`psql` noutro projeto é `pg_restore` com outro nome — **mesma classe**, que
+a `V2` já provou, e não a plataforma. Além disso nem está disponível:
+backups físicos **não se descarregam**.
+
+## 116.3 · `BLOCKED` NÃO É `FAIL`, E A DIFERENÇA NÃO É DIPLOMACIA
+
+```
+SAME_PLATFORM_RESTORE = BLOCKED
+BLOCKER = PLATFORM_REQUIRES_NEW_PROJECT
+```
+
+`FAIL` diria que o restauro foi tentado e não funcionou. Não foi tentado.
+
+```
+LIMITE DA EXECUCAO AUTORIZADA != PROVA DE QUE O MECANISMO NAO FUNCIONA.
+```
+
+Escrever `FAIL` teria posto no livro-razão desta casa uma suspeita sobre o
+Supabase que nenhuma medição sustenta — e a missão seguinte herdaria essa
+suspeita como se fosse facto.
+
+## 116.4 · O BURACO QUE NINGUÉM TINHA MEDIDO, E QUE É MAIOR
+
+Citação da documentação oficial, lida em 2026-09-14:
+
+> «Database backups **do not include objects you store via the Storage
+> API**, as the database only includes metadata about these objects.»
+
+O LIVE tem **252 linhas em `storage_object`**. São **metadados**. Um
+restauro perfeito do banco devolveria 252 ponteiros para bytes que o backup
+nunca guardou.
+
+```
+RESTAURAR O BANCO NAO RESTAURA O ACERVO.
+STORAGE_OBJECT_BYTES_RECOVERY = NOT_PROVEN — e documentado como FORA DE COBERTURA.
+```
+
+Toda esta série de missões — `V1`, `V2`, `§111`, `§112`, `§113` — andou a
+perguntar se o **banco** volta. A resposta a essa pergunta, mesmo quando for
+`PASS`, **não** cobre os bytes. E este buraco não precisa de consola nem de
+dinheiro para ser medido: só precisa de alguém o olhar.
+
+> Quando uma série de missões converge toda para a mesma pergunta, vale a
+> pena perguntar **o que é que a pergunta deixou de fora**. Aqui deixou o
+> acervo.
+
+## 116.5 · A GUARDA QUE O POOLER ENGANA
+
+Ficou construída a porta que verifica um alvo restaurado, reutilizando o
+dono que já existe (`provas/auditoria_live.sh` depende de **uma só**
+variável de ambiente, e é isso que o torna reapontável). A guarda dessa
+porta apanhou um caso que quase passou:
+
+```
+ligacao directa:  db.<ref>.supabase.co        -> o ref esta no HOST
+pooler:           aws-0-<regiao>.pooler...    -> o host NAO traz ref nenhum
+                  utilizador `postgres.<ref>` -> o ref esta no UTILIZADOR
+```
+
+Uma guarda que só olhasse para o host diria **«não é a produção» sobre a
+produção**.
+
+E a segunda regra da mesma guarda:
+
+```
+REF DESCONHECIDO != REF SEGURO.
+```
+
+Não conseguir extrair o `ref` de uma DSN não é permissão para correr contra
+ela. A guarda recusa também nesse caso.
+
+## 116.6 · INFORMAÇÃO DE QUEM PEDE NÃO É MEDIÇÃO DO ESTADO
+
+A correcção dizia que o dev «foi criado para testes e está sem uso» — e
+dizia, ela própria, para medir na mesma. Medir foi impossível: não há
+credencial nenhuma para o dev nesta sessão.
+
+```
+DEV_REUSE_SAFE = BLOCKED, e nao YES.
+```
+
+O que **não** se fez: declarar `YES` porque a frase era plausível. A frase
+pode até ser verdadeira — mas então é verdadeira **e** por medir, e essas
+duas coisas escrevem-se de maneira diferente.
