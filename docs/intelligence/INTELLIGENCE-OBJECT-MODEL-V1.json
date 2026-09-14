@@ -88,7 +88,7 @@
   "INTELLIGENCE_RUN": {
    "ESPECIE": "ENTITY",
    "OWNER": "INTELLIGENCE",
-   "QUEM_CRIA": "o runtime da Intelligence",
+   "QUEM_CRIA": "motor/corrida_da_inteligencia.py::correr()",
    "ENTRADA_MINIMA": [
     "RUN_ID",
     "REQUEST_ID",
@@ -116,16 +116,16 @@
     "INTELLIGENCE_REQUIREMENT",
     "nada — e resultado valido"
    ],
-   "PERSISTIDO": "SIM (quando houver runtime)",
-   "MORA_EM": "NAO_EXISTE_AINDA",
-   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "PERSISTIDO": "SIM — um livro por corrida, em ficheiro",
+   "MORA_EM": "motor/corrida_da_inteligencia.py",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
    "RESPONDE_A_PERGUNTA": "qual execucao analitica produziu este resultado?",
    "NUNCA_E": [
     "um COLLECTION_RUN",
     "um FINDING",
     "um pedido"
    ],
-   "PORQUE": "INT-LAW-053: NOT_RUN != ERROR != EMPTY_RESULT != NO_FINDING != REUSED. Cinco estados, cinco perguntas diferentes — comprimi-los perde a unica informacao que distingue «nao corri» de «corri e nao achei»."
+   "PORQUE": "INT-LAW-053: NOT_RUN != ERROR != EMPTY_RESULT != NO_FINDING != REUSED. Cinco estados, cinco perguntas diferentes — comprimi-los perde a unica informacao que distingue «nao corri» de «corri e nao achei». ⚠️ IMPLEMENTADO em 2026-09-14 por C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio: com o relogio dentro, duas corridas da mesma pergunta sobre a mesma materia teriam nomes diferentes e REUSED deixava de ser detetavel."
   },
   "SIGNAL": {
    "ESPECIE": "ENTITY",

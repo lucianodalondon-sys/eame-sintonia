@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §119: um mapa que mostra a máquina e esconde a lei ensina que a máquina é a lei — e a gaveta decide o território, não a autoridade.
+**Última atualização material:** 2026-09-14 — §120: a Collection mediu certo contra a fotografia dela, e o que ela produziu a Intelligence não consegue consumir.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -14029,4 +14029,152 @@ NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
 NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO.
 NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
 Esta missao mexeu na FONTE declarada do mapa e em mais nada.
+```
+
+---
+
+# §120 · A COLLECTION MEDIU CERTO CONTRA A FOTOGRAFIA DELA, E O QUE ELA PRODUZIU A INTELLIGENCE NÃO CONSEGUE CONSUMIR
+
+## O QUE MUDOU
+
+Primeira corrida real da Intelligence sobre um item real. Ela abriu, consumiu,
+fechou — e o resultado foi o diagnóstico, não o produto:
+
+```
+INTELLIGENCE_RUN_ID   IR-792eb28d7873f4015ede
+RESULT_STATE          DONE
+ANALYTIC_OUTPUT       NO_ANALYTIC_OUTPUT_YET
+SIGNALS               0
+REQUIREMENTS          1     FACT_TIME · RAW_OBSERVATION_ID
+COLLECTOR_CALLS       0
+```
+
+```
+O RUNTIME FUNCIONA. A MATERIA-PRIMA E QUE NAO CHEGA.
+```
+
+## POR QUÊ — TRÊS COISAS, E A SEGUNDA É A QUE ENSINA
+
+### 1 · Os seis existem, e nunca estiveram na Sala de Espera desta árvore
+
+O utilizador disse seis. **Tinha razão**, e a medição confirma-o — mas não onde
+qualquer gate deste repositório olha:
+
+```
+data/samples/PRONTO-PARA-INTELIGENCIA/   nao existe nesta arvore
+                                          ZERO ficheiros em 200+ refs do repo
+os seis                                   build/collection-fire-test/evidencia/
+                                          sala-de-espera/ · noutra branch
+CONTADORES da missao que os produziu       ROOT = <scratchpad>/lab
+                                          WAITING_ROOM_FILES 0 -> 2
+                                          WAITING_ROOM_ROWS  0 -> 6
+```
+
+Eles pousaram na Sala de Espera de um **laboratório descartável** de outra
+sessão, que já não existe. O que ficou commitado foi a **evidência** de que
+pousaram.
+
+```
+ADMITIDO NUM LABORATORIO != ESTA NA SALA DE ESPERA.
+E «o gate diz zero» estava CERTO — sobre esta arvore.
+```
+
+### 2 · A porta que os produziu tem ONZE campos, e a minha tem doze
+
+Esta é a lição que sobrevive à missão:
+
+```
+84f2b563  «o READY leva a observacao, e a volta ao byte deixa de ser um palpite»
+
+  antepassado do meu HEAD ............................ SIM
+  antepassado da branch que admitiu os seis .......... NAO
+
+merge-base(as duas)  =  56fdb8ca  ·  2026-09-07
+  o meu lado:   486 commits desde a base
+  o lado deles:  10 commits desde a base
+```
+
+A Collection mediu **certo**: correu a prova de fogo dela contra a árvore dela,
+e `ADMITTED 6 = WAITING_ROOM_DELTA 6` é verdade. Só que a porta daquela árvore
+não põe `RAW_OBSERVATION_ID` no item — a lei que o exige entrou num commit que
+ela não carrega.
+
+```
+DUAS FRENTES CERTAS, CADA UMA NA SUA FOTOGRAFIA,
+PRODUZEM MATERIA QUE UMA NAO CONSEGUE ENTREGAR E A OUTRA NAO CONSEGUE RECEBER.
+```
+
+Não é engano de ninguém. É o custo de bifurcar 486 commits com um contrato de
+fronteira a mudar no meio — e não aparece em nenhum teste das duas frentes,
+porque cada uma passa sozinha.
+
+### 3 · E a tentação era óbvia
+
+O item traz `TEXTO_SHA256`. Fabricar `RAW_OBSERVATION_ID` a partir dele fazia a
+corrida passar, e ficava bonito. A lei que o proíbe já estava escrita:
+
+```
+SHA256 IDENTIFICA BYTES. NAO IDENTIFICA OBSERVACAO.
+DOIS CANDIDATOS NAO SAO UMA LINHAGEM.
+```
+
+A corrida bloqueia em `G0` e emite um requisito. É a resposta certa, e é feia.
+
+## PROVA
+
+`motor/corrida_da_inteligencia.py` + 37 provas · `P1`–`P14`, `RT1`–`RT15`,
+matriz dos seis. Oito mutações, oito apanhadas.
+
+A matriz é unânime e diz qual é a próxima missão:
+
+```
+ELEGIVEIS PARA O PRIMEIRO INTELLIGENCE_RUN = 0 de 6
+E os seis partilham EXACTAMENTE o mesmo par de buracos — porque
+sairam todos da mesma porta de onze campos.
+```
+
+## CONSEQUÊNCIA
+
+```
+UM CONTRATO DE FRONTEIRA QUE MUDA TEM DE SER MEDIDO NAS DUAS PONTAS,
+E A PONTA QUE PRODUZ NAO SABE QUE A OUTRA MUDOU.
+
+Antes de consumir material de outra frente:
+    git merge-base --is-ancestor <commit-da-lei-de-fronteira> <ref-que-produziu>
+Se for falso, o material obedece a um contrato ANTERIOR — e obedecer a um
+contrato anterior nao e defeito de quem produziu.
+```
+
+## E DUAS QUE VIERAM DAS MUTAÇÕES
+
+**Uma mutação pode sobreviver ao comportamento e ainda assim custar caro.**
+Apagar a verificação `isinstance(item, dict)` deixou tudo verde: sem ela o
+`None` rebenta mais à frente e o estado final continua `ERROR`. O que muda é o
+que fica escrito no livro:
+
+```
+LeiViolada      «um item que nao e um item nao se consome»    o portao recusou
+AttributeError  «'NoneType' object has no attribute 'get'»    o codigo partiu
+```
+
+```
+UM ERRO SEM NOME E INDISTINGUIVEL DE UM DEFEITO.
+```
+
+**E uma prova de relógio que media a velocidade do computador.** Duas corridas
+seguidas davam o mesmo `RUN_ID` mesmo com o relógio metido dentro da
+identidade — caíam no mesmo segundo. Agora o relógio é movido à força.
+
+```
+COMPARAR DUAS CORRIDAS SEGUIDAS NAO TESTA O RELOGIO: TESTA A MAQUINA.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra fluxo real ponta a ponta. REAL_END_TO_END_OBSERVED = NO:
+a Sala de Espera desta arvore continua vazia, e o consumo foi da evidencia.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, e nao lhe toquei.
+NAO registra FINDING nenhum. NAO registra Opportunity nenhuma.
+INTELLIGENCE_V1_READY = NO.
 ```

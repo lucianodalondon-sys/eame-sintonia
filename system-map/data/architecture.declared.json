@@ -1357,6 +1357,25 @@
    "icon": "⚙"
   },
   {
+   "id": "C-INT-CORRIDA",
+   "name": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo",
+   "territory": "Z-MOTOR",
+   "kind": "engine",
+   "icon": "▷",
+   "views": [
+    "audit"
+   ],
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "what": "Abre uma corrida identificada sobre itens JA LIDOS da Sala de Espera, guarda pergunta, entradas, versao de regras, de codigo e da Biblia, inicio, fim, estado e erro — e fecha. O portao G0 pergunta se da para saber sobre quem o item fala, de onde veio e quando o facto aconteceu; quando nao da, produz INTELLIGENCE_REQUIREMENT e para. Nao produz achado, oportunidade nem pontuacao.",
+   "why_here": "C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio — sem isso REUSED deixa de ser detetavel, e INT-LAW-054 exige que o reuso seja PROVADO. Ela NAO sabe abrir a Sala de Espera, e e de proposito: quem sabe abrir a Sala consegue, um dia, decidir enche-la. Corrida real sobre um item real: DONE · NO_ANALYTIC_OUTPUT_YET · 0 sinais · 1 requisito · 0 coletores.",
+   "files": [
+    "motor/corrida_da_inteligencia.py"
+   ]
+  },
+  {
    "id": "C-INT-ACHADO",
    "name": "Achado — o julgamento analítico que se fecha",
    "kind": "engine",

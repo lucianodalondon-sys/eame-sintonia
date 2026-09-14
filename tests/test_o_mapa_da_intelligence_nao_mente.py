@@ -417,11 +417,36 @@ class N_OQueOMapaNaoDeveDesenhar(unittest.TestCase):
         self.assertEqual(len(M["FERRAMENTAS"]), 8)
 
     def test_N3_o_mapa_nao_inventa_runtime(self):
-        for nome in ("INTELLIGENCE_RUN", "INTELLIGENCE_REQUEST"):
+        """⚠️ ESTA PROVA FIXAVA UM VALOR, E O VALOR MUDOU COM RAZAO.
+
+        Ela dizia `INTELLIGENCE_RUN == DEFINED_ONLY`, que era verdade no dia em
+        que a escrevi. `C-INT-PILOT-01` construiu a corrida, a arbitragem
+        re-mediu, e a prova reprovou uma coisa correcta — pela terceira vez
+        nesta casa, e sempre pelo mesmo motivo.
+
+            UM TESTE QUE FIXA UM VALOR MEDE A ARVORE.
+            UM TESTE QUE MEDE A PROPRIEDADE MEDE A LEI.
+
+        A propriedade e: o mapa nunca promete mais do que a ARBITRAGEM mediu.
+        Um objeto que a arbitragem diz nao ter modulo nao pode ter cartao, e
+        nenhum cartao pode reivindicar um ficheiro que nao existe.
+        """
+        v3 = json.loads((RAIZ / "docs" / "intelligence" /
+                         "INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json").read_text(
+                             encoding="utf-8"))["CONCEITOS"]
+        com_cartao = set()
+        for c in DA_INTELIGENCIA:
+            com_cartao.update(objetos_do_cartao(c["id"]))
+        for nome in com_cartao:
             with self.subTest(objeto=nome):
-                self.assertEqual(M["OBJETOS"][nome]["CURRENT_IMPLEMENTATION"],
-                                 "DEFINED_ONLY")
-                self.assertEqual(M["OBJETOS"][nome]["MORA_EM"], "NAO_EXISTE_AINDA")
+                self.assertIn(nome, v3, "cartao sobre objeto que a arbitragem nao conhece")
+                self.assertTrue(v3[nome]["MODULO_DONO"] or v3[nome]["FICHEIROS_QUE_TOCAM"],
+                                "cartao sobre objeto sem codigo nenhum")
+        for nome, o in M["OBJETOS"].items():
+            if o["MORA_EM"] in ("NAO_EXISTE_AINDA", "NAO_EXISTE_EM_LADO_NENHUM"):
+                with self.subTest(objeto=nome):
+                    self.assertNotIn(nome, com_cartao,
+                                     "o mapa deu cartao a algo que nao existe")
 
 
 if __name__ == "__main__":

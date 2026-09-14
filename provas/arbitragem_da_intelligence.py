@@ -88,9 +88,17 @@ CONCEITOS = {
         "ALIAS": ["KIT", "KIQ"], "TOKENS": ["INTELLIGENCE_REQUEST", "REQUEST_ID"],
         "OWNER": "INTELLIGENCE", "MODULO": None,
     },
+    # ⚠️ MODULO DEIXOU DE SER `None` EM 2026-09-14, e a data importa.
+    # `C-INT-PILOT-01` construiu a corrida minima que a §32 da Biblia autoriza,
+    # e ela e o dono do conceito. Enquanto este campo ficasse `None`, a
+    # arbitragem media `DEFINED_ONLY` sobre codigo que ja existe — e o modelo
+    # de objetos, que consome esta medicao, mentiria com ela.
+    #
+    #     UM CAMPO DECLARADO A MAO NAO SE ACTUALIZA SOZINHO
+    #     QUANDO O CODIGO QUE ELE DESCREVE NASCE.
     "INTELLIGENCE_RUN": {
         "ALIAS": [], "TOKENS": ["INTELLIGENCE_RUN", "INTELLIGENCE_RUN_ID"],
-        "OWNER": "INTELLIGENCE", "MODULO": None,
+        "OWNER": "INTELLIGENCE", "MODULO": "motor/corrida_da_inteligencia.py",
     },
     "SIGNAL": {
         "ALIAS": ["ANALYTIC_SIGNAL"], "TOKENS": ["ANALYTIC_SIGNAL", "SIGNAL_ID"],

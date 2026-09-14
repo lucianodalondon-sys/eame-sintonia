@@ -2,8 +2,8 @@
  "DATASET": "SINTONIA-INTELLIGENCE-REARBITRATION",
  "MISSAO": "C-INT-ATOMICITY-01",
  "FOTOGRAFIA": {
-  "COMMIT": "187cdf37556f2f2cacc1110a47c6912be1080dcc",
-  "BRANCH": "claude/intelligence-night-v1",
+  "COMMIT": "a67695d573e11def966d70b94cf9ec25c5fdf98b",
+  "BRANCH": "claude/intelligence-pilot-v1",
   "ARVORE_LIMPA": false,
   "SHALLOW": "false"
  },
@@ -47,13 +47,13 @@
    ],
    "MODULO_DONO": "admissao/admissao.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 64,
+   "FICHEIROS_QUE_TOCAM": 66,
    "POR_CAMADA": {
     "COLLECTION": 7,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 24,
-    "LEI": 17,
+    "LEI": 19,
     "OUTRA": 16
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -65,13 +65,13 @@
    "ALIAS": [],
    "MODULO_DONO": "motor/v21_dominio_da_alegacao.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 10,
+   "FICHEIROS_QUE_TOCAM": 12,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 2,
     "DELIVERY": 0,
     "PROVA": 1,
-    "LEI": 5,
+    "LEI": 7,
     "OUTRA": 2
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -86,13 +86,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 14,
+   "FICHEIROS_QUE_TOCAM": 18,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 1,
-    "LEI": 9,
+    "PROVA": 2,
+    "LEI": 12,
     "OUTRA": 4
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -102,19 +102,19 @@
   "INTELLIGENCE_RUN": {
    "OWNER": "INTELLIGENCE",
    "ALIAS": [],
-   "MODULO_DONO": null,
-   "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 22,
+   "MODULO_DONO": "motor/corrida_da_inteligencia.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 31,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 3,
-    "LEI": 13,
-    "OUTRA": 6
+    "PROVA": 7,
+    "LEI": 17,
+    "OUTRA": 7
    },
-   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
-   "VERDICT": "OWNER_DECLARED_ONLY",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
    "ALERTA_DE_CAMADA": false
   },
   "SIGNAL": {
@@ -124,13 +124,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 20,
+   "FICHEIROS_QUE_TOCAM": 22,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 2,
     "DELIVERY": 6,
     "PROVA": 4,
-    "LEI": 5,
+    "LEI": 7,
     "OUTRA": 3
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
@@ -142,14 +142,14 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 11,
+   "FICHEIROS_QUE_TOCAM": 16,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 1,
-    "LEI": 8,
-    "OUTRA": 2
+    "PROVA": 2,
+    "LEI": 11,
+    "OUTRA": 3
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
    "VERDICT": "OWNER_DECLARED_ONLY",
@@ -198,13 +198,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 9,
+   "FICHEIROS_QUE_TOCAM": 11,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 1,
-    "LEI": 7,
+    "LEI": 9,
     "OUTRA": 1
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -216,13 +216,13 @@
    "ALIAS": [],
    "MODULO_DONO": "motor/v21_crossings.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 111,
+   "FICHEIROS_QUE_TOCAM": 116,
    "POR_CAMADA": {
     "COLLECTION": 3,
     "INTELLIGENCE": 11,
     "DELIVERY": 22,
-    "PROVA": 11,
-    "LEI": 18,
+    "PROVA": 13,
+    "LEI": 21,
     "OUTRA": 46
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -234,14 +234,14 @@
    "ALIAS": [],
    "MODULO_DONO": "motor/pacote_convergencia.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 96,
+   "FICHEIROS_QUE_TOCAM": 100,
    "POR_CAMADA": {
     "COLLECTION": 1,
     "INTELLIGENCE": 4,
     "DELIVERY": 38,
-    "PROVA": 9,
-    "LEI": 13,
-    "OUTRA": 31
+    "PROVA": 10,
+    "LEI": 15,
+    "OUTRA": 32
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
    "VERDICT": "OWNER_PROVEN",
@@ -252,13 +252,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 6,
+   "FICHEIROS_QUE_TOCAM": 8,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 1,
-    "LEI": 3,
+    "LEI": 5,
     "OUTRA": 2
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -272,13 +272,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 12,
+   "FICHEIROS_QUE_TOCAM": 17,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 3,
-    "LEI": 6,
+    "PROVA": 5,
+    "LEI": 9,
     "OUTRA": 3
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -292,13 +292,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 15,
+   "FICHEIROS_QUE_TOCAM": 21,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 1,
     "DELIVERY": 4,
-    "PROVA": 2,
-    "LEI": 5,
+    "PROVA": 5,
+    "LEI": 8,
     "OUTRA": 3
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
@@ -312,13 +312,13 @@
    ],
    "MODULO_DONO": "motor/v21_fechar.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 15,
+   "FICHEIROS_QUE_TOCAM": 19,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 4,
-    "LEI": 7,
+    "PROVA": 6,
+    "LEI": 9,
     "OUTRA": 4
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -330,13 +330,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 8,
+   "FICHEIROS_QUE_TOCAM": 12,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 2,
-    "LEI": 6,
+    "PROVA": 3,
+    "LEI": 9,
     "OUTRA": 0
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -348,14 +348,14 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 51,
+   "FICHEIROS_QUE_TOCAM": 56,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 3,
     "DELIVERY": 34,
-    "PROVA": 1,
-    "LEI": 3,
-    "OUTRA": 10
+    "PROVA": 3,
+    "LEI": 5,
+    "OUTRA": 11
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
    "VERDICT": "OWNER_DECLARED_ONLY",
@@ -366,12 +366,12 @@
    "ALIAS": [],
    "MODULO_DONO": "motor/v21_oportunidades.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 65,
+   "FICHEIROS_QUE_TOCAM": 66,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 9,
     "DELIVERY": 12,
-    "PROVA": 6,
+    "PROVA": 7,
     "LEI": 12,
     "OUTRA": 24
    },
@@ -384,13 +384,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 6,
+   "FICHEIROS_QUE_TOCAM": 10,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 1,
-    "LEI": 3,
+    "PROVA": 3,
+    "LEI": 5,
     "OUTRA": 2
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -420,13 +420,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 107,
+   "FICHEIROS_QUE_TOCAM": 109,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 8,
     "DELIVERY": 29,
     "PROVA": 7,
-    "LEI": 10,
+    "LEI": 12,
     "OUTRA": 51
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
@@ -440,13 +440,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 23,
+   "FICHEIROS_QUE_TOCAM": 28,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 4,
-    "LEI": 13,
+    "PROVA": 6,
+    "LEI": 16,
     "OUTRA": 6
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -460,13 +460,13 @@
    ],
    "MODULO_DONO": "leis/gestao_da_coleta.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 26,
+   "FICHEIROS_QUE_TOCAM": 27,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 10,
-    "LEI": 6,
+    "LEI": 7,
     "OUTRA": 8
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -478,13 +478,13 @@
    "ALIAS": [],
    "MODULO_DONO": "leis/relevancia_da_fonte.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 15,
+   "FICHEIROS_QUE_TOCAM": 17,
    "POR_CAMADA": {
     "COLLECTION": 3,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 6,
-    "LEI": 1,
+    "LEI": 3,
     "OUTRA": 5
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -496,13 +496,13 @@
    "ALIAS": [],
    "MODULO_DONO": "admissao/admissao.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 33,
+   "FICHEIROS_QUE_TOCAM": 35,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 18,
-    "LEI": 7,
+    "LEI": 9,
     "OUTRA": 6
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -516,13 +516,13 @@
    ],
    "MODULO_DONO": "leis/adama_relevance.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 23,
+   "FICHEIROS_QUE_TOCAM": 26,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 1,
     "DELIVERY": 9,
     "PROVA": 4,
-    "LEI": 1,
+    "LEI": 4,
     "OUTRA": 6
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -534,13 +534,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 23,
+   "FICHEIROS_QUE_TOCAM": 25,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 1,
     "DELIVERY": 16,
     "PROVA": 1,
-    "LEI": 1,
+    "LEI": 3,
     "OUTRA": 4
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
@@ -552,13 +552,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 5,
+   "FICHEIROS_QUE_TOCAM": 8,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 2,
-    "LEI": 2,
+    "LEI": 5,
     "OUTRA": 1
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -570,13 +570,13 @@
    "ALIAS": [],
    "MODULO_DONO": "leis/gestao_da_coleta.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 5,
+   "FICHEIROS_QUE_TOCAM": 7,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 2,
-    "LEI": 1,
+    "LEI": 3,
     "OUTRA": 0
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -588,13 +588,13 @@
    "ALIAS": [],
    "MODULO_DONO": "leis/politica_da_coleta.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 5,
+   "FICHEIROS_QUE_TOCAM": 7,
    "POR_CAMADA": {
     "COLLECTION": 1,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 3,
-    "LEI": 1,
+    "LEI": 3,
     "OUTRA": 0
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -606,13 +606,13 @@
    "ALIAS": [],
    "MODULO_DONO": "motor/v21_comercial.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 37,
+   "FICHEIROS_QUE_TOCAM": 39,
    "POR_CAMADA": {
     "COLLECTION": 1,
     "INTELLIGENCE": 5,
     "DELIVERY": 18,
     "PROVA": 3,
-    "LEI": 1,
+    "LEI": 3,
     "OUTRA": 9
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -624,27 +624,18 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 9,
+   "FICHEIROS_QUE_TOCAM": 12,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
-    "PROVA": 3,
-    "LEI": 1,
+    "PROVA": 4,
+    "LEI": 3,
     "OUTRA": 5
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
    "VERDICT": "OWNER_DECLARED_ONLY",
    "ALERTA_DE_CAMADA": false
   }
- },
- "SUPERSEDES": "INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
- "DECISAO_HUMANA_APLICADA": {
-  "MISSAO": "C-INT-NIGHT-01",
-  "EM": "2026-09-14",
-  "RELEVANCE": "[A] APOSENTAR O NOME NU",
-  "PRIORITY": "[A] APOSENTAR O NOME NU",
-  "NAKED_RELEVANCE_RETIRED": "YES",
-  "NAKED_PRIORITY_RETIRED": "YES"
  }
 }

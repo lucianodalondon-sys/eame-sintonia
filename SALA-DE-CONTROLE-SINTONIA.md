@@ -325,7 +325,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json`](docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json)
 - **estado declarado** — `SUBORDINATE`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `e849cf7e6a`
+- **impressão do conteúdo medido** — `6e9bcebe0f`
 - **prova** — `git:HEAD:docs/intelligence/INTELLIGENCE-OBJECT-MODEL-V1.json`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `provas/modelo_de_objetos_da_intelligence.py`, `system-map/data/architecture.declared.json`, `tests/test_o_mapa_da_intelligence_nao_mente.py`
 - **o que ela diz de si** — SUBORDINATE_CONTRACT de C-INT-OBJECT-MODEL-01. NAO e canonico e nao compete com a Biblia: ela e a lei, este ficheiro diz a forma dos objetos que ela governa. 25 objetos, 18 aliases arbitrados, 8 portoes, 14 transicoes permitidas, 19 proibidas, 8 dominios da Italia e 8 ferramentas com fronteira escrita. BIBLE_CHANGE_REQUIRED = NO.
@@ -383,7 +383,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`SINTONIA-EAME-KNOW-HOW.md`](SINTONIA-EAME-KNOW-HOW.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `c070933cb3`
+- **impressão do conteúdo medido** — `0544e360d6`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
 - **quem aponta para ela** — `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md` *(+3)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
@@ -626,7 +626,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`](HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `c130434137`
+- **impressão do conteúdo medido** — `f8fffb5e9a`
 - **prova** — `git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`
 - **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `tests/test_atomicidade_da_intelligence.py` *(+2)*
 - **o que ela diz de si** — MEMORIA.

@@ -1245,6 +1245,7 @@
     "motor": [
       "motor/cadeia_canonica.sh",
       "motor/consolidar_leque.py",
+      "motor/corrida_da_inteligencia.py",
       "motor/matriz_recorte.py",
       "motor/normalize_agro.py",
       "motor/normalize_substance.py",
@@ -1500,6 +1501,7 @@
       "research/intelligence/BENCHMARK-DE-ENGENHARIA-DA-INTELLIGENCE-2026-09-13.md",
       "research/intelligence/BIBLE-PROMOTION-GATE-REPORT-V1.md",
       "research/intelligence/COLLECTION-READINESS-FOR-AGRO-INTELLIGENCE-V1.md",
+      "research/intelligence/COORTE-DA-SALA-2026-09-14.json",
       "research/intelligence/DISEASE-INTELLIGENCE-LEVELS-V1.md",
       "research/intelligence/INTELLIGENCE-ATOMICITY-REPORT-V1.md",
       "research/intelligence/INTELLIGENCE-RUNTIME-BLOCK-REPORT-V1.md",
@@ -1699,6 +1701,7 @@
       "tests/test_a_linhagem_do_reaproveitamento.py",
       "tests/test_a_operacao_aguenta_concorrencia.py",
       "tests/test_a_ponte_do_derived.py",
+      "tests/test_a_primeira_corrida_da_inteligencia.py",
       "tests/test_a_prova_e2e_segue_a_producao.py",
       "tests/test_a_regra_de_t2.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -2233,10 +2236,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/intelligence-system-map-audit-v1",
-    "HEAD": "8854a2f05ee9922979facdaed322944dd47d0424",
-    "GENERATED_AT": "2026-09-14T12:58:34+00:00",
-    "SOURCE_TREE_FINGERPRINT": "406582dd31e98826ee33544c8ea1460bc3ae52a72f86bfc079a1a8c2b418d738"
+    "BRANCH": "claude/intelligence-pilot-v1",
+    "HEAD": "a67695d573e11def966d70b94cf9ec25c5fdf98b",
+    "GENERATED_AT": "2026-09-14T13:07:38+00:00",
+    "SOURCE_TREE_FINGERPRINT": "5da4fb5bd8caaf77ff8bb1de2549b01ee72f15fb42444a2cfbc97ebbc5d27058"
   },
   "FAMILIES": [
     {
@@ -2291,7 +2294,7 @@
         "Z-MOTOR",
         "Z-LINEAGE"
       ],
-      "count": 19
+      "count": 20
     },
     {
       "id": "F-GOVERNANCA",
@@ -2580,7 +2583,7 @@
       "y": 190,
       "w": 820,
       "h": 6802,
-      "count": 11
+      "count": 12
     },
     {
       "id": "Z-LINEAGE",
@@ -10178,6 +10181,7 @@
         "C-INT-ACHADO",
         "C-INT-BIBLIA",
         "C-INT-CONVERGENCIA",
+        "C-INT-CORRIDA",
         "C-INT-DOMINIO-ALEGACAO",
         "C-INT-DONOS",
         "C-INT-ESPINHA",
@@ -10205,9 +10209,9 @@
           "CONCEITOS",
           "NOMES_APOSENTADOS"
         ],
-        "palavras": 349,
+        "palavras": 350,
         "por_lingua": {},
-        "sem_marca_de_lingua": 349,
+        "sem_marca_de_lingua": 350,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10217,7 +10221,7 @@
           "pasta": "docs",
           "prova": {
             "file": "provas/arbitragem_da_intelligence.py",
-            "line": 401,
+            "line": 409,
             "snippet": "escreve em destino"
           }
         }
@@ -10332,6 +10336,64 @@
       "y": 682
     },
     {
+      "id": "C-INT-CORRIDA",
+      "name": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo",
+      "territory": "Z-MOTOR",
+      "kind": "engine",
+      "what": "Abre uma corrida identificada sobre itens JA LIDOS da Sala de Espera, guarda pergunta, entradas, versao de regras, de codigo e da Biblia, inicio, fim, estado e erro — e fecha. O portao G0 pergunta se da para saber sobre quem o item fala, de onde veio e quando o facto aconteceu; quando nao da, produz INTELLIGENCE_REQUIREMENT e para. Nao produz achado, oportunidade nem pontuacao.",
+      "why_here": "C-INT-PILOT-01, a primeira missao que a §32 da Biblia autoriza. O RUN_ID deriva do pedido e das ENTRADAS, nunca do relogio — sem isso REUSED deixa de ser detetavel, e INT-LAW-054 exige que o reuso seja PROVADO. Ela NAO sabe abrir a Sala de Espera, e e de proposito: quem sabe abrir a Sala consegue, um dia, decidir enche-la. Corrida real sobre um item real: DONE · NO_ANALYTIC_OUTPUT_YET · 0 sinais · 1 requisito · 0 coletores.",
+      "departments": [
+        "ENGENHARIA",
+        "INTELIGENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "▷",
+      "views": [
+        "audit",
+        "generator",
+        "opportunity"
+      ],
+      "lane": "official",
+      "family": "F-INTELIGENCIA",
+      "files": [
+        "motor/corrida_da_inteligencia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-INT-ESPINHA"
+      ],
+      "outbound": [
+        "C-INT-ARBITRAGEM",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ESTADOS"
+        ],
+        "palavras": 7,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 7,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 14130,
+      "y": 682
+    },
+    {
       "id": "C-INT-DOMINIO-ALEGACAO",
       "name": "Domínio da alegação — a que campo isto pertence",
       "territory": "Z-MOTOR",
@@ -10388,8 +10450,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 14130,
-      "y": 682
+      "x": 13715,
+      "y": 1004
     },
     {
       "id": "C-INT-DONOS",
@@ -10470,6 +10532,7 @@
       "inbound": [],
       "outbound": [
         "C-INT-ARBITRAGEM",
+        "C-INT-CORRIDA",
         "C-TESTES"
       ],
       "paises": {},
@@ -17937,6 +18000,7 @@
         "tests/test_a_linhagem_do_reaproveitamento.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
         "tests/test_a_ponte_do_derived.py",
+        "tests/test_a_primeira_corrida_da_inteligencia.py",
         "tests/test_a_prova_e2e_segue_a_producao.py",
         "tests/test_a_regra_de_t2.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -18091,7 +18155,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 160,
+      "file_count": 161,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -18167,6 +18231,7 @@
         "C-INGRESSO",
         "C-INT-ARBITRAGEM",
         "C-INT-BIBLIA",
+        "C-INT-CORRIDA",
         "C-INT-DONOS",
         "C-INT-ESPINHA",
         "C-INT-MODELO",
@@ -18586,7 +18651,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13715,
+      "x": 14130,
       "y": 1004
     },
     {
@@ -18759,8 +18824,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 1004
+      "x": 13715,
+      "y": 1326
     },
     {
       "id": "C-V21-CONTRATO",
@@ -18827,7 +18892,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13715,
+      "x": 14130,
       "y": 1326
     },
     {
@@ -18936,8 +19001,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 1326
+      "x": 13715,
+      "y": 1648
     },
     {
       "id": "C-V21-FONTES",
@@ -19013,7 +19078,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 13715,
+      "x": 14130,
       "y": 1648
     },
     {
@@ -19131,8 +19196,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 14130,
-      "y": 1648
+      "x": 13715,
+      "y": 1970
     },
     {
       "id": "C-V21-OPORTUNIDADE",
@@ -19199,7 +19264,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 13715,
+      "x": 14130,
       "y": 1970
     },
     {
@@ -19735,7 +19800,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/intelligence-system-map-audit-v1"
+        "branch claude/intelligence-pilot-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -29278,7 +29343,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 139,
+          "line": 147,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_fechar.py\","
         }
       ],
@@ -29314,7 +29379,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 401,
+          "line": 409,
           "snippet": "with open(destino, \"w\", encoding=\"utf-8\") as f:"
         }
       ],
@@ -29419,7 +29484,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 121,
+          "line": 129,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/pacote_convergencia.py\","
         }
       ],
@@ -29442,6 +29507,60 @@
         }
       ],
       "categoria": "CODE"
+    },
+    {
+      "from": "C-INT-CORRIDA",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 101,
+          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/corrida_da_inteligencia.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-INT-CORRIDA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
+          "line": 28,
+          "snippet": "import corrida_da_inteligencia as CI                       # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
+      "from": "C-INT-CORRIDA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A corrida da Intelligence — o INTELLIGENCE_RUN mínimo alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
+          "line": 186,
+          "snippet": "fonte = (RAIZ / \"motor\" / \"corrida_da_inteligencia.py\").read_text(encoding=\"utf-8\")"
+        }
+      ],
+      "categoria": "PROOF"
     },
     {
       "from": "C-INT-DOMINIO-ALEGACAO",
@@ -29478,7 +29597,7 @@
         },
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 400,
+          "line": 408,
           "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\")"
         }
       ],
@@ -29510,7 +29629,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Quem é dono de cada conceito da Intelligence alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "Quem é dono de cada conceito da Intelligence alimenta Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
@@ -29520,6 +29639,11 @@
         {
           "file": "tests/test_modelo_de_objetos_da_intelligence.py",
           "line": 337,
+          "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\").read_text("
+        },
+        {
+          "file": "tests/test_o_mapa_da_intelligence_nao_mente.py",
+          "line": 435,
           "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json\").read_text("
         },
         {
@@ -29565,6 +29689,24 @@
         }
       ],
       "categoria": "READ"
+    },
+    {
+      "from": "C-INT-ESPINHA",
+      "to": "C-INT-CORRIDA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel tem o seu codigo importado por A corrida da Intelligence — o INTELLIGENCE_RUN mínimo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "motor/corrida_da_inteligencia.py",
+          "line": 58,
+          "snippet": "from espinha_da_intelligence import (           # noqa: E402"
+        }
+      ],
+      "categoria": "CODE"
     },
     {
       "from": "C-INT-ESPINHA",
@@ -32348,7 +32490,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 213,
+          "line": 221,
           "snippet": "\"OWNER\": \"COLLECTION\", \"MODULO\": \"leis/politica_da_coleta.py\","
         }
       ],
@@ -35223,7 +35365,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 197,
+          "line": 205,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"leis/adama_relevance.py\","
         }
       ],
@@ -35413,7 +35555,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 188,
+          "line": 196,
           "snippet": "\"OWNER\": \"COLLECTION\", \"MODULO\": \"leis/relevancia_da_fonte.py\","
         }
       ],
@@ -36098,8 +36240,13 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_a_primeira_corrida_da_inteligencia.py",
+          "line": 354,
+          "snippet": "import sala_de_espera as SALA                        # noqa: E402"
+        },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 24,
@@ -39891,7 +40038,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 217,
+          "line": 225,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_comercial.py\","
         }
       ],
@@ -40114,7 +40261,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 117,
+          "line": 125,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_crossings.py\","
         }
       ],
@@ -40505,7 +40652,7 @@
       "evidence": [
         {
           "file": "provas/arbitragem_da_intelligence.py",
-          "line": 151,
+          "line": 159,
           "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_oportunidades.py\","
         }
       ],
@@ -40885,7 +41032,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 894,
+  "UNCLAIMED_FILES_COUNT": 895,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -41040,17 +41187,17 @@
     ]
   },
   "COUNTS": {
-    "components": 193,
+    "components": 194,
     "components_proven": 51,
-    "components_pending": 136,
+    "components_pending": 137,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 907,
-    "edges_proven": 902,
+    "edges": 911,
+    "edges_proven": 906,
     "edges_unknown": 5,
     "business_edges": 4,
-    "files_tracked": 1782,
-    "files_covered": 888,
+    "files_tracked": 1785,
+    "files_covered": 890,
     "files_code_unclaimed": 0
   }
 }
