@@ -313,6 +313,12 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_system_map.py
 
+      # Os ataques à verdade da Collection ATUAL: a base, o SCRAP, o LinkedIn,
+      # e as fronteiras entre existir, poder e ter acontecido.
+      - name: 4m · vinte e seis ataques à verdade da Collection atual
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_verdade_da_collection_actual.py
+
       - name: 4k · a lei da frescura nunca fica verde sem as quatro provas
         if: '!cancelled()'
         run: node system-map/tests/test_freshness.mjs

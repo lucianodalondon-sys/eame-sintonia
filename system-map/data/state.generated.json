@@ -1566,6 +1566,7 @@
     ],
     "system-map": [
       "system-map/CANONICAL-PUBLICATION.json",
+      "system-map/COLLECTION-AUDIT-BASE.json",
       "system-map/README.md",
       "system-map/app/freshness.js",
       "system-map/app/index.html",
@@ -1612,6 +1613,7 @@
       "system-map/scripts/scan_sources.py",
       "system-map/scripts/validate_system_map.py",
       "system-map/scripts/verificar_deploy.py",
+      "system-map/tests/test_base_da_auditoria.py",
       "system-map/tests/test_cadeia_declara_io.py",
       "system-map/tests/test_freshness.mjs",
       "system-map/tests/test_impressao_da_arvore.py",
@@ -2313,9 +2315,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "64c3e8687c9ba0f02ad314eebab5c4f3987ec6da",
-    "GENERATED_AT": "2026-09-14T10:28:17+00:00",
-    "SOURCE_TREE_FINGERPRINT": "93d26b716ecfacc790a6e832b2c615ddbd0e341852760094ebaf49ba218706b5"
+    "HEAD": "cd70e280cfa6aa558f00fe04a1cac5ee8efe44bd",
+    "GENERATED_AT": "2026-09-14T10:34:01+00:00",
+    "SOURCE_TREE_FINGERPRINT": "8bcf99e41386f655958c38e1dbb04b36be6eb5b1e0564a84bc50e878d0a5c94c"
   },
   "FAMILIES": [
     {
@@ -11827,7 +11829,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:540"
+          ".github/workflows/system-map.yml:546"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14288,7 +14290,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/system-map-deploy-verify.yml:65",
-          ".github/workflows/system-map.yml:389"
+          ".github/workflows/system-map.yml:395"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14372,6 +14374,7 @@
           "FAMILIA_DA_ZONA",
           "KIND_PARA_PAPEL",
           "L",
+          "LEI_DA_ZONA",
           "NAO_TOCAR",
           "PAPEIS",
           "PAPEIS_CANONICOS",
@@ -14382,9 +14385,9 @@
           "_GATILHOS",
           "_NOMES_DE_CANAL"
         ],
-        "palavras": 196,
+        "palavras": 210,
         "por_lingua": {},
-        "sem_marca_de_lingua": 196,
+        "sem_marca_de_lingua": 210,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14635,6 +14638,7 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "system-map/tests/test_base_da_auditoria.py",
         "system-map/tests/test_cadeia_declara_io.py",
         "system-map/tests/test_freshness.mjs",
         "system-map/tests/test_impressao_da_arvore.py",
@@ -14649,7 +14653,7 @@
         "system-map/tests/test_verdade_das_ligacoes.py",
         "system-map/tests/verificar_a_tela.mjs"
       ],
-      "file_count": 13,
+      "file_count": 14,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -14804,6 +14808,7 @@
         "provas/o_encanamento_tem_uma_porta.py",
         "provas/objeto_e_observacao_no_postgres.py",
         "regras/proveniencia.py",
+        "system-map/COLLECTION-AUDIT-BASE.json",
         "system-map/app/freshness.js",
         "system-map/app/map.css",
         "system-map/app/map.js",
@@ -14835,8 +14840,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:314",
-          ".github/workflows/system-map.yml:318"
+          ".github/workflows/system-map.yml:310",
+          ".github/workflows/system-map.yml:314"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14863,9 +14868,10 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "system-map/COLLECTION-AUDIT-BASE.json",
         "system-map/scripts/validate_system_map.py"
       ],
-      "file_count": 1,
+      "file_count": 2,
       "status": "PENDING",
       "status_reason": "esta no caminho: alguem o chama antes de publicar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -15670,7 +15676,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:457"
+          ".github/workflows/system-map.yml:463"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17149,7 +17155,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:471"
+          ".github/workflows/system-map.yml:477"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17657,8 +17663,8 @@
         "PROVA": [
           ".github/workflows/auditoria-live.yml:54",
           ".github/workflows/banco-descartavel.yml:147",
-          ".github/workflows/system-map.yml:464",
-          ".github/workflows/system-map.yml:537"
+          ".github/workflows/system-map.yml:470",
+          ".github/workflows/system-map.yml:543"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17748,7 +17754,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/banco-descartavel.yml:545",
-          ".github/workflows/system-map.yml:558"
+          ".github/workflows/system-map.yml:564"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17839,7 +17845,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:552"
+          ".github/workflows/system-map.yml:558"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17918,7 +17924,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:569"
+          ".github/workflows/system-map.yml:575"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18224,7 +18230,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:572"
+          ".github/workflows/system-map.yml:578"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18562,7 +18568,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:546"
+          ".github/workflows/system-map.yml:552"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -25253,8 +25259,8 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:105",
-          ".github/workflows/system-map.yml:478",
-          ".github/workflows/system-map.yml:479"
+          ".github/workflows/system-map.yml:484",
+          ".github/workflows/system-map.yml:485"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -27762,7 +27768,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1059,
+          "line": 1060,
           "snippet": "\"evidence\": [_onde_esta(\"admissao/admissao.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-MAPA-GERADOR",
@@ -30061,7 +30067,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 474,
+          "line": 475,
           "snippet": "CONTRATOS_REL = \"docs/operacao/CONTRATOS-DAS-FONTES-EAME.md\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -30077,7 +30083,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4273,
+          "line": 4314,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -34172,7 +34178,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2968,
+          "line": 2969,
           "snippet": "f = raiz / \"system-map\" / \"data\" / \"provas-de-execucao.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CENSO-EXECUTORES--READS-->C-MAPA-GERADOR",
@@ -35354,7 +35360,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 540,
+          "line": 546,
           "snippet": "run: python3 provas/fluxo_no_seco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-FLUXO-NO-SECO",
@@ -35440,7 +35446,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 389,
+          "line": 395,
           "snippet": "node system-map/scripts/publicar_no_deploy.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-DEPLOY",
@@ -35688,8 +35694,24 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 3 linhas de codigo.",
+      "reason": "Workflow do System Map manda rodar Testes do System Map. Provado por 4 linhas de codigo.",
       "evidence": [
+        {
+          "file": ".github/workflows/system-map.yml",
+          "line": 310,
+          "snippet": "run: python3 system-map/tests/test_base_da_auditoria.py",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
+            "FROM": "C-CI-MAPA",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": ".github/workflows/system-map.yml",
           "line": 314,
@@ -35708,7 +35730,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 318,
+          "line": 324,
           "snippet": "run: node system-map/tests/test_freshness.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35724,7 +35746,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 327,
+          "line": 333,
           "snippet": "run: python3 system-map/tests/test_impressao_da_arvore.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35794,7 +35816,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 457,
+          "line": 463,
           "snippet": "run: python3 medidas/padrao_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PADRAO-COLETA",
@@ -35829,7 +35851,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 471,
+          "line": 477,
           "snippet": "run: python3 provas/valida_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-BIBLIA",
@@ -35864,7 +35886,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 464,
+          "line": 470,
           "snippet": "run: python3 provas/testa_coleta_canonica.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35880,7 +35902,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 537,
+          "line": 543,
           "snippet": "run: python3 provas/paridade_da_lingua.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35896,7 +35918,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 543,
+          "line": 549,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35931,7 +35953,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 558,
+          "line": 564,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-DEDUPE",
@@ -35966,7 +35988,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 552,
+          "line": 558,
           "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-ENCANAMENTO",
@@ -36001,7 +36023,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 569,
+          "line": 575,
           "snippet": "run: python3 provas/o_executor_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-EXECUTOR-CONTA",
@@ -36036,7 +36058,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 572,
+          "line": 578,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-FRONTEIRA",
@@ -36071,7 +36093,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 546,
+          "line": 552,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-MAPA-NAO-MENTE",
@@ -36176,7 +36198,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 478,
+          "line": 484,
           "snippet": "python3 tests/test_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36192,7 +36214,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 479,
+          "line": 485,
           "snippet": "python3 tests/test_integracao_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36208,7 +36230,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 480,
+          "line": 486,
           "snippet": "python3 tests/test_observabilidade_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36224,7 +36246,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 481,
+          "line": 487,
           "snippet": "python3 tests/test_red_team_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36240,7 +36262,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 488,
+          "line": 494,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36256,7 +36278,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 495,
+          "line": 501,
           "snippet": "run: python3 tests/test_armazem_italiano.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36272,7 +36294,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 502,
+          "line": 508,
           "snippet": "run: python3 tests/test_preservar_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36288,7 +36310,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 510,
+          "line": 516,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36304,7 +36326,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 517,
+          "line": 523,
           "snippet": "run: python3 tests/test_preservar_derivado.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36320,7 +36342,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 523,
+          "line": 529,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -44726,7 +44748,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1427,
+          "line": 1428,
           "snippet": "\"evidence\": [{\"file\": \"coleta/golden_path_pdf.py\", \"line\": 1,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ESTRADA-PDF--READS-->C-MAPA-GERADOR",
@@ -45767,7 +45789,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1409,
+          "line": 1410,
           "snippet": "\"evidence\": [{\"file\": \"coleta/executor_texto_de_pdf.py\", \"line\": 1,",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-MAPA-GERADOR",
@@ -45783,7 +45805,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1420,
+          "line": 1421,
           "snippet": "\"evidence\": [{\"file\": \"data/derivados/REGISTO-DE-ARTEFATOS.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-MAPA-GERADOR",
@@ -48699,7 +48721,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4295,
+          "line": 4336,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -51211,7 +51233,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 375,
+          "line": 381,
           "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-CI-MAPA",
@@ -51316,7 +51338,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3457,
+          "line": 3458,
           "snippet": "\"CADEIA-DO-MAPA.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-MAPA-GERADOR",
@@ -51750,7 +51772,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5275,
+          "line": 5316,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -51973,7 +51995,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5288,
+          "line": 5329,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -51989,7 +52011,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5288,
+          "line": 5329,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -52501,8 +52523,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Validador do System Map alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "reason": "Validador do System Map alimenta Testes do System Map. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "system-map/tests/test_base_da_auditoria.py",
+          "line": 46,
+          "snippet": "CONTRATO = RAIZ / \"system-map\" / \"COLLECTION-AUDIT-BASE.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-MAPA-VALIDADOR--READS-->C-MAPA-TESTES",
+            "FROM": "C-MAPA-VALIDADOR",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "system-map/tests/test_system_map.py",
           "line": 493,
@@ -53487,7 +53525,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3322,
+          "line": 3323,
           "snippet": "orq = raiz / \"orquestrador\" / \"orquestrador.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-MAPA-GERADOR",
@@ -59521,7 +59559,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1010,
+          "line": 1011,
           "snippet": "\"evidence_text\": \"provas/a_fronteira_da_coleta.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-FRONTEIRA--READS-->C-MAPA-GERADOR",
@@ -59661,7 +59699,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 55,
+          "line": 56,
           "snippet": "DECLARADO = DADOS / \"architecture.declared.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPA-GERADOR",
@@ -61133,7 +61171,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 3321,
+          "line": 3322,
           "snippet": "reg = raiz / \"pedido\" / \"receitas.py\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--READS-->C-MAPA-GERADOR",
@@ -70369,7 +70407,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 1094,
+          "line": 1095,
           "snippet": "migracao = \"supabase/migrations/022_o_derivado_ganha_casa.sql\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-MAPA-GERADOR",
@@ -71702,7 +71740,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 2648,
+          "line": 2649,
           "snippet": "v = json.loads((RAIZ / \"vercel.json\").read_text(encoding=\"utf-8\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--READS-->C-MAPA-GERADOR",
@@ -74687,7 +74725,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 239,
+          "line": 240,
           "snippet": "contrato = RAIZ / \"italia-portale\" / \"audit\" / \"CANONICAL-PACKAGE-CONTRACT.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "lineage_stale--READS-->C-MAPA-GERADOR",
@@ -75009,8 +75047,8 @@
     "edges_proven": 876,
     "edges_unknown": 48,
     "business_edges": 4,
-    "files_tracked": 1727,
-    "files_covered": 893,
+    "files_tracked": 1729,
+    "files_covered": 895,
     "files_code_unclaimed": 0,
     "roles_proven": 134,
     "roles_declared_only": 5,

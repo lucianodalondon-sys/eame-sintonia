@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  64c3e8687c9ba0f02ad314eebab5c4f3987ec6da
+HEAD_DA_MEDICAO  cd70e280cfa6aa558f00fe04a1cac5ee8efe44bd
 BRANCH           claude/system-map-current-collection-truth-v2
-GERADO_EM        2026-09-14T10:28:17+00:00
+GERADO_EM        2026-09-14T10:34:01+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -43,6 +43,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 28 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-COLETA-INSTAGRAM` · Colher o Instagram
@@ -65,6 +68,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 2 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 15 · NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-COLETA-PUBLICA` · Colher o que o concorrente publica
@@ -87,6 +93,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 3 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 15 · NÃO SEI 3 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-COLETA-YOUTUBE` · Colher o YouTube
@@ -109,6 +118,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 2 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 · NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-CORPUS` · Montar o corpus de fala e de ciencia
@@ -131,6 +143,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 · NÃO SEI 1 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-DERIVACAO-FORWARD` · A fronteira forward da derivação
@@ -153,6 +168,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 16 · OBSERVED 2 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-ESTRADA-PDF` · A primeira estrada · PDF até à porta
@@ -175,6 +193,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 11 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
 ### `C-EU-REGULATORIO-COLETA` · Colher o ato regulatório da UE
@@ -197,6 +218,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 4 · OBSERVED 1 · NÃO SEI 1 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-EXECUTOR-TEXTO-PDF` · Executor · texto a partir de PDF
@@ -219,6 +243,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED YES · PROVEN YES _(no plano OBSERVED)_ |
+| **prova das ligações** | CODE 22 · NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-FONTES-EU` · Ler as bases oficiais da Europa
@@ -241,6 +268,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 10 · NÃO SEI 1 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-INGRESSO` · A porta de entrada da coleta
@@ -263,6 +293,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 19 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-IT-COLETA` · Colher as fontes italianas
@@ -285,6 +318,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 15 · OBSERVED 1 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-ROTA-M2` · A rota forward do documento (M2)
@@ -307,6 +343,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 0 · saem 3 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED YES · PROVEN YES _(no plano OBSERVED)_ |
+| **prova das ligações** | CODE 17 · OBSERVED 3 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-ROTULOS` · Baixar e ler os rotulos oficiais
@@ -329,6 +368,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 · NÃO SEI 1 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-SCRAP-COLHEITA` · O adapter do SCRAP para a porta canonica · a aresta que faltava
@@ -351,6 +393,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 15 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-SCRAP-SOCIAL` · SINTONIA SCRAP · o executor da aquisicao social
@@ -373,6 +418,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 3 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 4 · saem 0 |
 | **data plane** | entram 5 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 34 · OBSERVED 3 · NÃO SEI 3 |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ## Z-ADMISSAO · 4 · A PORTA DE ADMISSAO
@@ -397,6 +445,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 3 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 25 · NÃO SEI 3 · OBSERVED 2 |
+| **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-SALA-DE-ESPERA` · A Sala de Espera
@@ -419,6 +470,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 15 |
+| **lei da Bíblia** | COL-LAW-042/043 · a admissao decide com prova, e READY nao e «o script terminou» |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ## Z-BIBLIA · 0 · A CONSTITUIÇÃO DA COLETA
@@ -443,6 +497,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 7 |
+| **lei da Bíblia** | COL-LAW-005 · COLETAR != ADMITIR != JULGAR |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
 ## Z-CANDIDATAS · de onde vem uma fonte
@@ -467,6 +524,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 |
+| **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-PORTA-FONTE` · A porta de entrada de fonte nova
@@ -489,6 +549,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
+| **lei da Bíblia** | COL-LAW-053 · a fonte tem cadastro unico e reconciliado |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ## Z-ENTRADA · 1 · ENTRADA DE COLETA
@@ -513,6 +576,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 5 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 8 |
+| **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
 ## Z-EXECUCAO · 3 · EXECUCAO
@@ -537,6 +603,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 1 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 3 |
+| **lei da Bíblia** | COL-LAW-013/014 · contrato comum do executor e capacidades declaradas |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
 ### `C-SCRAP-ROTA` · SCRAP rota e sessao · o despachador (auth_mode)
@@ -559,6 +628,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 4 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 |
+| **lei da Bíblia** | COL-LAW-013/014 · contrato comum do executor e capacidades declaradas |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
 ### `C-SINTONIA-SCRAP` · SCRAP aquisicao · o despachador (Instagram, YouTube)
@@ -581,6 +653,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 10 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 13 |
+| **lei da Bíblia** | COL-LAW-013/014 · contrato comum do executor e capacidades declaradas |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
 ## Z-FERRAMENTAS · as ferramentas da execucao
@@ -605,6 +680,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 4 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 · NÃO SEI 4 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-LEITORES` · Abrir PDF, ODS e HTML
@@ -627,6 +705,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-NAVEGADOR` · O navegador — a rota gratis
@@ -649,6 +730,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 2 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 7 · NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-TRANSCRICAO` · A fala vira texto, sem fatura
@@ -671,6 +755,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 14 |
+| **lei da Bíblia** | COL-LAW-013 · contrato comum do executor |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ## Z-FONTES · as fontes
@@ -695,6 +782,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-AS-FONTES` · AS FONTES
@@ -717,6 +807,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 4 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 · NÃO SEI 4 |
+| **lei da Bíblia** | COL-LAW-009 · fonte, endpoint, rota, executor, item e artefato sao seis coisas |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
 ## Z-GUARDA · A SALA DE ESPERA
@@ -741,6 +834,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 3 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-ARMAZEM-IT-SEM-LIVRO` · Armazém italiano no Supabase (sem livro de entrada)
@@ -763,6 +859,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **ALVO_SEM_ESCRITOR_MEDIDO** — alvo declarado e explicado; nenhuma aresta medida o enche — quem lá escreve escreve em SQL, e o scanner mede ficheiros |
 
 ### `C-CI-PERSIST` · Os botoes que cuidam do banco
@@ -785,6 +884,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 10 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 15 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **EXTERNAL_ENTRY** — entrada legitima, e o mapa di-lo com a prova |
 
 ### `C-DERIVED-ARTIFACT` · ALVO · a casa do derivado (migration 022)
@@ -807,6 +909,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **ALVO_SEM_ESCRITOR_MEDIDO** — alvo declarado e explicado; nenhuma aresta medida o enche — quem lá escreve escreve em SQL, e o scanner mede ficheiros |
 
 ### `C-DONO-DA-ESCRITA` · O dono canônico da escrita do bruto (OBSERVED)
@@ -829,6 +934,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 18 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-DONO-DO-DERIVADO` · O dono canônico da escrita do derivado (OBSERVED)
@@ -851,6 +959,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 7 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-DONO-DO-DOCUMENTO` · O dono canônico do documento estruturado (OBSERVED)
@@ -873,6 +984,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 1 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-IMPORTAR` · Levar o dado para o banco
@@ -895,6 +1009,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-IT-PDF-BRUTO` · Evidência bruta em PDF (Itália)
@@ -917,6 +1034,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 2 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
 ### `C-IT-PRESERVAR` · Guardar com impressao digital
@@ -939,6 +1059,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 10 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-IT-TEXTO-DERIVADO` · Texto derivado, com pai
@@ -961,6 +1084,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-IT-TEXTO-PESQUISAVEL` · O texto que a máquina consegue ler
@@ -983,6 +1109,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | NÃO SEI 2 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
 ### `C-SCRAP-GUARDA` · A guarda de credencial e de sessao do SCRAP
@@ -1005,6 +1134,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-SUPABASE` · O banco onde o dado fica guardado
@@ -1027,6 +1159,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 19 |
+| **lei da Bíblia** | COL-LAW-044 · armazenamento nao e estado logico |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ## Z-MEDIDAS · as medidas da coleta
@@ -1051,6 +1186,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 3 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-CENSO-EXECUTORES` · Censo dos executores — caminhos, papeis e cobertura
@@ -1073,6 +1211,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 10 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-CENSO-OBSERVABILIDADE` · Censo da observabilidade
@@ -1095,6 +1236,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-CICATRIZES-BR` · Cicatrizes do Brasil (lei portada)
@@ -1117,6 +1261,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 6 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-CONTRATO-CAMPOS` · O que a coleta tem de trazer
@@ -1139,6 +1286,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 2 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
 ### `C-FRONTEIRA-TELEMETRIA` · A fronteira instrumentada
@@ -1161,6 +1311,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 8 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-PADRAO-COLETA` · O padrao do departamento de coleta
@@ -1172,7 +1325,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | green — esta no caminho: alguem o chama antes de publicar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-MAPA |
-| **prova de quem ativa** | .github/workflows/system-map.yml:457 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/system-map.yml:463 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson`, `data/samples/RUN-MANIFEST.json` |
@@ -1183,6 +1336,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 5 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-RASTRO` · O rastro da coleta — etapa, aresta, contagem e falha
@@ -1205,6 +1361,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 18 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **OK** — contrato ou acervo: consulta-se, nao corre |
 
 ### `C-REGRA-COLETA` · A regra de coleta externa
@@ -1227,6 +1386,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 13 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ### `C-RELATORIO-FLUXO` · Relatório do fluxo
@@ -1249,6 +1411,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 3 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **TERMINAL** — saida terminal neste escopo |
 
 ### `C-SAUDE-FONTE` · A saude de cada fonte
@@ -1271,6 +1436,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 3 |
+| **lei da Bíblia** | COL-LAW-028/029 · a fonte tem saude, e o drift tem controlo negativo |
 | **VEREDITO** | **SYSTEM_GAP** — construida e medida; na coleta ninguem a corre |
 
 ## Z-ORQUESTRADOR · 2 · ORQUESTRADOR
@@ -1295,6 +1463,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 3 — corrida `?` |
 | **control plane** | entram 3 · saem 7 |
 | **data plane** | entram 0 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 33 · OBSERVED 3 · NÃO SEI 1 |
+| **lei da Bíblia** | COL-LAW-011/012 · um dono da orquestracao; ele controla e nao transporta dado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ## Z-PEDIDO · PEDIDO — o contrato
@@ -1319,6 +1490,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 1 — corrida `?` |
 | **control plane** | entram 0 · saem 1 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 7 · OBSERVED 1 |
+| **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
 ### `C-RECEITAS` · A receita da coleta
@@ -1341,6 +1515,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 23 |
+| **lei da Bíblia** | COL-LAW-010 · um pedido nao conhece implementacao |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ## Z-REGRAS · as reguas que carimbam
@@ -1365,6 +1542,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 10 |
+| **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ### `C-IT-CONTRATOS` · O contrato de cada fonte italiana
@@ -1387,6 +1567,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 12 |
+| **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-PALAVRAS` · As palavras que a busca digita
@@ -1409,6 +1592,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 10 |
+| **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-PROCEDENCIA` · De onde veio — carimbado na coleta
@@ -1431,6 +1617,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 23 |
+| **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `C-SENSOR-COLETA` · Coletor dos sensores tecnicos · canal, video e fala
@@ -1453,6 +1642,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
+| **prova das ligações** | CODE 13 |
+| **lei da Bíblia** | COL-LAW-031/032/033/034 · tempo, geografia, procedencia, identidade |
 | **VEREDITO** | **OK** — activador provado, e o mapa mostra-o |
 
 ## Z-VEICULOS · os canais
@@ -1477,6 +1669,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 3 |
+| **lei da Bíblia** | COL-LAW-018/019 · a rota mais barata capaz vem primeiro |
 | **VEREDITO** | **OK** — canal, aberto por rota medida |
 
 ### `V-HTTP` · PEDIDO HTTP DIRETO
@@ -1499,6 +1694,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 7 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 7 |
+| **lei da Bíblia** | COL-LAW-018/019 · a rota mais barata capaz vem primeiro |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
 
 ### `V-INSTAGRAM` · INSTAGRAM
@@ -1521,6 +1719,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 1 · saem 2 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 5 |
+| **lei da Bíblia** | COL-LAW-018/019 · a rota mais barata capaz vem primeiro |
 | **VEREDITO** | **OK** — canal, aberto por rota medida |
 
 ### `V-LINKEDIN` · LINKEDIN
@@ -1543,6 +1744,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 3 |
+| **lei da Bíblia** | COL-LAW-018/019 · a rota mais barata capaz vem primeiro |
 | **VEREDITO** | **OK** — canal, aberto por rota medida |
 
 ### `V-YOUTUBE` · YOUTUBE
@@ -1565,6 +1769,9 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 2 · saem 0 |
 | **data plane** | entram 1 · saem 2 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** | NÃO SEI 5 |
+| **lei da Bíblia** | COL-LAW-018/019 · a rota mais barata capaz vem primeiro |
 | **VEREDITO** | **OK** — canal, aberto por rota medida |
 
 ---

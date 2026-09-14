@@ -39,6 +39,7 @@ rebaixa o componente para AMARELO com o motivo "mudou depois da declaracao".
 E o unico mecanismo que impede verde velho de sobreviver a mudanca.
 """
 
+import collections
 import fnmatch
 import glob
 import ast
@@ -3803,6 +3804,32 @@ def censo_das_ligacoes_da_collection(estado: dict) -> None:
     O VEREDITO de cada card e derivado, e a regra de cada um esta escrita ao
     lado. Nenhum card fica sem veredito, e `UNKNOWN` e um veredito.
     """
+    # A LEI QUE MANDA EM CADA ZONA DA COLETA. Nao e decoracao: e o que permite
+    # perguntar «este cartao cumpre a lei dele?» sem abrir a Biblia inteira.
+    # Uma zona sem lei nomeada diz NAO SEI — inventar um numero de lei seria
+    # pior do que nao ter nenhum.
+    LEI_DA_ZONA = {
+        "Z-BIBLIA": "COL-LAW-005 · COLETAR != ADMITIR != JULGAR",
+        "Z-ENTRADA": "COL-LAW-010 · um pedido nao conhece implementacao",
+        "Z-PEDIDO": "COL-LAW-010 · um pedido nao conhece implementacao",
+        "Z-ORQUESTRADOR": "COL-LAW-011/012 · um dono da orquestracao; ele "
+                          "controla e nao transporta dado",
+        "Z-CANDIDATAS": "COL-LAW-053 · a fonte tem cadastro unico e reconciliado",
+        "Z-FONTES": "COL-LAW-009 · fonte, endpoint, rota, executor, item e "
+                    "artefato sao seis coisas",
+        "Z-EXECUCAO": "COL-LAW-013/014 · contrato comum do executor e "
+                      "capacidades declaradas",
+        "Z-VEICULOS": "COL-LAW-018/019 · a rota mais barata capaz vem primeiro",
+        "Z-FERRAMENTAS": "COL-LAW-013 · contrato comum do executor",
+        "Z-ACOES": "COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado",
+        "Z-GUARDA": "COL-LAW-044 · armazenamento nao e estado logico",
+        "Z-REGRAS": "COL-LAW-031/032/033/034 · tempo, geografia, procedencia, "
+                    "identidade",
+        "Z-MEDIDAS": "COL-LAW-028/029 · a fonte tem saude, e o drift tem "
+                     "controlo negativo",
+        "Z-ADMISSAO": "COL-LAW-042/043 · a admissao decide com prova, e READY "
+                      "nao e «o script terminou»",
+    }
     nos = estado["NODES"]
     col = sorted([n for n in nos if n.get("family") == "F-COLETA"],
                  key=lambda x: (x["territory"], x["id"]))
@@ -3920,6 +3947,20 @@ def censo_das_ligacoes_da_collection(estado: dict) -> None:
                      f"{sum(1 for e in ins if e.get('categoria') == CONTROL)} · saem "
                      f"{sum(1 for e in outs if e.get('categoria') == CONTROL)} |\n")
             L.append(f"| **data plane** | entram {len(din)} · saem {len(dout)} |\n")
+            # OS TRES PLANOS DA PECA, LADO A LADO — e nunca um rotulo por
+            # cima deles. `PROVEN` sozinho nao diz provado DE QUE.
+            L.append(f"| **prova da peça** | DECLARED {n.get('DECLARED')} · "
+                     f"CODE {n.get('CODE')} · OBSERVED {n.get('OBSERVED')} · "
+                     f"PROVEN {n.get('PROVEN')}"
+                     + (f" _(no plano {n['PROVEN_PLANE']})_"
+                        if n.get("PROVEN_PLANE") else "") + " |\n")
+            planos = collections.Counter()
+            for e in ins + outs:
+                planos[e.get("PROVEN_PLANE") or "NÃO SEI"] += 1
+            L.append("| **prova das ligações** | "
+                     + " · ".join(f"{k} {v2}" for k, v2 in planos.most_common())
+                     + " |\n")
+            L.append(f"| **lei da Bíblia** | {LEI_DA_ZONA.get(z, 'NÃO SEI')} |\n")
             L.append(f"| **VEREDITO** | **{v}** — {porque} |\n")
     L.append("\n---\n\n## O PLACAR\n\n```\n")
     for k in sorted(placar, key=lambda x: -placar[x]):
