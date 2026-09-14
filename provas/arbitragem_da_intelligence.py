@@ -201,6 +201,17 @@ def _cabeca():
     }
 
 
+#: ⚠️ SAIDA DE GERADOR NAO E EVIDENCIA DE NADA.
+#: O espelho do System Map passou a conter a prosa das pecas que esta missao
+#: declarou — e essa prosa nomeia INTELLIGENCE_RUN e INTELLIGENCE_REQUIREMENT.
+#: Contada como ficheiro da camada DELIVERY, ela movia os dois conceitos de
+#: DEFINED_ONLY para DISPERSO: um documento a descrever um conceito passava a
+#: contar como implementacao dele.
+#:
+#:     UM MAPA QUE DESCREVE O SISTEMA NAO FAZ PARTE DA CONTAGEM DO SISTEMA.
+GERADOS = (".generated.json",)
+
+
 def _ficheiros_que_tocam(tokens):
     """Quem menciona o conceito, por camada. É um indício, não uma prova."""
     achados = set()
@@ -212,6 +223,7 @@ def _ficheiros_que_tocam(tokens):
             achados |= {l for l in out.splitlines() if l}
         except subprocess.CalledProcessError:
             pass
+    achados = {f for f in achados if not f.endswith(GERADOS)}
     por_camada = {c: 0 for c in CAMADAS}
     por_camada["OUTRA"] = 0
     for f in achados:
