@@ -1006,8 +1006,14 @@ O que isto resolve, quando for implementado (não agora):
 | `C-BIBLIA` fora | decisão certa, razão escrita | `CONTRACT_OR_RULE` → **fora** |
 | `C-READY` fora | `INTENTIONAL=UNKNOWN` | `STORAGE` → **fora, por regra escrita** |
 
-**`ROLE` não existe ainda como campo.** Atribuí-lo é trabalho de medição e
-decisão humana, não desta missão.
+~~**`ROLE` não existe ainda como campo.** Atribuí-lo é trabalho de medição e
+decisão humana, não desta missão.~~
+
+> **`ROLE` PASSOU A EXISTIR EM `G7`** — ver §33. A frase acima fica riscada e não
+> apagada: ela é a data em que este contrato pediu o campo, e a §33 é a data em
+> que ele chegou. O que a §21 previa aqui **ainda não foi aplicado**: o pente
+> fino continua a incluir por lista de territórios, e não por `ROLE`. Trocar o
+> filtro é outra missão, e a §33.6 diz porquê.
 
 ---
 
@@ -1928,9 +1934,237 @@ G8_IMPLEMENTED = NO   nenhum cartão foi reorganizado
 CARD_WORK      = NOT_STARTED
 ```
 
+> **Medido no fecho de `G6`, e já não é o estado de hoje.** `G7`, `G8` e `G8B`
+> foram reabertos pelo gatilho `G` da §29.5 e fecham na §33. O quadro acima fica
+> como estava: ele é o que `G6` mediu, e reescrevê-lo apagaria a data.
+
 A varredura continua a ler a rodada anterior — **por contrato**, com lei escrita
 e convergência provada, e não por dívida escondida. Torná-la síncrona exigiria
 um medidor que não escreve dentro do que mede, e isso é arquitetura nova.
+
+---
+
+## 33 · `G7` · `G8` · `G8B` · O PAPEL VEM DA EVIDÊNCIA, E A TELA NÃO PROMOVE NADA
+
+```
+G7_IMPLEMENTED  = YES   ROLE em 162 de 162, com plano e evidência
+G8_IMPLEMENTED  = YES   a classe de prova da aresta sai dos quatro planos
+G8B_IMPLEMENTED = PARTIAL   ver §33.6 — o que ficou por fazer, e porquê
+CARD_WORK       = DONE_FOR_READING · NOT_STARTED_FOR_LAYOUT
+```
+
+A pergunta desta missão não era «o mapa está certo?». Era outra:
+
+> **O PAINEL DEIXA UM HUMANO ENTENDER A MÁQUINA SEM ABRIR CÓDIGO?**
+
+E a resposta separava-se em duas que estavam coladas:
+
+```
+MÁQUINA CORRETA   !=   PAINEL COMPREENSÍVEL
+```
+
+### 33.1 · O que a medição encontrou, e que não se sabia
+
+Três defeitos, todos **na tela**, todos com a lei já escrita a proibi-los.
+
+| # | medido | a lei que já o proibia |
+|---|---|---|
+| 1 | **45 arestas sem prova nenhuma eram desenhadas exactamente como as 612 provadas** | §20 — «uma seta verde não pode continuar a significar quatro coisas» |
+| 2 | a dica escrevia **«LIGAÇÃO PROVADA»** em 657 arestas, e 45 delas não tinham prova | §2 — `CODE → OBSERVED` proibido inferir |
+| 3 | o **«mostrar caminho completo»** atravessava essas 45 | o comentário da própria função: *«nunca atravessa uma ligação NÃO SEI»* |
+
+A causa é uma só, e é pequena:
+
+```js
+const cls = e.kind === 'expected' ? 'unknown' : '';
+```
+
+`kind` tem dois valores nesta árvore: `expected` (**2**) e `technical` (**657**).
+`PROVEN` tem outra distribuição: **612** provadas e **47** por provar. A tela
+perguntava a um campo que não sabe a resposta.
+
+> **UM CAMPO QUE SEPARA DUAS COISAS NÃO RESPONDE POR UMA TERCEIRA.**
+
+E a lição de método, que é a que sobrevive a este ficheiro:
+
+> **UMA LEI ESCRITA NUM CONTRATO E NÃO LIGADA A UM CAMPO DA TELA
+> É UMA LEI QUE SÓ EXISTE PARA QUEM LÊ O CONTRATO.**
+
+As três estavam escritas desde `G1`. Nenhuma tinha guarda na tela, e por isso
+nenhuma reprovava — a §20 chama-se «o que o card e a aresta precisam de poder
+mostrar», e *poder mostrar* nunca foi *mostrar*.
+
+### 33.2 · `ROLE` — como ele é decidido, e o que ele não prova
+
+O vocabulário é o da §5.1, **fechado**, e nenhum valor novo nasceu. Quem o
+decide é `generate_system_map.papel_canonico()`, por uma escada de nove regras
+cuja **ordem é a lei** e onde cada degrau nomeia o facto medido que o disparou:
+
+| regra | dispara quando | plano |
+|---|---|---|
+| `M1_SO_WORKFLOW` | todos os ficheiros executáveis são manifestos de workflow | `CODE` |
+| `M2_SERVIDO_AO_BROWSER` | possui ficheiro dentro do `outputDirectory` do `vercel.json` | `CODE` |
+| `M3_REGUA_*` | `rule_role` já medido (`DECLARES` · `MEASURES` · `STAMPS`) | `CODE` |
+| `M4_MANDA_OUTRA_CORRER` | corre por subprocesso ficheiro de outra peça | `CODE` |
+| `M5_VAI_BUSCAR_FORA` | abre ligação de rede (`_fala_com_a_rede`) | `CODE` |
+| `M6_ESCREVE_NUMA_PASTA` | `ESCRITAS_EM_PASTA` mede destino de escrita | `CODE` |
+| `M7_ENTREGA_A_SEGUINTE` | escreve artefacto que outra peça lê | `CODE` |
+| `M8_LE_E_NAO_ESCREVE` | lê artefacto e não escreve nenhum medido | `CODE` |
+| `M9_NADA_AQUI_CORRE` | tem ficheiro e nenhum é executável | `CODE` |
+
+Só **sete** rótulos `kind` produzem papel declarado — `test`, `proof`,
+`workflow`, `surface`, `tela`, `store`, `acervo`. `contract`, `engine`, `gate`,
+`library` e `chain` **não entram**, e a razão está medida nesta árvore: o
+comentário de `ZONAS_DE_LEI` regista «O que a ADAMA sabe de si» declarado
+`contract` quando é o catálogo comercial.
+
+> **HERDAR UM ENGANO DA FICHA COM CARA DE PAPEL
+> É REPETI-LO NUM NÍVEL ACIMA.**
+
+**O medido e o declarado nunca se fundem.** Quando discordam, o papel publicado
+é `UNKNOWN` e o conflito sai inteiro, com os dois lados e a razão de cada um —
+§15. O mapa não arbitra.
+
+```
+ROLE_PROVEN (plano CODE)     119 de 162
+ROLE_DECLARED_ONLY             4 de 162
+ROLE_UNKNOWN                  39 de 162   (15 deles são conflito publicado)
+ROLE_CONFLICT                 15
+```
+
+### 33.3 · Os quinze conflitos, e o que eles revelaram
+
+Não são ruído. Sete são o mesmo caso: `C-TELA-ARCHIVE`, `C-TELA-COMPETITORS`,
+`C-TELA-MARKET`, `C-TELA-MEETING`, `C-TELA-PORTFOLIO`, `C-TELA-SCIENCE` e
+`C-TELA-WINDOWS` estão declaradas `tela` e possuem **só ficheiros
+`*.spec.json`** — a árvore mede armazém, a ficha declara superfície. Não é
+evidente qual das duas está errada, e é por isso que o mapa não escolhe.
+
+Os outros oito dividem-se em dois padrões, e ambos ensinam:
+
+- **`C-PROVA-BIBLIA`, `C-MAPA-TESTES`, `C-PROVA-COLETA`, `C-TESTES`,
+  `C-RECORRENCIA`** — declaradas `test`, medidas a escrever artefactos que
+  outras peças leem, a correr outras peças por subprocesso, ou a abrir ligações
+  de rede. **Uma prova que produz para outros deixou de ser só uma prova.**
+- **`C-MAPA-APP`, `C-IT-CONTAS`, `C-PROVA-ENCANAMENTO`** — o contrário: a ficha
+  promete mais do que a árvore mede.
+
+### 33.4 · O limite desta medição, declarado antes de ser descoberto
+
+`ROLE_LIMITATIONS` é obrigatório e não vazio em todas as 162 peças — §7. Ele diz
+a mesma coisa em todas, porque a limitação é a mesma:
+
+> **análise estática da árvore: prova `CODE`. Não prova `OBSERVED`, nem que o
+> item da coleta atravessa esta peça.**
+
+E há um limite mais afiado, que o próprio red team desta missão encontrou:
+
+```
+system-map/tests/test_impressao_da_arvore.py:141
+  alvo.write_text(alvo.read_text(...) + "\n<!-- mutacao -->\n", ...)
+```
+
+`scan_repo.py` mede esta linha como `WRITES` para `AGENTS.md`. **E está certo
+dentro da sua própria classe**: a linha prova que o código *consegue* escrever
+ali. O que ela não prova é que escreve na árvore rastreada — o teste opera sobre
+um clone. A evidência já declarava isto (`STATIC_CODE_ANALYSIS` · «prova CODE»),
+e por isso **não foi corrigido**: não é um defeito da medição, é o limite dela,
+e o limite está escrito.
+
+> **`CAN DO` MEDIDO CORRECTAMENTE CONTINUA A NÃO SER `DID DO`.**
+
+### 33.5 · `OWNER` tem dois planos, e nenhum deles é o caminho do ficheiro
+
+A §4 exige `OWNER` como campo próprio. Ele existe agora, e publica-se em dois
+planos apenas:
+
+```
+OWNER_PLANE = DECLARED   145 de 162   `departments`, decisão de gente
+OWNER_PLANE = UNKNOWN     17 de 162   ninguém declarou
+OWNER_PLANE = CODE         0 de 162   e tem de continuar em zero
+```
+
+Zero em `CODE` **não é uma lacuna**: é a afirmação de que a árvore não mede
+responsabilidade. Uma pasta diz onde o ficheiro mora; não diz quem responde por
+ele estar certo.
+
+> **PASTA NÃO É DONO.**
+
+E `ONE CONCEPT → ONE OWNER` deixou de ser invisível. `censo_dos_donos.py` já
+media 15 conceitos desde a missão da observabilidade — **9 com dono duplicado**
+— e esse número nunca tinha chegado à tela. O estado passa a lê-lo de quem o
+mede, nunca a recontá-lo.
+
+> **MEDIDO E INVISÍVEL VALE O MESMO QUE NÃO MEDIDO.**
+
+### 33.6 · O que `G8B` não fez, e porquê
+
+```
+LAYOUT_REORGANIZADO      = NO
+CARTAO_MUDOU_DE_ZONA     = NO   (0 de 162)
+FAIXA_MUDOU_DE_CONTEUDO  = NO
+POSICAO_X_Y_MUDOU        = NO
+```
+
+A §29.6 escreveu que arrumar com precisão um sistema que ainda muda de forma é
+pagar duas vezes pela mesma arrumação. Isso continua verdadeiro. Por isso `G8B`
+mexeu apenas no que **não altera semântica**: o que a tela diz de cada cartão,
+onde a câmara pousa ao abrir, e como a selecção separa montante de jusante.
+
+> **LAYOUT NÃO PODE ALTERAR SEMÂNTICA — e a forma mais barata de garantir isso
+> é não mexer no layout.**
+
+Fica por fazer, e fica nomeado: as posições continuam a ser as que `desenhar()`
+calcula, o pente fino continua a incluir por lista de territórios em vez de por
+`ROLE` (§21), e as 39 peças sem papel medido continuam sem papel medido.
+
+### 33.7 · Red team
+
+```
+RED_TEAM_ATTACKS   = 24
+RED_TEAM_SURVIVORS = 0
+```
+
+Um ataque sobreviveu à primeira volta e obrigou a uma correcção no gerador —
+**#3, «import tratado como fluxo de dado»**. A regra que promove a ligação de
+uma ferramenta de `PREPARO` a `DATA` aceitava `categoria in (CODE, READ)`, e
+medido nesta árvore as **únicas duas** ligações que ela promovia eram as duas de
+`import`:
+
+```
+C-COLETA-INSTAGRAM -> C-TRANSCRICAO  IMPORTS  ferramentas/instagram_transcrever.py:184
+C-NAVEGADOR        -> C-TRANSCRICAO  IMPORTS  ferramentas/instagram_transcrever.py:183
+```
+
+A regra justificava-se com «o que sai do whisper é o TEXTO do item» e, na
+prática, só promovia importações de módulo. Ela passa a recusar `CODE` e a
+aceitar só `READ`. Hoje isso promove **zero** ligações — e zero é a resposta
+certa: nenhuma leitura dessas está medida nesta árvore.
+
+> **UM IMPORT NÃO É UM CARIMBO** — e este gerador já o dizia, duzentas linhas
+> acima, sobre as réguas e não sobre isto.
+
+### 33.8 · A guarda
+
+`system-map/tests/test_papel_e_leitura_humana.py`, passo `4t` do `MAP RULES
+CHECK`, declarado em `CADEIA-DO-MAPA.json` → `OUTRAS_EXECUCOES`. **99 provas,
+das quais 10 são mordidas.** Duas delas correm sobre os dados de hoje e não sobre um defeito
+imaginado:
+
+- `m6` aplica a regra velha à árvore actual e conta **45 arestas** que ela
+  pintaria de provado sem prova nenhuma;
+- `kind_e_a_classe_de_prova_nao_sao_a_mesma_pergunta` reprova se um dia os dois
+  números coincidirem — porque nesse dia esta sentinela deixa de morder e tem de
+  ser remedida.
+
+E a cobertura humana é **medida, nunca afirmada**:
+
+```
+HUMAN_READABLE_CARD_COVERAGE = 1145/1458 (78%)   9 perguntas × 162 peças
+```
+
+Ela **não pode** dizer 100% enquanto houver `UNKNOWN` no estado, e há uma prova
+que reprova exactamente isso.
 
 ---
 
@@ -2081,8 +2315,19 @@ ser refeita a seguir.
 > **ORGANIZAR PERFEITAMENTE UM SISTEMA QUE AINDA ESTÁ A MUDAR
 > É PAGAR DUAS VEZES PELA MESMA ARRUMAÇÃO.**
 
-`G4`–`G13` continuam `OPEN · DEFERRED · NOT_FORGOTTEN ·
-NON_BLOCKING_FOR_COLLECTION_CORE`, na DAG da §26.4, por riscar.
+~~`G4`–`G13` continuam `OPEN · DEFERRED · NOT_FORGOTTEN ·
+NON_BLOCKING_FOR_COLLECTION_CORE`, na DAG da §26.4, por riscar.~~
+
+> **`G4`, `G5`, `G6`, `G7`, `G8` e `G8B` estão riscados** (§30, §31, §32, §33),
+> os seis pelo gatilho `G`. `G9`–`G13` continuam `OPEN · DEFERRED ·
+> NOT_FORGOTTEN · NON_BLOCKING_FOR_COLLECTION_CORE`.
+>
+> E a razão escrita acima — «organizar perfeitamente um sistema que ainda está a
+> mudar é pagar duas vezes pela mesma arrumação» — **continua verdadeira, e por
+> isso `G8B` foi feito pequeno**: nenhum cartão mudou de zona, nenhuma faixa
+> mudou de conteúdo, nenhuma peça mudou de família. O que mudou foi o que a tela
+> DIZ sobre cada cartão e como a câmara pousa. Arrumação de posição continua
+> por fazer, e continua a ser a que custaria duas vezes.
 
 ---
 

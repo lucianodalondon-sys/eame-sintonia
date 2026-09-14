@@ -49,13 +49,16 @@ O mapa continua **ativo como instrumento** e **congelado como frente de
 arquitetura**. Regenerar, validar, verificar a frescura e denunciar
 `UNKNOWN`/`STALE`/`FAIL` continua **obrigatório**; o que para é redesenhá-lo.
 
-`G4`, `G5` e `G6` foram reabertos e fechados pelo gatilho `G` da §29.5 (o
-utilizador mandou). Cada passo declara `INPUTS`/`OUTPUTS` (§30), **o manifesto é
-o único dono da cadeia** (§31) — o workflow corre `correr_a_cadeia.py
-<CATEGORIA>` e não lista script nenhum — e **a ordem nasce da dependência**
+`G4`, `G5`, `G6`, `G7`, `G8` e `G8B` foram reabertos e fechados pelo gatilho `G`
+da §29.5 (o utilizador mandou). Cada passo declara `INPUTS`/`OUTPUTS` (§30), **o
+manifesto é o único dono da cadeia** (§31) — o workflow corre `correr_a_cadeia.py
+<CATEGORIA>` e não lista script nenhum — **a ordem nasce da dependência**
 (§32): `passos()` deriva-a das arestas nomeadas, e quem a escrever ao contrário
-é recusado pelo corredor e pelo publicador. `G7`–`G13` continuam abertos e por
-riscar, e **dívida conhecida não é emergência**. Os gatilhos objetivos de reabertura, o que o mapa
+é recusado pelo corredor e pelo publicador — e **o papel de cada peça vem da
+evidência** (§33): `ROLE` existe nas 162 peças, o medido e o declarado nunca se
+fundem, e a classe de prova de cada seta sai dos quatro planos e não de `kind`.
+`G9`–`G13` continuam abertos e por riscar, e **dívida conhecida não é
+emergência**. Os gatilhos objetivos de reabertura, o que o mapa
 pode e não pode prometer hoje, e o veredito medido
 (`CURRENT_SYSTEM_MAP_TRUST = DEGRADED`) vivem na **§29 do**
 [`SYSTEM-MAP-TRUST-CONTRACT.md`](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md).
@@ -339,6 +342,7 @@ py system-map/tests/test_system_map.py          # provar que as regras não afro
 node system-map/tests/test_freshness.mjs        # provar que verde exige as quatro provas
 python3 system-map/tests/test_impressao_da_arvore.py   # a impressão mede a árvore
 python3 system-map/tests/test_ordem_por_dependencia.py # a ordem sai do grafo, e o ciclo tem nome
+python3 system-map/tests/test_papel_e_leitura_humana.py # o papel vem da evidencia, e a tela nao promove nada
 node system-map/scripts/publicar_no_deploy.mjs  # o que a build corre: regerar, validar, carimbar
 python3 system-map/scripts/impressao_da_arvore.py --conferir-carimbo  # DEPOIS de commitar
 ```
@@ -396,6 +400,17 @@ Recarimbar sem reler é o único jeito de mentir neste sistema. Não faça isso.
 | `P8_UM_DONO` | nenhum ficheiro reivindicado por duas peças |
 | `P9_CODIGO_DECLARADO` | todo ficheiro de código pertence a uma peça do mapa |
 | `P10_STATUS_VALIDO` | status só pode ser um dos quatro valores |
+
+E as provas do **papel e da leitura humana**, em `system-map/tests/` (passo `4t`):
+
+| | |
+|---|---|
+| `ROLE` vem da evidência | 162 peças publicam papel, regra, plano e o que ele **não** prova |
+| papel declarado não sobe | `DECLARED → CODE` continua proibido também para o papel |
+| conflito não escolhe | papel medido ≠ declarado publica os dois lados e fica `UNKNOWN` |
+| a seta diz se está provada | a classe sai dos quatro planos, e nunca de `kind` |
+| o caminho não costura buraco | «mostrar caminho completo» para na ligação sem prova |
+| `NÃO SEI` não se esconde | nenhum filtro da tela arranca com `NÃO SEI` desligado |
 
 E as provas da frescura, em `system-map/tests/`:
 
@@ -750,6 +765,27 @@ a fonte, olhou o que ela entrega e guardou evidência disso."*
 | 🟡 | `PENDING` | existe e está ligada, mas falta a prova própria do tipo — ou o ficheiro mudou depois da última leitura humana |
 | 🔴 | `BROKEN` | foi declarada no mapa e não existe no repositório |
 | ⚪ | `UNKNOWN` | **NÃO SEI** — existe, e nada aponta para ela nem ela aponta para nada |
+
+### E O PAPEL DA PEÇA É OUTRA PERGUNTA
+
+`status` responde «isto está a funcionar?». **`ROLE` responde «o que é isto?»** —
+`OPERATIONAL_STEP`, `MEASUREMENT_INSTRUMENT`, `CONTRACT_OR_RULE`, `STORAGE`,
+`SURFACE`, `DISPATCH_ENTRYPOINT`, `PROOF` ou `UNKNOWN`. O vocabulário é o da §5.1
+do [contrato de confiança](docs/arquitetura/SYSTEM-MAP-TRUST-CONTRACT.md), e
+**alargá-lo exige o medidor que emite o valor novo e a classe de evidência que o
+sustenta.**
+
+O papel **nunca se lê no nome do ficheiro nem na gaveta**. Ele sai de factos
+medidos — manifesto de workflow, raiz servida do `vercel.json`, `rule_role`,
+`RUNS`, ligação de rede, destino de escrita, quem lê o que a peça escreve — e
+cada peça publica a regra que o decidiu (`ROLE_RULE`), o plano
+(`ROLE_PLANE ∈ CODE · DECLARED · UNKNOWN`) e o limite (`ROLE_LIMITATIONS`).
+
+Quando a medição e a ficha discordam, o mapa **não arbitra**: publica
+`ROLE_CONFLICT` com os dois lados e deixa o papel em `UNKNOWN`. Quem decide é
+gente.
+
+---
 
 **Verde nunca significa "o ficheiro existe".** Existir é o mínimo para não ser
 vermelho, não um motivo para ser verde. A prova exigida é diferente por tipo de
