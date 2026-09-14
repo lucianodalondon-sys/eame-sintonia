@@ -511,13 +511,83 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
 #: um `ImportError` aqui faria a coleta parar por causa de uma PERGUNTA sobre
 #: capacidade. Sem a declaração, `_quem_deriva_aceita` responde True — que é o
 #: comportamento de sempre, e o seguro.
+# ── OS EXECUTORES DE DERIVACAO, DECLARADOS NUM SITIO SO ─────────────────────
+# ⚠️ ISTO ERA UM `import` DE UM NOME, COM FORMA DE REGISTO.
+#
+# `_capacidades_de_derivacao` fazia `import executor_texto_de_pdf` e devolvia a
+# capacidade dele. Uma lista de um. E o proprio `_quem_deriva_aceita`, logo
+# abaixo, previa o problema por escrito, muito antes desta missao:
+#
+#     «no dia em que entrasse um executor de audio os dois divergiam em silencio»
+#
+# O preco, medido na C4G: um `video/mp4` com a especie declarada saia da porta
+# como `DERIVACAO_ESPECIE_NAO_SUPORTADA` — honesto, e final. O texto que a
+# maquina sabia produzir nao tinha por onde entrar.
+#
+#     UMA LISTA DE UM COM FORMA DE REGISTO NAO ESCALA, E PIOR:
+#     ELA ESCONDE QUE NAO ESCALA.
+#
+# A lista continua NOMEADA e curta, de proposito. Varrer a pasta a procura de
+# executores copiaria em silencio o que la estivesse e faltaria em silencio o
+# que nao estivesse — o mesmo erro que a cadeia do System Map ja tinha
+# consertado ao NOMEAR os ficheiros que publica.
+EXECUTORES_DE_DERIVACAO = (
+    "executor_texto_de_pdf",
+    "executor_transcricao_midia",
+)
+
+
 def _capacidades_de_derivacao():
-    try:
-        import executor_texto_de_pdf as _ex
-    except Exception:                                          # noqa: BLE001
-        return ()
-    cap = getattr(_ex, "CAPACIDADE", None)
-    return (cap,) if isinstance(cap, dict) else ()
+    """As capacidades declaradas pelos executores registados. → tuplo.
+
+    Quem sabe abrir e quem diz o que abre — esta porta so LE. Um executor que
+    nao importe (falta de dependencia, por exemplo) nao derruba a porta: ele
+    simplesmente nao declara nada, e a especie dele passa a nao ser suportada.
+    Isso e uma medicao honesta, e nao uma falha da coleta.
+    """
+    fora = []
+    for nome in EXECUTORES_DE_DERIVACAO:
+        try:
+            mod = __import__(nome)
+        except Exception:                                      # noqa: BLE001
+            continue
+        cap = getattr(mod, "CAPACIDADE", None)
+        if isinstance(cap, dict):
+            fora.append(cap)
+    return tuple(fora)
+
+
+def executor_para(media_type):
+    """Qual executor abre ESTA especie? → (nome_do_modulo, capacidade) ou (None, None).
+
+    ⚠️ A ESCOLHA E PELA ESPECIE DECLARADA, NUNCA PELA EXTENSAO.
+    `leis/artefato.raw_do_disco` ja poe a especie que o OBSERVADOR declarou a
+    frente da deducao pelo nome — e um ficheiro chamado `.pdf` que traga
+    `video/mp4` tem de ir para o executor de midia, nao para o `pdftotext`.
+    Escolher pelo nome aqui desfaria essa correcao uma linha abaixo dela.
+
+    Ausencia continua a NAO ser recusa nesta porta: `None` devolve `(None,
+    None)`, e quem chama trata isso com a politica que ja existe — tentar, e
+    deixar o executor responder honestamente. Ver `_quem_deriva_aceita`.
+    """
+    if media_type is None or not str(media_type).strip():
+        return None, None
+    tipo = str(media_type).split(";")[0].strip().lower()
+    if tipo in _SENTINELAS or tipo.upper() in _SENTINELAS:
+        return None, None
+    for nome in EXECUTORES_DE_DERIVACAO:
+        try:
+            mod = __import__(nome)
+        except Exception:                                      # noqa: BLE001
+            continue
+        cap = getattr(mod, "CAPACIDADE", None)
+        if not isinstance(cap, dict):
+            continue
+        aceita = tuple(str(a).strip().lower()
+                       for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
+        if tipo in aceita:
+            return nome, cap
+    return None, None
 
 
 DERIVACAO_SEM_BYTES_LOCAIS = "DERIVACAO_SEM_BYTES_LOCAIS"
@@ -630,6 +700,12 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
         # o valor guardado tres degraus atras. Ausente continua ausente: uma
         # linha sem `captured_at` poe `None` aqui, e ninguem o enche.
         unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
+                         # ── A ESPECIE VIAJA COM A UNIDADE ────────────────
+                         # Sem ela, quem corre a derivacao tinha de adivinhar o
+                         # executor — ou pelo nome do ficheiro, que e o que
+                         # `raw_do_disco` deixou de fazer uma camada acima.
+                         # Ela vem da OBSERVACAO, que e quem a guardou.
+                         "MEDIA_TYPE": o.get("MEDIA_TYPE"),
                          "CAPTURED_AT": o.get("CAPTURED_AT"),
                          # A fonte DESTA observacao. Nao e a da corrida: uma
                          # corrida pode ter colhido sete fontes, e entao ela

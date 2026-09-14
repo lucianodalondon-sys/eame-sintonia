@@ -81,6 +81,9 @@ import falhas                        # noqa: E402
 import rastro_da_coleta as rastro    # noqa: E402
 
 import executor_texto_de_pdf as ex   # noqa: E402
+# O DONO DO REGISTO DE EXECUTORES. Esta fronteira LE quem abre o que;
+# ela nao mantem lista propria — duas listas divergiriam no terceiro mes.
+import ingresso as ing               # noqa: E402
 from guarda import preservar_derivado as pd   # noqa: E402
 
 # ── A IDENTIDADE DA UNIDADE, E DE ONDE ELA VEM ──────────────────────────────
@@ -147,6 +150,20 @@ DESTINO_DO_MOTIVO = {
     art.TEXT_LAYER_ABSENT:  "REJECTED",
     art.EXTRACTION_ERROR:   "ERROR",
 }
+
+# ── E OS MOTIVOS DE QUEM CHEGOU DEPOIS, LIDOS DO DONO DELES ─────────────────
+# Um executor novo tem de vir dizer por que porta ele sai — o comentario acima
+# ja o exigia, e o `UNKNOWN` apanha-o enquanto ele nao vier. O que NAO se faz e
+# escrever os motivos de outro ficheiro aqui a mao: isso seria um segundo dono
+# do vocabulario dele, e no dia em que ele aprendesse um motivo novo esta
+# tabela continuaria a nao saber.
+#
+#     QUEM TEM O MOTIVO DIZ O DESTINO. ESTA TABELA SO O RECOLHE.
+try:
+    import executor_transcricao_midia as _em                # noqa: E402
+    DESTINO_DO_MOTIVO.update(getattr(_em, "DESTINO_DOS_MOTIVOS", {}) or {})
+except Exception:                                           # noqa: BLE001
+    pass
 
 # O que este caminho AINDA não faz, dito com nome. Um buraco declarado é uma
 # dívida; um buraco calado é uma mentira que ninguém vai procurar.
@@ -221,6 +238,31 @@ def _porta(resultado: dict) -> str:
     return DESTINO_DO_ESTADO.get(estado, "UNKNOWN")
 
 
+def _aceita_media_type(funcao) -> bool:
+    """A funcao declara `media_type` na assinatura? → True/False.
+
+    Perguntado a FUNCAO, e nao a uma lista escrita aqui. Um executor novo que
+    precise da especie declara-a, e passa a recebe-la sem ninguem editar esta
+    fronteira. E o executor de PDF, que nao a declara, continua a ser chamado
+    exactamente como sempre foi.
+
+        MUDAR O CONTRATO DE UM EXECUTOR POR CAUSA DE OUTRO
+        E FAZER OS DOIS PAGAREM PELA CHEGADA DO SEGUNDO.
+    """
+    import inspect                                              # noqa: PLC0415
+    try:
+        return "media_type" in inspect.signature(funcao).parameters
+    except (TypeError, ValueError):                             # noqa: BLE001
+        return False
+
+
+def derivar_com_nome(faz, unidade, armazem, memoria, relogio, run_id, extra):
+    """Uma chamada, num sitio so — para a fronteira ter UM ponto de entrada."""
+    return faz(unidade["RAW_ASSET_ID"], unidade["PDF"], armazem, memoria,
+               relogio=relogio, contexto_da_passagem={"run_id": run_id},
+               **extra)
+
+
 def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
            source_id=None, route_class_id=None, relogio=None, derivar=None,
            tentativa=None) -> dict:
@@ -249,20 +291,46 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
     uma falha a escrever telemetria podia impedir uma derivação de acontecer — e
     OBSERVABILITY FAILURE != COLLECTION FAILURE.
     """
-    derivar = derivar or ex.derivar_um
     baldes = {d: 0 for d in ("PASSED", "REJECTED", "ERROR", "NOT_RUN",
                              "UNKNOWN", "REUSED")}
     resultados, ultimo_bom, primeiro_erro = [], None, None
 
     for u in unidades:
+        # ── QUEM DERIVA ESTA UNIDADE ────────────────────────────────────
+        # ⚠️ ISTO ERA `derivar or ex.derivar_um` — UM EXECUTOR PARA TUDO.
+        # Enquanto so havia PDF era honesto. Deixou de ser no dia em que a
+        # porta passou a conhecer mais do que um: um `video/mp4` chegava aqui
+        # e ia para o `pdftotext` na mesma, porque a escolha nunca perguntava
+        # a especie.
+        #
+        #     A PORTA JA SABIA QUEM ABRE O QUE.
+        #     ESTA LINHA E QUE NAO PERGUNTAVA.
+        #
+        # `derivar=` continua a valer e continua a VENCER: quem o injeta esta a
+        # dizer «corre ESTE», e as provas usam-no para nao tocar no disco.
+        faz, nome_do_executor = derivar, None
+        if faz is None:
+            nome_do_executor, _cap = ing.executor_para(u.get("MEDIA_TYPE"))
+            if nome_do_executor:
+                faz = __import__(nome_do_executor).derivar_um
+            else:
+                # Sem especie declarada, a politica antiga continua: tenta-se
+                # o extrator de texto, que e o que sempre se fez. Ausencia nao
+                # e recusa — `ingresso._quem_deriva_aceita` ja o diz, e mudar
+                # isso aqui encolheria a coleta em silencio.
+                faz, nome_do_executor = ex.derivar_um, "executor_texto_de_pdf"
         # ⚠️ A CORRIDA DA PASSAGEM VIAJA, E NAO E LIDA PELO EXECUTOR.
         # O dono do derivado escreve a participacao `(observacao, derivado)` e
         # precisa de saber em que corrida ela foi vista pela primeira vez. Essa
         # corrida e ESTA — a da passagem — e nao a que capturou a observacao.
         # O executor transporta o envelope e nao o abre.
-        r = derivar(u["RAW_ASSET_ID"], u["PDF"], armazem, memoria,
-                    relogio=relogio,
-                    contexto_da_passagem={"run_id": run_id})
+        #
+        # `media_type` so vai para quem o declara na assinatura: o executor de
+        # PDF nao o aceita, e acrescenta-lo la seria mudar o contrato dele por
+        # causa de outro.
+        extra = ({"media_type": u.get("MEDIA_TYPE")}
+                 if _aceita_media_type(faz) else {})
+        r = derivar_com_nome(faz, u, armazem, memoria, relogio, run_id, extra)
         porta = _porta(r)
         baldes[porta] += 1
         # ⚠️ A LINHA DO DERIVADO SAI NO RECIBO, e nao so o veredito.

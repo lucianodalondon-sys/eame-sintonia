@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "611e7cbf406147c0ab057e9ffa7775f6fa11e8a1",
-    "GENERATED_AT": "2026-09-14T15:48:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c4916721e5f58b63a80563f772e085f191ec453dee5054ac2202c62cd4a7095d"
+    "HEAD": "867a6f975a9635470e097aa919487624b6071468",
+    "GENERATED_AT": "2026-09-14T16:31:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "13ec3bd3866f0935404081f1c3b2ac2cf3810bd3f0d0375f0770ec3e2cec4f14"
   },
   "FILES": [
     {
@@ -1228,7 +1228,7 @@
     },
     {
       "path": "coleta/derivacao_forward.py",
-      "sha": "400919c0376a31ee29c04820fef3dd95ff866d23",
+      "sha": "7f80b3b811a586dc8e73cda09a7b1411e1a16047",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1276,6 +1276,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/executor_transcricao_midia.py",
+      "sha": "f627266a7bdf7d7445ede97c4dfb5c4cc9713a71",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/filas.py",
       "sha": "1ca7c6d1021b4b7a3df025fcd8fa304959ca5801",
       "ext": ".py",
@@ -1298,7 +1305,7 @@
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "5a242d88491cc6e5df65fa12649b3738f57c9f28",
+      "sha": "203e14d49959322df2a35486f5d46d39ea56a261",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4938,7 +4945,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "488e65cb39e26248b107dba2030bccb4d46d8f38",
+      "sha": "424b832ba63d126f16bc997b06284acb39d94614",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5772,6 +5779,13 @@
     {
       "path": "docs/sintonia-scrap/C4G-O-CANO-INTERNO-DO-VIDEO.md",
       "sha": "8045490dd14525360cef9c833d8499bbf20d0938",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/sintonia-scrap/C4H-A-PONTE-DE-MIDIA.md",
+      "sha": "c357a01e69c8cc0a150ac73dc4b83e89041f71af",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10685,7 +10699,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "22ff576bad6907d016399dc861ef40b51f52f39f",
+      "sha": "fdeb0f12fce1fbd61c59cd0bf3148f9a258d3767",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11497,7 +11511,14 @@
     },
     {
       "path": "tests/test_c4g_a_especie_do_video.py",
-      "sha": "0c5d296c1c969e1233f505088e8d72c8a5639bae",
+      "sha": "e2e93301077c2c400e73f20ae41df92b27211eb7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_c4h_executor_de_midia.py",
+      "sha": "e219c9b8484361b4b24a162bfabaa6f16aa2c16d",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14594,6 +14615,28 @@
     },
     {
       "from_file": "coleta/derivacao_forward.py",
+      "to_file": "coleta/executor_transcricao_midia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 163,
+        "snippet": "import executor_transcricao_midia as _em                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 86,
+        "snippet": "import ingresso as ing               # noqa: E402"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
       "to_file": "leis/artefato.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -14747,6 +14790,72 @@
       }
     },
     {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 89,
+        "snippet": "import _gavetas                                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 200,
+        "snippet": "import fala_local as fl                                 # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 157,
+        "snippet": "\"ASR_OWNER\": \"ferramentas/fala_local.py\","
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 198,
+        "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado"
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 158,
+        "snippet": "\"ESCRITA_DO_DERIVADO\": \"guarda/preservar_derivado.py\","
+      }
+    },
+    {
+      "from_file": "coleta/executor_transcricao_midia.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/executor_transcricao_midia.py",
+        "line": 90,
+        "snippet": "import artefato as art                                     # noqa: E402"
+      }
+    },
+    {
       "from_file": "coleta/filas.py",
       "to_file": "data/samples/ES-RESEARCHERS-OLIVE.json",
       "type": "READS",
@@ -14854,17 +14963,6 @@
         "file": "coleta/ingresso.py",
         "line": 76,
         "snippet": "import _gavetas  # noqa: E402,F401"
-      }
-    },
-    {
-      "from_file": "coleta/ingresso.py",
-      "to_file": "coleta/executor_texto_de_pdf.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "coleta/ingresso.py",
-        "line": 516,
-        "snippet": "import executor_texto_de_pdf as _ex"
       }
     },
     {
@@ -46620,7 +46718,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 55,
+        "line": 60,
         "snippet": "UM_FICHEIRO = \"README.md\""
       }
     },
@@ -46631,7 +46729,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 49,
+        "line": 54,
         "snippet": "import _gavetas                                            # noqa: E402,F401"
       }
     },
@@ -46642,19 +46740,8 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 51,
+        "line": 56,
         "snippet": "import ingresso as ing                                     # noqa: E402"
-      }
-    },
-    {
-      "from_file": "tests/test_c4g_a_especie_do_video.py",
-      "to_file": "coleta/ingresso.py",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 156,
-        "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),"
       }
     },
     {
@@ -46664,7 +46751,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 50,
+        "line": 55,
         "snippet": "import artefato as art                                     # noqa: E402"
       }
     },
@@ -46675,8 +46762,173 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 79,
+        "line": 84,
         "snippet": "_ficha(STORAGE_LOCATION=\"package.json\","
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "README.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 85,
+        "snippet": "\"STORAGE_LOCATION\": \"README.md\", \"NAME\": \"README.md\","
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 24,
+        "snippet": "import _gavetas                                            # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/comunicacao_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 137,
+        "snippet": "self.assertIn(\"'TEXT_KIND': 'CAPTION'\", _fonte(\"coleta/comunicacao_coleta.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 26,
+        "snippet": "import derivacao_forward as df                             # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/derivacao_forward.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 332,
+        "snippet": "\"coleta/derivacao_forward.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/executor_texto_de_pdf.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 27,
+        "snippet": "import executor_texto_de_pdf as ep                         # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/executor_transcricao_midia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 28,
+        "snippet": "import executor_transcricao_midia as em                    # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/executor_transcricao_midia.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 129,
+        "snippet": "fonte = _fonte(\"coleta/executor_transcricao_midia.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 29,
+        "snippet": "import ingresso as ing                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 331,
+        "snippet": "\"coleta/ingresso.py\","
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 310,
+        "snippet": "import fala_local as fl                              # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "ferramentas/fala_local.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 349,
+        "snippet": "fonte = _fonte(\"ferramentas/fala_local.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "guarda/preservar_derivado.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 256,
+        "snippet": "self.assertIn(\"REUSED\", _fonte(\"guarda/preservar_derivado.py\"))"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "leis/artefato.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 25,
+        "snippet": "import artefato as art                                     # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_c4h_executor_de_midia.py",
+      "to_file": "supabase/migrations/022_o_derivado_ganha_casa.sql",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_c4h_executor_de_midia.py",
+        "line": 264,
+        "snippet": "sql = _fonte(\"supabase/migrations/022_o_derivado_ganha_casa.sql\")"
       }
     },
     {
@@ -55562,10 +55814,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1750,
-    "files_readable": 738,
-    "files_code_dir": 791,
-    "file_edges": 3891,
+    "files_tracked": 1753,
+    "files_readable": 740,
+    "files_code_dir": 793,
+    "file_edges": 3912,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

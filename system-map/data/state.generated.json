@@ -201,6 +201,7 @@
       "coleta/eu_regulatorio_executor.py",
       "coleta/eu_substancia_adama_it.py",
       "coleta/executor_texto_de_pdf.py",
+      "coleta/executor_transcricao_midia.py",
       "coleta/filas.py",
       "coleta/gire_mapas.py",
       "coleta/golden_path_pdf.py",
@@ -848,6 +849,7 @@
       "docs/sintonia-scrap/C4E-GPU-NA-LINHA-DA-COLLECTION.md",
       "docs/sintonia-scrap/C4F-CANARIO-DE-VIDEO-ITALIANO-BLOQUEADO.md",
       "docs/sintonia-scrap/C4G-O-CANO-INTERNO-DO-VIDEO.md",
+      "docs/sintonia-scrap/C4H-A-PONTE-DE-MIDIA.md",
       "docs/sintonia-scrap/C5-YOUTUBE-TRANSCRIPT-ROUTE-GATE.md",
       "docs/sintonia-scrap/C6-ESPECIE-DO-TEXTO.md",
       "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
@@ -1709,6 +1711,7 @@
       "tests/test_c4b_gpu_execucao.py",
       "tests/test_c4d_ferro_negociado.py",
       "tests/test_c4g_a_especie_do_video.py",
+      "tests/test_c4h_executor_de_midia.py",
       "tests/test_c5_transcript_gate.py",
       "tests/test_c6_especie_do_texto.py",
       "tests/test_c7_lugar_do_fato.py",
@@ -2336,9 +2339,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/local-gpu-on-current-collection-v1",
-    "HEAD": "611e7cbf406147c0ab057e9ffa7775f6fa11e8a1",
-    "GENERATED_AT": "2026-09-14T15:48:12-03:00",
-    "SOURCE_TREE_FINGERPRINT": "c4916721e5f58b63a80563f772e085f191ec453dee5054ac2202c62cd4a7095d"
+    "HEAD": "867a6f975a9635470e097aa919487624b6071468",
+    "GENERATED_AT": "2026-09-14T16:31:03-03:00",
+    "SOURCE_TREE_FINGERPRINT": "13ec3bd3866f0935404081f1c3b2ac2cf3810bd3f0d0375f0770ec3e2cec4f14"
   },
   "FAMILIES": [
     {
@@ -2365,7 +2368,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 69
+      "count": 70
     },
     {
       "id": "F-ESPERA",
@@ -2573,7 +2576,7 @@
       "y": 190,
       "w": 1235,
       "h": 7124,
-      "count": 16
+      "count": 17
     },
     {
       "id": "Z-GUARDA",
@@ -9716,7 +9719,7 @@
       ],
       "file_count": 1,
       "status": "PENDING",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF, C-INGRESSO.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-DERIVACAO-FORWARD, C-ESTRADA-PDF, C-EXECUTOR-TEXTO-PDF, C-EXECUTOR-TRANSCRICAO-MIDIA.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
         "leis/artefato.py"
       ],
@@ -9727,6 +9730,7 @@
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-INGRESSO",
         "C-PROVA-COLETA",
         "C-PROVA-ENCANAMENTO",
@@ -10518,6 +10522,8 @@
         "C-CONTRATO-ARTEFATO",
         "C-DIAGNOSTICO",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-EXECUTOR-TRANSCRICAO-MIDIA",
+        "C-INGRESSO",
         "C-RASTRO",
         "C-ROTA-M2",
         "C-SCRAP-LEIS"
@@ -10942,6 +10948,7 @@
       "outbound": [
         "C-DONO-DA-ESCRITA",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-PROVA-COLETA",
         "C-PROVA-LINHAGEM-DO-REAPROVEITAMENTO",
         "C-TESTES"
@@ -10996,11 +11003,11 @@
         "PLANO": null,
         "PROVA": [
           "coleta/executor_texto_de_pdf.py:299",
-          "guarda/memoria_descartavel.py:43",
-          "provas/a_linhagem_do_reaproveitamento.py:323",
-          "provas/derived_artifact_no_postgres.py:350"
+          "coleta/executor_transcricao_midia.py:198",
+          "coleta/executor_transcricao_midia.py:158",
+          "guarda/memoria_descartavel.py:43"
         ],
-        "PORQUE": "estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DONO-DA-ESCRITA · C-EXECUTOR-TEXTO-PDF · C-EXECUTOR-TRANSCRICAO-MIDIA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 9070,
       "y": 682
@@ -11717,7 +11724,6 @@
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
-        "C-INGRESSO",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
         "C-ORQUESTRADOR",
@@ -11807,13 +11813,110 @@
         "PROVA": [
           "coleta/derivacao_forward.py:83",
           "coleta/golden_path_pdf.py:53",
-          "coleta/ingresso.py:516",
-          "medidas/corrida_instrumentada.py:122"
+          "medidas/corrida_instrumentada.py:122",
+          "medidas/corrida_instrumentada.py:157"
         ],
-        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 7535,
       "y": 1004
+    },
+    {
+      "id": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "name": "Executor · transcrição a partir de áudio e vídeo",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "A ponte entre a Collection e o reconhecedor de fala. Recebe uma observação de áudio ou vídeo, tira o áudio quando é preciso, pede o texto ao dono do ASR (ferramentas/fala_local.py) e entrega a receita ao dono da escrita do derivado. Não abre o motor, não escolhe modelo nem ferro, não escreve no banco e não julga.",
+      "why_here": "A porta da derivação conhecia UM executor, importado pelo nome — e o próprio ficheiro tinha previsto o custo: «no dia em que entrasse um executor de áudio os dois divergiam em silêncio». Sem esta peça, o texto que a máquina sabia produzir não tinha por onde entrar na Collection.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/executor_transcricao_midia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-CONTRATO-ARTEFATO",
+        "C-DONO-DO-DERIVADO",
+        "C-TRANSCRICAO"
+      ],
+      "outbound": [
+        "C-DERIVACAO-FORWARD",
+        "C-TESTES"
+      ],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "ACEITA",
+          "CAPACIDADE"
+        ],
+        "palavras": 28,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 28,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 2 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [
+        "ferramentas/fala_local.py",
+        "guarda/preservar_derivado.py"
+      ],
+      "consumes_plane": "CODE",
+      "DECLARED": "YES",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [
+          "coleta/derivacao_forward.py:163",
+          "tests/test_c4h_executor_de_midia.py:28",
+          "tests/test_c4h_executor_de_midia.py:129"
+        ],
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+      },
+      "x": 6705,
+      "y": 1326
     },
     {
       "id": "C-FLUXO-NO-SECO",
@@ -12057,7 +12160,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6705,
+      "x": 7120,
       "y": 1326
     },
     {
@@ -12731,11 +12834,11 @@
         "C-CONTRATO-ARTEFATO",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
-        "C-EXECUTOR-TEXTO-PDF",
         "C-PROCEDENCIA",
         "C-RASTRO"
       ],
       "outbound": [
+        "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
@@ -12801,14 +12904,14 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "coleta/derivacao_forward.py:86",
           "coleta/golden_path_pdf.py:51",
           "coleta/rota_forward_documento.py:51",
-          "orquestrador/orquestrador.py:57",
-          "provas/a_linhagem_do_ready_social.py:681"
+          "orquestrador/orquestrador.py:57"
         ],
-        "PORQUE": "estas pecas importam-na — C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7120,
+      "x": 7535,
       "y": 1326
     },
     {
@@ -13033,8 +13136,8 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7535,
-      "y": 1326
+      "x": 6705,
+      "y": 1648
     },
     {
       "id": "C-IT-CONTAS",
@@ -21387,7 +21490,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 6705,
+      "x": 7120,
       "y": 1648
     },
     {
@@ -21561,7 +21664,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7120,
+      "x": 7535,
       "y": 1648
     },
     {
@@ -21850,8 +21953,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
-      "y": 1648
+      "x": 6705,
+      "y": 1970
     },
     {
       "id": "C-SCRAP-EVIDENCIA",
@@ -22442,7 +22545,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 6705,
+      "x": 7120,
       "y": 1970
     },
     {
@@ -25074,6 +25177,7 @@
         "tests/test_c4b_gpu_execucao.py",
         "tests/test_c4d_ferro_negociado.py",
         "tests/test_c4g_a_especie_do_video.py",
+        "tests/test_c4h_executor_de_midia.py",
         "tests/test_c5_transcript_gate.py",
         "tests/test_c6_especie_do_texto.py",
         "tests/test_c7_lugar_do_fato.py",
@@ -25182,7 +25286,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 158,
+      "file_count": 159,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 13 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -25248,6 +25352,7 @@
         "C-EU-REGULATORIO-COLETA",
         "C-EVOLUCAO",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-FLUXO-NO-SECO",
         "C-FONTES-EU",
         "C-FRONTEIRA-TELEMETRIA",
@@ -25509,6 +25614,7 @@
         "coleta/derivacao_forward.py",
         "coleta/eu_regulatorio_executor.py",
         "coleta/executor_texto_de_pdf.py",
+        "coleta/executor_transcricao_midia.py",
         "coleta/golden_path_pdf.py",
         "coleta/ingresso.py",
         "coleta/instagram_coleta.py",
@@ -25863,6 +25969,7 @@
       "outbound": [
         "C-CENSO-DERIVACOES",
         "C-COLETA-PUBLICA",
+        "C-EXECUTOR-TRANSCRICAO-MIDIA",
         "C-PROVA-ASR-LOCAL",
         "C-PROVA-AUDIO-ONLY",
         "C-PROVA-COLETA",
@@ -39957,7 +40064,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "Colher o que o concorrente publica alimenta Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_4b_um_caminho_so.py",
@@ -40043,6 +40150,22 @@
           "file": "tests/test_c3_youtube_cutover.py",
           "line": 658,
           "snippet": "t = _fonte('coleta/comunicacao_medir.py')",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-TESTES",
+            "FROM": "C-COLETA-PUBLICA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 137,
+          "snippet": "self.assertIn(\"'TEXT_KIND': 'CAPTION'\", _fonte(\"coleta/comunicacao_coleta.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-TESTES",
             "FROM": "C-COLETA-PUBLICA",
@@ -40324,6 +40447,41 @@
     },
     {
       "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Executor · transcrição a partir de áudio e vídeo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_transcricao_midia.py",
+          "line": 90,
+          "snippet": "import artefato as art                                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
       "to": "C-INGRESSO",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -40575,7 +40733,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
+      "reason": "O contrato comum de artefato tem o seu codigo importado por Suite de testes. Provado por 8 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -40611,7 +40769,23 @@
         },
         {
           "file": "tests/test_c4g_a_especie_do_video.py",
-          "line": 50,
+          "line": 55,
+          "snippet": "import artefato as art                                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TESTES",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 25,
           "snippet": "import artefato as art                                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--IMPORTS-->C-TESTES",
@@ -43162,12 +43336,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A fronteira forward da derivação tem o seu codigo importado por Suite de testes. Provado por 4 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 29,
           "snippet": "import derivacao_forward as deriv    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-TESTES",
+            "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 26,
+          "snippet": "import derivacao_forward as df                             # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DERIVACAO-FORWARD--IMPORTS-->C-TESTES",
             "FROM": "C-DERIVACAO-FORWARD",
@@ -43229,8 +43419,24 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fronteira forward da derivação alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A fronteira forward da derivação alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 332,
+          "snippet": "\"coleta/derivacao_forward.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DERIVACAO-FORWARD--READS-->C-TESTES",
+            "FROM": "C-DERIVACAO-FORWARD",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
         {
           "file": "tests/test_forward_instrumentado.py",
           "line": 257,
@@ -44855,6 +45061,76 @@
     },
     {
       "from": "C-DONO-DO-DERIVADO",
+      "to": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) tem o seu codigo importado por Executor · transcrição a partir de áudio e vídeo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_transcricao_midia.py",
+          "line": 198,
+          "snippet": "from guarda.preservar_derivado import agora_utc, preservar_derivado",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DO-DERIVADO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "FROM": "C-DONO-DO-DERIVADO",
+            "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
+      "to": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Executor · transcrição a partir de áudio e vídeo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_transcricao_midia.py",
+          "line": 158,
+          "snippet": "\"ESCRITA_DO_DERIVADO\": \"guarda/preservar_derivado.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DO-DERIVADO--READS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "FROM": "C-DONO-DO-DERIVADO",
+            "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-DONO-DO-DERIVADO",
       "to": "C-PROVA-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -44966,12 +45242,28 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Suite de testes. Provado por 2 linhas de codigo.",
+      "reason": "O dono canônico da escrita do derivado (OBSERVED) alimenta Suite de testes. Provado por 3 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_reaproveitamento.py",
           "line": 433,
           "snippet": "s = _fonte(os.path.join(RAIZ, \"guarda\", \"preservar_derivado.py\"))",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-DONO-DO-DERIVADO--READS-->C-TESTES",
+            "FROM": "C-DONO-DO-DERIVADO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 256,
+          "snippet": "self.assertIn(\"REUSED\", _fonte(\"guarda/preservar_derivado.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DERIVADO--READS-->C-TESTES",
             "FROM": "C-DONO-DO-DERIVADO",
@@ -46311,41 +46603,6 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
-      "to": "C-INGRESSO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A porta de entrada da coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/ingresso.py",
-          "line": 516,
-          "snippet": "import executor_texto_de_pdf as _ex",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-INGRESSO",
-            "FROM": "C-EXECUTOR-TEXTO-PDF",
-            "TO": "C-INGRESSO",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-IT-TEXTO-DERIVADO",
       "type": "PRODUZ",
       "kind": "technical",
@@ -46839,12 +47096,28 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 6 linhas de codigo.",
+      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por Suite de testes. Provado por 7 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
           "line": 470,
           "snippet": "import executor_texto_de_pdf as ex",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TEXTO-PDF",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 27,
+          "snippet": "import executor_texto_de_pdf as ep                         # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-PDF",
@@ -47091,6 +47364,111 @@
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-TESTES",
             "FROM": "C-EXECUTOR-TEXTO-PDF",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · transcrição a partir de áudio e vídeo tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 163,
+          "snippet": "import executor_transcricao_midia as _em                # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--IMPORTS-->C-DERIVACAO-FORWARD",
+            "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "TO": "C-DERIVACAO-FORWARD",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · transcrição a partir de áudio e vídeo tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 28,
+          "snippet": "import executor_transcricao_midia as em                    # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--IMPORTS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "to": "C-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Executor · transcrição a partir de áudio e vídeo alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 129,
+          "snippet": "fonte = _fonte(\"coleta/executor_transcricao_midia.py\")",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-EXECUTOR-TRANSCRICAO-MIDIA--READS-->C-TESTES",
+            "FROM": "C-EXECUTOR-TRANSCRICAO-MIDIA",
             "TO": "C-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
@@ -48394,6 +48772,41 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 86,
+          "snippet": "import ingresso as ing               # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-DERIVACAO-FORWARD",
+            "FROM": "C-INGRESSO",
+            "TO": "C-DERIVACAO-FORWARD",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -48900,7 +49313,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 9 linhas de codigo.",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por Suite de testes. Provado por 10 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_ponte_do_derived.py",
@@ -48936,7 +49349,23 @@
         },
         {
           "file": "tests/test_c4g_a_especie_do_video.py",
-          "line": 51,
+          "line": 56,
+          "snippet": "import ingresso as ing                                     # noqa: E402",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
+            "FROM": "C-INGRESSO",
+            "TO": "C-TESTES",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 29,
           "snippet": "import ingresso as ing                                     # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--IMPORTS-->C-TESTES",
@@ -49098,9 +49527,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_c4g_a_especie_do_video.py",
-          "line": 156,
-          "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),",
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 331,
+          "snippet": "\"coleta/ingresso.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
             "FROM": "C-INGRESSO",
@@ -72716,7 +73145,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 25 linhas de codigo.",
+      "reason": "O banco onde o dado fica guardado alimenta Suite de testes. Provado por 26 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/es/test_adama_es_gate.py",
@@ -72895,9 +73324,9 @@
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
-          "file": "tests/test_calendario_temporal.py",
-          "line": 51,
-          "snippet": "self.m010 = sql('010_calendario_agronomico.sql')",
+          "file": "tests/test_c4h_executor_de_midia.py",
+          "line": 264,
+          "snippet": "sql = _fonte(\"supabase/migrations/022_o_derivado_ganha_casa.sql\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-TESTES",
             "FROM": "C-SUPABASE",
@@ -74201,6 +74630,77 @@
     },
     {
       "from": "C-TRANSCRICAO",
+      "to": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Executor · transcrição a partir de áudio e vídeo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_transcricao_midia.py",
+          "line": 200,
+          "snippet": "import fala_local as fl                                 # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TRANSCRICAO",
+      "to": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A fala vira texto, sem fatura alimenta Executor · transcrição a partir de áudio e vídeo. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/executor_transcricao_midia.py",
+          "line": 157,
+          "snippet": "\"ASR_OWNER\": \"ferramentas/fala_local.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TRANSCRICAO--READS-->C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "FROM": "C-TRANSCRICAO",
+            "TO": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "DATA",
+      "passa_pelo_preparo": true,
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TRANSCRICAO",
       "to": "C-PROVA-ASR-LOCAL",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -74552,7 +75052,7 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 25 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura tem o seu codigo importado por Suite de testes. Provado por 26 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -74763,7 +75263,7 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 33 linhas de codigo.",
+      "reason": "A fala vira texto, sem fatura alimenta Suite de testes. Provado por 34 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_c10_1_source_id.py",
@@ -76947,7 +77447,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 842,
+  "UNCLAIMED_FILES_COUNT": 843,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -77111,7 +77611,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 154,
+      "PECAS_EM_DESACORDO": 155,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -77123,23 +77623,23 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 189
+      "TOTAL_DE_PECAS": 190
     }
   ],
   "COUNTS": {
-    "components": 189,
+    "components": 190,
     "components_proven": 41,
-    "components_pending": 141,
+    "components_pending": 142,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 955,
-    "edges_proven": 903,
+    "edges": 963,
+    "edges_proven": 911,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1750,
-    "files_covered": 908,
+    "files_tracked": 1753,
+    "files_covered": 910,
     "files_code_unclaimed": 0,
-    "roles_proven": 137,
+    "roles_proven": 138,
     "roles_declared_only": 5,
     "roles_unknown": 47,
     "roles_conflict": 22,

@@ -32,11 +32,16 @@ estava certa, e nunca recebia o dado de que precisava.
 
 O QUE ESTAS PROVAS **NÃO** AFIRMAM
 -----------------------------------
-Que o vídeo passou a ser transcrito pelo caminho canónico. **Não passou.**
-`VIDEO_OUTPUT_HAS_CONSUMER` continua `NO`, e continua por duas razões que este
-conserto não toca: não existe executor de derivação de áudio para a porta
-encontrar, e sem PostgreSQL não há observação nenhuma a chegar à fronteira.
+Que o vídeo passou a ser transcrito pelo caminho canónico.
 
+⚠️ ACTUALIZADO PELA C4H. Quando este ficheiro nasceu, faltavam DUAS coisas: um
+executor de áudio que a porta soubesse encontrar, e um PostgreSQL onde a
+observação pudesse existir. A primeira deixou de faltar — e a trava de método
+que a guardava DISPAROU, que era exactamente para o que ela servia.
+
+A segunda continua a faltar, e por isso a estrada continua por correr:
+
+    MODULE EXISTS != EDGE EXISTS != FLOW OBSERVED.
     PARAR DE ENTREGAR AO DONO ERRADO != ENTREGAR AO DONO CERTO.
 """
 import io
@@ -103,8 +108,23 @@ class T2APortaDaEspecieRecebeOQuePrecisa(unittest.TestCase):
     """RT — o vídeo deixa de ser entregue ao extrator de PDF."""
 
     def test_video_declarado_nao_vai_para_a_derivacao_de_pdf(self):
-        self.assertFalse(ing._quem_deriva_aceita("video/mp4"))
-        self.assertFalse(ing._quem_deriva_aceita("audio/wav"))
+        """⚠️ REESCRITA PELA C4H, E A AFIRMACAO E A MESMA.
+
+        Ela dizia `_quem_deriva_aceita("video/mp4") is False` — porque em C4G
+        NINGUEM sabia abrir video, e a unica forma de o video nao ir ao
+        `pdftotext` era nao ir a lado nenhum.
+
+        Hoje ha quem o abra, e a pergunta certa deixou de ser «alguem aceita?»
+        para ser «QUEM aceita?». A lei guardada nao mudou uma virgula: o video
+        nao vai para o extrator de PDF.
+
+            A PROVA MUDA DE INSTRUMENTO QUANDO O MUNDO MUDA.
+            O QUE ELA AFIRMA E QUE NAO PODE MUDAR EM SILENCIO.
+        """
+        for mt in ("video/mp4", "audio/wav"):
+            with self.subTest(media_type=mt):
+                self.assertNotEqual(ing.executor_para(mt)[0],
+                                    "executor_texto_de_pdf")
 
     def test_o_pdf_continua_a_passar(self):
         self.assertTrue(ing._quem_deriva_aceita("application/pdf"))
@@ -123,42 +143,46 @@ class T2APortaDaEspecieRecebeOQuePrecisa(unittest.TestCase):
         """Declarado -> chega à ficha -> a porta da espécie recusa. Os três."""
         f = _ficha(CONTENT_TYPE="video/mp4")
         self.assertEqual(f.CONTENT_TYPE, "video/mp4")
-        self.assertFalse(ing._quem_deriva_aceita(f.CONTENT_TYPE))
+        self.assertEqual(ing.executor_para(f.CONTENT_TYPE)[0],
+                         "executor_transcricao_midia")
 
 
 class T3OQueContinuaEmAberto(unittest.TestCase):
     """A sentinela que impede esta missão de ser lida como maior do que foi."""
 
-    def test_nenhum_executor_de_derivacao_de_audio_nasceu(self):
-        """Enquanto não houver, `VIDEO_OUTPUT_HAS_CONSUMER` continua `NO`.
+    def test_o_executor_de_audio_nasceu_e_a_trava_disparou(self):
+        """⚠️ ESTA PROVA DISPAROU, E FOI POR ISSO QUE ELA EXISTIA.
 
-        No dia em que um executor de áudio for escrito e DECLARADO à porta,
-        esta prova reprova — e a mensagem diz o que rever. É uma trava de
-        método, e não um veredito sobre o executor.
+        Em C4G ela dizia: «a porta so conhece PDF; no dia em que um executor de
+        audio for declarado, esta prova reprova e a mensagem diz o que rever».
+        Em C4H ele foi declarado, e ela reprovou — a trava de metodo funcionou.
+
+        O que ela guarda agora e o degrau seguinte: a porta conhece o executor
+        de midia, e ISSO NAO E O MESMO que a estrada ter corrido.
+
+            MODULE EXISTS != EDGE EXISTS != FLOW OBSERVED.
         """
         aceites = set()
         for cap in ing._capacidades_de_derivacao():
             aceites.update(str(a).lower() for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
-        self.assertEqual(
-            aceites, {"application/pdf"},
-            "a porta da derivacao passou a conhecer mais do que PDF — reveja "
-            "VIDEO_OUTPUT_HAS_CONSUMER, que estava NO por falta disto")
+        self.assertIn("application/pdf", aceites)
+        self.assertIn("video/mp4", aceites)
+        self.assertIn("audio/wav", aceites)
 
-    def test_a_porta_da_derivacao_pergunta_a_um_dono_so(self):
-        """E ele é importado pelo NOME. É aqui que o executor de áudio entrará.
+    def test_a_porta_deixou_de_perguntar_a_um_dono_so(self):
+        """C4G mediu a lista de um. C4H trocou-a por um registo NOMEADO.
 
-        `_capacidades_de_derivacao` faz `import executor_texto_de_pdf` e
-        devolve a capacidade dele. Não é um registo: é uma lista de um, com
-        forma de registo — e o próprio ficheiro previu o problema, ao escrever
-        «no dia em que entrasse um executor de áudio os dois divergiam em
-        silêncio».
+        A lista continua curta e escrita à mão de propósito: varrer a pasta à
+        procura de executores copiaria em silêncio o que lá estivesse, e
+        faltaria em silêncio o que não estivesse.
         """
-        with io.open(os.path.join(RAIZ, "coleta", "ingresso.py"),
-                     encoding="utf-8") as fh:
-            fonte = fh.read()
-        i = fonte.index("def _capacidades_de_derivacao")
-        bloco = fonte[i:fonte.index("\n\n", i)]
-        self.assertIn("import executor_texto_de_pdf", bloco)
+        self.assertGreaterEqual(len(ing.EXECUTORES_DE_DERIVACAO), 2)
+        self.assertIn("executor_texto_de_pdf", ing.EXECUTORES_DE_DERIVACAO)
+        self.assertIn("executor_transcricao_midia", ing.EXECUTORES_DE_DERIVACAO)
+        self.assertEqual(len(ing._capacidades_de_derivacao()),
+                         len(ing.EXECUTORES_DE_DERIVACAO),
+                         "um executor declarado que nao importa fica calado")
+
 
 
 if __name__ == "__main__":
