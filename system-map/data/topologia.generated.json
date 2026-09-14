@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-14T12:18:48+00:00",
-  "HEAD": "1878b17ee76122187be6c6ef190346286a7c8b6b",
+  "GENERATED_AT": "2026-09-14T12:25:32+00:00",
+  "HEAD": "228e613bb27bfe77eff0d12afd6c85f416121398",
   "BRANCH": "claude/system-map-current-collection-truth-v2",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "9501a34d9c85be507d1ee02790abcb6c3e4a2b3a304003288e177fa240e327f8",
+  "SOURCE_TREE_FINGERPRINT": "35414d18cce5e157677422945dc0f119253f6367a75720f0eb1587b2ed106fe2",
   "FICHEIROS_NA_IMPRESSAO": 1867,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -2295,14 +2295,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9501a34d9c85be507d1ee02790abcb6c3e4a2b3a304003288e177fa240e327f8",
+    "VERSAO": "35414d18cce5e157677422945dc0f119253f6367a75720f0eb1587b2ed106fe2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "9501a34d9c85be507d1ee02790abcb6c3e4a2b3a304003288e177fa240e327f8",
+    "VERSAO": "35414d18cce5e157677422945dc0f119253f6367a75720f0eb1587b2ed106fe2",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -3659,7 +3659,7 @@
    }
   ],
   "INPUTS_COUNT": 517,
-  "INPUTS_DIGEST": "a8d0e728e35fca4d994796191f4140974041bd53fc5e71cd6986cc899f2f5bf0",
+  "INPUTS_DIGEST": "60bf4df7ee2f3170d7cc8f513940f8a5ff3bf0987896dc0de79acedfec3aec3e",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -3692,8 +3692,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "e5b0f2f94898c4e49d48c6a4b272f6d60d08fab85895fb588bbffdd95e043012",
-  "SEMANTIC_HASH": "a4fca40af13421d8f25a65e77776af998b868de490352a8072b3041e4ea5fc01"
+  "MEASUREMENT_HASH": "ac22a7b6153a03de2bc308016b30be9a34e506c2fe47a763243de4a57848f1b0",
+  "SEMANTIC_HASH": "d31f1218a83a1b3f3811d3a6265b2511ea7724b2a943fe93d2ab6614a988e9ca"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -29364,8 +29364,6 @@
   "SEM_CHAMADOR_DE_RUNTIME": [
    "C-ADAMA-ES",
    "C-APRENDER-COM-A-FONTE",
-   "C-AS-FONTES",
-   "C-BIBLIA",
    "C-CENSO-ARMAZEM-IT",
    "C-CENSO-CARDS-SENSORES",
    "C-CENSO-CORPUS-IT",
@@ -29407,7 +29405,6 @@
    "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
    "C-RECALL-PORTA-IT",
    "C-RECORRENCIA",
-   "C-REGRA-COLETA",
    "C-RELATORIO-FLUXO",
    "C-ROTULOS",
    "C-SAUDE-FONTE",
@@ -29425,7 +29422,6 @@
    "C-MAPA-SCAN",
    "C-PORTA-FONTE",
    "C-RECALL-PORTA-IT",
-   "C-REGRA-COLETA",
    "C-SAUDE-FONTE"
   ],
   "NINGUEM_CORRE": [
@@ -29679,7 +29675,9 @@
    "FICHEIROS": [
     "admissao/admissao.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_fronteira_da_coleta.py",
     "provas/a_sala_de_espera_nao_tem_morada.py",
@@ -29689,6 +29687,7 @@
     "provas/mutacao_da_linhagem_do_ready.py",
     "provas/os_portoes_da_collection.py",
     "provas/so_a_colheita_atravessa.py",
+    "system-map/scripts/censo_da_topologia.py",
     "system-map/scripts/censo_das_derivacoes.py",
     "system-map/scripts/censo_semantico_it.py",
     "system-map/scripts/generate_system_map.py",
@@ -29744,7 +29743,12 @@
     "ferramentas/apify_pool.py",
     "ferramentas/contrato_ator.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/apify-conexao.yml",
+    ".github/workflows/apify-sensores.yml",
+    ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/censo_dos_executores.py",
     "system-map/scripts/scan_repo.py",
@@ -29845,7 +29849,9 @@
     "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
     "data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/comunicacao-publica.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_autoridade_da_fonte.py",
     "provas/o_corte_de_cr1.py",
@@ -29860,7 +29866,7 @@
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 0,
@@ -29886,7 +29892,10 @@
     "superficie/ask_sintonia.py",
     "superficie/rede.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/mutacao_da_sala_duravel.py",
     "provas/o_egresso_antes_da_aquisicao.py",
@@ -30015,7 +30024,9 @@
     "docs/biblia/RECONCILIACAO-INTEGRACAO.md",
     "docs/biblia/leis.json"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_fronteira_da_coleta.py",
     "provas/a_sala_de_espera_nao_tem_morada.py",
@@ -30034,7 +30045,7 @@
    "DOCUMENTADO_COMO_CLI": [],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [],
    "ENTRAM": 1,
@@ -30061,7 +30072,12 @@
     "motor/cadeia_canonica.sh",
     "motor/v21_cadeia.sh"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/auditoria-live.yml",
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/calendario-regressoes.yml",
+    ".github/workflows/supabase-migrate.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_fase_10_entra_no_acervo.py",
     "provas/a_sala_sobrevive_ao_processo.py",
@@ -30223,7 +30239,9 @@
    "FICHEIROS": [
     "provas/hardware_local.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/scrap-social.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_c4_gpu_local.py"
    ],
@@ -30477,7 +30495,9 @@
     ".github/workflows/apify-sensores.yml",
     ".github/workflows/comunicacao-publica.yml"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/scrap-social.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_c10_6d_portas_canonicas.py"
    ],
@@ -30512,7 +30532,9 @@
     ".github/workflows/system-map-deploy-verify.yml",
     ".github/workflows/system-map.yml"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map-deploy-verify.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/tests/test_cadeia_declara_io.py",
     "system-map/tests/test_impressao_da_arvore.py",
@@ -30553,7 +30575,11 @@
     ".github/workflows/supabase-migrate.yml",
     ".github/workflows/supabase-storage.yml"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/apify-conexao.yml",
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/derived_artifact_no_postgres.py",
     "provas/inventario_esperado.py",
@@ -30668,7 +30694,12 @@
     "coleta/coletor.py",
     "coleta/filas.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/scrap-evidencia.yml",
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/mutacao_da_autorizacao.py",
     "provas/mutacao_da_release_v1.py",
@@ -30736,7 +30767,9 @@
     "coleta/instagram_janela.py",
     "coleta/instagram_pessoal.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/_e2e01_janela_admissivel.py",
     "provas/_e2e02_janela_dois_posts.py",
@@ -30791,7 +30824,9 @@
     "coleta/comunicacao_coleta.py",
     "coleta/comunicacao_medir.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/comunicacao-publica.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/orcamento_financeiro.py",
     "system-map/scripts/generate_system_map.py",
@@ -30842,7 +30877,9 @@
     "coleta/youtube_janela.py",
     "coleta/youtube_relevancia.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/portas_canonicas_no_postgres.py",
     "tests/test_c10_6d_portas_canonicas.py"
@@ -30880,7 +30917,9 @@
    "FICHEIROS": [
     "leis/artefato.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_fronteira_da_coleta.py",
     "provas/medir_source_id_wiring_gap.py",
@@ -30999,7 +31038,9 @@
    "FICHEIROS": [
     "leis/telemetria.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/fluxo_no_seco.py",
     "provas/o_executor_conta_se.py",
@@ -31124,7 +31165,9 @@
    "FICHEIROS": [
     "coleta/derivacao_forward.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_fronteira_da_coleta.py",
     "provas/o_forward_conta_se.py",
@@ -31237,7 +31280,10 @@
     "guarda/portas_live.py",
     "guarda/preservar_coleta.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_rota_m2_atravessa.py",
     "provas/mutacao_da_linhagem_social.py",
@@ -31293,7 +31339,10 @@
    "FICHEIROS": [
     "guarda/preservar_derivado.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_linhagem_do_reaproveitamento.py",
     "provas/o_forward_conta_se.py",
@@ -31406,7 +31455,9 @@
    "FICHEIROS": [
     "coleta/golden_path_pdf.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/testa_golden_path_pdf.py",
     "system-map/scripts/generate_system_map.py",
@@ -31580,7 +31631,9 @@
    "FICHEIROS": [
     "coleta/executor_texto_de_pdf.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_rota_m2_atravessa.py",
     "provas/medir_source_id_wiring_gap.py",
@@ -31766,7 +31819,10 @@
     "regras/comunicacao_lote.py",
     "regras/comunicacao_universo.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/scan_repo.py",
     "tests/test_comunicacao.py"
@@ -31802,7 +31858,9 @@
     "guarda/catalogo_importar.py",
     "guarda/importar_italia.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/calendario-regressoes.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/censo_das_estradas_it.py",
     "system-map/scripts/censo_do_armazem_it.py",
@@ -31866,15 +31924,22 @@
    "FICHEIROS": [
     "coleta/ingresso.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
+    "provas/a_linhagem_do_ready.py",
+    "provas/a_linhagem_do_ready_social.py",
     "provas/a_repeticao_do_scrap.py",
+    "provas/ensaio_do_texto_na_collection.py",
     "provas/medir_admission_t3_atual.py",
     "provas/medir_source_id_wiring_gap.py",
     "provas/mutacao_da_linhagem_do_ready.py",
     "provas/mutacao_da_linhagem_social.py",
+    "provas/mutacao_do_fluxo_canonico.py",
     "provas/o_encanamento_tem_uma_porta.py",
     "provas/o_fluxo_canonico_do_scrap.py",
+    "provas/o_pedido_atravessa.py",
     "provas/o_scrap_chega_ao_acervo.py",
     "provas/os_portoes_da_collection.py",
     "provas/so_a_colheita_atravessa.py",
@@ -32531,7 +32596,9 @@
     "system-map/tests/test_verdade_das_ligacoes.py",
     "system-map/tests/verificar_a_tela.mjs"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/cadeia_do_mapa.py",
     "system-map/scripts/censo_da_topologia.py",
@@ -32590,7 +32657,12 @@
     "provas/inventario_esperado.py",
     "provas/testa_rota_italia.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/calendario-regressoes.yml",
+    ".github/workflows/supabase-migrate.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/especie_do_texto_auditoria.py",
     "provas/o_dedupe_tem_constraint.py",
@@ -32633,7 +32705,10 @@
     "ferramentas/cdp.py",
     "ferramentas/navegador.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/mutacao_da_release_v1.py"
    ],
@@ -32667,10 +32742,20 @@
    "FICHEIROS": [
     "orquestrador/orquestrador.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
+    "provas/a_sala_de_espera_nao_tem_morada.py",
     "provas/entradas_do_scrap_v1.py",
+    "provas/medir_admission_t3_atual.py",
+    "provas/mutacao_da_release_v1.py",
+    "provas/mutacao_do_fluxo_canonico.py",
+    "provas/o_egresso_antes_da_aquisicao.py",
     "provas/o_encanamento_tem_uma_porta.py",
+    "provas/o_pedido_atravessa.py",
+    "provas/os_portoes_da_collection.py",
     "provas/testa_golden_path_pdf.py",
     "system-map/scripts/censo_da_topologia.py",
     "system-map/scripts/censo_das_estradas_it.py",
@@ -32808,7 +32893,9 @@
     "medidas/PADRAO-DA-COLETA-CHAO.json",
     "medidas/padrao_da_coleta.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/generate_system_map.py",
     "system-map/tests/test_impressao_da_arvore.py",
@@ -33078,7 +33165,9 @@
    "FICHEIROS": [
     "provas/a_autoridade_da_fonte.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_rota_m2_atravessa.py",
     "provas/derived_artifact_no_postgres.py",
@@ -33121,7 +33210,9 @@
    "FICHEIROS": [
     "provas/valida_biblia.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [],
    "DOCUMENTADO_COMO_CLI": [
     "BIBLIA-CANONICA-DA-COLETA.md",
@@ -33227,7 +33318,11 @@
     "provas/trava_de_drift_de_migration.sh",
     "provas/ui_revisao_t3_ptbr.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/auditoria-live.yml",
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/_c106b_filho.py",
     "provas/_e2e01_janela_admissivel.py",
@@ -33397,7 +33492,10 @@
    "FICHEIROS": [
     "provas/o_dedupe_tem_constraint.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/inventario_esperado.py"
    ],
@@ -33437,7 +33535,9 @@
    "FICHEIROS": [
     "provas/o_encanamento_tem_uma_porta.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/o_raw_fala.py",
     "system-map/tests/test_verdade_da_collection_actual.py",
@@ -33477,7 +33577,10 @@
    "FICHEIROS": [
     "provas/o_executor_conta_se.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "system-map/scripts/censo_da_observabilidade.py"
    ],
@@ -33511,7 +33614,9 @@
    "FICHEIROS": [
     "provas/o_forward_conta_se.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/o_executor_conta_se.py",
     "system-map/scripts/censo_dos_buracos.py",
@@ -33559,7 +33664,9 @@
    "FICHEIROS": [
     "provas/a_fronteira_da_coleta.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_sala_de_espera_nao_tem_morada.py",
     "provas/o_corte_de_cr1.py",
@@ -33649,7 +33756,9 @@
     "provas/a_linhagem_do_ready_social.py",
     "provas/mutacao_da_linhagem_social.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/mutacao_da_linhagem_social.py"
    ],
@@ -33790,7 +33899,9 @@
     "provas/_e2e02_janela_dois_posts.py",
     "provas/o_retry_do_scrap.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/o_retry_do_scrap.py"
    ],
@@ -33829,7 +33940,9 @@
    "FICHEIROS": [
     "provas/a_rota_m2_atravessa.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_linhagem_do_ready.py",
     "provas/a_unidade_pousa_na_espera.py",
@@ -33932,7 +34045,9 @@
     "provas/_e2e01_janela_admissivel.py",
     "provas/o_scrap_chega_ao_acervo.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/_e2e02_janela_dois_posts.py",
     "provas/a_linhagem_do_ready_social.py",
@@ -33982,7 +34097,9 @@
     "provas/a_repeticao_do_scrap.py",
     "provas/as_travas_do_scrap_no_postgres.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/o_retry_do_scrap.py"
    ],
@@ -34066,7 +34183,9 @@
     "medidas/rastro_da_coleta.py",
     "medidas/scanner_da_coleta.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/fluxo_no_seco.py",
     "provas/o_executor_conta_se.py",
@@ -34262,7 +34381,9 @@
     "medidas/portao.py",
     "medidas/portoes_eame.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/rls-censo-metadados.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/o_dedupe_tem_constraint.py",
     "provas/rls_censo_portao.py",
@@ -34277,7 +34398,7 @@
    ],
    "E_ENTRYPOINT": false,
    "ALCANCADO_POR_CORRIDA": false,
-   "RUNTIME_OBSERVADO": false,
+   "RUNTIME_OBSERVADO": true,
    "ESCREVE_EM": [],
    "LE_DE": [
     "cicatrizes_brasil"
@@ -34420,7 +34541,9 @@
    "FICHEIROS": [
     "coleta/rota_forward_documento.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_rota_m2_atravessa.py",
     "provas/a_sala_de_espera_nao_tem_morada.py",
@@ -34522,7 +34645,10 @@
    "FICHEIROS": [
     "admissao/sala_de_espera.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_sala_sobrevive_ao_processo.py",
     "provas/a_unidade_pousa_na_espera.py",
@@ -34692,7 +34818,10 @@
     "guarda/social_guarda.py",
     "guarda/social_sessao.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/security-check.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_scrap_convergencia.py",
     "tests/test_security_secret_shapes.py",
@@ -34741,7 +34870,9 @@
     "leis/fundacao_da_coleta.py",
     "leis/social_matriz.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/fluxo_no_seco.py",
     "provas/linkedin_local_first.py",
@@ -34805,7 +34936,9 @@
    "FICHEIROS": [
     ".github/workflows/scrap-social.yml"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/scrap-evidencia.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_c2_youtube_oficial.py",
     "tests/test_c4b_gpu_execucao.py",
@@ -34857,14 +34990,22 @@
     "coleta/social_scrap.py",
     "coleta/youtube_oficial.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/banco-descartavel.yml",
+    ".github/workflows/scrap-evidencia.yml",
+    ".github/workflows/scrap-social.yml",
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_linhagem_do_ready.py",
     "provas/a_linhagem_do_ready_social.py",
     "provas/bluesky_trial_ao_vivo.py",
     "provas/ensaio_canonico_de_capacidade.py",
+    "provas/entradas_do_scrap_v1.py",
     "provas/mutacao_da_autorizacao.py",
     "provas/mutacao_da_release_v1.py",
+    "provas/mutacao_do_fluxo_canonico.py",
+    "provas/o_fluxo_canonico_do_scrap.py",
     "provas/o_pedido_atravessa.py",
     "provas/orcamento_de_rede.py",
     "provas/orcamento_financeiro.py",
@@ -34961,7 +35102,9 @@
     "security/superficie_publica.py",
     "security/validate-baseline.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/security-check.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_security_ratchet.py"
    ],
@@ -35004,7 +35147,9 @@
    "FICHEIROS": [
     "regras/sensor_coleta.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/apify-sensores.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/entradas_do_scrap_v1.py",
     "provas/mutacao_da_autorizacao.py",
@@ -35135,7 +35280,9 @@
    "FICHEIROS": [
     "provas/gpu_asr_smoke.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/scrap-social.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "tests/test_c4b_gpu_execucao.py",
     "tests/test_c8_convergencia.py"
@@ -35227,6 +35374,8 @@
     "supabase/tests/regressoes_regulatorio_es.sql"
    ],
    "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/calendario-regressoes.yml",
+    ".github/workflows/supabase-migrate.yml",
     "motor/cadeia_canonica.sh"
    ],
    "SO_MEDEM_ESTE": [
@@ -35481,7 +35630,11 @@
     "tests/test_youtube_oficial.py",
     "tests/test_youtube_piloto.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/auditoria-live.yml",
+    ".github/workflows/comunicacao-publica.yml",
+    ".github/workflows/system-map.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/a_fronteira_da_coleta.py",
     "provas/a_rota_m2_atravessa.py",
@@ -35597,7 +35750,9 @@
     "ferramentas/reel_transcricao.py",
     "ferramentas/youtube_transcrever.py"
    ],
-   "CHAMADORES_DE_RUNTIME": [],
+   "CHAMADORES_DE_RUNTIME": [
+    ".github/workflows/sintonia-scrap.yml"
+   ],
    "SO_MEDEM_ESTE": [
     "provas/asr_banco.py",
     "provas/gpu_asr_smoke.py",
