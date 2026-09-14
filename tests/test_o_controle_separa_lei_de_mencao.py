@@ -511,5 +511,91 @@ class M_UmArtefactoGeradoNaoCarimbaOProprioCommit(unittest.TestCase):
                 self.assertIn("ANTERIOR", texto)
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+class R_OQueBloqueiaORuntimeDaIntelligence(unittest.TestCase):
+    """GATE C · porque o runtime NAO comecou, medido em vez de alegado.
+
+    A Biblia foi promovida. Isso mudou quem e a lei — nao mudou o que a maquina
+    consegue fazer. Dois contratos, ambos canonicos e ambos NESTA arvore,
+    impedem o runtime hoje:
+
+        docs/operacao/TRAVA-DA-INTELIGENCIA.json
+            COLLECTION_FOUNDATION_CLOSED != SIM -> INTELLIGENCE_IMPLEMENTATION_BLOCKED
+            e o que ela bloqueia inclui, por escrito, «desenvolvimento NOVO de
+            inteligencia» e «ligar sinais».
+
+        BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md secao 32
+            a primeira missao apos promocao exige ONE REAL WAITING_ROOM ITEM.
+
+    Estas provas nao pedem licenca para nada: medem os dois, hoje. No dia em que
+    a fundacao fechar e a Sala tiver um item, elas passam a dizer outra coisa —
+    e e ai, e so ai, que o runtime pode nascer.
+
+        A TRAVA NAO IMPEDE MEDIR O QUE A INTELIGENCIA VAI ESPERAR DA COLETA.
+        E isto e exatamente isso.
+    """
+
+    def test_R1_a_fundacao_da_coleta_nao_esta_fechada_medido_hoje(self):
+        """Medido nas estradas, e nao lido do campo que a propria trava declara.
+
+        `DECLARED != OBSERVED` vale para a trava tambem: o ficheiro dela diz
+        `COLLECTION_FOUNDATION_CLOSED: NAO` e `MEDIDO_EM: 2026-09-08`. Acreditar
+        nisso seria herdar uma fotografia — o erro que esta casa ja cometeu
+        quatro vezes.
+        """
+        E = json.loads((RAIZ / "system-map" / "data" / "estradas-it.generated.json")
+                       .read_text(encoding="utf-8"))
+        fechadas = E["ROUTE_CLASSES_ARCHITECTURE_CLOSED"]
+        total = E["ROUTE_CLASSES_REQUIRED_TOTAL"]
+        self.assertEqual(len(fechadas), 0,
+                         f"se isto deixou de ser 0, re-medir a trava: {fechadas}")
+        self.assertEqual(total, "UNKNOWN",
+                         "enquanto nao se souber quantas estradas sao precisas, "
+                         "«todas as necessarias estao fechadas» fala de um "
+                         "conjunto que ninguem conhece")
+
+    def test_R2_a_trava_bloqueia_por_escrito_o_que_esta_missao_pediu(self):
+        T = json.loads((RAIZ / "docs" / "operacao" / "TRAVA-DA-INTELIGENCIA.json")
+                       .read_text(encoding="utf-8"))
+        self.assertEqual(T["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+        impede = " · ".join(T["O_QUE_A_TRAVA_IMPEDE"])
+        self.assertIn("desenvolvimento NOVO de inteligencia", impede)
+        self.assertIn("ligar sinais", impede)
+
+    def test_R3_a_sala_de_espera_real_continua_vazia(self):
+        """Re-medida, nao herdada. A Collection pode ter andado em paralelo."""
+        sys.path.insert(0, str(RAIZ / "admissao"))
+        import sala_de_espera as SALA                                # noqa: E402
+        morada = Path(SALA.MORADA)
+        corridas = sorted(morada.glob("*.json")) if morada.is_dir() else []
+        self.assertEqual(corridas, [],
+                         "se ha itens reais, a secao 32 da Biblia passa a poder "
+                         f"correr: {corridas[:3]}")
+
+    def test_R4_nenhum_runtime_de_intelligence_nasceu_enquanto_a_trava_fecha(self):
+        """A prova que reprova no dia em que alguem contornar isto.
+
+        Nao e uma lista de nomes proibidos — seria contornavel escolhendo outro
+        nome. E a espinha a continuar a dizer de si propria o que ela e.
+        """
+        espinha = (RAIZ / "provas" / "espinha_da_intelligence.py").read_text(encoding="utf-8")
+        self.assertIn("NAO E RUNTIME PRODUTIVO", espinha)
+        self.assertIn("IMPLEMENTED = NO", espinha)
+        self.assertIn("NAO le a Sala de Espera real", espinha)
+
+    def test_R5_a_promocao_da_biblia_nao_desbloqueou_a_trava(self):
+        """PROMOVER A LEI != AUTORIZAR A OBRA.
+
+        As duas coisas ja foram confundidas neste projeto. A Biblia e canonica
+        desde hoje, e a trava continua fechada — sao portoes de frentes
+        diferentes, e nenhum abre o outro.
+        """
+        R = base()
+        self.assertEqual(achar(R, "A-BIBLIA-ENG-INTELIGENCIA")["LIFECYCLE"], "CANONICAL")
+        T = json.loads((RAIZ / "docs" / "operacao" / "TRAVA-DA-INTELIGENCIA.json")
+                       .read_text(encoding="utf-8"))
+        self.assertEqual(T["COLLECTION_FOUNDATION_CLOSED"], "NAO")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

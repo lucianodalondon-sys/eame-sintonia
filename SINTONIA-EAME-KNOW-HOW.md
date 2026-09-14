@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §115: importar um portão não é passar nele, e um chão medido noutra árvore mede a mudança de casa, não a mudança de estado.
+**Última atualização material:** 2026-09-14 — §116: mencionar uma lei não é promulgar uma, e duas das três dívidas que bloqueavam a Bíblia não existiam.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13436,4 +13436,235 @@ reprovação adiada — e ela aparece na missão seguinte, a bloquear outra cois
 NAO registra a promocao da Biblia. Ela NAO foi promovida.
 NAO registra runtime de Intelligence. O GATE 2 impediu-o de comecar, e
 essa decisao foi obedecida em vez de contornada.
+```
+
+---
+
+# §116 · MENCIONAR UMA LEI NÃO É PROMULGAR UMA — E DUAS DAS TRÊS DÍVIDAS QUE BLOQUEAVAM A BÍBLIA NÃO EXISTIAM
+
+## O QUE MUDOU
+
+A `§115` fechou com dois bloqueadores medidos e um diagnóstico:
+
+```
+UNREGISTERED_CANONICAL_DOCUMENT = 10   «registá-los exige decidir CONCEPT_OWNER de Collection»
+BROKEN_POINTER                  =  1   «o modelo do Control Plane não sabe exprimir isto»
+```
+
+O diagnóstico estava errado nos dois casos. Não por descuido na contagem — os
+números estavam certos — mas porque **contei o que o instrumento reportava em vez
+de abrir o que ele tinha encontrado**.
+
+```
+UNREGISTERED_CANONICAL_DOCUMENT = 10  ->  dez MENCOES, zero autoridades
+BROKEN_POINTER                  =  1  ->  um CARD_ID lido como caminho
+```
+
+Nenhuma decisão humana era precisa. Nenhum conceito de Collection precisava de
+dono. A Bíblia foi promovida na missão seguinte com `9/9`.
+
+## POR QUÊ
+
+### 1 · O detector procurava subcadeia, e subcadeia não tem gramática
+
+```python
+SE_DIZ_LEI = ("dono canónico", "CANONICAL_OWNER", "SOURCE_OF_TRUTH", ...)
+if any(w in txt for w in SE_DIZ_LEI): nao_registados.append(p)
+```
+
+O que ele apanhou, linha a linha:
+
+```
+DUPLICATE_CANONICAL_OWNERS = 0                    um nome de metrica
+REGISTRO_REGULATORIO_CANONICAL_OWNER = MISSING    um resultado de medicao
+CANONICAL_OWNER_FOUND?   SIM                      uma pergunta respondida
+o executor produz, o dono canonico persiste       prosa sobre OUTRO ficheiro
+O3 escreve raw_asset fora do dono canonico        uma linha de red team
+```
+
+Cinco dos dez morrem só com **fronteira de palavra**: `CANONICAL_OWNER` não está
+em `DUPLICATE_CANONICAL_OWNERS` — está lá um identificador diferente que a
+carrega dentro. Os outros cinco são prosa portuguesa a falar do dono de outra
+coisa.
+
+```
+MENCIONAR UMA LEI NAO E PROMULGAR UMA.
+```
+
+A separação que funciona não é uma lista de exceções — essa só faz o defeito
+mudar de nome amanhã. É estrutural, e as três formas saíram das autoridades
+**reais** desta árvore, não de imaginação:
+
+```
+RECLAMA_SE   a linha nomeia a chave E fala de si
+             AGENTS.md:5  «Este ficheiro é o dono canónico das…»
+LEGISLA      a chave é o SUJEITO da linha, com valor a seguir
+             BIBLIA-CANONICA-DA-COLETA.md:9  «CANONICAL_OWNER  este ficheiro»
+             CLAUDE.md:33  «DESIGN_SOURCE_OF_TRUTH = ADAMA_DESIGN_SYSTEM»
+NOMEIA_SE    a linha nomeia a chave E o próprio caminho do documento
+```
+
+Resultado medido: **10 falsos positivos mortos, 0 falsos negativos criados** — as
+três autoridades que de facto se promulgam continuam visíveis, e os quatro
+documentos **registados** que só mencionam continuam corretamente calados.
+
+### 2 · Uma identidade mandada pelo cano dos endereços
+
+```json
+"A-BIBLIA-ENG-INTELIGENCIA": { "SUPERSEDES": ["A-BIBLIA-INTELIGENCIA"] }
+```
+
+`A-BIBLIA-INTELIGENCIA` é um `CARD_ID`. O censo mandava-o pelo laço dos caminhos
+(`alvo in git ls-files`), não encontrava ficheiro nenhum com aquele nome, e
+escrevia `PROOF_KIND = ABSENT` — que o portão conta como ponteiro quebrado.
+
+```
+IDENTIDADE != MORADA.    AUTHORITY_ID != CANONICAL_PATH.
+```
+
+E a assimetria estava dentro da **mesma relação**: `SUPERSEDED_BY`, a outra
+metade, já era lida como identidade. Uma ponta era quem, a outra era onde.
+
+O que isto torna indeclarável, e é o caso normal: **«substituí uma lei que já não
+vive aqui»**. Uma autoridade substituída quase sempre desapareceu — é essa a razão
+de alguém a ter substituído. Exigir o caminho dela é exigir que o passado ainda
+esteja no disco.
+
+E havia uma terceira coisa escondida no mesmo nome. Três erros distintos com uma
+palavra só, e por isso nenhum deles consertável:
+
+```
+BROKEN_POINTER           um CAMINHO declarado que nao existe
+UNKNOWN_AUTHORITY_ID     um ID declarado que o registo nao conhece
+SUPERSESSION_RECIPROCAL  meia relacao — uma ponta declara, a outra nao confirma
+```
+
+A última é a que interessa para a prova: **uma aresta de identidade não pode ser
+provada pelo texto de quem a declara**, senão a declaração prova-se a si própria.
+Quem prova que A substituiu B é B a dizer `SUPERSEDED_BY: A`, escrito noutro
+sítio, por outra mão.
+
+### 3 · Um tecto é um número, e um número não vê substituição
+
+O chão da dívida comparava **contagens**. Isso deixa passar o pior caso:
+
+```
+TRES DEFEITOS ANTIGOS DESAPARECEM, TRES NOVOS APARECEM,
+A CONTAGEM NAO MEXE, E NADA REPROVA.
+```
+
+A comparação tem de ser de **membros**. E para os membros serem comparáveis, a
+identidade deles não pode carregar a razão dentro:
+
+```
+A-DIARIO (6)     ->   A-DIARIO   + PORQUE: «6 copia(s) divergente(s)»
+```
+
+Com a razão colada ao nome, o dia em que `A-DIARIO` passasse a 7 cópias fazia o
+membro antigo desaparecer e um «novo» nascer — dívida nova onde só havia a mesma
+dívida a mudar de tamanho. E o inverso também, que é pior.
+
+A razão pertence ao **par** `(categoria, membro)`, nunca ao membro sozinho:
+`A-KNOWHOW` está em duas categorias ao mesmo tempo, e com a chave simples a
+segunda explicação apagava a primeira. Foi a própria saída do portão que mo
+mostrou, a imprimir «canónica fora deste HEAD» debaixo de `DIVERGENT_CANONICAL_COPY`.
+
+### 4 · Migrar um chão de linhagem é um acto, e tem de recusar
+
+`--fixar` grava o estado de hoje. Não serve para trocar de fotografia: grava um
+tecto novo sem ninguém provar que ele não é pior. O que serve é comparar primeiro
+e só depois gravar, e **recusar** quando qualquer categoria subir ou qualquer
+membro novo entrar.
+
+```
+FIXAR UM DEFEITO COMO NOVO NORMAL != CORRIGIR O DEFEITO.
+```
+
+Uma nota que custou uma tentativa: o mecanismo de migração **não pode** exigir
+que a prova de linhagem já esteja verde — é exatamente esse o defeito que ele
+paga. Toda a outra integridade tem de estar verde; essa uma, não.
+
+## O QUE ISTO CUSTOU, E O QUE PAGOU
+
+```
+PORTAO_DO_CONTROLE      FAIL (2)  ->  PASS (23 provas)
+UNREGISTERED_CANONICAL_DOCUMENT   10  ->  0
+BROKEN_POINTER                     1  ->  0
+CHAO                    a885769c54 (outra linha)  ->  esta linhagem, com prova
+TETOS                   nenhum subiu — 2->0, 6->5->4
+BIBLIA                  CANDIDATE  ->  CANONICAL  (9/9)
+```
+
+## O QUE NÃO MUDOU, E FOI MEDIDO
+
+```
+GATE C = BLOCKED
+```
+
+A promoção não desbloqueou nada da máquina, e a quinta lição desta noite é essa:
+
+```
+PROMOVER A LEI != AUTORIZAR A OBRA.
+```
+
+`docs/operacao/TRAVA-DA-INTELIGENCIA.json` continua fechada — medida hoje nas
+estradas, não lida do campo que ela própria declara: 0 de 12 classes com
+arquitetura fechada, `ROUTE_CLASSES_REQUIRED_TOTAL = UNKNOWN`. E a Sala de Espera
+real continua com **0 itens**, enquanto a §32 da Bíblia recém-promovida exige *um
+item real*. Dois portões de frentes diferentes, e nenhum abre o outro.
+
+## A QUINTA VEZ, E A LIÇÃO GENÉRICA
+
+```
+§111  um grafo truncado respondeu «nao existe»
+§112  um contrato tinha chave estrangeira para ninguem
+§114  um nome sobrecarregado pareceu conceito sem dono
+§115  um chao medido noutra arvore mediu a mudanca de casa
+§116  um ataque de red team fixava um estado de outra arvore
+```
+
+O `RT07` do Control Plane vinha a reportar `PASSOU` — ataque a atravessar o
+portão — sem nada ter mudado no portão. O que mudou foi a árvore: ele afirmava
+`OBSERVED_STATE == "ABSENT_FROM_SNAPSHOT"`, e o know-how passou legitimamente a
+viver aqui. A defesa nunca falhou; a asserção é que media a árvore em vez da
+defesa.
+
+```
+UMA ASSERCAO CERTA LIDA CONTRA A FOTOGRAFIA ERRADA.
+```
+
+A correção não foi mudar o valor esperado — isso seria consertar o teste para
+salvar a hipótese. Foi deixar de fixar um estado e passar a **comparar dois**: o
+cartão medido com o ataque e sem o ataque. Um teste que compara não envelhece com
+a árvore.
+
+```
+UM TESTE QUE FIXA UM ESTADO MEDE A ARVORE.
+UM TESTE QUE COMPARA DOIS ESTADOS MEDE A DEFESA.
+```
+
+## E UMA QUE É SOBRE HUMILDADE DE MEDIÇÃO
+
+A `§115` descreveu como descoberta o carimbo que não consegue nomear o próprio
+commit. Ao ir consertá-lo, encontrei-o **já resolvido, melhor do que eu o teria
+feito**, em `system-map/scripts/impressao_da_arvore.py`:
+
+> *A PERGUNTA CERTA NÃO É «QUE COMMIT?». É «QUE FONTES?»*
+
+com o universo declarado em `CADEIA-DO-MAPA.json`, uma prova que verifica a
+própria lista de exclusão, e o ponto fixo alcançado (`IMPRESSAO_DO_CARIMBO=IGUAL`).
+
+```
+ANTES DE CONSERTAR UMA COISA QUE DOI, PROCURAR QUEM JA A CONSERTOU.
+UMA SEGUNDA SOLUCAO PARA UM PROBLEMA RESOLVIDO E UMA SEGUNDA VERDADE.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime de Intelligence. GATE C = BLOCKED, por dois contratos
+canonicos desta arvore — e a decisao foi obedecida, nao contornada.
+NAO registra fluxo real da Italia. REAL_ITALY_READY_ITEMS = 0.
+NAO registra fundacao da coleta fechada. 0 de 12 classes, e o total ainda
+e NAO SEI.
 ```

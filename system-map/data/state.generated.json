@@ -2229,9 +2229,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/control-plane-intelligence-night-v2",
-    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
-    "GENERATED_AT": "2026-09-14T04:31:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "87aa96f8a63b81746c2f6883630752675ba4f73d8663e8fa6d3fbb95917895ce"
+    "HEAD": "f05bb5a6509a44f077bcbbb67d71c39cc3010f3a",
+    "GENERATED_AT": "2026-09-14T04:43:01+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2665739066e66e1b4ec2ed31227f40c9a49c8cc3b24eaca62acda00648c85202"
   },
   "FAMILIES": [
     {
@@ -28939,12 +28939,17 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel alimenta Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A espinha comum da Intelligence — a maquina de estados, em descartavel alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
           "line": 354,
           "snippet": "self.assertNotIn(\"provas/espinha_da_intelligence.py\", c.INSTRUMENTOS)"
+        },
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 581,
+          "snippet": "espinha = (RAIZ / \"provas\" / \"espinha_da_intelligence.py\").read_text(encoding=\"utf-8\")"
         }
       ],
       "categoria": "PROOF"
@@ -35322,12 +35327,17 @@
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "reason": "A Sala de Espera tem o seu codigo importado por Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
           "line": 24,
           "snippet": "import sala_de_espera as espera       # noqa: E402"
+        },
+        {
+          "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+          "line": 568,
+          "snippet": "import sala_de_espera as SALA                                # noqa: E402"
         }
       ],
       "categoria": "PROOF"

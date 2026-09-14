@@ -363,7 +363,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`SINTONIA-EAME-KNOW-HOW.md`](SINTONIA-EAME-KNOW-HOW.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `0f057a40e7`
+- **impressão do conteúdo medido** — `02bd9f642c`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `provas/arbitragem_da_intelligence.py` *(+2)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`

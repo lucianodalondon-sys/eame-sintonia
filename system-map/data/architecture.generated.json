@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/control-plane-intelligence-night-v2",
-    "HEAD": "08803882c381913de755369110e8d8a4c20bf6c9",
-    "GENERATED_AT": "2026-09-14T04:31:45+00:00",
-    "SOURCE_TREE_FINGERPRINT": "87aa96f8a63b81746c2f6883630752675ba4f73d8663e8fa6d3fbb95917895ce"
+    "HEAD": "f05bb5a6509a44f077bcbbb67d71c39cc3010f3a",
+    "GENERATED_AT": "2026-09-14T04:43:01+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2665739066e66e1b4ec2ed31227f40c9a49c8cc3b24eaca62acda00648c85202"
   },
   "FILES": [
     {
@@ -269,14 +269,14 @@
     },
     {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
-      "sha": "0020fffca376f20c33ee5a5e30dc13e62ae520b4",
+      "sha": "7f17096318c2de47a5acd94f9a4f90b3ffc4b9ec",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "0f057a40e7940ab94c1d447f0ada92f8a9885b20",
+      "sha": "02bd9f642cbe6eee5306a6bf0554836e83e9f9c3",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -12071,7 +12071,7 @@
     },
     {
       "path": "tests/test_o_controle_separa_lei_de_mencao.py",
-      "sha": "a41c10ed32c1fe1196067e956d233ab913b430a5",
+      "sha": "fe40edec9b0497c428f41374ecf96222686fa2c9",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -49895,6 +49895,17 @@
     },
     {
       "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "admissao/sala_de_espera.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 568,
+        "snippet": "import sala_de_espera as SALA                                # noqa: E402"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
       "to_file": "controle/AUTORIDADES-CANONICAS.json",
       "type": "READS",
       "payload": "artefacto",
@@ -50016,6 +50027,17 @@
     },
     {
       "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "docs/operacao/TRAVA-DA-INTELIGENCIA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 558,
+        "snippet": "T = json.loads((RAIZ / \"docs\" / \"operacao\" / \"TRAVA-DA-INTELIGENCIA.json\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
       "to_file": "docs/sintonia-scrap/C7-LUGAR-DO-FATO.md",
       "type": "READS",
       "payload": "artefacto",
@@ -50045,6 +50067,17 @@
         "file": "tests/test_o_controle_separa_lei_de_mencao.py",
         "line": 121,
         "snippet": "\"know-how/daily/2026-09-10.md\")"
+      }
+    },
+    {
+      "from_file": "tests/test_o_controle_separa_lei_de_mencao.py",
+      "to_file": "provas/espinha_da_intelligence.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_o_controle_separa_lei_de_mencao.py",
+        "line": 581,
+        "snippet": "espinha = (RAIZ / \"provas\" / \"espinha_da_intelligence.py\").read_text(encoding=\"utf-8\")"
       }
     },
     {
@@ -54720,7 +54753,7 @@
     "files_tracked": 1777,
     "files_readable": 715,
     "files_code_dir": 762,
-    "file_edges": 3797,
+    "file_edges": 3800,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },
