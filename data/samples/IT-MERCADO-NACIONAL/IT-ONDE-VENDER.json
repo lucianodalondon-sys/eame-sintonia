@@ -1,0 +1,628 @@
+{
+ "ARTIFACT_ID": "IT-ONDE-VENDER",
+ "GERADO_EM": "2026-09-14T04:42:24Z",
+ "O_QUE_E": "as 20 regioes italianas: quanto mercado ha, quantos pontos de venda estao mapeados, e o que se sabe do que eles compram",
+ "FONTES": [
+  "IT-T10-003 ISTAT (kg por provincia e categoria, 2015-2024)",
+  "IT-T10-002 OSM (pontos de canal, 721)",
+  "IT-T10-001 ARPAV (venda por produto — SO Veneto, 2014-2025)"
+ ],
+ "AVISOS": [
+  "kg e volume, nunca valor",
+  "o OSM nao e censo: comparar contagem entre regioes mede o MAPEAMENTO tanto quanto o mercado",
+  "fora do Veneto, marca e produto sao NAO SEI",
+  "nenhuma linha aqui afirma relacao comercial da ADAMA com ninguem"
+ ],
+ "TOTAL_PONTOS": 721,
+ "REGIOES": [
+  {
+   "REGIAO": "Veneto",
+   "MERCADO_KG_2024": 17737397.0,
+   "QUOTA_DO_PAIS_PCT": 18.95,
+   "VARIACAO_2015_2024_PCT": -11.1,
+   "MIX_KG": {
+    "fungicida": 11546498.0,
+    "herbicida": 2474960.0,
+    "inseticida": 2602866.0
+   },
+   "TOP_PROVINCIA": "Treviso",
+   "PONTOS_MAPEADOS": 64,
+   "COM_TELEFONE": 18,
+   "COM_RUA": 28,
+   "CONSORZIO_AGRARIO_NOMEADOS": 24,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "Villa Estense",
+     "TELEFONE": "+39 0429 91150"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "Candiana",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "COMPROVADO por produto, titular e provincia (IT-T10-001, 12 anos)"
+  },
+  {
+   "REGIAO": "Emilia-Romagna",
+   "MERCADO_KG_2024": 16733194.0,
+   "QUOTA_DO_PAIS_PCT": 17.88,
+   "VARIACAO_2015_2024_PCT": -14.7,
+   "MIX_KG": {
+    "fungicida": 7512677.0,
+    "herbicida": 2961826.0,
+    "inseticida": 4764239.0
+   },
+   "TOP_PROVINCIA": "Ravenna",
+   "PONTOS_MAPEADOS": 74,
+   "COM_TELEFONE": 8,
+   "COM_RUA": 20,
+   "CONSORZIO_AGRARIO_NOMEADOS": 38,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Cap Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Puglia",
+   "MERCADO_KG_2024": 10508004.0,
+   "QUOTA_DO_PAIS_PCT": 11.23,
+   "VARIACAO_2015_2024_PCT": -26.9,
+   "MIX_KG": {
+    "fungicida": 5096450.0,
+    "herbicida": 1116339.0,
+    "inseticida": 3500935.0
+   },
+   "TOP_PROVINCIA": "Foggia",
+   "PONTOS_MAPEADOS": 21,
+   "COM_TELEFONE": 4,
+   "COM_RUA": 8,
+   "CONSORZIO_AGRARIO_NOMEADOS": 3,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Agenzia Galatina",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Provinciale",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Piemonte",
+   "MERCADO_KG_2024": 7487253.0,
+   "QUOTA_DO_PAIS_PCT": 8.0,
+   "VARIACAO_2015_2024_PCT": -29.7,
+   "MIX_KG": {
+    "fungicida": 3135024.0,
+    "herbicida": 1987105.0,
+    "inseticida": 1619436.0
+   },
+   "TOP_PROVINCIA": "Cuneo",
+   "PONTOS_MAPEADOS": 73,
+   "COM_TELEFONE": 20,
+   "COM_RUA": 30,
+   "CONSORZIO_AGRARIO_NOMEADOS": 29,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Area Ex-Consorzio Agrario Provinciale",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "Cherasco",
+     "TELEFONE": "+39 0172 488511"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Lombardia",
+   "MERCADO_KG_2024": 6424449.0,
+   "QUOTA_DO_PAIS_PCT": 6.86,
+   "VARIACAO_2015_2024_PCT": -36.4,
+   "MIX_KG": {
+    "fungicida": 1819079.0,
+    "herbicida": 2243975.0,
+    "inseticida": 1667887.0
+   },
+   "TOP_PROVINCIA": "Pavia",
+   "PONTOS_MAPEADOS": 71,
+   "COM_TELEFONE": 14,
+   "COM_RUA": 26,
+   "CONSORZIO_AGRARIO_NOMEADOS": 46,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Lombardo",
+     "COMUNE": "Mozzate",
+     "TELEFONE": "+390331830229"
+    },
+    {
+     "NOME": "Consorzio Agrario Lombardo",
+     "COMUNE": "Lecco",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Sicilia",
+   "MERCADO_KG_2024": 5734582.0,
+   "QUOTA_DO_PAIS_PCT": 6.13,
+   "VARIACAO_2015_2024_PCT": -60.8,
+   "MIX_KG": {
+    "fungicida": 1826390.0,
+    "herbicida": 770340.0,
+    "inseticida": 1298681.0
+   },
+   "TOP_PROVINCIA": "Ragusa",
+   "PONTOS_MAPEADOS": 32,
+   "COM_TELEFONE": 0,
+   "COM_RUA": 1,
+   "CONSORZIO_AGRARIO_NOMEADOS": 1,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agricolo di Coco Francesco",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Toscana",
+   "MERCADO_KG_2024": 5273716.0,
+   "QUOTA_DO_PAIS_PCT": 5.63,
+   "VARIACAO_2015_2024_PCT": -16.9,
+   "MIX_KG": {
+    "fungicida": 2785798.0,
+    "herbicida": 474406.0,
+    "inseticida": 1557898.0
+   },
+   "TOP_PROVINCIA": "Siena",
+   "PONTOS_MAPEADOS": 102,
+   "COM_TELEFONE": 19,
+   "COM_RUA": 27,
+   "CONSORZIO_AGRARIO_NOMEADOS": 50,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Campania",
+   "MERCADO_KG_2024": 4572891.0,
+   "QUOTA_DO_PAIS_PCT": 4.89,
+   "VARIACAO_2015_2024_PCT": -54.7,
+   "MIX_KG": {
+    "fungicida": 1965150.0,
+    "herbicida": 535008.0,
+    "inseticida": 941233.0
+   },
+   "TOP_PROVINCIA": "Salerno",
+   "PONTOS_MAPEADOS": 28,
+   "COM_TELEFONE": 8,
+   "COM_RUA": 11,
+   "CONSORZIO_AGRARIO_NOMEADOS": 5,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Provinciale",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Provinciale",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Trentino-Alto Adige",
+   "MERCADO_KG_2024": 3771324.0,
+   "QUOTA_DO_PAIS_PCT": 4.03,
+   "VARIACAO_2015_2024_PCT": -8.3,
+   "MIX_KG": {
+    "fungicida": 2204199.0,
+    "herbicida": 205234.0,
+    "inseticida": 755348.0
+   },
+   "TOP_PROVINCIA": "NAO SEI",
+   "PONTOS_MAPEADOS": 33,
+   "COM_TELEFONE": 15,
+   "COM_RUA": 22,
+   "CONSORZIO_AGRARIO_NOMEADOS": 11,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario Dermulo",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Provinciale - Landwirtschaftliche Hauptgenossenschaft",
+     "COMUNE": "Salorno - Salurn",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario Tutto Giardino",
+     "COMUNE": "Arco",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura",
+   "NOTA_DE_CASAMENTO": "nome casado por normalizacao (Trentino-Alto Adige -> Trentino Alto Adige / Südtirol)"
+  },
+  {
+   "REGIAO": "Lazio",
+   "MERCADO_KG_2024": 3261947.0,
+   "QUOTA_DO_PAIS_PCT": 3.48,
+   "VARIACAO_2015_2024_PCT": -51.4,
+   "MIX_KG": {
+    "fungicida": 975465.0,
+    "herbicida": 485394.0,
+    "inseticida": 637980.0
+   },
+   "TOP_PROVINCIA": "Latina",
+   "PONTOS_MAPEADOS": 37,
+   "COM_TELEFONE": 16,
+   "COM_RUA": 15,
+   "CONSORZIO_AGRARIO_NOMEADOS": 8,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Calabria",
+   "MERCADO_KG_2024": 2565667.0,
+   "QUOTA_DO_PAIS_PCT": 2.74,
+   "VARIACAO_2015_2024_PCT": -4.2,
+   "MIX_KG": {
+    "fungicida": 612056.0,
+    "herbicida": 153354.0,
+    "inseticida": 1681360.0
+   },
+   "TOP_PROVINCIA": "Cosenza",
+   "PONTOS_MAPEADOS": 22,
+   "COM_TELEFONE": 3,
+   "COM_RUA": 5,
+   "CONSORZIO_AGRARIO_NOMEADOS": 1,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario Provinciale",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Friuli-Venezia Giulia",
+   "MERCADO_KG_2024": 2536912.0,
+   "QUOTA_DO_PAIS_PCT": 2.71,
+   "VARIACAO_2015_2024_PCT": -34.0,
+   "MIX_KG": {
+    "fungicida": 1434028.0,
+    "herbicida": 520043.0,
+    "inseticida": 474517.0
+   },
+   "TOP_PROVINCIA": "Udine",
+   "PONTOS_MAPEADOS": 32,
+   "COM_TELEFONE": 5,
+   "COM_RUA": 7,
+   "CONSORZIO_AGRARIO_NOMEADOS": 19,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Abruzzo",
+   "MERCADO_KG_2024": 2034557.0,
+   "QUOTA_DO_PAIS_PCT": 2.17,
+   "VARIACAO_2015_2024_PCT": -38.6,
+   "MIX_KG": {
+    "fungicida": 1550606.0,
+    "herbicida": 197149.0,
+    "inseticida": 186536.0
+   },
+   "TOP_PROVINCIA": "Chieti",
+   "PONTOS_MAPEADOS": 33,
+   "COM_TELEFONE": 12,
+   "COM_RUA": 15,
+   "CONSORZIO_AGRARIO_NOMEADOS": 4,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Marche",
+   "MERCADO_KG_2024": 1668270.0,
+   "QUOTA_DO_PAIS_PCT": 1.78,
+   "VARIACAO_2015_2024_PCT": -37.6,
+   "MIX_KG": {
+    "fungicida": 820346.0,
+    "herbicida": 463288.0,
+    "inseticida": 318021.0
+   },
+   "TOP_PROVINCIA": "Macerata",
+   "PONTOS_MAPEADOS": 36,
+   "COM_TELEFONE": 7,
+   "COM_RUA": 19,
+   "CONSORZIO_AGRARIO_NOMEADOS": 15,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "Sassoferrato",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Umbria",
+   "MERCADO_KG_2024": 1127114.0,
+   "QUOTA_DO_PAIS_PCT": 1.2,
+   "VARIACAO_2015_2024_PCT": -39.8,
+   "MIX_KG": {
+    "fungicida": 573350.0,
+    "herbicida": 216669.0,
+    "inseticida": 125214.0
+   },
+   "TOP_PROVINCIA": "Perugia",
+   "PONTOS_MAPEADOS": 20,
+   "COM_TELEFONE": 5,
+   "COM_RUA": 5,
+   "CONSORZIO_AGRARIO_NOMEADOS": 7,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Basilicata",
+   "MERCADO_KG_2024": 1087947.0,
+   "QUOTA_DO_PAIS_PCT": 1.16,
+   "VARIACAO_2015_2024_PCT": -45.0,
+   "MIX_KG": {
+    "fungicida": 383773.0,
+    "herbicida": 225248.0,
+    "inseticida": 255327.0
+   },
+   "TOP_PROVINCIA": "Matera",
+   "PONTOS_MAPEADOS": 7,
+   "COM_TELEFONE": 0,
+   "COM_RUA": 0,
+   "CONSORZIO_AGRARIO_NOMEADOS": 1,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Ex Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Sardegna",
+   "MERCADO_KG_2024": 616855.0,
+   "QUOTA_DO_PAIS_PCT": 0.66,
+   "VARIACAO_2015_2024_PCT": -68.8,
+   "MIX_KG": {
+    "fungicida": 219041.0,
+    "herbicida": 128333.0,
+    "inseticida": 160450.0
+   },
+   "TOP_PROVINCIA": "Cagliari",
+   "PONTOS_MAPEADOS": 22,
+   "COM_TELEFONE": 1,
+   "COM_RUA": 3,
+   "CONSORZIO_AGRARIO_NOMEADOS": 10,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    },
+    {
+     "NOME": "Consorzio Agrario",
+     "COMUNE": "NÃO SEI",
+     "TELEFONE": "NÃO SEI"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Molise",
+   "MERCADO_KG_2024": 300869.0,
+   "QUOTA_DO_PAIS_PCT": 0.32,
+   "VARIACAO_2015_2024_PCT": -42.1,
+   "MIX_KG": {
+    "fungicida": 135436.0,
+    "herbicida": 88502.0,
+    "inseticida": 45141.0
+   },
+   "TOP_PROVINCIA": "Campobasso",
+   "PONTOS_MAPEADOS": 1,
+   "COM_TELEFONE": 0,
+   "COM_RUA": 1,
+   "CONSORZIO_AGRARIO_NOMEADOS": 0,
+   "EXEMPLOS_DE_CONSORZIO": [],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Liguria",
+   "MERCADO_KG_2024": 150532.0,
+   "QUOTA_DO_PAIS_PCT": 0.16,
+   "VARIACAO_2015_2024_PCT": -72.4,
+   "MIX_KG": {
+    "fungicida": 50157.0,
+    "herbicida": 16575.0,
+    "inseticida": 29108.0
+   },
+   "TOP_PROVINCIA": "Imperia",
+   "PONTOS_MAPEADOS": 12,
+   "COM_TELEFONE": 8,
+   "COM_RUA": 5,
+   "CONSORZIO_AGRARIO_NOMEADOS": 1,
+   "EXEMPLOS_DE_CONSORZIO": [
+    {
+     "NOME": "Consorzio Agrario delle Province del Nord Ovest",
+     "COMUNE": "Diano Marina",
+     "TELEFONE": "+39 0183 495070"
+    }
+   ],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  },
+  {
+   "REGIAO": "Valle d'Aosta",
+   "MERCADO_KG_2024": 6665.0,
+   "QUOTA_DO_PAIS_PCT": 0.01,
+   "VARIACAO_2015_2024_PCT": -84.6,
+   "MIX_KG": {
+    "fungicida": 2594.0,
+    "herbicida": 1374.0,
+    "inseticida": 714.0
+   },
+   "TOP_PROVINCIA": "Valle d'Aosta / Vallée d'Aoste",
+   "PONTOS_MAPEADOS": 1,
+   "COM_TELEFONE": 0,
+   "COM_RUA": 0,
+   "CONSORZIO_AGRARIO_NOMEADOS": 0,
+   "EXEMPLOS_DE_CONSORZIO": [],
+   "QUE_PRODUTOS_COMPRAM": "NAO SEI — nesta regiao so ha a CATEGORIA (ISTAT). Nenhum dataset de venda por produto foi encontrado no catalogo nacional nesta leitura"
+  }
+ ]
+}

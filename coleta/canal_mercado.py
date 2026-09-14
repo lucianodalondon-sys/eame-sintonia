@@ -81,8 +81,13 @@ IMPORTACAO = os.path.join(ROOT, 'supabase', 'importacoes')
 # As sete provincias do Veneto. Provincia fora deste conjunto e sinal de que a fonte
 # mudou de escopo — nao de que apareceu uma provincia nova.
 PROVINCIAS = ('BL', 'PD', 'RO', 'TV', 'VE', 'VI', 'VR')
-CABECALHO_ESPERADO = ('provincia', 'n. reg.',
-                      'prodotto fitosanitario venduto', 'quantita')
+# Cada exigencia e uma tupla de GRAFIAS ACEITES do MESMO campo. Nao e afrouxar o contrato:
+# em 2014 a coluna do produto chama-se 'Nome Prodotto venduto' e de 2015 em diante
+# 'Prodotto fitosanitario venduto'. Exigir uma so grafia reprovaria uma fonte sa; aceitar
+# qualquer coisa deixaria passar um ficheiro que nao e este. Aceita-se a lista, e so ela.
+CABECALHO_ESPERADO = (('provincia',), ('n. reg.',),
+                      ('prodotto fitosanitario venduto', 'nome prodotto venduto'),
+                      ('quantita',))
 
 # TRES GERACOES DO MESMO FICHEIRO, e o contrato tem de ler as tres:
 #   2015-2017  separador ';', decimal virgula, DUAS tabelas lado a lado (produto + SUBSTANCIA
@@ -208,9 +213,9 @@ def conferir(corpo):
         return 'FAILED', ['lista vazia — e FALHA, nunca zero vendas'], [], [], []
     i = _linha_do_cabecalho(linhas)
     cab = [_norm(c) for c in linhas[i]]
-    for esperado in CABECALHO_ESPERADO:
-        if not any(esperado in c for c in cab):
-            motivos.append('campo do contrato ausente no cabecalho: %r' % esperado)
+    for grafias in CABECALHO_ESPERADO:
+        if not any(g in c for g in grafias for c in cab):
+            motivos.append('campo do contrato ausente no cabecalho: %s' % ' ou '.join(grafias))
     candidatas = [r for r in linhas[i + 1:] if len(r) >= 4]
     dados = [r for r in candidatas if r[0].strip() in PROVINCIAS]
     rodape = [r for r in candidatas if r[0].strip() not in PROVINCIAS]

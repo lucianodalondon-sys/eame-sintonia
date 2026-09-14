@@ -286,6 +286,47 @@ O_QUE_NAO_PROVA           quem comprou · qual revenda vendeu · preço · valor
 
 ---
 
+## IT-T10-003 · ISTAT — distribuição por província, país inteiro — `IMPORTANT`
+
+```
+SOURCE_ID                 IT-T10-003
+OWNER                     ISTAT
+COUNTRY                   ITALY — nação + 24 recortes regionais + 111 províncias
+PRIMARY/SECONDARY         PRIMARY · SDMX aberto
+PURPOSE                   onde há mercado, de que tipo, fora do Vêneto
+CANONICAL_URL             https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_22_DF_DCSP_FITOSANITARI_1,1.0/all
+RETRIEVAL_METHOD          py coleta/mercado_italia.py --coletar
+HTTP_METHOD               GET com `Accept: application/vnd.sdmx.data+csv;version=1.0.0;labels=both`
+PARAMETERS                startPeriod (a casa usa 2015)
+AUTH_REQUIRED             não
+OUTPUT_TYPE               CSV SDMX rotulado
+EXPECTED_FIELDS           REF_AREA · DATA_TYPE · PLANT_PROTECTION_PROD · LEVEL_OF_TOXICITY ·
+                          TIME_PERIOD · OBS_VALUE
+IDENTITY_KEYS             (REF_AREA, TIME_PERIOD, PLANT_PROTECTION_PROD, LEVEL_OF_TOXICITY)
+DATE_FIELD                TIME_PERIOD (ano)
+VERSION_FIELD             não há: a versão é o sha256 do ficheiro
+UPDATE_BEHAVIOR           anual, acervo cumulativo
+HISTORICAL_OR_FORWARD     histórico — a série inteira volta a cada pedido
+EXPECTED_FAILURES         · **a armadilha da toxicidade**: cada combinação aparece 4 vezes
+                            (ALL · NC · HARM · TOX). Sem filtrar `LEVEL_OF_TOXICITY = ALL`,
+                            o número sai **28× menor** e nada na tela avisa;
+                          · o túnel de saída fecha em resposta grande (~7 MB) — 3 tentativas;
+                          · `Accept` errado devolve **406** com a lista dos aceites;
+                          · dataflow com id antigo devolve **404** dizendo que não achou o DSD
+FAIL_CLOSED_RULE          conferência de schema + identidade: campos do contrato presentes e
+                          **pelo menos 100 territórios**. Lista vazia é FAILED. Linha fora do
+                          indicador em kg ou fora de toxicidade ALL é descartada COM motivo,
+                          nunca somada
+FALLBACK                  nenhum equivalente nacional conhecido
+ARCHIVE_REQUIREMENT       recomendável — o acervo é estável, mas a rota já mudou de domínio
+DEPENDENT_CASES           mapa nacional de demanda · prova cruzada do Vêneto
+DEPENDENT_CLAIMS          nenhuma claim de MARCA pode depender desta fonte: ela mede categoria
+O_QUE_NAO_PROVA           marca · produto · titular · quem vendeu · quem comprou · preço ·
+                          aplicação (distribuído ≠ aplicado)
+```
+
+---
+
 ## ASSIMETRIA — três verdes não são o mesmo verde
 
 | | rota | versão vem de | histórico nativo | arquivamento | estabilidade |
@@ -296,6 +337,7 @@ O_QUE_NAO_PROVA           quem comprou · qual revenda vendeu · preço · valor
 | **RAIF** | CKAN + troca manual de host | atributo do XML | **sim, 20 anos** | baixo | MÉDIA |
 | **EU** | SPARQL público | o CELEX é imutável | **sim** | baixo | ALTA |
 | **IT-T10** | CSV estático por ano | **o sha256 do ficheiro** | por ano, reescrevível | **obrigatório** | MÉDIA |
+| **ISTAT** | SDMX aberto | **o sha256 do ficheiro** | **sim, a série inteira** | recomendável | ALTA |
 
 **A assimetria não é de qualidade do fato — é de rota e de história.** Publicar as cinco
 como "fonte oficial verificada" apagaria a diferença que decide o risco operacional.

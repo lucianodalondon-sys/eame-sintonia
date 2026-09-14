@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cool-dijkstra-4agznu",
-    "HEAD": "e0b4493c6721a0b2ed3c25df4202e01563375d2e",
-    "GENERATED_AT": "2026-09-14T02:33:34+00:00"
+    "HEAD": "d330f3d004391133465d7449381449a46f891831",
+    "GENERATED_AT": "2026-09-14T02:33:53+00:00"
   },
   "FILES": [
     {
@@ -1052,14 +1052,14 @@
     },
     {
       "path": "coleta/canal_compradores.py",
-      "sha": "c7d3b4837caebf816affd74a2eb53da3458a092d",
+      "sha": "aaf4caf325341247065650b35dc3bf7751397dbf",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "coleta/canal_mercado.py",
-      "sha": "89936ddbefa6ac95f2812bcbb795728a47d3e8bc",
+      "sha": "a87fcba13d01f7ce6b6069ab939da409f3a0eec3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1233,6 +1233,13 @@
       "code_dir": true
     },
     {
+      "path": "coleta/mercado_italia.py",
+      "sha": "97e3ff6fbe656ee92a2904dc0b269e57781471c7",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "coleta/pdf_text.py",
       "sha": "88b6b6d24e4f58a1948a390a0d72d4a21efa495c",
       "ext": ".py",
@@ -1325,14 +1332,14 @@
     },
     {
       "path": "data/collection-ledger/italy/observations.ndjson",
-      "sha": "e4c40de3433eb941042a2076e93ce70334bf9630",
+      "sha": "647118ee341f34df8de5f882e80dbd035111f466",
       "ext": ".ndjson",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/collection-ledger/italy/runs.ndjson",
-      "sha": "3934beaee46c22f1cc2d9a3e0eee8897785e587f",
+      "sha": "cb6880d0b8c5f8ed4e7f69dd23e5d4ff190f2b29",
       "ext": ".ndjson",
       "readable": false,
       "code_dir": false
@@ -1341,6 +1348,13 @@
       "path": "data/collection-store/.gitattributes",
       "sha": "1fe2411f9af1668cbdf2b8ad9412e205aa6b03f1",
       "ext": "",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2014/v1_e95d3d613414/vendita_agrofarmaci_veneto_2014.csv",
+      "sha": "416b1058b24db781b42b7ada5ef801e0e9e4e5d4",
+      "ext": ".csv",
       "readable": false,
       "code_dir": false
     },
@@ -1418,6 +1432,230 @@
       "path": "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv",
       "sha": "f80f04aa320760e7e48e6e3373e480a71d84f365",
       "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_name_Consorzio_Agrario/v1_ab1195198aae/overpass.json",
+      "sha": "be0ca461c1daa41ade9615b1b6991379497e2361",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_name_Consorzio_Agrario/v1_b6f2f56c2109/overpass.json",
+      "sha": "33a74509d4f731fd30e723bdedd5161ebaacc468",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "sha": "df9ba819049e88a78063b591c6721d20667547b8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_shop_agrarian/v1_c1d4fbac9574/overpass.json",
+      "sha": "7890c2bc67ae19862574cc9147ea88e71d8740ef",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT23_name_Consorzio_Agrario/v1_411ffb41ad4b/overpass.json",
+      "sha": "259dcf4a39c6b79db218db36e6146e349152babc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT23_shop_agrarian/v1_e4e3d5916f00/overpass.json",
+      "sha": "9b955ce358087aa325bd277aac11ed41934ed978",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT25_repescagem/v1_57484baf08c8/overpass.json",
+      "sha": "65374a987460b2430ea848ad720c041ee6a253dd",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT25_shop_agrarian/v1_ab1195198aae/overpass.json",
+      "sha": "be0ca461c1daa41ade9615b1b6991379497e2361",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT32_shop_agrarian/v1_39f769ed81fb/overpass.json",
+      "sha": "c6bf24473ac366034d13a4068e23837ee3dd8d70",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT34_shop_agrarian/v1_2bc8b632acd3/overpass.json",
+      "sha": "ca320f48614de4304a057e58502ae157e99941b6",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT36_shop_agrarian/v1_fc04a16305aa/overpass.json",
+      "sha": "8e8af16361a0e61b0917bab8acd1a9c706896185",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT42_shop_agrarian/v1_6a92374471cb/overpass.json",
+      "sha": "c0ef8f7a598baae08dbc39ae796bc3300d0c6f1e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT45_shop_agrarian/v1_5d82e081d468/overpass.json",
+      "sha": "8c76f8f5d9b93a551c64bdc83d061d6a6d0a51e3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT52_repescagem/v1_61ba20287f99/overpass.json",
+      "sha": "df0ea54ff556d51469708355c7838642aa68d789",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT52_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "sha": "df9ba819049e88a78063b591c6721d20667547b8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT55_shop_agrarian/v1_ba9693ab2e2b/overpass.json",
+      "sha": "9d20be3ce8e91c3f0035e641987ea6e1828e81e7",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT57_repescagem/v1_dee176a92543/overpass.json",
+      "sha": "e0f9e965ed2ed7c7ad34d8f0770ca4dd60f78c39",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT57_shop_agrarian/v1_ab1195198aae/overpass.json",
+      "sha": "be0ca461c1daa41ade9615b1b6991379497e2361",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT62_shop_agrarian/v1_ed14743c837e/overpass.json",
+      "sha": "f1519c6aad6a2206121c7b22d2dfc54629b0ac4e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT65_repescagem/v1_80d525014f71/overpass.json",
+      "sha": "6446ebf9cb25c11c5d064c6eed9340b9e9eff55b",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT65_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "sha": "df9ba819049e88a78063b591c6721d20667547b8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT67_repescagem/v1_605b1272bc6f/overpass.json",
+      "sha": "87dc6519b8461f71e32226d36ea00c107a030594",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT67_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "sha": "df9ba819049e88a78063b591c6721d20667547b8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT72_shop_agrarian/v1_42a094bc87da/overpass.json",
+      "sha": "f6b69bcc5e7bc62e14784c968236df826c8c1f04",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT75_shop_agrarian/v1_97a5e35affe8/overpass.json",
+      "sha": "c3e6d58c44e751044b0b6ed3a3271d4544435ccc",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT77_shop_agrarian/v1_f2931f8ed1cc/overpass.json",
+      "sha": "403782ba5209cb94378b7d8591e01c38498a52b0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT78_shop_agrarian/v1_fb4d74fe4216/overpass.json",
+      "sha": "a24dcbb8c55394c595fd0bd90ba5f64bd4ff4993",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT82_repescagem/v1_52f8279040c5/overpass.json",
+      "sha": "4b9f6c38706dd06f78b14850065ba670f4d039c3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT82_shop_agrarian/v1_ab1195198aae/overpass.json",
+      "sha": "be0ca461c1daa41ade9615b1b6991379497e2361",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT88_repescagem/v1_8a68d67a01d6/overpass.json",
+      "sha": "efd4b8880d28fa019e4c1383fe9aa094b62ccef0",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_IT88_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "sha": "df9ba819049e88a78063b591c6721d20667547b8",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-002/OSM_IT_NOME_CONSORZIO/v1_47d22ae7f75c/overpass.json",
+      "sha": "3a918e3192f493a74610773672928ea9f61db0c3",
+      "ext": ".json",
       "readable": false,
       "code_dir": false
     },
@@ -1509,6 +1747,20 @@
       "path": "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_5a2ee6c41441/overpass.json",
       "sha": "eb63916e0b8736118e9dd3ed8c3106eca52b9c71",
       "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-003/101_22_DF_DCSP_FITOSANITARI_1/v1_11ce14f1a6f9/101_22_DF_DCSP_FITOSANITARI_1.csv",
+      "sha": "466a74b33fb757a70a3c13f269ef553d15f41f7a",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/collection-store/italy/IT-T10-003/101_22_DF_DCSP_FITOSANITARI_2/v1_49ffc9887a15/101_22_DF_DCSP_FITOSANITARI_2.csv",
+      "sha": "72e831d66d4ef2af55b6277e5805af7b27111b27",
+      "ext": ".csv",
       "readable": false,
       "code_dir": false
     },
@@ -2766,6 +3018,34 @@
       "code_dir": false
     },
     {
+      "path": "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
+      "sha": "265bcfef204b9d3dab144fc46c89069dccdecf71",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-MERCADO-NACIONAL/IT-DEMANDA-POR-TERRITORIO.json",
+      "sha": "c08d60b43854ff5e1f9369cd2433d0df84d749bb",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-MERCADO-NACIONAL/IT-ONDE-VENDER.json",
+      "sha": "ec70a3bc4afda9354c25bdbe68f974b551b7dc44",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "data/samples/IT-MERCADO-NACIONAL/IT-REGIOES-ONDE-HA-MERCADO.json",
+      "sha": "4963d5775c1a29ed22b72714c2996566da6916f3",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json",
       "sha": "809f6b50ce56b8c48a9b10ebd336b858b541b47e",
       "ext": ".json",
@@ -3299,14 +3579,14 @@
     },
     {
       "path": "data/samples/IT-VENETO-CANALE/SERIE-POR-ANO.json",
-      "sha": "768eee8841e60f228f168d42a96f8638707f8976",
+      "sha": "6c2f2b008a11bd14f67305a6a4b82dd7065468f4",
       "ext": ".json",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "data/samples/IT-VENETO-CANALE/SONDAGEM-DE-FONTES-GRATIS.json",
-      "sha": "04db0491d600d2052e61af8e2707f98b86cbb10a",
+      "sha": "1b7284d59b41b1f56e42802c4a498fb5e513d195",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -3635,7 +3915,7 @@
     },
     {
       "path": "data/samples/RUN-MANIFEST.json",
-      "sha": "5e2096b80be02d894b4e58587a79909bc30593eb",
+      "sha": "bdea5ad9af92d2d367ce3eeb9fa9b82068d788fd",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -4132,7 +4412,7 @@
     },
     {
       "path": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
-      "sha": "88f2d2e3a66b968520185e1decf751de293e0ce9",
+      "sha": "dd840edb684ec8a72beefd8fa652b0594b4068f8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4174,7 +4454,7 @@
     },
     {
       "path": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md",
-      "sha": "7ddc6759e54fd2fda30ff2bb6ccdb0cac2486ab7",
+      "sha": "ae7614cf9130be3db46a97790b49451118dbcdb2",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -7330,6 +7610,13 @@
       "code_dir": false
     },
     {
+      "path": "research/italia/ONDE-VENDER-NA-ITALIA.md",
+      "sha": "00c6f5edee3d5c80d2a8772eb75c9df69977cdf4",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "research/italy-demo-reality/ADAMA-ITALY-CROP-PROBLEM-PRODUCT-MATRIX.json",
       "sha": "79861c68f4510de8ed0a5788d6ff79f3590d2b1e",
       "ext": ".json",
@@ -8031,7 +8318,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "2b352c619381102914127dbe3c463734162c3a7f",
+      "sha": "cb085e0ef07f6ed72e742d744d871204e42b7dee",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9144,24 +9431,35 @@
     },
     {
       "from_file": "coleta/canal_compradores.py",
-      "to_file": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+      "to_file": "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
       "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_compradores.py",
         "line": 136,
-        "snippet": "open(caminho, 'leitura')  # caminho = data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json"
+        "snippet": "open(caminho, 'leitura')  # caminho = data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json"
+      }
+    },
+    {
+      "from_file": "coleta/canal_compradores.py",
+      "to_file": "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/canal_compradores.py",
+        "line": 466,
+        "snippet": "open(caminho, 'w')  # caminho = data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json"
       }
     },
     {
       "from_file": "coleta/canal_compradores.py",
       "to_file": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
-      "type": "WRITES",
+      "type": "READS",
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_compradores.py",
-        "line": 159,
-        "snippet": "open(caminho, 'wb')  # caminho = data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json"
+        "line": 133,
+        "snippet": "caminho = os.path.join(SAIDA, 'DIM-PONTO-DE-CANAL.json')"
       }
     },
     {
@@ -9193,7 +9491,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_mercado.py",
-        "line": 810,
+        "line": 815,
         "snippet": "open(caminho, 'rb')  # caminho = data/collection-ledger/italy/observations.ndjson"
       }
     },
@@ -9204,7 +9502,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_mercado.py",
-        "line": 602,
+        "line": 607,
         "snippet": "open(caminho, 'w')  # caminho = data/collection-ledger/italy/observations.ndjson"
       }
     },
@@ -9215,7 +9513,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_mercado.py",
-        "line": 329,
+        "line": 334,
         "snippet": "for ficheiro, linha in (('observations.ndjson', obs), ('runs.ndjson', corrida)):"
       }
     },
@@ -9226,7 +9524,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_mercado.py",
-        "line": 633,
+        "line": 638,
         "snippet": "with open(os.path.join(SAIDA, 'MANIFESTO-DAS-TABELAS.json'), 'w', encoding='utf-8') as f:"
       }
     },
@@ -9237,7 +9535,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "coleta/canal_mercado.py",
-        "line": 799,
+        "line": 804,
         "snippet": "with open(os.path.join(SAIDA, 'SERIE-POR-ANO.json'), 'w', encoding='utf-8') as f:"
       }
     },
@@ -9822,6 +10120,72 @@
         "file": "coleta/italy_recurrent_collect.mjs",
         "line": 28,
         "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";"
+      }
+    },
+    {
+      "from_file": "coleta/mercado_italia.py",
+      "to_file": "_gavetas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/mercado_italia.py",
+        "line": 38,
+        "snippet": "import _gavetas  # noqa: E402,F401"
+      }
+    },
+    {
+      "from_file": "coleta/mercado_italia.py",
+      "to_file": "data/collection-ledger/italy/observations.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/mercado_italia.py",
+        "line": 179,
+        "snippet": "with open(os.path.join(LEDGER, 'observations.ndjson'), 'a', encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "coleta/mercado_italia.py",
+      "to_file": "data/collection-ledger/italy/runs.ndjson",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/mercado_italia.py",
+        "line": 183,
+        "snippet": "with open(os.path.join(LEDGER, 'runs.ndjson'), 'a', encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "coleta/mercado_italia.py",
+      "to_file": "data/samples/IT-MERCADO-NACIONAL/IT-DEMANDA-POR-TERRITORIO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/mercado_italia.py",
+        "line": 271,
+        "snippet": "with open(os.path.join(SAIDA, 'IT-DEMANDA-POR-TERRITORIO.json'), 'w', encoding='utf-8') as f:"
+      }
+    },
+    {
+      "from_file": "coleta/mercado_italia.py",
+      "to_file": "data/samples/IT-VENETO-CANALE/SERIE-POR-ANO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "coleta/mercado_italia.py",
+        "line": 290,
+        "snippet": "open(serie, 'leitura')  # serie = data/samples/IT-VENETO-CANALE/SERIE-POR-ANO.json"
+      }
+    },
+    {
+      "from_file": "coleta/mercado_italia.py",
+      "to_file": "regras/proveniencia.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/mercado_italia.py",
+        "line": 39,
+        "snippet": "import proveniencia as pv  # noqa: E402"
       }
     },
     {
@@ -25353,17 +25717,27 @@
         "pasta": "data/samples/IT-VENETO-CANALE",
         "line": 287,
         "constante": "SAIDA"
+      },
+      {
+        "pasta": "data/collection-store/italy/IT-T10-002/OSM_IT_NOME_CONSORZIO",
+        "line": 340,
+        "constante": "destino"
+      },
+      {
+        "pasta": "data/samples/IT-MERCADO-NACIONAL",
+        "line": 466,
+        "constante": "caminho"
       }
     ],
     "coleta/canal_mercado.py": [
       {
         "pasta": "data/samples/IT-VENETO-CANALE",
-        "line": 633,
+        "line": 638,
         "constante": "SAIDA"
       },
       {
         "pasta": "data/collection-ledger",
-        "line": 330,
+        "line": 335,
         "constante": "LEDGER"
       }
     ],
@@ -25393,6 +25767,18 @@
         "pasta": "data/raw",
         "line": 90,
         "constante": "DEST"
+      }
+    ],
+    "coleta/mercado_italia.py": [
+      {
+        "pasta": "data/collection-ledger",
+        "line": 183,
+        "constante": "LEDGER"
+      },
+      {
+        "pasta": "data/samples/IT-MERCADO-NACIONAL",
+        "line": 271,
+        "constante": "SAIDA"
       }
     ],
     "coleta/regulatorio_importar.py": [
@@ -25735,11 +26121,11 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1190,
-    "files_readable": 392,
-    "files_code_dir": 437,
-    "file_edges": 1545,
-    "escritas_em_pasta": 59,
+    "files_tracked": 1231,
+    "files_readable": 393,
+    "files_code_dir": 438,
+    "file_edges": 1552,
+    "escritas_em_pasta": 63,
     "declared_missing_here": 0
   },
   "ELSEWHERE": {}

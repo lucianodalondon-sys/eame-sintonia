@@ -6,7 +6,7 @@ camada comum europeia.
 > Este atlas registra **fontes**, não desejos. Uma linha só existe aqui depois que alguém
 > abriu a fonte, olhou o que ela entrega e guardou evidência disso.
 
-**Estado:** atualizado em 2026-09-14 — **<!--M:SOURCE_ID_COUNT-->39<!--/M--> fontes registradas** (17 GREEN, 5 YELLOW, 17 NÃO SEI).
+**Estado:** atualizado em 2026-09-14 — **<!--M:SOURCE_ID_COUNT-->40<!--/M--> fontes registradas** (18 GREEN, 5 YELLOW, 17 NÃO SEI).
 **Última atualização:** 2026-09-14
 
 ---
@@ -1076,6 +1076,53 @@ VERDICT:                      GREEN
 ⚠️ **Limite de generalização:** esta fonte é **regional**. Outras regiões italianas publicam
 dados equivalentes? **NÃO SEI** — não foi investigado nesta rodada.
 
+#### IT-T10-003 · ISTAT — distribuição de fitossanitários por província, toda a Itália
+
+```
+SOURCE_ID:                    IT-T10-003
+SOURCE_NAME:                  ISTAT — Distribuzione per uso agricolo dei prodotti fitosanitari
+SOURCE_OWNER:                 Istituto Nazionale di Statistica
+COUNTRY:                      ITALY — **país inteiro**: nação, regiões e 111 províncias
+LANGUAGE:                     IT / EN (o SDMX devolve os dois rótulos)
+TERRITORY:                    T10
+SOURCE_TYPE:                  levantamento censitário anual, publicado como SDMX aberto
+URL:                          https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_22_DF_DCSP_FITOSANITARI_1,1.0/all
+ACCESS_METHOD:                py coleta/mercado_italia.py --coletar
+                              Accept: application/vnd.sdmx.data+csv;version=1.0.0;labels=both
+AUTH_REQUIRED:                não
+OUTPUT_TYPE:                  CSV SDMX com rótulo em cada dimensão
+EXPECTED_FIELDS:              REF_AREA · DATA_TYPE · PLANT_PROTECTION_PROD · LEVEL_OF_TOXICITY ·
+                              TIME_PERIOD · OBS_VALUE
+IDENTITY_KEYS:                (REF_AREA, TIME_PERIOD, PLANT_PROTECTION_PROD, LEVEL_OF_TOXICITY)
+GEOGRAPHIC_GRANULARITY:       **PROVÍNCIA** — 111 províncias, 24 recortes regionais, o país
+UPDATE_FREQUENCY:             anual · série lida de 2015 a 2024
+SOURCE_IDENTITY_PRESERVABLE:  SIM — código e rótulo de cada território
+RAW_EVIDENCE_PRESERVABLE:     SIM — CSV bruto com sha256 no collection-store
+AUTOMATION_FEASIBILITY:       ALTA · **COLLECTION_FEASIBILITY:** ALTA (3 tentativas: o túnel de
+                              saída fecha em resposta grande)
+LEGAL_OR_ACCESS_RISK:         BAIXO — dado público do instituto nacional
+REAL_EXAMPLE:                 Itália 2024: **93.600.146 kg** distribuídos. Regiões: Vêneto
+                              **17,7 mi** (1ª), Emilia-Romagna 16,7 mi, Puglia 10,5 mi.
+                              Províncias: Treviso 7,6 mi, Ravenna 6,2 mi, Ferrara 5,3 mi,
+                              Verona 4,7 mi, Cuneo 3,9 mi.
+WHAT_IT_CANNOT_PROVE:         **marca, titular ou produto** — o ISTAT mede CATEGORIA
+                              (fungicida · inseticida/acaricida · herbicida · vários);
+                              quem vendeu; quem comprou; preço; e distribuído ≠ aplicado
+A_ARMADILHA_DESTA_FONTE:      cada (território, ano, categoria) aparece **quatro vezes**, uma
+                              por classe de toxicidade (ALL · NC · HARM · TOX). Ler sem filtrar
+                              `LEVEL_OF_TOXICITY = ALL` fez o Vêneto de 2024 sair **624.887 kg**
+                              em vez de 17.737.397 — **28 vezes menos, sem erro visível na tela**.
+                              O defeito foi achado por comparação com IT-T10-001, não por revisão.
+PROVA_CRUZADA:                ISTAT × ARPAV no Vêneto, ano a ano: mesma ordem de grandeza em
+                              todos os anos (de −19,3% a +24,5%; 2024 fecha em **+2,3%**).
+                              São levantamentos diferentes — distribuição × venda declarada —
+                              e não têm de bater na casa decimal.
+ADAMA_USE_CASE:               COMMERCIAL / FIELD SALES: onde há mercado, de que tipo, em TODA a
+                              Itália. A marca só aparece onde existir IT-T10-001.
+EVIDENCE:                     data/samples/IT-MERCADO-NACIONAL/IT-DEMANDA-POR-TERRITORIO.json
+VERDICT:                      GREEN
+```
+
 #### IT-T10-002 · OpenStreetMap — os pontos do canal agrícola no Vêneto
 
 ```
@@ -1418,9 +1465,9 @@ O placar conta **SOURCE_IDs**, não fichas. Uma ficha pode cobrir mais de um SOU
 (ex.: `FR/ES/IT-T9-001` é uma ficha e três fontes), e algumas fontes testadas aparecem em
 tabelas de "não alcançadas" sem ficha própria (as nacionais de T1, EU-T10-002/003).
 
-Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
+Verificado na MISSÃO 07 e atualizado em 2026-08-29: **26 fichas · <!--M:SOURCE_ID_COUNT-->40<!--/M--> SOURCE_IDs · 16 GREEN · 4 YELLOW · 0 RED · 16 NÃO SEI**.
 Atualizado em **2026-09-13**: entrou a ficha **IT-T10-001** (ARPAV, venda declarada de
-fitossanitários no Vêneto) — **27 fichas · <!--M:SOURCE_ID_COUNT-->39<!--/M--> SOURCE_IDs · 17 GREEN · 4 YELLOW · 0 RED · 17 NÃO SEI**.
+fitossanitários no Vêneto) — **27 fichas · <!--M:SOURCE_ID_COUNT-->40<!--/M--> SOURCE_IDs · 17 GREEN · 4 YELLOW · 0 RED · 17 NÃO SEI**.
 Os números batem. `tests/test_canonico.py` passou a verificar isso.
 
 **A ficha nova é `ES-T5-002`** — a camada científica espanhola, que entregava 152
@@ -1435,8 +1482,8 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 8 | 0 | 0 | 7 | 15 |
 | FRANCE | 2 | 2 | 0 | 3 | 7 |
 | SPAIN | 5 | 0 | 0 | 4 | 9 |
-| ITALY | 2 | 3 | 0 | 3 | 8 |
-| **Total** | **17** | **5** | **0** | **17** | **39** |
+| ITALY | 3 | 3 | 0 | 3 | 9 |
+| **Total** | **18** | **5** | **0** | **17** | **40** |
 
 ### Cobertura por território
 
@@ -1445,6 +1492,6 @@ pesquisadores e 1.771 documentos **sem ter ficha de fonte**. A auditoria adversa
 | EUROPE | 2G | 3G/1? | 1? | 1G/1? | 1G | 1G | – | 1? | – | 1G/2? | – | **1G** |
 | FRANCE | 1? | – | 1Y/1? | 1G | – | – | – | – | 1? | – | 1Y | – |
 | SPAIN | 1? | – | **1G** | 3G/1? | – | – | – | – | 1? | – | – | – |
-| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | **1G/1Y** | 1Y | – |
+| ITALY | 1? | – | 1Y | 1G | – | – | – | – | 1? | **2G/1Y** | 1Y | – |
 
 *(– = não investigado)*

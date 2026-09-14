@@ -1775,6 +1775,24 @@
       "files": [
         "coleta/canal_compradores.py"
       ]
+    },
+    {
+      "id": "C-MERCADO-ITALIA",
+      "name": "Onde ha mercado, no pais inteiro",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "views": [],
+      "what": "Puxa do ISTAT, por SDMX, a quantidade de fitossanitarios distribuida para uso agricola em TODA a Italia — pais, regioes e 111 provincias, por categoria (fungicida, inseticida/acaricida, herbicida, varios) e por ano.",
+      "why_here": "A venda por PRODUTO so existe publicada no Veneto. Perguntar «e nas outras regioes?» sem fonte devolveria opiniao; esta peca devolve numero oficial por provincia. Ela carrega tambem a sua armadilha escrita: cada combinacao aparece quatro vezes, uma por classe de toxicidade, e ler sem filtrar fez o Veneto sair 28 vezes menor — o defeito foi achado por prova cruzada com a fonte do Veneto, nao por revisao de codigo.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO",
+        "COMERCIAL"
+      ],
+      "files": [
+        "coleta/mercado_italia.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [

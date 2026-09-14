@@ -130,18 +130,43 @@
    "VEREDITO": "NAO ACHADO NESTA LEITURA",
    "O_QUE_VEIO": "so relatorios em PDF (Lombardia, ano 2011). Nenhum open data equivalente localizado.",
    "MOTIVO_OU_LIMITE": "o Veneto pode ser a excecao em abertura, mas isso NAO foi testado regiao a regiao"
+  },
+  {
+   "ROTA": "G-14",
+   "NOME": "ISTAT — distribuicao por provincia, pais inteiro (IT-T10-003)",
+   "URL": "https://esploradati.istat.it/SDMXWS/rest/data/IT1,101_22_DF_DCSP_FITOSANITARI_1,1.0/all",
+   "VEREDITO": "VEIO INTEIRO",
+   "O_QUE_VEIO": "111 provincias, 20 regioes e o pais, por categoria e por ano (2015-2024). Italia 2024: 93.600.146 kg.",
+   "MOTIVO_OU_LIMITE": "mede CATEGORIA, nunca produto nem marca. A armadilha: cada combinacao aparece 4 vezes, uma por classe de toxicidade — ler sem filtrar faz o numero sair 28x menor."
+  },
+  {
+   "ROTA": "G-15",
+   "NOME": "dati.gov.it — catalogo nacional, busca por venda de fitosanitarios",
+   "URL": "https://www.dati.gov.it/opendata/api/3/action/package_search?q=fitosanitari+vendita",
+   "VEREDITO": "RESPONDEU: SO O VENETO",
+   "O_QUE_VEIO": "2 resultados, ambos da Regione Veneto (serie 2012-2024). Na busca mais ampla, 13 resultados: Ministero della Salute, Provincia Autonoma di Trento (indicador por categoria), Umbria (tratamentos 2012-2013) e o Veneto.",
+   "MOTIVO_OU_LIMITE": "nenhuma outra regiao publica venda POR PRODUTO no catalogo nacional nesta leitura. A declaracao existe em todas por lei; o que muda e quem publica."
+  },
+  {
+   "ROTA": "G-16",
+   "NOME": "OpenStreetMap — pontos de canal em toda a Italia",
+   "URL": "https://overpass.kumi.systems/api/interpreter (+3 espelhos)",
+   "VEREDITO": "VEIO PARCIAL",
+   "O_QUE_VEIO": "721 pontos com coordenada nas 20 regioes, 163 com telefone, 273 com \"Consorzio Agrario\" no nome.",
+   "MOTIVO_OU_LIMITE": "nao e censo. Sete regioes voltaram VAZIAS na primeira varredura e devolveram dados horas depois (Lombardia 33, Toscana 58, Sicilia 32): era espelho sobrecarregado. Lista vazia passou a ser FALHA no coletor, nunca zero."
   }
  ],
  "PLACAR": {
-  "VEIO_INTEIRO": 2,
-  "VEIO_PARCIAL": 1,
+  "VEIO_INTEIRO": 3,
+  "VEIO_PARCIAL": 2,
   "VEIO_VELHO": 1,
   "VEIO_E_FICOU_DE_FORA": 1,
   "BLOQUEADO_HOJE": 1,
   "NAO_PUXADO_POR_DECISAO": 1,
   "NAO_PUBLICO_OU_INEXISTENTE": 4,
   "FORA_DO_RECORTE": 1,
-  "NAO_TESTADO_A_FUNDO": 1
+  "NAO_TESTADO_A_FUNDO": 1,
+  "RESPONDEU_SO_O_VENETO": 1
  },
- "O_QUE_O_GRATIS_NAO_DA": "o NOME de quem compra. Nenhuma das 13 rotas devolve o elenco dos 531 titulares de autorizacao de venda. Isso continua custando um pedido (accesso civico, 0 EUR, ~30 dias) ou uma extracao (Registro Imprese, dezenas a poucas centenas de euros)."
+ "O_QUE_O_GRATIS_NAO_DA": "o NOME de quem compra. Nenhuma das 13 rotas devolve o elenco dos 531 titulares de autorizacao de venda. Isso continua custando um pedido (accesso civico, 0 EUR, ~30 dias) ou uma extracao (Registro Imprese, dezenas a poucas centenas de euros). Fora do Veneto, o gratis tambem nao da PRODUTO nem MARCA: so a categoria do ISTAT. A declaracao por produto existe por lei em todas as regioes — o que falta e a publicacao, e o caminho e o mesmo pedido de accesso civico."
 }

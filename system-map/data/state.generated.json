@@ -193,6 +193,7 @@
       "coleta/italy_probe.mjs",
       "coleta/italy_recurrent_collect.mjs",
       "coleta/mapa_regfi.py",
+      "coleta/mercado_italia.py",
       "coleta/pdf_text.py",
       "coleta/preservar_pdf.py",
       "coleta/regulatorio_importar.py",
@@ -211,6 +212,7 @@
       "data/collection-ledger/italy/observations.ndjson",
       "data/collection-ledger/italy/runs.ndjson",
       "data/collection-store/.gitattributes",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2014/v1_e95d3d613414/vendita_agrofarmaci_veneto_2014.csv",
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2015/v1_4ed4f0b0ef47/vendita_agrofarmaci_veneto_2015.csv",
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2016/v1_02a2c4c8fb80/vendita_agrofarmaci_veneto_2016.csv",
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2017/v1_03e069a564d7/vendita_agrofarmaci_veneto_2017.csv",
@@ -222,6 +224,38 @@
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2023/v1_7383b04c3a9e/vendita_agrofarmaci_veneto_2023.csv",
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2024/v1_2f27ea4780b9/vendita_agrofarmaci_veneto_2024.csv",
       "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_name_Consorzio_Agrario/v1_ab1195198aae/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_name_Consorzio_Agrario/v1_b6f2f56c2109/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT21_shop_agrarian/v1_c1d4fbac9574/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT23_name_Consorzio_Agrario/v1_411ffb41ad4b/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT23_shop_agrarian/v1_e4e3d5916f00/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT25_repescagem/v1_57484baf08c8/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT25_shop_agrarian/v1_ab1195198aae/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT32_shop_agrarian/v1_39f769ed81fb/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT34_shop_agrarian/v1_2bc8b632acd3/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT36_shop_agrarian/v1_fc04a16305aa/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT42_shop_agrarian/v1_6a92374471cb/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT45_shop_agrarian/v1_5d82e081d468/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT52_repescagem/v1_61ba20287f99/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT52_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT55_shop_agrarian/v1_ba9693ab2e2b/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT57_repescagem/v1_dee176a92543/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT57_shop_agrarian/v1_ab1195198aae/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT62_shop_agrarian/v1_ed14743c837e/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT65_repescagem/v1_80d525014f71/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT65_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT67_repescagem/v1_605b1272bc6f/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT67_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT72_shop_agrarian/v1_42a094bc87da/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT75_shop_agrarian/v1_97a5e35affe8/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT77_shop_agrarian/v1_f2931f8ed1cc/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT78_shop_agrarian/v1_fb4d74fe4216/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT82_repescagem/v1_52f8279040c5/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT82_shop_agrarian/v1_ab1195198aae/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT88_repescagem/v1_8a68d67a01d6/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_IT88_shop_agrarian/v1_7d05c7ade103/overpass.json",
+      "data/collection-store/italy/IT-T10-002/OSM_IT_NOME_CONSORZIO/v1_47d22ae7f75c/overpass.json",
       "data/collection-store/italy/IT-T10-002/OSM_name_Consorzio_Agrario/v1_500c8edaf69a/overpass.json",
       "data/collection-store/italy/IT-T10-002/OSM_name_Consorzio_Agrario/v1_89019e165e0a/overpass.json",
       "data/collection-store/italy/IT-T10-002/OSM_name_Consorzio_Agrario/v1_c7307049456c/overpass.json",
@@ -235,6 +269,8 @@
       "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_22967f8e444b/overpass.json",
       "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_2d2b04dd7d33/overpass.json",
       "data/collection-store/italy/IT-T10-002/OSM_shop_garden_centre/v1_5a2ee6c41441/overpass.json",
+      "data/collection-store/italy/IT-T10-003/101_22_DF_DCSP_FITOSANITARI_1/v1_11ce14f1a6f9/101_22_DF_DCSP_FITOSANITARI_1.csv",
+      "data/collection-store/italy/IT-T10-003/101_22_DF_DCSP_FITOSANITARI_2/v1_49ffc9887a15/101_22_DF_DCSP_FITOSANITARI_2.csv",
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
@@ -414,6 +450,10 @@
       "data/samples/IT-LASTMILE/IT-LASTMILE-INVENTARIO.json",
       "data/samples/IT-LASTMILE/IT-ROTA-COM_VPN_IT.json",
       "data/samples/IT-LASTMILE/IT-ROTA-SEM_VPN.json",
+      "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
+      "data/samples/IT-MERCADO-NACIONAL/IT-DEMANDA-POR-TERRITORIO.json",
+      "data/samples/IT-MERCADO-NACIONAL/IT-ONDE-VENDER.json",
+      "data/samples/IT-MERCADO-NACIONAL/IT-REGIOES-ONDE-HA-MERCADO.json",
       "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-prices-IT.json",
       "data/samples/IT-MERCADO/EU-AGRIFOOD-cereal-production-IT.json",
       "data/samples/IT-MERCADO/EU-AGRIFOOD-oliveOil-prices-IT.json",
@@ -1097,6 +1137,7 @@
       "research/competitors/.gitkeep",
       "research/europe/.gitkeep",
       "research/france/.gitkeep",
+      "research/italia/ONDE-VENDER-NA-ITALIA.md",
       "research/italy-demo-reality/ADAMA-ITALY-CROP-PROBLEM-PRODUCT-MATRIX.json",
       "research/italy-demo-reality/ADAMA-ITALY-HERBICIDE-UNIVERSE.md",
       "research/italy-demo-reality/ADAMA-ITALY-PORTFOLIO-DEEP-DIVE.md",
@@ -1256,8 +1297,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 574 ficheiros (86%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 4. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 574 ficheiros e 4 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 613 ficheiros (87%) · ESPANHA 76 ficheiros (11%) · EUROPA 10 ficheiros (1%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 4. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 613 ficheiros e 4 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1295,12 +1336,12 @@
     {
       "id": "parado-na-coleta",
       "titulo": "8 artefatos da coleta nunca chegaram a inteligencia.",
-      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · DIM-PONTO-DE-CANAL.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
+      "texto": "A coleta produziu-os e ninguem do outro lado os le: UNIVERSO-CONTAS-V1.json · EXPERT-DIRECTORY-EAME-V1.json · DIM-PONTO-DE-CANAL-ITALIA.json · MANIFESTO-PRESERVACAO.json · CANAL-IDENTIDADE.json · SPEAKER-UNIVERSE-PILOT-V1.json · EU-SOURCE-540-2011.json · MOA-SOURCE-FRAC.json",
       "porque_importa": "O que ja passou para a inteligencia nao deve ficar preso na coleta — e o que nunca passou tem de aparecer, porque pode ser que ainda nao chegou a vez dele, ou pode ser que foi esquecido. A diferenca entre as duas coisas so aparece quando alguem conta.",
       "evidencia": [
         "data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json",
         "data/samples/EXPERT-DIRECTORY-EAME-V1.json",
-        "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+        "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
         "data/samples/PIEMONTE-FD/MANIFESTO-PRESERVACAO.json",
         "data/samples/SENSOR-PILOT/CANAL-IDENTIDADE.json",
         "data/samples/SPEAKER-UNIVERSE-PILOT-V1.json"
@@ -1309,7 +1350,7 @@
     {
       "id": "coleta-sem-data-nem-lugar",
       "titulo": "14 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
+      "texto": "16 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -1632,8 +1673,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cool-dijkstra-4agznu",
-    "HEAD": "e0b4493c6721a0b2ed3c25df4202e01563375d2e",
-    "GENERATED_AT": "2026-09-14T02:33:34+00:00"
+    "HEAD": "d330f3d004391133465d7449381449a46f891831",
+    "GENERATED_AT": "2026-09-14T02:33:53+00:00"
   },
   "FAMILIES": [
     {
@@ -1655,7 +1696,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 39
+      "count": 40
     },
     {
       "id": "F-ESPERA",
@@ -1808,7 +1849,7 @@
       "y": 190,
       "w": 820,
       "h": 1972,
-      "count": 10
+      "count": 11
     },
     {
       "id": "Z-ADMISSAO",
@@ -5756,7 +5797,7 @@
           "pasta": "data/samples/IT-VENETO-CANALE",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 633,
+            "line": 638,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -5764,7 +5805,7 @@
           "pasta": "data/collection-ledger",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 330,
+            "line": 335,
             "snippet": "escreve em LEDGER"
           }
         }
@@ -5813,7 +5854,7 @@
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
       "produces": [
-        "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json"
+        "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json"
       ],
       "inbound": [
         "C-IT-PRESERVAR",
@@ -5823,12 +5864,12 @@
       "outbound": [],
       "paises": {},
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [
-        "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json"
+        "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json"
       ],
       "escreve_na_pasta": [
         {
@@ -5846,6 +5887,22 @@
             "line": 287,
             "snippet": "escreve em SAIDA"
           }
+        },
+        {
+          "pasta": "data/collection-store/italy/IT-T10-002/OSM_IT_NOME_CONSORZIO",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
+            "line": 340,
+            "snippet": "escreve em destino"
+          }
+        },
+        {
+          "pasta": "data/samples/IT-MERCADO-NACIONAL",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
+            "line": 466,
+            "snippet": "escreve em caminho"
+          }
         }
       ],
       "destino": [
@@ -5854,7 +5911,7 @@
       "destino_prova": [
         {
           "onde": "GIT",
-          "file": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+          "file": "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         }
@@ -7254,6 +7311,7 @@
         "C-CANAL-PONTOS",
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
+        "C-MERCADO-ITALIA",
         "C-PADRAO-COLETA"
       ],
       "paises": {
@@ -7838,6 +7896,72 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 10770,
       "y": 1326
+    },
+    {
+      "id": "C-MERCADO-ITALIA",
+      "name": "Onde ha mercado, no pais inteiro",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Puxa do ISTAT, por SDMX, a quantidade de fitossanitarios distribuida para uso agricola em TODA a Italia — pais, regioes e 111 provincias, por categoria (fungicida, inseticida/acaricida, herbicida, varios) e por ano.",
+      "why_here": "A venda por PRODUTO so existe publicada no Veneto. Perguntar «e nas outras regioes?» sem fonte devolveria opiniao; esta peca devolve numero oficial por provincia. Ela carrega tambem a sua armadilha escrita: cada combinacao aparece quatro vezes, uma por classe de toxicidade, e ler sem filtrar fez o Veneto sair 28 vezes menor — o defeito foi achado por prova cruzada com a fonte do Veneto, nao por revisao de codigo.",
+      "departments": [
+        "INTELIGENCIA",
+        "DESENVOLVIMENTO_MERCADO",
+        "COMERCIAL"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "coleta/mercado_italia.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-IT-PRESERVAR",
+        "C-PROCEDENCIA",
+        "V-HTTP"
+      ],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {
+        "ITALIA": 2
+      },
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/collection-ledger",
+          "prova": {
+            "file": "coleta/mercado_italia.py",
+            "line": 183,
+            "snippet": "escreve em LEDGER"
+          }
+        },
+        {
+          "pasta": "data/samples/IT-MERCADO-NACIONAL",
+          "prova": {
+            "file": "coleta/mercado_italia.py",
+            "line": 271,
+            "snippet": "escreve em SAIDA"
+          }
+        }
+      ],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 5005,
+      "y": 1648
     },
     {
       "id": "C-NAVEGADOR",
@@ -8633,6 +8757,7 @@
         "C-COLETA-INSTAGRAM",
         "C-DATA-CLOCK",
         "C-MAPA-SCAN",
+        "C-MERCADO-ITALIA",
         "C-ORQUESTRADOR",
         "C-PADRAO-COLETA",
         "C-PALAVRAS",
@@ -9149,8 +9274,8 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 5005,
-      "y": 1648
+      "x": 4590,
+      "y": 1970
     },
     {
       "id": "C-SAUDE-FONTE",
@@ -11336,18 +11461,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 7 acao(oes) da coleta passam por aqui.",
+      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 8 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
-        "acoes da coleta que passam por aqui: 7",
+        "acoes da coleta que passam por aqui: 8",
         "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
         "prova: coleta/agrifood_ue.py:29",
         "prova: coleta/corpus_pesquisador.py:92",
         "prova: coleta/mapa_regfi.py:42"
       ],
-      "status_reason": "7 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "8 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -11364,6 +11489,7 @@
         "C-COLETA-YOUTUBE",
         "C-CORPUS",
         "C-FONTES-EU",
+        "C-MERCADO-ITALIA",
         "C-ROTULOS"
       ],
       "file_count": 0,
@@ -11375,7 +11501,7 @@
           "ficheiro": "data/samples/IT-VENETO-CANALE/  (pasta inteira)",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 633,
+            "line": 638,
             "snippet": "escreve em SAIDA"
           }
         },
@@ -11385,7 +11511,7 @@
           "ficheiro": "data/collection-ledger/  (pasta inteira)",
           "prova": {
             "file": "coleta/canal_mercado.py",
-            "line": 330,
+            "line": 335,
             "snippet": "escreve em LEDGER"
           }
         },
@@ -11400,9 +11526,29 @@
           }
         },
         {
-          "_chave": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+          "_chave": "data/collection-store/italy/IT-T10-002/OSM_IT_NOME_CONSORZIO",
           "acao": "C-CANAL-PONTOS",
-          "ficheiro": "data/samples/IT-VENETO-CANALE/DIM-PONTO-DE-CANAL.json",
+          "ficheiro": "data/collection-store/italy/IT-T10-002/OSM_IT_NOME_CONSORZIO/  (pasta inteira)",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
+            "line": 340,
+            "snippet": "escreve em destino"
+          }
+        },
+        {
+          "_chave": "data/samples/IT-MERCADO-NACIONAL",
+          "acao": "C-CANAL-PONTOS",
+          "ficheiro": "data/samples/IT-MERCADO-NACIONAL/  (pasta inteira)",
+          "prova": {
+            "file": "coleta/canal_compradores.py",
+            "line": 466,
+            "snippet": "escreve em caminho"
+          }
+        },
+        {
+          "_chave": "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
+          "acao": "C-CANAL-PONTOS",
+          "ficheiro": "data/samples/IT-MERCADO-NACIONAL/DIM-PONTO-DE-CANAL-ITALIA.json",
           "prova": {
             "file": "coleta/canal_compradores.py",
             "line": 1,
@@ -11572,7 +11718,8 @@
       ],
       "saem_daqui_sem_destino": [
         "C-COLETA-INSTAGRAM",
-        "C-COLETA-YOUTUBE"
+        "C-COLETA-YOUTUBE",
+        "C-MERCADO-ITALIA"
       ],
       "precisa_de_ferramenta": false,
       "nao_guarda_nada": "Um canal nao guarda nada — ele so deixa passar. Quem guarda e a acao que sai por aqui, e e por isso que este cartao nao tem seta de saida: a seta e dela, nao dele. Abaixo estao os sitios onde o que entra por este canal acaba por ficar.",
@@ -12017,7 +12164,7 @@
       "icon": "B",
       "facts": [
         "branch claude/cool-dijkstra-4agznu",
-        "HEAD e0b4493c6721a0b2ed3c25df4202e01563375d2e"
+        "HEAD d330f3d004391133465d7449381449a46f891831"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -13718,7 +13865,7 @@
       "evidence": [
         {
           "file": "coleta/canal_mercado.py",
-          "line": 602,
+          "line": 607,
           "snippet": "open(caminho, 'w')  # caminho = data/collection-ledger/italy/observations.ndjson"
         }
       ]
@@ -15188,12 +15335,12 @@
       "evidence": [
         {
           "file": "coleta/canal_mercado.py",
-          "line": 329,
+          "line": 334,
           "snippet": "for ficheiro, linha in (('observations.ndjson', obs), ('runs.ndjson', corrida)):"
         },
         {
           "file": "coleta/canal_mercado.py",
-          "line": 810,
+          "line": 815,
           "snippet": "open(caminho, 'rb')  # caminho = data/collection-ledger/italy/observations.ndjson"
         }
       ]
@@ -15256,6 +15403,28 @@
           "file": "system-map/scripts/scan_sources.py",
           "line": 520,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\""
+        }
+      ]
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-MERCADO-ITALIA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta Onde ha mercado, no pais inteiro. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/mercado_italia.py",
+          "line": 179,
+          "snippet": "with open(os.path.join(LEDGER, 'observations.ndjson'), 'a', encoding='utf-8') as f:"
+        },
+        {
+          "file": "coleta/mercado_italia.py",
+          "line": 183,
+          "snippet": "with open(os.path.join(LEDGER, 'runs.ndjson'), 'a', encoding='utf-8') as f:"
         }
       ]
     },
@@ -16862,6 +17031,23 @@
           "file": "system-map/scripts/scan_sources.py",
           "line": 429,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\""
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
+      "to": "C-MERCADO-ITALIA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa Onde ha mercado, no pais inteiro. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/mercado_italia.py",
+          "line": 39,
+          "snippet": "import proveniencia as pv  # noqa: E402"
         }
       ]
     },
@@ -18827,6 +19013,23 @@
     },
     {
       "from": "V-HTTP",
+      "to": "C-MERCADO-ITALIA",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «Onde ha mercado, no pais inteiro», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/mercado_italia.py",
+          "line": 33,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
       "to": "C-ROTULOS",
       "type": "VIAJA_POR",
       "payload": "coleta",
@@ -19103,20 +19306,20 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 684,
+  "UNCLAIMED_FILES_COUNT": 724,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 99,
+    "components": 100,
     "components_proven": 65,
-    "components_pending": 30,
+    "components_pending": 31,
     "components_broken": 0,
     "components_unknown": 4,
-    "edges": 331,
-    "edges_proven": 331,
+    "edges": 334,
+    "edges_proven": 334,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1190,
-    "files_covered": 506,
+    "files_tracked": 1231,
+    "files_covered": 507,
     "files_code_unclaimed": 0
   }
 }
