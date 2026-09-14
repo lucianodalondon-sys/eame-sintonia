@@ -337,10 +337,36 @@ class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
                 if f.endswith(".sql") or "/migrations/" in f]
         self.assertEqual([], maus, "migration na integracao: %s" % maus)
 
+    #: O espelho do System Map mora dentro da pasta do Portal, e quem o escreve
+    #: e a cadeia canonica do mapa (`.github/workflows/system-map.yml`), nao o
+    #: Portal. Excluir DUAS moradas nao e abrir uma excepcao: e nomear o dono.
+    ESPELHO_DO_MAPA = "italia-portale/client/system-map/"
+
     def test_nenhum_ficheiro_do_portal_foi_tocado(self):
         maus = [f for f in self._tocados_desde_o_tronco()
-                if f.startswith(("italia-portale/", "prototype/"))]
+                if f.startswith(("italia-portale/", "prototype/"))
+                and not f.startswith(self.ESPELHO_DO_MAPA)]
         self.assertEqual([], maus, "a integracao tocou o Portal: %s" % maus)
+
+    def test_o_espelho_do_mapa_so_ganhou_as_pecas_declaradas(self):
+        """⚠️ A excepcao acima tem de ser paga com uma prova mais dura.
+
+        O espelho pode mudar — mas so pode GANHAR os componentes que esta
+        missao declarou, e nao pode PERDER nenhum. Um gerador que apaga uma
+        peca em silencio e indistinguivel de um que a atualiza.
+        """
+        diff = git("diff", TRONCO, "HEAD", "--",
+                   self.ESPELHO_DO_MAPA + "state.generated.json")
+        entram = {l for l in diff.splitlines()
+                  if l.startswith("+") and '"id":' in l}
+        saem = {l for l in diff.splitlines()
+                if l.startswith("-") and '"id":' in l}
+        so_entram = {l[1:].strip() for l in entram} - {l[1:].strip() for l in saem}
+        so_saem = {l[1:].strip() for l in saem} - {l[1:].strip() for l in entram}
+        self.assertEqual(set(), so_saem, "o mapa perdeu pecas: %s" % so_saem)
+        self.assertEqual(
+            {'"id": "C-INT-ESPINHA",', '"id": "C-INT-ARBITRAGEM",'}, so_entram,
+            "o mapa ganhou peca que esta missao nao declarou: %s" % so_entram)
 
     def test_a_integracao_so_acrescentou(self):
         """Nenhum ficheiro do tronco foi apagado nem sobrescrito com versao antiga.
