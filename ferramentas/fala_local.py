@@ -237,10 +237,73 @@ COMPUTE_PADRAO = os.environ.get('SINTONIA_ASR_COMPUTE') or None
 COMPUTE_CPU = 'int8'
 COMPUTE_GPU = 'float16'
 
+# ══════════════════════════════════════════════════════════════════════════
+# PEDIDO EXPLICITO E PROMESSA. PADRAO DA CASA E PONTO DE PARTIDA.
+# ══════════════════════════════════════════════════════════════════════════
+# Medido nesta maquina a 2026-09-14, com a GTX 1080 e o CTranslate2 4.8.2:
+#
+#     ctranslate2.get_supported_compute_types('cuda')
+#     -> {'float32', 'int8', 'int8_float32'}          <- `float16` NAO esta la
+#
+# A placa e Pascal, e Pascal nao faz `float16` util. O que acontecia entao,
+# ponta a ponta: `resolver_dispositivo('GPU')` escolhia `cuda/float16`, o
+# `WhisperModel` levantava `ValueError: Requested float16 compute type, but the
+# target device or backend do not support efficient float16 computation`, o
+# apanha-tudo da carga baixava para o processador — e carimbava a queda como
+#
+#     ASR_WHY_FALLBACK = GPU_UNAVAILABLE
+#
+# numa maquina onde `CUDA_DEVICE_COUNT = 1`. O artefato ficava a afirmar que
+# NAO HAVIA PLACA, com a placa ali, ligada, contada e disponivel.
+#
+#     «A PLACA NAO EXISTE» E «ESTE TIPO DE CALCULO NAO CORRE NESTA PLACA»
+#     SAO DIAGNOSTICOS DIFERENTES, E O PRIMEIRO MANDA COMPRAR HARDWARE QUE JA
+#     ESTA NA MAQUINA.
+#
+# A CORRECAO NAO E MUDAR O PADRAO. E PERGUNTAR
+# ---------------------------------------------
+# `COMPUTE_GPU` continua `float16` e `COMPUTE_CPU` continua `int8`: uma placa
+# nao escreve regra para todo o hardware futuro, e a C4B tinha razao em recusar
+# promover uma amostra de um a politica. O que muda e o MESMO principio que ja
+# governa o dispositivo, aplicado ao tipo de calculo:
+#
+#     `AUTO` pergunta a biblioteca quantas placas ha.
+#     O tipo de calculo PADRAO pergunta a biblioteca quais ela suporta.
+#
+# E a distincao que decide tudo:
+#
+#     UM PEDIDO EXPLICITO E UMA PROMESSA — honra-se ou reporta-se, nunca se
+#     troca por baixo de quem o fez.
+#     UM PADRAO DA CASA E UM PONTO DE PARTIDA — negocia-se contra o que a
+#     maquina declara, e a troca fica escrita.
+#
+# Por isso `SINTONIA_ASR_COMPUTE` continua soberano: quem o declara esta a pedir
+# AQUELE tipo, e este ficheiro nao lho tira. Quem nao declara nada recebe o
+# padrao da casa negociado contra a placa que ha.
+COMPUTE_EXPLICITO = 'EXPLICIT'      # veio de `SINTONIA_ASR_COMPUTE` ou do chamador
+COMPUTE_DA_CASA = 'HOUSE_DEFAULT'   # ninguem pediu: e o padrao, e negoceia-se
+
+# A ordem de degradacao, e nenhum degrau e gosto meu:
+#
+#   `int8_float16`  o meio-termo das placas que fazem float16 — fica a seguir
+#                   ao padrao porque e o mais proximo dele;
+#   `int8_float32`  foi o que a prova duravel da C4B usou nesta placa, e o que
+#                   o workflow ja declara em `SINTONIA_ASR_COMPUTE`;
+#   `float32`       a rede de seguranca sem quantizacao;
+#   `int8`          o ultimo degrau, e e o padrao que esta casa JA aceita no
+#                   processador — logo a quantizacao nao e concessao nova.
+COMPUTE_DEGRADACAO = {
+    'cuda': ('float16', 'int8_float16', 'int8_float32', 'float32', 'int8'),
+    'cpu': ('int8', 'int8_float32', 'float32'),
+}
+
 #: Por que a placa nao foi usada. Vocabulario fechado — `None` quer dizer «nao
 #: houve queda», e nunca «nao sei».
 GPU_INDISPONIVEL = 'GPU_UNAVAILABLE'
 GPU_SEM_MEMORIA = 'GPU_OOM'
+#: A placa ESTA la e conta; foi o tipo de calculo que ela nao faz. Precisa de
+#: nome proprio, senao volta a sair como «nao ha placa».
+COMPUTE_NAO_SUPORTADO = 'COMPUTE_TYPE_UNSUPPORTED'
 
 # Teto de tempo por peça. Áudio repetitivo faz o decodificador entrar em laço e
 # um lote noturno morre sem ninguém saber. 6x a duração é folga larga sobre os
@@ -437,6 +500,88 @@ def cuda_disponivel():
                'biblioteca sem as DLL de CUDA ao lado dela')
 
 
+def computes_suportados(device):
+    """→ (tuple, porque). O que a biblioteca declara para ESTE dispositivo.
+
+    Mesma disciplina de `cuda_disponivel()`: quem responde e o `CTranslate2`, e
+    nao a ficha da placa nem a geracao dela. Uma tabela de «Pascal nao faz
+    float16» escrita aqui dentro seria uma segunda verdade sobre hardware — e
+    ficaria errada no dia em que a biblioteca mudasse.
+
+        A PERGUNTA E «O QUE E QUE TU SUPORTAS», E SO ELA TEM RESPOSTA.
+
+    Tuplo vazio com motivo quando nao se consegue perguntar. Vazio NAO quer
+    dizer «nada e suportado»: quer dizer «nao sei», e quem chama tem de tratar
+    os dois casos como coisas diferentes.
+    """
+    _caminho_das_libs()
+    try:
+        import ctranslate2                                      # noqa: PLC0415
+    except ImportError as e:                                    # noqa: BLE001
+        return (), 'sem ctranslate2 neste ambiente (%s)' % type(e).__name__
+    try:
+        return tuple(sorted(ctranslate2.get_supported_compute_types(device))), ''
+    except Exception as e:                                      # noqa: BLE001
+        return (), 'o ctranslate2 nao soube responder para %r: %s' % (
+            device, type(e).__name__)
+
+
+def negociar_compute(device, pedido=None):
+    """→ (compute_type, trace_parcial). O padrao negoceia; o pedido nao.
+
+    TRES CAMPOS, PELA MESMA RAZAO QUE O DISPOSITIVO TEM TRES
+    ---------------------------------------------------------
+        COMPUTE_REQUESTED    o que se pediu (ou o padrao da casa)
+        COMPUTE_SELECTED     o que vai correr de facto
+        WHY_COMPUTE_FALLBACK por que o pedido nao serviu (`None` se serviu)
+
+    Sem os tres, «pedi float16 e correu int8_float32» fica indistinguivel de
+    «pedi int8_float32» — e o texto sai parecido nos dois casos, so que nascido
+    de outra aritmetica. Dois textos diferentes do mesmo audio tem de poder
+    explicar-se.
+
+    E O PEDIDO EXPLICITO NAO SE TROCA
+    ----------------------------------
+    Quem declarou `SINTONIA_ASR_COMPUTE` pediu AQUELE tipo. Se ele nao correr
+    nesta maquina, a carga cai — alto, com o nome do erro da biblioteca — e a
+    queda aparece. Trocar por baixo de um pedido explicito seria produzir texto
+    de outra origem com a etiqueta que o pedinte escreveu.
+    """
+    origem = COMPUTE_EXPLICITO if (pedido or COMPUTE_PADRAO) else COMPUTE_DA_CASA
+    escolhido = pedido or COMPUTE_PADRAO or (
+        COMPUTE_GPU if device == 'cuda' else COMPUTE_CPU)
+    trace = {'COMPUTE_REQUESTED': escolhido, 'COMPUTE_SELECTED': escolhido,
+             'COMPUTE_SOURCE': origem, 'WHY_COMPUTE_FALLBACK': None}
+    if origem == COMPUTE_EXPLICITO:
+        return escolhido, trace
+
+    suportados, porque = computes_suportados(device)
+    if not suportados:
+        # NAO SEI != NAO SUPORTA. Sem resposta da biblioteca nao se degrada
+        # nada: tenta-se o padrao, e se ele cair a carga di-lo com o erro dela.
+        trace['COMPUTE_SUPPORT'] = NAO_SEI
+        trace['COMPUTE_SUPPORT_WHY'] = porque
+        return escolhido, trace
+    trace['COMPUTE_SUPPORT'] = list(suportados)
+    if escolhido in suportados:
+        return escolhido, trace
+
+    for candidato in COMPUTE_DEGRADACAO.get(device, ()):
+        if candidato in suportados:
+            trace.update({'COMPUTE_SELECTED': candidato,
+                          'WHY_COMPUTE_FALLBACK': COMPUTE_NAO_SUPORTADO,
+                          'WHY_COMPUTE_FALLBACK_DETAIL':
+                              'a biblioteca nao declara %r para %s; declara %s'
+                              % (escolhido, device, ', '.join(suportados))})
+            return candidato, trace
+    # A lista veio, e nenhum degrau declarado esta nela. Isto e maquina
+    # exotica, nao defeito do audio: segue-se com o padrao e deixa-se a carga
+    # falar, com o registo de que nenhum candidato serviu.
+    trace['WHY_COMPUTE_FALLBACK_DETAIL'] = (
+        'nenhum dos degraus declarados para %s esta em %s' % (device, list(suportados)))
+    return escolhido, trace
+
+
 def resolver_dispositivo(pedido=None):
     """→ (device, compute_type, trace). A politica inteira, num sitio so.
 
@@ -470,13 +615,17 @@ def resolver_dispositivo(pedido=None):
 
     if pedido == CPU:
         trace.update({'DEVICE_SELECTED': CPU, 'ACCELERATOR': 'NONE'})
-        return 'cpu', COMPUTE_PADRAO or COMPUTE_CPU, trace
+        compute, tc = negociar_compute('cpu')
+        trace.update(tc)
+        return 'cpu', compute, trace
 
     n, porque = cuda_disponivel()
     if n > 0:
         trace.update({'DEVICE_SELECTED': GPU, 'ACCELERATOR': 'CUDA',
                       'CUDA_DEVICE_COUNT': n})
-        return 'cuda', COMPUTE_PADRAO or COMPUTE_GPU, trace
+        compute, tc = negociar_compute('cuda')
+        trace.update(tc)
+        return 'cuda', compute, trace
 
     # ── A PLACA NAO ESTA LA. E ISSO NAO E ERRO DA FONTE ──────────────────
     # `AUTO` cai para o processador porque foi isso que se pediu: «usa a placa
@@ -488,7 +637,9 @@ def resolver_dispositivo(pedido=None):
     trace.update({'DEVICE_SELECTED': CPU, 'ACCELERATOR': 'NONE',
                   'WHY_FALLBACK': GPU_INDISPONIVEL,
                   'WHY_FALLBACK_DETAIL': porque})
-    return 'cpu', COMPUTE_PADRAO or COMPUTE_CPU, trace
+    compute, tc = negociar_compute('cpu')
+    trace.update(tc)
+    return 'cpu', compute, trace
 
 
 def carimbo(modelo=None, trace=None, estado=None):
@@ -511,10 +662,17 @@ def carimbo(modelo=None, trace=None, estado=None):
     """
     t = trace or {}
     escolhido = t.get('DEVICE_SELECTED')
+    # ⚠️ O TIPO DE CALCULO TAMBEM VEM DO TRACE, E PELA MESMA RAZAO DO RESTO.
+    # Ate aqui esta linha relia as CONSTANTES — e no dia em que a negociacao
+    # baixasse `float16` para `int8_float32`, o carimbo continuaria a dizer
+    # `cuda/float16`. Seria o defeito do literal a voltar por uma porta nova:
+    # o campo a jurar uma aritmetica que nao foi a que produziu o texto.
+    calculo = t.get('COMPUTE_SELECTED')
     if escolhido == GPU:
-        ferro = 'cuda/%s' % (COMPUTE_PADRAO or COMPUTE_GPU)
+        ferro = 'cuda/%s' % (calculo or COMPUTE_PADRAO or COMPUTE_GPU)
     elif escolhido == CPU:
-        ferro = 'cpu/%s/%d threads' % (COMPUTE_PADRAO or COMPUTE_CPU, nucleos())
+        ferro = 'cpu/%s/%d threads' % (calculo or COMPUTE_PADRAO or COMPUTE_CPU,
+                                       nucleos())
     else:
         # Sem trace nao se inventa: um carimbo que adivinha o ferro e pior do
         # que um carimbo que confessa nao saber.
@@ -556,6 +714,14 @@ def carimbo(modelo=None, trace=None, estado=None):
         # `None` aqui quer dizer «nao houve queda», e NUNCA «nao sei». Os dois
         # colapsados fariam uma queda silenciosa parecer ausencia de queda.
         'ASR_WHY_FALLBACK': t.get('WHY_FALLBACK'),
+        # ── O SEXTO EIXO: A ARITMETICA ───────────────────────────────────
+        # Ele nasceu porque `cuda/float16` saiu carimbado numa placa que nao
+        # faz `float16`. Pedir, escolher e a origem do pedido sao tres coisas,
+        # e um campo so faria a troca desaparecer dentro do artefato.
+        'ASR_COMPUTE_REQUESTED': t.get('COMPUTE_REQUESTED', NAO_SEI),
+        'ASR_COMPUTE_SELECTED': t.get('COMPUTE_SELECTED', NAO_SEI),
+        'ASR_COMPUTE_SOURCE': t.get('COMPUTE_SOURCE', NAO_SEI),
+        'ASR_WHY_COMPUTE_FALLBACK': t.get('WHY_COMPUTE_FALLBACK'),
         'ASR_VAD': 'YES',
         # Em modo lote a biblioteca FIXA isto em False por dentro; declaramos na
         # mesma, porque o carimbo tem de dizer com que regra o texto nasceu.
@@ -612,14 +778,42 @@ def modelo(nome=None, dispositivo=None):
         # seguir: memoria cheia, DLL em falta, driver a meio de uma atualizacao.
         # Sao coisas diferentes e tem nomes diferentes — e nenhuma e culpa do
         # audio nem da fonte.
-        if device != 'cuda' or trace['DEVICE_REQUESTED'] == GPU_SEM_MEMORIA:
+        # ⚠️ ESTA GUARDA ERA CODIGO MORTO, E PARECIA UMA LEI.
+        # Dizia `or trace['DEVICE_REQUESTED'] == GPU_SEM_MEMORIA`, e
+        # `DEVICE_REQUESTED` so pode ser `AUTO`, `CPU` ou `GPU` — nunca
+        # `GPU_OOM`. A comparacao era sempre falsa: quem a lesse julgava haver
+        # uma trava de reentrada que nao existia.
+        #
+        #     UMA CONDICAO QUE NUNCA E VERDADE NAO PROTEGE DE NADA,
+        #     E CUSTA MAIS DO QUE NAO ESTAR LA: ELA FINGE QUE PROTEGE.
+        #
+        # A trava verdadeira e esta: so se cai para o processador quem estava
+        # NA PLACA. Quem ja estava no processador sobe o erro, porque nao ha
+        # degrau nenhum por baixo dele.
+        if device != 'cuda':
             raise
-        porque = GPU_SEM_MEMORIA if _parece_sem_memoria(e) else GPU_INDISPONIVEL
+        # ── E AQUI SE SEPARA «NAO HA PLACA» DE «A PLACA NAO FAZ ISTO» ────
+        # A mesma queda tinha um nome so, e o nome errado. Uma placa contada,
+        # ligada e a recusar `float16` saia carimbada `GPU_UNAVAILABLE`.
+        if _parece_sem_memoria(e):
+            porque = GPU_SEM_MEMORIA
+        elif _parece_compute_incompativel(e):
+            porque = COMPUTE_NAO_SUPORTADO
+        else:
+            porque = GPU_INDISPONIVEL
         trace.update({'DEVICE_SELECTED': CPU, 'ACCELERATOR': 'NONE',
                       'WHY_FALLBACK': porque,
                       'WHY_FALLBACK_DETAIL': '%s: %s' % (type(e).__name__,
                                                          str(e)[:200])})
-        device, compute = 'cpu', COMPUTE_PADRAO or COMPUTE_CPU
+        device = 'cpu'
+        compute, tc = negociar_compute('cpu')
+        # O QUE SE PEDIU NA PLACA NAO SE APAGA AO CAIR PARA O PROCESSADOR.
+        # `COMPUTE_REQUESTED` continua a nomear o pedido original; so o
+        # SELECTED muda. Deixar o `update` reescrever os dois faria o artefato
+        # dizer «pedi int8 e corri int8» depois de ter pedido `float16` a uma
+        # placa — e a queda desapareceria do sitio onde se procura por ela.
+        tc.pop('COMPUTE_REQUESTED', None)
+        trace.update(tc)
         chave = (nome, device, compute)
         if chave in _CACHE:
             return _CACHE[chave], trace
@@ -640,6 +834,28 @@ def _parece_sem_memoria(e):
     t = ('%s %s' % (type(e).__name__, e)).lower()
     return any(p in t for p in ('out of memory', 'oom', 'cuda_error_out_of_memory',
                                 'cublas_status_alloc_failed'))
+
+
+def _parece_compute_incompativel(e):
+    """A placa esta la e recusou a ARITMETICA. Nao e ausencia de placa.
+
+    Medido nesta maquina a 2026-09-14, com a GTX 1080:
+
+        ValueError: Requested float16 compute type, but the target device or
+        backend do not support efficient float16 computation.
+
+    Sem este reconhecimento a queda saia com o nome `GPU_UNAVAILABLE` — que e
+    uma afirmacao sobre a MAQUINA, quando o facto era sobre o TIPO DE CALCULO.
+
+        O DIAGNOSTICO ERRADO MANDA COMPRAR PLACA. O CERTO MANDA TROCAR UMA
+        PALAVRA NUMA VARIAVEL DE AMBIENTE.
+
+    Ler o texto do erro e feio, e e o que ha: a biblioteca nao levanta tipo
+    dedicado — pela mesma razao que `_parece_sem_memoria` existe ao lado.
+    """
+    t = ('%s %s' % (type(e).__name__, e)).lower()
+    return ('compute type' in t
+            and any(p in t for p in ('not support', 'unsupported', 'invalid')))
 
 
 def transcrever(wav, *, idioma=None, modelo_nome=None, duracao_s=None,
