@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  f5434f5e39615cb8be48e33f1e76320a7dd097f2
-BRANCH           claude/local-gpu-on-current-collection-v1
-GERADO_EM        2026-09-14T15:13:31-03:00
+HEAD_DA_MEDICAO  611e7cbf406147c0ab057e9ffa7775f6fa11e8a1
+BRANCH           claude/youtube-italia-caption-audio-8b460b
+GERADO_EM        2026-09-14T15:48:12-03:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
