@@ -1193,9 +1193,10 @@ RT-SRC-11  Intelligence escreve no source registry ou inventa SOURCE_ID
 RT-SRC-12  Collection passa a obedecer a um número único, sem contexto
 RT-SRC-13  o conselho da Intelligence é lido como ordem e altera agenda sozinho
 RT-SRC-14  fonte obrigatória perde vez por publicar pouco
+RT-SRC-15  aconselhar MORE para material que já está cá e só lhe falta a chave
 ```
 
-Cada um destes catorze tem uma lei que o barra, e a secção 36 nomeia qual.
+Cada um destes quinze tem uma lei que o barra, e a secção 36 nomeia qual.
 **Ataque sem lei que o barre é backlog, não red team.**
 
 ---
@@ -1544,8 +1545,8 @@ BIBLE_VERSION_AFTER  = V0.3
 BIBLE_PROMOTION_GATES = 9 / 9 PASS
 IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
 SECOES_ACRESCENTADAS = 34 · 35 · 36 · 37
-LEIS_ACRESCENTADAS = 21   (270..273 · 280..284 · 290..299 · 300..301)
-LEIS_TOTAL = 172          (era 151)
+LEIS_ACRESCENTADAS = 22   (270..273 · 280..284 · 290..299 · 300..302)
+LEIS_TOTAL = 173          (era 151)
 LEIS_ALTERADAS = 0        (000..260 intactas, letra a letra)
 LEIS_COM_ID_DUPLICADO = 0
 LEIS_RECUSADAS_POR_JA_TEREM_DONO = 4
@@ -1562,6 +1563,11 @@ MENU_CHANGED = NO
 LIVE_CHANGED = NO
 MIGRATION_CREATED = NO
 KNOW_HOW_DELTA = ENTREGUE COMO DELTA · handoff/KNOW-HOW-DELTA-SOURCE-PERFORMANCE.md
+RECONCILIADO_EM = 2026-09-14 · C-INT-BIBLE-RECONCILIATION-01
+RECONCILIACAO_VEREDITO = RECOVER
+RECONCILIACAO_ACHADO = a 36 nao citava a INT-LAW-152, e por isso podia aconselhar
+                       MORE a material ja recolhido — corrigido pela INT-LAW-302
+BIBLIA_V0.3_VIVE_EM = claude/intelligence-bible-canonical-review-749b7c (so aqui)
 ```
 
 **As quatro linhas que interessam a quem desconfia desta revisão.**
@@ -1875,7 +1881,7 @@ FAMILIAS           regulatoria · comunicacao publica · mercado · cientifica
 JOIN_KEYS          COMPANY_ID x PRODUCT_ID x CROP_ID x GEO x TIME
 HARD_GATES         COMPANY_CLAIM != REGULATORY_FACT — e as duas camadas NUNCA
                    partilham contagem
-                   INT-LAW-068..077 dependencia e independencia
+                   INT-LAW-070..077 dependencia e independencia
 SEPARA SEMPRE      registration · label · launch · communication · atividade
                    tecnica · evento · facto de mercado · interpretacao analitica
                    — oito, e a oitava e nossa, nao deles
@@ -2268,7 +2274,9 @@ SOURCE_COLLECTION_ADVICE
     CONTEXT                        os oito eixos de 36.2
     EVIDENCE_WINDOW                de quando ate quando se mediu
     CONTRIBUTION_PROFILE           o perfil, com componentes visiveis
-    SUGGESTED_DIRECTION            MORE | SAME | LESS | INVESTIGATE | UNKNOWN
+    SUGGESTED_DIRECTION            REPROCESS_FIRST | MORE | SAME | LESS |
+                                   INVESTIGATE | UNKNOWN
+    REPROCESSING_CHECKED           SIM | NAO — obrigatorio (INT-LAW-302)
     REASON                         em texto, ligado a lineage
     CONFIDENCE
     SAMPLE_SIZE
@@ -2282,6 +2290,49 @@ SOURCE_COLLECTION_ADVICE
 `SUGGESTED_DIRECTION` é uma **direção**, não um número e não um lugar numa fila.
 Não existe aqui um campo com o valor final da prioridade, e a ausência é
 deliberada: um número atravessaria a fronteira e seria obedecido.
+
+## INT-LAW-302 — `MORE` exige ter olhado primeiro para o que já está cá
+
+> **Esta lei não é dona do princípio.** O princípio *«reprocessar antes de
+> recolher»* pertence à `INT-LAW-152`, e continua lá, inteiro. A 302 faz uma
+> coisa só: **prende esse princípio a um objeto que não existia** quando a 152 foi
+> escrita.
+>
+> ```text
+> INT-LAW-152   DONA DO PRINCIPIO        · escopo: Collection Gap (seccao 15)
+> INT-LAW-302   PONTO DE APLICACAO       · escopo: SOURCE_COLLECTION_ADVICE
+> ```
+>
+> Sem ela, o conselho de fonte sairia por um caminho — `Intelligence → fronteira
+> → orquestrador` — onde a 152 nunca é consultada, porque a 152 está escrita
+> para o fluxo do Gap. Um princípio que a casa respeita numa porta e esquece
+> noutra não é uma lei: é um hábito.
+
+Um conselho de fonte que diga `MORE` sem essa avaliação **cria a rota paralela de
+aquisição** que a `INT-LAW-151` proíbe — pede coleta nova para material que já
+está no armazém e só lhe falta identidade.
+
+```text
+SUGGESTED_DIRECTION = MORE  exige  REPROCESSING_CHECKED = SIM
+```
+
+E `REPROCESS_FIRST` é uma direção de primeira classe, não um caso de exceção.
+
+> **Isto não é hipótese.** A medição da demanda de dados da Itália, a 2026-09-14,
+> deu **7.078 registos já recolhidos**, 12 cruzamentos, e **6 dos 12 impossíveis
+> pelo mesmo campo ausente** — `ISSUE_ID`. A conclusão medida ali é literal:
+>
+> ```text
+> «o nome citado ja esta no material recolhido.
+>  Falta identidade, nao falta fonte.»
+> ```
+>
+> São 172 nomes em texto livre contra 24 `ISSUE_ID` distintos. Um perfil de
+> contribuição corrido sobre este estado veria seis cruzamentos a falhar e
+> diria `MORE` a seis fontes — **e estaria errado nas seis**. A resposta certa
+> é `REPROCESS_FIRST`, e nenhuma coleta nova a produz.
+>
+> `research/intelligence/DATA-DEMAND-MATRIX-ITALY.md`
 
 O percurso, e os dois pontos onde ele **não** pode encurtar:
 
@@ -2304,7 +2355,7 @@ INTELLIGENCE NAO assume ownership do source registry.
 Bíblia**, e fora da autorização da secção 32. Esta secção descreve o que a
 Intelligence entrega — não o que a Collection faz com isso.
 
-## 36.5 · OS CATORZE ATAQUES, E A LEI QUE BARRA CADA UM
+## 36.5 · OS QUINZE ATAQUES, E A LEI QUE BARRA CADA UM
 
 | ataque | barrado por |
 |---|---|
@@ -2322,6 +2373,7 @@ Intelligence entrega — não o que a Collection faz com isso.
 | `RT-SRC-12` número único sem contexto | `INT-LAW-293` |
 | `RT-SRC-13` conselho lido como ordem | `INT-LAW-290` · `INT-LAW-024` |
 | `RT-SRC-14` obrigatória perde vez | `INT-LAW-296` |
+| `RT-SRC-15` `MORE` para material que já está cá | `INT-LAW-302` · `INT-LAW-152` |
 
 ---
 
