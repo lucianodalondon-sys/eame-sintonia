@@ -1,7 +1,7 @@
 {
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
-    "HEAD": "463bf05d104532934d1d1a7713d146e7efa10079",
+    "HEAD": "c811ea670eeae9c44020f3930d6a38c823d337b7",
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
   },
@@ -692,7 +692,7 @@
       "risk": "BAIXO — open data com licença explícita",
       "use_case": "COMMERCIAL / EAME: onde o produto registrado efetivamente se move dentro de uma região, por província, e qual parte do portfólio ativo **não aparece** vendida ali.",
       "real_example": "Vêneto 2025: **16.265.862 kg/l** declarados. Cruzando pelo número de registro com o portfólio ADAMA do registro italiano (IT-T4-001): **107 registros ADAMA, 1.118.859 kg/l, 6,88% do volume**. Rovigo é a província de maior quota em volume (**14,72%**); FOLPAN 80 WDG é o maior item ADAMA (185.126 kg). O relatório de 2022 informa **531 titulares** de autorização de venda declarantes e 550 declarações por província.",
-      "evidence_path": "data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md",
+      "evidence_path": "data/samples/IT-VENETO-CANALE/ (tabelas geradas por coleta/canal_mercado.py) research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md",
       "verdict": "GREEN",
       "evidence": {
         "file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -2947,6 +2947,27 @@
       "regista_descarte": []
     },
     {
+      "ficheiro": "coleta/canal_mercado.py",
+      "como_se_chama": "coleta/canal_mercado.py --coletar      baixa o bruto",
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
+      "carimba_lugar": [
+        "COUNTRY",
+        "FACT_LOCATION",
+        "SOURCE_LOCATION"
+      ],
+      "separa_fonte_do_fato": true,
+      "leis_que_obedece": [
+        "proveniencia"
+      ],
+      "regista_descarte": [
+        "EXCLUSION_REASON",
+        "DESCARTAD",
+        "MOTIVO_DA_RECUSA"
+      ]
+    },
+    {
       "ficheiro": "coleta/coleta_checkpoint.py",
       "como_se_chama": "",
       "carimba_data": [
@@ -4379,6 +4400,24 @@
       ]
     },
     {
+      "endpoint": "https://www.arpa.veneto.it/dati-ambientali",
+      "usado_por": [
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 69
+        }
+      ]
+    },
+    {
+      "endpoint": "https://api.ipify.org',",
+      "usado_por": [
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 120
+        }
+      ]
+    },
+    {
       "endpoint": "https://www.instagram.com/exemplo",
       "usado_por": [
         {
@@ -4530,24 +4569,6 @@
           "line": 226
         }
       ]
-    },
-    {
-      "endpoint": "https://www.salute.gov.it/',",
-      "usado_por": [
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 34
-        }
-      ]
-    },
-    {
-      "endpoint": "https://api.openalex.org',",
-      "usado_por": [
-        {
-          "file": "pacote/pacote_camadas2.py",
-          "line": 49
-        }
-      ]
     }
   ],
   "COUNTS": {
@@ -4568,11 +4589,11 @@
     "search_terms": 103,
     "endpoints": 40,
     "candidates": 0,
-    "coletores": 39,
-    "coletores_com_data": 12,
-    "coletores_com_lugar": 24,
-    "coletores_que_separam_fonte_do_fato": 18,
-    "coletores_que_registam_descarte": 8,
+    "coletores": 40,
+    "coletores_com_data": 13,
+    "coletores_com_lugar": 25,
+    "coletores_que_separam_fonte_do_fato": 19,
+    "coletores_que_registam_descarte": 9,
     "corridas_registadas": 29,
     "observacoes_registadas": 149,
     "fontes_ja_coletadas": 4,

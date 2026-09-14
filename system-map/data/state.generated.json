@@ -167,6 +167,7 @@
     ],
     "coleta": [
       "coleta/agrifood_ue.py",
+      "coleta/canal_mercado.py",
       "coleta/cellar.sh",
       "coleta/coleta_checkpoint.py",
       "coleta/coletor.py",
@@ -209,6 +210,7 @@
       "data/collection-ledger/italy/observations.ndjson",
       "data/collection-ledger/italy/runs.ndjson",
       "data/collection-store/.gitattributes",
+      "data/collection-store/italy/IT-T10-001/ARPAV_VENDITE_2025/v1_7bca647d5811/vendita_agrofarmaci_veneto_2025.csv",
       "data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html",
       "data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html",
       "data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv",
@@ -455,10 +457,15 @@
       "data/samples/IT-V2/IT-V2-CANONICO.json",
       "data/samples/IT-V2/IT-V2-CONFLITOS.json",
       "data/samples/IT-V2/IT-V2-QA-ATRIBUIDO.json",
-      "data/samples/IT-VENETO-CANALE/IT-VENETO-MARCAS-POR-TIPO-2025.json",
+      "data/samples/IT-VENETO-CANALE/DIM-PRODUTO.json",
+      "data/samples/IT-VENETO-CANALE/DIM-TERRITORIO.json",
+      "data/samples/IT-VENETO-CANALE/DIM-TITOLARE.json",
+      "data/samples/IT-VENETO-CANALE/FATO-FORCA-DE-MARCA.json",
+      "data/samples/IT-VENETO-CANALE/FATO-OPORTUNIDADE.json",
+      "data/samples/IT-VENETO-CANALE/FATO-VENDA-DECLARADA.json",
       "data/samples/IT-VENETO-CANALE/IT-VENETO-OSM-PONTOS-CANAL.json",
-      "data/samples/IT-VENETO-CANALE/IT-VENETO-PACOTE-RTV-POR-PROVINCIA.json",
-      "data/samples/IT-VENETO-CANALE/IT-VENETO-VENDITE-FITO-2025-ADAMA.json",
+      "data/samples/IT-VENETO-CANALE/MANIFESTO-DAS-TABELAS.json",
+      "data/samples/IT-VENETO-CANALE/PACOTE-RTV-POR-PROVINCIA.json",
       "data/samples/ITALY-RADAR-DO-FUTURO-V1.json",
       "data/samples/ITALY-T3-005-MONITORAGGIO/MANIFEST.json",
       "data/samples/ITALY-T3-005-MONITORAGGIO/extract-points.js",
@@ -1104,6 +1111,7 @@
       "research/italy/.gitkeep",
       "research/people/.gitkeep",
       "research/spain/.gitkeep",
+      "research/veneto-clients/ESTUDO-DA-ABA-CANAL-E-MERCADO.md",
       "research/veneto-clients/FICHA-DO-COMPRADOR-CONTRATO.json",
       "research/veneto-clients/METODOS-PARA-LISTA-DE-COMPRADORES.md",
       "research/veneto-clients/VENETO-CLIENTI-CANDIDATI-ADAMA.md",
@@ -1125,6 +1133,7 @@
       "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
       "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
       "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+      "supabase/importacoes/IT-VENETO-CANAL-2026-09-14.sql",
       "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
       "supabase/migrations/002_identidade_pessoa_org_canal.sql",
       "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
@@ -1146,6 +1155,7 @@
       "supabase/migrations/019_camada_ue_e_resistencia.sql",
       "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
       "supabase/migrations/021_fato_externo_publicado.sql",
+      "supabase/migrations/022_canal_prateleira_e_comprador.sql",
       "supabase/tests/mutacao_cicatrizes.sql",
       "supabase/tests/mutacao_coleta.sql",
       "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -1186,6 +1196,7 @@
       "tests/fixtures/yt-raw-minimo.json",
       "tests/test_adama_relevance.py",
       "tests/test_calendario_temporal.py",
+      "tests/test_canal_mercado.py",
       "tests/test_canonico.py",
       "tests/test_cicatrizes_brasil.py",
       "tests/test_coleta_externa.py",
@@ -1218,8 +1229,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 542 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 3. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 542 ficheiros e 3 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 549 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 3. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 549 ficheiros e 3 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1594,8 +1605,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/cool-dijkstra-4agznu",
-    "HEAD": "463bf05d104532934d1d1a7713d146e7efa10079",
-    "GENERATED_AT": "2026-09-14T00:25:13+00:00"
+    "HEAD": "c811ea670eeae9c44020f3930d6a38c823d337b7",
+    "GENERATED_AT": "2026-09-14T00:45:09+00:00"
   },
   "FAMILIES": [
     {
@@ -4129,6 +4140,27 @@
           "regista_descarte": []
         },
         {
+          "ficheiro": "coleta/canal_mercado.py",
+          "como_se_chama": "coleta/canal_mercado.py --coletar      baixa o bruto",
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
+          "carimba_lugar": [
+            "COUNTRY",
+            "FACT_LOCATION",
+            "SOURCE_LOCATION"
+          ],
+          "separa_fonte_do_fato": true,
+          "leis_que_obedece": [
+            "proveniencia"
+          ],
+          "regista_descarte": [
+            "EXCLUSION_REASON",
+            "DESCARTAD",
+            "MOTIVO_DA_RECUSA"
+          ]
+        },
+        {
           "ficheiro": "coleta/coleta_checkpoint.py",
           "como_se_chama": "",
           "carimba_data": [
@@ -5141,7 +5173,7 @@
         "DESENVOLVIMENTO_MERCADO"
       ],
       "legacy": false,
-      "ui_status": "red",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "acervo",
@@ -5149,23 +5181,60 @@
       ],
       "lane": "official",
       "family": "F-COLETA",
-      "files": [],
-      "file_count": 0,
-      "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com coleta/canal_mercado.py.",
+      "files": [
+        "coleta/canal_mercado.py"
+      ],
+      "file_count": 1,
+      "status": "PENDING",
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
-      "inbound": [],
-      "outbound": [],
+      "inbound": [
+        "C-IT-PRESERVAR",
+        "C-PROCEDENCIA",
+        "V-HTTP"
+      ],
+      "outbound": [
+        "C-IT-PRESERVAR",
+        "C-TESTES"
+      ],
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
       "parado_na_coleta": [],
-      "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "escreve_na_pasta": [
+        {
+          "pasta": "data/samples/IT-VENETO-CANALE",
+          "prova": {
+            "file": "coleta/canal_mercado.py",
+            "line": 582,
+            "snippet": "escreve em SAIDA"
+          }
+        },
+        {
+          "pasta": "data/collection-ledger",
+          "prova": {
+            "file": "coleta/canal_mercado.py",
+            "line": 261,
+            "snippet": "escreve em LEDGER"
+          }
+        }
+      ],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/collection-ledger/italy/observations.ndjson",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
       "x": 4590,
       "y": 360
     },
@@ -5507,12 +5576,13 @@
       ],
       "file_count": 3,
       "status": "PROVEN",
-      "status_reason": "outra peca do sistema importa isto para funcionar.",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
         "C-APIFY-POOL",
         "C-PROCEDENCIA",
+        "C-SINTONIA-SCRAP",
         "V-LINKEDIN"
       ],
       "outbound": [
@@ -6551,9 +6621,11 @@
       ],
       "produces": [],
       "inbound": [
+        "C-CANAL-MERCADO",
         "C-IT-CONTRATOS"
       ],
       "outbound": [
+        "C-CANAL-MERCADO",
         "C-IT-CONTAS",
         "C-MAPA-SCAN",
         "C-PADRAO-COLETA"
@@ -7928,6 +8000,7 @@
       ],
       "inbound": [],
       "outbound": [
+        "C-CANAL-MERCADO",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
@@ -8510,7 +8583,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚡",
       "views": [
         "acervo",
@@ -8519,11 +8592,12 @@
       "lane": "official",
       "family": "F-COLETA",
       "files": [
+        ".github/workflows/scrap-social.yml",
         ".github/workflows/sintonia-scrap.yml"
       ],
-      "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "este workflow manda rodar script do repositorio.",
+      "file_count": 2,
+      "status": "PENDING",
+      "status_reason": "este workflow manda rodar script do repositorio.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -8531,6 +8605,7 @@
       ],
       "outbound": [
         "C-APIFY-POOL",
+        "C-COLETA-BASE",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-NAVEGADOR",
@@ -8631,7 +8706,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "infra"
@@ -8651,6 +8726,7 @@
         "supabase/importacoes/ES-REGULATORIO-ROPF-2026-08-29.sql",
         "supabase/importacoes/IT-CAMADAS-2026-09-02.sql",
         "supabase/importacoes/IT-LASTMILE-2026-09-02.sql",
+        "supabase/importacoes/IT-VENETO-CANAL-2026-09-14.sql",
         "supabase/migrations/001_fundacao_geografia_e_proveniencia.sql",
         "supabase/migrations/002_identidade_pessoa_org_canal.sql",
         "supabase/migrations/003_conteudo_documento_video_transcricao.sql",
@@ -8672,6 +8748,7 @@
         "supabase/migrations/019_camada_ue_e_resistencia.sql",
         "supabase/migrations/020_fonte_externa_e_estado_de_rota.sql",
         "supabase/migrations/021_fato_externo_publicado.sql",
+        "supabase/migrations/022_canal_prateleira_e_comprador.sql",
         "supabase/tests/mutacao_cicatrizes.sql",
         "supabase/tests/mutacao_coleta.sql",
         "supabase/tests/mutacao_lugar_do_fato.sql",
@@ -8683,9 +8760,9 @@
         "supabase/tests/regressoes_lugar_do_fato.sql",
         "supabase/tests/regressoes_regulatorio_es.sql"
       ],
-      "file_count": 43,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
+      "file_count": 45,
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas ha 2 ficheiro(s) novos que nunca foram lidos por gente.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [
@@ -8708,7 +8785,7 @@
       ],
       "paises": {
         "ESPANHA": 5,
-        "ITALIA": 2
+        "ITALIA": 3
       },
       "paises_dado": {
         "ESPANHA": 15
@@ -9794,6 +9871,7 @@
         "tests/es/test_adama_es_import_rules.py",
         "tests/test_adama_relevance.py",
         "tests/test_calendario_temporal.py",
+        "tests/test_canal_mercado.py",
         "tests/test_canonico.py",
         "tests/test_cicatrizes_brasil.py",
         "tests/test_coleta_externa.py",
@@ -9821,7 +9899,7 @@
         "tests/test_v21_traducao_trava.py",
         "tests/test_voz.py"
       ],
-      "file_count": 30,
+      "file_count": 31,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -9836,6 +9914,7 @@
         "C-APIFY-POOL",
         "C-AS-FONTES",
         "C-ASK-SINTONIA",
+        "C-CANAL-MERCADO",
         "C-CI-COLETA",
         "C-CICATRIZES-BR",
         "C-COLETA-BASE",
@@ -9873,7 +9952,7 @@
       },
       "paises_dado": {
         "ESPANHA": 44,
-        "ITALIA": 2,
+        "ITALIA": 3,
         "EUROPA": 2
       },
       "pais": "TRANSVERSAL",
@@ -10630,18 +10709,18 @@
       "status": "PROVEN",
       "ui_status": "green",
       "proof": "git-measurement",
-      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 5 acao(oes) da coleta passam por aqui.",
+      "what": "O site aberto, sem plataforma pelo meio: base oficial, PDF, pagina, ficheiro. Hoje 6 acao(oes) da coleta passam por aqui.",
       "why_here": "E por onde a coleta sai de casa. Separar o canal da acao permite fazer a pergunta que antes nao tinha onde ser feita: o que e que nos fazemos, exatamente, dentro deste canal?",
       "files": [],
       "facts": [
-        "acoes da coleta que passam por aqui: 5",
+        "acoes da coleta que passam por aqui: 6",
         "prova: coleta/youtube_janela.py:61",
         "prova: coleta/instagram_janela.py:440",
         "prova: coleta/agrifood_ue.py:29",
         "prova: coleta/corpus_pesquisador.py:92",
         "prova: coleta/mapa_regfi.py:42"
       ],
-      "status_reason": "5 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
+      "status_reason": "6 acao(oes) chamam este canal, e cada uma tem ficheiro e linha que o prova.",
       "evidence_text": "",
       "departments": [],
       "views": [
@@ -10652,6 +10731,7 @@
       "changed_since_declared": [],
       "inbound": [],
       "outbound": [
+        "C-CANAL-MERCADO",
         "C-COLETA-INSTAGRAM",
         "C-COLETA-YOUTUBE",
         "C-CORPUS",
@@ -10661,6 +10741,36 @@
       "file_count": 0,
       "o_que_recebe": null,
       "o_que_entra_vai_para": [
+        {
+          "_chave": "data/samples/IT-VENETO-CANALE",
+          "acao": "C-CANAL-MERCADO",
+          "ficheiro": "data/samples/IT-VENETO-CANALE/  (pasta inteira)",
+          "prova": {
+            "file": "coleta/canal_mercado.py",
+            "line": 582,
+            "snippet": "escreve em SAIDA"
+          }
+        },
+        {
+          "_chave": "data/collection-ledger",
+          "acao": "C-CANAL-MERCADO",
+          "ficheiro": "data/collection-ledger/  (pasta inteira)",
+          "prova": {
+            "file": "coleta/canal_mercado.py",
+            "line": 261,
+            "snippet": "escreve em LEDGER"
+          }
+        },
+        {
+          "_chave": "data/collection-ledger/italy/observations.ndjson",
+          "acao": "C-CANAL-MERCADO",
+          "ficheiro": "data/collection-ledger/italy/observations.ndjson",
+          "prova": {
+            "file": "coleta/canal_mercado.py",
+            "line": 1,
+            "snippet": ""
+          }
+        },
         {
           "_chave": "data/raw",
           "acao": "C-CORPUS",
@@ -11269,7 +11379,7 @@
       "icon": "B",
       "facts": [
         "branch claude/cool-dijkstra-4agznu",
-        "HEAD 463bf05d104532934d1d1a7713d146e7efa10079"
+        "HEAD c811ea670eeae9c44020f3930d6a38c823d337b7"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -12959,6 +13069,40 @@
       ]
     },
     {
+      "from": "C-CANAL-MERCADO",
+      "to": "C-IT-PRESERVAR",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prateleira da regiao: quem vende o que, e onde escreve em Guardar com impressao digital. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 551,
+          "snippet": "open(caminho, 'w')  # caminho = data/collection-ledger/italy/observations.ndjson"
+        }
+      ]
+    },
+    {
+      "from": "C-CANAL-MERCADO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A prateleira da regiao: quem vende o que, e onde importa Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_canal_mercado.py",
+          "line": 25,
+          "snippet": "import canal_mercado as cm  # noqa: E402"
+        }
+      ]
+    },
+    {
       "from": "C-CI-COLETA",
       "to": "C-APIFY-POOL",
       "type": "RUNS",
@@ -14391,6 +14535,28 @@
           "file": "regras/italy_pilot_guards.mjs",
           "line": 9,
           "snippet": "const runs = readFileSync(\"data/collection-ledger/italy/runs.ndjson\", \"utf8\").trim().split(\"\\n\").map(l => JSON.parse(l));"
+        }
+      ]
+    },
+    {
+      "from": "C-IT-PRESERVAR",
+      "to": "C-CANAL-MERCADO",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Guardar com impressao digital alimenta A prateleira da regiao: quem vende o que, e onde. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 260,
+          "snippet": "for ficheiro, linha in (('observations.ndjson', obs), ('runs.ndjson', corrida)):"
+        },
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 340,
+          "snippet": "open(caminho, 'leitura')  # caminho = data/collection-ledger/italy/observations.ndjson"
         }
       ]
     },
@@ -15922,6 +16088,23 @@
     },
     {
       "from": "C-PROCEDENCIA",
+      "to": "C-CANAL-MERCADO",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "natureza": "MONTAGEM",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "De onde veio — carimbado na coleta importa A prateleira da regiao: quem vende o que, e onde. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 64,
+          "snippet": "import proveniencia as pv  # noqa: E402"
+        }
+      ]
+    },
+    {
+      "from": "C-PROCEDENCIA",
       "to": "C-CICATRIZES-BR",
       "type": "READS",
       "payload": "artefacto",
@@ -16574,6 +16757,23 @@
           "file": ".github/workflows/sintonia-scrap.yml",
           "line": 216,
           "snippet": "run: PYTHONIOENCODING=utf-8 $PY ferramentas/apify_pool.py"
+        }
+      ]
+    },
+    {
+      "from": "C-SINTONIA-SCRAP",
+      "to": "C-COLETA-BASE",
+      "type": "RUNS",
+      "payload": "execucao",
+      "natureza": "DISPARO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "SINTONIA SCRAP — o despachador manda rodar O motor de buscar. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/scrap-social.yml",
+          "line": 239,
+          "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
         }
       ]
     },
@@ -17848,6 +18048,23 @@
     },
     {
       "from": "V-HTTP",
+      "to": "C-CANAL-MERCADO",
+      "type": "VIAJA_POR",
+      "payload": "coleta",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O que sai deste canal entra em «A prateleira da regiao: quem vende o que, e onde», que e quem o chama e quem guarda o que ele devolve.",
+      "evidence": [
+        {
+          "file": "coleta/canal_mercado.py",
+          "line": 58,
+          "snippet": "import urllib.request"
+        }
+      ]
+    },
+    {
+      "from": "V-HTTP",
       "to": "C-COLETA-INSTAGRAM",
       "type": "VIAJA_POR",
       "payload": "coleta",
@@ -18191,23 +18408,21 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [
-    ".github/workflows/scrap-social.yml"
-  ],
-  "UNCLAIMED_FILES_COUNT": 653,
+  "UNCLAIMED_CODE_FILES": [],
+  "UNCLAIMED_FILES_COUNT": 659,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 98,
-    "components_proven": 67,
-    "components_pending": 26,
-    "components_broken": 1,
+    "components_proven": 65,
+    "components_pending": 29,
+    "components_broken": 0,
     "components_unknown": 4,
-    "edges": 322,
-    "edges_proven": 322,
+    "edges": 328,
+    "edges_proven": 328,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1152,
-    "files_covered": 499,
-    "files_code_unclaimed": 1
+    "files_tracked": 1163,
+    "files_covered": 504,
+    "files_code_unclaimed": 0
   }
 }

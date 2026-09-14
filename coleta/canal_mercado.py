@@ -166,11 +166,11 @@ def conferir(corpo):
     """
     motivos = []
     if assinatura(corpo) != 'CSV':
-        return 'FAILED', ['conteudo nao e CSV: %s' % assinatura(corpo)], [], []
+        return 'FAILED', ['conteudo nao e CSV: %s' % assinatura(corpo)], [], [], []
     texto = corpo.decode('utf-8-sig', errors='replace')
     linhas = [r for r in csv.reader(io.StringIO(texto)) if r]
     if len(linhas) < 2:
-        return 'FAILED', ['lista vazia — e FALHA, nunca zero vendas'], [], []
+        return 'FAILED', ['lista vazia — e FALHA, nunca zero vendas'], [], [], []
     cab = [_norm(c) for c in linhas[0]]
     for esperado in CABECALHO_ESPERADO:
         if not any(esperado in c for c in cab):
