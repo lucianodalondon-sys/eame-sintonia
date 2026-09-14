@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §118: uma ferramenta partida mente com a forma de um resultado; e classificar entidade pelo assunto repete a COL-LAW-034 numa forma nova.
+**Última atualização material:** 2026-09-14 — §119: o registo de identidade de fonte estava partido em dois, e não havia detector de colisão; um exemplo real pode ser verdadeiro e não provar nada.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -14291,3 +14291,138 @@ precisamente a comparação entre os três que revelou que `ASSAM Marche` passou
 `AMAP Marche`, que `CRPV` passou a `rinova.eu`, que a Regione Calabria serve um
 domínio `old.` e que a ERSA FVG devolvia um `jsessionid` dentro do endereço.
 Um `jsessionid` não é endereço canónico de nada.
+
+---
+
+# §119 · UM NÚMERO QUE JÁ É DE ALGUÉM
+
+**Data:** 2026-09-14  
+**Missão:** promover candidatas italianas qualificadas a **FONTES REGISTRADAS**
+do SINTONIA, sem depender da Collection automática.  
+**Resultado medido:** 161 entraram, 140 viraram ficha no atlas, 21 não passaram.
+`COLLECTION_RUNS_CREATED = 0`.
+
+## 119.1 · O REGISTO DE IDENTIDADE ESTAVA PARTIDO EM DOIS
+
+O atlas (`docs/fontes/ATLAS-DE-FONTES-EAME.md`) declara-se dono do `SOURCE_ID` e
+escreve a regra: **o ID, uma vez atribuído, não é reciclado**. Medido antes de
+atribuir o primeiro número novo:
+
+| onde vivia | quantos IDs italianos |
+|---|---|
+| ficha no atlas — o dono declarado | **3** |
+| cunhados por `candidatas/ITALY-SOURCE-MASTER-V1.json` | **53** |
+
+Os 53 não eram rascunho: estavam presos a contratos em
+`regras/italy_contracts.mjs` e a 15 pastas de evidência em
+`data/samples/IT-SOURCE-SAMPLES/<SOURCE_ID>/`. Quem alocasse «o próximo número»
+lendo só o atlas escolheria `IT-T3-002` — **livre no atlas, ocupado lá fora** —
+e teria colidido logo no primeiro.
+
+```
+ALOCA-SE CONTRA A POPULAÇÃO INTEIRA,
+NUNCA CONTRA O DONO DECLARADO.
+```
+
+E não havia detector nenhum. `system-map/scripts/scan_sources.py` indexa as
+fichas por `fora[SOURCE_ID] = ...`: um ID repetido **sobrescreveria em
+silêncio**, e o mapa mostraria uma fonte a menos sem acusar erro. A colisão não
+apareceria como erro — apareceria como uma fonte que desapareceu.
+
+**O que ficou:** `tests/test_source_id.py`, seis provas. A que interessa aos que
+vierem a seguir é a última — uma trava de método que falha **quando o registo
+deixar de estar partido**, e cuja mensagem diz o que mudou:
+
+```
+test_a_alocacao_tem_de_olhar_a_populacao_inteira
+    «já não há SOURCE_ID em uso fora do atlas — o registo deixou
+     de estar partido. Reveja a regra de alocação.»
+```
+
+Um registo que não sabe responder «este número já é de alguém?» não é registo:
+é uma lista com boa reputação.
+
+## 119.2 · O EXEMPLO REAL PODE SER VERDADEIRO E NÃO PROVAR NADA
+
+A escada desta casa diz que uma candidata vira REGISTADA quando alguém a abre,
+olha o que ela entrega e **guarda um exemplo real**. Seis dos 140 exemplos
+guardados passaram em todas as verificações mecânicas — existiam, foram
+observados na própria página, a URL batia — e eram:
+
+```
+Codice Etico · Termini e condizioni · Company Info
+```
+
+Verdadeiros. Presentes. E prova de coisa nenhuma: não mostram que a fonte
+publica boletins fitossanitários, mostram que a fonte tem um rodapé.
+
+```
+CONTEÚDO EXISTE  ≠  CONTEÚDO É O QUE A FONTE PUBLICA.
+```
+
+O filtro de *boilerplate* nasceu do ataque 9 do red team. Onde a recaptura
+falhou, as seis desceram a `YELLOW` com a limitação **escrita na ficha** — em
+vez de ficarem `GREEN` assentes num aviso legal. Baixar o veredito é barato;
+um `GREEN` falso custa a quem for coletar daqui a seis meses e acreditar nele.
+
+## 119.3 · UM ARTEFATO DERIVADO NÃO CARIMBA O COMMIT QUE O CONTÉM
+
+O System Map grava, num nó do próprio mapa, `HEAD <sha>` da árvore onde foi
+medido. Isso torna o portão `P1_SEM_DRIFT` **impossível de fechar** numa árvore
+limpa, e a razão é circular:
+
+```
+gerar o mapa      muda o mapa
+commitar o mapa   muda o HEAD
+→ o mapa commitado carimba sempre o commit ANTERIOR ao seu
+```
+
+Medido nesta missão, depois de regerar e commitar: das cinco fotografias
+geradas, três fecham o ponto fixo com **zero** diferenças
+(`architecture`, `sources`, `casco`). As outras duas diferem numa única chave —
+`.NODES[93].facts[1]`, o carimbo do próprio sha. O `PROVENANCE` já é excluído da
+comparação de propósito; este carimbo escapou por estar **fora** dele.
+
+```
+O CARIMBO DE QUEM CORREU É INFORMATIVO.
+SE ELE ENTRA NA COMPARAÇÃO, O PORTÃO MEDE-SE A SI MESMO.
+```
+
+Não foi consertado aqui — é o gerador do mapa, e esta missão é de fontes. Mas
+fica registado, porque um portão que **não pode** passar ensina toda a gente a
+ignorar o portão. `TEXTO NÃO REPROVA NADA, WORKFLOW REPROVA` só é verdade
+enquanto o workflow puder aprovar.
+
+## 119.4 · O BANCO CONHECE A FONTE E NÃO CONHECE A IDENTIDADE DELA
+
+`public.fonte_externa` existe desde a migração 020, com `UNIQUE (url_base)`. Não
+tem coluna de `SOURCE_ID`. São duas identidades a viver ao lado uma da outra sem
+ponte declarada:
+
+| identidade | quem a cunha | forma |
+|---|---|---|
+| `id` | o Postgres | `bigserial` |
+| `SOURCE_ID` | o atlas | `IT-T5-014` |
+
+Nesta sessão não havia credenciais, e o veredito foi
+`DATABASE_REGISTRATION = NOT_AVAILABLE`. Mas convém não guardar a conclusão
+errada: mesmo **com** credenciais o registo não estaria completo, porque nada no
+schema liga uma linha do banco à ficha que a descreve. Inventar a ponte no meio
+de uma missão de fontes seria criar identidade a partir de `url_base` — que é
+exactamente o que a `COL-LAW-034` proíbe.
+
+## 119.5 · REGISTADA NÃO É CONTRATADA
+
+A escada tem quatro degraus e esta missão subiu **um**:
+
+```
+1 · CANDIDATA    alguém viu que existe
+2 · REGISTADA    ← parou aqui: ficha no atlas, exemplo real preservado
+3 · CONTRATADA   contrato de busca escrito
+4 · AUTOMÁTICA   a máquina vai lá sozinha
+```
+
+Das 163 fichas do atlas, **5** têm contrato de busca. As 140 novas têm zero — e
+cada secção do atlas diz isso na própria linha: *«Registada ≠ contratada: nenhuma
+tem contrato de busca, e nenhuma coleta foi corrida.»* Escrever o limite dentro
+do artefato é mais barato do que explicá-lo depois a quem o encontrou sozinho.
