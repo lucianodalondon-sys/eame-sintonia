@@ -5,6 +5,20 @@
 **Missão:** preparar a Bíblia de Engenharia da Intelligence sem iniciar implementação.  
 **Regra:** este documento orienta decisões; **não é autoridade arquitetural**. A autoridade só nasce quando uma decisão é incorporada à Bíblia/contrato/know-how apropriado.
 
+> ### ⚠️ ESTA FOTOGRAFIA TEM UMA SEGUNDA, DE 2026-09-14
+>
+> A Bíblia V0.3 acrescentou quatro fontes externas que **não estão aqui** e que
+> este ficheiro **não foi reescrito** para incluir — fotografia datada sucede-se,
+> não se corrige:
+>
+> MLflow GenAI Eval/Tracing · LangSmith Evaluation · Palantir AIP Evals ·
+> Microsoft Research Web Crawl Scheduling.
+>
+> [`BENCHMARK-INTELLIGENCE-ENGINEERING-DELTA-2026-09-14.md`](BENCHMARK-INTELLIGENCE-ENGINEERING-DELTA-2026-09-14.md)
+>
+> Quem procurar avaliação contínua, exploração × exploração-do-conhecido ou
+> priorização de fontes **não encontra aqui**, e o sítio é aquele.
+
 ---
 
 # 0. PERGUNTA

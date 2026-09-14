@@ -2,12 +2,22 @@
 
 ```text
 BIBLE_ID = SINTONIA-INTELLIGENCE-BIBLE
-VERSION = V0.2
+VERSION = V0.3
 STATUS = CANONICAL
 DATE = 2026-09-13
+REVISED = 2026-09-14
 PROMOTED = 2026-09-14
 IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
 ```
+
+> **V0.3 não reabre a promoção.** Ela acrescenta quatro secções — 34, 35, 36 e
+> 37 — e não toca em nenhuma lei de 000 a 260. A fronteira de implementação é a
+> mesma letra que a V0.2 declarou: uma missão, a da secção 32, e ainda
+> dependente de gates que não são desta Bíblia para abrir.
+>
+> ```text
+> ACRESCENTAR LEI != AUTORIZAR OBRA NOVA
+> ```
 
 > Esta é a **Bíblia de Engenharia da Intelligence**, não um relatório, backlog, handoff, design de portal ou prova de implementação.
 >
@@ -1150,6 +1160,44 @@ RT-INT-25  Intelligence fabrica CLAIM_ID upstream para destravar análise
 
 Ataque só conta se atingiu alvo e teardown restaurou estado.
 
+## 25.1 · ATAQUES DA FERRAMENTA (V0.3)
+
+Alvo: a fronteira da secção 35.
+
+```text
+RT-TOOL-01  Delivery reconstrói um finding que a Intelligence não produziu
+RT-TOOL-02  tool preenche UNKNOWN com valor por defeito, vazio ou placeholder
+RT-TOOL-03  tool lê família de dados que nenhum INTELLIGENCE_RUN consultou
+RT-TOOL-04  science/market/competitor implementam a MESMA lógica em três sítios
+RT-TOOL-05  tool promove SIGNAL a FINDING, ou FINDING a OPPORTUNITY, ao renderizar
+RT-TOOL-06  tool infere FACT_TIME/FACT_LOCATION que o objeto não trazia
+RT-TOOL-07  filtro da tool muda o universo e o número continua a dizer-se completo
+```
+
+## 25.2 · ATAQUES DA PERFORMANCE DE FONTE (V0.3)
+
+Alvo: a fronteira da secção 36.
+
+```text
+RT-SRC-01  fonte de muito volume domina o perfil sem produzir Intelligence útil
+RT-SRC-02  fonte pequena e crítica desaparece do perfil por amostra pequena
+RT-SRC-03  fonte nova nunca é amostrada, e a ausência de prova vira prova de ausência
+RT-SRC-04  republicação da mesma origem conta como contribuição independente
+RT-SRC-05  evidência contrária reduz a contribuição da fonte que a trouxe
+RT-SRC-06  o mesmo item conta contribuição em três capacidades diferentes
+RT-SRC-07  item sem lineage recebe crédito por ter estado no mesmo RUN
+RT-SRC-08  fonte forte em regulatório é tratada como forte em tudo
+RT-SRC-09  histórico antigo congela o perfil e ignora mudança na fonte
+RT-SRC-10  Intelligence chama o collector diretamente
+RT-SRC-11  Intelligence escreve no source registry ou inventa SOURCE_ID
+RT-SRC-12  Collection passa a obedecer a um número único, sem contexto
+RT-SRC-13  o conselho da Intelligence é lido como ordem e altera agenda sozinho
+RT-SRC-14  fonte obrigatória perde vez por publicar pouco
+```
+
+Cada um destes catorze tem uma lei que o barra, e a secção 36 nomeia qual.
+**Ataque sem lei que o barre é backlog, não red team.**
+
 ---
 
 # 26. GATES DE UMA FUTURA INTELLIGENCE V1
@@ -1234,6 +1282,19 @@ INTELLIGENCE MUST NOT PASS A CRITICAL GATE ON EMPTY INPUT.
 INTELLIGENCE MUST NOT REWRITE HISTORY SILENTLY.
 ```
 
+Acrescentadas em V0.3, e todas da mesma família — a Intelligence **mede** a
+coleta, e não manda nela:
+
+```text
+INTELLIGENCE MUST NOT CALL A COLLECTOR.
+INTELLIGENCE MUST NOT WRITE TO THE SOURCE REGISTRY.
+INTELLIGENCE MUST NOT CHANGE A COLLECTION SCHEDULE OR QUOTA.
+INTELLIGENCE MUST NOT CREDIT A SOURCE WITHOUT LINEAGE.
+INTELLIGENCE MUST NOT REDUCE A SOURCE PROFILE FOR CONTRARY EVIDENCE.
+INTELLIGENCE MUST NOT COLLAPSE SOURCE CONTRIBUTION INTO ONE GLOBAL NUMBER.
+INTELLIGENCE MUST NOT LET A TOOL PROMOTE AN ANALYTIC OBJECT.
+```
+
 ---
 
 # 29. ORIGEM DAS LEIS V0.2
@@ -1266,6 +1327,34 @@ Detalhes e URLs:
 `research/intelligence/BENCHMARK-DE-ENGENHARIA-DA-INTELLIGENCE-2026-09-13.md`
 
 Benchmark informa; não governa.
+
+## Benchmark externo acrescentado em V0.3
+
+Quatro, e entraram porque nenhum documento desta casa os mencionava — medido
+antes de pesquisar, com `grep`, em `research/intelligence/` e
+`docs/intelligence/`: `MLflow` 0 ficheiros, `LangSmith` 0, `crawl` 0,
+`exploration`/`exploitation` 0.
+
+- **MLflow GenAI Evaluation / Tracing** — trace, scorer/judge, evaluation
+  dataset, avaliação offline × monitorização em produção, dataset construído a
+  partir de traces reais;
+- **LangSmith Evaluation / Observability** — as quatro espécies de avaliador
+  (humano · determinístico · LLM-as-judge · pairwise), reference-free ×
+  reference-based, annotation queue, e o aviso de que o LLM-as-judge precisa de
+  ser ele próprio validado;
+- **Palantir AIP Evals** — evaluation suite, test case, evaluation function
+  como grader sobre função-alvo;
+- **Microsoft Research — Web Crawl Scheduling** (SIGIR 2019 · NeurIPS 2019 ·
+  ICML 2020) — *partial change observability*, importância × taxa de mudança
+  como dois eixos separados, restrições de politeness/largura de banda, e o
+  compromisso exploração × exploração-do-conhecido declarado como tal.
+
+Detalhes, transferências e recusas:
+
+`research/intelligence/BENCHMARK-INTELLIGENCE-ENGINEERING-DELTA-2026-09-14.md`
+
+O de 2026-09-13 não foi reescrito. É uma fotografia datada, e nesta casa
+fotografia datada sucede-se, não se corrige.
 
 ---
 
@@ -1369,7 +1458,10 @@ Depois HARD STOP.
 
 # 33. VEREDITO
 
-Esta secção carrega **duas fotografias**, e a diferença entre elas é a promoção.
+Esta secção carrega **três fotografias**: a candidatura, a promoção e a revisão
+V0.3. A diferença entre a primeira e a segunda é a promoção; entre a segunda e a
+terceira, **só a lei** — nenhuma das medições de máquina mudou, e a terceira
+diz isso letra a letra.
 Elas nunca se fundem: a de baixo não corrige a de cima, sucede-a.
 
 ```text
@@ -1402,10 +1494,16 @@ ela está marcada: `CANONICAL = NO` foi substituído pela promoção de 2026-09-
 o `KNOW_HOW_DELTA` que ela pedia foi aplicado — vive em `SINTONIA-EAME-KNOW-HOW.md`,
 §116. As outras sete continuam verdade, e continuam medidas abaixo.
 
-## 33.2 · VEREDITO CORRENTE — 2026-09-14
+## ⚠️ 33.2 · VEREDITO HISTÓRICO — V0.2 PROMOVIDA, 2026-09-14
+
+> **Esta é a fotografia da promoção.** Foi corrente até à revisão V0.3, do mesmo
+> dia, e deixou de o ser por uma razão só: a lei ganhou quatro secções. **Nenhuma
+> das dez linhas abaixo mudou de valor** — e é precisamente por isso que ela fica
+> aqui inteira, em vez de ser reescrita. Quem quiser conferir que a V0.3 não
+> comprou autorização nenhuma compara-a com a 33.3, linha a linha.
 
 ```text
-VEREDITO = CORRENTE
+VEREDITO = HISTORICO
 DATA     = 2026-09-14
 BIBLE_STATUS = CANONICAL
 BIBLE_PROMOTION_GATES = 9 / 9 PASS
@@ -1435,6 +1533,48 @@ normal de uma lei nova — e confundir `CANONICAL = YES` com
 `RUNTIME_IMPLEMENTED = YES` seria a forma mais rápida de esta Bíblia passar a
 mentir.
 
+## 33.3 · VEREDITO CORRENTE — V0.3, 2026-09-14
+
+```text
+VEREDITO = CORRENTE
+DATA     = 2026-09-14
+BIBLE_STATUS = CANONICAL
+BIBLE_VERSION_BEFORE = V0.2
+BIBLE_VERSION_AFTER  = V0.3
+BIBLE_PROMOTION_GATES = 9 / 9 PASS
+IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
+SECOES_ACRESCENTADAS = 34 · 35 · 36 · 37
+LEIS_ACRESCENTADAS = 22   (INT-LAW-270..277 · 280..285 · 290..299 — ver 34, 35, 36, 37)
+LEIS_ALTERADAS = 0        (000..260 intactas, letra a letra)
+LEIS_RECUSADAS_POR_JA_TEREM_DONO = 4
+INTELLIGENCE_RUNTIME_IMPLEMENTED = NO
+INTELLIGENCE_IMPLEMENTATION_STARTED = NO
+SOURCE_PERFORMANCE_IMPLEMENTED = NO
+REAL_ITALY_FLOW_OBSERVED = NO
+COLLECTION_FOUNDATION_CLOSED = NAO
+COLLECTION_CHANGED = NO
+COLLECTION_SCHEDULE_CHANGED = NO
+SOURCE_REGISTRY_CHANGED = NO
+PORTAL_CHANGED = NO
+MENU_CHANGED = NO
+LIVE_CHANGED = NO
+MIGRATION_CREATED = NO
+KNOW_HOW_DELTA = ENTREGUE COMO DELTA · handoff/KNOW-HOW-DELTA-SOURCE-PERFORMANCE.md
+```
+
+**As quatro linhas que interessam a quem desconfia desta revisão.**
+`LEIS_ALTERADAS = 0` diz que nada do que já valia foi mexido.
+`IMPLEMENTATION_AUTHORIZED` é a mesma cadeia de caracteres da V0.2 — copiada, não
+reescrita. `SOURCE_PERFORMANCE_IMPLEMENTED = NO` diz que a secção 36 descreve um
+contrato e não um programa. E `COLLECTION_SCHEDULE_CHANGED = NO` diz que
+**nenhuma coleta real mudou de prioridade por causa deste ficheiro**.
+
+`LEIS_RECUSADAS_POR_JA_TEREM_DONO = 4` é a linha de que mais me orgulho, e a
+razão está na INT-LAW-000: quatro leis que o enunciado mandou avaliar **não**
+foram escritas, porque já existiam com outro nome. Escrevê-las teria dado uma
+Bíblia mais gorda e uma casa com dois donos para a mesma regra. Estão nomeadas
+na secção 37.4, com a lei que já as cobria.
+
 A Intelligence do SINTONIA deve ser uma **máquina de produção analítica auditável**.
 
 Ela precisa provar:
@@ -1453,6 +1593,797 @@ QUAL É O ESCOPO
 O QUE MUDARIA O JUDGMENT
 E QUANDO A RESPOSTA CORRETA É NÃO AGIR AINDA
 ```
+
+---
+
+# 34. CAPACIDADES DE INTELLIGENCE
+
+> Uma **capacidade** é uma pergunta de negócio que a Intelligence sabe responder
+> com prova. Não é uma tela, não é uma tabela e não é uma pasta. As telas de hoje
+> são evidência de que existe produto; **não são a lista das capacidades**, e a
+> secção 35 explica porquê.
+
+## INT-LAW-270 — CAPABILITY ≠ TOOL ≠ SURFACE
+
+```text
+CAPABILITY   a pergunta que sabemos responder com prova
+TOOL         o instrumento que deixa alguém usar a resposta
+SURFACE      o sítio onde ela aparece
+```
+
+Os três contam-se em separado. Uma capacidade pode existir sem tool
+(`INT-LAW-242`), e **uma surface pode existir sem capacidade nenhuma por trás** —
+que é o caso medido hoje, e está na secção 35.2.
+
+## INT-LAW-271 — TOOL EXISTS ≠ INTELLIGENCE EXISTS
+
+A existência de um card, de uma rota, de um menu ou de um ecrã **não é prova** de
+que a capacidade correspondente existe.
+
+```text
+CARD RENDERIZA != PERGUNTA RESPONDIDA
+FIXTURE NO ECRA != FACTO NO ECRA
+```
+
+Prova de capacidade é um `INTELLIGENCE_RUN` com lineage, não um screenshot.
+
+## INT-LAW-272 — Toda capacidade declara o contrato abaixo, inteiro
+
+Uma capacidade sem `HARD_GATES` declarados é um desejo. Sem
+`REQUIRED_JOIN_KEYS`, é um crossing por semelhança (`INT-LAW-037`). Sem
+`MUST_NOT_DO`, é uma licença aberta.
+
+```text
+CAPABILITY_ID
+PURPOSE
+BUSINESS_QUESTION
+INPUT_ANALYTIC_OBJECTS
+OUTPUT_ANALYTIC_OBJECTS
+REQUIRED_DATA_FAMILIES
+REQUIRED_JOIN_KEYS
+HARD_GATES
+UNCERTAINTY_REQUIREMENTS
+LINEAGE_REQUIREMENTS
+CAN_FEED
+MUST_NOT_DO
+```
+
+Os objetos de `INPUT`/`OUTPUT` saem do vocabulário fechado da `INT-LAW-030`.
+**Nenhuma capacidade inventa um objeto novo.**
+
+## INT-LAW-273 — A cadeia epistemológica não se salta
+
+```text
+FACT  →  SIGNAL  →  FINDING  →  OPPORTUNITY
+```
+
+Cada seta é uma promoção, e cada promoção tem gate próprio (`INT-LAW-036`). Uma
+capacidade declara **onde entra e onde sai**, e não pode entregar na saída um
+degrau que não conquistou.
+
+E a cadeia ortogonal, que nenhuma capacidade pode comprimir (`INT-LAW-013`):
+
+```text
+TRUE  ≠  RELEVANT  ≠  ACTIONABLE
+```
+
+## 34.1 · AS NOVE CAPACIDADES
+
+Nove, e não «as do menu»: duas do menu não são capacidades, e uma capacidade
+necessária **não tem menu nenhum**. A conta está em 35.2.
+
+---
+
+### `CAP-OPP` · OPPORTUNITY INTELLIGENCE
+
+```text
+PURPOSE            decidir quando uma convergencia merece investigacao humana
+BUSINESS_QUESTION  o que mudou que justifica a ADAMA olhar para isto agora,
+                   nesta cultura, nesta regiao, nesta janela?
+INPUT              ANALYTIC_SIGNAL · CROSSING · SUPPORT_EDGE ·
+                   CONTRADICTION_EDGE · ANALYTIC_JUDGMENT
+OUTPUT             OPPORTUNITY  |  NO_DEFENSIBLE_ACTION_YET
+FAMILIAS           agronomica · regulatoria · comercial · campo · cientifica
+JOIN_KEYS          CROP_ID x ISSUE_ID x REGION_ID x TIME_WINDOW
+HARD_GATES         INT-LAW-142 familias aplicaveis consultadas
+                   INT-LAW-077 independencia + compatibilidade
+                   INT-LAW-104 janela compativel com ACT_NOW
+                   INT-LAW-091 sem join key factual, nao ha crossing
+INCERTEZA          nivel (A·B·C·D) e parte do OBJETO, nunca do texto
+LINEAGE            COMPLETE exigido; PARTIAL desqualifica a promocao
+CAN_FEED           delivery de oportunidade · SOURCE_ANALYTIC_CONTRIBUTION
+MUST_NOT_DO        promover sem janela · fabricar pressao de campo a partir de
+                   estrutura (INT-LAW-145) · esconder evidencia contraria
+```
+
+> `NO_DEFENSIBLE_ACTION_YET` é saída de primeira classe aqui, e não uma falha
+> (`INT-LAW-012`). Um dia sem oportunidade é um resultado.
+
+---
+
+### `CAP-PORT` · PORTFOLIO INTELLIGENCE
+
+```text
+PURPOSE            saber o que a ADAMA pode legalmente oferecer, onde e ate quando
+BUSINESS_QUESTION  para esta cultura e este alvo, o que temos registado, com que
+                   rotulo, com que restricao e com que prazo?
+INPUT              COLLECTION_FACT (registo) · CROSSING
+OUTPUT             ANALYTIC_JUDGMENT sobre cobertura e lacuna de portfolio
+FAMILIAS           regulatoria · rotulo · comercial
+JOIN_KEYS          PRODUCT_ID x CROP_ID x TARGET_ID x REGISTRATION_VERSION x GEO
+HARD_GATES         INT-LAW-143 completude quando aplicavel
+                   INT-LAW-144 produto para cultura != produto para alvo
+                   INT-LAW-067 registo != mercado
+PRESERVA           product · crop · target · registration · label · restriction ·
+                   expiry · geography — oito, e nenhum se deduz dos outros
+INCERTEZA          disponibilidade comercial nasce NAO_SEI e so muda com prova
+LINEAGE            versao do registo entra na chave, nao no rodape
+CAN_FEED           CAP-OPP · CAP-LABEL · CAP-COMP
+MUST_NOT_DO        tratar registado como disponivel · tratar catalogo como venda
+```
+
+---
+
+### `CAP-FUT` · FUTURE / HORIZON INTELLIGENCE
+
+```text
+PURPOSE            ver cedo o que ainda nao e facto, sem o promover a facto
+BUSINESS_QUESTION  o que esta a formar-se que muda a decisao dentro do horizonte
+                   declarado — e com que forca?
+INPUT              COLLECTION_FACT · ANALYTIC_SIGNAL · ANALYTIC_HYPOTHESIS
+OUTPUT             FUTURE_SIGNAL com horizonte e incerteza declarados
+FAMILIAS           regulatoria · cientifica · mercado · campo
+JOIN_KEYS          ISSUE_ID x GEO x HORIZON_WINDOW
+HARD_GATES         INT-LAW-130..133  weak signal != forecast != facto !=
+                   oportunidade; data futura nao e nenhum dos quatro
+                   INT-LAW-134 consultar corpus relevante
+                   INT-LAW-136 historia nao prova repeticao
+PRESERVA           signal · horizon · potential impact · uncertainty ·
+                   indicadores que REFORCAM · indicadores que ENFRAQUECEM
+INCERTEZA          obrigatoria e explicita (INT-LAW-135)
+LINEAGE            COMPLETE ou PARTIAL declarado
+CAN_FEED           CAP-OPP (como hipotese, nunca como facto)
+MUST_NOT_DO        misturar FACTO PRESENTE SOBRE O FUTURO (caducidade datada de
+                   registo) com SINAL FRACO. Sao duas especies, e hoje o card
+                   `future` mistura-as — medido, e por corrigir
+```
+
+> Os **indicadores que enfraquecem** são obrigatórios e não decorativos: um radar
+> que só sabe fortalecer sinais é um radar que nunca apaga nada.
+
+---
+
+### `CAP-LABEL` · LABEL INTELLIGENCE
+
+```text
+PURPOSE            saber o que o rotulo autoriza, na letra dele
+BUSINESS_QUESTION  para este produto, nesta cultura, contra este alvo: que dose,
+                   que momento, que restricao — e face a que alternativa?
+INPUT              COLLECTION_FACT (rotulo autorizado) · CROSSING
+OUTPUT             ANALYTIC_JUDGMENT de comparabilidade de uso
+FAMILIAS           rotulo · regulatoria
+JOIN_KEYS          PRODUCT_ID x CROP_ID x TARGET_ID x AI_ID x MOA x REG_VERSION
+HARD_GATES         INT-LAW-062 PROVED exige razao compativel
+                   INT-LAW-082 conceito canonico != termo local
+                   INT-LAW-081 semelhanca textual nao prova equivalencia
+PRESERVA           product · crop · target · dose · timing · restriction ·
+                   active ingredient · MOA · registration/version ·
+                   comparabilidade
+INCERTEZA          comparabilidade entre rotulos de paises diferentes nasce
+                   NAO_SEI
+LINEAGE            aponta para o documento de rotulo, nao para o resumo dele
+CAN_FEED           CAP-PORT · CAP-WIN · CAP-OPP
+MUST_NOT_DO        normalizar dose entre jurisdicoes sem contrato · tratar
+                   snippet como documento (INT-LAW-064)
+```
+
+> ⚠️ **Medido:** `LABEL INTELLIGENCE` **não é um card do portal.** Existe o
+> material (`LABEL-USES.json`, `LABEL-MANIFEST.json`, a tabela `registro_uso`) e
+> não existe a ferramenta. `MATERIAL ≠ FERRAMENTA`, e por isso a capacidade
+> entra aqui **sem** tool declarada.
+
+---
+
+### `CAP-WIN` · AGRONOMIC / CROP WINDOW INTELLIGENCE
+
+```text
+PURPOSE            dizer QUANDO, que e o eixo que torna qualquer achado acionavel
+BUSINESS_QUESTION  nesta cultura e nesta regiao, qual e a janela em que agir
+                   ainda faz diferenca?
+INPUT              COLLECTION_FACT (fenologia · clima · rotulo) · CROSSING
+OUTPUT             ANALYTIC_JUDGMENT de janela, com estado temporal
+FAMILIAS           agronomica · climatica · rotulo · regulatoria
+JOIN_KEYS          CROP_ID x REGION_ID x PHENOLOGY_STAGE x TIME_WINDOW
+HARD_GATES         INT-LAW-100..105 semantica de tempo e geografia
+                   INT-LAW-104 ACT_NOW exige janela compativel
+PRESERVA           crop · region · phenology · issue · window · contexto
+                   meteorologico/climatico · restricao regulatoria de aplicacao
+INCERTEZA          data de calendario NAO chega — a fenologia manda
+LINEAGE            COMPLETE
+CAN_FEED           CAP-OPP (e e a que mais alimenta) · CAP-FIELD
+MUST_NOT_DO        tratar data de calendario como janela · tratar janela de um
+                   ano como janela deste
+```
+
+> A janela é a **única** capacidade sem a qual `ACT_NOW` não existe. É também a
+> única superfície hoje `ALIMENTADO_POR_REAL` — uma em onze.
+
+---
+
+### `CAP-MKT` · MARKET INTELLIGENCE
+
+```text
+PURPOSE            dar contexto economico sem o confundir com facto comercial
+BUSINESS_QUESTION  o que mudou no mercado que altera a materialidade de uma
+                   decisao — e qual e o limite de atribuicao dessa leitura?
+INPUT              COLLECTION_FACT (preco · area · producao · comercio)
+OUTPUT             contexto; e MARKET_FINDING so com os cinco gates abaixo
+FAMILIAS           mercado · comercial · agronomica
+JOIN_KEYS          CROP_ID x GEO x PERIOD x UNIT
+HARD_GATES         CHANGE + MATERIALITY + CONTEXT + DECISION_AFFECTED +
+                   ATTRIBUTION_LIMIT — os cinco, ou fica contexto
+                   INT-LAW-067 registo != mercado
+NUNCA CONFUNDE     registration · availability · sales · volume · price ·
+                   market share — sao SEIS perguntas distintas
+INCERTEZA          atribuicao declarada sempre
+LINEAGE            unidade e denominador entram no lineage
+CAN_FEED           CAP-OPP (como materialidade, nunca como gatilho sozinho)
+MUST_NOT_DO        virar produto analitico por estar num card · deduzir venda a
+                   partir de registo · comparar precos sem unidade e periodo
+```
+
+> ⚠️ Das seis palavras acima, **cinco** já foram usadas como se fossem a sexta em
+> algum ponto desta casa. É a confusão mais barata e mais cara do projeto.
+
+---
+
+### `CAP-FIELD` · FIELD INTELLIGENCE
+
+```text
+PURPOSE            trazer observacao humana de campo sem a promover a incidencia
+BUSINESS_QUESTION  quem viu o que, onde, quando — e o que isso prova e nao prova?
+INPUT              COLLECTION_FACT (voz de campo) · SUPPORT/CONTRADICTION_EDGE
+OUTPUT             ANALYTIC_SIGNAL de nivel 1, nunca mais do que isso sozinho
+FAMILIAS           campo · agronomica
+JOIN_KEYS          SPEAKER_ID x CROP_ID x ISSUE_ID x FACT_LOCATION x FACT_TIME
+HARD_GATES         INT-LAW-065 identidade != expertise
+                   INT-LAW-066 identidade != sinal
+                   INT-LAW-101 escopo da pagina != local do facto
+                   INT-LAW-071 mesmo originador nao vira multiplas fontes
+PRESERVA           speaker/entity · role · prova de expertise · fact location ·
+                   fact time · crop · issue · observacao · proveniencia ·
+                   independencia — dez, e a independencia e a que mais se perde
+INCERTEZA          sem metodo e sem denominador, VOZ DE CAMPO NAO E INCIDENCIA
+LINEAGE            COMPLETE, e com o grafo de dependencia entre falantes
+CAN_FEED           CAP-OPP · CAP-WIN · CAP-FUT
+MUST_NOT_DO        contar tres partilhas do mesmo post como tres observacoes ·
+                   inferir localizacao do facto a partir do perfil
+```
+
+---
+
+### `CAP-COMP` · COMPETITIVE INTELLIGENCE
+
+```text
+PURPOSE            ver o concorrente sem confundir o que ele DIZ com o que E
+BUSINESS_QUESTION  o que mudou no lado deles que altera a nossa decisao?
+INPUT              COLLECTION_FACT (registo · comunicacao) · CROSSING
+OUTPUT             ANALYTIC_SIGNAL · ANALYTIC_JUDGMENT, com a camada carimbada
+FAMILIAS           regulatoria · comunicacao publica · mercado · cientifica
+JOIN_KEYS          COMPANY_ID x PRODUCT_ID x CROP_ID x GEO x TIME
+HARD_GATES         COMPANY_CLAIM != REGULATORY_FACT — e as duas camadas NUNCA
+                   partilham contagem
+                   INT-LAW-068..077 dependencia e independencia
+SEPARA SEMPRE      registration · label · launch · communication · atividade
+                   tecnica · evento · facto de mercado · interpretacao analitica
+                   — oito, e a oitava e nossa, nao deles
+INCERTEZA          comunicacao e alegacao ate prova em contrario
+LINEAGE            a camada (REGULATORIO | COMUNICACAO) entra na chave
+CAN_FEED           CAP-OPP · CAP-FUT · CAP-MKT
+MUST_NOT_DO        somar registo e anuncio no mesmo contador · ler silencio como
+                   ausencia (INT-LAW-112)
+```
+
+---
+
+### `CAP-SCI` · SCIENTIFIC INTELLIGENCE
+
+```text
+PURPOSE            medir forca de evidencia, que e onde a independencia se decide
+BUSINESS_QUESTION  o que a ciencia sustenta, com que forca, e replicado por quem?
+INPUT              COLLECTION_FACT (paper · ensaio) · SUPPORT/CONTRADICTION_EDGE
+OUTPUT             ANALYTIC_JUDGMENT de forca de evidencia
+FAMILIAS           cientifica · agronomica · regulatoria
+JOIN_KEYS          DOI | TRIAL_ID x RESEARCHER_ID x INSTITUTION_ID x MOLECULE x
+                   CROP_ID x ISSUE_ID
+HARD_GATES         INT-LAW-072 mesmo documento, vistas diferentes, mesma base
+                   INT-LAW-073 mesmo dataset, transformacoes diferentes, mesma
+                   origem
+                   INT-LAW-102 afiliacao != local do estudo
+PRESERVA           paper/study · researcher · institution · crop · issue ·
+                   molecule · method · result · forca de evidencia ·
+                   replicacao/independencia · tempo e geografia quando aplicavel
+INCERTEZA          replicacao ausente e declarada, nao omitida
+LINEAGE            COMPLETE; sem DOI/trial_id a atravessar a fronteira, o
+                   lineage e PARTIAL e diz-se
+CAN_FEED           CAP-OPP · CAP-FUT · CAP-LABEL
+MUST_NOT_DO        contar tres papers do mesmo ensaio como tres evidencias
+```
+
+> ⚠️ **Bloqueio medido:** sem `DOI`/`trial_id`/afiliação a atravessar a fronteira
+> da Collection, esta capacidade **não consegue** distinguir três artigos de um
+> ensaio. Isso é um `COLLECTION_GAP` (`INT-LAW-150`), e não um defeito de
+> análise.
+
+---
+
+# 35. A FERRAMENTA NÃO CONSTRÓI INTELLIGENCE
+
+## INT-LAW-280 — A TOOL DOES NOT BUILD INTELLIGENCE
+
+A `INT-LAW-240` já dizia que a tool consome e não inventa. Esta diz **o que ela
+pode fazer**, em lista fechada, e a fronteira passa a ser verificável em vez de
+subentendida.
+
+```text
+INTELLIGENCE → ANALYTIC OBJECT → INTELLIGENCE TOOL → DELIVERY / PORTAL
+```
+
+A ferramenta **pode**, e só:
+
+```text
+FILTER     escolher um subconjunto do que ja existe
+NAVIGATE   ir de um objeto ao objeto ligado, por aresta que ja existe
+COMPARE    por lado a lado dois objetos ja produzidos
+EXPLAIN    mostrar a prova, a incerteza e o que contradiz
+RENDER     desenhar
+```
+
+A ferramenta **não pode**, nunca:
+
+```text
+FABRICAR CROSSING
+COMPLETAR UNKNOWN
+INFERIR INDEPENDENCIA
+PROMOVER SIGNAL A FINDING
+PROMOVER FINDING A OPPORTUNITY
+FABRICAR FACT, FACT_LOCATION OU FACT_TIME
+RECALCULAR LOGICA ESCONDIDA
+```
+
+> As cinco permitidas têm uma propriedade em comum, e é ela a lei: **nenhuma
+> cria informação.** Filtrar, navegar, comparar, explicar e desenhar operam sobre
+> o que já foi produzido e provado a montante. No dia em que uma sexta operação
+> aparecer nesta lista, a pergunta a fazer é se ela cria informação — e, se
+> criar, ela não é da ferramenta.
+
+## INT-LAW-281 — Um filtro que muda o universo declara-o
+
+Filtrar é permitido; **filtrar e continuar a dizer o número antigo não é.** Se a
+tool estreita o conjunto, o `UNIVERSE` do que ela mostra mudou, e a completude
+declarada tem de mudar com ele (`INT-LAW-111`).
+
+## INT-LAW-282 — Lógica repetida em duas tools é uma lógica sem dono
+
+Se `science`, `market` e `competitor` calculam a mesma coisa cada um à sua
+maneira, não existem três implementações: existem **três verdades**, e nenhuma é
+auditável. A lógica sobe para a Intelligence e as três consomem-na.
+
+## 35.1 · DATA DEMAND CONTRACT
+
+## INT-LAW-283 — Capacidade declara a demanda; não a presume
+
+```text
+CAPABILITY
+  → ANALYTIC QUESTION
+  → REQUIRED CROSSINGS
+  → REQUIRED DATA FAMILIES
+  → REQUIRED JOIN KEYS
+  → COLLECTION GAP
+```
+
+## INT-LAW-284 — Os quatro estados do dado não se confundem
+
+`DATA EXISTS` não é um estado útil sozinho. São quatro perguntas, e respondem-se
+uma a uma:
+
+```text
+DATA_EXISTS             existe alguma coisa guardada
+DATA_QUERIED            esta pergunta foi-lhe realmente feita
+DATA_CAN_JOIN           as chaves atravessam, e provou-se
+DATA_SUPPORTS_ANALYSIS  o que atravessou sustenta a conclusao
+```
+
+Só o quarto autoriza uma capacidade a concluir. Os três primeiros são degraus, e
+cada degrau que falta tem nome próprio: o segundo é a `INT-LAW-021`, o terceiro é
+a `INT-LAW-091`, o quarto é a `INT-LAW-142`.
+
+> **Por que quatro e não um.** Um sistema que só sabe perguntar «temos o dado?»
+> responde «sim» e conclui em cima de uma tabela que ninguém consultou, com uma
+> chave que não atravessa. Os quatro estados existem para que a resposta «sim»
+> tenha de dizer *sim a quê*.
+
+## 35.2 · O PORTAL NÃO DEFINE A ARQUITETURA
+
+As superfícies de hoje são **evidência de produto existente**, e isso não é o
+mesmo que autoridade arquitetural (`INT-LAW-271`).
+
+Medido em `data/derivados/MATRIZ-CARDS-SENSORES-V1.json`, re-executado a
+2026-09-14 pelo gerador próprio da casa:
+
+```text
+CARDS_TOTAL              11
+ALIMENTADO_POR_REAL       1     windows
+MISTURA_REAL_E_FIXTURE    6
+SEM_FONTE_DECLARADA       4
+```
+
+E a conta que interessa a esta Bíblia:
+
+```text
+CAPACIDADES DEFINIDAS NA SECCAO 34    9
+CARDS NO PORTAL                      11
+CAPACIDADE SEM CARD NENHUM            1   CAP-LABEL
+CARDS SEM CAPACIDADE ANALITICA        3   archive · sources · field
+```
+
+A classificação arquitetural de cada card, uma a uma, **já tem dono** e não se
+repete aqui: `research/intelligence/AGRO-INTELLIGENCE-TOOL-ROLES-V1.md`. A
+tradução para o papel canónico está em
+`research/intelligence/INTELLIGENCE-CAPABILITIES-AND-TOOLS.md`.
+
+> **Nenhuma decisão de design, UI, visual ou de menu é tomada nesta Bíblia.**
+> Classificar função arquitetural é outra coisa, e o portal não muda por causa
+> deste ficheiro.
+
+---
+
+# 36. SOURCE PERFORMANCE INTELLIGENCE
+
+> **Capacidade interna.** Não é card, não é menu, não é tela. A `INT-LAW-242` já
+> autoriza uma capacidade a permanecer interna, e esta permanece.
+
+## 36.1 · A FRONTEIRA, MEDIDA ANTES DE ESCRITA
+
+Antes de nomear seja o que for, procurou-se dono. **Havia**, e isso mudou o
+desenho:
+
+```text
+SOURCE_RELEVANCE       OWNER = COLLECTION   leis/relevancia_da_fonte.py
+REQUIREMENT_PRIORITY   OWNER = COLLECTION   leis/gestao_da_coleta.py
+PRIORITY_TIER          OWNER = COLLECTION   leis/politica_da_coleta.py
+```
+
+Os três estão `OWNER_PROVEN` no registo de conceitos. E o primeiro responde a
+uma pergunta que **não é** a desta secção:
+
+```text
+SOURCE_RELEVANCE          «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?»
+                          decisao do par (FONTE, PROPOSITO), ANTES do gasto
+SOURCE PERFORMANCE        «o que esta fonte PRODUZIU, medido depois?»
+                          observacao retrospetiva, DEPOIS do gasto
+```
+
+Uma é uma **porta**; a outra é uma **fita métrica**. Uma decide se se vai; a
+outra conta o que se trouxe. Confundi-las daria dois donos à mesma regra, e a
+`INT-LAW-000` proíbe-o.
+
+## INT-LAW-290 — SOURCE PERFORMANCE mede; não decide
+
+```text
+SOURCE PERFORMANCE RECOMMENDS
+COLLECTION DECIDES
+```
+
+A Intelligence observa a jusante e aconselha. Quem decide o que coletar, quando e
+por que rota é a Collection, como já dizem a `INT-LAW-024` e a `INT-LAW-151`.
+
+## INT-LAW-291 — SOURCE PRODUCED CONTENT ≠ SOURCE PRODUCED USEFUL INTELLIGENCE
+
+Bytes, ficheiros, itens admitidos e linhas coletadas medem **atividade**. Nenhum
+deles mede valor analítico.
+
+## INT-LAW-292 — HIGH VOLUME ≠ HIGH VALUE
+
+Uma fonte que produz muito e cruza pouco é uma fonte cara. O perfil separa
+sempre o quanto veio do quanto serviu, e nunca deixa o primeiro eleger o
+segundo.
+
+## INT-LAW-293 — O valor de uma fonte é contextual
+
+Corolário da `INT-LAW-060`, que já governa a qualidade evidencial da fonte por
+claim. Esta estende-o à **contribuição medida**:
+
+```text
+SOURCE_GLOBAL_SCORE = truth        PROIBIDO
+```
+
+A mesma fonte pode ser excelente para regulatório, fraca para mercado, inútil
+para campo e crítica para segurança. O máximo permitido é um resumo **derivado**
+de perfis contextuais, com os componentes visíveis e decomponíveis
+(`INT-LAW-093`).
+
+## INT-LAW-294 — Sem lineage, a contribuição é UNKNOWN
+
+Atribuir valor exige a cadeia inteira, provada:
+
+```text
+SOURCE → OBSERVATION → CLAIM/FACT → INTELLIGENCE_RUN → CROSSING
+       → SIGNAL / FINDING / OPPORTUNITY
+```
+
+Falhando um elo:
+
+```text
+CONTRIBUTION = UNKNOWN
+```
+
+E `UNKNOWN` fica `UNKNOWN`: não é zero, não é média, não se preenche por
+plausibilidade (`INT-LAW-044`). A `INT-LAW-042` já diz o resto — **estar no mesmo
+run não cria aresta**, e portanto não cria crédito.
+
+## INT-LAW-295 — CONTRADICTION CAN CREATE ANALYTIC VALUE
+
+Uma fonte que derrubou uma Opportunity errada **produziu valor**. Registam-se em
+separado, e nunca se somam num saldo:
+
+```text
+SUPPORT_VALUE         sustentou uma conclusao que se manteve
+CONTRADICTION_VALUE   impediu uma conclusao que se teria revelado errada
+```
+
+Baixar o perfil de uma fonte por ela contradizer é ensinar o sistema a preferir
+fontes concordantes — que é a definição de um sistema que deixa de aprender. A
+`INT-LAW-123` já proíbe esconder evidência contrária; esta proíbe **penalizá-la**.
+
+## INT-LAW-296 — LOW FREQUENCY ≠ LOW IMPORTANCE
+
+Taxa de mudança e importância são **dois eixos**, e um não substitui o outro.
+Uma fonte regulatória oficial que publica quatro vezes por ano não é uma fonte
+fraca: é uma fonte rara e decisiva.
+
+Categorias protegidas, cuja posição não depende do perfil:
+
+```text
+MANDATORY_SOURCE                    obrigacao legal ou de contrato
+STRATEGIC_SOURCE                    decisao humana declarada e datada
+LOW_FREQUENCY_HIGH_IMPORTANCE       raridade nao e fraqueza
+```
+
+## INT-LAW-297 — PRIORITIZATION MUST PRESERVE EXPLORATION
+
+O risco é um laço que se fecha sozinho: se só se coleta quem já provou valor,
+quem nunca foi amostrado nunca prova nada, e a ausência de prova passa a
+funcionar como prova de ausência.
+
+```text
+EXPLOITATION   aproveitar o que ja se provou util
+EXPLORATION    manter capacidade para fonte nova, pouco amostrada ou
+               estrategicamente necessaria
+```
+
+**A quota não se fixa aqui.** Escolher um número antes de haver medição seria
+inventar a medida que esta secção existe para exigir.
+
+E o motivo é mais fundo do que prudência: a observabilidade é **parcial** — só se
+descobre que uma fonte mudou indo lá. Uma fonte não amostrada não produz um
+perfil baixo; produz **nenhum perfil**. Os dois estados não se confundem:
+
+```text
+SAMPLE_SIZE = 0   →   PERFIL = UNKNOWN    (nunca «fraco»)
+```
+
+## INT-LAW-298 — HISTORICAL HIGH YIELD ≠ FUTURE GUARANTEE
+
+O perfil pondera `RECENCY`, `CHANGE_RATE`, `CURRENT_RELEVANCE` e `CONTEXT`. Uma
+fonte excelente há dois anos pode ter mudado de dono, de formato ou de conteúdo.
+
+O histórico **não se apaga** (`INT-LAW-210`): decai no peso, permanece no registo.
+
+## INT-LAW-299 — Um item contribui uma vez por capacidade, e a duplicação é visível
+
+O mesmo conteúdo a alimentar três capacidades não é três contribuições. A
+contagem é por `(SOURCE, CONTEXT, CAPABILITY)` e a sobreposição entre capacidades
+é declarada, nunca somada. É a `INT-LAW-075` — as famílias não se comprimem —
+aplicada à contagem de crédito.
+
+## 36.2 · OS OBJETOS, E POR QUE SE CHAMAM ASSIM
+
+```text
+SOURCE_ANALYTIC_CONTRIBUTION   uma aresta provada de lineage, de uma fonte ate
+                               um objeto analitico. A unidade atomica.
+SOURCE_CONTRIBUTION_PROFILE    o agregado contextual dessas arestas.
+                               (o «SOURCE_PERFORMANCE_PROFILE» do enunciado)
+SOURCE_COLLECTION_ADVICE       o que a Intelligence entrega a Collection.
+                               (o «..._PRIORITY_RECOMMENDATION» do enunciado)
+```
+
+> **Por que não «PRIORITY» no nome.** `PRIORITY` foi **aposentado como nome
+> sobrecarregado** por decisão humana datada de 2026-09-14, e as prioridades que
+> restam — `PRIORITY_TIER`, `REQUIREMENT_PRIORITY` — são da Collection, com
+> módulo e prova. Um objeto da Intelligence chamado `..._PRIORITY_...` leria-se,
+> seis meses depois, como se a Intelligence tivesse uma prioridade própria. Tem
+> um **conselho**. A palavra faz o trabalho de a lei não ter de ser relida.
+
+O perfil é sempre contextual. Nunca existe fora de um contexto:
+
+```text
+SOURCE · COUNTRY · DATA_FAMILY · CROP · ISSUE ·
+ANALYTIC_CAPABILITY · QUESTION_CLASS · TIME_WINDOW
+```
+
+## 36.3 · AS MÉTRICAS
+
+Agrupadas pelo que **medem**, porque misturar os quatro grupos é como se produz
+um número único que engana:
+
+```text
+ATIVIDADE — quanto veio (nao mede valor: INT-LAW-291)
+    COLLECTION_ATTEMPTS · COLLECTION_SUCCESS_RATE · ADMISSION_YIELD
+
+UTILIDADE ANALITICA — quanto serviu
+    USABLE_INTELLIGENCE_YIELD · UNIQUE_CLAIM_YIELD · NOVELTY_YIELD
+    DUPLICATION_RATE · CROSSING_CONTRIBUTION · TOOL_COVERAGE
+
+EFEITO NO JULGAMENTO — o que mudou por causa dela
+    INDEPENDENCE_CONTRIBUTION · SUPPORT_CONTRIBUTION
+    CONTRADICTION_CONTRIBUTION · SIGNAL_CONTRIBUTION
+    FINDING_CONTRIBUTION · OPPORTUNITY_CONTRIBUTION
+
+APTIDAO — se da para usar
+    FACT_TIME_COVERAGE · FACT_LOCATION_COVERAGE · JOIN_KEY_COMPLETENESS
+    FRESHNESS · UPDATE_FREQUENCY · LATENCY · ERROR_RATE · BLOCK_RATE
+    STABILITY · COST_PER_USEFUL_ITEM
+
+CONFIANCA NA PROPRIA MEDICAO
+    SAMPLE_SIZE · CONFIDENCE
+```
+
+**Nenhuma família é obrigada a todas.** Uma métrica que não se aplica declara-se
+`NOT_APPLICABLE`; uma que se aplica e não foi medida declara-se `NOT_MEASURED`
+(`INT-LAW-252`). As duas não são a mesma coisa, e nenhuma é zero.
+
+E os dois últimos governam todos os outros: um perfil com `SAMPLE_SIZE` de três
+itens não é um perfil fraco — é um perfil que ainda não existe.
+
+## 36.4 · O CONTRATO DE SAÍDA PARA A COLLECTION
+
+```text
+SOURCE_COLLECTION_ADVICE
+    SOURCE_ID                      da Collection, LIDO — nunca criado
+    CONTEXT                        os oito eixos de 36.2
+    EVIDENCE_WINDOW                de quando ate quando se mediu
+    CONTRIBUTION_PROFILE           o perfil, com componentes visiveis
+    SUGGESTED_DIRECTION            MORE | SAME | LESS | INVESTIGATE | UNKNOWN
+    REASON                         em texto, ligado a lineage
+    CONFIDENCE
+    SAMPLE_SIZE
+    FRESHNESS
+    EXPLORATION_STATE              NEVER_SAMPLED | UNDER_SAMPLED | ESTABLISHED
+    PROTECTED_CATEGORY             se aplicavel (INT-LAW-296)
+    GENERATED_BY_INTELLIGENCE_RUN
+    LINEAGE
+```
+
+`SUGGESTED_DIRECTION` é uma **direção**, não um número e não um lugar numa fila.
+Não existe aqui um campo com o valor final da prioridade, e a ausência é
+deliberada: um número atravessaria a fronteira e seria obedecido.
+
+O percurso, e os dois pontos onde ele **não** pode encurtar:
+
+```text
+INTELLIGENCE
+  → SOURCE_COLLECTION_ADVICE
+  → FRONTEIRA CANONICA DA COLLECTION     ← nao se salta
+  → ORQUESTRADOR DA COLLECTION           ← quem decide
+  → proxima coleta
+```
+
+```text
+INTELLIGENCE NAO altera agenda.
+INTELLIGENCE NAO chama collector.
+INTELLIGENCE NAO altera SOURCE_ID.
+INTELLIGENCE NAO assume ownership do source registry.
+```
+
+**A implementação do consumo deste conselho pela Collection fica fora desta
+Bíblia**, e fora da autorização da secção 32. Esta secção descreve o que a
+Intelligence entrega — não o que a Collection faz com isso.
+
+## 36.5 · OS CATORZE ATAQUES, E A LEI QUE BARRA CADA UM
+
+| ataque | barrado por |
+|---|---|
+| `RT-SRC-01` volume domina | `INT-LAW-292` |
+| `RT-SRC-02` fonte pequena desaparece | `INT-LAW-296` |
+| `RT-SRC-03` fonte nova nunca testada | `INT-LAW-297` |
+| `RT-SRC-04` republicação vira independência | `INT-LAW-071` · `INT-LAW-072` |
+| `RT-SRC-05` contrária é penalizada | `INT-LAW-295` |
+| `RT-SRC-06` conta em três capacidades | `INT-LAW-299` |
+| `RT-SRC-07` crédito por mesmo run | `INT-LAW-042` · `INT-LAW-294` |
+| `RT-SRC-08` bom em regulatório, bom em tudo | `INT-LAW-293` |
+| `RT-SRC-09` histórico congela | `INT-LAW-298` |
+| `RT-SRC-10` chama collector | `INT-LAW-290` · §28 |
+| `RT-SRC-11` escreve no registry | `INT-LAW-290` · §28 |
+| `RT-SRC-12` número único sem contexto | `INT-LAW-293` |
+| `RT-SRC-13` conselho lido como ordem | `INT-LAW-290` · `INT-LAW-024` |
+| `RT-SRC-14` obrigatória perde vez | `INT-LAW-296` |
+
+---
+
+# 37. AVALIAÇÃO CONTÍNUA DA INTELLIGENCE
+
+A secção 24 diz **que** se avalia e com que métricas. Esta diz **quando** e **com
+que espécie de prova**.
+
+## 37.1 · OS DOIS MOMENTOS
+
+```text
+OFFLINE EVAL   antes de mudar regra, modelo ou prompt.
+               Conjunto fixo, resposta conhecida, comparavel entre versoes.
+
+ONLINE EVAL    sobre execucoes reais, onde nao ha resposta conhecida.
+               Mede padrao, anomalia e deriva — nunca «acerto».
+```
+
+Os dois não se substituem: o offline responde «esta mudança piorou?», o online
+responde «alguma coisa mudou no mundo?».
+
+## 37.2 · O TRACE
+
+Toda execução deixa rasto com inputs, outputs, passos intermédios, versão e
+custo. É a `INT-LAW-041` — lineage é dado **mais** lógica **mais** execução —
+dita do lado da observabilidade.
+
+Sem trace não há eval possível: não se avalia o que não se consegue reconstruir.
+
+## 37.3 · FAILURE → TEST CASE
+
+```text
+CASO REAL QUE EXPOS UM ERRO  →  CASO DE REGRESSAO
+```
+
+Um defeito encontrado uma vez e não fixado num teste é um defeito que volta. Esta
+é a ponte entre o online e o offline: o online encontra, o offline passa a
+guardar.
+
+## INT-LAW-300 — A espécie da prova segue a natureza da pergunta
+
+Quatro avaliadores, e a escolha não é de gosto:
+
+```text
+DETERMINISTIC   ha resposta verificavel por regra
+                (chave atravessa? campo existe? universo declarado?)
+HUMAN           exige julgamento de dominio ou de risco
+LLM             ha escala e a resposta e textual
+PAIRWISE        pontuar em absoluto e dificil, comparar duas versoes e facil
+```
+
+## INT-LAW-301 — LLM-as-judge não é a prova por defeito, e ele próprio é avaliado
+
+Um avaliador de LLM é um mecanismo (`INT-LAW-160`), não uma autoridade. Antes de
+se confiar nele para uma classe de perguntas, mede-se a **concordância dele com
+julgamento humano** nessa classe. Um juiz não validado não valida nada.
+
+E onde existir prova determinística, é ela que manda: usar um LLM para responder
+a uma pergunta que uma regra responde é trocar uma resposta verificável por uma
+resposta plausível.
+
+## 37.4 · AS QUATRO LEIS QUE NÃO FORAM ESCRITAS
+
+O enunciado da revisão mandou avaliar onze leis candidatas. Sete entraram. Quatro
+**não**, e a razão é a mesma para as quatro: já existiam, com outro nome, e
+escrevê-las outra vez criaria o segundo dono que a `INT-LAW-000` proíbe.
+
+| candidata | já era | e diz |
+|---|---|---|
+| `DATA EXISTS != DATA WAS CONSULTED` | `INT-LAW-021` | existência de material não prova que a família foi consultada |
+| `PORTAL DOES NOT RECONSTRUCT INTELLIGENCE` | `INT-LAW-023` | Portal não reconstrói Intelligence |
+| `SOURCE VALUE IS CONTEXTUAL` | `INT-LAW-060` | qualidade da fonte é contextual — a `INT-LAW-293` **estende**, e cita |
+| `SAME RUN != CONTRIBUTION` | `INT-LAW-042` | participar do mesmo run não cria aresta |
+
+> **Uma Bíblia que cresce por acumulação deixa de ser lei e passa a ser
+> arquivo.** Recusar quatro leis é trabalho da mesma natureza que escrever sete.
 
 ---
 
@@ -1477,3 +2408,17 @@ e o estado de hoje.
 Fora dessa missão, nada: sem Intelligence Tools, sem Portal, sem UI, sem
 Opportunity, sem França, sem Espanha, sem controlador EAME. Esses continuam a
 precisar dos gates da secção 26, e nenhum deles foi aberto.
+
+**E a V0.3 não abriu nenhum.** As secções 34, 35, 36 e 37 descrevem contratos —
+capacidades, fronteira da ferramenta, performance de fonte e avaliação. Descrever
+não é autorizar:
+
+```text
+SOURCE PERFORMANCE                  NAO IMPLEMENTAR
+CONSUMO DO CONSELHO PELA COLLECTION NAO IMPLEMENTAR
+INTELLIGENCE TOOLS                  NAO IMPLEMENTAR
+PRIORIDADES REAIS DE COLETA         NAO ALTERAR
+```
+
+A fronteira desta Bíblia continua a ser exatamente uma obra, a da **secção 32**,
+e continua sujeita aos dois gates acima, que hoje estão fechados.
