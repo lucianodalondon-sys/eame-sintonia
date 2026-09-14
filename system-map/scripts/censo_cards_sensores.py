@@ -40,6 +40,8 @@ import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DADOS = os.path.join(RAIZ, "system-map", "data")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import impressao_da_arvore as IMPRESSAO          # noqa: E402
 SAIDA = os.path.join(RAIZ, "data", "derivados", "MATRIZ-CARDS-SENSORES-V1.json")
 
 
@@ -288,15 +290,37 @@ def main():
             "que ja existem. Nenhum numero e medido aqui: cada um tem dono "
             "noutro ficheiro, e este junta-os para fazer a pergunta que "
             "nenhum deles fazia sozinho."),
-        "PROVENANCE": {
-            "HEAD": head(),
-            "LIDO_DE": ["casco.generated.json", "executores.generated.json",
-                        "sources.generated.json", "fluxo.generated.json",
-                        "fronteira.observada.json",
-                        "congelamento.generated.json",
-                        "provas-de-execucao.json",
-                        "SYSTEM-MAP-COLLECTION-ISSUES.json"],
-        },
+        # ⚠️ ESTE CENSO LE OITO ARTEFATOS, E CINCO DELES SAO GERADOS POR OUTROS.
+        # A versao de um gerado e a impressao que ELE carimba; os que ainda nao
+        # carimbam nenhuma entram como `DERIVADO_SEM_CARIMBO`, com a falta
+        # declarada ficha a ficha em vez de escondida num hash que se move
+        # sozinho a cada corrida da cadeia.
+        "PROVENANCE": dict(
+            IMPRESSAO.carimbo("system-map/scripts/censo_cards_sensores.py", [
+                ("system-map/data/%s" % n, papel, "ler() · json")
+                for n, papel in (
+                    ("casco.generated.json", IMPRESSAO.GERADO),
+                    ("executores.generated.json", IMPRESSAO.GERADO),
+                    ("sources.generated.json", IMPRESSAO.GERADO),
+                    ("fluxo.generated.json", IMPRESSAO.GERADO),
+                    ("congelamento.generated.json", IMPRESSAO.GERADO),
+                    ("fronteira.observada.json", IMPRESSAO.FONTE),
+                    ("provas-de-execucao.json", IMPRESSAO.FONTE),
+                    ("SYSTEM-MAP-COLLECTION-ISSUES.json", IMPRESSAO.FONTE),
+                )]),
+            LIDO_DE=["casco.generated.json", "executores.generated.json",
+                     "sources.generated.json", "fluxo.generated.json",
+                     "fronteira.observada.json",
+                     "congelamento.generated.json",
+                     "provas-de-execucao.json",
+                     "SYSTEM-MAP-COLLECTION-ISSUES.json"],
+            INPUTS_NAO_ENUMERAVEIS=[{
+                "O_QUE": "a varredura `grep -rIl` de `quem_escreve_cada_camada()`",
+                "PORQUE": ("o conjunto de ficheiros que ela toca depende da arvore "
+                           "e nao esta escrito no codigo: nao ha lista para carimbar"),
+                "FICA_COBERTO_POR": ("SOURCE_TREE_FINGERPRINT — ela so ve ficheiros "
+                                     "de fonte, e todos entram na impressao"),
+            }]),
         "CONTAGENS": {
             "CARDS_TOTAL": len(cs),
             "CARDS_POR_ESTADO": _contar(cs, "ESTADO"),

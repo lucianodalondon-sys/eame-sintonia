@@ -51,6 +51,53 @@ import { fileURLToPath } from 'node:url';
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const RAIZ = resolve(AQUI, '..', '..');
 const CADEIA = JSON.parse(readFileSync(join(AQUI, 'CADEIA-DO-MAPA.json'), 'utf8'));
+
+/* O LEITOR DA CADEIA, DO LADO JAVASCRIPT — e ha so este.
+   O `G4` deu forma a cada passo: de `"scan_repo.py"` para
+   `{STEP_ID, EXECUTABLE, INPUTS, OUTPUTS}`. Quem corre a cadeia quer os
+   caminhos, pela ordem ESCRITA no manifesto.
+
+   Sao dois runtimes, logo sao dois leitores: este e
+   `system-map/scripts/cadeia_do_mapa.py`. UM por runtime e o minimo possivel,
+   e `test_system_map.py` prova que os dois devolvem a mesma lista.
+
+   DEPOIS DO G6 A ORDEM ESCRITA JA NAO E UMA OPINIAO: ela e igual a ordem que
+   as dependencias derivam, e o lado Python deriva-a. Aqui NAO se repete o
+   algoritmo — repetir Kahn em dois runtimes seria a segunda cadeia a voltar
+   pela porta do algoritmo. Aqui CONFERE-SE, que e outra coisa e cabe em cinco
+   linhas: para cada entrada gerada com produtor, o produtor tem de estar antes.
+
+       CONFERIR NAO E REIMPLEMENTAR. UM VERIFICADOR QUE FALHA
+       DIZ «ESTE FICHEIRO ESTA ERRADO»; UM SEGUNDO ALGORITMO
+       DIZ «EU TENHO OUTRA OPINIAO». */
+function violacoesDaOrdem() {
+  const pos = new Map(CADEIA.REGERAR.map((p, i) => [p.STEP_ID, i]));
+  return CADEIA.REGERAR.flatMap(p => (p.INPUTS || [])
+    .filter(e => e.KIND === 'GENERATED_ARTIFACT' && pos.has(e.PRODUCER)
+                 && pos.get(e.PRODUCER) >= pos.get(p.STEP_ID))
+    .map(e => `${p.STEP_ID} le ${e.PATH} de ${e.PRODUCER}, que corre depois`));
+}
+
+function executaveisDaCadeia() {
+  return CADEIA.REGERAR.map(p => p.EXECUTABLE);
+}
+
+/* E A DE VALIDAR TAMBEM. Migrar so o `REGERAR` deixou este laco a passar o
+   OBJECTO do passo ao python, e o erro saiu assim:
+
+       python3: can't open file '.../[object Object]'
+
+   O publicador apanha a falha do validador e NAO cai — de proposito, para nao
+   derrubar o portal — logo o `rc` continuou 0 e a linha dizia, no fim,
+   `SYSTEM_MAP_CHECK=FAIL`. Localmente eu cortei a linha antes dessa palavra.
+
+       UM VEREDITO QUE CABE NO FIM DA LINHA E O PRIMEIRO A SER CORTADO.
+
+   Duas listas com a mesma forma precisam do mesmo leitor: deixar uma de fora e
+   deixar a forma nova com duas interpretacoes dentro do MESMO ficheiro. */
+function executaveisDeValidar() {
+  return CADEIA.VALIDAR.map(p => p.EXECUTABLE);
+}
 const SERVIDO = join(RAIZ, 'italia-portale', 'client', 'system-map');
 const ESTADO = join(SERVIDO, 'state.generated.json');
 const ARTEFATO = join(SERVIDO, CADEIA.ARTEFATO_DE_DEPLOY);
@@ -174,8 +221,19 @@ function impressaoDoIndice() {
   if (!temGit || !LEI_DA_IMPRESSAO) return null;
   const cru = comando('git', ['ls-files', '-s']);
   if (cru === null) return null;
-  const excluido = (p) => LEI_DA_IMPRESSAO.EXCLUIDO
-    .some(e => p === e || p.startsWith(e));
+  /* AS SAIDAS DA CADEIA, DERIVADAS — nao uma lista escrita aqui nem la.
+     `EXCLUIDO` era doze caminhos a mao no manifesto, e era, palavra por palavra,
+     «as saidas da cadeia»: o mesmo que cada passo ja declara em OUTPUTS. Quando
+     o G5 trouxe treze passos para dentro, catorze ficheiros que a cadeia escreve
+     ficaram DENTRO da impressao que ela carimba.
+
+     Sao dois runtimes, logo sao duas derivacoes — mas da MESMA fonte, e
+     `test_uma_cadeia_um_dono.py` reprova se uma delas passar a saber de cor. */
+  const saidasDaCadeia = [
+    ...(CADEIA.REGERAR || []), ...(CADEIA.REGERAR_A_MAO || []),
+  ].flatMap(p => (p.OUTPUTS || []).map(s => s.PATH)).filter(Boolean);
+  const fora = [...saidasDaCadeia, ...(LEI_DA_IMPRESSAO.EXCLUIDO_EXTRA || [])];
+  const excluido = (p) => fora.some(e => p === e || p.startsWith(e));
   const linhas = [];
   for (const ln of cru.split('\n')) {
     if (!ln) continue;
@@ -217,10 +275,17 @@ if (!python) {
     + 'envia /build /data /docs /handoff /research /supabase /tests /.github para o '
     + 'contentor). Regenerar aqui daria o mapa de uma arvore mutilada. O mapa '
     + 'commitado continua a ser servido, e a frescura fica UNKNOWN em vez de verde.';
+} else if (violacoesDaOrdem().length) {
+  /* REGENERAR POR UMA ORDEM QUE CONTRADIZ AS DEPENDENCIAS DAVA UM MAPA
+     SILENCIOSAMENTE ANTIGO — cada passo leria o artefato da rodada passada e
+     nenhum deles daria erro. Melhor servir o commitado e dizer porque. */
+  porqueNaoRegenerou = 'a ordem escrita em CADEIA-DO-MAPA.json contradiz as '
+    + `dependencias declaradas: ${violacoesDaOrdem().join(' · ')}. Ver LEI_DA_ORDEM.`;
 } else {
-  nota(`a regerar pela cadeia de ${CADEIA.REGERAR.length} passos (a mesma do CI)`);
+  const passos = executaveisDaCadeia();
+  nota(`a regerar pela cadeia de ${passos.length} passos (a mesma do CI)`);
   try {
-    for (const passo of CADEIA.REGERAR) {
+    for (const passo of passos) {
       execFileSync(python, [passo], { cwd: RAIZ, stdio: 'inherit' });
     }
     regenerou = true;
@@ -233,7 +298,7 @@ if (!python) {
   if (regenerou) {
     /* O VALIDADOR NAO E OPCIONAL, mas tambem nao derruba o portal. Ele corre, e
        o veredito vai para o artefato — a tela pinta BROKEN se ele reprovar. */
-    for (const passo of CADEIA.VALIDAR) {
+    for (const passo of executaveisDeValidar()) {
       const r = spawnSync(python, [passo], { cwd: RAIZ, stdio: 'inherit' });
       check = r.status === 0 ? 'PASS' : 'FAIL';
       if (check === 'FAIL') break;

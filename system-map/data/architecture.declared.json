@@ -1770,7 +1770,9 @@
         "ENGENHARIA"
       ],
       "files": [
+        "system-map/CANONICAL-PUBLICATION.json",
         "system-map/scripts/CADEIA-DO-MAPA.json",
+        "system-map/scripts/portao_da_promocao.py",
         "system-map/scripts/publicar_no_deploy.mjs",
         "system-map/scripts/verificar_deploy.py"
       ],
@@ -3384,6 +3386,59 @@
         "opportunity"
       ],
       "icon": "⚙"
+    },
+    {
+      "id": "C-RECONCILIACAO-UNIVERSO",
+      "name": "Reconciliacao do universo do mapa",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⇄",
+      "what": "Declara cada universo que o mapa publica — regra de entrada, regra de saida, pai, arvore medida e membros — e enumera CARTAO A CARTAO em que lente cada um entra. Fecha a aritmetica do universo visual: incluidos no pente fino MAIS excluidos com motivo tem de dar exactamente o total desenhado, e nenhum cartao pode desaparecer entre duas lentes.",
+      "why_here": "Tres contagens chamavam-se «os cartoes da coleta» e contavam coisas diferentes: 65 pela FAMILIA, 48 pelo TERRITORIO, 111 pela familia mais o fecho por aresta. Nenhuma era falsa e nenhuma era comparavel, porque nenhuma declarava o proprio universo. UMA FERRAMENTA DE OBSERVABILIDADE NAO E COERENTE PORQUE CADA CENSO ESTA CERTO — E COERENTE QUANDO OS CENSOS RECONCILIAM OS PROPRIOS UNIVERSOS. Ele OBSERVA: nao move cartao de familia, nao alarga filtro nenhum e nao cria aresta.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/reconciliacao_do_universo.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-REVISAO-DA-EVIDENCIA",
+      "name": "Revisao da evidencia emprestada",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "icon": "⊢",
+      "what": "Enumera, aresta a aresta, as ligacoes tocadas por uma linha de evidencia partilhada, e diz para cada uma se a evidencia SUSTENTA a afirmacao publicada, se e AMBIGUA, ou se NAO a sustenta — sempre com o porque escrito ao lado.",
+      "why_here": "Uma linha nao prova duas afirmacoes diferentes so por estar perto das duas. Medido: 37 linhas sustentavam relacoes de tipos diferentes, em 52 arestas, e um `import apify_pool` servia de prova a tres afirmacoes de abertura de canal. Uma decisao sem porque nao e uma decisao: e uma escolha que ninguem pode discutir depois.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/revisao_da_evidencia.py"
+      ],
+      "views": [
+        "audit"
+      ]
+    },
+    {
+      "id": "C-LEITOR-DA-CADEIA",
+      "name": "Leitor da cadeia do mapa",
+      "territory": "Z-PROVA",
+      "kind": "contract",
+      "what": "Interpreta `CADEIA-DO-MAPA.json` e corre o que ele declara. O leitor devolve os passos de cada categoria, as entradas e saidas de cada um e quem produz um artefato; o corredor executa uma categoria pela ordem escrita. Nenhum dos dois guarda lista, e nenhum decide ordem.",
+      "why_here": "O G4 deu forma a cada passo — de um caminho solto para {STEP_ID, EXECUTABLE, INPUTS, OUTPUTS}. Quatro consumidores liam a lista antiga, cada um a seu modo. Um formato com quatro leitores nao e um formato: sao quatro acordos que por enquanto calham bater. Este e o leitor do lado Python; o do lado JavaScript vive no publicador, e a prova compara os dois.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "system-map/scripts/cadeia_do_mapa.py",
+        "system-map/scripts/correr_a_cadeia.py"
+      ],
+      "views": [],
+      "icon": "⌗"
     }
   ],
   "BUSINESS_EDGES": [

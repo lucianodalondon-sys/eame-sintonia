@@ -24,6 +24,101 @@ const $ = id => document.getElementById(id);
 const statusLabel = s => ({ green: 'PROVADO OPERACIONAL', yellow: 'ATENCAO / PENDENCIA',
   red: 'QUEBRADO OU AUSENTE', gray: 'NAO SEI' }[s] || s);
 
+/* OS QUATRO PLANOS SAO DA PECA TAMBEM, NAO SO DA ARESTA.
+   Esta funcao vivia dentro de `openDetail` e so era chamada para arestas. O
+   cartao da peca mostrava um rotulo unico — «PROVADO OPERACIONAL» — por cima
+   de quatro planos que ninguem via, e que em 9 pecas desta arvore dizem todos
+   NAO SEI. O comentario tres linhas abaixo ja proibia isso em palavras:
+
+       OS QUATRO PLANOS, LADO A LADO — E NUNCA UM SO ROTULO POR CIMA DELES.
+
+   A lei estava escrita e a peca estava de fora dela. Nao e regra nova: e a
+   mesma regra, aplicada a metade do mapa que a reforma nao tinha percorrido. */
+const plano = v => v === 'YES' ? 'ok' : (v === 'NO' ? 'não' : '⚪ NÃO SEI');
+
+/* ══ G7 · O PAPEL, EM PALAVRAS DE GENTE ═══════════════════════════════════
+   O gerador publica `ROLE` no vocabulario fechado da §5.1 do contrato de
+   confianca — `OPERATIONAL_STEP`, `MEASUREMENT_INSTRUMENT`, ... Esses nomes
+   sao a IDENTIDADE da classe e nao mudam; o que esta tabela faz e traduzi-los
+   para quem abre o mapa sem conhecer o contrato.
+
+       O VOCABULARIO CANONICO E O DO CONTRATO.
+       O QUE MUDA AQUI E A LINGUA, NUNCA A CLASSE.
+
+   Traduzir no gerador seria pior: o ficheiro de maquina passaria a carregar
+   portugues, e a proxima lente que o lesse teria de o destraduzir. */
+const O_QUE_E_O_PAPEL = {
+  OPERATIONAL_STEP:       ['ETAPA',        'faz trabalho no caminho do item'],
+  MEASUREMENT_INSTRUMENT: ['INSTRUMENTO',  'olha e dá nota — não muda nada'],
+  CONTRACT_OR_RULE:       ['REGRA',        'enuncia a lei que os outros consultam'],
+  STORAGE:                ['ARMAZÉM',      'guarda o que chegou; aqui nada corre'],
+  SURFACE:                ['TELA',         'é o que a pessoa abre e vê'],
+  DISPATCH_ENTRYPOINT:    ['BOTÃO',        'é por onde o trabalho começa'],
+  PROOF:                  ['PROVA',        'observa os outros e reprova a build'],
+  UNKNOWN:                ['NÃO SEI',      'nada medido nesta árvore diz o que ela é'],
+};
+const papelCurto = n => (O_QUE_E_O_PAPEL[n.ROLE] || O_QUE_E_O_PAPEL.UNKNOWN)[0];
+
+/* ══ G9 · QUEM ATIVA ESTA PEÇA ═══════════════════════════════════════════════
+   O cartão respondia «Recebe de — ninguém» a um botão que uma PESSOA carrega.
+   «Ninguém» é falso, e faz uma entrada legítima parecer uma peça órfã.
+
+       UMA ENTRADA EXTERNA NÃO É UM BURACO. Chamar-lhe buraco gasta a
+       atenção que os buracos a sério precisam.
+
+   Sete respostas, e nenhuma delas é o silêncio. A classe vem MEDIDA do
+   gerador (`ATIVACAO`); aqui só se traduz para português de gente. */
+const O_QUE_E_A_ATIVACAO = {
+  PECA_INTERNA:          ['OUTRA PEÇA MANDA',  'há peça no mapa que manda esta correr'],
+  EXTERNO_MANUAL:        ['GENTE · À MÃO',     'é um botão: só se ativa quando alguém carrega'],
+  EXTERNO_AGENDADO:      ['O RELÓGIO',         'há horário declarado — corre sozinha'],
+  EXTERNO_EVENTO:        ['UM ACONTECIMENTO',  'um evento do repositório acorda-a'],
+  CANAL_ABERTO_POR_ROTA: ['ABRE-SE POR ROTA',  'um canal não corre: é aberto por uma rota'],
+  SO_A_PROVA_A_CORRE:    ['SÓ A PROVA',        'na coleta ninguém a corre — só quem a veio medir'],
+  NAO_SE_ATIVA:          ['NÃO SE ATIVA',      'é consultada, não corre'],
+  NAO_SEI:               ['NÃO SEI',           'nada medido diz quem lhe dá a ordem'],
+};
+const ativacaoDe = n => O_QUE_E_A_ATIVACAO[(n.ATIVACAO || {}).CLASSE]
+  || O_QUE_E_A_ATIVACAO.NAO_SEI;
+
+/* ══ G8 · A CLASSE DE PROVA DE UMA ARESTA — DOS QUATRO PLANOS, NUNCA DO KIND
+   ---------------------------------------------------------------------------
+   ISTO ERA O DEFEITO, E ELE ESTAVA MEDIDO NA TELA.
+
+   A linha era escolhida assim:  `e.kind === 'expected' ? 'unknown' : ''`
+
+   `kind` tem dois valores nesta arvore: 2 arestas dizem `expected` e 657 dizem
+   `technical`. Mas `PROVEN` diz outra coisa: 612 provadas e 47 em NAO SEI.
+
+       45 ARESTAS SEM PROVA NENHUMA ERAM DESENHADAS
+       EXACTAMENTE COMO AS 612 PROVADAS.
+
+   E a dica ao lado escrevia-lhes «LIGACAO PROVADA» por cima. A §20 do contrato
+   ja proibia isto em palavras — «uma seta verde nao pode continuar a significar
+   quatro coisas» — e a tela continuava a fazer as quatro.
+
+   Agora a classe sai dos planos, na ordem em que eles se provam:
+
+       OBSERVADA   ha corrida que a atravessou            (plano OBSERVED)
+       PROVADA     ha linha de codigo que a sustenta      (plano CODE)
+       DECLARADA   uma autoridade disse que devia existir, e ninguem a provou
+       NAO SEI     nem uma coisa nem outra
+
+   DECLARED NAO VIRA CODE. CODE NAO VIRA OBSERVED. Cada degrau exige a
+   evidencia da sua propria classe — e esta funcao nunca inventa nenhum. */
+const CLASSE_DA_ARESTA = {
+  observada: ['OBSERVADA', 'uma corrida medida atravessou esta ligação'],
+  provada:   ['PROVADA',   'há ficheiro e linha de código que a sustentam'],
+  declarada: ['DECLARADA', 'alguém declarou que deveria existir — e NÃO está provada'],
+  naosei:    ['NÃO SEI',   'nenhum plano a sustenta: o mapa desenha-a e não a prova'],
+};
+const classeDaAresta = e =>
+  e.OBSERVED === 'YES' ? 'observada'
+    : e.PROVEN === 'YES' ? 'provada'
+      : e.DECLARED === 'YES' ? 'declarada'
+        : 'naosei';
+const arestaProvada = e => e.PROVEN === 'YES' || e.OBSERVED === 'YES';
+
 /* As visoes da barra lateral. Cada peca carrega as suas em `views`, vindas do
    ficheiro declarado — agrupamento visual e coisa de gente, nao de scanner. */
 const VISOES = [
@@ -114,14 +209,24 @@ function render() {
           <div class="nodeName">${esc(n.name)}</div>${
           n.nome_em_portugues && n.nome_em_portugues !== n.name
             ? `<div class="nodeAlias">${esc(n.nome_em_portugues)}</div>` : ''}
-          <div class="nodeType">${esc(n.kind)}${n.legacy ? ' · legado' : ''}${
+          <div class="nodeType"><span class="papelChip papel-${esc(n.ROLE || 'UNKNOWN')}"
+            title="${esc((O_QUE_E_O_PAPEL[n.ROLE] || O_QUE_E_O_PAPEL.UNKNOWN)[1])}"
+            >${esc(papelCurto(n))}</span>${n.legacy ? ' · legado' : ''}${
             n.pais && n.pais !== 'TRANSVERSAL' ? ' · ' + esc(n.pais) : ''}${
             n.lane === 'futuro' ? ' · projeto futuro' : ''}</div>
         </div>
         <div class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</div>
       </div>
       <div class="nodeSummary">${esc(n.what)}</div>
-      <div class="nodeFiles">${esc((n.files.length ? n.files : n.facts || [])
+      <!-- O CAMINHO TECNICO E RODAPE, E ISSO E A CORRECCAO.
+           Ele era a ultima linha do cartao com o mesmo peso do resto, e num
+           mapa inteiro de italia-portale/client/adama-relevance.js ninguem
+           consegue ver a arquitetura: ve-se uma lista de ficheiros.
+               O CAMINHO DIZ ONDE MORA. NAO DIZ O QUE E.
+           Ele continua a vista — escondido seria pior — mas atras do que a
+           pessoa esta mesmo a perguntar. -->
+      <div class="nodeFiles" title="${esc((n.files || []).join(' · '))}">${
+        esc((n.files.length ? n.files : n.facts || [])
         .slice(0, 2).join(' · ') || 'sem ficheiro')}</div>
     </div>`).join('');
 
@@ -141,12 +246,24 @@ function render() {
     const x2 = atras ? b.x + 285 : b.x, y2 = b.y + 66;
     const dx = Math.max(110, Math.abs(x2 - x1) * .42) * (atras ? -1 : 1);
     const d = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
-    const cls = e.kind === 'expected' ? 'unknown'
-      : (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken' : '';
+    // A CLASSE DE PROVA DECIDE O TRACO. Ver `classeDaAresta`: era `kind` que
+    // decidia, e `kind` nao sabe nada sobre prova — 45 arestas por provar
+    // saiam identicas as provadas.
+    const prova = classeDaAresta(e);
+    const cls = (a.ui_status === 'red' || b.ui_status === 'red') ? 'broken'
+      : (prova === 'provada' || prova === 'observada') ? '' : 'semprova';
     const cat = e.categoria || 'UNKNOWN';
-    return `<g class="dyn cat${esc(cat)}${e.desvio ? ' desvio' : ''}" data-edge="${i}" data-cat="${esc(cat)}"
+    // A MARCA NO MEIO DA CURVA — porque cor sozinha nao comunica estado.
+    // So as arestas SEM prova a levam: 47 marcas, e nao 659. Quem olha o mapa
+    // ve o buraco sem ter de distinguir dois cinzentos parecidos.
+    const meio = !arestaProvada(e)
+      ? `<circle class="semProvaMarca" cx="${(x1 + x2) / 2 + dx * .06}" cy="${
+          (y1 + y2) / 2}" r="7"></circle>`
+      : '';
+    return `<g class="dyn cat${esc(cat)} prova-${esc(prova)}${e.desvio ? ' desvio' : ''}"
+      data-edge="${i}" data-cat="${esc(cat)}" data-prova="${esc(prova)}"
       data-from="${esc(e.from)}" data-to="${esc(e.to)}">
-      <path d="${d}" class="edgePath ${cls}"></path>
+      <path d="${d}" class="edgePath ${cls}"></path>${meio}
       <path d="${d}" class="edgeHit"></path></g>`;
   }).join('');
 }
@@ -158,10 +275,21 @@ function showNodeTip(e, n) {
   tooltip.innerHTML =
     `<div class="ttName">${esc(n.name)}</div>
      <div class="ttStatus">${statusLabel(n.ui_status)}${n.legacy ? ' · LEGADO' : ''}</div>
+     <div class="ttLabel">Que papel tem</div><div class="ttText"><b>${
+       esc(papelCurto(n))}</b> — ${esc((O_QUE_E_O_PAPEL[n.ROLE]
+       || O_QUE_E_O_PAPEL.UNKNOWN)[1])}${n.ROLE_PLANE === 'CODE'
+       ? '' : n.ROLE_PLANE === 'DECLARED' ? '<br><span style="opacity:.7">só declarado,'
+         + ' não medido</span>' : ''}</div>
+     <div class="ttLabel">Quem responde por ela</div><div class="ttText">${
+       n.OWNER && n.OWNER !== 'UNKNOWN' ? esc(n.OWNER)
+         : '⚪ NÃO SEI — ninguém declarou'}</div>
      <div class="ttLabel">O que faz</div><div class="ttText">${esc(n.what)}</div>
      <div class="ttLabel">Por que está aqui</div><div class="ttText">${esc(n.why_here)}</div>
+     <div class="ttLabel">Quem ativa</div><div class="ttText"><b>${
+       esc(ativacaoDe(n)[0])}</b> — ${esc(ativacaoDe(n)[1])}</div>
      <div class="ttLabel">Recebe de</div><div class="ttText">${
-       de.length ? esc(de.slice(0, 3).join(' · ')) : '— ninguém'}</div>
+       de.length ? esc(de.slice(0, 3).join(' · '))
+         : '— nenhuma peça do mapa lhe entrega'}</div>
      ${(() => {
        /* «ENVIA PARA — ninguem» NUM CANAL E UMA MENTIRA POR OMISSAO.
           O canal nao escreve nada, e nunca escreveu: quem escreve e a acao que
@@ -217,13 +345,18 @@ const O_QUE_E_A_CATEGORIA = {
 };
 
 function showEdgeTip(e, d) {
-  const st = d.kind === 'expected' ? 'NÃO SEI — declarada, não provada' : 'LIGAÇÃO PROVADA';
+  /* «LIGACAO PROVADA» SAIA EM 657 ARESTAS, E 45 DELAS NAO TINHAM PROVA.
+     O rotulo lia `kind`, que so separa `expected` de `technical` — nunca
+     respondeu a pergunta «isto esta provado?». Agora responde a classe. */
+  const [rotProva, explicaProva] = CLASSE_DA_ARESTA[classeDaAresta(d)];
   const p = d.evidence?.[0];
   const [rotulo, explica] = O_QUE_E_A_CATEGORIA[d.categoria || 'UNKNOWN']
     || O_QUE_E_A_CATEGORIA.UNKNOWN;
   tooltip.innerHTML =
     `<div class="ttName">${esc(nodeById[d.from]?.name)} → ${esc(nodeById[d.to]?.name)}</div>
-     <div class="ttStatus">${esc(rotulo)} · ${st}</div>
+     <div class="ttStatus prova-${esc(classeDaAresta(d))}">${esc(rotulo)} · ${esc(rotProva)}</div>
+     <div class="ttLabel">Está provada?</div>
+     <div class="ttText"><b>${esc(rotProva)}</b> — ${esc(explicaProva)}</div>
      <div class="ttLabel">Que tipo de ligação é esta</div>
      <div class="ttText"><b>${esc(rotulo)}</b> — ${esc(explica)}</div>
      <div class="ttLabel">Por quê</div><div class="ttText">${esc(d.reason)}</div>
@@ -261,21 +394,41 @@ function focar(id, forcar) {
   const palco = document.getElementById('world');
   palco.classList.toggle('focando', !!id);
   if (!id) {
-    document.querySelectorAll('.node.vizinho, .node.noFoco')
-      .forEach(e => e.classList.remove('vizinho', 'noFoco'));
+    document.querySelectorAll('.node.vizinho, .node.noFoco, .node.montante, .node.jusante')
+      .forEach(e => e.classList.remove('vizinho', 'noFoco', 'montante', 'jusante'));
     document.querySelectorAll('#edgeLayer .dyn.acesa')
-      .forEach(g => g.classList.remove('acesa'));
+      .forEach(g => g.classList.remove('acesa', 'paraCima', 'paraBaixo'));
     return;
   }
-  const vizinhos = new Set([id]);
+  /* ══ G8B · QUEM ENTRA E QUEM SAI SAO DUAS PERGUNTAS ═════════════════════
+     O realce acendia os dois lados com a mesma cor, e a pergunta que a pessoa
+     esta a fazer no mapa quase nunca e «quem toca nisto?»: e «de onde vem?» ou
+     «para onde vai?». Com os dois lados iguais, seguir o caminho obrigava a ler
+     a ponta de cada seta, uma por uma.
+
+         A MONTANTE  e quem alimenta esta peca
+         A JUSANTE   e quem esta peca alimenta
+
+     Isto continua a ser SO REALCE: nao filtra, nao muda contagem, nao inventa
+     ligacao para completar um caminho. Onde nao ha seta, nao acende nada — e o
+     buraco fica exactamente tao visivel como estava. */
+  const montante = new Set(), jusante = new Set();
   document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
-    const toca = g.dataset.from === id || g.dataset.to === id;
-    g.classList.toggle('acesa', toca);
-    if (toca) vizinhos.add(g.dataset.from === id ? g.dataset.to : g.dataset.from);
+    const entra = g.dataset.to === id, sai = g.dataset.from === id;
+    g.classList.toggle('acesa', entra || sai);
+    g.classList.toggle('paraCima', entra);
+    g.classList.toggle('paraBaixo', sai);
+    if (entra) montante.add(g.dataset.from);
+    if (sai) jusante.add(g.dataset.to);
   });
   document.querySelectorAll('.node').forEach(e => {
-    e.classList.toggle('noFoco', e.dataset.id === id);
-    e.classList.toggle('vizinho', e.dataset.id !== id && vizinhos.has(e.dataset.id));
+    const i = e.dataset.id;
+    e.classList.toggle('noFoco', i === id);
+    e.classList.toggle('montante', i !== id && montante.has(i));
+    e.classList.toggle('jusante', i !== id && jusante.has(i));
+    /* uma peca pode ser as duas coisas — um ciclo e uma resposta valida, e
+       esconde-lo por ser inconveniente seria maquiar o grafo */
+    e.classList.toggle('vizinho', i !== id && (montante.has(i) || jusante.has(i)));
   });
 }
 
@@ -448,24 +601,75 @@ function openDetail(id) {
   const entra = edges.filter(e => e.to === id), sai = edges.filter(e => e.from === id);
   const negocio = (S.BUSINESS_EDGES || []).filter(b => b.from === id);
 
+  /* OS QUATRO PLANOS, LADO A LADO — e nunca um só rótulo por cima deles.
+     A seta dizia «provado por 1 linha de código» e a tela mostrava-a igual a
+     uma travessia observada. São duas coisas, e a diferença é o trabalho todo:
+
+         ANÁLISE ESTÁTICA PROVA CAN DO. SÓ TELEMETRIA PROVA DID DO.
+
+     Aqui `PROVEN` vem sempre acompanhado do PLANO em que está provado, e
+     `UNKNOWN` fica escrito como UNKNOWN — nunca arredondado para verde. */
+  const planos = e => `<div class="planos">`
+    + `DECLARED ${plano(e.DECLARED)} · CODE ${plano(e.CODE)} · `
+    + `OBSERVED ${plano(e.OBSERVED)} · PROVEN ${plano(e.PROVEN)}`
+    + (e.PROVEN_PLANE ? ` <b>(no plano ${esc(e.PROVEN_PLANE)})</b>` : '')
+    + `</div>`;
+  /* Uma linha que NÃO sustenta esta afirmação continua à vista, e rotulada —
+     escondê-la deixaria a aresta a parecer sem prova nenhuma, quando o que há
+     é prova de outra coisa. */
+  const marcaDaProva = v => v.SUPPORTS === 'YES' ? ''
+    : (v.SUPPORTS === 'AMBIGUOUS' ? ' ⚪ não decide esta afirmação'
+                                  : ' ⚪ não sustenta esta afirmação');
+  /* A LIGACAO, LIDA DE CIMA PARA BAIXO: quem é, se está provada, e só depois a
+     linha de código. A ordem antiga punha o tipo cru (`READS`, `IMPORTS`) ao
+     lado do nome, e a classe de prova em lado nenhum — quem lia via 15 ligações
+     iguais e não tinha como saber que 3 delas não eram provadas por nada. */
   const lig = (arr, dir) => arr.length ? arr.map(e => {
     const outro = nodeById[dir === 'in' ? e.from : e.to];
-    return `<div class="file"><b>${esc(outro?.name || '?')}</b> · ${esc(e.type)}<br>
-      ${esc(e.reason)}${e.evidence?.length
-        ? '<br>' + e.evidence.slice(0, 3).map(v => esc(v.file + ':' + v.line)).join('<br>')
-        : '<br>⚪ NÃO SEI — declarada, não provada'}</div>`;
-  }).join('') : '<div class="tags"><span class="tag">nenhuma ligação provada</span></div>';
+    const c = classeDaAresta(e);
+    const [rot, explica] = CLASSE_DA_ARESTA[c];
+    const [cat] = O_QUE_E_A_CATEGORIA[e.categoria || 'UNKNOWN']
+      || O_QUE_E_A_CATEGORIA.UNKNOWN;
+    return `<div class="ligacao prova-${esc(c)}">
+      <div class="ligTopo">
+        <b>${esc(outro?.name || '?')}</b>
+        <span class="provaChip prova-${esc(c)}" title="${esc(explica)}">${esc(rot)}</span>
+      </div>
+      <div class="ligComo">${esc(cat)} · ${esc(papelCurto(outro || {}))}</div>
+      <div class="ligPorque">${esc(e.reason)}</div>
+      ${planos(e)}
+      <div class="ligTec">${e.evidence?.length
+        ? e.evidence.slice(0, 3).map(v =>
+            esc(v.file + ':' + v.line) + esc(marcaDaProva(v))).join('<br>')
+        : '⚪ nenhuma linha de código sustenta esta ligação'}</div></div>`;
+  }).join('') : '<div class="tags"><span class="tag">nenhuma ligação medida</span></div>';
 
   detail.innerHTML = `
+    <!-- ══ DUAS CAMADAS, E A ORDEM E A CORRECCAO ════════════════════════════
+         A cabeca abria com o KIND em caixa alta, o nome, e logo a seguir os
+         quatro planos e o paragrafo do legado — trinta e tal palavras de
+         vocabulario de contrato antes de a pessoa saber o que a peca FAZ.
+
+             CAMADA HUMANA   o que e · para que serve · quem responde
+             CAMADA TECNICA  plano · identificador · caminho · evidencia
+
+         Nada foi escondido: os quatro planos continuam no cartao, a nota do
+         legado tambem, e o caminho tecnico tambem. O que mudou foi a ordem de
+         quem responde primeiro. -->
     <div class="detailHead">
       <button class="close" id="closeDetail" aria-label="fechar">×</button>
-      <div class="detailSub">${esc(n.kind)}${n.legacy ? ' · legado' : ''}</div>
+      <div class="detailSub"><span class="papelChip papel-${esc(n.ROLE || 'UNKNOWN')}"
+        >${esc(papelCurto(n))}</span> ${esc((O_QUE_E_O_PAPEL[n.ROLE]
+          || O_QUE_E_O_PAPEL.UNKNOWN)[1])}${n.legacy ? ' · legado' : ''}</div>
       <div class="detailTitle">${esc(n.name)}</div>${
       n.nome_em_portugues && n.nome_em_portugues !== n.name
         ? `<div style="font-size:11px;color:#8a827e;margin:-4px 0 8px">em português:
              <b style="color:#4a443f">${esc(n.nome_em_portugues)}</b> · o nome de cima
              é o que está escrito no portal</div>` : ''}
       <span class="statusPill status-${n.ui_status}">${statusLabel(n.ui_status)}</span>
+      <div class="donoLinha"><span>dono</span> <b>${esc(n.OWNER || 'UNKNOWN')}</b>
+        <i>${n.OWNER_PLANE === 'DECLARED' ? 'declarado por gente'
+             : 'ninguém declarou quem responde por isto'}</i></div>
     </div>
     <div class="detailBody">
       ${n.lane === 'futuro' ? `<div class="sec"><div class="evidence"
@@ -478,6 +682,84 @@ function openDetail(id) {
 
       <div class="sec"><h4>O que faz</h4><p>${esc(n.what)}</p></div>
       <div class="sec"><h4>Por que está aqui</h4><p>${esc(n.why_here)}</p></div>
+
+      <!-- G7 · O PAPEL, E A EVIDENCIA QUE O DECIDIU. Nunca um sem o outro:
+           um papel sem prova ao lado e um rotulo, e um rotulo é exactamente o
+           que esta missão veio substituir. -->
+      <div class="sec"><h4>Que papel esta peça tem</h4>
+        <p><b>${esc(papelCurto(n))}</b> — ${esc((O_QUE_E_O_PAPEL[n.ROLE]
+          || O_QUE_E_O_PAPEL.UNKNOWN)[1])}</p>
+        <div class="evidence" style="border-color:${n.ROLE_PLANE === 'CODE'
+          ? 'var(--adama)' : 'var(--unknown)'};background:${n.ROLE_PLANE === 'CODE'
+          ? '#edf7f1' : '#f5f4f3'}">
+          <b>${n.ROLE_PLANE === 'CODE' ? 'MEDIDO NA ÁRVORE'
+              : n.ROLE_PLANE === 'DECLARED' ? 'SÓ DECLARADO — não medido'
+              : '⚪ NÃO SEI'}</b><br>${esc(n.ROLE_EVIDENCE || '')}
+          <div class="limite">o que isto <b>não</b> prova: ${
+            esc(n.ROLE_LIMITATIONS || '')}</div></div>${
+        n.ROLE_CONFLICT ? `<div class="evidence" style="border-color:var(--warn);
+          background:#fff8e2;margin-top:8px"><b>⚠ DOIS PAPÉIS, E O MAPA NÃO ESCOLHE.</b><br>
+          a árvore mede <b>${esc(n.ROLE_CONFLICT.MEASURED)}</b>
+          (${esc(n.ROLE_CONFLICT.MEASURED_WHY)})<br>
+          a ficha declara <b>${esc(n.ROLE_CONFLICT.DECLARED)}</b>
+          (${esc(n.ROLE_CONFLICT.DECLARED_WHY)})<br>
+          <i>${esc(n.ROLE_CONFLICT.RESOLUTION)}</i></div>` : ''}
+      </div>
+
+      <!-- G9 · QUEM ATIVA. A primeira pergunta de quem olha um mapa de coleta
+           é «isto anda sozinho ou alguém tem de carregar?». O cartão não a
+           respondia em lado nenhum — e a ausência de seta lia-se como órfã. -->
+      ${(() => {
+        const a = n.ATIVACAO || {}; const [rot, exp] = ativacaoDe(n);
+        const quem = (a.QUEM || []).filter(q => q !== 'EXTERNO')
+          .map(q => nodeById[q]?.name || q);
+        const cinza = a.CLASSE === 'NAO_SEI' || a.CLASSE === 'SO_A_PROVA_A_CORRE';
+        return `<div class="sec"><h4>Quem ativa esta peça</h4>
+          <p><b>${esc(rot)}</b> — ${esc(exp)}</p>
+          ${quem.length ? `<div class="tags">${quem.map(q =>
+            `<span class="tag">${esc(q)}</span>`).join('')}</div>` : ''}
+          <div class="evidence" style="border-color:${cinza ? 'var(--warn)'
+            : 'var(--adama)'};background:${cinza ? '#fff8e2' : '#edf7f1'}">
+            ${esc(a.PORQUE || 'NÃO SEI')}
+            ${a.PLANO ? `<br><b>plano da prova: ${esc(a.PLANO)}</b>` : ''}
+            ${(a.PROVA || []).filter(Boolean).length
+              ? `<div class="limite">${(a.PROVA || []).filter(Boolean)
+                  .slice(0, 4).map(esc).join('<br>')}</div>` : ''}
+          </div></div>`;
+      })()}
+
+      <!-- G8 · O QUE ENTRA E O QUE SAI, EM FICHEIROS.
+           As setas dizem DE QUEM vem. Isto diz O QUE vem — e são perguntas
+           diferentes: uma peça pode receber de três peças e ler um ficheiro só. -->
+      <div class="sec"><h4>O que entra (${(n.consumes || []).length}) · o que sai (${
+        (n.produces || []).length})</h4>
+        <div class="entraSai">
+          <div><div class="esTit">ENTRA</div>${(n.consumes || []).length
+            ? (n.consumes || []).slice(0, 8).map(f =>
+                `<div class="file">${esc(f)}</div>`).join('')
+              + ((n.consumes || []).length > 8
+                 ? `<div class="file">… e mais ${n.consumes.length - 8}</div>` : '')
+            : '<div class="naosei">⚪ NÃO SEI — nenhuma leitura de ficheiro medida</div>'}
+          </div>
+          <div><div class="esTit">SAI</div>${(n.produces || []).length
+            ? (n.produces || []).slice(0, 8).map(f =>
+                `<div class="file">${esc(f)}</div>`).join('')
+              + ((n.produces || []).length > 8
+                 ? `<div class="file">… e mais ${n.produces.length - 8}</div>` : '')
+            : '<div class="naosei">⚪ NÃO SEI — nenhuma escrita de ficheiro medida</div>'}
+          </div>
+        </div>
+        <p style="font-size:10px;color:#8a827e;margin-top:8px">Medido por análise
+          estática: prova que o código <b>consegue</b> ler e escrever isto. Não prova
+          que leu ou escreveu numa corrida. E <b>NÃO SEI aqui não é «não escreve»</b>:
+          escrita para pasta que o git ignora não é medida.</p>${
+        n.OWNER_CONFLICT ? n.OWNER_CONFLICT.map(a => `<div class="evidence"
+          style="border-color:var(--warn);background:#fff8e2;margin-top:8px">
+          <b>⚠ DOIS DONOS PARA O MESMO ARTEFATO.</b><br>
+          <code>${esc(a.file)}</code> é escrito por ${esc(a.written_by.join(' · '))}.<br>
+          O mapa elegeu <b>${esc(a.owner_elected)}</b> por ordem alfabética — e uma
+          eleição alfabética não é um dono.</div>`).join('') : ''}
+      </div>
       <div class="sec"><h4>Motivo do estado</h4>
         <div class="evidence">${esc(n.status_reason)}</div></div>
 
@@ -499,8 +781,13 @@ function openDetail(id) {
           fonte: ${esc(b.source)} · declarado por ${esc(b.declared_by)} em ${esc(b.declared_at)}
           </div>`).join('')}</div>` : ''}
 
-      <div class="sec"><h4>Recebe de (${entra.length})</h4>${lig(entra, 'in')}</div>
-      <div class="sec"><h4>Envia para (${sai.length})</h4>${lig(sai, 'out')}</div>
+      <!-- «RECEBE DE» e «ENVIA PARA» estao certos e nao dizem onde estao no mapa.
+           A tela acende as duas pontas com cores diferentes; se o painel nao
+           usar as mesmas palavras, quem le tem de adivinhar qual cor e qual. -->
+      <div class="sec"><h4><span class="ladoSw montante"></span>A montante ·
+        quem alimenta esta peça (${entra.length})</h4>${lig(entra, 'in')}</div>
+      <div class="sec"><h4><span class="ladoSw jusante"></span>A jusante ·
+        quem esta peça alimenta (${sai.length})</h4>${lig(sai, 'out')}</div>
 
       ${n.facts?.length ? `<div class="sec"><h4>Medido</h4>${
         n.facts.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
@@ -620,6 +907,19 @@ function openDetail(id) {
         <h4>Mudou desde a última leitura humana</h4>${
         n.changed_since_declared.map(f => `<div class="file">${esc(f)}</div>`).join('')}</div>` : ''}
 
+      <!-- ══ CAMADA TECNICA ═══════════════════════════════════════════════
+           Os quatro planos e a nota do legado continuam no cartao, inteiros e
+           por rotulo proprio — a §20 do contrato exige-os «em quatro campos
+           separados», e test_quatro_planos.py reprova se eles sairem daqui.
+           O que mudou foi o SITIO: eles respondem «com que evidencia?», e essa
+           nao e a primeira pergunta de quem abre o mapa.
+
+               ESCONDER SERIA MENTIR. ABRIR COM ISTO ERA EXPULSAR. -->
+      <div class="sec tecnico"><h4>Camada técnica — os quatro planos</h4>
+        <div class="idTec">${esc(n.id)} · ${esc(n.kind)} · ${esc(n.territory)}</div>
+        ${planos(n)}
+        <div class="planoNota">${esc(n.STATUS_LEGACY_NOTA || '')}</div></div>
+
       <div class="sec"><h4>De que árvore isto foi medido</h4><p>
         repo <code>${esc(S.PROVENANCE.REPO)}</code><br>
         source branch <code>${esc(S.PROVENANCE.BRANCH)}</code><br>
@@ -646,6 +946,10 @@ function openDetail(id) {
         <code>generate_system_map.py</code> e o mapa acompanha. Nunca o contrário.</p></div>
 
       <button class="action" id="pathBtn">Mostrar caminho completo desta peça</button>
+      <p style="font-size:10px;color:#8a827e;margin-top:8px">O caminho só atravessa
+        ligações <b>provadas</b>. Onde a seta não tem prova, ele <b>para</b> — e o
+        buraco fica à vista em vez de ser costurado. Hoje isso corta o caminho em
+        ${edges.filter(e => !arestaProvada(e)).length} sítios.</p>
     </div>`;
 
   $('closeDetail').onclick = () => {
@@ -666,7 +970,12 @@ function highlightPath(id) {
   while (mudou) {
     mudou = false;
     edges.forEach(e => {
-      if (e.kind === 'expected') return;
+      /* ELE ATRAVESSAVA 45 LIGACOES POR PROVAR, E O COMENTARIO ACIMA PROIBIA-O.
+         `kind === 'expected'` apanha 2 arestas; `PROVEN !== 'YES'` apanha 47.
+         As outras 45 eram atravessadas em silencio — e cada travessia dessas
+         transforma exactamente o «talvez» em «portanto» que esta funcao diz
+         que nao faz. Agora a condicao e a prova, e nao o rotulo. */
+      if (!arestaProvada(e)) return;
       if (frente.has(e.from) && !frente.has(e.to)) { frente.add(e.to); mudou = true; }
       if (tras.has(e.to) && !tras.has(e.from)) { tras.add(e.from); mudou = true; }
     });
@@ -755,14 +1064,19 @@ function applyFilters() {
   // que naturezas de seta estao ligadas — vazio nao esconde tudo, mostra tudo
   const cats = new Set([...document.querySelectorAll('input[name=cat]:checked')]
     .map(x => x.value));
+  // A CLASSE DE PROVA E UM SEGUNDO EIXO, e nao substitui a natureza da seta.
+  // Vazio nao esconde tudo: mostra tudo — o mesmo contrato do filtro de cima.
+  const provas = new Set([...document.querySelectorAll('input[name=prova]:checked')]
+    .map(x => x.value));
   document.querySelectorAll('#edgeLayer .dyn').forEach(g => {
     const dentro = vis.has(g.dataset.from) && vis.has(g.dataset.to)
-      && (!cats.size || cats.has(g.dataset.cat || 'UNKNOWN'));
+      && (!cats.size || cats.has(g.dataset.cat || 'UNKNOWN'))
+      && (!provas.size || provas.has(g.dataset.prova || 'naosei'));
     g.style.display = dentro ? '' : 'none';
     const p = g.querySelector('.edgePath');
     p.classList.toggle('highlight',
       !!(pathSet && pathSet.has(g.dataset.from) && pathSet.has(g.dataset.to)
-         && !p.classList.contains('unknown')));
+         && (g.dataset.prova === 'provada' || g.dataset.prova === 'observada')));
   });
 
   const ligVis = edges.filter(e => vis.has(e.from) && vis.has(e.to));
@@ -770,6 +1084,12 @@ function applyFilters() {
   $('kEdges').textContent = ligVis.length;
   $('kProven').textContent = [...vis].filter(i => nodeById[i].ui_status === 'green').length;
   $('kUnknown').textContent = [...vis].filter(i => nodeById[i].ui_status === 'gray').length;
+  /* AS DUAS CONTAGENS QUE FALTAVAM, e faltavam do lado que dói.
+     A barra dizia «656 ligações» e «7 não sei» — o segundo numero e de PECAS.
+     Ninguem conseguia ler dali quantas SETAS nao tinham prova, que e a pergunta
+     que esta missao veio responder. */
+  $('kSemProva').textContent = ligVis.filter(e => !arestaProvada(e)).length;
+  $('kPapelNaoSei').textContent = [...vis].filter(i => nodeById[i].ROLE === 'UNKNOWN').length;
   mini();
 }
 
@@ -779,6 +1099,66 @@ function transform() {
   world.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
   mini();
 }
+/* ══ G8B · ABRIR NUM SITIO QUE SE CONSEGUE LER ════════════════════════════
+   O mapa abria com `fit()` sobre o mundo inteiro. Medido a 1600x1000: escala
+   0,06 — cada cartao com 17 pixeis de largura, o nome ilegivel, e o que se ve
+   sao colunas coloridas. Um mapa que abre ilegivel obriga toda a gente a fazer
+   zoom antes da primeira pergunta.
+
+       ENQUADRAR TUDO NAO E MOSTRAR TUDO.
+
+   Ele abre agora enquadrado na PRIMEIRA FAIXA — a COLETA, que e por onde a
+   arquitetura comeca — a uma escala em que o cartao se le. Nada e escondido: o
+   botao de enquadrar continua a mostrar o mundo inteiro, o zoom e o arrasto
+   continuam iguais, e nenhum cartao sai do DOM. O que muda e onde a camera
+   pousa ao abrir. */
+/* Enquadra um conjunto de cartões. Só mexe na câmara: não filtra, não conta,
+   não muda estado nenhum. O cartão tem 285x112 e é isso que a caixa soma. */
+function enquadrarCaixa(ids) {
+  const pos = ids.map(i => nodeById[i]).filter(Boolean);
+  if (!pos.length) return false;
+  const r = viewport.getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) return false;
+  const x0 = Math.min(...pos.map(n => n.x)), x1 = Math.max(...pos.map(n => n.x + 285));
+  const y0 = Math.min(...pos.map(n => n.y)), y1 = Math.max(...pos.map(n => n.y + 112));
+  const cabe = Math.min((r.width - 120) / (x1 - x0 || 1),
+                        (r.height - 120) / (y1 - y0 || 1));
+  /* ⚠️ E SE NAO COUBER LEGIVEL, NAO SE MEXE.
+     Medido: buscar «admissao» acha 7 cartoes espalhados por cinco zonas. A
+     caixa deles tem cinco mil pixeis de largura, e enquadra-la dava escala
+     0,18 — sete rectangulos ilegiveis no canto.
+
+         LEVAR A CAMERA A UM SITIO ONDE NAO SE LE NADA
+         NAO E MELHOR DO QUE NAO A LEVAR.
+
+     Quem decide o piso e o mesmo numero de `enquadrarFaixa`: 0,34 e onde o
+     nome do cartao ainda se le. Abaixo disso a camara fica onde estava, os
+     cartoes continuam acesos, e o minimapa continua a dizer onde eles sao. */
+  if (cabe < .34) return false;
+  scale = Math.min(.85, cabe);
+  tx = (r.width - (x1 - x0) * scale) / 2 - x0 * scale;
+  ty = (r.height - (y1 - y0) * scale) / 2 - y0 * scale;
+  transform();
+  return true;
+}
+
+function enquadrarFaixa(famId) {
+  const f = (S.FAMILIES || []).find(x => x.id === famId);
+  if (!f) { fit(); return; }
+  const r = viewport.getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) {
+    requestAnimationFrame(() => enquadrarFaixa(famId));
+    return;
+  }
+  // .34 e o piso em que o nome do cartao ainda se le neste tipo de letra; abaixo
+  // disso a tela volta a ser um diagrama de rectangulos.
+  scale = Math.max(.34, Math.min(1.1, Math.min((r.width - 60) / f.w,
+                                               (r.height - 60) / f.h)));
+  tx = (r.width - f.w * scale) / 2 - f.x * scale;
+  ty = 24 - f.y * scale;
+  transform();
+}
+
 function fit() {
   const r = viewport.getBoundingClientRect();
   // Se o palco ainda nao tem tamanho, `Math.min` daria escala 0 e o mapa saia
@@ -804,6 +1184,20 @@ function renderMini() {
 }
 
 /* ══ 6 · INVENTARIO — o repositorio inteiro, sem acreditar na palavra do mapa ═ */
+/* A CONTA DAS SETAS SEM PROVA — DERIVADA, e nunca escrita na casca.
+   Estava «47 de 659» à mão no HTML, e o mapa já ia em 671 arestas. Um número
+   escrito à mão numa tela é um facto a esconder-se onde nenhum validador o
+   alcança — que é exactamente o que o cabeçalho do `index.html` proíbe.
+
+       O MAPA É DERIVADO DO REPO. A CONTAGEM DELE TAMBÉM. */
+function contarSemProva() {
+  const el = $('contaSemProva'); if (!el) return;
+  const sem = edges.filter(e => !arestaProvada(e)).length;
+  const obs = edges.filter(e => e.OBSERVED === 'YES').length;
+  el.textContent = `${sem} de ${edges.length}`
+    + (obs ? ` · e ${obs} são OBSERVADAS` : '');
+}
+
 function renderInventory(q = '') {
   q = q.toLowerCase();
   $('inventoryBody').innerHTML = Object.entries(S.INVENTORY).map(([grupo, arr]) => {
@@ -896,8 +1290,25 @@ function bind() {
     workspace.classList.remove('detailOpen'); applyFilters();
   };
 
-  $('search').addEventListener('input', applyFilters);
-  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais],input[name=cat]')
+  /* ══ G8B · BUSCAR E FICAR NO MESMO SÍTIO NÃO É ENCONTRAR ══════════════
+     A busca acendia o cartão e deixava a câmara onde estava. Num mundo de
+     6700x3300, o cartão aceso podia estar fora do ecrã — e o resultado da
+     busca era um mapa aparentemente vazio.
+
+         ACHAR E NÃO MOSTRAR ONDE ESTÁ NÃO É ACHAR.
+
+     A câmara vai só quando a busca aperta o suficiente para caber (≤ 12
+     cartões). Acima disso ela ficaria a saltar a cada tecla, e enquadrar 80
+     cartões é o mesmo que não enquadrar nenhum. */
+  $('search').addEventListener('input', () => {
+    applyFilters();
+    const q = ($('search').value || '').trim();
+    if (!q) return;
+    const achados = [...document.querySelectorAll('.node.searchHit')]
+      .map(e => e.dataset.id);
+    if (achados.length && achados.length <= 12) enquadrarCaixa(achados);
+  });
+  document.querySelectorAll('input[name=dept],input[name=status],input[name=pais],input[name=cat],input[name=prova]')
     .forEach(x => x.addEventListener('change', applyFilters));
   document.querySelectorAll('.sideBtn[data-view]').forEach(b =>
     b.addEventListener('click', () => {
@@ -914,6 +1325,10 @@ function bind() {
     else { famsAtivas.add(f); b.classList.add('active'); }
     b.setAttribute('aria-pressed', famsAtivas.has(f) ? 'true' : 'false');
     pathSet = null; applyFilters();
+    /* G8B · LIGAR UMA PARTE E IR ATE LA. Ligar a faixa e deixar a camera onde
+       estava obrigava a procurar no mundo inteiro o que se acabou de escolher.
+       Com uma so ligada, a camera enquadra-a; com varias, nao adivinha. */
+    if (famsAtivas.size === 1) enquadrarFaixa([...famsAtivas][0]);
   });
 
   const modal = $('inventoryModal');
@@ -1409,8 +1824,8 @@ async function arrancar() {
       `<label class="check" title="${esc(desc)}"><input type="radio" name="dept"
         value="${esc(k)}">${esc(k.replace(/_/g, ' '))}</label>`).join('');
 
-  render(); bind(); renderMini(); applyFilters();
-  requestAnimationFrame(fit);
+  render(); bind(); renderMini(); contarSemProva(); applyFilters();
+  requestAnimationFrame(() => enquadrarFaixa((S.FAMILIES || [])[0]?.id));
 
   const alvo = location.hash.slice(1);
   if (alvo && nodeById[alvo]) openDetail(alvo);

@@ -26,6 +26,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
 import impressao_da_arvore as IMP  # noqa: E402
+import cadeia_do_mapa as CAD  # noqa: E402
 
 CADEIA = json.loads((RAIZ / "system-map" / "scripts" / "CADEIA-DO-MAPA.json")
                     .read_text(encoding="utf-8"))
@@ -88,7 +89,7 @@ prova("nenhum_ficheiro_rastreado_falta_ao_disco", not ausentes,
 # da alarme falso; excluir de MAIS da verde falso, e verde falso e o unico erro
 # que esta lei nao pode cometer.
 r = clone()
-for passo in CADEIA["REGERAR"]:
+for passo in CAD.executaveis():
     x = correr([sys.executable, passo], cwd=str(r))
     if x.returncode != 0:
         prova(f"a_cadeia_corre_no_clone[{passo}]", False, x.stderr[-300:])
@@ -101,13 +102,27 @@ else:
     fora = {m for m in mexidos if not IMP.excluido(m)}
     prova("a_cadeia_nao_escreve_fora_da_lista_de_exclusao", not fora,
           f"escreveu fora: {sorted(fora)[:6]}")
-    # E o contrario: nome na lista que ninguem escreve e exclusao a mais.
-    inuteis = [e for e in LEI["EXCLUIDO"]
+    # E o contrario: nome excluido que ninguem escreve e exclusao a mais.
+    # A lista DERIVA das OUTPUTS declaradas desde o `G5`, logo esta metade
+    # protege-se sozinha — o que continua a precisar de guarda e o EXCLUIDO_EXTRA,
+    # que e escrito a mao e por isso pode envelhecer.
+    #
+    #     O QUE DERIVA CORRIGE-SE SOZINHO. O QUE FICA A MAO PRECISA DE GUARDA.
+    inuteis = [e for e in LEI.get("EXCLUIDO_EXTRA", [])
                if not any(m == e or m.startswith(e) for m in mexidos)
                and not any(str(p.relative_to(r)).startswith(e)
                            for p in r.rglob("*") if p.is_file())]
     prova("nenhum_nome_excluido_sem_ninguem_o_escrever", not inuteis,
           f"exclusao a mais: {inuteis}")
+    # E a lista derivada tem de cobrir mesmo tudo o que a cadeia escreve — se
+    # um passo entrar no manifesto e a exclusao nao o seguir, a impressao volta
+    # a mover-se a cada corrida e as duas passagens voltam com ela.
+    import cadeia_do_mapa as _CAD
+    _saidas = {s["PATH"] for x in _CAD.passos() + _CAD.passos_a_mao()
+               for s in _CAD.saidas(x)}
+    prova("a_exclusao_deriva_e_cobre_todas_as_saidas_declaradas",
+          all(IMP.excluido(x) for x in _saidas),
+          sorted(x for x in _saidas if not IMP.excluido(x))[:5])
 
 # ── 3 · GUARDAR O MAPA REGERADO NAO MOVE A IMPRESSAO ─────────────────────────
 # Este e o defeito que a impressao veio fechar: o carimbo do commit anterior. Se
