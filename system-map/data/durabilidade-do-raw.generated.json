@@ -1,0 +1,1310 @@
+{
+ "O_QUE_ISTO_E": "A durabilidade REAL de cada observacao do livro italiano, medida contra os bytes que esta arvore tem.",
+ "COMO_REFAZER": "python3 provas/o_raw_local_nao_e_duravel.py",
+ "A_LEI": "LOCAL PATH != REMOTE DURABILITY",
+ "OBSERVACOES_NO_LIVRO": 171,
+ "DURAVEL_NESTA_ARVORE": 10,
+ "LOCAL_ONLY": 25,
+ "MISSING": 0,
+ "RECOVERABLE": 34,
+ "UNKNOWN": 102,
+ "O_QUE_ISTO_NAO_FAZ": "nao conserta caminho, nao copia bytes, nao fabrica storage_object e nao altera RAW_OBSERVATION_ID. Uma observacao local-only continua a ser local-only; o que ela deixa de fazer e parecer duravel.",
+ "BLOQUEIA_O_CANARIO": "NAO — as local-only sao legado e nenhuma participa da corrida que chegou a Sala",
+ "DETALHE": {
+  "LOCAL_ONLY": [
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "fada7ecad0d8e3f2bad34832ad62758ca8c54a30d28f071b8867789f30593dec",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z02_20260902153103/v1_fada7ecad0d8/agro_02.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c8220b38fdc32ea5b2ba845612236833554f7c92481ff9143c039461bc00092",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z03_20260902153017/v1_0c8220b38fdc/agro_03.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "15d18b5eb8477afc58573544f44be1ed0de15aeb8e2b71735ae37bfdf2211d56",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z04_20260902152944/v1_15d18b5eb847/agro_04.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "7256587ed3c045bb168751cee651659810e1c8c0286cd0837a6f62d1b56d2019",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z05_20260902152915/v1_7256587ed3c0/agro_05.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0d1bcd2100f894b00db305e9cc68d5a9c36ef51bb3c1657f05d4c1d355ed12cd",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z06_20260902152836/v1_0d1bcd2100f8/agro_06.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f7fd2cab957e2586fcb663a6b539fda9d23514a700cfcb30ff5bcd632ad65548",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z07_20260902152757/v1_f7fd2cab957e/agro_07.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "534939dc9ba6badf6cd5ba44bedec9ad00533e4b488c9bfd7450bc7375fafe3a",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z08_20260902152718/v1_534939dc9ba6/agro_08.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "9b01b927d9ebfac576f51a5cde6ee84635d1816ecc695cf72a272349050b513e",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z10_20260902152449/v1_9b01b927d9eb/agro_10.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e9f775fbb0cd0adbc07aabb68f53af652a0e2ccd6d017d79e901a27916b8fc10",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z11_20260902152413/v1_e9f775fbb0cd/agro_11.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "ba868ea38217b51d5122aed4903e3dedbcf0ff706c2d511b5963ca50377b8155",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z12_20260902152323/v1_ba868ea38217/agro_12.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c9907931cad6125ff54de87e3d579c6e3557c121f7cb83b9fddb7409ad8497a",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z13_20260902152257/v1_0c9907931cad/agro_13.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "b31bc074c90d432f72ae028e70f15646b4d655209176160192db8211e54887ac",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z14_20260902152221/v1_b31bc074c90d/agro_14.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "1229a5ab5a3d617f580d08d245071669badc2874bff6cb63bbf5f237c807d100",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z15_20260902152144/v1_1229a5ab5a3d/agro_15.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "75ce7df5ae6c00af0c81f279f87f3d2e84b08869ee0b5d575f610b19f4c8863b",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z20_20260903160850/v1_75ce7df5ae6c/agro_20.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "eef27fe6fdd9a7e4f9d486f18579e97006a1aa87db465ef9d2c10696ac3af4d6",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z21_20260903160823/v1_eef27fe6fdd9/agro_21.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0552fb0d857038a4a3f65aebc4ab386f03720a72d04a3f86aaef3eab91df5d35",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z22_20260903160519/v1_0552fb0d8570/agro_22.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "c00317afc77f94f23993570f381c8b793699590cd2c521b69c00fbcef8fa46e3",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z23_20260902152120/v1_c00317afc77f/agro_23.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d08f6f5310051eccc78b0952e5193d3f6fb84c68a6db37d879b3016963a12011",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z25_20260903160500/v1_d08f6f531005/agro_25.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0cce17f14e2f43d0102d703394bc2c8ad5dc4b181ad7a540101b196f52329f5c",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z26_20260903160444/v1_0cce17f14e2f/agro_26.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e8ff5cb53ade5308b74a62047119cdf103b0489ccda5ca4b5e98267ee39cad79",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z27_20260903160426/v1_e8ff5cb53ade/agro_27.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d07e66dc11297cc2fceab3c288e3b44d13e3f1f5cbe9f11fa8f190750d404be4",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z28_20260903160405/v1_d07e66dc1129/agro_28.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "36bf70fc3260805424f6a2f2cc5a5d4fb361ddbda1a7fbf957a32e4203ebf8a3",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z29_20260903160146/v1_36bf70fc3260/agro_29.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0fb4e970f5ea8422a97d00e84feac98b0272a1ec90ac35688be3c53ef4753af6",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z30_20260903160132/v1_0fb4e970f5ea/agro_30.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "5134dbcbcf035c202f5c8ccdb13a99d2abc87714a85f23b8e25b5dfeb370fa7c",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z31_20260903160054/v1_5134dbcbcf03/agro_31.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "47b727c9b753174f556b2f9bc71ccb5a8282ec9874c11e6158b660737529aba3",
+    "RAW_PATH": "C:/eame-sintonia-ops/data/collection-store/italy/IT-T2-002/ARPAV_Z32_20260903160019/v1_47b727c9b753/agro_32.pdf",
+    "RAW_OBJECT_CREATED": true,
+    "PORQUE": "o caminho e absoluto e de outra maquina: os bytes podem existir LA, e daqui nao se alcancam nem se conferem"
+   }
+  ],
+  "MISSING": [],
+  "RECOVERABLE": [
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T3-005",
+    "RAW_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T2-004",
+    "RAW_SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T3-002",
+    "RAW_SHA256": "0c2723e66201f9668d0c2493f9c85d6f0b4843c2a5059fe9a4f9dc2acecb70c5",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-002/CAMPANIA_SA_02-09-2026/v1_0c2723e66201/SA-02-09.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": "59da05274359eff6f796fe774228b9e9294f1ee2e56a30b628b8e22d96b0aecc",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-010/APOL_2026_N9_BR-COLLINA/v1_59da05274359/Bollettino_Mosca_dellOlivo_n_9_del_07_09_2026.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T3-008",
+    "RAW_SHA256": "e612807928b5ada942482707a04e24e6b0099270b3426b927651d3fc3a628859",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-008/ARIF_SETTIMANALE_2026_N36/v1_e612807928b5/Notiziario_Agrometeorologico_N36_02-09-2026.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907153844_ce49c0",
+    "SOURCE_ID": "IT-T4-001",
+    "RAW_SHA256": "9cd4d156369facf186b40727d96ef5253b3aef93e9e08deae8ac8082c1de5a48",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T4-001/MINSALUTE_FTS6_20260907/v1_9cd4d156369f/PROD_FTS_6_20260907.csv"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T3-005",
+    "RAW_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907155832_cf7519",
+    "SOURCE_ID": "IT-T2-004",
+    "RAW_SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T3-005",
+    "RAW_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-004",
+    "RAW_SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T3-005",
+    "RAW_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-004",
+    "RAW_SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T3-005",
+    "RAW_SHA256": "2e488a8232ba980fa46f7dbca28478fdac0e30e4440d9675823c5f3479d2d122",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T3-005/TERRETRURIA_31-08-2026_06-09-2026/v1_2e488a8232ba/monitoraggio.html"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f88c89d73d6a132a1c1ec6e87aadd893dd1f1028425dcf0fc4ffb37ab29170af",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z01_20260903160930/v1_f88c89d73d6a/agro_01.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "3d3c1bc0e96332e8e6d7d88752420dda2199169d7fc05a64f1c82f116c25f029",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z09_20260902152638/v1_3d3c1bc0e963/agro_09.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "8c13500d43502e64f85ab9480c0e2d202f2c172174950f3e34f537fa0367c735",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z16_20260903160912/v1_8c13500d4350/agro_16.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0be2d204c98ad1b169252eaee2860e84555d1ddf1ed254ec1dc7eae37befaffc",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-002/ARPAV_Z24_20260902152048/v1_0be2d204c98a/agro_24.pdf"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-004",
+    "RAW_SHA256": "6c71cc19127283da8ffc3b45ae50956a6c8ab383e20fd247689825f5c3345635",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "nao declara caminho, mas o conteudo com este sha256 existe no armazem desta arvore: data/collection-store/italy/IT-T2-004/SIAS_PRECIPITAZIONE_GIORNALIERA_WINDOW_END_2026-09-05/v1_6c71cc191272/NHEOWL0530_00.html"
+   }
+  ],
+  "UNKNOWN": [
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "fada7ecad0d8e3f2bad34832ad62758ca8c54a30d28f071b8867789f30593dec",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c8220b38fdc32ea5b2ba845612236833554f7c92481ff9143c039461bc00092",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "15d18b5eb8477afc58573544f44be1ed0de15aeb8e2b71735ae37bfdf2211d56",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "7256587ed3c045bb168751cee651659810e1c8c0286cd0837a6f62d1b56d2019",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0d1bcd2100f894b00db305e9cc68d5a9c36ef51bb3c1657f05d4c1d355ed12cd",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f7fd2cab957e2586fcb663a6b539fda9d23514a700cfcb30ff5bcd632ad65548",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "534939dc9ba6badf6cd5ba44bedec9ad00533e4b488c9bfd7450bc7375fafe3a",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "9b01b927d9ebfac576f51a5cde6ee84635d1816ecc695cf72a272349050b513e",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e9f775fbb0cd0adbc07aabb68f53af652a0e2ccd6d017d79e901a27916b8fc10",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "ba868ea38217b51d5122aed4903e3dedbcf0ff706c2d511b5963ca50377b8155",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c9907931cad6125ff54de87e3d579c6e3557c121f7cb83b9fddb7409ad8497a",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "b31bc074c90d432f72ae028e70f15646b4d655209176160192db8211e54887ac",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "1229a5ab5a3d617f580d08d245071669badc2874bff6cb63bbf5f237c807d100",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "75ce7df5ae6c00af0c81f279f87f3d2e84b08869ee0b5d575f610b19f4c8863b",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "eef27fe6fdd9a7e4f9d486f18579e97006a1aa87db465ef9d2c10696ac3af4d6",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0552fb0d857038a4a3f65aebc4ab386f03720a72d04a3f86aaef3eab91df5d35",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "c00317afc77f94f23993570f381c8b793699590cd2c521b69c00fbcef8fa46e3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d08f6f5310051eccc78b0952e5193d3f6fb84c68a6db37d879b3016963a12011",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0cce17f14e2f43d0102d703394bc2c8ad5dc4b181ad7a540101b196f52329f5c",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e8ff5cb53ade5308b74a62047119cdf103b0489ccda5ca4b5e98267ee39cad79",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d07e66dc11297cc2fceab3c288e3b44d13e3f1f5cbe9f11fa8f190750d404be4",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "36bf70fc3260805424f6a2f2cc5a5d4fb361ddbda1a7fbf957a32e4203ebf8a3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0fb4e970f5ea8422a97d00e84feac98b0272a1ec90ac35688be3c53ef4753af6",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "5134dbcbcf035c202f5c8ccdb13a99d2abc87714a85f23b8e25b5dfeb370fa7c",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160005_dc7570",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "47b727c9b753174f556b2f9bc71ccb5a8282ec9874c11e6158b660737529aba3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "fada7ecad0d8e3f2bad34832ad62758ca8c54a30d28f071b8867789f30593dec",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c8220b38fdc32ea5b2ba845612236833554f7c92481ff9143c039461bc00092",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "15d18b5eb8477afc58573544f44be1ed0de15aeb8e2b71735ae37bfdf2211d56",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "7256587ed3c045bb168751cee651659810e1c8c0286cd0837a6f62d1b56d2019",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0d1bcd2100f894b00db305e9cc68d5a9c36ef51bb3c1657f05d4c1d355ed12cd",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f7fd2cab957e2586fcb663a6b539fda9d23514a700cfcb30ff5bcd632ad65548",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "534939dc9ba6badf6cd5ba44bedec9ad00533e4b488c9bfd7450bc7375fafe3a",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "9b01b927d9ebfac576f51a5cde6ee84635d1816ecc695cf72a272349050b513e",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e9f775fbb0cd0adbc07aabb68f53af652a0e2ccd6d017d79e901a27916b8fc10",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "ba868ea38217b51d5122aed4903e3dedbcf0ff706c2d511b5963ca50377b8155",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c9907931cad6125ff54de87e3d579c6e3557c121f7cb83b9fddb7409ad8497a",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "b31bc074c90d432f72ae028e70f15646b4d655209176160192db8211e54887ac",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "1229a5ab5a3d617f580d08d245071669badc2874bff6cb63bbf5f237c807d100",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "75ce7df5ae6c00af0c81f279f87f3d2e84b08869ee0b5d575f610b19f4c8863b",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "eef27fe6fdd9a7e4f9d486f18579e97006a1aa87db465ef9d2c10696ac3af4d6",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0552fb0d857038a4a3f65aebc4ab386f03720a72d04a3f86aaef3eab91df5d35",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "c00317afc77f94f23993570f381c8b793699590cd2c521b69c00fbcef8fa46e3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d08f6f5310051eccc78b0952e5193d3f6fb84c68a6db37d879b3016963a12011",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0cce17f14e2f43d0102d703394bc2c8ad5dc4b181ad7a540101b196f52329f5c",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e8ff5cb53ade5308b74a62047119cdf103b0489ccda5ca4b5e98267ee39cad79",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d07e66dc11297cc2fceab3c288e3b44d13e3f1f5cbe9f11fa8f190750d404be4",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "36bf70fc3260805424f6a2f2cc5a5d4fb361ddbda1a7fbf957a32e4203ebf8a3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0fb4e970f5ea8422a97d00e84feac98b0272a1ec90ac35688be3c53ef4753af6",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "5134dbcbcf035c202f5c8ccdb13a99d2abc87714a85f23b8e25b5dfeb370fa7c",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907160230_41b185",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "47b727c9b753174f556b2f9bc71ccb5a8282ec9874c11e6158b660737529aba3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "fada7ecad0d8e3f2bad34832ad62758ca8c54a30d28f071b8867789f30593dec",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c8220b38fdc32ea5b2ba845612236833554f7c92481ff9143c039461bc00092",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "15d18b5eb8477afc58573544f44be1ed0de15aeb8e2b71735ae37bfdf2211d56",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "7256587ed3c045bb168751cee651659810e1c8c0286cd0837a6f62d1b56d2019",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0d1bcd2100f894b00db305e9cc68d5a9c36ef51bb3c1657f05d4c1d355ed12cd",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "f7fd2cab957e2586fcb663a6b539fda9d23514a700cfcb30ff5bcd632ad65548",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "534939dc9ba6badf6cd5ba44bedec9ad00533e4b488c9bfd7450bc7375fafe3a",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "9b01b927d9ebfac576f51a5cde6ee84635d1816ecc695cf72a272349050b513e",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e9f775fbb0cd0adbc07aabb68f53af652a0e2ccd6d017d79e901a27916b8fc10",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "ba868ea38217b51d5122aed4903e3dedbcf0ff706c2d511b5963ca50377b8155",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0c9907931cad6125ff54de87e3d579c6e3557c121f7cb83b9fddb7409ad8497a",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "b31bc074c90d432f72ae028e70f15646b4d655209176160192db8211e54887ac",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "1229a5ab5a3d617f580d08d245071669badc2874bff6cb63bbf5f237c807d100",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "75ce7df5ae6c00af0c81f279f87f3d2e84b08869ee0b5d575f610b19f4c8863b",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "eef27fe6fdd9a7e4f9d486f18579e97006a1aa87db465ef9d2c10696ac3af4d6",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0552fb0d857038a4a3f65aebc4ab386f03720a72d04a3f86aaef3eab91df5d35",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "c00317afc77f94f23993570f381c8b793699590cd2c521b69c00fbcef8fa46e3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d08f6f5310051eccc78b0952e5193d3f6fb84c68a6db37d879b3016963a12011",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0cce17f14e2f43d0102d703394bc2c8ad5dc4b181ad7a540101b196f52329f5c",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "e8ff5cb53ade5308b74a62047119cdf103b0489ccda5ca4b5e98267ee39cad79",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "d07e66dc11297cc2fceab3c288e3b44d13e3f1f5cbe9f11fa8f190750d404be4",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "36bf70fc3260805424f6a2f2cc5a5d4fb361ddbda1a7fbf957a32e4203ebf8a3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "0fb4e970f5ea8422a97d00e84feac98b0272a1ec90ac35688be3c53ef4753af6",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "5134dbcbcf035c202f5c8ccdb13a99d2abc87714a85f23b8e25b5dfeb370fa7c",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "PILOT_RUN_20260907161006_3c63c6",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": "47b727c9b753174f556b2f9bc71ccb5a8282ec9874c11e6158b660737529aba3",
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": false,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155903-f49139dc61b15b9c",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155903-f49139dc61b15b9c",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155903-f49139dc61b15b9c",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155903-f49139dc61b15b9c",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155930-811295b5522b7f00",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155930-811295b5522b7f00",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155930-811295b5522b7f00",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-155930-811295b5522b7f00",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-160038-285228d1584ea124",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-160038-285228d1584ea124",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-160038-285228d1584ea124",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T2-2026-09-14-160038-285228d1584ea124",
+    "SOURCE_ID": "IT-T2-002",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160206-d157d76ef0904580",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160321-b41d06fe081aa619",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160344-0fd946b67e18d827",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160425-f2a6c791694b2b75",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160436-f6f7f036a726caee",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160443-b9c168829127d4b9",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160507-b55386e79a0a87c7",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160521-db9b9625474ddbb6",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160637-8f4c8f86b3bab180",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160649-df939c5e836ed0a5",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160720-c76623d8df6cd952",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-160939-5d421e443c084078",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-161019-bf0ec39263bb6ebf",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-161211-a790fc937a6ff558",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-161319-d25cb43412039d3c",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   }
+  ]
+ }
+}

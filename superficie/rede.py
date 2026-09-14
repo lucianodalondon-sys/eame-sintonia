@@ -50,9 +50,30 @@ import subprocess
 import sys
 
 # Host -> (URL de teste barata, para que serve na coleta espanhola)
+# ⚠️ «ALCANCA O HOST» NAO E «A ROTA ESTA ABERTA», e a distincao passou a ter
+# nome depois de uma medicao: em 2026-09-14 a prova de fogo da Collection pediu
+# obras ao OpenAlex dezassete vezes e recebeu, com HTTP 200,
+#
+#     {"error":"Rate limit exceeded",
+#      "message":"Insufficient budget. This request costs $0.001
+#                 but you only have $0 remaining."}
+#
+# Isso nao e reputacao de IP nem bloqueio de rede: e MODELO DE NEGOCIO da
+# plataforma. Um portao que so pergunta «o host responde?» diria PASS e mandaria
+# o coletor gastar a sessao contra uma porta fechada por dinheiro.
+#
+#     HOST_ALCANCAVEL != ROTA_GRATUITA != QUOTA_DISPONIVEL.
+#
+# A descricao abaixo deixa de dizer «rota gratuita, sem chave» — que era uma
+# afirmacao sobre o MODELO, feita por um portao que so mede REDE. O estado real
+# da capacidade vive em `system-map/data/capacidade-openalex.generated.json`,
+# escrito por `provas/a_rota_gratuita_ainda_e_gratuita.py`, que e quem tem o
+# direito de responder a essa pergunta — e que responde `NAO SEI` quando o
+# ambiente nao o deixa medir.
 HOSTS = [
     ('api.openalex.org', 'https://api.openalex.org/works?per-page=1',
-     'ciência e pesquisadores (ES-T5-002) — rota gratuita, sem chave'),
+     'ciência e pesquisadores (ES-T5-002) — SEM CHAVE. Se a rota continua '
+     'GRATUITA e outra pergunta, e nao e esta: ver capacidade-openalex'),
     ('pub.orcid.org', 'https://pub.orcid.org/v3.0/0000-0002-1153-2809/person',
      'identidade que atravessa camadas; fecha FRAGMENTAÇÃO e é o que falta em SCIENCE→VOICE'),
     ('api.ror.org', 'https://api.ror.org/organizations?query=cordoba',

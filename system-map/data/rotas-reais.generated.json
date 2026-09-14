@@ -1,0 +1,49 @@
+{
+ "O_QUE_ISTO_E": "Se as rotas de video e social EXISTEM de facto — nao se estao declaradas.",
+ "COMO_REFAZER": "python3 provas/o_video_tem_consumidor.py",
+ "A_LEI": "FILE_WRITTEN != FLOW_EXISTS · BOTAO EXISTE != ROTA EXISTE",
+ "MEDIDO": {
+  "VIDEO_LARGA_EM_DECLARADO": {
+   "VALOR": "YES",
+   "PORQUE": "a receita de `comunicacao-publica` nomeia data/samples/REEL-TRANSCRICOES em `larga_em`"
+  },
+  "VIDEO_NO_RETORNO": {
+   "VALOR": "NO",
+   "PORQUE": "nenhum dos 6 alvos declarados em `retorno` esta em REEL-TRANSCRICOES"
+  },
+  "VIDEO_ESPECIE_ATRAVESSA": {
+   "VALOR": "NO",
+   "PORQUE": "as especies declaradas sao ['CATALOG', 'PLAN', 'RUN_RECEIPT'], e so ('COLHEITA',) atravessa a porta"
+  },
+  "VIDEO_OUTPUT_HAS_CONSUMER": {
+   "VALOR": "NO",
+   "PORQUE": "o ficheiro e escrito e NINGUEM o le como colheita: `larga_em` diz onde, e o orquestrador le `retorno`"
+  },
+  "VIDEO_BYTES_NESTA_ARVORE": {
+   "VALOR": "0",
+   "PORQUE": "sem bytes e sem rede, a aquisicao de video nao e exercitavel aqui"
+  },
+  "SCRAP_SOCIAL_CODE_PRESENT": {
+   "VALOR": "YES",
+   "PORQUE": "os tres coletores que `.github/workflows/scrap-social.yml` invoca existem nesta arvore"
+  },
+  "SOCIAL_ROTA_CANONICA": {
+   "VALOR": "YES",
+   "PORQUE": "`scrap-colheita` recebe a corrida do orquestrador e devolve ENVELOPE — a especie que atravessa"
+  },
+  "EGRESSO": {
+   "VALOR": "BLOCKED",
+   "PORQUE": "a politica desta sessao responde 403 CONNECT a todos os hospedeiros externos medidos (eur-lex, arpa.veneto, youtube, openalex, orcid, crossref, ipinfo). Isto e o AMBIENTE, e nao uma fonte morta."
+  },
+  "SOCIAL_TO_WAITING_ROOM": {
+   "VALOR": "BLOCKED_BY_REAL_EXTERNAL_CONDITION",
+   "PORQUE": "sem egresso nao ha janela publica para observar"
+  },
+  "VIDEO_TO_WAITING_ROOM": {
+   "VALOR": "BLOCKED_BY_REAL_EXTERNAL_CONDITION",
+   "PORQUE": "sem bytes de video nesta arvore e sem egresso, e sem consumidor declarado do lado de la"
+  }
+ },
+ "O_BLOQUEIO_EXACTO_DO_VIDEO": "`ferramentas/reel_transcricao.py` escreve em `data/samples/REEL-TRANSCRICOES`; `pedido/receitas.py` nomeia essa pasta em `larga_em`; e o `retorno` do mesmo executor declara SEIS ficheiros, NENHUM deles nessa pasta, e todos da especie LEGADO — que `leis/retorno_da_coleta.ENTRAM_NO_INGRESSO` nao deixa atravessar. O ficheiro e escrito e ninguem o le como colheita.",
+ "O_QUE_FALTA_PARA_O_VIDEO_ATRAVESSAR": "o dono da transcricao declarar um ENVELOPE com unidades de especie COLHEITA, e a receita nomear esse envelope em `retorno`. NAO foi escrito aqui de proposito: sem bytes de video e sem egresso, seria encanamento por exercitar — CAN DO != DID DO, que e o defeito que esta missao veio fechar e nao repetir."
+}

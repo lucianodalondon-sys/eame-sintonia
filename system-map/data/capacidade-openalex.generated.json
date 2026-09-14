@@ -1,0 +1,28 @@
+{
+ "O_QUE_ISTO_E": "O estado REAL da rota OpenAlex, medido nesta sessao — ou `NAO SEI` quando o ambiente nao deixa medir.",
+ "COMO_REFAZER": "python3 provas/a_rota_gratuita_ainda_e_gratuita.py",
+ "MEDIDO_EM": "2026-09-14T16:19:15Z",
+ "OPENALEX_CAPABILITY": "NAO SEI",
+ "PORQUE": "nao se chegou ao host: curl: (56) CONNECT tunnel failed, response 403. Isto e o AMBIENTE desta sessao, e nao uma resposta da plataforma.",
+ "CORPO_DA_RESPOSTA": "",
+ "ULTIMA_MEDICAO_CONHECIDA": {
+  "QUANDO": "2026-09-14",
+  "QUEM": "prova de fogo da Collection (claude/gifted-shannon-8u9l78)",
+  "O_QUE_MEDIU": "17 pedidos a api.openalex.org/works devolveram HTTP 200 com corpo `Insufficient budget ... you only have $0 remaining`",
+  "ESTADO": "PAGA_OU_SEM_ORCAMENTO",
+  "ONDE_NAO_SE_APLICA": "esta e uma medicao DE OUTRA SESSAO. Ela nao prova o estado de hoje, e nao e o veredicto deste ficheiro."
+ },
+ "A_LEI": "HOST_ALCANCAVEL != ROTA_GRATUITA != QUOTA_DISPONIVEL",
+ "ALTERNATIVAS": {
+  "ORCID": {
+   "WHAT_CAPABILITY_IT_REPLACES": "a IDENTIDADE declarada pela propria pessoa: pagina oficial, afiliacao, e a lista de obras que ela mesma registou.",
+   "WHAT_CAPABILITY_IT_DOES_NOT_REPLACE": "o INDICE. O OpenAlex indexa a obra publicada com data, tipo, veiculo e DOI, e devolve a autoria obra a obra — inclusive de quem nunca preencheu um perfil. O ORCID so sabe o que a pessoa declarou: quem nao registou, nao existe la. Trocar um pelo outro encolhe o corpus e o encolhimento nao aparece em lado nenhum."
+  },
+  "CROSSREF": {
+   "WHAT_CAPABILITY_IT_REPLACES": "o registo bibliografico do DOI: titulo, veiculo, data de publicacao e a lista de autores como o editor a depositou.",
+   "WHAT_CAPABILITY_IT_DOES_NOT_REPLACE": "a DESAMBIGUACAO de autor e o topico. O Crossref nao tem id canonico de pessoa nem classificacao de assunto, e foi exactamente a desambiguacao que esta casa ja viu falhar uma vez (o `Nikolaos Papadopoulos` com 58 organizacoes). Sem ela, «as obras desta pessoa» volta a ser um palpite."
+  }
+ },
+ "O_QUE_NAO_SE_FEZ": "nao se pagou, nao se pos Apify, e nao se trocou OpenAlex por ORCID ou Crossref. SOURCE A != SOURCE B, e a substituicao silenciosa e a maneira de trocar o dado sem ninguem decidir.",
+ "COMO_FECHAR_ESTE_NAO_SEI": "correr esta prova num ambiente com egresso para api.openalex.org. Enquanto o `403 CONNECT` da politica desta sessao existir, a resposta honesta e NAO SEI."
+}
