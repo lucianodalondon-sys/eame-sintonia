@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/intelligence-night-v1",
-    "HEAD": "dd58f000d8769d1f084dd5e6e8f45bde5575e8a2",
-    "GENERATED_AT": "2026-09-14T03:20:02+00:00",
-    "SOURCE_TREE_FINGERPRINT": "14e7c1d680b18624af6dcd59666275b7df0d117b3fe5e91ec501de2182df175f"
+    "HEAD": "bc1ae171957e8e5128639ef98d475d3ef446fe0e",
+    "GENERATED_AT": "2026-09-14T03:21:43+00:00",
+    "SOURCE_TREE_FINGERPRINT": "eb5ae1338a6fac03c0bab6b2a769f483290d1e748234e85537f66c949f41279c"
   },
   "FILES": [
     {
@@ -269,14 +269,14 @@
     },
     {
       "path": "SALA-DE-CONTROLE-SINTONIA.md",
-      "sha": "b7f03a4f67506ce7217c21408093d0c5c324592a",
+      "sha": "0f7c456c96611f89c7866ced78c082d1374a1bb8",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "SINTONIA-EAME-KNOW-HOW.md",
-      "sha": "4d599b2f2f76cfb9c34968adbd61b4d6efbe571f",
+      "sha": "0f057a40e7940ab94c1d447f0ada92f8a9885b20",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -1571,7 +1571,7 @@
     },
     {
       "path": "controle/AUTORIDADES-CANONICAS.json",
-      "sha": "7a31f6ced5c90bfc762228ce7768e96b7186e7f9",
+      "sha": "baff7e01aff22373539c865220fdc0e1fb75855d",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -11455,7 +11455,7 @@
     },
     {
       "path": "tests/test_atomicidade_da_intelligence.py",
-      "sha": "9bb0f274f665685f585e540ee3b5f4d3ed0bfa18",
+      "sha": "ca28f0d69e909a8b8270cea087c55c641f377b50",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -41966,7 +41966,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 476,
+        "line": 530,
         "snippet": "\"HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md\","
       }
     },
@@ -42016,6 +42016,17 @@
     },
     {
       "from_file": "tests/test_atomicidade_da_intelligence.py",
+      "to_file": "controle/CHAO-DO-CONTROLE.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "tests/test_atomicidade_da_intelligence.py",
+        "line": 421,
+        "snippet": "with open(ficheiro(\"controle/CHAO-DO-CONTROLE.json\"),"
+      }
+    },
+    {
+      "from_file": "tests/test_atomicidade_da_intelligence.py",
       "to_file": "controle/censo_do_controle.py",
       "type": "READS",
       "payload": "artefacto",
@@ -42043,7 +42054,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 477,
+        "line": 531,
         "snippet": "\"docs/apresentacao/PILOTO-CLASSIFICACAO.md\","
       }
     },
@@ -42054,7 +42065,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 478,
+        "line": 532,
         "snippet": "\"docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md\","
       }
     },
@@ -42076,7 +42087,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 479,
+        "line": 533,
         "snippet": "\"docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md\","
       }
     },
@@ -42087,7 +42098,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 480,
+        "line": 534,
         "snippet": "\"docs/piloto/O-QUE-PODEMOS-DIZER.md\","
       }
     },
@@ -42098,7 +42109,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 481,
+        "line": 535,
         "snippet": "\"docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md\","
       }
     },
@@ -42109,7 +42120,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 482,
+        "line": 536,
         "snippet": "\"docs/piloto/VEREDITO-M10-HANDOFF.md\","
       }
     },
@@ -42120,7 +42131,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 483,
+        "line": 537,
         "snippet": "\"docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md\","
       }
     },
@@ -42186,7 +42197,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 470,
+        "line": 524,
         "snippet": "\"system-map/data/architecture.declared.json\":"
       }
     },
@@ -42197,7 +42208,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 472,
+        "line": 526,
         "snippet": "\"system-map/scripts/censo_do_congelamento.py\":"
       }
     },
@@ -54442,7 +54453,7 @@
     "files_tracked": 1775,
     "files_readable": 714,
     "files_code_dir": 761,
-    "file_edges": 3773,
+    "file_edges": 3774,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

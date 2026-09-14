@@ -380,6 +380,60 @@ class P11_OSystemMapObservaAsAutoridades(unittest.TestCase):
                                 "%s diz IMPLEMENTED sem modulo" % nome)
 
 
+class P13_UmPortaoImportadoTemDeSerCorrivelAqui(unittest.TestCase):
+    """⚠️ §115 do know-how, guardado.
+
+    `C-INT-ATOMICITY-01` importou o portão do Control Plane e nunca o correu.
+    A reprovação apareceu na missão seguinte, a bloquear a promoção da Bíblia.
+
+        UM PORTAO QUE CHEGA COMO FICHEIRO E UM PORTAO QUE NINGUEM ABRE.
+    """
+
+    def test_o_portao_do_controle_corre_nesta_arvore(self):
+        """Não exige que ele PASSE — exige que ele CORRA e diga um veredito."""
+        r = subprocess.run([sys.executable, "controle/portao_do_controle.py"],
+                           cwd=RAIZ, capture_output=True, text=True, timeout=600)
+        self.assertIn("PORTAO_DO_CONTROLE=", r.stdout,
+                      "o portao importado nao produz veredito nesta arvore")
+
+    def test_o_censo_do_controle_escreve_o_gerado_que_o_mapa_le(self):
+        self.assertTrue(os.path.exists(
+            ficheiro("system-map/data/controle.generated.json")),
+            "o censo do controle nunca correu: o mapa le um ficheiro que nao existe")
+        self.assertIn("system-map/data/controle.generated.json",
+                      git("ls-files", "system-map/data"),
+                      "o gerado do controle existe no disco e nao no Git")
+
+    @unittest.expectedFailure
+    def test_o_chao_do_controle_descreve_ESTA_arvore(self):
+        """⚠️ A causa de fundo do §115 — BLOQUEADOR DECLARADO, NAO REGRESSAO.
+
+        Um tecto fixado noutra árvore não mede «piorou»: mede «é outra casa».
+
+        Está marcado `expectedFailure` de propósito, e não silenciado: no dia
+        em que `C-CTRL-FLOOR-01` re-fixar o chão aqui, o unittest reporta
+        **unexpectedSuccess** — e essa é a notícia de que a promoção da Bíblia
+        deixou de ter bloqueador.
+
+            UM BLOQUEADOR SILENCIADO E UM BLOQUEADOR ESQUECIDO.
+            UM BLOQUEADOR DECLARADO AVISA QUANDO DEIXA DE EXISTIR.
+        """
+        with open(ficheiro("controle/CHAO-DO-CONTROLE.json"),
+                  encoding="utf-8") as f:
+            chao = json.load(f)
+        ancestral = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", chao["HEAD"], "HEAD"],
+            cwd=RAIZ, capture_output=True).returncode == 0
+        self.assertTrue(
+            ancestral,
+            "o chao do Control Plane foi fixado em %s, que NAO e ancestral "
+            "desta arvore. O tecto descreve outra fotografia, e o portao esta "
+            "a comparar duas casas em vez de dois dias. "
+            "BLOQUEADOR da promocao da Biblia — ver "
+            "research/intelligence/BIBLE-PROMOTION-GATE-REPORT-V1.md"
+            % chao["HEAD"])
+
+
 class P12_AIntegracaoNaoTocouCollectionRuntime(unittest.TestCase):
     """P12 · nenhum runtime de Collection foi modificado pela integração."""
 

@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §114: um conceito sem dono e um nome com donos a mais dão a mesma leitura numa contagem por ficheiro, e exigem o contrário — adoptar dono para o segundo caso é o pior desfecho.
+**Última atualização material:** 2026-09-14 — §115: importar um portão não é passar nele, e um chão medido noutra árvore mede a mudança de casa, não a mudança de estado.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13307,4 +13307,133 @@ EXACTAMENTE COM ARQUITETURA POR DECIDIR.
 NAO registra escolha de owner para RELEVANCE nem para PRIORITY.
 As duas continuam AWAITING_HUMAN_DECISION, e uma decisao que ainda
 nao foi tomada nao se escreve na memoria como se tivesse sido.
+```
+
+---
+
+# §115 · IMPORTAR UM PORTÃO NÃO É PASSAR NELE — E UM CHÃO MEDIDO NOUTRA ÁRVORE MEDE A MUDANÇA DE CASA
+
+## O QUE MUDOU
+
+A missão `C-INT-ATOMICITY-01` trouxe para a árvore integrada o Control Plane
+inteiro: o registo de autoridades, o censo, **e o portão de governança**. Fechou
+com `CONTROL_PLANE_ATOMICITY = PASS`, `SYSTEM_MAP_CHECK = PASS` e 0 regressões.
+
+**Nunca correu o portão que tinha acabado de importar.**
+
+A primeira vez que ele correu foi na missão seguinte:
+
+```
+PORTAO_DO_CONTROLE=FAIL · 2 provas reprovadas
+  BROKEN_POINTER                    2
+  UNREGISTERED_CANONICAL_DOCUMENT  11   (tecto 0)
+```
+
+E esse é o único gate que faltava para promover a Bíblia.
+
+## POR QUÊ
+
+Duas causas, e a segunda é a que se repete.
+
+### 1 · O portão não estava na lista de coisas a correr
+
+A integração correu a cadeia do System Map — porque o `CLAUDE.md` a exige por
+escrito — e não correu o portão do Control Plane, porque nada o exigia. O
+portão veio como **ficheiro**, não como **passo**.
+
+```
+UM PORTAO QUE CHEGA COMO FICHEIRO E UM PORTAO QUE NINGUEM ABRE.
+```
+
+### 2 · O chão foi medido noutra fotografia
+
+```
+controle/CHAO-DO-CONTROLE.json   HEAD = a885769c54
+git merge-base --is-ancestor a885769c54 HEAD   ->   FALSO
+```
+
+O tecto `UNREGISTERED_CANONICAL_DOCUMENT = 0` foi fixado na branch da
+arbitragem, cuja árvore **não tinha** os dez documentos de `docs/operacao/`.
+Aplicado à árvore integrada, ele não mede «piorou desde ontem»: mede «esta é
+outra casa».
+
+## PROVA
+
+```
+os 11 documentos acusados, atribuidos um a um:
+
+   1  docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md   veio com a integracao
+  10  docs/operacao/*.md                                 JA ESTAVAM no tronco dc00583d
+
+git cat-file -e dc00583d:docs/operacao/A-CASA-DO-DERIVADO.md   ->   existe
+```
+
+Nenhum dos dez apareceu por causa da Intelligence. Apareceram porque o registo
+chegou de uma árvore mais pequena do que aquela onde passou a viver.
+
+## CONSEQUÊNCIA
+
+**Três, e a terceira é a regra.**
+
+### 1 · A promoção da Bíblia ficou bloqueada por um gate que não é dela
+
+Oito dos nove gates passam. O nono é humano e estava dado. O sexto — governança
+— reprova por duas causas que vivem **no Control Plane**, e que a Intelligence
+não pode consertar sem declarar donos de conceitos da Collection.
+
+```
+O BLOQUEADOR DE UMA FRENTE PODE MORAR INTEIRO NOUTRA.
+E MUDA-LO A FORCA E ATRAVESSAR A FRONTEIRA QUE ELE EXISTE PARA GUARDAR.
+```
+
+### 2 · Não se subiu o tecto
+
+O portão tem `--fixar`, e diz de si próprio: *«`--fixar` DESCE o teto — e ele
+nunca mais sobe»*. Usá-lo para aceitar 10 seria transformar uma reprovação numa
+linha de base.
+
+```
+UM TECTO QUE SOBE QUANDO FALHA NAO E UM TECTO: E UM REGISTO DE DERROTA.
+```
+
+### 3 · A regra que fica — e é a quarta vez
+
+```
+§111  um grafo truncado respondeu «nao existe»
+§112  um contrato tinha chave estrangeira para ninguem
+§114  um nome sobrecarregado pareceu conceito sem dono
+§115  um chao medido noutra arvore mediu a mudanca de casa
+```
+
+Quatro missões seguidas, quatro medições corretas, quatro conclusões erradas —
+e a mesma causa nas quatro:
+
+```
+UM NUMERO CORRECTO LIDO CONTRA A FOTOGRAFIA ERRADA.
+```
+
+A regra operacional que isto obriga:
+
+```
+QUANDO SE IMPORTA UM PORTAO, IMPORTA-SE TAMBEM O CHAO DELE.
+E UM CHAO E UMA MEDIDA DE UMA ARVORE — NAO UMA CONSTANTE.
+
+Antes de confiar num tecto:
+
+    git merge-base --is-ancestor <HEAD_DO_CHAO> HEAD
+
+Se for falso, o tecto nao descreve esta arvore, e o portao esta a comparar
+duas casas em vez de dois dias.
+```
+
+E o corolário para quem integrar autoridades: **correr, na mesma missão, todo
+portão que a integração trouxe.** Um portão importado e não executado é uma
+reprovação adiada — e ela aparece na missão seguinte, a bloquear outra coisa.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra a promocao da Biblia. Ela NAO foi promovida.
+NAO registra runtime de Intelligence. O GATE 2 impediu-o de comecar, e
+essa decisao foi obedecida em vez de contornada.
 ```
