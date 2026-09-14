@@ -93,6 +93,11 @@ on:
       - 'provas/mutacao_da_sala_duravel.py'
       - 'motor/cadeia_canonica.sh'
       - 'provas/trava_de_drift_de_migration.sh'
+      # A ponte de midia e o executor dela: mudar qualquer um muda o que a
+      # aresta `raw_asset(audio/*) -> derived_artifact` escreve no banco, e
+      # isso so se ve com Postgres a serio.
+      - 'coleta/executor_transcricao_midia.py'
+      - 'provas/a_ponte_de_midia_no_postgres.py'
       - '.github/workflows/banco-descartavel.yml'
   workflow_dispatch:
 
@@ -342,6 +347,42 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+      # ═══════════════════════════════════════════════════════════════
+      # E QUANDO O BRUTO E MIDIA?
+      #
+      # A 2g prova a estrada com um PDF. A aresta de entrada quando os bytes
+      # sao AUDIO nunca foi provada contra Postgres — e e ela que a C4H
+      # escreveu:
+      #
+      #     raw_asset(audio/*) -> executor_transcricao_midia -> derived_artifact
+      #
+      # ⚠️ A FALA E GERADA AQUI, E NAO VEM DO REPOSITORIO.
+      # O unico ficheiro com fala real desta casa e de terceiro, e este
+      # repositorio e PUBLICO. Commitar um clipe alheio para um teste passar
+      # nao se faz. `espeak-ng` produz a voz na hora, sem rede e sem licenca
+      # de ninguem.
+      #
+      # O modelo e o `tiny` de proposito: esta prova mede a ESTRADA, nao a
+      # qualidade da transcricao. Quem quiser medir qualidade usa a GPU local,
+      # que e onde ela se mede.
+      - name: 2g1 · a ferramenta de fala existe, ou isto nao corre
+        run: |
+          sudo apt-get install -y espeak-ng ffmpeg
+          python3 -m pip install --quiet faster-whisper
+          espeak-ng --version
+          ffmpeg -version | head -1
+
+      - name: 2g1b · a ponte de midia atravessa ate a Sala, com Postgres real
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_ponte_de_midia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          SINTONIA_ASR_MODELO: tiny
+          SINTONIA_ASR_DEVICE: CPU
 
       # ═══════════════════════════════════════════════════════════════
       # E A ESTRADA DO SCRAP, DO BOTAO AO ACERVO.
