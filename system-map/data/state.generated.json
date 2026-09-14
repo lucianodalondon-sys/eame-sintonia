@@ -17,6 +17,7 @@
       "CASCO-CLIENT-DEMO.md",
       "CLAUDE.md",
       "DEPOIS-DO-PORTAL.md",
+      "HANDOFF-ATUAL-SINTONIA-EAME.md",
       "HANDOFF-BUILD-DA-REUNIAO.md",
       "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
       "HANDOFF-V2-PAUSE.json",
@@ -24,6 +25,7 @@
       "PORTAL-CAPABILITY-INVENTORY.md",
       "PROMPT-PARA-NOVA-CONTA-CLAUDE.md",
       "README.md",
+      "SINTONIA-EAME-KNOW-HOW.md",
       "_gavetas.py",
       "package.json",
       "vercel.json"
@@ -635,6 +637,7 @@
       "docs/decisoes/ADR-SINTONIA-SCRAP-EVOLUTION.md",
       "docs/decisoes/ADR-TAXONOMIA-DE-FALHAS-E-POLITICA.md",
       "docs/decisoes/DIARIO-DE-DECISOES.md",
+      "docs/decisoes/ORDEM-DO-PROJETO-COLETA-INTELIGENCIA-CASCO-2026-09-11.md",
       "docs/descoberta/CAMADA-DE-VOZ-ESPANHA.md",
       "docs/descoberta/FREEZE-DA-BASE-DO-PILOTO.md",
       "docs/descoberta/LACUNAS-E-VEREDITO-MISSAO-03.md",
@@ -762,6 +765,7 @@
       "guarda/sql_conferir.py"
     ],
     "handoff": [
+      "handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md",
       "handoff/S2A-R-RECONCILIACAO.md",
       "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
       "handoff/SYSTEM-MAP-SM-P1.md",
@@ -1007,6 +1011,32 @@
       "italia-portale/client/upstream/UPSTREAM-PINS.json",
       "italia-portale/client/vercel.json"
     ],
+    "know-how": [
+      "know-how/architecture/C-PLAN-A2-GENERIC-TRAVERSAL.md",
+      "know-how/architecture/C-PLAN-A3-REVIEW.md",
+      "know-how/architecture/C-PLAN-A3-STRUCTURED-BY-SPECIES.md",
+      "know-how/architecture/COLLECTION-TARGET-ARCHITECTURE-V1-REVIEW.md",
+      "know-how/architecture/COLLECTION-TARGET-ARCHITECTURE-V1.md",
+      "know-how/census/COLLECTION-CARD-AUDIT-REGISTRY.md",
+      "know-how/census/LOTE-08-MEASUREMENT-LAYER.md",
+      "know-how/census/LOTE-09-DOCUMENT-CORPUS-SEMANTICS.md",
+      "know-how/census/LOTE-10-DECLARED-CLOSURE.md",
+      "know-how/census/SYNTHETIC-CENSUS-FINAL-CLOSURE.md",
+      "know-how/daily/2026-09-10-lote-07.md",
+      "know-how/daily/2026-09-10.md",
+      "know-how/daily/2026-09-11.md",
+      "know-how/daily/2026-09-12-collection-documentary-structured.md",
+      "know-how/daily/2026-09-12.md",
+      "know-how/daily/2026-09-13-ai-cold-start-governance.md",
+      "know-how/daily/2026-09-13-cards-governance-control-plane.md",
+      "know-how/daily/2026-09-13-col-e7-text-contract.md",
+      "know-how/daily/2026-09-13-intelligence-bible-engineering-benchmark.md",
+      "know-how/daily/2026-09-13-intelligence-census.md",
+      "know-how/daily/2026-09-13-lei-comunicacao-humana.md",
+      "know-how/daily/2026-09-13-persistencia-benchmark-engenharia-seguranca.md",
+      "know-how/daily/2026-09-13-ready-address-and-admission-correction.md",
+      "know-how/daily/2026-09-13-system-map-g4-step-io.md"
+    ],
     "leis": [
       "leis/adama_relevance.py",
       "leis/aprender_com_a_fonte.py",
@@ -1140,6 +1170,7 @@
       "provas/o_encanamento_tem_uma_porta.py",
       "provas/o_executor_conta_se.py",
       "provas/o_forward_conta_se.py",
+      "provas/o_know_how_tem_um_dono.py",
       "provas/o_mapa_nao_mente.py",
       "provas/paridade_da_lingua.py",
       "provas/preflight_022_live.sh",
@@ -1837,10 +1868,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-plumbing-canonical-v1",
-    "HEAD": "c68d8113f758bb870f8ed56dfcf6593254ee1e49",
-    "GENERATED_AT": "2026-09-09T14:40:39+00:00",
-    "SOURCE_TREE_FINGERPRINT": "79bdb6384eaf04420155a6d76545f32d0a113964372aad706db5d361eb9dc9c3"
+    "BRANCH": "claude/know-how-reconciliation-v1",
+    "HEAD": "b3bf11c3b827ccd705de0b91304db2074bfbbf98",
+    "GENERATED_AT": "2026-09-14T18:48:47+00:00",
+    "SOURCE_TREE_FINGERPRINT": "057ba5affdc1043fac90abcd046cd8f206c866f0da5289b5836e2525c67365e4"
   },
   "FAMILIES": [
     {
@@ -1909,7 +1940,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 54
+      "count": 55
     },
     {
       "id": "F-ENTREGA",
@@ -2279,7 +2310,7 @@
       "y": 190,
       "w": 1235,
       "h": 4548,
-      "count": 41
+      "count": 42
     }
   ],
   "DEPARTMENTS": {
@@ -12056,6 +12087,58 @@
       "y": 3580
     },
     {
+      "id": "C-PROVA-KNOW-HOW-UM-DONO",
+      "name": "A trava contra a divergência da memória durável",
+      "territory": "Z-PROVA",
+      "kind": "engine",
+      "what": "Faz sete perguntas ao know-how canónico — número duplicado, numeração regressiva, buraco não declarado, sub-numeração fora de casa, segundo ficheiro concorrente, delta que aloca número sozinho, e delta já aplicado que continua a pedir integração. Corre sem rede e sem banco; --autoteste injecta um defeito de cada espécie e exige que exactamente a pergunta certa acenda, mais um controlo positivo sobre a árvore limpa.",
+      "why_here": "Medido em 2026-09-14: SINTONIA-EAME-KNOW-HOW.md existia em 20 referências do git com 15 conteúdos distintos, e o §118 nomeava três conhecimentos sem relação nenhuma. A causa era estrutural — cada missão media a cauda na sua própria árvore, o que responde «qual é o MEU próximo número» e não «qual é o próximo número». A lei está no §141 do know-how; esta peça é o lado executável dela.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⌕",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/o_know_how_tem_um_dono.py"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "PERGUNTAS",
+          "SUFIXOS_CONCORRENTES"
+        ],
+        "palavras": 14,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 14,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 20020,
+      "y": 3902
+    },
+    {
       "id": "C-PROVA-MAPA-NAO-MENTE",
       "name": "A prova de que o mapa não mente sobre existência",
       "territory": "Z-PROVA",
@@ -12142,7 +12225,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 3902
     },
     {
@@ -12213,7 +12296,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 3902
     },
     {
@@ -12266,8 +12349,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 3902
+      "x": 20020,
+      "y": 4224
     },
     {
       "id": "C-PROVENIENCIA",
@@ -12515,7 +12598,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20435,
       "y": 4224
     },
     {
@@ -12657,7 +12740,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
+      "x": 20850,
       "y": 4224
     },
     {
@@ -12799,8 +12882,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4224
+      "x": 20020,
+      "y": 4546
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -13556,7 +13639,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20435,
       "y": 4546
     },
     {
@@ -15273,7 +15356,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20435,
+      "x": 20850,
       "y": 4546
     },
     {
@@ -16616,7 +16699,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-plumbing-canonical-v1"
+        "branch claude/know-how-reconciliation-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -29976,7 +30059,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 709,
+  "UNCLAIMED_FILES_COUNT": 737,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -30139,17 +30222,17 @@
     ]
   },
   "COUNTS": {
-    "components": 157,
+    "components": 158,
     "components_proven": 60,
     "components_pending": 91,
     "components_broken": 0,
-    "components_unknown": 6,
+    "components_unknown": 7,
     "edges": 608,
     "edges_proven": 606,
     "edges_unknown": 2,
     "business_edges": 4,
-    "files_tracked": 1390,
-    "files_covered": 681,
+    "files_tracked": 1419,
+    "files_covered": 682,
     "files_code_unclaimed": 0
   }
 }
