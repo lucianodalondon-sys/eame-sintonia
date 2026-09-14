@@ -15,16 +15,16 @@ sabe buscar sozinha.
 
 | | |
 |---|---|
-| fichas completas no atlas | **25** |
-| dessas, com contrato de busca escrito | **6** |
+| fichas completas no atlas | **26** |
+| dessas, com contrato de busca escrito | **7** |
 | palavras de busca medidas no código | **103** em 34 grupos |
 | endereços que o código realmente chama | **40** |
 
 > ### ⚠ O cabeçalho do atlas e as fichas não batem
 >
-> O cabeçalho do atlas diz **39 fontes registradas**
+> O cabeçalho do atlas diz **40 fontes registradas**
 > (linha 9). Fichas completas, com `SOURCE_ID` válido, há
-> **25**. Faltam **14**.
+> **26**. Faltam **14**.
 >
 > As fontes que faltam podem existir de verdade — mas sem ficha, ninguém
 > consegue saber o que elas têm. Isto não é corrigido automaticamente:
@@ -40,8 +40,8 @@ gente: nenhum degrau se sobe sozinho.
 | # | degrau | o que é | quantas | mora em | sobe como |
 |---|---|---|---|---|---|
 | 1 | **CANDIDATA** | alguem viu que existe. Ninguem abriu ainda. | **0** | `candidatas/FONTES-CANDIDATAS.json` | abrir, olhar o que entrega e guardar um exemplo real |
-| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **20** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
-| 3 | **CONTRATADA** | tem contrato de busca escrito. | **6** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
+| 2 | **REGISTADA** | tem ficha no atlas, com exemplo real guardado. | **21** | `docs/fontes/ATLAS-DE-FONTES-EAME.md` | escrever COMO se busca e o que fazer quando quebrar |
+| 3 | **CONTRATADA** | tem contrato de busca escrito. | **7** | `docs/operacao/CONTRATOS-DAS-FONTES-EAME.md` | por a busca a correr sozinha, num workflow |
 | 4 | **AUTOMATICA** | a maquina vai la sozinha, sem ninguem por perto. | — | `.github/workflows/` | — |
 
 ### A porta de entrada
@@ -132,12 +132,13 @@ contrato só funciona enquanto a pessoa que a descobriu estiver por perto.
 | `FR-T3-002` | Archive en agro-écologie de BSV | T3 · Praga e doenca | ⚪ NAO SEI | **não** |
 | `FR-T4-001` | Données ouvertes du catalogue E-Phy | T4 · Regulatorio | 🟢 GREEN | sim |
 
-### ITALIA · 4 fontes · 2 com contrato de busca
+### ITALIA · 5 fontes · 3 com contrato de busca
 
 | id | fonte | assunto | estado | a máquina busca? |
 |---|---|---|---|---|
 | `IT-T10-001` | ARPAV — Vendite fitosanitari (open data) + Rapporto annual | T10 · Politica e subsidio | 🟢 GREEN | sim |
 | `IT-T10-002` | OpenStreetMap, via Overpass API + Nominatim | T10 · Politica e subsidio | 🟡 YELLOW | **não** |
+| `IT-T10-003` | ISTAT — Distribuzione per uso agricolo dei prodotti fitosa | T10 · Politica e subsidio | 🟢 GREEN | sim |
 | `IT-T3-001` | IT-T3-001 | T3 · Praga e doenca | 🟡 YELLOW | **não** |
 | `IT-T4-001` | Fitosanitari — elenco dei prodotti fitosanitari autorizzat | T4 · Regulatorio | 🟢 GREEN | sim |
 
