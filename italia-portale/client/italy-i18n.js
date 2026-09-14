@@ -17,6 +17,14 @@
 
     // ── navigation ───────────────────────────────────────
     navRadar: 'Radar delle Opportunità',
+    /* §16 · The rail label is deliberately NOT navRadar. navRadar names the screen and is
+       also the page title, the crumb and the search router's label; the rail is a bare word
+       with a bare number beside it, on all 26 screens, with no sub-line under it. The radar
+       badge counts 37 readings, of which 9 are verified convergences and 28 are still to
+       validate, and the collection says mayBeCalledOpportunities=false for the set — so the
+       rail says "rilevate", which is what the package's headline law allows over 37, and
+       leaves the split to the radar headline, which has room for it. */
+    navRadarRail: 'Opportunità rilevate',
     navFuture: 'Radar Futuro',
     navWindows: 'Finestre Colturali',
     navMarket: 'Polso di Mercato',
@@ -27,10 +35,14 @@
     navSources: 'Fonti',
 
     // ── page subtitles ───────────────────────────────────
-    /* Was: 'Dove ADAMA può agire o prepararsi ora'. Nothing on this screen may be
-       acted on yet — 0 of the 3 records is client-safe — so the subtitle says what
-       the screen holds instead of what ADAMA may do with it. */
-    subRadar: 'Convergenze candidate, da validare prima di qualsiasi lettura commerciale — pressione fitosanitaria, tempistica colturale, coerenza di portafoglio e movimento di mercato.',
+    /* Was: 'Dove ADAMA può agire o prepararsi ora'. The screen says what it holds, never
+       what ADAMA may do with it. Then it said the opposite thing and stayed too long: with
+       3 records and none of them presentable, the subtitle called every row a candidate.
+       The engine now holds 37 readings and 9 of them cleared the declared method, so
+       "candidate convergences" was false for a quarter of the screen. Both halves are named
+       here and neither carries a number — the counts move at every build and would leave
+       the sentence untranslated. */
+    subRadar: 'Convergenze verificate con il metodo dichiarato e letture ancora da validare — pressione fitosanitaria, tempistica colturale, coerenza di portafoglio e movimento di mercato.',
     subWindows: 'Orologio del campo e orologio commerciale su un\'unica linea temporale — quando la coltura ha bisogno di protezione e quando deve iniziare il lavoro commerciale.',
     subMarket: 'Il contesto economico attorno alle opportunità agronomiche di ADAMA — condizioni, dinamica, offerta, fiducia e prospettive. Non è una previsione di vendita.',
     subScience: 'Cosa la scienza può cambiare per ADAMA Italia — rischio di portafoglio, lacuna di portafoglio, posizionamento e preparazione del ciclo successivo. Non un conteggio di pubblicazioni.',
@@ -68,12 +80,17 @@
     sortCrop: 'Coltura',
 
     // ── Opportunity Radar KPIs ───────────────────────────
-    /* kpiTotal is kept for the day the package declares these records may be
-       called opportunities. Today it does not: the collection carries
-       mayBeCalledOpportunities=false and every record carries FORBIDDEN_LABEL,
-       so the radar prints kpiConvergences over the same count of 3. */
+    /* kpiTotal / kpiConvergences were a two-state pair: the collection either could or
+       could not be called opportunities, and one label covered the whole count. The engine
+       is three-state now — 37 readings detected, 9 verified convergences, 28 to validate —
+       and no single label is true over 37. kpiConvergences keeps its exact old meaning and
+       is true only over the 28; the three keys below are the ones a headline over 37 needs.
+       None of them contains a number: the number is counted from the model and printed
+       beside the label, so the sentence survives a rebuild and stays translated. */
     kpiTotal: 'Opportunità attive', kpiTotalSub: 'l\'insieme monitorato',
     kpiConvergences: 'Convergenze da validare', kpiConvergencesSub: 'candidati da validare',
+    oppDetected: 'Opportunità rilevate', oppVerified: 'Convergenze verificate', oppToValidate: 'Da validare',
+    oppDetectedSub: 'letture del motore, verificate e non', oppVerifiedSub: 'convergenze che hanno superato il metodo dichiarato', oppToValidateSub: 'letture che il metodo non ha ancora confermato',
     kpiClientSafeOf: 'utilizzabili con il cliente', kpiClientSafeUndeclared: 'quota utilizzabile con il cliente non dichiarata',
     kpiActNow: 'Agire ora', kpiActNowSub: 'finestra aperta ed evidenza disponibile',
     kpiOpening: 'Finestra in apertura', kpiOpeningSub: 'finestra prossima all\'apertura',
@@ -91,7 +108,7 @@
     cwDrag: 'trascina la linea temporale · shift + rotella per scorrere',
     /* Crop and issue names in the form Italian sources publish them (CREA, regional
        bulletins, ADAMA Italia labels). Latin binomials stay untouched as the scientific key. */
-    CROPS: { 'Maize': 'Mais', 'Wheat': 'Frumento tenero', 'Durum Wheat': 'Frumento duro', 'Grapevine': 'Vite', 'Olive': 'Olivo', 'Sugar Beet': 'Barbabietola da zucchero', 'Apple': 'Melo', 'Tomato': 'Pomodoro', 'Rice': 'Riso', 'Soybean': 'Soia', 'Sunflower': 'Girasole', 'Barley': 'Orzo', 'Potato': 'Patata', 'Sorghum': 'Sorgo', 'Triticale': 'Triticale', 'Citrus': 'Agrumi', 'Peach': 'Pesco', 'All crops': 'Tutte le colture' },
+    CROPS: { 'Pear': 'Pero', 'Soft Wheat': 'Frumento tenero', 'Onion': 'Cipolla', 'Carrot': 'Carota', 'Maize': 'Mais', 'Wheat': 'Frumento tenero', 'Durum Wheat': 'Frumento duro', 'Grapevine': 'Vite', 'Olive': 'Olivo', 'Sugar Beet': 'Barbabietola da zucchero', 'Apple': 'Melo', 'Tomato': 'Pomodoro', 'Rice': 'Riso', 'Soybean': 'Soia', 'Sunflower': 'Girasole', 'Barley': 'Orzo', 'Potato': 'Patata', 'Sorghum': 'Sorgo', 'Triticale': 'Triticale', 'Citrus': 'Agrumi', 'Peach': 'Pesco', 'All crops': 'Tutte le colture' },
     ISSUES: { 'European Corn Borer': 'Piralide del mais', 'Fusarium Head Blight': 'Fusariosi della spiga', 'Septoria': 'Septoriosi', 'Septoria Leaf Blotch': 'Septoriosi', 'Cercospora': 'Cercosporiosi', 'Cercospora Leaf Spot': 'Cercosporiosi', 'Olive Fruit Fly': 'Mosca dell\'olivo', 'Downy Mildew': 'Peronospora', 'Powdery Mildew': 'Oidio', 'Mycotoxin Risk': 'Rischio micotossine', 'Grapevine Moth': 'Tignoletta della vite', 'Tomato Leafminer': 'Tuta absoluta', 'Codling Moth': 'Carpocapsa', 'Cereal Aphids · BYDV': 'Afidi dei cereali · BYDV', 'Cereal Aphids - BYDV': 'Afidi dei cereali · BYDV', 'Corn Rootworm': 'Diabrotica', 'Post-emergence weed control': 'Controllo infestanti in post-emergenza', 'Pre-emergence weed control': 'Controllo infestanti in pre-emergenza', 'Inter-row weed control': 'Controllo infestanti interfila', 'Pre-transplant weed control': 'Controllo infestanti pre-trapianto', 'Resistant grass and broadleaf weeds': 'Infestanti graminacee e dicotiledoni resistenti', 'Beet weed programme': 'Programma infestanti bietola', 'Grass weed complex': 'Complesso di graminacee', 'Herbicide resistance · rice': 'Resistenza agli erbicidi · riso', 'Resistant grass weeds': 'Graminacee resistenti', 'Soybean grass weeds': 'Graminacee della soia', 'Cereal Aphids · BYDV Risk': 'Afidi dei cereali · rischio BYDV', 'Diabrotica Adults': 'Diabrotica adulti', 'Diabrotica Larvae': 'Diabrotica larve', 'Wheat Rusts': 'Ruggini del frumento', 'Brown Marmorated Stink Bug': 'Cimice asiatica' },
     SRCTYPES: { 'Science': 'Scienza', 'Researchers': 'Ricercatori', 'Field network': 'Rete di campo', 'Regulatory': 'Normativa', 'Technical media': 'Media tecnici', 'Producer organizations': 'Organizzazioni di produttori', 'Competitor movement': 'Movimenti dei concorrenti' },
     FSTATUS: { 'NEW SIGNAL': 'NUOVO SEGNALE', 'GAINING ATTENTION': 'ATTENZIONE CRESCENTE', 'MULTIPLE SIGNALS': 'SEGNALI MULTIPLI', 'WATCH CLOSELY': 'OSSERVARE DA VICINO', 'NEEDS VALIDATION': 'DA VALIDARE', 'TIMING APPROACHING': 'TEMPISTICA VICINA', 'PREPARE': 'PREPARARE' },
@@ -113,8 +130,9 @@
     DSTATE: { 'CONFIRMED': 'CONFERMATA', 'EXPECTED_NORM': 'NORMA AGRONOMICA ATTESA', 'DATE_TO_CONFIRM': 'DATA DA CONFERMARE', 'NOT_APPLICABLE': 'NON APPLICABILE' },
     OBSCLASS: { 'OFFICIAL_OBSERVED_CURRENT': 'OSSERVATO UFFICIALE · CORRENTE', 'FIELD_REPORTED_CURRENT': 'RIPORTATO DAL CAMPO · CORRENTE', 'EXPECTED_CURRENT': 'ATTESO · CORRENTE', 'EXPECTED_NORM': 'NORMA ATTESA', 'HISTORICAL': 'STORICO', 'DEMO_SCENARIO': 'SCENARIO DIMOSTRATIVO', 'NOT_OBSERVED': 'NON OSSERVATO', 'UNKNOWN': 'SCONOSCIUTO' },
     /* CANDIDATE_STATE is an upstream code like WSTATUS: the code is
-       language-independent and only the label is localized. DA_VALIDARE is the
-       state all 3 opportunity-candidate records carry today. */
+       language-independent and only the label is localized. DA_VALIDARE is carried by 28 of
+       the 37 engine records; the other 9 carry no candidate state at all, because they are
+       verified convergences and the field is null on them. */
     CANDSTATE: { 'DA_VALIDARE': 'DA VALIDARE', 'VALIDATED': 'VALIDATO', 'DISCARDED': 'SCARTATO' },
     candNotOpportunity: 'Candidato da validare — non un’opportunità commerciale confermata.',
     candWhyNotStated: 'La fonte non dichiara il motivo per cui non è utilizzabile con il cliente.',
@@ -123,9 +141,11 @@
     gireFound: 'etichette erbicide ADAMA nominano questo genere', gireNotFound: 'Non trovato tra le etichette erbicide di questa lettura', gireCases: 'casi', gireOverlap: 'con sovrapposizione al portafoglio ADAMA', gireHerbNote: 'Denominatore del confronto, insieme distinto dai casi:', gireHerb: 'etichette erbicide ADAMA caricate', gireShowAll: 'MOSTRA TUTTI I', gireCasesUpper: 'CASI',
     PROV: { 'REACHED_IN_ITALY': 'RAGGIUNTO IN ITALIA', 'DEMO_RECORD': 'DATO DIMOSTRATIVO', 'REAL_OBSERVATION': 'OSSERVAZIONE REALE', 'SYNTHETIC_DEMO': 'ESEMPIO DIMOSTRATIVO · NON OSSERVATO' },
     fsDemoBadge: 'PERSONE E MESSAGGI SIMULATI · NESSUN DIPENDENTE ADAMA REALE', fsOutbound: 'Sintonia non scrive ai rappresentanti e non chiede alla rete di campo di inviare nulla. Questo modulo riceve soltanto.',
-    /* The map counts the same 3 records the radar counts, so it may not call them
-       opportunities either: the count is unchanged, the noun is not. */
-    lblRegionalPrecision: 'Candidati per regione · clicca una regione accesa per filtrare', rrNoteOpps: 'candidati', rrNoteRegions: 'regioni con almeno uno · su', rrNoteNone: 'Nessun candidato di questa lettura si risolve in una regione', lblNoMatches: 'Nessun candidato corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
+    /* The map counts the same records the radar counts, so it must call them what the
+       radar calls them. It used to say "candidati" over the whole set, which was true while
+       every record was a candidate and became false the moment 9 cleared the method. The
+       noun is the neutral one that covers both halves; the count is unchanged. */
+    lblRegionalPrecision: 'Letture per regione · clicca una regione accesa per filtrare', rrNoteOpps: 'letture', rrNoteRegions: 'regioni con almeno una · su', rrNoteNone: 'Nessuna lettura di questo insieme si risolve in una regione', lblNoMatches: 'Nessuna lettura corrisponde a questi filtri', lblClearFilters: 'Azzera i filtri', lblSingleMatch: 'Corrispondenza unica registrata',
     lblDemoOnly: 'Solo dimostrativo.', kpiOpenShort: 'Finestre aperte', kpiOpenSub: 'finestra agronomica aperta ora', kpiNextSub: 'la prossima finestra rilevante', kpiUnknownSub: 'nessuna data difendibile in questa lettura', kpiClosedSub: 'finestra della stagione conclusa',
     kpiVerified: 'Corrispondenze verificate', kpiVerifiedSub: 'confermate nella lettura delle etichette',
     kpiLinks: 'Collegamenti di portafoglio', kpiLinksSub: 'tutte le relazioni, verifica compresa',
@@ -173,10 +193,14 @@
     cwDeptOn: 'DETTAGLIO REPARTI · ON', cwDeptOff: 'DETTAGLIO REPARTI · OFF',
 
     // ── case cards & detail ──────────────────────────────
-    /* The list under the KPI counts the same records the KPI counts. 0 of 3 are
-       client-safe and none may be called an opportunity, so the heading names
-       what the number actually counts. */
-    lblCases: 'CANDIDATI DA VALIDARE',
+    /* The list under the KPI counts the same records the KPI counts, so the heading names
+       what the number actually counts. It said CANDIDATI DA VALIDARE while every record in
+       the collection was a candidate; the engine now holds 9 verified convergences among
+       the 37, and the list shows both, so a heading that calls all of them candidates is
+       false for 9 rows. The radar computes the live heading itself (it changes with the
+       verified / to-validate segment the reader picks); this key is the fallback and must
+       be true over the whole set, which is what the neutral noun does. */
+    lblCases: 'LETTURE SUL RADAR',
     lblOf: 'di',
     catPest: 'Controllo Insetti',
     catDisease: 'Controllo Malattie',
@@ -399,6 +423,9 @@
 
     fsTsrLabel: 'Rappresentanti tecnici di vendita',
     fsIntro: 'Intelligence umana in arrivo dalla rete di campo ADAMA. I rappresentanti inviano ciò che vedono e sentono; Sintonia lo classifica e lo collega. Questo canale riceve soltanto.',
+    wObservedStage: 'STADIO OSSERVATO',
+    wWhoPrepare: 'CHI DEVE PREPARARSI · QUANDO',
+    wFactualExpected: 'COSA È FATTUALE · ATTESO · NON NOTO',
     fsWhatsapp: 'WHATSAPP · MESSAGGIO DI CAMPO (SIMULATO)',
     fsStructures: 'SINTONIA LO STRUTTURA COSÌ',
     fsCompIssue: 'AVVERSITÀ', fsCompCrop: 'COLTURA', fsCompRegion: 'REGIONE',
@@ -477,6 +504,7 @@
     logout: 'SIGN OUT',
 
     navRadar: 'Opportunity Radar',
+    navRadarRail: 'Opportunities detected',
     navFuture: 'Future Radar',
     navWindows: 'Crop Windows',
     navMarket: 'Market Pulse',
@@ -486,7 +514,7 @@
     navArchive: 'Archive',
     navSources: 'Sources',
 
-    subRadar: 'Candidate convergences, to be validated before any commercial reading — disease pressure, crop timing, portfolio fit and market movement.',
+    subRadar: 'Verified convergences with the method declared, and readings still to validate — disease pressure, crop timing, portfolio fit and market movement.',
     subWindows: 'Field clock and business clock on one rolling timeline — when the crop needs protection, and when the commercial work has to start.',
     subMarket: 'The economic environment around ADAMA\'s agronomic opportunities — conditions, momentum, supply, sentiment and outlook. Not a sales forecast.',
     subScience: 'What science may change for ADAMA Italy — portfolio risk, portfolio gap, positioning and next-cycle preparation. Not a paper count.',
@@ -518,6 +546,8 @@
 
     kpiTotal: 'Active opportunities', kpiTotalSub: 'the whole monitored set',
     kpiConvergences: 'Convergences to validate', kpiConvergencesSub: 'candidates to validate',
+    oppDetected: 'Opportunities detected', oppVerified: 'Verified convergences', oppToValidate: 'To validate',
+    oppDetectedSub: 'engine readings, verified and not', oppVerifiedSub: 'convergences that cleared the declared method', oppToValidateSub: 'readings the method has not confirmed yet',
     kpiClientSafeOf: 'client-safe', kpiClientSafeUndeclared: 'client-safe share not declared',
     kpiActNow: 'Act now', kpiActNowSub: 'window open and evidence in place',
     kpiOpening: 'Window opening', kpiOpeningSub: 'window about to open',
@@ -559,7 +589,7 @@
     gireFound: 'ADAMA herbicide labels name this genus', gireNotFound: 'Not found among the herbicide labels in this reading', gireCases: 'cases', gireOverlap: 'overlap the ADAMA range', gireHerbNote: 'Comparison denominator, a separate set from the cases:', gireHerb: 'ADAMA herbicide labels loaded', gireShowAll: 'SHOW ALL', gireCasesUpper: 'CASES',
     PROV: { 'REACHED_IN_ITALY': 'REACHED IN ITALY', 'DEMO_RECORD': 'DEMONSTRATION RECORD', 'REAL_OBSERVATION': 'REAL OBSERVATION', 'SYNTHETIC_DEMO': 'DEMONSTRATION EXAMPLE · NOT OBSERVED' },
     fsDemoBadge: 'SIMULATED PEOPLE AND MESSAGES · NO REAL ADAMA EMPLOYEE', fsOutbound: 'Sintonia does not message representatives and never asks the field network to send anything. This module only receives.',
-    lblRegionalPrecision: 'Candidates by region · click a lit region to filter', rrNoteOpps: 'candidates', rrNoteRegions: 'regions with at least one · of', rrNoteNone: 'No candidate in this reading resolves to a region', lblNoMatches: 'No candidate matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
+    lblRegionalPrecision: 'Readings by region · click a lit region to filter', rrNoteOpps: 'readings', rrNoteRegions: 'regions with at least one · of', rrNoteNone: 'No reading in this set resolves to a region', lblNoMatches: 'No reading matches these filters', lblClearFilters: 'Clear filters', lblSingleMatch: 'Single registered match',
     lblDemoOnly: 'Demonstration only.', kpiOpenShort: 'Windows open', kpiOpenSub: 'agronomic window open now', kpiNextSub: 'the next relevant window', kpiUnknownSub: 'no defensible date in this reading', kpiClosedSub: 'season window has closed',
     kpiVerified: 'Verified matches', kpiVerifiedSub: 'confirmed in the label reading',
     kpiLinks: 'Portfolio links', kpiLinksSub: 'all relationships, verification included',
@@ -606,7 +636,7 @@
     lblIntakeNum: 'Inbound channel · demonstration identifier',
     cwDeptOn: 'DEPARTMENT DETAIL · ON', cwDeptOff: 'DEPARTMENT DETAIL · OFF',
 
-    lblCases: 'CANDIDATES TO VALIDATE',
+    lblCases: 'READINGS ON THE RADAR',
     lblOf: 'of',
     catPest: 'Pest Control',
     catDisease: 'Disease Control',
@@ -821,6 +851,9 @@
 
     fsTsrLabel: 'Technical sales representatives',
     fsIntro: 'Human intelligence arriving from the ADAMA field network. Representatives send in what they see and hear; Sintonia classifies it and links it. This channel is inbound only.',
+    wObservedStage: 'OBSERVED STAGE',
+    wWhoPrepare: 'WHO SHOULD PREPARE · WHEN',
+    wFactualExpected: 'WHAT IS FACTUAL · EXPECTED · UNKNOWN',
     fsWhatsapp: 'WHATSAPP · FIELD MESSAGE (SIMULATED)',
     fsStructures: 'SINTONIA STRUCTURES IT AS',
     fsCompIssue: 'ISSUE', fsCompCrop: 'CROP', fsCompRegion: 'REGION',

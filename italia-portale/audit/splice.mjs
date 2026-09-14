@@ -15,7 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { CLIENT, readPortal, mount, usePortal } from './lib/harness.mjs';
-import { BLOCKS, markupBlocks } from './blocks.mjs';
+import { BLOCKS, markupBlocks, assertFrozen as mapIsSafe } from './blocks.mjs';
 import { SCREENS } from './checks.mjs';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
@@ -93,16 +93,19 @@ function renderReport(portalPath) {
   return { ok: SCREENS.length * 2 - fails.length, total: SCREENS.length * 2, fails };
 }
 
-/* The block line map is frozen while the agents work. Once assemble writes for
-   real the map is stale, and a later splice would cut the file in the wrong
-   place — so refuse rather than corrupt. */
-const FROZEN_LINES = 7073;
+/* The map must describe the file it is about to cut.
+   This used to be a hardcoded line count — FROZEN_LINES = 7073 — standing in
+   for "the map is still fresh". It is a proxy, and it aged badly twice: it
+   blocks a legitimate run after the file legitimately grows, and it would have
+   waved through a map whose anchors had moved inside an unchanged number of
+   lines. blocks.mjs now derives every range from the file itself and can PROVE
+   each edge falls on a top-level statement of renderVals(), so ask it. */
 function assertFrozen() {
-  const n = readPortal().split('\n').length;
-  if (n !== FROZEN_LINES) {
-    console.error(`\n  portale.html is ${n} lines, the frozen block map expects ${FROZEN_LINES}.`);
-    console.error('  The block phase is over — edit client/portale.html directly, or');
-    console.error('  re-derive the ranges in audit/blocks.mjs first.\n');
+  try {
+    mapIsSafe();
+  } catch (e) {
+    console.error('\n  ' + e.message);
+    console.error('\n  Re-anchor audit/blocks.mjs against the current file, then retry.\n');
     process.exit(3);
   }
 }

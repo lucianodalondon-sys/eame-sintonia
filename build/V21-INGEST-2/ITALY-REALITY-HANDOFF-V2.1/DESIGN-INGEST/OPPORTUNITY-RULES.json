@@ -1,0 +1,47 @@
+{
+ "ARQUETIPOS": {
+  "O1_FIELD_PRESSURE": "pressao de campo corrente sobre cultura com janela e rotulo ADAMA",
+  "O2_MARKET_MOMENT": "sinal de mercado ou peso economico sobre cultura com portfolio ADAMA",
+  "O3_RESISTANCE_MOA": "resistencia documentada com relevancia de campo ou ciencia e MoA ADAMA",
+  "O4_COMPETITIVE_OPENING": "comunicacao corrente de concorrente sobre cultura onde a ADAMA tem rotulo",
+  "O5_REGULATORY_PREPARATION": "data regulatoria europeia sobre substancia que produtos ADAMA contem",
+  "O6_SCIENCE_TO_FIELD": "ciencia relevante com evidencia corrente de campo e relevancia ADAMA"
+ },
+ "PORTOES": [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H"
+ ],
+ "ESTADOS_DE_PRODUTO": [
+  "VERIFIED_LABEL_MATCH",
+  "RELATED_PORTFOLIO",
+  "LABEL_CHECK_NEEDED"
+ ],
+ "ESTADOS_TEMPORAIS": [
+  "ACT_NOW",
+  "PREPARE_NOW",
+  "WATCH",
+  "FUTURE_PREPARATION",
+  "TO_VALIDATE"
+ ],
+ "SCORE": {
+  "DIMENSOES": [
+   "CURRENTNESS",
+   "GEOGRAPHY",
+   "AGRONOMIC",
+   "ADAMA",
+   "MULTI_SOURCE",
+   "ACTIONABILITY"
+  ],
+  "MAXIMO": 12,
+  "LEI": "ordena, nao prova"
+ },
+ "LEI_DO_CLIENT_SAFE": "oportunidade e derivacao: CLIENT_SAFE=false sempre.",
+ "BUILD_ID": "V21-99226fbb90dcdbc2",
+ "BUILD_ID_LAW": "deterministico: sai do conteudo dos 25 arquivos. Mesmo conteudo, mesmo BUILD_ID; conteudo diferente, BUILD_ID diferente. A data do calendario nao serve de identidade."
+}

@@ -1,0 +1,252 @@
+{
+ "SOURCE_ID": "COMPETITOR-PUBLIC-COMM/CONTRATOS",
+ "DATASET_OWNER": "COMPETITOR_PUBLIC_COMMUNICATION_EAME",
+ "source": "GET /v2/acts/{ator} e /v2/actor-builds/{id} — leitura do schema, nenhuma execução, nenhum item, nenhum custo, chave opcional",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "TOKEN_USED": "NO — a rota de leitura é pública",
+ "ALL_APPROVED": "NO",
+ "REGRA": "nenhuma fase paga roda com ALL_APPROVED = NO",
+ "ACTORS": [
+  {
+   "ACTOR": "apify~facebook-posts-scraper",
+   "BUILD_NUMBER": "0.0.377",
+   "BUILD_ID": "fzewdwmAx1paP4Bxq",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "actor-start",
+     "filter-applied",
+     "post"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "captionText",
+    "onlyPostsNewerThan",
+    "onlyPostsOlderThan",
+    "resultsLimit",
+    "startUrls"
+   ],
+   "REQUIRED": [
+    "startUrls"
+   ],
+   "INPUT_CHECKED": {
+    "startUrls": [
+     {
+      "url": "https://www.instagram.com/exemplo/"
+     }
+    ],
+    "resultsLimit": 50,
+    "onlyPostsNewerThan": "2026-08-03"
+   },
+   "APPROVED": "YES",
+   "PROBLEMS": [],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "PLATFORM": "FACEBOOK",
+   "PRIOR_EVIDENCE": "NAO_VERIFICADO"
+  },
+  {
+   "ACTOR": "apify~instagram-scraper",
+   "BUILD_NUMBER": "0.0.776",
+   "BUILD_ID": "3Mh6FvaGV4gQlupcs",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "result"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "addParentData",
+    "directUrls",
+    "onlyPostsNewerThan",
+    "resultsLimit",
+    "resultsType",
+    "search",
+    "searchLimit",
+    "searchType"
+   ],
+   "REQUIRED": [],
+   "INPUT_CHECKED": {
+    "directUrls": [
+     "https://www.instagram.com/exemplo/"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "onlyPostsNewerThan": "2026-08-03"
+   },
+   "APPROVED": "YES",
+   "PROBLEMS": [],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "PLATFORM": "INSTAGRAM",
+   "PRIOR_EVIDENCE": "NAO_VERIFICADO"
+  },
+  {
+   "ACTOR": "harvestapi~linkedin-post-search",
+   "BUILD_NUMBER": "0.0.110",
+   "BUILD_ID": "ASBzmjLXGQlvadkLr",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "apify-actor-start",
+     "comment",
+     "full-profile",
+     "main-profile",
+     "no-result",
+     "post",
+     "reaction"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "authorKeywords",
+    "authorUrls",
+    "authorsCompanies",
+    "authorsIndustryId",
+    "commentsPostedLimit",
+    "commentsProfileScraperMode",
+    "contentType",
+    "maxComments",
+    "maxPosts",
+    "maxReactions",
+    "mentioningCompany",
+    "mentioningMember",
+    "postNestedComments",
+    "postNestedReactions",
+    "postedLimit",
+    "postedLimitDate",
+    "profileScraperMode",
+    "reactionsProfileScraperMode",
+    "scrapeComments",
+    "scrapePages",
+    "scrapeReactions",
+    "searchQueries",
+    "sortBy",
+    "startPage"
+   ],
+   "REQUIRED": [],
+   "INPUT_CHECKED": {
+    "companyUrls": [
+     "https://www.instagram.com/exemplo/"
+    ],
+    "maxItems": 50,
+    "postedLimit": "30d"
+   },
+   "APPROVED": "NO",
+   "PROBLEMS": [
+    {
+     "GRAVIDADE": "REPROVA",
+     "CODIGO": "CAMPO_DESCONHECIDO",
+     "CAMPO": "companyUrls",
+     "DETALHE": "o schema do build 0.0.110 não declara `companyUrls`. A Apify não recusa campo estranho: ela DESCARTA em silêncio e cobra o run. Campos parecidos: nenhum"
+    },
+    {
+     "GRAVIDADE": "REPROVA",
+     "CODIGO": "CAMPO_DESCONHECIDO",
+     "CAMPO": "maxItems",
+     "DETALHE": "o schema do build 0.0.110 não declara `maxItems`. A Apify não recusa campo estranho: ela DESCARTA em silêncio e cobra o run. Campos parecidos: nenhum"
+    },
+    {
+     "GRAVIDADE": "REPROVA",
+     "CODIGO": "VALOR_FORA_DO_ENUM",
+     "CAMPO": "postedLimit",
+     "DETALHE": "`postedLimit` = '30d' não está no enum publicado ['any', '1h', '24h', 'week', 'month', '3months', '6months', 'year']. A DESCRIÇÃO de um campo pode citar valor que o enum não aceita — obedecer à prosa em vez do enum manda valor inválido."
+    }
+   ],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "PLATFORM": "LINKEDIN",
+   "PRIOR_EVIDENCE": "JA_RODOU_NESTA_CASA"
+  },
+  {
+   "ACTOR": "streamers~youtube-scraper",
+   "BUILD_NUMBER": "0.0.289",
+   "BUILD_ID": "rzAqgncyu02C9uUjE",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "ai-video-description",
+     "ai-video-summary",
+     "date-filter",
+     "result",
+     "transcribeMinute"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "aiVideoDescription",
+    "aiVideoSummary",
+    "dateFilter",
+    "downloadSubtitles",
+    "hasCC",
+    "hasLocation",
+    "hasSubtitles",
+    "is360",
+    "is3D",
+    "is4K",
+    "isBought",
+    "isHD",
+    "isHDR",
+    "isLive",
+    "isVR180",
+    "lengthFilter",
+    "maxResultStreams",
+    "maxResults",
+    "maxResultsShorts",
+    "oldestPostDate",
+    "preferAutoGeneratedSubtitles",
+    "saveSubsToKVS",
+    "searchQueries",
+    "sortVideosBy",
+    "sortingOrder",
+    "startUrls",
+    "subtitlesFormat",
+    "subtitlesLanguage",
+    "videoType"
+   ],
+   "REQUIRED": [],
+   "INPUT_CHECKED": {
+    "startUrls": [
+     {
+      "url": "https://www.instagram.com/exemplo/"
+     }
+    ],
+    "maxResults": 50,
+    "dateFilter": "2026-08-03",
+    "sortVideosBy": "NEWEST"
+   },
+   "APPROVED": "NO",
+   "PROBLEMS": [
+    {
+     "GRAVIDADE": "REPROVA",
+     "CODIGO": "VALOR_FORA_DO_ENUM",
+     "CAMPO": "dateFilter",
+     "DETALHE": "`dateFilter` = '2026-08-03' não está no enum publicado ['hour', 'today', 'week', 'month', 'year']. A DESCRIÇÃO de um campo pode citar valor que o enum não aceita — obedecer à prosa em vez do enum manda valor inválido."
+    }
+   ],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "PLATFORM": "YOUTUBE",
+   "PRIOR_EVIDENCE": "JA_RODOU_NESTA_CASA"
+  }
+ ]
+}

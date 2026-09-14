@@ -1,0 +1,130 @@
+{
+ "RUN_ID": "IT-T3-2026-09-14-190650-4a46165ff9f718ce",
+ "STATUS": "SUCCESS",
+ "PEDIDO": {
+  "alvo": "T3",
+  "acionamento": "MANUAL",
+  "escopo": "PONTUAL",
+  "filtros": {
+   "pais": "IT",
+   "fonte": "IT-T3-010"
+  }
+ },
+ "MISSION": "PEST / DISEASE / WEEDS",
+ "COUNTRY": "IT",
+ "PLATFORM": "HTTP direto",
+ "ACTOR": "coleta/italy_executor.py",
+ "ACTOR_VERSION": "b9dfd3d2",
+ "CAPTURE_METHOD": "gratuito",
+ "INPUT": {
+  "pais": "IT",
+  "fonte": "IT-T3-010"
+ },
+ "QUERY": "PEST / DISEASE / WEEDS (T3) · PONTUAL · pedido manual · fonte=IT-T3-010 · pais=IT",
+ "COMANDO": "coleta/italy_executor.py IT-T3-010 --run-id=IT-T3-2026-09-14-190650-4a46165ff9f718ce",
+ "STARTED_AT": "2026-09-14T19:06:50Z",
+ "FINISHED_AT": "2026-09-14T19:06:56Z",
+ "COST_USD": 0,
+ "ITEM_COUNT_RAW": 1,
+ "ITEM_COUNT_NORMALIZED": 0,
+ "ERROR": "Could not find platform independent libraries <prefix>",
+ "ESTADO_DOS_ITENS": "NA_PORTA",
+ "FONTES_DO_ASSUNTO": 14,
+ "FONTES_SEM_CAMINHO": 11,
+ "SAIDA": "{\n \"RUN_ID\": \"IT-T3-2026-09-14-190650-4a46165ff9f718ce\",\n \"OBSERVACOES_DESTA_CORRIDA\": 1,\n \"COM_BYTES_NO_ARMAZEM\": 1,\n \"LARGOU_EM\": \"data/colheita/italia/colheita.json\",\n \"DECLAROU_EM\": \"data/colheita/italia/IT-T3-2026-09-14-190650-4a46165ff9f718ce/RETORNO.json\",\n \"COLETOR\": {\n  \"CODIGO\": 0,\n  \"ERRO\": \"\"\n }\n}",
+ "COLHEITA_ENCONTRADA": 1,
+ "COLHEITA_NAO_ENCONTRADA": "",
+ "RETORNO": {
+  "ESTADO": "SUCCESS",
+  "COLHEITA": 1,
+  "SUPORTE": [],
+  "ERROS": [],
+  "PORQUE_ZERO_COLHEITA": null
+ },
+ "INGRESSO": {
+  "PARA_A_PORTA": [
+   {
+    "RUN_ID": "IT-T3-2026-09-14-190650-4a46165ff9f718ce",
+    "DOCUMENT_ID": "APOL:2026:N10:BR-COLLINA",
+    "DOCUMENT_VERSION_ID": "v1_2ba23d223429",
+    "RAW_SHA256": "2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a",
+    "RESOLVED_STRUCTURED_TARGET": "SOURCE_DOCUMENT",
+    "BYTES": 1652152,
+    "MIME_ASSINATURA": "PDF",
+    "SOURCE_DATE": "14/09/2026 a 20/09/2026",
+    "SOURCE_DATE_ISO": "2026-09-14",
+    "CAPTURED_AT": "2026-09-14T19:06:56.581Z",
+    "COLLECTION_RUN_STARTED_AT": "2026-09-14T19:06:50.945Z",
+    "OBSERVATION_RESULT": "SEEN_AGAIN",
+    "HEALTH_STATE": "HEALTHY",
+    "CADENCE_STATE": "EXPECTED_NO_CHANGE",
+    "EXPECTED_NEXT_UPDATE": "2026-09-21",
+    "DECLARED_FREQUENCY": "o site nao declara cadencia em texto",
+    "OBSERVED_FREQUENCY": "7D — provado pelas DATAS dentro dos documentos preservados (VALID_FROM 31/08 e 07/09 = 7 dias exatos)",
+    "RAW_OBJECT_CREATED": false,
+    "RAW_PRESERVED_BEFORE_PARSE": true,
+    "DISCOVERY_DEGRADED": null,
+    "PARSE_ERROR": null,
+    "parse": null,
+    "EXECUTOR_ID": "italia-recorrente",
+    "EXECUTOR_VERSION": "adapter-v1",
+    "STORAGE_LOCATION": "data/collection-store/italy/IT-T3-010/APOL_2026_N10_BR-COLLINA/v1_2ba23d223429/Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+    "ESPECIE": "COLHEITA",
+    "SHA256": "2ba23d223429131eff142b3f93362e12965ea9ee8e2c704fae918a6b74711e9a",
+    "PAYLOAD": {
+     "ONDE": "data/collection-store/italy/IT-T3-010/APOL_2026_N10_BR-COLLINA/v1_2ba23d223429/Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+     "ESTADO": "PRESENTE"
+    },
+    "ARTIFACT_ID": "RAW-2ba23d223429131e",
+    "source_id": "IT-T3-010",
+    "url": "http://www.apol.it/documenti/notizie/Bollettino_Mosca_dellOlivo_n_10_del_14_09_2026.pdf",
+    "artifact_type": "RAW",
+    "captured_at": "2026-09-14T19:06:56.581Z"
+   }
+  ],
+  "PARA_A_DERIVACAO": [],
+  "SEM_BYTES_PARA_DERIVAR": [],
+  "FONTE_PROVADA": "IT-T3-010",
+  "PRESERVADOS": 1,
+  "RECUSADOS": 0,
+  "PORQUE_RECUSADOS": [],
+  "RUN_STATE": "PARTIAL",
+  "RASTRO": "NAO_EMITIDO",
+  "BANCO": "NAO MEDIDO — nao houve leitura do banco"
+ },
+ "DERIVACAO": {
+  "CHAMADO": false,
+  "PORQUE": "nenhuma observacao preservada nesta corrida para derivar",
+  "UNIDADES": 0
+ },
+ "ESTRUTURACAO": {
+  "CHAMADO": false,
+  "UNIDADES": 0,
+  "PORQUE": "nenhum derivado desta corrida para estruturar"
+ },
+ "ADMISSAO": {
+  "itens": 1,
+  "por_resultado": {
+   "NAO_SEI": 1
+  },
+  "prontos": 0,
+  "ficheiro": "",
+  "espera": null,
+  "FRONTEIRA": {
+   "CONTRATO": "STRUCTURED -> ADMISSION",
+   "DONO": "coleta/ingresso.py::conferir_fronteira",
+   "MEDIDOS": 1,
+   "EXIGIDOS_EM_FALTA": {},
+   "TRANSPORTAVEIS_AUSENTES": {
+    "FACT_LOCATION": 1,
+    "FACT_TIME": 1,
+    "OBSERVED_AT": 1,
+    "PARENT_SHA256": 1,
+    "PUBLISHED_AT": 1,
+    "SOURCE_LOCATION": 1
+   },
+   "COM_LINHAGEM": 0,
+   "A_LEI": "FACT_TIME != PUBLISHED_AT != OBSERVED_AT != COLLECTED_AT != DERIVED_AT"
+  }
+ }
+}

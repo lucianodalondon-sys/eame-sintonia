@@ -40,7 +40,7 @@ export const ANCHORS = [
   ['markettemp', '§8/§13 · market "temperature" was an editorial fixture'],
   ['competitor', '§9 · REACHED_IN_ITALY (414) is not the same claim'],
   ['navgroup', '§1 · Core = external intelligence'],
-  ['sources', "§8 · 'sources' counts monitored public routes only"],
+  ['sources', "§8 · 'sources' counts the source REGISTRY"],
   ['navbadges', 'const navIntegrations = '],
   ['accents', '§4 · The green/amber accents'],
   ['detail', '§2 · The detail must open the SAME entity the card opened'],

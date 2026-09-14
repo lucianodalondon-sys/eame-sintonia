@@ -75,7 +75,8 @@ R('PRODUCT RELATIONSHIP CORE TRUTH SOURCE', (C.productRelationships && C.product
 R('PRODUCT RELATIONSHIPS', count('productRelationships'), '(measured)');
 R('D.CASES USED AS PRODUCT TRUTH', YN(!check('P2').pass), 'NO');
 
-R('VOCI REAL PUBLIC VOICES', count('publicVoices'), 17);
+/* 17 was the old ingest's voice count; the canonical package carries 79. */
+R('VOCI REAL PUBLIC VOICES', count('publicVoices'), 79);
 R('VOCI RTV DEMO MESSAGES', (() => { const v = vals({ view: 'voices' }); const list = v && v.voices ? [].concat(v.voices.featured || [], v.voices.latest || []) : null; return list ? list.filter((x) => x && (x.demo || x.provenance === 'SYNTHETIC_DEMO')).length : 'n/a'; })(), 0);
 
 R('FIELD SALES MUTATES CORE', YN(!check('FS1').pass), 'NO');
@@ -124,7 +125,23 @@ const V21 = (() => {
 
 R('HANDOFF V2.1 INGESTED', V21 ? 'YES · ' + V21.V.BUILD_ID : 'NO', 'YES');
 R('V2.1 FAMILIES IN THE MODEL', V21 ? String((V21.V.MANIFEST || []).length) + ' families' : '0', '26 families');
-R('OPPORTUNITIES · CLIENT-SAFE', V21 ? V21.n('opportunities') + ' · ' + V21.safe('opportunities') : '—', '3 · 0');
+/* The Opportunity Engine replaced the 3 inherited records with 37 generated
+   objects. CLIENT_SAFE stays 0 by the package's own law — an opportunity is a
+   Sintonia reading of third-party facts — so the number that matters beside it
+   is how many carry a method strong enough to render. */
+R('OPPORTUNITIES · TOTAL', V21 ? String(V21.n('opportunities')) : '—', '37');
+R('OPPORTUNITIES · VERIFIED CONVERGENCES', (() => {
+  const c = V21 && V21.C.opportunities;
+  return c && c.verifiedConvergences !== undefined ? String(c.verifiedConvergences) : '—';
+})(), '9');
+R('OPPORTUNITIES · TO VALIDATE', (() => {
+  const c = V21 && V21.C.opportunities;
+  return c && c.toValidate !== undefined ? String(c.toValidate) : '—';
+})(), '28');
+R('RED-TEAM REJECTIONS RENDERED', (() => {
+  const c = V21 && V21.C.opportunities;
+  return c && c.rejectedAndRenderable !== undefined ? String(c.rejectedAndRenderable) : '—';
+})(), '0');
 R('COMMERCIAL vs REGULATORY', V21 ? V21.n('productsCommercial') + ' vs ' + V21.n('productsRegulatory') : '—', '51 vs 163');
 R('LABEL-USE ROWS PRESERVED', V21 ? String(V21.n('regulatoryLinks')) : '—', '2030');
 R('REGULATORY FUTURE FACTS', V21 ? V21.n('regulatoryFutureFacts') + ' · ' + V21.safe('regulatoryFutureFacts') : '—', '47 · 47');

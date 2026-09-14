@@ -54,7 +54,28 @@ const PT_RE = new RegExp('(^|[^\\p{L}])(' + PT_MARKERS.join('|') + ')([^\\p{L}]|
 /* English that must not appear when the interface is Italian. Product names,
    company names, Latin binomials and original public quotes are exempt and are
    filtered out by the caller before this runs. */
+/* THE AGRONOMIC VOCABULARY THE DETECTOR WAS BLIND TO.
+   The case breadcrumb printed PEAR, DOWNY MILDEW, CODLING MOTH, EUROPEAN CORN
+   BORER, GRAPEVINE MOTH and POWDERY MILDEW into the Italian interface on seven
+   records, and looksEnglish() returned false on every one of them: none was a
+   marker, and CODEY exempts an all-caps string with spaces. A language guard
+   for an agronomy product that cannot recognise the names of crops and diseases
+   is checking the chrome and ignoring the subject.
+   These are English COMMON names. The Latin binomial is not here and never will
+   be — Vitis vinifera and Ostrinia nubilalis are correct in both languages. */
+export const EN_CROP_PEST_MARKERS = [
+  'pear', 'apple', 'grapevine', 'maize', 'wheat', 'durum wheat', 'barley',
+  'sugar beet', 'tomato', 'onion', 'carrot', 'peach', 'rice', 'soybean',
+  /* deliberately NOT here: 'olive' (Italian plural of oliva), 'citrus' (the
+     Latin genus), 'mite' (an ordinary Italian adjective) — each would fail
+     correct Italian or a Latin name */
+  'downy mildew', 'powdery mildew', 'scab', 'codling moth', 'corn borer',
+  'european corn borer', 'grapevine moth', 'leafhopper', 'aphid',
+  'rootworm', 'blight', 'rust', 'smut', 'wireworm', 'cutworm', 'thrips', 'whitefly',
+];
+
 export const EN_MARKERS = [
+  ...EN_CROP_PEST_MARKERS,
   'days left', 'days remaining', 'no content', 'all crops', 'all issues', 'all regions',
   'portfolio check needed', 'label check needed', 'not found', 'unknown', 'unrecognised',
   'real identity', 'demo profile', 'recent activity', 'window open', 'window closed',
@@ -91,10 +112,17 @@ const EN_FN_RE = new RegExp('(^|[^\\p{L}])(' + EN_FUNCTION.join('|') + ')([^\\p{
 export function looksEnglish(v) {
   if (typeof v !== 'string') return false;
   const t = v.trim();
-  if (t.length < 8 || EXEMPT.test(t) || CODEY.test(t)) return false;
-  if (!/[A-Za-z]{4}/.test(t)) return false;
+  if (!/[A-Za-z]{3}/.test(t)) return false;
   const s = stripCodes(t);
-  return EN_RE.test(s) || EN_FN_RE.test(s);
+  /* A CURATED MARKER BEATS THE EXEMPTIONS — the same ordering bug, twice.
+     isEnglish() was fixed for this once; looksEnglish() kept the old order and
+     therefore missed every agronomic name the breadcrumb was leaking: "PEAR" is
+     4 characters, and "DOWNY MILDEW" is all-caps with a space, so CODEY exempted
+     both before any marker was consulted. A shape test may only decide what a
+     KNOWN word has not already decided. */
+  if (EN_RE.test(s)) return true;
+  if (t.length < 8 || EXEMPT.test(t) || CODEY.test(t)) return false;
+  return EN_FN_RE.test(s);
 }
 
 /* Strings we must never flag: URLs, ids, Latin binomials, pure numbers, and the

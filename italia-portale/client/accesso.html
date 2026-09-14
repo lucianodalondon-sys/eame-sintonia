@@ -18,7 +18,36 @@
      source even after the V2.1 ingestion: cropWindows is listed in
      ITALY_APP_MODEL.V21.notSuppliedByV21, and AM.collections.cropWindows is
      built from this same contract — 29 windows, 9 REGION values, 10 CROP_NAME
-     values, identical on both routes. -->
+     values, identical on both routes.
+
+     §16 · RE-AUDITED against build V21-99226fbb90dcdbc2, reference date
+     2026-09-02, after the Opportunity Engine landed. There are exactly four
+     figures on this page and each is still counted here, in the block below,
+     from the contract this file loads:
+       statRegionsN  = distinct REGION over ITALY_CANONICAL.windows      → 9
+       statCropsN    = distinct CROP_NAME over ITALY_CANONICAL.windows   → 10
+       statWindowsN  = ITALY_CANONICAL.windows.length                    → 29
+       legendUnplaced = distinct REGION this file cannot place on the map → 0
+     All four agree with ITALY_APP_MODEL to the record: collections.cropWindows
+     .count 29, 9 keys in .regionCounts, 10 in .cropCounts. Nothing on this page
+     counts the engine: the page loads the window contract and nothing else, so
+     it may not print 37 readings, 9 verified convergences or 28 to validate —
+     it would have to assert them. It says nothing about them instead.
+     The tile labels name what is counted and no more. "COLTURE" is 10 distinct
+     CROP_NAME, which counts Wheat and Durum Wheat as the two crops they are.
+     "FINESTRE COLTURALI" is 29 APPLICATION windows, not 29 active alerts: 24 of
+     them carry an EXPECTED_NORM date and 5 a DATE_TO_CONFIRM, and NOT ONE is
+     CONFIRMED for the current season — which is why no label on this page says
+     observed, active, monitored or live.
+     The two claims that are not numbers were re-read against the same model and
+     kept. The lede names four domains and the model holds all four (122 field
+     bulletins, 29 crop windows, 157 market observations, 577 competitor
+     activities); "dove ADAMA può agire o prepararsi" names the engine's own two
+     temporal states, ACT_NOW and PREPARE_NOW, and says the view is there to
+     understand them, never that ADAMA must act. The hint's three promises are
+     each testable and each holds today: no authentication (the form navigates
+     and posts nothing), self-contained (no public CDN at runtime), no
+     confidential data (no core screen requires private ADAMA data). -->
 <script src="italy-canonical-windows.js"></script>
 <link rel="stylesheet" href="_ds/adama-brandwell/tokens/colors.css">
 <link rel="stylesheet" href="_ds/adama-brandwell/tokens/typography.css">
@@ -231,8 +260,11 @@
       brandline: 'ADAMA ITALIA · INTELLIGENCE',
       title: "L'intelligenza agricola<br>che <b>anticipa</b> il campo",
       lede: 'Pressione fitosanitaria, finestre colturali, mercato e concorrenza — un solo quadro per capire dove ADAMA può agire o prepararsi in Italia.',
-      userLabel: 'UTENTE', passLabel: 'CODICE DI ACCESSO',
-      userPh: 'nome.cognome@adama.com', passPh: 'Codice di accesso',
+      /* The user / password strings were removed. The form lost its two inputs when the
+         pilot became a no-authentication demo, but the four strings stayed behind with
+         nothing binding them — and one of them, 'nome.cognome@adama.com', invented an
+         ADAMA e-mail convention this project has no source for. Dead copy that asserts
+         something is still an assertion; it just waits for someone to render it. */
       cta: 'ENTRA NELLA DEMO',
       hint: 'Ambiente dimostrativo — nessuna autenticazione. Il pilota è autonomo e non contiene dati riservati.',
       env: 'AMBIENTE DIMOSTRATIVO',
@@ -252,8 +284,6 @@
       brandline: 'ADAMA ITALIA · INTELLIGENCE',
       title: 'The agricultural intelligence<br>that <b>anticipates</b> the field',
       lede: 'Disease pressure, crop windows, market and competition — one view of where ADAMA can act or prepare in Italy.',
-      userLabel: 'USER', passLabel: 'ACCESS CODE',
-      userPh: 'name.surname@adama.com', passPh: 'Access code',
       cta: 'ENTER DEMO',
       hint: 'Demonstration environment — no authentication. The pilot is self-contained and holds no confidential data.',
       env: 'DEMONSTRATION ENVIRONMENT',

@@ -107,8 +107,17 @@
   /* ── 3 · THE NARRATIVE RULE ──────────────────────────────────────────────
      UNKNOWN_SENTINEL is the upstream's own way of saying "not established".
      It is a fact about the state of knowledge, so it survives — as a state,
-     never as its Portuguese explanation. */
-  const UNKNOWN_SENTINEL = /^\s*(NAO SEI|N[ÃA]O SEI|NOT KNOWN|UNKNOWN)\b/i;
+     never as its Portuguese explanation.
+
+     The separator matters. This pattern was written for "NAO SEI" with a space
+     and therefore missed "NAO_SEI" with an underscore, which is the form the
+     package actually uses in enum positions: 1 120 occurrences across 59 field
+     paths — GEOGRAPHIC_SCOPE on sources, science, voices, channels, researchers
+     and resistance, WEED_GROUP on 188 label rows. None is bound by the markup
+     today, so nothing reached a client screen; but the gap meant the gate was
+     open, and the first view to bind one of those fields would have printed a
+     Portuguese "don't know" as if it were a value. */
+  const UNKNOWN_SENTINEL = /^\s*(NAO[ _]SEI|N[ÃA]O[ _]SEI|NAO[ _]DECLARAD[AO]|NOT[ _]KNOWN|UNKNOWN)\b/i;
   const KNOWLEDGE = { CLEAR: 'CLEAR', NOT_ESTABLISHED: 'NOT_ESTABLISHED', NOT_APPROVED_FOR_DISPLAY: 'NOT_APPROVED_FOR_DISPLAY' };
 
   /**
@@ -303,19 +312,28 @@
        · RESEARCH and every *_ORIGINAL_RESEARCH_TEXT are NOT in the browser.
          The approved *_IT / *_EN fields are, which is what makes the narrative
          rule return CLEAR instead of NOT_APPROVED_FOR_DISPLAY on this package.
-       · A CLIENT_SAFE=false record travels as identity + QA state ONLY.
-         MEASURED here: that holds on 26/26 families — no non-safe record in
-         the package carries a single field outside the seven-field stub. So a
-         non-safe record can be COUNTED and can never be RENDERED, which is
-         exactly the gate, enforced by the transport rather than by a screen.
+       · WHAT TRAVELS CHANGED IN BUILD V21-99226fbb90dcdbc2, and the change
+         matters enough to write down. The earlier build stripped a
+         CLIENT_SAFE=false record down to identity + QA state, so the gate was
+         enforced by the TRANSPORT: a non-safe record physically had nothing to
+         render. This build transports everything and moves the gate here,
+         where it belongs — the package's own header now says so: "CLIENT_SAFE
+         still governs what may be ASSERTED and is enforced in the model, not
+         here."
 
-     WHAT THAT COSTS, stated rather than hidden: where a whole family is
-     CLIENT_SAFE=false (opportunities 3/3, relationships 19/19, crossings
-     19/19) the package delivers no payload at all. For those, and only for
-     those, the adapter merges the SAME RECORD from the lower-precedence
-     ITALY_INGEST by primary key — provable identity, not a guess: the ids are
-     identical and V2.1's own ORIGIN_LAYER says PREVIOUS_HANDOFF. V2.1 still
-     wins every key it carries; the merge only fills what it did not transport. */
+     WHAT THAT COSTS, stated rather than hidden: three whole families are
+     CLIENT_SAFE=false — opportunities 37/37, relationships 19/19, crossings
+     19/19 — and they now arrive with full payload, Portuguese included. So
+     nothing is missing any more, and nothing is protected by absence either.
+     Two rules do the protecting instead, and both are in this file:
+       · narrative() refuses any prose without an approved _IT/_EN sibling, so
+         a research note cannot reach a screen even if a view binds it;
+       · every collection publishes count · clientSafe · corpus, and a claim
+         that needs client-safe evidence reads safeRecords.
+     THE OPPORTUNITY FAMILY IS THE ONE PLACE WHERE CLIENT_SAFE IS NOT THE
+     RENDER GATE, because there it is false by construction on every row; see
+     §8b, where the gate is RENDERABLE_WITH_METHOD and the reason is written
+     out in full. */
   const V21H = RAW.HANDOFF_V21 || null;
   const V21C = (V21H && V21H.collections) || {};
   const V21_MANIFEST = {};
@@ -354,7 +372,14 @@
        da propria API)'); isoOf takes the head and refuses anything else. */
     recordReferenceDate: isoOf(r.REFERENCE_DATE),
     cropIds: A(r.CROP_IDS), issueIds: A(r.ISSUE_IDS), regionIds: A(r.REGION_IDS),
-    geographicScope: S(r.GEOGRAPHIC_SCOPE),
+    /* The scope is an enum with a "don't know" member, and upstream writes that
+       member in Portuguese as NAO_SEI — 187 times on sources alone. Carried raw
+       it becomes a Portuguese word sitting in a value slot, waiting for the
+       first view that binds the field. UNK() turns it into the absence it
+       already means; geographicScopeStated says whether the source declared one,
+       so a screen can say "non dichiarato" instead of printing nothing. */
+    geographicScope: UNK(r.GEOGRAPHIC_SCOPE),
+    geographicScopeStated: !!UNK(r.GEOGRAPHIC_SCOPE),
     observationClass: S(r.OBSERVATION_CLASS),
     confidence: S(r.CONFIDENCE),
     evidenceStatus: S(r.EVIDENCE_STATUS),
@@ -1522,7 +1547,16 @@
       const cropR = cropResolve(l.CROP_ON_LABEL);
       return Object.assign(v21spine(l), {
         crop: S(l.CROP_ON_LABEL),
-        cropOnLabel: S(l.CROP_ON_LABEL),
+        /* CROP_ON_LABEL is the ministerial label's own Italian word, in capitals:
+           BARBABIETOLA, POMODORO, PESCO, MELO. Two of the 35 are two-word names
+           whose space arrived as an underscore — ERBA_MEDICA and MAIS_DOLCE —
+           and the evidence list on the opportunity screen printed the token raw,
+           on 6 rows across 3 records: "LAMDEX EXTRA · MAIS_DOLCE · PIRALIDE".
+           Restoring the space is not translating and not renaming: it is the
+           same word the label carries, with its separator repaired. The token
+           stays available beside it, and nothing joins on either. */
+        cropOnLabel: S(l.CROP_ON_LABEL).replace(/_/g, ' '),
+        cropOnLabelToken: S(l.CROP_ON_LABEL),
         cropCode: U(l.CROP_ON_LABEL),
         cropKey: cropR.key || cropsFromV21Ids(l.CROP_IDS)[0] || null,
         cropKeys: uniq(cropR.keys.concat(cropsFromV21Ids(l.CROP_IDS))),
@@ -2495,11 +2529,43 @@
     return t;
   };
 
+  /* THE VALIDATOR THAT SILENTLY LOST 22 OF 34 ROWS.
+     The V2.1 GIRE family carries 34 records and only 12 of them fill SPECIES
+     with a taxonomic binomial; the other 22 fill SPECIES_IT with the Italian
+     common name and leave the binomial blank, because the GIRE factsheet is
+     keyed on the genus in its URL and names the species only sometimes.
+     Requiring `species` therefore threw away 22 REAL records — and the cost
+     was not only a wrong count: the Opportunity Engine cites IT-RES-023 to
+     IT-RES-026 as evidence, and those four ids resolved to nothing at all
+     because the rows they name had been dropped here.
+
+     So identity is the only requirement, exactly as it is everywhere else in
+     this file, and the NAME becomes a question the record answers as best it
+     can: the binomial when it has one, otherwise the Italian common name that
+     `displayName` has already stripped of research notes, otherwise nothing.
+     `speciesState` says which of the three happened, so a screen prints a name
+     or an absence and never a guessed binomial. A taxonomic name is never
+     invented, never completed and never truncated. */
   const resistance = build('resistance', [
     V21('resistance', (r) => {
       const cr = cropResolve(r.CROP_DECLARED);
+      const binomial = S(r.SPECIES);
+      const common = displayName(r.SPECIES_IT);
+      /* SPECIES is sometimes the binomial and sometimes the binomial followed
+         by the analyst's Portuguese note about it ("Lolium spp. — a ficha
+         especifica que na Italia duas especies estao envolvidas..."). A name
+         with a clause hanging off it is not a name — and cutting the clause
+         off would be truncating a taxonomic name, which §L3 forbids. So the
+         whole thing is refused as a NAME (it stays available as the field
+         `species`, which is the source's own fact) and the record falls back
+         to the Italian common name instead. */
+      const nameable = binomial && !/\s[—–]\s/.test(binomial) ? binomial : null;
       return Object.assign(v21spine(r), {
-        species: S(r.SPECIES), speciesIt: displayName(r.SPECIES_IT), family: S(r.FAMILY),
+        species: binomial, speciesIt: common, family: S(r.FAMILY),
+        /* the name a screen may print, and where it came from */
+        displayLabel: nameable || common || null,
+        speciesState: nameable ? 'TAXONOMIC' : common ? 'COMMON_NAME_ONLY' : 'NOT_NAMED',
+        speciesIsTaxonomic: !!nameable,
         mechanism: narrative(r, 'MECHANISM'),
         mechanismStated: !!S(r.MECHANISM) && !UNKNOWN_SENTINEL.test(S(r.MECHANISM)),
         /* CROP_DECLARED is still the source's own sentence; the crop is
@@ -2516,7 +2582,7 @@
         citation: S(r.CITATION), authority: S(r.AUTHORITY),
         url: S(r.SOURCE_URL), sourceId: S(r.SOURCE_ID),
       });
-    }, { validate: (r) => (!r.id ? 'no ID' : !r.species ? 'no species' : null) }),
+    }, { validate: (r) => (!r.id ? 'no ID' : null) }),
     {
       source: 'ITALY_INGEST.RESISTANCE',
       precedence: P.REAL_SOURCE,
@@ -3439,28 +3505,18 @@
   cropWindows.records.forEach((w) => { if (w.legacyCaseId) windowByLegacyCase[U(w.legacyCaseId)] = w; });
 
   /* ═══════════════════════════════════════════════════════════════════════
-     THESE ARE NOT OPPORTUNITIES, AND THE PACKAGE FORBIDS CALLING THEM THAT.
-     Measured on all three records, and none of it is a judgement made here:
-         ENTITY_TYPE      OPPORTUNITY_CANDIDATE
-         QA_STATUS        EVIDENCE_DERIVED
-         CLIENT_SAFE      false          → collections.opportunities.clientSafe = 0
-         CASE_LABEL       «CONVERGENCIA QUE MERECE INVESTIGACAO»
-         FORBIDDEN_LABEL  the record telling the interface what it may NOT say
-     Nothing rounds that zero up. A regulatory future fact never becomes one of
-     these either: 47 facts are 47 facts, and they live in their own collection
-     with isOpportunity false on every row.
-
-     All three are CLIENT_SAFE=false, so V2.1 transported identity and QA state
-     only — CASE_LABEL, FORBIDDEN_LABEL and the method statement are not in the
-     browser copy of the package. They are the SAME records the previous
-     handoff carries (identical ids, and V2.1's own ORIGIN_LAYER says
-     PREVIOUS_HANDOFF), so the previous handoff fills exactly what the
-     transport left out and V2.1 wins every key it does carry. Without that
-     merge the radar would show three empty shells and the mandatory label
-     would disappear — which would be worse than the leak the transport
-     prevents, because the label is the thing that stops the word
-     "opportunity" being used. */
-  const adaptOpportunity = (o) => {
+     THE LEGACY ADAPTER · three records, a different schema, kept as fallback.
+     ═══════════════════════════════════════════════════════════════════════
+     This reads the PREVIOUS handoff's opportunity shape (LEGACY_CASE_ID,
+     WHAT_IS_HAPPENING, CASE_LABEL, FORBIDDEN_LABEL). Build
+     V21-99226fbb90dcdbc2 replaced that shape entirely, so this adapter no
+     longer wins the family — it stays because ITALY_INGEST is still a
+     registered lower-precedence source and a receiver that silently drops a
+     source it can still read is a receiver that lies about its precedence
+     ladder. Every field it produces is also produced (as null) by the V2.1
+     adapter below, so a view that still binds `caseLabel` renders an absence
+     rather than crashing. */
+  const adaptLegacyOpportunity = (o) => {
         const w = windowByLegacyCase[U(o.LEGACY_CASE_ID)] || null;
         const wih = o.WHAT_IS_HAPPENING && typeof o.WHAT_IS_HAPPENING === 'object' ? o.WHAT_IS_HAPPENING : {};
         const wim = o.WHY_IT_MATTERS && typeof o.WHY_IT_MATTERS === 'object' ? o.WHY_IT_MATTERS : {};
@@ -3580,71 +3636,851 @@
         };
   };
 
-  /* An opportunity candidate does NOT have to name a crop. IT-OPP-003 is the
-     authorisation-expiry case, which the source itself describes as
-     "transversal, não é uma cultura" — portfolio-wide. Requiring a crop
-     silently rejected a real record and the radar showed 2 where upstream
-     supplied 3. Only the identity is mandatory. */
-  const opportunities = build('opportunities', [
-    V21('opportunities', (o) => Object.assign(v21spine(o), adaptOpportunity(o), {
-      /* the V2.1 spine wins on identity and QA state, which is what makes the
-         gate readable: entityType OPPORTUNITY_CANDIDATE, clientSafe false */
-      entityType: S(o.ENTITY_TYPE), qaStatus: S(o.QA_STATUS), clientSafe: CS(o),
-      payloadState: CS(o) ? 'FULL' : 'IDENTITY_ONLY',
-      /* the payload below did not travel in the V2.1 copy and is filled from
-         the same record in the previous handoff — declared, not inferred */
-      payloadFilledFrom: CS(o) ? null : 'ITALY_INGEST.OPPORTUNITIES · same ID',
+  /* ═══════════════════════════════════════════════════════════════════════
+     8b · THE OPPORTUNITY ENGINE
+     ═══════════════════════════════════════════════════════════════════════
+     Build V21-99226fbb90dcdbc2 replaced the three hand-written cases with a
+     generated engine: 37 records, six archetypes, a score, a gate list, a red
+     team and an evidence map. Everything below reads that engine. Nothing
+     below decides an agronomic or a commercial state.
+
+     THE ONE THING TO GET RIGHT, because getting it wrong empties or inflates
+     the screen in opposite directions:
+
+       CLIENT_SAFE is false on 37 of 37, BY THE PACKAGE'S OWN RULE. An
+       opportunity is OUR reading of third-party facts, and the client-safe
+       rule governs what WE produce; every fact it cites passed the gate one
+       by one, the JOINING of them did not, and that is why it goes to screen
+       with the method declared beside it. So CLIENT_SAFE is NOT the render
+       gate here. Gating on it would blank the radar.
+
+       RENDERABLE_WITH_METHOD is the render gate: true on 9, false on 28.
+       MEASURED and not assumed: the 9 renderable carry ZERO blocking gates
+       and the 28 candidates carry at least one each, so the two statements
+       are the same statement counted from two sides.
+
+     THE VOCABULARY IS PUBLISHED HERE AND NOWHERE ELSE. The package leaves
+     ARCHETYPE_MEANS, the six *_LAW fields, the CONFIDENCE enum, the gate
+     reasons and the NUMBERS keys in Portuguese, with no approved localized
+     sibling. narrative() therefore reports them NOT_APPROVED_FOR_DISPLAY,
+     which is correct and also unusable: the radar cannot show a law it is not
+     allowed to print. So they are AUTHORED here as presentation captions —
+     each one says exactly what the Portuguese says and claims nothing more —
+     and the Portuguese original stays reachable only under a *Raw key, which
+     PT3 forbids the markup from binding. */
+
+  /** An authored presentation caption. Shaped like narrative() so one view
+      reads one shape, and stamped `authored` so an auditor can tell a caption
+      written here from a translation the package approved upstream. */
+  const caption = (it, en) => ({ state: KNOWLEDGE.CLEAR, it, en, authored: true });
+  const NO_CAPTION = { state: KNOWLEDGE.NOT_APPROVED_FOR_DISPLAY, it: null, en: null, authored: false };
+
+  /* ---- the six archetypes ------------------------------------------------
+     Display names are the ones the brief mandates. `means` is the authored
+     Italian/English of the package's own ARCHETYPE_MEANS sentence. */
+  const OPP_ARCHETYPE = {
+    O1_FIELD_PRESSURE: {
+      order: 1, it: 'Pressione di campo', en: 'Field pressure',
+      means: caption(
+        'pressione di campo corrente su una coltura che ha una finestra e per cui esiste un’etichetta ADAMA.',
+        'current field pressure on a crop that has a window and for which an ADAMA label exists.'),
+    },
+    O2_MARKET_MOMENT: {
+      order: 2, it: 'Momento di mercato', en: 'Market moment',
+      means: caption(
+        'segnale di mercato o peso economico su una coltura in cui ADAMA ha portafoglio.',
+        'market signal or economic weight on a crop where ADAMA has portfolio.'),
+    },
+    O3_RESISTANCE_MOA: {
+      order: 3, it: 'Resistenza / MoA', en: 'Resistance / MoA',
+      means: caption(
+        'resistenza documentata, con rilevanza di campo o scientifica, e un modo d’azione presente in ADAMA.',
+        'documented resistance, with field or scientific relevance, and a mode of action present in ADAMA.'),
+    },
+    O4_COMPETITIVE_OPENING: {
+      order: 4, it: 'Apertura competitiva', en: 'Competitive opening',
+      means: caption(
+        'comunicazione corrente di un concorrente su una coltura per cui ADAMA ha un’etichetta.',
+        'current competitor communication on a crop for which ADAMA has a label.'),
+    },
+    O5_REGULATORY_PREPARATION: {
+      order: 5, it: 'Preparazione regolatoria', en: 'Regulatory preparation',
+      means: caption(
+        'una data regolatoria europea su una sostanza contenuta in prodotti ADAMA.',
+        'a European regulatory date on a substance contained in ADAMA products.'),
+    },
+    O6_SCIENCE_TO_FIELD: {
+      order: 6, it: 'Scienza → campo', en: 'Science → field',
+      means: caption(
+        'scienza rilevante con evidenza corrente di campo e rilevanza per ADAMA.',
+        'relevant science with current field evidence and relevance for ADAMA.'),
+    },
+  };
+
+  /* ---- the five temporal states -----------------------------------------
+     A TEMPORAL horizon, never an instruction and never a commercial state.
+     TO_VALIDATE is the horizon that has not been established, so it is NOT
+     labelled "da validare": that phrase already belongs to the 28 candidates
+     and two different axes wearing one word is how a screen starts lying. */
+  const OPP_STATUS_UI = {
+    ACT_NOW: {
+      order: 1, it: 'Adesso', en: 'Now', tone: 'urgent',
+      means: caption('il segnale che sostiene questa lettura è corrente.',
+        'the signal supporting this reading is current.'),
+    },
+    PREPARE_NOW: {
+      order: 2, it: 'Preparazione ora', en: 'Prepare now', tone: 'warm',
+      means: caption('è la preparazione a riguardare adesso; la finestra di applicazione non viene affermata qui.',
+        'it is the preparation that concerns now; the application window is not asserted here.'),
+    },
+    WATCH: {
+      order: 3, it: 'Da osservare', en: 'Watch', tone: 'neutral',
+      means: caption('il segnale resta sotto osservazione.', 'the signal stays under observation.'),
+    },
+    FUTURE_PREPARATION: {
+      order: 4, it: 'Preparazione futura', en: 'Future preparation', tone: 'neutral',
+      means: caption('la data che sostiene questa lettura è futura.',
+        'the date supporting this reading is in the future.'),
+    },
+    TO_VALIDATE: {
+      order: 5, it: 'Orizzonte da stabilire', en: 'Horizon to establish', tone: 'quiet',
+      means: caption('non c’è un orizzonte temporale difendibile per questa lettura.',
+        'there is no defensible time horizon for this reading.'),
+    },
+  };
+
+  /* ---- confidence · the package writes this enum in Portuguese ----------- */
+  const OPP_CONFIDENCE = {
+    ALTA: { order: 1, it: 'Alta', en: 'High' },
+    MEDIA: { order: 2, it: 'Media', en: 'Medium' },
+    BAIXA: { order: 3, it: 'Bassa', en: 'Low' },
+  };
+
+  /* ---- who should EXAMINE this signal ------------------------------------
+     The names are the ones the brief mandates. ACTION_MAP_LAW is explicit that
+     this is a reading of external intelligence, not proof that a function must
+     act — and the system has never seen an ADAMA internal workflow. */
+  const OPP_AUDIENCE = {
+    MARKETING: { order: 1, it: 'Marketing', en: 'Marketing' },
+    COMMERCIAL: { order: 2, it: 'Commerciale', en: 'Commercial' },
+    MARKET_DEVELOPMENT: { order: 3, it: 'Sviluppo di Mercato', en: 'Market Development' },
+    SCIENCE_TECHNICAL: { order: 4, it: 'Tecnico / Scientifico', en: 'Technical / Scientific' },
+    REGULATORY: { order: 5, it: 'Regolatorio', en: 'Regulatory' },
+    SUPPLY: { order: 6, it: 'Supply', en: 'Supply' },
+    PORTFOLIO: { order: 7, it: 'Portfolio', en: 'Portfolio' },
+  };
+
+  /* ---- the two client-facing states, and the phrase that is forbidden -----
+     The package's own OPPORTUNITY_LABEL_IT says "OPPORTUNITÀ CONFERMATA" on
+     the 9. The brief's wording wins for anything a client reads: "confermata"
+     asserts a confirmation nobody performed. The package state stays available
+     underneath, under packageLabel, so the two can be compared. */
+  const OPP_STATE_UI = {
+    OPPORTUNITY_CONFIRMED: {
+      renderable: true,
+      it: 'OPPORTUNITÀ SINTONIA', en: 'SINTONIA OPPORTUNITY',
+      qualifierIt: 'CONVERGENZA VERIFICATA', qualifierEn: 'VERIFIED CONVERGENCE',
+      tone: 'verified',
+    },
+    OPPORTUNITY_CANDIDATE: {
+      renderable: false,
+      it: 'DA VALIDARE', en: 'TO VALIDATE',
+      qualifierIt: null, qualifierEn: null,
+      tone: 'candidate',
+    },
+  };
+  const OPP_FORBIDDEN_PHRASES = {
+    it: ['OPPORTUNITÀ CONFERMATA', '37 opportunità confermate'],
+    en: ['CONFIRMED OPPORTUNITY', '37 confirmed opportunities'],
+    why: caption(
+      'nessuna delle 37 letture è una conferma: 9 sono convergenze verificate con il metodo dichiarato, 28 sono da validare.',
+      'none of the 37 readings is a confirmation: 9 are verified convergences with the method declared, 28 are to validate.'),
+  };
+
+  /* ---- the engine's own laws, authored ----------------------------------
+     Keyed on the package field the caption belongs to, so an auditor can put
+     the two side by side. The Portuguese original never leaves ENGINE_LAW_RAW. */
+  const ENGINE_LAW = {
+    STATUS_LAW: caption(
+      'lo stato è un’interpretazione Sintonia derivata da una data esterna. Non deduce mai domanda della distribuzione, sell-in, giacenze, ordini né pipeline interna.',
+      'the state is a Sintonia interpretation derived from an external date. It never infers channel demand, sell-in, stock, orders or internal pipeline.'),
+    WINDOW_LAW: caption(
+      'la finestra è la finestra di APPLICAZIONE, letta da un campo dichiarato; dove non c’è, resta non nota e non si inventa. La data del segnale è la data del documento che sostiene il caso: dice se il segnale è corrente, non quando applicare.',
+      'the window is the APPLICATION window, read from a declared field; where there is none it stays unknown and is not invented. The signal date is the date of the document that supports the case: it says whether the signal is current, not when to apply.'),
+    NUMBERS_LAW: caption(
+      'i numeri stanno qui, fuori dalla frase: una frase con una variabile dentro è una frase nuova a ogni build e non resta mai tradotta.',
+      'the numbers live here, outside the sentence: a sentence with a variable inside is a new sentence at every build and never stays translated.'),
+    SCORE_LAW: caption(
+      'il punteggio ORDINA, non prova. Un 12 che non ha superato un controllo resta un 12 che non ha superato un controllo.',
+      'the score ORDERS, it does not prove. A 12 that failed a check is still a 12 that failed a check.'),
+    ACTION_MAP_LAW: caption(
+      'chi dovrebbe esaminare questo segnale adesso è una lettura di intelligence esterna, non una prova che quella funzione debba agire.',
+      'who should examine this signal now is a reading of external intelligence, not proof that that function must act.'),
+    /* WHY_NOT_CLIENT_SAFE, said as what it actually is: the method statement
+       that travels beside the reading. The internal field name is never shown. */
+    METHOD: caption(
+      'un’opportunità è una lettura di Sintonia su fatti di terzi. Ogni evidenza citata è stata verificata una per una; l’accostamento fra loro no, ed è per questo che arriva allo schermo con il metodo dichiarato accanto.',
+      'an opportunity is a Sintonia reading of third-party facts. Every piece of cited evidence was verified one by one; the joining of them was not, and that is why it reaches the screen with the method declared beside it.'),
+    REJECTION_LAW: caption(
+      'la revisione avversariale può solo far cadere un caso; non lo conferma mai.',
+      'the adversarial review can only knock a case down; it never confirms one.'),
+    EVIDENCE_LAW: caption(
+      'ogni evidenza è citata con il suo identificativo canonico. Nessun collegamento è fatto per somiglianza di testo.',
+      'every piece of evidence is cited by its canonical identifier. No link is made by text similarity.'),
+    BUILD_ID_LAW: caption(
+      'l’identificativo della build nasce dal contenuto dei file: stesso contenuto, stesso identificativo; contenuto diverso, identificativo diverso. Una data di calendario non serve da identità.',
+      'the build identifier comes from the content of the files: same content, same identifier; different content, different identifier. A calendar date does not serve as identity.'),
+  };
+  const ENGINE_RAW = (V21H && V21H.ENGINE) || {};
+  const ENGINE_LAW_RAW = {
+    /* traceability only. *Raw is the slot PT3 forbids the markup from binding. */
+    REJECTION_LAW: S(ENGINE_RAW.REJECTION_LAW),
+    EVIDENCE_LAW: S(ENGINE_RAW.EVIDENCE_LAW),
+    CLIENT_SAFE_LAW: S(ENGINE_RAW.RULES && ENGINE_RAW.RULES.LEI_DO_CLIENT_SAFE),
+    BUILD_ID_LAW: S(ENGINE_RAW.RULES && ENGINE_RAW.RULES.BUILD_ID_LAW),
+    SCORE_LAW: S(ENGINE_RAW.RULES && ENGINE_RAW.RULES.SCORE && ENGINE_RAW.RULES.SCORE.LEI),
+  };
+
+  /* ---- why a candidate is only a candidate -------------------------------
+     BLOCKING_GATES and the red team's POR_QUE are Portuguese strings shaped
+     "CODE · reason" (and sometimes "CODE · reason: ID, ID"). They are parsed
+     into their parts and each reason is matched against a DECLARED caption
+     table. An unmatched reason keeps its gate code and returns no text at all
+     — an untranslated Portuguese sentence never becomes the answer to "why is
+     this only a candidate". */
+  const OPP_GATE_NAME = {
+    A_GEOGRAFIA: { it: 'Geografia', en: 'Geography' },
+    C_TEMPO: { it: 'Tempo', en: 'Time' },
+    D_PROBLEMA: { it: 'Problema', en: 'Problem' },
+    F_PROCEDENCIA: { it: 'Provenienza', en: 'Provenance' },
+    RED_TEAM: { it: 'Revisione avversariale', en: 'Adversarial review' },
+  };
+  const oppReasonKey = (v) => fold(String(v || '')).toLowerCase().replace(/\s+/g, ' ').trim();
+  const OPP_GATE_REASON = {};
+  [
+    ['apoios em geografias que nao se contem',
+      'le evidenze citate stanno in geografie che non si contengono l’una nell’altra.',
+      'the cited evidence sits in geographies that do not contain one another.'],
+    ['sem janela defensavel e sem sinal datado nos ultimos 120 dias',
+      'nessuna finestra difendibile e nessun segnale datato negli ultimi 120 giorni.',
+      'no defensible window and no dated signal in the last 120 days.'],
+    ['sem alvo agronomico declarado',
+      'nessun bersaglio agronomico dichiarato.',
+      'no agronomic target stated.'],
+    ['apoio sem origem recuperavel',
+      'un’evidenza citata non ha un’origine recuperabile.',
+      'a cited piece of evidence has no recoverable origin.'],
+    ['comunicacao de concorrente virou participacao de mercado',
+      'la comunicazione di un concorrente era stata letta come quota di mercato.',
+      'competitor communication had been read as market share.'],
+    ['geografia promovida: apoio provincial em alegacao mais ampla',
+      'geografia promossa: un’evidenza provinciale sosteneva un’affermazione più ampia.',
+      'geography promoted: provincial evidence was supporting a broader claim.'],
+    ['resistencia documentada sem sinal de campo corrente: nao e incidencia',
+      'resistenza documentata senza segnale di campo corrente: non è incidenza.',
+      'documented resistance with no current field signal: that is not incidence.'],
+    ['relacao de portfolio tratada como verificacao de rotulo',
+      'una relazione di portafoglio era stata trattata come verifica di etichetta.',
+      'a portfolio relationship had been treated as a label verification.'],
+  ].forEach((r) => { OPP_GATE_REASON[oppReasonKey(r[0])] = caption(r[1], r[2]); });
+
+  /** "A_GEOGRAFIA · apoios ...: IT-WIN-001, IT-WIN-002" -> parts + caption. */
+  const oppReason = (rawReason) => {
+    const raw = S(rawReason);
+    if (!raw) return null;
+    const dot = raw.indexOf(' · ');
+    let code = null;
+    let body = raw;
+    if (dot > 0) {
+      const head = raw.slice(0, dot).trim();
+      if (/^[A-H]_[A-Z]+$/.test(head) || head === 'RED_TEAM') { code = head; body = raw.slice(dot + 3).trim(); }
+    }
+    /* a trailing ": ID, ID" is a list of record ids, which is data, not prose */
+    let details = [];
+    const colon = body.lastIndexOf(': ');
+    if (colon > 0) {
+      const tail = body.slice(colon + 2).trim();
+      if (/^[A-Z0-9][A-Z0-9_-]*(\s*,\s*[A-Z0-9][A-Z0-9_-]*)*$/.test(tail)) {
+        details = tail.split(/\s*,\s*/).filter(Boolean);
+        body = body.slice(0, colon).trim();
+      }
+    }
+    const cap = OPP_GATE_REASON[oppReasonKey(body)] || NO_CAPTION;
+    const nm = code ? OPP_GATE_NAME[code] || null : null;
+    return {
+      code,
+      gateIt: nm ? nm.it : null,
+      gateEn: nm ? nm.en : null,
+      isRedTeam: code === 'RED_TEAM',
+      why: cap,
+      details,
+      /* the untranslated original, in the slot the markup may not bind */
+      rawReason: raw,
+    };
+  };
+
+  /* ---- the NUMBERS block -------------------------------------------------
+     NUMBERS_LAW is the reason these live outside the sentence. The keys are
+     Portuguese tokens, so each one gets an authored label; a key with no label
+     is published with its value and no label rather than with a raw enum. */
+  const OPP_NUMBER_LABEL = {
+    PRODUTOS_COM_ROTULO: { it: 'Prodotti con etichetta', en: 'Products with a label' },
+    SINAIS_DE_CAMPO: { it: 'Segnali di campo', en: 'Field signals' },
+    SUBSTANCIA: { it: 'Sostanza attiva', en: 'Active substance' },
+    DATA_LIMITE_UE: { it: 'Data limite europea', en: 'European deadline' },
+    DIAS_ATE_A_DATA: { it: 'Giorni alla data', en: 'Days to the date' },
+    PRODUTOS_ADAMA: { it: 'Prodotti ADAMA', en: 'ADAMA products' },
+    CULTURAS_DE_ROTULO: { it: 'Colture in etichetta', en: 'Crops on the label' },
+    PECAS_DE_CONCORRENTE: { it: 'Contenuti di concorrenti osservati', en: 'Observed competitor pieces' },
+    TRABALHOS_CIENTIFICOS: { it: 'Lavori scientifici', en: 'Scientific works' },
+    MODOS_DE_ACAO: { it: 'Modi d’azione', en: 'Modes of action' },
+    REGISTOS_DE_RESISTENCIA: { it: 'Registrazioni di resistenza', en: 'Resistance records' },
+    OBSERVACOES_DE_MERCADO: { it: 'Osservazioni di mercato', en: 'Market observations' },
+    LINHAS_DE_PESO_ECONOMICO: { it: 'Righe di peso economico', en: 'Economic-weight rows' },
+  };
+
+  /* ---- the crops the shared dictionary does not carry --------------------
+     Authored ONLY for the canonical names §6c-bis resolves but the shared crop
+     resolver and the interface dictionary do not know. Everything else keeps
+     going through the shared dictionary, so this table can never quietly grow
+     into a second crop vocabulary. */
+  const OPP_CROP_LABEL = {
+    PEAR: { it: 'Pero', en: 'Pear' },
+    KIWI: { it: 'Kiwi', en: 'Kiwi' },
+  };
+
+  /* ---- the target vocabulary --------------------------------------------
+     ISSUE_IDS is the seventh issue vocabulary and §6c-bis deliberately does
+     not map it onto the canonical window issues, because most of the 23 ids
+     have no unambiguous partner. The ten that reach an opportunity DO, so
+     they are declared here, one line each, with the judgement written down.
+
+     The Italian name is not authored twice: `itFromLabel` is the word the
+     Italian MINISTERIAL LABEL itself uses for that id, taken from the 2030
+     label-use rows and joined by id, never by text. Measured on this build:
+     each of the ten resolves to exactly one word, unanimous across every row
+     that carries the id. The declared Italian below is the same word; if the
+     two ever disagree, `targetLabelReconciles` says so instead of hiding it. */
+  const OPP_TARGET = {
+    ISSUE_CODLING_MOTH: { it: 'Carpocapsa', en: 'Codling moth', canonical: 'Codling Moth', note: null },
+    ISSUE_CORN_BORER: { it: 'Piralide', en: 'European corn borer', canonical: 'European Corn Borer', note: null },
+    ISSUE_DIABROTICA: { it: 'Diabrotica', en: 'Diabrotica', canonical: 'Diabrotica', note: 'the audit carries both Diabrotica and Diabrotica Adults; the id is generic and joins the generic row only.' },
+    ISSUE_DOWNY_MILDEW: { it: 'Peronospora', en: 'Downy mildew', canonical: 'Downy Mildew', note: null },
+    ISSUE_GRAPE_MOTH: { it: 'Tignole', en: 'Grape moth', canonical: 'Grapevine Moth', note: null },
+    ISSUE_POWDERY_MILDEW: { it: 'Oidio', en: 'Powdery mildew', canonical: 'Powdery Mildew', note: null },
+    ISSUE_SCAB: { it: 'Ticchiolatura', en: 'Scab', canonical: null, note: 'no canonical window issue and no audit row is named Scab; the id stays unjoined rather than guessed.' },
+    ISSUE_SCAPHOIDEUS: { it: 'Scafoideo', en: 'Scaphoideus', canonical: 'Flavescenza Dorata', note: 'DECLARED JUDGEMENT: Scaphoideus titanus is the vector of flavescenza dorata and the Italian mandatory-control question is the same question. The previous handoff joined them the same way, on the one mandatory-control case in the package.' },
+    ISSUE_ECHINOCHLOA: { it: 'Echinochloa', en: 'Echinochloa', canonical: null, note: 'a genus name, identical in both languages and never translated; no canonical window issue matches it.' },
+    ISSUE_STINK_BUG: { it: 'Cimice', en: 'Stink bug', canonical: null, note: 'the id does not name a species; no canonical window issue matches it.' },
+  };
+  /* the ministerial word per issue id, derived from the label-use rows by id */
+  const TARGET_WORD_BY_ISSUE_ID = (() => {
+    const tally = {};
+    regulatoryLinks.records.forEach((r) => {
+      const wd = S(r.targetOnLabel);
+      if (!wd) return;
+      A(r.issueIds).forEach((i) => { const k = U(i); (tally[k] = tally[k] || {})[wd] = (tally[k][wd] || 0) + 1; });
+    });
+    const out = {};
+    Object.keys(tally).forEach((k) => {
+      const words = Object.keys(tally[k]);
+      /* only a UNANIMOUS word is usable as a name; two words means the id
+         covers two things and naming it would be choosing one of them */
+      out[k] = words.length === 1
+        ? { word: words[0], rows: tally[k][words[0]], unanimous: true }
+        : { word: null, rows: Object.values(tally[k]).reduce((a, b) => a + b, 0), unanimous: false, distinct: words.length };
+    });
+    return out;
+  })();
+  /* ALL-CAPS on a label; title-cased for display only when it is a single
+     word with no digits, so a Latin binomial or a compound name is never
+     re-cased into something the label does not say. */
+  const labelWordForDisplay = (wd) => {
+    const s = S(wd);
+    if (!s || /\s/.test(s) || /\d/.test(s)) return s;
+    return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+  };
+
+  /* ---- the engine's supporting tables, read once ------------------------- */
+  const ENGINE_REJECTIONS = A(ENGINE_RAW.REJECTIONS);
+  const REJECTED_IDS = {};
+  ENGINE_REJECTIONS.forEach((r) => { if (r && r.ID) REJECTED_IDS[U(r.ID)] = r; });
+  const ENGINE_EVIDENCE = (ENGINE_RAW.EVIDENCE_BY_OPPORTUNITY && typeof ENGINE_RAW.EVIDENCE_BY_OPPORTUNITY === 'object')
+    ? ENGINE_RAW.EVIDENCE_BY_OPPORTUNITY : {};
+
+  /* ---- the adapter ------------------------------------------------------- */
+  const adaptV21Opportunity = (o) => {
+    const arch = OPP_ARCHETYPE[U(o.ARCHETYPE)] || null;
+    const st = OPP_STATUS_UI[U(o.STATUS)] || null;
+    const state = OPP_STATE_UI[U(o.OPPORTUNITY_STATE)] || null;
+    const conf = OPP_CONFIDENCE[U(o.CONFIDENCE)] || null;
+    const renderable = o.RENDERABLE_WITH_METHOD === true;
+
+    /* CROP / TARGET / GEOGRAPHY arrive as controlled ids, not as prose. */
+    const cropKeys = cropsFromV21Ids(A(o.CROP_IDS).length ? o.CROP_IDS : [o.CROP]);
+    const cropIsGroupWord = !cropKeys.length && A(o.CROP_IDS).concat([o.CROP])
+      .some((k) => V21_GENERIC_CROP_IDS[U(k)]);
+    /* THE ONE CROP THE SHARED VOCABULARY DOES NOT CARRY.
+       §6c-bis resolves CROP_PEAR and CROP_KIWI to their own English names —
+       they are real crops that simply have no canonical window. But 'Pear' and
+       'Kiwi' are not words the shared crop resolver knows, and they are not in
+       the interface's crop dictionary either, so putting either of them in
+       `crop` would print an unlocalized English word on an Italian screen and
+       would hand a downstream crop check a token it cannot resolve.
+       So the FACT is kept in cropKeys (which every join reads) and in an
+       authored label, and `crop` — the field a view localizes through the
+       shared dictionary — carries only what that dictionary can carry. The gap
+       is named in cropState instead of being papered over either way. */
+    const cropCanonical = cropKeys[0] || null;
+    const cropInSharedVocabulary = !!(cropCanonical && cropResolve(cropCanonical).scope === 'RESOLVED');
+    const tgtId = U(o.TARGET) || U(A(o.ISSUE_IDS)[0]);
+    const tgt = OPP_TARGET[tgtId] || null;
+    const word = TARGET_WORD_BY_ISSUE_ID[tgtId] || null;
+    const wordIt = word && word.unanimous ? labelWordForDisplay(word.word) : null;
+    const regionKeys = regionsFromV21Ids(A(o.REGION_IDS).concat([o.GEOGRAPHY]));
+    const geoScope = scopeFromV21Ids(A(o.REGION_IDS).concat([o.GEOGRAPHY]));
+
+    /* THE WINDOW. WINDOW_STATE=UNKNOWN stays UNKNOWN and no date is invented.
+       daysRemaining is recomputed from the ONE clock and the package's own
+       number is kept beside it, so a disagreement is visible instead of
+       silently overwritten. Presentation may compute days; it may not compute
+       a state. */
+    const wStart = isoOf(o.WINDOW_START);
+    const wEnd = isoOf(o.WINDOW_END);
+    const wStateRaw = U(o.WINDOW_STATE) || 'UNKNOWN';
+    const daysRemaining = wEnd ? daysFrom(wEnd) : null;
+
+    /* A WINDOW THAT OPENS AND CLOSES ON THE SAME DAY IS NOT A WINDOW.
+       Seven cases arrive with WINDOW_START = WINDOW_END = 2027-05-31 and
+       WINDOW_STATE = EXACT, two of them among the nine shown to the client. The
+       engine's own WINDOW_LAW says WINDOW_* is the APPLICATION window read from
+       a declared field — but the field it was read from is the crop window's
+       PREPARATION_WINDOW, whose text is "ate 2027-05-31, quando historicamente
+       sai o ato": a historical expectation of when the regional decree appears.
+       The very same crop-window record says APPLICATION_WINDOW_2026 is CLOSED
+       and that "le DATE sono fissate ogni anno dal monitoraggio" — the 2027
+       dates are not set. Printing "31/05/2027 – 31/05/2027, esatta" is precision
+       the evidence does not carry, and it contradicts the Crop Windows screen,
+       which shows the same crop as closed.
+       So a degenerate span is re-stated for what it is: a single expected date,
+       not an application window. Nothing is invented and nothing is hidden — the
+       date still shows, with the caption that says what it is. */
+    const wDegenerate = !!wStart && wStart === wEnd && wStateRaw !== 'UNKNOWN';
+    const wState = wDegenerate ? 'SINGLE_DATE_EXPECTED' : wStateRaw;
+
+    /* THE NUMBERS, labelled and typed. A value that is a date or a name is not
+       relabelled as a number. */
+    const numbers = Object.keys((o.NUMBERS && typeof o.NUMBERS === 'object') ? o.NUMBERS : {}).map((k) => {
+      const v = o.NUMBERS[k];
+      const lab = OPP_NUMBER_LABEL[U(k)] || null;
+      return {
+        key: k,
+        labelIt: lab ? lab.it : null,
+        labelEn: lab ? lab.en : null,
+        value: v,
+        kind: typeof v === 'number' ? 'COUNT' : isoOf(v) ? 'DATE' : 'NAME',
+      };
+    });
+
+    const gates = A(o.BLOCKING_GATES).map(oppReason).filter(Boolean);
+    const findings = A(o.RED_TEAM_FINDINGS).map(oppReason).filter(Boolean);
+    const rej = REJECTED_IDS[U(o.ID)] || null;
+    const rejReasons = rej ? A(rej.POR_QUE).map(oppReason).filter(Boolean) : [];
+
+    return {
+      id: S(o.ID),
+
+      /* ── archetype ─────────────────────────────────────────────────── */
+      archetype: S(o.ARCHETYPE),
+      archetypeIt: arch ? arch.it : null,
+      archetypeEn: arch ? arch.en : null,
+      archetypeOrder: arch ? arch.order : 99,
+      archetypeMeans: arch ? arch.means : NO_CAPTION,
+      archetypeMeansRaw: S(o.ARCHETYPE_MEANS),
+
+      /* ── the two states a card must not confuse ────────────────────── */
+      /* RENDERABLE_WITH_METHOD, said without the internal name */
+      isVerifiedConvergence: renderable,
+      stateKey: S(o.OPPORTUNITY_STATE),
+      stateLabelIt: state ? state.it : null,
+      stateLabelEn: state ? state.en : null,
+      stateQualifierIt: state ? state.qualifierIt : null,
+      stateQualifierEn: state ? state.qualifierEn : null,
+      stateTone: state ? state.tone : null,
+      /* what the PACKAGE calls it, kept for comparison and never printed:
+         on the 9 it says "OPPORTUNITÀ CONFERMATA", and the brief's wording
+         wins because nobody performed a confirmation. */
+      packageLabelIt: S(o.OPPORTUNITY_LABEL_IT),
+      packageLabelEn: S(o.OPPORTUNITY_LABEL_EN),
+      packageLabelIsForbidden: /CONFERMAT/i.test(S(o.OPPORTUNITY_LABEL_IT) || ''),
+
+      /* the legacy chip contract the radar already reads. The 9 verified
+         convergences stop wearing the amber "da validare" chip; the 28 keep it. */
+      isCandidate: !renderable,
+      candidateState: renderable ? null : 'DA_VALIDARE',
+      mayBeCalledAnOpportunity: renderable,
+
+      /* ── temporal state ────────────────────────────────────────────── */
+      status: S(o.STATUS),
+      statusLabelIt: st ? st.it : null,
+      statusLabelEn: st ? st.en : null,
+      statusTone: st ? st.tone : null,
+      statusOrder: st ? st.order : 99,
+      statusMeans: st ? st.means : NO_CAPTION,
+      statusLaw: ENGINE_LAW.STATUS_LAW,
+      statusLawRaw: S(o.STATUS_LAW),
+      /* A KNOCKED-DOWN CASE MAY NOT WEAR AN URGENCY BADGE. One rejected record
+         still carries STATUS=ACT_NOW upstream; the state is kept as a fact and
+         the badge is refused. */
+      showsUrgency: renderable && (U(o.STATUS) === 'ACT_NOW' || U(o.STATUS) === 'PREPARE_NOW'),
+
+      /* ── subject ───────────────────────────────────────────────────── */
+      cropId: S(o.CROP),
+      /* only what the shared crop dictionary can localize end to end */
+      crop: cropInSharedVocabulary ? cropCanonical : null,
+      /* the canonical resolution, always, for every join and filter */
+      cropCanonical,
+      cropKeys,
+      /* the Italian crop name ONLY where the interface dictionary cannot
+         supply it. Null here means "the view already knows this word" — it
+         does not mean the crop has no name, and a second crop dictionary
+         living in the model is exactly what this must not become. */
+      cropLabelIt: cropCanonical ? (OPP_CROP_LABEL[U(cropCanonical)] || {}).it || null : null,
+      cropLabelEn: cropCanonical ? (OPP_CROP_LABEL[U(cropCanonical)] || {}).en || cropCanonical : null,
+      cropIsGroupWord,
+      cropInSharedVocabulary,
+      cropState: !cropCanonical
+        ? (cropIsGroupWord ? 'GENERIC_TERM' : o.CROP ? 'UNMAPPED' : 'NOT_OBSERVED')
+        : cropInSharedVocabulary ? 'RESOLVED' : 'RESOLVED_OUTSIDE_SHARED_VOCABULARY',
+      targetId: tgtId || null,
+      /* the canonical window / audit issue, ONLY where the id has one */
+      issue: tgt ? tgt.canonical : null,
+      issueKey: tgt ? tgt.canonical : null,
+      issueEn: tgt ? tgt.canonical : null,
+      targetLabelIt: (tgt && tgt.it) || wordIt || null,
+      targetLabelEn: tgt ? tgt.en : null,
+      targetLabelState: !tgtId ? 'NOT_OBSERVED'
+        : tgt ? 'DECLARED'
+          : wordIt ? 'FROM_MINISTERIAL_LABEL_WORD · Italian only'
+            : 'UNMAPPED',
+      targetOnLabelWord: word ? word.word : null,
+      targetOnLabelRows: word ? word.rows : 0,
+      targetLabelReconciles: !!(tgt && wordIt && tgt.it === wordIt),
+      targetJoinNote: tgt ? tgt.note : null,
+
+      geographyId: S(o.GEOGRAPHY),
+      regionKeys,
+      /* `region` names an ITALIAN region, or Italy. It is deliberately NULL for
+         a European-scope record: a European fact filed under a region is the
+         promotion §L2 forbids. The European scope is not lost — it is stated
+         in geographyLabel and geographyScope instead. */
+      region: regionKeys.length ? regionKeys.join(' · ') : geoScope === 'NATIONAL' ? 'Italia' : null,
+      geographyScope: geoScope || (S(o.GEOGRAPHIC_SCOPE) ? 'DECLARED' : null),
+      geographicScopeState: geoScope || (S(o.GEOGRAPHIC_SCOPE) ? 'DECLARED' : null),
+      geographyLabelIt: regionKeys.length ? regionKeys.join(' · ')
+        : geoScope === 'NATIONAL' ? 'Italia'
+          : geoScope === 'EUROPEAN' ? 'Unione Europea' : null,
+      geographyLabelEn: regionKeys.length ? regionKeys.join(' · ')
+        : geoScope === 'NATIONAL' ? 'Italy'
+          : geoScope === 'EUROPEAN' ? 'European Union' : null,
+
+      /* ── time ──────────────────────────────────────────────────────── */
+      signalDate: isoOf(o.SIGNAL_DATE),
+      signalAgeDays: N(o.SIGNAL_AGE_DAYS),
+      window: {
+        start: wStart, end: wEnd, state: wState, stateFromPackage: wStateRaw,
+        /* UNKNOWN stays UNKNOWN; nothing here fabricates a date */
+        daysRemaining: wState === 'UNKNOWN' ? null : daysRemaining,
+        packageDaysRemaining: N(o.DAYS_REMAINING),
+        reconciles: N(o.DAYS_REMAINING) === null ? null : N(o.DAYS_REMAINING) === daysRemaining,
+        /* a single date is a date, not a span the client may plan inside */
+        isApplicationWindow: !wDegenerate && wState !== 'UNKNOWN',
+        note: wDegenerate
+          ? {
+            state: 'CLEAR',
+            it: 'Data singola, non una finestra di applicazione: è la data entro cui l’atto regionale è storicamente uscito. Le date dell’anno vengono fissate ogni anno dal monitoraggio.',
+            en: 'A single date, not an application window: it is the date by which the regional act has historically been published. Each year’s dates are set by monitoring.',
+          }
+          : { state: 'NOT_ESTABLISHED', it: null, en: null },
+      },
+      windowLaw: ENGINE_LAW.WINDOW_LAW,
+      windowLawRaw: S(o.WINDOW_LAW),
+
+      /* ── the reading, in the package's own approved Italian ─────────── */
+      whyNow: narrative(o, 'WHY_NOW'),
+      adamaRelevance: narrative(o, 'ADAMA_RELEVANCE'),
+      whatItProves: narrative(o, 'WHAT_IT_PROVES'),
+      whatItDoesNotProve: narrative(o, 'WHAT_IT_DOES_NOT_PROVE'),
+
+      /* ── numbers ───────────────────────────────────────────────────── */
+      numbers,
+      numbersLaw: ENGINE_LAW.NUMBERS_LAW,
+      numbersLawRaw: S(o.NUMBERS_LAW),
+
+      /* ── portfolio ─────────────────────────────────────────────────── */
+      productLinkState: S(o.PRODUCT_LINK_STATE),
+      productRelationships: A(o.PRODUCT_RELATIONSHIPS),
+      adamaProducts: A(o.PRODUCT_RELATIONSHIPS),
+      adamaActiveSubstance: [],
+
+      /* ── evidence ──────────────────────────────────────────────────── */
+      evidenceIds: A(o.EVIDENCE_IDS).length ? A(o.EVIDENCE_IDS) : A(ENGINE_EVIDENCE[o.ID]),
+      evidenceFamilies: A(o.EVIDENCE_FAMILIES),
+      evidenceCount: N(o.EVIDENCE_COUNT),
+      evidenceLaw: ENGINE_LAW.EVIDENCE_LAW,
+
+      /* ── confidence and score ──────────────────────────────────────── */
+      confidence: S(o.CONFIDENCE),
+      confidenceIt: conf ? conf.it : null,
+      confidenceEn: conf ? conf.en : null,
+      confidenceOrder: conf ? conf.order : 99,
+      score: N(o.OPPORTUNITY_SCORE),
+      scoreMax: N(ENGINE_RAW.RULES && ENGINE_RAW.RULES.SCORE && ENGINE_RAW.RULES.SCORE.MAXIMO),
+      scoreDimensions: Object.keys((o.SCORE_DIMENSIONS && typeof o.SCORE_DIMENSIONS === 'object') ? o.SCORE_DIMENSIONS : {})
+        .map((k) => ({ key: k, value: N(o.SCORE_DIMENSIONS[k]) })),
+      scoreLaw: ENGINE_LAW.SCORE_LAW,
+      scoreLawRaw: S(o.SCORE_LAW),
+
+      /* ── who should examine this ───────────────────────────────────── */
+      actionMap: A(o.ACTION_MAP).map((k) => {
+        const a = OPP_AUDIENCE[U(k)] || null;
+        return { key: S(k), it: a ? a.it : null, en: a ? a.en : null, order: a ? a.order : 99 };
+      }).sort((a, b) => a.order - b.order),
+      actionMapLaw: ENGINE_LAW.ACTION_MAP_LAW,
+      actionMapLawRaw: S(o.ACTION_MAP_LAW),
+
+      /* ── why this is only a candidate, in Italian, with no field names ── */
+      blockingReasons: gates,
+      blockingReasonCount: gates.length,
+      redTeamFindings: findings,
+      wasKnockedDown: !!rej,
+      knockdownReasons: rejReasons,
+      /* the one sentence a card must carry when it is not a verified
+         convergence. Composed from the localized reasons, never from the
+         Portuguese, and empty when no reason could be localized. */
+      whyOnlyCandidate: renderable ? NO_CAPTION : (() => {
+        const src = gates.length ? gates : rejReasons;
+        const its = uniq(src.map((g) => g.why && g.why.it).filter(Boolean));
+        const ens = uniq(src.map((g) => g.why && g.why.en).filter(Boolean));
+        return its.length ? caption(its.join(' ' ), ens.join(' ')) : NO_CAPTION;
+      })(),
+      /* the method statement, which is why a non-confirmed reading may still
+         be shown at all */
+      methodStatement: ENGINE_LAW.METHOD,
+      methodStatementRaw: S(o.WHY_NOT_CLIENT_SAFE),
+
+      /* ── provenance and identity ───────────────────────────────────── */
+      originLayer: S(o.ORIGIN_LAYER),
+      mergedFrom: N(o.MERGED_FROM),
+      identityKey: S(o.IDENTITY_KEY),
+
+      /* ── the legacy field names, kept so a view that still binds them
+            renders an absence instead of throwing ──────────────────────── */
+      legacyCaseId: null, title: null, cropRaw: S(o.CROP), cropScope: null,
+      issueRaw: null, issueType: null, regionRaw: null, regionNames: regionKeys,
+      caseLabel: null, forbiddenLabel: null,
+      whatIsHappening: NO_CAPTION, happeningState: null, happeningDocument: null,
+      happeningContent: null, observationDate: null, happeningPublicationDate: null,
+      freshnessDays: N(o.SIGNAL_AGE_DAYS), observedStage: null, happeningSourceId: null,
+      happeningSourceResolves: false,
+      whyItMatters: NO_CAPTION, whyMandatory: null, whyNote: null, whyRegional: [],
+      currentEvidence: NO_CAPTION, currentEvidenceList: [],
+      marketContext: NO_CAPTION, competitorContext: NO_CAPTION, scienceContext: NO_CAPTION,
+      scienceContextState: null, scienceContextCounts: [], fieldVoices: NO_CAPTION,
+      whatWeKnow: NO_CAPTION, whatWeKnowCount: 0, whatWeKnowList: [],
+      whatWeDoNotKnow: NO_CAPTION, whatWeDoNotKnowCount: 0, whatWeDoNotKnowList: [],
+      interpretations: NO_CAPTION, interpretationsCount: 0, interpretationsList: [],
+      windowText: null, windowApplication: null, windowMonitoring: null, windowNextCycle: null,
+      canonicalWindow: null, windowId: null,
+      forbiddenLabelReason: null,
+
+      ui: categoryOf(null),
       provenance: v21prov(o),
-    }), { enrichFrom: RAW.IG.OPPORTUNITIES }),
+      raw: o,
+    };
+  };
+
+  /* An opportunity does NOT have to name a crop: one of the 37 is portfolio-
+     wide and one names an umbrella word ('orticole'), which is a group and is
+     never promoted to a crop. Only the identity is mandatory. */
+  const opportunities = build('opportunities', [
+    V21('opportunities', (o) => Object.assign(v21spine(o), adaptV21Opportunity(o), {
+      /* the V2.1 spine wins on identity and QA state. clientSafe stays FALSE
+         on all 37 — that is the package's own rule about its own derivations,
+         and it is not the render gate. isVerifiedConvergence is. */
+      entityType: S(o.ENTITY_TYPE), qaStatus: S(o.QA_STATUS), clientSafe: CS(o),
+      payloadState: CS(o) ? 'FULL' : 'CORPUS_FACTS_ONLY',
+      payloadFilledFrom: null,
+      provenance: v21prov(o),
+    })),
     {
       source: 'ITALY_INGEST.OPPORTUNITIES',
       precedence: P.REAL_SOURCE,
       rows: RAW.IG.OPPORTUNITIES,
-      adapt: adaptOpportunity,
+      adapt: adaptLegacyOpportunity,
       validate: (r) => (!r.id ? 'no ID' : null),
     },
-  ], 'convergences that merit investigation — CANDIDATES, never opportunities; client-safe is 0 by the package’s own rule and nothing rounds it up');
+  ], 'the Opportunity Engine: 37 readings, of which 9 are verified convergences and 28 are to validate; client-safe is 0 by the package’s own rule about its own derivations and nothing rounds it up');
   v21law(opportunities, 'opportunities');
-  Object.assign(opportunities, {
-    /* published so a transparency panel can state the rule rather than infer
-       it from an absence */
-    candidateLabel: uniq(opportunities.records.map((o) => o.caseLabel))[0] || null,
-    forbiddenLabel: uniq(opportunities.records.map((o) => o.forbiddenLabel))[0] || null,
-    mayBeCalledOpportunities: false,
-    clientSafeIsZeroByRule: opportunities.clientSafe === 0,
-  });
 
-  /* The product links an opportunity asserts, graded by the label audit rather
-     than believed. MEASURED: with the raw Portuguese crop and issue all six
-     products on opportunity 001 return LABEL_CHECK_NEEDED; through the declared
-     crop map they return 2 VERIFIED (EVURE PRO, MAVRIK SMART) and 4 still
-     needing a label check. Neither number is invented — the second is simply
-     the audit being asked the question in the vocabulary it was written in. */
+  /* The product links an opportunity asserts, asked of the evidence TWICE and
+     by two different routes, because the two answer different questions.
+
+     ROUTE 1 · the rows the record itself cites. EVIDENCE_IDS names the exact
+     IT-LBL use rows behind the link, so the join is by canonical id and never
+     by text — which is what the engine's own evidence law demands. A cited row
+     that names no listed product is COUNTED and reported, not dropped.
+
+     ROUTE 2 · the 19-row label audit, asked in the vocabulary it was written
+     in: canonical crop from CROP_IDS, canonical issue from the declared
+     OPP_TARGET table. Where the id has no canonical partner the audit is not
+     asked at all and the answer is LABEL_CHECK_NEEDED, which is an honest "not
+     established", never a "no". */
+  const labelRowById = {};
+  regulatoryLinks.records.forEach((r) => { if (r && r.id) labelRowById[U(r.id)] = r; });
   opportunities.records.forEach((o) => {
     const cropEN = o.cropKeys[0] || null;
-    /* Every wording the resolver can produce is tried, in the order the record
-       carries them: resolved Italian, resolved English, published source text.
-       OPP_ISSUE is keyed on all three by construction, so this cannot miss
-       because a record was translated. */
-    const issueEN = [o.issue, o.issueEn, o.issueRaw]
-      .map((w) => (w ? OPP_ISSUE[oppKey(w)] : null)).filter(Boolean)[0] || null;
-    o.issueKey = issueEN;
-    o.productLinks = o.adamaProducts.map((name) => {
+    const issueEN = o.issueKey || null;
+    const cited = {};
+    let citedUnmatched = 0;
+    const listed = {};
+    (o.productRelationships || []).forEach((n) => { listed[U(n)] = 1; });
+    (o.evidenceIds || []).forEach((eid) => {
+      const row = labelRowById[U(eid)];
+      if (!row || !row.product) return;
+      const k = U(row.product);
+      if (!listed[k]) { citedUnmatched++; return; }
+      (cited[k] = cited[k] || []).push(row.id);
+    });
+    o.evidenceLabelRowsCited = Object.keys(cited).reduce((s, k) => s + cited[k].length, 0);
+    o.evidenceLabelRowsNamingAnotherProduct = citedUnmatched;
+    o.productLinks = (o.productRelationships || []).map((name) => {
       const strength = cropEN && issueEN ? labelVerdicts.verdictFor(cropEN, issueEN, name) : 'LABEL_CHECK_NEEDED';
+      const rows = cited[U(name)] || [];
       return {
         name, product: name, strength,
         strengthRank: STRENGTH[strength].rank,
-        /* Names the route the question actually took, so a reader can re-run
-           it. The crop now comes from cropResolve and the issue from the
-           resolver-generated OPP_ISSUE keys; saying 'OPP_CROP' here would send
-           an auditor to a table that is only the fallback. */
-        resolvedThrough: cropEN && issueEN ? 'cropResolve:' + cropEN + '/OPP_ISSUE:' + issueEN : 'QUESTION_NOT_RESOLVED',
+        /* the route the question actually took, so a reader can re-run it */
+        resolvedThrough: cropEN && issueEN
+          ? 'cropsFromV21Ids:' + cropEN + '/OPP_TARGET:' + issueEN
+          : 'QUESTION_NOT_RESOLVED',
+        /* route 1: the use rows the record cites for this product, by id */
+        labelRowIds: rows,
+        labelRowCount: rows.length,
+        citedByRecord: rows.length > 0,
         inRegistry: !!productByKey[U(name)],
         absenceRule: ABSENCE_RULE_TEXT,
       };
     });
     o.verifiedProductCount = o.productLinks.filter((l) => l.strength === 'VERIFIED_LABEL_MATCH').length;
+    o.citedProductCount = o.productLinks.filter((l) => l.citedByRecord).length;
   });
+
+  /* ── WHAT THE COLLECTION PUBLISHES ABOUT ITSELF ──────────────────────────
+     Every number below is COUNTED from the records that were built. None is
+     typed, so none can survive the records changing under it. */
+  (() => {
+    const R = opportunities.records;
+    const verified = R.filter((o) => o.isVerifiedConvergence);
+    const candidates = R.filter((o) => !o.isVerifiedConvergence);
+    const tally = (rows, get) => {
+      const m = {};
+      rows.forEach((r) => { const k = get(r); if (k) m[k] = (m[k] || 0) + 1; });
+      return m;
+    };
+    const rejectedHere = R.filter((o) => o.wasKnockedDown);
+    const rejectedAndRenderable = rejectedHere.filter((o) => o.isVerifiedConvergence);
+    const urgentButKnockedDown = rejectedHere.filter((o) => U(o.status) === 'ACT_NOW');
+
+    Object.assign(opportunities, {
+      /* the three numbers the headline is allowed to say, and the one it is not */
+      total: R.length,
+      verifiedConvergences: verified.length,
+      toValidate: candidates.length,
+      verifiedRecords: verified,
+      candidateRecords: candidates,
+      headlineLaw: caption(
+        'la testata può dire quante letture sono state rilevate, e deve distinguere le convergenze verificate da quelle da validare. Non può dire che siano confermate.',
+        'the headline may say how many readings were detected, and must distinguish verified convergences from those to validate. It may not say they are confirmed.'),
+      forbiddenPhrases: OPP_FORBIDDEN_PHRASES,
+
+      /* counted from the records, per axis, in the declared display order */
+      byArchetype: Object.keys(OPP_ARCHETYPE).map((k) => ({
+        key: k, it: OPP_ARCHETYPE[k].it, en: OPP_ARCHETYPE[k].en,
+        order: OPP_ARCHETYPE[k].order, means: OPP_ARCHETYPE[k].means,
+        count: R.filter((o) => U(o.archetype) === k).length,
+        verified: verified.filter((o) => U(o.archetype) === k).length,
+        toValidate: candidates.filter((o) => U(o.archetype) === k).length,
+      })).sort((a, b) => a.order - b.order),
+      byStatus: Object.keys(OPP_STATUS_UI).map((k) => ({
+        key: k, it: OPP_STATUS_UI[k].it, en: OPP_STATUS_UI[k].en,
+        order: OPP_STATUS_UI[k].order, tone: OPP_STATUS_UI[k].tone, means: OPP_STATUS_UI[k].means,
+        count: R.filter((o) => U(o.status) === k).length,
+        verified: verified.filter((o) => U(o.status) === k).length,
+        toValidate: candidates.filter((o) => U(o.status) === k).length,
+      })).sort((a, b) => a.order - b.order),
+      byConfidence: Object.keys(OPP_CONFIDENCE).map((k) => ({
+        key: k, it: OPP_CONFIDENCE[k].it, en: OPP_CONFIDENCE[k].en, order: OPP_CONFIDENCE[k].order,
+        count: R.filter((o) => U(o.confidence) === k).length,
+      })).sort((a, b) => a.order - b.order),
+      byAudience: Object.keys(OPP_AUDIENCE).map((k) => ({
+        key: k, it: OPP_AUDIENCE[k].it, en: OPP_AUDIENCE[k].en, order: OPP_AUDIENCE[k].order,
+        count: R.filter((o) => (o.actionMap || []).some((a) => U(a.key) === k)).length,
+      })).sort((a, b) => a.order - b.order),
+      byWindowState: tally(R, (o) => (o.window && o.window.state) || 'UNKNOWN'),
+      byProductLinkState: tally(R, (o) => o.productLinkState),
+
+      /* ── THE ADVERSARIAL REVIEW, AND THE PROOF THAT IT HELD ───────────
+         The review DOWNGRADES; it never deletes. So every knocked-down record
+         is still one of the 37 and the only thing that must be true is that
+         none of them is renderable. That is PROVEN here by counting, not
+         assumed — and the count of knocked-down records that still carry an
+         urgent temporal state is published too, because that is exactly the
+         badge a card must refuse to draw. */
+      rejectionLaw: ENGINE_LAW.REJECTION_LAW,
+      rejections: ENGINE_REJECTIONS.map((r) => ({
+        id: S(r.ID),
+        archetype: S(r.ARCHETYPE),
+        archetypeIt: (OPP_ARCHETYPE[U(r.ARCHETYPE)] || {}).it || null,
+        archetypeEn: (OPP_ARCHETYPE[U(r.ARCHETYPE)] || {}).en || null,
+        reasons: A(r.POR_QUE).map(oppReason).filter(Boolean),
+        stillInTheSet: R.some((o) => U(o.id) === U(r.ID)),
+      })),
+      rejectionCount: ENGINE_REJECTIONS.length,
+      rejectedStillInTheSet: rejectedHere.length,
+      rejectedAndRenderable: rejectedAndRenderable.length,
+      noRejectedRecordIsRenderable: rejectedAndRenderable.length === 0,
+      rejectedCarryingUrgentState: urgentButKnockedDown.length,
+      rejectedUrgencyBadgesDrawn: R.filter((o) => o.showsUrgency && o.wasKnockedDown).length,
+
+      /* ── the engine's law texts, localized once for every screen ─────── */
+      laws: ENGINE_LAW,
+      lawsRaw: ENGINE_LAW_RAW,
+      methodStatement: ENGINE_LAW.METHOD,
+      scoreMax: N(ENGINE_RAW.RULES && ENGINE_RAW.RULES.SCORE && ENGINE_RAW.RULES.SCORE.MAXIMO),
+      scoreDimensionKeys: A(ENGINE_RAW.RULES && ENGINE_RAW.RULES.SCORE && ENGINE_RAW.RULES.SCORE.DIMENSOES),
+      gateKeys: A(ENGINE_RAW.RULES && ENGINE_RAW.RULES.PORTOES),
+
+      /* ── the client-safe rule, restated so a panel states it instead of
+            inferring it from a zero ─────────────────────────────────────── */
+      clientSafeIsZeroByRule: opportunities.clientSafe === 0,
+      clientSafeIsNotTheRenderGate: true,
+      renderGate: 'isVerifiedConvergence',
+      /* the collection may NOT be called "37 opportunities". A subset may. */
+      mayBeCalledOpportunities: false,
+      mayBeCalledOpportunitiesWhenVerified: true,
+      candidateLabel: OPP_STATE_UI.OPPORTUNITY_CANDIDATE.it,
+      verifiedLabel: OPP_STATE_UI.OPPORTUNITY_CONFIRMED.it,
+
+      /* ── coverage, measured ──────────────────────────────────────────── */
+      cropResolvedCount: R.filter((o) => o.cropKeys.length).length,
+      targetLabelledCount: R.filter((o) => o.targetLabelIt).length,
+      targetJoinedToAuditCount: R.filter((o) => o.issueKey).length,
+      windowStateKnownCount: R.filter((o) => o.window && o.window.state !== 'UNKNOWN').length,
+      evidenceIdCount: uniq(R.flatMap((o) => o.evidenceIds || [])).length,
+      whyOnlyCandidateLocalizedCount: candidates.filter((o) => o.whyOnlyCandidate.state === KNOWLEDGE.CLEAR).length,
+    });
+  })();
 
   /* The 29 legacy presentation cases. Kept ONLY as a labelled scenario mode,
      default off. A canonical window overlapping a case does not make the case
@@ -4047,7 +4883,7 @@
     regulatoryFutureFacts: 'Scadenze di approvazione europee (fatti)',
     regulatoryFutureSignals: 'Letture sul rinnovo europeo',
     agrometConditions: 'Condizioni agrometeo',
-    futureEvents: 'Eventi di settore', opportunities: 'Convergenze da validare', futureSignals: 'Segnali futuri',
+    futureEvents: 'Eventi di settore', opportunities: 'Convergenze rilevate', futureSignals: 'Segnali futuri',
     sources: 'Registro delle fonti', news: 'Stampa tecnica',
     relationships: 'Relazioni dichiarate', clientSafeCrossings: 'Incroci verificati',
     archive: 'Archivio (indice)',
@@ -4144,10 +4980,33 @@
          cropResolve and issue through issueResolve on both sides */
       fieldSignalToWindow: Object.assign(rate(cropWindows.count, cropWindows.records.filter((w) => w.regulatory).length),
         { note: 'only 7 regional acts exist upstream and 3 have no canonical window at all' }),
-      /* the opportunity -> label audit question, crop through cropResolve and
-         issue through the resolver-generated OPP_ISSUE keys */
-      opportunityToLabelAudit: Object.assign(rate(opportunities.count, oppResolved),
-        { note: 'IT-OPP-003 is portfolio-wide and correctly resolves to no crop and no issue' }),
+      /* the opportunity -> label audit question. Crop comes from CROP_IDS
+         through the V2.1 id table, issue from the declared OPP_TARGET table.
+         The denominator is all 37; the miss is NOT a fault, because 25 of the
+         37 name no agronomic target at all (one of the engine's own gates is
+         exactly "no agronomic target stated") and three more name a target the
+         canonical window contract has no partner for. What would be a fault is
+         this number falling while the targets stay. */
+      opportunityToLabelAudit: Object.assign(rate(opportunities.count, oppResolved), {
+        cropResolved: opportunities.cropResolvedCount,
+        targetsNamed: opportunities.records.filter((o) => o.targetId).length,
+        targetsWithCanonicalPartner: opportunities.targetJoinedToAuditCount,
+        targetsLabelled: opportunities.targetLabelledCount,
+        verifiedProductLinks: opportunities.records.reduce((s, o) => s + o.verifiedProductCount, 0),
+        citedLabelRows: opportunities.records.reduce((s, o) => s + (o.evidenceLabelRowsCited || 0), 0),
+        note: 'a record that names no target correctly resolves to no issue; 25 of 37 name none',
+      }),
+      /* every id the engine cites as evidence must be a record this model
+         actually holds, or a detail screen offers a link to nothing */
+      opportunityEvidenceToRecord: (() => {
+        const held = {};
+        primaryKeys.forEach((k) => (collections[k].records || []).forEach((r) => { if (r && r.id) held[r.id] = 1; }));
+        const ids = uniq(opportunities.records.flatMap((o) => o.evidenceIds || []));
+        const hit = ids.filter((i) => held[i]).length;
+        return Object.assign(rate(ids.length, hit), {
+          note: 'the engine cites evidence by canonical id; an id with no record behind it is a dead link on the detail screen',
+        });
+      })(),
       /* crop vocabulary resolution per source family */
       cropVocabulary: {
         news: rate(news.count, news.records.filter((r) => r.cropCanonical).length),
@@ -4190,7 +5049,10 @@
     ['publicVoices', publicVoices.records, ['proves', 'notProves']],
     ['news', news.records, ['summary', 'caveat', 'contentKindMeaning']],
     ['futureSignals', futureSignals.records, ['whyWatch', 'observedFacts', 'interpretation', 'nextWindow', 'portfolioConnection', 'whoIsTalking', 'whatChanged']],
-    ['opportunities', opportunities.records, ['whatIsHappening', 'whyItMatters', 'currentEvidence', 'whatWeKnow', 'whatWeDoNotKnow', 'interpretations']],
+    /* the engine's four narrative fields. All four arrive as approved _IT/_EN,
+       so the debt here is expected to be zero — and if a future build stops
+       localizing one of them, this is where it shows up. */
+    ['opportunities', opportunities.records, ['whyNow', 'adamaRelevance', 'whatItProves', 'whatItDoesNotProve']],
     ['currentFieldSignals', currentFieldSignals.records, ['expectedCycle', 'observedStage', 'regulatoryWindow', 'preparationWindow', 'adamaProductsNote']],
     ['resistance', resistance.records, ['mechanism']],
     ['futureEvents', futureEvents.records, ['note', 'participationLaw']],
@@ -4291,11 +5153,22 @@
     });
 
   products.forEach((p) => idx('product', 'PRODUCT', p.name, p.name, [p.name, p.ai, p.categoryLabel, p.line, cropTerms(p.crops)], 'product', p.aiLabel || p.categoryLabel, { productName: p.name }, P.REAL_SOURCE));
-  opportunities.records.forEach((o) => idx('case', 'OPPORTUNITY', o.id, o.title || [o.issue, o.region].filter(Boolean).join(' · '), [o.title, o.issue, o.crop, cropTerms(o.cropKeys), o.regionKeys, o.id, o.legacyCaseId], 'case', o.crop, { caseId: o.id }, o.provenance));
+  /* An engine record has no TITLE: the package stopped writing one when it
+     stopped being three hand-written cases. The searchable name is therefore
+     BUILT from facts the record does carry — the localized target, the crop
+     and the geography — and the searchable terms include the archetype name,
+     the target in both languages and the ministerial label word, so a reader
+     who types "ticchiolatura" finds the pear record even though no field on it
+     is spelled that way. */
+  opportunities.records.forEach((o) => idx('case', 'OPPORTUNITY', o.id,
+    [o.targetLabelIt, o.crop, o.region].filter(Boolean).join(' · ') || o.archetypeIt || o.id,
+    [o.targetLabelIt, o.targetLabelEn, o.targetOnLabelWord, o.issue, o.archetypeIt, o.archetypeEn,
+      o.crop, cropTerms(o.cropKeys), o.regionKeys, o.productRelationships, o.id],
+    'case', o.crop, { caseId: o.id }, o.provenance));
   publicVoices.records.forEach((v) => idx('voice', 'FIELD_VOICE', v.id, v.person || v.channel || v.title, [v.person, v.channel, cropTerms([v.crop]), v.issue, v.title, v.organization], 'voices', v.platform, { voiceId: v.id }, v.provenance));
   futureSignals.records.forEach((f) => idx('signal', 'SIGNAL', f.id, [f.issue, f.region].filter(Boolean).join(' · ') || f.id, [f.issue, f.crop, f.region, f.id], 'signal', f.crop, { signalId: f.id }, f.provenance));
   researchers.records.forEach((r) => idx('researcher', 'PEOPLE', r.id, r.name, [r.name, r.institutions, r.theme, r.themeLabel], 'person', r.orgLabel, { personId: r.id }, r.provenance));
-  resistance.records.forEach((r) => idx('resistance', 'SCIENCE', r.id, r.species, [r.species, r.speciesIt, cropTerms([r.crop]), r.family], 'gire', r.crop, { gireFocusId: r.id }, r.provenance));
+  resistance.records.forEach((r) => idx('resistance', 'SCIENCE', r.id, r.displayLabel || r.id, [r.species, r.speciesIt, cropTerms([r.crop]), r.family], 'gire', r.crop, { gireFocusId: r.id }, r.provenance));
   cropWindows.records.forEach((w) => idx('window', 'WINDOW', w.id, [w.issue, w.region].filter(Boolean).join(' · '), [w.crop, w.issue, w.region, w.id, w.legacyCaseId], 'window', w.crop, { windowId: w.windowId }, w.provenance));
   sources.records.forEach((s) => idx('source', 'SOURCE', s.id, s.name, [s.name, s.type, s.geography, s.country, s.groupLabel], 'source', s.type, { sourceId: s.id }, s.provenance));
   futureEvents.records.forEach((e) => idx('event', 'EVENT', e.id, e.name, [e.name, e.location, e.sector, e.cropRelevance, e.organizer], 'event', e.location, { eventId: e.id }, e.provenance));
@@ -4356,7 +5229,12 @@
     productsCommercial: ['category', 'catalogUrl', 'regId', 'holder', 'commercialContract'],
     productsRegulatory: ['reg', 'holder', 'ai', 'expiryISO', 'labelUrl', 'crops', 'targets'],
     archive: ['dateISO', 'sourceId', 'crop', 'url'],
-    opportunities: ['cropKeys', 'issueKey', 'observationDate', 'freshnessDays', 'windowId'],
+    /* the engine's own contract fields, so a build that stops filling one of
+       them says so in the report instead of on a card */
+    opportunities: ['archetype', 'status', 'stateLabelIt', 'cropKeys', 'targetLabelIt', 'issueKey',
+      'regionKeys', 'signalDate', 'numbers', 'productRelationships', 'evidenceIds',
+      'actionMap', 'confidence', 'score', 'blockingReasons'],
+    resistance: ['displayLabel', 'species', 'speciesIt', 'family', 'firstCaseYear', 'regions', 'citation'],
   };
   const nonEmpty = (v) => !(v === null || v === undefined || v === '' || (Array.isArray(v) && !v.length));
   const validationReport = {
@@ -4511,6 +5389,38 @@
          source and are listed here so the absence is a statement, not a gap. */
       notSuppliedByV21: ['cropWindows', 'competitorCompanies', 'competitorProducts',
         'scienceThemes', 'publicPeople', 'marketSummaries', 'cropLabelReach'],
+    },
+
+    /* ── THE OPPORTUNITY ENGINE VOCABULARY ─────────────────────────────
+       ONE source for the radar list and the detail screen. Before this
+       existed, each screen invented its own archetype name and its own
+       status wording, and two screens named the same record differently.
+       Everything here is a LABEL; not one of these keys is a fact.
+
+       The Italian for ARCHETYPE_MEANS, for the six *_LAW captions, for the
+       CONFIDENCE enum and for the gate reasons is AUTHORED here, because the
+       package publishes those in Portuguese with no approved localized
+       sibling and narrative() correctly refuses to return them. Each caption
+       says exactly what the Portuguese says and claims nothing more, and each
+       is stamped `authored: true` so it can be told apart from a translation
+       the package itself approved. */
+    OPPORTUNITY: {
+      ARCHETYPE: OPP_ARCHETYPE,
+      STATUS: OPP_STATUS_UI,
+      CONFIDENCE: OPP_CONFIDENCE,
+      AUDIENCE: OPP_AUDIENCE,
+      STATE: OPP_STATE_UI,
+      TARGET: OPP_TARGET,
+      NUMBER_LABEL: OPP_NUMBER_LABEL,
+      GATE_NAME: OPP_GATE_NAME,
+      LAW: ENGINE_LAW,
+      LAW_RAW: ENGINE_LAW_RAW,
+      FORBIDDEN: OPP_FORBIDDEN_PHRASES,
+      /* the render gate, named once so no screen re-derives it */
+      renderGate: 'isVerifiedConvergence',
+      clientSafeIsNotTheRenderGate: 'every opportunity is CORPUS by the package’s own rule about its own derivations; gating the radar on that empties the screen',
+      caption,
+      reasonOf: oppReason,
     },
 
     /* the client-safe gate, as numbers a panel can print */

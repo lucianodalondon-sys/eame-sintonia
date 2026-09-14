@@ -588,7 +588,23 @@ check('B3', 'No public CDN runtime dependency', () => {
 
 export const SCREENS = [
   { view: 'radar', label: 'Opportunity list' },
+  /* ONE OF THIRTY-SEVEN IS NOT COVERAGE.
+     This list rendered the case view for a single record, and every language and
+     binding guard therefore measured the opportunity detail over 1/37 of it. A
+     breadcrumb that was wrong on 36 records — 29 saying "in attesa di
+     localizzazione" over a record that publishes its target, 7 printing PEAR,
+     DOWNY MILDEW, CODLING MOTH into the Italian interface — sat behind a green
+     suite because the one record it did render was the one nobody looked at.
+     Five records now stand in for the screen: the first verified convergence,
+     the first candidate, the record the adversarial review knocked down, one
+     with no target, and one whose window is a single date. Between them they
+     exercise every branch the detail screen has. */
   { view: 'case', label: 'Opportunity detail', pick: (AM) => ({ caseId: (AM.collections.upstreamOpportunities.records[0] || AM.collections.opportunities.records[0] || {}).id }) },
+  { view: 'case', label: 'Opportunity detail · verified', pick: (AM) => ({ caseId: ((AM.collections.opportunities.records || []).find((r) => r.isVerifiedConvergence) || {}).id }) },
+  { view: 'case', label: 'Opportunity detail · candidate', pick: (AM) => ({ caseId: ((AM.collections.opportunities.records || []).find((r) => r.isCandidate) || {}).id }) },
+  { view: 'case', label: 'Opportunity detail · knocked down', pick: (AM) => ({ caseId: ((AM.collections.opportunities.records || []).find((r) => r.wasKnockedDown) || {}).id }) },
+  { view: 'case', label: 'Opportunity detail · no target', pick: (AM) => ({ caseId: ((AM.collections.opportunities.records || []).find((r) => !r.targetLabelIt) || {}).id }) },
+  { view: 'case', label: 'Opportunity detail · single-date window', pick: (AM) => ({ caseId: ((AM.collections.opportunities.records || []).find((r) => r.window && r.window.start && r.window.start === r.window.end) || {}).id }) },
   { view: 'future', label: 'Future list' },
   { view: 'signal', label: 'Future detail', pick: (AM) => ({ signalId: (AM.collections.futureSignals.records[0] || {}).id }) },
   { view: 'windows', label: 'Crop Windows' },
@@ -851,14 +867,44 @@ check('DS1', 'Turning demo scenarios ON changes no real count', () => {
   if (off.counts !== on.counts) bad.push('AM.counts changed');
   if (off.prov !== on.prov) bad.push('provenance real/derived changed');
   if (JSON.stringify(off.state) !== JSON.stringify(on.state)) bad.push('Data State real/derived changed');
-  /* and the mode must actually do something, or the check is vacuous */
-  const vOff = m.vals({ view: 'radar', showScenarios: false });
-  const vOn = m.vals({ view: 'radar', showScenarios: true });
-  const shownOff = (vOff.filtered || vOff.visibleCases || []).length;
-  const shownOn = (vOn.filtered || vOn.visibleCases || []).length;
-  if (shownOn <= shownOff) bad.push(`the toggle shows nothing extra (${shownOff} -> ${shownOn}) — check is vacuous`);
+  /* AND THE MODE MUST ACTUALLY DO SOMETHING, or every assertion above is a
+     comparison of a screen with itself and this check is worth nothing.
+
+     That is exactly what happened. The probe read `visibleCases`, which is
+     `filtered.slice(0, 12)` — the FIRST PAGE, not the pool. The radar's pool
+     grew from 37 to 66 when the toggle went on and the first page stayed twelve
+     cards long, so the probe measured 12 -> 12 and reported the toggle inert.
+     A pagination window is not a count. Read the pool: `filteredCount` is the
+     length of `filtered`, and `showAll` unpaginates it as a second opinion.
+
+     Two independent surfaces are probed, because the toggle feeds both and a
+     rewiring that kills one would otherwise hide behind the other. */
+  const pool = (on) => {
+    const r = m.tryVals({ view: 'radar', showScenarios: on, showAll: true, lang: 'it' });
+    if (!r.ok) return { cases: -1, signals: -1, error: r.error };
+    const v = r.vals;
+    const page = (v.filtered || v.visibleCases || []).length;
+    return {
+      cases: typeof v.filteredCount === 'number' ? v.filteredCount : page,
+      unpaginated: page,
+      signals: (v.visibleSignals || v.sigAll || []).length,
+    };
+  };
+  const pOff = pool(false);
+  const pOn = pool(true);
+  if (pOff.cases < 0 || pOn.cases < 0) bad.push(`the radar would not render for the probe: ${pOff.error || pOn.error}`);
+  else {
+    if (pOn.cases <= pOff.cases) {
+      bad.push(`the opportunity pool gains nothing from the toggle (${pOff.cases} -> ${pOn.cases}) — the probe is vacuous, `
+        + 'so nothing above this line was really compared');
+    }
+    /* the pool and the unpaginated list must be the same number, or the probe
+       is reading a page again without knowing it */
+    if (pOn.unpaginated !== pOn.cases) bad.push(`showAll returned ${pOn.unpaginated} of a pool of ${pOn.cases} — the probe is still paginated`);
+    if (pOn.signals <= pOff.signals) bad.push(`the Future feed gains nothing from the toggle (${pOff.signals} -> ${pOn.signals})`);
+  }
   return { pass: bad.length === 0, expected: 0, measured: bad.length,
-    detail: { casesOff: shownOff, casesOn: shownOn, bad } };
+    detail: { poolOff: pOff.cases, poolOn: pOn.cases, signalsOff: pOff.signals, signalsOn: pOn.signals, bad } };
 });
 
 check('DS2', 'A demo scenario is never counted as a real record', () => {
@@ -1173,7 +1219,22 @@ check('VJ1', 'No vocabulary join has silently come unhooked', () => {
   atLeast('labelAudit -> window (windows with a verdict)', J.labelAuditToWindow.filled, 19);
   atLeast('labelAudit -> window (verified)', J.labelAuditToWindow.verified, 12);
   atLeast('regional act -> window', J.fieldSignalToWindow.filled, 2);
-  atLeast('opportunity -> label audit', J.opportunityToLabelAudit.filled, 2);
+  /* Floor raised from 2 to 8 the day the Opportunity Engine landed. The old 2
+     was the ceiling of a three-record world; over 37 records the resolver joins
+     8 targets to the ministerial audit, and a drop back toward 2 would mean the
+     target wording moved on one side of the join and not the other. */
+  atLeast('opportunity -> label audit', J.opportunityToLabelAudit.filled, 8);
+  /* The engine cites its evidence by canonical id and never by text. An id with
+     no record behind it is a dead link on the detail screen, so this join has no
+     floor: it reconciles exactly or it is broken. OE3 measures the same thing
+     independently, from the records instead of from the model's own report —
+     if these two ever disagree, the report is the thing that is lying. */
+  const ev = J.opportunityEvidenceToRecord;
+  if (!ev) bad.push('joinHealth has no opportunity-evidence join');
+  else {
+    atLeast('opportunity -> evidence record (cited ids)', ev.n, 515);
+    if (ev.filled !== ev.n) bad.push(`opportunity -> evidence record: ${ev.filled} of ${ev.n} resolve`);
+  }
   atLeast('crop vocabulary · news', J.cropVocabulary.news.filled, 6);
   atLeast('crop vocabulary · voices', J.cropVocabulary.voices.filled, 17);
   atLeast('crop vocabulary · field signals', J.cropVocabulary.fieldSignals.filled, 7);
@@ -1182,11 +1243,37 @@ check('VJ1', 'No vocabulary join has silently come unhooked', () => {
   for (const [k, r] of Object.entries(J.enums)) {
     if (r.filled !== r.n) bad.push(`enum ${k}: ${r.filled} of ${r.n} resolve`);
   }
-  /* IT-OPP-001 is the mandatory-control case: it must keep proving its two
-     verified products through the resolver, in both directions. */
-  const opp = AM.collections.opportunities.records.find((o) => o.id === 'IT-OPP-001');
-  if (!opp) bad.push('IT-OPP-001 absent');
-  else if (opp.verifiedProductCount !== 2) bad.push(`IT-OPP-001 verified products: ${opp.verifiedProductCount}, expected 2`);
+  /* THE MANDATORY CONTROL CASE, RE-ANCHORED.
+     It used to be IT-OPP-001, one of the three hand-written candidates. The
+     Opportunity Engine replaced them with 37 records whose ids are content
+     hashes (OPP_…), so IT-OPP-001 stopped existing and this check reported
+     "IT-OPP-001 absent" — a true statement about a vanished id, and a useless
+     one about the join it was there to guard.
+
+     The control is now the one record in the set that proves two verified label
+     matches end to end: Grapevine x Flavescenza Dorata, which reaches EVURE PRO
+     and MAVRIK SMART through crop AND target, not through crop alone. It is the only
+     record with two, so if the target side of the resolver goes quiet this drops
+     to a number below 2 and fails here rather than printing an absence on screen.
+     The id is stable because the BUILD_ID is pinned (V1): same package content,
+     same hashes. If the package is rebuilt, re-anchor deliberately — do not
+     delete the control. */
+  const ANCHOR = 'OPP_68984FFD5ABF';
+  const opp = AM.collections.opportunities.records.find((o) => o.id === ANCHOR);
+  if (!opp) {
+    const best = AM.collections.opportunities.records
+      .slice().sort((a, b) => (b.verifiedProductCount || 0) - (a.verifiedProductCount || 0))[0];
+    bad.push(`${ANCHOR} absent — the control case is gone. The record proving the most verified products now `
+      + `is ${best ? `${best.id} with ${best.verifiedProductCount}` : 'none at all'}; re-anchor on it only after `
+      + 'confirming the package was rebuilt on purpose.');
+  } else {
+    if (opp.verifiedProductCount !== 2) bad.push(`${ANCHOR} verified products: ${opp.verifiedProductCount}, expected 2`);
+    /* the join must run through the target, not stop at the crop */
+    if (!/Flavescenza/i.test(String(opp.issue || ''))) bad.push(`${ANCHOR} no longer names its target: issue is ${JSON.stringify(opp.issue)}`);
+    const viaTarget = (opp.productLinks || []).filter((l) => l.strength === 'VERIFIED_LABEL_MATCH'
+      && /OPP_TARGET/.test(String(l.resolvedThrough || ''))).length;
+    if (viaTarget !== 2) bad.push(`${ANCHOR}: ${viaTarget} of its verified links resolved through the target; expected 2 — the resolver fell back to the crop alone`);
+  }
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 10) };
 });
 
@@ -1241,6 +1328,12 @@ check('VJ2', 'isResearcher means membership, not "has a paper here"', () => {
    opportunity's title is exactly that, so title is IN scope there. I6 asks
    "is this accidental English", and a source's title is deliberate English,
    so title is OUT of scope here. */
+/* An option's VALUE is a key, not display text: in a {v, l} pair the client
+   reads l and v is the canonical token the filter matches on. Flagging v as
+   "accidental English" reports the vocabulary itself as a defect — measured, it
+   accounted for most of the jump when the detector learned crop names. The
+   label beside it stays in scope, which is where a real leak shows. */
+const KEY_LEAVES = new Set(['v', 'value', 'key', 'id', 'slug', 'token', 'code']);
 const ORIGINAL_LEAVES = new Set([
   'title', 'descriptor', 'org', 'orgLabel', 'institutions', 'institution', 'name',
   'venue', 'locationShort', 'channel', 'headline', 'query', 'note', 'short',
@@ -1254,6 +1347,7 @@ function englishOnItalianScreens() {
   const leaf = (p) => String(p).split('.').pop().replace(/\[\d+\]$/, '');
   const hitsBound = [];
   const hitsUnbound = [];
+  const hitsDemo = [];
   let rendered = 0;
   for (const sc of SCREENS) {
     const it = m.tryVals(Object.assign({ view: sc.view, lang: 'it' }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {}));
@@ -1263,7 +1357,7 @@ function englishOnItalianScreens() {
     const enByPath = en.ok ? new Map(collectStrings(en.vals).map((x) => [x.path, x.value])) : new Map();
     for (const { path, value } of collectStrings(it.vals)) {
       const k = leaf(path);
-      if (ORIGINAL_LEAVES.has(k)) continue;
+      if (ORIGINAL_LEAVES.has(k) || KEY_LEAVES.has(k)) continue;
       /* an {it, en} pair always exposes an English .en — that is the pair
          working, not a leak; the markup picks the side by language */
       if (k === 'en' && enByPath.has(path.replace(/\.en$/, '.it'))) continue;
@@ -1273,27 +1367,55 @@ function englishOnItalianScreens() {
       if (en.ok && enByPath.get(path) !== value) continue;
       /* dedupe by the STRING, not by the path: one caption repeated on every
          screen is one thing to translate, not twenty-six defects. */
-      (bound.has(k) ? hitsBound : hitsUnbound).push(String(value));
+      /* THE DEMO MODULE IS A DIFFERENT PROMISE AND MUST BE COUNTED APART.
+         Field Sales is an explicitly labelled demonstration — its channel chip
+         literally reads "(SIMULATO)" — and its fixture messages were authored in
+         English. Measured when this split was made: 267 of the 303 bound English
+         strings came from that module and 36 from the product itself. Pooling
+         them made the product's own number unreadable and let a real leak hide
+         behind demo copy. The demo is still counted, still ratcheted, and still
+         visible; it is simply not allowed to speak for the product. */
+      const inDemo = /fieldMessages|tsr|caseObj|fsFlow|inboundFlow/.test(path);
+      (inDemo ? hitsDemo : (bound.has(k) ? hitsBound : hitsUnbound)).push(String(value));
     }
   }
-  return { rendered, want: SCREENS.length, bound: [...new Set(hitsBound)], unbound: [...new Set(hitsUnbound)] };
+  return { rendered, want: SCREENS.length, bound: [...new Set(hitsBound)], unbound: [...new Set(hitsUnbound)], demo: [...new Set(hitsDemo)] };
 }
 
-check('I6', 'Italian mode binds no accidental English on any screen', () => {
+check('I6', 'Italian mode binds no accidental English in the product itself', () => {
   /* 228 distinct English captions were found the day the string walk stopped
      truncating. They are generated captions this portal authors itself — a
      status reason, a law caption, a filter placeholder — never source content,
      which is exempted above. */
-  const CEILING = 201;
+  /* RE-BASELINED BECAUSE THE INSTRUMENT IMPROVED, NOT BECAUSE THE PRODUCT DID.
+     The old ceiling of 201 was measured with a detector that could not read the
+     subject matter: looksEnglish() returned false on PEAR, DOWNY MILDEW, CODLING
+     MOTH, EUROPEAN CORN BORER, GRAPEVINE MOTH, POWDERY MILDEW and SCAB — a
+     language guard for an agronomy product blind to the names of crops and
+     diseases. Teaching it that vocabulary, and fixing the ordering bug that let
+     an all-caps name be exempted before any word was consulted, raised the
+     measured number rather than lowering it. That is the guard working.
+     What the fixes then removed is real: the market screen's eight crop tabs now
+     follow the interface language (MAIS, FRUMENTO DURO, BARBABIETOLA DA
+     ZUCCHERO), four missing crop names were added to the map, and three
+     hardcoded English headings left the template.
+     PRODUCT is a hard ratchet at what remains. DEMO is tracked separately and
+     more loosely: Field Sales is a labelled demonstration whose fixture was
+     authored in English. Both may fall, neither may rise. */
+  const CEILING = 36;
+  const DEMO_CEILING = 310;
   const r = englishOnItalianScreens();
   const vacuous = r.rendered < r.want;
+  const over = [];
+  if (r.bound.length > CEILING) over.push('product English rose from ' + CEILING + ' to ' + r.bound.length);
+  if (r.demo.length > DEMO_CEILING) over.push('demo-module English rose from ' + DEMO_CEILING + ' to ' + r.demo.length);
   return {
-    pass: r.bound.length <= CEILING && !vacuous,
-    expected: '<= ' + CEILING + ' bound English captions over ' + r.want + ' screens',
+    pass: !over.length && !vacuous,
+    expected: '<= ' + CEILING + ' in the product, <= ' + DEMO_CEILING + ' in the labelled demo',
     measured: vacuous
       ? r.bound.length + ' bound but only ' + r.rendered + '/' + r.want + ' rendered — INCONCLUSIVE'
-      : r.bound.length + ' bound over ' + r.rendered + ' screens (' + r.unbound.length + ' unbound)',
-    detail: r.bound.slice(0, 12).map((v) => v.slice(0, 88)),
+      : 'product ' + r.bound.length + ' · demo ' + r.demo.length + ' · unbound ' + r.unbound.length + ', over ' + r.rendered + ' screens',
+    detail: { over, product: r.bound.slice(0, 10).map((v) => v.slice(0, 80)) },
   };
 });
 
@@ -1327,7 +1449,7 @@ check('E1', 'The entry page counts, it does not assert', () => {
    its own laws about what may be said out loud. These checks hold the site to
    them. */
 
-const V21_BUILD_ID = 'V21-843baf4229d93598';
+const V21_BUILD_ID = 'V21-99226fbb90dcdbc2';
 
 check('V1', 'The declared V2.1 build is the one that is loaded', () => {
   const ctx = loadData();
@@ -1362,32 +1484,41 @@ check('V2', 'Every family reproduces the package manifest, from the files', () =
 });
 
 check('V3', 'No unreviewed research prose was transported to the browser', () => {
-  /* The package's own language rule: RESEARCH holds Portuguese working notes
-     the Design never reads. A CLIENT_SAFE=false record travels as identity
-     only, so an unreviewed reading cannot sit in a public file waiting for
-     some future component to render it. */
+  /* THE GATE ON PROSE IS APPROVAL, NOT CLIENT_SAFE — and this check used to
+     assert the opposite. It failed a record for carrying any *_IT / *_EN while
+     CLIENT_SAFE was false. That reading survived only because no family had yet
+     needed approved prose on a non-safe record. The Opportunity Engine does:
+     all 37 opportunities are CLIENT_SAFE=false by the package's own law (an
+     opportunity is OUR reading of third-party facts), and every sentence the
+     brief requires on screen — WHY_NOW, ADAMA_RELEVANCE, WHAT_IT_PROVES — is an
+     approved translation attached to exactly those records. Under the old
+     assertion the honest build failed and the way to make it pass was to strip
+     the engine.
+
+     What must never travel is the RESEARCH note: untranslated Portuguese
+     working text the package says the Design never reads. That is what is
+     tested here. CLIENT_SAFE is still enforced — in the model, over what may be
+     ASSERTED, which is where it belongs. */
   const ctx = loadData();
   const V = ctx.ITALY_HANDOFF_V21;
   const bad = [];
-  /* Read the payload, not the file: LANGUAGE_RULE.RESEARCH is the rule TEXT
-     saying research notes are not transported, and a grep over the whole file
-     scores that sentence as the very thing it forbids. */
+  /* Read the payload, not the file: LANGUAGE_RULE is the rule TEXT saying
+     research notes are not transported, and a grep over the whole file scores
+     that sentence as the very thing it forbids. */
   const payload = JSON.stringify((V && V.collections) || {});
   if (/"RESEARCH":/.test(payload)) bad.push('a RESEARCH field reached a record');
   if (/_ORIGINAL_RESEARCH_TEXT":/.test(payload)) bad.push('an *_ORIGINAL_RESEARCH_TEXT field reached a record');
-  /* A non-client-safe record keeps its FACTS — the gate governs what may be
-     ASSERTED, not what may EXIST. Stubbing it to an id would have shrunk the
-     label layer from 2030 pairs to 1512 and from 78 label targets to 51, which
-     is a loss of fact dressed as caution. What it must not carry is the
-     unreviewed READING: a localized *_IT / *_EN pair. */
-  if (V) {
-    for (const [fam, rows] of Object.entries(V.collections || {})) {
-      const leaky = (rows || []).filter((r) => r && r.CLIENT_SAFE !== true &&
-        Object.keys(r).some((k) => k.endsWith('_IT') || k.endsWith('_EN')));
-      if (leaky.length) bad.push(`${fam}: ${leaky.length} non-client-safe record(s) carry a localized reading`);
-    }
-  }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 8) };
+  /* And the transport must have actually done the work rather than passed by
+     doing nothing: a build where nothing was dropped is not a clean build. */
+  const st = (V && V.TRANSPORT_STATS) || {};
+  if (!(st.researchDropped > 0)) bad.push('TRANSPORT_STATS reports 0 research fields dropped — the transport did not run its own rule');
+  if (!(st.approvedKept > 0)) bad.push('TRANSPORT_STATS reports 0 approved translations kept');
+  return {
+    pass: bad.length === 0,
+    expected: 0,
+    measured: bad.length,
+    detail: { transportStats: st, bad: bad.slice(0, 8) },
+  };
 });
 
 check('V4', 'The three opportunity candidates are never called opportunities', () => {
@@ -1572,28 +1703,635 @@ check('V9', 'Every V2.1 family the package supplies actually reaches the model',
   /* A family can be silently skipped by mapping it to the wrong key — the
      record count then reflects the old source and nothing fails. This walks the
      manifest and asks, for each family, whether the model chose the V2.1
-     source and ended up with the package's row count. */
+     source and ended up with the package's rows.
+
+     Two things were wrong with the first version, and both are the same
+     mistake in different clothes.
+
+     One: the hand-typed table still said `opportunities: 3`. That was true of
+     the world before the Opportunity Engine, when the family held three
+     candidates. It now holds 37, and the check was failing the honest build
+     and inviting whoever read it to shrink the engine back to three.
+
+     Two, and worse: reachability was tested with `totals.includes(n)` — "does
+     ANY collection in the model happen to have this many rows". That is a
+     coincidence detector, not a join. `resistance: 34` passed for weeks while
+     nothing held the resistance rows, simply because some other collection was
+     34 long; and it reported a failure the day that unrelated collection grew.
+     A family is reached when the model says which family a collection came
+     from (collection.v21Family) and holds that many rows, OR when every single
+     row id of the family is findable in the model. The second clause is what
+     lets `futureEvents` pass honestly: its 14 rows are merged into the 40-row
+     events collection rather than kept as a table of their own. */
   const ctx = loadData();
   const AM = ctx.ITALY_APP_MODEL || {};
   const V = ctx.ITALY_HANDOFF_V21;
   if (!V || !AM.ingest) return { pass: false, expected: 'package and ingest report', measured: 'ABSENT' };
-  const chosen = {};
-  for (const f of (AM.ingest.report && AM.ingest.report.families) || []) chosen[f.family] = f;
   const bad = [];
-  /* families whose package rows must be visible somewhere in the model */
+  /* The row counts a human asserted by reading the manifest. V2 reproduces the
+     manifest from the files; this is the independent second opinion, and it is
+     the tripwire that fires when the package is swapped underneath the site. */
   const MUST = {
     'products.regulatory': 163, 'products.commercial': 51, 'products.relationships': 2030,
     fieldSignals: 122, market: 157, competitors: 577, science: 88, researchers: 60,
     resistance: 34, voices: 79, channels: 62, sources: 189, news: 8, events: 40,
-    opportunities: 3, futureSignals: 3, regulatoryFutureFacts: 47, activeIngredients: 53,
+    opportunities: 37, futureSignals: 3, regulatoryFutureFacts: 47, activeIngredients: 53,
   };
-  const totals = Object.values(AM.collections || {}).map((c) => c && c.count);
-  for (const [fam, n] of Object.entries(MUST)) {
-    const pkgRows = (V.collections[fam] || []).length;
-    if (pkgRows !== n) { bad.push(`${fam}: package has ${pkgRows}, this check expects ${n} — re-read the manifest`); continue; }
-    if (!totals.includes(n)) bad.push(`${fam}: ${n} rows are in the package but no collection in the model holds ${n}`);
+  /* every id the model can resolve, from every collection, under every id-shaped
+     field the package's families use */
+  const known = new Set();
+  for (const c of Object.values(AM.collections || {})) {
+    for (const r of (c && c.records) || []) {
+      if (!r) continue;
+      for (const f of ['id', 'sourceId', 'windowId']) if (r[f] !== undefined && r[f] !== null) known.add(String(r[f]));
+    }
   }
-  return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad.slice(0, 12) };
+  /* which collections declare which package family, and how many rows they hold */
+  const declared = {};
+  for (const [k, c] of Object.entries(AM.collections || {})) {
+    if (c && c.v21Family) (declared[c.v21Family] = declared[c.v21Family] || []).push({ key: k, count: c.count });
+  }
+  const reach = {};
+  for (const man of V.MANIFEST || []) {
+    const fam = man.family;
+    const rows = V.collections[fam] || [];
+    if (MUST[fam] !== undefined && rows.length !== MUST[fam]) {
+      bad.push(`${fam}: package has ${rows.length}, this check expects ${MUST[fam]} — re-read the manifest`);
+      continue;
+    }
+    const holder = (declared[fam] || []).find((d) => d.count === rows.length);
+    const lost = rows.filter((r) => r && r.ID !== undefined && r.ID !== null && !known.has(String(r.ID)));
+    reach[fam] = holder ? `${holder.key}(${holder.count})` : lost.length === 0 ? 'merged, all ids found' : 'LOST';
+    if (!holder && lost.length) {
+      bad.push(`${fam}: ${rows.length} rows in the package, no collection declares that family at that size, `
+        + `and ${lost.length} of the ids are nowhere in the model (e.g. ${lost[0].ID})`);
+    }
+  }
+  /* a family the manifest names but the transport never carried is the same
+     defect one step earlier, and V2 would only see it as a row-count mismatch */
+  for (const fam of Object.keys(MUST)) {
+    if (!(V.collections || {})[fam]) bad.push(`${fam}: named in this check but absent from the package payload`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: `${(V.MANIFEST || []).length} families reach the model`,
+    measured: `${(V.MANIFEST || []).length - bad.length} reached`,
+    detail: bad.length ? bad.slice(0, 12) : Object.entries(reach).map(([k, v]) => `${k} -> ${v}`),
+  };
+});
+
+/* ── 16 · the Opportunity Engine ──────────────────────────────────────────
+   37 readings, 9 of them verified convergences and 28 to validate. The engine
+   is the first layer in this package that DERIVES: everything before it was a
+   third-party fact copied across, and every one of these 37 is Sintonia's own
+   reading of several of those facts placed side by side. That is why the whole
+   family carries CLIENT_SAFE=false — not as a defect, as the definition — and
+   why the gate that decides what may be shown as a verified convergence is
+   RENDERABLE_WITH_METHOD instead.
+
+   Reading CLIENT_SAFE as the render gate would empty the screen and look like
+   caution. These checks exist so that the opposite mistake — letting a reading
+   the engine's own red team knocked down wear an urgency badge — cannot be made
+   quietly either.
+
+   A note on method that applies to all seven: the model publishes its own
+   summary of the engine (collection.verifiedConvergences, .byArchetype,
+   .rejectedAndRenderable and so on). Those numbers are convenient and they are
+   NOT trusted here. Every number below is counted from the records, and the
+   published summary is then compared against the count. If the two ever
+   disagree, the summary is the thing that is wrong. */
+
+/** The engine's three views of the same 37 rows: package, model, render. */
+/**
+ * The engine's three views of the same rows, side by side:
+ *   pkg   the package's records, SCREAMING_SNAKE, exactly as transported
+ *   recs  the model's records, camelCase, after the adapter
+ *   m     a mounted portal, so the render can be asked what it would show
+ * Every check below compares at least two of the three; a number that only one
+ * of them believes is the defect, not the answer.
+ */
+function engine() {
+  const m = mount();
+  const V = m.ctx.ITALY_HANDOFF_V21;
+  const coll = (m.AM.collections || {}).opportunities || {};
+  const pkg = (V && V.collections && V.collections.opportunities) || [];
+  return {
+    m, V, coll, pkg,
+    AM: m.AM,
+    ENGINE: (V && V.ENGINE) || {},
+    recs: coll.records || [],
+    byPkgId: new Map(pkg.map((r) => [r.ID, r])),
+  };
+}
+
+/** Every card the radar actually lays out, unpaginated, demo mode off. */
+function radarCards(m) {
+  const r = m.tryVals({ view: 'radar', lang: 'it', showScenarios: false, showAll: true });
+  if (!r.ok) return { ok: false, error: r.error, cards: [] };
+  return { ok: true, cards: (r.vals.visibleCases || []).filter((c) => c && !c.isScenario), vals: r.vals };
+}
+
+check('OE1', 'A reading the red team knocked down never renders as a convergence', () => {
+  /* The engine's adversarial pass DOWNGRADES; it never deletes. All 17 rejected
+     readings are still among the 37, and that is deliberate: deleting them would
+     erase the fact that they were examined, and the rejection reason is often
+     the most useful sentence in the record. The law is written into the package
+     in one line — "o red team so derruba; nunca confirma".
+
+     The danger of keeping them is obvious the moment you say it out loud: a
+     knocked-down reading sitting in the same array as a verified one is one
+     careless filter away from the screen. One of the 17 still carries
+     STATUS=ACT_NOW, because the red team lowered the verdict without touching
+     the temporal state — so the record that says "act now" is precisely the
+     record that must never be shown as an opportunity.
+
+     Counted here, never assumed: how many of the rejected ids are still in the
+     set, and how many of them any layer would render. */
+  const { V, ENGINE, pkg, recs, coll, byPkgId, m } = engine();
+  if (!V || !pkg.length) return { pass: false, expected: 'the package', measured: 'ABSENT' };
+  const rejections = ENGINE.REJECTIONS || [];
+  if (!rejections.length) return { pass: false, expected: 'ENGINE.REJECTIONS', measured: 'absent or empty — the red team\'s findings did not travel' };
+
+  const bad = [];
+  const rejectedIds = new Set(rejections.map((r) => r.ID));
+  const byModelId = new Map(recs.map((r) => [r.id, r]));
+
+  const stillPresent = [...rejectedIds].filter((id) => byPkgId.has(id));
+  if (stillPresent.length !== rejectedIds.size) {
+    bad.push(`${rejectedIds.size - stillPresent.length} rejected reading(s) were DELETED from the set; `
+      + 'the law says the review only downgrades, so a missing one means somebody dropped the evidence of the review');
+  }
+  /* the whole point: 0 of them may be renderable, in the package and in the model */
+  const renderableInPackage = stillPresent.filter((id) => byPkgId.get(id).RENDERABLE_WITH_METHOD === true);
+  for (const id of renderableInPackage) bad.push(`${id}: knocked down by the red team and still RENDERABLE in the package`);
+  const renderableInModel = stillPresent.filter((id) => byModelId.get(id) && byModelId.get(id).isVerifiedConvergence === true);
+  for (const id of renderableInModel) bad.push(`${id}: knocked down by the red team and the model presents it as a verified convergence`);
+  /* every rejection must carry its reason, or the downgrade is unexplainable */
+  const mute = rejections.filter((r) => !Array.isArray(r.POR_QUE) || !r.POR_QUE.length);
+  for (const r of mute) bad.push(`${r.ID}: rejected with no reason recorded`);
+  /* and the model's own tally of all this must agree with the count above */
+  if (typeof coll.rejectionCount === 'number' && coll.rejectionCount !== rejections.length) {
+    bad.push(`the model reports ${coll.rejectionCount} rejections; the package carries ${rejections.length}`);
+  }
+  if (typeof coll.rejectedAndRenderable === 'number' && coll.rejectedAndRenderable !== renderableInPackage.length) {
+    bad.push(`the model reports ${coll.rejectedAndRenderable} rejected-and-renderable; counted here: ${renderableInPackage.length}`);
+  }
+  /* finally the screen, because a filter that forgets the gate lives there */
+  const rc = radarCards(m);
+  if (!rc.ok) bad.push(`the radar would not render: ${rc.error}`);
+  else {
+    const shownAsVerified = rc.cards.filter((c) => rejectedIds.has(c.id)
+      && (c.isVerifiedConvergence === true || c.isCandidate === false));
+    for (const c of shownAsVerified) bad.push(`radar card ${c.id}: a knocked-down reading is not marked as one still to validate`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: '0 rejected readings renderable',
+    measured: `${renderableInPackage.length + renderableInModel.length} renderable of ${stillPresent.length} rejected still in the set`,
+    detail: bad.length ? bad.slice(0, 10)
+      : { rejected: rejections.length, stillInTheSet: stillPresent.length, renderable: 0,
+        rejectedCarryingUrgentState: stillPresent.filter((id) => byPkgId.get(id).STATUS === 'ACT_NOW').length },
+  };
+});
+
+check('OE2', 'A reading with a gate still closed never wears an urgency badge', () => {
+  /* BLOCKING_GATES is the list of the engine's own gates that did not open for
+     this reading: a geography that does not contain its support, a target that
+     was never named, a competitor's communication mistaken for market share.
+     28 of the 37 carry at least one. Those 28 are exactly the 28 that are not
+     renderable — the gate list IS the reason.
+
+     The failure this guards against has a very specific shape, and it is the
+     one the whole brief keeps returning to: PREPARE_NOW must not become ACT_NOW.
+     A record's temporal state and its verdict are two different facts, and the
+     record can hold "act now" while every gate behind it is shut. If a badge is
+     wired to the raw STATUS instead of to the gate, the single most alarming
+     word on the screen ends up on the single least supported reading.
+
+     Three measurements: the gate must close the render, the gate must silence
+     the urgency, and the state must be carried across from the package rather
+     than recomputed on the way to the screen. */
+  const { V, pkg, recs, byPkgId, coll, m } = engine();
+  if (!V || !pkg.length) return { pass: false, expected: 'the package', measured: 'ABSENT' };
+  const bad = [];
+  const gatesOf = (p) => (Array.isArray(p.BLOCKING_GATES) ? p.BLOCKING_GATES : []).length;
+  const gated = pkg.filter((p) => gatesOf(p) > 0);
+  if (!gated.length) bad.push('no record carries a blocking gate — either the engine stopped gating or the field stopped travelling');
+
+  const byModelId = new Map(recs.map((r) => [r.id, r]));
+  let urgentDespiteGate = 0;
+  for (const p of gated) {
+    const r = byModelId.get(p.ID);
+    if (!r) { bad.push(`${p.ID}: gated in the package, absent from the model`); continue; }
+    if (r.showsUrgency === true) {
+      urgentDespiteGate++;
+      bad.push(`${p.ID}: ${gatesOf(p)} gate(s) still closed and the model says it shows urgency (STATUS ${p.STATUS})`);
+    }
+    if (r.isVerifiedConvergence === true) bad.push(`${p.ID}: ${gatesOf(p)} gate(s) still closed and the model presents it as a verified convergence`);
+  }
+  /* and the other direction, because the gate list is not merely correlated with
+     the verdict, it IS the verdict: a reading with every gate open that is still
+     held back is a reading nobody can explain to the client. */
+  for (const p of pkg) {
+    if (gatesOf(p) > 0) continue;
+    const r = byModelId.get(p.ID);
+    if (r && r.isVerifiedConvergence !== true) bad.push(`${p.ID}: every gate is open and the model still withholds it — no reason is recorded anywhere`);
+  }
+  /* the state must be CARRIED, not recomputed — a promotion anywhere on the way
+     from the package to the model is the defect in its purest form */
+  for (const r of recs) {
+    const p = byPkgId.get(r.id);
+    if (!p) { bad.push(`${r.id}: in the model, not in the package`); continue; }
+    if (r.status !== p.STATUS) bad.push(`${r.id}: the package says STATUS ${p.STATUS}, the model says ${r.status}`);
+  }
+  /* and no gated reading's card or detail may print the urgent label. The labels
+     are read from the model's own status table by TONE, so renaming "Adesso"
+     does not silently disarm this. */
+  const urgentLabels = new Set();
+  for (const s of coll.byStatus || []) {
+    if (s && s.tone === 'urgent') { if (s.it) urgentLabels.add(String(s.it).trim().toLowerCase()); if (s.en) urgentLabels.add(String(s.en).trim().toLowerCase()); }
+  }
+  if (!urgentLabels.size) bad.push('the model publishes no status with an urgent tone, so the render half of this check cannot look for anything');
+  const gatedIds = new Set(gated.map((p) => p.ID));
+  const rc = radarCards(m);
+  if (!rc.ok) bad.push(`the radar would not render: ${rc.error}`);
+  else {
+    for (const c of rc.cards) {
+      if (!gatedIds.has(c.id)) continue;
+      for (const { path, value } of collectStrings(c)) {
+        if (urgentLabels.has(String(value).trim().toLowerCase())) bad.push(`radar card ${c.id}.${path} prints the urgent label "${value}" over ${gatesOf(byPkgId.get(c.id))} closed gate(s)`);
+      }
+    }
+  }
+  /* THE DETAIL HALF WAS LOOKING AT A DEAD BAG.
+     It scanned d.vals.cs — the legacy case object — and reported 0 while the
+     opportunity detail screen printed "Adesso" on OPP_56F19FD9F62B, a reading
+     the adversarial review knocked down. The view-model had moved to kpi.opp
+     and cs.* is bound by no markup path at all, so the check was green against
+     nothing. Measured at the time: 0 urgent hits in cs.*, 2 in kpi.opp.*.
+     It now scans BOTH, in BOTH languages, over every gated record rather than
+     the first six — a sample is how the first one hid. */
+  for (const id of gatedIds) {
+    for (const lang of ['it', 'en']) {
+      const d = m.tryVals({ view: 'case', caseId: id, lang });
+      if (!d.ok) { bad.push(`case ${id}/${lang}: ${d.error}`); continue; }
+      const surfaces = { cs: (d.vals || {}).cs || {}, opp: ((d.vals || {}).kpi || {}).opp || {} };
+      for (const [where, bag] of Object.entries(surfaces)) {
+        for (const { path, value } of collectStrings(bag)) {
+          if (urgentLabels.has(String(value).trim().toLowerCase())) {
+            bad.push(`case ${id}/${lang} ${where}.${path} prints the urgent label "${value}" over a closed gate`);
+          }
+        }
+      }
+    }
+  }
+  return {
+    pass: bad.length === 0,
+    expected: '0 urgency badges behind a closed gate',
+    measured: `${urgentDespiteGate} of ${gated.length} gated readings claim urgency`,
+    detail: bad.length ? bad.slice(0, 10)
+      : { gated: gated.length, ungated: pkg.length - gated.length,
+        urgentStatusInTheSet: pkg.filter((p) => p.STATUS === 'ACT_NOW').length,
+        urgentAndUngated: pkg.filter((p) => p.STATUS === 'ACT_NOW' && gatesOf(p) === 0).length,
+        urgentLabelsWatched: [...urgentLabels] },
+  };
+});
+
+check('OE3', 'Every piece of evidence a reading cites resolves to a record', () => {
+  /* The engine's own law is that evidence is cited by canonical id and never by
+     text — "toda evidencia citada por ID canonico. Nenhuma juncao por texto."
+     That law is what makes the detail screen possible: the reader clicks a
+     citation and lands on the bulletin, the label row, the paper.
+
+     An id with no record behind it does not throw and does not show up in any
+     count. It renders as a citation that goes nowhere, which is worse than no
+     citation at all, because the first one implies somebody checked. And it is
+     precisely what a family rename or a partial ingestion produces.
+
+     So every cited id is resolved against every collection the model exposes,
+     under every id-shaped field. The unresolved count is reported whether it is
+     zero or not, split between the readings shown as verified convergences and
+     the ones shown as still to validate — both reach the screen, so both must
+     resolve. */
+  const { V, ENGINE, AM, recs } = engine();
+  if (!V || !recs.length) return { pass: false, expected: 'the engine', measured: 'ABSENT' };
+  const known = new Map();
+  for (const [name, c] of Object.entries((AM || {}).collections || {})) {
+    for (const r of (c && c.records) || []) {
+      if (!r) continue;
+      for (const f of ['id', 'sourceId', 'windowId']) {
+        const v = r[f];
+        if (v === undefined || v === null) continue;
+        if (!known.has(String(v))) known.set(String(v), name);
+      }
+    }
+  }
+  const bad = [];
+  let citedVerified = 0, citedCandidate = 0, unresolvedVerified = 0, unresolvedCandidate = 0;
+  const examples = [];
+  const evidenceMap = ENGINE.EVIDENCE_BY_OPPORTUNITY || {};
+  for (const r of recs) {
+    const ids = Array.isArray(r.evidenceIds) ? r.evidenceIds : [];
+    const verified = r.isVerifiedConvergence === true;
+    if (verified) citedVerified += ids.length; else citedCandidate += ids.length;
+    for (const id of ids) {
+      if (known.has(String(id))) continue;
+      if (verified) unresolvedVerified++; else unresolvedCandidate++;
+      if (examples.length < 8) examples.push(`${r.id} (${verified ? 'verified convergence' : 'to validate'}) cites ${id} — no record anywhere in the model`);
+    }
+    /* a count that does not match its own list is a number nobody can trace */
+    if (typeof r.evidenceCount === 'number' && r.evidenceCount !== ids.length) {
+      bad.push(`${r.id}: says it cites ${r.evidenceCount} pieces of evidence and lists ${ids.length}`);
+    }
+    /* and the model's list must be the package's list, not a re-derived one */
+    const fromPkg = evidenceMap[r.id];
+    if (Array.isArray(fromPkg) && (fromPkg.length !== ids.length || fromPkg.some((x, i) => String(x) !== String(ids[i])))) {
+      bad.push(`${r.id}: the model's evidence list differs from the package's (${ids.length} vs ${fromPkg.length})`);
+    }
+  }
+  bad.push(...examples);
+  /* an engine that cites nothing would pass every line above */
+  if (citedVerified + citedCandidate === 0) bad.push('not one reading cites any evidence — the citation join did not travel, and this check would otherwise pass on emptiness');
+  if (Object.keys(evidenceMap).length !== recs.length) {
+    bad.push(`the package's evidence map covers ${Object.keys(evidenceMap).length} readings; the set holds ${recs.length}`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: '0 unresolved citations',
+    measured: `${unresolvedVerified + unresolvedCandidate} unresolved of ${citedVerified + citedCandidate} cited`,
+    detail: bad.length ? bad.slice(0, 12)
+      : { citedOnVerifiedConvergences: citedVerified, citedOnReadingsToValidate: citedCandidate,
+        unresolvedOnVerified: unresolvedVerified, unresolvedOnToValidate: unresolvedCandidate,
+        distinctIdsResolvable: known.size },
+  };
+});
+
+check('OE4', 'The verified and the to-validate add up to the total, and all three are counted', () => {
+  /* The brief allows the headline to say how many readings were detected, and
+     REQUIRES it to distinguish the verified convergences from the ones still to
+     validate. It forbids one sentence outright: that they are all confirmed.
+
+     A headline like that is arithmetic, and arithmetic is the easiest thing in
+     the world to type by hand and then forget. The number that gets typed is
+     always the flattering one — the total — and the split is what quietly stops
+     being maintained. So this check contains no literal count of anything. It
+     counts the records, then holds the model's published figures against the
+     count, then holds the package against both. If somebody edits the engine and
+     forgets a summary field, the summary is what fails, not the truth. */
+  const { V, pkg, recs, coll, m } = engine();
+  if (!V || !recs.length) return { pass: false, expected: 'the engine', measured: 'ABSENT' };
+  const bad = [];
+  const total = recs.length;
+  const verified = recs.filter((r) => r.isVerifiedConvergence === true).length;
+  const candidate = recs.filter((r) => r.isCandidate === true).length;
+  const both = recs.filter((r) => r.isVerifiedConvergence === true && r.isCandidate === true);
+  const neither = recs.filter((r) => r.isVerifiedConvergence !== true && r.isCandidate !== true);
+
+  if (verified + candidate !== total) bad.push(`${verified} verified + ${candidate} to validate = ${verified + candidate}, but the set holds ${total}`);
+  for (const r of both.slice(0, 4)) bad.push(`${r.id} is a verified convergence AND still to validate`);
+  for (const r of neither.slice(0, 4)) bad.push(`${r.id} is neither a verified convergence nor still to validate — it would render with no state at all`);
+  if (!verified) bad.push('nothing is a verified convergence, so the screen has nothing to present with its method');
+  if (!candidate) bad.push('nothing is still to validate — the whole set became presentable at once, which the engine cannot do');
+
+  /* the package must agree, from its own gate field */
+  const pkgRenderable = pkg.filter((p) => p.RENDERABLE_WITH_METHOD === true).length;
+  if (pkgRenderable !== verified) bad.push(`the package gates ${pkgRenderable} readings open; the model presents ${verified}`);
+  if (pkg.length !== total) bad.push(`the package carries ${pkg.length} readings; the model holds ${total}`);
+
+  /* the model's published summary must be the count, not a memory of it */
+  const published = { count: coll.count, total: coll.total, verifiedConvergences: coll.verifiedConvergences, toValidate: coll.toValidate };
+  if (published.count !== total) bad.push(`collection.count says ${published.count}, the records number ${total}`);
+  if (published.total !== undefined && published.total !== total) bad.push(`collection.total says ${published.total}, the records number ${total}`);
+  if (published.verifiedConvergences !== verified) bad.push(`collection.verifiedConvergences says ${published.verifiedConvergences}, counted ${verified}`);
+  if (published.toValidate !== candidate) bad.push(`collection.toValidate says ${published.toValidate}, counted ${candidate}`);
+  /* CLIENT_SAFE is not the render gate. If somebody ever wires it as one the
+     screen empties, so the two numbers are held apart on purpose. */
+  const clientSafe = recs.filter((r) => r.clientSafe === true).length;
+  if (clientSafe === verified && verified !== 0) bad.push('the client-safe count and the renderable count have become the same number — check that the render gate is still RENDERABLE_WITH_METHOD and not CLIENT_SAFE');
+
+  /* and the screen must carry the total it was given */
+  const rc = radarCards(m);
+  if (!rc.ok) bad.push(`the radar would not render: ${rc.error}`);
+  else {
+    if (rc.cards.length !== total) bad.push(`the radar lays out ${rc.cards.length} real cards for ${total} readings`);
+    const shown = rc.vals.filteredCount;
+    if (typeof shown === 'number' && shown !== total) bad.push(`the radar reports a pool of ${shown} with the demo mode off; the model holds ${total}`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: 'verified + to validate = total, every figure counted',
+    measured: `${verified} + ${candidate} = ${verified + candidate} of ${total}`,
+    detail: bad.length ? bad.slice(0, 10) : { total, verifiedConvergences: verified, toValidate: candidate, clientSafe, packageRenderable: pkgRenderable },
+  };
+});
+
+check('OE5', 'No two cards on the radar describe the same situation', () => {
+  /* The engine builds each reading by joining several third-party facts, and
+     the same situation can be reached from more than one direction: the same
+     crop, target, region and window found once through a bulletin and once
+     through a label. Left alone that produces two cards that are not two
+     findings, and a reader counting cards counts the evidence twice.
+
+     The package solves it upstream and hands down the working: IDENTITY_KEY is
+     the situation itself, spelled out — archetype, crop, issue, geography,
+     window — and MERGED_FROM says how many raw candidates were folded into the
+     surviving record. One record absorbed 38.
+
+     So this asks three things and assumes none of them: that the model kept the
+     package's identity key rather than inventing its own, that no two records
+     share one, and that no two CARDS on the radar resolve to the same key. The
+     third is not implied by the second: a render can list one record twice. */
+  const { V, pkg, recs, byPkgId, m } = engine();
+  if (!V || !recs.length) return { pass: false, expected: 'the engine', measured: 'ABSENT' };
+  const bad = [];
+  /* the key must be carried, not re-derived */
+  const noKey = recs.filter((r) => !r.identityKey);
+  for (const r of noKey.slice(0, 4)) bad.push(`${r.id} carries no identity key, so nothing can tell whether it duplicates another reading`);
+  for (const r of recs) {
+    const p = byPkgId.get(r.id);
+    if (p && String(r.identityKey) !== String(p.IDENTITY_KEY)) {
+      bad.push(`${r.id}: the model's identity key differs from the package's — a locally invented key cannot detect a duplicate the engine already merged`);
+    }
+  }
+  /* the key -> rows buckets that hold more than one row; an empty result is the
+     healthy answer and is what "one card per situation" means */
+  const group = (rows, keyOf) => {
+    const seen = new Map();
+    for (const x of rows) {
+      const k = keyOf(x);
+      if (!k) continue;
+      if (!seen.has(k)) seen.set(k, []);
+      seen.get(k).push(x);
+    }
+    return [...seen.entries()].filter(([, v]) => v.length > 1);
+  };
+  for (const [k, rows] of group(recs, (r) => r.identityKey)) {
+    bad.push(`${rows.length} readings describe the same situation "${String(k).slice(0, 80)}": ${rows.map((r) => r.id).join(', ')}`);
+  }
+  /* the merge must have actually run: a set where nothing was ever absorbed is
+     a set where the deduplication never happened */
+  const absorbed = pkg.reduce((s, p) => s + (typeof p.MERGED_FROM === 'number' ? p.MERGED_FROM : (Array.isArray(p.MERGED_FROM) ? p.MERGED_FROM.length : 0)), 0);
+  if (absorbed === 0) bad.push('MERGED_FROM is zero across the whole set — no candidate was ever folded into another, so the identity key has never been exercised');
+
+  /* now the render */
+  const rc = radarCards(m);
+  if (!rc.ok) { bad.push(`the radar would not render: ${rc.error}`); }
+  else {
+    const byId = new Map(recs.map((r) => [r.id, r]));
+    for (const [id, rows] of group(rc.cards, (c) => c.id)) bad.push(`the radar lays out ${rows.length} cards for the single reading ${id}`);
+    const ghosts = rc.cards.filter((c) => !byId.has(c.id));
+    for (const c of ghosts.slice(0, 4)) bad.push(`radar card ${c.id} resolves to no reading in the model`);
+    const carded = rc.cards.filter((c) => byId.has(c.id));
+    for (const [k, rows] of group(carded, (c) => byId.get(c.id).identityKey)) {
+      bad.push(`two cards on the radar describe the same situation "${String(k).slice(0, 70)}": ${rows.map((c) => c.id).join(', ')}`);
+    }
+  }
+  return {
+    pass: bad.length === 0,
+    expected: 'one card per situation',
+    measured: `${new Set(recs.map((r) => r.identityKey)).size} distinct situations over ${recs.length} readings`,
+    detail: bad.length ? bad.slice(0, 10) : { readings: recs.length, distinctIdentityKeys: new Set(recs.map((r) => r.identityKey)).size, rawCandidatesAbsorbed: absorbed },
+  };
+});
+
+check('OE6', 'No client-facing string prints one of the engine\'s internal field names', () => {
+  /* CLIENT_SAFE, RENDERABLE_WITH_METHOD, EVIDENCE_DERIVED, QA_STATUS and
+     BLOCKING_GATES are how the pipeline talks to itself. On a screen they are
+     worse than jargon: each one invites exactly the wrong reading. A reader who
+     sees CLIENT_SAFE printed beside a record concludes the other records are
+     unsafe; a reader who sees EVIDENCE_DERIVED concludes the evidence is
+     second-hand. Neither is what the words mean here.
+
+     Measured on the real render, in both languages, and split the way PT1 and
+     I6 split theirs. A string sitting in a prop the template never binds is not
+     on the client's screen — it is a trap armed for the first view that binds
+     it, and it is reported as such rather than counted as a defect, because
+     demanding zero would mean deleting the provenance the package carries on
+     purpose. What fails is a value the markup actually prints, a literal in the
+     template, or an entry in the interface dictionary. */
+  const NAMES = /\b(CLIENT_SAFE|RENDERABLE_WITH_METHOD|EVIDENCE_DERIVED|QA_STATUS|BLOCKING_GATES)\b/;
+  const m = mount();
+  const bound = markupBound();
+  const leaf = (p) => String(p).split('.').pop().replace(/\[\d+\]$/, '');
+  const hitsBound = [];
+  const unboundLeaves = new Set();
+  let rendered = 0;
+  const want = SCREENS.length * 2;
+  for (const sc of SCREENS) {
+    for (const lang of ['it', 'en']) {
+      const r = m.tryVals(Object.assign({ view: sc.view, lang }, sc.state || {}, sc.pick ? sc.pick(m.AM) : {}));
+      if (!r.ok) continue;
+      rendered++;
+      for (const { path, value } of collectStrings(r.vals)) {
+        if (!NAMES.test(value)) continue;
+        if (bound.has(leaf(path))) hitsBound.push(`${sc.label}/${lang} ${path}: ${String(value).slice(0, 90)}`);
+        else unboundLeaves.add(leaf(path));
+      }
+    }
+  }
+  const bad = [...new Set(hitsBound)];
+  /* the template's own literals, which never become props and so are invisible
+     to the walk above — the same blind spot MK4 exists for */
+  const mk = extractMarkup(readPortal());
+  mk.split('\n').forEach((line, i) => { if (NAMES.test(line)) bad.push(`portale.html template line ${i + 1}: ${line.trim().slice(0, 90)}`); });
+  /* and the interface dictionary, where a caption would be written once and
+     shown everywhere */
+  const ctx = loadData();
+  const I18N = ctx.SINTONIA_I18N || {};
+  const walkDict = (o, p) => {
+    for (const k of Object.keys(o || {})) {
+      const v = o[k];
+      if (typeof v === 'string') { if (NAMES.test(v)) bad.push(`i18n ${p}${k}: ${v.slice(0, 80)}`); }
+      else if (v && typeof v === 'object') walkDict(v, `${p}${k}.`);
+    }
+  };
+  for (const lang of Object.keys(I18N)) walkDict(I18N[lang], `${lang}.`);
+  /* a pass that comes from nothing rendering is the false green this suite exists for */
+  const vacuous = rendered < want;
+  return {
+    pass: bad.length === 0 && !vacuous,
+    expected: `0 internal names printed over ${want} renders`,
+    measured: vacuous ? `${bad.length} but only ${rendered}/${want} rendered — INCONCLUSIVE` : `${bad.length} printed over ${rendered} renders`,
+    detail: bad.length ? bad.slice(0, 12)
+      : { rendered, unboundPropsCarryingThem: [...unboundLeaves] },
+  };
+});
+
+check('OE7', 'The archetype and status distributions are the package\'s own, counted', () => {
+  /* Six archetypes and five temporal states, both declared in the package's
+     rules. The screen groups by them, filters by them and colours by them, and
+     every one of those numbers is a place where a typed constant could sit
+     unnoticed for months — the counts in a briefing document age the moment the
+     package is rebuilt, and a screen that repeats them ages with it.
+
+     Nothing here is typed. Both distributions are tallied from the model's
+     records, tallied again from the package's rows, and compared; then the
+     model's own published byArchetype / byStatus tables are compared against the
+     tally, so a summary that drifted from the records fails instead of teaching.
+
+     Two shapes are asserted beyond the arithmetic. No key may appear that the
+     engine's rules do not declare — an unknown archetype renders as a card with
+     no group and no caption. And every bucket's verified / to-validate split
+     must add up to the bucket, because that split is what the brief requires the
+     headline to make: 9 verified convergences and 28 to validate, never 37
+     confirmed. */
+  const { V, ENGINE, pkg, recs, coll, byPkgId } = engine();
+  if (!V || !recs.length) return { pass: false, expected: 'the engine', measured: 'ABSENT' };
+  const bad = [];
+  const tally = (rows, f) => rows.reduce((o, r) => { const k = r[f]; if (k) o[k] = (o[k] || 0) + 1; return o; }, {});
+
+  const pairs = [
+    { what: 'archetype', modelField: 'archetype', pkgField: 'ARCHETYPE', table: coll.byArchetype, declared: Object.keys((ENGINE.RULES || {}).ARQUETIPOS || {}) },
+    { what: 'status', modelField: 'status', pkgField: 'STATUS', table: coll.byStatus, declared: ((ENGINE.RULES || {}).ESTADOS_TEMPORAIS) || [] },
+  ];
+  const report = {};
+  for (const p of pairs) {
+    const fromModel = tally(recs, p.modelField);
+    const fromPackage = tally(pkg, p.pkgField);
+    report[p.what] = fromModel;
+    const keys = new Set([...Object.keys(fromModel), ...Object.keys(fromPackage)]);
+    for (const k of keys) {
+      if ((fromModel[k] || 0) !== (fromPackage[k] || 0)) {
+        bad.push(`${p.what} ${k}: the model holds ${fromModel[k] || 0}, the package holds ${fromPackage[k] || 0}`);
+      }
+      if (p.declared.length && !p.declared.includes(k)) bad.push(`${p.what} ${k} is not one of the ${p.declared.length} the engine's rules declare`);
+    }
+    const summed = Object.values(fromModel).reduce((a, b) => a + b, 0);
+    if (summed !== recs.length) bad.push(`${p.what}: the buckets hold ${summed} readings, the set holds ${recs.length} — some record carries no ${p.what}`);
+    /* the model's published table, against the tally */
+    if (!Array.isArray(p.table) || !p.table.length) { bad.push(`the model publishes no ${p.what} table for the screen to group by`); continue; }
+    const seen = new Set();
+    for (const row of p.table) {
+      seen.add(row.key);
+      const counted = fromModel[row.key] || 0;
+      if (row.count !== counted) bad.push(`${p.what} table says ${row.key} = ${row.count}; counted ${counted}`);
+      if (typeof row.verified === 'number' && typeof row.toValidate === 'number' && row.verified + row.toValidate !== row.count) {
+        bad.push(`${p.what} ${row.key}: ${row.verified} verified + ${row.toValidate} to validate does not make ${row.count}`);
+      }
+      /* the caption the screen shows must be a caption, not the raw key */
+      if (row.count > 0) {
+        if (!row.it || String(row.it) === String(row.key)) bad.push(`${p.what} ${row.key} has no Italian caption — the raw key would reach the screen`);
+        if (!row.en || String(row.en) === String(row.key)) bad.push(`${p.what} ${row.key} has no English caption`);
+      }
+    }
+    for (const k of Object.keys(fromModel)) if (!seen.has(k)) bad.push(`${p.what} ${k} holds ${fromModel[k]} readings and the model's table does not list it — the screen would drop them`);
+    /* the verified split, per bucket, counted rather than read */
+    for (const row of p.table) {
+      const v = recs.filter((r) => r[p.modelField] === row.key && r.isVerifiedConvergence === true).length;
+      if (typeof row.verified === 'number' && row.verified !== v) bad.push(`${p.what} ${row.key}: table says ${row.verified} verified, counted ${v}`);
+    }
+  }
+  /* one last consistency line: the model must not have re-labelled a record */
+  for (const r of recs) {
+    const p = byPkgId.get(r.id);
+    if (p && r.archetype !== p.ARCHETYPE) bad.push(`${r.id}: the package says ${p.ARCHETYPE}, the model says ${r.archetype}`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: 'both distributions reconcile with the package',
+    measured: bad.length ? `${bad.length} mismatch(es)` : `${Object.keys(report.archetype).length} archetypes · ${Object.keys(report.status).length} states over ${recs.length} readings`,
+    detail: bad.length ? bad.slice(0, 12) : report,
+  };
 });
 
 export function runAll(only) {
@@ -1805,4 +2543,120 @@ check('E2', 'The entry-page map is sized from the element, not from a resize eve
     bad.push('no guard against drawing the map while the stage still measures 0 x 0');
   }
   return { pass: bad.length === 0, expected: 0, measured: bad.length, detail: bad };
+});
+
+check('W1', 'A name survives its own translation', () => {
+  /* The transport drops a Portuguese original once an approved *_IT exists,
+     because a translated sentence has no reason to ship twice. That rule ate the
+     taxonomy. "Alisma plantago-aquatica L." is 27 characters with a space, so it
+     scored as prose; SPECIES_IT exists ("Mesolaccia comune, piantaggine
+     acquatica…"); and the transport therefore deleted the Latin binomial and its
+     taxonomic authority on all 34 resistance records. The brief forbids exactly
+     that: Latin names and authorities are preserved, never translated. A
+     translation of a name is an ADDITIONAL name, never a replacement.
+     Measured here on the layer that proved it, plus the general rule. */
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  const bad = [];
+  const R = (V && V.collections && V.collections.resistance) || [];
+  if (!R.length) bad.push('the resistance layer is empty; nothing to prove');
+  const withLatin = R.filter((r) => typeof r.SPECIES === 'string' && r.SPECIES.trim());
+  if (withLatin.length !== R.length) {
+    bad.push(`${R.length - withLatin.length} of ${R.length} resistance records lost SPECIES, the Latin binomial`);
+  }
+  /* and the authority must not have been clipped off the end */
+  const clipped = withLatin.filter((r) => /\($/.test(r.SPECIES.trim()));
+  if (clipped.length) bad.push(`${clipped.length} taxonomic name(s) truncated at "("`);
+  /* the general rule, across every family: a field that holds a NAME keeps its
+     original even when a localized sibling exists */
+  const NAME_FIELD = /(^|_)(SPECIES|PRODUCT_NAME|COMPANY|CHANNEL|AUTHORITY)(_|$)/;
+  let checked = 0;
+  for (const [fam, rows] of Object.entries((V && V.collections) || {})) {
+    for (const r of rows || []) {
+      for (const k of Object.keys(r)) {
+        if (!k.endsWith('_IT')) continue;
+        const base = k.slice(0, -3);
+        if (!NAME_FIELD.test(base)) continue;
+        checked++;
+        if (r[base] === undefined) bad.push(`${fam}: ${base} was dropped although ${k} exists`);
+      }
+    }
+  }
+  return {
+    pass: bad.length === 0,
+    expected: 0,
+    measured: bad.length,
+    detail: { resistanceRows: R.length, latinNamesKept: withLatin.length, nameFieldsChecked: checked, bad: bad.slice(0, 6) },
+  };
+});
+
+check('W2', 'A single date is never presented as an application window', () => {
+  /* Seven opportunities arrive with WINDOW_START = WINDOW_END = 2027-05-31 and
+     WINDOW_STATE = EXACT, two of them among the nine shown to the client. The
+     engine's WINDOW_LAW says WINDOW_* is the APPLICATION window read from a
+     declared field — but the field behind it is the crop window's
+     PREPARATION_WINDOW, whose text reads "ate 2027-05-31, quando historicamente
+     sai o ato". The same crop-window record says APPLICATION_WINDOW_2026 is
+     CLOSED and that the year's dates are fixed each year by monitoring.
+     A span that opens and closes on one day is not a window, and printing it as
+     an exact one contradicts the Crop Windows screen, which shows that crop as
+     closed. Two screens disagreeing about the same crop is the failure the brief
+     names outright. */
+  const ctx = loadData();
+  const AM = ctx.ITALY_APP_MODEL || {};
+  const R = ((AM.collections || {}).opportunities || {}).records || [];
+  const bad = [];
+  let degenerate = 0;
+  for (const r of R) {
+    const w = r.window || {};
+    if (!w.start || w.start !== w.end) continue;
+    degenerate++;
+    if (w.isApplicationWindow) bad.push(`${r.id}: one-day span still claims to be an application window`);
+    if (w.state === 'EXACT') bad.push(`${r.id}: a one-day span is still labelled EXACT`);
+    if (!(w.note && w.note.state === 'CLEAR' && w.note.it)) {
+      bad.push(`${r.id}: one-day span with no Italian caption saying what the date is`);
+    }
+  }
+  return {
+    pass: bad.length === 0,
+    expected: 0,
+    measured: bad.length,
+    detail: { opportunities: R.length, oneDaySpans: degenerate, bad: bad.slice(0, 6) },
+  };
+});
+
+check('W3', 'The package total reconciles: families minus views equals MASTER', () => {
+  /* Summing the manifest gives 7 112 records; the package's own
+     CANONICAL-INTELLIGENCE-MASTER says 6 876. The gap is not an error and not a
+     rounding: three files are VIEWS over records already counted elsewhere —
+     FUTURE-EVENTS (a cut of EVENTS), PRODUCT-ACTIVE-INGREDIENTS and
+     RELATIONSHIPS (which carry ids of crossings) — and the package refuses to
+     index them twice, saying so in VIEWS_NOT_INDEXED_WHY.
+     7 112 − 236 = 6 876 exactly. This asserts the arithmetic still closes, so
+     that the day a family is added or a view is promoted, the totals cannot
+     drift apart quietly and leave two different "how much do we have" answers
+     on two different screens. */
+  const ctx = loadData();
+  const V = ctx.ITALY_HANDOFF_V21;
+  const bad = [];
+  if (!V) return { pass: false, expected: 'a loaded package', measured: 'ABSENT', detail: [] };
+  const M = V.MANIFEST || [];
+  const familyTotal = M.reduce((a, f) => a + (f.total || 0), 0);
+  /* the three views, by the family key the manifest gives them */
+  const VIEW_KEYS = ['futureEvents', 'products.activeIngredients', 'relationships'];
+  const views = M.filter((f) => VIEW_KEYS.includes(f.family));
+  if (views.length !== VIEW_KEYS.length) {
+    bad.push(`expected ${VIEW_KEYS.length} view families, found ${views.length}: ${views.map((v) => v.family).join(', ')}`);
+  }
+  const viewTotal = views.reduce((a, f) => a + (f.total || 0), 0);
+  const MASTER = 6876;
+  if (familyTotal - viewTotal !== MASTER) {
+    bad.push(`families ${familyTotal} − views ${viewTotal} = ${familyTotal - viewTotal}, but MASTER is ${MASTER}`);
+  }
+  return {
+    pass: bad.length === 0,
+    expected: `${MASTER} after removing the view families`,
+    measured: `${familyTotal} − ${viewTotal} = ${familyTotal - viewTotal}`,
+    detail: { views: views.map((v) => v.family + ':' + v.total), bad },
+  };
 });

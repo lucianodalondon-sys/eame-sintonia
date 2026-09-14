@@ -1,0 +1,358 @@
+{
+ "COLLECTION": "NEWS",
+ "FILE": "NEWS.json",
+ "SCHEMA_VERSION": "V2.1",
+ "BUILT_AT": "2026-09-02",
+ "PRIMARY_KEY": "ID",
+ "SOURCE_OF_TRUTH": "imprensa tecnica italiana",
+ "COUNT_TOTAL": 8,
+ "COUNT_CLIENT_SAFE": 8,
+ "BY_ORIGIN": {
+  "PREVIOUS_HANDOFF": 8
+ },
+ "BY_QA": {
+  "EVIDENCE_SOURCED": 8
+ },
+ "REPLACES_OLD_FILES": [
+  "PREVIOUS-HANDOFF/.../NEWS/news.json"
+ ],
+ "LAW": "CONTENT_KIND separa editorial de conteudo patrocinado.",
+ "RECORDS": [
+  {
+   "ID": "IT-NEWS-001",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_AGRONOTIZIE_IMAGELINENETWORK_COM"
+   ],
+   "SOURCE_URLS": [
+    "https://agronotizie.imagelinenetwork.com/difesa-e-diserbo/2026/02/13/mais-e-micotossine-un-2025-da-dimenticare/88873"
+   ],
+   "REFERENCE_DATE": "2026-02-13",
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "AgroNotizie (Image Line)",
+   "TITLE": "Mais e micotossine, un 2025 da dimenticare",
+   "AUTHOR": "Barbara Righini",
+   "DATE": "2026-02-13",
+   "CROP": "MAIS",
+   "ISSUE": "micotossine",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "EDITORIAL",
+   "CONTENT_KIND_MEANING": "redacao propria do veiculo",
+   "SINTONIA_SUMMARY": "Fumonisinas acima de 4 mg/kg em 72% das amostras e aflatoxina B1 com 15% fora do limite, segundo dados do CREA apresentados na Giornata del Mais 2026.",
+   "CAVEAT": "texto integral preservado em data/samples/IT-T5-SENSORES/",
+   "SOURCE_URL": "https://agronotizie.imagelinenetwork.com/difesa-e-diserbo/2026/02/13/mais-e-micotossine-un-2025-da-dimenticare/88873",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-002",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_ADAMA_COM"
+   ],
+   "SOURCE_URLS": [
+    "https://www.adama.com/italia/it/articolo/soluzioni-innovative-la-vite-dalla-protezione-del-grappolo-al-controllo-degli-insetti"
+   ],
+   "REFERENCE_DATE": "2026-04-20",
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "ADAMA Italia",
+   "TITLE": "Soluzioni innovative per la vite: dalla protezione del grappolo al controllo degli insetti vettori",
+   "AUTHOR": "ADAMA Italia",
+   "DATE": "2026-04-20",
+   "CROP": "VITE",
+   "ISSUE": "peronospora + Scaphoideus titanus",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "COMPANY_PROVIDED",
+   "CONTENT_KIND_MEANING": "publicado pela propria empresa no canal dela",
+   "SINTONIA_SUMMARY": "A propria ADAMA posiciona Mavrik Smart contra Scaphoideus titanus, vetor da flavescencia dourada, e a linha Folpan contra peronospora.",
+   "CAVEAT": "o artigo declara continuacao no AgroNotizie — republicacao",
+   "SOURCE_URL": "https://www.adama.com/italia/it/articolo/soluzioni-innovative-la-vite-dalla-protezione-del-grappolo-al-controllo-degli-insetti",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-003",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_ADAMA_COM"
+   ],
+   "SOURCE_URLS": [
+    "https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili"
+   ],
+   "REFERENCE_DATE": "2026-06-03",
+   "CROP_IDS": [
+    "CROP_VEGETABLES"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "ADAMA Italia",
+   "TITLE": "Orticole: come controllare le infestanti, anche quelle piu difficili",
+   "AUTHOR": "ADAMA Italia",
+   "DATE": "2026-06-03",
+   "CROP": "ORTICOLE",
+   "ISSUE": "infestanti",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "COMPANY_PROVIDED",
+   "CONTENT_KIND_MEANING": "publicado pela propria empresa no canal dela",
+   "SINTONIA_SUMMARY": "Sonavio (bifenox) posicionado como erbicida de pre-transplante.",
+   "CAVEAT": "NAO SEI",
+   "SOURCE_URL": "https://www.adama.com/italia/it/articolo/orticole-come-controllare-le-infestanti-anche-quelle-piu-difficili",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-004",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_CROPSCIENCE_BAYER_IT"
+   ],
+   "SOURCE_URLS": [
+    "https://www.cropscience.bayer.it/magazine/articoli/approfondimenti/frumento-come-migliorare-il-controllo-delle-infestanti-resistenti"
+   ],
+   "REFERENCE_DATE": "NAO SEI",
+   "CROP_IDS": [
+    "CROP_WHEAT_GENERIC"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "Bayer Crop Science Italia",
+   "TITLE": "Frumento, come migliorare il controllo delle infestanti resistenti",
+   "AUTHOR": "Bayer Crop Science Italia",
+   "DATE": "NAO SEI",
+   "CROP": "FRUMENTO",
+   "ISSUE": "infestanti resistentes",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "COMPANY_PROVIDED",
+   "CONTENT_KIND_MEANING": "publicado pela propria empresa no canal dela",
+   "SINTONIA_SUMMARY": "Concorrente posiciona Zodiac DFF citando OS DADOS DO GIRE sobre papoula, aveia e azevem resistentes.",
+   "CAVEAT": "competidor usando a autoridade independente para dar credibilidade",
+   "SOURCE_URL": "https://www.cropscience.bayer.it/magazine/articoli/approfondimenti/frumento-come-migliorare-il-controllo-delle-infestanti-resistenti",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-005",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_YOUTUBE_COM"
+   ],
+   "SOURCE_URLS": [
+    "https://www.youtube.com/watch?v=Wltg7mxV0Sw"
+   ],
+   "REFERENCE_DATE": "2021-02-24",
+   "CROP_IDS": [
+    "CROP_WHEAT_GENERIC"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "Agronotizie",
+   "TITLE": "Frumento, gestione integrata delle infestanti",
+   "AUTHOR": "Tommaso Cinquemani",
+   "DATE": "2021-02-24",
+   "CROP": "FRUMENTO",
+   "ISSUE": "resistencia a ACCasi e ALS",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "BRANDED_CONTENT",
+   "CONTENT_KIND_MEANING": "conteudo pago/promovido por empresa, declarado na fonte",
+   "SINTONIA_SUMMARY": "Video com Maurizio Sattin, CNR-IPSP e membro do GIRE.",
+   "CAVEAT": "a descricao declara literalmente «Contenuto promosso da: Bayer» — e conteudo patrocinado, nao editorial",
+   "SOURCE_URL": "https://www.youtube.com/watch?v=Wltg7mxV0Sw",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-006",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_YOUTUBE_COM"
+   ],
+   "SOURCE_URLS": [
+    "https://www.youtube.com/watch?v=6qXTJhz7iJY"
+   ],
+   "REFERENCE_DATE": "2022-05-03",
+   "CROP_IDS": [
+    "CROP_SOYBEAN"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "L'Informatore Agrario",
+   "TITLE": "Infestanti resistenti della soia: le strategie di controllo",
+   "AUTHOR": "L'Informatore Agrario",
+   "DATE": "2022-05-03",
+   "CROP": "SOIA",
+   "ISSUE": "Amaranthus resistente a ALS",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "EDITORIAL",
+   "CONTENT_KIND_MEANING": "redacao propria do veiculo",
+   "SINTONIA_SUMMARY": "Maurizio Sattin, coordenador do GIRE, sobre Amaranthus hybridus, tuberculatus e palmeri. No mesmo video, Belchim mostra ensaio em Verona.",
+   "CAVEAT": "editorial com demonstracao de produto de empresa dentro",
+   "SOURCE_URL": "https://www.youtube.com/watch?v=6qXTJhz7iJY",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "CAVEAT_ORIGINAL_RESEARCH_TEXT": "editorial com demonstracao de produto de empresa dentro",
+   "CAVEAT_IT": "editoriale con dimostrazione di prodotto aziendale all'interno",
+   "CAVEAT_EN": "editorial with a company product demonstration inside",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-007",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_TERRAEVITA_EDAGRICOLE_IT"
+   ],
+   "SOURCE_URLS": [
+    "https://terraevita.edagricole.it/agrofarmaci-difesa/contro-le-micotossine-serve-lagronomia/"
+   ],
+   "REFERENCE_DATE": "2026-04-29",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "Terra e Vita (Edagricole)",
+   "TITLE": "Contro le micotossine serve l agronomia",
+   "AUTHOR": "Riccardo Bugiani e Massimo Bariselli",
+   "DATE": "2026-04-29",
+   "CROP": "CEREAIS",
+   "ISSUE": "micotossine",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "EDITORIAL",
+   "CONTENT_KIND_MEANING": "redacao propria do veiculo",
+   "SINTONIA_SUMMARY": "Autores do servico fitossanitario da Emilia-Romagna sobre manejo agronomico.",
+   "CAVEAT": "conteudo reservado a assinante — so o resumo publico foi lido",
+   "SOURCE_URL": "https://terraevita.edagricole.it/agrofarmaci-difesa/contro-le-micotossine-serve-lagronomia/",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  },
+  {
+   "ID": "IT-NEWS-008",
+   "ENTITY_TYPE": "NEWS_ITEM",
+   "PROVENANCE": "REAL_SOURCE",
+   "QA_STATUS": "EVIDENCE_SOURCED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_FITOSANITARIO_MO_IT"
+   ],
+   "SOURCE_URLS": [
+    "https://www.fitosanitario.mo.it/fito3/news/cocciniglie-della-vite-aumento/"
+   ],
+   "REFERENCE_DATE": "2026-08/09",
+   "CROP_IDS": [
+    "CROP_GRAPEVINE"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "PUBLISHER": "Consorzio Fitosanitario di Modena",
+   "TITLE": "Cocciniglie della vite in aumento",
+   "AUTHOR": "Consorzio Fitosanitario Provinciale di Modena",
+   "DATE": "2026-08/09",
+   "CROP": "VITE",
+   "ISSUE": "Planococcus spp.",
+   "REGION": "NAO SEI",
+   "CONTENT_KIND": "EDITORIAL",
+   "CONTENT_KIND_MEANING": "redacao propria do veiculo",
+   "SINTONIA_SUMMARY": "O servico provincial declara aumento e explica a mecanica: geracoes exponenciais, esgotamento do efeito dos inseticidas anteriores, cobertura cerosa e o inseto dentro do cacho.",
+   "CAVEAT": "e UMA provincia. Nao representa a regiao nem o pais.",
+   "SOURCE_URL": "https://www.fitosanitario.mo.it/fito3/news/cocciniglie-della-vite-aumento/",
+   "EVIDENCE_STATUS": "EVIDENCE_SOURCED",
+   "EVIDENCE_STATUS_WHY": "registro capturado de fonte publica identificada, com URL e data.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "REFERENCE_DATE_RECOVERED_FROM": "DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "CAVEAT_ORIGINAL_RESEARCH_TEXT": "e UMA provincia. Nao representa a regiao nem o pais.",
+   "CAVEAT_IT": "è UNA provincia. Non rappresenta la regione né il Paese.",
+   "CAVEAT_EN": "it is ONE province. It does not represent the region or the country.",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "registro capturado de fonte publica identificada, com URL e data.",
+   "EVIDENCE_STATUS_WHY_IT": "record acquisito da fonte pubblica identificata, con URL e data.",
+   "EVIDENCE_STATUS_WHY_EN": "record captured from an identified public source, with URL and date."
+  }
+ ],
+ "LOCALIZED_FIELDS": [
+  "CAVEAT",
+  "EVIDENCE_STATUS_WHY"
+ ],
+ "LOCALIZATION_LAW": "a traducao fica AO LADO do original, nunca no lugar dele. ORIGINAL_RESEARCH_TEXT guarda a prosa de pesquisa; _IT e _EN sao a mesma leitura noutra lingua. Citacao publica NAO foi traduzida: a palavra da fonte e a prova, e traduzir prova e adultera-la.",
+ "FIELD_ROLES": {
+  "CAVEAT": "CLIENT_LABEL",
+  "EVIDENCE_STATUS_WHY": "CLIENT_NARRATIVE"
+ },
+ "LOCALIZATION_CONTRACT": "so CLIENT_NARRATIVE e CLIENT_LABEL pedem irmao _IT/_EN. RAW_ORIGINAL e citacao e fica na lingua publicada; CANONICAL e valor controlado e nao tem lingua. Campo tirado desta lista NAO foi traduzido: foi reclassificado, e FIELD_ROLES diz em que papel.",
+ "BUILD_ID": "V21-99226fbb90dcdbc2",
+ "BUILD_ID_LAW": "deterministico: sai do conteudo dos 25 arquivos. Mesmo conteudo, mesmo BUILD_ID; conteudo diferente, BUILD_ID diferente. A data do calendario nao serve de identidade."
+}

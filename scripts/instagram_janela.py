@@ -73,7 +73,11 @@ import cdp                       # noqa: E402  — o navegador, em biblioteca pa
 import proveniencia as pv        # noqa: E402
 
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
-LOTE = os.path.join(SAMPLES, 'COMPETITOR-PUBLIC-COMM', 'PUBLIC-COMM-FIRST-BATCH-EAME.json')
+# O lote PADRAO e o congelado da Missao 14. `IG_LOTE_ARQUIVO` permite apontar para
+# outra lista — util para TESTE sobre outro universo (ex.: o mapa de criadores), sem
+# tocar no lote congelado, que nao pode se mexer depois da primeira execucao paga.
+LOTE = os.environ.get('IG_LOTE_ARQUIVO') or os.path.join(
+    SAMPLES, 'COMPETITOR-PUBLIC-COMM', 'PUBLIC-COMM-FIRST-BATCH-EAME.json')
 SAIDA = os.path.join(SAMPLES, 'INSTAGRAM-JANELA')
 PROVAS = os.path.join(SAIDA, 'provas')
 BRUTO = os.path.join(SAIDA, 'html-bruto')
@@ -88,7 +92,32 @@ NAO_SEI = 'NOT_KNOWN'
 #
 #     SEPARATE_GIT_WORKTREE ≠ SEPARATE_BROWSER_SESSION.
 PORTA = int(os.environ.get('IG_PORTA') or 9226)
-PERFIL = os.path.join(os.path.expanduser('~'), '.sintonia-browser', 'ig', 'chrome-profile')
+
+
+def _perfil_da_porta(porta):
+    """O perfil DERIVA da porta. Um por um, e sem ninguém precisar lembrar.
+
+    MEDIDO, e o erro foi meu: deixei a porta configurável por ambiente e o perfil FIXO.
+    Rodar com `IG_PORTA=9236` e o mesmo perfil devolveu
+
+        cdp.Erro: o Chrome subiu mas a porta 9236 não passou a escutar em 25s
+
+    porque o Chrome NÃO abre uma segunda instância no mesmo perfil: ele entrega o pedido
+    para a instância que já está aberta, e a porta nova nunca escuta. Isso está escrito na
+    docstring do `cdp.subir` — eu escrevi, e caí nele mesmo assim.
+
+        UM PERFIL, UMA PORTA. E O JEITO DE NÃO ESQUECER É NÃO PRECISAR LEMBRAR.
+
+    A porta 9226 mantém o nome histórico para não órfãozar o perfil que já tem uso.
+    """
+    if os.environ.get('IG_PERFIL'):
+        return os.environ['IG_PERFIL']
+    nome = 'ig' if porta == 9226 else 'ig-%d' % porta
+    return os.path.join(os.path.expanduser('~'), '.sintonia-browser', nome,
+                        'chrome-profile')
+
+
+PERFIL = _perfil_da_porta(PORTA)
 
 # Pausa entre páginas. Não é superstição: é a diferença entre ler uma fonte pública no
 # ritmo de uma pessoa e martelar o servidor de alguém. Nesta máquina, ~35 carregamentos

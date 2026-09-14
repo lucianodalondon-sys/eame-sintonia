@@ -84,7 +84,9 @@ import instagram_janela as ij    # noqa: E402
 import instagram_pessoal as ip   # noqa: E402
 
 SAMPLES = os.path.join(ROOT, 'data', 'samples')
-SAIDA = os.path.join(SAMPLES, 'INSTAGRAM-DIARIO')
+# Saida propria por universo: o estado de um teste NAO pode se misturar com o estado
+# da coleta de verdade, senao a contagem de 'visitas' e de 'seca' fica adulterada.
+SAIDA = os.path.join(SAMPLES, 'INSTAGRAM-DIARIO' + (os.environ.get('IG_SUFIXO') or ''))
 ESTADO = os.path.join(SAIDA, 'ESTADO.json')
 
 MISSION = '14-COMUNICACAO-PUBLICA-DO-CONCORRENTE'
@@ -108,6 +110,11 @@ SECA_TETO_DIAS = 45
 # Quanto o número de seguidores precisa mexer para ser notícia. Abaixo disso é ruído da
 # própria tela: a página arredonda ("18,7 mil") e o arredondamento oscila sozinho.
 RUIDO_SEGUIDORES = 0.01    # 1%
+
+# Onde a tela deslogada costuma parar de desenhar comentário. Saiu da primeira
+# coleta de criadores, e não de suposição: 15 se repetiu em 4 posts de 8 de uma
+# conta só, entremeado com 10, 12 e 3.
+TETO_SUSPEITO_DA_TELA = 15
 
 
 def agora():
@@ -229,7 +236,7 @@ def rodar(so_conta=None, forcar=False):
     print('saída de rede: %s / %s' % (rede.get('NETWORK_EXIT_COUNTRY'),
                                       rede.get('NETWORK_EXIT_ORG')))
     cdp.subir(ij.PORTA, perfil=ij.PERFIL)
-    novos_posts, novos_coment, contas_lidas = [], [], []
+    novos_posts, novos_coment, contas_lidas, primeiras = [], [], [], []
 
     for f in devidas:
         c = f['CONTA']
@@ -303,6 +310,9 @@ def rodar(so_conta=None, forcar=False):
                 print('        %d comentário(s) novo(s)' % n_novos)
             time.sleep(ij.PAUSA / 2)
 
+        primeira_visita = antes.get('VISITAS', 0) == 0
+        if primeira_visita:
+            primeiras.append(handle)
         houve_novidade = bool(codigos_novos)
         est['CONTAS'][handle] = {
             'ULTIMA_VISITA': hoje(),
@@ -343,6 +353,9 @@ def rodar(so_conta=None, forcar=False):
         **rede,
         'APIFY_RUNS': 0, 'COST_USD': 0,
         'ACCOUNTS_DUE': len(devidas), 'ACCOUNTS_READ': len(contas_lidas),
+        # Quais contas foram vistas pela PRIMEIRA vez nesta passada. Sem isto,
+        # o `noticia` teria de deduzir do estado — que a propria passada ja mudou.
+        'FIRST_VISIT_ACCOUNTS': sorted(primeiras),
         'NEW_POSTS': len(novos_posts), 'NEW_COMMENTS': len(novos_coment),
         'REGRAS_HERDADAS': {
             'POSTS_POR_PERFIL': POSTS_POR_PERFIL,
@@ -417,6 +430,23 @@ def _comentarios(handle, conta, tipo, shortcode, est, saco):
     reg['COMMENTS_COLLECTED'] = len(ja)
     reg['COMMENTS_DECLARED'] = max(reg.get('COMMENTS_DECLARED', 0), r.get('N', 0))
     reg['ULTIMA_LEITURA_DE_COMENTARIO'] = hoje()
+    # ── TETO DA ROTA, e ele apareceu sozinho na primeira coleta de criadores ────
+    # A leitura de @gomierofarm devolveu, post a post: 15 · 10 · 15 · 12 · 15 · 10 · 3 · 15.
+    # Número redondo que se repete NÃO é audiência: é a tela parando de desenhar.
+    #
+    #     DOIS POSTS COM EXATAMENTE O MESMO NÚMERO REDONDO É SINAL DE CORTE.
+    #
+    # É a mesma família do teto de 15 do plano gratuito da rota paga — mas aqui não é
+    # plano, é a página. Marcar é o que impede alguém ler "esse post teve 15 comentários"
+    # como se fosse a conversa inteira.
+    lidos_agora = r.get('N', 0)
+    if lidos_agora >= TETO_SUSPEITO_DA_TELA:
+        reg['CEILING_SUSPECTED'] = lidos_agora
+        reg['CEILING_WHY'] = (
+            'a tela devolveu %d comentários, e %d é o número em que ela costuma parar. '
+            'Pode ser o teto da rota, não a audiência do post. O que falta virá nas '
+            'próximas passadas, enquanto o post estiver maduro.'
+            % (lidos_agora, TETO_SUSPEITO_DA_TELA))
     return n
 
 
@@ -429,12 +459,15 @@ def noticia():
     """
     est = _estado()
     os.makedirs(SAIDA, exist_ok=True)
-    passada = None
-    for n in sorted(os.listdir(SAIDA), reverse=True):
-        if n.startswith('PASSADA-'):
-            with open(os.path.join(SAIDA, n), encoding='utf-8') as f:
-                passada = json.load(f)
-            break
+    passada, arquivo = None, None
+    cands = [n for n in os.listdir(SAIDA) if n.startswith('PASSADA-')]
+    if cands:
+        # POR DATA DE ARQUIVO, nunca por nome: 'PASSADA-...-FORCADA-1654.json' ordena
+        # ANTES de 'PASSADA-....json' no alfabeto (o '-' vem antes do '.'), e o `noticia`
+        # acabava lendo a passada VELHA e chamando de hoje.
+        arquivo = max(cands, key=lambda n: os.path.getmtime(os.path.join(SAIDA, n)))
+        with open(os.path.join(SAIDA, arquivo), encoding='utf-8') as f:
+            passada = json.load(f)
     if not passada:
         print('nenhuma passada ainda. Rode `py scripts/instagram_diario.py rodar`.')
         return 1
@@ -449,8 +482,7 @@ def noticia():
     #
     # É a mesma família da armadilha da Biblioteca de Anúncios que já pegou esta casa:
     # ler mais fundo entre duas medições virou "587 anúncios novos em uma hora".
-    contas_de_primeira = {h for h, v in (est.get('CONTAS') or {}).items()
-                          if (v or {}).get('VISITAS', 0) <= 1}
+    contas_de_primeira = set(passada.get('FIRST_VISIT_ACCOUNTS') or [])
 
     def _rotulo(handle, tipo_novo):
         return 'LINHA_DE_BASE' if handle in contas_de_primeira else tipo_novo
@@ -505,7 +537,15 @@ def noticia():
                 'QUANDO': hoje(), 'O_QUE': h['BIO'][:240],
                 'POR_QUE_E_NOTICIA': 'a conta reescreveu a própria apresentação'})
 
+    tetos = [{'OBJECT_ID': sc, 'ACCOUNT_HANDLE': o.get('ACCOUNT_HANDLE'),
+              'COLHIDOS': o.get('CEILING_SUSPECTED'), 'POR_QUE': o.get('CEILING_WHY')}
+             for sc, o in (est.get('OBJETOS') or {}).items() if o.get('CEILING_SUSPECTED')]
     caminho = _gravar('NOTICIA-%s.json' % hoje(), {
+        'CEILING_SUSPECTED': tetos,
+        'CEILING_SIGNIFICA': (
+            'nesses objetos a tela parou num número redondo. O que foi colhido NÃO é '
+            'a conversa inteira, e a contagem deles não pode entrar em comparação de '
+            'engajamento sem essa ressalva.'),
         'SOURCE_ID': 'INSTAGRAM-DIARIO/NOTICIA-%s' % hoje(),
         'source': 'diferença entre a passada de hoje e o estado anterior — nada é coletado aqui',
         'CAPTURED_AT': agora(), 'MISSION': MISSION,
@@ -522,7 +562,7 @@ def noticia():
         'ITEM_COUNT': len(linhas), 'ITEMS': linhas})
 
     from collections import Counter
-    print('NOTÍCIA DE %s' % hoje())
+    print('NOTÍCIA DE %s  (lendo %s)' % (hoje(), arquivo))
     print('-' * 60)
     for t, n in Counter(l['TIPO_DE_NOTICIA'] for l in linhas).most_common():
         print('  %-22s %d' % (t, n))

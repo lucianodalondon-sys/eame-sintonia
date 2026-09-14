@@ -1,0 +1,1338 @@
+{
+ "COLLECTION": "REGULATORY_FUTURE",
+ "FILE": "REGULATORY-FUTURE.json",
+ "SCHEMA_VERSION": "V2.1",
+ "BUILT_AT": "2026-09-02",
+ "PRIMARY_KEY": "ID",
+ "SOURCE_OF_TRUTH": "EU Pesticides Database · SCoPAFF · EUR-Lex · EFSA",
+ "COUNT_TOTAL": 28,
+ "COUNT_CLIENT_SAFE": 6,
+ "BY_ORIGIN": {
+  "LAST_MILE": 28
+ },
+ "BY_QA": {
+  "QA_PASS": 7,
+  "QA_CORRECTED": 1,
+  "QA_UNREVIEWED": 20
+ },
+ "REPLACES_OLD_FILES": [
+  "V2/REGULATORY-FUTURE.json"
+ ],
+ "LAW": "PRORROGACAO NAO E RENOVACAO. Rascunho, discussao e reuniao nao sao decisao final.",
+ "RECORDS": [
+  {
+   "ID": "IT-CAN-4DAA0F9889",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/assets/env-json-config.json"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (data de leitura)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "A API do EU Pesticides Database é pública e aberta, mas a base dela não está no bundle JS: está num arquivo de configuração de runtime que o app carrega depois. Sem esse arquivo, o palpite /api devolve uma página de erro cacheada.",
+    "valor": "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/backend/api",
+    "unidade": "endpoint",
+    "periodo": "leitura de 02/09/2026",
+    "o_que_prova": "que dá para ler o registro europeu de substâncias ativas por API, sem chave paga e sem navegador, de forma repetível",
+    "o_que_nao_prova": "não prova que a rota fique estável; é config de runtime e o Publications Office pode trocá-la sem aviso. E o caminho ingênuo /api devolve HTTP 200 com uma página estática 'Server temporarily unavailable' vinda do CloudFront (Age 3.023.375 s na nossa leitura) — quem não conferir o corpo da resposta acha que o serviço caiu.",
+    "citacao_literal": "{\"modules\":{\"envLabel\":\"\",\"core\":{\"base\":\"https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/backend/api\",\"userDetails\":\"/user-details\"}}}",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "SOURCE_ACCESS",
+   "CLAIM_DOMAIN_WHY": "e a receita de como alcancar a API do EU Pesticides Database (arquivo de configuracao de runtime, palpite /api que devolve pagina cacheada). Nao afirma nada sobre regulacao: afirma como se abre a porta.",
+   "CLIENT_SAFE_WHY_NOT": "a alegacao nao e sobre o mercado italiano: e sobre como a fonte foi alcancada. SABER COMO ABRIR A PORTA NAO E SABER O QUE HA NA SALA.",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "A API do EU Pesticides Database é pública e aberta, mas a base dela não está no bundle JS: está num arquivo de configuração de runtime que o app carrega depois. Sem esse arquivo, o palpite /api devolve uma página de erro cacheada.",
+   "WHAT_IT_IS_IT": "L'API dell'EU Pesticides Database è pubblica e aperta, ma la sua base non si trova nel bundle JS: si trova in un file di configurazione di runtime che l'app carica in un secondo momento. Senza quel file, l'endpoint /api ipotizzato restituisce una pagina di errore memorizzata nella cache.",
+   "WHAT_IT_IS_EN": "The EU Pesticides Database API is public and open, but its base is not in the JS bundle: it is in a runtime configuration file that the app loads afterwards. Without that file, the guessed /api path returns a cached error page.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que dá para ler o registro europeu de substâncias ativas por API, sem chave paga e sem navegador, de forma repetível",
+   "WHAT_IT_PROVES_IT": "che è possibile leggere il registro europeo delle sostanze attive tramite API, senza chiave a pagamento e senza browser, in modo ripetibile",
+   "WHAT_IT_PROVES_EN": "that the European register of active substances can be read via API, with no paid key and no browser, in a repeatable way",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que a rota fique estável; é config de runtime e o Publications Office pode trocá-la sem aviso. E o caminho ingênuo /api devolve HTTP 200 com uma página estática 'Server temporarily unavailable' vinda do CloudFront (Age 3.023.375 s na nossa leitura) — quem não conferir o corpo da resposta acha que o serviço caiu.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che la rotta resti stabile; è configurazione di runtime e il Publications Office può cambiarla senza preavviso. E il percorso ingenuo /api restituisce HTTP 200 con una pagina statica 'Server temporarily unavailable' proveniente da CloudFront (Age 3.023.375 s nella nostra lettura) — chi non verifica il corpo della risposta crede che il servizio sia caduto.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "it does not prove that the route stays stable; it is runtime configuration and the Publications Office can change it without notice. And the naive /api path returns HTTP 200 with a static 'Server temporarily unavailable' page coming from CloudFront (Age 3,023,375 s in our reading) — anyone who does not check the response body will think the service is down.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-4D6754F52F",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/active-substances.module-62ZYYHIV.js"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (data de leitura)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O POST de busca do EU Pesticides Database exige o objeto de critérios completo; com {} ou com um nome ele devolve HTTP 500. O corpo correto está no chunk da rota do app.",
+    "valor": "{\"type\":[],\"status\":[],\"legislation\":[],\"authorisedIn\":[],\"hazardClass\":[],\"classification\":[],\"approvalFrom\":[],\"approvalTo\":[],\"expiryFrom\":[],\"expiryTo\":[],\"cfs\":[],\"adi_from\":[],\"adi_to\":[],\"arfd_from\":[],\"arfd_to\":[],\"aoel_from\":[],\"aoel_to\":[],\"aaoel_from\":[],\"aaoel_to\":[]}",
+    "unidade": "corpo JSON do POST",
+    "periodo": null,
+    "o_que_prova": "que a coleta é repetível: um POST devolve os 1.483 registros de uma vez",
+    "o_que_nao_prova": "não prova que a filtragem por substância seja feita no servidor — a filtragem por nome no site é feita no navegador (textFilter sobre AS_NAME), então quem quiser filtrar tem de baixar tudo e filtrar localmente",
+    "citacao_literal": "clearFilters(){this.searchValues={type:[],status:[],legislation:[],authorisedIn:[],hazardClass:[],classification:[],approvalFrom:[],approvalTo:[],expiryFrom:[],expiryTo:[],cfs:[],adi_from:[],adi_to:[],arfd_from:[],arfd_to:[],aoel_from:[],aoel_to:[],aaoel_from:[],aaoel_to:[]}}",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "SOURCE_ACCESS",
+   "CLAIM_DOMAIN_WHY": "e o corpo do POST de busca do EU Pesticides Database e o HTTP 500 que ele devolve sem os criterios completos. Instrucao de coleta, nao sinal regulatorio.",
+   "CLIENT_SAFE_WHY_NOT": "a alegacao nao e sobre o mercado italiano: e sobre como a fonte foi alcancada. SABER COMO ABRIR A PORTA NAO E SABER O QUE HA NA SALA.",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "O POST de busca do EU Pesticides Database exige o objeto de critérios completo; com {} ou com um nome ele devolve HTTP 500. O corpo correto está no chunk da rota do app.",
+   "WHAT_IT_IS_IT": "Il POST di ricerca dell'EU Pesticides Database richiede l'oggetto dei criteri completo; con {} o con un nome restituisce HTTP 500. Il corpo corretto si trova nel chunk della route dell'app.",
+   "WHAT_IT_IS_EN": "The EU Pesticides Database search POST requires the complete criteria object; with {} or with a name it returns HTTP 500. The correct body is in the app's route chunk.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que a filtragem por substância seja feita no servidor — a filtragem por nome no site é feita no navegador (textFilter sobre AS_NAME), então quem quiser filtrar tem de baixar tudo e filtrar localmente",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che il filtraggio per sostanza sia eseguito sul server — il filtraggio per nome sul sito è eseguito nel browser (textFilter su AS_NAME), quindi chi vuole filtrare deve scaricare tutto e filtrare localmente",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "it does not prove that filtering by substance is done on the server — name filtering on the site is done in the browser (textFilter over AS_NAME), so anyone who wants to filter has to download everything and filter locally",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-836EB03B78",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Das 53 substâncias ativas declaradas nos 163 registros ADAMA Itália, 50 aparecem na lista europeia de substâncias ativas/protetores/sinérgicos e 39 delas (78% das casadas) estão com a aprovação PRORROGADA: a data original de expiração já passou e foi substituída por uma data de extensão.",
+    "valor": "53 substâncias · 50 casadas · 39 prorrogadas · 3 não encontradas",
+    "unidade": "substâncias ativas",
+    "periodo": null,
+    "o_que_prova": "que o normal do portfólio hoje é viver de prorrogação, não de aprovação renovada — logo, uma data de vencimento sozinha não diz nada sobre risco",
+    "o_que_nao_prova": "não prova que essas prorrogações vão continuar acontecendo, nem que alguma renovação será negada. Prorrogação é ato de procedimento, não decisão de mérito. E o casamento por nome pode falhar em sinônimos: as 3 não encontradas são protetores (safeners), ver registro próprio.",
+    "citacao_literal": "Active substances, safeners and synergists (1483 matching records)",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "WHAT_IT_IS": "Das 53 substâncias ativas declaradas nos 163 registros ADAMA Itália, 50 aparecem na lista europeia de substâncias ativas/protetores/sinérgicos e 39 delas (78% das casadas) estão com a aprovação PRORROGADA: a data original de expiração já passou e foi substituída por uma data de extensão.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES": "que o normal do portfólio hoje é viver de prorrogação, não de aprovação renovada — logo, uma data de vencimento sozinha não diz nada sobre risco",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE": "não prova que essas prorrogações vão continuar acontecendo, nem que alguma renovação será negada. Prorrogação é ato de procedimento, não decisão de mérito. E o casamento por nome pode falhar em sinônimos: as 3 não encontradas são protetores (safeners), ver registro próprio.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Das 53 substâncias ativas declaradas nos 163 registros ADAMA Itália, 50 aparecem na lista europeia de substâncias ativas/protetores/sinérgicos e 39 delas (78% das casadas) estão com a aprovação PRORROGADA: a data original de expiração já passou e foi substituída por uma data de extensão.",
+   "WHAT_IT_IS_IT": "Delle 53 sostanze attive dichiarate nelle 163 registrazioni ADAMA Italia, 50 compaiono nell'elenco europeo delle sostanze attive/antidoti agronomici/sinergizzanti e 39 di esse (78% di quelle abbinate) hanno l'approvazione PROROGATA: la data di scadenza originale è già trascorsa ed è stata sostituita da una data di proroga.",
+   "WHAT_IT_IS_EN": "Of the 53 active substances declared in the 163 ADAMA Italy registrations, 50 appear in the European list of active substances/safeners/synergists and 39 of them (78% of those matched) have their approval EXTENDED: the original expiry date has already passed and has been replaced by an extension date.",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que o normal do portfólio hoje é viver de prorrogação, não de aprovação renovada — logo, uma data de vencimento sozinha não diz nada sobre risco",
+   "WHAT_IT_PROVES_IT": "che oggi la normalità del portafoglio è vivere di proroga, non di approvazione rinnovata — quindi una data di scadenza da sola non dice nulla sul rischio",
+   "WHAT_IT_PROVES_EN": "that the norm for the portfolio today is living on extension, not on renewed approval — therefore an expiry date on its own says nothing about risk",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que essas prorrogações vão continuar acontecendo, nem que alguma renovação será negada. Prorrogação é ato de procedimento, não decisão de mérito. E o casamento por nome pode falhar em sinônimos: as 3 não encontradas são protetores (safeners), ver registro próprio.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che queste proroghe continueranno ad avvenire, né che qualche rinnovo verrà negato. La proroga è un atto procedurale, non una decisione di merito. E l'abbinamento per nome può fallire sui sinonimi: le 3 non trovate sono antidoti agronomici (safeners), vedere il record dedicato.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "it does not prove that these extensions will keep happening, nor that any renewal will be refused. An extension is a procedural act, not a decision on the merits. And name matching can fail on synonyms: the 3 not found are safeners, see their own record."
+  },
+  {
+   "ID": "IT-CAN-09493F52B2",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_DATA_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "http://data.europa.eu/eli/reg_impl/2026/1826/oj"
+   ],
+   "REFERENCE_DATE": "2026-07-29 (JO L, 2026/1826)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O ato europeu explica por escrito por que prorroga: a aprovação vai vencer antes de a renovação ser decidida, e o atraso é atribuído a causas fora do controle do requerente. É o texto que separa EXPIRY de WITHDRAWAL.",
+    "valor": null,
+    "unidade": null,
+    "periodo": null,
+    "o_que_prova": "que a data de expiração no registro europeu é, na maioria dos casos, um relógio de procedimento e não um veredito sobre a substância",
+    "o_que_nao_prova": "não prova que toda substância prorrogada será renovada. O próprio 2026/1826 prorroga phenmedipham e fludioxonil, e para as duas há projeto de NÃO-renovação em cima da mesa (registros abaixo).",
+    "citacao_literal": "As the approvals of these active substances are likely to expire before decisions have been taken on their renewal as part of the ongoing renewal procedures, the Commission inquired with the rapporteur Member States concerned and the European Food Safety Authority (the 'Authority') on the reasons for the delays in the renewal procedures of these active substances. […] The information available, including that provided by the rapporteur Member States and the Authority, shows that the reasons for the delays in each of these renewal procedures are beyond the control of the applicants.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "WHAT_IT_IS": "O ato europeu explica por escrito por que prorroga: a aprovação vai vencer antes de a renovação ser decidida, e o atraso é atribuído a causas fora do controle do requerente. É o texto que separa EXPIRY de WITHDRAWAL.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES": "que a data de expiração no registro europeu é, na maioria dos casos, um relógio de procedimento e não um veredito sobre a substância",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE": "não prova que toda substância prorrogada será renovada. O próprio 2026/1826 prorroga phenmedipham e fludioxonil, e para as duas há projeto de NÃO-renovação em cima da mesa (registros abaixo).",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "O ato europeu explica por escrito por que prorroga: a aprovação vai vencer antes de a renovação ser decidida, e o atraso é atribuído a causas fora do controle do requerente. É o texto que separa EXPIRY de WITHDRAWAL.",
+   "WHAT_IT_IS_IT": "L'atto europeo spiega per iscritto perché proroga: l'approvazione scadrà prima che il rinnovo sia deciso, e il ritardo è attribuito a cause che esulano dal controllo del richiedente. È il testo che separa EXPIRY da WITHDRAWAL.",
+   "WHAT_IT_IS_EN": "The European act explains in writing why it extends: the approval will expire before the renewal is decided, and the delay is attributed to causes beyond the applicant's control. It is the text that separates EXPIRY from WITHDRAWAL.",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que a data de expiração no registro europeu é, na maioria dos casos, um relógio de procedimento e não um veredito sobre a substância",
+   "WHAT_IT_PROVES_IT": "che la data di scadenza nel registro europeo è, nella maggior parte dei casi, un orologio procedurale e non un verdetto sulla sostanza",
+   "WHAT_IT_PROVES_EN": "that the expiry date in the European register is, in most cases, a procedural clock and not a verdict on the substance",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que toda substância prorrogada será renovada. O próprio 2026/1826 prorroga phenmedipham e fludioxonil, e para as duas há projeto de NÃO-renovação em cima da mesa (registros abaixo).",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che ogni sostanza prorogata verrà rinnovata. Lo stesso 2026/1826 proroga phenmedipham e fludioxonil, e per entrambe c'è un progetto di MANCATO RINNOVO sul tavolo (record più sotto).",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "it does not prove that every extended substance will be renewed. 2026/1826 itself extends phenmedipham and fludioxonil, and for both there is a draft NON-RENEWAL on the table (records below)."
+  },
+  {
+   "ID": "IT-CAN-63FB94294D",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances/details/209"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Metamitron: a aprovação europeia expira em 30/11/2026. Os 9 produtos ADAMA Itália com metamitron vencem exatamente na mesma data.",
+    "valor": "30/11/2026",
+    "unidade": "data de expiração da aprovação UE",
+    "periodo": "horizonte 3 meses",
+    "o_que_prova": "que o pico de nov/26 do calendário nacional (11 produtos) não é coincidência italiana: é o relógio europeu de duas substâncias",
+    "o_que_nao_prova": "não prova que os produtos saem do mercado em 30/11/2026. Existe projeto de nova prorrogação em discussão (ver registro PLAN/2026/1408). E não li o rótulo de 8 dos 9 produtos linha a linha — o próprio pacote avisa que 88,3% dos rótulos têm ZERO linha de uso lida.",
+    "citacao_literal": "\"AS_NAME\":\"Metamitron\",\"AS_STATUS\":\"Approved\",\"APPROVAL_DT\":\"01\\/09\\/2009\",\"EXPIRY_OF_APPROVAL_DT\":\"31\\/08\\/2023\",\"EXTENSION_OF_APPROVAL_DT\":\"30\\/11\\/2026\",\"EXPIRY_DT\":\"30\\/11\\/2026\"",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "WHAT_IT_IS": "Metamitron: a aprovação europeia expira em 30/11/2026. Os 9 produtos ADAMA Itália com metamitron vencem exatamente na mesma data.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES": "que o pico de nov/26 do calendário nacional (11 produtos) não é coincidência italiana: é o relógio europeu de duas substâncias",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE": "não prova que os produtos saem do mercado em 30/11/2026. Existe projeto de nova prorrogação em discussão (ver registro PLAN/2026/1408). E não li o rótulo de 8 dos 9 produtos linha a linha — o próprio pacote avisa que 88,3% dos rótulos têm ZERO linha de uso lida.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que o pico de nov/26 do calendário nacional (11 produtos) não é coincidência italiana: é o relógio europeu de duas substâncias",
+   "WHAT_IT_PROVES_IT": "che il picco di nov/26 del calendario nazionale (11 prodotti) non è una coincidenza italiana: è l'orologio europeo di due sostanze",
+   "WHAT_IT_PROVES_EN": "that the Nov/26 peak in the national calendar (11 products) is not an Italian coincidence: it is the European clock of two substances",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que os produtos saem do mercado em 30/11/2026. Existe projeto de nova prorrogação em discussão (ver registro PLAN/2026/1408). E não li o rótulo de 8 dos 9 produtos linha a linha — o próprio pacote avisa que 88,3% dos rótulos têm ZERO linha de uso lida.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che i prodotti escano dal mercato il 30/11/2026. Esiste un progetto di nuova proroga in discussione (vedere il record PLAN/2026/1408). E non risulta dalla lettura l'etichetta di 8 dei 9 prodotti riga per riga — il pacchetto stesso avverte che l'88,3% delle etichette ha ZERO righe d'uso lette.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "it does not prove that the products leave the market on 30 November 2026. There is a draft new extension under discussion (see record PLAN/2026/1408). And I have not read the label of 8 of the 9 products line by line — the package itself warns that 88.3% of labels have ZERO use lines read.",
+   "RESEARCHER_VOICE_REMOVED_FROM_SCREEN": "a leitura foi reescrita em voz impessoal para a tela. O texto original do pesquisador continua em _ORIGINAL_RESEARCH_TEXT."
+  },
+  {
+   "ID": "IT-CAN-15F34E6605",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_CORRECTED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/backend/api/active_substance/details/27"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura do endpoint de detalhe); ultima modificacao registrada do procedimento de renovacao: 2024-05-23",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "EUROPEU",
+   "RESEARCH": {
+    "o_que": "Flonicamid (IKI-220): a aprovacao europeia tem data-limite 30/11/2026 - e essa data resulta de PRORROGACAO (Reg. (UE) 2023/1446, que moveu o limite de 31/08/2023 para 30/11/2026), nao de renovacao concluida. O procedimento de renovacao segue ABERTO: no bloco 'rms' (AS_LP_DEF 'Renewal of approval', RENEWAL_GRP 7) o relatorio do Estado-relator (Finlandia, RMS_LIST 'FI') foi entregue em 05/12/2023 (SUBMISSION_DRAR_DT) e nao ha conclusao da EFSA registrada (EFSA_OUTPUT_DT nulo), nem mandato a EFSA registrado (MANDATE_EFSA_DT nulo).",
+    "valor": "30/11/2026",
+    "unidade": "data-limite da aprovacao UE (dd/mm/aaaa), fixada por prorrogacao",
+    "periodo": "leitura em 02/09/2026; data-limite em 30/11/2026 (horizonte de ~3 meses)",
+    "o_que_prova": "que a aprovacao UE do flonicamid tem data-limite 30/11/2026, fixada por prorrogacao; e que, ate a leitura de 02/09/2026, o procedimento de renovacao esta aberto - relatorio do Estado-relator (Finlandia) entregue em 05/12/2023, sem conclusao da EFSA registrada.",
+    "o_que_nao_prova": "nao prova retirada, nao-renovacao nem renovacao; nao prova que havera nova prorrogacao (a mencao anterior ao projeto PLAN/2026/1408 foi removida por nao ter prova na fonte); nao prova nada sobre produtos ADAMA na Italia - a contagem de 2 produtos vem de leitura separada do registro italiano; e nao prova conclusao da EFSA, porque os campos EFSA_OUTPUT_DT '2023-12-18' e SCPAFF_VOTE_DT '2024-04-22' que aparecem no mesmo endpoint pertencem a OUTROS procedimentos (AS_LP_DEF_ID 14), nao a renovacao.",
+    "citacao_literal": "Bloco \"rms\" (AS_LP_DEF: \"Renewal of approval\", AS_LP_DEF_ID \"2\", RENEWAL_GRP \"7\"), campos contiguos: \"SUBMISSION_DRAR_DT\": \"2023-12-05 10:51:06\", \"MANDATE_EFSA_DT\": null, \"EFSA_OUTPUT_DT\": null, \"EFSA_TECH_REPORT_DT\": null [...] \"RMS_LIST\": \"FI\", \"CMS_LIST\": \"SE\". | EM BLOCO SEPARADO do mesmo endpoint - \"reg1107\" (AS_LP_DEF_ID \"1\"): \"EXPIRY_OF_APPROVAL_DT\": \"2023-08-31 00:00:00\", \"EXTENSION_OF_APPROVAL_DT\": \"2026-11-30 10:50:47\", \"APPROVAL_DT\": \"01/09/2010\"; e no bloco \"legislations\": \"LEG_NAME\": \"Reg. (EU) 2023/1446\". Os dois trechos sao de lugares diferentes do mesmo JSON e estao rotulados como tal - nao formam uma citacao continua.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": "registro oficial de substancias ativas da Comissao Europeia - nivel UE, nao nivel nacional italiano",
+   "PERMANENT_CAVEAT": "ARMADILHA DO ENDPOINT, confirmada por mim: o mesmo JSON traz procedimentos diferentes lado a lado. So o bloco 'rms' (AS_LP_DEF 'Renewal of approval', AS_LP_DEF_ID 2, RENEWAL_GRP 7) e a renovacao, e nele EFSA_OUTPUT_DT esta nulo. As linhas de 'reg1107' com AS_LP_DEF_ID 14 trazem EFSA_OUTPUT_DT '2023-12-18' e SCPAFF_VOTE_DT '2024-04-22' e sao outros processos. Quem ler o campo pelo nome, sem olhar de que bloco ele veio, vai escrever 'a EFSA ja concluiu' e vai estar errado. SEGUNDA RESSALVA: 30/11/2026 e EXTENSION_OF_APPROVAL_DT, ou seja prorrogacao - prorrogacao nao e renovacao, e este registro nao autoriza dizer que o flonicamid foi renovado nem que sera retirado. TERCEIRA: o vinculo com os 2 produtos ADAMA Italia nao tem lastro neste endpoint e precisa da sua propria fonte citada antes de virar numero em qualquer slide.",
+   "QA_CHANGED_FIELDS": [
+    "source_url: de https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances (tela de LISTA, sem campo de relator nem de EFSA) para https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/backend/api/active_substance/details/27 (endpoint de detalhe, onde os campos existem de fato)",
+    "source_name: de 'EU Pesticides Database - Flonicamid (IKI-220)' para 'EU Pesticides Database - Flonicamid (IKI-220), endpoint de detalhe da substancia ativa (AS_ID 27), bloco rms'",
+    "citacao_literal: de um trecho de nome/datas que nao continha nem a palavra relator nem a data 05/12/2023, para os campos contiguos do bloco 'rms' (SUBMISSION_DRAR_DT / MANDATE_EFSA_DT / EFSA_OUTPUT_DT / RMS_LIST), com o bloco da prorrogacao citado SEPARADO e rotulado -- porque sao dois lugares diferentes do mesmo JSON e colar um no outro seria citacao falsa",
+    "o_que: acrescentado que 30/11/2026 resulta de PRORROGACAO (Reg. (UE) 2023/1446, que moveu 31/08/2023 -> 30/11/2026) e nao de renovacao concluida; acrescentado o Estado-relator (Finlandia); explicitado que MANDATE_EFSA_DT tambem esta nulo",
+    "valor: inalterado, 30/11/2026 (confirmado em EXTENSION_OF_APPROVAL_DT '2026-11-30 10:50:47')",
+    "unidade: de 'data de expiracao da aprovacao UE' para 'data-limite da aprovacao UE (dd/mm/aaaa), fixada por prorrogacao'",
+    "periodo: de 'horizonte 3 meses' para 'leitura em 02/09/2026; data-limite em 30/11/2026 (horizonte de ~3 meses)'",
+    "region: de 'UNIAO EUROPEIA / ITALIA' para 'UNIAO EUROPEIA' -- o fato e da aprovacao UE da substancia; o vinculo italiano nao e provado por esta fonte e passou a viver rotulado no campo crop",
+    "geographic_scope: ausente para EUROPEU (aprovacao de substancia ativa vale para toda a UE)",
+    "source_scope: ausente para 'registro oficial de substancias ativas da Comissao Europeia - nivel UE, nao nivel nacional italiano'",
+    "o_que_prova: de 'que 2 dos 11 produtos que vencem em nov/26 dependem desta unica substancia' (que este endpoint NAO prova) para o que o endpoint realmente prova: a data-limite e o estado aberto do procedimento de renovacao",
+    "o_que_nao_prova: removida a mencao ao projeto de prorrogacao PLAN/2026/1408 (afirmada sem prova na fonte citada) e acrescentado que este endpoint nao prova nada sobre produtos ADAMA na Italia",
+    "publication_date: de '2026-09-02 (leitura da base)' para '2026-09-02 (leitura do endpoint de detalhe); ultima modificacao registrada do procedimento de renovacao: 2024-05-23'",
+    "confidence: mantida ALTA, agora com lastro -- campo estruturado do registro oficial, aberto e conferido por mim em 02/09/2026"
+   ],
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "CLAIM_DOMAIN_REVIEWED": "flonicamid: a aprovacao UE tem data-limite 30/11/2026 por PRORROGACAO, nao renovacao. E fato regulatorio real, e a ressalva do endpoint protege quem for reler o JSON.",
+   "PERMANENT_CAVEAT_ORIGINAL_RESEARCH_TEXT": "ARMADILHA DO ENDPOINT, confirmada por mim: o mesmo JSON traz procedimentos diferentes lado a lado. So o bloco 'rms' (AS_LP_DEF 'Renewal of approval', AS_LP_DEF_ID 2, RENEWAL_GRP 7) e a renovacao, e nele EFSA_OUTPUT_DT esta nulo. As linhas de 'reg1107' com AS_LP_DEF_ID 14 trazem EFSA_OUTPUT_DT '2023-12-18' e SCPAFF_VOTE_DT '2024-04-22' e sao outros processos. Quem ler o campo pelo nome, sem olhar de que bloco ele veio, vai escrever 'a EFSA ja concluiu' e vai estar errado. SEGUNDA RESSALVA: 30/11/2026 e EXTENSION_OF_APPROVAL_DT, ou seja prorrogacao - prorrogacao nao e renovacao, e este registro nao autoriza dizer que o flonicamid foi renovado nem que sera retirado. TERCEIRA: o vinculo com os 2 produtos ADAMA Italia nao tem lastro neste endpoint e precisa da sua propria fonte citada antes de virar numero em qualquer slide.",
+   "PERMANENT_CAVEAT_IT": "TRAPPOLA DELL'ENDPOINT, confermata nella lettura: lo stesso JSON riporta procedimenti diversi affiancati. Solo il blocco 'rms' (AS_LP_DEF 'Renewal of approval', AS_LP_DEF_ID 2, RENEWAL_GRP 7) è il rinnovo, e in esso EFSA_OUTPUT_DT è nullo. Le righe di 'reg1107' con AS_LP_DEF_ID 14 riportano EFSA_OUTPUT_DT '2023-12-18' e SCPAFF_VOTE_DT '2024-04-22' e sono altri processi. Chi legge il campo per il nome, senza guardare da quale blocco proviene, scriverà «l'EFSA ha già concluso» e sbaglierà. SECONDA AVVERTENZA: il 30/11/2026 è EXTENSION_OF_APPROVAL_DT, ossia proroga — la proroga non è un rinnovo, e questo record non autorizza a dire che il flonicamid sia stato rinnovato né che sarà ritirato. TERZA: il collegamento con i 2 prodotti ADAMA Italia non trova riscontro in questo endpoint e richiede la propria fonte citata prima di diventare un numero in una qualsiasi slide.",
+   "PERMANENT_CAVEAT_EN": "ENDPOINT TRAP, confirmed on reading: the same JSON carries different procedures side by side. Only the 'rms' block (AS_LP_DEF 'Renewal of approval', AS_LP_DEF_ID 2, RENEWAL_GRP 7) is the renewal, and in it EFSA_OUTPUT_DT is null. The 'reg1107' rows with AS_LP_DEF_ID 14 carry EFSA_OUTPUT_DT '2023-12-18' and SCPAFF_VOTE_DT '2024-04-22' and are other processes. Anyone who reads the field by its name, without looking at which block it came from, will write 'the EFSA has already concluded' and will be wrong. SECOND CAVEAT: 30 November 2026 is EXTENSION_OF_APPROVAL_DT, that is, an extension — an extension is not a renewal, and this record does not authorise saying that flonicamid has been renewed nor that it will be withdrawn. THIRD: the link with the 2 ADAMA Italy products has no support in this endpoint and needs its own cited source before becoming a number on any slide.",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Flonicamid (IKI-220): a aprovacao europeia tem data-limite 30/11/2026 - e essa data resulta de PRORROGACAO (Reg. (UE) 2023/1446, que moveu o limite de 31/08/2023 para 30/11/2026), nao de renovacao concluida. O procedimento de renovacao segue ABERTO: no bloco 'rms' (AS_LP_DEF 'Renewal of approval', RENEWAL_GRP 7) o relatorio do Estado-relator (Finlandia, RMS_LIST 'FI') foi entregue em 05/12/2023 (SUBMISSION_DRAR_DT) e nao ha conclusao da EFSA registrada (EFSA_OUTPUT_DT nulo), nem mandato a EFSA registrado (MANDATE_EFSA_DT nulo).",
+   "WHAT_IT_IS_IT": "Flonicamid (IKI-220): l'approvazione europea ha come data limite il 30/11/2026 — e tale data deriva da una PROROGA (Reg. (UE) 2023/1446, che ha spostato il limite dal 31/08/2023 al 30/11/2026), non da un rinnovo concluso. La procedura di rinnovo resta APERTA: nel blocco 'rms' (AS_LP_DEF 'Renewal of approval', RENEWAL_GRP 7) la relazione dello Stato membro relatore (Finlandia, RMS_LIST 'FI') è stata presentata il 05/12/2023 (SUBMISSION_DRAR_DT) e non risulta registrata alcuna conclusione dell'EFSA (EFSA_OUTPUT_DT nullo), né alcun mandato all'EFSA registrato (MANDATE_EFSA_DT nullo).",
+   "WHAT_IT_IS_EN": "Flonicamid (IKI-220): the European approval has 30 November 2026 as its deadline — and that date results from an EXTENSION (Reg. (EU) 2023/1446, which moved the limit from 31 August 2023 to 30 November 2026), not from a completed renewal. The renewal procedure remains OPEN: in the 'rms' block (AS_LP_DEF 'Renewal of approval', RENEWAL_GRP 7) the rapporteur Member State report (Finland, RMS_LIST 'FI') was submitted on 5 December 2023 (SUBMISSION_DRAR_DT) and there is no EFSA conclusion recorded (EFSA_OUTPUT_DT null), nor any EFSA mandate recorded (MANDATE_EFSA_DT null).",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que a aprovacao UE do flonicamid tem data-limite 30/11/2026, fixada por prorrogacao; e que, ate a leitura de 02/09/2026, o procedimento de renovacao esta aberto - relatorio do Estado-relator (Finlandia) entregue em 05/12/2023, sem conclusao da EFSA registrada.",
+   "WHAT_IT_PROVES_IT": "che l'approvazione UE del flonicamid ha come data limite il 30/11/2026, fissata per proroga; e che, alla lettura del 02/09/2026, la procedura di rinnovo è aperta — relazione dello Stato membro relatore (Finlandia) presentata il 05/12/2023, senza conclusione dell'EFSA registrata.",
+   "WHAT_IT_PROVES_EN": "that the EU approval of flonicamid has 30 November 2026 as its deadline, set by extension; and that, as of the 2 September 2026 reading, the renewal procedure is open — rapporteur Member State report (Finland) submitted on 5 December 2023, with no EFSA conclusion recorded.",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao prova retirada, nao-renovacao nem renovacao; nao prova que havera nova prorrogacao (a mencao anterior ao projeto PLAN/2026/1408 foi removida por nao ter prova na fonte); nao prova nada sobre produtos ADAMA na Italia - a contagem de 2 produtos vem de leitura separada do registro italiano; e nao prova conclusao da EFSA, porque os campos EFSA_OUTPUT_DT '2023-12-18' e SCPAFF_VOTE_DT '2024-04-22' que aparecem no mesmo endpoint pertencem a OUTROS procedimentos (AS_LP_DEF_ID 14), nao a renovacao.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova il ritiro, né il mancato rinnovo, né il rinnovo; non prova che vi sarà una nuova proroga (la menzione precedente al progetto PLAN/2026/1408 è stata rimossa perché priva di prova nella fonte); non prova nulla sui prodotti ADAMA in Italia — il conteggio di 2 prodotti proviene da una lettura separata del registro italiano; e non prova la conclusione dell'EFSA, perché i campi EFSA_OUTPUT_DT '2023-12-18' e SCPAFF_VOTE_DT '2024-04-22' che compaiono nello stesso endpoint appartengono ad ALTRI procedimenti (AS_LP_DEF_ID 14), non al rinnovo.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "it does not prove withdrawal, non-renewal or renewal; it does not prove that there will be a new extension (the earlier mention of the draft PLAN/2026/1408 was removed for lack of evidence in the source); it proves nothing about ADAMA products in Italy — the count of 2 products comes from a separate reading of the Italian register; and it does not prove an EFSA conclusion, because the fields EFSA_OUTPUT_DT '2023-12-18' and SCPAFF_VOTE_DT '2024-04-22' that appear in the same endpoint belong to OTHER procedures (AS_LP_DEF_ID 14), not to the renewal.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "RESEARCHER_VOICE_REMOVED_FROM_SCREEN": "a leitura foi reescrita em voz impessoal para a tela. O texto original do pesquisador continua em _ORIGINAL_RESEARCH_TEXT."
+  },
+  {
+   "ID": "IT-CAN-733725EB27",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Há um projeto de regulamento europeu que prorroga metamitron, flonicamid (IKI-220) e sulcotrione — as três substâncias que vencem em 30/11/2026 no portfólio. Foi apresentado na reunião do SCoPAFF de 29-30/06/2026 como ponto C.08 (troca de opiniões, ainda sem votação), com comentários dos Estados-Membros até 17/07/2026. Até 02/09/2026 ele NÃO aparece publicado no Jornal Oficial na nossa leitura do CELLAR.",
+    "valor": "PLAN/2026/1408",
+    "unidade": "referência do projeto de ato",
+    "periodo": "horizonte 3 meses",
+    "o_que_prova": "que existe um ato em preparo, nomeado e datado, que cobre exatamente as substâncias do pico de nov/26",
+    "o_que_nao_prova": "NÃO prova que a prorrogação vai sair, nem por quanto tempo. É troca de opiniões, não votação: dois Estados-Membros já declararam voto contrário (por fenoxaprop-P e halosulfuron-methyl, não pelas nossas substâncias) e outros três apoiaram essas objeções. E não sei se o ato foi publicado depois da nossa leitura de 02/09/2026.",
+    "citacao_literal": "C.08 Exchange of views of the Committee on a draft Commission Implementing Regulation (EU) amending Implementing Regulation (EU) No 540/2011 as regards the extension of the approval periods of the active substances […] flonicamid (IKI-220), […] metamitron, […] sulcotrione, […] (PLAN/2026/1408) The Commission presented the draft Implementing Regulation. […] Member States were invited to send comments on the draft Implementing Regulation by 17 July 2026",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "WHAT_IT_IS": "Há um projeto de regulamento europeu que prorroga metamitron, flonicamid (IKI-220) e sulcotrione — as três substâncias que vencem em 30/11/2026 no portfólio. Foi apresentado na reunião do SCoPAFF de 29-30/06/2026 como ponto C.08 (troca de opiniões, ainda sem votação), com comentários dos Estados-Membros até 17/07/2026. Até 02/09/2026 ele NÃO aparece publicado no Jornal Oficial na nossa leitura do CELLAR.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES": "que existe um ato em preparo, nomeado e datado, que cobre exatamente as substâncias do pico de nov/26",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE": "NÃO prova que a prorrogação vai sair, nem por quanto tempo. É troca de opiniões, não votação: dois Estados-Membros já declararam voto contrário (por fenoxaprop-P e halosulfuron-methyl, não pelas nossas substâncias) e outros três apoiaram essas objeções. E não sei se o ato foi publicado depois da nossa leitura de 02/09/2026.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Há um projeto de regulamento europeu que prorroga metamitron, flonicamid (IKI-220) e sulcotrione — as três substâncias que vencem em 30/11/2026 no portfólio. Foi apresentado na reunião do SCoPAFF de 29-30/06/2026 como ponto C.08 (troca de opiniões, ainda sem votação), com comentários dos Estados-Membros até 17/07/2026. Até 02/09/2026 ele NÃO aparece publicado no Jornal Oficial na nossa leitura do CELLAR.",
+   "WHAT_IT_IS_IT": "Esiste un progetto di regolamento europeo che proroga metamitron, flonicamid (IKI-220) e sulcotrione — le tre sostanze del portafoglio che scadono il 30/11/2026. È stato presentato alla riunione dello SCoPAFF del 29-30/06/2026 come punto C.08 (scambio di opinioni, ancora senza votazione), con commenti degli Stati membri entro il 17/07/2026. Al 02/09/2026 NON risulta pubblicato nella Gazzetta ufficiale nella nostra lettura del CELLAR.",
+   "WHAT_IT_IS_EN": "There is a draft European regulation extending metamitron, flonicamid (IKI-220) and sulcotrione — the three substances in the portfolio expiring on 30 November 2026. It was presented at the SCoPAFF meeting of 29-30 June 2026 as item C.08 (exchange of views, still without a vote), with Member State comments due by 17 July 2026. As of 2 September 2026 it does NOT appear published in the Official Journal in our reading of CELLAR.",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que existe um ato em preparo, nomeado e datado, que cobre exatamente as substâncias do pico de nov/26",
+   "WHAT_IT_PROVES_IT": "che esiste un atto in preparazione, denominato e datato, che copre esattamente le sostanze del picco di nov/26",
+   "WHAT_IT_PROVES_EN": "that there is an act in preparation, named and dated, covering exactly the substances of the Nov/26 peak",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que a prorrogação vai sair, nem por quanto tempo. É troca de opiniões, não votação: dois Estados-Membros já declararam voto contrário (por fenoxaprop-P e halosulfuron-methyl, não pelas nossas substâncias) e outros três apoiaram essas objeções. E não sei se o ato foi publicado depois da nossa leitura de 02/09/2026.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova che la proroga uscirà, né per quanto tempo. È uno scambio di opinioni, non una votazione: due Stati membri hanno già dichiarato voto contrario (per fenoxaprop-P e halosulfuron-methyl, non per le nostre sostanze) e altri tre hanno sostenuto tali obiezioni. E non so se l'atto sia stato pubblicato dopo la nostra lettura del 02/09/2026.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "It does NOT prove that the extension will come out, nor for how long. It is an exchange of views, not a vote: two Member States have already declared a vote against (over fenoxaprop-P and halosulfuron-methyl, not over our substances) and three others supported those objections. And I do not know whether the act was published after our 2 September 2026 reading."
+  },
+  {
+   "ID": "IT-CAN-354DC38235",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_PASS",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30, com atualização de 2026-07-09 no próprio relatório",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Fludioxonil: a Comissão disponibilizou em 09/07/2026 um PROJETO de regulamento de NÃO-RENOVAÇÃO da aprovação, com prazo de comentários dos Estados-Membros até 03/09/2026 — um dia depois da nossa data de referência. Na mesma temporada, o Reg. 2026/1826 esticou a aprovação para 30/09/2027.",
+    "valor": "prazo de comentários: 03/09/2026",
+    "unidade": "data-limite de consulta",
+    "periodo": "horizonte 3 meses",
+    "o_que_prova": "que a prorrogação até 30/09/2027 no Reg. 2026/1826 e um projeto de não-renovação convivem ao mesmo tempo, para a mesma substância",
+    "o_que_nao_prova": "NÃO prova que a não-renovação será adotada — é projeto em consulta, e o próprio relatório registra que os requerentes apresentaram três artigos revisados por pares defendendo a renovação. Também não transforma isso em oportunidade comercial: o SEEDRON da ADAMA é ele próprio um dos produtos atingidos.",
+    "citacao_literal": "On 9 July 2026, the Commission made available via CIRCABC a draft Implementing Regulation for non-renewal of fludioxonil and a draft Renewal Report. Member States were invited to send comments by 3 September 2026.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "WHAT_IT_IS": "Fludioxonil: a Comissão disponibilizou em 09/07/2026 um PROJETO de regulamento de NÃO-RENOVAÇÃO da aprovação, com prazo de comentários dos Estados-Membros até 03/09/2026 — um dia depois da nossa data de referência. Na mesma temporada, o Reg. 2026/1826 esticou a aprovação para 30/09/2027.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES": "que a prorrogação até 30/09/2027 no Reg. 2026/1826 e um projeto de não-renovação convivem ao mesmo tempo, para a mesma substância",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE": "NÃO prova que a não-renovação será adotada — é projeto em consulta, e o próprio relatório registra que os requerentes apresentaram três artigos revisados por pares defendendo a renovação. Também não transforma isso em oportunidade comercial: o SEEDRON da ADAMA é ele próprio um dos produtos atingidos.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Fludioxonil: a Comissão disponibilizou em 09/07/2026 um PROJETO de regulamento de NÃO-RENOVAÇÃO da aprovação, com prazo de comentários dos Estados-Membros até 03/09/2026 — um dia depois da nossa data de referência. Na mesma temporada, o Reg. 2026/1826 esticou a aprovação para 30/09/2027.",
+   "WHAT_IT_IS_IT": "Fludioxonil: il 09/07/2026 la Commissione ha reso disponibile un PROGETTO di regolamento di MANCATO RINNOVO dell'approvazione, con termine per i commenti degli Stati membri al 03/09/2026 — un giorno dopo la nostra data di riferimento. Nello stesso periodo, il Reg. 2026/1826 ha allungato l'approvazione al 30/09/2027.",
+   "WHAT_IT_IS_EN": "Fludioxonil: on 9 July 2026 the Commission made available a DRAFT regulation for NON-RENEWAL of the approval, with a Member State comment deadline of 3 September 2026 — one day after our reference date. In the same period, Reg. 2026/1826 stretched the approval to 30 September 2027.",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que a prorrogação até 30/09/2027 no Reg. 2026/1826 e um projeto de não-renovação convivem ao mesmo tempo, para a mesma substância",
+   "WHAT_IT_PROVES_IT": "che la proroga fino al 30/09/2027 nel Reg. 2026/1826 e un progetto di mancato rinnovo convivono nello stesso momento, per la stessa sostanza",
+   "WHAT_IT_PROVES_EN": "that the extension to 30 September 2027 in Reg. 2026/1826 and a draft non-renewal coexist at the same time, for the same substance",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que a não-renovação será adotada — é projeto em consulta, e o próprio relatório registra que os requerentes apresentaram três artigos revisados por pares defendendo a renovação. Também não transforma isso em oportunidade comercial: o SEEDRON da ADAMA é ele próprio um dos produtos atingidos.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova che il mancato rinnovo sarà adottato — è un progetto in consultazione, e la relazione stessa registra che i richiedenti hanno presentato tre articoli sottoposti a revisione paritaria a sostegno del rinnovo. E nemmeno trasforma questo in un'opportunità commerciale: il SEEDRON di ADAMA è esso stesso uno dei prodotti interessati.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "It does NOT prove that the non-renewal will be adopted — it is a draft under consultation, and the report itself records that the applicants submitted three peer-reviewed articles in support of the renewal. Nor does it turn this into a commercial opportunity: ADAMA's SEEDRON is itself one of the affected products."
+  },
+  {
+   "ID": "IT-CAN-A64387FF96",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Phenmedipham: a Comissão apresentou o projeto de Relatório de Revisão para a NÃO-RENOVAÇÃO da aprovação e, na mesma reunião, propôs uma prorrogação de um ano até 30/09/2027 — prorrogação que depois virou o Reg. 2026/1826. Um Estado-Membro apoiou a não-renovação, outro se opôs, invocando a importância do phenmedipham no controle de infestantes da beterraba e no manejo de resistência.",
+    "valor": "30/09/2027 (prorrogação) com projeto de não-renovação em curso",
+    "unidade": "data + estado do processo",
+    "periodo": "horizonte 12 meses",
+    "o_que_prova": "o exemplo mais limpo de que PRORROGAÇÃO NÃO É RENOVAÇÃO: o mesmo ato que estica o prazo é o que dá tempo de concluir a não-renovação",
+    "o_que_nao_prova": "não prova a decisão final. O relatório registra que a Comissão rejeitou o pedido de derrogação do Artigo 4(7) por prazos perdidos e por falta de base legal para considerar razões socioeconômicas, mas o processo ainda vai a notificação OMC/TBT e a ponto C em reunião futura.",
+    "citacao_literal": "8. Phenmedipham The Commission presented the draft Review Report on the non-renewal of phenmedipham and summarised the written comments received. One Member State supported a non-renewal of the approval; one Member State opposed the non-renewal of approval. The latter Member State and two associations stressed the importance of phenmedipham for sugar beet weed control and resistance management. […] The Commission proposed a one-year extension of approval until 30 September 2027.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Phenmedipham: a Comissão apresentou o projeto de Relatório de Revisão para a NÃO-RENOVAÇÃO da aprovação e, na mesma reunião, propôs uma prorrogação de um ano até 30/09/2027 — prorrogação que depois virou o Reg. 2026/1826. Um Estado-Membro apoiou a não-renovação, outro se opôs, invocando a importância do phenmedipham no controle de infestantes da beterraba e no manejo de resistência.",
+   "WHAT_IT_IS_IT": "Phenmedipham: la Commissione ha presentato il progetto di Relazione di Revisione per il NON-RINNOVO dell'approvazione e, nella stessa riunione, ha proposto una proroga di un anno fino al 30/09/2027 — proroga che poi è diventata il Reg. 2026/1826. Uno Stato membro ha sostenuto il non-rinnovo, un altro si è opposto, invocando l'importanza del phenmedipham nel controllo delle infestanti della barbabietola e nella gestione delle resistenze.",
+   "WHAT_IT_IS_EN": "Phenmedipham: the Commission presented the draft Review Report for the NON-RENEWAL of the approval and, at the same meeting, proposed a one-year extension until 30 September 2027 — an extension that later became Reg. 2026/1826. One Member State supported the non-renewal, another opposed it, invoking the importance of phenmedipham in beet weed control and in resistance management.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "o exemplo mais limpo de que PRORROGAÇÃO NÃO É RENOVAÇÃO: o mesmo ato que estica o prazo é o que dá tempo de concluir a não-renovação",
+   "WHAT_IT_PROVES_IT": "l'esempio più netto del fatto che PROROGA NON È RINNOVO: lo stesso atto che allunga il termine è quello che dà il tempo di concludere il non-rinnovo",
+   "WHAT_IT_PROVES_EN": "the cleanest example that AN EXTENSION IS NOT A RENEWAL: the same act that stretches the deadline is the one that gives time to complete the non-renewal",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova a decisão final. O relatório registra que a Comissão rejeitou o pedido de derrogação do Artigo 4(7) por prazos perdidos e por falta de base legal para considerar razões socioeconômicas, mas o processo ainda vai a notificação OMC/TBT e a ponto C em reunião futura.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non dimostra la decisione finale. La relazione riporta che la Commissione ha respinto la richiesta di deroga ai sensi dell'Articolo 4(7) per termini non rispettati e per mancanza di base giuridica per considerare ragioni socioeconomiche, ma la procedura deve ancora passare per la notifica OMC/TBT e per un punto C in una riunione futura.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove the final decision. The report records that the Commission rejected the Article 4(7) derogation request for missed deadlines and for lack of a legal basis to consider socio-economic reasons, but the procedure still has to go to WTO/TBT notification and to a point C at a future meeting.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-EE9EB1A870",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30; EFSA Conclusion publicada em 2026-03",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Clodinafop: a EFSA identificou uma área crítica de preocupação — risco alto para grandes mamíferos herbívoros — e a Comissão declarou em ata que uma não-renovação 'provavelmente seria proposta'. Comentários dos Estados-Membros pedidos até 31/08/2026.",
+    "valor": "EFSA Conclusion, doi 10.2903/j.efsa.2026.9871 (março/2026)",
+    "unidade": "parecer científico + posição da Comissão",
+    "periodo": "horizonte 12 meses",
+    "o_que_prova": "que a maior família de produtos do portfólio italiano por substância única (10 registros) tem um sinal negativo explícito de risk assessment em documento público",
+    "o_que_nao_prova": "NÃO prova que a não-renovação foi proposta nem adotada. A própria frase é condicional ('would likely be proposed') e o relatório diz que o projeto de Relatório de Renovação só será apresentado quando a validação política interna terminar. Também não sei se o clodinafop dos produtos ADAMA está sempre acompanhado do protetor cloquintocet-mexyl.",
+    "citacao_literal": "9. Clodinafop The Commission explained that EFSA identified a critical area of concern: clodinafop poses a high risk to large herbivorous mammals. EFSA also could not finalise several issues not finalised in the risk assessment. As no scientifically proven mitigation measures can address these risks, the Commission noted that a non-renewal would likely be proposed considering the recent outcome of the cypermethrin court case. […] Member States were invited to send comments on the EFSA Conclusion and their preliminary positions by 31 August 2026.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Clodinafop: a EFSA identificou uma área crítica de preocupação — risco alto para grandes mamíferos herbívoros — e a Comissão declarou em ata que uma não-renovação 'provavelmente seria proposta'. Comentários dos Estados-Membros pedidos até 31/08/2026.",
+   "WHAT_IT_IS_IT": "Clodinafop: l'EFSA ha individuato un'area critica di preoccupazione — rischio elevato per i grandi mammiferi erbivori — e la Commissione ha dichiarato a verbale che un non-rinnovo 'would likely be proposed' ('probabilmente sarebbe stato proposto'). Commenti degli Stati membri richiesti entro il 31/08/2026.",
+   "WHAT_IT_IS_EN": "Clodinafop: EFSA identified a critical area of concern — high risk to large herbivorous mammals — and the Commission stated on the record that a non-renewal 'would likely be proposed'. Member State comments requested by 31 August 2026.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que a não-renovação foi proposta nem adotada. A própria frase é condicional ('would likely be proposed') e o relatório diz que o projeto de Relatório de Renovação só será apresentado quando a validação política interna terminar. Também não sei se o clodinafop dos produtos ADAMA está sempre acompanhado do protetor cloquintocet-mexyl.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON dimostra che il non-rinnovo sia stato proposto né adottato. La frase stessa è condizionale ('would likely be proposed') e la relazione dice che il progetto di Relazione di Rinnovo sarà presentato solo quando la validazione politica interna sarà conclusa. Inoltre non so se il clodinafop dei prodotti ADAMA sia sempre accompagnato dal safener cloquintocet-mexyl.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does NOT prove that the non-renewal was proposed or adopted. The sentence itself is conditional ('would likely be proposed') and the report says that the draft Renewal Report will only be presented once the internal political validation is finished. I also do not know whether the clodinafop in ADAMA products is always accompanied by the safener cloquintocet-mexyl.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-9443564237",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Tebuconazole: a Comissão ABRIU uma revisão nos termos do Artigo 21 do Reg. 1107/2009 sobre a aprovação, porque a substância deve ser classificada como Tóxica para a Reprodução, categoria 1B. Os requerentes foram convidados a apresentar dados sobre exposição negligenciável e sobre a derrogação do Artigo 4(7); depois a EFSA será mandatada para avaliar.",
+    "valor": "revisão Art. 21 aberta; classificação prevista Repr. 1B",
+    "unidade": "procedimento regulatório",
+    "periodo": "horizonte 24 meses",
+    "o_que_prova": "que o tebuconazole tem um processo de revisão aberto que corre EM PARALELO à renovação, e que a data de expiração dele (31/07/2028, dada pelo Reg. 2026/1421) não capta esse risco",
+    "o_que_nao_prova": "não prova retirada nem restrição já decidida. Artigo 21 é revisão; pode terminar sem alteração, com condições novas, ou com retirada. E a classificação 1B é descrita como algo que 'está para ser' feito, não como já feita.",
+    "citacao_literal": "Article 21 review of tebuconazole The Commission informed that it had launched an Article 21 review of the approval of tebuconazole and the letter to the applicants had been uploaded on CIRCABC. As tebuconazole is to be classified as Toxic for Reproduction, category 1B the applicants were invited to provide data on the applicability of a possible derogation based on negligible exposure with respect to the representative uses underpinning the current approval or those in the renewal application. They were also invited to provide data on the applicability of the derogation under Article 4(7) of Regulation (EC) No 1107/2009. Once the data will be submitted, EFSA will be mandated to evaluate it, together with the Rapporteur Member States.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Tebuconazole: a Comissão ABRIU uma revisão nos termos do Artigo 21 do Reg. 1107/2009 sobre a aprovação, porque a substância deve ser classificada como Tóxica para a Reprodução, categoria 1B. Os requerentes foram convidados a apresentar dados sobre exposição negligenciável e sobre a derrogação do Artigo 4(7); depois a EFSA será mandatada para avaliar.",
+   "WHAT_IT_IS_IT": "Tebuconazole: la Commissione HA APERTO un riesame ai sensi dell'Articolo 21 del Reg. 1107/2009 sull'approvazione, perché la sostanza deve essere classificata come Tossica per la Riproduzione, categoria 1B. I richiedenti sono stati invitati a presentare dati sull'esposizione trascurabile e sulla deroga dell'Articolo 4(7); successivamente l'EFSA sarà incaricata di valutare.",
+   "WHAT_IT_IS_EN": "Tebuconazole: the Commission OPENED a review under Article 21 of Reg. 1107/2009 on the approval, because the substance is to be classified as Toxic for Reproduction, category 1B. The applicants were invited to submit data on negligible exposure and on the Article 4(7) derogation; EFSA will then be mandated to assess.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que o tebuconazole tem um processo de revisão aberto que corre EM PARALELO à renovação, e que a data de expiração dele (31/07/2028, dada pelo Reg. 2026/1421) não capta esse risco",
+   "WHAT_IT_PROVES_IT": "che il tebuconazole ha un procedimento di riesame aperto che corre IN PARALLELO al rinnovo, e che la sua data di scadenza (31/07/2028, fissata dal Reg. 2026/1421) non coglie questo rischio",
+   "WHAT_IT_PROVES_EN": "that tebuconazole has an open review procedure running IN PARALLEL with the renewal, and that its expiry date (31 July 2028, set by Reg. 2026/1421) does not capture this risk",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova retirada nem restrição já decidida. Artigo 21 é revisão; pode terminar sem alteração, com condições novas, ou com retirada. E a classificação 1B é descrita como algo que 'está para ser' feito, não como já feita.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non dimostra un ritiro né una restrizione già decisa. L'Articolo 21 è un riesame; può concludersi senza modifiche, con nuove condizioni, o con un ritiro. E la classificazione 1B è descritta come qualcosa che 'sta per essere' fatto, non come già fatta.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove a withdrawal or an already decided restriction. Article 21 is a review; it can end with no change, with new conditions, or with a withdrawal. And the 1B classification is described as something that 'is to be' done, not as already done.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-562DAB5CC4",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_DATA_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "http://data.europa.eu/eli/reg_impl/2026/1826/oj"
+   ],
+   "REFERENCE_DATE": "2026-07-29 (JO L, 2026/1826)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O Reg. 2026/1826, de 28/07/2026, moveu a data de expiração de 6 substâncias do portfólio ADAMA Itália, uma por uma, no Anexo do Reg. 540/2011.",
+    "valor": "phenmedipham 30/09/2027 · pirimicarb 31/07/2027 · fosetyl 31/01/2028 · fludioxonil 30/09/2027 · metazachlor 31/05/2029 · metalaxyl 30/06/2029",
+    "unidade": "novas datas de expiração da aprovação",
+    "periodo": null,
+    "o_que_prova": "que as datas que li na base de dados batem, linha por linha, com o texto do ato — duas fontes independentes concordando",
+    "o_que_nao_prova": "não prova que o registro italiano já refletiu essas datas: o dataset nacional é de 24/08/2026 e para phenmedipham e fludioxonil ele ainda traz 30/09/2026, um ano antes da data europeia nova",
+    "citacao_literal": "(2) in the sixth column, expiration of approval, of row 88, Phenmedipham, the date is replaced by '30 September 2027'; […] (4) in the sixth column, expiration of approval, of row 124, Pirimicarb, the date is replaced by '31 July 2027'; […] (6) in the sixth column, expiration of approval, of row 131, Fosetyl, the date is replaced by '31 January 2028'; […] (10) in the sixth column, expiration of approval, of row 161, Fludioxonil, the date is replaced by '30 September 2027'; […] (13) in the sixth column, expiration of approval, of row 217, Metazachlor, the date is replaced by '31 May 2029'; […] (16) in the sixth column, expiration of approval, of row 304, Metalaxyl, the date is replaced by '30 June 2029'",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que as datas que li na base de dados batem, linha por linha, com o texto do ato — duas fontes independentes concordando",
+   "WHAT_IT_PROVES_IT": "che le date che risulta dalla lettura nella banca dati coincidono, riga per riga, con il testo dell'atto — due fonti indipendenti che concordano",
+   "WHAT_IT_PROVES_EN": "that the dates I read in the database match, line by line, the text of the act — two independent sources agreeing",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que o registro italiano já refletiu essas datas: o dataset nacional é de 24/08/2026 e para phenmedipham e fludioxonil ele ainda traz 30/09/2026, um ano antes da data europeia nova",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non dimostra che il registro italiano abbia già recepito queste date: il dataset nazionale è del 24/08/2026 e per phenmedipham e fludioxonil riporta ancora 30/09/2026, un anno prima della nuova data europea",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove that the Italian register has already reflected these dates: the national dataset is dated 24 August 2026 and for phenmedipham and fludioxonil it still shows 30 September 2026, one year before the new European date",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "RESEARCHER_VOICE_REMOVED_FROM_SCREEN": "a leitura foi reescrita em voz impessoal para a tela. O texto original do pesquisador continua em _ORIGINAL_RESEARCH_TEXT."
+  },
+  {
+   "ID": "IT-CAN-D113503581",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_DATA_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "http://data.europa.eu/eli/reg_impl/2026/1421/oj"
+   ],
+   "REFERENCE_DATE": "2026-07-01 (JO L, 2026/1421)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O Reg. 2026/1421, de 30/06/2026, moveu a data de expiração de 6 outras substâncias do portfólio.",
+    "valor": "tebuconazole 31/07/2028 · cymoxanil 30/11/2027 · chlorotoluron 30/06/2028 · clethodim 15/12/2027 · metaldehyde 15/10/2028 · lambda-cyhalothrin 31/01/2029",
+    "unidade": "novas datas de expiração da aprovação",
+    "periodo": null,
+    "o_que_prova": "que 12 substâncias do portfólio tiveram data europeia mexida só nos meses de junho e julho de 2026",
+    "o_que_nao_prova": "não prova nada sobre o mérito da renovação de nenhuma delas — os dois atos são de procedimento, adotados sob o Artigo 17 primeiro parágrafo",
+    "citacao_literal": "(5) in the sixth column, expiration of approval, of row 263, Cymoxanil, the date is replaced by '30 November 2027'; (6) in the sixth column, expiration of approval, of row 268, Tebuconazole, the date is replaced by '31 July 2028'; […] (2) in the sixth column, expiration of approval, of row 102, Chlorotoluron, the date is replaced by '30 June 2028'; […] (11) in the sixth column, expiration of approval, of row 329, Clethodim, the date is replaced by '15 December 2027'; […] (13) in the sixth column, expiration of approval, of row 340, Metaldehyde, the date is replaced by '15 October 2028'; […] (3) in the sixth column, expiration of approval, of row 5, Lambda-Cyhalothrin, the date is replaced by '31 January 2029'.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova nada sobre o mérito da renovação de nenhuma delas — os dois atos são de procedimento, adotados sob o Artigo 17 primeiro parágrafo",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non dimostra nulla sul merito del rinnovo di nessuna di esse — i due atti sono procedurali, adottati ai sensi dell'Articolo 17, primo comma",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "proves nothing about the merits of the renewal of any of them — the two acts are procedural, adopted under Article 17, first paragraph",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-2772EF6B27",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O pico de 22 produtos vencendo em jan/27 no calendário nacional é a soma de três relógios europeus: pendimethalin (15/01/2027, 10 produtos), bupirimate (31/01/2027, 5 produtos) e tau-fluvalinate (31/01/2027, 7 produtos).",
+    "valor": "10 + 5 + 7 = 22",
+    "unidade": "produtos ADAMA Itália",
+    "periodo": "horizonte 6 meses",
+    "o_que_prova": "que o agrupamento italiano não é acaso administrativo: cada bloco de vencimento tem um dono europeu com nome",
+    "o_que_nao_prova": "não prova que os 22 produtos sairão do mercado. Para as três substâncias a renovação está em avaliação; e o pendimethalin é Candidato à Substituição, o que muda o rito mas não decide o resultado.",
+    "citacao_literal": "\"AS_NAME\":\"Pendimethalin\",\"EXPIRY_DT\":\"15\\/01\\/2027\" · \"AS_NAME\":\"Bupirimate\",\"EXPIRY_DT\":\"31\\/01\\/2027\" · \"AS_NAME\":\"tau-Fluvalinate\",\"EXPIRY_DT\":\"31\\/01\\/2027\"",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que o agrupamento italiano não é acaso administrativo: cada bloco de vencimento tem um dono europeu com nome",
+   "WHAT_IT_PROVES_IT": "che il raggruppamento italiano non è una casualità amministrativa: ogni blocco di scadenza ha un titolare europeo con un nome",
+   "WHAT_IT_PROVES_EN": "that the Italian grouping is not administrative happenstance: every expiry block has a European owner with a name",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que os 22 produtos sairão do mercado. Para as três substâncias a renovação está em avaliação; e o pendimethalin é Candidato à Substituição, o que muda o rito mas não decide o resultado.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che i 22 prodotti usciranno dal mercato. Per le tre sostanze il rinnovo è in valutazione; e il pendimethalin è Candidato alla Sostituzione, il che cambia l'iter ma non decide l'esito.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove that the 22 products will leave the market. For the three substances the renewal is under assessment; and pendimethalin is a Candidate for Substitution, which changes the procedure but does not decide the outcome.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-A76E6FD597",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances/details/1373"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O registro europeu da renovação de tau-fluvalinate e de bupirimate nomeia a ADAMA como quem submeteu o dossiê — informação pública, no campo de observação do processo de renovação.",
+    "valor": "tau-fluvalinate: pedido de 18/05/2018 · bupirimate: pedido de 27/05/2018",
+    "unidade": "data do pedido de renovação",
+    "periodo": "horizonte 6 meses",
+    "o_que_prova": "que para essas duas substâncias o relógio de 31/01/2027 não é um evento externo à empresa — a própria base pública registra a ADAMA no processo",
+    "o_que_nao_prova": "não é dado interno da ADAMA e não deve ser tratado como tal: é o que a Comissão publica sobre quem submeteu. Não diz o estado do dossiê, nem se há conclusão da EFSA (não há data de conclusão registrada para nenhuma das duas), nem o resultado esperado.",
+    "citacao_literal": "Application under 844/2012 originally submitted on 18/05/2018. By Reg EU 2020/1740 the application and the dossier are submitted jointly; ADAMA submitted via IUCLID",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que para essas duas substâncias o relógio de 31/01/2027 não é um evento externo à empresa — a própria base pública registra a ADAMA no processo",
+   "WHAT_IT_PROVES_IT": "che per queste due sostanze l'orologio del 31/01/2027 non è un evento esterno all'azienda — la stessa banca dati pubblica registra ADAMA nel procedimento",
+   "WHAT_IT_PROVES_EN": "that for these two substances the 31/01/2027 clock is not an event external to the company — the public database itself records ADAMA in the process",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não é dado interno da ADAMA e não deve ser tratado como tal: é o que a Comissão publica sobre quem submeteu. Não diz o estado do dossiê, nem se há conclusão da EFSA (não há data de conclusão registrada para nenhuma das duas), nem o resultado esperado.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un dato interno di ADAMA e non deve essere trattato come tale: è ciò che la Commissione pubblica su chi ha effettuato la presentazione. Non dice lo stato del dossier, né se esiste una conclusione dell'EFSA (non risulta registrata alcuna data di conclusione per nessuna delle due), né l'esito atteso.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not internal ADAMA data and must not be treated as such: it is what the Commission publishes about who submitted. It does not say the status of the dossier, nor whether there is an EFSA conclusion (there is no conclusion date recorded for either of the two), nor the expected outcome.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-A38AB923F2",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances/details/713"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Estado do processo de renovação das substâncias prioritárias, lido no registro europeu: quem já tem relatório do Estado-relator entregue, quem já tem conclusão da EFSA, e quem não tem nada.",
+    "valor": "prothioconazole: conclusão EFSA 08/07/2025 · chlorantraniliprole: DRAR 10/03/2026 · propaquizafop: DRAR 08/09/2025 · quizalofop-P-ethyl: RAR de 22/09/2025 · fluroxypyr: DRAR 07/11/2023 · sulcotrione: DRAR 17/07/2023 · flonicamid: DRAR 05/12/2023 · tebuconazole: DRAR 29/03/2019 · azoxystrobin, metamitron, tau-fluvalinate, bupirimate, terbuthylazine: sem DRAR registrado",
+    "unidade": "marcos do processo",
+    "periodo": null,
+    "o_que_prova": "que dá para ordenar as substâncias por quão avançado está o processo, sem adivinhar",
+    "o_que_nao_prova": "não prova nada sobre o resultado. Campo vazio na base NÃO significa que o marco não aconteceu no mundo — significa que não foi registrado ali. Por isso a confiança é MÉDIA, não alta.",
+    "citacao_literal": "\"SUBMISSION_DRAR_DT\": \"2018-02-22 00:00:00\", \"EFSA_OUTPUT_DT\": \"2025-07-08 15:57:51\", \"INITIAL_EXPIRY_OF_APPROVAL_DT\": \"2018-07-31 00:00:00\", \"REMARK\": \"DRAR expected: 15/01/2021; ED submission DL: 15/04/2023 (Not ED for humans)\"",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "MEDIA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Estado do processo de renovação das substâncias prioritárias, lido no registro europeu: quem já tem relatório do Estado-relator entregue, quem já tem conclusão da EFSA, e quem não tem nada.",
+   "WHAT_IT_IS_IT": "Stato del procedimento di rinnovo delle sostanze prioritarie, letto nel registro europeo: chi ha già la relazione dello Stato relatore consegnata, chi ha già la conclusione dell'EFSA, e chi non ha nulla.",
+   "WHAT_IT_IS_EN": "Status of the renewal process for the priority substances, read from the European register: who already has the rapporteur State's report submitted, who already has the EFSA conclusion, and who has nothing.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que dá para ordenar as substâncias por quão avançado está o processo, sem adivinhar",
+   "WHAT_IT_PROVES_IT": "che si possono ordinare le sostanze in base a quanto è avanzato il procedimento, senza indovinare",
+   "WHAT_IT_PROVES_EN": "that the substances can be ordered by how far along the process is, without guessing",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova nada sobre o resultado. Campo vazio na base NÃO significa que o marco não aconteceu no mundo — significa que não foi registrado ali. Por isso a confiança é MÉDIA, não alta.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova nulla sull'esito. Un campo vuoto nella banca dati NON significa che la tappa non sia avvenuta nel mondo — significa che non è stata registrata lì. Per questo la confidenza è MEDIA, non alta.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "proves nothing about the outcome. An empty field in the database does NOT mean the milestone did not happen in the world — it means it was not recorded there. That is why confidence is MEDIUM, not high.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-81AFB6E31E",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_DOI_ORG"
+   ],
+   "SOURCE_URLS": [
+    "https://doi.org/10.2903/j.efsa.2025.9593"
+   ],
+   "REFERENCE_DATE": "EFSA: 2025-08 · SCoPAFF: reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Prothioconazole tem conclusão de revisão por pares publicada pela EFSA em agosto de 2025; e na reunião de 29-30/06/2026 a Comissão informou que recebeu da EFSA os esclarecimentos sobre a lacuna de dados dos co-formulantes, de modo que o processamento do dossiê pode continuar.",
+    "valor": "EFSA Journal, doi 10.2903/j.efsa.2025.9593",
+    "unidade": "parecer científico",
+    "periodo": "horizonte 12 meses",
+    "o_que_prova": "que o prothioconazole é a substância prioritária mais adiantada no rito: parecer publicado e obstáculo processual removido",
+    "o_que_nao_prova": "não prova que a renovação sairá antes de 31/03/2027, nem que sairá. Ter a conclusão da EFSA é condição para decidir, não é a decisão.",
+    "citacao_literal": "7. Prothioconazole The Commission informed the Committee that the requested clarifications from EFSA regarding the data gap on co-formulants had been recently received so that the processing of the dossier can be continued.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Prothioconazole tem conclusão de revisão por pares publicada pela EFSA em agosto de 2025; e na reunião de 29-30/06/2026 a Comissão informou que recebeu da EFSA os esclarecimentos sobre a lacuna de dados dos co-formulantes, de modo que o processamento do dossiê pode continuar.",
+   "WHAT_IT_IS_IT": "Il prothioconazole ha una conclusione della revisione tra pari pubblicata dall'EFSA nell'agosto 2025; e nella riunione del 29-30/06/2026 la Commissione ha comunicato di aver ricevuto dall'EFSA i chiarimenti sulla lacuna di dati dei co-formulanti, cosicché il trattamento del dossier può proseguire.",
+   "WHAT_IT_IS_EN": "Prothioconazole has a peer review conclusion published by EFSA in August 2025; and at the 29-30/06/2026 meeting the Commission reported that it had received from EFSA the clarifications on the co-formulants data gap, so that processing of the dossier can continue.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que a renovação sairá antes de 31/03/2027, nem que sairá. Ter a conclusão da EFSA é condição para decidir, não é a decisão.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che il rinnovo arriverà prima del 31/03/2027, né che arriverà. Avere la conclusione dell'EFSA è una condizione per decidere, non è la decisione.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove that the renewal will come before 31/03/2027, nor that it will come. Having the EFSA conclusion is a condition for deciding, it is not the decision.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-6D442A1F6B",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30; EFSA Conclusion de 2026-07",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Cymoxanil: a EFSA finalizou a conclusão; a avaliação de risco NÃO identificou nenhuma área crítica de preocupação, mas a avaliação das propriedades desreguladoras endócrinas não pôde ser finalizada (modalidade esteroidogênese), assim como definição de resíduo, risco ao consumidor e exposição de águas subterrâneas.",
+    "valor": "EFSA Journal, doi 10.2903/j.efsa.2026.10150 (julho/2026); comentários dos Estados-Membros até 31/08/2026",
+    "unidade": "parecer científico",
+    "periodo": "horizonte 24 meses",
+    "o_que_prova": "que é o único caso do portfólio, entre os que li, em que a ata europeia diz explicitamente que não há área crítica de preocupação",
+    "o_que_nao_prova": "NÃO prova que a renovação está garantida — quatro itens ficaram por finalizar, e o item endócrino é justamente o que derrubou outras substâncias. E os 6 produtos ADAMA têm vencimento nacional de 15/08/2026, ANTERIOR à nossa data de referência: não sei o estado administrativo deles hoje.",
+    "citacao_literal": "15. Cymoxanil The Commission informed Member States that EFSA finalised its Conclusion for cymoxanil which were commented by the two applicants. […] The risk assessment did not identify any critical area of concern. However, the assessment of the endocrine disrupting properties could not be finalised, specifically the steroidogenesis modality. Other issues that could not be finalised were the residue definition, the consumer risk assessment and the groundwater exposure. The co-formulants were also assessed and no concerns were identified by EFSA.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Cymoxanil: a EFSA finalizou a conclusão; a avaliação de risco NÃO identificou nenhuma área crítica de preocupação, mas a avaliação das propriedades desreguladoras endócrinas não pôde ser finalizada (modalidade esteroidogênese), assim como definição de resíduo, risco ao consumidor e exposição de águas subterrâneas.",
+   "WHAT_IT_IS_IT": "Cymoxanil: l'EFSA ha finalizzato la conclusione; la valutazione del rischio NON ha identificato alcuna area critica di preoccupazione, ma la valutazione delle proprietà di interferenza endocrina non ha potuto essere finalizzata (modalità steroidogenesi), così come la definizione di residuo, il rischio per il consumatore e l'esposizione delle acque sotterranee.",
+   "WHAT_IT_IS_EN": "Cymoxanil: EFSA finalised the conclusion; the risk assessment did NOT identify any critical area of concern, but the assessment of endocrine disrupting properties could not be finalised (steroidogenesis modality), as well as residue definition, consumer risk and groundwater exposure.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que é o único caso do portfólio, entre os que li, em que a ata europeia diz explicitamente que não há área crítica de preocupação",
+   "WHAT_IT_PROVES_IT": "che è l'unico caso del portafoglio, tra quelli che risulta dalla lettura, in cui il verbale europeo dice esplicitamente che non vi è area critica di preoccupazione",
+   "WHAT_IT_PROVES_EN": "that it is the only case in the portfolio, among those I read, in which the European minutes state explicitly that there is no critical area of concern",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que a renovação está garantida — quatro itens ficaram por finalizar, e o item endócrino é justamente o que derrubou outras substâncias. E os 6 produtos ADAMA têm vencimento nacional de 15/08/2026, ANTERIOR à nossa data de referência: não sei o estado administrativo deles hoje.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova che il rinnovo sia garantito — quattro punti sono rimasti da finalizzare, e il punto endocrino è proprio quello che ha fatto cadere altre sostanze. E i 6 prodotti ADAMA hanno scadenza nazionale del 15/08/2026, ANTERIORE alla nostra data di riferimento: non so quale sia oggi il loro stato amministrativo.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "It does NOT prove that renewal is guaranteed — four items were left to be finalised, and the endocrine item is precisely the one that brought down other substances. And the 6 ADAMA products have a national expiry of 15/08/2026, EARLIER than our reference date: I do not know their administrative status today.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "RESEARCHER_VOICE_REMOVED_FROM_SCREEN": "a leitura foi reescrita em voz impessoal para a tela. O texto original do pesquisador continua em _ORIGINAL_RESEARCH_TEXT."
+  },
+  {
+   "ID": "IT-CAN-9F6AB5186C",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Pinoxaden: a Comissão propôs restringir o uso a uma aplicação a cada três anos no mesmo campo, com base em estudos de monitoramento em que a substância só era aplicada de três em três anos na maioria dos locais amostrados.",
+    "valor": "1 aplicação a cada 3 anos no mesmo campo",
+    "unidade": "restrição de uso proposta",
+    "periodo": "horizonte 12 a 24 meses",
+    "o_que_prova": "que existe uma restrição de uso concreta, com número, proposta em documento público — o tipo de evento que muda rótulo sem mexer em data de vencimento",
+    "o_que_nao_prova": "não prova que a restrição foi adotada; é proposta em relatório de renovação revisto, ainda em circulação. E não sei se os rótulos italianos do EDAPTIS e do MEZAYO já preveem intervalo plurianual.",
+    "citacao_literal": "2. Pinoxaden The Commission announced that a draft revised renewal report would be shared via CIRCABC shortly after the meeting. The Commission proposed restricting the use of pinoxaden to one application every three years on the same field.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Pinoxaden: a Comissão propôs restringir o uso a uma aplicação a cada três anos no mesmo campo, com base em estudos de monitoramento em que a substância só era aplicada de três em três anos na maioria dos locais amostrados.",
+   "WHAT_IT_IS_IT": "Pinoxaden: la Commissione ha proposto di limitare l'uso a un'applicazione ogni tre anni sullo stesso campo, sulla base di studi di monitoraggio in cui la sostanza era applicata solo ogni tre anni nella maggior parte dei siti campionati.",
+   "WHAT_IT_IS_EN": "Pinoxaden: the Commission proposed restricting use to one application every three years on the same field, based on monitoring studies in which the substance was applied only every three years in most of the sampled sites.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que existe uma restrição de uso concreta, com número, proposta em documento público — o tipo de evento que muda rótulo sem mexer em data de vencimento",
+   "WHAT_IT_PROVES_IT": "che esiste una restrizione d'uso concreta, con numero, proposta in un documento pubblico — il tipo di evento che cambia l'etichetta senza toccare la data di scadenza",
+   "WHAT_IT_PROVES_EN": "that there is a concrete use restriction, with a number, proposed in a public document — the kind of event that changes a label without touching an expiry date",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que a restrição foi adotada; é proposta em relatório de renovação revisto, ainda em circulação. E não sei se os rótulos italianos do EDAPTIS e do MEZAYO já preveem intervalo plurianual.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che la restrizione sia stata adottata; è una proposta in un rapporto di rinnovo revisionato, ancora in circolazione. E non so se le etichette italiane di EDAPTIS e di MEZAYO prevedano già un intervallo pluriennale.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove that the restriction was adopted; it is a proposal in a revised renewal report, still in circulation. And I do not know whether the Italian labels of EDAPTIS and of MEZAYO already provide for a multi-year interval.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-CA8E6F04C2",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Pirimicarb entrou na ata europeia por comparação com formetanate: a Comissão registrou que ambas pertencem à classe dos carbamatos e que as avaliações de risco das duas identificaram preocupações de saúde humana semelhantes, e que para o formetanate a EFSA confirmou risco alto para trabalhadores, operadores, residentes e circunstantes em todos os usos representativos, mesmo com todas as medidas de mitigação disponíveis.",
+    "valor": null,
+    "unidade": null,
+    "periodo": "horizonte 12 meses",
+    "o_que_prova": "que a Comissão declarou por escrito a intenção de decidir de forma consistente entre as duas substâncias da mesma classe",
+    "o_que_nao_prova": "NÃO prova que o pirimicarb terá o mesmo desfecho do formetanate. A ata descreve o risco ALTO como conclusão sobre o FORMETANATE; sobre o pirimicarb diz apenas 'preocupações semelhantes' e registra que a avaliação dele usou a orientação OPEX de 2022 enquanto a do formetanate usava a de 2014. Confiança MÉDIA por isso.",
+    "citacao_literal": "13. Formetanate The Commission explained that formetanate and pirimicarb both belong to the carbamate class and that the risk assessments for both substances identified similar human health concerns. […] To ensure consistent decision-making among both substances, the Commission shared a summary of revised risk assessment of formetanate for operators, workers, residents and bystanders using the OPEX Guidance of 2022 that was provided by the RMS.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "MEDIA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Pirimicarb entrou na ata europeia por comparação com formetanate: a Comissão registrou que ambas pertencem à classe dos carbamatos e que as avaliações de risco das duas identificaram preocupações de saúde humana semelhantes, e que para o formetanate a EFSA confirmou risco alto para trabalhadores, operadores, residentes e circunstantes em todos os usos representativos, mesmo com todas as medidas de mitigação disponíveis.",
+   "WHAT_IT_IS_IT": "Pirimicarb è entrato nel verbale europeo per confronto con formetanate: la Commissione ha registrato che entrambe appartengono alla classe dei carbammati e che le valutazioni del rischio delle due hanno individuato preoccupazioni per la salute umana simili, e che per il formetanate l'EFSA ha confermato un rischio alto per lavoratori, operatori, residenti e astanti in tutti gli usi rappresentativi, anche con tutte le misure di mitigazione disponibili.",
+   "WHAT_IT_IS_EN": "Pirimicarb entered the European minutes by comparison with formetanate: the Commission recorded that both belong to the carbamate class and that the risk assessments of the two identified similar human health concerns, and that for formetanate EFSA confirmed a high risk for workers, operators, residents and bystanders in all representative uses, even with all available mitigation measures.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que o pirimicarb terá o mesmo desfecho do formetanate. A ata descreve o risco ALTO como conclusão sobre o FORMETANATE; sobre o pirimicarb diz apenas 'preocupações semelhantes' e registra que a avaliação dele usou a orientação OPEX de 2022 enquanto a do formetanate usava a de 2014. Confiança MÉDIA por isso.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova che il pirimicarb avrà lo stesso esito del formetanate. Il verbale descrive il rischio ALTO come conclusione sul FORMETANATE; sul pirimicarb dice soltanto 'preoccupazioni simili' e registra che la sua valutazione ha usato la guida OPEX del 2022 mentre quella del formetanate usava quella del 2014. Confidenza MEDIA per questo.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "It does NOT prove that pirimicarb will have the same outcome as formetanate. The minutes describe the HIGH risk as a conclusion about FORMETANATE; about pirimicarb they say only 'similar concerns' and record that its assessment used the 2022 OPEX guidance while formetanate's used the 2014 one. MEDIUM confidence because of this.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-28174EB957",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Duas substâncias do portfólio estão explicitamente em espera na agenda europeia até que a EFSA atualize a conclusão: fosetyl e diflufenican. Para o diflufenican a Comissão informou que virá um novo mandato à EFSA para refinar a avaliação de risco do compartimento aquático, avaliar estudos de TFA e checar os co-formulantes.",
+    "valor": null,
+    "unidade": null,
+    "periodo": "horizonte 12 a 24 meses",
+    "o_que_prova": "que para 9 produtos do portfólio o relógio europeu está parado por dependência científica, e não por decisão iminente",
+    "o_que_nao_prova": "não prova quando a EFSA voltará, nem em que direção. 'On hold' é ausência de decisão, não sinal de resultado. TFA (ácido trifluoroacético) aparece no texto sem definição — não sei o peso que a Comissão dá a esses estudos.",
+    "citacao_literal": "7. Fosetyl (on hold until updated of EFSA Conclusion) […] 8. Diflufenican (on hold until update of EFSA Conclusion) The Commission informed the Member States on the upcoming mandate to EFSA to refine the aquatic compartment risk assessment, assess some TFA studies and check the co-formulants.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Duas substâncias do portfólio estão explicitamente em espera na agenda europeia até que a EFSA atualize a conclusão: fosetyl e diflufenican. Para o diflufenican a Comissão informou que virá um novo mandato à EFSA para refinar a avaliação de risco do compartimento aquático, avaliar estudos de TFA e checar os co-formulantes.",
+   "WHAT_IT_IS_IT": "Due sostanze del portafoglio sono esplicitamente in attesa nell'agenda europea finché l'EFSA non aggiornerà la conclusione: fosetyl e diflufenican. Per il diflufenican la Commissione ha comunicato che arriverà un nuovo mandato all'EFSA per affinare la valutazione del rischio del comparto acquatico, valutare studi sul TFA e verificare i co-formulanti.",
+   "WHAT_IT_IS_EN": "Two substances in the portfolio are explicitly on hold on the European agenda until EFSA updates the conclusion: fosetyl and diflufenican. For diflufenican the Commission stated that a new mandate will come to EFSA to refine the aquatic compartment risk assessment, assess TFA studies and check the co-formulants.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que para 9 produtos do portfólio o relógio europeu está parado por dependência científica, e não por decisão iminente",
+   "WHAT_IT_PROVES_IT": "che per 9 prodotti del portafoglio l'orologio europeo è fermo per dipendenza scientifica, e non per una decisione imminente",
+   "WHAT_IT_PROVES_EN": "that for 9 products in the portfolio the European clock is stopped because of scientific dependency, and not because of an imminent decision",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova quando a EFSA voltará, nem em que direção. 'On hold' é ausência de decisão, não sinal de resultado. TFA (ácido trifluoroacético) aparece no texto sem definição — não sei o peso que a Comissão dá a esses estudos.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova quando l'EFSA tornerà, né in quale direzione. 'On hold' è assenza di decisione, non segnale di risultato. TFA (acido trifluoroacetico) compare nel testo senza definizione — non so il peso che la Commissione dà a questi studi.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove when EFSA will come back, nor in which direction. 'On hold' is absence of a decision, not a sign of an outcome. TFA (trifluoroacetic acid) appears in the text without a definition — I do not know the weight the Commission gives to those studies.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-56F31F076F",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_TROVANORME_SALUTE_GOV_IT"
+   ],
+   "SOURCE_URLS": [
+    "https://www.trovanorme.salute.gov.it/norme/renderFitoPdf?codleg=113880&anno=2026&parte=1"
+   ],
+   "REFERENCE_DATE": "2026-07-23 (comunicado); 2026-08-13 (publicação no portal)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "O Ministero della Salute publicou comunicado exigindo que os titulares de autorizações de produtos com metalaxyl-M apresentem, em até 30 dias da publicação, rótulo adequado ao Reg. (UE) 2026/1353; e, enquanto o processo de reetiquetagem corre, a frase antiga sobre semear apenas em estufa passa a ser substituída pela obrigação de usar semeadura de precisão. Para espinafre, densidade máxima de 2.000.000 de sementes/ha.",
+    "valor": "prazo de 30 dias a partir da publicação; validade a partir de 23/07/2026",
+    "unidade": "obrigação de rotulagem",
+    "periodo": "horizonte 3 meses",
+    "o_que_prova": "que existe uma obrigação nacional italiana, com prazo curto e já em curso, ligada a um ato europeu de 2026 sobre uma substância do portfólio",
+    "o_que_nao_prova": "NÃO prova que os 2 produtos ADAMA com metalaxy-M (FOLPAN GOLD e SESTO GOLD, ambos FOLPET+METALAXYL-M) sejam atingidos: na leitura de rótulo do pacote os dois aparecem como fungicidas de VIDEIRA, não como conciantes de sementes. A obrigação vale para quem tem uso de concia no rótulo. NÃO SEI se algum dos dois tem.",
+    "citacao_literal": "per i prodotti attualmente autorizzati che riportano in etichetta utilizzi conformi alle disposizioni riportate negli allegati del regolamento 2026/1353, le Imprese titolari delle autorizzazioni sono tenute a presentare, entro e non oltre 30 giorni dalla pubblicazione del presente comunicato, per ogni prodotto fitosanitario autorizzato un'etichetta adeguata […] \"L'utilizzo per la concia delle sementi ai fini della semina in campo delle sementi conciate comporta obbligatoriamente l'uso di attrezzature per la semina di precisione.\"",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "O Ministero della Salute publicou comunicado exigindo que os titulares de autorizações de produtos com metalaxyl-M apresentem, em até 30 dias da publicação, rótulo adequado ao Reg. (UE) 2026/1353; e, enquanto o processo de reetiquetagem corre, a frase antiga sobre semear apenas em estufa passa a ser substituída pela obrigação de usar semeadura de precisão. Para espinafre, densidade máxima de 2.000.000 de sementes/ha.",
+   "WHAT_IT_IS_IT": "Il Ministero della Salute ha pubblicato un comunicato che impone ai titolari delle autorizzazioni di prodotti con metalaxyl-M di presentare, entro 30 giorni dalla pubblicazione, un'etichetta adeguata al Reg. (UE) 2026/1353; e, mentre il processo di rietichettatura è in corso, la vecchia frase sul seminare solo in serra viene sostituita dall'obbligo di usare la semina di precisione. Per lo spinacio, densità massima di 2.000.000 di semi/ha.",
+   "WHAT_IT_IS_EN": "The Ministero della Salute published a notice requiring holders of authorisations for products with metalaxyl-M to submit, within 30 days of publication, a label compliant with Reg. (UE) 2026/1353; and, while the relabelling process is under way, the old phrase about sowing only in greenhouses is replaced by the obligation to use precision sowing. For spinach, maximum density of 2,000,000 seeds/ha.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que existe uma obrigação nacional italiana, com prazo curto e já em curso, ligada a um ato europeu de 2026 sobre uma substância do portfólio",
+   "WHAT_IT_PROVES_IT": "che esiste un obbligo nazionale italiano, con scadenza breve e già in corso, legato a un atto europeo del 2026 su una sostanza del portafoglio",
+   "WHAT_IT_PROVES_EN": "that there is an Italian national obligation, with a short deadline and already under way, linked to a 2026 European act on a substance in the portfolio",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que os 2 produtos ADAMA com metalaxy-M (FOLPAN GOLD e SESTO GOLD, ambos FOLPET+METALAXYL-M) sejam atingidos: na leitura de rótulo do pacote os dois aparecem como fungicidas de VIDEIRA, não como conciantes de sementes. A obrigação vale para quem tem uso de concia no rótulo. NÃO SEI se algum dos dois tem.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova che i 2 prodotti ADAMA con metalaxy-M (FOLPAN GOLD e SESTO GOLD, entrambi FOLPET+METALAXYL-M) siano colpiti: nella lettura delle etichette del pacchetto i due compaiono come fungicidi della VITE, non come concianti di sementi. L'obbligo vale per chi ha l'uso di concia in etichetta. NON SO se qualcuno dei due ce l'abbia.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "It does NOT prove that the 2 ADAMA products with metalaxy-M (FOLPAN GOLD and SESTO GOLD, both FOLPET+METALAXYL-M) are affected: in the package's label reading the two appear as GRAPEVINE fungicides, not as concianti di sementi (seed dressing products). The obligation applies to whoever has concia (seed treatment) use on the label. I DO NOT KNOW whether either of the two has it.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-42C93E2A64",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_TROVANORME_SALUTE_GOV_IT"
+   ],
+   "SOURCE_URLS": [
+    "https://www.trovanorme.salute.gov.it/norme/dettaglioAtto?id=114233"
+   ],
+   "REFERENCE_DATE": "2026-08-31",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "A revogação italiana por falta de apoio à renovação está viva e é recente: decreto direttoriale de 31/08/2026 revoga duas autorizações depois de o titular comunicar por PEC, em 04/08/2026, que renunciava aos produtos.",
+    "valor": "decreto de 31/08/2026",
+    "unidade": "ato administrativo nacional",
+    "periodo": "2 dias antes da data de referência",
+    "o_que_prova": "que a saída nacional de um produto pode vir de uma renúncia do próprio titular, e não de uma decisão europeia negativa — e que esse caminho está sendo usado agora",
+    "o_que_nao_prova": "não tem relação com a ADAMA: os dois produtos são da UPL, à base de feromônios. É o mecanismo que interessa, não o caso. E não é oportunidade comercial: não sei se havia demanda, nem quem atendia esses usos.",
+    "citacao_literal": "Sono revocate, a seguito della manifesta volontà di non supportare ulteriormente il rinnovo secondo Art. 43 del Regolamento 1107/2009, le autorizzazioni dei prodotti fitosanitari CLOUD TUTA (aut. n. 18112) e CLOUD LOBE (aut. n. 18113), UPL HOLDINGS COÖPERATIEF U.A.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "A revogação italiana por falta de apoio à renovação está viva e é recente: decreto direttoriale de 31/08/2026 revoga duas autorizações depois de o titular comunicar por PEC, em 04/08/2026, que renunciava aos produtos.",
+   "WHAT_IT_IS_IT": "La revoca italiana per mancanza di sostegno al rinnovo è viva ed è recente: decreto direttoriale del 31/08/2026 revoca due autorizzazioni dopo che il titolare ha comunicato via PEC, il 04/08/2026, di rinunciare ai prodotti.",
+   "WHAT_IT_IS_EN": "The Italian revocation for lack of support to renewal is alive and recent: decreto direttoriale (directorial decree) of 31 August 2026 revokes two authorisations after the holder communicated by PEC, on 4 August 2026, that it was renouncing the products.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que a saída nacional de um produto pode vir de uma renúncia do próprio titular, e não de uma decisão europeia negativa — e que esse caminho está sendo usado agora",
+   "WHAT_IT_PROVES_IT": "che l'uscita nazionale di un prodotto può venire da una rinuncia dello stesso titolare, e non da una decisione europea negativa — e che questa strada viene usata adesso",
+   "WHAT_IT_PROVES_EN": "that a product's national exit can come from a renunciation by the holder itself, and not from a negative European decision — and that this route is being used now",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não tem relação com a ADAMA: os dois produtos são da UPL, à base de feromônios. É o mecanismo que interessa, não o caso. E não é oportunidade comercial: não sei se havia demanda, nem quem atendia esses usos.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non ha relazione con ADAMA: i due prodotti sono di UPL, a base di feromoni. È il meccanismo che interessa, non il caso. E non è un'opportunità commerciale: non so se ci fosse domanda, né chi coprisse questi impieghi.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "has no relation to ADAMA: the two products are UPL's, pheromone-based. It is the mechanism that matters, not the case. And it is not a commercial opportunity: I do not know whether there was demand, nor who served these uses.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-F045CEC3BF",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base) vs 2026-08-24 (dataset nacional)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Em seis substâncias a data nacional italiana do produto vai ALÉM da data europeia da substância. A maior distância é do dicamba: aprovação UE até 31/03/2027, produto italiano com vencimento em 31/05/2033 — mais de seis anos de diferença.",
+    "valor": "dicamba UE 31/03/2027 vs IT 31/05/2033 · potassium phosphonates UE 31/07/2029 vs IT 31/10/2040 · metalaxyl-M UE 31/05/2035 vs IT 31/10/2040 · sulcotrione UE 30/11/2026 vs IT 31/05/2027 · fenpropidin UE 15/05/2027 vs IT 31/01/2028 · fluxapyroxad UE 31/10/2027 vs IT 31/03/2028",
+    "unidade": "pares de datas",
+    "periodo": null,
+    "o_que_prova": "que ler só a data nacional pode dar uma sensação de folga que a data europeia não sustenta",
+    "o_que_nao_prova": "NÃO prova irregularidade nem erro de ninguém. A data nacional de uma autorização de produto e a data europeia de aprovação de uma substância são coisas diferentes, com relógios diferentes; a nacional costuma ser revista quando a europeia se resolve. Também não sei se o dataset nacional de 24/08/2026 já incorporou as prorrogações europeias de junho e julho de 2026 — para phenmedipham e fludioxonil claramente não incorporou. Confiança MÉDIA.",
+    "citacao_literal": "\"AS_NAME\":\"Dicamba\",\"APPROVAL_DT\":\"01\\/01\\/2009\",\"EXPIRY_OF_APPROVAL_DT\":\"31\\/12\\/2021\",\"EXTENSION_OF_APPROVAL_DT\":\"31\\/03\\/2027\",\"EXPIRY_DT\":\"31\\/03\\/2027\"",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "MEDIA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Em seis substâncias a data nacional italiana do produto vai ALÉM da data europeia da substância. A maior distância é do dicamba: aprovação UE até 31/03/2027, produto italiano com vencimento em 31/05/2033 — mais de seis anos de diferença.",
+   "WHAT_IT_IS_IT": "In sei sostanze la data nazionale italiana del prodotto va OLTRE la data europea della sostanza. La distanza maggiore è quella del dicamba: approvazione UE fino al 31/03/2027, prodotto italiano con scadenza al 31/05/2033 — più di sei anni di differenza.",
+   "WHAT_IT_IS_EN": "In six substances the Italian national date of the product goes BEYOND the European date of the substance. The largest distance is dicamba's: EU approval until 31/03/2027, Italian product expiring on 31/05/2033 — more than six years of difference.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que ler só a data nacional pode dar uma sensação de folga que a data europeia não sustenta",
+   "WHAT_IT_PROVES_IT": "che leggere solo la data nazionale può dare una sensazione di margine che la data europea non sostiene",
+   "WHAT_IT_PROVES_EN": "that reading only the national date can give a sense of leeway that the European date does not support",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova irregularidade nem erro de ninguém. A data nacional de uma autorização de produto e a data europeia de aprovação de uma substância são coisas diferentes, com relógios diferentes; a nacional costuma ser revista quando a europeia se resolve. Também não sei se o dataset nacional de 24/08/2026 já incorporou as prorrogações europeias de junho e julho de 2026 — para phenmedipham e fludioxonil claramente não incorporou. Confiança MÉDIA.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova irregolarità né errore di nessuno. La data nazionale di un'autorizzazione di prodotto e la data europea di approvazione di una sostanza sono cose diverse, con orologi diversi; quella nazionale viene di solito rivista quando quella europea si risolve. Inoltre non so se il dataset nazionale del 24/08/2026 abbia già incorporato le proroghe europee di giugno e luglio 2026 — per phenmedipham e fludioxonil chiaramente non le ha incorporate. Confidenza MEDIA.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "Does NOT prove any irregularity or anyone's error. The national date of a product authorisation and the European date of approval of a substance are different things, with different clocks; the national one is usually revised when the European one is settled. I also do not know whether the national dataset of 24/08/2026 has already incorporated the European extensions of June and July 2026 — for phenmedipham and fludioxonil it clearly did not. MEDIUM confidence.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-C2076A9657",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://ec.europa.eu/food/plant/pesticides/eu-pesticides-database/start/screen/active-substances"
+   ],
+   "REFERENCE_DATE": "2026-09-02 (leitura da base)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Três substâncias declaradas em produtos ADAMA Itália não aparecem nos 1.483 registros da lista europeia de substâncias ativas, protetores e sinérgicos: cloquintocet-mexyl (10 produtos), isoxadifen-etil (1) e mefenpir-dietil (1). As três são protetores (safeners) — e a própria base tem um tipo 'Safener' entre os filtros.",
+    "valor": "3 de 53 substâncias sem correspondência",
+    "unidade": "substâncias ativas",
+    "periodo": null,
+    "o_que_prova": "que a leitura por substância ativa deixa um buraco: 12 registros italianos têm um componente cujo estado europeu não consegui ler nesta rota",
+    "o_que_nao_prova": "AUSÊNCIA NA NOSSA LEITURA NÃO É AUSÊNCIA NO MUNDO. Não prova que esses protetores não estejam regulados na UE, nem que não tenham data. NÃO SEI onde o estado deles é publicado — pode ser em outra tela da mesma base, ou pode ser que o programa de trabalho para protetores ainda não tenha produzido decisões.",
+    "citacao_literal": "\"altTypes\": [{\"bitmap\": 1, \"type\": \"Basic Substance Application\"}, {\"bitmap\": 2, \"type\": \"Low risk Active substance\"}, {\"bitmap\": 3, \"type\": \"Candidate for Substitution\"}, {\"bitmap\": 4, \"type\": \"Safener\"}, {\"bitmap\": 8, \"type\": \"Microorganism\"}, {\"bitmap\": 5, \"type\": \"Synergist\"}]",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Três substâncias declaradas em produtos ADAMA Itália não aparecem nos 1.483 registros da lista europeia de substâncias ativas, protetores e sinérgicos: cloquintocet-mexyl (10 produtos), isoxadifen-etil (1) e mefenpir-dietil (1). As três são protetores (safeners) — e a própria base tem um tipo 'Safener' entre os filtros.",
+   "WHAT_IT_IS_IT": "Tre sostanze dichiarate in prodotti ADAMA Italia non compaiono nei 1.483 record dell'elenco europeo di sostanze attive, fitoprotettori e sinergizzanti: cloquintocet-mexyl (10 prodotti), isoxadifen-etil (1) e mefenpir-dietil (1). Tutte e tre sono fitoprotettori (safener) — e la banca dati stessa ha un tipo 'Safener' tra i filtri.",
+   "WHAT_IT_IS_EN": "Three substances declared in ADAMA Italia products do not appear in the 1,483 records of the European list of active substances, safeners and synergists: cloquintocet-mexyl (10 products), isoxadifen-etil (1) and mefenpir-dietil (1). All three are safeners — and the database itself has a 'Safener' type among its filters.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que a leitura por substância ativa deixa um buraco: 12 registros italianos têm um componente cujo estado europeu não consegui ler nesta rota",
+   "WHAT_IT_PROVES_IT": "che la lettura per sostanza attiva lascia un buco: 12 record italiani hanno un componente il cui stato europeo non è stato possibile leggere per questa via",
+   "WHAT_IT_PROVES_EN": "that reading by active substance leaves a hole: 12 Italian records have a component whose European status it was not possible to read through this route",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "AUSÊNCIA NA NOSSA LEITURA NÃO É AUSÊNCIA NO MUNDO. Não prova que esses protetores não estejam regulados na UE, nem que não tenham data. NÃO SEI onde o estado deles é publicado — pode ser em outra tela da mesma base, ou pode ser que o programa de trabalho para protetores ainda não tenha produzido decisões.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "ASSENZA NELLA NOSTRA LETTURA NON È ASSENZA NEL MONDO. Non prova che questi fitoprotettori non siano regolamentati nell'UE, né che non abbiano una data. NON SO dove sia pubblicato il loro stato — può essere in un'altra schermata della stessa banca dati, oppure può essere che il programma di lavoro per i fitoprotettori non abbia ancora prodotto decisioni.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "ABSENCE IN OUR READING IS NOT ABSENCE IN THE WORLD. It does not prove that these safeners are not regulated in the EU, nor that they have no date. I DO NOT KNOW where their status is published — it may be on another screen of the same database, or it may be that the work programme for safeners has not yet produced decisions.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova",
+   "RESEARCHER_VOICE_REMOVED_FROM_SCREEN": "a leitura foi reescrita em voz impessoal para a tela. O texto original do pesquisador continua em _ORIGINAL_RESEARCH_TEXT."
+  },
+  {
+   "ID": "IT-CAN-E068A47857",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_DATA_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "http://data.europa.eu/eli/reg_impl/2023/2660/corrigendum/2026-07-24/oj"
+   ],
+   "REFERENCE_DATE": "2026-07-24",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "Saiu em 24/07/2026 uma retificação do regulamento que renovou o glifosato. É correção puramente tipográfica: a especificação de impureza N-nitroso-glifosato tinha sido publicada com o sinal de 'menor que' escapado como código de HTML.",
+    "valor": "'N-nitroso-glyphosate (NNG): < 1 mg/kg'",
+    "unidade": "limite de impureza",
+    "periodo": null,
+    "o_que_prova": "que há ato europeu de 2026 nomeando glifosato, e que ele NÃO mexe em prazo nem em condição de uso",
+    "o_que_nao_prova": "não muda nada de substantivo. Vale registrar exatamente para que ninguém leia 'retificação do regulamento do glifosato em 2026' e imagine mudança de mérito. Este ato não seria pego por busca de CELEX começando em 32026 — ele é 32023R2660R(02).",
+    "citacao_literal": "On page 7, in the third column of the table of Annex I, second paragraph, first indent: for: 'N-nitroso-glyphosate (NNG): &amp;lt; 1 mg/kg', read: 'N-nitroso-glyphosate (NNG): < 1 mg/kg'.",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "Saiu em 24/07/2026 uma retificação do regulamento que renovou o glifosato. É correção puramente tipográfica: a especificação de impureza N-nitroso-glifosato tinha sido publicada com o sinal de 'menor que' escapado como código de HTML.",
+   "WHAT_IT_IS_IT": "Il 24/07/2026 è uscita una rettifica del regolamento che ha rinnovato il glifosato. È una correzione puramente tipografica: la specifica dell'impurezza N-nitroso-glifosato era stata pubblicata con il segno di 'minore di' con escape come codice HTML.",
+   "WHAT_IT_IS_EN": "On 24/07/2026 a corrigendum was issued to the regulation that renewed glyphosate. It is a purely typographical correction: the N-nitroso-glyphosate impurity specification had been published with the 'less than' sign escaped as HTML code.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que há ato europeu de 2026 nomeando glifosato, e que ele NÃO mexe em prazo nem em condição de uso",
+   "WHAT_IT_PROVES_IT": "che esiste un atto europeo del 2026 che nomina il glifosato, e che NON tocca né scadenze né condizioni d'impiego",
+   "WHAT_IT_PROVES_EN": "that there is a 2026 European act naming glyphosate, and that it does NOT touch deadlines or conditions of use",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não muda nada de substantivo. Vale registrar exatamente para que ninguém leia 'retificação do regulamento do glifosato em 2026' e imagine mudança de mérito. Este ato não seria pego por busca de CELEX começando em 32026 — ele é 32023R2660R(02).",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non cambia nulla di sostanziale. Vale la pena registrarlo proprio perché nessuno legga 'rettifica del regolamento sul glifosato nel 2026' e immagini un cambiamento nel merito. Questo atto non sarebbe intercettato da una ricerca di CELEX che inizia con 32026 — è 32023R2660R(02).",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "changes nothing of substance. It is worth recording precisely so that no one reads 'corrigendum to the glyphosate regulation in 2026' and imagines a change on the merits. This act would not be caught by a CELEX search beginning with 32026 — it is 32023R2660R(02).",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-45543180E8",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_FOOD_EC_EUROPA_EU"
+   ],
+   "SOURCE_URLS": [
+    "https://food.ec.europa.eu/document/download/e1f018bc-7c71-4a00-8880-bb58829b91ee_en?filename=sc_phyto_20260629_ppl_sum.pdf"
+   ],
+   "REFERENCE_DATE": "reunião de 2026-06-29/30",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_EU"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "A próxima reunião do comitê europeu que decide sobre aprovação de substâncias (SCoPAFF, secção Fitofarmacêuticos-Legislação) está marcada para 24 e 25 de setembro de 2026. Até 02/09/2026 não há agenda nem relatório publicados para ela na nossa leitura.",
+    "valor": "24-25/09/2026",
+    "unidade": "data de reunião",
+    "periodo": "horizonte 3 meses",
+    "o_que_prova": "que existe uma data concreta e próxima em que os pontos pendentes (fludioxonil, phenmedipham, clodinafop, PLAN/2026/1408) podem avançar",
+    "o_que_nao_prova": "não prova que qualquer um desses itens entrará na pauta desse dia. A tabela de planeamento de 2026 mostra ainda colunas de reunião em novembro e dezembro, mas a associação coluna-mês foi lida por alinhamento visual e não é citação literal — só as datas de 24-25/09 estão confirmadas por duas fontes.",
+    "citacao_literal": "A.19 Date of next meeting(s): The Commission confirmed that the next meeting of this Committee would take place on 24 and 25 September 2026 (hybrid meeting).",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "OUTLOOK",
+   "CONFIDENCE": "ALTA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "A próxima reunião do comitê europeu que decide sobre aprovação de substâncias (SCoPAFF, secção Fitofarmacêuticos-Legislação) está marcada para 24 e 25 de setembro de 2026. Até 02/09/2026 não há agenda nem relatório publicados para ela na nossa leitura.",
+   "WHAT_IT_IS_IT": "La prossima riunione del comitato europeo che decide sull'approvazione delle sostanze (SCoPAFF, sezione Fitofarmaci-Legislazione) è fissata per il 24 e 25 settembre 2026. Fino al 02/09/2026 non risultano ordine del giorno né relazione pubblicati per essa nella nostra lettura.",
+   "WHAT_IT_IS_EN": "The next meeting of the European committee that decides on the approval of substances (SCoPAFF, Phytopharmaceuticals-Legislation section) is scheduled for 24 and 25 September 2026. As of 02/09/2026 there is neither agenda nor report published for it in our reading.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_PROVES_ORIGINAL_RESEARCH_TEXT": "que existe uma data concreta e próxima em que os pontos pendentes (fludioxonil, phenmedipham, clodinafop, PLAN/2026/1408) podem avançar",
+   "WHAT_IT_PROVES_IT": "che esiste una data concreta e vicina in cui i punti in sospeso (fludioxonil, phenmedipham, clodinafop, PLAN/2026/1408) possono avanzare",
+   "WHAT_IT_PROVES_EN": "that there is a concrete and near date on which the pending items (fludioxonil, phenmedipham, clodinafop, PLAN/2026/1408) may advance",
+   "WHAT_IT_PROVES_PROMOVIDO_DE": "RESEARCH.o_que_prova",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "não prova que qualquer um desses itens entrará na pauta desse dia. A tabela de planeamento de 2026 mostra ainda colunas de reunião em novembro e dezembro, mas a associação coluna-mês foi lida por alinhamento visual e não é citação literal — só as datas de 24-25/09 estão confirmadas por duas fontes.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non prova che uno qualsiasi di questi punti entrerà nell'ordine del giorno di quella data. La tabella di pianificazione del 2026 mostra inoltre colonne di riunione a novembre e dicembre, ma l'associazione colonna-mese è stata letta per allineamento visivo e non è citazione letterale — solo le date del 24-25/09 sono confermate da due fonti.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "does not prove that any of these items will enter the agenda of that day. The 2026 planning table also shows meeting columns in November and December, but the column-month association was read by visual alignment and is not a literal quotation — only the dates 24-25/09 are confirmed by two sources.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  },
+  {
+   "ID": "IT-CAN-3EEFD3B063",
+   "ENTITY_TYPE": "REGULATORY_FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_SOURCE_LAST_MILE",
+   "QA_STATUS": "QA_UNREVIEWED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "SRC_DATI_SALUTE_GOV_IT"
+   ],
+   "SOURCE_URLS": [
+    "https://www.dati.salute.gov.it/"
+   ],
+   "REFERENCE_DATE": "2026-08-24 (dataset) / 2026-08-30 (captura)",
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [
+    "GEO_ITALY"
+   ],
+   "GEOGRAPHIC_SCOPE": "REGIONAL",
+   "RESEARCH": {
+    "o_que": "No dataset nacional usado pelo pacote (PROD_FTS_6_20260824), 11 registros ADAMA têm vencimento em 15/08/2026 — data ANTERIOR à data de referência de 02/09/2026. São os 6 de cymoxanil e parte dos de azoxystrobin e tebuconazole.",
+    "valor": "15/08/2026",
+    "unidade": "data de vencimento nacional já passada",
+    "periodo": null,
+    "o_que_prova": "que o corte de '101 produtos vencem em 12 meses' inclui itens cuja data já passou na data de referência",
+    "o_que_nao_prova": "NÃO prova que esses produtos saíram do mercado. Vencimento de autorização costuma vir acompanhado de prazo de escoamento de estoque, e o Ministero publica prorrogações. NÃO SEI o estado administrativo atual desses 11 registros — isso exigiria reler a banca dati hoje.",
+    "citacao_literal": "\"NOTE\": \"Registro do Ministero della Salute, versao PROD_FTS_6_20260824, capturado em 2026-08-30. 163 vigentes.\"",
+    "IDIOMA": "pt-BR (nota de pesquisa) · citacao no idioma da fonte"
+   },
+   "ORIGIN_LAYER": "LAST_MILE",
+   "OBSERVATION_CLASS": "CURRENT",
+   "CONFIDENCE": "MEDIA",
+   "SOURCE_SCOPE": null,
+   "WHAT_IT_IS_ORIGINAL_RESEARCH_TEXT": "No dataset nacional usado pelo pacote (PROD_FTS_6_20260824), 11 registros ADAMA têm vencimento em 15/08/2026 — data ANTERIOR à data de referência de 02/09/2026. São os 6 de cymoxanil e parte dos de azoxystrobin e tebuconazole.",
+   "WHAT_IT_IS_IT": "Nel dataset nazionale usato dal pacchetto (PROD_FTS_6_20260824), 11 registrazioni ADAMA hanno scadenza al 15/08/2026 — data ANTERIORE alla data di riferimento del 02/09/2026. Sono i 6 di cymoxanil e parte di quelli di azoxystrobin e tebuconazole.",
+   "WHAT_IT_IS_EN": "In the national dataset used by the package (PROD_FTS_6_20260824), 11 ADAMA registrations have expiry on 15/08/2026 — a date EARLIER than the reference date of 02/09/2026. They are the 6 cymoxanil ones and part of the azoxystrobin and tebuconazole ones.",
+   "WHAT_IT_IS_PROMOVIDO_DE": "RESEARCH.o_que",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "NÃO prova que esses produtos saíram do mercado. Vencimento de autorização costuma vir acompanhado de prazo de escoamento de estoque, e o Ministero publica prorrogações. NÃO SEI o estado administrativo atual desses 11 registros — isso exigiria reler a banca dati hoje.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "NON prova che questi prodotti siano usciti dal mercato. La scadenza dell'autorizzazione è di solito accompagnata da un termine di smaltimento delle scorte, e il Ministero pubblica proroghe. NON SO quale sia lo stato amministrativo attuale di queste 11 registrazioni — questo richiederebbe di rileggere la banca dati oggi.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "Does NOT prove that these products left the market. Authorisation expiry is usually accompanied by a stock disposal deadline, and the Ministero publishes extensions. I DO NOT KNOW the current administrative status of these 11 registrations — that would require re-reading the banca dati (database) today.",
+   "WHAT_IT_DOES_NOT_PROVE_PROMOVIDO_DE": "RESEARCH.o_que_nao_prova"
+  }
+ ],
+ "LOCALIZED_FIELDS": [
+  "PERMANENT_CAVEAT",
+  "WHAT_IT_DOES_NOT_PROVE",
+  "WHAT_IT_IS",
+  "WHAT_IT_PROVES"
+ ],
+ "LOCALIZATION_LAW": "a traducao fica AO LADO do original, nunca no lugar dele. ORIGINAL_RESEARCH_TEXT guarda a prosa de pesquisa; _IT e _EN sao a mesma leitura noutra lingua. Citacao publica NAO foi traduzida: a palavra da fonte e a prova, e traduzir prova e adultera-la.",
+ "FIELD_ROLES": {
+  "PERMANENT_CAVEAT": "CLIENT_NARRATIVE",
+  "WHAT_IT_DOES_NOT_PROVE": "CLIENT_NARRATIVE",
+  "WHAT_IT_IS": "CLIENT_NARRATIVE",
+  "WHAT_IT_PROVES": "CLIENT_NARRATIVE"
+ },
+ "LOCALIZATION_CONTRACT": "so CLIENT_NARRATIVE e CLIENT_LABEL pedem irmao _IT/_EN. RAW_ORIGINAL e citacao e fica na lingua publicada; CANONICAL e valor controlado e nao tem lingua. Campo tirado desta lista NAO foi traduzido: foi reclassificado, e FIELD_ROLES diz em que papel.",
+ "BUILD_ID": "V21-99226fbb90dcdbc2",
+ "BUILD_ID_LAW": "deterministico: sai do conteudo dos 25 arquivos. Mesmo conteudo, mesmo BUILD_ID; conteudo diferente, BUILD_ID diferente. A data do calendario nao serve de identidade."
+}

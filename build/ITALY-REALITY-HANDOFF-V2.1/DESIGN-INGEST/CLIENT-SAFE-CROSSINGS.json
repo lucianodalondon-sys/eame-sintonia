@@ -1,0 +1,1549 @@
+{
+ "COLLECTION": "CLIENT_SAFE_CROSSINGS",
+ "FILE": "CLIENT-SAFE-CROSSINGS.json",
+ "SCHEMA_VERSION": "V2.1",
+ "BUILT_AT": "2026-09-02",
+ "PRIMARY_KEY": "ID",
+ "REPLACES_OLD_FILES": [
+  "V2/TOP-CROSSINGS.json — DESCARTADO, nao remendado"
+ ],
+ "LAW": "CROSSING NAO E OPPORTUNITY. E a constatacao de que duas camadas falam do mesmo CROP_ID. Quem decide se vale e uma pessoa.",
+ "JOIN_METHOD": "IDs normalizados exatos (CROP_ID). Nenhum casamento por texto, substring ou semelhanca.",
+ "COUNT_TOTAL": 20,
+ "COUNT_CLIENT_SAFE": 0,
+ "COUNT_RENDERABLE_WITH_METHOD": 20,
+ "NAME_MEANS": "client-safe aqui qualifica o APOIO, nao o cruzamento. Todo apoio passou no portao; a juncao e leitura nossa e vai a tela com a ressalva colada (RENDER_RULE em cada registro).",
+ "REFUSED": 0,
+ "INVARIANTS": {
+  "A": "toda evidencia de cultura resolve no MESMO CROP_ID",
+  "C": "geografia nunca promovida",
+  "D": "nenhum apoio e QA_UNREVIEWED",
+  "E": "todo ID resolve",
+  "F": "o par de rotulo contem a relacao cultura x alvo alegada",
+  "G": "cultura do mercado = cultura do cruzamento",
+  "H": "cultura do sinal de campo = cultura do cruzamento"
+ },
+ "BY_TYPE": {
+  "FIELD_SIGNAL_X_LABEL_USE": 14,
+  "IDENTIFIED_VOICE_X_SCIENCE_X_RESISTANCE": 1,
+  "MARKET_X_FIELD_SIGNAL": 3,
+  "COMPETITOR_X_CROP_WINDOW_X_PORTFOLIO": 2
+ },
+ "RECORDS": [
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_APPLE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_APPLE",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-004",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-019",
+     "IT-PHEN-002"
+    ],
+    "LABEL": [
+     "IT-LBL-023",
+     "IT-LBL-024",
+     "IT-LBL-025",
+     "IT-LBL-052",
+     "IT-LBL-053",
+     "IT-LBL-054",
+     "IT-LBL-055",
+     "IT-LBL-056"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA",
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_APPLE_IT_2024_AREA",
+    "ECW_APPLE_IT_2024_PRODUCTION",
+    "ECW_APPLE_IT_2024_YIELD",
+    "ECW_APPLE_IT_2025_AREA",
+    "ECW_APPLE_IT_2025_PRODUCTION",
+    "ECW_APPLE_IT_2025_YIELD",
+    "ECW_APPLE_IT_2026_AREA",
+    "ECW_APPLE_IT_2026_PRODUCTION",
+    "ECW_APPLE_IT_2026_YIELD",
+    "ECW_APPLE_ITC1_2024_AREA",
+    "ECW_APPLE_ITC1_2024_PRODUCTION",
+    "ECW_APPLE_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "LABEL": [
+     "IT-LBL-793",
+     "IT-LBL-794",
+     "IT-LBL-795"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_GRAPEVINE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_GRAPEVINE",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-037",
+     "IT-PHEN-017",
+     "IT-PHEN-038",
+     "IT-PHEN-040",
+     "IT-PHEN-041",
+     "IT-PHEN-032",
+     "IT-PHEN-006"
+    ],
+    "LABEL": [
+     "IT-LBL-064",
+     "IT-LBL-065",
+     "IT-LBL-066",
+     "IT-LBL-067",
+     "IT-LBL-068",
+     "IT-LBL-069",
+     "IT-LBL-070",
+     "IT-LBL-158"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_TABLEGRAPES_IT_2024_AREA",
+    "ECW_TABLEGRAPES_IT_2024_PRODUCTION",
+    "ECW_TABLEGRAPES_IT_2024_YIELD",
+    "ECW_TABLEGRAPES_IT_2025_AREA",
+    "ECW_TABLEGRAPES_IT_2025_PRODUCTION",
+    "ECW_TABLEGRAPES_IT_2025_YIELD",
+    "ECW_TABLEGRAPES_IT_2026_AREA",
+    "ECW_TABLEGRAPES_IT_2026_PRODUCTION",
+    "ECW_TABLEGRAPES_IT_2026_YIELD",
+    "ECW_TABLEGRAPES_ITC1_2026_AREA",
+    "ECW_TABLEGRAPES_ITC1_2026_PRODUCTION",
+    "ECW_TABLEGRAPES_ITC1_2026_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "FIELD": [
+     "IT-CAN-58B5351E59",
+     "IT-CAN-BC9A6F2BC1",
+     "IT-CAN-E6CB52283A",
+     "IT-CAN-0905D7932B",
+     "IT-CAN-1FCF8700AD",
+     "IT-CAN-1142003B03"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_KIWI",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_KIWI",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-019",
+     "IT-PHEN-011",
+     "IT-PHEN-013"
+    ],
+    "LABEL": [
+     "IT-LBL-324",
+     "IT-LBL-325",
+     "IT-LBL-821",
+     "IT-LBL-822",
+     "IT-LBL-901",
+     "IT-LBL-902",
+     "IT-LBL-1369",
+     "IT-LBL-1370"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_KIWI_IT_2024_AREA",
+    "ECW_KIWI_IT_2024_PRODUCTION",
+    "ECW_KIWI_IT_2024_YIELD",
+    "ECW_KIWI_IT_2025_AREA",
+    "ECW_KIWI_IT_2025_PRODUCTION",
+    "ECW_KIWI_IT_2025_YIELD",
+    "ECW_KIWI_IT_2026_AREA",
+    "ECW_KIWI_IT_2026_PRODUCTION",
+    "ECW_KIWI_IT_2026_YIELD",
+    "ECW_KIWI_ITC1_2024_AREA",
+    "ECW_KIWI_ITC1_2024_PRODUCTION",
+    "ECW_KIWI_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_MAIZE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_MAIZE",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-014",
+     "IT-PHEN-048",
+     "IT-PHEN-005",
+     "IT-PHEN-003",
+     "IT-PHEN-022"
+    ],
+    "LABEL": [
+     "IT-LBL-040",
+     "IT-LBL-041",
+     "IT-LBL-042",
+     "IT-LBL-043",
+     "IT-LBL-247",
+     "IT-LBL-248",
+     "IT-LBL-249",
+     "IT-LBL-250"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_MAIZE_IT_2024_AREA",
+    "ECW_MAIZE_IT_2024_PRODUCTION",
+    "ECW_MAIZE_IT_2024_YIELD",
+    "ECW_MAIZE_IT_2025_AREA",
+    "ECW_MAIZE_IT_2025_PRODUCTION",
+    "ECW_MAIZE_IT_2025_YIELD",
+    "ECW_MAIZE_IT_2026_AREA",
+    "ECW_MAIZE_IT_2026_PRODUCTION",
+    "ECW_MAIZE_IT_2026_YIELD",
+    "ECW_MAIZE_ITC1_2024_AREA",
+    "ECW_MAIZE_ITC1_2024_PRODUCTION",
+    "ECW_MAIZE_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "LABEL": [
+     "IT-LBL-561",
+     "IT-LBL-562",
+     "IT-LBL-563",
+     "IT-LBL-564",
+     "IT-LBL-565",
+     "IT-LBL-566",
+     "IT-LBL-567",
+     "IT-LBL-568",
+     "IT-LBL-569",
+     "IT-LBL-570"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_OLIVE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_OLIVE",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-036",
+     "IT-PHEN-039",
+     "IT-PHEN-042",
+     "IT-PHEN-032",
+     "IT-PHEN-033",
+     "IT-PHEN-034",
+     "IT-PHEN-035"
+    ],
+    "LABEL": [
+     "IT-LBL-1932"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_OLIVTAB_OIL_IT_2024_AREA",
+    "ECW_OLIVTAB_OIL_IT_2024_PRODUCTION",
+    "ECW_OLIVTAB_OIL_IT_2024_YIELD",
+    "ECW_OLIVTAB_OIL_IT_2025_AREA",
+    "ECW_OLIVTAB_OIL_IT_2025_PRODUCTION",
+    "ECW_OLIVTAB_OIL_IT_2025_YIELD",
+    "ECW_OLIVTAB_OIL_IT_2026_AREA",
+    "ECW_OLIVTAB_OIL_IT_2026_PRODUCTION",
+    "ECW_OLIVTAB_OIL_IT_2026_YIELD",
+    "ECW_OLIVTAB_OIL_ITC1_2024_AREA",
+    "ECW_OLIVTAB_OIL_ITC1_2024_PRODUCTION",
+    "ECW_OLIVTAB_OIL_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "FIELD": [
+     "IT-CAN-250482D74F",
+     "IT-CAN-00CB28DC93",
+     "IT-CAN-2BC6997DFE",
+     "IT-CAN-C017B4E6D7",
+     "IT-CAN-8A01FCE6A4",
+     "IT-CAN-C74FA83B20",
+     "IT-CAN-596C5B1305",
+     "IT-CAN-381B96A41F"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_PEACH",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_PEACH",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-047",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-019",
+     "IT-PHEN-002"
+    ],
+    "LABEL": [
+     "IT-LBL-018",
+     "IT-LBL-019",
+     "IT-LBL-020",
+     "IT-LBL-021",
+     "IT-LBL-022",
+     "IT-LBL-263",
+     "IT-LBL-264",
+     "IT-LBL-265"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA",
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_PEACH_IT_2024_AREA",
+    "ECW_PEACH_IT_2024_PRODUCTION",
+    "ECW_PEACH_IT_2024_YIELD",
+    "ECW_PEACH_IT_2025_AREA",
+    "ECW_PEACH_IT_2025_PRODUCTION",
+    "ECW_PEACH_IT_2025_YIELD",
+    "ECW_PEACH_IT_2026_AREA",
+    "ECW_PEACH_IT_2026_PRODUCTION",
+    "ECW_PEACH_IT_2026_YIELD",
+    "ECW_PEACH_ITC1_2024_AREA",
+    "ECW_PEACH_ITC1_2024_PRODUCTION",
+    "ECW_PEACH_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_PEAR",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_PEAR",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-004",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-019",
+     "IT-PHEN-002"
+    ],
+    "LABEL": [
+     "IT-LBL-976",
+     "IT-LBL-977",
+     "IT-LBL-978",
+     "IT-LBL-1434",
+     "IT-LBL-1435",
+     "IT-LBL-1436",
+     "IT-LBL-1623",
+     "IT-LBL-1624"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_POTATO",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_POTATO",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-046",
+     "IT-PHEN-012",
+     "IT-PHEN-013"
+    ],
+    "LABEL": [
+     "IT-LBL-036",
+     "IT-LBL-037",
+     "IT-LBL-038",
+     "IT-LBL-039",
+     "IT-LBL-071",
+     "IT-LBL-072",
+     "IT-LBL-073",
+     "IT-LBL-074"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA",
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_POTA_IT_2024_AREA",
+    "ECW_POTA_IT_2024_PRODUCTION",
+    "ECW_POTA_IT_2024_YIELD",
+    "ECW_POTA_IT_2025_AREA",
+    "ECW_POTA_IT_2025_PRODUCTION",
+    "ECW_POTA_IT_2025_YIELD",
+    "ECW_POTA_IT_2026_AREA",
+    "ECW_POTA_IT_2026_PRODUCTION",
+    "ECW_POTA_IT_2026_YIELD",
+    "ECW_POTA_ITC1_2024_AREA",
+    "ECW_POTA_ITC1_2024_PRODUCTION",
+    "ECW_POTA_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_RICE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_RICE",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-014",
+     "IT-PHEN-016",
+     "IT-PHEN-010",
+     "IT-PHEN-011"
+    ],
+    "LABEL": [
+     "IT-LBL-407",
+     "IT-LBL-408",
+     "IT-LBL-601",
+     "IT-LBL-602",
+     "IT-LBL-1348",
+     "IT-LBL-1349",
+     "IT-LBL-1350",
+     "IT-LBL-1508"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_RICE_IT_2024_AREA",
+    "ECW_RICE_IT_2024_PRODUCTION",
+    "ECW_RICE_IT_2024_YIELD",
+    "ECW_RICE_IT_2025_AREA",
+    "ECW_RICE_IT_2025_PRODUCTION",
+    "ECW_RICE_IT_2025_YIELD",
+    "ECW_RICE_ITC1_2024_AREA",
+    "ECW_RICE_ITC1_2024_PRODUCTION",
+    "ECW_RICE_ITC1_2024_YIELD",
+    "ECW_RICE_ITC1_2025_AREA",
+    "ECW_RICE_ITC1_2025_PRODUCTION",
+    "ECW_RICE_ITC1_2025_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "FIELD": [
+     "IT-CAN-DA0E40953A",
+     "IT-CAN-4E107DCCAC",
+     "IT-CAN-7008C589F0"
+    ],
+    "LABEL": [
+     "IT-LBL-1897",
+     "IT-LBL-1898",
+     "IT-LBL-1899",
+     "IT-LBL-1900"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_SOYBEAN",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_SOYBEAN",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-004",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-002",
+     "IT-PHEN-007"
+    ],
+    "LABEL": [
+     "IT-LBL-360",
+     "IT-LBL-361",
+     "IT-LBL-362",
+     "IT-LBL-363",
+     "IT-LBL-857",
+     "IT-LBL-858",
+     "IT-LBL-859",
+     "IT-LBL-860"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_SOYA_IT_2024_AREA",
+    "ECW_SOYA_IT_2024_PRODUCTION",
+    "ECW_SOYA_IT_2024_YIELD",
+    "ECW_SOYA_IT_2025_AREA",
+    "ECW_SOYA_IT_2025_PRODUCTION",
+    "ECW_SOYA_IT_2025_YIELD",
+    "ECW_SOYA_IT_2026_AREA",
+    "ECW_SOYA_IT_2026_PRODUCTION",
+    "ECW_SOYA_IT_2026_YIELD",
+    "ECW_SOYA_ITC1_2024_AREA",
+    "ECW_SOYA_ITC1_2024_PRODUCTION",
+    "ECW_SOYA_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_STONE_FRUIT",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_STONE_FRUIT",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-047",
+     "IT-PHEN-047",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-012"
+    ],
+    "LABEL": [
+     "IT-LBL-225",
+     "IT-LBL-226",
+     "IT-LBL-227",
+     "IT-LBL-228",
+     "IT-LBL-229",
+     "IT-LBL-267",
+     "IT-LBL-268",
+     "IT-LBL-313"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA",
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_SUGAR_BEET",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_SUGAR_BEET",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-004",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-002",
+     "IT-PHEN-007"
+    ],
+    "LABEL": [
+     "IT-LBL-107",
+     "IT-LBL-108",
+     "IT-LBL-109",
+     "IT-LBL-110",
+     "IT-LBL-111",
+     "IT-LBL-112",
+     "IT-LBL-113",
+     "IT-LBL-200"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_BEETS_IT_2024_AREA",
+    "ECW_BEETS_IT_2024_PRODUCTION",
+    "ECW_BEETS_IT_2024_YIELD",
+    "ECW_BEETS_IT_2025_AREA",
+    "ECW_BEETS_IT_2025_PRODUCTION",
+    "ECW_BEETS_IT_2025_YIELD",
+    "ECW_BEETS_ITC1_2024_AREA",
+    "ECW_BEETS_ITC1_2024_PRODUCTION",
+    "ECW_BEETS_ITC1_2024_YIELD",
+    "ECW_BEETS_ITC1_2025_AREA",
+    "ECW_BEETS_ITC1_2025_PRODUCTION",
+    "ECW_BEETS_ITC1_2025_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "LABEL": [
+     "IT-LBL-001",
+     "IT-LBL-002",
+     "IT-LBL-003",
+     "IT-LBL-004",
+     "IT-LBL-005",
+     "IT-LBL-006",
+     "IT-LBL-007",
+     "IT-LBL-008",
+     "IT-LBL-009",
+     "IT-LBL-010"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_TOMATO",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_TOMATO",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-045",
+     "IT-PHEN-045",
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-004",
+     "IT-PHEN-002",
+     "IT-PHEN-007"
+    ],
+    "LABEL": [
+     "IT-LBL-016",
+     "IT-LBL-017",
+     "IT-LBL-033",
+     "IT-LBL-034",
+     "IT-LBL-035",
+     "IT-LBL-240",
+     "IT-LBL-241",
+     "IT-LBL-242"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "BLOCO_DA_CULTURA",
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_OFTP_IT_2024_AREA",
+    "ECW_OFTP_IT_2024_PRODUCTION",
+    "ECW_OFTP_IT_2024_YIELD",
+    "ECW_OFTP_IT_2025_AREA",
+    "ECW_OFTP_IT_2025_PRODUCTION",
+    "ECW_OFTP_IT_2025_YIELD",
+    "ECW_OFTP_IT_2026_AREA",
+    "ECW_OFTP_IT_2026_PRODUCTION",
+    "ECW_OFTP_IT_2026_YIELD",
+    "ECW_OFTP_ITC1_2024_AREA",
+    "ECW_OFTP_ITC1_2024_PRODUCTION",
+    "ECW_OFTP_ITC1_2024_YIELD"
+   ],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "FIELD": [
+     "IT-CAN-FE12F4385B"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "FIELD_SIGNAL_X_LABEL_USE",
+   "CROP_ID": "CROP_WHEAT_GENERIC",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_FIELD_SIGNAL_X_LAB_WHEAT_GENERIC",
+   "SUPPORTING_IDS": {
+    "FIELD": [
+     "IT-PHEN-006",
+     "IT-PHEN-008",
+     "IT-PHEN-004",
+     "IT-PHEN-010",
+     "IT-PHEN-012",
+     "IT-PHEN-002",
+     "IT-PHEN-007",
+     "IT-PHEN-009"
+    ],
+    "LABEL": [
+     "IT-LBL-044",
+     "IT-LBL-045",
+     "IT-LBL-046",
+     "IT-LBL-047",
+     "IT-LBL-048",
+     "IT-LBL-049",
+     "IT-LBL-251",
+     "IT-LBL-252"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_DOES_NOT_PROVE": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "H",
+    "F"
+   ],
+   "LABEL_LINK_STRENGTHS": [
+    "LINHA_DA_TABELA"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [],
+   "ECONOMIC_WEIGHT_LEADS_LAW": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "RESEARCH_LEADS": {
+    "LABEL": [
+     "IT-LBL-733",
+     "IT-LBL-734",
+     "IT-LBL-735",
+     "IT-LBL-736",
+     "IT-LBL-737",
+     "IT-LBL-738",
+     "IT-LBL-739",
+     "IT-LBL-740",
+     "IT-LBL-741",
+     "IT-LBL-742"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade. Nao prova demanda, nao prova que o produto resolve o problema, e o sinal e do lugar do boletim — nao da regiao inteira nem do pais.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "non è un'opportunità. Non prova domanda, non prova che il prodotto risolva il problema, e il segnale è del luogo del bollettino — non dell'intera regione né del Paese.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "is not an opportunity. It does not prove demand, it does not prove that the product solves the problem, and the signal belongs to the place of the bulletin — not to the whole region nor to the country.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha sinal de campo corrente numa cultura para a qual o rotulo da ADAMA tem uso LIDO no documento",
+   "WHAT_IT_LETS_YOU_ASK_IT": "c'è un segnale di campo corrente in una coltura per la quale l'etichetta ADAMA ha un impiego LETTO nel documento",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current field signal in a crop for which the ADAMA label has a use READ in the document",
+   "ECONOMIC_WEIGHT_LEADS_LAW_ORIGINAL_RESEARCH_TEXT": "estes IDs do ISTAT sao QA_UNREVIEWED. Servem para o analista abrir a pergunta «esta cultura pesa quanto nesta regiao?» — e NAO para o portal afirmar o peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_IT": "questi ID ISTAT sono QA_UNREVIEWED. Servono all'analista per aprire la domanda «quanto pesa questa coltura in questa regione?» — e NON perché il portale affermi il peso.",
+   "ECONOMIC_WEIGHT_LEADS_LAW_EN": "these ISTAT IDs are QA_UNREVIEWED. They serve for the analyst to open the question «how much does this crop weigh in this region?» — and NOT for the portal to state the weight."
+  },
+  {
+   "CROSSING_TYPE": "IDENTIFIED_VOICE_X_SCIENCE_X_RESISTANCE",
+   "CROP_ID": "CROP_GRAPEVINE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_IDENTIFIED_VOICE_X_GRAPEVINE",
+   "SUPPORTING_IDS": {
+    "VOICE": [
+     "IT-CAN-CE59EFB377",
+     "IT-CAN-32037BB3A8"
+    ],
+    "SCIENCE": [
+     "IT-SCI-003",
+     "IT-SCI-004",
+     "IT-SCI-005",
+     "IT-SCI-006",
+     "IT-SCI-007",
+     "IT-SCI-008"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_SOURCED",
+    "QA_CORRECTED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "gente com nome e cargo falou desta cultura, e ha ciencia registrada sobre ela",
+   "WHAT_IT_DOES_NOT_PROVE": "VOZ NAO E INCIDENCIA. Uma declaracao nao mede quanto do campo esta afetado. E quatro pessoas num mesmo artigo sao quatro vozes e UM documento — conte por SOURCE_DOCUMENT_ID.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E"
+   ],
+   "DISTINCT_SOURCE_DOCUMENTS": 1,
+   "RESEARCH_LEADS": {
+    "VOICE": [
+     "IT-CAN-55ACA0E7D2",
+     "IT-CAN-CD22924A7B",
+     "IT-CAN-14A0AF2022"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "VOZ NAO E INCIDENCIA. Uma declaracao nao mede quanto do campo esta afetado. E quatro pessoas num mesmo artigo sao quatro vozes e UM documento — conte por SOURCE_DOCUMENT_ID.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "LA VOCE NON È INCIDENZA. Una dichiarazione non misura quanta parte del campo è colpita. E quattro persone in uno stesso articolo sono quattro voci e UN documento — conta per SOURCE_DOCUMENT_ID.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "A VOICE IS NOT INCIDENCE. A statement does not measure how much of the field is affected. And four people in the same article are four voices and ONE document — count by SOURCE_DOCUMENT_ID.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "gente com nome e cargo falou desta cultura, e ha ciencia registrada sobre ela",
+   "WHAT_IT_LETS_YOU_ASK_IT": "persone con nome e ruolo hanno parlato di questa coltura, e c'è scienza registrata su di essa",
+   "WHAT_IT_LETS_YOU_ASK_EN": "people with a name and a job title spoke about this crop, and there is recorded science about it"
+  },
+  {
+   "CROSSING_TYPE": "MARKET_X_FIELD_SIGNAL",
+   "CROP_ID": "CROP_GRAPEVINE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_MARKET_X_FIELD_SIG_GRAPEVINE",
+   "SUPPORTING_IDS": {
+    "MARKET": [
+     "IT-CAN-785827E751",
+     "IT-CAN-DA62FEB55A",
+     "IT-CAN-3312E852F3",
+     "IT-CAN-4167324DBA",
+     "IT-CAN-0CFDD3DBF5"
+    ],
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-037",
+     "IT-PHEN-017",
+     "IT-PHEN-038",
+     "IT-PHEN-040",
+     "IT-PHEN-041"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_SOURCED",
+    "QA_CORRECTED",
+    "QA_PASS"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha preco corrente e sinal de campo para a MESMA cultura",
+   "WHAT_IT_DOES_NOT_PROVE": "preco alto de cultura nao e lucro do produtor, e o preco nao diz se o problema fitossanitario esta ocorrendo. Preco de piazza nao e preco nacional.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "G",
+    "H"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_TABLEGRAPES_IT_2024_AREA",
+    "ECW_TABLEGRAPES_IT_2024_PRODUCTION",
+    "ECW_TABLEGRAPES_IT_2024_YIELD",
+    "ECW_TABLEGRAPES_IT_2025_AREA",
+    "ECW_TABLEGRAPES_IT_2025_PRODUCTION",
+    "ECW_TABLEGRAPES_IT_2025_YIELD",
+    "ECW_TABLEGRAPES_IT_2026_AREA",
+    "ECW_TABLEGRAPES_IT_2026_PRODUCTION",
+    "ECW_TABLEGRAPES_IT_2026_YIELD",
+    "ECW_TABLEGRAPES_ITC1_2026_AREA",
+    "ECW_TABLEGRAPES_ITC1_2026_PRODUCTION",
+    "ECW_TABLEGRAPES_ITC1_2026_YIELD"
+   ],
+   "RESEARCH_LEADS": {
+    "MARKET": [
+     "IT-CAN-A9929FADCB",
+     "IT-CAN-DF646FE85B",
+     "IT-CAN-6B361F35E6",
+     "IT-CAN-60D35D2FFC",
+     "IT-CAN-F35E4CF36A",
+     "IT-CAN-16AEF5EB55",
+     "IT-CAN-E6AEB7675F"
+    ],
+    "FIELD": [
+     "IT-CAN-58B5351E59",
+     "IT-CAN-BC9A6F2BC1",
+     "IT-CAN-E6CB52283A",
+     "IT-CAN-0905D7932B",
+     "IT-CAN-1FCF8700AD",
+     "IT-CAN-1142003B03"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "preco alto de cultura nao e lucro do produtor, e o preco nao diz se o problema fitossanitario esta ocorrendo. Preco de piazza nao e preco nacional.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "un prezzo alto di una coltura non è profitto del produttore, e il prezzo non dice se il problema fitosanitario si sta verificando. Il prezzo di piazza non è prezzo nazionale.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "a high crop price is not the grower's profit, and the price does not say whether the phytosanitary problem is occurring. A piazza (local market) price is not a national price.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha preco corrente e sinal de campo para a MESMA cultura",
+   "WHAT_IT_LETS_YOU_ASK_IT": "esiste un prezzo corrente e un segnale di campo per la STESSA coltura",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current price and a field signal for the SAME crop"
+  },
+  {
+   "CROSSING_TYPE": "MARKET_X_FIELD_SIGNAL",
+   "CROP_ID": "CROP_MAIZE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_MARKET_X_FIELD_SIG_MAIZE",
+   "SUPPORTING_IDS": {
+    "MARKET": [
+     "IT-MKT-023"
+    ],
+    "FIELD": [
+     "IT-PHEN-014",
+     "IT-PHEN-048",
+     "IT-PHEN-005",
+     "IT-PHEN-003",
+     "IT-PHEN-022"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha preco corrente e sinal de campo para a MESMA cultura",
+   "WHAT_IT_DOES_NOT_PROVE": "preco alto de cultura nao e lucro do produtor, e o preco nao diz se o problema fitossanitario esta ocorrendo. Preco de piazza nao e preco nacional.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "G",
+    "H"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_MAIZE_IT_2024_AREA",
+    "ECW_MAIZE_IT_2024_PRODUCTION",
+    "ECW_MAIZE_IT_2024_YIELD",
+    "ECW_MAIZE_IT_2025_AREA",
+    "ECW_MAIZE_IT_2025_PRODUCTION",
+    "ECW_MAIZE_IT_2025_YIELD",
+    "ECW_MAIZE_IT_2026_AREA",
+    "ECW_MAIZE_IT_2026_PRODUCTION",
+    "ECW_MAIZE_IT_2026_YIELD",
+    "ECW_MAIZE_ITC1_2024_AREA",
+    "ECW_MAIZE_ITC1_2024_PRODUCTION",
+    "ECW_MAIZE_ITC1_2024_YIELD"
+   ],
+   "RESEARCH_LEADS": {
+    "MARKET": [
+     "IT-CAN-855A9FE2F1",
+     "IT-CAN-22716DACEC"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "preco alto de cultura nao e lucro do produtor, e o preco nao diz se o problema fitossanitario esta ocorrendo. Preco de piazza nao e preco nacional.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "un prezzo alto di una coltura non è profitto del produttore, e il prezzo non dice se il problema fitosanitario si sta verificando. Il prezzo di piazza non è prezzo nazionale.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "a high crop price is not the grower's profit, and the price does not say whether the phytosanitary problem is occurring. A piazza (local market) price is not a national price.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha preco corrente e sinal de campo para a MESMA cultura",
+   "WHAT_IT_LETS_YOU_ASK_IT": "esiste un prezzo corrente e un segnale di campo per la STESSA coltura",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current price and a field signal for the SAME crop"
+  },
+  {
+   "CROSSING_TYPE": "MARKET_X_FIELD_SIGNAL",
+   "CROP_ID": "CROP_OLIVE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_MARKET_X_FIELD_SIG_OLIVE",
+   "SUPPORTING_IDS": {
+    "MARKET": [
+     "IT-MKT-041",
+     "IT-MKT-042",
+     "IT-MKT-043",
+     "IT-MKT-044",
+     "IT-MKT-045",
+     "IT-MKT-046"
+    ],
+    "FIELD": [
+     "IT-PHEN-001",
+     "IT-PHEN-036",
+     "IT-PHEN-039",
+     "IT-PHEN-042",
+     "IT-PHEN-032",
+     "IT-PHEN-033"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "ha preco corrente e sinal de campo para a MESMA cultura",
+   "WHAT_IT_DOES_NOT_PROVE": "preco alto de cultura nao e lucro do produtor, e o preco nao diz se o problema fitossanitario esta ocorrendo. Preco de piazza nao e preco nacional.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "G",
+    "H"
+   ],
+   "ECONOMIC_WEIGHT_LEADS": [
+    "ECW_OLIVTAB_OIL_IT_2024_AREA",
+    "ECW_OLIVTAB_OIL_IT_2024_PRODUCTION",
+    "ECW_OLIVTAB_OIL_IT_2024_YIELD",
+    "ECW_OLIVTAB_OIL_IT_2025_AREA",
+    "ECW_OLIVTAB_OIL_IT_2025_PRODUCTION",
+    "ECW_OLIVTAB_OIL_IT_2025_YIELD",
+    "ECW_OLIVTAB_OIL_IT_2026_AREA",
+    "ECW_OLIVTAB_OIL_IT_2026_PRODUCTION",
+    "ECW_OLIVTAB_OIL_IT_2026_YIELD",
+    "ECW_OLIVTAB_OIL_ITC1_2024_AREA",
+    "ECW_OLIVTAB_OIL_ITC1_2024_PRODUCTION",
+    "ECW_OLIVTAB_OIL_ITC1_2024_YIELD"
+   ],
+   "RESEARCH_LEADS": {
+    "MARKET": [
+     "IT-CAN-2BC4304E9C",
+     "IT-CAN-243D2405C9",
+     "IT-CAN-7042CA2495",
+     "IT-CAN-5066CA0DDF",
+     "IT-CAN-548DD8ABCB",
+     "IT-CAN-10B44BD4D2"
+    ],
+    "FIELD": [
+     "IT-CAN-250482D74F",
+     "IT-CAN-00CB28DC93",
+     "IT-CAN-2BC6997DFE",
+     "IT-CAN-C017B4E6D7",
+     "IT-CAN-8A01FCE6A4",
+     "IT-CAN-C74FA83B20",
+     "IT-CAN-596C5B1305",
+     "IT-CAN-381B96A41F"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "preco alto de cultura nao e lucro do produtor, e o preco nao diz se o problema fitossanitario esta ocorrendo. Preco de piazza nao e preco nacional.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "un prezzo alto di una coltura non è profitto del produttore, e il prezzo non dice se il problema fitosanitario si sta verificando. Il prezzo di piazza non è prezzo nazionale.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "a high crop price is not the grower's profit, and the price does not say whether the phytosanitary problem is occurring. A piazza (local market) price is not a national price.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "ha preco corrente e sinal de campo para a MESMA cultura",
+   "WHAT_IT_LETS_YOU_ASK_IT": "esiste un prezzo corrente e un segnale di campo per la STESSA coltura",
+   "WHAT_IT_LETS_YOU_ASK_EN": "there is a current price and a field signal for the SAME crop"
+  },
+  {
+   "CROSSING_TYPE": "COMPETITOR_X_CROP_WINDOW_X_PORTFOLIO",
+   "CROP_ID": "CROP_GRAPEVINE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_COMPETITOR_X_CROP__GRAPEVINE",
+   "SUPPORTING_IDS": {
+    "COMP": [
+     "IT-COMP-ACT-005",
+     "IT-COMP-ACT-013",
+     "IT-COMP-ACT-018",
+     "IT-COMP-ACT-032",
+     "IT-COMP-ACT-034",
+     "IT-COMP-ACT-039"
+    ],
+    "WINDOW": [
+     "IT-WIN-001",
+     "IT-WIN-002",
+     "IT-WIN-003",
+     "IT-WIN-004"
+    ],
+    "LABEL": [
+     "IT-LBL-064",
+     "IT-LBL-065",
+     "IT-LBL-066",
+     "IT-LBL-067",
+     "IT-LBL-068",
+     "IT-LBL-069"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "um concorrente comunicou publicamente sobre uma cultura que tem janela declarada e onde a ADAMA tem uso de rotulo lido",
+   "WHAT_IT_DOES_NOT_PROVE": "COMUNICACAO NAO E PARTICIPACAO DE MERCADO. E o anuncio ALCANCOU a Italia — nao foi necessariamente DIRIGIDO a ela.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "F"
+   ],
+   "RESEARCH_LEADS": {
+    "COMP": [
+     "IT-CAN-3BB872B46D",
+     "IT-CAN-E82190952C"
+    ]
+   },
+   "RESEARCH_LEADS_LAW": "QA_UNREVIEWED aparece SO aqui, como pista de pesquisa. Ele NUNCA satisfaz o cruzamento nem sustenta afirmacao ao cliente.",
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "COMUNICACAO NAO E PARTICIPACAO DE MERCADO. E o anuncio ALCANCOU a Italia — nao foi necessariamente DIRIGIDO a ela.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "COMUNICAZIONE NON È QUOTA DI MERCATO. E l'annuncio HA RAGGIUNTO l'Italia — non è stato necessariamente DIRETTO a essa.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "COMMUNICATION IS NOT MARKET SHARE. And the ad REACHED Italy — it was not necessarily DIRECTED at it.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "um concorrente comunicou publicamente sobre uma cultura que tem janela declarada e onde a ADAMA tem uso de rotulo lido",
+   "WHAT_IT_LETS_YOU_ASK_IT": "un concorrente ha comunicato pubblicamente su una coltura che ha una finestra dichiarata e dove ADAMA ha un uso da etichetta letto",
+   "WHAT_IT_LETS_YOU_ASK_EN": "a competitor communicated publicly about a crop that has a declared window and where ADAMA has a label use that was read"
+  },
+  {
+   "CROSSING_TYPE": "COMPETITOR_X_CROP_WINDOW_X_PORTFOLIO",
+   "CROP_ID": "CROP_OLIVE",
+   "GEOGRAPHIC_CLAIM": "NENHUMA — o cruzamento nao afirma geografia",
+   "ID": "XCR_COMPETITOR_X_CROP__OLIVE",
+   "SUPPORTING_IDS": {
+    "COMP": [
+     "IT-COMP-ACT-040",
+     "IT-COMP-ACT-053",
+     "IT-COMP-ACT-156",
+     "IT-COMP-ACT-190",
+     "IT-COMP-ACT-314",
+     "IT-COMP-ACT-319"
+    ],
+    "WINDOW": [
+     "IT-WIN-007"
+    ],
+    "LABEL": [
+     "IT-LBL-1932"
+    ]
+   },
+   "SUPPORTING_QA": [
+    "EVIDENCE_DOCUMENTED",
+    "EVIDENCE_SOURCED"
+   ],
+   "ALL_SUPPORT_CLIENT_SAFE": true,
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "RENDERABLE_WITH_METHOD": true,
+   "RENDER_RULE": "pode aparecer na tela, mas SEMPRE com WHAT_IT_DOES_NOT_PROVE visivel ao lado — nunca atras de um «saiba mais». Sozinho, nao sustenta afirmacao nenhuma.",
+   "WHY_NOT_CLIENT_SAFE": "CLIENT_SAFE=true e para fato lido em fonte. Este registro e leitura minha sobre fatos de outros. Os fatos que o sustentam sao todos client-safe (invariante D); a juncao nao e.",
+   "WHAT_IT_LETS_YOU_ASK": "um concorrente comunicou publicamente sobre uma cultura que tem janela declarada e onde a ADAMA tem uso de rotulo lido",
+   "WHAT_IT_DOES_NOT_PROVE": "COMUNICACAO NAO E PARTICIPACAO DE MERCADO. E o anuncio ALCANCOU a Italia — nao foi necessariamente DIRIGIDO a ela.",
+   "INVARIANTS_PROVEN": [
+    "A",
+    "C",
+    "D",
+    "E",
+    "F"
+   ],
+   "ORIGIN_LAYER": "DERIVED_V2_1",
+   "WHAT_IT_DOES_NOT_PROVE_ORIGINAL_RESEARCH_TEXT": "COMUNICACAO NAO E PARTICIPACAO DE MERCADO. E o anuncio ALCANCOU a Italia — nao foi necessariamente DIRIGIDO a ela.",
+   "WHAT_IT_DOES_NOT_PROVE_IT": "COMUNICAZIONE NON È QUOTA DI MERCATO. E l'annuncio HA RAGGIUNTO l'Italia — non è stato necessariamente DIRETTO a essa.",
+   "WHAT_IT_DOES_NOT_PROVE_EN": "COMMUNICATION IS NOT MARKET SHARE. And the ad REACHED Italy — it was not necessarily DIRECTED at it.",
+   "WHAT_IT_LETS_YOU_ASK_ORIGINAL_RESEARCH_TEXT": "um concorrente comunicou publicamente sobre uma cultura que tem janela declarada e onde a ADAMA tem uso de rotulo lido",
+   "WHAT_IT_LETS_YOU_ASK_IT": "un concorrente ha comunicato pubblicamente su una coltura che ha una finestra dichiarata e dove ADAMA ha un uso da etichetta letto",
+   "WHAT_IT_LETS_YOU_ASK_EN": "a competitor communicated publicly about a crop that has a declared window and where ADAMA has a label use that was read"
+  }
+ ],
+ "REFUSED_CROSSINGS": [],
+ "BY_ORIGIN": {
+  "DERIVED_V2_1": 20
+ },
+ "LOCALIZED_FIELDS": [
+  "ECONOMIC_WEIGHT_LEADS_LAW",
+  "WHAT_IT_DOES_NOT_PROVE",
+  "WHAT_IT_LETS_YOU_ASK"
+ ],
+ "LOCALIZATION_LAW": "a traducao fica AO LADO do original, nunca no lugar dele. ORIGINAL_RESEARCH_TEXT guarda a prosa de pesquisa; _IT e _EN sao a mesma leitura noutra lingua. Citacao publica NAO foi traduzida: a palavra da fonte e a prova, e traduzir prova e adultera-la."
+}

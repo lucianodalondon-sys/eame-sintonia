@@ -1,0 +1,382 @@
+{
+ "PACKAGE": "ITALY-REALITY-HANDOFF-V2.1",
+ "SCHEMA_VERSION": "V2.1",
+ "BUILT_AT": "2026-09-02",
+ "HOW_TO_LOAD": "carregue SO os arquivos de DESIGN-INGEST/. Nao abra INTERNAL-ARCHIVE/: ele e o rastro do trabalho, nao o contrato.",
+ "MASTER_INDEX": "CANONICAL-INTELLIGENCE-MASTER.json",
+ "CLIENT_SAFE_RULE": {
+  "true": "QA_PASS · QA_CORRECTED · EVIDENCE_DOCUMENTED · EVIDENCE_SOURCED",
+  "false": "QA_UNREVIEWED · QA_REJECTED · EVIDENCE_DERIVED",
+  "LEI": "so CLIENT_SAFE=true sustenta afirmacao visivel ao cliente. CLIENT_SAFE=false vive no corpus e aparece como RESEARCH_LEADS."
+ },
+ "LANGUAGE_RULE": {
+  "RESEARCH": "as notas de pesquisa ficam em portugues dentro de RESEARCH — o Design NUNCA precisa le-las.",
+  "CLIENT_FIELDS": "os campos interpretativos client-safe trazem *_IT e *_EN prontos, com ORIGINAL_RESEARCH_TEXT ao lado.",
+  "QUOTES": "citacao publica permanece no idioma da fonte, sempre."
+ },
+ "DOUBLE_COUNT_WARNING": "FUTURE-EVENTS.json e um RECORTE de EVENTS.json. Carregar os dois soma o mesmo evento duas vezes.",
+ "COLLECTIONS": [
+  {
+   "APP_KEY": "APP.products.regulatory",
+   "FILE": "PRODUCTS-REGULATORY.json",
+   "COLLECTION_NAME": "PRODUCTS_REGULATORY",
+   "COUNT_TOTAL": 163,
+   "COUNT_CLIENT_SAFE": 163,
+   "PRIMARY_KEY": "REGISTRATION_NUMBER",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "registro do Ministero della Salute · PROD_FTS_6_20260824",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../ADAMA/adama-italy-products.json",
+    "PREVIOUS-HANDOFF/.../ADAMA/adama-{herbicides,fungicides,insecticides,other-lines}.json"
+   ],
+   "LAW": "REGULATORY_PRODUCT nao e CATALOG_PRODUCT. Este arquivo e o universo REGISTRADO com titular ADAMA. O catalogo comercial e outro arquivo, e os dois nao se somam."
+  },
+  {
+   "APP_KEY": "APP.products.commercial",
+   "FILE": "PRODUCTS-COMMERCIAL.json",
+   "COLLECTION_NAME": "PRODUCTS_COMMERCIAL",
+   "COUNT_TOTAL": 51,
+   "COUNT_CLIENT_SAFE": 51,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "catalogo publico adama.com/italia · sitemap + 51 fichas",
+   "REPLACES_OLD_FILES": [
+    "V2/COMMERCIAL-CATALOG.json (eram 10 ACHADOS, nao produtos)"
+   ],
+   "LAW": "CATALOG_PRODUCT nao e REGULATORY_PRODUCT. Seis destes tem autorizacao em nome de OUTRA empresa; dois nem sao fitossanitarios. Titular nao e vendedor, e o contrato comercial permanece UNKNOWN."
+  },
+  {
+   "APP_KEY": "APP.products.relationships",
+   "FILE": "PRODUCT-RELATIONSHIPS.json",
+   "COLLECTION_NAME": "PRODUCT_RELATIONSHIPS",
+   "COUNT_TOTAL": 2030,
+   "COUNT_CLIENT_SAFE": 1512,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "rotulo autorizado do Ministero, lido por dentro",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../LABEL-USE/label-use-pairs.json",
+    "PREVIOUS-HANDOFF/.../ADAMA/adama-crop-problem-product.json"
+   ],
+   "LAW": "as tres forcas de ligacao NAO SE SOMAM: LINHA_DA_TABELA e BLOCO_DA_CULTURA sao o documento unindo cultura e alvo; DECLARACAO_DE_PRODUTO somos nos aproximando duas listas separadas."
+  },
+  {
+   "APP_KEY": "APP.activeIngredients",
+   "FILE": "ACTIVE-INGREDIENTS.json",
+   "COLLECTION_NAME": "ACTIVE_INGREDIENTS",
+   "COUNT_TOTAL": 53,
+   "COUNT_CLIENT_SAFE": 53,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "registro do Ministero (composicao) + HRAC + IRAC + FRAC Code List 2026 + Anexo do Reg. (UE) 540/2011 consolidado em 2026-07-21",
+   "REPLACES_OLD_FILES": [],
+   "LAW": "SUBSTANCIA ATIVA e ENTIDADE, nao campo de texto do produto. Cada componente de mistura e uma entidade propria: mistura NUNCA vira um MoA so. FRAC ausente significa que a substancia nao tem linha na tabela FRAC — e o caso de todo herbicida e inseticida —, nunca que o codigo foi perdido na leitura."
+  },
+  {
+   "APP_KEY": "APP.products.activeIngredients",
+   "FILE": "PRODUCT-ACTIVE-INGREDIENTS.json",
+   "COLLECTION_NAME": "PRODUCT_ACTIVE_INGREDIENTS",
+   "COUNT_TOTAL": 203,
+   "COUNT_CLIENT_SAFE": 203,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "campo sostanze_attive do registro do Ministero, um componente por relacao",
+   "REPLACES_OLD_FILES": [],
+   "LAW": "UMA RELACAO POR COMPONENTE. Produto com dois ativos gera duas linhas. Somar linhas nao conta produtos."
+  },
+  {
+   "APP_KEY": "APP.regulatoryFutureFacts",
+   "FILE": "REGULATORY-FUTURE-FACTS.json",
+   "COLLECTION_NAME": "REGULATORY_FUTURE_FACTS",
+   "COUNT_TOTAL": 47,
+   "COUNT_CLIENT_SAFE": 47,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "Anexo do Reg. (UE) 540/2011 consolidado em 2026-07-21",
+   "REPLACES_OLD_FILES": [],
+   "LAW": "FATO DE DATA, NAO LEITURA. Nenhum registro aqui vira card de oportunidade sozinho: quem interpreta e o V2.1, com evidencia a mais."
+  },
+  {
+   "APP_KEY": "APP.windows",
+   "FILE": "CROP-WINDOWS.json",
+   "COLLECTION_NAME": "CROP_WINDOWS",
+   "COUNT_TOTAL": 7,
+   "COUNT_CLIENT_SAFE": 7,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "decretos regionais de lotta obbligatoria",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../CROP-WINDOWS/crop-windows.json"
+   ],
+   "LAW": null
+  },
+  {
+   "APP_KEY": "APP.fieldSignals",
+   "FILE": "CURRENT-FIELD-SIGNALS.json",
+   "COLLECTION_NAME": "FIELD_SIGNALS",
+   "COUNT_TOTAL": 122,
+   "COUNT_CLIENT_SAFE": 87,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "boletins fitossanitarios oficiais regionais e provinciais",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../CROP-WINDOWS/current-phenology.json",
+    "V2/CURRENT-FIELD-SIGNALS.json"
+   ],
+   "LAW": "GEOGRAPHIC_SCOPE nunca sobe: boletim PROVINCIAL ou AREALE nao representa a regiao. Cinco documentos provinciais da Campania nao sao «a Campania»."
+  },
+  {
+   "APP_KEY": "APP.cropEconomicWeight",
+   "FILE": "CROP-ECONOMIC-WEIGHT.json",
+   "COLLECTION_NAME": "CROP_ECONOMIC_WEIGHT",
+   "COUNT_TOTAL": 2978,
+   "COUNT_CLIENT_SAFE": 14,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "ISTAT · cubo 101_1015 Coltivazioni · 20 regioes + nacional",
+   "REPLACES_OLD_FILES": [
+    "V2/CROP-ECONOMIC-WEIGHT.json (eram 33 afirmacoes-resumo)"
+   ],
+   "LAW": "valor PUBLICADO e valor DERIVADO nao se misturam: IS_DERIVED_BY_SINTONIA marca cada linha, e o rendimento e nosso."
+  },
+  {
+   "APP_KEY": "APP.market",
+   "FILE": "MARKET-OBSERVATIONS.json",
+   "COLLECTION_NAME": "MARKET",
+   "COUNT_TOTAL": 157,
+   "COUNT_CLIENT_SAFE": 91,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "ISMEA Mercati · EC Agri-food Data Portal · Eurostat · BMTI",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../MARKET-PULSE/market-pulse.json",
+    "V2/MARKET-OBSERVATIONS.json"
+   ],
+   "LAW": "preco de uma PIAZZA nao e preco NACIONAL. E serie parada mantem o ultimo valor e parece corrente."
+  },
+  {
+   "APP_KEY": "APP.competitors",
+   "FILE": "COMPETITOR-ACTIVITIES.json",
+   "COLLECTION_NAME": "COMPETITORS",
+   "COUNT_TOTAL": 577,
+   "COUNT_CLIENT_SAFE": 569,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "Meta Ad Library · YouTube · sitios .it das empresas · imprensa tecnica",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../COMPETITOR-WATCH/competitor-activities.json",
+    "V2/COMPETITOR-PUBLIC-SIGNALS.json"
+   ],
+   "LAW": "AD_REACHED_COUNTRY nao e AD_TARGETED_COUNTRY. E comunicacao nao e participacao de mercado."
+  },
+  {
+   "APP_KEY": "APP.science",
+   "FILE": "SCIENCE.json",
+   "COLLECTION_NAME": "SCIENCE",
+   "COUNT_TOTAL": 88,
+   "COUNT_CLIENT_SAFE": 88,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "OpenAlex · DOI",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../SCIENCE/scientific-records.json"
+   ],
+   "LAW": null
+  },
+  {
+   "APP_KEY": "APP.researchers",
+   "FILE": "RESEARCHERS.json",
+   "COLLECTION_NAME": "RESEARCHERS",
+   "COUNT_TOTAL": 60,
+   "COUNT_CLIENT_SAFE": 60,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "OpenAlex · ORCID",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../SCIENCE/researchers.json"
+   ],
+   "LAW": null
+  },
+  {
+   "APP_KEY": "APP.resistance",
+   "FILE": "RESISTANCE.json",
+   "COLLECTION_NAME": "RESISTANCE",
+   "COUNT_TOTAL": 34,
+   "COUNT_CLIENT_SAFE": 34,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "GIRE · Gruppo Italiano Resistenza Erbicidi",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../SCIENCE/herbicide-resistance.json"
+   ],
+   "LAW": null
+  },
+  {
+   "APP_KEY": "APP.voices",
+   "FILE": "PUBLIC-VOICES.json",
+   "COLLECTION_NAME": "VOICES",
+   "COUNT_TOTAL": 79,
+   "COUNT_CLIENT_SAFE": 65,
+   "PRIMARY_KEY": "VOICE_ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "YouTube (plateia de canal) · imprensa tecnica e institucional (vozes identificadas)",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../VOCI-DAL-CAMPO/field-voices.json",
+    "V2/PUBLIC-VOICES.json"
+   ],
+   "LAW": "VOZ NAO E FONTE INDEPENDENTE. Quatro pessoas citadas num artigo sao quatro VOZES e UM documento. Contagem de convergencia conta SOURCE_DOCUMENT_ID, nunca numero de pessoas."
+  },
+  {
+   "APP_KEY": "APP.channels",
+   "FILE": "PUBLIC-CHANNELS.json",
+   "COLLECTION_NAME": "CHANNELS",
+   "COUNT_TOTAL": 62,
+   "COUNT_CLIENT_SAFE": 62,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "YouTube · canais italianos",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../VOCI-DAL-CAMPO/italian-channels.json"
+   ],
+   "LAW": null
+  },
+  {
+   "APP_KEY": "APP.regulatoryFuture",
+   "FILE": "REGULATORY-FUTURE.json",
+   "COLLECTION_NAME": "REGULATORY_FUTURE",
+   "COUNT_TOTAL": 28,
+   "COUNT_CLIENT_SAFE": 8,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "EU Pesticides Database · SCoPAFF · EUR-Lex · EFSA",
+   "REPLACES_OLD_FILES": [
+    "V2/REGULATORY-FUTURE.json"
+   ],
+   "LAW": "PRORROGACAO NAO E RENOVACAO. Rascunho, discussao e reuniao nao sao decisao final."
+  },
+  {
+   "APP_KEY": "APP.agromet",
+   "FILE": "AGROMET-CONDITIONS.json",
+   "COLLECTION_NAME": "AGROMET",
+   "COUNT_TOTAL": 44,
+   "COUNT_CLIENT_SAFE": 14,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "ARPA regionais · Copernicus EDO · JRC MARS",
+   "REPLACES_OLD_FILES": [
+    "V2/AGROMET-CONDITIONS.json"
+   ],
+   "LAW": "CLIMA E CONDICAO. Nao e presenca de doenca, nao e incidencia de praga, nao e perda. Qualquer cruzamento clima x cultura x doenca e INTERPRETACAO do Sintonia."
+  },
+  {
+   "APP_KEY": "APP.events",
+   "FILE": "EVENTS.json",
+   "COLLECTION_NAME": "EVENTS",
+   "COUNT_TOTAL": 40,
+   "COUNT_CLIENT_SAFE": 26,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "sitios de organizador, feira e sociedade cientifica",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../EVENTS/events.json",
+    "V2/FUTURE-EVENTS.json"
+   ],
+   "LAW": "participacao futura NUNCA se infere de participacao passada."
+  },
+  {
+   "APP_KEY": "APP.futureEvents",
+   "FILE": "FUTURE-EVENTS.json",
+   "COLLECTION_NAME": "FUTURE_EVENTS",
+   "COUNT_TOTAL": 14,
+   "COUNT_CLIENT_SAFE": 7,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "subconjunto de EVENTS.json com data a partir de 02/09/2026",
+   "REPLACES_OLD_FILES": [],
+   "LAW": "ATENCAO: este arquivo e um RECORTE de EVENTS.json, nao uma colecao independente. Carregar os dois soma o mesmo evento duas vezes."
+  },
+  {
+   "APP_KEY": "APP.opportunities",
+   "FILE": "OPPORTUNITIES.json",
+   "COLLECTION_NAME": "OPPORTUNITIES",
+   "COUNT_TOTAL": 37,
+   "COUNT_CLIENT_SAFE": 0,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "motor de oportunidades sobre o proprio V2.1",
+   "REPLACES_OLD_FILES": [],
+   "LAW": "CLIENT_SAFE=false em TODAS, e isso nao e rebaixamento: e o portao. A juncao e leitura nossa. RENDERABLE_WITH_METHOD separa a confirmada da que ainda tem portao fechado. CRUZAMENTO NAO E OPORTUNIDADE, E OPORTUNIDADE NAO E PEDIDO."
+  },
+  {
+   "APP_KEY": "APP.futureSignals",
+   "FILE": "FUTURE-SIGNALS.json",
+   "COLLECTION_NAME": "FUTURE_SIGNALS",
+   "COUNT_TOTAL": 3,
+   "COUNT_CLIENT_SAFE": 1,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "CELLAR/EUR-Lex · OpenAlex",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../FUTURE-RADAR/future-signals.json"
+   ],
+   "LAW": null
+  },
+  {
+   "APP_KEY": "APP.sources",
+   "FILE": "SOURCES.json",
+   "COLLECTION_NAME": "SOURCES",
+   "COUNT_TOTAL": 189,
+   "COUNT_CLIENT_SAFE": 31,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "medicao propria de estado de acesso",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../SOURCES/sources.json",
+    "V2/SOURCES.json"
+   ],
+   "LAW": "§18 · metadado de rota e INFRAESTRUTURA DE COLETA. O portal consome dado ja guardado e NUNCA precisa da rota italiana para renderizar."
+  },
+  {
+   "APP_KEY": "APP.news",
+   "FILE": "NEWS.json",
+   "COLLECTION_NAME": "NEWS",
+   "COUNT_TOTAL": 8,
+   "COUNT_CLIENT_SAFE": 8,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": "imprensa tecnica italiana",
+   "REPLACES_OLD_FILES": [
+    "PREVIOUS-HANDOFF/.../NEWS/news.json"
+   ],
+   "LAW": "CONTENT_KIND separa editorial de conteudo patrocinado."
+  },
+  {
+   "APP_KEY": "APP.relationships",
+   "FILE": "RELATIONSHIPS.json",
+   "COLLECTION_NAME": "RELATIONSHIPS",
+   "COUNT_TOTAL": 19,
+   "COUNT_CLIENT_SAFE": 0,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": null,
+   "REPLACES_OLD_FILES": [],
+   "LAW": "as relacoes carregam SO IDs. Copiar o objeto para dentro da relacao cria dois donos do mesmo fato."
+  },
+  {
+   "APP_KEY": "APP.crossings",
+   "FILE": "CLIENT-SAFE-CROSSINGS.json",
+   "COLLECTION_NAME": "CLIENT_SAFE_CROSSINGS",
+   "COUNT_TOTAL": 19,
+   "COUNT_CLIENT_SAFE": 0,
+   "PRIMARY_KEY": "ID",
+   "SCHEMA_VERSION": "V2.1",
+   "SOURCE_OF_TRUTH": null,
+   "REPLACES_OLD_FILES": [
+    "V2/TOP-CROSSINGS.json — DESCARTADO, nao remendado"
+   ],
+   "LAW": "CROSSING NAO E OPPORTUNITY. E a constatacao de que duas camadas falam do mesmo CROP_ID. Quem decide se vale e uma pessoa."
+  }
+ ],
+ "BUILD_ID": "V21-99226fbb90dcdbc2",
+ "BUILD_ID_LAW": "deterministico: sai do conteudo dos 25 arquivos. Mesmo conteudo, mesmo BUILD_ID; conteudo diferente, BUILD_ID diferente. A data do calendario nao serve de identidade."
+}

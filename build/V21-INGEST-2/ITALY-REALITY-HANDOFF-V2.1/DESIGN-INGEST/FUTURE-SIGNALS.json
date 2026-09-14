@@ -1,0 +1,214 @@
+{
+ "COLLECTION": "FUTURE_SIGNALS",
+ "FILE": "FUTURE-SIGNALS.json",
+ "SCHEMA_VERSION": "V2.1",
+ "BUILT_AT": "2026-09-02",
+ "PRIMARY_KEY": "ID",
+ "SOURCE_OF_TRUTH": "CELLAR/EUR-Lex · OpenAlex",
+ "COUNT_TOTAL": 3,
+ "COUNT_CLIENT_SAFE": 1,
+ "BY_ORIGIN": {
+  "PREVIOUS_HANDOFF": 3
+ },
+ "BY_QA": {
+  "EVIDENCE_DERIVED": 2,
+  "EVIDENCE_DOCUMENTED": 1
+ },
+ "REPLACES_OLD_FILES": [
+  "PREVIOUS-HANDOFF/.../FUTURE-RADAR/future-signals.json"
+ ],
+ "RECORDS": [
+  {
+   "ID": "IT-FUT-001",
+   "ENTITY_TYPE": "FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_DERIVED",
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "IT-SRC-OPENALEX",
+    "IT-SRC-MINISTERO"
+   ],
+   "SOURCE_URLS": [],
+   "REFERENCE_DATE": null,
+   "CROP_IDS": [
+    "CROP_MAIZE"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "LEGACY_ID": "FT-IT-001",
+   "WHO_IS_TALKING": "ciencia italiana indexada no OpenAlex",
+   "WHAT_CHANGED": "LARGE_SCIENCE_CLUSTER_x_PORTFOLIO_ABSENCE",
+   "CROP": "MAIS",
+   "ISSUE": "micotoxina / Fusarium",
+   "REGION": "NAO SEI — o recorte cientifico e por afiliacao nacional, nao por regiao de estudo",
+   "WHY_WATCH": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "HOW_SINTONIA_GOT_HERE": "IT-T5-001, OpenAlex com institutions.country_code:it e from_publication_date:2019-01-01. MAIZE_MYCOTOXIN = 208 trabalhos, contra MAIZE_WEED 79, MAIZE_BORER 30 e MAIZE_DIABROTICA 11. E o recorte mais denso do milho italiano.",
+   "OBSERVED_FACTS": [
+    "a ciencia italiana do milho olha 2,6 vezes mais para micotoxina do que para daninhas",
+    "a ADAMA tem zero fungicidas citando milho na Italia",
+    "as tres maiores regioes de milho nao tem boletim de milho medido"
+   ],
+   "SINTONIA_INTERPRETATION": "EMERGING_THEME",
+   "UNKNOWN": [
+    "se 208 e muito ou pouco para o tema — nao ha serie por ano",
+    "se a distancia entre a ciencia e o portfolio e lacuna ou escolha: manejo de micotoxina em milho e largamente agronomico, e daninhas e mercado legitimo e grande",
+    "se ha pressao de campo"
+   ],
+   "NEXT_WINDOW": "NAO SEI — nenhuma ancora de tempo propria",
+   "PORTFOLIO_CONNECTION": "dos 163 registros vigentes do grupo ADAMA na Italia, 36 citam milho: 24 herbicidas, 9 inseticidas e ZERO fungicidas. Metade dos 46 fungicidas do portfolio cita videira; nenhum cita milho.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "PROMOTED_TO_RADAR": false,
+   "EVIDENCE_STATUS": "EVIDENCE_DERIVED",
+   "EVIDENCE_STATUS_WHY": "derivacao NOSSA a partir de fatos. Vai a tela so com o metodo declarado ao lado — nao sustenta afirmacao sozinha.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "derivacao NOSSA a partir de fatos. Vai a tela so com o metodo declarado ao lado — nao sustenta afirmacao sozinha.",
+   "EVIDENCE_STATUS_WHY_IT": "derivazione NOSTRA a partire dai fatti. Va a schermo solo con il metodo dichiarato accanto — da sola non sostiene un'affermazione.",
+   "EVIDENCE_STATUS_WHY_EN": "OUR derivation from facts. It goes on screen only with the method declared alongside — on its own it does not support a claim.",
+   "WHY_WATCH_ORIGINAL_RESEARCH_TEXT": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "WHY_WATCH_IT": "un bollettino regionale che riporti micotossina o Fusarium su mais, con data di osservazione, in una delle regioni con superficie.",
+   "WHY_WATCH_EN": "a regional bulletin reporting mycotoxin or Fusarium in maize, with an observation date, in one of the regions with area.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_ORIGINAL_RESEARCH_TEXT": "um boletim regional que reporte micotoxina ou Fusarium em milho, com data de observacao, numa das regioes com area.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_IT": "un bollettino regionale che riporti micotossina o Fusarium su mais, con data di osservazione, in una delle regioni con superficie.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_EN": "a regional bulletin reporting mycotoxin or Fusarium in maize, with an observation date, in one of the regions with area."
+  },
+  {
+   "ID": "IT-FUT-002",
+   "ENTITY_TYPE": "FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_DERIVED",
+   "QA_STATUS": "EVIDENCE_DERIVED",
+   "CLIENT_SAFE": false,
+   "SOURCE_IDS": [
+    "IT-SRC-OPENALEX",
+    "IT-SRC-MINISTERO"
+   ],
+   "SOURCE_URLS": [],
+   "REFERENCE_DATE": null,
+   "CROP_IDS": [
+    "CROP_DURUM_WHEAT"
+   ],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "LEGACY_ID": "FT-IT-002",
+   "WHO_IS_TALKING": "ciencia italiana indexada no OpenAlex",
+   "WHAT_CHANGED": "LARGE_SCIENCE_CLUSTER",
+   "CROP": "TRIGO e TRIGO DURO",
+   "ISSUE": "Fusarium / desoxinivalenol",
+   "REGION": "NAO SEI",
+   "WHY_WATCH": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "HOW_SINTONIA_GOT_HERE": "WHEAT_FUSARIUM = 243 trabalhos e DURUM_FUSARIUM = 78 no mesmo recorte. E o MAIOR agrupamento cientifico italiano medido, acima do milho x micotoxina (208).",
+   "OBSERVED_FACTS": [
+    "e o maior volume cientifico medido do recorte italiano: 243 mais 78"
+   ],
+   "SINTONIA_INTERPRETATION": "SCIENTIFIC_SIGNAL",
+   "UNKNOWN": [
+    "todas as outras camadas. Nenhuma foi consultada."
+   ],
+   "NEXT_WINDOW": "NAO SEI",
+   "PORTFOLIO_CONNECTION": "nao medido para o par.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "PROMOTED_TO_RADAR": false,
+   "EVIDENCE_STATUS": "EVIDENCE_DERIVED",
+   "EVIDENCE_STATUS_WHY": "derivacao NOSSA a partir de fatos. Vai a tela so com o metodo declarado ao lado — nao sustenta afirmacao sozinha.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "derivacao NOSSA a partir de fatos. Vai a tela so com o metodo declarado ao lado — nao sustenta afirmacao sozinha.",
+   "EVIDENCE_STATUS_WHY_IT": "derivazione NOSTRA a partire dai fatti. Va a schermo solo con il metodo dichiarato accanto — da sola non sostiene un'affermazione.",
+   "EVIDENCE_STATUS_WHY_EN": "OUR derivation from facts. It goes on screen only with the method declared alongside — on its own it does not support a claim.",
+   "WHY_WATCH_ORIGINAL_RESEARCH_TEXT": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "WHY_WATCH_IT": "salire a EMERGING_THEME richiede UN secondo strato. La consultazione del registro italiano per Fusarium su grano è economica e non è stata fatta.",
+   "WHY_WATCH_EN": "moving up to EMERGING_THEME requires ONE second layer. The query of the Italian register for Fusarium in wheat is cheap and has not been done.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_ORIGINAL_RESEARCH_TEXT": "subir para EMERGING_THEME exige UMA segunda camada. A consulta do registro italiano para Fusarium em trigo e barata e nao foi feita.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_IT": "salire a EMERGING_THEME richiede UN secondo strato. La consultazione del registro italiano per Fusarium su grano è economica e non è stata fatta.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_EN": "moving up to EMERGING_THEME requires ONE second layer. The query of the Italian register for Fusarium in wheat is cheap and has not been done."
+  },
+  {
+   "ID": "IT-FUT-003",
+   "ENTITY_TYPE": "FUTURE_SIGNAL",
+   "PROVENANCE": "REAL_FACT",
+   "QA_STATUS": "EVIDENCE_DOCUMENTED",
+   "CLIENT_SAFE": true,
+   "SOURCE_IDS": [
+    "IT-SRC-CELLAR",
+    "IT-SRC-MINISTERO"
+   ],
+   "SOURCE_URLS": [],
+   "REFERENCE_DATE": null,
+   "CROP_IDS": [],
+   "ISSUE_IDS": [],
+   "REGION_IDS": [],
+   "GEOGRAPHIC_SCOPE": "NAO_SEI",
+   "WHO_IS_TALKING": "Comissao Europeia, por ato juridico publicado",
+   "WHAT_CHANGED": "a aprovacao europeia de varias substancias ativas do portfolio italiano da ADAMA expira antes de 2028, e varios atos declaram a renovacao ainda em avaliacao",
+   "CROP": "TRANSVERSAL",
+   "ISSUE": "REGULATORIO",
+   "REGION": "UE",
+   "WHY_WATCH": "o vencimento NACIONAL de parte do portfolio coincide com a fronteira europeia da substancia. Registro nacional nao sobrevive a aprovacao UE vencida.",
+   "HOW_SINTONIA_GOT_HERE": "15 atos lidos na integra pela rota CELLAR/SPARQL e cada um relido por um refutador independente",
+   "OBSERVED_FACTS": [
+    "Lambda-cyhalothrin = 31 August 2026 (32024R0324)",
+    "Fluazinam = 15 April 2026 (32024R0324)",
+    "pendimethalin = 15 January 2027 (32024R2221)",
+    "plant oils / rape seed oil = 31 March 2026 (32024R2221)",
+    "Azoxystrobin = 31 May 2027 (32024R2781)",
+    "Fluroxypyr = 15 February 2027 (32024R2781)",
+    "Tefluthrin = 31 May 2027 (32024R2781)",
+    "Terbuthylazine = 31 May 2027 (32024R2781)",
+    "Chlorantraniliprole = 31 May 2027 (32024R2781)",
+    "Pirimicarb = 31 October 2026 (32025R0099)",
+    "Imazamox = 30 June 2027 (32025R0099)",
+    "Phenmedipham = 30 September 2026 (32025R0099)",
+    "Prothioconazole = 31 March 2027 (32025R0787)",
+    "Paraffin oil = 30 November 2026 (32025R0787)",
+    "Fludioxonil = 30 September 2026 (32025R0787)",
+    "Fluxapyroxad = 31 October 2027 (32025R0787)",
+    "Clodinafop = 31 July 2027 (32025R1489)",
+    "Diflufenican = 31 August 2027 (32025R2316)",
+    "Fluazinam = 30 November 2027 (32026R0372)",
+    "Cymoxanil = 30 November 2027 (32026R1421)",
+    "Clethodim = 15 December 2027 (32026R1421)",
+    "Pirimicarb = 31 July 2027 (32026R1826)",
+    "Phenmedipham = 30 September 2027 (32026R1826)",
+    "Fludioxonil = 30 September 2027 (32026R1826)"
+   ],
+   "SINTONIA_INTERPRETATION": "EMERGING_THEME — merece um analista abrir, nao e previsao de retirada",
+   "UNKNOWN": [
+    "o RESULTADO de cada renovacao — o ato nao decide, so estende",
+    "se havera nova extensao antes do vencimento",
+    "se a decisao mantem o uso italiano de cada produto"
+   ],
+   "NEXT_WINDOW": "2027-01-31 e a data mais proxima (tau-fluvalinate, bupirimate)",
+   "PORTFOLIO_CONNECTION": "7 produtos ADAMA com tau-fluvalinate, 5 com bupirimate",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "nao e oportunidade: e exposicao. O que a destravaria e um ato de decisao.",
+   "PROMOTED_TO_RADAR": false,
+   "EVIDENCE_STATUS": "EVIDENCE_DOCUMENTED",
+   "EVIDENCE_STATUS_WHY": "fato lido em documento oficial, com fonte identificada. O documento nao declara data, e a proveniencia vem do handoff anterior — traduzida, nao rebaixada.",
+   "ORIGIN_LAYER": "PREVIOUS_HANDOFF",
+   "PROVENANCE_STATE": "SOURCE_OK_NO_DATE",
+   "CLAIM_DOMAIN": "DOMAIN_INTELLIGENCE",
+   "EVIDENCE_STATUS_WHY_ORIGINAL_RESEARCH_TEXT": "fato lido em documento oficial, com fonte identificada. O documento nao declara data, e a proveniencia vem do handoff anterior — traduzida, nao rebaixada.",
+   "EVIDENCE_STATUS_WHY_IT": "fatto letto in un documento ufficiale, con fonte identificata. Il documento non dichiara una data, e la provenienza viene dal handoff precedente — tradotta, non declassata.",
+   "EVIDENCE_STATUS_WHY_EN": "fact read in an official document, with an identified source. The document does not declare a date, and the provenance comes from the previous handoff — translated, not downgraded.",
+   "WHY_WATCH_ORIGINAL_RESEARCH_TEXT": "o vencimento NACIONAL de parte do portfolio coincide com a fronteira europeia da substancia. Registro nacional nao sobrevive a aprovacao UE vencida.",
+   "WHY_WATCH_IT": "la scadenza NAZIONALE di una parte del portafoglio coincide con la frontiera europea della sostanza. Una registrazione nazionale non sopravvive a un'approvazione UE scaduta.",
+   "WHY_WATCH_EN": "the NATIONAL expiry of part of the portfolio coincides with the European boundary of the substance. A national registration does not survive an expired EU approval.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_ORIGINAL_RESEARCH_TEXT": "nao e oportunidade: e exposicao. O que a destravaria e um ato de decisao.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_IT": "non è un'opportunità: è un'esposizione. Ciò che la sbloccherebbe è un atto di decisione.",
+   "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY_EN": "it is not an opportunity: it is exposure. What would unlock it is an act of decision."
+  }
+ ],
+ "LOCALIZED_FIELDS": [
+  "EVIDENCE_STATUS_WHY",
+  "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY",
+  "WHY_WATCH"
+ ],
+ "LOCALIZATION_LAW": "a traducao fica AO LADO do original, nunca no lugar dele. ORIGINAL_RESEARCH_TEXT guarda a prosa de pesquisa; _IT e _EN sao a mesma leitura noutra lingua. Citacao publica NAO foi traduzida: a palavra da fonte e a prova, e traduzir prova e adultera-la.",
+ "FIELD_ROLES": {
+  "EVIDENCE_STATUS_WHY": "CLIENT_NARRATIVE",
+  "WHAT_WOULD_MAKE_IT_AN_OPPORTUNITY": "CLIENT_NARRATIVE",
+  "WHY_WATCH": "CLIENT_NARRATIVE"
+ },
+ "LOCALIZATION_CONTRACT": "so CLIENT_NARRATIVE e CLIENT_LABEL pedem irmao _IT/_EN. RAW_ORIGINAL e citacao e fica na lingua publicada; CANONICAL e valor controlado e nao tem lingua. Campo tirado desta lista NAO foi traduzido: foi reclassificado, e FIELD_ROLES diz em que papel.",
+ "BUILD_ID": "V21-99226fbb90dcdbc2",
+ "BUILD_ID_LAW": "deterministico: sai do conteudo dos 25 arquivos. Mesmo conteudo, mesmo BUILD_ID; conteudo diferente, BUILD_ID diferente. A data do calendario nao serve de identidade."
+}

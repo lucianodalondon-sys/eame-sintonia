@@ -1,0 +1,180 @@
+{
+ "SOURCE_ID": "INSTAGRAM-COLETA/CONTRATOS",
+ "DATASET_OWNER": "COMPETITOR_PUBLIC_COMMUNICATION_EAME",
+ "source": "GET /v2/acts/{ator} e /v2/actor-builds/{id} — leitura, zero execução",
+ "SOURCE_LOCATION": "Apify",
+ "FACT_LOCATION": "n/a — descreve ferramenta",
+ "CAPTURED_AT": "2026-09-02T14:05:36Z",
+ "MISSION": "14-COMUNICACAO-PUBLICA-DO-CONCORRENTE",
+ "APIFY_RUNS": 0,
+ "COST_USD": 0,
+ "ALL_APPROVED": "YES",
+ "REGRA": "nenhuma fase paga roda com ALL_APPROVED = NO",
+ "ACTORS": [
+  {
+   "ACTOR": "apify~instagram-profile-scraper",
+   "BUILD_NUMBER": "0.0.601",
+   "BUILD_ID": "SKObRpXTdi0TSFEJo",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "about-account",
+     "profile"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "includeAboutSection",
+    "usernames"
+   ],
+   "REQUIRED": [
+    "usernames"
+   ],
+   "INPUT_CHECKED": {
+    "usernames": [
+     "basf_agroes"
+    ],
+    "includeAboutSection": false
+   },
+   "APPROVED": "YES",
+   "PROBLEMS": [],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "FASE": "bio",
+   "BUILD_ESPERADO": "0.0.601"
+  },
+  {
+   "ACTOR": "scrapesmith~instagram-comments-scraper",
+   "BUILD_NUMBER": "0.0.164",
+   "BUILD_ID": "unFKvpBBFRKfo1SNd",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "apify-actor-start",
+     "apify-default-dataset-item"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "maxCommentsPerPost",
+    "postUrls",
+    "sortOrder"
+   ],
+   "REQUIRED": [],
+   "INPUT_CHECKED": {
+    "postUrls": [
+     "https://www.instagram.com/p/EXEMPLO/"
+    ],
+    "maxCommentsPerPost": 20,
+    "sortOrder": "recent"
+   },
+   "APPROVED": "YES",
+   "PROBLEMS": [],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "FASE": "comentarios",
+   "BUILD_ESPERADO": "0.0.164"
+  },
+  {
+   "ACTOR": "apify~instagram-scraper",
+   "BUILD_NUMBER": "0.0.776",
+   "BUILD_ID": "3Mh6FvaGV4gQlupcs",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "result"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "addParentData",
+    "directUrls",
+    "onlyPostsNewerThan",
+    "resultsLimit",
+    "resultsType",
+    "search",
+    "searchLimit",
+    "searchType"
+   ],
+   "REQUIRED": [],
+   "INPUT_CHECKED": {
+    "directUrls": [
+     "https://www.instagram.com/basf_agroes/"
+    ],
+    "resultsType": "posts",
+    "resultsLimit": 50,
+    "onlyPostsNewerThan": "2026-08-03",
+    "addParentData": false
+   },
+   "APPROVED": "YES",
+   "PROBLEMS": [],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "FASE": "posts",
+   "BUILD_ESPERADO": "0.0.776"
+  },
+  {
+   "ACTOR": "apify~instagram-reel-scraper",
+   "BUILD_NUMBER": "0.0.563",
+   "BUILD_ID": "awtcxGyhQ878LOqWA",
+   "CONTRACT_STATE": "CONTRATO_OK",
+   "PRICING": {
+    "MODEL": "PAY_PER_EVENT",
+    "PRICE_PER_UNIT_USD": null,
+    "UNIT": null,
+    "TRIAL_MINUTES": null,
+    "EVENTS": [
+     "actor-start",
+     "reel",
+     "shares-count",
+     "transcript",
+     "video-download"
+    ],
+    "AVISO": "preço de TABELA lido agora. NÃO é custo medido — o real só aparece em GET /v2/actor-runs depois da execução. Um piloto desta casa anunciou US$0,90 e gastou US$5,04."
+   },
+   "FIELDS_DECLARED": [
+    "includeDownloadedVideo",
+    "includeSharesCount",
+    "includeTranscript",
+    "onlyPostsNewerThan",
+    "resultsLimit",
+    "skipPinnedPosts",
+    "skipTrialReels",
+    "username"
+   ],
+   "REQUIRED": [
+    "username"
+   ],
+   "INPUT_CHECKED": {
+    "username": [
+     "basf_agroes"
+    ],
+    "resultsLimit": 25,
+    "onlyPostsNewerThan": "2026-08-03",
+    "skipPinnedPosts": false,
+    "skipTrialReels": false,
+    "includeSharesCount": false,
+    "includeTranscript": false,
+    "includeDownloadedVideo": false
+   },
+   "APPROVED": "YES",
+   "PROBLEMS": [],
+   "COST_USD": 0,
+   "LEI": "MATCH VAZIO NÃO AUTORIZA GASTO. Fase paga não roda com APPROVED=NO.",
+   "FASE": "reels",
+   "BUILD_ESPERADO": "0.0.563"
+  }
+ ]
+}
