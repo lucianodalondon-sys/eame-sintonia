@@ -384,7 +384,7 @@ provas/espinha_da_intelligence.py NAO pediu excepcao — continua sob a trava.
 
 ## 9.3 · `docs/operacao/CENSO-DA-INTELLIGENCE.md` — dado pessoal
 
-O guarda de credenciais apanhou `C:\Users\London1\AppData\Local` no censo que
+O guarda de credenciais apanhou `C:\Users\<NOME>\AppData\Local` no censo que
 integrei — ele estava a **citar** o defeito de `motor/v21_tm_colher.py` e
 trouxe o nome de utilizador junto. Redigido para `<UTILIZADOR>`, que é a saída
 que o próprio regex do guarda desenhou (`[A-Z]:\\Users\\(?!<)`).
