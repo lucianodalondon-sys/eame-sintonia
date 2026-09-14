@@ -108,10 +108,18 @@ class TestSentinelasDoHandoffBatemComOLedger(unittest.TestCase):
                              f'{m}: o valor no prompt diverge do ledger')
 
     def test_a_contagem_de_testes_do_handoff_bate(self):
+        # ⚠️ O numero destes dois documentos passou a ser DERIVADO: leva o
+        # marcador `<!--M:TEST_COUNT_CURRENT-->`, e `metricas_canonicas --sync`
+        # reescreve-o. Antes so podia ser digitado — o sync nao chegava a raiz —
+        # e este teste so se satisfazia a mao.
+        #
+        #     O PORTAO CONTINUA A EXIGIR O NUMERO CERTO.
+        #     DEIXOU E DE EXIGIR QUE ALGUEM O ESCREVA.
         n = self.L['TEST_COUNT_CURRENT']['VALUE']
-        self.assertRegex(texto(HANDOFF), rf'\*\*{n} testes',
+        marcado = r'(?:<!--M:TEST_COUNT_CURRENT-->)?%d(?:<!--/M-->)?' % n
+        self.assertRegex(texto(HANDOFF), rf'\*\*{marcado} testes',
                          'o handoff publica uma contagem de testes que nao e a atual')
-        self.assertRegex(texto(PROMPT), rf'Esperado: {n} testes')
+        self.assertRegex(texto(PROMPT), rf'Esperado: {marcado} testes')
 
 
 class TestInventarioDoScratchpad(unittest.TestCase):

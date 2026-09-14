@@ -418,35 +418,60 @@ def build():
 MARK = re.compile(r'<!--M:([A-Z0-9_]+)-->(.*?)<!--/M-->', re.S)
 
 
+def _marcados():
+    """Todo .md que pode publicar um número: `docs/` **e a raiz do repositório**.
+
+    ⚠️ A raiz estava de fora, e isso tinha consequência medida: o handoff e o
+    prompt de bootstrap publicam `TEST_COUNT_CURRENT`, `tests/test_handoff.py`
+    reprova quando ele diverge, e o `--sync` não lhes chegava. O único jeito de
+    passar o portão era **digitar** o número — exatamente o que este ledger
+    existe para impedir.
+
+        UM PORTAO QUE SO SE SATISFAZ A MAO NAO E UM PORTAO: E UM LEMBRETE.
+    """
+    for dirpath, _, files in os.walk(DOCS):
+        for f in files:
+            if f.endswith('.md'):
+                yield os.path.join(dirpath, f)
+    for f in sorted(os.listdir(ROOT)):
+        if f.endswith('.md'):
+            yield os.path.join(ROOT, f)
+
+
 def sync(check_only=False):
     L = build()
     mudou = []
-    for dirpath, _, files in os.walk(DOCS):
-        for f in files:
-            if not f.endswith('.md'):
-                continue
-            path = os.path.join(dirpath, f)
-            with open(path, encoding='utf-8') as fh:
-                txt = fh.read()
-            if '<!--M:' not in txt:
-                continue
+    for path in _marcados():
+        with open(path, encoding='utf-8') as fh:
+            txt = fh.read()
+        if '<!--M:' not in txt:
+            continue
 
-            def repl(m):
-                mid, atual = m.group(1), m.group(2)
-                v = L[mid]['VALUE'] if mid in L else atual
-                if isinstance(v, float):
-                    novo = ('%g' % v).replace('.', ',')
-                elif isinstance(v, list):
-                    novo = ' · '.join(f'`{x}`' for x in v)
-                else:
-                    novo = f'{v:,}'.replace(',', '.')
-                if novo != atual:
-                    mudou.append((os.path.relpath(path, ROOT), mid, atual, novo))
-                return f'<!--M:{mid}-->{novo}<!--/M-->'
-            novo_txt = MARK.sub(repl, txt)
-            if novo_txt != txt and not check_only:
-                with open(path, 'w', encoding='utf-8') as fh:
-                    fh.write(novo_txt)
+        def repl(m):
+            mid, atual = m.group(1), m.group(2)
+            if mid not in L:
+                # Marcador sem dono no ledger — deixa-se exactamente como está.
+                # ⚠️ Antes isto tentava reformatar a própria string e rebentava
+                # com `ValueError: Cannot specify ',' with 's'`. Ficou latente
+                # enquanto o walk só via `docs/`; a raiz tem um `<!--M:NOME-->`
+                # que é o EXEMPLO da sintaxe, escrito em prosa.
+                #
+                #     UM SINCRONIZADOR NAO REESCREVE O QUE NAO SABE DERIVAR.
+                return m.group(0)
+            v = L[mid]['VALUE']
+            if isinstance(v, float):
+                novo = ('%g' % v).replace('.', ',')
+            elif isinstance(v, list):
+                novo = ' · '.join(f'`{x}`' for x in v)
+            else:
+                novo = f'{v:,}'.replace(',', '.')
+            if novo != atual:
+                mudou.append((os.path.relpath(path, ROOT), mid, atual, novo))
+            return f'<!--M:{mid}-->{novo}<!--/M-->'
+        novo_txt = MARK.sub(repl, txt)
+        if novo_txt != txt and not check_only:
+            with open(path, 'w', encoding='utf-8') as fh:
+                fh.write(novo_txt)
     return mudou
 
 
