@@ -1350,6 +1350,25 @@
       ]
     },
     {
+      "id": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "name": "Executor · transcrição de mídia",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "icon": "⚙",
+      "what": "Recebe bytes de áudio ou vídeo e um pai canónico, tira o áudio com ffmpeg, chama o dono único do reconhecimento (ferramentas/fala_local.py) e entrega o transcript ao dono da escrita. Declara TEXT_KIND=TRANSCRIPT e TEXT_RELATION=ORIGINAL. Corre local, sem rede, sem custo.",
+      "why_here": "É o irmão do executor de PDF, e a peça que faltava para o vídeo ter consumidor: VIDEO_OUTPUT_HAS_CONSUMER estava NO por falta exactamente disto. Ele NÃO sabe de onde a mídia veio — uma ponte que soubesse a plataforma seria uma ponte por plataforma.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "coleta/executor_transcricao_midia.py"
+      ],
+      "views": [
+        "audit",
+        "infra"
+      ]
+    },
+    {
       "id": "C-EXECUTOR-TEXTO-PDF",
       "name": "Executor · texto a partir de PDF",
       "territory": "Z-ACOES",
@@ -3520,7 +3539,8 @@
         "provas/o_video_tem_consumidor.py",
         "provas/o_raw_local_nao_e_duravel.py",
         "provas/a_rota_gratuita_ainda_e_gratuita.py",
-        "provas/a_legenda_e_o_audio_do_youtube.py"
+        "provas/a_legenda_e_o_audio_do_youtube.py",
+        "provas/a_ponte_de_midia_atravessa.py"
       ]
     }
   ],

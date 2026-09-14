@@ -1877,8 +1877,8 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "17 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "titulo": "18 coletores gravam registo sem data nem lugar.",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · executor_transcricao_midia.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -2339,9 +2339,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-italia-caption-audio-8b460b",
-    "HEAD": "bfff926201318874d53f3eab5bfef33bcfc1cf55",
-    "GENERATED_AT": "2026-09-14T16:53:57-03:00",
-    "SOURCE_TREE_FINGERPRINT": "eef71b40f3ff426ece119491300d58d18fbf18b57937a310003903ea240f6056"
+    "HEAD": "953e29ba3a9ce8cf6feb454646d77ab442bf9a3c",
+    "GENERATED_AT": "2026-09-14T16:57:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4c9f49f3555fc014b639e947e3f9e957faae3f5f86abbb4a19039802ea0ca44b"
   },
   "FAMILIES": [
     {
@@ -2368,7 +2368,7 @@
         "Z-MEDIDAS",
         "Z-ADMISSAO"
       ],
-      "count": 69
+      "count": 70
     },
     {
       "id": "F-ESPERA",
@@ -2576,7 +2576,7 @@
       "y": 190,
       "w": 1235,
       "h": 7124,
-      "count": 16
+      "count": 17
     },
     {
       "id": "Z-GUARDA",
@@ -10521,6 +10521,7 @@
         "C-CONTRATO-ARTEFATO",
         "C-DIAGNOSTICO",
         "C-EXECUTOR-TEXTO-PDF",
+        "C-INGRESSO",
         "C-RASTRO",
         "C-ROTA-M2",
         "C-SCRAP-LEIS"
@@ -11720,7 +11721,6 @@
         "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-FRONTEIRA-TELEMETRIA",
-        "C-INGRESSO",
         "C-IT-TEXTO-DERIVADO",
         "C-MAPA-GERADOR",
         "C-ORQUESTRADOR",
@@ -11810,13 +11810,82 @@
         "PROVA": [
           "coleta/derivacao_forward.py:83",
           "coleta/golden_path_pdf.py:53",
-          "coleta/ingresso.py:516",
-          "medidas/corrida_instrumentada.py:122"
+          "medidas/corrida_instrumentada.py:122",
+          "medidas/corrida_instrumentada.py:157"
         ],
-        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
       "x": 7535,
       "y": 1004
+    },
+    {
+      "id": "C-EXECUTOR-TRANSCRICAO-MIDIA",
+      "name": "Executor · transcrição de mídia",
+      "territory": "Z-ACOES",
+      "kind": "engine",
+      "what": "Recebe bytes de áudio ou vídeo e um pai canónico, tira o áudio com ffmpeg, chama o dono único do reconhecimento (ferramentas/fala_local.py) e entrega o transcript ao dono da escrita. Declara TEXT_KIND=TRANSCRIPT e TEXT_RELATION=ORIGINAL. Corre local, sem rede, sem custo.",
+      "why_here": "É o irmão do executor de PDF, e a peça que faltava para o vídeo ter consumidor: VIDEO_OUTPUT_HAS_CONSUMER estava NO por falta exactamente disto. Ele NÃO sabe de onde a mídia veio — uma ponte que soubesse a plataforma seria uma ponte por plataforma.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⚙",
+      "views": [
+        "acervo",
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [],
+      "file_count": 0,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sobre esta peca ainda. Conserto: `git add coleta/executor_transcricao_midia.py` e regerar. ISTO NAO E «nao existe».",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_DECLARED": "UNKNOWN",
+      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
+      "ROLE_CONFLICT": null,
+      "ROLE": "UNKNOWN",
+      "ROLE_PLANE": "UNKNOWN",
+      "ROLE_EVIDENCE": "nenhum ficheiro rastreado reivindicado por esta peca",
+      "OWNER": "ENGENHARIA",
+      "OWNER_PLANE": "DECLARED",
+      "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
+      "OWNER_CONFLICT": null,
+      "consumes": [],
+      "consumes_plane": "UNKNOWN",
+      "DECLARED": "YES",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "OBSERVED_EVIDENCE": [],
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
+      "ATIVACAO": {
+        "CLASSE": "NAO_SEI",
+        "QUEM": [],
+        "PLANO": null,
+        "PROVA": [],
+        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+      },
+      "x": 6705,
+      "y": 1326
     },
     {
       "id": "C-FLUXO-NO-SECO",
@@ -12060,7 +12129,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 6705,
+      "x": 7120,
       "y": 1326
     },
     {
@@ -12734,11 +12803,11 @@
         "C-CONTRATO-ARTEFATO",
         "C-DIAGNOSTICO",
         "C-DONO-DA-ESCRITA",
-        "C-EXECUTOR-TEXTO-PDF",
         "C-PROCEDENCIA",
         "C-RASTRO"
       ],
       "outbound": [
+        "C-DERIVACAO-FORWARD",
         "C-ESTRADA-PDF",
         "C-ORQUESTRADOR",
         "C-PROVA-COLETA",
@@ -12804,14 +12873,14 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
+          "coleta/derivacao_forward.py:291",
           "coleta/golden_path_pdf.py:51",
           "coleta/rota_forward_documento.py:51",
-          "orquestrador/orquestrador.py:57",
-          "provas/a_linhagem_do_ready_social.py:681"
+          "orquestrador/orquestrador.py:57"
         ],
-        "PORQUE": "estas pecas importam-na — C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
+        "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
-      "x": 7120,
+      "x": 7535,
       "y": 1326
     },
     {
@@ -13036,8 +13105,8 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 7535,
-      "y": 1326
+      "x": 6705,
+      "y": 1648
     },
     {
       "id": "C-IT-CONTAS",
@@ -21394,7 +21463,7 @@
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
-      "x": 6705,
+      "x": 7120,
       "y": 1648
     },
     {
@@ -21568,7 +21637,7 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7120,
+      "x": 7535,
       "y": 1648
     },
     {
@@ -21857,8 +21926,8 @@
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
-      "x": 7535,
-      "y": 1648
+      "x": 6705,
+      "y": 1970
     },
     {
       "id": "C-SCRAP-EVIDENCIA",
@@ -22449,7 +22518,7 @@
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
-      "x": 6705,
+      "x": 7120,
       "y": 1970
     },
     {
@@ -46318,41 +46387,6 @@
     },
     {
       "from": "C-EXECUTOR-TEXTO-PDF",
-      "to": "C-INGRESSO",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "raw_type": "IMPORTS",
-      "kind": "technical",
-      "status": "PROVEN",
-      "reason": "Executor · texto a partir de PDF tem o seu codigo importado por A porta de entrada da coleta. Provado por 1 linha de codigo.",
-      "evidence": [
-        {
-          "file": "coleta/ingresso.py",
-          "line": 516,
-          "snippet": "import executor_texto_de_pdf as _ex",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-INGRESSO",
-            "FROM": "C-EXECUTOR-TEXTO-PDF",
-            "TO": "C-INGRESSO",
-            "RELATION_TYPE": "IMPORTS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
-          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
-          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
-        }
-      ],
-      "categoria": "CODE",
-      "DECLARED": "UNKNOWN",
-      "CODE": "YES",
-      "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
-      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
-    },
-    {
-      "from": "C-EXECUTOR-TEXTO-PDF",
       "to": "C-IT-TEXTO-DERIVADO",
       "type": "PRODUZ",
       "kind": "technical",
@@ -48401,6 +48435,41 @@
     },
     {
       "from": "C-INGRESSO",
+      "to": "C-DERIVACAO-FORWARD",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A porta de entrada da coleta tem o seu codigo importado por A fronteira forward da derivação. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/derivacao_forward.py",
+          "line": 291,
+          "snippet": "import ingresso as _ing                            # noqa: PLC0415",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-INGRESSO--IMPORTS-->C-DERIVACAO-FORWARD",
+            "FROM": "C-INGRESSO",
+            "TO": "C-DERIVACAO-FORWARD",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-INGRESSO",
       "to": "C-ESTRADA-PDF",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -49106,7 +49175,7 @@
         },
         {
           "file": "tests/test_c4g_a_especie_do_video.py",
-          "line": 156,
+          "line": 200,
           "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -77162,15 +77231,15 @@
         "V-YOUTUBE",
         "lineage_consumer"
       ],
-      "TOTAL_DE_PECAS": 189
+      "TOTAL_DE_PECAS": 190
     }
   ],
   "COUNTS": {
-    "components": 189,
+    "components": 190,
     "components_proven": 41,
     "components_pending": 141,
     "components_broken": 0,
-    "components_unknown": 7,
+    "components_unknown": 8,
     "edges": 955,
     "edges_proven": 903,
     "edges_unknown": 52,
@@ -77180,7 +77249,7 @@
     "files_code_unclaimed": 0,
     "roles_proven": 137,
     "roles_declared_only": 5,
-    "roles_unknown": 47,
+    "roles_unknown": 48,
     "roles_conflict": 22,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 9,

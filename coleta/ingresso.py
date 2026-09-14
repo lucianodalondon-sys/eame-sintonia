@@ -511,13 +511,95 @@ def unidade_para_a_porta(item: dict, ficha) -> dict:
 #: um `ImportError` aqui faria a coleta parar por causa de uma PERGUNTA sobre
 #: capacidade. Sem a declaração, `_quem_deriva_aceita` responde True — que é o
 #: comportamento de sempre, e o seguro.
+#: Os executores de derivação, por ordem de consulta. A ordem NÃO é prioridade:
+#: as espécies não se sobrepõem — `application/pdf` não é `video/*` — e no dia
+#: em que se sobrepuserem isso é uma decisão a escrever, não a herdar de quem
+#: foi importado primeiro.
+#:
+#:     UMA ORDEM QUE DECIDE SEM QUE NINGUÉM A TENHA DECIDIDO
+#:     É UMA REGRA ESCONDIDA NUM `import`.
+_DONOS_DA_DERIVACAO = ("executor_texto_de_pdf", "executor_transcricao_midia")
+
+
+def _executores_de_derivacao():
+    """Os módulos de derivação importáveis AGORA. → tupla de módulos.
+
+    O import continua LOCAL e protegido, um a um: uma prova que copia meia
+    árvore pode ter o de PDF e não ter o de mídia, e faltar um NÃO pode fazer
+    a coleta parar por causa de uma PERGUNTA sobre capacidade.
+
+        FERRAMENTA QUE FALTA NÃO É DOCUMENTO QUEBRADO — `COL-LAW-503`.
+    """
+    import importlib                                           # noqa: PLC0415
+    fora = []
+    for nome in _DONOS_DA_DERIVACAO:
+        try:
+            mod = importlib.import_module(nome)
+        except Exception:                                      # noqa: BLE001
+            continue
+        if isinstance(getattr(mod, "CAPACIDADE", None), dict):
+            fora.append(mod)
+    return tuple(fora)
+
+
 def _capacidades_de_derivacao():
-    try:
-        import executor_texto_de_pdf as _ex
-    except Exception:                                          # noqa: BLE001
-        return ()
-    cap = getattr(_ex, "CAPACIDADE", None)
-    return (cap,) if isinstance(cap, dict) else ()
+    return tuple(m.CAPACIDADE for m in _executores_de_derivacao())
+
+
+def _cabe_na_capacidade(cap, tipo) -> bool:
+    """`tipo` (já em minúsculas, sem parâmetros) cabe nesta ficha? → bool.
+
+    Dois eixos, e os dois são DECLARADOS pelo dono da capacidade:
+
+        ACEITA_MEDIA_TYPES   o tipo exacto      `application/pdf`
+        ACEITA_FAMILIAS      a família do tipo  `audio` · `video`
+
+    ⚠️ A FAMÍLIA ENTROU PORQUE A LISTA EXACTA NÃO FECHAVA.
+    Um tipo só — PDF — cabe numa tupla. Mídia não: `video/mp4`,
+    `video/quicktime`, `video/webm`, `audio/mpeg`, `audio/mp4`, `audio/wav`,
+    `audio/ogg`, `audio/x-m4a`… e a lista nunca acaba. Escrevê-la aqui
+    garantia que, no dia em que chegasse um `audio/flac`, esta casa
+    responderia `NÃO SUPORTADO` a uma coisa que o `ffmpeg` abre há anos.
+
+        UMA LISTA QUE PRECISA DE SER COMPLETA PARA ESTAR CERTA
+        ESTÁ ERRADA NO DIA SEGUINTE.
+
+    E a família não afrouxa a trava: ela só decide A QUEM PERGUNTAR. Quem
+    responde de verdade é o executor, que abre o contentor e mede.
+    """
+    exactos = tuple(str(a).strip().lower()
+                    for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
+    if tipo in exactos:
+        return True
+    familias = tuple(str(f).strip().lower()
+                     for f in (cap.get("ACEITA_FAMILIAS") or ()))
+    return bool(familias) and tipo.split("/")[0] in familias
+
+
+def executor_para(media_type):
+    """Quem abre esta espécie? → o módulo do executor, ou `None`.
+
+    ⚠️ ESTA É A PERGUNTA QUE FALTAVA, E A SUA AUSÊNCIA ERA O DEFEITO.
+    `_quem_deriva_aceita` respondia «ALGUÉM abre isto?» — um booleano — e com
+    ele a porta sabia deixar passar. Mas quem derivava a seguir chamava sempre
+    o MESMO executor, escrito à mão em `derivacao_forward`. Enquanto houve um
+    executor só, as duas coisas coincidiam por acidente.
+
+        «ALGUÉM ABRE» != «QUEM ABRE».
+        UM ÚNICO EXECUTOR FAZ AS DUAS PERGUNTAS PARECEREM A MESMA.
+
+    `None` é resposta legítima e quer dizer «nenhum executor declara esta
+    espécie» — nunca «falhou». Quem recebe `None` escreve `NOT_APPLICABLE`.
+    """
+    if media_type is None or not str(media_type).strip():
+        return None
+    tipo = str(media_type).split(";")[0].strip().lower()
+    if tipo in _SENTINELAS or tipo.upper() in _SENTINELAS:
+        return None
+    for mod in _executores_de_derivacao():
+        if _cabe_na_capacidade(mod.CAPACIDADE, tipo):
+            return mod
+    return None
 
 
 DERIVACAO_SEM_BYTES_LOCAIS = "DERIVACAO_SEM_BYTES_LOCAIS"
@@ -559,8 +641,7 @@ def _quem_deriva_aceita(media_type) -> bool:
     if tipo in _SENTINELAS or tipo.upper() in _SENTINELAS:
         return True
     for cap in _capacidades_de_derivacao():
-        aceita = cap.get("ACEITA_MEDIA_TYPES") or ()
-        if tipo in tuple(str(a).strip().lower() for a in aceita):
+        if _cabe_na_capacidade(cap, tipo):
             return True
     return False
 
@@ -629,8 +710,17 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
         # documento foi colhido, e a Sala recebia `CAPTURED_AT = NAO SEI` com
         # o valor guardado tres degraus atras. Ausente continua ausente: uma
         # linha sem `captured_at` poe `None` aqui, e ninguem o enche.
+        # ⚠️ `MEDIA_TYPE` VIAJA COM A UNIDADE, E SEM ELE A ESCOLHA NÃO ACONTECE.
+        # A porta acima já leu a espécie para decidir se ALGUÉM a abre. Se ela
+        # não a puser na unidade, quem deriva a seguir tem de a adivinhar — e a
+        # única coisa que lá chega é um caminho de ficheiro, que é a extensão
+        # outra vez.
+        #
+        #     DEIXAR A ESPÉCIE PARA TRÁS NA PORTA OBRIGA A DEDUZI-LA DEPOIS,
+        #     E A DEDUÇÃO DEPOIS É A EXTENSÃO A VOLTAR PELA JANELA.
         unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
                          "CAPTURED_AT": o.get("CAPTURED_AT"),
+                         "MEDIA_TYPE": o.get("MEDIA_TYPE"),
                          # A fonte DESTA observacao. Nao e a da corrida: uma
                          # corrida pode ter colhido sete fontes, e entao ela
                          # nao tem nenhuma.

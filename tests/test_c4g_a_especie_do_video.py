@@ -103,8 +103,31 @@ class T2APortaDaEspecieRecebeOQuePrecisa(unittest.TestCase):
     """RT — o vídeo deixa de ser entregue ao extrator de PDF."""
 
     def test_video_declarado_nao_vai_para_a_derivacao_de_pdf(self):
-        self.assertFalse(ing._quem_deriva_aceita("video/mp4"))
-        self.assertFalse(ing._quem_deriva_aceita("audio/wav"))
+        """⚠️ A AFIRMAÇÃO MUDOU NA C4H, E O QUE ELA PROVA NÃO MUDOU.
+
+        Até aqui esta prova dizia `assertFalse(_quem_deriva_aceita("video/mp4"))`
+        — e estava CERTA: não havendo executor de mídia, a única maneira de o
+        vídeo não ir ao `pdftotext` era não ser derivado de todo.
+
+        A C4H escreveu esse executor. Agora a porta ACEITA vídeo, e aceita-o
+        porque há quem o abra. Manter o `assertFalse` seria pedir à casa que
+        continuasse a recusar mídia para um teste não mudar.
+
+            O QUE ESTA PROVA SEMPRE QUIS DIZER ERA «O VÍDEO NÃO VAI AO
+            EXTRATOR DE PDF» — E ISSO MEDE-SE NO DESTINO, NÃO NA PORTA.
+
+        `_quem_deriva_aceita` responde «ALGUÉM abre?». O destino responde
+        «QUEM abre?». Enquanto houve um executor só, as duas perguntas tinham
+        a mesma resposta, e era fácil confundi-las.
+        """
+        for tipo in ("video/mp4", "audio/wav"):
+            with self.subTest(tipo=tipo):
+                self.assertTrue(ing._quem_deriva_aceita(tipo),
+                                "a midia deixou de ter quem a abra")
+                self.assertNotEqual(
+                    getattr(ing.executor_para(tipo), "EXECUTOR_ID", None),
+                    "texto-de-pdf",
+                    "a midia foi encaminhada ao extrator de PDF")
 
     def test_o_pdf_continua_a_passar(self):
         self.assertTrue(ing._quem_deriva_aceita("application/pdf"))
@@ -120,45 +143,77 @@ class T2APortaDaEspecieRecebeOQuePrecisa(unittest.TestCase):
         self.assertTrue(ing._quem_deriva_aceita(art.NAO_SEI))
 
     def test_a_cadeia_inteira_do_video_num_so_lugar(self):
-        """Declarado -> chega à ficha -> a porta da espécie recusa. Os três."""
+        """Declarado -> chega à ficha -> vai ao executor de MÍDIA. Os três.
+
+        A C4G provou os dois primeiros elos e travava no terceiro por falta de
+        destino. A C4H deu-lhe destino, e a cadeia fecha aqui inteira.
+        """
         f = _ficha(CONTENT_TYPE="video/mp4")
         self.assertEqual(f.CONTENT_TYPE, "video/mp4")
-        self.assertFalse(ing._quem_deriva_aceita(f.CONTENT_TYPE))
-
-
-class T3OQueContinuaEmAberto(unittest.TestCase):
-    """A sentinela que impede esta missão de ser lida como maior do que foi."""
-
-    def test_nenhum_executor_de_derivacao_de_audio_nasceu(self):
-        """Enquanto não houver, `VIDEO_OUTPUT_HAS_CONSUMER` continua `NO`.
-
-        No dia em que um executor de áudio for escrito e DECLARADO à porta,
-        esta prova reprova — e a mensagem diz o que rever. É uma trava de
-        método, e não um veredito sobre o executor.
-        """
-        aceites = set()
-        for cap in ing._capacidades_de_derivacao():
-            aceites.update(str(a).lower() for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
+        self.assertTrue(ing._quem_deriva_aceita(f.CONTENT_TYPE))
         self.assertEqual(
-            aceites, {"application/pdf"},
-            "a porta da derivacao passou a conhecer mais do que PDF — reveja "
-            "VIDEO_OUTPUT_HAS_CONSUMER, que estava NO por falta disto")
+            getattr(ing.executor_para(f.CONTENT_TYPE), "EXECUTOR_ID", None),
+            "transcricao-de-midia")
 
-    def test_a_porta_da_derivacao_pergunta_a_um_dono_so(self):
-        """E ele é importado pelo NOME. É aqui que o executor de áudio entrará.
 
-        `_capacidades_de_derivacao` faz `import executor_texto_de_pdf` e
-        devolve a capacidade dele. Não é um registo: é uma lista de um, com
-        forma de registo — e o próprio ficheiro previu o problema, ao escrever
-        «no dia em que entrasse um executor de áudio os dois divergiam em
-        silêncio».
+class T3ASentinelaDisparou(unittest.TestCase):
+    """A sentinela da C4G fez exactamente o que foi construída para fazer.
+
+    ⚠️ ESTA CLASSE CHAMAVA-SE `T3OQueContinuaEmAberto`, E O QUE ESTAVA EM
+    ABERTO FECHOU.
+
+    A C4G escreveu duas provas cujo trabalho era REPROVAR no dia em que um
+    executor de mídia nascesse: `test_nenhum_executor_de_derivacao_de_audio_nasceu`
+    e `test_a_porta_da_derivacao_pergunta_a_um_dono_so`. A mensagem de falha
+    dizia, por escrito, o que rever. Na C4H elas reprovaram, e a mensagem
+    estava certa.
+
+        UMA SENTINELA QUE DISPARA NÃO É UM TESTE PARTIDO: É UM TESTE A
+        TRABALHAR. O QUE SE APAGA É A AFIRMAÇÃO VELHA, NUNCA O MÉTODO.
+
+    O que substitui as duas não é «o contrário»: é a mesma pergunta com a
+    resposta de hoje — a porta conhece mais do que PDF, e conhece-o por
+    DECLARAÇÃO, sem que o nome de nenhum executor esteja escrito na regra.
+    """
+
+    def test_a_porta_conhece_pdf_E_midia_e_nada_mais(self):
+        """O registo cresceu de um para dois, e não para «qualquer coisa»."""
+        exactos, familias = set(), set()
+        for cap in ing._capacidades_de_derivacao():
+            exactos.update(str(a).lower()
+                           for a in (cap.get("ACEITA_MEDIA_TYPES") or ()))
+            familias.update(str(f).lower()
+                            for f in (cap.get("ACEITA_FAMILIAS") or ()))
+        self.assertEqual(exactos, {"application/pdf"})
+        self.assertEqual(familias, {"audio", "video"},
+                         "a porta passou a conhecer uma familia nova — declare-a "
+                         "e reveja esta prova, que e a trava de metodo")
+
+    def test_a_porta_nao_escreve_o_nome_de_nenhum_executor_na_regra(self):
+        """A regra lê o registo; o registo é que nomeia os donos.
+
+        A C4G mediu o defeito ao contrário — `import executor_texto_de_pdf`
+        DENTRO da função que responde — e previu que «no dia em que entrasse um
+        executor de áudio os dois divergiam em silêncio». Não divergiram
+        porque o nome saiu da regra e foi para uma lista com dono.
         """
         with io.open(os.path.join(RAIZ, "coleta", "ingresso.py"),
                      encoding="utf-8") as fh:
             fonte = fh.read()
-        i = fonte.index("def _capacidades_de_derivacao")
-        bloco = fonte[i:fonte.index("\n\n", i)]
-        self.assertIn("import executor_texto_de_pdf", bloco)
+        i = fonte.index("def _cabe_na_capacidade")
+        regra = fonte[i:fonte.index("\ndef ", i + 10)]
+        self.assertNotIn("executor_texto_de_pdf", regra,
+                         "a regra voltou a conhecer um executor pelo nome")
+        self.assertNotIn("executor_transcricao_midia", regra)
+        # E o registo existe, com os dois, num sítio só.
+        self.assertIn("executor_texto_de_pdf", fonte[:i])
+        self.assertIn("executor_transcricao_midia", fonte[:i])
+
+    def test_o_video_passou_a_ter_consumidor(self):
+        """`VIDEO_OUTPUT_HAS_CONSUMER` era `NO` por falta EXACTAMENTE disto."""
+        mod = ing.executor_para("video/mp4")
+        self.assertIsNotNone(mod, "o video voltou a nao ter quem o abra")
+        self.assertIn("TRANSCRIPT", mod.CAPACIDADE["PRODUCES"])
 
 
 if __name__ == "__main__":

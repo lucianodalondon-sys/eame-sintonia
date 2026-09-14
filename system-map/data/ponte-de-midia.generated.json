@@ -1,0 +1,107 @@
+{
+ "O_QUE_ISTO_E": "Se a ponte generica de midia escolhe o executor certo pela especie DECLARADA e transcreve midia real — sem banco, sem rede e sem adquirir nada.",
+ "COMO_REFAZER": "py provas/a_ponte_de_midia_atravessa.py",
+ "A_LEI": "DECLARADO PELO OBSERVADOR > DEDUZIDO DO NOME > NAO SEI · CAPTION != TRANSCRIPT · SKIP != PASS · SQLITE != POSTGRES",
+ "NEW_MEDIA_ACQUISITION": "NO",
+ "RUN_TYPE": "REPROCESS",
+ "CANARIO": "C:/eame-sintonia\\data\\samples\\INSTAGRAM-TRANSCRICOES\\audio-cache\\DcNkh7LCW4u.mp4",
+ "MEDIDO": {
+  "PDF_EXECUTOR_SELECTED_FOR_VIDEO": {
+   "VALOR": "NO",
+   "PORQUE": "nenhuma especie de midia foi encaminhada ao extrator de PDF"
+  },
+  "CANARIO_BYTES": {
+   "VALOR": "9218753",
+   "PORQUE": "DcNkh7LCW4u.mp4"
+  },
+  "CANARIO_DURACAO_S": {
+   "VALOR": "29.72",
+   "PORQUE": "medido por ffprobe"
+  },
+  "CANARIO_FLUXOS": {
+   "VALOR": "imagem=1 som=1",
+   "PORQUE": "um contentor de video COM faixa de som"
+  },
+  "AUDIO_DERIVATION_EXECUTED": {
+   "VALOR": "PROVEN",
+   "PORQUE": "947620 bytes de WAV 16kHz mono"
+  },
+  "ASR_EXECUTED": {
+   "VALOR": "PROVEN",
+   "PORQUE": "pelo dono unico: ferramentas/fala_local.py"
+  },
+  "TRANSCRIPT_CHARS": {
+   "VALOR": "380",
+   "PORQUE": "caracteres de fala real"
+  },
+  "ASR_DEVICE_USED": {
+   "VALOR": "CPU",
+   "PORQUE": "quem decidiu foi o dono do ASR, nao esta ponte"
+  },
+  "ASR_MODEL": {
+   "VALOR": "small",
+   "PORQUE": ""
+  },
+  "WALL_SECONDS": {
+   "VALOR": "28.9",
+   "PORQUE": "relogio de parede desta prova"
+  },
+  "TEXT_KIND": {
+   "VALOR": "TRANSCRIPT",
+   "PORQUE": "produzido por ASR desta casa"
+  },
+  "TEXT_RELATION": {
+   "VALOR": "ORIGINAL",
+   "PORQUE": "nao foi traduzido"
+  },
+  "LANGUAGE": {
+   "VALOR": "it",
+   "PORQUE": ""
+  },
+  "LANGUAGE_SOURCE": {
+   "VALOR": "DETECTED",
+   "PORQUE": "DETECTED = a maquina ouviu; DECLARED = alguem provou antes"
+  },
+  "LANGUAGE_CONFIDENCE": {
+   "VALOR": "0.986",
+   "PORQUE": ""
+  },
+  "TRANSCRIPT_AMOSTRA": {
+   "VALOR": "Sapete quale è la magia dell'estate italiane? È il vento caldo che attraversa le vie del paese. È la meraviglia di tramonti tra i campi. Le passeggiate serali accompagnano i tuoi v",
+   "PORQUE": "primeiros 180 caracteres, para conferir a olho"
+  },
+  "DERIVED_CREATED": {
+   "VALOR": "NOT_EXERCISED",
+   "PORQUE": "escrever a linha exige banco; nao ha Postgres nesta maquina"
+  },
+  "STRUCTURED_CREATED": {
+   "VALOR": "NOT_EXERCISED",
+   "PORQUE": "depende de DERIVED no banco"
+  },
+  "ADMISSION_EXECUTED": {
+   "VALOR": "NOT_EXERCISED",
+   "PORQUE": "depende de STRUCTURED; e `admissao` importa `fcntl`, ausente no Windows"
+  },
+  "READY_HANDLING": {
+   "VALOR": "NOT_EXERCISED",
+   "PORQUE": "depende de ADMISSION"
+  },
+  "WAITING_ROOM_HANDLING": {
+   "VALOR": "NOT_EXERCISED",
+   "PORQUE": "depende de READY"
+  },
+  "RETRY_NAO_DUPLICA": {
+   "VALOR": "NOT_EXERCISED",
+   "PORQUE": "duas corridas so se distinguem com banco"
+  }
+ },
+ "NAO_EXERCITADO": [
+  "DERIVED_CREATED",
+  "STRUCTURED_CREATED",
+  "ADMISSION_EXECUTED",
+  "READY_HANDLING",
+  "WAITING_ROOM_HANDLING",
+  "RETRY_NAO_DUPLICA"
+ ],
+ "ONDE_A_ESTRADA_CONTINUA": "coleta/rota_forward_documento.py leva DERIVED -> STRUCTURED -> ADMISSION -> READY -> SALA, e ja existia. O que faltava era quem produzisse o DERIVED a partir de midia, e e isso que esta ponte faz."
+}

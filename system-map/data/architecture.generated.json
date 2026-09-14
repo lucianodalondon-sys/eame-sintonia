@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/youtube-italia-caption-audio-8b460b",
-    "HEAD": "bfff926201318874d53f3eab5bfef33bcfc1cf55",
-    "GENERATED_AT": "2026-09-14T16:53:57-03:00",
-    "SOURCE_TREE_FINGERPRINT": "eef71b40f3ff426ece119491300d58d18fbf18b57937a310003903ea240f6056"
+    "HEAD": "953e29ba3a9ce8cf6feb454646d77ab442bf9a3c",
+    "GENERATED_AT": "2026-09-14T16:57:48-03:00",
+    "SOURCE_TREE_FINGERPRINT": "4c9f49f3555fc014b639e947e3f9e957faae3f5f86abbb4a19039802ea0ca44b"
   },
   "FILES": [
     {
@@ -1228,7 +1228,7 @@
     },
     {
       "path": "coleta/derivacao_forward.py",
-      "sha": "400919c0376a31ee29c04820fef3dd95ff866d23",
+      "sha": "20b9093277d8b58097b85d1cd09ef3f0254982c3",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -1298,7 +1298,7 @@
     },
     {
       "path": "coleta/ingresso.py",
-      "sha": "5a242d88491cc6e5df65fa12649b3738f57c9f28",
+      "sha": "db006c4690b0d21177adc3fd3945bc522809d307",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -4938,7 +4938,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "24e807946a1d24512eec898147f2fabdbc213531",
+      "sha": "a8aeeccc7cb1c01c2ad8fb49608a86a0b8cae2dc",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10706,7 +10706,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "9758eb6cdb96bebd2829a19937ea8fbd752f133d",
+      "sha": "a2b3aea30343d60545b27ee9945f78087e3dcaea",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -11518,7 +11518,7 @@
     },
     {
       "path": "tests/test_c4g_a_especie_do_video.py",
-      "sha": "0c5d296c1c969e1233f505088e8d72c8a5639bae",
+      "sha": "6939986207f97d2111ad5974a6f714a106a979b5",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -14615,6 +14615,17 @@
     },
     {
       "from_file": "coleta/derivacao_forward.py",
+      "to_file": "coleta/ingresso.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "coleta/derivacao_forward.py",
+        "line": 291,
+        "snippet": "import ingresso as _ing                            # noqa: PLC0415"
+      }
+    },
+    {
+      "from_file": "coleta/derivacao_forward.py",
       "to_file": "leis/artefato.py",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -14875,17 +14886,6 @@
         "file": "coleta/ingresso.py",
         "line": 76,
         "snippet": "import _gavetas  # noqa: E402,F401"
-      }
-    },
-    {
-      "from_file": "coleta/ingresso.py",
-      "to_file": "coleta/executor_texto_de_pdf.py",
-      "type": "IMPORTS",
-      "payload": "codigo",
-      "evidence": {
-        "file": "coleta/ingresso.py",
-        "line": 516,
-        "snippet": "import executor_texto_de_pdf as _ex"
       }
     },
     {
@@ -46718,7 +46718,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_c4g_a_especie_do_video.py",
-        "line": 156,
+        "line": 200,
         "snippet": "with io.open(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"),"
       }
     },

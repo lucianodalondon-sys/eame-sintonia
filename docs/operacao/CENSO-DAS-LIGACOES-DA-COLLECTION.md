@@ -13,10 +13,10 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  bfff926201318874d53f3eab5bfef33bcfc1cf55
+HEAD_DA_MEDICAO  953e29ba3a9ce8cf6feb454646d77ab442bf9a3c
 BRANCH           claude/youtube-italia-caption-audio-8b460b
-GERADO_EM        2026-09-14T16:53:57-03:00
-CARDS            69
+GERADO_EM        2026-09-14T16:57:48-03:00
+CARDS            70
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
 ```
@@ -163,13 +163,13 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **o que entra · ficheiros** | — NÃO SEI |
 | **o que sai · dado** | C-SCRAP-SOCIAL |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 6 · saem 12 |
-| **arestas provadas** | entram 6 · saem 12 |
+| **arestas no mapa** | entram 7 · saem 12 |
+| **arestas provadas** | entram 7 · saem 12 |
 | **OBSERVADAS** | 2 — corrida `RUN-M2-E2E` |
 | **control plane** | entram 1 · saem 0 |
 | **data plane** | entram 0 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED UNKNOWN · PROVEN YES _(no plano CODE)_ |
-| **prova das ligações** | CODE 16 · OBSERVED 2 |
+| **prova das ligações** | CODE 17 · OBSERVED 2 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **OK** — travessia OBSERVADA numa corrida real |
 
@@ -232,21 +232,46 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/derivacao_forward.py:83; coleta/golden_path_pdf.py:53; coleta/ingresso.py:516 |
-| **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/derivacao_forward.py:83; coleta/golden_path_pdf.py:53; medidas/corrida_instrumentada.py:122 |
+| **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | C-IT-PDF-BRUTO |
 | **o que entra · ficheiros** | `data/derivados/REGISTO-DE-ARTEFATOS.json` |
 | **o que sai · dado** | C-IT-TEXTO-DERIVADO |
 | **o que sai · ficheiros** | `data/derivados/REGISTO-DE-ARTEFATOS.json` |
-| **arestas no mapa** | entram 4 · saem 20 |
-| **arestas provadas** | entram 3 · saem 19 |
+| **arestas no mapa** | entram 4 · saem 19 |
+| **arestas provadas** | entram 3 · saem 18 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 1 · saem 1 |
 | **prova da peça** | DECLARED YES · CODE YES · OBSERVED YES · PROVEN YES _(no plano OBSERVED)_ |
-| **prova das ligações** | CODE 22 · NÃO SEI 2 |
+| **prova das ligações** | CODE 21 · NÃO SEI 2 |
 | **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
 | **VEREDITO** | **UNKNOWN** — nada medido diz quem lhe da a ordem |
+
+### `C-EXECUTOR-TRANSCRICAO-MIDIA` · Executor · transcrição de mídia
+
+| | |
+|---|---|
+| **peça real** | — nenhum ficheiro |
+| **papel** | UNKNOWN · medido no plano UNKNOWN |
+| **dono** | ENGENHARIA |
+| **status operacional** | gray — ⚪ NAO SEI. O ficheiro EXISTE no disco e ainda NAO esta rastreado pelo Git; o scanner le `git ls-files`, por isso ele nao entra no inventario e nada se prova sob |
+| **QUEM ATIVA** | **NAO_SEI** |
+| **prova de quem ativa** | — NÃO SEI |
+| **porquê** | nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede. |
+| **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que entra · ficheiros** | — NÃO SEI |
+| **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
+| **o que sai · ficheiros** | — NÃO SEI |
+| **arestas no mapa** | entram 0 · saem 0 |
+| **arestas provadas** | entram 0 · saem 0 |
+| **OBSERVADAS** | 0 |
+| **control plane** | entram 0 · saem 0 |
+| **data plane** | entram 0 · saem 0 |
+| **prova da peça** | DECLARED YES · CODE UNKNOWN · OBSERVED UNKNOWN · PROVEN UNKNOWN |
+| **prova das ligações** |  |
+| **lei da Bíblia** | COL-LAW-006/007 · RAW primeiro, e RAW nao e derivado |
+| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
 
 ### `C-FONTES-EU` · Ler as bases oficiais da Europa
 
@@ -282,14 +307,14 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA |
 | **status operacional** | yellow — esta no caminho: alguem o chama antes de publicar.  Mas ha 1 ficheiro(s) novos que nunca foram lidos por gente. |
 | **QUEM ATIVA** | **NAO_SEI** |
-| **prova de quem ativa** | coleta/golden_path_pdf.py:51; coleta/rota_forward_documento.py:51; orquestrador/orquestrador.py:57 |
-| **porquê** | estas pecas importam-na — C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
+| **prova de quem ativa** | coleta/derivacao_forward.py:291; coleta/golden_path_pdf.py:51; coleta/rota_forward_documento.py:51 |
+| **porquê** | estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-ORQUESTRADOR · C-ROTA-M2 — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `leis/artefato.py` |
 | **o que sai · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que sai · ficheiros** | — NÃO SEI |
-| **arestas no mapa** | entram 7 · saem 14 |
-| **arestas provadas** | entram 7 · saem 14 |
+| **arestas no mapa** | entram 6 · saem 15 |
+| **arestas provadas** | entram 6 · saem 15 |
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
@@ -1784,6 +1809,7 @@ UNKNOWN            16
 SYSTEM_GAP         9
 EXTERNAL_ENTRY     6
 ALVO_SEM_ESCRITOR_MEDIDO 2
+ORPHAN             1
 TERMINAL           1
-TOTAL              69
+TOTAL              70
 ```
