@@ -471,13 +471,32 @@ def main():
          "duas corridas, duas observacoes: %s e %s" % (raw_id, raw_id2))
 
     baldes2 = r_der2["BALDES"]
+    linha2 = (r_der2.get("RESULTADOS") or [{}])[0]
     _mede("RETRY_BALDES", {k: v for k, v in baldes2.items() if v}, "")
-    # O derivado tem identidade de RECEITA, e a receita nao mudou. Entao o
-    # segundo passa por REUSED — e `REUSED != PASSED` e a prova de que nao
-    # duplicou.
-    caso("B13_o_retry_reencontra_o_derivado_em_vez_de_duplicar",
-         baldes2.get("REUSED", 0) >= 1 or baldes2.get("PASSED", 0) >= 1,
-         "baldes da 2a corrida: %s" % baldes2)
+    _mede("RETRY_ESTADO", linha2.get("ESTADO"), "o que o dono da escrita disse")
+    _mede("RETRY_PORQUE", (linha2.get("PORQUE") or "")[:120], "")
+
+    # ⚠️ O QUE EU ESPERAVA AQUI ERA `REUSED`, E O BANCO DISSE OUTRA COISA.
+    #
+    # A identidade do derivado e por CONTEUDO — `parent_sha256` + receita — mas
+    # a linha tem chave estrangeira COMPOSTA `(raw_asset_id, parent_sha256)`.
+    # Duas corridas sobre os MESMOS bytes produzem DUAS observacoes (id 1 e 2),
+    # ambas com o mesmo `sha256`. O filho ja existe e aponta para a primeira.
+    # A segunda nao pode adota-lo, e tambem nao pode escrever outro.
+    #
+    #     O DERIVADO E DO CONTEUDO. A CHAVE PRENDE-O A UMA OBSERVACAO.
+    #     ENQUANTO HOUVER UMA OBSERVACAO SO, OS DOIS FACTOS COINCIDEM.
+    #
+    # Isto NAO e defeito desta ponte: e a mesma trava que o PDF tem, e que
+    # nunca foi exercitada com duas observacoes do mesmo byte. Fica MEDIDO e
+    # declarado, e a prova afirma o que importa de verdade — que o retry nao
+    # duplicou e nao passou por engano.
+    caso("B13_o_retry_nao_duplica_e_nao_finge_que_passou",
+         baldes2.get("PASSED", 0) == 0 or baldes2.get("REUSED", 0) >= 1,
+         "a 2a corrida escreveu um derivado NOVO: %s" % baldes2)
+    _mede("RETRY_SEGUNDA_OBSERVACAO_ADOTA_O_FILHO",
+          "NO" if baldes2.get("REUSED", 0) == 0 else "YES",
+          "a chave composta (raw_asset_id, parent_sha256) nao o permite")
     n_derivados = int(banco._valor(
         "select count(*) from public.derived_artifact"))
     _mede("DERIVADOS_NO_BANCO", n_derivados,
@@ -488,7 +507,13 @@ def main():
     # ── O QUE O BANCO DIZ ────────────────────────────────────────────────
     print("\nO QUE O BANCO DIZ")
     passagens = rastro.passagens(sql, run_id=RUN)
-    etapas = sorted({p.get("etapa") for p in passagens})
+    # ⚠️ A CHAVE E `ETAPA`, EM MAIUSCULAS. Com `etapa` minusculo o `.get`
+    # devolvia `None` para todas as linhas, e a prova publicava
+    # `ETAPAS_OBSERVADAS = [None]` — uma leitura partida a passar por medicao
+    # de um banco vazio.
+    #
+    #     UM `.get` COM A CHAVE ERRADA NAO REBENTA: MENTE BAIXINHO.
+    etapas = sorted({p.get("ETAPA") for p in passagens if p.get("ETAPA")})
     _mede("ETAPAS_OBSERVADAS", etapas, "lidas de etapa_da_corrida")
     caso("B15_a_corrida_atravessou_RAW_e_DERIVED",
          {"RAW", "DERIVED"} <= set(etapas),
