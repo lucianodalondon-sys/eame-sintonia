@@ -70,7 +70,7 @@ Qualquer coisa que não seja `IT` fecha a porta — `UNKNOWN` incluído.
 
 **10. O que foi provado em descartável?**
 67 casos contra Postgres 16 real (30 ataques de red team, 0 sobreviventes), 34
-casos no portão de egresso (10 ataques, 0 sobreviventes), 17 mutantes e 17 mortos, e 59 testes de unidade que correm sem banco nenhum.
+casos no portão de egresso (10 ataques, 0 sobreviventes), 17 mutantes e 17 mortos, e 60 testes de unidade que correm sem banco nenhum.
 
 **11. O que ainda NÃO foi aplicado no LIVE?**
 A migration `031`. Ela não correu, nem uma vez, contra o banco de produção.
@@ -223,7 +223,7 @@ matam mesmo a transição da fila. Os dois morreram.
 
 ```
 tests/test_sala_duravel.py + tests/test_preflight_de_egresso.py
-59 testes · OK
+60 testes · OK
 ```
 
 ---
@@ -282,7 +282,7 @@ limpa do HEAD funcional, com as alterações desta missão em `stash`.
 ```
                   ANTES     DEPOIS
 MODULES             152        154
-TESTS              3884       3943
+TESTS              3884       3944
 FAILURES             18         18
 ERRORS               15         15
 SKIPS               194        194
@@ -290,6 +290,20 @@ LOAD_ERRORS           1          1
 
 NEW_FAILURES          0
 DISAPPEARED_TESTS     0
+```
+
+⚠️ **E o `0` só é `0` à segunda medição.** A primeira contou **9 falhas novas**, e
+nenhuma delas era ruído:
+
+| falha nova | o que era | o que se fez |
+|---|---|---|
+| `test_migrations::test_nenhuma_migration_foi_executada` | **toda** migration desta casa carrega a marca `NÃO EXECUTADA`, e a `031` não a tinha | a marca entrou, e diz a verdade: provada em descartável, nunca no LIVE |
+| `test_a_sala_de_espera_nao_tem_morada::test_nenhuma_migration_deu_MORADA…` | uma sentinela que exigia **zero** tabelas para a Sala | mudou de lado **com a razão escrita no corpo**, e passou a exigir exactamente **uma**, a declarada — que é mais forte do que zero |
+| 5 × `test_metricas` (`TEST_COUNT_CURRENT`) | o número de testes é publicado em oito documentos e tem dono | sincronizado pelo dono (`pacote/metricas_canonicas.py --sync`), nunca à mão |
+| 2 × «esta missão não tocou em `admissao/`» | comparam `git diff HEAD` | eram o efeito de correr a bateria com a árvore por commitar; passam com o trabalho commitado |
+
+```
+UMA REGRESSÃO QUE SE MEDE UMA VEZ SÓ MEDE A SORTE.
 ```
 
 As 18 falhas e 15 erros são **anteriores a esta missão** e vêm do ambiente —
@@ -467,7 +481,7 @@ adquirir.
 
 **QUAL A PROVA**
 67 casos contra Postgres 16 real (30 ataques, 0 sobreviventes) · 34 casos no
-portão de egresso (10 ataques, 0 sobreviventes) · 17 mutantes, 17 mortos · 59
+portão de egresso (10 ataques, 0 sobreviventes) · 17 mutantes, 17 mortos · 60
 testes sem banco · regressão com `NEW_FAILURES = 0` · System Map `PASS`.
 
 **O QUE NÃO MUDOU**
