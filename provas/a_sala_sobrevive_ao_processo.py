@@ -627,7 +627,11 @@ def main():
     def _lit(v):
         return "'%s'" % str(v).replace("'", "''")
     valores = {
-        "run_id": _lit("RUN-ADMISSAO"), "ordem": "0",
+        # ⚠️ `ordem` 999 DE PROPOSITO. A chave primaria e `(run_id, ordem)`, e
+        # o Postgres real recusou `(RUN-ADMISSAO, 0)` — os casos anteriores ja
+        # tinham pousado nesse endereco. Uma morada livre nao se adivinha: ela
+        # escolhe-se fora do alcance de quem ja escreveu.
+        "run_id": _lit("RUN-ADMISSAO"), "ordem": "999",
         "item_id": _lit("pre-032"),
         "raw_observation_id": "null", "universo": _lit("T5"),
         "texto": _lit("linha escrita antes da 032"),
@@ -636,6 +640,8 @@ def main():
         "captured_at": _lit("2026-05-03T00:00:00Z"),
         "admitido_por": _lit("PROVA-032"),
         "corrida_sha256": _lit("0" * 64)}
+    _psql(url, "delete from public.sala_de_espera where item_id = 'pre-032';",
+          ler=False)
     _psql(url, "insert into public.sala_de_espera (%s) values (%s);"
           % (", ".join(COLS_031), ", ".join(valores[c] for c in COLS_031)),
           ler=False)
