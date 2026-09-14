@@ -14041,13 +14041,30 @@ Primeira corrida real da Intelligence sobre um item real. Ela abriu, consumiu,
 fechou — e o resultado foi o diagnóstico, não o produto:
 
 ```
-INTELLIGENCE_RUN_ID   IR-792eb28d7873f4015ede
+INTELLIGENCE_RUN_ID   IR-b445569197fb537aa43c
+REQUEST_ID            IQ-afb4866145951c8a
+CODE_VERSION          cf4167fb377de644
 RESULT_STATE          DONE
 ANALYTIC_OUTPUT       NO_ANALYTIC_OUTPUT_YET
 SIGNALS               0
 REQUIREMENTS          1     FACT_TIME · RAW_OBSERVATION_ID
 COLLECTOR_CALLS       0
 ```
+
+**E o primeiro `RUN_ID` que eu escrevi aqui não era esse.** A corrida das 15:52
+saiu `IR-792eb28d7873f4015ede`, com `CODE_VERSION = 5f8c00ea907059fa`. Depois
+disso o próprio motor mudou — o RT12b obrigou a recusa nomeada — e a corrida
+passou a ter outra identidade. O `REQUEST_ID` não mexeu: mesma pergunta, mesmo
+item.
+
+```
+O CODIGO ESTA DENTRO DA IDENTIDADE DA CORRIDA. MUDAR O CODIGO MUDA A CORRIDA.
+Escrever o RUN_ID antigo ao lado do codigo novo seria declarar uma execucao que
+esta arvore ja nao consegue reproduzir — e a linha inteira de §120 e sobre isso.
+```
+
+A identidade reproduz: correr duas vezes seguidas sobre o mesmo item, com a
+mesma pergunta e o mesmo código, dá o mesmo `IR-`. O relógio não entra.
 
 ```
 O RUNTIME FUNCIONA. A MATERIA-PRIMA E QUE NAO CHEGA.
