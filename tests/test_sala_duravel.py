@@ -101,10 +101,10 @@ class ABackendNaoSeEscolheSozinho(Bancada):
 class OContratoDeEntrada(Bancada):
     """⚠️ UMA SALA QUE ACEITA QUALQUER DICIONÁRIO NÃO GUARDA READY: GUARDA LIXO."""
 
-    def test_os_doze_campos_do_dono_sao_os_doze_da_sala(self):
+    def test_os_campos_do_dono_sao_os_campos_da_sala(self):
         """Dois lados a comparar. Se o dono do contrato mudar, isto reprova."""
         self.assertEqual(tuple(self.unidade()), espera.CAMPOS_READY)
-        self.assertEqual(12, len(espera.CAMPOS_READY))
+        self.assertEqual(19, len(espera.CAMPOS_READY))
 
     def test_onze_campos_nao_entram(self):
         onze = self.unidade()
@@ -279,21 +279,48 @@ class AMigrationDiz(Bancada):
     def test_a_031_existe_e_e_a_proxima(self):
         pasta = os.path.join(RAIZ, "supabase", "migrations")
         numeros = sorted(f[:3] for f in os.listdir(pasta) if f.endswith(".sql"))
-        self.assertEqual("031", numeros[-1])
+        # ⚠️ ERA `assertEqual("031", numeros[-1])`, e isso guardava «a 031 e a
+        # ULTIMA migration do repositorio» — uma frase que deixa de ser
+        # verdadeira na primeira migration seguinte, escrita por quem for.
+        # O que esta prova quer dizer e que a 031 EXISTE e nao foi renumerada.
+        self.assertIn("031", numeros)
         self.assertEqual(len(numeros), len(set(numeros)),
                          "duas migrations com o mesmo numero sao UMA")
 
     def test_a_chave_nao_e_o_ITEM_ID(self):
-        """`admissao.decidir()` devolve `"?"`: ITEM_ID não é endereço."""
+        """A chave é `(run_id, ordem)`, e continua a ser depois da cura.
+
+        ⚠️ A RAZÃO MUDOU, E A REGRA NÃO. Esta prova dizia «`decidir()` devolve
+        `"?"`, logo `ITEM_ID` não é endereço». `C-COL-PRESERVE-FACTS-V1` matou o
+        `"?"` — e isso NÃO faz de `ITEM_ID` uma chave. Ele continua a ser o nome
+        que a FONTE deu ao item, e duas fontes podem dar o mesmo. A ordem dentro
+        da corrida é gerada aqui e é única por construção.
+
+            CURAR UM SINTOMA NÃO PROMOVE O CAMPO A CHAVE.
+        """
         s = _fonte(MIGRACAO)
         self.assertIn("primary key (run_id, ordem)", s)
         self.assertNotIn("primary key (run_id, item_id)", s)
 
-    def test_e_o_ITEM_ID_repete_se_mesmo(self):
+    def test_um_item_sem_endereco_NAO_chega_a_sala(self):
+        """⚠️ ISTO EXIGIA `ITEM_ID == "?"`, E ERA A LEI AO CONTRÁRIO.
+
+        A prova antiga afirmava que um item sem `id` e sem `url` chegava à Sala
+        com `ITEM_ID = '?'` — e a `COL-LAW-034` diz em letra que `"?"` **NÃO
+        DEVE** ser usado como identidade. A guarda congelava a violação.
+
+            UMA PROVA QUE DESCREVE O DEFEITO PASSA A DEFENDÊ-LO.
+
+        Agora a porta recusa: `NAO_SEI` por `identidade`, e nada chega à Sala.
+        """
         sem_id = {"texto": "Ensaio com DOI", "source_id": "IT-T7-001",
                   "fact_time": "2026-05-02"}
         d = admissao.decidir(sem_id, "T5", corrida="R1")
-        self.assertEqual("?", admissao.pronto_para_inteligencia(sem_id, d)["ITEM_ID"])
+        self.assertEqual(admissao.NAO_SEI, d.resultado)
+        self.assertEqual("identidade", d.regra)
+        self.assertNotEqual("?", d.item)
+        with self.assertRaises(ValueError):
+            admissao.pronto_para_inteligencia(sem_id, d)
 
     def test_a_linhagem_tem_chave_estrangeira_e_nao_disciplina(self):
         s = _fonte(MIGRACAO)

@@ -71,6 +71,10 @@ import _gavetas  # noqa: E402,F401
 # palavras foram CONTADAS no repositorio por quem preserva, e uma segunda copia
 # divergiria no dia em que aparecesse a setima.
 from preservar_coleta import _identifica  # noqa: E402
+# O dono do vocabulario do artefato — cinco tempos, tres geografias, e as duas
+# palavras de ausencia. Importado pela mesma razao: uma segunda copia de
+# `"NAO SEI"` diverge no dia em que uma delas ganhar um acento.
+from leis import artefato as art  # noqa: E402
 
 LIVRO = RAIZ / "data" / "samples" / "LIVRO-DE-DECISOES.json"
 
@@ -82,6 +86,17 @@ NAO_SE_APLICA = "NAO_SE_APLICA"  # a pergunta nao faz sentido para este item
 ERRO = "ERRO"                    # nao consegui olhar — NAO e uma rejeicao
 
 RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
+
+# ⚠️ DUAS PALAVRAS PARECIDAS, E NAO SAO A MESMA COISA.
+# `NAO_SEI` (com `_`) e um RESULTADO da porta. `AUSENCIA` (com espaco) e o valor
+# que o CONTRATO DE SAIDA escreve quando um campo nao tem prova — e e o unico
+# que a Sala de Espera reconhece como «isto e NULL». Trocar um pelo outro faz a
+# ausencia deixar de ser ausencia e virar a string `"NAO_SEI"`, que o banco
+# guardaria como se fosse um valor medido.
+#
+#     O DONO DESTA PALAVRA E `leis/artefato.py::NAO_SEI`, e e de la que ela vem.
+AUSENCIA = art.NAO_SEI
+AUSENCIA_NAO_SE_APLICA = art.NAO_SE_APLICA
 
 # A versao da regra vive aqui e sobe quando a regra muda. E o que permite dizer
 # «reprocessa tudo o que a versao 1 rejeitou» sem reprocessar o resto.
@@ -105,7 +120,16 @@ RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
 #          nao tinha em lingua nenhuma: PLANTAS DANINHAS e resistencia.
 #     Quem foi decidido pela v3 fica como esta. A versao e o que permite
 #     reabrir exactamente o que (b) possa ter tornado `NAO_SEI`.
-VERSAO_DA_REGRA = "4"
+# 5 · duas mudancas de regua, e as duas APERTAM:
+#       a) `identidade` passou a ser uma pergunta da porta. Um item sem `id` e
+#          sem `url` saia com `ITEM_ID = "?"` — uma identidade fabricada, contra
+#          a COL-LAW-034 em letra. Agora e `NAO_SEI`, e ele nao passa.
+#       b) o campo generico `data` deixou de valer como TEMPO DO FATO. Continua
+#          a servir de ancora para admitir; deixou de promover a FACT_TIME.
+#     Tudo o que a v4 admitiu com `ITEM_ID = "?"` ou com `FACT_TIME` vindo de
+#     `data` tem de poder ser reaberto — e a versao e o que permite dize-lo sem
+#     reprocessar o resto.
+VERSAO_DA_REGRA = "5"
 
 
 @dataclass
@@ -290,11 +314,30 @@ def _tem_quando(item: dict) -> tuple:
     muda e a VERDADE ESCRITA AO LADO da decisao: o motivo e a evidencia passam a
     dizer QUAL das duas datas se achou, e `pronto_para_inteligencia()` continua
     a nao deixar `published_at` virar `FACT_TIME` no contrato de saida.
+
+    ⚠️ E O CAMPO GENERICO `data` DEIXOU DE SER `FACT_TIME`, MEDIDO AQUI:
+
+        _tem_quando({"data": "2026-06-30"})
+        antes ->  ('SIM', 'tem tempo do fato', {'que_tempo': 'FACT_TIME'})
+
+    `data` nao declara DE QUE TEMPO E. Um coletor que la ponha a data do
+    documento — e e o que um coletor poe, porque e a data que ele tem — produzia
+    um `FACT_TIME` falso, carimbado como fato, sem ninguem escolher isso. E o
+    mesmo defeito de `published_at`, so que sem nome:
+
+        UM CAMPO QUE NAO DIZ DE QUE ESPECIE E NAO PODE PROMOVER A ESPECIE NENHUMA.
+        COL-LAW-031: «nao por conveniencia, nao por omissao, NAO POR FALLBACK.»
+
+    Ele continua a servir de ANCORA para admitir — nao se aperta a porta aqui —
+    e continua escrito na evidencia, com o nome que merece: `TIME_UNDECLARED`.
     """
-    fato = item.get("fact_time") or item.get("data")
+    fato = item.get("fact_time")
     if fato:
         return SIM, "tem tempo do fato", {"quando": str(fato)[:40],
-                                          "que_tempo": "FACT_TIME"}
+                                          "que_tempo": "FACT_TIME",
+                                          "fact_time_basis": str(
+                                              item.get("fact_time_basis")
+                                              or "declarado pelo produtor do item")[:200]}
     pub = item.get("published_at")
     if pub:
         return SIM, ("tem ancora de tempo, mas e a data de PUBLICACAO — nao a do "
@@ -302,6 +345,13 @@ def _tem_quando(item: dict) -> tuple:
                      "adiante."), {"quando": str(pub)[:40],
                                    "que_tempo": "PUBLICATION_TIME",
                                    "fact_time": "NAO SEI"}
+    generica = item.get("data")
+    if generica:
+        return SIM, ("tem ancora de tempo, mas o campo `data` nao diz de que "
+                     "tempo e. NAO se promove a FACT_TIME sem contrato que o "
+                     "declare (COL-LAW-031). O tempo do fato continua NAO SEI."), \
+               {"quando": str(generica)[:40], "que_tempo": "TIME_UNDECLARED",
+                "campo": "data", "fact_time": "NAO SEI"}
     return NAO_SEI, ("o item nao diz quando o fato aconteceu. Fica NAO_SEI, "
                      "nao NAO: falta a prova, nao o valor."), {}
 
@@ -320,6 +370,48 @@ def _tem_pai(item: dict) -> tuple:
         return NAO_SEI, ("este documento nao diz de que original nasceu. Sem pai "
                          "nao da para conferir contra o bruto."), {}
     return SIM, "o pai esta declarado", {"pai": str(pai)[:60]}
+
+
+def _identidade_do_item(item: dict):
+    """O endereco deste item, ou `None`. NUNCA um simbolo a fingir de endereco."""
+    for campo in ("id", "url"):
+        v = item.get(campo)
+        if v is not None and str(v).strip() and str(v).strip() not in (
+                AUSENCIA, NAO_SEI, AUSENCIA_NAO_SE_APLICA, "?"):
+            return str(v)
+    return None
+
+
+def _tem_identidade(item: dict) -> tuple:
+    """Este item tem endereco proprio? Sem ele nao se consegue ir buscar depois.
+
+    ⚠️ AQUI MORAVA UM `"?"`, E ELE ERA UMA IDENTIDADE FABRICADA.
+
+        Decisao(item=str(item.get("id") or item.get("url") or "?"), ...)
+
+    Medido nesta arvore: um item com `source_id`, sem `id` e sem `url` passava a
+    porta e chegava a Sala de Espera com `ITEM_ID = '?'`. A `COL-LAW-034` diz o
+    contrario em letra: *«`"?"` e a string vazia NAO DEVEM ser usados como
+    identidade.»* E a Sala ja tinha a cicatriz escrita — `ItemAmbiguo` existe
+    porque dois `"?"` na mesma corrida sao duas coisas com a mesma morada, e
+    retirar «o item ?» seria retirar um dos dois a sorte.
+
+        UM SIMBOLO QUE SIGNIFICA «NAO SEI» POSTO NO SITIO DA IDENTIDADE
+        NAO E UM AVISO: E UMA CHAVE DUPLICADA COM AR DE CHAVE.
+
+    A resposta certa nao e inventar um id — nem do sha256, nem da URL, nem do
+    `source_id`, que e da FONTE e nao do ITEM. E dizer NAO_SEI e parar: falta a
+    prova, nao o valor. Isto APERTA a porta, e de proposito. A rota canonica
+    (`rota_forward_documento.item_para_a_porta`) poe sempre `id=CONTENT_ID`, e
+    por isso nao e afectada.
+    """
+    if _identidade_do_item(item) is not None:
+        return SIM, "o item tem endereco proprio", {}
+    return NAO_SEI, (
+        "este item nao traz `id` nem `url`: nao tem endereco proprio. Sem "
+        "endereco ele nao se consegue ir buscar depois, e dois assim na mesma "
+        "corrida ficariam com a mesma morada. `source_id` NAO serve — e da "
+        "FONTE, nao do item (COL-LAW-034)."), {"identidade": "NAO SEI"}
 
 
 # ── AS DUAS PRONTIDOES, E O ESTAGIO QUE AS SEPARA ───────────────────────────
@@ -358,10 +450,16 @@ def perguntas_do_estagio(est: str) -> tuple:
         # Prontidao DOCUMENTAL: da para ler, sabe de onde veio, sabe de que
         # original nasceu. O tempo do FATO nao se pergunta aqui.
         return (("legivel", _legivel), ("origem", _tem_origem),
-                ("linhagem", _tem_pai))
+                ("linhagem", _tem_pai), ("identidade", _tem_identidade))
     # FATO e ESTAGIO_DESCONHECIDO continuam a responder pelo tempo do fato.
+    #
+    # ⚠️ `identidade` e a ULTIMA das prontidoes, e nao a primeira, de proposito:
+    # as outras perguntam sobre o ITEM, e esta pergunta sobre a MORADA que ele
+    # vai ter na Sala. Pondo-a a frente, um item ilegivel passaria a ser
+    # recusado por «identidade» e a razao verdadeira — «veio sem texto» —
+    # deixaria de aparecer no livro.
     return (("legivel", _legivel), ("origem", _tem_origem),
-            ("tempo do fato", _tem_quando))
+            ("tempo do fato", _tem_quando), ("identidade", _tem_identidade))
 
 
 # ── A PORTA LE O QUE ESTA ESCRITO, E O ITALIANO ESCREVE-SE COM ACENTO ──────
@@ -608,16 +706,39 @@ def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
     pergunta o tempo de um fato que ainda nao foi extraido dele.
     """
     est = estagio(item)
+    endereco = _identidade_do_item(item)
+    # `NAO SEI` e ausencia declarada — nunca `"?"`, que e um simbolo com ar de
+    # chave. Quem cai aqui NAO passa a porta (`_tem_identidade` recusa), por
+    # isso este valor nunca chega a ser a morada de nada na Sala.
+    nome_do_item = endereco if endereco is not None else AUSENCIA
+
+    # ── O LIVRO GUARDA A PROVA DE CADA PORTAO, E NAO SO A DO ULTIMO ─────────
+    # ⚠️ MEDIDO: `decidir` devolvia a evidencia da ULTIMA pergunta, e so dela.
+    # Um item que atravessava o portao temporal por uma data de PUBLICACAO
+    # chegava ao livro com `{"palavras": [...], "estagio": "FATO"}` — a chave
+    # `quando` nao estava la, e portanto nao havia em lado nenhum a prova de
+    # que o tempo do fato continuava por saber.
+    #
+    #     COL-LAW-042 exige `evidence`. Ela estava la, e NAO era a que provava
+    #     a passagem. UMA PROVA QUE NAO PROVA O QUE PASSOU E UM CARIMBO.
+    #
+    # Cada portao escreve debaixo do seu nome. Nao se fundem chaves: dois
+    # portoes podem chamar `quando` a coisas diferentes, e achatar isso faria o
+    # segundo apagar o primeiro — exactamente o defeito, com mais passos.
+    provas = {}
     for nome, f in perguntas_do_estagio(est):
         r, motivo, ev = f(item)
+        provas[nome] = dict(ev, resultado=r)
         if r != SIM:
-            return Decisao(item=str(item.get("id") or item.get("url") or "?"),
+            return Decisao(item=nome_do_item,
                            universo=universo, resultado=r, regra=nome,
-                           motivo=motivo, evidencia=dict(ev, estagio=est),
+                           motivo=motivo,
+                           evidencia=dict(ev, estagio=est, portoes=provas),
                            corrida=corrida)
 
     r, motivo, ev = _do_universo(item, universo, PERGUNTAS_DO_UNIVERSO.get(universo, []))
-    ev = dict(ev, estagio=est)
+    provas["pertence ao universo"] = dict(ev, resultado=r)
+    ev = dict(ev, estagio=est, portoes=provas)
     if est == DOCUMENTO:
         # O que NAO foi perguntado fica escrito. Um silencio nao explicado
         # reabre-se como duvida daqui a tres meses.
@@ -625,7 +746,7 @@ def decidir(item: dict, universo: str, corrida: str = "NAO SEI") -> Decisao:
             "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao "
             "documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o "
             "fato for extraido.")
-    return Decisao(item=str(item.get("id") or item.get("url") or "?"),
+    return Decisao(item=nome_do_item,
                    universo=universo, resultado=r, regra="pertence ao universo",
                    motivo=motivo, evidencia=ev, corrida=corrida)
 
@@ -736,6 +857,86 @@ def _escrever_sob_trava(decisoes: list) -> int:
 
 
 # ── A FRONTEIRA DESTA MISSAO ────────────────────────────────────────────────
+#
+# Os nomes que a SAIDA ja carrega, na lingua da porta. O envelope do fato NAO os
+# repete: repetir daria DOIS donos do mesmo conceito, livres para divergir a
+# partir do dia em que um deles mudar.
+#
+#     ONE CONCEPT -> ONE OWNER, e um campo copiado e meio dono.
+JA_TEM_CAMPO_PROPRIO_NO_READY = (
+    "id", "url", "texto", "title", "nome",
+    "source_id", "fonte",
+    "source_location", "fact_location", "fact_time",
+    "fact_time_basis", "fact_location_basis",
+    "published_at", "observed_at", "captured_at",
+    "source_declared_evidence_class",
+    "raw_asset_id",
+    # `data` NAO entra no envelope: e o campo generico que a `_tem_quando`
+    # acabou de recusar como tempo do fato. Deixa-lo viajar dentro do fato
+    # daria-lhe uma segunda porta para voltar a ser lido como FACT_TIME.
+    "data",
+    # Vocabulario de TRANSPORTE, nao de fato. A linhagem documental fecha-se
+    # por `RAW_OBSERVATION_ID` (COL-LAW-033 · COL-LAW-043), e nao aqui.
+    "artifact_type", "parent_artifact_id", "parent_sha256",
+    "erro_de_leitura",
+)
+
+
+def envelope_do_fato(item: dict, est: str):
+    """O que o produtor declarou como FATO, preservado tal e qual.
+
+    ⚠️ ISTO NAO E UMA LISTA DE CAMPOS. E DE PROPOSITO.
+
+    Medido no caminho real, com um fato agronomico de 39 campos:
+
+        campos na entrada ...... 39
+        campos no READY ........ 12
+        perdidos ............... 20, entre eles `claim_id`, `subject`,
+                                 `predicate`, `crop_eppo`, `problem_eppo`,
+                                 `method`, `unit`, `scale`, `denominator`,
+                                 `doi` e `registration_id`
+
+    E o que torna isto um defeito e nao uma escolha: **a porta JA SABE que
+    aquilo e um fato**. `MARCAS_DE_FATO` le `claim_id`, `subject`, `predicate` e
+    `fact_id`, `estagio()` devolve `FATO`, e a regua aplicada muda por causa
+    disso. Os campos entram, sao lidos, DECIDEM — e nao saem.
+
+        O SISTEMA SABE O QUE E UM CLAIM.
+        O CONTRATO DE SAIDA NAO TINHA ONDE O POR.
+
+    A tentacao era escrever cem nomes fixos — `crop`, `crop_eppo`, `problem`,
+    `method`, `unit`... — e a `COL-LAW-202` diz porque nao: ela declara o que um
+    claim **PODE** preservar, e nao um esquema fechado. Uma lista fixa escolhida
+    por mim decidiria hoje, sem caso que obrigue, que campos o agro tem direito
+    a ter — e o campo numero 101 morreria calado, que e exactamente a doenca.
+
+        PRESERVAR O QUE CHEGOU != ADIVINHAR O QUE DEVIA TER CHEGADO.
+
+    ⚠️ E ELE SO EXISTE QUANDO O ESTAGIO E `FATO`. Um documento nao tem fato
+    estruturado dentro — ele RELATA (COL-LAW-201 · COL-LAW-502). Devolver um
+    envelope vazio para um boletim seria dizer «olhei e nao havia», quando a
+    verdade e «a pergunta nao se aplica a esta especie de coisa».
+
+    ⚠️ E ELE NAO EXTRAI NADA. Nao le o texto, nao infere, nao normaliza, nao
+    cunha `crop_eppo` nenhum. Extraccao de claim e `TARGET` na `COL-LAW-202` e
+    NAO existe nesta casa. Isto e transporte, e so.
+    """
+    if est != FATO:
+        return AUSENCIA_NAO_SE_APLICA
+    # ⚠️ A ORDEM DAS CHAVES E CANONICA, E NAO E ARRUMACAO.
+    # `sala_de_espera.impressao_da_corrida()` assina os BYTES do corpo, e e essa
+    # assinatura que distingue um retry legitimo («ja estava») de um conflito
+    # («esta corrida ja contou outra historia»). O envelope vai ao banco e volta
+    # como texto; se a ordem das chaves mudasse na volta, o MESMO conteudo dava
+    # uma impressao diferente — e um retry honesto seria acusado de conflito.
+    #
+    #     UMA IMPRESSAO QUE DEPENDE DA ORDEM EM QUE ALGUEM ESCREVEU O DICIONARIO
+    #     NAO E UMA IMPRESSAO.
+    return {k: item[k] for k in sorted(item)
+            if k not in JA_TEM_CAMPO_PROPRIO_NO_READY
+            and not str(k).startswith("_")}
+
+
 def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
     """O contrato de saida. A inteligencia recebe ISTO, e mais nada.
 
@@ -764,6 +965,27 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
     para a copia por chave estrangeira composta `(storage_object_id, sha256)`,
     e duplica-lo aqui daria duas declaracoes do mesmo parentesco, livres para
     divergir. A MENOR IDENTIDADE QUE FECHA A ESTRADA E A CERTA.
+
+    ⚠️ E DESDE `C-COL-PRESERVE-FACTS-V1` ELE LEVA MAIS SETE, E NENHUM E NOVO.
+    A propria COL-LAW-043 escrevia o alvo — *«QUEM disse O QUE sobre QUE CULTURA
+    e QUE PROBLEMA, ONDE, QUANDO, DE QUE PAPEL e COM QUE EVIDENCIA»* — e a lista
+    de doze nao tinha onde por nem a especie da coisa, nem a especie da
+    evidencia, nem o fato. A lei contradizia-se a si propria tres paragrafos
+    abaixo, e o `isto e mais nada` venceu na pratica.
+
+        ESTAGIO · PUBLISHED_AT · OBSERVED_AT · FACT_TIME_BASIS ·
+        FACT_LOCATION_BASIS · SOURCE_DECLARED_EVIDENCE_CLASS · FATO
+
+    Cada um tem dono declarado ANTES desta missao — `admissao.estagio()`,
+    `coleta/ingresso.py::FRONTEIRA_TRANSPORTA`, `leis/artefato.py::conferir`,
+    `regras/italy_contracts.mjs`, `MARCAS_DE_FATO`. Nenhum e um conceito novo:
+    sao conceitos que existiam, eram lidos, decidiam — e nao saiam.
+
+        RUNTIME SABE != O SISTEMA GUARDA (know-how §86.4).
+
+    ⚠️ E NENHUM DELES PREENCHE NADA. Ausencia continua `NAO SEI`; a pergunta que
+    nao se aplica continua `NAO_SE_APLICA`; e os dois continuam a ser coisas
+    diferentes de vazio e de zero.
     """
     if decisao.resultado != SIM:
         raise ValueError(f"item {decisao.item} nao passou a porta ({decisao.resultado})")
@@ -773,17 +995,73 @@ def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:
     # «NAO SEI» inventado e pior do que um id errado, porque ninguem o procura.
     # Nunca se deriva de sha256, URL, caminho, filename nem RUN_ID.
     observacao = item.get("raw_asset_id")
+    est = estagio(item)
+
+    def _ou_nao_sei(chave):
+        v = item.get(chave)
+        return AUSENCIA if v is None or str(v).strip() == "" else v
+
     return {
         "ESTADO": "PRONTO_PARA_INTELIGENCIA",
         "ITEM_ID": decisao.item,
-        "RAW_OBSERVATION_ID": "NAO SEI" if observacao is None else observacao,
+        "RAW_OBSERVATION_ID": AUSENCIA if observacao is None else observacao,
         "UNIVERSO": decisao.universo,
+        # ⚠️ A ESPECIE DA COISA VIAJA. Ela ja era calculada e deitada fora.
+        # `estagio()` decide QUE PERGUNTAS a porta faz (COL-LAW-502), e a
+        # jusante nao havia como saber se aquele READY era um DOCUMENTO que
+        # relata ou um FATO extraido. Sao coisas diferentes, e medi-las com a
+        # mesma regua e o erro que a propria lei veio impedir.
+        "ESTAGIO": est,
         "TEXTO": item.get("texto") or item.get("title") or "",
-        "SOURCE_ID": item.get("source_id") or item.get("fonte") or "NAO SEI",
-        "SOURCE_LOCATION": item.get("source_location", "NAO SEI"),
-        "FACT_LOCATION": item.get("fact_location", "NAO SEI"),
-        "FACT_TIME": item.get("fact_time") or item.get("data") or "NAO SEI",
-        "CAPTURED_AT": item.get("captured_at", "NAO SEI"),
+        "SOURCE_ID": item.get("source_id") or item.get("fonte") or AUSENCIA,
+        "SOURCE_LOCATION": item.get("source_location", AUSENCIA),
+        "FACT_LOCATION": item.get("fact_location", AUSENCIA),
+        # ⚠️ O `or item.get("data")` SAIU DAQUI, E ERA UM DEFEITO MEDIDO.
+        # `data` nao declara de que tempo e. Um coletor que la pusesse a data do
+        # documento — e e a data que um coletor tem — produzia `FACT_TIME` falso
+        # carimbado como fato. `COL-LAW-031`: nao por fallback.
+        "FACT_TIME": item.get("fact_time") or AUSENCIA,
+        # ── COMO SE SABE, E PORQUE NAO SE SABE ──────────────────────────────
+        # A `leis/artefato.py::conferir` JA reprovava um `FACT_LOCATION`
+        # preenchido «sem dizer de onde saiu» — a lei existia e o contrato de
+        # saida nao tinha onde por a resposta. E do outro lado, medido no livro
+        # italiano real: as 175 observacoes escrevem, uma a uma, PORQUE o tempo
+        # do fato e desconhecido — «UNKNOWN — o PDF nao expoe a data do fato
+        # medido, so a de geracao». Essa frase morria aqui.
+        #
+        #     UM `UNKNOWN` COM RAZAO E UMA MEDICAO.
+        #     UM `UNKNOWN` SEM RAZAO E INDISTINGUIVEL DE DESLEIXO.
+        "FACT_TIME_BASIS": _ou_nao_sei("fact_time_basis"),
+        "FACT_LOCATION_BASIS": _ou_nao_sei("fact_location_basis"),
+        # ── OS OUTROS TEMPOS, QUE NAO SAO O DO FATO ─────────────────────────
+        # `coleta/ingresso.py::FRONTEIRA_TRANSPORTA` ja os declarava como coisas
+        # que atravessam, e eles atravessavam ate aqui para morrer. Sem eles, a
+        # jusante «nao sei quando o fato foi» e «nao sei nada sobre tempo» sao a
+        # mesma resposta — e nao sao (COL-LAW-031).
+        "PUBLISHED_AT": _ou_nao_sei("published_at"),
+        "OBSERVED_AT": _ou_nao_sei("observed_at"),
+        # ── A ESPECIE PROBATORIA, DECLARADA PELA FONTE ──────────────────────
+        # ⚠️ O NOME E LONGO DE PROPOSITO, E NAO SE ENCURTA.
+        # Os 13 contratos de fonte italianos declaram `EVIDENCE_CLASS` ANTES de
+        # qualquer execucao, e com leis escritas ao lado —
+        # `AGROCLIMATIC_SIGNAL != PEST_OCCURRENCE`, `COMPANY_CLAIM !=
+        # REGULATORY_FACT`. Nenhuma atravessava: a jusante, um boletim
+        # agroclimatico da ARPAV e um relato de campo da ARIF eram o MESMO
+        # objecto, `TEXTO`.
+        #
+        # Mas o valor e TEXTO LIVRE e e DA FONTE, nao do documento — medido:
+        # «OBSERVED_FIELD_SIGNAL + TECHNICAL_GUIDELINE (separar por bloco)».
+        # Chamar-lhe `EVIDENCE_CLASS` aqui faria qualquer leitor le-lo como a
+        # especie DESTE documento, medida. Nao e. E a expectativa declarada de
+        # quem publica.
+        #
+        #     DECLARADO PELA FONTE != MEDIDO NO DOCUMENTO.
+        #     UM NOME QUE PERMITE A CONFUSAO E METADE DA CONFUSAO.
+        "SOURCE_DECLARED_EVIDENCE_CLASS": _ou_nao_sei(
+            "source_declared_evidence_class"),
+        # ── O FATO, QUANDO O ITEM E UM FATO ─────────────────────────────────
+        "FATO": envelope_do_fato(item, est),
+        "CAPTURED_AT": item.get("captured_at", AUSENCIA),
         "CORRIDA": decisao.corrida,
         "ADMITIDO_POR": f"{decisao.regra} v{decisao.versao}",
     }

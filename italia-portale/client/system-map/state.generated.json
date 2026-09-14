@@ -2329,10 +2329,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/collection-to-waiting-room-v1",
-    "HEAD": "d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c",
-    "GENERATED_AT": "2026-09-14T16:51:26+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a77835ef989ebd905aead3215e817b6e572fc01c54e4c4712813b52d88fb48f9"
+    "BRANCH": "claude/collection-preserve-facts-2139eb",
+    "HEAD": "56617781123f0f7ff34da02ba2ba0fe7997f0cb2",
+    "GENERATED_AT": "2026-09-14T17:02:31Z",
+    "SOURCE_TREE_FINGERPRINT": "d4fc875fd9ebb72958bbf4cb4610e067885f262f95a68a3a6649b2dcdcc4b469"
   },
   "FAMILIES": [
     {
@@ -3170,15 +3170,16 @@
       "vocabulario": {
         "papel": "ADMISSAO",
         "listas": [
+          "JA_TEM_CAMPO_PROPRIO_NO_READY",
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO"
         ],
-        "palavras": 98,
+        "palavras": 119,
         "por_lingua": {
           "IT": 29,
           "PT": 19
         },
-        "sem_marca_de_lingua": 50,
+        "sem_marca_de_lingua": 71,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -11435,7 +11436,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/censo_das_estradas_it.py",
-            "line": 909,
+            "line": 924,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -11801,7 +11802,7 @@
         "PROVA": [
           "coleta/derivacao_forward.py:83",
           "coleta/golden_path_pdf.py:53",
-          "coleta/ingresso.py:501",
+          "coleta/ingresso.py:526",
           "medidas/corrida_instrumentada.py:122"
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -12756,9 +12757,9 @@
           "PARA_A_PORTA",
           "_SENTINELAS"
         ],
-        "palavras": 65,
+        "palavras": 76,
         "por_lingua": {},
-        "sem_marca_de_lingua": 65,
+        "sem_marca_de_lingua": 76,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14043,11 +14044,11 @@
           "RESOLUCAO_TEMPORAL",
           "TIPOS_DE_EVIDENCIA"
         ],
-        "palavras": 230,
+        "palavras": 241,
         "por_lingua": {
           "IT": 1
         },
-        "sem_marca_de_lingua": 229,
+        "sem_marca_de_lingua": 240,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -14711,7 +14712,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/generate_system_map.py:5329",
+          "system-map/scripts/generate_system_map.py:5354",
           "system-map/scripts/publicar_no_deploy.mjs:56",
           "system-map/scripts/reconciliacao_do_universo.py:80",
           "system-map/scripts/reconciliacao_do_universo.py:407"
@@ -20881,7 +20882,7 @@
           "pasta": "system-map",
           "prova": {
             "file": "system-map/scripts/relatorio_do_fluxo.py",
-            "line": 172,
+            "line": 192,
             "snippet": "escreve em SAIDA"
           }
         }
@@ -21602,9 +21603,9 @@
         "listas": [
           "CAMPOS_READY"
         ],
-        "palavras": 12,
+        "palavras": 19,
         "por_lingua": {},
-        "sem_marca_de_lingua": 12,
+        "sem_marca_de_lingua": 19,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -25374,13 +25375,13 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 682,
+        "palavras": 703,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 670,
+        "sem_marca_de_lingua": 691,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -26723,7 +26724,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "⚙",
       "views": [
         "generator",
@@ -26741,9 +26742,11 @@
         "motor/v21_normalizar.py"
       ],
       "file_count": 7,
-      "status": "PROVEN",
-      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "algum workflow ou a cadeia canonica manda rodar isto.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "motor/normalize_agro.py"
+      ],
       "produces": [
         "data/samples/X-006-substance-normalisation.json",
         "data/samples/X-007-canonical-agro-dictionary.json"
@@ -27732,7 +27735,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/collection-to-waiting-room-v1"
+        "branch claude/collection-preserve-facts-2139eb"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -29137,7 +29140,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 739,
+          "line": 940,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -29481,7 +29484,7 @@
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 86,
+          "line": 91,
           "snippet": "\"admissao.py\")))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ADMISSAO--READS-->C-TESTES",
@@ -33558,7 +33561,7 @@
         },
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 263,
+          "line": 265,
           "snippet": "b = _fonte(os.path.join(RAIZ, \"BIBLIA-CANONICA-DA-COLETA.md\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-TESTES",
@@ -37292,7 +37295,7 @@
         },
         {
           "file": "tests/test_sala_duravel.py",
-          "line": 309,
+          "line": 336,
           "snippet": "\"banco-descartavel.yml\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-PERSIST--READS-->C-TESTES",
@@ -40331,7 +40334,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 269,
+          "line": 284,
           "snippet": "\"VOCABULARIO\": \"leis/artefato.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
@@ -44399,7 +44402,7 @@
         },
         {
           "file": "tests/test_a_sala_de_espera_tem_um_dono.py",
-          "line": 209,
+          "line": 216,
           "snippet": "from preservar_coleta import RUN_ID_CONFLICT",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DA-ESCRITA--IMPORTS-->C-TESTES",
@@ -46267,7 +46270,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 501,
+          "line": 526,
           "snippet": "import executor_texto_de_pdf as _ex",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-INGRESSO",
@@ -48997,7 +49000,7 @@
       "evidence": [
         {
           "file": "tests/test_a_linhagem_do_ready.py",
-          "line": 163,
+          "line": 168,
           "snippet": "fonte = _fonte(os.path.join(RAIZ, \"coleta\", \"ingresso.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-INGRESSO--READS-->C-TESTES",
@@ -50764,7 +50767,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 449,
+          "line": 464,
           "snippet": "with open(LEDGER, encoding='utf-8') as f:",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-ESTRADAS-IT",
@@ -52698,7 +52701,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5316,
+          "line": 5341,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -52921,7 +52924,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5329,
+          "line": 5354,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -52937,7 +52940,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5329,
+          "line": 5354,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -54328,7 +54331,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 688,
+          "line": 703,
           "snippet": "caminho = os.path.join(RAIZ, 'orquestrador', 'orquestrador.py')",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--READS-->C-ESTRADAS-IT",
@@ -62413,7 +62416,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 693,
+          "line": 708,
           "snippet": "import receitas                                    # noqa: PLC0415",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-ESTRADAS-IT",
@@ -65339,7 +65342,7 @@
       "evidence": [
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 126,
+          "line": 128,
           "snippet": "dono = _fonte(os.path.join(RAIZ, \"admissao\", \"sala_de_espera.py\"))",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SALA-DE-ESPERA--READS-->C-TESTES",
@@ -66990,7 +66993,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 774,
+          "line": 789,
           "snippet": "'FUNDACAO_DONO': 'leis/fundacao_da_coleta.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -67006,7 +67009,7 @@
         },
         {
           "file": "system-map/scripts/censo_das_estradas_it.py",
-          "line": 841,
+          "line": 856,
           "snippet": "'MATRIZ': 'leis/social_matriz.py',",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-LEIS--READS-->C-ESTRADAS-IT",
@@ -72625,7 +72628,7 @@
         },
         {
           "file": "tests/test_a_sala_de_espera_nao_tem_morada.py",
-          "line": 175,
+          "line": 177,
           "snippet": "MIGRATION_DA_MORADA = \"031_a_sala_de_espera_ganha_dono_duravel.sql\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SUPABASE--READS-->C-TESTES",
@@ -73208,7 +73211,7 @@
       "evidence": [
         {
           "file": "tests/test_c10_2_origin_gate.py",
-          "line": 190,
+          "line": 204,
           "snippet": "with io.open(os.path.join(RAIZ, 'admissao', 'admissao.py'),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TESTES--WRITES-->C-ADMISSAO",
@@ -76888,7 +76891,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 154,
+      "PECAS_EM_DESACORDO": 155,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -76905,8 +76908,8 @@
   ],
   "COUNTS": {
     "components": 189,
-    "components_proven": 41,
-    "components_pending": 141,
+    "components_proven": 40,
+    "components_pending": 142,
     "components_broken": 0,
     "components_unknown": 7,
     "edges": 952,

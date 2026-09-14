@@ -28,11 +28,13 @@ def _fonte(caminho):
 
 
 class OContratoREADYNaoMudou(unittest.TestCase):
-    """Os 12 campos da COL-LAW-043, e um dono só."""
+    """Os 19 campos da COL-LAW-043, e um dono só (eram 12 até C-COL-PRESERVE-FACTS-V1)."""
 
-    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
-              "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
-              "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO",
+              "TEXTO", "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION",
+              "FACT_TIME", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
+              "PUBLISHED_AT", "OBSERVED_AT", "SOURCE_DECLARED_EVIDENCE_CLASS",
+              "FATO", "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
 
     def _unidade(self):
         item = {"id": "g-1", "texto": "Ensaio de campo com DOI",
@@ -40,7 +42,7 @@ class OContratoREADYNaoMudou(unittest.TestCase):
         d = admissao.decidir(item, "T5", corrida="guarda")
         return admissao.pronto_para_inteligencia(item, d)
 
-    def test_os_onze_campos_estao_la_e_na_ordem(self):
+    def test_os_dezanove_campos_estao_la_e_na_ordem(self):
         self.assertEqual(self.CAMPOS, tuple(self._unidade()))
 
     def test_nao_ha_READY_sem_SIM_na_porta(self):

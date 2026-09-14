@@ -4637,9 +4637,34 @@ def construir(estado: dict) -> None:
         if not origem.exists():
             print(f"FALTA={origem} · a app esta incompleta", file=sys.stderr)
             raise SystemExit(2)
-        shutil.copyfile(origem, destino / Path(nome).name)
+        # ⚠️ `shutil.copyfile` COPIAVA OS BYTES, E ERA ISSO O DEFEITO.
+        # `core.autocrlf` esta LIGADO neste ambiente, e o `.gitattributes` desta
+        # casa ja explica porque: `italia-portale/client/**` e `-text`, byte a
+        # byte, para o diff BASELINE x client nao virar ruido. Resultado em
+        # Windows:
+        #
+        #     system-map/app/index.html      sai do checkout com CRLF
+        #     copyfile leva CRLF para dentro de uma pasta `-text`
+        #     -> 79.815 linhas de diff em quatro ficheiros que NAO mudaram
+        #
+        # O conteudo era identico. O commit e que ficava irreconhecivel — e o
+        # proximo leitor teria de procurar a mudanca verdadeira dentro dele.
+        #
+        #     UM DIFF QUE MUDA TUDO SEM MUDAR NADA
+        #     NAO E RUIDO: E UMA REVISAO QUE NINGUEM VAI FAZER.
+        #
+        # A app sao cinco ficheiros de texto, nomeados um a um logo acima.
+        # Publicar com `\n` e o que a pasta de destino declara esperar, e em
+        # Linux nao muda absolutamente nada.
+        (destino / Path(nome).name).write_text(
+            origem.read_text(encoding="utf-8"), encoding="utf-8", newline="\n")
+    # `newline="\n"` pela mesma razao da copia acima: esta pasta e `-text` no
+    # `.gitattributes`, e em Windows o modo texto do Python traduz `\n` em
+    # `\r\n` sozinho. Os outros gerados vivem fora de `italia-portale/client/`
+    # e o `core.autocrlf` normaliza-os no commit — este NAO, de proposito.
     (destino / "state.generated.json").write_text(
-        json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        json.dumps(estado, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8", newline="\n")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

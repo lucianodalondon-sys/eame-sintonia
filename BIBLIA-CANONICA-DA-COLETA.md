@@ -759,10 +759,25 @@ texto: `"NAO_SEI — pagina sem data de publicacao visivel"` começa por `N`, e
 
 **PRECISÃO VIAJA COM A DATA.** Se a fonte prova o mês, não se inventa o dia.
 
-**⚠️ VIOLAÇÃO VIVA, hoje, neste repositório.** `admissao/admissao.py:169` aceita
-`published_at` como resposta à pergunta «tem tempo do fato», enquanto
-`leis/fato_local.py:411` declara que *«`published_at` NUNCA o preenche»*. Ver C-001. Gap
-**G-01**.
+**✅ VIOLAÇÃO FECHADA em `C-COL-PRESERVE-FACTS-V1`, e eram DUAS.** A primeira era
+a registrada: `admissao/admissao.py` aceitava `published_at` como resposta a «tem
+tempo do fato». A segunda não tinha nome e era pior, porque ninguém a procurava:
+
+```
+pronto_para_inteligencia:  item.get("fact_time") or item.get("data")
+_tem_quando:               item.get("fact_time") or item.get("data")
+```
+
+O campo genérico `data` **não declara de que tempo é**. Um coletor põe lá a data
+que tem — a do documento — e o `FACT_TIME` saía preenchido e falso, carimbado
+como fato. `published_at` pelo menos **diz o que é**; `data` não diz nada, e por
+isso passava.
+
+> **UM CAMPO QUE NÃO DECLARA DE QUE ESPÉCIE É NÃO PODE PROMOVER A ESPÉCIE NENHUMA.**
+
+Os dois continuam a servir de **âncora para admitir** — apertar o transporte não
+é apertar a porta — e a evidência passou a dizer qual é qual:
+`PUBLICATION_TIME` e `TIME_UNDECLARED`. Gap **G-01** fechado; ver COL-LAW-043.
 
 **CONTRATOS.** `leis/v21_datas.py` · `leis/data_clock.py` · `leis/fato_local.py::tempo_do_fato`
 **ORIGEM.** `EXISTING_SINTONIA_LAW` · **LAW_STATUS** `CANONICAL` · **IT** `PARTIAL`
@@ -1087,10 +1102,103 @@ terminou».
 O contrato de saída é fixo, e a inteligência recebe **isto e mais nada**:
 
 ```
-ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · TEXTO · SOURCE_ID
-SOURCE_LOCATION · FACT_LOCATION · FACT_TIME · CAPTURED_AT
-CORRIDA · ADMITIDO_POR
+ESTADO · ITEM_ID · RAW_OBSERVATION_ID · UNIVERSO · ESTAGIO · TEXTO · SOURCE_ID
+SOURCE_LOCATION · FACT_LOCATION · FACT_TIME
+FACT_TIME_BASIS · FACT_LOCATION_BASIS · PUBLISHED_AT · OBSERVED_AT
+SOURCE_DECLARED_EVIDENCE_CLASS · FATO
+CAPTURED_AT · CORRIDA · ADMITIDO_POR
 ```
+
+### Eram doze, e a própria lei dizia que doze não chegavam
+
+Até `C-COL-PRESERVE-FACTS-V1` esta lista tinha **doze** nomes. O alvo escrito
+três parágrafos abaixo — *«QUEM disse O QUÊ sobre QUE CULTURA e QUE PROBLEMA,
+ONDE, QUANDO, DE QUE PAPEL e COM QUE EVIDÊNCIA»* — pede **oito** coisas, e a
+lista de doze respondia três. **A lei contradizia-se a si própria**, e o *«isto e
+mais nada»* venceu na prática.
+
+Medido no caminho real, com um fato agronômico de 25 campos:
+
+```
+campos na entrada .... 25
+campos no READY ...... 12
+perdidos ............. 20   claim_id · subject · predicate · object · crop ·
+                            crop_eppo · problem · problem_eppo · method ·
+                            unit · scale · denominator · phenological_stage ·
+                            doi · registration_id · active_substance · nuts ·
+                            value · published_at
+```
+
+E o detalhe que faz disto **defeito** e não escolha: **a porta já sabia que
+aquilo era um fato.** `MARCAS_DE_FATO` lê `claim_id`, `subject`, `predicate` e
+`fact_id`; `estagio()` devolve `FATO`; **a régua aplicada muda por causa disso.**
+Os campos entram, são lidos, decidem — e não saíam.
+
+> ## O SISTEMA SABE O QUE É UM CLAIM. O CONTRATO DE SAÍDA NÃO TINHA ONDE O PÔR.
+
+**Nenhum dos sete é conceito novo.** Cada um tinha dono declarado **antes** desta
+missão, e morria nesta fronteira:
+
+| campo | dono, antes desta missão |
+|---|---|
+| `ESTAGIO` | `admissao.estagio()` (COL-LAW-502) |
+| `PUBLISHED_AT` · `OBSERVED_AT` | `coleta/ingresso.py::FRONTEIRA_TRANSPORTA` |
+| `FACT_LOCATION_BASIS` | `leis/artefato.py::conferir` — **já reprovava** um `FACT_LOCATION` preenchido «sem dizer de onde saiu» |
+| `FACT_TIME_BASIS` | o livro do coletor italiano: **175 observações** escrevem, uma a uma, *porquê* o tempo do fato é desconhecido |
+| `SOURCE_DECLARED_EVIDENCE_CLASS` | `regras/italy_contracts.mjs` — **13 de 13** contratos declaram `EVIDENCE_CLASS` antes de qualquer execução |
+| `FATO` | `admissao.MARCAS_DE_FATO` |
+
+> **RUNTIME SABE ≠ O SISTEMA GUARDA.**
+
+### `FATO` **NÃO É** uma lista de campos, e isso é a lei aqui
+
+`FATO` preserva **o que o produtor declarou**, tal e qual, com as chaves
+ordenadas — e **nada mais**. Ele **NÃO DEVE** virar um esquema fechado de nomes
+agronômicos: a COL-LAW-202 declara o que um claim **PODE** preservar, e não uma
+lista. Uma lista fixa decidiria, sem caso que obrigue, que campos o agro tem
+direito a ter — e o campo 101 morreria calado, que é exatamente a doença.
+
+```
+PRESERVAR O QUE CHEGOU  ≠  ADIVINHAR O QUE DEVIA TER CHEGADO
+```
+
+`FATO` **NÃO DEVE** repetir nenhum campo que já tenha nome próprio no READY:
+dois donos do mesmo conceito divergem no dia em que um deles mudar.
+
+E ele **não extrai nada**. Extração de claim é `TARGET` na COL-LAW-202 e continua
+a **não existir** nesta casa. Estágio que não é `FATO` recebe `NAO_SE_APLICA` —
+nunca `{}`, que diria «olhei e não havia».
+
+### `SOURCE_DECLARED_EVIDENCE_CLASS` — o nome é longo, e **NÃO DEVE** encurtar
+
+O valor é do **contrato de fonte**, não do documento, e é **texto livre** —
+medido: *«OBSERVED_FIELD_SIGNAL + TECHNICAL_GUIDELINE (separar por bloco)»*.
+Chamar-lhe `EVIDENCE_CLASS` faria qualquer leitor lê-lo como a espécie **deste**
+documento, medida.
+
+```
+DECLARADO PELA FONTE  ≠  MEDIDO NO DOCUMENTO
+```
+
+Se ele deve virar lista fechada continua **em aberto**, e de propósito
+(`docs/operacao/STRUCTURED-POR-ESPECIE-E-NOT-APPLICABLE.md` §14.4). Esta emenda
+precisa que a espécie **atravesse**, não que ela seja arrumada.
+
+### `FACT_TIME` **NÃO DEVE** vir do campo genérico `data`
+
+Reparado nesta emenda, em dois sítios: `_tem_quando()` e o contrato de saída.
+`data` não declara de que tempo é; um coletor põe lá a data que tem — a do
+documento — e isso produzia `FACT_TIME` falso, carimbado como fato. É a
+COL-LAW-031 a ser cumprida: *«não por conveniência, não por omissão, NÃO POR
+FALLBACK»*. Ele continua a servir de **âncora para admitir**, e a evidência passa
+a dizer o que ele é: `TIME_UNDECLARED`.
+
+### `ITEM_ID` **NÃO DEVE** ser `"?"`
+
+A porta ganhou a pergunta `identidade`. Um item sem `id` e sem `url` sai
+`NAO_SEI` e **não passa** — `source_id` **não serve**, porque é da FONTE e não do
+item. É a COL-LAW-034 a ser cumprida, e a Sala já tinha a cicatriz escrita:
+`ItemAmbiguo` existe porque dois `"?"` na mesma corrida têm a mesma morada.
 
 ### `RAW_OBSERVATION_ID` — a linhagem viaja, e viaja uma vez só
 

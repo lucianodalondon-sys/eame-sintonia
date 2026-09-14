@@ -203,6 +203,29 @@ def item_para_a_porta(unidade):
                  'ARTIFACT_TYPE': unidade.get('ARTIFACT_TYPE'),
                  'PARENT_SHA256': unidade.get('PARENT_SHA256'),
                  'PARENT_ARTIFACT_ID': unidade.get('PARENT_ARTIFACT_ID')}
+    # ⚠️ E O QUE A FRONTEIRA DECLARA QUE TRANSPORTA, TRANSPORTA-SE.
+    # MEDIDO: `ingresso.FRONTEIRA_TRANSPORTA` nomeia FACT_TIME, FACT_LOCATION,
+    # SOURCE_LOCATION e os outros como «o que a fronteira leva quando existe».
+    # Esta rota — que e a rota REAL — punha quatro nomes no item, e nenhum
+    # deles era esses. Resultado medido no contrato de saida:
+    #
+    #     FACT_TIME      -> «NAO SEI» POR CONSTRUCAO
+    #     FACT_LOCATION  -> «NAO SEI» POR CONSTRUCAO
+    #     SOURCE_LOCATION-> «NAO SEI» POR CONSTRUCAO
+    #
+    # Tres campos do contrato canonico a sair vazios NAO porque a fonte nao
+    # saiba, mas porque o item nao os carregava. Um «nao sei» assim nao e uma
+    # medicao: e o silencio de quem nao perguntou, com a cara de quem perguntou.
+    #
+    #     NAO SEI PORQUE NAO HA PROVA  !=  NAO SEI PORQUE NAO PERGUNTEI.
+    #
+    # ⚠️ E ISTO NAO PREENCHE NADA. So se copia o que a unidade DECLARA. O que
+    # ela nao traz continua a nao chegar, e continua a sair `NAO SEI` — com a
+    # diferenca de que agora isso e uma resposta e nao um efeito colateral.
+    for nome in ingresso.FRONTEIRA_TRANSPORTA:
+        valor = unidade.get(nome)
+        if valor not in ingresso.NAO_E_AFIRMACAO:
+            declarado[nome] = valor
     item = ingresso.para_a_porta({k: v for k, v in declarado.items() if v})
     item.update({
         'id': unidade['CONTENT_ID'],

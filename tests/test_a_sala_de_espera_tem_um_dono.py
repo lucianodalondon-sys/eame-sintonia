@@ -122,13 +122,20 @@ class UMDonoEUmaMorada(unittest.TestCase):
 
 
 class OContratoNaoMudou(unittest.TestCase):
-    """READY continua os 12 campos, e nem um a mais para facilitar storage."""
+    """READY sao 19 campos, e nem um a mais para facilitar storage.
 
-    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "TEXTO", "SOURCE_ID",
-              "SOURCE_LOCATION", "FACT_LOCATION", "FACT_TIME",
-              "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+    ⚠️ ERAM 12, e a mudanca foi DECIDIDA, nao acidental: `C-COL-PRESERVE-FACTS-V1`
+    mediu 20 campos de um facto a morrerem nesta fronteira. Esta guarda continua
+    a servir para o mesmo — o proximo campo tambem tem de passar por aqui.
+    """
 
-    def test_o_dono_do_contrato_devolve_os_doze(self):
+    CAMPOS = ("ESTADO", "ITEM_ID", "RAW_OBSERVATION_ID", "UNIVERSO", "ESTAGIO",
+              "TEXTO", "SOURCE_ID", "SOURCE_LOCATION", "FACT_LOCATION",
+              "FACT_TIME", "FACT_TIME_BASIS", "FACT_LOCATION_BASIS",
+              "PUBLISHED_AT", "OBSERVED_AT", "SOURCE_DECLARED_EVIDENCE_CLASS",
+              "FATO", "CAPTURED_AT", "CORRIDA", "ADMITIDO_POR")
+
+    def test_o_dono_do_contrato_devolve_os_dezanove(self):
         item = {"id": "c-1", "texto": "Ensaio de campo com DOI",
                 "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
         d = admissao.decidir(item, "T5", corrida="guarda")
