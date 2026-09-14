@@ -242,6 +242,7 @@
       "coleta/youtube_relevancia.py"
     ],
     "data": [
+      "data/collection-ledger/italy/logs/runs.log",
       "data/collection-ledger/italy/observations.ndjson",
       "data/collection-ledger/italy/runs.ndjson",
       "data/collection-store/.gitattributes",
@@ -1171,6 +1172,7 @@
       "leis/retorno_da_coleta.py",
       "leis/social_matriz.py",
       "leis/telemetria.py",
+      "leis/territorios.py",
       "leis/v21_carimbar_origem.py",
       "leis/v21_datas.py",
       "leis/v21_geografia_contrato.py",
@@ -1277,6 +1279,7 @@
       "provas/_flow01_janela_falsa.py",
       "provas/_rc01_mundo_falso.py",
       "provas/a_autoridade_da_fonte.py",
+      "provas/a_corrida_existe_em_cada_rota.py",
       "provas/a_fase_10_entra_no_acervo.py",
       "provas/a_fonte_atravessa_ate_a_porta.py",
       "provas/a_fronteira_da_coleta.py",
@@ -1286,11 +1289,14 @@
       "provas/a_linhagem_do_reaproveitamento.py",
       "provas/a_maquina_depois_do_crash.py",
       "provas/a_maquina_sob_carga.py",
+      "provas/a_porta_le_italiano.py",
       "provas/a_regra_de_t2.py",
       "provas/a_repeticao_do_scrap.py",
+      "provas/a_rota_gratuita_ainda_e_gratuita.py",
       "provas/a_rota_m2_atravessa.py",
       "provas/a_sala_de_espera_nao_tem_morada.py",
       "provas/a_sala_sobrevive_ao_processo.py",
+      "provas/a_taxonomia_tem_um_dono.py",
       "provas/a_unidade_pousa_na_espera.py",
       "provas/alcance_da_pergunta_tematica.py",
       "provas/amostragem_neutra_t3.py",
@@ -1334,6 +1340,7 @@
       "provas/mutacao_da_sala_duravel.py",
       "provas/mutacao_do_fluxo_canonico.py",
       "provas/mutacao_do_gate.py",
+      "provas/nada_some_em_silencio.py",
       "provas/nenhuma_compra_sem_autorizacao.py",
       "provas/o_canario_da_collection.py",
       "provas/o_canario_do_scrap_v1.py",
@@ -1347,11 +1354,14 @@
       "provas/o_forward_conta_se.py",
       "provas/o_legado_fora_do_fluxo.py",
       "provas/o_mapa_nao_mente.py",
+      "provas/o_material_italiano_chega_a_sala.py",
       "provas/o_pedido_atravessa.py",
       "provas/o_pedido_t4_atravessa.py",
       "provas/o_raw_fala.py",
+      "provas/o_raw_local_nao_e_duravel.py",
       "provas/o_retry_do_scrap.py",
       "provas/o_scrap_chega_ao_acervo.py",
+      "provas/o_video_tem_consumidor.py",
       "provas/objeto_e_observacao_no_postgres.py",
       "provas/orcamento_de_rede.py",
       "provas/orcamento_financeiro.py",
@@ -1578,6 +1588,7 @@
       "system-map/data/estradas-it.model.json",
       "system-map/data/fronteira.observada.json",
       "system-map/data/linhagem.observada.json",
+      "system-map/data/material-italiano-na-sala.observado.json",
       "system-map/data/pedido-t4.observado.json",
       "system-map/data/pedido.observado.json",
       "system-map/data/provas-de-execucao.json",
@@ -1823,7 +1834,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 20 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 22 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1833,7 +1844,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 20 corridas registadas, e o país delas é: ES 10 · IT 7 · NAO SEI 3. Elas trouxeram 3743 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 22 corridas registadas, e o país delas é: ES 10 · IT 9 · NAO SEI 3. Elas trouxeram 3841 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -1855,8 +1866,8 @@
     },
     {
       "id": "coleta-sem-data-nem-lugar",
-      "titulo": "18 coletores gravam registo sem data nem lugar.",
-      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · italy_executor.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
+      "titulo": "17 coletores gravam registo sem data nem lugar.",
+      "texto": "15 coletores separam SOURCE_LOCATION de FACT_LOCATION — a lei que o Brasil ensinou: o lugar de onde o documento veio nao e o lugar onde o fato aconteceu. Mas estes gravam sem carimbo nenhum: coletor.py · cruzar_regua_rotulo.py · denominaciones.py · eppo_gd.py · eu_regulatorio_executor.py · executor_texto_de_pdf.py · filas.py · gire_mapas.py · instagram_pessoal.py · mapa_regfi.py · pdf_text.py · regulatorio_importar.py · ropf_pre_requisito.py · rotulos_baixar.py · rotulos_ler.py · scrap_http.py · texto_fonte.py",
       "porque_importa": "Data e lugar so valem se forem postos NO MOMENTO DA COLETA. Depois e tarde: o dado ja entrou sem eles, e ninguem consegue recuperar quando foi visto nem de onde o fato e. O que entra sem carimbo nao volta a ter.",
       "evidencia": [
         "coleta/coletor.py",
@@ -2316,10 +2327,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "709a1e20c3762f51b3288f12cd17d26c108b022e",
-    "GENERATED_AT": "2026-09-14T12:56:11+00:00",
-    "SOURCE_TREE_FINGERPRINT": "4591d7a4596e1c71d5a558107ef1d9743b056f18f768301df02ef5e0cd4a8dc8"
+    "BRANCH": "claude/collection-to-waiting-room-v1",
+    "HEAD": "fb1bff2e49ca83698877cfc61b53aa893fc65933",
+    "GENERATED_AT": "2026-09-14T16:19:40+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3734eef775a68e5166626d73875efe1b07410fc3e5559c911fbec3062cdcbac3"
   },
   "FAMILIES": [
     {
@@ -3158,12 +3169,12 @@
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO"
         ],
-        "palavras": 68,
+        "palavras": 99,
         "por_lingua": {
-          "IT": 28,
+          "IT": 29,
           "PT": 19
         },
-        "sem_marca_de_lingua": 21,
+        "sem_marca_de_lingua": 51,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -3666,7 +3677,7 @@
               "id": "ES-T3-001",
               "nome": "Datos de seguimiento de plagas y enfermedades en las estaciones de control biológico [2006–2026]",
               "pais": "ESPANHA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -3701,7 +3712,7 @@
               "id": "ES-T4-001",
               "nome": "Jerarquía de especies vegetales · Clasificación de plagas",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3716,7 +3727,7 @@
               "id": "ES-T4-002",
               "nome": "Autorizaciones excepcionales vigentes",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3731,7 +3742,7 @@
               "id": "ES-T4-003",
               "nome": "Registro de Productos Fitosanitarios — aplicação de consulta",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -3746,7 +3757,7 @@
               "id": "ES-T4-005",
               "nome": "Registro Oficial de Productos Fitosanitarios — rotas públicas",
               "pais": "ESPANHA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -3781,7 +3792,7 @@
               "id": "ES-T5-002",
               "nome": "OpenAlex, recorte espanhol declarado",
               "pais": "ESPANHA",
-              "assunto": "T5 · Preco e mercado",
+              "assunto": "T5 · SCIENCE",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3796,7 +3807,7 @@
               "id": "EU-T1-001",
               "nome": "Crop production in EU standard humidity by NUTS 2 region",
               "pais": "EUROPA",
-              "assunto": "T1 · Cultura e producao",
+              "assunto": "T1 · CROP & PRODUCTION",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3811,7 +3822,7 @@
               "id": "EU-T1-002",
               "nome": "Crop production in EU standard humidity",
               "pais": "EUROPA",
-              "assunto": "T1 · Cultura e producao",
+              "assunto": "T1 · CROP & PRODUCTION",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3826,7 +3837,7 @@
               "id": "EU-T10-001",
               "nome": "European Commission — Agri-food Data Portal (cereal prices)",
               "pais": "EUROPA",
-              "assunto": "T10 · Politica e subsidio",
+              "assunto": "T10 · MARKET / TRADE / INDUSTRY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3841,7 +3852,7 @@
               "id": "EU-T12-001",
               "nome": "CELLAR / EU Publications Office — camada de política agrícola",
               "pais": "EUROPA",
-              "assunto": "T12 · Substancia ativa",
+              "assunto": "T12 · POLICY / AGRICULTURAL ENVIRONMENT",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3856,7 +3867,7 @@
               "id": "EU-T2-001",
               "nome": "NASA POWER — Daily Point (community AG)",
               "pais": "EUROPA",
-              "assunto": "T2 · Clima e tempo",
+              "assunto": "T2 · CLIMATE / WATER / SOIL",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3871,7 +3882,7 @@
               "id": "EU-T2-002",
               "nome": "NUTS_LB_2024_4326_LEVL_2 (label points)",
               "pais": "EUROPA",
-              "assunto": "T2 · Clima e tempo",
+              "assunto": "T2 · CLIMATE / WATER / SOIL",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3886,7 +3897,7 @@
               "id": "EU-T2-003",
               "nome": "Open-Meteo Historical Weather API (ERA5)",
               "pais": "EUROPA",
-              "assunto": "T2 · Clima e tempo",
+              "assunto": "T2 · CLIMATE / WATER / SOIL",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -3901,7 +3912,7 @@
               "id": "EU-T3-001",
               "nome": "EPPO Global Database",
               "pais": "EUROPA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -3916,7 +3927,7 @@
               "id": "EU-T4-001",
               "nome": "CELLAR / EU Publications Office (Official Journal of the EU)",
               "pais": "EUROPA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -3951,7 +3962,7 @@
               "id": "EU-T4-002",
               "nome": "EU Pesticides Database",
               "pais": "EUROPA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -3966,7 +3977,7 @@
               "id": "EU-T5-001",
               "nome": "OpenAlex",
               "pais": "EUROPA",
-              "assunto": "T5 · Preco e mercado",
+              "assunto": "T5 · SCIENCE",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3981,7 +3992,7 @@
               "id": "FR-T13-001",
               "nome": "recherche-entreprises.api.gouv.fr (base SIRENE)",
               "pais": "FRANCA",
-              "assunto": "T13 · ",
+              "assunto": "T13 · DISTRIBUTION",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": false,
@@ -3996,7 +4007,7 @@
               "id": "FR-T3-001",
               "nome": "Bulletins de Santé du Végétal",
               "pais": "FRANCA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "YELLOW",
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
@@ -4011,7 +4022,7 @@
               "id": "FR-T3-002",
               "nome": "Archive en agro-écologie de BSV",
               "pais": "FRANCA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "NAO SEI",
               "estado_texto": "nao foi possivel verificar — NAO SEI",
               "sabe_coletar": false,
@@ -4026,7 +4037,7 @@
               "id": "FR-T4-001",
               "nome": "Données ouvertes du catalogue E-Phy",
               "pais": "FRANCA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -4061,7 +4072,7 @@
               "id": "IT-T3-001",
               "nome": "IT-T3-001",
               "pais": "ITALIA",
-              "assunto": "T3 · Praga e doenca",
+              "assunto": "T3 · PEST / DISEASE / WEEDS",
               "estado": "YELLOW",
               "estado_texto": "real, mas com atrito registrado",
               "sabe_coletar": false,
@@ -4076,7 +4087,7 @@
               "id": "IT-T4-001",
               "nome": "Fitosanitari — elenco dei prodotti fitosanitari autorizzati",
               "pais": "ITALIA",
-              "assunto": "T4 · Regulatorio",
+              "assunto": "T4 · REGULATORY",
               "estado": "GREEN",
               "estado_texto": "verificada, com exemplo real guardado",
               "sabe_coletar": true,
@@ -5383,18 +5394,54 @@
             "erro": null,
             "prova": "system-map/data/golden-path-pdf.generated.json",
             "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260914T155221Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260914T155245Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
           }
         ],
-        "total": 20,
+        "total": 22,
         "por_pais": {
           "ES": 10,
-          "IT": 7,
+          "IT": 9,
           "NAO SEI": 3
         },
         "por_plataforma": {
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
-          "LOCAL": 7,
+          "LOCAL": 9,
           "OPENALEX": 1,
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
@@ -5431,10 +5478,10 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 19,
-        "com_custo_medido": 14,
+        "com_rendimento_medido": 21,
+        "com_custo_medido": 16,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3743,
+        "trouxe_total": 3841,
         "sobrou_total": 3006
       },
       "memoria": [
@@ -5633,7 +5680,9 @@
         {
           "ficheiro": "coleta/golden_path_pdf.py",
           "como_se_chama": "coleta/golden_path_pdf.py",
-          "carimba_data": [],
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
           "carimba_lugar": [
             "COUNTRY",
             "FACT_LOCATION",
@@ -5643,7 +5692,9 @@
           "leis_que_obedece": [
             "proveniencia"
           ],
-          "regista_descarte": []
+          "regista_descarte": [
+            "REJEIT"
+          ]
         },
         {
           "ficheiro": "coleta/ingresso.py",
@@ -5726,7 +5777,9 @@
         {
           "ficheiro": "coleta/italy_executor.py",
           "como_se_chama": "coleta/italy_executor.py --run-id",
-          "carimba_data": [],
+          "carimba_data": [
+            "CAPTURED_AT"
+          ],
           "carimba_lugar": [],
           "separa_fonte_do_fato": false,
           "leis_que_obedece": [],
@@ -6202,12 +6255,14 @@
         "C-TESTES"
       ],
       "outbound": [
+        "C-IT-PRESERVAR",
         "C-PACOTE-CAMADAS",
         "C-PROVA-COLETA",
         "C-TESTES"
       ],
       "paises": {},
       "paises_dado": {
+        "ITALIA": 1,
         "ESPANHA": 1,
         "EUROPA": 1
       },
@@ -9495,8 +9550,8 @@
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:146",
           ".github/workflows/comunicacao-publica.yml:147",
-          "pedido/receitas.py:187",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:248",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -10156,8 +10211,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "pedido/receitas.py:80",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:105",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -10992,7 +11047,7 @@
         "QUEM": [],
         "PLANO": null,
         "PROVA": [
-          "orquestrador/orquestrador.py:486"
+          "orquestrador/orquestrador.py:510"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -11479,8 +11534,8 @@
         ],
         "PLANO": "OBSERVED",
         "PROVA": [
-          "pedido/receitas.py:97",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:122",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -11713,7 +11768,7 @@
         "PROVA": [
           "coleta/derivacao_forward.py:83",
           "coleta/golden_path_pdf.py:53",
-          "coleta/ingresso.py:377",
+          "coleta/ingresso.py:501",
           "medidas/corrida_instrumentada.py:122"
         ],
         "PORQUE": "estas pecas importam-na — C-DERIVACAO-FORWARD · C-ESTRADA-PDF · C-FRONTEIRA-TELEMETRIA · C-INGRESSO · C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
@@ -11957,8 +12012,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "pedido/receitas.py:146",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:207",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -12176,14 +12231,14 @@
       "family": "F-GOVERNANCA",
       "status": "PROVEN",
       "ui_status": "green",
-      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 19 · NAO_SEI 6 · SIM 18. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
+      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 18 · NAO_SEI 15 · SIM 10. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
-        "RUN_ID: DERIV-PDF-20260908T045247Z",
+        "RUN_ID: DERIV-PDF-20260914T155245Z",
         "estado que a corrida declara: SUCCESS",
         "ESTADO DE FECHO: COMPLETE — todas as condições de fecho foram medidas e cumpridas",
         "rota: LOCAL_EXECUTOR · executor texto-de-pdf v1 · pipeline v1",
-        "engenharia: commit 491b678d56 · árvore limpa NAO · Bíblia V1.3",
+        "engenharia: commit 4ee7d0f3f5 · árvore limpa NAO · Bíblia V1.4",
         "ANTES: {'OCORRENCIAS': 49, 'CONTEUDOS_UNICOS': 43, 'DERIVADOS_PRESENTES': 43}",
         "DEPOIS: {'OCORRENCIAS': 49, 'CONTEUDOS_UNICOS': 43, 'DERIVADOS_PRESENTES': 43}",
         "pré-voo: executor disponível SIM (pdftotext)",
@@ -12201,7 +12256,7 @@
         "precisam de OCR: 0",
         "erro de extração: 0",
         "a porta viu: 43",
-        "decisões: NAO 19 · NAO_SEI 6 · SIM 18",
+        "decisões: NAO 18 · NAO_SEI 15 · SIM 10",
         "originais alterados: 0 (IMUTAVEL)",
         "",
         "rota paga usada: NAO · rede usada: NAO · OCR usado: NAO",
@@ -12209,7 +12264,7 @@
         "número de caracteres: NÃO CANÓNICO — não há regra de contagem escrita (a mesma pasta dá contas diferentes conforme a quebra de linha). Entra quando tiver contrato próprio.",
         "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos passaram é COBERTURA, não acerto."
       ],
-      "status_reason": "A estrada DOCUMENTAL fechou: a corrida está COMPLETE (todas as condições de fecho foram medidas e cumpridas), 0 perdidos, e a porta deu uma resposta com prova a cada um dos 43: NAO 19 · NAO_SEI 6 · SIM 18. VERDE É DO DOCUMENTO, NÃO DO FATO — nenhum claim foi extraído, e por isso nenhum fato está pronto. A extração é o estágio seguinte, e ainda não existe.",
+      "status_reason": "A estrada DOCUMENTAL fechou: a corrida está COMPLETE (todas as condições de fecho foram medidas e cumpridas), 0 perdidos, e a porta deu uma resposta com prova a cada um dos 43: NAO 18 · NAO_SEI 15 · SIM 10. VERDE É DO DOCUMENTO, NÃO DO FATO — nenhum claim foi extraído, e por isso nenhum fato está pronto. A extração é o estágio seguinte, e ainda não existe.",
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -12661,12 +12716,13 @@
           "CORRIDA_PARA_O_RAW",
           "DA_FICHA_PARA_A_PORTA",
           "DO_COLETOR",
+          "FRONTEIRA_TRANSPORTA",
           "PARA_A_PORTA",
           "_SENTINELAS"
         ],
-        "palavras": 53,
+        "palavras": 65,
         "por_lingua": {},
-        "sem_marca_de_lingua": 53,
+        "sem_marca_de_lingua": 65,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12675,20 +12731,22 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "leis/artefato.py"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -12742,8 +12800,10 @@
       ],
       "file_count": 8,
       "status": "PENDING",
-      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "status_reason": "outra peca do sistema importa isto para funcionar.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "candidatas/italy_write_matrix.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-IT-CONTRATOS"
@@ -12764,7 +12824,7 @@
         "ITALIA": 8
       },
       "paises_dado": {
-        "ITALIA": 12
+        "ITALIA": 16
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -12814,9 +12874,9 @@
         "PLANO": null,
         "PROVA": [
           "coleta/italy_probe.mjs:23",
+          "coleta/italy_recurrent_collect.mjs:29",
           "provas/a_autoridade_da_fonte.py:61",
-          "provas/a_rota_m2_atravessa.py:155",
-          "provas/italy_accounting.mjs:60"
+          "provas/a_rota_m2_atravessa.py:155"
         ],
         "PORQUE": "estas pecas importam-na — C-IT-COLETA · C-IT-CONTRATOS — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -12879,7 +12939,7 @@
         "ITALIA": 5
       },
       "paises_dado": {
-        "ITALIA": 15
+        "ITALIA": 19
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -12925,8 +12985,8 @@
         ],
         "PLANO": "OBSERVED",
         "PROVA": [
-          "pedido/receitas.py:159",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:171",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "uma corrida medida chamou esta peca — e nao so uma linha que diz que podia chamar."
       },
@@ -12944,7 +13004,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "∑",
       "views": [
         "audit",
@@ -12959,9 +13019,11 @@
         "provas/italy_pilot_negativos.mjs"
       ],
       "file_count": 4,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "provas/italy_pilot_negativos.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-IT-CATALOGO",
@@ -12976,7 +13038,7 @@
         "ITALIA": 4
       },
       "paises_dado": {
-        "ITALIA": 5
+        "ITALIA": 7
       },
       "pais": "ITALIA",
       "nivel": "INTERNO",
@@ -13040,7 +13102,7 @@
         "INTELIGENCIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "§",
       "views": [
         "acervo",
@@ -13057,9 +13119,13 @@
         "regras/italy_source_health.mjs"
       ],
       "file_count": 6,
-      "status": "PROVEN",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-COLETA.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "regras/italy_contract_test.mjs",
+        "regras/italy_pilot_guards.mjs",
+        "regras/italy_scheduling_guards.mjs"
+      ],
       "produces": [],
       "inbound": [
         "C-IT-CATALOGO",
@@ -13079,7 +13145,7 @@
         "ITALIA": 6
       },
       "paises_dado": {
-        "ITALIA": 33
+        "ITALIA": 39
       },
       "pais": "ITALIA",
       "entregue_a_inteligencia": [],
@@ -13135,8 +13201,8 @@
         "PROVA": [
           "candidatas/italy_write_matrix.mjs:2",
           "coleta/italy_pilot_collect.mjs:38",
-          "coleta/italy_pilot_collect.mjs:38",
-          "provas/a_autoridade_da_fonte.py:163"
+          "provas/a_autoridade_da_fonte.py:163",
+          "provas/italy_pilot_negativos.mjs:8"
         ],
         "PORQUE": "estas pecas importam-na — C-IT-CATALOGO · C-IT-COLETA — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -13272,9 +13338,15 @@
       "file_count": 3,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "data/collection-ledger/italy/observations.ndjson",
+        "data/collection-ledger/italy/runs.ndjson",
+        "guarda/italy_preserve.mjs"
+      ],
       "produces": [],
-      "inbound": [],
+      "inbound": [
+        "C-ASK-SINTONIA"
+      ],
       "outbound": [
         "C-CENSO-IDENTIDADE-IT",
         "C-ESTRADAS-IT",
@@ -13301,20 +13373,22 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "le 1 artefato(s) e nao escreve nenhum medido: olha e da nota",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "superficie/rede.py"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -13375,7 +13449,7 @@
         "guardados nesta corrida: 0",
         "já existiam (repetir não duplica): 43",
         "PERDIDOS: 0",
-        "textos antigos feitos à mão: 6 — com pai provado 3, pai desconhecido 3"
+        "textos antigos feitos à mão: 6 — com pai provado 1, pai desconhecido 5"
       ],
       "status_reason": "Cada artefato tem nome próprio, impressão digital, pai, impressão digital do pai e versão de quem o fez. Perdidos: 0.",
       "paises": {},
@@ -14538,14 +14612,11 @@
           "LEGIVEIS",
           "LEITURA_MINHA",
           "MARCA_DESCARTE",
-          "TERRITORIO",
           "ZONAS"
         ],
-        "palavras": 85,
-        "por_lingua": {
-          "PT": 1
-        },
-        "sem_marca_de_lingua": 84,
+        "palavras": 70,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 70,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -15853,7 +15924,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "◎",
       "views": [
         "acervo"
@@ -15864,9 +15935,11 @@
         "pedido/pedido.py"
       ],
       "file_count": 1,
-      "status": "PROVEN",
-      "status_reason": "o sistema importa esta lei em runtime para decidir: C-ORQUESTRADOR, C-RECEITAS.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o sistema importa esta lei em runtime para decidir: C-ORQUESTRADOR, C-RECEITAS.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "pedido/pedido.py"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -15895,20 +15968,6 @@
         "e_workflow": false,
         "executa": false,
         "executores_que_chama": 0
-      },
-      "vocabulario": {
-        "papel": "NAO SEI",
-        "listas": [
-          "ALVOS",
-          "APELIDOS"
-        ],
-        "palavras": 52,
-        "por_lingua": {
-          "PT": 3
-        },
-        "sem_marca_de_lingua": 49,
-        "de_outro_pais": 0,
-        "de_outro_pais_quais": {}
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
@@ -16135,7 +16194,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/scan_sources.py:371"
+          "system-map/scripts/scan_sources.py:385"
         ],
         "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
@@ -19766,7 +19825,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/scripts/recall_da_porta_it.py"
+      ],
       "produces": [],
       "inbound": [
         "C-ADMISSAO"
@@ -19893,7 +19954,7 @@
         "valida": false,
         "e_workflow": false,
         "executa": false,
-        "executores_que_chama": 7
+        "executores_que_chama": 8
       },
       "vocabulario": {
         "papel": "NAO SEI",
@@ -19901,9 +19962,9 @@
           "CONTRATOS_OBRIGATORIOS",
           "EXECUTORES"
         ],
-        "palavras": 143,
+        "palavras": 162,
         "por_lingua": {},
-        "sem_marca_de_lingua": 143,
+        "sem_marca_de_lingua": 162,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -21107,8 +21168,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "pedido/receitas.py:132",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:157",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -21395,8 +21456,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "pedido/receitas.py:225",
-          "orquestrador/orquestrador.py:755"
+          "pedido/receitas.py:286",
+          "orquestrador/orquestrador.py:827"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -24839,13 +24900,13 @@
           "TRACE_GPU",
           "_GAVETA_DE"
         ],
-        "palavras": 680,
+        "palavras": 682,
         "por_lingua": {
           "IT": 7,
           "PT": 3,
           "FR": 2
         },
-        "sem_marca_de_lingua": 668,
+        "sem_marca_de_lingua": 670,
         "de_outro_pais": 2,
         "de_outro_pais_quais": {
           "FR": 2
@@ -27196,7 +27257,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-current-collection-truth-v2"
+        "branch claude/collection-to-waiting-room-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -28499,7 +28560,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 563,
+          "line": 714,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -30148,7 +30209,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 322,
+          "line": 336,
           "snippet": "CONTAS = \"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-SCAN",
@@ -30355,7 +30416,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 196,
+          "line": 257,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\": \"CATALOG\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-RECEITAS",
@@ -30606,6 +30667,41 @@
       "OBSERVED": "UNKNOWN",
       "PROVEN": "UNKNOWN",
       "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-ASK-SINTONIA",
+      "to": "C-IT-PRESERVAR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Ask Sintonia alimenta Guardar com impressao digital. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "guarda/italy_preserve.mjs",
+          "line": 41,
+          "snippet": "const out = execFileSync(\"python3\", [\"superficie/rede.py\", \"--egresso\"],",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ASK-SINTONIA--READS-->C-IT-PRESERVAR",
+            "FROM": "C-ASK-SINTONIA",
+            "TO": "C-IT-PRESERVAR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -32464,7 +32560,7 @@
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
-          "line": 211,
+          "line": 269,
           "snippet": "biblia = json.loads((RAIZ / \"docs\" / \"biblia\" / \"leis.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-BIBLIA--READS-->C-ESTRADA-PDF",
@@ -38877,7 +38973,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 202,
+          "line": 263,
           "snippet": "\"roda\": [\"coleta/comunicacao_coleta.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-COLETA-PUBLICA--READS-->C-RECEITAS",
@@ -39494,6 +39590,41 @@
           },
           "SUPPORTS": "YES",
           "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-CONTRATO-ARTEFATO",
+      "to": "C-INGRESSO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato comum de artefato alimenta A porta de entrada da coleta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/ingresso.py",
+          "line": 269,
+          "snippet": "\"VOCABULARIO\": \"leis/artefato.py\",",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-CONTRATO-ARTEFATO--READS-->C-INGRESSO",
+            "FROM": "C-CONTRATO-ARTEFATO",
+            "TO": "C-INGRESSO",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -41367,7 +41498,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 85,
+          "line": 110,
           "snippet": "\"data/samples/RESEARCHER-CORPUS-EAME-V1.json\": \"CATALOG\"}},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORPUS--READS-->C-RECEITAS",
@@ -41383,7 +41514,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 86,
+          "line": 111,
           "snippet": "\"roda\": [\"coleta/corpus_pesquisador.py\", \"coletar\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CORPUS--READS-->C-RECEITAS",
@@ -41453,7 +41584,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 326,
+          "line": 387,
           "snippet": "(\"tempo do fato\", \"leis/data_clock.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DATA-CLOCK--READS-->C-RECEITAS",
@@ -43944,7 +44075,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 486,
+          "line": 510,
           "snippet": "\"DONO\": \"guarda/preservar_documento.py\"}",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-DONO-DO-DOCUMENTO--READS-->C-ORQUESTRADOR",
@@ -44687,7 +44818,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 116,
+          "line": 141,
           "snippet": "\"roda\": [\"coleta/eu_regulatorio_executor.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EU-REGULATORIO-COLETA--READS-->C-RECEITAS",
@@ -45174,7 +45305,7 @@
       "evidence": [
         {
           "file": "coleta/ingresso.py",
-          "line": 377,
+          "line": 501,
           "snippet": "import executor_texto_de_pdf as _ex",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--IMPORTS-->C-INGRESSO",
@@ -45288,7 +45419,7 @@
       "evidence": [
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 528,
+          "line": 552,
           "snippet": "tool=\"coleta/executor_texto_de_pdf.py\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-EXECUTOR-TEXTO-PDF--READS-->C-ORQUESTRADOR",
@@ -46044,7 +46175,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 152,
+          "line": 213,
           "snippet": "\"roda\": [\"coleta/eppo_gd.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-FONTES-EU--READS-->C-RECEITAS",
@@ -46668,7 +46799,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 197,
+          "line": 258,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/UNIVERSO-CONTAS-V1.json\": \"CATALOG\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-RECEITAS",
@@ -46684,7 +46815,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 198,
+          "line": 259,
           "snippet": "\"data/samples/COMPETITOR-PUBLIC-COMM/PUBLIC-COMM-FIRST-BATCH-EAME.json\": \"PLAN\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IDENTIDADE--READS-->C-RECEITAS",
@@ -47988,6 +48119,41 @@
     {
       "from": "C-IT-CATALOGO",
       "to": "C-IT-COLETA",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas tem o seu codigo importado por Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 29,
+          "snippet": "import { PROFILES, PERFIL_PADRAO } from \"../candidatas/italy_profiles.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-IT-CATALOGO",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-COLETA",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -48014,16 +48180,10 @@
         {
           "file": "coleta/italy_recurrent_collect.mjs",
           "line": 29,
-          "snippet": "import { PROFILES, PERFIL_PADRAO } from \"./italy_profiles.mjs\";",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CATALOGO--READS-->C-IT-COLETA",
-            "FROM": "C-IT-CATALOGO",
-            "TO": "C-IT-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "snippet": "import { PROFILES, PERFIL_PADRAO } from \"../candidatas/italy_profiles.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -48074,6 +48234,41 @@
     {
       "from": "C-IT-CATALOGO",
       "to": "C-IT-CONTRATOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O levantamento das fontes italianas tem o seu codigo importado por O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_scheduling_guards.mjs",
+          "line": 4,
+          "snippet": "import { PROFILES } from \"../candidatas/italy_profiles.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CATALOGO--IMPORTS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-CATALOGO",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CATALOGO",
+      "to": "C-IT-CONTRATOS",
       "type": "READS",
       "payload": "artefacto",
       "raw_type": "READS",
@@ -48100,16 +48295,10 @@
         {
           "file": "regras/italy_scheduling_guards.mjs",
           "line": 4,
-          "snippet": "import { PROFILES } from \"./italy_profiles.mjs\";",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CATALOGO--READS-->C-IT-CONTRATOS",
-            "FROM": "C-IT-CATALOGO",
-            "TO": "C-IT-CONTRATOS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "snippet": "import { PROFILES } from \"../candidatas/italy_profiles.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -48204,7 +48393,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 196,
+          "line": 210,
           "snippet": "MASTER_IT = \"candidatas/ITALY-SOURCE-MASTER-V1.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-SCAN",
@@ -48386,31 +48575,95 @@
     {
       "from": "C-IT-COLETA",
       "to": "C-IT-CONTAS",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Colher as fontes italianas alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por A conta da coleta italiana. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/italy_pilot_negativos.mjs",
           "line": 7,
-          "snippet": "import { normalizarSias, estadoDeCadencia, lerLedger } from \"./italy_pilot_collect.mjs\";",
+          "snippet": "import { normalizarSias, estadoDeCadencia, lerLedger } from \"../coleta/italy_pilot_collect.mjs\";",
           "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTAS",
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTAS",
             "FROM": "C-IT-COLETA",
             "TO": "C-IT-CONTAS",
-            "RELATION_TYPE": "READS",
+            "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
           "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-IT-CONTAS",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "Colher as fontes italianas alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 7,
+          "snippet": "import { normalizarSias, estadoDeCadencia, lerLedger } from \"../coleta/italy_pilot_collect.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-COLETA",
+      "to": "C-IT-CONTRATOS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Colher as fontes italianas tem o seu codigo importado por O contrato de cada fonte italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "regras/italy_pilot_guards.mjs",
+          "line": 5,
+          "snippet": "import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from \"../coleta/italy_pilot_collect.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-COLETA--IMPORTS-->C-IT-CONTRATOS",
+            "FROM": "C-IT-COLETA",
+            "TO": "C-IT-CONTRATOS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "CODE",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -48431,16 +48684,10 @@
         {
           "file": "regras/italy_pilot_guards.mjs",
           "line": 5,
-          "snippet": "import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from \"./italy_pilot_collect.mjs\";",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-COLETA--READS-->C-IT-CONTRATOS",
-            "FROM": "C-IT-COLETA",
-            "TO": "C-IT-CONTRATOS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "snippet": "import { PILOT_SOURCES, lerLedger, estadoDeCadencia } from \"../coleta/italy_pilot_collect.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
@@ -48688,7 +48935,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 170,
+          "line": 193,
           "snippet": "\"roda\": [\"coleta/italy_executor.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-COLETA--READS-->C-RECEITAS",
@@ -48970,7 +49217,7 @@
         {
           "file": "regras/italy_contract_test.mjs",
           "line": 157,
-          "snippet": "const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import(\"./italy_accounting.mjs\");",
+          "snippet": "const { contabilidade, ACCESS_ONLY, BASE_CLASSIFIED_SET } = await import(\"../provas/italy_accounting.mjs\");",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTAS--READS-->C-IT-CONTRATOS",
             "FROM": "C-IT-CONTAS",
@@ -49011,42 +49258,42 @@
     {
       "from": "C-IT-CONTRATOS",
       "to": "C-IT-CATALOGO",
-      "type": "READS",
-      "payload": "artefacto",
-      "raw_type": "READS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana alimenta O levantamento das fontes italianas. Provado por 2 linhas de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por O levantamento das fontes italianas. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "candidatas/italy_write_matrix.mjs",
           "line": 2,
-          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";",
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
           "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CATALOGO",
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CATALOGO",
             "FROM": "C-IT-CONTRATOS",
             "TO": "C-IT-CATALOGO",
-            "RELATION_TYPE": "READS",
+            "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
           "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         },
         {
           "file": "candidatas/italy_write_matrix.mjs",
           "line": 3,
-          "snippet": "import { medir } from \"./italy_source_health.mjs\";",
+          "snippet": "import { medir } from \"../regras/italy_source_health.mjs\";",
           "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CATALOGO",
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CATALOGO",
             "FROM": "C-IT-CONTRATOS",
             "TO": "C-IT-CATALOGO",
-            "RELATION_TYPE": "READS",
+            "RELATION_TYPE": "IMPORTS",
             "PLANE": "CODE"
           },
           "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
@@ -49061,17 +49308,72 @@
     },
     {
       "from": "C-IT-CONTRATOS",
+      "to": "C-IT-CATALOGO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "UNKNOWN",
+      "reason": "O contrato de cada fonte italiana alimenta O levantamento das fontes italianas. Provado por 2 linhas de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_write_matrix.mjs",
+          "line": 2,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "candidatas/italy_write_matrix.mjs",
+          "line": 3,
+          "snippet": "import { medir } from \"../regras/italy_source_health.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
       "to": "C-IT-COLETA",
       "type": "IMPORTS",
       "payload": "codigo",
       "raw_type": "IMPORTS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 1 linha de codigo.",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por Colher as fontes italianas. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "coleta/italy_pilot_collect.mjs",
           "line": 38,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "coleta/italy_recurrent_collect.mjs",
+          "line": 30,
           "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-COLETA",
@@ -49101,7 +49403,7 @@
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
-      "status": "PROVEN",
+      "status": "UNKNOWN",
       "reason": "O contrato de cada fonte italiana alimenta Colher as fontes italianas. Provado por 2 linhas de codigo.",
       "evidence": [
         {
@@ -49117,21 +49419,50 @@
         {
           "file": "coleta/italy_recurrent_collect.mjs",
           "line": 30,
-          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-COLETA",
-            "FROM": "C-IT-CONTRATOS",
-            "TO": "C-IT-COLETA",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "RULE",
+      "DECLARED": "UNKNOWN",
+      "CODE": "UNKNOWN",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-IT-CONTRATOS",
+      "to": "C-IT-CONTAS",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O contrato de cada fonte italiana tem o seu codigo importado por A conta da coleta italiana. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/italy_pilot_negativos.mjs",
+          "line": 8,
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-IT-CONTRATOS--IMPORTS-->C-IT-CONTAS",
+            "FROM": "C-IT-CONTRATOS",
+            "TO": "C-IT-CONTAS",
+            "RELATION_TYPE": "IMPORTS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `IMPORTS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -49146,32 +49477,26 @@
       "payload": "artefacto",
       "raw_type": "READS",
       "kind": "technical",
-      "status": "PROVEN",
+      "status": "UNKNOWN",
       "reason": "O contrato de cada fonte italiana alimenta A conta da coleta italiana. Provado por 1 linha de codigo.",
       "evidence": [
         {
           "file": "provas/italy_pilot_negativos.mjs",
           "line": 8,
-          "snippet": "import { CONTRACTS } from \"./italy_contracts.mjs\";",
-          "ASSERTION_SUPPORTED": {
-            "EDGE_ID": "C-IT-CONTRATOS--READS-->C-IT-CONTAS",
-            "FROM": "C-IT-CONTRATOS",
-            "TO": "C-IT-CONTAS",
-            "RELATION_TYPE": "READS",
-            "PLANE": "CODE"
-          },
-          "SUPPORTS": "YES",
-          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "snippet": "import { CONTRACTS } from \"../regras/italy_contracts.mjs\";",
+          "ASSERTION_SUPPORTED": null,
+          "SUPPORTS": "AMBIGUOUS",
+          "WHY": "a mesma linha sustenta um `IMPORTS` entre o mesmo par: e um `import`, e o casador de literais nao distingue um especificador de modulo de um caminho de dado.",
           "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
           "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
         }
       ],
       "categoria": "PROOF",
       "DECLARED": "UNKNOWN",
-      "CODE": "YES",
+      "CODE": "UNKNOWN",
       "OBSERVED": "UNKNOWN",
-      "PROVEN": "YES",
-      "PROVEN_PLANE": "CODE",
+      "PROVEN": "UNKNOWN",
+      "PROVEN_PLANE": null,
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
@@ -49256,7 +49581,7 @@
         {
           "file": "coleta/executor_texto_de_pdf.py",
           "line": 1,
-          "snippet": "RUN DERIV-PDF-20260908T045247Z · RAW_INPUT=49",
+          "snippet": "RUN DERIV-PDF-20260914T155245Z · RAW_INPUT=49",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
           "WHY": "`DERIVA_TEXTO` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao.",
@@ -49279,7 +49604,7 @@
       "kind": "expected",
       "status": "UNKNOWN",
       "evidence": [],
-      "reason": "⚪ O CAMINHO ANTIGO, FEITO À MÃO. 6 textos foram tirados de PDF por uma pessoa, antes de haver contrato, sem registo de quem nem de quando. Destes, 3 conseguem provar de que PDF vieram — o texto do ficheiro aparece mesmo dentro do documento. Os outros 3 não: estar ao lado com o mesmo nome é indício, não prova, e por isso o pai ficou NÃO SEI. Fica cinzenta porque continua sem código que a sustente. O caminho novo, esse, está desenhado a cheio: BRUTO → EXECUTOR → TEXTO DERIVADO → PORTA.",
+      "reason": "⚪ O CAMINHO ANTIGO, FEITO À MÃO. 6 textos foram tirados de PDF por uma pessoa, antes de haver contrato, sem registo de quem nem de quando. Destes, 1 conseguem provar de que PDF vieram — o texto do ficheiro aparece mesmo dentro do documento. Os outros 5 não: estar ao lado com o mesmo nome é indício, não prova, e por isso o pai ficou NÃO SEI. Fica cinzenta porque continua sem código que a sustente. O caminho novo, esse, está desenhado a cheio: BRUTO → EXECUTOR → TEXTO DERIVADO → PORTA.",
       "source": "system-map/data/golden-path-pdf.generated.json",
       "declared_by": "missao system-map-canonical-v1, fase 1 do data plane",
       "categoria": "DATA",
@@ -49477,7 +49802,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 521,
+          "line": 535,
           "snippet": "LEDGER_IT = \"data/collection-ledger/italy/observations.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MAPA-SCAN",
@@ -49493,7 +49818,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 522,
+          "line": 536,
           "snippet": "RUNS_IT = \"data/collection-ledger/italy/runs.ndjson\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-PRESERVAR--READS-->C-MAPA-SCAN",
@@ -49759,7 +50084,7 @@
       "kind": "technical",
       "status": "UNKNOWN",
       "payload": "dado",
-      "reason": "A porta viu 43 textos e decidiu: NAO 19 · NAO_SEI 6 · SIM 18.",
+      "reason": "A porta viu 43 textos e decidiu: NAO 18 · NAO_SEI 15 · SIM 10.",
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",
@@ -50327,7 +50652,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 328,
+          "line": 389,
           "snippet": "(\"lugar do fato\", \"leis/fato_local.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-LUGAR-COLETA--READS-->C-RECEITAS",
@@ -52763,7 +53088,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 187,
+          "line": 248,
           "snippet": "\"id\": \"comunicacao-publica\", \"roda\": ['coleta/comunicacao_coleta.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -52779,7 +53104,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-COLETA-PUBLICA",
@@ -52814,7 +53139,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 80,
+          "line": 105,
           "snippet": "\"id\": \"corpus-pesquisador\", \"roda\": ['coleta/corpus_pesquisador.py', 'coletar']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -52830,7 +53155,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-CORPUS",
@@ -52900,7 +53225,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 97,
+          "line": 122,
           "snippet": "\"id\": \"regulatorio-eu\", \"roda\": ['coleta/eu_regulatorio_executor.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -52916,7 +53241,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-EU-REGULATORIO-COLETA",
@@ -52968,7 +53293,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 146,
+          "line": 207,
           "snippet": "\"id\": \"eppo\", \"roda\": ['coleta/eppo_gd.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -52984,7 +53309,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-FONTES-EU",
@@ -53019,7 +53344,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 159,
+          "line": 171,
           "snippet": "\"id\": \"italia-recorrente\", \"roda\": ['coleta/italy_executor.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -53035,7 +53360,39 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
+          "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "pedido/receitas.py",
+          "line": 220,
+          "snippet": "\"id\": \"italia-recorrente\", \"roda\": ['coleta/italy_executor.py']",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
+            "FROM": "C-ORQUESTRADOR",
+            "TO": "C-IT-COLETA",
+            "RELATION_TYPE": "RUNS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `RUNS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        },
+        {
+          "file": "orquestrador/orquestrador.py",
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-IT-COLETA",
@@ -53648,7 +54005,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 132,
+          "line": 157,
           "snippet": "\"id\": \"rotulos-oficiais\", \"roda\": ['coleta/rotulos_baixar.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -53664,7 +54021,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-ROTULOS",
@@ -53699,7 +54056,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 225,
+          "line": 286,
           "snippet": "\"id\": \"scrap-colheita\", \"roda\": ['coleta/scrap_colheita.py']",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -53715,7 +54072,7 @@
         },
         {
           "file": "orquestrador/orquestrador.py",
-          "line": 755,
+          "line": 827,
           "snippet": "r = subprocess.run([sys.executable, *comando], cwd=str(RAIZ),",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ORQUESTRADOR--RUNS-->C-SCRAP-COLHEITA",
@@ -55146,7 +55503,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 371,
+          "line": 385,
           "snippet": "FILA = \"candidatas/FONTES-CANDIDATAS.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
@@ -55162,7 +55519,7 @@
         },
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 400,
+          "line": 414,
           "snippet": "\"porta\": \"candidatas/fonte_nova.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PORTA-FONTE--READS-->C-MAPA-SCAN",
@@ -57079,7 +57436,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/scan_sources.py",
-          "line": 431,
+          "line": 445,
           "snippet": "MANIFESTO = \"data/samples/RUN-MANIFEST.json\"",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-MAPA-SCAN",
@@ -57375,7 +57732,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 324,
+          "line": 385,
           "snippet": "(\"procedencia\", \"regras/proveniencia.py\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -57391,7 +57748,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 330,
+          "line": 391,
           "snippet": "(\"recibo da corrida\", \"data/samples/RUN-MANIFEST.json\",",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROCEDENCIA--READS-->C-RECEITAS",
@@ -62762,7 +63119,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 138,
+          "line": 163,
           "snippet": "\"data/raw/IT-ROTULOS/_MANIFESTO.json\": \"MANIFEST\"}},",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTULOS--READS-->C-RECEITAS",
@@ -62778,7 +63135,7 @@
         },
         {
           "file": "pedido/receitas.py",
-          "line": 139,
+          "line": 164,
           "snippet": "\"roda\": [\"coleta/rotulos_baixar.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-ROTULOS--READS-->C-RECEITAS",
@@ -64091,7 +64448,7 @@
       "evidence": [
         {
           "file": "pedido/receitas.py",
-          "line": 242,
+          "line": 303,
           "snippet": "\"roda\": [\"coleta/scrap_colheita.py\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-SCRAP-COLHEITA--READS-->C-RECEITAS",
@@ -71870,7 +72227,7 @@
       "evidence": [
         {
           "file": "coleta/comunicacao_coleta.py",
-          "line": 823,
+          "line": 902,
           "snippet": "import reel_transcricao as rt",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-TRANSCRICAO--IMPORTS-->C-COLETA-PUBLICA",
@@ -74605,8 +74962,18 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 835,
+  "UNCLAIMED_CODE_FILES": [
+    "leis/territorios.py",
+    "provas/a_corrida_existe_em_cada_rota.py",
+    "provas/a_porta_le_italiano.py",
+    "provas/a_rota_gratuita_ainda_e_gratuita.py",
+    "provas/a_taxonomia_tem_um_dono.py",
+    "provas/nada_some_em_silencio.py",
+    "provas/o_material_italiano_chega_a_sala.py",
+    "provas/o_raw_local_nao_e_duravel.py",
+    "provas/o_video_tem_consumidor.py"
+  ],
+  "UNCLAIMED_FILES_COUNT": 846,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -74770,7 +75137,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 147,
+      "PECAS_EM_DESACORDO": 150,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -74787,20 +75154,20 @@
   ],
   "COUNTS": {
     "components": 185,
-    "components_proven": 44,
-    "components_pending": 134,
+    "components_proven": 41,
+    "components_pending": 137,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 910,
-    "edges_proven": 862,
-    "edges_unknown": 48,
+    "edges": 918,
+    "edges_proven": 866,
+    "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1731,
+    "files_tracked": 1742,
     "files_covered": 896,
-    "files_code_unclaimed": 0,
-    "roles_proven": 134,
+    "files_code_unclaimed": 9,
+    "roles_proven": 136,
     "roles_declared_only": 5,
-    "roles_unknown": 46,
+    "roles_unknown": 44,
     "roles_conflict": 19,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 9,

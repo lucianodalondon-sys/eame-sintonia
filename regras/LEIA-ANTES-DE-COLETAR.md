@@ -68,7 +68,7 @@ Carimba, em cada registo, de onde ele veio — no momento em que ele entra.
 
 | | |
 |---|---|
-| estado | PROVEN — o sistema importa esta lei em runtime para decidir: C-IT-COLETA. |
+| estado | PENDING — o sistema importa esta lei em runtime para decidir: C-IT-CATALOGO, C-IT-COLETA.  Mas 3 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana. |
 | onde vive | `docs/fontes/ITALY-SOURCE-CONTRACT-MATRIX-V1.md` |
 | onde vive | `regras/italy_contract_test.mjs` |
 | onde vive | `regras/italy_contracts.mjs` |

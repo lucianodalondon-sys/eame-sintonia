@@ -54,7 +54,18 @@ import executor_texto_de_pdf as ex  # noqa: E402
 
 # O caminho do RUN-MANIFEST vive no dono dele, `regras/proveniencia.py`.
 RECONCILIACAO = RAIZ / "system-map" / "data" / "golden-path-pdf.generated.json"
-UNIVERSO = "T7"
+# ⚠️ ESTE UNIVERSO ERA `T7`, E MUDOU PORQUE `T7` MUDOU DE SIGNIFICADO.
+# Esta estrada julga TEXTO EXTRAIDO DE PDF italiano — boletins, notiziari,
+# bilanci fitossanitari — contra o universo que esta casa chamava «Ciencia e
+# ensaio». No Atlas, que e o dono da taxonomia (`leis/territorios.py`), `T7` e
+# TECHNICAL NETWORK: cooperativas, consorcios e servico agronomico. O universo
+# que esta estrada sempre quis perguntar chama-se `T5 SCIENCE`.
+#
+#     UM NOME QUE MUDA DE DONO LEVA CONSIGO TODOS OS SITIOS QUE O CITAVAM.
+#
+# Sem esta linha, a estrada continuaria a correr e a escrever decisoes no livro
+# — com o rotulo errado, e sem nada a acusar.
+UNIVERSO = "T5"
 
 
 def impressoes_dos_brutos() -> dict:

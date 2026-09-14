@@ -37,7 +37,7 @@ class OContratoREADYNaoMudou(unittest.TestCase):
     def _unidade(self):
         item = {"id": "g-1", "texto": "Ensaio de campo com DOI",
                 "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
-        d = admissao.decidir(item, "T7", corrida="guarda")
+        d = admissao.decidir(item, "T5", corrida="guarda")
         return admissao.pronto_para_inteligencia(item, d)
 
     def test_os_onze_campos_estao_la_e_na_ordem(self):
@@ -45,7 +45,7 @@ class OContratoREADYNaoMudou(unittest.TestCase):
 
     def test_nao_ha_READY_sem_SIM_na_porta(self):
         item = {"id": "g-2"}
-        d = admissao.decidir(item, "T7", corrida="guarda")
+        d = admissao.decidir(item, "T5", corrida="guarda")
         if d.resultado == admissao.SIM:
             self.skipTest("a porta aceitou; este caso precisa de um NAO")
         with self.assertRaises(ValueError):

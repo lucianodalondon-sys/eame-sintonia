@@ -141,21 +141,21 @@ class OQueAtravessaAFronteiraEOQueNaoAtravessa(unittest.TestCase):
                     "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
 
     def test_so_o_SIM_produz_ready(self):
-        d = self.adm.decidir(self.bom, "T7", corrida="RT")
+        d = self.adm.decidir(self.bom, "T5", corrida="RT")
         self.assertEqual(d.resultado, self.adm.SIM)
         self.assertEqual(self.adm.pronto_para_inteligencia(self.bom, d)["ESTADO"],
                          "PRONTO_PARA_INTELIGENCIA")
 
     def test_NAO_SEI_nao_produz_ready(self):
         sem = {"id": "rt", "texto": "Ensaio com DOI", "source_id": "IT-T7-002"}
-        d = self.adm.decidir(sem, "T7", corrida="RT")
+        d = self.adm.decidir(sem, "T5", corrida="RT")
         self.assertEqual(d.resultado, self.adm.NAO_SEI)
         with self.assertRaises(Exception):
             self.adm.pronto_para_inteligencia(sem, d)
 
     def test_ERRO_nao_vira_rejeicao(self):
         d = self.adm.decidir({"id": "rt", "erro_de_leitura": "TimeoutError",
-                              "source_id": "IT-T7-003", "fact_time": "2026-01-01"}, "T7")
+                              "source_id": "IT-T7-003", "fact_time": "2026-01-01"}, "T5")
         self.assertEqual(d.resultado, self.adm.ERRO)
         self.assertNotEqual(d.resultado, self.adm.NAO)
 
@@ -163,19 +163,19 @@ class OQueAtravessaAFronteiraEOQueNaoAtravessa(unittest.TestCase):
         """O INDICE DE UMA COLHEITA NAO E A COLHEITA — e é por aqui que hoje
         entra tudo o que as receitas alcançam (ver provas/o_corte_de_cr1.py)."""
         cat = {"PERSON_ID": "p1", "MATERIALS_FOUND": 3, "ORCID_WORKS_DECLARED": 9}
-        d = self.adm.decidir(cat, "T7", corrida="RT")
+        d = self.adm.decidir(cat, "T5", corrida="RT")
         self.assertEqual(d.resultado, self.adm.NAO_SE_APLICA)
         with self.assertRaises(Exception):
             self.adm.pronto_para_inteligencia(cat, d)
 
     def test_duas_corridas_nao_se_confundem(self):
-        a = self.adm.decidir(dict(self.bom), "T7", corrida="RUN-A")
-        b = self.adm.decidir(dict(self.bom), "T7", corrida="RUN-B")
+        a = self.adm.decidir(dict(self.bom), "T5", corrida="RUN-A")
+        b = self.adm.decidir(dict(self.bom), "T5", corrida="RUN-B")
         self.assertNotEqual(a.corrida, b.corrida)
 
     def test_a_saida_carrega_a_corrida_que_a_produziu(self):
         """Saída antiga numa pasta não pode ser atribuída à corrida nova."""
-        d = self.adm.decidir(dict(self.bom), "T7", corrida="RUN-VELHA")
+        d = self.adm.decidir(dict(self.bom), "T5", corrida="RUN-VELHA")
         self.assertEqual(
             self.adm.pronto_para_inteligencia(dict(self.bom), d)["CORRIDA"],
             "RUN-VELHA")

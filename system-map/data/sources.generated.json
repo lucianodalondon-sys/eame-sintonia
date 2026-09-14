@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-14T15:42:04+00:00",
-    "HEAD": "2e73fc1f2eb91516ed21f464d6c1f997f26ed3fe",
+    "GENERATED_AT": "2026-09-14T16:24:51+00:00",
+    "HEAD": "fb1bff2e49ca83698877cfc61b53aa893fc65933",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "131bbaf458fb7bde4c3722d0889d84565a5143cfea780f7e2c10379c6939abdb",
-    "FICHEIROS_NA_IMPRESSAO": 1869,
+    "SOURCE_TREE_FINGERPRINT": "3734eef775a68e5166626d73875efe1b07410fc3e5559c911fbec3062cdcbac3",
+    "FICHEIROS_NA_IMPRESSAO": 1885,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -27,14 +27,14 @@
       {
         "PATH": "data/collection-ledger/italy/observations.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "c6750b2d1039a302cb88cf5ab4aa47ce2550d794",
+        "VERSAO": "ad56df6f6a7761257d8b3e2f7df48164987b22d2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
       {
         "PATH": "data/collection-ledger/italy/runs.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "8ef7ad2f772c2baa8c78b7e1a3c116bca19e45fb",
+        "VERSAO": "4dbd52a06d99b18279803532985e9d711e5442d1",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
@@ -48,7 +48,7 @@
       {
         "PATH": "data/samples/RUN-MANIFEST.json",
         "PAPEL": "FONTE",
-        "VERSAO": "384667c538de66c8224aee0bbd3994c227a8a5fb",
+        "VERSAO": "fdbd15ae583f9032a0f09e05b6dcfb1fa2e3d332",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_manifesto() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "856c140b3464c799ea5c2b5eceedf27d883d72a5d85a04d4d1557a44051bdb82",
+    "INPUTS_DIGEST": "4f882b1e03ec3a993a7f407bcf36b1e86978e9e7274a4f36bf8b99c3a7d864e7",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -3147,7 +3147,9 @@
     {
       "ficheiro": "coleta/golden_path_pdf.py",
       "como_se_chama": "coleta/golden_path_pdf.py",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [
         "COUNTRY",
         "FACT_LOCATION",
@@ -3157,7 +3159,9 @@
       "leis_que_obedece": [
         "proveniencia"
       ],
-      "regista_descarte": []
+      "regista_descarte": [
+        "REJEIT"
+      ]
     },
     {
       "ficheiro": "coleta/ingresso.py",
@@ -3240,7 +3244,9 @@
     {
       "ficheiro": "coleta/italy_executor.py",
       "como_se_chama": "coleta/italy_executor.py --run-id",
-      "carimba_data": [],
+      "carimba_data": [
+        "CAPTURED_AT"
+      ],
       "carimba_lugar": [],
       "separa_fonte_do_fato": false,
       "leis_que_obedece": [],
@@ -4138,18 +4144,54 @@
         "erro": null,
         "prova": "system-map/data/golden-path-pdf.generated.json",
         "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260914T155221Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260914T155245Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
       }
     ],
-    "total": 20,
+    "total": 22,
     "por_pais": {
       "ES": 10,
-      "IT": 7,
+      "IT": 9,
       "NAO SEI": 3
     },
     "por_plataforma": {
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
-      "LOCAL": 7,
+      "LOCAL": 9,
       "OPENALEX": 1,
       "OpenAlex, ORCID": 1,
       "YOUTUBE": 3,
@@ -4186,23 +4228,23 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 19,
-    "com_custo_medido": 14,
+    "com_rendimento_medido": 21,
+    "com_custo_medido": 16,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3743,
+    "trouxe_total": 3841,
     "sobrou_total": 3006
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
     "ficheiro_corridas": "data/collection-ledger/italy/runs.ndjson",
-    "observacoes": 144,
-    "corridas": 6,
+    "observacoes": 172,
+    "corridas": 25,
     "por_fonte": {
-      "IT-T2-002": 124,
+      "IT-T2-002": 136,
+      "IT-T3-010": 18,
       "IT-T3-005": 6,
       "IT-T2-004": 6,
       "IT-T3-002": 2,
-      "IT-T3-010": 2,
       "IT-T3-008": 2,
       "IT-T4-001": 2
     },
@@ -4211,7 +4253,7 @@
     "com_sha256": 144,
     "com_fact_time": 144,
     "com_cadencia": 144,
-    "corridas_com_egress": 6,
+    "corridas_com_egress": 25,
     "campos": [
       "BYTES",
       "CADENCE_STATE",
@@ -4328,7 +4370,7 @@
         },
         {
           "file": "provas/preservar_coleta_no_postgres.py",
-          "line": 409
+          "line": 424
         },
         {
           "file": "tests/test_preservar_coleta.py",
@@ -4473,7 +4515,7 @@
         },
         {
           "file": "superficie/rede.py",
-          "line": 62
+          "line": 83
         }
       ]
     },
@@ -4549,7 +4591,7 @@
         },
         {
           "file": "superficie/rede.py",
-          "line": 56
+          "line": 77
         }
       ]
     },
@@ -4868,7 +4910,7 @@
         },
         {
           "file": "superficie/rede.py",
-          "line": 60
+          "line": 81
         }
       ]
     },
@@ -4970,12 +5012,12 @@
     "endpoints": 40,
     "candidates": 0,
     "coletores": 49,
-    "coletores_com_data": 17,
+    "coletores_com_data": 19,
     "coletores_com_lugar": 32,
     "coletores_que_separam_fonte_do_fato": 20,
-    "coletores_que_registam_descarte": 15,
-    "corridas_registadas": 26,
-    "observacoes_registadas": 144,
+    "coletores_que_registam_descarte": 16,
+    "corridas_registadas": 47,
+    "observacoes_registadas": 172,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,
     "citadas_sem_ficha": 3,

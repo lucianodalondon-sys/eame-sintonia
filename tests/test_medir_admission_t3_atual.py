@@ -82,7 +82,29 @@ class AProvaNaoCopiouAPorta(unittest.TestCase):
             cls.fonte = f.read()
 
     def test_nenhuma_palavra_da_porta_esta_escrita_na_prova(self):
+        # ⚠️ AS SONDAS DO CORPUS SAO ISENTAS, E A ISENCAO E DECLARADA LA.
+        # A prova le duas palavras para CONTAR quantos documentos as dizem —
+        # caracterizacao do corpus, e nao decisao. Desde
+        # `C-COLLECTION-TO-WAITING-ROOM-V1` a porta passou a conhecer
+        # `fitosanitario`, e uma palavra que a prova ja usava como sonda passou
+        # a ser tambem um termo da regua.
+        #
+        #     LER PARA MEDIR != LER PARA DECIDIR.
+        #
+        # A isencao vem de `prova.SONDAS_DO_CORPUS` — uma tupla com nome, que
+        # esta guarda LE. Nao ha lista de excepcoes escrita aqui: se alguem
+        # quiser isentar mais uma palavra, tem de a declarar no sitio onde ela
+        # e usada, a vista de quem a le.
+        import importlib.util
+        _sp = importlib.util.spec_from_file_location(
+            "prova_t3_sondas", os.path.join(RAIZ, "provas",
+                                            "medir_admission_t3_atual.py"))
+        _m = importlib.util.module_from_spec(_sp)
+        _sp.loader.exec_module(_m)
+        isentas = set(_m.SONDAS_DO_CORPUS)
         for termo in adm.PERGUNTAS_DO_UNIVERSO["T3"]:
+            if termo in isentas:
+                continue
             self.assertNotIn('"%s"' % termo, self.fonte, termo)
             self.assertNotIn("'%s'" % termo, self.fonte, termo)
 
@@ -439,10 +461,36 @@ class OSubstringEOAcertoPorAcidente(unittest.TestCase):
     def test_o_defeito_historico_foi_medido_e_nao_consertado(self):
         self.assertIn(self.a["SUBSTRING_FALSE_MATCH_STILL_EXISTS"],
                       ("YES", "NO"))
-        # A porta continua a casar por substring — esta missao mede, nao muda.
+        # ⚠️ ESTA LINHA DIZIA `assertIn("p.lower() in texto", ...)`, e o
+        # comentario ao lado explicava porque: «esta missao mede, nao muda».
+        # Era verdade da missao que escreveu esta guarda — `MEASURE != FIX`.
+        #
+        # `C-COLLECTION-TO-WAITING-ROOM-V1` recebeu ordem explicita de mexer na
+        # regua de T3, e mexeu em duas coisas que esta guarda tocava:
+        #
+        #   · a comparacao passou a DOBRAR ACENTOS dos dois lados
+        #     (`_dobrar(p) in texto`), porque `avversità` e `avversita` sao a
+        #     mesma palavra e a peneira separava-as;
+        #   · e o casamento por substring deixou de PROMOVER SOZINHO: sao
+        #     precisos dois termos distintos (`SINAIS_MINIMOS`), e um indicio
+        #     solto cai em `NAO_SEI` — nunca em `NAO`.
+        #
+        # O defeito historico que esta classe nomeia — `sintoma` a casar dentro
+        # de `sintomatologia` — NAO foi removido: a porta continua a casar por
+        # substring, de proposito, porque `parassitari` tem de continuar a
+        # responder a `parassita`. O que mudou e que ele ja nao chega para
+        # admitir um documento sozinho.
+        #
+        #     O ACERTO POR ACIDENTE CONTINUA A ACONTECER.
+        #     O QUE ELE DEIXOU DE PODER FAZER E DECIDIR.
         with open(os.path.join(RAIZ, "admissao", "admissao.py"),
                   encoding="utf-8") as f:
-            self.assertIn("p.lower() in texto", f.read())
+            fonte = f.read()
+        self.assertIn("_dobrar(p) in texto", fonte,
+                      "a comparacao deixou de dobrar acentos: `avversità` e "
+                      "`avversita` voltaram a ser palavras diferentes")
+        self.assertIn("SINAIS_MINIMOS", fonte,
+                      "um indicio solto voltou a poder promover um documento")
 
     def test_lancio_dentro_de_bilancio_continua_a_acender(self):
         achados = [s for s in self.a["SUBSTRING_FALSE_MATCHES"]

@@ -638,6 +638,29 @@ def portao_do_contrato(plataforma, ator, exemplo=None):
     r, ok = ca.portao(ator, ent, token=(chaves[0] if chaves else None))
     if ok:
         return True, 'contrato do build %s aceita a entrada' % r.get('BUILD_NUMBER')
+
+    # ── NAO ALCANCAR O CONTRATO NAO E O CONTRATO RECUSAR ────────────────────
+    # ⚠️ A PRIMEIRA VERSAO DESTE PORTAO COLAPSAVA OS DOIS, e o controlo
+    # positivo apanhou-a: `test_19b_a_rota_permitida_continua_a_correr` diz, e
+    # tem razao, que «um portao que recusa tudo nao e um portao». Sem rede,
+    # `contrato_ator` devolve `ATOR_NAO_ALCANCADO` — e eu lia isso como «o
+    # contrato reprovou», que e uma afirmacao sobre o ATOR feita a partir de um
+    # facto sobre a REDE.
+    #
+    #     UNKNOWN != NO.
+    #     NAO CONSEGUI PERGUNTAR NAO E OUVIR UM NAO.
+    #
+    # E a distincao nao custa seguranca: quem nao alcanca a API do ator tambem
+    # nao a consegue EXECUTAR. A corrida para logo a seguir, na rede, com o
+    # motivo certo — em vez de parar aqui com um motivo inventado, que ensinaria
+    # o operador a procurar um defeito de schema que nao existe.
+    NAO_MEDIVEL = (ca.ATOR_NAO_ALCANCADO,)
+    if r.get('CONTRACT_STATE') in NAO_MEDIVEL:
+        return True, ('NAO SEI se o contrato aceita: o ator nao foi alcancado '
+                      '(%s). Isto e o AMBIENTE DE REDE, e nao um veredicto '
+                      'sobre o schema — e quem nao alcanca a API tambem nao a '
+                      'executa.' % r.get('CONTRACT_STATE'))
+
     porques = '; '.join(('%s %s' % (x['CODIGO'], x.get('CAMPO') or '')).strip()
                         for x in r['PROBLEMS'] if x['GRAVIDADE'] == 'REPROVA')
     return False, ('o build %s do ator `%s` NAO aceita a entrada que esta casa '

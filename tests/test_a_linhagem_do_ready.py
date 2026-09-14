@@ -46,7 +46,7 @@ def _bom(**troca):
 def _unidade(**troca):
     item = _bom(**troca)
     return admissao.pronto_para_inteligencia(
-        item, admissao.decidir(item, "T7", corrida="guarda"))
+        item, admissao.decidir(item, "T5", corrida="guarda"))
 
 
 class OContratoLevaAObservacao(unittest.TestCase):

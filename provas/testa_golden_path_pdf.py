@@ -137,7 +137,7 @@ prova("T13_falha_da_ferramenta_e_ERRO_e_tem_de_dizer_qual",
 _nada = {"id": "gp-t14", "texto": "un testo qualunque senza parole conosciute",
          "source_id": "IT-GP", "fact_time": "2026-01-01"}
 prova("T14_sem_palavra_conhecida_nao_vira_NAO",
-      adm.decidir(_nada, "T7").resultado == adm.NAO_SEI,
+      adm.decidir(_nada, "T5").resultado == adm.NAO_SEI,
       "nao achar palavra prova que o dicionario nao chegou, nao que o item nao "
       "pertence. A lei da ausencia continua de pe nesta estrada")
 

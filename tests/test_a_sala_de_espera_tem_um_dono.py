@@ -131,7 +131,7 @@ class OContratoNaoMudou(unittest.TestCase):
     def test_o_dono_do_contrato_devolve_os_doze(self):
         item = {"id": "c-1", "texto": "Ensaio de campo com DOI",
                 "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
-        d = admissao.decidir(item, "T7", corrida="guarda")
+        d = admissao.decidir(item, "T5", corrida="guarda")
         self.assertEqual(self.CAMPOS,
                          tuple(admissao.pronto_para_inteligencia(item, d)))
 

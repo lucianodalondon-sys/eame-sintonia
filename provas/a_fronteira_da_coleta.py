@@ -104,7 +104,7 @@ def campos_do_codigo():
     """Os campos que o dono devolve DE FACTO — chamando-o, e nao lendo-o."""
     item = {"id": "fronteira-1", "texto": "um ensaio publicado com DOI",
             "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
-    d = admissao.decidir(item, "T7", corrida="prova-da-fronteira")
+    d = admissao.decidir(item, "T5", corrida="prova-da-fronteira")
     if d.resultado != admissao.SIM:
         return None, d
     return admissao.pronto_para_inteligencia(item, d), d
@@ -260,7 +260,7 @@ def main():
 
     # ── F4 · A PORTA RECUSA O QUE NAO PASSOU ─────────────────────────────
     mau = {"id": "sem-texto"}
-    dm = admissao.decidir(mau, "T7", corrida="prova-da-fronteira")
+    dm = admissao.decidir(mau, "T5", corrida="prova-da-fronteira")
     recusou = False
     try:
         admissao.pronto_para_inteligencia(mau, dm)

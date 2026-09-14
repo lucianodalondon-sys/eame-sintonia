@@ -180,7 +180,7 @@ class J_EstagioDaPorta(unittest.TestCase):
         doc = {"id": "d1", "artifact_type": "DERIVED",
                "parent_artifact_id": "RAW-abc", "texto": "ensaio com doi",
                "source_id": "IT-T7-001"}
-        d = adm.decidir(doc, "T7", corrida="red-team")
+        d = adm.decidir(doc, "T5", corrida="red-team")
         self.assertEqual(adm.DOCUMENTO, adm.estagio(doc))
         self.assertNotEqual("tempo do fato", d.regra,
                             'o documento foi barrado por uma pergunta do fato')
@@ -190,7 +190,7 @@ class J_EstagioDaPorta(unittest.TestCase):
         fato = {"id": "c1", "claim_id": "c1", "subject": "praga",
                 "texto": "ensaio com doi", "source_id": "IT-T7-001"}
         self.assertEqual(adm.FATO, adm.estagio(fato))
-        d = adm.decidir(fato, "T7", corrida="red-team")
+        d = adm.decidir(fato, "T5", corrida="red-team")
         self.assertEqual("tempo do fato", d.regra)
         self.assertEqual(adm.NAO_SEI, d.resultado)
 
@@ -198,13 +198,13 @@ class J_EstagioDaPorta(unittest.TestCase):
         antigo = {"id": "z", "texto": "ensaio com doi", "source_id": "s"}
         self.assertEqual(adm.ESTAGIO_DESCONHECIDO, adm.estagio(antigo))
         self.assertEqual("tempo do fato",
-                         adm.decidir(antigo, "T7", corrida="rt").regra)
+                         adm.decidir(antigo, "T5", corrida="rt").regra)
 
     def test_L_ausencia_nunca_vira_zero_nem_valor(self):
         doc = {"id": "d2", "artifact_type": "DERIVED",
                "parent_artifact_id": "RAW-x", "texto": "texto qualquer",
                "source_id": "s"}
-        d = adm.decidir(doc, "T7", corrida="rt")
+        d = adm.decidir(doc, "T5", corrida="rt")
         self.assertIn('NAO_SE_APLICA', str(d.evidencia.get('tempo_do_fato', '')),
                       'o que nao foi perguntado tem de ficar escrito')
         # A PROPRIEDADE E «NENHUMA DATA FOI INVENTADA», e o que a prova e a
@@ -219,14 +219,14 @@ class J_EstagioDaPorta(unittest.TestCase):
         quebrado = {"id": "e1", "artifact_type": "DERIVED",
                     "parent_artifact_id": "RAW-y",
                     "erro_de_leitura": "ficheiro corrompido"}
-        d = adm.decidir(quebrado, "T7", corrida="rt")
+        d = adm.decidir(quebrado, "T5", corrida="rt")
         self.assertEqual(adm.ERRO, d.resultado)
         self.assertNotEqual(adm.NAO, d.resultado)
 
     def test_documento_sem_pai_fica_nao_sei(self):
         orfao = {"id": "o1", "artifact_type": "DERIVED", "texto": "abc",
                  "source_id": "s"}
-        d = adm.decidir(orfao, "T7", corrida="rt")
+        d = adm.decidir(orfao, "T5", corrida="rt")
         self.assertEqual("linhagem", d.regra)
         self.assertEqual(adm.NAO_SEI, d.resultado)
 

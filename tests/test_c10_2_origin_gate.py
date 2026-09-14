@@ -46,10 +46,10 @@ class OContratoLeSeNoCodigo(unittest.TestCase):
         # cadeia, o portao passa a ser de identidade e a §9 foi quebrada.
         item = {'id': 'x', 'texto': 'ensaio de campo com DOI', 'url': URL,
                 'fact_time': '2026-05-02'}
-        d = ad.decidir(item, 'T7', corrida='c10-2')
+        d = ad.decidir(item, 'T5', corrida='c10-2')
         if d.resultado != ad.SIM:
             item['texto'] = 'ensaio de campo publicado com DOI e revisao por pares'
-            d = ad.decidir(item, 'T7', corrida='c10-2')
+            d = ad.decidir(item, 'T5', corrida='c10-2')
         self.assertEqual(d.resultado, ad.SIM, d.motivo)
         saida = ad.pronto_para_inteligencia(item, d)
         self.assertEqual(saida['SOURCE_ID'], 'NAO SEI',

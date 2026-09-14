@@ -154,7 +154,7 @@ def _ready(observacao, item_id="doc-1", texto="Ensaio de campo publicado com DOI
     item = {"id": item_id, "texto": texto, "source_id": "IT-T7-001",
             "fact_time": "2026-05-02", "raw_asset_id": observacao,
             "captured_at": "2026-05-03T00:00:00Z"}
-    d = adm.decidir(item, "T7", corrida=corrida)
+    d = adm.decidir(item, "T5", corrida=corrida)
     if d.resultado != adm.SIM:
         raise SystemExit("a fixture deixou de ser admissivel: %s" % d.resultado)
     return adm.pronto_para_inteligencia(item, d)
@@ -448,7 +448,7 @@ def main():
                "raw_asset_id": observacao},
               {"id": "mau", "texto": "receita de bolo", "source_id": "IT-T7-001",
                "fact_time": "2026-05-02", "raw_asset_id": observacao}]
-    ds = [adm.decidir(b, "T7", corrida="RUN-MISTO") for b in brutos]
+    ds = [adm.decidir(b, "T5", corrida="RUN-MISTO") for b in brutos]
     aceites = [adm.pronto_para_inteligencia(b, d)
                for b, d in zip(brutos, ds) if d.resultado == adm.SIM]
     espera.pousar("RUN-MISTO", aceites)
@@ -585,7 +585,7 @@ def main():
                "fact_time": "2026-05-02", "raw_asset_id": observacao},
               {"texto": "Ensaio dois com DOI", "source_id": "IT-T7-001",
                "fact_time": "2026-05-02", "raw_asset_id": observacao}]
-    dois = [adm.pronto_para_inteligencia(b, adm.decidir(b, "T7", corrida="RUN-AMBIGUO"))
+    dois = [adm.pronto_para_inteligencia(b, adm.decidir(b, "T5", corrida="RUN-AMBIGUO"))
             for b in sem_id]
     caso("dois itens sem id trazem o MESMO ITEM_ID",
          [x["ITEM_ID"] for x in dois], ["?", "?"])

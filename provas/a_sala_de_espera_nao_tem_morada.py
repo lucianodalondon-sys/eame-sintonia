@@ -90,8 +90,7 @@ def main():
 
     # ── 1 · O CONTRATO EXISTE, E TEM UM DONO SO ─────────────────────────
     d = admissao.decidir({"id": "medicao-1", "texto": "Ensaio de campo com DOI",
-                          "source_id": "IT-T7-001", "fact_time": "2026-05-02"},
-                         "T7", corrida="medicao")
+                          "source_id": "IT-T7-001", "fact_time": "2026-05-02"}, "T5", corrida="medicao")
     unidade = admissao.pronto_para_inteligencia(
         {"id": "medicao-1", "texto": "Ensaio de campo com DOI",
          "source_id": "IT-T7-001", "fact_time": "2026-05-02"}, d)

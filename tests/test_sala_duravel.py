@@ -57,7 +57,7 @@ class Bancada(unittest.TestCase):
     def unidade(self, **extra):
         item = {"id": "i-1", "texto": "Ensaio de campo publicado com DOI",
                 "source_id": "IT-T7-001", "fact_time": "2026-05-02"}
-        d = admissao.decidir(item, "T7", corrida="R1")
+        d = admissao.decidir(item, "T5", corrida="R1")
         return dict(admissao.pronto_para_inteligencia(item, d), **extra)
 
 
@@ -292,7 +292,7 @@ class AMigrationDiz(Bancada):
     def test_e_o_ITEM_ID_repete_se_mesmo(self):
         sem_id = {"texto": "Ensaio com DOI", "source_id": "IT-T7-001",
                   "fact_time": "2026-05-02"}
-        d = admissao.decidir(sem_id, "T7", corrida="R1")
+        d = admissao.decidir(sem_id, "T5", corrida="R1")
         self.assertEqual("?", admissao.pronto_para_inteligencia(sem_id, d)["ITEM_ID"])
 
     def test_a_linhagem_tem_chave_estrangeira_e_nao_disciplina(self):
