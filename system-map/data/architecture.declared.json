@@ -714,6 +714,33 @@
       ]
     },
     {
+      "id": "C-IT-FECHAR-GAP",
+      "name": "Abrir a rota e provar que a fonte existe",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "⊙",
+      "views": [
+        "acervo"
+      ],
+      "what": "Pega as rotas que a peca vizinha DESCOBRIU e abre-as de verdade, com sonda HTTP e User-Agent de navegador. Da a cada uma um de oito estados — VALIDATED_STRONG, USEFUL, BUT_SECONDARY, BLOCKED, BROKEN, WRONG_SOURCE, DUPLICATE, UNKNOWN — e exige EXEMPLO REAL datado para as duas primeiras. Faz segunda prova por rota independente nas criticas, classifica cada gap por TIPO (fonte, acesso, modelo de dado, capacidade nossa) e entrega a classe READY_TO_REGISTER. Nao registra nada.",
+      "why_here": "A peca vizinha (C-IT-GAP-POR-FERRAMENTA) responde «de que informacao precisamos e quem a produz»; esta responde «a rota abre mesmo?». Sao actos diferentes e o segundo desmente o primeiro com frequencia: das 37 rotas herdadas, 4 nao serviam e 2 tinham dono ou identificador errados escritos por nos. A sonda e' PROVADA antes de julgar — dois controles positivos que tem de abrir e dois negativos que nao podem passar — porque um detetor cego reprova fonte viva. E a lei desta peca e' uma frase: falha de ligacao NUNCA escreve «fonte morta». Tres agencias regionais italianas foram salvas de BROKEN por o DNS publico as resolver quando o desta maquina nao resolvia.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "candidatas/italy_fechar_sonda.py",
+        "candidatas/italy_fechar_validar37.py",
+        "candidatas/italy_fechar_descoberta.py",
+        "candidatas/italy_fechar_validar13.py",
+        "candidatas/italy_fechar_gaps.py",
+        "candidatas/italy_fechar_buscas.py",
+        "candidatas/italy_fechar_xlsx.py",
+        "candidatas/italy_fechar_red_team.py",
+        "candidatas/ITALY-SOURCE-GAP-CLOSURE-2026-09-14.xlsx"
+      ]
+    },
+    {
       "id": "C-APIFY-POOL",
       "name": "Apify — a rota paga",
       "territory": "Z-FERRAMENTAS",

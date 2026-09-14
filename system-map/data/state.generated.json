@@ -159,6 +159,8 @@
       "candidatas/ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv",
       "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.md",
       "candidatas/ITALY-DEEP-SOURCE-RESEARCH-2026-09-14.xlsx",
+      "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.md",
+      "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx",
       "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "candidatas/ITALY-SOURCE-MASTER-V1.md",
       "candidatas/fonte_nova.py",
@@ -176,6 +178,14 @@
       "candidatas/italy_fill_manifests.mjs",
       "candidatas/italy_fill_manifests_browser.mjs",
       "candidatas/italy_fix_semantics.mjs",
+      "candidatas/italy_gap_auditoria.py",
+      "candidatas/italy_gap_buscas.py",
+      "candidatas/italy_gap_cobertura.py",
+      "candidatas/italy_gap_matrizes.py",
+      "candidatas/italy_gap_needs.py",
+      "candidatas/italy_gap_novas_fontes.py",
+      "candidatas/italy_gap_red_team.py",
+      "candidatas/italy_gap_xlsx.py",
       "candidatas/italy_profiles.mjs",
       "candidatas/italy_update_master_browser.mjs",
       "candidatas/italy_write_matrix.mjs"
@@ -1227,8 +1237,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 552 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 552 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 562 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 562 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1603,8 +1613,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "191dbda41d639108d5ffaac458f2db1133c59dc8",
-    "GENERATED_AT": "2026-09-14T15:10:35-03:00"
+    "HEAD": "581b5059c4f3a310a8c60476939639a16e99027c",
+    "GENERATED_AT": "2026-09-14T16:19:50-03:00"
   },
   "FAMILIES": [
     {
@@ -1626,7 +1636,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 39
+      "count": 40
     },
     {
       "id": "F-ESPERA",
@@ -1703,7 +1713,7 @@
       "y": 190,
       "w": 405,
       "h": 1972,
-      "count": 4
+      "count": 5
     },
     {
       "id": "Z-FONTES",
@@ -2332,6 +2342,7 @@
         "C-COLETA-PUBLICA",
         "C-IDENTIDADE",
         "C-IT-DESCOBERTA-PROFUNDA",
+        "C-IT-GAP-POR-FERRAMENTA",
         "C-MAPA-GERADOR",
         "C-MAPA-SCAN",
         "C-MAPA-TESTES",
@@ -4508,7 +4519,7 @@
       "file_count": 3,
       "paises": {},
       "paises_dado": {
-        "ITALIA": 2
+        "ITALIA": 3
       },
       "pais": "TRANSVERSAL",
       "entregue_a_inteligencia": [],
@@ -6420,19 +6431,19 @@
       "y": 682
     },
     {
-      "id": "C-IT-GAP-POR-FERRAMENTA",
-      "name": "O buraco de materia-prima, ferramenta por ferramenta",
+      "id": "C-IT-FECHAR-GAP",
+      "name": "Abrir a rota e provar que a fonte existe",
       "territory": "Z-CANDIDATAS",
       "kind": "engine",
-      "what": "Responde a uma pergunta que vem ANTES de procurar fonte: que informacao bruta cada ferramenta de Intelligence precisa que exista para conseguir responder, e quanto disso o casco tem hoje. Mede as 9 ferramentas reais no portal (nao a lista de um pedido), deriva 72 materias-primas dos contratos dos blocos e do dado medido campo a campo, cruza com o acervo, e so DEPOIS procura fonte — uma busca por buraco, nunca por tema. Entrega a planilha de 13 folhas com a matriz fonte->ferramenta.",
-      "why_here": "Fica em Z-CANDIDATAS porque o que sai daqui e CANDIDATA e diagnostico, nunca fonte registada: nenhum SOURCE_ID, nenhum RUN, nenhuma coleta. E fica ao lado de C-IT-DESCOBERTA-PROFUNDA de proposito — aquela pergunta «quem produz informacao em Italia?», esta pergunta «de que informacao precisamos primeiro?». Invertida a ordem, acha-se fonte boa que nao enche campo nenhum. O Opportunity Radar nao tem familia propria de fontes aqui: e' cruzamento das outras camadas, e por isso leva matriz de entradas em vez de lista.",
+      "what": "Pega as rotas que a peca vizinha DESCOBRIU e abre-as de verdade, com sonda HTTP e User-Agent de navegador. Da a cada uma um de oito estados — VALIDATED_STRONG, USEFUL, BUT_SECONDARY, BLOCKED, BROKEN, WRONG_SOURCE, DUPLICATE, UNKNOWN — e exige EXEMPLO REAL datado para as duas primeiras. Faz segunda prova por rota independente nas criticas, classifica cada gap por TIPO (fonte, acesso, modelo de dado, capacidade nossa) e entrega a classe READY_TO_REGISTER. Nao registra nada.",
+      "why_here": "A peca vizinha (C-IT-GAP-POR-FERRAMENTA) responde «de que informacao precisamos e quem a produz»; esta responde «a rota abre mesmo?». Sao actos diferentes e o segundo desmente o primeiro com frequencia: das 37 rotas herdadas, 4 nao serviam e 2 tinham dono ou identificador errados escritos por nos. A sonda e' PROVADA antes de julgar — dois controles positivos que tem de abrir e dois negativos que nao podem passar — porque um detetor cego reprova fonte viva. E a lei desta peca e' uma frase: falha de ligacao NUNCA escreve «fonte morta». Tres agencias regionais italianas foram salvas de BROKEN por o DNS publico as resolver quando o desta maquina nao resolvia.",
       "departments": [
         "INTELIGENCIA",
         "TECNICO_CIENCIA"
       ],
       "legacy": false,
       "ui_status": "red",
-      "icon": "⊘",
+      "icon": "⊙",
       "views": [
         "acervo"
       ],
@@ -6441,7 +6452,7 @@
       "files": [],
       "file_count": 0,
       "status": "BROKEN",
-      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com candidatas/italy_gap_needs.py, candidatas/italy_gap_cobertura.py, candidatas/italy_gap_novas_fontes.py, candidatas/italy_gap_auditoria.py, candidatas/italy_gap_matrizes.py, candidatas/italy_gap_buscas.py, candidatas/italy_gap_xlsx.py, candidatas/italy_gap_red_team.py, candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx.",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com candidatas/italy_fechar_sonda.py, candidatas/italy_fechar_validar37.py, candidatas/italy_fechar_descoberta.py, candidatas/italy_fechar_validar13.py, candidatas/italy_fechar_gaps.py, candidatas/italy_fechar_buscas.py, candidatas/italy_fechar_xlsx.py, candidatas/italy_fechar_red_team.py, candidatas/ITALY-SOURCE-GAP-CLOSURE-2026-09-14.xlsx.",
       "changed_since_declared": [],
       "produces": [],
       "inbound": [],
@@ -6457,6 +6468,65 @@
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
       "y": 1004
+    },
+    {
+      "id": "C-IT-GAP-POR-FERRAMENTA",
+      "name": "O buraco de materia-prima, ferramenta por ferramenta",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "what": "Responde a uma pergunta que vem ANTES de procurar fonte: que informacao bruta cada ferramenta de Intelligence precisa que exista para conseguir responder, e quanto disso o casco tem hoje. Mede as 9 ferramentas reais no portal (nao a lista de um pedido), deriva 72 materias-primas dos contratos dos blocos e do dado medido campo a campo, cruza com o acervo, e so DEPOIS procura fonte — uma busca por buraco, nunca por tema. Entrega a planilha de 13 folhas com a matriz fonte->ferramenta.",
+      "why_here": "Fica em Z-CANDIDATAS porque o que sai daqui e CANDIDATA e diagnostico, nunca fonte registada: nenhum SOURCE_ID, nenhum RUN, nenhuma coleta. E fica ao lado de C-IT-DESCOBERTA-PROFUNDA de proposito — aquela pergunta «quem produz informacao em Italia?», esta pergunta «de que informacao precisamos primeiro?». Invertida a ordem, acha-se fonte boa que nao enche campo nenhum. O Opportunity Radar nao tem familia propria de fontes aqui: e' cruzamento das outras camadas, e por isso leva matriz de entradas em vez de lista.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "yellow",
+      "icon": "⊘",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [
+        "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx",
+        "candidatas/italy_gap_auditoria.py",
+        "candidatas/italy_gap_buscas.py",
+        "candidatas/italy_gap_cobertura.py",
+        "candidatas/italy_gap_matrizes.py",
+        "candidatas/italy_gap_needs.py",
+        "candidatas/italy_gap_novas_fontes.py",
+        "candidatas/italy_gap_red_team.py",
+        "candidatas/italy_gap_xlsx.py"
+      ],
+      "file_count": 9,
+      "status": "PENDING",
+      "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [
+        "C-AS-FONTES",
+        "C-TELA-COMPETITORS",
+        "C-TELA-MARKET",
+        "C-TELA-MEETING",
+        "C-TELA-SCIENCE"
+      ],
+      "outbound": [],
+      "paises": {
+        "ITALIA": 9
+      },
+      "paises_dado": {
+        "ITALIA": 24
+      },
+      "pais": "ITALIA",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 1065,
+      "y": 1326
     },
     {
       "id": "C-IT-PRESERVAR",
@@ -7559,7 +7629,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
-      "y": 1326
+      "y": 1648
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -8826,7 +8896,9 @@
       "inbound": [
         "C-PORTAL-DADOS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-IT-GAP-POR-FERRAMENTA"
+      ],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
         {
@@ -8878,7 +8950,9 @@
       ],
       "file_count": 1,
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "escreve_na_pasta": [],
       "destino": [],
@@ -9041,7 +9115,9 @@
       "inbound": [
         "C-PORTAL-DADOS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-IT-GAP-POR-FERRAMENTA"
+      ],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
         {
@@ -9080,7 +9156,9 @@
       ],
       "file_count": 1,
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "escreve_na_pasta": [],
       "destino": [],
@@ -9131,7 +9209,9 @@
         "C-ARTEFACTO-V21",
         "C-PORTAL-DADOS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-IT-GAP-POR-FERRAMENTA"
+      ],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
         {
@@ -9213,7 +9293,9 @@
       ],
       "file_count": 1,
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "escreve_na_pasta": [],
       "destino": [],
@@ -9396,7 +9478,9 @@
         "C-ARTEFACTO-V21",
         "C-PORTAL-DADOS"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-IT-GAP-POR-FERRAMENTA"
+      ],
       "de_onde_vem": "MISTURA",
       "ligado_nela": [
         {
@@ -9475,7 +9559,9 @@
       ],
       "file_count": 1,
       "paises": {},
-      "paises_dado": {},
+      "paises_dado": {
+        "ITALIA": 1
+      },
       "pais": "TRANSVERSAL",
       "escreve_na_pasta": [],
       "destino": [],
@@ -11214,7 +11300,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italy-agricultural-sources-discovery-dfba81",
-        "HEAD 191dbda41d639108d5ffaac458f2db1133c59dc8"
+        "HEAD 581b5059c4f3a310a8c60476939639a16e99027c"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -11946,6 +12032,23 @@
           "file": "candidatas/italy_deep_baseline.py",
           "line": 154,
           "snippet": "for rel in (\"data/samples/COMPETITOR-PUBLIC-COMM/CONTAS-V1.json\","
+        }
+      ]
+    },
+    {
+      "from": "C-AS-FONTES",
+      "to": "C-IT-GAP-POR-FERRAMENTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "AS FONTES alimenta O buraco de materia-prima, ferramenta por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_gap_cobertura.py",
+          "line": 42,
+          "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
         }
       ]
     },
@@ -17209,6 +17312,23 @@
       ]
     },
     {
+      "from": "C-TELA-COMPETITORS",
+      "to": "C-IT-GAP-POR-FERRAMENTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Concorrenza alimenta O buraco de materia-prima, ferramenta por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_gap_needs.py",
+          "line": 88,
+          "snippet": "\"contrato\": \"italia-portale/audit/blocks/competitor.spec.json\","
+        }
+      ]
+    },
+    {
       "from": "C-TELA-FIELD",
       "to": "C-AUDIT-CASCO",
       "type": "READS",
@@ -17266,6 +17386,57 @@
           "file": "italia-portale/client/casa.html",
           "line": 633,
           "snippet": "+ '<a class=\"cta top\" href=\"portale.html\">'"
+        }
+      ]
+    },
+    {
+      "from": "C-TELA-MARKET",
+      "to": "C-IT-GAP-POR-FERRAMENTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Polso di Mercato alimenta O buraco de materia-prima, ferramenta por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_gap_needs.py",
+          "line": 67,
+          "snippet": "\"contrato\": \"italia-portale/audit/blocks/market.spec.json\","
+        }
+      ]
+    },
+    {
+      "from": "C-TELA-MEETING",
+      "to": "C-IT-GAP-POR-FERRAMENTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Radar delle Opportunità alimenta O buraco de materia-prima, ferramenta por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_gap_needs.py",
+          "line": 115,
+          "snippet": "\"contrato\": \"italia-portale/audit/blocks/case.spec.json\","
+        }
+      ]
+    },
+    {
+      "from": "C-TELA-SCIENCE",
+      "to": "C-IT-GAP-POR-FERRAMENTA",
+      "type": "READS",
+      "payload": "artefacto",
+      "natureza": "FLUXO",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Intelligence Scientifica alimenta O buraco de materia-prima, ferramenta por ferramenta. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "candidatas/italy_gap_needs.py",
+          "line": 81,
+          "snippet": "\"contrato\": \"italia-portale/audit/blocks/science.spec.json\","
         }
       ]
     },
@@ -18322,20 +18493,20 @@
   "UNCLAIMED_CODE_FILES": [
     ".github/workflows/scrap-social.yml"
   ],
-  "UNCLAIMED_FILES_COUNT": 650,
+  "UNCLAIMED_FILES_COUNT": 651,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 99,
+    "components": 100,
     "components_proven": 67,
-    "components_pending": 27,
+    "components_pending": 28,
     "components_broken": 1,
     "components_unknown": 4,
-    "edges": 331,
-    "edges_proven": 331,
+    "edges": 336,
+    "edges_proven": 336,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1161,
-    "files_covered": 511,
+    "files_tracked": 1171,
+    "files_covered": 520,
     "files_code_unclaimed": 1
   }
 }

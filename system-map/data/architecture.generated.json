@@ -3,8 +3,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "191dbda41d639108d5ffaac458f2db1133c59dc8",
-    "GENERATED_AT": "2026-09-14T15:10:35-03:00"
+    "HEAD": "581b5059c4f3a310a8c60476939639a16e99027c",
+    "GENERATED_AT": "2026-09-14T16:19:50-03:00"
   },
   "FILES": [
     {
@@ -1009,6 +1009,20 @@
       "code_dir": true
     },
     {
+      "path": "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.md",
+      "sha": "9f2e98b35e9ef625a2987e3c5727b7866e3db6a3",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx",
+      "sha": "15ee969906eba632033a89dc84de87015c7368c3",
+      "ext": ".xlsx",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "sha": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
       "ext": ".json",
@@ -1124,6 +1138,62 @@
       "path": "candidatas/italy_fix_semantics.mjs",
       "sha": "c693f1082a418418d16a83cf9f9a375451266019",
       "ext": ".mjs",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_auditoria.py",
+      "sha": "5739b5c9ef74250e62b14d10959b788b261ec17a",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_buscas.py",
+      "sha": "a1293c805e78280bb7ab96d38f549ffaa42c2781",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_cobertura.py",
+      "sha": "3911fa5b2222186942ba3c1990c02a0f6841c8b4",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_matrizes.py",
+      "sha": "9872f218dcfffc3424d47f0dc1ca31e41c30cf5f",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_needs.py",
+      "sha": "9bcbac728a1f42b06c5ada6bbd5a18ffefaa3e76",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_novas_fontes.py",
+      "sha": "c5c0e15e71202914ac366911d40d9f680a49d67b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_red_team.py",
+      "sha": "58c02a5a5f5a41c4343b8c4a2b07a62cad649771",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/italy_gap_xlsx.py",
+      "sha": "0b9dc1fa8b0e12f330fe8214ea90fb05cca0c008",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -7828,7 +7898,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "5843999fe63213258ff55d8fde9988ee5f6bd680",
+      "sha": "00525b6c968158513f933c1c59911ba31be0578e",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -9047,6 +9117,226 @@
         "file": "candidatas/italy_fix_semantics.mjs",
         "line": 50,
         "snippet": "patch(\"candidatas/ITALY-SOURCE-MASTER-V1.json\", d => {"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_auditoria.py",
+      "to_file": "candidatas/italy_gap_needs.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_auditoria.py",
+        "line": 482,
+        "snippet": "from italy_gap_needs import NECESSIDADES"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_cobertura.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_cobertura.py",
+        "line": 37,
+        "snippet": "import _territorios as _T          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_cobertura.py",
+      "to_file": "candidatas/italy_gap_needs.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_cobertura.py",
+        "line": 38,
+        "snippet": "from italy_gap_needs import NECESSIDADES, FERRAMENTAS  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_cobertura.py",
+      "to_file": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_cobertura.py",
+        "line": 42,
+        "snippet": "ATLAS = RAIZ / \"docs\" / \"fontes\" / \"ATLAS-DE-FONTES-EAME.md\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_matrizes.py",
+      "to_file": "candidatas/italy_gap_auditoria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_matrizes.py",
+        "line": 38,
+        "snippet": "from italy_gap_auditoria import AUDITORIA                  # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_matrizes.py",
+      "to_file": "candidatas/italy_gap_needs.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_matrizes.py",
+        "line": 37,
+        "snippet": "from italy_gap_needs import NECESSIDADES, FERRAMENTAS      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_matrizes.py",
+      "to_file": "candidatas/italy_gap_novas_fontes.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_matrizes.py",
+        "line": 39,
+        "snippet": "from italy_gap_novas_fontes import TODAS as NOVAS          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_needs.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_needs.py",
+        "line": 53,
+        "snippet": "import _territorios as _T  # noqa: E402 — o dono da taxonomia"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_needs.py",
+      "to_file": "italia-portale/audit/blocks/case.spec.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_needs.py",
+        "line": 115,
+        "snippet": "\"contrato\": \"italia-portale/audit/blocks/case.spec.json\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_needs.py",
+      "to_file": "italia-portale/audit/blocks/competitor.spec.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_needs.py",
+        "line": 88,
+        "snippet": "\"contrato\": \"italia-portale/audit/blocks/competitor.spec.json\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_needs.py",
+      "to_file": "italia-portale/audit/blocks/market.spec.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_needs.py",
+        "line": 67,
+        "snippet": "\"contrato\": \"italia-portale/audit/blocks/market.spec.json\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_needs.py",
+      "to_file": "italia-portale/audit/blocks/science.spec.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_needs.py",
+        "line": 81,
+        "snippet": "\"contrato\": \"italia-portale/audit/blocks/science.spec.json\","
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_novas_fontes.py",
+      "to_file": "_territorios.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_novas_fontes.py",
+        "line": 37,
+        "snippet": "import _territorios as _T          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_novas_fontes.py",
+      "to_file": "candidatas/italy_gap_needs.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_novas_fontes.py",
+        "line": 852,
+        "snippet": "from italy_gap_needs import NECESSIDADES"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_red_team.py",
+      "to_file": "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_red_team.py",
+        "line": 36,
+        "snippet": "XLSX = RAIZ / \"candidatas\" / \"ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_xlsx.py",
+      "to_file": "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "candidatas/italy_gap_xlsx.py",
+        "line": 36,
+        "snippet": "SAIDA = RAIZ / \"candidatas\" / \"ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx\""
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_xlsx.py",
+      "to_file": "candidatas/italy_gap_auditoria.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_xlsx.py",
+        "line": 28,
+        "snippet": "from italy_gap_auditoria import AUDITORIA                      # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_xlsx.py",
+      "to_file": "candidatas/italy_gap_buscas.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_xlsx.py",
+        "line": 30,
+        "snippet": "from italy_gap_buscas import BUSCAS                            # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_xlsx.py",
+      "to_file": "candidatas/italy_gap_needs.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_xlsx.py",
+        "line": 27,
+        "snippet": "from italy_gap_needs import NECESSIDADES, FERRAMENTAS          # noqa: E402"
+      }
+    },
+    {
+      "from_file": "candidatas/italy_gap_xlsx.py",
+      "to_file": "candidatas/italy_gap_novas_fontes.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "candidatas/italy_gap_xlsx.py",
+        "line": 29,
+        "snippet": "from italy_gap_novas_fontes import TODAS as NOVAS, ROTAS_MORTAS  # noqa: E402"
       }
     },
     {
@@ -25662,10 +25952,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1161,
-    "files_readable": 400,
-    "files_code_dir": 449,
-    "file_edges": 1559,
+    "files_tracked": 1171,
+    "files_readable": 408,
+    "files_code_dir": 459,
+    "file_edges": 1579,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
