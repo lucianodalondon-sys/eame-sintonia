@@ -102,6 +102,79 @@ on:
   workflow_dispatch:
 
 jobs:
+  # ═════════════════════════════════════════════════════════════════════
+  # A PONTE DE MIDIA — JOB PROPRIO, E A RAZAO E MEDIDA
+  #
+  # Esta prova comecou dentro de `postgres-descartavel`, a seguir a `2g`. Nao
+  # correu nunca: o job aborta no passo `2b6`, e aborta ha dias, em TODAS as
+  # branches — medido a 2026-09-14 em `local-gpu-on-current-collection-v1`,
+  # `collection-to-waiting-room-v1` e mais quatro, sempre no MESMO passo.
+  #
+  #     UM PASSO NOVO ATRAS DE UMA AVARIA ANTIGA NAO E UM PASSO NOVO:
+  #     E CODIGO QUE NINGUEM VAI VER CORRER.
+  #
+  # A saida NAO foi por-lhe `continue-on-error` no passo avariado — isso
+  # calaria uma falha que e de outra pessoa e continua a ser real. E tambem
+  # nao foi consertar o `2b6`, que nao e desta missao.
+  #
+  # Job separado: a avaria antiga continua vermelha e visivel, e a aresta nova
+  # e exercitada na mesma. Os dois factos aparecem, e nenhum tapa o outro.
+  ponte-de-midia:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # ⚠️ A FALA E GERADA AQUI, E NAO VEM DO REPOSITORIO.
+      # O unico ficheiro com fala real desta casa e de terceiro, e este
+      # repositorio e PUBLICO. Commitar um clipe alheio para um teste passar
+      # nao se faz. `espeak-ng` produz a voz na hora, sem rede e sem licenca
+      # de ninguem.
+      #
+      # O modelo e o `tiny` de proposito: esta prova mede a ESTRADA, e nao a
+      # qualidade da transcricao. Qualidade mede-se na GPU local, que e onde
+      # ela se mede.
+      - name: 1 · as ferramentas da fala existem, ou isto nao corre
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y espeak-ng ffmpeg
+          python3 -m pip install --quiet faster-whisper
+          espeak-ng --version
+          ffmpeg -version | head -1
+
+      - name: 2 · a ponte de midia atravessa ate a Sala, com Postgres real
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/a_ponte_de_midia_no_postgres.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+          SINTONIA_ASR_MODELO: tiny
+          SINTONIA_ASR_DEVICE: CPU
+
+      - name: 3 · o que o banco mostrou fica legivel
+        if: always()
+        run: cat system-map/data/ponte-de-midia-postgres.generated.json || true
+
   postgres-descartavel:
     runs-on: ubuntu-latest
 
@@ -347,42 +420,6 @@ jobs:
         env:
           ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
           BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
-
-      # ═══════════════════════════════════════════════════════════════
-      # E QUANDO O BRUTO E MIDIA?
-      #
-      # A 2g prova a estrada com um PDF. A aresta de entrada quando os bytes
-      # sao AUDIO nunca foi provada contra Postgres — e e ela que a C4H
-      # escreveu:
-      #
-      #     raw_asset(audio/*) -> executor_transcricao_midia -> derived_artifact
-      #
-      # ⚠️ A FALA E GERADA AQUI, E NAO VEM DO REPOSITORIO.
-      # O unico ficheiro com fala real desta casa e de terceiro, e este
-      # repositorio e PUBLICO. Commitar um clipe alheio para um teste passar
-      # nao se faz. `espeak-ng` produz a voz na hora, sem rede e sem licenca
-      # de ninguem.
-      #
-      # O modelo e o `tiny` de proposito: esta prova mede a ESTRADA, nao a
-      # qualidade da transcricao. Quem quiser medir qualidade usa a GPU local,
-      # que e onde ela se mede.
-      - name: 2g1 · a ferramenta de fala existe, ou isto nao corre
-        run: |
-          sudo apt-get install -y espeak-ng ffmpeg
-          python3 -m pip install --quiet faster-whisper
-          espeak-ng --version
-          ffmpeg -version | head -1
-
-      - name: 2g1b · a ponte de midia atravessa ate a Sala, com Postgres real
-        run: |
-          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
-          psql "$ADMIN_URL" -c 'create database descartavel;'
-          python3 provas/a_ponte_de_midia_no_postgres.py
-        env:
-          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
-          BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
-          SINTONIA_ASR_MODELO: tiny
-          SINTONIA_ASR_DEVICE: CPU
 
       # ═══════════════════════════════════════════════════════════════
       # E A ESTRADA DO SCRAP, DO BOTAO AO ACERVO.
