@@ -197,6 +197,52 @@ d = julgar(RUIDO, "T3", "ruido")
 T("ruido sem palavra nenhuma devolve NAO_SEI, e nunca SIM",
   d.resultado == adm.NAO_SEI, "deu %s" % d.resultado)
 
+# ── 4b · O MANIFESTO DE IT-T3-008 — HISTORICO, E NAO ESTADO ACTUAL ───────
+# ⚠️ A PERGUNTA CERTA ERA «QUE ESPECIE DE FICHEIRO E ESTE», e a resposta muda
+# tudo. `data/samples/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json` foi escrito por
+# `guarda/italy_preserve.mjs` NO INSTANTE DA CAPTURA — traz
+# `CAPTURED_AT_UTC: 2026-09-07T14:36:30.583Z` — e nunca mais e regerado.
+#
+#     E UM SNAPSHOT HISTORICO. NAO E ESTADO GERADO.
+#
+# E por isso ele NAO SE CORRIGE. Reescrever um registo de captura para ele
+# concordar com uma medicao de hoje apagaria a unica coisa que ele serve para
+# guardar: o que se sabia naquele dia.
+#
+# E, lido com cuidado, ele nao esta errado. Ele diz
+#
+#     «o conteudo fitossanitario especifico (NAO LIDO)»
+#
+# — que e uma afirmacao sobre o que aquela sessao LEU, e nao sobre o que os
+# bytes CONTEM. «Nao lido» e «nao legivel» sao coisas diferentes, e o manifesto
+# escolheu a certa.
+#
+#     NAO LIDO != NAO LEGIVEL.
+#
+# O que faltava era a medicao NOVA, e e esta: hoje, com o poppler desta arvore,
+# o documento le-se e responde SIM a T3. As duas verdades coexistem, cada uma
+# com a sua data.
+d3008 = julgar(textos["IT-T3-008"], "T3", "IT-T3-008")
+T("IT-T3-008 — a medicao NOVA le o conteudo que o manifesto diz nao ter lido",
+  d3008.resultado == adm.SIM and len(textos["IT-T3-008"]) > 10000,
+  "deu %s sobre %d caracteres" % (d3008.resultado, len(textos["IT-T3-008"])))
+_man = os.path.join(LOJA.replace("collection-store/italy", "samples") +
+                    "/IT-SOURCE-SAMPLES/IT-T3-008/MANIFEST.json")
+_man = os.path.join(RAIZ, "data", "samples", "IT-SOURCE-SAMPLES",
+                    "IT-T3-008", "MANIFEST.json")
+_txt = io.open(_man, encoding="utf-8").read() if os.path.isfile(_man) else ""
+T("e o manifesto historico foi PRESERVADO, nao corrigido",
+  "nao lido" in _txt and "2026-09-07T14:36:30" in _txt,
+  "o manifesto foi reescrito para concordar com a medicao de hoje")
+# ⚠️ E ELE CARREGA UM EGRESSO DECLARADO E NAO MEDIDO — «Milano, Lombardia, IT
+# — Proton AG» — que era literal no gerador ate esta missao. O GERADOR foi
+# consertado (`guarda/italy_preserve.mjs` mede agora pelo dono,
+# `superficie/rede.py`). O manifesto ANTIGO fica como esta, com a marca por
+# escrito aqui: a origem dele e DECLARADA, nao medida.
+T("o egresso fabricado do manifesto antigo esta identificado, e nao apagado",
+  "Proton AG" in _txt,
+  "alguem apagou o egresso fabricado em vez de o deixar identificado")
+
 # ── 5 · A REGUA NAO DEPENDE DO PORTUGUES ──────────────────────────────────
 print("\n  INDEPENDENCIA DE LINGUA")
 so_italiano = [p for p in adm.PERGUNTAS_DO_UNIVERSO["T3"]
