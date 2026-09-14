@@ -13373,3 +13373,252 @@ GitHub publicou.
 O ARTEFACTO QUE VALE E O QUE A CORRIDA PRODUZIU.
 Descarregue-o do run e confira o digest — nao o regenere localmente.
 ```
+
+---
+
+# §114 · A ORDEM NASCE DA DEPENDÊNCIA — UM CONSUMIDOR ANTES DO PRODUTOR NÃO FALHA
+
+**Missão:** `C-SYSTEM-MAP-G6-DEPENDENCY-ORDER-V1`
+**Linha:** `claude/system-map-g6-dependency-order-v1` · **HEAD medido:** `4224a234`
+**Delta de origem:** `handoff/KNOW-HOW-DELTA-ORDEM-POR-DEPENDENCIA.md`
+(blob `799ba94b`, o mesmo nas duas linhas que o carregam)
+
+A `§93.4` fechou com uma dívida escrita à mão: **`UM CARIMBO VERIFICÁVEL NÃO PAGA
+UMA DÍVIDA DE ORDEM`**. Esta secção é o pagamento dessa dívida, e o que se
+aprendeu a pagá-la. A `§88.4` já tinha o terceiro relógio a nomear sem reparar, e
+a `§93.1` já tinha a pergunta certa sobre frescura — *«que árvore media esta
+entrada quando eu a li?»*. O que faltava era o outro lado: **o que se faz depois
+de nomear.**
+
+## 114.1 · UM CONSUMIDOR ANTES DO PRODUTOR NÃO FALHA
+
+Três passos da cadeia do System Map corriam **antes** do passo que escreve o que
+eles leem. A cadeia ficava verde. Os testes ficavam verdes. O validador ficava
+verde.
+
+```
+    UM CONSUMIDOR ANTES DO PRODUTOR NÃO FALHA:
+    ELE RESPONDE DA RODADA PASSADA.
+```
+
+Porque o ficheiro **existe**. É o da geração anterior, e abrir um ficheiro antigo
+não levanta excepção nenhuma — devolve uma resposta antiga, com ar de resposta.
+
+É por isso que este defeito não se apanha a correr o sistema. Só se apanha
+comparando **o que cada passo declara ler** com **o sítio onde ele corre** — e
+isso exige duas coisas anteriores, que são as duas missões de antes: cada passo
+declarar as suas entradas, e haver uma lista só.
+
+> **Consequência de método.** Quando um defeito não produz erro, procurar erro é
+> a estratégia errada. Procura-se **discordância entre duas declarações**.
+
+## 114.2 · A DEPENDÊNCIA DETERMINA A ORDEM; A ORDEM NÃO DETERMINA A DEPENDÊNCIA
+
+Havia duas coisas que podiam discordar: a lista escrita e o que os passos diziam
+ler. Discordaram durante meses.
+
+A correcção não é arrumar a lista. É **tirar-lhe a autoridade**: a ordem passa a
+sair de um ordenamento topológico sobre as dependências declaradas, com desempate
+estável pela posição escrita. A posição escrita deixa de decidir e passa a
+desempatar.
+
+```
+    DUAS COISAS IGUAIS HOJE NÃO SÃO A MESMA COISA:
+    SÓ SE SABE QUAL DELAS MANDA QUANDO ELAS DISCORDAM.
+```
+
+E daí sai a forma de o provar: **baralhar a lista escrita** e exigir que a ordem
+derivada continue a respeitar todas as arestas. Se a resposta não muda quando a
+semente muda, a derivação não estava a derivar — estava a copiar com um passo
+extra.
+
+E se houver ciclo entre as dependências, **a derivação rebenta em vez de
+escolher**. Escolher seria esconder o ciclo para conseguir ordenar, que é
+exactamente a mentira que a lei existe para impedir.
+
+## 114.3 · DUAS CLASSES DE DEPENDÊNCIA, E A FUGA BARATA ENTRE ELAS
+
+Nem toda a leitura é o mesmo tipo de dependência:
+
+| classe | o consumidor pediu | ordena? |
+|---|---|---|
+| **nomeada** | *aquele* artefacto, pelo nome | **sim** — o produtor corre antes |
+| **varredura** | «o que existir na árvore quando eu correr» | **não** — lê a rodada anterior |
+
+A segunda não é uma dependência menor: é uma dependência com **outro contrato
+temporal**. E entre as duas há uma fuga barata — tirar o nome e deixar o seletor
+apanhar o ficheiro na mesma. A leitura continua explicada, a aresta deixa de
+ordenar, e tudo continua verde.
+
+```
+    QUERES FRESCO? NOMEIA.
+    QUEM NOMEIA NO CÓDIGO, NOMEIA NO CONTRATO.
+```
+
+A guarda que fecha isto compara o que o código **nomeia** (literais na árvore
+sintáctica) com o que o contrato declara. Nomear no código e declarar varredura é
+mentira detectável.
+
+## 114.4 · UM MEDIDOR QUE ESCREVE DENTRO DO QUE MEDE NÃO SE ORDENA: CONVERGE
+
+Ficou um ciclo, e ele não se ordena. Dizer «é estrutural» seria opinião. A prova
+cabe numa linha:
+
+> o seletor do censo do congelamento apanha o ficheiro que **o próprio censo do
+> congelamento escreve**.
+
+Nenhuma permutação põe um passo antes de si mesmo. Deixa de ser argumento e passa
+a ser aritmética.
+
+```
+    UM MEDIDOR QUE ESCREVE DENTRO DO QUE MEDE
+    NÃO SE ORDENA: CONVERGE.
+```
+
+Generalizando: sempre que um sistema mede uma superfície onde ele próprio
+escreve, o ciclo é da forma do problema e não da ordem dos passos. O que se exige
+nesse caso não é ordem — é **convergência provada**. Isto não é a convergência da
+`§96` (duas implementações que se reduzem a um dono); é o laço de um medidor
+sobre si próprio, e as duas não se resolvem pelo mesmo meio.
+
+## 114.5 · «O ATRASO EXISTE» E «O ATRASO CUSTA» SÃO DUAS AFIRMAÇÕES
+
+Medido: mexe-se numa fonte, correm-se três passagens, comparam-se os conteúdos
+sem o relógio. A 1.ª e a 2.ª dão o **mesmo** conteúdo.
+
+O atraso **existe** — está provado pelo laço. E **não custa** — porque os
+varredores dependem do *conjunto* (que ficheiros existem, de que espécie) e não
+do conteúdo que os passos seguintes reescrevem. As duas afirmações medem-se
+separadamente, e é por isso que se escrevem separadamente.
+
+```
+    MEDIR A PRIMEIRA E PUBLICAR A SEGUNDA É O ERRO DE SEMPRE.
+```
+
+E a prova de igualdade precisa de **controlo positivo**: antes de comparar, exigir
+que o retrato *veja* a mudança que a fonte mexida provocou. Sem isso, um retrato
+partido — que devolvesse sempre o mesmo — passava as comparações todas sem medir
+nada.
+
+Corolário separado, e que não se esconde um atrás do outro:
+
+```
+SEMANTIC_DETERMINISM = sim     BYTE_DETERMINISM = não (relógio nos artefactos)
+```
+
+## 114.6 · `STALE_BY_CONTRACT` NÃO É `STALE_BY_CYCLE`, E NENHUM DOS DOIS É *STALE* POR ACIDENTE
+
+Três regeneradores não são corridos por automação nenhuma. Os artefactos deles
+ficam para trás sempre que a árvore anda. Chamar defeito a isso seria acusar o
+sistema de cumprir o próprio contrato; chamar-lhe normal sem contrato escrito
+seria varrer dívida para debaixo de uma palavra.
+
+A regra que sobrevive às duas tentações:
+
+```
+    O ATRASO É ESPERADO QUANDO A DECLARAÇÃO O EXPLICA,
+    E DEFEITO QUANDO NÃO EXPLICA.
+```
+
+Basta **um** pedaço de prova por explicar para a resposta inteira ser defeito —
+somar explicações parciais é tratar meia prova como prova.
+
+E prova-se pelos dois lados: tira-se a classe declarada e o mesmo artefacto tem
+de voltar a ser defeito no minuto seguinte.
+
+```
+    UMA CLASSE QUE NÃO MUDA QUANDO A DECLARAÇÃO MUDA
+    NÃO ESTÁ A CLASSIFICAR: ESTÁ A ETIQUETAR.
+```
+
+`STALE_BY_CONTRACT` responde por *«ninguém o corre, e está escrito»*.
+`STALE_BY_CYCLE` (`§93`) responde por *«correu, mas leu a rodada anterior»*. Usar
+um pelo outro apaga exactamente a diferença que esta missão foi buscar.
+
+## 114.7 · SE A LEI JÁ IMPEDE O CASO, O RAMO QUE O TRATA NÃO PROTEGE NADA
+
+O classificador tinha um ramo para «o produtor corre depois». A derivação da
+ordem impede esse caso, portanto nenhum teste conseguia lá chegar — e uma mutação
+que o partisse sobrevivia a tudo.
+
+```
+    SE A LEI JÁ IMPEDE O CASO, O RAMO QUE O TRATA
+    NÃO PROTEGE NADA: SÓ ADIA A DESCOBERTA.
+```
+
+Saiu, com a razão escrita no lugar dele.
+
+A `§61.4` tinha o ramo que só os dados de amanhã exercitam e a `§102.4` tinha o
+ramo adormecido atrás de um `or`. Esta acrescenta o terceiro caso, e o mais
+incómodo: **o ramo que nenhuns dados alcançam porque a própria lei o tornou
+impossível.** Nos dois primeiros espera-se; neste apaga-se.
+
+E daí sai um uso novo para uma ferramenta velha: o sobrevivente de mutação **é**
+o detector de código morto. Um mutante que ninguém mata está a apontar para uma
+linha que ninguém consegue exercitar.
+
+> **Corolário operacional.** Quando uma guarda só corre em presença do defeito,
+> ela nunca corre num repositório saudável. Constrói-se o caso à mão.
+
+## 114.8 · CONFERIR NÃO É REIMPLEMENTAR
+
+Havia dois runtimes a ler a mesma lista (Python e JavaScript). Derivar a ordem nos
+dois seria repetir o algoritmo — e dois algoritmos que se afastem são duas ordens
+outra vez, que é precisamente o que a `§96` proíbe. Derivar só num e deixar o
+outro acreditar no ficheiro seria confiar num ficheiro que pode mentir.
+
+A saída é assimétrica de propósito: **um deriva, o outro confere**. A conferência
+cabe em cinco linhas, não tem opinião e recusa-se a agir quando o ficheiro
+contradiz as dependências.
+
+```
+    UM VERIFICADOR QUE FALHA DIZ «ESTE FICHEIRO ESTÁ ERRADO».
+    UM SEGUNDO ALGORITMO DIZ «EU TENHO OUTRA OPINIÃO».
+```
+
+Isto é a saída para quando `ONE CONCEPT → ONE OWNER` encontra dois runtimes que
+têm ambos de agir: o dono continua a ser um, e o segundo é leitor conferente, não
+co-autor.
+
+## 114.9 · O ARNÊS QUE SÓ REPÕE NO `finally` DEIXA O ESTRAGO NOS DIAS MAUS
+
+Regra antiga, defeito novo. A `§79.6` já tinha o backup tirado **depois** da
+mutação e a `§88.6` já tinha o arnês que deixava um alarme sempre aceso. Esta é a
+terceira família: ler os originais antes de mutar e repor no `finally` **não
+chega**. Se o processo for morto a meio — *timeout*, CI a cortar o job — o
+`finally` não corre e a mutação fica no disco de trabalho.
+
+Aconteceu: uma linha de entradas ficou apagada e foi para o `git add`. Só a prova
+de IO a apanhou, três corridas depois.
+
+```
+    UM ARNÊS QUE SÓ REPÕE QUANDO ACABA BEM
+    DEIXA O ESTRAGO EXACTAMENTE NOS DIAS MAUS.
+```
+
+O que fecha: o original lê-se no arranque do módulo e há uma guarda **no fim** que
+compara o ficheiro com ele. A prova acusa-se a si própria.
+
+## 114.10 · A CATEGORIA QUE NINGUÉM CORRE É A QUE PODE ESTAR PARTIDA HÁ MESES
+
+O corredor da cadeia anunciava cinco categorias e a tabela dele tinha quatro. A
+quinta morria com `KeyError`. Era, precisamente, a categoria dos passos que
+nenhuma automação corre.
+
+```
+    A CATEGORIA QUE NINGUÉM CORRE
+    É A QUE PODE ESTAR PARTIDA HÁ MESES.
+```
+
+A guarda que ficou não testa as quatro que se usam: percorre **o vocabulário
+declarado** e exige que cada categoria anunciada tenha corredor. A forma geral —
+testar o vocabulário inteiro e não os membros que o dia-a-dia exercita — vale
+para qualquer tabela de despacho desta casa.
+
+## 114.11 · O QUE ISTO NÃO AUTORIZA
+
+- Não autoriza chamar `CURRENT` a um artefacto atrasado.
+- Não autoriza declarar varredura uma dependência pedida pelo nome.
+- Não autoriza automatizar um regenerador para fechar uma contagem: medido quatro
+  vezes, isso troca um número por uma cadeia que nunca mais assenta.
+- Não autoriza usar «ciclo atrasado» como nome para *stale* que ninguém explicou.
