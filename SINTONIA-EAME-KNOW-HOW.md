@@ -10,8 +10,8 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §119: o registo de identidade de fonte estava partido em dois, e não havia detector de colisão; um exemplo real pode ser verdadeiro e não provar nada.
-**Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
+**Última atualização material:** 2026-09-14 — §121-§141: a memória durável estava partida em 15 conteúdos e 20 referências, com conhecimentos diferentes no mesmo endereço; reconciliada numa candidata única, sem renumerar nada estável.
+**Próxima missão autorizada:** integrar esta candidata no dono canónico é uma decisão separada — ver `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
 
 ---
 
@@ -14426,3 +14426,3390 @@ Das 163 fichas do atlas, **5** têm contrato de busca. As 140 novas têm zero �
 cada secção do atlas diz isso na própria linha: *«Registada ≠ contratada: nenhuma
 tem contrato de busca, e nenhuma coleta foi corrida.»* Escrever o limite dentro
 do artefato é mais barato do que explicá-lo depois a quem o encontrou sozinho.
+
+
+---
+
+# RECONCILIAÇÃO DE 2026-09-14 — O QUE ESTAVA FORA DESTA LINHA
+
+> As secções `§121`–`§137` **não são conhecimento novo**. São conhecimento que já
+> existia, provado, em linhas que divergiram desta — e que estava a viver em
+> endereços já ocupados aqui. Entraram no fim, com o número antigo escrito por
+> cima de cada uma, **porque um endereço já citado não se muda**.
+>
+> `§138`–`§140` vêm de deltas em `handoff/` que nunca tinham sido integrados em
+> linha nenhuma. `§141` é a lei que fecha o buraco.
+>
+> Nenhuma secção de `§0` a `§119` foi renumerada, reescrita ou apagada.
+> A auditoria completa — refs, hashes, classificação, prova e destino de cada
+> conteúdo — vive em `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`, que é
+> **prova da reconciliação e não uma segunda fonte de verdade**.
+
+---
+
+# §121 · A ORDEM DO PROJETO FICA COLLECTION COMPLETA → COLETA GRANDE → INTELLIGENCE → CASCO
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§61`** em
+> `origin/claude/know-how-sequence-v1` @ `b5c457f8`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§61` → endereço canónico `§121`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+**Decisão do dono do projeto:** 2026-09-11  
+**Registro de decisão:** `docs/decisoes/ORDEM-DO-PROJETO-COLETA-INTELIGENCIA-CASCO-2026-09-11.md`  
+**Commit do registro:** `b44b3f0a8f0efa19c680bdfaa7cda1ba2ad168ee`
+
+## 121.1 · O QUÊ MUDOU
+
+A sequência deixa de ser apenas «réguas → coleta → ferramentas → casco» em sentido abstrato. A ordem operacional fica explicitamente fechada:
+
+```text
+1. FECHAR TODA A COLLECTION
+   - contratos
+   - owners
+   - runtime
+   - identidade/procedência
+   - RAW/DERIVED/STRUCTURED
+   - Admission
+   - READY / Sala de Espera
+   - observabilidade e regressão
+
+2. INTEGRAR O SINTONIA SCRAP
+   - apenas quando a frente paralela fechar
+   - como aquisição especializada dentro da Collection
+   - sem segundo RUN, RAW, SOURCE_ID, DOCUMENT_ID ou Sala de Espera
+
+3. FAZER UMA COLETA GRANDE
+   - sobre as fontes/capacidades aprovadas do escopo vigente
+   - pela máquina já provada
+   - com RUN, custo, procedência, RAW, derivação, Admission e READY auditáveis
+
+4. RECONCILIAR E POPULAR A SALA DE ESPERA
+   - material válido chega a READY
+   - sem consumidor de Intelligence ainda
+   - medir perdas, UNKNOWN, ERROR, REUSED, REJECTED e cobertura real
+
+5. SÓ ENTÃO COMEÇAR INTELLIGENCE
+
+6. DEPOIS INTELLIGENCE TOOLS / VALIDATION
+
+7. CASCO / PORTAL POR ÚLTIMO
+```
+
+## 121.2 · POR QUÊ
+
+Um E2E verde com um único item prova que a estrada existe. **Não prova que a Collection já foi exercitada em escala suficiente para entregar um acervo real à Intelligence.**
+
+A Intelligence não deve nascer sobre fixtures, amostras históricas fora do fluxo ou uma Sala de Espera quase vazia. Primeiro prova-se a máquina; depois usa-se a máquina para formar o acervo; só depois se liga o departamento que interpreta esse acervo.
+
+```text
+E2E PROVADO != COLETA GRANDE CONCLUÍDA
+COLLECTION READY != INTELLIGENCE AUTORIZADA
+```
+
+A coleta grande também **não é laboratório de arquitetura**. Defeitos estruturais conhecidos devem ser fechados antes de gastar escala, rede e APIs.
+
+## 121.3 · O PAPEL DO SINTONIA SCRAP
+
+O SCRAP continua a evoluir **em paralelo** noutra frente para enriquecer capacidade de aquisição e aproveitar horas de máquina.
+
+Isso não altera a arquitetura central:
+
+```text
+SINTONIA SCRAP = FRENTE ESPECIALIZADA DE AQUISIÇÃO
+SINTONIA SCRAP != SEGUNDA COLLECTION
+SINTONIA SCRAP != SEGUNDO ORQUESTRADOR GLOBAL
+SINTONIA SCRAP != SEGUNDO MODELO DE RUN/RAW/IDENTIDADE
+```
+
+Quando fechar, integra-se pelos contratos canónicos existentes. Até lá, esta linha principal continua fechando a Collection sem depender do estado transitório do SCRAP.
+
+## 121.4 · O QUE «COLETA GRANDE» QUER DIZER
+
+Não significa «coletar toda a internet» nem exigir zero `UNKNOWN`.
+
+Significa executar, em escala relevante e auditável, **as fontes e capacidades aprovadas do escopo vigente**, usando a Collection fechada, com limites de custo/volume explícitos e preservando a verdade de cada estado.
+
+A saída da coleta grande deve permitir responder, sem inferência manual:
+
+```text
+quantas corridas?
+quais fontes?
+quais executores?
+quanto custou?
+quantos RAW?
+quantos DERIVED?
+quantos STRUCTURED?
+quantos SIM / NAO / NAO_SEI / NAO_SE_APLICA / ERRO?
+quantos READY?
+o que ficou fora e por quê?
+```
+
+Só depois dessa reconciliação a Intelligence recebe o acervo.
+
+## 121.5 · CORREÇÃO DO §60.7 — OS 13 OUT_OF_FLOW NÃO PEDEM LEI NOVA
+
+O fechamento original do §60 deixou `OUT_OF_FLOW_EVIDENCE` como «decisão de contrato». Relendo a Bíblia, isso é amplo demais e fica **SUPERSEDED por esta subseção**.
+
+A `COL-LAW-045 · COLETA MANUAL OU ASSISTIDA TAMBÉM TEM CONTRATO` já determina que material coletado por pessoa, Claude, navegador assistido ou agente deve entrar pelo mesmo contrato de evidência, preservando `SOURCE`, `RUN/REQUEST`, `ARTIFACT` e `PROVENANCE`.
+
+Logo:
+
+```text
+BIBLE_CHANGE_REQUIRED              = NO
+NEW_CONTRACT_FOR_THE_13_REQUIRED   = NO
+HISTORICAL_BACKFILL                = NO
+FAKE_RUN                            = NO
+SOURCE_ID_FROM_DIRECTORY            = NO
+```
+
+Os 13 corpos históricos são **dívida fora do fluxo**, não uma razão para mudar a constituição. Se forem necessários para o acervo futuro, devem ser recolhidos/reingressados pelo caminho canónico quando houver prova legítima; caso contrário permanecem explicitamente históricos/out-of-flow.
+
+A correção forward continua separada e bounded: os 7 `READER_GAP` são o próximo defeito executável.
+
+## 121.6 · CONSEQUÊNCIA IMEDIATA
+
+O próximo passo permanece:
+
+```text
+C-FIX-SOURCE-ID-READER-GAP-V1
+```
+
+Escopo:
+
+```text
+corrigir somente os 7 READER_GAP forward
+provar SOURCE_ID legítimo atravessando RAW → DERIVED → INGRESS → ADMISSION
+não tocar nos 13 históricos
+não iniciar coleta grande ainda
+não iniciar Intelligence
+não integrar SCRAP antes do fechamento da frente paralela
+não tocar no Casco/Portal
+```
+
+Depois dessa missão, o próximo passo deve ser escolhido pelo estado medido da Collection, sempre preservando a ordem desta seção.
+
+## 121.7 · REGRA DE PROJETO QUE FICA
+
+```text
+PRIMEIRO FECHAR A MÁQUINA.
+DEPOIS USAR A MÁQUINA EM ESCALA.
+DEPOIS DAR O ACERVO À INTELLIGENCE.
+DEPOIS CONSTRUIR AS FERRAMENTAS.
+CASCO POR ÚLTIMO.
+```
+
+**KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA — cumprida nesta seção.**
+
+---
+
+# §122 · UMA ROTA OFICIAL QUE NINGUÉM MODELOU NÃO ESTÁ BLOQUEADA: ESTÁ POR OLHAR
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§91`** em
+> `origin/claude/wonderful-hamilton-m50ahv` @ `6a9907e2`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§91` → endereço canónico `§122`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+> **Fonte:** `docs/sintonia-scrap/META-DEEP-STUDY-V1.md`,
+> `META-ROUTE-MATRIX-V1.json`, `META-COMPETITOR-COVERAGE-V1.md`.
+> Medido em 2026-09-12 · `META_PLATFORM_PROBES = 0` · `APIFY_RUNS = 0` · `COST_USD = 0`.
+
+A `§83` escreveu que uma linha de código prova que algo *consegue*, não que algo
+*aconteceu*. Esta secção acrescenta o degrau anterior, e ele é mais barato de
+errar: **antes de perguntar se a casa consegue, alguém tem de ter perguntado se
+a rota existe.**
+
+O estudo varreu a família Meta inteira e encontrou a maior rota oficial,
+gratuita e permitida para observar concorrentes — a **Meta Ad Library** — sem
+uma única ocorrência no repositório. Não bloqueada. Não recusada. Não medida e
+reprovada. **Ausente.** O mesmo para o *Branded Content Search*.
+
+```
+    AUSENTE NÃO É UM ESTADO DE CAPACIDADE. É A FALTA DE UM.
+    E o vocabulário fechado não avisa: `social_matriz.CAPACIDADES` tem doze
+    palavras e nenhuma delas nomeia «anúncio». Uma rota que não tem nome não
+    pode ser declarada `BLOCKED` — nem sequer chega a ser perguntada.
+```
+
+## 122.1 · OFFICIAL-FIRST MUDA O PAPEL DA APIFY, E NÃO O PREÇO DELA
+
+**O QUE MUDOU.** Onde existe rota oficial e gratuita, a Apify deixa de ser
+candidata a motor e passa a ser cobertura de **buraco residual**.
+
+**POR QUÊ.** Sete actors de Ad Library vendem, entre US$ 0,55 e US$ 17,00 por
+mil, a leitura de uma fonte cuja API oficial custa zero e cobre a Itália. O que
+eles dão a mais é o criativo em pixels, arrancado da página de *snapshot* —
+rota que documentação nenhuma garante.
+
+**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 19 e Parte 28; `gap_apify()` medido no
+próprio repositório.
+
+**CONSEQUÊNCIA.** Comprar por item o que a rota oficial entrega de graça é pagar
+pela diferença entre não ter credencial e ter. O motivo canónico de gasto passa
+a ter de distinguir isso — e a casa já tem as duas palavras:
+`FREE_ROUTE_UNAVAILABLE` ≠ `AUTHORIZATION_BLOCK`.
+
+## 122.2 · JANELA CURTA TORNA O DELTA UMA NECESSIDADE DE PRESERVAÇÃO
+
+**O QUE MUDOU.** O delta deixa de ser optimização de custo e passa a ser a única
+forma de a casa ter histórico.
+
+**POR QUÊ.** A janela comercial da Ad Library na UE é de **um ano a contar da
+última impressão** — não de sete, que é a janela do corpus político. O que não
+for colhido enquanto está lá desaparece e não volta.
+
+**PROVA.** `META-DEEP-STUDY-V1.md` §5: `COMMERCIAL_EU_HISTORY = 1 ANO a contar
+da última impressão`, citado da documentação primária da Meta.
+
+**CONSEQUÊNCIA.**
+
+```
+    NÃO HÁ CATÁLOGO ANTIGO A RECUPERAR. Colheita rolante, nunca consulta
+    retrospectiva. E como a Meta não emite sinal de remoção, «sumiu do
+    resultado» tem quatro causas possíveis e só uma delas é «o anúncio parou».
+```
+
+## 122.3 · A CASA DECLAROU UM BURACO PAGO CITANDO O FICHEIRO QUE O DESMENTE
+
+**O QUE MUDOU.** `INSTAGRAM/FETCH_COMMENTS` era a única linha da Meta a dizer
+«APIFY NECESSÁRIA», com o motivo `FREE_ROUTE_INSUFFICIENT_CAPABILITY` — «a rota
+grátis dá o NÚMERO, nunca o TEXTO».
+
+**POR QUÊ ESTAVA ERRADO.** O ficheiro citado como evidência mede o contrário.
+`coleta/instagram_janela.py` regista, em comentário de código: *«MEDIDO em 7
+posts das 5 contas do lote, deslogado: 18 de 31 comentários declarados saíram
+COM TEXTO — 58%.»*
+
+**PROVA.** O código, e o RAW pago em `ES-T8-003-instagram-hashtags.raw.json.gz`:
+`commentsCount` soma 31 e `latestComments` traz **zero** comentários em 60 de 60
+itens — a rota paga entregou a contagem e não o texto.
+
+**CONSEQUÊNCIA, E ELA TEM DUAS METADES QUE NÃO SE ANULAM.**
+
+```
+    COMMENT_COUNT != COMMENT_TEXT — continua verdade.
+    E 18/31 TAMBÉM NÃO É 31/31.
+```
+
+Uma medição parcial não promove a rota grátis a suficiente, e não autoriza
+declarar a paga necessária universalmente. O estado honesto é **parcial**, e o
+motivo do gasto muda de «a rota grátis não sabe» para «a rota grátis não é
+permitida» — que é uma frase sobre autorização, não sobre capacidade.
+
+## 122.4 · `AUDIO_ONLY` É PROPRIEDADE DO ITEM, NÃO DA PLATAFORMA
+
+**O QUE MUDOU.** A `C10` provou aquisição só-áudio num Reel: `-f bestaudio`
+seleccionou uma representação DASH de áudio, `VIDEO_BYTES_DOWNLOADED = 0`. Essa
+prova **continua de pé** e não é rebaixada aqui.
+
+**POR QUÊ PRECISA DE CERCA.** Evidência pública de terceiros mostra itens do
+mesmo Instagram cuja tabela de formatos não tem **nenhuma** linha `audio only` —
+só DASH de vídeo e MP4 muxado. Nesses, extrair áudio é *demux local*, não
+poupança de rede.
+
+**PROVA.** `META-DEEP-STUDY-V1.md`, Parte 13, com os dois sentidos medidos.
+
+**CONSEQUÊNCIA.**
+
+```
+    A ÚNICA PROVA FIÁVEL É A TABELA DE FORMATOS DAQUELE ITEM.
+    UM REEL NÃO É UM LOTE. Orçar banda com «Reel = ~200 KB de áudio» é
+    generalizar uma medição de um caso para uma plataforma inteira.
+```
+
+## 122.5 · A LIÇÃO TRANSVERSAL: DINHEIRO E CREDENCIAL SÃO EIXOS DIFERENTES
+
+Sete das nove observações que um concorrente completo exigiria custam **zero
+dólares**. As sete estão fechadas — por App Review, verificação de negócio ou
+confirmação de identidade.
+
+```
+    USD_COST = 0  NÃO SIGNIFICA  EXECUTÁVEL AGORA.
+    Uma rota que custa zero e exige aprovação que a casa não tem é tão
+    inalcançável hoje quanto uma que custasse mil — e mais perigosa, porque
+    o número zero convida a chamar-lhe «grátis» e a dá-la por pronta.
+```
+
+## 122.6 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Nenhuma rota Meta foi executada. Nenhuma foi promovida a `PROVED`. Nenhuma
+política mudou por causa deste estudo. O que ele entrega é o mapa — e a
+distinção entre não conseguir e não ter olhado.
+
+```
+    CAN DO ≠ MAY DO ≠ DID DO ≠ EVER ASKED.
+```
+
+---
+
+# §123 · UMA PORTA ÚNICA É A MELHOR NOTÍCIA QUE UMA TRAVA PODE RECEBER
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§92`** em
+> `origin/claude/wonderful-hamilton-m50ahv` @ `6a9907e2`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§92` → endereço canónico `§123`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+**Missão:** `SCRAP-SR-02` · **Linha:** `claude/wonderful-hamilton-m50ahv`
+**Tocado:** `leis/autorizacao_de_gasto.py` (novo) · `coleta/coletor.py` ·
+`coleta/social_scrap.py` · `coleta/adaptador_youtube.py`
+**Medido:** `APIFY_REAL_RUNS = 0` · `META_REAL_REQUESTS = 0` · `COST_USD = 0`
+
+A `§89` escreveu que uma tradução e uma compra podem conceder autorização sem
+parecerem decisões. Esta secção vem do lado oposto: o que acontece quando se
+procura **onde** a autorização deveria ser exigida, e se descobre que o sítio é
+um só.
+
+## 123.1 · O CENSO DEU UM NÚMERO MELHOR DO QUE O ESPERADO, E ISSO MUDA A ESTRATÉGIA
+
+Varridas todas as formas de iniciar execução paga — `urlopen`, `requests`,
+`curl` por subprocess, `http.client`, `aiohttp`, `httpx`, SDK, workflows:
+
+```
+PRIMITIVA QUE CRIA COMPRA = UMA
+coleta/coletor.py:executar → _curl(POST /acts/{actor}/runs)
+```
+
+Sete módulos de produção chamavam-na. Vários outros ficheiros falam com a Apify
+— e **nenhum deles compra**: fazem `GET`.
+
+```
+    UMA PORTA ÚNICA É A MELHOR NOTÍCIA POSSÍVEL PARA QUEM VAI PÔR UMA TRAVA.
+    Copiar a lei para os sete chamadores daria SETE LEIS, e a oitava porta
+    nasceria sem nenhuma.
+```
+
+O reflexo errado é distribuir a guarda por todos os caminhos que *parecem*
+gastar. O certo é medir **onde o dinheiro nasce** — normalmente um sítio — e pôr
+a trava lá. A diferença é entre uma lei e um enxame de cópias que divergem.
+
+## 123.2 · TER A CHAVE NÃO É TER LICENÇA
+
+Medido: `ferramentas/apify_pool.py` é dono do token, do pool, da rotação e da
+redação. **Cria zero compras.**
+
+```
+    TOKEN_OWNER != SPEND_OWNER.
+```
+
+A confusão é natural e cara: quem guarda a chave parece o dono da porta. Mas a
+chave abre; quem decide se se entra é outro. Um sistema que peça autorização a
+quem guarda o token pede-a a quem não a pode dar — e recebe sempre sim, porque
+a chave está sempre lá.
+
+E o mesmo vale por cima: **ter orçamento não é estar autorizado a gastar.**
+
+```
+    BUDGET_PRESENT != SPEND_AUTHORIZED.
+    ROUTE_ALLOWED  != SPEND_AUTHORIZED.
+```
+
+## 123.3 · QUEM GUARDA O GASTO NÃO PODE SER QUEM JULGA A FONTE
+
+A tentação, ao escrever a trava, é ela própria ler o livro e decidir. Seria
+menos código e teria feito do SCRAP um juiz de fontes.
+
+```
+    SOURCE_RELEVANCE_OWNER != SPEND_ENFORCER.
+```
+
+A guarda pergunta ao dono — `leis/relevancia_da_fonte.py` — e **obedece**. Não
+reescreveu `portao()`, não reescreveu os cinco resultados, não reescreveu
+`conferir_source_id`. Um segundo contrato teria divergido do primeiro na
+primeira correcção que só um deles recebesse.
+
+E as recusas não se colapsam:
+
+```
+    SEM_AUTORIZAÇÃO           falta nossa
+    BARRADO_PELA_RELEVÂNCIA   decisão sobre o mundo
+    EXIGE_AVALIAÇÃO           confissão: ninguém olhou
+```
+
+Um relatório que junte os três diz que a fonte é má quando o que houve foi
+esquecimento.
+
+## 123.4 · TRÊS PROPÓSITOS, E A PORTA DE UM NÃO ABRE A DO OUTRO
+
+```
+    NORMAL_COLLECTION != SOURCE_EVALUATION_PROBE != CAPABILITY_TRIAL
+```
+
+Os três gastam. Os três precisam de autorização. Mas de autorizações
+**diferentes**, e é por isso que são três:
+
+- a colheita normal precisa do veredito do dono da relevância;
+- o probe existe **precisamente para o caso em que esse veredito ainda não
+  existe** — logo não o pode exigir. O que exige em troca é mão humana e tectos;
+- o ensaio não é sobre a fonte de todo: é sobre a máquina.
+
+A porta que não pode abrir é a terceira para a primeira. Um pedido de colheita
+que se declare `CAPABILITY_TRIAL` para fugir à relevância é a forma mais barata
+de contornar tudo — e por isso a recusa tem nome próprio: **se a execução nomeia
+a fonte, não é ensaio.**
+
+E o probe mede, mas não carimba:
+
+```
+    PROBE != DECISION. Quem mede não escreve no livro.
+```
+
+## 123.5 · UM TECTO PELA METADE É UM TECTO QUE NÃO EXISTE
+
+Probe e ensaio exigem **quatro** tectos mais condição de paragem mais mão
+humana. Faltar **um** chega para recusar.
+
+A razão é aritmética: um limite de execuções sem limite de dólares não limita
+dólares. Aceitar três dos quatro seria deixar aberta exactamente a dimensão que
+ninguém declarou — e será sempre a que sangra.
+
+E `MAX_USD = 0` não é um tecto generoso: é uma proibição escrita com o
+vocabulário de um limite. A guarda recusa-o como recusa a ausência.
+
+## 123.6 · A ORDEM É CONTRATO, E RESERVAR JÁ É DISPOR
+
+A guarda corre **antes** da reserva financeira. Não por elegância:
+
+```
+    RESERVAR DINHEIRO QUE NÃO SE ESTÁ AUTORIZADO A GASTAR JÁ É DISPOR DELE.
+    O saldo fica comprometido, e o próximo pedido legítimo encontra menos do
+    que havia.
+```
+
+```
+    UMA RECUSA DE GASTO NÃO PRECISA DE ORÇAMENTO PARA ACONTECER.
+```
+
+É o irmão da lei que a missão anterior pagou para aprender — *não se bate à
+porta de quem não se tem chave*. As duas dizem a mesma coisa sobre ordem: **um
+portão que corre tarde consome o recurso que existia para proteger.**
+
+## 123.7 · TRADUZIR UMA DECLARAÇÃO NÃO É FABRICAR UMA
+
+A CLI paga precisava de uma autorização. Havia duas formas de lha dar, e só uma
+é honesta.
+
+A tabela `FASES_PAGAS` já existia: versionada, revista, commitada, com a
+autorização humana escrita ao lado dos tectos. A CLI **traduz** essa declaração
+para o contrato que a guarda lê.
+
+```
+    TRADUZIR UMA DECLARAÇÃO EXISTENTE NÃO É FABRICAR UMA.
+    Fabricar seria escrever a autorização no momento do gasto, a partir do
+    próprio pedido — e aí quem gasta assinaria por si.
+```
+
+O mesmo princípio governa o adaptador: ele **passa** a autorização e não a
+constrói.
+
+```
+    QUEM GASTA NÃO ASSINA A PRÓPRIA AUTORIZAÇÃO.
+```
+
+## 123.8 · TRÊS PROVAS QUEBRARAM, E NENHUMA FOI ENFRAQUECIDA
+
+`C10.8A-F`, `C10.8B` e `C10.8B-LIVE` passaram a falhar no momento em que a
+trava entrou — porque compravam sem autorização, que era exactamente o defeito.
+
+A saída fácil era afrouxar a trava para elas. A saída certa foi reconhecer o que
+elas são — **ensaios de capacidade**, com actor falso, alvo fixo e transporte
+falso — e dar-lhes a autorização que a lei desenhou para esse caso.
+
+```
+    UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR É UMA PROVA DO DEFEITO.
+```
+
+## 123.9 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+O dinheiro ficou protegido. Isso **não** quer dizer que o fluxo canónico esteja
+fechado: continuam a existir caminhos antigos que não passam pelo orquestrador.
+
+```
+    SPEND_ENFORCEMENT = PASS   não é   CANONICAL_ORCHESTRATION = PASS.
+```
+
+Declarar o segundo porque se conseguiu o primeiro seria trocar a pergunta pela
+que já tem resposta.
+
+---
+
+# §124 · UM MÓDULO QUE NÃO CONSEGUE GASTAR AINDA NÃO É UM CAMINHO QUE PASSA PELA CASA
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§93`** em
+> `origin/claude/wonderful-hamilton-m50ahv` @ `6a9907e2`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§93` → endereço canónico `§124`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+> **Missão:** SCRAP-FLOW-01 · migrar **um** caminho operacional real para
+> `ENTRYPOINT → REQUEST → ORCHESTRATOR → SCRAP EXECUTOR`, e prová-lo ponta a
+> ponta sem rede real e sem gasto real.
+>
+> ```
+> MODULE CAN'T SPEND  !=  FLOW IS CANONICAL.
+> ```
+
+A §123 fechou a porta do dinheiro e disse, no fim, o que **não** tinha fechado:
+os caminhos antigos continuavam a saltar o orquestrador, e apenas já não
+conseguiam comprar. Esta secção é o que se aprendeu a fechar o primeiro deles.
+
+## 124.1 · ATRAVESSAR O SUBSISTEMA NÃO É ATRAVESSAR A CASA
+
+O repositório já tinha um censo honesto de desvios — e ele media o boundary
+**de baixo**: que fases chegam a `scrap_executor.COLLECT`. Quatro não chegavam,
+e diziam-no em voz alta.
+
+O que ninguém tinha medido era o boundary **de cima**. E aí a conta era outra:
+*todas* as fases que adquirem e chegam ao `COLLECT` continuavam a nascer sem
+pedido, sem plano, sem portão de relevância da fonte, sem corrida cunhada antes
+do facto, sem recibo, sem ingresso e sem admissão.
+
+```
+    UMA FASE PODE TER PORTÃO DE ROTA, TETO DE REDE, TETO DE GASTO E GUARDA DE
+    COMPRA — E MESMO ASSIM NÃO PASSAR PELA CASA.
+
+    ATRAVESSA O SCRAP  !=  ATRAVESSA A CASA.
+```
+
+Um censo de desvios que não diz **a que altura** está o boundary mede a porta
+errada com toda a honestidade do mundo.
+
+## 124.2 · UMA LEI QUE SE CUMPRE PORQUE SÓ HÁ UM CANDIDATO NÃO ESTÁ A SER CUMPRIDA
+
+`leis/gestao_da_coleta.py` escreve, desde que existe:
+
+```
+ORQUESTRADOR_DECIDE = ('COMO', 'QUAL_ROTA', 'QUAL_EXECUTOR')
+```
+
+E durante todo esse tempo `QUAL_EXECUTOR` **não era uma decisão: era o índice
+zero.** O plano perguntava a relevância sobre `execs[0]`; o controlo corria
+`executores[0]`. Duas linhas, em dois ficheiros, a decidir a mesma coisa por
+acidente — e a coincidirem só enquanto cada alvo tivesse um executor.
+
+O próprio registo documentava a consequência, e resignava-se a ela: «um segundo
+registo aqui nunca seria aberto e ficaria a mentir nesta lista».
+
+```
+    UMA LEI QUE SE CUMPRE PORQUE SÓ HÁ UM CANDIDATO NÃO ESTÁ A SER CUMPRIDA:
+    ESTÁ POR TESTAR.
+```
+
+Quando a escolha ganhou dono, duas coisas ficaram verdadeiras de uma vez: o
+pedido passou a poder nomear, e o portão passou a julgar **quem vai correr**.
+
+```
+    JULGAR UM E CORRER OUTRO É PIOR DO QUE NÃO JULGAR NADA.
+```
+
+E a regra da escolha precisa de uma metade que quase se esquece: um executor
+que declara o seu selector **nunca** pode ser escolhido por omissão. Se pudesse,
+acrescentar uma linha nova à lista mudava calado o caminho de todos os pedidos
+que já existiam.
+
+```
+    QUEM PEDE NOMEIA. QUEM NÃO NOMEIA LEVA O DE SEMPRE.
+```
+
+## 124.3 · UM PROXY QUE ACERTA POR ACIDENTE É UM PROXY QUE VAI FALHAR NO SEGUNDO CASO
+
+O plano decidia se havia par (fonte, propósito) para o portão julgar olhando
+para outra coisa: se `fonte` estava na lista de filtros que viram **argumento de
+linha de comando**.
+
+Isso acertava — porque o único executor que aceitava fonte também a passava na
+linha. Duas perguntas diferentes com a mesma resposta, por coincidência de
+amostra de um.
+
+```
+    QUEM O PORTÃO JULGA  !=  O QUE A LINHA DE COMANDO LEVA.
+```
+
+O segundo caso partiu as duas ao mesmo tempo: uma rota que colhe de uma fonte
+só e **não** a recebe como argumento posicional ficava invisível ao portão; e se
+alguém a acrescentasse à lista para a tornar visível, o valor entrava como
+terceiro argumento e era lido como **teto**.
+
+## 124.4 · UMA ENTRADA QUE SÓ SE LÊ DO DISCO OBRIGA A PROVA A ESCREVER NO DISCO
+
+O livro de relevância pertence a um dono externo, e o plano só o lê. Só que o
+lia de um caminho fixo — e a consequência era que **nenhuma prova conseguia
+exercitar o efeito do portão sem escrever no livro da casa**.
+
+Tornar a entrada explícita (`livro=None` continua a ser «o livro desta casa»)
+não move a lei nem a copia. Dar a entrada ao dono da lei não é decidir por ele.
+
+```
+    TORNAR UMA ENTRADA EXPLÍCITA NÃO É TIRAR PODER AO DONO DELA.
+    É PARAR DE OBRIGAR QUEM O PROVA A MENTIR-LHE.
+```
+
+## 124.5 · O FAKE TEM DE SER A CAMADA MAIS FUNDA — E A MAIS FUNDA PODE SER UM BINÁRIO
+
+A casa já tinha escrito, noutra prova: **um fake acima do gate mede o fake**.
+Esta missão descobriu a versão dura dessa lei: o executor canónico corre num
+**subprocesso**, e um fake instalado no processo que chama não o alcança.
+
+A saída não foi criar uma costura de teste no código de produção — foi descer
+mais um andar. O cliente HTTP desta casa, na rota paga, é o binário `curl`. Um
+`curl` falso à frente no `PATH` é o mundo, não é nosso:
+
+```
+    O `PATH` É O MUNDO. TROCAR O QUE ESTÁ NELE NÃO É FALSIFICAR A CASA.
+```
+
+E ele traz um bónus que nenhum monkeypatch traz: cada invocação fica escrita num
+ficheiro, e a contagem de POST passa a ser **medida na camada mais funda** em
+vez de deduzida do que o runtime disse que fez.
+
+## 124.6 · UMA PROVA QUE ATRAVESSA A CADEIA INTEIRA ESCREVE ONDE A CADEIA INTEIRA ESCREVE
+
+A prova positiva correu, passou — e deixou **três decisões falsas no livro de
+decisões desta casa** e reescreveu o registo de uma corrida paga REAL.
+
+Não havia bug nenhum. A cadeia inteira inclui o ingresso e a porta de admissão,
+e uma prova que atravessa a cadeia inteira escreve onde a cadeia inteira escreve.
+
+```
+    UMA PROVA QUE DEIXA OBSERVAÇÃO FALSA NO LIVRO DA CASA
+    NÃO PROVOU A CASA: CONTAMINOU-A.
+```
+
+O mundo pode ser falso. O que ele escreve nos livros reais não pode ficar — e o
+«não pode ficar» tem de ser **conferido byte a byte**, não prometido. Inclusive
+o ficheiro que o `.gitignore` ignora: é precisamente esse que passaria
+despercebido para sempre.
+
+## 124.7 · TRÊS DONOS PODEM DIZER NÃO, E O RASTO TEM DE DIZER QUAL
+
+A negativa da autorização passou na parte que conta — zero POST saiu — e
+reprovou na outra: a recusa chegava ao rasto como `UNKNOWN_ERROR`.
+
+O mesmo nome que um extrator partido, um `TypeError` da casa ou um adaptador a
+rebentar. E a casa já tinha escrito a lei **duas vezes**, uma delas dentro da
+própria família de falhas que devia ter acolhido esta recusa.
+
+```
+    UM `except Exception` LARGO NÃO DISTINGUE QUEM DISSE NÃO.
+```
+
+A lição não é «faltou um alias». É que uma guarda nova nasce **fora** do
+vocabulário de falhas da casa, e ninguém repara enquanto ninguém a provar — a
+guarda funciona, recusa certo, e mente sobre quem recusou.
+
+```
+    UMA GUARDA QUE RECUSA CERTO E SE NOMEIA MAL É INDISTINGUÍVEL DE UM DEFEITO.
+    PROVAR A NEGATIVA NÃO É PROVAR QUE PARA: É PROVAR QUE SE EXPLICA.
+```
+
+E há um terceiro andar: o vocabulário fechado traduz o nome exacto para a
+família e guarda o original — o desenho certo. Mas durante todo esse tempo o
+nome original **não era impresso por lado nenhum**, e num runner a saída *é* o
+registo.
+
+```
+    COLAPSAR OS TRÊS DONOS NUMA FAMÍLIA FAZ O RASTO MENTIR
+    SOBRE QUAL DELES PAROU A EXECUÇÃO.
+```
+
+## 124.8 · O FLUXO CANÓNICO NÃO PARTE UMA FASE: FAZ-LHE A PERGUNTA QUE O DESVIO NÃO FAZIA
+
+Migrada, a única fase paga desta casa **deixou de correr**: `BARRADO_NA_RELEVANCIA`.
+
+O alvo sentinela dela é um vídeo de um canal que não tem ficha nenhuma nas 77
+fontes. Com rota paga e sem fonte nomeada, o portão responde `EXIGE_AVALIACAO` —
+e nada corre, e nada custa.
+
+Havia duas formas fáceis de contornar, e ambas seriam mentira:
+
+- escrever um `source_id` no registo do executor, para o portão ter o que julgar
+  → **fabricar procedência**: o portão julgaria uma fonte que a rota não visita;
+- escrever um veredito no livro → avaliar uma fonte que a missão não foi
+  encarregada de avaliar.
+
+```
+    NÃO SE NOMEIA UMA FONTE PARA O PORTÃO TER O QUE JULGAR.
+```
+
+E a leitura certa do resultado:
+
+```
+    O FLUXO CANÓNICO NÃO PARTIU A FASE.
+    ELE FEZ-LHE A PERGUNTA QUE O DESVIO NÃO FAZIA.
+```
+
+Uma migração que faz um caminho parar **é um resultado**, e não uma falha da
+migração — desde que o motivo esteja escrito, seja verdadeiro, e a decisão que
+falta seja de quem a tem de tomar.
+
+## 124.9 · UMA PROVA QUE APONTA PARA A PORTA ANTIGA RECUSA A CASA CERTA
+
+Duas provas desta casa quebraram, e nenhuma por defeito:
+
+- uma exigia que a fase paga entrasse por `social_scrap.py coletar` — a porta
+  canónica **da altura em que foi escrita**;
+- outra guardava que nenhum executor passasse a receber a corrida sem a pedir, e
+  fazia-o com uma **excepção única escrita à mão**.
+
+Nenhuma delas foi enfraquecida. A primeira subiu com a porta — e a lista de
+motores proibidos **ganhou um nome**, o do executor que o disparador deixou de
+ter de conhecer. A segunda trocou a excepção por uma lista declarada, e passou a
+exigir também o inverso: quem está na lista **tem** de pedir a corrida.
+
+```
+    UMA PROVA QUE APONTA PARA A MORADA ANTIGA RECUSA A CASA CERTA.
+    ACTUALIZAR O ALVO DE UMA PROVA NÃO É AFROUXÁ-LA — DESDE QUE O QUE ELA
+    GUARDA FIQUE MAIS APERTADO, E NÃO MENOS.
+```
+
+## 124.10 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Um caminho canónico não é **o** fluxo canónico. As fases da janela continuam a
+saltar o orquestrador, e isso está medido, não escondido. E a fase migrada está
+canónica **e** barrada ao mesmo tempo — as duas coisas são verdade, e nenhuma
+paga pela outra.
+
+```
+    CANONICAL_ORCHESTRATION(um caminho) = PASS
+    não é
+    CANONICAL_ORCHESTRATION(o fluxo)    = PASS.
+```
+
+O que mudou, e vale para o próximo: a escolha do executor tem dono, o livro é
+uma entrada que se diz, e a corrida declara o que produziu. O segundo caminho
+custa menos do que este — e é essa a única promessa que esta secção faz.
+
+---
+
+# §125 · UMA ROTA QUE NÃO COMPRA NADA AINDA TEM DE OBEDECER A TUDO
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§94`** em
+> `origin/claude/wonderful-hamilton-m50ahv` @ `6a9907e2`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§94` → endereço canónico `§125`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+> **Missão:** SCRAP-FLOW-02 · migrar **uma** rota GRATUITA real para
+> `ENTRYPOINT → REQUEST → ORCHESTRATOR → SCRAP EXECUTOR`, e prová-la ponta a
+> ponta sem rede real.
+>
+> ```
+> FREE != CANONICAL.  ROUTE WORKS != FLOW WORKS.  FREE_ROUTE != NO_GATES.
+> ```
+>
+> ⚠️ **NUMERAÇÃO.** Medido nesta missão: o ramo canónico do know-how
+> (`claude/sintonia-eame-know-how-v1` @ `72c59dbe`) tem §91, §92 e §93
+> **diferentes** dos §91, §92 e §93 desta linha. Três colisões, três missões
+> seguidas. Esta secção leva o número seguinte **desta** linha, e o aviso fica
+> escrito porque a memória de quem escreve não é o sítio para o resolver:
+>
+> ```
+> UM CONTADOR PARTILHADO DE QUE NINGUÉM É DONO
+> NÃO É UM CONTADOR: SÃO TRÊS CONTADORES COM O MESMO NOME.
+> ```
+
+A §124 provou o caminho canónico com uma **compra**, e deixou a pergunta seguinte
+por responder. Esta secção é o que se aprendeu a responder-lhe.
+
+## 125.1 · O CENSO TEM DE DISTINGUIR UMA PORTA DE PRODUÇÃO DE UMA MEDIÇÃO
+
+O primeiro instinto foi escolher a rota pelo que o relatório anterior tinha
+citado. O censo mostrou porque isso estaria errado — e mostrou algo melhor: das
+seis candidatas gratuitas, **uma** era operação e **cinco** eram medições
+declaradas.
+
+E as medições diziam-no por escrito, ao lado de si próprias: existem aos PARES
+para se poder comparar a estrada direta com a estrada pelo executor. Convertê-las
+apagaria exactamente a pergunta que elas respondem.
+
+```
+    MODULE EXISTS != EDGE EXISTS != FLOW EXISTS.
+
+    CONVERTER UMA MEDIÇÃO EM PORTA DE PRODUÇÃO NÃO FECHA UM DESVIO:
+    APAGA O INSTRUMENTO QUE MEDIA O DESVIO.
+```
+
+Um censo de bypasses que conta medições como buracos produz um número que
+melhora quando a casa fica mais cega.
+
+## 125.2 · «NÃO SERVE» NÃO É «NÃO SERVE SE FOR CARO»
+
+A negativa da relevância reprovou à primeira, e o que ela mostrou é a forma mais
+cara de defeito que este repositório já viu três vezes: **a lei estava escrita,
+o campo estava publicado, e ninguém o lia.**
+
+O dono da lei escrevia a tabela por extenso — `NAO -> BARRA em todas, inclusive
+na rota de graça` — e publicava um campo próprio para isso. Quem corria lia só o
+outro campo, o do gasto. E esse, numa rota gratuita, é **sempre falso por
+construção**: `bool(gastos) and not pode_gastar`, com `gastos == []`.
+
+Resultado medido: uma fonte que alguém abriu, olhou e **recusou** continuava a
+ser observada — desde que a rota não custasse dinheiro.
+
+```
+    UM CAMPO PUBLICADO QUE NINGUÉM LÊ É UMA LEI QUE NÃO EXISTE.
+    E UM BOOLEANO QUE É SEMPRE FALSO NUMA METADE DOS CASOS
+    NÃO ESTÁ A GUARDAR ESSA METADE.
+```
+
+A cura foi no **obediente**, nunca na lei: quem corre passou a ler os dois
+campos. E a outra metade fica intacta de propósito — `EXIGE_AVALIACAO` numa rota
+gratuita continua a deixar observar, porque o portão guarda o gasto. São duas
+perguntas, e agora as duas são feitas.
+
+E há um remate que quase escapou: a guarda nova precisa de um caso onde a rota
+seja **gratuita E nomeie uma fonte**. Na rota migrada isso não existe — ela não
+aceita fonte, de propósito. O guarda teve de ir viver onde o caso existe.
+
+```
+    UMA GUARDA ESCRITA SOBRE UM CASO IMPOSSÍVEL PASSA SEMPRE,
+    E NÃO GUARDA NADA.
+```
+
+## 125.3 · UM LITERAL QUE ACERTA PORQUE SÓ HÁ UM CASO É UM LITERAL QUE VAI MENTIR
+
+A missão anterior escrevia a origem de cada unidade colhida como
+`SCRAP-<GAVETA>/<fase>`, numa linha só. Estava certo — e estava certo **apenas
+enquanto houvesse uma fase**. A segunda rota teria carimbado a gaveta do YouTube
+em cima de material do Instagram, sem erro nenhum e sem teste nenhum a reprovar.
+
+```
+    UM LITERAL QUE ACERTA PORQUE SÓ HÁ UM CASO
+    É UM LITERAL QUE VAI MENTIR NO SEGUNDO.
+```
+
+A saída não foi uma tabela de casos: foi mudar **quem responde**. Cada unidade
+passou a trazer a origem, carimbada por quem sabe — o adaptador, que leu o
+artefato e copiou o `SOURCE_ID` que o próprio artefato já declarava.
+
+```
+    QUEM PRODUZ DIZ DE ONDE VEIO. QUEM DECLARA SÓ TRANSCREVE.
+    COPIAR O QUE O ARTEFATO DECLARA NÃO É INVENTAR UMA FONTE.
+```
+
+E quem chega sem origem **não recebe uma**: fica de fora, e o número fica escrito
+no envelope. Inventar uma fonte para a unidade poder viajar seria trocar um
+buraco visível por um dado falso.
+
+## 125.4 · O FAKE TEM DE SER O MUNDO, E O MUNDO ÀS VEZES É UM SOCKET
+
+A §124 desceu até ao binário `curl` porque o executor corre num subprocesso e um
+monkeypatch não atravessa processos. Esta missão encontrou a versão seguinte do
+mesmo problema: a rota gratuita fala com um **navegador**, e um navegador não é
+um binário que se chama — é uma porta que se ocupa.
+
+A saída foi escrever um servidor que fala DevTools em `127.0.0.1`: handshake de
+WebSocket, enquadramento, e as cinco chamadas que o cliente desta casa faz. O
+cliente real fala com ele sem saber a diferença — e, enquanto ele escuta, quem
+sobe o navegador encontra a porta ocupada e **não abre nada**.
+
+```
+    O `PATH` É O MUNDO. A PORTA TAMBÉM É.
+    TROCAR O QUE ATENDE NUM SOCKET NÃO É FALSIFICAR A CASA.
+```
+
+E há um bónus que nenhum monkeypatch dá: o servidor **regista cada pedido**. As
+provas negativas deixam de perguntar ao runtime se ele tocou no mundo — elas
+perguntam **ao mundo** se foi tocado.
+
+```
+    UMA NEGATIVA QUE ACREDITA NO RUNTIME MEDE O RUNTIME.
+    UMA NEGATIVA QUE CONTA OS PEDIDOS NA PONTA MEDE O QUE ACONTECEU.
+```
+
+## 125.5 · O QUE UMA PROVA APAGA TEM DE SER CONFERIDO, NÃO PROMETIDO
+
+A §124 aprendeu que uma prova que atravessa a cadeia inteira escreve onde a cadeia
+inteira escreve. Esta missão aprendeu a metade seguinte: **a lista do que limpar
+não se adivinha — mede-se**.
+
+A rota gratuita não escreve só ficheiros: cria **pastas** que podem não existir
+antes. Repor um ficheiro que existia é fácil; reconhecer que uma pasta inteira
+não existia é outra pergunta, e é preciso fazê-la **antes**.
+
+E a conferência final não pode ser «eu reponho no `finally`»: tem de ser comparar
+o conteúdo no fim, byte a byte, e reprovar a prova se não bater.
+
+```
+    REPOR É UMA PROMESSA. CONFERIR É UMA MEDIÇÃO.
+```
+
+## 125.6 · ONDE A SUJIDADE APARECE NÃO É QUEM A FEZ
+
+O fecho anterior sinalizou que «alguns testes desta casa escrevem nos livros
+reais», e nomeou os testes da Itália. Esta missão mediu, **teste a teste**,
+comparando o estado da árvore antes e depois de cada um dos 142 e repondo-a entre
+eles. O resultado corrigiu a atribuição: **nenhum teste suja**. Quem suja é uma
+PROVA — a de mutação do portão, que corre o orquestrador real por subprocesso
+vinte e duas vezes seguidas, e o orquestrador real atravessa o ingresso e a porta
+de admissão.
+
+A atribuição errada tinha a forma mais comum que há: eu tinha corrido as duas
+coisas antes de olhar.
+
+```
+    ONDE A SUJIDADE APARECE NÃO É QUEM A FEZ.
+    ATRIBUIR SEM ISOLAR É ADIVINHAR COM CARA DE MEDIÇÃO.
+```
+
+E medir não é consertar:
+
+```
+    MEDIR UMA DÍVIDA É TRABALHO DESTA MISSÃO.
+    PAGAR A DÍVIDA DE OUTRA É TROCAR DE MISSÃO A MEIO.
+```
+
+O que a missão deve é deixar a dívida **nomeada**, com caminho e dono, e provar
+que o que ela própria acrescentou não a aumenta.
+
+### 125.6.1 · E a ferramenta que mede pode apagar o que se está a escrever
+
+O medidor deste censo repõe a árvore entre testes — `git checkout -- .` — e isso
+apaga **trabalho por versionar** que esteja em curso. Aconteceu: uma secção
+inteira deste ficheiro desapareceu a meio da medição, sem erro nenhum.
+
+```
+    UMA FERRAMENTA QUE REPÕE A ÁRVORE NÃO DISTINGUE
+    SUJIDADE DE TRABALHO QUE AINDA NÃO FOI GUARDADO.
+```
+
+Quem corre uma medição destas guarda primeiro. É barato, e a alternativa é
+reescrever de memória aquilo que já se tinha pensado uma vez.
+
+## 125.7 · DUAS LINHAS PODEM RESPONDER À MESMA PERGUNTA, E NENHUMA SABE DA OUTRA
+
+O `git fetch` desta missão trouxe um ramo que implementa **a mesma missão
+anterior**, sobre **a mesma rota que esta migrou**, com um mecanismo diferente
+para cada decisão — outro nome para o selector, outro caminho para o envelope,
+outro ficheiro a adaptar o SCRAP à porta, e o **mesmo nome de ficheiro** para a
+prova.
+
+Não houve defeito em nenhum dos dois lados. Houve duas linhas a correr a mesma
+lei sem se conhecerem.
+
+```
+    DUAS IMPLEMENTAÇÕES DA MESMA LEI NÃO SE RESOLVEM POR MÉRITO TÉCNICO:
+    RESOLVEM-SE POR ALGUÉM DECIDIR QUAL É A LEI.
+```
+
+O que uma missão pode fazer sozinha é **medir e dizer** — os dois heads, a tabela
+das divergências, e o que colide. Fundir por iniciativa própria seria tomar uma
+decisão de arquitetura como efeito colateral de uma migração.
+
+## 125.8 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Duas rotas canónicas não são **o** fluxo canónico. As medições declaradas
+continuam por fora, e isso é de propósito. E a rota gratuita continua a depender
+do ambiente: sem navegador ela recusa — com nome próprio, o que é o desenho, e
+não um conserto pendente.
+
+```
+    CANONICAL_ORCHESTRATION(duas rotas) != CANONICAL_ORCHESTRATION(o fluxo).
+```
+
+O que a segunda rota provou, e a primeira não podia provar sozinha: **o caminho
+canónico não depende de haver uma compra.** O portão continua a ser consultado, a
+política continua soberana, o teto de acessos continua dono do seu eixo — e
+nenhum deles precisou de um dólar para funcionar.
+
+---
+
+# §126 · UMA SONDA QUE CONFIRMA UM SEGREDO NÃO PROVA QUE ELE É USADO
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§95`** em
+> `origin/claude/wonderful-hamilton-m50ahv` @ `6a9907e2`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§95` → endereço canónico `§126`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+> **Missão:** META-OP-01 · fechar a superfície oficial da Meta — Ad Library e
+> Branded Content — para uso da Collection.
+>
+> ```
+> TOKEN_PRESENT != TOKEN_SENT.
+> PUBLIC_WEB_HTTP != OFFICIAL_API_HTTP.
+> PAGE_ID != SOURCE_ID.
+> 401/403 != ZERO_RESULTS.
+> ```
+>
+> ⚠️ **NUMERAÇÃO.** Medido outra vez: o ramo canónico do know-how
+> (`claude/sintonia-eame-know-how-v1` @ `37733a8f`) tem §92, §93, §94, §95 e §96
+> **todos diferentes** dos desta linha. Já são quatro números em colisão, e a
+> §94 desta linha avisou que seriam mais. Não se resolve por memória de quem
+> escreve.
+
+## 126.1 · O DEFEITO QUE UMA SONDA VERDE ESCONDE
+
+`META_GRAPH_TOKEN` aparecia numa linha só do repositório inteiro: a constante
+que a **sonda** lê para responder «tenho credencial?». As duas rotas oficiais
+montavam a URL, chamavam o transporte, e a requisição sairia **anónima**.
+
+A sonda dizia SIM. O `CHECK` dizia que dava. O mapa dizia `WIRED`. E não havia
+autenticação nenhuma.
+
+```
+    UMA SONDA QUE CONFIRMA A PRESENÇA DE UM SEGREDO NÃO PROVA QUE ELE É USADO.
+    PROVA QUE ELE EXISTE — E ESSAS SÃO DUAS PERGUNTAS.
+```
+
+É a mesma família de defeito que a §124 encontrou na guarda do gasto e a §125 na
+recusa da fonte: **a peça existia, o campo estava publicado, e ninguém o
+ligava**. Três missões, três formas do mesmo erro — e nenhuma delas apareceria
+num teste de «a peça existe?».
+
+```
+    DECLARED != REGISTERED != WIRED != AUTENTICADO != EXECUTADO.
+    E CADA SETA DESSAS PRECISA DA SUA PRÓPRIA PROVA.
+```
+
+## 126.2 · O SEGREDO NÃO PODE ESTAR ONDE O RASTO PASSA
+
+Um token pode viajar de duas formas oficiais: na query string ou em cabeçalho.
+As duas funcionam. Só uma sobrevive ao resto da casa.
+
+Uma URL viaja para o rasto, para o log, para a excepção, para o manifesto e para
+o artefato que vai ao Git. Um cabeçalho não viaja para nenhum deles.
+
+```
+    TOKEN NA URL É UM SEGREDO COM PASSAPORTE.
+```
+
+E há a metade que quase escapa: **o segredo que vem de fora**. A Ad Library
+devolve um `ad_snapshot_url` com o token embutido, e o envelope guardava o item
+inteiro. Uma redacção que só protege o que nós escrevemos não protege contra o
+que nos é entregue.
+
+```
+    O SEGREDO QUE VEM DE FORA TAMBÉM É UM SEGREDO.
+```
+
+E a redacção **diz-se**: escreve-se uma palavra que se procura num ficheiro e
+num teste, em vez de apagar em silêncio. Um campo que desaparece sem explicação
+lê-se como um campo que a fonte não deu.
+
+## 126.3 · UM PORTÃO FEITO PARA CRAWLER APLICADO A UMA API PROTEGE OUTRA COISA
+
+O transporte da web pública lê o `robots.txt` do host antes de tudo — e é isso
+que um agente que percorre páginas públicas deve fazer. As rotas oficiais da
+Meta usavam-no.
+
+A pergunta não se respondeu por opinião: respondeu-se pelo **contrato que já
+existia**. A matriz desta casa já declara `OFFICIAL_API_FREE` como classe
+separada; e a única rota dessa classe ligada antes desta **nunca** consultou
+`robots.txt`.
+
+```
+    robots.txt GOVERNA QUEM PERCORRE, NÃO QUEM TEM CONTRATO.
+```
+
+Três consequências, e nenhuma é conveniência: um cliente autenticado não é um
+crawler; ler o `robots.txt` de uma API é uma ida à rede que ninguém pediu — e
+num probe de UMA requisição é a requisição toda; e o transporte público **não
+sabe levar credencial**, o que empurraria o token para a URL.
+
+E o que separa isto de um afrouxamento é o nome:
+
+```
+    UM SEGUNDO TRANSPORTE COM NOME E DONO NÃO É UM BYPASS.
+    UM BYPASS É UMA EXCEPÇÃO DENTRO DO PRIMEIRO.
+```
+
+O portão das rotas web não enfraqueceu — e isso **mediu-se**, na mesma prova,
+vendo-o ir buscar o `robots.txt` de um host público enquanto a API oficial não o
+buscava.
+
+## 126.4 · «NÃO ME DEIXARAM VER» NÃO É «NÃO HAVIA NADA PARA VER»
+
+O transporte público traduz qualquer erro de HTTP em «a plataforma
+impediu-nos». Um 401 não é isso: é a nossa credencial a não servir. E o pior
+colapso possível é o outro:
+
+```
+    401/403 NÃO É ZERO. NUNCA FOI.
+    UMA RECUSA DE AUTORIZAÇÃO ACONTECEU AO PEDIDO.
+    ZERO É UMA MEDIÇÃO SOBRE A FONTE.
+```
+
+Juntar os dois faz a **fonte levar a culpa pela credencial** — e três meses
+depois alguém lê «esta empresa não anuncia» onde a verdade era «não nos deixaram
+perguntar».
+
+E, mais uma vez, a palavra certa já existia e não tinha família:
+`AUTHORIZATION_BLOCK` — usada pelo estudo e pela matriz — caía no balde de
+«ninguém sabe o que houve». Um 403 é o contrário de não se saber.
+
+```
+    TER A CHAVE NÃO É TER LICENÇA. E AS DUAS AUSÊNCIAS TÊM CURAS DIFERENTES:
+    UMA ROTACIONA-SE, A OUTRA PEDE-SE A UMA PESSOA.
+```
+
+## 126.5 · UMA CAPACIDADE QUE SÓ CORRE DEPOIS DE PROVADA NUNCA CHEGA A SER PROVADA
+
+O `CHECK` recusa, em modo normal, toda capacidade que ainda não promete
+resultado — e faz bem. Sozinho, isso fecha um ciclo.
+
+A saída já estava escrita há missões (o ENSAIO), e o que faltava era alguém
+**declarar** que estas rotas entram por ali. A declaração é versionada, tem
+motivo escrito, e traz **todos os limites do ensaio num sítio só**: tecto de
+acessos, tecto de itens, janela de tempo.
+
+```
+    UM ENSAIO DECLARA OS SEUS LIMITES NUM SÍTIO SÓ.
+    TRIAL_ELIGIBLE != PRODUCTION_READY. TRIAL PASSADO != CAPACIDADE PROVADA.
+```
+
+### 126.5.1 · E o que se traduz não pode morar na tabela do que se entrega
+
+A tabela das fases diz **o que chega ao executor**, chave a chave, e há prova
+desta casa que o exige. Pôr lá um «30 dias» que vira duas datas pelo caminho é
+exactamente uma reescrita — e a prova apanhou-a à primeira.
+
+```
+    UM PEDIDO REESCRITO EM SILÊNCIO É UM PEDIDO QUE NINGUÉM FEZ.
+    O QUE SE TRADUZ NÃO PODE MORAR NA TABELA DO QUE SE ENTREGA.
+```
+
+## 126.6 · UMA CREDENCIAL DE PROVA COM ALCANCE A MAIS APAGA AS PROVAS QUE MEDEM A AUSÊNCIA DELA
+
+Fechar a porta da credencial partiu uma suíte inteira, que chamava as rotas com
+transporte falso. A saída fácil era abrir uma excepção para quem injecta o
+transporte — e isso faria da costura de teste um **bypass de credencial**.
+
+```
+    UMA PROVA QUE PRECISA DO DEFEITO PARA PASSAR É UMA PROVA DO DEFEITO.
+```
+
+A saída certa foi dar-lhe um token obviamente falso. E a primeira tentativa
+deu-o ao **módulo inteiro** — o que fez três ataques ficarem verdes tendo
+deixado de medir: eram exactamente os que mediam o que acontece **sem**
+credencial.
+
+```
+    UMA CREDENCIAL DE PROVA COM ALCANCE MAIOR DO QUE A CHAMADA
+    APAGA AS PROVAS QUE MEDEM A AUSÊNCIA DELA.
+```
+
+Uma suíte que fica verde por ter parado de perguntar é pior do que uma suíte
+vermelha.
+
+## 126.7 · IDENTIDADE NA PLATAFORMA NÃO É FICHA NESTA CASA
+
+O alvo destas rotas é um `page_id` ou um `ig_username`. Nenhum deles é um
+`SOURCE_ID`: as fichas que esta casa tem para os mesmos concorrentes descrevem
+o **site institucional** deles, não a página. Promover o identificador externo a
+fonte faria material de uma superfície entrar por uma ficha que fala de outra.
+
+```
+    PAGE_ID != SOURCE_ID.
+    IDENTIDADE NA PLATAFORMA != FICHA NESTA CASA.
+```
+
+Os dois viajam, e viajam **separados**: a origem é a do nó que produziu, e o
+identificador da plataforma fica no RAW com o nome que tem. É a terceira missão
+seguida a chegar à mesma conclusão por caminhos diferentes — e à mesma dívida:
+**o alvo da rota não tem ficha, e levantá-la é decisão de gente.**
+
+## 126.8 · O QUE ESTA SECÇÃO NÃO AFIRMA
+
+Nada aqui foi provado ao vivo. `META_GRAPH_TOKEN` está ausente nesta máquina, e
+esta missão não o procurou. A forma de autenticação escolhida é a oficial e a
+que não vaza — mas que **esta** conta, **este** app e **este** nó a aceitem é
+coisa que só o probe real responde.
+
+```
+    IMPLEMENTATION_READY = PASS  não é  LIVE_PROVEN = YES.
+    READY_PENDING_CREDENTIAL não é PRODUCTION_PROVEN.
+```
+
+E as duas capacidades continuam `NOT_EXECUTED`, porque é o que elas são:
+
+```
+    NUNCA SE PROMOVE UM ESTADO POR EXISTIR CÓDIGO PARA ELE.
+```
+
+---
+
+# §127 · UM GRAFO TRUNCADO RESPONDE «NÃO EXISTE» ÀS PERGUNTAS QUE NÃO SABE RESPONDER
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§111`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§111` → endereço canónico `§127`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+A entrega de `C-INT-SPINE-01` declarou, com ênfase, que a branch da espinha
+**não tinha ancestral comum** com nenhuma autoridade da Intelligence — e
+construiu sobre isso a decisão de não integrar.
+
+A afirmação estava errada. O ancestral comum existe:
+
+```
+96933996e136cbbbca17dbe99e75f668fe050ec5
+2026-08-29 · «handoff: a tag foi recusada pelo proxy, e o marcador passa a ser o commit»
+```
+
+E é o mesmo para as **sete** referências medidas — linha funcional, agro,
+Bíblia, arbitragem, Motor V2, know-how e `main`.
+
+## POR QUÊ — A CAUSA, PROVADA
+
+```
+git rev-parse --is-shallow-repository   ->  true
+cat .git/shallow                        ->  472b4f9da48fa9f62002d6435bfcb52dd2f15f84
+                                            2026-09-06
+```
+
+O clone era **raso**. O enxerto cortava a história em 2026-09-06, e o ancestral
+comum é de 2026-08-29 — **abaixo do corte**. O `git merge-base` devolveu vazio
+porque, dentro do grafo que lhe deram, a resposta certa *era* vazio.
+
+```
+git merge-base --is-ancestor 96933996 472b4f9d   ->  verdadeiro
+git fetch --unshallow                            ->  a branch passa de 51 para 190 commits
+git merge-base <espinha> <qualquer autoridade>   ->  96933996, nas sete
+```
+
+## PROVA
+
+A mesma medição, antes e depois de um comando que não mudou uma linha de
+código:
+
+| | antes | depois |
+|---|---|---|
+| profundidade da branch | 51 commits | 190 commits |
+| `merge-base` com 7 autoridades | vazio, 7 vezes | `96933996`, 7 vezes |
+| conclusão publicada | «histórias desconexas» | «divergiram em 2026-08-29» |
+
+## CONSEQUÊNCIA
+
+**Duas, e a segunda é maior.**
+
+### 1 · A regra operacional
+
+```
+ANTES DE CONCLUIR AUSENCIA A PARTIR DE git merge-base, git log OU git grep:
+
+    git rev-parse --is-shallow-repository
+
+E SE FOR `true`, A MEDICAO NAO VALE — nem para dizer que existe, nem para
+dizer que nao existe.
+```
+
+Um clone raso não devolve erro. Devolve **silêncio**, e silêncio lê-se como
+ausência.
+
+### 2 · É o `§NEXT` da missão anterior, outra vez, com outra roupa
+
+Aquela secção escreveu-o para o `grep`:
+
+```
+UM CENSO SEM A FOTOGRAFIA DECLARADA E UM NUMERO SEM DENOMINADOR.
+```
+
+Faltava metade. A fotografia não é só *qual commit* — é **quanto da história
+veio junto**. Um censo pode declarar o commit certo e mesmo assim estar cego,
+se o grafo que o rodeia estiver cortado.
+
+```
+DECLARAR O COMMIT NAO CHEGA. DECLARA-SE TAMBEM A PROFUNDIDADE —
+PORQUE UM GRAFO TRUNCADO RESPONDE «NAO EXISTE»
+AS PERGUNTAS QUE ELE NAO SABE RESPONDER.
+```
+
+E a consequência prática, medida nesta casa em duas missões seguidas: **as duas
+conclusões erradas da frente Intelligence tiveram a mesma forma.** Uma
+mediu num repositório sem `leis/gestao_da_coleta.py`; a outra mediu num grafo
+sem o ancestral comum. Nenhuma das duas foi descuido de quem mediu.
+
+```
+O ERRO NAO ESTAVA NA MEDICAO. ESTAVA EM MEDIR
+SEM PERGUNTAR QUANTO DO MUNDO ESTAVA DENTRO DO ENQUADRAMENTO.
+```
+
+---
+
+# §128 · UM CONTRATO COM UMA CHAVE ESTRANGEIRA PARA NINGUÉM ESTÁ A DESCREVER UM DONO QUE AINDA NÃO CHEGOU
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§112`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§112` → endereço canónico `§128`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+A missão anterior propôs partir `COLLECTION_GAP` em dois donos. Era hipótese.
+Re-medida contra a árvore integrada — onde `leis/gestao_da_coleta.py`,
+`admissao/`, `motor/` e as leis da Intelligence coexistem pela primeira vez —
+**sobreviveu, e com uma prova mais dura do que a que a propôs.**
+
+```
+CAMPOS_DA_NECESSIDADE ∩ CAMPOS_DA_FALTA  =  {REQUIREMENT_ID}
+```
+
+Uma só. A necessidade é de quem a declara; a falta é de quem a mede; e as duas
+tocam-se num identificador, e em mais nada.
+
+## POR QUÊ
+
+A divisão **não foi inventada pela Intelligence**. Já estava desenhada em
+`GESTAO_DA_COLETA/v1`, escrita em 2026-09-08 por quem trabalhava a Collection:
+
+```
+CAMPOS_DA_NECESSIDADE   REQUIREMENT_ID · O_QUE · JANELA · FRESCURA_EXIGIDA ·
+                        GRAO · PORQUE_IMPORTA · POLICY_VERSION
+CAMPOS_DA_FALTA         GAP_ID · REQUIREMENT_ID · SATISFACTION_STATE · ...
+```
+
+O contrato declara os campos de uma necessidade **e nunca diz quem a escreve**.
+Tem uma chave estrangeira apontada para um declarante que ele não nomeia.
+
+## PROVA
+
+```
+motor/ e superficie/  tocam  GAP_ID · SATISFACTION_STATE · COLLECT_NOW ·
+                             DO_NOT_COLLECT · DEFER_UNKNOWN
+                             em ZERO ficheiros
+```
+
+Os únicos ficheiros do lado da Intelligence que escrevem esse vocabulário são
+os documentos e as provas da espinha — e escrevem-no para o **proibir**:
+`provas/espinha_da_intelligence.py` recusa doze dessas palavras em código, e
+`tests/test_atomicidade_da_intelligence.py::P4` tenta contrabandeá-las de
+quatro maneiras.
+
+## CONSEQUÊNCIA
+
+```
+QUANDO UM CONTRATO DESCREVE UM PAPEL QUE NINGUEM OCUPA,
+ELE NAO ESTA INCOMPLETO: ESTA A ESPERA.
+E PREENCHE-LO COM UM SEGUNDO CONCEITO DO MESMO NOME
+E A MANEIRA MAIS RAPIDA DE ARRANJAR DOIS DONOS.
+```
+
+E a regra de leitura que isto deixa: antes de criar um conceito, procurar **um
+contrato existente com um campo por preencher**. Foi assim que
+`INTELLIGENCE_REQUIREMENT` nasceu com dono, vocabulário e chave — em vez de
+nascer com um nome novo ao lado de um nome antigo.
+
+---
+
+# §129 · UM PORTÃO QUE PRENDE O TRABALHO CERTO É UM PORTÃO QUE ALGUÉM DESLIGA — E A EXCEÇÃO PAGA-SE COM PROVA
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§113`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§113` → endereço canónico `§129`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+Integrar as autoridades da Intelligence fez morder a **trava da Inteligência**
+da Collection (`COLLECTION_FOUNDATION_CLOSED = NAO`). Ela acusou dois ficheiros
+de serem «inteligência nova»:
+
+```
+provas/arbitragem_da_intelligence.py   -> IMPLEMENTATION
+controle/AUTORIDADES-CANONICAS.json    -> CONTRACT
+```
+
+O primeiro porque escreve `SIGNAL`, `CROSSING` e `OPPORTUNITY` por extenso —
+para os **procurar**. O segundo porque declara `"SCHEMA"` — mas o contrato que
+declara é o de **governança**, não o de análise.
+
+## POR QUÊ
+
+O próprio contrato da trava já autorizava os dois, por escrito:
+
+```
+O_QUE_A_TRAVA_NAO_IMPEDE:
+  · preservar historico e documentos
+  · medir o que a inteligencia futura vai esperar da coleta
+```
+
+E o classificador já tinha a lista `INSTRUMENTOS` para isto, com o precedente
+escrito ao lado: `leis/fundacao_da_coleta.py` nomeia `FIELD_VOICES` e `SCORING`
+**para os bloquear**, e congelá-la trancaria a própria fechadura.
+
+```
+O INSTRUMENTO DE MEDIDA NAO E A COISA MEDIDA.
+```
+
+## PROVA
+
+A exceção não foi paga com um comentário. Foi paga com `P10b`:
+
+```
+o instrumento nao tem funcao com verbo de calculo
+o que ele devolve e contagem — sem SCORE, sem CONFIDENCE
+o registo de autoridades nao carrega SIGNAL_ID, FINDING_ID nem OPPORTUNITY_ID
+a lista INSTRUMENTOS tem SEIS nomes, e o teste falha no setimo
+provas/espinha_da_intelligence.py NAO pediu excepcao — continua sob a trava
+```
+
+O último é o que interessa: **a máquina de estados da Intelligence continua
+congelada.** Quem pediu passagem foi o instrumento que a mede, não a coisa
+medida.
+
+## CONSEQUÊNCIA
+
+```
+UMA EXCEPCAO A UM PORTAO DE OUTRA FRENTE SO E LEGITIMA
+SE FOR ESTREITA, DECLARADA E VERIFICAVEL.
+SEM AS TRES, E UMA PORTA COM UM COMENTARIO BONITO.
+```
+
+E o corolário para quem integrar autoridades no futuro: **o portão da outra
+frente é informação, não obstáculo.** Ele apanhou exatamente o que existe para
+apanhar; o que estava errado era a espécie que o classificador atribuía, e o
+conserto foi na fonte — nunca no JSON gerado, nunca na baseline.
+
+---
+
+# §130 · UM CONCEITO SEM DONO E UM NOME COM DONOS A MAIS DÃO A MESMA LEITURA — E EXIGEM O CONTRÁRIO
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§114`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§114` → endereço canónico `§130`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+A arbitragem V2 declarou dois conceitos em `HUMAN_DECISION_REQUIRED`:
+
+```
+RELEVANCE  105 ficheiros · COLLECTION 8 · INTELLIGENCE 3 · DELIVERY 32 · OUTRA 38
+PRIORITY   114 ficheiros · COLLECTION 6 · INTELLIGENCE 5 · DELIVERY 21 · OUTRA 66
+```
+
+Espalhados por quatro camadas, sem módulo dono. A leitura óbvia é «ninguém
+decidiu quem possui isto».
+
+**A leitura estava errada.** Medido, conceito a conceito:
+
+```
+RELEVANCE  = CINCO perguntas diferentes · QUATRO ja com dono em lei e codigo
+PRIORITY   = QUATRO perguntas diferentes · TRES ja com dono em lei e codigo
+```
+
+Sete dos nove tinham dono. O que não tinha dono era **a palavra**.
+
+## POR QUÊ
+
+As duas situações produzem exatamente o mesmo sintoma numa contagem por
+ficheiro:
+
+```
+UM CONCEITO SEM DONO        aparece em muitos sitios porque ninguem o reclamou
+UM NOME COM DONOS A MAIS    aparece em muitos sitios porque cada dono reclamou
+                            uma coisa DIFERENTE com o mesmo nome
+```
+
+E exigem tratamentos opostos:
+
+```
+o primeiro pede-se que ALGUEM O ADOPTE
+o segundo pede-se que O NOME SEJA APOSENTADO
+```
+
+Adoptar um dono para o segundo caso é o pior desfecho possível: cria um sétimo
+proprietário para uma palavra que já tinha seis significados, e o novo dono
+passa a responder por perguntas que nunca foram dele.
+
+## PROVA
+
+A prova mais dura não veio de código novo. Veio de ler o cabeçalho de uma lei
+da **Collection**, escrita antes desta missão:
+
+```
+leis/relevancia_da_fonte.py
+
+    SOURCE_RELEVANCE != ITEM_RELEVANCE       -> admissao/admissao.py
+    SOURCE_RELEVANCE != SOURCE_HEALTH        -> medidas/source_health.py
+    SOURCE_RELEVANCE != ACCESSIBILITY        -> pedido/receitas.py
+    SOURCE_RELEVANCE != SOURCE_RELIABILITY   -> COL-LAW-216
+    SOURCE_RELEVANCE != COST                 -> COL-LAW-018 · COL-LAW-019
+    SOURCE_RELEVANCE != COLLECTION_PRIORITY  -> leis/politica_da_coleta.py
+    SOURCE_RELEVANCE != CASE_RELEVANCE       -> leis/adama_relevance.py
+```
+
+**Sete fronteiras, com o dono de cada uma, já escritas.** A arbitragem que
+declarou «sem dono» correu um `grep` por cima deste ficheiro sem o abrir.
+
+E os vocabulários confirmam-no sem ambiguidade:
+
+```
+SOURCE_RELEVANCE   AUTORIZA · BARRA · EXIGE_AVALIACAO
+CASE_RELEVANCE     A · B · C · D · E
+interseccao        VAZIA
+```
+
+Duas escalas sem um único valor em comum não são o mesmo conceito com
+granularidade diferente. São perguntas diferentes.
+
+## CONSEQUÊNCIA
+
+**Três, e a terceira é a que fica.**
+
+### 1 · A regra de leitura
+
+```
+ANTES DE DECLARAR UM CONCEITO «SEM DONO», ABRIR OS TRES FICHEIROS QUE
+MAIS O MENCIONAM E LER O CABECALHO.
+
+Uma lei desta casa costuma declarar as suas proprias fronteiras — e quem
+as declarou ja fez metade da arbitragem que se ia pedir a outra pessoa.
+```
+
+### 2 · O sintoma distingue-se por uma pergunta só
+
+```
+«AS OCORRENCIAS RESPONDEM A MESMA PERGUNTA?»
+
+SIM  -> conceito sem dono. Procurar quem o adopta.
+NAO  -> nome sobrecarregado. Aposentar o nome, e nao arranjar-lhe dono.
+```
+
+### 3 · É a terceira vez, e as três tiveram a mesma forma
+
+```
+COLLECTION_GAP   um nome, dois conceitos, dois donos   (§128)
+RELEVANCE        um nome, cinco conceitos, quatro donos
+PRIORITY         um nome, quatro conceitos, tres donos
+```
+
+Nos três casos o sintoma foi «conceito sem dono», e nos três a causa foi a
+mesma: **contámos a palavra e chamámos-lhe conceito.**
+
+```
+UM CENSO QUE CONTA PALAVRAS MEDE O VOCABULARIO, NAO A ARQUITETURA.
+E VOCABULARIO SOBRECARREGADO PARECE-SE, NA TABELA,
+EXACTAMENTE COM ARQUITETURA POR DECIDIR.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra escolha de owner para RELEVANCE nem para PRIORITY.
+As duas continuam AWAITING_HUMAN_DECISION, e uma decisao que ainda
+nao foi tomada nao se escreve na memoria como se tivesse sido.
+```
+
+---
+
+# §131 · IMPORTAR UM PORTÃO NÃO É PASSAR NELE — E UM CHÃO MEDIDO NOUTRA ÁRVORE MEDE A MUDANÇA DE CASA
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§115`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§115` → endereço canónico `§131`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+A missão `C-INT-ATOMICITY-01` trouxe para a árvore integrada o Control Plane
+inteiro: o registo de autoridades, o censo, **e o portão de governança**. Fechou
+com `CONTROL_PLANE_ATOMICITY = PASS`, `SYSTEM_MAP_CHECK = PASS` e 0 regressões.
+
+**Nunca correu o portão que tinha acabado de importar.**
+
+A primeira vez que ele correu foi na missão seguinte:
+
+```
+PORTAO_DO_CONTROLE=FAIL · 2 provas reprovadas
+  BROKEN_POINTER                    2
+  UNREGISTERED_CANONICAL_DOCUMENT  11   (tecto 0)
+```
+
+E esse é o único gate que faltava para promover a Bíblia.
+
+## POR QUÊ
+
+Duas causas, e a segunda é a que se repete.
+
+### 1 · O portão não estava na lista de coisas a correr
+
+A integração correu a cadeia do System Map — porque o `CLAUDE.md` a exige por
+escrito — e não correu o portão do Control Plane, porque nada o exigia. O
+portão veio como **ficheiro**, não como **passo**.
+
+```
+UM PORTAO QUE CHEGA COMO FICHEIRO E UM PORTAO QUE NINGUEM ABRE.
+```
+
+### 2 · O chão foi medido noutra fotografia
+
+```
+controle/CHAO-DO-CONTROLE.json   HEAD = a885769c54
+git merge-base --is-ancestor a885769c54 HEAD   ->   FALSO
+```
+
+O tecto `UNREGISTERED_CANONICAL_DOCUMENT = 0` foi fixado na branch da
+arbitragem, cuja árvore **não tinha** os dez documentos de `docs/operacao/`.
+Aplicado à árvore integrada, ele não mede «piorou desde ontem»: mede «esta é
+outra casa».
+
+## PROVA
+
+```
+os 11 documentos acusados, atribuidos um a um:
+
+   1  docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md   veio com a integracao
+  10  docs/operacao/*.md                                 JA ESTAVAM no tronco dc00583d
+
+git cat-file -e dc00583d:docs/operacao/A-CASA-DO-DERIVADO.md   ->   existe
+```
+
+Nenhum dos dez apareceu por causa da Intelligence. Apareceram porque o registo
+chegou de uma árvore mais pequena do que aquela onde passou a viver.
+
+## CONSEQUÊNCIA
+
+**Três, e a terceira é a regra.**
+
+### 1 · A promoção da Bíblia ficou bloqueada por um gate que não é dela
+
+Oito dos nove gates passam. O nono é humano e estava dado. O sexto — governança
+— reprova por duas causas que vivem **no Control Plane**, e que a Intelligence
+não pode consertar sem declarar donos de conceitos da Collection.
+
+```
+O BLOQUEADOR DE UMA FRENTE PODE MORAR INTEIRO NOUTRA.
+E MUDA-LO A FORCA E ATRAVESSAR A FRONTEIRA QUE ELE EXISTE PARA GUARDAR.
+```
+
+### 2 · Não se subiu o tecto
+
+O portão tem `--fixar`, e diz de si próprio: *«`--fixar` DESCE o teto — e ele
+nunca mais sobe»*. Usá-lo para aceitar 10 seria transformar uma reprovação numa
+linha de base.
+
+```
+UM TECTO QUE SOBE QUANDO FALHA NAO E UM TECTO: E UM REGISTO DE DERROTA.
+```
+
+### 3 · A regra que fica — e é a quarta vez
+
+```
+§127  um grafo truncado respondeu «nao existe»
+§128  um contrato tinha chave estrangeira para ninguem
+§130  um nome sobrecarregado pareceu conceito sem dono
+§131  um chao medido noutra arvore mediu a mudanca de casa
+```
+
+Quatro missões seguidas, quatro medições corretas, quatro conclusões erradas —
+e a mesma causa nas quatro:
+
+```
+UM NUMERO CORRECTO LIDO CONTRA A FOTOGRAFIA ERRADA.
+```
+
+A regra operacional que isto obriga:
+
+```
+QUANDO SE IMPORTA UM PORTAO, IMPORTA-SE TAMBEM O CHAO DELE.
+E UM CHAO E UMA MEDIDA DE UMA ARVORE — NAO UMA CONSTANTE.
+
+Antes de confiar num tecto:
+
+    git merge-base --is-ancestor <HEAD_DO_CHAO> HEAD
+
+Se for falso, o tecto nao descreve esta arvore, e o portao esta a comparar
+duas casas em vez de dois dias.
+```
+
+E o corolário para quem integrar autoridades: **correr, na mesma missão, todo
+portão que a integração trouxe.** Um portão importado e não executado é uma
+reprovação adiada — e ela aparece na missão seguinte, a bloquear outra coisa.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra a promocao da Biblia. Ela NAO foi promovida.
+NAO registra runtime de Intelligence. O GATE 2 impediu-o de comecar, e
+essa decisao foi obedecida em vez de contornada.
+```
+
+---
+
+# §132 · MENCIONAR UMA LEI NÃO É PROMULGAR UMA — E DUAS DAS TRÊS DÍVIDAS QUE BLOQUEAVAM A BÍBLIA NÃO EXISTIAM
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§116`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§116` → endereço canónico `§132`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+A `§131` fechou com dois bloqueadores medidos e um diagnóstico:
+
+```
+UNREGISTERED_CANONICAL_DOCUMENT = 10   «registá-los exige decidir CONCEPT_OWNER de Collection»
+BROKEN_POINTER                  =  1   «o modelo do Control Plane não sabe exprimir isto»
+```
+
+O diagnóstico estava errado nos dois casos. Não por descuido na contagem — os
+números estavam certos — mas porque **contei o que o instrumento reportava em vez
+de abrir o que ele tinha encontrado**.
+
+```
+UNREGISTERED_CANONICAL_DOCUMENT = 10  ->  dez MENCOES, zero autoridades
+BROKEN_POINTER                  =  1  ->  um CARD_ID lido como caminho
+```
+
+Nenhuma decisão humana era precisa. Nenhum conceito de Collection precisava de
+dono. A Bíblia foi promovida na missão seguinte com `9/9`.
+
+## POR QUÊ
+
+### 1 · O detector procurava subcadeia, e subcadeia não tem gramática
+
+```python
+SE_DIZ_LEI = ("dono canónico", "CANONICAL_OWNER", "SOURCE_OF_TRUTH", ...)
+if any(w in txt for w in SE_DIZ_LEI): nao_registados.append(p)
+```
+
+O que ele apanhou, linha a linha:
+
+```
+DUPLICATE_CANONICAL_OWNERS = 0                    um nome de metrica
+REGISTRO_REGULATORIO_CANONICAL_OWNER = MISSING    um resultado de medicao
+CANONICAL_OWNER_FOUND?   SIM                      uma pergunta respondida
+o executor produz, o dono canonico persiste       prosa sobre OUTRO ficheiro
+O3 escreve raw_asset fora do dono canonico        uma linha de red team
+```
+
+Cinco dos dez morrem só com **fronteira de palavra**: `CANONICAL_OWNER` não está
+em `DUPLICATE_CANONICAL_OWNERS` — está lá um identificador diferente que a
+carrega dentro. Os outros cinco são prosa portuguesa a falar do dono de outra
+coisa.
+
+```
+MENCIONAR UMA LEI NAO E PROMULGAR UMA.
+```
+
+A separação que funciona não é uma lista de exceções — essa só faz o defeito
+mudar de nome amanhã. É estrutural, e as três formas saíram das autoridades
+**reais** desta árvore, não de imaginação:
+
+```
+RECLAMA_SE   a linha nomeia a chave E fala de si
+             AGENTS.md:5  «Este ficheiro é o dono canónico das…»
+LEGISLA      a chave é o SUJEITO da linha, com valor a seguir
+             BIBLIA-CANONICA-DA-COLETA.md:9  «CANONICAL_OWNER  este ficheiro»
+             CLAUDE.md:33  «DESIGN_SOURCE_OF_TRUTH = ADAMA_DESIGN_SYSTEM»
+NOMEIA_SE    a linha nomeia a chave E o próprio caminho do documento
+```
+
+Resultado medido: **10 falsos positivos mortos, 0 falsos negativos criados** — as
+três autoridades que de facto se promulgam continuam visíveis, e os quatro
+documentos **registados** que só mencionam continuam corretamente calados.
+
+### 2 · Uma identidade mandada pelo cano dos endereços
+
+```json
+"A-BIBLIA-ENG-INTELIGENCIA": { "SUPERSEDES": ["A-BIBLIA-INTELIGENCIA"] }
+```
+
+`A-BIBLIA-INTELIGENCIA` é um `CARD_ID`. O censo mandava-o pelo laço dos caminhos
+(`alvo in git ls-files`), não encontrava ficheiro nenhum com aquele nome, e
+escrevia `PROOF_KIND = ABSENT` — que o portão conta como ponteiro quebrado.
+
+```
+IDENTIDADE != MORADA.    AUTHORITY_ID != CANONICAL_PATH.
+```
+
+E a assimetria estava dentro da **mesma relação**: `SUPERSEDED_BY`, a outra
+metade, já era lida como identidade. Uma ponta era quem, a outra era onde.
+
+O que isto torna indeclarável, e é o caso normal: **«substituí uma lei que já não
+vive aqui»**. Uma autoridade substituída quase sempre desapareceu — é essa a razão
+de alguém a ter substituído. Exigir o caminho dela é exigir que o passado ainda
+esteja no disco.
+
+E havia uma terceira coisa escondida no mesmo nome. Três erros distintos com uma
+palavra só, e por isso nenhum deles consertável:
+
+```
+BROKEN_POINTER           um CAMINHO declarado que nao existe
+UNKNOWN_AUTHORITY_ID     um ID declarado que o registo nao conhece
+SUPERSESSION_RECIPROCAL  meia relacao — uma ponta declara, a outra nao confirma
+```
+
+A última é a que interessa para a prova: **uma aresta de identidade não pode ser
+provada pelo texto de quem a declara**, senão a declaração prova-se a si própria.
+Quem prova que A substituiu B é B a dizer `SUPERSEDED_BY: A`, escrito noutro
+sítio, por outra mão.
+
+### 3 · Um tecto é um número, e um número não vê substituição
+
+O chão da dívida comparava **contagens**. Isso deixa passar o pior caso:
+
+```
+TRES DEFEITOS ANTIGOS DESAPARECEM, TRES NOVOS APARECEM,
+A CONTAGEM NAO MEXE, E NADA REPROVA.
+```
+
+A comparação tem de ser de **membros**. E para os membros serem comparáveis, a
+identidade deles não pode carregar a razão dentro:
+
+```
+A-DIARIO (6)     ->   A-DIARIO   + PORQUE: «6 copia(s) divergente(s)»
+```
+
+Com a razão colada ao nome, o dia em que `A-DIARIO` passasse a 7 cópias fazia o
+membro antigo desaparecer e um «novo» nascer — dívida nova onde só havia a mesma
+dívida a mudar de tamanho. E o inverso também, que é pior.
+
+A razão pertence ao **par** `(categoria, membro)`, nunca ao membro sozinho:
+`A-KNOWHOW` está em duas categorias ao mesmo tempo, e com a chave simples a
+segunda explicação apagava a primeira. Foi a própria saída do portão que mo
+mostrou, a imprimir «canónica fora deste HEAD» debaixo de `DIVERGENT_CANONICAL_COPY`.
+
+### 4 · Migrar um chão de linhagem é um acto, e tem de recusar
+
+`--fixar` grava o estado de hoje. Não serve para trocar de fotografia: grava um
+tecto novo sem ninguém provar que ele não é pior. O que serve é comparar primeiro
+e só depois gravar, e **recusar** quando qualquer categoria subir ou qualquer
+membro novo entrar.
+
+```
+FIXAR UM DEFEITO COMO NOVO NORMAL != CORRIGIR O DEFEITO.
+```
+
+Uma nota que custou uma tentativa: o mecanismo de migração **não pode** exigir
+que a prova de linhagem já esteja verde — é exatamente esse o defeito que ele
+paga. Toda a outra integridade tem de estar verde; essa uma, não.
+
+## O QUE ISTO CUSTOU, E O QUE PAGOU
+
+```
+PORTAO_DO_CONTROLE      FAIL (2)  ->  PASS (23 provas)
+UNREGISTERED_CANONICAL_DOCUMENT   10  ->  0
+BROKEN_POINTER                     1  ->  0
+CHAO                    a885769c54 (outra linha)  ->  esta linhagem, com prova
+TETOS                   nenhum subiu — 2->0, 6->5->4
+BIBLIA                  CANDIDATE  ->  CANONICAL  (9/9)
+```
+
+## O QUE NÃO MUDOU, E FOI MEDIDO
+
+```
+GATE C = BLOCKED
+```
+
+A promoção não desbloqueou nada da máquina, e a quinta lição desta noite é essa:
+
+```
+PROMOVER A LEI != AUTORIZAR A OBRA.
+```
+
+`docs/operacao/TRAVA-DA-INTELIGENCIA.json` continua fechada — medida hoje nas
+estradas, não lida do campo que ela própria declara: 0 de 12 classes com
+arquitetura fechada, `ROUTE_CLASSES_REQUIRED_TOTAL = UNKNOWN`. E a Sala de Espera
+real continua com **0 itens**, enquanto a §32 da Bíblia recém-promovida exige *um
+item real*. Dois portões de frentes diferentes, e nenhum abre o outro.
+
+## A QUINTA VEZ, E A LIÇÃO GENÉRICA
+
+```
+§127  um grafo truncado respondeu «nao existe»
+§128  um contrato tinha chave estrangeira para ninguem
+§130  um nome sobrecarregado pareceu conceito sem dono
+§131  um chao medido noutra arvore mediu a mudanca de casa
+§132  um ataque de red team fixava um estado de outra arvore
+```
+
+O `RT07` do Control Plane vinha a reportar `PASSOU` — ataque a atravessar o
+portão — sem nada ter mudado no portão. O que mudou foi a árvore: ele afirmava
+`OBSERVED_STATE == "ABSENT_FROM_SNAPSHOT"`, e o know-how passou legitimamente a
+viver aqui. A defesa nunca falhou; a asserção é que media a árvore em vez da
+defesa.
+
+```
+UMA ASSERCAO CERTA LIDA CONTRA A FOTOGRAFIA ERRADA.
+```
+
+A correção não foi mudar o valor esperado — isso seria consertar o teste para
+salvar a hipótese. Foi deixar de fixar um estado e passar a **comparar dois**: o
+cartão medido com o ataque e sem o ataque. Um teste que compara não envelhece com
+a árvore.
+
+```
+UM TESTE QUE FIXA UM ESTADO MEDE A ARVORE.
+UM TESTE QUE COMPARA DOIS ESTADOS MEDE A DEFESA.
+```
+
+## E UMA QUE É SOBRE HUMILDADE DE MEDIÇÃO
+
+A `§131` descreveu como descoberta o carimbo que não consegue nomear o próprio
+commit. Ao ir consertá-lo, encontrei-o **já resolvido, melhor do que eu o teria
+feito**, em `system-map/scripts/impressao_da_arvore.py`:
+
+> *A PERGUNTA CERTA NÃO É «QUE COMMIT?». É «QUE FONTES?»*
+
+com o universo declarado em `CADEIA-DO-MAPA.json`, uma prova que verifica a
+própria lista de exclusão, e o ponto fixo alcançado (`IMPRESSAO_DO_CARIMBO=IGUAL`).
+
+```
+ANTES DE CONSERTAR UMA COISA QUE DOI, PROCURAR QUEM JA A CONSERTOU.
+UMA SEGUNDA SOLUCAO PARA UM PROBLEMA RESOLVIDO E UMA SEGUNDA VERDADE.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime de Intelligence. GATE C = BLOCKED, por dois contratos
+canonicos desta arvore — e a decisao foi obedecida, nao contornada.
+NAO registra fluxo real da Italia. REAL_ITALY_READY_ITEMS = 0.
+NAO registra fundacao da coleta fechada. 0 de 12 classes, e o total ainda
+e NAO SEI.
+```
+
+---
+
+# §133 · PROMOVER É UMA EDIÇÃO EM VÁRIOS SÍTIOS — E EU MUDEI DOIS DE TRÊS
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§117`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§117` → endereço canónico `§133`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+A `§132` fechou com a Bíblia da Intelligence promovida a `CANONICAL`, com
+`9/9` gates, portão verde e mapa verde. Quatro linhas abaixo do fim do documento,
+a própria Bíblia dizia de si:
+
+```text
+CANONICAL = NO
+INTELLIGENCE_IMPLEMENTATION_STARTED = NO
+```
+
+e fechava com:
+
+> **HARD STOP — esta Bíblia não autoriza iniciar implementação da Intelligence.**
+
+debaixo de um cabeçalho que autorizava uma missão.
+
+```text
+cabecalho   STATUS = CANONICAL          IMPLEMENTATION_AUTHORIZED = §32
+seccao 31   INTELLIGENCE_BIBLE_STATUS = CANONICAL
+seccao 33   CANONICAL = NO              «nao autoriza iniciar implementacao»
+```
+
+Quem lesse o princípio saía com um estado. Quem lesse o fim saía com o contrário.
+
+```text
+UM DOCUMENTO COM DUAS RESPOSTAS PARA A MESMA PERGUNTA NAO TEM NENHUMA.
+```
+
+## POR QUÊ
+
+### 1 · Promover não é mudar um campo. É mudar todos os sítios onde o campo é afirmado
+
+Mudei o cabeçalho. Mudei a `§31`. Não procurei os outros. A `§33` era o
+**veredito que a Bíblia tinha emitido sobre si própria** no dia em que foi
+escrita — e um veredito é exatamente o tipo de frase que uma promoção invalida.
+
+O erro não foi de raciocínio, foi de **varrimento**: tratei uma mudança de estado
+como uma edição pontual quando ela era uma edição distribuída.
+
+```text
+MUDAR UM ESTADO E PROCURAR TODAS AS AFIRMACOES DELE — NAO EDITAR A PRIMEIRA.
+```
+
+### 2 · O portão que eu tinha acabado de construir era cego a isto, por construção
+
+Na mesma missão criei `BIBLE_STATUS_MATCHES_REGISTRY`, e escrevi que ele fechava
+«o ataque mais silencioso a uma promoção: fazê-la num sítio só». Fechava metade.
+Ele compara a **lei com o registo** — duas fontes. Não vê uma fonte a discordar
+de si mesma.
+
+```text
+COERENCIA PARA FORA != COERENCIA PARA DENTRO.
+Um portao que compara dois documentos nao ve um documento a contradizer-se.
+```
+
+### 3 · E a correção óbvia estaria errada
+
+O reflexo é reprovar quem escrever `CANONICAL = NO` debaixo de um cabeçalho
+canónico. Isso apagaria a história: uma lei viva **tem** de poder carregar a
+fotografia do dia em que foi escrita, e apagá-la é pior do que a contradição —
+deixa de se poder conferir como é que ela chegou aqui.
+
+O que separa as duas não é o conteúdo. É a **marca**:
+
+```text
+VEREDITO = HISTORICO    uma fotografia datada, que nao descreve hoje
+VEREDITO = CORRENTE     o estado de agora, e so pode haver um
+```
+
+E o que **não** entra na prova, de propósito: `RUNTIME_IMPLEMENTED`,
+`INTELLIGENCE_IMPLEMENTATION_STARTED`, `REAL_ITALY_FLOW_OBSERVED`. Se
+`RUNTIME = NO` reprovasse debaixo de `STATUS = CANONICAL`, a saída mais barata
+para passar no portão era escrever `IMPLEMENTED = YES`.
+
+```text
+UM PORTAO QUE REPROVA A VERDADE INCOMODA ENSINA A CASA A MENTIR.
+```
+
+## A REGRA QUE FICA
+
+```text
+QUANDO UM ESTADO MUDA NUM DOCUMENTO QUE E AUTORIDADE:
+
+  1. enumerar TODAS as afirmacoes desse estado no documento — nao a primeira
+  2. marcar as que passaram a ser fotografia:  VEREDITO = HISTORICO
+  3. deixar exatamente UMA corrente:            VEREDITO = CORRENTE
+  4. conferir que o FECHO diz a mesma fronteira que o cabecalho
+
+E a prova mede o que o documento DECLARA, nunca o que ele NARRA. Prosa a
+citar o estado antigo e memoria, nao contrato: um portao que lesse prosa
+reprovaria a explicacao junto com o defeito.
+```
+
+## PROVA
+
+`controle/portao_do_controle.py::contradicoes_da_lei` + a prova
+`BIBLE_INTERNAL_CONTRADICTION`. Corrida contra a Bíblia **antes** da cirurgia
+(`b1029ce6`), apanha os três rostos do mesmo defeito:
+
+```text
+bloco corrente diz CANONICAL=NO, cabecalho diz STATUS=CANONICAL
+a lei declara 0 veredito(s) CORRENTE — tem de ser 1
+o HARD STOP final nao nomeia a fronteira que o cabecalho declara
+```
+
+Onze provas adversariais (`B0`–`B10`), três mutações — marca histórica ignorada,
+fecho não conferido, prova trocada por grep ingénuo — e as três apanhadas.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, 0/12 classes.
+NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
+Esta missao corrigiu a constituicao. Nao construiu nada.
+```
+
+---
+
+# §134 · CONHECER UMA FONTE E AUTORIZAR UMA FONTE SÃO A MESMA PERGUNTA ATÉ ALGUÉM AS SEPARAR
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§118`** em
+> `origin/claude/italy-source-isolation-jb6wed` @ `89a5fdf4`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§118` → endereço canónico `§134`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+O SINTONIA tinha **um** registo de fontes a responder por **duas** perguntas
+diferentes, e ninguém tinha reparado porque a resposta certa das duas era, até
+hoje, a mesma:
+
+```
+esta fonte EXISTE e nós conhecemo-la?       <- o ATLAS responde
+esta fonte pode ser CHAMADA pela operação?  <- ninguém respondia
+```
+
+Agora são dois objetos. O atlas continua a ser o **catálogo global** e continua
+a conhecer França, Espanha, Itália e a camada europeia. A segunda pergunta
+ganhou dono: `regras/ESCOPO-DE-FONTES.json` (a lei) e
+`regras/escopo_de_fontes.py` + `.mjs` (o portão), com o censo derivado em
+`docs/fontes/CENSO-DE-ESCOPO-DE-FONTES.md`.
+
+```
+CATÁLOGO GLOBAL  ≠  REGISTO OPERACIONAL DO PAÍS
+```
+
+## POR QUÊ
+
+`pedido/receitas.py::resolver` é o sítio onde uma fonte é **escolhida** — tudo
+o que sai dali vai ser aberto. Ele lia as 77 fontes do censo e filtrava por
+país assim:
+
+```python
+pais = (p.filtros.get("pais") or "").upper()
+...
+if pais:
+    ...
+```
+
+**O filtro só existia quando alguém escrevia o país.** Não havia nada de errado
+com o pedido: bastava não dizer nada.
+
+E havia um segundo buraco, este ativo **mesmo com** o país escrito:
+
+```python
+and c not in ("EU", "EUROPA")
+```
+
+«EUROPA serve qualquer país europeu» — escrito com boa intenção, e é exatamente
+a lei que não pode existir:
+
+```
+EU SOURCE  ≠  ITALY SOURCE automaticamente
+```
+
+## PROVA
+
+Medido nesta árvore, com o seletor real a correr, **antes**:
+
+```text
+«colete regulatorio»        -> 9 fontes:  4 ES · 1 FR · 2 EU · 2 IT
+«colete boletins de praga»  -> 17 fontes: 1 ES · 2 FR · 1 EU · 13 IT
+«colete regulatorio» COM pais=IT -> ainda traz EU-T4-002, sem contrato
+                                     e sem chamador italiano
+```
+
+**Depois**, com o preflight no mesmo sítio:
+
+```text
+«colete regulatorio»        -> 3 fontes: 2 IT + EU-T4-001 (autorizada, com prova)
+«colete boletins de praga»  -> 13 fontes, todas IT · 4 barradas, com motivo escrito
+ES_ACTIVE_IN_ITALY = 0 · FR_ACTIVE_IN_ITALY = 0
+UNKNOWN_ACTIVE_IN_ITALY = 0 · EU_UNAPPROVED_ACTIVE_IN_ITALY = 0
+```
+
+`tests/test_escopo_de_fontes.py` — 41 provas, das quais 22 são red team.
+Nenhuma sobreviveu.
+
+## CONSEQUÊNCIA
+
+```
+UMA FONTE DE OUTRO PAÍS PODE SER PRESERVADA
+SEM ESTAR AUTORIZADA PARA A OPERAÇÃO ATUAL.
+```
+
+Preservar e autorizar deixaram de ser a mesma coisa. Espanha e França ficam
+**inteiras** — fichas, contratos, evidências, source packs, contas e recortes de
+busca —, continuam pesquisáveis por gente, e ganharam um selo que diz de si
+`STATUS_OPERACIONAL = FUTURE`. O que perderam foi o acesso ao caminho
+operacional italiano.
+
+E a camada europeia ganhou a regra que lhe faltava: **INATIVA POR OMISSÃO.** Uma
+fonte EU só entra na operação italiana pela allowlist explícita, e entrar exige
+as duas condições, escritas antes de se olhar para o resultado — contrato escrito
+**e** um chamador nesta árvore que declare aquele `SOURCE_ID` com recorte
+italiano. Medido sobre as 11 fontes EU: **uma** fecha as duas (`EU-T4-001`). As
+outras dez ficam `INACTIVE` — não por serem más, mas porque ninguém escreveu
+ainda por que é que a Itália precisa delas.
+
+```
+ITALY_USE_ALLOWED = UNKNOWN  =>  NÃO ATIVAR
+```
+
+## AS TRÊS ARMADILHAS QUE ESTA MISSÃO APANHOU A SI PRÓPRIA
+
+**1 · O país da célula não é o país da conta.** O cadastro de contas tem
+`COUNTRY` (a célula do lote: «BASF em IT») e `COUNTRY_SCOPE` (a localidade
+**provada**). Ler o primeiro dava `IT` à conta `basf_global`, que é global.
+
+```
+ALVO DA BUSCA  ≠  MEDIÇÃO
+```
+
+**2 · `ACCOUNT_CELL_ID` não é uma identidade.** 44 linhas, 36 células: **oito
+células levam duas contas diferentes** — a provada e a candidata rejeitada que
+caiu na mesma casa da matriz. Indexar por célula fazia uma das duas desaparecer
+em silêncio, e qual delas dependia da ordem do ficheiro. Célula ambígua fecha em
+`UNKNOWN`, e não se cunhou identificador novo para desempatar (§5 da missão).
+
+**3 · Um portão depois da aquisição mede o estrago, não o evita.** No coletor
+documental italiano o portão ficou **acima** de `alvosDe()`, e não entre a
+descoberta e o download: descobrir já é ir à fonte.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra coleta real. Nenhuma corrida foi disparada.
+NAO registra Espanha nem Franca abertas. STATUS_OPERACIONAL = FUTURE nas duas.
+NAO registra Intelligence. Nada foi tocado ali.
+NAO registra FACT_LOCATION. O portao e de ESCOPO OPERACIONAL, e nao de
+geografia do fato: SOURCE_LOCATION != FACT_LOCATION continua intacta, e
+`leis/lugar_do_fato.py` nao foi tocado — ha uma prova que exige que nao seja.
+```
+
+---
+
+# §135 · UM MUNDO FECHADO TORNA INVISÍVEL APAGAR UMA PROIBIÇÃO — E A PROIBIÇÃO CARREGAVA A MEMÓRIA
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§118`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§118` → endereço canónico `§135`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+`C-INT-OBJECT-MODEL-01` fechou o modelo de objetos da Intelligence: 25 objetos
+com espécie e dono, 18 aliases arbitrados, 8 portões, 14 transições permitidas,
+19 proibidas, 8 domínios e 8 ferramentas com fronteira escrita. O `pode_transitar`
+foi desenhado em **mundo fechado** — tudo o que não está explicitamente permitido
+é proibido, porque uma defesa feita de lista negra cai no dia em que alguém
+inventa um caminho que ninguém se lembrou de proibir.
+
+Depois vieram as oito mutações. Sete morreram. **Uma sobreviveu**, e foi a que
+ensinou alguma coisa:
+
+```
+M2  apagar a proibicao OPPORTUNITY(A ou B) -> OPPORTUNITY(C ou D)
+    ->  os 45 testes continuaram VERDES
+```
+
+O mundo fechado já devolvia `FORBIDDEN` sozinho. O comportamento estava salvo.
+
+## POR QUÊ
+
+Porque uma proibição escrita carrega **duas coisas diferentes**, e só uma delas
+estava protegida:
+
+```
+O COMPORTAMENTO   «isto nao pode acontecer»       ← o mundo fechado ja garante
+A MEMORIA         «alguem ja quis fazer isto,     ← so a linha escrita guarda
+                   e esta e a razao de nao poder»
+```
+
+Apagar a linha não abria nenhuma porta. Apagava o **porquê** — e uma casa que
+esquece o ataque volta a discuti-lo do zero daqui a seis meses, sem saber que já
+o tinha resolvido.
+
+```
+UMA DEFESA REDUNDANTE NAO E DESPERDICIO.
+A SEGUNDA COPIA GUARDA A RAZAO, NAO O COMPORTAMENTO.
+```
+
+## PROVA
+
+`test_I10_os_ataques_conhecidos_continuam_NOMEADOS` fixa os 19 pares que têm de
+continuar **explicitamente** declarados, com razão não vazia. Com ele, M2 passa a
+cair:
+
+```
+M2 apagar o salto de nivel A/B->C/D   ->   ANTES: OK   ·   DEPOIS: FAILED
+```
+
+Oito mutações, oito apanhadas.
+
+## CONSEQUÊNCIA
+
+A regra que fica, e que vale para qualquer portão desta casa:
+
+```
+QUANDO UMA DEFESA E ESTRUTURAL (mundo fechado, tipo, forma da classe),
+A LISTA EXPLICITA DEIXA DE SER A DEFESA — E PASSA A SER A DOCUMENTACAO.
+
+Documentacao que nada guarda desaparece na primeira limpeza.
+Logo: uma prova tem de guardar a LISTA, e nao so o COMPORTAMENTO.
+```
+
+## E UM ACHADO DE MEDIÇÃO, DENTRO DO MESMO TRABALHO
+
+Dois nomes que o enunciado dava como objetos não eram objetos:
+
+```
+ATTENTION_ITEM   zero ocorrencias em codigo, contratos e leis desta arvore.
+                 A unica aparicao e uma linha de benchmark a agrupa-lo com
+                 OPPORTUNITY e FUTURE SIGNAL. Nao tem dono, campo nem estado.
+                 O que distingue «merece atencao» de «e finding» NAO E NADA NO
+                 OBJETO: e a VISTA. Declarar entidade era duplicar FINDING.
+
+SCREENING        tem vocabulario proprio, o que o faz PARECER entidade. Nao
+                 tem identidade, nao sobrevive a corrida, e o resultado dele
+                 mora no SIGNAL. UMA TRANSICAO COM NOME NAO E UMA ENTIDADE.
+```
+
+E um terceiro, que já tinha acontecido **em produção** e a auditoria da própria
+casa já tinha medido:
+
+```
+FUTURE_SIGNAL    o Portal deu-lhe um STATUS de sete valores — NEW SIGNAL /
+                 GAINING ATTENTION / MULTIPLE SIGNALS / WATCH CLOSELY / NEEDS
+                 VALIDATION / TIMING APPROACHING / PREPARE — que a montante
+                 nunca existiu. Medido: status === null em 3 de 3 registos.
+```
+
+```
+UMA FERRAMENTA NAO CRIA ARQUITETURA — E ESTA CRIOU.
+Um ecra que precisa de um campo inventa-o, e o campo fica a parecer lei.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO.
+NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
+Esta missao organizou objetos. Nao construiu nenhum.
+```
+
+---
+
+# §136 · UM MAPA QUE MOSTRA A MÁQUINA E ESCONDE A LEI ENSINA QUE A MÁQUINA É A LEI
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§119`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§119` → endereço canónico `§136`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+Auditada a faixa da Intelligence no System Map contra as autoridades que as
+missões anteriores fecharam. O que estava lá, medido:
+
+```
+F-INTELIGENCIA     2 territorios   (a Coleta tem 14)
+Z-MOTOR            8 cartoes, todos de codigo do motor V2.1
+Z-LINEAGE          0 cartoes declarados (4 gerados, sobre linhagem de branch)
+
+BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md    SEM CARTAO
+INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json     SEM CARTAO
+INTELLIGENCE-ARBITRATION-V1.md             SEM CARTAO
+MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md      SEM CARTAO
+```
+
+A constituição da Intelligence — promovida a canónica dois commits antes — **não
+aparecia no mapa de forma nenhuma**. A Coleta tem a sua desde sempre, em
+`Z-BIBLIA · 0 · A CONSTITUIÇÃO DA COLETA`.
+
+E o território chamava-se `MOTOR — CADEIA V2.1`, debaixo de `INTELIGENCIA`.
+
+```
+OITO CARTOES DA MAQUINA, ZERO CARTOES DA LEI QUE MANDA NELA.
+```
+
+Quem abrisse o mapa lia, sem ninguém o ter escrito, que a cadeia V2.1 **era** a
+Intelligence. O ataque `RT26` não era hipotético: estava verdadeiro.
+
+## POR QUÊ — E A CAUSA É ESTRUTURAL, NÃO DESCUIDO
+
+O mapa amarra o **território à pasta**. `P2_PASTA_BATE_COM_MAPA` recusa qualquer
+ficheiro que esteja numa gaveta que não é a da sua peça, e as gavetas são
+dezasseis: `admissao`, `coleta`, `leis`, `motor`, `provas`, `superficie`…
+
+Logo:
+
+```
+provas/espinha_da_intelligence.py          -> obrigatoriamente Z-PROVA
+provas/modelo_de_objetos_da_intelligence.py -> obrigatoriamente Z-PROVA
+                                                        (F-GOVERNANCA)
+```
+
+A espinha é a **forma executável do contrato da Intelligence**. O mapa é
+obrigado a lê-la como Governança, porque ela vive em `provas/`.
+
+```
+A GAVETA DECIDE O TERRITORIO.
+LOGO A FAMILIA DO MAPA NAO E O DONO DO CONCEITO — E NUNCA FOI.
+```
+
+Isto não é um defeito do mapa: é uma propriedade dele, e uma propriedade útil
+(mover um ficheiro sem mover a peça reprova). Mas tem uma consequência que
+ninguém tinha escrito: **a família visual segue o caminho físico, e o caminho
+físico não sabe nada sobre autoridade.** Escolher dono pela pasta é exactamente
+o que o Control Plane proíbe — e o mapa fazia-o por construção.
+
+## PROVA
+
+O que se corrigiu, e só na FONTE declarada:
+
+```
+Z-INT-LEI    0 · A CONSTITUICAO DA INTELLIGENCE     territorio novo
+             C-INT-BIBLIA · C-INT-DONOS · C-INT-MODELO · C-INT-MOTOR-V2-REQ
+             — um cartao por AUTORIDADE REGISTADA da INTELIGENCIA, e a prova
+               recusa qualquer cartao ali que nao reivindique uma
+
+Z-MOTOR      renomeado: «1 · A MAQUINA QUE EXISTE HOJE — CADEIA V2.1»
+```
+
+E dois cartões que carregavam objetos a mais foram partidos **por objeto**:
+
+```
+C-V21-OPORTUNIDADE   carregava OPPORTUNITY + FINDING + CLAIM_DOMAIN_JUDGMENT
+                     -> tres cartoes, e o nome mencionava um so
+C-V21-CRUZAMENTO     carregava CROSSING (entidade) + CONVERGENCE (projecao)
+                     -> dois cartoes; fundi-los fazia a projecao parecer
+                        uma estacao do dado
+```
+
+33 provas, 8 mutações, todas apanhadas pelo teste certo.
+
+## CONSEQUÊNCIA — E A PARTE QUE SE RECUSOU A FAZER
+
+O modelo tem 25 objetos. O mapa ganhou **6** cartões de objeto, e isso é
+deliberado:
+
+```
+UM CARTAO NAO E UM OBJETO.
+Um objeto pode atravessar varios ficheiros, ou nao ter ficheiro nenhum.
+```
+
+Dezassete objetos são `DEFINED_ONLY` — não têm código. Desenhá-los como caixas
+seria o mapa a **declarar** que existem, e o mapa não declara nada:
+
+```
+SYSTEM MAP OBSERVA A MAQUINA. SYSTEM MAP NAO DEFINE A ARQUITETURA.
+```
+
+Pela mesma razão os 8 domínios e as 8 ferramentas **não viraram caixas**. Eles
+vivem no modelo de objetos, que É um cartão. O mapa aponta para o contrato em
+vez de o copiar — e duas cópias divergem.
+
+```
+100% REPRESENTADO SEMANTICAMENTE != 25 CAIXAS.
+```
+
+## E A COSTURA QUE NÃO SE CONSEGUIA DESENHAR
+
+`SALA DE ESPERA → READY_ITEM → INTELLIGENCE` não existia como aresta, e não
+existia pela razão certa: **nada no código da Intelligence importa a Sala** — não
+há runtime, e `REAL_ITALY_READY_ITEMS = 0`. As duas fronteiras foram declaradas
+como `expected`, que o mapa força a `⚪ UNKNOWN` e o `P7` reprova se alguém as
+pintar de verde.
+
+```
+UMA SETA QUE NAO SE CONSEGUE PROVAR E A PROVA VISUAL DE QUE A PECA NAO EXISTE.
+Desenha-la a verde seria o mapa a construir o que falta.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO.
+NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
+Esta missao mexeu na FONTE declarada do mapa e em mais nada.
+```
+
+---
+
+# §137 · A COLLECTION MEDIU CERTO CONTRA A FOTOGRAFIA DELA, E O QUE ELA PRODUZIU A INTELLIGENCE NÃO CONSEGUE CONSUMIR
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14). Nasceu como **`§120`** em
+> `origin/claude/intelligence-pilot-v1` @ `0aacefd0`, numa linha que divergiu do dono canónico.
+> **Endereço antigo `§120` → endereço canónico `§137`.** As referências a
+> irmãs da mesma linha foram reendereçadas; o corpo não foi reescrito.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## O QUE MUDOU
+
+Primeira corrida real da Intelligence sobre um item real. Ela abriu, consumiu,
+fechou — e o resultado foi o diagnóstico, não o produto:
+
+```
+INTELLIGENCE_RUN_ID   IR-b445569197fb537aa43c
+REQUEST_ID            IQ-afb4866145951c8a
+CODE_VERSION          cf4167fb377de644
+RESULT_STATE          DONE
+ANALYTIC_OUTPUT       NO_ANALYTIC_OUTPUT_YET
+SIGNALS               0
+REQUIREMENTS          1     FACT_TIME · RAW_OBSERVATION_ID
+COLLECTOR_CALLS       0
+```
+
+**E o primeiro `RUN_ID` que eu escrevi aqui não era esse.** A corrida das 15:52
+saiu `IR-792eb28d7873f4015ede`, com `CODE_VERSION = 5f8c00ea907059fa`. Depois
+disso o próprio motor mudou — o RT12b obrigou a recusa nomeada — e a corrida
+passou a ter outra identidade. O `REQUEST_ID` não mexeu: mesma pergunta, mesmo
+item.
+
+```
+O CODIGO ESTA DENTRO DA IDENTIDADE DA CORRIDA. MUDAR O CODIGO MUDA A CORRIDA.
+Escrever o RUN_ID antigo ao lado do codigo novo seria declarar uma execucao que
+esta arvore ja nao consegue reproduzir — e a linha inteira de §137 e sobre isso.
+```
+
+A identidade reproduz: correr duas vezes seguidas sobre o mesmo item, com a
+mesma pergunta e o mesmo código, dá o mesmo `IR-`. O relógio não entra.
+
+```
+O RUNTIME FUNCIONA. A MATERIA-PRIMA E QUE NAO CHEGA.
+```
+
+## POR QUÊ — TRÊS COISAS, E A SEGUNDA É A QUE ENSINA
+
+### 1 · Os seis existem, e nunca estiveram na Sala de Espera desta árvore
+
+O utilizador disse seis. **Tinha razão**, e a medição confirma-o — mas não onde
+qualquer gate deste repositório olha:
+
+```
+data/samples/PRONTO-PARA-INTELIGENCIA/   nao existe nesta arvore
+                                          ZERO ficheiros em 200+ refs do repo
+os seis                                   build/collection-fire-test/evidencia/
+                                          sala-de-espera/ · noutra branch
+CONTADORES da missao que os produziu       ROOT = <scratchpad>/lab
+                                          WAITING_ROOM_FILES 0 -> 2
+                                          WAITING_ROOM_ROWS  0 -> 6
+```
+
+Eles pousaram na Sala de Espera de um **laboratório descartável** de outra
+sessão, que já não existe. O que ficou commitado foi a **evidência** de que
+pousaram.
+
+```
+ADMITIDO NUM LABORATORIO != ESTA NA SALA DE ESPERA.
+E «o gate diz zero» estava CERTO — sobre esta arvore.
+```
+
+### 2 · A porta que os produziu tem ONZE campos, e a minha tem doze
+
+Esta é a lição que sobrevive à missão:
+
+```
+84f2b563  «o READY leva a observacao, e a volta ao byte deixa de ser um palpite»
+
+  antepassado do meu HEAD ............................ SIM
+  antepassado da branch que admitiu os seis .......... NAO
+
+merge-base(as duas)  =  56fdb8ca  ·  2026-09-07
+  o meu lado:   486 commits desde a base
+  o lado deles:  10 commits desde a base
+```
+
+A Collection mediu **certo**: correu a prova de fogo dela contra a árvore dela,
+e `ADMITTED 6 = WAITING_ROOM_DELTA 6` é verdade. Só que a porta daquela árvore
+não põe `RAW_OBSERVATION_ID` no item — a lei que o exige entrou num commit que
+ela não carrega.
+
+```
+DUAS FRENTES CERTAS, CADA UMA NA SUA FOTOGRAFIA,
+PRODUZEM MATERIA QUE UMA NAO CONSEGUE ENTREGAR E A OUTRA NAO CONSEGUE RECEBER.
+```
+
+Não é engano de ninguém. É o custo de bifurcar 486 commits com um contrato de
+fronteira a mudar no meio — e não aparece em nenhum teste das duas frentes,
+porque cada uma passa sozinha.
+
+### 3 · E a tentação era óbvia
+
+O item traz `TEXTO_SHA256`. Fabricar `RAW_OBSERVATION_ID` a partir dele fazia a
+corrida passar, e ficava bonito. A lei que o proíbe já estava escrita:
+
+```
+SHA256 IDENTIFICA BYTES. NAO IDENTIFICA OBSERVACAO.
+DOIS CANDIDATOS NAO SAO UMA LINHAGEM.
+```
+
+A corrida bloqueia em `G0` e emite um requisito. É a resposta certa, e é feia.
+
+## PROVA
+
+`motor/corrida_da_inteligencia.py` + 37 provas · `P1`–`P14`, `RT1`–`RT15`,
+matriz dos seis. Oito mutações, oito apanhadas.
+
+A matriz é unânime e diz qual é a próxima missão:
+
+```
+ELEGIVEIS PARA O PRIMEIRO INTELLIGENCE_RUN = 0 de 6
+E os seis partilham EXACTAMENTE o mesmo par de buracos — porque
+sairam todos da mesma porta de onze campos.
+```
+
+## CONSEQUÊNCIA
+
+```
+UM CONTRATO DE FRONTEIRA QUE MUDA TEM DE SER MEDIDO NAS DUAS PONTAS,
+E A PONTA QUE PRODUZ NAO SABE QUE A OUTRA MUDOU.
+
+Antes de consumir material de outra frente:
+    git merge-base --is-ancestor <commit-da-lei-de-fronteira> <ref-que-produziu>
+Se for falso, o material obedece a um contrato ANTERIOR — e obedecer a um
+contrato anterior nao e defeito de quem produziu.
+```
+
+## E DUAS QUE VIERAM DAS MUTAÇÕES
+
+**Uma mutação pode sobreviver ao comportamento e ainda assim custar caro.**
+Apagar a verificação `isinstance(item, dict)` deixou tudo verde: sem ela o
+`None` rebenta mais à frente e o estado final continua `ERROR`. O que muda é o
+que fica escrito no livro:
+
+```
+LeiViolada      «um item que nao e um item nao se consome»    o portao recusou
+AttributeError  «'NoneType' object has no attribute 'get'»    o codigo partiu
+```
+
+```
+UM ERRO SEM NOME E INDISTINGUIVEL DE UM DEFEITO.
+```
+
+**E uma prova de relógio que media a velocidade do computador.** Duas corridas
+seguidas davam o mesmo `RUN_ID` mesmo com o relógio metido dentro da
+identidade — caíam no mesmo segundo. Agora o relógio é movido à força.
+
+```
+COMPARAR DUAS CORRIDAS SEGUIDAS NAO TESTA O RELOGIO: TESTA A MAQUINA.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra fluxo real ponta a ponta. REAL_END_TO_END_OBSERVED = NO:
+a Sala de Espera desta arvore continua vazia, e o consumo foi da evidencia.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, e nao lhe toquei.
+NAO registra FINDING nenhum. NAO registra Opportunity nenhuma.
+INTELLIGENCE_V1_READY = NO.
+```
+
+---
+
+# §138 · UM PEDIDO EXPLÍCITO É UMA PROMESSA; UM PADRÃO DA CASA É UM PONTO DE PARTIDA
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14), a partir do delta
+> `handoff/KNOW-HOW-DELTA-O-FERRO-NEGOCIADO.md` (`5aa7a77c`), produzido por
+> `C-LOCAL-GPU-ON-CURRENT-COLLECTION-V1` em
+> `origin/claude/local-gpu-on-current-collection-v1`.
+> O delta pedia `§121`; `§121` já era de outra linha quando isto foi medido —
+> ver `§141`. Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## 138.1 · O QUE MUDOU
+
+O dono único do reconhecedor de fala (`ferramentas/fala_local.py`) passou a
+**negociar o tipo de cálculo** contra o que a biblioteca declara para a placa
+que existir, em vez de o afirmar por constante. E a queda ganhou o nome que lhe
+faltava — três diagnósticos onde antes havia um:
+
+```
+GPU_UNAVAILABLE           nao ha placa, ou a biblioteca nao a ve
+COMPUTE_TYPE_UNSUPPORTED  ha placa, conta-se, e ela nao faz ESTA aritmetica
+GPU_OOM                   ha placa, faz a aritmetica, e o modelo nao coube
+```
+
+Três campos novos no carimbo, pela mesma razão que o dispositivo já tinha três:
+`ASR_COMPUTE_REQUESTED` · `ASR_COMPUTE_SELECTED` · `ASR_COMPUTE_SOURCE`, mais
+`ASR_WHY_COMPUTE_FALLBACK`.
+
+## 138.2 · POR QUÊ — A CAUSA, MEDIDA
+
+A prova durável anterior da GPU correu **pelo workflow**, com um override
+declarado no job (`SINTONIA_ASR_COMPUTE: int8_float32`). Correr a mesma coisa
+**na máquina, à mão**, sem ele:
+
+```
+CTRANSLATE2_CUDA_DEVICE_COUNT = 1
+resolver_dispositivo('GPU')   -> cuda/float16
+WhisperModel(...)             -> ValueError: Requested float16 compute type, but
+                                 the target device or backend do not support
+                                 efficient float16 computation
+o apanha-tudo da carga        -> cai para o processador
+o carimbo                     -> ASR_WHY_FALLBACK = GPU_UNAVAILABLE
+```
+
+O artefato afirmava que **não havia placa**, com a placa ali, ligada e contada.
+
+```
+«NAO HA PLACA» E «ESTA PLACA NAO FAZ ESTA ARITMETICA» SAO DIAGNOSTICOS
+DIFERENTES. O PRIMEIRO MANDA COMPRAR HARDWARE QUE JA ESTA NA MAQUINA;
+O SEGUNDO MANDA TROCAR UMA PALAVRA.
+```
+
+A correcção **não** foi mudar o padrão. Foi aplicar ao tipo de cálculo o
+princípio que já governava o dispositivo:
+
+```
+`AUTO` pergunta a biblioteca QUANTAS placas ha.
+O tipo de calculo PADRAO pergunta a biblioteca QUAIS ela suporta.
+```
+
+## 138.3 · PROVA
+
+Corrida local, **sem o runner do GitHub** e **sem variável de ambiente nenhuma
+declarada à mão**, na árvore de origem da prova:
+
+```
+provas/gpu_asr_smoke.py --device GPU    RESULT = PASS   0,71 s
+  ASR_DEVICE_SELECTED  GPU      ASR_DEVICE_EXECUTION  PROVEN
+  ASR_DEVICE_USED      GPU      ASR_ACCELERATOR       CUDA
+  ASR_DEVICE           cuda/int8_float32
+  ASR_COMPUTE_REQUESTED float16 -> SELECTED int8_float32
+  ASR_WHY_COMPUTE_FALLBACK      COMPUTE_TYPE_UNSUPPORTED
+
+provas/gpu_asr_smoke.py --device CPU    RESULT = PASS   4,01 s  (contraprova)
+provas/gpu_asr_smoke.py --device AUTO   RESULT = PASS   0,70 s  (escolheu a placa)
+```
+
+Ferro a ferro sobre **460,9 s de áudio real já preservado** (8 peças, ES e IT,
+nenhum byte novo adquirido):
+
+```
+CPU  95,28 s   RTF  4,84x
+GPU  13,53 s   RTF 34,07x        GANHO 7,04x
+```
+
+### 138.3.1 · ONDE ESTE CÓDIGO VIVE, MEDIDO NA HORA DA RECONCILIAÇÃO
+
+A lei é durável e vale para o projeto. O código que ela descreve **não está na
+árvore da linha do know-how**, e isso fica escrito em vez de suposto:
+
+```
+ferramentas/fala_local.py    ABSENTE em claude/sintonia-eame-know-how-v1
+ferramentas/fala_local.py    ABSENTE em main
+ferramentas/fala_local.py    PRESENTE em claude/local-gpu-on-current-collection-v1
+provas/gpu_asr_smoke.py      o mesmo
+SINTONIA_ASR_COMPUTE         ausente do workflow desta linha (nunca la esteve)
+```
+
+```
+UMA LEI DURAVEL NAO EXIGE QUE O CODIGO DELA VIVA NA MESMA ARVORE.
+MAS DIZER ONDE ELE VIVE E O QUE SEPARA A LEI DA LENDA.
+```
+
+## 138.4 · CONSEQUÊNCIA — A CAPACIDADE FECHA, A DECISÃO NÃO
+
+`DISPOSITIVO_PADRAO` continua `CPU`, e agora por um motivo **medido**, e não por
+falta de medição:
+
+```
+O TEXTO DA PLACA NAO E O TEXTO DO PROCESSADOR.
+Em 4 das 6 pecas com texto houve diferenca — virgulas, maiusculas, e duas
+trocas de palavra: «agricultora» -> «agricultura», «llegamos» -> «llevamos».
+
+QUAL DOS DOIS ESTA CERTO = NOT_MEASURED.
+Aquelas pecas nao tem verdade de referencia declarada, e
+CONCORDAR NAO E ACERTAR — dois ferros podem estar errados os dois.
+```
+
+```
+VELOCIDADE NAO PROVA QUALIDADE.
+```
+
+O que destrava a decisão está nomeado e é uma corrida só:
+`provas/asr_banco.py --ferro-a-ferro --midia data/raw/REEL-MIDIA`. O **gabarito**
+existe (`QUALIDADE-DA-FALA-V1.json`, 4 peças com termos declarados em `it`, `fr`,
+`en`, `es`). A **mídia** não existe em máquina nenhuma medida — conferido por
+varredura. Baixá-la só para fechar o portão seria adquirir conteúdo por uma rota
+que nenhuma missão de hardware autorizou.
+
+```
+GPU_QUALITY_BENCHMARK = BLOCKED_MISSING_MEDIA
+(e nao «missing ground truth»: o gabarito esta ca, falta o audio)
+
+SEM VERDADE DE REFERENCIA:  WINNER = UNKNOWN.
+```
+
+## 138.5 · AS LEIS QUE FICAM
+
+```
+DEVICE_AVAILABLE != DEVICE_SELECTED != DEVICE_USED
+    a placa existir nao prova que ela correu. O resolvedor corre ANTES de
+    existir uma amostra transcrita: quem decide antes nao pode testemunhar
+    depois.
+
+COMPUTE_TYPE_UNSUPPORTED != GPU_UNAVAILABLE
+    e confundi-los e o unico erro deste par que manda comprar hardware.
+
+UM PEDIDO EXPLICITO E UMA PROMESSA. UM PADRAO DA CASA E UM PONTO DE PARTIDA.
+    o primeiro honra-se ou reporta-se; o segundo negoceia-se contra o que a
+    maquina declara — e a troca fica escrita, nunca em silencio.
+
+CPU E GPU PODEM PRODUZIR TRANSCRIPT DIFERENTE.
+VELOCIDADE NAO PROVA QUALIDADE.
+    7x mais depressa e 2/6 de texto identico sao a mesma medicao. Promover a
+    primeira metade a decisao e medir depois de decidir.
+
+DOIS VAZIOS NAO SAO UM ACORDO.
+    de 8 pecas, 4 saiam «texto identico» — e duas eram REQUESTED_EMPTY dos dois
+    lados. Comparar precisa de duas coisas para comparar.
+
+LOCAL EXECUTOR != LOCAL COLLECTION.
+    uma maquina de casa executa UMA ETAPA quando o sistema canonico pedir.
+    Nenhuma fila, nenhum RUN, nenhum RAW e nenhuma Collection nascem ali.
+
+UM VALOR QUE SO E VERDADE NUMA MAQUINA NAO PERTENCE AO GIT.
+    e um pin explicito nao se negoceia: na placa seguinte, que faca `float16`,
+    ele forcaria a pior das duas.
+```
+
+## 138.6 · O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO regista coleta.       REAL_COLLECTION_RUNS = 0.  PAID_USD = 0.
+NAO regista video -> Sala. VIDEO_OUTPUT_HAS_CONSUMER continua NO.
+NAO regista qualidade.    GPU_QUALITY_BENCHMARK = BLOCKED_MISSING_MEDIA.
+NAO regista mudanca de padrao. DISPOSITIVO_PADRAO = CPU, e por medicao.
+NAO regista LIVE.         Nenhuma migration, nenhuma escrita em producao.
+```
+
+---
+
+# §139 · UM CAMPO QUE O DONO ESCREVEU E A PORTA NÃO LEVA É UM CAMPO QUE, DO OUTRO LADO, NÃO EXISTE
+
+> **RECONCILIADA.** Esta secção entrou no know-how canónico por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14), a partir do delta
+> `handoff/KNOW-HOW-DELTA-O-CAMPO-QUE-NAO-ATRAVESSA.md` (`52acf72d`), produzido
+> por `C-COLLECTION-TO-WAITING-ROOM-V1`. O delta nunca tinha sido integrado em
+> linha nenhuma: media `§118` como cauda e deixava o número **por atribuir**,
+> como manda a regra. Auditoria:
+> `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## 139.1 · A LEI
+
+Três campos pararam a estrada, em três fronteiras diferentes, e os três tinham
+a mesma forma: **o dono mediu, escreveu e guardou — e a porta seguinte não
+levou.**
+
+```
+UM CAMPO QUE O DONO ESCREVEU E A PORTA NAO LEVA
+E UM CAMPO QUE, PARA QUEM ESTA DO OUTRO LADO, NAO EXISTE.
+```
+
+Ela já estava escrita nesta casa, em `guarda/preservar_coleta.py`, sobre o
+`media_type`. **Uma coluna ao lado, o mesmo defeito, e ninguém o viu** — porque
+um campo que não atravessa não dá erro: dá `NAO SEI`, que parece honestidade.
+
+| campo | onde morria | o que custou |
+|---|---|---|
+| `raw_asset.source_id` | `observacoes_confirmadas()` | perguntava-se à CORRIDA de que fonte era cada documento. Uma corrida que colheu sete fontes **não tem uma** — e `preservar_documento` recusou os sete com «o documento não diz de que fonte veio». `STRUCTURED = 0` |
+| `raw_asset.captured_at` | a mesma porta | sete unidades chegaram à Sala com `CAPTURED_AT = NAO SEI`, com o valor medido três degraus atrás |
+| `COLLECTED_AT` do coletor | `DO_COLETOR`, que não tinha campo para ele | o livro italiano sabia a hora real da captura e **não tinha por onde a dizer**. A ficha enchia com o `STARTED_AT` da corrida |
+
+### 139.1.1 · O corolário, que é o que torna isto difícil de ver
+
+```
+DOIS VALORES QUE COINCIDEM POR ACIDENTE
+ESCONDEM A FRONTEIRA ONDE UM DELES SE PERDE.
+```
+
+`COLLECTED_AT` e `STARTED_AT` são **iguais** enquanto a corrida que colhe for a
+corrida que preserva. Só divergem no reprocessamento — e foi por isso que o
+defeito sobreviveu a todas as colheitas novas. Medido: capturado a
+`2026-09-07`, a Sala dizia `2026-09-14`, **com ar de medido**.
+
+## 139.2 · A CONFERÊNCIA QUE ARREDONDA
+
+Ao corrigir o `captured_at`, a conferência campo-a-campo **rejeitou as dez
+observações boas**. O leitor formatava `timestamptz` cortando em segundos: a
+coluna guardava `15:37:40.362`, ele devolvia `15:37:40Z`.
+
+```
+UM LEITOR QUE ARREDONDA FAZ A CONFERENCIA COMPARAR
+O QUE FOI ESCRITO COM O QUE ELE PROPRIO DEIXOU PASSAR.
+```
+
+## 139.3 · A SALA ESCREVIA E NÃO LIA
+
+`pousar()` funcionava. `listar_pendentes()` funcionava. `ler()` rebentava com
+`IndexError` — porque separava campos por `\x1f` e **linhas pelo fim-de-linha**,
+e o texto de um READY documental é a extracção de um PDF, com dezenas de
+mudanças de linha lá dentro.
+
+```
+UMA FILA QUE ACEITA O QUE NAO SABE DEVOLVER NAO E UMA FILA.
+```
+
+E ao lado, um caractere: com `-R`, o `psql` termina a saída com a mudança de
+linha dele, e o **último campo do último registo** vinha com um `\n` a mais.
+Chegava para mudar a impressão do conjunto — e pousar de novo exactamente o
+mesmo conteúdo lido de volta dava `RUN_ID_CONFLICT`.
+
+```
+UM RETRY LEGITIMO ACUSADO DE CONTAR DUAS HISTORIAS
+E PIOR DO QUE UM RETRY QUE DUPLICA: ENSINA A DESLIGAR A TRAVA.
+```
+
+## 139.4 · O NOME QUE MUDA DE DONO
+
+`T7` queria dizer três coisas ao mesmo tempo. E a terceira cópia **escrevia**:
+`sources.generated.json` saía a rotular o OpenAlex como «Preço e mercado».
+
+```
+UMA COPIA QUE ESCREVE NAO E UMA COPIA: E UMA SEGUNDA AUTORIDADE.
+UMA CHAVE DE DICIONARIO TAMBEM E UMA DECLARACAO DE TAXONOMIA.
+UM NOME QUE MUDA DE DONO LEVA CONSIGO TODOS OS SITIOS QUE O CITAVAM.
+```
+
+O dono novo **não digita a tabela: lê-a** do Atlas. Sem Atlas legível, levanta —
+não cai para cópia de reserva, porque uma cópia de reserva é a tabela seguinte.
+
+```
+UMA INTENCAO ESCRITA NO COMENTARIO NAO E UMA LEI NO CODIGO.
+```
+
+## 139.5 · O NÚMERO QUE SOBE COM O LÉXICO
+
+Esta casa publicava `85.7%` de acerto da porta nos itens italianos. Medido de
+onde vinha: **42 dos 49 entravam na CIÊNCIA por uma palavra — `prova` — que
+casava dentro de «ap-PROV-al», em regulamento da UE escrito em INGLÊS.** Nenhum
+dos 42 era ciência.
+
+```
+UM NUMERO QUE SOBE COM O LEXICO MEDE O LEXICO, E NAO A PORTA.
+```
+
+### 139.5.1 · E a lei gémea, que apanhou quem escrevia
+
+`fitosanitario` foi acrescentado ao léxico de T3 por parecer obviamente de T3, e
+**não foi medido contra o gabarito humano antes**. Medido depois: os acertos
+**caíram de 6 para 4**, e quatro boletins rotulados `T3_NAO` passaram a `SIM` —
+todos pela palavra a aparecer no **rodapé institucional** («Unità Organizzativa
+Fitosanitario»).
+
+```
+O NOME DE QUEM PUBLICA NAO E O ASSUNTO DO QUE SE PUBLICA.
+
+UM VALOR CONGELADO NAO SE MOVE PARA ACOMPANHAR UMA MUDANCA:
+MOVE-SE DEPOIS DE A MUDANCA SE PROVAR INOCENTE.
+```
+
+## 139.6 · A GUARDA QUE SÓ VÊ A FORMA
+
+Três guardas desta casa acenderam **na prosa que explicava o defeito** — a
+citação da forma errada, escrita para o leitor a reconhecer, contava como a
+forma errada.
+
+```
+PROIBIR A PALAVRA NAO E PROIBIR O ACTO.
+UMA GUARDA QUE NAO DISTINGUE A LEI DA EXPLICACAO DA LEI
+OBRIGA QUEM CONSERTA A APAGAR A EXPLICACAO — E A EXPLICACAO E METADE DO CONSERTO.
+
+UMA GUARDA QUE SO CONSEGUE VER A FORMA
+OBRIGA QUEM ESCREVE A ESCOLHER UMA FORMA QUE NAO MINTA.
+```
+
+## 139.7 · O ESCOPO DE OUTRA MISSÃO
+
+Duas guardas diziam «esta missão só autorizava mexer em X». Era verdade **da
+missão que as escreveu**.
+
+```
+UMA GUARDA QUE CITA O ESCOPO DE OUTRA MISSAO
+DEIXA DE MEDIR A CASA E PASSA A MEDIR A MEMORIA.
+
+UMA GUARDA QUE MEDE O QUE ESTA POR COMMITAR GUARDA O HABITO, E NAO O FICHEIRO.
+```
+
+## 139.8 · O SENSOR COM ROUPA DE TESTE
+
+O controlo negativo `N6` afirmava `CADENCE_UNKNOWN+HEALTHY`, e o segundo termo
+vinha do último registo do livro — do que o servidor de terceiros respondeu da
+última vez.
+
+```
+UMA REGRESSAO QUE DEPENDE DE UM SERVIDOR DE TERCEIROS ESTAR DE PE
+NAO E UMA REGRESSAO: E UM SENSOR COM ROUPA DE TESTE.
+```
+
+E o custo não é o alarme, é a **reacção** ao alarme.
+
+## 139.9 · NÃO CONSEGUI PERGUNTAR
+
+O portão de contrato lia `ATOR_NAO_ALCANCADO` como «o contrato reprovou» — uma
+afirmação sobre o **ator** feita a partir de um facto sobre a **rede**.
+
+```
+UNKNOWN != NO.  NAO CONSEGUI PERGUNTAR NAO E OUVIR UM NAO.
+
+UMA MEDICAO DE OUTRA MAQUINA CITADA SEM DATA E SEM DONO
+DEIXA DE SER MEDICAO E PASSA A SER BOATO.
+HOST_ALCANCAVEL != ROTA_GRATUITA != QUOTA_DISPONIVEL.
+```
+
+## 139.10 · O CORTE QUE JULGA OUTRO DOCUMENTO
+
+`item["texto"] = texto[:20000]`, num ficheiro cujo cabeçalho promete, em
+maiúsculas, «NADA SOME EM SILÊNCIO». 19 de 43 documentos passavam do corte; o
+maior perdia 87.5%.
+
+```
+UM CORTE SILENCIOSO NAO PRODUZ UM JULGAMENTO PARCIAL:
+PRODUZ UM JULGAMENTO SOBRE OUTRO DOCUMENTO.
+```
+
+E o dano é **assimétrico**: o que fica depois do corte nunca reprova nada —
+apenas nunca conta. Sete julgamentos mudam quando a porta lê o documento
+inteiro, e dois deles eram `NAO`, uma rejeição com prova sobre texto que a porta
+nunca viu.
+
+```
+UM ARTEFATO INTEIRO COM UM JULGAMENTO PARCIAL
+NAO E UM ARTEFATO PARCIAL: E UMA DECISAO POR REFAZER.
+```
+
+## 139.11 · AS CINCO LEIS ANTIGAS QUE FORAM RE-MEDIDAS, E AGUENTARAM
+
+| lei | veredito | como se re-mediu |
+|---|---|---|
+| `REGRA ESCRITA != REGRA EXECUTADA` | **DURÁVEL — cobrada duas vezes** | `CONTRATOS.json` escreve «nenhuma fase paga roda com ALL_APPROVED = NO» e nenhuma fase paga o consultava |
+| `PRODUTOR E CONSUMIDOR SEM CONTRATO PARTILHADO PERDEM DADO SEM DAR ERRO` | **DURÁVEL — é a lei central desta secção** | três campos, três fronteiras, três paragens da estrada |
+| `UM FICHEIRO STRUCTURED QUE NINGUÉM ENTREGA À ADMISSÃO NÃO ESTÁ NO FLUXO` | **DURÁVEL** | `VIDEO_OUTPUT_HAS_CONSUMER = NO`, medido |
+| `LOCAL PATH != REMOTE DURABILITY` | **DURÁVEL** | 25 observações `LOCAL_ONLY` continuam a declarar `RAW_OBJECT_CREATED: true` |
+| `READY != WAITING ROOM` | **DURÁVEL** | `admissao.PRONTO` é o estado do CONTRATO; `sala.A_ESPERA` é o estado da FILA |
+
+## 139.12 · O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO diz que a aquisicao nova funciona. A politica de egresso respondia
+403 CONNECT a todos os hospedeiros externos: tudo o que se provou foi
+REPROCESSAMENTO de bytes ja colhidos.
+FIXTURE PROVA PARSER. SO A INTERNET PROVA AQUISICAO.
+
+NAO diz que o video atravessa. Nenhum byte de video na arvore medida.
+NAO diz que a Sala existe no LIVE. Nenhuma credencial de producao.
+```
+
+---
+
+# §140 · UMA PROVA VERMELHA POR FALTA DE FERRAMENTA DIZ ALGO SOBRE A MÁQUINA, E NADA SOBRE O CÓDIGO
+
+> **RECONCILIADA — E AMPUTADA DE PROPÓSITO.** Esta secção entrou por
+> `C-KNOW-HOW-RECONCILIATION-V1` (2026-09-14), a partir do delta
+> `handoff/KNOW-HOW-DELTA-MORADA-DA-SALA-DE-ESPERA.md` (`a28cade2`).
+> **A decisão daquele delta NÃO entra.** Ele fechou com
+> `FILE_WAITING_ROOM_WINS`, e a `§110` desta casa — posterior, e com prova —
+> registou a Sala a mudar-se para `public.sala_de_espera`, migration `031`.
+> O que entra é o **método**, que sobreviveu inteiro à mudança de meio.
+> Auditoria: `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## 140.1 · A CASCATA QUE COMEÇA TODA NO MESMO PONTO
+
+A prova canónica da Sala de Espera correu e deu isto:
+
+```
+FALHA E2_a_porta_respondeu_SIM_a_um_documento_REAL   a porta disse -
+FALHA E3_a_unidade_POUSOU_na_sala_de_espera          estado=None
+... e mais 15 FALHA em cascata
+POUSA_NA_ESPERA=FAIL
+```
+
+Um relatório escrito nesse instante teria dito **«a Sala de Espera não
+funciona»**, e teria sido falso em todas as palavras. O que faltava era
+`pdftotext` na máquina. Sem ele a derivação não produz texto, a cadeia para em
+`DERIVED`, e **os 24 casos a jusante caem como dominó** — nenhum deles por
+defeito nenhum. Instalado o `poppler-utils`, e com um banco descartável
+**virgem**, a mesma prova, sem uma linha alterada: `26/26 PASS`.
+
+```
+UMA PROVA VERMELHA POR FALTA DE FERRAMENTA
+DIZ ALGO SOBRE A MAQUINA, E NADA SOBRE O CODIGO.
+
+UMA CASCATA DE FALHAS QUE COMECA TODA NO MESMO PONTO
+RARAMENTE SAO N DEFEITOS. E UM DEFEITO, OU NEM ISSO: E A BANCADA.
+```
+
+## 140.2 · TRÊS «FACTOS» MEDIDOS COM O GREP ERRADO, E OS TRÊS ERAM FALSOS
+
+| «facto» | o que era mesmo |
+|---|---|
+| `READY tem DOIS construtores` | a 2.ª ocorrência é uma **string literal**, ponteiro de prova para o mapa |
+| `existe tabela canónica READY` | `grep -i ready` casou com **«already exists»** em dois comentários, e com o valor `READY` de um ENUM de etapas |
+| `a morada em ficheiro NÃO existe` | a **pasta** não existe; o **código** existe, tem dono e dois chamadores |
+
+```
+UM GREP QUE CONTA DEFINICOES TEM DE SABER
+DISTINGUIR UMA DEFINICAO DE UMA CITACAO DELA.
+
+DESTINO VAZIO != DESTINO SEM DONO.   (CAN DO != DID DO)
+```
+
+## 140.3 · O RED TEAM ACUSOU DUAS PROVAS INOCENTES — PELA MESMA RAZÃO
+
+O ataque «escrever na morada sem passar pelo dono» casava com quem **nomeia** a
+morada, e acusou duas provas que só a mediam ou a mutavam numa cópia temporária.
+
+```
+NOMEAR UMA MORADA NAO E ESCREVER NELA.
+
+UM FALSO POSITIVO CONSERTA-SE NO MEDIDOR, E NAO NA PROSA DO RELATORIO.
+Escrever «isto e falso positivo» por baixo de um FALHA
+deixa o medidor a mentir para a proxima pessoa.
+```
+
+É a mesma família do erro de casar com a **menção** quando a pergunta era sobre
+o **comportamento** — e é a mesma que a `§139.6` encontrou nas guardas que só
+veem a forma.
+
+## 140.4 · UM NÚMERO SEM A BASE CONTRA A QUAL FOI MEDIDO NÃO É UM NÚMERO
+
+Um ramo foi registado como tendo **0 commits únicos** — sem dizer contra quê.
+Medido a sério:
+
+```
+base                                      commits unicos
+origin/main                               271
+a linha funcional                         127
+origin/claude/sintonia-eame-know-how-v1     0
+```
+
+As três medições estão certas. Só uma responde à pergunta que interessava
+(«perde-se trabalho se eu apagar isto?»).
+
+```
+«0 COMMITS UNICOS» SEM BASE E UMA FRASE QUE PARECE MEDICAO E NAO E.
+```
+
+## 140.5 · CONSTRUIR A OPÇÃO PERDEDORA A SÉRIO É O QUE TORNA A VITÓRIA UMA MEDIÇÃO
+
+A opção que ia perder levou **a mesma bateria com os mesmos nomes de caso**,
+contra PostgreSQL 16 real. Resultado: `21/21 PASS`.
+
+```
+UMA OPCAO QUE NUNCA CORREU NAO PERDE NEM GANHA. ELA NAO FOI MEDIDA.
+```
+
+E só por ter corrido é que apareceram as três coisas que nenhuma prosa teria
+dado:
+
+1. **`on conflict do nothing` engole uma história divergente em silêncio.** Para
+   o banco **gritar**, ele tem de LER-E-COMPARAR antes.
+2. **A chave estrangeira para o RAW não estava à venda** sem um 12.º campo que a
+   `COL-LAW-043` proíbe. Compra-se um banco pela integridade referencial, e ali
+   ela não vinha na caixa.
+3. **`psql -c` rebenta o `ARG_MAX` num lote de 5000 unidades**, antes de o
+   PostgreSQL ver um byte. Não é limite do banco: é limite do idioma que a casa
+   usa em todo o lado.
+
+> **E foi esta bateria que tornou barata a mudança que a `§110` viria a fazer.**
+> A opção construída «para perder» era a que ia ganhar seis dias depois. Medir a
+> perdedora a sério não foi zelo: foi o que deixou a decisão seguinte pronta.
+
+## 140.6 · O PORTÃO QUE NÃO VÊ O FICHEIRO NOVO APROVA-O SEM O LER
+
+O validador do System Map deu `18/18 PASS` com duas provas novas na árvore — e
+`P9_CODIGO_DECLARADO` passou **não por elas estarem declaradas, mas por o
+scanner não as ver**: ele lê ficheiros **rastreados pelo git**, e elas estavam
+por commitar.
+
+```
+UM PORTAO VERDE SOBRE UM FICHEIRO QUE ELE NAO LE
+E UM PORTAO VERDE SOBRE NADA.
+```
+
+A ordem certa é **commitar e só então regerar o mapa**. É primo do
+`O COMMIT NAO PODE CONHECER O SEU PROPRIO SHA` que a casa já tinha escrito.
+
+## 140.7 · A LEI QUE SOBREVIVEU À DECISÃO QUE A ORIGINOU
+
+O que tornou a decisão da Sala reversível **não** foi o meio escolhido:
+
+```
+O DONO UNICO E O QUE TORNA A DECISAO REVERSIVEL.
+```
+
+Porque `admissao/sala_de_espera.py` é o único escritor, trocar o meio mais tarde
+foi uma mudança **dentro** dele, e não uma reescrita de quem o chama. E foi
+exactamente isso que aconteceu na `§110`: o meio mudou de ficheiro para tabela,
+e nenhum chamador foi reescrito.
+
+```
+UMA DECISAO DE MEIO ENVELHECE. UMA DECISAO DE DONO NAO.
+```
+
+## 140.8 · O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO regista FILE_WAITING_ROOM_WINS como lei atual. Esta SUPERADA pela §110.
+NAO regista LIVE.
+```
+
+---
+
+# §141 · UM CONTADOR PARTILHADO DE QUE NINGUÉM É DONO NÃO É UM CONTADOR: SÃO N CONTADORES COM O MESMO NOME
+
+> **Missão:** `C-KNOW-HOW-RECONCILIATION-V1`, 2026-09-14.
+> Base canónica `claude/sintonia-eame-know-how-v1` @ `5705ac7b`.
+> Auditoria completa, com hashes e veredito por conteúdo:
+> `handoff/KNOW-HOW-RECONCILIATION-2026-09-14.md`.
+
+## 141.1 · O QUE MUDOU
+
+A memória durável do projeto — este ficheiro — tinha-se partido em **quinze
+conteúdos distintos**, espalhados por **vinte referências**, e as linhas tinham
+começado a escrever **conhecimentos diferentes no mesmo endereço**. Esta secção
+é o fecho dessa reconciliação, e a lei que a impede de voltar.
+
+O que foi reunido: **17 conhecimentos legítimos** que existiam fora da linha
+canónica entraram como `§121`–`§137`, **sem renumerar uma única secção que já
+estava estável**, porque um endereço já citado não se muda.
+
+## 141.2 · POR QUÊ — A CAUSA, MEDIDA
+
+O número da secção seguinte era calculado por cada missão **olhando apenas para
+a sua própria árvore**. Isso funciona enquanto houver uma árvore. Havia doze a
+escrever no mesmo dia.
+
+```
+REFS COM O FICHEIRO              20
+CONTEUDOS DISTINTOS              15
+PRIMEIRA COLISAO DE ENDERECO     §61
+FAMILIAS DE COLISAO              §61 · §91-§95 · §111-§119
+§118 COM SIGNIFICADOS DIFERENTES  3
+MAIOR SECCAO EM QUALQUER LINHA   §120
+```
+
+O `§118` chegou a nomear três coisas sem relação nenhuma: *conhecer uma fonte
+não é autorizar uma fonte*, *um mundo fechado torna invisível apagar uma
+proibição*, e *a ferramenta partida mente como se fosse um achado*. Nenhuma
+estava errada. Todas estavam certas — no seu próprio ficheiro.
+
+```
+UM ENDERECO NAO E UM ROTULO: E UMA PROMESSA DE QUE QUEM O CITAR
+DAQUI A UM MES ENCONTRA O QUE ESTAVA LA HOJE.
+```
+
+E a causa de fundo não é descuido de quem escreve. É estrutural:
+
+```
+MEDIR A CAUDA NA MINHA ARVORE RESPONDE «QUAL E O MEU PROXIMO NUMERO».
+NAO RESPONDE «QUAL E O PROXIMO NUMERO».
+```
+
+## 141.3 · PROVA — E DUAS COISAS QUE A REMEDIÇÃO CORRIGIU NO PRÓPRIO ENUNCIADO
+
+A missão entrou com a hipótese de **16 variantes** e **quatro significados** no
+`§118`. Remedido, contra os objectos do git e não contra a memória:
+
+```
+16 variantes  ->  15 conteudos distintos
+§118 com 4    ->  §118 com 3 significados
+```
+
+A diferença não foi erro de quem contou antes: **cinco pares de secções
+diferiam apenas pelo separador `---` no fim**, presente quando outra secção vinha
+a seguir e ausente quando era a última do ficheiro. Um hash honesto dizia
+«diferente». A leitura dizia «a mesma».
+
+```
+BYTES DIFERENTES != CONHECIMENTO DIFERENTE.
+UM HASH E UMA RESPOSTA EXACTA A UMA PERGUNTA QUE PODE NAO SER A NOSSA.
+```
+
+E o inverso, que é o que torna isto perigoso nos dois sentidos:
+
+```
+MESMO NUMERO != MESMO CONHECIMENTO.
+MESMO TITULO != MESMO CORPO.
+```
+
+### 141.3.1 · O `§120` FICA QUEIMADO, E ISSO É DE PROPÓSITO
+
+A cauda desta linha era `§119`. A maior secção medida **em qualquer linha** era
+`§120` — «a Collection mediu certo contra a fotografia dela» —, que entrou aqui
+como `§137`. Logo o primeiro número livre é `§121`, e **o `§120` fica vazio**.
+
+Reaproveitá-lo pareceria arrumação e seria a doença outra vez: durante um dia
+inteiro `§120` quis dizer uma coisa concreta, e há relatórios e deltas que a
+citam por esse nome.
+
+```
+UM NUMERO QUE JA FOI DE ALGUEM NAO VOLTA AO STOCK.
+UM BURACO NA NUMERACAO E MAIS BARATO DO QUE UM ENDERECO COM DOIS PASSADOS.
+```
+
+`NUMEROS_QUEIMADOS = {120}` — declarado na guarda, com o motivo ao lado.
+
+## 141.4 · A REGRA DE ESCRITA QUE FICA
+
+```
+NENHUMA MISSAO FUNCIONAL ALOCA NUMERO DE SECCAO SOZINHA.
+```
+
+Uma missão funcional — Collection, Intelligence, System Map, Portal, hardware,
+o que for — **não escreve neste ficheiro**. Ela declara:
+
+```
+KNOW_HOW_DELTA = ATUALIZACAO NECESSARIA
+```
+
+e grava `handoff/KNOW-HOW-DELTA-<ASSUNTO>.md`, com o número **por atribuir**.
+Escrever `§<PRÓXIMO LIVRE>` está certo. Escrever `§121` porque `§120` era a
+cauda da sua árvore está errado, e foi o que produziu quinze ficheiros.
+
+A integração canónica é **serial**, e só o dono do know-how a faz:
+
+```
+1 · fetch --all --prune
+2 · medir o HEAD remoto da linha canonica
+3 · medir a MAIOR seccao em TODAS as refs e TODOS os deltas vivos
+4 · listar os deltas pendentes e classificar cada um
+5 · aplicar UM de cada vez
+6 · correr a guarda
+7 · commit
+8 · push (nunca --force)
+```
+
+O passo `3` é o que não se pode encolher: medir só a linha canónica foi
+exactamente o erro que criou o `§118` com três donos.
+
+## 141.5 · A GUARDA, E O QUE ELA APANHA
+
+`provas/o_know_how_tem_um_dono.py` corre sem rede e sem banco, e reprova em:
+
+```
+1 · numero de seccao duplicado dentro do ficheiro canonico
+2 · numeracao regressiva (uma seccao que desce)
+3 · buraco na numeracao dentro do bloco §
+4 · sub-numeracao que nao bate com a seccao que a contem  (## 118.3 dentro do §119)
+5 · um SEGUNDO ficheiro de know-how concorrente na arvore
+    (KNOW-HOW-V2 / -MASTER / -FINAL / -NEW / -MERGED / -COPY)
+6 · um delta em handoff/ que ja foi aplicado e continua a pedir integracao
+7 · um delta que alocou numero sozinho — cita um § concreto que ja e de outro dono
+```
+
+Ela é deliberadamente pequena. Uma trava que ninguém consegue ler é uma trava
+que alguém desliga.
+
+```
+UMA GUARDA SIMPLES QUE CORRE E MELHOR DO QUE UMA GUARDA COMPLETA QUE NAO CORRE.
+```
+
+### 141.5.1 · E o que ela **não** consegue apanhar, dito em voz alta
+
+```
+NAO impede que uma missao edite este ficheiro numa branch dela.
+   Git nao tem dono por ficheiro. A trava e social e esta escrita aqui;
+   a guarda apanha o RESULTADO (colisao, duplicado, segundo ficheiro),
+   e nao o ACTO.
+
+NAO decide qual de dois conhecimentos em conflito e o verdadeiro.
+   Isso exige prova, e prova nao se automatiza aqui.
+```
+
+```
+UMA GUARDA QUE PROMETE MAIS DO QUE MEDE ENSINA A CONFIAR NO VERDE.
+```
+
+## 141.6 · O QUE A RECONCILIAÇÃO **NÃO** FEZ
+
+```
+NAO renumerou nenhuma seccao estavel.        §0-§119 ficam onde estavam.
+NAO apagou nenhuma linha divergente.         As 20 refs continuam no git.
+NAO promoveu conteudo historico a lei atual. Ver §140, amputada de proposito.
+NAO inventou vencedor onde faltou prova.
+NAO integrou a candidata no dono canonico.   Isso e decisao separada.
+NAO tocou Collection, GPU, Sala, Intelligence, Portal nem LIVE.
+```
+
+E a que fica por cima de todas, porque é a que este ficheiro existe para dizer:
+
+```
+UMA MEMORIA COM QUINZE COPIAS NAO E UMA MEMORIA COM REDUNDANCIA.
+E QUINZE MEMORIAS, E NENHUMA DELAS SABE QUE AS OUTRAS EXISTEM.
+```
