@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  867f2f1d7e8229c703f39a8f5542e00f2b267e20
+HEAD_DA_MEDICAO  64c3e8687c9ba0f02ad314eebab5c4f3987ec6da
 BRANCH           claude/system-map-current-collection-truth-v2
-GERADO_EM        2026-09-14T10:16:19+00:00
+GERADO_EM        2026-09-14T10:28:17+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -1172,7 +1172,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **dono** | ENGENHARIA · INTELIGENCIA |
 | **status operacional** | green — esta no caminho: alguem o chama antes de publicar. |
 | **QUEM ATIVA** | **PECA_INTERNA** — C-CI-MAPA |
-| **prova de quem ativa** | .github/workflows/system-map.yml:443 _(plano CODE)_ |
+| **prova de quem ativa** | .github/workflows/system-map.yml:457 _(plano CODE)_ |
 | **porquê** | ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta. |
 | **o que entra · dado** | — NÃO SEI: nenhuma aresta de dado medida |
 | **o que entra · ficheiros** | `data/collection-ledger/italy/observations.ndjson`, `data/collection-ledger/italy/runs.ndjson`, `data/samples/RUN-MANIFEST.json` |

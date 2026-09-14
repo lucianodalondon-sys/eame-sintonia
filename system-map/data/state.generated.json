@@ -263,6 +263,8 @@
       "data/derivados/OUT-OF-FLOW-LEGACY-DECISION-V1.json",
       "data/derivados/REGISTO-DE-ARTEFATOS.json",
       "data/derivados/SOURCE-ID-WIRING-GAP-V1.json",
+      "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+      "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
       "data/derivados/texto/RAW-024abdb692be926a.txt",
       "data/derivados/texto/RAW-0be2d204c98ad1b1.txt",
       "data/derivados/texto/RAW-0c2723e66201f966.txt",
@@ -2311,9 +2313,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-current-collection-truth-v2",
-    "HEAD": "867f2f1d7e8229c703f39a8f5542e00f2b267e20",
-    "GENERATED_AT": "2026-09-14T10:16:19+00:00",
-    "SOURCE_TREE_FINGERPRINT": "dae9736db1b0c9e3b1f53ad89cf408bb62c54006e0ec1cab90472a7efbe9c1f5"
+    "HEAD": "64c3e8687c9ba0f02ad314eebab5c4f3987ec6da",
+    "GENERATED_AT": "2026-09-14T10:28:17+00:00",
+    "SOURCE_TREE_FINGERPRINT": "93d26b716ecfacc790a6e832b2c615ddbd0e341852760094ebaf49ba218706b5"
   },
   "FAMILIES": [
     {
@@ -11825,7 +11827,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:526"
+          ".github/workflows/system-map.yml:540"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14286,7 +14288,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/system-map-deploy-verify.yml:65",
-          ".github/workflows/system-map.yml:375"
+          ".github/workflows/system-map.yml:389"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -14678,6 +14680,8 @@
         "C-PROVA-ENCANAMENTO",
         "C-PROVA-FRONTEIRA",
         "C-PROVA-MAPA-NAO-MENTE",
+        "C-RECONCILIACAO-UNIVERSO",
+        "C-REVISAO-DA-EVIDENCIA",
         "C-ROTA-M2",
         "C-SCRAP-SOCIAL"
       ],
@@ -14788,6 +14792,8 @@
         "coleta/sensor_canal_identidade.py",
         "coleta/social_persistencia.py",
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+        "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+        "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
         "data/samples/RUN-MANIFEST.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
         "medidas/padrao_da_coleta.py",
@@ -14829,8 +14835,8 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:300",
-          ".github/workflows/system-map.yml:304"
+          ".github/workflows/system-map.yml:314",
+          ".github/workflows/system-map.yml:318"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -15664,7 +15670,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:443"
+          ".github/workflows/system-map.yml:457"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17143,7 +17149,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:457"
+          ".github/workflows/system-map.yml:471"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17651,8 +17657,8 @@
         "PROVA": [
           ".github/workflows/auditoria-live.yml:54",
           ".github/workflows/banco-descartavel.yml:147",
-          ".github/workflows/system-map.yml:450",
-          ".github/workflows/system-map.yml:523"
+          ".github/workflows/system-map.yml:464",
+          ".github/workflows/system-map.yml:537"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17742,7 +17748,7 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/banco-descartavel.yml:545",
-          ".github/workflows/system-map.yml:544"
+          ".github/workflows/system-map.yml:558"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17833,7 +17839,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:538"
+          ".github/workflows/system-map.yml:552"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -17912,7 +17918,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:555"
+          ".github/workflows/system-map.yml:569"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18218,7 +18224,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:558"
+          ".github/workflows/system-map.yml:572"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -18556,7 +18562,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          ".github/workflows/system-map.yml:532"
+          ".github/workflows/system-map.yml:546"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -19982,7 +19988,9 @@
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json"
+      ],
       "inbound": [
         "C-CENSO-CARDS-SENSORES",
         "C-CENSO-COLETA",
@@ -19993,7 +20001,9 @@
         "C-MAPA-SCAN",
         "C-PROVA-MAPA-NAO-MENTE"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-MAPA-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -20011,23 +20021,33 @@
       },
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "MEASUREMENT_INSTRUMENT",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "M8_LE_E_NAO_ESCREVE",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "MEASUREMENT_INSTRUMENT",
+      "ROLE": "OPERATIONAL_STEP",
       "ROLE_PLANE": "CODE",
-      "ROLE_EVIDENCE": "le 8 artefato(s) e nao escreve nenhum medido: olha e da nota",
+      "ROLE_EVIDENCE": "escreve data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json, e C-MAPA-TESTES le isso: entrega trabalho a peca seguinte",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
       "consumes": [
         "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
+        "data/derivados/SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json",
         "system-map/app/map.js",
         "system-map/data/architecture.declared.json",
         "system-map/scripts/censo_cards_sensores.py",
@@ -20045,11 +20065,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/tests/test_reconciliacao_do_universo.py:34"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20850,
       "y": 5834
@@ -20730,34 +20754,49 @@
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
       "changed_since_declared": [],
-      "produces": [],
+      "produces": [
+        "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json"
+      ],
       "inbound": [
         "C-IMPRESSAO-DA-ARVORE",
         "C-MAPA-GERADOR"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-MAPA-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
-      "destino": [],
-      "destino_prova": [],
-      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "ROLE_MEASURED": "UNKNOWN",
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "ROLE_MEASURED": "OPERATIONAL_STEP",
       "ROLE_DECLARED": "UNKNOWN",
-      "ROLE_RULE": "SEM_REGRA",
+      "ROLE_RULE": "M7_ENTREGA_A_SEGUINTE",
       "ROLE_LIMITATIONS": "analise estatica da arvore: prova CODE. Nao prova OBSERVED, nem que o item da coleta atravessa esta peca.",
       "ROLE_CONFLICT": null,
-      "ROLE": "UNKNOWN",
-      "ROLE_PLANE": "UNKNOWN",
-      "ROLE_EVIDENCE": "tem ficheiro, e nenhuma regra desta escada o classifica: a arvore nao mostra o que ele escreve, le, corre ou serve",
+      "ROLE": "OPERATIONAL_STEP",
+      "ROLE_PLANE": "CODE",
+      "ROLE_EVIDENCE": "escreve data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json, e C-MAPA-TESTES le isso: entrega trabalho a peca seguinte",
       "OWNER": "ENGENHARIA",
       "OWNER_PLANE": "DECLARED",
       "OWNER_EVIDENCE": "`departments` declarado em architecture.declared.json — decisao de gente, nao medicao da arvore",
       "OWNER_CONFLICT": null,
-      "consumes": [],
-      "consumes_plane": "UNKNOWN",
+      "consumes": [
+        "data/derivados/SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json"
+      ],
+      "consumes_plane": "CODE",
       "DECLARED": "YES",
       "CODE": "YES",
       "OBSERVED": "UNKNOWN",
@@ -20766,11 +20805,15 @@
       "PROVEN_PLANE": "CODE",
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e o eixo LEGADO de prontidao operacional, explicado por `status_reason`. Ele NAO deriva dos quatro planos e pode discordar deles. A fonte de verdade sobre EVIDENCIA sao os quatro planos: DECLARED · CODE · OBSERVED · PROVEN.",
       "ATIVACAO": {
-        "CLASSE": "NAO_SEI",
-        "QUEM": [],
-        "PLANO": null,
-        "PROVA": [],
-        "PORQUE": "nenhuma peca do mapa a manda correr com prova, e ela nao e botao, nem produtor externo declarado, nem contrato, nem canal. UNKNOWN nao e NAO: pode haver quem a chame por um caminho que o mapa ainda nao mede."
+        "CLASSE": "SO_A_PROVA_A_CORRE",
+        "QUEM": [
+          "C-MAPA-TESTES"
+        ],
+        "PLANO": "CODE",
+        "PROVA": [
+          "system-map/tests/test_quatro_planos.py:35"
+        ],
+        "PORQUE": "na coleta, NINGUEM a manda correr: quem a abre vive todo em Z-PROVA — provas e instrumentos de medicao. A peca esta construida e medida, e nao esta no caminho de coleta nenhuma. UMA PORTA POR ONDE SO PASSA QUEM A VEIO MEDIR AINDA NAO E UMA PORTA."
       },
       "x": 20850,
       "y": 6156
@@ -25210,8 +25253,8 @@
         "PLANO": "CODE",
         "PROVA": [
           ".github/workflows/comunicacao-publica.yml:105",
-          ".github/workflows/system-map.yml:464",
-          ".github/workflows/system-map.yml:465"
+          ".github/workflows/system-map.yml:478",
+          ".github/workflows/system-map.yml:479"
         ],
         "PORQUE": "ha peca no mapa que manda esta correr, e ha linha de codigo que o prova. CAN DO: a linha existe; que a corrida tenha acontecido e outra pergunta."
       },
@@ -35311,7 +35354,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 526,
+          "line": 540,
           "snippet": "run: python3 provas/fluxo_no_seco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-FLUXO-NO-SECO",
@@ -35397,7 +35440,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 375,
+          "line": 389,
           "snippet": "node system-map/scripts/publicar_no_deploy.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-DEPLOY",
@@ -35649,7 +35692,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 300,
+          "line": 314,
           "snippet": "run: python3 system-map/tests/test_system_map.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35665,7 +35708,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 304,
+          "line": 318,
           "snippet": "run: node system-map/tests/test_freshness.mjs",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35681,7 +35724,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 313,
+          "line": 327,
           "snippet": "run: python3 system-map/tests/test_impressao_da_arvore.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-MAPA-TESTES",
@@ -35751,7 +35794,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 443,
+          "line": 457,
           "snippet": "run: python3 medidas/padrao_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PADRAO-COLETA",
@@ -35786,7 +35829,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 457,
+          "line": 471,
           "snippet": "run: python3 provas/valida_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-BIBLIA",
@@ -35821,7 +35864,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 450,
+          "line": 464,
           "snippet": "run: python3 provas/testa_coleta_canonica.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35837,7 +35880,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 523,
+          "line": 537,
           "snippet": "run: python3 provas/paridade_da_lingua.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35853,7 +35896,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 529,
+          "line": 543,
           "snippet": "run: python3 provas/testa_golden_path_pdf.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-COLETA",
@@ -35888,7 +35931,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 544,
+          "line": 558,
           "snippet": "run: python3 provas/o_dedupe_tem_constraint.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-DEDUPE",
@@ -35923,7 +35966,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 538,
+          "line": 552,
           "snippet": "run: python3 provas/o_encanamento_tem_uma_porta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-ENCANAMENTO",
@@ -35958,7 +36001,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 555,
+          "line": 569,
           "snippet": "run: python3 provas/o_executor_conta_se.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-EXECUTOR-CONTA",
@@ -35993,7 +36036,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 558,
+          "line": 572,
           "snippet": "run: python3 provas/a_fronteira_da_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-FRONTEIRA",
@@ -36028,7 +36071,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 532,
+          "line": 546,
           "snippet": "run: python3 provas/o_mapa_nao_mente.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-PROVA-MAPA-NAO-MENTE",
@@ -36133,7 +36176,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 464,
+          "line": 478,
           "snippet": "python3 tests/test_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36149,7 +36192,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 465,
+          "line": 479,
           "snippet": "python3 tests/test_integracao_biblia.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36165,7 +36208,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 466,
+          "line": 480,
           "snippet": "python3 tests/test_observabilidade_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36181,7 +36224,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 467,
+          "line": 481,
           "snippet": "python3 tests/test_red_team_estrada.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36197,7 +36240,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 474,
+          "line": 488,
           "snippet": "run: python3 tests/test_identidade_do_artefato.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36213,7 +36256,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 481,
+          "line": 495,
           "snippet": "run: python3 tests/test_armazem_italiano.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36229,7 +36272,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 488,
+          "line": 502,
           "snippet": "run: python3 tests/test_preservar_coleta.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36245,7 +36288,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 496,
+          "line": 510,
           "snippet": "run: python3 tests/test_preservar_coleta_no_banco.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36261,7 +36304,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 503,
+          "line": 517,
           "snippet": "run: python3 tests/test_preservar_derivado.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -36277,7 +36320,7 @@
         },
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 509,
+          "line": 523,
           "snippet": "run: python3 tests/test_porta_de_producao.py",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-CI-MAPA--RUNS-->C-TESTES",
@@ -51168,7 +51211,7 @@
       "evidence": [
         {
           "file": ".github/workflows/system-map.yml",
-          "line": 361,
+          "line": 375,
           "snippet": "A=$(python3 -c \"import json;print(json.load(open('system-map/scripts/CADEIA-DO-MAPA.json',encoding='utf-8'))['ARTEFATO_DE_DEPLOY'])\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-DEPLOY--READS-->C-CI-MAPA",
@@ -61599,6 +61642,41 @@
       "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
     },
     {
+      "from": "C-RECONCILIACAO-UNIVERSO",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Reconciliacao do universo do mapa alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_reconciliacao_do_universo.py",
+          "line": 34,
+          "snippet": "ARTEFATO = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-UNIVERSE-RECONCILIATION-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-RECONCILIACAO-UNIVERSO--READS-->C-MAPA-TESTES",
+            "FROM": "C-RECONCILIACAO-UNIVERSO",
+            "TO": "C-MAPA-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
       "from": "C-RECORRENCIA",
       "to": "C-TESTES",
       "type": "IMPORTS",
@@ -62269,6 +62347,41 @@
             "EDGE_ID": "C-RELEVANCIA-DA-FONTE--READS-->C-TESTES",
             "FROM": "C-RELEVANCIA-DA-FONTE",
             "TO": "C-TESTES",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "PROOF",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-REVISAO-DA-EVIDENCIA",
+      "to": "C-MAPA-TESTES",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Revisao da evidencia emprestada alimenta Testes do System Map. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/tests/test_quatro_planos.py",
+          "line": 35,
+          "snippet": "REVISAO = RAIZ / \"data\" / \"derivados\" / \"SYSTEM-MAP-EVIDENCE-BINDING-REVIEW-V1.json\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-REVISAO-DA-EVIDENCIA--READS-->C-MAPA-TESTES",
+            "FROM": "C-REVISAO-DA-EVIDENCIA",
+            "TO": "C-MAPA-TESTES",
             "RELATION_TYPE": "READS",
             "PLANE": "CODE"
           },
@@ -74892,16 +75005,16 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 922,
-    "edges_proven": 874,
+    "edges": 924,
+    "edges_proven": 876,
     "edges_unknown": 48,
     "business_edges": 4,
-    "files_tracked": 1725,
-    "files_covered": 891,
+    "files_tracked": 1727,
+    "files_covered": 893,
     "files_code_unclaimed": 0,
-    "roles_proven": 133,
+    "roles_proven": 134,
     "roles_declared_only": 5,
-    "roles_unknown": 47,
+    "roles_unknown": 46,
     "roles_conflict": 19,
     "concept_owner_count": 15,
     "concept_owner_conflicts": 9,

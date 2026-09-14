@@ -295,6 +295,20 @@ jobs:
       # acabou de regerar o mapa. O validador compara a ARQUITETURA, ignorando
       # o carimbo, e cobre tambem a copia que vai ser servida.
 
+      # ⚠️ ESTE PASSO NASCE DE UMA NOITE PERDIDA. Uma auditoria inteira da
+      # Collection correu sobre uma árvore de três dias antes: validador verde,
+      # 22 guardas verdes, red team a zero — e o sistema descrito já não
+      # existia. Todas as guardas perguntavam «o mapa corresponde a ESTA
+      # árvore?». Nenhuma perguntava «ESTA árvore é o sistema?».
+      #
+      #     MAP CURRENT != SYSTEM CURRENT.
+      #
+      # Corre CEDO, antes de qualquer medição: auditar primeiro e descobrir a
+      # base errada depois é exatamente o custo que ele existe para evitar.
+      - name: 3z · a árvore auditada contém a Collection funcional atual
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_base_da_auditoria.py
+
       - name: 4 · as regras do mapa não afrouxaram
         if: '!cancelled()'
         run: python3 system-map/tests/test_system_map.py

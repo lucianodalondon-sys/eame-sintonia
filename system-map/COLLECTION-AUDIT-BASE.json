@@ -1,0 +1,93 @@
+{
+  "SCHEMA": "sintonia.system-map.collection-audit-base/1",
+  "PORQUE_ISTO_EXISTE": [
+    "Uma missao inteira de auditoria da Collection correu sobre uma arvore de",
+    "2026-09-12 e produziu um censo CORRECTO de um sistema que ja nao existia.",
+    "Nada falhou: o validador passou, as 22 guardas passaram, o red team deu",
+    "zero sobreviventes. O mapa estava certo sobre a arvore errada.",
+    "",
+    "    UM MAPA PODE ESTAR PERFEITAMENTE CERTO",
+    "    E ESTAR A DESCREVER UM SISTEMA QUE JA NAO EXISTE.",
+    "",
+    "A lei do espelho (COL-LAW-046) diz SISTEMA REAL <-> SYSTEM MAP. Ela nao",
+    "diz QUAL sistema real — e com linhas paralelas de trabalho essa omissao",
+    "deixa de ser teorica. Este ficheiro fecha a omissao: declara QUAL linha",
+    "funcional o mapa esta autorizado a observar, e a guarda reprova alto",
+    "quando a arvore auditada nao a contem."
+  ],
+  "COMO_SE_MEDE": [
+    "A guarda NAO compara um SHA cravado. Ela resolve a REFERENCIA declarada",
+    "aqui e pergunta ao git se a arvore auditada a contem. Cravar um SHA",
+    "obrigaria a editar este ficheiro a cada commit da Collection, e um",
+    "ficheiro que se edita todos os dias deixa de ser lei em duas semanas.",
+    "",
+    "    REFERENCIA MEDIDA AGORA  >  SHA COPIADO ONTEM."
+  ],
+  "COLLECTION_FUNCTIONAL_REF": "claude/sala-persistente-preflight-real-v1",
+  "COLLECTION_FUNCTIONAL_HEAD_QUANDO_DECLARADO": "12c919af58a78637d11b0c59e0bd5007d3a94e73",
+  "PORQUE_ESTA_E_A_LINHA": [
+    "Medido em 2026-09-14: das ONZE branches que contem a funcional conhecida",
+    "f888776d, esta e a UNICA que acrescenta codigo funcional de Collection —",
+    "admissao/sala_de_espera.py (+666), a migration 031 do dono duravel da",
+    "Sala, e +67 linhas no workflow do SCRAP. As outras dez sao funcionalmente",
+    "IDENTICAS a f888776d nas gavetas da Collection.",
+    "E tem as pecas modernas que nem release/canonical nem a linha do mapa",
+    "tinham: scrap_executor.py, scrap_http.py, adaptador_linkedin.py,",
+    "sala_de_espera.py, eu_regulatorio_executor.py."
+  ],
+  "GAVETAS_FUNCIONAIS": [
+    "coleta/",
+    "orquestrador/",
+    "pedido/",
+    "admissao/",
+    "regras/",
+    "leis/",
+    "guarda/",
+    "medidas/",
+    "fontes/",
+    "ferramentas/",
+    "candidatas/",
+    "motor/",
+    "portoes/",
+    "supabase/",
+    ".github/workflows/"
+  ],
+  "O_QUE_A_GUARDA_NAO_AUTORIZA": [
+    "Nao autoriza substituir codigo funcional por codigo de uma branch de mapa.",
+    "O observador nao pode alterar o objecto observado: quem traz o mapa para",
+    "a linha funcional traz MECANISMO (scripts, app, tests, cadeia) e nunca as",
+    "gavetas funcionais.",
+    "",
+    "Nao autoriza declarar PUBLICADO. Arvore auditada != arvore implantada."
+  ],
+  "QUEM_ACTUALIZA": [
+    "Gente. Quando a linha funcional da Collection mudar de nome ou for",
+    "integrada noutra, muda-se COLLECTION_FUNCTIONAL_REF AQUI, num sitio so."
+  ],
+  "MARCOS_OBRIGATORIOS": [
+    "coleta/scrap_executor.py",
+    "coleta/scrap_http.py",
+    "coleta/scrap_colheita.py",
+    "coleta/adaptador_linkedin.py",
+    "coleta/eu_regulatorio_executor.py",
+    "admissao/sala_de_espera.py"
+  ],
+  "PORQUE_MARCOS": [
+    "Conter o commit nao chega. Um `git revert` mantem a ancestralidade e tira o",
+    "codigo, e a guarda passaria a defender uma linha vazia.",
+    "",
+    "    ANCESTRY != CONTEUDO."
+  ],
+  "FORA_DA_GUARDA": [
+    ".github/workflows/system-map.yml",
+    ".github/workflows/system-map-deploy-verify.yml"
+  ],
+  "PORQUE_FORA_DA_GUARDA": [
+    "Estes dois workflows sao o OBSERVADOR, e nao o objecto observado. Mede-los",
+    "como codigo funcional impediria o mapa de ganhar uma guarda nova sem",
+    "parecer que alterou a Collection — e o mapa tem de poder melhorar.",
+    "",
+    "    O OBSERVADOR NAO PODE ALTERAR O OBJECTO OBSERVADO.",
+    "    MAS TAMBEM NAO PODE FICAR PROIBIDO DE SE CORRIGIR."
+  ]
+}
