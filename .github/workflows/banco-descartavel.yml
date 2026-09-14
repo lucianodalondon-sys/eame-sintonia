@@ -119,6 +119,73 @@ jobs:
   #
   # Job separado: a avaria antiga continua vermelha e visivel, e a aresta nova
   # e exercitada na mesma. Os dois factos aparecem, e nenhum tapa o outro.
+  # ═════════════════════════════════════════════════════════════════════
+  # O PORTAO DA BIG COLLECTION — o READY existe, ou so a etapa correu?
+  #
+  # A prova da ponte de midia mediu, e foi honesta: `ADMISSION = NAO_SEI`,
+  # `READY_HANDLING = NOT_RUN`, Sala vazia. A etapa correu; nenhum READY
+  # existiu. Este job vai ver a LINHA.
+  #
+  #     ETAPA REGISTADA != UNIDADE PRODUZIDA.
+  #
+  # Job proprio pela mesma razao do outro: `postgres-descartavel` aborta cedo,
+  # e um passo atras de uma avaria antiga nunca corre.
+  portao-big-collection:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: descartavel
+          POSTGRES_DB: descartavel
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+
+    # ⚠️ O BACKEND DA SALA E DECLARADO AO NIVEL DO JOB, E NAO DENTRO DE UM PASSO.
+    # E a mesma lei que `provas/o_egresso_antes_da_aquisicao.py` guarda para o
+    # workflow de coleta: um portao que mede um ambiente e deixa passar para
+    # outro nao mediu nada. Aqui o risco e concreto — sem a variavel, o dono da
+    # Sala cai para FICHEIRO, e um READY escrito no disco efemero do runner
+    # passaria por READY persistido.
+    env:
+      SINTONIA_SALA_BACKEND: POSTGRES
+      SINTONIA_SALA_DSN: postgresql://postgres:descartavel@localhost:5432/descartavel
+      BANCO_DESCARTAVEL_URL: postgresql://postgres:descartavel@localhost:5432/descartavel
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # `pdftotext` nao e detalhe de maquina: o canario admissivel e um boletim
+      # italiano REAL em PDF, e sem o extractor a prova mediria o runner.
+      - name: 1 · o extractor de texto existe
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update -qq || true
+          sudo apt-get install -y poppler-utils
+          pdftotext -v 2>&1 | head -1
+
+      - name: 2 · o READY existe mesmo, e outro processo ve-o
+        run: |
+          psql "$ADMIN_URL" -c 'drop database if exists descartavel;'
+          psql "$ADMIN_URL" -c 'create database descartavel;'
+          python3 provas/o_portao_da_big_collection.py
+        env:
+          ADMIN_URL: postgresql://postgres:descartavel@localhost:5432/postgres
+
+      - name: 3 · o que o banco mostrou fica legivel
+        if: always()
+        run: cat system-map/data/portao-big-collection.generated.json || true
+
   ponte-de-midia:
     runs-on: ubuntu-latest
 
@@ -322,7 +389,31 @@ jobs:
       #
       #     UM PORTAO QUE SO SE TESTA COM A VPN LIGADA NAO SE TESTA.
       - name: 2b6 · o egresso mede-se ANTES de adquirir, e UNKNOWN fecha a porta
-        run: python3 provas/o_egresso_antes_da_aquisicao.py
+        # ⚠️ ESTE PASSO ABORTAVA HA DIAS, EM TODAS AS BRANCHES, POR UM `import`.
+        #
+        # Medido a 2026-09-14 em seis corridas seguidas de branches diferentes:
+        # `ModuleNotFoundError: No module named 'yaml'`. A prova lê o PRÓPRIO
+        # workflow para conferir que `SINTONIA_SALA_BACKEND` é declarado ao
+        # nível do JOB, e não só dentro do preflight — a lei de que
+        #
+        #     UM PORTÃO QUE MEDE UM AMBIENTE E DEIXA PASSAR PARA OUTRO
+        #     NÃO MEDIU NADA.
+        #
+        # Para isso precisa de um analisador de YAML a sério. Escrever um aqui
+        # para fugir à dependência seria pôr um segundo dono a interpretar o
+        # mesmo ficheiro — e um analisador caseiro que se engane deixa o portão
+        # passar por cima da lei que ele existe para guardar.
+        #
+        # Esta casa declara dependências de Python no passo que as usa (é o que
+        # `faster-whisper` já faz, no job da ponte de mídia). Não há
+        # `requirements.txt` — e inventar um aqui seria arquitectura nova por
+        # causa de um `pip install`.
+        #
+        #     UM PORTÃO QUE NÃO CORRE NÃO É UM PORTÃO FECHADO: É UM PORTÃO
+        #     AUSENTE, E ELE ESTAVA VERMELHO A DIZER ISSO.
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 provas/o_egresso_antes_da_aquisicao.py
 
       # E a pergunta que fecha as duas: as provas acima MORDEM? Cada mutante
       # quebra uma lei numa copia descartavel da arvore e exige vermelho.
