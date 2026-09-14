@@ -2,14 +2,41 @@
  "DATASET": "SINTONIA-INTELLIGENCE-REARBITRATION",
  "MISSAO": "C-INT-ATOMICITY-01",
  "FOTOGRAFIA": {
-  "COMMIT": "72150f8341af2b783116615e1f001954226f2e3e",
-  "BRANCH": "claude/intelligence-atomicity-v1",
+  "COMMIT": "187cdf37556f2f2cacc1110a47c6912be1080dcc",
+  "BRANCH": "claude/intelligence-night-v1",
   "ARVORE_LIMPA": false,
   "SHALLOW": "false"
  },
  "AUTORIDADES_EXIGIDAS": 15,
  "AUTORIDADES_AUSENTES": {},
  "CONTROL_PLANE_ATOMICITY": "PASS",
+ "NOMES_APOSENTADOS": {
+  "RELEVANCE": {
+   "DECISAO": "RETIRED_AS_OVERLOADED_NAME",
+   "POR": "decisao humana · C-INT-NIGHT-01 · opcao A",
+   "EM": "2026-09-14",
+   "COBRIA": [
+    "SOURCE_RELEVANCE",
+    "ITEM_RELEVANCE",
+    "CASE_RELEVANCE",
+    "CROP_RELEVANCE",
+    "USER_DECISION_RELEVANCE"
+   ],
+   "NAO_TEM_DONO_PORQUE": "nao designa uma pergunta. Cada uma das cinco tem a sua, e quatro ja tinham dono em lei."
+  },
+  "PRIORITY": {
+   "DECISAO": "RETIRED_AS_OVERLOADED_NAME",
+   "POR": "decisao humana · C-INT-NIGHT-01 · opcao A",
+   "EM": "2026-09-14",
+   "COBRIA": [
+    "REQUIREMENT_PRIORITY",
+    "PRIORITY_TIER",
+    "COMMERCIAL_PRIORITY",
+    "WATCHLIST_PRIORITY"
+   ],
+   "NAO_TEM_DONO_PORQUE": "idem: quatro perguntas, tres com dono em lei."
+  }
+ },
  "CONCEITOS": {
   "SOURCE_FACT / READY_ITEM": {
    "OWNER": "COLLECTION",
@@ -59,13 +86,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 13,
+   "FICHEIROS_QUE_TOCAM": 14,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 1,
-    "LEI": 8,
+    "LEI": 9,
     "OUTRA": 4
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -77,13 +104,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 21,
+   "FICHEIROS_QUE_TOCAM": 22,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 3,
-    "LEI": 12,
+    "LEI": 13,
     "OUTRA": 6
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -339,13 +366,13 @@
    "ALIAS": [],
    "MODULO_DONO": "motor/v21_oportunidades.py",
    "MODULO_EXISTE": true,
-   "FICHEIROS_QUE_TOCAM": 64,
+   "FICHEIROS_QUE_TOCAM": 65,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 9,
     "DELIVERY": 12,
     "PROVA": 6,
-    "LEI": 11,
+    "LEI": 12,
     "OUTRA": 24
    },
    "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
@@ -393,13 +420,13 @@
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 106,
+   "FICHEIROS_QUE_TOCAM": 107,
    "POR_CAMADA": {
     "COLLECTION": 2,
     "INTELLIGENCE": 8,
     "DELIVERY": 29,
     "PROVA": 7,
-    "LEI": 9,
+    "LEI": 10,
     "OUTRA": 51
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
@@ -413,13 +440,13 @@
    ],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 22,
+   "FICHEIROS_QUE_TOCAM": 23,
    "POR_CAMADA": {
     "COLLECTION": 0,
     "INTELLIGENCE": 0,
     "DELIVERY": 0,
     "PROVA": 4,
-    "LEI": 12,
+    "LEI": 13,
     "OUTRA": 6
    },
    "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
@@ -446,43 +473,178 @@
    "VERDICT": "OWNER_PROVEN",
    "ALERTA_DE_CAMADA": false
   },
-  "RELEVANCE": {
-   "OWNER": "HUMAN_DECISION_REQUIRED",
+  "SOURCE_RELEVANCE": {
+   "OWNER": "COLLECTION",
    "ALIAS": [],
-   "MODULO_DONO": null,
-   "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 105,
+   "MODULO_DONO": "leis/relevancia_da_fonte.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 15,
    "POR_CAMADA": {
-    "COLLECTION": 8,
-    "INTELLIGENCE": 3,
-    "DELIVERY": 32,
-    "PROVA": 14,
-    "LEI": 10,
-    "OUTRA": 38
+    "COLLECTION": 3,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 6,
+    "LEI": 1,
+    "OUTRA": 5
    },
-   "CURRENT_IMPLEMENTATION": "DISPERSO",
-   "VERDICT": "OWNER_NEEDS_HUMAN_DECISION",
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
    "ALERTA_DE_CAMADA": false
   },
-  "PRIORITY": {
-   "OWNER": "HUMAN_DECISION_REQUIRED",
+  "ITEM_RELEVANCE": {
+   "OWNER": "COLLECTION",
+   "ALIAS": [],
+   "MODULO_DONO": "admissao/admissao.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 33,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 18,
+    "LEI": 7,
+    "OUTRA": 6
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "CASE_RELEVANCE": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [
+    "ADAMA_RELEVANCE"
+   ],
+   "MODULO_DONO": "leis/adama_relevance.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 23,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 1,
+    "DELIVERY": 9,
+    "PROVA": 4,
+    "LEI": 1,
+    "OUTRA": 6
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": true
+  },
+  "CROP_RELEVANCE": {
+   "OWNER": "COLLECTION",
    "ALIAS": [],
    "MODULO_DONO": null,
    "MODULO_EXISTE": false,
-   "FICHEIROS_QUE_TOCAM": 114,
+   "FICHEIROS_QUE_TOCAM": 23,
    "POR_CAMADA": {
-    "COLLECTION": 6,
-    "INTELLIGENCE": 5,
-    "DELIVERY": 21,
-    "PROVA": 9,
-    "LEI": 7,
-    "OUTRA": 66
+    "COLLECTION": 0,
+    "INTELLIGENCE": 1,
+    "DELIVERY": 16,
+    "PROVA": 1,
+    "LEI": 1,
+    "OUTRA": 4
    },
    "CURRENT_IMPLEMENTATION": "DISPERSO",
-   "VERDICT": "OWNER_NEEDS_HUMAN_DECISION",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "USER_DECISION_RELEVANCE": {
+   "OWNER": "SEM_DONO_DECLARADO",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 5,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 2,
+    "LEI": 2,
+    "OUTRA": 1
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
+   "ALERTA_DE_CAMADA": false
+  },
+  "REQUIREMENT_PRIORITY": {
+   "OWNER": "COLLECTION",
+   "ALIAS": [],
+   "MODULO_DONO": "leis/gestao_da_coleta.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 5,
+   "POR_CAMADA": {
+    "COLLECTION": 2,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 2,
+    "LEI": 1,
+    "OUTRA": 0
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "PRIORITY_TIER": {
+   "OWNER": "COLLECTION",
+   "ALIAS": [],
+   "MODULO_DONO": "leis/politica_da_coleta.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 5,
+   "POR_CAMADA": {
+    "COLLECTION": 1,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 3,
+    "LEI": 1,
+    "OUTRA": 0
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "COMMERCIAL_PRIORITY": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": "motor/v21_comercial.py",
+   "MODULO_EXISTE": true,
+   "FICHEIROS_QUE_TOCAM": 37,
+   "POR_CAMADA": {
+    "COLLECTION": 1,
+    "INTELLIGENCE": 5,
+    "DELIVERY": 18,
+    "PROVA": 3,
+    "LEI": 1,
+    "OUTRA": 9
+   },
+   "CURRENT_IMPLEMENTATION": "IMPLEMENTED",
+   "VERDICT": "OWNER_PROVEN",
+   "ALERTA_DE_CAMADA": false
+  },
+  "WATCHLIST_PRIORITY": {
+   "OWNER": "INTELLIGENCE",
+   "ALIAS": [],
+   "MODULO_DONO": null,
+   "MODULO_EXISTE": false,
+   "FICHEIROS_QUE_TOCAM": 9,
+   "POR_CAMADA": {
+    "COLLECTION": 0,
+    "INTELLIGENCE": 0,
+    "DELIVERY": 0,
+    "PROVA": 3,
+    "LEI": 1,
+    "OUTRA": 5
+   },
+   "CURRENT_IMPLEMENTATION": "DEFINED_ONLY",
+   "VERDICT": "OWNER_DECLARED_ONLY",
    "ALERTA_DE_CAMADA": false
   }
  },
- "SUPERSEDED_BY": "INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
- "SUPERSEDED_PORQUE": "A decisao humana de C-INT-NIGHT-01 (opcao A/A) aposentou os nomes nus RELEVANCE e PRIORITY. Este ficheiro fica como a medicao ANTES da decisao, e nao se reescreve: um censo que muda depois de medido deixa de poder ser conferido."
+ "SUPERSEDES": "INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
+ "DECISAO_HUMANA_APLICADA": {
+  "MISSAO": "C-INT-NIGHT-01",
+  "EM": "2026-09-14",
+  "RELEVANCE": "[A] APOSENTAR O NOME NU",
+  "PRIORITY": "[A] APOSENTAR O NOME NU",
+  "NAKED_RELEVANCE_RETIRED": "YES",
+  "NAKED_PRIORITY_RETIRED": "YES"
+ }
 }

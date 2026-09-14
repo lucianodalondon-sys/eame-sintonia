@@ -2225,10 +2225,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "fce6204b9a7c24fdc36e380f4da2e8a268c45e9c",
-    "GENERATED_AT": "2026-09-14T02:55:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5a987ef9fd6ee411ef60d51e9a9f185ec1ca35959f36d34e18e8102381d82a62"
+    "BRANCH": "claude/intelligence-night-v1",
+    "HEAD": "187cdf37556f2f2cacc1110a47c6912be1080dcc",
+    "GENERATED_AT": "2026-09-14T02:57:11+00:00",
+    "SOURCE_TREE_FINGERPRINT": "023b69845a57f72ed1bd45621910f274bd15dc2fe05eb9d76fd22f4861ae3506"
   },
   "FAMILIES": [
     {
@@ -10088,6 +10088,10 @@
         "C-BIBLIA",
         "C-GESTAO-DA-COLETA",
         "C-INT-ESPINHA",
+        "C-POLITICA-COLETA",
+        "C-RELEVANCIA",
+        "C-RELEVANCIA-DA-FONTE",
+        "C-V21-COMERCIAL",
         "C-V21-CRUZAMENTO",
         "C-V21-OPORTUNIDADE"
       ],
@@ -10103,11 +10107,12 @@
         "listas": [
           "AUTORIDADES",
           "CAMADAS",
-          "CONCEITOS"
+          "CONCEITOS",
+          "NOMES_APOSENTADOS"
         ],
-        "palavras": 265,
+        "palavras": 349,
         "por_lingua": {},
-        "sem_marca_de_lingua": 265,
+        "sem_marca_de_lingua": 349,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -10117,23 +10122,14 @@
           "pasta": "docs",
           "prova": {
             "file": "provas/arbitragem_da_intelligence.py",
-            "line": 337,
+            "line": 401,
             "snippet": "escreve em destino"
           }
         }
       ],
-      "destino": [
-        "GIT"
-      ],
-      "destino_prova": [
-        {
-          "onde": "GIT",
-          "file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
-          "line": 1,
-          "snippet": "ficheiro versionado que esta peca escreve"
-        }
-      ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 20850,
       "y": 2292
     },
@@ -12172,6 +12168,7 @@
       "produces": [],
       "inbound": [],
       "outbound": [
+        "C-INT-ARBITRAGEM",
         "C-TESTES"
       ],
       "paises": {},
@@ -14973,6 +14970,7 @@
       ],
       "outbound": [
         "C-AUDIT-MARCA",
+        "C-INT-ARBITRAGEM",
         "C-PACOTE-CAMADAS",
         "C-PORTAL-DADOS",
         "C-ROTULOS",
@@ -15072,6 +15070,7 @@
       ],
       "outbound": [
         "C-AUTORIZACAO-DE-GASTO",
+        "C-INT-ARBITRAGEM",
         "C-PROVA-COLETA",
         "C-TESTES"
       ],
@@ -18187,6 +18186,7 @@
         "C-V21-OPORTUNIDADE"
       ],
       "outbound": [
+        "C-INT-ARBITRAGEM",
         "C-PACOTE-CAMADAS",
         "C-SCRAP-GUARDA",
         "C-TESTES",
@@ -19295,7 +19295,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/intelligence-atomicity-v1"
+        "branch claude/intelligence-night-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -20076,7 +20076,7 @@
         },
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 233,
+          "line": 238,
           "snippet": "from admissao import decidir, pronto_para_inteligencia"
         },
         {
@@ -20134,7 +20134,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 54,
+          "line": 57,
           "snippet": "\"ITEM_RELEVANCE\": \"admissao/admissao.py\","
         }
       ],
@@ -22364,7 +22364,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 467,
+          "line": 472,
           "snippet": "\"system-map/scripts/censo_do_congelamento.py\":"
         }
       ],
@@ -28155,7 +28155,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 164,
+          "line": 169,
           "snippet": "import gestao_da_coleta as g"
         },
         {
@@ -28165,7 +28165,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 113,
+          "line": 116,
           "snippet": "import gestao_da_coleta as g"
         }
       ],
@@ -28821,21 +28821,16 @@
       "raw_type": "READS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 3 linhas de codigo.",
+      "reason": "A re-arbitragem da Intelligence — e a fotografia em que ela correu alimenta Suite de testes. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 143,
-          "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
-        },
-        {
-          "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 340,
+          "line": 345,
           "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 197,
+          "line": 265,
           "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\"),"
         }
       ],
@@ -28876,7 +28871,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 180,
+          "line": 185,
           "snippet": "from espinha_da_intelligence import PALAVRAS_QUE_O_REQUISITO_RECUSA"
         },
         {
@@ -28899,7 +28894,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 349,
+          "line": 354,
           "snippet": "self.assertNotIn(\"provas/espinha_da_intelligence.py\", c.INSTRUMENTOS)"
         }
       ],
@@ -31495,6 +31490,24 @@
     },
     {
       "from": "C-POLITICA-COLETA",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A politica da coleta — o que colher, quando, e se ja temos alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 213,
+          "snippet": "\"OWNER\": \"COLLECTION\", \"MODULO\": \"leis/politica_da_coleta.py\","
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-POLITICA-COLETA",
       "to": "C-TESTES",
       "type": "IMPORTS",
       "payload": "codigo",
@@ -31510,7 +31523,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 122,
+          "line": 125,
           "snippet": "import politica_da_coleta as p"
         }
       ],
@@ -31538,7 +31551,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 102,
+          "line": 105,
           "snippet": "\"leis/politica_da_coleta.py\"):"
         }
       ],
@@ -32227,7 +32240,7 @@
       "evidence": [
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 183,
+          "line": 186,
           "snippet": "modelo = texto(\"italia-portale/client/italy-app-model.js\")"
         },
         {
@@ -33483,7 +33496,7 @@
       "evidence": [
         {
           "file": "tests/test_atomicidade_da_intelligence.py",
-          "line": 465,
+          "line": 470,
           "snippet": "\"system-map/data/architecture.declared.json\":"
         },
         {
@@ -34342,6 +34355,24 @@
     },
     {
       "from": "C-RELEVANCIA",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Regua de relevancia ADAMA alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 197,
+          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"leis/adama_relevance.py\","
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -34452,7 +34483,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 93,
+          "line": 96,
           "snippet": "import adama_relevance as ar"
         }
       ],
@@ -34470,7 +34501,7 @@
       "evidence": [
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 55,
+          "line": 58,
           "snippet": "\"CASE_RELEVANCE\": \"leis/adama_relevance.py\","
         }
       ],
@@ -34508,6 +34539,24 @@
           "file": "leis/autorizacao_de_gasto.py",
           "line": 178,
           "snippet": "import relevancia_da_fonte as rel  # noqa: E402 — PERGUNTA-SE; nao se decide aqui"
+        }
+      ],
+      "categoria": "RULE"
+    },
+    {
+      "from": "C-RELEVANCIA-DA-FONTE",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "A relevancia da fonte · «esta fonte vale ser acompanhada PARA ESTE PROPOSITO?» alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 188,
+          "snippet": "\"OWNER\": \"COLLECTION\", \"MODULO\": \"leis/relevancia_da_fonte.py\","
         }
       ],
       "categoria": "RULE"
@@ -34585,7 +34634,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 94,
+          "line": 97,
           "snippet": "import relevancia_da_fonte as rf"
         },
         {
@@ -34613,7 +34662,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 53,
+          "line": 56,
           "snippet": "\"SOURCE_RELEVANCE\": \"leis/relevancia_da_fonte.py\","
         }
       ],
@@ -38951,6 +39000,24 @@
     },
     {
       "from": "C-V21-COMERCIAL",
+      "to": "C-INT-ARBITRAGEM",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Leitura comercial e completude alimenta A re-arbitragem da Intelligence — e a fotografia em que ela correu. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/arbitragem_da_intelligence.py",
+          "line": 217,
+          "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_comercial.py\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-V21-COMERCIAL",
       "to": "C-PACOTE-CAMADAS",
       "type": "READS",
       "payload": "artefacto",
@@ -39007,7 +39074,7 @@
         },
         {
           "file": "tests/test_relevance_priority_sobrecarga.py",
-          "line": 129,
+          "line": 132,
           "snippet": "import v21_comercial as c"
         }
       ],
@@ -40130,8 +40197,8 @@
     "components_pending": 131,
     "components_broken": 0,
     "components_unknown": 6,
-    "edges": 882,
-    "edges_proven": 879,
+    "edges": 886,
+    "edges_proven": 883,
     "edges_unknown": 3,
     "business_edges": 4,
     "files_tracked": 1774,

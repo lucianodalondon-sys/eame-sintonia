@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/intelligence-atomicity-v1",
-    "HEAD": "fce6204b9a7c24fdc36e380f4da2e8a268c45e9c",
-    "GENERATED_AT": "2026-09-14T02:55:58+00:00",
-    "SOURCE_TREE_FINGERPRINT": "5a987ef9fd6ee411ef60d51e9a9f185ec1ca35959f36d34e18e8102381d82a62"
+    "BRANCH": "claude/intelligence-night-v1",
+    "HEAD": "187cdf37556f2f2cacc1110a47c6912be1080dcc",
+    "GENERATED_AT": "2026-09-14T02:57:11+00:00",
+    "SOURCE_TREE_FINGERPRINT": "023b69845a57f72ed1bd45621910f274bd15dc2fe05eb9d76fd22f4861ae3506"
   },
   "FILES": [
     {
@@ -4931,7 +4931,7 @@
     },
     {
       "path": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
-      "sha": "c7a416684d61f4afe6417c825921583e2daaf5ae",
+      "sha": "6aaf3aff9df75e48fc5e541312236899ba7c02b4",
       "ext": ".json",
       "readable": false,
       "code_dir": false
@@ -9012,7 +9012,7 @@
     },
     {
       "path": "provas/arbitragem_da_intelligence.py",
-      "sha": "cdb42f902c01a24e7e4a101ef4114586c700c87a",
+      "sha": "25008877371d7bacdf0504169c7f3b2c39318267",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11448,7 +11448,7 @@
     },
     {
       "path": "tests/test_atomicidade_da_intelligence.py",
-      "sha": "d3035d1d9d9043a7959e2c18ab710042a31e71de",
+      "sha": "9bb0f274f665685f585e540ee3b5f4d3ed0bfa18",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12232,7 +12232,7 @@
     },
     {
       "path": "tests/test_relevance_priority_sobrecarga.py",
-      "sha": "d84332f9e4b1eecf049063523cfc51a7f8ed1389",
+      "sha": "444da670945595bb81aa49f68aa8d92b4e4ea44f",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -32186,28 +32186,6 @@
     },
     {
       "from_file": "provas/arbitragem_da_intelligence.py",
-      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/arbitragem_da_intelligence.py",
-        "line": 336,
-        "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\")"
-      }
-    },
-    {
-      "from_file": "provas/arbitragem_da_intelligence.py",
-      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
-      "type": "WRITES",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "provas/arbitragem_da_intelligence.py",
-        "line": 337,
-        "snippet": "with open(destino, \"w\", encoding=\"utf-8\") as f:"
-      }
-    },
-    {
-      "from_file": "provas/arbitragem_da_intelligence.py",
       "to_file": "docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md",
       "type": "READS",
       "payload": "artefacto",
@@ -32230,6 +32208,17 @@
     },
     {
       "from_file": "provas/arbitragem_da_intelligence.py",
+      "to_file": "leis/adama_relevance.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/arbitragem_da_intelligence.py",
+        "line": 197,
+        "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"leis/adama_relevance.py\","
+      }
+    },
+    {
+      "from_file": "provas/arbitragem_da_intelligence.py",
       "to_file": "leis/gestao_da_coleta.py",
       "type": "READS",
       "payload": "artefacto",
@@ -32241,6 +32230,28 @@
     },
     {
       "from_file": "provas/arbitragem_da_intelligence.py",
+      "to_file": "leis/politica_da_coleta.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/arbitragem_da_intelligence.py",
+        "line": 213,
+        "snippet": "\"OWNER\": \"COLLECTION\", \"MODULO\": \"leis/politica_da_coleta.py\","
+      }
+    },
+    {
+      "from_file": "provas/arbitragem_da_intelligence.py",
+      "to_file": "leis/relevancia_da_fonte.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/arbitragem_da_intelligence.py",
+        "line": 188,
+        "snippet": "\"OWNER\": \"COLLECTION\", \"MODULO\": \"leis/relevancia_da_fonte.py\","
+      }
+    },
+    {
+      "from_file": "provas/arbitragem_da_intelligence.py",
       "to_file": "motor/pacote_convergencia.py",
       "type": "READS",
       "payload": "artefacto",
@@ -32248,6 +32259,17 @@
         "file": "provas/arbitragem_da_intelligence.py",
         "line": 121,
         "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/pacote_convergencia.py\","
+      }
+    },
+    {
+      "from_file": "provas/arbitragem_da_intelligence.py",
+      "to_file": "motor/v21_comercial.py",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/arbitragem_da_intelligence.py",
+        "line": 217,
+        "snippet": "\"OWNER\": \"INTELLIGENCE\", \"MODULO\": \"motor/v21_comercial.py\","
       }
     },
     {
@@ -41915,7 +41937,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 471,
+        "line": 476,
         "snippet": "\"HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md\","
       }
     },
@@ -41948,7 +41970,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 233,
+        "line": 238,
         "snippet": "from admissao import decidir, pronto_para_inteligencia"
       }
     },
@@ -41970,7 +41992,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 361,
+        "line": 366,
         "snippet": "self.assertTrue(os.path.exists(ficheiro(\"controle/censo_do_controle.py\")))"
       }
     },
@@ -41981,7 +42003,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 362,
+        "line": 367,
         "snippet": "self.assertTrue(os.path.exists(ficheiro(\"controle/portao_do_controle.py\")))"
       }
     },
@@ -41992,7 +42014,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 472,
+        "line": 477,
         "snippet": "\"docs/apresentacao/PILOTO-CLASSIFICACAO.md\","
       }
     },
@@ -42003,19 +42025,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 473,
+        "line": 478,
         "snippet": "\"docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md\","
-      }
-    },
-    {
-      "from_file": "tests/test_atomicidade_da_intelligence.py",
-      "to_file": "docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json",
-      "type": "READS",
-      "payload": "artefacto",
-      "evidence": {
-        "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 143,
-        "snippet": "gravado = json.load(open(p, encoding=\"utf-8\"))"
       }
     },
     {
@@ -42025,7 +42036,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 474,
+        "line": 479,
         "snippet": "\"docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md\","
       }
     },
@@ -42036,7 +42047,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 475,
+        "line": 480,
         "snippet": "\"docs/piloto/O-QUE-PODEMOS-DIZER.md\","
       }
     },
@@ -42047,7 +42058,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 476,
+        "line": 481,
         "snippet": "\"docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md\","
       }
     },
@@ -42058,7 +42069,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 477,
+        "line": 482,
         "snippet": "\"docs/piloto/VEREDITO-M10-HANDOFF.md\","
       }
     },
@@ -42069,7 +42080,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 478,
+        "line": 483,
         "snippet": "\"docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md\","
       }
     },
@@ -42080,7 +42091,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 164,
+        "line": 169,
         "snippet": "import gestao_da_coleta as g"
       }
     },
@@ -42102,7 +42113,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 340,
+        "line": 345,
         "snippet": "self.assertIn(\"provas/arbitragem_da_intelligence.py\", c.INSTRUMENTOS)"
       }
     },
@@ -42113,7 +42124,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 180,
+        "line": 185,
         "snippet": "from espinha_da_intelligence import PALAVRAS_QUE_O_REQUISITO_RECUSA"
       }
     },
@@ -42124,7 +42135,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 349,
+        "line": 354,
         "snippet": "self.assertNotIn(\"provas/espinha_da_intelligence.py\", c.INSTRUMENTOS)"
       }
     },
@@ -42135,7 +42146,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 465,
+        "line": 470,
         "snippet": "\"system-map/data/architecture.declared.json\":"
       }
     },
@@ -42146,7 +42157,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_atomicidade_da_intelligence.py",
-        "line": 467,
+        "line": 472,
         "snippet": "\"system-map/scripts/censo_do_congelamento.py\":"
       }
     },
@@ -51573,7 +51584,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 31,
+        "line": 34,
         "snippet": "import _gavetas  # noqa: E402,F401 — poe as gavetas do processo no caminho"
       }
     },
@@ -51584,7 +51595,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 54,
+        "line": 57,
         "snippet": "\"ITEM_RELEVANCE\": \"admissao/admissao.py\","
       }
     },
@@ -51595,7 +51606,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 197,
+        "line": 265,
         "snippet": "\"INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json\"),"
       }
     },
@@ -51606,7 +51617,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 183,
+        "line": 186,
         "snippet": "modelo = texto(\"italia-portale/client/italy-app-model.js\")"
       }
     },
@@ -51617,7 +51628,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 93,
+        "line": 96,
         "snippet": "import adama_relevance as ar"
       }
     },
@@ -51628,7 +51639,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 55,
+        "line": 58,
         "snippet": "\"CASE_RELEVANCE\": \"leis/adama_relevance.py\","
       }
     },
@@ -51639,7 +51650,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 113,
+        "line": 116,
         "snippet": "import gestao_da_coleta as g"
       }
     },
@@ -51650,7 +51661,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 122,
+        "line": 125,
         "snippet": "import politica_da_coleta as p"
       }
     },
@@ -51661,7 +51672,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 102,
+        "line": 105,
         "snippet": "\"leis/politica_da_coleta.py\"):"
       }
     },
@@ -51672,7 +51683,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 94,
+        "line": 97,
         "snippet": "import relevancia_da_fonte as rf"
       }
     },
@@ -51683,7 +51694,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 53,
+        "line": 56,
         "snippet": "\"SOURCE_RELEVANCE\": \"leis/relevancia_da_fonte.py\","
       }
     },
@@ -51694,7 +51705,7 @@
       "payload": "codigo",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 129,
+        "line": 132,
         "snippet": "import v21_comercial as c"
       }
     },
@@ -51705,7 +51716,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "tests/test_relevance_priority_sobrecarga.py",
-        "line": 207,
+        "line": 277,
         "snippet": "\"research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md\")"
       }
     },
@@ -54205,7 +54216,7 @@
     "provas/arbitragem_da_intelligence.py": [
       {
         "pasta": "docs",
-        "line": 337,
+        "line": 401,
         "constante": "destino"
       }
     ],
@@ -54380,7 +54391,7 @@
     "files_tracked": 1774,
     "files_readable": 714,
     "files_code_dir": 761,
-    "file_edges": 3768,
+    "file_edges": 3769,
     "escritas_em_pasta": 73,
     "declared_missing_here": 0
   },

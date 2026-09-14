@@ -138,8 +138,13 @@ class P3_ArbitragemCorreContraEstaArvore(unittest.TestCase):
                                 "%s aponta para %s, ausente" % (nome, c["MODULO_DONO"]))
 
     def test_o_resultado_escrito_bate_com_a_medicao_de_agora(self):
-        """O V2 gravado não pode envelhecer em silêncio."""
-        p = ficheiro("docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json")
+        """O resultado gravado não pode envelhecer em silêncio.
+
+        ⚠️ Aponta para o V3 desde C-INT-NIGHT-01. O V2 ficou como a medição
+        ANTES da decisão humana A/A, e `test_o_V2_fica_como_historia_e_nao_foi
+        _reescrito` guarda-o nesse estado. O ficheiro VIVO é sempre o último.
+        """
+        p = ficheiro("docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json")
         gravado = json.load(open(p, encoding="utf-8"))
         agora = medir()
         self.assertEqual(sorted(gravado["CONCEITOS"]), sorted(agora["CONCEITOS"]))

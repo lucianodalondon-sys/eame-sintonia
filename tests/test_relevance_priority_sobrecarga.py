@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 """A SOBRECARGA DE `RELEVANCE` E `PRIORITY`, GUARDADA — C-INT-OWNER-01.
 
+⚠️ A DECISAO HUMANA FOI TOMADA EM C-INT-NIGHT-01: opcao A/A, os dois nomes nus
+APOSENTADOS. As provas abaixo passaram a guardar a decisao, e nao a espera.
+
     python3 -m unittest tests.test_relevance_priority_sobrecarga -v
 
 O QUE ESTAS PROVAS SÃO
@@ -13,8 +16,8 @@ falha — e a falha é a informação.
 
 O QUE ELAS NÃO SÃO
 ------------------
-    NAO escolhem dono.       RELEVANCE_OWNER = HUMAN_DECISION_REQUIRED
-    NAO implementam nada.    PRIORITY_OWNER  = HUMAN_DECISION_REQUIRED
+    NAO escolhem dono.       NAKED_RELEVANCE_RETIRED = YES
+    NAO implementam nada.    NAKED_PRIORITY_RETIRED  = YES
     NAO criam score, peso, ranking nem formula.
 
     UM PACOTE DE DECISAO QUE NINGUEM PODE RE-MEDIR
@@ -188,26 +191,85 @@ class NenhumaFronteiraDeDepartamentoFoiAtravessada(unittest.TestCase):
                              "o portal passou a calcular prioridade comercial")
 
 
-class OPacoteDeDecisaoNaoDecidiuNada(unittest.TestCase):
-    """A prova de que esta missão parou onde devia parar."""
+class ADecisaoAAFoiAplicadaESeguraSozinha(unittest.TestCase):
+    """⚠️ A prova da decisão humana A/A — C-INT-NIGHT-01.
 
-    def test_o_ownership_V2_continua_a_pedir_decisao_humana(self):
+    Aposentar um nome não é dar-lhe um dono. Estas provas guardam a diferença,
+    que é exactamente onde a próxima missão pode escorregar.
+    """
+
+    def _v3(self):
+        import json
+        with open(ficheiro("docs/intelligence/"
+                           "INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json"),
+                  encoding="utf-8") as f:
+            return json.load(f)
+
+    def test_os_dois_nomes_nus_nao_sao_conceitos_operacionais(self):
+        v3 = self._v3()
+        for nome in ("RELEVANCE", "PRIORITY"):
+            self.assertNotIn(nome, v3["CONCEITOS"],
+                             "%s voltou a ser um conceito" % nome)
+            self.assertIn(nome, v3["NOMES_APOSENTADOS"])
+            self.assertEqual("RETIRED_AS_OVERLOADED_NAME",
+                             v3["NOMES_APOSENTADOS"][nome]["DECISAO"])
+
+    def test_nenhum_nome_nu_ganhou_dono(self):
+        """O erro que a opção A existe para impedir."""
+        v3 = self._v3()
+        for nome, ret in v3["NOMES_APOSENTADOS"].items():
+            self.assertNotIn("OWNER", ret,
+                             "%s ganhou um dono em vez de ser aposentado" % nome)
+
+    def test_ninguem_ficou_em_HUMAN_DECISION_REQUIRED(self):
+        v3 = self._v3()
+        pendentes = [k for k, c in v3["CONCEITOS"].items()
+                     if c["OWNER"] == "HUMAN_DECISION_REQUIRED"]
+        self.assertEqual([], pendentes, "decisao humana por tomar: %s" % pendentes)
+
+    def test_os_nove_conceitos_escondidos_estao_todos_declarados(self):
+        v3 = self._v3()
+        for nome, ret in v3["NOMES_APOSENTADOS"].items():
+            for coberto in ret["COBRIA"]:
+                self.assertIn(coberto, v3["CONCEITOS"],
+                              "%s cobria %s, que sumiu" % (nome, coberto))
+
+    def test_os_conceitos_especificos_nao_se_fundiram(self):
+        """§8 do enunciado, uma linha por par."""
+        v3 = self._v3()["CONCEITOS"]
+        pares = (("SOURCE_RELEVANCE", "CASE_RELEVANCE"),
+                 ("ITEM_RELEVANCE", "USER_DECISION_RELEVANCE"),
+                 ("REQUIREMENT_PRIORITY", "COMMERCIAL_PRIORITY"),
+                 ("PRIORITY_TIER", "WATCHLIST_PRIORITY"))
+        for a, b in pares:
+            self.assertIn(a, v3)
+            self.assertIn(b, v3)
+            self.assertNotEqual(
+                (v3[a]["OWNER"], v3[a]["MODULO_DONO"]),
+                (v3[b]["OWNER"], v3[b]["MODULO_DONO"]),
+                "%s e %s fundiram-se" % (a, b))
+
+    def test_DEFINED_nao_e_IMPLEMENTED(self):
+        """A prova respeita a distinção: nem todos os nove correm hoje."""
+        v3 = self._v3()["CONCEITOS"]
+        self.assertEqual("DEFINED_ONLY",
+                         v3["WATCHLIST_PRIORITY"]["CURRENT_IMPLEMENTATION"],
+                         "WATCHLIST_PRIORITY ganhou runtime sem missao")
+        self.assertEqual("IMPLEMENTED",
+                         v3["CASE_RELEVANCE"]["CURRENT_IMPLEMENTATION"])
+
+    def test_o_V2_fica_como_historia_e_nao_foi_reescrito(self):
+        """Um censo que muda depois de medido deixa de poder ser conferido."""
         import json
         with open(ficheiro("docs/intelligence/"
                            "INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json"),
                   encoding="utf-8") as f:
             v2 = json.load(f)
-        for conceito in ("RELEVANCE", "PRIORITY"):
-            self.assertEqual("HUMAN_DECISION_REQUIRED",
-                             v2["CONCEITOS"][conceito]["OWNER"],
-                             "%s ganhou dono sem decisao humana" % conceito)
-
-    def test_o_pacote_declara_que_aguarda_decisao(self):
-        pacote = texto(
-            "research/intelligence/RELEVANCE-PRIORITY-DECISION-PACKAGE-V1.md")
-        self.assertIn("AWAITING_HUMAN_DECISION", pacote)
-        self.assertIn("RELEVANCE_ONE_CONCEPT = NO", pacote)
-        self.assertIn("PRIORITY_ONE_CONCEPT = NO", pacote)
+        self.assertEqual("HUMAN_DECISION_REQUIRED",
+                         v2["CONCEITOS"]["RELEVANCE"]["OWNER"],
+                         "o V2 foi reescrito para fingir que sempre soube")
+        self.assertEqual("INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json",
+                         v2["SUPERSEDED_BY"])
 
     def test_nenhum_score_foi_criado_por_esta_missao(self):
         """§11 do enunciado, guardado."""

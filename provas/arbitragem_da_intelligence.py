@@ -173,14 +173,77 @@ CONCEITOS = {
         "TOKENS": ["GAP_ID", "SATISFACTION_STATE", "COLLECT_NOW"],
         "OWNER": "COLLECTION", "MODULO": "leis/gestao_da_coleta.py",
     },
-    # ── os dois que continuam sem dono humano ──────────────────────────────
+    # ── os nove que estavam escondidos atras de dois nomes ─────────────────
+    # ⚠️ ATE 2026-09-14 AQUI ESTAVAM `RELEVANCE` e `PRIORITY`, cada um com
+    # OWNER = HUMAN_DECISION_REQUIRED. A decisao humana (C-INT-NIGHT-01, opcao
+    # A/A) APOSENTOU OS DOIS NOMES NUS — nao lhes deu dono.
+    #
+    #     UM NOME QUE COBRE CINCO PERGUNTAS NAO GANHA UM DONO.
+    #     PERDE O DIREITO DE SER USADO SOZINHO.
+    #
+    # O que entra no lugar sao os conceitos que eles escondiam, cada um com o
+    # dono que JA TINHA. Ver NOMES_APOSENTADOS, ao fundo.
+    "SOURCE_RELEVANCE": {
+        "ALIAS": [], "TOKENS": ["SOURCE_RELEVANCE", "RELEVANCIA_DA_FONTE"],
+        "OWNER": "COLLECTION", "MODULO": "leis/relevancia_da_fonte.py",
+    },
+    "ITEM_RELEVANCE": {
+        "ALIAS": [], "TOKENS": ["ITEM_RELEVANCE", "LIVRO-DE-DECISOES"],
+        "OWNER": "COLLECTION", "MODULO": "admissao/admissao.py",
+    },
+    "CASE_RELEVANCE": {
+        "ALIAS": ["ADAMA_RELEVANCE"],
+        "TOKENS": ["CASE_RELEVANCE", "RELEVANCE_A_PROVEN", "adama_relevance"],
+        "OWNER": "INTELLIGENCE", "MODULO": "leis/adama_relevance.py",
+    },
+    "CROP_RELEVANCE": {
+        "ALIAS": [], "TOKENS": ["CROP_RELEVANCE", "cropRelevance"],
+        "OWNER": "COLLECTION", "MODULO": None,   # rotulo vindo da fonte
+    },
+    "USER_DECISION_RELEVANCE": {
+        "ALIAS": [], "TOKENS": ["USER_DECISION_RELEVANCE"],
+        "OWNER": "SEM_DONO_DECLARADO", "MODULO": None,   # metrica INT-LAW-251
+    },
+    "REQUIREMENT_PRIORITY": {
+        "ALIAS": [], "TOKENS": ["REQUIREMENT_PRIORITY", "P1_BLOQUEIA_OUTRAS"],
+        "OWNER": "COLLECTION", "MODULO": "leis/gestao_da_coleta.py",
+    },
+    "PRIORITY_TIER": {
+        "ALIAS": [], "TOKENS": ["PRIORITY_TIER"],
+        "OWNER": "COLLECTION", "MODULO": "leis/politica_da_coleta.py",
+    },
+    "COMMERCIAL_PRIORITY": {
+        "ALIAS": [], "TOKENS": ["COMMERCIAL_PRIORITY", "SALES_READY"],
+        "OWNER": "INTELLIGENCE", "MODULO": "motor/v21_comercial.py",
+    },
+    "WATCHLIST_PRIORITY": {
+        "ALIAS": [], "TOKENS": ["WATCHLIST_PRIORITY"],
+        "OWNER": "INTELLIGENCE", "MODULO": None,   # so em documento
+    },
+}
+
+#: ⚠️ OS NOMES QUE DEIXARAM DE DESIGNAR ALGUMA COISA.
+#: Nao sao conceitos sem dono: sao palavras que cobriam varios conceitos, cada
+#: um com o seu dono. Usa-las sozinhas passou a ser um defeito de vocabulario.
+#:
+#: A decisao e humana, esta datada, e nao se apaga: `POR` diz quem a tomou.
+NOMES_APOSENTADOS = {
     "RELEVANCE": {
-        "ALIAS": [], "TOKENS": ["RELEVANCE", "RELEVANCIA"],
-        "OWNER": "HUMAN_DECISION_REQUIRED", "MODULO": None,
+        "DECISAO": "RETIRED_AS_OVERLOADED_NAME",
+        "POR": "decisao humana · C-INT-NIGHT-01 · opcao A",
+        "EM": "2026-09-14",
+        "COBRIA": ["SOURCE_RELEVANCE", "ITEM_RELEVANCE", "CASE_RELEVANCE",
+                   "CROP_RELEVANCE", "USER_DECISION_RELEVANCE"],
+        "NAO_TEM_DONO_PORQUE": "nao designa uma pergunta. Cada uma das cinco "
+                               "tem a sua, e quatro ja tinham dono em lei.",
     },
     "PRIORITY": {
-        "ALIAS": [], "TOKENS": ["PRIORITY", "PRIORIDADE"],
-        "OWNER": "HUMAN_DECISION_REQUIRED", "MODULO": None,
+        "DECISAO": "RETIRED_AS_OVERLOADED_NAME",
+        "POR": "decisao humana · C-INT-NIGHT-01 · opcao A",
+        "EM": "2026-09-14",
+        "COBRIA": ["REQUIREMENT_PRIORITY", "PRIORITY_TIER",
+                   "COMMERCIAL_PRIORITY", "WATCHLIST_PRIORITY"],
+        "NAO_TEM_DONO_PORQUE": "idem: quatro perguntas, tres com dono em lei.",
     },
 }
 
@@ -246,6 +309,7 @@ def medir():
         "AUTORIDADES_EXIGIDAS": len(AUTORIDADES),
         "AUTORIDADES_AUSENTES": faltam,
         "CONTROL_PLANE_ATOMICITY": "FAIL" if faltam else "PASS",
+        "NOMES_APOSENTADOS": NOMES_APOSENTADOS,
         "CONCEITOS": {},
     }
     for nome, d in CONCEITOS.items():
@@ -333,7 +397,7 @@ def main():
     if "--escrever" in sys.argv:
         destino = os.path.join(
             RAIZ, "docs", "intelligence",
-            "INTELLIGENCE-CONCEPT-OWNERSHIP-V2.json")
+            "INTELLIGENCE-CONCEPT-OWNERSHIP-V3.json")
         with open(destino, "w", encoding="utf-8") as f:
             json.dump(r, f, ensure_ascii=False, indent=1)
             f.write("\n")
