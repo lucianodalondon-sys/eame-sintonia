@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §117: promover é uma edição em vários sítios, e um portão que compara dois documentos não vê um documento a contradizer-se.
+**Última atualização material:** 2026-09-14 — §118: um mundo fechado torna invisível apagar uma proibição, e a proibição carregava a memória do ataque.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13789,4 +13789,111 @@ NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
 NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, 0/12 classes.
 NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
 Esta missao corrigiu a constituicao. Nao construiu nada.
+```
+
+---
+
+# §118 · UM MUNDO FECHADO TORNA INVISÍVEL APAGAR UMA PROIBIÇÃO — E A PROIBIÇÃO CARREGAVA A MEMÓRIA
+
+## O QUE MUDOU
+
+`C-INT-OBJECT-MODEL-01` fechou o modelo de objetos da Intelligence: 25 objetos
+com espécie e dono, 18 aliases arbitrados, 8 portões, 14 transições permitidas,
+19 proibidas, 8 domínios e 8 ferramentas com fronteira escrita. O `pode_transitar`
+foi desenhado em **mundo fechado** — tudo o que não está explicitamente permitido
+é proibido, porque uma defesa feita de lista negra cai no dia em que alguém
+inventa um caminho que ninguém se lembrou de proibir.
+
+Depois vieram as oito mutações. Sete morreram. **Uma sobreviveu**, e foi a que
+ensinou alguma coisa:
+
+```
+M2  apagar a proibicao OPPORTUNITY(A ou B) -> OPPORTUNITY(C ou D)
+    ->  os 45 testes continuaram VERDES
+```
+
+O mundo fechado já devolvia `FORBIDDEN` sozinho. O comportamento estava salvo.
+
+## POR QUÊ
+
+Porque uma proibição escrita carrega **duas coisas diferentes**, e só uma delas
+estava protegida:
+
+```
+O COMPORTAMENTO   «isto nao pode acontecer»       ← o mundo fechado ja garante
+A MEMORIA         «alguem ja quis fazer isto,     ← so a linha escrita guarda
+                   e esta e a razao de nao poder»
+```
+
+Apagar a linha não abria nenhuma porta. Apagava o **porquê** — e uma casa que
+esquece o ataque volta a discuti-lo do zero daqui a seis meses, sem saber que já
+o tinha resolvido.
+
+```
+UMA DEFESA REDUNDANTE NAO E DESPERDICIO.
+A SEGUNDA COPIA GUARDA A RAZAO, NAO O COMPORTAMENTO.
+```
+
+## PROVA
+
+`test_I10_os_ataques_conhecidos_continuam_NOMEADOS` fixa os 19 pares que têm de
+continuar **explicitamente** declarados, com razão não vazia. Com ele, M2 passa a
+cair:
+
+```
+M2 apagar o salto de nivel A/B->C/D   ->   ANTES: OK   ·   DEPOIS: FAILED
+```
+
+Oito mutações, oito apanhadas.
+
+## CONSEQUÊNCIA
+
+A regra que fica, e que vale para qualquer portão desta casa:
+
+```
+QUANDO UMA DEFESA E ESTRUTURAL (mundo fechado, tipo, forma da classe),
+A LISTA EXPLICITA DEIXA DE SER A DEFESA — E PASSA A SER A DOCUMENTACAO.
+
+Documentacao que nada guarda desaparece na primeira limpeza.
+Logo: uma prova tem de guardar a LISTA, e nao so o COMPORTAMENTO.
+```
+
+## E UM ACHADO DE MEDIÇÃO, DENTRO DO MESMO TRABALHO
+
+Dois nomes que o enunciado dava como objetos não eram objetos:
+
+```
+ATTENTION_ITEM   zero ocorrencias em codigo, contratos e leis desta arvore.
+                 A unica aparicao e uma linha de benchmark a agrupa-lo com
+                 OPPORTUNITY e FUTURE SIGNAL. Nao tem dono, campo nem estado.
+                 O que distingue «merece atencao» de «e finding» NAO E NADA NO
+                 OBJETO: e a VISTA. Declarar entidade era duplicar FINDING.
+
+SCREENING        tem vocabulario proprio, o que o faz PARECER entidade. Nao
+                 tem identidade, nao sobrevive a corrida, e o resultado dele
+                 mora no SIGNAL. UMA TRANSICAO COM NOME NAO E UMA ENTIDADE.
+```
+
+E um terceiro, que já tinha acontecido **em produção** e a auditoria da própria
+casa já tinha medido:
+
+```
+FUTURE_SIGNAL    o Portal deu-lhe um STATUS de sete valores — NEW SIGNAL /
+                 GAINING ATTENTION / MULTIPLE SIGNALS / WATCH CLOSELY / NEEDS
+                 VALIDATION / TIMING APPROACHING / PREPARE — que a montante
+                 nunca existiu. Medido: status === null em 3 de 3 registos.
+```
+
+```
+UMA FERRAMENTA NAO CRIA ARQUITETURA — E ESTA CRIOU.
+Um ecra que precisa de um campo inventa-o, e o campo fica a parecer lei.
+```
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO.
+NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
+Esta missao organizou objetos. Nao construiu nenhum.
 ```
