@@ -383,7 +383,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`SINTONIA-EAME-KNOW-HOW.md`](SINTONIA-EAME-KNOW-HOW.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `edc43d5c10`
+- **impressão do conteúdo medido** — `dede225b19`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
 - **quem aponta para ela** — `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md` *(+3)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
@@ -626,7 +626,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`](HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `f8fffb5e9a`
+- **impressão do conteúdo medido** — `853e1b5ff1`
 - **prova** — `git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`
 - **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `tests/test_atomicidade_da_intelligence.py` *(+2)*
 - **o que ela diz de si** — MEMORIA.

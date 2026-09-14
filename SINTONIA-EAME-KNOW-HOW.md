@@ -14195,3 +14195,139 @@ NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, e nao lhe toquei.
 NAO registra FINDING nenhum. NAO registra Opportunity nenhuma.
 INTELLIGENCE_V1_READY = NO.
 ```
+
+---
+
+# §121 · A ITÁLIA NÃO TEM FALTA DE DADOS. TEM FALTA DE UMA CHAVE — E É SEMPRE A MESMA
+
+## O QUE MUDOU
+
+Mediu-se, pela primeira vez, o que a matéria-prima italiana **consegue cruzar** — em vez
+de quanto ela pesa:
+
+```
+7.078 registos, 26 coleccoes, pacote V21-843baf4229d93598
+12 cruzamentos testados:   3 POSSIBLE · 3 PARTIAL · 6 NOT_POSSIBLE
+os SEIS impossiveis falham pelo MESMO campo
+```
+
+```
+ISSUE_ID normalizado, em todo o pacote .......................  24 valores
+nomes de praga e doenca citados em texto livre nos boletins .. 172 nomes (483 citacoes)
+registos que sabem de que problema falam .....................  836 de 7.078  (11,8 %)
+```
+
+O instrumento é `provas/demanda_de_dados_da_italia.py`; o estudo,
+`research/intelligence/DATA-DEMAND-MATRIX-ITALY.md`.
+
+## POR QUÊ — E ISTO É O MÉTODO, NÃO O CASO ITALIANO
+
+### 1 · A demanda derivou-se da pergunta, nunca da tela
+
+O método que sobreviveu, e que passa a ser o de qualquer aquisição:
+
+```
+DEMANDA DA FERRAMENTA
+  -> FAMILIA DE INTELLIGENCE
+    -> CRUZAMENTO
+      -> CHAVE DE JUNCAO
+        -> DADO NECESSARIO
+          -> COLLECTION GAP
+```
+
+Lê-se **da esquerda para a direita**, e a pergunta manda. Ler ao contrário — partir do
+ecrã para procurar o dado — produz a lista de compras que enche o armazém e não desbloqueia
+nada.
+
+E a prova de que o método discrimina: quatro dos dez gaps medidos concluem
+`0 fontes novas`. Uma lista de compras honesta tem linhas onde a resposta é *não comprar*.
+
+### 2 · `VALOR PARTILHADO ≠ LINHA QUE ATRAVESSA`
+
+Duas colecções podem partilhar oito culturas e seis regiões e mesmo assim **nenhuma linha**
+carregar as duas chaves ao mesmo tempo. `X-MERCADO-x-CULTURA` partilha 8 e 6 — e tem **5**
+linhas de mercado que atravessam.
+
+```
+CONTAR VOCABULARIO EM COMUM MEDE O DICIONARIO. CONTAR LINHAS MEDE O CRUZAMENTO.
+```
+
+Uma mutação provou que isto não era teoria: apagar a guarda de zero linhas não fazia cair
+teste nenhum, porque **nenhum cruzamento real caía hoje nesse caso**. O teste observava a
+árvore, não a lei. Fechou-se com um par sintético — duas pontas que partilham as duas
+chaves e onde nenhuma linha as carrega junto.
+
+### 3 · `REGION_IDS = 100 %` pode significar que ninguém sabe a região
+
+`competitors` tem região em 577 de 577 — e o valor é `GEO_ITALY` em 573. Um país não
+distingue Puglia de Veneto.
+
+```
+UMA CHAVE PREENCHIDA A 100 % COM O VALOR MAIS GROSSO DA ESCADA E UMA CHAVE VAZIA
+COM AR DE COMPLETA.
+```
+
+Toda contagem geográfica passou a exigir o prefixo da escada, e não a presença do campo.
+
+### 4 · `UM CAMPO QUE EXPLICA PORQUE NÃO SABE CONTINUA A NÃO SABER`
+
+219 linhas de uso de rótulo trazem `timing = "NAO SEI — a coluna de epoca do rotulo nao foi
+extraida"`. É a forma mais honesta de ignorância que esta casa produz — e foi a que quase
+passou por conhecimento, porque o detector reconhecia `NAO SEI` exacto e a forma explicada
+só existia fora do caminho medido.
+
+```
+A IGNORANCIA MAIS BEM ESCRITA E A QUE MAIS FACILMENTE PASSA POR DADO.
+```
+
+### 5 · Quando a Intelligence pede **reprocessamento** e não fonte
+
+O maior gap da Itália (`GAP-IT-001`) não pede uma única fonte nova. O nome do problema
+**já está guardado**: 172 nomes em texto livre, à espera de identidade. `INT-LAW-152` diz
+para avaliar reprocessamento antes de nova aquisição, e aqui a diferença é toda:
+
+```
+SE A NORMALIZACAO NAO VIER PRIMEIRO, 200 FONTES NOVAS SAO 200 DOCUMENTOS QUE NAO CRUZAM.
+```
+
+O mesmo vale para os rótulos (144 de 163 produtos sem uma linha de uso lida, com os 163
+documentos guardados e a fonte já `GREEN`) e para o registo de concorrente — que é a **mesma**
+Banca dati já contratada, lida sem o filtro de titular.
+
+### 6 · Quantidade que não se pode inventar
+
+Perguntou-se como distribuir as próximas 200 fontes. Para a família mais importante — os
+boletins de campo — a resposta medida foi:
+
+```
+NAO DA PARA DETERMINAR AINDA.
+```
+
+Determinar quantos boletins exige saber quantos pares cultura × problema × região o produto
+tem de cobrir, e **esse recorte não está declarado em lado nenhum desta árvore**. Isso é um
+contrato de universo em falta (`INT-LAW-111`), não um número em falta — e inventá-lo seria
+escolher o universo pela facilidade de coletar.
+
+## CONSEQUÊNCIA
+
+```
+ANTES DE PEDIR FONTE NOVA, MEDIR SE O QUE JA ENTROU CRUZA.
+   1. contar, por familia, quem sabe de que assunto, onde e quando fala
+   2. testar o cruzamento por LINHA, nao por vocabulario
+   3. separar o que falta COLHER do que falta NORMALIZAR
+   4. so o que sobra vira pedido de fonte
+```
+
+E a ordem entre as duas primeiras não é negociável: **uma chave em falta invalida mais
+cruzamentos do que qualquer fonte em falta**. Seis dos doze, aqui, por um campo só.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra coleta. Zero fontes recolhidas, zero coletores chamados.
+NAO registra runtime. INTELLIGENCE_V1_READY = NO, e nao lhe toquei.
+NAO registra lei nova. Os requisitos, os cruzamentos e os papeis ja tinham dono:
+   AGRO-INTELLIGENCE-INPUT-REQUIREMENTS-V1 · AGRO-CROSSING-GRAPH-V1 ·
+   AGRO-INTELLIGENCE-TOOL-ROLES-V1 · ARQUITETURA-DE-PRODUTO-ATUAL.
+   Esta missao mediu a Italia contra os quatro, e nao escreveu um quinto.
+```

@@ -3613,6 +3613,25 @@
    "files": [
     "provas/modelo_de_objetos_da_intelligence.py"
    ]
+  },
+  {
+   "id": "C-INT-DEMANDA-IT",
+   "name": "A demanda de dados da Itália — mede que cruzamento a matéria-prima sustenta",
+   "territory": "Z-PROVA",
+   "kind": "proof",
+   "icon": "▤",
+   "views": [
+    "audit"
+   ],
+   "what": "Le o pacote V2.1 do portal e conta, colecao a colecao, quem sabe de que cultura, de que problema, de que regiao e de quando fala. Depois testa doze cruzamentos declarados e devolve NOT_POSSIBLE, PARTIAL ou POSSIBLE — contando as LINHAS que atravessam, nao o vocabulario partilhado. Nao escreve nada, nao chama coletor, nao importa nada da Collection.",
+   "why_here": "C-INT-DATA-DEMAND-IT-01. VALOR PARTILHADO != LINHA QUE ATRAVESSA: duas pontas podem partilhar «GRAPEVINE» e nenhuma linha carregar todas as chaves ao mesmo tempo. Medido: 6 dos 12 cruzamentos sao NOT_POSSIBLE e os seis pela mesma chave ausente, ISSUE_ID — 24 valores normalizados contra 172 nomes de praga citados em texto livre. Fica em Z-PROVA porque MEDE, e porque o mapa amarra o territorio a pasta: `provas/` e gaveta de Z-PROVA.",
+   "departments": [
+    "ENGENHARIA",
+    "INTELIGENCIA"
+   ],
+   "files": [
+    "provas/demanda_de_dados_da_italia.py"
+   ]
   }
  ],
  "BUSINESS_EDGES": [
