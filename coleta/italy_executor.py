@@ -114,6 +114,16 @@ DA_OBSERVACAO_PARA_O_CONTRATO = DA_OBSERVACAO_PARA_A_PORTA = {
     "SOURCE_ID": "SOURCE_ID",
     "SOURCE_URL": "SOURCE_URL",
     "FACT_TIME": "FACT_TIME",
+    # ⚠️ QUANDO OS BYTES CHEGARAM — E O LIVRO SEMPRE SOUBE.
+    # Cada observacao do livro italiano traz `CAPTURED_AT` com o instante real
+    # da captura. Esta traducao nao o levava, e a ficha enchia o campo com o
+    # `STARTED_AT` da corrida. Numa colheita nova as duas datas coincidem e o
+    # defeito nao aparece; num REPROCESSAMENTO ficam a uma semana de distancia
+    # — medido: capturado a 2026-09-07, a Sala dizia 2026-09-14.
+    #
+    #     COLLECTED_AT E DA OBSERVACAO. STARTED_AT E DA CORRIDA.
+    #     SAO IGUAIS SO ENQUANTO FOREM A MESMA VIAGEM.
+    "CAPTURED_AT": "COLLECTED_AT",
 }
 
 

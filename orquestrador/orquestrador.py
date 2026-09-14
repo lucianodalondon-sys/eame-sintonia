@@ -442,9 +442,25 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             recusados.append({"DERIVED_ARTIFACT_ID": linha.get("id"),
                               "PORQUE": "o corpo nao se leu: %s" % erro})
             continue
+        # ── A FONTE DESTE DOCUMENTO, E SO DEPOIS A DA CORRIDA ──────────
+        # ⚠️ ISTO PASSAVA `source_id` — o da CORRIDA — a cada documento.
+        # Medido contra os dez documentos italianos reais desta arvore: a
+        # corrida trouxe SETE fontes diferentes, `_fonte_provada()` devolveu
+        # `None` (com razao: uma corrida com sete fontes nao tem uma), e o dono
+        # do STRUCTURED recusou os sete com «o documento nao diz de que fonte
+        # veio». A estrada parava aqui, com a resposta certa a pergunta errada.
+        #
+        #     A FONTE DE UM DOCUMENTO E DO DOCUMENTO.
+        #     PERGUNTA-LA A CORRIDA E LER O REGISTO DO COLECTIVO
+        #     PARA SABER O NOME DE UM INDIVIDUO.
+        #
+        # A da corrida fica como ultimo recurso — e nao se inventa: quando
+        # nenhuma das duas identifica, o dono do STRUCTURED recusa, e recusar
+        # continua a ser o comportamento certo.
+        fonte_do_documento = r.get("SOURCE_ID") or source_id
         recibo = pdoc.preservar_documento(
             {"derived_artifact_id": linha["id"], "run_id": run_id,
-             "source_id": source_id, "texto": corpo,
+             "source_id": fonte_do_documento, "texto": corpo,
              # ⚠️ `document_id` NAO VAI — E A RAZAO MUDOU, E ISSO FICA DITO.
              # Esta linha dizia «a fonte documental nao o prova». Era verdade
              # da unica fonte que por aqui passava (um boletim ARPAV, sem
@@ -473,6 +489,7 @@ def pela_estruturacao(derivacao: dict, *, run_id: str, armazem, memoria,
             memoria)
         if recibo["ESTADO"] in (pdoc.INSERTED, pdoc.REUSED):
             feitos.append({"RAW_ASSET_ID": r.get("RAW_ASSET_ID"),
+                           "SOURCE_ID": fonte_do_documento,
                            "DERIVED_ARTIFACT_ID": linha["id"],
                            "PARENT_SHA256": linha.get("parent_sha256"),
                            # ⚠️ ELA ATRAVESSA, E NAO SE MEDE AQUI.
@@ -545,7 +562,7 @@ def item_documental_para_a_porta(estruturado, *, source_id):
     # E AUSENCIA NAO SE FABRICA: sem `CAPTURED_AT` na unidade, o campo nao e
     # escrito, a porta nao o ve, e `pronto_para_inteligencia()` escreve
     # `NAO SEI` — que e a verdade, e nao um remendo.
-    bruto = {"SOURCE_ID": source_id,
+    bruto = {"SOURCE_ID": estruturado.get("SOURCE_ID") or source_id,
              "ARTIFACT_TYPE": "DERIVED",
              "PARENT_SHA256": estruturado.get("PARENT_SHA256"),
              pv.CAMPO_DAS_UNIDADES: [unidade]}

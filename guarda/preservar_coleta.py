@@ -1177,6 +1177,25 @@ def observacoes_confirmadas(run: dict, linhas: list, pos_escrita: dict) -> list:
             # Ausente continua ausente: sem `captured_at` na linha sai `None`,
             # e quem le trata isso como NAO SEI — nunca como uma hora.
             "CAPTURED_AT": linha.get("captured_at"),
+            # ── A FONTE, E ELA E DA OBSERVACAO E NAO DA CORRIDA ────────────
+            # ⚠️ A TERCEIRA VEZ QUE ESTA PORTA DEIXA UM CAMPO PARA TRAS, e a
+            # que mais custou: sem ela, SETE documentos italianos reais foram
+            # recusados por `guarda/preservar_documento.py` com «o documento
+            # nao diz de que fonte veio», e a estrada parou antes do STRUCTURED.
+            #
+            # A informacao existia em `raw_asset.source_id`, escrita por esta
+            # mesma peca, e `objetos_da_corrida()` ja a lia. Quem a pedia a
+            # jusante recebia, em vez dela, a fonte da CORRIDA — e uma corrida
+            # que colheu sete fontes diferentes nao TEM uma fonte:
+            # `_fonte_provada()` devolve `None`, e com razao.
+            #
+            #     A FONTE DE UM DOCUMENTO E DO DOCUMENTO.
+            #     A CORRIDA QUE O TROUXE PODE TER TRAZIDO OUTROS SETE.
+            #
+            # Pedir a corrida a identidade de cada filho dela e a mesma familia
+            # de erro que juntar dois tempos num campo so: um facto do
+            # individuo lido no registo do colectivo.
+            "SOURCE_ID": linha.get("source_id"),
             # ── A ALCA, DE VOLTA A QUEM A ATOU ────────────────────────
             # Efemera, e so por isso e que ela pode existir: ela nao nomeia
             # nada no acervo, nao e escrita em coluna nenhuma e morre com

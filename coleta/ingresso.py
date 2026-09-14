@@ -109,9 +109,30 @@ RECUSAS = (SEM_CORRIDA, SEM_CONTEUDO, CONTRATO_QUEBRADO)
 # Nao ha valor por omissao nenhum aqui: o que o coletor nao disser fica NAO SEI.
 NAO_SEI_ID = "NAO SEI"
 
+# ⚠️ `COLLECTED_AT` ENTROU AQUI, E A AUSENCIA DELE ERA UM DEFEITO CALADO.
+# Esta tupla tinha treze campos e nenhum deles servia para o coletor dizer
+# QUANDO ele trouxe os bytes. A ficha enchia esse campo com o `STARTED_AT` da
+# CORRIDA, e enquanto a corrida que colhe e a corrida que preserva forem a
+# mesma, os dois valores coincidem e ninguem repara.
+#
+# Deixam de coincidir no reprocessamento — que e exactamente o que esta missao
+# faz. Medido: dez observacoes italianas capturadas a 2026-09-07, reprocessadas
+# a 2026-09-14, chegaram a Sala de Espera com
+#
+#     captured_at = 2026-09-14  —  uma semana errado, e com ar de medido
+#
+# O livro italiano SEMPRE soube a resposta certa: cada observacao traz
+# `CAPTURED_AT` com o instante real. O coletor sabia, e nao tinha por onde o
+# dizer.
+#
+#     RUNTIME SABE != O SISTEMA GUARDA.
+#     E UM CAMPO SEM SITIO NO CONTRATO E UM CAMPO QUE NAO EXISTE.
+#
+# A corrida continua a ser o valor por omissao — para quem nao declara, nada
+# muda. O que muda e haver um sitio para a verdade quando ela e sabida.
 DO_COLETOR = ("SOURCE_ID", "SOURCE_URL", "PUBLISHER", "COUNTRY_SCOPE",
               "SOURCE_LOCATION", "FACT_LOCATION", "ITEM_LANGUAGE",
-              "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT",
+              "FACT_TIME", "PUBLISHED_AT", "OBSERVED_AT", "COLLECTED_AT",
               "EXECUTOR_ID", "EXECUTOR_VERSION", "PIPELINE_VERSION")
 
 # ⚠️ `TEXT_UNITS` NAO ESTA NA LISTA ACIMA, E A AUSENCIA E A DECISAO.
@@ -595,6 +616,10 @@ def unidades_para_a_derivacao(recibo, armazem) -> tuple:
         # linha sem `captured_at` poe `None` aqui, e ninguem o enche.
         unidades.append({"RAW_ASSET_ID": o["RAW_OBSERVATION_ID"],
                          "CAPTURED_AT": o.get("CAPTURED_AT"),
+                         # A fonte DESTA observacao. Nao e a da corrida: uma
+                         # corrida pode ter colhido sete fontes, e entao ela
+                         # nao tem nenhuma.
+                         "SOURCE_ID": o.get("SOURCE_ID"),
                          "PDF": local})
     return unidades, sem_bytes
 
@@ -643,10 +668,14 @@ def ficha(item: dict, *, corrida: dict, raiz: str = RAIZ) -> art.Artefato:
     caminho = item.get("STORAGE_LOCATION") or ""
     abs_ = os.path.join(raiz, caminho) if caminho else ""
     declarados = {k: item[k] for k in DO_COLETOR if item.get(k)}
-    comum = dict(
-        RUN_ID=corrida.get("RUN_ID", art.NAO_SEI),
-        COLLECTED_AT=corrida.get("STARTED_AT") or art.agora(),
-        **declarados)
+    # ⚠️ O QUE O COLETOR DECLAROU VENCE O VALOR POR OMISSAO DA CORRIDA.
+    # `COLLECTED_AT` vem primeiro com a hora da corrida e so depois e
+    # sobreposto pelo que o coletor disse — nunca ao contrario. A corrida sabe
+    # quando ELA comecou; so o coletor sabe quando os BYTES chegaram, e num
+    # reprocessamento essas duas datas estao a uma semana de distancia.
+    comum = dict(RUN_ID=corrida.get("RUN_ID", art.NAO_SEI),
+                 COLLECTED_AT=corrida.get("STARTED_AT") or art.agora())
+    comum.update(declarados)
 
     if abs_ and os.path.isfile(abs_):
         return art.raw_do_disco(abs_, raiz, **comum)

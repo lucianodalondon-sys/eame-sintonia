@@ -209,7 +209,22 @@ class MemoriaPostgres(Memoria):
     #
     # A normalizacao mora AQUI, no adaptador, porque e um assunto de dialeto.
     # O dono da escrita nao tem de saber como cada banco imprime uma data.
-    _ISO = "to_char(%s at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+    #
+    # ⚠️ E ELA CORTAVA EM SEGUNDOS, produzindo o conflito falso que o paragrafo
+    # acima existe para evitar. Enquanto `captured_at` vinha do `STARTED_AT` da
+    # corrida — que esta casa formata sem milissegundos — o ida-e-volta batia
+    # por coincidencia. No dia em que o coletor passou a declarar a hora REAL
+    # da captura, o livro italiano trouxe `2026-09-07T15:37:40.362Z`, a coluna
+    # guardou os 362ms, e este leitor devolveu `15:37:40Z`: DEZ observacoes
+    # boas sairam `METADATA_CONFLICT`, e a estrada parou antes do DERIVED.
+    #
+    #     UM LEITOR QUE ARREDONDA FAZ A CONFERENCIA COMPARAR
+    #     O QUE FOI ESCRITO COM O QUE ELE PROPRIO DEIXOU PASSAR.
+    #
+    # Os zeros a direita saem, entao um instante escrito sem milissegundos
+    # continua a voltar exactamente como voltava. Nenhum valor antigo muda.
+    _ISO = ("regexp_replace(to_char(%s at time zone 'UTC', "
+            "'YYYY-MM-DD\"T\"HH24:MI:SS.US'), '\\.?0+$', '') || 'Z'")
 
     COLS_RUN = ("run_id", "actor", "actor_version", "source_country",
                 "started_at", "rule_version", "capture_method", "status",

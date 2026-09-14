@@ -162,7 +162,28 @@ class MemoriaSupabase(MemoriaDoDerivado):
     # `2026-09-08 00:00:00+00`; nos escrevemos `...T...Z`. Comparar as duas
     # formas daria um conflito FALSO — e conflito falso ensina toda a gente a
     # ignorar o alarme.
-    _ISO = "to_char(%s at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS\"Z\"')"
+    #
+    # ⚠️ E A PRIMEIRA VERSAO DESTE FORMATO PRODUZIA EXACTAMENTE O ALARME FALSO
+    # QUE ELE VEIO CALAR. Ela cortava em SEGUNDOS: `HH24:MI:SS`. Enquanto todo
+    # `captured_at` vinha do `STARTED_AT` da corrida — que esta casa formata
+    # sem milissegundos — o ida-e-volta batia por coincidencia.
+    #
+    # Deixou de bater no dia em que o COLETOR passou a declarar a hora real da
+    # captura. O livro italiano traz `2026-09-07T15:37:40.362Z`; a coluna
+    # `timestamptz` guarda os 362ms sem os perder; e o LEITOR devolvia
+    # `15:37:40Z`. A conferencia campo a campo comparava o valor enviado com
+    # um valor que ela propria tinha arredondado, e declarava
+    # `METADATA_CONFLICT` em DEZ observacoes boas — parando a estrada antes do
+    # DERIVED.
+    #
+    #     UMA CONFERENCIA QUE ARREDONDA O QUE LE
+    #     NAO CONFERE O QUE FOI ESCRITO: CONFERE O QUE ELA DEIXOU PASSAR.
+    #
+    # Agora a precisao volta inteira, e os zeros a direita saem — um instante
+    # escrito sem milissegundos continua a voltar exactamente como antes, e um
+    # escrito com eles volta com eles. Nenhum valor antigo muda de forma.
+    _ISO = ("regexp_replace(to_char(%s at time zone 'UTC', "
+            "'YYYY-MM-DD\"T\"HH24:MI:SS.US'), '\\.?0+$', '') || 'Z'")
     TEMPOS = ("started_at", "finished_at", "captured_at", "derived_at")
 
     COLS_RUN = ("run_id", "actor", "actor_version", "source_country",

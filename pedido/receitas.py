@@ -169,6 +169,42 @@ EXECUTORES = {
         "custo": "gratuito",
     }],
     "T3": [{
+        # ── O COLETOR ITALIANO COBRE T3, E A RECEITA NAO O DIZIA ───────────
+        # ⚠️ ESTE REGISTO NAO E NOVO CODIGO: E UMA DECLARACAO QUE FALTAVA.
+        # `coleta/italy_pilot_collect.mjs` declara, no proprio ficheiro:
+        #
+        #     PILOT_SOURCES = ["IT-T3-005", "IT-T2-002", "IT-T2-004",
+        #                      "IT-T3-002", "IT-T3-010", "IT-T3-008", "IT-T4-001"]
+        #
+        # QUATRO das sete sao T3 — boletins fitossanitarios e de praga, com
+        # bytes preservados e SHA no livro italiano. A receita registava este
+        # executor SO em T2, e por isso um pedido de T3 abria o `eppo`, que
+        # nunca correu e cujo `larga_em` aponta para uma pasta inexistente.
+        #
+        #     UM EXECUTOR QUE COLHE T3 E SO SE DECLARA EM T2
+        #     FAZ O PEDIDO DE T3 BATER NUMA PORTA QUE NAO ABRE.
+        #
+        # Ele vem PRIMEIRO porque o orquestrador abre `executores[0]` e este e
+        # o unico dos dois que colhe. O `eppo` fica — o registo dele nao esta
+        # errado, esta por cumprir — e passa para tras, que e onde estao os
+        # executores que ainda nao atravessam.
+        "id": "italia-recorrente",
+        "retorno": {"ENVELOPE": "data/colheita/italia/RETORNO.json"},
+        "roda": ["coleta/italy_executor.py"],
+        "recebe_run_id": True,
+        "larga_em": ["data/colheita/italia/"],
+        "argumentos_de_filtros": ["fonte"],
+        # `IT-T3-010` e o Bollettino Mosca dell'Olivo da APOL: boletim de praga
+        # publicado, com bytes nesta arvore e SHA no livro. Nao foi escolhido
+        # por casar com o vocabulario da porta — e o que o contrato de
+        # `regras/italy_contracts.mjs` ja declara como P0 de T3.
+        "filtros_por_omissao": {"fonte": "IT-T3-010"},
+        "rotas": ["HTTP direto"],
+        "o_que_traz": "o boletim fitossanitario ou de praga da zona, como PDF "
+                      "ou HTML, com a versao do documento e o sitio onde o "
+                      "byte ficou",
+        "custo": "gratuito",
+    }, {
         "id": "eppo",
         # F2 · nunca correu, e o sitio declarado nao existe. Nao ha nada a
         # declarar, e inventar uma especie para um ficheiro inexistente

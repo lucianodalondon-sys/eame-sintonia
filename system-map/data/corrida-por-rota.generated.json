@@ -1,0 +1,76 @@
+{
+ "O_QUE_ISTO_E": "Que rotas de aquisicao tem corrida, medido rota a rota nesta arvore — e nao aceite de uma lista escrita noutra.",
+ "COMO_REFAZER": "python3 provas/a_corrida_existe_em_cada_rota.py",
+ "A_LEI": "COLETA REAL -> RUN",
+ "DONOS_DO_RUN": [
+  "guarda/preservar_coleta.py",
+  "coleta/coleta_checkpoint.py",
+  "coleta/regulatorio_importar.py",
+  "coleta/ropf_pre_requisito.py",
+  "guarda/catalogo_importar.py"
+ ],
+ "WHICH_ACQUISITION_PATHS_HAVE_RUN": [
+  "T2/italia-recorrente",
+  "T4/regulatorio-eu",
+  "T9/scrap-colheita"
+ ],
+ "WHICH_ACQUISITION_PATHS_LACK_RUN": [
+  "T3/eppo",
+  "T4/rotulos-oficiais",
+  "T6/corpus-pesquisador",
+  "T9/comunicacao-publica"
+ ],
+ "DETALHE": {
+  "T2/italia-recorrente": {
+   "ALVO": "T2",
+   "EXECUTOR": "italia-recorrente",
+   "RODA": "coleta/italy_executor.py",
+   "ESTADO": "RECEBE",
+   "PORQUE": "declara `recebe_run_id`: o orquestrador cunha a corrida e o executor transporta-a. Quem controla cunha, quem executa nao inventa."
+  },
+  "T3/eppo": {
+   "ALVO": "T3",
+   "EXECUTOR": "eppo",
+   "RODA": "coleta/eppo_gd.py",
+   "ESTADO": "SEM_RUN",
+   "PORQUE": "nao cunha, nao recebe e nao chama dono do RUN"
+  },
+  "T4/regulatorio-eu": {
+   "ALVO": "T4",
+   "EXECUTOR": "regulatorio-eu",
+   "RODA": "coleta/eu_regulatorio_executor.py",
+   "ESTADO": "RECEBE",
+   "PORQUE": "declara `recebe_run_id`: o orquestrador cunha a corrida e o executor transporta-a. Quem controla cunha, quem executa nao inventa."
+  },
+  "T4/rotulos-oficiais": {
+   "ALVO": "T4",
+   "EXECUTOR": "rotulos-oficiais",
+   "RODA": "coleta/rotulos_baixar.py",
+   "ESTADO": "SEM_RUN",
+   "PORQUE": "nao cunha, nao recebe e nao chama dono do RUN"
+  },
+  "T6/corpus-pesquisador": {
+   "ALVO": "T6",
+   "EXECUTOR": "corpus-pesquisador",
+   "RODA": "coleta/corpus_pesquisador.py coletar",
+   "ESTADO": "SEM_RUN",
+   "PORQUE": "nao cunha, nao recebe e nao chama dono do RUN"
+  },
+  "T9/comunicacao-publica": {
+   "ALVO": "T9",
+   "EXECUTOR": "comunicacao-publica",
+   "RODA": "coleta/comunicacao_coleta.py",
+   "ESTADO": "SEM_RUN",
+   "PORQUE": "fala de `run_id` mas nao o recebe pelo contrato da receita nem chama dono nenhum do RUN: o valor entra por fora e nao aterra em `collection_run`"
+  },
+  "T9/scrap-colheita": {
+   "ALVO": "T9",
+   "EXECUTOR": "scrap-colheita",
+   "RODA": "coleta/scrap_colheita.py",
+   "ESTADO": "RECEBE",
+   "PORQUE": "declara `recebe_run_id`: o orquestrador cunha a corrida e o executor transporta-a. Quem controla cunha, quem executa nao inventa."
+  }
+ },
+ "CANARIO_RUN_REQUIRED": "YES",
+ "O_QUE_ISTO_NAO_FAZ": "nao cunha corrida nenhuma. Uma rota sem RUN sai nomeada, e o conserto e do dono dela."
+}

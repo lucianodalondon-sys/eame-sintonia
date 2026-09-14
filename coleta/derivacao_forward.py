@@ -282,6 +282,10 @@ def correr(unidades, *, banco_do_rastro, run_id, armazem, memoria,
                            # unidade. Este runner nao a mede e nao a substitui
                            # pela sua: COLLECTED_AT != DERIVED_AT.
                            "CAPTURED_AT": u.get("CAPTURED_AT"),
+                           # A fonte da observacao-pai, transportada e nao
+                           # reconstruida: `SOURCE_ID` nao sai de caminho,
+                           # de pasta, de slug nem de sha.
+                           "SOURCE_ID": u.get("SOURCE_ID"),
                            "ESTADO": r.get("ESTADO"), "PORTA": porta,
                            "PORQUE": r.get("PORQUE"),
                            "LINHA": linha or None,
