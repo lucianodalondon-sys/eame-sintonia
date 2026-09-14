@@ -43,10 +43,18 @@ import os
 import sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, RAIZ)
+# ⚠️ O PREÂMBULO É O DA CASA, E ISTO CUSTOU UM ERRO DE COLETA.
+# `from admissao import admissao` funciona quando isto corre sozinho e REBENTA
+# quando outro ficheiro já pôs `admissao/` em `sys.path`: aí o nome `admissao`
+# resolve para o MÓDULO e não para o pacote.
+#
+#     UM IMPORT QUE DEPENDE DE QUEM CORREU ANTES NÃO É UM IMPORT: É UMA APOSTA.
+for _g in (RAIZ, os.path.join(RAIZ, "admissao")):
+    if _g not in sys.path:
+        sys.path.insert(0, _g)
 
-from admissao import admissao  # noqa: E402
-from admissao import sala_de_espera as espera  # noqa: E402
+import admissao  # noqa: E402
+import sala_de_espera as espera  # noqa: E402
 from coleta import ingresso  # noqa: E402
 from coleta import rota_forward_documento as rota  # noqa: E402
 from leis import artefato as art  # noqa: E402

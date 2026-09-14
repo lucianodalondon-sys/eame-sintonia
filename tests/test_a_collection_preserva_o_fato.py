@@ -463,5 +463,103 @@ class OContratoDeSaidaTemUmDonoSo(unittest.TestCase):
             espera._conferir_unidades([velho])
 
 
+class OReprocessamentoNaoFabricaColheita(unittest.TestCase):
+    """RT-COL-11 · RT-COL-15 · RT-COL-16 · RT-COL-18 — contra material REAL."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, os.path.join(RAIZ, "provas"))
+        import a_collection_preserva_o_fato as prova  # noqa: E402
+        cls.prova = prova
+        cls.r = prova.correr()
+
+    def test_rt_col_18_isto_corre_sobre_material_real_e_nao_sobre_fixture(self):
+        """⚠️ A GUARDA MAIS IMPORTANTE DESTE FICHEIRO.
+
+        Um teste que passa numa fixture e falha em material real não mede nada —
+        e esta missão tem a prova disso: **duas** recusas certas só apareceram
+        contra os documentos verdadeiros. Nenhuma fixture que eu escrevesse teria
+        contido `«dell'Osservatorio Fitosanitario della Regione Puglia»`, porque
+        eu não sabia que esse era o problema.
+
+            UMA FIXTURE MEDE O QUE QUEM A ESCREVEU JÁ SABIA.
+        """
+        self.assertGreater(self.r["OBSERVACOES_NO_LIVRO"], 100)
+        self.assertGreater(self.r["COM_TEXTO_DERIVADO_NESTA_ARVORE"], 0)
+        self.assertGreater(self.r["ADMITIDOS"], 0)
+
+    def test_rt_col_11_nenhuma_observacao_nova_e_fabricada(self):
+        """Reprocessar é olhar outra vez para o MESMO bruto.
+
+        Fingir uma colheita nova seria inventar uma corrida que não houve. A
+        prova declara-o, e aqui mede-se: o livro do coletor tem de sair da
+        travessia com exactamente o mesmo número de linhas com que entrou.
+        """
+        antes = len(self.prova.observacoes())
+        self.prova.correr()
+        self.assertEqual(antes, len(self.prova.observacoes()))
+        self.assertEqual("YES — nada foi colhido, nenhuma observacao nova foi criada",
+                         self.r["SO_LEITURA"])
+
+    def test_cada_unidade_aponta_para_o_bruto_de_onde_nasceu(self):
+        """Linhagem: o `RAW_SHA256` do recibo é o da observação do livro."""
+        # `.get`, e não `[]`: nem toda a observação do livro tem bytes. 31 das
+        # 175 são falhas de transporte — `curl: (56) CONNECT tunnel failed` — e
+        # uma observação que nunca recebeu bytes não tem `RAW_SHA256`. Isso é
+        # uma medição, não um buraco no livro.
+        shas = {o.get("RAW_SHA256") for o in self.prova.observacoes()}
+        self.assertTrue(self.r["RECIBOS"])
+        for recibo in self.r["RECIBOS"]:
+            self.assertIn(recibo["RAW_SHA256"], shas)
+
+    def test_rt_col_16_toda_normalizacao_diz_por_que_regra_passou(self):
+        """Regra nova não pode mexer em material antigo sem deixar rasto."""
+        for recibo in self.r["RECIBOS"]:
+            self.assertEqual(self.prova.VERSAO_DO_REPROCESSAMENTO,
+                             recibo["RULE_VERSION"])
+            for m in recibo["ISSUE"]["MENCOES_COM_AUTORIDADE"]:
+                self.assertIn("RULE_VERSION", m)
+                self.assertIn("AUTORIDADE", m)
+
+    def test_o_tempo_e_o_lugar_do_fato_continuam_NAO_SEI_e_dizem_porque(self):
+        """⚠️ A METADE QUE IMPORTA. Preencher não era o objectivo.
+
+        O livro do coletor **já tinha medido** que não sabe o tempo do facto, e
+        escreveu a razão em 175 observações. O que mudou não é o valor: é essa
+        frase chegar ao outro lado.
+        """
+        for pronto, recibo in zip(self.r["READY"], self.r["RECIBOS"]):
+            self.assertEqual(NAO_SEI, pronto["FACT_TIME"])
+            self.assertEqual(NAO_SEI, pronto["FACT_LOCATION"])
+            self.assertNotEqual(NAO_SEI, pronto["FACT_TIME_BASIS"])
+            self.assertNotEqual(NAO_SEI, pronto["FACT_LOCATION_BASIS"])
+            self.assertTrue(recibo["FACT_TIME"]["BASE"])
+
+    def test_a_fronteira_recusa_ficar_calada_sobre_o_que_nao_atravessou(self):
+        """`ingresso.conferir_fronteira` mede a travessia; não a adivinha."""
+        for recibo in self.r["RECIBOS"]:
+            fronteira = recibo["FRONTEIRA"]
+            self.assertEqual([], fronteira["EXIGIDOS_EM_FALTA"])
+            self.assertIn("SOURCE_LOCATION", fronteira["TRANSPORTADOS"])
+
+    def test_o_que_o_contrato_de_fonte_nao_prova_sai_NAO_SEI(self):
+        """`node` pode não existir na máquina — e aí a resposta é `NAO SEI`.
+
+        Nunca um valor de reserva. Este teste aceita as duas realidades e
+        recusa a terceira: um valor inventado.
+        """
+        from regras import contratos_de_fonte as cdf
+        for sid, esperado in (("IT-T9-008", NAO_SEI),   # "site nacional"
+                              ("IT-T5-002", NAO_SEI)):  # comune fora do gazetteer
+            self.assertEqual(esperado,
+                             cdf.lugar_declarado_pela_fonte(sid)["VALOR"])
+        napoli = cdf.lugar_declarado_pela_fonte("IT-T3-002")
+        if cdf.declarados():
+            self.assertEqual("Napoli", napoli["VALOR"])
+            self.assertIn("gazetteer", napoli["BASE"])
+        else:
+            self.assertEqual(NAO_SEI, napoli["VALOR"])
+
+
 if __name__ == "__main__":
     unittest.main()
