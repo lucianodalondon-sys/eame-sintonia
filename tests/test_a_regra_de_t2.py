@@ -173,15 +173,23 @@ class APortaNaoGanhouRegraDeT2(unittest.TestCase):
         # O que esta guarda protege, e que continua inteiro, e OUTRA coisa:
         # `T2` nao ganhou regra. Essa asserção esta acima e nao mudou.
         #
-        #     T3  13 -> 31   daninhas, resistencia e o lexico operacional
-        #                    italiano (trappola, fitosanitario, diserbo...)
+        #     T3  13 -> 30   daninhas, resistencia e o lexico operacional
+        #                    italiano (trappola, diserbo, infestante...)
+        #
+        # ⚠️ ESTE NUMERO JA FOI 31 NESTE MESMO DIA, E A GUARDA APANHOU-ME.
+        # Eu actualizei-o para 31 e SO DEPOIS tirei `fitosanitario` do lexico —
+        # o termo que o gabarito humano mostrou ser rodape institucional e nao
+        # conteudo. A contagem ficou a descrever um estado que durou um commit.
+        #
+        #     UMA CONTAGEM ACTUALIZADA ANTES DE A MUDANCA ASSENTAR
+        #     DESCREVE UMA ARVORE QUE NUNCA EXISTIU.
         #     T5   0 -> 22   o lexico de ciencia, que vivia na chave `T7`
         #                    e perdeu `prova` — ela casava dentro de
         #                    «ap-PROV-al» e admitia regulamento ingles
         #     T7  21 -> 12   deixa de ser ciencia e passa a ser rede tecnica
         #     T4  11 -> 11   intacto
         #     T9  12 -> 12   intacto
-        for u, n in (("T3", 31), ("T4", 11), ("T5", 22), ("T7", 12),
+        for u, n in (("T3", 30), ("T4", 11), ("T5", 22), ("T7", 12),
                      ("T9", 12)):
             with self.subTest(universo=u):
                 self.assertEqual(
