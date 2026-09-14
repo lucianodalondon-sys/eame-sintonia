@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  e09d7357819f8dbe20e03fdd75b198a14e9f5598
+HEAD_DA_MEDICAO  f4aa182c39e207ef8dea2cffe0587e86115e5424
 BRANCH           claude/system-map-v2-canonical-rebuild
-GERADO_EM        2026-09-14T16:24:58+00:00
+GERADO_EM        2026-09-14T16:40:05+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
