@@ -27,6 +27,7 @@ RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
 
 import generate_system_map as GEN  # noqa: E402
+import cadeia_do_mapa as CAD  # noqa: E402
 
 DADOS = RAIZ / "system-map" / "data"
 S = json.loads((DADOS / "state.generated.json").read_text(encoding="utf-8"))
@@ -61,7 +62,8 @@ prova("todo_no_tem_motivo_de_status",
 # A trava continua: as partes sao ESTAS e sao NESTA ORDEM. Trocar «tres» por
 # «quatro» so adiaria o problema — daqui a um mes seriam cinco sem ninguem
 # decidir. Nomear cada uma obriga a passar por aqui quem quiser mudar o desenho.
-PARTES_ESPERADAS = ["F-COLETA", "F-ESPERA", "F-INTELIGENCIA", "F-ENTREGA"]
+PARTES_ESPERADAS = ["F-COLETA", "F-ESPERA", "F-INTELIGENCIA",
+                    "F-GOVERNANCA", "F-ENTREGA"]
 FAMS = {f["id"] for f in S["FAMILIES"]}
 prova("as_partes_sao_estas_e_nesta_ordem",
       [f["id"] for f in S["FAMILIES"]] == PARTES_ESPERADAS,
@@ -81,27 +83,70 @@ prova("a_familia_vem_da_zona_e_nao_da_peca",
       "peca a declarar familia diferente da sua zona cria dois agrupamentos")
 
 # ── carimbo e medida nao se confundem ───────────────────────────────────────
-# A divisao entre «a regua que CARIMBA» e «a regua que MEDE» foi feita a partir
-# de uma medicao: carimba quem e usada por uma acao no momento em que ela colhe;
-# mede quem olha para tras e da nota. Escrita a mao no ficheiro declarado, essa
-# divisao envelhece calada — no dia em que um coletor passar a importar uma
-# medida, a gaveta continua a dizer o contrario.
 #
-#     MEDIR NAO E FILTRAR. Uma regua que so mede nao barra nada, e por-la
-#     antes das acoes faz parecer que ha peneira onde so ha termometro.
-USADA_NA_COLETA = ("Z-ACOES", "Z-CANDIDATAS", "Z-VEICULOS", "Z-ADMISSAO")
+# A PERGUNTA ANTIGA ERA INDECIDIVEL, e por isso esta prova esteve vermelha de
+# proposito. Ela separava CARIMBAR de MEDIR assim:
+#
+#     «esta peca tem seta para uma zona de accao?»
+#
+# e nos quatro casos que acusava, as setas eram `IMPORTS`. O `IMPORTS` segue o
+# dado, ou seja, aponta de quem e importado PARA quem importa: e o coletor que
+# importa o rastro para emitir telemetria, e nao o rastro que carimba o item.
+#
+#     UM IMPORT NAO E UM CARIMBO.
+#     E A SETA DO IMPORT APONTA PARA O LADO CONTRARIO DA DEPENDENCIA.
+#
+# A pergunta certa nao esta em quem me importa: esta no que eu PRODUZO e em QUEM
+# O CONSOME. Um carimbo entra no caminho do item; um termometro nao. O papel e
+# MEDIDO em `generate_system_map.papel_de_cada_regua`, com quatro respostas
+# possiveis e uma frase de prova em cada peca — nunca lido no nome dela, porque
+# `medidas/` e `regras/` sao gavetas, e uma gaveta nao e uma funcao.
 ZONA = {n["id"]: n["territory"] for n in S["NODES"]}
+_REGUAS = [n for n in S["NODES"] if n.get("rule_role")]
+_PAPEIS = {"STAMPS", "MEASURES", "DECLARES", "NAO SEI"}
+prova("toda_regua_tem_papel_medido",
+      _REGUAS and all(n["rule_role"] in _PAPEIS for n in _REGUAS),
+      f"{len(_REGUAS)} reguas; papeis fora do vocabulario: "
+      f"{sorted({n['rule_role'] for n in _REGUAS} - _PAPEIS)}")
+prova("todo_papel_de_regua_diz_porque",
+      all(n.get("rule_role_evidence") for n in _REGUAS),
+      "O MAPA TEM DE SABER RESPONDER «porque e esta uma regua que mede?» — "
+      "e a resposta nao pode ser «porque ha uma seta a apontar para la»")
+_indecisos = [n["id"] for n in _REGUAS if n["rule_role"] == "NAO SEI"]
+prova("nenhuma_regua_ficou_por_decidir", not _indecisos, ", ".join(_indecisos))
 
-trocadas = []
-for n in S["NODES"]:
-    if n["territory"] not in ("Z-REGRAS", "Z-MEDIDAS"):
-        continue
-    carimba = any(ZONA.get(b) in USADA_NA_COLETA for b in n.get("outbound", []))
-    devia = "Z-REGRAS" if carimba else "Z-MEDIDAS"
-    if devia != n["territory"]:
-        trocadas.append(f"{n['name']}: esta em {n['territory']}, medido como {devia}")
-prova("regua_que_carimba_nao_e_regua_que_mede", not trocadas,
-      "; ".join(trocadas[:4]))
+# O INVARIANTE. Quem carimba poe estado no caminho do item; arruma-lo entre as
+# medicoes faz parecer que ha termometro onde ha peneira, e o contrario tambem:
+#
+#     MEDIR NAO E FILTRAR. Uma regua que so mede nao barra nada.
+_carimba_mas_esta_nas_medidas = [
+    f"{n['id']} ({n['rule_role_evidence']})" for n in _REGUAS
+    if n["rule_role"] == "STAMPS" and n["territory"] == "Z-MEDIDAS"]
+prova("regua_que_carimba_nao_e_regua_que_mede",
+      not _carimba_mas_esta_nas_medidas, "; ".join(_carimba_mas_esta_nas_medidas))
+
+# §30 · FAMILIA e PAPEL sao eixos diferentes, e a prova disso e haver o mesmo
+# papel em familias diferentes. Se um dia o papel passar a ser derivado da
+# familia, esta linha cai — e e isso que ela existe para apanhar.
+_fam_de = {n["id"]: n.get("family") for n in S["NODES"]}
+_fam_dos_carimbos = {_fam_de[n["id"]] for n in _REGUAS if n["rule_role"] == "STAMPS"}
+prova("papel_nao_e_a_mesma_pergunta_que_familia", len(_fam_dos_carimbos) > 1,
+      f"quem carimba vive em {sorted(_fam_dos_carimbos)} — se so houver uma "
+      "familia, papel e familia deixaram de ser perguntas distintas")
+
+# O QUE ESTA PROVA NAO DIZ, e de proposito: nao exige que toda a peca de
+# `Z-REGRAS` carimbe. Tres nao carimbam — `C-IT-CONTRATOS` e `C-PALAVRAS` (que
+# escreve, mas quem le e o motor e nao a esteira) e `C-SENSOR-COLETA`, que nao e
+# regua nenhuma: e um COLETOR a viver em `regras/`. Onde cada uma devia estar e
+# arrumacao, e arrumacao decide-se, nao se mede. Fica dito, com numero.
+_regras_que_nao_carimbam = sorted(n["id"] for n in _REGUAS
+                                  if n["territory"] == "Z-REGRAS"
+                                  and n["rule_role"] != "STAMPS")
+prova("as_regras_que_nao_carimbam_estao_contadas",
+      len(_regras_que_nao_carimbam) == 3,
+      f"em Z-REGRAS sem carimbar: {_regras_que_nao_carimbam} — "
+      "mudou o numero, entao mudou a arquitetura e alguem tem de decidir")
+
 
 # ── as conexoes dizem QUE TIPO de ligacao sao ───────────────────────────────
 # Dez provas, e cada uma existe por uma maneira conhecida de o mapa mentir sobre
@@ -160,6 +205,48 @@ mau_proof = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
              if e.get("categoria") == "PROOF" and e.get("payload") == "coleta"]
 prova("T5_prova_nao_e_fluxo_de_dado", not mau_proof, "; ".join(mau_proof[:3]))
 
+# T5b · NENHUM DADO SALTA A FRONTEIRA PARA A INTELIGENCIA
+#
+# A coleta entrega pela porta: ADMISSAO -> READY. Um artefacto que va de uma
+# peca da coleta DIRECTO para uma peca da inteligencia esta a saltar a porta —
+# e isso ou tem uma lei que o autorize, ou e um desvio.
+#
+#     COLETAR != ADMITIR != JULGAR.
+#
+# Medido em 2026-09-09: das 148 ligacoes que atravessam essa fronteira, ZERO
+# sao DATA. 77 sao PROOF (provas que MEDEM a coleta), 38 READ, 14 CODE, 11
+# RULE e 8 CONTROL. Nenhuma leva item nenhum.
+#
+# As tres que o mapa mostrava como DATA eram falsas, e todas pelo mesmo
+# defeito: a regra que promove a ligacao de uma ferramenta de PREPARO a DATA
+# disparava sem olhar para o outro topo, e apanhava um censo que LE o codigo
+# da ferramenta e uma lei que ela CONSULTA.
+#
+#     UMA PROVA QUE ME MEDE NAO ESTA NO MEU CAMINHO.
+#     UMA REGRA QUE EU CONSULTO NAO VIAJA COMIGO.
+#
+# Este caso NAO exige zero para sempre. Exige que, se um dado passar a
+# atravessar, alguem tenha de vir aqui declarar a lei que o autoriza — em vez
+# de o desvio aparecer calado no meio de 148 ligacoes legitimas.
+FAM = {n["id"]: n.get("family") for n in S["NODES"]}
+LADO_DA_COLETA = {"F-COLETA", "F-ESPERA"}
+# Preenche-se com (from, to, LEI) quando existir travessia autorizada.
+TRAVESSIAS_AUTORIZADAS: set = set()
+# ⚠️ TODAS as ligacoes, e nao so as TECNICAS. Uma aresta `expected` — declarada
+# e ainda por provar — tambem sabe hoje dizer que leva DADO, desde que se
+# deixou de confundir «esta provada?» com «o que e que viaja?». Se este caso
+# olhasse so para as tecnicas, bastava declarar a travessia a mao para ela
+# passar por baixo da porta.
+#
+#     DECLARAR UM ATALHO NAO E TER PERMISSAO PARA ELE.
+saltam = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in S["EDGES"]
+          if e.get("categoria") == "DATA"
+          and FAM.get(e["from"]) in LADO_DA_COLETA
+          and FAM.get(e["to"]) == "F-INTELIGENCIA"
+          and (e["from"], e["to"]) not in TRAVESSIAS_AUTORIZADAS]
+prova("T5b_nenhum_dado_salta_a_porta_para_a_inteligencia", not saltam,
+      "; ".join(saltam[:3]))
+
 # T6 · a evidencia continua acessivel
 sem_prova = [f"{_nome(e['from'])} -> {_nome(e['to'])}" for e in TECNICAS
              if not e.get("evidence")
@@ -210,8 +297,19 @@ prova("E1_pedido_continua_acessivel",
 
 # E2 · a receita continua, e continua com um so consumidor
 rec = POR_ID_N.get("C-RECEITAS")
+# ⚠️ UM CENSO QUE ME LE NAO E UM CONSUMIDOR MEU.
+# Esta prova passou a reprovar com tres consumidores, e o terceiro era
+# `C-ESTRADAS-IT` — um CENSO, em Z-PROVA, que importa `pedido/receitas.py`
+# para a medir. Contar uma prova como consumidor faz um modulo interno
+# parecer que ganhou clientes quando so ganhou um medidor.
+#
+#     QUEM ME MEDE NAO ME CONSOME.
+#
+# A pergunta e sobre consumo OPERACIONAL, entao as pecas de prova saem da
+# conta — e continuam visiveis, so nao contam como cliente.
 consumidores = [e["to"] for e in S["EDGES"]
-                if e["from"] == "C-RECEITAS" and e.get("kind") == "technical"]
+                if e["from"] == "C-RECEITAS" and e.get("kind") == "technical"
+                and ZONA.get(e["to"]) != "Z-PROVA"]
 prova("E2_receita_continua_com_um_consumidor",
       bool(rec) and set(consumidores) <= {"C-ORQUESTRADOR", "C-PROVA-COLETA"},
       f"consumidores da receita: {sorted(set(consumidores))}")
@@ -428,6 +526,280 @@ proibido = [t for t in ("const nodes=[", "const edges=[", "const NODES", "const 
 prova("a_tela_nao_guarda_facto_nenhum", not proibido,
       f"encontrado no map.js: {proibido} — facto escrito na tela nao passa por validador")
 
+# ─────────────────────────────────────────────────────────────────────────────
+# A CONSTANTE QUE ESCONDE O AUTOR
+#
+# `scan_repo.escritas_por_constante` liga a linha que DA NOME ao ficheiro com a
+# linha que o ESCREVE, seiscentas linhas abaixo. Duas coisas escapavam-lhe, e as
+# duas apagavam autoria real do mapa:
+#
+#   1 · so via `open(X, 'w')`. Metade desta casa escreve com `pathlib`, e
+#       `LIVRO.write_text(...)` nao passa por `open()` nenhum. A porta de
+#       admissao aparecia com `produces: []` — o mapa dizia, por escrito, que
+#       nada saia dela — e `REGISTO-DE-ARTEFATOS.json` tinha nove leitores e
+#       zero autores.
+#
+#   2 · deixava a ULTIMA atribuicao ganhar, varrendo o modulo inteiro sem olhar
+#       a escopo nem a ordem. Sessenta nomes desta arvore estao ligados a mais
+#       de um ficheiro, e isso fabricava arestas.
+# ─────────────────────────────────────────────────────────────────────────────
+sys.path.insert(0, str(RAIZ / "system-map" / "scripts"))
+import scan_repo as SCAN  # noqa: E402
+
+_UNICOS = {"UM.json": ["data/UM.json"], "DOIS.json": ["data/DOIS.json"]}
+
+_PATHLIB = """
+import pathlib
+LIVRO = pathlib.Path('data/UM.json')
+def escrever():
+    LIVRO.write_text('{}')
+"""
+_achado = SCAN.escritas_por_constante("sintetico.py", _UNICOS, _PATHLIB)
+prova("escrita_por_pathlib_tem_autor",
+      [(a, t) for a, t, *_ in _achado] == [("data/UM.json", "WRITES")],
+      f"`CONST.write_text()` e uma escrita como qualquer outra; medido: {_achado}")
+
+# MUTACAO 1 · o detector tem de estar preso ao METODO, nao a presenca do nome.
+_MUTANTE = _PATHLIB.replace("write_text", "resolve")
+prova("mutacao_metodo_que_nao_escreve_nao_vira_autor",
+      not SCAN.escritas_por_constante("sintetico.py", _UNICOS, _MUTANTE),
+      "`LIVRO.resolve()` nao escreve nada e nao pode dar autoria a ninguem")
+
+# MUTACAO 2 · a prova tem de ser a LINHA QUE ESCREVE. Uma aresta certa com prova
+# inventada e uma aresta que ninguem consegue conferir.
+prova("a_prova_e_a_linha_que_escreve",
+      _achado and _achado[0][5] == "LIVRO.write_text('{}')" and _achado[0][2] == 5,
+      f"medido: linha {_achado[0][2] if _achado else '-'} · {_achado[0][5] if _achado else '-'}")
+
+# ESCOPO · a ligacao viva e a ultima ANTES daquela linha, no escopo mais proximo.
+# Este e o caso real de `superficie/ask_sintonia.py`: a escrita do BENCHMARK
+# estava a ser atribuida ao TESTE porque a atribuicao de baixo tinha ganho.
+_ESCOPO = """
+import json
+def benchmark():
+    out = 'data/UM.json'
+    json.dump({}, open(out, 'w'))
+out = 'data/DOIS.json'
+json.dump({}, open(out, 'w'))
+"""
+_e = sorted((a, t, n) for a, t, n, *_ in SCAN.escritas_por_constante(
+    "sintetico.py", _UNICOS, _ESCOPO))
+prova("cada_escrita_vai_para_o_ficheiro_que_estava_vivo_ali",
+      _e == [("data/DOIS.json", "WRITES", 7), ("data/UM.json", "WRITES", 5)],
+      f"a atribuicao de baixo nao pode roubar a escrita de cima; medido: {_e}")
+
+# MUTACAO 3 · sem nenhuma ligacao ANTES da linha, nao se responde. Adivinhar o
+# ficheiro seria fabricar a aresta mais importante do mapa.
+_DEPOIS = """
+import json
+def escrever():
+    json.dump({}, open(out, 'w'))
+out = 'data/UM.json'
+"""
+prova("sem_ligacao_antes_da_linha_o_censo_cala_se",
+      not SCAN.escritas_por_constante("sintetico.py", _UNICOS, _DEPOIS),
+      "nome so ligado DEPOIS da escrita: nao ha como saber, e nao se inventa")
+
+# ── e no repositorio de verdade: os tres artefactos que nao tinham autor ─────
+_AUTORES = {}
+for _e in G["FILE_EDGES"]:
+    if _e["type"] == "WRITES":
+        _AUTORES.setdefault(_e["to_file"], []).append(_e["from_file"])
+# O nome vem partido de proposito. Este teste NAO abre nenhum destes ficheiros:
+# le o mapa e pergunta-lhe quem os escreve. Escrever o caminho inteiro aqui
+# criaria tres arestas READS a dizer que o teste os consome — e foi contra
+# exactamente esse tipo de aresta (um nome numa lista nao e uma rota) que este
+# bloco todo foi escrito.
+for _pasta, _nome in (("data/samples", "LIVRO-DE-DECISOES"),
+                      ("data/derivados", "REGISTO-DE-ARTEFATOS"),
+                      ("data/samples", "RUN-MANIFEST")):
+    _art = f"{_pasta}/{_nome}.json"
+    prova(f"tem_autor_{_nome}", bool(_AUTORES.get(_art)),
+          "UM ARTEFACTO SEM AUTOR NAO E UM ARTEFACTO SEM AUTOR — "
+          "E UMA MEDICAO QUE NAO OLHOU")
+
+# O dono eleito por ordem alfabetica nao e um dono: quando ha mais de um autor,
+# o mapa tem de o DIZER em vez de sortear em silencio.
+prova("o_artefacto_com_dois_autores_esta_declarado",
+      "ARTEFACT_MULTIPLE_AUTHORS" in S,
+      "sem esta lista, o dono de RUN-MANIFEST.json muda sozinho quando alguem "
+      "renomeia uma peca, e ninguem repara")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PROSA NAO E CODIGO · VOCABULARIO NAO E ROTA
+#
+# Quatro voltas da mesma licao, cada uma medida sobre uma aresta que o mapa
+# publicava como PROVEN. As tres primeiras olham a FORMA da linha; a quarta le
+# o que a linha DIZ.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# 1 · o varredor lia a sua propria documentacao
+# A prova localiza-se sozinha: procura no proprio varredor uma linha que esta
+# dentro de um docstring e outra que e codigo, e exige que a regra as separe.
+_alvo = "system-map/scripts/scan_repo.py"
+_linhas = (RAIZ / _alvo).read_text(encoding="utf-8").splitlines()
+_prosa_do_scan = SCAN.linhas_de_prosa(_alvo)
+_na_frase = next((i for i, l in enumerate(_linhas, 1)
+                  if "e um caminho relativo a propria pasta" in l), None)
+_no_codigo = next((i for i, l in enumerate(_linhas, 1)
+                   if l.startswith("def relativo(")), None)
+prova("linha_de_docstring_nao_e_linha_de_codigo",
+      _na_frase is not None and _no_codigo is not None
+      and _na_frase in _prosa_do_scan and _no_codigo not in _prosa_do_scan,
+      f"frase={_na_frase} codigo={_no_codigo} — a regra tem de excluir a "
+      "primeira e deixar a segunda")
+_G = json.loads((DADOS / "architecture.generated.json").read_text(encoding="utf-8"))
+_prosa = {}
+for _e in _G["FILE_EDGES"]:
+    _f = _e["evidence"]["file"]
+    if not _f.endswith(".py"):
+        continue
+    if _f not in _prosa:
+        _prosa[_f] = SCAN.linhas_de_prosa(_f)
+    if _e["evidence"]["line"] in _prosa[_f]:
+        falhas.append("aresta provada por docstring")
+        break
+prova("nenhuma_aresta_e_provada_por_docstring",
+      "aresta provada por docstring" not in falhas,
+      "o varredor chegou a escrever que escreve num ficheiro que nunca abre, "
+      "porque o nome dele aparecia na frase que explica a regra")
+
+# 2 · a rede vista no CODIGO, nao numa string
+prova("campo_que_regista_zero_apify_nao_e_chamada_a_apify",
+      not GEN._fala_com_a_rede("coleta/sensor_canal_identidade.py"),
+      "a unica palavra de rede naquele ficheiro e a chave 'APIFY_RUNS': 0")
+prova("import_de_apify_pool_continua_a_ser_rede",
+      GEN._fala_com_a_rede("coleta/comunicacao_coleta.py"),
+      "`import apify_pool` e um NOME no codigo, e nao um rotulo entre aspas")
+
+# 3 · comparar uma URL com um dominio nao e ter ido la buscar algo
+prova("tabela_de_hosts_nao_e_rota",
+      GEN._e_tabela_de_hosts("    ('youtube.com', 'YOUTUBE'), ('youtu.be', 'YOUTUBE'),"),
+      "a tabela HOSTS reconhece o dominio de uma URL que a PESSOA declarou no ORCID")
+prova("id_de_ator_nao_e_dominio",
+      not GEN._e_tabela_de_hosts(
+          "    'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),"),
+      "a regra tem de deixar passar a rota a serio que vive na linha ao lado")
+
+# 4 · uma linha que diz NOT_TESTED nao prova travessia nenhuma
+prova("linha_que_diz_que_nao_correu_nao_prova_passagem",
+      GEN._diz_que_nao_aconteceu("{'LINKEDIN': 'NOT_TESTED', 'YOUTUBE': 'NOT_TESTED',"),
+      "DECLARED != OBSERVED, e ERROR != REJECTED != UNKNOWN != NOT_RUN")
+prova("linha_que_diz_que_ja_correu_continua_a_valer",
+      not GEN._diz_que_nao_aconteceu(
+          "    'YOUTUBE': ('streamers~youtube-scraper', 'JA_RODOU_NESTA_CASA'),"))
+
+# 5 · e o cartao do canal nao pode prometer mais do que mediu
+_canais = [n for n in S["NODES"] if n["id"].startswith("V-") and n["id"] != "V-HTTP"]
+prova("o_cartao_do_canal_diz_que_a_rota_e_declarada",
+      all("NOMEIAM" in n["status_reason"] or "NAO SEI" in n["status_reason"]
+          for n in _canais),
+      "O CODIGO NOMEAR UM CANAL NAO E ALGO TER VINDO POR ELE — "
+      "e o cartao tem de o dizer, senao le-se como travessia observada")
+
+# O corpus le o ORCID, e nao o LinkedIn, o YouTube nem o Instagram. Foram tres
+# arestas, cada uma provada por uma linha pior que a anterior.
+_do_corpus = {e["from"] for e in S["EDGES"]
+              if e["to"] == "C-CORPUS" and e["type"] == "VIAJA_POR"}
+prova("o_corpus_nao_colhe_das_redes_sociais",
+      _do_corpus <= {"V-HTTP"},
+      f"canais ligados a C-CORPUS: {sorted(_do_corpus)} — a unica rede daquele "
+      "ficheiro e pub.orcid.org")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GOVERNANCA — o que mede e o que regula nao e um passo da esteira
+#
+# `Z-PROVA` (34) e `Z-REGUAS` (11) viviam em `F-INTELIGENCIA` por nao haver
+# familia para elas, e isso fazia 143 ligacoes de PROVA e de REGRA parecerem a
+# coleta a falar com o motor. A leitura «a Collection conversa 149 vezes com a
+# Intelligence» nascia inteira daqui.
+#
+#     PROVA != INTELIGENCIA.   REGRA != INTELIGENCIA.
+#     E NENHUMA DAS DUAS E ETAPA OPERACIONAL.
+# ─────────────────────────────────────────────────────────────────────────────
+_GOV = [z for z in S["TERRITORIES"] if z.get("family") == "F-GOVERNANCA"]
+prova("a_governanca_existe_como_familia",
+      any(f["id"] == "F-GOVERNANCA" for f in S["FAMILIES"]),
+      "sem familia propria, prova e regra voltam a contar como Intelligence")
+prova("a_governanca_e_transversal",
+      next((f for f in S["FAMILIES"] if f["id"] == "F-GOVERNANCA"), {}).get("transversal") is True,
+      "a familia tem de dizer que atravessa o sistema, e nao que e um troco da esteira")
+prova("prova_e_regua_vivem_na_governanca",
+      {z["id"] for z in _GOV} == {"Z-PROVA", "Z-REGUAS"},
+      f"em F-GOVERNANCA: {sorted(z['id'] for z in _GOV)} — esperava Z-PROVA e Z-REGUAS")
+# A moldura de uma familia e o retangulo que envolve as zonas dela. Com as zonas
+# intercaladas, a caixa da COLETA engolia a da GOVERNANCA e o desenho passava a
+# dizer o contrario do que a arrumacao diz. A ordem das zonas e a regra.
+_ORDEM = [z["family"] for z in S["TERRITORIES"]]
+_blocos = [f for i, f in enumerate(_ORDEM) if i == 0 or f != _ORDEM[i - 1]]
+prova("cada_familia_ocupa_um_bloco_contiguo",
+      len(_blocos) == len(set(_blocos)),
+      f"familias intercaladas na ordem das zonas: {_blocos}")
+prova("a_governanca_fica_fora_da_esteira",
+      _blocos[-1] == "F-GOVERNANCA",
+      f"a esteira acaba em {_blocos[-1]}; governanca no meio le-se como mais um passo")
+# A espinha da coleta, da esquerda para a direita, e o que Luciano le primeiro.
+_ESPINHA = ["Z-BIBLIA", "Z-ENTRADA", "Z-PEDIDO", "Z-ORQUESTRADOR", "Z-CANDIDATAS",
+            "Z-FONTES", "Z-EXECUCAO", "Z-VEICULOS", "Z-FERRAMENTAS", "Z-ACOES",
+            "Z-GUARDA", "Z-REGRAS", "Z-ADMISSAO", "Z-ESPERA"]
+_no_acervo = [z["id"] for z in S["TERRITORIES"] if "acervo" in z.get("views", [])]
+prova("a_esteira_le_se_da_esquerda_para_a_direita", _no_acervo == _ESPINHA,
+      f"a vista do acervo esta em {_no_acervo}")
+prova("a_esteira_acaba_no_ready", _no_acervo[-1] == "Z-ESPERA",
+      "nada pode vir depois do READY na vista principal")
+
+prova("nenhuma_zona_de_prova_ou_regua_ficou_na_inteligencia",
+      not [z["id"] for z in S["TERRITORIES"]
+           if z["id"] in ("Z-PROVA", "Z-REGUAS") and z.get("family") == "F-INTELIGENCIA"],
+      "voltar Z-PROVA para F-INTELIGENCIA repoe as 143 travessias falsas")
+
+# A conta, medida — e nao a impressao. O que sobra para a INTELIGENCIA tem de
+# ser pequeno e explicavel peca a peca; o que vai para a GOVERNANCA e grande e
+# tambem esta certo.
+_FAMN = {n["id"]: n.get("family") for n in S["NODES"]}
+def _atravessa(a, b):
+    return [e for e in S["EDGES"] if _FAMN.get(e["from"]) == a and _FAMN.get(e["to"]) == b]
+_ci, _cg = _atravessa("F-COLETA", "F-INTELIGENCIA"), _atravessa("F-COLETA", "F-GOVERNANCA")
+prova("a_coleta_nao_conversa_com_o_motor_as_centenas", len(_ci) <= 12,
+      f"COLETA -> INTELIGENCIA = {len(_ci)}; COLETA -> GOVERNANCA = {len(_cg)}")
+prova("toda_travessia_para_a_inteligencia_tem_prova",
+      all(e.get("evidence") for e in _ci),
+      "uma travessia que sobra tem de conseguir dizer POR QUE existe")
+
+# E o portao continua a valer: a mudanca de familia nao pode ter aberto porta.
+prova("nenhum_dado_atravessa_para_a_inteligencia_depois_do_rehome",
+      not [e for e in _ci if e.get("categoria") == "DATA"],
+      "mudar a arrumacao nao pode criar autorizacao que nao existia")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# UM ARTEFATO, UM AUTOR — e o autor decidido por gente, nao por ordem alfabetica
+#
+# Tres pecas escreviam `data/samples/RUN-MANIFEST.json`, cada uma a sua maneira,
+# e duas nao passavam pelo contrato. Esta e a divida medida no proprio ficheiro:
+# das 20 corridas, DEZ sem `DATASET_ID`/`SOURCE_VERSION`/`RAW_EVIDENCE_PATH`/
+# `RAW_EVIDENCE_STATE`, e TRES com `STATUS: OK`, palavra que a lei nao aceita.
+#
+#     EXECUTAR A CORRIDA NAO E SER A AUTORIDADE SOBRE A PROCEDENCIA DELA.
+# ─────────────────────────────────────────────────────────────────────────────
+prova("a_decisao_de_dono_esta_declarada",
+      any(c["file"] == "data/samples/RUN-MANIFEST.json"
+          and c["owner"] == "C-PROCEDENCIA" for c in S.get("CANONICAL_OWNERS", [])),
+      "a escolha e de gente e vive em architecture.declared.json, nao num teste")
+prova("nenhum_dono_canonico_contornado",
+      not S.get("CANONICAL_OWNER_VIOLATIONS"),
+      f"MULTIPLE_CANONICAL_WRITERS: {S.get('CANONICAL_OWNER_VIOLATIONS')}")
+_esc_man = sorted({e["from_file"] for e in _G["FILE_EDGES"]
+                   if e["type"] == "WRITES" and e["to_file"].endswith("RUN-MANIFEST.json")})
+prova("so_a_proveniencia_escreve_o_manifesto",
+      _esc_man == ["regras/proveniencia.py"],
+      f"escrevem o RUN-MANIFEST: {_esc_man}")
+prova("a_porta_do_manifesto_existe_e_e_a_declarada",
+      "def acrescentar(" in (RAIZ / "regras" / "proveniencia.py").read_text(encoding="utf-8"),
+      "a decisao aponta para regras/proveniencia.py::acrescentar")
+
 
 # ── SMF · GENERATED != DEPLOYED, e o build e que sabe ────────────────────────
 # O mapa serviu `105602f6` com `624/1321` no ecra enquanto a cabeca canonica ja ia
@@ -514,26 +886,45 @@ CI_YML = (RAIZ / ".github" / "workflows" / "system-map.yml").read_text(encoding=
 #
 #     UMA SEQUENCIA CERTA SOMADA DE DOIS SITIOS NAO PROVA NENHUM DELES.
 JOBS = re.split(r"\n  (?=[a-z_-]+:\n)", CI_YML)
-esperado = list(CADEIA["REGERAR"]) + list(CADEIA["VALIDAR"])
-so_regerar = list(CADEIA["REGERAR"])
-por_job, torto = [], []
-for bloco in JOBS:
-    nome = re.match(r"\s*([a-z_-]+):", bloco)
-    linhas = [x for x in re.findall(
-        r"^\s*(?:run:\s*)?python3 (system-map/scripts/\S+\.py)\s*$", bloco, re.M)
-        if x in CADEIA["REGERAR"] or x in CADEIA["VALIDAR"]]
-    if not linhas:
-        continue
-    por_job.append(nome.group(1) if nome else "?")
-    if linhas not in (esperado, so_regerar):
-        torto.append(f"{nome.group(1) if nome else '?'}: {linhas}")
+# O `G4` deu forma a cada passo. A lista de CAMINHOS vem do leitor unico, nunca
+# de um `list(...)` escrito aqui — senao este ficheiro passa a ser um segundo
+# interprete do manifesto, e a proxima mudanca de forma parte-o em silencio.
+# ⚠️ ESTA PROVA PROCURAVA OS NOMES DOS SCRIPTS NO YAML, e o `G5` tirou-os de la
+# de proposito: o workflow deixou de declarar a cadeia e passou a corre-la pelo
+# corredor, que a le do manifesto. Procurar nomes era medir a DOENCA — duas
+# listas — e dar por falta dela quando a cura chegou.
+#
+#     UMA PROVA QUE EXIGE VER A SEGUNDA LISTA REPROVA QUEM A APAGAR.
+#
+# A pergunta continua a mesma: ALGUEM CORRE MESMO A CADEIA, E A INTEIRA? So que
+# agora pergunta-se pela invocacao do corredor, e o corredor responde com o que
+# vai correr — que e o que corre em producao.
+CORREDOR = "system-map/scripts/correr_a_cadeia.py"
+esperado = CAD.executaveis() + CAD.executaveis_de_validar()
+invocacoes = re.findall(re.escape(CORREDOR) + r"\s+([A-Z_]+)", CI_YML)
+prova("SMF-13_alguem_corre_mesmo_a_cadeia_no_CI",
+      "REGERAR" in invocacoes and "VALIDAR" in invocacoes,
+      f"categorias invocadas no CI: {sorted(set(invocacoes))} — sem REGERAR e "
+      f"VALIDAR, a cadeia nao corre e as provas seguintes passariam por vacuidade")
+
+# E o corredor tem de entregar EXACTAMENTE o que o manifesto declara, na ordem
+# escrita. Se ele filtrasse, saltasse ou reordenasse, o CI correria uma cadeia
+# que nenhum manifesto descreve — que era o defeito, com outra roupa.
+saida = subprocess.run(
+    [sys.executable, str(RAIZ / CORREDOR), "--listar", "REGERAR"],
+    capture_output=True, text=True, cwd=str(RAIZ)).stdout.split()
+prova("SMF-13_o_corredor_entrega_a_cadeia_declarada",
+      saida == CAD.executaveis(),
+      f"corredor={saida[:3]}… manifesto={CAD.executaveis()[:3]}…")
+
+# E o BUILD corre a mesma cadeia: ele chama o publicador, que le o mesmo
+# manifesto. Nao ha aqui uma segunda lista a comparar — e e esse o ponto.
 prova("SMF-13_a_cadeia_do_build_e_a_do_CI_na_mesma_ordem",
-      bool(por_job) and not torto,
-      f"jobs que correm a cadeia: {por_job}\n        torto: {torto}"
-      f"\n        cadeia diz {esperado}")
-prova("SMF-13_alguem_corre_mesmo_a_cadeia_no_CI", bool(por_job),
-      "a cadeia declarada nao e corrida por job nenhum — a prova de cima "
-      "passaria por vacuidade")
+      "publicar_no_deploy.mjs" in json.loads(
+          (RAIZ / "package.json").read_text(encoding="utf-8"))["scripts"]["build"],
+      "o build tem de passar pelo publicador, que le o manifesto — nunca por "
+      "uma lista propria")
+
 prova("SMF-13_o_CI_confere_a_mesma_lista_de_publicados",
       all(f in CI_YML for f in CADEIA["PUBLICADO"]),
       "um ficheiro publicado que o CI nao confere pode sair velho sem uma queixa")

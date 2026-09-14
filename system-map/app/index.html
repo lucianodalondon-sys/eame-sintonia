@@ -85,6 +85,34 @@
       <p class="hint">Começa com DADO e COMANDO ligados: é o caminho que a coleta
         percorre. Ligue as outras para auditar — nada é escondido, só recolhido.
         Nenhum cartão desaparece; só as setas.</p>
+    <!-- ══ G8 · A PROVA DE UMA LIGACAO NAO E A NATUREZA DELA ═══════════════
+         «Conexões», acima, responde O QUE ATRAVESSA a seta. Isto responde SE
+         ELA ESTA PROVADA — e são dois eixos, não dois nomes para o mesmo.
+
+             MODULE EXISTS != EDGE EXISTS != FLOW EXISTS
+             DECLARED EDGE != OBSERVED EDGE
+
+         As quatro começam LIGADAS, e isso não é um default qualquer: desligar
+         NÃO SEI por omissão seria esconder o buraco de quem nunca mexe num
+         filtro — que é toda a gente que abre isto pela primeira vez.
+
+             UM FILTRO QUE ESCONDE NÃO SEI POR OMISSÃO MENTE POR OMISSÃO. -->
+    <div class="filter">
+      <div class="sideTitle">Prova da ligação</div>
+      <label class="check"><input type="checkbox" name="prova" value="observada" checked>
+        <span class="provaChip prova-observada">OBSERVADA</span> uma corrida atravessou</label>
+      <label class="check"><input type="checkbox" name="prova" value="provada" checked>
+        <span class="provaChip prova-provada">PROVADA</span> há ficheiro e linha</label>
+      <label class="check"><input type="checkbox" name="prova" value="declarada" checked>
+        <span class="provaChip prova-declarada">DECLARADA</span> alguém disse, ninguém provou</label>
+      <label class="check"><input type="checkbox" name="prova" value="naosei" checked>
+        <span class="provaChip prova-naosei">NÃO SEI</span> nenhum plano a sustenta</label>
+      <p class="hint">A seta sem prova é <b>cinzenta, tracejada e leva um anel no
+        meio</b> — três sinais, para o estado não depender só da cor. Hoje são
+        <b>47 de 659</b>, e o «mostrar caminho completo» não atravessa nenhuma
+        delas: seguir uma ligação não provada transformaria «talvez» em «portanto».</p>
+    </div>
+
     <div class="filter">
       <div class="sideTitle">País da fonte</div>
       <div id="paises"></div>
@@ -112,8 +140,11 @@
       <b>COLETA → <i>a espera</i> → INTELIGÊNCIA → ENTREGA</b>
       <span>Entre a coleta e a inteligência há uma faixa cinzenta: é onde o que já
         foi colhido dorme até entrar no processo seguinte. Cinzenta porque ali nada
-        é transformado — só guardado. Arraste · zoom · passe o mouse · clique ·
-        “mostrar caminho completo”</span>
+        é transformado — só guardado. <b>No fim, separada da esteira, fica a
+        GOVERNANÇA</b>: o que mede e o que regula os outros, sem ser um passo de
+        nenhum deles. Ela ficava dentro da INTELIGÊNCIA, e por isso 143 ligações de
+        prova e de regra pareciam a coleta a falar com o motor. Arraste · zoom ·
+        passe o mouse · clique · “mostrar caminho completo”</span>
     </div>
     <div class="warning" id="warning"></div>
 
@@ -121,7 +152,13 @@
       <svg id="edges">
         <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3"
               orient="auto" markerUnits="strokeWidth">
-          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker></defs>
+          <path d="M0,0 L0,6 L8,3 z" fill="#6e7e78"/></marker>
+          <!-- A PONTA VAZADA É DE QUEM NÃO PROVA. Cor é um canal só, e quem não
+               distingue dois cinzentos parecidos fica sem a informação toda. -->
+          <marker id="arrowNaoSei" markerWidth="10" markerHeight="10" refX="8" refY="3"
+              orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L8,3 z" fill="none" stroke="#a8afac" stroke-width="1.2"/>
+          </marker></defs>
         <g id="edgeLayer"></g>
       </svg>
       <div id="families"></div>
@@ -135,11 +172,17 @@
         <g id="miniNodes"></g><rect id="miniView"/>
       </svg>
     </div>
+    <!-- «7 NÃO SEI» ERA DE PEÇAS, E ESTAVA AO LADO DE «656 LIGAÇÕES».
+         Quem lia somava as duas na cabeça e concluía que 649 setas estavam
+         provadas. Não estavam: 47 não têm prova nenhuma, e esse número não
+         existia na tela. Cada mostrador diz agora de que universo fala. -->
     <div class="kpis">
       <div class="kpi"><b id="kNodes">—</b>peças</div>
+      <div class="kpi"><b id="kUnknown">—</b>peças NÃO SEI</div>
+      <div class="kpi semprova"><b id="kSemProva">—</b>setas sem prova</div>
+      <div class="kpi"><b id="kPapelNaoSei">—</b>papel NÃO SEI</div>
       <div class="kpi"><b id="kEdges">—</b>ligações</div>
-      <div class="kpi"><b id="kProven">—</b>provadas</div>
-      <div class="kpi"><b id="kUnknown">—</b>não sei</div>
+      <div class="kpi"><b id="kProven">—</b>peças provadas</div>
     </div>
     <div class="controls">
       <button class="ctrl" id="fit"   title="Enquadrar">□</button>

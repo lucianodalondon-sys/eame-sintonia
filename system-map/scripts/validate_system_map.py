@@ -336,6 +336,39 @@ def main() -> int:
     prova("P5_PROVA_APONTAVEL", "toda prova aponta para ficheiro e linha que existem",
           not mal_formada, ", ".join(sorted(set(mal_formada))[:6]))
 
+    # ── P5c · a linha citada tem de DIZER alguma coisa ───────────────────────
+    # A P5 acima so exige que o numero caiba no ficheiro, e isso deixa passar o
+    # envelhecimento silencioso: a prova mais importante da fronteira da coleta
+    # (C-ADMISSAO -> C-READY) apontava para `admissao/admissao.py:391` com um
+    # `snippet` escrito a mao. A funcao mudou de sitio, a linha 391 ficou EM
+    # BRANCO, e nenhum portao reparou — porque a linha existe.
+    #
+    #     UMA PROVA QUE APONTA PARA UMA LINHA EM BRANCO NAO E UMA PROVA.
+    #
+    # So se recusa o indecidivel-por-omissao: linha vazia ou feita so de
+    # fecho de parenteses, virgulas e aspas. O que ela diz continua a ser
+    # julgado por gente.
+    _cache_l: dict = {}
+
+    def _linha(f: str, n: int):
+        if f not in _cache_l:
+            try:
+                _cache_l[f] = (RAIZ / f).read_text(
+                    encoding="utf-8", errors="replace").splitlines()
+            except OSError:
+                _cache_l[f] = []
+        L = _cache_l[f]
+        return L[n - 1] if 0 < n <= len(L) else None
+
+    _trivial = __import__("re").compile(r"^[\s\)\]\}\,\'\";:]*$")
+    ocas = [f"{e['from']}->{e['to']} ({ev['file']}:{ev['line']})"
+            for e in S["EDGES"] for ev in e.get("evidence", [])
+            if isinstance(ev.get("line"), int) and ev.get("file") in existentes
+            and (_l := _linha(ev["file"], ev["line"])) is not None
+            and _trivial.match(_l)]
+    prova("P5_PROVA_TEM_CONTEUDO", "nenhuma prova aponta para linha sem conteudo",
+          not ocas, ", ".join(sorted(set(ocas))[:6]))
+
     # ── P6 · verde exige prova, nunca "o ficheiro existe" ────────────────────
     verde_frouxo = [n["id"] for n in S["NODES"]
                     if n["status"] == "PROVEN"
@@ -381,6 +414,18 @@ def main() -> int:
     prova("P8_UM_DONO", "nenhum ficheiro reivindicado por duas pecas",
           not conf, "; ".join(conf[:6]))
 
+    # ── P8b · o dono decidido por gente e o unico que escreve ───────────────
+    # O dono eleito por ordem alfabetica muda sozinho quando alguem renomeia uma
+    # peca. Onde ha decisao humana em `CANONICAL_OWNERS`, ela e lei — e esta
+    # prova mede se o CODIGO a respeita, e nao se o cartao a repete.
+    #
+    #     MUDAR O CARTAO NAO E MUDAR A ARQUITETURA.
+    viol = [f"{v['file']}: declarado {v['declared_owner']}, escrevem "
+            f"{', '.join(v['written_by']) or 'NINGUEM'} [{v['verdict']}]"
+            for v in S.get("CANONICAL_OWNER_VIOLATIONS", [])]
+    prova("P8_DONO_CANONICO", "so o dono declarado escreve o artefato dele",
+          not viol, "; ".join(viol[:4]))
+
     # ── P9 · anti-drift: codigo novo tem de ser declarado ────────────────────
     orfaos = S["UNCLAIMED_CODE_FILES"]
     prova("P9_CODIGO_DECLARADO", "todo ficheiro de codigo pertence a uma peca do mapa",
@@ -396,11 +441,28 @@ def main() -> int:
     prova("P10_STATUS_VALIDO", "todo status e um dos quatro valores conhecidos",
           not maus, ", ".join(maus))
 
-    return relatar()
+    return relatar(S.get("ARTEFACT_MULTIPLE_AUTHORS", []))
 
 
-def relatar() -> int:
+def relatar(varios_autores: list | tuple = ()) -> int:
     print("\n".join(provas))
+
+    # ── OBSERVACAO · o artefacto escrito por mais de uma peca ────────────────
+    # Nao e prova, e por isso nao reprova: nao ha lei nesta casa que proiba dois
+    # autores para o mesmo ficheiro. Mas o mapa tem de eleger UM dono, e elege
+    # por ordem alfabetica — o dono muda sozinho quando alguem renomeia uma
+    # peca. Isto diz, em voz alta, onde a resposta a pergunta «de quem e isto?»
+    # esta a ser dada por um sorteio.
+    if varios_autores:
+        print("\n" + "-" * 70)
+        print(f"OBSERVACAO · {len(varios_autores)} artefacto(s) com MAIS DE UM autor:")
+        for v in varios_autores:
+            print(f"  · {v['file']}")
+            print(f"      escrito por {', '.join(v['written_by'])}"
+                  f" · dono eleito por ordem alfabetica: {v['owner_elected']}")
+        print("  UM DONO ELEITO POR ORDEM ALFABETICA NAO E UM DONO."
+              "\n  Quem decide e gente, e a decisao vai em architecture.declared.json.")
+
     if falhas:
         print("\n" + "=" * 70)
         print(f"SYSTEM_MAP_CHECK=FAIL · {len(falhas)} prova(s) reprovada(s)")

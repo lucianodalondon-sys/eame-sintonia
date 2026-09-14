@@ -46,6 +46,8 @@ import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import impressao_da_arvore as IMPRESSAO          # noqa: E402
 SAIDA = RAIZ / "system-map" / "data" / "censo-da-coleta.generated.json"
 
 # As gavetas que formam o departamento de coleta, da porta ate a sala de espera.
@@ -203,8 +205,13 @@ def medir() -> dict:
 
     return {
         "SCHEMA": "sintonia.censo-da-coleta/1",
-        "PROVENANCE": {"HEAD": git("rev-parse", "HEAD").strip(),
-                       "GAVETAS": list(GAVETAS)},
+        # As entradas deste censo sao os ficheiros de codigo das gavetas — a
+        # lista sai da propria medicao, e nao de um palpite sobre o que ele le.
+        "PROVENANCE": dict(
+            IMPRESSAO.carimbo("system-map/scripts/censo_da_coleta.py",
+                              [(f, IMPRESSAO.FONTE, "medir() · read_text")
+                               for f in sorted(todos)]),
+            GAVETAS=list(GAVETAS)),
         "FICHEIROS": fichas,
         "RESUMO": {
             "ficheiros_de_codigo": len(todos),

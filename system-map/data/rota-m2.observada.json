@@ -1,0 +1,30 @@
+{
+ "SCHEMA": "rota-m2-observada/v1",
+ "O_QUE_ISTO_E": "O que o BANCO mostrou nesta corrida, escrito por quem mediu. NAO e declaracao: e leitura de `etapa_da_corrida` depois de a rota ter corrido. O ledger de provas-de-execucao.json e conferido contra este ficheiro.",
+ "GERADO_POR": "provas/a_rota_m2_atravessa.py",
+ "SOURCE_ID": "IT-T2-002",
+ "ROUTE_CLASS_ID": "RC-1",
+ "ETAPAS_OBSERVADAS": [
+  "ADMISSION",
+  "DERIVED",
+  "STRUCTURED"
+ ],
+ "ARESTAS_OBSERVADAS": [
+  [
+   "DERIVED",
+   "STRUCTURED"
+  ],
+  [
+   "STRUCTURED",
+   "ADMISSION"
+  ]
+ ],
+ "ARESTAS_DECLARADAS_SEM_TOPO": [
+  [
+   "RAW",
+   "DERIVED"
+  ]
+ ],
+ "END_TO_END": true,
+ "RUN_UNICO": "RUN-M2-ATRAVESSA"
+}

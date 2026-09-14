@@ -180,7 +180,11 @@ def prova(caminho: str, n: int, linha: str) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 # 2b · A CONSTANTE QUE GUARDA UM CAMINHO
 # ─────────────────────────────────────────────────────────────────────────────
-def escritas_por_constante(caminho: str, unicos: dict) -> list[tuple]:
+ESCRITA_PATHLIB = ("write_text", "write_bytes")
+
+
+def escritas_por_constante(caminho: str, unicos: dict,
+                           texto: str | None = None) -> list[tuple]:
     """Segue `DEST = os.path.join(SAMPLES, 'X.json')` ate `open(DEST, 'w')`.
 
     Esta casa escreve assim, e com razao: o caminho fica num sitio so, no topo,
@@ -196,49 +200,120 @@ def escritas_por_constante(caminho: str, unicos: dict) -> list[tuple]:
     Le com `ast`, sem executar nada. So resolve quando o nome do ficheiro e UNICO
     no repositorio: havendo dois iguais, nao ha como saber qual e, e escolher
     seria inventar.
+
+    ── DUAS COISAS QUE ESTA MEDICAO NAO VIA ────────────────────────────────────
+
+    1 · `open(X, 'w')` NAO E A UNICA MANEIRA DE ESCREVER.
+
+    Metade desta casa usa `pathlib`, e ai a escrita e `LIVRO.write_text(...)`.
+    Isso nao passa por `open()` nenhum, e por isso nao existia para este censo.
+    Medido: NOVE escritas reais invisiveis, e as tres piores sao o coracao da
+    coleta —
+
+        admissao/admissao.py            -> data/samples/LIVRO-DE-DECISOES.json
+        coleta/executor_texto_de_pdf.py -> data/derivados/REGISTO-DE-ARTEFATOS.json
+        orquestrador/orquestrador.py    -> data/samples/RUN-MANIFEST.json
+
+    O registo dos derivados aparecia no mapa com NOVE leitores e ZERO autores: um
+    artefacto que toda a gente le e que ninguem produz. E a porta de admissao,
+    que escreve o livro de decisoes de 376 KB, dizia `produces: []` — o mapa
+    afirmava, por escrito, que nada saia dela.
+
+        UM ARTEFACTO SEM AUTOR NAO E UM ARTEFACTO SEM AUTOR.
+        E UMA MEDICAO QUE NAO OLHOU.
+
+    2 · O MESMO NOME PODE APONTAR PARA DOIS FICHEIROS.
+
+    A volta anterior guardava `nome -> ficheiro` num dicionario e deixava a
+    ultima atribuicao ganhar, varrendo a arvore inteira sem olhar a escopo nem a
+    ordem. Sessenta nomes desta arvore estao ligados a mais de um ficheiro, e
+    isso ja fabricava arestas:
+
+        ask_sintonia.py:351  `open(out, 'w')` dentro de `benchmark()`, onde
+          `out` e o BENCHMARK (l. 339) — o mapa dizia que era o TESTE (l. 362),
+          porque a atribuicao de baixo tinha ganho.
+
+    A ligacao viva e a ULTIMA ANTES daquela linha, no escopo MAIS PROXIMO: se
+    houver uma dentro da propria funcao usa-se essa, senao sobe-se para fora.
+    Nao havendo nenhuma antes, nao se responde — adivinhar seria inventar.
     """
+    # `texto` existe para o teste poder dar codigo sintetico sem escrever
+    # ficheiro nenhum na arvore. Em producao vem sempre do disco.
     try:
-        arvore = ast.parse((RAIZ / caminho).read_text(encoding="utf-8", errors="replace"))
+        if texto is None:
+            texto = (RAIZ / caminho).read_text(encoding="utf-8", errors="replace")
+        arvore = ast.parse(texto)
     except (SyntaxError, OSError):
         return []
+    fonte = texto.splitlines()
 
-    # 1 · constante -> ficheiro do repositorio
-    de_nome: dict[str, str] = {}
-    linha_de: dict[str, int] = {}
-    for no in ast.walk(arvore):
-        if not isinstance(no, ast.Assign) or len(no.targets) != 1:
-            continue
-        alvo = no.targets[0]
-        if not isinstance(alvo, ast.Name):
-            continue
-        for pedaco in ast.walk(no.value):
-            if isinstance(pedaco, ast.Constant) and isinstance(pedaco.value, str):
-                achado = unicos.get(pedaco.value.split("/")[-1])
-                if achado:
-                    de_nome[alvo.id] = achado[0]
-                    linha_de[alvo.id] = no.lineno
+    # 1 · onde cada nome foi ligado a um ficheiro, COM escopo e linha
+    atribs: dict[str, list[tuple[int, int, str]]] = {}
+    chamadas: list[tuple[int, ast.Call]] = []
+    pai: dict[int, int | None] = {id(arvore): None}
 
-    if not de_nome:
+    def percorrer(no, escopo: int) -> None:
+        for filho in ast.iter_child_nodes(no):
+            dentro = escopo
+            if isinstance(filho, (ast.FunctionDef, ast.AsyncFunctionDef,
+                                  ast.ClassDef)):
+                pai[id(filho)] = escopo
+                dentro = id(filho)
+            elif (isinstance(filho, ast.Assign) and len(filho.targets) == 1
+                    and isinstance(filho.targets[0], ast.Name)):
+                for pedaco in ast.walk(filho.value):
+                    if isinstance(pedaco, ast.Constant) and isinstance(pedaco.value, str):
+                        achado = unicos.get(pedaco.value.split("/")[-1])
+                        if achado:
+                            atribs.setdefault(filho.targets[0].id, []).append(
+                                (escopo, filho.lineno, achado[0]))
+            elif isinstance(filho, ast.Call):
+                chamadas.append((escopo, filho))
+            percorrer(filho, dentro)
+
+    percorrer(arvore, id(arvore))
+    if not atribs:
         return []
 
-    # 2 · `open(CONST, 'w')` — e so 'w'/'a'. Sem modo, e leitura.
+    def qual(nome: str, escopo: int, linha: int) -> str | None:
+        """A ligacao viva daquele nome naquela linha — ou nenhuma."""
+        aqui: int | None = escopo
+        while aqui is not None:
+            antes = [(l, a) for (e, l, a) in atribs.get(nome, [])
+                     if e == aqui and l < linha]
+            if antes:
+                return max(antes)[1]
+            aqui = pai.get(aqui)
+        return None
+
+    # 2 · as duas maneiras de escrever: `open(CONST, 'w')` e `CONST.write_text()`
     saida = []
-    for no in ast.walk(arvore):
-        if not (isinstance(no, ast.Call) and getattr(no.func, "id", "") == "open"):
+    for escopo, no in chamadas:
+        if getattr(no.func, "id", "") == "open":
+            if not no.args or not isinstance(no.args[0], ast.Name):
+                continue
+            nome = no.args[0].id
+            modo = ""
+            if len(no.args) > 1 and isinstance(no.args[1], ast.Constant):
+                modo = str(no.args[1].value)
+            for kw in no.keywords:
+                if kw.arg == "mode" and isinstance(kw.value, ast.Constant):
+                    modo = str(kw.value.value)
+            # Sem modo, e leitura.
+            tipo = "WRITES" if modo[:1] in ("w", "a") else "READS"
+            marca = modo or "leitura"
+        elif (isinstance(no.func, ast.Attribute)
+                and no.func.attr in ESCRITA_PATHLIB
+                and isinstance(no.func.value, ast.Name)):
+            nome, tipo, marca = no.func.value.id, "WRITES", no.func.attr
+        else:
             continue
-        if not no.args or not isinstance(no.args[0], ast.Name):
-            continue
-        alvo = de_nome.get(no.args[0].id)
+        alvo = qual(nome, escopo, no.lineno)
         if not alvo:
             continue
-        modo = ""
-        if len(no.args) > 1 and isinstance(no.args[1], ast.Constant):
-            modo = str(no.args[1].value)
-        for kw in no.keywords:
-            if kw.arg == "mode" and isinstance(kw.value, ast.Constant):
-                modo = str(kw.value.value)
-        tipo = "WRITES" if modo[:1] in ("w", "a") else "READS"
-        saida.append((alvo, tipo, no.lineno, no.args[0].id, modo or "leitura"))
+        linha = (fonte[no.lineno - 1].strip()
+                 if 0 < no.lineno <= len(fonte) else "")
+        saida.append((alvo, tipo, no.lineno, nome, marca, linha))
     return saida
 
 
@@ -347,9 +422,20 @@ RE_JS_IMPORT = re.compile(r"""(?:from|import)\s+['"]([^'"]+)['"]""")
 RE_LITERAL = re.compile(r"""['"]([A-Za-z0-9_./-]+\.[A-Za-z0-9]{1,6})['"]""")
 # Caminho escrito sem aspas nenhumas, como acontece em teste de shell.
 RE_CAMINHO_NU = re.compile(r"(?<![\w/'\"-])((?:data|docs|build|supabase)/[\w./-]+\.\w{2,6})")
+# ⚠️ O `>` E REDIRECCIONAMENTO DE SHELL, E NAO A SETA DO JAVASCRIPT.
+# Sem a guarda de tras, `=>` casava com a alternativa do redireccionamento e
+# QUATRO leituras viravam escritas — todas em `.mjs`, e uma delas grave:
+#
+#   regras/italy_pilot_guards.mjs:9   WRITES  data/collection-ledger/italy/runs.ndjson
+#     `const runs = readFileSync("data/collection-ledger/italy/runs.ndjson", ...)`
+#
+# o mapa dizia que a REGRA escreve no livro da coleta, quando ela so o le. Uma
+# regra que parece escrever no livro que audita e a inversao mais perigosa que
+# este mapa pode publicar. `>>` continua a contar: so se recusa o `>` que vem
+# atras de `=`, `-`, `<` ou `!`, que em shell nunca redirecciona.
 RE_ESCRITA = re.compile(
     r"open\([^)]*['\"][wa]|json\.dump|write_text|writeFileSync|\.to_csv|"
-    r"savefig|mkdir|>\s*[\"']?\$?\w"
+    r"savefig|mkdir|(?<![=\-<!])>\s*[\"']?\$?\w"
 )
 # `run:` de workflow chamando script do repo
 _PASTAS_CHAMAVEIS = "|".join(list(GAVETAS) + [
@@ -364,6 +450,18 @@ def modulo_para_ficheiro(mod: str, origem: str, arquivos: dict) -> str | None:
     (json, pathlib, requests) nao resolve e portanto nao vira aresta — o mapa
     e do SINTONIA, nao do ecossistema Python.
     """
+    # ⚠️ `from guarda.preservar_coleta import ...` NAO E `import guarda`.
+    # Isto lia so o primeiro segmento, procurava `guarda.py` — que nao existe —
+    # e desistia. Medido: VINTE E SETE imports reais invisiveis, e nao quaisquer
+    # uns: sao os que ligam ao DONO DO RAW e ao DONO DO DERIVADO. As duas pecas
+    # que mais pareciam desligadas do encanamento eram-no no desenho, e nao no
+    # codigo.
+    #
+    #     UM IMPORT COM PONTO E UM IMPORT.
+    pontuado = mod.replace(".", "/") + ".py"
+    if pontuado in arquivos:
+        return pontuado
+
     base = mod.split(".")[0]
     pasta = str(Path(origem).parent).replace("\\", "/")
     # A propria gaveta primeiro; depois as outras, porque `_gavetas.py` poe todas
@@ -405,6 +503,45 @@ def relativo(lit: str, origem: str, arquivos: dict) -> str | None:
         return None
     alvo = os.path.normpath(os.path.join(str(Path(origem).parent), lit)).replace("\\", "/")
     return alvo if alvo in arquivos else None
+
+
+def linhas_de_prosa(caminho: str) -> set:
+    """As linhas ocupadas por DOCSTRING — modulo, classe e funcao.
+
+        UMA FRASE SOBRE UMA LIGACAO NAO E UMA LIGACAO.
+
+    Esta casa ja aprendeu isto tres vezes noutros censos (ver o aviso em
+    `censo_dos_executores._codigo_executavel`), e o varredor de arestas continuava
+    a le-la. Ele ja tirava o que vem depois do `#`, mas um exemplo de uso dentro
+    de aspas triplas passava inteiro. Medido: TRES arestas cuja unica prova era
+    prosa — e DUAS delas eram este proprio ficheiro a ler a sua documentacao:
+
+        scan_repo.py -> PUBLIC-COMM-FIRST-BATCH-EAME.json   WRITES
+          prova: a linha do docstring que EXPLICA como um nome unico se resolve
+
+    O varredor escreveu que escreve num ficheiro que nunca abre, porque o nome
+    dele aparece na frase que descreve a regra. A terceira, `fonte_nova.py:49`,
+    e o «COMO SE USA» do modulo: `quem_viu="instagram_coleta.py"` e um exemplo,
+    e o mapa dava-o como leitura real.
+    """
+    try:
+        arvore = ast.parse((RAIZ / caminho).read_text(encoding="utf-8",
+                                                      errors="replace"))
+    except (SyntaxError, OSError):
+        return set()
+    fora = set()
+    for no in ast.walk(arvore):
+        corpo = getattr(no, "body", None)
+        if not isinstance(no, (ast.Module, ast.ClassDef, ast.FunctionDef,
+                               ast.AsyncFunctionDef)) or not corpo:
+            continue
+        primeiro = corpo[0]
+        if (isinstance(primeiro, ast.Expr)
+                and isinstance(primeiro.value, ast.Constant)
+                and isinstance(primeiro.value.value, str)):
+            fora.update(range(primeiro.lineno,
+                              (primeiro.end_lineno or primeiro.lineno) + 1))
+    return fora
 
 
 def arestas(arquivos: dict) -> tuple[list, dict]:
@@ -453,13 +590,26 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
                 if not any(x["pasta"] == pasta for x in escritas_de_pasta[caminho]):
                     escritas_de_pasta[caminho].append(
                         {"pasta": pasta, "line": n, "constante": const})
-            for alvo, tipo, n, const, modo in escritas_por_constante(caminho, unicos):
-                add(caminho, alvo, tipo,
-                    prova(caminho, n, f"open({const}, {modo!r})  # {const} = {alvo}"),
-                    "artefacto")
+            # A prova e a LINHA QUE ESCREVE, nao uma frase montada por mim a
+            # descrever o que ela faz. Uma aresta certa com prova inventada e
+            # uma aresta que ninguem consegue conferir.
+            for alvo, tipo, n, const, modo, linha in escritas_por_constante(
+                    caminho, unicos):
+                add(caminho, alvo, tipo, prova(caminho, n, linha), "artefacto")
         ext = meta["ext"]
         linhas = ler(caminho)
+        prosa = linhas_de_prosa(caminho) if ext == ".py" else set()
+        # Onde acaba o bloco `on:` e comecam os passos. Antes disto, um `.yml`
+        # so declara GATILHOS — e um gatilho nao corre nem le nada.
+        inicio_dos_jobs = 0
+        if caminho.endswith((".yml", ".yaml")):
+            for _i, _l in enumerate(linhas, 1):
+                if _l.startswith("jobs:"):
+                    inicio_dos_jobs = _i
+                    break
         for n, linha in enumerate(linhas, 1):
+            if n in prosa:
+                continue
             crua = linha.rstrip()
             if ext in (".py", ".sh", ".yml", ".yaml"):
                 sem_comentario = crua.split("#")[0]
@@ -486,8 +636,47 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
                         add(caminho, alvo, "IMPORTS", prova(caminho, n, crua), "codigo")
 
             # ── workflow chamando script ─────────────────────────────────
-            if ext in (".yml", ".yaml"):
-                for alvo in RE_RUN_SCRIPT.findall(crua):
+            # ⚠️ UM `paths:` NAO E UMA EXECUCAO.
+            #
+            # Isto corria sobre QUALQUER linha do `.yml`, e o bloco `on:` de um
+            # workflow lista ficheiros — `paths:` diz «acorda quando este
+            # ficheiro mudar», nao «este workflow corre este ficheiro». Medido:
+            # 48 arestas da arvore tinham como unica prova uma linha de lista
+            # dentro do `on:`, e cada uma dessas linhas produzia DUAS falsas:
+            #
+            #   C-CI-PERSIST -> C-ADMISSAO   RUNS    (o CI nao corre admissao.py)
+            #   C-ADMISSAO   -> C-CI-PERSIST READS   (e a direccao ao contrario)
+            #
+            # ambas apontando para `banco-descartavel.yml:45`, que e
+            # `- 'admissao/admissao.py'` dentro do filtro de caminhos.
+            #
+            #     ACORDAR COM A MUDANCA DE UM FICHEIRO
+            #     NAO E EXECUTAR ESSE FICHEIRO.
+            #
+            # E eu piorei isto na missao anterior: acrescentei dez caminhos ao
+            # `paths:` do `banco-descartavel.yml` para o portao acordar quando
+            # a estrada mudasse — e sem saber criei dez arestas falsas.
+            #
+            # A fronteira e estrutural e nao heuristica: em todos os 15
+            # workflows desta arvore o `on:` vem antes do `jobs:`, os dois na
+            # coluna zero. Tudo o que esta antes de `jobs:` e GATILHO.
+            # ⚠️ E UM COMENTARIO TAMBEM NAO E UMA EXECUCAO.
+            # Isto lia a linha CRUA, enquanto o ramo do `.sh` logo abaixo ja
+            # usava `sem_comentario`. A inconsistencia custou cinco arestas
+            # RUNS cuja unica prova era prosa — e tres delas nasceram de
+            # comentarios que EU escrevi a explicar o que o passo faz:
+            #
+            #   C-CI-PERSIST -> C-PROVA-ROTA-M2-ATRAVESSA
+            #     prova: «# `provas/a_rota_m2_atravessa.py` e a unica prova...»
+            #
+            # A aresta ate era VERDADEIRA — o passo 2g corre mesmo esse
+            # ficheiro — mas a prova apontava para a frase, nao para o comando.
+            # Uma aresta certa com prova errada e uma aresta que ninguem
+            # consegue conferir.
+            #
+            #     EXPLICAR UMA EXECUCAO NAO E EXECUTAR.
+            if ext in (".yml", ".yaml") and n > inicio_dos_jobs:
+                for alvo in RE_RUN_SCRIPT.findall(sem_comentario):
                     add(caminho, alvo, "RUNS", prova(caminho, n, crua), "execucao")
 
             # ── shell chamando script ────────────────────────────────────
@@ -501,8 +690,13 @@ def arestas(arquivos: dict) -> tuple[list, dict]:
             # ou lixo — e adivinhar qual e disso seria fabricar aresta.
             # sem aspas tambem conta: `if [ ! -f data/samples/x.json ]` num passo
             # de shell e uma leitura tao real como qualquer outra.
-            crus = RE_LITERAL.findall(sem_comentario)
-            if ext in (".sh", ".yml", ".yaml"):
+            # A mesma fronteira vale para a leitura: um caminho listado no
+            # `paths:` nao e um ficheiro que alguem abriu. Era daqui que saia a
+            # aresta ao contrario — `admissao/admissao.py READS o workflow`.
+            crus = ([] if (ext in (".yml", ".yaml") and n <= inicio_dos_jobs)
+                    else RE_LITERAL.findall(sem_comentario))
+            if ext in (".sh", ".yml", ".yaml") and not (
+                    ext in (".yml", ".yaml") and n <= inicio_dos_jobs):
                 crus += RE_CAMINHO_NU.findall(sem_comentario)
             for lit in crus:
                 alvo = lit if lit in arquivos else relativo(lit, caminho, arquivos)
