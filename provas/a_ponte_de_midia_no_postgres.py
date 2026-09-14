@@ -184,22 +184,46 @@ def canal_do_fixture(banco_sql):
     return int(can[0][0])
 
 
+#: A `008` fica de fora por ser OUTRA ESPECIE: ela nao constroi esquema nenhum
+#: — e a VERIFICACAO POS-APLICACAO que confere o que as outras construiram.
+#: Corre-la no meio da cadeia e pedir-lhe contas de tabelas que ainda nao
+#: nasceram, e foi exactamente o que aconteceu na primeira corrida desta prova
+#: no CI: «O BANCO NAO BATE COM AS MIGRATIONS · faltando tabela crop_local...».
+#:
+#:     APLICAR POR ORDEM ALFABETICA NAO E APLICAR A CADEIA.
+#:     UMA VERIFICACAO NO MEIO DA CONSTRUCAO REPROVA A OBRA POR ESTAR A MEIO.
+#:
+#: A regra e a mesma de `a_rota_m2_atravessa`, e a cadeia e LIDA da pasta —
+#: quando nascer a migration seguinte, esta prova aplica-a sem que ninguem se
+#: lembre dela.
+_SO_VERIFICA = ("008",)
+
+
 def _cadeia_de_migrations():
     pasta = os.path.join(RAIZ, "supabase", "migrations")
-    return sorted(f for f in os.listdir(pasta) if f.endswith(".sql"))
+    fora = []
+    for f in sorted(os.listdir(pasta)):
+        if not f.endswith(".sql"):
+            continue
+        n = f.split("_", 1)[0]
+        if n in _SO_VERIFICA:
+            continue
+        fora.append(n)
+    return fora
 
 
 def aplicar_migrations(url):
     pasta = os.path.join(RAIZ, "supabase", "migrations")
-    n = 0
-    for f in _cadeia_de_migrations():
-        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q",
-                            "-f", os.path.join(pasta, f)],
+    cadeia = _cadeia_de_migrations()
+    for n in cadeia:
+        achados = [f for f in sorted(os.listdir(pasta)) if f.startswith(n + "_")]
+        r = subprocess.run(["psql", url, "-v", "ON_ERROR_STOP=1", "-q", "-f",
+                            os.path.join(pasta, achados[0])],
                            capture_output=True, text=True)
         if r.returncode != 0:
-            raise SystemExit("migration %s falhou:\n%s" % (f, r.stderr[:400]))
-        n += 1
-    return n
+            print("FALHOU a aplicar %s\n%s" % (achados[0], r.stderr[:900]))
+            raise SystemExit(1)
+    return len(cadeia)
 
 
 def _corrida(run_id):
