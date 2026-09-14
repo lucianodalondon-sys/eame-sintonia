@@ -1544,8 +1544,10 @@ BIBLE_VERSION_AFTER  = V0.3
 BIBLE_PROMOTION_GATES = 9 / 9 PASS
 IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
 SECOES_ACRESCENTADAS = 34 · 35 · 36 · 37
-LEIS_ACRESCENTADAS = 22   (INT-LAW-270..277 · 280..285 · 290..299 — ver 34, 35, 36, 37)
+LEIS_ACRESCENTADAS = 21   (270..273 · 280..284 · 290..299 · 300..301)
+LEIS_TOTAL = 172          (era 151)
 LEIS_ALTERADAS = 0        (000..260 intactas, letra a letra)
+LEIS_COM_ID_DUPLICADO = 0
 LEIS_RECUSADAS_POR_JA_TEREM_DONO = 4
 INTELLIGENCE_RUNTIME_IMPLEMENTED = NO
 INTELLIGENCE_IMPLEMENTATION_STARTED = NO
@@ -1968,6 +1970,18 @@ declarada tem de mudar com ele (`INT-LAW-111`).
 Se `science`, `market` e `competitor` calculam a mesma coisa cada um à sua
 maneira, não existem três implementações: existem **três verdades**, e nenhuma é
 auditável. A lógica sobe para a Intelligence e as três consomem-na.
+
+## 35.0 · OS SETE ATAQUES DA FERRAMENTA, E A LEI QUE BARRA CADA UM
+
+| ataque | barrado por |
+|---|---|
+| `RT-TOOL-01` Delivery reconstrói finding | `INT-LAW-023` · `INT-LAW-280` |
+| `RT-TOOL-02` tool preenche `UNKNOWN` | `INT-LAW-044` · `INT-LAW-280` |
+| `RT-TOOL-03` tool lê família não consultada | `INT-LAW-021` · `INT-LAW-284` |
+| `RT-TOOL-04` mesma lógica em três tools | `INT-LAW-282` |
+| `RT-TOOL-05` tool promove objeto analítico | `INT-LAW-036` · `INT-LAW-280` |
+| `RT-TOOL-06` tool infere tempo/lugar do facto | `INT-LAW-101` · `INT-LAW-280` |
+| `RT-TOOL-07` filtro muda universo, número não muda | `INT-LAW-281` · `INT-LAW-111` |
 
 ## 35.1 · DATA DEMAND CONTRACT
 
