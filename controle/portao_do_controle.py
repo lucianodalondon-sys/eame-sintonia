@@ -123,6 +123,104 @@ def declara_se_lei(caminho: str, linhas: list) -> tuple:
             return ("NOMEIA_SE", i, ln.strip()[:120])
     return ()
 
+# ══ UMA LEI NAO PODE CONTRADIZER-SE A SI PROPRIA ═══════════════════════════
+#
+# O portao ja confere o estado FORMAL: o cabecalho de uma Biblia tem de dizer o
+# mesmo que o registo (`BIBLE_STATUS_MATCHES_REGISTRY`). Isso nao chega, e
+# custou uma missao a descobrir:
+#
+#     cabecalho   STATUS = CANONICAL
+#     seccao 33   CANONICAL = NO
+#
+# As duas linhas viviam no mesmo ficheiro. A promocao mudou o cabecalho e a §31,
+# e deixou intacto o veredito que a Biblia tinha emitido sobre si propria quando
+# ainda era candidata. Formalmente tudo batia certo; quem lesse o fim do
+# documento saía com o estado contrario ao de quem lesse o principio.
+#
+#     UM DOCUMENTO COM DUAS RESPOSTAS PARA A MESMA PERGUNTA NAO TEM NENHUMA.
+#
+# A deteccao NAO pode ser um grep por «CANONICAL = NO»: uma lei viva carrega a
+# propria historia, e a fotografia antiga TEM de poder continuar la — apaga-la
+# seria pior do que a contradicao. O que separa as duas e a MARCA:
+#
+#     VEREDITO = HISTORICO    uma fotografia datada, que nao descreve hoje
+#     VEREDITO = CORRENTE     o estado de agora, e so pode haver um
+#
+# E o que NAO entra nesta prova, de proposito: `RUNTIME_IMPLEMENTED`,
+# `INTELLIGENCE_IMPLEMENTATION_STARTED`, `REAL_ITALY_FLOW_OBSERVED`. Ser lei e
+# estar construido sao perguntas diferentes, e uma constituicao recem promovida
+# governa codigo que ainda nao existe. Reprovar isso seria ensinar a casa a
+# escrever `IMPLEMENTED = YES` para calar o portao.
+BLOCO = re.compile(r"```text\n(.*?)```", re.S)
+DECLARACAO = re.compile(r"^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(\S.*?)\s*$", re.M)
+CHAVES_DE_ESTADO = ("STATUS", "BIBLE_STATUS", "INTELLIGENCE_BIBLE_STATUS")
+AFIRMATIVO = ("YES", "SIM")
+
+
+def _declaracoes(bloco: str) -> dict:
+    return {m.group(1): m.group(2) for m in DECLARACAO.finditer(bloco)}
+
+
+def contradicoes_da_lei(texto: str) -> list:
+    """As contradicoes internas MATERIAIS de uma lei. `[]` quando nenhuma.
+
+    Mede apenas o que o documento DECLARA — nunca o que ele narra. Prosa nao e
+    contrato: uma frase pode explicar, citar, ironizar ou lembrar, e um portao
+    que a lesse como declaracao reprovaria a explicacao junto com o defeito.
+    A excecao e o HARD STOP final, que nao e narrativa: e o contrato a fechar-se,
+    e tem de nomear a mesma fronteira que o cabecalho declara.
+    """
+    blocos = BLOCO.findall(texto)
+    if not blocos:
+        return []
+    cabecalho = _declaracoes(blocos[0])
+    estado = cabecalho.get("STATUS", "")
+    fronteira = cabecalho.get("IMPLEMENTATION_AUTHORIZED", "")
+    if not estado:
+        return []
+
+    achados, correntes = [], 0
+    for bloco in blocos:
+        d = _declaracoes(bloco)
+        if d.get("VEREDITO") == "HISTORICO":
+            continue                       # fotografia datada: nao descreve hoje
+        correntes += d.get("VEREDITO") == "CORRENTE"
+
+        for chave in CHAVES_DE_ESTADO:
+            v = d.get(chave)
+            # `CANONICAL_X` nao e `CANONICAL`: a fronteira de palavra ja custou
+            # dez falsos positivos a este mesmo portao.
+            if v and not (v == estado or v.startswith(estado + "_")):
+                achados.append(f"bloco corrente diz {chave}={v}, cabecalho diz STATUS={estado}")
+        # `CANONICAL = NO` — a forma exacta que ficou para tras na promocao.
+        v = d.get("CANONICAL")
+        if v is not None and estado == "CANONICAL" and v.upper() not in AFIRMATIVO:
+            achados.append(f"bloco corrente diz CANONICAL={v}, cabecalho diz STATUS=CANONICAL")
+        v = d.get("IMPLEMENTATION_AUTHORIZED")
+        if v is not None and fronteira and v != fronteira:
+            achados.append(f"bloco corrente diz IMPLEMENTATION_AUTHORIZED={v}, "
+                           f"cabecalho diz {fronteira}")
+
+    if correntes != 1:
+        achados.append(f"a lei declara {correntes} veredito(s) CORRENTE — tem de ser 1")
+
+    # O FECHO TEM DE DIZER A MESMA FRONTEIRA QUE O CABECALHO.
+    # Era aqui que estava a frase que sobreviveu a promocao: «esta Biblia nao
+    # autoriza iniciar implementacao da Intelligence», debaixo de um cabecalho
+    # que autorizava uma missao.
+    fecho = texto[texto.rfind("HARD STOP"):] if "HARD STOP" in texto else ""
+    if fecho and fronteira:
+        limitada = "SECAO_32" in fronteira or "SECCAO_32" in fronteira
+        nomeia = "secção 32" in fecho or "seccao 32" in fecho or "secao 32" in fecho
+        if limitada and not nomeia:
+            achados.append("o HARD STOP final nao nomeia a fronteira que o "
+                           f"cabecalho declara ({fronteira})")
+        if not limitada and nomeia:
+            achados.append("o HARD STOP final nomeia uma fronteira que o "
+                           "cabecalho nao declara")
+    return achados
+
+
 # O mapa e um CONSUMIDOR da arquitetura, nunca o dono dela.
 #
 # A regra NAO e sobre a palavra «arquitetura» aparecer no nome do conceito: o
@@ -321,6 +419,23 @@ def main() -> int:
     prova("BIBLE_STATUS_MATCHES_REGISTRY",
           "nenhuma lei carimba no texto um estado diferente do registado",
           not discordias, discordias)
+
+    # ── 9e · E NAO PODE CONTRADIZER-SE A SI PROPRIA ──────────────────────────
+    # O 9d compara a lei com o REGISTO. Esta compara a lei consigo mesma: um
+    # documento pode bater certo com o registo e, tres paginas abaixo, emitir
+    # sobre si o veredito contrario.
+    internas = []
+    for a in R["AUTHORITIES"]:
+        if a["KIND"] != "BIBLE" or a["CANONICAL_PATH"] not in rastreados:
+            continue
+        try:
+            corpo = (RAIZ / a["CANONICAL_PATH"]).read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        internas += [f"{a['CARD_ID']}: {x}" for x in contradicoes_da_lei(corpo)]
+    prova("BIBLE_INTERNAL_CONTRADICTION",
+          "nenhuma lei declara sobre si dois estados ao mesmo tempo",
+          not internas, internas)
 
     # ── 10 · o censo esta atual ──────────────────────────────────────────────
     drift = [a["CARD_ID"] for a in R["AUTHORITIES"] if a["CARD_ID"] not in por_id]

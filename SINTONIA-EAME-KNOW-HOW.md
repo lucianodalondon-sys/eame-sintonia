@@ -10,7 +10,7 @@
 **Base de criação:** `572647dce8a38b8835aafa6f9e3e42d2652fbcd9`  
 **Regra:** atualizar todos os dias em que houver avanço material de arquitetura, metodologia, medição ou decisão.
 
-**Última atualização material:** 2026-09-14 — §116: mencionar uma lei não é promulgar uma, e duas das três dívidas que bloqueavam a Bíblia não existiam.
+**Última atualização material:** 2026-09-14 — §117: promover é uma edição em vários sítios, e um portão que compara dois documentos não vê um documento a contradizer-se.
 **Próxima missão autorizada:** NÃO DEFINIDA NESTE DELTA — medir estado e objetivo antes de abrir nova missão.
 
 ---
@@ -13667,4 +13667,126 @@ canonicos desta arvore — e a decisao foi obedecida, nao contornada.
 NAO registra fluxo real da Italia. REAL_ITALY_READY_ITEMS = 0.
 NAO registra fundacao da coleta fechada. 0 de 12 classes, e o total ainda
 e NAO SEI.
+```
+
+---
+
+# §117 · PROMOVER É UMA EDIÇÃO EM VÁRIOS SÍTIOS — E EU MUDEI DOIS DE TRÊS
+
+## O QUE MUDOU
+
+A `§116` fechou com a Bíblia da Intelligence promovida a `CANONICAL`, com
+`9/9` gates, portão verde e mapa verde. Quatro linhas abaixo do fim do documento,
+a própria Bíblia dizia de si:
+
+```text
+CANONICAL = NO
+INTELLIGENCE_IMPLEMENTATION_STARTED = NO
+```
+
+e fechava com:
+
+> **HARD STOP — esta Bíblia não autoriza iniciar implementação da Intelligence.**
+
+debaixo de um cabeçalho que autorizava uma missão.
+
+```text
+cabecalho   STATUS = CANONICAL          IMPLEMENTATION_AUTHORIZED = §32
+seccao 31   INTELLIGENCE_BIBLE_STATUS = CANONICAL
+seccao 33   CANONICAL = NO              «nao autoriza iniciar implementacao»
+```
+
+Quem lesse o princípio saía com um estado. Quem lesse o fim saía com o contrário.
+
+```text
+UM DOCUMENTO COM DUAS RESPOSTAS PARA A MESMA PERGUNTA NAO TEM NENHUMA.
+```
+
+## POR QUÊ
+
+### 1 · Promover não é mudar um campo. É mudar todos os sítios onde o campo é afirmado
+
+Mudei o cabeçalho. Mudei a `§31`. Não procurei os outros. A `§33` era o
+**veredito que a Bíblia tinha emitido sobre si própria** no dia em que foi
+escrita — e um veredito é exatamente o tipo de frase que uma promoção invalida.
+
+O erro não foi de raciocínio, foi de **varrimento**: tratei uma mudança de estado
+como uma edição pontual quando ela era uma edição distribuída.
+
+```text
+MUDAR UM ESTADO E PROCURAR TODAS AS AFIRMACOES DELE — NAO EDITAR A PRIMEIRA.
+```
+
+### 2 · O portão que eu tinha acabado de construir era cego a isto, por construção
+
+Na mesma missão criei `BIBLE_STATUS_MATCHES_REGISTRY`, e escrevi que ele fechava
+«o ataque mais silencioso a uma promoção: fazê-la num sítio só». Fechava metade.
+Ele compara a **lei com o registo** — duas fontes. Não vê uma fonte a discordar
+de si mesma.
+
+```text
+COERENCIA PARA FORA != COERENCIA PARA DENTRO.
+Um portao que compara dois documentos nao ve um documento a contradizer-se.
+```
+
+### 3 · E a correção óbvia estaria errada
+
+O reflexo é reprovar quem escrever `CANONICAL = NO` debaixo de um cabeçalho
+canónico. Isso apagaria a história: uma lei viva **tem** de poder carregar a
+fotografia do dia em que foi escrita, e apagá-la é pior do que a contradição —
+deixa de se poder conferir como é que ela chegou aqui.
+
+O que separa as duas não é o conteúdo. É a **marca**:
+
+```text
+VEREDITO = HISTORICO    uma fotografia datada, que nao descreve hoje
+VEREDITO = CORRENTE     o estado de agora, e so pode haver um
+```
+
+E o que **não** entra na prova, de propósito: `RUNTIME_IMPLEMENTED`,
+`INTELLIGENCE_IMPLEMENTATION_STARTED`, `REAL_ITALY_FLOW_OBSERVED`. Se
+`RUNTIME = NO` reprovasse debaixo de `STATUS = CANONICAL`, a saída mais barata
+para passar no portão era escrever `IMPLEMENTED = YES`.
+
+```text
+UM PORTAO QUE REPROVA A VERDADE INCOMODA ENSINA A CASA A MENTIR.
+```
+
+## A REGRA QUE FICA
+
+```text
+QUANDO UM ESTADO MUDA NUM DOCUMENTO QUE E AUTORIDADE:
+
+  1. enumerar TODAS as afirmacoes desse estado no documento — nao a primeira
+  2. marcar as que passaram a ser fotografia:  VEREDITO = HISTORICO
+  3. deixar exatamente UMA corrente:            VEREDITO = CORRENTE
+  4. conferir que o FECHO diz a mesma fronteira que o cabecalho
+
+E a prova mede o que o documento DECLARA, nunca o que ele NARRA. Prosa a
+citar o estado antigo e memoria, nao contrato: um portao que lesse prosa
+reprovaria a explicacao junto com o defeito.
+```
+
+## PROVA
+
+`controle/portao_do_controle.py::contradicoes_da_lei` + a prova
+`BIBLE_INTERNAL_CONTRADICTION`. Corrida contra a Bíblia **antes** da cirurgia
+(`b1029ce6`), apanha os três rostos do mesmo defeito:
+
+```text
+bloco corrente diz CANONICAL=NO, cabecalho diz STATUS=CANONICAL
+a lei declara 0 veredito(s) CORRENTE — tem de ser 1
+o HARD STOP final nao nomeia a fronteira que o cabecalho declara
+```
+
+Onze provas adversariais (`B0`–`B10`), três mutações — marca histórica ignorada,
+fecho não conferido, prova trocada por grep ingénuo — e as três apanhadas.
+
+## O QUE ESTA SECÇÃO **NÃO** REGISTA
+
+```
+NAO registra runtime. INTELLIGENCE_RUNTIME_IMPLEMENTED = NO.
+NAO registra destrave. COLLECTION_FOUNDATION_CLOSED = NAO, 0/12 classes.
+NAO registra fluxo real. REAL_ITALY_READY_ITEMS = 0.
+Esta missao corrigiu a constituicao. Nao construiu nada.
 ```

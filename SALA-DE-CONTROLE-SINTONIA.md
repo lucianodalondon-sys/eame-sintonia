@@ -208,16 +208,16 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`](BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `dfb1b7699c`
+- **impressão do conteúdo medido** — `90e5207cb1`
 - **prova** — `git:HEAD:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`
 - **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `docs/intelligence/INTELLIGENCE-CONCEPT-OWNERSHIP-V1.json`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `provas/arbitragem_da_intelligence.py` *(+2)*
-- **o que ela diz de si** — CANONICAL desde 2026-09-14, promovida por C-CTRL-INT-NIGHT-02 com as 9 condicoes da secao 31 re-medidas contra esta arvore: 9/9 PASS. A 5 fechou com a integracao de C-INT-ATOMICITY-01 — Biblia, Biblia da Coleta, know-how, arbitragem e registo coexistem num commit so. A 6 fechou quando os dois bloqueadores se revelaram inexistentes: dez MENCOES contadas como leis, e um CARD_ID lido como caminho. A canonica e esta copia, nesta arvore: CANONICAL_REF deixou de apontar para a branch lateral. IMPLEMENTATION_AUTHORIZED cobre apenas a primeira missao da secao 32.
+- **o que ela diz de si** — CANONICAL desde 2026-09-14, promovida por C-CTRL-INT-NIGHT-02 com as 9 condicoes da secao 31 re-medidas contra esta arvore: 9/9 PASS. A 5 fechou com a integracao de C-INT-ATOMICITY-01 — Biblia, Biblia da Coleta, know-how, arbitragem e registo coexistem num commit so. A 6 fechou quando os dois bloqueadores se revelaram inexistentes: dez MENCOES contadas como leis, e um CARD_ID lido como caminho. A canonica e esta copia, nesta arvore: CANONICAL_REF deixou de apontar para a branch lateral. IMPLEMENTATION_AUTHORIZED cobre apenas a primeira missao da secao 32, e ainda sujeita aos gates a montante (TRAVA-DA-INTELIGENCIA, e o item real que a propria secao 32 exige). C-INT-BIBLE-CONSISTENCY-01 separou o veredito historico de 2026-09-13 do veredito corrente: o texto declarava CANONICAL = NO tres paginas abaixo de um cabecalho CANONICAL.
 - **nota** — NAO CONFUNDIR com A-BIBLIA-INTELIGENCIA: aquele ficheiro chama-se «INVENTARIO DAS LEIS — entrada para a Biblia» e recusa o titulo no proprio cabecalho. O seu §7 lista 12 blocos em falta; esta V0.2 cobre 9. Fora: KIT/KIQ, FIELD_VOICES, DECISION_TELEMETRY.
 
   | relação | alvo | estado | prova |
   |---|---|---|---|
-  | `REFERENCES` | `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1232` |
-  | `REFERENCES` | `BIBLIA-CANONICA-DA-COLETA.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:56` |
+  | `REFERENCES` | `docs/intelligence/MOTOR-INTELLIGENCE-V2-REQUIREMENTS.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:1246` |
+  | `REFERENCES` | `BIBLIA-CANONICA-DA-COLETA.md` | **OBSERVED** | `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md:70` |
   | `REFERENCES` | `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` | **DECLARED** | *path_exists* |
   | `SUPERSEDES` | `A-BIBLIA-INTELIGENCIA` | **OBSERVED** | `registo:A-BIBLIA-INTELIGENCIA.SUPERSEDED_BY` |
 
@@ -363,9 +363,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`SINTONIA-EAME-KNOW-HOW.md`](SINTONIA-EAME-KNOW-HOW.md)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `02bd9f642c`
+- **impressão do conteúdo medido** — `0c2df55723`
 - **prova** — `git:HEAD:SINTONIA-EAME-KNOW-HOW.md`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md`, `provas/arbitragem_da_intelligence.py` *(+2)*
+- **quem aponta para ela** — `BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/red_team_do_controle.py`, `docs/sintonia-scrap/C3-YOUTUBE-RUNTIME-CUTOVER.md` *(+3)*
 - **cópias divergentes medidas** — 1: `origin/claude/sintonia-eame-know-how-v1-copy`
 - **o que ela diz de si** — AUSENTE DESTA ARVORE. O dono verdadeiro vive numa branch lateral; `main` nao tem know-how nenhum.
 - **nota** — A copia esta 50 commits atras do dono. Escrever um SINTONIA-EAME-KNOW-HOW.md novo em `main` criaria a terceira versao — e isso e o ataque RT04.
@@ -380,7 +380,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/AUTORIDADES-CANONICAS.json`](controle/AUTORIDADES-CANONICAS.json)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `e193c9d2a1`
+- **impressão do conteúdo medido** — `35a88c5582`
 - **prova** — `git:HEAD:controle/AUTORIDADES-CANONICAS.json`
 - **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/censo_do_controle.py`, `controle/portao_do_controle.py`, `docs/intelligence/INTELLIGENCE-ARBITRATION-V1.md` *(+4)*
 - **o que ela diz de si** — INDICE, NAO BIBLIA. Nao possui nenhuma lei; possui a lista de quem possui.
@@ -426,9 +426,9 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`controle/portao_do_controle.py`](controle/portao_do_controle.py)
 - **estado declarado** — `CANONICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `dfe2429fd1`
+- **impressão do conteúdo medido** — `a76b9628f4`
 - **prova** — `git:HEAD:controle/portao_do_controle.py`
-- **quem aponta para ela** — `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `docs/operacao/CENSO-DA-INTELLIGENCE.md`, `tests/test_atomicidade_da_intelligence.py`
+- **quem aponta para ela** — `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `controle/censo_do_controle.py`, `docs/operacao/CENSO-DA-INTELLIGENCE.md` *(+1)*
 - **o que ela diz de si** — Falha fechado.
 
   | relação | alvo | estado | prova |
@@ -606,7 +606,7 @@ A leitura desta tabela é o resultado principal desta missão:
 - **onde vive** — [`HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`](HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md)
 - **estado declarado** — `HISTORICAL`
 - **estado medido** — `PRESENT_AND_POINTED` · está aqui, e alguém aponta para ela
-- **impressão do conteúdo medido** — `4546e19e74`
+- **impressão do conteúdo medido** — `99f5c747ea`
 - **prova** — `git:HEAD:HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md`
 - **quem aponta para ela** — `PROMPT-PARA-NOVA-CONTA-CLAUDE.md`, `SINTONIA-EAME-KNOW-HOW.md`, `controle/AUTORIDADES-CANONICAS.json`, `tests/test_atomicidade_da_intelligence.py` *(+2)*
 - **o que ela diz de si** — MEMORIA.

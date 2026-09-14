@@ -512,6 +512,127 @@ class M_UmArtefactoGeradoNaoCarimbaOProprioCommit(unittest.TestCase):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+def lei(cabecalho: str, corpo: str) -> str:
+    """Uma lei sintetica: cabecalho declarado + corpo. Para atacar o detector."""
+    return f"# LEI\n\n```text\n{cabecalho}\n```\n\n{corpo}\n"
+
+
+CABECALHO_CANONICO = ("BIBLE_ID = X\nVERSION = V1\nSTATUS = CANONICAL\n"
+                      "IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32")
+FECHO_LIMITADO = ("## HARD STOP\n\nAutoriza a primeira missão da secção 32, e mais nada.")
+CORRENTE_OK = "```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n```"
+
+
+class B_UmaLeiNaoPodeContradizerSeASiPropria(unittest.TestCase):
+    """B1–B6 · a prova semantica da constituicao, atacada.
+
+    O defeito real: a promocao mudou o cabecalho e a §31 da Biblia e deixou
+    intacto o veredito que ela tinha emitido sobre si propria quando era
+    candidata. `STATUS = CANONICAL` no inicio, `CANONICAL = NO` no fim.
+
+        UM DOCUMENTO COM DUAS RESPOSTAS PARA A MESMA PERGUNTA NAO TEM NENHUMA.
+
+    E o que nao pode acontecer no conserto: apagar a fotografia antiga. Uma lei
+    viva carrega a propria historia — o que separa as duas e a MARCA, nunca a
+    ausencia de uma delas.
+    """
+
+    def test_B0_a_prova_apanha_o_defeito_REAL_que_existiu(self):
+        """A unica que importa: correr contra a Biblia de antes da cirurgia."""
+        antes = subprocess.run(
+            ["git", "-C", str(RAIZ), "show",
+             "b1029ce6:BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md"],
+            capture_output=True, text=True).stdout
+        self.assertTrue(antes, "o commit de referencia tem de existir")
+        achados = PORTAO.contradicoes_da_lei(antes)
+        self.assertTrue(any("CANONICAL=NO" in x for x in achados), achados)
+        self.assertTrue(any("HARD STOP" in x for x in achados), achados)
+
+    def test_B1_corrente_concorda_com_o_cabecalho(self):
+        d = lei(CABECALHO_CANONICO, CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(d), [])
+
+    def test_B2_uma_fotografia_antiga_marcada_como_historica_e_legitima(self):
+        velho = ("```text\nVEREDITO = HISTORICO\nDATA = 2026-09-13\n"
+                 "CANONICAL = NO\nRUNTIME_IMPLEMENTED = NO\n```")
+        d = lei(CABECALHO_CANONICO, velho + "\n\n" + CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(d), [],
+                         "apagar a historia seria pior que a contradicao")
+
+    def test_B3_o_mesmo_veredito_sem_a_marca_reprova(self):
+        velho = "```text\nVEREDITO = CORRENTE\nCANONICAL = NO\n```"
+        d = lei(CABECALHO_CANONICO, velho + "\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(d)
+        self.assertTrue(any("CANONICAL=NO" in x for x in achados), achados)
+
+    def test_B4_negar_toda_implementacao_debaixo_de_um_cabecalho_que_autoriza(self):
+        corpo = ("```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n"
+                 "IMPLEMENTATION_AUTHORIZED = NENHUMA\n```\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo))
+        self.assertTrue(any("IMPLEMENTATION_AUTHORIZED=NENHUMA" in x for x in achados), achados)
+
+    def test_B4b_um_fecho_que_nega_o_que_o_cabecalho_autoriza(self):
+        """A forma exacta da frase que sobreviveu a promocao real."""
+        fecho = ("## HARD STOP\n\nEsta Bíblia não autoriza iniciar implementação "
+                 "da Intelligence.")
+        achados = PORTAO.contradicoes_da_lei(
+            lei(CABECALHO_CANONICO, CORRENTE_OK + "\n\n" + fecho))
+        self.assertTrue(any("HARD STOP" in x for x in achados), achados)
+
+    def test_B5_autorizar_tudo_debaixo_de_um_cabecalho_que_limita(self):
+        corpo = ("```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n"
+                 "IMPLEMENTATION_AUTHORIZED = TODA_A_INTELLIGENCE\n```\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo))
+        self.assertTrue(any("TODA_A_INTELLIGENCE" in x for x in achados), achados)
+
+    def test_B5b_um_fecho_que_nomeia_fronteira_que_o_cabecalho_nao_declara(self):
+        cab = CABECALHO_CANONICO.replace(
+            "IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32",
+            "IMPLEMENTATION_AUTHORIZED = NO")
+        achados = PORTAO.contradicoes_da_lei(lei(cab, CORRENTE_OK + "\n\n" + FECHO_LIMITADO))
+        self.assertTrue(any("nao declara" in x for x in achados), achados)
+
+    def test_B6_runtime_NO_nao_reprova_uma_lei_canonica(self):
+        """A prova que impede o portao de ensinar a casa a mentir.
+
+        Ser lei e estar construido sao perguntas diferentes. Se `RUNTIME = NO`
+        reprovasse debaixo de `STATUS = CANONICAL`, a saida mais barata era
+        escrever `IMPLEMENTED = YES` — e a Biblia passava a mentir para passar.
+        """
+        corpo = ("```text\nVEREDITO = CORRENTE\nBIBLE_STATUS = CANONICAL\n"
+                 "INTELLIGENCE_RUNTIME_IMPLEMENTED = NO\n"
+                 "INTELLIGENCE_IMPLEMENTATION_STARTED = NO\n"
+                 "REAL_ITALY_FLOW_OBSERVED = NO\n"
+                 "COLLECTION_FOUNDATION_CLOSED = NAO\n```\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo)), [])
+
+    def test_B7_dois_vereditos_correntes_sao_duas_verdades(self):
+        d = lei(CABECALHO_CANONICO,
+                CORRENTE_OK + "\n\n" + CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        achados = PORTAO.contradicoes_da_lei(d)
+        self.assertTrue(any("CORRENTE" in x and "tem de ser 1" in x for x in achados), achados)
+
+    def test_B8_a_prova_nao_e_um_grep_por_prosa(self):
+        """Prosa a CITAR o estado antigo nao pode reprovar a lei."""
+        corpo = ("Durante meses esta lei dizia de si `CANONICAL = NO`, e a frase "
+                 "«esta Bíblia não autoriza iniciar implementação» fechava o "
+                 "documento.\n\n" + CORRENTE_OK + "\n\n" + FECHO_LIMITADO)
+        self.assertEqual(PORTAO.contradicoes_da_lei(lei(CABECALHO_CANONICO, corpo)), [],
+                         "narrar nao e declarar")
+
+    def test_B9_a_biblia_real_desta_arvore_nao_se_contradiz(self):
+        corpo = (RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md").read_text(encoding="utf-8")
+        self.assertEqual(PORTAO.contradicoes_da_lei(corpo), [])
+
+    def test_B10_a_fotografia_de_2026_09_13_continua_no_documento(self):
+        """NAO APAGAR HISTORIA. A prova que impede o conserto preguicoso."""
+        corpo = (RAIZ / "BIBLIA-DE-ENGENHARIA-DA-INTELLIGENCE.md").read_text(encoding="utf-8")
+        self.assertIn("VEREDITO = HISTORICO", corpo)
+        self.assertIn("CANONICAL = NO", corpo)
+        self.assertIn("COLLECTION_OWNER_COLLISION_FOUND = YES", corpo)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 class R_OQueBloqueiaORuntimeDaIntelligence(unittest.TestCase):
     """GATE C · porque o runtime NAO comecou, medido em vez de alegado.
 

@@ -6,7 +6,7 @@ VERSION = V0.2
 STATUS = CANONICAL
 DATE = 2026-09-13
 PROMOTED = 2026-09-14
-IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32
+IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
 ```
 
 > Esta é a **Bíblia de Engenharia da Intelligence**, não um relatório, backlog, handoff, design de portal ou prova de implementação.
@@ -30,7 +30,9 @@ secção 31 foram re-medidas, uma a uma, e passaram todas.
 ```text
 PROMOTED_BY   C-CTRL-INT-NIGHT-02 · autorização humana explícita no enunciado,
               condicional a 9/9 gates objetivos
-GATES         9 / 9 PASS   (a 6 fechou com PORTAO_DO_CONTROLE=PASS · 22 provas)
+GATES         9 / 9 PASS   (a 6 fechou com PORTAO_DO_CONTROLE=PASS · 22
+              provas nesse instante; o portao tem 23 hoje, porque a propria
+              promocao trouxe a prova BIBLE_STATUS_MATCHES_REGISTRY)
 SUPERSEDES    A-BIBLIA-INTELIGENCIA — o «INVENTÁRIO DAS LEIS», que recusa o
               título no próprio cabeçalho. A relação é de IDENTIDADE, e a outra
               ponta declara-a de volta no registo.
@@ -41,6 +43,18 @@ nasceu colado a `STATUS = CANDIDATE`: enquanto esta Bíblia fosse candidata,
 implementar contra ela era construir sobre lei não aprovada. A secção 32 nomeia
 a **primeira missão após promoção** e delimita-a. É essa, e mais nenhuma, que
 esta promoção autoriza.
+
+**E autorizar não é destrancar.** Esta Bíblia é a lei da Intelligence; ela não
+manda nos portões da Collection, e não os abre. A missão da secção 32 continua
+sujeita aos gates a montante — entre eles
+[`docs/operacao/TRAVA-DA-INTELIGENCIA.json`](docs/operacao/TRAVA-DA-INTELIGENCIA.json),
+que hoje mede `COLLECTION_FOUNDATION_CLOSED = NAO`, e o gate da própria secção
+32, que exige **um item real** na Sala de Espera, hoje medida a zero.
+
+```text
+PROMOVER A LEI   != AUTORIZAR A OBRA
+AUTORIZAR A OBRA != DESTRANCAR O PORTAO DE QUEM VEM ANTES
+```
 
 Tudo o resto — Intelligence Tools, Portal, UI, Opportunity, França, Espanha,
 controlador EAME — continua fora, e continua a precisar dos gates da secção 26.
@@ -1338,11 +1352,39 @@ ONE REAL WAITING_ROOM ITEM
 
 Depois HARD STOP.
 
+> **«NÃO EXECUTAR AGORA» continua verdade — e já não pela razão original.**
+> Escrito enquanto esta Bíblia era candidata, o «agora» queria dizer *antes da
+> promoção*. A promoção aconteceu a 2026-09-14, e esta missão passou a ser a
+> única autorizada. Continua a não poder correr, e agora por gates a montante
+> que foram **medidos**, não presumidos:
+>
+> | gate | medido em 2026-09-14 |
+> |---|---|
+> | `TRAVA-DA-INTELIGENCIA.json` | `COLLECTION_FOUNDATION_CLOSED = NAO` — 0 de 12 classes de estrada com arquitetura fechada, e `ROUTE_CLASSES_REQUIRED_TOTAL` ainda `UNKNOWN` |
+> | `ONE REAL WAITING_ROOM ITEM` (gate acima) | 0 itens — `data/samples/PRONTO-PARA-INTELIGENCIA/` não existe |
+>
+> Nenhum dos dois é desta Bíblia para abrir.
+
 ---
 
-# 33. VEREDITO V0.2
+# 33. VEREDITO
+
+Esta secção carrega **duas fotografias**, e a diferença entre elas é a promoção.
+Elas nunca se fundem: a de baixo não corrige a de cima, sucede-a.
 
 ```text
+ANTES != AGORA
+```
+
+## ⚠️ 33.1 · VEREDITO HISTÓRICO — V0.2 COMO CANDIDATA, 2026-09-13
+
+> **Esta é a fotografia do dia em que a Bíblia foi escrita, antes da promoção.**
+> Não é o estado de hoje, e não se reescreve: um veredito que muda depois de
+> emitido deixa de poder ser conferido.
+
+```text
+VEREDITO = HISTORICO
+DATA     = 2026-09-13
 ENGINEERING_BIBLE_WRITTEN = YES
 COLLECTION_OWNER_COLLISION_FOUND = YES
 COLLECTION_OWNER_COLLISION_CORRECTED_IN_CANDIDATE = YES
@@ -1352,7 +1394,46 @@ COLLECTION_CHANGED = NO
 INTELLIGENCE_IMPLEMENTATION_STARTED = NO
 PORTAL_CHANGED = NO
 LIVE_CHANGED = NO
+KNOW_HOW_DELTA = ATUALIZACAO NECESSARIA APOS PROMOCAO/INTEGRACAO
 ```
+
+Duas linhas desta fotografia deixaram de descrever o presente, e é por isso que
+ela está marcada: `CANONICAL = NO` foi substituído pela promoção de 2026-09-14, e
+o `KNOW_HOW_DELTA` que ela pedia foi aplicado — vive em `SINTONIA-EAME-KNOW-HOW.md`,
+§116. As outras sete continuam verdade, e continuam medidas abaixo.
+
+## 33.2 · VEREDITO CORRENTE — 2026-09-14
+
+```text
+VEREDITO = CORRENTE
+DATA     = 2026-09-14
+BIBLE_STATUS = CANONICAL
+BIBLE_PROMOTION_GATES = 9 / 9 PASS
+IMPLEMENTATION_AUTHORIZED = SOMENTE_A_PRIMEIRA_MISSAO_DA_SECAO_32_E_SUJEITA_AOS_GATES_UPSTREAM
+INTELLIGENCE_RUNTIME_IMPLEMENTED = NO
+INTELLIGENCE_IMPLEMENTATION_STARTED = NO
+REAL_ITALY_FLOW_OBSERVED = NO
+COLLECTION_FOUNDATION_CLOSED = NAO
+COLLECTION_CHANGED = NO
+PORTAL_CHANGED = NO
+LIVE_CHANGED = NO
+KNOW_HOW_DELTA = APLICADO · SINTONIA-EAME-KNOW-HOW.md §116
+```
+
+**As cinco primeiras linhas são verdade ao mesmo tempo, e isso não é
+contradição nenhuma.** Ser lei e estar construído são perguntas diferentes:
+
+| linha | a pergunta a que ela responde |
+|---|---|
+| `BIBLE_STATUS` | quem manda na Intelligence |
+| `INTELLIGENCE_RUNTIME_IMPLEMENTED` | o que existe construído |
+| `IMPLEMENTATION_AUTHORIZED` | o que se pode começar a construir |
+| `REAL_ITALY_FLOW_OBSERVED` | o que já se viu correr sobre dado real |
+
+Uma constituição recém promovida governa código que ainda não existe. É o estado
+normal de uma lei nova — e confundir `CANONICAL = YES` com
+`RUNTIME_IMPLEMENTED = YES` seria a forma mais rápida de esta Bíblia passar a
+mentir.
 
 A Intelligence do SINTONIA deve ser uma **máquina de produção analítica auditável**.
 
@@ -1375,6 +1456,24 @@ E QUANDO A RESPOSTA CORRETA É NÃO AGIR AINDA
 
 ---
 
-`KNOW_HOW_DELTA = ATUALIZAÇÃO NECESSÁRIA APÓS PROMOÇÃO/INTEGRAÇÃO`
+## HARD STOP
 
-**HARD STOP — esta Bíblia não autoriza iniciar implementação da Intelligence.**
+**Esta Bíblia autoriza exatamente uma obra: a primeira missão da secção 32 — um
+`INTELLIGENCE_RUN` identificado sobre UM item real da Sala de Espera, com
+linhagem provada, sem coleta direta e sem fabricar julgamento. Mais nada.**
+
+E autoriza-a **sujeita aos gates a montante**, que não são desta Bíblia para
+abrir e que hoje estão fechados:
+
+```text
+TRAVA-DA-INTELIGENCIA   COLLECTION_FOUNDATION_CLOSED = NAO
+SALA DE ESPERA          0 itens reais
+```
+
+Enquanto qualquer um dos dois assim estiver, a missão da secção 32 está
+autorizada por esta lei **e bloqueada pela máquina** — que é um estado coerente,
+e o estado de hoje.
+
+Fora dessa missão, nada: sem Intelligence Tools, sem Portal, sem UI, sem
+Opportunity, sem França, sem Espanha, sem controlador EAME. Esses continuam a
+precisar dos gates da secção 26, e nenhum deles foi aberto.
