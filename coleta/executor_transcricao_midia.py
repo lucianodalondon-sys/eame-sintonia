@@ -259,6 +259,7 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
         return {"ESTADO": "SEM_DERIVADO",
                 "MOTIVO_DO_EXECUTOR": fl.ASR_INDISPONIVEL,
                 "ERRO": porque_asr if not ha else "ffmpeg ausente nesta maquina",
+                "PORQUE": porque_asr if not ha else "ffmpeg ausente nesta maquina",
                 "NAO_SIGNIFICA": ("que a midia nao tem fala. A ferramenta e que "
                                   "nao esta aqui."),
                 "MEDIDAS": {}}
@@ -270,6 +271,7 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
         return {"ESTADO": "SEM_DERIVADO",
                 "MOTIVO_DO_EXECUTOR": "SEM_FAIXA_DE_AUDIO",
                 "ERRO": porque_fluxo,
+                "PORQUE": porque_fluxo,
                 "NAO_SIGNIFICA": "que o ficheiro esta corrompido.",
                 "MEDIDAS": {"FLUXOS": porque_fluxo}}
 
@@ -280,6 +282,7 @@ def derivar_um(raw_asset_id, midia, armazem, memoria, relogio=None,
         return {"ESTADO": "SEM_DERIVADO",
                 "MOTIVO_DO_EXECUTOR": estado,
                 "ERRO": r.get("ERRO") or "",
+                "PORQUE": r.get("ERRO") or ("o reconhecedor devolveu %s" % estado),
                 "NAO_SIGNIFICA": ("que a Admissao recusou. A Admissao nem foi "
                                   "chamada: ASR_FAILED != CONTENT_REJECTED."),
                 "MEDIDAS": {k: r.get(k) for k in

@@ -348,6 +348,16 @@ def main():
     print("  DERIVED     %s · %s" % (r_der["ESTADO_DA_ETAPA"],
                                      {k: v for k, v in r_der["BALDES"].items() if v}))
     linha_der = (r_der.get("RESULTADOS") or [{}])[0]
+    # ⚠️ QUANDO NAO DERIVA, O PORQUE TEM DE APARECER NO LOG.
+    # A primeira corrida no CI saiu `DERIVED FAIL · {'ERROR': 1}` e mais nada —
+    # e um `ERROR: 1` sem razao obriga a proxima pessoa a adivinhar, ou a
+    # correr tudo outra vez so para ver.
+    #
+    #     UM NUMERO DE FALHAS SEM A RAZAO DELAS NAO E TELEMETRIA: E UM ENIGMA.
+    if (r_der["BALDES"].get("PASSED", 0) + r_der["BALDES"].get("REUSED", 0)) == 0:
+        print("  PORQUE NAO DERIVOU:")
+        for k in ("ESTADO", "PORTA", "MOTIVO_DO_EXECUTOR", "PORQUE"):
+            print("     %-20s %s" % (k, linha_der.get(k)))
     _mede("EXECUTOR_QUE_CORREU", linha_der.get("EXECUTOR_ID"),
           "quem o runner escolheu para ESTA unidade")
     caso("B5_quem_derivou_foi_o_executor_de_midia",

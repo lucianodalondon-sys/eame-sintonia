@@ -146,6 +146,22 @@ DESTINO_DO_ESTADO = {
 DESTINO_DO_MOTIVO = {
     art.TEXT_LAYER_ABSENT:  "REJECTED",
     art.EXTRACTION_ERROR:   "ERROR",
+    # ── E OS MOTIVOS DA MIDIA, QUE A C4H TROUXE ──────────────────────────
+    # ⚠️ SEM ESTAS LINHAS, TUDO O QUE VINHA DA MIDIA CAIA EM `UNKNOWN`.
+    # Medido no CI a 2026-09-14: o executor de midia devolveu `SEM_DERIVADO`
+    # com um motivo que esta tabela nao conhecia, e a etapa saiu `ERROR` sem
+    # que nada nosso tivesse falhado.
+    #
+    # A divisao e a MESMA do PDF, e nao uma regra nova: o que e propriedade do
+    # ORIGINAL e `REJECTED`; o que e avaria NOSSA e `ERROR`.
+    #
+    #     UM VIDEO MUDO NAO E UMA FERRAMENTA PARTIDA.
+    #     E UMA FERRAMENTA AUSENTE NAO E UM VIDEO SEM FALA.
+    "SEM_FAIXA_DE_AUDIO":      "REJECTED",   # o contentor nao traz som
+    "REQUESTED_EMPTY":         "REJECTED",   # traz som, e nao ha fala nele
+    "ASR_INDISPONIVEL":        "ERROR",      # a biblioteca nao esta ca
+    "ASR_FALHOU":              "ERROR",      # tentou e nao completou
+    "TRANSCRIPTION_TIMEOUT":   "ERROR",      # o teto desta casa fechou
 }
 
 # O que este caminho AINDA não faz, dito com nome. Um buraco declarado é uma
