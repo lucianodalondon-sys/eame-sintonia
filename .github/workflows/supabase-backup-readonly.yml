@@ -1,0 +1,113 @@
+# ═══════════════════════════════════════════════════════════════════════
+# BACKUP DO LIVE, MEDIDO — SÓ LEITURA
+#
+# Um `GET` à Management API do Supabase, e mais nada. Esta porta não pode
+# escrever produção por construção:
+#
+#   · não recebe `SUPABASE_SECRET_KEY` nem `SUPABASE_DB_URL` — não há SQL
+#     nenhum aqui, e o livro-razão do LIVE não é assunto desta porta
+#   · não chama `cadeia_canonica.sh` — não aplica migration
+#   · não abre conexão PostgreSQL
+#   · o único método HTTP que o script usa é `GET`; restaurar, pausar,
+#     reiniciar e criar projeto são todos `POST`, e nenhum existe aqui
+#
+# O SECRET
+# --------
+# `SUPABASE_ACCESS_TOKEN` é um Personal Access Token de granularidade fina,
+# limitado ao projeto e à permissão Database → Backups → **Read**.
+#
+#   · entra por `env:`, e só no passo que mede
+#   · nunca é `echo`-ado — o passo 1 imprime PRESENTE/AUSENTE, e não valor
+#   · não há `set -x` em passo nenhum
+#   · não vai para ficheiro, não vai para a URL, não vai para `argv`:
+#     não há `curl`, e o cabeçalho é montado dentro do processo Python
+#   · antes de gravar o artefacto, o script procura o próprio valor do
+#     token no que está prestes a escrever, e aborta se o achar
+#
+# POR QUE É QUE O PORTÃO É UM PASSO SEPARADO
+# ------------------------------------------
+# O passo que mede sai com `0` sempre que a MEDIÇÃO aconteceu — e um `401`
+# é uma medição, com uma causa que vale a pena ler. Mas um job verde que
+# na verdade não leu backup nenhum é um verde que mente. Então o artefacto
+# sobe primeiro, e o portão reprova depois.
+#
+#     JOB_STATUS = a medicao correu.
+#     HTTP_STATUS = o que ela mediu.
+#     Sao duas perguntas, e colapsa-las e que faz «nao funciona».
+# ═══════════════════════════════════════════════════════════════════════
+name: supabase-backup-readonly
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  medir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · o secret existe (booleano, nunca valor)
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$SUPABASE_ACCESS_TOKEN" ]; then
+            echo "SUPABASE_ACCESS_TOKEN=AUSENTE"
+            echo "O secret nao chegou ao runner. Sem chave nao ha medicao, e"
+            echo "uma medicao que nao aconteceu nao deixa artefacto a fingir."
+            exit 1
+          fi
+          echo "SUPABASE_ACCESS_TOKEN=PRESENTE"
+
+      - name: 2 · medir os backups (um GET, nenhuma escrita)
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        # `cmd | tee` devolve o estado do TEE, e nao o do script — e o shell
+        # por omissao do Actions nao traz `pipefail`. Sem esta linha, um script
+        # que abortasse por vazamento dava o passo por verde.
+        run: |
+          set -o pipefail
+          rc=0
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 provas/backup_do_live_medido.py | tee -a "$GITHUB_STEP_SUMMARY" || rc=$?
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
+
+      # Sobe mesmo quando o passo 2 reprova: um `401` medido continua a ser
+      # a coisa que esta missao veio buscar.
+      - name: 3 · artefacto sanitizado
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: supabase-live-backup-medido
+          path: provas/SUPABASE-LIVE-BACKUP-MEASURED.json
+          if-no-files-found: warn
+
+      - name: 4 · o portao — verde so se o token leu mesmo
+        if: always()
+        run: |
+          f=provas/SUPABASE-LIVE-BACKUP-MEASURED.json
+          if [ ! -f "$f" ]; then
+            echo "MANAGEMENT_TOKEN_WORKED=NO · nao houve medicao nenhuma"
+            exit 1
+          fi
+          python3 - "$f" <<'PY'
+          import json, sys
+          m = json.load(open(sys.argv[1], encoding="utf-8"))
+          for c in ("HTTP_STATUS", "MANAGEMENT_TOKEN_WORKED", "BACKUPS_VISIBLE",
+                    "LIVE_BACKUP_PREFLIGHT", "SAME_PLATFORM_RESTORE",
+                    "READY_FOR_LIVE_APPLY", "LIVE_WRITES", "LIVE_DDL"):
+              print("%s=%s" % (c, m.get(c)))
+          if m.get("MANAGEMENT_TOKEN_WORKED") != "YES":
+              print("PORQUE=%s" % m.get("PORQUE_NAO_MEDIDO"))
+              print("")
+              print("O artefacto esta em cima e diz a CAUSA. Nao e «sem backup»:")
+              print("401 e credencial, 403 e escopo, 404 e rota. Ler antes de rerodar.")
+              sys.exit(1)
+          PY
+
+      - name: 5 · nada foi escrito
+        if: always()
+        run: echo "LIVE_WRITES=0 · LIVE_DDL=0 · RESTAUROS=0 · PROJETOS_CRIADOS=0 · DEV_TOCADO=NAO"

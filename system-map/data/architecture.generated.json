@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/supabase-live-recovery-preflight-v1",
-    "HEAD": "7066a9202f5598d12963130feb2f84fa2fee24f7",
-    "GENERATED_AT": "2026-09-14T01:08:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b000fab0d14b17ead9e1f4ffbf7bb07cc1af376f10a1dffb48b0be6048787376"
+    "BRANCH": "claude/supabase-backup-readonly-measure-v1",
+    "HEAD": "99e97d9281fb4d4fc3ca7b164ec1f48c39c6cf3b",
+    "GENERATED_AT": "2026-09-14T01:31:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3b226213ea81180a2ec3244ca80903be925d4137e0a09d919ec7200a17bd29ee"
   },
   "FILES": [
     {
@@ -123,6 +123,13 @@
     {
       "path": ".github/workflows/sintonia-scrap.yml",
       "sha": "2699e624213154d0c6ecd502ac4167874e5ed2e0",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/supabase-backup-readonly.yml",
+      "sha": "1e4ffc59c13fb0e95b707eb960b46b47ebaf5352",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -4888,6 +4895,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1.md",
+      "sha": "214498217302fd8a94f3d35d5f6df1ba9a01df82",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "sha": "ea487359937b737177d9b888c52609078bc592b4",
       "ext": ".md",
@@ -8738,6 +8752,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/backup_do_live_medido.py",
+      "sha": "719932757523137fecbe91a9038246801fc10a3b",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/benchmark_tematico.py",
       "sha": "afe53f330acb0cce27293f6acc38d8ee5b982477",
       "ext": ".py",
@@ -10552,7 +10573,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "6bba44148fb3b16fa5501af52daf51bf684ee2fd",
+      "sha": "e5869d4e7e84b989bdd8f3bba7a8fbdedfaf5642",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -12847,6 +12868,17 @@
         "file": ".github/workflows/sintonia-scrap.yml",
         "line": 333,
         "snippet": "PYTHONIOENCODING=utf-8 $PY orquestrador/orquestrador.py \\"
+      }
+    },
+    {
+      "from_file": ".github/workflows/supabase-backup-readonly.yml",
+      "to_file": "provas/backup_do_live_medido.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/supabase-backup-readonly.yml",
+        "line": 74,
+        "snippet": "python3 provas/backup_do_live_medido.py | tee -a \"$GITHUB_STEP_SUMMARY\" || rc=$?"
       }
     },
     {
@@ -53097,10 +53129,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1710,
-    "files_readable": 708,
-    "files_code_dir": 761,
-    "file_edges": 3693,
+    "files_tracked": 1713,
+    "files_readable": 710,
+    "files_code_dir": 763,
+    "file_edges": 3694,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

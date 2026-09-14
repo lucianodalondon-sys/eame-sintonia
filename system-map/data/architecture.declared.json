@@ -3411,14 +3411,15 @@
         "audit",
         "infra"
       ],
-      "what": "Duas medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto.",
-      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao responde 401, e nao 404. E porque numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
+      "what": "Tres medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto. A terceira usa o scoped token de Backups Read para um unico GET a Management API, e le do corpo real os campos de backup, retencao e PITR — recusando-se a colapsar 401, 403, 404, 429, 5xx e «200 com lista vazia» na mesma frase.",
+      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao respondia 401, e nao 404. A terceira prova foi buscar essa chave e fez o pedido, e a lei que ela carrega e a mesma: «nao funciona» e o nome que se da a cinco causas diferentes quando nao se quer escolher uma. E numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         "provas/preflight_da_cadeia_ate_031.py",
-        "provas/preflight_de_recuperacao_do_live.py"
+        "provas/preflight_de_recuperacao_do_live.py",
+        "provas/backup_do_live_medido.py"
       ]
     }
   ],

@@ -44,6 +44,7 @@
       ".github/workflows/scrap-social.yml",
       ".github/workflows/security-check.yml",
       ".github/workflows/sintonia-scrap.yml",
+      ".github/workflows/supabase-backup-readonly.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-migrate.yml",
       ".github/workflows/supabase-storage.yml",
@@ -721,6 +722,7 @@
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
       "docs/operacao/C-RESTORE-PROOF-BEFORE-LIVE-V2.md",
+      "docs/operacao/C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1.md",
       "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
@@ -1298,6 +1300,7 @@
       "provas/asr_banco.py",
       "provas/auditoria.py",
       "provas/auditoria_live.sh",
+      "provas/backup_do_live_medido.py",
       "provas/benchmark_tematico.py",
       "provas/bluesky_trial_ao_vivo.py",
       "provas/candidatos_tematicos.py",
@@ -2157,10 +2160,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/supabase-live-recovery-preflight-v1",
-    "HEAD": "7066a9202f5598d12963130feb2f84fa2fee24f7",
-    "GENERATED_AT": "2026-09-14T01:08:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "b000fab0d14b17ead9e1f4ffbf7bb07cc1af376f10a1dffb48b0be6048787376"
+    "BRANCH": "claude/supabase-backup-readonly-measure-v1",
+    "HEAD": "99e97d9281fb4d4fc3ca7b164ec1f48c39c6cf3b",
+    "GENERATED_AT": "2026-09-14T01:31:57+00:00",
+    "SOURCE_TREE_FINGERPRINT": "3b226213ea81180a2ec3244ca80903be925d4137e0a09d919ec7200a17bd29ee"
   },
   "FAMILIES": [
     {
@@ -7380,11 +7383,12 @@
       "files": [
         ".github/workflows/auditoria-live.yml",
         ".github/workflows/banco-descartavel.yml",
+        ".github/workflows/supabase-backup-readonly.yml",
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-migrate.yml",
         ".github/workflows/supabase-storage.yml"
       ],
-      "file_count": 5,
+      "file_count": 6,
       "status": "PENDING",
       "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -7403,6 +7407,7 @@
         "C-PROVA-DEDUPE",
         "C-PROVA-FORWARD-CONTA",
         "C-PROVA-LINHAGEM-READY-SOCIAL",
+        "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
         "C-PROVA-RETRY-DO-SCRAP",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -13646,13 +13651,13 @@
       "name": "O preflight da recuperacao — o que se mede antes de tocar no LIVE",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Duas medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto.",
-      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao responde 401, e nao 404. E porque numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
+      "what": "Tres medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto. A terceira usa o scoped token de Backups Read para um unico GET a Management API, e le do corpo real os campos de backup, retencao e PITR — recusando-se a colapsar 401, 403, 404, 429, 5xx e «200 com lista vazia» na mesma frase.",
+      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao respondia 401, e nao 404. A terceira prova foi buscar essa chave e fez o pedido, e a lei que ela carrega e a mesma: «nao funciona» e o nome que se da a cinco causas diferentes quando nao se quer escolher uma. E numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
       "departments": [
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "gray",
+      "ui_status": "yellow",
       "icon": "⊟",
       "views": [
         "audit",
@@ -13661,18 +13666,21 @@
       "lane": "official",
       "family": "F-GOVERNANCA",
       "files": [
+        "provas/backup_do_live_medido.py",
         "provas/preflight_da_cadeia_ate_031.py",
         "provas/preflight_de_recuperacao_do_live.py"
       ],
-      "file_count": 2,
-      "status": "UNKNOWN",
-      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "file_count": 3,
+      "status": "PENDING",
+      "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [
         "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
         "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json"
       ],
-      "inbound": [],
+      "inbound": [
+        "C-CI-PERSIST"
+      ],
       "outbound": [],
       "paises": {},
       "paises_dado": {},
@@ -13692,9 +13700,16 @@
       "nivel": "INTERNO",
       "escreve_na_pasta": [],
       "destino": [
+        "SUPABASE",
         "GIT"
       ],
       "destino_prova": [
+        {
+          "onde": "SUPABASE",
+          "file": "provas/backup_do_live_medido.py",
+          "line": 453,
+          "snippet": "token = os.environ.get(\"SUPABASE_ACCESS_TOKEN\", \"\")"
+        },
         {
           "onde": "GIT",
           "file": "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
@@ -13708,7 +13723,7 @@
           "snippet": "ficheiro versionado que esta peca escreve"
         }
       ],
-      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
       "x": 20850,
       "y": 4868
     },
@@ -19135,7 +19150,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/supabase-live-recovery-preflight-v1"
+        "branch claude/supabase-backup-readonly-measure-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -23357,6 +23372,24 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 437,
           "snippet": "python3 provas/mutacao_da_linhagem_social.py"
+        }
+      ],
+      "categoria": "CONTROL"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
+      "type": "RUNS",
+      "payload": "execucao",
+      "raw_type": "RUNS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco manda rodar O preflight da recuperacao — o que se mede antes de tocar no LIVE. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": ".github/workflows/supabase-backup-readonly.yml",
+          "line": 74,
+          "snippet": "python3 provas/backup_do_live_medido.py | tee -a \"$GITHUB_STEP_SUMMARY\" || rc=$?"
         }
       ],
       "categoria": "CONTROL"
@@ -39450,7 +39483,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 835,
+  "UNCLAIMED_FILES_COUNT": 836,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -39607,15 +39640,15 @@
   "COUNTS": {
     "components": 184,
     "components_proven": 48,
-    "components_pending": 128,
+    "components_pending": 129,
     "components_broken": 0,
-    "components_unknown": 8,
-    "edges": 867,
-    "edges_proven": 864,
+    "components_unknown": 7,
+    "edges": 868,
+    "edges_proven": 865,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1710,
-    "files_covered": 875,
+    "files_tracked": 1713,
+    "files_covered": 877,
     "files_code_unclaimed": 0
   }
 }
