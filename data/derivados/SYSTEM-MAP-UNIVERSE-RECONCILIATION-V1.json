@@ -6,10 +6,10 @@
     "Nao decide arquitetura: observa as lentes que ja existem."
   ],
   "PROVENANCE": {
-    "HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762",
+    "HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81",
     "BRANCH": "claude/system-map-collection-truth-v1",
-    "GENERATED_AT": "2026-09-14T05:39:07+00:00",
-    "SOURCE_TREE_FINGERPRINT": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
+    "GENERATED_AT": "2026-09-14T05:48:11+00:00",
+    "SOURCE_TREE_FINGERPRINT": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
     "FICHEIROS_NA_IMPRESSAO": 1669,
     "FICHEIROS_AUSENTES_DO_DISCO": []
   },
@@ -469,8 +469,8 @@
       "OWNER": "system-map/scripts/censo_da_topologia.py",
       "SOURCE_ARTIFACT": "system-map/data/topologia.generated.json",
       "SOURCE_ARTIFACT_FIELD": "EXPANDED.MEMBERS",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762",
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81",
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
       "COUNT": 111,
       "INCLUSION_RULE": "family in ['F-COLETA', 'F-ESPERA'], OU ligado por aresta a alguem que esteja.",
       "EXCLUSION_RULE": "nenhuma aresta ate a coleta ou a espera.",
@@ -643,7 +643,7 @@
     "CASCO_TOOL_CARD_UNIVERSE": {
       "UNIVERSE_DEFINITION": "as ferramentas do portal italiano. Chamam-se «cards» e nao tem UM membro em comum com a coleta.",
       "OWNER": "system-map/scripts/censo_cards_sensores.py",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81",
       "MEASURED_HEAD_VERIFICAVEL": false,
       "MEASURED_TREE": "NAO SEI",
       "COUNT": 11,
@@ -755,7 +755,7 @@
       "WHO_COMPUTES": "system-map/scripts/censo_da_topologia.py",
       "FROM_WHICH_FILE": "system-map/data/topologia.generated.json",
       "FROM_WHICH_FIELD": "RESUMO.CARTOES_NO_UNIVERSO",
-      "FROM_WHICH_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762",
+      "FROM_WHICH_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81",
       "WHERE_DISPLAYED": "docs/operacao/TOPOLOGIA-DA-COLETA.md (escrito a mao)",
       "HARDCODED": false,
       "ENTITY_SPECIES": "SYSTEM_MAP_VISUAL_CARD"
@@ -786,7 +786,7 @@
       "WHO_COMPUTES": "system-map/scripts/censo_cards_sensores.py",
       "FROM_WHICH_FILE": "data/derivados/MATRIZ-CARDS-SENSORES-V1.json",
       "FROM_WHICH_FIELD": "CONTAGENS.CARDS_TOTAL",
-      "FROM_WHICH_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762",
+      "FROM_WHICH_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81",
       "WHERE_DISPLAYED": "o portal italiano.",
       "HARDCODED": false,
       "AVISO": "a palavra «card» aqui nao e a palavra «card» do pente fino. Interseccao com a coleta: zero.",
@@ -1078,15 +1078,15 @@
     }
   ],
   "FRESCURA": {
-    "IMPRESSAO_DA_ARVORE_AGORA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
+    "IMPRESSAO_DA_ARVORE_AGORA": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
     "CARIMBO_DO_MAPA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-    "MAPA_E_DESTA_ARVORE": true,
+    "MAPA_E_DESTA_ARVORE": false,
     "ARTEFATOS": [
       {
         "ARTEFATO": "state.generated.json",
         "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
         "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
+        "ESTADO": "STALE",
         "MOTIVO": "SO_A_ARVORE",
         "ENTRADAS_GERADAS": [],
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
@@ -1097,7 +1097,7 @@
         "ARTEFATO": "architecture.generated.json",
         "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
         "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
+        "ESTADO": "STALE",
         "MOTIVO": "SO_A_ARVORE",
         "ENTRADAS_GERADAS": [],
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
@@ -1108,57 +1108,57 @@
         "ARTEFATO": "sources.generated.json",
         "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
         "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
-        "MOTIVO": "CURRENT",
+        "ESTADO": "STALE",
+        "MOTIVO": "ARVORE_MUDOU",
         "ENTRADAS_GERADAS": [],
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
         "ENTRADAS_SEM_CARIMBO": [],
-        "PORQUE": "a arvore e as entradas sao as que foram medidas"
+        "PORQUE": "mudou a arvore desde a medicao"
       },
       {
         "ARTEFATO": "pente-fino.generated.json",
         "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
         "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
-        "MOTIVO": "CURRENT",
+        "ESTADO": "STALE",
+        "MOTIVO": "ARVORE_MUDOU",
         "ENTRADAS_GERADAS": [
           "system-map/data/state.generated.json"
         ],
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
         "ENTRADAS_SEM_CARIMBO": [],
-        "PORQUE": "a arvore e as entradas sao as que foram medidas"
+        "PORQUE": "mudou a arvore desde a medicao"
       },
       {
         "ARTEFATO": "censo-da-coleta.generated.json",
         "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
         "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
-        "MOTIVO": "CURRENT",
+        "ESTADO": "STALE",
+        "MOTIVO": "ARVORE_MUDOU",
         "ENTRADAS_GERADAS": [],
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
         "ENTRADAS_SEM_CARIMBO": [],
-        "PORQUE": "a arvore e as entradas sao as que foram medidas"
+        "PORQUE": "mudou a arvore desde a medicao"
       },
       {
         "ARTEFATO": "topologia.generated.json",
         "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
         "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
-        "MOTIVO": "CURRENT",
+        "ESTADO": "STALE",
+        "MOTIVO": "ARVORE_MUDOU",
         "ENTRADAS_GERADAS": [
           "system-map/data/architecture.generated.json",
           "system-map/data/state.generated.json"
         ],
         "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
         "ENTRADAS_SEM_CARIMBO": [],
-        "PORQUE": "a arvore e as entradas sao as que foram medidas"
+        "PORQUE": "mudou a arvore desde a medicao"
       },
       {
         "ARTEFATO": "MATRIZ-CARDS-SENSORES-V1.json",
-        "HEAD_CARIMBADO": "bdc375452d242c70f4e3ed8a88445534b4566762",
-        "IMPRESSAO_CARIMBADA": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-        "ESTADO": "CURRENT",
-        "MOTIVO": "CURRENT",
+        "HEAD_CARIMBADO": "d48715d88d5f594d6ba333543ff111e1949b1e81",
+        "IMPRESSAO_CARIMBADA": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+        "ESTADO": "STALE",
+        "MOTIVO": "STALE_BY_CYCLE",
         "ENTRADAS_GERADAS": [
           "system-map/data/casco.generated.json",
           "system-map/data/congelamento.generated.json",
@@ -1166,24 +1166,36 @@
           "system-map/data/fluxo.generated.json",
           "system-map/data/sources.generated.json"
         ],
-        "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [],
+        "ENTRADAS_GERADAS_DE_OUTRA_ARVORE": [
+          "system-map/data/sources.generated.json"
+        ],
         "ENTRADAS_SEM_CARIMBO": [
           "system-map/data/casco.generated.json",
           "system-map/data/congelamento.generated.json",
           "system-map/data/executores.generated.json",
           "system-map/data/fluxo.generated.json"
         ],
-        "PORQUE": "a arvore e as entradas sao as que foram medidas"
+        "PORQUE": "entrada gerada que nao mediu esta arvore: ['system-map/data/sources.generated.json']"
       }
     ],
-    "STALE": [],
-    "CICLO_ATRASADO": [],
+    "STALE": [
+      "state.generated.json",
+      "architecture.generated.json",
+      "sources.generated.json",
+      "pente-fino.generated.json",
+      "censo-da-coleta.generated.json",
+      "topologia.generated.json",
+      "MATRIZ-CARDS-SENSORES-V1.json"
+    ],
+    "CICLO_ATRASADO": [
+      "MATRIZ-CARDS-SENSORES-V1.json"
+    ],
     "NAO_VERIFICAVEL": [],
     "TOPOLOGIA": {
       "ARTEFATO": "system-map/data/topologia.generated.json",
       "TOPOLOGY_CENSUS_PERSISTED": "YES",
-      "TOPOLOGY_ARTIFACT_CURRENT": "CURRENT",
-      "TOPOLOGY_ARTIFACT_CURRENT_PORQUE": "a arvore e as entradas sao as que foram medidas",
+      "TOPOLOGY_ARTIFACT_CURRENT": "STALE",
+      "TOPOLOGY_ARTIFACT_CURRENT_PORQUE": "mudou a arvore desde a medicao",
       "TOPOLOGY_COUNTS_REPRODUCIBLE": "YES",
       "MEASUREMENT_HASH_COMMITADO": "4bf43fb8d1518c64c38037aa832f2606ea73f217bd56d52cd197719c15411218",
       "MEASUREMENT_HASH_AGORA": "4bf43fb8d1518c64c38037aa832f2606ea73f217bd56d52cd197719c15411218",
@@ -1205,6 +1217,24 @@
       "O_QUE": "dos 5 cartoes nivel=PRINCIPAL da coleta, 1 entram no pente fino (C-ADMISSAO) e 4 ficam de fora (C-CI-COLETA, C-ORQUESTRADOR, C-SCRAP-ROTA, C-SINTONIA-SCRAP) — a diferenca e o territorio estar ou nao na tupla, nao uma regra sobre o que e um cartao de avenida.",
       "PORQUE_IMPORTA": "a exclusao tem de vir de uma regra semantica, nao de «o territorio nao estava na tupla».",
       "OWNER": "system-map/scripts/pente_fino_da_coleta.py · ZONAS",
+      "ESTA_MISSAO_CORRIGE": false
+    },
+    {
+      "ACHADO": "ARTEFATO_LEU_A_GERACAO_ANTERIOR",
+      "DERIVADO_DE": "FRESCURA",
+      "GRAVIDADE": "ALTA",
+      "O_QUE": "MATRIZ-CARDS-SENSORES-V1.json carimbam esta arvore mas leram uma entrada gerada que mediu outra.",
+      "PORQUE_IMPORTA": "regerar sobre uma entrada velha nao torna a entrada nova: torna a mentira mais recente. A ordem da cadeia e que decide isto, e ela nao foi mexida aqui.",
+      "OWNER": "system-map/scripts/CADEIA-DO-MAPA.json · a ordem dos passos",
+      "ESTA_MISSAO_CORRIGE": false
+    },
+    {
+      "ACHADO": "ARTEFATO_MEDIDO_NOUTRA_ARVORE",
+      "DERIVADO_DE": "FRESCURA",
+      "GRAVIDADE": "ALTA",
+      "O_QUE": "state.generated.json, architecture.generated.json, sources.generated.json, pente-fino.generated.json, censo-da-coleta.generated.json, topologia.generated.json tem impressao de arvore diferente desta.",
+      "PORQUE_IMPORTA": "dois censos lado a lado que mediram arvores diferentes nao sao contemporaneos, e a tela nao dizia isso.",
+      "OWNER": "a cadeia do mapa",
       "ESTA_MISSAO_CORRIGE": false
     },
     {
@@ -1241,8 +1271,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ADAMA-IT",
@@ -1274,8 +1304,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-FONTES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ADMISSAO",
@@ -1298,8 +1328,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ADMISSAO esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-APIFY-POOL",
@@ -1324,8 +1354,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-FERRAMENTAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ARMAZEM-IT-SEM-LIVRO",
@@ -1348,8 +1378,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-AS-FONTES",
@@ -1374,8 +1404,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-FONTES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-BANCO-NO-SECO",
@@ -1404,8 +1434,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-BIBLIA",
@@ -1442,8 +1472,8 @@
         "PORQUE": "a lei escrita nao e uma peca que colhe. Perguntar-lhe «quem te chama?» e perguntar a uma constituicao quem a executa.",
         "MECANICA": "territory=Z-BIBLIA nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CENSO-EXECUTORES",
@@ -1474,8 +1504,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CENSO-OBSERVABILIDADE",
@@ -1504,8 +1534,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CI-COLETA",
@@ -1536,8 +1566,8 @@
         "PORQUE": "cartao nivel=PRINCIPAL. A avenida tem cinco cartoes PRINCIPAL e a tupla apanha UM deles (C-ADMISSAO, em Z-ADMISSAO). Quatro ficam de fora e um fica dentro, sem regra que separe os dois.",
         "MECANICA": "territory=Z-ENTRADA nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CI-PERSIST",
@@ -1565,8 +1595,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CICATRIZES-BR",
@@ -1595,8 +1625,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-COLETA-BASE",
@@ -1622,8 +1652,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-COLETA-INSTAGRAM",
@@ -1650,8 +1680,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-COLETA-PUBLICA",
@@ -1677,8 +1707,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-COLETA-YOUTUBE",
@@ -1703,8 +1733,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CONTRATO-CAMPOS",
@@ -1734,8 +1764,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-CORPUS",
@@ -1765,8 +1795,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-DERIVACAO-FORWARD",
@@ -1791,8 +1821,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-DERIVED-ARTIFACT",
@@ -1814,8 +1844,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-DONO-DA-ESCRITA",
@@ -1842,8 +1872,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-DONO-DO-DERIVADO",
@@ -1868,8 +1898,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ESTRADA-PDF",
@@ -1894,8 +1924,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-EXECUTOR-TEXTO-PDF",
@@ -1920,8 +1950,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-FONTES-EU",
@@ -1954,8 +1984,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-FRONTEIRA-TELEMETRIA",
@@ -1986,8 +2016,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IDENTIDADE",
@@ -2014,8 +2044,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-REGRAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IMPORTAR",
@@ -2040,8 +2070,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-INGRESSO",
@@ -2065,8 +2095,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-CATALOGO",
@@ -2096,8 +2126,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-CANDIDATAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-COLETA",
@@ -2125,8 +2155,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-CONTRATOS",
@@ -2155,8 +2185,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-REGRAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-PDF-BRUTO",
@@ -2179,8 +2209,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-PRESERVAR",
@@ -2206,8 +2236,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-TEXTO-DERIVADO",
@@ -2230,8 +2260,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-IT-TEXTO-PESQUISAVEL",
@@ -2275,8 +2305,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-LEITORES",
@@ -2304,8 +2334,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-FERRAMENTAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-NAVEGADOR",
@@ -2330,8 +2360,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-FERRAMENTAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ORQUESTRADOR",
@@ -2360,8 +2390,8 @@
         "PORQUE": "cartao nivel=PRINCIPAL, mesma incoerencia de Z-ENTRADA.",
         "MECANICA": "territory=Z-ORQUESTRADOR nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-PADRAO-COLETA",
@@ -2392,8 +2422,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-PALAVRAS",
@@ -2418,8 +2448,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-REGRAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-PEDIDO",
@@ -2442,8 +2472,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-PEDIDO esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-PORTA-FONTE",
@@ -2467,8 +2497,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-CANDIDATAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-PROCEDENCIA",
@@ -2492,8 +2522,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-REGRAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-RASTRO",
@@ -2526,8 +2556,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-READY",
@@ -2554,8 +2584,8 @@
         "PORQUE": "e a UNICA peca da familia F-ESPERA, e esta fora do pente fino — enquanto as 13 pecas mostradas sob o MESMO NOME de zona (Z-GUARDA, «A SALA DE ESPERA») estao dentro. Dois territorios com o mesmo nome, um dentro e outro fora.",
         "MECANICA": "territory=Z-ESPERA nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-RECEITAS",
@@ -2578,8 +2608,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-PEDIDO esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-REGRA-COLETA",
@@ -2612,8 +2642,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-RELATORIO-FLUXO",
@@ -2642,8 +2672,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ROTA-M2",
@@ -2670,8 +2700,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-ROTULOS",
@@ -2701,8 +2731,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SAUDE-FONTE",
@@ -2732,8 +2762,8 @@
         "PORQUE": "sao as MEDIDAS da coleta — censos, rastro, contratos e regras. Fazer as quatro perguntas ao instrumento que mede e uma pergunta de outra especie; mas ninguem escreveu essa decisao em lado nenhum: ela cai da tupla, nao de uma regra.",
         "MECANICA": "territory=Z-MEDIDAS nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SCRAP-GUARDA",
@@ -2758,8 +2788,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SCRAP-ROTA",
@@ -2789,8 +2819,8 @@
         "PORQUE": "cartoes nivel=PRINCIPAL, mesma incoerencia de Z-ENTRADA.",
         "MECANICA": "territory=Z-EXECUCAO nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SCRAP-SOCIAL",
@@ -2818,8 +2848,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-ACOES esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SENSOR-COLETA",
@@ -2844,8 +2874,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-REGRAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SINTONIA-SCRAP",
@@ -2875,8 +2905,8 @@
         "PORQUE": "cartoes nivel=PRINCIPAL, mesma incoerencia de Z-ENTRADA.",
         "MECANICA": "territory=Z-EXECUCAO nao esta em pente_fino_da_coleta.ZONAS"
       },
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-SUPABASE",
@@ -2948,8 +2978,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-GUARDA esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "C-TRANSCRICAO",
@@ -2974,8 +3004,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-FERRAMENTAS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "V-FACEBOOK",
@@ -2996,8 +3026,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-VEICULOS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "V-HTTP",
@@ -3018,8 +3048,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-VEICULOS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "V-INSTAGRAM",
@@ -3040,8 +3070,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-VEICULOS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "V-LINKEDIN",
@@ -3062,8 +3092,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-VEICULOS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     },
     {
       "CARD_ID": "V-YOUTUBE",
@@ -3084,8 +3114,8 @@
       "IN_COLLECTION_CENSUS": "NAO SEI",
       "WHY_INCLUDED": "territory=Z-VEICULOS esta em pente_fino_da_coleta.ZONAS",
       "WHY_EXCLUDED": null,
-      "MEASURED_TREE": "f532af0189e3275f30d3d9166e0473ee0f0edc2eb62527f21f523f6e35a59da5",
-      "MEASURED_HEAD": "bdc375452d242c70f4e3ed8a88445534b4566762"
+      "MEASURED_TREE": "10db382f45330401faa902f2e531479409fc981e9e5513497afdda2f69e97f7b",
+      "MEASURED_HEAD": "d48715d88d5f594d6ba333543ff111e1949b1e81"
     }
   ]
 }

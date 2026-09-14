@@ -256,3 +256,37 @@ não é merge trivial, e o prompt manda parar antes disso, não improvisar.
 - `READY` continua a **nunca** ter sido produzido (`fronteira.observada.json`:
   `READY_PRODUZIDO = false`, `GAP = READY_NUNCA_PRODUZIDO`). Isso não mudou, e
   não era para mudar aqui.
+
+---
+
+## NOTA OPERACIONAL — A ORDEM ENTRE A CADEIA E OS TRÊS REGENERADORES À MÃO
+
+Custou uma reprovação e vale registar, porque não está escrito em lado nenhum e
+quem vier a seguir vai tropeçar na mesma pedra.
+
+`REGERAR_A_MAO` tem três passos (`censo_cards_sensores`,
+`reconciliacao_do_universo`, `revisao_da_evidencia`) que **lêem saídas da
+cadeia** e que **nenhuma automação corre**. Correr um deles no momento errado
+não dá erro nenhum — dá uma guarda a reprovar três passos à frente:
+
+```
+cadeia → à mão     P1_SEM_DRIFT FALHA     (a árvore mexeu depois do carimbo)
+à mão  → cadeia    validador PASS · classe CURRENT · ordem PASS
+```
+
+O sintoma foi `test_ordem_por_dependencia` a dizer
+`com contrato: EXPECTED_PREVIOUS_CYCLE · sem contrato: UNKNOWN`. A guarda não
+estava partida: o carimbo do artefacto à mão tinha ficado a apontar para
+entradas de **duas escalas de tempo** — umas produzidas por passos de `REGERAR`,
+outras por passos de `REGERAR_A_MAO` — e `produtor_corre_antes()` responde
+`None` quando os dois não correm na mesma escala. `UNKNOWN` é a resposta certa a
+essa pergunta, e por isso a mutação «tirar o contrato» deixou de devolver
+`UNEXPECTED_STALE`.
+
+```
+UMA GUARDA QUE REPROVA DEPOIS DE UMA CORRIDA MANUAL
+PODE ESTAR A FALAR DA ORDEM, E NÃO DO CONTEÚDO.
+```
+
+**Regra:** os três à mão correm **antes** da cadeia, e a cadeia corre **duas
+vezes** até ao ponto fixo. Nunca o contrário.
