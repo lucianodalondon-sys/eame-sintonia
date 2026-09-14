@@ -144,7 +144,7 @@ def pela_porta(artefatos: list, run_id: str) -> dict:
     responde NÃO_SEI. Isso não é a estrada a falhar — é a estrada a dizer, com
     precisão, qual é o degrau que falta.
     """
-    itens, decisoes = [], []
+    itens, decisoes, cortados = [], [], []
     for a in artefatos:
         caminho = RAIZ / a["STORAGE_LOCATION"]
         texto = caminho.read_text(encoding="utf-8", errors="replace") \
@@ -168,13 +168,58 @@ def pela_porta(artefatos: list, run_id: str) -> dict:
                           else ""),
             "SOURCE_LOCATION": a["SOURCE_LOCATION"],
             "FACT_LOCATION": a["FACT_LOCATION"],
-            # a captura de um DERIVADO e a hora em que ele foi derivado
-            "COLLECTED_AT": a["DERIVED_AT"],
+            # ── DOIS TEMPOS, DOIS CAMPOS — E ISTO JUNTAVA-OS ───────────
+            # ⚠️ ESTA LINHA DIZIA `"COLLECTED_AT": a["DERIVED_AT"]`, com um
+            # comentario a explicar porque: «a captura de um DERIVADO e a hora
+            # em que ele foi derivado». Soa razoavel e contradiz o dono do
+            # contrato. `leis/artefato.py::derivado_de` escreve-o por extenso:
+            #
+            #     «Nao herda `COLLECTED_AT`, porque esta corrida nao foi buscar
+            #      nada a lado nenhum — so abriu o que ja ca estava. O que ela
+            #      ganha e `DERIVED_AT`, que e outra coisa e vive noutro campo.»
+            #
+            # O efeito nao era abstracto: `CAPTURED_AT` chegava a Sala de
+            # Espera com a hora do TRABALHO DE ESCRITORIO, com ar de medida, no
+            # campo onde devia estar a hora em que o original foi colhido.
+            #
+            #     UM TEMPO ERRADO NO CAMPO CERTO E PIOR DO QUE UM CAMPO VAZIO:
+            #     O VAZIO AVISA, E ELE NAO.
+            #
+            # O derivado herda o `COLLECTED_AT` do PAI quando o pai o declara —
+            # e e o pai quem foi colhido. Sem ele, fica ausente, e a porta
+            # escreve `NAO SEI`, que e a verdade.
+            **({"COLLECTED_AT": a["COLLECTED_AT"]}
+               if a.get("COLLECTED_AT") not in (art.NAO_SEI, art.NAO_SE_APLICA,
+                                                None, "") else {}),
+            # E `DERIVED_AT` viaja no campo dele, que e o que ele e.
+            "DERIVED_AT": a["DERIVED_AT"],
         }
         # ── E A TRAVESSIA DE LINGUA, PELO DONO DELA ────────────────────
         item = ing.para_a_porta(unidade)
         item["id"] = a["ARTIFACT_ID"]
-        item["texto"] = texto[:20000]
+        # ── O TEXTO INTEIRO VAI A PORTA ────────────────────────────────
+        # ⚠️ ESTA LINHA ERA `texto[:20000]`, NUM FICHEIRO CUJO CABECALHO
+        # PROMETE, EM MAIUSCULAS, «NADA SOME EM SILENCIO».
+        #
+        # Medido nesta arvore, sobre os 43 derivados reais em disco: 19 deles
+        # passam dos 20.000 caracteres, e o maior perdia 139.915 de 159.915 —
+        # 87.5% do documento. A porta julgava o primeiro decimo e escrevia a
+        # decisao como se tivesse lido tudo.
+        #
+        #     UM CORTE SILENCIOSO NAO FAZ UM JULGAMENTO PARCIAL:
+        #     FAZ UM JULGAMENTO SOBRE OUTRO DOCUMENTO.
+        #
+        # E o dano e assimetrico e invisivel: o que estava depois do corte nunca
+        # reprova nada — apenas nunca conta. Um boletim cuja unica mencao de
+        # praga aparece na pagina 9 e rejeitado por «nao fala disto».
+        #
+        # Nao ha teto novo. Se algum dia houver limite legitimo, ele tem de
+        # produzir estado INCOMPLETO e impedir promocao — nunca cortar e calar.
+        item["texto"] = texto
+        cortados.append({"ITEM": a["ARTIFACT_ID"],
+                         "INPUT_CHARACTERS": len(texto),
+                         "JUDGED_CHARACTERS": len(item["texto"]),
+                         "DROPPED_CHARACTERS": len(texto) - len(item["texto"])})
         itens.append(item)
         decisoes.append(adm.decidir(item, UNIVERSO, corrida=run_id))
 
@@ -188,8 +233,21 @@ def pela_porta(artefatos: list, run_id: str) -> dict:
         porques.setdefault(d.resultado, []).append(
             {"item": d.item, "regra": d.regra, "motivo": d.motivo[:200],
              "prova": d.evidencia})
+    # ── A CONTA DA PERDA, NO RECIBO ────────────────────────────────────
+    # `NADA SOME EM SILENCIO` deixa de ser uma frase do cabecalho e passa a ser
+    # um numero que alguem pode conferir. Se um dia voltar a haver corte, este
+    # numero sobe e aparece.
+    perdidos = sum(c["DROPPED_CHARACTERS"] for c in cortados)
     return {"vistos": len(itens), "por_resultado": conta,
             "porques": {k: v[:3] for k, v in porques.items()},
+            "TEXTO_INTEGRAL": {
+                "INPUT_CHARACTERS": sum(c["INPUT_CHARACTERS"] for c in cortados),
+                "JUDGED_CHARACTERS": sum(c["JUDGED_CHARACTERS"] for c in cortados),
+                "DROPPED_CHARACTERS": perdidos,
+                "A_LEI": ("a porta julga o documento INTEIRO. DROPPED_CHARACTERS "
+                          "diferente de zero quer dizer que alguem julgou outro "
+                          "documento."),
+            },
             "decisoes": decisoes, "itens": itens}
 
 
@@ -365,6 +423,15 @@ def main() -> int:
             "PARENT_UNKNOWN": len(manuais) - len(provados),
             "FICHAS": manuais,
         },
+        # ── A CONTA DA PERDA, ONDE ALGUEM A LE ─────────────────────────────
+        # O cabecalho deste ficheiro promete «NADA SOME EM SILENCIO». Ate esta
+        # missao, `texto[:20000]` desmentia-o 19 vezes em 43 documentos, e o
+        # recibo nao trazia numero nenhum sobre isso — a promessa vivia so na
+        # prosa. Agora ela tem um numero, e o numero sobe se voltar a haver
+        # corte.
+        #
+        #     UMA PROMESSA SEM NUMERO E UMA PROMESSA.
+        "TEXTO_INTEGRAL": porta["TEXTO_INTEGRAL"],
         "PORQUES_DA_PORTA": porta["porques"],
         "PRECISION": ("UNKNOWN — nao ha gabarito humano. Contar quantos "
                       "passaram e COBERTURA; dizer que estao certos exigiria "

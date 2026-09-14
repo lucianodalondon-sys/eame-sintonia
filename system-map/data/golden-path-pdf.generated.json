@@ -1,7 +1,7 @@
 {
  "O_QUE_ISTO_E": "A conta desta corrida, do PDF guardado ate a porta. Cada numero e medido; nenhum e esperado.",
  "COMO_REFAZER": "py coleta/golden_path_pdf.py",
- "RUN_ID": "DERIV-PDF-20260908T045247Z",
+ "RUN_ID": "DERIV-PDF-20260914T155245Z",
  "STATUS": "SUCCESS",
  "RUN_STATE": "COMPLETE",
  "COMPLETION_BASIS": {
@@ -36,15 +36,15 @@
   "CONTEUDOS_UNICOS": 43,
   "DERIVADOS_PRESENTES": 43
  },
- "GIT_COMMIT": "491b678d56b4634fa44ec6ab9573414b7adac23c",
- "GIT_BRANCH": "claude/italia-biblia-integracao-v1",
+ "GIT_COMMIT": "4ee7d0f3f57b929ba93332ff395cf71869b0e1a0",
+ "GIT_BRANCH": "claude/collection-to-waiting-room-v1",
  "GIT_TREE_CLEAN": "NAO",
- "BIBLE_VERSION": "V1.3",
+ "BIBLE_VERSION": "V1.4",
  "EXECUTOR_ID": "texto-de-pdf",
  "EXECUTOR_VERSION": "1",
  "PIPELINE_VERSION": "1",
- "STARTED_AT": "2026-09-08T04:52:47Z",
- "FINISHED_AT": "2026-09-08T04:52:47Z",
+ "STARTED_AT": "2026-09-14T15:52:45Z",
+ "FINISHED_AT": "2026-09-14T15:52:45Z",
  "COUNTS": {
   "RAW_INPUT": 49,
   "RAW_TEXT_LAYER_PRESENT": 0,
@@ -55,9 +55,9 @@
   "DERIVED_LANDED": 0,
   "JA_EXISTIAM": 43,
   "ADMISSION_SEEN": 43,
-  "ADMISSION_NAO_SEI": 6,
-  "ADMISSION_SIM": 18,
-  "ADMISSION_NAO": 19,
+  "ADMISSION_NAO": 18,
+  "ADMISSION_SIM": 10,
+  "ADMISSION_NAO_SEI": 15,
   "LOST": 0
  },
  "RAW_IMUTAVEL": {
@@ -68,22 +68,22 @@
  },
  "TEXTOS_A_MAO": {
   "TOTAL": 6,
-  "PARENT_PROVEN": 3,
-  "PARENT_UNKNOWN": 3,
+  "PARENT_PROVEN": 1,
+  "PARENT_UNKNOWN": 5,
   "FICHAS": [
    {
-    "ARTIFACT_ID": "RAW-e48aba6b8047c393",
+    "ARTIFACT_ID": "RAW-38ed1b029748bde3",
     "ARTIFACT_TYPE": "DERIVED",
     "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.txt",
-    "SHA256": "e48aba6b8047c393d6239ef75786c0a8487e733407764808269131b46222478e",
+    "SHA256": "38ed1b029748bde394e9f4a26bf317c533a09e56ceb8d0c4569b74ea5c0c1d12",
     "CONTENT_TYPE": "text/plain",
-    "BYTES": 4150,
+    "BYTES": 4087,
     "SOURCE_ID": "NAO SEI",
     "SOURCE_URL": "NAO SEI",
     "PUBLISHER": "NAO SEI",
-    "PARENT_ARTIFACT_ID": "RAW-9488589cfc657b95",
-    "PARENT_SHA256": "9488589cfc657b953af4ca67cce5b9685287268ae358cae9c2b7ef0fa2d9de6c",
-    "DERIVATION_TYPE": "MANUAL_LEGACY",
+    "PARENT_ARTIFACT_ID": "NAO SEI",
+    "PARENT_SHA256": "NAO SEI",
+    "DERIVATION_TYPE": "NAO SEI",
     "COUNTRY_SCOPE": "IT",
     "SOURCE_LOCATION": "NAO SEI",
     "FACT_LOCATION": "NAO SEI",
@@ -101,18 +101,19 @@
     "ERROR": "",
     "COST": "NAO_SE_APLICA",
     "NOTES": {
-     "PARENT_BASIS": "PARENT_PROVEN",
-     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
+     "PARENT_BASIS": "PARENT_UNKNOWN",
+     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
+     "PDF_VIZINHO": "data/samples/IT-ARPAV-VENETO/frutticolo_24_260826.pdf"
     },
-    "PARENT_STATUS": "PARENT_PROVEN"
+    "PARENT_STATUS": "PARENT_UNKNOWN"
    },
    {
-    "ARTIFACT_ID": "RAW-166eba17f1b45386",
+    "ARTIFACT_ID": "RAW-2887e9d856cf26b7",
     "ARTIFACT_TYPE": "DERIVED",
     "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/olivicolo_29_020926.txt",
-    "SHA256": "166eba17f1b45386c3a965df71147864b21913ce5da8b80ac8910caa6ccd58b0",
+    "SHA256": "2887e9d856cf26b7d4be8a8ae2dffdeb21714e389deab3b283550946741140c9",
     "CONTENT_TYPE": "text/plain",
-    "BYTES": 4052,
+    "BYTES": 3985,
     "SOURCE_ID": "NAO SEI",
     "SOURCE_URL": "NAO SEI",
     "PUBLISHER": "NAO SEI",
@@ -143,18 +144,18 @@
     "PARENT_STATUS": "PARENT_UNKNOWN"
    },
    {
-    "ARTIFACT_ID": "RAW-94c7db3862bb06ba",
+    "ARTIFACT_ID": "RAW-6df358101e74a289",
     "ARTIFACT_TYPE": "DERIVED",
     "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.txt",
-    "SHA256": "94c7db3862bb06ba0fbd687c7fc32ca114dbda920a6442dbcadfc2a1cb92d025",
+    "SHA256": "6df358101e74a2893a991b7ac1819b40e45ea9671970d83931379c043084c870",
     "CONTENT_TYPE": "text/plain",
-    "BYTES": 5661,
+    "BYTES": 5577,
     "SOURCE_ID": "NAO SEI",
     "SOURCE_URL": "NAO SEI",
     "PUBLISHER": "NAO SEI",
-    "PARENT_ARTIFACT_ID": "RAW-fe3c922bfdfd7999",
-    "PARENT_SHA256": "fe3c922bfdfd7999242617962b8add2471dd26d8c908bc403e5f34c21dc635ee",
-    "DERIVATION_TYPE": "MANUAL_LEGACY",
+    "PARENT_ARTIFACT_ID": "NAO SEI",
+    "PARENT_SHA256": "NAO SEI",
+    "DERIVATION_TYPE": "NAO SEI",
     "COUNTRY_SCOPE": "IT",
     "SOURCE_LOCATION": "NAO SEI",
     "FACT_LOCATION": "NAO SEI",
@@ -172,18 +173,19 @@
     "ERROR": "",
     "COST": "NAO_SE_APLICA",
     "NOTES": {
-     "PARENT_BASIS": "PARENT_PROVEN",
-     "COMO": "o texto do ficheiro a mao existe dentro do PDF"
+     "PARENT_BASIS": "PARENT_UNKNOWN",
+     "COMO": "estar ao lado com o mesmo nome e indicio, nao prova. Ninguem guardou de onde este texto veio",
+     "PDF_VIZINHO": "data/samples/IT-ARPAV-VENETO/orticolo_22_260826.pdf"
     },
-    "PARENT_STATUS": "PARENT_PROVEN"
+    "PARENT_STATUS": "PARENT_UNKNOWN"
    },
    {
-    "ARTIFACT_ID": "RAW-840509dd827dd579",
+    "ARTIFACT_ID": "RAW-2a161b702b2053cf",
     "ARTIFACT_TYPE": "DERIVED",
     "STORAGE_LOCATION": "data/samples/IT-ARPAV-VENETO/vite_20_270826.txt",
-    "SHA256": "840509dd827dd57985f34fb1e722e742199ba76aa23e8c2324f29d9865a4e23d",
+    "SHA256": "2a161b702b2053cf19d897050379e96828667bc4a305a91232de1cf0a1054c1b",
     "CONTENT_TYPE": "text/plain",
-    "BYTES": 8574,
+    "BYTES": 8454,
     "SOURCE_ID": "NAO SEI",
     "SOURCE_URL": "NAO SEI",
     "PUBLISHER": "NAO SEI",
@@ -286,13 +288,25 @@
    }
   ]
  },
+ "TEXTO_INTEGRAL": {
+  "INPUT_CHARACTERS": 843906,
+  "JUDGED_CHARACTERS": 843906,
+  "DROPPED_CHARACTERS": 0,
+  "A_LEI": "a porta julga o documento INTEIRO. DROPPED_CHARACTERS diferente de zero quer dizer que alguem julgou outro documento."
+ },
  "PORQUES_DA_PORTA": {
-  "NAO_SEI": [
+  "NAO": [
    {
     "item": "DERIVED-TEXT_EXTRACTION-38547b91337c00b4",
     "regra": "pertence ao universo",
-    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "prova": {
+     "achado_noutro": {
+      "T3": [
+       "fitosanitario",
+       "ovideposizione"
+      ]
+     },
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
@@ -300,8 +314,14 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-c2aa66d936953b03",
     "regra": "pertence ao universo",
-    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "prova": {
+     "achado_noutro": {
+      "T3": [
+       "fitosanitario",
+       "ovideposizione"
+      ]
+     },
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
@@ -309,8 +329,14 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-6c114231e1d1b5af",
     "regra": "pertence ao universo",
-    "motivo": "nao encontrei nada de «T7» — nem de nenhum outro universo. Isso NAO prova que o item nao pertence: prova que o vocabulario nao lhe chegou. Ausencia de evidencia nao e evidencia de ausencia, e por isso",
+    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: fitosanitario, ovideposizione). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
     "prova": {
+     "achado_noutro": {
+      "T3": [
+       "fitosanitario",
+       "ovideposizione"
+      ]
+     },
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
@@ -320,11 +346,13 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-ea2276b0500902b9",
     "regra": "pertence ao universo",
-    "motivo": "fala de pubblicazione — que e do que «T7» trata",
+    "motivo": "fala de agronomi, soci — que e do que «T7» trata",
     "prova": {
      "palavras": [
-      "pubblicazione"
+      "agronomi",
+      "soci"
      ],
+     "sinais": 2,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
@@ -332,67 +360,71 @@
    {
     "item": "DERIVED-TEXT_EXTRACTION-88d9a6dda4b8b98a",
     "regra": "pertence ao universo",
-    "motivo": "fala de doi — que e do que «T7» trata",
+    "motivo": "fala de agronomi, soci — que e do que «T7» trata",
     "prova": {
      "palavras": [
-      "doi"
+      "agronomi",
+      "soci"
      ],
+     "sinais": 2,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-f43adc9c02ec202c",
+    "item": "DERIVED-TEXT_EXTRACTION-c5d0962a405cb87b",
     "regra": "pertence ao universo",
-    "motivo": "fala de tesi — que e do que «T7» trata",
+    "motivo": "fala de agronomi, soci — que e do que «T7» trata",
     "prova": {
      "palavras": [
-      "tesi"
+      "agronomi",
+      "soci"
      ],
+     "sinais": 2,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    }
   ],
-  "NAO": [
+  "NAO_SEI": [
    {
-    "item": "DERIVED-TEXT_EXTRACTION-e1163bdc028b560a",
+    "item": "DERIVED-TEXT_EXTRACTION-fcc6f5ee43d8aada",
     "regra": "pertence ao universo",
-    "motivo": "nao fala de «T7», e fala claramente de outro universo (T9: evento). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "motivo": "so uma palavra de «T7» aparece (agronomi), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
     "prova": {
-     "achado_noutro": {
-      "T9": [
-       "evento"
-      ]
-     },
+     "palavras": [
+      "agronomi"
+     ],
+     "sinais": 1,
+     "sinais_minimos": 2,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-7847e001fcc98641",
+    "item": "DERIVED-TEXT_EXTRACTION-a752940f32c23381",
     "regra": "pertence ao universo",
-    "motivo": "nao fala de «T7», e fala claramente de outro universo (T3: insetto). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "motivo": "so uma palavra de «T7» aparece (soci), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
     "prova": {
-     "achado_noutro": {
-      "T3": [
-       "insetto"
-      ]
-     },
+     "palavras": [
+      "soci"
+     ],
+     "sinais": 1,
+     "sinais_minimos": 2,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }
    },
    {
-    "item": "DERIVED-TEXT_EXTRACTION-ef5ae116b920f917",
+    "item": "DERIVED-TEXT_EXTRACTION-bbbe2c550d394c82",
     "regra": "pertence ao universo",
-    "motivo": "nao fala de «T7», e fala claramente de outro universo (T4: etichetta). Isto e um NAO com prova a favor — nao a simples falta de uma palavra.",
+    "motivo": "so uma palavra de «T7» aparece (soci), e uma palavra solta pode ser acidente de substring, citacao de passagem ou cabecalho. E indicio, nao sinal — e indicio nao promove nem rejeita.",
     "prova": {
-     "achado_noutro": {
-      "T4": [
-       "etichetta"
-      ]
-     },
+     "palavras": [
+      "soci"
+     ],
+     "sinais": 1,
+     "sinais_minimos": 2,
      "estagio": "DOCUMENTO",
      "tempo_do_fato": "NAO_SE_APLICA neste estagio: FACT_TIME pertence ao claim, nao ao documento (COL-LAW-201 · COL-LAW-502). Sera perguntado quando o fato for extraido."
     }

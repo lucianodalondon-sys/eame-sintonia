@@ -92,7 +92,20 @@ RESULTADOS = (SIM, NAO, NAO_SEI, NAO_SE_APLICA, ERRO)
 #     mudou de resultado nao foi a evidencia: foi a pergunta. Decisoes
 #     antigas ficam como estao — a versao e o que permite dizer «reavalia
 #     so o que a v2 decidiu» sem reprocessar o resto.
-VERSAO_DA_REGRA = "3"
+# 4 · tres mudancas na regua do universo, e as tres APERTAM ou CORRIGEM — a
+#     admissao nao se alarga para fazer numero:
+#       a) a comparacao passa a dobrar acentos dos DOIS lados. `avversità` e
+#          `avversita` deixam de ser palavras diferentes. Isto CORRIGE um falso
+#          negativo real, medido no boletim `IT-T3-002`.
+#       b) uma palavra solta deixa de promover: sao precisos DOIS termos
+#          distintos. O que tem um so cai em `NAO_SEI` — nunca em `NAO`.
+#          Isto APERTA, e e o que impede `sintoma` dentro de `sintomatologia`
+#          de sozinho admitir um documento.
+#       c) T3 ganha a terceira perna que o Atlas sempre lhe deu e que o lexico
+#          nao tinha em lingua nenhuma: PLANTAS DANINHAS e resistencia.
+#     Quem foi decidido pela v3 fica como esta. A versao e o que permite
+#     reabrir exactamente o que (b) possa ter tornado `NAO_SEI`.
+VERSAO_DA_REGRA = "4"
 
 
 @dataclass
@@ -351,6 +364,33 @@ def perguntas_do_estagio(est: str) -> tuple:
             ("tempo do fato", _tem_quando))
 
 
+# ── A PORTA LE O QUE ESTA ESCRITO, E O ITALIANO ESCREVE-SE COM ACENTO ──────
+# Medido contra o boletim real `IT-T3-002` (Campania, fitossanitario): o texto
+# diz `avversità` e o vocabulario dizia `avversita`. `"avversita" in texto` e
+# False, e a palavra estava la, a vista, na lingua certa.
+#
+#     `avversità` E `avversita` SAO A MESMA PALAVRA.
+#     UMA PENEIRA QUE AS SEPARA NAO ESTA A JULGAR: ESTA A TROPECAR NA ORTOGRAFIA.
+#
+# Isto NAO e traduzir nem alargar o lexico: e comparar as duas coisas na mesma
+# forma. A dobra aplica-se aos DOIS lados — ao texto e ao termo — para que
+# nenhum dos dois ganhe vantagem sobre o outro.
+#
+# ⚠️ E ELA NAO NORMALIZA SIGNIFICADO. `città` e `citta` passam a casar, e e o
+# que se quer; `cita` continua a ser outra palavra, porque a dobra tira o
+# acento e nao a letra.
+def _dobrar(texto: str) -> str:
+    """Minusculas e sem acento. A mesma forma dos dois lados da comparacao."""
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFKD", str(texto).lower())
+                   if not unicodedata.combining(c))
+
+
+#: Quantos termos DISTINTOS o texto tem de trazer para a porta promover.
+#: Um so fica `NAO_SEI` — ver `_do_universo`.
+SINAIS_MINIMOS = 2
+
+
 def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     """Pertence ao universo pedido? A resposta muda com o universo — de proposito.
 
@@ -380,12 +420,31 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
     if not palavras:
         return NAO_SE_APLICA, (f"nao ha regra escrita do que conta como «{universo}». "
                                f"Sem regra, esta porta nao inventa uma."), {}
-    texto = " ".join(str(item.get(k) or "") for k in
-                     ("texto", "title", "nome", "topics", "crops", "resumo")).lower()
-    achadas = [p for p in palavras if p.lower() in texto]
-    if achadas:
+    texto = _dobrar(" ".join(str(item.get(k) or "") for k in
+                             ("texto", "title", "nome", "topics", "crops", "resumo")))
+    achadas = [p for p in palavras if _dobrar(p) in texto]
+    # ── UMA PALAVRA SOLTA NAO PROMOVE ───────────────────────────────────────
+    # Medido: `sintoma` (pt) casa dentro de `sintomatologia` (it), `prova` casa
+    # dentro de `approvazione`. Uma unica palavra pode ser um acidente de
+    # substring, uma citacao de passagem ou um cabecalho — e promover por ela
+    # deixa entrar material que ninguem leu.
+    #
+    #     UMA PALAVRA E UM INDICIO. DOIS INDICIOS INDEPENDENTES SAO UM SINAL.
+    #
+    # ⚠️ E O QUE FALTA NAO VIRA `NAO`. Um indicio so nao prova pertenca, e
+    # tambem nao prova o contrario: fica `NAO_SEI`, que e o que ele e, e que
+    # manda alguem ir ver. Transformar «pouca prova» em «nao» seria exactamente
+    # a lei que esta funcao existe para nao quebrar.
+    if len(achadas) >= SINAIS_MINIMOS:
         return SIM, (f"fala de {', '.join(achadas[:4])} — que e do que «{universo}» "
-                     f"trata"), {"palavras": achadas[:8]}
+                     f"trata"), {"palavras": achadas[:8], "sinais": len(achadas)}
+    if achadas:
+        return NAO_SEI, (
+            f"so uma palavra de «{universo}» aparece ({achadas[0]}), e uma "
+            f"palavra solta pode ser acidente de substring, citacao de passagem "
+            f"ou cabecalho. E indicio, nao sinal — e indicio nao promove nem "
+            f"rejeita."), {"palavras": achadas, "sinais": len(achadas),
+                           "sinais_minimos": SINAIS_MINIMOS}
 
     # nada deste universo. Fala de outro? Isso e prova POSITIVA de exclusao.
     noutros = {}
@@ -429,14 +488,50 @@ def _do_universo(item: dict, universo: str, palavras: list) -> tuple:
 # TERMO LOCAL (um `WHEAT_SEPTORIA` com as suas formas em IT/ES/FR/EN), e ela
 # NAO existe aqui. Isto e a correcao minima que faz a porta italiana funcionar
 # hoje; a arquitetura fica registada como proposta.
+# ⚠️ AS CHAVES DESTE DICIONARIO ERAM A QUARTA COPIA DA TAXONOMIA.
+# `"T7"` carregava o lexico de CIENCIA — porque `pedido/pedido.py` dizia que
+# `T7` era «Ciencia e ensaio». No Atlas, que e o dono, `T7` e TECHNICAL NETWORK
+# e o lexico de ciencia e de `T5`. As chaves passam a ser as do Atlas
+# (`leis/territorios.py`), e ha uma prova que reprova quem inventar uma chave
+# que o dono nao conhece.
+#
+#     UMA CHAVE DE DICIONARIO TAMBEM E UMA DECLARACAO DE TAXONOMIA.
 PERGUNTAS_DO_UNIVERSO = {
-    # T7 · ciencia e ensaio
-    "T7": ["doi", "orcid",                                   # sem lingua
+    # T5 · SCIENCE — papers, estudos, trials, institutos
+    #
+    # ⚠️ `prova` SAIU, E A MEDICAO QUE O TIROU E O MELHOR ARGUMENTO DESTE
+    # FICHEIRO. Ela estava aqui como «trial» em italiano. Medido no corpus
+    # italiano real desta arvore, 49 itens:
+    #
+    #     42 de 49 eram admitidos a CIENCIA por UMA palavra — `prova` —
+    #     e ela casava dentro de «ap-PROV-al» e «ap-PROV-ing», em titulos
+    #     de regulamento da UE escritos em INGLES.
+    #
+    # Nenhum dos 42 era ciencia. O recall de 85.7% que esta casa media e
+    # publicava era um artefacto de substring, e nao um acerto.
+    #
+    #     UMA PALAVRA CURTA QUE VIVE DENTRO DE UMA PALAVRA COMUM DE OUTRA
+    #     LINGUA NAO E VOCABULARIO: E RUIDO COM AR DE PROVA.
+    #
+    # O conceito nao se perde — `sperimentazione`, `prova di campo` e
+    # `prove sperimentali` dizem-no sem casar com «approval».
+    "T5": ["doi", "orcid",                                   # sem lingua
            "estudo", "ensaio", "pesquisa", "revista", "artigo",
            "universidade", "instituto", "publicacao",        # pt
-           "studio", "prova", "ricerca", "rivista", "articolo",
+           "studio", "ricerca", "rivista", "articolo",
            "universita", "istituto", "pubblicazione", "convegno",
-           "sperimentazione", "tesi"],                       # it
+           "sperimentazione", "prova di campo", "prove sperimentali",
+           "tesi"],                                          # it
+    # T7 · TECHNICAL NETWORK — agronomos, consultores, cooperativas, extensao
+    #
+    # ⚠️ ESTE UNIVERSO NUNCA TEVE REGUA, e o que ocupava a chave dele era o
+    # lexico de outro. As doze fontes italianas de T7 sao cooperativas e
+    # consorcios com servico agronomico; e esse o vocabulario que as nomeia.
+    "T7": ["cooperativa", "consorcio", "agronomo", "extensao",
+           "assistencia tecnica",                            # pt
+           "consorzio", "agronomi", "assistenza tecnica",
+           "servizio agronomico", "tecnico di campo",
+           "divulgazione tecnica", "soci"],                  # it
     # T9 · o que o concorrente publica
     "T9": ["concorrente", "evento",                          # serve nas duas
            "lancamento", "campanha", "produto", "anuncio",   # pt
@@ -447,11 +542,37 @@ PERGUNTAS_DO_UNIVERSO = {
            "autorizacao", "rotulo", "bula",                  # pt
            "autorizzazione", "etichetta", "foglietto",
            "registrazione", "gazzetta"],                     # it
-    # T3 · praga e doenca
-    "T3": ["fungo",                                          # serve nas duas
+    # T3 · PEST / DISEASE / WEEDS — os tres, e nao dois
+    #
+    # ⚠️ O NOME DESTE UNIVERSO NO ATLAS TEM TRES PERNAS, E A TERCEIRA FALTAVA.
+    # `docs/fontes/ATLAS-DE-FONTES-EAME.md` escreve T3 como «doenças, insetos,
+    # PLANTAS DANINHAS, alertas, intensidade, geografia, evolução temporal,
+    # RESISTÊNCIA». O vocabulario aqui nao tinha uma unica palavra de daninha
+    # nem de resistencia — em lingua nenhuma. Nao era um buraco de traducao:
+    # era um TERCO DO CONCEITO ausente dos dois lados.
+    #
+    #     O LEXICO ESTAVA INCOMPLETO NA MESMA LINGUA EM QUE FOI ESCRITO.
+    #
+    # E isso tinha consequencia com nome: `IT-T5-005` e a SIRFI — «flora
+    # infestante e resistencia a herbicidas» — e um documento dela nunca
+    # poderia responder a esta porta.
+    #
+    # ⚠️ O QUE ENTROU E O QUE NAO ENTROU. So entram termos cujo sentido E do
+    # universo. `soglia`, `monitoraggio` e `campo` ficaram DE FORA de proposito:
+    # sao vocabulario de qualquer boletim agricola, e um boletim meteorologico
+    # T2 traz os tres. Encher a lista com eles subiria a contagem de itens
+    # admitidos sem subir a verdade — que e a definicao de afrouxar a regua.
+    #
+    #     UMA PALAVRA QUE QUALQUER DOCUMENTO TEM NAO SEPARA DOCUMENTO NENHUM.
+    "T3": ["fungo", "larva",                                 # serve nas duas
            "praga", "doenca", "inseto", "infestacao", "sintoma",   # pt
+           "daninha", "erva daninha", "herbicida", "resistencia",  # pt · daninha
            "parassita", "malattia", "insetto", "infestazione",
-           "sintomo", "avversita", "patogeno"],              # it
+           "sintomo", "avversita", "patogeno",               # it
+           "fitosanitario", "fitopatolog", "trappola", "trappole",
+           "ovideposizione", "peronospora", "oidio", "botrite",
+           "ticchiolatura",                                  # it · praga/doenca
+           "infestante", "diserbo", "erbicida", "malerba"],  # it · daninha
 }
 
 
