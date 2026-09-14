@@ -30,6 +30,7 @@
       ".github/workflows/apify-sensores.yml",
       ".github/workflows/calendario-regressoes.yml",
       ".github/workflows/comunicacao-publica.yml",
+      ".github/workflows/scrap-social.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-fichas-adama.yml",
@@ -154,6 +155,8 @@
     ],
     "candidatas": [
       "candidatas/FONTES-CANDIDATAS.json",
+      "candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx",
+      "candidatas/ITALY-SOURCE-IMPORT-2026-09-14.csv",
       "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "candidatas/ITALY-SOURCE-MASTER-V1.md",
       "candidatas/fonte_nova.py",
@@ -1208,8 +1211,8 @@
     {
       "id": "onde-o-trabalho-esta-versus-onde-se-procurou",
       "titulo": "O trabalho e de Italia. A procura de fontes foi noutro sitio.",
-      "texto": "O REPOSITORIO, por pais: ITALIA 538 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
-      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 538 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
+      "texto": "O REPOSITORIO, por pais: ITALIA 540 ficheiros (86%) · ESPANHA 76 ficheiros (12%) · EUROPA 10 ficheiros (2%) · FRANCA 4 ficheiros (1%). O ATLAS DE FONTES, por pais: ESPANHA 6 · EUROPA 11 · FRANCA 4 · ITALIA 2. E o unico diretorio publicado e «italia-portale/client».",
+      "porque_importa": "O atlas conta o que foi PROCURADO; o repositorio conta o que foi FEITO. Confundir os dois faz um exercicio de descoberta parecer o corpo do trabalho. Italia tem 540 ficheiros e 2 fontes com ficha — a obra esta muito a frente do acervo que a sustenta.",
       "evidencia": [
         "vercel.json",
         "docs/fontes/ATLAS-DE-FONTES-EAME.md"
@@ -1583,9 +1586,9 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/fix-source-candidate-door-v1",
+    "HEAD": "b67c89783663a1ee21e4a9606ad154cb5df1f94f",
+    "GENERATED_AT": "2026-09-14T11:44:57+00:00"
   },
   "FAMILIES": [
     {
@@ -7398,7 +7401,9 @@
       "file_count": 2,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "candidatas/fonte_nova.py"
+      ],
       "produces": [],
       "inbound": [
         "C-COLETA-INSTAGRAM"
@@ -11064,8 +11069,8 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/system-map-canonical-v1",
-        "HEAD 491b6f8d01c5e745a614e7e16d02375c666106ea"
+        "branch claude/fix-source-candidate-door-v1",
+        "HEAD b67c89783663a1ee21e4a9606ad154cb5df1f94f"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -17987,8 +17992,10 @@
       "declared_at": "2026-09-07"
     }
   ],
-  "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 643,
+  "UNCLAIMED_CODE_FILES": [
+    ".github/workflows/scrap-social.yml"
+  ],
+  "UNCLAIMED_FILES_COUNT": 646,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
     "components": 97,
@@ -18000,8 +18007,8 @@
     "edges_proven": 322,
     "edges_unknown": 0,
     "business_edges": 4,
-    "files_tracked": 1142,
+    "files_tracked": 1145,
     "files_covered": 499,
-    "files_code_unclaimed": 0
+    "files_code_unclaimed": 1
   }
 }

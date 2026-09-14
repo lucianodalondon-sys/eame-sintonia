@@ -2,9 +2,9 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/system-map-canonical-v1",
-    "HEAD": "491b6f8d01c5e745a614e7e16d02375c666106ea",
-    "GENERATED_AT": "2026-09-07T17:52:20-03:00"
+    "BRANCH": "claude/fix-source-candidate-door-v1",
+    "HEAD": "b67c89783663a1ee21e4a9606ad154cb5df1f94f",
+    "GENERATED_AT": "2026-09-14T11:44:57+00:00"
   },
   "FILES": [
     {
@@ -45,6 +45,13 @@
     {
       "path": ".github/workflows/comunicacao-publica.yml",
       "sha": "6f456034e189d64a086152825470ea282b20ad48",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": ".github/workflows/scrap-social.yml",
+      "sha": "9cdaaa2415cdb40afb8e1e996dbad5a49c3df1b4",
       "ext": ".yml",
       "readable": true,
       "code_dir": true
@@ -974,6 +981,20 @@
       "code_dir": true
     },
     {
+      "path": "candidatas/ITALY-SOURCE-DISCOVERY-2026-09-14.xlsx",
+      "sha": "47bb0a6ed6afe4711c361a9e07dbcede9ff60bed",
+      "ext": ".xlsx",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "candidatas/ITALY-SOURCE-IMPORT-2026-09-14.csv",
+      "sha": "5bd5e0c1e690d5313b655886d3b24cb70ea4a068",
+      "ext": ".csv",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "candidatas/ITALY-SOURCE-MASTER-V1.json",
       "sha": "690de91954cf7bf72c4263680682ef79d9c4cfd0",
       "ext": ".json",
@@ -989,7 +1010,7 @@
     },
     {
       "path": "candidatas/fonte_nova.py",
-      "sha": "9a96acc19f31d08a1aebca168fcc0380268c46c9",
+      "sha": "2ca652d9dac8e4431976ad70ba69ed24a6adc12c",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -8378,6 +8399,17 @@
       }
     },
     {
+      "from_file": ".github/workflows/scrap-social.yml",
+      "to_file": "coleta/coleta_checkpoint.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/scrap-social.yml",
+        "line": 239,
+        "snippet": "# dono próprio — `coleta/coleta_checkpoint.py` sobre `checkpoint_coleta`."
+      }
+    },
+    {
       "from_file": ".github/workflows/sintonia-scrap.yml",
       "to_file": "coleta/instagram_coleta.py",
       "type": "RUNS",
@@ -8692,8 +8724,8 @@
       "payload": "artefacto",
       "evidence": {
         "file": "candidatas/fonte_nova.py",
-        "line": 63,
-        "snippet": "FILA = RAIZ / \"data\" / \"samples\" / \"FONTES-CANDIDATAS.json\""
+        "line": 75,
+        "snippet": "FILA = Path(__file__).resolve().parent / \"FONTES-CANDIDATAS.json\""
       }
     },
     {
@@ -25199,10 +25231,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1142,
-    "files_readable": 388,
-    "files_code_dir": 433,
-    "file_edges": 1529,
+    "files_tracked": 1145,
+    "files_readable": 389,
+    "files_code_dir": 436,
+    "file_edges": 1530,
     "escritas_em_pasta": 55,
     "declared_missing_here": 0
   },
