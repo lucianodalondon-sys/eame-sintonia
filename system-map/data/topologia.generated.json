@@ -29,12 +29,12 @@
  "PROVENANCE": {
   "OWNER": "system-map/scripts/censo_da_topologia.py",
   "GENERATED_BY": "system-map/scripts/censo_da_topologia.py",
-  "GENERATED_AT": "2026-09-14T04:52:08+00:00",
-  "HEAD": "4f98db8a22d5a1ac1cf1fe88b56fa19da9f15a7a",
+  "GENERATED_AT": "2026-09-14T04:55:46+00:00",
+  "HEAD": "7da163ef63e26372eb3e893e18950d67351b95db",
   "BRANCH": "claude/system-map-collection-truth-v1",
   "HEAD_VERIFICAVEL": false,
   "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-  "SOURCE_TREE_FINGERPRINT": "c9c80ac302ab516d883186008e2308b3cc38f88224912dd69bca61bfde80ee04",
+  "SOURCE_TREE_FINGERPRINT": "2a42adb3142a1cb279e0e71ddda187b16c1ff007cf0f330298583633fae9826f",
   "FICHEIROS_NA_IMPRESSAO": 1669,
   "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
   "INPUTS": [
@@ -1735,14 +1735,14 @@
    {
     "PATH": "system-map/data/architecture.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3c77fed4d2a4db1829871462f683d9dc17822ceff1da9613a3fc290265848d9d",
+    "VERSAO": "2a42adb3142a1cb279e0e71ddda187b16c1ff007cf0f330298583633fae9826f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "alcancaveis_do_runtime() · json.load"
    },
    {
     "PATH": "system-map/data/state.generated.json",
     "PAPEL": "GERADO",
-    "VERSAO": "3c77fed4d2a4db1829871462f683d9dc17822ceff1da9613a3fc290265848d9d",
+    "VERSAO": "2a42adb3142a1cb279e0e71ddda187b16c1ff007cf0f330298583633fae9826f",
     "COMO_SE_MEDE": "SOURCE_TREE_FINGERPRINT que o proprio artefacto carimba",
     "LIDO_POR": "main() · json.load"
    },
@@ -1819,7 +1819,7 @@
    {
     "PATH": "system-map/scripts/generate_system_map.py",
     "PAPEL": "FONTE",
-    "VERSAO": "c8abb3270ea3ec79e55eceff528708866b221ced",
+    "VERSAO": "9c4e7675d949f21da2f3d161946333f1ac21cac9",
     "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
     "LIDO_POR": "escreve_le() · open"
    },
@@ -2707,7 +2707,7 @@
    }
   ],
   "INPUTS_COUNT": 381,
-  "INPUTS_DIGEST": "f2545276138d00da94a9f8349ed33f44163547310c520e6f0930e7c4a67d177c",
+  "INPUTS_DIGEST": "593b102f2da2962104e5c2b3ace3cc2c81abdd1cbb317f305fe5d3b47e355087",
   "INPUTS_AUSENTES": [],
   "INPUTS_NAO_ENUMERAVEIS": [
    {
@@ -2740,8 +2740,8 @@
    "system-map/data/architecture.generated.json",
    "system-map/data/state.generated.json"
   ],
-  "MEASUREMENT_HASH": "c7626598450659aeb7b54bff874144d1ebb42b162f820daa39ac3ee1bfdc1b36",
-  "SEMANTIC_HASH": "e87364a1f234a82e301abc6362e929af165a9565c10fffe59f8d9197b674acc6"
+  "MEASUREMENT_HASH": "4bf43fb8d1518c64c38037aa832f2606ea73f217bd56d52cd197719c15411218",
+  "SEMANTIC_HASH": "208d8e8a48030267aab2eb8fc65267369964137d87153bc4dda029867ef6c969"
  },
  "UNIVERSE": {
   "UNIVERSE_ID": "TOPOLOGY_COLLECTION_UNIVERSE",
@@ -4199,7 +4199,7 @@
      },
      {
       "FICHEIRO": "system-map/scripts/generate_system_map.py",
-      "LINHA": 4128,
+      "LINHA": 4140,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -11119,7 +11119,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/generate_system_map.py",
-      "LINHA": 4150,
+      "LINHA": 4162,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -12823,7 +12823,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/generate_system_map.py",
-      "LINHA": 5124,
+      "LINHA": 5136,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -12897,7 +12897,7 @@
     "EVIDENCE_BINDING": [
      {
       "FICHEIRO": "system-map/scripts/generate_system_map.py",
-      "LINHA": 5137,
+      "LINHA": 5149,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -12905,7 +12905,7 @@
      },
      {
       "FICHEIRO": "system-map/scripts/generate_system_map.py",
-      "LINHA": 5137,
+      "LINHA": 5149,
       "SUPPORTS": "YES",
       "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
       "ASSERTION_EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",

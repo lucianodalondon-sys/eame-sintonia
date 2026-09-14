@@ -1966,9 +1966,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-collection-truth-v1",
-    "HEAD": "4f98db8a22d5a1ac1cf1fe88b56fa19da9f15a7a",
-    "GENERATED_AT": "2026-09-14T04:48:10+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3c77fed4d2a4db1829871462f683d9dc17822ceff1da9613a3fc290265848d9d"
+    "HEAD": "7da163ef63e26372eb3e893e18950d67351b95db",
+    "GENERATED_AT": "2026-09-14T04:52:35+00:00",
+    "SOURCE_TREE_FINGERPRINT": "2a42adb3142a1cb279e0e71ddda187b16c1ff007cf0f330298583633fae9826f"
   },
   "FAMILIES": [
     {
@@ -13682,7 +13682,7 @@
         ],
         "PLANO": "CODE",
         "PROVA": [
-          "system-map/scripts/generate_system_map.py:5137",
+          "system-map/scripts/generate_system_map.py:5149",
           "system-map/scripts/publicar_no_deploy.mjs:56",
           "system-map/scripts/reconciliacao_do_universo.py:80",
           "system-map/scripts/reconciliacao_do_universo.py:407"
@@ -26509,7 +26509,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4128,
+          "line": 4140,
           "snippet": "\"evidencia\": [\"vercel.json\", \"docs/fontes/ATLAS-DE-FONTES-EAME.md\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-AS-FONTES--READS-->C-MAPA-GERADOR",
@@ -39866,7 +39866,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 4150,
+          "line": 4162,
           "snippet": "\"candidatas/ITALY-SOURCE-MASTER-V1.json\"],",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-IT-CATALOGO--READS-->C-MAPA-GERADOR",
@@ -42729,7 +42729,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5124,
+          "line": 5136,
           "snippet": "DECLARADO.write_text(json.dumps(D, ensure_ascii=False, indent=2) + \"\\n\", encoding=\"utf-8\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-GERADOR--WRITES-->C-PROVA-MAPA-NAO-MENTE",
@@ -42952,7 +42952,7 @@
       "evidence": [
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5137,
+          "line": 5149,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",
@@ -42968,7 +42968,7 @@
         },
         {
           "file": "system-map/scripts/generate_system_map.py",
-          "line": 5137,
+          "line": 5149,
           "snippet": "for passo in (\"scan_repo.py\", \"scan_sources.py\"):",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-MAPA-SCAN--READS-->C-MAPA-GERADOR",

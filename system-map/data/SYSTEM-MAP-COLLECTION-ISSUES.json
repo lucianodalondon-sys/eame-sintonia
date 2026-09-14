@@ -300,11 +300,19 @@
    "DESCRIPTION": "O mapa sabe dizer quem IMPORTA uma peca e nao sabe dizer quem a CHAMA. `coleta/golden_path_pdf.py` importa E chama `executor_texto_de_pdf` e `admissao` — a uma linha de distancia — e o cartao do executor responde «QUEM ATIVA = NAO SEI», nomeando os importadores e dizendo que IMPORTAR NAO E MANDAR CORRER. A resposta esta CERTA e esta incompleta: a chamada existe e e mediavel por AST de sitios de chamada. Nao se fez aqui porque e mudanca de scanner com raio largo, e esta missao era de verdade das ligacoes, nao de medicao nova. O PROXIMO PASSO MINIMO desta familia.",
    "EVIDENCE": "state.generated.json — C-EXECUTOR-TEXTO-PDF.ATIVACAO.CLASSE = NAO_SEI, PORQUE nomeia C-DERIVACAO-FORWARD, C-ESTRADA-PDF e C-FRONTEIRA-TELEMETRIA como importadores. coleta/golden_path_pdf.py:49-51 importa `admissao` e o executor, e o docstring do ficheiro descreve a ordem em que os chama.",
    "STATUS": "OPEN"
+  },
+  {
+   "ISSUE_ID": "COL-038",
+   "NODE": "C-DERIVED-ARTIFACT",
+   "TYPE": "ESCRITA_EM_SQL_NAO_E_MEDIDA",
+   "DESCRIPTION": "Duas pecas de acervo ficam com ZERO arestas e nao e por ninguem as querer: `C-DERIVED-ARTIFACT` (a casa do derivado, migration 022, com 43 derivacoes reais medidas dentro) e `C-ARMAZEM-IT-SEM-LIVRO` (195 objetos, 80.7 MB). Quem la escreve escreve em SQL — `guarda/preservar_derivado.py` faz INSERT em `public.derived_artifact` — e o scanner deste mapa mede leitura e escrita de FICHEIROS. A tabela nao e um ficheiro, e por isso a aresta nao nasce. NOT_OBSERVED != DOES_NOT_EXIST: o cartao passa a dizer ALVO_SEM_ESCRITOR_MEDIDO em vez de ORPHAN, que seria falso.",
+   "EVIDENCE": "state.generated.json — C-DERIVED-ARTIFACT e C-ARMAZEM-IT-SEM-LIVRO com inbound=[] e outbound=[]; guarda/preservar_derivado.py e o dono declarado da escrita do derivado e provas/derived_artifact_no_postgres.py prova-o contra um Postgres a serio. Ligar uma peca a uma TABELA exigiria um registo declarado de etapa->tabela que nao existe: inventa-lo seria seta desenhada.",
+   "STATUS": "OPEN"
   }
  ],
  "COUNTS": {
-  "abertos": 28,
+  "abertos": 29,
   "fechados": 9,
-  "total": 37
+  "total": 38
  }
 }

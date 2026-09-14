@@ -3691,6 +3691,18 @@ def censo_das_ligacoes_da_collection(estado: dict) -> None:
         c, ins, outs = a.get("CLASSE"), entra.get(n["id"], []), sai.get(n["id"], [])
         obs = [e for e in ins + outs if e.get("OBSERVED") == SIM]
         if not ins and not outs:
+            # ÓRFÃ E ALVO SEM ESCRITOR MEDIDO NÃO SÃO A MESMA COISA.
+            # `C-DERIVED-ARTIFACT` é a casa do derivado (migration 022), com 43
+            # derivações reais medidas dentro dela. Chamar-lhe órfã seria dizer
+            # que ninguém a quer — quando o que se passa é que quem lá escreve
+            # escreve em SQL, e o scanner deste mapa mede ficheiros.
+            #
+            #     O QUE O MEDIDOR NÃO ALCANÇA NÃO É O QUE NÃO EXISTE.
+            #     NOT_OBSERVED != DOES_NOT_EXIST.
+            if n.get("ROLE") == "STORAGE" or n.get("kind") in ("acervo", "store"):
+                return ("ALVO_SEM_ESCRITOR_MEDIDO",
+                        "alvo declarado e explicado; nenhuma aresta medida o enche "
+                        "— quem lá escreve escreve em SQL, e o scanner mede ficheiros")
             return "ORPHAN", "sem entrada e sem saida medidas"
         if c == "SO_A_PROVA_A_CORRE":
             return "SYSTEM_GAP", "construida e medida; na coleta ninguem a corre"

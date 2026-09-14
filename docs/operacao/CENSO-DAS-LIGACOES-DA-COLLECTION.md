@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  4f98db8a22d5a1ac1cf1fe88b56fa19da9f15a7a
+HEAD_DA_MEDICAO  7da163ef63e26372eb3e893e18950d67351b95db
 BRANCH           claude/system-map-collection-truth-v1
-GERADO_EM        2026-09-14T04:48:10+00:00
+GERADO_EM        2026-09-14T04:52:35+00:00
 CARDS            64
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py
@@ -675,7 +675,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
-| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+| **VEREDITO** | **ALVO_SEM_ESCRITOR_MEDIDO** — alvo declarado e explicado; nenhuma aresta medida o enche — quem lá escreve escreve em SQL, e o scanner mede ficheiros |
 
 ### `C-CI-PERSIST` · Os botoes que cuidam do banco
 
@@ -719,7 +719,7 @@ COMO_REFAZER     py system-map/scripts/generate_system_map.py
 | **OBSERVADAS** | 0 |
 | **control plane** | entram 0 · saem 0 |
 | **data plane** | entram 0 · saem 0 |
-| **VEREDITO** | **ORPHAN** — sem entrada e sem saida medidas |
+| **VEREDITO** | **ALVO_SEM_ESCRITOR_MEDIDO** — alvo declarado e explicado; nenhuma aresta medida o enche — quem lá escreve escreve em SQL, e o scanner mede ficheiros |
 
 ### `C-DONO-DA-ESCRITA` · O dono canônico da escrita do bruto (OBSERVED)
 
@@ -1467,6 +1467,6 @@ UNKNOWN            17
 SYSTEM_GAP         9
 EXTERNAL_ENTRY     5
 TERMINAL           2
-ORPHAN             2
+ALVO_SEM_ESCRITOR_MEDIDO 2
 TOTAL              64
 ```
