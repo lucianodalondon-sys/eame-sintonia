@@ -43,7 +43,7 @@
             "*"
           ],
           "FILTRO_DONO": "system-map/scripts/scan_repo.py · git(\"ls-files\") · LEGIVEIS",
-          "MEDIDO_VARRE": 1499,
+          "MEDIDO_VARRE": 1726,
           "PORQUE": "este passo NAO mede um subconjunto: ele enumera a arvore rastreada inteira. `*` aqui e a regra verdadeira, e e o unico passo em que e.",
           "INCLUI_GERADOS": [
             "CENSO_CARDS_SENSORES",
@@ -89,7 +89,7 @@
             "*.sh"
           ],
           "FILTRO_DONO": "system-map/scripts/scan_sources.py · as_palavras, as_portas",
-          "MEDIDO_VARRE": 384,
+          "MEDIDO_VARRE": 516,
           "PORQUE": "nao pergunta ao git: pergunta ao artefato do passo anterior"
         },
         {
@@ -195,7 +195,7 @@
             ".github/workflows/*.yml"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_da_coleta.py · GAVETAS, CODIGO",
-          "MEDIDO_VARRE": 118,
+          "MEDIDO_VARRE": 136,
           "PORQUE": "o subconjunto e identificavel e esta declarado: as oito gavetas"
         }
       ],
@@ -364,7 +364,7 @@
             "*.yaml"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_do_congelamento.py · EXTS",
-          "MEDIDO_VARRE": 1035,
+          "MEDIDO_VARRE": 1208,
           "PORQUE": "a extensao e a regra, e esta escrita em EXTS — nao e a arvore toda",
           "INCLUI_GERADOS": [
             "CENSO_CARDS_SENSORES",
@@ -416,7 +416,7 @@
             "research/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_do_corpus_it.py · PASTAS",
-          "MEDIDO_VARRE": 552,
+          "MEDIDO_VARRE": 615,
           "PORQUE": "o corpus italiano vive em `data`, e o que o passo varre e mais largo do que a lista PASTAS do codigo: ele segue referencias para fora dela. Declarar PASTAS seria declarar a intencao do autor, e nao o que o programa faz.",
           "INCLUI_GERADOS": [
             "CENSO_CARDS_SENSORES",
@@ -449,7 +449,7 @@
             "*.sql"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_dos_donos.py · EXTS",
-          "MEDIDO_VARRE": 593,
+          "MEDIDO_VARRE": 738,
           "PORQUE": "o codigo todo, pela extensao declarada em EXTS",
           "INCLUI_GERADOS": [
             "GENERATE_SYSTEM_MAP"
@@ -476,7 +476,7 @@
             "coleta/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_da_observabilidade.py · DIMENSOES",
-          "MEDIDO_VARRE": 46,
+          "MEDIDO_VARRE": 59,
           "PORQUE": "os executores da coleta, para medir que dimensao cada um instrumenta"
         },
         {
@@ -516,7 +516,7 @@
             "orquestrador/*"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_dos_executores.py · GAVETAS",
-          "MEDIDO_VARRE": 59,
+          "MEDIDO_VARRE": 74,
           "PORQUE": "as quatro gavetas onde vive quem executa"
         },
         {
@@ -607,7 +607,7 @@
             "*.py"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_dos_buracos.py · git(\"ls-files\", \"*.py\")",
-          "MEDIDO_VARRE": 370,
+          "MEDIDO_VARRE": 510,
           "PORQUE": "os tuplos GAPS de qualquer ficheiro .py, lidos por AST"
         },
         {
@@ -712,7 +712,7 @@
             "*"
           ],
           "FILTRO_DONO": "system-map/scripts/generate_system_map.py · arquivos",
-          "MEDIDO_VARRE": 683,
+          "MEDIDO_VARRE": 836,
           "PORQUE": "abre os ficheiros que o inventario nomeia, para medir peca e aresta"
         }
       ],
@@ -826,7 +826,7 @@
             "*.sh"
           ],
           "FILTRO_DONO": "system-map/scripts/censo_da_topologia.py · documentos_da_arvore",
-          "MEDIDO_VARRE": 660,
+          "MEDIDO_VARRE": 855,
           "PORQUE": "o codigo e os documentos, para saber quem chama quem e quem documenta o que",
           "INCLUI_GERADOS": [
             "GENERATE_SYSTEM_MAP"
@@ -918,7 +918,7 @@
             "*"
           ],
           "FILTRO_DONO": "system-map/scripts/validate_system_map.py · arquitetura, servido",
-          "MEDIDO_VARRE": 341,
+          "MEDIDO_VARRE": 462,
           "PORQUE": "abre o que o mapa cita, para provar que existe e que a linha bate",
           "INCLUI_GERADOS": [
             "GENERATE_SYSTEM_MAP"
