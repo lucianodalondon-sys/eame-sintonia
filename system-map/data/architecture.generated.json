@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/supabase-backup-readonly-measure-v1",
-    "HEAD": "f76740c775d6582e0a2d93088fd533e0c3f8157f",
-    "GENERATED_AT": "2026-09-14T02:31:29+00:00",
-    "SOURCE_TREE_FINGERPRINT": "50eee3b90ee1b6f780c1659da141d63873faead53b8d0aa7c2f0fd8da9681d69"
+    "BRANCH": "claude/supabase-same-platform-restore-v1",
+    "HEAD": "4a2fd6112047857fdbb3293ec7e7141fca73f7ad",
+    "GENERATED_AT": "2026-09-14T02:33:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e5da162e40e5698c20056365fb362c51d8750d5eb672493237b400802fd87b9b"
   },
   "FILES": [
     {
@@ -135,6 +135,13 @@
       "code_dir": true
     },
     {
+      "path": ".github/workflows/supabase-clone-verify.yml",
+      "sha": "88207301c24e44637ed39b6fa8c0c9da5f80a85d",
+      "ext": ".yml",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": ".github/workflows/supabase-conexao.yml",
       "sha": "19a9de9f85a9091400ee5ea4733d4a57d4cc247b",
       "ext": ".yml",
@@ -227,7 +234,7 @@
     },
     {
       "path": "HANDOFF-CONTA-CLAUDE-SINTONIA-EAME.md",
-      "sha": "04a3ddb6092c59414ceacb1c369f8cb54ec14157",
+      "sha": "4dcdcf5fac2891a67a22fcb3b121317a1ea098ce",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4525,7 +4532,7 @@
     },
     {
       "path": "docs/apresentacao/PILOTO-CLASSIFICACAO.md",
-      "sha": "cbd043cbfbe6a1242dfa8951a7eeaf06821ac1ad",
+      "sha": "4dd3b6289df37bda6fcb2ef643215417b483b5f6",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4812,7 +4819,7 @@
     },
     {
       "path": "docs/ferramentas/ARQUITETURA-DE-INFORMACAO-EAME.md",
-      "sha": "f7e7f3a803a43055b0f0a78be1a0d4e3152e533f",
+      "sha": "ad560f032c63e8bb1c7e97dee1470d404d3d6573",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -4904,6 +4911,13 @@
     {
       "path": "docs/operacao/C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1.md",
       "sha": "214498217302fd8a94f3d35d5f6df1ba9a01df82",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/C-SUPABASE-SAME-PLATFORM-RESTORE-V1.md",
+      "sha": "2485ba2528de127d30878881b6125367147c5b14",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5351,21 +5365,21 @@
     },
     {
       "path": "docs/piloto/EXTERNAL-ONLY-BUSINESS-CASE.md",
-      "sha": "bc68f3cbfb6805ba87e107f7099d996209970dc3",
+      "sha": "d9d6da952af9fc6cc131d9c33089af070fbbd12d",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/O-QUE-PODEMOS-DIZER.md",
-      "sha": "f287a73238adf79a4dd672cc162c3d63f7014f1c",
+      "sha": "4dcb4e8fe52a0555b82baaa5c4143da58bd74029",
       "ext": ".md",
       "readable": false,
       "code_dir": false
     },
     {
       "path": "docs/piloto/PACOTE-DE-MATERIA-PRIMA-EAME.md",
-      "sha": "684bc233da966f570097a204baca2484010c7271",
+      "sha": "94d25b0f65a0ba5b9526052c468bd449294c7f0c",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5393,7 +5407,7 @@
     },
     {
       "path": "docs/piloto/VEREDITO-M10-HANDOFF.md",
-      "sha": "d5276170ef38c5cdbb37c1fea224ce8d8bf7387b",
+      "sha": "a5fa91b68d6737635cc52331b6fd6478e0f8f14e",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -5526,7 +5540,7 @@
     },
     {
       "path": "docs/relatorios/RELATORIO-PORTAO-DE-ENTRADA-DA-COLETA.md",
-      "sha": "0096b98c178ccaf4771ec970febea8b8db6e9acc",
+      "sha": "8188b02fbe6c049aa52489dc3e13f590b03c5196",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8549,6 +8563,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/SAME-PLATFORM-RESTORE-PREFLIGHT.json",
+      "sha": "52feeae511d4774fc7c4ea58697e73deb52494b2",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
       "sha": "98cc5b1f8176cd01229b0517801bd9caa21420f9",
       "ext": ".json",
@@ -8906,6 +8927,13 @@
       "code_dir": true
     },
     {
+      "path": "provas/guarda_do_clone.py",
+      "sha": "d504140421a8d056910f3179f04e1af6d7fd33d5",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/hardware_local.py",
       "sha": "4f67de883cac2ab35e252b983e335354e466ec56",
       "ext": ".py",
@@ -9195,6 +9223,13 @@
     {
       "path": "provas/preflight_de_recuperacao_do_live.py",
       "sha": "171b6e5cc05ec242a10b2e348e0ff1e263903ea1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/preflight_do_restauro_na_plataforma.py",
+      "sha": "ab94ef7a6e58a91ff4b3355dc0edc462508a477e",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -10587,7 +10622,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "e5869d4e7e84b989bdd8f3bba7a8fbdedfaf5642",
+      "sha": "58b03cb58c450feb876ed7490c4cfa0142cfe6aa",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -10973,6 +11008,13 @@
     {
       "path": "tests/test_a_ponte_do_derived.py",
       "sha": "af0ef8fc09a52add73038567904965c2682c7054",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "tests/test_a_porta_do_clone_recusa_o_live.py",
+      "sha": "3598a25887affdf0e8da9b616c674a24995c8a19",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -12893,6 +12935,28 @@
         "file": ".github/workflows/supabase-backup-readonly.yml",
         "line": 95,
         "snippet": "python3 provas/backup_do_live_medido.py | tee -a \"$GITHUB_STEP_SUMMARY\" || rc=$?"
+      }
+    },
+    {
+      "from_file": ".github/workflows/supabase-clone-verify.yml",
+      "to_file": "provas/auditoria_live.sh",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/supabase-clone-verify.yml",
+        "line": 82,
+        "snippet": "bash provas/auditoria_live.sh 2>&1 | tee /tmp/clone.txt || rc=$?"
+      }
+    },
+    {
+      "from_file": ".github/workflows/supabase-clone-verify.yml",
+      "to_file": "provas/guarda_do_clone.py",
+      "type": "RUNS",
+      "payload": "execucao",
+      "evidence": {
+        "file": ".github/workflows/supabase-clone-verify.yml",
+        "line": 72,
+        "snippet": "run: python3 provas/guarda_do_clone.py"
       }
     },
     {
@@ -36018,6 +36082,50 @@
       }
     },
     {
+      "from_file": "provas/preflight_do_restauro_na_plataforma.py",
+      "to_file": ".github/workflows/supabase-clone-verify.yml",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_do_restauro_na_plataforma.py",
+        "line": 196,
+        "snippet": "\"PORTA\": \".github/workflows/supabase-clone-verify.yml\","
+      }
+    },
+    {
+      "from_file": "provas/preflight_do_restauro_na_plataforma.py",
+      "to_file": "provas/SAME-PLATFORM-RESTORE-PREFLIGHT.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_do_restauro_na_plataforma.py",
+        "line": 51,
+        "snippet": "SAIDA = RAIZ / \"provas\" / \"SAME-PLATFORM-RESTORE-PREFLIGHT.json\""
+      }
+    },
+    {
+      "from_file": "provas/preflight_do_restauro_na_plataforma.py",
+      "to_file": "provas/SAME-PLATFORM-RESTORE-PREFLIGHT.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_do_restauro_na_plataforma.py",
+        "line": 577,
+        "snippet": "SAIDA.write_text(texto + \"\\n\", encoding=\"utf-8\")"
+      }
+    },
+    {
+      "from_file": "provas/preflight_do_restauro_na_plataforma.py",
+      "to_file": "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_do_restauro_na_plataforma.py",
+        "line": 52,
+        "snippet": "MEDICAO_DOS_BACKUPS = RAIZ / \"provas\" / \"SUPABASE-LIVE-BACKUP-MEASURED.json\""
+      }
+    },
+    {
       "from_file": "provas/preservar_coleta_no_postgres.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
@@ -40514,6 +40622,17 @@
         "file": "tests/test_a_ponte_do_derived.py",
         "line": 33,
         "snippet": "ORQ = os.path.join(RAIZ, \"orquestrador\", \"orquestrador.py\")"
+      }
+    },
+    {
+      "from_file": "tests/test_a_porta_do_clone_recusa_o_live.py",
+      "to_file": "provas/guarda_do_clone.py",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "evidence": {
+        "file": "tests/test_a_porta_do_clone_recusa_o_live.py",
+        "line": 25,
+        "snippet": "import guarda_do_clone as G  # noqa: E402"
       }
     },
     {
@@ -53165,10 +53284,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1715,
-    "files_readable": 710,
-    "files_code_dir": 764,
-    "file_edges": 3696,
+    "files_tracked": 1721,
+    "files_readable": 714,
+    "files_code_dir": 769,
+    "file_edges": 3703,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

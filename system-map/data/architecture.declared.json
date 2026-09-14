@@ -3411,15 +3411,17 @@
         "audit",
         "infra"
       ],
-      "what": "Tres medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto. A terceira usa o scoped token de Backups Read para um unico GET a Management API, e le do corpo real os campos de backup, retencao e PITR — recusando-se a colapsar 401, 403, 404, 429, 5xx e «200 com lista vazia» na mesma frase.",
-      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao respondia 401, e nao 404. A terceira prova foi buscar essa chave e fez o pedido, e a lei que ela carrega e a mesma: «nao funciona» e o nome que se da a cinco causas diferentes quando nao se quer escolher uma. E numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
+      "what": "Cinco medicoes somente-leitura sobre a recuperacao do LIVE. A cadeia 027->031 executada em transaccao desfeita; o alcance sem credencial; a leitura real dos backups pela Management API; o preflight do restauro na PROPRIA plataforma, que mede que «Restore to a New Project» e operacao de CONSOLA e que a plataforma NAO restaura para um projeto existente diferente; e a guarda que impede a porta de verificacao de ser apontada a producao — inclusive pelo POOLER, onde o project ref vive no utilizador e nao no host.",
+      "why_here": "Porque as confusoes que custam dinheiro e dados moram todas aqui: plano nao e configuracao, documentacao nao e medicao, credencial ausente nao e recurso ausente, backup listado nao e restauro provado, e mesma CLASSE nao e mesma PLATAFORMA. A quinta medicao apanhou a pior de todas: a unica opcao do Supabase que aponta a um projeto EXISTENTE e o in-place, e o existente que ela aceita e a propria fonte — ler «reutilizar um projeto que ja existe» como in-place teria restaurado por cima da producao.",
       "departments": [
         "ENGENHARIA"
       ],
       "files": [
         "provas/preflight_da_cadeia_ate_031.py",
         "provas/preflight_de_recuperacao_do_live.py",
-        "provas/backup_do_live_medido.py"
+        "provas/backup_do_live_medido.py",
+        "provas/preflight_do_restauro_na_plataforma.py",
+        "provas/guarda_do_clone.py"
       ]
     }
   ],

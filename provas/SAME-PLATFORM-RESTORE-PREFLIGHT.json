@@ -1,0 +1,406 @@
+{
+  "PROVA": "SAME-PLATFORM-RESTORE-PREFLIGHT",
+  "MEDIDO_EM": "2026-09-14T03:12:01+00:00",
+  "SOURCE_PROJECT": "eame-sintonia",
+  "SOURCE_PROJECT_REF": "odhdwvugikjdvkapbowe",
+  "DEV_PROJECT_REF_NAO_TOCADO": "xhqebdweltytnghiavew",
+  "BACKUPS_REMEDIDOS_NESTA_MISSAO": "YES",
+  "MEDICAO_DOS_BACKUPS": {
+    "MEDIDO_EM": "2026-09-14T02:26:28+00:00",
+    "HTTP_STATUS": 200,
+    "BACKUP_COUNT": 7,
+    "BACKUP_TYPES": [
+      "PHYSICAL"
+    ],
+    "LATEST_BACKUP_TIMESTAMP": "2026-09-13T03:05:36.879000+00:00",
+    "PITR_ENABLED": "NO",
+    "WALG_ENABLED": true,
+    "REGION_OBSERVED": "eu-west-1"
+  },
+  "BACKUP_ESCOLHIDO": {
+    "RESTORE_SOURCE_BACKUP_ID": 1659467399,
+    "RESTORE_SOURCE_BACKUP_TIMESTAMP": "2026-09-13T03:05:36.879Z",
+    "RESTORE_SOURCE_BACKUP_STATUS": "COMPLETED",
+    "RESTORE_SOURCE_BACKUP_IS_PHYSICAL": true,
+    "ESCOLHIDO_POR": "o COMPLETED mais recente da medicao desta missao",
+    "CANDIDATOS_COMPLETED": 7
+  },
+  "LIVE_BASELINE": {
+    "MEDIDO_EM": "2026-09-14T03:04:30Z",
+    "MEDIDO_POR": "auditoria-live run 34801217087 (provas/auditoria_live.sh)",
+    "AUDITORIA_LIVE": "PASS",
+    "READ_ONLY_SESSION": "on",
+    "READ_ONLY_PROVEN": "YES",
+    "LIVE_MIGRATION_LEDGER": {
+      "LEDGER_ROWS": 26,
+      "LEDGER_VERSIONS": "001,002,003,004,005,006,007,009,010,011,012,013,014,015,016,017,018,019,020,021,022,023,024,025,026,027",
+      "LEDGER_DUPLICATES": 0,
+      "LEDGER_INVALID_RESULTS": 0,
+      "LEDGER_MISSING_SHA": 0,
+      "MIGRATIONS_PENDENTES": [
+        "028",
+        "029",
+        "030"
+      ],
+      "EXTRA_IN_LIVE": "nenhuma"
+    },
+    "LIVE_TABLE_ROWS": {
+      "collection_run": 11,
+      "raw_asset": 252,
+      "storage_object": 252,
+      "derived_artifact": 1,
+      "etapa_da_corrida": 0,
+      "schema_migracao": 26,
+      "participacao_na_derivacao": "AUSENTE",
+      "documento_estruturado": "AUSENTE"
+    },
+    "LIVE_CONSTRAINT_COUNT_COLLECTION": 44,
+    "LIVE_CONSTRAINTS_TODAS_CONVALIDADAS": "SIM nas tabelas da Collection",
+    "CONSTRAINTS_NAO_CONVALIDADAS": 2,
+    "QUAIS_NAO_CONVALIDADAS": [
+      "crop_calendar.calendario_geografia_e_do_pais",
+      "issue_window.janela_issue_geografia_e_do_pais"
+    ],
+    "NOTA": "as duas nao convalidadas NAO sao da Collection, e ja estavam assim antes desta missao."
+  },
+  "CRITERIO_DE_COMPARACAO": {
+    "COMPARAVEL": [
+      "LEDGER_ROWS e LEDGER_VERSIONS (nenhuma migration foi aplicada desde o backup — MIGRATIONS_PENDENTES continua 028 029 030)",
+      "existencia e ausencia das 8 tabelas",
+      "as 44 travas da Collection, por nome e por convalidada",
+      "os indices nomeados nas seccoes E, F e G da auditoria"
+    ],
+    "COMPARAVEL_SO_SE_NADA_ESCREVEU": [
+      "contagens de linhas: 11 / 252 / 252 / 1 / 0 / 26"
+    ],
+    "NAO_COMPARAVEL_POR_IGUALDADE": [
+      "sequencias — o WAL regista-as aos saltos de 32, e um restauro correcto devolve-as ADIANTADAS. Ver RUNBOOK-DE-RECUPERACAO §6.",
+      "qualquer escrita posterior ao backup. BACKUP_TIME != NOW."
+    ],
+    "PORQUE_AS_CONTAGENS_SAO_COMPARAVEIS_HOJE": "a auditoria de 2026-09-13T12:08Z e a de 2026-09-14T03:04Z devolvem as MESMAS contagens, e o backup escolhido e de 2026-09-13T03:05Z, entre as duas. Nao ha coleta a correr. Isto e EVIDENCIA de que o conjunto esta parado — nao e prova de que nenhuma escrita ocorreu."
+  },
+  "PLANO_DE_VERIFICACAO": {
+    "EXISTE": "SIM",
+    "DONO": "provas/auditoria_live.sh — o que ja existe, e nao um novo",
+    "PORTA": ".github/workflows/supabase-clone-verify.yml",
+    "GUARDA": "provas/guarda_do_clone.py, com 10 testes",
+    "SEGREDO_NECESSARIO": "SUPABASE_CLONE_DB_URL (temporario, morre com o clone)",
+    "PORQUE_O_SEGREDO_NAO_PODE_EXISTIR_AINDA": "a DSN de um projeto que ainda nao nasceu nao existe. Ela so passa a existir depois de a consola criar o clone.",
+    "O_QUE_A_GUARDA_RECUSA": [
+      "a producao, pela ligacao directa",
+      "a producao, pelo POOLER — onde o ref vive no UTILIZADOR e nao no host, e uma guarda ingenua deixaria passar",
+      "o projeto dev, pelas duas vias",
+      "uma DSN de que nao se consiga extrair ref nenhum"
+    ],
+    "ESCRITAS_QUE_ESTA_PORTA_PODE_FAZER": 0
+  },
+  "DOCUMENTACAO": {
+    "LIDA_EM": "2026-09-14",
+    "FONTES": [
+      "https://supabase.com/docs/guides/platform/backups",
+      "https://supabase.com/docs/guides/platform/clone-project",
+      "https://supabase.com/docs/reference/api/v1-restore-a-project"
+    ],
+    "RESTORE_TO_NEW_PROJECT_E_CONSOLA": "a pagina oficial manda ir ao dashboard, separador «Restore to a New Project». Nenhuma rota de Management API ou CLI e nomeada.",
+    "PRE_CONDICOES_CITADAS": [
+      "«exclusive to users on paid plans»",
+      "physical backups «enabled for the source project»",
+      "PITR e add-on OPCIONAL, e NAO requisito"
+    ],
+    "CUSTO_CITADO": "«Before starting the restoration, you'll be presented with an overview of the costs associated with creating the new project.» O ecra do custo vive na CONSOLA.",
+    "LIMITACOES_CITADAS": [
+      "um projeto criado por restauro NAO pode ser fonte de outro clone",
+      "extensoes que fazem operacoes externas (pg_net, pg_cron, wrappers) «should be disabled once the copy process has completed»",
+      "daily backups nao guardam passwords de custom roles"
+    ],
+    "ALVOS_DE_RESTAURO_PARA_BACKUP_FISICO": {
+      "1_IN_PLACE": "restaura o projeto SOBRE SI PROPRIO. O alvo e a fonte.",
+      "2_RESTORE_TO_A_NEW_PROJECT": "cria um projeto NOVO.",
+      "3_PARA_UM_PROJETO_EXISTENTE_DIFERENTE": "NAO EXISTE. A documentacao nao descreve esta opcao."
+    },
+    "BACKUP_FISICO_NAO_SE_DESCARREGA": "«You can still use physical backups for restoration, but they are not available for direct download.» O backup descarregavel do dashboard e o LOGICO, e so existe em projetos antigos.",
+    "STORAGE_CITADO": "«Database backups do not include objects you store via the Storage API, as the database only includes metadata about these objects.»",
+    "O_QUE_ISTO_NAO_E": "nada aqui e uma medicao DESTE projeto. Documentacao nao e configuracao, e a consola deste projeto nao foi vista."
+  },
+  "MECANISMO": {
+    "RESTORE_TO_NEW_PROJECT_EXISTE_NO_PRODUTO": "YES",
+    "RESTORE_TO_NEW_PROJECT_TEM_ROTA_DE_API": "NO",
+    "RESTORE_TO_NEW_PROJECT_ALCANCAVEL_DESTA_SESSAO": "NO",
+    "PORQUE": "e operacao de CONSOLA. Nao e falta de permissao — e ausencia de rota, e escopo nenhum a cria.",
+    "PRE_CONDICAO_PHYSICAL_BACKUPS": "YES (walg_enabled=true, medido)",
+    "PRE_CONDICAO_PLANO_PAGO": "NOT_MEASURED (exige escopo de projeto)",
+    "PITR_E_REQUISITO": "NO (documentacao oficial; e add-on opcional)",
+    "ROTA_VIZINHA_QUE_NAO_SE_USA": {
+      "ROTA": "POST /v1/projects/{ref}/restore",
+      "PORQUE_NAO": "age sobre o PROPRIO {ref} e exige projects:write. Aponta-la a producao seria mexer no LIVE, e nao criar clone nenhum. NAO FOI CHAMADA."
+    }
+  },
+  "RESTORE_INTO_EXISTING_PROJECT": "NO",
+  "PORQUE_NAO_PARA_PROJETO_EXISTENTE": "medido na documentacao oficial em 2026-09-14: para um projeto de backups FISICOS o Supabase oferece dois alvos, e so dois — o PROPRIO projeto (in-place) ou um projeto NOVO. Restaurar o backup de um projeto para OUTRO projeto ja existente nao e uma opcao do produto.",
+  "A_ARMADILHA_DO_IN_PLACE": "das duas opcoes, a unica que aponta a um projeto EXISTENTE e o in-place — e o projeto existente que ela aceita e a PROPRIA FONTE. Ou seja: a unica forma de restaurar para algo que ja existe seria restaurar POR CIMA DO LIVE. E exactamente a operacao que esta missao tem proibida, e chamar-lhe «reutilizar um projeto» seria o erro mais caro possivel.",
+  "O_CAMINHO_QUE_NAO_SE_TOMA": "descarregar um backup e repo-lo com psql noutro projeto NAO e o mecanismo da plataforma: e pg_restore com outro nome, e seria SAME_CLASS outra vez. Alem disso o backup deste projeto e FISICO, e backups fisicos nao se descarregam.",
+  "RESTORE_TO_NEW_PROJECT_AVAILABLE": "UNKNOWN",
+  "PORQUE_AVAILABLE_UNKNOWN": "so a consola deste projeto responde se o separador aparece. As pre-condicoes mensuraveis daqui estao satisfeitas (backups fisicos COMPLETED, walg ligado), mas pre-condicao satisfeita nao e botao visto.",
+  "EXISTING_DEV_FOUND": "YES",
+  "DEV_PROJECT_NAME": "eame-sintonia-dev",
+  "DEV_PROJECT_REF": "xhqebdweltytnghiavew",
+  "DEV_MEDIDO": {
+    "DEV_RESPONDE": "YES",
+    "DEV_GATEWAY_HTTP": 401,
+    "DEV_REF_ECOADO_BATE": "YES",
+    "METODO": "GET sem apikey e sem token ao gateway publico. O gateway devolve o ref que serviu, e e assim que se confere a identidade sem ler dado nenhum.",
+    "DEV_REGION": "NOT_MEASURED",
+    "DEV_PROJECT_STATUS": "NOT_MEASURED",
+    "DEV_POSTGRES_VERSION": "NOT_MEASURED",
+    "DEV_SCHEMA": "NOT_MEASURED",
+    "DEV_MIGRATION_LEDGER": "NOT_MEASURED",
+    "DEV_TABLE_COUNT": "NOT_MEASURED",
+    "DEV_HAS_DATA": "NOT_MEASURED",
+    "DEV_HAS_UNIQUE_DATA_NOT_IN_LIVE": "NOT_MEASURED",
+    "PORQUE_NOT_MEASURED": "nao ha credencial nenhuma para o dev nesta sessao: o token de gestao esta limitado aos backups do LIVE, e SUPABASE_DB_URL aponta ao LIVE. Ler o dev por dentro exigiria uma credencial que nao existe, e esta missao nao cria credenciais."
+  },
+  "DEV_REUSE_SAFE": "BLOCKED",
+  "PORQUE_DEV_REUSE_BLOCKED": "por duas razoes independentes, e qualquer uma chegava. PRIMEIRA: o conteudo do dev nao e mensuravel desta sessao, e o utilizador dizer que esta sem uso nao e uma medicao do estado dele. SEGUNDA, e a que fecha a questao: o dev nao pode ser alvo de um restauro da plataforma, logo a pergunta «e seguro sobrescreve-lo?» nunca chega a ser feita. NADA NO DEV FOI TOCADO.",
+  "DEV_ESCRITAS": 0,
+  "DEV_DDL": 0,
+  "DEV_STILL_ACTIVE": "YES",
+  "DEV_STILL_NEEDED": "UNKNOWN",
+  "PORQUE_DEV_STILL_NEEDED_UNKNOWN": "esta missao nao mediu o que vive la dentro nem quem depende dele. Manter, pausar ou apagar e decisao de gente, e com medicao a frente. Esta missao nao apagou nem pausou nada.",
+  "TARGET_REGION": "eu-west-1 (a origem; a documentacao diz que o clone fica na mesma regiao)",
+  "TARGET_COMPUTE": "NOT_MEASURED",
+  "PROJECT_CREATION_COST": "UNKNOWN",
+  "RECURRING_COST": "UNKNOWN",
+  "OUTROS_CUSTOS": "UNKNOWN",
+  "CURRENCY": "UNKNOWN",
+  "PORQUE_CUSTO_UNKNOWN": "o ecra que mostra o custo vive na consola, imediatamente antes de confirmar. Esta sessao nao o alcanca. E a regra e a regra: CUSTO UNKNOWN -> NAO CRIAR.",
+  "ESTIMATED_COST_BEFORE": "UNKNOWN",
+  "ACTUAL_COST_OBSERVED": "NOT_YET_AVAILABLE",
+  "PROJECT_LIFETIME_MINUTES": 0,
+  "NEW_PROJECT_CREATED": "NO",
+  "NEW_PROJECT_COST": 0,
+  "NEW_COST_CAUSED_BY_THIS_MISSION": 0,
+  "EXISTING_DEV_COST": "UNKNOWN",
+  "PORQUE_DEV_COST_UNKNOWN": "ler faturacao exige escopo de organizacao, que este token nao tem e que esta missao nao amplia. O dev ja existia antes desta missao e continua a existir depois dela, sem alteracao nenhuma.",
+  "TARGET_PROJECT": "NOT_CREATED",
+  "COST_APPROVED_BY_HUMAN": "NO",
+  "PORQUE_NAO_APROVADO": "nao se pede autorizacao para um gasto cujo valor nao se sabe dizer, e cuja execucao esta fora do alcance desta sessao. Pedir um «sim» que nada destrava seria teatro.",
+  "TARGET_PROJECT_NAME": "NOT_CREATED",
+  "TARGET_PROJECT_REF": "NOT_CREATED",
+  "TARGET_PROJECT_STATUS": "NOT_CREATED",
+  "TARGET_CREATED_AT": "NOT_CREATED",
+  "RESTORE_OPERATION_ID": "NOT_CREATED",
+  "DATABASE_QUERYABLE": "NO",
+  "STRUCTURAL_MATCH": "BLOCKED",
+  "RESTORED_DATA_PROOF": "BLOCKED",
+  "CONSTRAINT_BEHAVIOR": "NOT_RUN",
+  "TARGET_CLEANUP": "NOT_CREATED",
+  "SAME_CLASS_RESTORE": "PASS",
+  "SAME_CLASS_PROVA": "provas/recuperacao_fisica_provada_no_postgres.py — base backup fisico + WAL, num Postgres 17 descartavel. Provou a CLASSE, e nao a plataforma.",
+  "SAME_PLATFORM_RESTORE": "BLOCKED",
+  "BLOCKER": "PLATFORM_REQUIRES_NEW_PROJECT",
+  "PORQUE_BLOCKED_E_NAO_FAIL": "FAIL diria que o restauro foi tentado e nao funcionou. Nao foi tentado: a plataforma so oferece in-place (que destruiria o LIVE) ou projeto NOVO (que exige decisao humana de gasto, e que o utilizador declarou nao querer abrir sem necessidade). E limite da EXECUCAO AUTORIZADA, e nao prova de que o restauro falha.",
+  "DATABASE_RECOVERY_GATE": "BLOCKED",
+  "STORAGE_OBJECT_BYTES_RECOVERY": "NOT_PROVEN",
+  "STORAGE_PORQUE": "a documentacao oficial diz que backups de banco NAO incluem objetos do Storage. As 252 linhas de storage_object no LIVE sao METADADOS. Mesmo um restauro perfeito do banco nao devolve os bytes — e isso e um buraco de recuperacao SEPARADO, que continua aberto.",
+  "SOURCE_PROJECT_CHANGED": "NO",
+  "LIVE_SQL_WRITES": 0,
+  "LIVE_DDL": 0,
+  "LIVE_MIGRATIONS": 0,
+  "REAL_COLLECTION": 0,
+  "DELETES_EXECUTADOS": 0,
+  "PROJETOS_CRIADOS": 0,
+  "POSTS_A_MANAGEMENT_API": 0,
+  "TOKEN_SCOPE_CHANGED": "NO",
+  "CREDENCIAIS_IMPRESSAS": 0,
+  "DSN_NA_ARVORE": 0,
+  "MOCKS_USADOS_COMO_PROVA": 0,
+  "SYSTEM_MAP_TOCADO": "NO",
+  "READY_FOR_LIVE_APPLY": "NO",
+  "PORQUE_NAO_PRONTO": "a lei em vigor exige SAME_PLATFORM_RESTORE executado, e ele continua NOT_RUN. Medir o mecanismo nao e executa-lo.",
+  "RED_TEAM": {
+    "RED_TEAM_ATTACKS": 36,
+    "RED_TEAM_SURVIVORS": 0,
+    "ATAQUES": {
+      "A01": {
+        "ATAQUE": "botao existe, mas nunca foi executado, e conta como prova",
+        "RESULTADO": "APANHADO",
+        "COMO": "SAME_PLATFORM_RESTORE e BLOCKED, com BLOCKER nomeado, e nenhum campo desta prova o move"
+      },
+      "A02": {
+        "ATAQUE": "projeto criado sem vir do backup escolhido",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhum projeto foi criado; o backup escolhido esta nomeado por id para que a criacao futura possa ser conferida contra ele"
+      },
+      "A03": {
+        "ATAQUE": "projeto ACTIVE_HEALTHY mas banco vazio",
+        "RESULTADO": "APANHADO",
+        "COMO": "TARGET_PROJECT_STATUS e NOT_CREATED; e o criterio de comparacao exige ledger e travas, que um banco vazio nao tem"
+      },
+      "A04": {
+        "ATAQUE": "schema existe mas dados nao",
+        "RESULTADO": "APANHADO",
+        "COMO": "o criterio separa STRUCTURAL_MATCH de RESTORED_DATA_PROOF, e o segundo exige contagens e nao so tabelas"
+      },
+      "A05": {
+        "ATAQUE": "dados existem mas migration ledger nao bate",
+        "RESULTADO": "APANHADO",
+        "COMO": "LEDGER_ROWS e LEDGER_VERSIONS estao na lista COMPARAVEL, com os valores do LIVE medidos hoje"
+      },
+      "A06": {
+        "ATAQUE": "comparar backup de ontem com LIVE de hoje como mesmo instante",
+        "RESULTADO": "APANHADO",
+        "COMO": "BACKUP_TIME != NOW esta escrito no criterio, e as contagens estao em COMPARAVEL_SO_SE_NADA_ESCREVEU e nao em COMPARAVEL"
+      },
+      "A07": {
+        "ATAQUE": "restaurar o backup errado",
+        "RESULTADO": "APANHADO",
+        "COMO": "o backup e escolhido por regra e nomeado por id e timestamp, medidos NESTA missao e nao herdados da anterior"
+      },
+      "A08": {
+        "ATAQUE": "usar backup que nao esta COMPLETED",
+        "RESULTADO": "APANHADO",
+        "COMO": "so entram candidatos com status COMPLETED"
+      },
+      "A09": {
+        "ATAQUE": "usar o projeto dev como cobaia",
+        "RESULTADO": "APANHADO",
+        "COMO": "a guarda do clone recusa o ref do dev pelas duas vias, com teste"
+      },
+      "A10": {
+        "ATAQUE": "alterar o LIVE para fabricar uma prova",
+        "RESULTADO": "APANHADO",
+        "COMO": "as unicas operacoes contra o LIVE foram SELECT, e a propria auditoria mediu READ_ONLY_SESSION=on"
+      },
+      "A11": {
+        "ATAQUE": "aplicar migration durante o restore",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhuma migration foi aplicada em lado nenhum; MIGRATIONS_PENDENTES continua 028 029 030"
+      },
+      "A12": {
+        "ATAQUE": "aumentar o escopo do token automaticamente",
+        "RESULTADO": "APANHADO",
+        "COMO": "o token continua o mesmo de Backups Read; nao foi criado token novo nem pedido escopo novo"
+      },
+      "A13": {
+        "ATAQUE": "vazar credencial em log",
+        "RESULTADO": "APANHADO",
+        "COMO": "o secret entra por env e nunca e echo-ado; a guarda do clone tem teste que prova que nenhuma linha do log carrega a DSN"
+      },
+      "A14": {
+        "ATAQUE": "vazar connection string em Git",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhuma DSN entra na arvore; as DSN dos testes montam-se em tempo de execucao, pela lei do §113"
+      },
+      "A15": {
+        "ATAQUE": "custo nao conhecido e criar mesmo assim",
+        "RESULTADO": "APANHADO",
+        "COMO": "o custo vive no ecra da consola, que esta sessao nao alcanca. Custo UNKNOWN -> NAO CRIAR, e nao se criou"
+      },
+      "A16": {
+        "ATAQUE": "projeto descartavel ficar vivo a cobrar",
+        "RESULTADO": "APANHADO",
+        "COMO": "nao ha projeto descartavel. Nao existe nada a cobrar por esta missao"
+      },
+      "A17": {
+        "ATAQUE": "apagar o projeto fonte por engano",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhum delete foi executado contra projeto nenhum, e a guarda recusa ate LER a producao por esta porta"
+      },
+      "A18": {
+        "ATAQUE": "apagar o dev por engano",
+        "RESULTADO": "APANHADO",
+        "COMO": "o mesmo: zero deletes, e o dev esta na lista de refs recusados"
+      },
+      "A19": {
+        "ATAQUE": "target ref igual ao source ref",
+        "RESULTADO": "APANHADO",
+        "COMO": "nao ha target. E quando houver, guarda_do_clone.py recusa target==source pelas duas vias, com teste que o prova"
+      },
+      "A20": {
+        "ATAQUE": "considerar sucesso da UI como prova do conteudo",
+        "RESULTADO": "APANHADO",
+        "COMO": "ACTIVE_HEALTHY != RESTORED_CORRECTLY esta no criterio, e o veredito estrutural e BLOCKED e nao PASS"
+      },
+      "A21": {
+        "ATAQUE": "PostgreSQL aceitar conexao mas estar incompleto",
+        "RESULTADO": "APANHADO",
+        "COMO": "aceitar conexao nao e criterio nenhum aqui: o criterio sao ledger, travas, indices e contagens"
+      },
+      "A22": {
+        "ATAQUE": "assumir que os bytes do Storage foram restaurados",
+        "RESULTADO": "APANHADO",
+        "COMO": "a documentacao oficial diz o contrario, e esta citada: backups de banco NAO incluem objetos do Storage. 252 storage_object no LIVE sao METADADOS, e nao bytes"
+      },
+      "A23": {
+        "ATAQUE": "SAME_CLASS passar por SAME_PLATFORM",
+        "RESULTADO": "APANHADO",
+        "COMO": "a classe fisica foi provada pela V2 num Postgres descartavel; a plataforma continua por provar, e os dois campos vivem separados"
+      },
+      "A24": {
+        "ATAQUE": "destruir o clone antes de guardar evidencias",
+        "RESULTADO": "APANHADO",
+        "COMO": "nao ha clone. E a porta de verificacao guarda o artefacto ANTES do passo de limpeza, por ordem dos passos"
+      },
+      "A25": {
+        "ATAQUE": "usar mock para comportamento que precisa do Supabase real",
+        "RESULTADO": "APANHADO",
+        "COMO": "nada aqui simula o Supabase. O que nao foi medido diz-se NOT_MEASURED, e nao se substitui por imitacao"
+      },
+      "A26": {
+        "ATAQUE": "transformar UNKNOWN em PASS",
+        "RESULTADO": "APANHADO",
+        "COMO": "o portao e BLOCKED. Nenhum UNKNOWN desta missao foi promovido"
+      },
+      "A27": {
+        "ATAQUE": "reutilizar custo ou documentacao antiga sem medir",
+        "RESULTADO": "APANHADO",
+        "COMO": "os backups foram re-medidos hoje e a documentacao foi relida hoje, com as fontes citadas"
+      },
+      "A28": {
+        "ATAQUE": "System Map puxar esta missao para fora do foco",
+        "RESULTADO": "APANHADO",
+        "COMO": "o mapa nao foi editado nesta missao; se o validador reclamar, classifica-se e nao se conserta"
+      },
+      "A29": {
+        "ATAQUE": "o dev existir ser tomado como prova de que ja foi um restauro",
+        "RESULTADO": "APANHADO",
+        "COMO": "nada do interior do dev foi medido, logo nada dele pode parecer-se com o LIVE ao ponto de enganar. CAN DO != DID DO, e EXISTE != VEIO DE UM RESTAURO"
+      },
+      "A30": {
+        "ATAQUE": "restaurar in-place para «reutilizar um projeto existente» — e o projeto existente ser o LIVE",
+        "RESULTADO": "APANHADO",
+        "COMO": "a UNICA opcao da plataforma que aponta a um projeto existente e o in-place, e o existente que ela aceita e a PROPRIA FONTE. Chamar isso de «reutilizar o dev» teria restaurado por cima da producao"
+      },
+      "A31": {
+        "ATAQUE": "descarregar o backup e repo-lo no dev com psql, e chamar a isso SAME_PLATFORM_RESTORE",
+        "RESULTADO": "APANHADO",
+        "COMO": "seria pg_restore com outro nome — SAME_CLASS, que a V2 ja provou. E nem esta disponivel: backup fisico nao se descarrega"
+      },
+      "A32": {
+        "ATAQUE": "palavra do utilizador sobre o dev tratada como medicao",
+        "RESULTADO": "APANHADO",
+        "COMO": "«foi criado para testes e esta sem uso» e informacao, e nao estado medido. DEV_REUSE_SAFE nao foi promovido a YES"
+      },
+      "A33": {
+        "ATAQUE": "autorizacao para usar o dev tratada como autorizacao para criar projeto novo",
+        "RESULTADO": "APANHADO",
+        "COMO": "a correccao autorizou REUTILIZAR, e disse explicitamente que criar exige nova decisao humana. Nada foi criado"
+      },
+      "A34": {
+        "ATAQUE": "apagar ou pausar o dev no fim, pela instrucao antiga",
+        "RESULTADO": "APANHADO",
+        "COMO": "a correccao revogou a limpeza para este alvo. O dev fica de pe, e DEV_STILL_NEEDED fica UNKNOWN em vez de ser adivinhado"
+      },
+      "A35": {
+        "ATAQUE": "custo zero desta missao apresentado como «o dev nao custa»",
+        "RESULTADO": "APANHADO",
+        "COMO": "os dois numeros vivem separados: esta missao nao causou custo novo, e o que o dev ja custava continua por medir"
+      },
+      "A36": {
+        "ATAQUE": "BLOCKED por limite de autorizacao lido como FAIL do restauro",
+        "RESULTADO": "APANHADO",
+        "COMO": "o restauro nao foi tentado, logo nao falhou. O bloqueio tem nome, e o nome diz de quem e o limite"
+      }
+    }
+  }
+}

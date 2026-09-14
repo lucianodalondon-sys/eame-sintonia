@@ -1,0 +1,108 @@
+# ═══════════════════════════════════════════════════════════════════════
+# VERIFICAR UM CLONE RESTAURADO — SÓ LEITURA, E NUNCA CONTRA O LIVE
+#
+# ── PARA QUE ISTO EXISTE ──────────────────────────────────────────────
+#
+# «Restore to a New Project» é uma operação de CONSOLA: não há rota na
+# Management API nem no CLI (medido na documentação oficial em
+# 2026-09-14 — ver `C-SUPABASE-SAME-PLATFORM-RESTORE-V1`). Logo o clone
+# nasce pela mão de uma pessoa, e não por esta casa.
+#
+# O que esta casa PODE fazer é a outra metade, que é a que decide:
+#
+#     PROJETO CRIADO != RESTAURO PROVADO.
+#     ACTIVE_HEALTHY != RESTORED_CORRECTLY.
+#
+# Esta porta corre a auditoria canónica — `provas/auditoria_live.sh`, o
+# dono que já existe — contra o banco CLONADO. Secções A a H: livro-razão
+# contra os ficheiros do repositório, travas, índices, sentinelas.
+#
+# Nenhum ficheiro novo de auditoria foi escrito. UM CONCEITO, UM DONO.
+#
+# ── A GUARDA QUE IMPORTA ──────────────────────────────────────────────
+#
+# O maior risco desta porta não é ler de menos: é ser apontada ao LIVE.
+# O passo 2 extrai o `project ref` da DSN — SEM a imprimir — e recusa se
+# ele for o da produção ou o do dev. Um clone chama-se clone, ou não se
+# corre nada.
+#
+#     TARGET != SOURCE, medido, e nao prometido.
+#
+# ── O SEGREDO ─────────────────────────────────────────────────────────
+#
+# `SUPABASE_CLONE_DB_URL` é TEMPORÁRIO: existe enquanto o clone existir, e
+# apaga-se com ele. Não é o `SUPABASE_DB_URL` da produção, e esta porta
+# nunca recebe esse. Só SELECT: a auditoria não tem DDL nem escrita.
+# ═══════════════════════════════════════════════════════════════════════
+name: supabase-clone-verify
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 1 · o segredo do clone existe (booleano, nunca valor)
+        env:
+          SUPABASE_CLONE_DB_URL: ${{ secrets.SUPABASE_CLONE_DB_URL }}
+        run: |
+          if [ -z "$SUPABASE_CLONE_DB_URL" ]; then
+            echo "SUPABASE_CLONE_DB_URL=AUSENTE"
+            echo "Nao ha clone para verificar. Esta porta nao cai para a"
+            echo "producao por omissao — ela simplesmente nao corre."
+            exit 1
+          fi
+          echo "SUPABASE_CLONE_DB_URL=PRESENTE"
+
+      - name: 2 · a guarda — o alvo NAO pode ser a producao nem o dev
+        env:
+          SUPABASE_CLONE_DB_URL: ${{ secrets.SUPABASE_CLONE_DB_URL }}
+        # A guarda vive em `provas/guarda_do_clone.py`, e nao aqui dentro,
+        # porque uma guarda que nao se pode testar e uma guarda em que
+        # ninguem pode confiar. Dez casos em
+        # `tests/test_a_porta_do_clone_recusa_o_live.py`, incluindo o que
+        # mais custa: pelo POOLER o ref vive no utilizador e nao no host,
+        # e uma guarda ingenua deixaria a producao passar.
+        run: python3 provas/guarda_do_clone.py
+
+      - name: 3 · a auditoria canonica, contra o CLONE (somente SELECT)
+        env:
+          # O dono da auditoria le `SUPABASE_DB_URL`. Aqui ele recebe a DSN
+          # do CLONE — e a producao nunca entra neste job.
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_CLONE_DB_URL }}
+        run: |
+          set -o pipefail
+          rc=0
+          bash provas/auditoria_live.sh 2>&1 | tee /tmp/clone.txt || rc=$?
+          echo "AUDITORIA_EXIT=$rc"
+          exit $rc
+
+      - name: 4 · prova sanitizada
+        if: always()
+        run: |
+          # A auditoria ja sanitiza DSN nos erros; esta rede e a segunda.
+          sed -E 's#postgres(ql)?://[^ ]*#<URL_OMITIDA>#g' /tmp/clone.txt \
+            > /tmp/clone-sanitizado.txt 2>/dev/null || true
+          if grep -qE 'postgres(ql)?://|sb[ps]_[A-Za-z0-9_-]{16,}' /tmp/clone-sanitizado.txt; then
+            echo "VAZAMENTO_DETETADO=SIM · artefacto nao sobe"
+            exit 1
+          fi
+          echo "VARREDURA=limpa"
+
+      - name: 5 · guardar a prova ANTES de alguem apagar o clone
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: supabase-clone-verificado
+          path: /tmp/clone-sanitizado.txt
+          if-no-files-found: warn
+
+      - name: 6 · nada foi escrito
+        if: always()
+        run: echo "CLONE_WRITES=0 · LIVE_TOCADO=NAO · DDL=0 · MIGRATIONS=0"

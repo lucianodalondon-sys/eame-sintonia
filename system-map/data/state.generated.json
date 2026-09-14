@@ -45,6 +45,7 @@
       ".github/workflows/security-check.yml",
       ".github/workflows/sintonia-scrap.yml",
       ".github/workflows/supabase-backup-readonly.yml",
+      ".github/workflows/supabase-clone-verify.yml",
       ".github/workflows/supabase-conexao.yml",
       ".github/workflows/supabase-migrate.yml",
       ".github/workflows/supabase-storage.yml",
@@ -724,6 +725,7 @@
       "docs/operacao/C-RESTORE-PROOF-BEFORE-LIVE-V2.md",
       "docs/operacao/C-SUPABASE-BACKUP-READONLY-MEASURE-V1.md",
       "docs/operacao/C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1.md",
+      "docs/operacao/C-SUPABASE-SAME-PLATFORM-RESTORE-V1.md",
       "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
@@ -1271,6 +1273,7 @@
       "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
       "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
       "provas/RECUPERACAO-FISICA-MEDIDA.json",
+      "provas/SAME-PLATFORM-RESTORE-PREFLIGHT.json",
       "provas/SUPABASE-LIVE-BACKUP-MEASURED.json",
       "provas/_c106b_filho.py",
       "provas/_c106c_filho.py",
@@ -1322,6 +1325,7 @@
       "provas/fluxo_no_seco.py",
       "provas/gate_de_aceitacao_tematica.py",
       "provas/gpu_asr_smoke.py",
+      "provas/guarda_do_clone.py",
       "provas/hardware_local.py",
       "provas/implementacoes_candidatas.py",
       "provas/instagram_audio_only.py",
@@ -1364,6 +1368,7 @@
       "provas/preflight_022_live.sh",
       "provas/preflight_da_cadeia_ate_031.py",
       "provas/preflight_de_recuperacao_do_live.py",
+      "provas/preflight_do_restauro_na_plataforma.py",
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_rota_paga.py",
       "provas/qualidade_t3.py",
@@ -1634,6 +1639,7 @@
       "tests/test_a_linhagem_do_reaproveitamento.py",
       "tests/test_a_operacao_aguenta_concorrencia.py",
       "tests/test_a_ponte_do_derived.py",
+      "tests/test_a_porta_do_clone_recusa_o_live.py",
       "tests/test_a_prova_e2e_segue_a_producao.py",
       "tests/test_a_regra_de_t2.py",
       "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -2162,10 +2168,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/supabase-backup-readonly-measure-v1",
-    "HEAD": "f76740c775d6582e0a2d93088fd533e0c3f8157f",
-    "GENERATED_AT": "2026-09-14T02:31:29+00:00",
-    "SOURCE_TREE_FINGERPRINT": "50eee3b90ee1b6f780c1659da141d63873faead53b8d0aa7c2f0fd8da9681d69"
+    "BRANCH": "claude/supabase-same-platform-restore-v1",
+    "HEAD": "4a2fd6112047857fdbb3293ec7e7141fca73f7ad",
+    "GENERATED_AT": "2026-09-14T02:33:22+00:00",
+    "SOURCE_TREE_FINGERPRINT": "e5da162e40e5698c20056365fb362c51d8750d5eb672493237b400802fd87b9b"
   },
   "FAMILIES": [
     {
@@ -7386,11 +7392,12 @@
         ".github/workflows/auditoria-live.yml",
         ".github/workflows/banco-descartavel.yml",
         ".github/workflows/supabase-backup-readonly.yml",
+        ".github/workflows/supabase-clone-verify.yml",
         ".github/workflows/supabase-conexao.yml",
         ".github/workflows/supabase-migrate.yml",
         ".github/workflows/supabase-storage.yml"
       ],
-      "file_count": 6,
+      "file_count": 7,
       "status": "PENDING",
       "status_reason": "este workflow manda rodar script do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -13653,8 +13660,8 @@
       "name": "O preflight da recuperacao — o que se mede antes de tocar no LIVE",
       "territory": "Z-PROVA",
       "kind": "proof",
-      "what": "Tres medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto. A terceira usa o scoped token de Backups Read para um unico GET a Management API, e le do corpo real os campos de backup, retencao e PITR — recusando-se a colapsar 401, 403, 404, 429, 5xx e «200 com lista vazia» na mesma frase.",
-      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao respondia 401, e nao 404. A terceira prova foi buscar essa chave e fez o pedido, e a lei que ela carrega e a mesma: «nao funciona» e o nome que se da a cinco causas diferentes quando nao se quer escolher uma. E numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
+      "what": "Cinco medicoes somente-leitura sobre a recuperacao do LIVE. A cadeia 027->031 executada em transaccao desfeita; o alcance sem credencial; a leitura real dos backups pela Management API; o preflight do restauro na PROPRIA plataforma, que mede que «Restore to a New Project» e operacao de CONSOLA e que a plataforma NAO restaura para um projeto existente diferente; e a guarda que impede a porta de verificacao de ser apontada a producao — inclusive pelo POOLER, onde o project ref vive no utilizador e nao no host.",
+      "why_here": "Porque as confusoes que custam dinheiro e dados moram todas aqui: plano nao e configuracao, documentacao nao e medicao, credencial ausente nao e recurso ausente, backup listado nao e restauro provado, e mesma CLASSE nao e mesma PLATAFORMA. A quinta medicao apanhou a pior de todas: a unica opcao do Supabase que aponta a um projeto EXISTENTE e o in-place, e o existente que ela aceita e a propria fonte — ler «reutilizar um projeto que ja existe» como in-place teria restaurado por cima da producao.",
       "departments": [
         "ENGENHARIA"
       ],
@@ -13669,22 +13676,27 @@
       "family": "F-GOVERNANCA",
       "files": [
         "provas/backup_do_live_medido.py",
+        "provas/guarda_do_clone.py",
         "provas/preflight_da_cadeia_ate_031.py",
-        "provas/preflight_de_recuperacao_do_live.py"
+        "provas/preflight_de_recuperacao_do_live.py",
+        "provas/preflight_do_restauro_na_plataforma.py"
       ],
-      "file_count": 3,
+      "file_count": 5,
       "status": "PENDING",
       "status_reason": "tipo de peca sem regra de prova definida.",
       "changed_since_declared": [],
       "produces": [
         "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
         "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+        "provas/SAME-PLATFORM-RESTORE-PREFLIGHT.json",
         "provas/SUPABASE-LIVE-BACKUP-MEASURED.json"
       ],
       "inbound": [
         "C-CI-PERSIST"
       ],
-      "outbound": [],
+      "outbound": [
+        "C-TESTES"
+      ],
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -13692,11 +13704,13 @@
         "papel": "NAO SEI",
         "listas": [
           "BACKUP_NOT_MEASURED",
-          "DOCUMENTACAO"
+          "DOCUMENTACAO",
+          "LIVE_BASELINE",
+          "PLANO_DE_VERIFICACAO"
         ],
-        "palavras": 44,
+        "palavras": 109,
         "por_lingua": {},
-        "sem_marca_de_lingua": 44,
+        "sem_marca_de_lingua": 109,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -13722,6 +13736,12 @@
         {
           "onde": "GIT",
           "file": "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/SAME-PLATFORM-RESTORE-PREFLIGHT.json",
           "line": 1,
           "snippet": "ficheiro versionado que esta peca escreve"
         },
@@ -17367,6 +17387,7 @@
         "tests/test_a_linhagem_do_reaproveitamento.py",
         "tests/test_a_operacao_aguenta_concorrencia.py",
         "tests/test_a_ponte_do_derived.py",
+        "tests/test_a_porta_do_clone_recusa_o_live.py",
         "tests/test_a_prova_e2e_segue_a_producao.py",
         "tests/test_a_regra_de_t2.py",
         "tests/test_a_sala_de_espera_nao_tem_morada.py",
@@ -17515,7 +17536,7 @@
         "tests/test_youtube_oficial.py",
         "tests/test_youtube_piloto.py"
       ],
-      "file_count": 154,
+      "file_count": 155,
       "status": "PENDING",
       "status_reason": "o teste aponta para codigo real do repositorio.  Mas 12 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
       "changed_since_declared": [
@@ -17614,6 +17635,7 @@
         "C-PROVA-MAPA-NAO-MENTE",
         "C-PROVA-O-PEDIDO-ATRAVESSA",
         "C-PROVA-O-RAW-FALA",
+        "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
         "C-PROVA-ROTA-M2-ATRAVESSA",
         "C-PROVA-SALA-DE-ESPERA-SEM-MORADA",
         "C-RASTRO",
@@ -19159,7 +19181,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/supabase-backup-readonly-measure-v1"
+        "branch claude/supabase-same-platform-restore-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -23266,7 +23288,7 @@
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 11 linhas de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar Provas da coleta canonica. Provado por 12 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/auditoria-live.yml",
@@ -23322,6 +23344,11 @@
           "file": ".github/workflows/banco-descartavel.yml",
           "line": 484,
           "snippet": "run: python3 provas/runtime_comum_no_postgres.py"
+        },
+        {
+          "file": ".github/workflows/supabase-clone-verify.yml",
+          "line": 82,
+          "snippet": "bash provas/auditoria_live.sh 2>&1 | tee /tmp/clone.txt || rc=$?"
         }
       ],
       "categoria": "PROOF"
@@ -23388,17 +23415,40 @@
     {
       "from": "C-CI-PERSIST",
       "to": "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Os botoes que cuidam do banco alimenta O preflight da recuperacao — o que se mede antes de tocar no LIVE. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "provas/preflight_do_restauro_na_plataforma.py",
+          "line": 196,
+          "snippet": "\"PORTA\": \".github/workflows/supabase-clone-verify.yml\","
+        }
+      ],
+      "categoria": "READ"
+    },
+    {
+      "from": "C-CI-PERSIST",
+      "to": "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
       "type": "RUNS",
       "payload": "execucao",
       "raw_type": "RUNS",
       "kind": "technical",
       "status": "PROVEN",
-      "reason": "Os botoes que cuidam do banco manda rodar O preflight da recuperacao — o que se mede antes de tocar no LIVE. Provado por 1 linha de codigo.",
+      "reason": "Os botoes que cuidam do banco manda rodar O preflight da recuperacao — o que se mede antes de tocar no LIVE. Provado por 2 linhas de codigo.",
       "evidence": [
         {
           "file": ".github/workflows/supabase-backup-readonly.yml",
           "line": 95,
           "snippet": "python3 provas/backup_do_live_medido.py | tee -a \"$GITHUB_STEP_SUMMARY\" || rc=$?"
+        },
+        {
+          "file": ".github/workflows/supabase-clone-verify.yml",
+          "line": 72,
+          "snippet": "run: python3 provas/guarda_do_clone.py"
         }
       ],
       "categoria": "CONTROL"
@@ -33165,6 +33215,24 @@
       "categoria": "PROOF"
     },
     {
+      "from": "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
+      "to": "C-TESTES",
+      "type": "IMPORTS",
+      "payload": "codigo",
+      "raw_type": "IMPORTS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "O preflight da recuperacao — o que se mede antes de tocar no LIVE tem o seu codigo importado por Suite de testes. Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "tests/test_a_porta_do_clone_recusa_o_live.py",
+          "line": 25,
+          "snippet": "import guarda_do_clone as G  # noqa: E402"
+        }
+      ],
+      "categoria": "PROOF"
+    },
+    {
       "from": "C-PROVA-ROTA-M2-ATRAVESSA",
       "to": "C-CENSO-EXECUTORES",
       "type": "READS",
@@ -39492,7 +39560,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 837,
+  "UNCLAIMED_FILES_COUNT": 838,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -39652,12 +39720,12 @@
     "components_pending": 129,
     "components_broken": 0,
     "components_unknown": 7,
-    "edges": 868,
-    "edges_proven": 865,
+    "edges": 870,
+    "edges_proven": 867,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1715,
-    "files_covered": 878,
+    "files_tracked": 1721,
+    "files_covered": 883,
     "files_code_unclaimed": 0
   }
 }
