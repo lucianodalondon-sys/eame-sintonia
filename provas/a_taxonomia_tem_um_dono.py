@@ -110,7 +110,21 @@ for base, pastas, ficheiros in os.walk(RAIZ):
                 texto = fh.read()
         except OSError:
             continue
-        achados = SUSPEITO.findall(texto)
+        # ⚠️ A VARREDURA LE CODIGO, E NAO PROSA.
+        # A primeira versao lia o ficheiro inteiro e acendeu no COMENTARIO que
+        # explicava porque aquele ficheiro NAO tem uma taxonomia — o exemplo da
+        # forma errada, citado para o leitor a reconhecer, contava como tres
+        # declaracoes.
+        #
+        #     PROIBIR A PALAVRA NAO E PROIBIR O ACTO.
+        #     E UMA GUARDA QUE OBRIGA A APAGAR A EXPLICACAO
+        #     COBRA O CONSERTO EM CLAREZA.
+        #
+        # E o mesmo conserto que `provas/nada_some_em_silencio.py` ja tinha
+        # precisado de fazer, pela mesma razao, no mesmo dia.
+        codigo = "\n".join(l for l in texto.splitlines()
+                           if not l.lstrip().startswith(("#", "//")))
+        achados = SUSPEITO.findall(codigo)
         # Duas ou mais na MESMA linha de codigo e uma tabela; uma so pode ser
         # um caso legitimo (um filtro por omissao, um exemplo). Conta-se por
         # ficheiro: tres ou mais e uma tabela, e nao um acaso.

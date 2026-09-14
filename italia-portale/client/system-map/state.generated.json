@@ -3172,12 +3172,12 @@
           "NAO_E_ITEM",
           "PERGUNTAS_DO_UNIVERSO"
         ],
-        "palavras": 99,
+        "palavras": 98,
         "por_lingua": {
           "IT": 29,
           "PT": 19
         },
-        "sem_marca_de_lingua": 51,
+        "sem_marca_de_lingua": 50,
         "de_outro_pais": 0,
         "de_outro_pais_quais": {}
       },
@@ -12246,14 +12246,14 @@
       "family": "F-GOVERNANCA",
       "status": "PROVEN",
       "ui_status": "green",
-      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 18 · NAO_SEI 15 · SIM 10. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
+      "what": "A conta desta corrida, do PDF guardado até à porta. 49 ocorrências → 43 documentos diferentes → 43 textos derivados → a porta viu 43: NAO 22 · NAO_SEI 9 · SIM 12. PERDIDOS: 0 · precisam de OCR: 0 · erro de extração: 0.",
       "why_here": "Se a máquina fez e o mapa não consegue mostrar, a engenharia ainda não terminou.",
       "facts": [
-        "RUN_ID: DERIV-PDF-20260914T155245Z",
+        "RUN_ID: DERIV-PDF-20260914T164000Z",
         "estado que a corrida declara: SUCCESS",
         "ESTADO DE FECHO: COMPLETE — todas as condições de fecho foram medidas e cumpridas",
         "rota: LOCAL_EXECUTOR · executor texto-de-pdf v1 · pipeline v1",
-        "engenharia: commit 4ee7d0f3f5 · árvore limpa NAO · Bíblia V1.4",
+        "engenharia: commit a3a4c1e72b · árvore limpa NAO · Bíblia V1.4",
         "ANTES: {'OCORRENCIAS': 49, 'CONTEUDOS_UNICOS': 43, 'DERIVADOS_PRESENTES': 43}",
         "DEPOIS: {'OCORRENCIAS': 49, 'CONTEUDOS_UNICOS': 43, 'DERIVADOS_PRESENTES': 43}",
         "pré-voo: executor disponível SIM (pdftotext)",
@@ -12271,7 +12271,7 @@
         "precisam de OCR: 0",
         "erro de extração: 0",
         "a porta viu: 43",
-        "decisões: NAO 18 · NAO_SEI 15 · SIM 10",
+        "decisões: NAO 22 · NAO_SEI 9 · SIM 12",
         "originais alterados: 0 (IMUTAVEL)",
         "",
         "rota paga usada: NAO · rede usada: NAO · OCR usado: NAO",
@@ -12279,7 +12279,7 @@
         "número de caracteres: NÃO CANÓNICO — não há regra de contagem escrita (a mesma pasta dá contas diferentes conforme a quebra de linha). Entra quando tiver contrato próprio.",
         "PRECISÃO: NÃO SEI — não há gabarito humano. Contar quantos passaram é COBERTURA, não acerto."
       ],
-      "status_reason": "A estrada DOCUMENTAL fechou: a corrida está COMPLETE (todas as condições de fecho foram medidas e cumpridas), 0 perdidos, e a porta deu uma resposta com prova a cada um dos 43: NAO 18 · NAO_SEI 15 · SIM 10. VERDE É DO DOCUMENTO, NÃO DO FATO — nenhum claim foi extraído, e por isso nenhum fato está pronto. A extração é o estágio seguinte, e ainda não existe.",
+      "status_reason": "A estrada DOCUMENTAL fechou: a corrida está COMPLETE (todas as condições de fecho foram medidas e cumpridas), 0 perdidos, e a porta deu uma resposta com prova a cada um dos 43: NAO 22 · NAO_SEI 9 · SIM 12. VERDE É DO DOCUMENTO, NÃO DO FATO — nenhum claim foi extraído, e por isso nenhum fato está pronto. A extração é o estágio seguinte, e ainda não existe.",
       "paises": {},
       "paises_dado": {},
       "pais": "TRANSVERSAL",
@@ -29118,7 +29118,7 @@
       "evidence": [
         {
           "file": "admissao/admissao.py",
-          "line": 714,
+          "line": 739,
           "snippet": "def pronto_para_inteligencia(item: dict, decisao: Decisao) -> dict:",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
@@ -50664,7 +50664,7 @@
         {
           "file": "coleta/executor_texto_de_pdf.py",
           "line": 1,
-          "snippet": "RUN DERIV-PDF-20260914T155245Z · RAW_INPUT=49",
+          "snippet": "RUN DERIV-PDF-20260914T164000Z · RAW_INPUT=49",
           "ASSERTION_SUPPORTED": null,
           "SUPPORTS": "NO",
           "WHY": "`DERIVA_TEXTO` e rotulo narrativo declarado, sem medidor que o emita. Uma linha de codigo ao lado nao prova esta relacao.",
@@ -51202,7 +51202,7 @@
       "kind": "technical",
       "status": "UNKNOWN",
       "payload": "dado",
-      "reason": "A porta viu 43 textos e decidiu: NAO 18 · NAO_SEI 15 · SIM 10.",
+      "reason": "A porta viu 43 textos e decidiu: NAO 22 · NAO_SEI 9 · SIM 12.",
       "evidence": [
         {
           "file": "coleta/golden_path_pdf.py",

@@ -2,12 +2,12 @@
  "O_QUE_ISTO_E": "A durabilidade REAL de cada observacao do livro italiano, medida contra os bytes que esta arvore tem.",
  "COMO_REFAZER": "python3 provas/o_raw_local_nao_e_duravel.py",
  "A_LEI": "LOCAL PATH != REMOTE DURABILITY",
- "OBSERVACOES_NO_LIVRO": 171,
+ "OBSERVACOES_NO_LIVRO": 173,
  "DURAVEL_NESTA_ARVORE": 10,
  "LOCAL_ONLY": 25,
  "MISSING": 0,
  "RECOVERABLE": 34,
- "UNKNOWN": 102,
+ "UNKNOWN": 104,
  "O_QUE_ISTO_NAO_FAZ": "nao conserta caminho, nao copia bytes, nao fabrica storage_object e nao altera RAW_OBSERVATION_ID. Uma observacao local-only continua a ser local-only; o que ela deixa de fazer e parecer duravel.",
  "BLOQUEIA_O_CANARIO": "NAO — as local-only sao legado e nenhuma participa da corrida que chegou a Sala",
  "DETALHE": {
@@ -1299,6 +1299,22 @@
    },
    {
     "RUN_ID": "IT-T3-2026-09-14-161319-d25cb43412039d3c",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-162117-3c87fae25deab416",
+    "SOURCE_ID": "IT-T3-010",
+    "RAW_SHA256": null,
+    "RAW_PATH": null,
+    "RAW_OBJECT_CREATED": null,
+    "PORQUE": "o livro nao declara objeto criado nem caminho — esta observacao nunca disse ter bytes"
+   },
+   {
+    "RUN_ID": "IT-T3-2026-09-14-164328-f81f22488a8e19c7",
     "SOURCE_ID": "IT-T3-010",
     "RAW_SHA256": null,
     "RAW_PATH": null,

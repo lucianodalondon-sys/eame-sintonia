@@ -192,14 +192,35 @@ def main():
                       "where run_id = '%s' order by derived_artifact_id" % run_id)
     degrau("STRUCTURED", len(docs) == 7, "%d documentos estruturados" % len(docs))
 
-    degrau("ADMISSION", (ad.get("por_resultado") or {}).get("SIM") == 7,
+    # ── E A PORTA ADMITE TRES DOS SETE, E ISSO E O CERTO ───────────────────
+    # ⚠️ ESTE NUMERO JA FOI 7, E BAIXAR NAO E UMA REGRESSAO.
+    # Sete documentos chegam a STRUCTURED; a porta pergunta a cada um se ele
+    # pertence a T3, e TRES respondem que sim — os tres boletins de praga
+    # (`IT-T3-002`, `IT-T3-008`, `IT-T3-010`). Os outros quatro sao boletins
+    # AGROMETEOROLOGICOS da ARPAV (`IT-T2-002`), e o gabarito humano de 36
+    # documentos rotula-os `T3_NAO`.
+    #
+    # Eles passavam por causa de um termo que EU tinha acrescentado ao lexico
+    # sem o medir — `fitosanitario` — e que nos quatro aparecia no RODAPE
+    # INSTITUCIONAL («Unita Organizzativa Fitosanitario»), nao no conteudo.
+    # O gabarito apanhou-o, o termo saiu, e os quatro voltaram a nao entrar.
+    #
+    #     COLETAR != ADMITIR. SETE ATRAVESSARAM A ESTRADA; TRES PASSARAM A PORTA.
+    #     UM NUMERO QUE SOBE PORQUE A REGUA AFROUXOU NAO E MATERIAL A MAIS.
+    ADMITIDOS = 3
+    degrau("ADMISSION", (ad.get("por_resultado") or {}).get("SIM") == ADMITIDOS,
            "por_resultado=%s" % ad.get("por_resultado"))
-    degrau("READY", ad.get("prontos") == 7, "prontos=%s" % ad.get("prontos"))
+    degrau("READY", ad.get("prontos") == ADMITIDOS,
+           "prontos=%s" % ad.get("prontos"))
 
     sala = _psql(url, "select ordem, item_id, raw_observation_id, source_id, "
                       "captured_at, estado_da_fila from public.sala_de_espera "
                       "where run_id = '%s' order by ordem" % run_id)
-    degrau("WAITING_ROOM", len(sala) == 7, "%d na Sala" % len(sala))
+    degrau("WAITING_ROOM", len(sala) == ADMITIDOS, "%d na Sala" % len(sala))
+    # E os tres sao os de PRAGA, nomeados — nao «tres quaisquer».
+    T("os admitidos sao os tres boletins de praga, e nenhum agrometeo",
+      sorted(l[3] for l in sala) == ["IT-T3-002", "IT-T3-008", "IT-T3-010"],
+      "fontes na Sala: %s" % sorted(l[3] for l in sala))
 
     depois = espera.listar_pendentes()
     T("WAITING_ROOM_DELTA == ADMITTED_READY_FOR_WAITING_ROOM",

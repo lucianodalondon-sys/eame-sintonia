@@ -148,12 +148,21 @@ for x in sem_run:
 # ── AS ROTAS DO CANARIO DESTA MISSAO ──────────────────────────────────────
 # ⚠️ ESTAS SAO BLOQUEANTES. As outras ficam MEDIDAS; estas tem de ter corrida,
 # porque e por elas que o material real vai atravessar ate a Sala.
-CANARIO = {"T2": "italia-recorrente",       # PDF e WEB italianos
-           "T4": "regulatorio-eu",          # PDF oficial da UE
-           "T9": "scrap-colheita"}          # social, se houver rota livre
+# ⚠️ ISTO E UM MAPA DE ROTAS, E NAO UMA TAXONOMIA — e a forma passa a dize-lo.
+# Escrito como `{"T2": "...", "T4": "...", "T9": "..."}` ele e indistinguivel,
+# para quem varre a arvore, de uma quarta tabela T1..T13 — e
+# `provas/a_taxonomia_tem_um_dono.py` acendeu nele, com razao: a varredura nao
+# tem como saber que o valor aqui e o nome de um EXECUTOR e nao o nome de um
+# TERRITORIO.
+#
+#     UMA GUARDA QUE SO CONSEGUE VER A FORMA
+#     OBRIGA QUEM ESCREVE A ESCOLHER UMA FORMA QUE NAO MINTA.
+CANARIO = (("T2", "italia-recorrente"),     # PDF e WEB italianos
+           ("T4", "regulatorio-eu"),        # PDF oficial da UE
+           ("T9", "scrap-colheita"))        # social, se houver rota livre
 print()
 print("  AS ROTAS DO CANARIO")
-for alvo, ident in sorted(CANARIO.items()):
+for alvo, ident in sorted(CANARIO):
     linha = detalhe.get("%s/%s" % (alvo, ident))
     T("canario %s/%s tem corrida" % (alvo, ident),
       bool(linha) and linha["ESTADO"] in (CUNHA, RECEBE),

@@ -11,6 +11,7 @@
  ],
  "WHICH_ACQUISITION_PATHS_HAVE_RUN": [
   "T2/italia-recorrente",
+  "T3/italia-recorrente",
   "T4/regulatorio-eu",
   "T9/scrap-colheita"
  ],
@@ -23,6 +24,13 @@
  "DETALHE": {
   "T2/italia-recorrente": {
    "ALVO": "T2",
+   "EXECUTOR": "italia-recorrente",
+   "RODA": "coleta/italy_executor.py",
+   "ESTADO": "RECEBE",
+   "PORQUE": "declara `recebe_run_id`: o orquestrador cunha a corrida e o executor transporta-a. Quem controla cunha, quem executa nao inventa."
+  },
+  "T3/italia-recorrente": {
+   "ALVO": "T3",
    "EXECUTOR": "italia-recorrente",
    "RODA": "coleta/italy_executor.py",
    "ESTADO": "RECEBE",
