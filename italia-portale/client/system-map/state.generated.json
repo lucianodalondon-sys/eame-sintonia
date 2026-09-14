@@ -1603,8 +1603,8 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/italy-agricultural-sources-discovery-dfba81",
-    "HEAD": "08e590a7183dd5a4445fdd6bf9e6b4ca97f87d54",
-    "GENERATED_AT": "2026-09-14T14:20:17-03:00"
+    "HEAD": "191dbda41d639108d5ffaac458f2db1133c59dc8",
+    "GENERATED_AT": "2026-09-14T15:10:35-03:00"
   },
   "FAMILIES": [
     {
@@ -1626,7 +1626,7 @@
         "Z-ADMISSAO",
         "Z-MEDIDAS"
       ],
-      "count": 38
+      "count": 39
     },
     {
       "id": "F-ESPERA",
@@ -1703,7 +1703,7 @@
       "y": 190,
       "w": 405,
       "h": 1972,
-      "count": 3
+      "count": 4
     },
     {
       "id": "Z-FONTES",
@@ -6420,6 +6420,45 @@
       "y": 682
     },
     {
+      "id": "C-IT-GAP-POR-FERRAMENTA",
+      "name": "O buraco de materia-prima, ferramenta por ferramenta",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "what": "Responde a uma pergunta que vem ANTES de procurar fonte: que informacao bruta cada ferramenta de Intelligence precisa que exista para conseguir responder, e quanto disso o casco tem hoje. Mede as 9 ferramentas reais no portal (nao a lista de um pedido), deriva 72 materias-primas dos contratos dos blocos e do dado medido campo a campo, cruza com o acervo, e so DEPOIS procura fonte — uma busca por buraco, nunca por tema. Entrega a planilha de 13 folhas com a matriz fonte->ferramenta.",
+      "why_here": "Fica em Z-CANDIDATAS porque o que sai daqui e CANDIDATA e diagnostico, nunca fonte registada: nenhum SOURCE_ID, nenhum RUN, nenhuma coleta. E fica ao lado de C-IT-DESCOBERTA-PROFUNDA de proposito — aquela pergunta «quem produz informacao em Italia?», esta pergunta «de que informacao precisamos primeiro?». Invertida a ordem, acha-se fonte boa que nao enche campo nenhum. O Opportunity Radar nao tem familia propria de fontes aqui: e' cruzamento das outras camadas, e por isso leva matriz de entradas em vez de lista.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "legacy": false,
+      "ui_status": "red",
+      "icon": "⊘",
+      "views": [
+        "acervo"
+      ],
+      "lane": "official",
+      "family": "F-COLETA",
+      "files": [],
+      "file_count": 0,
+      "status": "BROKEN",
+      "status_reason": "declarado no mapa e nao existe no repositorio: nenhum ficheiro casa com candidatas/italy_gap_needs.py, candidatas/italy_gap_cobertura.py, candidatas/italy_gap_novas_fontes.py, candidatas/italy_gap_auditoria.py, candidatas/italy_gap_matrizes.py, candidatas/italy_gap_buscas.py, candidatas/italy_gap_xlsx.py, candidatas/italy_gap_red_team.py, candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx.",
+      "changed_since_declared": [],
+      "produces": [],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "entregue_a_inteligencia": [],
+      "parado_na_coleta": [],
+      "escreve_na_pasta": [],
+      "destino": [],
+      "destino_prova": [],
+      "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
+      "x": 1065,
+      "y": 1004
+    },
+    {
       "id": "C-IT-PRESERVAR",
       "name": "Guardar com impressao digital",
       "territory": "Z-GUARDA",
@@ -7520,7 +7559,7 @@
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
       "x": 1065,
-      "y": 1004
+      "y": 1326
     },
     {
       "id": "C-PORTAL-CASCO",
@@ -9683,7 +9722,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "✓",
       "views": [
         "audit",
@@ -9725,9 +9764,11 @@
         "tests/test_voz.py"
       ],
       "file_count": 31,
-      "status": "PROVEN",
-      "status_reason": "o teste aponta para codigo real do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "o teste aponta para codigo real do repositorio.  Mas 1 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "tests/test_territorios.py"
+      ],
       "produces": [
         "data/samples/SPAIN-HERO-CASES-V1.json",
         "docs/apresentacao/CASOS-PARA-APRESENTACAO.md"
@@ -11173,7 +11214,7 @@
       "icon": "B",
       "facts": [
         "branch claude/italy-agricultural-sources-discovery-dfba81",
-        "HEAD 08e590a7183dd5a4445fdd6bf9e6b4ca97f87d54"
+        "HEAD 191dbda41d639108d5ffaac458f2db1133c59dc8"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -14393,17 +14434,17 @@
       "evidence": [
         {
           "file": "tests/test_territorios.py",
-          "line": 412,
+          "line": 452,
           "snippet": "'ITALY-DEEP-SOURCE-IMPORT-READY-2026-09-14.csv')"
         },
         {
           "file": "tests/test_territorios.py",
-          "line": 428,
+          "line": 468,
           "snippet": "for nome in ('italy_deep_workbook.py', 'italy_deep_xlsx.py'):"
         },
         {
           "file": "tests/test_territorios.py",
-          "line": 428,
+          "line": 468,
           "snippet": "for nome in ('italy_deep_workbook.py', 'italy_deep_xlsx.py'):"
         }
       ]
@@ -14860,7 +14901,7 @@
       "evidence": [
         {
           "file": "tests/test_territorios.py",
-          "line": 194,
+          "line": 234,
           "snippet": "'scan_sources.py'), encoding='utf-8') as fh:"
         }
       ]
@@ -15221,7 +15262,7 @@
       "evidence": [
         {
           "file": "tests/test_territorios.py",
-          "line": 210,
+          "line": 250,
           "snippet": "import pedido as P  # noqa"
         }
       ]
@@ -15238,7 +15279,7 @@
       "evidence": [
         {
           "file": "tests/test_territorios.py",
-          "line": 205,
+          "line": 245,
           "snippet": "with open(os.path.join(ROOT, 'pedido', 'pedido.py'),"
         }
       ]
@@ -16243,7 +16284,7 @@
         },
         {
           "file": "tests/test_territorios.py",
-          "line": 355,
+          "line": 395,
           "snippet": "MANIFESTO = os.path.join(ROOT, 'data', 'samples', 'RUN-MANIFEST.json')"
         }
       ]
@@ -18284,10 +18325,10 @@
   "UNCLAIMED_FILES_COUNT": 650,
   "OWNERSHIP_CONFLICTS": [],
   "COUNTS": {
-    "components": 98,
-    "components_proven": 68,
-    "components_pending": 26,
-    "components_broken": 0,
+    "components": 99,
+    "components_proven": 67,
+    "components_pending": 27,
+    "components_broken": 1,
     "components_unknown": 4,
     "edges": 331,
     "edges_proven": 331,

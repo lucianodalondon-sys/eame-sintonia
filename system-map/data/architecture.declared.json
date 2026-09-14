@@ -687,6 +687,33 @@
       ]
     },
     {
+      "id": "C-IT-GAP-POR-FERRAMENTA",
+      "name": "O buraco de materia-prima, ferramenta por ferramenta",
+      "territory": "Z-CANDIDATAS",
+      "kind": "engine",
+      "icon": "⊘",
+      "views": [
+        "acervo"
+      ],
+      "what": "Responde a uma pergunta que vem ANTES de procurar fonte: que informacao bruta cada ferramenta de Intelligence precisa que exista para conseguir responder, e quanto disso o casco tem hoje. Mede as 9 ferramentas reais no portal (nao a lista de um pedido), deriva 72 materias-primas dos contratos dos blocos e do dado medido campo a campo, cruza com o acervo, e so DEPOIS procura fonte — uma busca por buraco, nunca por tema. Entrega a planilha de 13 folhas com a matriz fonte->ferramenta.",
+      "why_here": "Fica em Z-CANDIDATAS porque o que sai daqui e CANDIDATA e diagnostico, nunca fonte registada: nenhum SOURCE_ID, nenhum RUN, nenhuma coleta. E fica ao lado de C-IT-DESCOBERTA-PROFUNDA de proposito — aquela pergunta «quem produz informacao em Italia?», esta pergunta «de que informacao precisamos primeiro?». Invertida a ordem, acha-se fonte boa que nao enche campo nenhum. O Opportunity Radar nao tem familia propria de fontes aqui: e' cruzamento das outras camadas, e por isso leva matriz de entradas em vez de lista.",
+      "departments": [
+        "INTELIGENCIA",
+        "TECNICO_CIENCIA"
+      ],
+      "files": [
+        "candidatas/italy_gap_needs.py",
+        "candidatas/italy_gap_cobertura.py",
+        "candidatas/italy_gap_novas_fontes.py",
+        "candidatas/italy_gap_auditoria.py",
+        "candidatas/italy_gap_matrizes.py",
+        "candidatas/italy_gap_buscas.py",
+        "candidatas/italy_gap_xlsx.py",
+        "candidatas/italy_gap_red_team.py",
+        "candidatas/ITALY-SOURCE-GAP-BY-TOOL-2026-09-14.xlsx"
+      ]
+    },
+    {
       "id": "C-APIFY-POOL",
       "name": "Apify — a rota paga",
       "territory": "Z-FERRAMENTAS",

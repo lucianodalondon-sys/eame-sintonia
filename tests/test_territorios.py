@@ -172,22 +172,62 @@ class TestUmaListaUmDono(unittest.TestCase):
                          'estes ficheiros vivos definem uma lista de territorios '
                          'propria. O dono e `_territorios.py`, que le o atlas')
 
+    # O que este teste procura e' UM CODIGO T LIGADO A UM NOME DA DERIVA.
+    # Nao procura a PALAVRA: as palavras sao legitimas e algumas sao
+    # obrigatorias. «Substancia ativa» esta na lista da deriva porque a deriva
+    # fazia dela um TERRITORIO; mas a substancia ativa existe de verdade, e' uma
+    # CAMADA dentro de T4, e nomeia materia-prima em ficheiros que nada tem a
+    # ver com taxonomia.
+    #
+    # ⚠️ A PRIMEIRA VERSAO DESTE TESTE ACUSAVA A PALAVRA. Em 14/09/2026 apanhou
+    # `candidatas/italy_gap_auditoria.py`, na linha
+    #     "PORTFOLIO · Substancia ativa do produto": (
+    # que e' uma chave de dicionario a nomear uma necessidade de materia-prima —
+    # sem nenhum codigo T. Renomear o dado para o teste passar teria piorado o
+    # dado para salvar o teste. Afiou-se o teste, e prova-se aqui que ele
+    # continua a apanhar o ataque verdadeiro.
+    _LIGACAO = re.compile(r'T\d{1,2}')
+
+    def _culpa(self, linha):
+        """Culpado = nome da deriva LIGADO a um codigo T, na mesma linha."""
+        if linha.lstrip().startswith('#'):
+            return False
+        if ':' not in linha or '"' not in linha and "'" not in linha:
+            return False
+        return (any(n in linha for n in NOMES_DA_DERIVA)
+                and bool(self._LIGACAO.search(linha)))
+
     def test_nenhum_nome_da_deriva_voltou_ao_codigo_vivo(self):
+        # ── CONTROLE POSITIVO: sem isto, «0 culpados» pode ser detector cego ──
+        ataques = ('    "T4": "Substancia ativa",',
+                   "    'T10': 'Preco e mercado',",
+                   '    T7: "Voz do campo"  # sem aspas no codigo',
+                   '    "T11": "Solo e agua",')
+        for a in ataques:
+            self.assertTrue(self._culpa(a),
+                            f'o detector NAO apanhou o ataque real: {a!r}')
+        # ── CONTROLE NEGATIVO: o uso legitimo tem de passar ──
+        legitimos = ('    "PORTFOLIO · Substancia ativa do produto": (',
+                     '    # a deriva tinha T11 = "Solo e agua"',
+                     '  PRODUZ="substancia ativa, cultura e alvo nomeados",')
+        for l in legitimos:
+            self.assertFalse(self._culpa(l),
+                             f'o detector acusou uso legitimo: {l!r}')
+
         culpados = []
         for rel in _codigo_vivo():
-            if rel in ('_territorios.py',):
+            if rel in ('_territorios.py', os.path.join('tests',
+                                                       'test_territorios.py')):
                 continue
             with open(os.path.join(ROOT, rel), encoding='utf-8',
                       errors='replace') as fh:
                 txt = fh.read()
-            # o comentario que EXPLICA a deriva e' permitido; a atribuicao nao.
-            for nome in NOMES_DA_DERIVA:
-                for linha in txt.splitlines():
-                    if nome in linha and ':' in linha and '"' in linha \
-                            and not linha.lstrip().startswith('#'):
-                        culpados.append(f'{rel}: {linha.strip()[:80]}')
+            for linha in txt.splitlines():
+                if self._culpa(linha):
+                    culpados.append(f'{rel}: {linha.strip()[:80]}')
         self.assertEqual([], culpados,
-                         'um nome da lista que derivou voltou ao codigo vivo')
+                         'um nome da lista que derivou voltou ao codigo vivo '
+                         'LIGADO a um codigo T')
 
     def test_o_scanner_do_mapa_le_a_taxonomia_e_nao_a_possui(self):
         with open(os.path.join(ROOT, 'system-map', 'scripts',
