@@ -1180,6 +1180,14 @@
       "NAO_MATERIALIZA": "Este passo nao escreve artefato nenhum: o resultado dele e um VEREDITO sobre a ordem e sobre os ciclos."
     },
     {
+      "STEP_ID": "PAPEL_E_LEITURA_HUMANA",
+      "EXECUTABLE": "system-map/tests/test_papel_e_leitura_humana.py",
+      "PAPEL": "PROVA",
+      "O_QUE_PROVA": "o papel de cada peca vem de evidencia e nunca do nome; papel declarado nao ganha plano CODE; conflito de papel nao escolhe vencedor em silencio; a classe de prova da aresta sai dos quatro planos e nao de `kind`; o caminho nao atravessa aresta sem prova; nenhum filtro esconde NAO SEI por omissao",
+      "OUTPUTS": [],
+      "NAO_MATERIALIZA": "uma prova nao produz mapa: produz veredito."
+    },
+    {
       "STEP_ID": "PUBLICADOR_DO_BUILD",
       "EXECUTABLE": "system-map/scripts/publicar_no_deploy.mjs",
       "PAPEL": "PUBLICADOR",

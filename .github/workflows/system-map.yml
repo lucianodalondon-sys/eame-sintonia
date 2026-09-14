@@ -357,6 +357,23 @@ jobs:
         if: '!cancelled()'
         run: python3 system-map/tests/test_ordem_por_dependencia.py
 
+      # 4t · O PAPEL, A PROVA DA LIGAÇÃO E A LEITURA HUMANA.
+      #      45 arestas sem prova nenhuma eram desenhadas exactamente como as
+      #      612 provadas, e a dica ao lado escrevia-lhes «LIGAÇÃO PROVADA» por
+      #      cima: a classe do traço saía de `kind`, que não sabe nada sobre
+      #      prova. O «caminho completo» atravessava-as todas.
+      #
+      #          UMA SETA VERDE NÃO PODE SIGNIFICAR QUATRO COISAS.
+      #
+      #      Esta prova reprova se o papel voltar a ser lido no nome, se um papel
+      #      só declarado ganhar plano CODE, se um conflito de papel escolher
+      #      vencedor em silêncio, se a tela voltar a decidir o traço por `kind`,
+      #      se o caminho voltar a atravessar o que não está provado, ou se um
+      #      filtro passar a esconder NÃO SEI por omissão.
+      - name: 4t · o papel vem da evidência, e a tela não promove nada
+        if: '!cancelled()'
+        run: python3 system-map/tests/test_papel_e_leitura_humana.py
+
       - name: 5 · o que vai ser publicado existe e é servível
         if: '!cancelled()'
         run: |
