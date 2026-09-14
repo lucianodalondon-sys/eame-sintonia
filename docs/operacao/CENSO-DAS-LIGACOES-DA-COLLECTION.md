@@ -13,9 +13,9 @@
 > que funciona.
 
 ```
-HEAD_DA_MEDICAO  a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f
+HEAD_DA_MEDICAO  d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c
 BRANCH           claude/collection-to-waiting-room-v1
-GERADO_EM        2026-09-14T16:35:05+00:00
+GERADO_EM        2026-09-14T16:51:26+00:00
 CARDS            69
 FONTE            system-map/data/state.generated.json
 COMO_REFAZER     py system-map/scripts/generate_system_map.py

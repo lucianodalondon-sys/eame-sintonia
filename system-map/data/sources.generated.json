@@ -2,12 +2,12 @@
   "SCHEMA": "sintonia.system-map.sources/1",
   "PROVENANCE": {
     "GENERATED_BY": "system-map/scripts/scan_sources.py",
-    "GENERATED_AT": "2026-09-14T16:39:21+00:00",
-    "HEAD": "a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f",
+    "GENERATED_AT": "2026-09-14T16:56:58+00:00",
+    "HEAD": "d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c",
     "HEAD_VERIFICAVEL": false,
     "HEAD_PORQUE_NAO": "um ficheiro commitado nunca nomeia o commit que o contem; este carimbo nasce a apontar para o anterior. A prova de frescura e SOURCE_TREE_FINGERPRINT.",
-    "SOURCE_TREE_FINGERPRINT": "a08138d4d0444641eb3c42cd82cf7daf2bbd05aeb817194017326cf01375d9e1",
-    "FICHEIROS_NA_IMPRESSAO": 1885,
+    "SOURCE_TREE_FINGERPRINT": "a77835ef989ebd905aead3215e817b6e572fc01c54e4c4712813b52d88fb48f9",
+    "FICHEIROS_NA_IMPRESSAO": 1886,
     "FICHEIROS_RASTREADOS_AUSENTES_DO_DISCO": [],
     "INPUTS": [
       {
@@ -27,14 +27,14 @@
       {
         "PATH": "data/collection-ledger/italy/observations.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "ad56df6f6a7761257d8b3e2f7df48164987b22d2",
+        "VERSAO": "b1dcc7d4269a12b06cc2808a390d7ee09d1c1af8",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
       {
         "PATH": "data/collection-ledger/italy/runs.ndjson",
         "PAPEL": "FONTE",
-        "VERSAO": "4dbd52a06d99b18279803532985e9d711e5442d1",
+        "VERSAO": "be0f9022b4c472cc7cde71dc756b92b78b4545c4",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_registo_italiano() · ndjson"
       },
@@ -48,7 +48,7 @@
       {
         "PATH": "data/samples/RUN-MANIFEST.json",
         "PAPEL": "FONTE",
-        "VERSAO": "fdbd15ae583f9032a0f09e05b6dcfb1fa2e3d332",
+        "VERSAO": "a816da535b8846953cda5d6265ccceb8f49678e2",
         "COMO_SE_MEDE": "SHA do blob que o git guardaria deste caminho",
         "LIDO_POR": "o_manifesto() · json"
       },
@@ -68,7 +68,7 @@
       }
     ],
     "INPUTS_COUNT": 8,
-    "INPUTS_DIGEST": "4f882b1e03ec3a993a7f407bcf36b1e86978e9e7274a4f36bf8b99c3a7d864e7",
+    "INPUTS_DIGEST": "33d8f551c017ec6ea0854d850894fdf2086c7afe3151c6f6f4899f1fc8cff22d",
     "INPUTS_AUSENTES": [],
     "ATLAS": "docs/fontes/ATLAS-DE-FONTES-EAME.md",
     "CONTRATOS": "docs/operacao/CONTRATOS-DAS-FONTES-EAME.md"
@@ -4180,18 +4180,36 @@
         "erro": null,
         "prova": "system-map/data/golden-path-pdf.generated.json",
         "bruto": null
+      },
+      {
+        "run_id": "DERIV-PDF-20260914T164000Z",
+        "fonte": null,
+        "plataforma": "LOCAL",
+        "quem_foi_buscar": "texto-de-pdf",
+        "com_que_parametros": null,
+        "que_pergunta": null,
+        "pais": "IT",
+        "missao": "derivacao de texto a partir de PDF italiano",
+        "trouxe": 49,
+        "sobrou": 0,
+        "rendimento": 0,
+        "custou_usd": 0.0,
+        "estado": "SUCCESS",
+        "erro": null,
+        "prova": "system-map/data/golden-path-pdf.generated.json",
+        "bruto": null
       }
     ],
-    "total": 22,
+    "total": 23,
     "por_pais": {
       "ES": 10,
-      "IT": 9,
+      "IT": 10,
       "NAO SEI": 3
     },
     "por_plataforma": {
       "INSTAGRAM": 1,
       "LINKEDIN": 5,
-      "LOCAL": 9,
+      "LOCAL": 10,
       "OPENALEX": 1,
       "OpenAlex, ORCID": 1,
       "YOUTUBE": 3,
@@ -4228,20 +4246,20 @@
       "IT-T3-001",
       "IT-T4-001"
     ],
-    "com_rendimento_medido": 21,
-    "com_custo_medido": 16,
+    "com_rendimento_medido": 22,
+    "com_custo_medido": 17,
     "custo_total_usd": 0.48,
-    "trouxe_total": 3841,
+    "trouxe_total": 3890,
     "sobrou_total": 3006
   },
   "COLETAS_ITALIANAS": {
     "ficheiro_observacoes": "data/collection-ledger/italy/observations.ndjson",
     "ficheiro_corridas": "data/collection-ledger/italy/runs.ndjson",
-    "observacoes": 172,
-    "corridas": 25,
+    "observacoes": 174,
+    "corridas": 27,
     "por_fonte": {
       "IT-T2-002": 136,
-      "IT-T3-010": 18,
+      "IT-T3-010": 20,
       "IT-T3-005": 6,
       "IT-T2-004": 6,
       "IT-T3-002": 2,
@@ -4253,7 +4271,7 @@
     "com_sha256": 144,
     "com_fact_time": 144,
     "com_cadencia": 144,
-    "corridas_com_egress": 25,
+    "corridas_com_egress": 27,
     "campos": [
       "BYTES",
       "CADENCE_STATE",
@@ -5016,8 +5034,8 @@
     "coletores_com_lugar": 32,
     "coletores_que_separam_fonte_do_fato": 20,
     "coletores_que_registam_descarte": 16,
-    "corridas_registadas": 47,
-    "observacoes_registadas": 172,
+    "corridas_registadas": 50,
+    "observacoes_registadas": 174,
     "fontes_ja_coletadas": 4,
     "fontes_nunca_coletadas": 22,
     "citadas_sem_ficha": 3,

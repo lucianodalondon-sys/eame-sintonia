@@ -906,6 +906,7 @@
     ],
     "handoff": [
       "handoff/KNOW-HOW-DELTA-A-BASE-DA-AUDITORIA.md",
+      "handoff/KNOW-HOW-DELTA-O-CAMPO-QUE-NAO-ATRAVESSA.md",
       "handoff/S2A-R-RECONCILIACAO.md",
       "handoff/SYSTEM-MAP-FRESHNESS-V1.md",
       "handoff/SYSTEM-MAP-SM-P1.md",
@@ -1835,7 +1836,7 @@
     {
       "id": "a-coleta-mais-feita-e-a-menos-documentada",
       "titulo": "A coleta mais feita é a menos documentada.",
-      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 22 corridas registadas foram buscar a estas.",
+      "texto": "ES-T8-001, ES-T8-002, ES-T8-003 aparecem no atlas apenas como linha de tabela, sem ficha — sem nome, sem método de acesso, sem evidência. E são justamente as mais coletadas: 7 das 23 corridas registadas foram buscar a estas.",
       "porque_importa": "Sem ficha, ninguém sabe como se volta lá: por que porta se entra, o que se espera de volta, o que fazer quando quebrar. A próxima pessoa refaz a descoberta do zero — e paga por ela outra vez.",
       "evidencia": [
         "docs/fontes/ATLAS-DE-FONTES-EAME.md",
@@ -1845,7 +1846,7 @@
     {
       "id": "quase-nenhuma-fonte-foi-coletada",
       "titulo": "22 fontes nunca foram coletadas. Todas as corridas foram num país só.",
-      "texto": "Há 22 corridas registadas, e o país delas é: ES 10 · IT 9 · NAO SEI 3. Elas trouxeram 3841 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
+      "texto": "Há 23 corridas registadas, e o país delas é: ES 10 · IT 10 · NAO SEI 3. Elas trouxeram 3890 itens e 3006 atravessaram a régua. As outras 22 fontes com ficha nunca foram buscadas — existem no acervo e nunca produziram nada.",
       "porque_importa": "Uma fonte registada e nunca coletada é trabalho de descoberta que ainda não virou dado. E um acervo que só foi exercitado num país não provou que funciona nos outros.",
       "evidencia": [
         "data/samples/RUN-MANIFEST.json"
@@ -2329,9 +2330,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/collection-to-waiting-room-v1",
-    "HEAD": "a3a4c1e72b18d39dedc5cbce3e788036c4a8b00f",
-    "GENERATED_AT": "2026-09-14T16:35:05+00:00",
-    "SOURCE_TREE_FINGERPRINT": "a08138d4d0444641eb3c42cd82cf7daf2bbd05aeb817194017326cf01375d9e1"
+    "HEAD": "d230bcc6a9d0d345e0b39a3adab6d53ff9c8f65c",
+    "GENERATED_AT": "2026-09-14T16:51:26+00:00",
+    "SOURCE_TREE_FINGERPRINT": "a77835ef989ebd905aead3215e817b6e572fc01c54e4c4712813b52d88fb48f9"
   },
   "FAMILIES": [
     {
@@ -5434,18 +5435,36 @@
             "erro": null,
             "prova": "system-map/data/golden-path-pdf.generated.json",
             "bruto": null
+          },
+          {
+            "run_id": "DERIV-PDF-20260914T164000Z",
+            "fonte": null,
+            "plataforma": "LOCAL",
+            "quem_foi_buscar": "texto-de-pdf",
+            "com_que_parametros": null,
+            "que_pergunta": null,
+            "pais": "IT",
+            "missao": "derivacao de texto a partir de PDF italiano",
+            "trouxe": 49,
+            "sobrou": 0,
+            "rendimento": 0,
+            "custou_usd": 0.0,
+            "estado": "SUCCESS",
+            "erro": null,
+            "prova": "system-map/data/golden-path-pdf.generated.json",
+            "bruto": null
           }
         ],
-        "total": 22,
+        "total": 23,
         "por_pais": {
           "ES": 10,
-          "IT": 9,
+          "IT": 10,
           "NAO SEI": 3
         },
         "por_plataforma": {
           "INSTAGRAM": 1,
           "LINKEDIN": 5,
-          "LOCAL": 9,
+          "LOCAL": 10,
           "OPENALEX": 1,
           "OpenAlex, ORCID": 1,
           "YOUTUBE": 3,
@@ -5482,10 +5501,10 @@
           "IT-T3-001",
           "IT-T4-001"
         ],
-        "com_rendimento_medido": 21,
-        "com_custo_medido": 16,
+        "com_rendimento_medido": 22,
+        "com_custo_medido": 17,
         "custo_total_usd": 0.48,
-        "trouxe_total": 3841,
+        "trouxe_total": 3890,
         "sobrou_total": 3006
       },
       "memoria": [
@@ -20373,7 +20392,7 @@
           "orquestrador/orquestrador.py:54",
           "provas/a_corrida_existe_em_cada_rota.py:49",
           "provas/a_maquina_depois_do_crash.py:51",
-          "provas/a_taxonomia_tem_um_dono.py:167"
+          "provas/a_taxonomia_tem_um_dono.py:181"
         ],
         "PORQUE": "estas pecas importam-na — C-ORQUESTRADOR — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -62748,7 +62767,7 @@
       "evidence": [
         {
           "file": "provas/a_taxonomia_tem_um_dono.py",
-          "line": 167,
+          "line": 181,
           "snippet": "from receitas import resolver                   # noqa: E402",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-RECEITAS--IMPORTS-->C-PROVA-PORTA-ITALIANA",
@@ -76705,7 +76724,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 837,
+  "UNCLAIMED_FILES_COUNT": 838,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -76894,7 +76913,7 @@
     "edges_proven": 900,
     "edges_unknown": 52,
     "business_edges": 4,
-    "files_tracked": 1743,
+    "files_tracked": 1744,
     "files_covered": 906,
     "files_code_unclaimed": 0,
     "roles_proven": 137,
