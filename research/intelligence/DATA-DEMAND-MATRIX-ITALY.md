@@ -149,8 +149,19 @@ E UMA DELAS NEM SEQUER EXISTE NO PORTAL.
 
 E há o contrário, que também é medição: **`MT1 · REGULATORY & EXPIRY EXPOSURE` é ferramenta
 principal declarada e não tem superfície própria nenhuma.** Está partida entre Portfolio e
-Future Radar. É a única das três ferramentas canônicas cujos cruzamentos estão todos
-`POSSIBLE` hoje — e é a que ninguém vê.
+Future Radar — não há nenhuma view de regulatório ou de caducidade nas 27 medidas.
+
+E MT1 pergunta duas coisas, com sortes opostas:
+
+```
+«o que esta a mudar, e o que isso toca na ADAMA?»
+     X-REGULATORIO-x-PORTFOLIO = POSSIBLE   ·  47 factos x 183 pares produto-substancia
+«e quem MAIS esta exposto?»
+     BLOQUEADO — zero registos de concorrente em Italia (GAP-IT-004)
+```
+
+Metade da única ferramenta principal que tem chave está pronta, e ninguém a vê; a outra
+metade espera um recorte da fonte que já temos contratada.
 
 ---
 
