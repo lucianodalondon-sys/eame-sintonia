@@ -3,9 +3,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-v2-canonical-rebuild",
-    "HEAD": "f4aa182c39e207ef8dea2cffe0587e86115e5424",
-    "GENERATED_AT": "2026-09-14T16:40:05+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3fa469c001607562e3dc255beb43c978f28ccc55cda180bb25a6d5d0f0934759"
+    "HEAD": "1d9d8088b206e050e85db548184021de3ee4c5e5",
+    "GENERATED_AT": "2026-09-14T16:45:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c5a061b023877e166bce5e4dfc8883104ebb49783b01d671fcd6dc1cfa3592d1"
   },
   "FILES": [
     {
@@ -4938,7 +4938,7 @@
     },
     {
       "path": "docs/operacao/CENSO-DAS-LIGACOES-DA-COLLECTION.md",
-      "sha": "e52119f7d4e8de1991195a01814bed18348495e2",
+      "sha": "ed3b47a78a2b52f6cdf4f8a05f997dc9d7c4348f",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -10986,49 +10986,49 @@
     },
     {
       "path": "system-map/v2/app/map.css",
-      "sha": "67afa085e0e23f650a965da5ab341e01c1b659a0",
+      "sha": "4a77d703c64a0d6ecb959f23022af654b53773a4",
       "ext": ".css",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/v2/app/map.js",
-      "sha": "876cd6a15f968bf190877b27ab7c0398925a6bc2",
+      "sha": "30b9aa1ad36e9421d71a98a7a8c172b129e6e231",
       "ext": ".js",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/v2/data/estado.gerado.json",
-      "sha": "eceda08b2cd4dc907cc15c1c6b00d99fae72539c",
+      "sha": "85929180bac50f8493bea02c61f91435e4a560c2",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/v2/data/maquina.medida.json",
-      "sha": "ec6484d56c135ca53cf5d81706ae585d13faafd2",
+      "sha": "412011d3bac8ec5d0f40243da1a07340644aba9d",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/v2/model/maquina.model.json",
-      "sha": "4ce5968e4c8e143d812e1a6a0ec0b42d0bac6273",
+      "sha": "dbdfe9adfcee09cc249745c84fc9df9e9082f695",
       "ext": ".json",
       "readable": false,
       "code_dir": true
     },
     {
       "path": "system-map/v2/scripts/gerar_mapa.py",
-      "sha": "19907385aee4aab8b8a3886e0412c1652b4f3388",
+      "sha": "cbcbb6abd1fc4795ff0d1b1cff6fdeeb3ba8e378",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/v2/scripts/medir_maquina.py",
-      "sha": "545386faeeada8461ba7422902307aa60664d3d9",
+      "sha": "a2d40abf29ac50eceafe9d0068a003addc92f5b1",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -11042,21 +11042,21 @@
     },
     {
       "path": "system-map/v2/scripts/validar_mapa.py",
-      "sha": "37b59dc38143714a62a7c7d740e6943c9bffee8d",
+      "sha": "6ad3a74a466fba7864c454c663e300f972b568c2",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/v2/tests/red_team.py",
-      "sha": "dc9e7b039519a9e2ec41726fa47551d339935f12",
+      "sha": "ca745d42c16588033c78277562c35e4111a14f64",
       "ext": ".py",
       "readable": true,
       "code_dir": true
     },
     {
       "path": "system-map/v2/tests/testa_mapa.py",
-      "sha": "4cf4ddad0ffd204e1f464d366ecfb1042fd380f6",
+      "sha": "c0351d3e2215bd72cb4676d0d3b859168b0d7942",
       "ext": ".py",
       "readable": true,
       "code_dir": true
@@ -41356,7 +41356,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/v2/scripts/gerar_mapa.py",
-        "line": 330,
+        "line": 346,
         "snippet": "SAIDA.write_text(json.dumps(estado, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -41406,6 +41406,17 @@
     },
     {
       "from_file": "system-map/v2/scripts/medir_maquina.py",
+      "to_file": "italia-portale/client/portale.html",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "system-map/v2/scripts/medir_maquina.py",
+        "line": 216,
+        "snippet": "PORTALE = \"italia-portale/client/portale.html\""
+      }
+    },
+    {
+      "from_file": "system-map/v2/scripts/medir_maquina.py",
       "to_file": "regras/LEIA-ANTES-DE-COLETAR.md",
       "type": "READS",
       "payload": "artefacto",
@@ -41433,7 +41444,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/v2/scripts/medir_maquina.py",
-        "line": 327,
+        "line": 441,
         "snippet": "SAIDA.write_text(json.dumps(saida, ensure_ascii=False, indent=1) + \"\\n\", encoding=\"utf-8\")"
       }
     },
@@ -41532,7 +41543,7 @@
       "payload": "artefacto",
       "evidence": {
         "file": "system-map/v2/tests/red_team.py",
-        "line": 110,
+        "line": 120,
         "snippet": "v1 = json.loads((RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\")"
       }
     },
@@ -54936,7 +54947,7 @@
     "files_tracked": 1746,
     "files_readable": 735,
     "files_code_dir": 793,
-    "file_edges": 3837,
+    "file_edges": 3838,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

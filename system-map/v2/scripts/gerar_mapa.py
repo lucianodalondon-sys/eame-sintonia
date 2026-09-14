@@ -130,6 +130,13 @@ def saude(mod, biblia, declared, code, observed) -> tuple[str, str]:
         return ATENCAO, "funciona em parte; parte não se confirma."
     if observed == "NAO_SEI":
         return UNKNOWN, "existe no código, e ninguém provou que já correu."
+    if declared == "NAO_SEI":
+        # NAO HA CONTRATO nao e O CONTRATO NAO CONFIRMA.
+        # Dizer «o contrato não se confirma» sobre uma peça que não tem
+        # contrato nenhum manda procurar um documento que não existe, e faz
+        # parecer defeito de citação o que é uma lacuna de contrato. Quatro
+        # ferramentas do portal estão neste caso.
+        return ATENCAO, "corre, e ninguém escreveu contrato que a descreva."
     if declared != "SIM":
         return ATENCAO, "corre, mas o contrato que a descreve não se confirma."
     return OK, "exigida, contratada, implementada e provada a correr."
@@ -204,7 +211,16 @@ def main() -> int:
             "medicoes": m["observado"],
             "ficheiros_todos": m["codigo"]["ficheiros"],
             "caminhos_ausentes": m["codigo"]["padroes_vazios"],
+            # O QUE O CLIENTE VE, MEDIDO NA TELA QUE ELE ABRE.
+            # Só as ferramentas do portal trazem isto, e nenhuma linha é escrita
+            # aqui: `scan_casco.py` leu `portale.html` e os contratos de bloco, e
+            # o medidor foi buscar a linha desta vista. O nome do cartão passa a
+            # ser o nome medido — se alguém renomear a tela no portal e não no
+            # modelo, a prova V17 reprova em vez de o mapa mentir calado.
+            "ferramenta": m.get("ferramenta"),
         }
+        if m.get("ferramenta") and m["ferramenta"].get("nome"):
+            conceitos[mod["id"]]["nome"] = m["ferramenta"]["nome"]
 
     # ── UM FICHEIRO, UM DONO ────────────────────────────────────────────────
     # A DECLARAÇÃO MAIS ESPECÍFICA GANHA. Quem nomeia `coleta/coletor.py` é dono

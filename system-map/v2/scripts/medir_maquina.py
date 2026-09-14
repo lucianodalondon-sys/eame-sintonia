@@ -94,10 +94,37 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip().lower()
 
 
+RE_ESCOLHA = re.compile(r"^([^\[]+)\[([^=\]]+)=([^\]]*)\]$")
+
+
 def caminho_em(obj, caminho: str):
-    """Segue `A.B.C` dentro de um JSON. Devolve (achou, valor)."""
+    """Segue `A.B.C` dentro de um JSON. Devolve (achou, valor).
+
+    Um passo tambem pode escolher um elemento de uma LISTA pelo valor de um
+    campo: `FERRAMENTAS[vista=windows].de_onde_vem`. Sem isto, uma observacao
+    sobre UMA ferramenta teria de apontar para a lista inteira — e a lista
+    inteira nao prova nada sobre a ferramenta que o cartao mostra. Escolher
+    por posicao (`[3]`) seria pior: a posicao muda quando o portal muda, e a
+    prova passaria a apontar para outra tela sem ninguem dar por isso.
+    """
     cur = obj
     for parte in caminho.split("."):
+        m = RE_ESCOLHA.match(parte)
+        if m:
+            lista, campo, valor = m.group(1), m.group(2), m.group(3)
+            if not isinstance(cur, dict) or lista not in cur:
+                return False, None
+            seq = cur[lista]
+            if not isinstance(seq, list):
+                return False, None
+            achado = [x for x in seq
+                      if isinstance(x, dict) and str(x.get(campo)) == valor]
+            if len(achado) != 1:
+                # zero nao existe; mais do que um nao distingue. Nos dois casos
+                # a prova nao aponta para nada em concreto.
+                return False, None
+            cur = achado[0]
+            continue
         if isinstance(cur, dict) and parte in cur:
             cur = cur[parte]
         else:
@@ -180,6 +207,92 @@ class Medidor:
         if norm(a) and norm(a) in norm(self.texto(f)):
             return {"estado": "CONFIRMADA", "file": f, "anchor": a, "gerado_pelo_mapa": ger}
         return {"estado": "FRASE_NAO_ENCONTRADA", "file": f, "anchor": a, "gerado_pelo_mapa": ger}
+
+    # ── O CASCO JA FOI MEDIDO. NAO SE MEDE OUTRA VEZ, LE-SE ─────────────────
+    CASCO = "system-map/data/casco.generated.json"
+
+    RE_CAPACIDADE = re.compile(r"static\s+CAPABILITY_OF\s*=\s*\{([^}]*)\}")
+    RE_PAR = re.compile(r"(\w+)\s*:\s*'(\w*)'")
+    PORTALE = "italia-portale/client/portale.html"
+
+    def telas_por_ferramenta(self) -> dict:
+        """Quantas TELAS do portal pertencem a cada ferramenta — medido.
+
+        Responde «analise pronta ou ferramenta exploratoria?» sem ninguem ter
+        de opinar: uma ferramenta com UMA tela entrega uma leitura fechada;
+        uma com VARIAS deixa entrar e navegar (lista, detalhe, perfil, evento).
+        A tabela e a mesma que o proprio portal usa para saber em que
+        capacidade esta — `CAPABILITY_OF` — por isso nao ha aqui um segundo
+        criterio a divergir do primeiro.
+        """
+        if getattr(self, "_telas", None) is not None:
+            return self._telas
+        fora: dict[str, list] = {}
+        texto = self.texto(self.PORTALE)
+        m = self.RE_CAPACIDADE.search(texto)
+        if m:
+            linha = texto[:m.start()].count("\n") + 1
+            for tela, cap in self.RE_PAR.findall(m.group(1)):
+                if cap:
+                    fora.setdefault(cap, []).append(tela)
+            self._linha_capacidade = linha
+        self._telas = fora
+        return fora
+
+    def ferramenta(self, vista: str | None) -> dict | None:
+        """O que a maquina ja mediu sobre UMA ferramenta do portal.
+
+        Nada aqui e escrito a mao. `scan_casco.py` le `portale.html` e os
+        contratos de bloco e escreve o que encontrou; este metodo so vai buscar
+        a linha que corresponde a esta vista. Se a vista nao existir no censo,
+        devolve `None` — e o cartao dira que nao sabe, em vez de inventar.
+
+        A prova de que isto nao e um laco: `casco.generated.json` mede o PORTAL
+        (`italia-portale/client/portale.html`), nao mede o mapa. E observacao
+        sobre a maquina, como `provas-de-execucao.json` — nunca autoridade
+        sobre o que a arquitetura deve ser. Por isso entra em `observado`, e
+        nunca em `declarado`.
+        """
+        if not vista:
+            return None
+        d = self.json_de(self.CASCO)
+        if not isinstance(d, dict):
+            return None
+        achado = [f for f in (d.get("FERRAMENTAS") or [])
+                  if isinstance(f, dict) and f.get("vista") == vista]
+        if len(achado) != 1:
+            return None
+        f = achado[0]
+        camadas = {}
+        for nome, c in (f.get("camadas") or {}).items():
+            if isinstance(c, dict):
+                camadas[nome] = {"tipo": c.get("tipo"), "o_que_e": c.get("o_que_e"),
+                                 "prova": c.get("prova")}
+        telas = self.telas_por_ferramenta().get(vista, [])
+        return {
+            "vista": f.get("vista"),
+            "nome": f.get("nome"),
+            "telas": sorted(telas),
+            "modo": ("EXPLORATORIA" if len(telas) > 1
+                     else "ANALISE_PRONTA" if len(telas) == 1 else None),
+            "prova_das_telas": ({"file": self.PORTALE,
+                                 "line": getattr(self, "_linha_capacidade", None),
+                                 "simbolo": "static CAPABILITY_OF"} if telas else None),
+            "de_onde_vem": f.get("de_onde_vem"),
+            "leitura": f.get("leitura"),
+            "confianca": f.get("confianca") or None,
+            "recebe": f.get("o_que_alimenta") or None,
+            "mostra": f.get("resumo") or None,
+            "camadas": camadas,
+            "contratos": list(f.get("ficheiros") or []),
+            "tecido_comum": list(f.get("tecido_comum") or []),
+            "blocos": list(f.get("blocos") or []),
+            "registos_citados": list(f.get("registos_citados") or []),
+            "riscos": list(f.get("riscos") or []),
+            "perguntas_abertas": list(f.get("perguntas_abertas") or []),
+            "confissoes": list(f.get("confissoes") or []),
+            "prova_do_nome": f.get("prova_do_nome"),
+        }
 
     # ── CODE ────────────────────────────────────────────────────────────────
     def codigo(self, padroes: list[str]) -> dict:
@@ -291,6 +404,7 @@ def main() -> int:
             "codigo": m.codigo(c.get("codigo", [])),
             "codigo_em": m.codigo_em(c.get("codigo_em", [])),
             "observado": m.observado(c.get("observado_por", [])),
+            "ferramenta": m.ferramenta(c.get("ferramenta_do_casco")),
         })
 
     ligacoes = []

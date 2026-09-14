@@ -254,3 +254,49 @@ button,input{font:inherit;color:inherit}
 .node.legado{opacity:.75;box-shadow:none;border-style:dashed}
 
 @media (max-width:760px){ .verdades{grid-template-columns:repeat(2,1fr)} }
+
+/* ── A FERRAMENTA DO PORTAL ───────────────────────────────────────────────
+   ADAMA_DESIGN_SYSTEM_MATCH = NOT_FOUND para a PROCEDENCIA (REAL · MISTURA ·
+   NAO SEI). NEW_PATTERN_REQUIRED = YES, e pela mesma razao ja registada para o
+   estado, no topo deste ficheiro: o BrandWell tem cores de CATEGORIA DE
+   PRODUTO, e nenhuma delas significa «isto pode nao ser verdade». Pintar
+   «MISTURA» com uma cor de marca dava-lhe um segundo significado e estragava
+   os dois. Por isso a procedencia reusa a RAMPA DE ESTADO — que ja e
+   engenharia declarada — em vez de inventar uma terceira paleta.
+
+   A caixa, a grelha e a tipografia sao as que ja existem aqui (`.qa`, `.vv`,
+   `.src`): forma reutilizada, nao redesenhada. */
+.ferr{border:1px solid var(--earth20);border-radius:var(--r);padding:14px;
+  background:#fbfbfb;margin:0 0 18px}
+.ferr .qa:last-child{margin-bottom:0}
+
+.orig{border-left:4px solid var(--unknown);padding:2px 0 2px 11px;margin:0 0 16px}
+.orig .n{font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:#948e8b;font-weight:800}
+.orig .v{font-size:17px;font-weight:800;margin-top:2px;color:var(--unknown)}
+.orig p{margin:5px 0 0;font-size:13px;line-height:1.55}
+.orig.REAL{border-left-color:var(--ok)}        .orig.REAL .v{color:var(--ok)}
+.orig.MISTURA{border-left-color:var(--warn)}   .orig.MISTURA .v{color:var(--warn)}
+.orig.SO-FIXTURE{border-left-color:var(--bad)} .orig.SO-FIXTURE .v{color:var(--bad)}
+
+.camadas{display:flex;flex-direction:column;gap:6px;margin:8px 0 0}
+.camada{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+  border:1px solid var(--earth20);border-radius:10px;padding:7px 10px;background:#fff}
+.camada .ct{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:#fff;background:var(--unknown);border-radius:6px;padding:2px 7px;flex:none}
+.camada.CANONICO .ct{background:var(--brand-d)}
+.camada.REAL .ct{background:var(--ok)}
+.camada.FIXTURE .ct{background:var(--bad)}
+.camada .cn{font-size:13px;font-weight:800;color:var(--ink)}
+.camada .cq{font-size:12.5px;color:#8a8481}
+
+.ferr .longo{font-size:13px;line-height:1.6;color:#6b615e}
+.gaps{border-top:1px dashed var(--earth40);padding-top:12px}
+.gaps p+p{margin-top:8px}
+
+/* a marca de procedencia no rodape do cartao, ao lado da pastilha de estado */
+.vem{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  border-radius:6px;padding:2px 7px;color:#fff;background:var(--unknown)}
+.vem.REAL{background:var(--ok)}
+.vem.MISTURA{background:var(--warn)}
+.vem.SO-FIXTURE{background:var(--bad)}

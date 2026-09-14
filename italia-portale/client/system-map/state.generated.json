@@ -2332,9 +2332,9 @@
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
     "BRANCH": "claude/system-map-v2-canonical-rebuild",
-    "HEAD": "f4aa182c39e207ef8dea2cffe0587e86115e5424",
-    "GENERATED_AT": "2026-09-14T16:40:05+00:00",
-    "SOURCE_TREE_FINGERPRINT": "3fa469c001607562e3dc255beb43c978f28ccc55cda180bb25a6d5d0f0934759"
+    "HEAD": "1d9d8088b206e050e85db548184021de3ee4c5e5",
+    "GENERATED_AT": "2026-09-14T16:45:14+00:00",
+    "SOURCE_TREE_FINGERPRINT": "c5a061b023877e166bce5e4dfc8883104ebb49783b01d671fcd6dc1cfa3592d1"
   },
   "FAMILIES": [
     {
@@ -14971,7 +14971,7 @@
         "ENGENHARIA"
       ],
       "legacy": false,
-      "ui_status": "green",
+      "ui_status": "yellow",
       "icon": "▣",
       "views": [
         "audit",
@@ -14985,9 +14985,12 @@
         "system-map/v2/app/map.js"
       ],
       "file_count": 3,
-      "status": "PROVEN",
-      "status_reason": "a superficie carrega dado ou codigo do repositorio.",
-      "changed_since_declared": [],
+      "status": "PENDING",
+      "status_reason": "a superficie carrega dado ou codigo do repositorio.  Mas 2 ficheiro(s) mudaram depois de a descricao ter sido conferida — precisa de releitura humana.",
+      "changed_since_declared": [
+        "system-map/v2/app/map.css",
+        "system-map/v2/app/map.js"
+      ],
       "produces": [],
       "inbound": [
         "C-MAPAV2-GERADOR"
@@ -15140,7 +15143,9 @@
       "file_count": 2,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/v2/scripts/gerar_mapa.py"
+      ],
       "produces": [
         "system-map/v2/data/estado.gerado.json"
       ],
@@ -15249,14 +15254,17 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "existe, mas nada no repositorio manda rodar nem importa — pode estar desligado.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/v2/scripts/medir_maquina.py"
+      ],
       "produces": [
         "system-map/v2/data/maquina.medida.json"
       ],
       "inbound": [
         "C-BIBLIA",
         "C-MAPA-GERADOR",
-        "C-MAPAV2-MODELO"
+        "C-MAPAV2-MODELO",
+        "C-TELA-FIELD"
       ],
       "outbound": [
         "C-MAPAV2-GERADOR",
@@ -15306,6 +15314,7 @@
       "consumes": [
         "docs/biblia/leis.json",
         "docs/fontes/INDICE-DE-FONTES.md",
+        "italia-portale/client/portale.html",
         "regras/LEIA-ANTES-DE-COLETAR.md",
         "system-map/v2/data/maquina.medida.json",
         "system-map/v2/model/maquina.model.json"
@@ -15361,7 +15370,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "e uma lei sem prova executavel apontando para ela.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/v2/model/maquina.model.json"
+      ],
       "produces": [],
       "inbound": [],
       "outbound": [
@@ -15437,7 +15448,10 @@
       "file_count": 2,
       "status": "PENDING",
       "status_reason": "teste que nao toca em nada do repositorio.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/v2/tests/red_team.py",
+        "system-map/v2/tests/testa_mapa.py"
+      ],
       "produces": [],
       "inbound": [
         "C-MAPAV2-GERADOR",
@@ -15534,7 +15548,9 @@
       "file_count": 1,
       "status": "PENDING",
       "status_reason": "portao que ninguem chama.",
-      "changed_since_declared": [],
+      "changed_since_declared": [
+        "system-map/v2/scripts/validar_mapa.py"
+      ],
       "produces": [],
       "inbound": [
         "C-MAPAV2-GERADOR",
@@ -23850,6 +23866,7 @@
       "outbound": [
         "C-AUDIT-CASCO",
         "C-MAPA-SCAN",
+        "C-MAPAV2-MEDIDOR",
         "C-PORTAL-CASCO"
       ],
       "de_onde_vem": "NAO SEI",
@@ -23924,7 +23941,8 @@
         "PROVA": [
           "italia-portale/audit/casco/demo-visibile.mjs:77",
           "italia-portale/client/casa.html:633",
-          "system-map/scripts/scan_casco.py:100"
+          "system-map/scripts/scan_casco.py:100",
+          "system-map/v2/scripts/medir_maquina.py:216"
         ],
         "PORQUE": "estas pecas importam-na — C-AUDIT-CASCO · C-PORTAL-CASCO — e IMPORTAR NAO E MANDAR CORRER. O mapa nao mede quem lhe da a ordem, e por isso nao a inventa."
       },
@@ -60539,7 +60557,7 @@
       "evidence": [
         {
           "file": "system-map/v2/tests/red_team.py",
-          "line": 110,
+          "line": 120,
           "snippet": "v1 = json.loads((RAIZ / \"system-map\" / \"data\" / \"architecture.declared.json\")",
           "ASSERTION_SUPPORTED": {
             "EDGE_ID": "C-PROVA-MAPA-NAO-MENTE--READS-->C-MAPAV2-TESTES",
@@ -72140,6 +72158,41 @@
     },
     {
       "from": "C-TELA-FIELD",
+      "to": "C-MAPAV2-MEDIDOR",
+      "type": "READS",
+      "payload": "artefacto",
+      "raw_type": "READS",
+      "kind": "technical",
+      "status": "PROVEN",
+      "reason": "Rete Commerciale di Campo alimenta Medidor da máquina (V2). Provado por 1 linha de codigo.",
+      "evidence": [
+        {
+          "file": "system-map/v2/scripts/medir_maquina.py",
+          "line": 216,
+          "snippet": "PORTALE = \"italia-portale/client/portale.html\"",
+          "ASSERTION_SUPPORTED": {
+            "EDGE_ID": "C-TELA-FIELD--READS-->C-MAPAV2-MEDIDOR",
+            "FROM": "C-TELA-FIELD",
+            "TO": "C-MAPAV2-MEDIDOR",
+            "RELATION_TYPE": "READS",
+            "PLANE": "CODE"
+          },
+          "SUPPORTS": "YES",
+          "WHY": "linha medida por `scan_repo.py` como `READS`, que e a relacao publicada.",
+          "EVIDENCE_TYPE": "STATIC_CODE_ANALYSIS",
+          "LIMITATIONS": "analise estatica: prova CODE. Nao prova OBSERVED nem comportamento em producao."
+        }
+      ],
+      "categoria": "READ",
+      "DECLARED": "UNKNOWN",
+      "CODE": "YES",
+      "OBSERVED": "UNKNOWN",
+      "PROVEN": "YES",
+      "PROVEN_PLANE": "CODE",
+      "STATUS_LEGACY_NOTA": "DEPRECATED · `status` e DERIVADO de PROVEN e fica so por compatibilidade. A fonte de verdade sao os quatro planos."
+    },
+    {
+      "from": "C-TELA-FIELD",
       "to": "C-PORTAL-CASCO",
       "type": "READS",
       "payload": "artefacto",
@@ -75830,7 +75883,7 @@
       "STATUS": "ACCEPTED_AS_DIFFERENT_QUESTIONS",
       "OWNER": "system-map/scripts/generate_system_map.py",
       "RESOLUTION": "Sao duas perguntas. `status` responde «esta peca esta pronta e porque», e apoia-se em evidencia de classes que o modelo de planos ainda nao representa para a peca (PERSISTED, FLOW_EXECUTED, GIT_TREE). Os quatro planos respondem «em que plano esta provada», e ficam NAO SEI quando a peca nao tem ficheiro medido. Nenhuma vence a outra: as duas sao publicadas lado a lado no cartao, e STATUS_LEGACY_NOTA nomeia os planos como fonte de verdade sobre EVIDENCIA. Ligar as classes em falta ao plano OBSERVED e o G12.",
-      "PECAS_EM_DESACORDO": 153,
+      "PECAS_EM_DESACORDO": 154,
       "PECAS_VERDES_SEM_PLANO": [
         "C-DERIVED-ARTIFACT",
         "C-GOLDEN-PATH-PDF",
@@ -75847,12 +75900,12 @@
   ],
   "COUNTS": {
     "components": 192,
-    "components_proven": 45,
-    "components_pending": 139,
+    "components_proven": 44,
+    "components_pending": 140,
     "components_broken": 0,
     "components_unknown": 8,
-    "edges": 922,
-    "edges_proven": 874,
+    "edges": 923,
+    "edges_proven": 875,
     "edges_unknown": 48,
     "business_edges": 4,
     "files_tracked": 1746,

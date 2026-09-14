@@ -97,8 +97,24 @@ def main() -> int:
     mc = {c["id"]: c for c in medida["CONCEITOS"]}
 
     # ── V02 · toda peça cita um contrato que existe e diz aquilo ────────────
+    # CITAR MAL E MENTIR. NAO CITAR NADA E UMA LACUNA — e sao coisas diferentes.
+    #
+    # Quem aponta um contrato que nao existe, ou que nao diz aquilo, perdeu a
+    # autoridade: a peca afirma-se apoiada em algo que nao a apoia, e isso
+    # reprova. Quem nao aponta contrato nenhum nao esta a afirmar nada de falso
+    # — esta a dizer que nao ha contrato escrito. Quatro ferramentas do portal
+    # estao exatamente nesse caso, e a maquina ja o tinha medido antes de este
+    # mapa existir («esta ferramenta nao tem contrato de bloco nenhum escrito»).
+    #
+    # Obrigar as quatro a citar alguma coisa so para a prova passar era inventar
+    # autoridade — o defeito que a V03 existe para apanhar. Por isso a lacuna
+    # NAO reprova aqui: fica CONTADA e IMPRESSA, o cartao mostra NAO SEI, e a
+    # peca cai para ATENCAO. Some da vista em lado nenhum; deixa e de se
+    # disfarcar de erro de citacao.
     sem = [x["id"] for x in medida["DEPARTAMENTOS"] + medida["CONCEITOS"]
-           if x["declarado"]["estado"] != "CONFIRMADA"]
+           if x["declarado"]["estado"] not in ("CONFIRMADA", "SEM_DECLARACAO")]
+    lacuna = sorted(x["id"] for x in medida["DEPARTAMENTOS"] + medida["CONCEITOS"]
+                    if x["declarado"]["estado"] == "SEM_DECLARACAO")
     prova("V02_CONTRATO_CONFIRMA", "toda peça cita contrato que existe e diz aquilo",
           not sem, [f"{len(sem)}: {', '.join(sem[:8])}"])
 
@@ -257,6 +273,60 @@ def main() -> int:
     prova("V16_OFICIAL_NAO_SUBSTITUIDO",
           "a tela oficial não mudou, e o candidato vive noutra rota", not maus, maus)
 
+    # ── V17 · O PORTAL NAO E SO CASCA ───────────────────────────────────────
+    # A maquina mede onze ferramentas na tela que o cliente abre. Se o mapa
+    # mostrar menos do que onze, esta a esconder telas que existem — que era
+    # exatamente o defeito: o casco a tapar tudo o que esta dentro dele.
+    casco_f = RAIZ / "system-map" / "data" / "casco.generated.json"
+    maus = []
+    medidas = {}
+    if casco_f.is_file():
+        medidas = {f["vista"]: f for f in
+                   json.loads(casco_f.read_text(encoding="utf-8")).get("FERRAMENTAS", [])
+                   if isinstance(f, dict) and f.get("vista")}
+    else:
+        maus.append("system-map/data/casco.generated.json nao existe — nada foi medido")
+    no_mapa = {c["ferramenta"]["vista"]: c for c in S["CONCEITOS"].values()
+               if c.get("ferramenta") and c["ferramenta"].get("vista")}
+    for v in sorted(set(medidas) - set(no_mapa)):
+        maus.append(f"a maquina mede a ferramenta «{medidas[v]['nome']}» ({v}) e o mapa nao tem cartao dela")
+    for v in sorted(set(no_mapa) - set(medidas)):
+        maus.append(f"o mapa tem um cartao para «{v}» que a maquina nao mede em lado nenhum")
+    prova("V17_FERRAMENTA_TEM_CARTAO",
+          "toda ferramenta que o cliente abre tem cartao proprio no mapa", not maus, maus)
+
+    # ── V18 · O NOME E O DA TELA, NAO O QUE ALGUEM ESCREVEU ─────────────────
+    # O nome do cartao vem da medicao. Se o modelo trouxer outro, alguem
+    # renomeou a tela num sitio e nao no outro — e o mapa passaria a chamar-lhe
+    # uma coisa que o cliente nunca ve.
+    maus = []
+    for v, c in sorted(no_mapa.items()):
+        medido = (medidas.get(v) or {}).get("nome")
+        if medido and c["nome"] != medido:
+            maus.append(f"{c['id']}: o mapa mostra «{c['nome']}» e a tela diz «{medido}»")
+    prova("V18_NOME_E_O_DA_TELA",
+          "o nome de cada ferramenta e o que foi medido na tela servida", not maus, maus)
+
+    # ── V19 · NENHUMA SETA INVENTADA PARA DENTRO DO PORTAL ──────────────────
+    # Uma ferramenta so recebe uma seta de origem se a camada que a alimenta
+    # foi MEDIDA nela, com procedencia. Sem isto, o desenho ficava bonito e
+    # dizia que o portal e alimentado onde ninguem provou que e.
+    maus = []
+    for l in S["LIGACOES"]:
+        alvo = no_mapa.get((S["CONCEITOS"].get(l["para"], {}).get("ferramenta") or {}).get("vista"))
+        if not alvo:
+            continue
+        cam = (medidas.get(alvo["ferramenta"]["vista"]) or {}).get("camadas") or {}
+        reais = [k for k, x in cam.items()
+                 if isinstance(x, dict) and x.get("tipo") in ("CANONICO", "REAL")]
+        if not reais:
+            maus.append(f"{l['de']} -> {l['para']}: nenhuma camada com procedencia foi medida nesta tela")
+    sem_seta = sorted(v for v, c in no_mapa.items()
+                      if not [x for x in S["LIGACOES"] if x["para"] == c["id"]])
+    prova("V19_SETA_SO_ONDE_FOI_MEDIDA",
+          f"so recebe seta quem tem camada medida ({len(no_mapa) - len(sem_seta)} de {len(no_mapa)})",
+          not maus, maus)
+
     largura = 78
     print("=" * largura)
     print("SYSTEM MAP V2 — o mapa mostra a máquina, e prova cada coisa que diz")
@@ -273,6 +343,9 @@ def main() -> int:
     print(f"  arestas  {c['ARESTAS']}")
     print(f"  verdades {json.dumps(c['VERDADES'], ensure_ascii=False)}")
     print(f"  órfãos {c['ORFAOS']} · conflitos {c['CONFLITOS_DE_DONO']}")
+    if lacuna:
+        print(f"  SEM CONTRATO ESCRITO · {len(lacuna)}: {', '.join(lacuna)}")
+        print("    não reprova — é lacuna medida, não citação errada. O cartão diz NÃO SEI.")
     print("=" * largura)
     if falhas:
         print(f"SYSTEM_MAP_V2_CHECK=FAIL · {len(falhas)} prova(s) reprovada(s)")

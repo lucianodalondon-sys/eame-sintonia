@@ -185,6 +185,15 @@
     const p = el('span', 'pill ' + (o.status || ''), rot(o.status));
     p.dataset.s = o.status;
     f.appendChild(p);
+    // A origem do que a ferramenta mostra vive na SUPERFICIE do cartao, e nao
+    // so na gaveta: a pergunta «isto e dado a serio?» e a primeira que se faz,
+    // e obrigar a abrir cada uma das onze para a responder era esconde-la.
+    if (o.ferramenta && o.ferramenta.de_onde_vem) {
+      const v = o.ferramenta.de_onde_vem;
+      const g = el('span', 'vem ' + v.replace(/\s+/g, '-'), v);
+      g.title = o.ferramenta.leitura || '';
+      f.appendChild(g);
+    }
     if (extra) f.appendChild(el('span', 'more', extra));
     n.appendChild(f);
     n.onclick = aoAbrir;
@@ -412,6 +421,104 @@
     return d;
   }
 
+  // ── A FERRAMENTA QUE O CLIENTE ABRE ────────────────────────────────────
+  // Quatro perguntas, pela ordem em que uma pessoa as faz: de onde vem isto,
+  // o que me mostra, onde é que eu o vejo, e como é que sabem. Nada aqui está
+  // escrito no ficheiro: tudo chega medido de `casco.generated.json`.
+  //
+  // Quando a origem não foi medida, a caixa diz NÃO SEI em vez de ficar vazia.
+  // Uma caixa vazia lê-se como «não há nada»; NÃO SEI lê-se como «ninguém
+  // mediu» — e são coisas diferentes.
+  function ferramenta(b, f) {
+    const cx = el('div', 'ferr');
+
+    const org = el('div', 'orig ' + (f.de_onde_vem || '').replace(/\s+/g, '-'));
+    org.appendChild(el('div', 'n', 'DE ONDE VEM O QUE ELA MOSTRA'));
+    org.appendChild(el('div', 'v', f.de_onde_vem || 'NÃO SEI'));
+    if (f.leitura) org.appendChild(el('p', null, f.leitura));
+    cx.appendChild(org);
+
+    const cam = Object.keys(f.camadas || {});
+    const rd = el('div', 'qa');
+    rd.appendChild(el('h4', null, 'RECEBE DE'));
+    if (cam.length) {
+      const w = el('div', 'camadas');
+      cam.forEach((k) => {
+        const c1 = f.camadas[k];
+        const t = el('div', 'camada ' + (c1.tipo || '').replace(/\s+/g, '-'));
+        t.appendChild(el('span', 'ct', c1.tipo || 'NÃO SEI'));
+        t.appendChild(el('span', 'cn', k));
+        t.appendChild(el('span', 'cq', c1.o_que_e || ''));
+        if (c1.prova && c1.prova.file) {
+          t.title = c1.prova.file + ':' + c1.prova.line;
+        }
+        w.appendChild(t);
+      });
+      rd.appendChild(w);
+    } else {
+      rd.appendChild(el('p', null,
+        'NÃO SEI. Nenhuma camada com procedência foi medida nesta tela — ' +
+        'e nenhuma seta foi desenhada, porque desenhar uma seria inventá-la.'));
+    }
+    if (f.recebe) rd.appendChild(el('p', 'longo', f.recebe));
+    cx.appendChild(rd);
+
+    if (f.mostra) {
+      const d = el('div', 'qa');
+      d.appendChild(el('h4', null, 'MOSTRA'));
+      d.appendChild(el('p', 'longo', f.mostra));
+      cx.appendChild(d);
+    }
+
+    const on = el('div', 'qa');
+    on.appendChild(el('h4', null, 'APARECE EM'));
+    on.appendChild(el('p', null,
+      (f.telas && f.telas.length
+        ? plural(f.telas.length, 'tela', 'telas') + ' do portal: ' + f.telas.join(', ')
+        : 'A vista «' + f.vista + '» do portal') +
+      (f.blocos && f.blocos.length ? ' · blocos: ' + f.blocos.join(', ') : '') + '.'));
+    if (f.modo) {
+      on.appendChild(el('p', null,
+        f.modo === 'EXPLORATORIA'
+          ? 'É EXPLORATÓRIA: tem mais do que uma tela, dá para entrar e navegar.'
+          : 'É ANÁLISE PRONTA: uma só tela, uma leitura fechada.'));
+    }
+    if (f.prova_das_telas) {
+      on.appendChild(el('div', 'src',
+        f.prova_das_telas.file + ':' + f.prova_das_telas.line +
+        ' — ' + f.prova_das_telas.simbolo));
+    }
+    cx.appendChild(on);
+
+    const pr = el('div', 'qa');
+    pr.appendChild(el('h4', null, 'PROVA'));
+    if (f.prova_do_nome && f.prova_do_nome.file) {
+      pr.appendChild(el('p', null, 'Encontrada na tela servida, com este nome.'));
+      pr.appendChild(el('div', 'src',
+        f.prova_do_nome.file + ':' + f.prova_do_nome.line +
+        ' — ' + (f.prova_do_nome.snippet || '')));
+    }
+    (f.contratos || []).forEach((k) =>
+      pr.appendChild(el('div', 'src', 'contrato · ' + k)));
+    if (!(f.contratos || []).length) {
+      pr.appendChild(el('p', null,
+        'Sem contrato de bloco escrito. É por isso que a origem está em NÃO SEI.'));
+      (f.tecido_comum || []).forEach((k) => pr.appendChild(el('div', 'src',
+        'só tecido comum a várias telas, que não fala por esta · ' + k)));
+    }
+    cx.appendChild(pr);
+
+    const gaps = (f.riscos || []).concat(f.perguntas_abertas || [], f.confissoes || []);
+    if (gaps.length) {
+      const g = el('div', 'qa gaps');
+      g.appendChild(el('h4', null, 'O QUE ESTÁ POR RESOLVER'));
+      gaps.slice(0, 6).forEach((x) => g.appendChild(el('p', 'longo', x)));
+      cx.appendChild(g);
+    }
+
+    b.appendChild(cx);
+  }
+
   function ligacoes(t, arr) {
     const d = el('div', 'qa');
     d.appendChild(el('h4', null, t));
@@ -458,6 +565,8 @@
       });
       b.appendChild(lw);
     }
+
+    if (c.ferramenta) ferramenta(b, c.ferramenta);
 
     b.appendChild(bloco('3 · O que recebe', c.entra));
     if (c.entra_de && c.entra_de.length) b.appendChild(ligacoes('4 · De quem recebe', c.entra_de));

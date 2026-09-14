@@ -57,9 +57,19 @@ def correr() -> int:
     n1 = S["CONTAS"]["NIVEL_1_POR_DEPARTAMENTO"]
     portal = {c["id"] for c in C.values() if c["departamento"] == "D-PORTAL"}
 
-    at(1, "ficheiro antigo vira corrente só porque existe",
-       [c for c in C.values() if c["declarado"] != "SIM"],
-       "todo conceito tem de citar contrato que exista e diga aquilo")
+    # O ataque original exigia contrato a TODA a peça. Assim escrito, ele
+    # obrigava a inventar autoridade onde não há nenhuma — e inventar
+    # autoridade é o ataque 36, não a defesa contra ele. Reescrito para atacar
+    # as duas portas por onde a mentira entra de verdade:
+    #   a) citar um contrato que não existe, ou que não diz aquilo;
+    #   b) não ter contrato e MESMO ASSIM aparecer como declarado.
+    # A peça sem contrato tem de aparecer como NÃO SEI, à vista. É mais
+    # apertado do que a versão anterior, não menos.
+    at(1, "peça sem contrato passa por declarada",
+       [c["id"] for c in C.values() if c["declarado"] == "NAO"] +
+       [c["id"] for c in C.values()
+        if not (c.get("contrato") or {}).get("file") and c["declarado"] != "NAO_SEI"],
+       "citar mal reprova; não ter contrato aparece como NÃO SEI, nunca como declarado")
     at(2, "canónico some por não estar implementado",
        not [c for c in C.values() if c["biblia"] == "SIM" and c["codigo"] == "NAO"],
        "há conceito exigido pela Bíblia e sem código, e ele APARECE como NÃO IMPLEMENTADO")

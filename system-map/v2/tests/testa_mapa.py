@@ -127,7 +127,7 @@ for p in ("SOURCE", "REQUEST", "ORCHESTRATOR", "EXECUTOR", "RUN", "RAW_OBSERVATI
     teste(f"o papel canónico {p} tem cartão", p in papeis)
 
 print()
-print("-" * 78); print("O TESTE DO LEIGO — 20 perguntas respondidas só com o mapa"); print("-" * 78)
+print("-" * 78); print("O TESTE DO LEIGO — 28 perguntas respondidas só com o mapa"); print("-" * 78)
 
 D = {d["id"]: d for d in S["DEPARTAMENTOS"]}
 por_papel = {}
@@ -166,6 +166,45 @@ PERG = [
         if x["status"] == "BLOQUEADO")),
  ("T", "O que ainda não existe?", lambda: ", ".join(x["nome"] for x in C.values()
         if x["codigo"] == "NAO") or "nada"),
+]
+
+# ── AS OITO DO PORTAL ──────────────────────────────────────────────────────
+# «Se eu não conseguir responder isso só pelo mapa: FAIL.» Foi assim que a
+# missão as escreveu, e é assim que ficam aqui: cada uma respondida a partir do
+# estado gerado, sem abrir o portal e sem abrir código. A pergunta 8 é a que
+# importa mais — se o mapa não souber dizer o que ainda não sabe, está a
+# encobrir, e encobrir é pior do que mostrar um buraco.
+FER = [c for c in C.values() if c.get("ferramenta")]
+f_de = lambda c: c["ferramenta"]
+camadas = lambda c: list((f_de(c).get("camadas") or {}).keys())
+
+PERG += [
+ ("U", "Quais ferramentas o cliente realmente vê?",
+  lambda: ", ".join(sorted(c["nome"] for c in FER)) if FER else ""),
+ ("V", "Qual é a função de cada uma?",
+  lambda: " · ".join(f"{c['nome']}: {c['frase']}" for c in FER
+                     if c.get("frase")) if FER else ""),
+ ("W", "O que alimenta cada ferramenta?",
+  lambda: " · ".join(f"{c['nome']} ← " + (", ".join(camadas(c)) or "NÃO SEI")
+                     for c in FER)),
+ ("X", "Essa alimentação vem de que tipo de artefato?",
+  lambda: " · ".join(sorted({
+      f"{k}={v.get('tipo')}" for c in FER
+      for k, v in (f_de(c).get("camadas") or {}).items()})) or "NÃO SEI"),
+ ("Y", "Que pedaço do pacote chega a cada uma?",
+  lambda: " · ".join(f"{C[l['para']]['nome']} ← {l['significado']}"
+                     for l in L if C.get(l["para"], {}).get("ferramenta"))),
+ ("Z", "Mostra análise pronta ou é exploratória?",
+  lambda: " · ".join(f"{c['nome']}: {f_de(c).get('modo') or 'NÃO SEI'}" for c in FER)),
+ ("AA", "Em que página do portal isso aparece?",
+  lambda: " · ".join(f"{c['nome']}: {', '.join(f_de(c).get('telas') or []) or f_de(c)['vista']}"
+                     for c in FER)),
+ ("AB", "O que ainda está vazio, raso ou desconhecido?",
+  lambda: "sem origem medida: " +
+          (", ".join(c["nome"] for c in FER if not camadas(c)) or "nenhuma") +
+          " · sem contrato escrito: " +
+          (", ".join(c["nome"] for c in FER
+                     if not (c.get("contrato") or {}).get("file")) or "nenhuma")),
 ]
 for letra, q, f in PERG:
     try:
