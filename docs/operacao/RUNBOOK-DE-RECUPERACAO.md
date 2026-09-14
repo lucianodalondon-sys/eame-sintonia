@@ -74,6 +74,30 @@ numa emergência.
 | quem executa | administrador, na consola do Supabase | `motor/cadeia_canonica.sh` |
 | quando | perda de estado (`§1`) | banco novo, bancada, ambiente descartável |
 
+### ⚠️ E O `A` TEM DOIS SABORES, COM RPO MUITO DIFERENTE
+
+Medido na documentação oficial em 2026-09-14 (`C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1`):
+
+| | `BACKUP DIÁRIO` | `PITR` |
+|---|---|---|
+| vem com o plano? | **sim** (Pro: 7 dias) | **não — é add-on PAGO** |
+| granularidade | **um ponto por dia** | até ao **segundo** |
+| RPO na prática | **até 24 horas** | ~2 minutos no pior caso |
+| ligado neste projeto? | **NÃO MEDIDO** | **NÃO MEDIDO** |
+
+```
+LIVE_RECOVERY_MECHANISM = SUPABASE_BACKUP_RESTORE   (backup diario fisico)
+```
+
+> **NÃO CONTE COM RECUPERAÇÃO AO SEGUNDO.** Ligar PITR é uma decisão de
+> dinheiro que ninguém tomou, e este runbook não pode presumi-la. Enquanto
+> `PITR_ENABLED` não for medido, **assuma que se perde até um dia de
+> escritas** — e diga isso ao coordenador no passo `§5.1.3`, antes de ele
+> decidir restaurar.
+>
+> E há uma armadilha ao contrário: a documentação diz que **ligar PITR
+> DESLIGA o backup diário**. Não são duas redes de segurança empilhadas.
+
 > **B NÃO É UMA ALTERNATIVA A A.**
 > Reconstruir o schema a correr migrations devolve um banco **vazio** com a
 > forma certa. Se alguém chamar a isso «recuperámos», a casa perdeu os dados
@@ -259,6 +283,15 @@ ela **cria** uma tabela nova e **não altera** nenhuma existente, por isso
 desfazê-la não toca em dados de mais ninguém. Isso é *rollback*, é barato, e
 **não** é caso para este runbook.
 
+E isto deixou de ser uma promessa: `provas/preflight_da_cadeia_ate_031.py`
+**executa** esse rollback contra um banco descartável e confere que o estado
+volta exactamente ao da `030` — mesmas tabelas, livro-razão em `030`.
+
+```
+FORWARD_RECOVERY_031_EXECUTADO      SIM
+DEVOLVEU_O_ESTADO_030               SIM
+```
+
 ---
 
 ## 9 · COMO EVITAR RECUPERAR O PROJETO ERRADO
@@ -284,6 +317,15 @@ Antes de carregar em Restore:
 [ ] o project ref no URL do browser e, caracter a caracter, o de cima
 [ ] o nome do projeto no cabecalho e `eame-sintonia`
 [ ] nao ha uma segunda aba aberta noutro projeto
+```
+
+E há uma conferência **de fora** que custa um comando e não precisa de
+credencial nenhuma — o gateway devolve o `ref` que serviu:
+
+```bash
+curl -sS -D - -o /dev/null https://odhdwvugikjdvkapbowe.supabase.co/rest/v1/ \
+  | grep -i sb-project-ref
+# sb-project-ref: odhdwvugikjdvkapbowe     <- tem de bater, caracter a caracter
 ```
 
 E depois, **de dentro do banco** — é a única conferência que não depende de

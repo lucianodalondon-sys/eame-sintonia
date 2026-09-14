@@ -720,6 +720,7 @@
       "docs/operacao/ARMAZEM-ITALIANO-SEM-LIVRO-DE-ENTRADA.md",
       "docs/operacao/AUDITORIA-DO-CEREBRO-DA-COLETA.md",
       "docs/operacao/BASELINE-ADMISSION-T3-V1.md",
+      "docs/operacao/C-RESTORE-PROOF-BEFORE-LIVE-V2.md",
       "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "docs/operacao/CENSO-CARDS-SENSORES-V1.md",
       "docs/operacao/CENSO-CORPUS-ROTULADO-ADMISSION-V1.md",
@@ -763,6 +764,7 @@
       "docs/operacao/REGISTO-CONCEITO-DONO.md",
       "docs/operacao/RELATORIO-DE-ROTAS-APIFY-ES.md",
       "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
+      "docs/operacao/RUNBOOK-DE-RECUPERACAO.md",
       "docs/operacao/SINTONIA-SCRAP-EVOLUTION-PLAN.md",
       "docs/operacao/SOURCE-DOCUMENT-DONO-STORE-CONTRATO.md",
       "docs/operacao/SOURCE-ID-WIRING-GAP-V1.md",
@@ -1263,6 +1265,9 @@
       "prototype/portal/index.html"
     ],
     "provas": [
+      "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+      "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+      "provas/RECUPERACAO-FISICA-MEDIDA.json",
       "provas/_c106b_filho.py",
       "provas/_c106c_filho.py",
       "provas/_c108a_ensaio_a_seco.json",
@@ -1352,6 +1357,8 @@
       "provas/paridade_da_lingua.py",
       "provas/portas_canonicas_no_postgres.py",
       "provas/preflight_022_live.sh",
+      "provas/preflight_da_cadeia_ate_031.py",
+      "provas/preflight_de_recuperacao_do_live.py",
       "provas/preservar_coleta_no_postgres.py",
       "provas/primeira_rota_paga.py",
       "provas/qualidade_t3.py",
@@ -1360,6 +1367,7 @@
       "provas/rastro_no_postgres.py",
       "provas/raw_entre_jobs.py",
       "provas/readback_022_live.sh",
+      "provas/recuperacao_fisica_provada_no_postgres.py",
       "provas/red_team_da_release_v1.py",
       "provas/reel_fala_qualidade.py",
       "provas/rls_censo_metadados.sql",
@@ -2149,10 +2157,10 @@
   ],
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/scrap-ready-raw-lineage-v1-ywwn15",
-    "HEAD": "84186dfaf6be8a52866efc4a440609985f7f4401",
-    "GENERATED_AT": "2026-09-13T21:43:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "93c96fc0e9ee57a8afc60789c2602d3849e66a69d571d365ed6ba5deeec67304"
+    "BRANCH": "claude/supabase-live-recovery-preflight-v1",
+    "HEAD": "7066a9202f5598d12963130feb2f84fa2fee24f7",
+    "GENERATED_AT": "2026-09-14T01:08:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b000fab0d14b17ead9e1f4ffbf7bb07cc1af376f10a1dffb48b0be6048787376"
   },
   "FAMILIES": [
     {
@@ -2221,7 +2229,7 @@
         "Z-REGUAS",
         "Z-PROVA"
       ],
-      "count": 74
+      "count": 76
     },
     {
       "id": "F-ENTREGA",
@@ -2591,7 +2599,7 @@
       "y": 190,
       "w": 1235,
       "h": 6480,
-      "count": 58
+      "count": 60
     }
   ],
   "DEPARTMENTS": {
@@ -13634,6 +13642,142 @@
       "y": 4868
     },
     {
+      "id": "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
+      "name": "O preflight da recuperacao — o que se mede antes de tocar no LIVE",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Duas medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto.",
+      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao responde 401, e nao 404. E porque numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/preflight_da_cadeia_ate_031.py",
+        "provas/preflight_de_recuperacao_do_live.py"
+      ],
+      "file_count": 2,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [
+        "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+        "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json"
+      ],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "BACKUP_NOT_MEASURED",
+          "DOCUMENTACAO"
+        ],
+        "palavras": 44,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 44,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        },
+        {
+          "onde": "GIT",
+          "file": "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 20850,
+      "y": 4868
+    },
+    {
+      "id": "C-PROVA-RECUPERACAO-FISICA",
+      "name": "A prova da recuperacao fisica — o backup volta, e o WAL prova que foi reproduzido",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "what": "Destroi um PostgreSQL 17 descartavel e recupera-o por base backup fisico mais arquivo de WAL, a um instante (PITR). Confere por impressao de onze seccoes, exige que as travas MORDAM, mede RTO/RPO, mata o servidor a meio da reproducao para medir a retoma, e corre 28 ataques de red team com zero sobreviventes.",
+      "why_here": "A C-RECOVERY-PROOF-BEFORE-LIVE-V1 provou a classe LOGICA (pg_dump) e depois mediu que o LIVE e da classe FISICA: provou a classe errada. Tres defeitos desta propria prova so apareceram porque o red team a atacou — o PostgreSQL PROMOVE calado com alvo anterior ao backup; a impressao de referencia era satisfeita pelo base backup sozinho, sem WAL nenhum; e exigir igualdade nas sequencias reprova o restauro correcto, porque o WAL as regista aos saltos de 32.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "legacy": false,
+      "ui_status": "gray",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "lane": "official",
+      "family": "F-GOVERNANCA",
+      "files": [
+        "provas/recuperacao_fisica_provada_no_postgres.py"
+      ],
+      "file_count": 1,
+      "status": "UNKNOWN",
+      "status_reason": "⚪ NAO SEI. Os ficheiros existem, mas nada no repositorio aponta para eles e eles nao apontam para nada. Nao da para provar o que isto faz hoje.",
+      "changed_since_declared": [],
+      "produces": [
+        "provas/RECUPERACAO-FISICA-MEDIDA.json"
+      ],
+      "inbound": [],
+      "outbound": [],
+      "paises": {},
+      "paises_dado": {},
+      "pais": "TRANSVERSAL",
+      "vocabulario": {
+        "papel": "NAO SEI",
+        "listas": [
+          "MORDIDAS",
+          "SABOTAGENS",
+          "SONDAS_QUE_O_SCHEMA_RECUSA",
+          "SQL_SENTINELAS"
+        ],
+        "palavras": 64,
+        "por_lingua": {},
+        "sem_marca_de_lingua": 64,
+        "de_outro_pais": 0,
+        "de_outro_pais_quais": {}
+      },
+      "nivel": "INTERNO",
+      "escreve_na_pasta": [],
+      "destino": [
+        "GIT"
+      ],
+      "destino_prova": [
+        {
+          "onde": "GIT",
+          "file": "provas/RECUPERACAO-FISICA-MEDIDA.json",
+          "line": 1,
+          "snippet": "ficheiro versionado que esta peca escreve"
+        }
+      ],
+      "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
+      "x": 20020,
+      "y": 5190
+    },
+    {
       "id": "C-PROVA-RETRY-DO-SCRAP",
       "name": "A prova de que o retry recupera a MESMA corrida",
       "territory": "Z-PROVA",
@@ -13682,8 +13826,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 4868
+      "x": 20435,
+      "y": 5190
     },
     {
       "id": "C-PROVA-ROTA-M2-ATRAVESSA",
@@ -13744,7 +13888,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20850,
       "y": 5190
     },
     {
@@ -13803,8 +13947,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
-      "y": 5190
+      "x": 20020,
+      "y": 5512
     },
     {
       "id": "C-PROVA-SCRAP-CHEGA-AO-ACERVO",
@@ -13875,8 +14019,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5190
+      "x": 20435,
+      "y": 5512
     },
     {
       "id": "C-PROVA-TRAVA-MORDE",
@@ -13928,7 +14072,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20850,
       "y": 5512
     },
     {
@@ -13975,8 +14119,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
-      "y": 5512
+      "x": 20020,
+      "y": 5834
     },
     {
       "id": "C-PROVA-UNIDADE-POUSA-NA-ESPERA",
@@ -14038,8 +14182,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5512
+      "x": 20435,
+      "y": 5834
     },
     {
       "id": "C-PROVENIENCIA",
@@ -14290,7 +14434,7 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20020,
+      "x": 20850,
       "y": 5834
     },
     {
@@ -14442,8 +14586,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
-      "y": 5834
+      "x": 20020,
+      "y": 6156
     },
     {
       "id": "C-REGRA-COLETA",
@@ -14584,8 +14728,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 5834
+      "x": 20435,
+      "y": 6156
     },
     {
       "id": "C-RELATORIO-FLUXO",
@@ -15633,7 +15777,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20850,
       "y": 6156
     },
     {
@@ -15934,8 +16078,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20435,
-      "y": 6156
+      "x": 20020,
+      "y": 6478
     },
     {
       "id": "C-SUPABASE",
@@ -16109,8 +16253,8 @@
       "destino": [],
       "destino_prova": [],
       "destino_texto": "Este mapa nao viu nada sair desta peca — nem ficheiro guardado no git, nem linha gravada no banco. Ou ela so le, decide ou mostra, ou o que ela escreve fica fora do censo (como os proprios ficheiros do mapa, deixados de fora para o mapa nao se medir a si mesmo).",
-      "x": 20850,
-      "y": 6156
+      "x": 20435,
+      "y": 6478
     },
     {
       "id": "C-TELA-ARCHIVE",
@@ -17626,7 +17770,7 @@
         }
       ],
       "destino_texto": "O que sai daqui fica em: SUPABASE (linha no banco, sem historico de commit) e GIT (ficheiro com historico no repositorio).",
-      "x": 20020,
+      "x": 20850,
       "y": 6478
     },
     {
@@ -18991,7 +19135,7 @@
       "kind": "branch consumidora",
       "icon": "B",
       "facts": [
-        "branch claude/scrap-ready-raw-lineage-v1-ywwn15"
+        "branch claude/supabase-live-recovery-preflight-v1"
       ],
       "proof": "git-measurement",
       "territory": "Z-LINEAGE",
@@ -39306,7 +39450,7 @@
     }
   ],
   "UNCLAIMED_CODE_FILES": [],
-  "UNCLAIMED_FILES_COUNT": 833,
+  "UNCLAIMED_FILES_COUNT": 835,
   "OWNERSHIP_CONFLICTS": [],
   "ARTEFACT_MULTIPLE_AUTHORS": [
     {
@@ -39461,17 +39605,17 @@
     ]
   },
   "COUNTS": {
-    "components": 182,
+    "components": 184,
     "components_proven": 48,
     "components_pending": 128,
     "components_broken": 0,
-    "components_unknown": 6,
+    "components_unknown": 8,
     "edges": 867,
     "edges_proven": 864,
     "edges_unknown": 3,
     "business_edges": 4,
-    "files_tracked": 1702,
-    "files_covered": 869,
+    "files_tracked": 1710,
+    "files_covered": 875,
     "files_code_unclaimed": 0
   }
 }

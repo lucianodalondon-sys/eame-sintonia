@@ -2,10 +2,10 @@
   "SCHEMA": "sintonia.system-map.generated/1",
   "PROVENANCE": {
     "REPO": "lucianodalondon-sys/eame-sintonia",
-    "BRANCH": "claude/scrap-ready-raw-lineage-v1-ywwn15",
-    "HEAD": "84186dfaf6be8a52866efc4a440609985f7f4401",
-    "GENERATED_AT": "2026-09-13T21:43:18+00:00",
-    "SOURCE_TREE_FINGERPRINT": "93c96fc0e9ee57a8afc60789c2602d3849e66a69d571d365ed6ba5deeec67304"
+    "BRANCH": "claude/supabase-live-recovery-preflight-v1",
+    "HEAD": "7066a9202f5598d12963130feb2f84fa2fee24f7",
+    "GENERATED_AT": "2026-09-14T01:08:18+00:00",
+    "SOURCE_TREE_FINGERPRINT": "b000fab0d14b17ead9e1f4ffbf7bb07cc1af376f10a1dffb48b0be6048787376"
   },
   "FILES": [
     {
@@ -4881,6 +4881,13 @@
       "code_dir": false
     },
     {
+      "path": "docs/operacao/C-RESTORE-PROOF-BEFORE-LIVE-V2.md",
+      "sha": "7b9bdb859ef8d849cd0378d5fc85211d2d8f2c13",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
       "path": "docs/operacao/CANDIDATOS-TEMATICOS-V1.md",
       "sha": "ea487359937b737177d9b888c52609078bc592b4",
       "ext": ".md",
@@ -5177,6 +5184,13 @@
     {
       "path": "docs/operacao/RESOLVED-STRUCTURED-TARGET-NA-UNIDADE.md",
       "sha": "761f2fcce19d2734de30684a46b3955d088e3b97",
+      "ext": ".md",
+      "readable": false,
+      "code_dir": false
+    },
+    {
+      "path": "docs/operacao/RUNBOOK-DE-RECUPERACAO.md",
+      "sha": "88d6e8ca846cbb3be658dd88f8bcd6f59881577a",
       "ext": ".md",
       "readable": false,
       "code_dir": false
@@ -8493,6 +8507,27 @@
       "code_dir": false
     },
     {
+      "path": "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+      "sha": "f3a88a50b3fd66a311fb5cd756f3676d00a78c5c",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+      "sha": "7432c2b38a6bf5db75c24c903babf1f407d3a66e",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
+      "path": "provas/RECUPERACAO-FISICA-MEDIDA.json",
+      "sha": "a4cb967911881b74ccf60aa912c2d8467b4bfd54",
+      "ext": ".json",
+      "readable": false,
+      "code_dir": true
+    },
+    {
       "path": "provas/_c106b_filho.py",
       "sha": "20c80db99fda4284c77abac4c87df9747d8943ff",
       "ext": ".py",
@@ -9116,6 +9151,20 @@
       "code_dir": true
     },
     {
+      "path": "provas/preflight_da_cadeia_ate_031.py",
+      "sha": "9496523ed8066733634d490e093078eb041a99f8",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/preflight_de_recuperacao_do_live.py",
+      "sha": "171b6e5cc05ec242a10b2e348e0ff1e263903ea1",
+      "ext": ".py",
+      "readable": true,
+      "code_dir": true
+    },
+    {
       "path": "provas/preservar_coleta_no_postgres.py",
       "sha": "d736d20b4a529ac361cb42a1205c5fa9a7514e42",
       "ext": ".py",
@@ -9168,6 +9217,13 @@
       "path": "provas/readback_022_live.sh",
       "sha": "c1ac05ce1e6f69eec128842b245d2606bb231903",
       "ext": ".sh",
+      "readable": true,
+      "code_dir": true
+    },
+    {
+      "path": "provas/recuperacao_fisica_provada_no_postgres.py",
+      "sha": "27b89b489d8cd44b1e7db49b76a7662a1955aba3",
+      "ext": ".py",
       "readable": true,
       "code_dir": true
     },
@@ -10496,7 +10552,7 @@
     },
     {
       "path": "system-map/data/architecture.declared.json",
-      "sha": "25ff6be4c6b2b6c5a71acea867fca2a7e2370108",
+      "sha": "6bba44148fb3b16fa5501af52daf51bf684ee2fd",
       "ext": ".json",
       "readable": false,
       "code_dir": true
@@ -35839,6 +35895,61 @@
       }
     },
     {
+      "from_file": "provas/preflight_da_cadeia_ate_031.py",
+      "to_file": "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_da_cadeia_ate_031.py",
+        "line": 267,
+        "snippet": "saida = RAIZ / \"provas\" / \"PREFLIGHT-CADEIA-031-MEDIDO.json\""
+      }
+    },
+    {
+      "from_file": "provas/preflight_da_cadeia_ate_031.py",
+      "to_file": "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_da_cadeia_ate_031.py",
+        "line": 268,
+        "snippet": "saida.write_text(json.dumps(r, indent=2, ensure_ascii=False) + \"\\n\")"
+      }
+    },
+    {
+      "from_file": "provas/preflight_de_recuperacao_do_live.py",
+      "to_file": "provas/PREFLIGHT-CADEIA-031-MEDIDO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_de_recuperacao_do_live.py",
+        "line": 301,
+        "snippet": "cadeia = RAIZ / \"provas\" / \"PREFLIGHT-CADEIA-031-MEDIDO.json\""
+      }
+    },
+    {
+      "from_file": "provas/preflight_de_recuperacao_do_live.py",
+      "to_file": "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_de_recuperacao_do_live.py",
+        "line": 372,
+        "snippet": "saida = RAIZ / \"provas\" / \"PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json\""
+      }
+    },
+    {
+      "from_file": "provas/preflight_de_recuperacao_do_live.py",
+      "to_file": "provas/PREFLIGHT-RECUPERACAO-LIVE-MEDIDO.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/preflight_de_recuperacao_do_live.py",
+        "line": 373,
+        "snippet": "saida.write_text(json.dumps(m, indent=2, ensure_ascii=False) + \"\\n\")"
+      }
+    },
+    {
       "from_file": "provas/preservar_coleta_no_postgres.py",
       "to_file": "guarda/preservar_coleta.py",
       "type": "IMPORTS",
@@ -36276,6 +36387,28 @@
         "file": "provas/raw_entre_jobs.py",
         "line": 133,
         "snippet": "'leis/social_matriz.py',"
+      }
+    },
+    {
+      "from_file": "provas/recuperacao_fisica_provada_no_postgres.py",
+      "to_file": "provas/RECUPERACAO-FISICA-MEDIDA.json",
+      "type": "READS",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recuperacao_fisica_provada_no_postgres.py",
+        "line": 1593,
+        "snippet": "saida = RAIZ / \"provas\" / \"RECUPERACAO-FISICA-MEDIDA.json\""
+      }
+    },
+    {
+      "from_file": "provas/recuperacao_fisica_provada_no_postgres.py",
+      "to_file": "provas/RECUPERACAO-FISICA-MEDIDA.json",
+      "type": "WRITES",
+      "payload": "artefacto",
+      "evidence": {
+        "file": "provas/recuperacao_fisica_provada_no_postgres.py",
+        "line": 1594,
+        "snippet": "saida.write_text(json.dumps(r, indent=2, ensure_ascii=False) + \"\\n\")"
       }
     },
     {
@@ -52964,10 +53097,10 @@
     ]
   },
   "COUNTS": {
-    "files_tracked": 1702,
-    "files_readable": 705,
-    "files_code_dir": 755,
-    "file_edges": 3686,
+    "files_tracked": 1710,
+    "files_readable": 708,
+    "files_code_dir": 761,
+    "file_edges": 3693,
     "escritas_em_pasta": 72,
     "declared_missing_here": 0
   },

@@ -402,6 +402,29 @@ conseguiria **listar e datar** os backups — movendo `LIVE_BACKUP_EXISTS`,
 `PITR_STATUS`, `LATEST_BACKUP_AVAILABLE` e `RETENTION_WINDOW` de
 `NOT_MEASURED` para medidos, sem escrever nada e sem restaurar nada.
 
+### ⚠️ ADDENDUM — 2026-09-14 · O CUSTO DESTE `§11` ESTAVA ERRADO
+
+`C-SUPABASE-LIVE-RECOVERY-PREFLIGHT-V1` foi **ler os preços**, que esta
+missão não tinha lido (e disse que não tinha). Duas coisas ficaram erradas
+aqui, e a segunda encarecia a decisão sem razão:
+
+| escrito acima | medido em 2026-09-14 |
+|---|---|
+| «plano Pro: ~25 USD/mês **por projeto**» | 25 USD/mês **por ORGANIZAÇÃO**, e ela já é Pro |
+| «um projeto descartável **em plano Pro**» | não é preciso plano novo: o **«Restore to a New Project»** cria o clone dentro da organização que já existe |
+
+E o mais importante: **o PITR não é pré-requisito.** «Restore to a New
+Project» funciona a partir do **backup diário físico**. Os 100 USD/mês do
+add-on de PITR, que uma leitura apressada deste `§11` faria parecer o preço
+de entrada, **não** são necessários para exercer a plataforma.
+
+O custo real do clone espelha o *compute* da origem — que continua
+`NOT_MEASURED` — e é mostrado no ecrã **antes** de confirmar. Logo:
+`EXPECTED_COST = UNKNOWN`, e **ver** o preço custa zero.
+
+O resto deste `§11` mantém-se: `SAME_PLATFORM_RESTORE` só se move com um
+restauro executado pela plataforma.
+
 ---
 
 ## 12 · PRE-FLIGHT PARA A 031 — sem aplicar nada

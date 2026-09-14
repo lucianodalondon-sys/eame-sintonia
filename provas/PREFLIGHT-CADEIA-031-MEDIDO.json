@@ -1,0 +1,73 @@
+{
+  "PROVA": "PREFLIGHT-DA-CADEIA-ATE-031",
+  "MEDIDO_EM": "2026-09-14T01:18:14+00:00",
+  "AVISO": "mede o estado DECLARADO em supabase/migrations na versao 027. NAO mede o LIVE, que continua NOT_MEASURED.",
+  "POSTGRES": "17.11 (Ubuntu 17.11-1.pgdg24.04+2)",
+  "CADEIA_ATE_027": {
+    "EXIT": 0,
+    "APLICADAS": 26,
+    "LEDGER": "26",
+    "ULTIMA": "027",
+    "CONFERENCIA_008": "PASS"
+  },
+  "A_031_SOBRE_A_027_SEM_AS_TRES": {
+    "PRECONDITION": "PASS",
+    "PORQUE": ""
+  },
+  "PRECONDICOES_SOBRE_027": {
+    "028": {
+      "PRECONDITION": "PASS",
+      "PORQUE": ""
+    },
+    "029": {
+      "PRECONDITION": "PASS",
+      "PORQUE": ""
+    },
+    "030": {
+      "PRECONDITION": "PASS",
+      "PORQUE": ""
+    }
+  },
+  "ENSAIOS_NAO_DEIXARAM_RASTO": "SIM",
+  "LEDGER_DEPOIS_DOS_ENSAIOS": "26",
+  "CADEIA_COMPLETA": {
+    "028": "PASS",
+    "029": "PASS",
+    "030": "PASS",
+    "031": "PASS",
+    "LEDGER_FINAL": "30",
+    "ULTIMA": "031",
+    "SALA_EXISTE": "1"
+  },
+  "MIGRATION_031": {
+    "SHA": "9414b4f7becd81382512ce2af5b5a28f334aa70b6cea127bdb6ff8c52eb306e3",
+    "REF": "origin/claude/sala-persistente-preflight-real-v1",
+    "REFERENCIA": [
+      "collection_run",
+      "raw_asset"
+    ],
+    "TRAVAS": "10",
+    "INDICES": "4",
+    "SO_CRIA": "SIM"
+  },
+  "FORWARD_RECOVERY_031": {
+    "COMANDO": "drop table public.sala_de_espera; delete from public.schema_migracao where versao='031';",
+    "EXECUTADO": "",
+    "DEVOLVEU_O_ESTADO_030": "SIM",
+    "LEDGER": "030"
+  },
+  "MIGRATIONS_REPOSTAS": 3,
+  "VEREDITO": {
+    "PRECONDITION_028": "PASS",
+    "PRECONDITION_029": "PASS",
+    "PRECONDITION_030": "PASS",
+    "PRECONDITION_031": "PASS",
+    "A_031_DEPENDE_DE_028_029_030": "NAO",
+    "MIGRATION_CHAIN_028_031": "PASS",
+    "MIGRATION_031_DEFECT": "NO",
+    "MEDIDO_CONTRA": "estado DECLARADO 027 (git), NAO o LIVE",
+    "LIVE_READS": 0,
+    "LIVE_WRITES": 0,
+    "LIVE_DDL": 0
+  }
+}

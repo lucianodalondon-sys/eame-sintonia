@@ -3381,6 +3381,45 @@
       "files": [
         "provas/instagram_audio_only.py"
       ]
+    },
+    {
+      "id": "C-PROVA-RECUPERACAO-FISICA",
+      "name": "A prova da recuperacao fisica — o backup volta, e o WAL prova que foi reproduzido",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "what": "Destroi um PostgreSQL 17 descartavel e recupera-o por base backup fisico mais arquivo de WAL, a um instante (PITR). Confere por impressao de onze seccoes, exige que as travas MORDAM, mede RTO/RPO, mata o servidor a meio da reproducao para medir a retoma, e corre 28 ataques de red team com zero sobreviventes.",
+      "why_here": "A C-RECOVERY-PROOF-BEFORE-LIVE-V1 provou a classe LOGICA (pg_dump) e depois mediu que o LIVE e da classe FISICA: provou a classe errada. Tres defeitos desta propria prova so apareceram porque o red team a atacou — o PostgreSQL PROMOVE calado com alvo anterior ao backup; a impressao de referencia era satisfeita pelo base backup sozinho, sem WAL nenhum; e exigir igualdade nas sequencias reprova o restauro correcto, porque o WAL as regista aos saltos de 32.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/recuperacao_fisica_provada_no_postgres.py"
+      ]
+    },
+    {
+      "id": "C-PROVA-PREFLIGHT-DE-RECUPERACAO",
+      "name": "O preflight da recuperacao — o que se mede antes de tocar no LIVE",
+      "territory": "Z-PROVA",
+      "kind": "proof",
+      "icon": "⊟",
+      "views": [
+        "audit",
+        "infra"
+      ],
+      "what": "Duas medicoes somente-leitura. A primeira constroi o estado 027 num Postgres descartavel e EXECUTA cada migration futura em transaccao desfeita, para medir se a 031 depende da 028/029/030 — nao depende — e para exercer o rollback da 031. A segunda mede o alcance desta casa sobre o projeto LIVE sem credencial, e separa em estruturas diferentes a DOCUMENTACAO do fornecedor, o ALCANCE desta sessao e a MEDICAO deste projeto.",
+      "why_here": "Porque tres coisas se confundem sozinhas e uma delas custa dinheiro: plano nao e configuracao, documentacao nao e medicao, e credencial ausente nao e recurso ausente — a API de gestao responde 401, e nao 404. E porque numero maior nao e dependencia: dizer que a 031 precisava das tres teria inventado um blocker que a execucao desmente.",
+      "departments": [
+        "ENGENHARIA"
+      ],
+      "files": [
+        "provas/preflight_da_cadeia_ate_031.py",
+        "provas/preflight_de_recuperacao_do_live.py"
+      ]
     }
   ],
   "BUSINESS_EDGES": [

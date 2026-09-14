@@ -1,0 +1,249 @@
+{
+  "PROVA": "PREFLIGHT-DE-RECUPERACAO-DO-LIVE",
+  "MEDIDO_EM": "2026-09-14T01:21:37+00:00",
+  "METODO_DAS_SONDAS": "GET sem credencial",
+  "ALCANCE": {
+    "CREDENCIAIS": {
+      "SUPABASE_ACCESS_TOKEN": "AUSENTE",
+      "SUPABASE_MANAGEMENT_TOKEN": "AUSENTE",
+      "SUPABASE_DB_URL": "AUSENTE",
+      "SUPABASE_SERVICE_ROLE_KEY": "AUSENTE",
+      "SUPABASE_ANON_KEY": "AUSENTE"
+    },
+    "MANAGEMENT_CREDENTIAL_AVAILABLE": "NO",
+    "MANAGEMENT_READ_CAPABILITY": "NO",
+    "MANAGEMENT_API_ALCANCAVEL": "SIM",
+    "MANAGEMENT_API_RESPOSTA": "401",
+    "ENDPOINT_DE_BACKUPS_EXISTE": "SIM (401, e nao 404)",
+    "PORQUE_ISTO_IMPORTA": "401 e nao 404 nem timeout: a rota existe e a rede chega la. O que falta e a chave, e nao o recurso.",
+    "CREDENCIAL_NECESSARIA": "Supabase Personal Access Token (ou token de granularidade fina com a permissao `backups_read`; em OAuth, o escopo `database:read`). So LEITURA — nada nesta lista escreve."
+  },
+  "PROJETOS": {
+    "LIVE": {
+      "PROJECT_REF": "odhdwvugikjdvkapbowe",
+      "DNS_RESOLVE": "SIM",
+      "GATEWAY_HTTP": "401",
+      "REF_ECOADO_PELO_GATEWAY": "odhdwvugikjdvkapbowe",
+      "REF_CONFERE": "SIM",
+      "PROJETO_RESPONDE": "SIM",
+      "PROJECT_STATUS": "NOT_MEASURED",
+      "REGION": "NOT_MEASURED",
+      "POSTGRES_MAJOR": "NOT_MEASURED",
+      "POSTGRES_VERSION": "NOT_MEASURED",
+      "ORGANIZATION": "NOT_MEASURED",
+      "PLAN": "NOT_MEASURED"
+    },
+    "DEV": {
+      "PROJECT_REF": "xhqebdweltytnghiavew",
+      "DNS_RESOLVE": "SIM",
+      "GATEWAY_HTTP": "401",
+      "REF_ECOADO_PELO_GATEWAY": "xhqebdweltytnghiavew",
+      "REF_CONFERE": "SIM",
+      "PROJETO_RESPONDE": "SIM",
+      "PROJECT_STATUS": "NOT_MEASURED",
+      "REGION": "NOT_MEASURED",
+      "POSTGRES_MAJOR": "NOT_MEASURED",
+      "POSTGRES_VERSION": "NOT_MEASURED",
+      "ORGANIZATION": "NOT_MEASURED",
+      "PLAN": "NOT_MEASURED"
+    }
+  },
+  "BACKUP": {
+    "BACKUP_FEATURE_AVAILABLE": "NOT_MEASURED",
+    "BACKUP_ENABLED": "NOT_MEASURED",
+    "LATEST_BACKUP_TIMESTAMP": "NOT_MEASURED",
+    "OLDEST_AVAILABLE_BACKUP": "NOT_MEASURED",
+    "BACKUP_RETENTION": "NOT_MEASURED",
+    "PITR_AVAILABLE": "NOT_MEASURED",
+    "PITR_ENABLED": "NOT_MEASURED",
+    "PITR_RETENTION": "NOT_MEASURED",
+    "RESTORE_UI_OR_API_AVAILABLE": "NOT_MEASURED",
+    "RESTORE_TO_SEPARATE_PROJECT_SUPPORTED": "NOT_MEASURED",
+    "RESTORE_IN_PLACE_SUPPORTED": "NOT_MEASURED",
+    "WALG_ENABLED": "NOT_MEASURED"
+  },
+  "DOCUMENTACAO": {
+    "LIDO_EM": "2026-09-14",
+    "FONTES": [
+      "https://supabase.com/docs/guides/platform/backups",
+      "https://supabase.com/docs/guides/platform/clone-project",
+      "https://supabase.com/docs/reference/api/v1-list-all-backups",
+      "https://supabase.com/pricing"
+    ],
+    "BACKUP_DIARIO": "Pro 7 dias · Team 14 dias · Enterprise ate 30 dias",
+    "BACKUP_FISICO_A_PARTIR_DE": "PostgreSQL 15.8.1.079",
+    "PITR": "ADD-ON pago, nao e recurso do plano. Granularidade ate ao segundo, RPO de 2 minutos no pior caso. Ligar PITR DESLIGA o backup diario.",
+    "RESTORE_TO_NEW_PROJECT": "existe, e funciona com BACKUP DIARIO FISICO — NAO exige PITR. Exclusivo de planos pagos com backups fisicos ligados. O clone fica na MESMA regiao da origem. Um clone NAO pode ser origem de outro clone. O custo e mostrado no ecra ANTES de confirmar.",
+    "CUSTO": {
+      "PRO": "25 USD/mes por ORGANIZACAO (nao por projeto)",
+      "PITR_7D": "100 USD/mes",
+      "PITR_14D": "200 USD/mes",
+      "PITR_28D": "DISCREPANCIA ENTRE FONTES: a pagina de backups diz 0,55 USD/hora (~400 USD/mes); a pagina de precos diz 300 USD/mes. NAO RESOLVIDO — confirmar no ecra.",
+      "SMALL_COMPUTE_ADDON": "15 USD/mes",
+      "PITR_EXIGE_COMPUTE": "a pagina de backups diz «at least a Small compute add-on»; a pagina de precos nao confirma. NAO RESOLVIDO."
+    },
+    "O_QUE_ISTO_NAO_E": "nada aqui diz o que ESTE projeto tem configurado."
+  },
+  "DEV_PROJECT_CANDIDATE": "UNKNOWN",
+  "ESCRITAS_NO_DEV": 0,
+  "PORQUE_DEV_E_UNKNOWN": "o projeto responde, e e tudo o que se sabe. Se e descartavel, de quem e, o que tem dentro e se alguem depende dele — nada disso foi medido, e nenhuma dessas perguntas se responde sem gente.",
+  "CADEIA": {
+    "GIT_MIGRATIONS_AVAILABLE": "001-030 na linha funcional; 031 SO no ramo da Sala",
+    "LIVE_MIGRATIONS_APPLIED": "NOT_MEASURED",
+    "PORQUE": "ler o livro-razao do LIVE exige credencial de banco, que nao existe aqui. O retrato datado de PREFLIGHT-LIVE-READONLY-V1 diz 001-007 e 009-027, mas um retrato nao e uma medicao de hoje.",
+    "A_031_DEPENDE_DE_028_029_030": "NAO",
+    "APLICAR_031_SOZINHA_E_PERMITIDO": "NAO",
+    "PORQUE_NAO_E_PERMITIDO": "nao por dependencia — medido que nao ha — mas porque o aplicador canonico tem UMA ordem, aplica tudo o que esta na pasta, e um livro-razao com buraco e drift por construcao.",
+    "MIGRATION_CHAIN_028_031": "PASS",
+    "MIGRATION_031_DEFECT": "NO",
+    "031_NA_LINHA_FUNCIONAL": "NAO"
+  },
+  "CUSTO": {
+    "RESOURCE_REQUIRED": "um projeto Supabase NOVO, criado pelo proprio «Restore to a New Project» a partir do backup diario",
+    "RESOURCE_TYPE": "projeto clone (nao e branch, nao exige PITR)",
+    "EXPECTED_COST": "UNKNOWN",
+    "BILLING_UNIT": "mensal, por projeto, espelhando os recursos da origem",
+    "PORQUE_UNKNOWN": "o custo espelha o compute da ORIGEM, e o compute da origem nao foi medido. A documentacao diz que o valor e mostrado no ecra ANTES de confirmar — logo, VER o preco custa zero.",
+    "WHY_REQUIRED": "so um restauro executado PELA PLATAFORMA move SAME_PLATFORM_RESTORE de NOT_RUN para PASS.",
+    "O_QUE_NAO_E_PRECISO": "PITR. Medido na documentacao: «Restore to a New Project» funciona com o backup diario fisico. Os 100 USD/mes do PITR NAO sao pre-requisito."
+  },
+  "VEREDITO": {
+    "LIVE_BACKUP_PREFLIGHT": "BLOCKED",
+    "LIVE_RECOVERY_CAPABILITY": "NOT_MEASURED",
+    "SAME_PLATFORM_RESTORE": "NOT_RUN",
+    "MIGRATION_CHAIN_028_031": "PASS",
+    "MIGRATION_031_DEFECT": "NO",
+    "READY_FOR_LIVE_APPLY": "NO",
+    "LIVE_RECOVERY_MECHANISM": "SUPABASE_BACKUP_RESTORE",
+    "PORQUE_ESSE_MECANISMO": "e o unico que a plataforma oferece SEM add-on pago e que devolve dados: backup diario fisico, restaurado pela consola. O PITR seria mais fino, mas nao esta medido como ligado e e pago. Um mecanismo principal, e nao dois.",
+    "SAME_PLATFORM_RESTORE_NEXT_ACTION": [
+      "1. obter Personal Access Token de LEITURA e correr GET /v1/projects/{ref}/database/backups",
+      "2. so entao decidir: RESTORE_EXISTING_BACKUP_TO_NEW_PROJECT",
+      "3. VERIFY com a impressao de provas/recuperacao_fisica_provada_no_postgres.py",
+      "4. DELETE_DISPOSABLE"
+    ],
+    "LIVE_READS": 2,
+    "LIVE_WRITES": 0,
+    "LIVE_DDL": 0,
+    "RESTORE_EXECUTED": 0,
+    "REAL_COLLECTION": 0
+  },
+  "O_QUE_LIVE_READS_CONTA": "2 GET sem credencial ao gateway publico de cada projeto (LIVE e DEV), que devolveram 401. Nenhum dado foi lido; o que se mediu foi que o projeto responde e que o ref bate. Conta-se na mesma, porque uma leitura nao declarada e uma leitura escondida.",
+  "RED_TEAM": {
+    "ATAQUES": {
+      "A01": {
+        "ATAQUE": "plano Pro tratado como prova de backup",
+        "RESULTADO": "APANHADO",
+        "COMO": "o plano nem sequer foi medido; e mesmo que fosse, vive em DOCUMENTACAO"
+      },
+      "A02": {
+        "ATAQUE": "documentacao tratada como configuracao real",
+        "RESULTADO": "APANHADO",
+        "COMO": "a retencao do plano esta na documentacao e a DESTE projeto continua NOT_MEASURED"
+      },
+      "A03": {
+        "ATAQUE": "backup existente tratado como PITR",
+        "RESULTADO": "APANHADO",
+        "COMO": "campos separados; e a propria documentacao diz que ligar PITR DESLIGA o diario"
+      },
+      "A04": {
+        "ATAQUE": "PITR disponivel tratado como habilitado",
+        "RESULTADO": "APANHADO",
+        "COMO": "AVAILABLE e ENABLED sao dois campos, e nenhum foi medido"
+      },
+      "A05": {
+        "ATAQUE": "restore disponivel tratado como executado",
+        "RESULTADO": "APANHADO",
+        "COMO": "disponibilidade e execucao sao campos diferentes; o segundo e NOT_RUN"
+      },
+      "A06": {
+        "ATAQUE": "credencial ausente tratada como recurso ausente",
+        "RESULTADO": "APANHADO",
+        "COMO": "a API responde 401, e nao 404 nem timeout: a rota existe, falta a chave"
+      },
+      "A07": {
+        "ATAQUE": "migration no Git tratada como migration LIVE",
+        "RESULTADO": "APANHADO",
+        "COMO": "o Git foi medido e o livro-razao do LIVE nao; o retrato datado nao conta"
+      },
+      "A08": {
+        "ATAQUE": "031 aplicada a pular 028-030",
+        "RESULTADO": "APANHADO",
+        "COMO": "medido que nao ha DEPENDENCIA — e mesmo assim o portao recusa, porque o aplicador canonico tem UMA ordem e um livro com buraco e drift"
+      },
+      "A09": {
+        "ATAQUE": "numero de migration tratado como dependencia sem medir conteudo",
+        "RESULTADO": "APANHADO",
+        "COMO": "medido a EXECUTAR a 031 sobre o estado 027: aplica-se. O numero maior nao era dependencia, e dizer que era teria sido inventar um blocker"
+      },
+      "A10": {
+        "ATAQUE": "projeto dev tratado como descartavel sem autorizacao",
+        "RESULTADO": "APANHADO",
+        "COMO": "so metadata; nenhuma escrita, nenhum reset, nenhuma migration"
+      },
+      "A11": {
+        "ATAQUE": "project ref errado",
+        "RESULTADO": "APANHADO",
+        "COMO": "o gateway ECOA o ref que serviu, e ele bate com o pedido"
+      },
+      "A12": {
+        "ATAQUE": "regiao errada",
+        "RESULTADO": "APANHADO",
+        "COMO": "a regiao nao foi medida e nao se afirma; a historica fica como historica"
+      },
+      "A13": {
+        "ATAQUE": "PostgreSQL major errado",
+        "RESULTADO": "APANHADO",
+        "COMO": "nao medido. Um backup FISICO nao atravessa major, e por isso adivinhar aqui seria o pior sitio para adivinhar"
+      },
+      "A14": {
+        "ATAQUE": "backup timestamp desconhecido tratado como atual",
+        "RESULTADO": "APANHADO",
+        "COMO": "continua NOT_MEASURED; nenhum backup deste projeto foi listado ou datado"
+      },
+      "A15": {
+        "ATAQUE": "retencao presumida",
+        "RESULTADO": "APANHADO",
+        "COMO": "a retencao do PLANO esta na documentacao; a deste projeto nao foi medida"
+      },
+      "A16": {
+        "ATAQUE": "restore in-place confundido com restore separado",
+        "RESULTADO": "APANHADO",
+        "COMO": "dois campos distintos, e a documentacao distingue-os: o in-place deixa o projeto inacessivel, o clone nao"
+      },
+      "A17": {
+        "ATAQUE": "backup logico confundido com restore fisico",
+        "RESULTADO": "APANHADO",
+        "COMO": "o mecanismo declarado e o fisico da plataforma; e se ele esta ligado (walg_enabled) continua por medir"
+      },
+      "A18": {
+        "ATAQUE": "leitura causando escrita",
+        "RESULTADO": "APANHADO",
+        "COMO": "todas as sondas sao GET sem apikey e sem token; nada autentica, nada escreve"
+      },
+      "A19": {
+        "ATAQUE": "segredo a aparecer em log",
+        "RESULTADO": "APANHADO",
+        "COMO": "nenhum padrao de segredo no relatorio; nao ha token nesta sessao para vazar"
+      },
+      "A20": {
+        "ATAQUE": "custo inventado",
+        "RESULTADO": "APANHADO",
+        "COMO": "os precos sao citados da fonte, a divergencia entre duas paginas oficiais fica registada como divergencia, e o custo real do clone e UNKNOWN porque depende do compute da origem, que nao foi medido"
+      },
+      "A21": {
+        "ATAQUE": "preflight PARCIAL declarado PASS",
+        "RESULTADO": "APANHADO",
+        "COMO": "o portao e uma funcao: sem nenhum campo critico medido, devolve BLOCKED"
+      },
+      "A22": {
+        "ATAQUE": "classe fisica ja provada usada para dispensar a plataforma",
+        "RESULTADO": "APANHADO",
+        "COMO": "a V2 provou a CLASSE; o portao continua a exigir a PLATAFORMA"
+      }
+    },
+    "RED_TEAM_ATTACKS": 22,
+    "RED_TEAM_SURVIVORS": 0,
+    "SOBREVIVENTES": []
+  }
+}
